@@ -1,0 +1,36 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  background: #060f1e;
+}
+
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0a1628; }
+::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #2d5286; }
+
+/* Range input */
+input[type="range"] { -webkit-appearance: none; appearance: none; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 0; height: 0; }
+input[type="number"] { -moz-appearance: textfield; }
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+/* Selection */
+::selection { background: rgba(37, 99, 235, 0.35); }
+
+/* Smooth transitions */
+button, input, select { transition: border-color 0.15s, background 0.15s; }
+input:focus, select:focus { border-color: #2563eb !important; }
+button:hover:not(:disabled) { filter: brightness(1.1); }
