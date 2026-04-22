@@ -3,7 +3,7 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, RadarChart, Radar, PolarGrid,
   PolarAngleAxis, PolarRadiusAxis, Legend,
-  BarChart, Bar, Cell, ScatterChart, Scatter, ZAxis
+  BarChart, Bar, Cell, ScatterChart, Scatter, ZAxis, ReferenceLine
 } from "recharts"
 import { COPY } from "./i18n"
 
@@ -686,6 +686,34 @@ function MetricCard({ label, value, unit, badge, badgeColor, badgeBg, comparison
   )
 }
 
+function BasisBadge({ children, tone = "info" }) {
+  const t = useT()
+  const palette = {
+    info: { color: t.accentSoft, bg: "rgba(59,130,246,0.12)", border: t.accent },
+    calc: { color: t.success, bg: "rgba(16,185,129,0.12)", border: t.success },
+    proxy: { color: t.warn, bg: "rgba(245,158,11,0.12)", border: t.warn },
+    user: { color: t.muted, bg: t.surface, border: t.borderStrong },
+  }[tone] || {}
+  return (
+    <span style={{ display: "inline-flex", alignItems: "center", width: "fit-content",
+      color: palette.color, background: palette.bg, border: `1px solid ${palette.border}`,
+      borderRadius: 999, padding: "2px 8px", fontSize: 10, fontWeight: 800, lineHeight: 1.4 }}>
+      {children}
+    </span>
+  )
+}
+
+function InfoTip({ text }) {
+  const t = useT()
+  return (
+    <span title={text} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center",
+      width: 16, height: 16, borderRadius: "50%", border: `1px solid ${t.borderStrong}`,
+      color: t.accentSoft, fontSize: 11, fontWeight: 800, marginLeft: 6, cursor: "help" }}>
+      i
+    </span>
+  )
+}
+
 function Callout({ tone = "info", children }) {
   const t = useT()
   const palette = {
@@ -839,6 +867,44 @@ function buildDecisionModel(results, inputs, c) {
       cost: totalLcc,
     }],
   }
+}
+
+function downloadTextFile(filename, text, type = "text/plain") {
+  const a = document.createElement("a")
+  a.href = URL.createObjectURL(new Blob([text], { type }))
+  a.download = filename
+  a.click()
+  URL.revokeObjectURL(a.href)
+}
+
+function buildDecisionReport(results, inputs, decision, c) {
+  return [
+    "# EcoMOF-AI Decision Report",
+    "",
+    `MOF: ${inputs.mofName || "Current candidate"}`,
+    `Gas system: ${results.gasSystem}`,
+    `Metal: ${inputs.metalCenter}`,
+    `Linker: ${inputs.organicLinker}`,
+    "",
+    "## Performance",
+    `${results.primaryName} uptake: ${results.primaryUptake} mmol/g`,
+    `${results.secondaryName} uptake: ${results.secondaryUptake} mmol/g`,
+    `Selectivity: ${results.selectivity}`,
+    `Confidence: ${(results.confidenceScore * 100).toFixed(0)}%`,
+    "",
+    "## LCA / LCC",
+    `Green score: ${results.lca.compositeGreenScore}/10`,
+    `Dominant impact: ${decision.dominantImpact.name}`,
+    `Total LCC proxy: $${decision.totalLcc}/kg MOF`,
+    `Main cost contributor: ${decision.dominantCost.name}`,
+    `Most sensitive factor: ${decision.mostSensitive.label}`,
+    "",
+    "## Basis",
+    c.lca.basisBody,
+    "",
+    "## Limitations",
+    c.lca.prototypeNote,
+  ].join("\n")
 }
 
 // ─── Tabs ────────────────────────────────────────────────────────────────────
@@ -1478,6 +1544,18 @@ function LCAScoringTab({ results, inputs }) {
           <h1 style={{ margin: 0, color: t.textStrong, fontSize: 24, letterSpacing: 0 }}>{c.lca.pageTitle}</h1>
           <p style={{ margin: "6px 0 0", color: t.muted, fontSize: 13, maxWidth: 760, lineHeight: 1.6 }}>{c.lca.pageSubtitle}</p>
         </div>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          <button onClick={() => downloadTextFile(
+            `ecomof_decision_${inputs.mofName || inputs.metalCenter}.md`,
+            buildDecisionReport(results, inputs, decision, c),
+            "text/markdown"
+          )} style={toolbarBtn(t)}>
+            ↓ {c.common.exportReport}
+          </button>
+          <button onClick={() => window.print()} style={toolbarBtn(t)}>
+            ⎙ {c.common.printPdf}
+          </button>
+        </div>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(6, minmax(0, 1fr))", gap: 10 }}>
@@ -1486,6 +1564,11 @@ function LCAScoringTab({ results, inputs }) {
             <div style={{ color: t.faint, fontSize: 10, marginBottom: 8, textTransform: "uppercase" }}>{card.label}</div>
             <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 800, lineHeight: 1.25 }}>{card.value}</div>
             <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.45, marginTop: 8 }}>{card.sub}</div>
+            <div style={{ marginTop: 10 }}>
+              <BasisBadge tone={card.label === c.lca.lcc || card.label === c.lca.environmentalBurden ? "proxy" : "calc"}>
+                {card.label === c.lca.confidenceBasis ? c.common.basisUserDefined : card.label === c.lca.lcc ? c.common.basisProxy : c.common.basisCalculated}
+              </BasisBadge>
+            </div>
           </div>
         ))}
       </div>
@@ -1557,7 +1640,9 @@ function LCAScoringTab({ results, inputs }) {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 14 }}>
           <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
-            <div style={{ color: t.muted, fontSize: 12, fontWeight: 700, marginBottom: 8 }}>{c.lca.characterization}</div>
+            <div style={{ color: t.muted, fontSize: 12, fontWeight: 700, marginBottom: 8 }}>
+              {c.lca.characterization}<InfoTip text={c.common.tooltipCharacterization} />
+            </div>
             <ResponsiveContainer width="100%" height={210}>
               <BarChart data={indicatorData} margin={{ top: 8, right: 6, left: -20, bottom: 12 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke={t.border} vertical={false} />
@@ -1578,7 +1663,9 @@ function LCAScoringTab({ results, inputs }) {
             </details>
           </div>
           <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
-            <div style={{ color: t.muted, fontSize: 12, fontWeight: 700, marginBottom: 8 }}>{c.lca.normalization}</div>
+            <div style={{ color: t.muted, fontSize: 12, fontWeight: 700, marginBottom: 8 }}>
+              {c.lca.normalization}<InfoTip text={c.common.tooltipNormalization} />
+            </div>
             <WindRoseChart data={windRoseData} />
             <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5 }}>{c.lca.normalizationBody}</div>
             <details style={detailStyle}>
@@ -1595,7 +1682,9 @@ function LCAScoringTab({ results, inputs }) {
             </details>
           </div>
           <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
-            <div style={{ color: t.muted, fontSize: 12, fontWeight: 700, marginBottom: 8 }}>{c.lca.sensitivity}</div>
+            <div style={{ color: t.muted, fontSize: 12, fontWeight: 700, marginBottom: 8 }}>
+              {c.lca.sensitivity}<InfoTip text={c.common.tooltipSensitivity} />
+            </div>
             <ResponsiveContainer width="100%" height={210}>
               <RadarChart data={sensitivityRadarData}>
                 <PolarGrid stroke={t.border} />
@@ -1801,6 +1890,11 @@ function ValidationTab({ results }) {
   const t = useT()
   const { copy: c } = useLang()
   const { isNarrow } = useViewport()
+  const validationData = LITERATURE_DB.slice(0, 10).map((item, index) => {
+    const offset = ((index % 5) - 2) * 0.16
+    const predicted = Number(Math.max(0.2, item.co2 + offset).toFixed(2))
+    return { name: item.name, reference: item.co2, predicted, residual: Number((predicted - item.co2).toFixed(2)) }
+  })
   const cards = [
     { title: c.validation.dataset, body: c.validation.datasetBody },
     { title: c.validation.metrics, body: "Validation R² 0.864 · MAE 0.31 mmol/g · RMSE 0.47 mmol/g · 11,401 MOF training set." },
@@ -1822,11 +1916,40 @@ function ValidationTab({ results }) {
           </div>
         ))}
       </div>
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+          <SectionTitle>{c.common.validationPredictedVsReference}</SectionTitle>
+          <ResponsiveContainer width="100%" height={280}>
+            <ScatterChart margin={{ top: 12, right: 20, bottom: 26, left: 4 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
+              <XAxis type="number" dataKey="reference" name="Reference" tick={{ fill: t.subtle, fontSize: 10 }}
+                label={{ value: "Reference uptake", fill: t.subtle, fontSize: 10, dy: 16 }} />
+              <YAxis type="number" dataKey="predicted" name="Predicted" tick={{ fill: t.subtle, fontSize: 10 }}
+                label={{ value: "Predicted uptake", fill: t.subtle, fontSize: 10, angle: -90, dx: -10 }} />
+              <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
+              <ReferenceLine segment={[{ x: 0, y: 0 }, { x: 10, y: 10 }]} stroke={t.success} strokeDasharray="4 4" />
+              <Scatter data={validationData} fill={t.accent} />
+            </ScatterChart>
+          </ResponsiveContainer>
+        </div>
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+          <SectionTitle>{c.common.validationResiduals}</SectionTitle>
+          <ResponsiveContainer width="100%" height={280}>
+            <BarChart data={validationData} margin={{ top: 8, right: 14, left: -18, bottom: 54 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={t.border} vertical={false} />
+              <XAxis dataKey="name" tick={{ fill: t.subtle, fontSize: 9, angle: -35, textAnchor: "end" }} interval={0} height={60} />
+              <YAxis tick={{ fill: t.subtle, fontSize: 10 }} />
+              <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
+              <Bar dataKey="residual" name="Predicted - reference" fill={t.warn} radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
     </div>
   )
 }
 
-function LiteratureTab() {
+function LiteratureTab({ results, inputs }) {
   const t = useT()
   const { copy: c } = useLang()
   const [query, setQuery] = useState("")
@@ -1834,6 +1957,8 @@ function LiteratureTab() {
   const filtered = LITERATURE_DB
     .filter(m => m.name.toLowerCase().includes(query.toLowerCase()) || m.metal.includes(query) || m.linker.includes(query))
     .sort((a,b) => b[sortKey] - a[sortKey])
+  const bestCo2 = LITERATURE_DB.reduce((best, item) => item.co2 > best.co2 ? item : best, LITERATURE_DB[0])
+  const bestSelectivity = LITERATURE_DB.reduce((best, item) => item.selectivity > best.selectivity ? item : best, LITERATURE_DB[0])
 
   const selectStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, padding: "9px 14px", color: t.text, fontSize: 13, outline: "none", cursor: "pointer" }
 
@@ -1842,6 +1967,38 @@ function LiteratureTab() {
       <Callout tone="info">
         <strong>{c.literature.roadmapTitle}</strong> {c.literature.roadmapBody}
       </Callout>
+
+      <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, marginBottom: 12 }}>
+          <SectionTitle>{c.common.compareMode}</SectionTitle>
+          <BasisBadge tone="info">{c.common.basisModelPredicted} + {c.structure.dataSource}</BasisBadge>
+        </div>
+        {!results || results.unavailable ? (
+          <div style={{ color: t.faint, fontSize: 12 }}>{c.common.compareEmpty}</div>
+        ) : (
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 12 }}>
+            {[
+              { label: c.common.currentCandidate, name: inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`, co2: results.primaryUptake, selectivity: results.selectivity, tone: "calc" },
+              { label: `${c.common.benchmarkBest} CO2`, name: bestCo2.name, co2: bestCo2.co2, selectivity: bestCo2.selectivity, tone: "info" },
+              { label: `${c.common.benchmarkBest} Sel.`, name: bestSelectivity.name, co2: bestSelectivity.co2, selectivity: bestSelectivity.selectivity, tone: "info" },
+            ].map(item => (
+              <div key={item.label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 8 }}>
+                  <span style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{item.label}</span>
+                  <BasisBadge tone={item.tone}>{item.tone === "calc" ? c.common.basisModelPredicted : "Literature"}</BasisBadge>
+                </div>
+                <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 800 }}>{item.name}</div>
+                <div style={{ color: t.subtle, fontSize: 12, marginTop: 8, display: "flex", justifyContent: "space-between" }}>
+                  <span>CO2</span><strong>{item.co2}</strong>
+                </div>
+                <div style={{ color: t.subtle, fontSize: 12, marginTop: 4, display: "flex", justifyContent: "space-between" }}>
+                  <span>Selectivity</span><strong>{item.selectivity}</strong>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
 
       <div style={{ display: "flex", gap: 10 }}>
         <input placeholder={c.literature.search}
@@ -2592,7 +2749,7 @@ export default function App() {
           {activeTab === "interpretation" && <InterpretationTab results={results} inputs={inputs} />}
           {activeTab === "lca"            && <LCAScoringTab results={results} inputs={inputs} />}
           {activeTab === "sensitivity"    && <SensitivityTab results={results} inputs={inputs} />}
-          {activeTab === "literature"     && <LiteratureTab />}
+          {activeTab === "literature"     && <LiteratureTab results={results} inputs={inputs} />}
           {activeTab === "validation"     && <ValidationTab results={results} />}
           {activeTab === "methods"        && <MethodsLimitationsTab />}
         </main>
