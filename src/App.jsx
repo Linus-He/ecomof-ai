@@ -702,6 +702,67 @@ function Callout({ tone = "info", children }) {
   )
 }
 
+function WindRoseChart({ data }) {
+  const t = useT()
+  const size = 240
+  const cx = size / 2
+  const cy = size / 2
+  const innerRadius = 22
+  const maxRadius = 88
+  const maxValue = 5
+  const sector = 360 / data.length
+  const toPoint = (radius, angle) => {
+    const rad = (angle - 90) * Math.PI / 180
+    return { x: cx + radius * Math.cos(rad), y: cy + radius * Math.sin(rad) }
+  }
+  const pathFor = (start, end, radius) => {
+    const p1 = toPoint(innerRadius, start)
+    const p2 = toPoint(radius, start)
+    const p3 = toPoint(radius, end)
+    const p4 = toPoint(innerRadius, end)
+    const largeArc = end - start > 180 ? 1 : 0
+    return [
+      `M ${p1.x} ${p1.y}`,
+      `L ${p2.x} ${p2.y}`,
+      `A ${radius} ${radius} 0 ${largeArc} 1 ${p3.x} ${p3.y}`,
+      `L ${p4.x} ${p4.y}`,
+      `A ${innerRadius} ${innerRadius} 0 ${largeArc} 0 ${p1.x} ${p1.y}`,
+      "Z",
+    ].join(" ")
+  }
+
+  return (
+    <svg viewBox={`0 0 ${size} ${size}`} width="100%" height="240" role="img" aria-label="Normalized wind rose chart">
+      {[1, 3, 5].map(level => (
+        <circle key={level} cx={cx} cy={cy} r={innerRadius + (level / maxValue) * maxRadius}
+          fill="none" stroke={t.border} strokeDasharray={level === 5 ? "none" : "3 4"} />
+      ))}
+      {data.map((item, index) => {
+        const start = index * sector - sector / 2
+        const end = start + sector * 0.76
+        const radius = innerRadius + (Math.min(maxValue, item.value) / maxValue) * maxRadius
+        const labelPoint = toPoint(maxRadius + 38, index * sector)
+        const valuePoint = toPoint(radius + 11, index * sector)
+        const axisPoint = toPoint(maxRadius + 18, index * sector)
+        const textAnchor = Math.abs(labelPoint.x - cx) < 8 ? "middle" : labelPoint.x > cx ? "start" : "end"
+        return (
+          <g key={item.name}>
+            <line x1={cx} y1={cy} x2={axisPoint.x} y2={axisPoint.y} stroke={t.divider} strokeWidth="1" />
+            <path d={pathFor(start, end, radius)} fill={item.fill} fillOpacity="0.68" stroke={item.fill} strokeWidth="1.5" />
+            <text x={labelPoint.x} y={labelPoint.y} textAnchor={textAnchor} dominantBaseline="middle"
+              fill={t.subtle} fontSize="10" fontFamily={FONT_SANS}>{item.name}</text>
+            <text x={valuePoint.x} y={valuePoint.y} textAnchor="middle" dominantBaseline="middle"
+              fill={t.textStrong} fontSize="9" fontFamily={FONT_MONO}>{item.value.toFixed(1)}</text>
+          </g>
+        )
+      })}
+      <circle cx={cx} cy={cy} r={innerRadius} fill={t.panel} stroke={t.border} />
+      <text x={cx} y={cy - 2} textAnchor="middle" fill={t.textStrong} fontSize="11" fontWeight="700" fontFamily={FONT_SANS}>0-5</text>
+      <text x={cx} y={cy + 12} textAnchor="middle" fill={t.faint} fontSize="9" fontFamily={FONT_SANS}>index</text>
+    </svg>
+  )
+}
+
 // ─── Tabs ────────────────────────────────────────────────────────────────────
 
 function StructureInputTab({ inputs, setInputs, results, loading, onPredict }) {
@@ -1266,28 +1327,39 @@ function LCAScoringTab({ results, inputs }) {
   if (!results || results.unavailable) return <EmptyState message={c.lca.empty} />
   const { lca } = results
   const categories = [
-    { name: c.lca.categoryMetal,  short: c.lca.shortMetal,  score: lca.metalImpact,          weight: 0.25, desc: c.lca.descMetal },
-    { name: c.lca.categoryLinker, short: c.lca.shortLinker, score: lca.linkerSustainability,  weight: 0.20, desc: c.lca.descLinker },
-    { name: c.lca.categoryEnergy, short: c.lca.shortEnergy, score: lca.energyConsumption,     weight: 0.15, desc: c.lca.descEnergy },
-    { name: c.lca.categoryWaste,  short: c.lca.shortWaste,  score: lca.wasteGeneration,       weight: 0.08, desc: c.lca.descWaste },
-    { name: c.lca.categoryWater,  short: c.lca.shortWater,  score: lca.waterUsage,            weight: 0.07, desc: c.lca.descWater },
-    { name: c.lca.categoryAir,    short: c.lca.shortAir,    score: lca.airQuality,            weight: 0.12, desc: c.lca.descAir },
-    { name: c.lca.categoryGroups, short: c.lca.shortGroups, score: Math.min(10, 5 + (inputs.functionalGroups.includes("amine") ? 2 : 0) + (inputs.functionalGroups.includes("hydroxyl") ? 1 : 0)), weight: 0.13, desc: c.lca.descGroups },
+    { name: c.lca.categoryMetal,  short: c.lca.shortMetal,  score: lca.metalImpact,          weight: 0.25, desc: c.lca.descMetal, source: c.lca.sourceMetal },
+    { name: c.lca.categoryLinker, short: c.lca.shortLinker, score: lca.linkerSustainability,  weight: 0.20, desc: c.lca.descLinker, source: c.lca.sourceLinker },
+    { name: c.lca.categoryEnergy, short: c.lca.shortEnergy, score: lca.energyConsumption,     weight: 0.15, desc: c.lca.descEnergy, source: c.lca.sourceEnergy },
+    { name: c.lca.categoryWaste,  short: c.lca.shortWaste,  score: lca.wasteGeneration,       weight: 0.08, desc: c.lca.descWaste, source: c.lca.sourceWaste },
+    { name: c.lca.categoryWater,  short: c.lca.shortWater,  score: lca.waterUsage,            weight: 0.07, desc: c.lca.descWater, source: c.lca.sourceWater },
+    { name: c.lca.categoryAir,    short: c.lca.shortAir,    score: lca.airQuality,            weight: 0.12, desc: c.lca.descAir, source: c.lca.sourceAir },
+    { name: c.lca.categoryGroups, short: c.lca.shortGroups, score: Math.min(10, 5 + (inputs.functionalGroups.includes("amine") ? 2 : 0) + (inputs.functionalGroups.includes("hydroxyl") ? 1 : 0)), weight: 0.13, desc: c.lca.descGroups, source: c.lca.sourceGroups },
   ]
   const scoreColor = (s) => s >= 7 ? t.success : s >= 5 ? t.accent : s >= 3 ? t.warn : t.danger
-  const characterizedTotal = categories.reduce((sum, category) => sum + category.score * category.weight, 0)
-  const lcaChartData = categories.map(category => {
-    const characterized = category.score * category.weight
-    return {
-      name: category.short,
-      score: Number(category.score.toFixed(2)),
-      characterized: Number(characterized.toFixed(2)),
-      normalized: Number((category.score / 10).toFixed(2)),
-      contribution: characterizedTotal ? Number(((characterized / characterizedTotal) * 100).toFixed(1)) : 0,
-      sensitivity: Number((Math.abs(category.score - lca.compositeGreenScore) * category.weight * 0.1).toFixed(2)),
-    }
-  })
+  const byShort = Object.fromEntries(categories.map(category => [category.short, category]))
+  const burden = key => Math.max(0, 10 - (byShort[key]?.score ?? 5))
+  const indicatorData = [
+    { name: "GWP", value: burden(c.lca.shortEnergy) * 0.45 + burden(c.lca.shortMetal) * 0.25 + burden(c.lca.shortLinker) * 0.20 + burden(c.lca.shortAir) * 0.10, def: c.lca.indicatorGwp },
+    { name: "PED", value: burden(c.lca.shortEnergy) * 0.55 + burden(c.lca.shortLinker) * 0.20 + burden(c.lca.shortMetal) * 0.15 + burden(c.lca.shortWaste) * 0.10, def: c.lca.indicatorPed },
+    { name: "WU",  value: burden(c.lca.shortWater) * 0.65 + burden(c.lca.shortWaste) * 0.20 + burden(c.lca.shortLinker) * 0.15, def: c.lca.indicatorWu },
+    { name: "AP",  value: burden(c.lca.shortAir) * 0.40 + burden(c.lca.shortMetal) * 0.30 + burden(c.lca.shortWaste) * 0.20 + burden(c.lca.shortEnergy) * 0.10, def: c.lca.indicatorAp },
+    { name: "IRP", value: burden(c.lca.shortMetal) * 0.60 + burden(c.lca.shortLinker) * 0.25 + burden(c.lca.shortEnergy) * 0.15, def: c.lca.indicatorIrp },
+    { name: "ET",  value: burden(c.lca.shortMetal) * 0.35 + burden(c.lca.shortWaste) * 0.35 + burden(c.lca.shortAir) * 0.20 + burden(c.lca.shortWater) * 0.10, def: c.lca.indicatorEt },
+  ].map(item => ({ ...item, value: Number(item.value.toFixed(2)) }))
+  const roseColors = ["#ef4444", "#f97316", "#eab308", "#06b6d4", "#8b5cf6", "#10b981"]
+  const windRoseData = indicatorData.map((item, index) => ({
+    ...item,
+    value: Number((0.5 + item.value * 0.45).toFixed(1)),
+    fill: roseColors[index % roseColors.length],
+  }))
+  const sensitivityRadarData = indicatorData.map(item => ({
+    indicator: item.name,
+    metal: Number((0.25 + item.value * 0.38 + burden(c.lca.shortMetal) * 0.08).toFixed(2)),
+    process: Number((0.2 + item.value * 0.34 + burden(c.lca.shortEnergy) * 0.10).toFixed(2)),
+    solvent: Number((0.18 + item.value * 0.32 + burden(c.lca.shortWaste) * 0.09).toFixed(2)),
+  }))
   const chartCardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }
+  const detailStyle = { marginTop: 8, color: t.faint, fontSize: 11, lineHeight: 1.55 }
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -1310,6 +1382,10 @@ function LCAScoringTab({ results, inputs }) {
                   <div style={{ height: "100%", width: `${category.score * 10}%`, background: scoreColor(category.score), borderRadius: 3, transition: "width 0.6s ease" }} />
                 </div>
                 <div style={{ color: t.faint, fontSize: 11 }}>{category.desc}</div>
+                <details style={detailStyle}>
+                  <summary style={{ color: t.accentSoft, cursor: "pointer", fontSize: 11 }}>{c.lca.dataSource}</summary>
+                  <div style={{ marginTop: 6 }}>{category.source}</div>
+                </details>
               </div>
             ))}
           </div>
@@ -1354,41 +1430,60 @@ function LCAScoringTab({ results, inputs }) {
           <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
             <div style={{ color: t.muted, fontSize: 12, fontWeight: 700, marginBottom: 8 }}>{c.lca.characterization}</div>
             <ResponsiveContainer width="100%" height={210}>
-              <BarChart data={lcaChartData} margin={{ top: 8, right: 6, left: -20, bottom: 12 }}>
+              <BarChart data={indicatorData} margin={{ top: 8, right: 6, left: -20, bottom: 12 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke={t.border} vertical={false} />
                 <XAxis dataKey="name" tick={{ fill: t.subtle, fontSize: 10 }} interval={0} />
                 <YAxis tick={{ fill: t.subtle, fontSize: 10 }} />
-                <Tooltip formatter={(value) => [value, c.lca.characterizedScore]} contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
-                <Bar dataKey="characterized" name={c.lca.characterizedScore} fill={t.success} radius={[4, 4, 0, 0]} />
+                <Tooltip formatter={(value) => [value, c.lca.relativeBurden]} contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
+                <Bar dataKey="value" name={c.lca.relativeBurden} radius={[4, 4, 0, 0]}>
+                  {indicatorData.map((entry, index) => (
+                    <Cell key={entry.name} fill={roseColors[index % roseColors.length]} />
+                  ))}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
             <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5 }}>{c.lca.characterizationBody}</div>
+            <details style={detailStyle}>
+              <summary style={{ color: t.accentSoft, cursor: "pointer" }}>{c.lca.dataSource}</summary>
+              <div style={{ marginTop: 6 }}>{c.lca.characterizationSource}</div>
+            </details>
           </div>
           <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
             <div style={{ color: t.muted, fontSize: 12, fontWeight: 700, marginBottom: 8 }}>{c.lca.normalization}</div>
-            <ResponsiveContainer width="100%" height={210}>
-              <BarChart data={lcaChartData} margin={{ top: 8, right: 6, left: -20, bottom: 12 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke={t.border} vertical={false} />
-                <XAxis dataKey="name" tick={{ fill: t.subtle, fontSize: 10 }} interval={0} />
-                <YAxis tick={{ fill: t.subtle, fontSize: 10 }} tickFormatter={v => `${(v * 100).toFixed(0)}%`} domain={[0, 1]} />
-                <Tooltip formatter={(value) => [`${(value * 100).toFixed(0)}%`, c.lca.normalizedScore]} contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
-                <Bar dataKey="normalized" name={c.lca.normalizedScore} fill={t.accent} radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
+            <WindRoseChart data={windRoseData} />
             <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5 }}>{c.lca.normalizationBody}</div>
+            <details style={detailStyle}>
+              <summary style={{ color: t.accentSoft, cursor: "pointer" }}>{c.lca.indicatorGuide}</summary>
+              <div style={{ marginTop: 6 }}>
+                {indicatorData.map(item => (
+                  <div key={item.name}><strong>{item.name}</strong>: {item.def}</div>
+                ))}
+              </div>
+            </details>
+            <details style={detailStyle}>
+              <summary style={{ color: t.accentSoft, cursor: "pointer" }}>{c.lca.dataSource}</summary>
+              <div style={{ marginTop: 6 }}>{c.lca.normalizationSource}</div>
+            </details>
           </div>
           <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
             <div style={{ color: t.muted, fontSize: 12, fontWeight: 700, marginBottom: 8 }}>{c.lca.sensitivity}</div>
             <ResponsiveContainer width="100%" height={210}>
-              <BarChart data={lcaChartData} layout="vertical" margin={{ top: 8, right: 12, left: 42, bottom: 8 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke={t.border} horizontal={false} />
-                <XAxis type="number" tick={{ fill: t.subtle, fontSize: 10 }} />
-                <YAxis type="category" dataKey="name" tick={{ fill: t.subtle, fontSize: 10 }} width={42} />
-                <Tooltip formatter={(value) => [`±${value}`, c.lca.deltaScore]} contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
-                <Bar dataKey="sensitivity" name={c.lca.deltaScore} fill={t.warn} radius={[0, 4, 4, 0]} />
-              </BarChart>
+              <RadarChart data={sensitivityRadarData}>
+                <PolarGrid stroke={t.border} />
+                <PolarAngleAxis dataKey="indicator" tick={{ fill: t.subtle, fontSize: 10 }} />
+                <PolarRadiusAxis angle={30} domain={[0, 5]} tick={{ fill: t.faint, fontSize: 9 }} />
+                <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
+                <Legend wrapperStyle={{ fontSize: 10, color: t.subtle }} />
+                <Radar name={c.lca.sensMetal} dataKey="metal" stroke="#ef4444" fill="#ef4444" fillOpacity={0.12} strokeWidth={2} />
+                <Radar name={c.lca.sensProcess} dataKey="process" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.10} strokeWidth={2} />
+                <Radar name={c.lca.sensSolvent} dataKey="solvent" stroke="#10b981" fill="#10b981" fillOpacity={0.10} strokeWidth={2} />
+              </RadarChart>
             </ResponsiveContainer>
             <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5 }}>{c.lca.sensitivityBody}</div>
+            <details style={detailStyle}>
+              <summary style={{ color: t.accentSoft, cursor: "pointer" }}>{c.lca.dataSource}</summary>
+              <div style={{ marginTop: 6 }}>{c.lca.sensitivitySource}</div>
+            </details>
           </div>
         </div>
       </div>
@@ -2054,11 +2149,11 @@ export default function App() {
       <LangCtx.Provider value={{ lang, copy, setLang }}>
       <ViewportCtx.Provider value={viewport}>
       <div style={{ minHeight: "100vh", background: t.bg, color: t.text, fontFamily: FONT_SANS }}>
-        <header style={{ background: t.headerBg, borderBottom: `1px solid ${t.border}`, padding: "0 24px",
+        <header style={{ background: t.headerBg, borderBottom: `1px solid ${t.border}`, padding: "0 18px",
           display: "flex", alignItems: "stretch", minHeight: 52, position: "sticky", top: 0, zIndex: 100,
-          flexWrap: viewport.isNarrow ? "wrap" : "nowrap", gap: viewport.isNarrow ? "8px 12px" : 0 }}>
+          flexWrap: viewport.isNarrow ? "wrap" : "nowrap", gap: viewport.isNarrow ? "8px 12px" : 14 }}>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginRight: viewport.isNarrow ? 12 : 32, height: 52 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginRight: viewport.isNarrow ? 6 : 0, height: 52, flex: "0 0 auto" }}>
             <div style={{ width: 28, height: 28, background: `linear-gradient(135deg, ${t.accentStrong}, ${t.success})`,
               borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center",
               fontSize: 14, fontWeight: 800, color: "#fff" }}>⬡</div>
@@ -2067,14 +2162,19 @@ export default function App() {
               borderRadius: 4, fontWeight: 600 }}>v1.β</span>
           </div>
 
-          <nav style={{ display: "flex", alignItems: "stretch", overflowX: "auto", maxWidth: viewport.isNarrow ? "100%" : "none" }}>
+          <nav style={{ display: "flex", alignItems: "center", overflowX: "auto", maxWidth: viewport.isNarrow ? "100%" : "none",
+            alignSelf: "center", height: 38, background: t.surface, border: `1px solid ${t.border}`,
+            borderRadius: 8, padding: 3, flex: viewport.isNarrow ? "1 1 100%" : "0 1 auto" }}>
             {TABS.map(tab => (
               <button key={tab.id} onClick={() => setActiveTab(tab.id)}
                 style={{
-                  background: "none", border: "none", cursor: "pointer",
-                  padding: "0 12px", fontSize: 13, fontWeight: activeTab === tab.id ? 700 : 500,
-                  color: activeTab === tab.id ? t.accentSoft : t.subtle,
-                  borderBottom: activeTab === tab.id ? `2px solid ${t.accent}` : "2px solid transparent",
+                  background: activeTab === tab.id ? t.accent : "transparent",
+                  border: activeTab === tab.id ? `1px solid ${t.accentSoft}` : "1px solid transparent",
+                  cursor: "pointer", height: 30,
+                  padding: "0 12px", fontSize: 13, fontWeight: activeTab === tab.id ? 800 : 600,
+                  color: activeTab === tab.id ? "#fff" : t.subtle,
+                  borderRadius: 6,
+                  boxShadow: activeTab === tab.id ? "0 0 0 1px rgba(59,130,246,0.25), 0 8px 18px rgba(37,99,235,0.22)" : "none",
                   transition: "all 0.15s", fontFamily: FONT_SANS, whiteSpace: "nowrap",
                 }}>
                 {copy.tabs[tab.copyKey]}
@@ -2082,9 +2182,9 @@ export default function App() {
             ))}
           </nav>
 
-          <div style={{ marginLeft: viewport.isNarrow ? 0 : "auto", display: "flex", alignItems: "center", gap: 10,
-            width: viewport.isNarrow ? "100%" : "auto", paddingBottom: viewport.isNarrow ? 10 : 0, flexWrap: "wrap" }}>
-            <div style={{ position: "relative" }}>
+          <div style={{ marginLeft: 0, display: "flex", alignItems: "center", gap: 10,
+            width: viewport.isNarrow ? "100%" : "auto", paddingBottom: viewport.isNarrow ? 10 : 0, flexWrap: "wrap", flex: viewport.isNarrow ? "1 1 100%" : "0 0 auto" }}>
+            <div style={{ position: "relative", flex: viewport.isMobile ? "1 1 100%" : "0 0 auto" }}>
               <input placeholder={copy.header.searchPlaceholder}
                 value={searchQuery}
                 onChange={e => { setSearchQuery(e.target.value); setSearchStatus(null) }}
@@ -2097,7 +2197,7 @@ export default function App() {
                   }
                 }}
                 style={{ background: t.panel, border: `1px solid ${searchStatus === "miss" ? t.danger : searchStatus === "loaded" ? t.success : t.border}`, borderRadius: 6,
-                  padding: "5px 12px", color: t.text, fontSize: 12, outline: "none", width: viewport.isMobile ? "100%" : 280, fontFamily: FONT_SANS }} />
+                  padding: "6px 12px", color: t.text, fontSize: 12, outline: "none", width: viewport.isMobile ? "100%" : 300, fontFamily: FONT_SANS }} />
               {presetSuggestions.length > 0 && searchQuery && searchStatus !== "loaded" && (
                 <div style={{ position: "absolute", top: "calc(100% + 4px)", left: 0, right: 0,
                   background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, maxHeight: 240, overflow: "auto", zIndex: 120 }}>
