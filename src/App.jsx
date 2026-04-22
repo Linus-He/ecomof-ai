@@ -984,13 +984,13 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict }) {
             </div>
 
             {/* Charts Row */}
-            <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14, flex: 1 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 14 }}>
               {/* Isotherm Chart */}
               <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
                 <div style={{ color: t.muted, fontSize: 11, marginBottom: 12, letterSpacing: "0.06em" }}>
                   {c.structure.isotherm}
                 </div>
-                <ResponsiveContainer width="100%" height={190}>
+                <ResponsiveContainer width="100%" height={isNarrow ? 210 : 245}>
                   <LineChart data={results.isothermData}>
                     <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
                     <XAxis dataKey="pressure" stroke={t.faint} tick={{ fill: t.subtle, fontSize: 10 }} label={{ value: "Pressure (bar)", fill: t.subtle, fontSize: 10, dy: 10 }} />
@@ -1014,22 +1014,37 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict }) {
                     </span>
                   </div>
                 </div>
-                <ResponsiveContainer width="100%" height={190}>
-                  <RadarChart data={radarData}>
-                    <PolarGrid stroke={t.border} />
-                    <PolarAngleAxis dataKey="subject" tick={{ fill: t.subtle, fontSize: 9 }} />
-                    <PolarRadiusAxis angle={30} domain={[0,10]} tick={false} />
-                    <Radar name="LCA" dataKey="A" stroke={t.success} fill={t.success} fillOpacity={0.25} strokeWidth={2} />
-                  </RadarChart>
-                </ResponsiveContainer>
-                <div style={{ marginTop: 8 }}>
-                  <div style={{ height: 6, background: t.border, borderRadius: 3 }}>
-                    <div style={{ height: "100%", width: `${results.lca.compositeGreenScore * 10}%`,
-                      background: `linear-gradient(90deg, #059669, ${t.success})`, borderRadius: 3 }} />
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: 3 }}>
-                    <span style={{ color: t.faint, fontSize: 10 }}>{c.structure.compositeGreenScore}</span>
-                    <span style={{ color: t.success, fontSize: 10 }}>{results.lca.compositeGreenScore * 10}%</span>
+                <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1.15fr 0.85fr", gap: 18, alignItems: "center" }}>
+                  <ResponsiveContainer width="100%" height={isNarrow ? 210 : 245}>
+                    <RadarChart data={radarData}>
+                      <PolarGrid stroke={t.border} />
+                      <PolarAngleAxis dataKey="subject" tick={{ fill: t.subtle, fontSize: 9 }} />
+                      <PolarRadiusAxis angle={30} domain={[0,10]} tick={false} />
+                      <Radar name="LCA" dataKey="A" stroke={t.success} fill={t.success} fillOpacity={0.25} strokeWidth={2} />
+                    </RadarChart>
+                  </ResponsiveContainer>
+                  <div>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
+                      {radarData.slice(0, 4).map(item => (
+                        <div key={item.subject} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "10px 12px" }}>
+                          <div style={{ color: t.faint, fontSize: 10, marginBottom: 4 }}>{item.subject}</div>
+                          <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 700, fontFamily: FONT_MONO }}>
+                            {item.A.toFixed(1)}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div style={{ height: 6, background: t.border, borderRadius: 3 }}>
+                      <div style={{ height: "100%", width: `${results.lca.compositeGreenScore * 10}%`,
+                        background: `linear-gradient(90deg, #059669, ${t.success})`, borderRadius: 3 }} />
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", marginTop: 3 }}>
+                      <span style={{ color: t.faint, fontSize: 10 }}>{c.structure.compositeGreenScore}</span>
+                      <span style={{ color: t.success, fontSize: 10 }}>{results.lca.compositeGreenScore * 10}%</span>
+                    </div>
+                    <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 12 }}>
+                      {c.lca.visualNote}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1251,64 +1266,129 @@ function LCAScoringTab({ results, inputs }) {
   if (!results || results.unavailable) return <EmptyState message={c.lca.empty} />
   const { lca } = results
   const categories = [
-    { name: "Metal Center Impact",       score: lca.metalImpact,          weight: "25%", desc: "Mining, processing & toxicity of metal node" },
-    { name: "Linker Sustainability",     score: lca.linkerSustainability,  weight: "20%", desc: "Fossil vs bio-based origin, synthesis complexity" },
-    { name: "Energy Consumption",        score: lca.energyConsumption,     weight: "15%", desc: "Activation temperature & synthesis energy" },
-    { name: "Waste Generation",          score: lca.wasteGeneration,       weight: "8%",  desc: "Solvent waste, by-products, purification" },
-    { name: "Water Usage",               score: lca.waterUsage,            weight: "7%",  desc: "Solvent & washing water consumption" },
-    { name: "Air Quality (Process)",     score: lca.airQuality,            weight: "12%", desc: "VOC emissions during activation/operation" },
-    { name: "Functional Group Benefit",  score: Math.min(10, 5 + (inputs.functionalGroups.includes("amine") ? 2 : 0) + (inputs.functionalGroups.includes("hydroxyl") ? 1 : 0)), weight: "13%", desc: "Environmental benefit from selective capture" },
+    { name: c.lca.categoryMetal,  short: c.lca.shortMetal,  score: lca.metalImpact,          weight: 0.25, desc: c.lca.descMetal },
+    { name: c.lca.categoryLinker, short: c.lca.shortLinker, score: lca.linkerSustainability,  weight: 0.20, desc: c.lca.descLinker },
+    { name: c.lca.categoryEnergy, short: c.lca.shortEnergy, score: lca.energyConsumption,     weight: 0.15, desc: c.lca.descEnergy },
+    { name: c.lca.categoryWaste,  short: c.lca.shortWaste,  score: lca.wasteGeneration,       weight: 0.08, desc: c.lca.descWaste },
+    { name: c.lca.categoryWater,  short: c.lca.shortWater,  score: lca.waterUsage,            weight: 0.07, desc: c.lca.descWater },
+    { name: c.lca.categoryAir,    short: c.lca.shortAir,    score: lca.airQuality,            weight: 0.12, desc: c.lca.descAir },
+    { name: c.lca.categoryGroups, short: c.lca.shortGroups, score: Math.min(10, 5 + (inputs.functionalGroups.includes("amine") ? 2 : 0) + (inputs.functionalGroups.includes("hydroxyl") ? 1 : 0)), weight: 0.13, desc: c.lca.descGroups },
   ]
   const scoreColor = (s) => s >= 7 ? t.success : s >= 5 ? t.accent : s >= 3 ? t.warn : t.danger
+  const characterizedTotal = categories.reduce((sum, category) => sum + category.score * category.weight, 0)
+  const lcaChartData = categories.map(category => {
+    const characterized = category.score * category.weight
+    return {
+      name: category.short,
+      score: Number(category.score.toFixed(2)),
+      characterized: Number(characterized.toFixed(2)),
+      normalized: Number((category.score / 10).toFixed(2)),
+      contribution: characterizedTotal ? Number(((characterized / characterizedTotal) * 100).toFixed(1)) : 0,
+      sensitivity: Number((Math.abs(category.score - lca.compositeGreenScore) * category.weight * 0.1).toFixed(2)),
+    }
+  })
+  const chartCardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }
 
   return (
-    <div style={{ display: "flex", flexDirection: isNarrow ? "column" : "row", gap: 20 }}>
-      <div style={{ flex: 1, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-        <SectionTitle>{c.lca.breakdown}</SectionTitle>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          {categories.map(c => (
-            <div key={c.name} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "12px 16px" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-                <div>
-                  <span style={{ color: t.muted, fontSize: 13 }}>{c.name}</span>
-                  <span style={{ marginLeft: 8, color: t.faint, fontSize: 11 }}>Weight: {c.weight}</span>
+    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      <div style={{ display: "flex", flexDirection: isNarrow ? "column" : "row", gap: 20 }}>
+        <div style={{ flex: 1, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
+          <SectionTitle>{c.lca.breakdown}</SectionTitle>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {categories.map(category => (
+              <div key={category.name} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "12px 16px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6, gap: 10 }}>
+                  <div>
+                    <span style={{ color: t.muted, fontSize: 13 }}>{category.name}</span>
+                    <span style={{ marginLeft: 8, color: t.faint, fontSize: 11 }}>{c.lca.weight}: {(category.weight * 100).toFixed(0)}%</span>
+                  </div>
+                  <span style={{ color: scoreColor(category.score), fontWeight: 700, fontSize: 15, fontFamily: FONT_MONO }}>
+                    {category.score.toFixed(1)}/10
+                  </span>
                 </div>
-                <span style={{ color: scoreColor(c.score), fontWeight: 700, fontSize: 15, fontFamily: "monospace" }}>
-                  {c.score.toFixed(1)}/10
-                </span>
+                <div style={{ height: 5, background: t.border, borderRadius: 3, marginBottom: 6 }}>
+                  <div style={{ height: "100%", width: `${category.score * 10}%`, background: scoreColor(category.score), borderRadius: 3, transition: "width 0.6s ease" }} />
+                </div>
+                <div style={{ color: t.faint, fontSize: 11 }}>{category.desc}</div>
               </div>
-              <div style={{ height: 5, background: t.border, borderRadius: 3, marginBottom: 6 }}>
-                <div style={{ height: "100%", width: `${c.score * 10}%`, background: scoreColor(c.score), borderRadius: 3, transition: "width 0.6s ease" }} />
+            ))}
+          </div>
+        </div>
+        <div style={{ width: isNarrow ? "100%" : 260, display: "flex", flexDirection: "column", gap: 14 }}>
+          <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
+            <SectionTitle>{c.lca.composite}</SectionTitle>
+            <div style={{ textAlign: "center", padding: "16px 0" }}>
+              <div style={{ fontSize: 52, fontWeight: 800, fontFamily: FONT_MONO,
+                color: scoreColor(lca.compositeGreenScore) }}>
+                {lca.compositeGreenScore}
               </div>
-              <div style={{ color: t.faint, fontSize: 11 }}>{c.desc}</div>
+              <div style={{ color: t.subtle, fontSize: 13 }}>{c.lca.outOf}</div>
             </div>
-          ))}
+            <div style={{ height: 8, background: t.border, borderRadius: 4 }}>
+              <div style={{ height: "100%", width: `${lca.compositeGreenScore * 10}%`,
+                background: `linear-gradient(90deg, #059669, ${t.success})`, borderRadius: 4 }} />
+            </div>
+            <div style={{ marginTop: 12, color: t.subtle, fontSize: 12, textAlign: "center" }}>
+              {lca.compositeGreenScore >= 7 ? c.lca.recommended :
+               lca.compositeGreenScore >= 5 ? c.lca.acceptable :
+               c.lca.concern}
+            </div>
+          </div>
+          <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
+            <SectionTitle>{c.lca.methodology}</SectionTitle>
+            <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.6 }}>
+              {c.lca.methodBody}
+            </div>
+          </div>
         </div>
       </div>
-      <div style={{ width: isNarrow ? "100%" : 240, display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-          <SectionTitle>{c.lca.composite}</SectionTitle>
-          <div style={{ textAlign: "center", padding: "16px 0" }}>
-            <div style={{ fontSize: 52, fontWeight: 800, fontFamily: "monospace",
-              color: scoreColor(lca.compositeGreenScore) }}>
-              {lca.compositeGreenScore}
-            </div>
-            <div style={{ color: t.subtle, fontSize: 13 }}>{c.lca.outOf}</div>
-          </div>
-          <div style={{ height: 8, background: t.border, borderRadius: 4 }}>
-            <div style={{ height: "100%", width: `${lca.compositeGreenScore * 10}%`,
-              background: `linear-gradient(90deg, #059669, ${t.success})`, borderRadius: 4 }} />
-          </div>
-          <div style={{ marginTop: 12, color: t.subtle, fontSize: 12, textAlign: "center" }}>
-            {lca.compositeGreenScore >= 7 ? "✅ Recommended for green deployment" :
-             lca.compositeGreenScore >= 5 ? "⚠️ Acceptable with optimization" :
-             "❌ High environmental concern"}
-          </div>
+
+      <div style={chartCardStyle}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 14, alignItems: "flex-start", marginBottom: 12 }}>
+          <SectionTitle>{c.lca.analysisCharts}</SectionTitle>
+          <span style={{ color: t.faint, fontSize: 11, lineHeight: 1.5, maxWidth: 520, textAlign: "right" }}>
+            {c.lca.prototypeNote}
+          </span>
         </div>
-        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-          <SectionTitle>{c.lca.methodology}</SectionTitle>
-          <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.6 }}>
-            {c.lca.methodBody}
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 14 }}>
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
+            <div style={{ color: t.muted, fontSize: 12, fontWeight: 700, marginBottom: 8 }}>{c.lca.characterization}</div>
+            <ResponsiveContainer width="100%" height={210}>
+              <BarChart data={lcaChartData} margin={{ top: 8, right: 6, left: -20, bottom: 12 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke={t.border} vertical={false} />
+                <XAxis dataKey="name" tick={{ fill: t.subtle, fontSize: 10 }} interval={0} />
+                <YAxis tick={{ fill: t.subtle, fontSize: 10 }} />
+                <Tooltip formatter={(value) => [value, c.lca.characterizedScore]} contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
+                <Bar dataKey="characterized" name={c.lca.characterizedScore} fill={t.success} radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5 }}>{c.lca.characterizationBody}</div>
+          </div>
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
+            <div style={{ color: t.muted, fontSize: 12, fontWeight: 700, marginBottom: 8 }}>{c.lca.normalization}</div>
+            <ResponsiveContainer width="100%" height={210}>
+              <BarChart data={lcaChartData} margin={{ top: 8, right: 6, left: -20, bottom: 12 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke={t.border} vertical={false} />
+                <XAxis dataKey="name" tick={{ fill: t.subtle, fontSize: 10 }} interval={0} />
+                <YAxis tick={{ fill: t.subtle, fontSize: 10 }} tickFormatter={v => `${(v * 100).toFixed(0)}%`} domain={[0, 1]} />
+                <Tooltip formatter={(value) => [`${(value * 100).toFixed(0)}%`, c.lca.normalizedScore]} contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
+                <Bar dataKey="normalized" name={c.lca.normalizedScore} fill={t.accent} radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5 }}>{c.lca.normalizationBody}</div>
+          </div>
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
+            <div style={{ color: t.muted, fontSize: 12, fontWeight: 700, marginBottom: 8 }}>{c.lca.sensitivity}</div>
+            <ResponsiveContainer width="100%" height={210}>
+              <BarChart data={lcaChartData} layout="vertical" margin={{ top: 8, right: 12, left: 42, bottom: 8 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke={t.border} horizontal={false} />
+                <XAxis type="number" tick={{ fill: t.subtle, fontSize: 10 }} />
+                <YAxis type="category" dataKey="name" tick={{ fill: t.subtle, fontSize: 10 }} width={42} />
+                <Tooltip formatter={(value) => [`±${value}`, c.lca.deltaScore]} contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
+                <Bar dataKey="sensitivity" name={c.lca.deltaScore} fill={t.warn} radius={[0, 4, 4, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5 }}>{c.lca.sensitivityBody}</div>
           </div>
         </div>
       </div>
