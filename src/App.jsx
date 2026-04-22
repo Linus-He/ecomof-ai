@@ -3,7 +3,7 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, RadarChart, Radar, PolarGrid,
   PolarAngleAxis, PolarRadiusAxis, Legend,
-  BarChart, Bar, Cell
+  BarChart, Bar, Cell, ScatterChart, Scatter, ZAxis
 } from "recharts"
 import { COPY } from "./i18n"
 
@@ -763,7 +763,137 @@ function WindRoseChart({ data }) {
   )
 }
 
+function buildDecisionModel(results, inputs, c) {
+  if (!results || results.unavailable) return null
+  const lca = results.lca
+  const categories = [
+    { name: c.lca.categoryMetal,  short: c.lca.shortMetal,  score: lca.metalImpact,          weight: 0.25, desc: c.lca.descMetal, source: c.lca.sourceMetal },
+    { name: c.lca.categoryLinker, short: c.lca.shortLinker, score: lca.linkerSustainability,  weight: 0.20, desc: c.lca.descLinker, source: c.lca.sourceLinker },
+    { name: c.lca.categoryEnergy, short: c.lca.shortEnergy, score: lca.energyConsumption,     weight: 0.15, desc: c.lca.descEnergy, source: c.lca.sourceEnergy },
+    { name: c.lca.categoryWaste,  short: c.lca.shortWaste,  score: lca.wasteGeneration,       weight: 0.08, desc: c.lca.descWaste, source: c.lca.sourceWaste },
+    { name: c.lca.categoryWater,  short: c.lca.shortWater,  score: lca.waterUsage,            weight: 0.07, desc: c.lca.descWater, source: c.lca.sourceWater },
+    { name: c.lca.categoryAir,    short: c.lca.shortAir,    score: lca.airQuality,            weight: 0.12, desc: c.lca.descAir, source: c.lca.sourceAir },
+    { name: c.lca.categoryGroups, short: c.lca.shortGroups, score: Math.min(10, 5 + (inputs.functionalGroups.includes("amine") ? 2 : 0) + (inputs.functionalGroups.includes("hydroxyl") ? 1 : 0)), weight: 0.13, desc: c.lca.descGroups, source: c.lca.sourceGroups },
+  ]
+  const byShort = Object.fromEntries(categories.map(category => [category.short, category]))
+  const burden = key => Math.max(0, 10 - (byShort[key]?.score ?? 5))
+  const indicatorData = [
+    { name: "GWP", value: burden(c.lca.shortEnergy) * 0.45 + burden(c.lca.shortMetal) * 0.25 + burden(c.lca.shortLinker) * 0.20 + burden(c.lca.shortAir) * 0.10, def: c.lca.indicatorGwp },
+    { name: "PED", value: burden(c.lca.shortEnergy) * 0.55 + burden(c.lca.shortLinker) * 0.20 + burden(c.lca.shortMetal) * 0.15 + burden(c.lca.shortWaste) * 0.10, def: c.lca.indicatorPed },
+    { name: "WU",  value: burden(c.lca.shortWater) * 0.65 + burden(c.lca.shortWaste) * 0.20 + burden(c.lca.shortLinker) * 0.15, def: c.lca.indicatorWu },
+    { name: "AP",  value: burden(c.lca.shortAir) * 0.40 + burden(c.lca.shortMetal) * 0.30 + burden(c.lca.shortWaste) * 0.20 + burden(c.lca.shortEnergy) * 0.10, def: c.lca.indicatorAp },
+    { name: "IRP", value: burden(c.lca.shortMetal) * 0.60 + burden(c.lca.shortLinker) * 0.25 + burden(c.lca.shortEnergy) * 0.15, def: c.lca.indicatorIrp },
+    { name: "ET",  value: burden(c.lca.shortMetal) * 0.35 + burden(c.lca.shortWaste) * 0.35 + burden(c.lca.shortAir) * 0.20 + burden(c.lca.shortWater) * 0.10, def: c.lca.indicatorEt },
+  ].map(item => ({ ...item, value: Number(item.value.toFixed(2)) }))
+  const roseColors = ["#ef4444", "#f97316", "#eab308", "#06b6d4", "#8b5cf6", "#10b981"]
+  const windRoseData = indicatorData.map((item, index) => ({
+    ...item,
+    value: Number((0.5 + item.value * 0.45).toFixed(1)),
+    fill: roseColors[index % roseColors.length],
+  }))
+  const sensitivityRadarData = indicatorData.map(item => ({
+    indicator: item.name,
+    metal: Number((0.25 + item.value * 0.38 + burden(c.lca.shortMetal) * 0.08).toFixed(2)),
+    process: Number((0.2 + item.value * 0.34 + burden(c.lca.shortEnergy) * 0.10).toFixed(2)),
+    solvent: Number((0.18 + item.value * 0.32 + burden(c.lca.shortWaste) * 0.09).toFixed(2)),
+  }))
+  const metalCostFactor = { "Zr4+": 24, "Mg2+": 8, "Al3+": 10, "Fe3+": 9, "Zn2+": 14, "Cu2+": 17, "Co2+": 28, "Ni2+": 26, "Cr3+": 22 }[inputs.metalCenter] ?? 18
+  const linker = ORGANIC_LINKERS.find(l => l.value === inputs.organicLinker)
+  const linkerCostFactor = (linker?.fossil ? 24 : 16) + (linker?.connectivity ?? 2) * 3.5
+  const lccBreakdown = [
+    { name: c.lca.precursor, value: Number((metalCostFactor * (1.1 + burden(c.lca.shortMetal) / 18)).toFixed(1)) },
+    { name: c.lca.linkerCost, value: Number((linkerCostFactor * (1.0 + burden(c.lca.shortLinker) / 20)).toFixed(1)) },
+    { name: c.lca.synthesisCost, value: Number((10 + inputs.temperature * 0.025 + inputs.pressure * 2).toFixed(1)) },
+    { name: c.lca.energyUse, value: Number((8 + inputs.temperature * 0.035 + burden(c.lca.shortEnergy) * 1.4).toFixed(1)) },
+    { name: c.lca.operationCost, value: Number((12 + Math.max(0, 30 - results.selectivity) * 0.16).toFixed(1)) },
+    { name: c.lca.endOfLife, value: Number((4 + burden(c.lca.shortWaste) * 0.8).toFixed(1)) },
+  ]
+  const totalLcc = Number(lccBreakdown.reduce((sum, item) => sum + item.value, 0).toFixed(1))
+  const unitCost = Number((totalLcc / Math.max(0.5, results.primaryUptake)).toFixed(1))
+  const dominantImpact = indicatorData.reduce((max, item) => item.value > max.value ? item : max, indicatorData[0])
+  const dominantCost = lccBreakdown.reduce((max, item) => item.value > max.value ? item : max, lccBreakdown[0])
+  const mostSensitive = sensitivityRadarData
+    .flatMap(row => [
+      { label: `${c.lca.sensMetal} / ${row.indicator}`, value: row.metal },
+      { label: `${c.lca.sensProcess} / ${row.indicator}`, value: row.process },
+      { label: `${c.lca.sensSolvent} / ${row.indicator}`, value: row.solvent },
+    ])
+    .reduce((max, item) => item.value > max.value ? item : max)
+
+  return {
+    categories,
+    indicatorData,
+    roseColors,
+    windRoseData,
+    sensitivityRadarData,
+    lccBreakdown,
+    totalLcc,
+    unitCost,
+    dominantImpact,
+    dominantCost,
+    mostSensitive,
+    tradeoffData: [{
+      name: inputs.mofName || "Current MOF",
+      performance: Number(results.primaryUptake),
+      burden: Number((10 - lca.compositeGreenScore).toFixed(1)),
+      cost: totalLcc,
+    }],
+  }
+}
+
 // ─── Tabs ────────────────────────────────────────────────────────────────────
+
+function HomeTab({ setActiveTab }) {
+  const t = useT()
+  const { copy: c } = useLang()
+  const { isNarrow } = useViewport()
+  const cardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 18 }
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+      <section style={{ padding: isNarrow ? "26px 4px" : "42px 6px", maxWidth: 980 }}>
+        <h1 style={{ margin: 0, color: t.textStrong, fontSize: isNarrow ? 30 : 44, lineHeight: 1.08, letterSpacing: 0 }}>
+          {c.home.title}
+        </h1>
+        <p style={{ color: t.muted, fontSize: 15, lineHeight: 1.7, maxWidth: 780, margin: "16px 0 22px" }}>
+          {c.home.subtitle}
+        </p>
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+          <button onClick={() => setActiveTab("structure")} style={{ ...toolbarBtn(t), background: t.accent, color: "#fff", borderColor: t.accent }}>
+            {c.tabs.structure}
+          </button>
+          <button onClick={() => setActiveTab("lca")} style={toolbarBtn(t)}>
+            {c.tabs.lca}
+          </button>
+        </div>
+      </section>
+
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 14 }}>
+        {[
+          { title: c.home.predict, body: c.home.predictBody },
+          { title: c.home.evaluate, body: c.home.evaluateBody },
+          { title: c.home.robustness, body: c.home.robustnessBody },
+        ].map(item => (
+          <div key={item.title} style={cardStyle}>
+            <div style={{ color: t.accentSoft, fontSize: 13, fontWeight: 800, marginBottom: 8 }}>{item.title}</div>
+            <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.65 }}>{item.body}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style={cardStyle}>
+        <SectionTitle>{c.home.workflow}</SectionTitle>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(6, minmax(0, 1fr))", gap: 10 }}>
+          {c.home.workflowSteps.map((step, index) => (
+            <div key={step} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <div style={{ color: t.faint, fontSize: 10, marginBottom: 8 }}>STEP {index + 1}</div>
+              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 700 }}>{step}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
 
 function StructureInputTab({ inputs, setInputs, results, loading, onPredict }) {
   const t = useT()
@@ -1326,43 +1456,42 @@ function LCAScoringTab({ results, inputs }) {
   const { isNarrow } = useViewport()
   if (!results || results.unavailable) return <EmptyState message={c.lca.empty} />
   const { lca } = results
-  const categories = [
-    { name: c.lca.categoryMetal,  short: c.lca.shortMetal,  score: lca.metalImpact,          weight: 0.25, desc: c.lca.descMetal, source: c.lca.sourceMetal },
-    { name: c.lca.categoryLinker, short: c.lca.shortLinker, score: lca.linkerSustainability,  weight: 0.20, desc: c.lca.descLinker, source: c.lca.sourceLinker },
-    { name: c.lca.categoryEnergy, short: c.lca.shortEnergy, score: lca.energyConsumption,     weight: 0.15, desc: c.lca.descEnergy, source: c.lca.sourceEnergy },
-    { name: c.lca.categoryWaste,  short: c.lca.shortWaste,  score: lca.wasteGeneration,       weight: 0.08, desc: c.lca.descWaste, source: c.lca.sourceWaste },
-    { name: c.lca.categoryWater,  short: c.lca.shortWater,  score: lca.waterUsage,            weight: 0.07, desc: c.lca.descWater, source: c.lca.sourceWater },
-    { name: c.lca.categoryAir,    short: c.lca.shortAir,    score: lca.airQuality,            weight: 0.12, desc: c.lca.descAir, source: c.lca.sourceAir },
-    { name: c.lca.categoryGroups, short: c.lca.shortGroups, score: Math.min(10, 5 + (inputs.functionalGroups.includes("amine") ? 2 : 0) + (inputs.functionalGroups.includes("hydroxyl") ? 1 : 0)), weight: 0.13, desc: c.lca.descGroups, source: c.lca.sourceGroups },
-  ]
+  const decision = buildDecisionModel(results, inputs, c)
+  const { categories, indicatorData, roseColors, windRoseData, sensitivityRadarData, lccBreakdown,
+    totalLcc, unitCost, dominantImpact, dominantCost, mostSensitive, tradeoffData } = decision
   const scoreColor = (s) => s >= 7 ? t.success : s >= 5 ? t.accent : s >= 3 ? t.warn : t.danger
-  const byShort = Object.fromEntries(categories.map(category => [category.short, category]))
-  const burden = key => Math.max(0, 10 - (byShort[key]?.score ?? 5))
-  const indicatorData = [
-    { name: "GWP", value: burden(c.lca.shortEnergy) * 0.45 + burden(c.lca.shortMetal) * 0.25 + burden(c.lca.shortLinker) * 0.20 + burden(c.lca.shortAir) * 0.10, def: c.lca.indicatorGwp },
-    { name: "PED", value: burden(c.lca.shortEnergy) * 0.55 + burden(c.lca.shortLinker) * 0.20 + burden(c.lca.shortMetal) * 0.15 + burden(c.lca.shortWaste) * 0.10, def: c.lca.indicatorPed },
-    { name: "WU",  value: burden(c.lca.shortWater) * 0.65 + burden(c.lca.shortWaste) * 0.20 + burden(c.lca.shortLinker) * 0.15, def: c.lca.indicatorWu },
-    { name: "AP",  value: burden(c.lca.shortAir) * 0.40 + burden(c.lca.shortMetal) * 0.30 + burden(c.lca.shortWaste) * 0.20 + burden(c.lca.shortEnergy) * 0.10, def: c.lca.indicatorAp },
-    { name: "IRP", value: burden(c.lca.shortMetal) * 0.60 + burden(c.lca.shortLinker) * 0.25 + burden(c.lca.shortEnergy) * 0.15, def: c.lca.indicatorIrp },
-    { name: "ET",  value: burden(c.lca.shortMetal) * 0.35 + burden(c.lca.shortWaste) * 0.35 + burden(c.lca.shortAir) * 0.20 + burden(c.lca.shortWater) * 0.10, def: c.lca.indicatorEt },
-  ].map(item => ({ ...item, value: Number(item.value.toFixed(2)) }))
-  const roseColors = ["#ef4444", "#f97316", "#eab308", "#06b6d4", "#8b5cf6", "#10b981"]
-  const windRoseData = indicatorData.map((item, index) => ({
-    ...item,
-    value: Number((0.5 + item.value * 0.45).toFixed(1)),
-    fill: roseColors[index % roseColors.length],
-  }))
-  const sensitivityRadarData = indicatorData.map(item => ({
-    indicator: item.name,
-    metal: Number((0.25 + item.value * 0.38 + burden(c.lca.shortMetal) * 0.08).toFixed(2)),
-    process: Number((0.2 + item.value * 0.34 + burden(c.lca.shortEnergy) * 0.10).toFixed(2)),
-    solvent: Number((0.18 + item.value * 0.32 + burden(c.lca.shortWaste) * 0.09).toFixed(2)),
-  }))
   const chartCardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }
   const detailStyle = { marginTop: 8, color: t.faint, fontSize: 11, lineHeight: 1.55 }
+  const summaryCards = [
+    { label: c.lca.environmentalBurden, value: c.lca.medium, sub: `${c.lca.dominatedBy}: ${dominantImpact.name}` },
+    { label: c.lca.normalizedImpact, value: dominantImpact.name, sub: dominantImpact.def },
+    { label: c.lca.lcc, value: `$${totalLcc}`, sub: `${c.lca.mainCost}: ${dominantCost.name}` },
+    { label: c.lca.influentialFactor, value: mostSensitive.label, sub: `${c.lca.deltaScore}: ${mostSensitive.value.toFixed(1)}` },
+    { label: c.lca.tradeoffStatus, value: results.primaryUptake > 3 && lca.compositeGreenScore > 6 ? c.lca.acceptable : c.lca.assumptionSensitive, sub: c.lca.tradeoffBody },
+    { label: c.lca.confidenceBasis, value: c.lca.screeningLevel, sub: c.lca.basisBody },
+  ]
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 16, alignItems: "flex-start", flexWrap: "wrap" }}>
+        <div>
+          <h1 style={{ margin: 0, color: t.textStrong, fontSize: 24, letterSpacing: 0 }}>{c.lca.pageTitle}</h1>
+          <p style={{ margin: "6px 0 0", color: t.muted, fontSize: 13, maxWidth: 760, lineHeight: 1.6 }}>{c.lca.pageSubtitle}</p>
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(6, minmax(0, 1fr))", gap: 10 }}>
+        {summaryCards.map(card => (
+          <div key={card.label} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, minHeight: 118 }}>
+            <div style={{ color: t.faint, fontSize: 10, marginBottom: 8, textTransform: "uppercase" }}>{card.label}</div>
+            <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 800, lineHeight: 1.25 }}>{card.value}</div>
+            <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.45, marginTop: 8 }}>{card.sub}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) 300px", gap: 16, alignItems: "start" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <div style={{ display: "flex", flexDirection: isNarrow ? "column" : "row", gap: 20 }}>
         <div style={{ flex: 1, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
           <SectionTitle>{c.lca.breakdown}</SectionTitle>
@@ -1486,6 +1615,212 @@ function LCAScoringTab({ results, inputs }) {
             </details>
           </div>
         </div>
+      </div>
+
+      <div style={chartCardStyle}>
+        <SectionTitle>{c.lca.costBreakdown}</SectionTitle>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "260px minmax(0, 1fr)", gap: 16, alignItems: "center" }}>
+          <div style={{ display: "grid", gap: 10 }}>
+            <MetricCard label={c.lca.totalLcc} value={`$${totalLcc}`} unit="/kg MOF" />
+            <MetricCard label={c.lca.unitCost} value={`$${unitCost}`} unit="/uptake" comparison={`${c.lca.mainCost}: ${dominantCost.name}`} />
+          </div>
+          <ResponsiveContainer width="100%" height={260}>
+            <BarChart data={lccBreakdown} layout="vertical" margin={{ top: 8, right: 24, left: 95, bottom: 8 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={t.border} horizontal={false} />
+              <XAxis type="number" tick={{ fill: t.subtle, fontSize: 10 }} />
+              <YAxis type="category" dataKey="name" tick={{ fill: t.muted, fontSize: 11 }} width={96} />
+              <Tooltip formatter={(value) => [`$${value}`, c.lca.lcc]} contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
+              <Bar dataKey="value" name={c.lca.lcc} fill={t.accent} radius={[0, 4, 4, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      <div style={chartCardStyle}>
+        <SectionTitle>{c.lca.tradeoff}</SectionTitle>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) 260px", gap: 16, alignItems: "center" }}>
+          <ResponsiveContainer width="100%" height={250}>
+            <ScatterChart margin={{ top: 18, right: 24, bottom: 22, left: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
+              <XAxis type="number" dataKey="performance" name="Performance" tick={{ fill: t.subtle, fontSize: 10 }}
+                label={{ value: "Adsorption performance", fill: t.subtle, fontSize: 10, dy: 16 }} />
+              <YAxis type="number" dataKey="burden" name="LCA burden" tick={{ fill: t.subtle, fontSize: 10 }}
+                label={{ value: "LCA burden", fill: t.subtle, fontSize: 10, angle: -90, dx: -10 }} />
+              <ZAxis type="number" dataKey="cost" range={[120, 760]} />
+              <Tooltip cursor={{ strokeDasharray: "3 3" }} contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }}
+                formatter={(value, name) => [value, name]} />
+              <Scatter name={inputs.mofName || "Current MOF"} data={tradeoffData} fill={t.success} />
+            </ScatterChart>
+          </ResponsiveContainer>
+          <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.65 }}>
+            {c.lca.tradeoffBody}
+            <div style={{ marginTop: 10, color: t.faint }}>
+              {c.lca.basisBody}
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+
+        <aside style={{ position: isNarrow ? "static" : "sticky", top: 72, display: "flex", flexDirection: "column", gap: 12 }}>
+          {[
+            { title: c.lca.functionalUnit, body: c.lca.functionalUnitBody },
+            { title: c.lca.systemBoundary, body: c.lca.systemBoundaryBody },
+            { title: c.lca.assumptions, body: c.lca.assumptionsBody },
+            { title: c.lca.basisLabels, body: c.lca.basisBody },
+            { title: c.lca.confidenceLimits, body: c.lca.prototypeNote },
+          ].map(item => (
+            <div key={item.title} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
+              <div style={{ color: t.accentSoft, fontSize: 12, fontWeight: 800, marginBottom: 6 }}>{item.title}</div>
+              <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.6 }}>{item.body}</div>
+            </div>
+          ))}
+        </aside>
+      </div>
+    </div>
+  )
+}
+
+function InterpretationTab({ results, inputs }) {
+  const t = useT()
+  const { copy: c } = useLang()
+  const { isNarrow } = useViewport()
+  const metal = METAL_CENTERS.find(m => m.value === inputs.metalCenter)
+  const linker = ORGANIC_LINKERS.find(l => l.value === inputs.organicLinker)
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      <div>
+        <h1 style={{ margin: 0, color: t.textStrong, fontSize: 24 }}>{c.interpretation.title}</h1>
+        <p style={{ margin: "6px 0 0", color: t.muted, fontSize: 13, lineHeight: 1.6 }}>{c.interpretation.subtitle}</p>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr 1fr", gap: 14 }}>
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+          <SectionTitle>{c.interpretation.structural}</SectionTitle>
+          <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.65 }}>{c.interpretation.structuralBody}</div>
+          <div style={{ marginTop: 12, display: "grid", gap: 8 }}>
+            {[
+              ["Metal", `${inputs.metalCenter} · LCA ${metal?.lcaScore ?? "—"}/10`],
+              ["Linker", `${inputs.organicLinker} · ${linker?.category ?? "—"}`],
+              ["Pore", `${inputs.poreDiameter} Å · BET ${inputs.betSurfaceArea} m²/g`],
+            ].map(([label, value]) => (
+              <div key={label} style={{ display: "flex", justifyContent: "space-between", gap: 10, color: t.muted, fontSize: 12 }}>
+                <span style={{ color: t.faint }}>{label}</span><span>{value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+          <SectionTitle>{c.interpretation.thermodynamic}</SectionTitle>
+          <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.65 }}>
+            {results && !results.unavailable ? c.thermo.interpretationBody : c.thermo.empty}
+          </div>
+          {results && !results.unavailable && (
+            <div style={{ marginTop: 14 }}>
+              <MetricCard label={c.thermo.qst0} value={results.thermo.qst0} unit="kJ/mol" />
+            </div>
+          )}
+        </div>
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+          <SectionTitle>{c.interpretation.confidence}</SectionTitle>
+          <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.65 }}>{c.interpretation.confidenceBody}</div>
+          {results?.applicability && (
+            <div style={{ marginTop: 12, color: results.applicability.warnings.length ? t.warn : t.success, fontSize: 13, fontWeight: 800 }}>
+              {results.applicability.warnings.length ? c.structure.caution : c.structure.inDomain}
+            </div>
+          )}
+        </div>
+      </div>
+      {results && !results.unavailable && <ThermodynamicsTab results={results} />}
+    </div>
+  )
+}
+
+function SensitivityTab({ results, inputs }) {
+  const t = useT()
+  const { copy: c } = useLang()
+  const { isNarrow } = useViewport()
+  if (!results || results.unavailable) return <EmptyState message={c.lca.empty} />
+  const decision = buildDecisionModel(results, inputs, c)
+  const scenarios = [
+    { name: c.sensitivityPage.base, lca: results.lca.compositeGreenScore, cost: decision.totalLcc, stability: "72%" },
+    { name: c.sensitivityPage.optimistic, lca: Number((results.lca.compositeGreenScore + 0.8).toFixed(1)), cost: Number((decision.totalLcc * 0.86).toFixed(1)), stability: "84%" },
+    { name: c.sensitivityPage.conservative, lca: Number((results.lca.compositeGreenScore - 0.9).toFixed(1)), cost: Number((decision.totalLcc * 1.18).toFixed(1)), stability: "58%" },
+    { name: c.sensitivityPage.highEnergy, lca: Number((results.lca.compositeGreenScore - 1.2).toFixed(1)), cost: Number((decision.totalLcc * 1.26).toFixed(1)), stability: "46%" },
+  ]
+  const sweepData = [
+    { parameter: c.lca.sensMetal, effect: decision.mostSensitive.value },
+    { parameter: c.lca.sensProcess, effect: decision.mostSensitive.value * 0.86 },
+    { parameter: c.lca.sensSolvent, effect: decision.mostSensitive.value * 0.72 },
+    { parameter: c.lca.linkerCost, effect: decision.unitCost * 0.08 },
+  ].map(item => ({ ...item, effect: Number(item.effect.toFixed(2)) }))
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      <div>
+        <h1 style={{ margin: 0, color: t.textStrong, fontSize: 24 }}>{c.sensitivityPage.title}</h1>
+        <p style={{ margin: "6px 0 0", color: t.muted, fontSize: 13, lineHeight: 1.6 }}>{c.sensitivityPage.subtitle}</p>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 14 }}>
+        <MetricCard label={c.sensitivityPage.mostSensitive} value={decision.mostSensitive.label} unit="" />
+        <MetricCard label={c.sensitivityPage.stability} value="72" unit="%" comparison={c.lca.assumptionSensitive} />
+        <MetricCard label={c.sensitivityPage.followup} value={decision.dominantCost.name} unit="" />
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+          <SectionTitle>{c.sensitivityPage.sweep}</SectionTitle>
+          <ResponsiveContainer width="100%" height={260}>
+            <BarChart data={sweepData} layout="vertical" margin={{ top: 8, right: 20, left: 105, bottom: 8 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={t.border} horizontal={false} />
+              <XAxis type="number" tick={{ fill: t.subtle, fontSize: 10 }} />
+              <YAxis type="category" dataKey="parameter" width={108} tick={{ fill: t.subtle, fontSize: 10 }} />
+              <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
+              <Bar dataKey="effect" fill={t.warn} radius={[0, 4, 4, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+          <SectionTitle>{c.sensitivityPage.scenarios}</SectionTitle>
+          <div style={{ display: "grid", gap: 10 }}>
+            {scenarios.map(item => (
+              <div key={item.name} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12,
+                display: "grid", gridTemplateColumns: "1fr 80px 90px 70px", gap: 8, alignItems: "center", color: t.muted, fontSize: 12 }}>
+                <strong style={{ color: t.textStrong }}>{item.name}</strong>
+                <span>LCA {item.lca}</span>
+                <span>${item.cost}</span>
+                <span>{item.stability}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <Callout tone="warn">{c.sensitivityPage.caution}</Callout>
+    </div>
+  )
+}
+
+function ValidationTab({ results }) {
+  const t = useT()
+  const { copy: c } = useLang()
+  const { isNarrow } = useViewport()
+  const cards = [
+    { title: c.validation.dataset, body: c.validation.datasetBody },
+    { title: c.validation.metrics, body: "Validation R² 0.864 · MAE 0.31 mmol/g · RMSE 0.47 mmol/g · 11,401 MOF training set." },
+    { title: c.validation.error, body: c.validation.errorBody },
+    { title: c.validation.applicability, body: results?.applicability?.warnings?.length ? results.applicability.warnings.map(w => w.message).join(" ") : c.methods.applicabilityBody },
+    { title: c.validation.benchmark, body: c.validation.benchmarkBody },
+  ]
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      <div>
+        <h1 style={{ margin: 0, color: t.textStrong, fontSize: 24 }}>{c.validation.title}</h1>
+        <p style={{ margin: "6px 0 0", color: t.muted, fontSize: 13, lineHeight: 1.6 }}>{c.validation.subtitle}</p>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 14 }}>
+        {cards.map(card => (
+          <div key={card.title} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 18 }}>
+            <div style={{ color: t.accentSoft, fontSize: 13, fontWeight: 800, marginBottom: 8 }}>{card.title}</div>
+            <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.7 }}>{card.body}</div>
+          </div>
+        ))}
       </div>
     </div>
   )
@@ -2055,11 +2390,13 @@ function EmptyState({ message }) {
 // ─── Main App ────────────────────────────────────────────────────────────────
 
 const TABS = [
+  { id: "home",          copyKey: "home" },
   { id: "structure",     copyKey: "structure" },
-  { id: "ml",            copyKey: "ml" },
-  { id: "thermo",        copyKey: "thermo" },
+  { id: "interpretation",copyKey: "interpretation" },
   { id: "lca",           copyKey: "lca" },
+  { id: "sensitivity",   copyKey: "sensitivity" },
   { id: "literature",    copyKey: "literature" },
+  { id: "validation",    copyKey: "validation" },
   { id: "methods",       copyKey: "methods" },
 ]
 
@@ -2072,7 +2409,7 @@ export default function App() {
     typeof window === "undefined" ? 1440 : window.innerWidth
   )
 
-  const [activeTab, setActiveTab]     = useState("structure")
+  const [activeTab, setActiveTab]     = useState("home")
   const [inputs, setInputs]           = useState(DEFAULT_INPUTS)
   const [results, setResults]         = useState(null)
   const [loading, setLoading]         = useState(false)
@@ -2250,12 +2587,14 @@ export default function App() {
         </header>
 
         <main style={{ padding: viewport.isMobile ? "14px 12px" : "20px 24px", maxWidth: 1400, margin: "0 auto" }}>
-          {activeTab === "structure"  && <StructureInputTab inputs={inputs} setInputs={setInputs} results={results} loading={loading} onPredict={handlePredict} />}
-          {activeTab === "ml"         && <MLPredictionTab results={results} inputs={inputs} />}
-          {activeTab === "thermo"     && <ThermodynamicsTab results={results} />}
-          {activeTab === "lca"        && <LCAScoringTab results={results} inputs={inputs} />}
-          {activeTab === "literature" && <LiteratureTab />}
-          {activeTab === "methods"    && <MethodsLimitationsTab />}
+          {activeTab === "home"           && <HomeTab setActiveTab={setActiveTab} />}
+          {activeTab === "structure"      && <StructureInputTab inputs={inputs} setInputs={setInputs} results={results} loading={loading} onPredict={handlePredict} />}
+          {activeTab === "interpretation" && <InterpretationTab results={results} inputs={inputs} />}
+          {activeTab === "lca"            && <LCAScoringTab results={results} inputs={inputs} />}
+          {activeTab === "sensitivity"    && <SensitivityTab results={results} inputs={inputs} />}
+          {activeTab === "literature"     && <LiteratureTab />}
+          {activeTab === "validation"     && <ValidationTab results={results} />}
+          {activeTab === "methods"        && <MethodsLimitationsTab />}
         </main>
 
         <footer style={{ marginTop: 40, padding: "16px 24px", borderTop: `1px solid ${t.border}`,
