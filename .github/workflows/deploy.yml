@@ -33,8 +33,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          # Optional: set your Hugging Face Spaces API URL here
-          # or add it as a GitHub repository secret (Settings → Secrets)
+          # Optional: add this repository secret when the hosted frontend should call an API.
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
       - name: Setup Pages
