@@ -100,17 +100,82 @@ const ORGANIC_LINKERS = [
 
 // Functional groups grouped by electronic/steric role
 const FUNCTIONAL_GROUPS = [
-  { value: "amine",     label: "−NH₂ (Amine)",        category: "Lewis-basic / H-bond donor",    effectCO2: 0.32, effectSel: 0.85 },
-  { value: "hydroxyl",  label: "−OH (Hydroxyl)",      category: "H-bond donor",                  effectCO2: 0.12, effectSel: 0.20 },
-  { value: "carboxyl",  label: "−COOH (Carboxyl)",    category: "H-bond donor/acceptor",         effectCO2: -0.04,effectSel: 0.05 },
-  { value: "thiol",     label: "−SH (Thiol)",         category: "Soft donor (S)",                effectCO2: -0.12,effectSel: -0.15 },
-  { value: "nitro",     label: "−NO₂ (Nitro)",        category: "Electron-withdrawing",          effectCO2: 0.05, effectSel: 0.10 },
-  { value: "halogen-F", label: "−F (Fluoro)",         category: "Electron-withdrawing / polar",  effectCO2: 0.08, effectSel: 0.18 },
-  { value: "halogen-Br",label: "−Br (Bromo)",         category: "Electron-withdrawing / heavy",  effectCO2: 0.02, effectSel: 0.06 },
-  { value: "methyl",    label: "−CH₃ (Methyl)",       category: "Steric / hydrophobic",          effectCO2: -0.03,effectSel: -0.05 },
-  { value: "methoxy",   label: "−OCH₃ (Methoxy)",     category: "Weak H-bond acceptor",          effectCO2: 0.04, effectSel: 0.08 },
-  { value: "pyridyl",   label: "−C₅H₄N (Pyridyl)",    category: "Lewis-basic (aromatic N)",      effectCO2: 0.18, effectSel: 0.45 },
+  { value: "amine",      label: "−NH₂ (Amine)",        category: "Lewis-basic / H-bond donor",    effectCO2: 0.32, effectSel: 0.85, steric: 0.02 },
+  { value: "hydroxyl",   label: "−OH (Hydroxyl)",      category: "H-bond donor",                  effectCO2: 0.12, effectSel: 0.20, steric: 0.01 },
+  { value: "carboxyl",   label: "−COOH (Carboxyl)",    category: "H-bond donor/acceptor",         effectCO2: -0.04,effectSel: 0.05, steric: 0.05 },
+  { value: "thiol",      label: "−SH (Thiol)",         category: "Soft donor (S)",                effectCO2: -0.12,effectSel: -0.15, steric: 0.03 },
+  { value: "nitro",      label: "−NO₂ (Nitro)",        category: "Electron-withdrawing",          effectCO2: 0.05, effectSel: 0.10, steric: 0.04 },
+  { value: "halogen-F",  label: "−F (Fluoro)",         category: "Electron-withdrawing / polar",  effectCO2: 0.08, effectSel: 0.18, steric: 0.01 },
+  { value: "halogen-Cl", label: "−Cl (Chloro)",        category: "Electron-withdrawing / halogen",effectCO2: 0.05, effectSel: 0.11, steric: 0.025 },
+  { value: "halogen-Br", label: "−Br (Bromo)",         category: "Electron-withdrawing / heavy",  effectCO2: 0.02, effectSel: 0.06, steric: 0.04 },
+  { value: "halogen-I",  label: "−I (Iodo)",           category: "Heavy halogen / polarizable",   effectCO2: -0.01,effectSel: 0.02, steric: 0.06 },
+  { value: "methyl",     label: "−CH₃ (Methyl)",       category: "Steric / hydrophobic",          effectCO2: -0.03,effectSel: -0.05, steric: 0.035 },
+  { value: "trifluoromethyl", label: "−CF₃ (Trifluoromethyl)", category: "Strong electron-withdrawing / hydrophobic", effectCO2: 0.02, effectSel: 0.04, steric: 0.07 },
+  { value: "isopropyl",  label: "−iPr (Isopropyl)",    category: "Bulky hydrophobic substituent", effectCO2: -0.10,effectSel: -0.12, steric: 0.09 },
+  { value: "methoxy",    label: "−OCH₃ (Methoxy)",     category: "Weak H-bond acceptor",          effectCO2: 0.04, effectSel: 0.08, steric: 0.04 },
+  { value: "pyridyl",    label: "−C₅H₄N (Pyridyl)",    category: "Lewis-basic (aromatic N)",      effectCO2: 0.18, effectSel: 0.45, steric: 0.06 },
 ]
+
+const AROMATIC_SUBSTITUTION_POSITIONS = ["2", "3", "5", "6"]
+
+function defaultGroupPositions(count = 1) {
+  return AROMATIC_SUBSTITUTION_POSITIONS.slice(0, Math.max(1, Math.min(4, Number(count) || 1)))
+}
+
+function normalizeFunctionalGroupDetails(inputs = {}) {
+  const selected = Array.isArray(inputs.functionalGroups) ? inputs.functionalGroups : []
+  const details = inputs.functionalGroupDetails || {}
+  return selected.reduce((acc, value) => {
+    const raw = details[value] || {}
+    const count = Math.max(1, Math.min(4, Number(raw.count) || raw.positions?.length || 1))
+    const positions = Array.isArray(raw.positions) && raw.positions.length
+      ? raw.positions.filter(pos => AROMATIC_SUBSTITUTION_POSITIONS.includes(String(pos))).slice(0, count)
+      : defaultGroupPositions(count)
+    acc[value] = { count, positions: positions.length ? positions : defaultGroupPositions(count) }
+    return acc
+  }, {})
+}
+
+function getFunctionalGroupEntries(inputs = {}) {
+  const details = normalizeFunctionalGroupDetails(inputs)
+  return Object.entries(details).map(([value, detail]) => ({
+    value,
+    detail,
+    meta: FUNCTIONAL_GROUPS.find(group => group.value === value),
+  })).filter(entry => entry.meta)
+}
+
+function hasFunctionalGroup(inputs = {}, value) {
+  return getFunctionalGroupEntries(inputs).some(entry => entry.value === value)
+}
+
+function getFunctionalGroupCount(inputs = {}, value) {
+  return normalizeFunctionalGroupDetails(inputs)[value]?.count || 0
+}
+
+function getTotalFunctionalGroupCount(inputs = {}) {
+  return getFunctionalGroupEntries(inputs).reduce((sum, entry) => sum + entry.detail.count, 0)
+}
+
+function positionEffectFactor(positions = []) {
+  if (!positions.length) return 1
+  const set = new Set(positions.map(String))
+  const highInfluence = ["2", "5"].filter(pos => set.has(pos)).length
+  const metaInfluence = ["3", "6"].filter(pos => set.has(pos)).length
+  const adjacentPenalty =
+    (set.has("2") && set.has("3") ? 0.06 : 0) +
+    (set.has("5") && set.has("6") ? 0.06 : 0)
+  return Math.max(0.72, 1 + highInfluence * 0.08 + metaInfluence * 0.03 - adjacentPenalty)
+}
+
+function formatFunctionalGroupSummary(inputs = {}, lang = "en") {
+  const entries = getFunctionalGroupEntries(inputs)
+  if (!entries.length) return lang === "zh" ? "无" : "None"
+  return entries.map(({ meta, detail }) => {
+    const pos = detail.positions?.length ? detail.positions.join("/") : "—"
+    return `${meta.label} ×${detail.count} @ ${pos}`
+  }).join("; ")
+}
 
 // Gas systems — priority reflects data availability (email: CH4/N2 & C2H4/C2H6 first;
 // H2 mid-term quantum diffusion; electronic specialty gases long-term / flagged)
@@ -423,6 +488,7 @@ const DEFAULT_INPUTS = {
   betSurfaceArea: 1850,
   poreVolume: 0.82,
   functionalGroups: ["amine"],
+  functionalGroupDetails: { amine: { count: 1, positions: ["2"] } },
   temperature: 298,
   pressure: 0.15,
   mlAlgorithm: "ensemble",
@@ -463,13 +529,15 @@ function qstAtLoading(n, { gas, hasOMS, fgBoost, pdNarrowness }) {
 function predictMOF(inputs) {
   const {
     metalCenter, organicLinker, poreDiameter, betSurfaceArea,
-    poreVolume, functionalGroups, temperature, pressure, mlAlgorithm, gasSystem,
+    poreVolume, temperature, pressure, mlAlgorithm, gasSystem,
   } = inputs
 
   const metal  = METAL_CENTERS.find(m => m.value === metalCenter)
   const linker = ORGANIC_LINKERS.find(l => l.value === organicLinker)
   const gas    = getGasSystem(gasSystem)
   const model  = MODEL_PROFILES[mlAlgorithm] || MODEL_PROFILES.ensemble
+  const functionalGroupEntries = getFunctionalGroupEntries(inputs)
+  const totalFunctionalGroupCount = getTotalFunctionalGroupCount(inputs)
 
   // If the user picked an unavailable gas system, return a guard response.
   if (gas.priority === "unavailable") {
@@ -499,15 +567,19 @@ function predictMOF(inputs) {
   let fgPrimary = 1.0
   let fgSel = 1.0
   let fgQstBoost = 0
-  for (const fg of functionalGroups) {
-    const meta = FUNCTIONAL_GROUPS.find(f => f.value === fg)
-    if (!meta) continue
-    fgPrimary += meta.effectCO2 * model.weights.fg
-    fgSel     += meta.effectSel
-    if (fg === "amine")    fgQstBoost += gas.amineBonus
-    if (fg === "hydroxyl") fgQstBoost += gas.amineBonus * 0.4
-    if (fg === "pyridyl")  fgQstBoost += gas.amineBonus * 0.7
+  let stericPenalty = 1.0
+  for (const { value, meta, detail } of functionalGroupEntries) {
+    const positionFactor = positionEffectFactor(detail.positions)
+    const dose = Math.min(3.2, Math.pow(detail.count, 0.82) * positionFactor)
+    fgPrimary += meta.effectCO2 * dose * model.weights.fg
+    fgSel     += meta.effectSel * dose
+    stericPenalty -= (meta.steric || 0.03) * detail.count
+    if (value === "amine")    fgQstBoost += gas.amineBonus * dose
+    if (value === "hydroxyl") fgQstBoost += gas.amineBonus * 0.4 * dose
+    if (value === "pyridyl")  fgQstBoost += gas.amineBonus * 0.7 * dose
   }
+  fgPrimary = Math.max(0.45, fgPrimary * Math.max(0.66, stericPenalty))
+  fgSel = Math.max(0.55, fgSel)
 
   // Narrow-pore enthalpy bonus (tight confinement).
   const pdNarrowness = Math.max(0, (7.5 - poreDiameter)) * 0.6
@@ -530,8 +602,8 @@ function predictMOF(inputs) {
   let anomaly = null
   if (gas.anomalyRule === "inverse_selectivity") {
     const reversalScore =
-      (functionalGroups.includes("amine") ? 1 : 0) +
-      (functionalGroups.includes("hydroxyl") ? 0.6 : 0) +
+      Math.min(1.6, getFunctionalGroupCount(inputs, "amine") * 0.8) +
+      Math.min(1.0, getFunctionalGroupCount(inputs, "hydroxyl") * 0.45) +
       (metal?.oms ? 0.5 : 0)
     if (reversalScore >= 1.1) {
       // swap role weighting — CO2 effectively out-competes C2H2 at low P
@@ -557,7 +629,7 @@ function predictMOF(inputs) {
 
   const betNorm = Math.min(1, betSurfaceArea / 5000)
   const pvNorm  = Math.min(1, poreVolume / 3)
-  const confidenceBase = 0.72 + betNorm * 0.08 + pvNorm * 0.06 + (functionalGroups.length > 0 ? 0.04 : 0)
+  const confidenceBase = 0.72 + betNorm * 0.08 + pvNorm * 0.06 + (totalFunctionalGroupCount > 0 ? 0.04 : 0)
   const confidence = Math.max(0.50, Math.min(0.97, confidenceBase + model.weights.conf))
 
   // ── LCA Scoring (unchanged framework) ──
@@ -566,10 +638,11 @@ function predictMOF(inputs) {
   const energyScore    = Math.max(1, 10 - (temperature - 273) / 40)
   const pressureScore  = Math.max(1, 10 - pressure * 5)
   const fgEnvScore     = 5.0
-    + (functionalGroups.includes("amine")   ?  1.2 : 0)
-    + (functionalGroups.includes("hydroxyl")?  0.6 : 0)
-    - (functionalGroups.includes("thiol")   ?  2.0 : 0)
-  const wasteScore     = 6.8
+    + Math.min(1.8, getFunctionalGroupCount(inputs, "amine") * 0.7)
+    + Math.min(1.0, getFunctionalGroupCount(inputs, "hydroxyl") * 0.35)
+    - Math.min(2.4, getFunctionalGroupCount(inputs, "thiol") * 1.2)
+    - Math.min(0.9, (getFunctionalGroupCount(inputs, "halogen-I") + getFunctionalGroupCount(inputs, "trifluoromethyl")) * 0.3)
+  const wasteScore     = Math.max(2.5, 6.8 - Math.max(0, totalFunctionalGroupCount - 1) * 0.25)
   const waterScore     = linker?.fossil ? 5.5 : 7.5
   const compositeGreen = (
     metalScore   * 0.25 +
@@ -647,6 +720,7 @@ function predictMOF(inputs) {
     isothermData,
     thermo,
     featureImportance,
+    functionalGroupSummary: formatFunctionalGroupSummary(inputs),
     algoNote: mlAlgorithm === "ensemble" ? null
       : "Current v1.β applies a heuristic per-algorithm delta, not an independently trained model — see ML tab for status.",
   }
@@ -943,6 +1017,104 @@ function Callout({ tone = "info", children }) {
   )
 }
 
+function LinkerSubstitutionPreview({ inputs, linker }) {
+  const t = useT()
+  const { lang } = useLang()
+  const entries = getFunctionalGroupEntries(inputs)
+  const positions = {
+    "1": { x: 185, y: 100 },
+    "2": { x: 150, y: 40 },
+    "3": { x: 80, y: 40 },
+    "4": { x: 45, y: 100 },
+    "5": { x: 80, y: 160 },
+    "6": { x: 150, y: 160 },
+  }
+  const ringPoints = ["1", "2", "3", "4", "5", "6"].map(pos => `${positions[pos].x},${positions[pos].y}`).join(" ")
+  const groupByPosition = entries.reduce((acc, { meta, detail }) => {
+    for (const pos of detail.positions || []) {
+      acc[pos] = [...(acc[pos] || []), meta.label.replace(/\s*\(.+\)$/, "")]
+    }
+    return acc
+  }, {})
+  const linkerAnchors = linker?.value === "BTC"
+    ? ["1", "3", "5"]
+    : linker?.connectivity === 4
+      ? ["1", "2", "4", "5"]
+      : ["1", "4"]
+  const isBenzeneLike = ["BDC", "NH2-BDC", "NO2-BDC", "Br-BDC", "DOBDC", "BTC", "BPDC", "NDC", "BTB", "ADC"].includes(linker?.value)
+    || String(linker?.category || "").toLowerCase().includes("carboxylate")
+
+  return (
+    <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, marginBottom: 16 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", marginBottom: 8 }}>
+        <div>
+          <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
+            {lang === "zh" ? "取代构型示意" : "Substitution sketch"}
+          </div>
+          <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45 }}>
+            {isBenzeneLike
+              ? (lang === "zh" ? "简化芳环编号：1/4 为连接位，2/3/5/6 为可标注取代位。" : "Simplified aromatic numbering: 1/4 anchors, 2/3/5/6 substituent positions.")
+              : (lang === "zh" ? "当前连接体不是标准苯二甲酸示意，以下仅作位置草图。" : "Current linker is not a standard BDC ring; this is a positional sketch only.")}
+          </div>
+        </div>
+        <BasisBadge tone="user">{lang === "zh" ? "草图" : "sketch"}</BasisBadge>
+      </div>
+      <svg viewBox="0 0 230 220" width="100%" height="220" role="img" aria-label="Functional group substitution preview">
+        <rect x="0" y="0" width="230" height="220" rx="10" fill={t.panel} stroke={t.border} />
+        <polygon points={ringPoints} fill="none" stroke={t.textStrong} strokeWidth="3" />
+        <line x1="60" y1="88" x2="92" y2="34" stroke={t.subtle} strokeWidth="1.5" opacity="0.45" />
+        <line x1="138" y1="34" x2="170" y2="88" stroke={t.subtle} strokeWidth="1.5" opacity="0.45" />
+        <line x1="170" y1="112" x2="138" y2="166" stroke={t.subtle} strokeWidth="1.5" opacity="0.45" />
+        <line x1="92" y1="166" x2="60" y2="112" stroke={t.subtle} strokeWidth="1.5" opacity="0.45" />
+        {Object.entries(positions).map(([pos, point]) => {
+          const anchor = linkerAnchors.includes(pos)
+          const groups = groupByPosition[pos] || []
+          const labelOffset = {
+            "1": { x: 18, y: 4, anchor: "start" },
+            "2": { x: 0, y: -18, anchor: "middle" },
+            "3": { x: 0, y: -18, anchor: "middle" },
+            "4": { x: -18, y: 4, anchor: "end" },
+            "5": { x: 0, y: 24, anchor: "middle" },
+            "6": { x: 0, y: 24, anchor: "middle" },
+          }[pos]
+          return (
+            <g key={pos}>
+              <circle cx={point.x} cy={point.y} r={anchor ? 14 : groups.length ? 13 : 10}
+                fill={groups.length ? t.badgeInfoBg : anchor ? t.badgeCalcBg : t.bg}
+                stroke={groups.length ? t.accent : anchor ? t.validationAccent : t.borderStrong}
+                strokeWidth={groups.length ? 2.5 : 1.5} />
+              <text x={point.x} y={point.y + 4} textAnchor="middle" fill={anchor ? t.textStrong : t.subtle}
+                fontSize="12" fontFamily={FONT_MONO} fontWeight="800">{pos}</text>
+              {anchor && (
+                <text x={point.x + labelOffset.x} y={point.y + labelOffset.y} textAnchor={labelOffset.anchor}
+                  fill={t.validationAccent} fontSize="11" fontFamily={FONT_MONO} fontWeight="800">COOH</text>
+              )}
+              {groups.length > 0 && (
+                <g>
+                  <line x1={point.x} y1={point.y} x2={point.x + labelOffset.x * 1.55} y2={point.y + labelOffset.y * 1.55}
+                    stroke={t.accent} strokeWidth="1.6" />
+                  <text x={point.x + labelOffset.x * 1.95} y={point.y + labelOffset.y * 1.95}
+                    textAnchor={labelOffset.anchor} fill={t.accentText} fontSize="11" fontFamily={FONT_MONO} fontWeight="850">
+                    {groups.join(",")}
+                  </text>
+                </g>
+              )}
+            </g>
+          )
+        })}
+        <text x="115" y="202" textAnchor="middle" fill={t.faint} fontSize="10" fontFamily={FONT_SANS}>
+          {lang === "zh" ? "Structural sketch only · not synthesis validation" : "Structural sketch only · not synthesis validation"}
+        </text>
+      </svg>
+      <div style={{ color: t.subtle, fontSize: 10, lineHeight: 1.55, marginTop: 8 }}>
+        {lang === "zh"
+          ? `当前标注：${formatFunctionalGroupSummary(inputs, lang)}。这张图只表达你输入的取代位置，不检查真实合成可行性或配位构型。`
+          : `Current annotation: ${formatFunctionalGroupSummary(inputs, lang)}. This visualizes entered positions only; it does not validate synthesis feasibility or coordination geometry.`}
+      </div>
+    </div>
+  )
+}
+
 function WindRoseChart({ data }) {
   const t = useT()
   const size = 240
@@ -1014,7 +1186,7 @@ function buildDecisionModel(results, inputs, c) {
     { name: c.lca.categoryWaste,  short: c.lca.shortWaste,  score: lca.wasteGeneration,       weight: 0.08, desc: c.lca.descWaste, source: c.lca.sourceWaste },
     { name: c.lca.categoryWater,  short: c.lca.shortWater,  score: lca.waterUsage,            weight: 0.07, desc: c.lca.descWater, source: c.lca.sourceWater },
     { name: c.lca.categoryAir,    short: c.lca.shortAir,    score: lca.airQuality,            weight: 0.12, desc: c.lca.descAir, source: c.lca.sourceAir },
-    { name: c.lca.categoryGroups, short: c.lca.shortGroups, score: Math.min(10, 5 + (inputs.functionalGroups.includes("amine") ? 2 : 0) + (inputs.functionalGroups.includes("hydroxyl") ? 1 : 0)), weight: 0.13, desc: c.lca.descGroups, source: c.lca.sourceGroups },
+    { name: c.lca.categoryGroups, short: c.lca.shortGroups, score: Math.min(10, 5 + Math.min(3, getFunctionalGroupCount(inputs, "amine") * 1.2) + Math.min(1.8, getFunctionalGroupCount(inputs, "hydroxyl") * 0.7)), weight: 0.13, desc: c.lca.descGroups, source: c.lca.sourceGroups },
   ]
   const byShort = Object.fromEntries(categories.map(category => [category.short, category]))
   const burden = key => Math.max(0, 10 - (byShort[key]?.score ?? 5))
@@ -1106,6 +1278,7 @@ function buildReportHtml(results, inputs, decision, c, lcaParams = {}) {
     ["MOF", inputs.mofName || "Current candidate"],
     ["Gas system", results.gasSystem],
     ["Metal / linker", `${inputs.metalCenter} / ${inputs.organicLinker}`],
+    ["Functional groups", formatFunctionalGroupSummary(inputs)],
     ["Primary uptake", `${results.primaryUptake} mmol/g`],
     ["Secondary uptake", `${results.secondaryUptake} mmol/g`],
     ["Apparent selectivity", results.selectivity],
@@ -1218,6 +1391,7 @@ function buildDecisionReport(results, inputs, decision, c) {
     `Gas system: ${results.gasSystem}`,
     `Metal: ${inputs.metalCenter}`,
     `Linker: ${inputs.organicLinker}`,
+    `Functional groups: ${formatFunctionalGroupSummary(inputs)}`,
     "",
     "## Performance",
     `${results.primaryName} uptake: ${results.primaryUptake} mmol/g`,
@@ -1563,8 +1737,45 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
       ...prev,
       functionalGroups: prev.functionalGroups.includes(fg)
         ? prev.functionalGroups.filter(f => f !== fg)
-        : [...prev.functionalGroups, fg]
+        : [...prev.functionalGroups, fg],
+      functionalGroupDetails: prev.functionalGroups.includes(fg)
+        ? Object.fromEntries(Object.entries(prev.functionalGroupDetails || {}).filter(([key]) => key !== fg))
+        : {
+            ...(prev.functionalGroupDetails || {}),
+            [fg]: (prev.functionalGroupDetails || {})[fg] || { count: 1, positions: ["2"] },
+          }
     }))
+  }
+
+  const updateFGDetail = (fg, detailPatch) => {
+    setInputs(prev => {
+      const current = normalizeFunctionalGroupDetails(prev)[fg] || { count: 1, positions: ["2"] }
+      const merged = { ...current, ...detailPatch }
+      const count = Math.max(1, Math.min(4, Number(merged.count) || 1))
+      let positions = Array.isArray(merged.positions)
+        ? merged.positions.filter(pos => AROMATIC_SUBSTITUTION_POSITIONS.includes(String(pos))).slice(0, count)
+        : current.positions
+      if (positions.length > count) positions = positions.slice(0, count)
+      if (!positions.length) positions = defaultGroupPositions(count)
+      return {
+        ...prev,
+        functionalGroupDetails: {
+          ...(prev.functionalGroupDetails || {}),
+          [fg]: { count, positions },
+        },
+      }
+    })
+  }
+
+  const toggleFGPosition = (fg, pos) => {
+    const current = normalizeFunctionalGroupDetails(inputs)[fg] || { count: 1, positions: ["2"] }
+    const exists = current.positions.includes(pos)
+    let positions = exists
+      ? current.positions.filter(item => item !== pos)
+      : [...current.positions, pos]
+    if (positions.length > current.count) positions = positions.slice(positions.length - current.count)
+    if (!positions.length) positions = [pos]
+    updateFGDetail(fg, { positions })
   }
 
   const handleCifUpload = async (file) => {
@@ -1586,6 +1797,7 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
       ["Gas System", results.gasSystem],
       ["Metal Center", inputs.metalCenter],
       ["Organic Linker", inputs.organicLinker],
+      ["Functional Groups", formatFunctionalGroupSummary(inputs, lang)],
       ["Pore Diameter (Å)", inputs.poreDiameter],
       ["BET Surface Area (m²/g)", inputs.betSurfaceArea],
       ["Pore Volume (cm³/g)", inputs.poreVolume],
@@ -1610,13 +1822,14 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
   const selectStyle = { width: "100%", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "8px 10px", color: t.text, fontSize: 12, outline: "none", cursor: "pointer", marginBottom: 4 }
   const numInputStyle = { width: "100%", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "7px 10px", color: t.text, fontSize: 13, fontFamily: FONT_MONO, outline: "none" }
   const hasUsableResults = results && !results.unavailable
+  const functionalGroupDetails = normalizeFunctionalGroupDetails(inputs)
   const decisionTips = hasUsableResults
     ? (lang === "zh" ? [
-        ["为什么是这个结果", `${results.primaryName} uptake 主要由 BET、孔体积、孔径匹配和 ${inputs.organicLinker} 连接体贡献。选择性仍是 screening proxy，不是严格混合气 IAST。`],
+        ["为什么是这个结果", `${results.primaryName} uptake 主要由 BET、孔体积、孔径匹配、${inputs.organicLinker} 连接体和官能团数量/位置共同影响。选择性仍是 screening proxy，不是严格混合气 IAST。`],
         ["可信度", `当前置信度 ${(results.confidenceScore * 100).toFixed(0)}%。${results.applicability?.warnings?.length ? "输入已有适用域警告，建议补真实等温线或 GCMC 标签。" : "输入位于基准范围附近，可用于早期候选比较。"}`],
         ["下一步", "先看 Interpretation/Qst 判断吸附原因，再进入 LCA/LCC 和 Sensitivity 检查环境、成本和结论稳健性。"],
       ] : [
-        ["Why this result", `${results.primaryName} uptake is mainly driven by BET, pore volume, pore matching, and the ${inputs.organicLinker} linker. Selectivity remains a screening proxy, not rigorous mixture IAST.`],
+        ["Why this result", `${results.primaryName} uptake is driven by BET, pore volume, pore matching, the ${inputs.organicLinker} linker, and functional-group count/position. Selectivity remains a screening proxy, not rigorous mixture IAST.`],
         ["Confidence", `Current confidence is ${(results.confidenceScore * 100).toFixed(0)}%. ${results.applicability?.warnings?.length ? "Applicability warnings are present; add real isotherm or GCMC labels before strong claims." : "The input is close to benchmark ranges and is usable for early comparison."}`],
         ["Next steps", "Use Interpretation/Qst to inspect the mechanism, then LCA/LCC and Sensitivity to test impact, cost, and robustness."],
       ])
@@ -1691,7 +1904,7 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
           value={inputs.poreVolume} onChange={v => setInputs(p => ({ ...p, poreVolume: v }))} />
 
         <label style={labelStyle}>{c.structure.functionalGroups}</label>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 14 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 10 }}>
           {FUNCTIONAL_GROUPS.map(fg => (
             <label key={fg.value} title={fg.category} style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer",
               color: inputs.functionalGroups.includes(fg.value) ? t.accentSoft : t.subtle, fontSize: 11 }}>
@@ -1702,6 +1915,85 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
             </label>
           ))}
         </div>
+        <div style={{ display: "grid", gap: 8, marginBottom: 14 }}>
+          {getFunctionalGroupEntries(inputs).map(({ value, meta, detail }) => (
+            <div key={value} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", marginBottom: 8 }}>
+                <div>
+                  <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800 }}>{meta.label}</div>
+                  <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.4 }}>{meta.category}</div>
+                </div>
+                <BasisBadge tone="user">{lang === "zh" ? "用户定义" : "user-defined"}</BasisBadge>
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "86px minmax(0, 1fr)", gap: 9, alignItems: "center" }}>
+                <div>
+                  <label style={{ ...labelStyle, marginBottom: 4 }}>{lang === "zh" ? "数量" : "Count"}</label>
+                  <input
+                    type="number"
+                    min={1}
+                    max={4}
+                    step={1}
+                    value={detail.count}
+                    onChange={e => {
+                      const count = Math.max(1, Math.min(4, parseInt(e.target.value, 10) || 1))
+                      updateFGDetail(value, {
+                        count,
+                        positions: detail.positions.length >= count ? detail.positions.slice(0, count) : defaultGroupPositions(count),
+                      })
+                    }}
+                    style={{ ...numInputStyle, padding: "6px 8px", fontSize: 12 }}
+                  />
+                </div>
+                <div>
+                  <label style={{ ...labelStyle, marginBottom: 4 }}>
+                    {lang === "zh" ? "芳环取代位置" : "Aromatic positions"}
+                  </label>
+                  <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
+                    {AROMATIC_SUBSTITUTION_POSITIONS.map(pos => {
+                      const active = (functionalGroupDetails[value]?.positions || []).includes(pos)
+                      return (
+                        <button
+                          key={pos}
+                          type="button"
+                          onClick={() => toggleFGPosition(value, pos)}
+                          style={{
+                            minWidth: 30,
+                            height: 26,
+                            borderRadius: 6,
+                            border: `1px solid ${active ? t.accent : t.border}`,
+                            background: active ? t.badgeInfoBg : t.panel,
+                            color: active ? t.accentText : t.subtle,
+                            fontSize: 11,
+                            fontWeight: 800,
+                            cursor: "pointer",
+                            fontFamily: FONT_MONO,
+                          }}
+                          title={lang === "zh" ? `选择 ${pos} 号取代位` : `Select substitution position ${pos}`}
+                        >
+                          {pos}
+                        </button>
+                      )
+                    })}
+                  </div>
+                  <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.4, marginTop: 5 }}>
+                    {lang === "zh"
+                      ? `当前：${detail.positions.join(", ")}；最多按数量选择 ${detail.count} 个位置。`
+                      : `Current: ${detail.positions.join(", ")}; up to ${detail.count} selected positions.`}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+          {!getFunctionalGroupEntries(inputs).length && (
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.45, background: t.surface, border: `1px dashed ${t.border}`, borderRadius: 8, padding: 10 }}>
+              {lang === "zh"
+                ? "选择一个官能团后，可设置数量并标注 2/3/5/6 号取代位置。"
+                : "Select a functional group to set count and mark 2/3/5/6 substitution positions."}
+            </div>
+          )}
+        </div>
+
+        <LinkerSubstitutionPreview inputs={inputs} linker={linker} />
 
         <div style={{ display: "flex", gap: 10, marginBottom: 16 }}>
           <div style={{ flex: 1 }}>
@@ -1886,7 +2178,7 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
 
             <ProvenanceGrid items={[
               { label: "Basis", value: c.common.basisModelPredicted, type: "model", note: "Browser profile or optional backend prediction." },
-              { label: "Source type", value: "Seed benchmark + descriptor input", type: "benchmark", note: "MOF presets, CIF-derived fields, or user input." },
+              { label: "Source type", value: "Seed benchmark + descriptor input", type: "benchmark", note: `MOF presets, CIF-derived fields, or user input. Groups: ${formatFunctionalGroupSummary(inputs, lang)}` },
               { label: "Quality", value: results.applicability?.warnings?.length ? "Medium-low" : "Medium", type: "proxy", note: results.applicability?.warnings?.length ? "Applicability warning present." : "Within prototype descriptor range." },
               { label: "Limitation", value: "Screening-level only", type: "proxy", note: "Not a strict IAST/GCMC or experimental result." },
             ]} />
