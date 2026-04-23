@@ -11,31 +11,47 @@ import { COPY } from "./i18n"
 // ─── Theme ──────────────────────────────────────────────────────────────────
 
 const THEME_DARK = {
-  bg: "#08111f", headerBg: "rgba(8,17,31,0.88)", panel: "rgba(15,23,42,0.86)", surface: "rgba(186,230,253,0.075)",
-  border: "rgba(186,230,253,0.16)", borderStrong: "rgba(125,211,252,0.38)",
-  text: "#e8f6ff", textStrong: "#f8fcff", muted: "#b7cbe0",
-  subtle: "#8ea9bf", faint: "#6d879e", veryFaint: "#526a80",
-  accent: "#38bdf8", accentStrong: "#0284c7", accentSoft: "#7dd3fc", accentText: "#7dd3fc",
-  success: "#38bdf8", warn: "#0ea5e9", danger: "#fb7185",
-  info: "#60a5fa", rose: "#60a5fa", amber: "#38bdf8", violet: "#93c5fd", cyan: "#7dd3fc",
-  tooltipBg: "#0f172a", divider: "rgba(186,230,253,0.11)",
-  glass: "rgba(186,230,253,0.08)", glassStrong: "rgba(56,189,248,0.13)",
-  chartBg: "rgba(15,23,42,0.90)", shadowSm: "0 8px 20px rgba(2,8,23,0.24)",
+  bg: "#0E1724", headerBg: "rgba(18,32,51,0.72)", panel: "#162538", surface: "#122033",
+  sectionTint: "#15263B", card: "#162538",
+  border: "rgba(255,255,255,0.10)", borderStrong: "rgba(255,255,255,0.16)",
+  text: "#EAF1FB", textStrong: "#EAF1FB", muted: "#B6C2D5",
+  subtle: "#8EA0B8", faint: "#7D8FA8", veryFaint: "#65768D",
+  accent: "#7CB4FF", accentStrong: "#5C98FF", accentSoft: "#A8CAFF", accentText: "#7CB4FF",
+  performance: "#7CB4FF", lcaAccent: "#8FD9C8", lccAccent: "#F6C98E", sensitivityAccent: "#B7A9FF", validationAccent: "#9CB2D4",
+  success: "#8FD9C8", warn: "#F2A65A", danger: "#E88686",
+  info: "#9CB2D4", rose: "#E88686", amber: "#F6C98E", violet: "#B7A9FF", cyan: "#7CB4FF",
+  tooltipBg: "#132131", divider: "rgba(255,255,255,0.08)",
+  glass: "rgba(255,255,255,0.08)", glassStrong: "rgba(110,168,255,0.14)",
+  chartBg: "#132131", shadowSm: "0 8px 20px rgba(2,8,23,0.24)",
   shadowMd: "0 18px 42px rgba(0,0,0,0.30)",
+  badgeInfoBg: "rgba(124,180,255,0.14)", badgeInfoText: "#7CB4FF",
+  badgeCalcBg: "rgba(156,178,212,0.14)", badgeCalcText: "#A8CAFF",
+  badgeProxyBg: "rgba(183,169,255,0.16)", badgeProxyText: "#B7A9FF",
+  badgeUserBg: "rgba(142,160,184,0.14)", badgeUserText: "#B6C2D5",
+  badgeWarnBg: "rgba(246,201,142,0.16)", badgeWarnText: "#F6C98E",
+  badgeDangerBg: "rgba(232,134,134,0.15)", badgeDangerText: "#E88686",
 }
 
 const THEME_LIGHT = {
-  bg: "#f5fbff", headerBg: "rgba(248,252,255,0.88)", panel: "rgba(255,255,255,0.90)", surface: "rgba(224,242,254,0.66)",
-  border: "rgba(2,132,199,0.12)", borderStrong: "rgba(14,165,233,0.28)",
-  text: "#102235", textStrong: "#061525", muted: "#334d66",
-  subtle: "#5b748c", faint: "#7d93a8", veryFaint: "#9aabbc",
-  accent: "#38bdf8", accentStrong: "#0284c7", accentSoft: "#0284c7", accentText: "#0284c7",
-  success: "#0ea5e9", warn: "#0284c7", danger: "#be123c",
-  info: "#3b82f6", rose: "#60a5fa", amber: "#38bdf8", violet: "#93c5fd", cyan: "#7dd3fc",
-  tooltipBg: "#ffffff", divider: "rgba(2,132,199,0.09)",
-  glass: "rgba(255,255,255,0.72)", glassStrong: "rgba(224,242,254,0.92)",
-  chartBg: "rgba(255,255,255,0.92)", shadowSm: "0 8px 22px rgba(2,132,199,0.08)",
-  shadowMd: "0 18px 45px rgba(15,23,42,0.10)",
+  bg: "#F7FAFE", headerBg: "rgba(255,255,255,0.62)", panel: "rgba(255,255,255,0.82)", surface: "#F3F8FD",
+  sectionTint: "#EEF6FF", card: "#FCFEFF",
+  border: "rgba(122,162,215,0.18)", borderStrong: "rgba(110,168,255,0.26)",
+  text: "#1E2A3A", textStrong: "#1E2A3A", muted: "#607089",
+  subtle: "#607089", faint: "#91A0B5", veryFaint: "#A9B5C7",
+  accent: "#6EA8FF", accentStrong: "#4E8EF7", accentSoft: "#BFD9FF", accentText: "#4E8EF7",
+  performance: "#6EA8FF", lcaAccent: "#8FD9C8", lccAccent: "#F6C98E", sensitivityAccent: "#B7A9FF", validationAccent: "#9CB2D4",
+  success: "#8FD9C8", warn: "#F2A65A", danger: "#E88686",
+  info: "#9CB2D4", rose: "#E88686", amber: "#F6C98E", violet: "#B7A9FF", cyan: "#6EA8FF",
+  tooltipBg: "#FCFEFF", divider: "rgba(30,42,58,0.08)",
+  glass: "rgba(255,255,255,0.72)", glassStrong: "rgba(255,255,255,0.82)",
+  chartBg: "#FCFEFF", shadowSm: "0 8px 22px rgba(46,94,170,0.08)",
+  shadowMd: "0 18px 45px rgba(46,94,170,0.10)",
+  badgeInfoBg: "#EAF4FF", badgeInfoText: "#4E8EF7",
+  badgeCalcBg: "#EEF3FA", badgeCalcText: "#5578A7",
+  badgeProxyBg: "#F1EDFF", badgeProxyText: "#7A63E8",
+  badgeUserBg: "#F3F6FA", badgeUserText: "#70839E",
+  badgeWarnBg: "#FFF3E2", badgeWarnText: "#C88A2B",
+  badgeDangerBg: "#FDEEEE", badgeDangerText: "#C76666",
 }
 
 const ThemeCtx = createContext(THEME_DARK)
@@ -52,15 +68,15 @@ const useViewport = () => useContext(ViewportCtx)
 // ─── Catalogs ───────────────────────────────────────────────────────────────
 
 const METAL_CENTERS = [
-  { value: "Zr4+",  label: "Zr4+",  lcaScore: 8.5, toxicity: "Low",      oms: false, color: "#38bdf8" },
-  { value: "Mg2+",  label: "Mg2+",  lcaScore: 9.0, toxicity: "Very Low", oms: true,  color: "#38bdf8" },
-  { value: "Al3+",  label: "Al3+",  lcaScore: 8.0, toxicity: "Low",      oms: false, color: "#38bdf8" },
-  { value: "Fe3+",  label: "Fe3+",  lcaScore: 7.5, toxicity: "Low",      oms: true,  color: "#38bdf8" },
-  { value: "Zn2+",  label: "Zn2+",  lcaScore: 6.5, toxicity: "Moderate", oms: false, color: "#7dd3fc" },
-  { value: "Cu2+",  label: "Cu2+",  lcaScore: 6.0, toxicity: "Moderate", oms: true,  color: "#7dd3fc" },
-  { value: "Co2+",  label: "Co2+",  lcaScore: 5.0, toxicity: "Moderate", oms: true,  color: "#7dd3fc" },
-  { value: "Ni2+",  label: "Ni2+",  lcaScore: 5.5, toxicity: "Moderate", oms: true,  color: "#7dd3fc" },
-  { value: "Cr3+",  label: "Cr3+",  lcaScore: 3.0, toxicity: "High",     oms: false, color: "#fb7185" },
+  { value: "Zr4+",  label: "Zr4+",  lcaScore: 8.5, toxicity: "Low",      oms: false, color: "#6EA8FF" },
+  { value: "Mg2+",  label: "Mg2+",  lcaScore: 9.0, toxicity: "Very Low", oms: true,  color: "#6EA8FF" },
+  { value: "Al3+",  label: "Al3+",  lcaScore: 8.0, toxicity: "Low",      oms: false, color: "#6EA8FF" },
+  { value: "Fe3+",  label: "Fe3+",  lcaScore: 7.5, toxicity: "Low",      oms: true,  color: "#6EA8FF" },
+  { value: "Zn2+",  label: "Zn2+",  lcaScore: 6.5, toxicity: "Moderate", oms: false, color: "#9CB2D4" },
+  { value: "Cu2+",  label: "Cu2+",  lcaScore: 6.0, toxicity: "Moderate", oms: true,  color: "#9CB2D4" },
+  { value: "Co2+",  label: "Co2+",  lcaScore: 5.0, toxicity: "Moderate", oms: true,  color: "#9CB2D4" },
+  { value: "Ni2+",  label: "Ni2+",  lcaScore: 5.5, toxicity: "Moderate", oms: true,  color: "#9CB2D4" },
+  { value: "Cr3+",  label: "Cr3+",  lcaScore: 3.0, toxicity: "High",     oms: false, color: "#E88686" },
 ]
 
 // Expanded linker catalog with category (topology / connectivity) & substitution notes
@@ -760,10 +776,10 @@ function evaluateApplicability(inputs, results) {
 
 function getPerformanceLabel(primary, selectivity) {
   const score = primary * 0.6 + selectivity * 0.01
-  if (score > 5.5) return { label: "EXCELLENT", color: "#0ea5e9", bg: "rgba(56,189,248,0.16)" }
-  if (score > 3.5) return { label: "GOOD",      color: "#38bdf8", bg: "rgba(56,189,248,0.15)" }
-  if (score > 2.0) return { label: "FAIR",      color: "#0284c7", bg: "rgba(56,189,248,0.13)" }
-  return               { label: "POOR",      color: "#fb7185", bg: "rgba(251,113,133,0.15)" }
+  if (score > 5.5) return { label: "EXCELLENT", color: "#4E8EF7", bg: "#EAF4FF" }
+  if (score > 3.5) return { label: "GOOD",      color: "#4E8EF7", bg: "#EAF4FF" }
+  if (score > 2.0) return { label: "FAIR",      color: "#5578A7", bg: "#EEF3FA" }
+  return               { label: "POOR",      color: "#C76666", bg: "#FDEEEE" }
 }
 
 // ─── Small components ───────────────────────────────────────────────────────
@@ -832,7 +848,7 @@ function MetricCard({ label, value, unit, badge, badgeColor, badgeBg, comparison
   const t = useT()
   return (
     <div style={{ position: "relative", overflow: "hidden", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "14px 16px", boxShadow: t.shadowSm }}>
-      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${t.accent}, ${t.amber})` }} />
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${t.accent}, ${t.accentSoft})` }} />
       <div style={{ color: t.subtle, fontSize: 11, letterSpacing: "0.08em", marginBottom: 6 }}>{label}</div>
       <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
         <span style={{ color: t.textStrong, fontSize: 28, fontWeight: 700, fontFamily: FONT_MONO }}>{value}</span>
@@ -852,10 +868,12 @@ function MetricCard({ label, value, unit, badge, badgeColor, badgeBg, comparison
 function BasisBadge({ children, tone = "info" }) {
   const t = useT()
   const palette = {
-    info: { color: t.info, bg: "rgba(56,189,248,0.13)", border: t.info },
-    calc: { color: t.success, bg: "rgba(56,189,248,0.13)", border: t.success },
-    proxy: { color: t.warn, bg: "rgba(56,189,248,0.12)", border: t.warn },
-    user: { color: t.muted, bg: t.surface, border: t.borderStrong },
+    info: { color: t.badgeInfoText, bg: t.badgeInfoBg, border: "rgba(110,168,255,0.26)" },
+    calc: { color: t.badgeCalcText, bg: t.badgeCalcBg, border: "rgba(156,178,212,0.24)" },
+    proxy: { color: t.badgeProxyText, bg: t.badgeProxyBg, border: "rgba(183,169,255,0.28)" },
+    user: { color: t.badgeUserText, bg: t.badgeUserBg, border: "rgba(156,178,212,0.18)" },
+    warn: { color: t.badgeWarnText, bg: t.badgeWarnBg, border: "rgba(246,201,142,0.42)" },
+    danger: { color: t.badgeDangerText, bg: t.badgeDangerBg, border: "rgba(232,134,134,0.42)" },
   }[tone] || {}
   return (
     <span style={{ display: "inline-flex", alignItems: "center", width: "fit-content",
@@ -880,10 +898,10 @@ function InfoTip({ text }) {
 function Callout({ tone = "info", children }) {
   const t = useT()
   const palette = {
-    info: { bg: "rgba(56,189,248,0.11)", border: t.accent, color: t.accentSoft },
-    warn: { bg: "rgba(56,189,248,0.12)", border: t.warn,   color: t.warn },
-    danger:{ bg: "rgba(251,113,133,0.12)", border: t.danger, color: t.danger },
-    success:{ bg: "rgba(56,189,248,0.12)", border: t.success, color: t.success },
+    info: { bg: t.badgeInfoBg, border: t.accent, color: t.badgeInfoText },
+    warn: { bg: t.badgeWarnBg, border: t.warn, color: t.badgeWarnText },
+    danger:{ bg: t.badgeDangerBg, border: t.danger, color: t.badgeDangerText },
+    success:{ bg: t.badgeCalcBg, border: t.lcaAccent, color: t.badgeCalcText },
   }[tone]
   return (
     <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 8,
@@ -976,7 +994,7 @@ function buildDecisionModel(results, inputs, c) {
     { name: "IRP", value: burden(c.lca.shortMetal) * 0.60 + burden(c.lca.shortLinker) * 0.25 + burden(c.lca.shortEnergy) * 0.15, def: c.lca.indicatorIrp },
     { name: "ET",  value: burden(c.lca.shortMetal) * 0.35 + burden(c.lca.shortWaste) * 0.35 + burden(c.lca.shortAir) * 0.20 + burden(c.lca.shortWater) * 0.10, def: c.lca.indicatorEt },
   ].map(item => ({ ...item, value: Number(item.value.toFixed(2)) }))
-  const roseColors = ["#0284c7", "#0ea5e9", "#38bdf8", "#7dd3fc", "#93c5fd", "#bae6fd"]
+  const roseColors = ["#6EA8FF", "#8FD9C8", "#F6C98E", "#B7A9FF", "#9CB2D4", "#BFD9FF"]
   const windRoseData = indicatorData.map((item, index) => ({
     ...item,
     value: Number((0.5 + item.value * 0.45).toFixed(1)),
@@ -1286,20 +1304,20 @@ function HomeTab({ setActiveTab }) {
   const sectionTitleStyle = { margin: 0, color: t.textStrong, fontSize: isMobile ? 26 : 34, lineHeight: 1.12, letterSpacing: 0 }
   const cardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, boxShadow: t.shadowSm, backdropFilter: "blur(18px) saturate(135%)" }
   const heroTiles = lang === "zh" ? [
-    ["吸附性能", "强候选", "3.8 mmol/g"],
-    ["环境负担", "中等影响", "Eco 7.2/10"],
-    ["生命周期成本", "成本敏感", "$41/kg"],
-    ["稳健性", "基准情景稳定", "72%"],
+    ["吸附性能", "强候选", "3.8 mmol/g", t.performance],
+    ["环境负担", "中等影响", "Eco 7.2/10", t.lcaAccent],
+    ["生命周期成本", "成本敏感", "$41/kg", t.lccAccent],
+    ["稳健性", "基准情景稳定", "72%", t.sensitivityAccent],
   ] : [
-    ["Performance", "Strong candidate", "3.8 mmol/g"],
-    ["Environmental burden", "Medium impact", "Eco 7.2/10"],
-    ["Lifecycle cost", "Cost-sensitive", "$41/kg"],
-    ["Robustness", "Stable in base scenarios", "72%"],
+    ["Performance", "Strong candidate", "3.8 mmol/g", t.performance],
+    ["Environmental burden", "Medium impact", "Eco 7.2/10", t.lcaAccent],
+    ["Lifecycle cost", "Cost-sensitive", "$41/kg", t.lccAccent],
+    ["Robustness", "Stable in base scenarios", "72%", t.sensitivityAccent],
   ]
   const capabilities = [
-    { key: "performance", badge: "Model-predicted", title: c.home.predict, body: c.home.predictBody },
-    { key: "impact", badge: "LCA / LCC", title: c.home.evaluate, body: c.home.evaluateBody, featured: true },
-    { key: "robustness", badge: "Sensitivity-aware", title: c.home.robustness, body: c.home.robustnessBody },
+    { key: "performance", badge: "Model-predicted", title: c.home.predict, body: c.home.predictBody, accent: t.performance },
+    { key: "impact", badge: "LCA / LCC", title: c.home.evaluate, body: c.home.evaluateBody, featured: true, accent: t.lcaAccent },
+    { key: "robustness", badge: "Sensitivity-aware", title: c.home.robustness, body: c.home.robustnessBody, accent: t.sensitivityAccent },
   ]
   const workflow = lang === "zh" ? [
     ["01", "Select", "选择材料、气体体系和操作条件。"],
@@ -1390,7 +1408,7 @@ function HomeTab({ setActiveTab }) {
             borderLeft: `1px solid ${t.border}`,
             margin: "26px 0",
           }}>
-            {heroTiles.map(([title, status, value]) => (
+            {heroTiles.map(([title, status, value, accent]) => (
               <div key={title} style={{
                 minHeight: 120,
                 padding: isMobile ? 14 : 18,
@@ -1400,10 +1418,13 @@ function HomeTab({ setActiveTab }) {
                 flexDirection: "column",
                 justifyContent: "space-between",
               }}>
-                <div style={{ color: t.subtle, fontSize: 12, fontWeight: 750 }}>{title}</div>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, color: t.subtle, fontSize: 12, fontWeight: 750 }}>
+                  <span style={{ width: 7, height: 7, borderRadius: "50%", background: accent }} />
+                  {title}
+                </div>
                 <div>
                   <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850, lineHeight: 1.25 }}>{status}</div>
-                  <div style={{ color: t.accentText, fontSize: 12, marginTop: 6, fontFamily: FONT_MONO }}>{value}</div>
+                  <div style={{ color: accent, fontSize: 12, marginTop: 6, fontFamily: FONT_MONO, fontWeight: 800 }}>{value}</div>
                 </div>
               </div>
             ))}
@@ -1420,10 +1441,13 @@ function HomeTab({ setActiveTab }) {
           {capabilities.map(item => (
             <div key={item.key} style={{
               ...cardStyle,
+              position: "relative",
+              overflow: "hidden",
               minHeight: item.featured && !isNarrow ? 190 : 170,
               transform: item.featured && !isNarrow ? "translateY(-8px)" : "none",
               borderColor: item.featured ? t.borderStrong : t.border,
             }}>
+              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: item.accent }} />
               <div style={{ width: 34, height: 34, borderRadius: 8, border: `1px solid ${t.borderStrong}`, color: t.accentText,
                 display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 850, marginBottom: 18 }}>
                 {item.key === "performance" ? "P" : item.key === "impact" ? "L" : "S"}
@@ -1908,7 +1932,7 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
                       <PolarGrid stroke={t.border} />
                       <PolarAngleAxis dataKey="subject" tick={{ fill: t.subtle, fontSize: 9 }} />
                       <PolarRadiusAxis angle={30} domain={[0,10]} tick={false} />
-                      <Radar name="LCA" dataKey="A" stroke={t.success} fill={t.success} fillOpacity={0.25} strokeWidth={2} />
+                      <Radar name="LCA" dataKey="A" stroke={t.lcaAccent} fill={t.lcaAccent} fillOpacity={0.25} strokeWidth={2} />
                     </RadarChart>
                   </ResponsiveContainer>
                   <div>
@@ -2298,7 +2322,7 @@ function ThermodynamicsTab({ results }) {
               ))}
               <div style={{
                 color: uploadedAnalysis.summary.qstReady ? t.success : t.warn,
-                background: uploadedAnalysis.summary.qstReady ? "rgba(56,189,248,0.12)" : "rgba(56,189,248,0.12)",
+                background: uploadedAnalysis.summary.qstReady ? t.badgeCalcBg : t.badgeWarnBg,
                 border: `1px solid ${uploadedAnalysis.summary.qstReady ? t.success : t.warn}`,
                 borderRadius: 8,
                 padding: "8px 10px",
@@ -2322,7 +2346,7 @@ function ThermodynamicsTab({ results }) {
                     <Tooltip content={<CustomTooltip />} />
                     <Legend wrapperStyle={{ fontSize: 11, color: t.subtle }} />
                     <Line type="monotone" dataKey="observed" stroke={t.accent} strokeWidth={2.2} name={`${primaryUploadedFit.temperature} K observed`} />
-                    <Line type="monotone" dataKey="fit" stroke={t.success} strokeWidth={2.2} dot={false} name="Langmuir fit" />
+                    <Line type="monotone" dataKey="fit" stroke={t.lcaAccent} strokeWidth={2.2} dot={false} name="Langmuir fit" />
                   </LineChart>
                 </ResponsiveContainer>
               ) : (
@@ -2358,7 +2382,7 @@ function ThermodynamicsTab({ results }) {
               <Legend wrapperStyle={{ fontSize: 11, color: t.subtle }} />
               <Line type="monotone" dataKey="T273" stroke={t.cyan} strokeWidth={2} dot={false} name="273 K" />
               <Line type="monotone" dataKey="T298" stroke={t.accent}  strokeWidth={2} dot={false} name="298 K" />
-              <Line type="monotone" dataKey="T323" stroke={t.rose}   strokeWidth={2} dot={false} name="323 K" />
+              <Line type="monotone" dataKey="T323" stroke={t.accentSoft}   strokeWidth={2} dot={false} name="323 K" />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -2374,7 +2398,7 @@ function ThermodynamicsTab({ results }) {
               <YAxis stroke={t.faint} tick={{ fill: t.subtle, fontSize: 10 }} domain={['auto','auto']}
                 label={{ value: "Qst (kJ/mol)", fill: t.subtle, fontSize: 10, angle: -90, dx: -10 }} />
               <Tooltip content={<CustomTooltip unitX="mmol/g" unitY="kJ/mol" />} />
-              <Line type="monotone" dataKey="qst" stroke={t.success} strokeWidth={2.5} dot={false} name="Qst" />
+              <Line type="monotone" dataKey="qst" stroke={t.accentStrong} strokeWidth={2.5} dot={false} name="Qst" />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -2732,8 +2756,8 @@ function LCAScoringTab({ results, inputs }) {
                 <PolarRadiusAxis angle={30} domain={[0, 5]} tick={{ fill: t.faint, fontSize: 9 }} />
                 <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
                 <Legend wrapperStyle={{ fontSize: 10, color: t.subtle }} />
-                <Radar name={c.lca.sensMetal} dataKey="metal" stroke={t.rose} fill={t.rose} fillOpacity={0.12} strokeWidth={2} />
-                <Radar name={c.lca.sensProcess} dataKey="process" stroke={t.violet} fill={t.violet} fillOpacity={0.10} strokeWidth={2} />
+                <Radar name={c.lca.sensMetal} dataKey="metal" stroke={t.lcaAccent} fill={t.lcaAccent} fillOpacity={0.12} strokeWidth={2} />
+                <Radar name={c.lca.sensProcess} dataKey="process" stroke={t.sensitivityAccent} fill={t.sensitivityAccent} fillOpacity={0.10} strokeWidth={2} />
                 <Radar name={c.lca.sensSolvent} dataKey="solvent" stroke={t.accent} fill={t.accent} fillOpacity={0.10} strokeWidth={2} />
               </RadarChart>
             </ResponsiveContainer>
@@ -2765,7 +2789,7 @@ function LCAScoringTab({ results, inputs }) {
               <XAxis type="number" tick={{ fill: t.subtle, fontSize: 10 }} />
               <YAxis type="category" dataKey="name" tick={{ fill: t.muted, fontSize: 11 }} width={96} />
               <Tooltip formatter={(value) => [`${currency.symbol}${value}`, c.lca.lcc]} contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
-              <Bar dataKey="convertedValue" name={c.lca.lcc} fill={t.accent} radius={[0, 4, 4, 0]} />
+              <Bar dataKey="convertedValue" name={c.lca.lcc} fill={t.lccAccent} radius={[0, 4, 4, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -3010,7 +3034,7 @@ function SensitivityTab({ results, inputs }) {
               <XAxis type="number" tick={{ fill: t.subtle, fontSize: 10 }} />
               <YAxis type="category" dataKey="parameter" width={108} tick={{ fill: t.subtle, fontSize: 10 }} />
               <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
-              <Bar dataKey="effect" fill={t.warn} radius={[0, 4, 4, 0]} />
+              <Bar dataKey="effect" fill={t.sensitivityAccent} radius={[0, 4, 4, 0]} />
             </BarChart>
           </ResponsiveContainer>
           <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 8 }}>
@@ -3100,7 +3124,7 @@ function SensitivityTab({ results, inputs }) {
               <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
               <Area type="monotone" dataKey="p95" stroke="none" fill={t.accent} fillOpacity={0.12} name="p95" />
               <Area type="monotone" dataKey="p05" stroke="none" fill={t.bg} fillOpacity={1} name="p05" />
-              <Line type="monotone" dataKey="p50" stroke={t.success} strokeWidth={2} dot={false} name="p50" />
+              <Line type="monotone" dataKey="p50" stroke={t.accentStrong} strokeWidth={2} dot={false} name="p50" />
             </AreaChart>
           </ResponsiveContainer>
           <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5 }}>{c.common.uncertaintyNote}</div>
@@ -3250,7 +3274,7 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
             <YAxis type="number" dataKey="predicted" name="Predicted" tick={{ fill: t.subtle, fontSize: 11 }}
               label={{ value: "Predicted uptake", fill: t.subtle, fontSize: 11, angle: -90, dx: -10 }} />
             <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
-            <ReferenceLine segment={[{ x: 0, y: 0 }, { x: 10, y: 10 }]} stroke={t.accent} strokeDasharray="4 4" />
+            <ReferenceLine segment={[{ x: 0, y: 0 }, { x: 10, y: 10 }]} stroke={t.validationAccent} strokeDasharray="4 4" />
             <Scatter data={validationData} fill={t.accent} />
           </ScatterChart>
         </ResponsiveContainer>
@@ -3307,7 +3331,7 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
               <XAxis dataKey="name" tick={{ fill: t.subtle, fontSize: 9, angle: -35, textAnchor: "end" }} interval={0} height={60} />
               <YAxis tick={{ fill: t.subtle, fontSize: 10 }} />
               <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
-              <Bar dataKey="residual" name="Predicted - reference" fill={t.warn} radius={[4, 4, 0, 0]} />
+              <Bar dataKey="residual" name="Predicted - reference" fill={t.validationAccent} radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -3321,7 +3345,7 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
               <XAxis dataKey="bin" tick={{ fill: t.subtle, fontSize: 10, angle: -18, textAnchor: "end" }} height={42} />
               <YAxis allowDecimals={false} tick={{ fill: t.subtle, fontSize: 10 }} />
               <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
-              <Bar dataKey="count" name="count" fill={t.accent} radius={[4, 4, 0, 0]} />
+              <Bar dataKey="count" name="count" fill={t.validationAccent} radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
           <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
@@ -3606,7 +3630,7 @@ function LiteratureTab({ results, inputs }) {
               <ZAxis type="number" dataKey="lca" range={[90, 540]} />
               <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
               <Scatter data={compareItems.slice(1)} fill={t.accent} name={c.common.benchmarkSet} />
-              <Scatter data={compareItems.slice(0, 1)} fill={t.success} name={c.common.currentCandidate} />
+              <Scatter data={compareItems.slice(0, 1)} fill={t.accentStrong} name={c.common.currentCandidate} />
             </ScatterChart>
           </ResponsiveContainer>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 8, marginTop: 10 }}>
@@ -3921,10 +3945,10 @@ function MethodsLimitationsTab() {
   const bodyText = { color: t.muted, fontSize: 12, lineHeight: 1.7 }
   const statusPill = (tone) => {
     const palette = {
-      stable: { bg: "rgba(56,189,248,0.12)", color: t.success, border: t.success },
-      beta: { bg: "rgba(56,189,248,0.12)", color: t.warn, border: t.warn },
-      planned: { bg: "rgba(167,139,250,0.13)", color: t.info, border: t.info },
-      limited: { bg: "rgba(251,113,133,0.12)", color: t.danger, border: t.danger },
+      stable: { bg: t.badgeCalcBg, color: t.badgeCalcText, border: t.validationAccent },
+      beta: { bg: t.badgeWarnBg, color: t.badgeWarnText, border: t.warn },
+      planned: { bg: t.badgeProxyBg, color: t.badgeProxyText, border: t.sensitivityAccent },
+      limited: { bg: t.badgeDangerBg, color: t.badgeDangerText, border: t.danger },
     }[tone]
     return {
       display: "inline-flex",
@@ -4870,7 +4894,7 @@ export default function App() {
       <ViewportCtx.Provider value={viewport}>
       <div style={{
         minHeight: "100vh",
-        background: `radial-gradient(circle at 14% 0%, ${darkMode ? "rgba(56,189,248,0.20)" : "rgba(56,189,248,0.13)"}, transparent 30%), radial-gradient(circle at 84% 9%, ${darkMode ? "rgba(125,211,252,0.14)" : "rgba(125,211,252,0.10)"}, transparent 25%), radial-gradient(circle at 48% 100%, ${darkMode ? "rgba(147,197,253,0.11)" : "rgba(147,197,253,0.07)"}, transparent 31%), ${t.bg}`,
+        background: `radial-gradient(circle at 14% 0%, ${darkMode ? "rgba(124,180,255,0.20)" : "rgba(110,168,255,0.12)"}, transparent 30%), radial-gradient(circle at 84% 9%, ${darkMode ? "rgba(168,202,255,0.12)" : "rgba(255,255,255,0.55)"}, transparent 25%), radial-gradient(circle at 48% 100%, ${darkMode ? "rgba(110,168,255,0.10)" : "rgba(234,244,255,0.72)"}, transparent 31%), ${t.bg}`,
         color: t.text,
         fontFamily: FONT_SANS,
       }}>
@@ -4894,13 +4918,13 @@ export default function App() {
             {TABS.map(tab => (
               <button key={tab.id} onClick={() => setActiveTab(tab.id)}
                 style={{
-                  background: activeTab === tab.id ? t.accent : "transparent",
-                  border: activeTab === tab.id ? `1px solid ${t.accentSoft}` : "1px solid transparent",
+                  background: activeTab === tab.id ? t.badgeInfoBg : "transparent",
+                  border: activeTab === tab.id ? `1px solid ${t.borderStrong}` : "1px solid transparent",
                   cursor: "pointer", height: 30,
                   padding: "0 12px", fontSize: 13, fontWeight: activeTab === tab.id ? 800 : 600,
-                  color: activeTab === tab.id ? "#fff" : t.subtle,
+                  color: activeTab === tab.id ? t.accentText : t.subtle,
                   borderRadius: 6,
-                  boxShadow: activeTab === tab.id ? `0 0 0 1px ${t.borderStrong}, 0 8px 18px rgba(56,189,248,0.20)` : "none",
+                  boxShadow: activeTab === tab.id ? `0 8px 18px rgba(46,94,170,0.08)` : "none",
                   transition: "all 0.15s", fontFamily: FONT_SANS, whiteSpace: "nowrap",
                 }}>
                 {copy.tabs[tab.copyKey]}

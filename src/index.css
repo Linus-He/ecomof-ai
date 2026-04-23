@@ -6,7 +6,7 @@
 
 html, body, #root {
   height: 100%;
-  background: #060f1e;
+  background: #F7FAFE;
 }
 
 body {
@@ -17,9 +17,9 @@ body {
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #0a1628; }
-::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #2d5286; }
+::-webkit-scrollbar-track { background: #F3F8FD; }
+::-webkit-scrollbar-thumb { background: #BFD9FF; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #6EA8FF; }
 
 /* Range input */
 input[type="range"] { -webkit-appearance: none; appearance: none; }
@@ -29,9 +29,9 @@ input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
 
 /* Selection */
-::selection { background: rgba(37, 99, 235, 0.35); }
+::selection { background: rgba(110, 168, 255, 0.28); }
 
 /* Smooth transitions */
 button, input, select { transition: border-color 0.15s, background 0.15s; }
-input:focus, select:focus { border-color: #2563eb !important; }
+input:focus, select:focus { border-color: #6EA8FF !important; }
 button:hover:not(:disabled) { filter: brightness(1.1); }
