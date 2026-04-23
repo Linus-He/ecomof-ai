@@ -1281,157 +1281,220 @@ function buildApplicabilityPoints(inputs, results) {
 function HomeTab({ setActiveTab }) {
   const t = useT()
   const { lang, copy: c } = useLang()
-  const { isNarrow } = useViewport()
-  const cardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 18, boxShadow: t.shadowSm, backdropFilter: "blur(18px) saturate(135%)" }
-  const heroStats = lang === "zh" ? [
-    ["核心定位", "科研决策支持"],
-    ["判断链", "性能 / 环境 / 成本 / 稳健性"],
-    ["结果口径", "筛选级 + 可追溯"],
+  const { isNarrow, isMobile } = useViewport()
+  const sectionStyle = { padding: isMobile ? "56px 0" : "76px 0" }
+  const sectionTitleStyle = { margin: 0, color: t.textStrong, fontSize: isMobile ? 26 : 34, lineHeight: 1.12, letterSpacing: 0 }
+  const cardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, boxShadow: t.shadowSm, backdropFilter: "blur(18px) saturate(135%)" }
+  const heroTiles = lang === "zh" ? [
+    ["吸附性能", "强候选", "3.8 mmol/g"],
+    ["环境负担", "中等影响", "Eco 7.2/10"],
+    ["生命周期成本", "成本敏感", "$41/kg"],
+    ["稳健性", "基准情景稳定", "72%"],
   ] : [
-    ["Positioning", "Research decision support"],
-    ["Decision chain", "Performance / impact / cost / robustness"],
-    ["Result status", "Screening-level + traceable"],
+    ["Performance", "Strong candidate", "3.8 mmol/g"],
+    ["Environmental burden", "Medium impact", "Eco 7.2/10"],
+    ["Lifecycle cost", "Cost-sensitive", "$41/kg"],
+    ["Robustness", "Stable in base scenarios", "72%"],
   ]
-  const workflowCopy = lang === "zh" ? {
-    title: "从材料输入到研究判断",
-    body: "首页现在不再只是展示模型，而是把 EcoMOF-AI 定义为一个早期筛选决策入口：先看吸附表现，再解释原因，随后检查 LCA/LCC 和敏感性，最后判断是否值得继续做实验或 GCMC。",
-    start: "开始筛选",
-    evidence: "查看验证依据",
-    methods: "方法与限制",
-  } : {
-    title: "From material input to research decision",
-    body: "The homepage now positions EcoMOF-AI as an early-stage decision workflow: predict adsorption, interpret the mechanism, inspect LCA/LCC and sensitivity, then decide whether a candidate deserves experiment or GCMC follow-up.",
-    start: "Start screening",
-    evidence: "View validation",
-    methods: "Methods & limits",
+  const capabilities = [
+    { key: "performance", badge: "Model-predicted", title: c.home.predict, body: c.home.predictBody },
+    { key: "impact", badge: "LCA / LCC", title: c.home.evaluate, body: c.home.evaluateBody, featured: true },
+    { key: "robustness", badge: "Sensitivity-aware", title: c.home.robustness, body: c.home.robustnessBody },
+  ]
+  const workflow = lang === "zh" ? [
+    ["01", "Select", "选择材料、气体体系和操作条件。"],
+    ["02", "Screen", "生成性能筛选结果和解释线索。"],
+    ["03", "Evaluate", "查看生命周期影响、归一化和生命周期成本。"],
+    ["04", "Test robustness", "检查敏感性，识别结论脆弱的位置。"],
+  ] : [
+    ["01", "Select", "Choose a material, gas system, and operating conditions."],
+    ["02", "Screen", "Generate performance-oriented screening outputs and interpretation cues."],
+    ["03", "Evaluate", "Review lifecycle impacts, normalization, and lifecycle costing."],
+    ["04", "Test robustness", "Inspect sensitivity and understand where conclusions become fragile."],
+  ]
+  const benchmarks = lang === "zh" ? [
+    ["UiO-66", "用于解释结构-性能权衡的稳定参考案例。", "Benchmark-backed", "大卡"],
+    ["HKUST-1", "具有开放金属位点的经典吸附相关基准。", "Canonical case", "小卡"],
+    ["ZIF-8", "用于比较选择性和孔道可及趋势的轻量参考材料。", "Reference material", "小卡"],
+  ] : [
+    ["UiO-66", "A stable reference case for interpreting structure-performance trade-offs.", "Benchmark-backed", "large"],
+    ["HKUST-1", "Open metal site benchmark with strong adsorption relevance.", "Canonical case", "small"],
+    ["ZIF-8", "A lightweight comparison point for selectivity and pore-access trends.", "Reference material", "small"],
+  ]
+  const trustBlocks = [
+    [lang === "zh" ? "验证" : "Validation", c.home.trustValidation],
+    [lang === "zh" ? "数据来源" : "Data Sources", c.home.trustData],
+    [lang === "zh" ? "范围与限制" : "Scope and limits", c.home.trustLimits],
+  ]
+  const scrollToBenchmarks = () => {
+    document.getElementById("home-benchmarks")?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <section style={{
-        position: "relative",
-        overflow: "hidden",
-        background: `linear-gradient(135deg, ${t.glassStrong}, ${t.panel})`,
-        border: `1px solid ${t.borderStrong}`,
-        borderRadius: 14,
-        padding: isNarrow ? "28px 20px" : "42px 44px",
-        boxShadow: t.shadowMd,
-        backdropFilter: "blur(20px) saturate(145%)",
+        minHeight: isNarrow ? "auto" : "calc(100vh - 104px)",
+        display: "grid",
+        gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 0.42fr) minmax(0, 0.58fr)",
+        gap: isNarrow ? 28 : 46,
+        alignItems: "center",
+        padding: isMobile ? "42px 0 64px" : "62px 0 86px",
       }}>
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.1fr) 360px", gap: 24, alignItems: "center" }}>
-          <div>
-            <div style={{ color: t.accentSoft, fontSize: 12, fontWeight: 800, marginBottom: 12 }}>
-              {lang === "zh" ? "MOF screening beyond performance" : "MOF screening beyond performance"}
-            </div>
-            <h1 style={{ margin: 0, color: t.textStrong, fontSize: isNarrow ? 30 : 46, lineHeight: 1.08, letterSpacing: 0, maxWidth: 820 }}>
-              {c.home.title}
-            </h1>
-            <p style={{ color: t.muted, fontSize: 15, lineHeight: 1.75, maxWidth: 820, margin: "16px 0 22px" }}>
-              {c.home.subtitle}
-            </p>
-            <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-              <button onClick={() => setActiveTab("structure")} style={{ ...toolbarBtn(t), background: t.accent, color: "#fff", borderColor: t.accent, padding: "9px 14px", boxShadow: t.shadowSm }}>
-                {workflowCopy.start}
-              </button>
-              <button onClick={() => setActiveTab("validation")} style={{ ...toolbarBtn(t), padding: "9px 14px" }}>
-                {workflowCopy.evidence}
-              </button>
-              <button onClick={() => setActiveTab("methods")} style={{ ...toolbarBtn(t), padding: "9px 14px" }}>
-                {workflowCopy.methods}
-              </button>
-            </div>
+        <div>
+          <div style={{ color: t.accentText, fontSize: 12, fontWeight: 800, letterSpacing: 0, marginBottom: 18 }}>
+            {c.home.heroLabel}
           </div>
-          <div style={{ display: "grid", gap: 10 }}>
-            {heroStats.map(([label, value]) => (
-              <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
-                <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 6 }}>{label}</div>
-                <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 800, lineHeight: 1.35 }}>{value}</div>
+          <h1 style={{ margin: 0, color: t.textStrong, fontSize: isMobile ? 42 : isNarrow ? 54 : 70, lineHeight: 0.96, letterSpacing: 0 }}>
+            {c.home.title}
+          </h1>
+          <p style={{ color: t.muted, fontSize: isMobile ? 16 : 18, lineHeight: 1.55, maxWidth: 560, margin: "24px 0 26px" }}>
+            {c.home.subtitle}
+          </p>
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+            <button onClick={() => setActiveTab("structure")} style={{ ...toolbarBtn(t), background: t.accent, color: "#fff", borderColor: t.accent, padding: "10px 16px", boxShadow: t.shadowSm }}>
+              {c.home.start}
+            </button>
+            <button onClick={scrollToBenchmarks} style={{ ...toolbarBtn(t), padding: "10px 16px" }}>
+              {c.home.exploreBenchmarks}
+            </button>
+          </div>
+          <div style={{ color: t.faint, fontSize: 12, lineHeight: 1.6, marginTop: 18, maxWidth: 520 }}>
+            {c.home.heroNote}
+          </div>
+        </div>
+
+        <div style={{
+          background: `linear-gradient(135deg, ${t.panel}, ${t.glassStrong})`,
+          border: `1px solid ${t.borderStrong}`,
+          borderRadius: 16,
+          padding: isMobile ? 20 : 28,
+          boxShadow: t.shadowMd,
+          minHeight: isMobile ? 360 : 430,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          backdropFilter: "blur(20px) saturate(145%)",
+        }}>
+          <div style={{ display: "flex", justifyContent: "space-between", gap: 16, alignItems: "flex-start" }}>
+            <div>
+              <div style={{ color: t.faint, fontSize: 11, textTransform: "uppercase", marginBottom: 8 }}>{c.home.summaryCard}</div>
+              <div style={{ color: t.textStrong, fontSize: isMobile ? 24 : 30, fontWeight: 850, lineHeight: 1.08 }}>
+                {c.home.snapshotTitle}
+              </div>
+            </div>
+            <BasisBadge tone="info">v1.beta</BasisBadge>
+          </div>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            borderTop: `1px solid ${t.border}`,
+            borderLeft: `1px solid ${t.border}`,
+            margin: "26px 0",
+          }}>
+            {heroTiles.map(([title, status, value]) => (
+              <div key={title} style={{
+                minHeight: 120,
+                padding: isMobile ? 14 : 18,
+                borderRight: `1px solid ${t.border}`,
+                borderBottom: `1px solid ${t.border}`,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}>
+                <div style={{ color: t.subtle, fontSize: 12, fontWeight: 750 }}>{title}</div>
+                <div>
+                  <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850, lineHeight: 1.25 }}>{status}</div>
+                  <div style={{ color: t.accentText, fontSize: 12, marginTop: 6, fontFamily: FONT_MONO }}>{value}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65 }}>
+            {c.home.snapshotNote}
+          </div>
+        </div>
+      </section>
+
+      <section style={sectionStyle}>
+        <h2 style={sectionTitleStyle}>{c.home.capabilityTitle}</h2>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 16, marginTop: 26, alignItems: "stretch" }}>
+          {capabilities.map(item => (
+            <div key={item.key} style={{
+              ...cardStyle,
+              minHeight: item.featured && !isNarrow ? 190 : 170,
+              transform: item.featured && !isNarrow ? "translateY(-8px)" : "none",
+              borderColor: item.featured ? t.borderStrong : t.border,
+            }}>
+              <div style={{ width: 34, height: 34, borderRadius: 8, border: `1px solid ${t.borderStrong}`, color: t.accentText,
+                display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 850, marginBottom: 18 }}>
+                {item.key === "performance" ? "P" : item.key === "impact" ? "L" : "S"}
+              </div>
+              <BasisBadge tone={item.featured ? "calc" : "info"}>{item.badge}</BasisBadge>
+              <div style={{ color: t.textStrong, fontSize: 20, fontWeight: 850, lineHeight: 1.2, marginTop: 16 }}>{item.title}</div>
+              <div style={{ color: t.subtle, fontSize: 13, lineHeight: 1.55, marginTop: 10 }}>{item.body}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section style={sectionStyle}>
+        <h2 style={sectionTitleStyle}>{c.home.workflowTitle}</h2>
+        <div style={{ marginTop: 34, position: "relative" }}>
+          {!isNarrow && (
+            <div style={{ position: "absolute", left: "8%", right: "8%", top: 23, height: 1, background: t.borderStrong }} />
+          )}
+          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: isNarrow ? 22 : 24 }}>
+            {workflow.map(([num, title, body]) => (
+              <div key={num} style={{ position: "relative", paddingTop: isNarrow ? 0 : 54 }}>
+                {!isNarrow && (
+                  <div style={{ position: "absolute", top: 13, left: 0, width: 22, height: 22, borderRadius: "50%", background: t.bg, border: `2px solid ${t.accent}` }} />
+                )}
+                <div style={{ color: t.accentText, fontSize: 12, fontFamily: FONT_MONO, fontWeight: 850 }}>{num}</div>
+                <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 850, marginTop: 8 }}>{title}</div>
+                <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.6, marginTop: 8, maxWidth: 260 }}>{body}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 14 }}>
-        {[
-          { title: c.home.predict, body: c.home.predictBody },
-          { title: c.home.evaluate, body: c.home.evaluateBody },
-          { title: c.home.robustness, body: c.home.robustnessBody },
-        ].map(item => (
-          <div key={item.title} style={cardStyle}>
-            <div style={{ color: t.accentSoft, fontSize: 13, fontWeight: 800, marginBottom: 8 }}>{item.title}</div>
-            <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.65 }}>{item.body}</div>
-          </div>
-        ))}
-      </div>
-
-      <div style={cardStyle}>
-        <div style={{ display: "flex", justifyContent: "space-between", gap: 14, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 12 }}>
-          <div>
-            <SectionTitle>{c.home.workflow}</SectionTitle>
-            <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, maxWidth: 760 }}>{workflowCopy.body}</div>
-          </div>
-          <BasisBadge tone="info">{workflowCopy.title}</BasisBadge>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(6, minmax(0, 1fr))", gap: 10 }}>
-          {c.home.workflowSteps.map((step, index) => (
-            <div key={step} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-              <div style={{ color: t.faint, fontSize: 10, marginBottom: 8 }}>STEP {index + 1}</div>
-              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 700 }}>{step}</div>
+      <section id="home-benchmarks" style={sectionStyle}>
+        <h2 style={sectionTitleStyle}>{c.home.benchmarkTitle}</h2>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1.08fr 0.92fr", gap: 16, marginTop: 26 }}>
+          <div style={{ ...cardStyle, minHeight: isNarrow ? 260 : 360, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+            <div>
+              <BasisBadge tone="calc">{benchmarks[0][2]}</BasisBadge>
+              <div style={{ color: t.textStrong, fontSize: isMobile ? 34 : 48, fontWeight: 880, letterSpacing: 0, marginTop: 22 }}>{benchmarks[0][0]}</div>
+              <div style={{ color: t.muted, fontSize: 15, lineHeight: 1.6, maxWidth: 540, marginTop: 14 }}>{benchmarks[0][1]}</div>
             </div>
-          ))}
-        </div>
-      </div>
-
-      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
-        <div style={cardStyle}>
-          <SectionTitle>{c.common.benchmarkCases}</SectionTitle>
-          <div style={{ display: "grid", gap: 8 }}>
-            {LITERATURE_DB.slice(1, 5).map(item => (
-              <div key={item.name} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10,
-                display: "grid", gridTemplateColumns: "1fr 70px 80px", gap: 8, alignItems: "center", color: t.subtle, fontSize: 12 }}>
-                <strong style={{ color: t.textStrong }}>{item.name}</strong>
-                <span>{item.co2} CO2</span>
-                <span>Sel. {item.selectivity}</span>
+            <button type="button" onClick={() => setActiveTab("literature")} style={{ ...toolbarBtn(t), width: "fit-content", padding: "9px 13px" }}>
+              {c.home.viewCase}
+            </button>
+          </div>
+          <div style={{ display: "grid", gridTemplateRows: isNarrow ? "auto auto" : "1fr 1fr", gap: 16 }}>
+            {benchmarks.slice(1).map(([name, body, tag]) => (
+              <div key={name} style={{ ...cardStyle, minHeight: 170, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                <div>
+                  <BasisBadge tone="info">{tag}</BasisBadge>
+                  <div style={{ color: t.textStrong, fontSize: 28, fontWeight: 860, marginTop: 16 }}>{name}</div>
+                  <div style={{ color: t.subtle, fontSize: 13, lineHeight: 1.55, marginTop: 10 }}>{body}</div>
+                </div>
               </div>
             ))}
           </div>
         </div>
-        <div style={cardStyle}>
-          <SectionTitle>{c.common.citation}</SectionTitle>
-          <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.7 }}>
-            EcoMOF-AI prototype. Use outputs as early-stage screening hypotheses. Cite CoRE MOF/QMOF/literature label sources separately when using exported results.
-          </div>
-          <button onClick={() => setActiveTab("validation")} style={{ ...toolbarBtn(t), marginTop: 14 }}>
-            {c.tabs.validation}
-          </button>
+      </section>
+
+      <section style={{ ...sectionStyle, paddingBottom: isMobile ? 40 : 56 }}>
+        <h2 style={sectionTitleStyle}>{c.home.trustTitle}</h2>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 14, marginTop: 24 }}>
+          {trustBlocks.map(([title, body]) => (
+            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 18 }}>
+              <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850 }}>{title}</div>
+              <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.6, marginTop: 9 }}>{body}</div>
+            </div>
+          ))}
         </div>
-      </div>
-      <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
-        <SectionTitle>{c.common.benchmarkSet}</SectionTitle>
-        <div style={{ overflowX: "auto" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
-            <thead>
-              <tr style={{ background: t.surface }}>
-                {[c.common.dataRecord, "MOF", "CO2", "Selectivity", c.common.source, "DOI/ref"].map(h => (
-                  <th key={h} style={{ padding: "9px 10px", color: t.subtle, textAlign: "left", borderBottom: `1px solid ${t.border}` }}>{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {LITERATURE_DB.slice(0, 10).map((m, index) => (
-                <tr key={m.name} style={{ borderBottom: `1px solid ${t.divider}` }}>
-                  <td style={{ padding: "8px 10px", color: t.faint }}>{index + 1}</td>
-                  <td style={{ padding: "8px 10px", color: t.textStrong, fontWeight: 700 }}>{m.name}</td>
-                  <td style={{ padding: "8px 10px", color: t.success, fontFamily: FONT_MONO }}>{m.co2}</td>
-                  <td style={{ padding: "8px 10px", color: t.accentSoft, fontFamily: FONT_MONO }}>{m.selectivity}</td>
-                  <td style={{ padding: "8px 10px", color: t.muted }}>{m.sourceType}</td>
-                  <td style={{ padding: "8px 10px", color: t.faint }}>{m.doi}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      </section>
     </div>
   )
 }
