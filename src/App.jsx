@@ -3358,6 +3358,7 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
 function LiteratureTab({ results, inputs }) {
   const t = useT()
   const { lang, copy: c } = useLang()
+  const { isNarrow } = useViewport()
   const [query, setQuery] = useState("")
   const [sortKey, setSortKey] = useState("co2")
   const [structureRows, setStructureRows] = useState([])
