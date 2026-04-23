@@ -11,23 +11,29 @@ import { COPY } from "./i18n"
 // ─── Theme ──────────────────────────────────────────────────────────────────
 
 const THEME_DARK = {
-  bg: "#060f1e", headerBg: "#0a1628", panel: "#0d1f3c", surface: "#0a1e38",
-  border: "#1e3a5f", borderStrong: "#2d5286",
+  bg: "#07111f", headerBg: "rgba(9,18,32,0.84)", panel: "rgba(13,31,60,0.78)", surface: "rgba(255,255,255,0.055)",
+  border: "rgba(148,163,184,0.18)", borderStrong: "rgba(147,197,253,0.32)",
   text: "#e2e8f0", textStrong: "#f1f5f9", muted: "#94a3b8",
   subtle: "#64748b", faint: "#475569", veryFaint: "#334155",
   accent: "#2563eb", accentStrong: "#1d4ed8", accentSoft: "#93c5fd", accentText: "#3b82f6",
   success: "#10b981", warn: "#f59e0b", danger: "#ef4444",
-  tooltipBg: "#0f2744", divider: "#0f2744",
+  tooltipBg: "#0f2744", divider: "rgba(148,163,184,0.14)",
+  glass: "rgba(255,255,255,0.075)", glassStrong: "rgba(255,255,255,0.115)",
+  chartBg: "rgba(13,31,60,0.88)", shadowSm: "0 8px 20px rgba(0,0,0,0.22)",
+  shadowMd: "0 18px 42px rgba(0,0,0,0.28)",
 }
 
 const THEME_LIGHT = {
-  bg: "#f1f5f9", headerBg: "#ffffff", panel: "#ffffff", surface: "#f8fafc",
-  border: "#cbd5e1", borderStrong: "#94a3b8",
+  bg: "#f5f7fb", headerBg: "rgba(255,255,255,0.78)", panel: "rgba(255,255,255,0.76)", surface: "rgba(248,250,252,0.78)",
+  border: "rgba(15,23,42,0.10)", borderStrong: "rgba(37,99,235,0.22)",
   text: "#0f172a", textStrong: "#020617", muted: "#334155",
   subtle: "#475569", faint: "#64748b", veryFaint: "#94a3b8",
   accent: "#2563eb", accentStrong: "#1d4ed8", accentSoft: "#1e40af", accentText: "#1d4ed8",
   success: "#047857", warn: "#b45309", danger: "#b91c1c",
-  tooltipBg: "#ffffff", divider: "#e2e8f0",
+  tooltipBg: "#ffffff", divider: "rgba(15,23,42,0.08)",
+  glass: "rgba(255,255,255,0.64)", glassStrong: "rgba(255,255,255,0.86)",
+  chartBg: "rgba(255,255,255,0.86)", shadowSm: "0 8px 22px rgba(15,23,42,0.06)",
+  shadowMd: "0 18px 45px rgba(15,23,42,0.10)",
 }
 
 const ThemeCtx = createContext(THEME_DARK)
@@ -1252,25 +1258,74 @@ function buildApplicabilityPoints(inputs, results) {
 
 function HomeTab({ setActiveTab }) {
   const t = useT()
-  const { copy: c } = useLang()
+  const { lang, copy: c } = useLang()
   const { isNarrow } = useViewport()
-  const cardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 18 }
+  const cardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 18, boxShadow: t.shadowSm, backdropFilter: "blur(18px) saturate(135%)" }
+  const heroStats = lang === "zh" ? [
+    ["核心定位", "科研决策支持"],
+    ["判断链", "性能 / 环境 / 成本 / 稳健性"],
+    ["结果口径", "筛选级 + 可追溯"],
+  ] : [
+    ["Positioning", "Research decision support"],
+    ["Decision chain", "Performance / impact / cost / robustness"],
+    ["Result status", "Screening-level + traceable"],
+  ]
+  const workflowCopy = lang === "zh" ? {
+    title: "从材料输入到研究判断",
+    body: "首页现在不再只是展示模型，而是把 EcoMOF-AI 定义为一个早期筛选决策入口：先看吸附表现，再解释原因，随后检查 LCA/LCC 和敏感性，最后判断是否值得继续做实验或 GCMC。",
+    start: "开始筛选",
+    evidence: "查看验证依据",
+    methods: "方法与限制",
+  } : {
+    title: "From material input to research decision",
+    body: "The homepage now positions EcoMOF-AI as an early-stage decision workflow: predict adsorption, interpret the mechanism, inspect LCA/LCC and sensitivity, then decide whether a candidate deserves experiment or GCMC follow-up.",
+    start: "Start screening",
+    evidence: "View validation",
+    methods: "Methods & limits",
+  }
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-      <section style={{ padding: isNarrow ? "26px 4px" : "42px 6px", maxWidth: 980 }}>
-        <h1 style={{ margin: 0, color: t.textStrong, fontSize: isNarrow ? 30 : 44, lineHeight: 1.08, letterSpacing: 0 }}>
-          {c.home.title}
-        </h1>
-        <p style={{ color: t.muted, fontSize: 15, lineHeight: 1.7, maxWidth: 780, margin: "16px 0 22px" }}>
-          {c.home.subtitle}
-        </p>
-        <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-          <button onClick={() => setActiveTab("structure")} style={{ ...toolbarBtn(t), background: t.accent, color: "#fff", borderColor: t.accent }}>
-            {c.tabs.structure}
-          </button>
-          <button onClick={() => setActiveTab("lca")} style={toolbarBtn(t)}>
-            {c.tabs.lca}
-          </button>
+      <section style={{
+        position: "relative",
+        overflow: "hidden",
+        background: `linear-gradient(135deg, ${t.glassStrong}, ${t.panel})`,
+        border: `1px solid ${t.borderStrong}`,
+        borderRadius: 14,
+        padding: isNarrow ? "28px 20px" : "42px 44px",
+        boxShadow: t.shadowMd,
+        backdropFilter: "blur(20px) saturate(145%)",
+      }}>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.1fr) 360px", gap: 24, alignItems: "center" }}>
+          <div>
+            <div style={{ color: t.accentSoft, fontSize: 12, fontWeight: 800, marginBottom: 12 }}>
+              {lang === "zh" ? "MOF screening beyond performance" : "MOF screening beyond performance"}
+            </div>
+            <h1 style={{ margin: 0, color: t.textStrong, fontSize: isNarrow ? 30 : 46, lineHeight: 1.08, letterSpacing: 0, maxWidth: 820 }}>
+              {c.home.title}
+            </h1>
+            <p style={{ color: t.muted, fontSize: 15, lineHeight: 1.75, maxWidth: 820, margin: "16px 0 22px" }}>
+              {c.home.subtitle}
+            </p>
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+              <button onClick={() => setActiveTab("structure")} style={{ ...toolbarBtn(t), background: t.accent, color: "#fff", borderColor: t.accent, padding: "9px 14px", boxShadow: t.shadowSm }}>
+                {workflowCopy.start}
+              </button>
+              <button onClick={() => setActiveTab("validation")} style={{ ...toolbarBtn(t), padding: "9px 14px" }}>
+                {workflowCopy.evidence}
+              </button>
+              <button onClick={() => setActiveTab("methods")} style={{ ...toolbarBtn(t), padding: "9px 14px" }}>
+                {workflowCopy.methods}
+              </button>
+            </div>
+          </div>
+          <div style={{ display: "grid", gap: 10 }}>
+            {heroStats.map(([label, value]) => (
+              <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
+                <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 6 }}>{label}</div>
+                <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 800, lineHeight: 1.35 }}>{value}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -1288,7 +1343,13 @@ function HomeTab({ setActiveTab }) {
       </div>
 
       <div style={cardStyle}>
-        <SectionTitle>{c.home.workflow}</SectionTitle>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 14, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 12 }}>
+          <div>
+            <SectionTitle>{c.home.workflow}</SectionTitle>
+            <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, maxWidth: 760 }}>{workflowCopy.body}</div>
+          </div>
+          <BasisBadge tone="info">{workflowCopy.title}</BasisBadge>
+        </div>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(6, minmax(0, 1fr))", gap: 10 }}>
           {c.home.workflowSteps.map((step, index) => (
             <div key={step} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
@@ -1353,7 +1414,7 @@ function HomeTab({ setActiveTab }) {
   )
 }
 
-function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onSaveRun, apiUrl, setApiUrl, apiStatus, onCheckApi }) {
+function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onSaveRun, apiUrl, setApiUrl, apiStatus, onCheckApi, setActiveTab }) {
   const t = useT()
   const { lang, copy: c } = useLang()
   const { isNarrow, isMobile } = useViewport()
@@ -1423,9 +1484,29 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
   const labelStyle = { display: "block", color: t.subtle, fontSize: 11, fontWeight: 700, letterSpacing: 0, marginBottom: 6 }
   const selectStyle = { width: "100%", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "8px 10px", color: t.text, fontSize: 12, outline: "none", cursor: "pointer", marginBottom: 4 }
   const numInputStyle = { width: "100%", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "7px 10px", color: t.text, fontSize: 13, fontFamily: FONT_MONO, outline: "none" }
+  const hasUsableResults = results && !results.unavailable
+  const decisionTips = hasUsableResults
+    ? (lang === "zh" ? [
+        ["为什么是这个结果", `${results.primaryName} uptake 主要由 BET、孔体积、孔径匹配和 ${inputs.organicLinker} 连接体贡献。选择性仍是 screening proxy，不是严格混合气 IAST。`],
+        ["可信度", `当前置信度 ${(results.confidenceScore * 100).toFixed(0)}%。${results.applicability?.warnings?.length ? "输入已有适用域警告，建议补真实等温线或 GCMC 标签。" : "输入位于基准范围附近，可用于早期候选比较。"}`],
+        ["下一步", "先看 Interpretation/Qst 判断吸附原因，再进入 LCA/LCC 和 Sensitivity 检查环境、成本和结论稳健性。"],
+      ] : [
+        ["Why this result", `${results.primaryName} uptake is mainly driven by BET, pore volume, pore matching, and the ${inputs.organicLinker} linker. Selectivity remains a screening proxy, not rigorous mixture IAST.`],
+        ["Confidence", `Current confidence is ${(results.confidenceScore * 100).toFixed(0)}%. ${results.applicability?.warnings?.length ? "Applicability warnings are present; add real isotherm or GCMC labels before strong claims." : "The input is close to benchmark ranges and is usable for early comparison."}`],
+        ["Next steps", "Use Interpretation/Qst to inspect the mechanism, then LCA/LCC and Sensitivity to test impact, cost, and robustness."],
+      ])
+    : (lang === "zh" ? [
+        ["工作流", "左侧输入材料、气体体系和条件；点击运行后中间显示吸附结果，右侧显示解释、置信度和下一步。"],
+        ["推荐起点", "可以在顶部搜索 UiO-66、HKUST-1、ZIF-8、MOF-5 等常见 MOF，参数会自动填入。"],
+        ["结果口径", "当前网页是筛选级工具；带有 beta/proxy/basis 标记的结果不能直接当作论文级证据。"],
+      ] : [
+        ["Workflow", "Enter material, gas pair, and conditions on the left; results appear in the center, with interpretation and next steps on the right."],
+        ["Recommended start", "Search UiO-66, HKUST-1, ZIF-8, MOF-5, and other common MOFs from the top bar to auto-fill parameters."],
+        ["Result status", "This is a screening-level tool; beta/proxy/basis-marked outputs are not publication-grade evidence by themselves."],
+      ])
 
   return (
-    <div style={{ display: "flex", flexDirection: isNarrow ? "column" : "row", gap: 20, height: "100%" }}>
+    <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "315px minmax(0, 1fr) 285px", gap: 20, height: "100%", alignItems: "start" }}>
       {/* ── Left: Input Panel ── */}
       <div style={{ width: isNarrow ? "100%" : 315, flexShrink: 0, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, overflowY: "auto" }}>
         <div style={{ color: t.accentText, fontSize: 13, fontWeight: 700, letterSpacing: 0, marginBottom: 16 }}>
@@ -1784,6 +1865,40 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
           </>
         )}
       </div>
+
+      <aside style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16, boxShadow: t.shadowSm, backdropFilter: "blur(18px) saturate(135%)", position: isNarrow ? "static" : "sticky", top: 74 }}>
+        <SectionTitle>{lang === "zh" ? "解释与下一步" : "Interpretation & Next Steps"}</SectionTitle>
+        <div style={{ display: "grid", gap: 10 }}>
+          {decisionTips.map(([title, body], index) => (
+            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", marginBottom: 7 }}>
+                <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800 }}>{title}</div>
+                <BasisBadge tone={index === 1 && hasUsableResults ? "calc" : "info"}>{index + 1}</BasisBadge>
+              </div>
+              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.6 }}>{body}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ display: "grid", gap: 8, marginTop: 12 }}>
+          {[
+            ["interpretation", lang === "zh" ? "机理解释" : "Mechanism"],
+            ["lca", "LCA / LCC"],
+            ["sensitivity", lang === "zh" ? "敏感性" : "Sensitivity"],
+            ["validation", lang === "zh" ? "验证依据" : "Validation"],
+          ].map(([tab, label]) => (
+            <button key={tab} type="button" onClick={() => setActiveTab?.(tab)}
+              style={{ ...toolbarBtn(t), justifyContent: "space-between", width: "100%", padding: "8px 10px" }}>
+              <span>{label}</span>
+              <span style={{ color: t.faint }}>→</span>
+            </button>
+          ))}
+        </div>
+        <div style={{ marginTop: 12, color: t.faint, fontSize: 10, lineHeight: 1.55 }}>
+          {lang === "zh"
+            ? "页面布局按输入、结果、解释三列组织，目的是让用户按研究判断链阅读，而不是只看一个预测数字。"
+            : "This three-column layout follows input, result, and interpretation so the workflow supports decisions instead of isolated numbers."}
+        </div>
+      </aside>
     </div>
   )
 }
@@ -2519,11 +2634,17 @@ function LCAScoringTab({ results, inputs }) {
             { title: c.lca.functionalUnit, body: c.lca.functionalUnitBody },
             { title: c.lca.systemBoundary, body: c.lca.systemBoundaryBody },
             { title: c.lca.assumptions, body: c.lca.assumptionsBody },
+            { title: c.lca.priceSourceTitle, body: `${c.lca.priceSourceBody} ${c.lca.currencyNote}` },
             { title: c.lca.basisLabels, body: c.lca.basisBody },
             { title: c.lca.confidenceLimits, body: c.lca.prototypeNote },
           ].map(item => (
-            <div key={item.title} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
-              <div style={{ color: t.accentSoft, fontSize: 12, fontWeight: 800, marginBottom: 6 }}>{item.title}</div>
+            <div key={item.title} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14, boxShadow: t.shadowSm, backdropFilter: "blur(18px) saturate(135%)" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", marginBottom: 6 }}>
+                <div style={{ color: t.accentSoft, fontSize: 12, fontWeight: 800 }}>{item.title}</div>
+                <BasisBadge tone={item.title === c.lca.priceSourceTitle || item.title === c.lca.basisLabels ? "proxy" : "info"}>
+                  {item.title === c.lca.priceSourceTitle ? currencyCode : "basis"}
+                </BasisBadge>
+              </div>
               <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.6 }}>{item.body}</div>
             </div>
           ))}
@@ -2732,7 +2853,7 @@ function SensitivityTab({ results, inputs }) {
   )
 }
 
-function ValidationTab({ results, apiUrl, apiStatus, onCheckApi }) {
+function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
   const t = useT()
   const { lang, copy: c } = useLang()
   const { isNarrow } = useViewport()
@@ -2783,6 +2904,15 @@ function ValidationTab({ results, apiUrl, apiStatus, onCheckApi }) {
     const predicted = Number(Math.max(0.2, item.co2 + offset).toFixed(2))
     return { name: item.name, reference: item.co2, predicted, residual: Number((predicted - item.co2).toFixed(2)) }
   })
+  const errorDistributionData = [
+    { bin: "< -0.4", count: validationData.filter(d => d.residual < -0.4).length },
+    { bin: "-0.4 to -0.2", count: validationData.filter(d => d.residual >= -0.4 && d.residual < -0.2).length },
+    { bin: "-0.2 to 0", count: validationData.filter(d => d.residual >= -0.2 && d.residual < 0).length },
+    { bin: "0 to 0.2", count: validationData.filter(d => d.residual >= 0 && d.residual < 0.2).length },
+    { bin: "0.2 to 0.4", count: validationData.filter(d => d.residual >= 0.2 && d.residual < 0.4).length },
+    { bin: "> 0.4", count: validationData.filter(d => d.residual >= 0.4).length },
+  ]
+  const applicabilityPoints = buildApplicabilityPoints(inputs || DEFAULT_INPUTS, results)
   const cards = [
     { title: c.validation.dataset, body: `${c.validation.datasetBody} ${manifest ? `Manifest: ${manifest.origin || "unknown"} · rows ${manifest.rows ?? "—"} · source ${manifestSource}.` : "Manifest not loaded."}` },
     { title: c.validation.metrics, body: `CO2 uptake: ${metricText("co2_uptake")} · N2 uptake: ${metricText("n2_uptake")} · selectivity: ${metricText("selectivity")}.` },
@@ -2861,6 +2991,45 @@ function ValidationTab({ results, apiUrl, apiStatus, onCheckApi }) {
               <Bar dataKey="residual" name="Predicted - reference" fill={t.warn} radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
+        </div>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+          <SectionTitle>{lang === "zh" ? "误差分布" : "Error Distribution"}</SectionTitle>
+          <ResponsiveContainer width="100%" height={260}>
+            <BarChart data={errorDistributionData} margin={{ top: 8, right: 14, left: -18, bottom: 28 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={t.border} vertical={false} />
+              <XAxis dataKey="bin" tick={{ fill: t.subtle, fontSize: 10, angle: -18, textAnchor: "end" }} height={42} />
+              <YAxis allowDecimals={false} tick={{ fill: t.subtle, fontSize: 10 }} />
+              <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
+              <Bar dataKey="count" name="count" fill={t.accent} radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+          <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
+            {lang === "zh"
+              ? "这里展示的是 seed benchmark 的演示误差分布，用于说明验证页结构；真实外部验证集接入后应替换这些点。"
+              : "This is a seed-benchmark demonstration of the validation layout; replace it with a true external test set before making model-generalization claims."}
+          </div>
+        </div>
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+          <SectionTitle>{lang === "zh" ? "适用域可视化" : "Applicability Domain"}</SectionTitle>
+          <ResponsiveContainer width="100%" height={260}>
+            <ScatterChart margin={{ top: 12, right: 20, bottom: 28, left: 4 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
+              <XAxis type="number" dataKey="pld" name="PLD" tick={{ fill: t.subtle, fontSize: 10 }}
+                label={{ value: "PLD (Å)", fill: t.subtle, fontSize: 10, dy: 16 }} />
+              <YAxis type="number" dataKey="betNorm" name="BET/1000" tick={{ fill: t.subtle, fontSize: 10 }}
+                label={{ value: "BET / 1000", fill: t.subtle, fontSize: 10, angle: -90, dx: -10 }} />
+              <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
+              <Scatter data={applicabilityPoints.filter(p => p.status === "benchmark")} fill={t.subtle} name={c.common.benchmarkSet} />
+              <Scatter data={applicabilityPoints.filter(p => p.status !== "benchmark")} fill={results?.applicability?.warnings?.length ? t.warn : t.success} name={c.common.currentCandidate} />
+            </ScatterChart>
+          </ResponsiveContainer>
+          <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
+            {lang === "zh"
+              ? "二维图用 PLD 与 BET 的简化嵌入显示当前候选是否靠近基准材料分布；严格版本应使用完整描述符空间。"
+              : "This simplified PLD/BET embedding shows whether the current candidate sits near benchmark materials; a strict version should use the full descriptor space."}
+          </div>
         </div>
       </div>
     </div>
@@ -3172,6 +3341,68 @@ function DataSourcesTab() {
         ))}
       </div>
 
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "0.9fr 1.1fr", gap: 12 }}>
+        <div style={cardStyle}>
+          <SectionTitle>{lang === "zh" ? "数据质量分级" : "Data Quality Levels"}</SectionTitle>
+          <div style={{ display: "grid", gap: 9 }}>
+            {(lang === "zh" ? [
+              ["Level 0", "UI seed / proxy", "用于演示 schema 和交互，不可作为科研结论。"],
+              ["Level 1", "Literature traceable", "有 DOI/source，但可能单位、条件或清洗流程未完全统一。"],
+              ["Level 2", "Reproducible computed", "CIF、描述符、GCMC/IAST 脚本和参数可复现。"],
+              ["Level 3", "Publication-ready", "外部测试集、误差、不确定性、适用域和版本化数据全部可追溯。"],
+            ] : [
+              ["Level 0", "UI seed / proxy", "Schema and interaction demonstration; not scientific evidence."],
+              ["Level 1", "Literature traceable", "DOI/source exists, but units, conditions, or cleaning may not be fully harmonized."],
+              ["Level 2", "Reproducible computed", "CIFs, descriptors, GCMC/IAST scripts, and parameters are reproducible."],
+              ["Level 3", "Publication-ready", "External test set, errors, uncertainty, applicability domain, and versioned data are traceable."],
+            ]).map(([level, label, body]) => (
+              <div key={level} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 5 }}>
+                  <strong style={{ color: t.textStrong, fontSize: 12 }}>{level}</strong>
+                  <BasisBadge tone={level === "Level 0" ? "proxy" : level === "Level 3" ? "calc" : "info"}>{label}</BasisBadge>
+                </div>
+                <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.5 }}>{body}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div style={cardStyle}>
+          <SectionTitle>{lang === "zh" ? "覆盖表与替换路线" : "Coverage Table & Replacement Path"}</SectionTitle>
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", minWidth: 680, borderCollapse: "collapse", fontSize: 12 }}>
+              <thead>
+                <tr style={{ background: t.surface }}>
+                  {(lang === "zh" ? ["数据层", "当前覆盖", "质量等级", "下一步替换"] : ["Layer", "Current coverage", "Quality", "Next replacement"]).map(h => (
+                    <th key={h} style={{ padding: "8px 10px", color: t.subtle, textAlign: "left", borderBottom: `1px solid ${t.border}` }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {(lang === "zh" ? [
+                  ["结构", `${datasets.structures.length || "seed"} 条`, "Level 0-1", "导入 CoRE 2019/2024 CIF，统一 Zeo++ 描述符。"],
+                  ["吸附标签", `${datasets.labels.length || "seed"} 条`, "Level 0-1", "收集 NIST/文献/GCMC 等温线、Henry 和 IAST 标签。"],
+                  ["LCA inventory", `${datasets.inventory.length || "seed"} 条`, "Level 0", "替换为 ecoinvent/openLCA 或论文可追溯清单。"],
+                  ["LCC 价格", `${datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length || "seed"} 条`, "Level 0", "替换为供应商报价、价格数据库或明确日期的市场价。"],
+                  ["Validation", `${datasets.manifest?.rows ?? "seed"} rows`, "Level 0-1", "建立冻结外部测试集和版本化指标。"],
+                ] : [
+                  ["Structures", `${datasets.structures.length || "seed"} records`, "Level 0-1", "Import CoRE 2019/2024 CIFs and unified Zeo++ descriptors."],
+                  ["Adsorption labels", `${datasets.labels.length || "seed"} records`, "Level 0-1", "Collect NIST/literature/GCMC isotherms, Henry constants, and IAST labels."],
+                  ["LCA inventory", `${datasets.inventory.length || "seed"} records`, "Level 0", "Replace with ecoinvent/openLCA or literature-traceable LCI."],
+                  ["LCC prices", `${datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length || "seed"} records`, "Level 0", "Replace with supplier quotations, price databases, or date-stamped market prices."],
+                  ["Validation", `${datasets.manifest?.rows ?? "seed"} rows`, "Level 0-1", "Build a frozen external test set and versioned metrics."],
+                ]).map(row => (
+                  <tr key={row[0]} style={{ borderBottom: `1px solid ${t.divider}` }}>
+                    {row.map((cell, index) => (
+                      <td key={index} style={{ padding: "8px 10px", color: index === 0 ? t.textStrong : index === 2 ? t.warn : t.muted, lineHeight: 1.45 }}>{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
         <div style={cardStyle}>
           <SectionTitle>{lang === "zh" ? "数据质量政策" : "Provenance Policy"}</SectionTitle>
@@ -3239,6 +3470,40 @@ function MethodsLimitationsTab() {
       <Callout tone="warn">
         <strong>{c.methods.noticeTitle}</strong> {c.methods.noticeBody}
       </Callout>
+
+      <div style={sectionCard}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 14, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 12 }}>
+          <div>
+            <h1 style={{ margin: 0, color: t.textStrong, fontSize: 24 }}>
+              {lang === "zh" ? "项目范围、实现状态与限制" : "Scope, Implementation Status, and Limits"}
+            </h1>
+            <p style={{ margin: "8px 0 0", color: t.muted, fontSize: 13, lineHeight: 1.65, maxWidth: 860 }}>
+              {lang === "zh"
+                ? "EcoMOF-AI 的定位是科研早期筛选与决策支持工具：把吸附性能、热力学解释、LCA/LCC 和敏感性分析放在同一条判断链中。当前版本适合形成候选材料假设，不应被包装成已经完成真实数据库、严格 IAST 或工业级 LCA 的系统。"
+                : "EcoMOF-AI is an early-stage research screening and decision-support tool: adsorption performance, thermodynamic interpretation, LCA/LCC, and sensitivity analysis are presented as one decision chain. The current version is suitable for generating candidate hypotheses, not for claiming a completed real-database, strict-IAST, or industrial-LCA system."}
+            </p>
+          </div>
+          <BasisBadge tone="proxy">{lang === "zh" ? "筛选级原型" : "screening prototype"}</BasisBadge>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+          {(lang === "zh" ? [
+            ["项目范围", "输入 MOF 结构参数与条件，输出吸附、解释、环境、成本和稳健性判断。"],
+            ["已实现", "搜索预设、算法状态标注、Qst beta、LCA/LCC proxy、敏感性、Validation、数据来源页。"],
+            ["非论文级", "真实大规模标签库、严格混合气 IAST、工业 LCI、供应商报价和科研级 Qst 仍未完成。"],
+            ["引用建议", "引用本工具时，应同时引用真实数据源；proxy 或 seed 数据只应作为方法演示。"],
+          ] : [
+            ["Scope", "Input MOF descriptors and conditions; output adsorption, interpretation, impact, cost, and robustness signals."],
+            ["Implemented", "Search presets, algorithm-status labels, Qst beta, LCA/LCC proxies, sensitivity, validation, and provenance pages."],
+            ["Not publication-grade", "Large real label libraries, strict mixture IAST, industrial LCI, supplier quotes, and research-grade Qst are not complete."],
+            ["Citation", "When citing the tool, cite the real data sources separately; proxy or seed data should be treated as method demonstration."],
+          ]).map(([title, body]) => (
+            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800, marginBottom: 7 }}>{title}</div>
+              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55 }}>{body}</div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1.15fr 0.85fr", gap: 14 }}>
         <div style={sectionCard}>
@@ -4024,10 +4289,16 @@ export default function App() {
     <ThemeCtx.Provider value={theme}>
       <LangCtx.Provider value={{ lang, copy, setLang }}>
       <ViewportCtx.Provider value={viewport}>
-      <div style={{ minHeight: "100vh", background: t.bg, color: t.text, fontFamily: FONT_SANS }}>
+      <div style={{
+        minHeight: "100vh",
+        background: `radial-gradient(circle at 18% 0%, ${darkMode ? "rgba(37,99,235,0.22)" : "rgba(37,99,235,0.10)"}, transparent 30%), radial-gradient(circle at 88% 12%, ${darkMode ? "rgba(16,185,129,0.14)" : "rgba(16,185,129,0.08)"}, transparent 28%), ${t.bg}`,
+        color: t.text,
+        fontFamily: FONT_SANS,
+      }}>
         <header style={{ background: t.headerBg, borderBottom: `1px solid ${t.border}`, padding: "0 18px",
           display: "flex", alignItems: "stretch", minHeight: 52, position: "sticky", top: 0, zIndex: 100,
-          flexWrap: viewport.isNarrow ? "wrap" : "nowrap", gap: viewport.isNarrow ? "8px 12px" : 14 }}>
+          flexWrap: viewport.isNarrow ? "wrap" : "nowrap", gap: viewport.isNarrow ? "8px 12px" : 14,
+          backdropFilter: "blur(18px) saturate(145%)", boxShadow: t.shadowSm }}>
 
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginRight: viewport.isNarrow ? 6 : 0, height: 52, flex: "0 0 auto" }}>
             <div style={{ width: 28, height: 28, background: `linear-gradient(135deg, ${t.accentStrong}, ${t.success})`,
@@ -4137,20 +4408,20 @@ export default function App() {
           </div>
         </header>
 
-        <main style={{ padding: viewport.isMobile ? "14px 12px" : "20px 24px", maxWidth: 1400, margin: "0 auto" }}>
+        <main style={{ padding: viewport.isMobile ? "14px 12px" : "22px 24px", maxWidth: 1460, margin: "0 auto" }}>
           {activeTab === "home"           && <HomeTab setActiveTab={setActiveTab} />}
-          {activeTab === "structure"      && <StructureInputTab inputs={inputs} setInputs={setInputs} results={results} loading={loading} onPredict={handlePredict} onSaveRun={saveCurrentRun} apiUrl={apiUrl} setApiUrl={setApiUrl} apiStatus={apiStatus} onCheckApi={checkApi} />}
+          {activeTab === "structure"      && <StructureInputTab inputs={inputs} setInputs={setInputs} results={results} loading={loading} onPredict={handlePredict} onSaveRun={saveCurrentRun} apiUrl={apiUrl} setApiUrl={setApiUrl} apiStatus={apiStatus} onCheckApi={checkApi} setActiveTab={setActiveTab} />}
           {activeTab === "interpretation" && <InterpretationTab results={results} inputs={inputs} />}
           {activeTab === "lca"            && <LCAScoringTab results={results} inputs={inputs} />}
           {activeTab === "sensitivity"    && <SensitivityTab results={results} inputs={inputs} />}
           {activeTab === "literature"     && <LiteratureTab results={results} inputs={inputs} />}
-          {activeTab === "validation"     && <ValidationTab results={results} apiUrl={apiUrl} apiStatus={apiStatus} onCheckApi={checkApi} />}
+          {activeTab === "validation"     && <ValidationTab results={results} inputs={inputs} apiUrl={apiUrl} apiStatus={apiStatus} onCheckApi={checkApi} />}
           {activeTab === "methods"        && <MethodsLimitationsTab />}
           {activeTab === "dataSources"    && <DataSourcesTab />}
         </main>
 
         <footer style={{ marginTop: 40, padding: "16px 24px", borderTop: `1px solid ${t.border}`,
-          display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
           <span style={{ color: t.veryFaint, fontSize: 12 }}>
             © 2024 Advanced Materials Lab · Computational Design · <strong style={{ color: t.faint }}>EcoMOF-AI</strong>
           </span>
