@@ -11,25 +11,27 @@ import { COPY } from "./i18n"
 // ─── Theme ──────────────────────────────────────────────────────────────────
 
 const THEME_DARK = {
-  bg: "#101318", headerBg: "rgba(16,19,24,0.86)", panel: "rgba(25,29,35,0.82)", surface: "rgba(255,255,255,0.065)",
-  border: "rgba(226,232,240,0.14)", borderStrong: "rgba(45,212,191,0.34)",
-  text: "#e7ecef", textStrong: "#fbfbf8", muted: "#a8b3ba",
-  subtle: "#7c878d", faint: "#626d73", veryFaint: "#475158",
-  accent: "#14b8a6", accentStrong: "#0f766e", accentSoft: "#5eead4", accentText: "#2dd4bf",
-  success: "#22c55e", warn: "#f59e0b", danger: "#fb7185",
-  tooltipBg: "#191d23", divider: "rgba(226,232,240,0.10)",
-  glass: "rgba(255,255,255,0.08)", glassStrong: "rgba(45,212,191,0.12)",
-  chartBg: "rgba(25,29,35,0.90)", shadowSm: "0 8px 20px rgba(0,0,0,0.24)",
-  shadowMd: "0 18px 42px rgba(0,0,0,0.28)",
+  bg: "#11140f", headerBg: "rgba(17,20,15,0.86)", panel: "rgba(27,31,25,0.84)", surface: "rgba(255,255,255,0.068)",
+  border: "rgba(229,231,223,0.14)", borderStrong: "rgba(94,234,212,0.34)",
+  text: "#e8ede6", textStrong: "#fffdf4", muted: "#aab4a6",
+  subtle: "#7d8977", faint: "#657061", veryFaint: "#4b5549",
+  accent: "#2dd4bf", accentStrong: "#0f766e", accentSoft: "#99f6e4", accentText: "#5eead4",
+  success: "#84cc16", warn: "#f59e0b", danger: "#fb7185",
+  info: "#a78bfa", rose: "#fb7185", amber: "#f59e0b", violet: "#a78bfa", cyan: "#67e8f9",
+  tooltipBg: "#1b1f19", divider: "rgba(229,231,223,0.10)",
+  glass: "rgba(255,255,255,0.08)", glassStrong: "rgba(94,234,212,0.13)",
+  chartBg: "rgba(27,31,25,0.90)", shadowSm: "0 8px 20px rgba(0,0,0,0.24)",
+  shadowMd: "0 18px 42px rgba(0,0,0,0.30)",
 }
 
 const THEME_LIGHT = {
-  bg: "#f7f8f6", headerBg: "rgba(255,255,252,0.82)", panel: "rgba(255,255,252,0.82)", surface: "rgba(241,245,241,0.82)",
-  border: "rgba(31,41,55,0.10)", borderStrong: "rgba(13,148,136,0.24)",
-  text: "#17201f", textStrong: "#071312", muted: "#43514f",
-  subtle: "#5b6966", faint: "#798681", veryFaint: "#9aa5a0",
+  bg: "#f8f8f1", headerBg: "rgba(255,255,249,0.84)", panel: "rgba(255,255,249,0.86)", surface: "rgba(240,244,236,0.84)",
+  border: "rgba(38,48,37,0.10)", borderStrong: "rgba(13,148,136,0.25)",
+  text: "#17201a", textStrong: "#07130c", muted: "#43513f",
+  subtle: "#5c6a57", faint: "#7a8674", veryFaint: "#9aa595",
   accent: "#0d9488", accentStrong: "#0f766e", accentSoft: "#0f766e", accentText: "#0d9488",
-  success: "#15803d", warn: "#b45309", danger: "#be123c",
+  success: "#4d7c0f", warn: "#b45309", danger: "#be123c",
+  info: "#7c3aed", rose: "#be123c", amber: "#b45309", violet: "#7c3aed", cyan: "#0891b2",
   tooltipBg: "#fffffc", divider: "rgba(31,41,55,0.08)",
   glass: "rgba(255,255,255,0.66)", glassStrong: "rgba(240,253,250,0.90)",
   chartBg: "rgba(255,255,252,0.90)", shadowSm: "0 8px 22px rgba(15,23,42,0.06)",
@@ -50,15 +52,15 @@ const useViewport = () => useContext(ViewportCtx)
 // ─── Catalogs ───────────────────────────────────────────────────────────────
 
 const METAL_CENTERS = [
-  { value: "Zr4+",  label: "Zr4+",  lcaScore: 8.5, toxicity: "Low",      oms: false, color: "#10b981" },
-  { value: "Mg2+",  label: "Mg2+",  lcaScore: 9.0, toxicity: "Very Low", oms: true,  color: "#10b981" },
-  { value: "Al3+",  label: "Al3+",  lcaScore: 8.0, toxicity: "Low",      oms: false, color: "#10b981" },
-  { value: "Fe3+",  label: "Fe3+",  lcaScore: 7.5, toxicity: "Low",      oms: true,  color: "#3b82f6" },
+  { value: "Zr4+",  label: "Zr4+",  lcaScore: 8.5, toxicity: "Low",      oms: false, color: "#84cc16" },
+  { value: "Mg2+",  label: "Mg2+",  lcaScore: 9.0, toxicity: "Very Low", oms: true,  color: "#84cc16" },
+  { value: "Al3+",  label: "Al3+",  lcaScore: 8.0, toxicity: "Low",      oms: false, color: "#84cc16" },
+  { value: "Fe3+",  label: "Fe3+",  lcaScore: 7.5, toxicity: "Low",      oms: true,  color: "#2dd4bf" },
   { value: "Zn2+",  label: "Zn2+",  lcaScore: 6.5, toxicity: "Moderate", oms: false, color: "#f59e0b" },
   { value: "Cu2+",  label: "Cu2+",  lcaScore: 6.0, toxicity: "Moderate", oms: true,  color: "#f59e0b" },
   { value: "Co2+",  label: "Co2+",  lcaScore: 5.0, toxicity: "Moderate", oms: true,  color: "#f59e0b" },
   { value: "Ni2+",  label: "Ni2+",  lcaScore: 5.5, toxicity: "Moderate", oms: true,  color: "#f59e0b" },
-  { value: "Cr3+",  label: "Cr3+",  lcaScore: 3.0, toxicity: "High",     oms: false, color: "#ef4444" },
+  { value: "Cr3+",  label: "Cr3+",  lcaScore: 3.0, toxicity: "High",     oms: false, color: "#fb7185" },
 ]
 
 // Expanded linker catalog with category (topology / connectivity) & substitution notes
@@ -758,10 +760,10 @@ function evaluateApplicability(inputs, results) {
 
 function getPerformanceLabel(primary, selectivity) {
   const score = primary * 0.6 + selectivity * 0.01
-  if (score > 5.5) return { label: "EXCELLENT", color: "#10b981", bg: "rgba(16,185,129,0.15)" }
-  if (score > 3.5) return { label: "GOOD",      color: "#3b82f6", bg: "rgba(59,130,246,0.15)" }
+  if (score > 5.5) return { label: "EXCELLENT", color: "#84cc16", bg: "rgba(132,204,22,0.16)" }
+  if (score > 3.5) return { label: "GOOD",      color: "#2dd4bf", bg: "rgba(45,212,191,0.15)" }
   if (score > 2.0) return { label: "FAIR",      color: "#f59e0b", bg: "rgba(245,158,11,0.15)" }
-  return               { label: "POOR",      color: "#ef4444", bg: "rgba(239,68,68,0.15)"   }
+  return               { label: "POOR",      color: "#fb7185", bg: "rgba(251,113,133,0.15)" }
 }
 
 // ─── Small components ───────────────────────────────────────────────────────
@@ -829,7 +831,8 @@ function NumericField({ label, unit, min, max, step, value, onChange }) {
 function MetricCard({ label, value, unit, badge, badgeColor, badgeBg, comparison }) {
   const t = useT()
   return (
-    <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "14px 16px" }}>
+    <div style={{ position: "relative", overflow: "hidden", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "14px 16px", boxShadow: t.shadowSm }}>
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${t.accent}, ${t.amber})` }} />
       <div style={{ color: t.subtle, fontSize: 11, letterSpacing: "0.08em", marginBottom: 6 }}>{label}</div>
       <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
         <span style={{ color: t.textStrong, fontSize: 28, fontWeight: 700, fontFamily: FONT_MONO }}>{value}</span>
@@ -849,8 +852,8 @@ function MetricCard({ label, value, unit, badge, badgeColor, badgeBg, comparison
 function BasisBadge({ children, tone = "info" }) {
   const t = useT()
   const palette = {
-    info: { color: t.accentSoft, bg: "rgba(59,130,246,0.12)", border: t.accent },
-    calc: { color: t.success, bg: "rgba(16,185,129,0.12)", border: t.success },
+    info: { color: t.info, bg: "rgba(167,139,250,0.13)", border: t.info },
+    calc: { color: t.success, bg: "rgba(132,204,22,0.13)", border: t.success },
     proxy: { color: t.warn, bg: "rgba(245,158,11,0.12)", border: t.warn },
     user: { color: t.muted, bg: t.surface, border: t.borderStrong },
   }[tone] || {}
@@ -877,10 +880,10 @@ function InfoTip({ text }) {
 function Callout({ tone = "info", children }) {
   const t = useT()
   const palette = {
-    info: { bg: "rgba(59,130,246,0.12)", border: t.accent, color: t.accentSoft },
+    info: { bg: "rgba(45,212,191,0.11)", border: t.accent, color: t.accentSoft },
     warn: { bg: "rgba(245,158,11,0.12)", border: t.warn,   color: t.warn },
-    danger:{ bg: "rgba(239,68,68,0.12)", border: t.danger, color: t.danger },
-    success:{ bg: "rgba(16,185,129,0.12)", border: t.success, color: t.success },
+    danger:{ bg: "rgba(251,113,133,0.12)", border: t.danger, color: t.danger },
+    success:{ bg: "rgba(132,204,22,0.12)", border: t.success, color: t.success },
   }[tone]
   return (
     <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 8,
@@ -973,7 +976,7 @@ function buildDecisionModel(results, inputs, c) {
     { name: "IRP", value: burden(c.lca.shortMetal) * 0.60 + burden(c.lca.shortLinker) * 0.25 + burden(c.lca.shortEnergy) * 0.15, def: c.lca.indicatorIrp },
     { name: "ET",  value: burden(c.lca.shortMetal) * 0.35 + burden(c.lca.shortWaste) * 0.35 + burden(c.lca.shortAir) * 0.20 + burden(c.lca.shortWater) * 0.10, def: c.lca.indicatorEt },
   ].map(item => ({ ...item, value: Number(item.value.toFixed(2)) }))
-  const roseColors = ["#ef4444", "#f97316", "#eab308", "#06b6d4", "#8b5cf6", "#10b981"]
+  const roseColors = ["#fb7185", "#f59e0b", "#84cc16", "#2dd4bf", "#a78bfa", "#67e8f9"]
   const windRoseData = indicatorData.map((item, index) => ({
     ...item,
     value: Number((0.5 + item.value * 0.45).toFixed(1)),
@@ -1830,7 +1833,7 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
                     </div>
                     <div style={{ height: 6, background: t.border, borderRadius: 3 }}>
                       <div style={{ height: "100%", width: `${results.lca.compositeGreenScore * 10}%`,
-                        background: `linear-gradient(90deg, #059669, ${t.success})`, borderRadius: 3 }} />
+                        background: `linear-gradient(90deg, ${t.accentStrong}, ${t.success})`, borderRadius: 3 }} />
                     </div>
                     <div style={{ display: "flex", justifyContent: "space-between", marginTop: 3 }}>
                       <span style={{ color: t.faint, fontSize: 10 }}>{c.structure.compositeGreenScore}</span>
@@ -2118,7 +2121,7 @@ function ThermodynamicsTab({ results }) {
               ))}
               <div style={{
                 color: uploadedAnalysis.summary.qstReady ? t.success : t.warn,
-                background: uploadedAnalysis.summary.qstReady ? "rgba(16,185,129,0.12)" : "rgba(245,158,11,0.12)",
+                background: uploadedAnalysis.summary.qstReady ? "rgba(132,204,22,0.12)" : "rgba(245,158,11,0.12)",
                 border: `1px solid ${uploadedAnalysis.summary.qstReady ? t.success : t.warn}`,
                 borderRadius: 8,
                 padding: "8px 10px",
@@ -2176,9 +2179,9 @@ function ThermodynamicsTab({ results }) {
                 label={{ value: "Loading (mmol/g)", fill: t.subtle, fontSize: 10, angle: -90, dx: -10 }} />
               <Tooltip content={<CustomTooltip />} />
               <Legend wrapperStyle={{ fontSize: 11, color: t.subtle }} />
-              <Line type="monotone" dataKey="T273" stroke="#60a5fa" strokeWidth={2} dot={false} name="273 K" />
+              <Line type="monotone" dataKey="T273" stroke={t.cyan} strokeWidth={2} dot={false} name="273 K" />
               <Line type="monotone" dataKey="T298" stroke={t.accent}  strokeWidth={2} dot={false} name="298 K" />
-              <Line type="monotone" dataKey="T323" stroke="#ef4444"   strokeWidth={2} dot={false} name="323 K" />
+              <Line type="monotone" dataKey="T323" stroke={t.rose}   strokeWidth={2} dot={false} name="323 K" />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -2428,7 +2431,7 @@ function LCAScoringTab({ results, inputs }) {
             </div>
             <div style={{ height: 8, background: t.border, borderRadius: 4 }}>
               <div style={{ height: "100%", width: `${lca.compositeGreenScore * 10}%`,
-                background: `linear-gradient(90deg, #059669, ${t.success})`, borderRadius: 4 }} />
+                background: `linear-gradient(90deg, ${t.accentStrong}, ${t.success})`, borderRadius: 4 }} />
             </div>
             <div style={{ marginTop: 12, color: t.subtle, fontSize: 12, textAlign: "center" }}>
               {lca.compositeGreenScore >= 7 ? c.lca.recommended :
@@ -2521,9 +2524,9 @@ function LCAScoringTab({ results, inputs }) {
                 <PolarRadiusAxis angle={30} domain={[0, 5]} tick={{ fill: t.faint, fontSize: 9 }} />
                 <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
                 <Legend wrapperStyle={{ fontSize: 10, color: t.subtle }} />
-                <Radar name={c.lca.sensMetal} dataKey="metal" stroke="#ef4444" fill="#ef4444" fillOpacity={0.12} strokeWidth={2} />
-                <Radar name={c.lca.sensProcess} dataKey="process" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.10} strokeWidth={2} />
-                <Radar name={c.lca.sensSolvent} dataKey="solvent" stroke="#10b981" fill="#10b981" fillOpacity={0.10} strokeWidth={2} />
+                <Radar name={c.lca.sensMetal} dataKey="metal" stroke={t.rose} fill={t.rose} fillOpacity={0.12} strokeWidth={2} />
+                <Radar name={c.lca.sensProcess} dataKey="process" stroke={t.violet} fill={t.violet} fillOpacity={0.10} strokeWidth={2} />
+                <Radar name={c.lca.sensSolvent} dataKey="solvent" stroke={t.accent} fill={t.accent} fillOpacity={0.10} strokeWidth={2} />
               </RadarChart>
             </ResponsiveContainer>
             <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5 }}>{c.lca.sensitivityBody}</div>
@@ -2920,11 +2923,43 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
     { title: c.validation.applicability, body: results?.applicability?.warnings?.length ? results.applicability.warnings.map(w => w.message).join(" ") : c.methods.applicabilityBody },
     { title: c.validation.benchmark, body: c.validation.benchmarkBody },
   ]
+  const validationCsv = [
+    ["MOF", "Reference uptake", "Predicted uptake", "Residual"],
+    ...validationData.map(row => [row.name, row.reference, row.predicted, row.residual]),
+  ].map(row => row.join(",")).join("\n")
+  const validationReport = [
+    "# EcoMOF-AI Validation Summary",
+    "",
+    `Manifest source: ${manifestSource}`,
+    `Training origin: ${manifest?.origin || "not loaded"}`,
+    `Rows: ${manifest?.rows ?? "unknown"}`,
+    `Targets: ${(manifest?.targets || []).join(" / ") || "unknown"}`,
+    "",
+    "## Metrics",
+    `CO2 uptake: ${metricText("co2_uptake")}`,
+    `N2 uptake: ${metricText("n2_uptake")}`,
+    `Selectivity: ${metricText("selectivity")}`,
+    "",
+    "## Caveat",
+    lang === "zh"
+      ? "当前验证图仍使用 seed benchmark 演示结构；科研级版本需要冻结外部测试集。"
+      : "Current validation charts still use a seed benchmark demonstration; a publication-grade version needs a frozen external test set.",
+  ].join("\n")
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-      <div>
-        <h1 style={{ margin: 0, color: t.textStrong, fontSize: 24 }}>{c.validation.title}</h1>
-        <p style={{ margin: "6px 0 0", color: t.muted, fontSize: 13, lineHeight: 1.6 }}>{c.validation.subtitle}</p>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 14, alignItems: "flex-start", flexWrap: "wrap" }}>
+        <div>
+          <h1 style={{ margin: 0, color: t.textStrong, fontSize: 24 }}>{c.validation.title}</h1>
+          <p style={{ margin: "6px 0 0", color: t.muted, fontSize: 13, lineHeight: 1.6 }}>{c.validation.subtitle}</p>
+        </div>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          <button type="button" onClick={() => downloadTextFile("ecomof_validation_summary.md", validationReport, "text/markdown")} style={toolbarBtn(t)}>
+            ↓ Validation MD
+          </button>
+          <button type="button" onClick={() => downloadTextFile("ecomof_validation_points.csv", validationCsv, "text/csv")} style={toolbarBtn(t)}>
+            ↓ Validation CSV
+          </button>
+        </div>
       </div>
 
       <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
@@ -3077,6 +3112,19 @@ function LiteratureTab({ results, inputs }) {
         ...databaseRecords.slice(0, 7).map(item => ({ name: item.name, uptake: item.co2, selectivity: item.selectivity, lca: Number((5 + Math.min(4, item.selectivity / 55)).toFixed(1)), sourceType: item.sourceType })),
       ]
     : []
+  const exportDatabaseCsv = () => {
+    const header = ["MOF", "Metal", "Linker", "Topology", "PLD", "LCD", "BET", "PV", "CO2", "Selectivity", "Structure source", "Label source", "Quality"]
+    const rows = filtered.map(m => [
+      m.name, m.metal, m.linker, m.topology || "", m.pd, m.lcd || "", m.bet || "", m.pv || "",
+      m.co2, m.selectivity, m.sourceDatabase || "local seed", m.sourceType || "", m.qualityFlag || "screening_seed",
+    ])
+    downloadTextFile("ecomof_database_filtered.csv", [header, ...rows].map(row => row.join(",")).join("\n"), "text/csv")
+  }
+  const exportCompareCsv = () => {
+    const header = ["MOF", "Uptake", "Selectivity", "LCA score", "Source"]
+    const rows = compareItems.map(item => [item.name, item.uptake, item.selectivity, item.lca, item.sourceType])
+    downloadTextFile("ecomof_compare_dashboard.csv", [header, ...rows].map(row => row.join(",")).join("\n"), "text/csv")
+  }
 
   const selectStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, padding: "9px 14px", color: t.text, fontSize: 13, outline: "none", cursor: "pointer" }
 
@@ -3171,7 +3219,12 @@ function LiteratureTab({ results, inputs }) {
 
       {compareItems.length > 0 && (
         <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
-          <SectionTitle>Multi-MOF compare dashboard</SectionTitle>
+          <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", marginBottom: 10 }}>
+            <SectionTitle>Multi-MOF compare dashboard</SectionTitle>
+            <button type="button" onClick={exportCompareCsv} style={{ ...toolbarBtn(t), padding: "4px 9px", fontSize: 11 }}>
+              ↓ Compare CSV
+            </button>
+          </div>
           <ResponsiveContainer width="100%" height={280}>
             <ScatterChart margin={{ top: 18, right: 24, bottom: 24, left: 8 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
@@ -3196,10 +3249,10 @@ function LiteratureTab({ results, inputs }) {
         </div>
       )}
 
-      <div style={{ display: "flex", gap: 10 }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
         <input placeholder={c.literature.search}
           value={query} onChange={e => setQuery(e.target.value)}
-          style={{ flex: 1, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6,
+          style={{ flex: "1 1 260px", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6,
             padding: "9px 14px", color: t.text, fontSize: 13, outline: "none" }} />
         <select value={sortKey} onChange={e => setSortKey(e.target.value)} style={{ ...selectStyle, width: 200 }}>
           <option value="co2">Sort by CO₂ Uptake</option>
@@ -3207,6 +3260,9 @@ function LiteratureTab({ results, inputs }) {
           <option value="bet">Sort by BET Surface Area</option>
           <option value="pv">Sort by Pore Volume</option>
         </select>
+        <button type="button" onClick={exportDatabaseCsv} style={toolbarBtn(t)}>
+          ↓ CSV
+        </button>
       </div>
       <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, overflow: "hidden" }}>
         <div style={{ overflowX: "auto" }}>
@@ -3444,10 +3500,10 @@ function MethodsLimitationsTab() {
   const bodyText = { color: t.muted, fontSize: 12, lineHeight: 1.7 }
   const statusPill = (tone) => {
     const palette = {
-      stable: { bg: "rgba(16,185,129,0.12)", color: t.success, border: t.success },
+      stable: { bg: "rgba(132,204,22,0.12)", color: t.success, border: t.success },
       beta: { bg: "rgba(245,158,11,0.12)", color: t.warn, border: t.warn },
-      planned: { bg: "rgba(59,130,246,0.12)", color: t.accentSoft, border: t.accent },
-      limited: { bg: "rgba(239,68,68,0.12)", color: t.danger, border: t.danger },
+      planned: { bg: "rgba(167,139,250,0.13)", color: t.info, border: t.info },
+      limited: { bg: "rgba(251,113,133,0.12)", color: t.danger, border: t.danger },
     }[tone]
     return {
       display: "inline-flex",
@@ -4291,7 +4347,7 @@ export default function App() {
       <ViewportCtx.Provider value={viewport}>
       <div style={{
         minHeight: "100vh",
-        background: `radial-gradient(circle at 16% 0%, ${darkMode ? "rgba(20,184,166,0.22)" : "rgba(20,184,166,0.12)"}, transparent 30%), radial-gradient(circle at 84% 10%, ${darkMode ? "rgba(245,158,11,0.13)" : "rgba(245,158,11,0.08)"}, transparent 26%), radial-gradient(circle at 50% 100%, ${darkMode ? "rgba(251,113,133,0.10)" : "rgba(251,113,133,0.06)"}, transparent 30%), ${t.bg}`,
+        background: `radial-gradient(circle at 14% 0%, ${darkMode ? "rgba(45,212,191,0.20)" : "rgba(13,148,136,0.11)"}, transparent 30%), radial-gradient(circle at 84% 9%, ${darkMode ? "rgba(245,158,11,0.14)" : "rgba(180,83,9,0.08)"}, transparent 25%), radial-gradient(circle at 48% 100%, ${darkMode ? "rgba(167,139,250,0.11)" : "rgba(124,58,237,0.055)"}, transparent 31%), ${t.bg}`,
         color: t.text,
         fontFamily: FONT_SANS,
       }}>
@@ -4301,7 +4357,7 @@ export default function App() {
           backdropFilter: "blur(18px) saturate(145%)", boxShadow: t.shadowSm }}>
 
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginRight: viewport.isNarrow ? 6 : 0, height: 52, flex: "0 0 auto" }}>
-            <div style={{ width: 28, height: 28, background: `linear-gradient(135deg, ${t.accentStrong}, ${t.success})`,
+            <div style={{ width: 28, height: 28, background: `linear-gradient(135deg, ${t.accentStrong}, ${t.amber})`,
               borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center",
               fontSize: 14, fontWeight: 800, color: "#fff" }}>⬡</div>
             <span style={{ fontWeight: 800, fontSize: 16, letterSpacing: "0.02em", color: t.textStrong }}>EcoMOF-AI</span>
@@ -4321,7 +4377,7 @@ export default function App() {
                   padding: "0 12px", fontSize: 13, fontWeight: activeTab === tab.id ? 800 : 600,
                   color: activeTab === tab.id ? "#fff" : t.subtle,
                   borderRadius: 6,
-                  boxShadow: activeTab === tab.id ? "0 0 0 1px rgba(59,130,246,0.25), 0 8px 18px rgba(37,99,235,0.22)" : "none",
+                  boxShadow: activeTab === tab.id ? `0 0 0 1px ${t.borderStrong}, 0 8px 18px rgba(45,212,191,0.20)` : "none",
                   transition: "all 0.15s", fontFamily: FONT_SANS, whiteSpace: "nowrap",
                 }}>
                 {copy.tabs[tab.copyKey]}
