@@ -257,6 +257,26 @@ const LITERATURE_DB = [
 
 const DATA_BASE_URL = `${import.meta.env.BASE_URL || "/"}data/`
 
+const CURRENCIES = {
+  USD: { label: "USD", symbol: "$", rate: 1, unit: "USD", note: "Reference currency used by seed LCC inventory." },
+  CNY: { label: "CNY", symbol: "¥", rate: 7.24, unit: "CNY", note: "Static display factor, not live FX." },
+  EUR: { label: "EUR", symbol: "€", rate: 0.93, unit: "EUR", note: "Static display factor, not live FX." },
+  GBP: { label: "GBP", symbol: "£", rate: 0.80, unit: "GBP", note: "Static display factor, not live FX." },
+  JPY: { label: "JPY", symbol: "¥", rate: 155.0, unit: "JPY", note: "Static display factor, not live FX." },
+  CAD: { label: "CAD", symbol: "C$", rate: 1.37, unit: "CAD", note: "Static display factor, not live FX." },
+  AUD: { label: "AUD", symbol: "A$", rate: 1.53, unit: "AUD", note: "Static display factor, not live FX." },
+}
+
+function formatCurrency(valueUsd, currencyCode = "USD", digits = 1) {
+  const currency = CURRENCIES[currencyCode] || CURRENCIES.USD
+  const value = Number(valueUsd || 0) * currency.rate
+  const decimals = currencyCode === "JPY" ? 0 : digits
+  return `${currency.symbol}${value.toLocaleString(undefined, {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  })}`
+}
+
 async function fetchDataJson(fileName) {
   const response = await fetch(`${DATA_BASE_URL}${fileName}`)
   if (!response.ok) throw new Error(`Failed to load ${fileName}`)
@@ -2091,6 +2111,8 @@ function LCAScoringTab({ results, inputs }) {
   const t = useT()
   const { copy: c } = useLang()
   const { isNarrow } = useViewport()
+  const [currencyCode, setCurrencyCode] = useState("USD")
+  const [inventoryRows, setInventoryRows] = useState([])
   const [lcaParams, setLcaParams] = useState({
     electricityPrice: 0.12,
     solventRecovery: 80,
@@ -2099,11 +2121,23 @@ function LCAScoringTab({ results, inputs }) {
     metalPrice: 24,
     linkerPrice: 31,
   })
+  useEffect(() => {
+    let active = true
+    fetchDataJson("lca_inventory.json")
+      .then(rows => { if (active) setInventoryRows(rows) })
+      .catch(() => { if (active) setInventoryRows([]) })
+    return () => { active = false }
+  }, [])
   if (!results || results.unavailable) return <EmptyState message={c.lca.empty} />
   const { lca } = results
   const decision = buildDecisionModel(results, inputs, c)
   const { categories, indicatorData, roseColors, windRoseData, sensitivityRadarData, lccBreakdown,
     totalLcc, unitCost, dominantImpact, dominantCost, mostSensitive, tradeoffData } = decision
+  const currency = CURRENCIES[currencyCode] || CURRENCIES.USD
+  const convertedBreakdown = lccBreakdown.map(item => ({
+    ...item,
+    convertedValue: Number((item.value * currency.rate).toFixed(currencyCode === "JPY" ? 0 : 1)),
+  }))
   const scoreColor = (s) => s >= 7 ? t.success : s >= 5 ? t.accent : s >= 3 ? t.warn : t.danger
   const chartCardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }
   const detailStyle = { marginTop: 8, color: t.faint, fontSize: 11, lineHeight: 1.55 }
@@ -2116,18 +2150,29 @@ function LCAScoringTab({ results, inputs }) {
     (lcaParams.linkerPrice / 31) * 0.26
   const adjustedLcc = Number((totalLcc * paramFactor).toFixed(1))
   const adjustedGreenScore = Number(Math.max(0, Math.min(10, lca.compositeGreenScore + (lcaParams.solventRecovery - 80) * 0.018 - (lcaParams.electricityPrice - 0.12) * 3.2)).toFixed(1))
+  const displayMoney = (valueUsd, digits = 1) => formatCurrency(valueUsd, currencyCode, digits)
+  const displayPrice = (valueUsd, digits = 2) => Number((Number(valueUsd) * currency.rate).toFixed(currencyCode === "JPY" ? 0 : digits))
+  const updatePriceParam = (key, valueInCurrency) => {
+    const usdValue = Number(valueInCurrency) / currency.rate
+    setLcaParams(prev => ({ ...prev, [key]: Number.isFinite(usdValue) ? usdValue : prev[key] }))
+  }
   const lcaParamRows = [
-    ["electricityPrice", "Electricity price ($/kWh)", lcaParams.electricityPrice, 0.01, 0.5, 0.01],
-    ["solventRecovery", "Solvent recovery (%)", lcaParams.solventRecovery, 0, 99, 1],
-    ["materialLifetime", "Material lifetime (years)", lcaParams.materialLifetime, 1, 30, 1],
-    ["regenerationCycles", "Regeneration cycles", lcaParams.regenerationCycles, 100, 10000, 100],
-    ["metalPrice", "Metal precursor ($/kg)", lcaParams.metalPrice, 1, 500, 1],
-    ["linkerPrice", "Linker price ($/kg)", lcaParams.linkerPrice, 1, 800, 1],
+    ["electricityPrice", `Electricity price (${currency.unit}/kWh)`, displayPrice(lcaParams.electricityPrice, 3), 0.01, 0.5 * currency.rate, 0.01, "price"],
+    ["solventRecovery", "Solvent recovery (%)", lcaParams.solventRecovery, 0, 99, 1, "plain"],
+    ["materialLifetime", "Material lifetime (years)", lcaParams.materialLifetime, 1, 30, 1, "plain"],
+    ["regenerationCycles", "Regeneration cycles", lcaParams.regenerationCycles, 100, 10000, 100, "plain"],
+    ["metalPrice", `Metal precursor (${currency.unit}/kg)`, displayPrice(lcaParams.metalPrice, 1), 1, 500 * currency.rate, 1, "price"],
+    ["linkerPrice", `Linker price (${currency.unit}/kg)`, displayPrice(lcaParams.linkerPrice, 1), 1, 800 * currency.rate, 1, "price"],
+  ]
+  const sourceRows = inventoryRows.length ? inventoryRows : [
+    { flow: "metal precursor", unit: "kg/kg_mof", price_usd_per_unit: 24, source_type: "proxy", source_ref: "seed-inventory", assumption: "Metal burden scaled by selected node", roadmap_replacement: "Replace with supplier-specific LCI and price database", price_source: "Screening seed value" },
+    { flow: "organic linker", unit: "kg/kg_mof", price_usd_per_unit: 31, source_type: "proxy", source_ref: "seed-inventory", assumption: "Linker burden scaled by linker class", roadmap_replacement: "Replace with synthesis-specific LCI and purchase price", price_source: "Screening seed value" },
+    { flow: "electricity", unit: "kWh/kg_mof", price_usd_per_unit: 0.12, source_type: "proxy", source_ref: "seed-inventory", assumption: "Grid electricity default", roadmap_replacement: "Replace with regional grid mix", price_source: "Regional proxy" },
   ]
   const summaryCards = [
     { label: c.lca.environmentalBurden, value: c.lca.medium, sub: `${c.lca.dominatedBy}: ${dominantImpact.name}` },
     { label: c.lca.normalizedImpact, value: dominantImpact.name, sub: dominantImpact.def },
-    { label: c.lca.lcc, value: `$${totalLcc}`, sub: `${c.lca.mainCost}: ${dominantCost.name}` },
+    { label: c.lca.lcc, value: displayMoney(totalLcc), sub: `${c.lca.mainCost}: ${dominantCost.name}` },
     { label: c.lca.influentialFactor, value: mostSensitive.label, sub: `${c.lca.deltaScore}: ${mostSensitive.value.toFixed(1)}` },
     { label: c.lca.tradeoffStatus, value: results.primaryUptake > 3 && lca.compositeGreenScore > 6 ? c.lca.acceptable : c.lca.assumptionSensitive, sub: c.lca.tradeoffBody },
     { label: c.lca.confidenceBasis, value: c.lca.screeningLevel, sub: c.lca.basisBody },
@@ -2182,9 +2227,16 @@ function LCAScoringTab({ results, inputs }) {
             <SectionTitle>User-defined LCA / LCC parameter table</SectionTitle>
             <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
               Screening-level scenario controls for electricity price, solvent recovery, lifetime, cycles, and precursor prices.
+              {" "}{c.lca.currencyNote}
             </div>
           </div>
-          <BasisBadge tone="user">{c.common.basisUserDefined}</BasisBadge>
+          <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
+            <select value={currencyCode} onChange={e => setCurrencyCode(e.target.value)}
+              style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "6px 9px", color: t.text, fontSize: 12, outline: "none" }}>
+              {Object.keys(CURRENCIES).map(code => <option key={code} value={code}>{code}</option>)}
+            </select>
+            <BasisBadge tone="user">{c.common.basisUserDefined}</BasisBadge>
+          </div>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) 260px", gap: 14, alignItems: "start" }}>
           <div style={{ overflowX: "auto" }}>
@@ -2197,13 +2249,15 @@ function LCAScoringTab({ results, inputs }) {
                 </tr>
               </thead>
               <tbody>
-                {lcaParamRows.map(([key, label, value, min, max, step]) => (
+                {lcaParamRows.map(([key, label, value, min, max, step, kind]) => (
                   <tr key={key} style={{ borderBottom: `1px solid ${t.divider}` }}>
                     <td style={{ padding: "8px 10px", color: t.muted, fontSize: 12 }}>{label}</td>
                     <td style={{ padding: "8px 10px", color: t.textStrong, fontSize: 12, fontFamily: FONT_MONO }}>{value}</td>
                     <td style={{ padding: "8px 10px" }}>
                       <input type="number" min={min} max={max} step={step} value={value}
-                        onChange={e => setLcaParams(prev => ({ ...prev, [key]: Number(e.target.value) }))}
+                        onChange={e => kind === "price"
+                          ? updatePriceParam(key, Number(e.target.value))
+                          : setLcaParams(prev => ({ ...prev, [key]: Number(e.target.value) }))}
                         style={{ width: 120, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, padding: "6px 8px", color: t.text, fontFamily: FONT_MONO }} />
                     </td>
                   </tr>
@@ -2212,7 +2266,7 @@ function LCAScoringTab({ results, inputs }) {
             </table>
           </div>
           <div style={{ display: "grid", gap: 10 }}>
-            <MetricCard label="Adjusted LCC" value={`$${adjustedLcc}`} unit="/kg MOF" comparison={`base $${totalLcc}`} />
+            <MetricCard label="Adjusted LCC" value={displayMoney(adjustedLcc)} unit="/kg MOF" comparison={`base ${displayMoney(totalLcc)}`} />
             <MetricCard label="Adjusted green score" value={adjustedGreenScore} unit="/10" comparison={`base ${lca.compositeGreenScore}/10`} />
           </div>
         </div>
@@ -2367,21 +2421,70 @@ function LCAScoringTab({ results, inputs }) {
       </div>
 
       <div style={chartCardStyle}>
-        <SectionTitle>{c.lca.costBreakdown}</SectionTitle>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", marginBottom: 10 }}>
+          <SectionTitle>{c.lca.costBreakdown}</SectionTitle>
+          <BasisBadge tone="proxy">{currencyCode} · {c.common.basisProxy}</BasisBadge>
+        </div>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "260px minmax(0, 1fr)", gap: 16, alignItems: "center" }}>
           <div style={{ display: "grid", gap: 10 }}>
-            <MetricCard label={c.lca.totalLcc} value={`$${totalLcc}`} unit="/kg MOF" />
-            <MetricCard label={c.lca.unitCost} value={`$${unitCost}`} unit="/uptake" comparison={`${c.lca.mainCost}: ${dominantCost.name}`} />
+            <MetricCard label={c.lca.totalLcc} value={displayMoney(totalLcc)} unit="/kg MOF" />
+            <MetricCard label={c.lca.unitCost} value={displayMoney(unitCost)} unit="/uptake" comparison={`${c.lca.mainCost}: ${dominantCost.name}`} />
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
+              {c.lca.currencyNote}
+            </div>
           </div>
           <ResponsiveContainer width="100%" height={260}>
-            <BarChart data={lccBreakdown} layout="vertical" margin={{ top: 8, right: 24, left: 95, bottom: 8 }}>
+            <BarChart data={convertedBreakdown} layout="vertical" margin={{ top: 8, right: 24, left: 95, bottom: 8 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={t.border} horizontal={false} />
               <XAxis type="number" tick={{ fill: t.subtle, fontSize: 10 }} />
               <YAxis type="category" dataKey="name" tick={{ fill: t.muted, fontSize: 11 }} width={96} />
-              <Tooltip formatter={(value) => [`$${value}`, c.lca.lcc]} contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
-              <Bar dataKey="value" name={c.lca.lcc} fill={t.accent} radius={[0, 4, 4, 0]} />
+              <Tooltip formatter={(value) => [`${currency.symbol}${value}`, c.lca.lcc]} contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
+              <Bar dataKey="convertedValue" name={c.lca.lcc} fill={t.accent} radius={[0, 4, 4, 0]} />
             </BarChart>
           </ResponsiveContainer>
+        </div>
+
+        <div style={{ marginTop: 14, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", marginBottom: 10 }}>
+            <div>
+              <SectionTitle>{c.lca.priceSourceTitle}</SectionTitle>
+              <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>{c.lca.priceSourceBody}</div>
+            </div>
+            <BasisBadge tone="proxy">public/data/lca_inventory.json</BasisBadge>
+          </div>
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", minWidth: 860, borderCollapse: "collapse" }}>
+              <thead>
+                <tr style={{ background: t.panel }}>
+                  {["Flow", "Unit", `Price (${currencyCode})`, c.common.priceSource, c.common.sourceBasis, "Replacement"].map(header => (
+                    <th key={header} style={{ padding: "8px 10px", color: t.subtle, fontSize: 11, textAlign: "left", borderBottom: `1px solid ${t.border}` }}>{header}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {sourceRows.map(row => (
+                  <tr key={row.inventory_id || row.flow} style={{ borderBottom: `1px solid ${t.divider}` }}>
+                    <td style={{ padding: "8px 10px", color: t.textStrong, fontSize: 12 }}>{row.flow}</td>
+                    <td style={{ padding: "8px 10px", color: t.subtle, fontSize: 11, fontFamily: FONT_MONO }}>{row.unit}</td>
+                    <td style={{ padding: "8px 10px", color: t.textStrong, fontSize: 12, fontFamily: FONT_MONO }}>
+                      {Number(row.price_usd_per_unit) > 0 ? displayMoney(Number(row.price_usd_per_unit), 3) : "—"}
+                    </td>
+                    <td style={{ padding: "8px 10px", color: t.muted, fontSize: 11, lineHeight: 1.45 }}>
+                      <strong style={{ color: t.accentSoft }}>{row.source_type || "proxy"}</strong><br />
+                      {row.price_source || row.source_ref || "seed-inventory"}
+                    </td>
+                    <td style={{ padding: "8px 10px", color: t.subtle, fontSize: 11, lineHeight: 1.45 }}>
+                      {row.price_basis || row.assumption || "—"}
+                      {row.assumption && row.price_basis && (
+                        <div style={{ color: t.faint, marginTop: 4 }}>{row.assumption}</div>
+                      )}
+                    </td>
+                    <td style={{ padding: "8px 10px", color: t.faint, fontSize: 11, lineHeight: 1.45 }}>{row.roadmap_replacement || "—"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -2985,6 +3088,112 @@ function LiteratureTab({ results, inputs }) {
         </div>
         <div style={{ padding: "10px 14px", color: t.faint, fontSize: 11, borderTop: `1px solid ${t.border}` }}>
           {c.literature.showing} {filtered.length} / {databaseRecords.length} · {dataStatus === "loaded" ? "public/data JSON + schema CSV" : c.literature.source}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function DataSourcesTab() {
+  const t = useT()
+  const { lang, copy: c } = useLang()
+  const { isNarrow } = useViewport()
+  const [datasets, setDatasets] = useState({
+    structures: [],
+    labels: [],
+    inventory: [],
+    isotherms: [],
+    manifest: null,
+    status: "loading",
+  })
+
+  useEffect(() => {
+    let active = true
+    Promise.all([
+      fetchDataJson("mof_structures.json"),
+      fetchDataJson("adsorption_labels.json"),
+      fetchDataJson("lca_inventory.json"),
+      fetchDataJson("isotherms.json"),
+      fetchDataJson("training_manifest.json"),
+    ]).then(([structures, labels, inventory, isotherms, manifest]) => {
+      if (active) setDatasets({ structures, labels, inventory, isotherms, manifest, status: "loaded" })
+    }).catch(() => {
+      if (active) setDatasets(prev => ({ ...prev, status: "fallback" }))
+    })
+    return () => { active = false }
+  }, [])
+
+  const cardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }
+  const datasetCards = lang === "zh" ? [
+    ["MOF structures", "MOF 结构库", datasets.structures.length, "public/data/mof_structures.json", "结构、拓扑、PLD/LCD、BET、孔体积、密度、OMS、CIF/source 元数据。", "结构库提供材料描述符，不直接等于吸附标签。"],
+    ["Adsorption labels", "吸附标签库", datasets.labels.length, "public/data/adsorption_labels.json", "气体体系、温度、压力、loading、Henry 常数、选择性、方法与 DOI/source。", "真正训练吸附模型需要这一层，且应替换为验证过的 NIST/GCMC/文献标签。"],
+    ["LCA inventory", "LCA 清单", datasets.inventory.length, "public/data/lca_inventory.json", "材料、溶剂、能耗、水、废弃物、价格、单位、不确定性与替换路线。", "当前是筛选级 proxy，不能替代完整 ecoinvent/openLCA 工业清单。"],
+    ["LCC assumptions", "LCC 成本假设", datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length, "price_usd_per_unit + price_source", "价格以 USD seed values 存储，界面可切换主流货币作静态显示换算。", "不是实时市场报价，也不是供应商询价。"],
+    ["Isotherm points", "等温线点", datasets.isotherms.length, "public/data/isotherms.json", "多温 pressure-loading 点，用于 Langmuir 拟合、Henry、IAST/Qst 工作流打底。", "科研级 Qst 仍需要真实实验或 GCMC 多温纯组分等温线。"],
+    ["Validation manifest", "训练/验证清单", datasets.manifest?.rows ?? "—", "public/data/training_manifest.json", "记录训练来源、行数、目标变量、模型工件说明和指标。", "当前 seed/augmented 数据不代表 publication-grade 外部验证集。"],
+  ] : [
+    ["MOF structures", "MOF structures", datasets.structures.length, "public/data/mof_structures.json", "Identity, topology, PLD/LCD, BET, pore volume, density, OMS, CIF/source metadata.", "Structure libraries provide descriptors; they are not adsorption labels."],
+    ["Adsorption labels", "Adsorption labels", datasets.labels.length, "public/data/adsorption_labels.json", "Gas pair, temperature, pressure, loading, Henry constants, selectivity, method, DOI/source.", "Adsorption training depends on this layer and should be replaced with verified NIST/GCMC/literature labels."],
+    ["LCA inventory", "LCA inventory", datasets.inventory.length, "public/data/lca_inventory.json", "Material, solvent, energy, water, waste, price, unit, uncertainty, and replacement pathway.", "Current values are screening proxies, not a full ecoinvent/openLCA industrial inventory."],
+    ["LCC assumptions", "LCC assumptions", datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length, "price_usd_per_unit + price_source", "Prices are stored as USD seed values; the UI supports static display conversion across major currencies.", "Not live market pricing and not supplier quotations."],
+    ["Isotherm points", "Isotherm points", datasets.isotherms.length, "public/data/isotherms.json", "Multi-temperature pressure-loading points for Langmuir fitting, Henry, IAST/Qst workflow scaffolding.", "Research-grade Qst still requires real experimental or GCMC multi-temperature pure-component isotherms."],
+    ["Validation manifest", "Training manifest", datasets.manifest?.rows ?? "—", "public/data/training_manifest.json", "Training origin, rows, targets, model artifact notes, and metrics.", "Current seed/augmented data is not a publication-grade external validation set."],
+  ]
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      <div style={cardStyle}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
+          <div>
+            <h1 style={{ margin: 0, color: t.textStrong, fontSize: 24 }}>
+              {lang === "zh" ? "数据来源与可追溯性" : "Data Sources & Provenance"}
+            </h1>
+            <p style={{ margin: "8px 0 0", color: t.muted, fontSize: 13, lineHeight: 1.65, maxWidth: 820 }}>
+              {lang === "zh"
+                ? "本页把结构库、吸附标签、LCA 清单、LCC 成本假设、等温线和验证清单分开说明。核心原则是：结构库不等于吸附标签，代理清单不等于科研级 inventory。"
+                : "This page separates structures, adsorption labels, LCA inventory, LCC assumptions, isotherms, and validation manifests. The core rule: a structure library is not an adsorption-label library, and proxy inventory is not publication-grade LCI."}
+            </p>
+          </div>
+          <BasisBadge tone={datasets.status === "loaded" ? "calc" : "proxy"}>{datasets.status}</BasisBadge>
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 12 }}>
+        {datasetCards.map(([key, title, count, file, body, limit]) => (
+          <div key={key} style={cardStyle}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 8 }}>
+              <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 800 }}>{title}</div>
+              <BasisBadge tone="info">{count} records</BasisBadge>
+            </div>
+            <div style={{ color: t.accentSoft, fontSize: 11, fontFamily: FONT_MONO, overflowWrap: "anywhere", marginBottom: 9 }}>{file}</div>
+            <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.6 }}>{body}</div>
+            <div style={{ color: t.warn, fontSize: 11, lineHeight: 1.55, marginTop: 10 }}>{limit}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
+        <div style={cardStyle}>
+          <SectionTitle>{lang === "zh" ? "数据质量政策" : "Provenance Policy"}</SectionTitle>
+          {(lang === "zh" ? [
+            "所有结果都应显示 basis：model-predicted、calculated、proxy、user-defined 或 literature-based。",
+            "用于论文或答辩前，应把 seed/proxy 数据替换为可引用 DOI、数据库记录或可复现实验/GCMC 输出。",
+            "LCC 价格必须保留单位、币种、来源类型、假设和替换路线。"
+          ] : [
+            "Every result should expose its basis: model-predicted, calculated, proxy, user-defined, or literature-based.",
+            "Before publication or defense, seed/proxy records should be replaced with citable DOI, database records, or reproducible experimental/GCMC outputs.",
+            "LCC prices must retain unit, currency, source type, assumption, and replacement pathway."
+          ]).map(line => (
+            <div key={line} style={{ color: t.muted, fontSize: 12, lineHeight: 1.7, marginTop: 8 }}>• {line}</div>
+          ))}
+        </div>
+        <div style={cardStyle}>
+          <SectionTitle>{lang === "zh" ? "当前覆盖与限制" : "Coverage & Limitations"}</SectionTitle>
+          <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.7 }}>
+            {lang === "zh"
+              ? "当前公开 JSON 是小型 seed 数据，用于演示工作流、UI 连接和 schema。它能支持可追溯展示，但还不能支撑严格模型泛化结论。下一步应导入 CoRE/QMOF CIF，计算描述符，收集或生成气体吸附标签，并按气体体系分别训练。"
+              : "Current public JSON files are small seed datasets for workflow, UI connection, and schema demonstration. They support traceable display, but not strict model-generalization claims. Next steps: import CoRE/QMOF CIFs, compute descriptors, collect or generate adsorption labels, and train separate models by gas pair."}
+          </div>
         </div>
       </div>
     </div>
@@ -3615,6 +3824,7 @@ const TABS = [
   { id: "literature",    copyKey: "literature" },
   { id: "validation",    copyKey: "validation" },
   { id: "methods",       copyKey: "methods" },
+  { id: "dataSources",   copyKey: "dataSources" },
 ]
 
 export default function App() {
@@ -3631,6 +3841,7 @@ export default function App() {
   const [results, setResults]         = useState(null)
   const [loading, setLoading]         = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
+  const [searchOpen, setSearchOpen]   = useState(false)
   const [apiUrl, setApiUrl]           = useState(() => {
     try {
       return localStorage.getItem("ecomof_api_url") || import.meta.env.VITE_API_URL || ""
@@ -3694,6 +3905,7 @@ export default function App() {
     }
     setInputs(prev => ({ ...prev, ...preset, mofName: presetName }))
     setSearchQuery(presetName)
+    setSearchOpen(false)
     setSearchStatus("loaded")
     setTimeout(() => setSearchStatus(null), 1800)
   }, [])
@@ -3851,22 +4063,27 @@ export default function App() {
             <div style={{ position: "relative", flex: viewport.isMobile ? "1 1 100%" : "0 0 auto" }}>
               <input placeholder={copy.header.searchPlaceholder}
                 value={searchQuery}
-                onChange={e => { setSearchQuery(e.target.value); setSearchStatus(null) }}
+                onFocus={() => setSearchOpen(true)}
+                onBlur={() => setTimeout(() => setSearchOpen(false), 120)}
+                onChange={e => { setSearchQuery(e.target.value); setSearchStatus(null); setSearchOpen(true) }}
                 onKeyDown={e => {
                   if (e.key === "Enter") {
                     const match = findPresetName(searchQuery)
                     if (match) applyPreset(match)
                     else if (presetSuggestions[0]) applyPreset(presetSuggestions[0])
-                    else setSearchStatus("miss")
+                    else { setSearchStatus("miss"); setSearchOpen(false) }
+                  }
+                  if (e.key === "Escape") {
+                    setSearchOpen(false)
                   }
                 }}
                 style={{ background: t.panel, border: `1px solid ${searchStatus === "miss" ? t.danger : searchStatus === "loaded" ? t.success : t.border}`, borderRadius: 6,
                   padding: "6px 12px", color: t.text, fontSize: 12, outline: "none", width: viewport.isMobile ? "100%" : 300, fontFamily: FONT_SANS }} />
-              {presetSuggestions.length > 0 && searchQuery && searchStatus !== "loaded" && (
+              {searchOpen && presetSuggestions.length > 0 && searchQuery && searchStatus !== "loaded" && (
                 <div style={{ position: "absolute", top: "calc(100% + 4px)", left: 0, right: 0,
                   background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, maxHeight: 240, overflow: "auto", zIndex: 120 }}>
                   {presetSuggestions.map(name => (
-                    <div key={name} onClick={() => applyPreset(name)}
+                    <div key={name} onMouseDown={e => e.preventDefault()} onClick={() => applyPreset(name)}
                       style={{ padding: "7px 12px", color: t.text, fontSize: 12, cursor: "pointer",
                         borderBottom: `1px solid ${t.divider}` }}>
                       {name} <span style={{ color: t.faint, fontSize: 10 }}>
@@ -3929,6 +4146,7 @@ export default function App() {
           {activeTab === "literature"     && <LiteratureTab results={results} inputs={inputs} />}
           {activeTab === "validation"     && <ValidationTab results={results} apiUrl={apiUrl} apiStatus={apiStatus} onCheckApi={checkApi} />}
           {activeTab === "methods"        && <MethodsLimitationsTab />}
+          {activeTab === "dataSources"    && <DataSourcesTab />}
         </main>
 
         <footer style={{ marginTop: 40, padding: "16px 24px", borderTop: `1px solid ${t.border}`,

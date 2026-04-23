@@ -9,6 +9,7 @@ export const COPY = {
       literature: "Database",
       validation: "Validation",
       methods: "About",
+      dataSources: "Data Sources",
     },
     header: {
       searchPlaceholder: "Search MOFs (UiO-66, HKUST-1, ZIF-8, MOF-5...)",
@@ -57,6 +58,9 @@ export const COPY = {
       benchmarkSet: "Benchmark set",
       dataRecord: "Data record",
       source: "Source",
+      currency: "Currency",
+      priceSource: "Price source",
+      sourceBasis: "Source basis",
       uncertaintyNote: "Prototype Monte Carlo: deterministic pseudo-samples from proxy uncertainty ranges; not calibrated probabilistic inference.",
     },
     structure: {
@@ -235,6 +239,9 @@ export const COPY = {
       systemBoundaryBody: "Gate-to-gate screening by default: synthesis, activation, operation proxy, and end-of-life placeholder.",
       assumptionsBody: "Solvent recovery, electricity mix, material lifetime, regeneration cycles, and precursor prices are proxy assumptions in this beta.",
       basisBody: "Adsorption: model-predicted. Thermodynamics: calculated from predicted isotherms. LCA/LCC: calculated from assumptions and proxy factors. User inputs remain user-defined.",
+      currencyNote: "Currency conversion uses static reference factors for display only; it is not a live FX quotation.",
+      priceSourceTitle: "Price Sources & Cost Basis",
+      priceSourceBody: "Current LCC prices are screening-level proxy values stored in public/data/lca_inventory.json. They document cost logic and sensitivity, not supplier quotations.",
     },
     literature: {
       roadmapTitle: "Database roadmap:",
@@ -351,6 +358,7 @@ export const COPY = {
       literature: "数据库",
       validation: "验证",
       methods: "关于",
+      dataSources: "数据来源",
     },
     header: {
       searchPlaceholder: "搜索 MOF（UiO-66、HKUST-1、ZIF-8、MOF-5...）",
@@ -399,6 +407,9 @@ export const COPY = {
       benchmarkSet: "基准数据集",
       dataRecord: "数据记录",
       source: "来源",
+      currency: "货币",
+      priceSource: "价格来源",
+      sourceBasis: "来源依据",
       uncertaintyNote: "原型 Monte Carlo：基于代理不确定性范围生成的确定性伪样本；不是已校准的概率推断。",
     },
     structure: {
@@ -577,6 +588,9 @@ export const COPY = {
       systemBoundaryBody: "默认采用门到门筛选边界：合成、活化、运行代理和寿命终止占位项。",
       assumptionsBody: "溶剂回收率、电力结构、材料寿命、再生循环和前驱体价格目前均为 beta 代理假设。",
       basisBody: "吸附：模型预测。热力学：由预测等温线计算。LCA/LCC：由假设和代理因子计算。用户输入保持为用户定义。",
+      currencyNote: "货币切换使用静态参考换算因子，仅用于界面显示；不是实时外汇报价。",
+      priceSourceTitle: "价格来源与成本依据",
+      priceSourceBody: "当前 LCC 价格来自 public/data/lca_inventory.json 中的筛选级代理值，用于说明成本逻辑和敏感性，不等同于供应商报价。",
     },
     literature: {
       roadmapTitle: "数据库路线：",

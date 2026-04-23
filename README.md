@@ -1,87 +1,64 @@
-# 📝 EcoMOF-AI: Machine Learning for MOF Property Prediction
-### 基于机器学习的金属有机框架（MOF）性能预测工具
+# EcoMOF-AI
 
-<p align="center">
-  <a href="https://Linus-He.github.io/ecomof-ai/"><strong>Explore the Web Tool / 访问网页版工具 »</strong></a>
-</p>
+**EcoMOF-AI is a research-oriented MOF decision-support prototype integrating adsorption screening, thermodynamic interpretation, life cycle assessment, life cycle costing, and robustness evaluation for early-stage candidate selection.**
 
----
+**EcoMOF-AI 是一个面向科研的 MOF 决策支持原型，集成吸附筛选、热力学解释、生命周期评价（LCA）、生命周期成本（LCC）与稳健性分析，用于早期候选材料的比较与研究假设生成。**
 
-## 🌟 Overview / 项目简介
-**EcoMOF-AI** is a research-oriented prototype designed to bridge the gap between material science and artificial intelligence. It leverages machine learning models to predict the $CO_2$ adsorption performance of Metal-Organic Frameworks (MOFs) based on the **CoRE MOF 2019** database.
+[Live demo / 在线工具](https://Linus-He.github.io/ecomof-ai/)
 
-**EcoMOF-AI** 是一款面向科研的原创原型工具，旨在连接材料科学与人工智能。本项目基于 **CoRE MOF 2019** 数据库，利用机器学习模型对金属有机框架（MOF）的 $CO_2$ 吸附性能进行快速预测。
+## Scope
 
----
+EcoMOF-AI is not presented as a finished publication-grade scientific platform. Current outputs are intended for early-stage screening, workflow demonstration, and research hypothesis generation. They do not replace experiment, GCMC, strict IAST, or full inventory-linked industrial LCA.
 
-## ✨ Key Features / 主要功能
-* **Property Prediction / 性能预测**: Instant estimation of gas adsorption capacity. (快速估算气体吸附容量)
-* **Web-Based Interface / 网页化交互**: Built with a clean, user-friendly frontend for easy access. (简洁的网页前端，方便科研人员直接操作)
-* **AI-Driven Insights / AI 驱动**: Utilizes advanced neural network architectures for high-speed material screening. (利用先进的神经网络架构实现高速材料筛选)
+## Current Features
 
----
+- **Screening**: MOF presets, gas-system selection, direct descriptor input, CIF parsing scaffold, batch mode, and optional FastAPI backend connection.
+- **Adsorption output**: predicted uptake, apparent/Henry/IAST-style screening selectivity, confidence and applicability notes.
+- **Thermodynamics**: predicted multi-temperature isotherms, beta Qst interpretation, CSV isotherm upload, and Langmuir fitting scaffold.
+- **LCA / LCC**: characterization, normalization, cost breakdown, price provenance, currency display switching, and performance-environment-cost tradeoff.
+- **Sensitivity**: scenario analysis, parameter sweeps, decision stability, and uncertainty-style views.
+- **Validation**: manifest-driven metric display, parity/residual plots, benchmark notes, and applicability warnings.
+- **Data Sources**: dedicated provenance page separating structures, adsorption labels, LCA inventory, LCC assumptions, isotherms, and validation manifests.
 
-## 🧪 Technical Stack / 技术栈
-- **Field**: Applied Chemistry + AI (应用化学 + 人工智能)
-- **Framework**: Node.js & GitHub Actions (Automated Deployment)
-- **Data Source**: Local schema files in `data/` and static JSON in `public/data/`
-- **Core Algorithm**: Browser-side model profiles now, with a FastAPI + RF/GBM training scaffold in `backend/`
+## Data Contracts
 
-## 📊 Data Contracts / 数据结构
-
-The project now separates three data layers:
+The project separates data into traceable layers:
 
 - `data/mof_structures.csv`: MOF identity, topology, PLD/LCD, BET, pore volume, void fraction, density, OMS, CIF/source metadata.
 - `data/adsorption_labels.csv`: gas pair, temperature, pressure, loading, Henry constants, selectivity, method, source reference, quality flag.
-- `data/lca_inventory.csv`: material, solvent, energy, water, waste, cost, uncertainty, assumptions, and roadmap replacement fields.
+- `data/lca_inventory.csv`: material, solvent, energy, water, waste, cost, uncertainty, price source, assumptions, and replacement route.
+- `data/isotherms.csv`: pressure-loading-temperature points for isotherm fitting, Henry/IAST preparation, and Qst workflows.
 
-The web app reads static copies from `public/data/*.json`. These are seed records and schemas, not complete scientific databases.
+Static browser copies live in `public/data/*.json`. These are seed records and schemas, not complete scientific databases.
 
-## 🔧 Backend / 后端骨架
+## Backend
 
 ```bash
 cd backend
 python -m pip install -r requirements.txt
-uvicorn app:app --reload --host 0.0.0.0 --port 7860
+python train_model.py
+uvicorn app:app --reload --host 127.0.0.1 --port 8000
 ```
 
-Available endpoints include `/predict`, `/database/structures`, `/database/adsorption-labels`, `/database/lca-inventory`, `/descriptors/schema`, and `/report/template`.
+Key endpoints include `/predict`, `/health`, `/models/manifest`, `/database/structures`, `/database/adsorption-labels`, `/database/lca-inventory`, `/descriptors/schema`, `/isotherms/schema`, `/isotherms/fit`, and `/report/template`.
 
-## 🤖 ML Training Scaffold / 模型训练脚手架
+## Development
 
 ```bash
-cd backend
-python train_model.py
+npm install
+npm run dev
+npm run build
 ```
 
-The trainer reads the local structure and adsorption-label schemas, trains RF and GBM artifacts, and writes a training manifest. The seed labels are for workflow testing only; publication-grade models require verified NIST/GCMC/literature labels.
+## Roadmap
 
----
+- Replace seed adsorption labels with verified NIST, literature, or GCMC labels.
+- Import CoRE/QMOF CIFs and compute descriptors with Zeo++/RASPA/pymatgen-style tooling.
+- Train separate models by gas pair and expose uncertainty plus applicability-domain diagnostics.
+- Replace proxy LCA/LCC records with citable inventory and price databases.
+- Implement strict IAST and research-grade Qst from real multi-temperature pure-component isotherms.
 
-## 🚀 How to Use / 如何使用
-1.  Visit the [Live Demo](https://Linus-He.github.io/ecomof-ai/). (访问在线演示地址)
-2.  Input the specific descriptors or upload the MOF structure data. (输入特定的描述符或上传 MOF 结构数据)
-3.  Get the predicted adsorption results in seconds. (数秒内即可获取预测结果)
+## Contact
 
----
-
-## 📖 Future Academic Potential / 学术展望
-This project is currently under active development. We aim to:
-1.  Expand the database to include diverse gas molecules.
-2.  Incorporate **Life Cycle Assessment (LCA)** to evaluate the environmental impact of lithium/material production.
-3.  Publish the findings in peer-reviewed chemical information journals.
-
-本项目目前处于积极开发阶段。我们的目标是：
-1. 扩展数据库以包含更多种类的气体分子。
-2. 引入**生命周期评估 (LCA)**，评估锂生产及材料制备的环境影响。
-3. 将相关研究成果发表于化学信息学相关的核心期刊。
-
----
-
-## 🤝 Connect with Me / 联系我
-If you find this tool helpful, please give it a ⭐!
-如果你觉得这个工具有帮助，请点一个 ⭐ 鼓励一下！
-
-* **GitHub**: [@Linus-He](https://github.com/Linus-He)
-* **Email**: [square.hwh@gmail.com]
-* **Social**: [Instagram](https://www.instagram.com/real_linushe/) | [QQ](2705381397)
+- GitHub: [@Linus-He](https://github.com/Linus-He)
+- Email: square.hwh@gmail.com
