@@ -13,32 +13,51 @@ Endpoints:
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 import numpy as np
 import joblib
 import json
 import os
 import math
+from pathlib import Path
+import pandas as pd
 
 # ── Load model (train first if not found) ────────────────────────────────────
 
-MODEL_DIR = "models"
+BASE_DIR = Path(__file__).resolve().parent
+PROJECT_DIR = BASE_DIR.parent
+MODEL_DIR = BASE_DIR / "models"
+DATA_DIR = PROJECT_DIR / "data"
+
+DATA_FILES = {
+    "structures": DATA_DIR / "mof_structures.csv",
+    "adsorption_labels": DATA_DIR / "adsorption_labels.csv",
+    "lca_inventory": DATA_DIR / "lca_inventory.csv",
+}
 
 def load_or_train():
-    co2_model_path = os.path.join(MODEL_DIR, "ecomof_model.pkl")
+    co2_model_path = MODEL_DIR / "ecomof_model.pkl"
     if not os.path.exists(co2_model_path):
         print("Model not found — running train_model.py ...")
         import subprocess
-        subprocess.run(["python", "train_model.py"], check=True)
+        subprocess.run(["python", str(BASE_DIR / "train_model.py")], cwd=str(BASE_DIR), check=True)
 
-    model    = joblib.load(os.path.join(MODEL_DIR, "ecomof_model.pkl"))
-    le_metal = joblib.load(os.path.join(MODEL_DIR, "le_metal.pkl"))
-    le_linker= joblib.load(os.path.join(MODEL_DIR, "le_linker.pkl"))
-    with open(os.path.join(MODEL_DIR, "features.json")) as f:
+    model    = joblib.load(MODEL_DIR / "ecomof_model.pkl")
+    le_metal = joblib.load(MODEL_DIR / "le_metal.pkl")
+    le_linker= joblib.load(MODEL_DIR / "le_linker.pkl")
+    with open(MODEL_DIR / "features.json") as f:
         features = json.load(f)
     return model, le_metal, le_linker, features
 
 model, le_metal, le_linker, FEATURE_NAMES = load_or_train()
+
+def read_dataset(name: str) -> List[Dict[str, Any]]:
+    path = DATA_FILES.get(name)
+    if not path or not path.exists():
+        return []
+    df = pd.read_csv(path)
+    df = df.where(pd.notnull(df), None)
+    return df.to_dict(orient="records")
 
 # ── LCA Scoring Constants ─────────────────────────────────────────────────────
 
@@ -81,6 +100,15 @@ class PredictRequest(BaseModel):
     pressure:        float = Field(0.15, ge=0.01, le=50, description="Pressure (bar)")
     mlAlgorithm:     str   = Field("ensemble")
 
+class DescriptorRequest(BaseModel):
+    mofName:          str = Field("", description="MOF name or record id")
+    cifText:          Optional[str] = Field(None, description="Optional CIF text. Full descriptor calculation is delegated to Zeo++/RASPA/pymatgen in production.")
+    metalCenter:      Optional[str] = None
+    organicLinker:    Optional[str] = None
+    poreDiameter:     Optional[float] = None
+    betSurfaceArea:   Optional[float] = None
+    poreVolume:       Optional[float] = None
+
 class LCAResult(BaseModel):
     metalImpact:            float
     linkerSustainability:   float
@@ -99,10 +127,22 @@ class FeatureImportanceItem(BaseModel):
     feature:    str
     importance: float
 
+class SelectivityDetails(BaseModel):
+    apparent: float
+    henry: float
+    iast: float
+    method: str
+
 class PredictResponse(BaseModel):
     co2Uptake:        float
     n2Uptake:         float
+    primaryUptake:    float
+    secondaryUptake:  float
+    primaryName:      str
+    secondaryName:    str
+    gasSystem:        str
     selectivity:      float
+    selectivityDetails: SelectivityDetails
     confidenceScore:  float
     latencyMs:        int
     lca:              LCAResult
@@ -187,6 +227,35 @@ def build_isotherm(co2_uptake: float, pressure_bar: float) -> List[IsothermPoint
         ))
     return points
 
+def build_selectivity_details(co2_uptake: float, n2_uptake: float, pressure_bar: float, selectivity: float) -> SelectivityDetails:
+    henry_primary = co2_uptake / max(pressure_bar, 1e-4)
+    henry_secondary = n2_uptake / max(pressure_bar, 1e-4)
+    henry = henry_primary / max(henry_secondary, 1e-4)
+    iast = selectivity * 0.98
+    return SelectivityDetails(
+        apparent=round(selectivity, 1),
+        henry=round(henry, 1),
+        iast=round(iast, 1),
+        method="screening proxy from model uptake; strict IAST requires pure-component isotherm fits",
+    )
+
+def descriptor_schema() -> Dict[str, Any]:
+    return {
+        "required_descriptors": [
+            "mof_id", "name", "metal", "linker", "topology",
+            "pld_a", "lcd_a", "bet_m2g", "pore_volume_cm3g",
+            "void_fraction", "density_gcm3", "oms",
+        ],
+        "recommended_tools": ["Zeo++", "RASPA", "pymatgen", "mofchecker"],
+        "production_workflow": [
+            "Import CoRE/QMOF CIF",
+            "Clean/standardize structure",
+            "Compute PLD/LCD/ASA/void fraction/density/OMS",
+            "Join adsorption labels by mof_id + gas_system + temperature + pressure",
+            "Train one model family per gas pair",
+        ],
+    }
+
 # ── Routes ────────────────────────────────────────────────────────────────────
 
 @app.get("/")
@@ -198,6 +267,10 @@ def root():
         "endpoints": {
             "predict": "POST /predict",
             "mofs":    "GET /mofs",
+            "structures": "GET /database/structures",
+            "adsorption_labels": "GET /database/adsorption-labels",
+            "lca_inventory": "GET /database/lca-inventory",
+            "descriptor_schema": "GET /descriptors/schema",
             "docs":    "/docs",
         },
     }
@@ -223,10 +296,12 @@ def predict(req: PredictRequest):
     lca = compute_lca(req)
     isotherm = build_isotherm(co2_uptake, req.pressure)
 
-    # Approximate confidence from model spread
-    n_trees = model.estimators_[0].n_estimators
-    preds_all = np.array([est.predict(X)[0] for est in model.estimators_])
-    std_co2 = preds_all[:, 0].std()
+    # Approximate confidence from model spread where available.
+    try:
+        preds_all = np.array([est.predict(X)[0] for est in model.estimators_])
+        std_co2 = float(np.asarray(preds_all).reshape(len(preds_all), -1)[:, 0].std())
+    except Exception:
+        std_co2 = 0.35
     confidence = float(np.clip(0.92 - std_co2 * 0.12, 0.65, 0.98))
 
     latency = int((time.time() - t0) * 1000)
@@ -243,7 +318,13 @@ def predict(req: PredictRequest):
     return PredictResponse(
         co2Uptake=round(co2_uptake, 2),
         n2Uptake=round(n2_uptake, 2),
+        primaryUptake=round(co2_uptake, 2),
+        secondaryUptake=round(n2_uptake, 2),
+        primaryName="CO₂",
+        secondaryName="N₂",
+        gasSystem="CO2/N2",
         selectivity=round(selectivity, 1),
+        selectivityDetails=build_selectivity_details(co2_uptake, n2_uptake, req.pressure, selectivity),
         confidenceScore=round(confidence, 2),
         latencyMs=latency,
         lca=lca,
@@ -255,18 +336,79 @@ def predict(req: PredictRequest):
 @app.get("/mofs")
 def list_mofs():
     """Return CoRE-2019 subset for literature database."""
-    return [
-        {"name": "MOF-74-Mg", "metal": "Mg2+", "linker": "DOBDC", "bet": 1495, "pv": 0.57, "pd": 11.0, "co2": 8.61, "selectivity": 182},
-        {"name": "HKUST-1",   "metal": "Cu2+", "linker": "BTC",   "bet": 1850, "pv": 0.82, "pd": 9.0,  "co2": 4.82, "selectivity": 42},
-        {"name": "UiO-66",    "metal": "Zr4+", "linker": "BDC",   "bet": 1187, "pv": 0.47, "pd": 6.0,  "co2": 2.50, "selectivity": 28},
-        {"name": "ZIF-8",     "metal": "Zn2+", "linker": "mIM",   "bet": 1630, "pv": 0.64, "pd": 3.4,  "co2": 1.80, "selectivity": 12},
-        {"name": "MIL-101(Cr)","metal": "Cr3+","linker": "BDC",   "bet": 4230, "pv": 2.15, "pd": 29.0, "co2": 3.30, "selectivity": 18},
-        {"name": "MIL-53(Al)","metal": "Al3+", "linker": "BDC",   "bet": 1100, "pv": 0.60, "pd": 8.5,  "co2": 3.10, "selectivity": 55},
-        {"name": "Mg-MOF-74", "metal": "Mg2+", "linker": "DOBDC", "bet": 1542, "pv": 0.62, "pd": 11.1, "co2": 9.20, "selectivity": 195},
-        {"name": "IRMOF-1",   "metal": "Zn2+", "linker": "BDC",   "bet": 3534, "pv": 1.46, "pd": 14.3, "co2": 2.20, "selectivity": 8},
-        {"name": "Co-MOF-74", "metal": "Co2+", "linker": "DOBDC", "bet": 1238, "pv": 0.52, "pd": 11.0, "co2": 6.80, "selectivity": 145},
-        {"name": "Ni-MOF-74", "metal": "Ni2+", "linker": "DOBDC", "bet": 1321, "pv": 0.55, "pd": 11.0, "co2": 7.50, "selectivity": 160},
-    ]
+    structures = read_dataset("structures")
+    labels = {row["mof_id"]: row for row in read_dataset("adsorption_labels")}
+    return [{
+        "name": row["name"],
+        "metal": row["metal"],
+        "linker": row["linker"],
+        "bet": row["bet_m2g"],
+        "pv": row["pore_volume_cm3g"],
+        "pd": row["pld_a"],
+        "co2": labels.get(row["mof_id"], {}).get("primary_loading_mmolg"),
+        "selectivity": labels.get(row["mof_id"], {}).get("selectivity"),
+        "source_database": row["source_database"],
+        "source_type": row["source_type"],
+    } for row in structures]
+
+@app.get("/database/structures")
+def database_structures():
+    return {
+        "schema": "mof_structures.v1",
+        "source_note": "Seed records follow the import schema. Replace with licensed CoRE/QMOF imports for publication.",
+        "records": read_dataset("structures"),
+    }
+
+@app.get("/database/adsorption-labels")
+def database_adsorption_labels():
+    return {
+        "schema": "adsorption_labels.v1",
+        "source_note": "Seed labels document the required fields. Verified NIST/GCMC/literature labels are required for research-grade training.",
+        "records": read_dataset("adsorption_labels"),
+    }
+
+@app.get("/database/lca-inventory")
+def database_lca_inventory():
+    return {
+        "schema": "lca_inventory.v1",
+        "source_note": "Screening-level proxy inventory. Replace with ecoinvent/openLCA/supplier-specific inventory for publication.",
+        "records": read_dataset("lca_inventory"),
+    }
+
+@app.get("/descriptors/schema")
+def get_descriptor_schema():
+    return descriptor_schema()
+
+@app.post("/descriptors")
+def compute_descriptors(req: DescriptorRequest):
+    """Skeleton descriptor endpoint.
+
+    The static demo can parse selected CIF tags. Production should call Zeo++,
+    RASPA, pymatgen, or mofchecker here and return real PLD/LCD/ASA/void data.
+    """
+    return {
+        "status": "schema_only",
+        "message": "Descriptor backend skeleton ready. Connect Zeo++/RASPA/pymatgen for production calculations.",
+        "input": req.model_dump(),
+        "schema": descriptor_schema(),
+    }
+
+@app.get("/report/template")
+def report_template():
+    return {
+        "schema": "ecomof_report_template.v1",
+        "sections": [
+            "Cover",
+            "Executive summary",
+            "Input descriptors and provenance",
+            "Adsorption prediction",
+            "Henry/IAST screening selectivity",
+            "Thermodynamic interpretation and Qst source",
+            "LCA/LCC inventory assumptions",
+            "Sensitivity and applicability domain",
+            "Limitations and roadmap",
+        ],
+    }
 
 
 if __name__ == "__main__":

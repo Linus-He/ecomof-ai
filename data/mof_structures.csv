@@ -1,0 +1,11 @@
+mof_id,name,metal,linker,topology,pld_a,lcd_a,bet_m2g,pore_volume_cm3g,void_fraction,density_gcm3,oms,source_database,source_record,source_type,descriptor_method,cif_status,license_note
+core_mof74_mg,MOF-74-Mg,Mg2+,DOBDC,rod-mof74,11.0,12.5,1495,0.57,0.52,0.91,true,CoRE MOF 2019,benchmark-MOF74-Mg,curated_literature,literature descriptor,roadmap import,Check original database/license before redistribution
+core_hkust1,HKUST-1,Cu2+,BTC,tbo,9.0,13.2,1850,0.82,0.59,0.88,true,CoRE MOF 2019,benchmark-HKUST1,curated_literature,literature descriptor,roadmap import,Check original database/license before redistribution
+core_uio66,UiO-66,Zr4+,BDC,fcu,6.0,11.0,1187,0.47,0.46,1.20,false,CoRE MOF 2019,benchmark-UiO66,curated_literature,literature descriptor,roadmap import,Check original database/license before redistribution
+core_uio66_nh2,UiO-66-NH2,Zr4+,NH2-BDC,fcu,5.8,10.4,1050,0.42,0.42,1.27,false,CoRE MOF 2019,benchmark-UiO66NH2,curated_literature,literature descriptor,roadmap import,Check original database/license before redistribution
+core_zif8,ZIF-8,Zn2+,mIM,sod,3.4,11.6,1630,0.64,0.50,0.95,false,CoRE MOF 2019,benchmark-ZIF8,curated_literature,literature descriptor,roadmap import,Check original database/license before redistribution
+core_mil101cr,MIL-101(Cr),Cr3+,BDC,mtn,29.0,34.0,4230,2.15,0.78,0.44,false,CoRE MOF 2019,benchmark-MIL101Cr,curated_literature,literature descriptor,roadmap import,Check original database/license before redistribution
+core_mil53al,MIL-53(Al),Al3+,BDC,acs,8.5,12.0,1100,0.60,0.45,1.10,false,CoRE MOF 2019,benchmark-MIL53Al,curated_literature,literature descriptor,roadmap import,Check original database/license before redistribution
+core_irmof1,IRMOF-1,Zn2+,BDC,pcu,14.3,18.5,3534,1.46,0.72,0.59,false,CoRE MOF 2019,benchmark-IRMOF1,curated_literature,literature descriptor,roadmap import,Check original database/license before redistribution
+core_comof74,Co-MOF-74,Co2+,DOBDC,rod-mof74,11.0,12.4,1238,0.52,0.49,1.04,true,CoRE MOF 2019,benchmark-CoMOF74,curated_literature,literature descriptor,roadmap import,Check original database/license before redistribution
+core_nimof74,Ni-MOF-74,Ni2+,DOBDC,rod-mof74,11.0,12.2,1321,0.55,0.50,1.01,true,CoRE MOF 2019,benchmark-NiMOF74,curated_literature,literature descriptor,roadmap import,Check original database/license before redistribution

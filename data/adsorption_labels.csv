@@ -1,0 +1,11 @@
+label_id,mof_id,name,gas_system,primary_gas,secondary_gas,temperature_k,pressure_bar,primary_loading_mmolg,secondary_loading_mmolg,henry_primary_mmolgbar,henry_secondary_mmolgbar,selectivity,method,isotherm_source,source_ref,doi_or_url,quality_flag,license_note
+ads_mof74mg_co2n2_298,core_mof74_mg,MOF-74-Mg,CO2/N2,CO2,N2,298,0.15,8.61,0.047,57.4,0.31,182,GCMC/literature,label_seed,benchmark-MOF74-Mg,seed-record,screening_seed,Replace with verified source before publication
+ads_hkust1_co2n2_298,core_hkust1,HKUST-1,CO2/N2,CO2,N2,298,0.15,4.82,0.115,32.1,0.77,42,NIST/literature,label_seed,benchmark-HKUST1,seed-record,screening_seed,Replace with verified source before publication
+ads_uio66_co2n2_298,core_uio66,UiO-66,CO2/N2,CO2,N2,298,0.15,2.50,0.089,16.7,0.59,28,CoRE/literature,label_seed,benchmark-UiO66,seed-record,screening_seed,Replace with verified source before publication
+ads_uio66nh2_co2n2_298,core_uio66_nh2,UiO-66-NH2,CO2/N2,CO2,N2,298,0.15,3.40,0.050,22.7,0.33,68,literature,label_seed,benchmark-UiO66NH2,seed-record,screening_seed,Replace with verified source before publication
+ads_zif8_co2n2_298,core_zif8,ZIF-8,CO2/N2,CO2,N2,298,0.15,1.80,0.150,12.0,1.00,12,CoRE/literature,label_seed,benchmark-ZIF8,seed-record,screening_seed,Replace with verified source before publication
+ads_mil101cr_co2n2_298,core_mil101cr,MIL-101(Cr),CO2/N2,CO2,N2,298,0.15,3.30,0.183,22.0,1.22,18,GCMC/literature,label_seed,benchmark-MIL101Cr,seed-record,screening_seed,Replace with verified source before publication
+ads_mil53al_co2n2_298,core_mil53al,MIL-53(Al),CO2/N2,CO2,N2,298,0.15,3.10,0.056,20.7,0.37,55,NIST/literature,label_seed,benchmark-MIL53Al,seed-record,screening_seed,Replace with verified source before publication
+ads_irmof1_co2n2_298,core_irmof1,IRMOF-1,CO2/N2,CO2,N2,298,0.15,2.20,0.275,14.7,1.83,8,CoRE/literature,label_seed,benchmark-IRMOF1,seed-record,screening_seed,Replace with verified source before publication
+ads_comof74_co2n2_298,core_comof74,Co-MOF-74,CO2/N2,CO2,N2,298,0.15,6.80,0.047,45.3,0.31,145,GCMC/literature,label_seed,benchmark-CoMOF74,seed-record,screening_seed,Replace with verified source before publication
+ads_nimof74_co2n2_298,core_nimof74,Ni-MOF-74,CO2/N2,CO2,N2,298,0.15,7.50,0.047,50.0,0.31,160,GCMC/literature,label_seed,benchmark-NiMOF74,seed-record,screening_seed,Replace with verified source before publication

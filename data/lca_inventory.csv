@@ -1,0 +1,9 @@
+inventory_id,stage,flow,category,unit,base_value,uncertainty_pct,price_usd_per_unit,source_type,source_ref,assumption,roadmap_replacement
+inv_metal_precursor,raw_material,metal precursor,materials,kg/kg_mof,0.32,35,24,proxy,seed-inventory,Metal burden scaled by selected node,Replace with supplier-specific LCI and price database
+inv_organic_linker,raw_material,organic linker,materials,kg/kg_mof,0.48,40,31,proxy,seed-inventory,Linker burden scaled by linker class,Replace with synthesis-specific LCI and purchase price
+inv_solvent,synthesis,DMF/solvent loss,solvent,kg/kg_mof,3.6,50,2.4,proxy,seed-inventory,Solvent recovery default 80%,Replace with process inventory
+inv_electricity,synthesis,electricity,energy,kWh/kg_mof,8.5,45,0.12,proxy,seed-inventory,Grid electricity default,Replace with regional grid mix
+inv_heat,activation,thermal activation,energy,kWh/kg_mof,5.2,45,0.08,proxy,seed-inventory,Activation/regeneration energy proxy,Replace with measured activation energy
+inv_water,washing,washing water,water,L/kg_mof,18,40,0.001,proxy,seed-inventory,Screening water use only,Replace with lab or pilot-scale wash data
+inv_waste,end_of_life,solid waste,waste,kg/kg_mof,0.22,60,0.6,proxy,seed-inventory,Waste handling proxy,Replace with waste treatment LCI
+inv_lifetime,use_phase,material lifetime,use,years,10,50,0,user_defined,ui-parameter,Editable in LCA/LCC table,Replace with cycle-test lifetime data

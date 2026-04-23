@@ -24,8 +24,37 @@
 ## 🧪 Technical Stack / 技术栈
 - **Field**: Applied Chemistry + AI (应用化学 + 人工智能)
 - **Framework**: Node.js & GitHub Actions (Automated Deployment)
-- **Data Source**: CoRE MOF 2019 Database
-- **Core Algorithm**: Machine Learning / Neural Networks (机器学习 / 神经网络)
+- **Data Source**: Local schema files in `data/` and static JSON in `public/data/`
+- **Core Algorithm**: Browser-side model profiles now, with a FastAPI + RF/GBM training scaffold in `backend/`
+
+## 📊 Data Contracts / 数据结构
+
+The project now separates three data layers:
+
+- `data/mof_structures.csv`: MOF identity, topology, PLD/LCD, BET, pore volume, void fraction, density, OMS, CIF/source metadata.
+- `data/adsorption_labels.csv`: gas pair, temperature, pressure, loading, Henry constants, selectivity, method, source reference, quality flag.
+- `data/lca_inventory.csv`: material, solvent, energy, water, waste, cost, uncertainty, assumptions, and roadmap replacement fields.
+
+The web app reads static copies from `public/data/*.json`. These are seed records and schemas, not complete scientific databases.
+
+## 🔧 Backend / 后端骨架
+
+```bash
+cd backend
+python -m pip install -r requirements.txt
+uvicorn app:app --reload --host 0.0.0.0 --port 7860
+```
+
+Available endpoints include `/predict`, `/database/structures`, `/database/adsorption-labels`, `/database/lca-inventory`, `/descriptors/schema`, and `/report/template`.
+
+## 🤖 ML Training Scaffold / 模型训练脚手架
+
+```bash
+cd backend
+python train_model.py
+```
+
+The trainer reads the local structure and adsorption-label schemas, trains RF and GBM artifacts, and writes a training manifest. The seed labels are for workflow testing only; publication-grade models require verified NIST/GCMC/literature labels.
 
 ---
 

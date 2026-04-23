@@ -255,6 +255,46 @@ const LITERATURE_DB = [
   { name: "PCN-222",      metal: "Zr4+", linker: "TCPP",  bet: 2200, pv: 1.10, pd: 14.0, co2: 4.10, selectivity: 38,  sourceType: "literature", doi: "benchmark-PCN222" },
 ]
 
+const DATA_BASE_URL = `${import.meta.env.BASE_URL || "/"}data/`
+
+async function fetchDataJson(fileName) {
+  const response = await fetch(`${DATA_BASE_URL}${fileName}`)
+  if (!response.ok) throw new Error(`Failed to load ${fileName}`)
+  return response.json()
+}
+
+function buildDatabaseRecords(structures = [], labels = []) {
+  const labelByMof = new Map(labels.map(label => [label.mof_id, label]))
+  return structures.map(row => {
+    const label = labelByMof.get(row.mof_id) || {}
+    return {
+      name: row.name,
+      metal: row.metal,
+      linker: row.linker,
+      topology: row.topology || "—",
+      bet: Number(row.bet_m2g ?? row.bet ?? 0),
+      pv: Number(row.pore_volume_cm3g ?? row.pv ?? 0),
+      pd: Number(row.pld_a ?? row.pd ?? 0),
+      lcd: Number(row.lcd_a ?? 0),
+      voidFraction: Number(row.void_fraction ?? 0),
+      density: Number(row.density_gcm3 ?? 0),
+      oms: Boolean(row.oms),
+      co2: Number(label.primary_loading_mmolg ?? row.co2 ?? 0),
+      selectivity: Number(label.selectivity ?? row.selectivity ?? 0),
+      henryPrimary: Number(label.henry_primary_mmolgbar ?? 0),
+      henrySecondary: Number(label.henry_secondary_mmolgbar ?? 0),
+      sourceType: label.method || row.source_type || "seed",
+      sourceDatabase: row.source_database || "local seed",
+      sourceRecord: row.source_record || label.source_ref || "—",
+      descriptorMethod: row.descriptor_method || "—",
+      labelSource: label.isotherm_source || "—",
+      qualityFlag: label.quality_flag || row.source_type || "screening_seed",
+      doi: label.doi_or_url || row.source_record || "—",
+      licenseNote: label.license_note || row.license_note || "Verify source license before publication.",
+    }
+  })
+}
+
 const DEFAULT_INPUTS = {
   mofName: "",
   metalCenter: "Zr4+",
@@ -906,6 +946,7 @@ function escapeHtml(value) {
 
 function buildReportHtml(results, inputs, decision, c, lcaParams = {}) {
   const safe = escapeHtml
+  const generatedAt = new Date().toLocaleString()
   const rows = [
     ["MOF", inputs.mofName || "Current candidate"],
     ["Gas system", results.gasSystem],
@@ -929,8 +970,10 @@ function buildReportHtml(results, inputs, decision, c, lcaParams = {}) {
   <title>EcoMOF-AI Decision Report</title>
   <style>
     body { font-family: Inter, "Noto Sans SC", Arial, sans-serif; color: #0f172a; margin: 38px; line-height: 1.55; }
-    h1 { margin: 0 0 6px; font-size: 28px; }
+    h1 { margin: 0 0 6px; font-size: 30px; letter-spacing: 0; }
     h2 { margin: 28px 0 10px; font-size: 16px; border-bottom: 1px solid #cbd5e1; padding-bottom: 6px; }
+    h3 { margin: 18px 0 8px; font-size: 13px; color: #334155; }
+    .cover { min-height: 260px; border-bottom: 2px solid #0f172a; margin-bottom: 24px; display: flex; flex-direction: column; justify-content: center; }
     .meta { color: #475569; font-size: 12px; margin-bottom: 22px; }
     .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0; }
     .card { border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px; background: #f8fafc; }
@@ -940,21 +983,41 @@ function buildReportHtml(results, inputs, decision, c, lcaParams = {}) {
     td, th { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; }
     th { background: #f1f5f9; }
     .note { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; padding: 12px; font-size: 12px; color: #7c2d12; }
-    @media print { body { margin: 22mm; } .card { break-inside: avoid; } }
+    .small { color: #64748b; font-size: 11px; }
+    @media print { body { margin: 18mm; } .card, table, .note { break-inside: avoid; } .cover { min-height: 230px; } }
   </style>
 </head>
 <body>
-  <h1>EcoMOF-AI Decision Report</h1>
-  <div class="meta">Generated locally by the browser. Screening-level output for early-stage research decisions.</div>
+  <section class="cover">
+    <h1>EcoMOF-AI Decision Report</h1>
+    <div class="meta">Research-oriented MOF screening report · generated ${safe(generatedAt)}</div>
+    <div class="grid">
+      <div class="card"><div class="label">Candidate</div><div class="value">${safe(inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`)}</div></div>
+      <div class="card"><div class="label">Gas system</div><div class="value">${safe(results.gasSystem)}</div></div>
+      <div class="card"><div class="label">Report status</div><div class="value">Screening</div></div>
+    </div>
+    <p class="small">This report is intended for early-stage comparison, hypothesis generation, and discussion. It is not a substitute for verified GCMC/experimental adsorption data or full inventory-linked LCA.</p>
+  </section>
+
+  <h2>Executive Summary</h2>
   <div class="grid">
     <div class="card"><div class="label">Performance</div><div class="value">${safe(results.primaryUptake)} mmol/g</div></div>
     <div class="card"><div class="label">Selectivity</div><div class="value">${safe(results.selectivity)}</div></div>
     <div class="card"><div class="label">Green score</div><div class="value">${safe(results.lca.compositeGreenScore)}/10</div></div>
   </div>
-  <h2>Summary</h2>
+  <h2>Input, Prediction, and Source Basis</h2>
   <table><tbody>${rows.map(([k, v]) => `<tr><th>${safe(k)}</th><td>${safe(v)}</td></tr>`).join("")}</tbody></table>
-  <h2>User LCA / LCC Parameters</h2>
+  <h2>LCA / LCC Scenario Parameters</h2>
   <table><tbody>${params || "<tr><td>No custom parameters</td><td>-</td></tr>"}</tbody></table>
+  <h2>Methods</h2>
+  <h3>Adsorption prediction</h3>
+  <p class="small">The current browser build uses transparent model profiles and structure-property correlations. A production deployment should replace this with trained model artifacts loaded through the backend API.</p>
+  <h3>Selectivity</h3>
+  <p class="small">Apparent selectivity is calculated from predicted single-gas uptake. Henry and IAST values are marked as screening proxies unless fitted pure-component isotherms are supplied.</p>
+  <h3>Thermodynamics</h3>
+  <p class="small">Qst is derived from predicted 273 K / 298 K / 323 K isotherms. Research-grade Qst requires experimental or GCMC multi-temperature isotherm data.</p>
+  <h3>LCA / LCC</h3>
+  <p class="small">Inventory terms are screening-level proxy records unless replaced by supplier-specific or database-backed inventory and price data.</p>
   <h2>Basis & Limitations</h2>
   <div class="note">${safe(c.lca.prototypeNote)} ${safe(c.methods.noticeBody)}</div>
 </body>
@@ -1577,9 +1640,9 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
             {/* Footer Badges */}
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "1fr 1fr 1fr", gap: 12 }}>
               {[
-                { icon: "📊", title: c.structure.dataSource, desc: "CoRE MOF 2019 · roadmap: CoRE 2024 / QMOF", sub: "Legacy 14,252 structures; 2024/QMOF integration in progress" },
-                { icon: "🤖", title: c.structure.mlArchitecture, desc: "CGCNN + RF ensemble (v1.beta heuristic)", sub: "Independent per-algorithm training scheduled for v1.1" },
-                { icon: "🌿", title: c.structure.lcaFramework, desc: "ISO 14040/14044 gate-to-gate", sub: "Cradle-to-gate extension planned" },
+                { icon: "📊", title: c.structure.dataSource, desc: "Structure: public/data/mof_structures.json", sub: "Seed schema includes source_database, source_record, descriptor_method, CIF status" },
+                { icon: "🤖", title: c.structure.mlArchitecture, desc: "Model: browser profile + optional FastAPI /predict", sub: "Training scaffold reads data/adsorption_labels.csv and writes RF/GBM artifacts" },
+                { icon: "🌿", title: c.structure.lcaFramework, desc: "LCA/LCC: public/data/lca_inventory.json", sub: "Proxy inventory now has source_type, assumption, uncertainty, and roadmap replacement" },
               ].map(({ icon, title, desc, sub }) => (
                 <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "10px 14px",
                   display: "flex", gap: 10 }}>
@@ -2414,15 +2477,40 @@ function LiteratureTab({ results, inputs }) {
   const { lang, copy: c } = useLang()
   const [query, setQuery] = useState("")
   const [sortKey, setSortKey] = useState("co2")
-  const filtered = LITERATURE_DB
+  const [structureRows, setStructureRows] = useState([])
+  const [labelRows, setLabelRows] = useState([])
+  const [inventoryRows, setInventoryRows] = useState([])
+  const [dataStatus, setDataStatus] = useState("loading")
+  useEffect(() => {
+    let active = true
+    Promise.all([
+      fetchDataJson("mof_structures.json"),
+      fetchDataJson("adsorption_labels.json"),
+      fetchDataJson("lca_inventory.json"),
+    ]).then(([structures, labels, inventory]) => {
+      if (!active) return
+      setStructureRows(structures)
+      setLabelRows(labels)
+      setInventoryRows(inventory)
+      setDataStatus("loaded")
+    }).catch(() => {
+      if (active) setDataStatus("fallback")
+    })
+    return () => { active = false }
+  }, [])
+  const databaseRecords = useMemo(() => {
+    const loaded = buildDatabaseRecords(structureRows, labelRows)
+    return loaded.length ? loaded : LITERATURE_DB
+  }, [structureRows, labelRows])
+  const filtered = databaseRecords
     .filter(m => m.name.toLowerCase().includes(query.toLowerCase()) || m.metal.includes(query) || m.linker.includes(query))
-    .sort((a,b) => b[sortKey] - a[sortKey])
-  const bestCo2 = LITERATURE_DB.reduce((best, item) => item.co2 > best.co2 ? item : best, LITERATURE_DB[0])
-  const bestSelectivity = LITERATURE_DB.reduce((best, item) => item.selectivity > best.selectivity ? item : best, LITERATURE_DB[0])
+    .sort((a,b) => Number(b[sortKey] || 0) - Number(a[sortKey] || 0))
+  const bestCo2 = databaseRecords.reduce((best, item) => item.co2 > best.co2 ? item : best, databaseRecords[0])
+  const bestSelectivity = databaseRecords.reduce((best, item) => item.selectivity > best.selectivity ? item : best, databaseRecords[0])
   const compareItems = results && !results.unavailable
     ? [
         { name: inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`, uptake: results.primaryUptake, selectivity: results.selectivity, lca: results.lca.compositeGreenScore, sourceType: c.common.basisModelPredicted },
-        ...LITERATURE_DB.slice(0, 7).map(item => ({ name: item.name, uptake: item.co2, selectivity: item.selectivity, lca: Number((5 + Math.min(4, item.selectivity / 55)).toFixed(1)), sourceType: item.sourceType })),
+        ...databaseRecords.slice(0, 7).map(item => ({ name: item.name, uptake: item.co2, selectivity: item.selectivity, lca: Number((5 + Math.min(4, item.selectivity / 55)).toFixed(1)), sourceType: item.sourceType })),
       ]
     : []
 
@@ -2441,23 +2529,45 @@ function LiteratureTab({ results, inputs }) {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: 10 }}>
           {(lang === "zh" ? [
-            ["CoRE MOF 2019", "本地基准", "已加载", "结构、PLD/LCD/BET/孔体积范围参考。"],
+            ["CoRE MOF 2019", "本地基准", dataStatus === "loaded" ? `已加载 ${structureRows.length}` : "回退内置", "结构、PLD/LCD/BET/孔体积范围参考。"],
             ["CoRE MOF 2024", "结构库", "需后端导入", "用于更新 CIF 与结构描述符，不直接等于吸附标签。"],
             ["QMOF", "电子结构", "需后端导入", "用于 DFT/电子结构描述符，不是吸附等温线库。"],
-            ["NIST/GCMC labels", "吸附标签", "需数据管线", "Henry、等温线、IAST/GCMC 标签才是真正训练目标。"],
+            ["NIST/GCMC labels", "吸附标签", dataStatus === "loaded" ? `种子 ${labelRows.length}` : "需数据管线", "Henry、等温线、IAST/GCMC 标签才是真正训练目标。"],
           ] : [
-            ["CoRE MOF 2019", "Local benchmark", "loaded", "Reference for structure, PLD/LCD/BET/pore-volume ranges."],
+            ["CoRE MOF 2019", "Local benchmark", dataStatus === "loaded" ? `loaded ${structureRows.length}` : "fallback", "Reference for structure, PLD/LCD/BET/pore-volume ranges."],
             ["CoRE MOF 2024", "Structure library", "backend import", "Refreshes CIFs and descriptors; not adsorption labels by itself."],
             ["QMOF", "Electronic descriptors", "backend import", "Adds DFT/electronic descriptors; not an isotherm label source."],
-            ["NIST/GCMC labels", "Adsorption labels", "data pipeline", "Henry constants, isotherms, and IAST/GCMC labels are the true targets."],
+            ["NIST/GCMC labels", "Adsorption labels", dataStatus === "loaded" ? `seed ${labelRows.length}` : "data pipeline", "Henry constants, isotherms, and IAST/GCMC labels are the true targets."],
           ]).map(([name, kind, status, body]) => (
             <div key={name} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
               <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 800 }}>{name}</div>
               <div style={{ display: "flex", justifyContent: "space-between", gap: 6, margin: "7px 0" }}>
                 <span style={{ color: t.faint, fontSize: 10 }}>{kind}</span>
-                <BasisBadge tone={status === "loaded" || status === "已加载" ? "calc" : "proxy"}>{status}</BasisBadge>
+                <BasisBadge tone={String(status).includes("loaded") || String(status).includes("已加载") || String(status).includes("种子") || String(status).includes("seed") ? "calc" : "proxy"}>{status}</BasisBadge>
               </div>
               <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.5 }}>{body}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+        <SectionTitle>{lang === "zh" ? "数据来源拆分" : "Data Provenance Breakdown"}</SectionTitle>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 10 }}>
+          {(lang === "zh" ? [
+            ["结构描述符", "public/data/mof_structures.json", `${structureRows.length || LITERATURE_DB.length} 条`, "来源字段：source_database, source_record, descriptor_method, cif_status。"],
+            ["吸附标签", "public/data/adsorption_labels.json", `${labelRows.length || LITERATURE_DB.length} 条`, "来源字段：method, isotherm_source, doi_or_url, quality_flag。"],
+            ["LCA/LCC 清单", "public/data/lca_inventory.json", `${inventoryRows.length} 条`, "来源字段：source_type, source_ref, assumption, roadmap_replacement。"],
+          ] : [
+            ["Structure descriptors", "public/data/mof_structures.json", `${structureRows.length || LITERATURE_DB.length} records`, "Fields: source_database, source_record, descriptor_method, cif_status."],
+            ["Adsorption labels", "public/data/adsorption_labels.json", `${labelRows.length || LITERATURE_DB.length} records`, "Fields: method, isotherm_source, doi_or_url, quality_flag."],
+            ["LCA/LCC inventory", "public/data/lca_inventory.json", `${inventoryRows.length} records`, "Fields: source_type, source_ref, assumption, roadmap_replacement."],
+          ]).map(([title, file, count, body]) => (
+            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 800 }}>{title}</div>
+              <div style={{ color: t.accentSoft, fontSize: 11, fontFamily: FONT_MONO, marginTop: 6 }}>{file}</div>
+              <div style={{ color: t.success, fontSize: 11, fontWeight: 800, marginTop: 6 }}>{count}</div>
+              <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 6 }}>{body}</div>
             </div>
           ))}
         </div>
@@ -2538,7 +2648,7 @@ function LiteratureTab({ results, inputs }) {
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead>
             <tr style={{ background: t.surface }}>
-              {["MOF Name","Metal","Linker","BET (m²/g)","PV (cm³/g)","PD (Å)","CO₂ (mmol/g)","Selectivity"].map(h => (
+              {["MOF Name","Metal","Linker","Topology","PLD/LCD (Å)","BET/PV","CO₂","Selectivity","Structure source","Label source","Quality"].map(h => (
                 <th key={h} style={{ padding: "10px 14px", color: t.subtle, fontSize: 11,
                   fontWeight: 600, letterSpacing: "0.06em", textAlign: "left", borderBottom: `1px solid ${t.border}` }}>
                   {h}
@@ -2553,19 +2663,34 @@ function LiteratureTab({ results, inputs }) {
                 <td style={{ padding: "10px 14px", color: t.accentText, fontSize: 13, fontWeight: 600 }}>{m.name}</td>
                 <td style={{ padding: "10px 14px", color: t.muted, fontSize: 12, fontFamily: "monospace" }}>{m.metal}</td>
                 <td style={{ padding: "10px 14px", color: t.muted, fontSize: 12 }}>{m.linker}</td>
-                <td style={{ padding: "10px 14px", color: t.text, fontSize: 12, fontFamily: "monospace" }}>{m.bet.toLocaleString()}</td>
-                <td style={{ padding: "10px 14px", color: t.text, fontSize: 12, fontFamily: "monospace" }}>{m.pv}</td>
-                <td style={{ padding: "10px 14px", color: t.text, fontSize: 12, fontFamily: "monospace" }}>{m.pd}</td>
+                <td style={{ padding: "10px 14px", color: t.muted, fontSize: 12 }}>{m.topology || "—"}{m.oms ? " · OMS" : ""}</td>
+                <td style={{ padding: "10px 14px", color: t.text, fontSize: 12, fontFamily: "monospace" }}>{m.pd}/{m.lcd || "—"}</td>
+                <td style={{ padding: "10px 14px", color: t.text, fontSize: 12, fontFamily: "monospace" }}>{Number(m.bet || 0).toLocaleString()} / {m.pv}</td>
                 <td style={{ padding: "10px 14px", fontFamily: "monospace", fontSize: 12, fontWeight: 700,
                   color: m.co2 >= 6 ? t.success : m.co2 >= 3 ? t.accent : t.muted }}>{m.co2}</td>
                 <td style={{ padding: "10px 14px", fontFamily: "monospace", fontSize: 12,
                   color: m.selectivity >= 100 ? t.success : m.selectivity >= 30 ? t.accent : t.muted }}>{m.selectivity}</td>
+                <td style={{ padding: "10px 14px", color: t.subtle, fontSize: 11, lineHeight: 1.45 }}>
+                  <strong style={{ color: t.text }}>{m.sourceDatabase || "local seed"}</strong><br />
+                  {m.descriptorMethod || m.sourceType}
+                </td>
+                <td style={{ padding: "10px 14px", color: t.subtle, fontSize: 11, lineHeight: 1.45 }}>
+                  <strong style={{ color: t.text }}>{m.sourceType}</strong><br />
+                  {m.doi}
+                </td>
+                <td style={{ padding: "10px 14px", color: t.warn, fontSize: 11, lineHeight: 1.45 }}>
+                  {m.qualityFlag || "screening_seed"}
+                  <details style={{ color: t.faint, marginTop: 4 }}>
+                    <summary style={{ cursor: "pointer" }}>license</summary>
+                    {m.licenseNote}
+                  </details>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
         <div style={{ padding: "10px 14px", color: t.faint, fontSize: 11, borderTop: `1px solid ${t.border}` }}>
-          {c.literature.showing} {filtered.length} / {LITERATURE_DB.length} · {c.literature.source}
+          {c.literature.showing} {filtered.length} / {databaseRecords.length} · {dataStatus === "loaded" ? "public/data JSON + schema CSV" : c.literature.source}
         </div>
       </div>
     </div>

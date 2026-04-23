@@ -1,35 +1,49 @@
 """
-EcoMOF-AI — Model Training Script
+EcoMOF-AI — Model Training Scaffold
 ===================================
-Generates synthetic CoRE-2019 based training data and trains
-a Random Forest model for CO₂ uptake and CO₂/N₂ selectivity prediction.
+Trains RF / GBM / Ensemble artifacts from the local data schemas.
 
-Based on structure-property relationships from:
-  Chung et al. "CoRE MOF 2019: Deciphering the Relationship Between
-  Porous Topology and Gas Adsorption in Metal–Organic Frameworks"
-  J. Chem. Eng. Data 2019, 64, 5985–5998
+The script first tries to read:
+  ../data/mof_structures.csv
+  ../data/adsorption_labels.csv
 
-Run:  python train_model.py
+Those seed files are intentionally small. If fewer than MIN_REAL_ROWS records are
+available, the script augments them with transparent synthetic perturbations so
+the pipeline can run end-to-end while waiting for a real adsorption-label corpus.
+
+Run from backend/:  python train_model.py
 """
 
-import numpy as np
-import pandas as pd
-from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
-from sklearn.multioutput import MultiOutputRegressor
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import r2_score, mean_absolute_error
-import joblib
+try:
+    import numpy as np
+    import pandas as pd
+    from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
+    from sklearn.multioutput import MultiOutputRegressor
+    from sklearn.model_selection import train_test_split
+    from sklearn.preprocessing import LabelEncoder
+    from sklearn.metrics import r2_score, mean_absolute_error
+    import joblib
+except ModuleNotFoundError as exc:
+    raise SystemExit(
+        "Missing ML dependency. Install backend requirements first:\n"
+        "  cd backend\n"
+        "  python -m pip install -r requirements.txt"
+    ) from exc
 import json
-import os
+from pathlib import Path
 
 np.random.seed(42)
 N = 14000  # approximate CoRE-2019 size
+MIN_REAL_ROWS = 100
+BASE_DIR = Path(__file__).resolve().parent
+PROJECT_DIR = BASE_DIR.parent
+DATA_DIR = PROJECT_DIR / "data"
+MODEL_DIR = BASE_DIR / "models"
 
 # ── Feature Definitions ───────────────────────────────────────────────────────
 
 METALS  = ["Zr4+","Cu2+","Zn2+","Fe3+","Al3+","Cr3+","Mg2+","Co2+","Ni2+"]
-LINKERS = ["BDC","BTC","mIM","DOBDC","BPDC","NDC","BTB"]
+LINKERS = ["BDC","NH2-BDC","NO2-BDC","Br-BDC","BTC","mIM","DOBDC","BPDC","NDC","BTB","TCPP","TBAPy","BIM","BTDD","ADC"]
 
 METAL_CO2_AFFINITY = {
     "Mg2+": 1.35, "Co2+": 1.25, "Ni2+": 1.22,
@@ -38,8 +52,18 @@ METAL_CO2_AFFINITY = {
 }
 LINKER_POLARITY = {
     "DOBDC": 1.40, "BTC": 1.15, "BDC": 1.00,
+    "NH2-BDC": 1.18, "NO2-BDC": 1.05, "Br-BDC": 0.96,
     "mIM":   0.90, "BPDC":0.85, "NDC":0.80, "BTB": 0.75,
+    "TCPP": 0.88, "TBAPy": 0.82, "BIM": 0.91, "BTDD": 0.94, "ADC": 0.83,
 }
+
+class AveragingRegressor:
+    def __init__(self, models):
+        self.models = models
+        self.estimators_ = [models[0]]
+
+    def predict(self, X):
+        return np.mean([m.predict(X) for m in self.models], axis=0)
 
 def generate_dataset(n=N):
     metals  = np.random.choice(METALS, n)
@@ -108,6 +132,54 @@ def generate_dataset(n=N):
     })
     return df
 
+def load_schema_dataset():
+    structures_path = DATA_DIR / "mof_structures.csv"
+    labels_path = DATA_DIR / "adsorption_labels.csv"
+    if not structures_path.exists() or not labels_path.exists():
+        return None
+
+    structures = pd.read_csv(structures_path)
+    labels = pd.read_csv(labels_path)
+    df = labels.merge(structures, on=["mof_id", "name"], how="left", suffixes=("_label", ""))
+    if df.empty:
+        return None
+
+    out = pd.DataFrame({
+        "metal": df["metal"].fillna("Zr4+"),
+        "linker": df["linker"].fillna("BDC"),
+        "pore_diam": df["pld_a"].fillna(df.get("poreDiameter", 8.5)),
+        "bet_sa": df["bet_m2g"].fillna(1500),
+        "pore_vol": df["pore_volume_cm3g"].fillna(0.65),
+        "void_frac": df["void_fraction"].fillna(0.5),
+        "temperature": df["temperature_k"].fillna(298),
+        "pressure": df["pressure_bar"].fillna(0.15),
+        "has_amine": df["linker"].fillna("").str.contains("NH2", case=False).astype(int),
+        "has_hydroxyl": df["linker"].fillna("").str.contains("DOBDC", case=False).astype(int),
+        "has_carboxyl": 0,
+        "has_thiol": 0,
+        "co2_uptake": df["primary_loading_mmolg"].fillna(1.0),
+        "n2_uptake": df["secondary_loading_mmolg"].fillna(0.1),
+        "selectivity": df["selectivity"].fillna(10),
+    })
+
+    if len(out) < MIN_REAL_ROWS:
+        augmented = []
+        repeats = int(np.ceil(MIN_REAL_ROWS / max(1, len(out))))
+        for _ in range(repeats):
+            tmp = out.copy()
+            tmp["pore_diam"] *= np.random.normal(1.0, 0.035, len(tmp))
+            tmp["bet_sa"] *= np.random.normal(1.0, 0.06, len(tmp))
+            tmp["pore_vol"] *= np.random.normal(1.0, 0.05, len(tmp))
+            tmp["co2_uptake"] *= np.random.normal(1.0, 0.08, len(tmp))
+            tmp["n2_uptake"] *= np.random.normal(1.0, 0.10, len(tmp))
+            tmp["selectivity"] *= np.random.normal(1.0, 0.10, len(tmp))
+            augmented.append(tmp)
+        out = pd.concat(augmented, ignore_index=True).head(MIN_REAL_ROWS)
+        out["training_origin"] = "schema_seed_augmented"
+    else:
+        out["training_origin"] = "schema_real"
+    return out
+
 
 def train(df):
     # Encode categorical features
@@ -126,7 +198,7 @@ def train(df):
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    model = MultiOutputRegressor(
+    rf_model = MultiOutputRegressor(
         RandomForestRegressor(
             n_estimators=200,
             max_depth=20,
@@ -136,31 +208,61 @@ def train(df):
         ),
         n_jobs=-1
     )
-    print("Training model on", len(X_train), "samples...")
-    model.fit(X_train, y_train)
+    gbm_model = MultiOutputRegressor(
+        GradientBoostingRegressor(
+            n_estimators=160,
+            max_depth=3,
+            learning_rate=0.045,
+            random_state=42,
+        )
+    )
 
-    y_pred = model.predict(X_test)
+    print("Training RF model on", len(X_train), "samples...")
+    rf_model.fit(X_train, y_train)
+    print("Training GBM model on", len(X_train), "samples...")
+    gbm_model.fit(X_train, y_train)
+
+    y_pred_rf = rf_model.predict(X_test)
+    y_pred_gbm = gbm_model.predict(X_test)
+    y_pred = (y_pred_rf + y_pred_gbm) / 2
     for i, name in enumerate(["CO₂ Uptake", "N₂ Uptake", "Selectivity"]):
         r2  = r2_score(y_test.iloc[:, i], y_pred[:, i])
         mae = mean_absolute_error(y_test.iloc[:, i], y_pred[:, i])
-        print(f"  {name}: R²={r2:.3f}, MAE={mae:.3f}")
+        print(f"  Ensemble {name}: R²={r2:.3f}, MAE={mae:.3f}")
 
-    return model, le_metal, le_linker, list(X.columns)
+    return AveragingRegressor([rf_model, gbm_model]), rf_model, gbm_model, le_metal, le_linker, list(X.columns)
 
 
 if __name__ == "__main__":
-    print("Generating CoRE-2019 based synthetic dataset...")
-    df = generate_dataset()
-    print(f"Dataset: {len(df)} structures")
+    df = load_schema_dataset()
+    if df is None:
+        print("No local schema dataset found. Generating CoRE-2019 based synthetic dataset...")
+        df = generate_dataset()
+        df["training_origin"] = "synthetic_fallback"
+    else:
+        print("Loaded local schema dataset:", df["training_origin"].iloc[0])
+    print(f"Dataset: {len(df)} rows")
 
-    model, le_metal, le_linker, feature_names = train(df)
+    model, rf_model, gbm_model, le_metal, le_linker, feature_names = train(df)
 
-    os.makedirs("models", exist_ok=True)
-    joblib.dump(model,    "models/ecomof_model.pkl")
-    joblib.dump(le_metal, "models/le_metal.pkl")
-    joblib.dump(le_linker,"models/le_linker.pkl")
-    with open("models/features.json", "w") as f:
+    MODEL_DIR.mkdir(exist_ok=True)
+    joblib.dump(model,    MODEL_DIR / "ecomof_model.pkl")
+    joblib.dump(rf_model, MODEL_DIR / "rf_model.pkl")
+    joblib.dump(gbm_model, MODEL_DIR / "gbm_model.pkl")
+    joblib.dump(le_metal, MODEL_DIR / "le_metal.pkl")
+    joblib.dump(le_linker,MODEL_DIR / "le_linker.pkl")
+    with open(MODEL_DIR / "features.json", "w") as f:
         json.dump(feature_names, f)
+    with open(MODEL_DIR / "training_manifest.json", "w") as f:
+        json.dump({
+            "schema": "ecomof-training-manifest.v1",
+            "origin": str(df["training_origin"].iloc[0]),
+            "rows": int(len(df)),
+            "targets": ["co2_uptake", "n2_uptake", "selectivity"],
+            "models": ["RandomForestRegressor", "GradientBoostingRegressor", "AveragingEnsemble"],
+            "source_files": [str(DATA_DIR / "mof_structures.csv"), str(DATA_DIR / "adsorption_labels.csv")],
+            "warning": "Seed/augmented data is not publication-grade. Replace labels with verified NIST/GCMC/literature data.",
+        }, f, indent=2)
 
     print("\nSaved to models/")
     print("Done! Run: uvicorn app:app --host 0.0.0.0 --port 7860")
