@@ -11,28 +11,28 @@ import { COPY } from "./i18n"
 // ─── Theme ──────────────────────────────────────────────────────────────────
 
 const THEME_DARK = {
-  bg: "#07111f", headerBg: "rgba(9,18,32,0.84)", panel: "rgba(13,31,60,0.78)", surface: "rgba(255,255,255,0.055)",
-  border: "rgba(148,163,184,0.18)", borderStrong: "rgba(147,197,253,0.32)",
-  text: "#e2e8f0", textStrong: "#f1f5f9", muted: "#94a3b8",
-  subtle: "#64748b", faint: "#475569", veryFaint: "#334155",
-  accent: "#2563eb", accentStrong: "#1d4ed8", accentSoft: "#93c5fd", accentText: "#3b82f6",
-  success: "#10b981", warn: "#f59e0b", danger: "#ef4444",
-  tooltipBg: "#0f2744", divider: "rgba(148,163,184,0.14)",
-  glass: "rgba(255,255,255,0.075)", glassStrong: "rgba(255,255,255,0.115)",
-  chartBg: "rgba(13,31,60,0.88)", shadowSm: "0 8px 20px rgba(0,0,0,0.22)",
+  bg: "#101318", headerBg: "rgba(16,19,24,0.86)", panel: "rgba(25,29,35,0.82)", surface: "rgba(255,255,255,0.065)",
+  border: "rgba(226,232,240,0.14)", borderStrong: "rgba(45,212,191,0.34)",
+  text: "#e7ecef", textStrong: "#fbfbf8", muted: "#a8b3ba",
+  subtle: "#7c878d", faint: "#626d73", veryFaint: "#475158",
+  accent: "#14b8a6", accentStrong: "#0f766e", accentSoft: "#5eead4", accentText: "#2dd4bf",
+  success: "#22c55e", warn: "#f59e0b", danger: "#fb7185",
+  tooltipBg: "#191d23", divider: "rgba(226,232,240,0.10)",
+  glass: "rgba(255,255,255,0.08)", glassStrong: "rgba(45,212,191,0.12)",
+  chartBg: "rgba(25,29,35,0.90)", shadowSm: "0 8px 20px rgba(0,0,0,0.24)",
   shadowMd: "0 18px 42px rgba(0,0,0,0.28)",
 }
 
 const THEME_LIGHT = {
-  bg: "#f5f7fb", headerBg: "rgba(255,255,255,0.78)", panel: "rgba(255,255,255,0.76)", surface: "rgba(248,250,252,0.78)",
-  border: "rgba(15,23,42,0.10)", borderStrong: "rgba(37,99,235,0.22)",
-  text: "#0f172a", textStrong: "#020617", muted: "#334155",
-  subtle: "#475569", faint: "#64748b", veryFaint: "#94a3b8",
-  accent: "#2563eb", accentStrong: "#1d4ed8", accentSoft: "#1e40af", accentText: "#1d4ed8",
-  success: "#047857", warn: "#b45309", danger: "#b91c1c",
-  tooltipBg: "#ffffff", divider: "rgba(15,23,42,0.08)",
-  glass: "rgba(255,255,255,0.64)", glassStrong: "rgba(255,255,255,0.86)",
-  chartBg: "rgba(255,255,255,0.86)", shadowSm: "0 8px 22px rgba(15,23,42,0.06)",
+  bg: "#f7f8f6", headerBg: "rgba(255,255,252,0.82)", panel: "rgba(255,255,252,0.82)", surface: "rgba(241,245,241,0.82)",
+  border: "rgba(31,41,55,0.10)", borderStrong: "rgba(13,148,136,0.24)",
+  text: "#17201f", textStrong: "#071312", muted: "#43514f",
+  subtle: "#5b6966", faint: "#798681", veryFaint: "#9aa5a0",
+  accent: "#0d9488", accentStrong: "#0f766e", accentSoft: "#0f766e", accentText: "#0d9488",
+  success: "#15803d", warn: "#b45309", danger: "#be123c",
+  tooltipBg: "#fffffc", divider: "rgba(31,41,55,0.08)",
+  glass: "rgba(255,255,255,0.66)", glassStrong: "rgba(240,253,250,0.90)",
+  chartBg: "rgba(255,255,252,0.90)", shadowSm: "0 8px 22px rgba(15,23,42,0.06)",
   shadowMd: "0 18px 45px rgba(15,23,42,0.10)",
 }
 
@@ -4291,7 +4291,7 @@ export default function App() {
       <ViewportCtx.Provider value={viewport}>
       <div style={{
         minHeight: "100vh",
-        background: `radial-gradient(circle at 18% 0%, ${darkMode ? "rgba(37,99,235,0.22)" : "rgba(37,99,235,0.10)"}, transparent 30%), radial-gradient(circle at 88% 12%, ${darkMode ? "rgba(16,185,129,0.14)" : "rgba(16,185,129,0.08)"}, transparent 28%), ${t.bg}`,
+        background: `radial-gradient(circle at 16% 0%, ${darkMode ? "rgba(20,184,166,0.22)" : "rgba(20,184,166,0.12)"}, transparent 30%), radial-gradient(circle at 84% 10%, ${darkMode ? "rgba(245,158,11,0.13)" : "rgba(245,158,11,0.08)"}, transparent 26%), radial-gradient(circle at 50% 100%, ${darkMode ? "rgba(251,113,133,0.10)" : "rgba(251,113,133,0.06)"}, transparent 30%), ${t.bg}`,
         color: t.text,
         fontFamily: FONT_SANS,
       }}>
