@@ -1591,7 +1591,16 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
       ])
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "315px minmax(0, 1fr) 285px", gap: 20, height: "100%", alignItems: "start" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+      <PageHeader
+        title={lang === "zh" ? "Screening" : "Screening"}
+        subtitle={lang === "zh"
+          ? "输入候选 MOF、气体体系和操作条件；中栏集中显示筛选结果，右栏只保留解释、置信度和下一步。"
+          : "Enter a MOF candidate, gas pair, and operating conditions; the center column carries the screening result while the right column explains confidence and next steps."}
+        meta={`${inputs.mofName || inputs.metalCenter} · ${inputs.gasSystem} · ${inputs.temperature} K · ${inputs.pressure} bar`}
+        action={<BasisBadge tone={apiStatus?.ok ? "calc" : "proxy"}>{apiStatus?.ok ? "backend connected" : "screening prototype"}</BasisBadge>}
+      />
+    <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(250px, 0.24fr) minmax(0, 0.52fr) minmax(250px, 0.24fr)", gap: 20, height: "100%", alignItems: "start" }}>
       {/* ── Left: Input Panel ── */}
       <div style={{ width: isNarrow ? "100%" : 315, flexShrink: 0, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, overflowY: "auto" }}>
         <div style={{ color: t.accentText, fontSize: 13, fontWeight: 700, letterSpacing: 0, marginBottom: 16 }}>
@@ -1985,6 +1994,12 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
         </div>
       </aside>
     </div>
+      <Callout tone="info">
+        {lang === "zh"
+          ? "Source basis: 结构参数来自用户输入、MOF 预设或 CIF 解析；吸附结果为模型/代理筛选输出；LCA/LCC 为 proxy inventory 与用户参数计算。"
+          : "Source basis: descriptors come from user input, MOF presets, or CIF parsing; adsorption results are model/proxy screening outputs; LCA/LCC uses proxy inventory plus user-defined assumptions."}
+      </Callout>
+    </div>
   )
 }
 
@@ -2001,81 +2016,97 @@ function MLPredictionTab({ results, inputs }) {
     downloadTextFile("ecomof_model_comparison.csv", [header, ...rows].map(row => row.join(",")).join("\n"), "text/csv")
   }
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      {/* Honesty banner */}
-      <Callout tone="warn">
-        <strong>{c.ml.statusTitle}</strong> {c.ml.statusBody}
-      </Callout>
-
+    <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+      <PageHeader
+        title={lang === "zh" ? "ML Models" : "ML Models"}
+        subtitle={lang === "zh"
+          ? "本页说明当前模型成熟度、验证口径和下一步训练路线，重点是诚实展示状态，而不是包装成多个真实后端模型。"
+          : "This page explains model maturity, validation basis, and the next training milestone. It is a research-status page, not a showcase of completed backend checkpoints."}
+        action={<BasisBadge tone="proxy">{lang === "zh" ? "透明状态说明" : "transparent status"}</BasisBadge>}
+      />
       {!results || results.unavailable ? <EmptyState message={c.ml.empty} /> : (
         <>
-        <div style={{ display: "flex", flexDirection: isNarrow ? "column" : "row", gap: 20 }}>
-          <div style={{ flex: 1, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-            <SectionTitle>{c.ml.metrics}</SectionTitle>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 24 }}>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 12 }}>
+          <MetricCard label={lang === "zh" ? "后端状态" : "Backend status"} value={model.backendStatus || "static"} unit="" comparison={lang === "zh" ? "前端透明配置" : "front-end profile"} />
+          <MetricCard label="Holdout R²" value={model.r2.toFixed(3)} unit="" />
+          <MetricCard label="MAE" value={model.mae.toFixed(2)} unit="mmol/g" />
+          <MetricCard label={lang === "zh" ? "下一里程碑" : "Next milestone"} value={lang === "zh" ? "真实训练" : "Retraining"} unit="" comparison={lang === "zh" ? "每个气体体系单独训练" : "separate model per gas pair"} />
+        </div>
+
+        <div style={{ background: t.chartBg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 14 }}>
+            <div>
+              <SectionTitle>{c.ml.feature}</SectionTitle>
+              <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
+                {lang === "zh"
+                  ? "主图只解释当前预测最依赖哪些结构描述符。它不声称这些权重来自已经部署的独立 GNN/RF/GBM checkpoint。"
+                  : "The main figure explains which descriptors drive the current prediction. It does not claim deployed independent GNN/RF/GBM checkpoints."}
+              </div>
+            </div>
+            <BasisBadge tone="proxy">{model.label}</BasisBadge>
+          </div>
+          <ResponsiveContainer width="100%" height={360}>
+            <BarChart data={results.featureImportance} layout="vertical" margin={{ left: 105, right: 24 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={t.border} horizontal={false} />
+              <XAxis type="number" tick={{ fill: t.subtle, fontSize: 10 }} domain={[0, 0.35]} tickFormatter={v => `${(v*100).toFixed(0)}%`} />
+              <YAxis type="category" dataKey="feature" tick={{ fill: t.muted, fontSize: 12 }} width={108} />
+              <Tooltip formatter={(v) => [`${(v*100).toFixed(1)}%`, "Importance"]} contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
+              <Bar dataKey="importance" fill={t.accent} radius={[0,4,4,0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
+          <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 18 }}>
+            <SectionTitle>{lang === "zh" ? "当前实现状态" : "Current implementation status"}</SectionTitle>
+            <div style={{ display: "grid", gap: 9 }}>
               {[
-                { label: "Validation R²",  value: model.r2.toFixed(3), unit: "" },
-                { label: "MAE (primary)",  value: model.mae.toFixed(2),  unit: "mmol/g" },
-                { label: "RMSE",           value: model.rmse.toFixed(2),  unit: "mmol/g" },
-                { label: "Profile",        value: model.label, unit: "" },
-              ].map(m => (
-                <div key={m.label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
-                  <div style={{ color: t.subtle, fontSize: 11 }}>{m.label}</div>
-                  <div style={{ color: t.textStrong, fontSize: 22, fontWeight: 700, fontFamily: "monospace", marginTop: 4 }}>
-                    {m.value} <span style={{ color: t.faint, fontSize: 12 }}>{m.unit}</span>
-                  </div>
+                [c.structure.gasSystem, results.gasSystem],
+                [c.ml.algorithmSelected, model.label],
+                [c.structure.confidence, `${(results.confidenceScore * 100).toFixed(1)}%`],
+                [c.structure.latency, `${results.latencyMs} ms`],
+              ].map(([label, value]) => (
+                <div key={label} style={{ display: "flex", justifyContent: "space-between", gap: 12, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "9px 11px" }}>
+                  <span style={{ color: t.subtle, fontSize: 12 }}>{label}</span>
+                  <strong style={{ color: t.textStrong, fontSize: 12, fontFamily: FONT_MONO }}>{value}</strong>
                 </div>
               ))}
             </div>
-
-            <SectionTitle>{c.ml.feature}</SectionTitle>
-            <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={results.featureImportance} layout="vertical" margin={{ left: 80, right: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke={t.border} horizontal={false} />
-                <XAxis type="number" tick={{ fill: t.subtle, fontSize: 10 }} domain={[0, 0.35]} tickFormatter={v => `${(v*100).toFixed(0)}%`} />
-                <YAxis type="category" dataKey="feature" tick={{ fill: t.muted, fontSize: 11 }} width={80} />
-                <Tooltip formatter={(v) => [`${(v*100).toFixed(1)}%`, "Importance"]} contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
-                <Bar dataKey="importance" radius={[0,4,4,0]}>
-                  {results.featureImportance.map((_, i) => (
-                    <Cell key={i} fill={[t.accent, t.success, t.amber, t.violet, t.rose][i % 5]} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.6, marginTop: 12 }}>
+              {c.ml.trainingNote} {lang === "zh"
+                ? "当前是透明的前端模型配置；真实独立模型需要后端训练工件、冻结验证集和版本化 manifest。"
+                : "The current build uses transparent front-end model profiles; real independent models require backend artifacts, a frozen validation set, and a versioned manifest."}
+            </div>
           </div>
 
-          <div style={{ width: isNarrow ? "100%" : 280, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-            <SectionTitle>{c.ml.thisPrediction}</SectionTitle>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {[
-                [c.structure.gasSystem,   results.gasSystem],
-                [`${results.primaryName} ${c.structure.uptake}`,   `${results.primaryUptake} mmol/g`],
-                [`${results.secondaryName} ${c.structure.uptake}`, `${results.secondaryUptake} mmol/g`],
-                [c.structure.selectivity,  `${results.selectivity}`],
-                [c.structure.confidence,   `${(results.confidenceScore * 100).toFixed(1)}%`],
-                [c.structure.latency,      `${results.latencyMs} ms`],
-              ].map(([k,v]) => (
-                <div key={k} style={{ display: "flex", justifyContent: "space-between", alignItems: "center",
-                  padding: "8px 12px", background: t.surface, borderRadius: 6, border: `1px solid ${t.border}` }}>
-                  <span style={{ color: t.subtle, fontSize: 12 }}>{k}</span>
-                  <span style={{ color: t.text, fontSize: 13, fontWeight: 600, fontFamily: "monospace" }}>{v}</span>
+          <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 18 }}>
+            <SectionTitle>{lang === "zh" ? "未来重训模型会增加什么" : "What retrained models would add"}</SectionTitle>
+            <div style={{ display: "grid", gap: 9 }}>
+              {(lang === "zh" ? [
+                ["独立 checkpoint", "RF / GBM / GNN / Ensemble 不再只是启发式配置，而是独立训练产物。"],
+                ["气体体系分模型", "CO2/N2、CH4/N2、C2H4/C2H6 等各自训练，避免一套权重混用。"],
+                ["不确定性", "输出置信区间、适用域距离和异常输入警告。"],
+                ["真实标签", "接入真实等温线、Henry、IAST/GCMC 标签后重新验证。"],
+              ] : [
+                ["Independent checkpoints", "RF / GBM / GNN / Ensemble become separate trained artifacts, not heuristic profiles."],
+                ["Gas-specific models", "CO2/N2, CH4/N2, C2H4/C2H6, and others are trained separately."],
+                ["Uncertainty", "Outputs include confidence intervals, applicability distance, and out-of-domain warnings."],
+                ["Real labels", "Retraining depends on real isotherm, Henry, IAST/GCMC labels."],
+              ]).map(([title, body]) => (
+                <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+                  <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800 }}>{title}</div>
+                  <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.5, marginTop: 5 }}>{body}</div>
                 </div>
               ))}
-            </div>
-            <div style={{ marginTop: 20, padding: 12, background: t.surface, borderRadius: 8, border: `1px solid ${t.border}` }}>
-              <div style={{ color: t.accentText, fontSize: 11, fontWeight: 600, marginBottom: 8 }}>{c.ml.algorithmSelected}</div>
-              <div style={{ color: t.muted, fontSize: 12 }}>
-                {model.label} · uptake weights SA {model.weights.sa.toFixed(2)}, PV {model.weights.pv.toFixed(2)}, selectivity {model.weights.sel.toFixed(2)}
-              </div>
-              <div style={{ color: t.faint, fontSize: 11, marginTop: 6 }}>
-                {c.ml.trainingNote} {lang === "zh"
-                  ? "当前浏览器版本使用透明的分模型配置；生产级独立模型需要后端训练工件。"
-                  : "Current browser build uses transparent per-model profiles; production-grade independent checkpoints require backend training artifacts."}
-              </div>
             </div>
           </div>
         </div>
-        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+
+        <details style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+          <summary style={{ cursor: "pointer", color: t.accentSoft, fontSize: 12, fontWeight: 800 }}>
+            {lang === "zh" ? "查看静态多模型对比矩阵" : "View static multi-model comparison matrix"}
+          </summary>
+          <div style={{ marginTop: 14 }}>
           <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 12 }}>
             <div>
               <SectionTitle>{lang === "zh" ? "多模型对比矩阵" : "Multi-model comparison matrix"}</SectionTitle>
@@ -2125,7 +2156,11 @@ function MLPredictionTab({ results, inputs }) {
               </BarChart>
             </ResponsiveContainer>
           </div>
-        </div>
+          </div>
+        </details>
+        <Callout tone="warn">
+          <strong>{c.ml.statusTitle}</strong> {c.ml.statusBody}
+        </Callout>
         </>
       )}
     </div>
@@ -2435,7 +2470,6 @@ function LCAScoringTab({ results, inputs }) {
     { label: c.lca.lcc, value: displayMoney(totalLcc), sub: `${c.lca.mainCost}: ${dominantCost.name}` },
     { label: c.lca.influentialFactor, value: mostSensitive.label, sub: `${c.lca.deltaScore}: ${mostSensitive.value.toFixed(1)}` },
     { label: c.lca.tradeoffStatus, value: results.primaryUptake > 3 && lca.compositeGreenScore > 6 ? c.lca.acceptable : c.lca.assumptionSensitive, sub: c.lca.tradeoffBody },
-    { label: c.lca.confidenceBasis, value: c.lca.screeningLevel, sub: c.lca.basisBody },
   ]
 
   return (
@@ -2466,7 +2500,7 @@ function LCAScoringTab({ results, inputs }) {
         </div>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(6, minmax(0, 1fr))", gap: 10 }}>
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
         {summaryCards.map(card => (
           <div key={card.label} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, minHeight: 118 }}>
             <div style={{ color: t.faint, fontSize: 10, marginBottom: 8, textTransform: "uppercase" }}>{card.label}</div>
@@ -2479,6 +2513,38 @@ function LCAScoringTab({ results, inputs }) {
             </div>
           </div>
         ))}
+      </div>
+
+      <div style={{ ...chartCardStyle, background: t.chartBg, padding: 20 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", marginBottom: 12, flexWrap: "wrap" }}>
+          <div>
+            <SectionTitle>{c.lca.tradeoff}</SectionTitle>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, maxWidth: 820 }}>
+              {c.lca.tradeoffBody} {c.lca.basisBody}
+            </div>
+          </div>
+          <BasisBadge tone="proxy">{c.common.basisProxy}</BasisBadge>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) 280px", gap: 18, alignItems: "center" }}>
+          <ResponsiveContainer width="100%" height={420}>
+            <ScatterChart margin={{ top: 18, right: 24, bottom: 26, left: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
+              <XAxis type="number" dataKey="performance" name="Performance" tick={{ fill: t.subtle, fontSize: 11 }}
+                label={{ value: "Adsorption performance", fill: t.subtle, fontSize: 11, dy: 18 }} />
+              <YAxis type="number" dataKey="burden" name="LCA burden" tick={{ fill: t.subtle, fontSize: 11 }}
+                label={{ value: "LCA burden", fill: t.subtle, fontSize: 11, angle: -90, dx: -10 }} />
+              <ZAxis type="number" dataKey="cost" range={[180, 980]} />
+              <Tooltip cursor={{ strokeDasharray: "3 3" }} contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }}
+                formatter={(value, name) => [value, name]} />
+              <Scatter name={inputs.mofName || "Current MOF"} data={tradeoffData} fill={t.accent} />
+            </ScatterChart>
+          </ResponsiveContainer>
+          <div style={{ display: "grid", gap: 10 }}>
+            <MetricCard label={c.lca.totalLcc} value={displayMoney(totalLcc)} unit="/kg MOF" />
+            <MetricCard label={c.lca.environmentalBurden} value={dominantImpact.name} unit="" comparison={dominantImpact.def} />
+            <MetricCard label={c.lca.influentialFactor} value={mostSensitive.label} unit="" comparison={`${c.lca.deltaScore}: ${mostSensitive.value.toFixed(1)}`} />
+          </div>
+        </div>
       </div>
 
       <div style={chartCardStyle}>
@@ -2748,30 +2814,6 @@ function LCAScoringTab({ results, inputs }) {
         </div>
       </div>
 
-      <div style={chartCardStyle}>
-        <SectionTitle>{c.lca.tradeoff}</SectionTitle>
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) 260px", gap: 16, alignItems: "center" }}>
-          <ResponsiveContainer width="100%" height={250}>
-            <ScatterChart margin={{ top: 18, right: 24, bottom: 22, left: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
-              <XAxis type="number" dataKey="performance" name="Performance" tick={{ fill: t.subtle, fontSize: 10 }}
-                label={{ value: "Adsorption performance", fill: t.subtle, fontSize: 10, dy: 16 }} />
-              <YAxis type="number" dataKey="burden" name="LCA burden" tick={{ fill: t.subtle, fontSize: 10 }}
-                label={{ value: "LCA burden", fill: t.subtle, fontSize: 10, angle: -90, dx: -10 }} />
-              <ZAxis type="number" dataKey="cost" range={[120, 760]} />
-              <Tooltip cursor={{ strokeDasharray: "3 3" }} contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }}
-                formatter={(value, name) => [value, name]} />
-              <Scatter name={inputs.mofName || "Current MOF"} data={tradeoffData} fill={t.success} />
-            </ScatterChart>
-          </ResponsiveContainer>
-          <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.65 }}>
-            {c.lca.tradeoffBody}
-            <div style={{ marginTop: 10, color: t.faint }}>
-              {c.lca.basisBody}
-            </div>
-          </div>
-        </div>
-      </div>
         </div>
 
         <aside style={{ position: isNarrow ? "static" : "sticky", top: 72, display: "flex", flexDirection: "column", gap: 12 }}>
@@ -2801,18 +2843,52 @@ function LCAScoringTab({ results, inputs }) {
 
 function InterpretationTab({ results, inputs }) {
   const t = useT()
-  const { copy: c } = useLang()
+  const { lang, copy: c } = useLang()
   const { isNarrow } = useViewport()
   const metal = METAL_CENTERS.find(m => m.value === inputs.metalCenter)
   const linker = ORGANIC_LINKERS.find(l => l.value === inputs.organicLinker)
-  const applicabilityPoints = buildApplicabilityPoints(inputs, results)
+  const thermo = results && !results.unavailable ? results.thermo : null
+  const mainQst = thermo?.qstCurve || []
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-      <div>
-        <h1 style={{ margin: 0, color: t.textStrong, fontSize: 24 }}>{c.interpretation.title}</h1>
-        <p style={{ margin: "6px 0 0", color: t.muted, fontSize: 13, lineHeight: 1.6 }}>{c.interpretation.subtitle}</p>
+    <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+      <PageHeader
+        title={c.interpretation.title}
+        subtitle={c.interpretation.subtitle}
+        meta={lang === "zh"
+          ? "主角：Qst vs loading。结构解释与热力学 caveat 放在下方，不重复 Screening 的数值结果。"
+          : "Main focus: Qst vs loading. Structural interpretation and thermodynamic caveats sit below without repeating the Screening output."}
+        action={<BasisBadge tone="proxy">{c.thermo.betaBadge}</BasisBadge>}
+      />
+      {!results || results.unavailable || !thermo ? (
+        <EmptyState message={c.thermo.empty} />
+      ) : (
+        <>
+      <div style={{ background: t.chartBg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 14 }}>
+          <div>
+            <SectionTitle>{c.thermo.qstLoading}</SectionTitle>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
+              {lang === "zh"
+                ? "Qst 告诉用户为什么可能分得开：开放金属位点、官能团静电贡献或孔径筛分。当前曲线由预测多温等温线反推。"
+                : "Qst explains why a separation may work: open metal sites, functional-group electrostatics, or pore sieving. The current curve is derived from predicted multi-temperature isotherms."}
+            </div>
+          </div>
+          <MetricCard label={c.thermo.qst0} value={thermo.qst0} unit="kJ/mol" />
+        </div>
+        <ResponsiveContainer width="100%" height={390}>
+          <LineChart data={mainQst}>
+            <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
+            <XAxis dataKey="loading" stroke={t.faint} tick={{ fill: t.subtle, fontSize: 11 }}
+              label={{ value: "Loading (mmol/g)", fill: t.subtle, fontSize: 11, dy: 12 }} />
+            <YAxis stroke={t.faint} tick={{ fill: t.subtle, fontSize: 11 }} domain={['auto','auto']}
+              label={{ value: "Qst (kJ/mol)", fill: t.subtle, fontSize: 11, angle: -90, dx: -12 }} />
+            <Tooltip content={<CustomTooltip unitX="mmol/g" unitY="kJ/mol" />} />
+            <Line type="monotone" dataKey="qst" stroke={t.accent} strokeWidth={3} dot={false} name="Qst" />
+          </LineChart>
+        </ResponsiveContainer>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr 1fr", gap: 14 }}>
+
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
         <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
           <SectionTitle>{c.interpretation.structural}</SectionTitle>
           <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.65 }}>{c.interpretation.structuralBody}</div>
@@ -2831,51 +2907,43 @@ function InterpretationTab({ results, inputs }) {
         <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
           <SectionTitle>{c.interpretation.thermodynamic}</SectionTitle>
           <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.65 }}>
-            {results && !results.unavailable ? c.thermo.interpretationBody : c.thermo.empty}
+            {c.thermo.interpretationBody}
           </div>
-          {results && !results.unavailable && (
-            <div style={{ marginTop: 14 }}>
-              <MetricCard label={c.thermo.qst0} value={results.thermo.qst0} unit="kJ/mol" />
-            </div>
-          )}
-        </div>
-        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
-          <SectionTitle>{c.interpretation.confidence}</SectionTitle>
-          <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.65 }}>{c.interpretation.confidenceBody}</div>
-          {results?.applicability && (
-            <div style={{ marginTop: 12, color: results.applicability.warnings.length ? t.warn : t.success, fontSize: 13, fontWeight: 800 }}>
-              {results.applicability.warnings.length ? c.structure.caution : c.structure.inDomain}
-            </div>
-          )}
+          <div style={{ marginTop: 14, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+            <MetricCard label={c.thermo.qst0} value={thermo.qst0} unit="kJ/mol" />
+            <MetricCard label={c.thermo.method} value="C-C" unit="" comparison="273/298/323 K" />
+          </div>
         </div>
       </div>
-      {results && !results.unavailable && <ThermodynamicsTab results={results} />}
+
       <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
-        <SectionTitle>{c.common.applicabilityMap}</SectionTitle>
-        <ResponsiveContainer width="100%" height={300}>
-          <ScatterChart margin={{ top: 16, right: 24, bottom: 28, left: 8 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
-            <XAxis type="number" dataKey="pld" name="PLD" tick={{ fill: t.subtle, fontSize: 10 }}
-              label={{ value: "PLD / pore diameter (Å)", fill: t.subtle, fontSize: 10, dy: 18 }} />
-            <YAxis type="number" dataKey="betNorm" name="BET/1000" tick={{ fill: t.subtle, fontSize: 10 }}
-              label={{ value: "BET / 1000", fill: t.subtle, fontSize: 10, angle: -90, dx: -10 }} />
-            <ReferenceLine x={3.5} stroke={t.warn} strokeDasharray="4 4" />
-            <ReferenceLine x={28} stroke={t.warn} strokeDasharray="4 4" />
-            <ReferenceLine y={0.15} stroke={t.warn} strokeDasharray="4 4" />
-            <ReferenceLine y={6} stroke={t.warn} strokeDasharray="4 4" />
-            <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
-            <Scatter data={applicabilityPoints.filter(p => p.status === "benchmark")} fill={t.subtle} name={c.common.benchmarkSet} />
-            <Scatter data={applicabilityPoints.filter(p => p.status !== "benchmark")} fill={results?.applicability?.warnings?.length ? t.warn : t.success} name={c.common.currentCandidate} />
-          </ScatterChart>
-        </ResponsiveContainer>
+        <SectionTitle>{c.interpretation.confidence}</SectionTitle>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+          {[
+            [lang === "zh" ? "Qst 来源" : "Qst source", lang === "zh" ? "预测等温线反推" : "derived from predicted isotherms", "proxy"],
+            [lang === "zh" ? "适用域" : "Applicability", results.applicability?.warnings?.length ? c.structure.caution : c.structure.inDomain, results.applicability?.warnings?.length ? "proxy" : "calc"],
+            [lang === "zh" ? "科研级要求" : "Research-grade need", lang === "zh" ? "真实/GCMC 多温等温线" : "real/GCMC multi-T isotherms", "info"],
+            [lang === "zh" ? "使用方式" : "Use", lang === "zh" ? "机理线索，不是最终证据" : "mechanistic cue, not final evidence", "proxy"],
+          ].map(([label, value, tone]) => (
+            <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 7 }}>
+                <span style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{label}</span>
+                <BasisBadge tone={tone}>{tone}</BasisBadge>
+              </div>
+              <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800, lineHeight: 1.35 }}>{value}</div>
+            </div>
+          ))}
+        </div>
       </div>
+        </>
+      )}
     </div>
   )
 }
 
 function SensitivityTab({ results, inputs }) {
   const t = useT()
-  const { copy: c } = useLang()
+  const { lang, copy: c } = useLang()
   const { isNarrow } = useViewport()
   const [customScenario, setCustomScenario] = useState({ metal: 10, energy: 10, solvent: 10, cost: 10 })
   if (!results || results.unavailable) return <EmptyState message={c.lca.empty} />
@@ -2934,10 +3002,9 @@ function SensitivityTab({ results, inputs }) {
         <MetricCard label={c.sensitivityPage.followup} value={decision.dominantCost.name} unit="" />
         <MetricCard label="P05 / P50 / P95" value={`${mcLast.p05}/${mcLast.p50}/${mcLast.p95}`} unit="" />
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
-        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+      <div style={{ background: t.chartBg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
           <SectionTitle>{c.sensitivityPage.sweep}</SectionTitle>
-          <ResponsiveContainer width="100%" height={260}>
+          <ResponsiveContainer width="100%" height={370}>
             <BarChart data={sweepData} layout="vertical" margin={{ top: 8, right: 20, left: 105, bottom: 8 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={t.border} horizontal={false} />
               <XAxis type="number" tick={{ fill: t.subtle, fontSize: 10 }} />
@@ -2946,7 +3013,13 @@ function SensitivityTab({ results, inputs }) {
               <Bar dataKey="effect" fill={t.warn} radius={[0, 4, 4, 0]} />
             </BarChart>
           </ResponsiveContainer>
-        </div>
+          <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 8 }}>
+            {lang === "zh"
+              ? "主图回答一个问题：当前结论最容易被哪个假设推翻。参数越长，说明该变量越值得优先补真实数据。"
+              : "The main figure answers one question: which assumption can most easily overturn the conclusion. Longer bars mark variables that should be prioritized for real data collection."}
+          </div>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
         <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
           <SectionTitle>{c.sensitivityPage.scenarios}</SectionTitle>
           <div style={{ display: "grid", gap: 10 }}>
@@ -2957,6 +3030,26 @@ function SensitivityTab({ results, inputs }) {
                 <span>LCA {item.lca}</span>
                 <span>${item.cost}</span>
                 <span>{item.stability}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+          <SectionTitle>{lang === "zh" ? "决策稳健性解释" : "Decision stability explanation"}</SectionTitle>
+          <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.7 }}>
+            {lang === "zh"
+              ? "如果 Base、Optimistic 和 Conservative 情景下候选排序仍保持靠前，说明早期结论较稳；如果 High-energy 或高成本情景下迅速掉出前列，应先补再生能耗、连接体价格和溶剂回收率数据。"
+              : "If the candidate stays highly ranked across Base, Optimistic, and Conservative scenarios, the early conclusion is more robust. If it drops under high-energy or high-cost assumptions, prioritize regeneration energy, linker price, and solvent recovery data."}
+          </div>
+          <div style={{ display: "grid", gap: 8, marginTop: 12 }}>
+            {[
+              [c.sensitivityPage.stability, "72%"],
+              [c.sensitivityPage.mostSensitive, decision.mostSensitive.label],
+              [c.sensitivityPage.followup, decision.dominantCost.name],
+            ].map(([label, value]) => (
+              <div key={label} style={{ display: "flex", justifyContent: "space-between", gap: 10, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "9px 11px" }}>
+                <span style={{ color: t.subtle, fontSize: 12 }}>{label}</span>
+                <strong style={{ color: t.textStrong, fontSize: 12 }}>{value}</strong>
               </div>
             ))}
           </div>
@@ -3125,18 +3218,46 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
   ].join("\n")
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", gap: 14, alignItems: "flex-start", flexWrap: "wrap" }}>
-        <div>
-          <h1 style={{ margin: 0, color: t.textStrong, fontSize: 24 }}>{c.validation.title}</h1>
-          <p style={{ margin: "6px 0 0", color: t.muted, fontSize: 13, lineHeight: 1.6 }}>{c.validation.subtitle}</p>
-        </div>
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+      <PageHeader
+        title={c.validation.title}
+        subtitle={c.validation.subtitle}
+        action={
+          <>
           <button type="button" onClick={() => downloadTextFile("ecomof_validation_summary.md", validationReport, "text/markdown")} style={toolbarBtn(t)}>
             ↓ Validation MD
           </button>
           <button type="button" onClick={() => downloadTextFile("ecomof_validation_points.csv", validationCsv, "text/csv")} style={toolbarBtn(t)}>
             ↓ Validation CSV
           </button>
+          </>
+        }
+      />
+
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 12 }}>
+        <MetricCard label="R²" value={manifest?.metrics?.co2_uptake?.r2 ? Number(manifest.metrics.co2_uptake.r2).toFixed(3) : "—"} unit="" />
+        <MetricCard label="MAE" value={manifest?.metrics?.co2_uptake?.mae ? Number(manifest.metrics.co2_uptake.mae).toFixed(2) : "—"} unit="mmol/g" />
+        <MetricCard label="RMSE" value={manifest?.metrics?.co2_uptake?.rmse ? Number(manifest.metrics.co2_uptake.rmse).toFixed(2) : "—"} unit="mmol/g" />
+        <MetricCard label={c.validation.applicability} value={results?.applicability?.warnings?.length ? c.structure.caution : c.structure.inDomain} unit="" />
+      </div>
+
+      <div style={{ background: t.chartBg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
+        <SectionTitle>{c.common.validationPredictedVsReference}</SectionTitle>
+        <ResponsiveContainer width="100%" height={410}>
+          <ScatterChart margin={{ top: 12, right: 24, bottom: 28, left: 6 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
+            <XAxis type="number" dataKey="reference" name="Reference" tick={{ fill: t.subtle, fontSize: 11 }}
+              label={{ value: "Reference uptake", fill: t.subtle, fontSize: 11, dy: 18 }} />
+            <YAxis type="number" dataKey="predicted" name="Predicted" tick={{ fill: t.subtle, fontSize: 11 }}
+              label={{ value: "Predicted uptake", fill: t.subtle, fontSize: 11, angle: -90, dx: -10 }} />
+            <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
+            <ReferenceLine segment={[{ x: 0, y: 0 }, { x: 10, y: 10 }]} stroke={t.accent} strokeDasharray="4 4" />
+            <Scatter data={validationData} fill={t.accent} />
+          </ScatterChart>
+        </ResponsiveContainer>
+        <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
+          {lang === "zh"
+            ? "当前 parity plot 是 seed benchmark 演示结构；科研级版本应替换为冻结外部测试集。"
+            : "This parity plot uses a seed benchmark demonstration; a research-grade version should replace it with a frozen external test set."}
         </div>
       </div>
 
@@ -3177,22 +3298,7 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
           </div>
         ))}
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
-        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
-          <SectionTitle>{c.common.validationPredictedVsReference}</SectionTitle>
-          <ResponsiveContainer width="100%" height={280}>
-            <ScatterChart margin={{ top: 12, right: 20, bottom: 26, left: 4 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
-              <XAxis type="number" dataKey="reference" name="Reference" tick={{ fill: t.subtle, fontSize: 10 }}
-                label={{ value: "Reference uptake", fill: t.subtle, fontSize: 10, dy: 16 }} />
-              <YAxis type="number" dataKey="predicted" name="Predicted" tick={{ fill: t.subtle, fontSize: 10 }}
-                label={{ value: "Predicted uptake", fill: t.subtle, fontSize: 10, angle: -90, dx: -10 }} />
-              <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
-              <ReferenceLine segment={[{ x: 0, y: 0 }, { x: 10, y: 10 }]} stroke={t.success} strokeDasharray="4 4" />
-              <Scatter data={validationData} fill={t.accent} />
-            </ScatterChart>
-          </ResponsiveContainer>
-        </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 14 }}>
         <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
           <SectionTitle>{c.common.validationResiduals}</SectionTitle>
           <ResponsiveContainer width="100%" height={280}>
@@ -3307,7 +3413,93 @@ function LiteratureTab({ results, inputs }) {
   const selectStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, padding: "9px 14px", color: t.text, fontSize: 13, outline: "none", cursor: "pointer" }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+      <PageHeader
+        title={lang === "zh" ? "Database" : "Database"}
+        subtitle={lang === "zh"
+          ? "以 benchmark 和 reference browser 的方式浏览材料；重点看材料为什么值得对照，而不是先进入密集数据表。"
+          : "Browse materials as a benchmark and reference browser; the first view emphasizes why each case matters instead of starting from a dense backend table."}
+        action={<BasisBadge tone={dataStatus === "loaded" ? "calc" : "proxy"}>{dataStatus}</BasisBadge>}
+      />
+
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }}>
+        <input placeholder={c.literature.search}
+          value={query} onChange={e => setQuery(e.target.value)}
+          style={{ flex: "1 1 280px", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6,
+            padding: "10px 14px", color: t.text, fontSize: 13, outline: "none" }} />
+        <select value={sortKey} onChange={e => setSortKey(e.target.value)} style={{ ...selectStyle, width: 210, background: t.surface }}>
+          <option value="co2">Sort by CO₂ Uptake</option>
+          <option value="selectivity">Sort by Selectivity</option>
+          <option value="bet">Sort by BET Surface Area</option>
+          <option value="pv">Sort by Pore Volume</option>
+        </select>
+        <button type="button" onClick={exportDatabaseCsv} style={toolbarBtn(t)}>
+          ↓ CSV
+        </button>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1.25fr 0.75fr", gap: 14, alignItems: "stretch" }}>
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, minHeight: 230 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", marginBottom: 14 }}>
+            <div>
+              <div style={{ color: t.textStrong, fontSize: 24, fontWeight: 800 }}>{filtered[0]?.name || "UiO-66"}</div>
+              <div style={{ color: t.muted, fontSize: 13, lineHeight: 1.65, marginTop: 8, maxWidth: 620 }}>
+                {lang === "zh"
+                  ? "Featured benchmark 用来快速建立解释参照：结构稳定性、孔结构、选择性趋势和公开标签覆盖都比普通候选更适合作为对照。"
+                  : "The featured benchmark provides an interpretation anchor for stability, pore structure, selectivity trends, and public-label coverage."}
+              </div>
+            </div>
+            <BasisBadge tone="info">{filtered[0]?.sourceType || "benchmark-backed"}</BasisBadge>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+            {[
+              ["PLD/LCD", `${filtered[0]?.pd ?? "—"} / ${filtered[0]?.lcd ?? "—"} Å`],
+              ["BET/PV", `${Number(filtered[0]?.bet || 0).toLocaleString()} / ${filtered[0]?.pv ?? "—"}`],
+              ["CO2 uptake", filtered[0]?.co2 ?? "—"],
+              ["Selectivity", filtered[0]?.selectivity ?? "—"],
+            ].map(([label, value]) => (
+              <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+                <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{label}</div>
+                <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 800, marginTop: 6 }}>{value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+          <SectionTitle>{lang === "zh" ? "筛选类别" : "Filter categories"}</SectionTitle>
+          <div style={{ display: "grid", gap: 9 }}>
+            {[
+              ["Benchmark-backed", filtered.filter(item => item.qualityFlag || item.sourceType).length],
+              ["Open metal site", filtered.filter(item => item.oms).length],
+              ["High selectivity", filtered.filter(item => Number(item.selectivity) >= 30).length],
+              ["Structure records", structureRows.length || databaseRecords.length],
+            ].map(([label, count]) => (
+              <div key={label} style={{ display: "flex", justifyContent: "space-between", gap: 10, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "10px 12px" }}>
+                <span style={{ color: t.muted, fontSize: 12 }}>{label}</span>
+                <strong style={{ color: t.accentSoft, fontSize: 12 }}>{count}</strong>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: 12 }}>
+        {filtered.slice(0, 8).map(item => (
+          <div key={item.name} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 8 }}>
+              <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 800 }}>{item.name}</div>
+              <BasisBadge tone="info">{item.sourceDatabase || "seed"}</BasisBadge>
+            </div>
+            <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55 }}>
+              {item.oms
+                ? (lang === "zh" ? "Open metal site benchmark with adsorption relevance." : "Open metal site benchmark with adsorption relevance.")
+                : (lang === "zh" ? "Reference material for structure-performance comparison." : "Reference material for structure-performance comparison.")}
+            </div>
+            <div style={{ color: t.faint, fontSize: 10, marginTop: 9 }}>{item.qualityFlag || item.sourceType || "screening_seed"}</div>
+          </div>
+        ))}
+      </div>
+
       <Callout tone="info">
         <strong>{c.literature.roadmapTitle}</strong> {c.literature.roadmapBody}
       </Callout>
@@ -4330,6 +4522,31 @@ function toolbarBtn(t) {
 }
 
 // ─── Shared helpers ─────────────────────────────────────────────────────────
+
+function PageHeader({ title, subtitle, meta, action }) {
+  const t = useT()
+  return (
+    <div style={{
+      display: "flex", justifyContent: "space-between", gap: 18, alignItems: "flex-start",
+      flexWrap: "wrap", marginBottom: 4,
+    }}>
+      <div>
+        <h1 style={{ margin: 0, color: t.textStrong, fontSize: 28, letterSpacing: 0, lineHeight: 1.15 }}>{title}</h1>
+        {subtitle && (
+          <p style={{ margin: "8px 0 0", color: t.muted, fontSize: 13, lineHeight: 1.65, maxWidth: 880 }}>
+            {subtitle}
+          </p>
+        )}
+        {meta && (
+          <div style={{ marginTop: 10, color: t.faint, fontSize: 11, lineHeight: 1.5 }}>
+            {meta}
+          </div>
+        )}
+      </div>
+      {action && <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>{action}</div>}
+    </div>
+  )
+}
 
 function SectionTitle({ children }) {
   const t = useT()
