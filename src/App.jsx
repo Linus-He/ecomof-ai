@@ -11,30 +11,30 @@ import { COPY } from "./i18n"
 // ─── Theme ──────────────────────────────────────────────────────────────────
 
 const THEME_DARK = {
-  bg: "#11140f", headerBg: "rgba(17,20,15,0.86)", panel: "rgba(27,31,25,0.84)", surface: "rgba(255,255,255,0.068)",
-  border: "rgba(229,231,223,0.14)", borderStrong: "rgba(94,234,212,0.34)",
-  text: "#e8ede6", textStrong: "#fffdf4", muted: "#aab4a6",
-  subtle: "#7d8977", faint: "#657061", veryFaint: "#4b5549",
-  accent: "#2dd4bf", accentStrong: "#0f766e", accentSoft: "#99f6e4", accentText: "#5eead4",
-  success: "#84cc16", warn: "#f59e0b", danger: "#fb7185",
-  info: "#a78bfa", rose: "#fb7185", amber: "#f59e0b", violet: "#a78bfa", cyan: "#67e8f9",
-  tooltipBg: "#1b1f19", divider: "rgba(229,231,223,0.10)",
-  glass: "rgba(255,255,255,0.08)", glassStrong: "rgba(94,234,212,0.13)",
-  chartBg: "rgba(27,31,25,0.90)", shadowSm: "0 8px 20px rgba(0,0,0,0.24)",
+  bg: "#08111f", headerBg: "rgba(8,17,31,0.88)", panel: "rgba(15,23,42,0.86)", surface: "rgba(186,230,253,0.075)",
+  border: "rgba(186,230,253,0.16)", borderStrong: "rgba(125,211,252,0.38)",
+  text: "#e8f6ff", textStrong: "#f8fcff", muted: "#b7cbe0",
+  subtle: "#8ea9bf", faint: "#6d879e", veryFaint: "#526a80",
+  accent: "#38bdf8", accentStrong: "#0284c7", accentSoft: "#7dd3fc", accentText: "#7dd3fc",
+  success: "#38bdf8", warn: "#0ea5e9", danger: "#fb7185",
+  info: "#60a5fa", rose: "#60a5fa", amber: "#38bdf8", violet: "#93c5fd", cyan: "#7dd3fc",
+  tooltipBg: "#0f172a", divider: "rgba(186,230,253,0.11)",
+  glass: "rgba(186,230,253,0.08)", glassStrong: "rgba(56,189,248,0.13)",
+  chartBg: "rgba(15,23,42,0.90)", shadowSm: "0 8px 20px rgba(2,8,23,0.24)",
   shadowMd: "0 18px 42px rgba(0,0,0,0.30)",
 }
 
 const THEME_LIGHT = {
-  bg: "#f8f8f1", headerBg: "rgba(255,255,249,0.84)", panel: "rgba(255,255,249,0.86)", surface: "rgba(240,244,236,0.84)",
-  border: "rgba(38,48,37,0.10)", borderStrong: "rgba(13,148,136,0.25)",
-  text: "#17201a", textStrong: "#07130c", muted: "#43513f",
-  subtle: "#5c6a57", faint: "#7a8674", veryFaint: "#9aa595",
-  accent: "#0d9488", accentStrong: "#0f766e", accentSoft: "#0f766e", accentText: "#0d9488",
-  success: "#4d7c0f", warn: "#b45309", danger: "#be123c",
-  info: "#7c3aed", rose: "#be123c", amber: "#b45309", violet: "#7c3aed", cyan: "#0891b2",
-  tooltipBg: "#fffffc", divider: "rgba(31,41,55,0.08)",
-  glass: "rgba(255,255,255,0.66)", glassStrong: "rgba(240,253,250,0.90)",
-  chartBg: "rgba(255,255,252,0.90)", shadowSm: "0 8px 22px rgba(15,23,42,0.06)",
+  bg: "#f5fbff", headerBg: "rgba(248,252,255,0.88)", panel: "rgba(255,255,255,0.90)", surface: "rgba(224,242,254,0.66)",
+  border: "rgba(2,132,199,0.12)", borderStrong: "rgba(14,165,233,0.28)",
+  text: "#102235", textStrong: "#061525", muted: "#334d66",
+  subtle: "#5b748c", faint: "#7d93a8", veryFaint: "#9aabbc",
+  accent: "#38bdf8", accentStrong: "#0284c7", accentSoft: "#0284c7", accentText: "#0284c7",
+  success: "#0ea5e9", warn: "#0284c7", danger: "#be123c",
+  info: "#3b82f6", rose: "#60a5fa", amber: "#38bdf8", violet: "#93c5fd", cyan: "#7dd3fc",
+  tooltipBg: "#ffffff", divider: "rgba(2,132,199,0.09)",
+  glass: "rgba(255,255,255,0.72)", glassStrong: "rgba(224,242,254,0.92)",
+  chartBg: "rgba(255,255,255,0.92)", shadowSm: "0 8px 22px rgba(2,132,199,0.08)",
   shadowMd: "0 18px 45px rgba(15,23,42,0.10)",
 }
 
@@ -52,14 +52,14 @@ const useViewport = () => useContext(ViewportCtx)
 // ─── Catalogs ───────────────────────────────────────────────────────────────
 
 const METAL_CENTERS = [
-  { value: "Zr4+",  label: "Zr4+",  lcaScore: 8.5, toxicity: "Low",      oms: false, color: "#84cc16" },
-  { value: "Mg2+",  label: "Mg2+",  lcaScore: 9.0, toxicity: "Very Low", oms: true,  color: "#84cc16" },
-  { value: "Al3+",  label: "Al3+",  lcaScore: 8.0, toxicity: "Low",      oms: false, color: "#84cc16" },
-  { value: "Fe3+",  label: "Fe3+",  lcaScore: 7.5, toxicity: "Low",      oms: true,  color: "#2dd4bf" },
-  { value: "Zn2+",  label: "Zn2+",  lcaScore: 6.5, toxicity: "Moderate", oms: false, color: "#f59e0b" },
-  { value: "Cu2+",  label: "Cu2+",  lcaScore: 6.0, toxicity: "Moderate", oms: true,  color: "#f59e0b" },
-  { value: "Co2+",  label: "Co2+",  lcaScore: 5.0, toxicity: "Moderate", oms: true,  color: "#f59e0b" },
-  { value: "Ni2+",  label: "Ni2+",  lcaScore: 5.5, toxicity: "Moderate", oms: true,  color: "#f59e0b" },
+  { value: "Zr4+",  label: "Zr4+",  lcaScore: 8.5, toxicity: "Low",      oms: false, color: "#38bdf8" },
+  { value: "Mg2+",  label: "Mg2+",  lcaScore: 9.0, toxicity: "Very Low", oms: true,  color: "#38bdf8" },
+  { value: "Al3+",  label: "Al3+",  lcaScore: 8.0, toxicity: "Low",      oms: false, color: "#38bdf8" },
+  { value: "Fe3+",  label: "Fe3+",  lcaScore: 7.5, toxicity: "Low",      oms: true,  color: "#38bdf8" },
+  { value: "Zn2+",  label: "Zn2+",  lcaScore: 6.5, toxicity: "Moderate", oms: false, color: "#7dd3fc" },
+  { value: "Cu2+",  label: "Cu2+",  lcaScore: 6.0, toxicity: "Moderate", oms: true,  color: "#7dd3fc" },
+  { value: "Co2+",  label: "Co2+",  lcaScore: 5.0, toxicity: "Moderate", oms: true,  color: "#7dd3fc" },
+  { value: "Ni2+",  label: "Ni2+",  lcaScore: 5.5, toxicity: "Moderate", oms: true,  color: "#7dd3fc" },
   { value: "Cr3+",  label: "Cr3+",  lcaScore: 3.0, toxicity: "High",     oms: false, color: "#fb7185" },
 ]
 
@@ -760,9 +760,9 @@ function evaluateApplicability(inputs, results) {
 
 function getPerformanceLabel(primary, selectivity) {
   const score = primary * 0.6 + selectivity * 0.01
-  if (score > 5.5) return { label: "EXCELLENT", color: "#84cc16", bg: "rgba(132,204,22,0.16)" }
-  if (score > 3.5) return { label: "GOOD",      color: "#2dd4bf", bg: "rgba(45,212,191,0.15)" }
-  if (score > 2.0) return { label: "FAIR",      color: "#f59e0b", bg: "rgba(245,158,11,0.15)" }
+  if (score > 5.5) return { label: "EXCELLENT", color: "#0ea5e9", bg: "rgba(56,189,248,0.16)" }
+  if (score > 3.5) return { label: "GOOD",      color: "#38bdf8", bg: "rgba(56,189,248,0.15)" }
+  if (score > 2.0) return { label: "FAIR",      color: "#0284c7", bg: "rgba(56,189,248,0.13)" }
   return               { label: "POOR",      color: "#fb7185", bg: "rgba(251,113,133,0.15)" }
 }
 
@@ -852,9 +852,9 @@ function MetricCard({ label, value, unit, badge, badgeColor, badgeBg, comparison
 function BasisBadge({ children, tone = "info" }) {
   const t = useT()
   const palette = {
-    info: { color: t.info, bg: "rgba(167,139,250,0.13)", border: t.info },
-    calc: { color: t.success, bg: "rgba(132,204,22,0.13)", border: t.success },
-    proxy: { color: t.warn, bg: "rgba(245,158,11,0.12)", border: t.warn },
+    info: { color: t.info, bg: "rgba(56,189,248,0.13)", border: t.info },
+    calc: { color: t.success, bg: "rgba(56,189,248,0.13)", border: t.success },
+    proxy: { color: t.warn, bg: "rgba(56,189,248,0.12)", border: t.warn },
     user: { color: t.muted, bg: t.surface, border: t.borderStrong },
   }[tone] || {}
   return (
@@ -880,10 +880,10 @@ function InfoTip({ text }) {
 function Callout({ tone = "info", children }) {
   const t = useT()
   const palette = {
-    info: { bg: "rgba(45,212,191,0.11)", border: t.accent, color: t.accentSoft },
-    warn: { bg: "rgba(245,158,11,0.12)", border: t.warn,   color: t.warn },
+    info: { bg: "rgba(56,189,248,0.11)", border: t.accent, color: t.accentSoft },
+    warn: { bg: "rgba(56,189,248,0.12)", border: t.warn,   color: t.warn },
     danger:{ bg: "rgba(251,113,133,0.12)", border: t.danger, color: t.danger },
-    success:{ bg: "rgba(132,204,22,0.12)", border: t.success, color: t.success },
+    success:{ bg: "rgba(56,189,248,0.12)", border: t.success, color: t.success },
   }[tone]
   return (
     <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 8,
@@ -976,7 +976,7 @@ function buildDecisionModel(results, inputs, c) {
     { name: "IRP", value: burden(c.lca.shortMetal) * 0.60 + burden(c.lca.shortLinker) * 0.25 + burden(c.lca.shortEnergy) * 0.15, def: c.lca.indicatorIrp },
     { name: "ET",  value: burden(c.lca.shortMetal) * 0.35 + burden(c.lca.shortWaste) * 0.35 + burden(c.lca.shortAir) * 0.20 + burden(c.lca.shortWater) * 0.10, def: c.lca.indicatorEt },
   ].map(item => ({ ...item, value: Number(item.value.toFixed(2)) }))
-  const roseColors = ["#fb7185", "#f59e0b", "#84cc16", "#2dd4bf", "#a78bfa", "#67e8f9"]
+  const roseColors = ["#0284c7", "#0ea5e9", "#38bdf8", "#7dd3fc", "#93c5fd", "#bae6fd"]
   const windRoseData = indicatorData.map((item, index) => ({
     ...item,
     value: Number((0.5 + item.value * 0.45).toFixed(1)),
@@ -1062,7 +1062,7 @@ function buildReportHtml(results, inputs, decision, c, lcaParams = {}) {
     ["Henry selectivity", results.selectivityDetails?.henry ?? "screening proxy"],
     ["IAST selectivity", results.selectivityDetails?.iast ?? "screening proxy"],
     ["Qst source", "Derived from predicted multi-temperature isotherms"],
-    ["Green score", `${results.lca.compositeGreenScore}/10`],
+    ["Eco score", `${results.lca.compositeGreenScore}/10`],
     ["Total LCC", `$${decision.totalLcc}/kg MOF`],
     ["Dominant impact", decision.dominantImpact.name],
     ["Main cost contributor", decision.dominantCost.name],
@@ -1108,7 +1108,7 @@ function buildReportHtml(results, inputs, decision, c, lcaParams = {}) {
   <div class="grid">
     <div class="card"><div class="label">Performance</div><div class="value">${safe(results.primaryUptake)} mmol/g</div></div>
     <div class="card"><div class="label">Selectivity</div><div class="value">${safe(results.selectivity)}</div></div>
-    <div class="card"><div class="label">Green score</div><div class="value">${safe(results.lca.compositeGreenScore)}/10</div></div>
+    <div class="card"><div class="label">Eco score</div><div class="value">${safe(results.lca.compositeGreenScore)}/10</div></div>
   </div>
   <h2>Input, Prediction, and Source Basis</h2>
   <table><tbody>${rows.map(([k, v]) => `<tr><th>${safe(k)}</th><td>${safe(v)}</td></tr>`).join("")}</tbody></table>
@@ -1176,7 +1176,7 @@ function buildDecisionReport(results, inputs, decision, c) {
     `Confidence: ${(results.confidenceScore * 100).toFixed(0)}%`,
     "",
     "## LCA / LCC",
-    `Green score: ${results.lca.compositeGreenScore}/10`,
+    `Eco score: ${results.lca.compositeGreenScore}/10`,
     `Dominant impact: ${decision.dominantImpact.name}`,
     `Total LCC proxy: $${decision.totalLcc}/kg MOF`,
     `Main cost contributor: ${decision.dominantCost.name}`,
@@ -1494,7 +1494,7 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
       [`Selectivity ${results.primaryName}/${results.secondaryName}`, results.selectivity],
       ["Qst at zero-coverage (kJ/mol)", results.thermo?.qst0 ?? "—"],
       ["Confidence Score", results.confidenceScore],
-      ["Green Score", results.lca.compositeGreenScore],
+      ["Eco Score", results.lca.compositeGreenScore],
     ]
     const csv = rows.map(r => r.join(",")).join("\n")
     const a = document.createElement("a")
@@ -2200,7 +2200,7 @@ function ThermodynamicsTab({ results }) {
               ))}
               <div style={{
                 color: uploadedAnalysis.summary.qstReady ? t.success : t.warn,
-                background: uploadedAnalysis.summary.qstReady ? "rgba(132,204,22,0.12)" : "rgba(245,158,11,0.12)",
+                background: uploadedAnalysis.summary.qstReady ? "rgba(56,189,248,0.12)" : "rgba(56,189,248,0.12)",
                 border: `1px solid ${uploadedAnalysis.summary.qstReady ? t.success : t.warn}`,
                 borderRadius: 8,
                 padding: "8px 10px",
@@ -2464,7 +2464,7 @@ function LCAScoringTab({ results, inputs }) {
           </div>
           <div style={{ display: "grid", gap: 10 }}>
             <MetricCard label="Adjusted LCC" value={displayMoney(adjustedLcc)} unit="/kg MOF" comparison={`base ${displayMoney(totalLcc)}`} />
-            <MetricCard label="Adjusted green score" value={adjustedGreenScore} unit="/10" comparison={`base ${lca.compositeGreenScore}/10`} />
+            <MetricCard label="Adjusted eco score" value={adjustedGreenScore} unit="/10" comparison={`base ${lca.compositeGreenScore}/10`} />
           </div>
         </div>
       </div>
@@ -3665,8 +3665,8 @@ function MethodsLimitationsTab() {
   const bodyText = { color: t.muted, fontSize: 12, lineHeight: 1.7 }
   const statusPill = (tone) => {
     const palette = {
-      stable: { bg: "rgba(132,204,22,0.12)", color: t.success, border: t.success },
-      beta: { bg: "rgba(245,158,11,0.12)", color: t.warn, border: t.warn },
+      stable: { bg: "rgba(56,189,248,0.12)", color: t.success, border: t.success },
+      beta: { bg: "rgba(56,189,248,0.12)", color: t.warn, border: t.warn },
       planned: { bg: "rgba(167,139,250,0.13)", color: t.info, border: t.info },
       limited: { bg: "rgba(251,113,133,0.12)", color: t.danger, border: t.danger },
     }[tone]
@@ -4082,7 +4082,7 @@ function BatchModePanel({ inputs, onClose, onApplyToForm }) {
     const header = [
       "MOF","Metal","Linker","Gas","Primary (mmol/g)","Secondary (mmol/g)","Selectivity",
       "Qst0 (kJ/mol)","Qst beta source","Applicability status","Applicability warnings",
-      "Confidence","Green Score","Decision score","Anomaly"
+      "Confidence","Eco Score","Decision score","Anomaly"
     ]
     const lines = [header.join(",")]
     for (const r of rows) {
@@ -4303,7 +4303,7 @@ function SavedRunsModal({ runs, onClose, onLoad, onDelete, onImport, onExport })
   })
   const csvCell = (value) => `"${String(value ?? "").replace(/"/g, '""')}"`
   const exportSavedCsv = () => {
-    const header = ["Name", "Gas", "Metal", "Linker", "Primary uptake", "Secondary uptake", "Selectivity", "Green score", "Confidence", "Created"]
+    const header = ["Name", "Gas", "Metal", "Linker", "Primary uptake", "Secondary uptake", "Selectivity", "Eco score", "Confidence", "Created"]
     const rows = runs
       .filter(run => run?.results && !run.results.unavailable)
       .map(run => [
@@ -4351,7 +4351,7 @@ function SavedRunsModal({ runs, onClose, onLoad, onDelete, onImport, onExport })
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
               <MetricCard label={lang === "zh" ? "可导出记录" : "Exportable runs"} value={savedSummary.count} unit={`/ ${runs.length}`} />
               <MetricCard label={lang === "zh" ? "最高选择性" : "Best selectivity"} value={savedSummary.bestSelectivity.value || "—"} unit="" comparison={savedSummary.bestSelectivity.name} />
-              <MetricCard label={lang === "zh" ? "最高绿色评分" : "Best green score"} value={savedSummary.bestGreen.value || "—"} unit="/10" comparison={savedSummary.bestGreen.name} />
+              <MetricCard label={lang === "zh" ? "最高生态评分" : "Best eco score"} value={savedSummary.bestGreen.value || "—"} unit="/10" comparison={savedSummary.bestGreen.name} />
             </div>
             {runs.map(run => (
               <div key={run.id} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12,
@@ -4391,7 +4391,7 @@ const TABS = [
 ]
 
 export default function App() {
-  const [darkMode, setDarkMode]   = useState(true)
+  const [darkMode, setDarkMode]   = useState(false)
   const theme = darkMode ? THEME_DARK : THEME_LIGHT
   const [lang, setLang]           = useState("en")
   const copy = COPY[lang]
@@ -4589,7 +4589,7 @@ export default function App() {
       <ViewportCtx.Provider value={viewport}>
       <div style={{
         minHeight: "100vh",
-        background: `radial-gradient(circle at 14% 0%, ${darkMode ? "rgba(45,212,191,0.20)" : "rgba(13,148,136,0.11)"}, transparent 30%), radial-gradient(circle at 84% 9%, ${darkMode ? "rgba(245,158,11,0.14)" : "rgba(180,83,9,0.08)"}, transparent 25%), radial-gradient(circle at 48% 100%, ${darkMode ? "rgba(167,139,250,0.11)" : "rgba(124,58,237,0.055)"}, transparent 31%), ${t.bg}`,
+        background: `radial-gradient(circle at 14% 0%, ${darkMode ? "rgba(56,189,248,0.20)" : "rgba(56,189,248,0.13)"}, transparent 30%), radial-gradient(circle at 84% 9%, ${darkMode ? "rgba(125,211,252,0.14)" : "rgba(125,211,252,0.10)"}, transparent 25%), radial-gradient(circle at 48% 100%, ${darkMode ? "rgba(147,197,253,0.11)" : "rgba(147,197,253,0.07)"}, transparent 31%), ${t.bg}`,
         color: t.text,
         fontFamily: FONT_SANS,
       }}>
@@ -4599,7 +4599,7 @@ export default function App() {
           backdropFilter: "blur(18px) saturate(145%)", boxShadow: t.shadowSm }}>
 
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginRight: viewport.isNarrow ? 6 : 0, height: 52, flex: "0 0 auto" }}>
-            <div style={{ width: 28, height: 28, background: `linear-gradient(135deg, ${t.accentStrong}, ${t.amber})`,
+            <div style={{ width: 28, height: 28, background: `linear-gradient(135deg, ${t.accentStrong}, ${t.accent})`,
               borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center",
               fontSize: 14, fontWeight: 800, color: "#fff" }}>⬡</div>
             <span style={{ fontWeight: 800, fontSize: 16, letterSpacing: "0.02em", color: t.textStrong }}>EcoMOF-AI</span>
@@ -4619,7 +4619,7 @@ export default function App() {
                   padding: "0 12px", fontSize: 13, fontWeight: activeTab === tab.id ? 800 : 600,
                   color: activeTab === tab.id ? "#fff" : t.subtle,
                   borderRadius: 6,
-                  boxShadow: activeTab === tab.id ? `0 0 0 1px ${t.borderStrong}, 0 8px 18px rgba(45,212,191,0.20)` : "none",
+                  boxShadow: activeTab === tab.id ? `0 0 0 1px ${t.borderStrong}, 0 8px 18px rgba(56,189,248,0.20)` : "none",
                   transition: "all 0.15s", fontFamily: FONT_SANS, whiteSpace: "nowrap",
                 }}>
                 {copy.tabs[tab.copyKey]}
