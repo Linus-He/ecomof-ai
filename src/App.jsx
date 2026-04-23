@@ -877,6 +877,37 @@ function downloadTextFile(filename, text, type = "text/plain") {
   URL.revokeObjectURL(a.href)
 }
 
+function exportChartPng(containerId, filename) {
+  const svg = document.querySelector(`#${containerId} svg`)
+  if (!svg) return
+  const rect = svg.getBoundingClientRect()
+  const width = Math.max(480, Math.ceil(rect.width || 900))
+  const height = Math.max(320, Math.ceil(rect.height || 520))
+  const cloned = svg.cloneNode(true)
+  cloned.setAttribute("xmlns", "http://www.w3.org/2000/svg")
+  cloned.setAttribute("width", width)
+  cloned.setAttribute("height", height)
+  const xml = new XMLSerializer().serializeToString(cloned)
+  const svgBlob = new Blob([xml], { type: "image/svg+xml;charset=utf-8" })
+  const url = URL.createObjectURL(svgBlob)
+  const image = new Image()
+  image.onload = () => {
+    const canvas = document.createElement("canvas")
+    canvas.width = width * 2
+    canvas.height = height * 2
+    const ctx = canvas.getContext("2d")
+    ctx.fillStyle = "#ffffff"
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    ctx.drawImage(image, 0, 0, canvas.width, canvas.height)
+    const a = document.createElement("a")
+    a.href = canvas.toDataURL("image/png")
+    a.download = filename
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+  image.src = url
+}
+
 function buildDecisionReport(results, inputs, decision, c) {
   return [
     "# EcoMOF-AI Decision Report",
@@ -957,11 +988,36 @@ function HomeTab({ setActiveTab }) {
           ))}
         </div>
       </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
+        <div style={cardStyle}>
+          <SectionTitle>{c.common.benchmarkCases}</SectionTitle>
+          <div style={{ display: "grid", gap: 8 }}>
+            {LITERATURE_DB.slice(1, 5).map(item => (
+              <div key={item.name} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10,
+                display: "grid", gridTemplateColumns: "1fr 70px 80px", gap: 8, alignItems: "center", color: t.subtle, fontSize: 12 }}>
+                <strong style={{ color: t.textStrong }}>{item.name}</strong>
+                <span>{item.co2} CO2</span>
+                <span>Sel. {item.selectivity}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div style={cardStyle}>
+          <SectionTitle>{c.common.citation}</SectionTitle>
+          <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.7 }}>
+            EcoMOF-AI prototype. Use outputs as early-stage screening hypotheses. Cite CoRE MOF/QMOF/literature label sources separately when using exported results.
+          </div>
+          <button onClick={() => setActiveTab("validation")} style={{ ...toolbarBtn(t), marginTop: 14 }}>
+            {c.tabs.validation}
+          </button>
+        </div>
+      </div>
     </div>
   )
 }
 
-function StructureInputTab({ inputs, setInputs, results, loading, onPredict }) {
+function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onSaveRun }) {
   const t = useT()
   const { copy: c } = useLang()
   const { isNarrow, isMobile } = useViewport()
@@ -1205,11 +1261,18 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict }) {
                   {" · "}{c.structure.applicability}: {results.applicability?.warnings?.length ? c.structure.caution : c.structure.inDomain}
                 </span>
               </div>
-              <button onClick={exportCSV}
-                style={{ background: t.border, border: `1px solid ${t.borderStrong}`, borderRadius: 4, color: t.accentSoft,
-                  fontSize: 11, padding: "5px 10px", cursor: "pointer" }}>
-                ↓ {c.structure.export}
-              </button>
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
+                <button onClick={exportCSV}
+                  style={{ background: t.border, border: `1px solid ${t.borderStrong}`, borderRadius: 4, color: t.accentSoft,
+                    fontSize: 11, padding: "5px 10px", cursor: "pointer" }}>
+                  ↓ {c.structure.export}
+                </button>
+                <button onClick={onSaveRun}
+                  style={{ background: t.border, border: `1px solid ${t.borderStrong}`, borderRadius: 4, color: t.success,
+                    fontSize: 11, padding: "5px 10px", cursor: "pointer" }}>
+                  + {c.common.saveRun}
+                </button>
+              </div>
             </div>
 
             {results.anomaly && (
@@ -1639,9 +1702,14 @@ function LCAScoringTab({ results, inputs }) {
           </span>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 14 }}>
-          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
-            <div style={{ color: t.muted, fontSize: 12, fontWeight: 700, marginBottom: 8 }}>
-              {c.lca.characterization}<InfoTip text={c.common.tooltipCharacterization} />
+          <div id="chart-characterization" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", marginBottom: 8 }}>
+              <div style={{ color: t.muted, fontSize: 12, fontWeight: 700 }}>
+                {c.lca.characterization}<InfoTip text={c.common.tooltipCharacterization} />
+              </div>
+              <button onClick={() => exportChartPng("chart-characterization", "ecomof-characterization.png")} style={{ ...toolbarBtn(t), padding: "3px 8px", fontSize: 10 }}>
+                ↓ {c.common.exportPng}
+              </button>
             </div>
             <ResponsiveContainer width="100%" height={210}>
               <BarChart data={indicatorData} margin={{ top: 8, right: 6, left: -20, bottom: 12 }}>
@@ -1662,9 +1730,14 @@ function LCAScoringTab({ results, inputs }) {
               <div style={{ marginTop: 6 }}>{c.lca.characterizationSource}</div>
             </details>
           </div>
-          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
-            <div style={{ color: t.muted, fontSize: 12, fontWeight: 700, marginBottom: 8 }}>
-              {c.lca.normalization}<InfoTip text={c.common.tooltipNormalization} />
+          <div id="chart-normalization" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", marginBottom: 8 }}>
+              <div style={{ color: t.muted, fontSize: 12, fontWeight: 700 }}>
+                {c.lca.normalization}<InfoTip text={c.common.tooltipNormalization} />
+              </div>
+              <button onClick={() => exportChartPng("chart-normalization", "ecomof-normalization.png")} style={{ ...toolbarBtn(t), padding: "3px 8px", fontSize: 10 }}>
+                ↓ {c.common.exportPng}
+              </button>
             </div>
             <WindRoseChart data={windRoseData} />
             <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5 }}>{c.lca.normalizationBody}</div>
@@ -1681,9 +1754,14 @@ function LCAScoringTab({ results, inputs }) {
               <div style={{ marginTop: 6 }}>{c.lca.normalizationSource}</div>
             </details>
           </div>
-          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
-            <div style={{ color: t.muted, fontSize: 12, fontWeight: 700, marginBottom: 8 }}>
-              {c.lca.sensitivity}<InfoTip text={c.common.tooltipSensitivity} />
+          <div id="chart-sensitivity" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", marginBottom: 8 }}>
+              <div style={{ color: t.muted, fontSize: 12, fontWeight: 700 }}>
+                {c.lca.sensitivity}<InfoTip text={c.common.tooltipSensitivity} />
+              </div>
+              <button onClick={() => exportChartPng("chart-sensitivity", "ecomof-sensitivity.png")} style={{ ...toolbarBtn(t), padding: "3px 8px", fontSize: 10 }}>
+                ↓ {c.common.exportPng}
+              </button>
             </div>
             <ResponsiveContainer width="100%" height={210}>
               <RadarChart data={sensitivityRadarData}>
@@ -1828,6 +1906,7 @@ function SensitivityTab({ results, inputs }) {
   const t = useT()
   const { copy: c } = useLang()
   const { isNarrow } = useViewport()
+  const [customScenario, setCustomScenario] = useState({ metal: 10, energy: 10, solvent: 10, cost: 10 })
   if (!results || results.unavailable) return <EmptyState message={c.lca.empty} />
   const decision = buildDecisionModel(results, inputs, c)
   const scenarios = [
@@ -1842,6 +1921,9 @@ function SensitivityTab({ results, inputs }) {
     { parameter: c.lca.sensSolvent, effect: decision.mostSensitive.value * 0.72 },
     { parameter: c.lca.linkerCost, effect: decision.unitCost * 0.08 },
   ].map(item => ({ ...item, effect: Number(item.effect.toFixed(2)) }))
+  const customPenalty = (customScenario.metal * 0.018) + (customScenario.energy * 0.026) + (customScenario.solvent * 0.014)
+  const customCost = Number((decision.totalLcc * (1 + customScenario.cost / 100)).toFixed(1))
+  const customScore = Number(Math.max(0, results.lca.compositeGreenScore - customPenalty).toFixed(1))
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <div>
@@ -1879,6 +1961,30 @@ function SensitivityTab({ results, inputs }) {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+      <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+        <SectionTitle>{c.common.customScenario}</SectionTitle>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 12 }}>
+          {[
+            ["metal", c.common.metalBurden],
+            ["energy", c.common.energyPenalty],
+            ["solvent", c.common.solventWaste],
+            ["cost", c.common.costPremium],
+          ].map(([key, label]) => (
+            <div key={key} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", color: t.subtle, fontSize: 12, marginBottom: 8 }}>
+                <span>{label}</span><strong>{customScenario[key]}%</strong>
+              </div>
+              <input type="range" min="0" max="50" value={customScenario[key]}
+                onChange={e => setCustomScenario(prev => ({ ...prev, [key]: Number(e.target.value) }))}
+                style={{ width: "100%", accentColor: t.accent }} />
+            </div>
+          ))}
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12, marginTop: 12 }}>
+          <MetricCard label="Custom LCA score" value={customScore} unit="/10" />
+          <MetricCard label="Custom LCC" value={`$${customCost}`} unit="/kg MOF" />
         </div>
       </div>
       <Callout tone="warn">{c.sensitivityPage.caution}</Callout>
@@ -2544,6 +2650,45 @@ function EmptyState({ message }) {
   )
 }
 
+function SavedRunsModal({ runs, onClose, onLoad, onDelete }) {
+  const t = useT()
+  const { copy: c } = useLang()
+  return (
+    <div style={{ position: "fixed", inset: 0, background: "rgba(2,6,23,0.55)", zIndex: 220,
+      display: "flex", alignItems: "flex-start", justifyContent: "center" }} onClick={onClose}>
+      <div onClick={e => e.stopPropagation()} style={{ marginTop: 70, width: "min(760px, 94vw)",
+        maxHeight: "78vh", overflow: "auto", background: t.panel, border: `1px solid ${t.border}`,
+        borderRadius: 12, padding: 18 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+          <div style={{ color: t.accentSoft, fontSize: 14, fontWeight: 800 }}>{c.common.savedRuns}</div>
+          <button onClick={onClose} style={{ background: "none", border: "none", color: t.subtle, fontSize: 18, cursor: "pointer" }}>×</button>
+        </div>
+        {runs.length === 0 ? (
+          <div style={{ color: t.faint, fontSize: 13, padding: "32px 8px", textAlign: "center" }}>{c.common.noSavedRuns}</div>
+        ) : (
+          <div style={{ display: "grid", gap: 10 }}>
+            {runs.map(run => (
+              <div key={run.id} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12,
+                display: "grid", gridTemplateColumns: "1fr auto", gap: 12, alignItems: "center" }}>
+                <div>
+                  <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 800 }}>{run.name}</div>
+                  <div style={{ color: t.subtle, fontSize: 11, marginTop: 4 }}>
+                    {run.results.gasSystem} · {run.inputs.metalCenter}/{run.inputs.organicLinker} · Sel. {run.results.selectivity} · LCA {run.results.lca.compositeGreenScore}/10
+                  </div>
+                </div>
+                <div style={{ display: "flex", gap: 8 }}>
+                  <button onClick={() => onLoad(run)} style={toolbarBtn(t)}>{c.common.loadRun}</button>
+                  <button onClick={() => onDelete(run.id)} style={{ ...toolbarBtn(t), color: t.danger }}>{c.common.deleteRun}</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
 // ─── Main App ────────────────────────────────────────────────────────────────
 
 const TABS = [
@@ -2572,6 +2717,14 @@ export default function App() {
   const [loading, setLoading]         = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const [batchOpen, setBatchOpen]     = useState(false)
+  const [savedOpen, setSavedOpen]     = useState(false)
+  const [savedRuns, setSavedRuns]     = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("ecomof_saved_runs") || "[]")
+    } catch (_) {
+      return []
+    }
+  })
   const [searchStatus, setSearchStatus] = useState(null) // "loaded" | "miss" | null
 
   // Keep body bg in sync so browser chrome & over-scroll match.
@@ -2587,6 +2740,10 @@ export default function App() {
     window.addEventListener("resize", onResize)
     return () => window.removeEventListener("resize", onResize)
   }, [])
+
+  useEffect(() => {
+    localStorage.setItem("ecomof_saved_runs", JSON.stringify(savedRuns.slice(0, 20)))
+  }, [savedRuns])
 
   const presetSuggestions = useMemo(() => {
     return getPresetSuggestionNames(searchQuery)
@@ -2630,6 +2787,20 @@ export default function App() {
     setResults(predictMOF(inputs))
     setLoading(false)
   }, [inputs])
+
+  const saveCurrentRun = useCallback(() => {
+    if (!results || results.unavailable) return
+    const id = `${Date.now()}`
+    const name = inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`
+    setSavedRuns(prev => [{ id, name, inputs, results, createdAt: new Date().toISOString() }, ...prev].slice(0, 20))
+  }, [inputs, results])
+
+  const loadSavedRun = useCallback((run) => {
+    setInputs(run.inputs)
+    setResults(run.results)
+    setSavedOpen(false)
+    setActiveTab("structure")
+  }, [])
 
   const t = theme
   const viewport = {
@@ -2733,6 +2904,13 @@ export default function App() {
               ⊟ {copy.header.batch}
             </button>
 
+            <button onClick={() => setSavedOpen(true)}
+              style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6,
+                padding: "5px 10px", color: t.success, fontSize: 12, cursor: "pointer",
+                display: "flex", alignItems: "center", gap: 6, fontFamily: FONT_SANS }}>
+              ▣ {copy.common.savedRuns}
+            </button>
+
             <button onClick={() => setDarkMode(d => !d)}
               title={darkMode ? copy.header.light : copy.header.dark}
               style={{ width: 28, height: 28, background: t.panel, border: `1px solid ${t.border}`,
@@ -2745,7 +2923,7 @@ export default function App() {
 
         <main style={{ padding: viewport.isMobile ? "14px 12px" : "20px 24px", maxWidth: 1400, margin: "0 auto" }}>
           {activeTab === "home"           && <HomeTab setActiveTab={setActiveTab} />}
-          {activeTab === "structure"      && <StructureInputTab inputs={inputs} setInputs={setInputs} results={results} loading={loading} onPredict={handlePredict} />}
+          {activeTab === "structure"      && <StructureInputTab inputs={inputs} setInputs={setInputs} results={results} loading={loading} onPredict={handlePredict} onSaveRun={saveCurrentRun} />}
           {activeTab === "interpretation" && <InterpretationTab results={results} inputs={inputs} />}
           {activeTab === "lca"            && <LCAScoringTab results={results} inputs={inputs} />}
           {activeTab === "sensitivity"    && <SensitivityTab results={results} inputs={inputs} />}
@@ -2776,6 +2954,14 @@ export default function App() {
               setBatchOpen(false)
               setActiveTab("structure")
             }}
+          />
+        )}
+        {savedOpen && (
+          <SavedRunsModal
+            runs={savedRuns}
+            onClose={() => setSavedOpen(false)}
+            onLoad={loadSavedRun}
+            onDelete={(id) => setSavedRuns(prev => prev.filter(run => run.id !== id))}
           />
         )}
       </div>
