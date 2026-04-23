@@ -1,7 +1,7 @@
 {
   "name": "ecomof-ai",
   "version": "1.0.0",
-  "description": "EcoMOF-AI: Machine Learning-Guided CO₂ Capture MOF Screening with LCA Evaluation",
+  "description": "EcoMOF-AI: MOF decision-support prototype integrating screening, LCA/LCC, and robustness analysis",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

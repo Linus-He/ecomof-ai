@@ -884,6 +884,38 @@ function BasisBadge({ children, tone = "info" }) {
   )
 }
 
+const SOURCE_BADGES = {
+  literature: { label: "Literature-backed", tone: "calc" },
+  benchmark: { label: "Benchmark-backed", tone: "calc" },
+  model: { label: "Model-predicted", tone: "info" },
+  proxy: { label: "Screening proxy", tone: "proxy" },
+  user: { label: "User-defined", tone: "user" },
+}
+
+function SourceBadge({ type }) {
+  const item = SOURCE_BADGES[type] || SOURCE_BADGES.proxy
+  return <BasisBadge tone={item.tone}>{item.label}</BasisBadge>
+}
+
+function ProvenanceGrid({ items }) {
+  const t = useT()
+  const { isNarrow } = useViewport()
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : `repeat(${Math.min(items.length, 4)}, minmax(0, 1fr))`, gap: 10 }}>
+      {items.map(item => (
+        <div key={item.label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", marginBottom: 7 }}>
+            <span style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{item.label}</span>
+            {item.type && <SourceBadge type={item.type} />}
+          </div>
+          <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800, lineHeight: 1.35 }}>{item.value}</div>
+          {item.note && <div style={{ color: t.subtle, fontSize: 10, lineHeight: 1.45, marginTop: 5 }}>{item.note}</div>}
+        </div>
+      ))}
+    </div>
+  )
+}
+
 function InfoTip({ text }) {
   const t = useT()
   return (
@@ -1304,15 +1336,15 @@ function HomeTab({ setActiveTab }) {
   const sectionTitleStyle = { margin: 0, color: t.textStrong, fontSize: isMobile ? 26 : 34, lineHeight: 1.12, letterSpacing: 0 }
   const cardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, boxShadow: t.shadowSm, backdropFilter: "blur(18px) saturate(135%)" }
   const heroTiles = lang === "zh" ? [
-    ["吸附性能", "强候选", "3.8 mmol/g", t.performance],
-    ["环境负担", "中等影响", "Eco 7.2/10", t.lcaAccent],
-    ["生命周期成本", "成本敏感", "$41/kg", t.lccAccent],
-    ["稳健性", "基准情景稳定", "72%", t.sensitivityAccent],
+    ["性能", "强", t.performance],
+    ["LCA", "中等", t.lcaAccent],
+    ["LCC", "敏感", t.lccAccent],
+    ["稳健性", "稳定", t.sensitivityAccent],
   ] : [
-    ["Performance", "Strong candidate", "3.8 mmol/g", t.performance],
-    ["Environmental burden", "Medium impact", "Eco 7.2/10", t.lcaAccent],
-    ["Lifecycle cost", "Cost-sensitive", "$41/kg", t.lccAccent],
-    ["Robustness", "Stable in base scenarios", "72%", t.sensitivityAccent],
+    ["Performance", "Strong", t.performance],
+    ["LCA", "Medium", t.lcaAccent],
+    ["LCC", "Sensitive", t.lccAccent],
+    ["Robustness", "Stable", t.sensitivityAccent],
   ]
   const capabilities = [
     { key: "performance", badge: "Model-predicted", title: c.home.predict, body: c.home.predictBody, accent: t.performance },
@@ -1375,45 +1407,33 @@ function HomeTab({ setActiveTab }) {
               {c.home.exploreBenchmarks}
             </button>
           </div>
-          <div style={{ color: t.faint, fontSize: 12, lineHeight: 1.6, marginTop: 18, maxWidth: 520 }}>
-            {c.home.heroNote}
-          </div>
         </div>
 
         <div style={{
           background: `linear-gradient(135deg, ${t.panel}, ${t.glassStrong})`,
           border: `1px solid ${t.borderStrong}`,
-          borderRadius: 16,
-          padding: isMobile ? 20 : 28,
+          borderRadius: 18,
+          padding: isMobile ? 22 : 34,
           boxShadow: t.shadowMd,
-          minHeight: isMobile ? 360 : 430,
+          minHeight: isMobile ? 380 : 500,
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
+          alignItems: "stretch",
           backdropFilter: "blur(20px) saturate(145%)",
         }}>
-          <div style={{ display: "flex", justifyContent: "space-between", gap: 16, alignItems: "flex-start" }}>
-            <div>
-              <div style={{ color: t.faint, fontSize: 11, textTransform: "uppercase", marginBottom: 8 }}>{c.home.summaryCard}</div>
-              <div style={{ color: t.textStrong, fontSize: isMobile ? 24 : 30, fontWeight: 850, lineHeight: 1.08 }}>
-                {c.home.snapshotTitle}
-              </div>
-            </div>
-            <BasisBadge tone="info">v1.beta</BasisBadge>
-          </div>
           <div style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
-            borderTop: `1px solid ${t.border}`,
-            borderLeft: `1px solid ${t.border}`,
-            margin: "26px 0",
+            gap: isMobile ? 14 : 18,
+            width: "100%",
+            flex: 1,
           }}>
-            {heroTiles.map(([title, status, value, accent]) => (
+            {heroTiles.map(([title, status, accent]) => (
               <div key={title} style={{
-                minHeight: 120,
-                padding: isMobile ? 14 : 18,
-                borderRight: `1px solid ${t.border}`,
-                borderBottom: `1px solid ${t.border}`,
+                minHeight: isMobile ? 150 : 200,
+                padding: isMobile ? 16 : 22,
+                border: `1px solid ${t.border}`,
+                borderRadius: 14,
+                background: t.glass,
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
@@ -1423,14 +1443,10 @@ function HomeTab({ setActiveTab }) {
                   {title}
                 </div>
                 <div>
-                  <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850, lineHeight: 1.25 }}>{status}</div>
-                  <div style={{ color: accent, fontSize: 12, marginTop: 6, fontFamily: FONT_MONO, fontWeight: 800 }}>{value}</div>
+                  <div style={{ color: t.textStrong, fontSize: isMobile ? 24 : 34, fontWeight: 880, lineHeight: 1.05 }}>{status}</div>
                 </div>
               </div>
             ))}
-          </div>
-          <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65 }}>
-            {c.home.snapshotNote}
           </div>
         </div>
       </section>
@@ -1443,18 +1459,18 @@ function HomeTab({ setActiveTab }) {
               ...cardStyle,
               position: "relative",
               overflow: "hidden",
-              minHeight: item.featured && !isNarrow ? 190 : 170,
-              transform: item.featured && !isNarrow ? "translateY(-8px)" : "none",
+              minHeight: item.featured && !isNarrow ? 156 : 144,
+              transform: item.featured && !isNarrow ? "translateY(-4px)" : "none",
               borderColor: item.featured ? t.borderStrong : t.border,
             }}>
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: item.accent }} />
-              <div style={{ width: 34, height: 34, borderRadius: 8, border: `1px solid ${t.borderStrong}`, color: t.accentText,
-                display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 850, marginBottom: 18 }}>
+              <div style={{ width: 28, height: 28, borderRadius: 7, border: `1px solid ${t.borderStrong}`, color: item.accent,
+                display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 850, marginBottom: 14 }}>
                 {item.key === "performance" ? "P" : item.key === "impact" ? "L" : "S"}
               </div>
-              <BasisBadge tone={item.featured ? "calc" : "info"}>{item.badge}</BasisBadge>
-              <div style={{ color: t.textStrong, fontSize: 20, fontWeight: 850, lineHeight: 1.2, marginTop: 16 }}>{item.title}</div>
-              <div style={{ color: t.subtle, fontSize: 13, lineHeight: 1.55, marginTop: 10 }}>{item.body}</div>
+              <SourceBadge type={item.key === "performance" ? "model" : item.key === "impact" ? "proxy" : "user"} />
+              <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 850, lineHeight: 1.2, marginTop: 12 }}>{item.title}</div>
+              <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.45, marginTop: 7 }}>{item.body}</div>
             </div>
           ))}
         </div>
@@ -1867,6 +1883,13 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
                 value={results.selectivity}
                 comparison={`${results.selectivity > 30 ? "+" : ""}${((results.selectivity / 30 - 1) * 100).toFixed(1)}% vs 30`} />
             </div>
+
+            <ProvenanceGrid items={[
+              { label: "Basis", value: c.common.basisModelPredicted, type: "model", note: "Browser profile or optional backend prediction." },
+              { label: "Source type", value: "Seed benchmark + descriptor input", type: "benchmark", note: "MOF presets, CIF-derived fields, or user input." },
+              { label: "Quality", value: results.applicability?.warnings?.length ? "Medium-low" : "Medium", type: "proxy", note: results.applicability?.warnings?.length ? "Applicability warning present." : "Within prototype descriptor range." },
+              { label: "Limitation", value: "Screening-level only", type: "proxy", note: "Not a strict IAST/GCMC or experimental result." },
+            ]} />
 
             {results.selectivityDetails && (
               <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
@@ -2622,6 +2645,13 @@ function LCAScoringTab({ results, inputs }) {
         </div>
       </div>
 
+      <ProvenanceGrid items={[
+        { label: "Basis", value: "Calculated decision support", type: "proxy", note: "Derived from screening outputs and proxy inventory." },
+        { label: "Source type", value: "LCA/LCC inventory seed", type: "benchmark", note: "public/data/lca_inventory.json with source fields." },
+        { label: "Quality", value: "Medium-low", type: "proxy", note: "Traceable schema, not full industrial LCI." },
+        { label: "Limitation", value: "Comparative only", type: "proxy", note: "Use for early ranking, not publication-grade LCA." },
+      ]} />
+
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) 300px", gap: 16, alignItems: "start" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <div style={{ display: "flex", flexDirection: isNarrow ? "column" : "row", gap: 20 }}>
@@ -3245,16 +3275,6 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
       <PageHeader
         title={c.validation.title}
         subtitle={c.validation.subtitle}
-        action={
-          <>
-          <button type="button" onClick={() => downloadTextFile("ecomof_validation_summary.md", validationReport, "text/markdown")} style={toolbarBtn(t)}>
-            ↓ Validation MD
-          </button>
-          <button type="button" onClick={() => downloadTextFile("ecomof_validation_points.csv", validationCsv, "text/csv")} style={toolbarBtn(t)}>
-            ↓ Validation CSV
-          </button>
-          </>
-        }
       />
 
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 12 }}>
@@ -3285,7 +3305,7 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
         </div>
       </div>
 
-      <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+      <div style={{ order: 20, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
         <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 12 }}>
           <div>
             <SectionTitle>{lang === "zh" ? "训练清单与后端状态" : "Training Manifest & Backend Status"}</SectionTitle>
@@ -3375,6 +3395,20 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
           </div>
         </div>
       </div>
+
+      <details style={{ order: 30, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
+        <summary style={{ color: t.accentText, cursor: "pointer", fontSize: 12, fontWeight: 800 }}>
+          {lang === "zh" ? "导出与工程操作" : "Export and engineering actions"}
+        </summary>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 12 }}>
+          <button type="button" onClick={() => downloadTextFile("ecomof_validation_summary.md", validationReport, "text/markdown")} style={toolbarBtn(t)}>
+            ↓ Validation MD
+          </button>
+          <button type="button" onClick={() => downloadTextFile("ecomof_validation_points.csv", validationCsv, "text/csv")} style={toolbarBtn(t)}>
+            ↓ Validation CSV
+          </button>
+        </div>
+      </details>
     </div>
   )
 }
