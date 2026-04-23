@@ -1,0 +1,14 @@
+{
+  "schema": "ecomof-training-manifest.v1",
+  "origin": "schema_seed_augmented",
+  "rows": 100,
+  "targets": ["co2_uptake", "n2_uptake", "selectivity"],
+  "models": ["RandomForestRegressor primary artifact", "GradientBoostingRegressor comparison artifact", "RF/GBM averaged validation metrics"],
+  "metrics": {
+    "co2_uptake": { "r2": 0.9855865351476591, "mae": 0.27939148705004885 },
+    "n2_uptake": { "r2": 0.836950433892891, "mae": 0.01604231175382361 },
+    "selectivity": { "r2": 0.9763868715878903, "mae": 7.297814006657051 }
+  },
+  "source_files": ["data/mof_structures.csv", "data/adsorption_labels.csv"],
+  "warning": "Seed/augmented data is not publication-grade. Replace labels with verified NIST/GCMC/literature data."
+}

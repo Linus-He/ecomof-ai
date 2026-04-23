@@ -9,6 +9,7 @@ These files are intentionally small seed datasets, not complete scientific datab
 - `mof_structures.csv`: MOF identity, structure descriptors, topology, CIF/source metadata.
 - `adsorption_labels.csv`: adsorption labels by MOF, gas pair, temperature, pressure, loading, Henry constants, selectivity, method, and source.
 - `lca_inventory.csv`: screening-level LCA/LCC inventory factors, prices, assumptions, and provenance.
+- `isotherms.csv`: single-gas isotherm points used for Langmuir fitting, Henry estimation, IAST preparation, and Qst workflows.
 
 ## Provenance Levels
 

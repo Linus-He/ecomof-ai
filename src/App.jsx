@@ -263,6 +263,82 @@ async function fetchDataJson(fileName) {
   return response.json()
 }
 
+function parseCsvRows(text) {
+  const lines = String(text || "").trim().split(/\r?\n/).filter(Boolean)
+  if (lines.length < 2) return []
+  const split = (line) => line.split(",").map(cell => cell.trim().replace(/^"|"$/g, ""))
+  const headers = split(lines[0]).map(h => h.toLowerCase())
+  return lines.slice(1).map(line => {
+    const cells = split(line)
+    return headers.reduce((row, header, index) => {
+      row[header] = cells[index] ?? ""
+      return row
+    }, {})
+  })
+}
+
+function normalizeIsothermRows(rows) {
+  return rows.map(row => ({
+    mof_id: row.mof_id || row.mof || row.name || "uploaded",
+    name: row.name || row.mof_name || row.mof || "Uploaded isotherm",
+    gas: row.gas || row.component || "CO2",
+    temperature_k: Number(row.temperature_k ?? row.temperature ?? row.t ?? row.temp_k),
+    pressure_bar: Number(row.pressure_bar ?? row.pressure ?? row.p_bar ?? row.p),
+    loading_mmolg: Number(row.loading_mmolg ?? row.loading ?? row.q_mmolg ?? row.q),
+    method: row.method || row.source_type || "uploaded",
+    source_ref: row.source_ref || row.source || "user CSV",
+    doi_or_url: row.doi_or_url || row.doi || "—",
+    quality_flag: row.quality_flag || "user_uploaded",
+  })).filter(row =>
+    Number.isFinite(row.temperature_k) &&
+    Number.isFinite(row.pressure_bar) &&
+    Number.isFinite(row.loading_mmolg)
+  )
+}
+
+function fitLangmuirFromPoints(points) {
+  const valid = points.filter(point => point.pressure_bar > 0 && point.loading_mmolg > 0)
+  if (valid.length < 2) return null
+  const n = valid.length
+  const x = valid.map(point => point.pressure_bar)
+  const y = valid.map(point => point.pressure_bar / point.loading_mmolg)
+  const sumX = x.reduce((a, b) => a + b, 0)
+  const sumY = y.reduce((a, b) => a + b, 0)
+  const sumXY = x.reduce((acc, value, index) => acc + value * y[index], 0)
+  const sumXX = x.reduce((acc, value) => acc + value * value, 0)
+  const denom = n * sumXX - sumX * sumX
+  if (Math.abs(denom) < 1e-9) return null
+  const slope = (n * sumXY - sumX * sumY) / denom
+  const intercept = (sumY - slope * sumX) / n
+  const qmax = 1 / Math.max(slope, 1e-8)
+  const kads = slope / Math.max(intercept, 1e-8)
+  const fitted = valid.map(point => ({
+    pressure: Number(point.pressure_bar.toFixed(4)),
+    observed: Number(point.loading_mmolg.toFixed(4)),
+    fit: Number((qmax * kads * point.pressure_bar / (1 + kads * point.pressure_bar)).toFixed(4)),
+    temperature: point.temperature_k,
+  }))
+  return {
+    model: "single-site Langmuir",
+    qmax: Number(qmax.toFixed(3)),
+    kads: Number(kads.toFixed(3)),
+    henry: Number((qmax * kads).toFixed(3)),
+    fitted,
+  }
+}
+
+function summarizeIsothermPoints(points) {
+  const temperatures = Array.from(new Set(points.map(point => point.temperature_k))).sort((a, b) => a - b)
+  const gases = Array.from(new Set(points.map(point => point.gas))).filter(Boolean)
+  return {
+    temperatures,
+    gases,
+    qstReady: temperatures.length >= 3,
+    count: points.length,
+    sourceTypes: Array.from(new Set(points.map(point => point.method))).filter(Boolean),
+  }
+}
+
 function buildDatabaseRecords(structures = [], labels = []) {
   const labelByMof = new Map(labels.map(label => [label.mof_id, label]))
   return structures.map(row => {
@@ -1257,9 +1333,9 @@ function HomeTab({ setActiveTab }) {
   )
 }
 
-function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onSaveRun }) {
+function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onSaveRun, apiUrl, setApiUrl, apiStatus, onCheckApi }) {
   const t = useT()
-  const { copy: c } = useLang()
+  const { lang, copy: c } = useLang()
   const { isNarrow, isMobile } = useViewport()
   const [cifInfo, setCifInfo] = useState(null)
   const metal  = METAL_CENTERS.find(m => m.value === inputs.metalCenter)
@@ -1420,6 +1496,36 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
           <div style={{ fontSize: 10, color: t.warn, marginTop: 4, lineHeight: 1.5 }}>
             {c.structure.algoNote}
           </div>
+        </div>
+
+        <div style={{ marginBottom: 14, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, marginBottom: 8 }}>
+            <span style={{ color: t.textStrong, fontSize: 12, fontWeight: 800 }}>
+              {lang === "zh" ? "后端预测连接" : "Backend prediction"}
+            </span>
+            <BasisBadge tone={apiStatus?.ok ? "calc" : "proxy"}>
+              {apiStatus?.ok ? "API connected" : "static fallback"}
+            </BasisBadge>
+          </div>
+          <input
+            value={apiUrl}
+            onChange={e => setApiUrl(e.target.value.trim())}
+            placeholder="http://127.0.0.1:8000"
+            style={{ ...numInputStyle, fontSize: 11, fontFamily: FONT_MONO, marginBottom: 8 }}
+          />
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <button type="button" onClick={onCheckApi} style={{ ...toolbarBtn(t), padding: "5px 8px", fontSize: 11 }}>
+              Check API
+            </button>
+            <span style={{ color: apiStatus?.ok ? t.success : apiStatus?.checked ? t.warn : t.faint, fontSize: 10, lineHeight: 1.45 }}>
+              {apiStatus?.message || "Browser model is used until a local FastAPI URL is provided."}
+            </span>
+          </div>
+          {apiStatus?.manifest && (
+            <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45, marginTop: 7 }}>
+              manifest: {apiStatus.manifest.origin || "—"} · rows {apiStatus.manifest.rows ?? "—"}
+            </div>
+          )}
         </div>
 
         <button onClick={onPredict} disabled={loading || gas.priority === "unavailable"}
@@ -1750,11 +1856,48 @@ function ThermodynamicsTab({ results }) {
   const t = useT()
   const { lang, copy: c } = useLang()
   const { isNarrow, isMobile } = useViewport()
+  const [uploadedAnalysis, setUploadedAnalysis] = useState(null)
+  const [isothermStatus, setIsothermStatus] = useState("")
+
+  const buildUploadedAnalysis = useCallback((points) => {
+    const summary = summarizeIsothermPoints(points)
+    const fits = summary.temperatures.map(temp => ({
+      temperature: temp,
+      fit: fitLangmuirFromPoints(points.filter(point => point.temperature_k === temp)),
+    })).filter(item => item.fit)
+    setUploadedAnalysis({ summary, fits })
+    setIsothermStatus(summary.qstReady
+      ? (lang === "zh" ? "已满足多温等温线 Qst 基础条件。" : "Multi-temperature isotherm basis is ready for Qst scaffolding.")
+      : (lang === "zh" ? "至少需要三个温度节点，例如 273/298/323 K。" : "At least three temperature nodes are needed, e.g. 273/298/323 K."))
+  }, [lang])
+
+  const handleIsothermCsv = useCallback(async (file) => {
+    if (!file) return
+    const rows = parseCsvRows(await file.text())
+    const points = normalizeIsothermRows(rows)
+    if (!points.length) {
+      setIsothermStatus(lang === "zh" ? "未识别到 temperature_k, pressure_bar, loading_mmolg 等字段。" : "Could not detect temperature_k, pressure_bar, and loading_mmolg columns.")
+      setUploadedAnalysis(null)
+      return
+    }
+    buildUploadedAnalysis(points)
+  }, [buildUploadedAnalysis, lang])
+
+  const loadSeedIsotherm = useCallback(async () => {
+    try {
+      const rows = await fetchDataJson("isotherms.json")
+      buildUploadedAnalysis(normalizeIsothermRows(rows))
+    } catch (_) {
+      setIsothermStatus(lang === "zh" ? "示例等温线加载失败。" : "Failed to load seed isotherm.")
+    }
+  }, [buildUploadedAnalysis, lang])
+
   if (!results || results.unavailable || !results.thermo) {
     return <EmptyState message={c.thermo.empty} />
   }
   const { thermo } = results
   const qstOutOfRange = thermo.qst0 < 4 || thermo.qst0 > 80
+  const primaryUploadedFit = uploadedAnalysis?.fits?.[0]
 
   // Merge 3 isotherms into a single dataset for co-plotting.
   const merged = []
@@ -1800,6 +1943,83 @@ function ThermodynamicsTab({ results }) {
             <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 6 }}>{body}</div>
           </div>
         ))}
+      </div>
+
+      <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 12 }}>
+          <div>
+            <SectionTitle>{lang === "zh" ? "等温线上传与拟合基础" : "Isotherm upload and fitting basis"}</SectionTitle>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
+              {lang === "zh"
+                ? "CSV 字段支持 temperature_k, pressure_bar, loading_mmolg, gas, method, source_ref。当前先做单温 Langmuir 拟合；严格 IAST/Qst 仍需要真实多温、纯组分等温线。"
+                : "CSV fields: temperature_k, pressure_bar, loading_mmolg, gas, method, source_ref. This first fits single-temperature Langmuir curves; strict IAST/Qst still requires real multi-temperature pure-component isotherms."}
+            </div>
+          </div>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            <label style={{ ...toolbarBtn(t), cursor: "pointer" }}>
+              ↑ CSV
+              <input type="file" accept=".csv,.txt" style={{ display: "none" }} onChange={e => handleIsothermCsv(e.target.files?.[0])} />
+            </label>
+            <button type="button" onClick={loadSeedIsotherm} style={toolbarBtn(t)}>
+              {lang === "zh" ? "载入示例" : "Load seed"}
+            </button>
+          </div>
+        </div>
+
+        {uploadedAnalysis ? (
+          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "260px minmax(0, 1fr)", gap: 14, alignItems: "start" }}>
+            <div style={{ display: "grid", gap: 10 }}>
+              {[
+                [lang === "zh" ? "数据点" : "Data points", uploadedAnalysis.summary.count, lang === "zh" ? "上传/示例等温线" : "uploaded / seed isotherm"],
+                [lang === "zh" ? "温度节点" : "Temperature nodes", uploadedAnalysis.summary.temperatures.join(" / "), uploadedAnalysis.summary.qstReady ? "Qst-ready scaffold" : "needs more temperatures"],
+                ["Langmuir qmax", primaryUploadedFit ? primaryUploadedFit.fit.qmax : "—", "mmol/g"],
+                ["Henry", primaryUploadedFit ? primaryUploadedFit.fit.henry : "—", "mmol/g/bar"],
+              ].map(([label, value, sub]) => (
+                <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+                  <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{label}</div>
+                  <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 800, marginTop: 5 }}>{value}</div>
+                  <div style={{ color: t.subtle, fontSize: 10, marginTop: 4 }}>{sub}</div>
+                </div>
+              ))}
+              <div style={{
+                color: uploadedAnalysis.summary.qstReady ? t.success : t.warn,
+                background: uploadedAnalysis.summary.qstReady ? "rgba(16,185,129,0.12)" : "rgba(245,158,11,0.12)",
+                border: `1px solid ${uploadedAnalysis.summary.qstReady ? t.success : t.warn}`,
+                borderRadius: 8,
+                padding: "8px 10px",
+                fontSize: 11,
+                lineHeight: 1.45,
+                fontWeight: 700,
+              }}>
+                {isothermStatus}
+              </div>
+            </div>
+            <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, minWidth: 0 }}>
+              <SectionTitle>{lang === "zh" ? "观测值 vs Langmuir 拟合" : "Observed vs Langmuir fit"}</SectionTitle>
+              {primaryUploadedFit ? (
+                <ResponsiveContainer width="100%" height={250}>
+                  <LineChart data={primaryUploadedFit.fit.fitted}>
+                    <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
+                    <XAxis dataKey="pressure" stroke={t.faint} tick={{ fill: t.subtle, fontSize: 10 }}
+                      label={{ value: "Pressure (bar)", fill: t.subtle, fontSize: 10, dy: 10 }} />
+                    <YAxis stroke={t.faint} tick={{ fill: t.subtle, fontSize: 10 }}
+                      label={{ value: "Loading (mmol/g)", fill: t.subtle, fontSize: 10, angle: -90, dx: -10 }} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend wrapperStyle={{ fontSize: 11, color: t.subtle }} />
+                    <Line type="monotone" dataKey="observed" stroke={t.accent} strokeWidth={2.2} name={`${primaryUploadedFit.temperature} K observed`} />
+                    <Line type="monotone" dataKey="fit" stroke={t.success} strokeWidth={2.2} dot={false} name="Langmuir fit" />
+                  </LineChart>
+                </ResponsiveContainer>
+              ) : (
+                <div style={{ color: t.faint, fontSize: 12, padding: 18 }}>{lang === "zh" ? "有效点不足，无法拟合。" : "Not enough valid points to fit."}</div>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div style={{ color: isothermStatus ? t.warn : t.faint, fontSize: 12 }}>
+            {isothermStatus || (lang === "zh" ? "尚未上传等温线。可以先载入示例查看数据结构。" : "No isotherm uploaded yet. Load the seed example to inspect the schema.")}
+          </div>
+        )}
       </div>
 
       {qstOutOfRange && (
@@ -2409,18 +2629,60 @@ function SensitivityTab({ results, inputs }) {
   )
 }
 
-function ValidationTab({ results }) {
+function ValidationTab({ results, apiUrl, apiStatus, onCheckApi }) {
   const t = useT()
-  const { copy: c } = useLang()
+  const { lang, copy: c } = useLang()
   const { isNarrow } = useViewport()
+  const [manifest, setManifest] = useState(null)
+  const [manifestSource, setManifestSource] = useState("loading")
+
+  useEffect(() => {
+    let active = true
+    async function loadManifest() {
+      try {
+        if (apiUrl) {
+          const response = await fetch(`${apiUrl.replace(/\/$/, "")}/models/manifest`)
+          if (response.ok) {
+            const apiManifest = await response.json()
+            if (active) {
+              setManifest(apiManifest)
+              setManifestSource("backend")
+              return
+            }
+          }
+        }
+        const staticManifest = await fetchDataJson("training_manifest.json")
+        if (active) {
+          setManifest(staticManifest)
+          setManifestSource("static")
+        }
+      } catch (_) {
+        if (active) {
+          setManifest(null)
+          setManifestSource("fallback")
+        }
+      }
+    }
+    loadManifest()
+    return () => { active = false }
+  }, [apiUrl])
+
+  const metricText = (target) => {
+    const metric = manifest?.metrics?.[target]
+    if (!metric) return "R² — · MAE —"
+    const r2 = Number(metric.r2)
+    const mae = Number(metric.mae)
+    return `R² ${Number.isFinite(r2) ? r2.toFixed(3) : "—"} · MAE ${Number.isFinite(mae) ? mae.toFixed(3) : "—"}`
+  }
+
   const validationData = LITERATURE_DB.slice(0, 10).map((item, index) => {
     const offset = ((index % 5) - 2) * 0.16
     const predicted = Number(Math.max(0.2, item.co2 + offset).toFixed(2))
     return { name: item.name, reference: item.co2, predicted, residual: Number((predicted - item.co2).toFixed(2)) }
   })
   const cards = [
-    { title: c.validation.dataset, body: c.validation.datasetBody },
-    { title: c.validation.metrics, body: "Validation R² 0.864 · MAE 0.31 mmol/g · RMSE 0.47 mmol/g · 11,401 MOF training set." },
+    { title: c.validation.dataset, body: `${c.validation.datasetBody} ${manifest ? `Manifest: ${manifest.origin || "unknown"} · rows ${manifest.rows ?? "—"} · source ${manifestSource}.` : "Manifest not loaded."}` },
+    { title: c.validation.metrics, body: `CO2 uptake: ${metricText("co2_uptake")} · N2 uptake: ${metricText("n2_uptake")} · selectivity: ${metricText("selectivity")}.` },
     { title: c.validation.error, body: c.validation.errorBody },
     { title: c.validation.applicability, body: results?.applicability?.warnings?.length ? results.applicability.warnings.map(w => w.message).join(" ") : c.methods.applicabilityBody },
     { title: c.validation.benchmark, body: c.validation.benchmarkBody },
@@ -2431,6 +2693,36 @@ function ValidationTab({ results }) {
         <h1 style={{ margin: 0, color: t.textStrong, fontSize: 24 }}>{c.validation.title}</h1>
         <p style={{ margin: "6px 0 0", color: t.muted, fontSize: 13, lineHeight: 1.6 }}>{c.validation.subtitle}</p>
       </div>
+
+      <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 12 }}>
+          <div>
+            <SectionTitle>{lang === "zh" ? "训练清单与后端状态" : "Training Manifest & Backend Status"}</SectionTitle>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
+              {lang === "zh"
+                ? "这里读取 public/data/training_manifest.json；如果填了本地 FastAPI 地址，则优先读取 /models/manifest。"
+                : "Reads public/data/training_manifest.json; if a local FastAPI URL is provided, /models/manifest takes priority."}
+            </div>
+          </div>
+          <button type="button" onClick={onCheckApi} style={toolbarBtn(t)}>Check API</button>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
+          {[
+            [lang === "zh" ? "清单来源" : "Manifest source", manifestSource, apiUrl || "static site"],
+            [lang === "zh" ? "模型状态" : "Model status", apiStatus?.ok ? "backend connected" : "static fallback", apiStatus?.message || "browser-side model"],
+            [lang === "zh" ? "训练来源" : "Training origin", manifest?.origin || "—", manifest?.warning || "—"],
+            [lang === "zh" ? "训练行数" : "Rows", manifest?.rows ?? "—", (manifest?.source_files || []).join(" · ") || "public seed"],
+            [lang === "zh" ? "目标变量" : "Targets", (manifest?.targets || []).join(" / ") || "—", (manifest?.models || []).join(" / ") || "—"],
+          ].map(([label, value, sub]) => (
+            <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11, minHeight: 96 }}>
+              <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{label}</div>
+              <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 800, marginTop: 6, lineHeight: 1.25 }}>{value}</div>
+              <div style={{ color: t.subtle, fontSize: 10, lineHeight: 1.45, marginTop: 6, overflowWrap: "anywhere" }}>{sub}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 14 }}>
         {cards.map(card => (
           <div key={card.title} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 18 }}>
@@ -2645,7 +2937,8 @@ function LiteratureTab({ results, inputs }) {
         </select>
       </div>
       <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, overflow: "hidden" }}>
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+        <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", minWidth: 1040, borderCollapse: "collapse" }}>
           <thead>
             <tr style={{ background: t.surface }}>
               {["MOF Name","Metal","Linker","Topology","PLD/LCD (Å)","BET/PV","CO₂","Selectivity","Structure source","Label source","Quality"].map(h => (
@@ -2689,6 +2982,7 @@ function LiteratureTab({ results, inputs }) {
             ))}
           </tbody>
         </table>
+        </div>
         <div style={{ padding: "10px 14px", color: t.faint, fontSize: 11, borderTop: `1px solid ${t.border}` }}>
           {c.literature.showing} {filtered.length} / {databaseRecords.length} · {dataStatus === "loaded" ? "public/data JSON + schema CSV" : c.literature.source}
         </div>
@@ -2945,6 +3239,41 @@ function MethodsLimitationsTab() {
               <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55 }}>{desc}</div>
             </div>
           ))}
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
+        <div style={sectionCard}>
+          <SectionTitle>{lang === "zh" ? "致谢" : "Acknowledgement"}</SectionTitle>
+          <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", marginBottom: 10 }}>
+            <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 800 }}>Happy Flight</div>
+            <BasisBadge tone="info">{lang === "zh" ? "亦师亦友" : "mentor & friend"}</BasisBadge>
+          </div>
+          <div style={bodyText}>
+            {lang === "zh"
+              ? "特别感谢 Happy Flight。TA 在这个项目从早期想法、研究定位到功能取舍的过程中持续给予指导、提醒和鼓励；既像导师一样帮助我把问题想深，也像朋友一样陪我把项目一步步推进。EcoMOF-AI 后续对科研严谨性、LCA/LCC 决策链和方法透明性的重视，都受到了这份指导的影响。"
+              : "Special thanks to Happy Flight, whose guidance shaped this project from early concept to research positioning and feature priorities. Happy Flight has been both a mentor and a friend: helping push the scientific questions deeper while supporting the steady development of EcoMOF-AI. The platform's emphasis on methodological transparency, LCA/LCC decision support, and research rigor is strongly influenced by this guidance."}
+          </div>
+        </div>
+
+        <div style={sectionCard}>
+          <SectionTitle>{lang === "zh" ? "联系开发者" : "Contact Developer"}</SectionTitle>
+          <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.7, marginBottom: 14 }}>
+            {lang === "zh"
+              ? "如果你希望反馈数据来源、方法假设、MOF 结构/等温线标签，或讨论后续合作与功能改进，可以通过邮件联系开发者。"
+              : "For feedback on data provenance, method assumptions, MOF structures, isotherm labels, collaboration, or feature improvements, contact the developer by email."}
+          </div>
+          <a href="mailto:square.hwh@gmail.com"
+            style={{ display: "inline-flex", alignItems: "center", gap: 8, background: t.surface, border: `1px solid ${t.borderStrong}`,
+              borderRadius: 8, padding: "10px 12px", color: t.accentSoft, textDecoration: "none", fontSize: 13, fontWeight: 800,
+              fontFamily: FONT_MONO }}>
+            square.hwh@gmail.com
+          </a>
+          <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 12 }}>
+            {lang === "zh"
+              ? "建议邮件中附上：材料名称、气体体系、温度/压力、数据来源 DOI 或文件，以及希望工具输出的具体判断。"
+              : "Useful context: material name, gas pair, temperature/pressure, DOI or file source, and the specific decision output you need."}
+          </div>
         </div>
       </div>
     </div>
@@ -3302,6 +3631,19 @@ export default function App() {
   const [results, setResults]         = useState(null)
   const [loading, setLoading]         = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
+  const [apiUrl, setApiUrl]           = useState(() => {
+    try {
+      return localStorage.getItem("ecomof_api_url") || import.meta.env.VITE_API_URL || ""
+    } catch (_) {
+      return import.meta.env.VITE_API_URL || ""
+    }
+  })
+  const [apiStatus, setApiStatus]     = useState({
+    ok: false,
+    checked: false,
+    message: "Static browser model",
+    manifest: null,
+  })
   const [batchOpen, setBatchOpen]     = useState(false)
   const [savedOpen, setSavedOpen]     = useState(false)
   const [savedRuns, setSavedRuns]     = useState(() => {
@@ -3331,6 +3673,14 @@ export default function App() {
     localStorage.setItem("ecomof_saved_runs", JSON.stringify(savedRuns.slice(0, 20)))
   }, [savedRuns])
 
+  useEffect(() => {
+    try {
+      localStorage.setItem("ecomof_api_url", apiUrl)
+    } catch (_) {
+      // Ignore storage failures in private browsing.
+    }
+  }, [apiUrl])
+
   const presetSuggestions = useMemo(() => {
     return getPresetSuggestionNames(searchQuery)
   }, [searchQuery])
@@ -3348,12 +3698,49 @@ export default function App() {
     setTimeout(() => setSearchStatus(null), 1800)
   }, [])
 
+  const checkApi = useCallback(async () => {
+    if (!apiUrl) {
+      setApiStatus({
+        ok: false,
+        checked: true,
+        message: "No API URL set; using static browser model.",
+        manifest: null,
+      })
+      return
+    }
+    try {
+      const base = apiUrl.replace(/\/$/, "")
+      const response = await fetch(`${base}/health`)
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      const health = await response.json()
+      let manifest = null
+      try {
+        const manifestResponse = await fetch(`${base}/models/manifest`)
+        if (manifestResponse.ok) manifest = await manifestResponse.json()
+      } catch (_) {
+        manifest = null
+      }
+      setApiStatus({
+        ok: true,
+        checked: true,
+        message: `Backend ready · model ${health.model_loaded ? "loaded" : "not loaded"} · rows ${health.training_rows ?? "—"}`,
+        manifest,
+      })
+    } catch (error) {
+      setApiStatus({
+        ok: false,
+        checked: true,
+        message: `API unavailable: ${error.message}. Static browser model will be used.`,
+        manifest: null,
+      })
+    }
+  }, [apiUrl])
+
   const handlePredict = useCallback(async () => {
     setLoading(true)
     try {
-      const apiUrl = import.meta.env.VITE_API_URL
       if (apiUrl) {
-        const resp = await fetch(`${apiUrl}/predict`, {
+        const resp = await fetch(`${apiUrl.replace(/\/$/, "")}/predict`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(inputs),
@@ -3362,17 +3749,20 @@ export default function App() {
           const data = await resp.json()
           // Backend doesn't yet compute thermo — augment locally for now.
           const local = predictMOF(inputs)
+          setApiStatus(prev => ({ ...prev, ok: true, checked: true, message: "Backend prediction used for this run." }))
           setResults({ ...local, ...data, thermo: local.thermo, primaryName: local.primaryName, secondaryName: local.secondaryName, gasSystem: local.gasSystem, anomaly: local.anomaly })
           setLoading(false)
           return
         }
       }
-    } catch (_) { /* fall through */ }
+    } catch (error) {
+      setApiStatus(prev => ({ ...prev, ok: false, checked: true, message: `Backend prediction failed: ${error.message}. Static browser model used.` }))
+    }
 
     await new Promise(r => setTimeout(r, 700))
     setResults(predictMOF(inputs))
     setLoading(false)
-  }, [inputs])
+  }, [inputs, apiUrl])
 
   const saveCurrentRun = useCallback(() => {
     if (!results || results.unavailable) return
@@ -3532,12 +3922,12 @@ export default function App() {
 
         <main style={{ padding: viewport.isMobile ? "14px 12px" : "20px 24px", maxWidth: 1400, margin: "0 auto" }}>
           {activeTab === "home"           && <HomeTab setActiveTab={setActiveTab} />}
-          {activeTab === "structure"      && <StructureInputTab inputs={inputs} setInputs={setInputs} results={results} loading={loading} onPredict={handlePredict} onSaveRun={saveCurrentRun} />}
+          {activeTab === "structure"      && <StructureInputTab inputs={inputs} setInputs={setInputs} results={results} loading={loading} onPredict={handlePredict} onSaveRun={saveCurrentRun} apiUrl={apiUrl} setApiUrl={setApiUrl} apiStatus={apiStatus} onCheckApi={checkApi} />}
           {activeTab === "interpretation" && <InterpretationTab results={results} inputs={inputs} />}
           {activeTab === "lca"            && <LCAScoringTab results={results} inputs={inputs} />}
           {activeTab === "sensitivity"    && <SensitivityTab results={results} inputs={inputs} />}
           {activeTab === "literature"     && <LiteratureTab results={results} inputs={inputs} />}
-          {activeTab === "validation"     && <ValidationTab results={results} />}
+          {activeTab === "validation"     && <ValidationTab results={results} apiUrl={apiUrl} apiStatus={apiStatus} onCheckApi={checkApi} />}
           {activeTab === "methods"        && <MethodsLimitationsTab />}
         </main>
 

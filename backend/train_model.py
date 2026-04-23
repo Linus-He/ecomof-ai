@@ -57,14 +57,6 @@ LINKER_POLARITY = {
     "TCPP": 0.88, "TBAPy": 0.82, "BIM": 0.91, "BTDD": 0.94, "ADC": 0.83,
 }
 
-class AveragingRegressor:
-    def __init__(self, models):
-        self.models = models
-        self.estimators_ = [models[0]]
-
-    def predict(self, X):
-        return np.mean([m.predict(X) for m in self.models], axis=0)
-
 def generate_dataset(n=N):
     metals  = np.random.choice(METALS, n)
     linkers = np.random.choice(LINKERS, n)
@@ -203,10 +195,10 @@ def train(df):
             n_estimators=200,
             max_depth=20,
             min_samples_leaf=3,
-            n_jobs=-1,
+            n_jobs=1,
             random_state=42,
         ),
-        n_jobs=-1
+        n_jobs=1
     )
     gbm_model = MultiOutputRegressor(
         GradientBoostingRegressor(
@@ -230,7 +222,20 @@ def train(df):
         mae = mean_absolute_error(y_test.iloc[:, i], y_pred[:, i])
         print(f"  Ensemble {name}: R²={r2:.3f}, MAE={mae:.3f}")
 
-    return AveragingRegressor([rf_model, gbm_model]), rf_model, gbm_model, le_metal, le_linker, list(X.columns)
+    return rf_model, rf_model, gbm_model, le_metal, le_linker, list(X.columns), {
+        "co2_uptake": {
+            "r2": float(r2_score(y_test.iloc[:, 0], y_pred[:, 0])),
+            "mae": float(mean_absolute_error(y_test.iloc[:, 0], y_pred[:, 0])),
+        },
+        "n2_uptake": {
+            "r2": float(r2_score(y_test.iloc[:, 1], y_pred[:, 1])),
+            "mae": float(mean_absolute_error(y_test.iloc[:, 1], y_pred[:, 1])),
+        },
+        "selectivity": {
+            "r2": float(r2_score(y_test.iloc[:, 2], y_pred[:, 2])),
+            "mae": float(mean_absolute_error(y_test.iloc[:, 2], y_pred[:, 2])),
+        },
+    }
 
 
 if __name__ == "__main__":
@@ -243,7 +248,7 @@ if __name__ == "__main__":
         print("Loaded local schema dataset:", df["training_origin"].iloc[0])
     print(f"Dataset: {len(df)} rows")
 
-    model, rf_model, gbm_model, le_metal, le_linker, feature_names = train(df)
+    model, rf_model, gbm_model, le_metal, le_linker, feature_names, metrics = train(df)
 
     MODEL_DIR.mkdir(exist_ok=True)
     joblib.dump(model,    MODEL_DIR / "ecomof_model.pkl")
@@ -259,7 +264,8 @@ if __name__ == "__main__":
             "origin": str(df["training_origin"].iloc[0]),
             "rows": int(len(df)),
             "targets": ["co2_uptake", "n2_uptake", "selectivity"],
-            "models": ["RandomForestRegressor", "GradientBoostingRegressor", "AveragingEnsemble"],
+            "models": ["RandomForestRegressor primary artifact", "GradientBoostingRegressor comparison artifact", "RF/GBM averaged validation metrics"],
+            "metrics": metrics,
             "source_files": [str(DATA_DIR / "mof_structures.csv"), str(DATA_DIR / "adsorption_labels.csv")],
             "warning": "Seed/augmented data is not publication-grade. Replace labels with verified NIST/GCMC/literature data.",
         }, f, indent=2)

@@ -2,5 +2,6 @@
 node_modules/
 dist/
 backend/models/
+backend/.venv/
 __pycache__/
 *.pyc

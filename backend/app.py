@@ -33,6 +33,7 @@ DATA_FILES = {
     "structures": DATA_DIR / "mof_structures.csv",
     "adsorption_labels": DATA_DIR / "adsorption_labels.csv",
     "lca_inventory": DATA_DIR / "lca_inventory.csv",
+    "isotherms": DATA_DIR / "isotherms.csv",
 }
 
 def load_or_train():
@@ -67,10 +68,14 @@ METAL_LCA = {
 }
 LINKER_LCA = {
     "mIM": 7.0, "DOBDC": 6.5, "BDC": 6.0, "BTC": 5.5,
+    "NH2-BDC": 6.2, "NO2-BDC": 5.7, "Br-BDC": 5.3,
     "BPDC": 5.0, "NDC": 4.5, "BTB": 4.0,
+    "TCPP": 3.8, "TBAPy": 3.5, "BIM": 6.2, "BTDD": 5.8, "ADC": 4.2,
 }
 LINKER_FOSSIL = {"BDC": True, "BTC": True, "BPDC": True, "NDC": True,
-                 "BTB": True, "DOBDC": True, "mIM": False}
+                 "BTB": True, "DOBDC": True, "NH2-BDC": True, "NO2-BDC": True,
+                 "Br-BDC": True, "TCPP": True, "TBAPy": True, "BIM": False,
+                 "BTDD": True, "ADC": True, "mIM": False}
 
 # ── FastAPI App ───────────────────────────────────────────────────────────────
 
@@ -108,6 +113,16 @@ class DescriptorRequest(BaseModel):
     poreDiameter:     Optional[float] = None
     betSurfaceArea:   Optional[float] = None
     poreVolume:       Optional[float] = None
+
+class IsothermDatum(BaseModel):
+    temperature_k: float
+    pressure_bar: float
+    loading_mmolg: float
+
+class IsothermFitRequest(BaseModel):
+    mofName: str = Field("Current candidate")
+    gas: str = Field("CO2")
+    points: List[IsothermDatum]
 
 class LCAResult(BaseModel):
     metalImpact:            float
@@ -148,6 +163,21 @@ class PredictResponse(BaseModel):
     lca:              LCAResult
     isothermData:     List[IsothermPoint]
     featureImportance: List[FeatureImportanceItem]
+
+def read_training_manifest() -> Dict[str, Any]:
+    path = MODEL_DIR / "training_manifest.json"
+    if not path.exists():
+        return {
+            "schema": "ecomof-training-manifest.v1",
+            "origin": "not_trained",
+            "rows": 0,
+            "targets": ["co2_uptake", "n2_uptake", "selectivity"],
+            "models": [],
+            "metrics": {},
+            "warning": "No backend model artifact has been trained yet.",
+        }
+    with open(path) as f:
+        return json.load(f)
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -203,13 +233,23 @@ def build_features(req: PredictRequest) -> np.ndarray:
     except ValueError:
         linker_enc = 0
 
-    # Must match FEATURE_NAMES from train_model.py
-    return np.array([[
-        req.poreDiameter, req.betSurfaceArea, req.poreVolume, void_frac,
-        req.temperature, req.pressure,
-        has_amine, has_hydroxyl, has_carboxyl, has_thiol,
-        metal_enc, linker_enc,
-    ]])
+    # Must match FEATURE_NAMES from train_model.py. Keep a DataFrame so sklearn
+    # receives the same feature names used during training.
+    row = {
+        "pore_diam": req.poreDiameter,
+        "bet_sa": req.betSurfaceArea,
+        "pore_vol": req.poreVolume,
+        "void_frac": void_frac,
+        "temperature": req.temperature,
+        "pressure": req.pressure,
+        "has_amine": has_amine,
+        "has_hydroxyl": has_hydroxyl,
+        "has_carboxyl": has_carboxyl,
+        "has_thiol": has_thiol,
+        "metal_enc": metal_enc,
+        "linker_enc": linker_enc,
+    }
+    return pd.DataFrame([[row[name] for name in FEATURE_NAMES]], columns=FEATURE_NAMES)
 
 
 def build_isotherm(co2_uptake: float, pressure_bar: float) -> List[IsothermPoint]:
@@ -256,6 +296,50 @@ def descriptor_schema() -> Dict[str, Any]:
         ],
     }
 
+def isotherm_schema() -> Dict[str, Any]:
+    return {
+        "schema": "isotherms.v1",
+        "required_columns": [
+            "mof_id", "name", "gas", "temperature_k", "pressure_bar",
+            "loading_mmolg", "method", "source_ref", "doi_or_url", "quality_flag",
+        ],
+        "qst_requirement": "Qst requires the same MOF and gas measured or simulated at multiple temperatures, e.g. 273 K, 298 K, 323 K.",
+        "iast_requirement": "Strict IAST requires fitted pure-component isotherms for each gas in the mixture.",
+    }
+
+def fit_langmuir(points: List[IsothermDatum]) -> Dict[str, Any]:
+    if len(points) < 2:
+        raise HTTPException(400, "At least two pressure/loading points are required.")
+    xs = []
+    ys = []
+    for point in points:
+        if point.pressure_bar <= 0 or point.loading_mmolg <= 0:
+            continue
+        xs.append(point.pressure_bar)
+        ys.append(point.pressure_bar / point.loading_mmolg)
+    if len(xs) < 2:
+        raise HTTPException(400, "Valid positive pressure/loading points are required.")
+    slope, intercept = np.polyfit(np.asarray(xs), np.asarray(ys), 1)
+    qmax = 1 / max(slope, 1e-8)
+    kads = slope / max(intercept, 1e-8)
+    predicted = []
+    for point in points:
+        q = qmax * kads * point.pressure_bar / (1 + kads * point.pressure_bar)
+        predicted.append({
+            "temperature_k": point.temperature_k,
+            "pressure_bar": point.pressure_bar,
+            "observed_mmolg": point.loading_mmolg,
+            "fit_mmolg": round(float(q), 4),
+        })
+    return {
+        "model": "single-site Langmuir",
+        "qmax_mmolg": round(float(qmax), 4),
+        "kads_1bar": round(float(kads), 4),
+        "henry_mmolgbar": round(float(qmax * kads), 4),
+        "points": predicted,
+        "limitations": "Use dual-site Langmuir or other models for heterogeneous MOFs; this endpoint is a first-pass fitting scaffold.",
+    }
+
 # ── Routes ────────────────────────────────────────────────────────────────────
 
 @app.get("/")
@@ -271,8 +355,22 @@ def root():
             "adsorption_labels": "GET /database/adsorption-labels",
             "lca_inventory": "GET /database/lca-inventory",
             "descriptor_schema": "GET /descriptors/schema",
+            "isotherm_schema": "GET /isotherms/schema",
+            "fit_isotherm": "POST /isotherms/fit",
+            "model_manifest": "GET /models/manifest",
             "docs":    "/docs",
         },
+    }
+
+@app.get("/health")
+def health():
+    manifest = read_training_manifest()
+    return {
+        "status": "ok",
+        "model_loaded": model is not None,
+        "model_origin": manifest.get("origin"),
+        "training_rows": manifest.get("rows"),
+        "data_files": {name: path.exists() for name, path in DATA_FILES.items()},
     }
 
 
@@ -375,9 +473,30 @@ def database_lca_inventory():
         "records": read_dataset("lca_inventory"),
     }
 
+@app.get("/models/manifest")
+def model_manifest():
+    return read_training_manifest()
+
 @app.get("/descriptors/schema")
 def get_descriptor_schema():
     return descriptor_schema()
+
+@app.get("/isotherms/schema")
+def get_isotherm_schema():
+    return isotherm_schema()
+
+@app.post("/isotherms/fit")
+def fit_isotherm(req: IsothermFitRequest):
+    fit = fit_langmuir(req.points)
+    temperatures = sorted({point.temperature_k for point in req.points})
+    return {
+        "mofName": req.mofName,
+        "gas": req.gas,
+        "temperatures_k": temperatures,
+        "fit": fit,
+        "qst_status": "ready_for_qst" if len(temperatures) >= 3 else "needs_multi_temperature_data",
+        "source_note": "Fit is based on uploaded isotherm points. Verify data source and units before interpretation.",
+    }
 
 @app.post("/descriptors")
 def compute_descriptors(req: DescriptorRequest):

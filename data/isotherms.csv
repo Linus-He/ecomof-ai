@@ -1,0 +1,10 @@
+isotherm_id,mof_id,name,gas,temperature_k,pressure_bar,loading_mmolg,method,source_ref,doi_or_url,quality_flag,license_note
+iso_uio66_co2_273_001,core_uio66,UiO-66,CO2,273,0.05,1.18,seed_example,example-isotherm,seed-record,screening_seed,Replace with verified experimental or GCMC isotherm before publication
+iso_uio66_co2_273_002,core_uio66,UiO-66,CO2,273,0.15,2.95,seed_example,example-isotherm,seed-record,screening_seed,Replace with verified experimental or GCMC isotherm before publication
+iso_uio66_co2_273_003,core_uio66,UiO-66,CO2,273,1.00,5.35,seed_example,example-isotherm,seed-record,screening_seed,Replace with verified experimental or GCMC isotherm before publication
+iso_uio66_co2_298_001,core_uio66,UiO-66,CO2,298,0.05,0.92,seed_example,example-isotherm,seed-record,screening_seed,Replace with verified experimental or GCMC isotherm before publication
+iso_uio66_co2_298_002,core_uio66,UiO-66,CO2,298,0.15,2.50,seed_example,example-isotherm,seed-record,screening_seed,Replace with verified experimental or GCMC isotherm before publication
+iso_uio66_co2_298_003,core_uio66,UiO-66,CO2,298,1.00,4.65,seed_example,example-isotherm,seed-record,screening_seed,Replace with verified experimental or GCMC isotherm before publication
+iso_uio66_co2_323_001,core_uio66,UiO-66,CO2,323,0.05,0.69,seed_example,example-isotherm,seed-record,screening_seed,Replace with verified experimental or GCMC isotherm before publication
+iso_uio66_co2_323_002,core_uio66,UiO-66,CO2,323,0.15,1.96,seed_example,example-isotherm,seed-record,screening_seed,Replace with verified experimental or GCMC isotherm before publication
+iso_uio66_co2_323_003,core_uio66,UiO-66,CO2,323,1.00,3.92,seed_example,example-isotherm,seed-record,screening_seed,Replace with verified experimental or GCMC isotherm before publication
