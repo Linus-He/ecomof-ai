@@ -1241,6 +1241,25 @@ function buildMonteCarloData(results, decision) {
   })
 }
 
+function buildModelComparison(inputs) {
+  return Object.entries(MODEL_PROFILES).map(([id, profile]) => {
+    const result = predictMOF({ ...inputs, mlAlgorithm: id })
+    if (result.unavailable) return null
+    return {
+      id,
+      label: profile.label,
+      uptake: result.primaryUptake,
+      secondary: result.secondaryUptake,
+      selectivity: result.selectivity,
+      confidence: Number((result.confidenceScore * 100).toFixed(0)),
+      r2: profile.r2,
+      mae: profile.mae,
+      rmse: profile.rmse,
+      status: id === "gnn" ? "static GNN profile" : "static browser profile",
+    }
+  }).filter(Boolean)
+}
+
 function buildApplicabilityPoints(inputs, results) {
   const current = {
     name: inputs.mofName || "Current",
@@ -1911,6 +1930,13 @@ function MLPredictionTab({ results, inputs }) {
   const { lang, copy: c } = useLang()
   const { isNarrow } = useViewport()
   const model = results?.modelProfile || MODEL_PROFILES[inputs.mlAlgorithm] || MODEL_PROFILES.ensemble
+  const modelComparison = results && !results.unavailable ? buildModelComparison(inputs) : []
+  const currentComparison = modelComparison.find(item => item.id === inputs.mlAlgorithm) || modelComparison[0]
+  const exportModelComparison = () => {
+    const header = ["Model", "Primary uptake", "Secondary uptake", "Selectivity", "Confidence", "R2", "MAE", "RMSE", "Status"]
+    const rows = modelComparison.map(item => [item.label, item.uptake, item.secondary, item.selectivity, item.confidence, item.r2, item.mae, item.rmse, item.status])
+    downloadTextFile("ecomof_model_comparison.csv", [header, ...rows].map(row => row.join(",")).join("\n"), "text/csv")
+  }
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       {/* Honesty banner */}
@@ -1919,6 +1945,7 @@ function MLPredictionTab({ results, inputs }) {
       </Callout>
 
       {!results || results.unavailable ? <EmptyState message={c.ml.empty} /> : (
+        <>
         <div style={{ display: "flex", flexDirection: isNarrow ? "column" : "row", gap: 20 }}>
           <div style={{ flex: 1, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
             <SectionTitle>{c.ml.metrics}</SectionTitle>
@@ -1947,7 +1974,7 @@ function MLPredictionTab({ results, inputs }) {
                 <Tooltip formatter={(v) => [`${(v*100).toFixed(1)}%`, "Importance"]} contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
                 <Bar dataKey="importance" radius={[0,4,4,0]}>
                   {results.featureImportance.map((_, i) => (
-                    <Cell key={i} fill={`hsl(${210 + i * 15}, 70%, ${45 + i * 5}%)`} />
+                    <Cell key={i} fill={[t.accent, t.success, t.amber, t.violet, t.rose][i % 5]} />
                   ))}
                 </Bar>
               </BarChart>
@@ -1985,6 +2012,58 @@ function MLPredictionTab({ results, inputs }) {
             </div>
           </div>
         </div>
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 12 }}>
+            <div>
+              <SectionTitle>{lang === "zh" ? "多模型对比矩阵" : "Multi-model comparison matrix"}</SectionTitle>
+              <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
+                {lang === "zh"
+                  ? "这里展示同一输入在 RF / GBM / GNN / Ensemble 静态模型配置下的差异。它能说明算法切换的影响，但仍不是后端独立训练 checkpoint。"
+                  : "Shows the same input under RF / GBM / GNN / Ensemble static model profiles. This exposes algorithm-switch impact, but it is still not a set of independently trained backend checkpoints."}
+              </div>
+            </div>
+            <button type="button" onClick={exportModelComparison} style={toolbarBtn(t)}>↓ Model CSV</button>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1.1fr 0.9fr", gap: 14, alignItems: "start" }}>
+            <div style={{ overflowX: "auto" }}>
+              <table style={{ width: "100%", minWidth: 680, borderCollapse: "collapse", fontSize: 12 }}>
+                <thead>
+                  <tr style={{ background: t.surface }}>
+                    {["Model", "Primary", "Secondary", "Selectivity", "Confidence", "R² / MAE", "Delta"].map(h => (
+                      <th key={h} style={{ padding: "8px 10px", color: t.subtle, textAlign: "left", borderBottom: `1px solid ${t.border}` }}>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {modelComparison.map(item => (
+                    <tr key={item.id} style={{ borderBottom: `1px solid ${t.divider}` }}>
+                      <td style={{ padding: "8px 10px", color: item.id === inputs.mlAlgorithm ? t.accentSoft : t.textStrong, fontWeight: 800 }}>{item.label}</td>
+                      <td style={{ padding: "8px 10px", color: t.success, fontFamily: FONT_MONO }}>{item.uptake}</td>
+                      <td style={{ padding: "8px 10px", color: t.muted, fontFamily: FONT_MONO }}>{item.secondary}</td>
+                      <td style={{ padding: "8px 10px", color: t.accentSoft, fontFamily: FONT_MONO }}>{item.selectivity}</td>
+                      <td style={{ padding: "8px 10px", color: t.text, fontFamily: FONT_MONO }}>{item.confidence}%</td>
+                      <td style={{ padding: "8px 10px", color: t.subtle }}>{item.r2.toFixed(3)} / {item.mae.toFixed(2)}</td>
+                      <td style={{ padding: "8px 10px", color: t.warn, fontFamily: FONT_MONO }}>
+                        {currentComparison ? `${(item.uptake - currentComparison.uptake).toFixed(2)}` : "—"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <ResponsiveContainer width="100%" height={250}>
+              <BarChart data={modelComparison} margin={{ top: 8, right: 16, left: -12, bottom: 28 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke={t.border} vertical={false} />
+                <XAxis dataKey="label" tick={{ fill: t.subtle, fontSize: 10, angle: -18, textAnchor: "end" }} height={42} />
+                <YAxis tick={{ fill: t.subtle, fontSize: 10 }} />
+                <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
+                <Bar dataKey="uptake" name="Primary uptake" fill={t.accent} radius={[4, 4, 0, 0]} />
+                <Bar dataKey="selectivity" name="Selectivity" fill={t.violet} radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+        </>
       )}
     </div>
   )
@@ -2755,16 +2834,42 @@ function SensitivityTab({ results, inputs }) {
   const customScore = Number(Math.max(0, results.lca.compositeGreenScore - customPenalty).toFixed(1))
   const monteCarloData = buildMonteCarloData(results, decision)
   const rankedCandidates = buildRankedCandidates(inputs, c, customScenario).slice(0, 8)
+  const mcLast = monteCarloData[monteCarloData.length - 1] || { p05: "—", p50: "—", p95: "—" }
+  const scenarioPresets = [
+    { label: "Base", values: { metal: 10, energy: 10, solvent: 10, cost: 10 } },
+    { label: "Low energy", values: { metal: 8, energy: 2, solvent: 8, cost: 8 } },
+    { label: "High recovery", values: { metal: 8, energy: 6, solvent: 2, cost: 6 } },
+    { label: "Conservative", values: { metal: 22, energy: 25, solvent: 18, cost: 24 } },
+  ]
+  const exportSensitivityCsv = () => {
+    const scenarioRows = scenarios.map(item => ["scenario", item.name, item.lca, item.cost, item.stability].join(","))
+    const rankingRows = rankedCandidates.map(item => ["ranking", item.name, item.uptake, item.selectivity, item.lca, item.lcc, item.score].join(","))
+    const mcRows = monteCarloData.map(item => ["monte_carlo", item.run, item.p05, item.p50, item.p95, item.costP50].join(","))
+    downloadTextFile(
+      "ecomof_sensitivity_export.csv",
+      [
+        "section,name_or_run,p05_or_lca,p50_or_cost,p95_or_stability,cost_or_lcc,score",
+        ...scenarioRows,
+        ...rankingRows,
+        ...mcRows,
+      ].join("\n"),
+      "text/csv"
+    )
+  }
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-      <div>
-        <h1 style={{ margin: 0, color: t.textStrong, fontSize: 24 }}>{c.sensitivityPage.title}</h1>
-        <p style={{ margin: "6px 0 0", color: t.muted, fontSize: 13, lineHeight: 1.6 }}>{c.sensitivityPage.subtitle}</p>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 14, alignItems: "flex-start", flexWrap: "wrap" }}>
+        <div>
+          <h1 style={{ margin: 0, color: t.textStrong, fontSize: 24 }}>{c.sensitivityPage.title}</h1>
+          <p style={{ margin: "6px 0 0", color: t.muted, fontSize: 13, lineHeight: 1.6 }}>{c.sensitivityPage.subtitle}</p>
+        </div>
+        <button type="button" onClick={exportSensitivityCsv} style={toolbarBtn(t)}>↓ Sensitivity CSV</button>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 14 }}>
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 14 }}>
         <MetricCard label={c.sensitivityPage.mostSensitive} value={decision.mostSensitive.label} unit="" />
         <MetricCard label={c.sensitivityPage.stability} value="72" unit="%" comparison={c.lca.assumptionSensitive} />
         <MetricCard label={c.sensitivityPage.followup} value={decision.dominantCost.name} unit="" />
+        <MetricCard label="P05 / P50 / P95" value={`${mcLast.p05}/${mcLast.p50}/${mcLast.p95}`} unit="" />
       </div>
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
         <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
@@ -2795,7 +2900,17 @@ function SensitivityTab({ results, inputs }) {
         </div>
       </div>
       <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
-        <SectionTitle>{c.common.customScenario}</SectionTitle>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap", marginBottom: 10 }}>
+          <SectionTitle>{c.common.customScenario}</SectionTitle>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            {scenarioPresets.map(item => (
+              <button key={item.label} type="button" onClick={() => setCustomScenario(item.values)}
+                style={{ ...toolbarBtn(t), padding: "4px 9px", fontSize: 11 }}>
+                {item.label}
+              </button>
+            ))}
+          </div>
+        </div>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 12 }}>
           {[
             ["metal", c.common.metalBurden],
@@ -3349,6 +3464,19 @@ function DataSourcesTab() {
   }, [])
 
   const cardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }
+  const connectorRows = lang === "zh" ? [
+    ["LCI backend", "public/data/lca_inventory.json seed schema", "openLCA / ecoinvent process mapping with versioned activity IDs", "Proxy schema"],
+    ["Price backend", "USD seed values + static currency conversion", "supplier quotations, date-stamped reagent prices, regional electricity tariffs", "Screening"],
+    ["Regional factors", "generic electricity and solvent-recovery assumptions", "country/region grid mix, solvent recovery scenario library, water-stress factors", "Roadmap"],
+    ["Uncertainty", "deterministic pseudo Monte Carlo from proxy ranges", "inventory-specific distributions and calibrated uncertainty propagation", "Beta"],
+    ["Audit trail", "source_type, source_ref, price_source, assumption, replacement fields", "DOI / database record / supplier quote attachment and revision history", "Scaffolded"],
+  ] : [
+    ["LCI backend", "public/data/lca_inventory.json seed schema", "openLCA / ecoinvent process mapping with versioned activity IDs", "Proxy schema"],
+    ["Price backend", "USD seed values + static currency conversion", "supplier quotations, date-stamped reagent prices, regional electricity tariffs", "Screening"],
+    ["Regional factors", "generic electricity and solvent-recovery assumptions", "country/region grid mix, solvent recovery scenario library, water-stress factors", "Roadmap"],
+    ["Uncertainty", "deterministic pseudo Monte Carlo from proxy ranges", "inventory-specific distributions and calibrated uncertainty propagation", "Beta"],
+    ["Audit trail", "source_type, source_ref, price_source, assumption, replacement fields", "DOI / database record / supplier quote attachment and revision history", "Scaffolded"],
+  ]
   const datasetCards = lang === "zh" ? [
     ["MOF structures", "MOF 结构库", datasets.structures.length, "public/data/mof_structures.json", "结构、拓扑、PLD/LCD、BET、孔体积、密度、OMS、CIF/source 元数据。", "结构库提供材料描述符，不直接等于吸附标签。"],
     ["Adsorption labels", "吸附标签库", datasets.labels.length, "public/data/adsorption_labels.json", "气体体系、温度、压力、loading、Henry 常数、选择性、方法与 DOI/source。", "真正训练吸附模型需要这一层，且应替换为验证过的 NIST/GCMC/文献标签。"],
@@ -3456,6 +3584,43 @@ function DataSourcesTab() {
               </tbody>
             </table>
           </div>
+        </div>
+      </div>
+
+      <div style={cardStyle}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 10 }}>
+          <div>
+            <SectionTitle>{lang === "zh" ? "Inventory / Price 接入路线图" : "Inventory / Price Connector Roadmap"}</SectionTitle>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
+              {lang === "zh"
+                ? "第三优先级先把数据结构、字段和替换路线做清楚；当前页面不声称已经接入完整 ecoinvent、openLCA 或实时价格数据库。"
+                : "Third-priority work clarifies the data structure, fields, and replacement path; this page does not claim a full ecoinvent, openLCA, or live pricing integration yet."}
+            </div>
+          </div>
+          <BasisBadge tone="proxy">{lang === "zh" ? "接入脚手架" : "connector scaffold"}</BasisBadge>
+        </div>
+        <div style={{ overflowX: "auto" }}>
+          <table style={{ width: "100%", minWidth: 820, borderCollapse: "collapse", fontSize: 12 }}>
+            <thead>
+              <tr style={{ background: t.surface }}>
+                {(lang === "zh" ? ["模块", "当前实现", "科研级替换", "状态"] : ["Connector", "Current implementation", "Research-grade replacement", "Status"]).map(header => (
+                  <th key={header} style={{ padding: "8px 10px", color: t.subtle, textAlign: "left", borderBottom: `1px solid ${t.border}` }}>{header}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {connectorRows.map(row => (
+                <tr key={row[0]} style={{ borderBottom: `1px solid ${t.divider}` }}>
+                  <td style={{ padding: "8px 10px", color: t.textStrong, fontWeight: 800 }}>{row[0]}</td>
+                  <td style={{ padding: "8px 10px", color: t.muted, lineHeight: 1.45 }}>{row[1]}</td>
+                  <td style={{ padding: "8px 10px", color: t.subtle, lineHeight: 1.45 }}>{row[2]}</td>
+                  <td style={{ padding: "8px 10px" }}>
+                    <BasisBadge tone={row[3] === "Beta" ? "proxy" : row[3] === "Roadmap" ? "info" : "calc"}>{row[3]}</BasisBadge>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -3812,7 +3977,7 @@ function MethodsLimitationsTab() {
 
 function BatchModePanel({ inputs, onClose, onApplyToForm }) {
   const t = useT()
-  const { copy: c } = useLang()
+  const { lang, copy: c } = useLang()
   const [rows, setRows] = useState([])
   const [running, setRunning] = useState(false)
 
@@ -3836,6 +4001,17 @@ function BatchModePanel({ inputs, onClose, onApplyToForm }) {
       result: null,
     }))
     setRows(r => [...r, ...seed])
+  }
+  const addAllKnownMOFs = () => {
+    const seed = Object.entries(MOF_PRESETS).map(([name, p]) => ({
+      id: Date.now() + Math.random(),
+      mofName: name,
+      ...DEFAULT_INPUTS, ...p,
+      gasSystem: inputs.gasSystem, temperature: inputs.temperature, pressure: inputs.pressure,
+      mlAlgorithm: inputs.mlAlgorithm,
+      result: null,
+    }))
+    setRows(seed)
   }
 
   const importCSV = async (file) => {
@@ -3889,12 +4065,24 @@ function BatchModePanel({ inputs, onClose, onApplyToForm }) {
     setRows(updated)
     setRunning(false)
   }
+  const decisionScore = (row) => {
+    if (!row.result || row.result.unavailable) return -Infinity
+    return Number((row.result.primaryUptake * 0.35 + Math.log1p(row.result.selectivity) * 0.9 + row.result.lca.compositeGreenScore * 0.45).toFixed(2))
+  }
+  const sortByDecisionScore = () => {
+    setRows(prev => [...prev].sort((a, b) => decisionScore(b) - decisionScore(a)))
+  }
+  const completedRows = rows.filter(row => row.result && !row.result.unavailable)
+  const topRow = completedRows.length ? [...completedRows].sort((a, b) => decisionScore(b) - decisionScore(a))[0] : null
+  const avgSelectivity = completedRows.length
+    ? Number((completedRows.reduce((sum, row) => sum + Number(row.result.selectivity || 0), 0) / completedRows.length).toFixed(1))
+    : "—"
 
   const exportAll = () => {
     const header = [
       "MOF","Metal","Linker","Gas","Primary (mmol/g)","Secondary (mmol/g)","Selectivity",
       "Qst0 (kJ/mol)","Qst beta source","Applicability status","Applicability warnings",
-      "Confidence","Green Score","Anomaly"
+      "Confidence","Green Score","Decision score","Anomaly"
     ]
     const lines = [header.join(",")]
     for (const r of rows) {
@@ -3909,6 +4097,7 @@ function BatchModePanel({ inputs, onClose, onApplyToForm }) {
         r.result.applicability?.warnings?.map(w => w.code).join("|") ?? "",
         r.result.confidenceScore,
         r.result.lca.compositeGreenScore,
+        decisionScore(r),
         r.result.anomaly ? r.result.anomaly.type : "",
       ].join(","))
     }
@@ -3952,6 +4141,7 @@ function BatchModePanel({ inputs, onClose, onApplyToForm }) {
         <div style={{ display: "flex", gap: 8, marginBottom: 14, flexWrap: "wrap" }}>
           <button onClick={addEmpty} style={toolbarBtn(t)}>＋ {c.batch.add}</button>
           <button onClick={addKnownMOFs} style={toolbarBtn(t)}>＋ {c.batch.seed}</button>
+          <button onClick={addAllKnownMOFs} style={toolbarBtn(t)}>＋ {lang === "zh" ? "全部预设" : "All presets"}</button>
           <label style={{ ...toolbarBtn(t), cursor: "pointer" }}>
             ⬆ {c.batch.import}
             <input type="file" accept=".csv" style={{ display: "none" }}
@@ -3963,7 +4153,16 @@ function BatchModePanel({ inputs, onClose, onApplyToForm }) {
           </button>
           <button onClick={exportAll} disabled={rows.every(r => !r.result)}
             style={toolbarBtn(t)}>↓ {c.batch.export}</button>
+          <button onClick={sortByDecisionScore} disabled={completedRows.length === 0}
+            style={toolbarBtn(t)}>↕ {lang === "zh" ? "按决策分排序" : "Sort by score"}</button>
         </div>
+        {completedRows.length > 0 && (
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 10, marginBottom: 12 }}>
+            <MetricCard label={lang === "zh" ? "已完成" : "Completed"} value={completedRows.length} unit={`/ ${rows.length}`} />
+            <MetricCard label={lang === "zh" ? "最高候选" : "Top candidate"} value={topRow?.mofName || "—"} unit="" comparison={topRow ? `score ${decisionScore(topRow)}` : ""} />
+            <MetricCard label={lang === "zh" ? "平均选择性" : "Average selectivity"} value={avgSelectivity} unit="" />
+          </div>
+        )}
 
         {rows.length === 0 ? (
           <div style={{ padding: "40px 20px", textAlign: "center", color: t.faint, fontSize: 13 }}>
@@ -3978,7 +4177,7 @@ function BatchModePanel({ inputs, onClose, onApplyToForm }) {
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
             <thead>
               <tr style={{ background: t.surface }}>
-                {["MOF","Metal","Linker","PD","BET","PV","Gas","Primary","Secondary","Sel","Qst0","Flag",""].map(h => (
+                {["MOF","Metal","Linker","PD","BET","PV","Gas","Primary","Secondary","Sel","Qst0","Score","Flag",""].map(h => (
                   <th key={h} style={{ padding: "8px 10px", color: t.subtle, textAlign: "left",
                     borderBottom: `1px solid ${t.border}`, fontWeight: 600 }}>{h}</th>
                 ))}
@@ -4034,6 +4233,7 @@ function BatchModePanel({ inputs, onClose, onApplyToForm }) {
                   <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.muted }}>{r.result?.secondaryUptake ?? "—"}</td>
                   <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.text }}>{r.result?.selectivity ?? "—"}</td>
                   <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.accentSoft }}>{r.result?.thermo?.qst0 ?? "—"}</td>
+                  <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.success }}>{Number.isFinite(decisionScore(r)) ? decisionScore(r) : "—"}</td>
                   <td style={{ padding: "6px 10px", color: t.warn, fontSize: 11 }}>{r.result?.anomaly ? "⚠ inverse" : ""}</td>
                   <td style={{ padding: "6px 10px" }}>
                     <button onClick={() => onApplyToForm(r)}
@@ -4086,7 +4286,40 @@ function EmptyState({ message }) {
 
 function SavedRunsModal({ runs, onClose, onLoad, onDelete, onImport, onExport }) {
   const t = useT()
-  const { copy: c } = useLang()
+  const { lang, copy: c } = useLang()
+  const savedSummary = runs.reduce((acc, run) => {
+    if (!run?.results || run.results.unavailable) return acc
+    const selectivity = Number(run.results.selectivity || 0)
+    const green = Number(run.results.lca?.compositeGreenScore || 0)
+    return {
+      count: acc.count + 1,
+      bestSelectivity: selectivity > acc.bestSelectivity.value ? { name: run.name, value: selectivity } : acc.bestSelectivity,
+      bestGreen: green > acc.bestGreen.value ? { name: run.name, value: green } : acc.bestGreen,
+    }
+  }, {
+    count: 0,
+    bestSelectivity: { name: "—", value: 0 },
+    bestGreen: { name: "—", value: 0 },
+  })
+  const csvCell = (value) => `"${String(value ?? "").replace(/"/g, '""')}"`
+  const exportSavedCsv = () => {
+    const header = ["Name", "Gas", "Metal", "Linker", "Primary uptake", "Secondary uptake", "Selectivity", "Green score", "Confidence", "Created"]
+    const rows = runs
+      .filter(run => run?.results && !run.results.unavailable)
+      .map(run => [
+        run.name,
+        run.results.gasSystem,
+        run.inputs.metalCenter,
+        run.inputs.organicLinker,
+        run.results.primaryUptake,
+        run.results.secondaryUptake,
+        run.results.selectivity,
+        run.results.lca?.compositeGreenScore ?? "",
+        run.results.confidenceScore ?? "",
+        run.createdAt || "",
+      ])
+    downloadTextFile("ecomof_saved_runs.csv", [header, ...rows].map(row => row.map(csvCell).join(",")).join("\n"), "text/csv")
+  }
   return (
     <div style={{ position: "fixed", inset: 0, background: "rgba(2,6,23,0.55)", zIndex: 220,
       display: "flex", alignItems: "flex-start", justifyContent: "center" }} onClick={onClose}>
@@ -4096,6 +4329,7 @@ function SavedRunsModal({ runs, onClose, onLoad, onDelete, onImport, onExport })
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
           <div style={{ color: t.accentSoft, fontSize: 14, fontWeight: 800 }}>{c.common.savedRuns}</div>
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <button onClick={exportSavedCsv} disabled={!savedSummary.count} style={toolbarBtn(t)}>↓ CSV</button>
             <button onClick={onExport} style={toolbarBtn(t)}>↓ JSON backup</button>
             <label style={toolbarBtn(t)}>
               ↑ Import JSON
@@ -4106,12 +4340,19 @@ function SavedRunsModal({ runs, onClose, onLoad, onDelete, onImport, onExport })
           </div>
         </div>
         <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginBottom: 12 }}>
-          Static GitHub Pages has no authenticated cloud database. JSON backup/import provides portable sync until a backend is connected.
+          {lang === "zh"
+            ? "静态 GitHub Pages 没有已认证云端数据库。当前用 localStorage 保存，并提供 JSON 备份/导入和 CSV 分析导出。"
+            : "Static GitHub Pages has no authenticated cloud database. Current runs use localStorage, with JSON backup/import and CSV analysis export."}
         </div>
         {runs.length === 0 ? (
           <div style={{ color: t.faint, fontSize: 13, padding: "32px 8px", textAlign: "center" }}>{c.common.noSavedRuns}</div>
         ) : (
           <div style={{ display: "grid", gap: 10 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
+              <MetricCard label={lang === "zh" ? "可导出记录" : "Exportable runs"} value={savedSummary.count} unit={`/ ${runs.length}`} />
+              <MetricCard label={lang === "zh" ? "最高选择性" : "Best selectivity"} value={savedSummary.bestSelectivity.value || "—"} unit="" comparison={savedSummary.bestSelectivity.name} />
+              <MetricCard label={lang === "zh" ? "最高绿色评分" : "Best green score"} value={savedSummary.bestGreen.value || "—"} unit="/10" comparison={savedSummary.bestGreen.name} />
+            </div>
             {runs.map(run => (
               <div key={run.id} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12,
                 display: "grid", gridTemplateColumns: "1fr auto", gap: 12, alignItems: "center" }}>
@@ -4139,6 +4380,7 @@ function SavedRunsModal({ runs, onClose, onLoad, onDelete, onImport, onExport })
 const TABS = [
   { id: "home",          copyKey: "home" },
   { id: "structure",     copyKey: "structure" },
+  { id: "ml",            copyKey: "ml" },
   { id: "interpretation",copyKey: "interpretation" },
   { id: "lca",           copyKey: "lca" },
   { id: "sensitivity",   copyKey: "sensitivity" },
@@ -4467,6 +4709,7 @@ export default function App() {
         <main style={{ padding: viewport.isMobile ? "14px 12px" : "22px 24px", maxWidth: 1460, margin: "0 auto" }}>
           {activeTab === "home"           && <HomeTab setActiveTab={setActiveTab} />}
           {activeTab === "structure"      && <StructureInputTab inputs={inputs} setInputs={setInputs} results={results} loading={loading} onPredict={handlePredict} onSaveRun={saveCurrentRun} apiUrl={apiUrl} setApiUrl={setApiUrl} apiStatus={apiStatus} onCheckApi={checkApi} setActiveTab={setActiveTab} />}
+          {activeTab === "ml"             && <MLPredictionTab results={results} inputs={inputs} />}
           {activeTab === "interpretation" && <InterpretationTab results={results} inputs={inputs} />}
           {activeTab === "lca"            && <LCAScoringTab results={results} inputs={inputs} />}
           {activeTab === "sensitivity"    && <SensitivityTab results={results} inputs={inputs} />}

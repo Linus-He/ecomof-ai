@@ -3,6 +3,7 @@ export const COPY = {
     tabs: {
       home: "Home",
       structure: "Screening",
+      ml: "ML Models",
       interpretation: "Interpretation",
       lca: "LCA / LCC",
       sensitivity: "Sensitivity",
@@ -352,6 +353,7 @@ export const COPY = {
     tabs: {
       home: "首页",
       structure: "筛选",
+      ml: "机器学习",
       interpretation: "机理解释",
       lca: "LCA / LCC",
       sensitivity: "敏感性",
