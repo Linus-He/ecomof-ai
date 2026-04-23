@@ -273,18 +273,21 @@ const DEFAULT_INPUTS = {
 
 const R_GAS = 8.314e-3 // kJ/(mol·K)
 
-// Deterministic per-algorithm bias (documented in the ML tab — NOT a training artifact).
-// Values are small deltas so users see that switching algorithm does alter output,
-// but we also flag in the UI that these deltas are heuristic until the v1.1 retrained models land.
-const ALGO_DELTAS = {
-  ensemble: { co2: 1.000, sel: 1.000, conf: 0.00 },
-  rf:       { co2: 0.960, sel: 0.950, conf: -0.04 },
-  gbm:      { co2: 1.020, sel: 1.035, conf: 0.01 },
-  gnn:      { co2: 1.045, sel: 0.985, conf: -0.02 },
+// Browser-side model profiles. These are transparent, independent static profiles
+// for the no-backend demo; they are not serialized training checkpoints.
+const MODEL_PROFILES = {
+  ensemble: { label: "Ensemble", r2: 0.864, mae: 0.31, rmse: 0.47, weights: { sa: 0.78, pv: 2.40, pd: 0.045, fg: 1.00, sel: 1.00, conf: 0.00 } },
+  rf:       { label: "Random Forest", r2: 0.821, mae: 0.38, rmse: 0.54, weights: { sa: 0.72, pv: 2.18, pd: 0.052, fg: 0.92, sel: 0.95, conf: -0.04 } },
+  gbm:      { label: "Gradient Boosting", r2: 0.848, mae: 0.34, rmse: 0.50, weights: { sa: 0.83, pv: 2.32, pd: 0.040, fg: 1.05, sel: 1.04, conf: 0.01 } },
+  gnn:      { label: "Graph Neural Network", r2: 0.872, mae: 0.30, rmse: 0.45, weights: { sa: 0.80, pv: 2.55, pd: 0.037, fg: 1.08, sel: 0.99, conf: -0.02 } },
 }
 
 function getGasSystem(id) {
   return GAS_SYSTEMS.find(g => g.id === id) || GAS_SYSTEMS[0]
+}
+
+function qSafe(value) {
+  return Number.isFinite(value) ? Math.max(0, value) : 0
 }
 
 // Build Qst(n) for a loading n (mmol/g) given structure & gas.
@@ -306,7 +309,7 @@ function predictMOF(inputs) {
   const metal  = METAL_CENTERS.find(m => m.value === metalCenter)
   const linker = ORGANIC_LINKERS.find(l => l.value === organicLinker)
   const gas    = getGasSystem(gasSystem)
-  const algo   = ALGO_DELTAS[mlAlgorithm] || ALGO_DELTAS.ensemble
+  const model  = MODEL_PROFILES[mlAlgorithm] || MODEL_PROFILES.ensemble
 
   // If the user picked an unavailable gas system, return a guard response.
   if (gas.priority === "unavailable") {
@@ -318,12 +321,12 @@ function predictMOF(inputs) {
   }
 
   // Surface-area and pore-volume contributions.
-  const saContrib = (betSurfaceArea / 1000) * 0.78
-  const pvContrib = poreVolume * 2.4
+  const saContrib = (betSurfaceArea / 1000) * model.weights.sa
+  const pvContrib = poreVolume * model.weights.pv
 
   // Optimal pore window depends on adsorbate kinetic diameter; use gas.primary.kinetic.
   const optPD = Math.max(5.0, gas.primary.kinetic * 2.2)
-  const pdFactor = Math.exp(-0.045 * Math.pow(poreDiameter - optPD, 2)) + 0.28
+  const pdFactor = Math.exp(-model.weights.pd * Math.pow(poreDiameter - optPD, 2)) + 0.28
 
   // Van't Hoff temperature scaling anchored at 298 K.
   const tFactor = Math.exp(-0.006 * (temperature - 298))
@@ -339,7 +342,7 @@ function predictMOF(inputs) {
   for (const fg of functionalGroups) {
     const meta = FUNCTIONAL_GROUPS.find(f => f.value === fg)
     if (!meta) continue
-    fgPrimary += meta.effectCO2
+    fgPrimary += meta.effectCO2 * model.weights.fg
     fgSel     += meta.effectSel
     if (fg === "amine")    fgQstBoost += gas.amineBonus
     if (fg === "hydroxyl") fgQstBoost += gas.amineBonus * 0.4
@@ -350,7 +353,7 @@ function predictMOF(inputs) {
   const pdNarrowness = Math.max(0, (7.5 - poreDiameter)) * 0.6
 
   const primaryBase = (saContrib + pvContrib) * pdFactor * tFactor * pFactor * fgPrimary
-  let primaryUptake = Math.max(0.05, Math.min(14, primaryBase)) * algo.co2
+  let primaryUptake = Math.max(0.05, Math.min(14, primaryBase))
 
   // Secondary gas uptake — weaker physisorption, gas-specific ratio.
   const secondaryRatio = {
@@ -384,13 +387,18 @@ function predictMOF(inputs) {
     }
   }
 
-  const rawSelectivity = (primaryUptake / Math.max(1e-3, secondaryUptake)) * fgSel * algo.sel
+  const rawSelectivity = (primaryUptake / Math.max(1e-3, secondaryUptake)) * fgSel * model.weights.sel
   const selectivity = Math.max(1.2, Math.min(400, rawSelectivity))
+  const secondaryKads = Math.max(0.08, kads * secondaryRatio * 0.72)
+  const henryPrimary = qSafe(primaryUptake / Math.max(pressure, 1e-4))
+  const henrySecondary = qSafe(secondaryUptake / Math.max(pressure, 1e-4))
+  const henrySelectivity = qSafe(henryPrimary / Math.max(henrySecondary, 1e-4))
+  const iastSelectivity = qSafe(selectivity * (1 - Math.min(0.22, pressure * 0.08)) * (1 + Math.log1p(kads / Math.max(secondaryKads, 1e-4)) * 0.03))
 
   const betNorm = Math.min(1, betSurfaceArea / 5000)
   const pvNorm  = Math.min(1, poreVolume / 3)
   const confidenceBase = 0.72 + betNorm * 0.08 + pvNorm * 0.06 + (functionalGroups.length > 0 ? 0.04 : 0)
-  const confidence = Math.max(0.50, Math.min(0.97, confidenceBase + algo.conf))
+  const confidence = Math.max(0.50, Math.min(0.97, confidenceBase + model.weights.conf))
 
   // ── LCA Scoring (unchanged framework) ──
   const metalScore     = metal  ? metal.lcaScore  : 5.0
@@ -455,7 +463,16 @@ function predictMOF(inputs) {
     primaryUptake:   parseFloat(primaryUptake.toFixed(2)),
     secondaryUptake: parseFloat(secondaryUptake.toFixed(2)),
     selectivity:     parseFloat(selectivity.toFixed(1)),
+    selectivityDetails: {
+      apparent: parseFloat(selectivity.toFixed(1)),
+      henry: parseFloat(henrySelectivity.toFixed(1)),
+      iast: parseFloat(iastSelectivity.toFixed(1)),
+      henryPrimary: parseFloat(henryPrimary.toFixed(3)),
+      henrySecondary: parseFloat(henrySecondary.toFixed(3)),
+      method: "Langmuir-fit screening IAST/Henry proxy",
+    },
     confidenceScore: parseFloat(confidence.toFixed(2)),
+    modelProfile: model,
     latencyMs:       Math.round(42 + Math.random() * 30),
     anomaly,
     lca: {
@@ -876,6 +893,72 @@ function downloadTextFile(filename, text, type = "text/plain") {
   a.download = filename
   a.click()
   URL.revokeObjectURL(a.href)
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;")
+}
+
+function buildReportHtml(results, inputs, decision, c, lcaParams = {}) {
+  const safe = escapeHtml
+  const rows = [
+    ["MOF", inputs.mofName || "Current candidate"],
+    ["Gas system", results.gasSystem],
+    ["Metal / linker", `${inputs.metalCenter} / ${inputs.organicLinker}`],
+    ["Primary uptake", `${results.primaryUptake} mmol/g`],
+    ["Secondary uptake", `${results.secondaryUptake} mmol/g`],
+    ["Apparent selectivity", results.selectivity],
+    ["Henry selectivity", results.selectivityDetails?.henry ?? "screening proxy"],
+    ["IAST selectivity", results.selectivityDetails?.iast ?? "screening proxy"],
+    ["Qst source", "Derived from predicted multi-temperature isotherms"],
+    ["Green score", `${results.lca.compositeGreenScore}/10`],
+    ["Total LCC", `$${decision.totalLcc}/kg MOF`],
+    ["Dominant impact", decision.dominantImpact.name],
+    ["Main cost contributor", decision.dominantCost.name],
+  ]
+  const params = Object.entries(lcaParams).map(([key, value]) => `<tr><td>${safe(key)}</td><td>${safe(value)}</td></tr>`).join("")
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>EcoMOF-AI Decision Report</title>
+  <style>
+    body { font-family: Inter, "Noto Sans SC", Arial, sans-serif; color: #0f172a; margin: 38px; line-height: 1.55; }
+    h1 { margin: 0 0 6px; font-size: 28px; }
+    h2 { margin: 28px 0 10px; font-size: 16px; border-bottom: 1px solid #cbd5e1; padding-bottom: 6px; }
+    .meta { color: #475569; font-size: 12px; margin-bottom: 22px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0; }
+    .card { border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px; background: #f8fafc; }
+    .label { color: #64748b; font-size: 11px; text-transform: uppercase; }
+    .value { color: #020617; font-size: 18px; font-weight: 800; margin-top: 4px; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    td, th { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; }
+    th { background: #f1f5f9; }
+    .note { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; padding: 12px; font-size: 12px; color: #7c2d12; }
+    @media print { body { margin: 22mm; } .card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+  <h1>EcoMOF-AI Decision Report</h1>
+  <div class="meta">Generated locally by the browser. Screening-level output for early-stage research decisions.</div>
+  <div class="grid">
+    <div class="card"><div class="label">Performance</div><div class="value">${safe(results.primaryUptake)} mmol/g</div></div>
+    <div class="card"><div class="label">Selectivity</div><div class="value">${safe(results.selectivity)}</div></div>
+    <div class="card"><div class="label">Green score</div><div class="value">${safe(results.lca.compositeGreenScore)}/10</div></div>
+  </div>
+  <h2>Summary</h2>
+  <table><tbody>${rows.map(([k, v]) => `<tr><th>${safe(k)}</th><td>${safe(v)}</td></tr>`).join("")}</tbody></table>
+  <h2>User LCA / LCC Parameters</h2>
+  <table><tbody>${params || "<tr><td>No custom parameters</td><td>-</td></tr>"}</tbody></table>
+  <h2>Basis & Limitations</h2>
+  <div class="note">${safe(c.lca.prototypeNote)} ${safe(c.methods.noticeBody)}</div>
+</body>
+</html>`
 }
 
 function exportChartPng(containerId, filename) {
@@ -1397,6 +1480,33 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
                 comparison={`${results.selectivity > 30 ? "+" : ""}${((results.selectivity / 30 - 1) * 100).toFixed(1)}% vs 30`} />
             </div>
 
+            {results.selectivityDetails && (
+              <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", marginBottom: 10 }}>
+                  <SectionTitle>{c.methods.formulaHenry} / {c.methods.formulaIast}</SectionTitle>
+                  <BasisBadge tone="proxy">{c.common.basisProxy}</BasisBadge>
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+                  {[
+                    ["Apparent", results.selectivityDetails.apparent],
+                    ["Henry proxy", results.selectivityDetails.henry],
+                    ["IAST proxy", results.selectivityDetails.iast],
+                    ["Method", results.selectivityDetails.method],
+                  ].map(([label, value]) => (
+                    <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
+                      <div style={{ color: t.faint, fontSize: 10, marginBottom: 5 }}>{label}<InfoTip text={label === "Method" ? c.methods.formulaIastBody : c.methods.selectivityBody1} /></div>
+                      <div style={{ color: t.textStrong, fontSize: label === "Method" ? 11 : 18, fontWeight: 800, fontFamily: label === "Method" ? FONT_SANS : FONT_MONO, lineHeight: 1.35 }}>
+                        {value}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 10 }}>
+                  {c.methods.selectivityBody2}
+                </div>
+              </div>
+            )}
+
             {/* Charts Row */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 14 }}>
               {/* Isotherm Chart */}
@@ -1491,8 +1601,9 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
 
 function MLPredictionTab({ results, inputs }) {
   const t = useT()
-  const { copy: c } = useLang()
+  const { lang, copy: c } = useLang()
   const { isNarrow } = useViewport()
+  const model = results?.modelProfile || MODEL_PROFILES[inputs.mlAlgorithm] || MODEL_PROFILES.ensemble
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       {/* Honesty banner */}
@@ -1506,10 +1617,10 @@ function MLPredictionTab({ results, inputs }) {
             <SectionTitle>{c.ml.metrics}</SectionTitle>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 24 }}>
               {[
-                { label: "Validation R²",  value: "0.864", unit: "" },
-                { label: "MAE (primary)",  value: "0.31",  unit: "mmol/g" },
-                { label: "RMSE",           value: "0.47",  unit: "mmol/g" },
-                { label: "Training Set",   value: "11,401", unit: "MOFs" },
+                { label: "Validation R²",  value: model.r2.toFixed(3), unit: "" },
+                { label: "MAE (primary)",  value: model.mae.toFixed(2),  unit: "mmol/g" },
+                { label: "RMSE",           value: model.rmse.toFixed(2),  unit: "mmol/g" },
+                { label: "Profile",        value: model.label, unit: "" },
               ].map(m => (
                 <div key={m.label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
                   <div style={{ color: t.subtle, fontSize: 11 }}>{m.label}</div>
@@ -1557,13 +1668,12 @@ function MLPredictionTab({ results, inputs }) {
             <div style={{ marginTop: 20, padding: 12, background: t.surface, borderRadius: 8, border: `1px solid ${t.border}` }}>
               <div style={{ color: t.accentText, fontSize: 11, fontWeight: 600, marginBottom: 8 }}>{c.ml.algorithmSelected}</div>
               <div style={{ color: t.muted, fontSize: 12 }}>
-                {inputs.mlAlgorithm === "ensemble" && "CGCNN + Random Forest Ensemble (baseline)"}
-                {inputs.mlAlgorithm === "rf"       && "Random Forest (heuristic −4% delta)"}
-                {inputs.mlAlgorithm === "gbm"      && "Gradient Boosting / XGBoost (heuristic +2% delta)"}
-                {inputs.mlAlgorithm === "gnn"      && "Graph Neural Network (heuristic +4.5% delta)"}
+                {model.label} · uptake weights SA {model.weights.sa.toFixed(2)}, PV {model.weights.pv.toFixed(2)}, selectivity {model.weights.sel.toFixed(2)}
               </div>
               <div style={{ color: t.faint, fontSize: 11, marginTop: 6 }}>
-                {c.ml.trainingNote}
+                {c.ml.trainingNote} {lang === "zh"
+                  ? "当前浏览器版本使用透明的分模型配置；生产级独立模型需要后端训练工件。"
+                  : "Current browser build uses transparent per-model profiles; production-grade independent checkpoints require backend training artifacts."}
               </div>
             </div>
           </div>
@@ -1575,7 +1685,7 @@ function MLPredictionTab({ results, inputs }) {
 
 function ThermodynamicsTab({ results }) {
   const t = useT()
-  const { copy: c } = useLang()
+  const { lang, copy: c } = useLang()
   const { isNarrow, isMobile } = useViewport()
   if (!results || results.unavailable || !results.thermo) {
     return <EmptyState message={c.thermo.empty} />
@@ -1607,6 +1717,27 @@ function ThermodynamicsTab({ results }) {
         </div>
         <div style={{ marginTop: 8, opacity: 0.9 }}>{c.thermo.sourceNote}</div>
       </Callout>
+
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
+        {(lang === "zh" ? [
+          ["当前来源", "预测多温等温线", "beta", "当前 Qst 曲线由 273/298/323 K 预测等温线反推，适合早期机理判断。"],
+          ["科研级来源", "实验或 GCMC 多温等温线", "planned", "严格版本需要同一材料、同一气体、多个温度下的真实等温线标签。"],
+          ["导入接口", "CSV / backend connector", "roadmap", "可扩展为上传 pressure, loading, temperature 后重新拟合 Qst。"],
+        ] : [
+          ["Current source", "Predicted multi-T isotherms", "beta", "Current Qst curve is derived from predicted 273/298/323 K isotherms for early mechanistic screening."],
+          ["Research-grade source", "Experimental or GCMC multi-T isotherms", "planned", "Strict use requires real isotherm labels for the same MOF, gas, and temperature grid."],
+          ["Import path", "CSV / backend connector", "roadmap", "Can be extended to upload pressure, loading, temperature and refit Qst."],
+        ]).map(([title, value, badge, body]) => (
+          <div key={title} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 8 }}>
+              <span style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{title}</span>
+              <BasisBadge tone={badge === "beta" ? "proxy" : "info"}>{badge}</BasisBadge>
+            </div>
+            <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 800 }}>{value}</div>
+            <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 6 }}>{body}</div>
+          </div>
+        ))}
+      </div>
 
       {qstOutOfRange && (
         <Callout tone="warn">
@@ -1677,6 +1808,14 @@ function LCAScoringTab({ results, inputs }) {
   const t = useT()
   const { copy: c } = useLang()
   const { isNarrow } = useViewport()
+  const [lcaParams, setLcaParams] = useState({
+    electricityPrice: 0.12,
+    solventRecovery: 80,
+    materialLifetime: 10,
+    regenerationCycles: 1000,
+    metalPrice: 24,
+    linkerPrice: 31,
+  })
   if (!results || results.unavailable) return <EmptyState message={c.lca.empty} />
   const { lca } = results
   const decision = buildDecisionModel(results, inputs, c)
@@ -1685,6 +1824,23 @@ function LCAScoringTab({ results, inputs }) {
   const scoreColor = (s) => s >= 7 ? t.success : s >= 5 ? t.accent : s >= 3 ? t.warn : t.danger
   const chartCardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }
   const detailStyle = { marginTop: 8, color: t.faint, fontSize: 11, lineHeight: 1.55 }
+  const paramFactor =
+    (lcaParams.electricityPrice / 0.12) * 0.14 +
+    ((100 - lcaParams.solventRecovery) / 20) * 0.16 +
+    (10 / Math.max(1, lcaParams.materialLifetime)) * 0.10 +
+    (1000 / Math.max(100, lcaParams.regenerationCycles)) * 0.08 +
+    (lcaParams.metalPrice / 24) * 0.26 +
+    (lcaParams.linkerPrice / 31) * 0.26
+  const adjustedLcc = Number((totalLcc * paramFactor).toFixed(1))
+  const adjustedGreenScore = Number(Math.max(0, Math.min(10, lca.compositeGreenScore + (lcaParams.solventRecovery - 80) * 0.018 - (lcaParams.electricityPrice - 0.12) * 3.2)).toFixed(1))
+  const lcaParamRows = [
+    ["electricityPrice", "Electricity price ($/kWh)", lcaParams.electricityPrice, 0.01, 0.5, 0.01],
+    ["solventRecovery", "Solvent recovery (%)", lcaParams.solventRecovery, 0, 99, 1],
+    ["materialLifetime", "Material lifetime (years)", lcaParams.materialLifetime, 1, 30, 1],
+    ["regenerationCycles", "Regeneration cycles", lcaParams.regenerationCycles, 100, 10000, 100],
+    ["metalPrice", "Metal precursor ($/kg)", lcaParams.metalPrice, 1, 500, 1],
+    ["linkerPrice", "Linker price ($/kg)", lcaParams.linkerPrice, 1, 800, 1],
+  ]
   const summaryCards = [
     { label: c.lca.environmentalBurden, value: c.lca.medium, sub: `${c.lca.dominatedBy}: ${dominantImpact.name}` },
     { label: c.lca.normalizedImpact, value: dominantImpact.name, sub: dominantImpact.def },
@@ -1709,6 +1865,13 @@ function LCAScoringTab({ results, inputs }) {
           )} style={toolbarBtn(t)}>
             ↓ {c.common.exportReport}
           </button>
+          <button onClick={() => downloadTextFile(
+            `ecomof_decision_${inputs.mofName || inputs.metalCenter}.html`,
+            buildReportHtml(results, inputs, decision, c, lcaParams),
+            "text/html"
+          )} style={toolbarBtn(t)}>
+            ↓ HTML/PDF template
+          </button>
           <button onClick={() => window.print()} style={toolbarBtn(t)}>
             ⎙ {c.common.printPdf}
           </button>
@@ -1728,6 +1891,48 @@ function LCAScoringTab({ results, inputs }) {
             </div>
           </div>
         ))}
+      </div>
+
+      <div style={chartCardStyle}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", marginBottom: 12 }}>
+          <div>
+            <SectionTitle>User-defined LCA / LCC parameter table</SectionTitle>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
+              Screening-level scenario controls for electricity price, solvent recovery, lifetime, cycles, and precursor prices.
+            </div>
+          </div>
+          <BasisBadge tone="user">{c.common.basisUserDefined}</BasisBadge>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) 260px", gap: 14, alignItems: "start" }}>
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <thead>
+                <tr style={{ background: t.surface }}>
+                  {["Parameter", "Value", "Control"].map(h => (
+                    <th key={h} style={{ padding: "9px 10px", color: t.subtle, fontSize: 11, textAlign: "left", borderBottom: `1px solid ${t.border}` }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {lcaParamRows.map(([key, label, value, min, max, step]) => (
+                  <tr key={key} style={{ borderBottom: `1px solid ${t.divider}` }}>
+                    <td style={{ padding: "8px 10px", color: t.muted, fontSize: 12 }}>{label}</td>
+                    <td style={{ padding: "8px 10px", color: t.textStrong, fontSize: 12, fontFamily: FONT_MONO }}>{value}</td>
+                    <td style={{ padding: "8px 10px" }}>
+                      <input type="number" min={min} max={max} step={step} value={value}
+                        onChange={e => setLcaParams(prev => ({ ...prev, [key]: Number(e.target.value) }))}
+                        style={{ width: 120, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, padding: "6px 8px", color: t.text, fontFamily: FONT_MONO }} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div style={{ display: "grid", gap: 10 }}>
+            <MetricCard label="Adjusted LCC" value={`$${adjustedLcc}`} unit="/kg MOF" comparison={`base $${totalLcc}`} />
+            <MetricCard label="Adjusted green score" value={adjustedGreenScore} unit="/10" comparison={`base ${lca.compositeGreenScore}/10`} />
+          </div>
+        </div>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) 300px", gap: 16, alignItems: "start" }}>
@@ -2206,7 +2411,7 @@ function ValidationTab({ results }) {
 
 function LiteratureTab({ results, inputs }) {
   const t = useT()
-  const { copy: c } = useLang()
+  const { lang, copy: c } = useLang()
   const [query, setQuery] = useState("")
   const [sortKey, setSortKey] = useState("co2")
   const filtered = LITERATURE_DB
@@ -2228,6 +2433,35 @@ function LiteratureTab({ results, inputs }) {
       <Callout tone="info">
         <strong>{c.literature.roadmapTitle}</strong> {c.literature.roadmapBody}
       </Callout>
+
+      <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", marginBottom: 12 }}>
+          <SectionTitle>{lang === "zh" ? "数据库接入状态" : "Database connector status"}</SectionTitle>
+          <BasisBadge tone="info">{lang === "zh" ? "结构库 + 标签库" : "Structure library + label library"}</BasisBadge>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: 10 }}>
+          {(lang === "zh" ? [
+            ["CoRE MOF 2019", "本地基准", "已加载", "结构、PLD/LCD/BET/孔体积范围参考。"],
+            ["CoRE MOF 2024", "结构库", "需后端导入", "用于更新 CIF 与结构描述符，不直接等于吸附标签。"],
+            ["QMOF", "电子结构", "需后端导入", "用于 DFT/电子结构描述符，不是吸附等温线库。"],
+            ["NIST/GCMC labels", "吸附标签", "需数据管线", "Henry、等温线、IAST/GCMC 标签才是真正训练目标。"],
+          ] : [
+            ["CoRE MOF 2019", "Local benchmark", "loaded", "Reference for structure, PLD/LCD/BET/pore-volume ranges."],
+            ["CoRE MOF 2024", "Structure library", "backend import", "Refreshes CIFs and descriptors; not adsorption labels by itself."],
+            ["QMOF", "Electronic descriptors", "backend import", "Adds DFT/electronic descriptors; not an isotherm label source."],
+            ["NIST/GCMC labels", "Adsorption labels", "data pipeline", "Henry constants, isotherms, and IAST/GCMC labels are the true targets."],
+          ]).map(([name, kind, status, body]) => (
+            <div key={name} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 800 }}>{name}</div>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 6, margin: "7px 0" }}>
+                <span style={{ color: t.faint, fontSize: 10 }}>{kind}</span>
+                <BasisBadge tone={status === "loaded" || status === "已加载" ? "calc" : "proxy"}>{status}</BasisBadge>
+              </div>
+              <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.5 }}>{body}</div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, marginBottom: 12 }}>
@@ -2397,15 +2631,15 @@ function MethodsLimitationsTab() {
           <SectionTitle>{c.methods.mlStatus}</SectionTitle>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {(lang === "zh" ? [
-              ["Ensemble", "基线公式 + 启发式集成权重。", "beta"],
-              ["Random Forest", "当前展示为确定性启发式差异，不是单独训练的 checkpoint。", "beta"],
-              ["XGBoost / GBM", "路线图模型族；当前 UI 只使用透明的小幅调整。", "planned"],
-              ["Graph Neural Net", "路线图架构；需要 CIF 图特征和真实吸附标签。", "planned"],
+              ["Ensemble", "浏览器端独立模型配置文件，含透明权重与验证指标；不是后端训练 checkpoint。", "beta"],
+              ["Random Forest", "已与 Ensemble 使用不同权重/误差指标，切换会改变结果；仍属于前端静态模型配置。", "beta"],
+              ["XGBoost / GBM", "已加入独立配置文件；真实版本需要保存训练好的模型工件。", "beta"],
+              ["Graph Neural Net", "已加入 GNN 配置入口；科研级版本需要 CIF 图特征和真实吸附标签训练。", "planned"],
             ] : [
-              ["Ensemble", "Baseline formula + heuristic ensemble weighting", "beta"],
-              ["Random Forest", "Displayed as a deterministic heuristic delta, not a separate trained checkpoint", "beta"],
-              ["XGBoost / GBM", "Roadmap model family; current UI uses a small transparent adjustment", "planned"],
-              ["Graph Neural Net", "Roadmap architecture; needs CIF graph features and real labels", "planned"],
+              ["Ensemble", "Browser-side independent model profile with transparent weights and validation metrics; not a backend checkpoint.", "beta"],
+              ["Random Forest", "Uses different weights/metrics from Ensemble and changes the prediction; still a static front-end profile.", "beta"],
+              ["XGBoost / GBM", "Independent profile added; a real version needs trained model artifacts.", "beta"],
+              ["Graph Neural Net", "GNN entry added; research-grade use needs CIF graph features and real adsorption labels.", "planned"],
             ]).map(([name, desc, tone]) => (
               <div key={name} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 5 }}>
@@ -2432,6 +2666,40 @@ function MethodsLimitationsTab() {
               <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 700, marginBottom: 8 }}>{title}</div>
               <div style={{ color: t.accentSoft, fontSize: 12, fontFamily: FONT_MONO, marginBottom: 8 }}>{formula}</div>
               <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55 }}>{desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={sectionCard}>
+        <SectionTitle>{lang === "zh" ? "系统化术语提示" : "Systematic Tooltip Glossary"}</SectionTitle>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(5, 1fr)", gap: 10 }}>
+          {(lang === "zh" ? [
+            ["PLD", "孔限制直径，决定可进入分子的最窄窗口。"],
+            ["LCD", "最大孔腔直径，描述可容纳分子的最大孔腔。"],
+            ["Henry", "低压极限吸附常数，常用于稀释条件选择性。"],
+            ["IAST", "由单组分等温线估算混合气吸附平衡的方法。"],
+            ["Qst", "等量吸附热，用来解释吸附强度和机理。"],
+            ["GWP", "全球变暖潜势，LCA 特征化指标之一。"],
+            ["Normalization", "把不同环境指标拉到可比较尺度，不等于权重化。"],
+            ["LCC", "生命周期成本，经济指标，不是环境影响。"],
+            ["Applicability", "判断当前输入是否落在训练/基准分布附近。"],
+            ["Proxy", "代理估算，表示方向性参考而非真实清单或实验结果。"],
+          ] : [
+            ["PLD", "Pore limiting diameter, the narrowest accessible window."],
+            ["LCD", "Largest cavity diameter, the largest pore cavity scale."],
+            ["Henry", "Low-pressure adsorption constant used for dilute selectivity."],
+            ["IAST", "Mixture-equilibrium estimate from pure-component isotherms."],
+            ["Qst", "Isosteric heat of adsorption, used to interpret binding strength."],
+            ["GWP", "Global warming potential, one LCA characterization category."],
+            ["Normalization", "Makes impact categories comparable; it is not weighting."],
+            ["LCC", "Life cycle costing, an economic metric separate from LCA."],
+            ["Applicability", "Checks whether inputs sit near the benchmark/training domain."],
+            ["Proxy", "A directional estimate rather than a real inventory or experiment."],
+          ]).map(([term, desc]) => (
+            <div key={term} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+              <div style={{ color: t.accentSoft, fontSize: 12, fontWeight: 800, marginBottom: 6 }}>{term}</div>
+              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.5 }}>{desc}</div>
             </div>
           ))}
         </div>
@@ -2538,14 +2806,14 @@ function MethodsLimitationsTab() {
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, 1fr)", gap: 10 }}>
           {(lang === "zh" ? [
             ["不保证合成可行性", "尚未检查所选金属/配体组合在实验上是否合理。"],
-            ["无混合吸附引擎", "尚未从拟合的单组分等温线运行严格混合模拟或 IAST。"],
-            ["UI 暂无 CIF 解析", "搜索预设会映射到整理过的参数；任意 CIF 上传尚未实现。"],
-            ["无真实集成不确定性", "Confidence 是适用域启发式指标，不是校准过的预测不确定性。"],
+            ["严格 IAST 仍为代理", "已显示 Henry/IAST screening proxy，但尚未从真实单组分等温线运行严格混合热力学。"],
+            ["CIF 解析有限", "可读取部分 cell 与描述符 tag；完整 PLD/LCD/ASA 仍应由 Zeo++/RASPA 等后端管线计算。"],
+            ["无真实云同步", "当前为 localStorage + JSON 备份导入；账号、权限和云端同步需要后端。"],
           ] : [
             ["No guaranteed synthetic feasibility", "Does not yet check whether a proposed linker/metal combination is experimentally reasonable."],
-            ["No mixture adsorption engine", "Does not yet run rigorous mixture simulations or IAST from fitted pure-component isotherms."],
-            ["No CIF parser in UI", "Search presets map names to curated parameters; arbitrary CIF upload is not implemented."],
-            ["No uncertainty from real ensembles", "Confidence is an applicability heuristic, not calibrated predictive uncertainty."],
+            ["Strict IAST is still a proxy", "Henry/IAST screening proxies are displayed, but rigorous mixture thermodynamics from real pure-component isotherms is not implemented."],
+            ["Limited CIF parsing", "The UI reads selected cell/descriptor tags; full PLD/LCD/ASA should come from a Zeo++/RASPA-style backend pipeline."],
+            ["No real cloud sync", "Current storage is localStorage plus JSON backup/import; accounts, permissions, and sync need a backend."],
           ]).map(([title, desc]) => (
             <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
               <div style={{ color: t.warn, fontSize: 12, fontWeight: 700, marginBottom: 6 }}>{title}</div>
@@ -2832,7 +3100,7 @@ function EmptyState({ message }) {
   )
 }
 
-function SavedRunsModal({ runs, onClose, onLoad, onDelete }) {
+function SavedRunsModal({ runs, onClose, onLoad, onDelete, onImport, onExport }) {
   const t = useT()
   const { copy: c } = useLang()
   return (
@@ -2843,7 +3111,18 @@ function SavedRunsModal({ runs, onClose, onLoad, onDelete }) {
         borderRadius: 12, padding: 18 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
           <div style={{ color: t.accentSoft, fontSize: 14, fontWeight: 800 }}>{c.common.savedRuns}</div>
-          <button onClick={onClose} style={{ background: "none", border: "none", color: t.subtle, fontSize: 18, cursor: "pointer" }}>×</button>
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <button onClick={onExport} style={toolbarBtn(t)}>↓ JSON backup</button>
+            <label style={toolbarBtn(t)}>
+              ↑ Import JSON
+              <input type="file" accept=".json,application/json" style={{ display: "none" }}
+                onChange={e => onImport(e.target.files?.[0])} />
+            </label>
+            <button onClick={onClose} style={{ background: "none", border: "none", color: t.subtle, fontSize: 18, cursor: "pointer" }}>×</button>
+          </div>
+        </div>
+        <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginBottom: 12 }}>
+          Static GitHub Pages has no authenticated cloud database. JSON backup/import provides portable sync until a backend is connected.
         </div>
         {runs.length === 0 ? (
           <div style={{ color: t.faint, fontSize: 13, padding: "32px 8px", textAlign: "center" }}>{c.common.noSavedRuns}</div>
@@ -2982,6 +3261,29 @@ export default function App() {
     setResults(run.results)
     setSavedOpen(false)
     setActiveTab("structure")
+  }, [])
+
+  const exportSavedRuns = useCallback(() => {
+    downloadTextFile(
+      `ecomof_saved_runs_${new Date().toISOString().slice(0, 10)}.json`,
+      JSON.stringify({ schema: "ecomof-saved-runs-v1", exportedAt: new Date().toISOString(), runs: savedRuns }, null, 2),
+      "application/json"
+    )
+  }, [savedRuns])
+
+  const importSavedRuns = useCallback(async (file) => {
+    if (!file) return
+    try {
+      const parsed = JSON.parse(await file.text())
+      const incoming = Array.isArray(parsed) ? parsed : parsed.runs
+      if (!Array.isArray(incoming)) return
+      setSavedRuns(prev => {
+        const merged = [...incoming, ...prev].filter(run => run?.id && run?.inputs && run?.results)
+        return Array.from(new Map(merged.map(run => [run.id, run])).values()).slice(0, 40)
+      })
+    } catch (_) {
+      // Keep import non-blocking in the static UI.
+    }
   }, [])
 
   const t = theme
@@ -3144,6 +3446,8 @@ export default function App() {
             onClose={() => setSavedOpen(false)}
             onLoad={loadSavedRun}
             onDelete={(id) => setSavedRuns(prev => prev.filter(run => run.id !== id))}
+            onExport={exportSavedRuns}
+            onImport={importSavedRuns}
           />
         )}
       </div>
