@@ -876,7 +876,7 @@ const CustomTooltip = ({ active, payload, label, unitX = "bar", unitY = "mmol/g"
   return null
 }
 
-function NumericField({ label, unit, min, max, step, value, onChange }) {
+function NumericField({ label, unit, min, max, step, value, onChange, helper }) {
   const t = useT()
   const [draft, setDraft] = useState(String(value ?? ""))
   useEffect(() => {
@@ -939,6 +939,7 @@ function NumericField({ label, unit, min, max, step, value, onChange }) {
         <span style={{ color: t.faint, fontSize: 10 }}>{min} {unit}</span>
         <span style={{ color: t.faint, fontSize: 10 }}>{max} {unit}</span>
       </div>
+      {helper && <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45, marginTop: 5 }}>{helper}</div>}
     </div>
   )
 }
@@ -1218,6 +1219,226 @@ const SOURCE_BADGES = {
 function SourceBadge({ type }) {
   const item = SOURCE_BADGES[type] || SOURCE_BADGES.proxy
   return <BasisBadge tone={item.tone}>{item.label}</BasisBadge>
+}
+
+const WORKFLOW_STAGE_ITEMS = [
+  { id: "screening", stage: "Stage 1", label: "Scientific Screening", zh: "科学筛选", target: "screening", tone: "info" },
+  { id: "feasibility", stage: "Stage 2", label: "Feasibility Boundaries", zh: "可行性边界", target: "feasibility", tone: "proxy" },
+  { id: "comparison", stage: "Stage 3", label: "Secondary Comparison", zh: "次级比较", target: "lca", tone: "user" },
+  { id: "engineering", stage: "Future Stage 4", label: "Engineering Evaluation", zh: "工程评估", target: "about", tone: "calc" },
+]
+
+function StageStrip({ current = "screening", onNavigate }) {
+  const t = useT()
+  const { lang } = useLang()
+  const { isNarrow } = useViewport()
+  return (
+    <div style={{
+      display: "grid",
+      gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))",
+      gap: 8,
+      background: t.panel,
+      border: `1px solid ${t.border}`,
+      borderRadius: 10,
+      padding: 8,
+      boxShadow: t.shadowSm,
+    }}>
+      {WORKFLOW_STAGE_ITEMS.map(item => {
+        const active = item.id === current || (current === "lca" && item.id === "comparison") || (current === "sensitivity" && item.id === "comparison") || (current === "validation" && item.id === "screening")
+        return (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => onNavigate?.(item.target)}
+            style={{
+              textAlign: "left",
+              border: `1px solid ${active ? t.borderStrong : "transparent"}`,
+              background: active ? t.badgeInfoBg : "transparent",
+              borderRadius: 8,
+              padding: "8px 10px",
+              cursor: onNavigate ? "pointer" : "default",
+              minHeight: 54,
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center" }}>
+              <span style={{ color: active ? t.accentText : t.faint, fontSize: 10, fontWeight: 850, fontFamily: FONT_MONO }}>{item.stage}</span>
+              {active && <BasisBadge tone={item.tone}>{lang === "zh" ? "当前" : "Current"}</BasisBadge>}
+            </div>
+            <div style={{ color: active ? t.textStrong : t.muted, fontSize: 12, fontWeight: 800, marginTop: 4, lineHeight: 1.25 }}>
+              {lang === "zh" ? item.zh : item.label}
+            </div>
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
+function StickySummaryBar({ inputs, results, stage, confidence, onAddComparison, canAddComparison = false }) {
+  const t = useT()
+  const { lang } = useLang()
+  const { isMobile } = useViewport()
+  const confidenceValue = confidence ?? (results && !results.unavailable ? Math.round(results.confidenceScore * 100) : null)
+  const gas = getGasSystem(inputs?.gasSystem)
+  const summaryItems = [
+    [lang === "zh" ? "候选" : "Candidate", inputs?.mofName || `${inputs?.metalCenter || "—"} / ${inputs?.organicLinker || "—"}`],
+    [lang === "zh" ? "气体体系" : "Gas system", gasLabel(gas?.label || inputs?.gasSystem || "—", lang)],
+    [lang === "zh" ? "条件" : "Conditions", `${inputs?.temperature ?? "—"} K · ${inputs?.pressure ?? "—"} bar`],
+    [lang === "zh" ? "结构" : "Structure", `${inputs?.organicLinker || "—"} · ${formatFunctionalGroupSummary(inputs, lang)}`],
+  ]
+  return (
+    <div style={{
+      position: "sticky",
+      top: 58,
+      zIndex: 12,
+      display: "grid",
+      gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) auto",
+      gap: 10,
+      alignItems: "center",
+      background: t.glassStrong,
+      border: `1px solid ${t.borderStrong}`,
+      borderRadius: 10,
+      padding: "9px 11px",
+      boxShadow: t.shadowSm,
+      backdropFilter: "blur(18px) saturate(145%)",
+    }}>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
+        {summaryItems.map(([label, value]) => (
+          <div key={label} style={{ minWidth: 0 }}>
+            <div style={{ color: t.faint, fontSize: 9, textTransform: "uppercase", fontWeight: 800 }}>{label}</div>
+            <div style={{ color: t.textStrong, fontSize: 11, fontWeight: 750, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{value}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: "flex", gap: 8, alignItems: "center", justifyContent: isMobile ? "flex-start" : "flex-end", flexWrap: "wrap" }}>
+        <BasisBadge tone="info">{stage}</BasisBadge>
+        <BasisBadge tone={confidenceValue == null ? "proxy" : confidenceValue >= 70 ? "calc" : "warn"}>
+          {confidenceValue == null ? (lang === "zh" ? "未运行" : "Not run") : `${confidenceValue}% ${lang === "zh" ? "置信度" : "confidence"}`}
+        </BasisBadge>
+        {canAddComparison && (
+          <button type="button" onClick={onAddComparison} style={{ ...toolbarBtn(t), padding: "5px 9px", fontSize: 11 }}>
+            + {lang === "zh" ? "加入比较" : "Add to comparison"}
+          </button>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function ResultLayer({ number, title, subtitle, children }) {
+  const t = useT()
+  return (
+    <section style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ display: "flex", gap: 10, alignItems: "baseline" }}>
+        <span style={{ color: t.accentText, fontSize: 11, fontWeight: 900, fontFamily: FONT_MONO }}>{number}</span>
+        <div>
+          <h2 style={{ margin: 0, color: t.textStrong, fontSize: 16, lineHeight: 1.25 }}>{title}</h2>
+          {subtitle && <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5, marginTop: 3 }}>{subtitle}</div>}
+        </div>
+      </div>
+      {children}
+    </section>
+  )
+}
+
+function MethodDrawer({ title, badge = "Screening proxy", children }) {
+  const t = useT()
+  return (
+    <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
+      <summary style={{ cursor: "pointer", color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
+        {title} <span style={{ marginLeft: 8 }}><BasisBadge tone="proxy">{badge}</BasisBadge></span>
+      </summary>
+      <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.6, marginTop: 10 }}>
+        {children}
+      </div>
+    </details>
+  )
+}
+
+function HowToRead({ children }) {
+  const t = useT()
+  const { lang } = useLang()
+  return (
+    <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 8 }}>
+      <strong style={{ color: t.subtle }}>{lang === "zh" ? "如何阅读：" : "How to read: "}</strong>{children}
+    </div>
+  )
+}
+
+function NextStepCTA({ label, body, actionLabel, onClick }) {
+  const t = useT()
+  return (
+    <div style={{ display: "flex", justifyContent: "space-between", gap: 14, alignItems: "center", flexWrap: "wrap", background: t.panel, border: `1px solid ${t.borderStrong}`, borderRadius: 10, padding: 14 }}>
+      <div>
+        <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 850 }}>{label}</div>
+        {body && <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 4 }}>{body}</div>}
+      </div>
+      <button type="button" onClick={onClick} style={{ ...toolbarBtn(t), background: t.accent, borderColor: t.accent, color: "#fff", padding: "8px 12px" }}>
+        {actionLabel}
+      </button>
+    </div>
+  )
+}
+
+function CandidateComparisonPanel({ candidates, onRemove, onMove }) {
+  const t = useT()
+  const { lang } = useLang()
+  const { isNarrow } = useViewport()
+  if (!candidates?.length) {
+    return (
+      <div style={{ background: t.surface, border: `1px dashed ${t.borderStrong}`, borderRadius: 10, padding: 13, color: t.subtle, fontSize: 12, lineHeight: 1.55 }}>
+        {lang === "zh"
+          ? "还没有比较候选。先在 Screening 或比较页面运行结果，然后点击“加入比较”。建议保留 2-4 个候选。"
+          : "No comparison candidates yet. Run a result in Screening or a comparison page, then click Add to comparison. Keep 2-4 candidates for a readable decision view."}
+      </div>
+    )
+  }
+  return (
+    <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center", marginBottom: 10 }}>
+        <SectionTitle>{lang === "zh" ? "候选比较清单" : "Candidate comparison shortlist"}</SectionTitle>
+        <BasisBadge tone="proxy">{candidates.length}/4</BasisBadge>
+      </div>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", minWidth: 760, borderCollapse: "collapse" }}>
+          <thead>
+            <tr>
+              {(lang === "zh"
+                ? ["候选", "性能", "选择性", "可行性", "LCA/LCC", "稳健性", "操作"]
+                : ["Candidate", "Performance", "Selectivity", "Feasibility", "LCA/LCC", "Robustness", "Actions"]).map(head => (
+                <th key={head} style={{ textAlign: "left", color: t.faint, fontSize: 10, padding: "7px 8px", borderBottom: `1px solid ${t.border}` }}>{head}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {candidates.map((item, index) => (
+              <tr key={item.id}>
+                <td style={{ padding: "8px", borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
+                  {item.name}<div style={{ color: t.faint, fontSize: 10, marginTop: 2 }}>{item.metal} · {item.linker} · {item.gasSystem}</div>
+                </td>
+                <td style={{ padding: "8px", borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11 }}>{item.performance} mmol/g</td>
+                <td style={{ padding: "8px", borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11 }}>{item.selectivity}</td>
+                <td style={{ padding: "8px", borderBottom: `1px solid ${t.divider}` }}>
+                  <BasisBadge tone={item.feasibility === "High" ? "warn" : item.feasibility === "Medium" ? "proxy" : "calc"}>{item.feasibility}</BasisBadge>
+                </td>
+                <td style={{ padding: "8px", borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11 }}>LCA {item.lca}/10 · ${item.lcc}/kg</td>
+                <td style={{ padding: "8px", borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11 }}>{item.robustness}%</td>
+                <td style={{ padding: "8px", borderBottom: `1px solid ${t.divider}` }}>
+                  <div style={{ display: "flex", gap: 5, flexWrap: isNarrow ? "wrap" : "nowrap" }}>
+                    <button type="button" onClick={() => onMove?.(index, -1)} disabled={index === 0} style={{ ...toolbarBtn(t), padding: "3px 7px", fontSize: 10 }}>↑</button>
+                    <button type="button" onClick={() => onMove?.(index, 1)} disabled={index === candidates.length - 1} style={{ ...toolbarBtn(t), padding: "3px 7px", fontSize: 10 }}>↓</button>
+                    <button type="button" onClick={() => onRemove?.(item.id)} style={{ ...toolbarBtn(t), padding: "3px 7px", fontSize: 10 }}>
+                      {lang === "zh" ? "移除" : "Remove"}
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
 }
 
 function ProvenanceGrid({ items }) {
@@ -1817,6 +2038,29 @@ function buildModelComparison(inputs) {
   }).filter(Boolean)
 }
 
+function buildComparisonCandidate(inputs, results, lang = "en") {
+  if (!results || results.unavailable) return null
+  const linker = ORGANIC_LINKERS.find(l => l.value === inputs.organicLinker)
+  const metal = METAL_CENTERS.find(m => m.value === inputs.metalCenter)
+  const hasComplexLinker = ["TCPP", "TBAPy", "BTB", "ADC", "NDC"].includes(inputs.organicLinker)
+  const costBand = hasComplexLinker || Number(linker?.lcaScore ?? 5) < 4.5 ? "High" : Number(linker?.lcaScore ?? 5) < 5.8 ? "Medium" : "Low"
+  const decision = buildDecisionModel(results, inputs, COPY[lang] || COPY.en)
+  return {
+    id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    name: inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`,
+    gasSystem: results.gasSystem,
+    performance: results.primaryUptake,
+    selectivity: results.selectivity,
+    feasibility: costBand,
+    lca: results.lca?.compositeGreenScore ?? "—",
+    lcc: decision.totalLcc,
+    robustness: Math.round((results.confidenceScore || 0.72) * 100),
+    metal: inputs.metalCenter,
+    linker: inputs.organicLinker,
+    source: lang === "zh" ? "当前筛选结果" : "Current screening result",
+  }
+}
+
 function buildApplicabilityPoints(inputs, results) {
   const current = {
     name: inputs.mofName || "Current",
@@ -2061,7 +2305,7 @@ function HomeTab({ setActiveTab }) {
   )
 }
 
-function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onSaveRun, apiUrl, setApiUrl, apiStatus, onCheckApi, setActiveTab }) {
+function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onSaveRun, apiUrl, setApiUrl, apiStatus, onCheckApi, setActiveTab, onLoadBenchmark, onAddComparison }) {
   const t = useT()
   const { lang, copy: c } = useLang()
   const { isNarrow, isMobile } = useViewport()
@@ -2205,6 +2449,14 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
         meta={`${inputs.mofName || inputs.metalCenter} · ${inputs.gasSystem} · ${inputs.temperature} K · ${inputs.pressure} bar`}
         action={<BasisBadge tone={apiStatus?.ok ? "calc" : "proxy"}>{apiStatus?.ok ? "backend connected" : "screening prototype"}</BasisBadge>}
       />
+      <StageStrip current="screening" onNavigate={setActiveTab} />
+      <StickySummaryBar
+        inputs={inputs}
+        results={results}
+        stage={lang === "zh" ? "第 1 阶段" : "Stage 1"}
+        onAddComparison={onAddComparison}
+        canAddComparison={hasUsableResults}
+      />
     <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(250px, 0.24fr) minmax(0, 0.52fr) minmax(250px, 0.24fr)", gap: 20, height: "100%", alignItems: "start" }}>
       {/* ── Left: Input Panel ── */}
       <div style={{ width: isNarrow ? "100%" : 315, flexShrink: 0, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, overflowY: "auto" }}>
@@ -2249,11 +2501,14 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
         )}
 
         <NumericField label={`${c.numeric.poreDiameter} (Å)`} unit="Å" min={3} max={30} step={0.1}
-          value={inputs.poreDiameter} onChange={v => setInputs(p => ({ ...p, poreDiameter: v }))} />
+          value={inputs.poreDiameter} onChange={v => setInputs(p => ({ ...p, poreDiameter: v }))}
+          helper={lang === "zh" ? "孔径影响尺寸筛分和扩散；先用基准范围，再用真实结构描述符替换。" : "Pore size affects sieving and diffusion; start with benchmark ranges, then replace with real descriptors."} />
         <NumericField label={`${c.numeric.bet} (m²/g)`} unit="m²/g" min={100} max={7000} step={10}
-          value={inputs.betSurfaceArea} onChange={v => setInputs(p => ({ ...p, betSurfaceArea: v }))} />
+          value={inputs.betSurfaceArea} onChange={v => setInputs(p => ({ ...p, betSurfaceArea: v }))}
+          helper={lang === "zh" ? "BET 是容量相关描述符；实验、GCMC 或数据库来源应分开记录。" : "BET is a capacity-related descriptor; keep experimental, GCMC, and database sources distinct."} />
         <NumericField label={`${c.numeric.poreVolume} (cm³/g)`} unit="cm³/g" min={0.1} max={4.5} step={0.01}
-          value={inputs.poreVolume} onChange={v => setInputs(p => ({ ...p, poreVolume: v }))} />
+          value={inputs.poreVolume} onChange={v => setInputs(p => ({ ...p, poreVolume: v }))}
+          helper={lang === "zh" ? "孔体积影响高压容量；不要单独用它判断选择性。" : "Pore volume affects higher-pressure capacity; do not use it alone to judge selectivity."} />
 
         <label style={labelStyle}>{c.structure.functionalGroups}</label>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 10 }}>
@@ -2377,12 +2632,18 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
             <input type="number" value={inputs.temperature} min={200} max={400}
               onChange={e => setInputs(p => ({ ...p, temperature: parseInt(e.target.value)||298 }))}
               style={numInputStyle} />
+            <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.4, marginTop: 4 }}>
+              {lang === "zh" ? "默认 298 K；温度会改变等温线与 Qst 解释。" : "Default 298 K; temperature changes isotherm and Qst interpretation."}
+            </div>
           </div>
           <div style={{ flex: 1 }}>
             <label style={labelStyle}>{c.structure.pressure}</label>
             <input type="number" value={inputs.pressure} min={0.01} max={50} step={0.01}
               onChange={e => setInputs(p => ({ ...p, pressure: parseFloat(e.target.value)||0.15 }))}
               style={numInputStyle} />
+            <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.4, marginTop: 4 }}>
+              {lang === "zh" ? "默认 0.15 bar，适合燃烧后 CO2 筛选情景。" : "Default 0.15 bar for post-combustion CO2 screening context."}
+            </div>
           </div>
         </div>
 
@@ -2511,6 +2772,13 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
               {c.structure.readyBody}<br />
               <strong style={{ color: t.accentSoft }}>{c.structure.run}</strong>.
             </div>
+            <button type="button" onClick={() => onLoadBenchmark?.("UiO-66")}
+              style={{ ...toolbarBtn(t), marginTop: 16, background: t.accent, borderColor: t.accent, color: "#fff", padding: "9px 13px" }}>
+              {lang === "zh" ? "载入 UiO-66 基准示例" : "Load UiO-66 benchmark example"}
+            </button>
+            <div style={{ color: t.faint, fontSize: 10, marginTop: 8 }}>
+              {lang === "zh" ? "这是基准示例，不是用户提交的新设计。" : "Benchmark example, not a user-submitted design."}
+            </div>
           </div>
         ) : results.unavailable ? (
           <Callout tone="warn">
@@ -2559,7 +2827,11 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
               </Callout>
             )}
 
-            {/* Metric Cards */}
+            <ResultLayer
+              number="01"
+              title={lang === "zh" ? "结果是什么？" : "What is the result?"}
+              subtitle={lang === "zh" ? "先看 Stage 1 的吸附、选择性和置信状态。" : "Start with the Stage 1 uptake, selectivity, and confidence status."}
+            >
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "1fr 1fr 1fr", gap: 12 }}>
               <MetricCard label={`${results.primaryName.toUpperCase()} ${c.structure.adsorptionCapacity}`}
                 value={results.primaryUptake} unit="mmol/g"
@@ -2570,16 +2842,13 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
                 value={results.selectivity}
                 comparison={`${results.selectivity > 30 ? "+" : ""}${((results.selectivity / 30 - 1) * 100).toFixed(1)}% vs 30`} />
             </div>
+            </ResultLayer>
 
-            <ProvenanceGrid items={[
-              { label: "Basis", value: c.common.basisModelPredicted, type: "model", note: "Browser profile or optional backend prediction." },
-              { label: "Source type", value: "Seed benchmark + descriptor input", type: "benchmark", note: lang === "zh" ? `MOF 预设、CIF 派生字段或用户输入。官能团：${formatFunctionalGroupSummary(inputs, lang)}` : `MOF presets, CIF-derived fields, or user input. Groups: ${formatFunctionalGroupSummary(inputs, lang)}` },
-              { label: "Quality", value: results.applicability?.warnings?.length ? "Medium-low" : "Medium", type: "proxy", note: results.applicability?.warnings?.length ? "Applicability warning present." : "Within prototype descriptor range." },
-              { label: "Limitation", value: "Screening-level only", type: "proxy", note: "Not a strict IAST/GCMC or experimental result." },
-            ]} />
-
-            <ResultProvenanceDrawer results={results} inputs={inputs} />
-
+            <ResultLayer
+              number="02"
+              title={lang === "zh" ? "为什么会这样？" : "Why does it look this way?"}
+              subtitle={lang === "zh" ? "用等温线、选择性方法和结构驱动因素解释结果。" : "Interpret the result through isotherm shape, selectivity method, and structural drivers."}
+            >
             {results.selectivityDetails && (
               <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", marginBottom: 10 }}>
@@ -2655,6 +2924,11 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
                     <Line type="monotone" dataKey="literature" stroke={t.subtle} strokeWidth={1.5} strokeDasharray="5 5" dot={false} name="Literature Ref." />
                   </LineChart>
                 </ResponsiveContainer>
+                <HowToRead>
+                  {lang === "zh"
+                    ? "曲线显示预测吸附量随压力变化；虚线文献参考只作方向性对照，不代表同一严格实验条件。"
+                    : "The curve shows predicted uptake versus pressure; the dashed literature reference is directional context, not a matched experimental condition."}
+                </HowToRead>
               </div>
 
               <Callout tone="info">
@@ -2664,6 +2938,28 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
                   : "Early-stage materials screening should remain performance- and chemistry-centered. Broader cost and lifecycle criteria are introduced only after an initial filter exists."}
               </Callout>
             </div>
+            </ResultLayer>
+
+            <ResultLayer
+              number="03"
+              title={lang === "zh" ? "应该相信多少？" : "How much should I trust it?"}
+              subtitle={lang === "zh" ? "把模型依据、来源类型和限制与结果分开阅读。" : "Read model basis, source type, and limitations separately from the result."}
+            >
+            <ProvenanceGrid items={[
+              { label: "Basis", value: c.common.basisModelPredicted, type: "model", note: "Browser profile or optional backend prediction." },
+              { label: "Source type", value: "Seed benchmark + descriptor input", type: "benchmark", note: lang === "zh" ? `MOF 预设、CIF 派生字段或用户输入。官能团：${formatFunctionalGroupSummary(inputs, lang)}` : `MOF presets, CIF-derived fields, or user input. Groups: ${formatFunctionalGroupSummary(inputs, lang)}` },
+              { label: "Quality", value: results.applicability?.warnings?.length ? "Medium-low" : "Medium", type: "proxy", note: results.applicability?.warnings?.length ? "Applicability warning present." : "Within prototype descriptor range." },
+              { label: "Limitation", value: "Screening-level only", type: "proxy", note: "Not a strict IAST/GCMC or experimental result." },
+            ]} />
+            <ResultProvenanceDrawer results={results} inputs={inputs} />
+            </ResultLayer>
+
+            <NextStepCTA
+              label={lang === "zh" ? "下一步：检查可行性边界" : "Next: check feasibility boundaries"}
+              body={lang === "zh" ? "性能和化学筛选之后，再看成本、供应与可得性是否形成早期阻断。" : "After performance and chemistry screening, check whether cost, supply, or availability creates an early boundary."}
+              actionLabel={lang === "zh" ? "进入可行性" : "Proceed to feasibility"}
+              onClick={() => setActiveTab?.("feasibility")}
+            />
 
             {/* Footer Badges */}
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "1fr 1fr 1fr", gap: 12 }}>
@@ -3145,7 +3441,7 @@ function ThermodynamicsTab({ results }) {
   )
 }
 
-function FeasibilityTab({ results, inputs }) {
+function FeasibilityTab({ results, inputs, onNavigate }) {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow } = useViewport()
@@ -3180,6 +3476,12 @@ function FeasibilityTab({ results, inputs }) {
     ["Rare precursor warning", hasRareMetal ? "Metal supply warning" : "No rare-metal warning", `${inputs.metalCenter} · metal score ${metalScore}/10`],
     ["Supply bottleneck risk", supplyRisk, hasComplexLinker ? "Complex aromatic, porphyrin, or large linker may require custom synthesis." : "No obvious linker bottleneck flagged."],
   ]
+  const severityTone = (value) => {
+    const text = String(value)
+    if (/High|Elevated|warning|Custom|高|风险|定制|瓶颈/.test(text)) return { color: t.danger, tone: "danger", label: lang === "zh" ? "高" : "high" }
+    if (/Medium|Moderate|Gram|specialty|中|克级|需要核查/.test(text)) return { color: t.warn, tone: "warn", label: lang === "zh" ? "中" : "medium" }
+    return { color: t.success, tone: "calc", label: lang === "zh" ? "低" : "low" }
+  }
   const useCases = lang === "zh" ? [
     ["小规模学术探索", "可接受较高连接体成本；重点是机理、性能和可发表的结构-性质理解。"],
     ["中试或重复制备", "需要更明确的供应来源、批量可得性、溶剂路线和安全边界。"],
@@ -3206,16 +3508,32 @@ function FeasibilityTab({ results, inputs }) {
           : "This stage is not formal lifecycle costing. It is a coarse feasibility boundary between scientific screening and engineering-scale evaluation."}
       </Callout>
 
+      <ResultLayer
+        number="01"
+        title={lang === "zh" ? "结果是什么？" : "What is the result?"}
+        subtitle={lang === "zh" ? "先看哪些实际边界可能阻断下一轮比较。" : "Start with which practical boundaries may block the next comparison round."}
+      >
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 12 }}>
-        {rows.map(([label, value, note]) => (
-          <div key={label} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14, borderTop: `3px solid ${label.includes("Cost") || label.includes("成本") ? t.lccAccent : t.validationAccent}` }}>
-            <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 8 }}>{label}</div>
+        {rows.map(([label, value, note]) => {
+          const severity = severityTone(value)
+          return (
+          <div key={label} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14, borderTop: `3px solid ${severity.color}` }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", marginBottom: 8 }}>
+              <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{label}</div>
+              <BasisBadge tone={severity.tone}>{severity.label}</BasisBadge>
+            </div>
             <div style={{ color: t.textStrong, fontSize: 17, fontWeight: 850, lineHeight: 1.25 }}>{zhText(lang, value)}</div>
             <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 8 }}>{note}</div>
           </div>
-        ))}
+        )})}
       </div>
+      </ResultLayer>
 
+      <ResultLayer
+        number="02"
+        title={lang === "zh" ? "为什么会这样？" : "Why does it look this way?"}
+        subtitle={lang === "zh" ? "把连接体、路线和用途尺度分开解释。" : "Separate linker, route, and use-scale interpretation."}
+      >
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "0.9fr 1.1fr", gap: 14 }}>
         <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
           <SectionTitle>{lang === "zh" ? "连接体与路线提示" : "Linker and route cues"}</SectionTitle>
@@ -3273,18 +3591,37 @@ function FeasibilityTab({ results, inputs }) {
           ))}
         </div>
       </div>
+      </ResultLayer>
 
+      <ResultLayer
+        number="03"
+        title={lang === "zh" ? "应该相信多少？" : "How much should I trust it?"}
+        subtitle={lang === "zh" ? "这里是粗略边界，不是正式 LCC 或工程经济。" : "This is a coarse boundary, not formal LCC or engineering economics."}
+      >
       <ProvenanceGrid items={[
         { label: "Use stage", value: "Stage 2 — Feasibility Boundaries", type: "proxy", note: "Practical boundary between scientific screening and shortlist comparison." },
         { label: "Purpose", value: "Feasibility boundary", type: "user", note: "Cost / availability / supply reasonableness check." },
         { label: "Interpretation", value: "Exploratory only", type: "proxy", note: "Not formal LCC, not engineering-grade economics." },
         { label: "Next layer", value: results && !results.unavailable ? "Stage 3 shortlist comparison" : "Run Stage 1 first", type: "info", note: "Use LCA/LCC only after an initial performance filter exists." },
       ]} />
+      <MethodDrawer title={lang === "zh" ? "可行性判断依据" : "Feasibility basis"} badge={lang === "zh" ? "粗边界" : "Coarse boundary"}>
+        {lang === "zh"
+          ? "本页使用连接体类别、金属节点、代理成本带和路线复杂度提示来标记 low / medium / high 约束。它用于尽早发现明显阻断，而不是替代供应商报价、工艺包或正式 LCC。"
+          : "This page uses linker class, metal node, proxy cost band, and route-complexity cues to flag low / medium / high constraints. It is for catching obvious boundaries early, not for replacing supplier quotes, process packages, or formal LCC."}
+      </MethodDrawer>
+      </ResultLayer>
+
+      <NextStepCTA
+        label={lang === "zh" ? "下一步：比较入围候选" : "Next: compare shortlisted candidates"}
+        body={lang === "zh" ? "如果没有明显可行性阻断，再进入 LCA/LCC 和敏感性作为次级比较层。" : "If no feasibility boundary blocks the candidate, move to LCA/LCC and sensitivity as secondary comparison layers."}
+        actionLabel={lang === "zh" ? "进入 LCA/LCC" : "Open LCA/LCC"}
+        onClick={() => onNavigate?.("lca")}
+      />
     </div>
   )
 }
 
-function LCAScoringTab({ results, inputs }) {
+function LCAScoringTab({ results, inputs, onNavigate }) {
   const t = useT()
   const { lang, copy: c } = useLang()
   const { isNarrow } = useViewport()
@@ -3388,6 +3725,11 @@ function LCAScoringTab({ results, inputs }) {
           : "This page is intended for secondary comparison after an initial performance/stability filter. It is not designed to replace early scientific screening."}
       </Callout>
 
+      <ResultLayer
+        number="01"
+        title={lang === "zh" ? "结果是什么？" : "What is the result?"}
+        subtitle={lang === "zh" ? "先看入围候选的负担、成本压力和最敏感输入。" : "Start with shortlist burden, cost pressure, and the most sensitive input."}
+      >
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
         {summaryCards.map(card => (
           <div key={card.label} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, minHeight: 118 }}>
@@ -3402,7 +3744,13 @@ function LCAScoringTab({ results, inputs }) {
           </div>
         ))}
       </div>
+      </ResultLayer>
 
+      <ResultLayer
+        number="02"
+        title={lang === "zh" ? "为什么会这样？" : "Why does it look this way?"}
+        subtitle={lang === "zh" ? "用性能、负担和成本三者的权衡解释入围候选差异。" : "Explain shortlist differences through performance, burden, and cost trade-offs."}
+      >
       <div style={{ ...chartCardStyle, background: t.chartBg, padding: 20 }}>
         <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", marginBottom: 12, flexWrap: "wrap" }}>
           <div>
@@ -3433,7 +3781,13 @@ function LCAScoringTab({ results, inputs }) {
             <MetricCard label={c.lca.influentialFactor} value={mostSensitive.label} unit="" comparison={`${c.lca.deltaScore}: ${mostSensitive.value.toFixed(1)}`} />
           </div>
         </div>
+        <HowToRead>
+          {lang === "zh"
+            ? "横轴是性能，纵轴是负担，点大小代表成本；这只适合同一入围集合内的粗比较。"
+            : "X is performance, Y is burden, and point size is cost; use it only for coarse comparison within the same shortlist."}
+        </HowToRead>
       </div>
+      </ResultLayer>
 
       <div style={chartCardStyle}>
         <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", marginBottom: 12 }}>
@@ -3493,6 +3847,11 @@ function LCAScoringTab({ results, inputs }) {
         { label: "Limitation", value: "Shortlist comparison only", type: "proxy", note: "Exploratory, assumption-dependent, and not engineering-grade." },
       ]} />
 
+      <ResultLayer
+        number="03"
+        title={lang === "zh" ? "应该相信多少？" : "How much should I trust it?"}
+        subtitle={lang === "zh" ? "检查假设、价格来源和清单限制。" : "Inspect assumptions, price sources, and inventory limits."}
+      >
       <div style={chartCardStyle}>
         <SectionTitle>{lang === "zh" ? "两层成本逻辑" : "Two-layer cost logic"}</SectionTitle>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12, marginTop: 10 }}>
@@ -3746,7 +4105,11 @@ function LCAScoringTab({ results, inputs }) {
           </div>
         </div>
       </div>
-
+      <MethodDrawer title={lang === "zh" ? "LCA/LCC 假设与来源" : "LCA/LCC assumptions and provenance"} badge={lang === "zh" ? "假设依赖" : "Assumption-dependent"}>
+        {lang === "zh"
+          ? "本层只用于入围候选的初步比较。价格、能耗、溶剂回收和寿命是筛选级情景参数；正式工程结论需要供应商价格、工艺路线、地区电网和完整 LCI。"
+          : "This layer is for preliminary comparison within shortlisted candidates only. Prices, energy, solvent recovery, and lifetime are screening-level scenario parameters; engineering conclusions require supplier pricing, process routes, regional grids, and full LCI."}
+      </MethodDrawer>
         </div>
 
         <aside style={{ position: isNarrow ? "static" : "sticky", top: 72, display: "flex", flexDirection: "column", gap: 12 }}>
@@ -3770,6 +4133,14 @@ function LCAScoringTab({ results, inputs }) {
           ))}
         </aside>
       </div>
+      </ResultLayer>
+
+      <NextStepCTA
+        label={lang === "zh" ? "下一步：测试稳健性" : "Next: test robustness"}
+        body={lang === "zh" ? "如果 LCA/LCC 结论依赖假设，进入敏感性页看排序是否稳定。" : "If the LCA/LCC conclusion depends on assumptions, use sensitivity to test whether the ranking is stable."}
+        actionLabel={lang === "zh" ? "进入敏感性" : "Open sensitivity"}
+        onClick={() => onNavigate?.("sensitivity")}
+      />
     </div>
   )
 }
@@ -3819,6 +4190,11 @@ function InterpretationTab({ results, inputs }) {
             <Line type="monotone" dataKey="qst" stroke={t.accent} strokeWidth={3} dot={false} name="Qst" />
           </LineChart>
         </ResponsiveContainer>
+        <HowToRead>
+          {lang === "zh"
+            ? "曲线显示吸附热随吸附量变化；趋势可用于机理线索，绝对值仍需真实多温等温线或量热数据确认。"
+            : "The curve shows heat of adsorption versus loading; use the trend for mechanistic cues, while absolute values still need real multi-temperature isotherms or calorimetry."}
+        </HowToRead>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
@@ -3874,7 +4250,7 @@ function InterpretationTab({ results, inputs }) {
   )
 }
 
-function SensitivityTab({ results, inputs }) {
+function SensitivityTab({ results, inputs, onNavigate }) {
   const t = useT()
   const { lang, copy: c } = useLang()
   const { isNarrow } = useViewport()
@@ -3935,12 +4311,23 @@ function SensitivityTab({ results, inputs }) {
           ? "不是主要命中识别；用于形成入围候选之后，检查成本和生命周期假设变化时比较结论是否稳定。"
           : "Not primary hit identification; use it after shortlist formation to test whether broader comparison conclusions remain stable when cost and lifecycle assumptions are uncertain."}
       </Callout>
+      <ResultLayer
+        number="01"
+        title={lang === "zh" ? "结果是什么？" : "What is the result?"}
+        subtitle={lang === "zh" ? "先看哪个假设最容易改变入围候选结论。" : "Start with which assumption can most easily change the shortlist conclusion."}
+      >
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 14 }}>
         <MetricCard label={c.sensitivityPage.mostSensitive} value={decision.mostSensitive.label} unit="" />
         <MetricCard label={c.sensitivityPage.stability} value="72" unit="%" comparison={c.lca.assumptionSensitive} />
         <MetricCard label={c.sensitivityPage.followup} value={decision.dominantCost.name} unit="" />
         <MetricCard label="P05 / P50 / P95" value={`${mcLast.p05}/${mcLast.p50}/${mcLast.p95}`} unit="" />
       </div>
+      </ResultLayer>
+      <ResultLayer
+        number="02"
+        title={lang === "zh" ? "为什么会这样？" : "Why does it look this way?"}
+        subtitle={lang === "zh" ? "用 tornado 图和情景变化解释稳健性。" : "Use the tornado chart and scenarios to explain robustness."}
+      >
       <div style={{ background: t.chartBg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
           <SectionTitle>{c.sensitivityPage.sweep}</SectionTitle>
           <ResponsiveContainer width="100%" height={370}>
@@ -3957,6 +4344,11 @@ function SensitivityTab({ results, inputs }) {
               ? "主图回答一个问题：当前结论最容易被哪个假设推翻。参数越长，说明该变量越值得优先补真实数据。"
               : "The main figure answers one question: which assumption can most easily overturn the conclusion. Longer bars mark variables that should be prioritized for real data collection."}
           </div>
+          <HowToRead>
+            {lang === "zh"
+              ? "条形越长代表结论越敏感；它不是重新筛选命中，而是帮助决定下一步补什么数据。"
+              : "Longer bars mean the conclusion is more sensitive; this does not identify new hits, it prioritizes the next data to collect."}
+          </HowToRead>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
         <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
@@ -3994,6 +4386,24 @@ function SensitivityTab({ results, inputs }) {
           </div>
         </div>
       </div>
+      </ResultLayer>
+      <ResultLayer
+        number="03"
+        title={lang === "zh" ? "应该相信多少？" : "How much should I trust it?"}
+        subtitle={lang === "zh" ? "敏感性结果来自代理不确定性范围，不是校准概率推断。" : "Sensitivity results come from proxy uncertainty ranges, not calibrated probabilistic inference."}
+      >
+      <MethodDrawer title={lang === "zh" ? "敏感性方法说明" : "Sensitivity methodology"} badge={lang === "zh" ? "探索性" : "Exploratory"}>
+        {lang === "zh"
+          ? "当前敏感性模块用确定性情景和代理不确定性范围测试结论是否稳定。它适合入围候选之后的稳健性讨论，不适合主要命中识别，也不是校准的概率模型。"
+          : "The current sensitivity module uses deterministic scenarios and proxy uncertainty ranges to test conclusion stability. It is for shortlist robustness discussion, not primary hit identification, and it is not a calibrated probabilistic model."}
+      </MethodDrawer>
+      </ResultLayer>
+      <NextStepCTA
+        label={lang === "zh" ? "下一步：查看验证依据" : "Next: review validation basis"}
+        body={lang === "zh" ? "稳健性判断之后，回到验证页确认筛选层的基准支持和适用域。" : "After robustness checks, review validation to understand screening-layer benchmark support and applicability."}
+        actionLabel={lang === "zh" ? "进入验证" : "Open validation"}
+        onClick={() => onNavigate?.("validation")}
+      />
       <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
         <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap", marginBottom: 10 }}>
           <SectionTitle>{c.common.customScenario}</SectionTitle>
@@ -4066,7 +4476,7 @@ function SensitivityTab({ results, inputs }) {
   )
 }
 
-function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
+function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi, onNavigate, onAddComparison }) {
   const t = useT()
   const { lang, copy: c } = useLang()
   const { isNarrow } = useViewport()
@@ -4161,6 +4571,14 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
         title={c.validation.title}
         subtitle={c.validation.subtitle}
       />
+      <StageStrip current="validation" onNavigate={onNavigate} />
+      <StickySummaryBar
+        inputs={inputs}
+        results={results}
+        stage={lang === "zh" ? "第 1 阶段验证" : "Stage 1 validation"}
+        onAddComparison={onAddComparison}
+        canAddComparison={Boolean(results && !results.unavailable)}
+      />
 
       <Callout tone="warn">
         {lang === "zh"
@@ -4168,14 +4586,25 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
           : "This validation page primarily supports the screening-oriented prediction layer. Broader lifecycle/cost layers remain exploratory and assumption-dependent."}
       </Callout>
 
+      <ResultLayer
+        number="01"
+        title={lang === "zh" ? "结果是什么？" : "What is the result?"}
+        subtitle={lang === "zh" ? "验证层先显示筛选模型的核心误差指标。" : "Validation first shows core error metrics for the screening model."}
+      >
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 12 }}>
         <MetricCard label="R²" value={manifest?.metrics?.co2_uptake?.r2 ? Number(manifest.metrics.co2_uptake.r2).toFixed(3) : "—"} unit="" />
         <MetricCard label="MAE" value={manifest?.metrics?.co2_uptake?.mae ? Number(manifest.metrics.co2_uptake.mae).toFixed(2) : "—"} unit="mmol/g" />
         <MetricCard label="RMSE" value={manifest?.metrics?.co2_uptake?.rmse ? Number(manifest.metrics.co2_uptake.rmse).toFixed(2) : "—"} unit="mmol/g" />
         <MetricCard label={c.validation.applicability} value={results?.applicability?.warnings?.length ? c.structure.caution : c.structure.inDomain} unit="" />
       </div>
+      </ResultLayer>
 
-      <div style={{ background: t.chartBg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
+      <ResultLayer
+        number="02"
+        title={lang === "zh" ? "为什么会这样？" : "Why does it look this way?"}
+        subtitle={lang === "zh" ? "用 parity、残差和适用域图解释模型表现。" : "Use parity, residual, and applicability plots to explain model behavior."}
+      >
+      <div style={{ background: t.card, border: `1px solid ${t.border}`, borderRadius: 8, padding: 20 }}>
         <SectionTitle>{c.common.validationPredictedVsReference}</SectionTitle>
         <ResponsiveContainer width="100%" height={410}>
           <ScatterChart margin={{ top: 12, right: 24, bottom: 28, left: 6 }}>
@@ -4194,9 +4623,24 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
             ? "当前一致性图是种子基准演示结构；科研级版本应替换为冻结外部测试集。"
             : "This parity plot uses a seed benchmark demonstration; a research-grade version should replace it with a frozen external test set."}
         </div>
+        <HowToRead>
+          {lang === "zh"
+            ? "点越接近虚线，预测与参考越一致；当前点集是演示基准，不应用于泛化结论。"
+            : "Points closer to the dashed line agree better with reference values; this seed set is a demonstration and should not support broad generalization claims."}
+        </HowToRead>
       </div>
+      </ResultLayer>
 
-      <div style={{ order: 20, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+      <ResultLayer
+        number="03"
+        title={lang === "zh" ? "应该相信多少？" : "How much should I trust it?"}
+        subtitle={lang === "zh" ? "训练清单、后端状态和导出工具保持低强调。" : "Training manifest, backend status, and export tools stay low-emphasis."}
+      >
+      <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
+        <summary style={{ color: t.accentText, cursor: "pointer", fontSize: 12, fontWeight: 850 }}>
+          {lang === "zh" ? "训练清单与后端状态" : "Training Manifest & Backend Status"}
+        </summary>
+      <div style={{ marginTop: 12 }}>
         <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 12 }}>
           <div>
             <SectionTitle>{lang === "zh" ? "训练清单与后端状态" : "Training Manifest & Backend Status"}</SectionTitle>
@@ -4224,6 +4668,8 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
           ))}
         </div>
       </div>
+      </details>
+      </ResultLayer>
 
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 14 }}>
         {cards.map(card => (
@@ -4245,6 +4691,11 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
               <Bar dataKey="residual" name={lang === "zh" ? "预测 - 参考" : "Predicted - reference"} fill={t.validationAccent} radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
+          <HowToRead>
+            {lang === "zh"
+              ? "残差显示预测减参考的偏差；系统性偏正或偏负说明模型可能需要重新校准。"
+              : "Residuals show predicted minus reference values; systematic positive or negative bias suggests recalibration may be needed."}
+          </HowToRead>
         </div>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
@@ -4286,6 +4737,13 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
           </div>
         </div>
       </div>
+
+      <NextStepCTA
+        label={lang === "zh" ? "下一步：查看数据来源" : "Next: review data sources"}
+        body={lang === "zh" ? "验证页只支持筛选层；数据来源页说明每个数据层属于哪个工作流阶段。" : "Validation supports the screening layer; Data Sources explains which workflow stage each data layer belongs to."}
+        actionLabel={lang === "zh" ? "打开数据来源" : "Open data sources"}
+        onClick={() => onNavigate?.("dataSources")}
+      />
 
       <details style={{ order: 30, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
         <summary style={{ color: t.accentText, cursor: "pointer", fontSize: 12, fontWeight: 800 }}>
@@ -5652,7 +6110,7 @@ function InternalNav({ items, active, onChange }) {
   )
 }
 
-function WorkflowTab({ setActiveTab }) {
+function WorkflowTab({ setActiveTab, inputs, results }) {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow } = useViewport()
@@ -5677,6 +6135,8 @@ function WorkflowTab({ setActiveTab }) {
         meta={lang === "zh" ? "不是扁平工具箱" : "Not a flat toolbox"}
         action={<BasisBadge tone="info">{lang === "zh" ? "分阶段原型" : "Staged prototype"}</BasisBadge>}
       />
+      <StageStrip current="screening" onNavigate={setActiveTab} />
+      <StickySummaryBar inputs={inputs || DEFAULT_INPUTS} results={results} stage={lang === "zh" ? "工作流总览" : "Workflow overview"} />
       <Callout tone="info">
         {lang === "zh"
           ? "核心原则：不要把 LCA/LCC/敏感性当作与性能筛选同等早期的主要命中识别。它们是科学筛选之后的次级比较层。"
@@ -5703,7 +6163,7 @@ function WorkflowTab({ setActiveTab }) {
   )
 }
 
-function ComparisonTab({ activeSub, setActiveSub, results, inputs }) {
+function ComparisonTab({ activeSub, setActiveSub, results, inputs, onNavigate, onAddComparison, comparisonCandidates, onRemoveCandidate, onMoveCandidate }) {
   const { lang } = useLang()
   const items = [
     { id: "feasibility", label: lang === "zh" ? "可行性" : "Feasibility" },
@@ -5720,10 +6180,19 @@ function ComparisonTab({ activeSub, setActiveSub, results, inputs }) {
         meta={lang === "zh" ? "第 2-3 阶段" : "Stages 2-3"}
         action={<BasisBadge tone="proxy">{lang === "zh" ? "非主要命中识别" : "Not primary hit identification"}</BasisBadge>}
       />
+      <StageStrip current={activeSub === "feasibility" ? "feasibility" : "comparison"} onNavigate={onNavigate} />
+      <StickySummaryBar
+        inputs={inputs}
+        results={results}
+        stage={activeSub === "feasibility" ? (lang === "zh" ? "第 2 阶段" : "Stage 2") : (lang === "zh" ? "第 3 阶段" : "Stage 3")}
+        onAddComparison={onAddComparison}
+        canAddComparison={Boolean(results && !results.unavailable)}
+      />
+      <CandidateComparisonPanel candidates={comparisonCandidates} onRemove={onRemoveCandidate} onMove={onMoveCandidate} />
       <InternalNav items={items} active={activeSub} onChange={setActiveSub} />
-      {activeSub === "feasibility" && <FeasibilityTab results={results} inputs={inputs} />}
-      {activeSub === "lca" && <LCAScoringTab results={results} inputs={inputs} />}
-      {activeSub === "sensitivity" && <SensitivityTab results={results} inputs={inputs} />}
+      {activeSub === "feasibility" && <FeasibilityTab results={results} inputs={inputs} onNavigate={onNavigate} />}
+      {activeSub === "lca" && <LCAScoringTab results={results} inputs={inputs} onNavigate={onNavigate} />}
+      {activeSub === "sensitivity" && <SensitivityTab results={results} inputs={inputs} onNavigate={onNavigate} />}
     </div>
   )
 }
@@ -5793,6 +6262,7 @@ export default function App() {
   const [savedOpen, setSavedOpen]     = useState(false)
   const [comparisonTab, setComparisonTab] = useState("feasibility")
   const [resourcesTab, setResourcesTab] = useState("dataSources")
+  const [comparisonCandidates, setComparisonCandidates] = useState([])
   const [savedRuns, setSavedRuns]     = useState(() => {
     try {
       return JSON.parse(localStorage.getItem("ecomof_saved_runs") || "[]")
@@ -5863,6 +6333,34 @@ export default function App() {
       return
     }
     setActiveTab(target)
+  }, [])
+
+  const loadBenchmarkExample = useCallback((name = "UiO-66") => {
+    applyPreset(name)
+  }, [applyPreset])
+
+  const addCurrentToComparison = useCallback(() => {
+    const candidate = buildComparisonCandidate(inputs, results, lang)
+    if (!candidate) return
+    setComparisonCandidates(prev => {
+      const withoutDuplicate = prev.filter(item => item.name !== candidate.name || item.gasSystem !== candidate.gasSystem)
+      return [candidate, ...withoutDuplicate].slice(0, 4)
+    })
+  }, [inputs, results, lang])
+
+  const removeComparisonCandidate = useCallback((id) => {
+    setComparisonCandidates(prev => prev.filter(item => item.id !== id))
+  }, [])
+
+  const moveComparisonCandidate = useCallback((index, delta) => {
+    setComparisonCandidates(prev => {
+      const nextIndex = index + delta
+      if (nextIndex < 0 || nextIndex >= prev.length) return prev
+      const copy = [...prev]
+      const [item] = copy.splice(index, 1)
+      copy.splice(nextIndex, 0, item)
+      return copy
+    })
   }, [])
 
   const checkApi = useCallback(async () => {
@@ -6097,10 +6595,10 @@ export default function App() {
 
         <main style={{ padding: viewport.isMobile ? "14px 12px" : "22px 24px", maxWidth: 1460, margin: "0 auto" }}>
           {activeTab === "home"           && <HomeTab setActiveTab={navigateTab} />}
-          {activeTab === "workflow"       && <WorkflowTab setActiveTab={navigateTab} />}
-          {activeTab === "screening"      && <StructureInputTab inputs={inputs} setInputs={setInputs} results={results} loading={loading} onPredict={handlePredict} onSaveRun={saveCurrentRun} apiUrl={apiUrl} setApiUrl={setApiUrl} apiStatus={apiStatus} onCheckApi={checkApi} setActiveTab={navigateTab} />}
-          {activeTab === "comparison"     && <ComparisonTab activeSub={comparisonTab} setActiveSub={setComparisonTab} results={results} inputs={inputs} />}
-          {activeTab === "validation"     && <ValidationTab results={results} inputs={inputs} apiUrl={apiUrl} apiStatus={apiStatus} onCheckApi={checkApi} />}
+          {activeTab === "workflow"       && <WorkflowTab setActiveTab={navigateTab} inputs={inputs} results={results} />}
+          {activeTab === "screening"      && <StructureInputTab inputs={inputs} setInputs={setInputs} results={results} loading={loading} onPredict={handlePredict} onSaveRun={saveCurrentRun} apiUrl={apiUrl} setApiUrl={setApiUrl} apiStatus={apiStatus} onCheckApi={checkApi} setActiveTab={navigateTab} onLoadBenchmark={loadBenchmarkExample} onAddComparison={addCurrentToComparison} />}
+          {activeTab === "comparison"     && <ComparisonTab activeSub={comparisonTab} setActiveSub={setComparisonTab} results={results} inputs={inputs} onNavigate={navigateTab} onAddComparison={addCurrentToComparison} comparisonCandidates={comparisonCandidates} onRemoveCandidate={removeComparisonCandidate} onMoveCandidate={moveComparisonCandidate} />}
+          {activeTab === "validation"     && <ValidationTab results={results} inputs={inputs} apiUrl={apiUrl} apiStatus={apiStatus} onCheckApi={checkApi} onNavigate={navigateTab} onAddComparison={addCurrentToComparison} />}
           {activeTab === "resources"      && <ResourcesTab activeSub={resourcesTab} setActiveSub={setResourcesTab} results={results} inputs={inputs} />}
           {activeTab === "about"          && <MethodsLimitationsTab />}
         </main>
