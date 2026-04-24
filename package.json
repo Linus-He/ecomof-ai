@@ -1,7 +1,7 @@
 {
   "name": "ecomof-ai",
   "version": "1.0.0",
-  "description": "EcoMOF-AI: MOF decision-support prototype integrating screening, LCA/LCC, and robustness analysis",
+  "description": "Research-oriented MOF decision-support prototype integrating screening, LCA/LCC, and robustness analysis.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

@@ -1,6 +1,8 @@
 # EcoMOF-AI
 
-**EcoMOF-AI is a research-oriented MOF decision-support prototype integrating adsorption screening, thermodynamic interpretation, life cycle assessment, life cycle costing, and robustness evaluation for early-stage candidate selection.**
+**EcoMOF-AI is a research-oriented MOF decision-support prototype integrating screening, LCA/LCC, and robustness analysis.**
+
+EcoMOF-AI is staged deliberately: performance and chemistry first, broader cost, lifecycle, and robustness comparison later.
 
 **EcoMOF-AI 是一个面向科研的 MOF 决策支持原型，集成吸附筛选、热力学解释、生命周期评价（LCA）、生命周期成本（LCC）与稳健性分析，用于早期候选材料的比较与研究假设生成。**
 
@@ -10,14 +12,22 @@
 
 EcoMOF-AI is not presented as a finished publication-grade scientific platform. Current outputs are intended for early-stage screening, workflow demonstration, and research hypothesis generation. They do not replace experiment, GCMC, strict IAST, or full inventory-linked industrial LCA.
 
+## Staged Workflow
+
+- **Stage 1 — Scientific Screening**: performance, chemistry/stability cues, applicability, and interpretation.
+- **Stage 2 — Feasibility Boundaries**: rough cost, availability, supply, and use-scale sanity checks.
+- **Stage 3 — Secondary Comparison**: preliminary LCA/LCC and sensitivity for shortlisted candidates.
+- **Future Stage 4 — Engineering Evaluation**: process-route design, scale-up economics, and engineering-grade LCA/LCC.
+
 ## Current Features
 
 - **Screening**: MOF presets, gas-system selection, direct descriptor input, CIF parsing scaffold, batch mode, and optional FastAPI backend connection.
 - **Adsorption output**: predicted uptake, apparent/Henry/IAST-style screening selectivity, confidence and applicability notes.
 - **Thermodynamics**: predicted multi-temperature isotherms, beta Qst interpretation, CSV isotherm upload, and Langmuir fitting scaffold.
-- **LCA / LCC**: characterization, normalization, cost breakdown, price provenance, currency display switching, and performance-environment-cost tradeoff.
-- **Sensitivity**: scenario analysis, parameter sweeps, decision stability, and uncertainty-style views.
-- **Validation**: manifest-driven metric display, parity/residual plots, benchmark notes, and applicability warnings.
+- **Feasibility**: coarse linker availability, cost-band, precursor rarity, and scale-sensitivity checks.
+- **LCA / LCC**: shortlist-oriented characterization, normalization, cost breakdown, price provenance, currency display switching, and performance-environment-cost tradeoff.
+- **Sensitivity**: shortlist robustness checks, scenario analysis, parameter sweeps, decision stability, and uncertainty-style views.
+- **Validation**: manifest-driven metric display, parity/residual plots, benchmark notes, and applicability warnings for the screening layer.
 - **Data Sources**: dedicated provenance page separating structures, adsorption labels, LCA inventory, LCC assumptions, isotherms, and validation manifests.
 
 ## Data Contracts

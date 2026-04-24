@@ -1509,32 +1509,48 @@ function HomeTab({ setActiveTab }) {
   const sectionStyle = { padding: isMobile ? "56px 0" : "76px 0" }
   const sectionTitleStyle = { margin: 0, color: t.textStrong, fontSize: isMobile ? 26 : 34, lineHeight: 1.12, letterSpacing: 0 }
   const cardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, boxShadow: t.shadowSm, backdropFilter: "blur(18px) saturate(135%)" }
-  const heroTiles = lang === "zh" ? [
-    ["性能", "强", t.performance],
-    ["LCA", "中等", t.lcaAccent],
-    ["LCC", "敏感", t.lccAccent],
-    ["稳健性", "稳定", t.sensitivityAccent],
+  const heroStages = lang === "zh" ? [
+    {
+      stage: "Stage 1",
+      title: "科学筛选",
+      accent: t.performance,
+      items: ["性能", "稳定性 / 化学线索", "结果解释"],
+    },
+    {
+      stage: "Stage 2-3",
+      title: "后续决策层",
+      accent: t.lccAccent,
+      items: ["成本 sanity check", "生命周期比较", "稳健性"],
+    },
   ] : [
-    ["Performance", "Strong", t.performance],
-    ["LCA", "Medium", t.lcaAccent],
-    ["LCC", "Sensitive", t.lccAccent],
-    ["Robustness", "Stable", t.sensitivityAccent],
+    {
+      stage: "Stage 1",
+      title: "Scientific screening",
+      accent: t.performance,
+      items: ["Performance", "Stability / chemistry cues", "Interpretation"],
+    },
+    {
+      stage: "Stage 2-3",
+      title: "Decision layers",
+      accent: t.lccAccent,
+      items: ["Cost sanity", "Lifecycle comparison", "Robustness"],
+    },
   ]
   const capabilities = [
-    { key: "performance", badge: "Model-predicted", title: c.home.predict, body: c.home.predictBody, accent: t.performance },
-    { key: "impact", badge: "LCA / LCC", title: c.home.evaluate, body: c.home.evaluateBody, featured: true, accent: t.lcaAccent },
-    { key: "robustness", badge: "Sensitivity-aware", title: c.home.robustness, body: c.home.robustnessBody, accent: t.sensitivityAccent },
+    { key: "performance", badge: "Primary screening", title: c.home.predict, body: c.home.predictBody, accent: t.performance },
+    { key: "impact", badge: "Feasibility boundary", title: c.home.evaluate, body: c.home.evaluateBody, featured: true, accent: t.lccAccent },
+    { key: "robustness", badge: "Shortlist comparison", title: c.home.robustness, body: c.home.robustnessBody, accent: t.sensitivityAccent },
   ]
   const workflow = lang === "zh" ? [
-    ["01", "Select", "选择材料、气体体系和操作条件。"],
-    ["02", "Screen", "生成性能筛选结果和解释线索。"],
-    ["03", "Evaluate", "查看生命周期影响、归一化和生命周期成本。"],
-    ["04", "Test robustness", "检查敏感性，识别结论脆弱的位置。"],
+    ["01", "筛选性能与稳定性", "以吸附性能、化学合理性和适用域作为第一过滤器。"],
+    ["02", "检查粗略可行性边界", "查看成本、可得性和供应风险是否明显阻断。"],
+    ["03", "比较 shortlist", "对入围候选做初步 LCA/LCC 和稳健性比较。"],
+    ["04", "进入工程评估", "后续再做工艺路线、放大经济性和正式工业 LCA。"],
   ] : [
-    ["01", "Select", "Choose a material, gas system, and operating conditions."],
-    ["02", "Screen", "Generate performance-oriented screening outputs and interpretation cues."],
-    ["03", "Evaluate", "Review lifecycle impacts, normalization, and lifecycle costing."],
-    ["04", "Test robustness", "Inspect sensitivity and understand where conclusions become fragile."],
+    ["01", "Screen for performance and stability", "Use adsorption performance, chemistry, and applicability as the first filter."],
+    ["02", "Check rough feasibility boundaries", "Flag cost, availability, and supply risks that may block practical use."],
+    ["03", "Compare shortlisted candidates", "Run preliminary LCA/LCC and robustness comparisons after shortlist formation."],
+    ["04", "Move toward engineering evaluation", "Reserve process-route design, scale-up economics, and formal industrial LCA for the future stage."],
   ]
   const benchmarks = lang === "zh" ? [
     ["UiO-66", "用于解释结构-性能权衡的稳定参考案例。", "Benchmark-backed", "大卡"],
@@ -1577,8 +1593,8 @@ function HomeTab({ setActiveTab }) {
             <button onClick={() => setActiveTab("structure")} style={{ ...toolbarBtn(t), background: t.accent, color: "#fff", borderColor: t.accent, padding: "10px 16px", boxShadow: t.shadowSm }}>
               {c.home.start}
             </button>
-            <button onClick={scrollToBenchmarks} style={{ ...toolbarBtn(t), padding: "10px 16px" }}>
-              {c.home.exploreBenchmarks}
+            <button onClick={() => setActiveTab("feasibility")} style={{ ...toolbarBtn(t), padding: "10px 16px" }}>
+              {lang === "zh" ? "查看可行性边界" : "View Feasibility Boundaries"}
             </button>
           </div>
         </div>
@@ -1594,30 +1610,29 @@ function HomeTab({ setActiveTab }) {
           alignItems: "stretch",
           backdropFilter: "blur(20px) saturate(145%)",
         }}>
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: isMobile ? 14 : 18,
-            width: "100%",
-            flex: 1,
-          }}>
-            {heroTiles.map(([title, status, accent]) => (
-              <div key={title} style={{
-                minHeight: isMobile ? 150 : 200,
-                padding: isMobile ? 16 : 22,
+          <div style={{ display: "grid", gridTemplateRows: "1fr 1fr", gap: isMobile ? 14 : 18, width: "100%", flex: 1 }}>
+            {heroStages.map(stage => (
+              <div key={stage.stage} style={{
+                padding: isMobile ? 18 : 24,
                 border: `1px solid ${t.border}`,
                 borderRadius: 14,
                 background: t.glass,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
+                display: "grid",
+                gridTemplateColumns: isMobile ? "1fr" : "160px 1fr",
+                gap: 16,
+                alignItems: "center",
               }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, color: t.subtle, fontSize: 12, fontWeight: 750 }}>
-                  <span style={{ width: 7, height: 7, borderRadius: "50%", background: accent }} />
-                  {title}
-                </div>
                 <div>
-                  <div style={{ color: t.textStrong, fontSize: isMobile ? 24 : 34, fontWeight: 880, lineHeight: 1.05 }}>{status}</div>
+                  <BasisBadge tone={stage.stage === "Stage 1" ? "info" : "proxy"}>{stage.stage}</BasisBadge>
+                  <div style={{ color: t.textStrong, fontSize: isMobile ? 24 : 32, fontWeight: 880, lineHeight: 1.08, marginTop: 12 }}>{stage.title}</div>
+                </div>
+                <div style={{ display: "grid", gap: 10 }}>
+                  {stage.items.map(item => (
+                    <div key={item} style={{ display: "flex", alignItems: "center", gap: 10, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "10px 12px" }}>
+                      <span style={{ width: 8, height: 8, borderRadius: "50%", background: stage.accent, flex: "0 0 auto" }} />
+                      <span style={{ color: t.muted, fontSize: 13, fontWeight: 750 }}>{item}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             ))}
@@ -1642,7 +1657,7 @@ function HomeTab({ setActiveTab }) {
                 display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 850, marginBottom: 14 }}>
                 {item.key === "performance" ? "P" : item.key === "impact" ? "L" : "S"}
               </div>
-              <SourceBadge type={item.key === "performance" ? "model" : item.key === "impact" ? "proxy" : "user"} />
+              <BasisBadge tone={item.key === "performance" ? "info" : item.key === "impact" ? "proxy" : "user"}>{item.badge}</BasisBadge>
               <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 850, lineHeight: 1.2, marginTop: 12 }}>{item.title}</div>
               <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.45, marginTop: 7 }}>{item.body}</div>
             </div>
@@ -1827,11 +1842,11 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
     ? (lang === "zh" ? [
         ["为什么是这个结果", `${results.primaryName} uptake 主要由 BET、孔体积、孔径匹配、${inputs.organicLinker} 连接体和官能团数量/位置共同影响。选择性仍是 screening proxy，不是严格混合气 IAST。`],
         ["可信度", `当前置信度 ${(results.confidenceScore * 100).toFixed(0)}%。${results.applicability?.warnings?.length ? "输入已有适用域警告，建议补真实等温线或 GCMC 标签。" : "输入位于基准范围附近，可用于早期候选比较。"}`],
-        ["下一步", "先看 Interpretation/Qst 判断吸附原因，再进入 LCA/LCC 和 Sensitivity 检查环境、成本和结论稳健性。"],
+        ["下一步", "先看 Interpretation/Qst 判断吸附原因，再进入 Feasibility 检查粗略成本、可得性和供应边界。LCA/LCC 只用于 shortlist 之后的比较。"],
       ] : [
         ["Why this result", `${results.primaryName} uptake is driven by BET, pore volume, pore matching, the ${inputs.organicLinker} linker, and functional-group count/position. Selectivity remains a screening proxy, not rigorous mixture IAST.`],
         ["Confidence", `Current confidence is ${(results.confidenceScore * 100).toFixed(0)}%. ${results.applicability?.warnings?.length ? "Applicability warnings are present; add real isotherm or GCMC labels before strong claims." : "The input is close to benchmark ranges and is usable for early comparison."}`],
-        ["Next steps", "Use Interpretation/Qst to inspect the mechanism, then LCA/LCC and Sensitivity to test impact, cost, and robustness."],
+        ["Next steps", "Use Interpretation/Qst to inspect the mechanism, then Feasibility for coarse cost, availability, and supply boundaries. LCA/LCC comes after shortlist formation."],
       ])
     : (lang === "zh" ? [
         ["工作流", "左侧输入材料、气体体系和条件；点击运行后中间显示吸附结果，右侧显示解释、置信度和下一步。"],
@@ -1846,10 +1861,10 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
       <PageHeader
-        title={lang === "zh" ? "Screening" : "Screening"}
+        title={lang === "zh" ? "Stage 1 — 科学筛选" : "Stage 1 — Scientific Screening"}
         subtitle={lang === "zh"
-          ? "输入候选 MOF、气体体系和操作条件；中栏集中显示筛选结果，右栏只保留解释、置信度和下一步。"
-          : "Enter a MOF candidate, gas pair, and operating conditions; the center column carries the screening result while the right column explains confidence and next steps."}
+          ? "用性能、化学线索和筛选置信度作为早期主要过滤器。"
+          : "Use performance, chemistry, and screening confidence as the primary early-stage filter."}
         meta={`${inputs.mofName || inputs.metalCenter} · ${inputs.gasSystem} · ${inputs.temperature} K · ${inputs.pressure} bar`}
         action={<BasisBadge tone={apiStatus?.ok ? "calc" : "proxy"}>{apiStatus?.ok ? "backend connected" : "screening prototype"}</BasisBadge>}
       />
@@ -2230,51 +2245,12 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
                 </ResponsiveContainer>
               </div>
 
-              {/* LCA Radar Chart */}
-              <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-                  <div style={{ color: t.muted, fontSize: 11, letterSpacing: 0 }}>{c.structure.lcaImpact}</div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                    <span style={{ color: t.subtle, fontSize: 10 }}>{c.structure.greenScore}</span>
-                    <span style={{ color: t.success, fontSize: 14, fontWeight: 700 }}>
-                      {results.lca.compositeGreenScore}/10
-                    </span>
-                  </div>
-                </div>
-                <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1.15fr 0.85fr", gap: 18, alignItems: "center" }}>
-                  <ResponsiveContainer width="100%" height={isNarrow ? 210 : 245}>
-                    <RadarChart data={radarData}>
-                      <PolarGrid stroke={t.border} />
-                      <PolarAngleAxis dataKey="subject" tick={{ fill: t.subtle, fontSize: 9 }} />
-                      <PolarRadiusAxis angle={30} domain={[0,10]} tick={false} />
-                      <Radar name="LCA" dataKey="A" stroke={t.lcaAccent} fill={t.lcaAccent} fillOpacity={0.25} strokeWidth={2} />
-                    </RadarChart>
-                  </ResponsiveContainer>
-                  <div>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
-                      {radarData.slice(0, 4).map(item => (
-                        <div key={item.subject} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "10px 12px" }}>
-                          <div style={{ color: t.faint, fontSize: 10, marginBottom: 4 }}>{item.subject}</div>
-                          <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 700, fontFamily: FONT_MONO }}>
-                            {item.A.toFixed(1)}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <div style={{ height: 6, background: t.border, borderRadius: 3 }}>
-                      <div style={{ height: "100%", width: `${results.lca.compositeGreenScore * 10}%`,
-                        background: `linear-gradient(90deg, ${t.accentStrong}, ${t.success})`, borderRadius: 3 }} />
-                    </div>
-                    <div style={{ display: "flex", justifyContent: "space-between", marginTop: 3 }}>
-                      <span style={{ color: t.faint, fontSize: 10 }}>{c.structure.compositeGreenScore}</span>
-                      <span style={{ color: t.success, fontSize: 10 }}>{results.lca.compositeGreenScore * 10}%</span>
-                    </div>
-                    <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 12 }}>
-                      {c.lca.visualNote}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <Callout tone="info">
+                <strong>{lang === "zh" ? "为什么这个阶段先开始：" : "Why this stage comes first:"}</strong>{" "}
+                {lang === "zh"
+                  ? "早期材料筛选应以性能和化学合理性为中心。更宽的成本与生命周期标准只在形成初筛候选后引入。"
+                  : "Early-stage materials screening should remain performance- and chemistry-centered. Broader cost and lifecycle criteria are introduced only after an initial filter exists."}
+              </Callout>
             </div>
 
             {/* Footer Badges */}
@@ -2300,6 +2276,14 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
       </div>
 
       <aside style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16, boxShadow: t.shadowSm, backdropFilter: "blur(18px) saturate(135%)", position: isNarrow ? "static" : "sticky", top: 74 }}>
+        <Callout tone="info">
+          <strong>{lang === "zh" ? "为什么这个阶段先开始" : "Why this stage comes first"}</strong>
+          <br />
+          {lang === "zh"
+            ? "早期材料筛选应以性能和化学合理性为中心。更宽的成本与生命周期标准只在形成初筛候选后引入。"
+            : "Early-stage materials screening should remain performance- and chemistry-centered. Broader cost and lifecycle criteria are introduced only after an initial filter exists."}
+        </Callout>
+        <div style={{ height: 12 }} />
         <SectionTitle>{lang === "zh" ? "解释与下一步" : "Interpretation & Next Steps"}</SectionTitle>
         <div style={{ display: "grid", gap: 10 }}>
           {decisionTips.map(([title, body], index) => (
@@ -2315,8 +2299,9 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
         <div style={{ display: "grid", gap: 8, marginTop: 12 }}>
           {[
             ["interpretation", lang === "zh" ? "机理解释" : "Mechanism"],
-            ["lca", "LCA / LCC"],
-            ["sensitivity", lang === "zh" ? "敏感性" : "Sensitivity"],
+            ["feasibility", lang === "zh" ? "可行性边界" : "Feasibility"],
+            ["lca", lang === "zh" ? "Shortlist LCA/LCC" : "Shortlist LCA/LCC"],
+            ["sensitivity", lang === "zh" ? "稳健性" : "Robustness"],
             ["validation", lang === "zh" ? "验证依据" : "Validation"],
           ].map(([tab, label]) => (
             <button key={tab} type="button" onClick={() => setActiveTab?.(tab)}
@@ -2741,9 +2726,114 @@ function ThermodynamicsTab({ results }) {
   )
 }
 
+function FeasibilityTab({ results, inputs }) {
+  const t = useT()
+  const { lang } = useLang()
+  const { isNarrow } = useViewport()
+  const metal = METAL_CENTERS.find(m => m.value === inputs.metalCenter)
+  const linker = ORGANIC_LINKERS.find(l => l.value === inputs.organicLinker)
+  const linkerScore = Number(linker?.lcaScore ?? 5)
+  const metalScore = Number(metal?.lcaScore ?? 5)
+  const hasRareMetal = ["Co2+", "Ni2+", "Cr3+"].includes(inputs.metalCenter)
+  const hasComplexLinker = ["TCPP", "TBAPy", "BTB", "ADC", "NDC"].includes(inputs.organicLinker)
+  const costBand = hasComplexLinker || linkerScore < 4.5 ? "High" : linkerScore < 5.8 || hasRareMetal ? "Medium" : "Low"
+  const availability = hasComplexLinker ? "Custom synthesis likely" : linkerScore < 5.8 ? "Gram-scale or specialty supply" : "Likely commercially available"
+  const supplyRisk = hasComplexLinker || hasRareMetal ? "Elevated" : linker?.fossil ? "Moderate" : "Lower"
+  const rows = lang === "zh" ? [
+    ["连接体可得性", availability, "commercial / gram-scale / custom synthesis 的粗略判断。"],
+    ["成本 sanity check", costBand, "低 / 中 / 高成本带，用于排除明显不适合放大的路线。"],
+    ["稀缺或前驱体风险", hasRareMetal ? "有金属供应风险" : "未触发稀缺金属警告", `${inputs.metalCenter} · metal score ${metalScore}/10`],
+    ["供应瓶颈风险", supplyRisk, hasComplexLinker ? "复杂芳香/卟啉/大型连接体可能需要定制合成。" : "未发现明显连接体瓶颈。"],
+  ] : [
+    ["Linker availability", availability, "Coarse commercial / gram-scale / custom-synthesis classification."],
+    ["Cost sanity check", costBand, "Low / medium / high rough cost band for rejecting obviously impractical routes."],
+    ["Rare precursor warning", hasRareMetal ? "Metal supply warning" : "No rare-metal warning", `${inputs.metalCenter} · metal score ${metalScore}/10`],
+    ["Supply bottleneck risk", supplyRisk, hasComplexLinker ? "Complex aromatic, porphyrin, or large linker may require custom synthesis." : "No obvious linker bottleneck flagged."],
+  ]
+  const useCases = lang === "zh" ? [
+    ["小规模学术探索", "可接受较高连接体成本；重点是机理、性能和可发表的结构-性质理解。"],
+    ["中试或重复制备", "需要更明确的供应来源、批量可得性、溶剂路线和安全边界。"],
+    ["大规模部署", "对连接体价格、金属供应、溶剂回收和再生能耗极度敏感。"],
+  ] : [
+    ["Small-scale academic relevance", "Higher linker cost may be acceptable when mechanism, performance, and structure-property insight matter most."],
+    ["Pilot or repeated synthesis", "Supply source, batch availability, solvent route, and safety boundaries become more important."],
+    ["Large-scale deployment relevance", "Linker price, metal supply, solvent recovery, and regeneration energy become highly scale-sensitive."],
+  ]
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      <PageHeader
+        title={lang === "zh" ? "Stage 2 — 可行性边界" : "Stage 2 — Feasibility Boundaries"}
+        subtitle={lang === "zh"
+          ? "在科学筛选之后、正式 LCC 之前，检查粗略成本、可得性、供应和用途尺度边界。"
+          : "After scientific screening and before formal LCC, check rough cost, availability, supply, and use-scale boundaries."}
+        meta={lang === "zh" ? "Feasibility boundary · exploratory only" : "Feasibility boundary · exploratory only"}
+        action={<BasisBadge tone="proxy">{lang === "zh" ? "不是正式生命周期成本" : "Not formal lifecycle costing"}</BasisBadge>}
+      />
+
+      <Callout tone="warn">
+        {lang === "zh"
+          ? "这个阶段不是正式生命周期成本。它是科学筛选与工程尺度评估之间的粗略可行性边界。"
+          : "This stage is not formal lifecycle costing. It is a coarse feasibility boundary between scientific screening and engineering-scale evaluation."}
+      </Callout>
+
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 12 }}>
+        {rows.map(([label, value, note]) => (
+          <div key={label} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14, borderTop: `3px solid ${label.includes("Cost") || label.includes("成本") ? t.lccAccent : t.validationAccent}` }}>
+            <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 8 }}>{label}</div>
+            <div style={{ color: t.textStrong, fontSize: 17, fontWeight: 850, lineHeight: 1.25 }}>{value}</div>
+            <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 8 }}>{note}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "0.9fr 1.1fr", gap: 14 }}>
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+          <SectionTitle>{lang === "zh" ? "连接体与路线提示" : "Linker and route cues"}</SectionTitle>
+          <div style={{ display: "grid", gap: 10 }}>
+            {[
+              [lang === "zh" ? "连接体" : "Linker", inputs.organicLinker, linker?.category || "—"],
+              [lang === "zh" ? "可得性" : "Availability", availability, "Stage 2 feasibility boundary"],
+              [lang === "zh" ? "材料负担提示" : "Material burden note", costBand === "High" ? "High rough burden" : costBand === "Medium" ? "Moderate rough burden" : "Lower rough burden", "Derived from current proxy catalog"],
+              [lang === "zh" ? "下一步" : "Next evidence", "Supplier quote / route check", "Needed before comparative LCC"],
+            ].map(([label, value, note]) => (
+              <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", gap: 10 }}>
+                  <span style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{label}</span>
+                  <BasisBadge tone="proxy">coarse</BasisBadge>
+                </div>
+                <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850, marginTop: 6 }}>{value}</div>
+                <div style={{ color: t.subtle, fontSize: 10, lineHeight: 1.45, marginTop: 5 }}>{note}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+          <SectionTitle>{lang === "zh" ? "用途尺度依赖" : "Use-case dependence"}</SectionTitle>
+          <div style={{ display: "grid", gap: 10 }}>
+            {useCases.map(([title, body]) => (
+              <div key={title} style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "180px 1fr", gap: 12, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+                <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>{title}</div>
+                <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.6 }}>{body}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <ProvenanceGrid items={[
+        { label: "Use stage", value: "Stage 2 — Feasibility Boundaries", type: "proxy", note: "Practical boundary between scientific screening and shortlist comparison." },
+        { label: "Purpose", value: "Feasibility boundary", type: "user", note: "Cost / availability / supply sanity check." },
+        { label: "Interpretation", value: "Exploratory only", type: "proxy", note: "Not formal LCC, not engineering-grade economics." },
+        { label: "Next layer", value: results && !results.unavailable ? "Stage 3 shortlist comparison" : "Run Stage 1 first", type: "info", note: "Use LCA/LCC only after an initial performance filter exists." },
+      ]} />
+    </div>
+  )
+}
+
 function LCAScoringTab({ results, inputs }) {
   const t = useT()
-  const { copy: c } = useLang()
+  const { lang, copy: c } = useLang()
   const { isNarrow } = useViewport()
   const [currencyCode, setCurrencyCode] = useState("USD")
   const [inventoryRows, setInventoryRows] = useState([])
@@ -2838,6 +2928,12 @@ function LCAScoringTab({ results, inputs }) {
           </button>
         </div>
       </div>
+
+      <Callout tone="warn">
+        {c.lca.pageSubtitle} {lang === "zh"
+          ? "它不用于替代早期科学筛选，也不用于工程级经济结论。"
+          : "This page is intended for secondary comparison after an initial performance/stability filter. It is not designed to replace early scientific screening."}
+      </Callout>
 
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
         {summaryCards.map(card => (
@@ -2938,11 +3034,39 @@ function LCAScoringTab({ results, inputs }) {
       </div>
 
       <ProvenanceGrid items={[
-        { label: "Basis", value: "Calculated decision support", type: "proxy", note: "Derived from screening outputs and proxy inventory." },
+        { label: "Stage", value: "Stage 3 — Secondary Comparison", type: "proxy", note: "Use only after Stage 1 screening and Stage 2 feasibility boundaries." },
         { label: "Source type", value: "LCA/LCC inventory seed", type: "benchmark", note: "public/data/lca_inventory.json with source fields." },
         { label: "Quality", value: "Medium-low", type: "proxy", note: "Traceable schema, not full industrial LCI." },
-        { label: "Limitation", value: "Comparative only", type: "proxy", note: "Use for early ranking, not publication-grade LCA." },
+        { label: "Limitation", value: "Shortlist comparison only", type: "proxy", note: "Exploratory, assumption-dependent, and not engineering-grade." },
       ]} />
+
+      <div style={chartCardStyle}>
+        <SectionTitle>{lang === "zh" ? "两层成本逻辑" : "Two-layer cost logic"}</SectionTitle>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12, marginTop: 10 }}>
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, borderLeft: `3px solid ${t.lccAccent}` }}>
+            <BasisBadge tone="proxy">{lang === "zh" ? "Stage 2 可行性边界" : "Stage 2 feasibility boundary"}</BasisBadge>
+            <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850, marginTop: 10 }}>
+              {lang === "zh" ? "早期成本 sanity checks" : "Early cost sanity checks"}
+            </div>
+            <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.65, marginTop: 8 }}>
+              {lang === "zh"
+                ? "连接体可得性、近似成本带、前驱体稀缺性和尺度警告可以更早出现，作为可行性边界。"
+                : "Linker availability, approximate cost band, precursor rarity, and scale warnings may appear earlier as feasibility boundaries."}
+            </div>
+          </div>
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, borderLeft: `3px solid ${t.lcaAccent}` }}>
+            <BasisBadge tone="proxy">{lang === "zh" ? "Stage 3 shortlist 比较" : "Stage 3 shortlist comparison"}</BasisBadge>
+            <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850, marginTop: 10 }}>
+              {lang === "zh" ? "初步比较型 LCC" : "Preliminary comparative LCC"}
+            </div>
+            <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.65, marginTop: 8 }}>
+              {lang === "zh"
+                ? "仅用于已入围候选的横向比较；依赖假设，不是详细工程经济学。"
+                : "Only for shortlisted candidates; assumption-dependent and not detailed engineering economics."}
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) 300px", gap: 16, alignItems: "start" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -3033,6 +3157,11 @@ function LCAScoringTab({ results, inputs }) {
               </BarChart>
             </ResponsiveContainer>
             <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5 }}>{c.lca.characterizationBody}</div>
+            <div style={{ color: t.warn, fontSize: 10, lineHeight: 1.45, marginTop: 6 }}>
+              {lang === "zh"
+                ? "用于 shortlist 内部粗略比较，不用于最终工程结论。"
+                : "Use for coarse comparison within shortlisted candidates, not for final engineering conclusions."}
+            </div>
             <details style={detailStyle}>
               <summary style={{ color: t.accentSoft, cursor: "pointer" }}>{c.lca.dataSource}</summary>
               <div style={{ marginTop: 6 }}>{c.lca.characterizationSource}</div>
@@ -3049,6 +3178,11 @@ function LCAScoringTab({ results, inputs }) {
             </div>
             <WindRoseChart data={windRoseData} />
             <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5 }}>{c.lca.normalizationBody}</div>
+            <div style={{ color: t.warn, fontSize: 10, lineHeight: 1.45, marginTop: 6 }}>
+              {lang === "zh"
+                ? "适合在形成 shortlist 后突出相对关注区域。"
+                : "Useful for highlighting relative concern areas after shortlist formation."}
+            </div>
             <details style={detailStyle}>
               <summary style={{ color: t.accentSoft, cursor: "pointer" }}>{c.lca.indicatorGuide}</summary>
               <div style={{ marginTop: 6 }}>
@@ -3342,6 +3476,12 @@ function SensitivityTab({ results, inputs }) {
         </div>
         <button type="button" onClick={exportSensitivityCsv} style={toolbarBtn(t)}>↓ Sensitivity CSV</button>
       </div>
+      <Callout tone="info">
+        <strong>{lang === "zh" ? "这个页面的用途：" : "What this page is for:"}</strong>{" "}
+        {lang === "zh"
+          ? "不是 primary hit identification；用于 shortlist 形成之后，检查成本和生命周期假设变化时比较结论是否稳定。"
+          : "Not primary hit identification; use it after shortlist formation to test whether broader comparison conclusions remain stable when cost and lifecycle assumptions are uncertain."}
+      </Callout>
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 14 }}>
         <MetricCard label={c.sensitivityPage.mostSensitive} value={decision.mostSensitive.label} unit="" />
         <MetricCard label={c.sensitivityPage.stability} value="72" unit="%" comparison={c.lca.assumptionSensitive} />
@@ -3568,6 +3708,12 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
         title={c.validation.title}
         subtitle={c.validation.subtitle}
       />
+
+      <Callout tone="warn">
+        {lang === "zh"
+          ? "该验证页主要支持筛选导向的预测层。更宽的生命周期/成本层仍属于探索性、假设依赖模块。"
+          : "This validation page primarily supports the screening-oriented prediction layer. Broader lifecycle/cost layers remain exploratory and assumption-dependent."}
+      </Callout>
 
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 12 }}>
         <MetricCard label="R²" value={manifest?.metrics?.co2_uptake?.r2 ? Number(manifest.metrics.co2_uptake.r2).toFixed(3) : "—"} unit="" />
@@ -4084,19 +4230,19 @@ function DataSourcesTab() {
     ["Audit trail", "source_type, source_ref, price_source, assumption, replacement fields", "DOI / database record / supplier quote attachment and revision history", "Scaffolded"],
   ]
   const datasetCards = lang === "zh" ? [
-    ["MOF structures", "MOF 结构库", datasets.structures.length, "public/data/mof_structures.json", "结构、拓扑、PLD/LCD、BET、孔体积、密度、OMS、CIF/source 元数据。", "结构库提供材料描述符，不直接等于吸附标签。"],
-    ["Adsorption labels", "吸附标签库", datasets.labels.length, "public/data/adsorption_labels.json", "气体体系、温度、压力、loading、Henry 常数、选择性、方法与 DOI/source。", "真正训练吸附模型需要这一层，且应替换为验证过的 NIST/GCMC/文献标签。"],
-    ["LCA inventory", "LCA 清单", datasets.inventory.length, "public/data/lca_inventory.json", "材料、溶剂、能耗、水、废弃物、价格、单位、不确定性与替换路线。", "当前是筛选级 proxy，不能替代完整 ecoinvent/openLCA 工业清单。"],
-    ["LCC assumptions", "LCC 成本假设", datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length, "price_usd_per_unit + price_source", "价格以 USD seed values 存储，界面可切换主流货币作静态显示换算。", "不是实时市场报价，也不是供应商询价。"],
-    ["Isotherm points", "等温线点", datasets.isotherms.length, "public/data/isotherms.json", "多温 pressure-loading 点，用于 Langmuir 拟合、Henry、IAST/Qst 工作流打底。", "科研级 Qst 仍需要真实实验或 GCMC 多温纯组分等温线。"],
-    ["Validation manifest", "训练/验证清单", datasets.manifest?.rows ?? "—", "public/data/training_manifest.json", "记录训练来源、行数、目标变量、模型工件说明和指标。", "当前 seed/augmented 数据不代表 publication-grade 外部验证集。"],
+    ["MOF structures", "MOF 结构库", datasets.structures.length, "public/data/mof_structures.json", "结构、拓扑、PLD/LCD、BET、孔体积、密度、OMS、CIF/source 元数据。", "结构库提供材料描述符，不直接等于吸附标签。", "Stage 1 screening", "benchmark-backed"],
+    ["Adsorption labels", "吸附标签库", datasets.labels.length, "public/data/adsorption_labels.json", "气体体系、温度、压力、loading、Henry 常数、选择性、方法与 DOI/source。", "真正训练吸附模型需要这一层，且应替换为验证过的 NIST/GCMC/文献标签。", "Stage 1 screening", "benchmark-backed"],
+    ["Linker cost band / availability", "连接体成本带 / 可得性", datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length, "price_usd_per_unit + price_source", "价格以 USD seed values 存储，界面可切换主流货币作静态显示换算。", "不是实时市场报价，也不是供应商询价。", "Stage 2 feasibility", "exploratory"],
+    ["Proxy LCA inventory", "代理 LCA 清单", datasets.inventory.length, "public/data/lca_inventory.json", "材料、溶剂、能耗、水、废弃物、价格、单位、不确定性与替换路线。", "当前是 shortlist 比较 proxy，不能替代完整 ecoinvent/openLCA 工业清单。", "Stage 3 shortlist comparison", "assumption-dependent"],
+    ["Isotherm points", "等温线点", datasets.isotherms.length, "public/data/isotherms.json", "多温 pressure-loading 点，用于 Langmuir 拟合、Henry、IAST/Qst 工作流打底。", "科研级 Qst 仍需要真实实验或 GCMC 多温纯组分等温线。", "Stage 1 interpretation", "comparative"],
+    ["Detailed engineering inventory", "详细工程清单", datasets.manifest?.rows ?? "—", "future openLCA / ecoinvent mapping", "正式工艺路线、供应商价格、区域电网和放大经济性。", "当前尚未实现。", "Future Stage 4", "future engineering-grade"],
   ] : [
-    ["MOF structures", "MOF structures", datasets.structures.length, "public/data/mof_structures.json", "Identity, topology, PLD/LCD, BET, pore volume, density, OMS, CIF/source metadata.", "Structure libraries provide descriptors; they are not adsorption labels."],
-    ["Adsorption labels", "Adsorption labels", datasets.labels.length, "public/data/adsorption_labels.json", "Gas pair, temperature, pressure, loading, Henry constants, selectivity, method, DOI/source.", "Adsorption training depends on this layer and should be replaced with verified NIST/GCMC/literature labels."],
-    ["LCA inventory", "LCA inventory", datasets.inventory.length, "public/data/lca_inventory.json", "Material, solvent, energy, water, waste, price, unit, uncertainty, and replacement pathway.", "Current values are screening proxies, not a full ecoinvent/openLCA industrial inventory."],
-    ["LCC assumptions", "LCC assumptions", datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length, "price_usd_per_unit + price_source", "Prices are stored as USD seed values; the UI supports static display conversion across major currencies.", "Not live market pricing and not supplier quotations."],
-    ["Isotherm points", "Isotherm points", datasets.isotherms.length, "public/data/isotherms.json", "Multi-temperature pressure-loading points for Langmuir fitting, Henry, IAST/Qst workflow scaffolding.", "Research-grade Qst still requires real experimental or GCMC multi-temperature pure-component isotherms."],
-    ["Validation manifest", "Training manifest", datasets.manifest?.rows ?? "—", "public/data/training_manifest.json", "Training origin, rows, targets, model artifact notes, and metrics.", "Current seed/augmented data is not a publication-grade external validation set."],
+    ["MOF structures", "MOF structures", datasets.structures.length, "public/data/mof_structures.json", "Identity, topology, PLD/LCD, BET, pore volume, density, OMS, CIF/source metadata.", "Structure libraries provide descriptors; they are not adsorption labels.", "Stage 1 screening", "benchmark-backed"],
+    ["Adsorption labels", "Adsorption labels", datasets.labels.length, "public/data/adsorption_labels.json", "Gas pair, temperature, pressure, loading, Henry constants, selectivity, method, DOI/source.", "Adsorption training depends on this layer and should be replaced with verified NIST/GCMC/literature labels.", "Stage 1 screening", "benchmark-backed"],
+    ["Linker cost band / availability", "Linker cost band / availability", datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length, "price_usd_per_unit + price_source", "Prices are stored as USD seed values; the UI supports static display conversion across major currencies.", "Not live market pricing and not supplier quotations.", "Stage 2 feasibility", "exploratory"],
+    ["Proxy LCA inventory", "Proxy LCA inventory", datasets.inventory.length, "public/data/lca_inventory.json", "Material, solvent, energy, water, waste, price, unit, uncertainty, and replacement pathway.", "Current values are shortlist-comparison proxies, not a full ecoinvent/openLCA industrial inventory.", "Stage 3 shortlist comparison", "assumption-dependent"],
+    ["Isotherm points", "Isotherm points", datasets.isotherms.length, "public/data/isotherms.json", "Multi-temperature pressure-loading points for Langmuir fitting, Henry, IAST/Qst workflow scaffolding.", "Research-grade Qst still requires real experimental or GCMC multi-temperature pure-component isotherms.", "Stage 1 interpretation", "comparative"],
+    ["Detailed engineering inventory", "Detailed engineering inventory", datasets.manifest?.rows ?? "—", "future openLCA / ecoinvent mapping", "Formal process routes, supplier prices, regional grids, and scale-up economics.", "Not implemented in the current prototype.", "Future Stage 4", "future engineering-grade"],
   ]
 
   return (
@@ -4118,11 +4264,15 @@ function DataSourcesTab() {
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 12 }}>
-        {datasetCards.map(([key, title, count, file, body, limit]) => (
+        {datasetCards.map(([key, title, count, file, body, limit, stage, interpretation]) => (
           <div key={key} style={cardStyle}>
             <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 8 }}>
               <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 800 }}>{title}</div>
               <BasisBadge tone="info">{count} records</BasisBadge>
+            </div>
+            <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 9 }}>
+              <BasisBadge tone={stage.includes("Stage 1") ? "info" : stage.includes("Stage 2") ? "proxy" : stage.includes("Future") ? "user" : "calc"}>{stage}</BasisBadge>
+              <BasisBadge tone={interpretation.includes("assumption") || interpretation.includes("exploratory") ? "proxy" : interpretation.includes("future") ? "user" : "calc"}>{interpretation}</BasisBadge>
             </div>
             <div style={{ color: t.accentSoft, fontSize: 11, fontFamily: FONT_MONO, overflowWrap: "anywhere", marginBottom: 9 }}>{file}</div>
             <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.6 }}>{body}</div>
@@ -4327,6 +4477,27 @@ function MethodsLimitationsTab() {
             <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
               <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800, marginBottom: 7 }}>{title}</div>
               <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55 }}>{body}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={sectionCard}>
+        <SectionTitle>{lang === "zh" ? "如何解读这个工作流" : "How to interpret the workflow"}</SectionTitle>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 12, marginTop: 10 }}>
+          {(lang === "zh" ? [
+            ["Discovery-stage chemistry", "性能、稳定性、机理和结构-性质理解是第一优先级。", "Primary screening"],
+            ["Feasibility boundaries", "粗略成本、可得性和实际约束用于排除明显不可行路线。", "Feasibility boundary"],
+            ["Engineering-stage evaluation", "正式 LCA/LCC、工艺路线设计和放大经济性属于未来工程阶段。", "Future engineering evaluation"],
+          ] : [
+            ["Discovery-stage chemistry", "Performance, stability, mechanism, and structure-property understanding come first.", "Primary screening"],
+            ["Feasibility boundaries", "Rough cost, availability, and practical constraints act as coarse boundaries.", "Feasibility boundary"],
+            ["Engineering-stage evaluation", "Formal LCA/LCC, process-route design, and scale-up economics belong to future engineering work.", "Future engineering evaluation"],
+          ]).map(([title, body, chip]) => (
+            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
+              <BasisBadge tone={chip.includes("Future") ? "user" : chip.includes("Feasibility") ? "proxy" : "info"}>{chip}</BasisBadge>
+              <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 850, marginTop: 10 }}>{title}</div>
+              <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, marginTop: 8 }}>{body}</div>
             </div>
           ))}
         </div>
@@ -5013,6 +5184,7 @@ const TABS = [
   { id: "structure",     copyKey: "structure" },
   { id: "ml",            copyKey: "ml" },
   { id: "interpretation",copyKey: "interpretation" },
+  { id: "feasibility",   copyKey: "feasibility" },
   { id: "lca",           copyKey: "lca" },
   { id: "sensitivity",   copyKey: "sensitivity" },
   { id: "literature",    copyKey: "literature" },
@@ -5342,6 +5514,7 @@ export default function App() {
           {activeTab === "structure"      && <StructureInputTab inputs={inputs} setInputs={setInputs} results={results} loading={loading} onPredict={handlePredict} onSaveRun={saveCurrentRun} apiUrl={apiUrl} setApiUrl={setApiUrl} apiStatus={apiStatus} onCheckApi={checkApi} setActiveTab={setActiveTab} />}
           {activeTab === "ml"             && <MLPredictionTab results={results} inputs={inputs} />}
           {activeTab === "interpretation" && <InterpretationTab results={results} inputs={inputs} />}
+          {activeTab === "feasibility"    && <FeasibilityTab results={results} inputs={inputs} />}
           {activeTab === "lca"            && <LCAScoringTab results={results} inputs={inputs} />}
           {activeTab === "sensitivity"    && <SensitivityTab results={results} inputs={inputs} />}
           {activeTab === "literature"     && <LiteratureTab results={results} inputs={inputs} />}
