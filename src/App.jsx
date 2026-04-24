@@ -119,7 +119,8 @@ const FUNCTIONAL_GROUPS = [
 const AROMATIC_SUBSTITUTION_POSITIONS = ["2", "3", "5", "6"]
 
 function defaultGroupPositions(count = 1) {
-  return AROMATIC_SUBSTITUTION_POSITIONS.slice(0, Math.max(1, Math.min(4, Number(count) || 1)))
+  const safeCount = Math.max(0, Math.min(4, Number(count) || 0))
+  return AROMATIC_SUBSTITUTION_POSITIONS.slice(0, safeCount)
 }
 
 function normalizeFunctionalGroupDetails(inputs = {}) {
@@ -127,11 +128,11 @@ function normalizeFunctionalGroupDetails(inputs = {}) {
   const details = inputs.functionalGroupDetails || {}
   return selected.reduce((acc, value) => {
     const raw = details[value] || {}
-    const count = Math.max(1, Math.min(4, Number(raw.count) || raw.positions?.length || 1))
-    const positions = Array.isArray(raw.positions) && raw.positions.length
+    const count = Math.max(0, Math.min(4, raw.count === 0 ? 0 : Number(raw.count) || raw.positions?.length || 1))
+    const positions = count > 0 && Array.isArray(raw.positions) && raw.positions.length
       ? raw.positions.filter(pos => AROMATIC_SUBSTITUTION_POSITIONS.includes(String(pos))).slice(0, count)
       : defaultGroupPositions(count)
-    acc[value] = { count, positions: positions.length ? positions : defaultGroupPositions(count) }
+    acc[value] = { count, positions: count > 0 && positions.length ? positions : defaultGroupPositions(count) }
     return acc
   }, {})
 }
@@ -146,7 +147,7 @@ function getFunctionalGroupEntries(inputs = {}) {
 }
 
 function hasFunctionalGroup(inputs = {}, value) {
-  return getFunctionalGroupEntries(inputs).some(entry => entry.value === value)
+  return getFunctionalGroupEntries(inputs).some(entry => entry.value === value && entry.detail.count > 0)
 }
 
 function getFunctionalGroupCount(inputs = {}, value) {
@@ -502,10 +503,10 @@ const R_GAS = 8.314e-3 // kJ/(mol·K)
 // Browser-side model profiles. These are transparent, independent static profiles
 // for the no-backend demo; they are not serialized training checkpoints.
 const MODEL_PROFILES = {
-  ensemble: { label: "Ensemble", r2: 0.864, mae: 0.31, rmse: 0.47, weights: { sa: 0.78, pv: 2.40, pd: 0.045, fg: 1.00, sel: 1.00, conf: 0.00 } },
-  rf:       { label: "Random Forest", r2: 0.821, mae: 0.38, rmse: 0.54, weights: { sa: 0.72, pv: 2.18, pd: 0.052, fg: 0.92, sel: 0.95, conf: -0.04 } },
-  gbm:      { label: "Gradient Boosting", r2: 0.848, mae: 0.34, rmse: 0.50, weights: { sa: 0.83, pv: 2.32, pd: 0.040, fg: 1.05, sel: 1.04, conf: 0.01 } },
-  gnn:      { label: "Graph Neural Network", r2: 0.872, mae: 0.30, rmse: 0.45, weights: { sa: 0.80, pv: 2.55, pd: 0.037, fg: 1.08, sel: 0.99, conf: -0.02 } },
+  ensemble: { label: "Ensemble", status: "Stable baseline", r2: 0.864, mae: 0.31, rmse: 0.47, weights: { sa: 0.78, pv: 2.40, pd: 0.045, fg: 1.00, sel: 1.00, conf: 0.00 } },
+  rf:       { label: "Random Forest", status: "Prototype profile", r2: 0.821, mae: 0.38, rmse: 0.54, weights: { sa: 0.72, pv: 2.18, pd: 0.052, fg: 0.92, sel: 0.95, conf: -0.04 } },
+  gbm:      { label: "Gradient Boosting", status: "Experimental profile", r2: 0.848, mae: 0.34, rmse: 0.50, weights: { sa: 0.83, pv: 2.32, pd: 0.040, fg: 1.05, sel: 1.04, conf: 0.01 } },
+  gnn:      { label: "Graph Neural Network", status: "Coming-soon scaffold", r2: 0.872, mae: 0.30, rmse: 0.45, weights: { sa: 0.80, pv: 2.55, pd: 0.037, fg: 1.08, sel: 0.99, conf: -0.02 } },
 }
 
 function getGasSystem(id) {
@@ -722,7 +723,7 @@ function predictMOF(inputs) {
     featureImportance,
     functionalGroupSummary: formatFunctionalGroupSummary(inputs),
     algoNote: mlAlgorithm === "ensemble" ? null
-      : "Current v1.β applies a heuristic per-algorithm delta, not an independently trained model — see ML tab for status.",
+      : "Current v1 beta applies a heuristic per-algorithm profile, not an independently trained production model.",
   }
   result.applicability = evaluateApplicability(inputs, result)
   return result
@@ -877,16 +878,36 @@ const CustomTooltip = ({ active, payload, label, unitX = "bar", unitY = "mmol/g"
 
 function NumericField({ label, unit, min, max, step, value, onChange }) {
   const t = useT()
-  const pct = ((value - min) / (max - min)) * 100
+  const [draft, setDraft] = useState(String(value ?? ""))
+  useEffect(() => {
+    setDraft(String(value ?? ""))
+  }, [value])
+  const clamp = (next) => Math.max(min, Math.min(max, next))
+  const commitDraft = () => {
+    if (draft === "" || draft === "-" || draft === ".") {
+      setDraft(String(value ?? ""))
+      return
+    }
+    const parsed = Number(draft)
+    if (!Number.isFinite(parsed)) {
+      setDraft(String(value ?? ""))
+      return
+    }
+    const rounded = clamp(parsed)
+    setDraft(String(rounded))
+    onChange(rounded)
+  }
+  const pct = ((clamp(Number(value) || min) - min) / (max - min)) * 100
   return (
     <div style={{ marginBottom: 16 }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
         <span style={{ color: t.muted, fontSize: 12, fontFamily: "monospace" }}>{label}</span>
         <input
-          type="number" value={value} min={min} max={max} step={step}
-          onChange={e => {
-            const v = parseFloat(e.target.value)
-            if (!Number.isNaN(v)) onChange(Math.max(min, Math.min(max, v)))
+          type="number" value={draft} min={min} max={max} step={step}
+          onChange={e => setDraft(e.target.value)}
+          onBlur={commitDraft}
+          onKeyDown={e => {
+            if (e.key === "Enter") e.currentTarget.blur()
           }}
           style={{
             width: 90, background: t.surface, border: `1px solid ${t.border}`,
@@ -899,7 +920,11 @@ function NumericField({ label, unit, min, max, step, value, onChange }) {
         <div style={{ position: "absolute", left: 0, width: `${pct}%`, height: "100%", background: t.accent, borderRadius: 2 }} />
         <input
           type="range" min={min} max={max} step={step} value={value}
-          onChange={e => onChange(parseFloat(e.target.value))}
+          onChange={e => {
+            const next = parseFloat(e.target.value)
+            setDraft(String(next))
+            onChange(next)
+          }}
           style={{ position: "absolute", inset: 0, width: "100%", opacity: 0, cursor: "pointer", height: "100%" }}
         />
         <div style={{
@@ -1212,6 +1237,89 @@ function ProvenanceGrid({ items }) {
         </div>
       ))}
     </div>
+  )
+}
+
+function ResultProvenanceDrawer({ results, inputs }) {
+  const t = useT()
+  const { lang } = useLang()
+  if (!results) return null
+  const rows = [
+    {
+      output: lang === "zh" ? "吸附量" : "Uptake",
+      basis: lang === "zh" ? "结构描述符 + 筛选模型" : "Descriptor input + screening model",
+      source: lang === "zh" ? "模型预测" : "Model-predicted",
+      flag: lang === "zh" ? "中等" : "Medium",
+      limitation: lang === "zh" ? "需实验等温线或 GCMC 确认绝对值" : "Absolute values need experimental isotherms or GCMC confirmation",
+      stage: "Stage 1",
+    },
+    {
+      output: lang === "zh" ? "选择性" : "Selectivity",
+      basis: lang === "zh" ? "表观吸附量比值" : "Apparent uptake ratio",
+      source: lang === "zh" ? "筛选代理" : "Screening proxy",
+      flag: lang === "zh" ? "假设依赖" : "Assumption-dependent",
+      limitation: lang === "zh" ? "不是严格 Henry 或 IAST 混合气平衡计算" : "Not strict Henry or IAST mixture-equilibrium selectivity",
+      stage: "Stage 1",
+    },
+    {
+      output: "Qst",
+      basis: lang === "zh" ? "预测多温等温线反推" : "Derived from predicted multi-temperature isotherms",
+      source: lang === "zh" ? "筛选代理" : "Screening proxy",
+      flag: lang === "zh" ? "探索性" : "Exploratory",
+      limitation: lang === "zh" ? "不是量热实测或研究级多温拟合" : "Not calorimetry or research-grade multi-T fitting",
+      stage: "Stage 1",
+    },
+    {
+      output: lang === "zh" ? "可行性" : "Feasibility",
+      basis: lang === "zh" ? "连接体、金属、成本带和规模摩擦" : "Linker, metal, cost band, and scale-friction cues",
+      source: lang === "zh" ? "用户输入 + 代理规则" : "User-defined + proxy rules",
+      flag: lang === "zh" ? "粗边界" : "Coarse boundary",
+      limitation: lang === "zh" ? "不等同于正式生命周期成本" : "Not formal lifecycle costing",
+      stage: "Stage 2",
+    },
+    {
+      output: "LCA / LCC",
+      basis: lang === "zh" ? "代理清单与入围候选比较" : "Proxy inventory and shortlist comparison",
+      source: lang === "zh" ? "假设依赖" : "Assumption-dependent",
+      flag: lang === "zh" ? "比较性" : "Comparative",
+      limitation: lang === "zh" ? "不是工程级 LCA/LCC 或供应商报价" : "Not engineering-grade LCA/LCC or supplier quotes",
+      stage: "Stage 3",
+    },
+  ]
+  return (
+    <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+      <summary style={{ cursor: "pointer", color: t.textStrong, fontSize: 12, fontWeight: 800 }}>
+        {lang === "zh" ? "结果级来源与适用范围" : "Result-level provenance and scope"}
+      </summary>
+      <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, margin: "8px 0 10px" }}>
+        {lang === "zh"
+          ? `当前输入的官能团：${formatFunctionalGroupSummary(inputs, lang)}。这些标签说明结果如何解释，而不是替代原始数据审计。`
+          : `Functional groups in this run: ${formatFunctionalGroupSummary(inputs, lang)}. These labels explain intended interpretation; they do not replace raw data audit trails.`}
+      </div>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 720 }}>
+          <thead>
+            <tr>
+              {(lang === "zh" ? ["输出", "依据", "来源类型", "质量标记", "限制", "使用阶段"] : ["Output", "Basis", "Source type", "Quality flag", "Limitation", "Use stage"]).map(head => (
+                <th key={head} style={{ textAlign: "left", color: t.faint, fontSize: 10, padding: "7px 8px", borderBottom: `1px solid ${t.border}` }}>{head}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map(row => (
+              <tr key={row.output}>
+                <td style={{ color: t.textStrong, fontSize: 11, fontWeight: 800, padding: "8px", borderBottom: `1px solid ${t.divider}` }}>{row.output}</td>
+                <td style={{ color: t.subtle, fontSize: 11, padding: "8px", borderBottom: `1px solid ${t.divider}` }}>{row.basis}</td>
+                <td style={{ color: t.subtle, fontSize: 11, padding: "8px", borderBottom: `1px solid ${t.divider}` }}>{row.source}</td>
+                <td style={{ color: t.warn, fontSize: 11, padding: "8px", borderBottom: `1px solid ${t.divider}` }}>{row.flag}</td>
+                <td style={{ color: t.subtle, fontSize: 11, padding: "8px", borderBottom: `1px solid ${t.divider}` }}>{row.limitation}</td>
+                <td style={{ color: t.accentSoft, fontSize: 11, fontFamily: FONT_MONO, padding: "8px", borderBottom: `1px solid ${t.divider}` }}>{row.stage}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </details>
   )
 }
 
@@ -1991,12 +2099,12 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
     setInputs(prev => {
       const current = normalizeFunctionalGroupDetails(prev)[fg] || { count: 1, positions: ["2"] }
       const merged = { ...current, ...detailPatch }
-      const count = Math.max(1, Math.min(4, Number(merged.count) || 1))
-      let positions = Array.isArray(merged.positions)
+      const count = Math.max(0, Math.min(4, merged.count === 0 ? 0 : Number(merged.count) || 1))
+      let positions = count > 0 && Array.isArray(merged.positions)
         ? merged.positions.filter(pos => AROMATIC_SUBSTITUTION_POSITIONS.includes(String(pos))).slice(0, count)
-        : current.positions
+        : []
       if (positions.length > count) positions = positions.slice(0, count)
-      if (!positions.length) positions = defaultGroupPositions(count)
+      if (count > 0 && !positions.length) positions = defaultGroupPositions(count)
       return {
         ...prev,
         functionalGroupDetails: {
@@ -2009,6 +2117,10 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
 
   const toggleFGPosition = (fg, pos) => {
     const current = normalizeFunctionalGroupDetails(inputs)[fg] || { count: 1, positions: ["2"] }
+    if (current.count === 0) {
+      updateFGDetail(fg, { count: 1, positions: [pos] })
+      return
+    }
     const exists = current.positions.includes(pos)
     let positions = exists
       ? current.positions.filter(item => item !== pos)
@@ -2168,26 +2280,45 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
               <div style={{ display: "grid", gridTemplateColumns: "86px minmax(0, 1fr)", gap: 9, alignItems: "center" }}>
                 <div>
                   <label style={{ ...labelStyle, marginBottom: 4 }}>{lang === "zh" ? "数量" : "Count"}</label>
-                  <input
-                    type="number"
-                    min={1}
-                    max={4}
-                    step={1}
+                  <select
                     value={detail.count}
                     onChange={e => {
-                      const count = Math.max(1, Math.min(4, parseInt(e.target.value, 10) || 1))
+                      const count = Math.max(0, Math.min(4, parseInt(e.target.value, 10) || 0))
                       updateFGDetail(value, {
                         count,
-                        positions: detail.positions.length >= count ? detail.positions.slice(0, count) : defaultGroupPositions(count),
+                        positions: count === 0 ? [] : detail.positions.length >= count ? detail.positions.slice(0, count) : defaultGroupPositions(count),
                       })
                     }}
-                    style={{ ...numInputStyle, padding: "6px 8px", fontSize: 12 }}
-                  />
+                    style={{ ...selectStyle, padding: "6px 8px", fontSize: 12 }}
+                  >
+                    {[
+                      [0, lang === "zh" ? "0 / 无效" : "0 / none"],
+                      [1, lang === "zh" ? "1 / 单取代" : "1 / mono"],
+                      [2, lang === "zh" ? "2 / 双取代" : "2 / di"],
+                      [3, lang === "zh" ? "3 / 三取代" : "3 / tri"],
+                      [4, lang === "zh" ? "4 / 四取代" : "4 / tetra"],
+                    ].map(([count, label]) => <option key={count} value={count}>{label}</option>)}
+                  </select>
                 </div>
                 <div>
                   <label style={{ ...labelStyle, marginBottom: 4 }}>
                     {lang === "zh" ? "芳环取代位置" : "Aromatic positions"}
                   </label>
+                  <select
+                    value={detail.count === 1 && detail.positions.join(",") === "2" ? "mono-2" : detail.count === 2 && detail.positions.join(",") === "2,5" ? "di-2,5" : detail.count === 2 && detail.positions.join(",") === "2,3" ? "di-2,3" : "custom"}
+                    onChange={e => {
+                      const pattern = e.target.value
+                      if (pattern === "mono-2") updateFGDetail(value, { count: 1, positions: ["2"] })
+                      if (pattern === "di-2,5") updateFGDetail(value, { count: 2, positions: ["2", "5"] })
+                      if (pattern === "di-2,3") updateFGDetail(value, { count: 2, positions: ["2", "3"] })
+                    }}
+                    style={{ ...selectStyle, padding: "6px 8px", fontSize: 12, marginBottom: 6 }}
+                  >
+                    <option value="mono-2">mono-2</option>
+                    <option value="di-2,5">di-2,5</option>
+                    <option value="di-2,3">di-2,3</option>
+                    <option value="custom">{lang === "zh" ? "自定义 / 实验性" : "custom / experimental"}</option>
+                  </select>
                   <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
                     {AROMATIC_SUBSTITUTION_POSITIONS.map(pos => {
                       const active = (functionalGroupDetails[value]?.positions || []).includes(pos)
@@ -2217,10 +2348,15 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
                   </div>
                   <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.4, marginTop: 5 }}>
                     {lang === "zh"
-                      ? `当前：${detail.positions.join(", ")}；最多按数量选择 ${detail.count} 个位置。`
-                      : `Current: ${detail.positions.join(", ")}; up to ${detail.count} selected positions.`}
+                      ? `当前：${detail.positions.length ? detail.positions.join(", ") : "无"}；最多按数量选择 ${detail.count} 个位置。`
+                      : `Current: ${detail.positions.length ? detail.positions.join(", ") : "none"}; up to ${detail.count} selected positions.`}
                   </div>
                 </div>
+              </div>
+              <div style={{ color: t.warn, fontSize: 10, lineHeight: 1.45, marginTop: 8 }}>
+                {lang === "zh"
+                  ? "取代数量目前作为筛选级结构修饰符处理；位置标注目前只支持少数基准连接体模式，仍属实验性。"
+                  : "Substituent count is currently treated as a screening-level structural modifier. Positional annotation is currently supported only for selected benchmark linker patterns and remains experimental."}
               </div>
             </div>
           ))}
@@ -2255,13 +2391,30 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
           <select value={inputs.mlAlgorithm}
             onChange={e => setInputs(p => ({ ...p, mlAlgorithm: e.target.value }))}
             style={selectStyle}>
-            <option value="ensemble">CGCNN + Random Forest Ensemble</option>
-            <option value="rf">Random Forest Only</option>
-            <option value="gbm">Gradient Boosting (XGBoost)</option>
-            <option value="gnn">Graph Neural Network</option>
+            <option value="ensemble">{lang === "zh" ? "集成基线（稳定默认）" : "Ensemble baseline (stable default)"}</option>
+            <option value="rf">{lang === "zh" ? "Random Forest（原型配置）" : "Random Forest (prototype profile)"}</option>
+            <option value="gbm">{lang === "zh" ? "Gradient Boosting（实验配置）" : "Gradient Boosting (experimental profile)"}</option>
+            <option value="gnn">{lang === "zh" ? "Graph Neural Network（Coming soon 脚手架）" : "Graph Neural Network (coming-soon scaffold)"}</option>
           </select>
           <div style={{ fontSize: 10, color: t.warn, marginTop: 4, lineHeight: 1.5 }}>
             {c.structure.algoNote}
+          </div>
+          <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 6 }}>
+            <BasisBadge tone={inputs.mlAlgorithm === "ensemble" ? "calc" : "proxy"}>
+              {lang === "zh"
+                ? ({
+                    "Stable baseline": "稳定基线",
+                    "Prototype profile": "原型配置",
+                    "Experimental profile": "实验配置",
+                    "Coming-soon scaffold": "路线图脚手架",
+                  }[(MODEL_PROFILES[inputs.mlAlgorithm] || MODEL_PROFILES.ensemble).status] || (MODEL_PROFILES[inputs.mlAlgorithm] || MODEL_PROFILES.ensemble).status)
+                : (MODEL_PROFILES[inputs.mlAlgorithm] || MODEL_PROFILES.ensemble).status}
+            </BasisBadge>
+            <span style={{ color: t.faint, fontSize: 10, lineHeight: 1.7 }}>
+              {lang === "zh"
+                ? "切换算法目前改变浏览器端预测 profile；未完成独立重训验证的选项不会作为等价生产模型展示。"
+                : "Switching currently changes the browser-side prediction profile; options without independent retraining are not presented as equivalent production models."}
+            </span>
           </div>
         </div>
 
@@ -2425,10 +2578,12 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
               { label: "Limitation", value: "Screening-level only", type: "proxy", note: "Not a strict IAST/GCMC or experimental result." },
             ]} />
 
+            <ResultProvenanceDrawer results={results} inputs={inputs} />
+
             {results.selectivityDetails && (
               <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", marginBottom: 10 }}>
-                  <SectionTitle>{c.methods.formulaHenry} / {c.methods.formulaIast}</SectionTitle>
+                  <SectionTitle>{c.methods.selectivity}</SectionTitle>
                   <BasisBadge tone="proxy">{c.common.basisProxy}</BasisBadge>
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
@@ -2449,6 +2604,36 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
                 <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 10 }}>
                   {c.methods.selectivityBody2}
                 </div>
+                <details style={{ marginTop: 10, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
+                  <summary style={{ cursor: "pointer", color: t.textStrong, fontSize: 12, fontWeight: 800 }}>
+                    {lang === "zh" ? "Method note：选择性如何解释" : "Method note: how to read selectivity"}
+                  </summary>
+                  <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 8, marginTop: 10 }}>
+                    {[
+                      [
+                        lang === "zh" ? "表观选择性" : "Apparent selectivity",
+                        "S_app = q_A / q_B",
+                        lang === "zh" ? "使用同一条件下的预测单组分吸附量比值，适合作为 Stage 1 快速筛选线索。" : "Uses the predicted single-component uptake ratio at the selected condition; useful as a Stage 1 screening cue.",
+                      ],
+                      [
+                        lang === "zh" ? "Henry 选择性" : "Henry selectivity",
+                        "S_H = K_H,A / K_H,B",
+                        lang === "zh" ? "基于低压 Henry 常数，适合稀释极限；当前页面只给出代理提示，不等同于严格 Henry 拟合。" : "Uses low-pressure Henry constants for the dilute limit; this page only shows a proxy cue, not a strict Henry fit.",
+                      ],
+                      [
+                        lang === "zh" ? "IAST 选择性" : "IAST selectivity",
+                        "S_IAST = (x_A / y_A) / (x_B / y_B)",
+                        lang === "zh" ? "需要纯组分等温线拟合和进料组成；当前值不是严格混合气平衡分离计算。" : "Requires fitted pure-component isotherms and feed composition; the current value is not a rigorous mixture-equilibrium separation calculation.",
+                      ],
+                    ].map(([title, formula, body]) => (
+                      <div key={title} style={{ borderLeft: `3px solid ${t.accent}`, paddingLeft: 9 }}>
+                        <div style={{ color: t.textStrong, fontSize: 11, fontWeight: 800 }}>{title}</div>
+                        <div style={{ color: t.accentSoft, fontFamily: FONT_MONO, fontSize: 11, margin: "4px 0" }}>{formula}</div>
+                        <div style={{ color: t.subtle, fontSize: 10, lineHeight: 1.45 }}>{body}</div>
+                      </div>
+                    ))}
+                  </div>
+                </details>
               </div>
             )}
 
@@ -2788,6 +2973,13 @@ function ThermodynamicsTab({ results }) {
           </span>
         </div>
         <div style={{ marginTop: 8, opacity: 0.9 }}>{c.thermo.sourceNote}</div>
+      </Callout>
+
+      <Callout tone="warn">
+        <strong>{lang === "zh" ? "Qst 边界说明：" : "Qst scope note:"}</strong>{" "}
+        {lang === "zh"
+          ? "当前 Qst 来自预测等温线与简化拟合，适合观察相对趋势、强吸附位点线索和随吸附量衰减形状；不要把它当作直接量热实测、严格多温拟合或论文级热力学证据。"
+          : "Current Qst is derived from predicted isotherms and simplified fitting. Use it for relative trends, strong-site cues, and loading-dependent decay shape; do not treat it as direct calorimetry, strict multi-temperature fitting, or publication-grade thermodynamic evidence."}
       </Callout>
 
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
@@ -4936,13 +5128,13 @@ function MethodsLimitationsTab() {
         <div style={sectionCard}>
           <SectionTitle>{c.methods.roadmap}</SectionTitle>
           {(lang === "zh" ? [
-            ["v0.2", "可用性修复：MOF 搜索预设、直接数字输入、主题切换、批量模式、清晰状态说明。"],
+            ["v0.2", "可用性修复：MOF 搜索预设、直接数字输入、主题切换、清晰状态说明。"],
             ["v0.3", "方法说明页、更清晰的选择性命名、CSV schema、扩展连接体和官能团元数据。"],
             ["v1.0", "真实单组分等温线拟合，以及明确的 Henry/IAST 选择性流程。"],
             ["v1.1", "按目标气体对分别训练模型，刷新 CoRE 2024/QMOF 描述符，引入不确定性和适用域警告。"],
             ["长期", "在可靠标签可得后，扩展电子特气分离和 H2 量子修正。"],
           ] : [
-            ["v0.2", "Usability fixes: MOF search presets, direct numeric inputs, theme toggle, batch mode, clear status notes."],
+            ["v0.2", "Usability fixes: MOF search presets, direct numeric inputs, theme toggle, and clear status notes."],
             ["v0.3", "Methods page, clearer selectivity naming, CSV schema, expanded linker and functional-group metadata."],
             ["v1.0", "Real single-component isotherm fitting and explicit Henry/IAST selectivity workflow."],
             ["v1.1", "Separate trained models per target gas pair, CoRE 2024/QMOF descriptor refresh, uncertainty and applicability-domain warnings."],
@@ -5598,7 +5790,6 @@ export default function App() {
     message: lang === "zh" ? "静态浏览器端模型" : "Static browser model",
     manifest: null,
   })
-  const [batchOpen, setBatchOpen]     = useState(false)
   const [savedOpen, setSavedOpen]     = useState(false)
   const [comparisonTab, setComparisonTab] = useState("feasibility")
   const [resourcesTab, setResourcesTab] = useState("dataSources")
@@ -5887,13 +6078,6 @@ export default function App() {
               {copy.header.language}
             </button>
 
-            <button onClick={() => setBatchOpen(true)}
-              style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6,
-                padding: "5px 10px", color: t.accentSoft, fontSize: 12, cursor: "pointer",
-                display: "flex", alignItems: "center", gap: 6, fontFamily: FONT_SANS }}>
-              ⊟ {copy.header.batch}
-            </button>
-
             <button onClick={() => setSavedOpen(true)}
               style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6,
                 padding: "5px 10px", color: t.success, fontSize: 12, cursor: "pointer",
@@ -5933,18 +6117,6 @@ export default function App() {
           </span>
         </footer>
 
-        {batchOpen && (
-          <BatchModePanel
-            inputs={inputs}
-            onClose={() => setBatchOpen(false)}
-            onApplyToForm={(row) => {
-              const { result, id, mofName, ...ins } = row
-              setInputs({ ...ins, mofName })
-              setBatchOpen(false)
-              setActiveTab("screening")
-            }}
-          />
-        )}
         {savedOpen && (
           <SavedRunsModal
             runs={savedRuns}
