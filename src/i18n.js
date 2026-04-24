@@ -2,6 +2,12 @@ export const COPY = {
   en: {
     tabs: {
       home: "Home",
+      workflow: "Workflow",
+      screening: "Screening",
+      comparison: "Comparison",
+      validation: "Validation",
+      resources: "Resources",
+      about: "About",
       structure: "Stage 1 Screening",
       ml: "ML Models",
       interpretation: "Interpretation",
@@ -9,8 +15,7 @@ export const COPY = {
       lca: "Stage 3 LCA / LCC",
       sensitivity: "Robustness",
       literature: "Database",
-      validation: "Validation",
-      methods: "About",
+      methods: "Methods / Notes",
       dataSources: "Data Sources",
     },
     header: {
@@ -366,6 +371,12 @@ export const COPY = {
   zh: {
     tabs: {
       home: "首页",
+      workflow: "工作流",
+      screening: "筛选",
+      comparison: "比较",
+      validation: "验证",
+      resources: "资源",
+      about: "关于",
       structure: "第一阶段筛选",
       ml: "机器学习",
       interpretation: "机理解释",
@@ -373,8 +384,7 @@ export const COPY = {
       lca: "第三阶段 LCA/LCC",
       sensitivity: "稳健性",
       literature: "数据库",
-      validation: "验证",
-      methods: "关于",
+      methods: "方法说明",
       dataSources: "数据来源",
     },
     header: {

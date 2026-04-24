@@ -1815,11 +1815,11 @@ function HomeTab({ setActiveTab }) {
             {c.home.subtitle}
           </p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-            <button onClick={() => setActiveTab("structure")} style={{ ...toolbarBtn(t), background: t.accent, color: "#fff", borderColor: t.accent, padding: "10px 16px", boxShadow: t.shadowSm }}>
+            <button onClick={() => setActiveTab("screening")} style={{ ...toolbarBtn(t), background: t.accent, color: "#fff", borderColor: t.accent, padding: "10px 16px", boxShadow: t.shadowSm }}>
               {c.home.start}
             </button>
-            <button onClick={() => setActiveTab("feasibility")} style={{ ...toolbarBtn(t), padding: "10px 16px" }}>
-              {lang === "zh" ? "查看可行性边界" : "View Feasibility Boundaries"}
+            <button onClick={() => setActiveTab("comparison")} style={{ ...toolbarBtn(t), padding: "10px 16px" }}>
+              {lang === "zh" ? "查看比较层" : "View Comparison Layers"}
             </button>
           </div>
         </div>
@@ -5446,18 +5446,128 @@ function SavedRunsModal({ runs, onClose, onLoad, onDelete, onImport, onExport })
 
 // ─── Main App ────────────────────────────────────────────────────────────────
 
+function InternalNav({ items, active, onChange }) {
+  const t = useT()
+  return (
+    <div style={{ display: "flex", gap: 8, flexWrap: "wrap", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 6 }}>
+      {items.map(item => (
+        <button key={item.id} type="button" onClick={() => onChange(item.id)}
+          style={{ ...toolbarBtn(t), background: active === item.id ? t.badgeInfoBg : "transparent", borderColor: active === item.id ? t.borderStrong : t.border, color: active === item.id ? t.accentText : t.subtle }}>
+          {item.label}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+function WorkflowTab({ setActiveTab }) {
+  const t = useT()
+  const { lang } = useLang()
+  const { isNarrow } = useViewport()
+  const stages = lang === "zh" ? [
+    ["第 1 阶段 — 科学筛选", "性能、化学合理性、结构解释和筛选置信度是最早的过滤器。", "主要筛选", t.performance],
+    ["第 2 阶段 — 可行性边界", "检查可得性、粗略成本、供应风险和实践过程约束，缩小搜索空间。", "可行性边界", t.lccAccent],
+    ["第 3 阶段 — 次级比较", "只对入围候选做初步 LCA/LCC 与敏感性稳健性比较。", "入围候选比较", t.sensitivityAccent],
+    ["未来第 4 阶段 — 工程评估", "正式工艺路线、放大经济性和工业级 LCA/LCC 属于后续工程工作。", "未来工程评估", t.validationAccent],
+  ] : [
+    ["Stage 1 — Scientific Screening", "Performance, chemistry, interpretation, and screening confidence are the earliest filter.", "Primary screening", t.performance],
+    ["Stage 2 — Feasibility Boundaries", "Check availability, rough cost, supply risk, and practical process constraints to narrow the search space.", "Feasibility boundary", t.lccAccent],
+    ["Stage 3 — Secondary Comparison", "Run preliminary LCA/LCC and sensitivity only for shortlisted candidates.", "Shortlist comparison", t.sensitivityAccent],
+    ["Future Stage 4 — Engineering Evaluation", "Formal process routes, scale-up economics, and industrial-grade LCA/LCC belong to later engineering work.", "Future engineering evaluation", t.validationAccent],
+  ]
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      <PageHeader
+        title={lang === "zh" ? "分阶段 MOF 决策工作流" : "Staged MOF Decision Workflow"}
+        subtitle={lang === "zh"
+          ? "EcoMOF-AI 的顺序是性能与化学优先，可行性其次，更宽的生命周期、成本和稳健性比较只在入围候选之后出现。"
+          : "EcoMOF-AI is sequenced as performance and chemistry first, feasibility next, and broader lifecycle, cost, and robustness comparison only after shortlist formation."}
+        meta={lang === "zh" ? "不是扁平工具箱" : "Not a flat toolbox"}
+        action={<BasisBadge tone="info">{lang === "zh" ? "分阶段原型" : "Staged prototype"}</BasisBadge>}
+      />
+      <Callout tone="info">
+        {lang === "zh"
+          ? "核心原则：不要把 LCA/LCC/敏感性当作与性能筛选同等早期的主要命中识别。它们是科学筛选之后的次级比较层。"
+          : "Core rule: do not treat LCA/LCC/sensitivity as equally early primary hit identification. They are secondary comparison layers after scientific screening."}
+      </Callout>
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 12 }}>
+        {stages.map(([title, body, chip, accent], index) => (
+          <div key={title} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16, borderTop: `3px solid ${accent}` }}>
+            <BasisBadge tone={index === 0 ? "info" : index === 1 ? "proxy" : index === 2 ? "user" : "calc"}>{chip}</BasisBadge>
+            <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850, marginTop: 12, lineHeight: 1.3 }}>{title}</div>
+            <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, marginTop: 8 }}>{body}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+        <button type="button" onClick={() => setActiveTab("screening")} style={{ ...toolbarBtn(t), background: t.accent, borderColor: t.accent, color: "#fff" }}>
+          {lang === "zh" ? "进入科学筛选" : "Go to Screening"}
+        </button>
+        <button type="button" onClick={() => setActiveTab("comparison")} style={toolbarBtn(t)}>
+          {lang === "zh" ? "查看比较层" : "View Comparison Layers"}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function ComparisonTab({ activeSub, setActiveSub, results, inputs }) {
+  const { lang } = useLang()
+  const items = [
+    { id: "feasibility", label: lang === "zh" ? "可行性" : "Feasibility" },
+    { id: "lca", label: "LCA / LCC" },
+    { id: "sensitivity", label: lang === "zh" ? "敏感性" : "Sensitivity" },
+  ]
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <PageHeader
+        title={lang === "zh" ? "筛选后的比较层" : "Post-Screening Comparison Layers"}
+        subtitle={lang === "zh"
+          ? "可行性、LCA/LCC 和敏感性在这里作为科学筛选之后的比较层，而不是同等早期的顶层筛选入口。"
+          : "Feasibility, LCA/LCC, and sensitivity live here as post-screening comparison layers, not equally early top-level screening features."}
+        meta={lang === "zh" ? "第 2-3 阶段" : "Stages 2-3"}
+        action={<BasisBadge tone="proxy">{lang === "zh" ? "非主要命中识别" : "Not primary hit identification"}</BasisBadge>}
+      />
+      <InternalNav items={items} active={activeSub} onChange={setActiveSub} />
+      {activeSub === "feasibility" && <FeasibilityTab results={results} inputs={inputs} />}
+      {activeSub === "lca" && <LCAScoringTab results={results} inputs={inputs} />}
+      {activeSub === "sensitivity" && <SensitivityTab results={results} inputs={inputs} />}
+    </div>
+  )
+}
+
+function ResourcesTab({ activeSub, setActiveSub, results, inputs }) {
+  const { lang } = useLang()
+  const items = [
+    { id: "dataSources", label: lang === "zh" ? "数据来源" : "Data Sources" },
+    { id: "literature", label: lang === "zh" ? "数据库 / 基准" : "Database / Benchmarks" },
+    { id: "methods", label: lang === "zh" ? "方法说明" : "Methods / Notes" },
+  ]
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <PageHeader
+        title={lang === "zh" ? "资源与证据层" : "Resources and Evidence Layers"}
+        subtitle={lang === "zh"
+          ? "数据来源、基准数据库和方法说明集中在这里，作为工作流的支持材料。"
+          : "Data sources, benchmark databases, and method notes are grouped here as supporting material for the staged workflow."}
+        meta={lang === "zh" ? "支持页面" : "Supporting pages"}
+      />
+      <InternalNav items={items} active={activeSub} onChange={setActiveSub} />
+      {activeSub === "dataSources" && <DataSourcesTab />}
+      {activeSub === "literature" && <LiteratureTab results={results} inputs={inputs} />}
+      {activeSub === "methods" && <MethodsLimitationsTab />}
+    </div>
+  )
+}
+
 const TABS = [
   { id: "home",          copyKey: "home" },
-  { id: "structure",     copyKey: "structure" },
-  { id: "ml",            copyKey: "ml" },
-  { id: "interpretation",copyKey: "interpretation" },
-  { id: "feasibility",   copyKey: "feasibility" },
-  { id: "lca",           copyKey: "lca" },
-  { id: "sensitivity",   copyKey: "sensitivity" },
-  { id: "literature",    copyKey: "literature" },
+  { id: "workflow",      copyKey: "workflow" },
+  { id: "screening",     copyKey: "screening" },
+  { id: "comparison",    copyKey: "comparison" },
   { id: "validation",    copyKey: "validation" },
-  { id: "methods",       copyKey: "methods" },
-  { id: "dataSources",   copyKey: "dataSources" },
+  { id: "resources",     copyKey: "resources" },
+  { id: "about",         copyKey: "about" },
 ]
 
 export default function App() {
@@ -5490,6 +5600,8 @@ export default function App() {
   })
   const [batchOpen, setBatchOpen]     = useState(false)
   const [savedOpen, setSavedOpen]     = useState(false)
+  const [comparisonTab, setComparisonTab] = useState("feasibility")
+  const [resourcesTab, setResourcesTab] = useState("dataSources")
   const [savedRuns, setSavedRuns]     = useState(() => {
     try {
       return JSON.parse(localStorage.getItem("ecomof_saved_runs") || "[]")
@@ -5540,7 +5652,26 @@ export default function App() {
     setSearchQuery(presetName)
     setSearchOpen(false)
     setSearchStatus("loaded")
+    setActiveTab("screening")
     setTimeout(() => setSearchStatus(null), 1800)
+  }, [])
+
+  const navigateTab = useCallback((target) => {
+    if (["feasibility", "lca", "sensitivity"].includes(target)) {
+      setComparisonTab(target)
+      setActiveTab("comparison")
+      return
+    }
+    if (["dataSources", "literature", "methods"].includes(target)) {
+      setResourcesTab(target)
+      setActiveTab("resources")
+      return
+    }
+    if (target === "structure" || target === "interpretation" || target === "ml") {
+      setActiveTab("screening")
+      return
+    }
+    setActiveTab(target)
   }, [])
 
   const checkApi = useCallback(async () => {
@@ -5624,7 +5755,7 @@ export default function App() {
     setInputs(run.inputs)
     setResults(run.results)
     setSavedOpen(false)
-    setActiveTab("structure")
+    setActiveTab("screening")
   }, [])
 
   const exportSavedRuns = useCallback(() => {
@@ -5781,17 +5912,13 @@ export default function App() {
         </header>
 
         <main style={{ padding: viewport.isMobile ? "14px 12px" : "22px 24px", maxWidth: 1460, margin: "0 auto" }}>
-          {activeTab === "home"           && <HomeTab setActiveTab={setActiveTab} />}
-          {activeTab === "structure"      && <StructureInputTab inputs={inputs} setInputs={setInputs} results={results} loading={loading} onPredict={handlePredict} onSaveRun={saveCurrentRun} apiUrl={apiUrl} setApiUrl={setApiUrl} apiStatus={apiStatus} onCheckApi={checkApi} setActiveTab={setActiveTab} />}
-          {activeTab === "ml"             && <MLPredictionTab results={results} inputs={inputs} />}
-          {activeTab === "interpretation" && <InterpretationTab results={results} inputs={inputs} />}
-          {activeTab === "feasibility"    && <FeasibilityTab results={results} inputs={inputs} />}
-          {activeTab === "lca"            && <LCAScoringTab results={results} inputs={inputs} />}
-          {activeTab === "sensitivity"    && <SensitivityTab results={results} inputs={inputs} />}
-          {activeTab === "literature"     && <LiteratureTab results={results} inputs={inputs} />}
+          {activeTab === "home"           && <HomeTab setActiveTab={navigateTab} />}
+          {activeTab === "workflow"       && <WorkflowTab setActiveTab={navigateTab} />}
+          {activeTab === "screening"      && <StructureInputTab inputs={inputs} setInputs={setInputs} results={results} loading={loading} onPredict={handlePredict} onSaveRun={saveCurrentRun} apiUrl={apiUrl} setApiUrl={setApiUrl} apiStatus={apiStatus} onCheckApi={checkApi} setActiveTab={navigateTab} />}
+          {activeTab === "comparison"     && <ComparisonTab activeSub={comparisonTab} setActiveSub={setComparisonTab} results={results} inputs={inputs} />}
           {activeTab === "validation"     && <ValidationTab results={results} inputs={inputs} apiUrl={apiUrl} apiStatus={apiStatus} onCheckApi={checkApi} />}
-          {activeTab === "methods"        && <MethodsLimitationsTab />}
-          {activeTab === "dataSources"    && <DataSourcesTab />}
+          {activeTab === "resources"      && <ResourcesTab activeSub={resourcesTab} setActiveSub={setResourcesTab} results={results} inputs={inputs} />}
+          {activeTab === "about"          && <MethodsLimitationsTab />}
         </main>
 
         <footer style={{ marginTop: 40, padding: "16px 24px", borderTop: `1px solid ${t.border}`,
@@ -5814,7 +5941,7 @@ export default function App() {
               const { result, id, mofName, ...ins } = row
               setInputs({ ...ins, mofName })
               setBatchOpen(false)
-              setActiveTab("structure")
+              setActiveTab("screening")
             }}
           />
         )}
