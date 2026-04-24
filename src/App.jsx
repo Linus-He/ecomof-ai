@@ -173,7 +173,7 @@ function formatFunctionalGroupSummary(inputs = {}, lang = "en") {
   if (!entries.length) return lang === "zh" ? "无" : "None"
   return entries.map(({ meta, detail }) => {
     const pos = detail.positions?.length ? detail.positions.join("/") : "—"
-    return `${meta.label} ×${detail.count} @ ${pos}`
+    return `${functionalGroupLabel(meta.label, lang)} ×${detail.count} @ ${pos}`
   }).join("; ")
 }
 
@@ -918,29 +918,252 @@ function NumericField({ label, unit, min, max, step, value, onChange }) {
   )
 }
 
+const ZH_UI_TERMS = {
+  "Literature-backed": "文献支持",
+  "Benchmark-backed": "基准支持",
+  "Model-predicted": "模型预测",
+  "Screening proxy": "筛选代理",
+  "User-defined": "用户定义",
+  "Primary screening": "主要筛选",
+  "Feasibility boundary": "可行性边界",
+  "Shortlist comparison": "入围候选比较",
+  "Future engineering evaluation": "未来工程评估",
+  "Future Stage 4": "未来第 4 阶段",
+  "Stage 1": "第 1 阶段",
+  "Stage 2": "第 2 阶段",
+  "Stage 3": "第 3 阶段",
+  "Stage 2-3": "第 2-3 阶段",
+  "Stage 1 screening": "第 1 阶段筛选",
+  "Stage 1 interpretation": "第 1 阶段解释",
+  "Stage 2 feasibility": "第 2 阶段可行性",
+  "Stage 3 shortlist comparison": "第 3 阶段入围候选比较",
+  "Stage 2 — Feasibility Boundaries": "第 2 阶段 — 可行性边界",
+  "Stage 3 — Secondary Comparison": "第 3 阶段 — 次级比较",
+  "Feasibility Boundaries": "可行性边界",
+  "Feasibility boundary · exploratory only": "可行性边界 · 仅供探索",
+  "Exploratory only": "仅供探索",
+  "Shortlist comparison only": "仅限入围候选比较",
+  "Not formal lifecycle costing": "不是正式生命周期成本",
+  "Not formal LCC, not engineering-grade economics.": "不是正式 LCC，也不是工程级经济评价。",
+  "Practical boundary between scientific screening and shortlist comparison.": "位于科学筛选和入围候选比较之间的实践边界。",
+  "Cost / availability / supply sanity check.": "成本 / 可得性 / 供应 sanity check。",
+  "Use LCA/LCC only after an initial performance filter exists.": "仅在完成初步性能筛选后使用 LCA/LCC。",
+  "Run Stage 1 first": "请先运行第 1 阶段",
+  "Purpose": "用途",
+  "Use stage": "使用阶段",
+  "Interpretation": "解释",
+  "Next layer": "下一层",
+  "Stage": "阶段",
+  "Source type": "来源类型",
+  "Quality": "质量",
+  "Limitation": "限制",
+  "Basis": "依据",
+  "coarse": "粗略",
+  "basis": "依据",
+  "proxy": "代理",
+  "beta": "测试版",
+  "planned": "规划中",
+  "stable": "稳定",
+  "calc": "计算",
+  "connector scaffold": "接入脚手架",
+  "benchmark-backed": "基准支持",
+  "assumption-dependent": "依赖假设",
+  "exploratory": "探索性",
+  "comparative": "比较型",
+  "future engineering-grade": "未来工程级",
+  "screening prototype": "筛选级原型",
+  "backend connected": "后端已连接",
+  "loaded": "已加载",
+  "fallback": "回退数据",
+  "seed": "种子数据",
+  "local seed": "本地种子",
+  "screening_seed": "筛选种子",
+  "reference": "参考",
+  "calculated": "计算值",
+  "estimated": "估算值",
+  "public/data JSON + schema CSV": "public/data JSON + schema CSV",
+  "sketch": "草图",
+  "mentor & friend": "亦师亦友",
+  "High": "高",
+  "Medium": "中",
+  "Low": "低",
+  "Elevated": "较高",
+  "Moderate": "中等",
+  "Lower": "较低",
+  "Custom synthesis likely": "可能需要定制合成",
+  "Gram-scale or specialty supply": "克级或专用供应",
+  "Likely commercially available": "可能可商业购买",
+  "High rough burden": "粗略负担较高",
+  "Moderate rough burden": "粗略负担中等",
+  "Lower rough burden": "粗略负担较低",
+  "Supplier quote / route check": "供应商报价 / 路线核查",
+  "Needed before comparative LCC": "比较型 LCC 前需要补充",
+  "Derived from current proxy catalog": "来自当前代理目录",
+  "Stage 2 feasibility boundary": "第 2 阶段可行性边界",
+  "Linker": "连接体",
+  "Availability": "可得性",
+  "Material burden note": "材料负担提示",
+  "Next evidence": "下一步证据",
+  "Very Low": "很低",
+  "Open metal site": "开放金属位点",
+  "CoRE MOF 2019 + NIST isotherms": "CoRE MOF 2019 + NIST 等温线",
+  "CoRE MOF 2019 — broad GCMC coverage": "CoRE MOF 2019 — GCMC 覆盖较广",
+  "π-complexation MOF literature": "π 配位 MOF 文献",
+  "Anomalous inverse selectivity reported": "已有反常反向选择性报道",
+  "Classical model; quantum diffusion not yet corrected": "经典模型；尚未修正量子扩散",
+  "Public GCMC data scarce; honest gap acknowledged in v1.β.": "公开 GCMC 数据稀缺；v1.β 明确标注该缺口。",
+  "Lewis-basic / H-bond donor": "Lewis 碱性 / 氢键供体",
+  "H-bond donor": "氢键供体",
+  "H-bond donor/acceptor": "氢键供体/受体",
+  "Soft donor (S)": "软供体（S）",
+  "Electron-withdrawing": "吸电子基团",
+  "Electron-withdrawing / polar": "吸电子 / 极性",
+  "Electron-withdrawing / halogen": "吸电子 / 卤素",
+  "Electron-withdrawing / heavy": "吸电子 / 重卤素",
+  "Heavy halogen / polarizable": "重卤素 / 易极化",
+  "Steric / hydrophobic": "位阻 / 疏水",
+  "Strong electron-withdrawing / hydrophobic": "强吸电子 / 疏水",
+  "Bulky hydrophobic substituent": "大位阻疏水取代基",
+  "Weak H-bond acceptor": "弱氢键受体",
+  "Lewis-basic (aromatic N)": "Lewis 碱性（芳香 N）",
+  "Ditopic carboxylate": "二连接羧酸配体",
+  "Ditopic carboxylate+OH": "二连接羧酸 + 羟基配体",
+  "Tritopic carboxylate": "三连接羧酸配体",
+  "Tetratopic porphyrin": "四连接卟啉配体",
+  "Tetratopic carboxylate": "四连接羧酸配体",
+  "Ditopic azolate": "二连接唑类配体",
+  "Strong": "强",
+  "Stable": "稳定",
+  "Sensitive": "敏感",
+  "Completed": "已完成",
+  "Top candidate": "最高候选",
+  "Average selectivity": "平均选择性",
+  "Exportable runs": "可导出记录",
+  "Best selectivity": "最高选择性",
+  "Best eco score": "最高生态评分",
+  "Adjusted LCC": "调整后 LCC",
+  "Adjusted eco score": "调整后生态评分",
+  "Custom LCA score": "自定义 LCA 评分",
+  "Custom LCC": "自定义 LCC",
+  "P05 / P50 / P95": "P05 / P50 / P95",
+  "API connected": "API 已连接",
+  "static fallback": "静态回退",
+  "Browser profile or optional backend prediction.": "浏览器模型配置或可选后端预测。",
+  "Seed benchmark + descriptor input": "种子基准 + 描述符输入",
+  "Applicability warning present.": "存在适用域警告。",
+  "Within prototype descriptor range.": "位于原型描述符范围内。",
+  "Screening-level only": "仅限筛选级",
+  "Not a strict IAST/GCMC or experimental result.": "不是严格 IAST/GCMC 或实验结果。",
+  "Medium-low": "中低",
+  "Apparent": "表观",
+  "Henry proxy": "Henry 代理",
+  "IAST proxy": "IAST 代理",
+  "Method": "方法",
+  "Importance": "重要性",
+  "EXCELLENT": "优秀",
+  "GOOD": "良好",
+  "FAIR": "一般",
+  "POOR": "较差",
+  "Retraining": "真实训练",
+  "front-end profile": "前端配置",
+  "transparent status": "透明状态说明",
+  "static": "静态",
+  "static site": "静态站点",
+  "browser-side model": "浏览器端模型",
+  "public seed": "公开种子数据",
+  "Manifest source": "清单来源",
+  "Model status": "模型状态",
+  "Training origin": "训练来源",
+  "Rows": "训练行数",
+  "Targets": "目标变量",
+  "No API URL set; using static browser model.": "未设置 API 地址；使用静态浏览器端模型。",
+  "Backend prediction used for this run.": "本次运行使用后端预测。",
+  "Static browser model": "静态浏览器端模型",
+  "Parameter": "参数",
+  "Value": "数值",
+  "Control": "控制",
+  "Flow": "流",
+  "Unit": "单位",
+  "Replacement": "替换路线",
+  "LCA/LCC inventory seed": "LCA/LCC 清单种子数据",
+  "public/data/lca_inventory.json with source fields.": "public/data/lca_inventory.json，含来源字段。",
+  "Traceable schema, not full industrial LCI.": "可追溯 schema，但不是完整工业 LCI。",
+  "Exploratory, assumption-dependent, and not engineering-grade.": "探索性、依赖假设，且不是工程级。",
+  "Use only after Stage 1 screening and Stage 2 feasibility boundaries.": "仅在第 1 阶段筛选和第 2 阶段可行性边界之后使用。",
+  "Performance": "性能",
+  "Adsorption performance": "吸附性能",
+  "LCA burden": "LCA 负担",
+  "Current MOF": "当前 MOF",
+  "Low energy": "低能耗",
+  "High recovery": "高回收",
+  "Conservative": "保守情景",
+  "Base": "基准情景",
+  "license": "许可",
+  "records": "条记录",
+  "Current implementation status": "当前实现状态",
+  "What retrained models would add": "重训模型会增加什么",
+}
+
+function zhText(lang, value) {
+  if (lang !== "zh" || typeof value !== "string") return value
+  return ZH_UI_TERMS[value] || value
+}
+
+function gasLabel(label, lang = "en") {
+  if (lang !== "zh") return label
+  return String(label)
+    .replace("Post-combustion capture", "燃烧后捕集")
+    .replace("Natural gas purification", "天然气净化")
+    .replace("Olefin / paraffin separation", "烯烃 / 烷烃分离")
+    .replace("Acetylene purification — reversal risk", "乙炔纯化 — 反转风险")
+    .replace("Hydrogen storage — mid-term", "氢储存 — 中期")
+    .replace("Electronic specialty gases (NF₃, SF₆, C₄F₈) — not yet supported", "电子特气（NF₃、SF₆、C₄F₈）— 暂不支持")
+}
+
+function functionalGroupLabel(label, lang = "en") {
+  if (lang !== "zh") return label
+  return String(label)
+    .replace("(Amine)", "（胺基）")
+    .replace("(Hydroxyl)", "（羟基）")
+    .replace("(Carboxyl)", "（羧基）")
+    .replace("(Thiol)", "（巯基）")
+    .replace("(Nitro)", "（硝基）")
+    .replace("(Fluoro)", "（氟）")
+    .replace("(Chloro)", "（氯）")
+    .replace("(Bromo)", "（溴）")
+    .replace("(Iodo)", "（碘）")
+    .replace("(Methyl)", "（甲基）")
+    .replace("(Trifluoromethyl)", "（三氟甲基）")
+    .replace("(Isopropyl)", "（异丙基）")
+    .replace("(Methoxy)", "（甲氧基）")
+    .replace("(Pyridyl)", "（吡啶基）")
+}
+
 function MetricCard({ label, value, unit, badge, badgeColor, badgeBg, comparison }) {
   const t = useT()
+  const { lang } = useLang()
   return (
     <div style={{ position: "relative", overflow: "hidden", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "14px 16px", boxShadow: t.shadowSm }}>
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${t.accent}, ${t.accentSoft})` }} />
-      <div style={{ color: t.subtle, fontSize: 11, letterSpacing: "0.08em", marginBottom: 6 }}>{label}</div>
+      <div style={{ color: t.subtle, fontSize: 11, letterSpacing: "0.08em", marginBottom: 6 }}>{zhText(lang, label)}</div>
       <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
         <span style={{ color: t.textStrong, fontSize: 28, fontWeight: 700, fontFamily: FONT_MONO }}>{value}</span>
         <span style={{ color: t.faint, fontSize: 13 }}>{unit}</span>
         {badge && (
           <span style={{ marginLeft: 4, padding: "2px 8px", borderRadius: 4, fontSize: 11, fontWeight: 700,
             color: badgeColor, background: badgeBg, letterSpacing: "0.05em" }}>
-            {badge}
+            {zhText(lang, badge)}
           </span>
         )}
       </div>
-      {comparison && <div style={{ color: t.accentText, fontSize: 11, marginTop: 4 }}>{comparison}</div>}
+      {comparison && <div style={{ color: t.accentText, fontSize: 11, marginTop: 4 }}>{zhText(lang, comparison)}</div>}
     </div>
   )
 }
 
 function BasisBadge({ children, tone = "info" }) {
   const t = useT()
+  const { lang } = useLang()
   const palette = {
     info: { color: t.badgeInfoText, bg: t.badgeInfoBg, border: "rgba(110,168,255,0.26)" },
     calc: { color: t.badgeCalcText, bg: t.badgeCalcBg, border: "rgba(156,178,212,0.24)" },
@@ -953,7 +1176,7 @@ function BasisBadge({ children, tone = "info" }) {
     <span style={{ display: "inline-flex", alignItems: "center", width: "fit-content",
       color: palette.color, background: palette.bg, border: `1px solid ${palette.border}`,
       borderRadius: 999, padding: "2px 8px", fontSize: 10, fontWeight: 800, lineHeight: 1.4 }}>
-      {children}
+      {zhText(lang, children)}
     </span>
   )
 }
@@ -973,17 +1196,18 @@ function SourceBadge({ type }) {
 
 function ProvenanceGrid({ items }) {
   const t = useT()
+  const { lang } = useLang()
   const { isNarrow } = useViewport()
   return (
     <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : `repeat(${Math.min(items.length, 4)}, minmax(0, 1fr))`, gap: 10 }}>
       {items.map(item => (
         <div key={item.label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
           <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", marginBottom: 7 }}>
-            <span style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{item.label}</span>
+            <span style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{zhText(lang, item.label)}</span>
             {item.type && <SourceBadge type={item.type} />}
           </div>
-          <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800, lineHeight: 1.35 }}>{item.value}</div>
-          {item.note && <div style={{ color: t.subtle, fontSize: 10, lineHeight: 1.45, marginTop: 5 }}>{item.note}</div>}
+          <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800, lineHeight: 1.35 }}>{zhText(lang, item.value)}</div>
+          {item.note && <div style={{ color: t.subtle, fontSize: 10, lineHeight: 1.45, marginTop: 5 }}>{zhText(lang, item.note)}</div>}
         </div>
       ))}
     </div>
@@ -1103,7 +1327,7 @@ function LinkerSubstitutionPreview({ inputs, linker }) {
           )
         })}
         <text x="115" y="202" textAnchor="middle" fill={t.faint} fontSize="10" fontFamily={FONT_SANS}>
-          {lang === "zh" ? "Structural sketch only · not synthesis validation" : "Structural sketch only · not synthesis validation"}
+          {lang === "zh" ? "仅为结构草图 · 不代表合成验证" : "Structural sketch only · not synthesis validation"}
         </text>
       </svg>
       <div style={{ color: t.subtle, fontSize: 10, lineHeight: 1.55, marginTop: 8 }}>
@@ -1881,12 +2105,12 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
           style={{ ...selectStyle, marginBottom: 10 }}>
           {GAS_SYSTEMS.map(g => (
             <option key={g.id} value={g.id} disabled={g.priority === "unavailable"}>
-              {g.label}
+              {gasLabel(g.label, lang)}
             </option>
           ))}
         </select>
         <div style={{ fontSize: 10, color: gas.priority === "beta" ? t.warn : t.faint, marginBottom: 12 }}>
-          {gas.priority === "beta" ? "⚠ " : "· "}{gas.dataNote}
+          {gas.priority === "beta" ? "⚠ " : "· "}{zhText(lang, gas.dataNote)}
         </div>
 
         <label style={labelStyle}>{c.structure.metalCenter}</label>
@@ -1896,7 +2120,7 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
           {METAL_CENTERS.map(m => <option key={m.value} value={m.value}>{m.label}{m.oms ? " · OMS" : ""}</option>)}
         </select>
         {metal && <div style={{ fontSize: 11, color: metal.color, marginTop: 3, marginBottom: 12 }}>
-          {c.structure.toxicity}: {metal.toxicity} · {c.structure.lca}: {metal.lcaScore}/10 {metal.oms && `· ${c.structure.oms}`}
+          {c.structure.toxicity}: {zhText(lang, metal.toxicity)} · {c.structure.lca}: {metal.lcaScore}/10 {metal.oms && `· ${c.structure.oms}`}
         </div>}
 
         <label style={labelStyle}>{c.structure.organicLinker}</label>
@@ -1907,7 +2131,7 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
         </select>
         {linker && (
           <div style={{ fontSize: 10, color: t.faint, marginBottom: 14, lineHeight: 1.5 }}>
-            {linker.category} · {linker.connectivity}-{c.structure.connected} · {c.structure.position} {linker.positions}
+            {zhText(lang, linker.category)} · {linker.connectivity}-{c.structure.connected} · {c.structure.position} {linker.positions}
           </div>
         )}
 
@@ -1921,12 +2145,12 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
         <label style={labelStyle}>{c.structure.functionalGroups}</label>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 10 }}>
           {FUNCTIONAL_GROUPS.map(fg => (
-            <label key={fg.value} title={fg.category} style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer",
+            <label key={fg.value} title={zhText(lang, fg.category)} style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer",
               color: inputs.functionalGroups.includes(fg.value) ? t.accentSoft : t.subtle, fontSize: 11 }}>
               <input type="checkbox" checked={inputs.functionalGroups.includes(fg.value)}
                 onChange={() => toggleFG(fg.value)}
                 style={{ accentColor: t.accent, width: 13, height: 13 }} />
-              {fg.label}
+              {functionalGroupLabel(fg.label, lang)}
             </label>
           ))}
         </div>
@@ -1935,8 +2159,8 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
             <div key={value} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
               <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", marginBottom: 8 }}>
                 <div>
-                  <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800 }}>{meta.label}</div>
-                  <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.4 }}>{meta.category}</div>
+                  <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800 }}>{functionalGroupLabel(meta.label, lang)}</div>
+                  <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.4 }}>{zhText(lang, meta.category)}</div>
                 </div>
                 <BasisBadge tone="user">{lang === "zh" ? "用户定义" : "user-defined"}</BasisBadge>
               </div>
@@ -2046,7 +2270,7 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
               {lang === "zh" ? "后端预测连接" : "Backend prediction"}
             </span>
             <BasisBadge tone={apiStatus?.ok ? "calc" : "proxy"}>
-              {apiStatus?.ok ? "API connected" : "static fallback"}
+              {apiStatus?.ok ? zhText(lang, "API connected") : zhText(lang, "static fallback")}
             </BasisBadge>
           </div>
           <input
@@ -2057,15 +2281,17 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
           />
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
             <button type="button" onClick={onCheckApi} style={{ ...toolbarBtn(t), padding: "5px 8px", fontSize: 11 }}>
-              Check API
+              {lang === "zh" ? "检查 API" : "Check API"}
             </button>
             <span style={{ color: apiStatus?.ok ? t.success : apiStatus?.checked ? t.warn : t.faint, fontSize: 10, lineHeight: 1.45 }}>
-              {apiStatus?.message || "Browser model is used until a local FastAPI URL is provided."}
+              {apiStatus?.message
+                ? zhText(lang, apiStatus.message)
+                : lang === "zh" ? "填写本地 FastAPI 地址前，将使用浏览器端模型。" : "Browser model is used until a local FastAPI URL is provided."}
             </span>
           </div>
           {apiStatus?.manifest && (
             <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45, marginTop: 7 }}>
-              manifest: {apiStatus.manifest.origin || "—"} · rows {apiStatus.manifest.rows ?? "—"}
+              {lang === "zh" ? "清单" : "manifest"}: {apiStatus.manifest.origin || "—"} · {lang === "zh" ? "行数" : "rows"} {apiStatus.manifest.rows ?? "—"}
             </div>
           )}
         </div>
@@ -2106,8 +2332,8 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
                 {c.structure.cifParsed}: {cifInfo.fileName}
               </div>
               <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55 }}>
-                data: {cifInfo.name || "—"}<br />
-                cell: {[cifInfo.cell.a, cifInfo.cell.b, cifInfo.cell.c].filter(Number.isFinite).join(" / ") || "—"} Å
+                {lang === "zh" ? "数据" : "data"}: {cifInfo.name || "—"}<br />
+                {lang === "zh" ? "晶胞" : "cell"}: {[cifInfo.cell.a, cifInfo.cell.b, cifInfo.cell.c].filter(Number.isFinite).join(" / ") || "—"} Å
               </div>
               <div style={{ color: Object.keys(cifInfo.descriptors).length ? t.success : t.warn, fontSize: 10, lineHeight: 1.5, marginTop: 6 }}>
                 {Object.keys(cifInfo.descriptors).length ? c.structure.cifApplied : c.structure.cifNoDescriptors}
@@ -2193,7 +2419,7 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
 
             <ProvenanceGrid items={[
               { label: "Basis", value: c.common.basisModelPredicted, type: "model", note: "Browser profile or optional backend prediction." },
-              { label: "Source type", value: "Seed benchmark + descriptor input", type: "benchmark", note: `MOF presets, CIF-derived fields, or user input. Groups: ${formatFunctionalGroupSummary(inputs, lang)}` },
+              { label: "Source type", value: "Seed benchmark + descriptor input", type: "benchmark", note: lang === "zh" ? `MOF 预设、CIF 派生字段或用户输入。官能团：${formatFunctionalGroupSummary(inputs, lang)}` : `MOF presets, CIF-derived fields, or user input. Groups: ${formatFunctionalGroupSummary(inputs, lang)}` },
               { label: "Quality", value: results.applicability?.warnings?.length ? "Medium-low" : "Medium", type: "proxy", note: results.applicability?.warnings?.length ? "Applicability warning present." : "Within prototype descriptor range." },
               { label: "Limitation", value: "Screening-level only", type: "proxy", note: "Not a strict IAST/GCMC or experimental result." },
             ]} />
@@ -2212,7 +2438,7 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
                     ["Method", results.selectivityDetails.method],
                   ].map(([label, value]) => (
                     <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
-                      <div style={{ color: t.faint, fontSize: 10, marginBottom: 5 }}>{label}<InfoTip text={label === "Method" ? c.methods.formulaIastBody : c.methods.selectivityBody1} /></div>
+                      <div style={{ color: t.faint, fontSize: 10, marginBottom: 5 }}>{zhText(lang, label)}<InfoTip text={label === "Method" ? c.methods.formulaIastBody : c.methods.selectivityBody1} /></div>
                       <div style={{ color: t.textStrong, fontSize: label === "Method" ? 11 : 18, fontWeight: 800, fontFamily: label === "Method" ? FONT_SANS : FONT_MONO, lineHeight: 1.35 }}>
                         {value}
                       </div>
@@ -2300,7 +2526,7 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
           {[
             ["interpretation", lang === "zh" ? "机理解释" : "Mechanism"],
             ["feasibility", lang === "zh" ? "可行性边界" : "Feasibility"],
-            ["lca", lang === "zh" ? "Shortlist LCA/LCC" : "Shortlist LCA/LCC"],
+            ["lca", lang === "zh" ? "入围候选 LCA/LCC" : "Shortlist LCA/LCC"],
             ["sensitivity", lang === "zh" ? "稳健性" : "Robustness"],
             ["validation", lang === "zh" ? "验证依据" : "Validation"],
           ].map(([tab, label]) => (
@@ -2342,7 +2568,7 @@ function MLPredictionTab({ results, inputs }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
       <PageHeader
-        title={lang === "zh" ? "ML Models" : "ML Models"}
+        title={lang === "zh" ? "机器学习模型" : "ML Models"}
         subtitle={lang === "zh"
           ? "本页说明当前模型成熟度、验证口径和下一步训练路线，重点是诚实展示状态，而不是包装成多个真实后端模型。"
           : "This page explains model maturity, validation basis, and the next training milestone. It is a research-status page, not a showcase of completed backend checkpoints."}
@@ -2351,7 +2577,7 @@ function MLPredictionTab({ results, inputs }) {
       {!results || results.unavailable ? <EmptyState message={c.ml.empty} /> : (
         <>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 12 }}>
-          <MetricCard label={lang === "zh" ? "后端状态" : "Backend status"} value={model.backendStatus || "static"} unit="" comparison={lang === "zh" ? "前端透明配置" : "front-end profile"} />
+          <MetricCard label={lang === "zh" ? "后端状态" : "Backend status"} value={zhText(lang, model.backendStatus || "static")} unit="" comparison={lang === "zh" ? "前端透明配置" : "front-end profile"} />
           <MetricCard label="Holdout R²" value={model.r2.toFixed(3)} unit="" />
           <MetricCard label="MAE" value={model.mae.toFixed(2)} unit="mmol/g" />
           <MetricCard label={lang === "zh" ? "下一里程碑" : "Next milestone"} value={lang === "zh" ? "真实训练" : "Retraining"} unit="" comparison={lang === "zh" ? "每个气体体系单独训练" : "separate model per gas pair"} />
@@ -2374,7 +2600,7 @@ function MLPredictionTab({ results, inputs }) {
               <CartesianGrid strokeDasharray="3 3" stroke={t.border} horizontal={false} />
               <XAxis type="number" tick={{ fill: t.subtle, fontSize: 10 }} domain={[0, 0.35]} tickFormatter={v => `${(v*100).toFixed(0)}%`} />
               <YAxis type="category" dataKey="feature" tick={{ fill: t.muted, fontSize: 12 }} width={108} />
-              <Tooltip formatter={(v) => [`${(v*100).toFixed(1)}%`, "Importance"]} contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
+              <Tooltip formatter={(v) => [`${(v*100).toFixed(1)}%`, lang === "zh" ? "重要性" : "Importance"]} contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
               <Bar dataKey="importance" fill={t.accent} radius={[0,4,4,0]} />
             </BarChart>
           </ResponsiveContainer>
@@ -2610,7 +2836,7 @@ function ThermodynamicsTab({ results }) {
             <div style={{ display: "grid", gap: 10 }}>
               {[
                 [lang === "zh" ? "数据点" : "Data points", uploadedAnalysis.summary.count, lang === "zh" ? "上传/示例等温线" : "uploaded / seed isotherm"],
-                [lang === "zh" ? "温度节点" : "Temperature nodes", uploadedAnalysis.summary.temperatures.join(" / "), uploadedAnalysis.summary.qstReady ? "Qst-ready scaffold" : "needs more temperatures"],
+                [lang === "zh" ? "温度节点" : "Temperature nodes", uploadedAnalysis.summary.temperatures.join(" / "), uploadedAnalysis.summary.qstReady ? (lang === "zh" ? "Qst 就绪脚手架" : "Qst-ready scaffold") : (lang === "zh" ? "需要更多温度点" : "needs more temperatures")],
                 ["Langmuir qmax", primaryUploadedFit ? primaryUploadedFit.fit.qmax : "—", "mmol/g"],
                 ["Henry", primaryUploadedFit ? primaryUploadedFit.fit.henry : "—", "mmol/g/bar"],
               ].map(([label, value, sub]) => (
@@ -2740,9 +2966,9 @@ function FeasibilityTab({ results, inputs }) {
   const availability = hasComplexLinker ? "Custom synthesis likely" : linkerScore < 5.8 ? "Gram-scale or specialty supply" : "Likely commercially available"
   const supplyRisk = hasComplexLinker || hasRareMetal ? "Elevated" : linker?.fossil ? "Moderate" : "Lower"
   const rows = lang === "zh" ? [
-    ["连接体可得性", availability, "commercial / gram-scale / custom synthesis 的粗略判断。"],
-    ["成本 sanity check", costBand, "低 / 中 / 高成本带，用于排除明显不适合放大的路线。"],
-    ["稀缺或前驱体风险", hasRareMetal ? "有金属供应风险" : "未触发稀缺金属警告", `${inputs.metalCenter} · metal score ${metalScore}/10`],
+    ["连接体可得性", zhText(lang, availability), "商业购买 / 克级供应 / 定制合成的粗略判断。"],
+    ["成本 sanity check", zhText(lang, costBand), "低 / 中 / 高成本带，用于排除明显不适合放大的路线。"],
+    ["稀缺或前驱体风险", hasRareMetal ? "有金属供应风险" : "未触发稀缺金属警告", `${inputs.metalCenter} · 金属评分 ${metalScore}/10`],
     ["供应瓶颈风险", supplyRisk, hasComplexLinker ? "复杂芳香/卟啉/大型连接体可能需要定制合成。" : "未发现明显连接体瓶颈。"],
   ] : [
     ["Linker availability", availability, "Coarse commercial / gram-scale / custom-synthesis classification."],
@@ -2766,7 +2992,7 @@ function FeasibilityTab({ results, inputs }) {
         subtitle={lang === "zh"
           ? "在科学筛选之后、正式 LCC 之前，检查粗略成本、可得性、供应和用途尺度边界。"
           : "After scientific screening and before formal LCC, check rough cost, availability, supply, and use-scale boundaries."}
-        meta={lang === "zh" ? "Feasibility boundary · exploratory only" : "Feasibility boundary · exploratory only"}
+        meta={lang === "zh" ? "可行性边界 · 仅供探索" : "Feasibility boundary · exploratory only"}
         action={<BasisBadge tone="proxy">{lang === "zh" ? "不是正式生命周期成本" : "Not formal lifecycle costing"}</BasisBadge>}
       />
 
@@ -2780,7 +3006,7 @@ function FeasibilityTab({ results, inputs }) {
         {rows.map(([label, value, note]) => (
           <div key={label} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14, borderTop: `3px solid ${label.includes("Cost") || label.includes("成本") ? t.lccAccent : t.validationAccent}` }}>
             <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 8 }}>{label}</div>
-            <div style={{ color: t.textStrong, fontSize: 17, fontWeight: 850, lineHeight: 1.25 }}>{value}</div>
+            <div style={{ color: t.textStrong, fontSize: 17, fontWeight: 850, lineHeight: 1.25 }}>{zhText(lang, value)}</div>
             <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 8 }}>{note}</div>
           </div>
         ))}
@@ -2791,15 +3017,15 @@ function FeasibilityTab({ results, inputs }) {
           <SectionTitle>{lang === "zh" ? "连接体与路线提示" : "Linker and route cues"}</SectionTitle>
           <div style={{ display: "grid", gap: 10 }}>
             {[
-              [lang === "zh" ? "连接体" : "Linker", inputs.organicLinker, linker?.category || "—"],
-              [lang === "zh" ? "可得性" : "Availability", availability, "Stage 2 feasibility boundary"],
-              [lang === "zh" ? "材料负担提示" : "Material burden note", costBand === "High" ? "High rough burden" : costBand === "Medium" ? "Moderate rough burden" : "Lower rough burden", "Derived from current proxy catalog"],
-              [lang === "zh" ? "下一步" : "Next evidence", "Supplier quote / route check", "Needed before comparative LCC"],
+              [lang === "zh" ? "连接体" : "Linker", inputs.organicLinker, zhText(lang, linker?.category || "—")],
+              [lang === "zh" ? "可得性" : "Availability", zhText(lang, availability), zhText(lang, "Stage 2 feasibility boundary")],
+              [lang === "zh" ? "材料负担提示" : "Material burden note", zhText(lang, costBand === "High" ? "High rough burden" : costBand === "Medium" ? "Moderate rough burden" : "Lower rough burden"), zhText(lang, "Derived from current proxy catalog")],
+              [lang === "zh" ? "下一步" : "Next evidence", zhText(lang, "Supplier quote / route check"), zhText(lang, "Needed before comparative LCC")],
             ].map(([label, value, note]) => (
               <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", gap: 10 }}>
                   <span style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{label}</span>
-                  <BasisBadge tone="proxy">coarse</BasisBadge>
+                  <BasisBadge tone="proxy">{zhText(lang, "coarse")}</BasisBadge>
                 </div>
                 <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850, marginTop: 6 }}>{value}</div>
                 <div style={{ color: t.subtle, fontSize: 10, lineHeight: 1.45, marginTop: 5 }}>{note}</div>
@@ -2881,12 +3107,12 @@ function LCAScoringTab({ results, inputs }) {
     setLcaParams(prev => ({ ...prev, [key]: Number.isFinite(usdValue) ? usdValue : prev[key] }))
   }
   const lcaParamRows = [
-    ["electricityPrice", `Electricity price (${currency.unit}/kWh)`, displayPrice(lcaParams.electricityPrice, 3), 0.01, 0.5 * currency.rate, 0.01, "price"],
-    ["solventRecovery", "Solvent recovery (%)", lcaParams.solventRecovery, 0, 99, 1, "plain"],
-    ["materialLifetime", "Material lifetime (years)", lcaParams.materialLifetime, 1, 30, 1, "plain"],
-    ["regenerationCycles", "Regeneration cycles", lcaParams.regenerationCycles, 100, 10000, 100, "plain"],
-    ["metalPrice", `Metal precursor (${currency.unit}/kg)`, displayPrice(lcaParams.metalPrice, 1), 1, 500 * currency.rate, 1, "price"],
-    ["linkerPrice", `Linker price (${currency.unit}/kg)`, displayPrice(lcaParams.linkerPrice, 1), 1, 800 * currency.rate, 1, "price"],
+    ["electricityPrice", lang === "zh" ? `电价（${currency.unit}/kWh）` : `Electricity price (${currency.unit}/kWh)`, displayPrice(lcaParams.electricityPrice, 3), 0.01, 0.5 * currency.rate, 0.01, "price"],
+    ["solventRecovery", lang === "zh" ? "溶剂回收率（%）" : "Solvent recovery (%)", lcaParams.solventRecovery, 0, 99, 1, "plain"],
+    ["materialLifetime", lang === "zh" ? "材料寿命（年）" : "Material lifetime (years)", lcaParams.materialLifetime, 1, 30, 1, "plain"],
+    ["regenerationCycles", lang === "zh" ? "再生循环次数" : "Regeneration cycles", lcaParams.regenerationCycles, 100, 10000, 100, "plain"],
+    ["metalPrice", lang === "zh" ? `金属前驱体（${currency.unit}/kg）` : `Metal precursor (${currency.unit}/kg)`, displayPrice(lcaParams.metalPrice, 1), 1, 500 * currency.rate, 1, "price"],
+    ["linkerPrice", lang === "zh" ? `连接体价格（${currency.unit}/kg）` : `Linker price (${currency.unit}/kg)`, displayPrice(lcaParams.linkerPrice, 1), 1, 800 * currency.rate, 1, "price"],
   ]
   const sourceRows = inventoryRows.length ? inventoryRows : [
     { flow: "metal precursor", unit: "kg/kg_mof", price_usd_per_unit: 24, source_type: "proxy", source_ref: "seed-inventory", assumption: "Metal burden scaled by selected node", roadmap_replacement: "Replace with supplier-specific LCI and price database", price_source: "Screening seed value" },
@@ -2921,7 +3147,7 @@ function LCAScoringTab({ results, inputs }) {
             buildReportHtml(results, inputs, decision, c, lcaParams),
             "text/html"
           )} style={toolbarBtn(t)}>
-            ↓ HTML/PDF template
+            ↓ {lang === "zh" ? "HTML/PDF 模板" : "HTML/PDF template"}
           </button>
           <button onClick={() => window.print()} style={toolbarBtn(t)}>
             ⎙ {c.common.printPdf}
@@ -2964,14 +3190,14 @@ function LCAScoringTab({ results, inputs }) {
           <ResponsiveContainer width="100%" height={420}>
             <ScatterChart margin={{ top: 18, right: 24, bottom: 26, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
-              <XAxis type="number" dataKey="performance" name="Performance" tick={{ fill: t.subtle, fontSize: 11 }}
-                label={{ value: "Adsorption performance", fill: t.subtle, fontSize: 11, dy: 18 }} />
-              <YAxis type="number" dataKey="burden" name="LCA burden" tick={{ fill: t.subtle, fontSize: 11 }}
-                label={{ value: "LCA burden", fill: t.subtle, fontSize: 11, angle: -90, dx: -10 }} />
+              <XAxis type="number" dataKey="performance" name={zhText(lang, "Performance")} tick={{ fill: t.subtle, fontSize: 11 }}
+                label={{ value: zhText(lang, "Adsorption performance"), fill: t.subtle, fontSize: 11, dy: 18 }} />
+              <YAxis type="number" dataKey="burden" name={zhText(lang, "LCA burden")} tick={{ fill: t.subtle, fontSize: 11 }}
+                label={{ value: zhText(lang, "LCA burden"), fill: t.subtle, fontSize: 11, angle: -90, dx: -10 }} />
               <ZAxis type="number" dataKey="cost" range={[180, 980]} />
               <Tooltip cursor={{ strokeDasharray: "3 3" }} contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }}
                 formatter={(value, name) => [value, name]} />
-              <Scatter name={inputs.mofName || "Current MOF"} data={tradeoffData} fill={t.accent} />
+              <Scatter name={inputs.mofName || zhText(lang, "Current MOF")} data={tradeoffData} fill={t.accent} />
             </ScatterChart>
           </ResponsiveContainer>
           <div style={{ display: "grid", gap: 10 }}>
@@ -2985,9 +3211,9 @@ function LCAScoringTab({ results, inputs }) {
       <div style={chartCardStyle}>
         <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", marginBottom: 12 }}>
           <div>
-            <SectionTitle>User-defined LCA / LCC parameter table</SectionTitle>
+            <SectionTitle>{lang === "zh" ? "用户定义 LCA / LCC 参数表" : "User-defined LCA / LCC parameter table"}</SectionTitle>
             <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
-              Screening-level scenario controls for electricity price, solvent recovery, lifetime, cycles, and precursor prices.
+              {lang === "zh" ? "筛选级情景控制项：电价、溶剂回收率、寿命、循环次数和前驱体价格。" : "Screening-level scenario controls for electricity price, solvent recovery, lifetime, cycles, and precursor prices."}
               {" "}{c.lca.currencyNote}
             </div>
           </div>
@@ -3005,7 +3231,7 @@ function LCAScoringTab({ results, inputs }) {
               <thead>
                 <tr style={{ background: t.surface }}>
                   {["Parameter", "Value", "Control"].map(h => (
-                    <th key={h} style={{ padding: "9px 10px", color: t.subtle, fontSize: 11, textAlign: "left", borderBottom: `1px solid ${t.border}` }}>{h}</th>
+                    <th key={h} style={{ padding: "9px 10px", color: t.subtle, fontSize: 11, textAlign: "left", borderBottom: `1px solid ${t.border}` }}>{zhText(lang, h)}</th>
                   ))}
                 </tr>
               </thead>
@@ -3027,8 +3253,8 @@ function LCAScoringTab({ results, inputs }) {
             </table>
           </div>
           <div style={{ display: "grid", gap: 10 }}>
-            <MetricCard label="Adjusted LCC" value={displayMoney(adjustedLcc)} unit="/kg MOF" comparison={`base ${displayMoney(totalLcc)}`} />
-            <MetricCard label="Adjusted eco score" value={adjustedGreenScore} unit="/10" comparison={`base ${lca.compositeGreenScore}/10`} />
+            <MetricCard label={zhText(lang, "Adjusted LCC")} value={displayMoney(adjustedLcc)} unit="/kg MOF" comparison={lang === "zh" ? `基准 ${displayMoney(totalLcc)}` : `base ${displayMoney(totalLcc)}`} />
+            <MetricCard label={zhText(lang, "Adjusted eco score")} value={adjustedGreenScore} unit="/10" comparison={lang === "zh" ? `基准 ${lca.compositeGreenScore}/10` : `base ${lca.compositeGreenScore}/10`} />
           </div>
         </div>
       </div>
@@ -3262,8 +3488,8 @@ function LCAScoringTab({ results, inputs }) {
             <table style={{ width: "100%", minWidth: 860, borderCollapse: "collapse" }}>
               <thead>
                 <tr style={{ background: t.panel }}>
-                  {["Flow", "Unit", `Price (${currencyCode})`, c.common.priceSource, c.common.sourceBasis, "Replacement"].map(header => (
-                    <th key={header} style={{ padding: "8px 10px", color: t.subtle, fontSize: 11, textAlign: "left", borderBottom: `1px solid ${t.border}` }}>{header}</th>
+                  {["Flow", "Unit", lang === "zh" ? `价格（${currencyCode}）` : `Price (${currencyCode})`, c.common.priceSource, c.common.sourceBasis, "Replacement"].map(header => (
+                    <th key={header} style={{ padding: "8px 10px", color: t.subtle, fontSize: 11, textAlign: "left", borderBottom: `1px solid ${t.border}` }}>{zhText(lang, header)}</th>
                   ))}
                 </tr>
               </thead>
@@ -3359,9 +3585,9 @@ function InterpretationTab({ results, inputs }) {
           <LineChart data={mainQst}>
             <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
             <XAxis dataKey="loading" stroke={t.faint} tick={{ fill: t.subtle, fontSize: 11 }}
-              label={{ value: "Loading (mmol/g)", fill: t.subtle, fontSize: 11, dy: 12 }} />
+              label={{ value: lang === "zh" ? "吸附量 (mmol/g)" : "Loading (mmol/g)", fill: t.subtle, fontSize: 11, dy: 12 }} />
             <YAxis stroke={t.faint} tick={{ fill: t.subtle, fontSize: 11 }} domain={['auto','auto']}
-              label={{ value: "Qst (kJ/mol)", fill: t.subtle, fontSize: 11, angle: -90, dx: -12 }} />
+              label={{ value: lang === "zh" ? "Qst (kJ/mol)" : "Qst (kJ/mol)", fill: t.subtle, fontSize: 11, angle: -90, dx: -12 }} />
             <Tooltip content={<CustomTooltip unitX="mmol/g" unitY="kJ/mol" />} />
             <Line type="monotone" dataKey="qst" stroke={t.accent} strokeWidth={3} dot={false} name="Qst" />
           </LineChart>
@@ -3374,9 +3600,9 @@ function InterpretationTab({ results, inputs }) {
           <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.65 }}>{c.interpretation.structuralBody}</div>
           <div style={{ marginTop: 12, display: "grid", gap: 8 }}>
             {[
-              ["Metal", `${inputs.metalCenter} · LCA ${metal?.lcaScore ?? "—"}/10`],
-              ["Linker", `${inputs.organicLinker} · ${linker?.category ?? "—"}`],
-              ["Pore", `${inputs.poreDiameter} Å · BET ${inputs.betSurfaceArea} m²/g`],
+              [lang === "zh" ? "金属" : "Metal", `${inputs.metalCenter} · LCA ${metal?.lcaScore ?? "—"}/10`],
+              [lang === "zh" ? "连接体" : "Linker", `${inputs.organicLinker} · ${functionalGroupLabel(linker?.category ?? "—", lang)}`],
+              [lang === "zh" ? "孔结构" : "Pore", `${inputs.poreDiameter} Å · BET ${inputs.betSurfaceArea} m²/g`],
             ].map(([label, value]) => (
               <div key={label} style={{ display: "flex", justifyContent: "space-between", gap: 10, color: t.muted, fontSize: 12 }}>
                 <span style={{ color: t.faint }}>{label}</span><span>{value}</span>
@@ -3474,7 +3700,7 @@ function SensitivityTab({ results, inputs }) {
           <h1 style={{ margin: 0, color: t.textStrong, fontSize: 24 }}>{c.sensitivityPage.title}</h1>
           <p style={{ margin: "6px 0 0", color: t.muted, fontSize: 13, lineHeight: 1.6 }}>{c.sensitivityPage.subtitle}</p>
         </div>
-        <button type="button" onClick={exportSensitivityCsv} style={toolbarBtn(t)}>↓ Sensitivity CSV</button>
+        <button type="button" onClick={exportSensitivityCsv} style={toolbarBtn(t)}>↓ {lang === "zh" ? "敏感性 CSV" : "Sensitivity CSV"}</button>
       </div>
       <Callout tone="info">
         <strong>{lang === "zh" ? "这个页面的用途：" : "What this page is for:"}</strong>{" "}
@@ -3548,7 +3774,7 @@ function SensitivityTab({ results, inputs }) {
             {scenarioPresets.map(item => (
               <button key={item.label} type="button" onClick={() => setCustomScenario(item.values)}
                 style={{ ...toolbarBtn(t), padding: "4px 9px", fontSize: 11 }}>
-                {item.label}
+                {zhText(lang, item.label)}
               </button>
             ))}
           </div>
@@ -3727,10 +3953,10 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
         <ResponsiveContainer width="100%" height={410}>
           <ScatterChart margin={{ top: 12, right: 24, bottom: 28, left: 6 }}>
             <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
-            <XAxis type="number" dataKey="reference" name="Reference" tick={{ fill: t.subtle, fontSize: 11 }}
-              label={{ value: "Reference uptake", fill: t.subtle, fontSize: 11, dy: 18 }} />
-            <YAxis type="number" dataKey="predicted" name="Predicted" tick={{ fill: t.subtle, fontSize: 11 }}
-              label={{ value: "Predicted uptake", fill: t.subtle, fontSize: 11, angle: -90, dx: -10 }} />
+            <XAxis type="number" dataKey="reference" name={lang === "zh" ? "参考值" : "Reference"} tick={{ fill: t.subtle, fontSize: 11 }}
+              label={{ value: lang === "zh" ? "参考吸附量" : "Reference uptake", fill: t.subtle, fontSize: 11, dy: 18 }} />
+            <YAxis type="number" dataKey="predicted" name={lang === "zh" ? "预测值" : "Predicted"} tick={{ fill: t.subtle, fontSize: 11 }}
+              label={{ value: lang === "zh" ? "预测吸附量" : "Predicted uptake", fill: t.subtle, fontSize: 11, angle: -90, dx: -10 }} />
             <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
             <ReferenceLine segment={[{ x: 0, y: 0 }, { x: 10, y: 10 }]} stroke={t.validationAccent} strokeDasharray="4 4" />
             <Scatter data={validationData} fill={t.accent} />
@@ -3738,7 +3964,7 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
         </ResponsiveContainer>
         <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
           {lang === "zh"
-            ? "当前 parity plot 是 seed benchmark 演示结构；科研级版本应替换为冻结外部测试集。"
+            ? "当前一致性图是种子基准演示结构；科研级版本应替换为冻结外部测试集。"
             : "This parity plot uses a seed benchmark demonstration; a research-grade version should replace it with a frozen external test set."}
         </div>
       </div>
@@ -3753,14 +3979,14 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
                 : "Reads public/data/training_manifest.json; if a local FastAPI URL is provided, /models/manifest takes priority."}
             </div>
           </div>
-          <button type="button" onClick={onCheckApi} style={toolbarBtn(t)}>Check API</button>
+          <button type="button" onClick={onCheckApi} style={toolbarBtn(t)}>{lang === "zh" ? "检查 API" : "Check API"}</button>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
           {[
-            [lang === "zh" ? "清单来源" : "Manifest source", manifestSource, apiUrl || "static site"],
-            [lang === "zh" ? "模型状态" : "Model status", apiStatus?.ok ? "backend connected" : "static fallback", apiStatus?.message || "browser-side model"],
+            [lang === "zh" ? "清单来源" : "Manifest source", zhText(lang, manifestSource), apiUrl || zhText(lang, "static site")],
+            [lang === "zh" ? "模型状态" : "Model status", apiStatus?.ok ? zhText(lang, "backend connected") : zhText(lang, "static fallback"), apiStatus?.message ? zhText(lang, apiStatus.message) : zhText(lang, "browser-side model")],
             [lang === "zh" ? "训练来源" : "Training origin", manifest?.origin || "—", manifest?.warning || "—"],
-            [lang === "zh" ? "训练行数" : "Rows", manifest?.rows ?? "—", (manifest?.source_files || []).join(" · ") || "public seed"],
+            [lang === "zh" ? "训练行数" : "Rows", manifest?.rows ?? "—", (manifest?.source_files || []).join(" · ") || zhText(lang, "public seed")],
             [lang === "zh" ? "目标变量" : "Targets", (manifest?.targets || []).join(" / ") || "—", (manifest?.models || []).join(" / ") || "—"],
           ].map(([label, value, sub]) => (
             <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11, minHeight: 96 }}>
@@ -3789,7 +4015,7 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
               <XAxis dataKey="name" tick={{ fill: t.subtle, fontSize: 9, angle: -35, textAnchor: "end" }} interval={0} height={60} />
               <YAxis tick={{ fill: t.subtle, fontSize: 10 }} />
               <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
-              <Bar dataKey="residual" name="Predicted - reference" fill={t.validationAccent} radius={[4, 4, 0, 0]} />
+              <Bar dataKey="residual" name={lang === "zh" ? "预测 - 参考" : "Predicted - reference"} fill={t.validationAccent} radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -3803,12 +4029,12 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
               <XAxis dataKey="bin" tick={{ fill: t.subtle, fontSize: 10, angle: -18, textAnchor: "end" }} height={42} />
               <YAxis allowDecimals={false} tick={{ fill: t.subtle, fontSize: 10 }} />
               <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
-              <Bar dataKey="count" name="count" fill={t.validationAccent} radius={[4, 4, 0, 0]} />
+              <Bar dataKey="count" name={lang === "zh" ? "数量" : "count"} fill={t.validationAccent} radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
           <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
             {lang === "zh"
-              ? "这里展示的是 seed benchmark 的演示误差分布，用于说明验证页结构；真实外部验证集接入后应替换这些点。"
+              ? "这里展示的是种子基准的演示误差分布，用于说明验证页结构；真实外部验证集接入后应替换这些点。"
               : "This is a seed-benchmark demonstration of the validation layout; replace it with a true external test set before making model-generalization claims."}
           </div>
         </div>
@@ -3840,10 +4066,10 @@ function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi }) {
         </summary>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 12 }}>
           <button type="button" onClick={() => downloadTextFile("ecomof_validation_summary.md", validationReport, "text/markdown")} style={toolbarBtn(t)}>
-            ↓ Validation MD
+            ↓ {lang === "zh" ? "验证 MD" : "Validation MD"}
           </button>
           <button type="button" onClick={() => downloadTextFile("ecomof_validation_points.csv", validationCsv, "text/csv")} style={toolbarBtn(t)}>
-            ↓ Validation CSV
+            ↓ {lang === "zh" ? "验证 CSV" : "Validation CSV"}
           </button>
         </div>
       </details>
@@ -3912,11 +4138,11 @@ function LiteratureTab({ results, inputs }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
       <PageHeader
-        title={lang === "zh" ? "Database" : "Database"}
+        title={lang === "zh" ? "数据库" : "Database"}
         subtitle={lang === "zh"
           ? "以 benchmark 和 reference browser 的方式浏览材料；重点看材料为什么值得对照，而不是先进入密集数据表。"
           : "Browse materials as a benchmark and reference browser; the first view emphasizes why each case matters instead of starting from a dense backend table."}
-        action={<BasisBadge tone={dataStatus === "loaded" ? "calc" : "proxy"}>{dataStatus}</BasisBadge>}
+        action={<BasisBadge tone={dataStatus === "loaded" ? "calc" : "proxy"}>{zhText(lang, dataStatus)}</BasisBadge>}
       />
 
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }}>
@@ -3925,10 +4151,10 @@ function LiteratureTab({ results, inputs }) {
           style={{ flex: "1 1 280px", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6,
             padding: "10px 14px", color: t.text, fontSize: 13, outline: "none" }} />
         <select value={sortKey} onChange={e => setSortKey(e.target.value)} style={{ ...selectStyle, width: 210, background: t.surface }}>
-          <option value="co2">Sort by CO₂ Uptake</option>
-          <option value="selectivity">Sort by Selectivity</option>
-          <option value="bet">Sort by BET Surface Area</option>
-          <option value="pv">Sort by Pore Volume</option>
+          <option value="co2">{lang === "zh" ? "按 CO₂ 吸附量排序" : "Sort by CO₂ Uptake"}</option>
+          <option value="selectivity">{lang === "zh" ? "按选择性排序" : "Sort by Selectivity"}</option>
+          <option value="bet">{lang === "zh" ? "按 BET 比表面积排序" : "Sort by BET Surface Area"}</option>
+          <option value="pv">{lang === "zh" ? "按孔体积排序" : "Sort by Pore Volume"}</option>
         </select>
         <button type="button" onClick={exportDatabaseCsv} style={toolbarBtn(t)}>
           ↓ CSV
@@ -3942,18 +4168,18 @@ function LiteratureTab({ results, inputs }) {
               <div style={{ color: t.textStrong, fontSize: 24, fontWeight: 800 }}>{filtered[0]?.name || "UiO-66"}</div>
               <div style={{ color: t.muted, fontSize: 13, lineHeight: 1.65, marginTop: 8, maxWidth: 620 }}>
                 {lang === "zh"
-                  ? "Featured benchmark 用来快速建立解释参照：结构稳定性、孔结构、选择性趋势和公开标签覆盖都比普通候选更适合作为对照。"
+                  ? "重点基准用于快速建立解释参照：结构稳定性、孔结构、选择性趋势和公开标签覆盖都比普通候选更适合作为对照。"
                   : "The featured benchmark provides an interpretation anchor for stability, pore structure, selectivity trends, and public-label coverage."}
               </div>
             </div>
-            <BasisBadge tone="info">{filtered[0]?.sourceType || "benchmark-backed"}</BasisBadge>
+            <BasisBadge tone="info">{zhText(lang, filtered[0]?.sourceType || "benchmark-backed")}</BasisBadge>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
             {[
               ["PLD/LCD", `${filtered[0]?.pd ?? "—"} / ${filtered[0]?.lcd ?? "—"} Å`],
               ["BET/PV", `${Number(filtered[0]?.bet || 0).toLocaleString()} / ${filtered[0]?.pv ?? "—"}`],
-              ["CO2 uptake", filtered[0]?.co2 ?? "—"],
-              ["Selectivity", filtered[0]?.selectivity ?? "—"],
+              [lang === "zh" ? "CO₂ 吸附量" : "CO2 uptake", filtered[0]?.co2 ?? "—"],
+              [lang === "zh" ? "选择性" : "Selectivity", filtered[0]?.selectivity ?? "—"],
             ].map(([label, value]) => (
               <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
                 <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{label}</div>
@@ -3966,10 +4192,10 @@ function LiteratureTab({ results, inputs }) {
           <SectionTitle>{lang === "zh" ? "筛选类别" : "Filter categories"}</SectionTitle>
           <div style={{ display: "grid", gap: 9 }}>
             {[
-              ["Benchmark-backed", filtered.filter(item => item.qualityFlag || item.sourceType).length],
-              ["Open metal site", filtered.filter(item => item.oms).length],
-              ["High selectivity", filtered.filter(item => Number(item.selectivity) >= 30).length],
-              ["Structure records", structureRows.length || databaseRecords.length],
+              [lang === "zh" ? "基准支持" : "Benchmark-backed", filtered.filter(item => item.qualityFlag || item.sourceType).length],
+              [lang === "zh" ? "开放金属位点" : "Open metal site", filtered.filter(item => item.oms).length],
+              [lang === "zh" ? "高选择性" : "High selectivity", filtered.filter(item => Number(item.selectivity) >= 30).length],
+              [lang === "zh" ? "结构记录" : "Structure records", structureRows.length || databaseRecords.length],
             ].map(([label, count]) => (
               <div key={label} style={{ display: "flex", justifyContent: "space-between", gap: 10, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "10px 12px" }}>
                 <span style={{ color: t.muted, fontSize: 12 }}>{label}</span>
@@ -3985,14 +4211,14 @@ function LiteratureTab({ results, inputs }) {
           <div key={item.name} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
             <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 8 }}>
               <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 800 }}>{item.name}</div>
-              <BasisBadge tone="info">{item.sourceDatabase || "seed"}</BasisBadge>
+              <BasisBadge tone="info">{zhText(lang, item.sourceDatabase || "seed")}</BasisBadge>
             </div>
             <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55 }}>
               {item.oms
-                ? (lang === "zh" ? "Open metal site benchmark with adsorption relevance." : "Open metal site benchmark with adsorption relevance.")
-                : (lang === "zh" ? "Reference material for structure-performance comparison." : "Reference material for structure-performance comparison.")}
+                ? (lang === "zh" ? "具有吸附相关性的开放金属位点基准。" : "Open metal site benchmark with adsorption relevance.")
+                : (lang === "zh" ? "用于结构-性能比较的参考材料。" : "Reference material for structure-performance comparison.")}
             </div>
-            <div style={{ color: t.faint, fontSize: 10, marginTop: 9 }}>{item.qualityFlag || item.sourceType || "screening_seed"}</div>
+            <div style={{ color: t.faint, fontSize: 10, marginTop: 9 }}>{zhText(lang, item.qualityFlag || item.sourceType || "screening_seed")}</div>
           </div>
         ))}
       </div>
@@ -4063,20 +4289,20 @@ function LiteratureTab({ results, inputs }) {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 12 }}>
             {[
               { label: c.common.currentCandidate, name: inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`, co2: results.primaryUptake, selectivity: results.selectivity, tone: "calc" },
-              { label: `${c.common.benchmarkBest} CO2`, name: bestCo2.name, co2: bestCo2.co2, selectivity: bestCo2.selectivity, tone: "info" },
-              { label: `${c.common.benchmarkBest} Sel.`, name: bestSelectivity.name, co2: bestSelectivity.co2, selectivity: bestSelectivity.selectivity, tone: "info" },
+              { label: `${c.common.benchmarkBest} CO₂`, name: bestCo2.name, co2: bestCo2.co2, selectivity: bestCo2.selectivity, tone: "info" },
+              { label: `${c.common.benchmarkBest} ${lang === "zh" ? "选择性" : "Sel."}`, name: bestSelectivity.name, co2: bestSelectivity.co2, selectivity: bestSelectivity.selectivity, tone: "info" },
             ].map(item => (
               <div key={item.label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 8 }}>
                   <span style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{item.label}</span>
-                  <BasisBadge tone={item.tone}>{item.tone === "calc" ? c.common.basisModelPredicted : "Literature"}</BasisBadge>
+                  <BasisBadge tone={item.tone}>{item.tone === "calc" ? c.common.basisModelPredicted : (lang === "zh" ? "文献" : "Literature")}</BasisBadge>
                 </div>
                 <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 800 }}>{item.name}</div>
                 <div style={{ color: t.subtle, fontSize: 12, marginTop: 8, display: "flex", justifyContent: "space-between" }}>
                   <span>CO2</span><strong>{item.co2}</strong>
                 </div>
                 <div style={{ color: t.subtle, fontSize: 12, marginTop: 4, display: "flex", justifyContent: "space-between" }}>
-                  <span>Selectivity</span><strong>{item.selectivity}</strong>
+                  <span>{lang === "zh" ? "选择性" : "Selectivity"}</span><strong>{item.selectivity}</strong>
                 </div>
               </div>
             ))}
@@ -4087,18 +4313,18 @@ function LiteratureTab({ results, inputs }) {
       {compareItems.length > 0 && (
         <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
           <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", marginBottom: 10 }}>
-            <SectionTitle>Multi-MOF compare dashboard</SectionTitle>
+            <SectionTitle>{lang === "zh" ? "多 MOF 比较看板" : "Multi-MOF compare dashboard"}</SectionTitle>
             <button type="button" onClick={exportCompareCsv} style={{ ...toolbarBtn(t), padding: "4px 9px", fontSize: 11 }}>
-              ↓ Compare CSV
+              ↓ {lang === "zh" ? "比较 CSV" : "Compare CSV"}
             </button>
           </div>
           <ResponsiveContainer width="100%" height={280}>
             <ScatterChart margin={{ top: 18, right: 24, bottom: 24, left: 8 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
               <XAxis type="number" dataKey="uptake" tick={{ fill: t.subtle, fontSize: 10 }}
-                label={{ value: "CO2 uptake / predicted primary uptake", fill: t.subtle, fontSize: 10, dy: 16 }} />
+                label={{ value: lang === "zh" ? "CO₂ 吸附量 / 预测主组分吸附量" : "CO2 uptake / predicted primary uptake", fill: t.subtle, fontSize: 10, dy: 16 }} />
               <YAxis type="number" dataKey="selectivity" tick={{ fill: t.subtle, fontSize: 10 }}
-                label={{ value: "Selectivity", fill: t.subtle, fontSize: 10, angle: -90, dx: -10 }} />
+                label={{ value: lang === "zh" ? "选择性" : "Selectivity", fill: t.subtle, fontSize: 10, angle: -90, dx: -10 }} />
               <ZAxis type="number" dataKey="lca" range={[90, 540]} />
               <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />
               <Scatter data={compareItems.slice(1)} fill={t.accent} name={c.common.benchmarkSet} />
@@ -4109,7 +4335,7 @@ function LiteratureTab({ results, inputs }) {
             {compareItems.slice(0, 8).map(item => (
               <div key={item.name} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
                 <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800 }}>{item.name}</div>
-                <div style={{ color: t.faint, fontSize: 10, marginTop: 4 }}>{item.sourceType}</div>
+                <div style={{ color: t.faint, fontSize: 10, marginTop: 4 }}>{zhText(lang, item.sourceType)}</div>
               </div>
             ))}
           </div>
@@ -4122,10 +4348,10 @@ function LiteratureTab({ results, inputs }) {
           style={{ flex: "1 1 260px", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6,
             padding: "9px 14px", color: t.text, fontSize: 13, outline: "none" }} />
         <select value={sortKey} onChange={e => setSortKey(e.target.value)} style={{ ...selectStyle, width: 200 }}>
-          <option value="co2">Sort by CO₂ Uptake</option>
-          <option value="selectivity">Sort by Selectivity</option>
-          <option value="bet">Sort by BET Surface Area</option>
-          <option value="pv">Sort by Pore Volume</option>
+          <option value="co2">{lang === "zh" ? "按 CO₂ 吸附量排序" : "Sort by CO₂ Uptake"}</option>
+          <option value="selectivity">{lang === "zh" ? "按选择性排序" : "Sort by Selectivity"}</option>
+          <option value="bet">{lang === "zh" ? "按 BET 比表面积排序" : "Sort by BET Surface Area"}</option>
+          <option value="pv">{lang === "zh" ? "按孔体积排序" : "Sort by Pore Volume"}</option>
         </select>
         <button type="button" onClick={exportDatabaseCsv} style={toolbarBtn(t)}>
           ↓ CSV
@@ -4136,7 +4362,10 @@ function LiteratureTab({ results, inputs }) {
         <table style={{ width: "100%", minWidth: 1040, borderCollapse: "collapse" }}>
           <thead>
             <tr style={{ background: t.surface }}>
-              {["MOF Name","Metal","Linker","Topology","PLD/LCD (Å)","BET/PV","CO₂","Selectivity","Structure source","Label source","Quality"].map(h => (
+              {(lang === "zh"
+                ? ["MOF 名称","金属","连接体","拓扑","PLD/LCD (Å)","BET/孔体积","CO₂","选择性","结构来源","标签来源","质量"]
+                : ["MOF Name","Metal","Linker","Topology","PLD/LCD (Å)","BET/PV","CO₂","Selectivity","Structure source","Label source","Quality"]
+              ).map(h => (
                 <th key={h} style={{ padding: "10px 14px", color: t.subtle, fontSize: 11,
                   fontWeight: 600, letterSpacing: "0.06em", textAlign: "left", borderBottom: `1px solid ${t.border}` }}>
                   {h}
@@ -4151,7 +4380,7 @@ function LiteratureTab({ results, inputs }) {
                 <td style={{ padding: "10px 14px", color: t.accentText, fontSize: 13, fontWeight: 600 }}>{m.name}</td>
                 <td style={{ padding: "10px 14px", color: t.muted, fontSize: 12, fontFamily: "monospace" }}>{m.metal}</td>
                 <td style={{ padding: "10px 14px", color: t.muted, fontSize: 12 }}>{m.linker}</td>
-                <td style={{ padding: "10px 14px", color: t.muted, fontSize: 12 }}>{m.topology || "—"}{m.oms ? " · OMS" : ""}</td>
+                <td style={{ padding: "10px 14px", color: t.muted, fontSize: 12 }}>{m.topology || "—"}{m.oms ? ` · ${lang === "zh" ? "开放金属位点" : "OMS"}` : ""}</td>
                 <td style={{ padding: "10px 14px", color: t.text, fontSize: 12, fontFamily: "monospace" }}>{m.pd}/{m.lcd || "—"}</td>
                 <td style={{ padding: "10px 14px", color: t.text, fontSize: 12, fontFamily: "monospace" }}>{Number(m.bet || 0).toLocaleString()} / {m.pv}</td>
                 <td style={{ padding: "10px 14px", fontFamily: "monospace", fontSize: 12, fontWeight: 700,
@@ -4159,17 +4388,17 @@ function LiteratureTab({ results, inputs }) {
                 <td style={{ padding: "10px 14px", fontFamily: "monospace", fontSize: 12,
                   color: m.selectivity >= 100 ? t.success : m.selectivity >= 30 ? t.accent : t.muted }}>{m.selectivity}</td>
                 <td style={{ padding: "10px 14px", color: t.subtle, fontSize: 11, lineHeight: 1.45 }}>
-                  <strong style={{ color: t.text }}>{m.sourceDatabase || "local seed"}</strong><br />
-                  {m.descriptorMethod || m.sourceType}
+                  <strong style={{ color: t.text }}>{zhText(lang, m.sourceDatabase || "local seed")}</strong><br />
+                  {zhText(lang, m.descriptorMethod || m.sourceType)}
                 </td>
                 <td style={{ padding: "10px 14px", color: t.subtle, fontSize: 11, lineHeight: 1.45 }}>
-                  <strong style={{ color: t.text }}>{m.sourceType}</strong><br />
+                  <strong style={{ color: t.text }}>{zhText(lang, m.sourceType)}</strong><br />
                   {m.doi}
                 </td>
                 <td style={{ padding: "10px 14px", color: t.warn, fontSize: 11, lineHeight: 1.45 }}>
-                  {m.qualityFlag || "screening_seed"}
+                  {zhText(lang, m.qualityFlag || "screening_seed")}
                   <details style={{ color: t.faint, marginTop: 4 }}>
-                    <summary style={{ cursor: "pointer" }}>license</summary>
+                    <summary style={{ cursor: "pointer" }}>{zhText(lang, "license")}</summary>
                     {m.licenseNote}
                   </details>
                 </td>
@@ -4179,7 +4408,7 @@ function LiteratureTab({ results, inputs }) {
         </table>
         </div>
         <div style={{ padding: "10px 14px", color: t.faint, fontSize: 11, borderTop: `1px solid ${t.border}` }}>
-          {c.literature.showing} {filtered.length} / {databaseRecords.length} · {dataStatus === "loaded" ? "public/data JSON + schema CSV" : c.literature.source}
+          {c.literature.showing} {filtered.length} / {databaseRecords.length} · {dataStatus === "loaded" ? zhText(lang, "public/data JSON + schema CSV") : c.literature.source}
         </div>
       </div>
     </div>
@@ -4217,11 +4446,11 @@ function DataSourcesTab() {
 
   const cardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }
   const connectorRows = lang === "zh" ? [
-    ["LCI backend", "public/data/lca_inventory.json seed schema", "openLCA / ecoinvent process mapping with versioned activity IDs", "Proxy schema"],
-    ["Price backend", "USD seed values + static currency conversion", "supplier quotations, date-stamped reagent prices, regional electricity tariffs", "Screening"],
-    ["Regional factors", "generic electricity and solvent-recovery assumptions", "country/region grid mix, solvent recovery scenario library, water-stress factors", "Roadmap"],
-    ["Uncertainty", "deterministic pseudo Monte Carlo from proxy ranges", "inventory-specific distributions and calibrated uncertainty propagation", "Beta"],
-    ["Audit trail", "source_type, source_ref, price_source, assumption, replacement fields", "DOI / database record / supplier quote attachment and revision history", "Scaffolded"],
+    ["LCI 后端", "public/data/lca_inventory.json 种子 schema", "带版本活动 ID 的 openLCA / ecoinvent 过程映射", "代理 schema"],
+    ["价格后端", "USD 种子值 + 静态货币换算", "供应商报价、带日期试剂价格、区域电价", "筛选级"],
+    ["区域因子", "通用电力和溶剂回收假设", "国家/地区电网结构、溶剂回收情景库、水压力因子", "路线图"],
+    ["不确定性", "基于代理范围的确定性伪 Monte Carlo", "清单专属分布和校准后的不确定性传播", "测试版"],
+    ["审计轨迹", "source_type、source_ref、price_source、assumption、replacement 字段", "DOI / 数据库记录 / 供应商报价附件和修订历史", "脚手架"],
   ] : [
     ["LCI backend", "public/data/lca_inventory.json seed schema", "openLCA / ecoinvent process mapping with versioned activity IDs", "Proxy schema"],
     ["Price backend", "USD seed values + static currency conversion", "supplier quotations, date-stamped reagent prices, regional electricity tariffs", "Screening"],
@@ -4259,7 +4488,7 @@ function DataSourcesTab() {
                 : "This page separates structures, adsorption labels, LCA inventory, LCC assumptions, isotherms, and validation manifests. The core rule: a structure library is not an adsorption-label library, and proxy inventory is not publication-grade LCI."}
             </p>
           </div>
-          <BasisBadge tone={datasets.status === "loaded" ? "calc" : "proxy"}>{datasets.status}</BasisBadge>
+          <BasisBadge tone={datasets.status === "loaded" ? "calc" : "proxy"}>{zhText(lang, datasets.status)}</BasisBadge>
         </div>
       </div>
 
@@ -4268,11 +4497,11 @@ function DataSourcesTab() {
           <div key={key} style={cardStyle}>
             <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 8 }}>
               <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 800 }}>{title}</div>
-              <BasisBadge tone="info">{count} records</BasisBadge>
+              <BasisBadge tone="info">{lang === "zh" ? `${count} 条记录` : `${count} records`}</BasisBadge>
             </div>
             <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 9 }}>
-              <BasisBadge tone={stage.includes("Stage 1") ? "info" : stage.includes("Stage 2") ? "proxy" : stage.includes("Future") ? "user" : "calc"}>{stage}</BasisBadge>
-              <BasisBadge tone={interpretation.includes("assumption") || interpretation.includes("exploratory") ? "proxy" : interpretation.includes("future") ? "user" : "calc"}>{interpretation}</BasisBadge>
+              <BasisBadge tone={stage.includes("Stage 1") ? "info" : stage.includes("Stage 2") ? "proxy" : stage.includes("Future") ? "user" : "calc"}>{zhText(lang, stage)}</BasisBadge>
+              <BasisBadge tone={interpretation.includes("assumption") || interpretation.includes("exploratory") ? "proxy" : interpretation.includes("future") ? "user" : "calc"}>{zhText(lang, interpretation)}</BasisBadge>
             </div>
             <div style={{ color: t.accentSoft, fontSize: 11, fontFamily: FONT_MONO, overflowWrap: "anywhere", marginBottom: 9 }}>{file}</div>
             <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.6 }}>{body}</div>
@@ -4286,10 +4515,10 @@ function DataSourcesTab() {
           <SectionTitle>{lang === "zh" ? "数据质量分级" : "Data Quality Levels"}</SectionTitle>
           <div style={{ display: "grid", gap: 9 }}>
             {(lang === "zh" ? [
-              ["Level 0", "UI seed / proxy", "用于演示 schema 和交互，不可作为科研结论。"],
-              ["Level 1", "Literature traceable", "有 DOI/source，但可能单位、条件或清洗流程未完全统一。"],
-              ["Level 2", "Reproducible computed", "CIF、描述符、GCMC/IAST 脚本和参数可复现。"],
-              ["Level 3", "Publication-ready", "外部测试集、误差、不确定性、适用域和版本化数据全部可追溯。"],
+              ["0 级", "界面种子数据 / 代理", "用于演示 schema 和交互，不可作为科研结论。"],
+              ["1 级", "文献可追溯", "有 DOI/source，但可能单位、条件或清洗流程未完全统一。"],
+              ["2 级", "可复现计算", "CIF、描述符、GCMC/IAST 脚本和参数可复现。"],
+              ["3 级", "论文级", "外部测试集、误差、不确定性、适用域和版本化数据全部可追溯。"],
             ] : [
               ["Level 0", "UI seed / proxy", "Schema and interaction demonstration; not scientific evidence."],
               ["Level 1", "Literature traceable", "DOI/source exists, but units, conditions, or cleaning may not be fully harmonized."],
@@ -4299,7 +4528,7 @@ function DataSourcesTab() {
               <div key={level} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 5 }}>
                   <strong style={{ color: t.textStrong, fontSize: 12 }}>{level}</strong>
-                  <BasisBadge tone={level === "Level 0" ? "proxy" : level === "Level 3" ? "calc" : "info"}>{label}</BasisBadge>
+                  <BasisBadge tone={level.includes("0") ? "proxy" : level.includes("3") ? "calc" : "info"}>{label}</BasisBadge>
                 </div>
                 <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.5 }}>{body}</div>
               </div>
@@ -4319,11 +4548,11 @@ function DataSourcesTab() {
               </thead>
               <tbody>
                 {(lang === "zh" ? [
-                  ["结构", `${datasets.structures.length || "seed"} 条`, "Level 0-1", "导入 CoRE 2019/2024 CIF，统一 Zeo++ 描述符。"],
-                  ["吸附标签", `${datasets.labels.length || "seed"} 条`, "Level 0-1", "收集 NIST/文献/GCMC 等温线、Henry 和 IAST 标签。"],
-                  ["LCA inventory", `${datasets.inventory.length || "seed"} 条`, "Level 0", "替换为 ecoinvent/openLCA 或论文可追溯清单。"],
-                  ["LCC 价格", `${datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length || "seed"} 条`, "Level 0", "替换为供应商报价、价格数据库或明确日期的市场价。"],
-                  ["Validation", `${datasets.manifest?.rows ?? "seed"} rows`, "Level 0-1", "建立冻结外部测试集和版本化指标。"],
+                  ["结构", `${datasets.structures.length || "种子"} 条`, "0-1 级", "导入 CoRE 2019/2024 CIF，统一 Zeo++ 描述符。"],
+                  ["吸附标签", `${datasets.labels.length || "种子"} 条`, "0-1 级", "收集 NIST/文献/GCMC 等温线、Henry 和 IAST 标签。"],
+                  ["LCA 清单", `${datasets.inventory.length || "种子"} 条`, "0 级", "替换为 ecoinvent/openLCA 或论文可追溯清单。"],
+                  ["LCC 价格", `${datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length || "种子"} 条`, "0 级", "替换为供应商报价、价格数据库或明确日期的市场价。"],
+                  ["验证", `${datasets.manifest?.rows ?? "种子"} 行`, "0-1 级", "建立冻结外部测试集和版本化指标。"],
                 ] : [
                   ["Structures", `${datasets.structures.length || "seed"} records`, "Level 0-1", "Import CoRE 2019/2024 CIFs and unified Zeo++ descriptors."],
                   ["Adsorption labels", `${datasets.labels.length || "seed"} records`, "Level 0-1", "Collect NIST/literature/GCMC isotherms, Henry constants, and IAST labels."],
@@ -4346,7 +4575,7 @@ function DataSourcesTab() {
       <div style={cardStyle}>
         <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 10 }}>
           <div>
-            <SectionTitle>{lang === "zh" ? "Inventory / Price 接入路线图" : "Inventory / Price Connector Roadmap"}</SectionTitle>
+          <SectionTitle>{lang === "zh" ? "清单 / 价格接入路线图" : "Inventory / Price Connector Roadmap"}</SectionTitle>
             <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
               {lang === "zh"
                 ? "第三优先级先把数据结构、字段和替换路线做清楚；当前页面不声称已经接入完整 ecoinvent、openLCA 或实时价格数据库。"
@@ -4371,7 +4600,7 @@ function DataSourcesTab() {
                   <td style={{ padding: "8px 10px", color: t.muted, lineHeight: 1.45 }}>{row[1]}</td>
                   <td style={{ padding: "8px 10px", color: t.subtle, lineHeight: 1.45 }}>{row[2]}</td>
                   <td style={{ padding: "8px 10px" }}>
-                    <BasisBadge tone={row[3] === "Beta" ? "proxy" : row[3] === "Roadmap" ? "info" : "calc"}>{row[3]}</BasisBadge>
+                    <BasisBadge tone={row[3] === "Beta" || row[3] === "测试版" ? "proxy" : row[3] === "Roadmap" || row[3] === "路线图" ? "info" : "calc"}>{row[3]}</BasisBadge>
                   </td>
                 </tr>
               ))}
@@ -4384,8 +4613,8 @@ function DataSourcesTab() {
         <div style={cardStyle}>
           <SectionTitle>{lang === "zh" ? "数据质量政策" : "Provenance Policy"}</SectionTitle>
           {(lang === "zh" ? [
-            "所有结果都应显示 basis：model-predicted、calculated、proxy、user-defined 或 literature-based。",
-            "用于论文或答辩前，应把 seed/proxy 数据替换为可引用 DOI、数据库记录或可复现实验/GCMC 输出。",
+            "所有结果都应显示依据：模型预测、计算得到、代理、用户定义或文献支持。",
+            "用于论文或答辩前，应把种子/代理数据替换为可引用 DOI、数据库记录或可复现实验/GCMC 输出。",
             "LCC 价格必须保留单位、币种、来源类型、假设和替换路线。"
           ] : [
             "Every result should expose its basis: model-predicted, calculated, proxy, user-defined, or literature-based.",
@@ -4465,9 +4694,9 @@ function MethodsLimitationsTab() {
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
           {(lang === "zh" ? [
             ["项目范围", "输入 MOF 结构参数与条件，输出吸附、解释、环境、成本和稳健性判断。"],
-            ["已实现", "搜索预设、算法状态标注、Qst beta、LCA/LCC proxy、敏感性、Validation、数据来源页。"],
+            ["已实现", "搜索预设、算法状态标注、Qst 测试版、LCA/LCC 代理、敏感性、验证和数据来源页。"],
             ["非论文级", "真实大规模标签库、严格混合气 IAST、工业 LCI、供应商报价和科研级 Qst 仍未完成。"],
-            ["引用建议", "引用本工具时，应同时引用真实数据源；proxy 或 seed 数据只应作为方法演示。"],
+            ["引用建议", "引用本工具时，应同时引用真实数据源；代理或种子数据只应作为方法演示。"],
           ] : [
             ["Scope", "Input MOF descriptors and conditions; output adsorption, interpretation, impact, cost, and robustness signals."],
             ["Implemented", "Search presets, algorithm-status labels, Qst beta, LCA/LCC proxies, sensitivity, validation, and provenance pages."],
@@ -4486,16 +4715,16 @@ function MethodsLimitationsTab() {
         <SectionTitle>{lang === "zh" ? "如何解读这个工作流" : "How to interpret the workflow"}</SectionTitle>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 12, marginTop: 10 }}>
           {(lang === "zh" ? [
-            ["Discovery-stage chemistry", "性能、稳定性、机理和结构-性质理解是第一优先级。", "Primary screening"],
-            ["Feasibility boundaries", "粗略成本、可得性和实际约束用于排除明显不可行路线。", "Feasibility boundary"],
-            ["Engineering-stage evaluation", "正式 LCA/LCC、工艺路线设计和放大经济性属于未来工程阶段。", "Future engineering evaluation"],
+            ["发现阶段化学", "性能、稳定性、机理和结构-性质理解是第一优先级。", "主要筛选"],
+            ["可行性边界", "粗略成本、可得性和实际约束用于排除明显不可行路线。", "可行性边界"],
+            ["工程阶段评估", "正式 LCA/LCC、工艺路线设计和放大经济性属于未来工程阶段。", "未来工程评估"],
           ] : [
             ["Discovery-stage chemistry", "Performance, stability, mechanism, and structure-property understanding come first.", "Primary screening"],
             ["Feasibility boundaries", "Rough cost, availability, and practical constraints act as coarse boundaries.", "Feasibility boundary"],
             ["Engineering-stage evaluation", "Formal LCA/LCC, process-route design, and scale-up economics belong to future engineering work.", "Future engineering evaluation"],
           ]).map(([title, body, chip]) => (
             <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
-              <BasisBadge tone={chip.includes("Future") ? "user" : chip.includes("Feasibility") ? "proxy" : "info"}>{chip}</BasisBadge>
+              <BasisBadge tone={chip.includes("未来") || chip.includes("Future") ? "user" : chip.includes("可行性") || chip.includes("Feasibility") ? "proxy" : "info"}>{chip}</BasisBadge>
               <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 850, marginTop: 10 }}>{title}</div>
               <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, marginTop: 8 }}>{body}</div>
             </div>
@@ -4522,10 +4751,10 @@ function MethodsLimitationsTab() {
           <SectionTitle>{c.methods.mlStatus}</SectionTitle>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {(lang === "zh" ? [
-              ["Ensemble", "浏览器端独立模型配置文件，含透明权重与验证指标；不是后端训练 checkpoint。", "beta"],
-              ["Random Forest", "已与 Ensemble 使用不同权重/误差指标，切换会改变结果；仍属于前端静态模型配置。", "beta"],
+              ["集成模型", "浏览器端独立模型配置文件，含透明权重与验证指标；不是后端训练 checkpoint。", "beta"],
+              ["随机森林", "已与集成模型使用不同权重/误差指标，切换会改变结果；仍属于前端静态模型配置。", "beta"],
               ["XGBoost / GBM", "已加入独立配置文件；真实版本需要保存训练好的模型工件。", "beta"],
-              ["Graph Neural Net", "已加入 GNN 配置入口；科研级版本需要 CIF 图特征和真实吸附标签训练。", "planned"],
+              ["图神经网络", "已加入 GNN 配置入口；科研级版本需要 CIF 图特征和真实吸附标签训练。", "planned"],
             ] : [
               ["Ensemble", "Browser-side independent model profile with transparent weights and validation metrics; not a backend checkpoint.", "beta"],
               ["Random Forest", "Uses different weights/metrics from Ensemble and changes the prediction; still a static front-end profile.", "beta"],
@@ -4535,7 +4764,7 @@ function MethodsLimitationsTab() {
               <div key={name} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 5 }}>
                   <span style={{ color: t.textStrong, fontSize: 13, fontWeight: 700 }}>{name}</span>
-                  <span style={statusPill(tone)}>{tone.toUpperCase()}</span>
+                  <span style={statusPill(tone)}>{lang === "zh" ? zhText(lang, tone) : tone.toUpperCase()}</span>
                 </div>
                 <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.5 }}>{desc}</div>
               </div>
@@ -4572,10 +4801,10 @@ function MethodsLimitationsTab() {
             ["IAST", "由单组分等温线估算混合气吸附平衡的方法。"],
             ["Qst", "等量吸附热，用来解释吸附强度和机理。"],
             ["GWP", "全球变暖潜势，LCA 特征化指标之一。"],
-            ["Normalization", "把不同环境指标拉到可比较尺度，不等于权重化。"],
+            ["归一化", "把不同环境指标拉到可比较尺度，不等于权重化。"],
             ["LCC", "生命周期成本，经济指标，不是环境影响。"],
-            ["Applicability", "判断当前输入是否落在训练/基准分布附近。"],
-            ["Proxy", "代理估算，表示方向性参考而非真实清单或实验结果。"],
+            ["适用域", "判断当前输入是否落在训练/基准分布附近。"],
+            ["代理", "代理估算，表示方向性参考而非真实清单或实验结果。"],
           ] : [
             ["PLD", "Pore limiting diameter, the narrowest accessible window."],
             ["LCD", "Largest cavity diameter, the largest pore cavity scale."],
@@ -4627,7 +4856,7 @@ function MethodsLimitationsTab() {
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "1fr 1fr 1fr", gap: 12 }}>
           {(lang === "zh" ? [
             ["CoRE MOF 2019", "当前用于常见 MOF 名称、结构范围和文献示例的参考集。", "stable"],
-            ["CoRE MOF 2024", "计划作为更新的 computation-ready 实验 MOF 结构来源。", "planned"],
+            ["CoRE MOF 2024", "计划作为更新的可计算实验 MOF 结构来源。", "planned"],
             ["QMOF Database", "计划用于 DFT 电子结构描述符；它不是直接的吸附标签数据库。", "planned"],
           ] : [
             ["CoRE MOF 2019", "Current reference set for common MOF names, structural ranges, and literature-style examples.", "stable"],
@@ -4637,7 +4866,7 @@ function MethodsLimitationsTab() {
             <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, marginBottom: 8 }}>
                 <span style={{ color: t.textStrong, fontSize: 13, fontWeight: 700 }}>{title}</span>
-                <span style={statusPill(tone)}>{tone.toUpperCase()}</span>
+                <span style={statusPill(tone)}>{lang === "zh" ? zhText(lang, tone) : tone.toUpperCase()}</span>
               </div>
               <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55 }}>{desc}</div>
             </div>
@@ -4954,7 +5183,10 @@ function BatchModePanel({ inputs, onClose, onApplyToForm }) {
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
             <thead>
               <tr style={{ background: t.surface }}>
-                {["MOF","Metal","Linker","PD","BET","PV","Gas","Primary","Secondary","Sel","Qst0","Score","Flag",""].map(h => (
+                {(lang === "zh"
+                  ? ["MOF","金属","连接体","孔径","BET","孔体积","气体","主组分","副组分","选择性","Qst0","评分","标记",""]
+                  : ["MOF","Metal","Linker","PD","BET","PV","Gas","Primary","Secondary","Sel","Qst0","Score","Flag",""]
+                ).map(h => (
                   <th key={h} style={{ padding: "8px 10px", color: t.subtle, textAlign: "left",
                     borderBottom: `1px solid ${t.border}`, fontWeight: 600 }}>{h}</th>
                 ))}
@@ -5003,7 +5235,7 @@ function BatchModePanel({ inputs, onClose, onApplyToForm }) {
                   <td style={{ padding: "6px 10px", minWidth: 104 }}>
                     <select value={r.gasSystem} onChange={e => updateRow(r.id, { gasSystem: e.target.value })}
                       style={cellSelectStyle}>
-                      {GAS_SYSTEMS.map(g => <option key={g.id} value={g.id} disabled={g.priority === "unavailable"}>{g.id}</option>)}
+                      {GAS_SYSTEMS.map(g => <option key={g.id} value={g.id} disabled={g.priority === "unavailable"}>{gasLabel(g.label, lang)}</option>)}
                     </select>
                   </td>
                   <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.success }}>{r.result?.primaryUptake ?? "—"}</td>
@@ -5132,9 +5364,9 @@ function SavedRunsModal({ runs, onClose, onLoad, onDelete, onImport, onExport })
           <div style={{ color: t.accentSoft, fontSize: 14, fontWeight: 800 }}>{c.common.savedRuns}</div>
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
             <button onClick={exportSavedCsv} disabled={!savedSummary.count} style={toolbarBtn(t)}>↓ CSV</button>
-            <button onClick={onExport} style={toolbarBtn(t)}>↓ JSON backup</button>
+            <button onClick={onExport} style={toolbarBtn(t)}>↓ {lang === "zh" ? "JSON 备份" : "JSON backup"}</button>
             <label style={toolbarBtn(t)}>
-              ↑ Import JSON
+              ↑ {lang === "zh" ? "导入 JSON" : "Import JSON"}
               <input type="file" accept=".json,application/json" style={{ display: "none" }}
                 onChange={e => onImport(e.target.files?.[0])} />
             </label>
@@ -5161,7 +5393,7 @@ function SavedRunsModal({ runs, onClose, onLoad, onDelete, onImport, onExport })
                 <div>
                   <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 800 }}>{run.name}</div>
                   <div style={{ color: t.subtle, fontSize: 11, marginTop: 4 }}>
-                    {run.results.gasSystem} · {run.inputs.metalCenter}/{run.inputs.organicLinker} · Sel. {run.results.selectivity} · LCA {run.results.lca.compositeGreenScore}/10
+                    {run.results.gasSystem} · {run.inputs.metalCenter}/{run.inputs.organicLinker} · {lang === "zh" ? "选择性" : "Sel."} {run.results.selectivity} · LCA {run.results.lca.compositeGreenScore}/10
                   </div>
                 </div>
                 <div style={{ display: "flex", gap: 8 }}>
@@ -5218,7 +5450,7 @@ export default function App() {
   const [apiStatus, setApiStatus]     = useState({
     ok: false,
     checked: false,
-    message: "Static browser model",
+    message: lang === "zh" ? "静态浏览器端模型" : "Static browser model",
     manifest: null,
   })
   const [batchOpen, setBatchOpen]     = useState(false)
@@ -5281,7 +5513,7 @@ export default function App() {
       setApiStatus({
         ok: false,
         checked: true,
-        message: "No API URL set; using static browser model.",
+        message: lang === "zh" ? "未设置 API 地址；使用静态浏览器端模型。" : "No API URL set; using static browser model.",
         manifest: null,
       })
       return
@@ -5301,18 +5533,22 @@ export default function App() {
       setApiStatus({
         ok: true,
         checked: true,
-        message: `Backend ready · model ${health.model_loaded ? "loaded" : "not loaded"} · rows ${health.training_rows ?? "—"}`,
+        message: lang === "zh"
+          ? `后端就绪 · 模型${health.model_loaded ? "已加载" : "未加载"} · 行数 ${health.training_rows ?? "—"}`
+          : `Backend ready · model ${health.model_loaded ? "loaded" : "not loaded"} · rows ${health.training_rows ?? "—"}`,
         manifest,
       })
     } catch (error) {
       setApiStatus({
         ok: false,
         checked: true,
-        message: `API unavailable: ${error.message}. Static browser model will be used.`,
+        message: lang === "zh"
+          ? `API 不可用：${error.message}。将使用静态浏览器端模型。`
+          : `API unavailable: ${error.message}. Static browser model will be used.`,
         manifest: null,
       })
     }
-  }, [apiUrl])
+  }, [apiUrl, lang])
 
   const handlePredict = useCallback(async () => {
     setLoading(true)
@@ -5327,20 +5563,20 @@ export default function App() {
           const data = await resp.json()
           // Backend doesn't yet compute thermo — augment locally for now.
           const local = predictMOF(inputs)
-          setApiStatus(prev => ({ ...prev, ok: true, checked: true, message: "Backend prediction used for this run." }))
+          setApiStatus(prev => ({ ...prev, ok: true, checked: true, message: lang === "zh" ? "本次运行使用后端预测。" : "Backend prediction used for this run." }))
           setResults({ ...local, ...data, thermo: local.thermo, primaryName: local.primaryName, secondaryName: local.secondaryName, gasSystem: local.gasSystem, anomaly: local.anomaly })
           setLoading(false)
           return
         }
       }
     } catch (error) {
-      setApiStatus(prev => ({ ...prev, ok: false, checked: true, message: `Backend prediction failed: ${error.message}. Static browser model used.` }))
+      setApiStatus(prev => ({ ...prev, ok: false, checked: true, message: lang === "zh" ? `后端预测失败：${error.message}。已使用静态浏览器端模型。` : `Backend prediction failed: ${error.message}. Static browser model used.` }))
     }
 
     await new Promise(r => setTimeout(r, 700))
     setResults(predictMOF(inputs))
     setLoading(false)
-  }, [inputs, apiUrl])
+  }, [inputs, apiUrl, lang])
 
   const saveCurrentRun = useCallback(() => {
     if (!results || results.unavailable) return
