@@ -2,7 +2,7 @@
 
 **EcoMOF-AI is a research-oriented MOF decision-support prototype integrating screening, LCA/LCC, and robustness analysis.**
 
-EcoMOF-AI is staged deliberately: performance and chemistry first, broader cost, lifecycle, and robustness comparison later.
+EcoMOF-AI is a staged MOF decision-support prototype: performance and chemistry first, broader cost, lifecycle, and robustness comparison later.
 
 **EcoMOF-AI 是一个面向科研的 MOF 决策支持原型，集成吸附筛选、热力学解释、生命周期评价（LCA）、生命周期成本（LCC）与稳健性分析，用于早期候选材料的比较与研究假设生成。**
 
@@ -15,7 +15,7 @@ EcoMOF-AI is not presented as a finished publication-grade scientific platform. 
 ## Staged Workflow
 
 - **Stage 1 — Scientific Screening**: performance, chemistry/stability cues, applicability, and interpretation.
-- **Stage 2 — Feasibility Boundaries**: rough cost, availability, supply, and use-scale sanity checks.
+- **Stage 2 — Feasibility Boundaries**: rough cost, availability, supply, process constraints, and use-scale reasonableness checks.
 - **Stage 3 — Secondary Comparison**: preliminary LCA/LCC and sensitivity for shortlisted candidates.
 - **Future Stage 4 — Engineering Evaluation**: process-route design, scale-up economics, and engineering-grade LCA/LCC.
 

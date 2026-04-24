@@ -139,7 +139,7 @@ ecomof-ai/
 ```bibtex
 @software{ecomof_ai_2024,
   author = {He, Linus},
-  title  = {EcoMOF-AI: Machine Learning-Guided CO2 Capture MOF Screening},
+  title  = {EcoMOF-AI: Staged MOF Decision Support Prototype},
   year   = {2024},
   url    = {https://github.com/Linus-He/ecomof-ai}
 }

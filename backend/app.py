@@ -81,7 +81,7 @@ LINKER_FOSSIL = {"BDC": True, "BTC": True, "BPDC": True, "NDC": True,
 
 app = FastAPI(
     title="EcoMOF-AI API",
-    description="Machine Learning-Guided CO₂ Capture MOF Screening with LCA Evaluation",
+    description="Staged MOF decision-support prototype: performance and chemistry first, broader cost, lifecycle, and robustness comparison later.",
     version="1.0.0",
 )
 

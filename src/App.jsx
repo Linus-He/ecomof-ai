@@ -946,7 +946,8 @@ const ZH_UI_TERMS = {
   "Not formal lifecycle costing": "不是正式生命周期成本",
   "Not formal LCC, not engineering-grade economics.": "不是正式 LCC，也不是工程级经济评价。",
   "Practical boundary between scientific screening and shortlist comparison.": "位于科学筛选和入围候选比较之间的实践边界。",
-  "Cost / availability / supply sanity check.": "成本 / 可得性 / 供应 sanity check。",
+  "Cost / availability / supply sanity check.": "成本 / 可得性 / 供应合理性检查。",
+  "Cost / availability / supply reasonableness check.": "成本 / 可得性 / 供应合理性检查。",
   "Use LCA/LCC only after an initial performance filter exists.": "仅在完成初步性能筛选后使用 LCA/LCC。",
   "Run Stage 1 first": "请先运行第 1 阶段",
   "Purpose": "用途",
@@ -1744,7 +1745,7 @@ function HomeTab({ setActiveTab }) {
       stage: "Stage 2-3",
       title: "后续决策层",
       accent: t.lccAccent,
-      items: ["成本 sanity check", "生命周期比较", "稳健性"],
+      items: ["成本合理性检查", "生命周期比较", "稳健性"],
     },
   ] : [
     {
@@ -1768,7 +1769,7 @@ function HomeTab({ setActiveTab }) {
   const workflow = lang === "zh" ? [
     ["01", "筛选性能与稳定性", "以吸附性能、化学合理性和适用域作为第一过滤器。"],
     ["02", "检查粗略可行性边界", "查看成本、可得性和供应风险是否明显阻断。"],
-    ["03", "比较 shortlist", "对入围候选做初步 LCA/LCC 和稳健性比较。"],
+    ["03", "比较入围候选", "对入围候选做初步 LCA/LCC 和稳健性比较。"],
     ["04", "进入工程评估", "后续再做工艺路线、放大经济性和正式工业 LCA。"],
   ] : [
     ["01", "Screen for performance and stability", "Use adsorption performance, chemistry, and applicability as the first filter."],
@@ -2066,7 +2067,7 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
     ? (lang === "zh" ? [
         ["为什么是这个结果", `${results.primaryName} uptake 主要由 BET、孔体积、孔径匹配、${inputs.organicLinker} 连接体和官能团数量/位置共同影响。选择性仍是 screening proxy，不是严格混合气 IAST。`],
         ["可信度", `当前置信度 ${(results.confidenceScore * 100).toFixed(0)}%。${results.applicability?.warnings?.length ? "输入已有适用域警告，建议补真实等温线或 GCMC 标签。" : "输入位于基准范围附近，可用于早期候选比较。"}`],
-        ["下一步", "先看 Interpretation/Qst 判断吸附原因，再进入 Feasibility 检查粗略成本、可得性和供应边界。LCA/LCC 只用于 shortlist 之后的比较。"],
+        ["下一步", "先看解释/Qst 判断吸附原因，再进入可行性页检查粗略成本、可得性和供应边界。LCA/LCC 只用于入围候选之后的比较。"],
       ] : [
         ["Why this result", `${results.primaryName} uptake is driven by BET, pore volume, pore matching, the ${inputs.organicLinker} linker, and functional-group count/position. Selectivity remains a screening proxy, not rigorous mixture IAST.`],
         ["Confidence", `Current confidence is ${(results.confidenceScore * 100).toFixed(0)}%. ${results.applicability?.warnings?.length ? "Applicability warnings are present; add real isotherm or GCMC labels before strong claims." : "The input is close to benchmark ranges and is usable for early comparison."}`],
@@ -2546,7 +2547,7 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
     </div>
       <Callout tone="info">
         {lang === "zh"
-          ? "Source basis: 结构参数来自用户输入、MOF 预设或 CIF 解析；吸附结果为模型/代理筛选输出；LCA/LCC 为 proxy inventory 与用户参数计算。"
+          ? "来源依据：结构参数来自用户输入、MOF 预设或 CIF 解析；吸附结果为模型/代理筛选输出；LCA/LCC 由代理清单与用户参数计算。"
           : "Source basis: descriptors come from user input, MOF presets, or CIF parsing; adsorption results are model/proxy screening outputs; LCA/LCC uses proxy inventory plus user-defined assumptions."}
       </Callout>
     </div>
@@ -2965,9 +2966,20 @@ function FeasibilityTab({ results, inputs }) {
   const costBand = hasComplexLinker || linkerScore < 4.5 ? "High" : linkerScore < 5.8 || hasRareMetal ? "Medium" : "Low"
   const availability = hasComplexLinker ? "Custom synthesis likely" : linkerScore < 5.8 ? "Gram-scale or specialty supply" : "Likely commercially available"
   const supplyRisk = hasComplexLinker || hasRareMetal ? "Elevated" : linker?.fossil ? "Moderate" : "Lower"
+  const processConstraints = lang === "zh" ? [
+    ["反应时间", hasComplexLinker ? "可能较长" : "常规范围", hasComplexLinker ? "复杂芳香或卟啉连接体通常需要更长路线确认。" : "当前输入未触发长反应时间警告。"],
+    ["回收难度", linker?.fossil ? "需要核查" : "较低", linker?.fossil ? "应检查溶剂交换、洗涤和母液回收假设。" : "当前路线未显示明显回收难点。"],
+    ["工艺条件", hasRareMetal ? "可能敏感" : "未见强警告", hasRareMetal ? "稀缺或过渡金属前驱体可能带来安全、纯化或采购约束。" : "未触发苛刻条件提示。"],
+    ["放大摩擦", costBand === "High" || supplyRisk === "Elevated" ? "较高" : "中低", costBand === "High" || supplyRisk === "Elevated" ? "成本、供应或路线复杂度可能在放大时成为阻力。" : "可作为下一轮候选继续比较。"],
+  ] : [
+    ["Reaction time", hasComplexLinker ? "Potentially long" : "Typical range", hasComplexLinker ? "Complex aromatic or porphyrinic linkers usually need route confirmation." : "No long-reaction warning is triggered by the current inputs."],
+    ["Recovery difficulty", linker?.fossil ? "Needs check" : "Lower", linker?.fossil ? "Check solvent exchange, washing, and mother-liquor recovery assumptions." : "No obvious recovery issue is flagged by the current route."],
+    ["Process conditions", hasRareMetal ? "Potentially sensitive" : "No strong warning", hasRareMetal ? "Rare or transition-metal precursors may add safety, purification, or procurement constraints." : "No harsh-condition cue is triggered."],
+    ["Scale friction", costBand === "High" || supplyRisk === "Elevated" ? "Elevated" : "Lower-moderate", costBand === "High" || supplyRisk === "Elevated" ? "Cost, supply, or route complexity may become a scale-up barrier." : "Reasonable to keep for the next comparison round."],
+  ]
   const rows = lang === "zh" ? [
     ["连接体可得性", zhText(lang, availability), "商业购买 / 克级供应 / 定制合成的粗略判断。"],
-    ["成本 sanity check", zhText(lang, costBand), "低 / 中 / 高成本带，用于排除明显不适合放大的路线。"],
+    ["成本合理性检查", zhText(lang, costBand), "低 / 中 / 高成本带，用于排除明显不适合放大的路线。"],
     ["稀缺或前驱体风险", hasRareMetal ? "有金属供应风险" : "未触发稀缺金属警告", `${inputs.metalCenter} · 金属评分 ${metalScore}/10`],
     ["供应瓶颈风险", supplyRisk, hasComplexLinker ? "复杂芳香/卟啉/大型连接体可能需要定制合成。" : "未发现明显连接体瓶颈。"],
   ] : [
@@ -3047,9 +3059,32 @@ function FeasibilityTab({ results, inputs }) {
         </div>
       </div>
 
+      <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 12 }}>
+          <div>
+            <SectionTitle>{lang === "zh" ? "实践过程约束" : "Practical process constraints"}</SectionTitle>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
+              {lang === "zh"
+                ? "这些是放大前的粗略路线提示，不等同于工艺包或安全审查。"
+                : "These are coarse route cues before scale-up, not a process package or safety review."}
+            </div>
+          </div>
+          <BasisBadge tone="proxy">{lang === "zh" ? "可行性边界" : "Feasibility boundary"}</BasisBadge>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+          {processConstraints.map(([label, value, body]) => (
+            <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, borderLeft: `3px solid ${value.includes("高") || value.includes("Elevated") || value.includes("long") || value.includes("sensitive") ? t.lccAccent : t.validationAccent}` }}>
+              <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 6 }}>{label}</div>
+              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850 }}>{value}</div>
+              <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.5, marginTop: 7 }}>{body}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <ProvenanceGrid items={[
         { label: "Use stage", value: "Stage 2 — Feasibility Boundaries", type: "proxy", note: "Practical boundary between scientific screening and shortlist comparison." },
-        { label: "Purpose", value: "Feasibility boundary", type: "user", note: "Cost / availability / supply sanity check." },
+        { label: "Purpose", value: "Feasibility boundary", type: "user", note: "Cost / availability / supply reasonableness check." },
         { label: "Interpretation", value: "Exploratory only", type: "proxy", note: "Not formal LCC, not engineering-grade economics." },
         { label: "Next layer", value: results && !results.unavailable ? "Stage 3 shortlist comparison" : "Run Stage 1 first", type: "info", note: "Use LCA/LCC only after an initial performance filter exists." },
       ]} />
@@ -3272,7 +3307,7 @@ function LCAScoringTab({ results, inputs }) {
           <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, borderLeft: `3px solid ${t.lccAccent}` }}>
             <BasisBadge tone="proxy">{lang === "zh" ? "Stage 2 可行性边界" : "Stage 2 feasibility boundary"}</BasisBadge>
             <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850, marginTop: 10 }}>
-              {lang === "zh" ? "早期成本 sanity checks" : "Early cost sanity checks"}
+              {lang === "zh" ? "早期成本合理性检查" : "Early cost sanity checks"}
             </div>
             <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.65, marginTop: 8 }}>
               {lang === "zh"
@@ -3281,7 +3316,7 @@ function LCAScoringTab({ results, inputs }) {
             </div>
           </div>
           <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, borderLeft: `3px solid ${t.lcaAccent}` }}>
-            <BasisBadge tone="proxy">{lang === "zh" ? "Stage 3 shortlist 比较" : "Stage 3 shortlist comparison"}</BasisBadge>
+            <BasisBadge tone="proxy">{lang === "zh" ? "第 3 阶段入围候选比较" : "Stage 3 shortlist comparison"}</BasisBadge>
             <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850, marginTop: 10 }}>
               {lang === "zh" ? "初步比较型 LCC" : "Preliminary comparative LCC"}
             </div>
@@ -3385,7 +3420,7 @@ function LCAScoringTab({ results, inputs }) {
             <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5 }}>{c.lca.characterizationBody}</div>
             <div style={{ color: t.warn, fontSize: 10, lineHeight: 1.45, marginTop: 6 }}>
               {lang === "zh"
-                ? "用于 shortlist 内部粗略比较，不用于最终工程结论。"
+                ? "用于入围候选内部粗略比较，不用于最终工程结论。"
                 : "Use for coarse comparison within shortlisted candidates, not for final engineering conclusions."}
             </div>
             <details style={detailStyle}>
@@ -3406,7 +3441,7 @@ function LCAScoringTab({ results, inputs }) {
             <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5 }}>{c.lca.normalizationBody}</div>
             <div style={{ color: t.warn, fontSize: 10, lineHeight: 1.45, marginTop: 6 }}>
               {lang === "zh"
-                ? "适合在形成 shortlist 后突出相对关注区域。"
+                ? "适合在形成入围候选后突出相对关注区域。"
                 : "Useful for highlighting relative concern areas after shortlist formation."}
             </div>
             <details style={detailStyle}>
@@ -3705,7 +3740,7 @@ function SensitivityTab({ results, inputs }) {
       <Callout tone="info">
         <strong>{lang === "zh" ? "这个页面的用途：" : "What this page is for:"}</strong>{" "}
         {lang === "zh"
-          ? "不是 primary hit identification；用于 shortlist 形成之后，检查成本和生命周期假设变化时比较结论是否稳定。"
+          ? "不是主要命中识别；用于形成入围候选之后，检查成本和生命周期假设变化时比较结论是否稳定。"
           : "Not primary hit identification; use it after shortlist formation to test whether broader comparison conclusions remain stable when cost and lifecycle assumptions are uncertain."}
       </Callout>
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 14 }}>
@@ -4462,7 +4497,7 @@ function DataSourcesTab() {
     ["MOF structures", "MOF 结构库", datasets.structures.length, "public/data/mof_structures.json", "结构、拓扑、PLD/LCD、BET、孔体积、密度、OMS、CIF/source 元数据。", "结构库提供材料描述符，不直接等于吸附标签。", "Stage 1 screening", "benchmark-backed"],
     ["Adsorption labels", "吸附标签库", datasets.labels.length, "public/data/adsorption_labels.json", "气体体系、温度、压力、loading、Henry 常数、选择性、方法与 DOI/source。", "真正训练吸附模型需要这一层，且应替换为验证过的 NIST/GCMC/文献标签。", "Stage 1 screening", "benchmark-backed"],
     ["Linker cost band / availability", "连接体成本带 / 可得性", datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length, "price_usd_per_unit + price_source", "价格以 USD seed values 存储，界面可切换主流货币作静态显示换算。", "不是实时市场报价，也不是供应商询价。", "Stage 2 feasibility", "exploratory"],
-    ["Proxy LCA inventory", "代理 LCA 清单", datasets.inventory.length, "public/data/lca_inventory.json", "材料、溶剂、能耗、水、废弃物、价格、单位、不确定性与替换路线。", "当前是 shortlist 比较 proxy，不能替代完整 ecoinvent/openLCA 工业清单。", "Stage 3 shortlist comparison", "assumption-dependent"],
+    ["Proxy LCA inventory", "代理 LCA 清单", datasets.inventory.length, "public/data/lca_inventory.json", "材料、溶剂、能耗、水、废弃物、价格、单位、不确定性与替换路线。", "当前是入围候选比较代理层，不能替代完整 ecoinvent/openLCA 工业清单。", "Stage 3 shortlist comparison", "assumption-dependent"],
     ["Isotherm points", "等温线点", datasets.isotherms.length, "public/data/isotherms.json", "多温 pressure-loading 点，用于 Langmuir 拟合、Henry、IAST/Qst 工作流打底。", "科研级 Qst 仍需要真实实验或 GCMC 多温纯组分等温线。", "Stage 1 interpretation", "comparative"],
     ["Detailed engineering inventory", "详细工程清单", datasets.manifest?.rows ?? "—", "future openLCA / ecoinvent mapping", "正式工艺路线、供应商价格、区域电网和放大经济性。", "当前尚未实现。", "Future Stage 4", "future engineering-grade"],
   ] : [
