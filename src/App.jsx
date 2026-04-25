@@ -57,8 +57,8 @@ const THEME_LIGHT = {
 const ThemeCtx = createContext(THEME_DARK)
 const useT = () => useContext(ThemeCtx)
 
-const FONT_SANS = 'Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif'
-const FONT_MONO = '"SFMono-Regular", "Roboto Mono", "Noto Sans Mono", ui-monospace, Menlo, Consolas, monospace'
+const FONT_SANS = '"Times New Roman", Times, "Noto Serif SC", "Songti SC", "STSong", serif'
+const FONT_MONO = FONT_SANS
 
 const LangCtx = createContext({ lang: "en", copy: COPY.en, setLang: () => {} })
 const useLang = () => useContext(LangCtx)
@@ -901,7 +901,7 @@ function NumericField({ label, unit, min, max, step, value, onChange, helper }) 
   return (
     <div style={{ marginBottom: 16 }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-        <span style={{ color: t.muted, fontSize: 12, fontFamily: "monospace" }}>{label}</span>
+        <span style={{ color: t.muted, fontSize: 12, fontFamily: FONT_MONO }}>{label}</span>
         <input
           type="number" value={draft} min={min} max={max} step={step}
           onChange={e => setDraft(e.target.value)}
@@ -2377,6 +2377,17 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
     updateFGDetail(fg, { positions })
   }
 
+  const handleMofSearchCommit = (rawName) => {
+    const name = String(rawName || "").trim()
+    if (!name) return
+    const presetName = findPresetName(name)
+    if (presetName) {
+      onLoadBenchmark?.(presetName)
+      return
+    }
+    setInputs(prev => ({ ...prev, mofName: name }))
+  }
+
   const handleCifUpload = async (file) => {
     if (!file) return
     const text = await file.text()
@@ -2422,6 +2433,7 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
   const numInputStyle = { width: "100%", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "7px 10px", color: t.text, fontSize: 13, fontFamily: FONT_MONO, outline: "none" }
   const hasUsableResults = results && !results.unavailable
   const functionalGroupDetails = normalizeFunctionalGroupDetails(inputs)
+  const selectedFunctionalGroups = getFunctionalGroupEntries(inputs)
   const decisionTips = hasUsableResults
     ? (lang === "zh" ? [
         ["为什么是这个结果", `${results.primaryName} uptake 主要由 BET、孔体积、孔径匹配、${inputs.organicLinker} 连接体和官能团数量/位置共同影响。选择性仍是 screening proxy，不是严格混合气 IAST。`],
@@ -2445,595 +2457,450 @@ function StructureInputTab({ inputs, setInputs, results, loading, onPredict, onS
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
       <PageHeader
-        title={lang === "zh" ? "Stage 1 — 科学筛选" : "Stage 1 — Scientific Screening"}
-        subtitle={lang === "zh"
-          ? "用性能、化学线索和筛选置信度作为早期主要过滤器。"
-          : "Use performance, chemistry, and screening confidence as the primary early-stage filter."}
-        meta={`${inputs.mofName || inputs.metalCenter} · ${inputs.gasSystem} · ${inputs.temperature} K · ${inputs.pressure} bar`}
-        action={<BasisBadge tone={apiStatus?.ok ? "calc" : "proxy"}>{apiStatus?.ok ? "backend connected" : "screening prototype"}</BasisBadge>}
+        title="Stage 1 — 科学筛选"
+        subtitle="先看性能、化学可行性与筛选可信度"
+        meta={`${inputs.mofName || inputs.metalCenter} · ${gasLabel(gas.label, "zh")} · ${inputs.temperature} K · ${inputs.pressure} bar`}
+        action={<BasisBadge tone={apiStatus?.ok ? "calc" : "info"}>主要筛选 / Primary screening</BasisBadge>}
       />
-      <StageStrip current="screening" onNavigate={setActiveTab} />
+
       <StickySummaryBar
         inputs={inputs}
         results={results}
-        stage={lang === "zh" ? "第 1 阶段" : "Stage 1"}
-        onAddComparison={onAddComparison}
-        canAddComparison={hasUsableResults}
+        stage="主要筛选"
       />
-    <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(250px, 0.24fr) minmax(0, 0.52fr) minmax(250px, 0.24fr)", gap: 20, height: "100%", alignItems: "start" }}>
-      {/* ── Left: Input Panel ── */}
-      <div style={{ width: isNarrow ? "100%" : 315, flexShrink: 0, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, overflowY: "auto" }}>
-        <div style={{ color: t.accentText, fontSize: 13, fontWeight: 700, letterSpacing: 0, marginBottom: 16 }}>
-          ⬡ {c.structure.inputTitle}
-        </div>
 
-        <label style={labelStyle}>{c.structure.gasSystem}</label>
-        <select value={inputs.gasSystem}
-          onChange={e => setInputs(p => ({ ...p, gasSystem: e.target.value }))}
-          style={{ ...selectStyle, marginBottom: 10 }}>
-          {GAS_SYSTEMS.map(g => (
-            <option key={g.id} value={g.id} disabled={g.priority === "unavailable"}>
-              {gasLabel(g.label, lang)}
-            </option>
-          ))}
-        </select>
-        <div style={{ fontSize: 10, color: gas.priority === "beta" ? t.warn : t.faint, marginBottom: 12 }}>
-          {gas.priority === "beta" ? "⚠ " : "· "}{zhText(lang, gas.dataNote)}
-        </div>
-
-        <label style={labelStyle}>{c.structure.metalCenter}</label>
-        <select value={inputs.metalCenter}
-          onChange={e => setInputs(p => ({ ...p, metalCenter: e.target.value }))}
-          style={selectStyle}>
-          {METAL_CENTERS.map(m => <option key={m.value} value={m.value}>{m.label}{m.oms ? " · OMS" : ""}</option>)}
-        </select>
-        {metal && <div style={{ fontSize: 11, color: metal.color, marginTop: 3, marginBottom: 12 }}>
-          {c.structure.toxicity}: {zhText(lang, metal.toxicity)} · {c.structure.lca}: {metal.lcaScore}/10 {metal.oms && `· ${c.structure.oms}`}
-        </div>}
-
-        <label style={labelStyle}>{c.structure.organicLinker}</label>
-        <select value={inputs.organicLinker}
-          onChange={e => setInputs(p => ({ ...p, organicLinker: e.target.value }))}
-          style={{ ...selectStyle, marginBottom: 4 }}>
-          {ORGANIC_LINKERS.map(l => <option key={l.value} value={l.value}>{l.label}</option>)}
-        </select>
-        {linker && (
-          <div style={{ fontSize: 10, color: t.faint, marginBottom: 14, lineHeight: 1.5 }}>
-            {zhText(lang, linker.category)} · {linker.connectivity}-{c.structure.connected} · {c.structure.position} {linker.positions}
-          </div>
-        )}
-
-        <NumericField label={`${c.numeric.poreDiameter} (Å)`} unit="Å" min={3} max={30} step={0.1}
-          value={inputs.poreDiameter} onChange={v => setInputs(p => ({ ...p, poreDiameter: v }))}
-          helper={lang === "zh" ? "孔径影响尺寸筛分和扩散；先用基准范围，再用真实结构描述符替换。" : "Pore size affects sieving and diffusion; start with benchmark ranges, then replace with real descriptors."} />
-        <NumericField label={`${c.numeric.bet} (m²/g)`} unit="m²/g" min={100} max={7000} step={10}
-          value={inputs.betSurfaceArea} onChange={v => setInputs(p => ({ ...p, betSurfaceArea: v }))}
-          helper={lang === "zh" ? "BET 是容量相关描述符；实验、GCMC 或数据库来源应分开记录。" : "BET is a capacity-related descriptor; keep experimental, GCMC, and database sources distinct."} />
-        <NumericField label={`${c.numeric.poreVolume} (cm³/g)`} unit="cm³/g" min={0.1} max={4.5} step={0.01}
-          value={inputs.poreVolume} onChange={v => setInputs(p => ({ ...p, poreVolume: v }))}
-          helper={lang === "zh" ? "孔体积影响高压容量；不要单独用它判断选择性。" : "Pore volume affects higher-pressure capacity; do not use it alone to judge selectivity."} />
-
-        <label style={labelStyle}>{c.structure.functionalGroups}</label>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 10 }}>
-          {FUNCTIONAL_GROUPS.map(fg => (
-            <label key={fg.value} title={zhText(lang, fg.category)} style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer",
-              color: inputs.functionalGroups.includes(fg.value) ? t.accentSoft : t.subtle, fontSize: 11 }}>
-              <input type="checkbox" checked={inputs.functionalGroups.includes(fg.value)}
-                onChange={() => toggleFG(fg.value)}
-                style={{ accentColor: t.accent, width: 13, height: 13 }} />
-              {functionalGroupLabel(fg.label, lang)}
-            </label>
-          ))}
-        </div>
-        <div style={{ display: "grid", gap: 8, marginBottom: 14 }}>
-          {getFunctionalGroupEntries(inputs).map(({ value, meta, detail }) => (
-            <div key={value} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", marginBottom: 8 }}>
-                <div>
-                  <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800 }}>{functionalGroupLabel(meta.label, lang)}</div>
-                  <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.4 }}>{zhText(lang, meta.category)}</div>
-                </div>
-                <BasisBadge tone="user">{lang === "zh" ? "用户定义" : "user-defined"}</BasisBadge>
-              </div>
-              <div style={{ display: "grid", gridTemplateColumns: "86px minmax(0, 1fr)", gap: 9, alignItems: "center" }}>
-                <div>
-                  <label style={{ ...labelStyle, marginBottom: 4 }}>{lang === "zh" ? "数量" : "Count"}</label>
-                  <select
-                    value={detail.count}
-                    onChange={e => {
-                      const count = Math.max(0, Math.min(4, parseInt(e.target.value, 10) || 0))
-                      updateFGDetail(value, {
-                        count,
-                        positions: count === 0 ? [] : detail.positions.length >= count ? detail.positions.slice(0, count) : defaultGroupPositions(count),
-                      })
-                    }}
-                    style={{ ...selectStyle, padding: "6px 8px", fontSize: 12 }}
-                  >
-                    {[
-                      [0, lang === "zh" ? "0 / 无效" : "0 / none"],
-                      [1, lang === "zh" ? "1 / 单取代" : "1 / mono"],
-                      [2, lang === "zh" ? "2 / 双取代" : "2 / di"],
-                      [3, lang === "zh" ? "3 / 三取代" : "3 / tri"],
-                      [4, lang === "zh" ? "4 / 四取代" : "4 / tetra"],
-                    ].map(([count, label]) => <option key={count} value={count}>{label}</option>)}
-                  </select>
-                </div>
-                <div>
-                  <label style={{ ...labelStyle, marginBottom: 4 }}>
-                    {lang === "zh" ? "芳环取代位置" : "Aromatic positions"}
-                  </label>
-                  <select
-                    value={detail.count === 1 && detail.positions.join(",") === "2" ? "mono-2" : detail.count === 2 && detail.positions.join(",") === "2,5" ? "di-2,5" : detail.count === 2 && detail.positions.join(",") === "2,3" ? "di-2,3" : "custom"}
-                    onChange={e => {
-                      const pattern = e.target.value
-                      if (pattern === "mono-2") updateFGDetail(value, { count: 1, positions: ["2"] })
-                      if (pattern === "di-2,5") updateFGDetail(value, { count: 2, positions: ["2", "5"] })
-                      if (pattern === "di-2,3") updateFGDetail(value, { count: 2, positions: ["2", "3"] })
-                    }}
-                    style={{ ...selectStyle, padding: "6px 8px", fontSize: 12, marginBottom: 6 }}
-                  >
-                    <option value="mono-2">mono-2</option>
-                    <option value="di-2,5">di-2,5</option>
-                    <option value="di-2,3">di-2,3</option>
-                    <option value="custom">{lang === "zh" ? "自定义 / 实验性" : "custom / experimental"}</option>
-                  </select>
-                  <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
-                    {AROMATIC_SUBSTITUTION_POSITIONS.map(pos => {
-                      const active = (functionalGroupDetails[value]?.positions || []).includes(pos)
-                      return (
-                        <button
-                          key={pos}
-                          type="button"
-                          onClick={() => toggleFGPosition(value, pos)}
-                          style={{
-                            minWidth: 30,
-                            height: 26,
-                            borderRadius: 6,
-                            border: `1px solid ${active ? t.accent : t.border}`,
-                            background: active ? t.badgeInfoBg : t.panel,
-                            color: active ? t.accentText : t.subtle,
-                            fontSize: 11,
-                            fontWeight: 800,
-                            cursor: "pointer",
-                            fontFamily: FONT_MONO,
-                          }}
-                          title={lang === "zh" ? `选择 ${pos} 号取代位` : `Select substitution position ${pos}`}
-                        >
-                          {pos}
-                        </button>
-                      )
-                    })}
-                  </div>
-                  <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.4, marginTop: 5 }}>
-                    {lang === "zh"
-                      ? `当前：${detail.positions.length ? detail.positions.join(", ") : "无"}；最多按数量选择 ${detail.count} 个位置。`
-                      : `Current: ${detail.positions.length ? detail.positions.join(", ") : "none"}; up to ${detail.count} selected positions.`}
-                  </div>
-                </div>
-              </div>
-              <div style={{ color: t.warn, fontSize: 10, lineHeight: 1.45, marginTop: 8 }}>
-                {lang === "zh"
-                  ? "取代数量目前作为筛选级结构修饰符处理；位置标注目前只支持少数基准连接体模式，仍属实验性。"
-                  : "Substituent count is currently treated as a screening-level structural modifier. Positional annotation is currently supported only for selected benchmark linker patterns and remains experimental."}
-              </div>
-            </div>
-          ))}
-          {!getFunctionalGroupEntries(inputs).length && (
-            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.45, background: t.surface, border: `1px dashed ${t.border}`, borderRadius: 8, padding: 10 }}>
-              {lang === "zh"
-                ? "选择一个官能团后，可设置数量并标注 2/3/5/6 号取代位置。"
-                : "Select a functional group to set count and mark 2/3/5/6 substitution positions."}
-            </div>
-          )}
-        </div>
-
-        <LinkerSubstitutionPreview inputs={inputs} linker={linker} />
-
-        <div style={{ display: "flex", gap: 10, marginBottom: 16 }}>
-          <div style={{ flex: 1 }}>
-            <label style={labelStyle}>{c.structure.temperature}</label>
-            <input type="number" value={inputs.temperature} min={200} max={400}
-              onChange={e => setInputs(p => ({ ...p, temperature: parseInt(e.target.value)||298 }))}
-              style={numInputStyle} />
-            <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.4, marginTop: 4 }}>
-              {lang === "zh" ? "默认 298 K；温度会改变等温线与 Qst 解释。" : "Default 298 K; temperature changes isotherm and Qst interpretation."}
+      <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 14, padding: isMobile ? 16 : 20, boxShadow: t.shadowSm }}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 14, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 16 }}>
+          <div>
+            <SectionTitle>输入工作台</SectionTitle>
+            <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 800 }}>先完成材料、工况和关键结构输入，再运行预测</div>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 6 }}>
+              这是 Stage 1 的科学筛选区。顶部不再重复放置比较操作，先把最必要的输入和结果看清楚。
             </div>
           </div>
-          <div style={{ flex: 1 }}>
-            <label style={labelStyle}>{c.structure.pressure}</label>
-            <input type="number" value={inputs.pressure} min={0.01} max={50} step={0.01}
-              onChange={e => setInputs(p => ({ ...p, pressure: parseFloat(e.target.value)||0.15 }))}
-              style={numInputStyle} />
-            <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.4, marginTop: 4 }}>
-              {lang === "zh" ? "默认 0.15 bar，适合燃烧后 CO2 筛选情景。" : "Default 0.15 bar for post-combustion CO2 screening context."}
-            </div>
-          </div>
+          <BasisBadge tone={gas.priority === "beta" ? "warn" : "info"}>
+            {gas.priority === "beta" ? "Beta 气体体系" : "筛选工作台"}
+          </BasisBadge>
         </div>
 
-        <div style={{ marginBottom: 12 }}>
-          <label style={labelStyle}>{c.structure.mlAlgorithm}</label>
-          <select value={inputs.mlAlgorithm}
-            onChange={e => setInputs(p => ({ ...p, mlAlgorithm: e.target.value }))}
-            style={selectStyle}>
-            <option value="ensemble">{lang === "zh" ? "集成基线（稳定默认）" : "Ensemble baseline (stable default)"}</option>
-            <option value="rf">{lang === "zh" ? "Random Forest（原型配置）" : "Random Forest (prototype profile)"}</option>
-            <option value="gbm">{lang === "zh" ? "Gradient Boosting（实验配置）" : "Gradient Boosting (experimental profile)"}</option>
-            <option value="gnn">{lang === "zh" ? "Graph Neural Network（Coming soon 脚手架）" : "Graph Neural Network (coming-soon scaffold)"}</option>
-          </select>
-          <div style={{ fontSize: 10, color: t.warn, marginTop: 4, lineHeight: 1.5 }}>
-            {c.structure.algoNote}
-          </div>
-          <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 6 }}>
-            <BasisBadge tone={inputs.mlAlgorithm === "ensemble" ? "calc" : "proxy"}>
-              {lang === "zh"
-                ? ({
-                    "Stable baseline": "稳定基线",
-                    "Prototype profile": "原型配置",
-                    "Experimental profile": "实验配置",
-                    "Coming-soon scaffold": "路线图脚手架",
-                  }[(MODEL_PROFILES[inputs.mlAlgorithm] || MODEL_PROFILES.ensemble).status] || (MODEL_PROFILES[inputs.mlAlgorithm] || MODEL_PROFILES.ensemble).status)
-                : (MODEL_PROFILES[inputs.mlAlgorithm] || MODEL_PROFILES.ensemble).status}
-            </BasisBadge>
-            <span style={{ color: t.faint, fontSize: 10, lineHeight: 1.7 }}>
-              {lang === "zh"
-                ? "切换算法目前改变浏览器端预测 profile；未完成独立重训验证的选项不会作为等价生产模型展示。"
-                : "Switching currently changes the browser-side prediction profile; options without independent retraining are not presented as equivalent production models."}
-            </span>
-          </div>
-        </div>
-
-        <div style={{ marginBottom: 14, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, marginBottom: 8 }}>
-            <span style={{ color: t.textStrong, fontSize: 12, fontWeight: 800 }}>
-              {lang === "zh" ? "后端预测连接" : "Backend prediction"}
-            </span>
-            <BasisBadge tone={apiStatus?.ok ? "calc" : "proxy"}>
-              {apiStatus?.ok ? zhText(lang, "API connected") : zhText(lang, "static fallback")}
-            </BasisBadge>
-          </div>
-          <input
-            value={apiUrl}
-            onChange={e => setApiUrl(e.target.value.trim())}
-            placeholder="http://127.0.0.1:8000"
-            style={{ ...numInputStyle, fontSize: 11, fontFamily: FONT_MONO, marginBottom: 8 }}
-          />
-          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-            <button type="button" onClick={onCheckApi} style={{ ...toolbarBtn(t), padding: "5px 8px", fontSize: 11 }}>
-              {lang === "zh" ? "检查 API" : "Check API"}
-            </button>
-            <span style={{ color: apiStatus?.ok ? t.success : apiStatus?.checked ? t.warn : t.faint, fontSize: 10, lineHeight: 1.45 }}>
-              {apiStatus?.message
-                ? zhText(lang, apiStatus.message)
-                : lang === "zh" ? "填写本地 FastAPI 地址前，将使用浏览器端模型。" : "Browser model is used until a local FastAPI URL is provided."}
-            </span>
-          </div>
-          {apiStatus?.manifest && (
-            <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45, marginTop: 7 }}>
-              {lang === "zh" ? "清单" : "manifest"}: {apiStatus.manifest.origin || "—"} · {lang === "zh" ? "行数" : "rows"} {apiStatus.manifest.rows ?? "—"}
-            </div>
-          )}
-        </div>
-
-        <button onClick={onPredict} disabled={loading || gas.priority === "unavailable"}
-          style={{
-            width: "100%", padding: "13px 0", borderRadius: 6, border: "none",
-            cursor: (loading || gas.priority === "unavailable") ? "not-allowed" : "pointer",
-            background: (loading || gas.priority === "unavailable") ? t.border : `linear-gradient(135deg, ${t.accentStrong}, ${t.accent})`,
-            color: "#fff", fontWeight: 700, fontSize: 14, letterSpacing: "0.06em",
-            display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-            transition: "all 0.2s", marginBottom: 10,
-          }}>
-          {loading ? `⏳ ${c.structure.computing}` :
-           gas.priority === "unavailable" ? c.structure.unsupported : `▶ ${c.structure.run}`}
-        </button>
-
-        <button onClick={() => setInputs({ ...DEFAULT_INPUTS })}
-          style={{ background: "none", border: "none", color: t.faint, fontSize: 11, cursor: "pointer" }}>
-          ↺ {c.structure.reset}
-        </button>
-
-        <div style={{ marginTop: 18, paddingTop: 16, borderTop: `1px solid ${t.divider}` }}>
-          <label style={labelStyle}>{c.structure.cifUpload}</label>
-          <label style={{
-            display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-            width: "100%", padding: "9px 10px", borderRadius: 6,
-            border: `1px dashed ${t.borderStrong}`, background: t.surface,
-            color: t.accentSoft, fontSize: 12, fontWeight: 700, cursor: "pointer",
-          }}>
-            ⬆ {c.structure.cifButton}
-            <input type="file" accept=".cif,.txt" style={{ display: "none" }}
-              onChange={e => handleCifUpload(e.target.files?.[0])} />
-          </label>
-          {cifInfo && (
-            <div style={{ marginTop: 10, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
-              <div style={{ color: t.success, fontSize: 11, fontWeight: 700, marginBottom: 6 }}>
-                {c.structure.cifParsed}: {cifInfo.fileName}
-              </div>
-              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55 }}>
-                {lang === "zh" ? "数据" : "data"}: {cifInfo.name || "—"}<br />
-                {lang === "zh" ? "晶胞" : "cell"}: {[cifInfo.cell.a, cifInfo.cell.b, cifInfo.cell.c].filter(Number.isFinite).join(" / ") || "—"} Å
-              </div>
-              <div style={{ color: Object.keys(cifInfo.descriptors).length ? t.success : t.warn, fontSize: 10, lineHeight: 1.5, marginTop: 6 }}>
-                {Object.keys(cifInfo.descriptors).length ? c.structure.cifApplied : c.structure.cifNoDescriptors}
-              </div>
-              <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.5, marginTop: 6 }}>
-                {c.structure.cifDescriptorWorkflow}
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.1fr) minmax(0, 0.9fr)", gap: 18, alignItems: "start" }}>
+          <div style={{ display: "grid", gap: 14 }}>
+            <div>
+              <label style={labelStyle}>搜索 MOF / 基准材料</label>
+              <input
+                list="screening-mof-presets"
+                value={inputs.mofName || ""}
+                placeholder="搜索 MOF / 基准材料（UiO-66、HKUST-1、ZIF-8、MOF-5）"
+                onChange={e => setInputs(prev => ({ ...prev, mofName: e.target.value }))}
+                onBlur={e => handleMofSearchCommit(e.target.value)}
+                onKeyDown={e => {
+                  if (e.key === "Enter") {
+                    e.preventDefault()
+                    handleMofSearchCommit(e.currentTarget.value)
+                  }
+                }}
+                style={{ ...numInputStyle, fontSize: 12 }}
+              />
+              <datalist id="screening-mof-presets">
+                {Object.keys(MOF_PRESETS).map(name => <option key={name} value={name} />)}
+              </datalist>
+              <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45, marginTop: 5 }}>
+                输入已知 MOF 名称后会自动回填参数；也可以直接输入自定义名称作为当前候选。
               </div>
             </div>
-          )}
-        </div>
-      </div>
 
-      {/* ── Right: Results Panel ── */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 14, overflowY: "auto" }}>
-        {!results ? (
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-            background: t.panel, border: `1px dashed ${t.border}`, borderRadius: 10, minHeight: 400 }}>
-            <div style={{ fontSize: 40, marginBottom: 16 }}>⬡</div>
-            <div style={{ color: t.accentText, fontSize: 16, fontWeight: 600, marginBottom: 8 }}>{c.structure.readyTitle}</div>
-            <div style={{ color: t.faint, fontSize: 13, textAlign: "center", maxWidth: 360 }}>
-              {c.structure.readyBody}<br />
-              <strong style={{ color: t.accentSoft }}>{c.structure.run}</strong>.
-            </div>
-            <button type="button" onClick={() => onLoadBenchmark?.("UiO-66")}
-              style={{ ...toolbarBtn(t), marginTop: 16, background: t.accent, borderColor: t.accent, color: "#fff", padding: "9px 13px" }}>
-              {lang === "zh" ? "载入 UiO-66 基准示例" : "Load UiO-66 benchmark example"}
-            </button>
-            <div style={{ color: t.faint, fontSize: 10, marginTop: 8 }}>
-              {lang === "zh" ? "这是基准示例，不是用户提交的新设计。" : "Benchmark example, not a user-submitted design."}
-            </div>
-          </div>
-        ) : results.unavailable ? (
-          <Callout tone="warn">
-            <strong>{c.structure.gasUnavailable}</strong> {results.message}
-          </Callout>
-        ) : (
-          <>
-            {/* Results Header */}
-            <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: "12px 18px",
-              display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <div>
-                <span style={{ color: t.muted, fontSize: 12 }}>{c.structure.resultTitle} / </span>
-                <span style={{ color: t.accentText, fontSize: 12, fontWeight: 600 }}>{results.gasSystem}</span>
-                <span style={{ marginLeft: 10, color: t.faint, fontSize: 11 }}>
-                  {c.structure.latency}: {results.latencyMs} ms · {c.structure.confidence}: {(results.confidenceScore * 100).toFixed(0)}%
-                  {" · "}{c.structure.applicability}: {results.applicability?.warnings?.length ? c.structure.caution : c.structure.inDomain}
-                </span>
-              </div>
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
-                <button onClick={exportCSV}
-                  style={{ background: t.border, border: `1px solid ${t.borderStrong}`, borderRadius: 4, color: t.accentSoft,
-                    fontSize: 11, padding: "5px 10px", cursor: "pointer" }}>
-                  ↓ {c.structure.export}
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              {["UiO-66", "HKUST-1", "ZIF-8"].map(name => (
+                <button key={name} type="button" onClick={() => onLoadBenchmark?.(name)} style={{ ...toolbarBtn(t), padding: "7px 12px" }}>
+                  {name}
                 </button>
-                <button onClick={onSaveRun}
-                  style={{ background: t.border, border: `1px solid ${t.borderStrong}`, borderRadius: 4, color: t.success,
-                    fontSize: 11, padding: "5px 10px", cursor: "pointer" }}>
-                  + {c.common.saveRun}
-                </button>
-              </div>
-            </div>
-
-            {results.anomaly && (
-              <Callout tone="warn">
-                <strong>{results.anomaly.label}</strong>
-                <br /><span style={{ opacity: 0.85 }}>{results.anomaly.reason}</span>
-              </Callout>
-            )}
-
-            {results.applicability?.warnings?.length > 0 && (
-              <Callout tone="warn">
-                <strong>{c.structure.applicability}: {c.structure.caution}</strong>
-                <br /><span style={{ opacity: 0.9 }}>
-                  {results.applicability.warnings.slice(0, 3).map(w => w.message).join(" ")}
-                </span>
-              </Callout>
-            )}
-
-            <ResultLayer
-              number="01"
-              title={lang === "zh" ? "结果是什么？" : "What is the result?"}
-              subtitle={lang === "zh" ? "先看 Stage 1 的吸附、选择性和置信状态。" : "Start with the Stage 1 uptake, selectivity, and confidence status."}
-            >
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "1fr 1fr 1fr", gap: 12 }}>
-              <MetricCard label={`${results.primaryName.toUpperCase()} ${c.structure.adsorptionCapacity}`}
-                value={results.primaryUptake} unit="mmol/g"
-                badge={perf?.label} badgeColor={perf?.color} badgeBg={perf?.bg} />
-              <MetricCard label={`${results.secondaryName.toUpperCase()} ${c.structure.uptake}`}
-                value={results.secondaryUptake} unit="mmol/g" />
-              <MetricCard label={`${results.primaryName}/${results.secondaryName} ${c.structure.selectivity}`}
-                value={results.selectivity}
-                comparison={`${results.selectivity > 30 ? "+" : ""}${((results.selectivity / 30 - 1) * 100).toFixed(1)}% vs 30`} />
-            </div>
-            </ResultLayer>
-
-            <ResultLayer
-              number="02"
-              title={lang === "zh" ? "为什么会这样？" : "Why does it look this way?"}
-              subtitle={lang === "zh" ? "用等温线、选择性方法和结构驱动因素解释结果。" : "Interpret the result through isotherm shape, selectivity method, and structural drivers."}
-            >
-            {results.selectivityDetails && (
-              <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", marginBottom: 10 }}>
-                  <SectionTitle>{c.methods.selectivity}</SectionTitle>
-                  <BasisBadge tone="proxy">{c.common.basisProxy}</BasisBadge>
-                </div>
-                <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
-                  {[
-                    ["Apparent", results.selectivityDetails.apparent],
-                    ["Henry proxy", results.selectivityDetails.henry],
-                    ["IAST proxy", results.selectivityDetails.iast],
-                    ["Method", results.selectivityDetails.method],
-                  ].map(([label, value]) => (
-                    <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
-                      <div style={{ color: t.faint, fontSize: 10, marginBottom: 5 }}>{zhText(lang, label)}<InfoTip text={label === "Method" ? c.methods.formulaIastBody : c.methods.selectivityBody1} /></div>
-                      <div style={{ color: t.textStrong, fontSize: label === "Method" ? 11 : 18, fontWeight: 800, fontFamily: label === "Method" ? FONT_SANS : FONT_MONO, lineHeight: 1.35 }}>
-                        {value}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 10 }}>
-                  {c.methods.selectivityBody2}
-                </div>
-                <details style={{ marginTop: 10, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
-                  <summary style={{ cursor: "pointer", color: t.textStrong, fontSize: 12, fontWeight: 800 }}>
-                    {lang === "zh" ? "Method note：选择性如何解释" : "Method note: how to read selectivity"}
-                  </summary>
-                  <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 8, marginTop: 10 }}>
-                    {[
-                      [
-                        lang === "zh" ? "表观选择性" : "Apparent selectivity",
-                        "S_app = q_A / q_B",
-                        lang === "zh" ? "使用同一条件下的预测单组分吸附量比值，适合作为 Stage 1 快速筛选线索。" : "Uses the predicted single-component uptake ratio at the selected condition; useful as a Stage 1 screening cue.",
-                      ],
-                      [
-                        lang === "zh" ? "Henry 选择性" : "Henry selectivity",
-                        "S_H = K_H,A / K_H,B",
-                        lang === "zh" ? "基于低压 Henry 常数，适合稀释极限；当前页面只给出代理提示，不等同于严格 Henry 拟合。" : "Uses low-pressure Henry constants for the dilute limit; this page only shows a proxy cue, not a strict Henry fit.",
-                      ],
-                      [
-                        lang === "zh" ? "IAST 选择性" : "IAST selectivity",
-                        "S_IAST = (x_A / y_A) / (x_B / y_B)",
-                        lang === "zh" ? "需要纯组分等温线拟合和进料组成；当前值不是严格混合气平衡分离计算。" : "Requires fitted pure-component isotherms and feed composition; the current value is not a rigorous mixture-equilibrium separation calculation.",
-                      ],
-                    ].map(([title, formula, body]) => (
-                      <div key={title} style={{ borderLeft: `3px solid ${t.accent}`, paddingLeft: 9 }}>
-                        <div style={{ color: t.textStrong, fontSize: 11, fontWeight: 800 }}>{title}</div>
-                        <div style={{ color: t.accentSoft, fontFamily: FONT_MONO, fontSize: 11, margin: "4px 0" }}>{formula}</div>
-                        <div style={{ color: t.subtle, fontSize: 10, lineHeight: 1.45 }}>{body}</div>
-                      </div>
-                    ))}
-                  </div>
-                </details>
-              </div>
-            )}
-
-            {/* Charts Row */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 14 }}>
-              {/* Isotherm Chart */}
-              <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
-                <div style={{ color: t.muted, fontSize: 11, marginBottom: 12, letterSpacing: "0.06em" }}>
-                  {c.structure.isotherm}
-                </div>
-                <ResponsiveContainer width="100%" height={isNarrow ? 210 : 245}>
-                  <LineChart data={results.isothermData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
-                    <XAxis dataKey="pressure" stroke={t.faint} tick={{ fill: t.subtle, fontSize: 10 }} label={{ value: "Pressure (bar)", fill: t.subtle, fontSize: 10, dy: 10 }} />
-                    <YAxis stroke={t.faint} tick={{ fill: t.subtle, fontSize: 10 }} label={{ value: "mmol/g", fill: t.subtle, fontSize: 10, angle: -90, dx: -10 }} />
-                    <Tooltip content={<CustomTooltip />} />
-                    <Legend wrapperStyle={{ fontSize: 11, color: t.subtle }} />
-                    <Line type="monotone" dataKey="predicted"  stroke={t.accent} strokeWidth={2.5} dot={false} name="ML Predicted" />
-                    <Line type="monotone" dataKey="literature" stroke={t.subtle} strokeWidth={1.5} strokeDasharray="5 5" dot={false} name="Literature Ref." />
-                  </LineChart>
-                </ResponsiveContainer>
-                <HowToRead>
-                  {lang === "zh"
-                    ? "曲线显示预测吸附量随压力变化；虚线文献参考只作方向性对照，不代表同一严格实验条件。"
-                    : "The curve shows predicted uptake versus pressure; the dashed literature reference is directional context, not a matched experimental condition."}
-                </HowToRead>
-              </div>
-
-              <Callout tone="info">
-                <strong>{lang === "zh" ? "为什么这个阶段先开始：" : "Why this stage comes first:"}</strong>{" "}
-                {lang === "zh"
-                  ? "早期材料筛选应以性能和化学合理性为中心。更宽的成本与生命周期标准只在形成初筛候选后引入。"
-                  : "Early-stage materials screening should remain performance- and chemistry-centered. Broader cost and lifecycle criteria are introduced only after an initial filter exists."}
-              </Callout>
-            </div>
-            </ResultLayer>
-
-            <ResultLayer
-              number="03"
-              title={lang === "zh" ? "应该相信多少？" : "How much should I trust it?"}
-              subtitle={lang === "zh" ? "把模型依据、来源类型和限制与结果分开阅读。" : "Read model basis, source type, and limitations separately from the result."}
-            >
-            <ProvenanceGrid items={[
-              { label: "Basis", value: c.common.basisModelPredicted, type: "model", note: "Browser profile or optional backend prediction." },
-              { label: "Source type", value: "Seed benchmark + descriptor input", type: "benchmark", note: lang === "zh" ? `MOF 预设、CIF 派生字段或用户输入。官能团：${formatFunctionalGroupSummary(inputs, lang)}` : `MOF presets, CIF-derived fields, or user input. Groups: ${formatFunctionalGroupSummary(inputs, lang)}` },
-              { label: "Quality", value: results.applicability?.warnings?.length ? "Medium-low" : "Medium", type: "proxy", note: results.applicability?.warnings?.length ? "Applicability warning present." : "Within prototype descriptor range." },
-              { label: "Limitation", value: "Screening-level only", type: "proxy", note: "Not a strict IAST/GCMC or experimental result." },
-            ]} />
-            <ResultProvenanceDrawer results={results} inputs={inputs} />
-            </ResultLayer>
-
-            <NextStepCTA
-              label={lang === "zh" ? "下一步：检查可行性边界" : "Next: check feasibility boundaries"}
-              body={lang === "zh" ? "性能和化学筛选之后，再看成本、供应与可得性是否形成早期阻断。" : "After performance and chemistry screening, check whether cost, supply, or availability creates an early boundary."}
-              actionLabel={lang === "zh" ? "进入可行性" : "Proceed to feasibility"}
-              onClick={() => setActiveTab?.("feasibility")}
-            />
-
-            {/* Footer Badges */}
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "1fr 1fr 1fr", gap: 12 }}>
-              {[
-                { icon: "📊", title: c.structure.dataSource, desc: "Structure: public/data/mof_structures.json", sub: "Seed schema includes source_database, source_record, descriptor_method, CIF status" },
-                { icon: "🤖", title: c.structure.mlArchitecture, desc: "Model: browser profile + optional FastAPI /predict", sub: "Training scaffold reads data/adsorption_labels.csv and writes RF/GBM artifacts" },
-                { icon: "🌿", title: c.structure.lcaFramework, desc: "LCA/LCC: public/data/lca_inventory.json", sub: "Proxy inventory now has source_type, assumption, uncertainty, and roadmap replacement" },
-              ].map(({ icon, title, desc, sub }) => (
-                <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "10px 14px",
-                  display: "flex", gap: 10 }}>
-                  <span style={{ fontSize: 18 }}>{icon}</span>
-                  <div>
-                    <div style={{ color: t.accentText, fontSize: 10, fontWeight: 600, letterSpacing: "0.06em" }}>{title}</div>
-                    <div style={{ color: t.muted, fontSize: 11, marginTop: 2 }}>{desc}</div>
-                    <div style={{ color: t.faint, fontSize: 10, marginTop: 2 }}>{sub}</div>
-                  </div>
-                </div>
               ))}
             </div>
-          </>
-        )}
-      </div>
 
-      <aside style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16, boxShadow: t.shadowSm, backdropFilter: "blur(18px) saturate(135%)", position: isNarrow ? "static" : "sticky", top: 74 }}>
-        <Callout tone="info">
-          <strong>{lang === "zh" ? "为什么这个阶段先开始" : "Why this stage comes first"}</strong>
-          <br />
-          {lang === "zh"
-            ? "早期材料筛选应以性能和化学合理性为中心。更宽的成本与生命周期标准只在形成初筛候选后引入。"
-            : "Early-stage materials screening should remain performance- and chemistry-centered. Broader cost and lifecycle criteria are introduced only after an initial filter exists."}
-        </Callout>
-        <div style={{ height: 12 }} />
-        <SectionTitle>{lang === "zh" ? "解释与下一步" : "Interpretation & Next Steps"}</SectionTitle>
-        <div style={{ display: "grid", gap: 10 }}>
-          {decisionTips.map(([title, body], index) => (
-            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", marginBottom: 7 }}>
-                <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800 }}>{title}</div>
-                <BasisBadge tone={index === 1 && hasUsableResults ? "calc" : "info"}>{index + 1}</BasisBadge>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1.1fr 0.9fr 0.9fr", gap: 12 }}>
+              <div>
+                <label style={labelStyle}>气体体系</label>
+                <select value={inputs.gasSystem} onChange={e => setInputs(p => ({ ...p, gasSystem: e.target.value }))} style={selectStyle}>
+                  {GAS_SYSTEMS.map(g => (
+                    <option key={g.id} value={g.id} disabled={g.priority === "unavailable"}>
+                      {gasLabel(g.label, "zh")}
+                    </option>
+                  ))}
+                </select>
+                <div style={{ color: gas.priority === "beta" ? t.warn : t.faint, fontSize: 10, lineHeight: 1.45 }}>
+                  {zhText("zh", gas.dataNote)}
+                </div>
               </div>
-              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.6 }}>{body}</div>
+              <div>
+                <label style={labelStyle}>温度</label>
+                <input type="number" value={inputs.temperature} min={200} max={400}
+                  onChange={e => setInputs(p => ({ ...p, temperature: parseInt(e.target.value) || 298 }))}
+                  style={numInputStyle} />
+                <div style={{ color: t.faint, fontSize: 10, marginTop: 4 }}>默认 298 K</div>
+              </div>
+              <div>
+                <label style={labelStyle}>压力</label>
+                <input type="number" value={inputs.pressure} min={0.01} max={50} step={0.01}
+                  onChange={e => setInputs(p => ({ ...p, pressure: parseFloat(e.target.value) || 0.15 }))}
+                  style={numInputStyle} />
+                <div style={{ color: t.faint, fontSize: 10, marginTop: 4 }}>默认 0.15 bar</div>
+              </div>
             </div>
-          ))}
-        </div>
-        <div style={{ display: "grid", gap: 8, marginTop: 12 }}>
-          {[
-            ["interpretation", lang === "zh" ? "机理解释" : "Mechanism"],
-            ["feasibility", lang === "zh" ? "可行性边界" : "Feasibility"],
-            ["lca", lang === "zh" ? "入围候选 LCA/LCC" : "Shortlist LCA/LCC"],
-            ["sensitivity", lang === "zh" ? "稳健性" : "Robustness"],
-            ["validation", lang === "zh" ? "验证依据" : "Validation"],
-          ].map(([tab, label]) => (
-            <button key={tab} type="button" onClick={() => setActiveTab?.(tab)}
-              style={{ ...toolbarBtn(t), justifyContent: "space-between", width: "100%", padding: "8px 10px" }}>
-              <span>{label}</span>
-              <span style={{ color: t.faint }}>→</span>
+
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
+              <div>
+                <label style={labelStyle}>金属节点</label>
+                <select value={inputs.metalCenter} onChange={e => setInputs(p => ({ ...p, metalCenter: e.target.value }))} style={selectStyle}>
+                  {METAL_CENTERS.map(m => <option key={m.value} value={m.value}>{m.label}{m.oms ? " · OMS" : ""}</option>)}
+                </select>
+                {metal && <div style={{ color: metal.color, fontSize: 10, lineHeight: 1.45 }}>{`毒性 ${zhText("zh", metal.toxicity)} · LCA ${metal.lcaScore}/10${metal.oms ? " · 开放金属位点" : ""}`}</div>}
+              </div>
+              <div>
+                <label style={labelStyle}>有机连接体</label>
+                <select value={inputs.organicLinker} onChange={e => setInputs(p => ({ ...p, organicLinker: e.target.value }))} style={selectStyle}>
+                  {ORGANIC_LINKERS.map(l => <option key={l.value} value={l.value}>{l.label}</option>)}
+                </select>
+                {linker && <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45 }}>{`${zhText("zh", linker.category)} · ${linker.connectivity} 连接 · 位置 ${linker.positions}`}</div>}
+              </div>
+            </div>
+
+            <div>
+              <div style={{ ...labelStyle, marginBottom: 10 }}>关键结构输入</div>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 12 }}>
+                <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }}>
+                  <NumericField label="孔径（Å）" unit="Å" min={3} max={30} step={0.1}
+                    value={inputs.poreDiameter}
+                    onChange={v => setInputs(p => ({ ...p, poreDiameter: v }))}
+                    helper="孔径影响尺寸筛分与扩散，建议先用基准区间。"
+                  />
+                </div>
+                <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }}>
+                  <NumericField label="BET 比表面积（m²/g）" unit="m²/g" min={100} max={7000} step={10}
+                    value={inputs.betSurfaceArea}
+                    onChange={v => setInputs(p => ({ ...p, betSurfaceArea: v }))}
+                    helper="BET 更接近容量驱动，不应单独拿来解释选择性。"
+                  />
+                </div>
+                <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }}>
+                  <NumericField label="孔体积（cm³/g）" unit="cm³/g" min={0.1} max={4.5} step={0.01}
+                    value={inputs.poreVolume}
+                    onChange={v => setInputs(p => ({ ...p, poreVolume: v }))}
+                    helper="孔体积会抬高高压容量，但不能单独决定分离效果。"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <button
+              onClick={onPredict}
+              disabled={loading || gas.priority === "unavailable"}
+              style={{
+                width: "100%",
+                padding: "13px 0",
+                borderRadius: 10,
+                border: "none",
+                cursor: (loading || gas.priority === "unavailable") ? "not-allowed" : "pointer",
+                background: (loading || gas.priority === "unavailable") ? t.border : `linear-gradient(135deg, ${t.accentStrong}, ${t.accent})`,
+                color: "#fff",
+                fontWeight: 800,
+                fontSize: 15,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+              }}
+            >
+              {loading ? "⏳ 运行中..." : gas.priority === "unavailable" ? "当前气体体系暂不支持" : "运行预测"}
             </button>
-          ))}
+          </div>
+
+          <div style={{ display: "grid", gap: 12 }}>
+            <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }} open={selectedFunctionalGroups.length > 0}>
+              <summary style={{ cursor: "pointer", color: t.textStrong, fontSize: 12, fontWeight: 800 }}>官能团与取代位置（可选）</summary>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginTop: 12, marginBottom: 10 }}>
+                {FUNCTIONAL_GROUPS.map(fg => (
+                  <label key={fg.value} title={zhText("zh", fg.category)} style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", color: inputs.functionalGroups.includes(fg.value) ? t.accentSoft : t.subtle, fontSize: 11 }}>
+                    <input type="checkbox" checked={inputs.functionalGroups.includes(fg.value)} onChange={() => toggleFG(fg.value)} style={{ accentColor: t.accent, width: 13, height: 13 }} />
+                    {functionalGroupLabel(fg.label, "zh")}
+                  </label>
+                ))}
+              </div>
+              <div style={{ display: "grid", gap: 8 }}>
+                {selectedFunctionalGroups.map(({ value, meta, detail }) => (
+                  <div key={value} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", marginBottom: 8 }}>
+                      <div>
+                        <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800 }}>{functionalGroupLabel(meta.label, "zh")}</div>
+                        <div style={{ color: t.faint, fontSize: 10 }}>{zhText("zh", meta.category)}</div>
+                      </div>
+                      <BasisBadge tone="user">用户定义</BasisBadge>
+                    </div>
+                    <div style={{ display: "grid", gridTemplateColumns: "86px minmax(0, 1fr)", gap: 9, alignItems: "center" }}>
+                      <div>
+                        <label style={{ ...labelStyle, marginBottom: 4 }}>数量</label>
+                        <select
+                          value={detail.count}
+                          onChange={e => {
+                            const count = Math.max(0, Math.min(4, parseInt(e.target.value, 10) || 0))
+                            updateFGDetail(value, {
+                              count,
+                              positions: count === 0 ? [] : detail.positions.length >= count ? detail.positions.slice(0, count) : defaultGroupPositions(count),
+                            })
+                          }}
+                          style={{ ...selectStyle, padding: "6px 8px", fontSize: 12 }}
+                        >
+                          {[0, 1, 2, 3, 4].map(count => <option key={count} value={count}>{count}</option>)}
+                        </select>
+                      </div>
+                      <div>
+                        <label style={{ ...labelStyle, marginBottom: 4 }}>取代位置</label>
+                        <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
+                          {AROMATIC_SUBSTITUTION_POSITIONS.map(pos => {
+                            const active = (functionalGroupDetails[value]?.positions || []).includes(pos)
+                            return (
+                              <button
+                                key={pos}
+                                type="button"
+                                onClick={() => toggleFGPosition(value, pos)}
+                                style={{
+                                  minWidth: 30,
+                                  height: 26,
+                                  borderRadius: 6,
+                                  border: `1px solid ${active ? t.accent : t.border}`,
+                                  background: active ? t.badgeInfoBg : t.panel,
+                                  color: active ? t.accentText : t.subtle,
+                                  fontSize: 11,
+                                  fontWeight: 800,
+                                  cursor: "pointer",
+                                  fontFamily: FONT_MONO,
+                                }}
+                              >
+                                {pos}
+                              </button>
+                            )
+                          })}
+                        </div>
+                        <div style={{ color: t.faint, fontSize: 10, marginTop: 6 }}>{`当前：${detail.positions.length ? detail.positions.join(", ") : "无"}；最多 ${detail.count} 个。`}</div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                {!selectedFunctionalGroups.length && (
+                  <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.45, background: t.panel, border: `1px dashed ${t.border}`, borderRadius: 8, padding: 10 }}>
+                    选择官能团后，可设置数量并标注 2 / 3 / 5 / 6 位。
+                  </div>
+                )}
+              </div>
+              <div style={{ marginTop: 10 }}>
+                <LinkerSubstitutionPreview inputs={inputs} linker={linker} />
+              </div>
+            </details>
+
+            <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }}>
+              <summary style={{ cursor: "pointer", color: t.textStrong, fontSize: 12, fontWeight: 800 }}>高级设置（默认收起）</summary>
+              <div style={{ display: "grid", gap: 12, marginTop: 12 }}>
+                <div>
+                  <label style={labelStyle}>算法配置</label>
+                  <select value={inputs.mlAlgorithm} onChange={e => setInputs(p => ({ ...p, mlAlgorithm: e.target.value }))} style={selectStyle}>
+                    <option value="ensemble">集成基线（稳定默认）</option>
+                    <option value="rf">Random Forest（原型配置）</option>
+                    <option value="gbm">Gradient Boosting（实验配置）</option>
+                    <option value="gnn">Graph Neural Network（路线图脚手架）</option>
+                  </select>
+                  <div style={{ color: t.warn, fontSize: 10, lineHeight: 1.45 }}>{c.structure.algoNote}</div>
+                </div>
+
+                <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", marginBottom: 8 }}>
+                    <span style={{ color: t.textStrong, fontSize: 12, fontWeight: 800 }}>后端预测连接</span>
+                    <BasisBadge tone={apiStatus?.ok ? "calc" : "proxy"}>{apiStatus?.ok ? "API 已连接" : "静态回退"}</BasisBadge>
+                  </div>
+                  <input
+                    value={apiUrl}
+                    onChange={e => setApiUrl(e.target.value.trim())}
+                    placeholder="http://127.0.0.1:8000"
+                    style={{ ...numInputStyle, fontSize: 11, marginBottom: 8 }}
+                  />
+                  <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
+                    <button type="button" onClick={onCheckApi} style={{ ...toolbarBtn(t), padding: "5px 8px", fontSize: 11 }}>检查 API</button>
+                    <span style={{ color: apiStatus?.ok ? t.success : apiStatus?.checked ? t.warn : t.faint, fontSize: 10, lineHeight: 1.45 }}>
+                      {apiStatus?.message ? zhText("zh", apiStatus.message) : "未配置 API 时，默认使用浏览器端模型。"}
+                    </span>
+                  </div>
+                </div>
+
+                <div>
+                  <label style={labelStyle}>CIF 上传</label>
+                  <label style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, width: "100%", padding: "9px 10px", borderRadius: 6, border: `1px dashed ${t.borderStrong}`, background: t.panel, color: t.accentSoft, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>
+                    ⬆ 选择 CIF 文件
+                    <input type="file" accept=".cif,.txt" style={{ display: "none" }} onChange={e => handleCifUpload(e.target.files?.[0])} />
+                  </label>
+                  {cifInfo && (
+                    <div style={{ marginTop: 8, color: t.faint, fontSize: 10, lineHeight: 1.5 }}>
+                      {`已解析：${cifInfo.fileName} · 晶胞 ${[
+                        cifInfo.cell.a, cifInfo.cell.b, cifInfo.cell.c,
+                      ].filter(Number.isFinite).join(" / ") || "—"} Å`}
+                    </div>
+                  )}
+                </div>
+
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  <button onClick={exportCSV} style={toolbarBtn(t)}>导出 CSV</button>
+                  <button onClick={onSaveRun} style={toolbarBtn(t)}>保存结果</button>
+                  <button onClick={() => setInputs({ ...DEFAULT_INPUTS })} style={toolbarBtn(t)}>重置参数</button>
+                </div>
+              </div>
+            </details>
+          </div>
         </div>
-        <div style={{ marginTop: 12, color: t.faint, fontSize: 10, lineHeight: 1.55 }}>
-          {lang === "zh"
-            ? "页面布局按输入、结果、解释三列组织，目的是让用户按研究判断链阅读，而不是只看一个预测数字。"
-            : "This three-column layout follows input, result, and interpretation so the workflow supports decisions instead of isolated numbers."}
+      </section>
+
+      {!results && (
+        <div style={{ background: t.panel, border: `1px dashed ${t.border}`, borderRadius: 14, padding: 28, textAlign: "center" }}>
+          <div style={{ fontSize: 38, marginBottom: 12 }}>⬡</div>
+          <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 800, marginBottom: 8 }}>先运行一次预测，再进入结果解读</div>
+          <div style={{ color: t.faint, fontSize: 12, lineHeight: 1.6, maxWidth: 520, margin: "0 auto" }}>
+            当前页已经把 Stage 1 所需输入集中到输入工作台。建议先从 UiO-66 或 HKUST-1 这样的基准材料开始。
+          </div>
         </div>
-      </aside>
-    </div>
-      <Callout tone="info">
-        {lang === "zh"
-          ? "来源依据：结构参数来自用户输入、MOF 预设或 CIF 解析；吸附结果为模型/代理筛选输出；LCA/LCC 由代理清单与用户参数计算。"
-          : "Source basis: descriptors come from user input, MOF presets, or CIF parsing; adsorption results are model/proxy screening outputs; LCA/LCC uses proxy inventory plus user-defined assumptions."}
-      </Callout>
+      )}
+
+      {results?.unavailable && (
+        <Callout tone="warn">
+          <strong>当前气体体系暂不可用：</strong> {results.message}
+        </Callout>
+      )}
+
+      {hasUsableResults && (
+        <>
+          {results.anomaly && (
+            <Callout tone="warn">
+              <strong>{results.anomaly.label}</strong><br />
+              <span style={{ opacity: 0.88 }}>{results.anomaly.reason}</span>
+            </Callout>
+          )}
+
+          {results.applicability?.warnings?.length > 0 && (
+            <Callout tone="warn">
+              <strong>适用域提示：</strong> {results.applicability.warnings.slice(0, 3).map(w => w.message).join(" ")}
+            </Callout>
+          )}
+
+          <ResultLayer
+            number="01"
+            title="第一层 — 结果是什么？"
+            subtitle="先看吸附量、选择性、置信度和适用域，再决定是否继续。"
+          >
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 12 }}>
+              <MetricCard label="吸附量" value={results.primaryUptake} unit="mmol/g" badge={perf?.label} badgeColor={perf?.color} badgeBg={perf?.bg} comparison={results.primaryName} />
+              <MetricCard label="选择性" value={results.selectivity} unit="" comparison={`${results.primaryName}/${results.secondaryName}`} />
+              <MetricCard label="置信度" value={(results.confidenceScore * 100).toFixed(0)} unit="%" />
+              <MetricCard label="适用域" value={results.applicability?.warnings?.length ? "谨慎" : "适用"} unit="" comparison={results.applicability?.warnings?.length ? "存在边界警告" : "位于原型范围内"} />
+            </div>
+
+            <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 18 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 12 }}>
+                <div>
+                  <SectionTitle>主结果图</SectionTitle>
+                  <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 800 }}>预测等温线</div>
+                  <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 4 }}>
+                    这是当前页最重要的主图。先看曲线形状，再结合 summary 判断容量、压力响应和筛选可信度。
+                  </div>
+                </div>
+                <BasisBadge tone="info">模型预测</BasisBadge>
+              </div>
+              <ResponsiveContainer width="100%" height={isNarrow ? 260 : 340}>
+                <LineChart data={results.isothermData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
+                  <XAxis dataKey="pressure" stroke={t.faint} tick={{ fill: t.subtle, fontSize: 10 }} label={{ value: "压力 (bar)", fill: t.subtle, fontSize: 10, dy: 10 }} />
+                  <YAxis stroke={t.faint} tick={{ fill: t.subtle, fontSize: 10 }} label={{ value: "吸附量 (mmol/g)", fill: t.subtle, fontSize: 10, angle: -90, dx: -10 }} />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend wrapperStyle={{ fontSize: 11, color: t.subtle }} />
+                  <Line type="monotone" dataKey="predicted" stroke={t.accent} strokeWidth={2.5} dot={false} name="预测曲线" />
+                  <Line type="monotone" dataKey="literature" stroke={t.subtle} strokeWidth={1.5} strokeDasharray="5 5" dot={false} name="文献参考" />
+                </LineChart>
+              </ResponsiveContainer>
+              <HowToRead>先看低压段斜率和高压段平台；虚线文献只提供方向性对照，不代表同一严格实验条件。</HowToRead>
+            </div>
+          </ResultLayer>
+
+          <ResultLayer
+            number="02"
+            title="第二层 — 为什么会这样？"
+            subtitle="从结构特征、化学驱动因素和结果阅读方法理解这次筛选输出。"
+          >
+            <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
+              <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
+                <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 800, marginBottom: 8 }}>结构解释</div>
+                <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.65 }}>
+                  {`${inputs.organicLinker} 连接体、孔径 ${inputs.poreDiameter} Å、BET ${inputs.betSurfaceArea} m²/g 和孔体积 ${inputs.poreVolume} cm³/g 一起决定了容量窗口。当前官能团设置为：${formatFunctionalGroupSummary(inputs, "zh")}。`}
+                </div>
+              </div>
+              <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
+                <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 800, marginBottom: 8 }}>化学驱动因素</div>
+                <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.65 }}>
+                  {`${results.primaryName} 吸附主要受孔道匹配、表面积与极性位点影响。选择性当前仍是 screening proxy，适合作为早期方向判断，不等同于严格 Henry 或 IAST 混合气分离结果。`}
+                </div>
+              </div>
+            </div>
+
+            <div style={{ background: t.badgeInfoBg, border: `1px solid ${t.borderStrong}`, borderRadius: 10, padding: "12px 14px", color: t.badgeInfoText, fontSize: 11, lineHeight: 1.6 }}>
+              为什么会得到这个结果？可以先把它理解成“结构描述符 + 官能团修饰 + 当前工况”共同作用下的 Stage 1 筛选输出，而不是完整热力学结论。
+            </div>
+
+            <MethodDrawer title="方法说明：选择性如何阅读" badge="筛选代理">
+              <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 8 }}>
+                {[
+                  ["表观选择性", "S_app = q_A / q_B", "使用当前条件下的单组分吸附量比值，适合 Stage 1 快速筛选。"],
+                  ["Henry 选择性", "S_H = K_H,A / K_H,B", "适合稀释极限；当前页面只给出 proxy 提示。"],
+                  ["IAST 选择性", "S_IAST = (x_A / y_A) / (x_B / y_B)", "严格版本需要纯组分等温线拟合和进料组成。"],
+                ].map(([title, formula, body]) => (
+                  <div key={title} style={{ borderLeft: `3px solid ${t.accent}`, paddingLeft: 9 }}>
+                    <div style={{ color: t.textStrong, fontSize: 11, fontWeight: 800 }}>{title}</div>
+                    <div style={{ color: t.accentSoft, fontFamily: FONT_MONO, fontSize: 11, margin: "4px 0" }}>{formula}</div>
+                    <div style={{ color: t.subtle, fontSize: 10, lineHeight: 1.5 }}>{body}</div>
+                  </div>
+                ))}
+              </div>
+            </MethodDrawer>
+
+            <MethodDrawer title="热力学 / Qst 说明" badge="后续解释层">
+              Qst 与多温等温线解释仍应放在更下游的 interpretation 视图中阅读。当前 Screening 只保留性能主图，避免把 Stage 1 页面做成拥挤的全功能仪表盘。
+            </MethodDrawer>
+          </ResultLayer>
+
+          <ResultLayer
+            number="03"
+            title="第三层 — 能信到什么程度？"
+            subtitle="把依据、数据来源、局限说明和方法入口与结果主体分开阅读。"
+          >
+            <ProvenanceGrid items={[
+              { label: "依据", value: "模型预测", type: "model", note: "结构描述符 + 当前筛选模型。" },
+              { label: "数据来源", value: "基准材料 + 用户输入", type: "benchmark", note: `预设 / CIF / 用户输入。官能团：${formatFunctionalGroupSummary(inputs, "zh")}` },
+              { label: "局限说明", value: results.applicability?.warnings?.length ? "存在边界警告" : "筛选级可用", type: "proxy", note: results.applicability?.warnings?.length ? "建议补实验等温线或 GCMC。": "可用于早期候选比较。" },
+              { label: "方法说明", value: "筛选级原型", type: "proxy", note: "不是严格 IAST / GCMC / 实验数据。" },
+            ]} />
+            <ResultProvenanceDrawer results={results} inputs={inputs} />
+          </ResultLayer>
+
+          <div style={{ background: t.panel, border: `1px solid ${t.borderStrong}`, borderRadius: 12, padding: 16, display: "flex", justifyContent: "space-between", gap: 14, alignItems: "center", flexWrap: "wrap" }}>
+            <div>
+              <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 850 }}>下一步</div>
+              <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 4 }}>
+                如果 Stage 1 没有明显问题，再进入 Feasibility 检查成本、可得性和供应边界。加入 Comparison 保留为次级动作。
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              <button type="button" onClick={() => setActiveTab?.("feasibility")} style={{ ...toolbarBtn(t), background: t.accent, borderColor: t.accent, color: "#fff", padding: "8px 14px" }}>
+                进入 Feasibility
+              </button>
+              <button type="button" onClick={onAddComparison} style={toolbarBtn(t)}>
+                加入 Comparison
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   )
 }
@@ -5066,14 +4933,14 @@ function LiteratureTab({ results, inputs }) {
               <tr key={m.name} style={{ background: i % 2 === 0 ? "transparent" : t.surface,
                 borderBottom: `1px solid ${t.divider}` }}>
                 <td style={{ padding: "10px 14px", color: t.accentText, fontSize: 13, fontWeight: 600 }}>{m.name}</td>
-                <td style={{ padding: "10px 14px", color: t.muted, fontSize: 12, fontFamily: "monospace" }}>{m.metal}</td>
+                <td style={{ padding: "10px 14px", color: t.muted, fontSize: 12, fontFamily: FONT_MONO }}>{m.metal}</td>
                 <td style={{ padding: "10px 14px", color: t.muted, fontSize: 12 }}>{m.linker}</td>
                 <td style={{ padding: "10px 14px", color: t.muted, fontSize: 12 }}>{m.topology || "—"}{m.oms ? ` · ${lang === "zh" ? "开放金属位点" : "OMS"}` : ""}</td>
-                <td style={{ padding: "10px 14px", color: t.text, fontSize: 12, fontFamily: "monospace" }}>{m.pd}/{m.lcd || "—"}</td>
-                <td style={{ padding: "10px 14px", color: t.text, fontSize: 12, fontFamily: "monospace" }}>{Number(m.bet || 0).toLocaleString()} / {m.pv}</td>
-                <td style={{ padding: "10px 14px", fontFamily: "monospace", fontSize: 12, fontWeight: 700,
+                <td style={{ padding: "10px 14px", color: t.text, fontSize: 12, fontFamily: FONT_MONO }}>{m.pd}/{m.lcd || "—"}</td>
+                <td style={{ padding: "10px 14px", color: t.text, fontSize: 12, fontFamily: FONT_MONO }}>{Number(m.bet || 0).toLocaleString()} / {m.pv}</td>
+                <td style={{ padding: "10px 14px", fontFamily: FONT_MONO, fontSize: 12, fontWeight: 700,
                   color: m.co2 >= 6 ? t.success : m.co2 >= 3 ? t.accent : t.muted }}>{m.co2}</td>
-                <td style={{ padding: "10px 14px", fontFamily: "monospace", fontSize: 12,
+                <td style={{ padding: "10px 14px", fontFamily: FONT_MONO, fontSize: 12,
                   color: m.selectivity >= 100 ? t.success : m.selectivity >= 30 ? t.accent : t.muted }}>{m.selectivity}</td>
                 <td style={{ padding: "10px 14px", color: t.subtle, fontSize: 11, lineHeight: 1.45 }}>
                   <strong style={{ color: t.text }}>{zhText(lang, m.sourceDatabase || "local seed")}</strong><br />
@@ -5602,7 +5469,7 @@ function MethodsLimitationsTab() {
             ["Long term", "Electronic specialty gas separations and hydrogen-specific quantum corrections when reliable labels are available."],
           ]).map(([k, v], i, arr) => (
             <div key={k} style={{ ...rowStyle, gridTemplateColumns: "90px 1fr", borderBottom: i === arr.length - 1 ? "none" : rowStyle.borderBottom }}>
-              <div style={{ color: t.success, fontSize: 12, fontWeight: 800, fontFamily: "monospace" }}>{k}</div>
+              <div style={{ color: t.success, fontSize: 12, fontWeight: 800, fontFamily: FONT_MONO }}>{k}</div>
               <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.6 }}>{v}</div>
             </div>
           ))}
@@ -5926,11 +5793,11 @@ function BatchModePanel({ inputs, onClose, onApplyToForm }) {
                       {GAS_SYSTEMS.map(g => <option key={g.id} value={g.id} disabled={g.priority === "unavailable"}>{gasLabel(g.label, lang)}</option>)}
                     </select>
                   </td>
-                  <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.success }}>{r.result?.primaryUptake ?? "—"}</td>
-                  <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.muted }}>{r.result?.secondaryUptake ?? "—"}</td>
-                  <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.text }}>{r.result?.selectivity ?? "—"}</td>
-                  <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.accentSoft }}>{r.result?.thermo?.qst0 ?? "—"}</td>
-                  <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.success }}>{Number.isFinite(decisionScore(r)) ? decisionScore(r) : "—"}</td>
+                  <td style={{ padding: "6px 10px", fontFamily: FONT_MONO, color: t.success }}>{r.result?.primaryUptake ?? "—"}</td>
+                  <td style={{ padding: "6px 10px", fontFamily: FONT_MONO, color: t.muted }}>{r.result?.secondaryUptake ?? "—"}</td>
+                  <td style={{ padding: "6px 10px", fontFamily: FONT_MONO, color: t.text }}>{r.result?.selectivity ?? "—"}</td>
+                  <td style={{ padding: "6px 10px", fontFamily: FONT_MONO, color: t.accentSoft }}>{r.result?.thermo?.qst0 ?? "—"}</td>
+                  <td style={{ padding: "6px 10px", fontFamily: FONT_MONO, color: t.success }}>{Number.isFinite(decisionScore(r)) ? decisionScore(r) : "—"}</td>
                   <td style={{ padding: "6px 10px", color: t.warn, fontSize: 11 }}>{r.result?.anomaly ? "⚠ inverse" : ""}</td>
                   <td style={{ padding: "6px 10px" }}>
                     <button onClick={() => onApplyToForm(r)}
@@ -6333,53 +6200,12 @@ function ContextualHeaderBar({
   if (activeTab === "screening") {
     return (
       <div style={layerStyle}>
-        <PresetSearchControl
-          value={searchQuery}
-          setValue={setSearchQuery}
-          status={searchStatus}
-          setStatus={setSearchStatus}
-          open={searchOpen}
-          setOpen={setSearchOpen}
-          suggestions={presetSuggestions}
-          applyPreset={applyPreset}
-          placeholder={copy.header.searchPlaceholder}
-          width={isMobile ? "100%" : 360}
-        />
-        <select
-          value={inputs.gasSystem}
-          onChange={e => setInputs(prev => ({ ...prev, gasSystem: e.target.value }))}
-          style={{ ...compactSelectStyle, width: isMobile ? "100%" : 220 }}
-        >
-          {gasOptions.map(gas => (
-            <option key={gas.id} value={gas.id}>{gasLabel(gas.label, lang)}</option>
-          ))}
-        </select>
-        <input
-          type="number"
-          value={inputs.temperatureK}
-          onChange={e => setInputs(prev => ({ ...prev, temperatureK: e.target.value }))}
-          style={compactNumberStyle}
-          aria-label={copy.structure.temperature}
-        />
-        <input
-          type="number"
-          value={inputs.pressureBar}
-          onChange={e => setInputs(prev => ({ ...prev, pressureBar: e.target.value }))}
-          style={compactNumberStyle}
-          aria-label={copy.structure.pressure}
-        />
-        <button
-          type="button"
-          onClick={onAddComparison}
-          disabled={!results || results.unavailable}
-          style={{
-            ...headerChipBtn(t, false),
-            opacity: !results || results.unavailable ? 0.45 : 1,
-            cursor: !results || results.unavailable ? "not-allowed" : "pointer",
-          }}
-        >
-          {lang === "zh" ? "加入 Comparison" : "Add to comparison"}
-        </button>
+        <BasisBadge tone="info">Stage 1</BasisBadge>
+        <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5, flex: "1 1 320px" }}>
+          {lang === "zh"
+            ? "输入控件已下沉到页面主体的“输入工作台”，顶部这里只保留轻量状态。"
+            : "Screening controls now live in the page-level workbench; this bar stays lightweight."}
+        </div>
         <button type="button" onClick={onSavedRuns} style={headerChipBtn(t)}>
           {copy.common.savedRuns}
         </button>
