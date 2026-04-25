@@ -1380,7 +1380,7 @@ function NextStepCTA({ label, body, actionLabel, onClick }) {
   )
 }
 
-function CandidateComparisonPanel({ candidates, onRemove, onMove }) {
+function CandidateComparisonPanel({ candidates, onRemove, onMove, focusId = "all" }) {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow } = useViewport()
@@ -1393,11 +1393,12 @@ function CandidateComparisonPanel({ candidates, onRemove, onMove }) {
       </div>
     )
   }
+  const visibleCandidates = focusId === "all" ? candidates : candidates.filter(item => item.id === focusId)
   return (
     <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
       <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center", marginBottom: 10 }}>
         <SectionTitle>{lang === "zh" ? "候选比较清单" : "Candidate comparison shortlist"}</SectionTitle>
-        <BasisBadge tone="proxy">{candidates.length}/4</BasisBadge>
+        <BasisBadge tone="proxy">{visibleCandidates.length}/{candidates.length}</BasisBadge>
       </div>
       <div style={{ overflowX: "auto" }}>
         <table style={{ width: "100%", minWidth: 760, borderCollapse: "collapse" }}>
@@ -1411,8 +1412,10 @@ function CandidateComparisonPanel({ candidates, onRemove, onMove }) {
             </tr>
           </thead>
           <tbody>
-            {candidates.map((item, index) => (
-              <tr key={item.id}>
+            {visibleCandidates.map((item) => {
+              const sourceIndex = candidates.findIndex(candidate => candidate.id === item.id)
+              return (
+              <tr key={item.id} style={{ background: focusId !== "all" && item.id === focusId ? t.badgeInfoBg : "transparent" }}>
                 <td style={{ padding: "8px", borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
                   {item.name}<div style={{ color: t.faint, fontSize: 10, marginTop: 2 }}>{item.metal} · {item.linker} · {item.gasSystem}</div>
                 </td>
@@ -1425,15 +1428,15 @@ function CandidateComparisonPanel({ candidates, onRemove, onMove }) {
                 <td style={{ padding: "8px", borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11 }}>{item.robustness}%</td>
                 <td style={{ padding: "8px", borderBottom: `1px solid ${t.divider}` }}>
                   <div style={{ display: "flex", gap: 5, flexWrap: isNarrow ? "wrap" : "nowrap" }}>
-                    <button type="button" onClick={() => onMove?.(index, -1)} disabled={index === 0} style={{ ...toolbarBtn(t), padding: "3px 7px", fontSize: 10 }}>↑</button>
-                    <button type="button" onClick={() => onMove?.(index, 1)} disabled={index === candidates.length - 1} style={{ ...toolbarBtn(t), padding: "3px 7px", fontSize: 10 }}>↓</button>
+                    <button type="button" onClick={() => onMove?.(sourceIndex, -1)} disabled={sourceIndex === 0} style={{ ...toolbarBtn(t), padding: "3px 7px", fontSize: 10 }}>↑</button>
+                    <button type="button" onClick={() => onMove?.(sourceIndex, 1)} disabled={sourceIndex === candidates.length - 1} style={{ ...toolbarBtn(t), padding: "3px 7px", fontSize: 10 }}>↓</button>
                     <button type="button" onClick={() => onRemove?.(item.id)} style={{ ...toolbarBtn(t), padding: "3px 7px", fontSize: 10 }}>
                       {lang === "zh" ? "移除" : "Remove"}
                     </button>
                   </div>
                 </td>
               </tr>
-            ))}
+            )})}
           </tbody>
         </table>
       </div>
@@ -5960,6 +5963,135 @@ function toolbarBtn(t) {
   }
 }
 
+function headerChipBtn(t, active = false) {
+  return {
+    background: active ? t.badgeInfoBg : t.glass,
+    border: `1px solid ${active ? t.borderStrong : t.border}`,
+    color: active ? t.accentText : t.subtle,
+    fontSize: 12,
+    padding: "7px 12px",
+    borderRadius: 999,
+    cursor: "pointer",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+    fontFamily: FONT_SANS,
+    fontWeight: active ? 800 : 700,
+    whiteSpace: "nowrap",
+  }
+}
+
+function headerInputStyle(t, borderColor = t.border) {
+  return {
+    background: t.glassStrong,
+    border: `1px solid ${borderColor}`,
+    borderRadius: 999,
+    padding: "9px 14px",
+    color: t.text,
+    fontSize: 12,
+    outline: "none",
+    fontFamily: FONT_SANS,
+    minHeight: 38,
+  }
+}
+
+function PresetSearchControl({
+  value,
+  setValue,
+  status,
+  setStatus,
+  open,
+  setOpen,
+  suggestions,
+  applyPreset,
+  placeholder,
+  width = 320,
+}) {
+  const t = useT()
+  const { copy } = useLang()
+  const borderColor = status === "miss" ? t.danger : status === "loaded" ? t.success : t.border
+
+  return (
+    <div style={{ position: "relative", minWidth: 0, width: "100%", maxWidth: width }}>
+      <input
+        placeholder={placeholder}
+        value={value}
+        onFocus={() => setOpen(true)}
+        onBlur={() => setTimeout(() => setOpen(false), 120)}
+        onChange={e => { setValue(e.target.value); setStatus(null); setOpen(true) }}
+        onKeyDown={e => {
+          if (e.key === "Enter") {
+            const match = findPresetName(value)
+            if (match) applyPreset(match)
+            else if (suggestions[0]) applyPreset(suggestions[0])
+            else {
+              setStatus("miss")
+              setOpen(false)
+            }
+          }
+          if (e.key === "Escape") setOpen(false)
+        }}
+        style={{ ...headerInputStyle(t, borderColor), width: "100%", paddingRight: 40 }}
+      />
+      <div style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)", color: t.faint, fontSize: 13, pointerEvents: "none" }}>
+        ⌕
+      </div>
+      {open && suggestions.length > 0 && value && status !== "loaded" && (
+        <div style={{
+          position: "absolute",
+          top: "calc(100% + 8px)",
+          left: 0,
+          right: 0,
+          background: t.panel,
+          border: `1px solid ${t.border}`,
+          borderRadius: 14,
+          overflow: "hidden",
+          zIndex: 120,
+          boxShadow: t.shadowSm,
+          backdropFilter: "blur(22px) saturate(145%)",
+        }}>
+          {suggestions.map((name, index) => (
+            <button
+              key={name}
+              type="button"
+              onMouseDown={e => e.preventDefault()}
+              onClick={() => applyPreset(name)}
+              style={{
+                width: "100%",
+                textAlign: "left",
+                background: "transparent",
+                border: "none",
+                borderBottom: index === suggestions.length - 1 ? "none" : `1px solid ${t.divider}`,
+                padding: "10px 14px",
+                color: t.text,
+                fontSize: 12,
+                cursor: "pointer",
+                fontFamily: FONT_SANS,
+              }}
+            >
+              {name}
+              <span style={{ color: t.faint, fontSize: 10 }}>
+                {" "}· {MOF_PRESETS[name].metalCenter} · {MOF_PRESETS[name].organicLinker}
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
+      {status === "loaded" && (
+        <div style={{ position: "absolute", top: "calc(100% + 6px)", left: 14, color: t.success, fontSize: 10 }}>
+          ✓ {copy.header.loaded}
+        </div>
+      )}
+      {status === "miss" && (
+        <div style={{ position: "absolute", top: "calc(100% + 6px)", left: 14, color: t.danger, fontSize: 10 }}>
+          {copy.header.miss}
+        </div>
+      )}
+    </div>
+  )
+}
+
 // ─── Shared helpers ─────────────────────────────────────────────────────────
 
 function PageHeader({ title, subtitle, meta, action }) {
@@ -6094,6 +6226,244 @@ function SavedRunsModal({ runs, onClose, onLoad, onDelete, onImport, onExport })
   )
 }
 
+function ContextualHeaderBar({
+  activeTab,
+  inputs,
+  setInputs,
+  searchQuery,
+  setSearchQuery,
+  searchStatus,
+  setSearchStatus,
+  searchOpen,
+  setSearchOpen,
+  presetSuggestions,
+  applyPreset,
+  comparisonTab,
+  setComparisonTab,
+  comparisonCandidates,
+  comparisonFocusId,
+  setComparisonFocusId,
+  resourcesTab,
+  setResourcesTab,
+  onAddComparison,
+  onSavedRuns,
+  apiStatus,
+  onCheckApi,
+  setActiveTab,
+  onLoadBenchmark,
+  results,
+}) {
+  const t = useT()
+  const { lang, copy } = useLang()
+  const { isNarrow, isMobile } = useViewport()
+  const layerStyle = {
+    display: "flex",
+    alignItems: "center",
+    gap: 10,
+    flexWrap: "wrap",
+    minHeight: 52,
+    padding: isMobile ? "10px 12px" : "10px 14px",
+    background: darkenLayer(t),
+    border: `1px solid ${t.border}`,
+    borderRadius: 18,
+    boxShadow: `inset 0 1px 0 ${t === THEME_DARK ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.42)"}`,
+    backdropFilter: "blur(18px) saturate(145%)",
+  }
+  const compactSelectStyle = { ...headerInputStyle(t), minWidth: 0, flex: "0 1 auto", cursor: "pointer" }
+  const compactNumberStyle = { ...headerInputStyle(t), width: isMobile ? "100%" : 96, fontFamily: FONT_MONO }
+  const gasOptions = GAS_SYSTEMS.filter(item => item.priority !== "unavailable")
+  const comparisonSubtabs = [
+    { id: "feasibility", label: lang === "zh" ? "可行性" : "Feasibility" },
+    { id: "lca", label: "LCA / LCC" },
+    { id: "sensitivity", label: lang === "zh" ? "敏感性" : "Sensitivity" },
+  ]
+  const resourceSubtabs = [
+    { id: "dataSources", label: lang === "zh" ? "数据来源" : "Data Sources" },
+    { id: "literature", label: lang === "zh" ? "数据库" : "Database" },
+    { id: "methods", label: lang === "zh" ? "方法说明" : "Methods" },
+  ]
+  const selectedComparison = comparisonCandidates.find(item => item.id === comparisonFocusId)
+
+  if (activeTab === "about") return null
+
+  if (activeTab === "home") {
+    return (
+      <div style={layerStyle}>
+        <PresetSearchControl
+          value={searchQuery}
+          setValue={setSearchQuery}
+          status={searchStatus}
+          setStatus={setSearchStatus}
+          open={searchOpen}
+          setOpen={setSearchOpen}
+          suggestions={presetSuggestions}
+          applyPreset={applyPreset}
+          placeholder={copy.header.searchPlaceholder}
+          width={isMobile ? "100%" : 420}
+        />
+        <button type="button" onClick={() => onLoadBenchmark?.("UiO-66")} style={{ ...headerChipBtn(t, true), padding: "9px 14px" }}>
+          {lang === "zh" ? "快速开始 · UiO-66" : "Quick start · UiO-66"}
+        </button>
+        <button type="button" onClick={onSavedRuns} style={headerChipBtn(t)}>
+          {copy.common.savedRuns}
+        </button>
+      </div>
+    )
+  }
+
+  if (activeTab === "workflow") {
+    return (
+      <div style={layerStyle}>
+        <div style={{ color: t.faint, fontSize: 11, fontWeight: 800, marginRight: 2 }}>
+          {lang === "zh" ? "工作流跳转" : "Workflow jumps"}
+        </div>
+        <button type="button" onClick={() => setActiveTab("screening")} style={headerChipBtn(t, false)}>
+          {lang === "zh" ? "进入 Screening" : "Go to Screening"}
+        </button>
+        <button type="button" onClick={() => setActiveTab("comparison")} style={headerChipBtn(t, false)}>
+          {lang === "zh" ? "查看 Comparison" : "Open Comparison"}
+        </button>
+        <button type="button" onClick={() => setActiveTab("validation")} style={headerChipBtn(t, false)}>
+          {lang === "zh" ? "看 Validation" : "Review Validation"}
+        </button>
+      </div>
+    )
+  }
+
+  if (activeTab === "screening") {
+    return (
+      <div style={layerStyle}>
+        <PresetSearchControl
+          value={searchQuery}
+          setValue={setSearchQuery}
+          status={searchStatus}
+          setStatus={setSearchStatus}
+          open={searchOpen}
+          setOpen={setSearchOpen}
+          suggestions={presetSuggestions}
+          applyPreset={applyPreset}
+          placeholder={copy.header.searchPlaceholder}
+          width={isMobile ? "100%" : 360}
+        />
+        <select
+          value={inputs.gasSystem}
+          onChange={e => setInputs(prev => ({ ...prev, gasSystem: e.target.value }))}
+          style={{ ...compactSelectStyle, width: isMobile ? "100%" : 220 }}
+        >
+          {gasOptions.map(gas => (
+            <option key={gas.id} value={gas.id}>{gasLabel(gas.label, lang)}</option>
+          ))}
+        </select>
+        <input
+          type="number"
+          value={inputs.temperatureK}
+          onChange={e => setInputs(prev => ({ ...prev, temperatureK: e.target.value }))}
+          style={compactNumberStyle}
+          aria-label={copy.structure.temperature}
+        />
+        <input
+          type="number"
+          value={inputs.pressureBar}
+          onChange={e => setInputs(prev => ({ ...prev, pressureBar: e.target.value }))}
+          style={compactNumberStyle}
+          aria-label={copy.structure.pressure}
+        />
+        <button
+          type="button"
+          onClick={onAddComparison}
+          disabled={!results || results.unavailable}
+          style={{
+            ...headerChipBtn(t, false),
+            opacity: !results || results.unavailable ? 0.45 : 1,
+            cursor: !results || results.unavailable ? "not-allowed" : "pointer",
+          }}
+        >
+          {lang === "zh" ? "加入 Comparison" : "Add to comparison"}
+        </button>
+        <button type="button" onClick={onSavedRuns} style={headerChipBtn(t)}>
+          {copy.common.savedRuns}
+        </button>
+      </div>
+    )
+  }
+
+  if (activeTab === "comparison") {
+    return (
+      <div style={layerStyle}>
+        <select
+          value={comparisonFocusId}
+          onChange={e => setComparisonFocusId(e.target.value)}
+          style={{ ...compactSelectStyle, width: isMobile ? "100%" : 240 }}
+        >
+          <option value="all">{lang === "zh" ? "全部候选" : "All candidates"}</option>
+          {comparisonCandidates.map(item => (
+            <option key={item.id} value={item.id}>{item.name}</option>
+          ))}
+        </select>
+        {comparisonSubtabs.map(item => (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => setComparisonTab(item.id)}
+            style={headerChipBtn(t, comparisonTab === item.id)}
+          >
+            {item.label}
+          </button>
+        ))}
+        {selectedComparison && (
+          <div style={{
+            marginLeft: isNarrow ? 0 : "auto",
+            color: t.subtle,
+            fontSize: 11,
+            background: t.glass,
+            border: `1px solid ${t.border}`,
+            borderRadius: 999,
+            padding: "8px 12px",
+          }}>
+            {selectedComparison.performance} mmol/g · Sel. {selectedComparison.selectivity}
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  if (activeTab === "resources") {
+    return (
+      <div style={layerStyle}>
+        {resourceSubtabs.map(item => (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => setResourcesTab(item.id)}
+            style={headerChipBtn(t, resourcesTab === item.id)}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
+    )
+  }
+
+  if (activeTab === "validation") {
+    return (
+      <div style={{ ...layerStyle, justifyContent: "space-between" }}>
+        <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
+          {apiStatus.message}
+        </div>
+        <button type="button" onClick={onCheckApi} style={headerChipBtn(t)}>
+          {lang === "zh" ? "刷新状态" : "Refresh status"}
+        </button>
+      </div>
+    )
+  }
+
+  return null
+}
+
+function darkenLayer(t) {
+  return t === THEME_DARK ? "rgba(18,32,51,0.58)" : "rgba(255,255,255,0.54)"
+}
+
 // ─── Main App ────────────────────────────────────────────────────────────────
 
 function InternalNav({ items, active, onChange }) {
@@ -6163,7 +6533,7 @@ function WorkflowTab({ setActiveTab, inputs, results }) {
   )
 }
 
-function ComparisonTab({ activeSub, setActiveSub, results, inputs, onNavigate, onAddComparison, comparisonCandidates, onRemoveCandidate, onMoveCandidate }) {
+function ComparisonTab({ activeSub, setActiveSub, results, inputs, onNavigate, onAddComparison, comparisonCandidates, comparisonFocusId, onRemoveCandidate, onMoveCandidate }) {
   const { lang } = useLang()
   const items = [
     { id: "feasibility", label: lang === "zh" ? "可行性" : "Feasibility" },
@@ -6188,7 +6558,7 @@ function ComparisonTab({ activeSub, setActiveSub, results, inputs, onNavigate, o
         onAddComparison={onAddComparison}
         canAddComparison={Boolean(results && !results.unavailable)}
       />
-      <CandidateComparisonPanel candidates={comparisonCandidates} onRemove={onRemoveCandidate} onMove={onMoveCandidate} />
+      <CandidateComparisonPanel candidates={comparisonCandidates} focusId={comparisonFocusId} onRemove={onRemoveCandidate} onMove={onMoveCandidate} />
       <InternalNav items={items} active={activeSub} onChange={setActiveSub} />
       {activeSub === "feasibility" && <FeasibilityTab results={results} inputs={inputs} onNavigate={onNavigate} />}
       {activeSub === "lca" && <LCAScoringTab results={results} inputs={inputs} onNavigate={onNavigate} />}
@@ -6261,6 +6631,7 @@ export default function App() {
   })
   const [savedOpen, setSavedOpen]     = useState(false)
   const [comparisonTab, setComparisonTab] = useState("feasibility")
+  const [comparisonFocusId, setComparisonFocusId] = useState("all")
   const [resourcesTab, setResourcesTab] = useState("dataSources")
   const [comparisonCandidates, setComparisonCandidates] = useState([])
   const [savedRuns, setSavedRuns]     = useState(() => {
@@ -6297,6 +6668,12 @@ export default function App() {
       // Ignore storage failures in private browsing.
     }
   }, [apiUrl])
+
+  useEffect(() => {
+    if (comparisonFocusId !== "all" && !comparisonCandidates.some(item => item.id === comparisonFocusId)) {
+      setComparisonFocusId("all")
+    }
+  }, [comparisonFocusId, comparisonCandidates])
 
   const presetSuggestions = useMemo(() => {
     return getPresetSuggestionNames(searchQuery)
@@ -6487,109 +6864,132 @@ export default function App() {
         color: t.text,
         fontFamily: FONT_SANS,
       }}>
-        <header style={{ background: t.headerBg, borderBottom: `1px solid ${t.border}`, padding: "0 18px",
-          display: "flex", alignItems: "stretch", minHeight: 52, position: "sticky", top: 0, zIndex: 100,
-          flexWrap: viewport.isNarrow ? "wrap" : "nowrap", gap: viewport.isNarrow ? "8px 12px" : 14,
-          backdropFilter: "blur(18px) saturate(145%)", boxShadow: t.shadowSm }}>
-
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginRight: viewport.isNarrow ? 6 : 0, height: 52, flex: "0 0 auto" }}>
-            <div style={{ width: 28, height: 28, background: `linear-gradient(135deg, ${t.accentStrong}, ${t.accent})`,
-              borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center",
-              fontSize: 14, fontWeight: 800, color: "#fff" }}>⬡</div>
-            <span style={{ fontWeight: 800, fontSize: 16, letterSpacing: "0.02em", color: t.textStrong }}>EcoMOF-AI</span>
-            <span style={{ background: t.border, color: t.accentSoft, fontSize: 10, padding: "2px 7px",
-              borderRadius: 4, fontWeight: 600 }}>v1.β</span>
-          </div>
-
-          <nav style={{ display: "flex", alignItems: "center", overflowX: "auto", maxWidth: viewport.isNarrow ? "100%" : "none",
-            alignSelf: "center", height: 38, background: t.surface, border: `1px solid ${t.border}`,
-            borderRadius: 8, padding: 3, flex: viewport.isNarrow ? "1 1 100%" : "0 1 auto" }}>
-            {TABS.map(tab => (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-                style={{
-                  background: activeTab === tab.id ? t.badgeInfoBg : "transparent",
-                  border: activeTab === tab.id ? `1px solid ${t.borderStrong}` : "1px solid transparent",
-                  cursor: "pointer", height: 30,
-                  padding: "0 12px", fontSize: 13, fontWeight: activeTab === tab.id ? 800 : 600,
-                  color: activeTab === tab.id ? t.accentText : t.subtle,
+        <header style={{ position: "sticky", top: 0, zIndex: 110, padding: viewport.isMobile ? "10px 12px 0" : "14px 18px 0" }}>
+          <div style={{ maxWidth: 1460, margin: "0 auto", display: "flex", flexDirection: "column", gap: 10 }}>
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: viewport.isNarrow ? "1fr auto" : "160px 1fr 160px",
+              alignItems: "center",
+              gap: 12,
+              minHeight: 58,
+              padding: viewport.isMobile ? "8px 12px" : "8px 16px",
+              background: t.headerBg,
+              border: `1px solid ${t.border}`,
+              borderRadius: 999,
+              backdropFilter: "blur(24px) saturate(155%)",
+              boxShadow: t.shadowSm,
+            }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
+                <div style={{
+                  width: 22,
+                  height: 22,
                   borderRadius: 6,
-                  boxShadow: activeTab === tab.id ? `0 8px 18px rgba(46,94,170,0.08)` : "none",
-                  transition: "all 0.15s", fontFamily: FONT_SANS, whiteSpace: "nowrap",
-                }}>
-                {copy.tabs[tab.copyKey]}
-              </button>
-            ))}
-          </nav>
+                  background: `linear-gradient(135deg, ${t.accentStrong}, ${t.accent})`,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#fff",
+                  fontSize: 11,
+                  fontWeight: 900,
+                  flex: "0 0 auto",
+                }}>⬡</div>
+                <div style={{ color: t.subtle, fontSize: 12, fontWeight: 700, whiteSpace: "nowrap" }}>EcoMOF-AI</div>
+              </div>
 
-          <div style={{ marginLeft: 0, display: "flex", alignItems: "center", gap: 10,
-            width: viewport.isNarrow ? "100%" : "auto", paddingBottom: viewport.isNarrow ? 10 : 0, flexWrap: "wrap", flex: viewport.isNarrow ? "1 1 100%" : "0 0 auto" }}>
-            <div style={{ position: "relative", flex: viewport.isMobile ? "1 1 100%" : "0 0 auto" }}>
-              <input placeholder={copy.header.searchPlaceholder}
-                value={searchQuery}
-                onFocus={() => setSearchOpen(true)}
-                onBlur={() => setTimeout(() => setSearchOpen(false), 120)}
-                onChange={e => { setSearchQuery(e.target.value); setSearchStatus(null); setSearchOpen(true) }}
-                onKeyDown={e => {
-                  if (e.key === "Enter") {
-                    const match = findPresetName(searchQuery)
-                    if (match) applyPreset(match)
-                    else if (presetSuggestions[0]) applyPreset(presetSuggestions[0])
-                    else { setSearchStatus("miss"); setSearchOpen(false) }
-                  }
-                  if (e.key === "Escape") {
-                    setSearchOpen(false)
-                  }
-                }}
-                style={{ background: t.panel, border: `1px solid ${searchStatus === "miss" ? t.danger : searchStatus === "loaded" ? t.success : t.border}`, borderRadius: 6,
-                  padding: "6px 12px", color: t.text, fontSize: 12, outline: "none", width: viewport.isMobile ? "100%" : 300, fontFamily: FONT_SANS }} />
-              {searchOpen && presetSuggestions.length > 0 && searchQuery && searchStatus !== "loaded" && (
-                <div style={{ position: "absolute", top: "calc(100% + 4px)", left: 0, right: 0,
-                  background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, maxHeight: 240, overflow: "auto", zIndex: 120 }}>
-                  {presetSuggestions.map(name => (
-                    <div key={name} onMouseDown={e => e.preventDefault()} onClick={() => applyPreset(name)}
-                      style={{ padding: "7px 12px", color: t.text, fontSize: 12, cursor: "pointer",
-                        borderBottom: `1px solid ${t.divider}` }}>
-                      {name} <span style={{ color: t.faint, fontSize: 10 }}>
-                        · {MOF_PRESETS[name].metalCenter} · {MOF_PRESETS[name].organicLinker}
-                      </span>
-                    </div>
+              <div style={{ display: "flex", justifyContent: "center", minWidth: 0, gridColumn: viewport.isNarrow ? "1 / -1" : "auto", order: viewport.isNarrow ? 3 : 2 }}>
+                <nav style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 4,
+                  width: "fit-content",
+                  maxWidth: "100%",
+                  overflowX: "auto",
+                  padding: 4,
+                  background: t.glass,
+                  border: `1px solid ${t.border}`,
+                  borderRadius: 999,
+                }}>
+                  {TABS.map(tab => (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      onClick={() => setActiveTab(tab.id)}
+                      style={{
+                        background: activeTab === tab.id ? t.badgeInfoBg : "transparent",
+                        border: activeTab === tab.id ? `1px solid ${t.borderStrong}` : "1px solid transparent",
+                        color: activeTab === tab.id ? t.accentText : t.subtle,
+                        height: 34,
+                        padding: "0 14px",
+                        borderRadius: 999,
+                        cursor: "pointer",
+                        fontSize: 12,
+                        fontWeight: activeTab === tab.id ? 800 : 700,
+                        whiteSpace: "nowrap",
+                        fontFamily: FONT_SANS,
+                        boxShadow: activeTab === tab.id ? "0 10px 22px rgba(46,94,170,0.08)" : "none",
+                      }}
+                    >
+                      {copy.tabs[tab.copyKey]}
+                    </button>
                   ))}
-                </div>
-              )}
-              {searchStatus === "loaded" && (
-                <div style={{ position: "absolute", top: "calc(100% + 4px)", left: 0, color: t.success, fontSize: 10 }}>
-                  ✓ {copy.header.loaded}
-                </div>
-              )}
-              {searchStatus === "miss" && (
-                <div style={{ position: "absolute", top: "calc(100% + 4px)", left: 0, color: t.danger, fontSize: 10 }}>
-                  {copy.header.miss}
-                </div>
-              )}
+                </nav>
+              </div>
+
+              <div style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                gap: 8,
+                minWidth: 0,
+                order: viewport.isNarrow ? 2 : 3,
+              }}>
+                <button
+                  type="button"
+                  onClick={() => setLang(l => l === "en" ? "zh" : "en")}
+                  title={lang === "en" ? "切换到中文" : "Switch to English"}
+                  style={{ ...headerChipBtn(t), minWidth: 48, padding: "8px 10px" }}
+                >
+                  {copy.header.language}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDarkMode(d => !d)}
+                  title={darkMode ? copy.header.light : copy.header.dark}
+                  style={{ ...headerChipBtn(t), minWidth: 40, padding: "8px 10px" }}
+                >
+                  {darkMode ? "☀" : "☾"}
+                </button>
+              </div>
             </div>
 
-            <button onClick={() => setLang(l => l === "en" ? "zh" : "en")}
-              title={lang === "en" ? "切换到中文" : "Switch to English"}
-              style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6,
-                padding: "5px 9px", color: t.textStrong, fontSize: 12, cursor: "pointer",
-                fontWeight: 700, fontFamily: FONT_SANS, minWidth: 46 }}>
-              {copy.header.language}
-            </button>
-
-            <button onClick={() => setSavedOpen(true)}
-              style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6,
-                padding: "5px 10px", color: t.success, fontSize: 12, cursor: "pointer",
-                display: "flex", alignItems: "center", gap: 6, fontFamily: FONT_SANS }}>
-              ▣ {copy.common.savedRuns}
-            </button>
-
-            <button onClick={() => setDarkMode(d => !d)}
-              title={darkMode ? copy.header.light : copy.header.dark}
-              style={{ width: 28, height: 28, background: t.panel, border: `1px solid ${t.border}`,
-                borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center",
-                cursor: "pointer", color: t.text, fontSize: 14 }}>
-              {darkMode ? "☀" : "🌙"}
-            </button>
+            <ContextualHeaderBar
+              activeTab={activeTab}
+              inputs={inputs}
+              setInputs={setInputs}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              searchStatus={searchStatus}
+              setSearchStatus={setSearchStatus}
+              searchOpen={searchOpen}
+              setSearchOpen={setSearchOpen}
+              presetSuggestions={presetSuggestions}
+              applyPreset={applyPreset}
+              comparisonTab={comparisonTab}
+              setComparisonTab={setComparisonTab}
+              comparisonCandidates={comparisonCandidates}
+              comparisonFocusId={comparisonFocusId}
+              setComparisonFocusId={setComparisonFocusId}
+              resourcesTab={resourcesTab}
+              setResourcesTab={setResourcesTab}
+              onAddComparison={addCurrentToComparison}
+              onSavedRuns={() => setSavedOpen(true)}
+              apiStatus={apiStatus}
+              onCheckApi={checkApi}
+              setActiveTab={navigateTab}
+              onLoadBenchmark={loadBenchmarkExample}
+              results={results}
+            />
           </div>
         </header>
 
@@ -6597,7 +6997,7 @@ export default function App() {
           {activeTab === "home"           && <HomeTab setActiveTab={navigateTab} />}
           {activeTab === "workflow"       && <WorkflowTab setActiveTab={navigateTab} inputs={inputs} results={results} />}
           {activeTab === "screening"      && <StructureInputTab inputs={inputs} setInputs={setInputs} results={results} loading={loading} onPredict={handlePredict} onSaveRun={saveCurrentRun} apiUrl={apiUrl} setApiUrl={setApiUrl} apiStatus={apiStatus} onCheckApi={checkApi} setActiveTab={navigateTab} onLoadBenchmark={loadBenchmarkExample} onAddComparison={addCurrentToComparison} />}
-          {activeTab === "comparison"     && <ComparisonTab activeSub={comparisonTab} setActiveSub={setComparisonTab} results={results} inputs={inputs} onNavigate={navigateTab} onAddComparison={addCurrentToComparison} comparisonCandidates={comparisonCandidates} onRemoveCandidate={removeComparisonCandidate} onMoveCandidate={moveComparisonCandidate} />}
+          {activeTab === "comparison"     && <ComparisonTab activeSub={comparisonTab} setActiveSub={setComparisonTab} results={results} inputs={inputs} onNavigate={navigateTab} onAddComparison={addCurrentToComparison} comparisonCandidates={comparisonCandidates} comparisonFocusId={comparisonFocusId} onRemoveCandidate={removeComparisonCandidate} onMoveCandidate={moveComparisonCandidate} />}
           {activeTab === "validation"     && <ValidationTab results={results} inputs={inputs} apiUrl={apiUrl} apiStatus={apiStatus} onCheckApi={checkApi} onNavigate={navigateTab} onAddComparison={addCurrentToComparison} />}
           {activeTab === "resources"      && <ResourcesTab activeSub={resourcesTab} setActiveSub={setResourcesTab} results={results} inputs={inputs} />}
           {activeTab === "about"          && <MethodsLimitationsTab />}
