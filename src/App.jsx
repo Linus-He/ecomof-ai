@@ -5965,7 +5965,9 @@ function toolbarBtn(t) {
 
 function headerChipBtn(t, active = false) {
   return {
-    background: active ? t.badgeInfoBg : t.glass,
+    background: active
+      ? `linear-gradient(135deg, ${t.badgeInfoBg}, ${t.glassStrong})`
+      : `linear-gradient(135deg, ${t.glassStrong}, ${t.glass})`,
     border: `1px solid ${active ? t.borderStrong : t.border}`,
     color: active ? t.accentText : t.subtle,
     fontSize: 12,
@@ -5979,12 +5981,17 @@ function headerChipBtn(t, active = false) {
     fontFamily: FONT_SANS,
     fontWeight: active ? 800 : 700,
     whiteSpace: "nowrap",
+    boxShadow: active
+      ? "inset 0 1px 0 rgba(255,255,255,0.34), 0 10px 24px rgba(46,94,170,0.10)"
+      : "inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 14px rgba(46,94,170,0.06)",
+    backdropFilter: "blur(18px) saturate(155%)",
+    transition: "all 0.18s ease",
   }
 }
 
 function headerInputStyle(t, borderColor = t.border) {
   return {
-    background: t.glassStrong,
+    background: `linear-gradient(180deg, ${t.glassStrong}, ${t.panel})`,
     border: `1px solid ${borderColor}`,
     borderRadius: 999,
     padding: "9px 14px",
@@ -5993,6 +6000,8 @@ function headerInputStyle(t, borderColor = t.border) {
     outline: "none",
     fontFamily: FONT_SANS,
     minHeight: 38,
+    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.32), 0 10px 24px rgba(46,94,170,0.06)",
+    backdropFilter: "blur(20px) saturate(155%)",
   }
 }
 
@@ -6043,12 +6052,12 @@ function PresetSearchControl({
           top: "calc(100% + 8px)",
           left: 0,
           right: 0,
-          background: t.panel,
-          border: `1px solid ${t.border}`,
+          background: `linear-gradient(180deg, ${t.glassStrong}, ${t.panel})`,
+          border: `1px solid ${t.borderStrong}`,
           borderRadius: 14,
           overflow: "hidden",
           zIndex: 120,
-          boxShadow: t.shadowSm,
+          boxShadow: `${t.shadowSm}, inset 0 1px 0 rgba(255,255,255,0.22)`,
           backdropFilter: "blur(22px) saturate(145%)",
         }}>
           {suggestions.map((name, index) => (
@@ -6873,11 +6882,11 @@ export default function App() {
               gap: 12,
               minHeight: 58,
               padding: viewport.isMobile ? "8px 12px" : "8px 16px",
-              background: t.headerBg,
-              border: `1px solid ${t.border}`,
+              background: `linear-gradient(135deg, ${t.headerBg}, ${t.glassStrong})`,
+              border: `1px solid ${t.borderStrong}`,
               borderRadius: 999,
               backdropFilter: "blur(24px) saturate(155%)",
-              boxShadow: t.shadowSm,
+              boxShadow: `${t.shadowSm}, inset 0 1px 0 rgba(255,255,255,0.26)`,
             }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
                 <div style={{
@@ -6906,9 +6915,11 @@ export default function App() {
                   maxWidth: "100%",
                   overflowX: "auto",
                   padding: 4,
-                  background: t.glass,
-                  border: `1px solid ${t.border}`,
+                  background: `linear-gradient(135deg, ${t.glassStrong}, ${t.glass})`,
+                  border: `1px solid ${t.borderStrong}`,
                   borderRadius: 999,
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.24), 0 8px 20px rgba(46,94,170,0.06)",
+                  backdropFilter: "blur(22px) saturate(160%)",
                 }}>
                   {TABS.map(tab => (
                     <button
@@ -6916,7 +6927,9 @@ export default function App() {
                       type="button"
                       onClick={() => setActiveTab(tab.id)}
                       style={{
-                        background: activeTab === tab.id ? t.badgeInfoBg : "transparent",
+                        background: activeTab === tab.id
+                          ? `linear-gradient(135deg, ${t.badgeInfoBg}, ${t.glassStrong})`
+                          : "transparent",
                         border: activeTab === tab.id ? `1px solid ${t.borderStrong}` : "1px solid transparent",
                         color: activeTab === tab.id ? t.accentText : t.subtle,
                         height: 34,
@@ -6927,7 +6940,10 @@ export default function App() {
                         fontWeight: activeTab === tab.id ? 800 : 700,
                         whiteSpace: "nowrap",
                         fontFamily: FONT_SANS,
-                        boxShadow: activeTab === tab.id ? "0 10px 22px rgba(46,94,170,0.08)" : "none",
+                        boxShadow: activeTab === tab.id
+                          ? "inset 0 1px 0 rgba(255,255,255,0.30), 0 10px 22px rgba(46,94,170,0.10)"
+                          : "none",
+                        backdropFilter: activeTab === tab.id ? "blur(18px) saturate(160%)" : "none",
                       }}
                     >
                       {copy.tabs[tab.copyKey]}
