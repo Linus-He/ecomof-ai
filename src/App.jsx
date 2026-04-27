@@ -5966,8 +5966,8 @@ function toolbarBtn(t) {
 function headerChipBtn(t, active = false) {
   return {
     background: active
-      ? `linear-gradient(135deg, ${t.badgeInfoBg}, ${t.glassStrong})`
-      : `linear-gradient(135deg, ${t.glassStrong}, ${t.glass})`,
+      ? `linear-gradient(135deg, rgba(255,255,255,0.36), ${t.badgeInfoBg} 42%, ${t.glassStrong})`
+      : `linear-gradient(135deg, rgba(255,255,255,0.26), ${t.glassStrong} 34%, ${t.glass})`,
     border: `1px solid ${active ? t.borderStrong : t.border}`,
     color: active ? t.accentText : t.subtle,
     fontSize: 12,
@@ -5982,16 +5982,16 @@ function headerChipBtn(t, active = false) {
     fontWeight: active ? 800 : 700,
     whiteSpace: "nowrap",
     boxShadow: active
-      ? "inset 0 1px 0 rgba(255,255,255,0.34), 0 10px 24px rgba(46,94,170,0.10)"
-      : "inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 14px rgba(46,94,170,0.06)",
-    backdropFilter: "blur(18px) saturate(155%)",
+      ? "inset 0 1px 0 rgba(255,255,255,0.42), inset 0 -1px 0 rgba(255,255,255,0.10), 0 14px 30px rgba(46,94,170,0.14)"
+      : "inset 0 1px 0 rgba(255,255,255,0.24), inset 0 -1px 0 rgba(255,255,255,0.06), 0 7px 18px rgba(46,94,170,0.08)",
+    backdropFilter: "blur(22px) saturate(165%)",
     transition: "all 0.18s ease",
   }
 }
 
 function headerInputStyle(t, borderColor = t.border) {
   return {
-    background: `linear-gradient(180deg, ${t.glassStrong}, ${t.panel})`,
+    background: `linear-gradient(180deg, rgba(255,255,255,0.34), ${t.glassStrong} 20%, ${t.panel})`,
     border: `1px solid ${borderColor}`,
     borderRadius: 999,
     padding: "9px 14px",
@@ -6000,8 +6000,8 @@ function headerInputStyle(t, borderColor = t.border) {
     outline: "none",
     fontFamily: FONT_SANS,
     minHeight: 38,
-    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.32), 0 10px 24px rgba(46,94,170,0.06)",
-    backdropFilter: "blur(20px) saturate(155%)",
+    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.40), inset 0 -1px 0 rgba(255,255,255,0.08), 0 14px 28px rgba(46,94,170,0.09)",
+    backdropFilter: "blur(24px) saturate(165%)",
   }
 }
 
@@ -6023,6 +6023,15 @@ function PresetSearchControl({
 
   return (
     <div style={{ position: "relative", minWidth: 0, width: "100%", maxWidth: width }}>
+      <div style={{
+        position: "absolute",
+        inset: "1px 1px auto 1px",
+        height: 18,
+        borderRadius: 999,
+        background: "linear-gradient(180deg, rgba(255,255,255,0.34), rgba(255,255,255,0.06))",
+        pointerEvents: "none",
+        zIndex: 1,
+      }} />
       <input
         placeholder={placeholder}
         value={value}
@@ -6041,7 +6050,7 @@ function PresetSearchControl({
           }
           if (e.key === "Escape") setOpen(false)
         }}
-        style={{ ...headerInputStyle(t, borderColor), width: "100%", paddingRight: 40 }}
+        style={{ ...headerInputStyle(t, borderColor), width: "100%", paddingRight: 40, position: "relative", zIndex: 0 }}
       />
       <div style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)", color: t.faint, fontSize: 13, pointerEvents: "none" }}>
         ⌕
@@ -6882,12 +6891,34 @@ export default function App() {
               gap: 12,
               minHeight: 58,
               padding: viewport.isMobile ? "8px 12px" : "8px 16px",
-              background: `linear-gradient(135deg, ${t.headerBg}, ${t.glassStrong})`,
+              background: `linear-gradient(135deg, rgba(255,255,255,0.30), ${t.headerBg} 22%, ${t.glassStrong})`,
               border: `1px solid ${t.borderStrong}`,
               borderRadius: 999,
               backdropFilter: "blur(24px) saturate(155%)",
-              boxShadow: `${t.shadowSm}, inset 0 1px 0 rgba(255,255,255,0.26)`,
+              boxShadow: `${t.shadowSm}, inset 0 1px 0 rgba(255,255,255,0.34), 0 18px 40px rgba(46,94,170,0.10)`,
+              position: "relative",
+              overflow: "hidden",
             }}>
+              <div style={{
+                position: "absolute",
+                left: 18,
+                right: 18,
+                top: 1,
+                height: 22,
+                borderRadius: 999,
+                background: "linear-gradient(180deg, rgba(255,255,255,0.34), rgba(255,255,255,0.04))",
+                pointerEvents: "none",
+              }} />
+              <div style={{
+                position: "absolute",
+                top: -36,
+                right: "18%",
+                width: 180,
+                height: 110,
+                borderRadius: "50%",
+                background: "radial-gradient(circle, rgba(255,255,255,0.34), rgba(255,255,255,0))",
+                pointerEvents: "none",
+              }} />
               <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
                 <div style={{
                   width: 22,
@@ -6915,12 +6946,24 @@ export default function App() {
                   maxWidth: "100%",
                   overflowX: "auto",
                   padding: 4,
-                  background: `linear-gradient(135deg, ${t.glassStrong}, ${t.glass})`,
+                  background: `linear-gradient(135deg, rgba(255,255,255,0.28), ${t.glassStrong} 24%, ${t.glass})`,
                   border: `1px solid ${t.borderStrong}`,
                   borderRadius: 999,
-                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.24), 0 8px 20px rgba(46,94,170,0.06)",
-                  backdropFilter: "blur(22px) saturate(160%)",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.30), inset 0 -1px 0 rgba(255,255,255,0.08), 0 12px 26px rgba(46,94,170,0.10)",
+                  backdropFilter: "blur(24px) saturate(170%)",
+                  position: "relative",
+                  overflow: "hidden",
                 }}>
+                  <div style={{
+                    position: "absolute",
+                    left: 8,
+                    right: 8,
+                    top: 1,
+                    height: 14,
+                    borderRadius: 999,
+                    background: "linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0.03))",
+                    pointerEvents: "none",
+                  }} />
                   {TABS.map(tab => (
                     <button
                       key={tab.id}
