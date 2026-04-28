@@ -127,11 +127,11 @@ function AppShell({
               gap: 12,
               minHeight: 58,
               padding: viewport.isMobile ? "8px 12px" : "8px 16px",
-              background: `linear-gradient(135deg, rgba(255,255,255,0.30), ${theme.headerBg} 22%, ${theme.glassStrong})`,
-              border: `1px solid ${theme.borderStrong}`,
+              background: `linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.08) 18%, ${theme.headerBg} 46%, ${theme.glass} 88%)`,
+              border: `1px solid rgba(255,255,255,0.22)`,
               borderRadius: 999,
-              backdropFilter: "blur(24px) saturate(155%)",
-              boxShadow: `${theme.shadowSm}, inset 0 1px 0 rgba(255,255,255,0.34), 0 18px 40px rgba(46,94,170,0.10)`,
+              backdropFilter: "blur(28px) saturate(145%)",
+              boxShadow: `${theme.shadowSm}, inset 0 1px 0 rgba(255,255,255,0.22), 0 16px 34px rgba(46,94,170,0.08)`,
               position: "relative",
               overflow: "hidden",
             }}
@@ -189,18 +189,18 @@ function AppShell({
                   alignItems: "center",
                   justifyContent: "center",
                   gap: 4,
-                  width: "fit-content",
-                  maxWidth: "100%",
-                  overflowX: "auto",
-                  padding: 4,
-                  background: `linear-gradient(135deg, rgba(255,255,255,0.28), ${theme.glassStrong} 24%, ${theme.glass})`,
-                  border: `1px solid ${theme.borderStrong}`,
-                  borderRadius: 999,
-                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.30), inset 0 -1px 0 rgba(255,255,255,0.08), 0 12px 26px rgba(46,94,170,0.10)",
-                  backdropFilter: "blur(24px) saturate(170%)",
-                  position: "relative",
-                  overflow: "hidden",
-                }}
+                width: "fit-content",
+                maxWidth: "100%",
+                overflowX: "auto",
+                padding: 4,
+                background: `linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.06) 22%, ${theme.glass} 76%)`,
+                border: `1px solid rgba(255,255,255,0.20)`,
+                borderRadius: 999,
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(255,255,255,0.04), 0 10px 22px rgba(46,94,170,0.08)",
+                backdropFilter: "blur(28px) saturate(160%)",
+                position: "relative",
+                overflow: "hidden",
+              }}
               >
                 <div
                   style={{
@@ -224,8 +224,8 @@ function AppShell({
                       data-active={active ? "true" : "false"}
                       onClick={() => setActiveTab(tab.id)}
                       style={{
-                        background: active ? `linear-gradient(135deg, ${theme.badgeInfoBg}, ${theme.glassStrong})` : "transparent",
-                        border: active ? `1px solid ${theme.borderStrong}` : "1px solid transparent",
+                        background: active ? `linear-gradient(135deg, rgba(255,255,255,0.22), ${theme.badgeInfoBg} 46%, rgba(255,255,255,0.10))` : "rgba(255,255,255,0.02)",
+                        border: active ? `1px solid rgba(255,255,255,0.24)` : "1px solid transparent",
                         color: active ? theme.accentText : theme.subtle,
                         height: 34,
                         padding: "0 14px",
@@ -235,8 +235,8 @@ function AppShell({
                         fontWeight: active ? 800 : 700,
                         whiteSpace: "nowrap",
                         fontFamily: FONT_SANS,
-                        boxShadow: active ? "inset 0 1px 0 rgba(255,255,255,0.30), 0 10px 22px rgba(46,94,170,0.10)" : "none",
-                        backdropFilter: active ? "blur(18px) saturate(160%)" : "none",
+                        boxShadow: active ? "inset 0 1px 0 rgba(255,255,255,0.22), 0 8px 18px rgba(46,94,170,0.08)" : "none",
+                        backdropFilter: active ? "blur(20px) saturate(150%)" : "none",
                       }}
                     >
                       {copy.tabs[tab.copyKey]}
