@@ -11,8 +11,8 @@ import {
   normalizeFunctionalGroupDetails, getFunctionalGroupEntries, defaultGroupPositions, formatFunctionalGroupSummary,
   getGasSystem, getPerformanceLabel, validateScreeningInputs,
   parseCifText, zhText, toolbarBtn,
-  CustomTooltip, MetricCard, BasisBadge, PageHeader, SectionTitle, EmptyState,
-  StageStrip, StickySummaryBar, ResultLayer, HowToRead, InfoTip, NextStepCTA,
+  CustomTooltip, MetricCard, BasisBadge, SectionTitle,
+  ResultLayer, HowToRead, InfoTip, NextStepCTA,
   ProvenanceGrid, ResultProvenanceDrawer, Callout, LinkerSubstitutionPreview, NumericField,
 } from "../../shared"
 
@@ -255,31 +255,72 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
         ["Recommended start", "Search UiO-66, HKUST-1, ZIF-8, MOF-5, and other common MOFs from the top bar to auto-fill parameters."],
         ["Result status", "This is a screening-level tool; beta/proxy/basis-marked outputs are not publication-grade evidence by themselves."],
       ])
+  const isRunDisabled = loading || gas.priority === "unavailable" || inputValidation.blocked
+  const runLabel = inputValidation.blocked ? (lang === "zh" ? "⚠ 先修正输入" : "⚠ Fix inputs first") :
+    loading ? `⏳ ${c.structure.computing}` :
+    gas.priority === "unavailable" ? c.structure.unsupported : `▶ ${c.structure.run}`
+  const runButtonStyle = {
+    width: "100%", padding: "14px 0", borderRadius: 8, border: "none",
+    cursor: isRunDisabled ? "not-allowed" : "pointer",
+    background: isRunDisabled ? t.border : t.accent,
+    color: "#fff", fontWeight: 800, fontSize: 14, letterSpacing: "0.04em",
+    display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+    transition: "all 0.2s",
+    boxShadow: isRunDisabled ? "none" : "0 8px 18px rgba(26,109,181,0.16)",
+  }
+  const isDirty = (key) => JSON.stringify(inputs[key] ?? null) !== JSON.stringify(DEFAULT_INPUTS[key] ?? null)
+  const dirtyLabel = (label, key) => (
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
+      {label}
+      {isDirty(key) && <span aria-hidden="true" style={{ width: 6, height: 6, borderRadius: "50%", background: t.accent, display: "inline-block" }} />}
+    </span>
+  )
+  const stageSteps = [
+    ["1", lang === "zh" ? "科学筛选" : "Screening", t.performance],
+    ["2", lang === "zh" ? "可行性" : "Feasibility", t.lccAccent],
+    ["3", lang === "zh" ? "比较" : "Comparison", t.sensitivityAccent],
+    ["4", lang === "zh" ? "工程" : "Engineering", t.validationAccent],
+  ]
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-      <PageHeader
-        title={lang === "zh" ? "Stage 1 — 科学筛选" : "Stage 1 — Scientific Screening"}
-        subtitle={lang === "zh"
-          ? "用性能、化学线索和筛选置信度作为早期主要过滤器。"
-          : "Use performance, chemistry, and screening confidence as the primary early-stage filter."}
-        meta={`${inputs.mofName || inputs.metalCenter} · ${inputs.gasSystem} · ${inputs.temperature} K · ${inputs.pressure} bar`}
-        action={<BasisBadge tone={apiStatus?.ok ? "calc" : "proxy"}>{apiStatus?.ok ? "backend connected" : "screening prototype"}</BasisBadge>}
-      />
-      <StageStrip current="screening" onNavigate={setActiveTab} />
-      <StickySummaryBar
-        inputs={inputs}
-        results={results}
-        stage={lang === "zh" ? "第 1 阶段" : "Stage 1"}
-        onAddComparison={onAddComparison}
-        canAddComparison={hasUsableResults}
-      />
-    <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(270px, 0.27fr) minmax(0, 0.50fr) minmax(260px, 0.23fr)", gap: 16, height: "100%", alignItems: "start" }}>
-      {/* ── Left: Input Panel ── */}
-      <div className="content-card" style={{ width: isNarrow ? "100%" : 335, flexShrink: 0, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: "20px 24px", overflowY: "auto" }}>
-        <div style={{ color: t.accentText, fontSize: 13, fontWeight: 700, letterSpacing: 0, marginBottom: 16 }}>
-          ⬡ {c.structure.inputTitle}
+    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) auto", gap: 12, alignItems: "center" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+          {stageSteps.map(([num, label, color], index) => (
+            <button
+              key={num}
+              type="button"
+              onClick={() => index === 0 ? setActiveTab?.("screening") : index === 1 ? setActiveTab?.("feasibility") : index === 2 ? setActiveTab?.("lca") : setActiveTab?.("about")}
+              style={{
+                border: "none",
+                background: "transparent",
+                color: index === 0 ? color : t.subtle,
+                fontSize: 13,
+                fontWeight: index === 0 ? 850 : 700,
+                cursor: "pointer",
+                padding: 0,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+              }}
+            >
+              <span style={{ color, fontFamily: FONT_MONO, fontWeight: 900 }}>{num}</span>
+              <span>{label}</span>
+              {index < stageSteps.length - 1 && <span style={{ color: t.faint, marginLeft: 2 }}>/</span>}
+            </button>
+          ))}
         </div>
+        <div style={{ color: t.muted, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, padding: "5px 14px", fontSize: 12, fontWeight: 700, whiteSpace: "nowrap" }}>
+          {inputs.metalCenter} / {inputs.organicLinker} · {inputs.gasSystem} · {inputs.temperature} K
+        </div>
+      </div>
+    <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(310px, 0.35fr) minmax(0, 0.40fr) minmax(240px, 0.25fr)", gap: 16, height: "100%", alignItems: "start" }}>
+      {/* ── Left: Input Panel ── */}
+      <div className="content-card" style={{ width: "100%", flexShrink: 0, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 0, overflow: "hidden", display: "flex", flexDirection: "column", maxHeight: isNarrow ? "none" : "calc(100vh - 150px)" }}>
+        <div style={{ color: t.accentText, fontSize: 13, fontWeight: 800, letterSpacing: "0.04em", padding: "20px 24px 14px", borderBottom: `1px solid ${t.border}`, textTransform: "uppercase" }}>
+          {c.structure.inputTitle}
+        </div>
+        <div style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: "16px 24px 12px" }}>
 
         <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10, marginBottom: 14 }}>
           <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800, marginBottom: 6 }}>
@@ -313,7 +354,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
           </Callout>
         )}
 
-        <label style={labelStyle}>{c.structure.gasSystem}</label>
+        <label style={labelStyle}>{dirtyLabel(c.structure.gasSystem, "gasSystem")}</label>
         <select value={inputs.gasSystem}
           onChange={e => setInputs(p => ({ ...p, gasSystem: e.target.value }))}
           style={{ ...selectStyle, marginBottom: 10 }}>
@@ -327,7 +368,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
           {gas.priority === "beta" ? "⚠ " : "· "}{zhText(lang, gas.dataNote)}
         </div>
 
-        <label style={labelStyle}>{c.structure.metalCenter}</label>
+        <label style={labelStyle}>{dirtyLabel(c.structure.metalCenter, "metalCenter")}</label>
         <select value={inputs.metalCenter}
           onChange={e => setInputs(p => ({ ...p, metalCenter: e.target.value }))}
           style={selectStyle}>
@@ -337,7 +378,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
           {c.structure.toxicity}: {zhText(lang, metal.toxicity)} · {c.structure.lca}: {metal.lcaScore}/10 {metal.oms && `· ${c.structure.oms}`}
         </div>}
 
-        <label style={labelStyle}>{c.structure.organicLinker}</label>
+        <label style={labelStyle}>{dirtyLabel(c.structure.organicLinker, "organicLinker")}</label>
         <select value={inputs.organicLinker}
           onChange={e => setInputs(p => ({ ...p, organicLinker: e.target.value }))}
           style={{ ...selectStyle, marginBottom: 4 }}>
@@ -349,21 +390,21 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
           </div>
         )}
 
-        <NumericField label={`${c.numeric.poreDiameter} (Å)`} unit="Å" min={3} max={30} step={0.1}
+        <NumericField label={dirtyLabel(`${c.numeric.poreDiameter} (Å)`, "poreDiameter")} unit="Å" min={3} max={30} step={0.1}
           value={inputs.poreDiameter} onChange={v => setInputs(p => ({ ...p, poreDiameter: v }))}
           helper={lang === "zh" ? "孔径影响尺寸筛分和扩散；先用基准范围，再用真实结构描述符替换。" : "Pore size affects sieving and diffusion; start with benchmark ranges, then replace with real descriptors."} />
-        <NumericField label={`${c.numeric.bet} (m²/g)`} unit="m²/g" min={100} max={7000} step={10}
+        <NumericField label={dirtyLabel(`${c.numeric.bet} (m²/g)`, "betSurfaceArea")} unit="m²/g" min={100} max={7000} step={10}
           value={inputs.betSurfaceArea} onChange={v => setInputs(p => ({ ...p, betSurfaceArea: v }))}
           helper={lang === "zh" ? "BET 是容量相关描述符；实验、GCMC 或数据库来源应分开记录。" : "BET is a capacity-related descriptor; keep experimental, GCMC, and database sources distinct."} />
-        <NumericField label={`${c.numeric.poreVolume} (cm³/g)`} unit="cm³/g" min={0.1} max={4.5} step={0.01}
+        <NumericField label={dirtyLabel(`${c.numeric.poreVolume} (cm³/g)`, "poreVolume")} unit="cm³/g" min={0.1} max={4.5} step={0.01}
           value={inputs.poreVolume} onChange={v => setInputs(p => ({ ...p, poreVolume: v }))}
           helper={lang === "zh" ? "孔体积影响高压容量；不要单独用它判断选择性。" : "Pore volume affects higher-pressure capacity; do not use it alone to judge selectivity."} />
 
-        <label style={labelStyle}>{c.structure.functionalGroups}</label>
+        <label style={labelStyle}>{dirtyLabel(c.structure.functionalGroups, "functionalGroups")}</label>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 10 }}>
           {FUNCTIONAL_GROUPS.map(fg => (
             <label key={fg.value} title={zhText(lang, fg.category)} style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer",
-              color: inputs.functionalGroups.includes(fg.value) ? t.accentText : t.subtle, fontSize: 11, fontWeight: inputs.functionalGroups.includes(fg.value) ? 700 : 400 }}>
+              color: inputs.functionalGroups.includes(fg.value) ? t.accentText : t.subtle, fontSize: 11, fontWeight: inputs.functionalGroups.includes(fg.value) ? 500 : 400 }}>
               <input type="checkbox" checked={inputs.functionalGroups.includes(fg.value)}
                 onChange={() => toggleFG(fg.value)}
                 style={{ accentColor: t.accent, width: 13, height: 13 }} />
@@ -376,7 +417,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
             <div key={value} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
               <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", marginBottom: 8 }}>
                 <div>
-                  <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800 }}>{meta.label}</div>
+                  <div style={{ color: t.accentText, fontSize: 12, fontWeight: 500 }}>{meta.label}</div>
                   <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.4 }}>{zhText(lang, meta.category)}</div>
                 </div>
                 <BasisBadge tone="user">{lang === "zh" ? "用户定义" : "user-defined"}</BasisBadge>
@@ -552,25 +593,6 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
           )}
         </div>
 
-        <button className="btn-primary" onClick={onPredict} disabled={loading || gas.priority === "unavailable" || inputValidation.blocked}
-          style={{
-            width: "100%", padding: "13px 0", borderRadius: 6, border: "none",
-            cursor: (loading || gas.priority === "unavailable" || inputValidation.blocked) ? "not-allowed" : "pointer",
-            background: (loading || gas.priority === "unavailable" || inputValidation.blocked) ? t.border : t.accent,
-            color: "#fff", fontWeight: 700, fontSize: 14, letterSpacing: "0.06em",
-            display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-            transition: "all 0.2s", marginBottom: 10,
-          }}>
-          {inputValidation.blocked ? (lang === "zh" ? "⚠ 先修正输入" : "⚠ Fix inputs first") :
-           loading ? `⏳ ${c.structure.computing}` :
-           gas.priority === "unavailable" ? c.structure.unsupported : `▶ ${c.structure.run}`}
-        </button>
-
-        <button onClick={() => setInputs({ ...DEFAULT_INPUTS })}
-          style={{ background: "none", border: "none", color: t.faint, fontSize: 11, cursor: "pointer" }}>
-          ↺ {c.structure.reset}
-        </button>
-
         <div style={{ marginTop: 18, paddingTop: 16, borderTop: `1px solid ${t.divider}` }}>
           <label style={labelStyle}>{c.structure.cifUpload}</label>
           <label style={{
@@ -601,13 +623,26 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
             </div>
           )}
         </div>
+        </div>
+        <div style={{ borderTop: `1px solid ${t.border}`, padding: "14px 20px", background: t.panel, boxShadow: "0 -8px 18px rgba(15,23,42,0.03)" }}>
+          <button className="btn-primary" onClick={onPredict} disabled={isRunDisabled} style={runButtonStyle}>
+            {runLabel}
+          </button>
+          <button onClick={() => setInputs({ ...DEFAULT_INPUTS })}
+            style={{ background: "none", border: "none", color: t.faint, fontSize: 11, cursor: "pointer", marginTop: 8 }}>
+            ↺ {c.structure.reset}
+          </button>
+        </div>
       </div>
 
       {/* ── Center: Results Panel ── */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 14, overflowY: "auto" }}>
+      <div className="content-card" style={{ flex: 1, display: "flex", flexDirection: "column", gap: 14, overflowY: "auto", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 18, minHeight: isNarrow ? 0 : "calc(100vh - 150px)" }}>
+        <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 850, letterSpacing: "0.02em" }}>
+          {lang === "zh" ? "结果" : "Results"}
+        </div>
         {loading && !results ? (
           <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-            background: t.sectionTint, border: `1px solid ${t.border}`, borderRadius: 8, minHeight: 240, padding: 24 }}>
+            background: t.sectionTint, border: `1px dashed ${t.borderStrong}`, borderRadius: 8, minHeight: 520, padding: 24 }}>
             <div className="ecomof-pulse-ring" />
             <div style={{ color: t.textStrong, fontSize: 17, fontWeight: 700, marginTop: 18 }}>
               {lang === "zh" ? "正在运行筛选预测" : "Running screening prediction"}
@@ -618,19 +653,24 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
           </div>
         ) : !results ? (
           <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-            background: t.sectionTint, border: `1px solid ${t.border}`, borderRadius: 8, minHeight: 240, padding: 24 }}>
-            <div style={{ fontSize: 42, marginBottom: 16, color: t.accentText }}>🔬</div>
-            <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 700, marginBottom: 8 }}>
+            background: t.sectionTint, border: `1px dashed ${t.borderStrong}`, borderRadius: 8, minHeight: 520, padding: 24, position: "relative" }}>
+            {!isMobile && (
+              <div style={{ position: "absolute", left: -8, top: "42%", background: t.accent, color: "#fff", borderRadius: 6, padding: "5px 9px", fontSize: 11, fontWeight: 850, boxShadow: "0 8px 18px rgba(26,109,181,0.14)" }}>
+                {lang === "zh" ? "输入 → 结果" : "Input → results"}
+              </div>
+            )}
+            <div style={{ width: 72, height: 72, borderRadius: "50%", background: t.badgeInfoBg, color: t.accentText, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 34, marginBottom: 18 }}>⌬</div>
+            <div style={{ color: t.textStrong, fontSize: 22, fontWeight: 800, marginBottom: 8 }}>
               {lang === "zh" ? "配置后运行筛选" : "Configure and run"}
             </div>
-            <div style={{ color: t.subtle, fontSize: 13, textAlign: "center", maxWidth: 360, lineHeight: 1.55 }}>
+            <div style={{ color: t.subtle, fontSize: 14, textAlign: "center", maxWidth: 360, lineHeight: 1.55 }}>
               {lang === "zh"
                 ? "在左侧设置 MOF 参数和气体条件，然后点击 RUN AI PREDICTION。"
                 : "Set MOF parameters on the left, then click RUN AI PREDICTION."}
             </div>
             <button type="button" onClick={() => onLoadBenchmark?.("UiO-66")}
               className="btn-primary"
-              style={{ ...toolbarBtn(t), marginTop: 16, background: t.accent, borderColor: t.accent, color: "#fff", padding: "9px 13px" }}>
+              style={{ ...toolbarBtn(t), marginTop: 18, background: t.accent, borderColor: t.accent, color: "#fff", padding: "12px 24px", fontSize: 14, fontWeight: 850, boxShadow: "0 8px 18px rgba(26,109,181,0.16)" }}>
               {lang === "zh" ? "试用 UiO-66 →" : "Try UiO-66 →"}
             </button>
             <div style={{ color: t.faint, fontSize: 10, marginTop: 8 }}>
@@ -645,24 +685,26 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
           <>
             {/* Results Header */}
             <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: "12px 18px",
-              display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <div>
-                <span style={{ color: t.muted, fontSize: 12 }}>{c.structure.resultTitle} / </span>
-                <span style={{ color: t.accentText, fontSize: 12, fontWeight: 600 }}>{results.gasSystem}</span>
-                <span style={{ marginLeft: 10, color: t.faint, fontSize: 11 }}>
+              display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) auto", gap: 12, alignItems: "center" }}>
+              <div style={{ minWidth: 0 }}>
+                <div style={{ display: "flex", gap: 8, alignItems: "baseline", flexWrap: "wrap" }}>
+                  <span style={{ color: t.muted, fontSize: 12 }}>{c.structure.resultTitle}</span>
+                  <span style={{ color: t.accentText, fontSize: 13, fontWeight: 700 }}>{results.gasSystem}</span>
+                </div>
+                <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 4 }}>
                   {c.structure.latency}: {results.latencyMs} ms · {c.structure.confidence}: {(results.confidenceScore * 100).toFixed(0)}%
                   {" · "}{c.structure.applicability}: {results.applicability?.warnings?.length ? c.structure.caution : c.structure.inDomain}
-                </span>
+                </div>
               </div>
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
+              <div style={{ display: "grid", gap: 8, justifyContent: isMobile ? "start" : "end" }}>
                 <button onClick={exportCSV}
-                  style={{ background: t.border, border: `1px solid ${t.borderStrong}`, borderRadius: 4, color: t.accentSoft,
-                    fontSize: 11, padding: "5px 10px", cursor: "pointer" }}>
+                  style={{ background: t.panel, border: `1px solid ${t.accent}`, borderRadius: 6, color: t.accentText,
+                    fontSize: 11, fontWeight: 800, padding: "7px 11px", cursor: "pointer", whiteSpace: "nowrap" }}>
                   ↓ {c.structure.export}
                 </button>
                 <button onClick={onSaveRun}
-                  style={{ background: t.border, border: `1px solid ${t.borderStrong}`, borderRadius: 4, color: t.success,
-                    fontSize: 11, padding: "5px 10px", cursor: "pointer" }}>
+                  style={{ background: t.panel, border: `1px solid ${t.borderStrong}`, borderRadius: 6, color: t.success,
+                    fontSize: 11, fontWeight: 800, padding: "7px 11px", cursor: "pointer", whiteSpace: "nowrap" }}>
                   + {c.common.saveRun}
                 </button>
               </div>
@@ -699,7 +741,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
               title={lang === "zh" ? "核心结果" : "Key Outputs"}
               subtitle={lang === "zh" ? "先看 Stage 1 的吸附、选择性和置信状态。" : "Start with the Stage 1 uptake, selectivity, and confidence status."}
             >
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))", gap: 12 }}>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 12 }}>
               <MetricCard label={`${results.primaryName.toUpperCase()} ${c.structure.adsorptionCapacity}`}
                 value={results.primaryUptake} unit="mmol/g"
                 badge={perf?.label} badgeColor={perf?.color} badgeBg={perf?.bg}
@@ -825,14 +867,17 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
 
       {/* ── Right: Interpretation Sidebar ── */}
       <aside className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 16, boxShadow: "none", position: isNarrow ? "static" : "sticky", top: 74 }}>
-        <Callout tone="info">
-          <strong>{lang === "zh" ? "为何以此阶段为起点" : "Why this stage is the entry point"}</strong>
-          <br />
-          {lang === "zh"
-            ? "早期材料筛选应以性能和化学合理性为中心。更宽的成本与生命周期标准只在形成初筛候选后引入。"
-            : "Early-stage materials screening should remain performance- and chemistry-centered. Broader cost and lifecycle criteria are introduced only after an initial filter exists."}
-        </Callout>
-        <div style={{ height: 12 }} />
+        <details style={{ marginBottom: 14, border: `1px solid ${t.border}`, borderRadius: 8, background: t.panel }}>
+          <summary style={{ cursor: "pointer", listStyle: "none", padding: "10px 12px", color: t.accentText, fontSize: 12, fontWeight: 800, display: "flex", alignItems: "center", gap: 8 }}>
+            <span style={{ width: 18, height: 18, borderRadius: "50%", background: t.badgeInfoBg, display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 11 }}>i</span>
+            {lang === "zh" ? "为何以 Stage 1 开始" : "Why Stage 1 is the entry point"}
+          </summary>
+          <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.6, padding: "0 12px 12px" }}>
+            {lang === "zh"
+              ? "早期材料筛选应以性能和化学合理性为中心。更宽的成本与生命周期标准只在形成初筛候选后引入。"
+              : "Early-stage materials screening should remain performance- and chemistry-centered. Broader cost and lifecycle criteria are introduced only after an initial filter exists."}
+          </div>
+        </details>
         <SectionTitle>{lang === "zh" ? "解释与下一步" : "Interpretation & Next Steps"}</SectionTitle>
         <div style={{ display: "grid", gap: 10 }}>
           {decisionTips.map(([title, body], index) => (
