@@ -7,9 +7,9 @@ export function HomeTab({ setActiveTab }) {
   const t = useT()
   const { lang, copy: c } = useLang()
   const { isNarrow, isMobile } = useViewport()
-  const sectionStyle = { padding: isMobile ? "56px 0" : "76px 0" }
-  const sectionTitleStyle = { margin: 0, color: t.textStrong, fontSize: isMobile ? 26 : 34, lineHeight: 1.12, letterSpacing: 0 }
-  const cardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, boxShadow: t.shadowSm, backdropFilter: "blur(18px) saturate(135%)" }
+  const sectionStyle = { padding: isMobile ? "44px 0" : "64px 0" }
+  const sectionTitleStyle = { margin: 0, color: t.textStrong, fontSize: isMobile ? 26 : 32, lineHeight: 1.12, letterSpacing: 0, fontWeight: 700 }
+  const cardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: "20px 24px", boxShadow: "none" }
   const heroStages = lang === "zh" ? [
     {
       stage: "Stage 1",
@@ -70,54 +70,62 @@ export function HomeTab({ setActiveTab }) {
   const scrollToBenchmarks = () => {
     document.getElementById("home-benchmarks")?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
+  const heroTitleLines = lang === "zh"
+    ? [
+        ["性能优先。", t.textStrong],
+        ["决策支持", t.accentText],
+        ["随后扩展。", t.textStrong],
+      ]
+    : [
+        ["Performance first.", t.textStrong],
+        ["Broader decision", t.accentText],
+        ["support next.", t.textStrong],
+      ]
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <section style={{
-        minHeight: isNarrow ? "auto" : "calc(100vh - 104px)",
+        minHeight: isNarrow ? "auto" : "calc(100vh - 118px)",
         display: "grid",
-        gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 0.42fr) minmax(0, 0.58fr)",
-        gap: isNarrow ? 28 : 46,
+        gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 0.55fr) minmax(0, 0.45fr)",
+        gap: isNarrow ? 28 : 42,
         alignItems: "center",
-        padding: isMobile ? "42px 0 64px" : "62px 0 86px",
+        padding: isMobile ? "34px 0 54px" : "52px 0 60px",
       }}>
         <div>
-          <div style={{ color: t.accentText, fontSize: 12, fontWeight: 800, letterSpacing: 0, marginBottom: 18 }}>
+          <div style={{ color: t.accentText, fontSize: 12, fontWeight: 800, letterSpacing: "0.05em", textTransform: "uppercase", marginBottom: 18 }}>
             {c.home.heroLabel}
           </div>
-          <h1 style={{ margin: 0, color: t.textStrong, fontSize: isMobile ? 42 : isNarrow ? 54 : 70, lineHeight: 0.96, letterSpacing: 0 }}>
-            {c.home.title}
+          <h1 style={{ margin: 0, fontSize: isMobile ? 42 : isNarrow ? 54 : 70, lineHeight: 0.98, letterSpacing: 0, fontWeight: 800 }}>
+            {heroTitleLines.map(([text, color]) => (
+              <span key={text} style={{ display: "block", color }}>{text}</span>
+            ))}
           </h1>
           <p style={{ color: t.muted, fontSize: isMobile ? 16 : 18, lineHeight: 1.55, maxWidth: 560, margin: "24px 0 26px" }}>
             {c.home.subtitle}
           </p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-            <button onClick={() => setActiveTab("screening")} style={{ ...toolbarBtn(t), background: t.accent, color: "#fff", borderColor: t.accent, padding: "10px 16px", boxShadow: t.shadowSm }}>
+            <button className="btn-primary" onClick={() => setActiveTab("screening")} style={{ ...toolbarBtn(t), background: t.accent, color: "#fff", borderColor: t.accent, padding: "10px 16px", boxShadow: "0 8px 18px rgba(26,109,181,0.16)" }}>
               {c.home.start}
             </button>
-            <button onClick={() => setActiveTab("comparison")} style={{ ...toolbarBtn(t), padding: "10px 16px" }}>
+            <button onClick={() => setActiveTab("comparison")} style={{ ...toolbarBtn(t), padding: "10px 16px", background: "transparent" }}>
               {lang === "zh" ? "查看比较层" : "View Comparison Layers"}
             </button>
           </div>
         </div>
 
         <div style={{
-          background: `linear-gradient(135deg, ${t.panel}, ${t.glassStrong})`,
-          border: `1px solid ${t.borderStrong}`,
-          borderRadius: 18,
-          padding: isMobile ? 22 : 34,
-          boxShadow: t.shadowMd,
           minHeight: isMobile ? 380 : 500,
-          display: "flex",
+          display: "grid",
           alignItems: "stretch",
-          backdropFilter: "blur(20px) saturate(145%)",
         }}>
           <div style={{ display: "grid", gridTemplateRows: "1fr 1fr", gap: isMobile ? 14 : 18, width: "100%", flex: 1 }}>
             {heroStages.map(stage => (
-              <div key={stage.stage} style={{
+              <div key={stage.stage} className="content-card" style={{
                 padding: isMobile ? 18 : 24,
                 border: `1px solid ${t.border}`,
-                borderRadius: 14,
-                background: t.glass,
+                borderLeft: `3px solid ${stage.accent}`,
+                borderRadius: 0,
+                background: t.panel,
                 display: "grid",
                 gridTemplateColumns: isMobile ? "1fr" : "160px 1fr",
                 gap: 16,
@@ -129,8 +137,8 @@ export function HomeTab({ setActiveTab }) {
                 </div>
                 <div style={{ display: "grid", gap: 10 }}>
                   {stage.items.map(item => (
-                    <div key={item} style={{ display: "flex", alignItems: "center", gap: 10, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "10px 12px" }}>
-                      <span style={{ width: 8, height: 8, borderRadius: "50%", background: stage.accent, flex: "0 0 auto" }} />
+                    <div key={item} style={{ display: "flex", alignItems: "center", gap: 10, padding: "7px 0", borderBottom: `1px solid ${t.border}` }}>
+                      <span style={{ width: 18, height: 2, borderRadius: 999, background: stage.accent, flex: "0 0 auto" }} />
                       <span style={{ color: t.muted, fontSize: 13, fontWeight: 750 }}>{item}</span>
                     </div>
                   ))}
@@ -145,7 +153,7 @@ export function HomeTab({ setActiveTab }) {
         <h2 style={sectionTitleStyle}>{c.home.capabilityTitle}</h2>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 16, marginTop: 26, alignItems: "stretch" }}>
           {capabilities.map(item => (
-            <div key={item.key} style={{
+            <div key={item.key} className="content-card" style={{
               ...cardStyle,
               position: "relative",
               overflow: "hidden",
@@ -190,7 +198,7 @@ export function HomeTab({ setActiveTab }) {
       <section id="home-benchmarks" style={sectionStyle}>
         <h2 style={sectionTitleStyle}>{c.home.benchmarkTitle}</h2>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1.08fr 0.92fr", gap: 16, marginTop: 26 }}>
-          <div style={{ ...cardStyle, minHeight: isNarrow ? 260 : 360, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+          <div className="content-card" style={{ ...cardStyle, minHeight: isNarrow ? 260 : 360, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div>
               <BasisBadge tone="calc">{benchmarks[0][2]}</BasisBadge>
               <div style={{ color: t.textStrong, fontSize: isMobile ? 34 : 48, fontWeight: 880, letterSpacing: 0, marginTop: 22 }}>{benchmarks[0][0]}</div>
@@ -202,7 +210,7 @@ export function HomeTab({ setActiveTab }) {
           </div>
           <div style={{ display: "grid", gridTemplateRows: isNarrow ? "auto auto" : "1fr 1fr", gap: 16 }}>
             {benchmarks.slice(1).map(([name, body, tag]) => (
-              <div key={name} style={{ ...cardStyle, minHeight: 170, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+              <div key={name} className="content-card" style={{ ...cardStyle, minHeight: 170, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                 <div>
                   <BasisBadge tone="info">{tag}</BasisBadge>
                   <div style={{ color: t.textStrong, fontSize: 28, fontWeight: 860, marginTop: 16 }}>{name}</div>
@@ -218,7 +226,7 @@ export function HomeTab({ setActiveTab }) {
         <h2 style={sectionTitleStyle}>{c.home.trustTitle}</h2>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 14, marginTop: 24 }}>
           {trustBlocks.map(([title, body]) => (
-            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 18 }}>
+            <div key={title} className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 18 }}>
               <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850 }}>{title}</div>
               <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.6, marginTop: 9 }}>{body}</div>
             </div>

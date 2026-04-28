@@ -111,13 +111,20 @@ function AppShell({
       className="app-shell"
       style={{
         minHeight: "100vh",
-        background: `radial-gradient(circle at 14% 0%, ${darkMode ? "rgba(124,180,255,0.20)" : "rgba(110,168,255,0.12)"}, transparent 30%), radial-gradient(circle at 84% 9%, ${darkMode ? "rgba(168,202,255,0.12)" : "rgba(255,255,255,0.55)"}, transparent 25%), radial-gradient(circle at 48% 100%, ${darkMode ? "rgba(110,168,255,0.10)" : "rgba(234,244,255,0.72)"}, transparent 31%), ${theme.bg}`,
+        background: theme.bg,
         color: theme.text,
         fontFamily: FONT_SANS,
       }}
     >
-      <header style={{ position: "sticky", top: 0, zIndex: 110, padding: viewport.isMobile ? "10px 12px 0" : "14px 18px 0" }}>
-        <div style={{ maxWidth: 1460, margin: "0 auto", display: "flex", flexDirection: "column", gap: 10 }}>
+      <header style={{
+        position: "sticky",
+        top: 0,
+        zIndex: 110,
+        padding: 0,
+        background: theme.headerBg,
+        borderBottom: `1px solid ${theme.border}`,
+      }}>
+        <div style={{ maxWidth: 1460, margin: "0 auto", display: "flex", flexDirection: "column", gap: 0, padding: viewport.isMobile ? "0 12px" : "0 18px" }}>
           <div
             className="nav-shell"
             style={{
@@ -125,41 +132,16 @@ function AppShell({
               gridTemplateColumns: viewport.isNarrow ? "1fr auto" : "160px 1fr 160px",
               alignItems: "center",
               gap: 12,
-              minHeight: 58,
-              padding: viewport.isMobile ? "8px 12px" : "8px 16px",
-              background: `linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.05) 16%, ${theme.headerBg} 42%, ${theme.glass} 78%, rgba(255,255,255,0.06))`,
-              border: `1px solid rgba(255,255,255,0.18)`,
-              borderRadius: 999,
-              backdropFilter: "blur(30px) saturate(150%)",
-              boxShadow: `${theme.shadowSm}, inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(255,255,255,0.04), 0 18px 38px rgba(46,94,170,0.07)`,
+              minHeight: 56,
+              padding: viewport.isMobile ? "8px 0" : "8px 0",
+              background: "transparent",
+              border: "none",
+              borderRadius: 0,
+              boxShadow: "none",
               position: "relative",
-              overflow: "hidden",
+              overflow: "visible",
             }}
           >
-            <div
-              style={{
-                position: "absolute",
-                left: 18,
-                right: 18,
-                top: 1,
-                height: 22,
-                borderRadius: 999,
-                background: "linear-gradient(180deg, rgba(255,255,255,0.34), rgba(255,255,255,0.04))",
-                pointerEvents: "none",
-              }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                top: -36,
-                right: "18%",
-                width: 180,
-                height: 110,
-                borderRadius: "50%",
-                background: "radial-gradient(circle, rgba(255,255,255,0.34), rgba(255,255,255,0))",
-                pointerEvents: "none",
-              }}
-            />
             <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
               <div
                 style={{
@@ -192,28 +174,15 @@ function AppShell({
                   width: "fit-content",
                   maxWidth: "100%",
                   overflowX: "auto",
-                  padding: 4,
-                  background: `linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.04) 18%, ${theme.glass} 62%, rgba(255,255,255,0.07))`,
-                  border: `1px solid rgba(255,255,255,0.16)`,
-                  borderRadius: 999,
-                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.16), inset 0 -1px 0 rgba(255,255,255,0.04), 0 12px 28px rgba(46,94,170,0.07)",
-                  backdropFilter: "blur(30px) saturate(168%)",
+                  padding: 0,
+                  background: "transparent",
+                  border: "none",
+                  borderRadius: 0,
+                  boxShadow: "none",
                   position: "relative",
-                  overflow: "hidden",
+                  overflow: "auto",
                 }}
               >
-                <div
-                  style={{
-                    position: "absolute",
-                    left: 8,
-                    right: 8,
-                    top: 1,
-                    height: 14,
-                    borderRadius: 999,
-                    background: "linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0.03))",
-                    pointerEvents: "none",
-                  }}
-                />
                 {TABS.map(tab => {
                   const active = activeTab === tab.id
                   return (
@@ -224,21 +193,18 @@ function AppShell({
                       data-active={active ? "true" : "false"}
                       onClick={() => setActiveTab(tab.id)}
                       style={{
-                        background: active
-                          ? `linear-gradient(135deg, rgba(255,255,255,0.20), ${theme.badgeInfoBg} 40%, rgba(255,255,255,0.06) 78%)`
-                          : "linear-gradient(135deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015))",
-                        border: active ? `1px solid rgba(255,255,255,0.20)` : "1px solid rgba(255,255,255,0.02)",
+                        background: active ? theme.badgeInfoBg : "transparent",
+                        border: active ? `1px solid ${theme.border}` : "1px solid transparent",
                         color: active ? theme.accentText : theme.subtle,
-                        height: 34,
+                        height: 32,
                         padding: "0 14px",
-                        borderRadius: 999,
+                        borderRadius: 6,
                         cursor: "pointer",
                         fontSize: 12,
                         fontWeight: active ? 800 : 700,
                         whiteSpace: "nowrap",
                         fontFamily: FONT_SANS,
-                        boxShadow: active ? "inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(255,255,255,0.04), 0 10px 22px rgba(46,94,170,0.08)" : "inset 0 1px 0 rgba(255,255,255,0.04)",
-                        backdropFilter: active ? "blur(22px) saturate(155%)" : "blur(12px) saturate(118%)",
+                        boxShadow: active ? "0 1px 0 rgba(15,23,42,0.04)" : "none",
                       }}
                     >
                       {copy.tabs[tab.copyKey]}

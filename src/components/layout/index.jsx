@@ -26,15 +26,6 @@ export function PresetSearchControl({
 
   return (
     <div style={{ position: "relative", minWidth: 0, width: "100%", maxWidth: width }}>
-      <div style={{
-        position: "absolute",
-        inset: "1px 1px auto 1px",
-        height: 18,
-        borderRadius: 999,
-        background: "linear-gradient(180deg, rgba(255,255,255,0.34), rgba(255,255,255,0.06))",
-        pointerEvents: "none",
-        zIndex: 1,
-      }} />
       <input
         placeholder={placeholder}
         value={value}
@@ -64,13 +55,12 @@ export function PresetSearchControl({
           top: "calc(100% + 8px)",
           left: 0,
           right: 0,
-          background: `linear-gradient(180deg, ${t.glassStrong}, ${t.panel})`,
+          background: t.panel,
           border: `1px solid ${t.borderStrong}`,
-          borderRadius: 14,
+          borderRadius: 8,
           overflow: "hidden",
           zIndex: 120,
-          boxShadow: `${t.shadowSm}, inset 0 1px 0 rgba(255,255,255,0.22)`,
-          backdropFilter: "blur(22px) saturate(145%)",
+          boxShadow: t.shadowSm,
         }}>
           {suggestions.map((name, index) => (
             <button
@@ -120,12 +110,12 @@ export function PageHeader({ title, subtitle, meta, action }) {
   return (
     <div style={{
       display: "flex", justifyContent: "space-between", gap: 18, alignItems: "flex-start",
-      flexWrap: "wrap", marginBottom: 4,
+      flexWrap: "wrap", marginBottom: 8,
     }}>
       <div>
-        <h1 style={{ margin: 0, color: t.textStrong, fontSize: 28, letterSpacing: 0, lineHeight: 1.15 }}>{title}</h1>
+        <h1 style={{ margin: 0, color: t.textStrong, fontSize: 32, fontWeight: 700, letterSpacing: 0, lineHeight: 1.15 }}>{title}</h1>
         {subtitle && (
-          <p style={{ margin: "8px 0 0", color: t.muted, fontSize: 13, lineHeight: 1.65, maxWidth: 880 }}>
+          <p style={{ margin: "8px 0 0", color: t.muted, fontSize: 15, lineHeight: 1.6, maxWidth: 880 }}>
             {subtitle}
           </p>
         )}
@@ -282,16 +272,26 @@ export function ContextualHeaderBar({
     alignItems: "center",
     gap: 10,
     flexWrap: "wrap",
-    minHeight: 52,
-    padding: isMobile ? "10px 12px" : "10px 14px",
+    minHeight: 46,
+    padding: isMobile ? "8px 0 10px" : "8px 0 10px",
     background: darkenLayer(t),
-    border: `1px solid ${t.border}`,
-    borderRadius: 18,
-    boxShadow: `inset 0 1px 0 ${t === THEME_DARK ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.42)"}`,
-    backdropFilter: "blur(18px) saturate(145%)",
+    border: "none",
+    borderTop: `1px solid ${t.border}`,
+    borderRadius: 0,
+    boxShadow: "none",
   }
   const compactSelectStyle = { ...headerInputStyle(t), minWidth: 0, flex: "0 1 auto", cursor: "pointer" }
   const compactNumberStyle = { ...headerInputStyle(t), width: isMobile ? "100%" : 96, fontFamily: FONT_MONO }
+  const compactFieldShell = {
+    display: "grid",
+    gridTemplateColumns: "auto minmax(76px, 96px)",
+    alignItems: "center",
+    gap: 6,
+    color: t.subtle,
+    fontSize: 10,
+    fontWeight: 800,
+    textTransform: "uppercase",
+  }
   const gasOptions = GAS_SYSTEMS.filter(item => item.priority !== "unavailable")
   const comparisonSubtabs = [
     { id: "feasibility", label: lang === "zh" ? "可行性" : "Feasibility" },
@@ -375,20 +375,26 @@ export function ContextualHeaderBar({
             <option key={gas.id} value={gas.id}>{gasLabel(gas.label, lang)}</option>
           ))}
         </select>
-        <input
-          type="number"
-          value={inputs.temperatureK}
-          onChange={e => setInputs(prev => ({ ...prev, temperatureK: e.target.value }))}
-          style={compactNumberStyle}
-          aria-label={copy.structure.temperature}
-        />
-        <input
-          type="number"
-          value={inputs.pressureBar}
-          onChange={e => setInputs(prev => ({ ...prev, pressureBar: e.target.value }))}
-          style={compactNumberStyle}
-          aria-label={copy.structure.pressure}
-        />
+        <label style={compactFieldShell}>
+          <span>{lang === "zh" ? "温度" : "Temp"}</span>
+          <input
+            type="number"
+            value={inputs.temperature}
+            onChange={e => setInputs(prev => ({ ...prev, temperature: parseInt(e.target.value, 10) || 298 }))}
+            style={compactNumberStyle}
+            aria-label={copy.structure.temperature}
+          />
+        </label>
+        <label style={compactFieldShell}>
+          <span>{lang === "zh" ? "压力" : "Pressure"}</span>
+          <input
+            type="number"
+            value={inputs.pressure}
+            onChange={e => setInputs(prev => ({ ...prev, pressure: parseFloat(e.target.value) || 0.15 }))}
+            style={compactNumberStyle}
+            aria-label={copy.structure.pressure}
+          />
+        </label>
         <button
           type="button"
           onClick={onAddComparison}
@@ -436,7 +442,7 @@ export function ContextualHeaderBar({
             marginLeft: isNarrow ? 0 : "auto",
             color: t.subtle,
             fontSize: 11,
-            background: t.glass,
+            background: t.panel,
             border: `1px solid ${t.border}`,
             borderRadius: 999,
             padding: "8px 12px",

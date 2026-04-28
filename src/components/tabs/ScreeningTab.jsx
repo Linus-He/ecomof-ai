@@ -257,7 +257,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
       ])
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
         title={lang === "zh" ? "Stage 1 — 科学筛选" : "Stage 1 — Scientific Screening"}
         subtitle={lang === "zh"
@@ -274,9 +274,9 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
         onAddComparison={onAddComparison}
         canAddComparison={hasUsableResults}
       />
-    <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(250px, 0.24fr) minmax(0, 0.52fr) minmax(250px, 0.24fr)", gap: 20, height: "100%", alignItems: "start" }}>
+    <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(270px, 0.27fr) minmax(0, 0.50fr) minmax(260px, 0.23fr)", gap: 16, height: "100%", alignItems: "start" }}>
       {/* ── Left: Input Panel ── */}
-      <div style={{ width: isNarrow ? "100%" : 315, flexShrink: 0, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, overflowY: "auto" }}>
+      <div className="content-card" style={{ width: isNarrow ? "100%" : 335, flexShrink: 0, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: "20px 24px", overflowY: "auto" }}>
         <div style={{ color: t.accentText, fontSize: 13, fontWeight: 700, letterSpacing: 0, marginBottom: 16 }}>
           ⬡ {c.structure.inputTitle}
         </div>
@@ -363,7 +363,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 10 }}>
           {FUNCTIONAL_GROUPS.map(fg => (
             <label key={fg.value} title={zhText(lang, fg.category)} style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer",
-              color: inputs.functionalGroups.includes(fg.value) ? t.accentSoft : t.subtle, fontSize: 11 }}>
+              color: inputs.functionalGroups.includes(fg.value) ? t.accentText : t.subtle, fontSize: 11, fontWeight: inputs.functionalGroups.includes(fg.value) ? 700 : 400 }}>
               <input type="checkbox" checked={inputs.functionalGroups.includes(fg.value)}
                 onChange={() => toggleFG(fg.value)}
                 style={{ accentColor: t.accent, width: 13, height: 13 }} />
@@ -552,11 +552,11 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
           )}
         </div>
 
-        <button onClick={onPredict} disabled={loading || gas.priority === "unavailable" || inputValidation.blocked}
+        <button className="btn-primary" onClick={onPredict} disabled={loading || gas.priority === "unavailable" || inputValidation.blocked}
           style={{
             width: "100%", padding: "13px 0", borderRadius: 6, border: "none",
             cursor: (loading || gas.priority === "unavailable" || inputValidation.blocked) ? "not-allowed" : "pointer",
-            background: (loading || gas.priority === "unavailable" || inputValidation.blocked) ? t.border : `linear-gradient(135deg, ${t.accentStrong}, ${t.accent})`,
+            background: (loading || gas.priority === "unavailable" || inputValidation.blocked) ? t.border : t.accent,
             color: "#fff", fontWeight: 700, fontSize: 14, letterSpacing: "0.06em",
             display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
             transition: "all 0.2s", marginBottom: 10,
@@ -605,18 +605,33 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
 
       {/* ── Center: Results Panel ── */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 14, overflowY: "auto" }}>
-        {!results ? (
+        {loading && !results ? (
           <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-            background: t.panel, border: `1px dashed ${t.border}`, borderRadius: 10, minHeight: 400 }}>
-            <div style={{ fontSize: 40, marginBottom: 16 }}>⬡</div>
-            <div style={{ color: t.accentText, fontSize: 16, fontWeight: 600, marginBottom: 8 }}>{c.structure.readyTitle}</div>
-            <div style={{ color: t.faint, fontSize: 13, textAlign: "center", maxWidth: 360 }}>
-              {c.structure.readyBody}<br />
-              <strong style={{ color: t.accentSoft }}>{c.structure.run}</strong>.
+            background: t.sectionTint, border: `1px solid ${t.border}`, borderRadius: 8, minHeight: 240, padding: 24 }}>
+            <div className="ecomof-pulse-ring" />
+            <div style={{ color: t.textStrong, fontSize: 17, fontWeight: 700, marginTop: 18 }}>
+              {lang === "zh" ? "正在运行筛选预测" : "Running screening prediction"}
+            </div>
+            <div style={{ color: t.subtle, fontSize: 13, textAlign: "center", maxWidth: 360, lineHeight: 1.55, marginTop: 8 }}>
+              {lang === "zh" ? "正在计算吸附、选择性、置信度和适用域提示。" : "Calculating uptake, selectivity, confidence, and applicability notes."}
+            </div>
+          </div>
+        ) : !results ? (
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+            background: t.sectionTint, border: `1px solid ${t.border}`, borderRadius: 8, minHeight: 240, padding: 24 }}>
+            <div style={{ fontSize: 42, marginBottom: 16, color: t.accentText }}>🔬</div>
+            <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 700, marginBottom: 8 }}>
+              {lang === "zh" ? "配置后运行筛选" : "Configure and run"}
+            </div>
+            <div style={{ color: t.subtle, fontSize: 13, textAlign: "center", maxWidth: 360, lineHeight: 1.55 }}>
+              {lang === "zh"
+                ? "在左侧设置 MOF 参数和气体条件，然后点击 RUN AI PREDICTION。"
+                : "Set MOF parameters on the left, then click RUN AI PREDICTION."}
             </div>
             <button type="button" onClick={() => onLoadBenchmark?.("UiO-66")}
+              className="btn-primary"
               style={{ ...toolbarBtn(t), marginTop: 16, background: t.accent, borderColor: t.accent, color: "#fff", padding: "9px 13px" }}>
-              {lang === "zh" ? "载入 UiO-66 基准示例" : "Load UiO-66 benchmark example"}
+              {lang === "zh" ? "试用 UiO-66 →" : "Try UiO-66 →"}
             </button>
             <div style={{ color: t.faint, fontSize: 10, marginTop: 8 }}>
               {lang === "zh" ? "这是基准示例，不是用户提交的新设计。" : "Benchmark example, not a user-submitted design."}
@@ -809,7 +824,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
       </div>
 
       {/* ── Right: Interpretation Sidebar ── */}
-      <aside style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16, boxShadow: t.shadowSm, backdropFilter: "blur(18px) saturate(135%)", position: isNarrow ? "static" : "sticky", top: 74 }}>
+      <aside className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 16, boxShadow: "none", position: isNarrow ? "static" : "sticky", top: 74 }}>
         <Callout tone="info">
           <strong>{lang === "zh" ? "为何以此阶段为起点" : "Why this stage is the entry point"}</strong>
           <br />

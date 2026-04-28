@@ -144,36 +144,45 @@ export function StageStrip({ current = "screening", onNavigate }) {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow } = useViewport()
+  const stagePalette = {
+    screening: { color: t.performance, bg: t.badgeInfoBg },
+    feasibility: { color: t.lccAccent, bg: t.badgeProxyBg },
+    comparison: { color: t.sensitivityAccent, bg: t.badgeUserBg },
+    engineering: { color: t.validationAccent, bg: t.badgeCalcBg },
+  }
   return (
     <div style={{
       display: "grid",
       gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))",
       gap: 8,
-      background: t.panel,
-      border: `1px solid ${t.border}`,
-      borderRadius: 10,
-      padding: 8,
-      boxShadow: t.shadowSm,
+      background: "transparent",
+      border: "none",
+      borderRadius: 0,
+      padding: 0,
+      boxShadow: "none",
     }}>
       {WORKFLOW_STAGE_ITEMS.map(item => {
         const active = item.id === current || (current === "lca" && item.id === "comparison") || (current === "sensitivity" && item.id === "comparison") || (current === "validation" && item.id === "screening")
+        const palette = stagePalette[item.id] || stagePalette.engineering
         return (
           <button
             key={item.id}
             type="button"
             onClick={() => onNavigate?.(item.target)}
+            className="content-card"
             style={{
               textAlign: "left",
-              border: `1px solid ${active ? t.borderStrong : "transparent"}`,
-              background: active ? t.badgeInfoBg : "transparent",
-              borderRadius: 8,
+              border: `1px solid ${active ? t.borderStrong : t.border}`,
+              borderLeft: `3px solid ${active ? palette.color : t.border}`,
+              background: active ? palette.bg : t.panel,
+              borderRadius: 0,
               padding: "8px 10px",
               cursor: onNavigate ? "pointer" : "default",
               minHeight: 54,
             }}
           >
             <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center" }}>
-              <span style={{ color: active ? t.accentText : t.faint, fontSize: 10, fontWeight: 850, fontFamily: FONT_MONO }}>{item.stage}</span>
+              <span style={{ color: active ? palette.color : t.faint, fontSize: 10, fontWeight: 850, fontFamily: FONT_MONO }}>{item.stage}</span>
               {active && <BasisBadge tone={item.tone}>{lang === "zh" ? "当前" : "Current"}</BasisBadge>}
             </div>
             <div style={{ color: active ? t.textStrong : t.muted, fontSize: 12, fontWeight: 800, marginTop: 4, lineHeight: 1.25 }}>
@@ -207,12 +216,11 @@ export function StickySummaryBar({ inputs, results, stage, confidence, onAddComp
       gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) auto",
       gap: 10,
       alignItems: "center",
-      background: t.glassStrong,
+      background: t.panel,
       border: `1px solid ${t.borderStrong}`,
-      borderRadius: 10,
+      borderRadius: 8,
       padding: "9px 11px",
       boxShadow: t.shadowSm,
-      backdropFilter: "blur(18px) saturate(145%)",
     }}>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
         {summaryItems.map(([label, value]) => (
