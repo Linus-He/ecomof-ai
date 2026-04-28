@@ -238,13 +238,13 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
   const functionalGroupDetails = normalizeFunctionalGroupDetails(inputs)
   const decisionTips = hasUsableResults
     ? (lang === "zh" ? [
-        ["为什么是这个结果", `${results.primaryName} uptake 主要由 BET、孔体积、孔径匹配、${inputs.organicLinker} 连接体和官能团数量/位置共同影响。选择性仍是 screening proxy，不是严格混合气 IAST。`],
-        ["可信度", `当前置信度 ${(results.confidenceScore * 100).toFixed(0)}%。${results.applicability?.warnings?.length ? "输入已有适用域警告，建议补真实等温线或 GCMC 标签。" : "输入位于基准范围附近，可用于早期候选比较。"}`],
-        ["下一步", "先看解释/Qst 判断吸附原因，再进入可行性页检查粗略成本、可得性和供应边界。LCA/LCC 只用于入围候选之后的比较。"],
+        ["结果驱动因素", `${results.primaryName} uptake 主要由 BET、孔体积、孔径匹配、${inputs.organicLinker} 连接体和官能团数量/位置共同影响。选择性仍是 screening proxy，不是严格混合气 IAST。`],
+        ["可信度判断", `当前置信度 ${(results.confidenceScore * 100).toFixed(0)}%。${results.applicability?.warnings?.length ? "输入已有适用域警告，建议补真实等温线或 GCMC 标签。" : "输入位于基准范围附近，可用于早期候选比较。"}`],
+        ["后续建议", "先看解释/Qst 判断吸附原因，再进入可行性页检查粗略成本、可得性和供应边界。LCA/LCC 只用于入围候选之后的比较。"],
       ] : [
-        ["Why this result", `${results.primaryName} uptake is driven by BET, pore volume, pore matching, the ${inputs.organicLinker} linker, and functional-group count/position. Selectivity remains a screening proxy, not rigorous mixture IAST.`],
-        ["Confidence", `Current confidence is ${(results.confidenceScore * 100).toFixed(0)}%. ${results.applicability?.warnings?.length ? "Applicability warnings are present; add real isotherm or GCMC labels before strong claims." : "The input is close to benchmark ranges and is usable for early comparison."}`],
-        ["Next steps", "Use Interpretation/Qst to inspect the mechanism, then Feasibility for coarse cost, availability, and supply boundaries. LCA/LCC comes after shortlist formation."],
+        ["Key Drivers", `${results.primaryName} uptake is driven by BET, pore volume, pore matching, the ${inputs.organicLinker} linker, and functional-group count/position. Selectivity remains a screening proxy, not rigorous mixture IAST.`],
+        ["Confidence Assessment", `Current confidence is ${(results.confidenceScore * 100).toFixed(0)}%. ${results.applicability?.warnings?.length ? "Applicability warnings are present; add real isotherm or GCMC labels before strong claims." : "The input is close to benchmark ranges and is usable for early comparison."}`],
+        ["Recommended Next Step", "Use Interpretation/Qst to inspect the mechanism, then Feasibility for coarse cost, availability, and supply boundaries. LCA/LCC comes after shortlist formation."],
       ])
     : (lang === "zh" ? [
         ["工作流", "左侧输入材料、气体体系和条件；点击运行后中间显示吸附结果，右侧显示解释、置信度和下一步。"],
@@ -681,7 +681,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
 
             <ResultLayer
               number="01"
-              title={lang === "zh" ? "结果是什么？" : "What is the result?"}
+              title={lang === "zh" ? "核心结果" : "Key Outputs"}
               subtitle={lang === "zh" ? "先看 Stage 1 的吸附、选择性和置信状态。" : "Start with the Stage 1 uptake, selectivity, and confidence status."}
             >
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))", gap: 12 }}>
@@ -702,7 +702,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
 
             <ResultLayer
               number="02"
-              title={lang === "zh" ? "为什么会这样？" : "Why does it look this way?"}
+              title={lang === "zh" ? "结果解释" : "Result Interpretation"}
               subtitle={lang === "zh" ? "用等温线、选择性方法和结构驱动因素解释结果。" : "Interpret the result through isotherm shape, selectivity method, and structural drivers."}
             >
             {results.selectivityDetails && (
@@ -767,7 +767,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
 
             <ResultLayer
               number="03"
-              title={lang === "zh" ? "应该相信多少？" : "How much should I trust it?"}
+              title={lang === "zh" ? "依据与局限" : "Basis and Limitations"}
               subtitle={lang === "zh" ? "把模型依据、来源类型和限制与结果分开阅读。" : "Read model basis, source type, and limitations separately from the result."}
             >
             <ProvenanceGrid items={[
@@ -811,7 +811,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
       {/* ── Right: Interpretation Sidebar ── */}
       <aside style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16, boxShadow: t.shadowSm, backdropFilter: "blur(18px) saturate(135%)", position: isNarrow ? "static" : "sticky", top: 74 }}>
         <Callout tone="info">
-          <strong>{lang === "zh" ? "为什么这个阶段先开始" : "Why this stage comes first"}</strong>
+          <strong>{lang === "zh" ? "为何以此阶段为起点" : "Why this stage is the entry point"}</strong>
           <br />
           {lang === "zh"
             ? "早期材料筛选应以性能和化学合理性为中心。更宽的成本与生命周期标准只在形成初筛候选后引入。"

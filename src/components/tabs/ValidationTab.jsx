@@ -79,7 +79,7 @@ export function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi, 
       <Callout tone="warn">
         {lang === "zh" ? "该验证页主要支持筛选导向的预测层。更宽的生命周期/成本层仍属于探索性、假设依赖模块。" : "This validation page primarily supports the screening-oriented prediction layer. Broader lifecycle/cost layers remain exploratory and assumption-dependent."}
       </Callout>
-      <ResultLayer number="01" title={lang === "zh" ? "结果是什么？" : "What is the result?"} subtitle={lang === "zh" ? "验证层先显示筛选模型的核心误差指标。" : "Validation first shows core error metrics for the screening model."}>
+      <ResultLayer number="01" title={lang === "zh" ? "核心结果" : "Key Outputs"} subtitle={lang === "zh" ? "验证层先显示筛选模型的核心误差指标。" : "Validation first shows core error metrics for the screening model."}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 12 }}>
           <MetricCard label="R²" value={manifest?.metrics?.co2_uptake?.r2 ? Number(manifest.metrics.co2_uptake.r2).toFixed(3) : "—"} unit="" />
           <MetricCard label="MAE" value={manifest?.metrics?.co2_uptake?.mae ? Number(manifest.metrics.co2_uptake.mae).toFixed(2) : "—"} unit="mmol/g" />
@@ -87,7 +87,7 @@ export function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi, 
           <MetricCard label={c.validation.applicability} value={results?.applicability?.warnings?.length ? c.structure.caution : c.structure.inDomain} unit="" />
         </div>
       </ResultLayer>
-      <ResultLayer number="02" title={lang === "zh" ? "为什么会这样？" : "Why does it look this way?"} subtitle={lang === "zh" ? "用 parity、残差和适用域图解释模型表现。" : "Use parity, residual, and applicability plots to explain model behavior."}>
+      <ResultLayer number="02" title={lang === "zh" ? "模型表现解读" : "Model Performance Interpretation"} subtitle={lang === "zh" ? "用 parity、残差和适用域图解释模型表现。" : "Use parity, residual, and applicability plots to explain model behavior."}>
         <div style={{ background: t.card || t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 20 }}>
           <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 800, marginBottom: 12 }}>{c.common.validationPredictedVsReference}</div>
           <ResponsiveContainer width="100%" height={410}>
@@ -104,7 +104,7 @@ export function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi, 
           <HowToRead>{lang === "zh" ? "点越接近虚线，预测与参考越一致；当前点集是演示基准，不应用于泛化结论。" : "Points closer to the dashed line agree better with reference values; this seed set is a demonstration and should not support broad generalization claims."}</HowToRead>
         </div>
       </ResultLayer>
-      <ResultLayer number="03" title={lang === "zh" ? "应该相信多少？" : "How much should I trust it?"} subtitle={lang === "zh" ? "训练清单、后端状态和导出工具保持低强调。" : "Training manifest, backend status, and export tools stay low-emphasis."}>
+      <ResultLayer number="03" title={lang === "zh" ? "验证范围与限制" : "Validation Scope and Limits"} subtitle={lang === "zh" ? "训练清单、后端状态和导出工具保持低强调。" : "Training manifest, backend status, and export tools stay low-emphasis."}>
         <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
           <summary style={{ color: t.accentText, cursor: "pointer", fontSize: 12, fontWeight: 850 }}>{lang === "zh" ? "训练清单与后端状态" : "Training Manifest & Backend Status"}</summary>
           <div style={{ marginTop: 12 }}>

@@ -70,7 +70,7 @@ export function FeasibilityTab({ results, inputs, onNavigate }) {
           ? "这个阶段不是正式生命周期成本。它是科学筛选与工程尺度评估之间的粗略可行性边界。"
           : "This stage is not formal lifecycle costing. It is a coarse feasibility boundary between scientific screening and engineering-scale evaluation."}
       </Callout>
-      <ResultLayer number="01" title={lang === "zh" ? "结果是什么？" : "What is the result?"} subtitle={lang === "zh" ? "先看哪些实际边界可能阻断下一轮比较。" : "Start with which practical boundaries may block the next comparison round."}>
+      <ResultLayer number="01" title={lang === "zh" ? "核心结果" : "Key Outputs"} subtitle={lang === "zh" ? "先看哪些实际边界可能阻断下一轮比较。" : "Start with which practical boundaries may block the next comparison round."}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 12 }}>
           {rows.map(([label, value, note]) => {
             const severity = severityTone(value)
@@ -87,7 +87,7 @@ export function FeasibilityTab({ results, inputs, onNavigate }) {
           })}
         </div>
       </ResultLayer>
-      <ResultLayer number="02" title={lang === "zh" ? "为什么会这样？" : "Why does it look this way?"} subtitle={lang === "zh" ? "把连接体、路线和用途尺度分开解释。" : "Separate linker, route, and use-scale interpretation."}>
+      <ResultLayer number="02" title={lang === "zh" ? "边界判断依据" : "Boundary Rationale"} subtitle={lang === "zh" ? "把连接体、路线和用途尺度分开解释。" : "Separate linker, route, and use-scale interpretation."}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "0.9fr 1.1fr", gap: 14 }}>
           <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
             <SectionTitle>{lang === "zh" ? "连接体与路线提示" : "Linker and route cues"}</SectionTitle>
@@ -142,7 +142,7 @@ export function FeasibilityTab({ results, inputs, onNavigate }) {
           </div>
         </div>
       </ResultLayer>
-      <ResultLayer number="03" title={lang === "zh" ? "应该相信多少？" : "How much should I trust it?"} subtitle={lang === "zh" ? "这里是粗略边界，不是正式 LCC 或工程经济。" : "This is a coarse boundary, not formal LCC or engineering economics."}>
+      <ResultLayer number="03" title={lang === "zh" ? "适用范围与局限" : "Scope and Limitations"} subtitle={lang === "zh" ? "这里是粗略边界，不是正式 LCC 或工程经济。" : "This is a coarse boundary, not formal LCC or engineering economics."}>
         <ProvenanceGrid items={[
           { label: "Use stage", value: "Stage 2 — Feasibility Boundaries", type: "proxy", note: "Practical boundary between scientific screening and shortlist comparison." },
           { label: "Purpose", value: "Feasibility boundary", type: "user", note: "Cost / availability / supply reasonableness check." },

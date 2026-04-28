@@ -116,7 +116,7 @@ export function LCAScoringTab({ results, inputs, onNavigate }) {
           </div>
         </div>
       </div>
-      <ResultLayer number="01" title={lang === "zh" ? "结果是什么？" : "What is the result?"} subtitle={lang === "zh" ? "先看入围候选的负担、成本压力和最敏感输入。" : "Start with shortlist burden, cost pressure, and the most sensitive input."}>
+      <ResultLayer number="01" title={lang === "zh" ? "核心结果" : "Key Outputs"} subtitle={lang === "zh" ? "先看入围候选的负担、成本压力和最敏感输入。" : "Start with shortlist burden, cost pressure, and the most sensitive input."}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
           {summaryCards.map(card => (
             <div key={card.label} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, minHeight: 118 }}>
@@ -132,7 +132,7 @@ export function LCAScoringTab({ results, inputs, onNavigate }) {
           ))}
         </div>
       </ResultLayer>
-      <ResultLayer number="02" title={lang === "zh" ? "为什么会这样？" : "Why does it look this way?"} subtitle={lang === "zh" ? "用性能、负担和成本三者的权衡解释入围候选差异。" : "Explain shortlist differences through performance, burden, and cost trade-offs."}>
+      <ResultLayer number="02" title={lang === "zh" ? "权衡分析" : "Trade-off Interpretation"} subtitle={lang === "zh" ? "用性能、负担和成本三者的权衡解释入围候选差异。" : "Explain shortlist differences through performance, burden, and cost trade-offs."}>
         <div style={{ ...chartCardStyle, background: t.chartBg, padding: 20 }}>
           <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", marginBottom: 12, flexWrap: "wrap" }}>
             <div>
@@ -212,7 +212,7 @@ export function LCAScoringTab({ results, inputs, onNavigate }) {
         { label: "Limitation", value: "Shortlist comparison only", type: "proxy", note: "Exploratory, assumption-dependent, and not engineering-grade." },
       ]} />
 
-      <ResultLayer number="03" title={lang === "zh" ? "应该相信多少？" : "How much should I trust it?"} subtitle={lang === "zh" ? "检查假设、价格来源和清单限制。" : "Inspect assumptions, price sources, and inventory limits."}>
+      <ResultLayer number="03" title={lang === "zh" ? "假设与局限" : "Assumptions and Limitations"} subtitle={lang === "zh" ? "检查假设、价格来源和清单限制。" : "Inspect assumptions, price sources, and inventory limits."}>
         <div style={chartCardStyle}>
           <SectionTitle>{lang === "zh" ? "两层成本逻辑" : "Two-layer cost logic"}</SectionTitle>
           <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12, marginTop: 10 }}>

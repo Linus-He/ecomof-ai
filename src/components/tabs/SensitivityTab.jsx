@@ -60,7 +60,7 @@ export function SensitivityTab({ results, inputs, onNavigate }) {
         <strong>{lang === "zh" ? "这个页面的用途：" : "What this page is for:"}</strong>{" "}
         {lang === "zh" ? "不是主要命中识别；用于形成入围候选之后，检查成本和生命周期假设变化时比较结论是否稳定。" : "Not primary hit identification; use it after shortlist formation to test whether broader comparison conclusions remain stable when cost and lifecycle assumptions are uncertain."}
       </Callout>
-      <ResultLayer number="01" title={lang === "zh" ? "结果是什么？" : "What is the result?"} subtitle={lang === "zh" ? "先看哪个假设最容易改变入围候选结论。" : "Start with which assumption can most easily change the shortlist conclusion."}>
+      <ResultLayer number="01" title={lang === "zh" ? "核心结果" : "Key Outputs"} subtitle={lang === "zh" ? "先看哪个假设最容易改变入围候选结论。" : "Start with which assumption can most easily change the shortlist conclusion."}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 14 }}>
           <MetricCard label={c.sensitivityPage.mostSensitive} value={decision.mostSensitive.label} unit="" />
           <MetricCard label={c.sensitivityPage.stability} value="72" unit="%" comparison={c.lca.assumptionSensitive} />
@@ -68,7 +68,7 @@ export function SensitivityTab({ results, inputs, onNavigate }) {
           <MetricCard label="P05 / P50 / P95" value={`${mcLast.p05}/${mcLast.p50}/${mcLast.p95}`} unit="" />
         </div>
       </ResultLayer>
-      <ResultLayer number="02" title={lang === "zh" ? "为什么会这样？" : "Why does it look this way?"} subtitle={lang === "zh" ? "用 tornado 图和情景变化解释稳健性。" : "Use the tornado chart and scenarios to explain robustness."}>
+      <ResultLayer number="02" title={lang === "zh" ? "稳健性解释" : "Robustness Interpretation"} subtitle={lang === "zh" ? "用 tornado 图和情景变化解释稳健性。" : "Use the tornado chart and scenarios to explain robustness."}>
         <div style={{ background: t.chartBg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
           <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 800, marginBottom: 12 }}>{c.sensitivityPage.sweep}</div>
           <ResponsiveContainer width="100%" height={370}>
@@ -112,7 +112,7 @@ export function SensitivityTab({ results, inputs, onNavigate }) {
           </div>
         </div>
       </ResultLayer>
-      <ResultLayer number="03" title={lang === "zh" ? "应该相信多少？" : "How much should I trust it?"} subtitle={lang === "zh" ? "敏感性结果来自代理不确定性范围，不是校准概率推断。" : "Sensitivity results come from proxy uncertainty ranges, not calibrated probabilistic inference."}>
+      <ResultLayer number="03" title={lang === "zh" ? "不确定性边界" : "Uncertainty Scope"} subtitle={lang === "zh" ? "敏感性结果来自代理不确定性范围，不是校准概率推断。" : "Sensitivity results come from proxy uncertainty ranges, not calibrated probabilistic inference."}>
         <MethodDrawer title={lang === "zh" ? "敏感性方法说明" : "Sensitivity methodology"} badge={lang === "zh" ? "探索性" : "Exploratory"}>
           {lang === "zh" ? "当前敏感性模块用确定性情景和代理不确定性范围测试结论是否稳定。它适合入围候选之后的稳健性讨论，不适合主要命中识别，也不是校准的概率模型。" : "The current sensitivity module uses deterministic scenarios and proxy uncertainty ranges to test conclusion stability."}
         </MethodDrawer>
