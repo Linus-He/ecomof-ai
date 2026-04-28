@@ -11,7 +11,22 @@ import { downloadTextFile, buildComparisonCandidate } from "./utils/report"
 import { headerChipBtn } from "./utils/styles"
 import { ContextualHeaderBar, SavedRunsModal } from "./components/layout"
 
-const lazyNamed = (loader, exportName) => lazy(() => loader().then(module => ({ default: module[exportName] })))
+const lazyNamed = (loader, exportName) => lazy(async () => {
+  const reloadKey = `ecomof-lazy-reload:${exportName}`
+  try {
+    const module = await loader()
+    if (typeof window !== "undefined") window.sessionStorage.removeItem(reloadKey)
+    return { default: module[exportName] }
+  } catch (error) {
+    const isChunkLoadFailure = /Failed to fetch dynamically imported module|Importing a module script failed|ChunkLoadError/i.test(String(error?.message || error))
+    if (typeof window !== "undefined" && isChunkLoadFailure && !window.sessionStorage.getItem(reloadKey)) {
+      window.sessionStorage.setItem(reloadKey, "1")
+      window.location.reload()
+      return new Promise(() => {})
+    }
+    throw error
+  }
+})
 
 const HomeTab = lazyNamed(() => import("./components/tabs/HomeTab.jsx"), "HomeTab")
 const WorkflowTab = lazyNamed(() => import("./components/tabs/WorkflowTab.jsx"), "WorkflowTab")
