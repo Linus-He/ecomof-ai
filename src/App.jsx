@@ -6,7 +6,7 @@ import { DEFAULT_INPUTS } from "./constants/defaults"
 import { MOF_PRESETS } from "./constants/catalogs"
 import { TABS } from "./constants/badges"
 import { findPresetName, getPresetSuggestionNames } from "./utils/presets"
-import { predictMOF } from "./utils/prediction"
+import { predictMOF, validateScreeningInputs } from "./utils/prediction"
 import { downloadTextFile, buildComparisonCandidate } from "./utils/report"
 import { headerChipBtn } from "./utils/styles"
 import { ContextualHeaderBar, SavedRunsModal } from "./components/layout"
@@ -553,6 +553,9 @@ export default function App() {
   }, [apiUrl, lang])
 
   const handlePredict = useCallback(async () => {
+    if (validateScreeningInputs(inputs).blocked) {
+      return
+    }
     setLoading(true)
     try {
       if (apiUrl) {

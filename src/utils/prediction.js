@@ -218,6 +218,17 @@ export function predictMOF(inputs) {
       : "Current v1 beta applies a heuristic per-algorithm profile, not an independently trained production model.",
   }
   result.applicability = evaluateApplicability(inputs, result)
+  result.uncertainty = estimateUncertainty(inputs, result)
+  result.scope = {
+    stage: "Stage 1 screening",
+    functionalUnit: gas.id === "CO2/N2"
+      ? "Per candidate MOF under the selected pressure-temperature condition for post-combustion screening."
+      : "Per candidate MOF under the selected pressure-temperature condition for comparative screening.",
+    systemBoundary: "Structure descriptor -> browser-side prediction -> screening interpretation. No experimental process inventory is included at this stage.",
+    confidenceNote: result.applicability.status === "out_of_domain"
+      ? "Prediction is outside the preferred descriptor envelope and should be treated as low-confidence."
+      : "Prediction is suitable for early-stage comparison only and still requires literature, GCMC, or experimental confirmation.",
+  }
   return result
 }
 
@@ -328,6 +339,92 @@ export function evaluateApplicability(inputs, results) {
     warnings,
     score: parseFloat(score.toFixed(2)),
     status: warnings.length === 0 ? "in_domain" : warnings.length <= 2 ? "caution" : "out_of_domain",
+  }
+}
+
+export function validateScreeningInputs(inputs = {}) {
+  const issues = []
+  const push = (severity, field, message, suggestion) => issues.push({ severity, field, message, suggestion })
+  const numericChecks = [
+    ["poreDiameter", inputs.poreDiameter, 2.5, 35, "Pore diameter"],
+    ["betSurfaceArea", inputs.betSurfaceArea, 50, 8000, "BET surface area"],
+    ["poreVolume", inputs.poreVolume, 0.05, 5.5, "Pore volume"],
+    ["temperature", inputs.temperature, 150, 500, "Temperature"],
+    ["pressure", inputs.pressure, 0.001, 60, "Pressure"],
+  ]
+  for (const [field, value, min, max, label] of numericChecks) {
+    const n = Number(value)
+    if (!Number.isFinite(n)) {
+      push("error", field, `${label} is not a valid number.`, `Enter a numeric value between ${min} and ${max}.`)
+      continue
+    }
+    if (n <= 0 && field !== "pressure") {
+      push("error", field, `${label} must be positive.`, `Use a physically meaningful positive value.`)
+      continue
+    }
+    if (n < min || n > max) {
+      push("error", field, `${label} = ${n} is outside the accepted UI range (${min}-${max}).`, `Bring ${label.toLowerCase()} back into the supported range before running prediction.`)
+      continue
+    }
+  }
+  if (Number(inputs.poreDiameter) > 0 && Number(inputs.poreVolume) > 0 && Number(inputs.betSurfaceArea) > 0) {
+    if (Number(inputs.poreDiameter) < 4 && Number(inputs.poreVolume) > 2.5) {
+      push("warn", "structureConsistency", `Very small pore diameter is paired with unusually large pore volume.`, `Re-check whether pore diameter and pore volume come from the same structure source.`)
+    }
+    if (Number(inputs.betSurfaceArea) < 400 && Number(inputs.poreVolume) > 2.2) {
+      push("warn", "surfaceVolumeMismatch", `Low BET area is paired with very large pore volume.`, `Verify the descriptor source or upload a benchmark/CIF workflow result.`)
+    }
+  }
+  if (!inputs.metalCenter || !inputs.organicLinker) {
+    push("error", "catalog", `Metal center and organic linker must both be selected.`, `Choose a preset or select both fields manually.`)
+  }
+  const gas = getGasSystem(inputs.gasSystem)
+  if (gas.priority === "unavailable") {
+    push("error", "gasSystem", `${gas.id} is not supported in the current release.`, `Switch to an available gas pair or keep this as a roadmap placeholder.`)
+  } else if (gas.priority === "beta") {
+    push("warn", "gasSystem", `${gas.id} is currently beta and lacks complete physics/data coverage.`, `Use the output only as directional screening evidence.`)
+  }
+  return {
+    issues,
+    errors: issues.filter(issue => issue.severity === "error"),
+    warnings: issues.filter(issue => issue.severity !== "error"),
+    blocked: issues.some(issue => issue.severity === "error"),
+  }
+}
+
+export function estimateUncertainty(inputs, results) {
+  const applicabilityPenalty = (results?.applicability?.warnings?.length || 0) * 0.04
+  const betaPenalty = getGasSystem(inputs.gasSystem).priority === "beta" ? 0.08 : 0
+  const modelPenalty = (1 - Number(results.confidenceScore || 0.7)) * 0.45
+  const relative = Math.max(0.08, Math.min(0.38, 0.12 + applicabilityPenalty + betaPenalty + modelPenalty))
+  const uptakeHalfWidth = Number((results.primaryUptake * relative).toFixed(2))
+  const secondaryHalfWidth = Number((results.secondaryUptake * Math.min(0.42, relative * 1.15)).toFixed(2))
+  const selectivityHalfWidth = Number(Math.max(0.6, results.selectivity * Math.min(0.48, relative * 1.35)).toFixed(1))
+  const qstHalfWidth = Number(Math.max(1.2, (results.thermo?.qst0 || 10) * Math.min(0.22, relative * 0.8)).toFixed(1))
+  return {
+    level: relative <= 0.14 ? "narrow" : relative <= 0.24 ? "moderate" : "wide",
+    relative,
+    uptake: {
+      low: Number(Math.max(0, results.primaryUptake - uptakeHalfWidth).toFixed(2)),
+      high: Number((results.primaryUptake + uptakeHalfWidth).toFixed(2)),
+      plusMinus: uptakeHalfWidth,
+    },
+    secondary: {
+      low: Number(Math.max(0, results.secondaryUptake - secondaryHalfWidth).toFixed(2)),
+      high: Number((results.secondaryUptake + secondaryHalfWidth).toFixed(2)),
+      plusMinus: secondaryHalfWidth,
+    },
+    selectivity: {
+      low: Number(Math.max(1, results.selectivity - selectivityHalfWidth).toFixed(1)),
+      high: Number((results.selectivity + selectivityHalfWidth).toFixed(1)),
+      plusMinus: selectivityHalfWidth,
+    },
+    qst0: {
+      low: Number(Math.max(0, (results.thermo?.qst0 || 0) - qstHalfWidth).toFixed(1)),
+      high: Number(((results.thermo?.qst0 || 0) + qstHalfWidth).toFixed(1)),
+      plusMinus: qstHalfWidth,
+    },
+    note: `Pseudo uncertainty band from confidence score, applicability warnings, and gas-system maturity. Not a calibrated probabilistic interval.`,
   }
 }
 

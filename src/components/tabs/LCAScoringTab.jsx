@@ -98,6 +98,24 @@ export function LCAScoringTab({ results, inputs, onNavigate }) {
         </div>
       </div>
       <Callout tone="warn">{c.lca.pageSubtitle} {lang === "zh" ? "它不用于替代早期科学筛选，也不用于工程级经济结论。" : "This page is intended for secondary comparison after an initial performance/stability filter."}</Callout>
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
+        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+          <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 6 }}>{lang === "zh" ? "功能单位" : "Functional unit"}</div>
+          <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800, lineHeight: 1.45 }}>{c.lca.functionalUnitBody}</div>
+        </div>
+        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+          <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 6 }}>{lang === "zh" ? "系统边界" : "System boundary"}</div>
+          <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800, lineHeight: 1.45 }}>{c.lca.systemBoundaryBody}</div>
+        </div>
+        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+          <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 6 }}>{lang === "zh" ? "解读规则" : "Interpretation rule"}</div>
+          <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800, lineHeight: 1.45 }}>
+            {lang === "zh"
+              ? "不要只读 Eco-score。必须同时看 characterization、normalization、LCC 和假设来源。"
+              : "Do not read the Eco-score alone. Always inspect characterization, normalization, LCC, and assumption basis together."}
+          </div>
+        </div>
+      </div>
       <ResultLayer number="01" title={lang === "zh" ? "结果是什么？" : "What is the result?"} subtitle={lang === "zh" ? "先看入围候选的负担、成本压力和最敏感输入。" : "Start with shortlist burden, cost pressure, and the most sensitive input."}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
           {summaryCards.map(card => (
