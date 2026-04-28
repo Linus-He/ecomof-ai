@@ -127,11 +127,11 @@ function AppShell({
               gap: 12,
               minHeight: 58,
               padding: viewport.isMobile ? "8px 12px" : "8px 16px",
-              background: `linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.08) 18%, ${theme.headerBg} 46%, ${theme.glass} 88%)`,
-              border: `1px solid rgba(255,255,255,0.22)`,
+              background: `linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.05) 16%, ${theme.headerBg} 42%, ${theme.glass} 78%, rgba(255,255,255,0.06))`,
+              border: `1px solid rgba(255,255,255,0.18)`,
               borderRadius: 999,
-              backdropFilter: "blur(28px) saturate(145%)",
-              boxShadow: `${theme.shadowSm}, inset 0 1px 0 rgba(255,255,255,0.22), 0 16px 34px rgba(46,94,170,0.08)`,
+              backdropFilter: "blur(30px) saturate(150%)",
+              boxShadow: `${theme.shadowSm}, inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(255,255,255,0.04), 0 18px 38px rgba(46,94,170,0.07)`,
               position: "relative",
               overflow: "hidden",
             }}
@@ -189,18 +189,18 @@ function AppShell({
                   alignItems: "center",
                   justifyContent: "center",
                   gap: 4,
-                width: "fit-content",
-                maxWidth: "100%",
-                overflowX: "auto",
-                padding: 4,
-                background: `linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.06) 22%, ${theme.glass} 76%)`,
-                border: `1px solid rgba(255,255,255,0.20)`,
-                borderRadius: 999,
-                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(255,255,255,0.04), 0 10px 22px rgba(46,94,170,0.08)",
-                backdropFilter: "blur(28px) saturate(160%)",
-                position: "relative",
-                overflow: "hidden",
-              }}
+                  width: "fit-content",
+                  maxWidth: "100%",
+                  overflowX: "auto",
+                  padding: 4,
+                  background: `linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.04) 18%, ${theme.glass} 62%, rgba(255,255,255,0.07))`,
+                  border: `1px solid rgba(255,255,255,0.16)`,
+                  borderRadius: 999,
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.16), inset 0 -1px 0 rgba(255,255,255,0.04), 0 12px 28px rgba(46,94,170,0.07)",
+                  backdropFilter: "blur(30px) saturate(168%)",
+                  position: "relative",
+                  overflow: "hidden",
+                }}
               >
                 <div
                   style={{
@@ -224,8 +224,10 @@ function AppShell({
                       data-active={active ? "true" : "false"}
                       onClick={() => setActiveTab(tab.id)}
                       style={{
-                        background: active ? `linear-gradient(135deg, rgba(255,255,255,0.22), ${theme.badgeInfoBg} 46%, rgba(255,255,255,0.10))` : "rgba(255,255,255,0.02)",
-                        border: active ? `1px solid rgba(255,255,255,0.24)` : "1px solid transparent",
+                        background: active
+                          ? `linear-gradient(135deg, rgba(255,255,255,0.20), ${theme.badgeInfoBg} 40%, rgba(255,255,255,0.06) 78%)`
+                          : "linear-gradient(135deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015))",
+                        border: active ? `1px solid rgba(255,255,255,0.20)` : "1px solid rgba(255,255,255,0.02)",
                         color: active ? theme.accentText : theme.subtle,
                         height: 34,
                         padding: "0 14px",
@@ -235,8 +237,8 @@ function AppShell({
                         fontWeight: active ? 800 : 700,
                         whiteSpace: "nowrap",
                         fontFamily: FONT_SANS,
-                        boxShadow: active ? "inset 0 1px 0 rgba(255,255,255,0.22), 0 8px 18px rgba(46,94,170,0.08)" : "none",
-                        backdropFilter: active ? "blur(20px) saturate(150%)" : "none",
+                        boxShadow: active ? "inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(255,255,255,0.04), 0 10px 22px rgba(46,94,170,0.08)" : "inset 0 1px 0 rgba(255,255,255,0.04)",
+                        backdropFilter: active ? "blur(22px) saturate(155%)" : "blur(12px) saturate(118%)",
                       }}
                     >
                       {copy.tabs[tab.copyKey]}
