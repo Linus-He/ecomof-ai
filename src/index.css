@@ -9,6 +9,10 @@ html, body, #root {
   background: #F7FAFE;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: Inter, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -32,6 +36,55 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
 ::selection { background: rgba(110, 168, 255, 0.28); }
 
 /* Smooth transitions */
-button, input, select { transition: border-color 0.15s, background 0.15s; }
+button, input, select { transition: border-color 0.18s ease, background 0.18s ease, box-shadow 0.22s ease, transform 0.22s ease, opacity 0.22s ease; }
 input:focus, select:focus { border-color: #6EA8FF !important; }
-button:hover:not(:disabled) { filter: brightness(1.1); }
+button:hover:not(:disabled) { filter: brightness(1.06); }
+
+.app-shell {
+  transition: background 0.28s ease, color 0.22s ease;
+}
+
+.nav-shell,
+.nav-capsule {
+  transition: box-shadow 0.24s ease, background 0.24s ease, border-color 0.24s ease, transform 0.24s ease;
+}
+
+.nav-capsule:hover {
+  transform: translateY(-1px);
+}
+
+.nav-tab {
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.24s ease, transform 0.2s ease;
+}
+
+.nav-tab:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.page-transition {
+  animation: page-fade-in 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
