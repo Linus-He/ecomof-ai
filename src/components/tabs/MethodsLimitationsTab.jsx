@@ -304,8 +304,8 @@ export function MethodsLimitationsTab() {
             ["Limited CIF parsing", "The UI reads selected cell/descriptor tags; full PLD/LCD/ASA should come from a Zeo++/RASPA-style backend pipeline."],
             ["No real cloud sync", "Current storage is localStorage plus JSON backup/import; accounts, permissions, and sync need a backend."],
           ]).map(([title, desc]) => (
-            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-              <div style={{ color: t.warn, fontSize: 12, fontWeight: 700, marginBottom: 6 }}>{title}</div>
+            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderLeft: `3px solid ${t.danger}`, borderRadius: 8, padding: 12 }}>
+              <div style={{ color: t.danger, fontSize: 12, fontWeight: 700, marginBottom: 6 }}>{title}</div>
               <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55 }}>{desc}</div>
             </div>
           ))}
@@ -317,7 +317,9 @@ export function MethodsLimitationsTab() {
         <div style={sectionCard}>
           <SectionTitle>{lang === "zh" ? "致谢" : "Acknowledgement"}</SectionTitle>
           <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", marginBottom: 10 }}>
-            <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 800 }}>Happy Flight</div>
+            <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 800 }}>
+              {lang === "zh" ? "Happy Flight — 研究导师" : "Happy Flight — Research mentor"}
+            </div>
             <BasisBadge tone="info">{lang === "zh" ? "亦师亦友" : "mentor & friend"}</BasisBadge>
           </div>
           <div style={bodyText}>

@@ -318,7 +318,7 @@ function AppShell({
 
       <footer style={{ marginTop: 40, padding: "16px 24px", borderTop: `1px solid ${theme.border}`, display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
         <span style={{ color: theme.faint, fontSize: 12 }}>
-          © 2024 Advanced Materials Lab · Computational Design · <strong style={{ color: theme.muted }}>EcoMOF-AI</strong>
+          © 2026 Advanced Materials Lab · Computational Design · <strong style={{ color: theme.muted }}>EcoMOF-AI</strong>
         </span>
         <span style={{ color: theme.faint, fontSize: 12 }}>
           CoRE MOF 2019 · 14,252 curated · roadmap: CoRE 2024 + QMOF ·{" "}

@@ -19,7 +19,7 @@ export const COPY = {
       dataSources: "Data Sources",
     },
     header: {
-      searchPlaceholder: "Search MOFs (UiO-66, HKUST-1, ZIF-8, MOF-5...)",
+      searchPlaceholder: "Search MOFs — UiO-66, HKUST-1, ZIF-8...",
       loaded: "Parameters loaded into form",
       miss: "No preset match - v1.1 will broaden the preset catalog.",
       batch: "Batch Mode",
@@ -388,7 +388,7 @@ export const COPY = {
       dataSources: "数据来源",
     },
     header: {
-      searchPlaceholder: "搜索 MOF（UiO-66、HKUST-1、ZIF-8、MOF-5...）",
+      searchPlaceholder: "搜索 MOF — UiO-66、HKUST-1、ZIF-8...",
       loaded: "参数已填入左侧表单",
       miss: "未匹配到预设结构 - v1.1 将扩展预设库。",
       batch: "批量模式",

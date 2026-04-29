@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef } from "react"
 import { useT, useLang, useViewport } from "../../contexts"
-import { FONT_SANS, FONT_MONO, THEME_DARK } from "../../constants/theme"
+import { FONT_SANS, THEME_DARK } from "../../constants/theme"
 import { GAS_SYSTEMS, MOF_PRESETS } from "../../constants/catalogs"
 import { headerChipBtn, headerInputStyle, toolbarBtn, darkenLayer } from "../../utils/styles"
 import { findPresetName, getPresetSuggestionNames } from "../../utils/presets"
@@ -281,17 +281,6 @@ export function ContextualHeaderBar({
     boxShadow: "none",
   }
   const compactSelectStyle = { ...headerInputStyle(t), minWidth: 0, flex: "0 1 auto", cursor: "pointer" }
-  const compactNumberStyle = { ...headerInputStyle(t), width: isMobile ? "100%" : 96, fontFamily: FONT_MONO }
-  const compactFieldShell = {
-    display: "grid",
-    gridTemplateColumns: "auto minmax(76px, 96px)",
-    alignItems: "center",
-    gap: 6,
-    color: t.subtle,
-    fontSize: 10,
-    fontWeight: 800,
-    textTransform: "uppercase",
-  }
   const gasOptions = GAS_SYSTEMS.filter(item => item.priority !== "unavailable")
   const comparisonSubtabs = [
     { id: "feasibility", label: lang === "zh" ? "可行性" : "Feasibility" },
@@ -375,26 +364,6 @@ export function ContextualHeaderBar({
             <option key={gas.id} value={gas.id}>{gasLabel(gas.label, lang)}</option>
           ))}
         </select>
-        <label style={compactFieldShell}>
-          <span>{lang === "zh" ? "温度" : "Temp"}</span>
-          <input
-            type="number"
-            value={inputs.temperature}
-            onChange={e => setInputs(prev => ({ ...prev, temperature: parseInt(e.target.value, 10) || 298 }))}
-            style={compactNumberStyle}
-            aria-label={copy.structure.temperature}
-          />
-        </label>
-        <label style={compactFieldShell}>
-          <span>{lang === "zh" ? "压力" : "Pressure"}</span>
-          <input
-            type="number"
-            value={inputs.pressure}
-            onChange={e => setInputs(prev => ({ ...prev, pressure: parseFloat(e.target.value) || 0.15 }))}
-            style={compactNumberStyle}
-            aria-label={copy.structure.pressure}
-          />
-        </label>
         <button
           type="button"
           onClick={onAddComparison}
@@ -407,15 +376,17 @@ export function ContextualHeaderBar({
         >
           {lang === "zh" ? "加入 Comparison" : "Add to comparison"}
         </button>
-        <button
-          type="button"
-          onClick={onSavedRuns}
-          title={copy.common.savedRuns}
-          aria-label={copy.common.savedRuns}
-          style={{ ...headerChipBtn(t), width: 40, padding: "9px 0", justifyContent: "center", fontSize: 15 }}
-        >
-          ◧
-        </button>
+        <span className="ecomof-tooltip" data-tooltip={copy.common.savedRuns} style={{ display: "inline-flex" }}>
+          <button
+            type="button"
+            onClick={onSavedRuns}
+            title={copy.common.savedRuns}
+            aria-label={copy.common.savedRuns}
+            style={{ ...headerChipBtn(t), width: 40, padding: "9px 0", justifyContent: "center", fontSize: 15 }}
+          >
+            ◧
+          </button>
+        </span>
       </div>
     )
   }

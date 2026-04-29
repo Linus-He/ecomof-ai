@@ -62,9 +62,9 @@ function SectionCard({ title, meta, children, style }) {
         <span>{title}</span>
         {meta && (
           <span style={{
-            color: t.faint,
+            color: t.accentText,
             fontSize: 11,
-            fontWeight: 500,
+            fontWeight: 700,
             letterSpacing: 0,
             textTransform: "none",
             whiteSpace: "nowrap",
@@ -397,13 +397,13 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
         ["Recommended Next Step", "Use Interpretation/Qst to inspect the mechanism, then Feasibility for coarse cost, availability, and supply boundaries. LCA/LCC comes after shortlist formation."],
       ])
     : (lang === "zh" ? [
-        ["工作流", "左侧输入材料、气体体系和条件；点击运行后中间显示吸附结果，右侧显示解释、置信度和下一步。"],
-        ["推荐起点", "可以在顶部搜索 UiO-66、HKUST-1、ZIF-8、MOF-5 等常见 MOF，参数会自动填入。"],
-        ["结果口径", "当前网页是筛选级工具；带有 beta/proxy/basis 标记的结果不能直接当作论文级证据。"],
+        ["工作流", "左侧输入材料与条件，结果显示在中间。"],
+        ["推荐起点", "从顶部搜索 UiO-66、HKUST-1 或 ZIF-8 自动填充。"],
+        ["结果口径", "输出是筛选级证据，不是论文级数据。"],
       ] : [
-        ["Workflow", "Enter material, gas pair, and conditions on the left; results appear in the center, with interpretation and next steps on the right."],
-        ["Recommended start", "Search UiO-66, HKUST-1, ZIF-8, MOF-5, and other common MOFs from the top bar to auto-fill parameters."],
-        ["Result status", "This is a screening-level tool; beta/proxy/basis-marked outputs are not publication-grade evidence by themselves."],
+        ["Workflow", "Enter material and conditions on the left."],
+        ["Recommended start", "Search UiO-66, HKUST-1, or ZIF-8 to auto-fill."],
+        ["Result status", "Outputs are screening-level evidence, not publication-grade data."],
       ])
   const isRunDisabled = loading || gas.priority === "unavailable" || inputValidation.blocked
   const runLabel = inputValidation.blocked ? (lang === "zh" ? "⚠ 先修正输入" : "⚠ Fix inputs first") :
@@ -480,7 +480,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
           ))}
         </div>
         <div style={{ color: t.muted, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, padding: "5px 14px", fontSize: 12, fontWeight: 700, whiteSpace: "nowrap" }}>
-          {inputs.metalCenter} / {inputs.organicLinker} · {inputs.gasSystem} · {inputs.temperature} K
+          {inputs.metalCenter} / {inputs.organicLinker} · {inputs.gasSystem} · {inputs.temperature} K · {inputs.pressure} bar
         </div>
       </div>
     <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "300px minmax(0, 1fr) 200px", gap: 10, minHeight: isNarrow ? 0 : "calc(100vh - 142px)", alignItems: "start" }}>
@@ -518,7 +518,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
 
           <SectionCard
             title={lang === "zh" ? "结构" : "Structure"}
-            meta={`${structureModifiedCount} ${lang === "zh" ? "项已改" : "modified"}`}
+            meta={structureModifiedCount ? `${structureModifiedCount} ${lang === "zh" ? "项已改" : "modified"}` : null}
           >
             <FieldRow label={lang === "zh" ? "气体" : "Gas"} modified={isDirty("gasSystem")} note={gas.priority === "beta" ? zhText(lang, gas.dataNote) : null}>
               <select value={inputs.gasSystem}
@@ -660,14 +660,14 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
 
           <SectionCard
             title={lang === "zh" ? "条件" : "Conditions"}
-            meta={`${conditionModifiedCount} ${lang === "zh" ? "项已改" : "modified"}`}
+            meta={conditionModifiedCount ? `${conditionModifiedCount} ${lang === "zh" ? "项已改" : "modified"}` : null}
           >
-            <FieldRow label={lang === "zh" ? "温度" : "Temp"} modified={isDirty("temperature")}>
+            <FieldRow label={lang === "zh" ? "温度 K" : "Temp K"} modified={isDirty("temperature")}>
               <input type="number" value={inputs.temperature} min={200} max={400}
                 onChange={e => setInputs(p => ({ ...p, temperature: parseInt(e.target.value, 10) || 298 }))}
                 style={{ ...compactInputStyle, color: isDirty("temperature") ? t.accentText : t.textStrong }} />
             </FieldRow>
-            <FieldRow label={lang === "zh" ? "压力" : "Press"} modified={isDirty("pressure")}>
+            <FieldRow label={lang === "zh" ? "压力 bar" : "Press bar"} modified={isDirty("pressure")}>
               <input type="number" value={inputs.pressure} min={0.01} max={50} step={0.01}
                 onChange={e => setInputs(p => ({ ...p, pressure: parseFloat(e.target.value) || 0.15 }))}
                 style={{ ...compactInputStyle, color: isDirty("pressure") ? t.accentText : t.textStrong }} />
@@ -682,10 +682,8 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
                 <option value="gnn">Graph Neural Network</option>
               </select>
             </FieldRow>
-            <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginLeft: 72 }}>
-              <BasisBadge tone={inputs.mlAlgorithm === "ensemble" ? "calc" : "proxy"}>
+            <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.45, marginLeft: 72 }}>
                 {(MODEL_PROFILES[inputs.mlAlgorithm] || MODEL_PROFILES.ensemble).status}
-              </BasisBadge>
             </div>
           </SectionCard>
 

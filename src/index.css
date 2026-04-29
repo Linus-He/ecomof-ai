@@ -99,10 +99,46 @@ button:hover:not(:disabled) { filter: none; }
 
 .content-card:hover {
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+  transform: translateY(-1px);
 }
 
 .btn-primary:hover:not(:disabled) {
   background: #155A94 !important;
+}
+
+.stage-breadcrumb-link:hover:not(:disabled) {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ecomof-tooltip {
+  position: relative;
+}
+
+.ecomof-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 8px);
+  z-index: 40;
+  transform: translate(-50%, -3px);
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  border-radius: 6px;
+  background: rgba(15, 23, 42, 0.94);
+  color: #fff;
+  padding: 5px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.16);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.ecomof-tooltip:hover::after,
+.ecomof-tooltip:focus-within::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 .page-transition {

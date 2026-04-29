@@ -17,7 +17,7 @@ export const THEME_DARK = {
   badgeInfoBg: "rgba(105,167,221,0.16)", badgeInfoText: "#8CC4F2",
   badgeCalcBg: "rgba(148,163,184,0.15)", badgeCalcText: "#CBD5E1",
   badgeProxyBg: "rgba(245,158,11,0.16)", badgeProxyText: "#F59E0B",
-  badgeUserBg: "rgba(142,160,184,0.14)", badgeUserText: "#B6C2D5",
+  badgeUserBg: "rgba(148,163,184,0.15)", badgeUserText: "#CBD5E1",
   badgeWarnBg: "#2D2305", badgeWarnText: "#F59E0B",
   badgeDangerBg: "rgba(248,113,113,0.16)", badgeDangerText: "#F87171",
 }
@@ -39,7 +39,7 @@ export const THEME_LIGHT = {
   badgeInfoBg: "#EFF6FF", badgeInfoText: "#1A6DB5",
   badgeCalcBg: "#F1F5F9", badgeCalcText: "#64748B",
   badgeProxyBg: "#FEF3C7", badgeProxyText: "#D97706",
-  badgeUserBg: "#F3E8FF", badgeUserText: "#9333EA",
+  badgeUserBg: "#F1F5F9", badgeUserText: "#475569",
   badgeWarnBg: "#FEF3C7", badgeWarnText: "#B45309",
   badgeDangerBg: "#FEE2E2", badgeDangerText: "#B91C1C",
 }

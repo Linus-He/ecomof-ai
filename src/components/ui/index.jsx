@@ -143,7 +143,7 @@ export function SourceBadge({ type }) {
 export function StageStrip({ current = "screening", onNavigate }) {
   const t = useT()
   const { lang } = useLang()
-  const { isNarrow } = useViewport()
+  const { isMobile } = useViewport()
   const stagePalette = {
     screening: { color: t.performance, bg: t.badgeInfoBg },
     feasibility: { color: t.lccAccent, bg: t.badgeProxyBg },
@@ -152,43 +152,53 @@ export function StageStrip({ current = "screening", onNavigate }) {
   }
   return (
     <div style={{
-      display: "grid",
-      gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))",
-      gap: 8,
+      display: "flex",
+      alignItems: "center",
+      gap: isMobile ? 5 : 8,
+      flexWrap: "wrap",
       background: "transparent",
       border: "none",
       borderRadius: 0,
       padding: 0,
       boxShadow: "none",
     }}>
-      {WORKFLOW_STAGE_ITEMS.map(item => {
+      {WORKFLOW_STAGE_ITEMS.map((item, index) => {
         const active = item.id === current || (current === "lca" && item.id === "comparison") || (current === "sensitivity" && item.id === "comparison") || (current === "validation" && item.id === "screening")
         const palette = stagePalette[item.id] || stagePalette.engineering
         return (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => onNavigate?.(item.target)}
-            className="content-card"
-            style={{
-              textAlign: "left",
-              border: `1px solid ${active ? t.borderStrong : t.border}`,
-              borderLeft: `3px solid ${active ? palette.color : t.border}`,
-              background: active ? palette.bg : t.panel,
-              borderRadius: 0,
-              padding: "8px 10px",
-              cursor: onNavigate ? "pointer" : "default",
-              minHeight: 54,
-            }}
-          >
-            <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center" }}>
-              <span style={{ color: active ? palette.color : t.faint, fontSize: 10, fontWeight: 850, fontFamily: FONT_MONO }}>{item.stage}</span>
-              {active && <BasisBadge tone={item.tone}>{lang === "zh" ? "当前" : "Current"}</BasisBadge>}
-            </div>
-            <div style={{ color: active ? t.textStrong : t.muted, fontSize: 12, fontWeight: 800, marginTop: 4, lineHeight: 1.25 }}>
-              {lang === "zh" ? item.zh : item.label}
-            </div>
-          </button>
+          <div key={item.id} style={{ display: "inline-flex", alignItems: "center", gap: isMobile ? 5 : 8, minWidth: 0 }}>
+            {index > 0 && <span style={{ color: t.faint, fontSize: 14 }}>/</span>}
+            <button
+              type="button"
+              onClick={() => onNavigate?.(item.target)}
+              className="stage-breadcrumb-link"
+              disabled={!onNavigate}
+              title={lang === "zh" ? item.zh : item.label}
+              style={{
+                appearance: "none",
+                border: active ? `1px solid ${palette.color}` : `1px solid transparent`,
+                background: active ? palette.bg : "transparent",
+                borderRadius: 999,
+                padding: active ? "4px 10px" : "4px 3px",
+                color: active ? palette.color : t.muted,
+                fontSize: 12,
+                fontWeight: active ? 850 : 650,
+                fontFamily: FONT_SANS,
+                cursor: onNavigate ? "pointer" : "default",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <span style={{ fontWeight: active ? 900 : 750 }}>{item.stage.replace("Future ", "")}</span>
+              {!isMobile && (
+                <span style={{ marginLeft: 6, color: active ? t.textStrong : t.subtle }}>
+                  {lang === "zh" ? item.zh : item.label}
+                </span>
+              )}
+            </button>
+            {active && !isMobile && (
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: palette.color, flex: "0 0 auto" }} />
+            )}
+          </div>
         )
       })}
     </div>

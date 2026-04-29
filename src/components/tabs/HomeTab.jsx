@@ -7,7 +7,7 @@ export function HomeTab({ setActiveTab }) {
   const t = useT()
   const { lang, copy: c } = useLang()
   const { isNarrow, isMobile } = useViewport()
-  const sectionStyle = { padding: isMobile ? "44px 0" : "64px 0" }
+  const sectionStyle = { padding: isMobile ? "30px 0" : "36px 0" }
   const sectionTitleStyle = { margin: 0, color: t.textStrong, fontSize: isMobile ? 26 : 32, lineHeight: 1.12, letterSpacing: 0, fontWeight: 700 }
   const cardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: "20px 24px", boxShadow: "none" }
   const heroStages = lang === "zh" ? [
@@ -54,13 +54,13 @@ export function HomeTab({ setActiveTab }) {
     ["04", "Move toward engineering evaluation", "Reserve process-route design, scale-up economics, and formal industrial LCA for the future stage."],
   ]
   const benchmarks = lang === "zh" ? [
-    ["UiO-66", "用于解释结构-性能权衡的稳定参考案例。", "Benchmark-backed", "大卡"],
-    ["HKUST-1", "具有开放金属位点的经典吸附相关基准。", "Canonical case", "小卡"],
-    ["ZIF-8", "用于比较选择性和孔道可及趋势的轻量参考材料。", "Reference material", "小卡"],
+    ["UiO-66", "用于解释结构-性能权衡的稳定参考案例。", "Benchmark-backed", [["金属节点", "Zr6"], ["孔径", "8.5 A"], ["BET", "1850 m2/g"]]],
+    ["HKUST-1", "具有开放金属位点的经典吸附相关基准。", "Canonical case", [["金属节点", "Cu"], ["孔径", "9.0 A"]]],
+    ["ZIF-8", "用于比较选择性和孔道可及趋势的轻量参考材料。", "Reference material", [["金属节点", "Zn"], ["孔径", "3.4 A"]]],
   ] : [
-    ["UiO-66", "A stable reference case for interpreting structure-performance trade-offs.", "Benchmark-backed", "large"],
-    ["HKUST-1", "Open metal site benchmark with strong adsorption relevance.", "Canonical case", "small"],
-    ["ZIF-8", "A lightweight comparison point for selectivity and pore-access trends.", "Reference material", "small"],
+    ["UiO-66", "A stable reference case for interpreting structure-performance trade-offs.", "Benchmark-backed", [["Metal node", "Zr6"], ["Pore size", "8.5 A"], ["BET", "1850 m2/g"]]],
+    ["HKUST-1", "Open metal site benchmark with strong adsorption relevance.", "Canonical case", [["Metal node", "Cu"], ["Pore size", "9.0 A"]]],
+    ["ZIF-8", "A lightweight comparison point for selectivity and pore-access trends.", "Reference material", [["Metal node", "Zn"], ["Pore size", "3.4 A"]]],
   ]
   const trustBlocks = [
     [lang === "zh" ? "验证" : "Validation", c.home.trustValidation],
@@ -84,12 +84,12 @@ export function HomeTab({ setActiveTab }) {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <section style={{
-        minHeight: isNarrow ? "auto" : "calc(100vh - 118px)",
+        minHeight: "auto",
         display: "grid",
         gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 0.55fr) minmax(0, 0.45fr)",
         gap: isNarrow ? 28 : 42,
         alignItems: "center",
-        padding: isMobile ? "34px 0 54px" : "52px 0 60px",
+        padding: isMobile ? "28px 0 28px" : "36px 0 28px",
       }}>
         <div>
           <div style={{ color: t.accentText, fontSize: 12, fontWeight: 800, letterSpacing: "0.05em", textTransform: "uppercase", marginBottom: 18 }}>
@@ -114,7 +114,7 @@ export function HomeTab({ setActiveTab }) {
         </div>
 
         <div style={{
-          minHeight: isMobile ? 380 : 500,
+          minHeight: isMobile ? 360 : 430,
           display: "grid",
           alignItems: "stretch",
         }}>
@@ -151,8 +151,8 @@ export function HomeTab({ setActiveTab }) {
 
       <section style={sectionStyle}>
         <h2 style={sectionTitleStyle}>{c.home.capabilityTitle}</h2>
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 16, marginTop: 26, alignItems: "stretch" }}>
-          {capabilities.map(item => (
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 16, marginTop: 20, alignItems: "stretch" }}>
+          {capabilities.map((item, index) => (
             <div key={item.key} className="content-card" style={{
               ...cardStyle,
               position: "relative",
@@ -164,7 +164,7 @@ export function HomeTab({ setActiveTab }) {
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: item.accent }} />
               <div style={{ width: 28, height: 28, borderRadius: 7, border: `1px solid ${t.borderStrong}`, color: item.accent,
                 display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 850, marginBottom: 14 }}>
-                {item.key === "performance" ? "P" : item.key === "impact" ? "L" : "S"}
+                S{index + 1}
               </div>
               <BasisBadge tone={item.key === "performance" ? "info" : item.key === "impact" ? "proxy" : "user"}>{item.badge}</BasisBadge>
               <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 850, lineHeight: 1.2, marginTop: 12 }}>{item.title}</div>
@@ -176,46 +176,66 @@ export function HomeTab({ setActiveTab }) {
 
       <section style={sectionStyle}>
         <h2 style={sectionTitleStyle}>{c.home.workflowTitle}</h2>
-        <div style={{ marginTop: 34, position: "relative" }}>
+        <div style={{ marginTop: 24, position: "relative" }}>
           {!isNarrow && (
             <div style={{ position: "absolute", left: "8%", right: "8%", top: 23, height: 1, background: t.borderStrong }} />
           )}
           <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: isNarrow ? 22 : 24 }}>
-            {workflow.map(([num, title, body]) => (
+            {workflow.map(([num, title, body]) => {
+              const color = num === "01" ? t.performance : num === "02" ? t.lccAccent : num === "03" ? t.sensitivityAccent : t.validationAccent
+              return (
               <div key={num} style={{ position: "relative", paddingTop: isNarrow ? 0 : 54 }}>
                 {!isNarrow && (
-                  <div style={{ position: "absolute", top: 13, left: 0, width: 22, height: 22, borderRadius: "50%", background: t.bg, border: `2px solid ${t.accent}` }} />
+                  <div style={{ position: "absolute", top: 13, left: 0, width: 22, height: 22, borderRadius: "50%", background: t.bg, border: `2px solid ${color}` }} />
                 )}
-                <div style={{ color: t.accentText, fontSize: 12, fontFamily: FONT_MONO, fontWeight: 850 }}>{num}</div>
+                <div style={{ color, fontSize: 12, fontFamily: FONT_MONO, fontWeight: 850 }}>{num}</div>
                 <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 850, marginTop: 8 }}>{title}</div>
                 <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.6, marginTop: 8, maxWidth: 260 }}>{body}</div>
               </div>
-            ))}
+            )})}
           </div>
         </div>
       </section>
 
       <section id="home-benchmarks" style={sectionStyle}>
         <h2 style={sectionTitleStyle}>{c.home.benchmarkTitle}</h2>
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1.08fr 0.92fr", gap: 16, marginTop: 26 }}>
-          <div className="content-card" style={{ ...cardStyle, minHeight: isNarrow ? 260 : 360, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1.08fr 0.92fr", gap: 16, marginTop: 20 }}>
+          <div className="content-card" style={{ ...cardStyle, minHeight: isNarrow ? 240 : 270, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div>
               <BasisBadge tone="calc">{benchmarks[0][2]}</BasisBadge>
-              <div style={{ color: t.textStrong, fontSize: isMobile ? 34 : 48, fontWeight: 880, letterSpacing: 0, marginTop: 22 }}>{benchmarks[0][0]}</div>
-              <div style={{ color: t.muted, fontSize: 15, lineHeight: 1.6, maxWidth: 540, marginTop: 14 }}>{benchmarks[0][1]}</div>
+              <div style={{ color: t.textStrong, fontSize: isMobile ? 34 : 44, fontWeight: 880, letterSpacing: 0, marginTop: 18 }}>{benchmarks[0][0]}</div>
+              <div style={{ color: t.muted, fontSize: 15, lineHeight: 1.6, maxWidth: 540, marginTop: 10 }}>{benchmarks[0][1]}</div>
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 18 }}>
+                {benchmarks[0][3].map(([label, value]) => (
+                  <div key={label} style={{ border: `1px solid ${t.border}`, borderRadius: 6, padding: "7px 9px", background: t.surface }}>
+                    <div style={{ color: t.subtle, fontSize: 10, fontWeight: 750, textTransform: "uppercase" }}>{label}</div>
+                    <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, marginTop: 2 }}>{value}</div>
+                  </div>
+                ))}
+              </div>
             </div>
             <button type="button" onClick={() => setActiveTab("literature")} style={{ ...toolbarBtn(t), width: "fit-content", padding: "9px 13px" }}>
               {c.home.viewCase}
             </button>
           </div>
           <div style={{ display: "grid", gridTemplateRows: isNarrow ? "auto auto" : "1fr 1fr", gap: 16 }}>
-            {benchmarks.slice(1).map(([name, body, tag]) => (
+            {benchmarks.slice(1).map(([name, body, tag, metrics]) => (
               <div key={name} className="content-card" style={{ ...cardStyle, minHeight: 170, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                 <div>
                   <BasisBadge tone="info">{tag}</BasisBadge>
                   <div style={{ color: t.textStrong, fontSize: 28, fontWeight: 860, marginTop: 16 }}>{name}</div>
                   <div style={{ color: t.subtle, fontSize: 13, lineHeight: 1.55, marginTop: 10 }}>{body}</div>
+                  <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 12 }}>
+                    {metrics.map(([label, value]) => (
+                      <span key={label} style={{ color: t.muted, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "4px 7px", fontSize: 10, fontWeight: 750 }}>
+                        {label}: {value}
+                      </span>
+                    ))}
+                  </div>
                 </div>
+                <button type="button" onClick={() => setActiveTab("literature")} style={{ ...toolbarBtn(t), width: "fit-content", padding: "7px 10px", marginTop: 12 }}>
+                  {c.home.viewCase}
+                </button>
               </div>
             ))}
           </div>
@@ -224,7 +244,7 @@ export function HomeTab({ setActiveTab }) {
 
       <section style={{ ...sectionStyle, paddingBottom: isMobile ? 40 : 56 }}>
         <h2 style={sectionTitleStyle}>{c.home.trustTitle}</h2>
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 14, marginTop: 24 }}>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 14, marginTop: 20 }}>
           {trustBlocks.map(([title, body]) => (
             <div key={title} className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 18 }}>
               <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850 }}>{title}</div>
