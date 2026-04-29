@@ -149,7 +149,7 @@ export function MethodsLimitationsTab() {
           ].map(([title, formula, desc]) => (
             <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
               <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 700, marginBottom: 8 }}>{title}</div>
-              <div style={{ color: t.accentSoft, fontSize: 12, fontFamily: FONT_MONO, marginBottom: 8 }}>{formula}</div>
+              <div style={{ color: t.accentText, fontSize: 12, fontFamily: FONT_MONO, marginBottom: 8 }}>{formula}</div>
               <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55 }}>{desc}</div>
             </div>
           ))}
@@ -184,7 +184,7 @@ export function MethodsLimitationsTab() {
             ["Proxy", "A directional estimate rather than a real inventory or experiment."],
           ]).map(([term, desc]) => (
             <div key={term} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
-              <div style={{ color: t.accentSoft, fontSize: 12, fontWeight: 800, marginBottom: 6 }}>{term}</div>
+              <div style={{ color: t.accentText, fontSize: 12, fontWeight: 800, marginBottom: 6 }}>{term}</div>
               <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.5 }}>{desc}</div>
             </div>
           ))}
@@ -260,7 +260,7 @@ export function MethodsLimitationsTab() {
             ["Qst module", "Calculated from predicted multi-temperature isotherms; use as mechanistic guidance, not final thermodynamic evidence."],
           ]).map(([k, v], i, arr) => (
             <div key={k} style={{ ...rowStyle, borderBottom: i === arr.length - 1 ? "none" : rowStyle.borderBottom }}>
-              <div style={{ color: t.accentSoft, fontSize: 12, fontWeight: 700 }}>{k}</div>
+              <div style={{ color: t.danger, fontSize: 12, fontWeight: 700 }}>{k}</div>
               <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.6 }}>{v}</div>
             </div>
           ))}
@@ -337,10 +337,10 @@ export function MethodsLimitationsTab() {
           <a href="mailto:square.hwh@gmail.com"
             style={{ display: "inline-flex", alignItems: "center", gap: 8, background: t.surface,
               border: `1px solid ${t.borderStrong}`, borderRadius: 8, padding: "10px 12px",
-              color: t.accentSoft, textDecoration: "none", fontSize: 13, fontWeight: 800, fontFamily: FONT_MONO }}>
+              color: t.accentText, textDecoration: "none", fontSize: 13, fontWeight: 800, fontFamily: FONT_MONO }}>
             square.hwh@gmail.com
           </a>
-          <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 12 }}>
+          <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55, marginTop: 12 }}>
             {lang === "zh"
               ? "建议邮件中附上：材料名称、气体体系、温度/压力、数据来源 DOI 或文件，以及希望工具输出的具体判断。"
               : "Useful context: material name, gas pair, temperature/pressure, DOI or file source, and the specific decision output you need."}

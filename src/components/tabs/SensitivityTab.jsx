@@ -173,7 +173,7 @@ export function SensitivityTab({ results, inputs, onNavigate }) {
                   <div style={{ color: t.textStrong, fontWeight: 800 }}>{item.name}</div>
                   <div style={{ color: t.faint, fontSize: 10 }}>Uptake {item.uptake} · Sel. {item.selectivity} · LCC ${item.lcc}</div>
                 </div>
-                <strong style={{ color: t.accentSoft }}>{item.score}</strong>
+                <strong style={{ color: t.accentText }}>{item.score}</strong>
               </div>
             ))}
           </div>

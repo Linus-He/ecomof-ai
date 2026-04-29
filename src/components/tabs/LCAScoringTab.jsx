@@ -246,7 +246,7 @@ export function LCAScoringTab({ results, inputs, onNavigate }) {
                       </div>
                       <div style={{ color: t.faint, fontSize: 11 }}>{category.desc}</div>
                       <details style={detailStyle}>
-                        <summary style={{ color: t.accentSoft, cursor: "pointer", fontSize: 11 }}>{c.lca.dataSource}</summary>
+                        <summary style={{ color: t.accentText, cursor: "pointer", fontSize: 11 }}>{c.lca.dataSource}</summary>
                         <div style={{ marginTop: 6 }}>{category.source}</div>
                       </details>
                     </div>
@@ -364,7 +364,7 @@ export function LCAScoringTab({ results, inputs, onNavigate }) {
                           <td style={{ padding: "8px 10px", color: t.textStrong, fontSize: 12 }}>{row.flow}</td>
                           <td style={{ padding: "8px 10px", color: t.subtle, fontSize: 11, fontFamily: FONT_MONO }}>{row.unit}</td>
                           <td style={{ padding: "8px 10px", color: t.textStrong, fontSize: 12, fontFamily: FONT_MONO }}>{Number(row.price_usd_per_unit) > 0 ? displayMoney(Number(row.price_usd_per_unit), 3) : "—"}</td>
-                          <td style={{ padding: "8px 10px", color: t.muted, fontSize: 11, lineHeight: 1.45 }}><strong style={{ color: t.accentSoft }}>{row.source_type || "proxy"}</strong><br />{row.price_source || row.source_ref || "seed-inventory"}</td>
+                          <td style={{ padding: "8px 10px", color: t.muted, fontSize: 11, lineHeight: 1.45 }}><strong style={{ color: t.accentText }}>{row.source_type || "proxy"}</strong><br />{row.price_source || row.source_ref || "seed-inventory"}</td>
                           <td style={{ padding: "8px 10px", color: t.subtle, fontSize: 11, lineHeight: 1.45 }}>{row.price_basis || row.assumption || "—"}</td>
                           <td style={{ padding: "8px 10px", color: t.faint, fontSize: 11, lineHeight: 1.45 }}>{row.roadmap_replacement || "—"}</td>
                         </tr>
@@ -389,7 +389,7 @@ export function LCAScoringTab({ results, inputs, onNavigate }) {
             ].map(item => (
               <div key={item.title} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14, boxShadow: t.shadowSm, backdropFilter: "blur(18px) saturate(135%)" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", marginBottom: 6 }}>
-                  <div style={{ color: t.accentSoft, fontSize: 12, fontWeight: 800 }}>{item.title}</div>
+                  <div style={{ color: t.accentText, fontSize: 12, fontWeight: 800 }}>{item.title}</div>
                   <BasisBadge tone={item.title === c.lca.priceSourceTitle || item.title === c.lca.basisLabels ? "proxy" : "info"}>{item.title === c.lca.priceSourceTitle ? currencyCode : "basis"}</BasisBadge>
                 </div>
                 <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.6 }}>{item.body}</div>

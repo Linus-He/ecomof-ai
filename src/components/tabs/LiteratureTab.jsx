@@ -103,7 +103,7 @@ export function LiteratureTab({ results, inputs }) {
             ].map(([label, count]) => (
               <div key={label} style={{ display: "flex", justifyContent: "space-between", gap: 10, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "10px 12px" }}>
                 <span style={{ color: t.muted, fontSize: 12 }}>{label}</span>
-                <strong style={{ color: t.accentSoft, fontSize: 12 }}>{count}</strong>
+                <strong style={{ color: t.accentText, fontSize: 12 }}>{count}</strong>
               </div>
             ))}
           </div>

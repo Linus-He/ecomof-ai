@@ -457,7 +457,7 @@ export function ResultProvenanceDrawer({ results, inputs }) {
                 <td style={{ color: t.subtle, fontSize: 11, padding: "8px", borderBottom: `1px solid ${t.divider}` }}>{row.source}</td>
                 <td style={{ color: t.warn, fontSize: 11, padding: "8px", borderBottom: `1px solid ${t.divider}` }}>{row.flag}</td>
                 <td style={{ color: t.subtle, fontSize: 11, padding: "8px", borderBottom: `1px solid ${t.divider}` }}>{row.limitation}</td>
-                <td style={{ color: t.accentSoft, fontSize: 11, fontFamily: FONT_MONO, padding: "8px", borderBottom: `1px solid ${t.divider}` }}>{row.stage}</td>
+                <td style={{ color: t.accentText, fontSize: 11, fontFamily: FONT_MONO, padding: "8px", borderBottom: `1px solid ${t.divider}` }}>{row.stage}</td>
               </tr>
             ))}
           </tbody>
@@ -472,7 +472,7 @@ export function InfoTip({ text }) {
   return (
     <span title={text} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center",
       width: 16, height: 16, borderRadius: "50%", border: `1px solid ${t.borderStrong}`,
-      color: t.accentSoft, fontSize: 11, fontWeight: 800, marginLeft: 6, cursor: "help" }}>
+      color: t.accentText, fontSize: 11, fontWeight: 800, marginLeft: 6, cursor: "help" }}>
       i
     </span>
   )

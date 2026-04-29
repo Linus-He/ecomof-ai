@@ -27,7 +27,7 @@ export const THEME_LIGHT = {
   sectionTint: "#F8FAFC", card: "#FFFFFF",
   border: "#E2E8F0", borderStrong: "#CBD5E1",
   text: "#1E293B", textStrong: "#0A1628", muted: "#475569",
-  subtle: "#64748B", faint: "#94A3B8", veryFaint: "#AAB4C2",
+  subtle: "#64748B", faint: "#64748B", veryFaint: "#94A3B8",
   accent: "#1A6DB5", accentStrong: "#155A94", accentSoft: "#E6F1FB", accentText: "#1A6DB5",
   performance: "#1A6DB5", lcaAccent: "#D97706", lccAccent: "#D97706", sensitivityAccent: "#9333EA", validationAccent: "#64748B",
   success: "#15803D", warn: "#B45309", danger: "#B91C1C",

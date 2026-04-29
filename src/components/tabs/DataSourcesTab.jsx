@@ -78,7 +78,7 @@ export function DataSourcesTab() {
               <BasisBadge tone={stage.includes("Stage 1") ? "info" : stage.includes("Stage 2") ? "proxy" : stage.includes("Future") ? "user" : "calc"}>{zhText(lang, stage)}</BasisBadge>
               <BasisBadge tone={interpretation.includes("assumption") || interpretation.includes("exploratory") ? "proxy" : interpretation.includes("future") ? "user" : "calc"}>{zhText(lang, interpretation)}</BasisBadge>
             </div>
-            <div style={{ color: t.accentSoft, fontSize: 11, fontFamily: FONT_MONO, overflowWrap: "anywhere", marginBottom: 9 }}>{file}</div>
+            <div style={{ color: t.accentText, fontSize: 11, fontFamily: FONT_MONO, overflowWrap: "anywhere", marginBottom: 9 }}>{file}</div>
             <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.6 }}>{body}</div>
             <div style={{ color: t.warn, fontSize: 11, lineHeight: 1.55, marginTop: 10 }}>{limit}</div>
           </div>

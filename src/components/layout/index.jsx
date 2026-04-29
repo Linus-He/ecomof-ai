@@ -189,7 +189,7 @@ export function SavedRunsModal({ runs, onClose, onLoad, onDelete, onImport, onEx
         maxHeight: "78vh", overflow: "auto", background: t.panel, border: `1px solid ${t.border}`,
         borderRadius: 12, padding: 18 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
-          <div style={{ color: t.accentSoft, fontSize: 14, fontWeight: 800 }}>{c.common.savedRuns}</div>
+          <div style={{ color: t.accentText, fontSize: 14, fontWeight: 800 }}>{c.common.savedRuns}</div>
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
             <button onClick={exportSavedCsv} disabled={!savedSummary.count} style={toolbarBtn(t)}>↓ CSV</button>
             <button onClick={onExport} style={toolbarBtn(t)}>↓ {lang === "zh" ? "JSON 备份" : "JSON backup"}</button>
@@ -407,8 +407,14 @@ export function ContextualHeaderBar({
         >
           {lang === "zh" ? "加入 Comparison" : "Add to comparison"}
         </button>
-        <button type="button" onClick={onSavedRuns} style={headerChipBtn(t)}>
-          {copy.common.savedRuns}
+        <button
+          type="button"
+          onClick={onSavedRuns}
+          title={copy.common.savedRuns}
+          aria-label={copy.common.savedRuns}
+          style={{ ...headerChipBtn(t), width: 40, padding: "9px 0", justifyContent: "center", fontSize: 15 }}
+        >
+          ◧
         </button>
       </div>
     )

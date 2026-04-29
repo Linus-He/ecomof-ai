@@ -133,7 +133,7 @@ export function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi, 
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 14 }}>
         {cards.map(card => (
           <div key={card.title} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 18 }}>
-            <div style={{ color: t.accentSoft, fontSize: 13, fontWeight: 800, marginBottom: 8 }}>{card.title}</div>
+            <div style={{ color: t.accentText, fontSize: 13, fontWeight: 800, marginBottom: 8 }}>{card.title}</div>
             <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.7 }}>{card.body}</div>
           </div>
         ))}

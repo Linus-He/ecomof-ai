@@ -201,7 +201,7 @@ export function BatchModePanel({ inputs, onClose, onApplyToForm }) {
         {rows.length === 0 ? (
           <div style={{ padding: "40px 20px", textAlign: "center", color: t.faint, fontSize: 13 }}>
             {c.batch.empty}
-            <code style={{ color: t.accentSoft, marginLeft: 6 }}>name, metal, linker, bet, pv, pd</code>
+            <code style={{ color: t.accentText, marginLeft: 6 }}>name, metal, linker, bet, pv, pd</code>
           </div>
         ) : (
           <>
@@ -269,12 +269,12 @@ export function BatchModePanel({ inputs, onClose, onApplyToForm }) {
                   <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.success }}>{r.result?.primaryUptake ?? "—"}</td>
                   <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.muted }}>{r.result?.secondaryUptake ?? "—"}</td>
                   <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.text }}>{r.result?.selectivity ?? "—"}</td>
-                  <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.accentSoft }}>{r.result?.thermo?.qst0 ?? "—"}</td>
+                  <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.accentText }}>{r.result?.thermo?.qst0 ?? "—"}</td>
                   <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.success }}>{Number.isFinite(decisionScore(r)) ? decisionScore(r) : "—"}</td>
                   <td style={{ padding: "6px 10px", color: t.warn, fontSize: 11 }}>{r.result?.anomaly ? "⚠ inverse" : ""}</td>
                   <td style={{ padding: "6px 10px" }}>
                     <button onClick={() => onApplyToForm(r)}
-                      style={{ background: "none", border: `1px solid ${t.border}`, color: t.accentSoft,
+                      style={{ background: "none", border: `1px solid ${t.border}`, color: t.accentText,
                         fontSize: 10, padding: "2px 8px", borderRadius: 4, cursor: "pointer" }}>
                       {c.batch.use}
                     </button>
