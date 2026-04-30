@@ -31,12 +31,12 @@ export function FeasibilityTab({ results, inputs, onNavigate }) {
   ]
   const rows = lang === "zh" ? [
     ["连接体可得性", zhText(lang, availability), "商业购买 / 克级供应 / 定制合成的粗略判断。"],
-    ["成本合理性检查", zhText(lang, costBand), "低 / 中 / 高成本带，用于排除明显不适合放大的路线。"],
+    ["成本初筛", zhText(lang, costBand), "低 / 中 / 高成本带，用于排除明显不适合放大的路线。"],
     ["稀缺或前驱体风险", hasRareMetal ? "有金属供应风险" : "未触发稀缺金属警告", `${inputs.metalCenter} · 金属评分 ${metalScore}/10`],
     ["供应瓶颈风险", supplyRisk, hasComplexLinker ? "复杂芳香/卟啉/大型连接体可能需要定制合成。" : "未发现明显连接体瓶颈。"],
   ] : [
     ["Linker availability", availability, "Coarse commercial / gram-scale / custom-synthesis classification."],
-    ["Cost sanity check", costBand, "Low / medium / high rough cost band for rejecting obviously impractical routes."],
+    ["Cost feasibility", costBand, "Low / medium / high preliminary cost band for rejecting obviously impractical routes."],
     ["Rare precursor warning", hasRareMetal ? "Metal supply warning" : "No rare-metal warning", `${inputs.metalCenter} · metal score ${metalScore}/10`],
     ["Supply bottleneck risk", supplyRisk, hasComplexLinker ? "Complex aromatic, porphyrin, or large linker may require custom synthesis." : "No obvious linker bottleneck flagged."],
   ]
@@ -58,7 +58,7 @@ export function FeasibilityTab({ results, inputs, onNavigate }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title={lang === "zh" ? "Stage 2 — 可行性边界" : "Stage 2 — Feasibility Boundaries"}
+        title={lang === "zh" ? "阶段 2 — 可行性边界" : "Stage 2 — Feasibility Boundaries"}
         subtitle={lang === "zh"
           ? "在科学筛选之后、正式 LCC 之前，检查粗略成本、可得性、供应和用途尺度边界。"
           : "After scientific screening and before formal LCC, check rough cost, availability, supply, and use-scale boundaries."}
@@ -145,7 +145,7 @@ export function FeasibilityTab({ results, inputs, onNavigate }) {
       <ResultLayer number="03" title={lang === "zh" ? "适用范围与局限" : "Scope and Limitations"} subtitle={lang === "zh" ? "这里是粗略边界，不是正式 LCC 或工程经济。" : "This is a coarse boundary, not formal LCC or engineering economics."}>
         <ProvenanceGrid items={[
           { label: "Use stage", value: "Stage 2 — Feasibility Boundaries", type: "proxy", note: "Practical boundary between scientific screening and shortlist comparison." },
-          { label: "Purpose", value: "Feasibility boundary", type: "user", note: "Cost / availability / supply reasonableness check." },
+          { label: "Purpose", value: "Feasibility boundary", type: "user", note: "Cost / availability / supply feasibility screening." },
           { label: "Interpretation", value: "Exploratory only", type: "proxy", note: "Not formal LCC, not engineering-grade economics." },
           { label: "Next layer", value: results && !results.unavailable ? "Stage 3 shortlist comparison" : "Run Stage 1 first", type: "info", note: "Use LCA/LCC only after an initial performance filter exists." },
         ]} />

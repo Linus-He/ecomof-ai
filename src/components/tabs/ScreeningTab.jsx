@@ -37,7 +37,7 @@ function ColumnHeader({ title }) {
 function SectionCard({ title, meta, children, style }) {
   const t = useT()
   return (
-    <section style={{
+    <section className="content-card" style={{
       background: t.panel,
       border: `1px solid ${t.border}`,
       borderRadius: 8,
@@ -83,7 +83,7 @@ function FieldRow({ label, modified, children, note }) {
   return (
     <div style={{ marginBottom: 8 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        <div style={{
+        <div className="range-thumb" style={{
           color: t.faint,
           fontSize: 11,
           fontWeight: 700,
@@ -117,10 +117,21 @@ function InlineNumberField({ value, onChange, min, max, step, unit, modified }) 
   const safeValue = Number(value)
   const clamped = Number.isFinite(safeValue) ? Math.max(min, Math.min(max, safeValue)) : min
   const pct = ((clamped - min) / (max - min)) * 100
+  const tooltipValue = `${Number(clamped).toFixed(step < 0.1 ? 2 : step < 1 ? 1 : 0)} ${unit}`
   return (
     <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 66px", alignItems: "center", gap: 8 }}>
-      <div style={{ position: "relative", height: 4, background: t.border, borderRadius: 999 }}>
+      <div className="range-control" style={{ position: "relative", height: 4, background: t.border, borderRadius: 999 }}>
         <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: `${pct}%`, background: t.accent, borderRadius: 999 }} />
+        <div
+          className="range-value-tooltip"
+          style={{
+            left: `${pct}%`,
+            background: t.textStrong,
+            color: t.bg,
+          }}
+        >
+          {tooltipValue}
+        </div>
         <input
           type="range"
           min={min}
@@ -399,7 +410,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
     : (lang === "zh" ? [
         ["工作流", "左侧输入材料与条件，结果显示在中间。"],
         ["推荐起点", "从顶部搜索 UiO-66、HKUST-1 或 ZIF-8 自动填充。"],
-        ["结果口径", "输出是筛选级证据，不是论文级数据。"],
+        ["结果说明", "输出是筛选级证据，不是论文级数据。"],
       ] : [
         ["Workflow", "Enter material and conditions on the left."],
         ["Recommended start", "Search UiO-66, HKUST-1, or ZIF-8 to auto-fill."],
@@ -460,6 +471,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
             <button
               key={num}
               type="button"
+              className="stage-breadcrumb-link"
               onClick={() => index === 0 ? setActiveTab?.("screening") : index === 1 ? setActiveTab?.("feasibility") : index === 2 ? setActiveTab?.("lca") : setActiveTab?.("about")}
               style={{
                 border: "none",
@@ -474,7 +486,9 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
                 gap: 4,
               }}
             >
-              <span style={{ color: index === 0 ? t.accentText : t.subtle, fontWeight: index === 0 ? 800 : 600 }}>Stage {num}</span>
+              <span style={{ color: index === 0 ? t.accentText : t.subtle, fontWeight: index === 0 ? 800 : 600 }}>
+                {lang === "zh" ? `阶段 ${num}` : `Stage ${num}`}
+              </span>
               {index < stageSteps.length - 1 && <span style={{ color: t.faint, marginLeft: 2 }}>/</span>}
             </button>
           ))}
@@ -570,6 +584,8 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
                   <button
                     key={fg.value}
                     type="button"
+                    className="functional-tag"
+                    data-active={active ? "true" : "false"}
                     title={zhText(lang, fg.category)}
                     onClick={() => toggleFG(fg.value)}
                     style={{
@@ -745,6 +761,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
         </div>
         <div style={{ position: "sticky", bottom: 0, borderTop: `1px solid ${t.border}`, padding: "12px 0 0", marginTop: "auto", background: t.panel, boxShadow: "0 -8px 18px rgba(15,23,42,0.03)" }}>
           <button className="btn-primary" onClick={onPredict} disabled={isRunDisabled} style={runButtonStyle}>
+            {loading && <span className="button-spinner" aria-hidden="true" />}
             {runLabel}
           </button>
           <button onClick={() => setInputs({ ...DEFAULT_INPUTS })}
@@ -782,7 +799,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
             </div>
             <div style={{ color: t.subtle, fontSize: 13, textAlign: "center", maxWidth: 320, lineHeight: 1.55 }}>
               {lang === "zh"
-                ? "在左侧设置 MOF 参数和气体条件，然后点击 RUN AI PREDICTION。"
+                ? "在左侧设置 MOF 参数和气体条件，然后点击“运行 AI 预测”。"
                 : "Set MOF parameters on the left, then click RUN AI PREDICTION."}
             </div>
             <button type="button" onClick={() => onLoadBenchmark?.("UiO-66")}
@@ -791,7 +808,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
               {lang === "zh" ? "试用 UiO-66 →" : "Try UiO-66 →"}
             </button>
             <div style={{ color: t.faint, fontSize: 10, marginTop: 8 }}>
-              {lang === "zh" ? "这是基准示例，不是用户提交的新设计。" : "Benchmark example, not a user-submitted design."}
+              {lang === "zh" ? "这是基准示例，不是用户提交的自定义输入。" : "Benchmark example, not a custom input."}
             </div>
           </div>
         ) : results.unavailable ? (
@@ -856,7 +873,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
             <ResultLayer
               number="01"
               title={lang === "zh" ? "核心结果" : "Key Outputs"}
-              subtitle={lang === "zh" ? "先看 Stage 1 的吸附、选择性和置信状态。" : "Start with the Stage 1 uptake, selectivity, and confidence status."}
+              subtitle={lang === "zh" ? "先看阶段 1 的吸附、选择性和置信状态。" : "Start with the Stage 1 uptake, selectivity, and confidence status."}
             >
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 12 }}>
               <MetricCard label={`${results.primaryName.toUpperCase()} ${c.structure.adsorptionCapacity}`}
@@ -988,7 +1005,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
         <details style={{ marginBottom: 8 }}>
           <summary style={{ cursor: "pointer", listStyle: "none", color: t.accentText, fontSize: 12, fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
             <span style={{ width: 18, height: 18, borderRadius: "50%", background: t.badgeInfoBg, display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 11 }}>i</span>
-            {lang === "zh" ? "为何先做 Stage 1" : "Why Stage 1 first?"}
+            {lang === "zh" ? "为何从阶段 1 开始" : "Why Stage 1 first?"}
           </summary>
           <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5, padding: "8px 10px", background: t.badgeInfoBg, borderRadius: 6, marginTop: 7 }}>
             {lang === "zh"

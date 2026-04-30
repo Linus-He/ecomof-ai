@@ -217,8 +217,8 @@ export function LCAScoringTab({ results, inputs, onNavigate }) {
           <SectionTitle>{lang === "zh" ? "两层成本逻辑" : "Two-layer cost logic"}</SectionTitle>
           <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12, marginTop: 10 }}>
             <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, borderLeft: `3px solid ${t.lccAccent}` }}>
-              <BasisBadge tone="proxy">{lang === "zh" ? "Stage 2 可行性边界" : "Stage 2 feasibility boundary"}</BasisBadge>
-              <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850, marginTop: 10 }}>{lang === "zh" ? "早期成本合理性检查" : "Early cost sanity checks"}</div>
+              <BasisBadge tone="proxy">{lang === "zh" ? "阶段 2 可行性边界" : "Stage 2 feasibility boundary"}</BasisBadge>
+              <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850, marginTop: 10 }}>{lang === "zh" ? "早期成本初筛" : "Early cost feasibility checks"}</div>
               <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.65, marginTop: 8 }}>{lang === "zh" ? "连接体可得性、近似成本带、前驱体稀缺性和尺度警告可以更早出现，作为可行性边界。" : "Linker availability, approximate cost band, precursor rarity, and scale warnings may appear earlier as feasibility boundaries."}</div>
             </div>
             <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, borderLeft: `3px solid ${t.lcaAccent}` }}>

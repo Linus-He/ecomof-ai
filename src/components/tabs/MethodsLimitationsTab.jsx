@@ -43,7 +43,7 @@ export function MethodsLimitationsTab() {
       </Callout>
 
       {/* Overview */}
-      <div style={sectionCard}>
+      <div className="content-card" style={sectionCard}>
         <div style={{ display: "flex", justifyContent: "space-between", gap: 14, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 12 }}>
           <div>
             <h1 style={{ margin: 0, color: t.textStrong, fontSize: 24 }}>
@@ -78,7 +78,7 @@ export function MethodsLimitationsTab() {
       </div>
 
       {/* Workflow interpretation */}
-      <div style={sectionCard}>
+      <div className="content-card" style={sectionCard}>
         <SectionTitle>{lang === "zh" ? "如何解读这个工作流" : "How to interpret the workflow"}</SectionTitle>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 12, marginTop: 10 }}>
           {(lang === "zh" ? [
@@ -101,7 +101,7 @@ export function MethodsLimitationsTab() {
 
       {/* Selectivity + ML status */}
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1.15fr 0.85fr", gap: 14 }}>
-        <div style={sectionCard}>
+        <div className="content-card" style={sectionCard}>
           <SectionTitle>{c.methods.selectivity}</SectionTitle>
           <div style={bodyText}>{c.methods.selectivityBody1}</div>
           <div style={{ margin: "14px 0", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8,
@@ -111,16 +111,16 @@ export function MethodsLimitationsTab() {
           <div style={bodyText}>{c.methods.selectivityBody2}</div>
         </div>
 
-        <div style={sectionCard}>
+        <div className="content-card" style={sectionCard}>
           <SectionTitle>{c.methods.mlStatus}</SectionTitle>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {(lang === "zh" ? [
-              ["集成模型", "浏览器端独立模型配置文件，含透明权重与验证指标；不是后端训练 checkpoint。", "beta"],
+              ["集成模型", "浏览器端独立模型配置文件，含透明权重与验证指标；不是后端训练模型检查点。", "beta"],
               ["随机森林", "已与集成模型使用不同权重/误差指标，切换会改变结果；仍属于前端静态模型配置。", "beta"],
               ["XGBoost / GBM", "已加入独立配置文件；真实版本需要保存训练好的模型工件。", "beta"],
               ["图神经网络", "已加入 GNN 配置入口；科研级版本需要 CIF 图特征和真实吸附标签训练。", "planned"],
             ] : [
-              ["Ensemble", "Browser-side independent model profile with transparent weights and validation metrics; not a backend checkpoint.", "beta"],
+              ["Ensemble", "Browser-side independent model profile with transparent weights and validation metrics; not a backend model checkpoint.", "beta"],
               ["Random Forest", "Uses different weights/metrics from Ensemble and changes the prediction; still a static front-end profile.", "beta"],
               ["XGBoost / GBM", "Independent profile added; a real version needs trained model artifacts.", "beta"],
               ["Graph Neural Net", "GNN entry added; research-grade use needs CIF graph features and real adsorption labels.", "planned"],
@@ -138,7 +138,7 @@ export function MethodsLimitationsTab() {
       </div>
 
       {/* Formulas */}
-      <div style={sectionCard}>
+      <div className="content-card" style={sectionCard}>
         <SectionTitle>{c.methods.formulas}</SectionTitle>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, 1fr)", gap: 10 }}>
           {[
@@ -157,7 +157,7 @@ export function MethodsLimitationsTab() {
       </div>
 
       {/* Glossary */}
-      <div style={sectionCard}>
+      <div className="content-card" style={sectionCard}>
         <SectionTitle>{lang === "zh" ? "系统化术语提示" : "Systematic Tooltip Glossary"}</SectionTitle>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(5, 1fr)", gap: 10 }}>
           {(lang === "zh" ? [
@@ -192,7 +192,7 @@ export function MethodsLimitationsTab() {
       </div>
 
       {/* ML pipeline */}
-      <div style={sectionCard}>
+      <div className="content-card" style={sectionCard}>
         <SectionTitle>{c.methods.pipeline}</SectionTitle>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(5, 1fr)", gap: 10 }}>
           {[
@@ -214,13 +214,13 @@ export function MethodsLimitationsTab() {
       </div>
 
       {/* Applicability */}
-      <div style={sectionCard}>
+      <div className="content-card" style={sectionCard}>
         <SectionTitle>{c.methods.applicability}</SectionTitle>
         <div style={bodyText}>{c.methods.applicabilityBody}</div>
       </div>
 
       {/* Databases */}
-      <div style={sectionCard}>
+      <div className="content-card" style={sectionCard}>
         <SectionTitle>{c.methods.database}</SectionTitle>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "1fr 1fr 1fr", gap: 12 }}>
           {(lang === "zh" ? [
@@ -246,7 +246,7 @@ export function MethodsLimitationsTab() {
 
       {/* Beta features + Roadmap */}
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
-        <div style={sectionCard}>
+        <div className="content-card" style={sectionCard}>
           <SectionTitle>{c.methods.beta}</SectionTitle>
           {(lang === "zh" ? [
             ["CH4/N2 与 C2H4/C2H6", "作为第一阶段筛选启用，因为公开计算数据覆盖相对更现实。"],
@@ -266,7 +266,7 @@ export function MethodsLimitationsTab() {
           ))}
         </div>
 
-        <div style={sectionCard}>
+        <div className="content-card" style={sectionCard}>
           <SectionTitle>{c.methods.roadmap}</SectionTitle>
           {(lang === "zh" ? [
             ["v0.2", "可用性修复：MOF 搜索预设、直接数字输入、主题切换、清晰状态说明。"],
@@ -290,7 +290,7 @@ export function MethodsLimitationsTab() {
       </div>
 
       {/* Limitations */}
-      <div style={sectionCard}>
+      <div className="content-card" style={sectionCard}>
         <SectionTitle>{c.methods.limits}</SectionTitle>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, 1fr)", gap: 10 }}>
           {(lang === "zh" ? [
@@ -314,7 +314,7 @@ export function MethodsLimitationsTab() {
 
       {/* Acknowledgement + Contact */}
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
-        <div style={sectionCard}>
+        <div className="content-card" style={sectionCard}>
           <SectionTitle>{lang === "zh" ? "致谢" : "Acknowledgement"}</SectionTitle>
           <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", marginBottom: 10 }}>
             <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 800 }}>
@@ -329,7 +329,7 @@ export function MethodsLimitationsTab() {
           </div>
         </div>
 
-        <div style={sectionCard}>
+        <div className="content-card" style={sectionCard}>
           <SectionTitle>{lang === "zh" ? "联系开发者" : "Contact Developer"}</SectionTitle>
           <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.7, marginBottom: 14 }}>
             {lang === "zh"

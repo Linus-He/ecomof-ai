@@ -263,9 +263,9 @@ function AppShell({
         </div>
       </header>
 
-      <main style={{ padding: viewport.isMobile ? "14px 12px" : "22px 24px", maxWidth: 1460, margin: "0 auto" }}>
+      <main className="app-main" style={{ padding: viewport.isMobile ? "14px 12px" : "22px 24px", maxWidth: 1460, margin: "0 auto" }}>
         <Suspense fallback={<LoadingPanel theme={theme} lang={lang} />}>
-          <div key={activeTab} className="page-transition">
+          <div key={activeTab} className="page-transition" data-tab={activeTab}>
             {activeTab === "home" && <HomeTab setActiveTab={navigateTab} />}
             {activeTab === "workflow" && <WorkflowTab setActiveTab={navigateTab} inputs={inputs} results={results} />}
             {activeTab === "screening" && (

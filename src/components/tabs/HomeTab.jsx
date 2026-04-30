@@ -1,7 +1,40 @@
+import { useEffect, useRef, useState } from "react"
 import { useT, useLang, useViewport } from "../../contexts"
 import { FONT_MONO } from "../../constants/theme"
 import { toolbarBtn } from "../../utils/styles"
 import { BasisBadge } from "../ui/index.jsx"
+
+function RevealBlock({ children, delay = 0, style }) {
+  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const node = ref.current
+    if (!node) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.unobserve(entry.target)
+        }
+      },
+      { threshold: 0.16, rootMargin: "0px 0px -8% 0px" },
+    )
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div
+      ref={ref}
+      className="scroll-reveal"
+      data-visible={visible ? "true" : "false"}
+      style={{ "--reveal-delay": `${delay}ms`, ...style }}
+    >
+      {children}
+    </div>
+  )
+}
 
 export function HomeTab({ setActiveTab }) {
   const t = useT()
@@ -12,29 +45,29 @@ export function HomeTab({ setActiveTab }) {
   const cardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: "20px 24px", boxShadow: "none" }
   const heroStages = lang === "zh" ? [
     {
-      stage: "Stage 1",
+      stage: "阶段 1",
       title: "科学筛选",
       accent: t.performance,
-      items: ["性能", "稳定性 / 化学线索", "结果解释"],
+      items: ["性能", "稳定性 / 化学指标", "结果解释"],
     },
     {
-      stage: "Stage 2-3",
+      stage: "阶段 2-3",
       title: "后续决策层",
       accent: t.lccAccent,
-      items: ["成本合理性检查", "生命周期比较", "稳健性"],
+      items: ["成本初筛", "生命周期比较", "稳健性"],
     },
   ] : [
     {
       stage: "Stage 1",
       title: "Scientific screening",
       accent: t.performance,
-      items: ["Performance", "Stability / chemistry cues", "Interpretation"],
+      items: ["Performance", "Stability / chemistry indicators", "Interpretation"],
     },
     {
       stage: "Stage 2-3",
       title: "Decision layers",
       accent: t.lccAccent,
-      items: ["Cost sanity", "Lifecycle comparison", "Robustness"],
+      items: ["Cost feasibility", "Lifecycle comparison", "Robustness"],
     },
   ]
   const capabilities = [
@@ -44,19 +77,19 @@ export function HomeTab({ setActiveTab }) {
   ]
   const workflow = lang === "zh" ? [
     ["01", "筛选性能与稳定性", "以吸附性能、化学合理性和适用域作为第一过滤器。"],
-    ["02", "检查粗略可行性边界", "查看成本、可得性和供应风险是否明显阻断。"],
+    ["02", "评估初步可行性边界", "利用粗略成本和可得性约束排除明显不可行路线。"],
     ["03", "比较入围候选", "对入围候选做初步 LCA/LCC 和稳健性比较。"],
     ["04", "进入工程评估", "后续再做工艺路线、放大经济性和正式工业 LCA。"],
   ] : [
     ["01", "Screen for performance and stability", "Use adsorption performance, chemistry, and applicability as the first filter."],
-    ["02", "Check rough feasibility boundaries", "Flag cost, availability, and supply risks that may block practical use."],
+    ["02", "Assess preliminary feasibility boundaries", "Identify cost, availability, and supply risks that may block practical use."],
     ["03", "Compare shortlisted candidates", "Run preliminary LCA/LCC and robustness comparisons after shortlist formation."],
-    ["04", "Move toward engineering evaluation", "Reserve process-route design, scale-up economics, and formal industrial LCA for the future stage."],
+    ["04", "Advance to engineering-stage evaluation", "Reserve process-route design, scale-up economics, and formal industrial LCA for the future stage."],
   ]
   const benchmarks = lang === "zh" ? [
-    ["UiO-66", "用于解释结构-性能权衡的稳定参考案例。", "Benchmark-backed", [["金属节点", "Zr6"], ["孔径", "8.5 A"], ["BET", "1850 m2/g"]]],
-    ["HKUST-1", "具有开放金属位点的经典吸附相关基准。", "Canonical case", [["金属节点", "Cu"], ["孔径", "9.0 A"]]],
-    ["ZIF-8", "用于比较选择性和孔道可及趋势的轻量参考材料。", "Reference material", [["金属节点", "Zn"], ["孔径", "3.4 A"]]],
+    ["UiO-66", "解读结构与性能权衡关系的稳定参考体系。", "基准支持", [["金属节点", "Zr6"], ["孔径", "8.5 A"], ["BET", "1850 m2/g"]]],
+    ["HKUST-1", "具有开放金属位点的经典吸附相关基准。", "经典案例", [["金属节点", "Cu"], ["孔径", "9.0 A"]]],
+    ["ZIF-8", "选择性与孔道通达性趋势的轻量参考材料。", "参考材料", [["金属节点", "Zn"], ["孔径", "3.4 A"]]],
   ] : [
     ["UiO-66", "A stable reference case for interpreting structure-performance trade-offs.", "Benchmark-backed", [["Metal node", "Zr6"], ["Pore size", "8.5 A"], ["BET", "1850 m2/g"]]],
     ["HKUST-1", "Open metal site benchmark with strong adsorption relevance.", "Canonical case", [["Metal node", "Cu"], ["Pore size", "9.0 A"]]],
@@ -107,7 +140,7 @@ export function HomeTab({ setActiveTab }) {
             <button className="btn-primary" onClick={() => setActiveTab("screening")} style={{ ...toolbarBtn(t), background: t.accent, color: "#fff", borderColor: t.accent, padding: "10px 16px", boxShadow: "0 8px 18px rgba(26,109,181,0.16)" }}>
               {c.home.start}
             </button>
-            <button onClick={() => setActiveTab("comparison")} style={{ ...toolbarBtn(t), padding: "10px 16px", background: "transparent" }}>
+            <button className="btn-secondary" onClick={() => setActiveTab("comparison")} style={{ ...toolbarBtn(t), padding: "10px 16px", background: "transparent" }}>
               {lang === "zh" ? "查看比较层" : "View Comparison Layers"}
             </button>
           </div>
@@ -132,7 +165,7 @@ export function HomeTab({ setActiveTab }) {
                 alignItems: "center",
               }}>
                 <div>
-                  <BasisBadge tone={stage.stage === "Stage 1" ? "info" : "proxy"}>{stage.stage}</BasisBadge>
+                  <BasisBadge tone={stage.stage.includes("1") ? "info" : "proxy"}>{stage.stage}</BasisBadge>
                   <div style={{ color: t.textStrong, fontSize: isMobile ? 24 : 32, fontWeight: 880, lineHeight: 1.08, marginTop: 12 }}>{stage.title}</div>
                 </div>
                 <div style={{ display: "grid", gap: 10 }}>
@@ -153,7 +186,8 @@ export function HomeTab({ setActiveTab }) {
         <h2 style={sectionTitleStyle}>{c.home.capabilityTitle}</h2>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 16, marginTop: 20, alignItems: "stretch" }}>
           {capabilities.map((item, index) => (
-            <div key={item.key} className="content-card" style={{
+            <RevealBlock key={item.key} delay={index * 100} style={{ height: "100%" }}>
+            <div className="content-card" style={{
               ...cardStyle,
               position: "relative",
               overflow: "hidden",
@@ -170,6 +204,7 @@ export function HomeTab({ setActiveTab }) {
               <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 850, lineHeight: 1.2, marginTop: 12 }}>{item.title}</div>
               <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.45, marginTop: 7 }}>{item.body}</div>
             </div>
+            </RevealBlock>
           ))}
         </div>
       </section>
@@ -184,14 +219,14 @@ export function HomeTab({ setActiveTab }) {
             {workflow.map(([num, title, body]) => {
               const color = num === "01" ? t.performance : num === "02" ? t.lccAccent : num === "03" ? t.sensitivityAccent : t.validationAccent
               return (
-              <div key={num} style={{ position: "relative", paddingTop: isNarrow ? 0 : 54 }}>
+              <RevealBlock key={num} delay={(Number(num) - 1) * 100} style={{ position: "relative", paddingTop: isNarrow ? 0 : 54 }}>
                 {!isNarrow && (
                   <div style={{ position: "absolute", top: 13, left: 0, width: 22, height: 22, borderRadius: "50%", background: t.bg, border: `2px solid ${color}` }} />
                 )}
                 <div style={{ color, fontSize: 12, fontFamily: FONT_MONO, fontWeight: 850 }}>{num}</div>
                 <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 850, marginTop: 8 }}>{title}</div>
                 <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.6, marginTop: 8, maxWidth: 260 }}>{body}</div>
-              </div>
+              </RevealBlock>
             )})}
           </div>
         </div>
@@ -200,6 +235,7 @@ export function HomeTab({ setActiveTab }) {
       <section id="home-benchmarks" style={sectionStyle}>
         <h2 style={sectionTitleStyle}>{c.home.benchmarkTitle}</h2>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1.08fr 0.92fr", gap: 16, marginTop: 20 }}>
+          <RevealBlock delay={0} style={{ minHeight: isNarrow ? 240 : 270 }}>
           <div className="content-card" style={{ ...cardStyle, minHeight: isNarrow ? 240 : 270, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div>
               <BasisBadge tone="calc">{benchmarks[0][2]}</BasisBadge>
@@ -214,13 +250,15 @@ export function HomeTab({ setActiveTab }) {
                 ))}
               </div>
             </div>
-            <button type="button" onClick={() => setActiveTab("literature")} style={{ ...toolbarBtn(t), width: "fit-content", padding: "9px 13px" }}>
+            <button type="button" className="btn-secondary" onClick={() => setActiveTab("literature")} style={{ ...toolbarBtn(t), width: "fit-content", padding: "9px 13px" }}>
               {c.home.viewCase}
             </button>
           </div>
+          </RevealBlock>
           <div style={{ display: "grid", gridTemplateRows: isNarrow ? "auto auto" : "1fr 1fr", gap: 16 }}>
-            {benchmarks.slice(1).map(([name, body, tag, metrics]) => (
-              <div key={name} className="content-card" style={{ ...cardStyle, minHeight: 170, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+            {benchmarks.slice(1).map(([name, body, tag, metrics], index) => (
+              <RevealBlock key={name} delay={(index + 1) * 100} style={{ minHeight: 170 }}>
+              <div className="content-card" style={{ ...cardStyle, minHeight: 170, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                 <div>
                   <BasisBadge tone="info">{tag}</BasisBadge>
                   <div style={{ color: t.textStrong, fontSize: 28, fontWeight: 860, marginTop: 16 }}>{name}</div>
@@ -233,10 +271,11 @@ export function HomeTab({ setActiveTab }) {
                     ))}
                   </div>
                 </div>
-                <button type="button" onClick={() => setActiveTab("literature")} style={{ ...toolbarBtn(t), width: "fit-content", padding: "7px 10px", marginTop: 12 }}>
+                <button type="button" className="btn-secondary" onClick={() => setActiveTab("literature")} style={{ ...toolbarBtn(t), width: "fit-content", padding: "7px 10px", marginTop: 12 }}>
                   {c.home.viewCase}
                 </button>
               </div>
+              </RevealBlock>
             ))}
           </div>
         </div>

@@ -47,6 +47,7 @@ export function NumericField({ label, unit, min, max, step, value, onChange, hel
     onChange(rounded)
   }
   const pct = ((clamp(Number(value) || min) - min) / (max - min)) * 100
+  const tooltipValue = `${Number(clamp(Number(value) || min)).toFixed(step < 0.1 ? 2 : step < 1 ? 1 : 0)} ${unit}`
   return (
     <div style={{ marginBottom: 16 }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
@@ -65,8 +66,11 @@ export function NumericField({ label, unit, min, max, step, value, onChange, hel
           }}
         />
       </div>
-      <div style={{ position: "relative", height: 4, background: t.border, borderRadius: 2 }}>
+      <div className="range-control" style={{ position: "relative", height: 4, background: t.border, borderRadius: 2 }}>
         <div style={{ position: "absolute", left: 0, width: `${pct}%`, height: "100%", background: t.accent, borderRadius: 2 }} />
+        <div className="range-value-tooltip" style={{ left: `${pct}%`, background: t.textStrong, color: t.bg }}>
+          {tooltipValue}
+        </div>
         <input
           type="range" min={min} max={max} step={step} value={value}
           onChange={e => {
@@ -76,7 +80,7 @@ export function NumericField({ label, unit, min, max, step, value, onChange, hel
           }}
           style={{ position: "absolute", inset: 0, width: "100%", opacity: 0, cursor: "pointer", height: "100%" }}
         />
-        <div style={{
+        <div className="range-thumb" style={{
           position: "absolute", top: "50%", left: `${pct}%`,
           transform: "translate(-50%, -50%)",
           width: 12, height: 12, borderRadius: "50%",
@@ -97,7 +101,7 @@ export function MetricCard({ label, value, unit, badge, badgeColor, badgeBg, com
   const t = useT()
   const { lang } = useLang()
   return (
-    <div style={{ position: "relative", overflow: "hidden", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "14px 16px", boxShadow: t.shadowSm }}>
+    <div className="content-card metric-card" style={{ position: "relative", overflow: "hidden", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "14px 16px", boxShadow: t.shadowSm }}>
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${t.accent}, ${t.accentSoft})` }} />
       <div style={{ color: t.subtle, fontSize: 11, letterSpacing: "0.08em", marginBottom: 6 }}>{zhText(lang, label)}</div>
       <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
@@ -127,7 +131,7 @@ export function BasisBadge({ children, tone = "info" }) {
     danger: { color: t.badgeDangerText, bg: t.badgeDangerBg, border: "rgba(232,134,134,0.42)" },
   }[tone] || {}
   return (
-    <span style={{ display: "inline-flex", alignItems: "center", width: "fit-content",
+    <span className="basis-badge" style={{ display: "inline-flex", alignItems: "center", width: "fit-content",
       color: palette.color, background: palette.bg, border: `1px solid ${palette.border}`,
       borderRadius: 999, padding: "2px 8px", fontSize: 10, fontWeight: 800, lineHeight: 1.4 }}>
       {zhText(lang, children)}
@@ -171,7 +175,8 @@ export function StageStrip({ current = "screening", onNavigate }) {
             <button
               type="button"
               onClick={() => onNavigate?.(item.target)}
-              className="stage-breadcrumb-link"
+              className="stage-breadcrumb-link stage-pill"
+              data-active={active ? "true" : "false"}
               disabled={!onNavigate}
               title={lang === "zh" ? item.zh : item.label}
               style={{
@@ -218,7 +223,7 @@ export function StickySummaryBar({ inputs, results, stage, confidence, onAddComp
     [lang === "zh" ? "结构" : "Structure", `${inputs?.organicLinker || "—"} · ${formatFunctionalGroupSummary(inputs, lang)}`],
   ]
   return (
-    <div style={{
+    <div className="sticky-summary-bar" style={{
       position: "sticky",
       top: 58,
       zIndex: 12,
@@ -258,7 +263,7 @@ export function StickySummaryBar({ inputs, results, stage, confidence, onAddComp
 export function ResultLayer({ number, title, subtitle, children }) {
   const t = useT()
   return (
-    <section style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+    <section className="result-layer" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
       <div style={{ display: "flex", gap: 10, alignItems: "baseline" }}>
         <span style={{ color: t.accentText, fontSize: 11, fontWeight: 900, fontFamily: FONT_MONO }}>{number}</span>
         <div>
@@ -274,7 +279,7 @@ export function ResultLayer({ number, title, subtitle, children }) {
 export function MethodDrawer({ title, badge = "Screening proxy", children }) {
   const t = useT()
   return (
-    <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
+    <details className="motion-surface" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
       <summary style={{ cursor: "pointer", color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
         {title} <span style={{ marginLeft: 8 }}><BasisBadge tone="proxy">{badge}</BasisBadge></span>
       </summary>
@@ -298,12 +303,12 @@ export function HowToRead({ children }) {
 export function NextStepCTA({ label, body, actionLabel, onClick }) {
   const t = useT()
   return (
-    <div style={{ display: "flex", justifyContent: "space-between", gap: 14, alignItems: "center", flexWrap: "wrap", background: t.panel, border: `1px solid ${t.borderStrong}`, borderRadius: 10, padding: 14 }}>
+    <div className="content-card next-step-cta" style={{ display: "flex", justifyContent: "space-between", gap: 14, alignItems: "center", flexWrap: "wrap", background: t.panel, border: `1px solid ${t.borderStrong}`, borderRadius: 10, padding: 14 }}>
       <div>
         <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 850 }}>{label}</div>
         {body && <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 4 }}>{body}</div>}
       </div>
-      <button type="button" onClick={onClick} style={{ ...toolbarBtn(t), background: t.accent, borderColor: t.accent, color: "#fff", padding: "8px 12px" }}>
+      <button type="button" className="btn-primary" onClick={onClick} style={{ ...toolbarBtn(t), background: t.accent, borderColor: t.accent, color: "#fff", padding: "8px 12px" }}>
         {actionLabel}
       </button>
     </div>
@@ -325,7 +330,7 @@ export function CandidateComparisonPanel({ candidates, onRemove, onMove, focusId
   }
   const visibleCandidates = focusId === "all" ? candidates : candidates.filter(item => item.id === focusId)
   return (
-    <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
+    <div className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
       <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center", marginBottom: 10 }}>
         <SectionTitle>{lang === "zh" ? "候选比较清单" : "Candidate comparison shortlist"}</SectionTitle>
         <BasisBadge tone="proxy">{visibleCandidates.length}/{candidates.length}</BasisBadge>
@@ -345,7 +350,7 @@ export function CandidateComparisonPanel({ candidates, onRemove, onMove, focusId
             {visibleCandidates.map((item) => {
               const sourceIndex = candidates.findIndex(candidate => candidate.id === item.id)
               return (
-              <tr key={item.id} style={{ background: focusId !== "all" && item.id === focusId ? t.badgeInfoBg : "transparent" }}>
+              <tr key={item.id} className="motion-table-row" style={{ background: focusId !== "all" && item.id === focusId ? t.badgeInfoBg : "transparent" }}>
                 <td style={{ padding: "8px", borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
                   {item.name}<div style={{ color: t.faint, fontSize: 10, marginTop: 2 }}>{item.metal} · {item.linker} · {item.gasSystem}</div>
                 </td>
@@ -381,7 +386,7 @@ export function ProvenanceGrid({ items }) {
   return (
     <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : `repeat(${Math.min(items.length, 4)}, minmax(0, 1fr))`, gap: 10 }}>
       {items.map(item => (
-        <div key={item.label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+        <div key={item.label} className="content-card provenance-card" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
           <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", marginBottom: 7 }}>
             <span style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{zhText(lang, item.label)}</span>
             {item.type && <SourceBadge type={item.type} />}

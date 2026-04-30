@@ -374,7 +374,7 @@ export function ContextualHeaderBar({
             cursor: !results || results.unavailable ? "not-allowed" : "pointer",
           }}
         >
-          {lang === "zh" ? "加入 Comparison" : "Add to comparison"}
+          {lang === "zh" ? "加入比较" : "Add to comparison"}
         </button>
         <span className="ecomof-tooltip" data-tooltip={copy.common.savedRuns} style={{ display: "inline-flex" }}>
           <button
