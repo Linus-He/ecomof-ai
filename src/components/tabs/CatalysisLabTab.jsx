@@ -299,6 +299,229 @@ function zhValue(value, lang) {
   }[value] || value
 }
 
+// ── Case Study: CO₂ Conversion Candidate Prioritization ──────────────────────
+
+const CASE_DIMS = [
+  { key: "co2Affinity",       labelEn: "CO₂ affinity",       labelZh: "CO₂ 亲和力" },
+  { key: "activeSite",        labelEn: "Active site",         labelZh: "活性位点" },
+  { key: "poreAccessibility", labelEn: "Pore accessibility",  labelZh: "孔道可及性" },
+  { key: "stability",         labelEn: "Stability",           labelZh: "稳定性" },
+  { key: "electronicProperty",labelEn: "Electronic property", labelZh: "电子性质" },
+  { key: "evidenceConfidence",labelEn: "Evidence confidence", labelZh: "证据置信度" },
+]
+
+const WORKFLOW_STEPS = [
+  { enLabel: "Task",        zhLabel: "任务",    enVal: "CO₂ conversion",           zhVal: "CO₂ 转化" },
+  { enLabel: "Dataset",     zhLabel: "数据集",  enVal: "Real Seed / Demo fallback", zhVal: "真实种子 / 演示回退" },
+  { enLabel: "Descriptors", zhLabel: "描述符",  enVal: "CO₂ uptake · metal nodes · pore size · surface area · stability · evidence level", zhVal: "CO₂ 吸附量 · 金属节点 · 孔径 · 比表面积 · 稳定性 · 证据等级" },
+  { enLabel: "Scoring",     zhLabel: "评分",    enVal: "Rule-based Catalysis Potential Score", zhVal: "规则驱动催化潜力分" },
+  { enLabel: "Output",      zhLabel: "输出",    enVal: "Candidate priority ranking", zhVal: "候选材料优先级排序" },
+]
+
+function pendingLabel(val, lang) {
+  if (val == null || val === "" || val === "unknown" || val === "pending") {
+    return lang === "zh" ? "待整理" : "Pending curation"
+  }
+  return val
+}
+
+function ScoreBar({ value, max = 10, color, t }) {
+  const pct = Math.max(0, Math.min(100, (Number(value) / max) * 100))
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 6, width: "100%" }}>
+      <div style={{ flex: 1, height: 5, background: t.border, borderRadius: 3, overflow: "hidden" }}>
+        <div style={{ width: `${pct}%`, height: "100%", background: color || t.accent, borderRadius: 3, transition: "width 0.4s" }} />
+      </div>
+      <span style={{ color: t.subtle, fontSize: 10, minWidth: 24, textAlign: "right" }}>{Number(value).toFixed(1)}</span>
+    </div>
+  )
+}
+
+function CaseStudyCO2({ lang, t, isNarrow, isMobile, realSeedCandidates, demoCandidates, weights }) {
+  const [open, setOpen] = useState(true)
+
+  // Prefer real seed; fall back to demo
+  const sourceData = realSeedCandidates.length > 0 ? realSeedCandidates : demoCandidates
+  const usingRealSeed = realSeedCandidates.length > 0
+  const dataLabel = usingRealSeed
+    ? (lang === "zh" ? "真实种子数据集" : "Real Seed Dataset")
+    : (lang === "zh" ? "演示数据集（回退）" : "Demo Dataset (fallback)")
+
+  // Score all candidates for CO₂ conversion task
+  const TASK_ID = "co2_conversion"
+  const scored = sourceData
+    .map(c => {
+      const norm = normalizeCandidate(c)
+      const result = computeCatalysisScore(norm, TASK_ID, weights)
+      return { ...norm, score: result.score, parts: result.parts }
+    })
+    .sort((a, b) => b.score - a.score)
+
+  const top3 = scored.slice(0, 3)
+  const RANK_COLORS = [t.accent, t.accentSoft || t.accent, t.subtle]
+  const RANK_LABELS = ["#1", "#2", "#3"]
+
+  const dimColor = (idx) => [t.accent, t.success || t.accent, t.warn || t.accent, t.validationAccent || t.accent, t.sensitivityAccent || t.accent, t.accentSoft || t.accent][idx % 6]
+
+  return (
+    <details open={open} onToggle={e => setOpen(e.currentTarget.open)}
+      style={{ background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 10, padding: 16 }}>
+      <summary style={{ cursor: "pointer", userSelect: "none", display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+        <span style={{ color: t.accentText, fontSize: 14, fontWeight: 800 }}>
+          {lang === "zh" ? "案例研究：CO₂ 转化候选材料优先级排序" : "Case Study: CO₂ Conversion Candidate Prioritization"}
+        </span>
+        <span style={{ background: t.badgeInfoBg, color: t.accentText, fontSize: 10, fontWeight: 700, borderRadius: 4, padding: "2px 7px", border: `1px solid ${t.border}` }}>
+          {dataLabel}
+        </span>
+      </summary>
+
+      <div style={{ marginTop: 14, display: "flex", flexDirection: "column", gap: 14 }}>
+
+        {/* Disclaimer */}
+        <div style={{ background: t.badgeWarnBg || "#fffbeb", border: `1px solid ${t.warn || "#f59e0b"}`, borderRadius: 8, padding: "9px 13px", fontSize: 12, color: t.warn || "#92400e", lineHeight: 1.65 }}>
+          {lang === "zh"
+            ? "该案例展示的是早期候选材料优先级排序，不是最终催化性能预测。"
+            : "This case study demonstrates early-stage prioritization, not final catalytic performance prediction."}
+        </div>
+
+        {/* Workflow steps */}
+        <div>
+          <div style={{ color: t.subtle, fontSize: 11, fontWeight: 700, textTransform: "uppercase", marginBottom: 8 }}>
+            {lang === "zh" ? "工作流" : "Workflow"}
+          </div>
+          <div style={{ display: "flex", gap: 0, flexWrap: "wrap" }}>
+            {WORKFLOW_STEPS.map((step, i) => (
+              <div key={step.enLabel} style={{ display: "flex", alignItems: "stretch", minWidth: 0 }}>
+                <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: "8px 11px", minWidth: isMobile ? 120 : 0 }}>
+                  <div style={{ color: t.faint, fontSize: 9, fontWeight: 700, textTransform: "uppercase", marginBottom: 3 }}>
+                    {lang === "zh" ? step.zhLabel : step.enLabel}
+                  </div>
+                  <div style={{ color: t.textStrong, fontSize: 11, fontWeight: 700, lineHeight: 1.45 }}>
+                    {lang === "zh" ? step.zhVal : step.enVal}
+                  </div>
+                </div>
+                {i < WORKFLOW_STEPS.length - 1 && (
+                  <div style={{ display: "flex", alignItems: "center", padding: "0 4px", color: t.faint, fontSize: 12 }}>→</div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Top candidates */}
+        <div>
+          <div style={{ color: t.subtle, fontSize: 11, fontWeight: 700, textTransform: "uppercase", marginBottom: 8 }}>
+            {lang === "zh" ? `Top ${top3.length} 候选材料` : `Top ${top3.length} Candidates`}
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
+            {top3.map((c, idx) => (
+              <div key={c.id || c.name} style={{ background: t.surface, border: `1px solid ${idx === 0 ? (t.borderStrong || t.accent) : t.border}`, borderRadius: 9, padding: 13, display: "flex", flexDirection: "column", gap: 9 }}>
+
+                {/* Header */}
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+                  <div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 3 }}>
+                      <span style={{ background: RANK_COLORS[idx], color: "#fff", fontSize: 10, fontWeight: 800, borderRadius: 4, padding: "1px 6px" }}>{RANK_LABELS[idx]}</span>
+                      <span style={{ color: t.textStrong, fontSize: 13, fontWeight: 850 }}>{c.name}</span>
+                    </div>
+                    <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.4 }}>
+                      {pendingLabel(c.metalCenter, lang)} · {pendingLabel(c.linker, lang)}
+                    </div>
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    <div style={{ color: t.accentText, fontSize: 20, fontWeight: 900, lineHeight: 1 }}>{c.score}</div>
+                    <div style={{ color: t.faint, fontSize: 9 }}>{lang === "zh" ? "催化潜力分" : "Catalysis score"}</div>
+                  </div>
+                </div>
+
+                {/* Key descriptors */}
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 5 }}>
+                  {[
+                    [lang === "zh" ? "CO₂ 吸附量" : "CO₂ uptake", c.co2Uptake != null ? `${c.co2Uptake} mmol/g` : null],
+                    [lang === "zh" ? "孔径" : "Pore size", c.poreSizeA != null ? `${c.poreSizeA} Å` : null],
+                    [lang === "zh" ? "比表面积" : "Surface area", c.surfaceArea != null ? `${Number(c.surfaceArea).toLocaleString()} m²/g` : null],
+                    [lang === "zh" ? "水稳定性" : "Water stability", zhValue(c.waterStability, lang)],
+                    [lang === "zh" ? "证据等级" : "Evidence level", c.evidenceLevel],
+                    [lang === "zh" ? "任务匹配" : "Task match", c.reactionClasses?.includes(TASK_ID) ? (lang === "zh" ? "✓ 匹配" : "✓ matched") : (lang === "zh" ? "○ 推断" : "○ inferred")],
+                  ].map(([label, val]) => (
+                    <div key={label} style={{ minWidth: 0 }}>
+                      <div style={{ color: t.faint, fontSize: 9, textTransform: "uppercase" }}>{label}</div>
+                      <div style={{ color: val ? t.textStrong : t.faint, fontSize: 11, fontWeight: 600, fontStyle: val ? "normal" : "italic", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                        {pendingLabel(val, lang)}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Score breakdown bars */}
+                <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+                  <div style={{ color: t.faint, fontSize: 9, fontWeight: 700, textTransform: "uppercase", marginBottom: 1 }}>
+                    {lang === "zh" ? "评分维度" : "Score breakdown"}
+                  </div>
+                  {CASE_DIMS.map((dim, di) => (
+                    <div key={dim.key} style={{ display: "grid", gridTemplateColumns: "84px 1fr", gap: 5, alignItems: "center" }}>
+                      <div style={{ color: t.subtle, fontSize: 9, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                        {lang === "zh" ? dim.labelZh : dim.labelEn}
+                      </div>
+                      <ScoreBar value={c.parts?.[dim.key] ?? 0} color={dimColor(di)} t={t} />
+                    </div>
+                  ))}
+                </div>
+
+                {/* Real-seed curation note */}
+                {usingRealSeed && c.curationNote && (
+                  <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.5, fontStyle: "italic", borderTop: `1px solid ${t.border}`, paddingTop: 7 }}>
+                    {c.curationNote}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Shared limitations + recommended validation */}
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 10 }}>
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+            <div style={{ color: t.warn || "#b45309", fontSize: 11, fontWeight: 800, marginBottom: 6 }}>
+              {lang === "zh" ? "当前局限" : "Current limitations"}
+            </div>
+            <ul style={{ margin: 0, paddingLeft: 16, color: t.muted, fontSize: 11, lineHeight: 1.7 }}>
+              {(lang === "zh" ? [
+                "CO₂ 吸附量字段在 Real Seed Dataset 中暂为空值，评分基于活性位点和孔道假设。",
+                "规则权重未经反应条件校准，不可等同于 GCMC 或 IAST 结果。",
+                "pore accessibility 对 null 孔径输入默认评分，不反映实际孔道结构。",
+              ] : [
+                "CO₂ uptake is null in Real Seed records; scoring relies on active site and pore hypotheses.",
+                "Rule weights are not calibrated to reaction conditions and cannot substitute GCMC or IAST results.",
+                "Pore accessibility defaults to a mid-range score when poreSizeA is null.",
+              ]).map(item => <li key={item}>{item}</li>)}
+            </ul>
+          </div>
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+            <div style={{ color: t.accentSoft, fontSize: 11, fontWeight: 800, marginBottom: 6 }}>
+              {lang === "zh" ? "推荐验证步骤" : "Recommended validation"}
+            </div>
+            <ul style={{ margin: 0, paddingLeft: 16, color: t.muted, fontSize: 11, lineHeight: 1.7 }}>
+              {(lang === "zh" ? [
+                "补充 CO₂ 吸附等温线（BET + 低压 CO₂ 测量）。",
+                "文献或 GCMC 验证 CO₂/N₂ 混合气选择性。",
+                "在定义反应条件下测试催化活性（温度、溶剂、光/电化学）。",
+                "将规则分排序结果与后续实验 TON/TOF 进行比较。",
+              ] : [
+                "Measure CO₂ adsorption isotherm (BET + low-pressure CO₂).",
+                "Validate CO₂/N₂ mixture selectivity via literature or GCMC.",
+                "Test catalytic activity under defined conditions (temperature, solvent, light/electrochemical).",
+                "Compare rule-score ranking against future experimental TON/TOF.",
+              ]).map(item => <li key={item}>{item}</li>)}
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </details>
+  )
+}
+
 export function CatalysisLabTab() {
   const t = useT()
   const { lang } = useLang()
@@ -583,6 +806,13 @@ export function CatalysisLabTab() {
           ))}
         </div>
       </ResultLayer>
+
+      <CaseStudyCO2
+        lang={lang} t={t} isNarrow={isNarrow} isMobile={isMobile}
+        realSeedCandidates={realSeedCandidates}
+        demoCandidates={demoCandidates}
+        weights={weights}
+      />
 
       <Callout tone="warn">
         {lang === "zh"
