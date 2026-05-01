@@ -35,6 +35,9 @@ The platform is not a final scientific conclusion engine. Rule-based visualizati
 - It does not replace full industrial LCA or supplier-grade costing.
 - It does not claim final catalytic activity, yield, conversion, TOF, selectivity, or durability.
 - Current data may include demo / placeholder / seed records.
+- **Real Seed Dataset** is a data ingestion framework for future public database and literature curation, not a complete MOF database.
+- **Catalysis Data Template** defines fields for future data ingestion — providing the template does not enable ML model training. ML evaluation requires sufficient labeled experimental or literature data.
+- All current outputs indicate **candidate priority**, not final material performance.
 
 ## Data modes
 
