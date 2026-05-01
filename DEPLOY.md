@@ -114,7 +114,7 @@ If a real ML backend is added in the future, it requires:
 
 - Sufficient labeled experimental or literature data
 - Trained model artifacts (not placeholder scripts)
-- A real inference API endpoint (e.g. FastAPI on Hugging Face Spaces)
+- A real inference API endpoint served separately from the static frontend
 
 Until labeled experimental or literature data are available, ML evaluation remains a placeholder. The platform does not and should not display fabricated model metrics.
 
