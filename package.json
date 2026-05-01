@@ -1,7 +1,7 @@
 {
   "name": "ecomof-ai",
   "version": "1.0.0",
-  "description": "Research-oriented MOF decision-support prototype integrating screening, LCA/LCC, and robustness analysis.",
+  "description": "Research-oriented MOF AI prototype platform for candidate screening, sustainability evaluation, performance comparison, and task-oriented application exploration.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

@@ -1,37 +1,42 @@
 [
   {
     "id": "co2_conversion",
-    "label": "CO2 conversion",
-    "labelZh": "CO2 转化",
+    "name": "CO₂ conversion",
+    "nameZh": "CO₂ 转化",
     "description": "Rule-based candidate prioritization for CO2 affinity, active-site potential, and stability; demo only and needs validation.",
-    "emphasis": ["co2Affinity", "activeSite", "stability"]
+    "requiredDescriptors": ["co2Uptake", "metalNodes", "poreSizeA", "surfaceArea", "bandGap", "stability"],
+    "recommendedOutputs": ["candidate ranking", "score breakdown", "experimental validation priority"]
   },
   {
     "id": "biomass_conversion",
-    "label": "Biomass conversion",
-    "labelZh": "生物质转化",
+    "name": "Biomass conversion",
+    "nameZh": "生物质转化",
     "description": "Rule-based candidate prioritization for pore accessibility, Lewis/redox cues, and solvent or water stability; demo only and needs validation.",
-    "emphasis": ["activeSite", "poreAccessibility", "waterStability"]
+    "requiredDescriptors": ["metalNodes", "poreSizeA", "surfaceArea", "waterStability", "thermalStability", "toxicityConcern"],
+    "recommendedOutputs": ["candidate ranking", "score breakdown", "substrate diffusion validation"]
   },
   {
     "id": "photocatalysis",
-    "label": "Photocatalysis",
-    "labelZh": "光催化",
+    "name": "Photocatalysis",
+    "nameZh": "光催化",
     "description": "Rule-based candidate prioritization for electronic property, linker functionality, and stability; demo only and needs validation.",
-    "emphasis": ["electronicProperty", "stability", "evidenceConfidence"]
+    "requiredDescriptors": ["bandGap", "linker", "metalNodes", "surfaceArea", "waterStability", "evidenceLevel"],
+    "recommendedOutputs": ["candidate ranking", "descriptor contribution", "photophysical validation priority"]
   },
   {
     "id": "electrocatalysis",
-    "label": "Electrocatalysis",
-    "labelZh": "电催化",
+    "name": "Electrocatalysis",
+    "nameZh": "电催化",
     "description": "Rule-based candidate prioritization for redox-active centers, electronic cues, and stability; demo only and needs validation.",
-    "emphasis": ["electronicProperty", "activeSite", "stability"]
+    "requiredDescriptors": ["metalNodes", "bandGap", "waterStability", "thermalStability", "surfaceArea", "toxicityConcern"],
+    "recommendedOutputs": ["candidate ranking", "rule contribution", "electrochemical validation priority"]
   },
   {
     "id": "custom_task",
-    "label": "Custom task",
-    "labelZh": "自定义任务",
+    "name": "Custom task",
+    "nameZh": "自定义任务",
     "description": "Flexible rule-based prioritization for early hypothesis generation; demo only and needs validation.",
-    "emphasis": ["activeSite", "poreAccessibility", "sustainability"]
+    "requiredDescriptors": ["metalNodes", "poreSizeA", "surfaceArea", "stability", "evidenceLevel"],
+    "recommendedOutputs": ["candidate ranking", "score breakdown", "experimental validation priority"]
   }
 ]

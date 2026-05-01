@@ -448,6 +448,17 @@ export default function App() {
   }, [comparisonCandidates, comparisonFocusId])
 
   useEffect(() => {
+    const normalizedTabs = {
+      workflow: "home",
+      screening: "performance",
+      comparison: "ecoscreen",
+      validation: "about",
+      resources: "about",
+    }
+    if (normalizedTabs[activeTab]) setActiveTab(normalizedTabs[activeTab])
+  }, [activeTab])
+
+  useEffect(() => {
     if (!apiStatus.checked) {
       setApiStatus(prev => ({
         ...prev,
@@ -469,7 +480,7 @@ export default function App() {
     setSearchQuery(presetName)
     setSearchOpen(false)
     setSearchStatus("loaded")
-    setActiveTab("screening")
+    setActiveTab("performance")
     window.setTimeout(() => setSearchStatus(null), 1800)
   }, [])
 
@@ -494,22 +505,22 @@ export default function App() {
       setActiveTab("library")
       return
     }
-    if (target === "methodology") {
+    if (target === "methodology" || target === "about" || target === "validation") {
       setActiveTab("about")
       return
     }
-    if (["feasibility", "lca", "sensitivity"].includes(target)) {
-      setComparisonTab(target)
-      setActiveTab("comparison")
+    if (["feasibility", "lca", "sensitivity", "comparison"].includes(target)) {
+      if (["feasibility", "lca", "sensitivity"].includes(target)) setComparisonTab(target)
+      setActiveTab("ecoscreen")
       return
     }
     if (["dataSources", "literature", "methods"].includes(target)) {
       setResourcesTab(target)
-      setActiveTab("resources")
+      setActiveTab(target === "literature" ? "library" : "about")
       return
     }
-    if (target === "structure" || target === "interpretation" || target === "ml") {
-      setActiveTab("screening")
+    if (target === "screening" || target === "workflow" || target === "structure" || target === "interpretation" || target === "ml") {
+      setActiveTab("performance")
       return
     }
     setActiveTab(target)
@@ -646,7 +657,7 @@ export default function App() {
     setInputs(run.inputs)
     setResults(run.results)
     setSavedOpen(false)
-    setActiveTab("screening")
+    setActiveTab("performance")
   }, [])
 
   const exportSavedRuns = useCallback(() => {

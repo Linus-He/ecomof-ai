@@ -1,19 +1,54 @@
-import { useMemo } from "react"
+import { useEffect, useMemo, useState } from "react"
 import {
   useT, useLang, useViewport,
-  gasLabel, getGasSystem, toolbarBtn,
-  BasisBadge, PageHeader, ResultLayer, Callout, MetricCard, UnifiedCandidateCard,
+  gasLabel, getGasSystem, fetchDataJson, toolbarBtn,
+  buildScoredCandidates, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
+  RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
+  BasisBadge, PageHeader, ResultLayer, Callout, UnifiedCandidateCard,
 } from "../../shared"
 
 export function PerformanceTab({ inputs, setInputs, results, loading, onPredict, onNavigate }) {
   const t = useT()
   const { lang } = useLang()
-  const { isNarrow } = useViewport()
+  const { isNarrow, isMobile } = useViewport()
+  const [demoRows, setDemoRows] = useState([])
+  const [selectedId, setSelectedId] = useState(null)
   const gas = getGasSystem(inputs.gasSystem)
   const hasResult = results && !results.unavailable
-  const score = hasResult
-    ? Math.max(0, Math.min(10, (Number(results.primaryUptake || 0) / 8) * 4.5 + (Math.min(Number(results.selectivity || 0), 120) / 120) * 3.5 + Number(results.confidenceScore || 0) * 2))
-    : 0
+
+  useEffect(() => {
+    let active = true
+    fetchDataJson("mof_candidates_demo.json")
+      .then(rows => { if (active && Array.isArray(rows)) setDemoRows(rows) })
+      .catch(() => { if (active) setDemoRows([]) })
+    return () => { active = false }
+  }, [])
+
+  const currentCandidate = hasResult ? {
+    id: "current-performance",
+    name: inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`,
+    metalNodes: [inputs.metalCenter],
+    linker: inputs.organicLinker,
+    poreSizeA: inputs.poreSizeA || inputs.poreSize || 8,
+    surfaceArea: inputs.surfaceArea || inputs.bet || 1200,
+    poreVolume: inputs.poreVolume || 0.5,
+    co2Uptake: results.primaryUptake,
+    selectivity: results.selectivity,
+    thermodynamicIndicator: results.thermo?.qst0 || 32,
+    waterStability: "medium",
+    thermalStability: "medium",
+    costLevel: "medium",
+    toxicityConcern: "low",
+    evidenceLevel: "rule-based",
+    limitations: [lang === "zh" ? "当前浏览器端结果需要实测等温线、GCMC 或 IAST 验证。" : "Current browser-side result needs measured isotherm, GCMC, or IAST validation."],
+  } : null
+
+  const performanceCandidates = useMemo(() => {
+    return buildScoredCandidates([...(currentCandidate ? [currentCandidate] : []), ...demoRows], "performance", DEFAULT_SCORING_WEIGHTS.performance)
+  }, [currentCandidate, demoRows])
+
+  const activeCandidate = performanceCandidates.find(item => item.id === selectedId) || performanceCandidates[0]
+  const score = activeCandidate?.score ?? 0
   const reasons = hasResult
     ? [
         `${results.primaryName || "CO₂"} uptake ${results.primaryUptake} mmol/g`,
@@ -74,24 +109,37 @@ export function PerformanceTab({ inputs, setInputs, results, loading, onPredict,
       </ResultLayer>
 
       <ResultLayer number="02" title={lang === "zh" ? "性能候选摘要" : "Performance Candidate Summary"}>
-        <UnifiedCandidateCard
-          name={inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`}
-          score={hasResult ? score : "—"}
-          scoreLabel={lang === "zh" ? "性能评分" : "Performance score"}
-          suitableTask={lang === "zh" ? "CO₂ uptake / selectivity / thermodynamic interpretation" : "CO₂ uptake / selectivity / thermodynamic interpretation"}
-          scoreBreakdown={[
-            { label: "CO₂ uptake", value: hasResult ? Math.min(10, Number(results.primaryUptake || 0) / 0.8) : 0 },
-            { label: lang === "zh" ? "选择性" : "Selectivity", value: hasResult ? Math.min(10, Number(results.selectivity || 0) / 12) : 0 },
-            { label: lang === "zh" ? "模型置信度" : "Model confidence", value: hasResult ? Number(results.confidenceScore || 0) * 10 : 0 },
-          ]}
-          keyReasons={reasons}
-          evidenceLevel={hasResult ? (lang === "zh" ? "模型 / 代理证据" : "Model / proxy evidence") : (lang === "zh" ? "未运行" : "Not run")}
-          limitations={lang === "zh" ? "性能分数不是真实最终性能，不能替代实验等温线、GCMC 或严格 IAST。" : "Performance score is not final material performance and does not replace experimental isotherms, GCMC, or strict IAST."}
-          recommendedNextStep={lang === "zh" ? "补充实测等温线、混合气选择性和热力学验证。" : "Add measured isotherms, mixture selectivity, and thermodynamic validation."}
-        />
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 12 }}>
+          {performanceCandidates.slice(0, 6).map(candidate => (
+            <UnifiedCandidateCard
+              key={candidate.id}
+              name={candidate.name}
+              score={candidate.score}
+              scoreLabel={lang === "zh" ? "性能评分" : "Performance score"}
+              suitableTask={lang === "zh" ? "CO₂ 吸附量 / 选择性 / 热力学解释" : "CO₂ uptake / selectivity / thermodynamic interpretation"}
+              scoreBreakdown={candidate.scoreBreakdown}
+              keyReasons={[
+                `CO₂ uptake ${candidate.co2Uptake ?? "—"}`,
+                `${lang === "zh" ? "选择性" : "selectivity"} ${candidate.selectivity ?? "—"}`,
+                `${lang === "zh" ? "稳定性" : "stability"} ${candidate.waterStability ?? "—"} / ${candidate.thermalStability ?? "—"}`,
+              ]}
+              evidenceLevel={`Evidence Level: ${candidate.evidenceLevel || "rule-based"}`}
+              limitations={lang === "zh" ? "Performance Score 用于比较候选材料的吸附和热力学表现，不能替代严格 GCMC 或 IAST 模拟。" : "Performance Score supports comparison of adsorption and thermodynamic indicators. It does not replace rigorous GCMC or IAST simulations."}
+              recommendedNextStep={lang === "zh"
+                ? ["补充实测等温线", "验证混合气选择性", "进行 GCMC 或 IAST 对照"]
+                : ["Add measured isotherms", "Validate mixture selectivity", "Run GCMC or IAST comparison"]}
+              onDetails={() => setSelectedId(candidate.id)}
+            />
+          ))}
+        </div>
       </ResultLayer>
 
-      <ResultLayer number="03" title="Results Interpretation">
+      <ResultLayer number="03" title="Results Interpretation Notes">
+        <Callout tone="info">
+          {lang === "zh"
+            ? "Performance Score 用于比较候选材料的吸附和热力学表现，不能替代严格 GCMC 或 IAST 模拟。"
+            : "Performance Score supports comparison of adsorption and thermodynamic indicators. It does not replace rigorous GCMC or IAST simulations."}
+        </Callout>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
           {[
             [lang === "zh" ? "分数含义" : "What the score means", interpretation.means],
@@ -107,10 +155,32 @@ export function PerformanceTab({ inputs, setInputs, results, loading, onPredict,
         </div>
       </ResultLayer>
 
-      <ResultLayer number="04" title={lang === "zh" ? "关键原因" : "Key Reasons"}>
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-          {reasons.map(reason => (
-            <BasisBadge key={reason} tone="proxy">{reason}</BasisBadge>
+      <ResultLayer number="04" title={lang === "zh" ? "Model Results / 结果解释图表" : "Model Results / Results Interpretation"}>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
+          <RankingBarChart data={performanceCandidates} scoreLabel={lang === "zh" ? "Performance Score" : "Performance Score"} />
+          <ScoreBreakdownRadar data={activeCandidate?.scoreBreakdown || []} title={activeCandidate ? `${activeCandidate.name} · Score Breakdown` : "Score Breakdown"} />
+          <WeightContributionChart data={activeCandidate?.weightContribution || []} />
+          <EvidenceDistributionChart data={evidenceDistribution(performanceCandidates)} />
+          <ScoreDistributionChart data={scoreDistribution(performanceCandidates)} />
+          <SensitivityAnalysisChart data={sensitivityRows(performanceCandidates, "performance", DEFAULT_SCORING_WEIGHTS.performance, null, "stability")} dimension="Stability" />
+        </div>
+      </ResultLayer>
+
+      <ResultLayer number="05" title={lang === "zh" ? "Machine Learning Evaluation 占位" : "Machine Learning Evaluation Placeholder"}>
+        <Callout tone="warn">
+          {lang === "zh"
+            ? "当前机器学习评估为占位展示。只有在积累足够带标签的实验或文献数据后，才会启用真实模型评估。"
+            : "Machine learning evaluation is currently a placeholder. It will be activated when enough labeled experimental or literature data are available."}
+        </Callout>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+          {["Predicted vs Actual", "Residual Plot", "Descriptor Contribution", "R²: pending · MAE: pending · RMSE: pending · Cross-validation: pending"].map(item => (
+            <div key={item} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <BasisBadge tone="proxy">Demo only / Placeholder</BasisBadge>
+              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850, marginTop: 9 }}>{item}</div>
+              <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 6 }}>
+                {lang === "zh" ? "需要带标签的实验或文献数据。" : "Requires labeled experimental or literature data."}
+              </div>
+            </div>
           ))}
         </div>
       </ResultLayer>

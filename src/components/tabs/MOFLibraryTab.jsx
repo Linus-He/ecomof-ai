@@ -7,6 +7,9 @@ import {
 
 function normalizeDemoRecord(item) {
   const metalNodes = Array.isArray(item.metalNodes) ? item.metalNodes : item.metal ? [item.metal] : []
+  const source = Array.isArray(item.source) ? item.source.join(" / ") : item.source
+  const limitations = Array.isArray(item.limitations) ? item.limitations.join("; ") : item.limitations
+  const activeSiteHypothesis = Array.isArray(item.activeSiteHypothesis) ? item.activeSiteHypothesis.join("; ") : item.activeSiteHypothesis
   return {
     id: item.id || item.name,
     name: item.name,
@@ -25,10 +28,10 @@ function normalizeDemoRecord(item) {
     costLevel: item.costLevel || "—",
     toxicityConcern: item.toxicityConcern || "—",
     reactionClasses: Array.isArray(item.reactionClasses) ? item.reactionClasses : [],
-    activeSiteHypothesis: item.activeSiteHypothesis || "—",
-    source: item.source || item.sourceDatabase || item.sourceType || "Demo seed",
+    activeSiteHypothesis: activeSiteHypothesis || "—",
+    source: source || item.sourceDatabase || item.sourceType || "Demo seed",
     evidenceLevel: item.evidenceLevel || "Low",
-    limitations: item.limitations || "Demo / placeholder record; needs validation.",
+    limitations: limitations || "Demo / placeholder record; needs validation.",
     dataStatus: item.dataStatus || "demo / placeholder / needs validation",
   }
 }

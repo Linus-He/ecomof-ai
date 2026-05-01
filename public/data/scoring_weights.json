@@ -1,13 +1,20 @@
 {
   "dataStatus": "demo / placeholder / rule-based / needs validation",
-  "finalScore": {
-    "performance": 0.25,
-    "stability": 0.2,
-    "sustainability": 0.2,
-    "applicationFit": 0.2,
+  "EcoScreen": {
+    "performance": 0.2,
+    "stability": 0.22,
+    "sustainability": 0.24,
+    "cost": 0.16,
+    "evidenceConfidence": 0.18
+  },
+  "Performance": {
+    "co2Uptake": 0.3,
+    "selectivity": 0.25,
+    "thermodynamicIndicator": 0.18,
+    "stability": 0.12,
     "evidenceConfidence": 0.15
   },
-  "catalysisPotentialScore": {
+  "CatalysisLab": {
     "co2Affinity": 0.16,
     "activeSite": 0.18,
     "poreAccessibility": 0.14,
@@ -17,8 +24,9 @@
     "evidenceConfidence": 0.12
   },
   "notes": [
-    "Weights are demo defaults for prototype screening.",
-    "Weights should be revised with domain experts and labeled data.",
+    "Weights are demo defaults for the current Rule-based Scoring Model.",
+    "Rule-based visualizations are real outputs of the current scoring strategy.",
+    "Machine learning evaluation charts remain placeholders until labeled data are available.",
     "Scores indicate candidate priority, not final material performance."
   ]
 }

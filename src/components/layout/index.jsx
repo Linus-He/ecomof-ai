@@ -318,26 +318,7 @@ export function ContextualHeaderBar({
     )
   }
 
-  if (activeTab === "workflow") {
-    return (
-      <div style={layerStyle}>
-        <div style={{ color: t.faint, fontSize: 11, fontWeight: 800, marginRight: 2 }}>
-          {lang === "zh" ? "工作流跳转" : "Workflow jumps"}
-        </div>
-        <button type="button" onClick={() => setActiveTab("screening")} style={headerChipBtn(t, false)}>
-          {lang === "zh" ? "进入筛选" : "Go to Screening"}
-        </button>
-        <button type="button" onClick={() => setActiveTab("comparison")} style={headerChipBtn(t, false)}>
-          {lang === "zh" ? "查看比较" : "Open Comparison"}
-        </button>
-        <button type="button" onClick={() => setActiveTab("validation")} style={headerChipBtn(t, false)}>
-          {lang === "zh" ? "看验证" : "Review Validation"}
-        </button>
-      </div>
-    )
-  }
-
-  if (activeTab === "ecoscreen" || activeTab === "performance" || activeTab === "screening") {
+  if (activeTab === "ecoscreen" || activeTab === "performance") {
     return (
       <div style={layerStyle}>
         <PresetSearchControl
@@ -407,76 +388,6 @@ export function ContextualHeaderBar({
         <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
           {lang === "zh" ? "MOF 库只展示基础数据与来源字段，不输出科研结论。" : "MOF Library exposes baseline records and source fields; it does not claim conclusions."}
         </div>
-      </div>
-    )
-  }
-
-  if (activeTab === "comparison") {
-    return (
-      <div style={layerStyle}>
-        <select
-          value={comparisonFocusId}
-          onChange={e => setComparisonFocusId(e.target.value)}
-          style={{ ...compactSelectStyle, width: isMobile ? "100%" : 240 }}
-        >
-          <option value="all">{lang === "zh" ? "全部候选" : "All candidates"}</option>
-          {comparisonCandidates.map(item => (
-            <option key={item.id} value={item.id}>{item.name}</option>
-          ))}
-        </select>
-        {comparisonSubtabs.map(item => (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => setComparisonTab(item.id)}
-            style={headerChipBtn(t, comparisonTab === item.id)}
-          >
-            {item.label}
-          </button>
-        ))}
-        {selectedComparison && (
-          <div style={{
-            marginLeft: isNarrow ? 0 : "auto",
-            color: t.subtle,
-            fontSize: 11,
-            background: t.panel,
-            border: `1px solid ${t.border}`,
-            borderRadius: 999,
-            padding: "8px 12px",
-          }}>
-            {selectedComparison.performance} mmol/g · Sel. {selectedComparison.selectivity}
-          </div>
-        )}
-      </div>
-    )
-  }
-
-  if (activeTab === "resources") {
-    return (
-      <div style={layerStyle}>
-        {resourceSubtabs.map(item => (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => setResourcesTab(item.id)}
-            style={headerChipBtn(t, resourcesTab === item.id)}
-          >
-            {item.label}
-          </button>
-        ))}
-      </div>
-    )
-  }
-
-  if (activeTab === "validation") {
-    return (
-      <div style={{ ...layerStyle, justifyContent: "space-between" }}>
-        <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
-          {apiStatus.message}
-        </div>
-        <button type="button" onClick={onCheckApi} style={headerChipBtn(t)}>
-          {lang === "zh" ? "刷新状态" : "Refresh status"}
-        </button>
       </div>
     )
   }

@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react"
 import {
   useT, useLang, useViewport,
   fetchDataJson, BasisBadge, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard,
+  calculateCatalysisScore, getScoreBreakdown, getWeightContribution, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
+  RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
 } from "../../shared"
 
 const TASKS = [
@@ -117,7 +119,9 @@ const CANDIDATES = [
   },
 ]
 
-const WEIGHTS = {
+const WEIGHTS = DEFAULT_SCORING_WEIGHTS.catalysis
+
+const LEGACY_WEIGHTS = {
   co2Affinity: 0.16,
   activeSite: 0.18,
   poreAccessibility: 0.14,
@@ -127,7 +131,7 @@ const WEIGHTS = {
   evidenceConfidence: 0.12,
 }
 
-const zhTask = (task, lang) => lang === "zh" ? (task.zh || task.labelZh || task.en || task.label) : (task.en || task.label || task.zh || task.labelZh)
+const zhTask = (task, lang) => lang === "zh" ? (task.nameZh || task.zh || task.labelZh || task.en || task.label || task.name) : (task.name || task.en || task.label || task.zh || task.labelZh)
 const scoreMap = { High: 9, Medium: 6.4, Low: 3.8, "Low-medium": 5.2, Possible: 7.2, No: 5.6 }
 const riskMap = { Low: 8.7, Medium: 6.2, High: 3.4 }
 const evidenceMap = { High: 9, Medium: 7, "Low-medium": 5.3, Low: 3.8 }
@@ -137,7 +141,8 @@ function normalizeCandidate(item) {
   return {
     ...item,
     metalCenter: item.metalCenter || metals.join(", ") || "unmarked",
-    bimetallic: item.bimetallic || "No",
+    bimetallic: item.bimetallic === true ? "Yes" : item.bimetallic === false ? "No" : item.bimetallic || "No",
+    activeSiteHypothesis: Array.isArray(item.activeSiteHypothesis) ? item.activeSiteHypothesis.join("; ") : item.activeSiteHypothesis,
     sustainabilityRisk: item.sustainabilityRisk || (item.costLevel === "High" || item.toxicityConcern === "High" ? "High" : item.costLevel === "Medium" || item.toxicityConcern === "Medium" ? "Medium" : "Low"),
     reactionClasses: Array.isArray(item.reactionClasses) ? item.reactionClasses : [],
   }
@@ -206,12 +211,13 @@ export function CatalysisLabTab() {
       if (!active) return
       if (Array.isArray(candidateRows) && candidateRows.length) setCandidates(candidateRows.map(normalizeCandidate))
       if (Array.isArray(taskRows) && taskRows.length) setTasks(taskRows)
-      if (weightRows?.catalysisPotentialScore) setWeights(weightRows.catalysisPotentialScore)
+      if (weightRows?.CatalysisLab) setWeights(weightRows.CatalysisLab)
+      else if (weightRows?.catalysisPotentialScore) setWeights(weightRows.catalysisPotentialScore)
     }).catch(() => {
       if (!active) return
       setCandidates(CANDIDATES)
       setTasks(TASKS)
-      setWeights(WEIGHTS)
+      setWeights(LEGACY_WEIGHTS)
     })
     return () => { active = false }
   }, [])
@@ -221,7 +227,16 @@ export function CatalysisLabTab() {
 
   const ranked = useMemo(() => {
     return candidates
-      .map(candidate => ({ ...candidate, catalysis: computeCatalysisScore(candidate, taskId, weights) }))
+      .map(candidate => {
+        const catalysis = calculateCatalysisScore(candidate, task, weights)
+        return {
+          ...candidate,
+          catalysis,
+          score: catalysis.score,
+          scoreBreakdown: getScoreBreakdown(candidate, "catalysis", task),
+          weightContribution: getWeightContribution(candidate, weights, "catalysis", task),
+        }
+      })
       .filter(item => filters.metalCenter === "all" || item.metalCenter === filters.metalCenter)
       .filter(item => filters.bimetallic === "all" || item.bimetallic === filters.bimetallic)
       .filter(item => Number(item.poreSizeA) >= Number(filters.poreMin) && Number(item.poreSizeA) <= Number(filters.poreMax))
@@ -233,7 +248,7 @@ export function CatalysisLabTab() {
       .filter(item => filters.evidenceLevel === "all" || item.evidenceLevel === filters.evidenceLevel)
       .filter(item => filters.sustainabilityRisk === "all" || item.sustainabilityRisk === filters.sustainabilityRisk)
       .sort((a, b) => b.catalysis.score - a.catalysis.score)
-  }, [candidates, taskId, filters, weights])
+  }, [candidates, taskId, filters, weights, task])
 
   const activeCandidate = selected || ranked[0]
   const updateFilter = (key, value) => setFilters(prev => ({ ...prev, [key]: value }))
@@ -252,6 +267,7 @@ export function CatalysisLabTab() {
         <select value={filters.bimetallic} onChange={e => updateFilter("bimetallic", e.target.value)} style={controlStyle}>
           <option value="all">{lang === "zh" ? "全部" : "all"}</option>
           <option value="No">{zhValue("No", lang)}</option>
+          <option value="Yes">{lang === "zh" ? "是" : "Yes"}</option>
           <option value="Possible">{zhValue("Possible", lang)}</option>
         </select>
       </label>
@@ -272,8 +288,8 @@ export function CatalysisLabTab() {
       {[
         ["waterStability", lang === "zh" ? "水稳定性" : "water stability", ["High", "Medium", "Low"]],
         ["thermalStability", lang === "zh" ? "热稳定性" : "thermal stability", ["High", "Medium", "Low"]],
-        ["evidenceLevel", lang === "zh" ? "证据等级" : "evidence level", ["Medium", "Low-medium", "Low"]],
-        ["sustainabilityRisk", lang === "zh" ? "可持续性风险" : "sustainability risk", ["Low", "Medium", "High"]],
+        ["evidenceLevel", lang === "zh" ? "证据等级" : "evidence level", ["experimental", "literature-supported", "simulation-supported", "ML-predicted", "rule-based", "needs-validation", "Medium", "Low-medium", "Low"]],
+        ["sustainabilityRisk", lang === "zh" ? "可持续性风险" : "sustainability risk", ["low", "medium", "high", "Low", "Medium", "High"]],
       ].map(([key, label, options]) => (
         <label key={key} style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }}>
           {label}
@@ -338,23 +354,18 @@ export function CatalysisLabTab() {
               score={candidate.catalysis.score}
               scoreLabel={lang === "zh" ? "催化潜力" : "Catalysis potential"}
               suitableTask={zhTask(task, lang)}
-              scoreBreakdown={[
-                { label: "CO₂ Affinity", value: candidate.catalysis.parts.co2Affinity },
-                { label: "Active Site Potential", value: candidate.catalysis.parts.activeSite },
-                { label: "Pore Accessibility", value: candidate.catalysis.parts.poreAccessibility },
-                { label: "Stability", value: candidate.catalysis.parts.stability },
-                { label: "Electronic Property", value: candidate.catalysis.parts.electronicProperty },
-                { label: "Sustainability", value: candidate.catalysis.parts.sustainability },
-                { label: "Evidence Confidence", value: candidate.catalysis.parts.evidenceConfidence },
-              ]}
+              scoreBreakdown={candidate.scoreBreakdown}
               keyReasons={[
-                `${lang === "zh" ? "活性位点假设" : "active-site hypothesis"}: ${candidate.activeSiteHypothesis}`,
-                `${lang === "zh" ? "孔径" : "pore size"} ${candidate.poreSizeA} Å`,
-                `${lang === "zh" ? "稳定性" : "stability"} ${zhValue(candidate.waterStability, lang)} / ${zhValue(candidate.thermalStability, lang)}`,
+                lang === "zh" ? "较高 CO₂ 亲和能力可能有利于反应物富集。" : "High CO₂ affinity may benefit reactant enrichment.",
+                lang === "zh" ? "合适孔径可能有利于分子扩散。" : "Suitable pore size may support molecular diffusion.",
+                lang === "zh" ? "金属节点可能提供 Lewis 酸位点或氧化还原活性位点。" : "Metal nodes may provide Lewis acidic or redox-active sites.",
+                lang === "zh" ? "当前证据为规则推断，仍需实验验证。" : "Current evidence is rule-based and requires experimental validation.",
               ]}
-              evidenceLevel={lang === "zh" ? `证据等级：${zhValue(candidate.evidenceLevel, lang)}` : `Evidence level: ${candidate.evidenceLevel}`}
+              evidenceLevel={`Evidence Level: ${candidate.evidenceLevel || "rule-based"}`}
               limitations={lang === "zh" ? "Demo / placeholder / rule-based 数据；不代表真实催化活性或选择性。" : "Demo / placeholder / rule-based data; not real catalytic activity or selectivity."}
-              recommendedNextStep={lang === "zh" ? "建立反应条件、对照实验、产物选择性和循环稳定性验证。" : "Define reaction conditions, control experiments, product selectivity, and cycling stability validation."}
+              recommendedNextStep={lang === "zh"
+                ? ["定义反应条件与对照实验", "验证转化率、选择性和循环稳定性", "补充机理表征"]
+                : ["Define reaction conditions and controls", "Validate conversion, selectivity, and cycling stability", "Add mechanistic characterization"]}
               onDetails={() => setSelected(candidate)}
             />
           ))}
@@ -362,6 +373,11 @@ export function CatalysisLabTab() {
       </ResultLayer>
 
       <ResultLayer number="04" title={lang === "zh" ? "结果解释" : "Results Interpretation"}>
+        <Callout tone="info">
+          {lang === "zh"
+            ? "Catalysis Potential Score 表示候选材料在特定催化任务下的潜力优先级，不等同于真实催化活性或产率。"
+            : "Catalysis Potential Score indicates candidate priority for a selected catalysis task. It does not represent final catalytic activity or yield."}
+        </Callout>
         {activeCandidate && (
           <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
             {[
@@ -385,10 +401,43 @@ export function CatalysisLabTab() {
         </MethodDrawer>
       </ResultLayer>
 
+      <ResultLayer number="06" title={lang === "zh" ? "Model Results / 结果解释图表" : "Model Results / Results Interpretation"}>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
+          <RankingBarChart data={ranked} scoreLabel="Catalysis Potential Score" />
+          <ScoreBreakdownRadar data={activeCandidate?.scoreBreakdown || []} title={activeCandidate ? `${activeCandidate.name} · Score Breakdown` : "Score Breakdown"} />
+          <WeightContributionChart data={activeCandidate?.weightContribution || []} />
+          <EvidenceDistributionChart data={evidenceDistribution(ranked)} />
+          <ScoreDistributionChart data={scoreDistribution(ranked)} />
+          <SensitivityAnalysisChart data={sensitivityRows(ranked, "catalysis", weights, task, "co2Affinity")} dimension="CO₂ Affinity" />
+        </div>
+      </ResultLayer>
+
+      <ResultLayer number="07" title={lang === "zh" ? "Machine Learning Evaluation 占位" : "Machine Learning Evaluation Placeholder"}>
+        <Callout tone="warn">
+          {lang === "zh"
+            ? "当前机器学习评估为占位展示。只有在积累足够带标签的实验或文献数据后，才会启用真实模型评估。"
+            : "Machine learning evaluation is currently a placeholder. It will be activated when enough labeled experimental or literature data are available."}
+        </Callout>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+          {[
+            ["Predicted vs Actual", lang === "zh" ? "需要带标签的实验或文献数据。" : "Requires labeled experimental or literature data."],
+            ["Residual Plot", lang === "zh" ? "残差分析将在真实模型训练后启用。" : "Residual analysis will be available after model training."],
+            ["Rule Contribution", lang === "zh" ? "当前展示规则贡献，不是 Feature Importance。" : "Current view shows rule contribution, not Feature Importance."],
+            ["R²: pending · MAE: pending · RMSE: pending · Cross-validation: pending", lang === "zh" ? "不显示伪造模型指标。" : "No fabricated model metrics are shown."],
+          ].map(([title, body]) => (
+            <div key={title} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <BasisBadge tone="proxy">Demo only / Placeholder</BasisBadge>
+              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850, marginTop: 9 }}>{title}</div>
+              <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 6 }}>{body}</div>
+            </div>
+          ))}
+        </div>
+      </ResultLayer>
+
       <Callout tone="warn">
         {lang === "zh"
-          ? "Catalytic performance depends strongly on reaction conditions. 当前分数用于 candidate prioritization，不是最终性能预测。"
-          : "Catalytic performance depends strongly on reaction conditions. The current score is intended for candidate prioritization, not final performance prediction."}
+          ? "催化性能高度依赖温度、溶剂、压力、底物、光/电化学环境和催化剂制备方式。当前评分用于候选材料优先级排序，不等同于最终催化性能预测。"
+          : "Catalytic performance strongly depends on reaction conditions, including temperature, solvent, pressure, substrate, light/electrochemical environment, and catalyst preparation. The current score is intended for candidate prioritization, not final performance prediction."}
       </Callout>
     </div>
   )

@@ -3,6 +3,8 @@ import {
   useT, useLang, useViewport,
   LITERATURE_DB, METAL_CENTERS, ORGANIC_LINKERS,
   fetchDataJson, buildDatabaseRecords, toolbarBtn,
+  calculateEcoScore, getScoreBreakdown, getWeightContribution, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
+  RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
   BasisBadge, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard,
 } from "../../shared"
 
@@ -36,7 +38,20 @@ function buildEcoCandidates(records, results, inputs, lang) {
     const linkerScore = linker?.lcaScore ?? 5.5
     const processFit = Math.max(0, Math.min(1, 1 - Math.abs(Number(record.bet || 0) - 1800) / 4200))
     const selectivityFit = Math.min(1, Number(record.selectivity || 0) / 120)
-    const score = Math.max(0, Math.min(10, metalScore * 0.42 + linkerScore * 0.32 + processFit * 1.4 + selectivityFit * 1.0 - (record.metal === "Cr3+" ? 1.1 : 0)))
+    const scoringCandidate = {
+      ...record,
+      co2Uptake: record.co2Uptake || record.co2 || record.primaryUptake || 3,
+      surfaceArea: record.bet || record.surfaceArea || 1200,
+      poreSizeA: record.pd || record.lcd || record.poreSizeA || 8,
+      selectivity: record.selectivity || 0,
+      waterStability: record.waterStability || "medium",
+      thermalStability: record.thermalStability || "medium",
+      costLevel: linkerScore >= 7 ? "low" : linkerScore >= 5.5 ? "medium" : "high",
+      toxicityConcern: metalScore >= 7 ? "low" : metalScore >= 5 ? "medium" : "high",
+      sustainabilityRisk: metalScore >= 7 && linkerScore >= 6 ? "low" : "medium",
+      evidenceLevel: record.sourceType?.includes("literature") || record.sourceType?.includes("GCMC") ? "literature-supported" : "rule-based",
+    }
+    const eco = calculateEcoScore(scoringCandidate, DEFAULT_SCORING_WEIGHTS.ecoscreen)
     const reasons = [
       metalScore >= 7.5 ? (lang === "zh" ? "低金属负担" : "lower metal burden") : (lang === "zh" ? "金属负担需复核" : "metal burden needs review"),
       linkerScore >= 6 ? (lang === "zh" ? "连接体较可持续" : "more sustainable linker") : (lang === "zh" ? "连接体成本/来源敏感" : "linker source sensitive"),
@@ -47,15 +62,12 @@ function buildEcoCandidates(records, results, inputs, lang) {
       name: record.name,
       metal: record.metal,
       linker: record.linker,
-      score: Number(score.toFixed(1)),
+      ...scoringCandidate,
+      score: eco.score,
       task: lang === "zh" ? "低环境负担 CO₂ 捕集候选优先级" : "Low-burden CO2-capture candidate prioritization",
       reasons,
-      breakdown: [
-        { label: lang === "zh" ? "金属负担" : "Metal burden", value: metalScore },
-        { label: lang === "zh" ? "连接体可持续性" : "Linker sustainability", value: linkerScore },
-        { label: lang === "zh" ? "孔结构适配" : "Pore fit", value: processFit * 10 },
-        { label: lang === "zh" ? "分离趋势" : "Separation trend", value: selectivityFit * 10 },
-      ],
+      breakdown: getScoreBreakdown(scoringCandidate, "ecoscreen"),
+      weightContribution: getWeightContribution(scoringCandidate, DEFAULT_SCORING_WEIGHTS.ecoscreen, "ecoscreen"),
       evidence: record.sourceType?.includes("literature") || record.sourceType?.includes("GCMC")
         ? (lang === "zh" ? "中等证据：文献 / GCMC 标签" : "Medium evidence: literature / GCMC labels")
         : (lang === "zh" ? "低-中证据：种子库 / 代理字段" : "Low-medium evidence: seed / proxy fields"),
@@ -74,18 +86,45 @@ function buildEcoCandidates(records, results, inputs, lang) {
       name: inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`,
       metal: inputs.metalCenter,
       linker: inputs.organicLinker,
-      score: Number(results.lca?.compositeGreenScore ?? 0),
+      score: calculateEcoScore({
+        co2Uptake: results.primaryUptake,
+        selectivity: results.selectivity,
+        surfaceArea: inputs.surfaceArea || inputs.bet || 1200,
+        poreSizeA: inputs.poreSizeA || inputs.poreSize || 8,
+        waterStability: "medium",
+        thermalStability: "medium",
+        costLevel: "medium",
+        toxicityConcern: "low",
+        evidenceLevel: "rule-based",
+      }, DEFAULT_SCORING_WEIGHTS.ecoscreen).score,
       task: lang === "zh" ? "当前输入结构的 EcoScreen 候选" : "EcoScreen candidate for current input",
       reasons: [
         lang === "zh" ? "来自当前输入" : "current input",
         lang === "zh" ? `选择性 ${results.selectivity}` : `selectivity ${results.selectivity}`,
         lang === "zh" ? "需要实验和清单验证" : "requires experimental and inventory validation",
       ],
-      breakdown: [
-        { label: lang === "zh" ? "当前生态评分" : "Current eco score", value: Number(results.lca?.compositeGreenScore ?? 0) },
-        { label: lang === "zh" ? "选择性贡献" : "Selectivity contribution", value: Math.min(10, Number(results.selectivity || 0) / 12) },
-        { label: lang === "zh" ? "置信度" : "Confidence", value: Number(results.confidenceScore || 0) * 10 },
-      ],
+      breakdown: getScoreBreakdown({
+        co2Uptake: results.primaryUptake,
+        selectivity: results.selectivity,
+        surfaceArea: inputs.surfaceArea || inputs.bet || 1200,
+        poreSizeA: inputs.poreSizeA || inputs.poreSize || 8,
+        waterStability: "medium",
+        thermalStability: "medium",
+        costLevel: "medium",
+        toxicityConcern: "low",
+        evidenceLevel: "rule-based",
+      }, "ecoscreen"),
+      weightContribution: getWeightContribution({
+        co2Uptake: results.primaryUptake,
+        selectivity: results.selectivity,
+        surfaceArea: inputs.surfaceArea || inputs.bet || 1200,
+        poreSizeA: inputs.poreSizeA || inputs.poreSize || 8,
+        waterStability: "medium",
+        thermalStability: "medium",
+        costLevel: "medium",
+        toxicityConcern: "low",
+        evidenceLevel: "rule-based",
+      }, DEFAULT_SCORING_WEIGHTS.ecoscreen, "ecoscreen"),
       evidence: lang === "zh" ? "模型 / 代理证据" : "Model / proxy evidence",
       source: lang === "zh" ? "当前浏览器端模型 + LCA 代理规则" : "Current browser model + LCA proxy rules",
       note: lang === "zh"
@@ -109,7 +148,7 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
   const [filters, setFilters] = useState({
     task: "co2-capture",
     metalRisk: "noHigh",
-    minScore: 6.2,
+    minScore: 62,
     evidence: "all",
   })
 
@@ -190,7 +229,7 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
             </label>
             <label style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }}>
               {lang === "zh" ? "最低生态评分" : "Minimum Eco Score"}
-              <input type="number" min="0" max="10" step="0.1" value={filters.minScore} onChange={e => setFilters(prev => ({ ...prev, minScore: e.target.value }))} style={controlStyle} />
+              <input type="number" min="0" max="100" step="1" value={filters.minScore} onChange={e => setFilters(prev => ({ ...prev, minScore: e.target.value }))} style={controlStyle} />
             </label>
             <label style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }}>
               {lang === "zh" ? "证据等级" : "Evidence"}
@@ -226,7 +265,7 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
         </div>
       </ResultLayer>
 
-      <ResultLayer number="03" title={lang === "zh" ? "解释卡片" : "Explanation Cards"} subtitle={lang === "zh" ? "解释为什么一个候选值得进入下一轮，而不是把分数当作最终结论。" : "Explain why a candidate should enter the next round without treating the score as a final conclusion."}>
+      <ResultLayer number="03" title="Results Interpretation Notes" subtitle={lang === "zh" ? "Eco Score 表示候选材料在当前可持续性评分策略下的优先级，不等同于完整工业 LCA 结论。" : "Eco Score indicates candidate priority under the current sustainability scoring strategy. It does not replace full industrial LCA."}>
         {activeCandidate && (
           <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr 1fr", gap: 12 }}>
             <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
@@ -250,7 +289,18 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
         )}
       </ResultLayer>
 
-      <ResultLayer number="04" title={lang === "zh" ? "方法说明" : "Method Notes"}>
+      <ResultLayer number="04" title={lang === "zh" ? "Model Results / 结果解释图表" : "Model Results / Results Interpretation"}>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
+          <RankingBarChart data={candidates} scoreLabel="Eco Score" />
+          <ScoreBreakdownRadar data={activeCandidate?.breakdown || []} title={activeCandidate ? `${activeCandidate.name} · Score Breakdown` : "Score Breakdown"} />
+          <WeightContributionChart data={activeCandidate?.weightContribution || []} />
+          <EvidenceDistributionChart data={evidenceDistribution(candidates)} />
+          <ScoreDistributionChart data={scoreDistribution(candidates)} />
+          <SensitivityAnalysisChart data={sensitivityRows(candidates, "ecoscreen", DEFAULT_SCORING_WEIGHTS.ecoscreen, null, "sustainability")} dimension="Sustainability" />
+        </div>
+      </ResultLayer>
+
+      <ResultLayer number="05" title={lang === "zh" ? "方法说明" : "Method Notes"}>
         <div style={{ display: "grid", gap: 10 }}>
           <MethodDrawer title={lang === "zh" ? "生态评分解释边界" : "Eco Score interpretation boundary"}>
             {lang === "zh" ? "生态评分聚合金属节点、连接体、过程代理、性能趋势和来源质量。它是候选优先级，不是完整 LCIA 或供应商报价。" : "Eco Score aggregates node, linker, process proxies, performance trend, and source quality. It is candidate priority, not full LCIA or supplier pricing."}

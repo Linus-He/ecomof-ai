@@ -7,8 +7,8 @@ export function HomeTab({ setActiveTab }) {
   const { isNarrow, isMobile } = useViewport()
 
   const position = {
-    en: "ecomof-ai is a research-oriented MOF AI prototype platform for early-stage candidate screening, sustainability evaluation, and task-oriented application exploration.",
-    zh: "ecomof-ai 是一个面向科研合作的 MOF AI 原型平台，用于早期候选材料筛选、可持续性评价和任务导向应用探索。",
+    en: "ecomof-ai is a research-oriented MOF AI prototype platform for early-stage candidate screening, sustainability evaluation, performance comparison, and task-oriented application exploration.",
+    zh: "ecomof-ai 是一个面向科研合作的 MOF AI 原型平台，用于早期候选材料筛选、可持续性评价、性能比较和任务导向应用探索。",
   }
   const modules = [
     {
@@ -16,8 +16,8 @@ export function HomeTab({ setActiveTab }) {
       name: "Performance",
       eyebrow: lang === "zh" ? "吸附与热力学筛选" : "Adsorption and thermodynamic screening",
       body: lang === "zh"
-        ? "围绕 CO₂ uptake、选择性和热力学解释，形成早期候选材料的性能优先级。"
-        : "Prioritize early-stage candidates through CO₂ uptake, selectivity, and thermodynamic interpretation.",
+        ? "CO₂ 吸附量、选择性、热力学解释和吸附相关候选材料比较。"
+        : "CO₂ uptake, selectivity, thermodynamic interpretation, and adsorption-related candidate comparison.",
       badge: lang === "zh" ? "吸附候选排序" : "Adsorption candidate ranking",
     },
     {
@@ -25,8 +25,8 @@ export function HomeTab({ setActiveTab }) {
       name: "EcoScreen",
       eyebrow: lang === "zh" ? "可持续性与可行性评价" : "Sustainability and feasibility evaluation",
       body: lang === "zh"
-        ? "整理 LCA、LCC、毒性、成本和稳健性线索，用于候选材料的可持续性优先级判断。"
-        : "Organize LCA, LCC, toxicity, cost, and robustness cues for sustainability-oriented prioritization.",
+        ? "面向可持续性的 MOF 筛选，结合 LCA、LCC、毒性、成本、稳定性和鲁棒性指标。"
+        : "Sustainability-oriented MOF screening with LCA, LCC, toxicity, cost, stability, and robustness indicators.",
       badge: lang === "zh" ? "可持续性优先级" : "Sustainability priority",
     },
     {
@@ -34,13 +34,13 @@ export function HomeTab({ setActiveTab }) {
       name: "CatalysisLab",
       eyebrow: lang === "zh" ? "任务导向应用探索" : "Task-oriented application exploration",
       body: lang === "zh"
-        ? "使用 Rule-based Model 对催化候选材料进行优先级筛选，当前仅作为潜力与假设生成工具。"
-        : "Use a Rule-based Model for catalysis candidate prioritization as a potential and hypothesis-generation tool.",
+        ? "基于规则的催化候选材料优先级筛选，面向 CO₂ 转化、生物质转化、光催化和电催化等任务。"
+        : "Rule-based catalysis candidate prioritization for CO₂ conversion, biomass conversion, photocatalysis, and electrocatalysis.",
       badge: lang === "zh" ? "规则评分 / 需要验证" : "Rule-based / needs validation",
     },
   ]
   const workflow = lang === "zh"
-    ? ["数据库", "特征提取", "任务规则", "Rule-based Scoring", "Candidate Ranking", "结果解释", "实验验证"]
+    ? ["数据库", "特征提取", "任务规则", "规则评分", "候选排序", "结果解释", "实验验证"]
     : ["Database", "Feature Extraction", "Task Rules", "Rule-based Scoring", "Candidate Ranking", "Results Interpretation", "Experimental Validation"]
 
   return (
@@ -63,8 +63,8 @@ export function HomeTab({ setActiveTab }) {
           </div>
           <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 820, lineHeight: 1.55 }}>
             {lang === "zh"
-              ? "结果用于 Early-stage Screening、假设生成和决策支持，不替代实验验证、GCMC、严格 IAST 或完整工业 LCA。"
-              : "Outputs support early-stage screening, hypothesis generation, and decision support. They do not replace experimental validation, GCMC, strict IAST, or full industrial LCA."}
+              ? "平台结果用于早期筛选、决策支持和研究假设生成，不替代实验验证、严格 GCMC 模拟、IAST 分析或完整工业 LCA。"
+              : "The platform provides decision-support results for early-stage screening and hypothesis generation. It does not replace experimental validation, rigorous GCMC simulation, IAST analysis, or full industrial LCA."}
           </div>
         </div>
       </section>

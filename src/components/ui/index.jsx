@@ -155,6 +155,15 @@ export function UnifiedCandidateCard({
   const { lang } = useLang()
   const safeScore = Number.isFinite(Number(score)) ? Number(score).toFixed(1) : score || "—"
   const tone = Number(score) >= 8 ? "calc" : Number(score) >= 6.5 ? "info" : Number(score) >= 5 ? "proxy" : "warn"
+  const scoreTone = Number(score) >= 80 ? "calc" : Number(score) >= 65 ? "info" : Number(score) >= 50 ? "proxy" : tone
+  const normalizedWidth = (value) => {
+    const number = Number(value || 0)
+    return Math.max(0, Math.min(100, number > 10 ? number : number * 10))
+  }
+  const formattedValue = (value) => Number(value || 0).toFixed(1)
+  const nextSteps = Array.isArray(recommendedNextStep)
+    ? recommendedNextStep
+    : String(recommendedNextStep || "").split(/;|\n/).map(item => item.trim()).filter(Boolean)
   return (
     <article className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, display: "grid", gap: 12 }}>
       <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start" }}>
@@ -164,7 +173,7 @@ export function UnifiedCandidateCard({
           </div>
           <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 880, overflowWrap: "anywhere" }}>{name}</div>
         </div>
-        <BasisBadge tone={tone}>{scoreLabel || (lang === "zh" ? "评分" : "Score")} {safeScore}</BasisBadge>
+        <BasisBadge tone={scoreTone}>{scoreLabel || (lang === "zh" ? "评分" : "Score")} {safeScore}</BasisBadge>
       </div>
 
       <div>
@@ -175,12 +184,12 @@ export function UnifiedCandidateCard({
       <div>
         <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 6 }}>{lang === "zh" ? "评分分解" : "Score breakdown"}</div>
         <div style={{ display: "grid", gap: 6 }}>
-          {scoreBreakdown.slice(0, 5).map(item => (
+          {scoreBreakdown.map(item => (
             <div key={item.label} style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 42px", gap: 8, alignItems: "center" }}>
               <div style={{ height: 5, background: t.border, borderRadius: 999, overflow: "hidden" }}>
-                <div style={{ height: "100%", width: `${Math.max(0, Math.min(10, Number(item.value || 0))) * 10}%`, background: item.color || t.accent, borderRadius: 999 }} />
+                <div style={{ height: "100%", width: `${normalizedWidth(item.value)}%`, background: item.color || t.accent, borderRadius: 999 }} />
               </div>
-              <div style={{ color: t.subtle, fontSize: 10, fontWeight: 800 }}>{Number(item.value || 0).toFixed(1)}</div>
+              <div style={{ color: t.subtle, fontSize: 10, fontWeight: 800 }}>{formattedValue(item.value)}</div>
               <div style={{ gridColumn: "1 / -1", color: t.faint, fontSize: 10, marginTop: -3 }}>{item.label}</div>
             </div>
           ))}
@@ -208,13 +217,16 @@ export function UnifiedCandidateCard({
           )}
         </div>
         {limitations && (
-          <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55 }}>
+          <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: 9 }}>
             <strong style={{ color: t.warn }}>{lang === "zh" ? "限制：" : "Limitations: "}</strong>{limitations}
           </div>
         )}
-        {recommendedNextStep && (
+        {nextSteps.length > 0 && (
           <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55 }}>
-            <strong style={{ color: t.accentText }}>{lang === "zh" ? "下一步：" : "Recommended next step: "}</strong>{recommendedNextStep}
+            <strong style={{ color: t.accentText }}>{lang === "zh" ? "下一步：" : "Recommended next step: "}</strong>
+            <ul style={{ margin: "5px 0 0 16px", padding: 0 }}>
+              {nextSteps.slice(0, 3).map(step => <li key={step}>{step}</li>)}
+            </ul>
           </div>
         )}
       </div>

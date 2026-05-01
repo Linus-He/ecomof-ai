@@ -103,7 +103,12 @@ export function MethodsLimitationsTab() {
       </div>
 
       <div className="content-card" style={sectionCard}>
-        <SectionTitle>{lang === "zh" ? "Rule-based scoring model" : "Rule-based scoring model"}</SectionTitle>
+        <SectionTitle>{lang === "zh" ? "当前阶段：Rule-based Scoring Model" : "Current stage: Rule-based Scoring Model"}</SectionTitle>
+        <Callout tone="info">
+          {lang === "zh"
+            ? "当前平台采用规则驱动的多指标评分模型，对候选 MOF 进行优先级排序。"
+            : "The current platform uses rule-based multi-criteria scoring to prioritize candidate MOFs."}
+        </Callout>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12, marginTop: 10 }}>
           <MethodFormula
             title="Final Score"
@@ -124,21 +129,58 @@ export function MethodsLimitationsTab() {
         <SectionTitle>{lang === "zh" ? "Evidence Level" : "Evidence levels"}</SectionTitle>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10, marginTop: 10 }}>
           {(lang === "zh" ? [
-            ["High", "多来源一致且任务相关；仍需要目标反应验证。"],
-            ["Medium", "有部分文献、描述符或结构证据；适合候选排序。"],
-            ["Low-medium", "有少量描述符支持，但任务证据有限；只用于假设生成。"],
-            ["Low", "主要是推断或占位；不能作为结论。"],
+            ["experimental", "直接实验数据支持；新任务仍需独立验证。"],
+            ["literature-supported", "相关文献或基准数据支持，需保留来源和条件。"],
+            ["simulation-supported", "GCMC、DFT 或描述符计算支持，不替代实验。"],
+            ["ML-predicted", "未来模型证据枚举；当前不作为真实模型输出。"],
+            ["rule-based", "来自描述符规则和假设，是当前 demo 默认等级。"],
+            ["needs-validation", "证据稀疏或占位，仅用于假设生成。"],
           ] : [
-            ["High", "Multiple consistent and task-relevant sources; target-reaction validation is still needed."],
-            ["Medium", "Partial literature, descriptor, or structural evidence; suitable for candidate ranking."],
-            ["Low-medium", "Some descriptor support but limited task evidence; hypothesis generation only."],
-            ["Low", "Mostly inferred or placeholder support; not a conclusion."],
+            ["experimental", "Direct experimental data support; independent validation is still needed for a new task."],
+            ["literature-supported", "Relevant literature or benchmark data support, with source and conditions retained."],
+            ["simulation-supported", "Supported by GCMC, DFT, or descriptor calculation; not a substitute for experiment."],
+            ["ML-predicted", "Future model evidence enumeration; not active real-model output in the current prototype."],
+            ["rule-based", "Derived from descriptor rules and assumptions; current demo default."],
+            ["needs-validation", "Sparse or placeholder evidence; hypothesis generation only."],
           ]).map(([level, body]) => (
             <div key={level} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
               <BasisBadge tone={level === "High" ? "calc" : level === "Medium" ? "info" : "proxy"}>{level}</BasisBadge>
               <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.6, marginTop: 9 }}>{body}</div>
             </div>
           ))}
+        </div>
+      </div>
+
+      <div className="content-card" style={sectionCard}>
+        <SectionTitle>{lang === "zh" ? "Model Results" : "Model Results"}</SectionTitle>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))", gap: 10, marginTop: 10 }}>
+          {(lang === "zh" ? [
+            ["Candidate Ranking", "展示当前规则评分策略下的候选优先级。"],
+            ["Score Breakdown", "展示单个候选材料的维度分数组成。"],
+            ["Weight Contribution", "解释权重与归一化描述符如何影响最终分数。"],
+            ["Evidence Level Distribution", "展示候选集合的数据或规则支持强弱。"],
+            ["Sensitivity Analysis", "检查关键权重浮动后 Top candidates 是否稳定。"],
+          ] : [
+            ["Candidate Ranking", "Shows candidate priority under the current rule-based scoring strategy."],
+            ["Score Breakdown", "Shows dimension-level score composition for a selected candidate."],
+            ["Weight Contribution", "Explains how weights and normalized descriptors affect the final score."],
+            ["Evidence Level Distribution", "Shows how strongly the candidate set is supported by data or assumptions."],
+            ["Sensitivity Analysis", "Checks whether top candidates remain stable when a key weight changes."],
+          ]).map(([title, body]) => (
+            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <BasisBadge tone="info">{title}</BasisBadge>
+              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.6, marginTop: 9 }}>{body}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="content-card" style={sectionCard}>
+        <SectionTitle>{lang === "zh" ? "未来阶段：Machine Learning Model" : "Future stage: Machine Learning Model"}</SectionTitle>
+        <div style={bodyText}>
+          {lang === "zh"
+            ? "当积累足够带标签数据后，平台可使用 Random Forest、XGBoost 等表格机器学习方法建立结构-性能关系模型。未来 ML outputs 包括 Predicted vs Actual、Residual Plot、Feature Importance、R² / MAE / RMSE 和 Cross-validation。"
+            : "When enough labeled data are available, the platform can train structure-property models using Random Forest, XGBoost, or other tabular ML methods. Future ML outputs include Predicted vs Actual, Residual Plot, Feature Importance, R² / MAE / RMSE, and Cross-validation."}
         </div>
       </div>
 
@@ -150,7 +192,7 @@ export function MethodsLimitationsTab() {
             : "Demo only / Placeholder: without labeled data, the platform does not show real R², MAE, or RMSE. The items below are future evaluation plans."}
         </Callout>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10, marginTop: 10 }}>
-          {["Predicted vs Actual", "Residual Plot", "Feature Importance", "R² / MAE / RMSE"].map(item => (
+          {["Predicted vs Actual", "Residual Plot", "Descriptor Contribution / Rule Contribution", "R²: pending · MAE: pending · RMSE: pending · Cross-validation: pending"].map(item => (
             <div key={item} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, minHeight: 92 }}>
               <BasisBadge tone="proxy">Demo only / Placeholder</BasisBadge>
               <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850, marginTop: 10 }}>{item}</div>
