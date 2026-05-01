@@ -1,7 +1,7 @@
 import {
   useT, useLang, useViewport,
   zhText, FONT_MONO,
-  BasisBadge, SectionTitle, Callout,
+  BasisBadge, SectionTitle, Callout, PageHeader,
 } from "../../shared"
 
 export function MethodsLimitationsTab() {
@@ -38,9 +38,39 @@ export function MethodsLimitationsTab() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <PageHeader
+        title={lang === "zh" ? "方法学" : "Methodology"}
+        subtitle={lang === "zh"
+          ? "说明 ecomof 的数据来源、任务评分规则、证据等级、限制和免责声明。平台输出是候选优先级，不替代实验验证。"
+          : "Data sources, task scoring rules, evidence levels, limitations, and disclaimers. Platform outputs are candidate priorities, not replacements for experimental validation."}
+        meta={lang === "zh" ? "数据来源 · 评分规则 · 证据等级 · 限制 · 免责声明" : "Data sources · scoring rules · evidence levels · limits · disclaimer"}
+        action={<BasisBadge tone="proxy">{lang === "zh" ? "候选优先级" : "candidate priority"}</BasisBadge>}
+      />
       <Callout tone="warn">
         <strong>{c.methods.noticeTitle}</strong> {c.methods.noticeBody}
       </Callout>
+
+      <div className="content-card" style={sectionCard}>
+        <SectionTitle>{lang === "zh" ? "任务导向评分框架" : "Task-oriented scoring framework"}</SectionTitle>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+          {(lang === "zh" ? [
+            ["数据来源", "结构库、描述符、吸附标签、LCA 代理清单和催化模拟数据分层展示；来源字段必须保留。", "info"],
+            ["评分规则", "EcoScreen 聚合环境负担与可行性代理；CatalysisLab 聚合任务适配、活性位点线索和证据等级。", "proxy"],
+            ["证据等级", "高/中/低证据只描述来源强弱和验证状态，不代表结果已经被证实。", "calc"],
+            ["免责声明", "输出是候选优先级；任何论文、专利或工程决策前都需要实验与独立验证。", "warn"],
+          ] : [
+            ["Data sources", "Structure libraries, descriptors, adsorption labels, LCA proxies, and catalysis mock data are separated; source fields must remain visible.", "info"],
+            ["Scoring rules", "EcoScreen aggregates burden and feasibility proxies; CatalysisLab aggregates task fit, active-site cues, and evidence level.", "proxy"],
+            ["Evidence levels", "High/medium/low evidence describes source strength and validation state; it does not certify results.", "calc"],
+            ["Disclaimer", "Outputs are candidate priorities; papers, patents, and engineering decisions require experimental and independent validation.", "warn"],
+          ]).map(([title, body, tone]) => (
+            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <BasisBadge tone={tone}>{title}</BasisBadge>
+              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, marginTop: 9 }}>{body}</div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Overview */}
       <div className="content-card" style={sectionCard}>
@@ -295,8 +325,8 @@ export function MethodsLimitationsTab() {
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, 1fr)", gap: 10 }}>
           {(lang === "zh" ? [
             ["不保证合成可行性", "尚未检查所选金属/配体组合在实验上是否合理。"],
-            ["严格 IAST 仍为代理", "已显示 Henry/IAST screening proxy，但尚未从真实单组分等温线运行严格混合热力学。"],
-            ["CIF 解析有限", "可读取部分 cell 与描述符 tag；完整 PLD/LCD/ASA 仍应由 Zeo++/RASPA 等后端管线计算。"],
+            ["严格 IAST 仍为代理", "已显示 Henry/IAST 筛选代理，但尚未从真实单组分等温线运行严格混合热力学。"],
+            ["CIF 解析有限", "可读取部分晶胞与描述符标签；完整 PLD/LCD/ASA 仍应由 Zeo++/RASPA 等后端管线计算。"],
             ["无真实云同步", "当前为 localStorage + JSON 备份导入；账号、权限和云端同步需要后端。"],
           ] : [
             ["No guaranteed synthetic feasibility", "Does not yet check whether a proposed linker/metal combination is experimentally reasonable."],

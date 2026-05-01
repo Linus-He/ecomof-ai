@@ -29,6 +29,9 @@ const lazyNamed = (loader, exportName) => lazy(async () => {
 })
 
 const HomeTab = lazyNamed(() => import("./components/tabs/HomeTab.jsx"), "HomeTab")
+const EcoScreenTab = lazyNamed(() => import("./components/tabs/EcoScreenTab.jsx"), "EcoScreenTab")
+const CatalysisLabTab = lazyNamed(() => import("./components/tabs/CatalysisLabTab.jsx"), "CatalysisLabTab")
+const MOFLibraryTab = lazyNamed(() => import("./components/tabs/MOFLibraryTab.jsx"), "MOFLibraryTab")
 const WorkflowTab = lazyNamed(() => import("./components/tabs/WorkflowTab.jsx"), "WorkflowTab")
 const ScreeningTab = lazyNamed(() => import("./components/tabs/ScreeningTab.jsx"), "ScreeningTab")
 const ComparisonTab = lazyNamed(() => import("./components/tabs/ComparisonTab.jsx"), "ComparisonTab")
@@ -267,6 +270,18 @@ function AppShell({
         <Suspense fallback={<LoadingPanel theme={theme} lang={lang} />}>
           <div key={activeTab} className="page-transition" data-tab={activeTab}>
             {activeTab === "home" && <HomeTab setActiveTab={navigateTab} />}
+            {activeTab === "ecoscreen" && (
+              <EcoScreenTab
+                inputs={inputs}
+                setInputs={setInputs}
+                results={results}
+                loading={loading}
+                onPredict={handlePredict}
+                onNavigate={navigateTab}
+              />
+            )}
+            {activeTab === "catalysis" && <CatalysisLabTab />}
+            {activeTab === "library" && <MOFLibraryTab results={results} inputs={inputs} />}
             {activeTab === "workflow" && <WorkflowTab setActiveTab={navigateTab} inputs={inputs} results={results} />}
             {activeTab === "screening" && (
               <ScreeningTab
@@ -344,7 +359,7 @@ function AppShell({
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(false)
-  const [lang, setLang] = useState("en")
+  const [lang, setLang] = useState("zh")
   const [viewportWidth, setViewportWidth] = useState(() => (typeof window === "undefined" ? 1440 : window.innerWidth))
   const [activeTab, setActiveTab] = useState("home")
   const [inputs, setInputs] = useState(DEFAULT_INPUTS)
@@ -448,6 +463,26 @@ export default function App() {
   }, [])
 
   const navigateTab = useCallback((target) => {
+    if (target === "overview") {
+      setActiveTab("home")
+      return
+    }
+    if (target === "ecoScreen") {
+      setActiveTab("ecoscreen")
+      return
+    }
+    if (target === "catalysisLab") {
+      setActiveTab("catalysis")
+      return
+    }
+    if (target === "mofLibrary" || target === "resources" || target === "literature") {
+      setActiveTab("library")
+      return
+    }
+    if (target === "methodology") {
+      setActiveTab("about")
+      return
+    }
     if (["feasibility", "lca", "sensitivity"].includes(target)) {
       setComparisonTab(target)
       setActiveTab("comparison")

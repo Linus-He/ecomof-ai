@@ -14,11 +14,9 @@ export const WORKFLOW_STAGE_ITEMS = [
 ]
 
 export const TABS = [
-  { id: "home",          copyKey: "home" },
-  { id: "workflow",      copyKey: "workflow" },
-  { id: "screening",     copyKey: "screening" },
-  { id: "comparison",    copyKey: "comparison" },
-  { id: "validation",    copyKey: "validation" },
-  { id: "resources",     copyKey: "resources" },
-  { id: "about",         copyKey: "about" },
+  { id: "home",          copyKey: "overview" },
+  { id: "ecoscreen",     copyKey: "ecoScreen" },
+  { id: "catalysis",     copyKey: "catalysisLab" },
+  { id: "library",       copyKey: "mofLibrary" },
+  { id: "about",         copyKey: "methodology" },
 ]

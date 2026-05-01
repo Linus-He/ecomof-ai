@@ -299,23 +299,17 @@ export function ContextualHeaderBar({
   if (activeTab === "home") {
     return (
       <div style={layerStyle}>
-        <PresetSearchControl
-          value={searchQuery}
-          setValue={setSearchQuery}
-          status={searchStatus}
-          setStatus={setSearchStatus}
-          open={searchOpen}
-          setOpen={setSearchOpen}
-          suggestions={presetSuggestions}
-          applyPreset={applyPreset}
-          placeholder={copy.header.searchPlaceholder}
-          width={isMobile ? "100%" : 420}
-        />
-        <button type="button" onClick={() => onLoadBenchmark?.("UiO-66")} style={{ ...headerChipBtn(t, true), padding: "9px 14px" }}>
-          {lang === "zh" ? "快速开始 · UiO-66" : "Quick start · UiO-66"}
+        <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
+          {lang === "zh" ? "模块入口页 · 首页不承载复杂筛选器" : "Module entry page · no dense filters on Overview"}
+        </div>
+        <button type="button" onClick={() => setActiveTab("ecoscreen")} style={{ ...headerChipBtn(t, true), padding: "9px 14px" }}>
+          EcoScreen
         </button>
-        <button type="button" onClick={onSavedRuns} style={headerChipBtn(t)}>
-          {copy.common.savedRuns}
+        <button type="button" onClick={() => setActiveTab("catalysis")} style={headerChipBtn(t)}>
+          CatalysisLab
+        </button>
+        <button type="button" onClick={() => setActiveTab("library")} style={headerChipBtn(t)}>
+          MOF Library
         </button>
       </div>
     )
@@ -328,19 +322,19 @@ export function ContextualHeaderBar({
           {lang === "zh" ? "工作流跳转" : "Workflow jumps"}
         </div>
         <button type="button" onClick={() => setActiveTab("screening")} style={headerChipBtn(t, false)}>
-          {lang === "zh" ? "进入 Screening" : "Go to Screening"}
+          {lang === "zh" ? "进入筛选" : "Go to Screening"}
         </button>
         <button type="button" onClick={() => setActiveTab("comparison")} style={headerChipBtn(t, false)}>
-          {lang === "zh" ? "查看 Comparison" : "Open Comparison"}
+          {lang === "zh" ? "查看比较" : "Open Comparison"}
         </button>
         <button type="button" onClick={() => setActiveTab("validation")} style={headerChipBtn(t, false)}>
-          {lang === "zh" ? "看 Validation" : "Review Validation"}
+          {lang === "zh" ? "看验证" : "Review Validation"}
         </button>
       </div>
     )
   }
 
-  if (activeTab === "screening") {
+  if (activeTab === "ecoscreen" || activeTab === "screening") {
     return (
       <div style={layerStyle}>
         <PresetSearchControl
@@ -387,6 +381,29 @@ export function ContextualHeaderBar({
             ◧
           </button>
         </span>
+      </div>
+    )
+  }
+
+  if (activeTab === "catalysis") {
+    return (
+      <div style={layerStyle}>
+        <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
+          {lang === "zh" ? "CatalysisLab 当前使用模拟数据；页面内切换催化任务和证据过滤。" : "CatalysisLab currently uses mock data; task and evidence filters are inside the page."}
+        </div>
+        <button type="button" onClick={() => setActiveTab("about")} style={headerChipBtn(t)}>
+          {lang === "zh" ? "查看方法限制" : "View methodology"}
+        </button>
+      </div>
+    )
+  }
+
+  if (activeTab === "library") {
+    return (
+      <div style={layerStyle}>
+        <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
+          {lang === "zh" ? "MOF 库只展示基础数据与来源字段，不输出科研结论。" : "MOF Library exposes baseline records and source fields; it does not claim conclusions."}
+        </div>
       </div>
     )
   }

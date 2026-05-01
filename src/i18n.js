@@ -2,6 +2,11 @@ export const COPY = {
   en: {
     tabs: {
       home: "Home",
+      overview: "Overview",
+      ecoScreen: "EcoScreen",
+      catalysisLab: "CatalysisLab",
+      mofLibrary: "MOF Library",
+      methodology: "Methodology",
       workflow: "Workflow",
       screening: "Screening",
       comparison: "Comparison",
@@ -371,6 +376,11 @@ export const COPY = {
   zh: {
     tabs: {
       home: "首页",
+      overview: "总览",
+      ecoScreen: "EcoScreen",
+      catalysisLab: "CatalysisLab",
+      mofLibrary: "MOF 库",
+      methodology: "方法学",
       workflow: "工作流",
       screening: "筛选",
       comparison: "比较",
