@@ -36,18 +36,34 @@ The platform is not a final scientific conclusion engine. Rule-based visualizati
 - It does not claim final catalytic activity, yield, conversion, TOF, selectivity, or durability.
 - Current data may include demo / placeholder / seed records.
 
+## Data modes
+
+MOF Library, Performance, and CatalysisLab support two dataset modes via a toggle in each page:
+
+- **Demo Dataset**: demo / placeholder / rule-based records. Default mode. Ensures all existing visualizations work correctly.
+- **Real Seed Dataset**: a small curated-data framework (`mof_candidates_real_seed.json`) for future public database and literature ingestion. Current records are skeleton entries for 11 well-known MOFs (UiO-66, MOF-808, HKUST-1, MIL-101, ZIF-8, MOF-74, UiO-67, NU-1000, MIL-53, PCN-222, MIL-125). Numeric fields are null / pending curation and displayed as "Not available" or "Pending curation". The Real Seed Dataset **is not a complete MOF database** and does not include final catalytic performance labels unless explicitly sourced.
+
+## Catalysis Data Template
+
+CatalysisLab includes a collapsible **Catalysis Data Template** that defines the minimum fields required for future catalysis data ingestion:
+
+- MOF information, structural properties, catalysis task, reaction conditions, performance metrics, evidence and metadata.
+- A blank CSV template can be downloaded from CatalysisLab. File: `catalysis_data_template.csv`.
+- Providing the template fields does not guarantee ML model training. Model selection depends on data volume, label quality, descriptor consistency, and experimental comparability.
+
 ## Data structure
 
 Static browser data live in `public/data/`:
 
-- `mof_candidates_demo.json`: demo / placeholder / rule-based MOF candidate records with identity, source, metal nodes, topology, pore descriptors, CO2 uptake, band gap, stability, sustainability fields, catalysis hypotheses, Evidence Level, and limitations.
+- `mof_candidates_demo.json`: demo / placeholder / rule-based MOF candidate records.
+- `mof_candidates_real_seed.json`: real seed skeleton records for future public database and literature curation. Values are null / pending until manually verified.
 - `catalysis_tasks.json`: task definitions, required descriptors, and recommended outputs for CatalysisLab.
 - `catalysis_rules.json`: rule descriptions and interpretation boundaries.
 - `evidence_levels.json`: experimental, literature-supported, simulation-supported, ML-predicted, rule-based, and needs-validation levels.
 - `scoring_weights.json`: default EcoScreen, Performance, and CatalysisLab weights for the current scoring strategy.
 - Existing seed data: `mof_structures.json`, `adsorption_labels.json`, `lca_inventory.json`, `isotherms.json`, and `training_manifest.json`.
 
-All demo records must remain clearly marked as demo / placeholder / rule-based / needs validation.
+All demo records must remain clearly marked as demo / placeholder / rule-based / needs validation. All real seed records must be marked as needs-validation until verified.
 
 ## Rule-based scoring model
 

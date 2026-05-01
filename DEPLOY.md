@@ -117,18 +117,32 @@ ecomof-ai/
 
 ---
 
-## 5. 技术栈
+## 5. 技术栈与数据说明
 
 | 层 | 技术 |
 |---|---|
 | 前端框架 | React 18 + Vite |
 | 可视化 | Recharts |
-| ML 模型 | scikit-learn Random Forest |
-| API 框架 | FastAPI + Uvicorn |
-| 数据来源 | CoRE MOF 2019 Database |
-| LCA 标准 | ISO 14040/14044 Gate-to-Gate |
-| 部署：前端 | GitHub Pages |
-| 部署：后端 | Hugging Face Spaces (Docker) |
+| 数据来源 | Static JSON in `public/data/` |
+| 评分模型 | Rule-based multi-criteria scoring |
+| 部署：前端 | GitHub Pages (static, no real database API) |
+| 可选后端 | FastAPI + Hugging Face Spaces (future-facing) |
+
+### 数据模式说明
+
+- **Demo Dataset** (`mof_candidates_demo.json`): 演示 / placeholder / rule-based 记录，是默认模式，保证现有展示效果。
+- **Real Seed Dataset** (`mof_candidates_real_seed.json`): 真实数据接入框架，含少量 skeleton records，字段以 null / 待整理为主，不代表完整 MOF 数据库。
+- **Catalysis Data Template CSV**: 前端生成，点击下载，无需后端。文件名 `catalysis_data_template.csv`。
+
+### 机器学习后端说明（可选，未来）
+
+可选后端需要满足以下条件才能启用 ML 评估：
+
+- 足够数量的带标签实验或文献数据（labeled experimental or literature data）；
+- 完整的特征描述符和目标标签对；
+- 训练好的模型工件（model artifacts）。
+
+当前版本不依赖真实数据库 API，不含已训练机器学习模型，不声明 ML 指标。
 
 ---
 

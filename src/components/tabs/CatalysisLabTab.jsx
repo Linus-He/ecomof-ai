@@ -4,7 +4,131 @@ import {
   fetchDataJson, BasisBadge, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard,
   calculateCatalysisScore, getScoreBreakdown, getWeightContribution, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
   RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
+  DataModeToggle, RealSeedCallout, safeVal, toolbarBtn, SectionTitle,
 } from "../../shared"
+
+// ── Catalysis Data Template helpers ──────────────────────────────────────────
+
+const CATALYSIS_TEMPLATE_FIELDS = [
+  // MOF information
+  { key: "mof_name",               label: "MOF name",                       category: "MOF information",        required: true,  example: "UiO-66-NH2",          note: "Standard or IUPAC name" },
+  { key: "formula",                label: "Formula",                        category: "MOF information",        required: false, example: "Zr6O4(OH)4(BDC)6",   note: "Hill notation preferred" },
+  { key: "metal_nodes",            label: "Metal nodes",                    category: "MOF information",        required: true,  example: "Zr",                  note: "Comma-separated if multiple" },
+  { key: "bimetallic_system",      label: "Bimetallic system",              category: "MOF information",        required: false, example: "No / Yes / Possible",  note: "" },
+  { key: "linker",                 label: "Linker",                         category: "MOF information",        required: true,  example: "BDC",                 note: "Abbreviation + full name recommended" },
+  { key: "topology",               label: "Topology",                       category: "MOF information",        required: false, example: "fcu",                 note: "RCSR code preferred" },
+  // Structural properties
+  { key: "pore_size_a",            label: "Pore size (Å)",                  category: "Structural properties", required: false, example: "8.5",                 note: "PLD or LCD; specify which" },
+  { key: "surface_area_m2g",       label: "BET surface area (m²/g)",        category: "Structural properties", required: false, example: "1050",                note: "Measured by N2 adsorption" },
+  { key: "pore_volume_cm3g",       label: "Pore volume (cm³/g)",            category: "Structural properties", required: false, example: "0.46",                note: "" },
+  // Catalysis task
+  { key: "reaction_type",          label: "Reaction type",                  category: "Catalysis task",        required: true,  example: "CO2 photoreduction",  note: "Match to a known reaction class" },
+  { key: "substrate",              label: "Substrate",                      category: "Catalysis task",        required: true,  example: "CO2",                 note: "Include concentration if relevant" },
+  { key: "product",                label: "Product",                        category: "Catalysis task",        required: true,  example: "CO, CH4",             note: "List all detected products" },
+  // Reaction conditions
+  { key: "temperature_c",          label: "Temperature (°C)",               category: "Reaction conditions",   required: true,  example: "25",                  note: "" },
+  { key: "pressure_bar",           label: "Pressure (bar)",                 category: "Reaction conditions",   required: true,  example: "1",                   note: "CO2 partial pressure if mixture" },
+  { key: "solvent",                label: "Solvent",                        category: "Reaction conditions",   required: false, example: "MeCN / H2O / neat",   note: "" },
+  { key: "reaction_time_h",        label: "Reaction time (h)",              category: "Reaction conditions",   required: true,  example: "4",                   note: "" },
+  { key: "catalyst_loading_mg",    label: "Catalyst loading (mg)",          category: "Reaction conditions",   required: true,  example: "5",                   note: "Per mL or per reaction volume" },
+  { key: "light_or_electrochemical_condition", label: "Light / electrochemical condition", category: "Reaction conditions", required: false, example: "300 W Xe lamp, AM1.5 / −1.0 V vs RHE", note: "Include filter if relevant" },
+  // Performance metrics
+  { key: "conversion_percent",     label: "Conversion (%)",                 category: "Performance metrics",   required: false, example: "42",                  note: "Substrate conversion" },
+  { key: "selectivity_percent",    label: "Selectivity (%)",                category: "Performance metrics",   required: false, example: "85",                  note: "Product selectivity" },
+  { key: "yield_percent",          label: "Yield (%)",                      category: "Performance metrics",   required: false, example: "36",                  note: "" },
+  { key: "tof",                    label: "TOF (h⁻¹)",                      category: "Performance metrics",   required: false, example: "12.4",                note: "Turnover frequency" },
+  { key: "ton",                    label: "TON",                            category: "Performance metrics",   required: false, example: "48",                  note: "Turnover number" },
+  { key: "cycle_stability",        label: "Cycle stability",                category: "Performance metrics",   required: false, example: "5 cycles, <5% loss",  note: "Include regeneration conditions" },
+  // Evidence and metadata
+  { key: "evidence_level",         label: "Evidence level",                 category: "Evidence & metadata",   required: true,  example: "experimental / literature-supported", note: "" },
+  { key: "data_source",            label: "Data source",                    category: "Evidence & metadata",   required: true,  example: "own experiment / CoRE MOF / MOFX-DB", note: "" },
+  { key: "doi_or_reference",       label: "DOI or reference",               category: "Evidence & metadata",   required: true,  example: "10.1021/xxx",         note: "" },
+  { key: "limitations",            label: "Limitations",                    category: "Evidence & metadata",   required: true,  example: "single-run, no blank control", note: "Known issues with this record" },
+  { key: "uncertainty_notes",      label: "Uncertainty notes",              category: "Evidence & metadata",   required: false, example: "yield not corrected for blank", note: "" },
+  { key: "recommended_next_validation", label: "Recommended next validation", category: "Evidence & metadata", required: false, example: "repeat under inert atmosphere", note: "" },
+]
+
+const TEMPLATE_CATEGORIES = [...new Set(CATALYSIS_TEMPLATE_FIELDS.map(f => f.category))]
+
+const CSV_HEADER = CATALYSIS_TEMPLATE_FIELDS.map(f => f.key).join(",")
+
+function downloadCatalysisTemplate() {
+  const blob = new Blob([CSV_HEADER + "\n"], { type: "text/csv" })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement("a")
+  a.href = url
+  a.download = "catalysis_data_template.csv"
+  a.click()
+  URL.revokeObjectURL(url)
+}
+
+function CatalysisDataTemplate({ lang, t, isNarrow, isMobile }) {
+  const [open, setOpen] = useState(false)
+  const categories = TEMPLATE_CATEGORIES
+
+  return (
+    <details open={open} onToggle={e => setOpen(e.currentTarget.open)}
+      style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+      <summary style={{ cursor: "pointer", userSelect: "none" }}>
+        <span style={{ color: t.accentText, fontSize: 14, fontWeight: 800 }}>
+          {lang === "zh" ? "催化数据模板" : "Catalysis Data Template"}
+        </span>
+      </summary>
+
+      <div style={{ marginTop: 14, display: "flex", flexDirection: "column", gap: 14 }}>
+        <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.7 }}>
+          {lang === "zh"
+            ? "该模板定义了后续接入真实催化数据所需的最小字段。当前 CatalysisLab 结果为基于规则的候选材料优先级排序，仍需实验验证。"
+            : "This template defines the minimum fields needed for future catalysis data ingestion. Current CatalysisLab results are rule-based candidate prioritization and require experimental validation."}
+        </div>
+
+        <button type="button" onClick={downloadCatalysisTemplate}
+          style={{ ...toolbarBtn(t), alignSelf: "flex-start", fontWeight: 700 }}>
+          ↓ {lang === "zh" ? "下载 CSV 模板" : "Download CSV template"}
+        </button>
+
+        {categories.map(cat => {
+          const fields = CATALYSIS_TEMPLATE_FIELDS.filter(f => f.category === cat)
+          return (
+            <div key={cat}>
+              <SectionTitle>{cat}</SectionTitle>
+              <div style={{ overflowX: "auto" }}>
+                <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
+                  <thead>
+                    <tr style={{ background: t.surface }}>
+                      {[lang === "zh" ? "字段" : "Field", lang === "zh" ? "标签" : "Label", lang === "zh" ? "必填" : "Required", lang === "zh" ? "示例" : "Example", lang === "zh" ? "说明" : "Note"].map(h => (
+                        <th key={h} style={{ padding: "6px 10px", textAlign: "left", color: t.subtle, fontWeight: 700, borderBottom: `1px solid ${t.border}`, whiteSpace: "nowrap" }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {fields.map((f, i) => (
+                      <tr key={f.key} style={{ background: i % 2 === 0 ? t.surface : "transparent" }}>
+                        <td style={{ padding: "5px 10px", color: t.accentSoft, fontFamily: "monospace", whiteSpace: "nowrap" }}>{f.key}</td>
+                        <td style={{ padding: "5px 10px", color: t.textStrong, whiteSpace: "nowrap" }}>{f.label}</td>
+                        <td style={{ padding: "5px 10px", color: f.required ? t.accentText : t.faint, whiteSpace: "nowrap" }}>
+                          {f.required ? (lang === "zh" ? "必填" : "required") : (lang === "zh" ? "可选" : "optional")}
+                        </td>
+                        <td style={{ padding: "5px 10px", color: t.subtle }}>{f.example}</td>
+                        <td style={{ padding: "5px 10px", color: t.faint }}>{f.note}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )
+        })}
+
+        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, color: t.muted, fontSize: 11, lineHeight: 1.7 }}>
+          {lang === "zh"
+            ? "提供这些字段并不意味着一定可以训练机器学习模型。是否适合建模取决于数据量、标签质量、描述符一致性和实验条件可比性。"
+            : "Providing these fields does not guarantee that a machine learning model can be trained. Model selection depends on data volume, label quality, descriptor consistency, and experimental comparability."}
+        </div>
+      </div>
+    </details>
+  )
+}
 
 const TASKS = [
   { id: "co2_conversion", en: "CO₂ conversion", zh: "CO₂ 转化", emphasis: ["co2Affinity", "activeSite", "stability"] },
@@ -179,9 +303,12 @@ export function CatalysisLabTab() {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
+  const [dataMode, setDataMode] = useState("demo")
   const [taskId, setTaskId] = useState("co2_conversion")
   const [expanded, setExpanded] = useState(false)
   const [tasks, setTasks] = useState(TASKS)
+  const [demoCandidates, setDemoCandidates] = useState(CANDIDATES)
+  const [realSeedCandidates, setRealSeedCandidates] = useState([])
   const [candidates, setCandidates] = useState(CANDIDATES)
   const [weights, setWeights] = useState(WEIGHTS)
   const [filters, setFilters] = useState({
@@ -205,22 +332,33 @@ export function CatalysisLabTab() {
     let active = true
     Promise.all([
       fetchDataJson("mof_candidates_demo.json"),
+      fetchDataJson("mof_candidates_real_seed.json"),
       fetchDataJson("catalysis_tasks.json"),
       fetchDataJson("scoring_weights.json"),
-    ]).then(([candidateRows, taskRows, weightRows]) => {
+    ]).then(([candidateRows, realSeedRows, taskRows, weightRows]) => {
       if (!active) return
-      if (Array.isArray(candidateRows) && candidateRows.length) setCandidates(candidateRows.map(normalizeCandidate))
+      const demo = Array.isArray(candidateRows) && candidateRows.length ? candidateRows.map(normalizeCandidate) : CANDIDATES
+      setDemoCandidates(demo)
+      setCandidates(demo)
+      if (Array.isArray(realSeedRows) && realSeedRows.length) setRealSeedCandidates(realSeedRows.map(normalizeCandidate))
       if (Array.isArray(taskRows) && taskRows.length) setTasks(taskRows)
       if (weightRows?.CatalysisLab) setWeights(weightRows.CatalysisLab)
       else if (weightRows?.catalysisPotentialScore) setWeights(weightRows.catalysisPotentialScore)
     }).catch(() => {
       if (!active) return
+      setDemoCandidates(CANDIDATES)
       setCandidates(CANDIDATES)
       setTasks(TASKS)
       setWeights(LEGACY_WEIGHTS)
     })
     return () => { active = false }
   }, [])
+
+  // Sync active candidates when dataMode changes
+  useEffect(() => {
+    setCandidates(dataMode === "real-seed" ? realSeedCandidates : demoCandidates)
+    setSelected(null)
+  }, [dataMode, demoCandidates, realSeedCandidates])
 
   const task = tasks.find(item => item.id === taskId) || tasks[0]
   const metals = Array.from(new Set(candidates.map(item => item.metalCenter))).sort()
@@ -314,6 +452,17 @@ export function CatalysisLabTab() {
         meta={lang === "zh" ? "任务选择 · 筛选器 · Rule-based Catalysis Potential Score · 候选解释" : "Task selector · filters · Rule-based Catalysis Potential Score · candidate explanation"}
         action={<BasisBadge tone="warn">{lang === "zh" ? "Demo only / 需要验证" : "Demo only / needs validation"}</BasisBadge>}
       />
+
+      <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+        <DataModeToggle value={dataMode} onChange={setDataMode} lang={lang} />
+        <span style={{ color: t.faint, fontSize: 11 }}>
+          {dataMode === "real-seed"
+            ? (lang === "zh" ? `${realSeedCandidates.length} 条真实种子记录 — 缺失字段评分为 0` : `${realSeedCandidates.length} real seed records — null fields score as 0`)
+            : (lang === "zh" ? `${demoCandidates.length} 条演示记录` : `${demoCandidates.length} demo records`)}
+        </span>
+      </div>
+
+      {dataMode === "real-seed" && <RealSeedCallout lang={lang} />}
 
       <ResultLayer number="01" title={lang === "zh" ? "催化任务选择器" : "Catalysis task selector"}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
@@ -439,6 +588,8 @@ export function CatalysisLabTab() {
           ? "催化性能高度依赖温度、溶剂、压力、底物、光/电化学环境和催化剂制备方式。当前评分用于候选材料优先级排序，不等同于最终催化性能预测。"
           : "Catalytic performance strongly depends on reaction conditions, including temperature, solvent, pressure, substrate, light/electrochemical environment, and catalyst preparation. The current score is intended for candidate prioritization, not final performance prediction."}
       </Callout>
+
+      <CatalysisDataTemplate lang={lang} t={t} isNarrow={isNarrow} isMobile={isMobile} />
     </div>
   )
 }

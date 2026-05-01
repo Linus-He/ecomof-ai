@@ -519,6 +519,43 @@ export function MethodsLimitationsTab() {
         </div>
       </div>
 
+      {/* Future Data Ingestion */}
+      <div className="content-card" style={sectionCard}>
+        <SectionTitle>{lang === "zh" ? "未来数据接入" : "Future Data Ingestion"}</SectionTitle>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {(lang === "zh" ? [
+              ["当前数据来源", "当前结果来自 demo / seed 数据和规则驱动评分，不是实验数据库或机器学习模型训练结果。"],
+              ["Real Seed Dataset", "提供了后续接入公开数据库和文献整理数据的框架；current version 仅含少量 skeleton records，字段以 null / 待整理为主。"],
+              ["催化数据模板", "定义了后续接入真实催化数据所需最小字段，包括反应条件、性能指标和证据等级；见 CatalysisLab 页面。"],
+            ] : [
+              ["Current data", "Results are from demo / seed records and rule-based scoring — not a trained model on experimental data."],
+              ["Real Seed Dataset", "Provides a framework for future public database and literature curation. Current version contains skeleton records with null fields pending curation."],
+              ["Catalysis Data Template", "Defines the minimum fields for future catalysis data ingestion, including reaction conditions, performance metrics, and evidence level. See CatalysisLab page."],
+            ]).map(([title, body]) => (
+              <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+                <div style={{ color: t.accentSoft, fontSize: 12, fontWeight: 800, marginBottom: 5 }}>{title}</div>
+                <div style={bodyText}>{body}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {(lang === "zh" ? [
+              ["机器学习评估", "只有积累足够带标签的实验或文献数据后，才会启用机器学习评估。当前不会因为有模板或 seed skeleton 就自动训练模型。"],
+              ["当前输出含义", "所有输出均表示候选优先级（candidate priority），不是最终材料性能预测。实验验证是必要的下一步。"],
+            ] : [
+              ["ML evaluation", "Machine learning evaluation will only be enabled when enough labeled experimental or literature data are available. Templates and seed skeletons alone do not trigger model training."],
+              ["Current outputs", "All outputs indicate candidate priority, not final material performance. Experimental validation is the required next step."],
+            ]).map(([title, body]) => (
+              <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+                <div style={{ color: t.accentSoft, fontSize: 12, fontWeight: 800, marginBottom: 5 }}>{title}</div>
+                <div style={bodyText}>{body}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Acknowledgement + Contact */}
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
         <div className="content-card" style={sectionCard}>

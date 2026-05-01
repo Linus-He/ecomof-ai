@@ -768,3 +768,77 @@ export function SectionTitle({ children }) {
   const t = useT()
   return <div style={{ color: t.subtle, fontSize: 12, fontWeight: 700, letterSpacing: 0, marginBottom: 14 }}>{children}</div>
 }
+
+/**
+ * safeVal — gracefully display possibly-null real-seed fields.
+ * Returns a localised fallback string instead of null/undefined/NaN.
+ */
+export function safeVal(value, lang, fallback) {
+  if (value === null || value === undefined || value === "" || (typeof value === "number" && !Number.isFinite(value))) {
+    if (fallback) return fallback
+    return lang === "zh" ? "暂无数据" : "Not available"
+  }
+  if (typeof value === "string" && ["unknown", "pending"].includes(value.toLowerCase())) {
+    return lang === "zh" ? "未知" : "Unknown"
+  }
+  return value
+}
+
+/**
+ * DataModeToggle — compact pill toggle for Demo Dataset / Real Seed Dataset.
+ * Emits onChange("demo" | "real-seed").
+ */
+export function DataModeToggle({ value, onChange, lang }) {
+  const t = useT()
+  const options = [
+    { id: "demo",      label: lang === "zh" ? "演示数据集" : "Demo Dataset" },
+    { id: "real-seed", label: lang === "zh" ? "真实种子数据集" : "Real Seed Dataset" },
+  ]
+  return (
+    <div style={{ display: "inline-flex", gap: 4, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 4 }}>
+      {options.map(opt => (
+        <button
+          key={opt.id}
+          type="button"
+          onClick={() => onChange(opt.id)}
+          style={{
+            padding: "6px 13px",
+            fontSize: 11,
+            fontWeight: value === opt.id ? 800 : 500,
+            borderRadius: 6,
+            border: value === opt.id ? `1px solid ${t.borderStrong}` : "1px solid transparent",
+            background: value === opt.id ? t.panel : "transparent",
+            color: value === opt.id ? t.accentText : t.subtle,
+            cursor: "pointer",
+            whiteSpace: "nowrap",
+            transition: "background 0.15s",
+          }}
+        >
+          {opt.label}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+/**
+ * RealSeedCallout — fixed-wording disclosure required in Real Seed Dataset mode.
+ */
+export function RealSeedCallout({ lang }) {
+  const t = useT()
+  return (
+    <div style={{
+      background: t.badgeWarnBg || "#fffbeb",
+      border: `1px solid ${t.warn || "#f59e0b"}`,
+      borderRadius: 8,
+      padding: "10px 14px",
+      fontSize: 12,
+      color: t.warn || "#92400e",
+      lineHeight: 1.65,
+    }}>
+      {lang === "zh"
+        ? "Real Seed Dataset 是用于后续接入公开数据库和文献数据的小规模真实数据框架，不代表完整 MOF 数据库；除非明确标注来源，否则不包含最终催化性能标签。"
+        : "Real Seed Dataset is a small curated-data framework for future public database and literature ingestion. It is not a complete MOF database and does not include final catalytic performance labels unless explicitly sourced."}
+    </div>
+  )
+}

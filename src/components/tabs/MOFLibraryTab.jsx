@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react"
 import {
   useT, useLang, useViewport,
   LITERATURE_DB, fetchDataJson, buildDatabaseRecords, downloadTextFile, toolbarBtn,
-  BasisBadge, PageHeader, ResultLayer, Callout,
+  BasisBadge, PageHeader, ResultLayer, Callout, DataModeToggle, RealSeedCallout, safeVal,
 } from "../../shared"
 
 function normalizeDemoRecord(item) {
@@ -79,6 +79,7 @@ export function MOFLibraryTab({ results, inputs }) {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
+  const [dataMode, setDataMode] = useState("demo")
   const [query, setQuery] = useState("")
   const [metal, setMetal] = useState("all")
   const [source, setSource] = useState("all")
@@ -92,6 +93,7 @@ export function MOFLibraryTab({ results, inputs }) {
   const [structureRows, setStructureRows] = useState([])
   const [labelRows, setLabelRows] = useState([])
   const [demoRows, setDemoRows] = useState([])
+  const [realSeedRows, setRealSeedRows] = useState([])
   const [status, setStatus] = useState("loading")
 
   useEffect(() => {
@@ -100,12 +102,14 @@ export function MOFLibraryTab({ results, inputs }) {
       fetchDataJson("mof_structures.json"),
       fetchDataJson("adsorption_labels.json"),
       fetchDataJson("mof_candidates_demo.json"),
+      fetchDataJson("mof_candidates_real_seed.json"),
     ])
-      .then(([structures, labels, demo]) => {
+      .then(([structures, labels, demo, realSeed]) => {
         if (!active) return
         setStructureRows(structures)
         setLabelRows(labels)
         setDemoRows(Array.isArray(demo) ? demo : [])
+        setRealSeedRows(Array.isArray(realSeed) ? realSeed : [])
         setStatus("loaded")
       })
       .catch(() => {
@@ -116,10 +120,22 @@ export function MOFLibraryTab({ results, inputs }) {
   }, [])
 
   const records = useMemo(() => {
+    if (dataMode === "real-seed" && realSeedRows.length) {
+      return realSeedRows.map(item => normalizeDemoRecord({
+        ...item,
+        // Graceful fallback for null numeric fields
+        poreSizeA: item.poreSizeA ?? "pending",
+        surfaceArea: item.surfaceArea ?? "pending",
+        poreVolume: item.poreVolume ?? "pending",
+        co2Uptake: item.co2Uptake ?? "pending",
+        bandGap: item.bandGap ?? "pending",
+        dataStatus: item.curationNote || "real-seed / pending curation",
+      }))
+    }
     if (demoRows.length) return demoRows.map(normalizeDemoRecord)
     const loaded = buildDatabaseRecords(structureRows, labelRows)
     return (loaded.length ? loaded : LITERATURE_DB).map(normalizeLegacyRecord)
-  }, [demoRows, structureRows, labelRows])
+  }, [dataMode, demoRows, realSeedRows, structureRows, labelRows])
 
   const metals = useMemo(() => Array.from(new Set(records.flatMap(item => item.metalNodes).filter(Boolean))).sort(), [records])
   const sources = useMemo(() => Array.from(new Set(records.map(item => item.source || "local seed"))).sort(), [records])
@@ -210,6 +226,17 @@ export function MOFLibraryTab({ results, inputs }) {
         action={<BasisBadge tone={status === "loaded" ? "calc" : "proxy"}>{status === "loaded" ? "public/data" : (lang === "zh" ? "种子数据" : "fallback seed")}</BasisBadge>}
       />
 
+      <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+        <DataModeToggle value={dataMode} onChange={mode => { setDataMode(mode); setExpandedId(null) }} lang={lang} />
+        <span style={{ color: t.faint, fontSize: 11 }}>
+          {dataMode === "real-seed"
+            ? (lang === "zh" ? `${realSeedRows.length} 条真实种子记录` : `${realSeedRows.length} real seed records`)
+            : (lang === "zh" ? `${demoRows.length} 条演示记录` : `${demoRows.length} demo records`)}
+        </span>
+      </div>
+
+      {dataMode === "real-seed" && <RealSeedCallout lang={lang} />}
+
       <Callout tone="info">
         {lang === "zh"
           ? "当前数据包含 demo / placeholder / seed records。字段用于 early-stage screening 的数据审计，不能直接解释为实验性能、催化结论或完整 LCA 结论。"
@@ -260,10 +287,10 @@ export function MOFLibraryTab({ results, inputs }) {
               <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(9, minmax(0, 1fr))", gap: 12, marginTop: 12 }}>
                 {field(lang === "zh" ? "金属节点" : "metal nodes", item.metal)}
                 {field(lang === "zh" ? "连接体" : "linker", item.linker)}
-                {field(lang === "zh" ? "孔径" : "pore size", `${item.poreSizeA || "—"} Å`)}
-                {field(lang === "zh" ? "比表面积" : "surface area", `${Number(item.surfaceArea || 0).toLocaleString()} m²/g`)}
-                {field("CO₂ uptake", item.co2Uptake === "—" ? "—" : `${item.co2Uptake} mmol/g`)}
-                {field("band gap", item.bandGap === "—" ? "—" : `${item.bandGap} eV`)}
+                {field(lang === "zh" ? "孔径" : "pore size", item.poreSizeA === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : `${item.poreSizeA || "—"} Å`)}
+                {field(lang === "zh" ? "比表面积" : "surface area", item.surfaceArea === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : `${Number(item.surfaceArea || 0).toLocaleString()} m²/g`)}
+                {field("CO₂ uptake", item.co2Uptake === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : item.co2Uptake === "—" ? "—" : `${item.co2Uptake} mmol/g`)}
+                {field("band gap", item.bandGap === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : item.bandGap === "—" ? "—" : `${item.bandGap} eV`)}
                 {field(lang === "zh" ? "稳定性" : "stability", `${zhValue(item.waterStability, lang)} / ${zhValue(item.thermalStability, lang)}`)}
                 {field(lang === "zh" ? "来源" : "source", zhValue(item.source, lang))}
                 {field("Evidence Level", zhValue(item.evidenceLevel, lang))}

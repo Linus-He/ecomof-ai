@@ -4,23 +4,63 @@ import {
   gasLabel, getGasSystem, fetchDataJson, toolbarBtn,
   buildScoredCandidates, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
   RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
-  BasisBadge, PageHeader, ResultLayer, Callout, UnifiedCandidateCard,
+  BasisBadge, PageHeader, ResultLayer, Callout, UnifiedCandidateCard, DataModeToggle, RealSeedCallout, safeVal,
 } from "../../shared"
+
+/** Normalise a real-seed record into the shape PerformanceTab expects.
+ *  Null numeric fields become safe defaults so no NaN propagates. */
+function normalizeRealSeedForPerf(item) {
+  return {
+    id: item.id || item.name,
+    name: item.name,
+    metalNodes: item.metalNodes || [],
+    metalCenter: (item.metalNodes || []).join(", ") || "—",
+    bimetallic: item.bimetallic ? "Yes" : "No",
+    linker: item.linker || "—",
+    poreSizeA: item.poreSizeA ?? 0,
+    surfaceArea: item.surfaceArea ?? 0,
+    poreVolume: item.poreVolume ?? 0,
+    co2Uptake: item.co2Uptake ?? 0,
+    selectivity: 0,
+    thermodynamicIndicator: 0,
+    bandGap: item.bandGap ?? 0,
+    waterStability: item.waterStability || "unknown",
+    thermalStability: item.thermalStability || "unknown",
+    costLevel: item.costLevel || "unknown",
+    toxicityConcern: item.toxicityConcern || "unknown",
+    sustainabilityRisk: item.sustainabilityRisk || "unknown",
+    reactionClasses: Array.isArray(item.reactionClasses) ? item.reactionClasses : [],
+    activeSiteHypothesis: Array.isArray(item.activeSiteHypothesis) ? item.activeSiteHypothesis.join("; ") : item.activeSiteHypothesis || "—",
+    evidenceLevel: item.evidenceLevel || "needs-validation",
+    limitations: Array.isArray(item.limitations) ? item.limitations : [],
+    dataMode: "real-seed",
+    curationNote: item.curationNote || "",
+  }
+}
 
 export function PerformanceTab({ inputs, setInputs, results, loading, onPredict, onNavigate }) {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
+  const [dataMode, setDataMode] = useState("demo")
   const [demoRows, setDemoRows] = useState([])
+  const [realSeedRows, setRealSeedRows] = useState([])
   const [selectedId, setSelectedId] = useState(null)
   const gas = getGasSystem(inputs.gasSystem)
   const hasResult = results && !results.unavailable
 
   useEffect(() => {
     let active = true
-    fetchDataJson("mof_candidates_demo.json")
-      .then(rows => { if (active && Array.isArray(rows)) setDemoRows(rows) })
-      .catch(() => { if (active) setDemoRows([]) })
+    Promise.all([
+      fetchDataJson("mof_candidates_demo.json"),
+      fetchDataJson("mof_candidates_real_seed.json"),
+    ])
+      .then(([demo, realSeed]) => {
+        if (!active) return
+        if (Array.isArray(demo)) setDemoRows(demo)
+        if (Array.isArray(realSeed)) setRealSeedRows(realSeed)
+      })
+      .catch(() => { if (active) { setDemoRows([]); setRealSeedRows([]) } })
     return () => { active = false }
   }, [])
 
@@ -43,9 +83,14 @@ export function PerformanceTab({ inputs, setInputs, results, loading, onPredict,
     limitations: [lang === "zh" ? "当前浏览器端结果需要实测等温线、GCMC 或 IAST 验证。" : "Current browser-side result needs measured isotherm, GCMC, or IAST validation."],
   } : null
 
+  const baseRows = useMemo(() => {
+    if (dataMode === "real-seed") return realSeedRows.map(normalizeRealSeedForPerf)
+    return demoRows
+  }, [dataMode, demoRows, realSeedRows])
+
   const performanceCandidates = useMemo(() => {
-    return buildScoredCandidates([...(currentCandidate ? [currentCandidate] : []), ...demoRows], "performance", DEFAULT_SCORING_WEIGHTS.performance)
-  }, [currentCandidate, demoRows])
+    return buildScoredCandidates([...(currentCandidate ? [currentCandidate] : []), ...baseRows], "performance", DEFAULT_SCORING_WEIGHTS.performance)
+  }, [currentCandidate, baseRows])
 
   const activeCandidate = performanceCandidates.find(item => item.id === selectedId) || performanceCandidates[0]
   const score = activeCandidate?.score ?? 0
@@ -84,6 +129,17 @@ export function PerformanceTab({ inputs, setInputs, results, loading, onPredict,
         meta={lang === "zh" ? "CO₂ uptake · selectivity · thermodynamic interpretation · Early-stage Screening" : "CO₂ uptake · selectivity · thermodynamic interpretation · Early-stage Screening"}
         action={<BasisBadge tone="info">{lang === "zh" ? "不替代 GCMC / IAST" : "not GCMC / IAST"}</BasisBadge>}
       />
+
+      <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+        <DataModeToggle value={dataMode} onChange={mode => { setDataMode(mode); setSelectedId(null) }} lang={lang} />
+        <span style={{ color: t.faint, fontSize: 11 }}>
+          {dataMode === "real-seed"
+            ? (lang === "zh" ? `${realSeedRows.length} 条真实种子记录` : `${realSeedRows.length} real seed records — scores set to 0 for null fields`)
+            : (lang === "zh" ? "演示数据" : "demo data")}
+        </span>
+      </div>
+
+      {dataMode === "real-seed" && <RealSeedCallout lang={lang} />}
 
       <Callout tone="info">
         {lang === "zh"
