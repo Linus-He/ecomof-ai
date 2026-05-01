@@ -139,6 +139,89 @@ export function BasisBadge({ children, tone = "info" }) {
   )
 }
 
+export function UnifiedCandidateCard({
+  name,
+  score,
+  scoreLabel,
+  suitableTask,
+  scoreBreakdown = [],
+  keyReasons = [],
+  evidenceLevel,
+  limitations,
+  recommendedNextStep,
+  onDetails,
+}) {
+  const t = useT()
+  const { lang } = useLang()
+  const safeScore = Number.isFinite(Number(score)) ? Number(score).toFixed(1) : score || "—"
+  const tone = Number(score) >= 8 ? "calc" : Number(score) >= 6.5 ? "info" : Number(score) >= 5 ? "proxy" : "warn"
+  return (
+    <article className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, display: "grid", gap: 12 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start" }}>
+        <div style={{ minWidth: 0 }}>
+          <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 4 }}>
+            {lang === "zh" ? "MOF 名称" : "MOF name"}
+          </div>
+          <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 880, overflowWrap: "anywhere" }}>{name}</div>
+        </div>
+        <BasisBadge tone={tone}>{scoreLabel || (lang === "zh" ? "评分" : "Score")} {safeScore}</BasisBadge>
+      </div>
+
+      <div>
+        <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 4 }}>{lang === "zh" ? "适合任务" : "Suitable task"}</div>
+        <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>{suitableTask}</div>
+      </div>
+
+      <div>
+        <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 6 }}>{lang === "zh" ? "评分分解" : "Score breakdown"}</div>
+        <div style={{ display: "grid", gap: 6 }}>
+          {scoreBreakdown.slice(0, 5).map(item => (
+            <div key={item.label} style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 42px", gap: 8, alignItems: "center" }}>
+              <div style={{ height: 5, background: t.border, borderRadius: 999, overflow: "hidden" }}>
+                <div style={{ height: "100%", width: `${Math.max(0, Math.min(10, Number(item.value || 0))) * 10}%`, background: item.color || t.accent, borderRadius: 999 }} />
+              </div>
+              <div style={{ color: t.subtle, fontSize: 10, fontWeight: 800 }}>{Number(item.value || 0).toFixed(1)}</div>
+              <div style={{ gridColumn: "1 / -1", color: t.faint, fontSize: 10, marginTop: -3 }}>{item.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 5 }}>{lang === "zh" ? "关键原因" : "Key reasons"}</div>
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+          {keyReasons.slice(0, 4).map(reason => (
+            <span key={reason} style={{ color: t.subtle, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, padding: "4px 8px", fontSize: 10, fontWeight: 750 }}>
+              {reason}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gap: 8 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
+          <BasisBadge tone={/high|高|中等|medium/i.test(String(evidenceLevel)) ? "info" : "proxy"}>{evidenceLevel || (lang === "zh" ? "证据待补充" : "Evidence pending")}</BasisBadge>
+          {onDetails && (
+            <button type="button" onClick={onDetails} style={{ ...toolbarBtn(t), padding: "6px 9px", fontSize: 11 }}>
+              {lang === "zh" ? "查看详情" : "View details"}
+            </button>
+          )}
+        </div>
+        {limitations && (
+          <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55 }}>
+            <strong style={{ color: t.warn }}>{lang === "zh" ? "限制：" : "Limitations: "}</strong>{limitations}
+          </div>
+        )}
+        {recommendedNextStep && (
+          <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55 }}>
+            <strong style={{ color: t.accentText }}>{lang === "zh" ? "下一步：" : "Recommended next step: "}</strong>{recommendedNextStep}
+          </div>
+        )}
+      </div>
+    </article>
+  )
+}
+
 export function SourceBadge({ type }) {
   const item = SOURCE_BADGES[type] || SOURCE_BADGES.proxy
   return <BasisBadge tone={item.tone}>{item.label}</BasisBadge>

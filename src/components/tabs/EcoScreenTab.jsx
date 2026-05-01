@@ -3,7 +3,7 @@ import {
   useT, useLang, useViewport,
   LITERATURE_DB, METAL_CENTERS, ORGANIC_LINKERS,
   fetchDataJson, buildDatabaseRecords, toolbarBtn,
-  BasisBadge, PageHeader, ResultLayer, Callout, MethodDrawer,
+  BasisBadge, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard,
 } from "../../shared"
 
 function scoreTone(score) {
@@ -24,42 +24,6 @@ function sourceLabel(record, lang) {
   const db = record.sourceDatabase === "local seed" || !record.sourceDatabase ? "本地种子库" : record.sourceDatabase
   const type = record.sourceType === "seed" || !record.sourceType ? "种子数据" : record.sourceType === "screening proxy" ? "筛选代理" : record.sourceType
   return `${db} · ${type}`
-}
-
-function UnifiedResultCard({ candidate, onDetails }) {
-  const t = useT()
-  const { lang } = useLang()
-  return (
-    <article className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, display: "grid", gap: 11 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start" }}>
-        <div>
-          <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 880 }}>{candidate.name}</div>
-          <div style={{ color: t.faint, fontSize: 11, marginTop: 3 }}>{candidate.metal} · {candidate.linker}</div>
-        </div>
-        <BasisBadge tone={scoreTone(candidate.score)}>{lang === "zh" ? "生态评分" : "Eco Score"} {candidate.score.toFixed(1)}</BasisBadge>
-      </div>
-      <div>
-        <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 4 }}>{lang === "zh" ? "适合任务" : "Suitable task"}</div>
-        <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>{candidate.task}</div>
-      </div>
-      <div>
-        <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 4 }}>{lang === "zh" ? "关键原因" : "Key reasons"}</div>
-        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-          {candidate.reasons.slice(0, 3).map(reason => (
-            <span key={reason} style={{ color: t.subtle, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, padding: "4px 8px", fontSize: 10, fontWeight: 750 }}>
-              {reason}
-            </span>
-          ))}
-        </div>
-      </div>
-      <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center" }}>
-        <BasisBadge tone={evidenceTone(candidate.evidence)}>{candidate.evidence}</BasisBadge>
-        <button type="button" onClick={() => onDetails(candidate)} style={{ ...toolbarBtn(t), padding: "6px 9px", fontSize: 11 }}>
-          {lang === "zh" ? "查看详情" : "View details"}
-        </button>
-      </div>
-    </article>
-  )
 }
 
 function buildEcoCandidates(records, results, inputs, lang) {
@@ -86,6 +50,12 @@ function buildEcoCandidates(records, results, inputs, lang) {
       score: Number(score.toFixed(1)),
       task: lang === "zh" ? "低环境负担 CO₂ 捕集候选优先级" : "Low-burden CO2-capture candidate prioritization",
       reasons,
+      breakdown: [
+        { label: lang === "zh" ? "金属负担" : "Metal burden", value: metalScore },
+        { label: lang === "zh" ? "连接体可持续性" : "Linker sustainability", value: linkerScore },
+        { label: lang === "zh" ? "孔结构适配" : "Pore fit", value: processFit * 10 },
+        { label: lang === "zh" ? "分离趋势" : "Separation trend", value: selectivityFit * 10 },
+      ],
       evidence: record.sourceType?.includes("literature") || record.sourceType?.includes("GCMC")
         ? (lang === "zh" ? "中等证据：文献 / GCMC 标签" : "Medium evidence: literature / GCMC labels")
         : (lang === "zh" ? "低-中证据：种子库 / 代理字段" : "Low-medium evidence: seed / proxy fields"),
@@ -93,6 +63,8 @@ function buildEcoCandidates(records, results, inputs, lang) {
       note: lang === "zh"
         ? "Eco Score 是筛选级候选优先级，不代表完整工业 LCA 结论。"
         : "Eco Score is a screening-level candidate priority, not a complete industrial LCA conclusion.",
+      limitations: lang === "zh" ? "代理清单和 seed 记录不能替代完整工业 LCA/LCC。" : "Proxy inventory and seed records do not replace full industrial LCA/LCC.",
+      nextStep: lang === "zh" ? "补充合成路线、供应链数据、循环寿命和正式清单。" : "Add synthesis route, supply-chain data, cycle lifetime, and formal inventory.",
     }
   })
 
@@ -109,11 +81,18 @@ function buildEcoCandidates(records, results, inputs, lang) {
         lang === "zh" ? `选择性 ${results.selectivity}` : `selectivity ${results.selectivity}`,
         lang === "zh" ? "需要实验和清单验证" : "requires experimental and inventory validation",
       ],
+      breakdown: [
+        { label: lang === "zh" ? "当前生态评分" : "Current eco score", value: Number(results.lca?.compositeGreenScore ?? 0) },
+        { label: lang === "zh" ? "选择性贡献" : "Selectivity contribution", value: Math.min(10, Number(results.selectivity || 0) / 12) },
+        { label: lang === "zh" ? "置信度" : "Confidence", value: Number(results.confidenceScore || 0) * 10 },
+      ],
       evidence: lang === "zh" ? "模型 / 代理证据" : "Model / proxy evidence",
       source: lang === "zh" ? "当前浏览器端模型 + LCA 代理规则" : "Current browser model + LCA proxy rules",
       note: lang === "zh"
         ? "当前结果只说明候选排序方向，应进入数据补充和实验验证。"
         : "The current result only indicates ranking direction and should move to data enrichment and validation.",
+      limitations: lang === "zh" ? "浏览器端模型与 LCA 代理不能替代实验、GCMC 或完整清单。" : "Browser model and LCA proxy cannot replace experiment, GCMC, or complete inventory.",
+      nextStep: lang === "zh" ? "验证实测吸附、材料寿命、再生能耗和供应商/工艺清单。" : "Validate measured adsorption, material lifetime, regeneration energy, and supplier/process inventory.",
     })
   }
   return candidates
@@ -126,6 +105,7 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
   const [structureRows, setStructureRows] = useState([])
   const [labelRows, setLabelRows] = useState([])
   const [selected, setSelected] = useState(null)
+  const [filtersOpen, setFiltersOpen] = useState(false)
   const [filters, setFilters] = useState({
     task: "co2-capture",
     metalRisk: "noHigh",
@@ -187,44 +167,61 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
       </Callout>
 
       <ResultLayer number="01" title={lang === "zh" ? "可持续性筛选条件" : "Sustainability Filters"} subtitle={lang === "zh" ? "筛选规则影响排序展示，不改变原始数据库记录。" : "Filters affect ranking display, not the underlying database records."}>
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(5, minmax(0, 1fr))", gap: 10, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-          <label style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }}>
-            {lang === "zh" ? "筛选任务" : "Task"}
-            <select value={filters.task} onChange={e => setFilters(prev => ({ ...prev, task: e.target.value }))} style={controlStyle}>
-              <option value="co2-capture">{lang === "zh" ? "CO₂ 捕集低负担候选" : "CO2 capture low-burden candidates"}</option>
-              <option value="solvent-light">{lang === "zh" ? "低溶剂/废弃物压力" : "lower solvent/waste pressure"}</option>
-              <option value="supply-aware">{lang === "zh" ? "供应与成本敏感性较低" : "lower supply/cost sensitivity"}</option>
-            </select>
-          </label>
-          <label style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }}>
-            {lang === "zh" ? "金属风险" : "Metal risk"}
-            <select value={filters.metalRisk} onChange={e => setFilters(prev => ({ ...prev, metalRisk: e.target.value }))} style={controlStyle}>
-              <option value="noHigh">{lang === "zh" ? "排除高风险节点" : "exclude high-risk nodes"}</option>
-              <option value="lowOnly">{lang === "zh" ? "只看低/中低负担节点" : "low-burden nodes only"}</option>
-              <option value="all">{lang === "zh" ? "全部显示" : "show all"}</option>
-            </select>
-          </label>
-          <label style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }}>
-            {lang === "zh" ? "最低生态评分" : "Minimum Eco Score"}
-            <input type="number" min="0" max="10" step="0.1" value={filters.minScore} onChange={e => setFilters(prev => ({ ...prev, minScore: e.target.value }))} style={controlStyle} />
-          </label>
-          <label style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }}>
-            {lang === "zh" ? "证据等级" : "Evidence"}
-            <select value={filters.evidence} onChange={e => setFilters(prev => ({ ...prev, evidence: e.target.value }))} style={controlStyle}>
-              <option value="all">{lang === "zh" ? "全部证据" : "all evidence"}</option>
-              <option value="medium">{lang === "zh" ? "中等及以上" : "medium or higher"}</option>
-            </select>
-          </label>
-          <button type="button" onClick={onPredict} disabled={loading} style={{ ...toolbarBtn(t), alignSelf: "end", minHeight: 38 }}>
-            {loading ? (lang === "zh" ? "计算中..." : "Running...") : (lang === "zh" ? "运行当前结构" : "Run current structure")}
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+          <button type="button" onClick={() => setFiltersOpen(prev => !prev)} style={{ ...controlStyle, display: isMobile ? "block" : "none", marginBottom: filtersOpen ? 10 : 0 }}>
+            {filtersOpen ? (lang === "zh" ? "收起筛选器" : "Collapse filters") : (lang === "zh" ? "展开筛选器" : "Expand filters")}
           </button>
+          <div style={{ display: isMobile && !filtersOpen ? "none" : "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
+            <label style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }}>
+              {lang === "zh" ? "筛选任务" : "Task"}
+              <select value={filters.task} onChange={e => setFilters(prev => ({ ...prev, task: e.target.value }))} style={controlStyle}>
+                <option value="co2-capture">{lang === "zh" ? "CO₂ 捕集低负担候选" : "CO2 capture low-burden candidates"}</option>
+                <option value="solvent-light">{lang === "zh" ? "低溶剂/废弃物压力" : "lower solvent/waste pressure"}</option>
+                <option value="supply-aware">{lang === "zh" ? "供应与成本敏感性较低" : "lower supply/cost sensitivity"}</option>
+              </select>
+            </label>
+            <label style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }}>
+              {lang === "zh" ? "金属风险" : "Metal risk"}
+              <select value={filters.metalRisk} onChange={e => setFilters(prev => ({ ...prev, metalRisk: e.target.value }))} style={controlStyle}>
+                <option value="noHigh">{lang === "zh" ? "排除高风险节点" : "exclude high-risk nodes"}</option>
+                <option value="lowOnly">{lang === "zh" ? "只看低/中低负担节点" : "low-burden nodes only"}</option>
+                <option value="all">{lang === "zh" ? "全部显示" : "show all"}</option>
+              </select>
+            </label>
+            <label style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }}>
+              {lang === "zh" ? "最低生态评分" : "Minimum Eco Score"}
+              <input type="number" min="0" max="10" step="0.1" value={filters.minScore} onChange={e => setFilters(prev => ({ ...prev, minScore: e.target.value }))} style={controlStyle} />
+            </label>
+            <label style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }}>
+              {lang === "zh" ? "证据等级" : "Evidence"}
+              <select value={filters.evidence} onChange={e => setFilters(prev => ({ ...prev, evidence: e.target.value }))} style={controlStyle}>
+                <option value="all">{lang === "zh" ? "全部证据" : "all evidence"}</option>
+                <option value="medium">{lang === "zh" ? "中等及以上" : "medium or higher"}</option>
+              </select>
+            </label>
+            <button type="button" onClick={onPredict} disabled={loading} style={{ ...toolbarBtn(t), alignSelf: "end", minHeight: 38 }}>
+              {loading ? (lang === "zh" ? "计算中..." : "Running...") : (lang === "zh" ? "运行当前结构" : "Run current structure")}
+            </button>
+          </div>
         </div>
       </ResultLayer>
 
       <ResultLayer number="02" title={lang === "zh" ? "生态评分排序" : "Eco Score Ranking"} subtitle={lang === "zh" ? "统一结果卡片：MOF 名称 / 评分 / 适合任务 / 关键原因 / 证据等级 / 查看详情。" : "Unified result cards: MOF name / Score / Suitable task / Key reasons / Evidence level / View details."}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 12 }}>
           {candidates.slice(0, 6).map(candidate => (
-            <UnifiedResultCard key={candidate.id} candidate={candidate} onDetails={setSelected} />
+            <UnifiedCandidateCard
+              key={candidate.id}
+              name={candidate.name}
+              score={candidate.score}
+              scoreLabel={lang === "zh" ? "生态评分" : "Eco Score"}
+              suitableTask={candidate.task}
+              scoreBreakdown={candidate.breakdown}
+              keyReasons={candidate.reasons}
+              evidenceLevel={candidate.evidence}
+              limitations={candidate.limitations}
+              recommendedNextStep={candidate.nextStep}
+              onDetails={() => setSelected(candidate)}
+            />
           ))}
         </div>
       </ResultLayer>

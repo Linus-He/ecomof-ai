@@ -5,25 +5,104 @@ import {
   BasisBadge, PageHeader, ResultLayer, Callout,
 } from "../../shared"
 
+function normalizeDemoRecord(item) {
+  const metalNodes = Array.isArray(item.metalNodes) ? item.metalNodes : item.metal ? [item.metal] : []
+  return {
+    id: item.id || item.name,
+    name: item.name,
+    formula: item.formula || "—",
+    metalNodes,
+    metal: metalNodes.join(", ") || item.metal || "—",
+    linker: item.linker || "—",
+    topology: item.topology || "—",
+    poreSizeA: Number(item.poreSizeA ?? item.pd ?? item.lcd ?? 0),
+    surfaceArea: Number(item.surfaceArea ?? item.bet ?? 0),
+    poreVolume: item.poreVolume ?? item.pv ?? "—",
+    co2Uptake: item.co2Uptake ?? "—",
+    bandGap: item.bandGap ?? "—",
+    waterStability: item.waterStability || "—",
+    thermalStability: item.thermalStability || "—",
+    costLevel: item.costLevel || "—",
+    toxicityConcern: item.toxicityConcern || "—",
+    reactionClasses: Array.isArray(item.reactionClasses) ? item.reactionClasses : [],
+    activeSiteHypothesis: item.activeSiteHypothesis || "—",
+    source: item.source || item.sourceDatabase || item.sourceType || "Demo seed",
+    evidenceLevel: item.evidenceLevel || "Low",
+    limitations: item.limitations || "Demo / placeholder record; needs validation.",
+    dataStatus: item.dataStatus || "demo / placeholder / needs validation",
+  }
+}
+
+function normalizeLegacyRecord(item) {
+  return normalizeDemoRecord({
+    id: item.id || item.name,
+    name: item.name,
+    formula: item.formula || "—",
+    metalNodes: item.metal ? [item.metal] : [],
+    linker: item.linker,
+    topology: item.topology,
+    poreSizeA: item.pd || item.lcd || 0,
+    surfaceArea: item.bet || 0,
+    poreVolume: item.pv,
+    co2Uptake: item.co2Uptake || item.co2_uptake_mmol_g,
+    bandGap: item.bandGap || "—",
+    waterStability: item.waterStability || "unmarked",
+    thermalStability: item.thermalStability || "unmarked",
+    costLevel: "unmarked",
+    toxicityConcern: "unmarked",
+    reactionClasses: [],
+    activeSiteHypothesis: item.oms ? "Open metal site marked in structure record" : "Not specified",
+    source: item.sourceDatabase || item.sourceType || "local seed",
+    evidenceLevel: item.qualityFlag ? "Low-medium" : "Low",
+    limitations: item.qualityFlag || "Legacy structure/label record; use as a data attribute, not a conclusion.",
+    dataStatus: "local seed / needs validation",
+  })
+}
+
+const zhValue = (value, lang) => {
+  if (lang !== "zh") return value
+  return {
+    High: "高",
+    Medium: "中",
+    Low: "低",
+    "Low-medium": "低-中",
+    "unmarked": "未标注",
+    "Demo seed": "演示种子数据",
+    "local seed": "本地种子数据",
+  }[value] || value
+}
+
 export function MOFLibraryTab({ results, inputs }) {
   const t = useT()
   const { lang } = useLang()
-  const { isNarrow } = useViewport()
+  const { isNarrow, isMobile } = useViewport()
   const [query, setQuery] = useState("")
   const [metal, setMetal] = useState("all")
   const [source, setSource] = useState("all")
-  const [oms, setOms] = useState("all")
+  const [evidence, setEvidence] = useState("all")
+  const [poreMin, setPoreMin] = useState(0)
+  const [poreMax, setPoreMax] = useState(40)
+  const [areaMin, setAreaMin] = useState(0)
+  const [areaMax, setAreaMax] = useState(5000)
+  const [filtersOpen, setFiltersOpen] = useState(false)
+  const [expandedId, setExpandedId] = useState(null)
   const [structureRows, setStructureRows] = useState([])
   const [labelRows, setLabelRows] = useState([])
+  const [demoRows, setDemoRows] = useState([])
   const [status, setStatus] = useState("loading")
 
   useEffect(() => {
     let active = true
-    Promise.all([fetchDataJson("mof_structures.json"), fetchDataJson("adsorption_labels.json")])
-      .then(([structures, labels]) => {
+    Promise.all([
+      fetchDataJson("mof_structures.json"),
+      fetchDataJson("adsorption_labels.json"),
+      fetchDataJson("mof_candidates_demo.json"),
+    ])
+      .then(([structures, labels, demo]) => {
         if (!active) return
         setStructureRows(structures)
         setLabelRows(labels)
+        setDemoRows(Array.isArray(demo) ? demo : [])
         setStatus("loaded")
       })
       .catch(() => {
@@ -34,97 +113,124 @@ export function MOFLibraryTab({ results, inputs }) {
   }, [])
 
   const records = useMemo(() => {
+    if (demoRows.length) return demoRows.map(normalizeDemoRecord)
     const loaded = buildDatabaseRecords(structureRows, labelRows)
-    return loaded.length ? loaded : LITERATURE_DB
-  }, [structureRows, labelRows])
+    return (loaded.length ? loaded : LITERATURE_DB).map(normalizeLegacyRecord)
+  }, [demoRows, structureRows, labelRows])
 
-  const metals = useMemo(() => Array.from(new Set(records.map(item => item.metal).filter(Boolean))).sort(), [records])
-  const sources = useMemo(() => Array.from(new Set(records.map(item => item.sourceDatabase || item.sourceType || "local seed"))).sort(), [records])
-  const displaySource = (value) => {
-    if (lang !== "zh") return value || "local seed"
-    if (!value || value === "local seed") return "本地种子库"
-    if (value === "seed") return "种子数据"
-    return value
-  }
+  const metals = useMemo(() => Array.from(new Set(records.flatMap(item => item.metalNodes).filter(Boolean))).sort(), [records])
+  const sources = useMemo(() => Array.from(new Set(records.map(item => item.source || "local seed"))).sort(), [records])
+  const evidenceLevels = useMemo(() => Array.from(new Set(records.map(item => item.evidenceLevel || "Low"))).sort(), [records])
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
     return records
-      .filter(item => !q || [item.name, item.metal, item.linker, item.topology, item.sourceDatabase, item.sourceType].some(value => String(value || "").toLowerCase().includes(q)))
-      .filter(item => metal === "all" || item.metal === metal)
-      .filter(item => source === "all" || (item.sourceDatabase || item.sourceType || "local seed") === source)
-      .filter(item => oms === "all" || Boolean(item.oms) === (oms === "yes"))
+      .filter(item => !q || [item.name, item.formula, item.metal, item.linker, item.topology, item.source, item.evidenceLevel].some(value => String(value || "").toLowerCase().includes(q)))
+      .filter(item => metal === "all" || item.metalNodes.includes(metal))
+      .filter(item => source === "all" || item.source === source)
+      .filter(item => evidence === "all" || item.evidenceLevel === evidence)
+      .filter(item => Number(item.poreSizeA || 0) >= Number(poreMin) && Number(item.poreSizeA || 0) <= Number(poreMax))
+      .filter(item => Number(item.surfaceArea || 0) >= Number(areaMin) && Number(item.surfaceArea || 0) <= Number(areaMax))
       .sort((a, b) => String(a.name).localeCompare(String(b.name)))
-  }, [records, query, metal, source, oms])
+  }, [records, query, metal, source, evidence, poreMin, poreMax, areaMin, areaMax])
 
   const exportCsv = () => {
-    const header = ["MOF name", "Metal", "Linker", "Topology", "PLD A", "LCD A", "BET m2/g", "Pore volume cm3/g", "OMS", "Structure source", "Descriptor method", "Label source", "Quality flag", "DOI or URL", "License note"]
+    const header = ["MOF name", "Metal nodes", "Linker", "Pore size A", "Surface area m2/g", "CO2 uptake", "Band gap", "Stability", "Source", "Evidence level", "Limitations"]
     const rows = filtered.map(item => [
-      item.name, item.metal, item.linker, item.topology || "", item.pd || "", item.lcd || "", item.bet || "", item.pv || "", item.oms ? "yes" : "no",
-      item.sourceDatabase || "local seed", item.descriptorMethod || "", item.labelSource || item.sourceType || "", item.qualityFlag || "", item.doi || "", item.licenseNote || "",
+      item.name, item.metal, item.linker, item.poreSizeA, item.surfaceArea, item.co2Uptake, item.bandGap,
+      `${item.waterStability}/${item.thermalStability}`, item.source, item.evidenceLevel, item.limitations,
     ])
     const csv = [header, ...rows].map(row => row.map(value => `"${String(value ?? "").replace(/"/g, '""')}"`).join(",")).join("\n")
     downloadTextFile("ecomof_mof_library.csv", csv, "text/csv")
   }
 
   const controlStyle = { background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "9px 11px", color: t.text, fontSize: 12, width: "100%" }
+  const labelStyle = { display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }
+  const detailBlock = { background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }
+  const field = (label, value) => (
+    <div style={{ minWidth: 0 }}>
+      <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 4 }}>{label}</div>
+      <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 750, overflowWrap: "anywhere" }}>{value || "—"}</div>
+    </div>
+  )
+
+  const filterFields = (
+    <>
+      <label style={{ ...labelStyle, gridColumn: isNarrow ? "1 / -1" : "auto" }}>
+        {lang === "zh" ? "搜索 MOF 名称" : "Search MOF name"}
+        <input value={query} onChange={e => setQuery(e.target.value)} placeholder={lang === "zh" ? "输入 MOF、金属、连接体或来源..." : "Type MOF, metal, linker, or source..."} style={controlStyle} />
+      </label>
+      <label style={labelStyle}>
+        {lang === "zh" ? "金属中心" : "Metal center"}
+        <select value={metal} onChange={e => setMetal(e.target.value)} style={controlStyle}>
+          <option value="all">{lang === "zh" ? "全部" : "all"}</option>
+          {metals.map(item => <option key={item} value={item}>{item}</option>)}
+        </select>
+      </label>
+      <label style={labelStyle}>
+        {lang === "zh" ? "数据来源" : "Data source"}
+        <select value={source} onChange={e => setSource(e.target.value)} style={controlStyle}>
+          <option value="all">{lang === "zh" ? "全部来源" : "all sources"}</option>
+          {sources.map(item => <option key={item} value={item}>{zhValue(item, lang)}</option>)}
+        </select>
+      </label>
+      <label style={labelStyle}>
+        Evidence Level
+        <select value={evidence} onChange={e => setEvidence(e.target.value)} style={controlStyle}>
+          <option value="all">{lang === "zh" ? "全部" : "all"}</option>
+          {evidenceLevels.map(item => <option key={item} value={item}>{zhValue(item, lang)}</option>)}
+        </select>
+      </label>
+      {[
+        [lang === "zh" ? "最小孔径 Å" : "Pore min Å", poreMin, setPoreMin],
+        [lang === "zh" ? "最大孔径 Å" : "Pore max Å", poreMax, setPoreMax],
+        [lang === "zh" ? "最小比表面积" : "Surface area min", areaMin, setAreaMin],
+        [lang === "zh" ? "最大比表面积" : "Surface area max", areaMax, setAreaMax],
+      ].map(([label, value, setter]) => (
+        <label key={label} style={labelStyle}>
+          {label}
+          <input type="number" value={value} onChange={e => setter(e.target.value)} style={controlStyle} />
+        </label>
+      ))}
+      <button type="button" onClick={exportCsv} style={{ ...toolbarBtn(t), height: 38, alignSelf: "end" }}>↓ CSV</button>
+    </>
+  )
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title={lang === "zh" ? "MOF 库" : "MOF Library"}
+        title={lang === "zh" ? "MOF Library — 基础材料数据" : "MOF Library — Baseline material data"}
         subtitle={lang === "zh"
-          ? "浏览所有 MOF 基础数据、来源字段和标签覆盖情况。该页面展示数据库记录，不直接把数据库数值等同于科研结论。"
-          : "Browse MOF baseline data, source fields, and label coverage. This page displays database records; it does not turn database values into scientific conclusions."}
-        meta={lang === "zh" ? "搜索 · 基础筛选 · 数据来源 · 记录表" : "Search · basic filters · source fields · records"}
+          ? "展示 MOF 基础字段、数据来源和证据等级。Library 是底层数据入口，不直接把数据库记录等同于科研结论。"
+          : "Browse MOF baseline fields, data sources, and evidence levels. The Library is a data entry point and does not turn database records into scientific conclusions."}
+        meta={lang === "zh" ? "搜索 · 金属筛选 · 孔结构 · 数据来源 · Evidence Level" : "Search · metal filter · pore descriptors · data source · Evidence Level"}
         action={<BasisBadge tone={status === "loaded" ? "calc" : "proxy"}>{status === "loaded" ? "public/data" : (lang === "zh" ? "种子数据" : "fallback seed")}</BasisBadge>}
       />
 
       <Callout tone="info">
         {lang === "zh"
-          ? "Library 是证据入口，不是结果页。结构库、描述符、吸附标签和 LCA 清单应分开审计。"
-          : "Library is an evidence entry point, not a result page. Structure sources, descriptors, adsorption labels, and LCA inventory should be audited separately."}
+          ? "当前数据包含 demo / placeholder / seed records。字段用于 early-stage screening 的数据审计，不能直接解释为实验性能、催化结论或完整 LCA 结论。"
+          : "Current data include demo / placeholder / seed records. Fields support data audit for early-stage screening and should not be read as experimental performance, catalysis conclusions, or complete LCA conclusions."}
       </Callout>
 
       <ResultLayer number="01" title={lang === "zh" ? "搜索与基础筛选" : "Search and Basic Filters"}>
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(260px, 1.4fr) repeat(3, minmax(150px, 0.7fr)) auto", gap: 10, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, alignItems: "end" }}>
-          <label style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }}>
-            {lang === "zh" ? "搜索" : "Search"}
-            <input value={query} onChange={e => setQuery(e.target.value)} placeholder={lang === "zh" ? "按 MOF、金属、连接体、来源搜索..." : "Search MOF, metal, linker, source..."} style={controlStyle} />
-          </label>
-          <label style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }}>
-            {lang === "zh" ? "金属" : "Metal"}
-            <select value={metal} onChange={e => setMetal(e.target.value)} style={controlStyle}>
-              <option value="all">{lang === "zh" ? "全部" : "all"}</option>
-              {metals.map(item => <option key={item} value={item}>{item}</option>)}
-            </select>
-          </label>
-          <label style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }}>
-            {lang === "zh" ? "数据来源" : "Source"}
-            <select value={source} onChange={e => setSource(e.target.value)} style={controlStyle}>
-              <option value="all">{lang === "zh" ? "全部来源" : "all sources"}</option>
-              {sources.map(item => <option key={item} value={item}>{displaySource(item)}</option>)}
-            </select>
-          </label>
-          <label style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }}>
-            OMS
-            <select value={oms} onChange={e => setOms(e.target.value)} style={controlStyle}>
-              <option value="all">{lang === "zh" ? "全部" : "all"}</option>
-              <option value="yes">{lang === "zh" ? "有开放金属位点" : "has OMS"}</option>
-              <option value="no">{lang === "zh" ? "无 / 未标注" : "no / unmarked"}</option>
-            </select>
-          </label>
-          <button type="button" onClick={exportCsv} style={{ ...toolbarBtn(t), height: 38 }}>↓ CSV</button>
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+          <button type="button" onClick={() => setFiltersOpen(prev => !prev)} style={{ ...controlStyle, display: isMobile ? "block" : "none", marginBottom: filtersOpen ? 10 : 0 }}>
+            {filtersOpen ? (lang === "zh" ? "收起筛选器" : "Collapse filters") : (lang === "zh" ? "展开筛选器" : "Expand filters")}
+          </button>
+          <div style={{ display: isMobile && !filtersOpen ? "none" : "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "minmax(220px, 1.2fr) repeat(4, minmax(120px, 0.75fr)) auto", gap: 10, alignItems: "end" }}>
+            {filterFields}
+          </div>
         </div>
       </ResultLayer>
 
-      <ResultLayer number="02" title={lang === "zh" ? "基础数据概览" : "Baseline Data Overview"} subtitle={lang === "zh" ? "卡片展示基础字段和来源，不作最终科研判断。" : "Cards show baseline fields and sources without final scientific judgment."}>
+      <ResultLayer number="02" title={lang === "zh" ? "基础数据概览" : "Baseline Data Overview"} subtitle={lang === "zh" ? "所有指标均为数据字段或筛选线索，不是最终科研判断。" : "All metrics are data fields or screening cues, not final scientific judgments."}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
           {[
             [lang === "zh" ? "当前显示" : "Showing", `${filtered.length} / ${records.length}`],
-            [lang === "zh" ? "结构来源" : "Structure sources", sources.length],
-            [lang === "zh" ? "金属类型" : "Metal types", metals.length],
-            [lang === "zh" ? "OMS 标注" : "OMS marked", records.filter(item => item.oms).length],
+            [lang === "zh" ? "数据来源" : "Data sources", sources.length],
+            [lang === "zh" ? "金属中心" : "Metal centers", metals.length],
+            ["Evidence Level", evidenceLevels.length],
           ].map(([label, value]) => (
             <div key={label} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 13 }}>
               <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{label}</div>
@@ -134,43 +240,46 @@ export function MOFLibraryTab({ results, inputs }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="03" title={lang === "zh" ? "MOF 记录" : "MOF Records"} subtitle={lang === "zh" ? "数据来源字段必须保留在表格中，便于后续审计。" : "Source fields are retained in the table for later audit."}>
-        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, overflow: "hidden" }}>
-          <div style={{ overflowX: "auto" }}>
-            <table style={{ width: "100%", minWidth: 1100, borderCollapse: "collapse" }}>
-              <thead>
-                <tr style={{ background: t.surface }}>
-                  {(lang === "zh"
-                    ? ["MOF 名称", "金属", "连接体", "拓扑", "PLD/LCD", "BET/孔体积", "OMS", "结构来源", "描述符方法", "标签来源", "质量标记"]
-                    : ["MOF name", "Metal", "Linker", "Topology", "PLD/LCD", "BET/PV", "OMS", "Structure source", "Descriptor method", "Label source", "Quality flag"]).map(head => (
-                    <th key={head} style={{ padding: "10px 12px", color: t.subtle, fontSize: 11, textAlign: "left", borderBottom: `1px solid ${t.border}` }}>{head}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {filtered.map((item, index) => (
-                  <tr key={`${item.name}-${index}`} style={{ background: index % 2 === 0 ? "transparent" : t.surface, borderBottom: `1px solid ${t.divider}` }}>
-                    <td style={{ padding: "10px 12px", color: t.textStrong, fontSize: 12, fontWeight: 850 }}>{item.name}</td>
-                    <td style={{ padding: "10px 12px", color: t.muted, fontSize: 12 }}>{item.metal}</td>
-                    <td style={{ padding: "10px 12px", color: t.muted, fontSize: 12 }}>{item.linker}</td>
-                    <td style={{ padding: "10px 12px", color: t.muted, fontSize: 12 }}>{item.topology || "—"}</td>
-                    <td style={{ padding: "10px 12px", color: t.muted, fontSize: 12 }}>{item.pd || "—"} / {item.lcd || "—"}</td>
-                    <td style={{ padding: "10px 12px", color: t.muted, fontSize: 12 }}>{Number(item.bet || 0).toLocaleString()} / {item.pv || "—"}</td>
-                    <td style={{ padding: "10px 12px" }}><BasisBadge tone={item.oms ? "info" : "proxy"}>{item.oms ? "OMS" : "—"}</BasisBadge></td>
-                    <td style={{ padding: "10px 12px", color: t.subtle, fontSize: 11 }}>{displaySource(item.sourceDatabase)}<br />{item.sourceRecord || ""}</td>
-                    <td style={{ padding: "10px 12px", color: t.subtle, fontSize: 11 }}>{item.descriptorMethod || "—"}</td>
-                    <td style={{ padding: "10px 12px", color: t.subtle, fontSize: 11 }}>{item.labelSource || item.sourceType || "—"}<br />{item.doi || ""}</td>
-                    <td style={{ padding: "10px 12px", color: t.warn, fontSize: 11 }}>{item.qualityFlag || "screening_seed"}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div style={{ padding: "10px 12px", borderTop: `1px solid ${t.border}`, color: t.faint, fontSize: 11, lineHeight: 1.5 }}>
-            {lang === "zh"
-              ? "说明：吸附量、选择性或描述符字段是记录属性；科研结论需要任务规则、误差评估和实验验证。"
-              : "Note: uptake, selectivity, or descriptor fields are record attributes; scientific conclusions need task rules, error assessment, and experimental validation."}
-          </div>
+      <ResultLayer number="03" title={lang === "zh" ? "MOF 记录" : "MOF Records"} subtitle={lang === "zh" ? "单个记录可展开查看结构、孔性质、吸附/电子、Eco、Catalysis 和限制字段。" : "Expand each record to inspect structure, pore, adsorption/electronic, Eco, Catalysis, and limitations fields."}>
+        <div style={{ display: "grid", gap: 10 }}>
+          {filtered.map(item => (
+            <div key={item.id} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 13 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
+                <div>
+                  <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 900 }}>{item.name}</div>
+                  <div style={{ color: t.subtle, fontSize: 11, marginTop: 4 }}>{item.formula}</div>
+                </div>
+                <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
+                  <BasisBadge tone="info">{zhValue(item.evidenceLevel, lang)}</BasisBadge>
+                  <BasisBadge tone="proxy">{item.dataStatus}</BasisBadge>
+                </div>
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(9, minmax(0, 1fr))", gap: 12, marginTop: 12 }}>
+                {field(lang === "zh" ? "金属节点" : "metal nodes", item.metal)}
+                {field(lang === "zh" ? "连接体" : "linker", item.linker)}
+                {field(lang === "zh" ? "孔径" : "pore size", `${item.poreSizeA || "—"} Å`)}
+                {field(lang === "zh" ? "比表面积" : "surface area", `${Number(item.surfaceArea || 0).toLocaleString()} m²/g`)}
+                {field("CO₂ uptake", item.co2Uptake === "—" ? "—" : `${item.co2Uptake} mmol/g`)}
+                {field("band gap", item.bandGap === "—" ? "—" : `${item.bandGap} eV`)}
+                {field(lang === "zh" ? "稳定性" : "stability", `${zhValue(item.waterStability, lang)} / ${zhValue(item.thermalStability, lang)}`)}
+                {field(lang === "zh" ? "来源" : "source", zhValue(item.source, lang))}
+                {field("Evidence Level", zhValue(item.evidenceLevel, lang))}
+              </div>
+              <button type="button" onClick={() => setExpandedId(expandedId === item.id ? null : item.id)} style={{ ...toolbarBtn(t), marginTop: 12 }}>
+                {expandedId === item.id ? (lang === "zh" ? "收起详情" : "Hide details") : (lang === "zh" ? "查看详情" : "View details")}
+              </button>
+              {expandedId === item.id && (
+                <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
+                  <div style={detailBlock}>{field(lang === "zh" ? "基础结构" : "Basic structure", `${item.topology}; ${item.formula}`)}</div>
+                  <div style={detailBlock}>{field(lang === "zh" ? "孔结构性质" : "Porous properties", `${item.poreSizeA} Å; ${Number(item.surfaceArea || 0).toLocaleString()} m²/g; PV ${item.poreVolume}`)}</div>
+                  <div style={detailBlock}>{field(lang === "zh" ? "吸附 / 电子性质" : "Adsorption / electronic properties", `CO₂ ${item.co2Uptake}; band gap ${item.bandGap}`)}</div>
+                  <div style={detailBlock}>{field(lang === "zh" ? "Eco 概况" : "Eco profile", `${lang === "zh" ? "成本" : "cost"} ${zhValue(item.costLevel, lang)}; ${lang === "zh" ? "毒性关注" : "toxicity concern"} ${zhValue(item.toxicityConcern, lang)}`)}</div>
+                  <div style={detailBlock}>{field(lang === "zh" ? "催化潜力线索" : "Catalysis potential", `${item.reactionClasses.join(", ") || "—"}; ${item.activeSiteHypothesis}`)}</div>
+                  <div style={detailBlock}>{field(lang === "zh" ? "数据来源 / 限制" : "Data source / Limitations", `${item.source}; ${item.limitations}`)}</div>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </ResultLayer>
 
@@ -178,8 +287,8 @@ export function MOFLibraryTab({ results, inputs }) {
         <ResultLayer number="04" title={lang === "zh" ? "当前输入记录提示" : "Current Input Note"}>
           <Callout tone="success">
             {lang === "zh"
-              ? `当前输入 ${inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`} 可在 EcoScreen 或 CatalysisLab 中作为候选解释对象；Library 只负责展示来源字段。`
-              : `Current input ${inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`} can be interpreted as a candidate in EcoScreen or CatalysisLab; Library only exposes source fields.`}
+              ? `当前输入 ${inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`} 可在 EcoScreen、Performance 或 CatalysisLab 中作为候选解释对象；Library 只负责展示来源字段。`
+              : `Current input ${inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`} can be interpreted as a candidate in EcoScreen, Performance, or CatalysisLab; Library only exposes source fields.`}
           </Callout>
         </ResultLayer>
       )}

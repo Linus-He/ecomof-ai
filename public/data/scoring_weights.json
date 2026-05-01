@@ -1,0 +1,24 @@
+{
+  "dataStatus": "demo / placeholder / rule-based / needs validation",
+  "finalScore": {
+    "performance": 0.25,
+    "stability": 0.2,
+    "sustainability": 0.2,
+    "applicationFit": 0.2,
+    "evidenceConfidence": 0.15
+  },
+  "catalysisPotentialScore": {
+    "co2Affinity": 0.16,
+    "activeSite": 0.18,
+    "poreAccessibility": 0.14,
+    "stability": 0.16,
+    "electronicProperty": 0.13,
+    "sustainability": 0.11,
+    "evidenceConfidence": 0.12
+  },
+  "notes": [
+    "Weights are demo defaults for prototype screening.",
+    "Weights should be revised with domain experts and labeled data.",
+    "Scores indicate candidate priority, not final material performance."
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "dataStatus": "demo / placeholder / rule-based / needs validation",
+  "formula": "Catalysis Potential Score = w1 x CO2 Affinity + w2 x Active Site Potential + w3 x Pore Accessibility + w4 x Stability + w5 x Electronic Property + w6 x Sustainability + w7 x Evidence Confidence",
+  "notes": [
+    "Catalytic performance depends strongly on reaction conditions.",
+    "The score is intended for candidate prioritization, not final performance prediction.",
+    "The current rule set uses descriptor cues and evidence confidence only; it is not a trained catalytic model."
+  ],
+  "descriptorRules": {
+    "co2Affinity": "Normalized from CO2 uptake proxy values in demo records.",
+    "activeSitePotential": "Increases with open-metal-site or post-synthetic active-site hypotheses; requires validation.",
+    "poreAccessibility": "Uses pore size and surface area to estimate screening-level accessibility.",
+    "stability": "Combines water and thermal stability labels.",
+    "electronicProperty": "Uses band-gap proximity as a coarse task-fit cue.",
+    "sustainability": "Penalizes cost, toxicity, and sustainability-risk placeholders.",
+    "evidenceConfidence": "Maps Evidence Level to a confidence modifier; it is not proof of performance."
+  }
+}

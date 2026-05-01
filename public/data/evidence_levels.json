@@ -1,0 +1,26 @@
+[
+  {
+    "level": "High",
+    "labelZh": "高",
+    "meaning": "Multiple consistent experimental or literature sources with clear task relevance.",
+    "prototypeUse": "Rare in demo mode; still needs task-specific validation."
+  },
+  {
+    "level": "Medium",
+    "labelZh": "中",
+    "meaning": "Partial literature support, known descriptor patterns, or reasonable structural evidence.",
+    "prototypeUse": "Usable for early-stage candidate ranking, not final conclusions."
+  },
+  {
+    "level": "Low-medium",
+    "labelZh": "低-中",
+    "meaning": "Some descriptor support but limited task-specific evidence.",
+    "prototypeUse": "Hypothesis generation only; validation priority should be explicit."
+  },
+  {
+    "level": "Low",
+    "labelZh": "低",
+    "meaning": "Sparse or mostly inferred support.",
+    "prototypeUse": "Exploratory candidate only; should not be treated as a proven result."
+  }
+]

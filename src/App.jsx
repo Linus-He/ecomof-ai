@@ -30,6 +30,7 @@ const lazyNamed = (loader, exportName) => lazy(async () => {
 
 const HomeTab = lazyNamed(() => import("./components/tabs/HomeTab.jsx"), "HomeTab")
 const EcoScreenTab = lazyNamed(() => import("./components/tabs/EcoScreenTab.jsx"), "EcoScreenTab")
+const PerformanceTab = lazyNamed(() => import("./components/tabs/PerformanceTab.jsx"), "PerformanceTab")
 const CatalysisLabTab = lazyNamed(() => import("./components/tabs/CatalysisLabTab.jsx"), "CatalysisLabTab")
 const MOFLibraryTab = lazyNamed(() => import("./components/tabs/MOFLibraryTab.jsx"), "MOFLibraryTab")
 const WorkflowTab = lazyNamed(() => import("./components/tabs/WorkflowTab.jsx"), "WorkflowTab")
@@ -280,6 +281,16 @@ function AppShell({
                 onNavigate={navigateTab}
               />
             )}
+            {activeTab === "performance" && (
+              <PerformanceTab
+                inputs={inputs}
+                setInputs={setInputs}
+                results={results}
+                loading={loading}
+                onPredict={handlePredict}
+                onNavigate={navigateTab}
+              />
+            )}
             {activeTab === "catalysis" && <CatalysisLabTab />}
             {activeTab === "library" && <MOFLibraryTab results={results} inputs={inputs} />}
             {activeTab === "workflow" && <WorkflowTab setActiveTab={navigateTab} inputs={inputs} results={results} />}
@@ -469,6 +480,10 @@ export default function App() {
     }
     if (target === "ecoScreen") {
       setActiveTab("ecoscreen")
+      return
+    }
+    if (target === "performance") {
+      setActiveTab("performance")
       return
     }
     if (target === "catalysisLab") {

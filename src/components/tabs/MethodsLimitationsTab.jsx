@@ -4,6 +4,16 @@ import {
   BasisBadge, SectionTitle, Callout, PageHeader,
 } from "../../shared"
 
+function MethodFormula({ title, formula, note, t }) {
+  return (
+    <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 13 }}>
+      <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850 }}>{title}</div>
+      <div style={{ color: t.accentText, fontSize: 12, fontFamily: FONT_MONO, lineHeight: 1.65, marginTop: 9 }}>{formula}</div>
+      <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.6, marginTop: 9 }}>{note}</div>
+    </div>
+  )
+}
+
 export function MethodsLimitationsTab() {
   const t = useT()
   const { lang, copy: c } = useLang()
@@ -49,6 +59,131 @@ export function MethodsLimitationsTab() {
       <Callout tone="warn">
         <strong>{c.methods.noticeTitle}</strong> {c.methods.noticeBody}
       </Callout>
+
+      <div className="content-card" style={sectionCard}>
+        <SectionTitle>{lang === "zh" ? "平台做什么 / What this platform does" : "What this platform does"}</SectionTitle>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 10 }}>
+          {(lang === "zh" ? [
+            ["早期候选筛选", "把吸附、稳定性、可持续性、任务适配和证据等级组织成候选优先级，支持 Early-stage Screening 和假设生成。", "info"],
+            ["任务导向应用探索", "Performance、EcoScreen 和 CatalysisLab 共用可解释结果卡片，帮助科研合作讨论下一步验证。", "proxy"],
+            ["决策支持", "输出 candidate priority、potential 和 needs validation，不替代实验、GCMC、严格 IAST 或完整工业 LCA。", "warn"],
+          ] : [
+            ["Early-stage candidate screening", "Organizes adsorption, stability, sustainability, application fit, and Evidence Level into candidate priority for hypothesis generation.", "info"],
+            ["Task-oriented application exploration", "Performance, EcoScreen, and CatalysisLab share explainable result cards for research-collaboration discussion.", "proxy"],
+            ["Decision support", "Outputs candidate priority, potential, and needs validation; it does not replace experiments, GCMC, strict IAST, or full industrial LCA.", "warn"],
+          ]).map(([title, body, tone]) => (
+            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <BasisBadge tone={tone}>{title}</BasisBadge>
+              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, marginTop: 9 }}>{body}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="content-card" style={sectionCard}>
+        <SectionTitle>{lang === "zh" ? "数据契约与描述符含义" : "Data contracts and descriptor meaning"}</SectionTitle>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12, marginTop: 10 }}>
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+            <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850, marginBottom: 8 }}>{lang === "zh" ? "数据契约" : "Data contracts"}</div>
+            <div style={bodyText}>
+              {lang === "zh"
+                ? "MOF 数据至少应保留 id、name、formula、source、metalNodes、linker、topology、poreSizeA、surfaceArea、poreVolume、co2Uptake、bandGap、stability、cost/toxicity、reactionClasses、activeSiteHypothesis、Evidence Level 和 limitations。demo / placeholder 记录必须清楚标注。"
+                : "MOF records should retain id, name, formula, source, metalNodes, linker, topology, poreSizeA, surfaceArea, poreVolume, co2Uptake, bandGap, stability, cost/toxicity, reactionClasses, activeSiteHypothesis, Evidence Level, and limitations. Demo / placeholder records must be clearly marked."}
+            </div>
+          </div>
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+            <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850, marginBottom: 8 }}>{lang === "zh" ? "描述符含义" : "Descriptor meaning"}</div>
+            <div style={bodyText}>
+              {lang === "zh"
+                ? "孔径、比表面积、CO2 uptake、band gap、稳定性、成本和毒性字段是筛选描述符；它们只提供候选排序线索。不同任务需要不同权重，字段缺失或来源较弱时必须降低解释强度。"
+                : "Pore size, surface area, CO2 uptake, band gap, stability, cost, and toxicity are screening descriptors. They provide candidate-ranking cues only. Different tasks require different weights, and missing or weakly sourced fields should reduce interpretation strength."}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="content-card" style={sectionCard}>
+        <SectionTitle>{lang === "zh" ? "Rule-based scoring model" : "Rule-based scoring model"}</SectionTitle>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12, marginTop: 10 }}>
+          <MethodFormula
+            title="Final Score"
+            formula="Final Score = w1 × Performance + w2 × Stability + w3 × Sustainability + w4 × Application Fit + w5 × Evidence Confidence"
+            note={lang === "zh" ? "统一候选优先级公式；权重是可审计的 rule-based 配置，不是训练后真实模型参数。" : "Unified candidate-priority formula. Weights are auditable rule-based settings, not trained real-model parameters."}
+            t={t}
+          />
+          <MethodFormula
+            title="Catalysis Potential Score"
+            formula="Catalysis Potential Score = w1 × CO₂ Affinity + w2 × Active Site Potential + w3 × Pore Accessibility + w4 × Stability + w5 × Electronic Property + w6 × Sustainability + w7 × Evidence Confidence"
+            note={lang === "zh" ? "CatalysisLab 使用该公式进行候选优先级筛选；分数不代表最终转化率、选择性或 TOF。" : "CatalysisLab uses this formula for candidate prioritization. The score is not final conversion, selectivity, or TOF."}
+            t={t}
+          />
+        </div>
+      </div>
+
+      <div className="content-card" style={sectionCard}>
+        <SectionTitle>{lang === "zh" ? "Evidence Level" : "Evidence levels"}</SectionTitle>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10, marginTop: 10 }}>
+          {(lang === "zh" ? [
+            ["High", "多来源一致且任务相关；仍需要目标反应验证。"],
+            ["Medium", "有部分文献、描述符或结构证据；适合候选排序。"],
+            ["Low-medium", "有少量描述符支持，但任务证据有限；只用于假设生成。"],
+            ["Low", "主要是推断或占位；不能作为结论。"],
+          ] : [
+            ["High", "Multiple consistent and task-relevant sources; target-reaction validation is still needed."],
+            ["Medium", "Partial literature, descriptor, or structural evidence; suitable for candidate ranking."],
+            ["Low-medium", "Some descriptor support but limited task evidence; hypothesis generation only."],
+            ["Low", "Mostly inferred or placeholder support; not a conclusion."],
+          ]).map(([level, body]) => (
+            <div key={level} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <BasisBadge tone={level === "High" ? "calc" : level === "Medium" ? "info" : "proxy"}>{level}</BasisBadge>
+              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.6, marginTop: 9 }}>{body}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="content-card" style={sectionCard}>
+        <SectionTitle>{lang === "zh" ? "ML evaluation 占位模块" : "ML evaluation placeholder"}</SectionTitle>
+        <Callout tone="info">
+          {lang === "zh"
+            ? "Demo only / Placeholder：当前没有真实标签数据时，不显示真实 R²、MAE 或 RMSE。下列模块只是未来评估计划。"
+            : "Demo only / Placeholder: without labeled data, the platform does not show real R², MAE, or RMSE. The items below are future evaluation plans."}
+        </Callout>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10, marginTop: 10 }}>
+          {["Predicted vs Actual", "Residual Plot", "Feature Importance", "R² / MAE / RMSE"].map(item => (
+            <div key={item} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, minHeight: 92 }}>
+              <BasisBadge tone="proxy">Demo only / Placeholder</BasisBadge>
+              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850, marginTop: 10 }}>{item}</div>
+              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55, marginTop: 7 }}>
+                {lang === "zh" ? "需要真实实验或文献标签数据后才能启用。" : "Requires labeled experimental or literature data before activation."}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="content-card" style={sectionCard}>
+        <SectionTitle>{lang === "zh" ? "限制与免责声明" : "Limitations and disclaimer"}</SectionTitle>
+        <div style={{ display: "grid", gap: 8, marginTop: 10 }}>
+          {(lang === "zh" ? [
+            "结果表示候选优先级，不表示最终材料性能。",
+            "催化性能强烈依赖具体反应条件。",
+            "可持续性评分不能替代完整工业 LCA。",
+            "吸附结果不能替代严格 GCMC 或 IAST。",
+            "必须进行实验验证。",
+          ] : [
+            "Results indicate candidate priority, not final material performance.",
+            "Catalytic performance depends strongly on reaction conditions.",
+            "Sustainability scores do not replace full industrial LCA.",
+            "Adsorption results do not replace rigorous GCMC or IAST.",
+            "Experimental validation is required.",
+          ]).map(item => (
+            <div key={item} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "10px 12px", color: t.muted, fontSize: 12, lineHeight: 1.55 }}>
+              {item}
+            </div>
+          ))}
+        </div>
+      </div>
 
       <div className="content-card" style={sectionCard}>
         <SectionTitle>{lang === "zh" ? "任务导向评分框架" : "Task-oriented scoring framework"}</SectionTitle>

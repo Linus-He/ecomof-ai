@@ -302,7 +302,10 @@ export function ContextualHeaderBar({
         <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
           {lang === "zh" ? "模块入口页 · 首页不承载复杂筛选器" : "Module entry page · no dense filters on Overview"}
         </div>
-        <button type="button" onClick={() => setActiveTab("ecoscreen")} style={{ ...headerChipBtn(t, true), padding: "9px 14px" }}>
+        <button type="button" onClick={() => setActiveTab("performance")} style={{ ...headerChipBtn(t, true), padding: "9px 14px" }}>
+          Performance
+        </button>
+        <button type="button" onClick={() => setActiveTab("ecoscreen")} style={headerChipBtn(t)}>
           EcoScreen
         </button>
         <button type="button" onClick={() => setActiveTab("catalysis")} style={headerChipBtn(t)}>
@@ -334,7 +337,7 @@ export function ContextualHeaderBar({
     )
   }
 
-  if (activeTab === "ecoscreen" || activeTab === "screening") {
+  if (activeTab === "ecoscreen" || activeTab === "performance" || activeTab === "screening") {
     return (
       <div style={layerStyle}>
         <PresetSearchControl
