@@ -278,7 +278,7 @@ export function PerformanceTab({
           </ResultLayer>
 
           <ResultLayer number="02" title={lang === "zh" ? "性能候选摘要" : "Performance Candidate Summary"}>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 12 }}>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 12, alignItems: "start" }}>
               {performanceCandidates.slice(0, 6).map(candidate => (
                 <UnifiedCandidateCard
                   key={candidate.id}

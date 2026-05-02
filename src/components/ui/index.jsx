@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useMemo } from "react"
-import { RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from "recharts"
 import { useT, useLang, useViewport } from "../../contexts"
 import { FONT_SANS, FONT_MONO } from "../../constants/theme"
 import { WORKFLOW_STAGE_ITEMS, SOURCE_BADGES } from "../../constants/badges"
@@ -275,7 +274,7 @@ export function UnifiedCandidateCard({
   const statusInfo = dataStatusLabel()
 
   return (
-    <article className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, display: "grid", gap: 9 }}>
+    <article className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, display: "grid", gap: 9, alignSelf: "start" }}>
       {/* ── Header row: name + score ── */}
       <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "flex-start" }}>
         <div style={{ minWidth: 0 }}>
