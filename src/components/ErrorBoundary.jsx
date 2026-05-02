@@ -9,7 +9,7 @@ export class ErrorBoundary extends Component {
     return { hasError: true, error }
   }
   componentDidCatch(error, info) {
-    console.error("[EcoMOF-AI] Uncaught error:", error, info)
+    console.error("[ecomof-ai] Uncaught error:", error, info)
   }
   render() {
     if (this.state.hasError) {

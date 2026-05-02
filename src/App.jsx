@@ -153,7 +153,7 @@ function AppShell({
           >
             <div style={{ display: "flex", alignItems: "center", gap: viewport.isMobile ? 6 : 8, minWidth: 0 }}>
               <BrandMark size={viewport.isMobile ? 24 : 28} radius={viewport.isMobile ? 7 : 8} style={{ boxShadow: theme.shadowSm }} />
-              <div style={{ color: theme.subtle, fontSize: viewport.isMobile ? 11 : 12, fontWeight: 700, whiteSpace: "nowrap" }}>EcoMOF-AI</div>
+              <div style={{ color: theme.subtle, fontSize: viewport.isMobile ? 11 : 12, fontWeight: 700, whiteSpace: "nowrap" }}>ecomof-ai</div>
             </div>
 
             <div style={{ display: "flex", justifyContent: "center", minWidth: 0, gridColumn: viewport.isNarrow ? "1 / -1" : "auto", order: viewport.isNarrow ? 3 : 2 }}>
@@ -353,15 +353,22 @@ function AppShell({
         </Suspense>
       </main>
 
-      <footer style={{ marginTop: 48, borderTop: `1px solid ${theme.border}`, padding: viewport.isMobile ? "20px 12px 24px" : "22px 24px 28px", fontFamily: FONT_SANS }}>
-        <div style={{ maxWidth: 1460, margin: "0 auto", display: "flex", flexDirection: "column", gap: 16 }}>
-          {/* Top row: brand + links */}
-          <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginRight: viewport.isMobile ? 0 : 8 }}>
+      <footer style={{ marginTop: 48, borderTop: `1px solid ${theme.border}`, padding: viewport.isMobile ? "18px 12px 22px" : "20px 24px 24px", fontFamily: FONT_SANS }}>
+        <div style={{ maxWidth: 1460, margin: "0 auto", display: "flex", flexDirection: "column", gap: 10 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16, flexWrap: "wrap" }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
               <BrandMark size={viewport.isMobile ? 28 : 30} radius={8} style={{ boxShadow: theme.shadowSm }} />
-              <span style={{ color: theme.textStrong, fontSize: 12, fontWeight: 800, whiteSpace: "nowrap" }}>ecomof-ai</span>
+              <span style={{ color: theme.textStrong, fontSize: 12, fontWeight: 800, whiteSpace: "nowrap" }}>
+                {lang === "zh" ? "© 2026 ecomof-ai · Linus He 维护" : "© 2026 ecomof-ai · Maintained by Linus He"}
+              </span>
             </div>
-            <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
+            <span style={{ color: theme.faint, fontSize: 11, maxWidth: 520, textAlign: viewport.isMobile ? "left" : "right" }}>
+              {lang === "zh"
+                ? "当前结果用于早期筛选和研究假设生成，不代表最终实验结论。"
+                : "Current results are intended for early-stage screening and research hypothesis generation, not final experimental conclusions."}
+            </span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
             <a
               href="https://github.com/Linus-He/ecomof-ai"
               target="_blank" rel="noopener"
@@ -391,7 +398,7 @@ function AppShell({
                 cursor: "pointer", fontFamily: FONT_SANS,
               }}
             >
-              {lang === "zh" ? "联系 / 合作" : "Contact / Collaboration"}
+              {lang === "zh" ? "联系 / 合作" : "Contact"}
             </button>
             <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
             <button
@@ -405,20 +412,6 @@ function AppShell({
             >
               {lang === "zh" ? "致谢" : "Acknowledgements"}
             </button>
-          </div>
-          {/* Bottom row: copyright + limitations note */}
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16, flexWrap: "wrap" }}>
-            <div>
-              <span style={{ color: theme.faint, fontSize: 11 }}>
-                © 2026 Advanced Materials Lab · Computational Design · EcoMOF-AI ·{" "}
-                CoRE MOF 2019 · 14,252 curated · roadmap: CoRE 2024 + QMOF
-              </span>
-            </div>
-            <span style={{ color: theme.faint, fontSize: 11, maxWidth: 480, textAlign: viewport.isMobile ? "left" : "right" }}>
-              {lang === "zh"
-                ? "当前结果用于早期筛选和研究假设生成，不代表最终实验结论。"
-                : "Current results are intended for early-stage screening and research hypothesis generation, not final experimental conclusions."}
-            </span>
           </div>
         </div>
       </footer>

@@ -69,7 +69,7 @@ export function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi, 
     { title: c.validation.benchmark, body: c.validation.benchmarkBody },
   ]
   const validationCsv = [["MOF", "Reference uptake", "Predicted uptake", "Residual"], ...validationData.map(row => [row.name, row.reference, row.predicted, row.residual])].map(row => row.join(",")).join("\n")
-  const validationReport = ["# EcoMOF-AI Validation Summary", "", `Manifest source: ${manifestSource}`, `Training origin: ${manifest?.origin || "not loaded"}`, `Rows: ${manifest?.rows ?? "unknown"}`, "", "## Metrics", `CO2 uptake: ${metricText("co2_uptake")}`, `N2 uptake: ${metricText("n2_uptake")}`, `Selectivity: ${metricText("selectivity")}`].join("\n")
+  const validationReport = ["# ecomof-ai Validation Summary", "", `Manifest source: ${manifestSource}`, `Training origin: ${manifest?.origin || "not loaded"}`, `Rows: ${manifest?.rows ?? "unknown"}`, "", "## Metrics", `CO2 uptake: ${metricText("co2_uptake")}`, `N2 uptake: ${metricText("n2_uptake")}`, `Selectivity: ${metricText("selectivity")}`].join("\n")
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>

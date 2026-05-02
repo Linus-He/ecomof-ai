@@ -24,8 +24,8 @@ export function WorkflowTab({ setActiveTab, inputs, results }) {
       <PageHeader
         title={lang === "zh" ? "分阶段 MOF 决策工作流" : "Staged MOF Decision Workflow"}
         subtitle={lang === "zh"
-          ? "EcoMOF-AI 的顺序是性能与化学优先，可行性其次，更宽的生命周期、成本和稳健性比较只在入围候选之后出现。"
-          : "EcoMOF-AI is sequenced as performance and chemistry first, feasibility next, and broader lifecycle, cost, and robustness comparison only after shortlist formation."}
+          ? "ecomof-ai 的顺序是性能与化学优先，可行性其次，更宽的生命周期、成本和稳健性比较只在入围候选之后出现。"
+          : "ecomof-ai is sequenced as performance and chemistry first, feasibility next, and broader lifecycle, cost, and robustness comparison only after shortlist formation."}
         meta={lang === "zh" ? "不是扁平工具箱" : "Not a flat toolbox"}
         action={<BasisBadge tone="info">{lang === "zh" ? "分阶段原型" : "Staged prototype"}</BasisBadge>}
       />

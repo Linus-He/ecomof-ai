@@ -265,9 +265,9 @@ export const COPY = {
     },
     methods: {
       noticeTitle: "Research prototype notice:",
-      noticeBody: "EcoMOF-AI currently provides fast screening guidance, not publication-grade adsorption data. Treat predictions as directional hypotheses for choosing candidate MOFs; confirm final values with experimental isotherms or GCMC/IAST workflows.",
+      noticeBody: "ecomof-ai currently provides fast screening guidance, not publication-grade adsorption data. Treat predictions as directional hypotheses for choosing candidate MOFs; confirm final values with experimental isotherms or GCMC/IAST workflows.",
       selectivity: "SELECTIVITY CALCULATION",
-      selectivityBody1: "The displayed gas-pair selectivity is currently an apparent uptake selectivity. For a gas pair A/B, EcoMOF-AI estimates single-component uptake values under the selected temperature and pressure, then reports:",
+      selectivityBody1: "The displayed gas-pair selectivity is currently an apparent uptake selectivity. For a gas pair A/B, ecomof-ai estimates single-component uptake values under the selected temperature and pressure, then reports:",
       selectivityBody2: "This is useful for Stage 1 screening, but it is not primary proof of separation performance and is not yet a rigorous Henry-law or IAST selectivity. Treat it as screening-oriented until single-component isotherms are fitted and mixture selectivity is computed with feed composition.",
       mlStatus: "ML ALGORITHM STATUS",
       database: "DATABASE SOURCES",
@@ -640,9 +640,9 @@ export const COPY = {
     },
     methods: {
       noticeTitle: "科研原型说明：",
-      noticeBody: "EcoMOF-AI 目前提供快速筛选参考，不是可直接用于论文的吸附数据。请把预测结果视为候选 MOF 选择的方向性假设；最终数值仍需实验等温线或 GCMC/IAST 流程确认。",
+      noticeBody: "ecomof-ai 目前提供快速筛选参考，不是可直接用于论文的吸附数据。请把预测结果视为候选 MOF 选择的方向性假设；最终数值仍需实验等温线或 GCMC/IAST 流程确认。",
       selectivity: "选择性计算",
-      selectivityBody1: "当前显示的气体对选择性是表观吸附量选择性。对于 A/B 气体对，EcoMOF-AI 会在选定温度和压力下估算单组分吸附量，并给出：",
+      selectivityBody1: "当前显示的气体对选择性是表观吸附量选择性。对于 A/B 气体对，ecomof-ai 会在选定温度和压力下估算单组分吸附量，并给出：",
       selectivityBody2: "该指标适合阶段 1 筛选，但不是分离性能的最终证据，也还不是严格的 Henry 选择性或 IAST 选择性。请在完成单组分等温线拟合和带进料组成的混合气计算前，将其视为筛选级结果。",
       mlStatus: "机器学习算法状态",
       database: "数据库来源",

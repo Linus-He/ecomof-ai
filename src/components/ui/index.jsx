@@ -798,7 +798,10 @@ export function safeVal(value, lang, fallback) {
     if (fallback) return fallback
     return lang === "zh" ? "暂无数据" : "Not available"
   }
-  if (typeof value === "string" && ["unknown", "pending"].includes(value.toLowerCase())) {
+  if (typeof value === "string" && value.toLowerCase() === "pending") {
+    return lang === "zh" ? "待整理" : "Pending curation"
+  }
+  if (typeof value === "string" && value.toLowerCase() === "unknown") {
     return lang === "zh" ? "未知" : "Unknown"
   }
   return value
@@ -877,7 +880,7 @@ function FieldSourceModal({ fieldLabel, source, lang, t, onClose }) {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
           <div>
             <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: 3 }}>
-              {lang === "zh" ? "字段级数据来源" : "Field-level provenance"}
+              {lang === "zh" ? "字段级数据溯源" : "Field-level provenance"}
             </div>
             <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850 }}>{fieldLabel}</div>
             {source && source.value !== null && source.value !== undefined && (
@@ -915,7 +918,7 @@ function FieldSourceModal({ fieldLabel, source, lang, t, onClose }) {
         <div style={{ marginTop: 14, color: t.faint, fontSize: 10, lineHeight: 1.5,
           borderTop: `1px solid ${t.divider || t.border}`, paddingTop: 10 }}>
           {lang === "zh"
-            ? "字段级来源追踪说明数据框架，不替代手动数据核实和实验验证。"
+            ? "字段级数据溯源说明数据框架，不替代手动数据核实和实验验证。"
             : "Field-level provenance describes the data framework and does not replace manual data verification or experimental validation."}
         </div>
       </div>
@@ -984,8 +987,8 @@ export function RealSeedCallout({ lang }) {
       lineHeight: 1.65,
     }}>
       {lang === "zh"
-        ? "Real Seed Dataset 是用于后续接入公开数据库和文献数据的小规模真实数据框架，不代表完整 MOF 数据库；除非明确标注来源，否则不包含最终催化性能标签。"
-        : "Real Seed Dataset is a small curated-data framework for future public database and literature ingestion. It is not a complete MOF database and does not include final catalytic performance labels unless explicitly sourced."}
+        ? "Real Seed Dataset 是真实数据接入框架。当前部分字段仍处于待整理状态，不代表完整数据库。"
+        : "Real Seed Dataset is a framework for curated real-data ingestion. Some fields remain pending curation and it is not a complete database."}
     </div>
   )
 }

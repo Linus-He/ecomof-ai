@@ -183,7 +183,9 @@ export function MOFLibraryTab({ results, inputs }) {
         <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{label}</div>
         {fieldKey && <FieldProvenanceButton fieldKey={fieldKey} fieldLabel={label} source={fieldSources?.[fieldKey]} lang={lang} />}
       </div>
-      <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 750, overflowWrap: "anywhere" }}>{value || "—"}</div>
+      <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 750, overflowWrap: "anywhere" }}>
+        {value || (lang === "zh" ? "暂无数据" : "Not available")}
+      </div>
     </div>
   )
 
@@ -208,7 +210,7 @@ export function MOFLibraryTab({ results, inputs }) {
         </select>
       </label>
       <label style={labelStyle}>
-        Evidence Level
+        {lang === "zh" ? "证据等级" : "Evidence Level"}
         <select value={evidence} onChange={e => setEvidence(e.target.value)} style={controlStyle}>
           <option value="all">{lang === "zh" ? "全部" : "all"}</option>
           {evidenceLevels.map(item => <option key={item} value={item}>{zhValue(item, lang)}</option>)}
@@ -236,7 +238,7 @@ export function MOFLibraryTab({ results, inputs }) {
         subtitle={lang === "zh"
           ? "展示 MOF 基础字段、数据来源和证据等级。Library 是底层数据入口，不直接把数据库记录等同于科研结论。"
           : "Browse MOF baseline fields, data sources, and evidence levels. The Library is a data entry point and does not turn database records into scientific conclusions."}
-        meta={lang === "zh" ? "搜索 · 金属筛选 · 孔结构 · 数据来源 · Evidence Level" : "Search · metal filter · pore descriptors · data source · Evidence Level"}
+        meta={lang === "zh" ? "搜索 · 金属筛选 · 孔结构 · 数据来源 · 证据等级" : "Search · metal filter · pore descriptors · data source · Evidence Level"}
         action={<BasisBadge tone={status === "loaded" ? "calc" : "proxy"}>{status === "loaded" ? "public/data" : (lang === "zh" ? "种子数据" : "fallback seed")}</BasisBadge>}
       />
 
@@ -249,7 +251,16 @@ export function MOFLibraryTab({ results, inputs }) {
         </span>
       </div>
 
-      {dataMode === "real-seed" && <RealSeedCallout lang={lang} />}
+      {dataMode === "real-seed" && (
+        <div style={{ display: "grid", gap: 8 }}>
+          <RealSeedCallout lang={lang} />
+          <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.6, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "8px 11px" }}>
+            {lang === "zh"
+              ? "提示：点击字段旁的 ⓘ 可查看该数据的来源、条件和整理状态。"
+              : "Tip: click the ⓘ icon next to a descriptor to view source, condition, and curation status."}
+          </div>
+        </div>
+      )}
 
       <Callout tone="info">
         {lang === "zh"
@@ -274,7 +285,7 @@ export function MOFLibraryTab({ results, inputs }) {
             [lang === "zh" ? "当前显示" : "Showing", `${filtered.length} / ${records.length}`],
             [lang === "zh" ? "数据来源" : "Data sources", sources.length],
             [lang === "zh" ? "金属中心" : "Metal centers", metals.length],
-            ["Evidence Level", evidenceLevels.length],
+            [lang === "zh" ? "证据等级" : "Evidence Level", evidenceLevels.length],
           ].map(([label, value]) => (
             <div key={label} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 13 }}>
               <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{label}</div>

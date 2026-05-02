@@ -40,8 +40,8 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
     },
   ]
   const workflow = lang === "zh"
-    ? ["数据库", "特征提取", "任务规则", "规则评分", "候选排序", "结果解释", "实验验证"]
-    : ["Database", "Feature Extraction", "Task Rules", "Rule-based Scoring", "Candidate Ranking", "Results Interpretation", "Experimental Validation"]
+    ? ["数据输入", "描述符整理", "任务规则", "综合评分", "候选排序", "结果解释", "实验验证"]
+    : ["Data input", "Descriptor curation", "Task rules", "Scoring", "Candidate ranking", "Interpretation", "Validation"]
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 24 : 32 }}>
@@ -116,7 +116,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
                   onClick={() => setActiveTab("performance")}
                   style={{ ...toolbarBtn(t), padding: "9px 13px" }}
                 >
-                  {lang === "zh" ? "查看结果" : "View Results"}
+                  {lang === "zh" ? "查看结果" : "View results"}
                 </button>
                 <button
                   type="button"
@@ -126,12 +126,14 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
                   }}
                   style={{ ...toolbarBtn(t), padding: "9px 13px", border: `1px solid ${t.accent}`, color: t.accentText }}
                 >
-                  {lang === "zh" ? "高级筛选" : "Advanced Screening"}
+                  {lang === "zh" ? "高级筛选" : "Advanced screening"}
                 </button>
               </div>
             ) : (
               <button type="button" onClick={() => setActiveTab(module.id)} style={{ ...toolbarBtn(t), width: "fit-content", padding: "9px 13px" }}>
-                {lang === "zh" ? "进入模块" : "Open module"}
+                {module.id === "ecoscreen"
+                  ? (lang === "zh" ? "查看可持续性评价" : "Explore EcoScreen")
+                  : (lang === "zh" ? "进入催化筛选" : "Open CatalysisLab")}
               </button>
             )}
           </article>
@@ -168,7 +170,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
 
       <Callout tone="warn">
         {lang === "zh"
-          ? "使用提示：平台评分表达 candidate priority / potential / needs validation。任何吸附、催化或环境结论都必须经过独立数据和实验验证。"
+          ? "使用提示：平台评分表达候选优先级、潜力和待验证状态。任何吸附、催化或环境结论都必须经过独立数据和实验验证。"
           : "Use note: scores express candidate priority / potential / needs validation. Any adsorption, catalysis, or sustainability claim requires independent data and experimental validation."}
       </Callout>
 

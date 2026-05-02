@@ -124,7 +124,7 @@ function MethodSection({ id, title, body, children, t }) {
 
 export function MethodsLimitationsTab() {
   const t = useT()
-  const { lang, copy: c } = useLang()
+  const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
   const zh = lang === "zh"
 
@@ -152,10 +152,10 @@ export function MethodsLimitationsTab() {
 
   const dataCards = zh
     ? [
-      ["Demo Dataset", "用于展示工作流和交互逻辑，不应被当作真实科研结论。", "proxy"],
-      ["Real Seed Dataset", "用于承载未来整理的公开数据库和文献记录；当前不是完整 MOF 数据库。", "info"],
-      ["Catalysis Data Template", "定义后续催化数据接入所需的最小字段；模板本身不代表一定能训练机器学习模型。", "warn"],
-      ["Future Data Ingestion", "真实建模需要结构化 experimental or literature data，包括条件、标签、来源和限制。", "info"],
+      ["演示数据集", "用于展示工作流和交互逻辑，不应被当作真实科研结论。", "proxy"],
+      ["真实种子数据集", "真实种子数据集（Real Seed Dataset）是公开数据库和文献记录的接入框架；当前不是完整 MOF 数据库。", "info"],
+      ["催化数据模板", "定义后续催化数据接入所需的最小字段；模板本身不代表一定能训练机器学习模型。", "warn"],
+      ["后续数据接入", "真实建模需要结构化实验或文献数据，包括条件、标签、来源和限制。", "info"],
     ]
     : [
       ["Demo Dataset", "Used for workflow demonstration and interaction testing, not as final scientific evidence.", "proxy"],
@@ -166,13 +166,13 @@ export function MethodsLimitationsTab() {
 
   const scoreCards = zh
     ? [
-      ["Rule-based Scoring Model", "当前模型把描述符、任务适配、证据置信度和权重组合成 candidate priority。", "info"],
+      ["规则评分模型", "当前模型把描述符、任务适配、证据置信度和权重组合成候选优先级。", "info"],
       ["Eco Score", "用于可持续性优先级比较，不替代完整工业 LCA。", "proxy"],
       ["Performance Score", "用于吸附相关候选排序，不替代严格 GCMC 或 IAST。", "proxy"],
-      ["Catalysis Potential Score", "用于催化潜力筛选，不声称准确预测转化率、选择性或 TOF。", "warn"],
-      ["Score Breakdown", "展示单个候选的维度分数组成。", "info"],
-      ["Weight Contribution", "解释权重和归一化描述符如何影响分数。", "info"],
-      ["Sensitivity Analysis", "检查关键权重变化后候选排序是否稳定。", "info"],
+      ["催化潜力评分", "用于催化潜力筛选，不声称准确预测转化率、选择性或 TOF。", "warn"],
+      ["分数拆解", "展示单个候选的维度分数组成。", "info"],
+      ["权重贡献", "解释权重和归一化描述符如何影响分数。", "info"],
+      ["敏感性分析", "检查关键权重变化后候选排序是否稳定。", "info"],
     ]
     : [
       ["Rule-based Scoring Model", "Combines descriptors, task fit, evidence confidence, and weights into candidate priority.", "info"],
@@ -234,7 +234,7 @@ export function MethodsLimitationsTab() {
         ? [["w₁…w₅", "可审计的规则权重"], ["Final Score", "候选优先级分数"]]
         : [["w₁…w₅", "auditable rule weights"], ["Final Score", "candidate-priority score"]],
       interpretation: zh ? "把多维筛选指标组合为候选优先级。" : "Combines multiple screening dimensions into candidate priority.",
-      limitation: zh ? "score 表示 candidate priority，不表示最终材料性能。" : "The score indicates candidate priority, not final material performance.",
+      limitation: zh ? "分数表示候选优先级，不表示最终材料性能。" : "The score indicates candidate priority, not final material performance.",
     },
     {
       title: zh ? "催化潜力评分" : "Catalysis Potential Score",
@@ -253,10 +253,10 @@ export function MethodsLimitationsTab() {
 
   const provenanceCards = zh
     ? [
-      ["Field-level Provenance", "每个经过整理的描述符都可以关联字段级来源，包括来源类型、数据库或文献引用、测量条件、证据等级、整理说明和限制。", "info"],
-      ["fieldSources", "字段级来源映射，说明某个 descriptor 的来源和整理状态。", "proxy"],
-      ["sourceRecords", "来源记录可包含 DOI、URL、condition、limitations 和 curation note。", "info"],
-      ["Pending curation", "缺失来源显示为待整理，不应被理解为已经核实。", "warn"],
+      ["字段级数据溯源", "字段级数据溯源（Field-level Provenance）说明每个描述符的来源类型、数据库或文献引用、测量条件、证据等级、整理说明和限制。", "info"],
+      ["fieldSources", "字段级来源映射，说明某个描述符的来源和整理状态。", "proxy"],
+      ["sourceRecords", "来源记录可包含 DOI、URL、测量条件、限制和整理说明。", "info"],
+      ["待整理", "缺失来源显示为待整理，不应被理解为已经核实。", "warn"],
     ]
     : [
       ["Field-level Provenance", "Each curated descriptor can be linked to field-level provenance, including source type, database or literature reference, measurement condition, evidence level, curation note, and limitations.", "info"],
@@ -297,7 +297,9 @@ export function MethodsLimitationsTab() {
       />
 
       <Callout tone="warn">
-        <strong>{c.methods.noticeTitle}</strong> {c.methods.noticeBody}
+        {zh
+          ? "页面中的分数表示候选优先级（candidate priority），用于早期筛选和研究假设生成，不代表最终材料性能。"
+          : "Scores indicate candidate priority for early-stage screening and research hypothesis generation, not final material performance."}
       </Callout>
 
       <nav aria-label={zh ? "方法学目录" : "Methodology contents"}
@@ -317,7 +319,7 @@ export function MethodsLimitationsTab() {
         id="method-workflow"
         title={zh ? "Workflow / 工作流" : "Workflow"}
         body={zh
-          ? "平台将公开或示例数据整理为描述符，再通过规则评分形成候选排序。结果用于 early-stage screening 和 hypothesis generation，不替代实验验证。"
+          ? "平台将公开或示例数据整理为描述符，再通过规则评分形成候选排序。结果用于早期筛选和研究假设生成，不替代实验验证。"
           : "The platform turns public or demo records into descriptors, then uses rule-based scoring to form candidate rankings. Results support early-stage screening and hypothesis generation, not experimental validation replacement."}
         t={t}
       >
@@ -337,7 +339,7 @@ export function MethodsLimitationsTab() {
         id="method-data"
         title={zh ? "Data Layer / 数据层" : "Data Layer"}
         body={zh
-          ? "Demo Dataset 用于展示工作流；Real Seed Dataset 用于承载未来整理的公开数据库和文献记录；Catalysis Data Template 定义后续催化数据接入所需的最小字段。"
+          ? "演示数据集用于展示工作流；真实种子数据集用于承载未来整理的公开数据库和文献记录；催化数据模板定义后续催化数据接入所需的最小字段。"
           : "Demo Dataset is used for workflow demonstration. Real Seed Dataset provides a framework for curated public database and literature records. Catalysis Data Template defines the minimum fields for future catalysis data ingestion."}
         t={t}
       >
@@ -350,7 +352,7 @@ export function MethodsLimitationsTab() {
         id="method-scoring"
         title={zh ? "Scoring Model / 评分模型" : "Scoring Model"}
         body={zh
-          ? "当前是规则评分模型，不是训练完成的真实预测模型。所有 score 都表示 candidate priority，不表示 final material performance。"
+          ? "当前是规则评分模型，不是训练完成的真实预测模型。所有分数都表示候选优先级，不表示最终材料性能。"
           : "The current model is rule based, not a trained predictive model. Every score indicates candidate priority, not final material performance."}
         t={t}
       >
@@ -415,7 +417,7 @@ export function MethodsLimitationsTab() {
         id="method-provenance"
         title={zh ? "Evidence & Provenance / 证据与溯源" : "Evidence & Provenance"}
         body={zh
-          ? "证据追踪用于说明字段来源和整理状态。没有核实来源的数据不应被过度解读。"
+          ? "证据追踪用于说明字段来源和整理状态。证据等级（Evidence Level）和待整理状态需要一起解读。"
           : "Evidence tracking clarifies field sources and curation state. Data without verified provenance should not be over-interpreted."}
         t={t}
       >
@@ -424,7 +426,7 @@ export function MethodsLimitationsTab() {
         </div>
         <div style={{ marginTop: 12, color: t.muted, fontSize: 11, lineHeight: 1.65, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
           {zh
-            ? "在 MOF Library 展开记录后，以及 Performance 和 CatalysisLab 真实种子模式下的候选卡片中，可通过 Field-level Provenance 查看来源详情。该功能必须与 fieldSources 和 sourceRecords 一起理解。"
+            ? "在 MOF Library 展开记录后，以及 Performance 和 CatalysisLab 真实种子模式下的候选卡片中，可通过字段级数据溯源查看来源详情。该功能必须与 fieldSources 和 sourceRecords 一起理解；没有核实来源的数据不应被过度解读。"
             : "In expanded MOF Library records and in Performance / CatalysisLab real-seed candidate cards, Field-level Provenance exposes source details. Interpret it together with fieldSources and sourceRecords."}
         </div>
       </MethodSection>

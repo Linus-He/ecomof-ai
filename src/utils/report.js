@@ -124,7 +124,7 @@ export function buildReportHtml(results, inputs, decision, c, lcaParams = {}) {
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>EcoMOF-AI Decision Report</title>
+  <title>ecomof-ai Decision Report</title>
   <style>
     body { font-family: Inter, "Noto Sans SC", Arial, sans-serif; color: #0f172a; margin: 38px; line-height: 1.55; }
     h1 { margin: 0 0 6px; font-size: 30px; letter-spacing: 0; }
@@ -146,7 +146,7 @@ export function buildReportHtml(results, inputs, decision, c, lcaParams = {}) {
 </head>
 <body>
   <section class="cover">
-    <h1>EcoMOF-AI Decision Report</h1>
+    <h1>ecomof-ai Decision Report</h1>
     <div class="meta">Research-oriented MOF screening report · generated ${safe(generatedAt)}</div>
     <div class="grid">
       <div class="card"><div class="label">Candidate</div><div class="value">${safe(inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`)}</div></div>
@@ -213,7 +213,7 @@ export function exportChartPng(containerId, filename) {
 
 export function buildDecisionReport(results, inputs, decision, c) {
   return [
-    "# EcoMOF-AI Decision Report",
+    "# ecomof-ai Decision Report",
     "",
     `MOF: ${inputs.mofName || "Current candidate"}`,
     `Gas system: ${results.gasSystem}`,
