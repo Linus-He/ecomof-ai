@@ -289,6 +289,13 @@ function AppShell({
                 loading={loading}
                 onPredict={handlePredict}
                 onNavigate={navigateTab}
+                onSaveRun={saveCurrentRun}
+                apiUrl={apiUrl}
+                setApiUrl={setApiUrl}
+                apiStatus={apiStatus}
+                onCheckApi={checkApi}
+                onLoadBenchmark={loadBenchmarkExample}
+                onAddComparison={addCurrentToComparison}
               />
             )}
             {activeTab === "catalysis" && <CatalysisLabTab />}

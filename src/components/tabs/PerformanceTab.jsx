@@ -7,6 +7,7 @@ import {
   BasisBadge, PageHeader, ResultLayer, Callout, UnifiedCandidateCard, DataModeToggle, RealSeedCallout, safeVal,
   FieldProvenanceButton,
 } from "../../shared"
+import { ScreeningTab } from "./ScreeningTab"
 
 /** Normalise a real-seed record into the shape PerformanceTab expects.
  *  Null numeric fields become safe defaults so no NaN propagates. */
@@ -40,11 +41,15 @@ function normalizeRealSeedForPerf(item) {
   }
 }
 
-export function PerformanceTab({ inputs, setInputs, results, loading, onPredict, onNavigate }) {
+export function PerformanceTab({
+  inputs, setInputs, results, loading, onPredict, onNavigate,
+  onSaveRun, apiUrl, setApiUrl, apiStatus, onCheckApi, onLoadBenchmark, onAddComparison,
+}) {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
   const [dataMode, setDataMode] = useState("demo")
+  const [performanceView, setPerformanceView] = useState("overview")
   const [demoRows, setDemoRows] = useState([])
   const [realSeedRows, setRealSeedRows] = useState([])
   const [selectedId, setSelectedId] = useState(null)
@@ -121,6 +126,53 @@ export function PerformanceTab({ inputs, setInputs, results, loading, onPredict,
     }
   }, [hasResult, lang])
 
+  // Sub-nav pill styles
+  const pillBase = {
+    padding: "6px 16px", borderRadius: 999, fontSize: 12, fontWeight: 700,
+    border: "none", cursor: "pointer", transition: "all 0.15s",
+  }
+  const pillActive = { ...pillBase, background: t.accent, color: "#fff", boxShadow: "0 2px 8px rgba(26,109,181,0.18)" }
+  const pillInactive = { ...pillBase, background: t.surface, color: t.subtle, border: `1px solid ${t.border}` }
+
+  // Advanced mode: render ScreeningTab inline
+  if (performanceView === "advanced") {
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        {/* Sub-nav */}
+        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+          <button type="button" style={pillInactive} onClick={() => setPerformanceView("overview")}>
+            {lang === "zh" ? "← 结果概览" : "← Results Overview"}
+          </button>
+          <button type="button" style={pillActive} onClick={() => setPerformanceView("advanced")}>
+            {lang === "zh" ? "高级筛选" : "Advanced Screening"}
+          </button>
+        </div>
+        {/* Callout */}
+        <Callout tone="info">
+          {lang === "zh"
+            ? "高级筛选工作区与结果概览共享同一套输入参数。修改此处的描述符、气体体系或条件后，返回结果概览可立即看到更新的候选排名。"
+            : "The Advanced Screening workspace shares the same input parameters as Results Overview. Changes you make here — descriptors, gas system, conditions — are immediately reflected in the overview when you switch back."}
+        </Callout>
+        {/* Embedded ScreeningTab */}
+        <ScreeningTab
+          inputs={inputs}
+          setInputs={setInputs}
+          results={results}
+          loading={loading}
+          onPredict={onPredict}
+          onSaveRun={onSaveRun}
+          apiUrl={apiUrl}
+          setApiUrl={setApiUrl}
+          apiStatus={apiStatus}
+          onCheckApi={onCheckApi}
+          setActiveTab={onNavigate}
+          onLoadBenchmark={onLoadBenchmark}
+          onAddComparison={onAddComparison}
+        />
+      </div>
+    )
+  }
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
@@ -131,6 +183,16 @@ export function PerformanceTab({ inputs, setInputs, results, loading, onPredict,
         meta={lang === "zh" ? "CO₂ uptake · selectivity · thermodynamic interpretation · Early-stage Screening" : "CO₂ uptake · selectivity · thermodynamic interpretation · Early-stage Screening"}
         action={<BasisBadge tone="info">{lang === "zh" ? "不替代 GCMC / IAST" : "not GCMC / IAST"}</BasisBadge>}
       />
+
+      {/* Sub-nav pills */}
+      <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+        <button type="button" style={pillActive} onClick={() => setPerformanceView("overview")}>
+          {lang === "zh" ? "结果概览" : "Results Overview"}
+        </button>
+        <button type="button" style={pillInactive} onClick={() => setPerformanceView("advanced")}>
+          {lang === "zh" ? "高级筛选" : "Advanced Screening"}
+        </button>
+      </div>
 
       <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
         <DataModeToggle value={dataMode} onChange={mode => { setDataMode(mode); setSelectedId(null) }} lang={lang} />
@@ -159,7 +221,7 @@ export function PerformanceTab({ inputs, setInputs, results, loading, onPredict,
             <button type="button" onClick={onPredict} disabled={loading} style={{ ...toolbarBtn(t), background: t.accent, borderColor: t.accent, color: "#fff" }}>
               {loading ? (lang === "zh" ? "运行中..." : "Running...") : (lang === "zh" ? "运行性能筛选" : "Run performance screen")}
             </button>
-            <button type="button" onClick={() => onNavigate?.("screening")} style={toolbarBtn(t)}>
+            <button type="button" onClick={() => setPerformanceView("advanced")} style={toolbarBtn(t)}>
               {lang === "zh" ? "高级输入" : "Advanced inputs"}
             </button>
           </div>
