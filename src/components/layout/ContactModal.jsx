@@ -27,6 +27,7 @@ function Field({ label, required, children }) {
 
 const BLANK = {
   name: "", email: "", organization: "", role: "",
+  referral_source: "",
   interest_module: "", data_type: "", has_dataset: "",
   message: "", consent: false,
 }
@@ -126,6 +127,28 @@ export function ContactModal({ open, onClose }) {
   const hasDatasetOpts = zh
     ? [["", "请选择"], ["Yes", "是"], ["No", "否"], ["Not sure", "不确定"]]
     : [["", "Select…"], ["Yes", "Yes"], ["No", "No"], ["Not sure", "Not sure"]]
+
+  const referralSourceOpts = zh
+    ? [["", "请选择"],
+       ["Xiaohongshu", "小红书"],
+       ["Reddit", "Reddit"],
+       ["AI tool recommendation", "AI 工具推荐"],
+       ["Developer recommendation", "开发者推荐"],
+       ["Zhihu", "知乎"],
+       ["GitHub", "GitHub"],
+       ["Search engine", "搜索引擎"],
+       ["Friend / colleague", "朋友、同学或同事推荐"],
+       ["Other", "其他"]]
+    : [["", "Select…"],
+       ["Xiaohongshu", "Xiaohongshu / 小红书"],
+       ["Reddit", "Reddit"],
+       ["AI tool recommendation", "AI tool recommendation / AI 工具推荐"],
+       ["Developer recommendation", "Developer recommendation / 开发者推荐"],
+       ["Zhihu", "Zhihu / 知乎"],
+       ["GitHub", "GitHub"],
+       ["Search engine", "Search engine / 搜索引擎"],
+       ["Friend / colleague", "Friend / colleague / 朋友、同学或同事推荐"],
+       ["Other", "Other / 其他"]]
 
   return (
     <div
@@ -248,6 +271,18 @@ export function ContactModal({ open, onClose }) {
                 </select>
               </Field>
             </div>
+
+            {/* Referral Source */}
+            <Field label={zh ? "渠道来源 / How did you hear about ecomof-ai?" : "How did you hear about ecomof-ai? / 你是通过什么渠道了解到 ecomof-ai 的？"}>
+              <select
+                name="referral_source"
+                value={form.referral_source}
+                onChange={e => set("referral_source", e.target.value)}
+                style={{ ...selectStyle, maxWidth: isMobile ? "100%" : "calc(50% - 6px)" }}
+              >
+                {referralSourceOpts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+              </select>
+            </Field>
 
             {/* Interest Module + Data Type */}
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
