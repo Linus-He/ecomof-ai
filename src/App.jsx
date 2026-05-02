@@ -394,10 +394,17 @@ function AppShell({
           </div>
           {/* Bottom row: copyright + limitations note */}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16, flexWrap: "wrap" }}>
-            <span style={{ color: theme.faint, fontSize: 11 }}>
-              © 2026 Advanced Materials Lab · Computational Design · EcoMOF-AI ·{" "}
-              CoRE MOF 2019 · 14,252 curated · roadmap: CoRE 2024 + QMOF
-            </span>
+            <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+              <span style={{ color: theme.faint, fontSize: 11 }}>
+                © 2026 Advanced Materials Lab · Computational Design · EcoMOF-AI ·{" "}
+                CoRE MOF 2019 · 14,252 curated · roadmap: CoRE 2024 + QMOF
+              </span>
+              <span style={{ color: theme.subtle, fontSize: 11 }}>
+                {lang === "zh"
+                  ? "联系与致谢：Linus He 维护 · 特别感谢 Happy Flight"
+                  : "Contact & Credits: maintained by Linus He · special thanks to Happy Flight"}
+              </span>
+            </div>
             <span style={{ color: theme.faint, fontSize: 11, maxWidth: 480, textAlign: viewport.isMobile ? "left" : "right" }}>
               {lang === "zh"
                 ? "当前结果用于早期筛选和研究假设生成，不代表最终实验结论。"

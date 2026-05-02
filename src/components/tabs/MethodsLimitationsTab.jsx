@@ -1,16 +1,87 @@
 import {
   useT, useLang, useViewport,
-  zhText, FONT_MONO,
+  FONT_MONO,
   BasisBadge, SectionTitle, Callout, PageHeader,
 } from "../../shared"
 
-function MethodFormula({ title, formula, note, t }) {
+function FormulaLine({ children }) {
   return (
-    <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 13 }}>
-      <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850 }}>{title}</div>
-      <div style={{ color: t.accentText, fontSize: 12, fontFamily: FONT_MONO, lineHeight: 1.65, marginTop: 9 }}>{formula}</div>
-      <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.6, marginTop: 9 }}>{note}</div>
+    <div style={{ whiteSpace: "nowrap" }}>
+      {children}
     </div>
+  )
+}
+
+function FormulaCard({ title, formula, variables, interpretation, limitation, t, zh }) {
+  return (
+    <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
+      <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850 }}>{title}</div>
+      <div style={{
+        marginTop: 10,
+        padding: "10px 12px",
+        overflowX: "auto",
+        background: t.panel,
+        border: `1px solid ${t.border}`,
+        borderRadius: 6,
+        color: t.accentText,
+        fontFamily: FONT_MONO,
+        fontSize: 13,
+        lineHeight: 1.8,
+      }}>
+        {formula}
+      </div>
+      <div style={{ display: "grid", gap: 8, marginTop: 12 }}>
+        <div>
+          <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>
+            {zh ? "变量说明" : "Variables"}
+          </div>
+          <div style={{ display: "grid", gap: 4, marginTop: 5 }}>
+            {variables.map(([symbol, desc]) => (
+              <div key={symbol} style={{ color: t.muted, fontSize: 11, lineHeight: 1.5 }}>
+                <span style={{ color: t.textStrong, fontFamily: FONT_MONO }}>{symbol}</span>: {desc}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>
+            {zh ? "公式含义" : "Interpretation"}
+          </div>
+          <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.6, marginTop: 4 }}>{interpretation}</div>
+        </div>
+        <div style={{ borderTop: `1px solid ${t.divider}`, paddingTop: 8 }}>
+          <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>
+            {zh ? "使用限制" : "Limitation"}
+          </div>
+          <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.6, marginTop: 4 }}>{limitation}</div>
+        </div>
+      </div>
+    </article>
+  )
+}
+
+function CompactCard({ title, body, tone = "info", t }) {
+  return (
+    <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+      <BasisBadge tone={tone}>{title}</BasisBadge>
+      <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, marginTop: 9 }}>{body}</div>
+    </div>
+  )
+}
+
+function MethodSection({ id, title, body, children, t }) {
+  return (
+    <section id={id} className="content-card" style={{
+      background: t.panel,
+      border: `1px solid ${t.border}`,
+      borderRadius: 10,
+      padding: 18,
+      scrollMarginTop: 120,
+    }}>
+      <SectionTitle>{title}</SectionTitle>
+      {body && <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.7, margin: "8px 0 0" }}>{body}</p>}
+      <div style={{ marginTop: 14 }}>{children}</div>
+    </section>
   )
 }
 
@@ -18,611 +89,300 @@ export function MethodsLimitationsTab() {
   const t = useT()
   const { lang, copy: c } = useLang()
   const { isNarrow, isMobile } = useViewport()
+  const zh = lang === "zh"
 
-  const sectionCard = {
-    background: t.panel,
-    border: `1px solid ${t.border}`,
-    borderRadius: 10,
-    padding: 18,
-  }
-  const bodyText = { color: t.muted, fontSize: 12, lineHeight: 1.7 }
-  const statusPill = (tone) => {
-    const palette = {
-      stable:  { bg: t.badgeCalcBg,   color: t.badgeCalcText,   border: t.validationAccent },
-      beta:    { bg: t.badgeWarnBg,   color: t.badgeWarnText,   border: t.warn },
-      planned: { bg: t.badgeProxyBg,  color: t.badgeProxyText,  border: t.sensitivityAccent },
-      limited: { bg: t.badgeDangerBg, color: t.badgeDangerText, border: t.danger },
-    }[tone]
-    return {
-      display: "inline-flex", alignItems: "center",
-      border: `1px solid ${palette.border}`,
-      background: palette.bg, color: palette.color,
-      borderRadius: 4, padding: "2px 7px",
-      fontSize: 10, fontWeight: 700, letterSpacing: 0, whiteSpace: "nowrap",
-    }
-  }
-  const rowStyle = {
-    display: "grid", gridTemplateColumns: "150px 1fr",
-    gap: 12, padding: "10px 0", borderBottom: `1px solid ${t.divider}`,
-  }
+  const toc = zh
+    ? [
+      ["method-workflow", "工作流"],
+      ["method-data", "数据层"],
+      ["method-scoring", "评分模型"],
+      ["method-formulas", "公式参考"],
+      ["method-provenance", "证据与溯源"],
+      ["method-limitations", "限制说明"],
+    ]
+    : [
+      ["method-workflow", "Workflow"],
+      ["method-data", "Data Layer"],
+      ["method-scoring", "Scoring Model"],
+      ["method-formulas", "Formula Reference"],
+      ["method-provenance", "Evidence & Provenance"],
+      ["method-limitations", "Limitations"],
+    ]
+
+  const workflow = zh
+    ? ["数据库 / 种子数据", "描述符提取", "规则评分", "候选排序", "结果解释", "实验验证"]
+    : ["Database / Seed Data", "Descriptor Extraction", "Rule-based Scoring", "Candidate Ranking", "Results Interpretation", "Experimental Validation"]
+
+  const dataCards = zh
+    ? [
+      ["Demo Dataset", "用于展示工作流和交互逻辑，不应被当作真实科研结论。", "proxy"],
+      ["Real Seed Dataset", "用于承载未来整理的公开数据库和文献记录；当前不是完整 MOF 数据库。", "info"],
+      ["Catalysis Data Template", "定义后续催化数据接入所需的最小字段；模板本身不代表一定能训练机器学习模型。", "warn"],
+      ["Future Data Ingestion", "真实建模需要结构化 experimental or literature data，包括条件、标签、来源和限制。", "info"],
+    ]
+    : [
+      ["Demo Dataset", "Used for workflow demonstration and interaction testing, not as final scientific evidence.", "proxy"],
+      ["Real Seed Dataset", "Provides a framework for curated public database and literature records. It is not a complete MOF database.", "info"],
+      ["Catalysis Data Template", "Defines minimum fields for future catalysis data ingestion. The template alone does not guarantee machine learning readiness.", "warn"],
+      ["Future Data Ingestion", "Real modeling requires structured experimental or literature data with conditions, labels, sources, and limitations.", "info"],
+    ]
+
+  const scoreCards = zh
+    ? [
+      ["Rule-based Scoring Model", "当前模型把描述符、任务适配、证据置信度和权重组合成 candidate priority。", "info"],
+      ["Eco Score", "用于可持续性优先级比较，不替代完整工业 LCA。", "proxy"],
+      ["Performance Score", "用于吸附相关候选排序，不替代严格 GCMC 或 IAST。", "proxy"],
+      ["Catalysis Potential Score", "用于催化潜力筛选，不声称准确预测转化率、选择性或 TOF。", "warn"],
+      ["Score Breakdown", "展示单个候选的维度分数组成。", "info"],
+      ["Weight Contribution", "解释权重和归一化描述符如何影响分数。", "info"],
+      ["Sensitivity Analysis", "检查关键权重变化后候选排序是否稳定。", "info"],
+    ]
+    : [
+      ["Rule-based Scoring Model", "Combines descriptors, task fit, evidence confidence, and weights into candidate priority.", "info"],
+      ["Eco Score", "Supports sustainability-priority comparison and does not replace full industrial LCA.", "proxy"],
+      ["Performance Score", "Supports adsorption-related candidate ranking and does not replace rigorous GCMC or IAST.", "proxy"],
+      ["Catalysis Potential Score", "Screens catalysis potential without claiming accurate conversion, selectivity, or TOF prediction.", "warn"],
+      ["Score Breakdown", "Shows dimension-level score composition for a candidate.", "info"],
+      ["Weight Contribution", "Explains how weights and normalized descriptors affect the score.", "info"],
+      ["Sensitivity Analysis", "Checks whether ranking remains stable when key weights change.", "info"],
+    ]
+
+  const formulaCards = [
+    {
+      title: zh ? "表观选择性" : "Apparent selectivity",
+      formula: <FormulaLine>S<sub>A/B</sub> = q<sub>A</sub> / q<sub>B</sub></FormulaLine>,
+      variables: zh
+        ? [["q_A", "组分 A 的吸附量"], ["q_B", "组分 B 的吸附量"]]
+        : [["q_A", "uptake of component A"], ["q_B", "uptake of component B"]],
+      interpretation: zh ? "用于快速比较两个组分的吸附量比例。" : "Quickly compares uptake ratio between two components.",
+      limitation: zh ? "这是简化的表观选择性，不替代严格混合气吸附建模。" : "This is a simplified apparent selectivity and does not replace rigorous mixture adsorption modeling.",
+    },
+    {
+      title: zh ? "Henry 选择性" : "Henry selectivity",
+      formula: <FormulaLine>S<sub>H</sub> = K<sub>H,A</sub> / K<sub>H,B</sub></FormulaLine>,
+      variables: zh
+        ? [["K_H,A", "组分 A 的 Henry 常数"], ["K_H,B", "组分 B 的 Henry 常数"]]
+        : [["K_H,A", "Henry constant of component A"], ["K_H,B", "Henry constant of component B"]],
+      interpretation: zh ? "用于低压极限下比较吸附亲和力。" : "Compares adsorption affinity in the low-pressure limit.",
+      limitation: zh ? "主要适用于稀释或低压区域。" : "Useful for dilute or low-pressure regimes only.",
+    },
+    {
+      title: zh ? "IAST 选择性" : "IAST selectivity",
+      formula: <FormulaLine>S<sub>A/B</sub> = (x<sub>A</sub> / y<sub>A</sub>) / (x<sub>B</sub> / y<sub>B</sub>)</FormulaLine>,
+      variables: zh
+        ? [["x_A, x_B", "吸附相摩尔分数"], ["y_A, y_B", "气相摩尔分数"]]
+        : [["x_A, x_B", "adsorbed phase mole fractions"], ["y_A, y_B", "gas phase mole fractions"]],
+      interpretation: zh ? "用于说明严格混合气选择性计算所需的相组成关系。" : "Describes phase-composition ratios used in rigorous mixture selectivity analysis.",
+      limitation: zh ? "当前平台不执行严格 IAST，该公式仅作为方法参考。" : "Current platform does not perform rigorous IAST. This is a formula reference only.",
+    },
+    {
+      title: zh ? "等量吸附热 Qst" : "Isosteric heat Qst",
+      formula: <FormulaLine>Q<sub>st</sub> = -R × d(ln P) / d(1/T)</FormulaLine>,
+      variables: zh
+        ? [["R", "气体常数"], ["P", "压力"], ["T", "温度"]]
+        : [["R", "gas constant"], ["P", "pressure"], ["T", "temperature"]],
+      interpretation: zh ? "用于解释吸附强度和温度响应。" : "Interprets adsorption strength and temperature response.",
+      limitation: zh
+        ? "Qst 估算需要可靠的多温度等温线数据。当前 Qst 输出应作为解释性参考，不应视为最终热力学证据。"
+        : "Qst estimation requires reliable multi-temperature isotherm data. Current Qst outputs should be treated as interpretive guidance, not final thermodynamic evidence.",
+    },
+    {
+      title: zh ? "规则评分公式" : "Rule-based score formula",
+      formula: (
+        <>
+          <FormulaLine>Final Score =</FormulaLine>
+          <FormulaLine>w<sub>1</sub> × Performance</FormulaLine>
+          <FormulaLine>+ w<sub>2</sub> × Stability</FormulaLine>
+          <FormulaLine>+ w<sub>3</sub> × Sustainability</FormulaLine>
+          <FormulaLine>+ w<sub>4</sub> × Application Fit</FormulaLine>
+          <FormulaLine>+ w<sub>5</sub> × Evidence Confidence</FormulaLine>
+        </>
+      ),
+      variables: zh
+        ? [["w₁…w₅", "可审计的规则权重"], ["Final Score", "候选优先级分数"]]
+        : [["w₁…w₅", "auditable rule weights"], ["Final Score", "candidate-priority score"]],
+      interpretation: zh ? "把多维筛选指标组合为候选优先级。" : "Combines multiple screening dimensions into candidate priority.",
+      limitation: zh ? "score 表示 candidate priority，不表示最终材料性能。" : "The score indicates candidate priority, not final material performance.",
+    },
+    {
+      title: zh ? "催化潜力评分" : "Catalysis Potential Score",
+      formula: (
+        <>
+          <FormulaLine>Catalysis Potential Score =</FormulaLine>
+          <FormulaLine>w<sub>1</sub> × CO<sub>2</sub> Affinity</FormulaLine>
+          <FormulaLine>+ w<sub>2</sub> × Active Site Potential</FormulaLine>
+          <FormulaLine>+ w<sub>3</sub> × Pore Accessibility</FormulaLine>
+          <FormulaLine>+ w<sub>4</sub> × Stability</FormulaLine>
+          <FormulaLine>+ w<sub>5</sub> × Electronic Property</FormulaLine>
+          <FormulaLine>+ w<sub>6</sub> × Sustainability</FormulaLine>
+          <FormulaLine>+ w<sub>7</sub> × Evidence Confidence</FormulaLine>
+        </>
+      ),
+      variables: zh
+        ? [["w₁…w₇", "催化任务规则权重"], ["CO₂ Affinity", "CO₂ 相关亲和力描述符"]]
+        : [["w₁…w₇", "catalysis task rule weights"], ["CO₂ Affinity", "CO₂-related affinity descriptor"]],
+      interpretation: zh ? "用于催化候选材料优先级筛选。" : "Used for catalysis candidate prioritization.",
+      limitation: zh ? "不声称准确预测催化性能，仍需实验验证。" : "It does not claim accurate catalytic performance prediction and still requires experimental validation.",
+    },
+  ]
+
+  const provenanceCards = zh
+    ? [
+      ["Field-level Provenance", "每个经过整理的描述符都可以关联字段级来源，包括来源类型、数据库或文献引用、测量条件、证据等级、整理说明和限制。", "info"],
+      ["fieldSources", "字段级来源映射，说明某个 descriptor 的来源和整理状态。", "proxy"],
+      ["sourceRecords", "来源记录可包含 DOI、URL、condition、limitations 和 curation note。", "info"],
+      ["Pending curation", "缺失来源显示为待整理，不应被理解为已经核实。", "warn"],
+    ]
+    : [
+      ["Field-level Provenance", "Each curated descriptor can be linked to field-level provenance, including source type, database or literature reference, measurement condition, evidence level, curation note, and limitations.", "info"],
+      ["fieldSources", "Field-level source mapping that describes where a descriptor comes from and its curation state.", "proxy"],
+      ["sourceRecords", "Source records can include DOI, URL, condition, limitations, and curation note.", "info"],
+      ["Pending curation", "Missing provenance is shown as pending curation and should not be read as verified.", "warn"],
+    ]
+
+  const limitations = zh
+    ? [
+      "结果表示候选优先级，不代表最终材料性能；",
+      "催化性能高度依赖反应条件；",
+      "可持续性评分不替代完整工业 LCA；",
+      "吸附相关结果不替代严格 GCMC 或 IAST 分析；",
+      "机器学习评估需要带标签的实验或文献数据；",
+      "Real Seed Dataset 不是完整 MOF 数据库；",
+      "仍需实验验证。",
+    ]
+    : [
+      "Results indicate candidate priority, not final material performance.",
+      "Catalytic performance depends strongly on reaction conditions.",
+      "Sustainability scores do not replace full industrial LCA.",
+      "Adsorption-related results do not replace rigorous GCMC or IAST analysis.",
+      "ML evaluation requires labeled experimental or literature data.",
+      "Real Seed Dataset is not a complete MOF database.",
+      "Experimental validation is required.",
+    ]
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <PageHeader
-        title={lang === "zh" ? "方法学" : "Methodology"}
-        subtitle={lang === "zh"
-          ? "说明 ecomof 的数据来源、任务评分规则、证据等级、限制和免责声明。平台输出是候选优先级，不替代实验验证。"
-          : "Data sources, task scoring rules, evidence levels, limitations, and disclaimers. Platform outputs are candidate priorities, not replacements for experimental validation."}
-        meta={lang === "zh" ? "数据来源 · 评分规则 · 证据等级 · 限制 · 免责声明" : "Data sources · scoring rules · evidence levels · limits · disclaimer"}
-        action={<BasisBadge tone="proxy">{lang === "zh" ? "候选优先级" : "candidate priority"}</BasisBadge>}
+        title={zh ? "方法学与可信度说明" : "Methodology and Trust Notes"}
+        subtitle={zh
+          ? "说明 ecomof-ai 如何工作、数据从哪里来、分数怎么算、证据如何追踪，以及哪些结果不能过度解读。"
+          : "How ecomof-ai works, where data come from, how scores are calculated, how evidence is traced, and where interpretation must stay cautious."}
+        meta={zh ? "工作流 · 数据层 · 评分模型 · 公式参考 · 证据与溯源 · 限制说明" : "Workflow · Data Layer · Scoring Model · Formula Reference · Evidence & Provenance · Limitations"}
+        action={<BasisBadge tone="proxy">{zh ? "候选优先级" : "candidate priority"}</BasisBadge>}
       />
+
       <Callout tone="warn">
         <strong>{c.methods.noticeTitle}</strong> {c.methods.noticeBody}
       </Callout>
 
-      <div className="content-card" style={sectionCard}>
-        <SectionTitle>{lang === "zh" ? "平台做什么 / What this platform does" : "What this platform does"}</SectionTitle>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 10 }}>
-          {(lang === "zh" ? [
-            ["早期候选筛选", "把吸附、稳定性、可持续性、任务适配和证据等级组织成候选优先级，支持 Early-stage Screening 和假设生成。", "info"],
-            ["任务导向应用探索", "Performance、EcoScreen 和 CatalysisLab 共用可解释结果卡片，帮助科研合作讨论下一步验证。", "proxy"],
-            ["决策支持", "输出 candidate priority、potential 和 needs validation，不替代实验、GCMC、严格 IAST 或完整工业 LCA。", "warn"],
-          ] : [
-            ["Early-stage candidate screening", "Organizes adsorption, stability, sustainability, application fit, and Evidence Level into candidate priority for hypothesis generation.", "info"],
-            ["Task-oriented application exploration", "Performance, EcoScreen, and CatalysisLab share explainable result cards for research-collaboration discussion.", "proxy"],
-            ["Decision support", "Outputs candidate priority, potential, and needs validation; it does not replace experiments, GCMC, strict IAST, or full industrial LCA.", "warn"],
-          ]).map(([title, body, tone]) => (
-            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-              <BasisBadge tone={tone}>{title}</BasisBadge>
-              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, marginTop: 9 }}>{body}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="content-card" style={sectionCard}>
-        <SectionTitle>{lang === "zh" ? "数据契约与描述符含义" : "Data contracts and descriptor meaning"}</SectionTitle>
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12, marginTop: 10 }}>
-          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-            <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850, marginBottom: 8 }}>{lang === "zh" ? "数据契约" : "Data contracts"}</div>
-            <div style={bodyText}>
-              {lang === "zh"
-                ? "MOF 数据至少应保留 id、name、formula、source、metalNodes、linker、topology、poreSizeA、surfaceArea、poreVolume、co2Uptake、bandGap、stability、cost/toxicity、reactionClasses、activeSiteHypothesis、Evidence Level 和 limitations。demo / placeholder 记录必须清楚标注。"
-                : "MOF records should retain id, name, formula, source, metalNodes, linker, topology, poreSizeA, surfaceArea, poreVolume, co2Uptake, bandGap, stability, cost/toxicity, reactionClasses, activeSiteHypothesis, Evidence Level, and limitations. Demo / placeholder records must be clearly marked."}
-            </div>
-          </div>
-          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-            <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850, marginBottom: 8 }}>{lang === "zh" ? "描述符含义" : "Descriptor meaning"}</div>
-            <div style={bodyText}>
-              {lang === "zh"
-                ? "孔径、比表面积、CO2 uptake、band gap、稳定性、成本和毒性字段是筛选描述符；它们只提供候选排序线索。不同任务需要不同权重，字段缺失或来源较弱时必须降低解释强度。"
-                : "Pore size, surface area, CO2 uptake, band gap, stability, cost, and toxicity are screening descriptors. They provide candidate-ranking cues only. Different tasks require different weights, and missing or weakly sourced fields should reduce interpretation strength."}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="content-card" style={sectionCard}>
-        <SectionTitle>{lang === "zh" ? "当前阶段：Rule-based Scoring Model" : "Current stage: Rule-based Scoring Model"}</SectionTitle>
-        <Callout tone="info">
-          {lang === "zh"
-            ? "当前平台采用规则驱动的多指标评分模型，对候选 MOF 进行优先级排序。"
-            : "The current platform uses rule-based multi-criteria scoring to prioritize candidate MOFs."}
-        </Callout>
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12, marginTop: 10 }}>
-          <MethodFormula
-            title="Final Score"
-            formula="Final Score = w1 × Performance + w2 × Stability + w3 × Sustainability + w4 × Application Fit + w5 × Evidence Confidence"
-            note={lang === "zh" ? "统一候选优先级公式；权重是可审计的 rule-based 配置，不是训练后真实模型参数。" : "Unified candidate-priority formula. Weights are auditable rule-based settings, not trained real-model parameters."}
-            t={t}
-          />
-          <MethodFormula
-            title="Catalysis Potential Score"
-            formula="Catalysis Potential Score = w1 × CO₂ Affinity + w2 × Active Site Potential + w3 × Pore Accessibility + w4 × Stability + w5 × Electronic Property + w6 × Sustainability + w7 × Evidence Confidence"
-            note={lang === "zh" ? "CatalysisLab 使用该公式进行候选优先级筛选；分数不代表最终转化率、选择性或 TOF。" : "CatalysisLab uses this formula for candidate prioritization. The score is not final conversion, selectivity, or TOF."}
-            t={t}
-          />
-        </div>
-      </div>
-
-      <div className="content-card" style={sectionCard}>
-        <SectionTitle>{lang === "zh" ? "证据等级" : "Evidence levels"}</SectionTitle>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10, marginTop: 10 }}>
-          {(lang === "zh" ? [
-            ["experimental", "直接实验数据支持；新任务仍需独立验证。"],
-            ["literature-supported", "相关文献或基准数据支持，需保留来源和条件。"],
-            ["simulation-supported", "GCMC、DFT 或描述符计算支持，不替代实验。"],
-            ["ML-predicted", "未来模型证据枚举；当前不作为真实模型输出。"],
-            ["rule-based", "来自描述符规则和假设，是当前 demo 默认等级。"],
-            ["needs-validation", "证据稀疏或占位，仅用于假设生成。"],
-          ] : [
-            ["experimental", "Direct experimental data support; independent validation is still needed for a new task."],
-            ["literature-supported", "Relevant literature or benchmark data support, with source and conditions retained."],
-            ["simulation-supported", "Supported by GCMC, DFT, or descriptor calculation; not a substitute for experiment."],
-            ["ML-predicted", "Future model evidence enumeration; not active real-model output in the current prototype."],
-            ["rule-based", "Derived from descriptor rules and assumptions; current demo default."],
-            ["needs-validation", "Sparse or placeholder evidence; hypothesis generation only."],
-          ]).map(([level, body]) => (
-            <div key={level} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-              <BasisBadge tone={level === "High" ? "calc" : level === "Medium" ? "info" : "proxy"}>{level}</BasisBadge>
-              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.6, marginTop: 9 }}>{body}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="content-card" style={sectionCard}>
-        <SectionTitle>{lang === "zh" ? "Model Results" : "Model Results"}</SectionTitle>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))", gap: 10, marginTop: 10 }}>
-          {(lang === "zh" ? [
-            ["Candidate Ranking", "展示当前规则评分策略下的候选优先级。"],
-            ["Score Breakdown", "展示单个候选材料的维度分数组成。"],
-            ["Weight Contribution", "解释权重与归一化描述符如何影响最终分数。"],
-            ["Evidence Level Distribution", "展示候选集合的数据或规则支持强弱。"],
-            ["Sensitivity Analysis", "检查关键权重浮动后 Top candidates 是否稳定。"],
-          ] : [
-            ["Candidate Ranking", "Shows candidate priority under the current rule-based scoring strategy."],
-            ["Score Breakdown", "Shows dimension-level score composition for a selected candidate."],
-            ["Weight Contribution", "Explains how weights and normalized descriptors affect the final score."],
-            ["Evidence Level Distribution", "Shows how strongly the candidate set is supported by data or assumptions."],
-            ["Sensitivity Analysis", "Checks whether top candidates remain stable when a key weight changes."],
-          ]).map(([title, body]) => (
-            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-              <BasisBadge tone="info">{title}</BasisBadge>
-              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.6, marginTop: 9 }}>{body}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="content-card" style={sectionCard}>
-        <SectionTitle>{lang === "zh" ? "未来阶段：Machine Learning Model" : "Future stage: Machine Learning Model"}</SectionTitle>
-        <div style={bodyText}>
-          {lang === "zh"
-            ? "当积累足够带标签数据后，平台可使用 Random Forest、XGBoost 等表格机器学习方法建立结构-性能关系模型。未来 ML outputs 包括 Predicted vs Actual、Residual Plot、Feature Importance、R² / MAE / RMSE 和 Cross-validation。"
-            : "When enough labeled data are available, the platform can train structure-property models using Random Forest, XGBoost, or other tabular ML methods. Future ML outputs include Predicted vs Actual, Residual Plot, Feature Importance, R² / MAE / RMSE, and Cross-validation."}
-        </div>
-      </div>
-
-      <div className="content-card" style={sectionCard}>
-        <SectionTitle>{lang === "zh" ? "ML evaluation 占位模块" : "ML evaluation placeholder"}</SectionTitle>
-        <Callout tone="info">
-          {lang === "zh"
-            ? "Demo only / Placeholder：当前没有真实标签数据时，不显示真实 R²、MAE 或 RMSE。下列模块只是未来评估计划。"
-            : "Demo only / Placeholder: without labeled data, the platform does not show real R², MAE, or RMSE. The items below are future evaluation plans."}
-        </Callout>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10, marginTop: 10 }}>
-          {["Predicted vs Actual", "Residual Plot", "Descriptor Contribution / Rule Contribution", "R²: pending · MAE: pending · RMSE: pending · Cross-validation: pending"].map(item => (
-            <div key={item} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, minHeight: 92 }}>
-              <BasisBadge tone="proxy">Demo only / Placeholder</BasisBadge>
-              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850, marginTop: 10 }}>{item}</div>
-              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55, marginTop: 7 }}>
-                {lang === "zh" ? "需要真实实验或文献标签数据后才能启用。" : "Requires labeled experimental or literature data before activation."}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="content-card" style={sectionCard}>
-        <SectionTitle>{lang === "zh" ? "字段级数据溯源 / Field-level Data Provenance" : "Field-level Data Provenance"}</SectionTitle>
-        <div style={bodyText}>
-          {lang === "zh"
-            ? "每个经过整理的描述符都可以关联字段级来源记录，包括来源类型、数据库或文献引用、测量条件、证据等级、整理说明和限制。当前 Real Seed Dataset 为每个支持字段提供 fieldSources 框架，但大多数字段尚未关联核实来源。"
-            : "Each curated descriptor can be linked to a field-level source record, including source type, database or literature reference, measurement condition, evidence level, curation note, and limitations. The current Real Seed Dataset provides a fieldSources framework for each supported field; most fields are pending manual curation."}
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
-          {(lang === "zh" ? [
-            ["缺失来源显示为待整理", "未关联已核实数据来源的字段会显示【待整理】，而不是编造来源或留空。", "warn"],
-            ["来源不代表验证完成", "没有核实来源的数据不应被过度解读；字段级来源追踪说明数据框架，不替代实验验证。", "proxy"],
-            ["支持后续数据整理", "字段级来源追踪为后续真实数据整理和审核提供标准框架，支持 CoRE MOF、QMOF 和文献数据的接入。", "info"],
-          ] : [
-            ["Missing provenance shown as Pending curation", "Fields without a verified source record display 'Pending curation' rather than fabricated or empty values.", "warn"],
-            ["Values without verified provenance should not be over-interpreted", "Field-level provenance describes the data framework and does not replace manual data verification or experimental validation.", "proxy"],
-            ["Supports future real data curation", "Field-level provenance provides a standard framework for future data ingestion from CoRE MOF, QMOF, and curated literature.", "info"],
-          ]).map(([title, body, tone]) => (
-            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-              <BasisBadge tone={tone}>{title}</BasisBadge>
-              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, marginTop: 9 }}>{body}</div>
-            </div>
-          ))}
-        </div>
-        <div style={{ marginTop: 10, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "10px 14px", color: t.muted, fontSize: 11, lineHeight: 1.6 }}>
-          {lang === "zh"
-            ? "当前支持字段级来源查看的字段：surfaceArea、poreSizeA、poreVolume、co2Uptake、bandGap、waterStability、thermalStability、toxicityConcern。在 MOF Library 展开记录后，以及 Performance 和 CatalysisLab 真实种子模式下的候选卡片中，可点击字段旁的 ⓘ 图标查看来源详情。"
-            : "Fields supporting provenance view: surfaceArea, poreSizeA, poreVolume, co2Uptake, bandGap, waterStability, thermalStability, toxicityConcern. In MOF Library expanded records and in Performance / CatalysisLab real-seed candidate cards, click the ⓘ icon next to a field to view its source details."}
-        </div>
-      </div>
-
-      <div className="content-card" style={sectionCard}>
-        <SectionTitle>{lang === "zh" ? "限制与免责声明" : "Limitations and disclaimer"}</SectionTitle>
-        <div style={{ display: "grid", gap: 8, marginTop: 10 }}>
-          {(lang === "zh" ? [
-            "结果表示候选优先级，不表示最终材料性能。",
-            "催化性能强烈依赖具体反应条件。",
-            "可持续性评分不能替代完整工业 LCA。",
-            "吸附结果不能替代严格 GCMC 或 IAST。",
-            "必须进行实验验证。",
-          ] : [
-            "Results indicate candidate priority, not final material performance.",
-            "Catalytic performance depends strongly on reaction conditions.",
-            "Sustainability scores do not replace full industrial LCA.",
-            "Adsorption results do not replace rigorous GCMC or IAST.",
-            "Experimental validation is required.",
-          ]).map(item => (
-            <div key={item} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "10px 12px", color: t.muted, fontSize: 12, lineHeight: 1.55 }}>
-              {item}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="content-card" style={sectionCard}>
-        <SectionTitle>{lang === "zh" ? "任务导向评分框架" : "Task-oriented scoring framework"}</SectionTitle>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
-          {(lang === "zh" ? [
-            ["数据来源", "结构库、描述符、吸附标签、LCA 代理清单和催化模拟数据分层展示；来源字段必须保留。", "info"],
-            ["评分规则", "EcoScreen 聚合环境负担与可行性代理；CatalysisLab 聚合任务适配、活性位点线索和证据等级。", "proxy"],
-            ["证据等级", "高/中/低证据只描述来源强弱和验证状态，不代表结果已经被证实。", "calc"],
-            ["免责声明", "输出是候选优先级；任何论文、专利或工程决策前都需要实验与独立验证。", "warn"],
-          ] : [
-            ["Data sources", "Structure libraries, descriptors, adsorption labels, LCA proxies, and catalysis mock data are separated; source fields must remain visible.", "info"],
-            ["Scoring rules", "EcoScreen aggregates burden and feasibility proxies; CatalysisLab aggregates task fit, active-site cues, and evidence level.", "proxy"],
-            ["Evidence levels", "High/medium/low evidence describes source strength and validation state; it does not certify results.", "calc"],
-            ["Disclaimer", "Outputs are candidate priorities; papers, patents, and engineering decisions require experimental and independent validation.", "warn"],
-          ]).map(([title, body, tone]) => (
-            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-              <BasisBadge tone={tone}>{title}</BasisBadge>
-              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, marginTop: 9 }}>{body}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Overview */}
-      <div className="content-card" style={sectionCard}>
-        <div style={{ display: "flex", justifyContent: "space-between", gap: 14, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 12 }}>
-          <div>
-            <h1 style={{ margin: 0, color: t.textStrong, fontSize: 24 }}>
-              {lang === "zh" ? "项目范围、实现状态与限制" : "Scope, Implementation Status, and Limits"}
-            </h1>
-            <p style={{ margin: "8px 0 0", color: t.muted, fontSize: 13, lineHeight: 1.65, maxWidth: 860 }}>
-              {lang === "zh"
-                ? "EcoMOF-AI 的定位是科研早期筛选与决策支持工具：把吸附性能、热力学解释、LCA/LCC 和敏感性分析放在同一条判断链中。当前版本适合形成候选材料假设，不应被包装成已经完成真实数据库、严格 IAST 或工业级 LCA 的系统。"
-                : "EcoMOF-AI is an early-stage research screening and decision-support tool: adsorption performance, thermodynamic interpretation, LCA/LCC, and sensitivity analysis are presented as one decision chain. The current version is suitable for generating candidate hypotheses, not for claiming a completed real-database, strict-IAST, or industrial-LCA system."}
-            </p>
-          </div>
-          <BasisBadge tone="proxy">{lang === "zh" ? "筛选级原型" : "screening prototype"}</BasisBadge>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
-          {(lang === "zh" ? [
-            ["项目范围", "输入 MOF 结构参数与条件，输出吸附、解释、环境、成本和稳健性判断。"],
-            ["已实现", "搜索预设、算法状态标注、Qst 测试版、LCA/LCC 代理、敏感性、验证和数据来源页。"],
-            ["非论文级", "真实大规模标签库、严格混合气 IAST、工业 LCI、供应商报价和科研级 Qst 仍未完成。"],
-            ["引用建议", "引用本工具时，应同时引用真实数据源；代理或种子数据只应作为方法演示。"],
-          ] : [
-            ["Scope", "Input MOF descriptors and conditions; output adsorption, interpretation, impact, cost, and robustness signals."],
-            ["Implemented", "Search presets, algorithm-status labels, Qst beta, LCA/LCC proxies, sensitivity, validation, and provenance pages."],
-            ["Not publication-grade", "Large real label libraries, strict mixture IAST, industrial LCI, supplier quotes, and research-grade Qst are not complete."],
-            ["Citation", "When citing the tool, cite the real data sources separately; proxy or seed data should be treated as method demonstration."],
-          ]).map(([title, body]) => (
-            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-              <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800, marginBottom: 7 }}>{title}</div>
-              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55 }}>{body}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Workflow interpretation */}
-      <div className="content-card" style={sectionCard}>
-        <SectionTitle>{lang === "zh" ? "如何解读这个工作流" : "How to interpret the workflow"}</SectionTitle>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 12, marginTop: 10 }}>
-          {(lang === "zh" ? [
-            ["发现阶段化学", "性能、稳定性、机理和结构-性质理解是第一优先级。", "主要筛选"],
-            ["可行性边界", "粗略成本、可得性和实际约束用于排除明显不可行路线。", "可行性边界"],
-            ["工程阶段评估", "正式 LCA/LCC、工艺路线设计和放大经济性属于未来工程阶段。", "未来工程评估"],
-          ] : [
-            ["Discovery-stage chemistry", "Performance, stability, mechanism, and structure-property understanding come first.", "Primary screening"],
-            ["Feasibility boundaries", "Rough cost, availability, and practical constraints act as coarse boundaries.", "Feasibility boundary"],
-            ["Engineering-stage evaluation", "Formal LCA/LCC, process-route design, and scale-up economics belong to future engineering work.", "Future engineering evaluation"],
-          ]).map(([title, body, chip]) => (
-            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
-              <BasisBadge tone={chip.includes("未来") || chip.includes("Future") ? "user" : chip.includes("可行性") || chip.includes("Feasibility") ? "proxy" : "info"}>{chip}</BasisBadge>
-              <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 850, marginTop: 10 }}>{title}</div>
-              <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, marginTop: 8 }}>{body}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Selectivity + ML status */}
-      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1.15fr 0.85fr", gap: 14 }}>
-        <div className="content-card" style={sectionCard}>
-          <SectionTitle>{c.methods.selectivity}</SectionTitle>
-          <div style={bodyText}>{c.methods.selectivityBody1}</div>
-          <div style={{ margin: "14px 0", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8,
-            padding: "12px 14px", color: t.textStrong, fontFamily: FONT_MONO, fontSize: 14 }}>
-            S(A/B) = q_A / q_B x interaction correction
-          </div>
-          <div style={bodyText}>{c.methods.selectivityBody2}</div>
-        </div>
-
-        <div className="content-card" style={sectionCard}>
-          <SectionTitle>{c.methods.mlStatus}</SectionTitle>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            {(lang === "zh" ? [
-              ["集成模型", "浏览器端独立模型配置文件，含透明权重与验证指标；不是后端训练模型检查点。", "beta"],
-              ["随机森林", "已与集成模型使用不同权重/误差指标，切换会改变结果；仍属于前端静态模型配置。", "beta"],
-              ["XGBoost / GBM", "已加入独立配置文件；真实版本需要保存训练好的模型工件。", "beta"],
-              ["图神经网络", "已加入 GNN 配置入口；科研级版本需要 CIF 图特征和真实吸附标签训练。", "planned"],
-            ] : [
-              ["Ensemble", "Browser-side independent model profile with transparent weights and validation metrics; not a backend model checkpoint.", "beta"],
-              ["Random Forest", "Uses different weights/metrics from Ensemble and changes the prediction; still a static front-end profile.", "beta"],
-              ["XGBoost / GBM", "Independent profile added; a real version needs trained model artifacts.", "beta"],
-              ["Graph Neural Net", "GNN entry added; research-grade use needs CIF graph features and real adsorption labels.", "planned"],
-            ]).map(([name, desc, tone]) => (
-              <div key={name} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 5 }}>
-                  <span style={{ color: t.textStrong, fontSize: 13, fontWeight: 700 }}>{name}</span>
-                  <span style={statusPill(tone)}>{lang === "zh" ? zhText(lang, tone) : tone.toUpperCase()}</span>
-                </div>
-                <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.5 }}>{desc}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Formulas */}
-      <div className="content-card" style={sectionCard}>
-        <SectionTitle>{c.methods.formulas}</SectionTitle>
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, 1fr)", gap: 10 }}>
-          {[
-            [c.methods.formulaApparent, "S = q_A / q_B",                  c.methods.formulaApparentBody],
-            [c.methods.formulaHenry,   "S_H = K_H,A / K_H,B",             c.methods.formulaHenryBody],
-            [c.methods.formulaIast,    "S = (x_A/y_A) / (x_B/y_B)",       c.methods.formulaIastBody],
-            [c.methods.formulaQst,     "Qst = -R x d(ln P) / d(1/T)",     c.methods.formulaQstBody],
-          ].map(([title, formula, desc]) => (
-            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-              <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 700, marginBottom: 8 }}>{title}</div>
-              <div style={{ color: t.accentText, fontSize: 12, fontFamily: FONT_MONO, marginBottom: 8 }}>{formula}</div>
-              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55 }}>{desc}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Glossary */}
-      <div className="content-card" style={sectionCard}>
-        <SectionTitle>{lang === "zh" ? "系统化术语提示" : "Systematic Tooltip Glossary"}</SectionTitle>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(5, 1fr)", gap: 10 }}>
-          {(lang === "zh" ? [
-            ["PLD", "孔限制直径，决定可进入分子的最窄窗口。"],
-            ["LCD", "最大孔腔直径，描述可容纳分子的最大孔腔。"],
-            ["Henry", "低压极限吸附常数，常用于稀释条件选择性。"],
-            ["IAST", "由单组分等温线估算混合气吸附平衡的方法。"],
-            ["Qst", "等量吸附热，用来解释吸附强度和机理。"],
-            ["GWP", "全球变暖潜势，LCA 特征化指标之一。"],
-            ["归一化", "把不同环境指标拉到可比较尺度，不等于权重化。"],
-            ["LCC", "生命周期成本，经济指标，不是环境影响。"],
-            ["适用域", "判断当前输入是否落在训练/基准分布附近。"],
-            ["代理", "代理估算，表示方向性参考而非真实清单或实验结果。"],
-          ] : [
-            ["PLD", "Pore limiting diameter, the narrowest accessible window."],
-            ["LCD", "Largest cavity diameter, the largest pore cavity scale."],
-            ["Henry", "Low-pressure adsorption constant used for dilute selectivity."],
-            ["IAST", "Mixture-equilibrium estimate from pure-component isotherms."],
-            ["Qst", "Isosteric heat of adsorption, used to interpret binding strength."],
-            ["GWP", "Global warming potential, one LCA characterization category."],
-            ["Normalization", "Makes impact categories comparable; it is not weighting."],
-            ["LCC", "Life cycle costing, an economic metric separate from LCA."],
-            ["Applicability", "Checks whether inputs sit near the benchmark/training domain."],
-            ["Proxy", "A directional estimate rather than a real inventory or experiment."],
-          ]).map(([term, desc]) => (
-            <div key={term} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
-              <div style={{ color: t.accentText, fontSize: 12, fontWeight: 800, marginBottom: 6 }}>{term}</div>
-              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.5 }}>{desc}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ML pipeline */}
-      <div className="content-card" style={sectionCard}>
-        <SectionTitle>{c.methods.pipeline}</SectionTitle>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(5, 1fr)", gap: 10 }}>
-          {[
-            [c.methods.pipelineStructure,    c.methods.pipelineStructureBody],
-            [c.methods.pipelineDescriptors,  c.methods.pipelineDescriptorsBody],
-            [c.methods.pipelineLabels,       c.methods.pipelineLabelsBody],
-            [c.methods.pipelineModels,       c.methods.pipelineModelsBody],
-            [c.methods.pipelineUncertainty,  c.methods.pipelineUncertaintyBody],
-          ].map(([title, desc], i) => (
-            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-              <div style={{ color: t.success, fontSize: 11, fontWeight: 800, marginBottom: 6, fontFamily: FONT_MONO }}>
-                {String(i + 1).padStart(2, "0")}
-              </div>
-              <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 700, marginBottom: 8 }}>{title}</div>
-              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55 }}>{desc}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Applicability */}
-      <div className="content-card" style={sectionCard}>
-        <SectionTitle>{c.methods.applicability}</SectionTitle>
-        <div style={bodyText}>{c.methods.applicabilityBody}</div>
-      </div>
-
-      {/* Databases */}
-      <div className="content-card" style={sectionCard}>
-        <SectionTitle>{c.methods.database}</SectionTitle>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "1fr 1fr 1fr", gap: 12 }}>
-          {(lang === "zh" ? [
-            ["CoRE MOF 2019", "当前用于常见 MOF 名称、结构范围和文献示例的参考集。", "stable"],
-            ["CoRE MOF 2024", "计划作为更新的可计算实验 MOF 结构来源。", "planned"],
-            ["QMOF Database", "计划用于 DFT 电子结构描述符；它不是直接的吸附标签数据库。", "planned"],
-          ] : [
-            ["CoRE MOF 2019", "Current reference set for common MOF names, structural ranges, and literature-style examples.", "stable"],
-            ["CoRE MOF 2024", "Planned structure refresh for newer computation-ready experimental MOFs.", "planned"],
-            ["QMOF Database", "Planned source for DFT-derived electronic descriptors; not a direct adsorption-label database.", "planned"],
-          ]).map(([title, desc, tone]) => (
-            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, marginBottom: 8 }}>
-                <span style={{ color: t.textStrong, fontSize: 13, fontWeight: 700 }}>{title}</span>
-                <span style={statusPill(tone)}>{lang === "zh" ? zhText(lang, tone) : tone.toUpperCase()}</span>
-              </div>
-              <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55 }}>{desc}</div>
-            </div>
-          ))}
-        </div>
-        <div style={{ ...bodyText, marginTop: 12 }}>{c.methods.dbNote}</div>
-      </div>
-
-      {/* Beta features + Roadmap */}
-      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
-        <div className="content-card" style={sectionCard}>
-          <SectionTitle>{c.methods.beta}</SectionTitle>
-          {(lang === "zh" ? [
-            ["CH4/N2 与 C2H4/C2H6", "作为第一阶段筛选启用，因为公开计算数据覆盖相对更现实。"],
-            ["C2H2/CO2 异常标注", "对强 CO2 结合化学环境标注反常选择性风险；尚不是完整机理模型。"],
-            ["H2 体系", "仅为经典近似；尚未实现量子扩散和低温修正。"],
-            ["Qst 模块", "由预测的多温等温线计算；适合作机理参考，不是最终热力学证据。"],
-          ] : [
-            ["CH4/N2 and C2H4/C2H6", "Enabled for first-pass screening because public computational coverage is comparatively more realistic."],
-            ["C2H2/CO2 anomaly flag", "Flags inverse-selectivity risk for strong CO2-binding chemistry; not yet a full mechanistic model."],
-            ["H2 systems", "Classical approximation only; quantum diffusion and low-temperature corrections are not implemented."],
-            ["Qst module", "Calculated from predicted multi-temperature isotherms; use as mechanistic guidance, not final thermodynamic evidence."],
-          ]).map(([k, v], i, arr) => (
-            <div key={k} style={{ ...rowStyle, borderBottom: i === arr.length - 1 ? "none" : rowStyle.borderBottom }}>
-              <div style={{ color: t.danger, fontSize: 12, fontWeight: 700 }}>{k}</div>
-              <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.6 }}>{v}</div>
-            </div>
-          ))}
-        </div>
-
-        <div className="content-card" style={sectionCard}>
-          <SectionTitle>{c.methods.roadmap}</SectionTitle>
-          {(lang === "zh" ? [
-            ["v0.2", "可用性修复：MOF 搜索预设、直接数字输入、主题切换、清晰状态说明。"],
-            ["v0.3", "方法说明页、更清晰的选择性命名、CSV schema、扩展连接体和官能团元数据。"],
-            ["v1.0", "真实单组分等温线拟合，以及明确的 Henry/IAST 选择性流程。"],
-            ["v1.1", "按目标气体对分别训练模型，刷新 CoRE 2024/QMOF 描述符，引入不确定性和适用域警告。"],
-            ["长期", "在可靠标签可得后，扩展电子特气分离和 H2 量子修正。"],
-          ] : [
-            ["v0.2", "Usability fixes: MOF search presets, direct numeric inputs, theme toggle, and clear status notes."],
-            ["v0.3", "Methods page, clearer selectivity naming, CSV schema, expanded linker and functional-group metadata."],
-            ["v1.0", "Real single-component isotherm fitting and explicit Henry/IAST selectivity workflow."],
-            ["v1.1", "Separate trained models per target gas pair, CoRE 2024/QMOF descriptor refresh, uncertainty and applicability-domain warnings."],
-            ["Long term", "Electronic specialty gas separations and hydrogen-specific quantum corrections when reliable labels are available."],
-          ]).map(([k, v], i, arr) => (
-            <div key={k} style={{ ...rowStyle, gridTemplateColumns: "90px 1fr", borderBottom: i === arr.length - 1 ? "none" : rowStyle.borderBottom }}>
-              <div style={{ color: t.success, fontSize: 12, fontWeight: 800, fontFamily: "monospace" }}>{k}</div>
-              <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.6 }}>{v}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Limitations */}
-      <div className="content-card" style={sectionCard}>
-        <SectionTitle>{c.methods.limits}</SectionTitle>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, 1fr)", gap: 10 }}>
-          {(lang === "zh" ? [
-            ["不保证合成可行性", "尚未检查所选金属/配体组合在实验上是否合理。"],
-            ["严格 IAST 仍为代理", "已显示 Henry/IAST 筛选代理，但尚未从真实单组分等温线运行严格混合热力学。"],
-            ["CIF 解析有限", "可读取部分晶胞与描述符标签；完整 PLD/LCD/ASA 仍应由 Zeo++/RASPA 等后端管线计算。"],
-            ["无真实云同步", "当前为 localStorage + JSON 备份导入；账号、权限和云端同步需要后端。"],
-          ] : [
-            ["No guaranteed synthetic feasibility", "Does not yet check whether a proposed linker/metal combination is experimentally reasonable."],
-            ["Strict IAST is still a proxy", "Henry/IAST screening proxies are displayed, but rigorous mixture thermodynamics from real pure-component isotherms is not implemented."],
-            ["Limited CIF parsing", "The UI reads selected cell/descriptor tags; full PLD/LCD/ASA should come from a Zeo++/RASPA-style backend pipeline."],
-            ["No real cloud sync", "Current storage is localStorage plus JSON backup/import; accounts, permissions, and sync need a backend."],
-          ]).map(([title, desc]) => (
-            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderLeft: `3px solid ${t.danger}`, borderRadius: 8, padding: 12 }}>
-              <div style={{ color: t.danger, fontSize: 12, fontWeight: 700, marginBottom: 6 }}>{title}</div>
-              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55 }}>{desc}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Future Data Ingestion */}
-      <div className="content-card" style={sectionCard}>
-        <SectionTitle>{lang === "zh" ? "未来数据接入" : "Future Data Ingestion"}</SectionTitle>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {(lang === "zh" ? [
-              ["当前数据来源", "当前结果来自 demo / seed 数据和规则驱动评分，不是实验数据库或机器学习模型训练结果。"],
-              ["Real Seed Dataset", "提供了后续接入公开数据库和文献整理数据的框架；current version 仅含少量 skeleton records，字段以 null / 待整理为主。"],
-              ["催化数据模板", "定义了后续接入真实催化数据所需最小字段，包括反应条件、性能指标和证据等级；见 CatalysisLab 页面。"],
-            ] : [
-              ["Current data", "Results are from demo / seed records and rule-based scoring — not a trained model on experimental data."],
-              ["Real Seed Dataset", "Provides a framework for future public database and literature curation. Current version contains skeleton records with null fields pending curation."],
-              ["Catalysis Data Template", "Defines the minimum fields for future catalysis data ingestion, including reaction conditions, performance metrics, and evidence level. See CatalysisLab page."],
-            ]).map(([title, body]) => (
-              <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
-                <div style={{ color: t.accentSoft, fontSize: 12, fontWeight: 800, marginBottom: 5 }}>{title}</div>
-                <div style={bodyText}>{body}</div>
-              </div>
-            ))}
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {(lang === "zh" ? [
-              ["机器学习评估", "只有积累足够带标签的实验或文献数据后，才会启用机器学习评估。当前不会因为有模板或 seed skeleton 就自动训练模型。"],
-              ["当前输出含义", "所有输出均表示候选优先级（candidate priority），不是最终材料性能预测。实验验证是必要的下一步。"],
-            ] : [
-              ["ML evaluation", "Machine learning evaluation will only be enabled when enough labeled experimental or literature data are available. Templates and seed skeletons alone do not trigger model training."],
-              ["Current outputs", "All outputs indicate candidate priority, not final material performance. Experimental validation is the required next step."],
-            ]).map(([title, body]) => (
-              <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
-                <div style={{ color: t.accentSoft, fontSize: 12, fontWeight: 800, marginBottom: 5 }}>{title}</div>
-                <div style={bodyText}>{body}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Acknowledgement + Contact */}
-      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
-        <div className="content-card" style={sectionCard}>
-          <SectionTitle>{lang === "zh" ? "致谢" : "Acknowledgement"}</SectionTitle>
-          <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", marginBottom: 10 }}>
-            <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 800 }}>
-              {lang === "zh" ? "Happy Flight — 研究导师" : "Happy Flight — Research mentor"}
-            </div>
-            <BasisBadge tone="info">{lang === "zh" ? "亦师亦友" : "mentor & friend"}</BasisBadge>
-          </div>
-          <div style={bodyText}>
-            {lang === "zh"
-              ? "特别感谢 Happy Flight。TA 在这个项目从早期想法、研究定位到功能取舍的过程中持续给予指导、提醒和鼓励；既像导师一样帮助我把问题想深，也像朋友一样陪我把项目一步步推进。EcoMOF-AI 后续对科研严谨性、LCA/LCC 决策链和方法透明性的重视，都受到了这份指导的影响。"
-              : "Special thanks to Happy Flight, whose guidance shaped this project from early concept to research positioning and feature priorities. Happy Flight has been both a mentor and a friend: helping push the scientific questions deeper while supporting the steady development of EcoMOF-AI. The platform's emphasis on methodological transparency, LCA/LCC decision support, and research rigor is strongly influenced by this guidance."}
-          </div>
-        </div>
-
-        <div className="content-card" style={sectionCard}>
-          <SectionTitle>{lang === "zh" ? "联系开发者" : "Contact Developer"}</SectionTitle>
-          <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.7, marginBottom: 14 }}>
-            {lang === "zh"
-              ? "如果你希望反馈数据来源、方法假设、MOF 结构/等温线标签，或讨论后续合作与功能改进，可以通过邮件联系开发者。"
-              : "For feedback on data provenance, method assumptions, MOF structures, isotherm labels, collaboration, or feature improvements, contact the developer by email."}
-          </div>
-          <a href="mailto:square.hwh@gmail.com"
-            style={{ display: "inline-flex", alignItems: "center", gap: 8, background: t.surface,
-              border: `1px solid ${t.borderStrong}`, borderRadius: 8, padding: "10px 12px",
-              color: t.accentText, textDecoration: "none", fontSize: 13, fontWeight: 800, fontFamily: FONT_MONO }}>
-            square.hwh@gmail.com
+      <nav aria-label={zh ? "方法学目录" : "Methodology contents"}
+        style={{ display: "flex", gap: 8, flexWrap: "wrap", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 10 }}>
+        {toc.map(([href, label]) => (
+          <a key={href} href={`#${href}`}
+            style={{ color: t.accentText, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6,
+              padding: "6px 9px", fontSize: 11, fontWeight: 800, textDecoration: "none" }}>
+            {label}
           </a>
-          <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55, marginTop: 12 }}>
-            {lang === "zh"
-              ? "建议邮件中附上：材料名称、气体体系、温度/压力、数据来源 DOI 或文件，以及希望工具输出的具体判断。"
-              : "Useful context: material name, gas pair, temperature/pressure, DOI or file source, and the specific decision output you need."}
-          </div>
+        ))}
+      </nav>
+
+      <MethodSection
+        id="method-workflow"
+        title={zh ? "Workflow / 工作流" : "Workflow"}
+        body={zh
+          ? "平台将公开或示例数据整理为描述符，再通过规则评分形成候选排序。结果用于 early-stage screening 和 hypothesis generation，不替代实验验证。"
+          : "The platform turns public or demo records into descriptors, then uses rule-based scoring to form candidate rankings. Results support early-stage screening and hypothesis generation, not experimental validation replacement."}
+        t={t}
+      >
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(6, minmax(0, 1fr))", gap: 8 }}>
+          {workflow.map((step, index) => (
+            <div key={step} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10, minHeight: 88 }}>
+              <div style={{ color: t.accentText, fontSize: 11, fontWeight: 900, fontFamily: FONT_MONO }}>
+                {String(index + 1).padStart(2, "0")}
+              </div>
+              <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 820, lineHeight: 1.35, marginTop: 8 }}>{step}</div>
+            </div>
+          ))}
         </div>
-      </div>
+      </MethodSection>
+
+      <MethodSection
+        id="method-data"
+        title={zh ? "Data Layer / 数据层" : "Data Layer"}
+        body={zh
+          ? "Demo Dataset 用于展示工作流；Real Seed Dataset 用于承载未来整理的公开数据库和文献记录；Catalysis Data Template 定义后续催化数据接入所需的最小字段。"
+          : "Demo Dataset is used for workflow demonstration. Real Seed Dataset provides a framework for curated public database and literature records. Catalysis Data Template defines the minimum fields for future catalysis data ingestion."}
+        t={t}
+      >
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+          {dataCards.map(([title, body, tone]) => <CompactCard key={title} title={title} body={body} tone={tone} t={t} />)}
+        </div>
+      </MethodSection>
+
+      <MethodSection
+        id="method-scoring"
+        title={zh ? "Scoring Model / 评分模型" : "Scoring Model"}
+        body={zh
+          ? "当前是规则评分模型，不是训练完成的真实预测模型。所有 score 都表示 candidate priority，不表示 final material performance。"
+          : "The current model is rule based, not a trained predictive model. Every score indicates candidate priority, not final material performance."}
+        t={t}
+      >
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
+          {scoreCards.map(([title, body, tone]) => <CompactCard key={title} title={title} body={body} tone={tone} t={t} />)}
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 10, marginTop: 12 }}>
+          {formulaCards.slice(4).map(card => <FormulaCard key={card.title} {...card} t={t} zh={zh} />)}
+        </div>
+      </MethodSection>
+
+      <MethodSection
+        id="method-formulas"
+        title={zh ? "Formula Reference / 公式参考" : "Formula Reference"}
+        body={zh
+          ? "下列公式用于说明平台结果和未来严格方法之间的关系。当前平台优先用 React/CSS 公式卡片展示，不引入额外数学渲染依赖。"
+          : "The formulas below explain how platform outputs relate to stricter future methods. They are rendered with React/CSS formula cards without adding a math-rendering dependency."}
+        t={t}
+      >
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 10 }}>
+          {formulaCards.map(card => <FormulaCard key={card.title} {...card} t={t} zh={zh} />)}
+        </div>
+      </MethodSection>
+
+      <MethodSection
+        id="method-provenance"
+        title={zh ? "Evidence & Provenance / 证据与溯源" : "Evidence & Provenance"}
+        body={zh
+          ? "证据追踪用于说明字段来源和整理状态。没有核实来源的数据不应被过度解读。"
+          : "Evidence tracking clarifies field sources and curation state. Data without verified provenance should not be over-interpreted."}
+        t={t}
+      >
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+          {provenanceCards.map(([title, body, tone]) => <CompactCard key={title} title={title} body={body} tone={tone} t={t} />)}
+        </div>
+        <div style={{ marginTop: 12, color: t.muted, fontSize: 11, lineHeight: 1.65, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+          {zh
+            ? "在 MOF Library 展开记录后，以及 Performance 和 CatalysisLab 真实种子模式下的候选卡片中，可通过 Field-level Provenance 查看来源详情。该功能必须与 fieldSources 和 sourceRecords 一起理解。"
+            : "In expanded MOF Library records and in Performance / CatalysisLab real-seed candidate cards, Field-level Provenance exposes source details. Interpret it together with fieldSources and sourceRecords."}
+        </div>
+      </MethodSection>
+
+      <MethodSection
+        id="method-limitations"
+        title={zh ? "Limitations / 限制说明" : "Limitations"}
+        body={zh
+          ? "这些限制用于把科研原型的边界说清楚，语气应严谨但不制造不必要的阻碍。"
+          : "These limitations define the boundary of the research prototype with a cautious but practical tone."}
+        t={t}
+      >
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }}>
+          {limitations.map(item => (
+            <div key={item} style={{ display: "flex", gap: 9, alignItems: "flex-start", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "10px 12px" }}>
+              <span style={{ color: t.warn, fontSize: 13, lineHeight: 1.4 }}>!</span>
+              <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.55 }}>{item}</span>
+            </div>
+          ))}
+        </div>
+      </MethodSection>
     </div>
   )
 }

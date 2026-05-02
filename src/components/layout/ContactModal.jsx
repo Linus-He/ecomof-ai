@@ -55,6 +55,9 @@ const BLANK = {
   message: "", consent: false,
 }
 
+const HAPPY_FLIGHT_ACK_ZH = "特别感谢 Happy Flight。TA 在这个项目从早期想法、研究定位到功能取舍的过程中持续给予指导、提醒和鼓励；既像导师一样帮助我把问题想深，也像朋友一样陪我把项目一步步推进。EcoMOF-AI 后续对科研严谨性、LCA/LCC 决策链和方法透明性的重视，都受到了这份指导的影响。"
+const HAPPY_FLIGHT_ACK_EN = "Special thanks to Happy Flight, whose guidance shaped this project from early concept to research positioning and feature priorities. Happy Flight has been both a mentor and a friend: helping push the scientific questions deeper while supporting the steady development of EcoMOF-AI. The platform's emphasis on methodological transparency, LCA/LCC decision support, and research rigor is strongly influenced by this guidance."
+
 export function ContactModal({ open, onClose }) {
   const t = useT()
   const { lang } = useLang()
@@ -123,6 +126,14 @@ export function ContactModal({ open, onClose }) {
     flexDirection: "column",
     gap: 14,
   }
+  const creditsGrid = { display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 10 }
+  const creditCard = {
+    background: t.panel,
+    border: `1px solid ${t.border}`,
+    borderRadius: 8,
+    padding: 12,
+  }
+  const creditText = { color: t.muted, fontSize: 11, lineHeight: 1.65, margin: 0 }
 
   // ── Option tables ────────────────────────────────────────────────────────
   const zh = lang === "zh"
@@ -519,6 +530,72 @@ export function ContactModal({ open, onClose }) {
 
           </form>
         )}
+
+        <section style={{ ...sectionBlock, marginTop: 16 }}>
+          <SectionHeader
+            label={zh ? "联系与致谢" : "Contact & Credits"}
+            note={zh
+              ? "这里记录项目维护者、致谢和未来合作署名边界。"
+              : "Maintainer, acknowledgements, and future collaboration-credit boundaries."}
+          />
+
+          <div style={creditsGrid}>
+            <div style={creditCard}>
+              <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, marginBottom: 8 }}>
+                {zh ? "A. 维护者" : "A. Maintainer"}
+              </div>
+              <p style={creditText}>
+                {zh
+                  ? "ecomof-ai 目前由 Linus He 独立开发和维护，作为一个面向 MOF 早期筛选、可持续性评价与任务导向应用探索的科研原型。"
+                  : "ecomof-ai is currently developed and maintained by Linus He as an independent research prototype."}
+              </p>
+              <ul style={{ margin: "9px 0 0", paddingLeft: 18, color: t.subtle, fontSize: 11, lineHeight: 1.65 }}>
+                {(zh
+                  ? ["产品设计", "前端开发", "数据结构设计", "规则筛选工作流", "科研原型规划"]
+                  : ["Product design", "Front-end development", "Data structure design", "Rule-based screening workflow", "Research prototype planning"]
+                ).map(item => <li key={item}>{item}</li>)}
+              </ul>
+            </div>
+
+            <div style={creditCard}>
+              <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, marginBottom: 8 }}>
+                {zh ? "B. 致谢" : "B. Acknowledgement"}
+              </div>
+              <p style={creditText}>{HAPPY_FLIGHT_ACK_ZH}</p>
+              <p style={{ ...creditText, marginTop: 9 }}>{HAPPY_FLIGHT_ACK_EN}</p>
+            </div>
+          </div>
+
+          <div style={creditsGrid}>
+            <div style={creditCard}>
+              <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, marginBottom: 8 }}>
+                {zh ? "C. 一般致谢" : "C. General Acknowledgements"}
+              </div>
+              <p style={creditText}>
+                {zh
+                  ? "本项目也受益于公开科学数据库、开源软件和 AI 辅助开发流程。后续如形成正式合作，将在获得同意后补充合作者致谢信息。"
+                  : "This project also benefits from public scientific databases, open-source software, and AI-assisted development workflows. Formal collaborator acknowledgements will be added with permission as collaborations develop."}
+              </p>
+              <ul style={{ margin: "9px 0 0", paddingLeft: 18, color: t.subtle, fontSize: 11, lineHeight: 1.65 }}>
+                {(zh
+                  ? ["公开 MOF 数据库与文献", "开源 Web 技术库", "AI 辅助编程工具", "未来科研贡献者"]
+                  : ["Public MOF databases and literature", "Open-source web libraries", "AI-assisted coding tools", "Future research contributors"]
+                ).map(item => <li key={item}>{item}</li>)}
+              </ul>
+            </div>
+
+            <div style={creditCard}>
+              <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, marginBottom: 8 }}>
+                {zh ? "D. 未来合作者" : "D. Future collaborators"}
+              </div>
+              <p style={creditText}>
+                {zh
+                  ? "如果你提供数据、反馈、验证或科研合作，并愿意公开展示，后续可以在此处致谢你的贡献。"
+                  : "If you contribute data, feedback, validation, or research collaboration, your contribution can be acknowledged here with your permission."}
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   )
