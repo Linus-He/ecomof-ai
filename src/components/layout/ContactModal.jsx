@@ -68,7 +68,6 @@ export function ContactModal({ open, onClose }) {
 
   const canSubmit =
     form.name.trim() && form.email.trim() &&
-    form.organization.trim() && form.role && form.referral_source &&
     form.message.trim() && form.consent && status !== "loading"
 
   const handleSubmit = async (e) => {
@@ -290,8 +289,8 @@ export function ContactModal({ open, onClose }) {
         {/* Intro */}
         <p style={{ margin: "0 0 22px", color: t.muted, fontSize: 12, lineHeight: 1.7 }}>
           {zh
-            ? "如果你有科研合作、数据接入或反馈建议，可以留下简短信息。我会人工查看提交内容。"
-            : "For research collaboration, dataset integration, or feedback, please leave a short message. I usually review submissions manually."}
+            ? "如果你有合作、数据接入或反馈建议，可以留下简短信息。我通常会在 48 小时内回复。"
+            : "For collaboration, data integration, or feedback, please leave a short message. I usually reply within 48 hours."}
         </p>
 
         {/* ── Success ── */}
@@ -302,7 +301,7 @@ export function ContactModal({ open, onClose }) {
           }}>
             <div style={{ fontSize: 36, marginBottom: 10, color: t.success }}>✓</div>
             <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 800 }}>
-              {zh ? "已发送，谢谢你的留言。" : "Thanks — your message has been sent."}
+              {zh ? "已发送，谢谢你的留言。我通常会在 48 小时内回复。如果没有看到回复，请留意垃圾邮件或广告邮件文件夹。" : "Thanks — your message has been sent. I usually reply within 48 hours. If you do not see a reply, please check your spam or junk folder."}
             </div>
             <button type="button" onClick={handleClose} style={{ ...toolbarBtn(t), marginTop: 18 }}>
               {zh ? "关闭" : "Close"}
@@ -352,21 +351,21 @@ export function ContactModal({ open, onClose }) {
                 </Field>
               </div>
               <div style={col2}>
-                <Field label={zh ? "学校或机构" : "Organization"} required>
+                <Field label={zh ? "学校或机构" : "Organization"}>
                   <input
-                    type="text" name="organization" required autoComplete="organization"
+                    type="text" name="organization" autoComplete="organization"
                     value={form.organization} onChange={e => set("organization", e.target.value)}
                     style={inputStyle}
                   />
                 </Field>
-                <Field label={zh ? "身份" : "Role"} required>
-                  <select name="role" required value={form.role} onChange={e => set("role", e.target.value)} style={selectStyle}>
+                <Field label={zh ? "身份" : "Role"}>
+                  <select name="role" value={form.role} onChange={e => set("role", e.target.value)} style={selectStyle}>
                     {roleOpts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                   </select>
                 </Field>
               </div>
-              <Field label={zh ? "渠道来源" : "How did you hear about ecomof-ai?"} required>
-                <select name="referral_source" required value={form.referral_source} onChange={e => set("referral_source", e.target.value)} style={selectStyle}>
+              <Field label={zh ? "渠道来源" : "How did you hear about EcoMOF-AI?"}>
+                <select name="referral_source" value={form.referral_source} onChange={e => set("referral_source", e.target.value)} style={selectStyle}>
                   {referralSourceOpts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                 </select>
               </Field>

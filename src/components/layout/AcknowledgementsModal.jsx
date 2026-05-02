@@ -2,8 +2,8 @@ import { useT, useLang, useViewport } from "../../contexts"
 import { FONT_SANS } from "../../constants/theme"
 import { BrandMark } from "../ui"
 
-const HAPPY_FLIGHT_ACK_ZH = "特别感谢 Happy Flight。TA 在这个项目从早期想法、研究定位到功能取舍的过程中持续给予指导、提醒和鼓励；既像导师一样帮助我把问题想深，也像朋友一样陪我把项目一步步推进。ecomof-ai 后续对科研严谨性、LCA/LCC 决策链和方法透明性的重视，都受到了这份指导的影响。"
-const HAPPY_FLIGHT_ACK_EN = "Special thanks to Happy Flight, whose guidance shaped this project from early concept to research positioning and feature priorities. Happy Flight has been both a mentor and a friend: helping push the scientific questions deeper while supporting the steady development of ecomof-ai. The platform's emphasis on methodological transparency, LCA/LCC decision support, and research rigor is strongly influenced by this guidance."
+const HAPPY_FLIGHT_ACK_ZH = "特别感谢 Happy Flight。TA 在这个项目从早期想法、研究定位到功能取舍的过程中持续给予指导、提醒和鼓励；既像导师一样帮助我把问题想深，也像朋友一样陪我把项目一步步推进。EcoMOF-AI 后续对科研严谨性、LCA/LCC 决策链和方法透明性的重视，都受到了这份指导的影响。"
+const HAPPY_FLIGHT_ACK_EN = "Special thanks to Happy Flight, whose guidance shaped this project from early concept to research positioning and feature priorities. Happy Flight has been both a mentor and a friend: helping push the scientific questions deeper while supporting the steady development of EcoMOF-AI. The platform's emphasis on methodological transparency, LCA/LCC decision support, and research rigor is strongly influenced by this guidance."
 
 function CreditSection({ title, children }) {
   const t = useT()
@@ -109,8 +109,8 @@ export function AcknowledgementsModal({ open, onClose }) {
           <CreditSection title={zh ? "B. 维护者" : "B. Maintainer"}>
             <p style={textStyle}>
               {zh
-                ? "ecomof-ai 目前由 Linus He 独立开发和维护，作为一个面向 MOF 早期筛选、可持续性评价与任务导向应用探索的科研原型。"
-                : "ecomof-ai is currently developed and maintained by Linus He as an independent research prototype."}
+                ? "EcoMOF-AI 目前由 Linus He 独立开发和维护，作为一个面向 MOF 早期筛选、可持续性评价与任务导向应用探索的科研原型。"
+                : "EcoMOF-AI is currently developed and maintained by Linus He as an independent research prototype."}
             </p>
             <ul style={listStyle}>
               {maintainerItems.map(item => <li key={item}>{item}</li>)}

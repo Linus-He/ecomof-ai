@@ -1,10 +1,171 @@
 import { useEffect, useMemo, useState } from "react"
 import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip,
+  ResponsiveContainer, Cell,
+} from "recharts"
+import {
   useT, useLang, useViewport,
   LITERATURE_DB, fetchDataJson, buildDatabaseRecords, downloadTextFile, toolbarBtn,
   BasisBadge, PageHeader, ResultLayer, Callout, DataModeToggle, RealSeedCallout, safeVal,
-  FieldProvenanceButton,
+  FieldProvenanceButton, SectionTitle,
 } from "../../shared"
+
+const KEY_FIELDS = [
+  { key: "surfaceArea",     label: { en: "Surface area", zh: "比表面积" } },
+  { key: "poreSizeA",       label: { en: "Pore size",    zh: "孔径"    } },
+  { key: "poreVolume",      label: { en: "Pore volume",  zh: "孔体积"  } },
+  { key: "co2Uptake",       label: { en: "CO₂ uptake",   zh: "CO₂ 吸附量" } },
+  { key: "bandGap",         label: { en: "Band gap",     zh: "带隙"    } },
+  { key: "waterStability",  label: { en: "Water stab.",  zh: "水稳定性" } },
+  { key: "thermalStability",label: { en: "Thermal stab.",zh: "热稳定性" } },
+  { key: "toxicityConcern", label: { en: "Toxicity",     zh: "毒性关注" } },
+]
+
+function isFieldCurated(src) {
+  if (!src) return false
+  if (src.sourceType === "pending") return false
+  if (src.evidenceLevel === "needs-validation") return false
+  return true
+}
+
+function DataQualitySection({ realSeedRows, lang, t, isMobile }) {
+  const zh = lang === "zh"
+
+  // 1. Provenance coverage by field
+  const coverageData = useMemo(() => {
+    if (!realSeedRows.length) return KEY_FIELDS.map(f => ({ name: f.label[zh ? "zh" : "en"], pct: 0 }))
+    return KEY_FIELDS.map(f => {
+      const count = realSeedRows.filter(row => isFieldCurated(row.fieldSources?.[f.key])).length
+      return { name: f.label[zh ? "zh" : "en"], pct: Math.round((count / realSeedRows.length) * 100) }
+    })
+  }, [realSeedRows, zh])
+
+  // 2. Evidence level distribution
+  const evidenceData = useMemo(() => {
+    const counts = {}
+    realSeedRows.forEach(row => {
+      const ev = row.evidenceLevel || "pending"
+      counts[ev] = (counts[ev] || 0) + 1
+    })
+    return Object.entries(counts).map(([name, value]) => ({ name, value }))
+  }, [realSeedRows])
+
+  // 3. Curation status per MOF
+  const curationData = useMemo(() => {
+    return realSeedRows.map(row => {
+      const curated = KEY_FIELDS.filter(f => isFieldCurated(row.fieldSources?.[f.key])).length
+      const pending = KEY_FIELDS.length - curated
+      return { name: row.name || row.id || "—", curated, pending }
+    })
+  }, [realSeedRows])
+
+  const COLORS = {
+    curated: t.accent || "#4f86f7",
+    pending: t.border || "#dde2ea",
+    evidence: [t.accent, t.accentSoft, t.warn, t.faint, "#a78bfa", "#34d399", "#f87171"],
+  }
+
+  const chartWrap = {
+    background: t.surface,
+    border: `1px solid ${t.border}`,
+    borderRadius: 8,
+    padding: 14,
+  }
+
+  if (!realSeedRows.length) {
+    return (
+      <div style={{ color: t.faint, fontSize: 12, padding: 14, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8 }}>
+        {zh ? "暂无真实种子数据可用于图表计算。" : "No real-seed records available for chart computation."}
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ display: "grid", gap: 14 }}>
+      {/* Chart 1 — Provenance coverage */}
+      <div style={chartWrap}>
+        <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, marginBottom: 10 }}>
+          {zh ? "字段来源覆盖率（%）" : "Provenance Coverage by Field (%)"}
+        </div>
+        <div style={{ color: t.faint, fontSize: 11, marginBottom: 10, lineHeight: 1.5 }}>
+          {zh
+            ? `有已核实来源的字段占比（n = ${realSeedRows.length} 条记录）`
+            : `Fraction of records with a verified source for each field (n = ${realSeedRows.length})`}
+        </div>
+        <ResponsiveContainer width="100%" height={160}>
+          <BarChart data={coverageData} margin={{ top: 4, right: 8, left: -18, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
+            <XAxis dataKey="name" tick={{ fontSize: 9, fill: t.subtle }} interval={0} />
+            <YAxis domain={[0, 100]} tick={{ fontSize: 9, fill: t.subtle }} />
+            <RechartsTooltip
+              contentStyle={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, fontSize: 11 }}
+              formatter={(v) => [`${v}%`, zh ? "覆盖率" : "Coverage"]}
+            />
+            <Bar dataKey="pct" fill={COLORS.curated} radius={[3, 3, 0, 0]}>
+              {coverageData.map((entry, i) => (
+                <Cell key={i} fill={entry.pct === 0 ? COLORS.pending : COLORS.curated} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 14 }}>
+        {/* Chart 2 — Evidence level distribution */}
+        <div style={chartWrap}>
+          <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, marginBottom: 10 }}>
+            {zh ? "证据等级分布" : "Evidence Level Distribution"}
+          </div>
+          <ResponsiveContainer width="100%" height={150}>
+            <BarChart data={evidenceData} layout="vertical" margin={{ top: 0, right: 16, left: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={t.border} horizontal={false} />
+              <XAxis type="number" tick={{ fontSize: 9, fill: t.subtle }} />
+              <YAxis dataKey="name" type="category" tick={{ fontSize: 9, fill: t.subtle }} width={70} />
+              <RechartsTooltip
+                contentStyle={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, fontSize: 11 }}
+                formatter={(v) => [v, zh ? "记录数" : "Records"]}
+              />
+              <Bar dataKey="value" radius={[0, 3, 3, 0]}>
+                {evidenceData.map((entry, i) => (
+                  <Cell key={i} fill={COLORS.evidence[i % COLORS.evidence.length]} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Chart 3 — Curation status per MOF */}
+        <div style={chartWrap}>
+          <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, marginBottom: 4 }}>
+            {zh ? "每个 MOF 的整理进度（8 个关键字段）" : "Curation Status per MOF (8 key fields)"}
+          </div>
+          <div style={{ color: t.faint, fontSize: 10, marginBottom: 8 }}>
+            {zh ? "■ 已整理  □ 待整理" : "■ Curated  □ Pending"}
+          </div>
+          <ResponsiveContainer width="100%" height={150}>
+            <BarChart data={curationData} margin={{ top: 0, right: 8, left: -18, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
+              <XAxis dataKey="name" tick={{ fontSize: 8, fill: t.subtle }} interval={0} />
+              <YAxis domain={[0, 8]} tick={{ fontSize: 9, fill: t.subtle }} />
+              <RechartsTooltip
+                contentStyle={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, fontSize: 11 }}
+                formatter={(v, n) => [v, n === "curated" ? (zh ? "已整理" : "Curated") : (zh ? "待整理" : "Pending")]}
+              />
+              <Bar dataKey="curated" stackId="a" fill={COLORS.curated} name="curated" />
+              <Bar dataKey="pending" stackId="a" fill={COLORS.pending} radius={[3, 3, 0, 0]} name="pending" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.6 }}>
+        {zh
+          ? "图表数据从 Real Seed Dataset 的 fieldSources 实时计算。大部分字段当前显示为待整理，反映数据库的实际整理状态。"
+          : "Chart data are computed from Real Seed Dataset fieldSources. Most fields appear as pending, reflecting the actual curation state of the dataset."}
+      </div>
+    </div>
+  )
+}
 
 function normalizeDemoRecord(item) {
   const metalNodes = Array.isArray(item.metalNodes) ? item.metalNodes : item.metal ? [item.metal] : []
@@ -90,7 +251,7 @@ export function MOFLibraryTab({ results, inputs }) {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
-  const [dataMode, setDataMode] = useState("demo")
+  const [dataMode, setDataMode] = useState("real-seed")
   const [query, setQuery] = useState("")
   const [metal, setMetal] = useState("all")
   const [source, setSource] = useState("all")
@@ -250,6 +411,11 @@ export function MOFLibraryTab({ results, inputs }) {
             : (lang === "zh" ? `${demoRows.length} 条演示记录` : `${demoRows.length} demo records`)}
         </span>
       </div>
+      <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
+        {lang === "zh"
+          ? "Real Seed 是默认数据整理模式。Demo Dataset 仅用于展示评分与可视化交互效果。"
+          : "Real Seed is the default curation mode. Demo Dataset is only used to demonstrate scoring and visualization behavior."}
+      </div>
 
       {dataMode === "real-seed" && (
         <div style={{ display: "grid", gap: 8 }}>
@@ -355,8 +521,25 @@ export function MOFLibraryTab({ results, inputs }) {
         </div>
       </ResultLayer>
 
+      <ResultLayer
+        number="04"
+        title={lang === "zh" ? "Data Quality & Provenance / 数据质量与来源追踪" : "Data Quality & Provenance"}
+        subtitle={lang === "zh"
+          ? "从 Real Seed Dataset 实时计算的字段覆盖率、证据等级分布和整理进度。"
+          : "Field coverage, evidence distribution, and curation progress computed live from Real Seed Dataset."}
+      >
+        <div id="data-quality-provenance">
+          <DataQualitySection
+            realSeedRows={realSeedRows}
+            lang={lang}
+            t={t}
+            isMobile={isMobile}
+          />
+        </div>
+      </ResultLayer>
+
       {results && !results.unavailable && (
-        <ResultLayer number="04" title={lang === "zh" ? "当前输入记录提示" : "Current Input Note"}>
+        <ResultLayer number="05" title={lang === "zh" ? "当前输入记录提示" : "Current Input Note"}>
           <Callout tone="success">
             {lang === "zh"
               ? `当前输入 ${inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`} 可在 EcoScreen、Performance 或 CatalysisLab 中作为候选解释对象；Library 只负责展示来源字段。`

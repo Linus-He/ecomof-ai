@@ -122,11 +122,28 @@ function MethodSection({ id, title, body, children, t }) {
   )
 }
 
-export function MethodsLimitationsTab() {
+export function MethodsLimitationsTab({ onNavigate }) {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
   const zh = lang === "zh"
+
+  const handleViewDataQuality = () => {
+    if (onNavigate) {
+      onNavigate("library")
+      let attempts = 0
+      const tryScroll = () => {
+        const el = document.getElementById("data-quality-provenance")
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" })
+        } else if (attempts < 12) {
+          attempts++
+          setTimeout(tryScroll, 100)
+        }
+      }
+      setTimeout(tryScroll, 150)
+    }
+  }
 
   const toc = zh
     ? [
@@ -196,12 +213,16 @@ export function MethodsLimitationsTab() {
     },
     {
       title: zh ? "Henry 选择性" : "Henry selectivity",
-      formula: <FormulaLine>S<sub>H</sub> = K<sub>H,A</sub> / K<sub>H,B</sub></FormulaLine>,
+      formula: <FormulaLine>S<sub>H,A/B</sub> = K<sub>H,A</sub> / K<sub>H,B</sub></FormulaLine>,
       variables: zh
-        ? [["K_H,A", "组分 A 的 Henry 常数"], ["K_H,B", "组分 B 的 Henry 常数"]]
-        : [["K_H,A", "Henry constant of component A"], ["K_H,B", "Henry constant of component B"]],
-      interpretation: zh ? "用于低压极限下比较吸附亲和力。" : "Compares adsorption affinity in the low-pressure limit.",
-      limitation: zh ? "主要适用于稀释或低压区域。" : "Useful for dilute or low-pressure regimes only.",
+        ? [["K_H,A", "组分 A 的 Henry 常数 (mmol g⁻¹ bar⁻¹)"], ["K_H,B", "组分 B 的 Henry 常数 (mmol g⁻¹ bar⁻¹)"]]
+        : [["K_H,A", "Henry constant of component A (mmol g⁻¹ bar⁻¹)"], ["K_H,B", "Henry constant of component B (mmol g⁻¹ bar⁻¹)"]],
+      interpretation: zh
+        ? "Henry 选择性用于比较材料在低压区域对组分 A 相对于组分 B 的初始吸附亲和力。适用于低压或稀释吸附区域。示例：如果 K_H,CO₂ = 2.0 mmol g⁻¹ bar⁻¹，K_H,N₂ = 0.1 mmol g⁻¹ bar⁻¹，则 S_H,CO₂/N₂ = 20。"
+        : "Henry selectivity compares the low-pressure adsorption affinity of component A relative to component B. Applies to low-pressure or dilute adsorption regimes. Example: if K_H,CO₂ = 2.0 mmol g⁻¹ bar⁻¹ and K_H,N₂ = 0.1 mmol g⁻¹ bar⁻¹, then S_H,CO₂/N₂ = 20.",
+      limitation: zh
+        ? "它不替代严格 IAST、穿透实验或完整混合气吸附分析。主要适用于稀释或低压区域。"
+        : "It does not replace rigorous IAST, breakthrough experiments, or full mixture adsorption analysis. Useful for dilute or low-pressure regimes only.",
     },
     {
       title: zh ? "IAST 选择性" : "IAST selectivity",
@@ -429,6 +450,23 @@ export function MethodsLimitationsTab() {
             ? "在 MOF Library 展开记录后，以及 Performance 和 CatalysisLab 真实种子模式下的候选卡片中，可通过字段级数据溯源查看来源详情。该功能必须与 fieldSources 和 sourceRecords 一起理解；没有核实来源的数据不应被过度解读。"
             : "In expanded MOF Library records and in Performance / CatalysisLab real-seed candidate cards, Field-level Provenance exposes source details. Interpret it together with fieldSources and sourceRecords."}
         </div>
+        {onNavigate && (
+          <button
+            type="button"
+            onClick={handleViewDataQuality}
+            style={{
+              marginTop: 12,
+              display: "inline-flex", alignItems: "center", gap: 7,
+              padding: "9px 16px", borderRadius: 7,
+              background: t.badgeInfoBg, border: `1px solid ${t.border}`,
+              color: t.accentText, fontSize: 12, fontWeight: 800,
+              cursor: "pointer", fontFamily: FONT_MONO,
+            }}
+          >
+            <span style={{ fontSize: 14 }}>📊</span>
+            {zh ? "查看数据质量图表" : "View Data Quality Dashboard"}
+          </button>
+        )}
       </MethodSection>
 
       <MethodSection

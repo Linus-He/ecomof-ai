@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef, useMemo } from "react"
 import { RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from "recharts"
 import { useT, useLang, useViewport } from "../../contexts"
 import { FONT_SANS, FONT_MONO } from "../../constants/theme"
@@ -10,7 +10,7 @@ import { toolbarBtn } from "../../utils/styles"
 
 export const ECOMOF_LOGO_SRC = "/ecomof-ai/ecomof-logo.png"
 
-export function BrandMark({ size = 32, radius = 8, alt = "ecomof-ai logo", style }) {
+export function BrandMark({ size = 32, radius = 8, alt = "EcoMOF-AI logo", style }) {
   return (
     <img
       src={ECOMOF_LOGO_SRC}
@@ -159,6 +159,73 @@ export function BasisBadge({ children, tone = "info" }) {
   )
 }
 
+const CURATION_FIELDS = [
+  { key: "surfaceArea",      en: "Surface area",   zh: "比表面积"   },
+  { key: "poreSizeA",        en: "Pore size",      zh: "孔径"       },
+  { key: "poreVolume",       en: "Pore volume",    zh: "孔体积"     },
+  { key: "co2Uptake",        en: "CO₂ uptake",     zh: "CO₂ 吸附量" },
+  { key: "bandGap",          en: "Band gap",       zh: "带隙"       },
+  { key: "waterStability",   en: "Water stability",zh: "水稳定性"   },
+  { key: "thermalStability", en: "Thermal stability", zh: "热稳定性"},
+  { key: "toxicityConcern",  en: "Toxicity concern",  zh: "毒性关注" },
+]
+
+function fieldCurationStatus(src, lang) {
+  const zh = lang === "zh"
+  if (!src) return { label: zh ? "待整理" : "Pending curation", tone: "warn" }
+  if (src.sourceType === "pending") return { label: zh ? "待整理" : "Pending curation", tone: "warn" }
+  if (src.evidenceLevel === "needs-validation") return { label: zh ? "待整理" : "Pending curation", tone: "warn" }
+  if (src.curationStatus === "needs-review" || src.reviewStatus === "conflict" || src.hasConflict) {
+    return { label: zh ? "待核查" : "Needs review", tone: "danger" }
+  }
+  return { label: zh ? "已整理" : "Curated", tone: "calc" }
+}
+
+function DescriptorCurationChecklist({ fieldSources, lang, t }) {
+  const zh = lang === "zh"
+  return (
+    <div style={{ marginTop: 8 }}>
+      <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", marginBottom: 8 }}>
+        {zh ? "描述符整理清单" : "Descriptor Curation Checklist"}
+      </div>
+      <div style={{ display: "grid", gap: 5 }}>
+        {CURATION_FIELDS.map(f => {
+          const src = fieldSources?.[f.key]
+          const { label: statusLabel, tone } = fieldCurationStatus(src, lang)
+          const displayVal = src?.value !== undefined && src?.value !== null
+            ? `${src.value}${src.unit ? " " + src.unit : ""}`
+            : (zh ? "暂无数据" : "Not available")
+          return (
+            <div key={f.key} style={{
+              display: "grid",
+              gridTemplateColumns: "minmax(90px, 1.2fr) minmax(60px, 1fr) auto auto",
+              gap: 6, alignItems: "center",
+              background: t.surface, border: `1px solid ${t.border}`,
+              borderRadius: 6, padding: "6px 9px",
+            }}>
+              <span style={{ color: t.subtle, fontSize: 10, fontWeight: 700 }}>
+                {zh ? f.zh : f.en}
+              </span>
+              <span style={{ color: t.textStrong, fontSize: 10, fontFamily: "monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {displayVal}
+              </span>
+              <BasisBadge tone={tone}>{statusLabel}</BasisBadge>
+              {src !== undefined && (
+                <FieldProvenanceButton
+                  fieldKey={f.key}
+                  fieldLabel={zh ? f.zh : f.en}
+                  source={src}
+                  lang={lang}
+                />
+              )}
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 export function UnifiedCandidateCard({
   name,
   score,
@@ -169,13 +236,24 @@ export function UnifiedCandidateCard({
   evidenceLevel,
   limitations,
   recommendedNextStep,
+  fieldSources,
+  dataStatus,
   onDetails,
 }) {
+  const [expanded, setExpanded] = useState(false)
   const t = useT()
   const { lang } = useLang()
   const safeScore = Number.isFinite(Number(score)) ? Number(score).toFixed(1) : score || "—"
   const tone = Number(score) >= 8 ? "calc" : Number(score) >= 6.5 ? "info" : Number(score) >= 5 ? "proxy" : "warn"
   const scoreTone = Number(score) >= 80 ? "calc" : Number(score) >= 65 ? "info" : Number(score) >= 50 ? "proxy" : tone
+
+  const curatedCount = fieldSources
+    ? CURATION_FIELDS.filter(f => {
+        const src = fieldSources[f.key]
+        return src && src.sourceType !== "pending" && src.evidenceLevel !== "needs-validation"
+      }).length
+    : null
+
   const normalizedWidth = (value) => {
     const number = Number(value || 0)
     return Math.max(0, Math.min(100, number > 10 ? number : number * 10))
@@ -184,70 +262,132 @@ export function UnifiedCandidateCard({
   const nextSteps = Array.isArray(recommendedNextStep)
     ? recommendedNextStep
     : String(recommendedNextStep || "").split(/;|\n/).map(item => item.trim()).filter(Boolean)
+
+  const dataStatusLabel = () => {
+    if (!fieldSources && !dataStatus) return null
+    if (dataStatus && /demo/i.test(dataStatus)) return { label: lang === "zh" ? "演示数据" : "Demo", tone: "proxy" }
+    if (curatedCount === null) return dataStatus ? { label: dataStatus, tone: "proxy" } : null
+    if (curatedCount === 0) return { label: lang === "zh" ? "待整理" : "Pending curation", tone: "warn" }
+    if (curatedCount <= 5) return { label: lang === "zh" ? "部分已整理" : "Partially curated", tone: "user" }
+    return { label: lang === "zh" ? "已整理" : "Curated", tone: "calc" }
+  }
+
+  const statusInfo = dataStatusLabel()
+
   return (
-    <article className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, display: "grid", gap: 12 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start" }}>
+    <article className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, display: "grid", gap: 9 }}>
+      {/* ── Header row: name + score ── */}
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "flex-start" }}>
         <div style={{ minWidth: 0 }}>
-          <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 4 }}>
+          <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 3 }}>
             {lang === "zh" ? "MOF 名称" : "MOF name"}
           </div>
-          <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 880, overflowWrap: "anywhere" }}>{name}</div>
+          <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 880, overflowWrap: "anywhere", lineHeight: 1.25 }}>{name}</div>
         </div>
         <BasisBadge tone={scoreTone}>{scoreLabel || (lang === "zh" ? "评分" : "Score")} {safeScore}</BasisBadge>
       </div>
 
-      <div>
-        <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 4 }}>{lang === "zh" ? "适合任务" : "Suitable task"}</div>
-        <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>{suitableTask}</div>
+      {/* ── Suitable task ── */}
+      <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.45 }}>{suitableTask}</div>
+
+      {/* ── Badges row ── */}
+      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
+        <BasisBadge tone={/high|高|中等|medium/i.test(String(evidenceLevel)) ? "info" : "proxy"}>
+          {evidenceLevel || (lang === "zh" ? "证据待补充" : "Evidence pending")}
+        </BasisBadge>
+        {statusInfo && <BasisBadge tone={statusInfo.tone}>{statusInfo.label}</BasisBadge>}
       </div>
 
-      <div>
-        <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 6 }}>{lang === "zh" ? "评分分解" : "Score breakdown"}</div>
-        <div style={{ display: "grid", gap: 6 }}>
-          {scoreBreakdown.map(item => (
-            <div key={item.label} style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 42px", gap: 8, alignItems: "center" }}>
-              <div style={{ height: 5, background: t.border, borderRadius: 999, overflow: "hidden" }}>
-                <div style={{ height: "100%", width: `${normalizedWidth(item.value)}%`, background: item.color || t.accent, borderRadius: 999 }} />
-              </div>
-              <div style={{ color: t.subtle, fontSize: 10, fontWeight: 800 }}>{formattedValue(item.value)}</div>
-              <div style={{ gridColumn: "1 / -1", color: t.faint, fontSize: 10, marginTop: -3 }}>{item.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 5 }}>{lang === "zh" ? "关键原因" : "Key reasons"}</div>
-        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-          {keyReasons.slice(0, 4).map(reason => (
-            <span key={reason} style={{ color: t.subtle, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, padding: "4px 8px", fontSize: 10, fontWeight: 750 }}>
+      {/* ── Top 2 key reasons ── */}
+      {keyReasons.length > 0 && (
+        <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
+          {keyReasons.slice(0, 2).map(reason => (
+            <span key={reason} style={{ color: t.subtle, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, padding: "3px 7px", fontSize: 10, fontWeight: 750 }}>
               {reason}
             </span>
           ))}
         </div>
-      </div>
+      )}
 
-      <div style={{ display: "grid", gap: 8 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
-          <BasisBadge tone={/high|高|中等|medium/i.test(String(evidenceLevel)) ? "info" : "proxy"}>{evidenceLevel || (lang === "zh" ? "证据待补充" : "Evidence pending")}</BasisBadge>
-          {onDetails && (
-            <button type="button" onClick={onDetails} style={{ ...toolbarBtn(t), padding: "6px 9px", fontSize: 11 }}>
-              {lang === "zh" ? "查看详情" : "View details"}
-            </button>
+      {/* ── Descriptor curated count ── */}
+      {curatedCount !== null && (
+        <div style={{ color: t.faint, fontSize: 10 }}>
+          {lang === "zh"
+            ? `8 个关键描述符中 ${curatedCount} 个已整理`
+            : `${curatedCount}/8 descriptors curated`}
+        </div>
+      )}
+
+      {/* ── Expanded details ── */}
+      {expanded && (
+        <div style={{ display: "grid", gap: 10, paddingTop: 4, borderTop: `1px solid ${t.divider || t.border}` }}>
+          {/* Score breakdown */}
+          {scoreBreakdown.length > 0 && (
+            <div>
+              <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 6 }}>{lang === "zh" ? "评分分解" : "Score breakdown"}</div>
+              <div style={{ display: "grid", gap: 5 }}>
+                {scoreBreakdown.map(item => (
+                  <div key={item.label} style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 42px", gap: 8, alignItems: "center" }}>
+                    <div style={{ height: 4, background: t.border, borderRadius: 999, overflow: "hidden" }}>
+                      <div style={{ height: "100%", width: `${normalizedWidth(item.value)}%`, background: item.color || t.accent, borderRadius: 999 }} />
+                    </div>
+                    <div style={{ color: t.subtle, fontSize: 10, fontWeight: 800 }}>{formattedValue(item.value)}</div>
+                    <div style={{ gridColumn: "1 / -1", color: t.faint, fontSize: 10, marginTop: -3 }}>{item.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          {/* All key reasons */}
+          {keyReasons.length > 2 && (
+            <div>
+              <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 5 }}>{lang === "zh" ? "关键原因" : "Key reasons"}</div>
+              <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
+                {keyReasons.map(reason => (
+                  <span key={reason} style={{ color: t.subtle, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, padding: "3px 7px", fontSize: 10, fontWeight: 750 }}>
+                    {reason}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+          {/* Limitations */}
+          {limitations && (
+            <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: 8 }}>
+              <strong style={{ color: t.warn }}>{lang === "zh" ? "限制：" : "Limitations: "}</strong>{limitations}
+            </div>
+          )}
+          {/* Next steps */}
+          {nextSteps.length > 0 && (
+            <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55 }}>
+              <strong style={{ color: t.accentText }}>{lang === "zh" ? "下一步：" : "Recommended next step: "}</strong>
+              <ul style={{ margin: "5px 0 0 16px", padding: 0 }}>
+                {nextSteps.slice(0, 3).map(step => <li key={step}>{step}</li>)}
+              </ul>
+            </div>
+          )}
+          {/* Descriptor curation checklist */}
+          {fieldSources && (
+            <DescriptorCurationChecklist fieldSources={fieldSources} lang={lang} t={t} />
           )}
         </div>
-        {limitations && (
-          <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: 9 }}>
-            <strong style={{ color: t.warn }}>{lang === "zh" ? "限制：" : "Limitations: "}</strong>{limitations}
-          </div>
-        )}
-        {nextSteps.length > 0 && (
-          <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55 }}>
-            <strong style={{ color: t.accentText }}>{lang === "zh" ? "下一步：" : "Recommended next step: "}</strong>
-            <ul style={{ margin: "5px 0 0 16px", padding: 0 }}>
-              {nextSteps.slice(0, 3).map(step => <li key={step}>{step}</li>)}
-            </ul>
-          </div>
+      )}
+
+      {/* ── Footer: expand / details buttons ── */}
+      <div style={{ display: "flex", gap: 7, alignItems: "center", flexWrap: "wrap" }}>
+        <button
+          type="button"
+          onClick={() => setExpanded(prev => !prev)}
+          style={{ ...toolbarBtn(t), padding: "5px 9px", fontSize: 10 }}
+        >
+          {expanded
+            ? (lang === "zh" ? "收起详情" : "Collapse")
+            : (lang === "zh" ? "展开详情" : "View details")}
+        </button>
+        {onDetails && (
+          <button type="button" onClick={onDetails} style={{ ...toolbarBtn(t), padding: "5px 9px", fontSize: 10, border: `1px solid ${t.accent}`, color: t.accentText }}>
+            {lang === "zh" ? "详细分析" : "Full analysis"}
+          </button>
         )}
       </div>
     </article>
@@ -846,124 +986,168 @@ export function DataModeToggle({ value, onChange, lang }) {
 
 // ── Field-level Provenance ────────────────────────────────────────────────────
 
-/**
- * FieldSourceModal — internal modal overlay showing provenance detail for one field.
- */
-function FieldSourceModal({ fieldLabel, source, lang, t, onClose }) {
-  const isPending = !source || source.sourceType === "pending"
+function computePanelPos(isMobile, anchorRect) {
+  if (isMobile) {
+    return {
+      position: "fixed", bottom: 0, left: 0, right: 0,
+      maxHeight: "70vh", borderRadius: "12px 12px 0 0",
+      zIndex: 1200, overflowY: "auto",
+    }
+  }
+  const PW = 380
+  const vw = typeof window !== "undefined" ? window.innerWidth  : 1440
+  const vh = typeof window !== "undefined" ? window.innerHeight : 800
+  const maxH = Math.min(vh * 0.6, 480)
+  let top  = (anchorRect?.bottom ?? 0) + 8
+  let left = anchorRect?.left ?? 0
+  if (left + PW > vw - 16) left = vw - PW - 16
+  if (left < 8) left = 8
+  if (top + maxH > vh - 16) {
+    top = (anchorRect?.top ?? 0) - maxH - 8
+    if (top < 16) top = 16
+  }
+  return {
+    position: "fixed", top, left,
+    width: Math.min(PW, vw - 32),
+    maxHeight: maxH, borderRadius: 12,
+    zIndex: 1200, overflowY: "auto",
+  }
+}
 
+/**
+ * FieldSourcePanel — popover (desktop) / bottom-sheet (mobile) for field-level provenance.
+ */
+function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRect, isMobile, onClose }) {
+  useEffect(() => {
+    const handler = (e) => { if (e.key === "Escape") onClose() }
+    window.addEventListener("keydown", handler)
+    return () => window.removeEventListener("keydown", handler)
+  }, [onClose])
+
+  const isPending = !source || source.sourceType === "pending"
   const rows = isPending ? [] : [
-    source.sourceType  && ["sourceType",  lang === "zh" ? "来源类型"    : "Source type",          source.sourceType],
-    source.sourceName  && ["sourceName",  lang === "zh" ? "来源名称"    : "Source name",          source.sourceName],
-    source.database    && ["database",    lang === "zh" ? "数据库"      : "Database",             source.database],
-    source.doi         && ["doi",         "DOI",                                                   source.doi],
-    source.url         && ["url",         "URL",                                                   source.url],
-    source.condition   && ["condition",   lang === "zh" ? "测量条件"    : "Measurement condition", source.condition],
-    source.evidenceLevel && ["evidenceLevel", lang === "zh" ? "证据等级" : "Evidence level",       source.evidenceLevel],
-    source.curationNote && ["curationNote", lang === "zh" ? "整理说明"  : "Curation note",        source.curationNote],
+    source.sourceType    && ["sourceType",    lang === "zh" ? "来源类型"    : "Source type",            source.sourceType],
+    source.sourceName    && ["sourceName",    lang === "zh" ? "来源名称"    : "Source name",            source.sourceName],
+    source.database      && ["database",      lang === "zh" ? "数据库"      : "Database",               source.database],
+    source.doi           && ["doi",           "DOI",                                                     source.doi],
+    source.url           && ["url",           "URL",                                                     source.url],
+    source.condition     && ["condition",     lang === "zh" ? "测量条件"    : "Measurement condition",   source.condition],
+    source.evidenceLevel && ["evidenceLevel", lang === "zh" ? "证据等级"    : "Evidence level",          source.evidenceLevel],
+    source.curationNote  && ["curationNote",  lang === "zh" ? "整理说明"    : "Curation note",           source.curationNote],
     source.limitations && source.limitations !== "" && ["limitations", lang === "zh" ? "限制" : "Limitations", source.limitations],
   ].filter(Boolean)
 
+  const panelPos = computePanelPos(isMobile, anchorRect)
+
   return (
-    <div
-      style={{ position: "fixed", inset: 0, zIndex: 1200, background: "rgba(0,0,0,0.5)",
-        display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}
-      onClick={onClose}
-    >
+    <>
+      {/* Transparent backdrop for click-outside */}
+      <div style={{ position: "fixed", inset: 0, zIndex: 1199 }} onClick={onClose} />
+      {/* Panel */}
       <div
-        style={{ background: t.bg, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 12,
-          padding: 20, maxWidth: 440, width: "100%", maxHeight: "85vh", overflowY: "auto",
-          boxShadow: "0 12px 40px rgba(0,0,0,0.35)" }}
+        style={{
+          ...panelPos,
+          background: t.panel || t.bg,
+          border: `1px solid ${t.borderStrong || t.border}`,
+          padding: 16,
+          boxShadow: "0 8px 32px rgba(0,0,0,0.22)",
+          fontFamily: FONT_SANS,
+        }}
         onClick={e => e.stopPropagation()}
       >
-        {/* Header */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
           <div>
             <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: 3 }}>
               {lang === "zh" ? "字段级数据溯源" : "Field-level provenance"}
             </div>
-            <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850 }}>{fieldLabel}</div>
+            <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 850 }}>{fieldLabel}</div>
             {source && source.value !== null && source.value !== undefined && (
-              <div style={{ color: t.accentText, fontSize: 12, marginTop: 3 }}>
+              <div style={{ color: t.accentText, fontSize: 11, marginTop: 2 }}>
                 {lang === "zh" ? "当前值：" : "Value: "}{source.value}{source.unit ? ` ${source.unit}` : ""}
               </div>
             )}
           </div>
-          <button type="button" onClick={onClose}
-            style={{ background: "transparent", border: "none", color: t.subtle, fontSize: 20, cursor: "pointer", padding: "2px 6px", lineHeight: 1 }}>
+          <button type="button" onClick={onClose} aria-label="Close"
+            style={{ background: "transparent", border: "none", color: t.subtle, fontSize: 18, cursor: "pointer", padding: "2px 6px", lineHeight: 1, flexShrink: 0 }}>
             ✕
           </button>
         </div>
-
-        {/* Body */}
         {isPending ? (
-          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "12px 14px",
-            color: t.muted, fontSize: 12, lineHeight: 1.65 }}>
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "11px 13px", color: t.muted, fontSize: 12, lineHeight: 1.65 }}>
             {lang === "zh"
               ? "待整理。该字段尚未关联已核实的数据来源。"
               : "Pending curation. This field does not have a verified source record yet."}
           </div>
         ) : (
-          <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             {rows.map(([key, label, value]) => (
-              <div key={key} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: "8px 11px" }}>
-                <div style={{ color: t.faint, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 3 }}>{label}</div>
+              <div key={key} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "7px 10px" }}>
+                <div style={{ color: t.faint, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 2 }}>{label}</div>
                 <div style={{ color: t.textStrong, fontSize: 12, lineHeight: 1.5, wordBreak: "break-all" }}>{value}</div>
               </div>
             ))}
           </div>
         )}
-
-        {/* Footer note */}
-        <div style={{ marginTop: 14, color: t.faint, fontSize: 10, lineHeight: 1.5,
-          borderTop: `1px solid ${t.divider || t.border}`, paddingTop: 10 }}>
+        <div style={{ marginTop: 12, color: t.faint, fontSize: 10, lineHeight: 1.5, borderTop: `1px solid ${t.divider || t.border}`, paddingTop: 10 }}>
           {lang === "zh"
             ? "字段级数据溯源说明数据框架，不替代手动数据核实和实验验证。"
-            : "Field-level provenance describes the data framework and does not replace manual data verification or experimental validation."}
+            : "Field-level provenance describes the data framework and does not replace manual data verification."}
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
 /**
- * FieldProvenanceButton — small ⓘ icon that opens a field-level source modal.
- * Renders nothing if `source` is undefined (i.e., demo data without fieldSources).
+ * FieldProvenanceButton — ⓘ icon opening a popover/bottom-sheet for field provenance.
+ * Renders nothing if `source` is undefined (demo data without fieldSources).
  */
 export function FieldProvenanceButton({ fieldKey, fieldLabel, source, lang }) {
   const [open, setOpen] = useState(false)
+  const [anchorRect, setAnchorRect] = useState(null)
+  const btnRef = useRef(null)
   const t = useT()
+  const { isMobile } = useViewport()
 
-  // Only render in real-seed mode (when fieldSources is provided)
   if (source === undefined) return null
 
   const isPending = !source || source.sourceType === "pending"
 
+  const handleOpen = (e) => {
+    e.stopPropagation()
+    if (btnRef.current) setAnchorRect(btnRef.current.getBoundingClientRect())
+    setOpen(true)
+  }
+
   return (
     <>
       <button
+        ref={btnRef}
         type="button"
-        onClick={e => { e.stopPropagation(); setOpen(true) }}
-        title={lang === "zh" ? "查看字段来源" : "View field provenance"}
+        onClick={handleOpen}
+        title={lang === "zh" ? "查看来源" : "View source"}
+        aria-label="View field provenance"
         style={{
           display: "inline-flex", alignItems: "center", justifyContent: "center",
-          width: 14, height: 14, borderRadius: "50%",
+          width: 16, height: 16, borderRadius: "50%",
           border: `1px solid ${isPending ? t.faint : t.accent}`,
           background: "transparent",
           color: isPending ? t.faint : t.accentText,
-          fontSize: 9, fontWeight: 900, cursor: "pointer", padding: 0,
-          marginLeft: 4, flexShrink: 0, lineHeight: 1,
+          fontSize: 10, fontWeight: 900, cursor: "pointer", padding: 0,
+          marginLeft: 5, flexShrink: 0, lineHeight: 1,
           verticalAlign: "middle",
         }}
       >
-        i
+        ⓘ
       </button>
       {open && (
-        <FieldSourceModal
+        <FieldSourcePanel
           fieldLabel={fieldLabel}
           source={source}
           lang={lang}
           t={t}
+          anchorRect={anchorRect}
+          isMobile={isMobile}
           onClose={() => setOpen(false)}
         />
       )}

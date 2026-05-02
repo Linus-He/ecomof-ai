@@ -153,7 +153,7 @@ function AppShell({
           >
             <div style={{ display: "flex", alignItems: "center", gap: viewport.isMobile ? 6 : 8, minWidth: 0 }}>
               <BrandMark size={viewport.isMobile ? 24 : 28} radius={viewport.isMobile ? 7 : 8} style={{ boxShadow: theme.shadowSm }} />
-              <div style={{ color: theme.subtle, fontSize: viewport.isMobile ? 11 : 12, fontWeight: 700, whiteSpace: "nowrap" }}>ecomof-ai</div>
+              <div style={{ color: theme.subtle, fontSize: viewport.isMobile ? 11 : 12, fontWeight: 700, whiteSpace: "nowrap" }}>EcoMOF-AI</div>
             </div>
 
             <div style={{ display: "flex", justifyContent: "center", minWidth: 0, gridColumn: viewport.isNarrow ? "1 / -1" : "auto", order: viewport.isNarrow ? 3 : 2 }}>
@@ -348,7 +348,7 @@ function AppShell({
               />
             )}
             {activeTab === "resources" && <ResourcesTab activeSub={resourcesTab} setActiveSub={setResourcesTab} results={results} inputs={inputs} />}
-            {activeTab === "about" && <MethodsLimitationsTab />}
+            {activeTab === "about" && <MethodsLimitationsTab onNavigate={navigateTab} />}
           </div>
         </Suspense>
       </main>
@@ -359,7 +359,7 @@ function AppShell({
             <div style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
               <BrandMark size={viewport.isMobile ? 28 : 30} radius={8} style={{ boxShadow: theme.shadowSm }} />
               <span style={{ color: theme.textStrong, fontSize: 12, fontWeight: 800, whiteSpace: "nowrap" }}>
-                {lang === "zh" ? "© 2026 ecomof-ai · Linus He 维护" : "© 2026 ecomof-ai · Maintained by Linus He"}
+                {lang === "zh" ? "© 2026 EcoMOF-AI · Linus He 维护" : "© 2026 EcoMOF-AI · Maintained by Linus He"}
               </span>
             </div>
             <span style={{ color: theme.faint, fontSize: 11, maxWidth: 520, textAlign: viewport.isMobile ? "left" : "right" }}>

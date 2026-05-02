@@ -36,7 +36,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
       body: lang === "zh"
         ? "基于规则的催化候选材料优先级筛选，面向 CO₂ 转化、生物质转化、光催化和电催化等任务。"
         : "Rule-based catalysis candidate prioritization for CO₂ conversion, biomass conversion, photocatalysis, and electrocatalysis.",
-      badge: lang === "zh" ? "规则评分 / 需要验证" : "Rule-based / needs validation",
+      badge: lang === "zh" ? "候选优先级筛选" : "Candidate prioritization",
     },
   ]
   const workflow = lang === "zh"
