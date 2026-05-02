@@ -148,25 +148,21 @@ function AppShell({
               overflow: "visible",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
-              <div
+            <div style={{ display: "flex", alignItems: "center", gap: viewport.isMobile ? 6 : 8, minWidth: 0 }}>
+              <img
+                src="/ecomof-ai/ecomof-logo.png"
+                alt="ecomof-ai logo"
                 style={{
-                  width: 22,
-                  height: 22,
-                  borderRadius: 6,
-                  background: `linear-gradient(135deg, ${theme.accentStrong}, ${theme.accent})`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "#fff",
-                  fontSize: 11,
-                  fontWeight: 900,
+                  width: viewport.isMobile ? 24 : 28,
+                  height: viewport.isMobile ? 24 : 28,
+                  borderRadius: viewport.isMobile ? 7 : 8,
+                  objectFit: "cover",
+                  display: "block",
                   flex: "0 0 auto",
+                  boxShadow: theme.shadowSm,
                 }}
-              >
-                ⬡
-              </div>
-              <div style={{ color: theme.subtle, fontSize: 12, fontWeight: 700, whiteSpace: "nowrap" }}>EcoMOF-AI</div>
+              />
+              <div style={{ color: theme.subtle, fontSize: viewport.isMobile ? 11 : 12, fontWeight: 700, whiteSpace: "nowrap" }}>EcoMOF-AI</div>
             </div>
 
             <div style={{ display: "flex", justifyContent: "center", minWidth: 0, gridColumn: viewport.isNarrow ? "1 / -1" : "auto", order: viewport.isNarrow ? 3 : 2 }}>
