@@ -9,7 +9,7 @@ import { findPresetName, getPresetSuggestionNames } from "./utils/presets"
 import { predictMOF, validateScreeningInputs } from "./utils/prediction"
 import { downloadTextFile, buildComparisonCandidate } from "./utils/report"
 import { headerChipBtn } from "./utils/styles"
-import { ContextualHeaderBar, SavedRunsModal, ContactModal } from "./components/layout"
+import { ContextualHeaderBar, SavedRunsModal, ContactModal, AcknowledgementsModal } from "./components/layout"
 import { BrandMark } from "./components/ui"
 
 const lazyNamed = (loader, exportName) => lazy(async () => {
@@ -112,6 +112,8 @@ function AppShell({
   moveComparisonCandidate,
   contactOpen,
   setContactOpen,
+  acknowledgementsOpen,
+  setAcknowledgementsOpen,
 }) {
   return (
     <div
@@ -370,6 +372,18 @@ function AppShell({
             <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
             <button
               type="button"
+              onClick={() => navigateTab("methodology")}
+              style={{
+                background: "none", border: "none", padding: 0,
+                color: theme.subtle, fontSize: 12, fontWeight: 600,
+                cursor: "pointer", fontFamily: FONT_SANS,
+              }}
+            >
+              {lang === "zh" ? "方法学" : "Methodology"}
+            </button>
+            <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
+            <button
+              type="button"
               onClick={() => setContactOpen(true)}
               style={{
                 background: "none", border: "none", padding: 0,
@@ -382,27 +396,22 @@ function AppShell({
             <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
             <button
               type="button"
-              onClick={() => navigateTab("methodology")}
+              onClick={() => setAcknowledgementsOpen(true)}
               style={{
                 background: "none", border: "none", padding: 0,
                 color: theme.subtle, fontSize: 12, fontWeight: 600,
                 cursor: "pointer", fontFamily: FONT_SANS,
               }}
             >
-              {lang === "zh" ? "方法学" : "Methodology"}
+              {lang === "zh" ? "致谢" : "Acknowledgements"}
             </button>
           </div>
           {/* Bottom row: copyright + limitations note */}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16, flexWrap: "wrap" }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+            <div>
               <span style={{ color: theme.faint, fontSize: 11 }}>
                 © 2026 Advanced Materials Lab · Computational Design · EcoMOF-AI ·{" "}
                 CoRE MOF 2019 · 14,252 curated · roadmap: CoRE 2024 + QMOF
-              </span>
-              <span style={{ color: theme.subtle, fontSize: 11 }}>
-                {lang === "zh"
-                  ? "联系与致谢：Linus He 维护 · 特别感谢 Happy Flight"
-                  : "Contact & Credits: maintained by Linus He · special thanks to Happy Flight"}
               </span>
             </div>
             <span style={{ color: theme.faint, fontSize: 11, maxWidth: 480, textAlign: viewport.isMobile ? "left" : "right" }}>
@@ -415,6 +424,7 @@ function AppShell({
       </footer>
 
       <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
+      <AcknowledgementsModal open={acknowledgementsOpen} onClose={() => setAcknowledgementsOpen(false)} />
 
       {savedOpen && (
         <SavedRunsModal
@@ -443,6 +453,7 @@ export default function App() {
   const [searchStatus, setSearchStatus] = useState(null)
   const [savedOpen, setSavedOpen] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
+  const [acknowledgementsOpen, setAcknowledgementsOpen] = useState(false)
   const [comparisonTab, setComparisonTab] = useState("feasibility")
   const [comparisonFocusId, setComparisonFocusId] = useState("all")
   const [resourcesTab, setResourcesTab] = useState("dataSources")
@@ -799,6 +810,8 @@ export default function App() {
             moveComparisonCandidate={moveComparisonCandidate}
             contactOpen={contactOpen}
             setContactOpen={setContactOpen}
+            acknowledgementsOpen={acknowledgementsOpen}
+            setAcknowledgementsOpen={setAcknowledgementsOpen}
           />
         </ViewportCtx.Provider>
       </LangCtx.Provider>

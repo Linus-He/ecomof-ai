@@ -12,25 +12,62 @@ function FormulaLine({ children }) {
   )
 }
 
-function FormulaCard({ title, formula, variables, interpretation, limitation, t, zh }) {
+function FormulaStrip({ formula, t }) {
   return (
-    <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
-      <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850 }}>{title}</div>
-      <div style={{
-        marginTop: 10,
-        padding: "10px 12px",
-        overflowX: "auto",
-        background: t.panel,
-        border: `1px solid ${t.border}`,
-        borderRadius: 6,
-        color: t.accentText,
-        fontFamily: FONT_MONO,
-        fontSize: 13,
-        lineHeight: 1.8,
+    <div style={{
+      padding: "10px 12px",
+      overflowX: "auto",
+      background: t.panel,
+      border: `1px solid ${t.border}`,
+      borderRadius: 6,
+      color: t.accentText,
+      fontFamily: FONT_MONO,
+      fontSize: 12,
+      lineHeight: 1.6,
+      scrollbarWidth: "thin",
+    }}>
+      {formula}
+    </div>
+  )
+}
+
+function CompactFormulaCard({ title, formula, note, t }) {
+  return (
+    <article style={{
+      background: t.surface,
+      border: `1px solid ${t.border}`,
+      borderRadius: 8,
+      padding: 12,
+      minHeight: 0,
+    }}>
+      <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, marginBottom: 8 }}>{title}</div>
+      <FormulaStrip formula={formula} t={t} />
+      {note && <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 8 }}>{note}</div>}
+    </article>
+  )
+}
+
+function FormulaDetails({ title, formula, variables, interpretation, limitation, t, zh, defaultOpen = false }) {
+  return (
+    <details open={defaultOpen} style={{
+      background: t.surface,
+      border: `1px solid ${t.border}`,
+      borderRadius: 8,
+      padding: 12,
+    }}>
+      <summary style={{
+        cursor: "pointer",
+        color: t.textStrong,
+        fontSize: 12,
+        fontWeight: 850,
+        listStylePosition: "outside",
       }}>
-        {formula}
+        <span style={{ marginLeft: 4 }}>{title}</span>
+      </summary>
+      <div style={{ marginTop: 10 }}>
+        <FormulaStrip formula={formula} t={t} />
       </div>
-      <div style={{ display: "grid", gap: 8, marginTop: 12 }}>
+      <div style={{ display: "grid", gap: 7, marginTop: 10 }}>
         <div>
           <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>
             {zh ? "变量说明" : "Variables"}
@@ -56,7 +93,7 @@ function FormulaCard({ title, formula, variables, interpretation, limitation, t,
           <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.6, marginTop: 4 }}>{limitation}</div>
         </div>
       </div>
-    </article>
+    </details>
   )
 }
 
@@ -189,14 +226,9 @@ export function MethodsLimitationsTab() {
     {
       title: zh ? "规则评分公式" : "Rule-based score formula",
       formula: (
-        <>
-          <FormulaLine>Final Score =</FormulaLine>
-          <FormulaLine>w<sub>1</sub> × Performance</FormulaLine>
-          <FormulaLine>+ w<sub>2</sub> × Stability</FormulaLine>
-          <FormulaLine>+ w<sub>3</sub> × Sustainability</FormulaLine>
-          <FormulaLine>+ w<sub>4</sub> × Application Fit</FormulaLine>
-          <FormulaLine>+ w<sub>5</sub> × Evidence Confidence</FormulaLine>
-        </>
+        <FormulaLine>
+          Final Score = w<sub>1</sub> × Performance + w<sub>2</sub> × Stability + w<sub>3</sub> × Sustainability + w<sub>4</sub> × Application Fit + w<sub>5</sub> × Evidence Confidence
+        </FormulaLine>
       ),
       variables: zh
         ? [["w₁…w₅", "可审计的规则权重"], ["Final Score", "候选优先级分数"]]
@@ -207,16 +239,9 @@ export function MethodsLimitationsTab() {
     {
       title: zh ? "催化潜力评分" : "Catalysis Potential Score",
       formula: (
-        <>
-          <FormulaLine>Catalysis Potential Score =</FormulaLine>
-          <FormulaLine>w<sub>1</sub> × CO<sub>2</sub> Affinity</FormulaLine>
-          <FormulaLine>+ w<sub>2</sub> × Active Site Potential</FormulaLine>
-          <FormulaLine>+ w<sub>3</sub> × Pore Accessibility</FormulaLine>
-          <FormulaLine>+ w<sub>4</sub> × Stability</FormulaLine>
-          <FormulaLine>+ w<sub>5</sub> × Electronic Property</FormulaLine>
-          <FormulaLine>+ w<sub>6</sub> × Sustainability</FormulaLine>
-          <FormulaLine>+ w<sub>7</sub> × Evidence Confidence</FormulaLine>
-        </>
+        <FormulaLine>
+          Catalysis Potential Score = w<sub>1</sub> × CO<sub>2</sub> Affinity + w<sub>2</sub> × Active Site Potential + w<sub>3</sub> × Pore Accessibility + w<sub>4</sub> × Stability + w<sub>5</sub> × Electronic Property + w<sub>6</sub> × Sustainability + w<sub>7</sub> × Evidence Confidence
+        </FormulaLine>
       ),
       variables: zh
         ? [["w₁…w₇", "催化任务规则权重"], ["CO₂ Affinity", "CO₂ 相关亲和力描述符"]]
@@ -276,13 +301,15 @@ export function MethodsLimitationsTab() {
       </Callout>
 
       <nav aria-label={zh ? "方法学目录" : "Methodology contents"}
-        style={{ display: "flex", gap: 8, flexWrap: "wrap", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 10 }}>
-        {toc.map(([href, label]) => (
-          <a key={href} href={`#${href}`}
-            style={{ color: t.accentText, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6,
-              padding: "6px 9px", fontSize: 11, fontWeight: 800, textDecoration: "none" }}>
-            {label}
-          </a>
+        style={{ display: "flex", gap: 6, flexWrap: "wrap", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: "10px 12px" }}>
+        {toc.map(([href, label], index) => (
+          <span key={href} style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+            <a href={`#${href}`}
+              style={{ color: t.accentText, fontSize: 11, fontWeight: 800, textDecoration: "none" }}>
+              {label}
+            </a>
+            {index < toc.length - 1 && <span style={{ color: t.faint, fontSize: 11 }}>|</span>}
+          </span>
         ))}
       </nav>
 
@@ -331,20 +358,56 @@ export function MethodsLimitationsTab() {
           {scoreCards.map(([title, body, tone]) => <CompactCard key={title} title={title} body={body} tone={tone} t={t} />)}
         </div>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 10, marginTop: 12 }}>
-          {formulaCards.slice(4).map(card => <FormulaCard key={card.title} {...card} t={t} zh={zh} />)}
+          {formulaCards.slice(4).map(card => (
+            <CompactFormulaCard
+              key={card.title}
+              title={card.title}
+              formula={card.formula}
+              note={card.limitation}
+              t={t}
+            />
+          ))}
         </div>
       </MethodSection>
 
       <MethodSection
         id="method-formulas"
-        title={zh ? "Formula Reference / 公式参考" : "Formula Reference"}
+        title={zh ? "Compact Formula Reference / 紧凑公式参考" : "Compact Formula Reference"}
         body={zh
-          ? "下列公式用于说明平台结果和未来严格方法之间的关系。当前平台优先用 React/CSS 公式卡片展示，不引入额外数学渲染依赖。"
-          : "The formulas below explain how platform outputs relate to stricter future methods. They are rendered with React/CSS formula cards without adding a math-rendering dependency."}
+          ? "公式参考默认只展开规则评分公式；吸附相关公式按需展开，避免页面被变量说明占满。"
+          : "The reference opens rule-based scoring by default and keeps adsorption formulas collapsed until needed."}
         t={t}
       >
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 10 }}>
-          {formulaCards.map(card => <FormulaCard key={card.title} {...card} t={t} zh={zh} />)}
+        <div style={{ display: "grid", gap: 8 }}>
+          <details open style={{
+            background: t.surface,
+            border: `1px solid ${t.border}`,
+            borderRadius: 8,
+            padding: 12,
+          }}>
+            <summary style={{ cursor: "pointer", color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
+              {zh ? "Rule-based score formulas / 规则评分公式" : "Rule-based score formulas"}
+            </summary>
+            <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 10, marginTop: 10 }}>
+              {formulaCards.slice(4).map(card => (
+                <CompactFormulaCard
+                  key={card.title}
+                  title={card.title}
+                  formula={card.formula}
+                  note={card.limitation}
+                  t={t}
+                />
+              ))}
+            </div>
+          </details>
+          {formulaCards.slice(0, 4).map(card => (
+            <FormulaDetails
+              key={card.title}
+              {...card}
+              t={t}
+              zh={zh}
+            />
+          ))}
         </div>
       </MethodSection>
 
