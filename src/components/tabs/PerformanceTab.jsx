@@ -58,7 +58,7 @@ export function PerformanceTab({
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
-  const [dataMode, setDataMode] = useState("demo")
+  const [dataMode, setDataMode] = useState("real-seed")
   // Read sessionStorage on first mount so HomeTab "Advanced Screening" button
   // can pre-select the advanced workspace without extra prop drilling.
   const [performanceView, setPerformanceView] = useState(consumePerfInitView)
@@ -298,6 +298,7 @@ export function PerformanceTab({
                     ? ["补充实测等温线", "验证混合气选择性", "进行 GCMC 或 IAST 对照"]
                     : ["Add measured isotherms", "Validate mixture selectivity", "Run GCMC or IAST comparison"]}
                   fieldSources={candidate.fieldSources}
+                  dataStatus={candidate.dataMode || dataMode}
                   onDetails={() => setSelectedId(candidate.id)}
                 />
               ))}

@@ -259,6 +259,8 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
               evidenceLevel={candidate.evidence}
               limitations={candidate.limitations}
               recommendedNextStep={candidate.nextStep}
+              fieldSources={candidate.fieldSources}
+              dataStatus={candidate.fieldSources ? undefined : "demo"}
               onDetails={() => setSelected(candidate)}
             />
           ))}

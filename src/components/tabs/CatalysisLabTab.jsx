@@ -530,7 +530,7 @@ export function CatalysisLabTab() {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
-  const [dataMode, setDataMode] = useState("demo")
+  const [dataMode, setDataMode] = useState("real-seed")
   const [taskId, setTaskId] = useState("co2_conversion")
   const [expanded, setExpanded] = useState(false)
   const [tasks, setTasks] = useState(TASKS)
@@ -744,6 +744,7 @@ export function CatalysisLabTab() {
                 ? ["定义反应条件与对照实验", "验证转化率、选择性和循环稳定性", "补充机理表征"]
                 : ["Define reaction conditions and controls", "Validate conversion, selectivity, and cycling stability", "Add mechanistic characterization"]}
               fieldSources={candidate.fieldSources}
+              dataStatus={candidate.dataMode || dataMode}
               onDetails={() => setSelected(candidate)}
             />
           ))}
