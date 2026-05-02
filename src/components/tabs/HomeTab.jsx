@@ -88,9 +88,31 @@ export function HomeTab({ setActiveTab }) {
               <h2 style={{ margin: "8px 0 0", color: t.textStrong, fontSize: isMobile ? 26 : 31, letterSpacing: 0, lineHeight: 1.08 }}>{module.name}</h2>
               <p style={{ margin: "12px 0 0", color: t.muted, fontSize: 13, lineHeight: 1.65 }}>{module.body}</p>
             </div>
-            <button type="button" onClick={() => setActiveTab(module.id)} style={{ ...toolbarBtn(t), width: "fit-content", padding: "9px 13px" }}>
-              {lang === "zh" ? "进入模块" : "Open module"}
-            </button>
+            {module.id === "performance" ? (
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("performance")}
+                  style={{ ...toolbarBtn(t), padding: "9px 13px" }}
+                >
+                  {lang === "zh" ? "查看结果" : "View Results"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    try { sessionStorage.setItem("ecomof_perf_init_view", "advanced") } catch {}
+                    setActiveTab("performance")
+                  }}
+                  style={{ ...toolbarBtn(t), padding: "9px 13px", border: `1px solid ${t.accent}`, color: t.accentText }}
+                >
+                  {lang === "zh" ? "高级筛选" : "Advanced Screening"}
+                </button>
+              </div>
+            ) : (
+              <button type="button" onClick={() => setActiveTab(module.id)} style={{ ...toolbarBtn(t), width: "fit-content", padding: "9px 13px" }}>
+                {lang === "zh" ? "进入模块" : "Open module"}
+              </button>
+            )}
           </article>
         ))}
       </section>
