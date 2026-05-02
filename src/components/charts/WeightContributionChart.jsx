@@ -12,7 +12,7 @@ export function WeightContributionChart({ data = [] }) {
   }))
   return (
     <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 13, minWidth: 0 }}>
-      <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850 }}>{lang === "zh" ? "Weight Contribution Chart" : "Weight Contribution Chart"}</div>
+      <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850 }}>{lang === "zh" ? "权重贡献图" : "Weight Contribution Chart"}</div>
       <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.5, marginTop: 5 }}>
         {lang === "zh" ? "权重贡献图解释了每个加权描述符如何影响最终评分。" : "Weight contribution explains how each weighted descriptor affects the final score."}
       </div>

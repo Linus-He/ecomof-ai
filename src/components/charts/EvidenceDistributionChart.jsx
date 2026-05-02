@@ -6,7 +6,7 @@ export function EvidenceDistributionChart({ data = [] }) {
   const { lang } = useLang()
   return (
     <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 13, minWidth: 0 }}>
-      <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850 }}>{lang === "zh" ? "Evidence Level Distribution" : "Evidence Level Distribution"}</div>
+      <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850 }}>{lang === "zh" ? "证据等级分布" : "Evidence Level Distribution"}</div>
       <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.5, marginTop: 5 }}>
         {lang === "zh" ? "证据等级表示候选结果由数据或规则假设支持的强弱。" : "Evidence level indicates how strongly each candidate is supported by data or assumptions."}
       </div>

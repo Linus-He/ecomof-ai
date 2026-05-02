@@ -6,7 +6,7 @@ export function ScoreDistributionChart({ data = [] }) {
   const { lang } = useLang()
   return (
     <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 13, minWidth: 0 }}>
-      <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850 }}>{lang === "zh" ? "Score Distribution" : "Score Distribution"}</div>
+      <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850 }}>{lang === "zh" ? "评分分布" : "Score Distribution"}</div>
       <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.5, marginTop: 5 }}>
         {lang === "zh" ? "分数分布用于观察候选材料之间的评分是否具有区分度。" : "Score distribution shows whether candidate scores are well separated or clustered."}
       </div>

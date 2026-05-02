@@ -77,6 +77,15 @@ const zhValue = (value, lang) => {
   }[value] || value
 }
 
+const zhDataStatus = (value, lang) => {
+  if (lang !== "zh") return value
+  return {
+    "demo / placeholder / needs validation": "演示 / 占位 / 待验证",
+    "local seed / needs validation": "本地种子 / 待验证",
+    "real-seed / pending curation": "真实种子 / 待整理",
+  }[value] || value
+}
+
 export function MOFLibraryTab({ results, inputs }) {
   const t = useT()
   const { lang } = useLang()
@@ -286,7 +295,7 @@ export function MOFLibraryTab({ results, inputs }) {
                 </div>
                 <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
                   <BasisBadge tone="info">{zhValue(item.evidenceLevel, lang)}</BasisBadge>
-                  <BasisBadge tone="proxy">{item.dataStatus}</BasisBadge>
+                  <BasisBadge tone="proxy">{zhDataStatus(item.dataStatus, lang)}</BasisBadge>
                 </div>
               </div>
               <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(9, minmax(0, 1fr))", gap: 12, marginTop: 12 }}>
@@ -294,11 +303,11 @@ export function MOFLibraryTab({ results, inputs }) {
                 {field(lang === "zh" ? "连接体" : "linker", item.linker)}
                 {field(lang === "zh" ? "孔径" : "pore size",      item.poreSizeA  === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : `${item.poreSizeA || "—"} Å`,      "poreSizeA",  item.fieldSources)}
                 {field(lang === "zh" ? "比表面积" : "surface area", item.surfaceArea === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : `${Number(item.surfaceArea || 0).toLocaleString()} m²/g`, "surfaceArea", item.fieldSources)}
-                {field("CO₂ uptake",  item.co2Uptake === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : item.co2Uptake === "—" ? "—" : `${item.co2Uptake} mmol/g`,     "co2Uptake",  item.fieldSources)}
-                {field("band gap",    item.bandGap   === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : item.bandGap   === "—" ? "—" : `${item.bandGap} eV`,            "bandGap",    item.fieldSources)}
+                {field(lang === "zh" ? "CO₂ 吸附量" : "CO₂ uptake",  item.co2Uptake === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : item.co2Uptake === "—" ? "—" : `${item.co2Uptake} mmol/g`,     "co2Uptake",  item.fieldSources)}
+                {field(lang === "zh" ? "带隙" : "band gap",    item.bandGap   === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : item.bandGap   === "—" ? "—" : `${item.bandGap} eV`,            "bandGap",    item.fieldSources)}
                 {field(lang === "zh" ? "稳定性" : "stability", `${zhValue(item.waterStability, lang)} / ${zhValue(item.thermalStability, lang)}`)}
                 {field(lang === "zh" ? "来源" : "source", zhValue(item.source, lang))}
-                {field("Evidence Level", zhValue(item.evidenceLevel, lang))}
+                {field(lang === "zh" ? "证据等级" : "Evidence Level", zhValue(item.evidenceLevel, lang))}
               </div>
               <button type="button" onClick={() => setExpandedId(expandedId === item.id ? null : item.id)} style={{ ...toolbarBtn(t), marginTop: 12 }}>
                 {expandedId === item.id ? (lang === "zh" ? "收起详情" : "Hide details") : (lang === "zh" ? "查看详情" : "View details")}
@@ -315,8 +324,8 @@ export function MOFLibraryTab({ results, inputs }) {
                   </div>
                   <div style={detailBlock}>
                     <div style={{ display: "grid", gap: 8 }}>
-                      {field("CO₂ uptake", item.co2Uptake === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : item.co2Uptake === "—" ? "—" : `${item.co2Uptake} mmol/g`, "co2Uptake", item.fieldSources)}
-                      {field("Band gap", item.bandGap === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : item.bandGap === "—" ? "—" : `${item.bandGap} eV`, "bandGap", item.fieldSources)}
+                      {field(lang === "zh" ? "CO₂ 吸附量" : "CO₂ uptake", item.co2Uptake === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : item.co2Uptake === "—" ? "—" : `${item.co2Uptake} mmol/g`, "co2Uptake", item.fieldSources)}
+                      {field(lang === "zh" ? "带隙" : "Band gap", item.bandGap === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : item.bandGap === "—" ? "—" : `${item.bandGap} eV`, "bandGap", item.fieldSources)}
                     </div>
                   </div>
                   <div style={detailBlock}>

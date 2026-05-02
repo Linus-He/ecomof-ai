@@ -292,7 +292,7 @@ export function PerformanceTab({
                       `${lang === "zh" ? "选择性" : "selectivity"} ${candidate.selectivity ?? "—"}`,
                       `${lang === "zh" ? "稳定性" : "stability"} ${candidate.waterStability ?? "—"} / ${candidate.thermalStability ?? "—"}`,
                     ]}
-                    evidenceLevel={`Evidence Level: ${candidate.evidenceLevel || "rule-based"}`}
+                    evidenceLevel={`${lang === "zh" ? "证据等级" : "Evidence Level"}: ${candidate.evidenceLevel || "rule-based"}`}
                     limitations={lang === "zh" ? "Performance Score 用于比较候选材料的吸附和热力学表现，不能替代严格 GCMC 或 IAST 模拟。" : "Performance Score supports comparison of adsorption and thermodynamic indicators. It does not replace rigorous GCMC or IAST simulations."}
                     recommendedNextStep={lang === "zh"
                       ? ["补充实测等温线", "验证混合气选择性", "进行 GCMC 或 IAST 对照"]
@@ -326,7 +326,7 @@ export function PerformanceTab({
             </div>
           </ResultLayer>
 
-          <ResultLayer number="03" title="Results Interpretation Notes">
+          <ResultLayer number="03" title={lang === "zh" ? "结果解释说明" : "Results Interpretation Notes"}>
             <Callout tone="info">
               {lang === "zh"
                 ? "Performance Score 用于比较候选材料的吸附和热力学表现，不能替代严格 GCMC 或 IAST 模拟。"
@@ -349,8 +349,8 @@ export function PerformanceTab({
 
           <ResultLayer number="04" title={lang === "zh" ? "Model Results / 结果解释图表" : "Model Results / Results Interpretation"}>
             <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
-              <RankingBarChart data={performanceCandidates} scoreLabel={lang === "zh" ? "Performance Score" : "Performance Score"} />
-              <ScoreBreakdownRadar data={activeCandidate?.scoreBreakdown || []} title={activeCandidate ? `${activeCandidate.name} · Score Breakdown` : "Score Breakdown"} />
+              <RankingBarChart data={performanceCandidates} scoreLabel={lang === "zh" ? "性能评分" : "Performance Score"} />
+              <ScoreBreakdownRadar data={activeCandidate?.scoreBreakdown || []} title={activeCandidate ? `${activeCandidate.name} · ${lang === "zh" ? "评分拆解" : "Score Breakdown"}` : (lang === "zh" ? "评分拆解" : "Score Breakdown")} />
               <WeightContributionChart data={activeCandidate?.weightContribution || []} />
               <EvidenceDistributionChart data={evidenceDistribution(performanceCandidates)} />
               <ScoreDistributionChart data={scoreDistribution(performanceCandidates)} />

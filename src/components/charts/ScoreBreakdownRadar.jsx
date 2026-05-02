@@ -7,7 +7,7 @@ export function ScoreBreakdownRadar({ data = [], title }) {
   const rows = data.map(item => ({ dimension: item.label || item.dimension, value: Number(item.value || 0) }))
   return (
     <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 13, minWidth: 0 }}>
-      <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850 }}>{title || "Score Breakdown Radar Chart"}</div>
+      <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850 }}>{title || (lang === "zh" ? "评分维度雷达图" : "Score Breakdown Radar Chart")}</div>
       <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.5, marginTop: 5 }}>
         {lang === "zh" ? "分数拆解展示了哪些维度对最终评分贡献最大。" : "The breakdown shows which dimensions contribute most to the final score."}
       </div>

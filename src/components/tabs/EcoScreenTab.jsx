@@ -265,7 +265,7 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
         </div>
       </ResultLayer>
 
-      <ResultLayer number="03" title="Results Interpretation Notes" subtitle={lang === "zh" ? "Eco Score 表示候选材料在当前可持续性评分策略下的优先级，不等同于完整工业 LCA 结论。" : "Eco Score indicates candidate priority under the current sustainability scoring strategy. It does not replace full industrial LCA."}>
+      <ResultLayer number="03" title={lang === "zh" ? "结果解释说明" : "Results Interpretation Notes"} subtitle={lang === "zh" ? "Eco Score 表示候选材料在当前可持续性评分策略下的优先级，不等同于完整工业 LCA 结论。" : "Eco Score indicates candidate priority under the current sustainability scoring strategy. It does not replace full industrial LCA."}>
         {activeCandidate && (
           <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr 1fr", gap: 12 }}>
             <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
@@ -291,8 +291,8 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
 
       <ResultLayer number="04" title={lang === "zh" ? "Model Results / 结果解释图表" : "Model Results / Results Interpretation"}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
-          <RankingBarChart data={candidates} scoreLabel="Eco Score" />
-          <ScoreBreakdownRadar data={activeCandidate?.breakdown || []} title={activeCandidate ? `${activeCandidate.name} · Score Breakdown` : "Score Breakdown"} />
+          <RankingBarChart data={candidates} scoreLabel={lang === "zh" ? "生态评分" : "Eco Score"} />
+          <ScoreBreakdownRadar data={activeCandidate?.breakdown || []} title={activeCandidate ? `${activeCandidate.name} · ${lang === "zh" ? "评分拆解" : "Score Breakdown"}` : (lang === "zh" ? "评分拆解" : "Score Breakdown")} />
           <WeightContributionChart data={activeCandidate?.weightContribution || []} />
           <EvidenceDistributionChart data={evidenceDistribution(candidates)} />
           <ScoreDistributionChart data={scoreDistribution(candidates)} />

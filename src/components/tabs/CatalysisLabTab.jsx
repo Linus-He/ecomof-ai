@@ -702,7 +702,7 @@ export function CatalysisLabTab() {
               cursor: "pointer",
             }}>
               <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850 }}>{zhTask(item, lang)}</div>
-              <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45, marginTop: 5 }}>Rule-based Model</div>
+              <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45, marginTop: 5 }}>{lang === "zh" ? "规则驱动模型" : "Rule-based Model"}</div>
             </button>
           ))}
         </div>
@@ -735,7 +735,7 @@ export function CatalysisLabTab() {
                   lang === "zh" ? "金属节点可能提供 Lewis 酸位点或氧化还原活性位点。" : "Metal nodes may provide Lewis acidic or redox-active sites.",
                   lang === "zh" ? "当前证据为规则推断，仍需实验验证。" : "Current evidence is rule-based and requires experimental validation.",
                 ]}
-                evidenceLevel={`Evidence Level: ${candidate.evidenceLevel || "rule-based"}`}
+                evidenceLevel={`${lang === "zh" ? "证据等级" : "Evidence Level"}: ${candidate.evidenceLevel || "rule-based"}`}
                 limitations={lang === "zh" ? "Demo / placeholder / rule-based 数据；不代表真实催化活性或选择性。" : "Demo / placeholder / rule-based data; not real catalytic activity or selectivity."}
                 recommendedNextStep={lang === "zh"
                   ? ["定义反应条件与对照实验", "验证转化率、选择性和循环稳定性", "补充机理表征"]
@@ -801,8 +801,8 @@ export function CatalysisLabTab() {
 
       <ResultLayer number="06" title={lang === "zh" ? "Model Results / 结果解释图表" : "Model Results / Results Interpretation"}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
-          <RankingBarChart data={ranked} scoreLabel="Catalysis Potential Score" />
-          <ScoreBreakdownRadar data={activeCandidate?.scoreBreakdown || []} title={activeCandidate ? `${activeCandidate.name} · Score Breakdown` : "Score Breakdown"} />
+          <RankingBarChart data={ranked} scoreLabel={lang === "zh" ? "催化潜力评分" : "Catalysis Potential Score"} />
+          <ScoreBreakdownRadar data={activeCandidate?.scoreBreakdown || []} title={activeCandidate ? `${activeCandidate.name} · ${lang === "zh" ? "评分拆解" : "Score Breakdown"}` : (lang === "zh" ? "评分拆解" : "Score Breakdown")} />
           <WeightContributionChart data={activeCandidate?.weightContribution || []} />
           <EvidenceDistributionChart data={evidenceDistribution(ranked)} />
           <ScoreDistributionChart data={scoreDistribution(ranked)} />

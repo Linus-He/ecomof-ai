@@ -16,7 +16,7 @@ export function SensitivityAnalysisChart({ data = [], dimension }) {
   const colors = [t.accent, t.validationAccent, t.sensitivityAccent, t.success, t.warn]
   return (
     <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 13, minWidth: 0 }}>
-      <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850 }}>{lang === "zh" ? "Sensitivity Analysis Chart" : "Sensitivity Analysis Chart"}</div>
+      <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850 }}>{lang === "zh" ? "敏感性分析图" : "Sensitivity Analysis Chart"}</div>
       <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.5, marginTop: 5 }}>
         {lang === "zh" ? "敏感性分析用于检查评分权重变化后，排名靠前的候选材料是否仍然稳定。" : "Sensitivity analysis checks whether top-ranked candidates remain stable when scoring weights change."}
         {dimension ? ` ${lang === "zh" ? "当前维度" : "Dimension"}: ${dimension}.` : ""}

@@ -126,7 +126,7 @@ export function MethodsLimitationsTab() {
       </div>
 
       <div className="content-card" style={sectionCard}>
-        <SectionTitle>{lang === "zh" ? "Evidence Level" : "Evidence levels"}</SectionTitle>
+        <SectionTitle>{lang === "zh" ? "证据等级" : "Evidence levels"}</SectionTitle>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10, marginTop: 10 }}>
           {(lang === "zh" ? [
             ["experimental", "直接实验数据支持；新任务仍需独立验证。"],

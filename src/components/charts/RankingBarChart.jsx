@@ -18,7 +18,7 @@ export function RankingBarChart({ data = [], scoreLabel }) {
   const rows = data.slice(0, 8).map(item => ({ name: item.name, score: Number(item.score || 0) }))
   return (
     <ChartShell
-      title={lang === "zh" ? "Ranking Bar Chart" : "Ranking Bar Chart"}
+      title={lang === "zh" ? "候选排名图" : "Ranking Bar Chart"}
       description={lang === "zh" ? "分数越高表示在当前规则评分策略下候选优先级越高。" : "Higher score indicates higher candidate priority under the current rule-based scoring strategy."}
     >
       <ResponsiveContainer width="100%" height="100%">
