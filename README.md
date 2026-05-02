@@ -46,6 +46,16 @@ MOF Library, Performance, and CatalysisLab support two dataset modes via a toggl
 - **Demo Dataset**: demo / placeholder / rule-based records. Default mode. Ensures all existing visualizations work correctly.
 - **Real Seed Dataset**: a small curated-data framework (`mof_candidates_real_seed.json`) for future public database and literature ingestion. Current records are skeleton entries for 11 well-known MOFs (UiO-66, MOF-808, HKUST-1, MIL-101, ZIF-8, MOF-74, UiO-67, NU-1000, MIL-53, PCN-222, MIL-125). Numeric fields are null / pending curation and displayed as "Not available" or "Pending curation". The Real Seed Dataset **is not a complete MOF database** and does not include final catalytic performance labels unless explicitly sourced.
 
+## Field-level Data Provenance
+
+Real Seed Dataset records support field-level provenance tracking:
+
+- Each descriptor (surfaceArea, poreSizeA, poreVolume, co2Uptake, bandGap, waterStability, thermalStability, toxicityConcern) can link to a `fieldSources` metadata record.
+- Source metadata includes: source type, source name, database, DOI, URL, measurement condition, evidence level, curation note, and limitations.
+- Missing sources are marked as **Pending curation** — no sources are fabricated.
+- Clicking the ⓘ icon next to a field in MOF Library (expanded record), Performance, or CatalysisLab (real-seed mode) opens a field provenance modal.
+- This improves transparency but does not replace manual data verification or experimental validation.
+
 ## Catalysis Data Template
 
 CatalysisLab includes a collapsible **Catalysis Data Template** that defines the minimum fields required for future catalysis data ingestion:

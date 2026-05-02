@@ -4,7 +4,7 @@ import {
   fetchDataJson, BasisBadge, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard,
   calculateCatalysisScore, getScoreBreakdown, getWeightContribution, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
   RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
-  DataModeToggle, RealSeedCallout, safeVal, toolbarBtn, SectionTitle,
+  DataModeToggle, RealSeedCallout, safeVal, toolbarBtn, SectionTitle, FieldProvenanceButton,
 } from "../../shared"
 
 // ── Catalysis Data Template helpers ──────────────────────────────────────────
@@ -269,6 +269,7 @@ function normalizeCandidate(item) {
     activeSiteHypothesis: Array.isArray(item.activeSiteHypothesis) ? item.activeSiteHypothesis.join("; ") : item.activeSiteHypothesis,
     sustainabilityRisk: item.sustainabilityRisk || (item.costLevel === "High" || item.toxicityConcern === "High" ? "High" : item.costLevel === "Medium" || item.toxicityConcern === "Medium" ? "Medium" : "Low"),
     reactionClasses: Array.isArray(item.reactionClasses) ? item.reactionClasses : [],
+    fieldSources: item.fieldSources || undefined,
   }
 }
 
@@ -721,26 +722,50 @@ export function CatalysisLabTab() {
       <ResultLayer number="03" title={lang === "zh" ? "Rule-based Catalysis Potential Score 排名" : "Rule-based Catalysis Potential Score ranking"}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 12 }}>
           {ranked.map(candidate => (
-            <UnifiedCandidateCard
-              key={candidate.id}
-              name={candidate.name}
-              score={candidate.catalysis.score}
-              scoreLabel={lang === "zh" ? "催化潜力" : "Catalysis potential"}
-              suitableTask={zhTask(task, lang)}
-              scoreBreakdown={candidate.scoreBreakdown}
-              keyReasons={[
-                lang === "zh" ? "较高 CO₂ 亲和能力可能有利于反应物富集。" : "High CO₂ affinity may benefit reactant enrichment.",
-                lang === "zh" ? "合适孔径可能有利于分子扩散。" : "Suitable pore size may support molecular diffusion.",
-                lang === "zh" ? "金属节点可能提供 Lewis 酸位点或氧化还原活性位点。" : "Metal nodes may provide Lewis acidic or redox-active sites.",
-                lang === "zh" ? "当前证据为规则推断，仍需实验验证。" : "Current evidence is rule-based and requires experimental validation.",
-              ]}
-              evidenceLevel={`Evidence Level: ${candidate.evidenceLevel || "rule-based"}`}
-              limitations={lang === "zh" ? "Demo / placeholder / rule-based 数据；不代表真实催化活性或选择性。" : "Demo / placeholder / rule-based data; not real catalytic activity or selectivity."}
-              recommendedNextStep={lang === "zh"
-                ? ["定义反应条件与对照实验", "验证转化率、选择性和循环稳定性", "补充机理表征"]
-                : ["Define reaction conditions and controls", "Validate conversion, selectivity, and cycling stability", "Add mechanistic characterization"]}
-              onDetails={() => setSelected(candidate)}
-            />
+            <div key={candidate.id} style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+              <UnifiedCandidateCard
+                name={candidate.name}
+                score={candidate.catalysis.score}
+                scoreLabel={lang === "zh" ? "催化潜力" : "Catalysis potential"}
+                suitableTask={zhTask(task, lang)}
+                scoreBreakdown={candidate.scoreBreakdown}
+                keyReasons={[
+                  lang === "zh" ? "较高 CO₂ 亲和能力可能有利于反应物富集。" : "High CO₂ affinity may benefit reactant enrichment.",
+                  lang === "zh" ? "合适孔径可能有利于分子扩散。" : "Suitable pore size may support molecular diffusion.",
+                  lang === "zh" ? "金属节点可能提供 Lewis 酸位点或氧化还原活性位点。" : "Metal nodes may provide Lewis acidic or redox-active sites.",
+                  lang === "zh" ? "当前证据为规则推断，仍需实验验证。" : "Current evidence is rule-based and requires experimental validation.",
+                ]}
+                evidenceLevel={`Evidence Level: ${candidate.evidenceLevel || "rule-based"}`}
+                limitations={lang === "zh" ? "Demo / placeholder / rule-based 数据；不代表真实催化活性或选择性。" : "Demo / placeholder / rule-based data; not real catalytic activity or selectivity."}
+                recommendedNextStep={lang === "zh"
+                  ? ["定义反应条件与对照实验", "验证转化率、选择性和循环稳定性", "补充机理表征"]
+                  : ["Define reaction conditions and controls", "Validate conversion, selectivity, and cycling stability", "Add mechanistic characterization"]}
+                onDetails={() => setSelected(candidate)}
+              />
+              {candidate.fieldSources && (
+                <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderTopWidth: 0,
+                  borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: "8px 13px",
+                  display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center" }}>
+                  <span style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginRight: 2 }}>
+                    {lang === "zh" ? "字段来源" : "Field provenance"}
+                  </span>
+                  {[
+                    ["co2Uptake",         "CO₂"],
+                    ["surfaceArea",        "SA"],
+                    ["poreSizeA",          "Pore"],
+                    ["bandGap",            "BG"],
+                    ["waterStability",     lang === "zh" ? "水稳" : "H₂O"],
+                    ["thermalStability",   lang === "zh" ? "热稳" : "Therm"],
+                    ["toxicityConcern",    lang === "zh" ? "毒性" : "Tox"],
+                  ].map(([fk, fl]) => (
+                    <span key={fk} style={{ display: "inline-flex", alignItems: "center", gap: 2 }}>
+                      <span style={{ color: t.subtle, fontSize: 10 }}>{fl}</span>
+                      <FieldProvenanceButton fieldKey={fk} fieldLabel={fl} source={candidate.fieldSources?.[fk]} lang={lang} />
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
         </div>
       </ResultLayer>

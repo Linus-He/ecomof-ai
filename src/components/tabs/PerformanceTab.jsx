@@ -5,6 +5,7 @@ import {
   buildScoredCandidates, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
   RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
   BasisBadge, PageHeader, ResultLayer, Callout, UnifiedCandidateCard, DataModeToggle, RealSeedCallout, safeVal,
+  FieldProvenanceButton,
 } from "../../shared"
 
 /** Normalise a real-seed record into the shape PerformanceTab expects.
@@ -35,6 +36,7 @@ function normalizeRealSeedForPerf(item) {
     limitations: Array.isArray(item.limitations) ? item.limitations : [],
     dataMode: "real-seed",
     curationNote: item.curationNote || "",
+    fieldSources: item.fieldSources || undefined,
   }
 }
 
@@ -167,25 +169,48 @@ export function PerformanceTab({ inputs, setInputs, results, loading, onPredict,
       <ResultLayer number="02" title={lang === "zh" ? "性能候选摘要" : "Performance Candidate Summary"}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 12 }}>
           {performanceCandidates.slice(0, 6).map(candidate => (
-            <UnifiedCandidateCard
-              key={candidate.id}
-              name={candidate.name}
-              score={candidate.score}
-              scoreLabel={lang === "zh" ? "性能评分" : "Performance score"}
-              suitableTask={lang === "zh" ? "CO₂ 吸附量 / 选择性 / 热力学解释" : "CO₂ uptake / selectivity / thermodynamic interpretation"}
-              scoreBreakdown={candidate.scoreBreakdown}
-              keyReasons={[
-                `CO₂ uptake ${candidate.co2Uptake ?? "—"}`,
-                `${lang === "zh" ? "选择性" : "selectivity"} ${candidate.selectivity ?? "—"}`,
-                `${lang === "zh" ? "稳定性" : "stability"} ${candidate.waterStability ?? "—"} / ${candidate.thermalStability ?? "—"}`,
-              ]}
-              evidenceLevel={`Evidence Level: ${candidate.evidenceLevel || "rule-based"}`}
-              limitations={lang === "zh" ? "Performance Score 用于比较候选材料的吸附和热力学表现，不能替代严格 GCMC 或 IAST 模拟。" : "Performance Score supports comparison of adsorption and thermodynamic indicators. It does not replace rigorous GCMC or IAST simulations."}
-              recommendedNextStep={lang === "zh"
-                ? ["补充实测等温线", "验证混合气选择性", "进行 GCMC 或 IAST 对照"]
-                : ["Add measured isotherms", "Validate mixture selectivity", "Run GCMC or IAST comparison"]}
-              onDetails={() => setSelectedId(candidate.id)}
-            />
+            <div key={candidate.id} style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+              <UnifiedCandidateCard
+                name={candidate.name}
+                score={candidate.score}
+                scoreLabel={lang === "zh" ? "性能评分" : "Performance score"}
+                suitableTask={lang === "zh" ? "CO₂ 吸附量 / 选择性 / 热力学解释" : "CO₂ uptake / selectivity / thermodynamic interpretation"}
+                scoreBreakdown={candidate.scoreBreakdown}
+                keyReasons={[
+                  `CO₂ uptake ${candidate.co2Uptake ?? "—"}`,
+                  `${lang === "zh" ? "选择性" : "selectivity"} ${candidate.selectivity ?? "—"}`,
+                  `${lang === "zh" ? "稳定性" : "stability"} ${candidate.waterStability ?? "—"} / ${candidate.thermalStability ?? "—"}`,
+                ]}
+                evidenceLevel={`Evidence Level: ${candidate.evidenceLevel || "rule-based"}`}
+                limitations={lang === "zh" ? "Performance Score 用于比较候选材料的吸附和热力学表现，不能替代严格 GCMC 或 IAST 模拟。" : "Performance Score supports comparison of adsorption and thermodynamic indicators. It does not replace rigorous GCMC or IAST simulations."}
+                recommendedNextStep={lang === "zh"
+                  ? ["补充实测等温线", "验证混合气选择性", "进行 GCMC 或 IAST 对照"]
+                  : ["Add measured isotherms", "Validate mixture selectivity", "Run GCMC or IAST comparison"]}
+                onDetails={() => setSelectedId(candidate.id)}
+              />
+              {candidate.fieldSources && (
+                <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderTopWidth: 0,
+                  borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: "8px 13px",
+                  display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center" }}>
+                  <span style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginRight: 2 }}>
+                    {lang === "zh" ? "字段来源" : "Field provenance"}
+                  </span>
+                  {[
+                    ["surfaceArea", "SA"],
+                    ["poreSizeA",   "Pore"],
+                    ["co2Uptake",   "CO₂"],
+                    ["bandGap",     "BG"],
+                    ["waterStability",  lang === "zh" ? "水稳" : "H₂O"],
+                    ["thermalStability",lang === "zh" ? "热稳" : "Therm"],
+                  ].map(([fk, fl]) => (
+                    <span key={fk} style={{ display: "inline-flex", alignItems: "center", gap: 2 }}>
+                      <span style={{ color: t.subtle, fontSize: 10 }}>{fl}</span>
+                      <FieldProvenanceButton fieldKey={fk} fieldLabel={fl} source={candidate.fieldSources?.[fk]} lang={lang} />
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
         </div>
       </ResultLayer>

@@ -205,6 +205,36 @@ export function MethodsLimitationsTab() {
       </div>
 
       <div className="content-card" style={sectionCard}>
+        <SectionTitle>{lang === "zh" ? "字段级数据溯源 / Field-level Data Provenance" : "Field-level Data Provenance"}</SectionTitle>
+        <div style={bodyText}>
+          {lang === "zh"
+            ? "每个经过整理的描述符都可以关联字段级来源记录，包括来源类型、数据库或文献引用、测量条件、证据等级、整理说明和限制。当前 Real Seed Dataset 为每个支持字段提供 fieldSources 框架，但大多数字段尚未关联核实来源。"
+            : "Each curated descriptor can be linked to a field-level source record, including source type, database or literature reference, measurement condition, evidence level, curation note, and limitations. The current Real Seed Dataset provides a fieldSources framework for each supported field; most fields are pending manual curation."}
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
+          {(lang === "zh" ? [
+            ["缺失来源显示为待整理", "未关联已核实数据来源的字段会显示【待整理】，而不是编造来源或留空。", "warn"],
+            ["来源不代表验证完成", "没有核实来源的数据不应被过度解读；字段级来源追踪说明数据框架，不替代实验验证。", "proxy"],
+            ["支持后续数据整理", "字段级来源追踪为后续真实数据整理和审核提供标准框架，支持 CoRE MOF、QMOF 和文献数据的接入。", "info"],
+          ] : [
+            ["Missing provenance shown as Pending curation", "Fields without a verified source record display 'Pending curation' rather than fabricated or empty values.", "warn"],
+            ["Values without verified provenance should not be over-interpreted", "Field-level provenance describes the data framework and does not replace manual data verification or experimental validation.", "proxy"],
+            ["Supports future real data curation", "Field-level provenance provides a standard framework for future data ingestion from CoRE MOF, QMOF, and curated literature.", "info"],
+          ]).map(([title, body, tone]) => (
+            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <BasisBadge tone={tone}>{title}</BasisBadge>
+              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, marginTop: 9 }}>{body}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 10, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "10px 14px", color: t.muted, fontSize: 11, lineHeight: 1.6 }}>
+          {lang === "zh"
+            ? "当前支持字段级来源查看的字段：surfaceArea、poreSizeA、poreVolume、co2Uptake、bandGap、waterStability、thermalStability、toxicityConcern。在 MOF Library 展开记录后，以及 Performance 和 CatalysisLab 真实种子模式下的候选卡片中，可点击字段旁的 ⓘ 图标查看来源详情。"
+            : "Fields supporting provenance view: surfaceArea, poreSizeA, poreVolume, co2Uptake, bandGap, waterStability, thermalStability, toxicityConcern. In MOF Library expanded records and in Performance / CatalysisLab real-seed candidate cards, click the ⓘ icon next to a field to view its source details."}
+        </div>
+      </div>
+
+      <div className="content-card" style={sectionCard}>
         <SectionTitle>{lang === "zh" ? "限制与免责声明" : "Limitations and disclaimer"}</SectionTitle>
         <div style={{ display: "grid", gap: 8, marginTop: 10 }}>
           {(lang === "zh" ? [

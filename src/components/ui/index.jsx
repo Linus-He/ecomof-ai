@@ -821,6 +821,133 @@ export function DataModeToggle({ value, onChange, lang }) {
   )
 }
 
+// ── Field-level Provenance ────────────────────────────────────────────────────
+
+/**
+ * FieldSourceModal — internal modal overlay showing provenance detail for one field.
+ */
+function FieldSourceModal({ fieldLabel, source, lang, t, onClose }) {
+  const isPending = !source || source.sourceType === "pending"
+
+  const rows = isPending ? [] : [
+    source.sourceType  && ["sourceType",  lang === "zh" ? "来源类型"    : "Source type",          source.sourceType],
+    source.sourceName  && ["sourceName",  lang === "zh" ? "来源名称"    : "Source name",          source.sourceName],
+    source.database    && ["database",    lang === "zh" ? "数据库"      : "Database",             source.database],
+    source.doi         && ["doi",         "DOI",                                                   source.doi],
+    source.url         && ["url",         "URL",                                                   source.url],
+    source.condition   && ["condition",   lang === "zh" ? "测量条件"    : "Measurement condition", source.condition],
+    source.evidenceLevel && ["evidenceLevel", lang === "zh" ? "证据等级" : "Evidence level",       source.evidenceLevel],
+    source.curationNote && ["curationNote", lang === "zh" ? "整理说明"  : "Curation note",        source.curationNote],
+    source.limitations && source.limitations !== "" && ["limitations", lang === "zh" ? "限制" : "Limitations", source.limitations],
+  ].filter(Boolean)
+
+  return (
+    <div
+      style={{ position: "fixed", inset: 0, zIndex: 1200, background: "rgba(0,0,0,0.5)",
+        display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}
+      onClick={onClose}
+    >
+      <div
+        style={{ background: t.bg, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 12,
+          padding: 20, maxWidth: 440, width: "100%", maxHeight: "85vh", overflowY: "auto",
+          boxShadow: "0 12px 40px rgba(0,0,0,0.35)" }}
+        onClick={e => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
+          <div>
+            <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: 3 }}>
+              {lang === "zh" ? "字段级数据来源" : "Field-level provenance"}
+            </div>
+            <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850 }}>{fieldLabel}</div>
+            {source && source.value !== null && source.value !== undefined && (
+              <div style={{ color: t.accentText, fontSize: 12, marginTop: 3 }}>
+                {lang === "zh" ? "当前值：" : "Value: "}{source.value}{source.unit ? ` ${source.unit}` : ""}
+              </div>
+            )}
+          </div>
+          <button type="button" onClick={onClose}
+            style={{ background: "transparent", border: "none", color: t.subtle, fontSize: 20, cursor: "pointer", padding: "2px 6px", lineHeight: 1 }}>
+            ✕
+          </button>
+        </div>
+
+        {/* Body */}
+        {isPending ? (
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "12px 14px",
+            color: t.muted, fontSize: 12, lineHeight: 1.65 }}>
+            {lang === "zh"
+              ? "待整理。该字段尚未关联已核实的数据来源。"
+              : "Pending curation. This field does not have a verified source record yet."}
+          </div>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+            {rows.map(([key, label, value]) => (
+              <div key={key} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: "8px 11px" }}>
+                <div style={{ color: t.faint, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 3 }}>{label}</div>
+                <div style={{ color: t.textStrong, fontSize: 12, lineHeight: 1.5, wordBreak: "break-all" }}>{value}</div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Footer note */}
+        <div style={{ marginTop: 14, color: t.faint, fontSize: 10, lineHeight: 1.5,
+          borderTop: `1px solid ${t.divider || t.border}`, paddingTop: 10 }}>
+          {lang === "zh"
+            ? "字段级来源追踪说明数据框架，不替代手动数据核实和实验验证。"
+            : "Field-level provenance describes the data framework and does not replace manual data verification or experimental validation."}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/**
+ * FieldProvenanceButton — small ⓘ icon that opens a field-level source modal.
+ * Renders nothing if `source` is undefined (i.e., demo data without fieldSources).
+ */
+export function FieldProvenanceButton({ fieldKey, fieldLabel, source, lang }) {
+  const [open, setOpen] = useState(false)
+  const t = useT()
+
+  // Only render in real-seed mode (when fieldSources is provided)
+  if (source === undefined) return null
+
+  const isPending = !source || source.sourceType === "pending"
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={e => { e.stopPropagation(); setOpen(true) }}
+        title={lang === "zh" ? "查看字段来源" : "View field provenance"}
+        style={{
+          display: "inline-flex", alignItems: "center", justifyContent: "center",
+          width: 14, height: 14, borderRadius: "50%",
+          border: `1px solid ${isPending ? t.faint : t.accent}`,
+          background: "transparent",
+          color: isPending ? t.faint : t.accentText,
+          fontSize: 9, fontWeight: 900, cursor: "pointer", padding: 0,
+          marginLeft: 4, flexShrink: 0, lineHeight: 1,
+          verticalAlign: "middle",
+        }}
+      >
+        i
+      </button>
+      {open && (
+        <FieldSourceModal
+          fieldLabel={fieldLabel}
+          source={source}
+          lang={lang}
+          t={t}
+          onClose={() => setOpen(false)}
+        />
+      )}
+    </>
+  )
+}
+
 /**
  * RealSeedCallout — fixed-wording disclosure required in Real Seed Dataset mode.
  */

@@ -3,6 +3,7 @@ import {
   useT, useLang, useViewport,
   LITERATURE_DB, fetchDataJson, buildDatabaseRecords, downloadTextFile, toolbarBtn,
   BasisBadge, PageHeader, ResultLayer, Callout, DataModeToggle, RealSeedCallout, safeVal,
+  FieldProvenanceButton,
 } from "../../shared"
 
 function normalizeDemoRecord(item) {
@@ -33,6 +34,7 @@ function normalizeDemoRecord(item) {
     evidenceLevel: item.evidenceLevel || "Low",
     limitations: limitations || "Demo / placeholder record; needs validation.",
     dataStatus: item.dataStatus || "demo / placeholder / needs validation",
+    fieldSources: item.fieldSources || undefined,
   }
 }
 
@@ -166,9 +168,12 @@ export function MOFLibraryTab({ results, inputs }) {
   const controlStyle = { background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "9px 11px", color: t.text, fontSize: 12, width: "100%" }
   const labelStyle = { display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }
   const detailBlock = { background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }
-  const field = (label, value) => (
+  const field = (label, value, fieldKey, fieldSources) => (
     <div style={{ minWidth: 0 }}>
-      <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 4 }}>{label}</div>
+      <div style={{ display: "flex", alignItems: "center", gap: 0, marginBottom: 4 }}>
+        <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{label}</div>
+        {fieldKey && <FieldProvenanceButton fieldKey={fieldKey} fieldLabel={label} source={fieldSources?.[fieldKey]} lang={lang} />}
+      </div>
       <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 750, overflowWrap: "anywhere" }}>{value || "—"}</div>
     </div>
   )
@@ -287,10 +292,10 @@ export function MOFLibraryTab({ results, inputs }) {
               <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(9, minmax(0, 1fr))", gap: 12, marginTop: 12 }}>
                 {field(lang === "zh" ? "金属节点" : "metal nodes", item.metal)}
                 {field(lang === "zh" ? "连接体" : "linker", item.linker)}
-                {field(lang === "zh" ? "孔径" : "pore size", item.poreSizeA === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : `${item.poreSizeA || "—"} Å`)}
-                {field(lang === "zh" ? "比表面积" : "surface area", item.surfaceArea === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : `${Number(item.surfaceArea || 0).toLocaleString()} m²/g`)}
-                {field("CO₂ uptake", item.co2Uptake === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : item.co2Uptake === "—" ? "—" : `${item.co2Uptake} mmol/g`)}
-                {field("band gap", item.bandGap === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : item.bandGap === "—" ? "—" : `${item.bandGap} eV`)}
+                {field(lang === "zh" ? "孔径" : "pore size",      item.poreSizeA  === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : `${item.poreSizeA || "—"} Å`,      "poreSizeA",  item.fieldSources)}
+                {field(lang === "zh" ? "比表面积" : "surface area", item.surfaceArea === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : `${Number(item.surfaceArea || 0).toLocaleString()} m²/g`, "surfaceArea", item.fieldSources)}
+                {field("CO₂ uptake",  item.co2Uptake === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : item.co2Uptake === "—" ? "—" : `${item.co2Uptake} mmol/g`,     "co2Uptake",  item.fieldSources)}
+                {field("band gap",    item.bandGap   === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : item.bandGap   === "—" ? "—" : `${item.bandGap} eV`,            "bandGap",    item.fieldSources)}
                 {field(lang === "zh" ? "稳定性" : "stability", `${zhValue(item.waterStability, lang)} / ${zhValue(item.thermalStability, lang)}`)}
                 {field(lang === "zh" ? "来源" : "source", zhValue(item.source, lang))}
                 {field("Evidence Level", zhValue(item.evidenceLevel, lang))}
@@ -301,9 +306,26 @@ export function MOFLibraryTab({ results, inputs }) {
               {expandedId === item.id && (
                 <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
                   <div style={detailBlock}>{field(lang === "zh" ? "基础结构" : "Basic structure", `${item.topology}; ${item.formula}`)}</div>
-                  <div style={detailBlock}>{field(lang === "zh" ? "孔结构性质" : "Porous properties", `${item.poreSizeA} Å; ${Number(item.surfaceArea || 0).toLocaleString()} m²/g; PV ${item.poreVolume}`)}</div>
-                  <div style={detailBlock}>{field(lang === "zh" ? "吸附 / 电子性质" : "Adsorption / electronic properties", `CO₂ ${item.co2Uptake}; band gap ${item.bandGap}`)}</div>
-                  <div style={detailBlock}>{field(lang === "zh" ? "Eco 概况" : "Eco profile", `${lang === "zh" ? "成本" : "cost"} ${zhValue(item.costLevel, lang)}; ${lang === "zh" ? "毒性关注" : "toxicity concern"} ${zhValue(item.toxicityConcern, lang)}`)}</div>
+                  <div style={detailBlock}>
+                    <div style={{ display: "grid", gap: 8 }}>
+                      {field(lang === "zh" ? "孔径" : "Pore size (Å)", item.poreSizeA === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : `${item.poreSizeA || "—"} Å`, "poreSizeA", item.fieldSources)}
+                      {field(lang === "zh" ? "比表面积" : "Surface area", item.surfaceArea === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : `${Number(item.surfaceArea || 0).toLocaleString()} m²/g`, "surfaceArea", item.fieldSources)}
+                      {field(lang === "zh" ? "孔体积" : "Pore volume", item.poreVolume === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : `${item.poreVolume || "—"} cm³/g`, "poreVolume", item.fieldSources)}
+                    </div>
+                  </div>
+                  <div style={detailBlock}>
+                    <div style={{ display: "grid", gap: 8 }}>
+                      {field("CO₂ uptake", item.co2Uptake === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : item.co2Uptake === "—" ? "—" : `${item.co2Uptake} mmol/g`, "co2Uptake", item.fieldSources)}
+                      {field("Band gap", item.bandGap === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : item.bandGap === "—" ? "—" : `${item.bandGap} eV`, "bandGap", item.fieldSources)}
+                    </div>
+                  </div>
+                  <div style={detailBlock}>
+                    <div style={{ display: "grid", gap: 8 }}>
+                      {field(lang === "zh" ? "水稳定性" : "Water stability", zhValue(item.waterStability, lang), "waterStability", item.fieldSources)}
+                      {field(lang === "zh" ? "热稳定性" : "Thermal stability", zhValue(item.thermalStability, lang), "thermalStability", item.fieldSources)}
+                      {field(lang === "zh" ? "毒性关注" : "Toxicity concern", zhValue(item.toxicityConcern, lang), "toxicityConcern", item.fieldSources)}
+                    </div>
+                  </div>
                   <div style={detailBlock}>{field(lang === "zh" ? "催化潜力线索" : "Catalysis potential", `${item.reactionClasses.join(", ") || "—"}; ${item.activeSiteHypothesis}`)}</div>
                   <div style={detailBlock}>{field(lang === "zh" ? "数据来源 / 限制" : "Data source / Limitations", `${item.source}; ${item.limitations}`)}</div>
                 </div>
