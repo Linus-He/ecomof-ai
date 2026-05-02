@@ -67,8 +67,9 @@ export function ContactModal({ open, onClose }) {
   const set = (key, val) => setForm(prev => ({ ...prev, [key]: val }))
 
   const canSubmit =
-    form.name.trim() && form.email.trim() && form.message.trim() &&
-    form.consent && status !== "loading"
+    form.name.trim() && form.email.trim() &&
+    form.organization.trim() && form.role && form.referral_source &&
+    form.message.trim() && form.consent && status !== "loading"
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -333,10 +334,7 @@ export function ContactModal({ open, onClose }) {
 
             {/* ── A. Basic information ── */}
             <div style={sectionBlock}>
-              <SectionHeader
-                label={zh ? "A. 基本信息" : "A. Basic information"}
-                note={zh ? "姓名和邮箱为必填项。" : "Name and email are required."}
-              />
+              <SectionHeader label={zh ? "A. 基本信息" : "A. Basic information"} />
               <div style={col2}>
                 <Field label={zh ? "姓名或称呼" : "Name"} required>
                   <input
@@ -354,21 +352,21 @@ export function ContactModal({ open, onClose }) {
                 </Field>
               </div>
               <div style={col2}>
-                <Field label={zh ? "学校或机构" : "Organization"}>
+                <Field label={zh ? "学校或机构" : "Organization"} required>
                   <input
-                    type="text" name="organization" autoComplete="organization"
+                    type="text" name="organization" required autoComplete="organization"
                     value={form.organization} onChange={e => set("organization", e.target.value)}
                     style={inputStyle}
                   />
                 </Field>
-                <Field label={zh ? "身份" : "Role"}>
-                  <select name="role" value={form.role} onChange={e => set("role", e.target.value)} style={selectStyle}>
+                <Field label={zh ? "身份" : "Role"} required>
+                  <select name="role" required value={form.role} onChange={e => set("role", e.target.value)} style={selectStyle}>
                     {roleOpts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                   </select>
                 </Field>
               </div>
-              <Field label={zh ? "渠道来源" : "How did you hear about ecomof-ai?"}>
-                <select name="referral_source" value={form.referral_source} onChange={e => set("referral_source", e.target.value)} style={selectStyle}>
+              <Field label={zh ? "渠道来源" : "How did you hear about ecomof-ai?"} required>
+                <select name="referral_source" required value={form.referral_source} onChange={e => set("referral_source", e.target.value)} style={selectStyle}>
                   {referralSourceOpts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                 </select>
               </Field>
