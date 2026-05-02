@@ -9,7 +9,7 @@ import { findPresetName, getPresetSuggestionNames } from "./utils/presets"
 import { predictMOF, validateScreeningInputs } from "./utils/prediction"
 import { downloadTextFile, buildComparisonCandidate } from "./utils/report"
 import { headerChipBtn } from "./utils/styles"
-import { ContextualHeaderBar, SavedRunsModal } from "./components/layout"
+import { ContextualHeaderBar, SavedRunsModal, ContactModal } from "./components/layout"
 
 const lazyNamed = (loader, exportName) => lazy(async () => {
   const reloadKey = `ecomof-lazy-reload:${exportName}`
@@ -109,6 +109,8 @@ function AppShell({
   importSavedRuns,
   removeComparisonCandidate,
   moveComparisonCandidate,
+  contactOpen,
+  setContactOpen,
 }) {
   return (
     <div
@@ -221,6 +223,21 @@ function AppShell({
             <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 8, minWidth: 0, order: viewport.isNarrow ? 2 : 3 }}>
               <button
                 type="button"
+                onClick={() => setContactOpen(true)}
+                title={lang === "zh" ? "联系 / 合作" : "Contact / Collaboration"}
+                style={{
+                  ...headerChipBtn(theme),
+                  padding: "8px 12px",
+                  border: `1px solid ${theme.accent}`,
+                  color: theme.accentText,
+                  fontWeight: 750,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {lang === "zh" ? "联系 / 合作" : "Contact"}
+              </button>
+              <button
+                type="button"
                 onClick={() => setLang(current => (current === "en" ? "zh" : "en"))}
                 title={lang === "en" ? "切换到中文" : "Switch to English"}
                 style={{ ...headerChipBtn(theme), minWidth: 48, padding: "8px 10px" }}
@@ -270,7 +287,7 @@ function AppShell({
       <main className="app-main" style={{ padding: viewport.isMobile ? "14px 12px" : "22px 24px", maxWidth: 1460, margin: "0 auto" }}>
         <Suspense fallback={<LoadingPanel theme={theme} lang={lang} />}>
           <div key={activeTab} className="page-transition" data-tab={activeTab}>
-            {activeTab === "home" && <HomeTab setActiveTab={navigateTab} />}
+            {activeTab === "home" && <HomeTab setActiveTab={navigateTab} onContactOpen={() => setContactOpen(true)} />}
             {activeTab === "ecoscreen" && (
               <EcoScreenTab
                 inputs={inputs}
@@ -349,17 +366,58 @@ function AppShell({
         </Suspense>
       </main>
 
-      <footer style={{ marginTop: 40, padding: "16px 24px", borderTop: `1px solid ${theme.border}`, display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-        <span style={{ color: theme.faint, fontSize: 12 }}>
-          © 2026 Advanced Materials Lab · Computational Design · <strong style={{ color: theme.muted }}>EcoMOF-AI</strong>
-        </span>
-        <span style={{ color: theme.faint, fontSize: 12 }}>
-          CoRE MOF 2019 · 14,252 curated · roadmap: CoRE 2024 + QMOF ·{" "}
-          <a href="https://github.com/Linus-He/ecomof-ai" target="_blank" rel="noopener" style={{ color: theme.accentText, textDecoration: "none" }}>
-            GitHub
-          </a>
-        </span>
+      <footer style={{ marginTop: 48, borderTop: `1px solid ${theme.border}`, padding: viewport.isMobile ? "20px 12px 24px" : "22px 24px 28px", fontFamily: FONT_SANS }}>
+        <div style={{ maxWidth: 1460, margin: "0 auto", display: "flex", flexDirection: "column", gap: 16 }}>
+          {/* Top row: links */}
+          <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+            <a
+              href="https://github.com/Linus-He/ecomof-ai"
+              target="_blank" rel="noopener"
+              style={{ color: theme.accentText, fontSize: 12, fontWeight: 700, textDecoration: "none" }}
+            >
+              GitHub ↗
+            </a>
+            <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
+            <button
+              type="button"
+              onClick={() => setContactOpen(true)}
+              style={{
+                background: "none", border: "none", padding: 0,
+                color: theme.accentText, fontSize: 12, fontWeight: 700,
+                cursor: "pointer", fontFamily: FONT_SANS,
+              }}
+            >
+              {lang === "zh" ? "联系 / 合作" : "Contact / Collaboration"}
+            </button>
+            <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
+            <button
+              type="button"
+              onClick={() => navigateTab("methodology")}
+              style={{
+                background: "none", border: "none", padding: 0,
+                color: theme.subtle, fontSize: 12, fontWeight: 600,
+                cursor: "pointer", fontFamily: FONT_SANS,
+              }}
+            >
+              {lang === "zh" ? "方法学" : "Methodology"}
+            </button>
+          </div>
+          {/* Bottom row: copyright + limitations note */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16, flexWrap: "wrap" }}>
+            <span style={{ color: theme.faint, fontSize: 11 }}>
+              © 2026 Advanced Materials Lab · Computational Design · EcoMOF-AI ·{" "}
+              CoRE MOF 2019 · 14,252 curated · roadmap: CoRE 2024 + QMOF
+            </span>
+            <span style={{ color: theme.faint, fontSize: 11, maxWidth: 480, textAlign: viewport.isMobile ? "left" : "right" }}>
+              {lang === "zh"
+                ? "当前结果用于早期筛选和研究假设生成，不代表最终实验结论。"
+                : "Current results are intended for early-stage screening and research hypothesis generation, not final experimental conclusions."}
+            </span>
+          </div>
+        </div>
       </footer>
+
+      <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
 
       {savedOpen && (
         <SavedRunsModal
@@ -387,6 +445,7 @@ export default function App() {
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchStatus, setSearchStatus] = useState(null)
   const [savedOpen, setSavedOpen] = useState(false)
+  const [contactOpen, setContactOpen] = useState(false)
   const [comparisonTab, setComparisonTab] = useState("feasibility")
   const [comparisonFocusId, setComparisonFocusId] = useState("all")
   const [resourcesTab, setResourcesTab] = useState("dataSources")
@@ -741,6 +800,8 @@ export default function App() {
             importSavedRuns={importSavedRuns}
             removeComparisonCandidate={removeComparisonCandidate}
             moveComparisonCandidate={moveComparisonCandidate}
+            contactOpen={contactOpen}
+            setContactOpen={setContactOpen}
           />
         </ViewportCtx.Provider>
       </LangCtx.Provider>

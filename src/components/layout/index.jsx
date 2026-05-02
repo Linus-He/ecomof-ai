@@ -408,3 +408,5 @@ export function InternalNav({ items, active, onChange }) {
     </div>
   )
 }
+
+export { ContactModal } from "./ContactModal"

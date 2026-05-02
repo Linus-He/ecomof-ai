@@ -1,7 +1,7 @@
 import { useT, useLang, useViewport, BasisBadge, PageHeader, Callout } from "../../shared"
 import { toolbarBtn } from "../../utils/styles"
 
-export function HomeTab({ setActiveTab }) {
+export function HomeTab({ setActiveTab, onContactOpen }) {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
@@ -150,6 +150,50 @@ export function HomeTab({ setActiveTab }) {
           ? "使用提示：平台评分表达 candidate priority / potential / needs validation。任何吸附、催化或环境结论都必须经过独立数据和实验验证。"
           : "Use note: scores express candidate priority / potential / needs validation. Any adsorption, catalysis, or sustainability claim requires independent data and experimental validation."}
       </Callout>
+
+      {/* ── Contact / Collaboration CTA ─────────────────────────────────── */}
+      <section style={{
+        background: t.panel,
+        border: `1px solid ${t.border}`,
+        borderRadius: 10,
+        padding: isMobile ? "20px 16px" : "26px 30px",
+        display: "flex",
+        flexDirection: isMobile ? "column" : "row",
+        gap: 20,
+        alignItems: isMobile ? "flex-start" : "center",
+        justifyContent: "space-between",
+      }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 8 }}>
+            {lang === "zh" ? "合作联系" : "Collaboration"}
+          </div>
+          <div style={{ color: t.textStrong, fontSize: isMobile ? 17 : 20, fontWeight: 850, lineHeight: 1.2, marginBottom: 10 }}>
+            {lang === "zh" ? "联系 / 合作" : "Contact / Collaboration"}
+          </div>
+          <p style={{ margin: 0, color: t.muted, fontSize: 13, lineHeight: 1.65, maxWidth: 540 }}>
+            {lang === "zh"
+              ? "如果你希望将 ecomof-ai 用于 MOF 筛选、催化数据整理、LCA 评价或科研合作，可以留下联系方式，并简要说明你的数据或研究问题。"
+              : "Interested in using ecomof-ai for MOF screening, catalysis data curation, LCA evaluation, or research collaboration? Send a short message and describe your dataset or research question."}
+          </p>
+        </div>
+        <div style={{ flexShrink: 0 }}>
+          <button
+            type="button"
+            onClick={onContactOpen}
+            style={{
+              ...toolbarBtn(t),
+              padding: "11px 22px",
+              border: `1px solid ${t.accent}`,
+              color: t.accentText,
+              fontSize: 13,
+              fontWeight: 800,
+              whiteSpace: "nowrap",
+            }}
+          >
+            {lang === "zh" ? "联系 / 合作 →" : "Contact / Collaboration →"}
+          </button>
+        </div>
+      </section>
     </div>
   )
 }
