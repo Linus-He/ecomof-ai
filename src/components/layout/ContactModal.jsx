@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useT, useLang, useViewport } from "../../contexts"
 import { FONT_SANS } from "../../constants/theme"
 import { toolbarBtn } from "../../utils/styles"
+import { BrandMark } from "../ui"
 
 const ENDPOINT = "https://formspree.io/f/mnjwnojy"
 const FALLBACK_EMAIL = "square.hwh@gmail.com"
@@ -271,8 +272,11 @@ export function ContactModal({ open, onClose }) {
       >
         {/* ── Header ── */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
-          <div style={{ color: t.accentText, fontSize: 20, fontWeight: 850, lineHeight: 1.15 }}>
-            {zh ? "联系 / 合作" : "Contact / Collaboration"}
+          <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
+            <BrandMark size={isMobile ? 32 : 36} radius={9} style={{ boxShadow: t.shadowSm }} />
+            <div style={{ color: t.accentText, fontSize: 20, fontWeight: 850, lineHeight: 1.15 }}>
+              {zh ? "联系 / 合作" : "Contact / Collaboration"}
+            </div>
           </div>
           <button
             type="button"

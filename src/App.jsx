@@ -10,6 +10,7 @@ import { predictMOF, validateScreeningInputs } from "./utils/prediction"
 import { downloadTextFile, buildComparisonCandidate } from "./utils/report"
 import { headerChipBtn } from "./utils/styles"
 import { ContextualHeaderBar, SavedRunsModal, ContactModal } from "./components/layout"
+import { BrandMark } from "./components/ui"
 
 const lazyNamed = (loader, exportName) => lazy(async () => {
   const reloadKey = `ecomof-lazy-reload:${exportName}`
@@ -149,19 +150,7 @@ function AppShell({
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: viewport.isMobile ? 6 : 8, minWidth: 0 }}>
-              <img
-                src="/ecomof-ai/ecomof-logo.png"
-                alt="ecomof-ai logo"
-                style={{
-                  width: viewport.isMobile ? 24 : 28,
-                  height: viewport.isMobile ? 24 : 28,
-                  borderRadius: viewport.isMobile ? 7 : 8,
-                  objectFit: "cover",
-                  display: "block",
-                  flex: "0 0 auto",
-                  boxShadow: theme.shadowSm,
-                }}
-              />
+              <BrandMark size={viewport.isMobile ? 24 : 28} radius={viewport.isMobile ? 7 : 8} style={{ boxShadow: theme.shadowSm }} />
               <div style={{ color: theme.subtle, fontSize: viewport.isMobile ? 11 : 12, fontWeight: 700, whiteSpace: "nowrap" }}>EcoMOF-AI</div>
             </div>
 
@@ -364,8 +353,13 @@ function AppShell({
 
       <footer style={{ marginTop: 48, borderTop: `1px solid ${theme.border}`, padding: viewport.isMobile ? "20px 12px 24px" : "22px 24px 28px", fontFamily: FONT_SANS }}>
         <div style={{ maxWidth: 1460, margin: "0 auto", display: "flex", flexDirection: "column", gap: 16 }}>
-          {/* Top row: links */}
+          {/* Top row: brand + links */}
           <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginRight: viewport.isMobile ? 0 : 8 }}>
+              <BrandMark size={viewport.isMobile ? 28 : 30} radius={8} style={{ boxShadow: theme.shadowSm }} />
+              <span style={{ color: theme.textStrong, fontSize: 12, fontWeight: 800, whiteSpace: "nowrap" }}>ecomof-ai</span>
+            </div>
+            <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
             <a
               href="https://github.com/Linus-He/ecomof-ai"
               target="_blank" rel="noopener"

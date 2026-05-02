@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 import {
   useT, useLang, useViewport,
-  fetchDataJson, BasisBadge, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard,
+  fetchDataJson, BasisBadge, BrandMark, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard,
   calculateCatalysisScore, getScoreBreakdown, getWeightContribution, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
   RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
   DataModeToggle, RealSeedCallout, safeVal, toolbarBtn, SectionTitle, FieldProvenanceButton,
@@ -70,8 +70,11 @@ function CatalysisDataTemplate({ lang, t, isNarrow, isMobile }) {
     <details open={open} onToggle={e => setOpen(e.currentTarget.open)}
       style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
       <summary style={{ cursor: "pointer", userSelect: "none" }}>
-        <span style={{ color: t.accentText, fontSize: 14, fontWeight: 800 }}>
-          {lang === "zh" ? "催化数据模板" : "Catalysis Data Template"}
+        <span style={{ display: "inline-flex", alignItems: "center", gap: 10, verticalAlign: "middle" }}>
+          <BrandMark size={isMobile ? 28 : 32} radius={8} style={{ boxShadow: t.shadowSm }} />
+          <span style={{ color: t.accentText, fontSize: 14, fontWeight: 800 }}>
+            {lang === "zh" ? "催化数据模板" : "Catalysis Data Template"}
+          </span>
         </span>
       </summary>
 

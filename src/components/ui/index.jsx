@@ -8,6 +8,26 @@ import { formatFunctionalGroupSummary, getFunctionalGroupEntries } from "../../u
 import { getGasSystem } from "../../utils/prediction"
 import { toolbarBtn } from "../../utils/styles"
 
+export const ECOMOF_LOGO_SRC = "/ecomof-ai/ecomof-logo.png"
+
+export function BrandMark({ size = 32, radius = 8, alt = "ecomof-ai logo", style }) {
+  return (
+    <img
+      src={ECOMOF_LOGO_SRC}
+      alt={alt}
+      style={{
+        width: size,
+        height: size,
+        borderRadius: radius,
+        objectFit: "cover",
+        display: "block",
+        flex: "0 0 auto",
+        ...style,
+      }}
+    />
+  )
+}
+
 export const CustomTooltip = ({ active, payload, label, unitX = "bar", unitY = "mmol/g" }) => {
   const t = useT()
   if (active && payload && payload.length) {

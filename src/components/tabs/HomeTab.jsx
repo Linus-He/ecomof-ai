@@ -1,4 +1,4 @@
-import { useT, useLang, useViewport, BasisBadge, PageHeader, Callout } from "../../shared"
+import { useT, useLang, useViewport, BasisBadge, BrandMark, Callout } from "../../shared"
 import { toolbarBtn } from "../../utils/styles"
 
 export function HomeTab({ setActiveTab, onContactOpen }) {
@@ -52,11 +52,32 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
         alignItems: "end",
         padding: isMobile ? "24px 0 8px" : "42px 0 16px",
       }}>
-        <PageHeader
-          title={lang === "zh" ? "面向科研合作的 MOF AI 原型平台" : "Research-oriented MOF AI prototype platform"}
-          subtitle={lang === "zh" ? position.zh : position.en}
-          meta={lang === "zh" ? "总览 · Performance · EcoScreen · CatalysisLab · MOF 库 · 方法学" : "Overview · Performance · EcoScreen · CatalysisLab · MOF Library · Methodology"}
-        />
+        <div style={{
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          alignItems: isMobile ? "flex-start" : "flex-start",
+          gap: isMobile ? 14 : 18,
+        }}>
+          <BrandMark
+            size={isMobile ? 56 : 68}
+            radius={isMobile ? 14 : 16}
+            style={{
+              marginTop: isMobile ? 0 : 2,
+              boxShadow: t.shadowSm,
+            }}
+          />
+          <div style={{ minWidth: 0 }}>
+            <h1 style={{ margin: 0, color: t.textStrong, fontSize: 32, fontWeight: 700, letterSpacing: 0, lineHeight: 1.15 }}>
+              {lang === "zh" ? "面向科研合作的 MOF AI 原型平台" : "Research-oriented MOF AI prototype platform"}
+            </h1>
+            <p style={{ margin: "8px 0 0", color: t.muted, fontSize: 15, lineHeight: 1.6, maxWidth: 880 }}>
+              {lang === "zh" ? position.zh : position.en}
+            </p>
+            <div style={{ marginTop: 10, color: t.faint, fontSize: 11, lineHeight: 1.5 }}>
+              {lang === "zh" ? "总览 · Performance · EcoScreen · CatalysisLab · MOF 库 · 方法学" : "Overview · Performance · EcoScreen · CatalysisLab · MOF Library · Methodology"}
+            </div>
+          </div>
+        </div>
         <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", marginBottom: 10 }}>
             {lang === "zh" ? "平台边界" : "Platform boundary"}
