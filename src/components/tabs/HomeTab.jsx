@@ -43,6 +43,70 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
     ? ["数据输入", "描述符整理", "任务规则", "综合评分", "候选排序", "结果解释", "实验验证"]
     : ["Data input", "Descriptor curation", "Task rules", "Scoring", "Candidate ranking", "Interpretation", "Validation"]
 
+  const whatYouCanDo = [
+    {
+      id: "screen",
+      icon: "🔍",
+      title: lang === "zh" ? "筛选 MOF 候选材料" : "Screen MOF candidates",
+      body: lang === "zh"
+        ? "按吸附性能、可持续性或催化适配性对候选材料进行优先级排序。分数反映候选优先级，不代表验证结论。"
+        : "Rank candidates by adsorption performance, sustainability, or catalysis fit. Scores express candidate priority, not validated predictions.",
+    },
+    {
+      id: "inspect",
+      icon: "📋",
+      title: lang === "zh" ? "检查描述符完整性" : "Inspect descriptor completeness",
+      body: lang === "zh"
+        ? "查看哪些字段已整理、哪些待整理，以及每个描述符携带的证据等级。"
+        : "See which fields are curated, which are pending, and what evidence level each descriptor carries.",
+    },
+    {
+      id: "provenance",
+      icon: "🔗",
+      title: lang === "zh" ? "追溯数据来源" : "Trace data provenance",
+      body: lang === "zh"
+        ? "了解每个描述符来自哪里：来源类型、数据库引用、测量条件和整理状态。"
+        : "Know where each descriptor comes from: source type, database reference, measurement condition, and curation state.",
+    },
+  ]
+  const forUsers = [
+    {
+      id: "mof",
+      role: lang === "zh" ? "MOF 研究者" : "MOF researchers",
+      body: lang === "zh"
+        ? "早期候选材料优先级筛选，含字段级数据溯源和透明的评分假设。结果须经独立实验验证。"
+        : "Early-stage candidate prioritization with field-level data provenance and transparent scoring assumptions. Results require independent experimental validation.",
+    },
+    {
+      id: "lca",
+      role: lang === "zh" ? "LCA 研究者" : "LCA researchers",
+      body: lang === "zh"
+        ? "可持续性导向筛选，含 Eco Score 分项、限制说明和候选比较——不替代完整工业 LCA。"
+        : "Sustainability-oriented screening with eco-score components, limitations, and candidate comparisons — not a replacement for full industrial LCA.",
+    },
+    {
+      id: "ml",
+      role: lang === "zh" ? "ML / 信息学研究者" : "ML / informatics researchers",
+      body: lang === "zh"
+        ? "探索描述符整理框架、数据模式分离和溯源追踪，作为未来数据接入的基础。当前不是已训练的预测模型。"
+        : "Explore the descriptor curation framework, data mode separation, and provenance tracking as a foundation for future data ingestion. Not a trained predictive model.",
+    },
+    {
+      id: "student",
+      role: lang === "zh" ? "学生 / 作品集展示" : "Students / portfolio",
+      body: lang === "zh"
+        ? "与展示 MOF 筛选工作流、评分透明度和数据限制说明的真实科研原型交互。"
+        : "Interact with a real-world prototype showing MOF screening workflow, scoring transparency, and explicit data limitations.",
+    },
+    {
+      id: "collab",
+      role: lang === "zh" ? "潜在合作者" : "Potential collaborators",
+      body: lang === "zh"
+        ? "在讨论数据提交或联合开发之前，查看平台的当前范围、数据结构和方法说明。"
+        : "Review the platform's current scope, data structure, and methodology before discussing data submissions or joint development.",
+    },
+  ]
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 24 : 32 }}>
       <section style={{
@@ -141,6 +205,37 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
             )}
           </article>
         ))}
+      </section>
+
+      {/* ── What can you do here? ─────────────────────────────────── */}
+      <section>
+        <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 12 }}>
+          {lang === "zh" ? "你可以在这里做什么？" : "What can you do here?"}
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
+          {whatYouCanDo.map(card => (
+            <div key={card.id} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
+              <div style={{ fontSize: 18, marginBottom: 8, lineHeight: 1 }}>{card.icon}</div>
+              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 820, lineHeight: 1.3, marginBottom: 7 }}>{card.title}</div>
+              <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65 }}>{card.body}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── For different users ─────────────────────────────────── */}
+      <section>
+        <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 12 }}>
+          {lang === "zh" ? "面向不同用户" : "For different users"}
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 10 }}>
+          {forUsers.map(card => (
+            <div key={card.id} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
+              <div style={{ color: t.accentText, fontSize: 12, fontWeight: 850, marginBottom: 6 }}>{card.role}</div>
+              <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65 }}>{card.body}</div>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: isMobile ? 16 : 20 }}>

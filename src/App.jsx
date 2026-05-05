@@ -506,6 +506,9 @@ export default function App() {
       if (routeHash === "data-quality-provenance") {
         setPendingScrollTarget("data-quality-provenance")
       }
+      if (routeHash === "validation-evidence") {
+        setPendingScrollTarget("validation-evidence")
+      }
     }
   }, [])
 
@@ -566,6 +569,19 @@ export default function App() {
 
   useEffect(() => {
     if (!pendingScrollTarget || activeTab !== "library") return
+    const scroll = () => {
+      const target = document.getElementById(pendingScrollTarget)
+      if (target) {
+        target.scrollIntoView({ block: "start", behavior: "smooth" })
+        setPendingScrollTarget(null)
+      }
+    }
+    const frame = window.requestAnimationFrame(() => window.setTimeout(scroll, 80))
+    return () => window.cancelAnimationFrame(frame)
+  }, [activeTab, pendingScrollTarget])
+
+  useEffect(() => {
+    if (!pendingScrollTarget || activeTab !== "about") return
     const scroll = () => {
       const target = document.getElementById(pendingScrollTarget)
       if (target) {

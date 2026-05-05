@@ -8,6 +8,7 @@ export const HASH_TO_TAB = {
   library: "library",
   methodology: "about",
   "data-quality-provenance": "library",
+  "validation-evidence": "about",
 }
 
 export const TAB_TO_HASH = {
@@ -59,6 +60,10 @@ export const HASH_META = {
   acknowledgements: {
     title: "Acknowledgements | EcoMOF-AI",
     description: "Acknowledgements and maintainer information for the EcoMOF-AI early-stage research prototype.",
+  },
+  "validation-evidence": {
+    title: "Validation & Evidence | EcoMOF-AI",
+    description: "Current validation status, what is explicitly checked, future validation plans, and non-validation disclaimer for EcoMOF-AI.",
   },
 }
 
