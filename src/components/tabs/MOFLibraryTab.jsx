@@ -6,7 +6,7 @@ import {
 import {
   useT, useLang, useViewport,
   LITERATURE_DB, fetchDataJson, buildDatabaseRecords, downloadTextFile, toolbarBtn,
-  BasisBadge, PageHeader, ResultLayer, Callout, DataModeToggle, RealSeedCallout, safeVal,
+  BasisBadge, PageHeader, ResultLayer, Callout, DataModeToggle, RealSeedCallout, safeVal, CopyLinkButton,
   FieldProvenanceButton, SectionTitle,
 } from "../../shared"
 
@@ -400,7 +400,12 @@ export function MOFLibraryTab({ results, inputs }) {
           ? "展示 MOF 基础字段、数据来源和证据等级。Library 是底层数据入口，不直接把数据库记录等同于科研结论。"
           : "Browse MOF baseline fields, data sources, and evidence levels. The Library is a data entry point and does not turn database records into scientific conclusions."}
         meta={lang === "zh" ? "搜索 · 金属筛选 · 孔结构 · 数据来源 · 证据等级" : "Search · metal filter · pore descriptors · data source · Evidence Level"}
-        action={<BasisBadge tone={status === "loaded" ? "calc" : "proxy"}>{status === "loaded" ? "public/data" : (lang === "zh" ? "种子数据" : "fallback seed")}</BasisBadge>}
+        action={
+          <>
+            <BasisBadge tone={status === "loaded" ? "calc" : "proxy"}>{status === "loaded" ? "public/data" : (lang === "zh" ? "种子数据" : "fallback seed")}</BasisBadge>
+            <CopyLinkButton hash="library" ariaLabel={lang === "zh" ? "复制 MOF Library 链接" : "Copy MOF Library link"} />
+          </>
+        }
       />
 
       <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
@@ -427,6 +432,22 @@ export function MOFLibraryTab({ results, inputs }) {
           </div>
         </div>
       )}
+
+      <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12, flexWrap: "wrap" }}>
+          <div>
+            <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 850 }}>
+              {lang === "zh" ? "Data Quality & Provenance / 数据质量与溯源" : "Data Quality & Provenance"}
+            </div>
+            <p style={{ margin: "7px 0 0", color: t.muted, fontSize: 12, lineHeight: 1.65, maxWidth: 860 }}>
+              {lang === "zh"
+                ? "EcoMOF-AI 区分演示数据、真实种子整理记录和字段级数据溯源。Demo Dataset 仅用于展示工作流行为；Real Seed Dataset 用于承载真实数据接入框架，但部分描述符仍处于待整理状态。只有当某个描述符具有数值、必要单位或条件、证据等级和字段级来源记录时，才应被视为已整理字段。"
+                : "EcoMOF-AI separates demo data, real-seed curation records, and field-level provenance. Demo data is used only to demonstrate workflow behavior. Real Seed Dataset provides a framework for curated real-data ingestion, but some descriptors remain pending curation. A descriptor should only be treated as curated when it has a value, unit or condition when applicable, evidence level, and field-level source record."}
+            </p>
+          </div>
+          <CopyLinkButton hash="data-quality-provenance" ariaLabel={lang === "zh" ? "复制数据质量与溯源链接" : "Copy Data Quality & Provenance link"} />
+        </div>
+      </section>
 
       <Callout tone="info">
         {lang === "zh"
@@ -529,6 +550,9 @@ export function MOFLibraryTab({ results, inputs }) {
           : "Field coverage, evidence distribution, and curation progress computed live from Real Seed Dataset."}
       >
         <div id="data-quality-provenance">
+          <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 10 }}>
+            <CopyLinkButton hash="data-quality-provenance" ariaLabel={lang === "zh" ? "复制数据质量与溯源链接" : "Copy Data Quality & Provenance link"} />
+          </div>
           <DataQualitySection
             realSeedRows={realSeedRows}
             lang={lang}

@@ -1,8 +1,19 @@
+import { useEffect, useState } from "react"
 import {
   useT, useLang, useViewport,
   FONT_MONO,
-  BasisBadge, SectionTitle, Callout, PageHeader,
+  BasisBadge, SectionTitle, Callout, PageHeader, CopyLinkButton, fetchDataJson,
 } from "../../shared"
+
+const PROJECT_CITATION_EN = "He, W. EcoMOF-AI: An early-stage research prototype for MOF candidate screening, sustainability evaluation, catalysis-oriented exploration, and field-level data provenance. GitHub Pages, 2026. Available at: https://linus-he.github.io/ecomof-ai/"
+const PROJECT_CITATION_ZH = "何文浩. EcoMOF-AI：面向 MOF 候选筛选、可持续性评价、催化任务探索和字段级数据溯源的早期科研原型. GitHub Pages, 2026. https://linus-he.github.io/ecomof-ai/"
+const PROJECT_BIBTEX = `@misc{he2026ecomofai,
+  author = {He, Wenhao},
+  title = {EcoMOF-AI: An Early-Stage Research Prototype for MOF Candidate Screening, Sustainability Evaluation, Catalysis-Oriented Exploration, and Field-Level Data Provenance},
+  year = {2026},
+  url = {https://linus-he.github.io/ecomof-ai/},
+  note = {Early-stage research prototype}
+}`
 
 function FormulaLine({ children }) {
   return (
@@ -127,10 +138,23 @@ export function MethodsLimitationsTab({ onNavigate }) {
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
   const zh = lang === "zh"
+  const [references, setReferences] = useState([])
+
+  useEffect(() => {
+    let active = true
+    fetchDataJson("references.json")
+      .then(data => {
+        if (active) setReferences(Array.isArray(data) ? data : [])
+      })
+      .catch(() => {
+        if (active) setReferences([])
+      })
+    return () => { active = false }
+  }, [])
 
   const handleViewDataQuality = () => {
     if (onNavigate) {
-      onNavigate("library")
+      onNavigate("data-quality-provenance")
       let attempts = 0
       const tryScroll = () => {
         const el = document.getElementById("data-quality-provenance")
@@ -153,6 +177,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       ["method-formulas", "公式参考"],
       ["method-provenance", "证据与溯源"],
       ["method-limitations", "限制说明"],
+      ["method-references", "参考与引用"],
     ]
     : [
       ["method-workflow", "Workflow"],
@@ -161,6 +186,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       ["method-formulas", "Formula Reference"],
       ["method-provenance", "Evidence & Provenance"],
       ["method-limitations", "Limitations"],
+      ["method-references", "References & Citation"],
     ]
 
   const workflow = zh
@@ -306,6 +332,16 @@ export function MethodsLimitationsTab({ onNavigate }) {
       "Experimental validation is required.",
     ]
 
+  const suggestedUse = zh
+    ? {
+      appropriate: ["早期候选优先级筛选", "描述符整理", "数据来源查看", "科研假设生成", "教学或作品集展示", "合作讨论"],
+      notFor: ["最终材料性能结论", "替代实验", "完整 LCA 结论", "替代 GCMC / IAST", "已验证机器学习预测", "工业部署决策"],
+    }
+    : {
+      appropriate: ["Early-stage candidate prioritization", "Descriptor organization", "Data provenance inspection", "Research hypothesis generation", "Teaching or portfolio demonstration", "Collaboration discussion"],
+      notFor: ["Final material performance conclusion", "Experimental replacement", "Complete LCA claim", "GCMC / IAST replacement", "Validated ML prediction", "Industrial deployment decision"],
+    }
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <PageHeader
@@ -313,8 +349,13 @@ export function MethodsLimitationsTab({ onNavigate }) {
         subtitle={zh
           ? "说明 ecomof-ai 如何工作、数据从哪里来、分数怎么算、证据如何追踪，以及哪些结果不能过度解读。"
           : "How ecomof-ai works, where data come from, how scores are calculated, how evidence is traced, and where interpretation must stay cautious."}
-        meta={zh ? "工作流 · 数据层 · 评分模型 · 公式参考 · 证据与溯源 · 限制说明" : "Workflow · Data Layer · Scoring Model · Formula Reference · Evidence & Provenance · Limitations"}
-        action={<BasisBadge tone="proxy">{zh ? "候选优先级" : "candidate priority"}</BasisBadge>}
+        meta={zh ? "工作流 · 数据层 · 评分模型 · 公式参考 · 证据与溯源 · 限制说明 · 参考与引用" : "Workflow · Data Layer · Scoring Model · Formula Reference · Evidence & Provenance · Limitations · References"}
+        action={
+          <>
+            <BasisBadge tone="proxy">{zh ? "候选优先级" : "candidate priority"}</BasisBadge>
+            <CopyLinkButton hash="methodology" ariaLabel={zh ? "复制 Methodology 链接" : "Copy Methodology link"} />
+          </>
+        }
       />
 
       <Callout tone="warn">
@@ -484,6 +525,78 @@ export function MethodsLimitationsTab({ onNavigate }) {
               <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.55 }}>{item}</span>
             </div>
           ))}
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 10, marginTop: 12 }}>
+          {[
+            [zh ? "适合用途" : "Appropriate use", suggestedUse.appropriate, "info"],
+            [zh ? "不适合用途" : "Not appropriate for", suggestedUse.notFor, "warn"],
+          ].map(([title, items, tone]) => (
+            <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <BasisBadge tone={tone}>{title}</BasisBadge>
+              <ul style={{ margin: "10px 0 0", paddingLeft: 18, color: t.muted, fontSize: 12, lineHeight: 1.65 }}>
+                {items.map(item => <li key={item}>{item}</li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </MethodSection>
+
+      <MethodSection
+        id="method-references"
+        title={zh ? "References & Citation / 参考与引用" : "References & Citation"}
+        body={zh
+          ? "引用本项目时请引用仓库和网站；本平台不应被引用为已验证的科学数据库或最终预测工具。"
+          : "When referencing this project, cite the repository and website; the platform should not be cited as a validated scientific database or final prediction engine."}
+        t={t}
+      >
+        <div style={{ display: "grid", gap: 10 }}>
+          <details open style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+            <summary style={{ cursor: "pointer", color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
+              {zh ? "如何引用 EcoMOF-AI" : "How to cite EcoMOF-AI"}
+            </summary>
+            <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, margin: "10px 0 0" }}>
+              {zh
+                ? "EcoMOF-AI 是一个早期科研原型。如果你在展示、作品集评审或非正式科研讨论中引用本项目，请引用项目仓库和网站。本平台不应被引用为已验证的科学数据库或最终预测工具。"
+                : "EcoMOF-AI is an early-stage research prototype. If you reference this project in a presentation, portfolio review, or informal research discussion, please cite the project repository and website. The platform should not be cited as a validated scientific database or final prediction engine."}
+            </p>
+          </details>
+
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+            <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>{zh ? "项目引用" : "Project citation"}</div>
+            <div style={{ marginTop: 9, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, padding: 10, color: t.muted, fontSize: 11, lineHeight: 1.6 }}>
+              {zh ? PROJECT_CITATION_ZH : PROJECT_CITATION_EN}
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 10 }}>
+              <CopyLinkButton value={zh ? PROJECT_CITATION_ZH : PROJECT_CITATION_EN} label={zh ? "复制引用" : "Copy citation"} copiedLabel={zh ? "引用已复制" : "Citation copied"} ariaLabel={zh ? "复制项目引用" : "Copy project citation"} />
+              <CopyLinkButton value={PROJECT_BIBTEX} label={zh ? "复制 BibTeX" : "Copy BibTeX"} copiedLabel={zh ? "BibTeX 已复制" : "BibTeX copied"} ariaLabel={zh ? "复制 BibTeX" : "Copy BibTeX"} />
+            </div>
+          </div>
+
+          <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+            <summary style={{ cursor: "pointer", color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
+              {zh ? "数据与方法参考" : "Data and method references"}
+            </summary>
+            <p style={{ color: t.faint, fontSize: 11, lineHeight: 1.6, margin: "10px 0" }}>
+              {zh
+                ? "部分参考来源用于方法说明或未来数据接入规划，不代表当前已完整接入。"
+                : "Some references are planned or contextual references, not necessarily fully ingested data sources."}
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }}>
+              {references.map(item => (
+                <div key={item.id} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, padding: 10 }}>
+                  <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 820 }}>{item.title}</div>
+                  <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.5, marginTop: 4 }}>{item.category} · {item.type}</div>
+                  <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55, marginTop: 6 }}>{item.note}</div>
+                </div>
+              ))}
+            </div>
+          </details>
+
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            <CopyLinkButton value="https://linus-he.github.io/ecomof-ai/" label={zh ? "复制项目链接" : "Copy project link"} copiedLabel={zh ? "链接已复制" : "Link copied"} />
+            <CopyLinkButton hash="methodology" label={zh ? "复制方法学链接" : "Copy Methodology link"} copiedLabel={zh ? "链接已复制" : "Link copied"} />
+            <CopyLinkButton hash="data-quality-provenance" label={zh ? "复制数据质量链接" : "Copy Data Quality link"} copiedLabel={zh ? "链接已复制" : "Link copied"} />
+          </div>
         </div>
       </MethodSection>
     </div>

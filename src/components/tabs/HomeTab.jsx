@@ -1,4 +1,4 @@
-import { useT, useLang, useViewport, BasisBadge, BrandMark, Callout } from "../../shared"
+import { useT, useLang, useViewport, BasisBadge, BrandMark, Callout, CopyLinkButton } from "../../shared"
 import { toolbarBtn } from "../../utils/styles"
 
 export function HomeTab({ setActiveTab, onContactOpen }) {
@@ -75,6 +75,9 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
             </p>
             <div style={{ marginTop: 10, color: t.faint, fontSize: 11, lineHeight: 1.5 }}>
               {lang === "zh" ? "总览 · Performance · EcoScreen · CatalysisLab · MOF 库 · 方法学" : "Overview · Performance · EcoScreen · CatalysisLab · MOF Library · Methodology"}
+            </div>
+            <div style={{ marginTop: 12 }}>
+              <CopyLinkButton hash="overview" ariaLabel={lang === "zh" ? "复制 Overview 链接" : "Copy Overview link"} />
             </div>
           </div>
         </div>

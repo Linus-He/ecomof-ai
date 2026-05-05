@@ -4,7 +4,7 @@ import {
   gasLabel, getGasSystem, fetchDataJson, toolbarBtn,
   buildScoredCandidates, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
   RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
-  BasisBadge, PageHeader, ResultLayer, Callout, UnifiedCandidateCard, DataModeToggle, RealSeedCallout, safeVal,
+  BasisBadge, PageHeader, ResultLayer, Callout, UnifiedCandidateCard, DataModeToggle, RealSeedCallout, safeVal, CopyLinkButton,
   FieldProvenanceButton,
 } from "../../shared"
 import { ScreeningTab } from "./ScreeningTab"
@@ -166,7 +166,12 @@ export function PerformanceTab({
           ? "围绕 CO₂ uptake、选择性和热力学解释的早期性能候选筛选。保留现有吸附/筛选能力，但把结果解释成候选优先级。"
           : "Early-stage performance screening around CO₂ uptake, selectivity, and thermodynamic interpretation. Existing adsorption screening remains, but outputs are framed as candidate priority."}
         meta={lang === "zh" ? "CO₂ uptake · selectivity · thermodynamic interpretation · Early-stage Screening" : "CO₂ uptake · selectivity · thermodynamic interpretation · Early-stage Screening"}
-        action={<BasisBadge tone="info">{lang === "zh" ? "不替代 GCMC / IAST" : "not GCMC / IAST"}</BasisBadge>}
+        action={
+          <>
+            <BasisBadge tone="info">{lang === "zh" ? "不替代 GCMC / IAST" : "not GCMC / IAST"}</BasisBadge>
+            <CopyLinkButton hash="performance" ariaLabel={lang === "zh" ? "复制 Performance 链接" : "Copy Performance link"} />
+          </>
+        }
       />
 
       {/* ── Mode selector cards ───────────────────────────────────────────── */}

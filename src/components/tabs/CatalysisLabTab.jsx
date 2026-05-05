@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 import {
   useT, useLang, useViewport,
-  fetchDataJson, BasisBadge, BrandMark, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard,
+  fetchDataJson, BasisBadge, BrandMark, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard, CopyLinkButton,
   calculateCatalysisScore, getScoreBreakdown, getWeightContribution, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
   RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
   DataModeToggle, RealSeedCallout, safeVal, toolbarBtn, SectionTitle, FieldProvenanceButton,
@@ -678,7 +678,12 @@ export function CatalysisLabTab() {
           ? "通用 MOF 催化候选筛选模块。当前使用 demo / placeholder / rule-based 数据，只表达 candidate priority、potential 和 needs validation。"
           : "A general MOF catalysis candidate-screening module. Current data are demo / placeholder / rule-based and only express candidate priority, potential, and needs validation."}
         meta={lang === "zh" ? "任务选择 · 筛选器 · Rule-based Catalysis Potential Score · 候选解释" : "Task selector · filters · Rule-based Catalysis Potential Score · candidate explanation"}
-        action={<BasisBadge tone="warn">{lang === "zh" ? "Demo only / 需要验证" : "Demo only / needs validation"}</BasisBadge>}
+        action={
+          <>
+            <BasisBadge tone="warn">{lang === "zh" ? "Demo only / 需要验证" : "Demo only / needs validation"}</BasisBadge>
+            <CopyLinkButton hash="catalysis" ariaLabel={lang === "zh" ? "复制 CatalysisLab 链接" : "Copy CatalysisLab link"} />
+          </>
+        }
       />
 
       <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>

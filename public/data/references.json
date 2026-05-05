@@ -1,0 +1,38 @@
+[
+  {
+    "id": "core-mof",
+    "category": "database",
+    "title": "CoRE MOF Database",
+    "type": "database",
+    "url": "",
+    "doi": "",
+    "note": "Used as a reference category for future MOF structural data curation. Not fully ingested in the current prototype."
+  },
+  {
+    "id": "qmof",
+    "category": "database",
+    "title": "QMOF Database",
+    "type": "database",
+    "url": "",
+    "doi": "",
+    "note": "Potential future reference for computed electronic properties such as band gap."
+  },
+  {
+    "id": "mofx-db",
+    "category": "database",
+    "title": "MOFX-DB",
+    "type": "database",
+    "url": "",
+    "doi": "",
+    "note": "Potential future reference for computational adsorption data."
+  },
+  {
+    "id": "iast",
+    "category": "method",
+    "title": "IAST selectivity reference",
+    "type": "method",
+    "url": "",
+    "doi": "",
+    "note": "Formula reference only. Current platform does not perform rigorous IAST."
+  }
+]

@@ -9,6 +9,7 @@ import { findPresetName, getPresetSuggestionNames } from "./utils/presets"
 import { predictMOF, validateScreeningInputs } from "./utils/prediction"
 import { downloadTextFile, buildComparisonCandidate } from "./utils/report"
 import { headerChipBtn } from "./utils/styles"
+import { HASH_TO_TAB, getHashMeta, normalizeHash, tabToHash } from "./utils/deepLinks"
 import { ContextualHeaderBar, SavedRunsModal, ContactModal, AcknowledgementsModal } from "./components/layout"
 import { BrandMark } from "./components/ui"
 
@@ -114,6 +115,8 @@ function AppShell({
   setContactOpen,
   acknowledgementsOpen,
   setAcknowledgementsOpen,
+  closeContactModal,
+  closeAcknowledgementsModal,
 }) {
   return (
     <div
@@ -274,7 +277,7 @@ function AppShell({
       <main className="app-main" style={{ padding: viewport.isMobile ? "14px 12px" : "22px 24px", maxWidth: 1460, margin: "0 auto" }}>
         <Suspense fallback={<LoadingPanel theme={theme} lang={lang} />}>
           <div key={activeTab} className="page-transition" data-tab={activeTab}>
-            {activeTab === "home" && <HomeTab setActiveTab={navigateTab} onContactOpen={() => setContactOpen(true)} />}
+            {activeTab === "home" && <HomeTab setActiveTab={navigateTab} onContactOpen={setContactOpen} />}
             {activeTab === "ecoscreen" && (
               <EcoScreenTab
                 inputs={inputs}
@@ -416,8 +419,8 @@ function AppShell({
         </div>
       </footer>
 
-      <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
-      <AcknowledgementsModal open={acknowledgementsOpen} onClose={() => setAcknowledgementsOpen(false)} />
+      <ContactModal open={contactOpen} onClose={closeContactModal} />
+      <AcknowledgementsModal open={acknowledgementsOpen} onClose={closeAcknowledgementsModal} />
 
       {savedOpen && (
         <SavedRunsModal
@@ -438,6 +441,8 @@ export default function App() {
   const [lang, setLang] = useState("zh")
   const [viewportWidth, setViewportWidth] = useState(() => (typeof window === "undefined" ? 1440 : window.innerWidth))
   const [activeTab, setActiveTab] = useState("home")
+  const [activeHash, setActiveHash] = useState("default")
+  const [pendingScrollTarget, setPendingScrollTarget] = useState(null)
   const [inputs, setInputs] = useState(DEFAULT_INPUTS)
   const [results, setResults] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -483,12 +488,91 @@ export default function App() {
     [viewportWidth],
   )
 
+  const applyDeepLink = useCallback((rawHash) => {
+    const explicitHash = String(rawHash || "").replace(/^#/, "").trim()
+    const hash = explicitHash || "default"
+    const routeHash = hash === "default" ? "overview" : normalizeHash(hash)
+    const tab = HASH_TO_TAB[routeHash]
+
+    setActiveHash(hash)
+    setContactOpen(routeHash === "contact")
+    setAcknowledgementsOpen(routeHash === "acknowledgements")
+
+    if (tab) {
+      setActiveTab(tab)
+      if (routeHash === "data-quality-provenance") {
+        setPendingScrollTarget("data-quality-provenance")
+      }
+    }
+  }, [])
+
+  const setRouteHash = useCallback((hash, { replace = false } = {}) => {
+    const normalized = normalizeHash(hash)
+    const targetHash = `#${normalized}`
+    if (window.location.hash !== targetHash) {
+      const url = `${window.location.pathname}${window.location.search}${targetHash}`
+      if (replace) window.history.replaceState(null, "", url)
+      else window.history.pushState(null, "", url)
+    }
+    applyDeepLink(normalized)
+  }, [applyDeepLink])
+
+  const closeContactModal = useCallback(() => {
+    setContactOpen(false)
+    if (normalizeHash(window.location.hash) === "contact") {
+      setRouteHash(tabToHash(activeTab), { replace: true })
+    }
+  }, [activeTab, setRouteHash])
+
+  const closeAcknowledgementsModal = useCallback(() => {
+    setAcknowledgementsOpen(false)
+    if (normalizeHash(window.location.hash) === "acknowledgements") {
+      setRouteHash(tabToHash(activeTab), { replace: true })
+    }
+  }, [activeTab, setRouteHash])
+
   useEffect(() => {
     document.body.style.background = theme.bg
     document.documentElement.style.background = theme.bg
     document.body.style.fontFamily = FONT_SANS
     document.documentElement.lang = lang === "zh" ? "zh-CN" : "en"
   }, [theme.bg, lang])
+
+  useEffect(() => {
+    applyDeepLink(window.location.hash)
+    const onHashChange = () => applyDeepLink(window.location.hash)
+    window.addEventListener("hashchange", onHashChange)
+    window.addEventListener("popstate", onHashChange)
+    return () => {
+      window.removeEventListener("hashchange", onHashChange)
+      window.removeEventListener("popstate", onHashChange)
+    }
+  }, [applyDeepLink])
+
+  useEffect(() => {
+    const meta = getHashMeta(activeHash)
+    document.title = meta.title
+    let description = document.querySelector('meta[name="description"]')
+    if (!description) {
+      description = document.createElement("meta")
+      description.setAttribute("name", "description")
+      document.head.appendChild(description)
+    }
+    description.setAttribute("content", meta.description)
+  }, [activeHash])
+
+  useEffect(() => {
+    if (!pendingScrollTarget || activeTab !== "library") return
+    const scroll = () => {
+      const target = document.getElementById(pendingScrollTarget)
+      if (target) {
+        target.scrollIntoView({ block: "start", behavior: "smooth" })
+        setPendingScrollTarget(null)
+      }
+    }
+    const frame = window.requestAnimationFrame(() => window.setTimeout(scroll, 80))
+    return () => window.cancelAnimationFrame(frame)
+  }, [activeTab, pendingScrollTarget])
 
   useEffect(() => {
     const onResize = () => setViewportWidth(window.innerWidth)
@@ -547,51 +631,56 @@ export default function App() {
     setSearchQuery(presetName)
     setSearchOpen(false)
     setSearchStatus("loaded")
-    setActiveTab("performance")
+    setRouteHash("performance")
     window.setTimeout(() => setSearchStatus(null), 1800)
-  }, [])
+  }, [setRouteHash])
 
   const navigateTab = useCallback((target) => {
+    const go = (hash) => setRouteHash(hash)
     if (target === "overview") {
-      setActiveTab("home")
+      go("overview")
       return
     }
     if (target === "ecoScreen") {
-      setActiveTab("ecoscreen")
+      go("ecoscreen")
       return
     }
     if (target === "performance") {
-      setActiveTab("performance")
+      go("performance")
       return
     }
     if (target === "catalysisLab") {
-      setActiveTab("catalysis")
+      go("catalysis")
       return
     }
     if (target === "mofLibrary" || target === "resources" || target === "literature") {
-      setActiveTab("library")
+      go("library")
+      return
+    }
+    if (target === "data-quality-provenance") {
+      go("data-quality-provenance")
       return
     }
     if (target === "methodology" || target === "about" || target === "validation") {
-      setActiveTab("about")
+      go("methodology")
       return
     }
     if (["feasibility", "lca", "sensitivity", "comparison"].includes(target)) {
       if (["feasibility", "lca", "sensitivity"].includes(target)) setComparisonTab(target)
-      setActiveTab("ecoscreen")
+      go("ecoscreen")
       return
     }
     if (["dataSources", "literature", "methods"].includes(target)) {
       setResourcesTab(target)
-      setActiveTab(target === "literature" ? "library" : "about")
+      go(target === "literature" ? "library" : "methodology")
       return
     }
     if (target === "screening" || target === "workflow" || target === "structure" || target === "interpretation" || target === "ml") {
-      setActiveTab("performance")
+      go("performance")
       return
     }
-    setActiveTab(target)
-  }, [])
+    go(tabToHash(target))
+  }, [setRouteHash])
 
   const loadBenchmarkExample = useCallback((name = "UiO-66") => {
     applyPreset(name)
@@ -724,8 +813,8 @@ export default function App() {
     setInputs(run.inputs)
     setResults(run.results)
     setSavedOpen(false)
-    setActiveTab("performance")
-  }, [])
+    setRouteHash("performance")
+  }, [setRouteHash])
 
   const exportSavedRuns = useCallback(() => {
     downloadTextFile(
@@ -760,7 +849,7 @@ export default function App() {
             copy={copy}
             viewport={viewport}
             activeTab={activeTab}
-            setActiveTab={setActiveTab}
+            setActiveTab={navigateTab}
             darkMode={darkMode}
             setDarkMode={setDarkMode}
             setLang={setLang}
@@ -802,9 +891,11 @@ export default function App() {
             removeComparisonCandidate={removeComparisonCandidate}
             moveComparisonCandidate={moveComparisonCandidate}
             contactOpen={contactOpen}
-            setContactOpen={setContactOpen}
+            setContactOpen={() => setRouteHash("contact")}
             acknowledgementsOpen={acknowledgementsOpen}
-            setAcknowledgementsOpen={setAcknowledgementsOpen}
+            setAcknowledgementsOpen={() => setRouteHash("acknowledgements")}
+            closeContactModal={closeContactModal}
+            closeAcknowledgementsModal={closeAcknowledgementsModal}
           />
         </ViewportCtx.Provider>
       </LangCtx.Provider>

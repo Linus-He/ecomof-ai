@@ -6,6 +6,7 @@ import { zhText, gasLabel } from "../../utils/labels"
 import { formatFunctionalGroupSummary, getFunctionalGroupEntries } from "../../utils/functionalGroups"
 import { getGasSystem } from "../../utils/prediction"
 import { toolbarBtn } from "../../utils/styles"
+import { buildDeepLink } from "../../utils/deepLinks"
 
 export const ECOMOF_LOGO_SRC = "/ecomof-ai/ecomof-logo.png"
 
@@ -24,6 +25,78 @@ export function BrandMark({ size = 32, radius = 8, alt = "EcoMOF-AI logo", style
         ...style,
       }}
     />
+  )
+}
+
+export function CopyLinkButton({
+  hash,
+  value,
+  label,
+  copiedLabel,
+  ariaLabel,
+  tone = "subtle",
+}) {
+  const t = useT()
+  const { lang } = useLang()
+  const [status, setStatus] = useState("")
+  const text = value || buildDeepLink(hash)
+  const displayLabel = label || (lang === "zh" ? "复制链接" : "Copy link")
+  const successLabel = copiedLabel || (lang === "zh" ? "链接已复制" : "Link copied")
+
+  const copy = async () => {
+    let ok = false
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text)
+        ok = true
+      }
+    } catch {
+      ok = false
+    }
+
+    if (!ok) {
+      try {
+        const area = document.createElement("textarea")
+        area.value = text
+        area.setAttribute("readonly", "")
+        area.style.position = "fixed"
+        area.style.opacity = "0"
+        document.body.appendChild(area)
+        area.select()
+        ok = document.execCommand("copy")
+        document.body.removeChild(area)
+      } catch {
+        ok = false
+      }
+    }
+
+    setStatus(ok ? successLabel : text)
+    window.setTimeout(() => setStatus(""), 1800)
+  }
+
+  return (
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 7, minWidth: 0 }}>
+      <button
+        type="button"
+        onClick={copy}
+        aria-label={ariaLabel || displayLabel}
+        style={{
+          ...toolbarBtn(t),
+          padding: "7px 10px",
+          fontSize: 11,
+          fontWeight: 750,
+          color: tone === "accent" ? t.accentText : t.subtle,
+          whiteSpace: "nowrap",
+        }}
+      >
+        {displayLabel}
+      </button>
+      {status && (
+        <span style={{ color: status === text ? t.accentText : t.success, fontSize: 10, lineHeight: 1.3, maxWidth: 220, overflowWrap: "anywhere" }}>
+          {status}
+        </span>
+      )}
+    </span>
   )
 }
 
