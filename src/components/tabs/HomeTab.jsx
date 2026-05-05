@@ -140,6 +140,11 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
             <div style={{ marginTop: 10, color: t.faint, fontSize: 11, lineHeight: 1.5 }}>
               {lang === "zh" ? "总览 · Performance · EcoScreen · CatalysisLab · MOF 库 · 方法学" : "Overview · Performance · EcoScreen · CatalysisLab · MOF Library · Methodology"}
             </div>
+            <p style={{ margin: "10px 0 0", color: t.subtle, fontSize: 12, lineHeight: 1.6, fontStyle: "italic", maxWidth: 600 }}>
+              {lang === "zh"
+                ? "EcoMOF-AI 更强调假设透明、描述符完整性和字段级溯源，而不是黑箱式最终预测。"
+                : "EcoMOF-AI emphasizes transparent assumptions, descriptor completeness, and field-level provenance rather than black-box final predictions."}
+            </p>
             <div style={{ marginTop: 12 }}>
               <CopyLinkButton hash="overview" ariaLabel={lang === "zh" ? "复制 Overview 链接" : "Copy Overview link"} />
             </div>

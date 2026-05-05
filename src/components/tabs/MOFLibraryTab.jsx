@@ -6,8 +6,8 @@ import {
 import {
   useT, useLang, useViewport,
   LITERATURE_DB, fetchDataJson, buildDatabaseRecords, downloadTextFile, toolbarBtn,
-  BasisBadge, PageHeader, ResultLayer, Callout, DataModeToggle, RealSeedCallout, safeVal, CopyLinkButton,
-  FieldProvenanceButton, SectionTitle,
+  BasisBadge, PageHeader, ResultLayer, Callout, DataModeToggle, RealSeedCallout, DataModeNote, safeVal, CopyLinkButton,
+  FieldProvenanceButton, SectionTitle, EvidenceLevelLegend,
 } from "../../shared"
 
 const KEY_FIELDS = [
@@ -416,11 +416,7 @@ export function MOFLibraryTab({ results, inputs }) {
             : (lang === "zh" ? `${demoRows.length} 条演示记录` : `${demoRows.length} demo records`)}
         </span>
       </div>
-      <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
-        {lang === "zh"
-          ? "Real Seed 是默认数据整理模式。Demo Dataset 仅用于展示评分与可视化交互效果。"
-          : "Real Seed is the default curation mode. Demo Dataset is only used to demonstrate scoring and visualization behavior."}
-      </div>
+      <DataModeNote lang={lang} />
 
       {dataMode === "real-seed" && (
         <div style={{ display: "grid", gap: 8 }}>
@@ -552,6 +548,32 @@ export function MOFLibraryTab({ results, inputs }) {
         <div id="data-quality-provenance">
           <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 10 }}>
             <CopyLinkButton hash="data-quality-provenance" ariaLabel={lang === "zh" ? "复制数据质量与溯源链接" : "Copy Data Quality & Provenance link"} />
+          </div>
+          <div style={{ display: "grid", gap: 12, marginBottom: 14 }}>
+            {/* Curation criteria checklist */}
+            <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, marginBottom: 8 }}>
+                {lang === "zh" ? "描述符整理标准" : "Descriptor curation criteria"}
+              </div>
+              <div style={{ color: t.faint, fontSize: 11, marginBottom: 8 }}>
+                {lang === "zh"
+                  ? "一个描述符只有同时包含以下信息时，才应被视为已整理："
+                  : "A descriptor is treated as curated only when it includes:"}
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 5 }}>
+                {(lang === "zh"
+                  ? ["数值", "必要单位或条件", "证据等级", "字段级来源记录"]
+                  : ["value", "unit or condition when applicable", "evidence level", "field-level source record"]
+                ).map(item => (
+                  <div key={item} style={{ display: "flex", gap: 7, alignItems: "center", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, padding: "6px 9px" }}>
+                    <span style={{ color: t.accentText, fontSize: 11, lineHeight: 1, flexShrink: 0 }}>✓</span>
+                    <span style={{ color: t.muted, fontSize: 11 }}>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/* Evidence Level Legend */}
+            <EvidenceLevelLegend lang={lang} />
           </div>
           <DataQualitySection
             realSeedRows={realSeedRows}

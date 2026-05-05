@@ -274,6 +274,7 @@ function DescriptorCurationChecklist({ fieldSources, lang, t }) {
               gap: 6, alignItems: "center",
               background: t.surface, border: `1px solid ${t.border}`,
               borderRadius: 6, padding: "6px 9px",
+              boxShadow: `inset 3px 0 0 0 ${tone === "calc" ? (t.accent || "#4f86f7") : tone === "danger" ? (t.badgeDangerText || "#ef4444") : (t.warn || "#f59e0b")}`,
             }}>
               <span style={{ color: t.subtle, fontSize: 10, fontWeight: 700 }}>
                 {zh ? f.zh : f.en}
@@ -383,7 +384,11 @@ export function UnifiedCandidateCard({
 
       {/* ── Descriptor curated count ── */}
       {curatedCount !== null && (
-        <div style={{ color: t.faint, fontSize: 10 }}>
+        <div style={{
+          color: curatedCount === 0 ? t.warn : curatedCount <= 4 ? t.muted : t.accentText,
+          fontSize: 10,
+          fontWeight: curatedCount === 0 ? 750 : 600,
+        }}>
           {lang === "zh"
             ? `8 个关键描述符中 ${curatedCount} 个已整理`
             : `${curatedCount}/8 descriptors curated`}
@@ -1243,8 +1248,8 @@ export function RealSeedCallout({ lang }) {
       lineHeight: 1.65,
     }}>
       {lang === "zh"
-        ? "Real Seed Dataset 是真实数据接入框架。当前部分字段仍处于待整理状态，不代表完整数据库。"
-        : "Real Seed Dataset is a framework for curated real-data ingestion. Some fields remain pending curation and it is not a complete database."}
+        ? "Real Seed Dataset 是真实数据接入框架，不代表完整数据库。当前部分字段仍处于待整理状态，待整理字段不应被视为已整理事实。"
+        : "Real Seed Dataset is a framework for curated real-data ingestion, not a complete database. Some fields remain pending curation — pending descriptors should not be treated as curated facts."}
     </div>
   )
 }
@@ -1287,11 +1292,60 @@ export function DemoModeBanner({ lang }) {
  */
 export function DataModeNote({ lang }) {
   const t = useT()
+  const items = lang === "zh" ? [
+    "Demo Dataset 仅用于展示工作流，不用于科研结论",
+    "Real Seed Dataset 用于承载真实数据整理框架",
+    "Real Seed 不代表完整数据库",
+    "待整理字段不应被视为已整理事实",
+  ] : [
+    "Demo Dataset is for workflow demonstration only",
+    "Real Seed Dataset is a framework for curated real-data ingestion",
+    "Real Seed does not mean a complete database",
+    "Pending descriptors should not be treated as curated facts",
+  ]
   return (
-    <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5 }}>
-      {lang === "zh"
-        ? "Real Seed 是默认数据整理模式。Demo Dataset 仅用于展示评分与可视化交互效果。"
-        : "Real Seed is the default curation mode. Demo Dataset is only used to demonstrate scoring and visualization behavior."}
+    <ul style={{ margin: "4px 0 0", padding: "0 0 0 14px", color: t.faint, fontSize: 11, lineHeight: 1.7 }}>
+      {items.map(item => <li key={item}>{item}</li>)}
+    </ul>
+  )
+}
+
+/**
+ * EvidenceLevelLegend — compact legend explaining what each evidence level means.
+ * Does not change evidence level data; only explains existing states.
+ */
+export function EvidenceLevelLegend({ lang }) {
+  const t = useT()
+  const zh = lang === "zh"
+  const levels = zh ? [
+    { level: "High",    tone: "calc",  desc: "已有来源，并包含必要条件或单位的整理字段" },
+    { level: "Medium",  tone: "info",  desc: "已有数值，但条件或来源细节仍需复核" },
+    { level: "Low",     tone: "proxy", desc: "初步记录或不完整记录" },
+    { level: "Pending", tone: "warn",  desc: "尚未整理" },
+  ] : [
+    { level: "High",    tone: "calc",  desc: "Curated value with source and condition where applicable" },
+    { level: "Medium",  tone: "info",  desc: "Value available but condition or source detail may require review" },
+    { level: "Low",     tone: "proxy", desc: "Preliminary or incomplete record" },
+    { level: "Pending", tone: "warn",  desc: "Not yet curated" },
+  ]
+  return (
+    <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+      <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, marginBottom: 10 }}>
+        {zh ? "证据等级说明 / Evidence Level" : "Evidence Level"}
+      </div>
+      <div style={{ display: "grid", gap: 7 }}>
+        {levels.map(({ level, tone, desc }) => (
+          <div key={level} style={{ display: "flex", gap: 9, alignItems: "flex-start" }}>
+            <BasisBadge tone={tone}>{level}</BasisBadge>
+            <span style={{ color: t.muted, fontSize: 11, lineHeight: 1.6 }}>{desc}</span>
+          </div>
+        ))}
+      </div>
+      <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.5, marginTop: 10, borderTop: `1px solid ${t.divider || t.border}`, paddingTop: 8 }}>
+        {zh
+          ? "证据等级说明当前数据状态，不代表已完全验证。High 不等于实验验证完成。"
+          : "Evidence levels describe the current data state, not full validation. High does not mean experimentally verified."}
+      </div>
     </div>
   )
 }

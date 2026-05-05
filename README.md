@@ -36,12 +36,37 @@ It is designed for transparent candidate prioritization and research discussion.
 
 ## Data Modes
 
-- Demo Dataset: used to demonstrate workflow behavior, scoring displays, and UI interaction.
-- Real Seed Dataset: a framework for curated real-data ingestion. Some descriptors remain pending curation and it is not a complete database.
+- **Demo Dataset**: used to demonstrate workflow behavior, scoring displays, and UI interaction. Not for scientific interpretation.
+- **Real Seed Dataset**: a framework for curated real-data ingestion. Real Seed does not mean a complete database — it represents the curation framework, not a finished data source. Pending descriptors should not be treated as curated facts.
+
+The data mode toggle is available in Performance, EcoScreen, CatalysisLab, and MOF Library views.
 
 ## Data Curation Statement
 
-EcoMOF-AI separates demo data, real-seed curation records, and field-level provenance. Demo data is used only to demonstrate workflow behavior. Real Seed Dataset provides a framework for curated real-data ingestion, but some descriptors remain pending curation. A descriptor should only be treated as curated when it has a value, unit or condition when applicable, evidence level, and field-level source record.
+EcoMOF-AI separates demo data, real-seed curation records, and field-level provenance. Demo data is used only to demonstrate workflow behavior. Real Seed Dataset provides a framework for curated real-data ingestion, but some descriptors remain pending curation.
+
+A descriptor is treated as curated only when it includes all of:
+- value
+- unit or condition when applicable
+- evidence level
+- field-level source record
+
+## Evidence Levels
+
+Evidence levels indicate the current curation state of a descriptor. They do not claim full validation.
+
+- **High**: curated value with source and condition where applicable
+- **Medium**: value available but condition or source detail may require review
+- **Low**: preliminary or incomplete record
+- **Pending**: not yet curated
+
+High does not mean experimentally verified. All results require independent experimental and computational verification.
+
+## Field-level Provenance
+
+Each curated descriptor in the Real Seed Dataset can carry a field-level source record including: source type (literature / database / estimated / pending), database name or DOI, measurement condition, evidence level, curation note, and limitations.
+
+In expanded MOF Library records and in Performance / CatalysisLab real-seed candidate cards, click the ⓘ icon next to a descriptor to view its provenance details. If no provenance record exists, the field shows "Source pending" and should not be read as a verified value.
 
 ## Methodology and Limitations
 
