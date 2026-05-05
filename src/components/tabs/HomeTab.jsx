@@ -1,4 +1,4 @@
-import { useT, useLang, useViewport, BasisBadge, BrandMark, Callout, CopyLinkButton } from "../../shared"
+import { useT, useLang, useViewport, BasisBadge, BrandMark, CopyLinkButton } from "../../shared"
 import { toolbarBtn } from "../../utils/styles"
 
 export function HomeTab({ setActiveTab, onContactOpen }) {
@@ -6,47 +6,13 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
 
-  const position = {
-    en: "ecomof-ai is a research-oriented MOF AI prototype platform for early-stage candidate screening, sustainability evaluation, performance comparison, and task-oriented application exploration.",
-    zh: "ecomof-ai 是一个面向科研合作的 MOF AI 原型平台，用于早期候选材料筛选、可持续性评价、性能比较和任务导向应用探索。",
-  }
-  const modules = [
-    {
-      id: "performance",
-      name: "Performance",
-      eyebrow: lang === "zh" ? "吸附与热力学筛选" : "Adsorption and thermodynamic screening",
-      body: lang === "zh"
-        ? "CO₂ 吸附量、选择性、热力学解释和吸附相关候选材料比较。"
-        : "CO₂ uptake, selectivity, thermodynamic interpretation, and adsorption-related candidate comparison.",
-      badge: lang === "zh" ? "吸附候选排序" : "Adsorption candidate ranking",
-    },
-    {
-      id: "ecoscreen",
-      name: "EcoScreen",
-      eyebrow: lang === "zh" ? "可持续性与可行性评价" : "Sustainability and feasibility evaluation",
-      body: lang === "zh"
-        ? "面向可持续性的 MOF 筛选，结合 LCA、LCC、毒性、成本、稳定性和鲁棒性指标。"
-        : "Sustainability-oriented MOF screening with LCA, LCC, toxicity, cost, stability, and robustness indicators.",
-      badge: lang === "zh" ? "可持续性优先级" : "Sustainability priority",
-    },
-    {
-      id: "catalysis",
-      name: "CatalysisLab",
-      eyebrow: lang === "zh" ? "任务导向应用探索" : "Task-oriented application exploration",
-      body: lang === "zh"
-        ? "基于规则的催化候选材料优先级筛选，面向 CO₂ 转化、生物质转化、光催化和电催化等任务。"
-        : "Rule-based catalysis candidate prioritization for CO₂ conversion, biomass conversion, photocatalysis, and electrocatalysis.",
-      badge: lang === "zh" ? "候选优先级筛选" : "Candidate prioritization",
-    },
-  ]
-  const workflow = lang === "zh"
-    ? ["数据输入", "描述符整理", "任务规则", "综合评分", "候选排序", "结果解释", "实验验证"]
-    : ["Data input", "Descriptor curation", "Task rules", "Scoring", "Candidate ranking", "Interpretation", "Validation"]
+  /* ── data ─────────────────────────────────────────────────────────── */
 
   const whatYouCanDo = [
     {
       id: "screen",
       icon: "🔍",
+      tag: lang === "zh" ? "原型" : "Prototype",
       title: lang === "zh" ? "筛选 MOF 候选材料" : "Screen MOF candidates",
       body: lang === "zh"
         ? "按吸附性能、可持续性或催化适配性对候选材料进行优先级排序。分数反映候选优先级，不代表验证结论。"
@@ -55,6 +21,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
     {
       id: "inspect",
       icon: "📋",
+      tag: lang === "zh" ? "整理" : "Curation",
       title: lang === "zh" ? "检查描述符完整性" : "Inspect descriptor completeness",
       body: lang === "zh"
         ? "查看哪些字段已整理、哪些待整理，以及每个描述符携带的证据等级。"
@@ -63,40 +30,65 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
     {
       id: "provenance",
       icon: "🔗",
+      tag: lang === "zh" ? "溯源" : "Provenance",
       title: lang === "zh" ? "追溯数据来源" : "Trace data provenance",
       body: lang === "zh"
         ? "了解每个描述符来自哪里：来源类型、数据库引用、测量条件和整理状态。"
         : "Know where each descriptor comes from: source type, database reference, measurement condition, and curation state.",
     },
   ]
-  const quickActions = [
+
+  const coreModules = [
     {
       id: "mofLibrary",
-      label: lang === "zh" ? "查看 MOF Library" : "Explore MOF Library",
+      hash: "library",
+      name: lang === "zh" ? "MOF Library" : "MOF Library",
+      desc: lang === "zh" ? "描述符整理与字段级溯源" : "Descriptor curation & field-level provenance",
     },
     {
-      id: "data-quality-provenance",
-      label: lang === "zh" ? "查看数据溯源" : "Inspect Data Provenance",
+      id: "ecoscreen",
+      hash: "ecoscreen",
+      name: "EcoScreen",
+      desc: lang === "zh" ? "可持续性与 Eco Score 筛选" : "Sustainability & eco-score screening",
+    },
+    {
+      id: "performance",
+      hash: "performance",
+      name: "Performance",
+      desc: lang === "zh" ? "吸附性能与候选排序" : "Adsorption performance & candidate ranking",
+    },
+    {
+      id: "catalysis",
+      hash: "catalysis",
+      name: "CatalysisLab",
+      desc: lang === "zh" ? "催化任务导向候选优先级" : "Catalysis task-oriented prioritization",
     },
     {
       id: "methodology",
-      label: lang === "zh" ? "阅读方法说明" : "Read Methodology",
+      hash: "methodology",
+      name: lang === "zh" ? "Methodology" : "Methodology",
+      desc: lang === "zh" ? "评分公式、证据等级与限制说明" : "Scoring formulas, evidence levels & limitations",
     },
     {
       id: "benchmark-references",
-      label: lang === "zh" ? "标杆材料参考" : "Benchmark References",
+      hash: "benchmark-references",
+      name: lang === "zh" ? "Benchmark References" : "Benchmark References",
+      desc: lang === "zh" ? "上下文参考材料（UiO-66、ZIF-8、MIL-53）" : "Contextual anchors: UiO-66, ZIF-8, MIL-53(Al)",
     },
   ]
+
   const forUsers = [
     {
       id: "mof",
+      tag: lang === "zh" ? "Research" : "Research",
       role: lang === "zh" ? "MOF 研究者" : "MOF researchers",
       body: lang === "zh"
-        ? "早期候选材料优先级筛选，含字段级数据溯源和透明的评分假设。结果须经独立实验验证。"
+        ? "早期候选材料优先级筛选，含字段级数据溯源和透明评分假设。结果须经独立实验验证。"
         : "Early-stage candidate prioritization with field-level data provenance and transparent scoring assumptions. Results require independent experimental validation.",
     },
     {
       id: "lca",
+      tag: lang === "zh" ? "Sustainability" : "Sustainability",
       role: lang === "zh" ? "LCA 研究者" : "LCA researchers",
       body: lang === "zh"
         ? "可持续性导向筛选，含 Eco Score 分项、限制说明和候选比较——不替代完整工业 LCA。"
@@ -104,6 +96,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
     },
     {
       id: "ml",
+      tag: lang === "zh" ? "Informatics" : "Informatics",
       role: lang === "zh" ? "ML / 信息学研究者" : "ML / informatics researchers",
       body: lang === "zh"
         ? "探索描述符整理框架、数据模式分离和溯源追踪，作为未来数据接入的基础。当前不是已训练的预测模型。"
@@ -111,6 +104,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
     },
     {
       id: "student",
+      tag: lang === "zh" ? "Portfolio" : "Portfolio",
       role: lang === "zh" ? "学生 / 作品集展示" : "Students / portfolio",
       body: lang === "zh"
         ? "与展示 MOF 筛选工作流、评分透明度和数据限制说明的真实科研原型交互。"
@@ -118,6 +112,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
     },
     {
       id: "collab",
+      tag: lang === "zh" ? "Collaboration" : "Collaboration",
       role: lang === "zh" ? "潜在合作者" : "Potential collaborators",
       body: lang === "zh"
         ? "在讨论数据提交或联合开发之前，查看平台的当前范围、数据结构和方法说明。"
@@ -125,194 +120,294 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
     },
   ]
 
+  /* ── shared card base ─────────────────────────────────────────────── */
+  const cardBase = {
+    background: t.panel,
+    border: `1px solid ${t.border}`,
+    borderRadius: 10,
+    transition: "box-shadow 0.15s, border-color 0.15s",
+  }
+
+  /* ── gradient accent color ───────────────────────────────────────── */
+  const featureGradient = `linear-gradient(90deg, ${t.accent}55 0%, ${t.accent}22 60%, transparent 100%)`
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 24 : 32 }}>
-      <section style={{
-        display: "grid",
-        gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 0.66fr) minmax(300px, 0.34fr)",
-        gap: isNarrow ? 20 : 38,
-        alignItems: "end",
-        padding: isMobile ? "24px 0 8px" : "42px 0 16px",
-      }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 32 : 44 }}>
+
+      {/* ═══════════════════════════════════════════════════════════════
+          1. HERO
+      ═══════════════════════════════════════════════════════════════ */}
+      <section style={{ paddingTop: isMobile ? 20 : 36, paddingBottom: isMobile ? 4 : 8 }}>
+        {/* brand + title */}
         <div style={{
           display: "flex",
           flexDirection: isMobile ? "column" : "row",
-          alignItems: isMobile ? "flex-start" : "flex-start",
-          gap: isMobile ? 14 : 18,
+          alignItems: isMobile ? "flex-start" : "center",
+          gap: isMobile ? 12 : 20,
+          marginBottom: 18,
         }}>
           <BrandMark
-            size={isMobile ? 56 : 68}
-            radius={isMobile ? 14 : 16}
-            style={{
-              marginTop: isMobile ? 0 : 2,
-              boxShadow: t.shadowSm,
-            }}
+            size={isMobile ? 52 : 64}
+            radius={isMobile ? 13 : 15}
+            style={{ boxShadow: t.shadowSm, flexShrink: 0 }}
           />
-          <div style={{ minWidth: 0 }}>
-            <h1 style={{ margin: 0, color: t.textStrong, fontSize: 32, fontWeight: 700, letterSpacing: 0, lineHeight: 1.15 }}>
-              {lang === "zh" ? "面向科研合作的 MOF AI 原型平台" : "Research-oriented MOF AI prototype platform"}
+          <div>
+            <h1 style={{
+              margin: 0,
+              color: t.textStrong,
+              fontSize: isMobile ? 26 : 32,
+              fontWeight: 700,
+              letterSpacing: "-0.01em",
+              lineHeight: 1.1,
+            }}>
+              EcoMOF-AI
             </h1>
-            <p style={{ margin: "8px 0 0", color: t.muted, fontSize: 15, lineHeight: 1.6, maxWidth: 880 }}>
-              {lang === "zh" ? position.zh : position.en}
-            </p>
-            <div style={{ marginTop: 10, color: t.faint, fontSize: 11, lineHeight: 1.5 }}>
-              {lang === "zh" ? "总览 · Performance · EcoScreen · CatalysisLab · MOF 库 · 方法学" : "Overview · Performance · EcoScreen · CatalysisLab · MOF Library · Methodology"}
-            </div>
-            <p style={{ margin: "10px 0 0", color: t.subtle, fontSize: 12, lineHeight: 1.6, fontStyle: "italic", maxWidth: 600 }}>
+            <p style={{ margin: "5px 0 0", color: t.muted, fontSize: isMobile ? 14 : 15, lineHeight: 1.5 }}>
               {lang === "zh"
-                ? "EcoMOF-AI 更强调假设透明、描述符完整性和字段级溯源，而不是黑箱式最终预测。"
-                : "EcoMOF-AI emphasizes transparent assumptions, descriptor completeness, and field-level provenance rather than black-box final predictions."}
+                ? "面向科研合作的 MOF 候选材料早期筛选与数据溯源原型平台"
+                : "Early-stage MOF candidate screening, sustainability evaluation & field-level data provenance"}
             </p>
-            <div style={{ marginTop: 12 }}>
-              <CopyLinkButton hash="overview" ariaLabel={lang === "zh" ? "复制 Overview 链接" : "Copy Overview link"} />
-            </div>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 12 }}>
-              {quickActions.map(action => (
-                <button
-                  key={action.id}
-                  type="button"
-                  onClick={() => setActiveTab(action.id)}
-                  style={{ ...toolbarBtn(t), padding: "8px 11px", fontSize: 11 }}
-                >
-                  {action.label}
-                </button>
-              ))}
-            </div>
           </div>
         </div>
-        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
-          <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", marginBottom: 10 }}>
-            {lang === "zh" ? "平台边界" : "Platform boundary"}
-          </div>
-          <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 820, lineHeight: 1.55 }}>
+
+        {/* trust cue pill */}
+        <div style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 7,
+          background: t.badgeInfoBg,
+          border: `1px solid ${t.accent}44`,
+          borderRadius: 999,
+          padding: "5px 12px",
+          marginBottom: 20,
+        }}>
+          <span style={{ color: t.accentText, fontSize: 11, fontWeight: 800, letterSpacing: "0.04em" }}>
+            {lang === "zh" ? "研究原型" : "RESEARCH PROTOTYPE"}
+          </span>
+          <span style={{ color: t.muted, fontSize: 11 }}>·</span>
+          <span style={{ color: t.muted, fontSize: 11 }}>
             {lang === "zh"
-              ? "平台结果用于早期筛选、决策支持和研究假设生成，不替代实验验证、严格 GCMC 模拟、IAST 分析或完整工业 LCA。"
-              : "The platform provides decision-support results for early-stage screening and hypothesis generation. It does not replace experimental validation, rigorous GCMC simulation, IAST analysis, or full industrial LCA."}
-          </div>
+              ? "透明假设 · 描述符完整性 · 字段级溯源"
+              : "Transparent assumptions · Descriptor completeness · Field-level provenance"}
+          </span>
+        </div>
+
+        {/* CTA buttons */}
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16 }}>
+          <button
+            type="button"
+            onClick={() => setActiveTab("mofLibrary")}
+            style={{
+              ...toolbarBtn(t),
+              padding: "9px 16px",
+              fontSize: 13,
+              fontWeight: 800,
+              border: `1px solid ${t.accent}`,
+              color: t.accentText,
+            }}
+          >
+            {lang === "zh" ? "查看 MOF Library →" : "Explore MOF Library →"}
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("data-quality-provenance")}
+            style={{ ...toolbarBtn(t), padding: "9px 16px", fontSize: 13 }}
+          >
+            {lang === "zh" ? "数据溯源" : "Inspect Data Provenance"}
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("methodology")}
+            style={{ ...toolbarBtn(t), padding: "9px 16px", fontSize: 13 }}
+          >
+            {lang === "zh" ? "方法说明" : "Read Methodology"}
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("benchmark-references")}
+            style={{ ...toolbarBtn(t), padding: "9px 16px", fontSize: 13, color: t.muted }}
+          >
+            {lang === "zh" ? "标杆材料参考" : "Benchmark References"}
+          </button>
+        </div>
+
+        {/* platform boundary note + copy link */}
+        <div style={{ display: "flex", alignItems: "flex-start", gap: 12, flexWrap: "wrap" }}>
+          <p style={{
+            margin: 0,
+            color: t.subtle,
+            fontSize: 11,
+            lineHeight: 1.6,
+            fontStyle: "italic",
+            maxWidth: 660,
+          }}>
+            {lang === "zh"
+              ? "平台结果用于早期筛选与假设生成，不替代实验验证、严格 GCMC / IAST 模拟或完整工业 LCA。"
+              : "Results are for early-stage screening and hypothesis generation, not a replacement for experimental validation, rigorous GCMC / IAST simulation, or full industrial LCA."}
+          </p>
+          <CopyLinkButton hash="overview" ariaLabel={lang === "zh" ? "复制 Overview 链接" : "Copy Overview link"} />
         </div>
       </section>
 
-      <section style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 14 }}>
-        {modules.map(module => (
-          <article key={module.id} className="content-card" style={{
-            background: t.panel,
-            border: `1px solid ${t.border}`,
-            borderRadius: 8,
-            padding: isMobile ? 16 : 20,
-            minHeight: 224,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            gap: 16,
-          }}>
-            <div>
-              <BasisBadge tone={module.id === "performance" ? "calc" : module.id === "ecoscreen" ? "info" : "proxy"}>{module.badge}</BasisBadge>
-              <div style={{ color: t.faint, fontSize: 11, fontWeight: 850, textTransform: "uppercase", marginTop: 14 }}>{module.eyebrow}</div>
-              <h2 style={{ margin: "8px 0 0", color: t.textStrong, fontSize: isMobile ? 26 : 31, letterSpacing: 0, lineHeight: 1.08 }}>{module.name}</h2>
-              <p style={{ margin: "12px 0 0", color: t.muted, fontSize: 13, lineHeight: 1.65 }}>{module.body}</p>
-            </div>
-            {module.id === "performance" ? (
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                <button
-                  type="button"
-                  onClick={() => setActiveTab("performance")}
-                  style={{ ...toolbarBtn(t), padding: "9px 13px" }}
-                >
-                  {lang === "zh" ? "查看结果" : "View results"}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    try { sessionStorage.setItem("ecomof_perf_init_view", "advanced") } catch {}
-                    setActiveTab("performance")
-                  }}
-                  style={{ ...toolbarBtn(t), padding: "9px 13px", border: `1px solid ${t.accent}`, color: t.accentText }}
-                >
-                  {lang === "zh" ? "高级筛选" : "Advanced screening"}
-                </button>
-              </div>
-            ) : (
-              <button type="button" onClick={() => setActiveTab(module.id)} style={{ ...toolbarBtn(t), width: "fit-content", padding: "9px 13px" }}>
-                {module.id === "ecoscreen"
-                  ? (lang === "zh" ? "查看可持续性评价" : "Explore EcoScreen")
-                  : (lang === "zh" ? "进入催化筛选" : "Open CatalysisLab")}
-              </button>
-            )}
-          </article>
-        ))}
-      </section>
-
-      {/* ── What can you do here? ─────────────────────────────────── */}
+      {/* ═══════════════════════════════════════════════════════════════
+          2. WHAT CAN YOU DO HERE?
+      ═══════════════════════════════════════════════════════════════ */}
       <section>
-        <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 12 }}>
+        <div style={{
+          color: t.faint,
+          fontSize: 10,
+          fontWeight: 850,
+          textTransform: "uppercase",
+          letterSpacing: "0.08em",
+          marginBottom: 14,
+        }}>
           {lang === "zh" ? "你可以在这里做什么？" : "What can you do here?"}
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))",
+          gap: 14,
+        }}>
           {whatYouCanDo.map(card => (
-            <div key={card.id} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
-              <div style={{ fontSize: 18, marginBottom: 8, lineHeight: 1 }}>{card.icon}</div>
-              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 820, lineHeight: 1.3, marginBottom: 7 }}>{card.title}</div>
-              <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65 }}>{card.body}</div>
+            <div
+              key={card.id}
+              className="content-card"
+              style={{
+                ...cardBase,
+                padding: isMobile ? "18px 16px" : "22px 20px",
+                borderTop: `3px solid ${t.accent}`,
+                backgroundImage: featureGradient,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "100% 3px",
+                backgroundPosition: "top",
+                display: "flex",
+                flexDirection: "column",
+                gap: 10,
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+                <span style={{ fontSize: 22, lineHeight: 1 }}>{card.icon}</span>
+                <BasisBadge tone="info">{card.tag}</BasisBadge>
+              </div>
+              <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 820, lineHeight: 1.3 }}>
+                {card.title}
+              </div>
+              <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.7, flex: 1 }}>
+                {card.body}
+              </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ── For different users ─────────────────────────────────── */}
+      {/* ═══════════════════════════════════════════════════════════════
+          3. CORE MODULES
+      ═══════════════════════════════════════════════════════════════ */}
       <section>
-        <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 12 }}>
-          {lang === "zh" ? "面向不同用户" : "For different users"}
+        <div style={{
+          color: t.faint,
+          fontSize: 10,
+          fontWeight: 850,
+          textTransform: "uppercase",
+          letterSpacing: "0.08em",
+          marginBottom: 14,
+        }}>
+          {lang === "zh" ? "核心模块" : "Core Modules"}
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 10 }}>
-          {forUsers.map(card => (
-            <div key={card.id} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
-              <div style={{ color: t.accentText, fontSize: 12, fontWeight: 850, marginBottom: 6 }}>{card.role}</div>
-              <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65 }}>{card.body}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: isMobile ? 16 : 20 }}>
-        <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 850, marginBottom: 14 }}>
-          {lang === "zh" ? "简洁工作流" : "Screening Workflow"}
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(7, minmax(0, 1fr))", gap: 10 }}>
-          {workflow.map((step, index) => (
-            <div key={step} style={{ display: "grid", gridTemplateColumns: isNarrow ? "34px 1fr" : "1fr", gap: 8, alignItems: "center" }}>
-              <div style={{
-                width: 30,
-                height: 30,
-                borderRadius: 999,
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: isNarrow ? "1fr" : isMobile ? "repeat(2, minmax(0, 1fr))" : "repeat(3, minmax(0, 1fr))",
+          gap: 10,
+        }}>
+          {coreModules.map(mod => (
+            <button
+              key={mod.id}
+              type="button"
+              onClick={() => setActiveTab(mod.id)}
+              style={{
+                all: "unset",
+                cursor: "pointer",
+                ...cardBase,
+                padding: "14px 16px",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center",
-                background: t.badgeInfoBg,
-                border: `1px solid ${t.borderStrong}`,
-                color: t.accentText,
-                fontSize: 11,
-                fontWeight: 900,
-              }}>
-                {index + 1}
+                justifyContent: "space-between",
+                gap: 10,
+                textAlign: "left",
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = t.accent
+                e.currentTarget.style.boxShadow = t.shadowSm
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = t.border
+                e.currentTarget.style.boxShadow = "none"
+              }}
+            >
+              <div style={{ minWidth: 0 }}>
+                <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 820, marginBottom: 3 }}>
+                  {mod.name}
+                </div>
+                <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.5 }}>
+                  {mod.desc}
+                </div>
               </div>
-              <div style={{ color: t.muted, fontSize: 12, fontWeight: 780, lineHeight: 1.35 }}>{step}</div>
+              <span style={{ color: t.faint, fontSize: 14, flexShrink: 0 }}>→</span>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════
+          4. FOR DIFFERENT USERS
+      ═══════════════════════════════════════════════════════════════ */}
+      <section>
+        <div style={{
+          color: t.faint,
+          fontSize: 10,
+          fontWeight: 850,
+          textTransform: "uppercase",
+          letterSpacing: "0.08em",
+          marginBottom: 14,
+        }}>
+          {lang === "zh" ? "面向不同用户" : "For different users"}
+        </div>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))",
+          gap: 10,
+        }}>
+          {forUsers.map(card => (
+            <div
+              key={card.id}
+              style={{
+                background: t.surface,
+                border: `1px solid ${t.border}`,
+                borderRadius: 8,
+                padding: "13px 15px",
+                display: "flex",
+                flexDirection: "column",
+                gap: 6,
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ color: t.accentText, fontSize: 12, fontWeight: 850 }}>{card.role}</span>
+                <BasisBadge tone="calc">{card.tag}</BasisBadge>
+              </div>
+              <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65 }}>{card.body}</div>
             </div>
           ))}
         </div>
       </section>
 
-      <Callout tone="warn">
-        {lang === "zh"
-          ? "使用提示：平台评分表达候选优先级、潜力和待验证状态。任何吸附、催化或环境结论都必须经过独立数据和实验验证。"
-          : "Use note: scores express candidate priority / potential / needs validation. Any adsorption, catalysis, or sustainability claim requires independent data and experimental validation."}
-      </Callout>
-
-      {/* ── Contact / Collaboration CTA ─────────────────────────────────── */}
+      {/* ═══════════════════════════════════════════════════════════════
+          5. CONTACT / COLLABORATION
+      ═══════════════════════════════════════════════════════════════ */}
       <section style={{
-        background: t.panel,
+        background: t.surface,
         border: `1px solid ${t.border}`,
         borderRadius: 10,
-        padding: isMobile ? "20px 16px" : "26px 30px",
+        padding: isMobile ? "20px 18px" : "28px 32px",
         display: "flex",
         flexDirection: isMobile ? "column" : "row",
         gap: 20,
@@ -320,25 +415,32 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
         justifyContent: "space-between",
       }}>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 8 }}>
-            {lang === "zh" ? "合作联系" : "Collaboration"}
+          <div style={{
+            color: t.faint,
+            fontSize: 10,
+            fontWeight: 850,
+            textTransform: "uppercase",
+            letterSpacing: "0.08em",
+            marginBottom: 8,
+          }}>
+            {lang === "zh" ? "合作联系" : "Collaboration & Contact"}
           </div>
-          <div style={{ color: t.textStrong, fontSize: isMobile ? 17 : 20, fontWeight: 850, lineHeight: 1.2, marginBottom: 10 }}>
-            {lang === "zh" ? "联系 / 合作" : "Contact / Collaboration"}
+          <div style={{ color: t.textStrong, fontSize: isMobile ? 16 : 18, fontWeight: 850, lineHeight: 1.2, marginBottom: 10 }}>
+            {lang === "zh" ? "讨论数据整合或科研合作" : "Discuss data integration or research collaboration"}
           </div>
-          <p style={{ margin: 0, color: t.muted, fontSize: 13, lineHeight: 1.65, maxWidth: 540 }}>
+          <p style={{ margin: 0, color: t.muted, fontSize: 13, lineHeight: 1.65, maxWidth: 520 }}>
             {lang === "zh"
-              ? "如果你希望将 ecomof-ai 用于 MOF 筛选、催化数据整理、LCA 评价或科研合作，可以留下联系方式，并简要说明你的数据或研究问题。"
-              : "Interested in using ecomof-ai for MOF screening, catalysis data curation, LCA evaluation, or research collaboration? Send a short message and describe your dataset or research question."}
+              ? "如果你希望将 EcoMOF-AI 用于 MOF 筛选、催化数据整理、LCA 评价或科研合作，可以留下联系方式并简述你的数据或研究问题。"
+              : "Interested in using EcoMOF-AI for MOF screening, catalysis data curation, LCA evaluation, or research collaboration? Send a short message describing your dataset or research question."}
           </p>
         </div>
-        <div style={{ flexShrink: 0 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, flexShrink: 0 }}>
           <button
             type="button"
             onClick={onContactOpen}
             style={{
               ...toolbarBtn(t),
-              padding: "11px 22px",
+              padding: "10px 22px",
               border: `1px solid ${t.accent}`,
               color: t.accentText,
               fontSize: 13,
@@ -348,8 +450,22 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
           >
             {lang === "zh" ? "联系 / 合作 →" : "Contact / Collaboration →"}
           </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("methodology")}
+            style={{
+              ...toolbarBtn(t),
+              padding: "10px 22px",
+              fontSize: 13,
+              whiteSpace: "nowrap",
+              textAlign: "center",
+            }}
+          >
+            {lang === "zh" ? "阅读方法说明" : "Read Methodology"}
+          </button>
         </div>
       </section>
+
     </div>
   )
 }
