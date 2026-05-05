@@ -63,7 +63,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
     {
       id: "methodology",
       hash: "methodology",
-      name: lang === "zh" ? "Methodology" : "Methodology",
+      name: lang === "zh" ? "Methods & Evidence" : "Methods & Evidence",
       desc: lang === "zh" ? "阅读评分、证据和限制说明。" : "Read scoring, evidence, and limitations.",
     },
     {
@@ -219,7 +219,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
             onClick={() => setActiveTab("methodology")}
             style={{ ...toolbarBtn(t), padding: "9px 16px", fontSize: 13 }}
           >
-            {lang === "zh" ? "方法说明" : "Read Methodology"}
+            {lang === "zh" ? "方法与证据" : "Methods & Evidence"}
           </button>
           <button
             type="button"
@@ -467,7 +467,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
               textAlign: "center",
             }}
           >
-            {lang === "zh" ? "阅读方法说明" : "Read Methodology"}
+            {lang === "zh" ? "阅读方法与证据" : "Read Methods & Evidence"}
           </button>
         </div>
       </section>

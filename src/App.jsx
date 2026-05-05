@@ -392,7 +392,7 @@ function AppShell({
                 cursor: "pointer", fontFamily: FONT_SANS,
               }}
             >
-              {lang === "zh" ? "方法学" : "Methodology"}
+              {lang === "zh" ? "方法与证据" : "Methods & Evidence"}
             </button>
             <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
             <button

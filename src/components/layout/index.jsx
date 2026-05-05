@@ -290,7 +290,7 @@ export function ContextualHeaderBar({
   const resourceSubtabs = [
     { id: "dataSources", label: lang === "zh" ? "数据来源" : "Data Sources" },
     { id: "literature", label: lang === "zh" ? "数据库" : "Database" },
-    { id: "methods", label: lang === "zh" ? "方法说明" : "Methods" },
+    { id: "methods", label: lang === "zh" ? "方法与证据" : "Methods & Evidence" },
   ]
   const selectedComparison = comparisonCandidates.find(item => item.id === comparisonFocusId)
 
@@ -376,7 +376,7 @@ export function ContextualHeaderBar({
           {lang === "zh" ? "CatalysisLab 当前使用模拟数据；页面内切换催化任务和证据过滤。" : "CatalysisLab currently uses mock data; task and evidence filters are inside the page."}
         </div>
         <button type="button" onClick={() => setActiveTab("about")} style={headerChipBtn(t)}>
-          {lang === "zh" ? "查看方法限制" : "View methodology"}
+          {lang === "zh" ? "查看方法与证据" : "View Methods & Evidence"}
         </button>
       </div>
     )

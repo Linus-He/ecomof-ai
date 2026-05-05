@@ -47,8 +47,8 @@ export const HASH_META = {
     description: "Review MOF descriptors, curation status, source records, and Data Quality & Provenance summaries.",
   },
   methodology: {
-    title: "Methodology | Scoring, Evidence, and Limitations",
-    description: "Understand EcoMOF-AI scoring formulas, evidence levels, data assumptions, citation boundaries, and limitations.",
+    title: "Methods & Evidence | EcoMOF-AI",
+    description: "Understand EcoMOF-AI scoring methods, evidence levels, data provenance, benchmark context, validation status, citation boundaries, and limitations.",
   },
   "data-quality-provenance": {
     title: "Data Quality & Provenance | EcoMOF-AI",

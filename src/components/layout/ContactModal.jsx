@@ -311,8 +311,8 @@ export function ContactModal({ open, onClose }) {
         {/* Intro */}
         <p style={{ margin: "0 0 22px", color: t.muted, fontSize: 12, lineHeight: 1.7 }}>
           {zh
-            ? "如果你有科研合作、数据提交或方法学问题，可以留下简短信息。我通常会在 48 小时内回复。"
-            : "For research collaborations, data submissions, or methodology questions, please leave a short message. I usually reply within 48 hours."}
+            ? "如果你有科研合作、数据提交或方法与证据相关问题，可以留下简短信息。我通常会在 48 小时内回复。"
+            : "For research collaborations, data submissions, or methods and evidence questions, please leave a short message. I usually reply within 48 hours."}
         </p>
 
         {/* ── Success ── */}

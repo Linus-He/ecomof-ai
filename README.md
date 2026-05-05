@@ -20,7 +20,7 @@ It is designed for transparent candidate prioritization and research discussion.
 - **LCA researchers** — Sustainability-oriented screening with eco-score components, limitations, and candidate comparisons — not a replacement for full industrial LCA.
 - **ML / informatics researchers** — Explore the descriptor curation framework, data mode separation, and provenance tracking as a foundation for future data ingestion. Not a trained predictive model.
 - **Students / portfolio** — Interact with a real-world prototype showing MOF screening workflow, scoring transparency, and explicit data limitations.
-- **Potential collaborators** — Review the platform's current scope, data structure, and methodology before discussing data submissions or joint development.
+- **Potential collaborators** — Review the platform's current scope, data structure, and Methods & Evidence notes before discussing data submissions or joint development.
 
 ## Key Modules
 
@@ -30,7 +30,7 @@ It is designed for transparent candidate prioritization and research discussion.
 - CatalysisLab: https://linus-he.github.io/ecomof-ai/#catalysis
 - MOF Library: https://linus-he.github.io/ecomof-ai/#library
 - Data Quality & Provenance: https://linus-he.github.io/ecomof-ai/#data-quality-provenance
-- Methodology: https://linus-he.github.io/ecomof-ai/#methodology
+- Methods & Evidence: https://linus-he.github.io/ecomof-ai/#methodology
 - Validation & Evidence: https://linus-he.github.io/ecomof-ai/#validation-evidence
 - Benchmark References: https://linus-he.github.io/ecomof-ai/#benchmark-references
 - Contact: https://linus-he.github.io/ecomof-ai/#contact
@@ -85,11 +85,11 @@ Scale-up descriptors such as precursor availability, ligand cost class, solvent 
 
 Future versions may explore MOF-specific representation models such as MOFTransformer for offline feature extraction or candidate-prioritization support. This is future work only; any model-based output would require task-specific validation, applicability-domain checks, and uncertainty reporting before being used as research evidence.
 
-## Methodology and Limitations
+## Methods & Evidence and Limitations
 
 Current scores indicate candidate priority, not final material performance. The platform does not replace experimental validation, complete industrial LCA, rigorous GCMC or IAST analysis, or validated machine-learning prediction. **EcoMOF-AI is not a validated prediction engine** and has not undergone peer review or independent scientific validation.
 
-Methodology: https://linus-he.github.io/ecomof-ai/#methodology
+Methods & Evidence: https://linus-he.github.io/ecomof-ai/#methodology
 
 ## Validation & Evidence
 
