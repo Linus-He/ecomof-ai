@@ -176,6 +176,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       ["method-scoring", "评分模型"],
       ["method-formulas", "公式参考"],
       ["method-provenance", "证据与溯源"],
+      ["benchmark-references", "标杆参考"],
       ["method-limitations", "限制说明"],
       ["method-references", "参考与引用"],
       ["validation-evidence", "验证与证据"],
@@ -186,6 +187,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       ["method-scoring", "Scoring Model"],
       ["method-formulas", "Formula Reference"],
       ["method-provenance", "Evidence & Provenance"],
+      ["benchmark-references", "Benchmark References"],
       ["method-limitations", "Limitations"],
       ["method-references", "References & Citation"],
       ["validation-evidence", "Validation & Evidence"],
@@ -344,6 +346,74 @@ export function MethodsLimitationsTab({ onNavigate }) {
       notFor: ["Final material performance conclusion", "Experimental replacement", "Complete LCA claim", "GCMC / IAST replacement", "Validated ML prediction", "Industrial deployment decision"],
     }
 
+  const benchmarkReferences = zh
+    ? [
+      {
+        name: "UiO-66",
+        role: "稳定性参考",
+        why: "常见的锆基金属有机框架，经常用于稳定性相关讨论的参照点。",
+        strengths: ["常被用于讨论相对较强的热稳定性和化学稳定性", "可作为框架稳健性的参考"],
+        limitations: ["性能依赖合成、缺陷、功能化和测试条件", "不是所有应用的通用 benchmark"],
+      },
+      {
+        name: "ZIF-8",
+        role: "经典 ZIF 参考",
+        why: "广为人知的沸石咪唑酯骨架，常见于 MOF 文献和教学语境。",
+        strengths: ["结构家族辨识度高", "常作为熟悉的比较参照"],
+        limitations: ["稳定性和性能依赖条件", "仅靠它不足以作为可持续性或生命周期影响 benchmark"],
+      },
+      {
+        name: "MIL-53(Al)",
+        role: "柔性框架参考",
+        why: "代表性柔性 MOF，常用于讨论 breathing 行为和吸附条件依赖性。",
+        strengths: ["有助于解释框架柔性", "可作为吸附行为的语境参考"],
+        limitations: ["性能强烈依赖客体分子、活化和测量条件", "不是所有筛选任务的通用标准"],
+      },
+    ]
+    : [
+      {
+        name: "UiO-66",
+        role: "Stability-oriented reference",
+        why: "A widely discussed zirconium-based MOF often used as a reference point for stability-related discussions.",
+        strengths: ["Often discussed for relatively strong thermal and chemical stability", "Useful reference for framework robustness"],
+        limitations: ["Performance depends on synthesis, defects, functionalization, and test conditions", "Not a universal benchmark for all applications"],
+      },
+      {
+        name: "ZIF-8",
+        role: "Classical ZIF reference",
+        why: "A widely known zeolitic imidazolate framework frequently used in MOF literature and teaching contexts.",
+        strengths: ["Well-known structure family", "Commonly used as a familiar comparison point"],
+        limitations: ["Stability and performance are condition-dependent", "Not sufficient as a benchmark for sustainability or lifecycle impact alone"],
+      },
+      {
+        name: "MIL-53(Al)",
+        role: "Flexible framework reference",
+        why: "A representative flexible MOF often discussed in relation to breathing behavior and adsorption-condition dependence.",
+        strengths: ["Useful for explaining framework flexibility", "Helpful as a context reference for adsorption behavior"],
+        limitations: ["Performance can strongly depend on guest molecules, activation, and measurement conditions", "Not a universal standard for all screening tasks"],
+      },
+    ]
+
+  const scaleUpFields = zh
+    ? [
+      "前驱体可获得性",
+      "配体成本等级",
+      "溶剂风险",
+      "合成温度",
+      "活化条件",
+      "能耗强度说明",
+      "放大风险",
+    ]
+    : [
+      "precursor availability",
+      "ligand cost class",
+      "solvent concern",
+      "synthesis temperature",
+      "activation condition",
+      "energy-intensity notes",
+      "scale-up concern",
+    ]
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <PageHeader
@@ -409,6 +479,31 @@ export function MethodsLimitationsTab({ onNavigate }) {
       >
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
           {dataCards.map(([title, body, tone]) => <CompactCard key={title} title={title} body={body} tone={tone} t={t} />)}
+        </div>
+        <div style={{ marginTop: 12, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+            <BasisBadge tone="info">{zh ? "未来放大与产业化字段" : "Future Scale-up Fields"}</BasisBadge>
+            <span style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>
+              {zh ? "planned / future curation target" : "planned / future curation target"}
+            </span>
+          </div>
+          <p style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, margin: "9px 0 0" }}>
+            {zh
+              ? "未来版本可能加入面向放大与产业化判断的描述符，例如前驱体可获得性、配体成本等级、溶剂风险、合成温度、活化条件和能耗强度说明。这些字段目前仅作为后续整理目标，并不代表当前原型已完整接入。"
+              : "Future versions may add scale-up-oriented descriptors such as precursor availability, ligand cost class, solvent concern, synthesis temperature, activation condition, and energy-intensity notes. These fields are planned as curation targets and are not complete in the current prototype."}
+          </p>
+          <div style={{ display: "flex", gap: 7, flexWrap: "wrap", marginTop: 10 }}>
+            {scaleUpFields.map(item => (
+              <span key={item} style={{ color: t.muted, fontSize: 10, lineHeight: 1.3, border: `1px solid ${t.border}`, borderRadius: 999, padding: "5px 8px", background: t.panel }}>
+                {item}
+              </span>
+            ))}
+          </div>
+          <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.6, marginTop: 10, borderTop: `1px solid ${t.divider}`, paddingTop: 10 }}>
+            {zh
+              ? "未来版本可能探索 MOFTransformer 等面向 MOF 的结构表征模型，用于离线特征提取或候选优先级辅助。任何模型输出在作为科研证据使用前，都需要任务特定验证、适用域检查和不确定性说明。"
+              : "Future versions may explore MOF-specific representation models such as MOFTransformer for offline feature extraction or candidate-prioritization support. Any model-based output would require task-specific validation, applicability-domain checks, and uncertainty reporting before being used as research evidence."}
+          </div>
         </div>
       </MethodSection>
 
@@ -488,6 +583,16 @@ export function MethodsLimitationsTab({ onNavigate }) {
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
           {provenanceCards.map(([title, body, tone]) => <CompactCard key={title} title={title} body={body} tone={tone} t={t} />)}
         </div>
+        <div style={{ marginTop: 12, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+          <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
+            {zh ? "Descriptor Conditions Matter / 描述符条件很重要" : "Descriptor Conditions Matter"}
+          </div>
+          <p style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, margin: "8px 0 0" }}>
+            {zh
+              ? "CO₂ 吸附量、水稳定性、比表面积、孔体积等 MOF 描述符依赖具体测试或报道条件。只有当数值、单位、必要测试条件、证据等级和字段级来源记录同时存在时，才应将该描述符视为已整理字段。缺少条件的字段应显示为条件待补充。"
+              : "MOF descriptors such as CO₂ uptake, water stability, surface area, and pore volume depend on measurement or reporting conditions. A descriptor should not be interpreted as fully curated unless value, unit, condition when applicable, evidence level, and field-level source record are available. Fields without condition metadata should remain condition pending."}
+          </p>
+        </div>
         <div style={{ marginTop: 12, color: t.muted, fontSize: 11, lineHeight: 1.65, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
           {zh
             ? "在 MOF Library 展开记录后，以及 Performance 和 CatalysisLab 真实种子模式下的候选卡片中，可通过字段级数据溯源查看来源详情。该功能必须与 fieldSources 和 sourceRecords 一起理解；没有核实来源的数据不应被过度解读。"
@@ -510,6 +615,48 @@ export function MethodsLimitationsTab({ onNavigate }) {
             {zh ? "查看数据质量图表" : "View Data Quality Dashboard"}
           </button>
         )}
+      </MethodSection>
+
+      <MethodSection
+        id="benchmark-references"
+        title={zh ? "Benchmark References / 标杆材料参考" : "Benchmark References"}
+        body={zh
+          ? "这些标杆材料用于帮助理解 MOF 候选记录的研究语境，并不代表平台已完成严格预测对标，也不代表 EcoMOF-AI 声称候选材料性能优于这些材料。"
+          : "These benchmark references provide research context for interpreting MOF candidate records. They are not direct prediction baselines, and EcoMOF-AI does not claim validated performance superiority over these materials."}
+        t={t}
+      >
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
+          {benchmarkReferences.map(item => (
+            <article key={item.name} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, flexWrap: "wrap" }}>
+                <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 880 }}>{item.name}</div>
+                <BasisBadge tone="proxy">{item.role}</BasisBadge>
+              </div>
+              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, marginTop: 9 }}>{item.why}</div>
+              <div style={{ display: "grid", gap: 8, marginTop: 10 }}>
+                <div>
+                  <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>
+                    {zh ? "典型优势" : "Typical strengths"}
+                  </div>
+                  <ul style={{ margin: "5px 0 0", paddingLeft: 16, color: t.muted, fontSize: 11, lineHeight: 1.55 }}>
+                    {item.strengths.map(entry => <li key={entry}>{entry}</li>)}
+                  </ul>
+                </div>
+                <div>
+                  <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>
+                    {zh ? "已知限制" : "Known limitations"}
+                  </div>
+                  <ul style={{ margin: "5px 0 0", paddingLeft: 16, color: t.muted, fontSize: 11, lineHeight: 1.55 }}>
+                    {item.limitations.map(entry => <li key={entry}>{entry}</li>)}
+                  </ul>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 10 }}>
+          <CopyLinkButton hash="benchmark-references" label={zh ? "复制标杆参考链接" : "Copy Benchmark link"} copiedLabel={zh ? "链接已复制" : "Link copied"} ariaLabel={zh ? "复制标杆材料参考链接" : "Copy Benchmark References link"} />
+        </div>
       </MethodSection>
 
       <MethodSection

@@ -69,6 +69,24 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
         : "Know where each descriptor comes from: source type, database reference, measurement condition, and curation state.",
     },
   ]
+  const quickActions = [
+    {
+      id: "mofLibrary",
+      label: lang === "zh" ? "查看 MOF Library" : "Explore MOF Library",
+    },
+    {
+      id: "data-quality-provenance",
+      label: lang === "zh" ? "查看数据溯源" : "Inspect Data Provenance",
+    },
+    {
+      id: "methodology",
+      label: lang === "zh" ? "阅读方法说明" : "Read Methodology",
+    },
+    {
+      id: "benchmark-references",
+      label: lang === "zh" ? "标杆材料参考" : "Benchmark References",
+    },
+  ]
   const forUsers = [
     {
       id: "mof",
@@ -147,6 +165,18 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
             </p>
             <div style={{ marginTop: 12 }}>
               <CopyLinkButton hash="overview" ariaLabel={lang === "zh" ? "复制 Overview 链接" : "Copy Overview link"} />
+            </div>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 12 }}>
+              {quickActions.map(action => (
+                <button
+                  key={action.id}
+                  type="button"
+                  onClick={() => setActiveTab(action.id)}
+                  style={{ ...toolbarBtn(t), padding: "8px 11px", fontSize: 11 }}
+                >
+                  {action.label}
+                </button>
+              ))}
             </div>
           </div>
         </div>

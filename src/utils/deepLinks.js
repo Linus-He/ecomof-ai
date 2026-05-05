@@ -9,6 +9,7 @@ export const HASH_TO_TAB = {
   methodology: "about",
   "data-quality-provenance": "library",
   "validation-evidence": "about",
+  "benchmark-references": "about",
 }
 
 export const TAB_TO_HASH = {
@@ -23,11 +24,11 @@ export const TAB_TO_HASH = {
 export const HASH_META = {
   default: {
     title: "EcoMOF-AI | MOF AI Prototype Platform",
-    description: "EcoMOF-AI is an early-stage research prototype for MOF candidate screening, sustainability evaluation, catalysis-oriented exploration, and field-level data provenance.",
+    description: "EcoMOF-AI is an early-stage research prototype for MOF candidate screening, sustainability evaluation, descriptor curation, catalysis-oriented exploration, and field-level data provenance.",
   },
   overview: {
     title: "EcoMOF-AI | Transparent MOF Screening Prototype",
-    description: "EcoMOF-AI is an early-stage research prototype for MOF candidate screening, sustainability evaluation, catalysis-oriented exploration, and field-level data provenance.",
+    description: "EcoMOF-AI is an early-stage research prototype for MOF candidate screening, sustainability evaluation, descriptor curation, catalysis-oriented exploration, and field-level data provenance.",
   },
   ecoscreen: {
     title: "EcoScreen | Sustainability Screening for MOF Candidates",
@@ -64,6 +65,10 @@ export const HASH_META = {
   "validation-evidence": {
     title: "Validation & Evidence | EcoMOF-AI",
     description: "Current validation status, what is explicitly checked, future validation plans, and non-validation disclaimer for EcoMOF-AI.",
+  },
+  "benchmark-references": {
+    title: "Benchmark References | EcoMOF-AI",
+    description: "Review contextual MOF benchmark references used to interpret candidate records without claiming validated prediction superiority.",
   },
 }
 

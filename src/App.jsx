@@ -509,6 +509,9 @@ export default function App() {
       if (routeHash === "validation-evidence") {
         setPendingScrollTarget("validation-evidence")
       }
+      if (routeHash === "benchmark-references") {
+        setPendingScrollTarget("benchmark-references")
+      }
     }
   }, [])
 
@@ -678,6 +681,10 @@ export default function App() {
     }
     if (target === "data-quality-provenance") {
       go("data-quality-provenance")
+      return
+    }
+    if (target === "benchmark-references") {
+      go("benchmark-references")
       return
     }
     if (target === "methodology" || target === "about" || target === "validation") {

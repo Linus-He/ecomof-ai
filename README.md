@@ -32,6 +32,7 @@ It is designed for transparent candidate prioritization and research discussion.
 - Data Quality & Provenance: https://linus-he.github.io/ecomof-ai/#data-quality-provenance
 - Methodology: https://linus-he.github.io/ecomof-ai/#methodology
 - Validation & Evidence: https://linus-he.github.io/ecomof-ai/#validation-evidence
+- Benchmark References: https://linus-he.github.io/ecomof-ai/#benchmark-references
 - Contact: https://linus-he.github.io/ecomof-ai/#contact
 
 ## Data Modes
@@ -68,6 +69,22 @@ Each curated descriptor in the Real Seed Dataset can carry a field-level source 
 
 In expanded MOF Library records and in Performance / CatalysisLab real-seed candidate cards, click the ⓘ icon next to a descriptor to view its provenance details. If no provenance record exists, the field shows "Source pending" and should not be read as a verified value.
 
+## Benchmark References
+
+Benchmark references are used for contextual interpretation only and are not direct prediction baselines. UiO-66, ZIF-8, and MIL-53(Al) are shown as familiar research-context anchors for stability, classical ZIF comparison, and flexible-framework behavior. EcoMOF-AI does not claim validated performance superiority over these materials.
+
+Benchmark References: https://linus-he.github.io/ecomof-ai/#benchmark-references
+
+## Descriptor Conditions
+
+Descriptors such as CO₂ uptake, water stability, surface area, and pore volume depend on units, test conditions, evidence level, and source records. If condition metadata is missing, the descriptor should remain condition pending rather than being treated as fully curated.
+
+## Future Scale-up Fields
+
+Scale-up descriptors such as precursor availability, ligand cost class, solvent concern, synthesis temperature, activation condition, energy-intensity notes, and scale-up concern are planned future curation targets. They are not complete in the current prototype and are not part of the current scoring weights.
+
+Future versions may explore MOF-specific representation models such as MOFTransformer for offline feature extraction or candidate-prioritization support. This is future work only; any model-based output would require task-specific validation, applicability-domain checks, and uncertainty reporting before being used as research evidence.
+
 ## Methodology and Limitations
 
 Current scores indicate candidate priority, not final material performance. The platform does not replace experimental validation, complete industrial LCA, rigorous GCMC or IAST analysis, or validated machine-learning prediction. **EcoMOF-AI is not a validated prediction engine** and has not undergone peer review or independent scientific validation.
@@ -83,7 +100,7 @@ EcoMOF-AI is an early-stage research prototype. The platform explicitly tracks:
 - Field-level source type consistency (literature, database, estimated, pending)
 - Scoring formula transparency — all weights and dimensions are auditable
 
-Future validation plans include benchmarking against literature-reported screening results, cross-validation with GCMC simulation data, and comparison of eco-score components with published LCA data.
+Future validation plans may include contextual comparison against literature-reported screening discussions, cross-checking with independently generated simulation data, and comparison of eco-score components with published LCA data where available.
 
 Scores and rankings should not be cited as validated computational predictions. All results require independent experimental and computational verification before use in scientific conclusions.
 
@@ -122,6 +139,10 @@ npm run build
 ## Deployment
 
 The project uses Vite + React and is deployed to GitHub Pages with the base path `/ecomof-ai/`. Deep links use URL hashes so GitHub Pages can serve the SPA reliably.
+
+## SEO / Sharing
+
+The project uses hash deep links for GitHub Pages compatibility. `robots.txt` and `sitemap.xml` provide lightweight sharing and structure hints, but hash links do not fully solve SPA search-engine indexing limits.
 
 ## Contact / Collaboration
 
