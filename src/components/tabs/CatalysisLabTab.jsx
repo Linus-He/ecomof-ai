@@ -4,7 +4,7 @@ import {
   fetchDataJson, BasisBadge, BrandMark, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard, CopyLinkButton,
   calculateCatalysisScore, getScoreBreakdown, getWeightContribution, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
   RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
-  DataModeToggle, RealSeedCallout, safeVal, toolbarBtn, SectionTitle, FieldProvenanceButton,
+  DataModeToggle, RealSeedCallout, DemoModeBanner, safeVal, toolbarBtn, SectionTitle, FieldProvenanceButton,
 } from "../../shared"
 
 // ── Catalysis Data Template helpers ──────────────────────────────────────────
@@ -696,6 +696,7 @@ export function CatalysisLabTab() {
       </div>
 
       {dataMode === "real-seed" && <RealSeedCallout lang={lang} />}
+      {dataMode === "demo" && <DemoModeBanner lang={lang} />}
 
       <ResultLayer number="01" title={lang === "zh" ? "催化任务选择器" : "Catalysis task selector"}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>

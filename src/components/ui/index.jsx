@@ -1248,3 +1248,50 @@ export function RealSeedCallout({ lang }) {
     </div>
   )
 }
+
+/**
+ * DemoModeBanner — lightweight notice bar shown when Demo Dataset is active.
+ * Not a watermark. Does not block content.
+ */
+export function DemoModeBanner({ lang }) {
+  const t = useT()
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 8,
+        background: t.badgeProxyBg || "rgba(167,139,250,0.12)",
+        border: `1px solid ${t.badgeProxyText || "#7c3aed"}`,
+        borderRadius: 6,
+        padding: "7px 14px",
+        fontSize: 11,
+        fontWeight: 750,
+        color: t.badgeProxyText || "#7c3aed",
+        lineHeight: 1.4,
+      }}
+    >
+      <span style={{ opacity: 0.7 }}>◈</span>
+      {lang === "zh"
+        ? "演示数据集 · 不用于科研结论"
+        : "Demo Dataset Only · Not for scientific interpretation"}
+    </div>
+  )
+}
+
+/**
+ * DataModeNote — description shown near DataModeToggle explaining mode semantics.
+ */
+export function DataModeNote({ lang }) {
+  const t = useT()
+  return (
+    <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5 }}>
+      {lang === "zh"
+        ? "Real Seed 是默认数据整理模式。Demo Dataset 仅用于展示评分与可视化交互效果。"
+        : "Real Seed is the default curation mode. Demo Dataset is only used to demonstrate scoring and visualization behavior."}
+    </div>
+  )
+}

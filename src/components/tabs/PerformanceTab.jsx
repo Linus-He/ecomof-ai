@@ -4,7 +4,7 @@ import {
   gasLabel, getGasSystem, fetchDataJson, toolbarBtn,
   buildScoredCandidates, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
   RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
-  BasisBadge, PageHeader, ResultLayer, Callout, UnifiedCandidateCard, DataModeToggle, RealSeedCallout, safeVal, CopyLinkButton,
+  BasisBadge, PageHeader, ResultLayer, Callout, UnifiedCandidateCard, DataModeToggle, RealSeedCallout, DemoModeBanner, safeVal, CopyLinkButton,
   FieldProvenanceButton,
 } from "../../shared"
 import { ScreeningTab } from "./ScreeningTab"
@@ -254,6 +254,7 @@ export function PerformanceTab({
           </div>
 
           {dataMode === "real-seed" && <RealSeedCallout lang={lang} />}
+          {dataMode === "demo" && <DemoModeBanner lang={lang} />}
 
           <Callout tone="info">
             {lang === "zh"

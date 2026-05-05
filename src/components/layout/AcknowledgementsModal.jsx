@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react"
 import { useT, useLang, useViewport } from "../../contexts"
 import { FONT_SANS } from "../../constants/theme"
 import { BrandMark } from "../ui"
@@ -27,6 +28,20 @@ export function AcknowledgementsModal({ open, onClose }) {
   const { lang } = useLang()
   const { isMobile } = useViewport()
   const zh = lang === "zh"
+  const closeBtnRef = useRef(null)
+
+  // Esc to close
+  useEffect(() => {
+    if (!open) return
+    const handler = (e) => { if (e.key === "Escape") onClose() }
+    window.addEventListener("keydown", handler)
+    return () => window.removeEventListener("keydown", handler)
+  }, [open, onClose])
+
+  // Focus close button on open
+  useEffect(() => {
+    if (open && closeBtnRef.current) closeBtnRef.current.focus()
+  }, [open])
 
   if (!open) return null
 
@@ -55,6 +70,9 @@ export function AcknowledgementsModal({ open, onClose }) {
       onClick={onClose}
     >
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={zh ? "Acknowledgements / 致谢" : "Acknowledgements"}
         onClick={e => e.stopPropagation()}
         style={{
           width: "min(760px, 96vw)",
@@ -83,8 +101,10 @@ export function AcknowledgementsModal({ open, onClose }) {
             </div>
           </div>
           <button
+            ref={closeBtnRef}
             type="button"
             onClick={onClose}
+            aria-label={zh ? "关闭致谢弹窗" : "Close acknowledgements dialog"}
             style={{
               background: "none",
               border: "none",

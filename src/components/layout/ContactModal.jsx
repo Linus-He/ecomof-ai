@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useT, useLang, useViewport } from "../../contexts"
 import { FONT_SANS } from "../../constants/theme"
 import { toolbarBtn } from "../../utils/styles"
@@ -61,6 +61,23 @@ export function ContactModal({ open, onClose }) {
 
   const [form, setForm] = useState(BLANK)
   const [status, setStatus] = useState("idle") // idle | loading | success | error
+  const closeBtnRef = useRef(null)
+  const triggerRef = useRef(null)
+
+  // Esc to close
+  useEffect(() => {
+    if (!open) return
+    const handler = (e) => { if (e.key === "Escape") handleClose() }
+    window.addEventListener("keydown", handler)
+    return () => window.removeEventListener("keydown", handler)
+  }, [open]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Focus close button on open
+  useEffect(() => {
+    if (open && closeBtnRef.current) {
+      closeBtnRef.current.focus()
+    }
+  }, [open])
 
   if (!open) return null
 
@@ -258,6 +275,9 @@ export function ContactModal({ open, onClose }) {
       onClick={handleClose}
     >
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={zh ? "联系 / 合作" : "Contact / Collaboration"}
         onClick={e => e.stopPropagation()}
         style={{
           width: "min(680px, 96vw)",
@@ -274,8 +294,10 @@ export function ContactModal({ open, onClose }) {
             {zh ? "联系 / 合作" : "Contact / Collaboration"}
           </div>
           <button
+            ref={closeBtnRef}
             type="button"
             onClick={handleClose}
+            aria-label={zh ? "关闭联系弹窗" : "Close contact dialog"}
             style={{
               background: "none", border: "none",
               color: t.subtle, fontSize: 22, cursor: "pointer",
@@ -289,8 +311,8 @@ export function ContactModal({ open, onClose }) {
         {/* Intro */}
         <p style={{ margin: "0 0 22px", color: t.muted, fontSize: 12, lineHeight: 1.7 }}>
           {zh
-            ? "如果你有合作、数据接入或反馈建议，可以留下简短信息。我通常会在 48 小时内回复。"
-            : "For collaboration, data integration, or feedback, please leave a short message. I usually reply within 48 hours."}
+            ? "如果你有科研合作、数据提交或方法学问题，可以留下简短信息。我通常会在 48 小时内回复。"
+            : "For research collaborations, data submissions, or methodology questions, please leave a short message. I usually reply within 48 hours."}
         </p>
 
         {/* ── Success ── */}

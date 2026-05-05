@@ -215,6 +215,7 @@ function AppShell({
                 type="button"
                 onClick={() => setContactOpen(true)}
                 title={lang === "zh" ? "联系 / 合作" : "Contact / Collaboration"}
+                aria-label={lang === "zh" ? "打开联系弹窗" : "Open contact dialog"}
                 style={{
                   ...headerChipBtn(theme),
                   padding: "8px 12px",
@@ -230,6 +231,7 @@ function AppShell({
                 type="button"
                 onClick={() => setLang(current => (current === "en" ? "zh" : "en"))}
                 title={lang === "en" ? "切换到中文" : "Switch to English"}
+                aria-label={lang === "en" ? "切换到中文" : "Switch to English"}
                 style={{ ...headerChipBtn(theme), minWidth: 48, padding: "8px 10px" }}
               >
                 {copy.header.language}
@@ -238,6 +240,7 @@ function AppShell({
                 type="button"
                 onClick={() => setDarkMode(current => !current)}
                 title={darkMode ? copy.header.light : copy.header.dark}
+                aria-label={darkMode ? (lang === "zh" ? "切换为浅色模式" : "Switch to light mode") : (lang === "zh" ? "切换为深色模式" : "Switch to dark mode")}
                 style={{ ...headerChipBtn(theme), minWidth: 40, padding: "8px 10px" }}
               >
                 {darkMode ? "☀" : "☾"}
