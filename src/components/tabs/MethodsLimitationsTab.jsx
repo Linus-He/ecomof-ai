@@ -5,10 +5,10 @@ import {
   BasisBadge, SectionTitle, Callout, PageHeader, CopyLinkButton, fetchDataJson,
 } from "../../shared"
 
-const PROJECT_CITATION_EN = "He, W. EcoMOF-AI: An early-stage research prototype for MOF candidate screening, sustainability evaluation, catalysis-oriented exploration, and field-level data provenance. GitHub Pages, 2026. Available at: https://linus-he.github.io/ecomof-ai/"
-const PROJECT_CITATION_ZH = "何文浩. EcoMOF-AI：面向 MOF 候选筛选、可持续性评价、催化任务探索和字段级数据溯源的早期科研原型. GitHub Pages, 2026. https://linus-he.github.io/ecomof-ai/"
-const PROJECT_BIBTEX = `@misc{he2026ecomofai,
-  author = {He, Wenhao},
+const PROJECT_CITATION_EN = "Linus-He. EcoMOF-AI: An early-stage research prototype for MOF candidate screening, sustainability evaluation, catalysis-oriented exploration, and field-level data provenance. GitHub Pages, 2026. Available at: https://linus-he.github.io/ecomof-ai/"
+const PROJECT_CITATION_ZH = "Linus-He. EcoMOF-AI：面向 MOF 候选筛选、可持续性评价、催化任务探索和字段级数据溯源的早期科研原型. GitHub Pages, 2026. https://linus-he.github.io/ecomof-ai/"
+const PROJECT_BIBTEX = `@misc{linushe2026ecomofai,
+  author = {{Linus-He}},
   title = {EcoMOF-AI: An Early-Stage Research Prototype for MOF Candidate Screening, Sustainability Evaluation, Catalysis-Oriented Exploration, and Field-Level Data Provenance},
   year = {2026},
   url = {https://linus-he.github.io/ecomof-ai/},

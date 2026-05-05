@@ -113,7 +113,7 @@ export function SensitivityTab({ results, inputs, onNavigate }) {
         </div>
       </ResultLayer>
       <ResultLayer number="03" title={lang === "zh" ? "不确定性边界" : "Uncertainty Scope"} subtitle={lang === "zh" ? "敏感性结果来自代理不确定性范围，不是校准概率推断。" : "Sensitivity results come from proxy uncertainty ranges, not calibrated probabilistic inference."}>
-        <MethodDrawer title={lang === "zh" ? "敏感性方法说明" : "Sensitivity methodology"} badge={lang === "zh" ? "探索性" : "Exploratory"}>
+        <MethodDrawer title={lang === "zh" ? "敏感性方法边界" : "Sensitivity method boundary"} badge={lang === "zh" ? "探索性" : "Exploratory"}>
           {lang === "zh" ? "当前敏感性模块用确定性情景和代理不确定性范围测试结论是否稳定。它适合入围候选之后的稳健性讨论，不适合主要命中识别，也不是校准的概率模型。" : "The current sensitivity module uses deterministic scenarios and proxy uncertainty ranges to test conclusion stability."}
         </MethodDrawer>
       </ResultLayer>

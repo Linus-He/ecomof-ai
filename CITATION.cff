@@ -3,8 +3,7 @@ message: "If you use or reference EcoMOF-AI, please cite it as below."
 title: "EcoMOF-AI: An Early-Stage Research Prototype for MOF Candidate Screening, Sustainability Evaluation, Catalysis-Oriented Exploration, and Field-Level Data Provenance"
 type: software
 authors:
-  - family-names: "He"
-    given-names: "Wenhao"
+  - name: "Linus-He"
 repository-code: "https://github.com/Linus-He/ecomof-ai"
 url: "https://linus-he.github.io/ecomof-ai/"
 abstract: "EcoMOF-AI is an early-stage research prototype for MOF candidate screening, sustainability evaluation, catalysis-oriented exploration, and field-level data provenance."

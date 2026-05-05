@@ -195,7 +195,7 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
         subtitle={lang === "zh"
           ? "面向可持续性和早期可行性的 MOF 候选筛选。这里保留 Eco Score、LCA/LCC 代理和解释卡片，但所有输出都只用于候选优先级排序。"
           : "MOF candidate screening for sustainability and early feasibility. Eco Score, LCA/LCC proxies, and explanations are preserved here as candidate-prioritization outputs."}
-        meta={lang === "zh" ? "任务介绍 · 可持续性筛选条件 · 生态评分排序 · 解释卡片 · 方法说明" : "Task introduction · sustainability filters · Eco Score ranking · explanation cards · method notes"}
+        meta={lang === "zh" ? "任务介绍 · 可持续性筛选条件 · 生态评分排序 · 解释卡片 · 方法与证据" : "Task introduction · sustainability filters · Eco Score ranking · explanation cards · methods and evidence"}
         action={
           <>
             <BasisBadge tone="proxy">{lang === "zh" ? "不替代完整 LCA" : "not full LCA"}</BasisBadge>
@@ -307,13 +307,13 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
         </div>
       </ResultLayer>
 
-      <ResultLayer number="05" title={lang === "zh" ? "方法说明" : "Method Notes"}>
+      <ResultLayer number="05" title={lang === "zh" ? "方法与证据" : "Methods & Evidence"}>
         <div style={{ display: "grid", gap: 10 }}>
           <MethodDrawer title={lang === "zh" ? "生态评分解释边界" : "Eco Score interpretation boundary"}>
             {lang === "zh" ? "生态评分聚合金属节点、连接体、过程代理、性能趋势和来源质量。它是候选优先级，不是完整 LCIA 或供应商报价。" : "Eco Score aggregates node, linker, process proxies, performance trend, and source quality. It is candidate priority, not full LCIA or supplier pricing."}
           </MethodDrawer>
           <MethodDrawer title={lang === "zh" ? "已有 Eco 功能如何保留" : "How existing Eco features are preserved"}>
-            {lang === "zh" ? "现有 LCA/LCC、绿色评分、敏感性和结果解释逻辑被整理到 EcoScreen 的筛选、排序和方法说明中；旧的细分页面仍保留在代码中。" : "Existing LCA/LCC, green score, sensitivity, and explanation logic are reorganized into EcoScreen filters, ranking, and method notes; older detailed pages remain in code."}
+            {lang === "zh" ? "现有 LCA/LCC、绿色评分、敏感性和结果解释逻辑被整理到 EcoScreen 的筛选、排序和方法与证据说明中；旧的细分页面仍保留在代码中。" : "Existing LCA/LCC, green score, sensitivity, and explanation logic are reorganized into EcoScreen filters, ranking, and methods and evidence notes; older detailed pages remain in code."}
           </MethodDrawer>
         </div>
       </ResultLayer>

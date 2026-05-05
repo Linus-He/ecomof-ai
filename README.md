@@ -113,14 +113,14 @@ GitHub citation metadata is provided in [`CITATION.cff`](./CITATION.cff).
 Suggested citation:
 
 ```text
-He, W. EcoMOF-AI: An early-stage research prototype for MOF candidate screening, sustainability evaluation, catalysis-oriented exploration, and field-level data provenance. GitHub Pages, 2026. Available at: https://linus-he.github.io/ecomof-ai/
+Linus-He. EcoMOF-AI: An early-stage research prototype for MOF candidate screening, sustainability evaluation, catalysis-oriented exploration, and field-level data provenance. GitHub Pages, 2026. Available at: https://linus-he.github.io/ecomof-ai/
 ```
 
 BibTeX:
 
 ```bibtex
-@misc{he2026ecomofai,
-  author = {He, Wenhao},
+@misc{linushe2026ecomofai,
+  author = {{Linus-He}},
   title = {EcoMOF-AI: An Early-Stage Research Prototype for MOF Candidate Screening, Sustainability Evaluation, Catalysis-Oriented Exploration, and Field-Level Data Provenance},
   year = {2026},
   url = {https://linus-he.github.io/ecomof-ai/},

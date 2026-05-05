@@ -21,7 +21,7 @@ export const COPY = {
       lca: "Stage 3 LCA / LCC",
       sensitivity: "Robustness",
       literature: "Database",
-      methods: "Methods / Notes",
+      methods: "Methods & Evidence",
       dataSources: "Data Sources",
     },
     header: {
@@ -396,7 +396,7 @@ export const COPY = {
       lca: "第三阶段 LCA/LCC",
       sensitivity: "稳健性",
       literature: "数据库",
-      methods: "方法说明",
+      methods: "方法与证据",
       dataSources: "数据来源",
     },
     header: {

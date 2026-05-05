@@ -9,7 +9,7 @@ export function ResourcesTab({ activeSub, setActiveSub, results, inputs }) {
   const items = [
     { id: "dataSources", label: lang === "zh" ? "数据来源" : "Data Sources" },
     { id: "literature", label: lang === "zh" ? "数据库 / 基准" : "Database / Benchmarks" },
-    { id: "methods", label: lang === "zh" ? "方法说明" : "Methods / Notes" },
+    { id: "methods", label: lang === "zh" ? "方法与证据" : "Methods & Evidence" },
   ]
   const safeActiveSub = items.some(item => item.id === activeSub) ? activeSub : "dataSources"
 
@@ -22,8 +22,8 @@ export function ResourcesTab({ activeSub, setActiveSub, results, inputs }) {
       <PageHeader
         title={lang === "zh" ? "资源与证据层" : "Resources and Evidence Layers"}
         subtitle={lang === "zh"
-          ? "数据来源、基准数据库和方法说明集中在这里，作为工作流的支持材料。"
-          : "Data sources, benchmark databases, and method notes are grouped here as supporting material for the staged workflow."}
+          ? "数据来源、基准数据库和方法与证据说明集中在这里，作为工作流的支持材料。"
+          : "Data sources, benchmark databases, and methods and evidence notes are grouped here as supporting material for the staged workflow."}
         meta={lang === "zh" ? "支持页面" : "Supporting pages"}
       />
       <InternalNav items={items} active={safeActiveSub} onChange={setActiveSub} />
