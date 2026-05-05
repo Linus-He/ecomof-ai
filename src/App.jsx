@@ -365,7 +365,7 @@ function AppShell({
             <div style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
               <BrandMark size={viewport.isMobile ? 28 : 30} radius={8} style={{ boxShadow: theme.shadowSm }} />
               <span style={{ color: theme.textStrong, fontSize: 12, fontWeight: 800, whiteSpace: "nowrap" }}>
-                {lang === "zh" ? "© 2026 EcoMOF-AI · Linus He 维护" : "© 2026 EcoMOF-AI · Maintained by Linus He"}
+                {lang === "zh" ? "© 2026 EcoMOF-AI · Linus-He 维护" : "© 2026 EcoMOF-AI · Maintained by Linus-He"}
               </span>
             </div>
             <span style={{ color: theme.faint, fontSize: 11, maxWidth: 520, textAlign: viewport.isMobile ? "left" : "right" }}>

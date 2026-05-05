@@ -129,8 +129,8 @@ export function AcknowledgementsModal({ open, onClose }) {
           <CreditSection title={zh ? "B. 维护者" : "B. Maintainer"}>
             <p style={textStyle}>
               {zh
-                ? "EcoMOF-AI 目前由 Linus He 独立开发和维护，作为一个面向 MOF 早期筛选、可持续性评价与任务导向应用探索的科研原型。"
-                : "EcoMOF-AI is currently developed and maintained by Linus He as an independent research prototype."}
+                ? "EcoMOF-AI 目前由 Linus-He 独立开发和维护，作为一个面向 MOF 早期筛选、可持续性评价与任务导向应用探索的科研原型。"
+                : "EcoMOF-AI is currently developed and maintained by Linus-He as an independent research prototype."}
             </p>
             <ul style={listStyle}>
               {maintainerItems.map(item => <li key={item}>{item}</li>)}
