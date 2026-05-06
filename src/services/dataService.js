@@ -4,6 +4,7 @@ const DATA_PATHS = {
   mofCandidatesDemo: "data/mof_candidates_demo.json",
   mofCandidatesRealSeed: "data/mof_candidates_real_seed.json",
   catalysisTasks: "data/catalysis_tasks.json",
+  catalysisRecords: "data/catalysis_records_demo.json",
   evidenceLevels: "data/evidence_levels.json",
   scoringWeights: "data/scoring_weights.json",
   references: "data/references.json",
@@ -65,6 +66,10 @@ export async function getMofCandidates({ mode = "demo", throwOnError = false } =
 
 export function getCatalysisTasks({ throwOnError = false } = {}) {
   return fetchJson(DATA_PATHS.catalysisTasks, [], { throwOnError })
+}
+
+export function getCatalysisRecords({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.catalysisRecords, [], { throwOnError })
 }
 
 export function getEvidenceLevels({ throwOnError = false } = {}) {

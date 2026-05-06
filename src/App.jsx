@@ -310,7 +310,7 @@ function AppShell({
               />
             )}
             {activeTab === "gassep" && <GasSepTab />}
-            {activeTab === "catalysis" && <CatalysisLabTab />}
+            {activeTab === "catalysis" && <CatalysisLabTab onNavigate={navigateTab} />}
             {activeTab === "library" && <MOFLibraryTab results={results} inputs={inputs} />}
             {activeTab === "workflow" && <WorkflowTab setActiveTab={navigateTab} inputs={inputs} results={results} />}
             {activeTab === "screening" && (
@@ -675,6 +675,10 @@ export default function App() {
     }
     if (target === "gassep" || target === "gasSep") {
       go("gassep")
+      return
+    }
+    if (target === "contact") {
+      go("contact")
       return
     }
     if (target === "catalysisLab") {

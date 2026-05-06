@@ -62,6 +62,12 @@ GasSep organizes condition-aware gas adsorption and separation records. Selectiv
 
 GasSep 用于整理带条件说明的气体吸附与分离记录。选择性和吸附量需要结合气体比例、温度、压力、方法和来源共同解读。当前版本不执行 IAST、GCMC 或穿透曲线模拟。
 
+## CatalysisLab
+
+CatalysisLab organizes task-oriented MOF catalysis records, with CO₂ conversion highlighted as a priority curation direction. The module tracks reaction tasks, product targets, catalyst roles, active-site hypotheses, reaction conditions, activity/selectivity metrics, stability notes, and evidence status. It does not claim experimentally validated catalytic performance.
+
+CatalysisLab 用于整理面向任务的 MOF 催化记录，并将 CO₂ 转化作为重点整理方向。该模块关注反应任务、目标产物、催化剂角色、活性位点假设、反应条件、活性/选择性指标、稳定性说明和证据状态，不代表已完成实验验证的催化性能结论。
+
 ## Data Curation Statement
 
 EcoMOF-AI separates demo data, real-seed curation records, and field-level provenance. Demo data is used only to demonstrate workflow behavior. Real Seed Dataset provides a framework for curated real-data ingestion, but some descriptors remain pending curation.

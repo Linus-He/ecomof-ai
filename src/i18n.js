@@ -381,7 +381,7 @@ export const COPY = {
       overview: "总览",
       ecoScreen: "EcoScreen",
       performance: "Performance",
-      gasSep: "气体分离",
+      gasSep: "GasSep",
       catalysisLab: "CatalysisLab",
       mofLibrary: "MOF 库",
       methodology: "方法与证据",

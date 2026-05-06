@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 import {
   useT, useLang, useViewport,
-  getCatalysisTasks, getMofCandidates, getScoringWeights, BasisBadge, BrandMark, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard, CopyLinkButton,
+  getCatalysisRecords, getCatalysisTasks, getMofCandidates, getScoringWeights, BasisBadge, BrandMark, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard, CopyLinkButton,
   calculateCatalysisScore, getScoreBreakdown, getWeightContribution, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
   RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
   DataModeToggle, RealSeedCallout, DemoModeBanner, safeVal, toolbarBtn, SectionTitle, FieldProvenanceButton,
@@ -26,23 +26,23 @@ const CATALYSIS_TEMPLATE_FIELDS = [
   { key: "substrate",              label: "Substrate",                      category: "Catalysis task",        required: true,  example: "CO2",                 note: "Include concentration if relevant" },
   { key: "product",                label: "Product",                        category: "Catalysis task",        required: true,  example: "CO, CH4",             note: "List all detected products" },
   // Reaction conditions
-  { key: "temperature_c",          label: "Temperature (°C)",               category: "Reaction conditions",   required: true,  example: "25",                  note: "" },
-  { key: "pressure_bar",           label: "Pressure (bar)",                 category: "Reaction conditions",   required: true,  example: "1",                   note: "CO2 partial pressure if mixture" },
-  { key: "solvent",                label: "Solvent",                        category: "Reaction conditions",   required: false, example: "MeCN / H2O / neat",   note: "" },
-  { key: "reaction_time_h",        label: "Reaction time (h)",              category: "Reaction conditions",   required: true,  example: "4",                   note: "" },
-  { key: "catalyst_loading_mg",    label: "Catalyst loading (mg)",          category: "Reaction conditions",   required: true,  example: "5",                   note: "Per mL or per reaction volume" },
-  { key: "light_or_electrochemical_condition", label: "Light / electrochemical condition", category: "Reaction conditions", required: false, example: "300 W Xe lamp, AM1.5 / −1.0 V vs RHE", note: "Include filter if relevant" },
+  { key: "temperature_c",          label: "Temperature (°C)",               category: "Reaction conditions",   required: true,  example: "pending",             note: "" },
+  { key: "pressure_bar",           label: "Pressure (bar)",                 category: "Reaction conditions",   required: true,  example: "pending",             note: "CO2 partial pressure if mixture" },
+  { key: "solvent",                label: "Solvent",                        category: "Reaction conditions",   required: false, example: "pending",             note: "" },
+  { key: "reaction_time_h",        label: "Reaction time (h)",              category: "Reaction conditions",   required: true,  example: "pending",             note: "" },
+  { key: "catalyst_loading_mg",    label: "Catalyst loading (mg)",          category: "Reaction conditions",   required: true,  example: "pending",             note: "Per mL or per reaction volume" },
+  { key: "light_or_electrochemical_condition", label: "Light / electrochemical condition", category: "Reaction conditions", required: false, example: "pending", note: "Include filter if relevant" },
   // Performance metrics
-  { key: "conversion_percent",     label: "Conversion (%)",                 category: "Performance metrics",   required: false, example: "42",                  note: "Substrate conversion" },
-  { key: "selectivity_percent",    label: "Selectivity (%)",                category: "Performance metrics",   required: false, example: "85",                  note: "Product selectivity" },
-  { key: "yield_percent",          label: "Yield (%)",                      category: "Performance metrics",   required: false, example: "36",                  note: "" },
-  { key: "tof",                    label: "TOF (h⁻¹)",                      category: "Performance metrics",   required: false, example: "12.4",                note: "Turnover frequency" },
-  { key: "ton",                    label: "TON",                            category: "Performance metrics",   required: false, example: "48",                  note: "Turnover number" },
-  { key: "cycle_stability",        label: "Cycle stability",                category: "Performance metrics",   required: false, example: "5 cycles, <5% loss",  note: "Include regeneration conditions" },
+  { key: "conversion_percent",     label: "Conversion (%)",                 category: "Performance metrics",   required: false, example: "pending",             note: "Substrate conversion" },
+  { key: "selectivity_percent",    label: "Selectivity (%)",                category: "Performance metrics",   required: false, example: "pending",             note: "Product selectivity" },
+  { key: "yield_percent",          label: "Yield (%)",                      category: "Performance metrics",   required: false, example: "pending",             note: "" },
+  { key: "tof",                    label: "TOF (h⁻¹)",                      category: "Performance metrics",   required: false, example: "pending",             note: "Turnover frequency" },
+  { key: "ton",                    label: "TON",                            category: "Performance metrics",   required: false, example: "pending",             note: "Turnover number" },
+  { key: "cycle_stability",        label: "Cycle stability",                category: "Performance metrics",   required: false, example: "pending",             note: "Include regeneration conditions" },
   // Evidence and metadata
   { key: "evidence_level",         label: "Evidence level",                 category: "Evidence & metadata",   required: true,  example: "experimental / literature-supported", note: "" },
   { key: "data_source",            label: "Data source",                    category: "Evidence & metadata",   required: true,  example: "own experiment / CoRE MOF / MOFX-DB", note: "" },
-  { key: "doi_or_reference",       label: "DOI or reference",               category: "Evidence & metadata",   required: true,  example: "10.1021/xxx",         note: "" },
+  { key: "doi_or_reference",       label: "DOI or reference",               category: "Evidence & metadata",   required: true,  example: "pending",             note: "" },
   { key: "limitations",            label: "Limitations",                    category: "Evidence & metadata",   required: true,  example: "single-run, no blank control", note: "Known issues with this record" },
   { key: "uncertainty_notes",      label: "Uncertainty notes",              category: "Evidence & metadata",   required: false, example: "yield not corrected for blank", note: "" },
   { key: "recommended_next_validation", label: "Recommended next validation", category: "Evidence & metadata", required: false, example: "repeat under inert atmosphere", note: "" },
@@ -139,6 +139,50 @@ const TASKS = [
   { id: "photocatalysis", en: "Photocatalysis", zh: "光催化", emphasis: ["electronicProperty", "stability", "evidenceConfidence"] },
   { id: "electrocatalysis", en: "Electrocatalysis", zh: "电催化", emphasis: ["electronicProperty", "activeSite", "stability"] },
   { id: "custom_task", en: "Custom task", zh: "自定义任务", emphasis: ["activeSite", "poreAccessibility", "sustainability"] },
+]
+
+const TASK_FAMILIES = [
+  {
+    id: "co2_conversion",
+    en: "CO₂ Conversion",
+    zh: "CO₂ 转化",
+    badgeEn: "Priority task",
+    badgeZh: "重点任务",
+    bodyEn: "Organize MOF-related reaction records for CO₂ reduction, conversion, and organic-acid-related product targets.",
+    bodyZh: "整理 MOF 相关的 CO₂ 还原、转化及有机酸相关产物方向的反应记录。",
+  },
+  {
+    id: "photocatalysis",
+    en: "Photocatalysis",
+    zh: "光催化",
+    bodyEn: "Track light-driven catalytic tasks, reaction conditions, product targets, and evidence status.",
+    bodyZh: "整理光驱动催化任务、反应条件、目标产物和证据状态。",
+  },
+  {
+    id: "electrocatalysis",
+    en: "Electrocatalysis",
+    zh: "电催化",
+    bodyEn: "Track potential-dependent catalytic reactions, electrolyte context, Faradaic efficiency, and activity metrics.",
+    bodyZh: "整理电位相关催化反应、电解液条件、法拉第效率和活性指标。",
+  },
+  {
+    id: "biomass_conversion",
+    en: "Biomass Conversion",
+    zh: "生物质转化",
+    bodyEn: "Track biomass-derived substrates, product selectivity, conversion metrics, and stability notes.",
+    bodyZh: "整理生物质来源底物、产物选择性、转化率指标和稳定性说明。",
+  },
+]
+
+const CO2_CONVERSION_CHECKLIST = [
+  { key: "reactionTask", en: "reaction task", zh: "反应任务", status: "needs-review" },
+  { key: "targetProduct", en: "target product", zh: "目标产物", status: "needs-review" },
+  { key: "catalystRole", en: "catalyst role", zh: "催化剂角色", status: "pending" },
+  { key: "activeSiteHypothesis", en: "active-site hypothesis", zh: "活性位点假设", status: "pending" },
+  { key: "reactionCondition", en: "reaction condition", zh: "反应条件", status: "pending" },
+  { key: "activityMetric", en: "activity metric", zh: "活性指标", status: "pending" },
+  { key: "selectivityMetric", en: "selectivity metric", zh: "选择性指标", status: "pending" },
+  { key: "stabilityRecyclability", en: "stability / recyclability", zh: "稳定性 / 循环性能", status: "pending" },
 ]
 
 const CANDIDATES = [
@@ -301,6 +345,103 @@ function zhValue(value, lang) {
     Possible: "可能",
     No: "否",
   }[value] || value
+}
+
+function curationStatusLabel(status, lang) {
+  const labels = {
+    curated: lang === "zh" ? "已整理" : "curated",
+    "needs-review": lang === "zh" ? "需复核" : "needs review",
+    pending: lang === "zh" ? "待补充" : "pending",
+    planned: lang === "zh" ? "计划整理" : "Planned curation",
+  }
+  return labels[status] || labels.pending
+}
+
+function curationTone(status) {
+  if (status === "curated") return "calc"
+  if (status === "needs-review") return "proxy"
+  return "warn"
+}
+
+function pendingCatalysisValue(value, lang) {
+  if (value == null || value === "" || value === "pending") return lang === "zh" ? "待补充" : "Pending"
+  if (value === "planned") return lang === "zh" ? "计划整理" : "Planned curation"
+  return value
+}
+
+function metricStatus(metric, lang) {
+  if (!metric || metric.value == null || metric.unit === "pending") return lang === "zh" ? "待补充" : "Pending"
+  return `${metric.value} ${metric.unit || ""}`.trim()
+}
+
+function stabilityStatus(metric, lang) {
+  if (!metric || metric.cycleCount == null || metric.durationH == null || metric.structureRetained === "pending") {
+    return lang === "zh" ? "待补充" : "Pending"
+  }
+  return `${metric.cycleCount} cycles · ${metric.durationH} h`
+}
+
+function CatalysisRecordPreview({ records, status, lang, t }) {
+  const headers = lang === "zh"
+    ? ["任务家族", "子任务", "目标产物", "催化剂角色", "反应模式", "活性指标", "选择性指标", "稳定性", "证据", "来源"]
+    : ["Task family", "Sub-task", "Target product", "Catalyst role", "Reaction mode", "Activity metric", "Selectivity metric", "Stability", "Evidence", "Source"]
+
+  return (
+    <div style={{ display: "grid", gap: 12 }}>
+      <Callout tone="info">
+        {lang === "zh"
+          ? "这些记录用于定义未来催化数据接入的整理结构，不是已验证性能记录。"
+          : "These records define the curation schema for future catalysis data ingestion. They are not validated performance entries."}
+      </Callout>
+      {status === "loading" && <Callout tone="info">{lang === "zh" ? "正在加载催化记录结构…" : "Loading catalysis record schema..."}</Callout>}
+      {status === "error" && <Callout tone="warn">{lang === "zh" ? "催化记录结构加载失败。请刷新页面或检查 GitHub Pages 网络访问。" : "Catalysis record schema could not be loaded. Please refresh or check GitHub Pages network access."}</Callout>}
+      {status === "empty" && <Callout tone="warn">{lang === "zh" ? "暂无催化记录结构。" : "No catalysis record schema is available."}</Callout>}
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", minWidth: 980, borderCollapse: "collapse" }}>
+          <thead>
+            <tr>
+              {headers.map(head => (
+                <th key={head} style={{ textAlign: "left", color: t.faint, fontSize: 10, padding: "7px 8px", borderBottom: `1px solid ${t.border}`, textTransform: "uppercase" }}>
+                  {head}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {records.map(record => (
+              <tr key={record.recordId}>
+                {[
+                  record.taskFamily,
+                  record.subTask,
+                  record.targetProduct,
+                  record.catalystRole,
+                  record.reactionCondition?.mode,
+                  metricStatus(record.activityMetric, lang),
+                  metricStatus(record.selectivityMetric, lang),
+                  stabilityStatus(record.stabilityMetric, lang),
+                  record.evidenceLevel,
+                  record.sourceStatus,
+                ].map((value, index) => (
+                  <td key={`${record.recordId}-${index}`} style={{ padding: "9px 8px", borderBottom: `1px solid ${t.divider}`, color: index === 0 ? t.textStrong : t.muted, fontSize: 11, lineHeight: 1.45, verticalAlign: "top", fontWeight: index === 0 ? 850 : 600 }}>
+                    {index === 9 && record.sourceStatus === "pending"
+                      ? (lang === "zh" ? "来源待补充" : "Source pending")
+                      : pendingCatalysisValue(value, lang)}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
+        {records.map(record => (
+          <BasisBadge key={record.recordId} tone={curationTone(record.curationStatus)}>
+            {record.taskFamily}: {curationStatusLabel(record.curationStatus, lang)}
+          </BasisBadge>
+        ))}
+      </div>
+    </div>
+  )
 }
 
 // ── Case Study: CO₂ Conversion Candidate Prioritization ──────────────────────
@@ -526,7 +667,7 @@ function CaseStudyCO2({ lang, t, isNarrow, isMobile, realSeedCandidates, demoCan
   )
 }
 
-export function CatalysisLabTab() {
+export function CatalysisLabTab({ onNavigate }) {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
@@ -534,6 +675,8 @@ export function CatalysisLabTab() {
   const [taskId, setTaskId] = useState("co2_conversion")
   const [expanded, setExpanded] = useState(false)
   const [tasks, setTasks] = useState(TASKS)
+  const [catalysisRecords, setCatalysisRecords] = useState([])
+  const [recordsStatus, setRecordsStatus] = useState("loading")
   const [demoCandidates, setDemoCandidates] = useState(CANDIDATES)
   const [realSeedCandidates, setRealSeedCandidates] = useState([])
   const [candidates, setCandidates] = useState(CANDIDATES)
@@ -563,14 +706,18 @@ export function CatalysisLabTab() {
       getMofCandidates({ mode: "demo", throwOnError: true }),
       getMofCandidates({ mode: "real-seed", throwOnError: true }),
       getCatalysisTasks({ throwOnError: true }),
+      getCatalysisRecords({ throwOnError: true }),
       getScoringWeights({ throwOnError: true }),
-    ]).then(([candidateRows, realSeedRows, taskRows, weightRows]) => {
+    ]).then(([candidateRows, realSeedRows, taskRows, recordRows, weightRows]) => {
       if (!active) return
       const demo = Array.isArray(candidateRows) && candidateRows.length ? candidateRows.map(normalizeCandidate) : CANDIDATES
       setDemoCandidates(demo)
       setCandidates(demo)
       if (Array.isArray(realSeedRows) && realSeedRows.length) setRealSeedCandidates(realSeedRows.map(normalizeCandidate))
       if (Array.isArray(taskRows) && taskRows.length) setTasks(taskRows)
+      const nextRecords = Array.isArray(recordRows) ? recordRows : []
+      setCatalysisRecords(nextRecords)
+      setRecordsStatus(nextRecords.length ? "loaded" : "empty")
       if (weightRows?.CatalysisLab) setWeights(weightRows.CatalysisLab)
       else if (weightRows?.catalysisPotentialScore) setWeights(weightRows.catalysisPotentialScore)
       setDataStatus(demo.length || realSeedRows?.length || taskRows?.length ? "loaded" : "empty")
@@ -580,6 +727,8 @@ export function CatalysisLabTab() {
       setDemoCandidates(CANDIDATES)
       setCandidates(CANDIDATES)
       setTasks(TASKS)
+      setCatalysisRecords([])
+      setRecordsStatus("error")
       setWeights(LEGACY_WEIGHTS)
       setDataStatus("error")
     })
@@ -676,20 +825,23 @@ export function CatalysisLabTab() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title={lang === "zh"
-          ? "CatalysisLab — 面向任务的 MOF 催化候选材料优先级筛选"
-          : "CatalysisLab — Task-oriented MOF catalysis candidate prioritization"}
+        title="CatalysisLab"
         subtitle={lang === "zh"
-          ? "通用 MOF 催化候选筛选模块。当前使用 demo / placeholder / rule-based 数据，只表达 candidate priority、potential 和 needs validation。"
-          : "A general MOF catalysis candidate-screening module. Current data are demo / placeholder / rule-based and only express candidate priority, potential, and needs validation."}
-        meta={lang === "zh" ? "任务选择 · 筛选器 · Rule-based Catalysis Potential Score · 候选解释" : "Task selector · filters · Rule-based Catalysis Potential Score · candidate explanation"}
+          ? "面向 CO₂ 转化与可持续反应任务的 MOF 催化探索模块。"
+          : "Task-oriented MOF catalysis exploration for CO₂ conversion and sustainability-related reactions."}
+        meta={lang === "zh" ? "CO₂ 转化 · 任务家族 · 整理清单 · 记录结构 · 候选优先级" : "CO₂ conversion · task families · curation checklist · record schema · candidate priority"}
         action={
           <>
-            <BasisBadge tone="warn">{lang === "zh" ? "Demo only / 需要验证" : "Demo only / needs validation"}</BasisBadge>
+            <BasisBadge tone="warn">{lang === "zh" ? "planned curation / 需要验证" : "planned curation / needs validation"}</BasisBadge>
             <CopyLinkButton hash="catalysis" ariaLabel={lang === "zh" ? "复制 CatalysisLab 链接" : "Copy CatalysisLab link"} />
           </>
         }
       />
+      <Callout tone="info">
+        {lang === "zh"
+          ? "本模块用于整理催化候选材料、反应任务、活性描述符、选择性信号、反应条件和证据状态，不代表已完成实验验证的催化性能结论。"
+          : "This module organizes catalyst candidates, reaction tasks, activity descriptors, selectivity signals, reaction conditions, and evidence status. It does not claim experimentally validated catalytic performance."}
+      </Callout>
 
       <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
         <DataModeToggle value={dataMode} onChange={setDataMode} lang={lang} />
@@ -716,7 +868,96 @@ export function CatalysisLabTab() {
         <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
       )}
 
-      <ResultLayer number="01" title={lang === "zh" ? "催化任务选择器" : "Catalysis task selector"}>
+      <ResultLayer number="01" title={lang === "zh" ? "催化任务家族" : "Catalysis task families"}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+          {TASK_FAMILIES.map(family => {
+            const priority = family.id === "co2_conversion"
+            return (
+              <button
+                key={family.id}
+                type="button"
+                onClick={() => { setTaskId(family.id); setSelected(null) }}
+                style={{
+                  textAlign: "left",
+                  background: priority ? t.badgeInfoBg : t.panel,
+                  border: `1px solid ${priority ? t.borderStrong : t.border}`,
+                  borderRadius: 8,
+                  padding: 13,
+                  color: t.text,
+                  cursor: "pointer",
+                  minHeight: 150,
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, flexWrap: "wrap" }}>
+                  <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 880 }}>{lang === "zh" ? family.zh : family.en}</div>
+                  {priority && <BasisBadge tone="info">{lang === "zh" ? family.badgeZh : family.badgeEn}</BasisBadge>}
+                </div>
+                <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.6, marginTop: 9 }}>
+                  {lang === "zh" ? family.bodyZh : family.bodyEn}
+                </div>
+              </button>
+            )
+          })}
+        </div>
+      </ResultLayer>
+
+      <ResultLayer number="02" title={lang === "zh" ? "CO₂ 转化重点方向" : "CO₂ Conversion Focus"}>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1.2fr 0.8fr", gap: 12 }}>
+          <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
+            <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 850 }}>
+              {lang === "zh" ? "CO₂ 转化记录不能只记录材料名称" : "A CO₂ conversion record needs more than a material name"}
+            </div>
+            <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.7, margin: "8px 0 0" }}>
+              {lang === "zh"
+                ? "一个有用的整理记录应说明反应任务、目标产物、催化剂角色、活性位点假设、反应条件、活性指标、选择性指标、稳定性证据和来源状态。"
+                : "A useful curation record should describe the reaction task, target product, catalyst role, active-site hypothesis, reaction conditions, activity metric, selectivity metric, stability evidence, and source status."}
+            </p>
+          </div>
+          <article style={{ background: t.surface, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 8, padding: 14 }}>
+            <BasisBadge tone="info">{lang === "zh" ? "CO₂ 转化为有机酸" : "CO₂-to-Organic Acids"}</BasisBadge>
+            <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 880, marginTop: 10 }}>
+              {lang === "zh" ? "CO₂ 转化为有机酸" : "CO₂-to-Organic Acids"}
+            </div>
+            <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.7, margin: "8px 0 0" }}>
+              {lang === "zh"
+                ? "关注 CO₂ 转化为甲酸、甲酸盐、草酸或其他有机酸相关产物的反应记录。当前原型主要整理任务定义、目标产物、反应条件、活性/选择性指标和证据状态。"
+                : "Focuses on reaction records where CO₂ is converted into formic acid, formate, oxalic acid, or other organic-acid-related products. Current prototype tracks task definition, product target, reaction condition, activity/selectivity metrics, and evidence status."}
+            </p>
+          </article>
+        </div>
+      </ResultLayer>
+
+      <ResultLayer number="03" title={lang === "zh" ? "CO₂ 转化整理清单" : "CO₂ Conversion Checklist"}>
+        <Callout tone="info">
+          {lang === "zh"
+            ? "只有当反应任务、目标产物、催化剂角色、反应条件、活性/选择性指标、稳定性信息和来源证据较完整时，CO₂ 转化记录才应被视为已整理记录。"
+            : "A CO₂ conversion record should only be treated as curated when task, product, catalyst role, reaction condition, activity/selectivity metrics, stability information, and source evidence are available."}
+        </Callout>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 9, marginTop: 12 }}>
+          {CO2_CONVERSION_CHECKLIST.map(item => (
+            <div key={item.key} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>{lang === "zh" ? item.zh : item.en}</div>
+              <div style={{ marginTop: 8 }}>
+                <BasisBadge tone={curationTone(item.status)}>{curationStatusLabel(item.status, lang)}</BasisBadge>
+              </div>
+            </div>
+          ))}
+        </div>
+      </ResultLayer>
+
+      <ResultLayer number="04" title={lang === "zh" ? "催化记录结构预览" : "Catalysis record schema preview"}>
+        <CatalysisRecordPreview records={catalysisRecords} status={recordsStatus} lang={lang} t={t} />
+      </ResultLayer>
+
+      <ResultLayer number="05" title={lang === "zh" ? "候选材料优先级工作区" : "Candidate prioritization workspace"}>
+        <Callout tone="warn">
+          {lang === "zh"
+            ? "以下工作区保留规则评分和候选排序，用于讨论整理优先级；它不是 CO₂ 转化真实性能结论。"
+            : "The workspace below keeps rule-based scoring and candidate ranking for discussing curation priority; it is not a CO₂ conversion performance conclusion."}
+        </Callout>
+      </ResultLayer>
+
+      <ResultLayer number="06" title={lang === "zh" ? "催化任务选择器" : "Catalysis task selector"}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
           {tasks.map(item => (
             <button key={item.id} type="button" onClick={() => { setTaskId(item.id); setSelected(null) }} style={{
@@ -735,7 +976,7 @@ export function CatalysisLabTab() {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="02" title={lang === "zh" ? "催化筛选器" : "Catalysis filters"}>
+      <ResultLayer number="07" title={lang === "zh" ? "催化筛选器" : "Catalysis filters"}>
         <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
           <button type="button" onClick={() => setExpanded(prev => !prev)} style={{ ...controlStyle, display: isMobile ? "block" : "none", marginBottom: expanded ? 10 : 0 }}>
             {expanded ? (lang === "zh" ? "收起筛选器" : "Collapse filters") : (lang === "zh" ? "展开筛选器" : "Expand filters")}
@@ -746,7 +987,7 @@ export function CatalysisLabTab() {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="03" title={lang === "zh" ? "Rule-based Catalysis Potential Score 排名" : "Rule-based Catalysis Potential Score ranking"}>
+      <ResultLayer number="08" title={lang === "zh" ? "Rule-based Catalysis Potential Score 排名" : "Rule-based Catalysis Potential Score ranking"}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 12, alignItems: "start" }}>
           {ranked.length === 0 && (
             <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
@@ -778,7 +1019,7 @@ export function CatalysisLabTab() {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="04" title={lang === "zh" ? "结果解释" : "Results Interpretation"}>
+      <ResultLayer number="09" title={lang === "zh" ? "结果解释" : "Results Interpretation"}>
         <Callout tone="info">
           {lang === "zh"
             ? "Catalysis Potential Score 表示候选材料在特定催化任务下的潜力优先级，不等同于真实催化活性或产率。"
@@ -801,13 +1042,13 @@ export function CatalysisLabTab() {
         )}
       </ResultLayer>
 
-      <ResultLayer number="05" title={lang === "zh" ? "评分公式" : "Scoring formula"}>
+      <ResultLayer number="10" title={lang === "zh" ? "评分公式" : "Scoring formula"}>
         <MethodDrawer title="Catalysis Potential Score">
           Catalysis Potential Score = w1 × CO₂ Affinity + w2 × Active Site Potential + w3 × Pore Accessibility + w4 × Stability + w5 × Electronic Property + w6 × Sustainability + w7 × Evidence Confidence
         </MethodDrawer>
       </ResultLayer>
 
-      <ResultLayer number="06" title={lang === "zh" ? "Model Results / 结果解释图表" : "Model Results / Results Interpretation"}>
+      <ResultLayer number="11" title={lang === "zh" ? "Model Results / 结果解释图表" : "Model Results / Results Interpretation"}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
           <RankingBarChart data={ranked} scoreLabel={lang === "zh" ? "催化潜力评分" : "Catalysis Potential Score"} />
           <ScoreBreakdownRadar data={activeCandidate?.scoreBreakdown || []} title={activeCandidate ? `${activeCandidate.name} · ${lang === "zh" ? "评分拆解" : "Score Breakdown"}` : (lang === "zh" ? "评分拆解" : "Score Breakdown")} />
@@ -818,7 +1059,7 @@ export function CatalysisLabTab() {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="07" title={lang === "zh" ? "Machine Learning Evaluation 占位" : "Machine Learning Evaluation Placeholder"}>
+      <ResultLayer number="12" title={lang === "zh" ? "Machine Learning Evaluation 占位" : "Machine Learning Evaluation Placeholder"}>
         <Callout tone="warn">
           {lang === "zh"
             ? "当前机器学习评估为占位展示。只有在积累足够带标签的实验或文献数据后，才会启用真实模型评估。"
@@ -854,6 +1095,36 @@ export function CatalysisLabTab() {
       </Callout>
 
       <CatalysisDataTemplate lang={lang} t={t} isNarrow={isNarrow} isMobile={isMobile} />
+
+      <section className="content-card" style={{
+        background: t.surface,
+        border: `1px solid ${t.border}`,
+        borderRadius: 10,
+        padding: isMobile ? 16 : 20,
+        display: "flex",
+        flexDirection: isMobile ? "column" : "row",
+        alignItems: isMobile ? "flex-start" : "center",
+        justifyContent: "space-between",
+        gap: 14,
+      }}>
+        <div style={{ minWidth: 0 }}>
+          <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 880 }}>
+            {lang === "zh" ? "你是否从事 MOF 催化或 CO₂ 转化方向？" : "Working on MOF catalysis or CO₂ conversion?"}
+          </div>
+          <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, marginTop: 6, maxWidth: 720 }}>
+            {lang === "zh"
+              ? "欢迎对反应任务定义、催化指标、活性位点假设和数据整理优先级提出反馈。"
+              : "Feedback on reaction task definitions, catalytic metrics, active-site assumptions, and curation priorities is welcome."}
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={() => onNavigate?.("contact")}
+          style={{ ...toolbarBtn(t), padding: "10px 16px", border: `1px solid ${t.accent}`, color: t.accentText, fontWeight: 850, whiteSpace: "nowrap" }}
+        >
+          {lang === "zh" ? "联系 / 合作" : "Contact / Collaboration"}
+        </button>
+      </section>
     </div>
   )
 }

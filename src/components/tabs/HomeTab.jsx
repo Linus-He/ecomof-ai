@@ -65,7 +65,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
     {
       id: "gassep",
       hash: "gassep",
-      name: lang === "zh" ? "气体分离" : "GasSep",
+      name: "GasSep",
       desc: lang === "zh" ? "带条件说明的气体吸附与分离记录。" : "Condition-aware gas adsorption and separation records.",
     },
     {
@@ -78,7 +78,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
       id: "catalysis",
       hash: "catalysis",
       name: "CatalysisLab",
-      desc: lang === "zh" ? "探索催化任务导向候选。" : "Explore catalysis-oriented candidates.",
+      desc: lang === "zh" ? "面向任务的 MOF 催化探索，并预留 CO₂ 转化整理框架。" : "Task-oriented MOF catalysis exploration with CO₂ conversion readiness.",
     },
     {
       id: "methodology",

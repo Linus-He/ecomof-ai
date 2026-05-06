@@ -1,0 +1,154 @@
+[
+  {
+    "recordId": "cat-demo-001",
+    "taskFamily": "CO2 conversion",
+    "subTask": "CO2-to-organic-acids",
+    "targetProduct": "formic acid / formate / organic acid",
+    "mofName": "Template MOF Catalyst",
+    "catalystRole": "pending",
+    "activeSiteHypothesis": "pending",
+    "reactionCondition": {
+      "mode": "photocatalysis / electrocatalysis / thermal / pending",
+      "temperatureK": null,
+      "pressureKPa": null,
+      "solvent": "pending",
+      "electrolyte": "pending",
+      "lightSource": "pending",
+      "potentialV": null,
+      "pH": null
+    },
+    "activityMetric": {
+      "type": "TON / TOF / yield / conversion / FE / current density / pending",
+      "value": null,
+      "unit": "pending"
+    },
+    "selectivityMetric": {
+      "type": "selectivity / FE / product distribution / pending",
+      "value": null,
+      "unit": "pending"
+    },
+    "stabilityMetric": {
+      "cycleCount": null,
+      "durationH": null,
+      "structureRetained": "pending"
+    },
+    "evidenceLevel": "pending",
+    "sourceStatus": "pending",
+    "curationStatus": "planned",
+    "note": "Template record for CO2 conversion catalysis curation. No validated catalytic performance is included."
+  },
+  {
+    "recordId": "cat-demo-002",
+    "taskFamily": "photocatalysis",
+    "subTask": "light-driven product formation",
+    "targetProduct": "pending",
+    "mofName": "Template MOF Catalyst",
+    "catalystRole": "pending",
+    "activeSiteHypothesis": "pending",
+    "reactionCondition": {
+      "mode": "photocatalysis",
+      "temperatureK": null,
+      "pressureKPa": null,
+      "solvent": "pending",
+      "electrolyte": "pending",
+      "lightSource": "pending",
+      "potentialV": null,
+      "pH": null
+    },
+    "activityMetric": {
+      "type": "TON / TOF / yield / conversion / pending",
+      "value": null,
+      "unit": "pending"
+    },
+    "selectivityMetric": {
+      "type": "selectivity / product distribution / pending",
+      "value": null,
+      "unit": "pending"
+    },
+    "stabilityMetric": {
+      "cycleCount": null,
+      "durationH": null,
+      "structureRetained": "pending"
+    },
+    "evidenceLevel": "pending",
+    "sourceStatus": "pending",
+    "curationStatus": "planned",
+    "note": "Template record for photocatalysis curation. No validated catalytic performance is included."
+  },
+  {
+    "recordId": "cat-demo-003",
+    "taskFamily": "electrocatalysis",
+    "subTask": "potential-dependent catalytic reaction",
+    "targetProduct": "pending",
+    "mofName": "Template MOF Catalyst",
+    "catalystRole": "pending",
+    "activeSiteHypothesis": "pending",
+    "reactionCondition": {
+      "mode": "electrocatalysis",
+      "temperatureK": null,
+      "pressureKPa": null,
+      "solvent": "pending",
+      "electrolyte": "pending",
+      "lightSource": "pending",
+      "potentialV": null,
+      "pH": null
+    },
+    "activityMetric": {
+      "type": "FE / current density / conversion / pending",
+      "value": null,
+      "unit": "pending"
+    },
+    "selectivityMetric": {
+      "type": "FE / product distribution / pending",
+      "value": null,
+      "unit": "pending"
+    },
+    "stabilityMetric": {
+      "cycleCount": null,
+      "durationH": null,
+      "structureRetained": "pending"
+    },
+    "evidenceLevel": "pending",
+    "sourceStatus": "pending",
+    "curationStatus": "planned",
+    "note": "Template record for electrocatalysis curation. No validated catalytic performance is included."
+  },
+  {
+    "recordId": "cat-demo-004",
+    "taskFamily": "biomass conversion",
+    "subTask": "biomass-derived substrate conversion",
+    "targetProduct": "pending",
+    "mofName": "Template MOF Catalyst",
+    "catalystRole": "pending",
+    "activeSiteHypothesis": "pending",
+    "reactionCondition": {
+      "mode": "thermal / solvent-assisted / pending",
+      "temperatureK": null,
+      "pressureKPa": null,
+      "solvent": "pending",
+      "electrolyte": "pending",
+      "lightSource": "pending",
+      "potentialV": null,
+      "pH": null
+    },
+    "activityMetric": {
+      "type": "yield / conversion / TON / TOF / pending",
+      "value": null,
+      "unit": "pending"
+    },
+    "selectivityMetric": {
+      "type": "selectivity / product distribution / pending",
+      "value": null,
+      "unit": "pending"
+    },
+    "stabilityMetric": {
+      "cycleCount": null,
+      "durationH": null,
+      "structureRetained": "pending"
+    },
+    "evidenceLevel": "pending",
+    "sourceStatus": "pending",
+    "curationStatus": "planned",
+    "note": "Template record for biomass conversion curation. No validated catalytic performance is included."
+  }
+]

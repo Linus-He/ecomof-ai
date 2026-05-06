@@ -183,6 +183,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       ["method-formulas", "公式参考"],
       ["method-provenance", "证据与溯源"],
       ["method-gassep-conditions", "气体分离条件"],
+      ["method-catalysis-boundaries", "催化边界"],
       ["benchmark-references", "标杆参考"],
       ["validation-evidence", "验证与证据"],
       ["method-limitations", "限制说明"],
@@ -195,6 +196,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       ["method-formulas", "Formula Reference"],
       ["method-provenance", "Evidence & Provenance"],
       ["method-gassep-conditions", "Gas Separation Conditions"],
+      ["method-catalysis-boundaries", "Catalysis Boundaries"],
       ["benchmark-references", "Benchmark References"],
       ["validation-evidence", "Validation & Evidence"],
       ["method-limitations", "Limitations"],
@@ -429,7 +431,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
         subtitle={zh
           ? "本页集中说明 EcoMOF-AI 的评分方法、数据假设、证据等级、标杆语境、验证状态、引用边界和能力限制。"
           : "A transparent overview of EcoMOF-AI scoring methods, data assumptions, evidence levels, benchmark context, validation status, citation boundaries, and limitations."}
-        meta={zh ? "工作流 · 数据层 · 评分模型 · 公式参考 · 证据与溯源 · 气体分离条件 · 标杆参考 · 验证与证据 · 限制说明 · 参考与引用" : "Workflow · Data Layer · Scoring Model · Formula Reference · Evidence & Provenance · Gas Separation Conditions · Benchmark References · Validation & Evidence · Limitations · References"}
+        meta={zh ? "工作流 · 数据层 · 评分模型 · 公式参考 · 证据与溯源 · 气体分离条件 · 催化边界 · 标杆参考 · 验证与证据 · 限制说明 · 参考与引用" : "Workflow · Data Layer · Scoring Model · Formula Reference · Evidence & Provenance · Gas Separation Conditions · Catalysis Boundaries · Benchmark References · Validation & Evidence · Limitations · References"}
         action={
           <>
             <BasisBadge tone="proxy">{zh ? "候选优先级" : "candidate priority"}</BasisBadge>
@@ -652,6 +654,21 @@ export function MethodsLimitationsTab({ onNavigate }) {
           >
             {zh ? "打开 GasSep" : "Open GasSep"}
           </button>
+        </div>
+      </MethodSection>
+
+      <MethodSection
+        id="method-catalysis-boundaries"
+        title={zh ? "Catalysis curation boundaries / 催化数据整理边界" : "Catalysis curation boundaries"}
+        body={zh
+          ? "CatalysisLab 区分反应任务、催化剂角色、反应条件、活性/选择性指标、稳定性说明和证据状态。待整理记录不应被解释为已验证催化结果。"
+          : "CatalysisLab separates task definitions, catalyst roles, reaction conditions, activity/selectivity metrics, stability notes, and evidence status. Pending records should not be interpreted as validated catalytic results."}
+        t={t}
+      >
+        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, color: t.muted, fontSize: 11, lineHeight: 1.65 }}>
+          {zh
+            ? "CO₂ 转化和 CO₂-to-organic-acids 方向目前以 schema 与整理清单形式呈现，用于讨论未来数据接入优先级。"
+            : "CO₂ conversion and CO₂-to-organic-acids are currently represented as schema and checklist structures for discussing future data-ingestion priorities."}
         </div>
       </MethodSection>
 

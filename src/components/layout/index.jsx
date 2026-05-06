@@ -311,7 +311,7 @@ export function ContextualHeaderBar({
           Performance
         </button>
         <button type="button" onClick={() => setActiveTab("gassep")} style={headerChipBtn(t)}>
-          {lang === "zh" ? "气体分离" : "GasSep"}
+          GasSep
         </button>
         <button type="button" onClick={() => setActiveTab("ecoscreen")} style={headerChipBtn(t)}>
           EcoScreen
