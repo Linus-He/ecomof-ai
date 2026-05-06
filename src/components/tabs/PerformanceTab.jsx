@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 import {
   useT, useLang, useViewport,
-  gasLabel, getGasSystem, fetchDataJson, toolbarBtn,
+  gasLabel, getGasSystem, getMofCandidates, toolbarBtn,
   buildScoredCandidates, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
   RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
   BasisBadge, PageHeader, ResultLayer, Callout, UnifiedCandidateCard, DataModeToggle, RealSeedCallout, DemoModeBanner, safeVal, CopyLinkButton,
@@ -71,8 +71,8 @@ export function PerformanceTab({
   useEffect(() => {
     let active = true
     Promise.all([
-      fetchDataJson("mof_candidates_demo.json"),
-      fetchDataJson("mof_candidates_real_seed.json"),
+      getMofCandidates({ mode: "demo" }),
+      getMofCandidates({ mode: "real-seed" }),
     ])
       .then(([demo, realSeed]) => {
         if (!active) return

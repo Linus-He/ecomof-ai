@@ -1,4 +1,5 @@
-import { CURRENCIES, DATA_BASE_URL } from "../constants/catalogs"
+import { CURRENCIES } from "../constants/catalogs"
+import { fetchDataJson } from "../services/dataService"
 
 export function formatCurrency(valueUsd, currencyCode = "USD", digits = 1) {
   const currency = CURRENCIES[currencyCode] || CURRENCIES.USD
@@ -8,12 +9,6 @@ export function formatCurrency(valueUsd, currencyCode = "USD", digits = 1) {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   })}`
-}
-
-export async function fetchDataJson(fileName) {
-  const response = await fetch(`${DATA_BASE_URL}${fileName}`)
-  if (!response.ok) throw new Error(`Failed to load ${fileName}`)
-  return response.json()
 }
 
 export function parseCsvRows(text) {

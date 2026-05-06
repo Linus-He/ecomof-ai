@@ -5,10 +5,11 @@ import {
 } from "recharts"
 import {
   useT, useLang, useViewport,
-  LITERATURE_DB, fetchDataJson, buildDatabaseRecords, downloadTextFile, toolbarBtn,
+  LITERATURE_DB, getAdsorptionLabels, getMofCandidates, getMofStructures, buildDatabaseRecords, downloadTextFile, toolbarBtn,
   BasisBadge, PageHeader, ResultLayer, Callout, DataModeToggle, RealSeedCallout, DataModeNote, safeVal, CopyLinkButton,
   FieldProvenanceButton, SectionTitle, EvidenceLevelLegend,
 } from "../../shared"
+import { CandidateComparisonModal, CompareTray } from "../mof/CandidateComparisonModal"
 
 const KEY_FIELDS = [
   { key: "surfaceArea",     label: { en: "Surface area", zh: "比表面积" } },
@@ -195,6 +196,7 @@ function normalizeDemoRecord(item) {
     evidenceLevel: item.evidenceLevel || "Low",
     limitations: limitations || "Demo / placeholder record; needs validation.",
     dataStatus: item.dataStatus || "demo / placeholder / needs validation",
+    dataMode: item.dataMode || "demo",
     fieldSources: item.fieldSources || undefined,
   }
 }
@@ -267,14 +269,17 @@ export function MOFLibraryTab({ results, inputs }) {
   const [demoRows, setDemoRows] = useState([])
   const [realSeedRows, setRealSeedRows] = useState([])
   const [status, setStatus] = useState("loading")
+  const [selectedCompareIds, setSelectedCompareIds] = useState([])
+  const [compareNotice, setCompareNotice] = useState("")
+  const [comparisonOpen, setComparisonOpen] = useState(false)
 
   useEffect(() => {
     let active = true
     Promise.all([
-      fetchDataJson("mof_structures.json"),
-      fetchDataJson("adsorption_labels.json"),
-      fetchDataJson("mof_candidates_demo.json"),
-      fetchDataJson("mof_candidates_real_seed.json"),
+      getMofStructures(),
+      getAdsorptionLabels(),
+      getMofCandidates({ mode: "demo" }),
+      getMofCandidates({ mode: "real-seed" }),
     ])
       .then(([structures, labels, demo, realSeed]) => {
         if (!active) return
@@ -290,6 +295,12 @@ export function MOFLibraryTab({ results, inputs }) {
       })
     return () => { active = false }
   }, [])
+
+  useEffect(() => {
+    setSelectedCompareIds([])
+    setCompareNotice("")
+    setComparisonOpen(false)
+  }, [dataMode])
 
   const records = useMemo(() => {
     if (dataMode === "real-seed" && realSeedRows.length) {
@@ -324,6 +335,23 @@ export function MOFLibraryTab({ results, inputs }) {
       .filter(item => Number(item.surfaceArea || 0) >= Number(areaMin) && Number(item.surfaceArea || 0) <= Number(areaMax))
       .sort((a, b) => String(a.name).localeCompare(String(b.name)))
   }, [records, query, metal, source, evidence, poreMin, poreMax, areaMin, areaMax])
+
+  const selectedCompareCandidates = useMemo(() => {
+    const byId = new Map(records.map(item => [item.id, item]))
+    return selectedCompareIds.map(id => byId.get(id)).filter(Boolean)
+  }, [records, selectedCompareIds])
+
+  const toggleCompare = (item) => {
+    setCompareNotice("")
+    setSelectedCompareIds(prev => {
+      if (prev.includes(item.id)) return prev.filter(id => id !== item.id)
+      if (prev.length >= 4) {
+        setCompareNotice(lang === "zh" ? "最多可对比 4 个候选材料。" : "You can compare up to 4 candidates.")
+        return prev
+      }
+      return [...prev, item.id]
+    })
+  }
 
   const exportCsv = () => {
     const header = ["MOF name", "Metal nodes", "Linker", "Pore size A", "Surface area m2/g", "CO2 uptake", "Band gap", "Stability", "Source", "Evidence level", "Limitations"]
@@ -490,6 +518,24 @@ export function MOFLibraryTab({ results, inputs }) {
                 <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
                   <BasisBadge tone="info">{zhValue(item.evidenceLevel, lang)}</BasisBadge>
                   <BasisBadge tone="proxy">{zhDataStatus(item.dataStatus, lang)}</BasisBadge>
+                  <button
+                    type="button"
+                    onClick={() => toggleCompare(item)}
+                    aria-label={selectedCompareIds.includes(item.id)
+                      ? (lang === "zh" ? `取消选择 ${item.name}` : `Remove ${item.name} from comparison`)
+                      : (lang === "zh" ? `加入对比 ${item.name}` : `Compare ${item.name}`)}
+                    style={{
+                      ...toolbarBtn(t),
+                      padding: "4px 9px",
+                      fontSize: 10,
+                      color: selectedCompareIds.includes(item.id) ? t.accentText : t.subtle,
+                      border: `1px solid ${selectedCompareIds.includes(item.id) ? t.accent : t.borderStrong}`,
+                    }}
+                  >
+                    {selectedCompareIds.includes(item.id)
+                      ? (lang === "zh" ? "已选择" : "Selected")
+                      : (lang === "zh" ? "加入对比" : "Compare")}
+                  </button>
                 </div>
               </div>
               <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(9, minmax(0, 1fr))", gap: 12, marginTop: 12 }}>
@@ -536,6 +582,17 @@ export function MOFLibraryTab({ results, inputs }) {
             </div>
           ))}
         </div>
+        {selectedCompareIds.length > 0 && (
+          <CompareTray
+            count={selectedCompareIds.length}
+            canCompare={selectedCompareIds.length >= 2}
+            notice={compareNotice}
+            onCompare={() => selectedCompareIds.length >= 2 && setComparisonOpen(true)}
+            onClear={() => { setSelectedCompareIds([]); setCompareNotice(""); setComparisonOpen(false) }}
+            t={t}
+            lang={lang}
+          />
+        )}
       </ResultLayer>
 
       <ResultLayer
@@ -593,6 +650,14 @@ export function MOFLibraryTab({ results, inputs }) {
           </Callout>
         </ResultLayer>
       )}
+      <CandidateComparisonModal
+        open={comparisonOpen}
+        candidates={selectedCompareCandidates}
+        onClose={() => setComparisonOpen(false)}
+        t={t}
+        lang={lang}
+        isMobile={isMobile}
+      />
     </div>
   )
 }

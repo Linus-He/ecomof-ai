@@ -42,6 +42,18 @@ It is designed for transparent candidate prioritization and research discussion.
 
 The data mode toggle is available in Performance, EcoScreen, CatalysisLab, and MOF Library views.
 
+## Data Access Layer
+
+The current version uses static JSON files from `public/data`. Data fetching is wrapped in a data service to keep the app API-ready. Future versions may replace static JSON with REST APIs, database-backed services, or offline model inference outputs. No live backend API is required for the current prototype.
+
+当前版本仍使用 `public/data` 中的静态 JSON；数据访问已通过 data service 封装，以便未来接入 REST API、数据库服务或离线模型推理结果。当前原型不依赖实时后端 API。
+
+## Candidate Comparison
+
+Candidate Comparison allows users to compare selected MOF candidates across descriptor completeness, key descriptors, evidence levels, and provenance coverage. It is intended for transparent decision support and should not be treated as a final material performance conclusion.
+
+候选材料对比功能用于比较所选 MOF 在描述符完整性、关键描述符、证据等级和溯源覆盖方面的差异。该功能用于透明决策支持，不代表最终材料性能结论。
+
 ## Data Curation Statement
 
 EcoMOF-AI separates demo data, real-seed curation records, and field-level provenance. Demo data is used only to demonstrate workflow behavior. Real Seed Dataset provides a framework for curated real-data ingestion, but some descriptors remain pending curation.

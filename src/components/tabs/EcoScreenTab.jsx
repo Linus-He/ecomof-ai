@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react"
 import {
   useT, useLang, useViewport,
   LITERATURE_DB, METAL_CENTERS, ORGANIC_LINKERS,
-  fetchDataJson, buildDatabaseRecords, toolbarBtn,
+  getAdsorptionLabels, getMofStructures, buildDatabaseRecords, toolbarBtn,
   calculateEcoScore, getScoreBreakdown, getWeightContribution, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
   RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
   BasisBadge, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard, CopyLinkButton,
@@ -154,7 +154,7 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
 
   useEffect(() => {
     let active = true
-    Promise.all([fetchDataJson("mof_structures.json"), fetchDataJson("adsorption_labels.json")])
+    Promise.all([getMofStructures(), getAdsorptionLabels()])
       .then(([structures, labels]) => {
         if (!active) return
         setStructureRows(structures)

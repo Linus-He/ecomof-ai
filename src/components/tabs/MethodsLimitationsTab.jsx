@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import {
   useT, useLang, useViewport,
   FONT_MONO,
-  BasisBadge, SectionTitle, Callout, PageHeader, CopyLinkButton, fetchDataJson,
+  BasisBadge, SectionTitle, Callout, PageHeader, CopyLinkButton, getReferences,
 } from "../../shared"
 
 const PROJECT_CITATION_EN = "Linus-He. EcoMOF-AI: An early-stage research prototype for MOF candidate screening, sustainability evaluation, catalysis-oriented exploration, and field-level data provenance. GitHub Pages, 2026. Available at: https://linus-he.github.io/ecomof-ai/"
@@ -142,7 +142,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
   useEffect(() => {
     let active = true
-    fetchDataJson("references.json")
+    getReferences()
       .then(data => {
         if (active) setReferences(Array.isArray(data) ? data : [])
       })

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 import {
   useT, useLang, useViewport,
-  fetchDataJson, BasisBadge, BrandMark, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard, CopyLinkButton,
+  getCatalysisTasks, getMofCandidates, getScoringWeights, BasisBadge, BrandMark, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard, CopyLinkButton,
   calculateCatalysisScore, getScoreBreakdown, getWeightContribution, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
   RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
   DataModeToggle, RealSeedCallout, DemoModeBanner, safeVal, toolbarBtn, SectionTitle, FieldProvenanceButton,
@@ -558,10 +558,10 @@ export function CatalysisLabTab() {
   useEffect(() => {
     let active = true
     Promise.all([
-      fetchDataJson("mof_candidates_demo.json"),
-      fetchDataJson("mof_candidates_real_seed.json"),
-      fetchDataJson("catalysis_tasks.json"),
-      fetchDataJson("scoring_weights.json"),
+      getMofCandidates({ mode: "demo" }),
+      getMofCandidates({ mode: "real-seed" }),
+      getCatalysisTasks(),
+      getScoringWeights(),
     ]).then(([candidateRows, realSeedRows, taskRows, weightRows]) => {
       if (!active) return
       const demo = Array.isArray(candidateRows) && candidateRows.length ? candidateRows.map(normalizeCandidate) : CANDIDATES
