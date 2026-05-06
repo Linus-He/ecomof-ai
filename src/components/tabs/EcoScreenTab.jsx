@@ -8,6 +8,8 @@ import {
   BasisBadge, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard, CopyLinkButton,
 } from "../../shared"
 
+const ECO_LOAD_NOTICE_MS = 700
+
 function scoreTone(score) {
   if (score >= 8) return "calc"
   if (score >= 6.5) return "info"
@@ -158,10 +160,15 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
 
   useEffect(() => {
     let active = true
+    let noticeTimer = null
     setDataStatus("loading")
+    noticeTimer = window.setTimeout(() => {
+      if (active) setDataStatus("loaded")
+    }, ECO_LOAD_NOTICE_MS)
     Promise.all([getMofStructures({ throwOnError: true }), getAdsorptionLabels({ throwOnError: true })])
       .then(([structures, labels]) => {
         if (!active) return
+        window.clearTimeout(noticeTimer)
         const nextStructures = Array.isArray(structures) ? structures : []
         const nextLabels = Array.isArray(labels) ? labels : []
         setStructureRows(nextStructures)
@@ -171,11 +178,15 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
       .catch((error) => {
         console.warn("EcoScreen data load failed.", error)
         if (!active) return
+        window.clearTimeout(noticeTimer)
         setStructureRows([])
         setLabelRows([])
         setDataStatus("error")
       })
-    return () => { active = false }
+    return () => {
+      active = false
+      window.clearTimeout(noticeTimer)
+    }
   }, [])
 
   const records = useMemo(() => {
