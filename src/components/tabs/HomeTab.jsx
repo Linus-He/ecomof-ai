@@ -17,6 +17,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
       body: lang === "zh"
         ? "按吸附性能、可持续性或催化适配性判断候选优先级。"
         : "Prioritize candidates by adsorption performance, sustainability, or catalysis fit.",
+      target: "performance",
     },
     {
       id: "inspect",
@@ -25,6 +26,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
       body: lang === "zh"
         ? "查看哪些字段已整理、哪些待整理，以及证据等级是否明确。"
         : "See which fields are curated, pending, and supported by evidence levels.",
+      target: "mofLibrary",
     },
     {
       id: "provenance",
@@ -33,6 +35,17 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
       body: lang === "zh"
         ? "查看描述符来源、测试条件和整理状态。"
         : "Review descriptor source, measurement condition, and curation status.",
+      target: "data-quality-provenance",
+    },
+    {
+      id: "compare",
+      number: "04",
+      title: lang === "zh" ? "对比候选材料" : "Compare candidates",
+      body: lang === "zh"
+        ? "选择 2–4 个 MOF 候选材料，横向比较描述符完整性、关键属性、证据等级和溯源覆盖情况。"
+        : "Select 2–4 MOF candidates and compare descriptor completeness, key properties, evidence levels, and provenance coverage.",
+      tag: lang === "zh" ? "决策支持" : "Decision support",
+      target: "mofLibrary",
     },
   ], [lang])
 
@@ -41,7 +54,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
       id: "mofLibrary",
       hash: "library",
       name: lang === "zh" ? "MOF Library" : "MOF Library",
-      desc: lang === "zh" ? "浏览描述符、证据等级和来源记录。" : "Browse descriptors, evidence levels, and source records.",
+      desc: lang === "zh" ? "浏览候选材料、查看整理状态，并进入候选材料对比。" : "Browse candidates, inspect curation status, and launch candidate comparison.",
     },
     {
       id: "performance",
@@ -210,6 +223,13 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
           </button>
           <button
             type="button"
+            onClick={() => setActiveTab("mofLibrary")}
+            style={{ ...toolbarBtn(t), padding: "9px 16px", fontSize: 13 }}
+          >
+            {lang === "zh" ? "候选材料对比" : "Compare Candidates"}
+          </button>
+          <button
+            type="button"
             onClick={() => setActiveTab("data-quality-provenance")}
             style={{ ...toolbarBtn(t), padding: "9px 16px", fontSize: 13 }}
           >
@@ -245,20 +265,28 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
         </div>
         <div style={{
           display: "grid",
-          gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))",
+          gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))",
+          gridAutoRows: "1fr",
           gap: 14,
         }}>
           {whatYouCanDo.map(card => (
-            <div
+            <button
               key={card.id}
+              type="button"
+              onClick={card.target ? () => setActiveTab(card.target) : undefined}
+              aria-label={card.target ? card.title : undefined}
               className="content-card"
               style={{
+                all: "unset",
                 ...cardBase,
                 padding: isMobile ? "18px 16px" : "22px 20px",
                 borderTop: `3px solid ${t.accent}`,
                 display: "flex",
                 flexDirection: "column",
                 gap: 10,
+                minHeight: isMobile ? 0 : 154,
+                cursor: card.target ? "pointer" : "default",
+                boxSizing: "border-box",
               }}
             >
               <div style={{ color: t.accentText, fontSize: 12, fontWeight: 900, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}>
@@ -270,7 +298,12 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
               <div style={{ color: t.muted, fontSize: 13, lineHeight: 1.6, flex: 1 }}>
                 {card.body}
               </div>
-            </div>
+              {card.tag && (
+                <div style={{ color: t.accentText, fontSize: 11, fontWeight: 850, marginTop: 2 }}>
+                  {card.tag} →
+                </div>
+              )}
+            </button>
           ))}
         </div>
       </section>
