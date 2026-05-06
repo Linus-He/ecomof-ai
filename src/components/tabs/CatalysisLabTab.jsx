@@ -190,6 +190,12 @@ const CO2_CONVERSION_PATHWAYS = [
     id: "c1-reduction",
     en: "C1 reduction products",
     zh: "C1 还原产物",
+    tagEn: "C1 products",
+    tagZh: "C1 产物",
+    selectorProductsEn: ["CO", "formate", "methanol"],
+    selectorProductsZh: ["CO", "甲酸盐", "甲醇"],
+    overviewEn: "Single-carbon CO₂ conversion pathways where product identity, reaction mode, and quantification method drive interpretation.",
+    overviewZh: "单碳 CO₂ 转化路径，解读时需要同时看产物身份、反应模式和定量方法。",
     productsEn: ["CO", "formate / formic acid", "methanol", "methane"],
     productsZh: ["CO", "甲酸盐 / 甲酸", "甲醇", "甲烷"],
     modesEn: ["electrocatalysis", "photocatalysis", "photoelectrocatalysis"],
@@ -207,6 +213,12 @@ const CO2_CONVERSION_PATHWAYS = [
     id: "c2-plus",
     en: "C2+ products",
     zh: "C2+ 产物",
+    tagEn: "C-C coupling",
+    tagZh: "C-C 偶联",
+    selectorProductsEn: ["ethylene", "ethanol", "acetate"],
+    selectorProductsZh: ["乙烯", "乙醇", "乙酸盐"],
+    overviewEn: "Multi-carbon product pathways where C-C coupling context matters as much as headline selectivity.",
+    overviewZh: "多碳产物路径，C-C 偶联语境与选择性数值同样重要。",
     productsEn: ["ethylene", "ethanol", "acetate", "propanol"],
     productsZh: ["乙烯", "乙醇", "乙酸盐", "丙醇"],
     modesEn: ["electrocatalysis", "tandem catalysis", "composite catalysis"],
@@ -224,6 +236,12 @@ const CO2_CONVERSION_PATHWAYS = [
     id: "organic-acids",
     en: "Organic-acid products",
     zh: "有机酸相关产物",
+    tagEn: "acid products",
+    tagZh: "酸类产物",
+    selectorProductsEn: ["formic acid", "oxalic acid", "carboxylates"],
+    selectorProductsZh: ["甲酸", "草酸", "羧酸盐"],
+    overviewEn: "Acid, formate, and carboxylate records where pH, electrolyte, solvent, and analytical method affect reporting.",
+    overviewZh: "酸、甲酸盐和羧酸盐相关记录，pH、电解液、溶剂和分析方法都会影响报道形式。",
     productsEn: ["formic acid / formate", "oxalic acid", "acetate", "carboxylates"],
     productsZh: ["甲酸 / 甲酸盐", "草酸", "乙酸盐", "羧酸盐"],
     modesEn: ["electrocatalysis", "photocatalysis", "carboxylation", "thermal catalysis"],
@@ -241,6 +259,12 @@ const CO2_CONVERSION_PATHWAYS = [
     id: "cyclic-carbonates",
     en: "Cyclic carbonates",
     zh: "环状碳酸酯",
+    tagEn: "cycloaddition",
+    tagZh: "环加成",
+    selectorProductsEn: ["epoxide + CO₂"],
+    selectorProductsZh: ["环氧化物 + CO₂"],
+    overviewEn: "CO₂ cycloaddition records where substrate scope, co-catalyst use, pressure, and recyclability shape comparability.",
+    overviewZh: "CO₂ 环加成记录，可比性取决于底物范围、助催化剂、压力和循环性能。",
     productsEn: ["cyclic carbonates from epoxides and CO₂"],
     productsZh: ["由环氧化物与 CO₂ 生成的环状碳酸酯"],
     modesEn: ["thermal catalysis", "Lewis acid/base cooperative catalysis", "co-catalyst-assisted conversion"],
@@ -258,6 +282,12 @@ const CO2_CONVERSION_PATHWAYS = [
     id: "co2-biomass-upgrading",
     en: "CO₂-assisted biomass upgrading",
     zh: "CO₂ 参与的生物质升级转化",
+    tagEn: "upgrading",
+    tagZh: "升级转化",
+    selectorProductsEn: ["biomass-derived oxygenates"],
+    selectorProductsZh: ["生物质来源含氧化合物"],
+    overviewEn: "CO₂-assisted upgrading pathways where carbon tracing and the role of CO₂ must be made explicit.",
+    overviewZh: "CO₂ 参与的升级转化路径，需要明确碳源追踪以及 CO₂ 在反应中的实际角色。",
     productsEn: ["carbonate-mediated products", "carboxylation-related products", "biomass-derived oxygenates"],
     productsZh: ["碳酸盐介导产物", "羧化相关产物", "生物质来源含氧化合物"],
     modesEn: ["thermal catalysis", "tandem catalysis", "CO₂-assisted conversion"],
@@ -508,6 +538,32 @@ function compactList(value, lang) {
     return value.map(item => pendingCatalysisValue(item, lang)).join(", ")
   }
   return pendingCatalysisValue(value, lang)
+}
+
+function PathwayPills({ items, lang, t, tone = "default" }) {
+  const values = Array.isArray(items) ? items : [items]
+  const colors = tone === "accent"
+    ? { bg: t.badgeInfoBg, border: t.borderStrong || t.border, text: t.accentText }
+    : { bg: t.surface, border: t.border, text: t.muted }
+
+  return (
+    <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+      {values.map(item => (
+        <span key={item} style={{
+          background: colors.bg,
+          border: `1px solid ${colors.border}`,
+          borderRadius: 999,
+          color: colors.text,
+          fontSize: 10,
+          fontWeight: 750,
+          lineHeight: 1.25,
+          padding: "5px 8px",
+        }}>
+          {pendingCatalysisValue(item, lang)}
+        </span>
+      ))}
+    </div>
+  )
 }
 
 function CatalysisRecordPreview({ records, status, lang, t }) {
@@ -809,6 +865,8 @@ export function CatalysisLabTab({ onNavigate }) {
   const [candidates, setCandidates] = useState(CANDIDATES)
   const [weights, setWeights] = useState(WEIGHTS)
   const [dataStatus, setDataStatus] = useState("loading")
+  const [selectedPathwayId, setSelectedPathwayId] = useState(CO2_CONVERSION_PATHWAYS[0].id)
+  const [hoveredPathwayId, setHoveredPathwayId] = useState(null)
   const [filters, setFilters] = useState({
     metalCenter: "all",
     bimetallic: "all",
@@ -896,6 +954,10 @@ export function CatalysisLabTab({ onNavigate }) {
       .filter(item => filters.sustainabilityRisk === "all" || item.sustainabilityRisk === filters.sustainabilityRisk)
       .sort((a, b) => b.catalysis.score - a.catalysis.score)
   }, [candidates, taskId, filters, weights, task])
+
+  const selectedPathway = useMemo(() => (
+    CO2_CONVERSION_PATHWAYS.find(pathway => pathway.id === selectedPathwayId) || CO2_CONVERSION_PATHWAYS[0]
+  ), [selectedPathwayId])
 
   const activeCandidate = selected || ranked[0]
   const updateFilter = (key, value) => setFilters(prev => ({ ...prev, [key]: value }))
@@ -1028,52 +1090,150 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="02" title={lang === "zh" ? "CO₂ 转化路径" : "CO₂ Conversion Pathways"}>
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1.05fr 1.95fr", gap: 12 }}>
-          <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
-            <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 850 }}>
-              {lang === "zh" ? "CO₂ 转化记录不能只记录材料名称" : "A CO₂ conversion record needs more than a material name"}
-            </div>
-            <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.7, margin: "8px 0 0" }}>
-              {lang === "zh"
-                ? "一个有用的整理记录应说明反应任务、目标产物、催化剂角色、活性位点假设、反应条件、活性指标、选择性指标、稳定性证据和来源状态。"
-                : "A useful curation record should describe the reaction task, target product, catalyst role, active-site hypothesis, reaction conditions, activity metric, selectivity metric, stability evidence, and source status."}
-            </p>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 10 }}>
-            {CO2_CONVERSION_PATHWAYS.map(pathway => (
-              <article key={pathway.id} style={{ background: t.surface, border: `1px solid ${pathway.id === "organic-acids" ? (t.borderStrong || t.border) : t.border}`, borderRadius: 8, padding: 12 }}>
-                <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 880 }}>
-                  {lang === "zh" ? pathway.zh : pathway.en}
-                </div>
-                <div style={{ display: "grid", gap: 7, marginTop: 9 }}>
-                  {[
-                    [lang === "zh" ? "典型产物" : "Typical products", lang === "zh" ? pathway.productsZh : pathway.productsEn, t.accentText],
-                    [lang === "zh" ? "相关反应模式" : "Relevant modes", lang === "zh" ? pathway.modesZh : pathway.modesEn, t.muted],
-                    [lang === "zh" ? "关键指标" : "Key metrics", lang === "zh" ? pathway.metricsZh : pathway.metricsEn, t.muted],
-                    [lang === "zh" ? "MOF 相关作用" : "MOF relevance", lang === "zh" ? pathway.mofRelevanceZh : pathway.mofRelevanceEn, t.muted],
-                    [lang === "zh" ? "数据整理重点" : "Curation focus", lang === "zh" ? pathway.curationFocusZh : pathway.curationFocusEn, t.muted],
-                  ].map(([label, value, color]) => (
-                    <div key={label} style={{ display: "grid", gap: 2 }}>
-                      <div style={{ color: t.faint, fontSize: 9, fontWeight: 800, letterSpacing: 0, textTransform: "uppercase" }}>{label}</div>
-                      <div style={{ color, fontSize: 11, lineHeight: 1.5 }}>{compactList(value, lang)}</div>
+      <ResultLayer number="02" title={lang === "zh" ? "CO₂ 转化路径探索器" : "CO₂ Conversion Pathway Explorer"}>
+        <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, margin: "0 0 12px", maxWidth: 820 }}>
+          {lang === "zh"
+            ? "按产物类型、反应模式、MOF 作用、关键指标和数据整理重点理解 CO₂ 转化路径。"
+            : "Explore CO₂ conversion pathways by product family, reaction mode, MOF role, key metrics, and curation priorities."}
+        </p>
+
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "minmax(230px, 0.86fr) minmax(0, 2.14fr)",
+          gap: isMobile ? 12 : 14,
+          alignItems: "stretch",
+        }}>
+          <div
+            role="tablist"
+            aria-label={lang === "zh" ? "CO₂ 转化路径选择器" : "CO₂ conversion pathway selector"}
+            style={{
+              display: isMobile ? "flex" : "grid",
+              gap: 8,
+              overflowX: isMobile ? "auto" : "visible",
+              paddingBottom: isMobile ? 4 : 0,
+              WebkitOverflowScrolling: "touch",
+            }}
+          >
+            {CO2_CONVERSION_PATHWAYS.map(pathway => {
+              const active = pathway.id === selectedPathway.id
+              const hovered = hoveredPathwayId === pathway.id
+              return (
+                <button
+                  key={pathway.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={active}
+                  onClick={() => setSelectedPathwayId(pathway.id)}
+                  onMouseEnter={() => setHoveredPathwayId(pathway.id)}
+                  onMouseLeave={() => setHoveredPathwayId(null)}
+                  style={{
+                    textAlign: "left",
+                    minWidth: isMobile ? 235 : "auto",
+                    background: active ? t.badgeInfoBg : hovered ? t.surface : "transparent",
+                    border: `1px solid ${active ? (t.borderStrong || t.accent) : t.border}`,
+                    borderLeft: isMobile ? `1px solid ${active ? (t.borderStrong || t.accent) : t.border}` : `4px solid ${active ? t.accent : "transparent"}`,
+                    borderRadius: 8,
+                    padding: "10px 11px",
+                    color: t.text,
+                    cursor: "pointer",
+                    transition: "background 160ms ease, border-color 160ms ease, transform 160ms ease",
+                    transform: hovered && !active ? "translateY(-1px)" : "none",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "flex-start" }}>
+                    <div style={{ minWidth: 0 }}>
+                      <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 880, lineHeight: 1.25 }}>
+                        {pathway.en}
+                      </div>
+                      <div style={{ color: t.subtle, fontSize: 11, fontWeight: 750, lineHeight: 1.35, marginTop: 2 }}>
+                        {pathway.zh}
+                      </div>
                     </div>
-                  ))}
-                </div>
-                <div style={{ marginTop: 9, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, padding: 9 }}>
-                  <div style={{ color: t.faint, fontSize: 9, fontWeight: 800, textTransform: "uppercase" }}>{lang === "zh" ? "注意事项" : "Caution"}</div>
-                  <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 3 }}>{lang === "zh" ? pathway.cautionZh : pathway.cautionEn}</div>
-                </div>
-              </article>
-            ))}
+                    <span style={{
+                      background: active ? t.panel : t.surface,
+                      border: `1px solid ${t.border}`,
+                      borderRadius: 999,
+                      color: active ? t.accentText : t.faint,
+                      flexShrink: 0,
+                      fontSize: 9,
+                      fontWeight: 800,
+                      padding: "3px 6px",
+                      whiteSpace: "nowrap",
+                    }}>
+                      {lang === "zh" ? pathway.tagZh : pathway.tagEn}
+                    </span>
+                  </div>
+                  <div style={{ color: active ? t.accentText : t.faint, fontSize: 10, fontWeight: 700, lineHeight: 1.45, marginTop: 7 }}>
+                    {(lang === "zh" ? pathway.selectorProductsZh : pathway.selectorProductsEn).join(" · ")}
+                  </div>
+                </button>
+              )
+            })}
           </div>
+
+          <article style={{
+            background: t.panel,
+            border: `1px solid ${t.borderStrong || t.border}`,
+            borderRadius: 10,
+            boxShadow: t.shadowSm,
+            minWidth: 0,
+            padding: isMobile ? 14 : 16,
+          }}>
+            <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+              <div style={{ minWidth: 0 }}>
+                <div style={{ color: t.textStrong, fontSize: isMobile ? 16 : 18, fontWeight: 920, lineHeight: 1.2 }}>
+                  {lang === "zh" ? selectedPathway.zh : selectedPathway.en}
+                </div>
+                <div style={{ color: t.subtle, fontSize: 12, fontWeight: 760, marginTop: 4 }}>
+                  {lang === "zh" ? selectedPathway.en : selectedPathway.zh}
+                </div>
+              </div>
+              <BasisBadge tone="info">{lang === "zh" ? selectedPathway.tagZh : selectedPathway.tagEn}</BasisBadge>
+            </div>
+
+            <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, margin: "12px 0 0", maxWidth: 760 }}>
+              {lang === "zh" ? selectedPathway.overviewZh : selectedPathway.overviewEn}
+            </p>
+
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))",
+              gap: 10,
+              marginTop: 14,
+            }}>
+              {[
+                [lang === "zh" ? "典型产物" : "Typical products", lang === "zh" ? selectedPathway.productsZh : selectedPathway.productsEn, "accent"],
+                [lang === "zh" ? "相关反应模式" : "Relevant modes", lang === "zh" ? selectedPathway.modesZh : selectedPathway.modesEn, "default"],
+                [lang === "zh" ? "关键指标" : "Key metrics", lang === "zh" ? selectedPathway.metricsZh : selectedPathway.metricsEn, "default"],
+                [lang === "zh" ? "MOF 相关作用" : "MOF relevance", lang === "zh" ? selectedPathway.mofRelevanceZh : selectedPathway.mofRelevanceEn, "default"],
+                [lang === "zh" ? "数据整理重点" : "Curation focus", lang === "zh" ? selectedPathway.curationFocusZh : selectedPathway.curationFocusEn, "default"],
+              ].map(([label, values, tone]) => (
+                <section key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+                  <div style={{ color: t.faint, fontSize: 9, fontWeight: 850, letterSpacing: 0, textTransform: "uppercase", marginBottom: 8 }}>
+                    {label}
+                  </div>
+                  <PathwayPills items={values} lang={lang} t={t} tone={tone} />
+                </section>
+              ))}
+            </div>
+
+            <div style={{ marginTop: 12, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+              <div style={{ color: t.faint, fontSize: 9, fontWeight: 850, textTransform: "uppercase" }}>
+                {lang === "zh" ? "注意事项" : "Caution"}
+              </div>
+              <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.6, marginTop: 5 }}>
+                {lang === "zh" ? selectedPathway.cautionZh : selectedPathway.cautionEn}
+              </div>
+            </div>
+          </article>
         </div>
+
         <div style={{ marginTop: 12 }}>
           <Callout tone="info">
             <strong>{lang === "zh" ? "跨路径比较注意事项：" : "Cross-pathway comparison cautions: "}</strong>
             {lang === "zh"
-              ? "不同 CO₂ 转化路径不应使用单一指标直接比较。电催化中的法拉第效率、光催化中的 TON/TOF、热催化中的转化率/收率，以及环加成反应中的产率，分别对应不同反应语境。因此，EcoMOF-AI 将反应模式、产物路径、条件语境、活性/选择性指标、稳定性证据和来源状态分开整理。"
-              : "CO₂ conversion pathways should not be compared using a single metric. Electrocatalytic Faradaic efficiency, photocatalytic TON/TOF, thermal conversion/yield, and cycloaddition yield describe different reaction contexts. EcoMOF-AI therefore tracks reaction mode, product pathway, condition context, activity/selectivity metrics, stability evidence, and source status separately."}
+              ? "不同 CO₂ 转化路径不应使用单一指标直接比较。电催化中的法拉第效率、光催化中的 TON/TOF、热催化中的转化率/收率，以及环加成反应中的产率，分别对应不同反应语境。"
+              : "CO₂ conversion pathways should not be compared using a single metric. Electrocatalytic Faradaic efficiency, photocatalytic TON/TOF, thermal conversion/yield, and cycloaddition yield describe different reaction contexts."}
           </Callout>
         </div>
       </ResultLayer>
