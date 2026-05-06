@@ -661,14 +661,14 @@ export function MethodsLimitationsTab({ onNavigate }) {
         id="method-catalysis-boundaries"
         title={zh ? "Catalysis curation boundaries / 催化数据整理边界" : "Catalysis curation boundaries"}
         body={zh
-          ? "CatalysisLab 区分反应任务、产物路径、催化剂角色、条件语境、活性/选择性指标、稳定性证据和来源状态。待整理记录不应被解释为已验证催化结果。"
-          : "CatalysisLab separates task definitions, product pathways, catalyst roles, condition context, activity/selectivity metrics, stability evidence, and source status. Pending records should not be interpreted as validated catalytic results."}
+          ? "CatalysisLab 按产物路径和反应模式组织 CO₂ 转化记录，并区分条件语境、活性/选择性指标、稳定性证据和来源状态。待整理记录不应被解释为已验证催化结果。"
+          : "CatalysisLab organizes CO₂ conversion records by product pathway and reaction mode, while separating condition context, activity/selectivity metrics, stability evidence, and source status. Pending records should not be interpreted as validated catalytic results."}
         t={t}
       >
         <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, color: t.muted, fontSize: 11, lineHeight: 1.65 }}>
           {zh
-            ? "CO₂ 转化目前按 C1 还原产物、C2+ 产物、有机酸相关产物、环状碳酸酯和 CO₂ 参与升级转化等路径组织，用于讨论未来数据接入优先级。"
-            : "CO₂ conversion is currently organized by pathways such as C1 reduction products, C2+ products, organic-acid-related products, cyclic carbonates, and CO₂-assisted upgrading for discussing future data-ingestion priorities."}
+            ? "缺少相近条件语境和证据状态时，不应跨路径直接比较指标；例如电催化法拉第效率、光催化 TON/TOF、热催化转化率/收率和环加成产率属于不同反应语境。"
+            : "Metrics should not be compared across pathways without matching condition context and evidence status; electrocatalytic Faradaic efficiency, photocatalytic TON/TOF, thermal conversion/yield, and cycloaddition yield describe different reaction contexts."}
         </div>
       </MethodSection>
 

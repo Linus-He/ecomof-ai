@@ -5,11 +5,13 @@
     "pathway": "C1 reduction products",
     "subTask": "CO2-to-C1-products",
     "targetProducts": ["CO", "formate / formic acid", "methanol", "methane"],
-    "mofName": "Template MOF Catalyst",
-    "catalystRole": "pending",
-    "activeSiteHypothesis": "pending",
+    "relevantModes": ["electrocatalysis", "photocatalysis", "photoelectrocatalysis"],
+    "keyMetrics": ["Faradaic efficiency", "partial current density", "TON/TOF", "product selectivity"],
+    "mofRelevance": ["metal nodes", "porphyrinic linkers", "single-atom sites", "conductive composites"],
+    "curationFocus": ["potential", "electrolyte", "pH", "light source", "catalyst loading", "product quantification method"],
+    "caution": "C1 products should be interpreted with product distribution and condition context, not only total CO2 conversion.",
     "reactionCondition": {
-      "mode": "photocatalysis / electrocatalysis / thermal / pending",
+      "mode": "electrocatalysis / photocatalysis / photoelectrocatalysis / pending",
       "temperatureK": null,
       "pressureKPa": null,
       "solvent": "pending",
@@ -19,12 +21,12 @@
       "pH": null
     },
     "activityMetric": {
-      "type": "TON / TOF / yield / conversion / FE / current density / pending",
+      "type": "FE / partial current density / TON / TOF / pending",
       "value": null,
       "unit": "pending"
     },
     "selectivityMetric": {
-      "type": "selectivity / FE / product distribution / pending",
+      "type": "product selectivity / product distribution / pending",
       "value": null,
       "unit": "pending"
     },
@@ -38,7 +40,7 @@
     "evidenceLevel": "pending",
     "sourceStatus": "pending",
     "curationStatus": "planned",
-    "note": "Template record for CO2 conversion curation. No validated catalytic performance is included."
+    "note": "Template record for CO2 conversion pathway curation. No validated catalytic performance is included."
   },
   {
     "recordId": "cat-demo-002",
@@ -46,11 +48,13 @@
     "pathway": "C2+ products",
     "subTask": "CO2-to-C2-plus-products",
     "targetProducts": ["ethylene", "ethanol", "acetate", "propanol"],
-    "mofName": "Template MOF Catalyst",
-    "catalystRole": "pending",
-    "activeSiteHypothesis": "pending",
+    "relevantModes": ["electrocatalysis", "tandem catalysis", "composite catalysis"],
+    "keyMetrics": ["C2+ Faradaic efficiency", "C-C coupling selectivity", "product distribution", "current density"],
+    "mofRelevance": ["confined microenvironment", "Cu sites", "tandem interfaces", "CO intermediate enrichment"],
+    "curationFocus": ["CO intermediate source", "local pH", "electrolyte", "applied potential", "carbon balance"],
+    "caution": "C2+ formation often involves C-C coupling and should not be compared directly with single-carbon products without reaction-mode context.",
     "reactionCondition": {
-      "mode": "electrocatalysis / photoelectrocatalysis / pending",
+      "mode": "electrocatalysis / tandem catalysis / composite catalysis / pending",
       "temperatureK": null,
       "pressureKPa": null,
       "solvent": "pending",
@@ -60,12 +64,12 @@
       "pH": null
     },
     "activityMetric": {
-      "type": "FE / current density / rate / pending",
+      "type": "C2+ FE / current density / rate / pending",
       "value": null,
       "unit": "pending"
     },
     "selectivityMetric": {
-      "type": "product distribution / FE / pending",
+      "type": "C-C coupling selectivity / product distribution / pending",
       "value": null,
       "unit": "pending"
     },
@@ -79,19 +83,21 @@
     "evidenceLevel": "pending",
     "sourceStatus": "pending",
     "curationStatus": "planned",
-    "note": "Template record for CO2 conversion curation. No validated catalytic performance is included."
+    "note": "Template record for CO2 conversion pathway curation. No validated catalytic performance is included."
   },
   {
     "recordId": "cat-demo-003",
     "taskFamily": "CO2 conversion",
     "pathway": "organic-acid products",
     "subTask": "CO2-to-organic-acid-products",
-    "targetProducts": ["formic acid / formate", "oxalic acid", "acetate"],
-    "mofName": "Template MOF Catalyst",
-    "catalystRole": "pending",
-    "activeSiteHypothesis": "pending",
+    "targetProducts": ["formic acid / formate", "oxalic acid", "acetate", "carboxylates"],
+    "relevantModes": ["electrocatalysis", "photocatalysis", "carboxylation", "thermal catalysis"],
+    "keyMetrics": ["acid/formate selectivity", "Faradaic efficiency", "yield", "product stability", "pH-dependent speciation"],
+    "mofRelevance": ["basic sites", "metal nodes", "functional linkers", "CO2 activation sites", "proton-transfer environment"],
+    "curationFocus": ["pH", "electrolyte / solvent", "reported product form", "acid/base speciation", "downstream separation"],
+    "caution": "Acid, formate, and carboxylate forms should be distinguished because reporting depends on pH, electrolyte, and analytical method.",
     "reactionCondition": {
-      "mode": "photocatalysis / electrocatalysis / thermal / pending",
+      "mode": "electrocatalysis / photocatalysis / carboxylation / thermal catalysis / pending",
       "temperatureK": null,
       "pressureKPa": null,
       "solvent": "pending",
@@ -101,12 +107,12 @@
       "pH": null
     },
     "activityMetric": {
-      "type": "TON / TOF / yield / conversion / FE / pending",
+      "type": "TON / TOF / yield / FE / pending",
       "value": null,
       "unit": "pending"
     },
     "selectivityMetric": {
-      "type": "selectivity / FE / product distribution / pending",
+      "type": "acid/formate selectivity / product distribution / pending",
       "value": null,
       "unit": "pending"
     },
@@ -120,19 +126,21 @@
     "evidenceLevel": "pending",
     "sourceStatus": "pending",
     "curationStatus": "planned",
-    "note": "Template record for CO2 conversion curation. No validated catalytic performance is included."
+    "note": "Template record for CO2 conversion pathway curation. No validated catalytic performance is included."
   },
   {
     "recordId": "cat-demo-004",
     "taskFamily": "CO2 conversion",
     "pathway": "cyclic carbonates",
     "subTask": "epoxide-CO2-cycloaddition",
-    "targetProducts": ["cyclic carbonate"],
-    "mofName": "Template MOF Catalyst",
-    "catalystRole": "pending",
-    "activeSiteHypothesis": "pending",
+    "targetProducts": ["cyclic carbonates from epoxides and CO2"],
+    "relevantModes": ["thermal catalysis", "Lewis acid/base cooperative catalysis", "co-catalyst-assisted conversion"],
+    "keyMetrics": ["conversion", "yield", "selectivity", "reaction pressure", "temperature", "recyclability"],
+    "mofRelevance": ["Lewis acidic metal nodes", "basic functional groups", "pore confinement", "bifunctional catalysis"],
+    "curationFocus": ["epoxide substrate", "co-catalyst", "CO2 pressure", "solvent-free condition", "catalyst reuse"],
+    "caution": "High yield should be interpreted with substrate scope, co-catalyst use, CO2 pressure, and recyclability.",
     "reactionCondition": {
-      "mode": "cycloaddition / thermal catalysis / pending",
+      "mode": "cycloaddition / thermal catalysis / co-catalyst-assisted conversion / pending",
       "temperatureK": null,
       "pressureKPa": null,
       "solvent": "pending",
@@ -161,19 +169,21 @@
     "evidenceLevel": "pending",
     "sourceStatus": "pending",
     "curationStatus": "planned",
-    "note": "Template record for CO2 conversion curation. No validated catalytic performance is included."
+    "note": "Template record for CO2 conversion pathway curation. No validated catalytic performance is included."
   },
   {
     "recordId": "cat-demo-005",
     "taskFamily": "CO2-assisted biomass upgrading",
-    "pathway": "carboxylation-related or carbonate-mediated conversion",
+    "pathway": "CO2-assisted biomass upgrading",
     "subTask": "CO2-assisted-biomass-upgrading",
-    "targetProducts": ["pending"],
-    "mofName": "Template MOF Catalyst",
-    "catalystRole": "pending",
-    "activeSiteHypothesis": "pending",
+    "targetProducts": ["carbonate-mediated products", "carboxylation-related products", "biomass-derived oxygenates"],
+    "relevantModes": ["thermal catalysis", "tandem catalysis", "CO2-assisted conversion"],
+    "keyMetrics": ["substrate conversion", "product selectivity", "carbon balance", "CO2 incorporation evidence"],
+    "mofRelevance": ["acid/base sites", "metal nodes", "confined pores", "bifunctional catalysis", "substrate adsorption"],
+    "curationFocus": ["substrate identity", "CO2 incorporation proof", "carbon source tracing", "solvent", "catalyst stability"],
+    "caution": "This pathway should distinguish CO2 as a reactant from CO2 as a reaction-environment modifier.",
     "reactionCondition": {
-      "mode": "thermal / solvent-assisted / pending",
+      "mode": "thermal catalysis / tandem catalysis / CO2-assisted conversion / pending",
       "temperatureK": null,
       "pressureKPa": null,
       "solvent": "pending",
@@ -183,12 +193,12 @@
       "pH": null
     },
     "activityMetric": {
-      "type": "yield / conversion / carbon balance / pending",
+      "type": "substrate conversion / carbon balance / pending",
       "value": null,
       "unit": "pending"
     },
     "selectivityMetric": {
-      "type": "selectivity / product distribution / pending",
+      "type": "product selectivity / product distribution / pending",
       "value": null,
       "unit": "pending"
     },
@@ -210,9 +220,11 @@
     "pathway": "light-driven product formation",
     "subTask": "photocatalysis-template",
     "targetProducts": ["pending"],
-    "mofName": "Template MOF Catalyst",
-    "catalystRole": "pending",
-    "activeSiteHypothesis": "pending",
+    "relevantModes": ["photocatalysis"],
+    "keyMetrics": ["TON", "TOF", "yield", "conversion", "product selectivity"],
+    "mofRelevance": ["photosensitizing linkers", "metal nodes", "charge-transfer sites", "composite interfaces"],
+    "curationFocus": ["light source", "wavelength", "solvent", "sacrificial agent", "product quantification method"],
+    "caution": "Photocatalysis template records require light-source and control-experiment context before interpretation.",
     "reactionCondition": {
       "mode": "photocatalysis",
       "temperatureK": null,
@@ -251,9 +263,11 @@
     "pathway": "potential-dependent catalytic reaction",
     "subTask": "electrocatalysis-template",
     "targetProducts": ["pending"],
-    "mofName": "Template MOF Catalyst",
-    "catalystRole": "pending",
-    "activeSiteHypothesis": "pending",
+    "relevantModes": ["electrocatalysis"],
+    "keyMetrics": ["Faradaic efficiency", "current density", "overpotential", "product distribution"],
+    "mofRelevance": ["conductive composites", "metal nodes", "single-atom sites", "electrode interface"],
+    "curationFocus": ["applied potential", "reference electrode", "electrolyte", "pH", "catalyst loading"],
+    "caution": "Electrocatalysis template records require potential scale and electrolyte context before interpretation.",
     "reactionCondition": {
       "mode": "electrocatalysis",
       "temperatureK": null,
@@ -292,9 +306,11 @@
     "pathway": "biomass-derived substrate conversion",
     "subTask": "biomass-conversion-template",
     "targetProducts": ["pending"],
-    "mofName": "Template MOF Catalyst",
-    "catalystRole": "pending",
-    "activeSiteHypothesis": "pending",
+    "relevantModes": ["thermal catalysis", "solvent-assisted conversion", "tandem catalysis"],
+    "keyMetrics": ["yield", "conversion", "selectivity", "carbon balance", "recyclability"],
+    "mofRelevance": ["acid/base sites", "metal nodes", "pore confinement", "substrate adsorption"],
+    "curationFocus": ["substrate identity", "solvent", "temperature", "product distribution", "catalyst stability"],
+    "caution": "Biomass conversion template records require substrate scope and carbon-balance context before interpretation.",
     "reactionCondition": {
       "mode": "thermal / solvent-assisted / pending",
       "temperatureK": null,

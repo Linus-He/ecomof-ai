@@ -190,41 +190,86 @@ const CO2_CONVERSION_PATHWAYS = [
     id: "c1-reduction",
     en: "C1 reduction products",
     zh: "C1 还原产物",
-    products: "CO, formate / formic acid, methanol, methane",
-    bodyEn: "Track product selectivity, FE or yield, reaction mode, and condition context.",
-    bodyZh: "整理产物选择性、法拉第效率或收率、反应模式和条件语境。",
+    productsEn: ["CO", "formate / formic acid", "methanol", "methane"],
+    productsZh: ["CO", "甲酸盐 / 甲酸", "甲醇", "甲烷"],
+    modesEn: ["electrocatalysis", "photocatalysis", "photoelectrocatalysis"],
+    modesZh: ["电催化", "光催化", "光电催化"],
+    metricsEn: ["Faradaic efficiency", "partial current density", "TON/TOF", "product selectivity"],
+    metricsZh: ["法拉第效率", "分电流密度", "TON/TOF", "产物选择性"],
+    mofRelevanceEn: ["metal nodes", "porphyrinic linkers", "single-atom sites", "conductive composites"],
+    mofRelevanceZh: ["金属节点", "卟啉型配体", "单原子位点", "导电复合结构"],
+    curationFocusEn: ["potential", "electrolyte", "pH", "light source", "catalyst loading", "product quantification method"],
+    curationFocusZh: ["电位", "电解液", "pH", "光源", "催化剂负载量", "产物定量方法"],
+    cautionEn: "C1 products should be interpreted with product distribution and condition context, not only total CO₂ conversion.",
+    cautionZh: "C1 产物应结合产物分布和条件语境解读，不能只看总 CO₂ 转化率。",
   },
   {
     id: "c2-plus",
     en: "C2+ products",
     zh: "C2+ 产物",
-    products: "ethylene, ethanol, acetate, propanol",
-    bodyEn: "Track C-C coupling-related product distribution, selectivity, and reaction conditions.",
-    bodyZh: "整理与 C-C 偶联相关的产物分布、选择性和反应条件。",
+    productsEn: ["ethylene", "ethanol", "acetate", "propanol"],
+    productsZh: ["乙烯", "乙醇", "乙酸盐", "丙醇"],
+    modesEn: ["electrocatalysis", "tandem catalysis", "composite catalysis"],
+    modesZh: ["电催化", "串联催化", "复合催化"],
+    metricsEn: ["C2+ Faradaic efficiency", "C-C coupling selectivity", "product distribution", "current density"],
+    metricsZh: ["C2+ 法拉第效率", "C-C 偶联选择性", "产物分布", "电流密度"],
+    mofRelevanceEn: ["confined microenvironment", "Cu sites", "tandem interfaces", "CO intermediate enrichment"],
+    mofRelevanceZh: ["限域微环境", "铜位点", "串联界面", "CO 中间体富集"],
+    curationFocusEn: ["CO intermediate source", "local pH", "electrolyte", "applied potential", "carbon balance"],
+    curationFocusZh: ["CO 中间体来源", "局部 pH", "电解液", "施加电位", "碳平衡"],
+    cautionEn: "C2+ formation often involves C-C coupling and should not be compared directly with single-carbon products without reaction-mode context.",
+    cautionZh: "C2+ 产物通常涉及 C-C 偶联，缺少反应模式语境时不应与单碳产物直接比较。",
   },
   {
     id: "organic-acids",
     en: "Organic-acid products",
     zh: "有机酸相关产物",
-    products: "formic acid / formate, oxalic acid, acetate",
-    bodyEn: "Track acid/formate-related products with pH, electrolyte or solvent context, and selectivity evidence.",
-    bodyZh: "整理酸类或甲酸盐相关产物，并记录 pH、电解液或溶剂条件及选择性证据。",
+    productsEn: ["formic acid / formate", "oxalic acid", "acetate", "carboxylates"],
+    productsZh: ["甲酸 / 甲酸盐", "草酸", "乙酸盐", "羧酸盐"],
+    modesEn: ["electrocatalysis", "photocatalysis", "carboxylation", "thermal catalysis"],
+    modesZh: ["电催化", "光催化", "羧化反应", "热催化"],
+    metricsEn: ["acid/formate selectivity", "Faradaic efficiency", "yield", "product stability", "pH-dependent speciation"],
+    metricsZh: ["酸类 / 甲酸盐选择性", "法拉第效率", "收率", "产物稳定性", "pH 依赖的物种形态"],
+    mofRelevanceEn: ["basic sites", "metal nodes", "functional linkers", "CO₂ activation sites", "proton-transfer environment"],
+    mofRelevanceZh: ["碱性位点", "金属节点", "功能化配体", "CO₂ 活化位点", "质子转移环境"],
+    curationFocusEn: ["pH", "electrolyte / solvent", "reported product form", "acid/base speciation", "downstream separation"],
+    curationFocusZh: ["pH", "电解液 / 溶剂", "报道产物形态", "酸碱物种分布", "后续分离"],
+    cautionEn: "Acid, formate, and carboxylate forms should be distinguished because reporting depends on pH, electrolyte, and analytical method.",
+    cautionZh: "酸、甲酸盐和羧酸盐形态需要区分，因为报道结果会受到 pH、电解液和分析方法影响。",
   },
   {
     id: "cyclic-carbonates",
     en: "Cyclic carbonates",
     zh: "环状碳酸酯",
-    products: "epoxide + CO₂ -> cyclic carbonate",
-    bodyEn: "Track conversion, yield, pressure, temperature, co-catalyst, and recyclability.",
-    bodyZh: "整理转化率、收率、压力、温度、助催化剂和循环性能。",
+    productsEn: ["cyclic carbonates from epoxides and CO₂"],
+    productsZh: ["由环氧化物与 CO₂ 生成的环状碳酸酯"],
+    modesEn: ["thermal catalysis", "Lewis acid/base cooperative catalysis", "co-catalyst-assisted conversion"],
+    modesZh: ["热催化", "Lewis 酸/碱协同催化", "助催化剂辅助转化"],
+    metricsEn: ["conversion", "yield", "selectivity", "reaction pressure", "temperature", "recyclability"],
+    metricsZh: ["转化率", "收率", "选择性", "反应压力", "温度", "循环性能"],
+    mofRelevanceEn: ["Lewis acidic metal nodes", "basic functional groups", "pore confinement", "bifunctional catalysis"],
+    mofRelevanceZh: ["Lewis 酸性金属节点", "碱性官能团", "孔道限域", "双功能催化"],
+    curationFocusEn: ["epoxide substrate", "co-catalyst", "CO₂ pressure", "solvent-free condition", "catalyst reuse"],
+    curationFocusZh: ["环氧底物", "助催化剂", "CO₂ 压力", "无溶剂条件", "催化剂复用"],
+    cautionEn: "High yield should be interpreted with substrate scope, co-catalyst use, CO₂ pressure, and recyclability.",
+    cautionZh: "高收率需要结合底物范围、助催化剂使用、CO₂ 压力和循环性能共同解读。",
   },
   {
     id: "co2-biomass-upgrading",
     en: "CO₂-assisted biomass upgrading",
     zh: "CO₂ 参与的生物质升级转化",
-    products: "carboxylation-related or carbonate-mediated conversion",
-    bodyEn: "Track substrate scope, carbon balance, product selectivity, and sustainability context.",
-    bodyZh: "整理底物范围、碳平衡、产物选择性和可持续性语境。",
+    productsEn: ["carbonate-mediated products", "carboxylation-related products", "biomass-derived oxygenates"],
+    productsZh: ["碳酸盐介导产物", "羧化相关产物", "生物质来源含氧化合物"],
+    modesEn: ["thermal catalysis", "tandem catalysis", "CO₂-assisted conversion"],
+    modesZh: ["热催化", "串联催化", "CO₂ 辅助转化"],
+    metricsEn: ["substrate conversion", "product selectivity", "carbon balance", "CO₂ incorporation evidence"],
+    metricsZh: ["底物转化率", "产物选择性", "碳平衡", "CO₂ 固定或参与证据"],
+    mofRelevanceEn: ["acid/base sites", "metal nodes", "confined pores", "bifunctional catalysis", "substrate adsorption"],
+    mofRelevanceZh: ["酸/碱位点", "金属节点", "孔道限域", "双功能催化", "底物吸附"],
+    curationFocusEn: ["substrate identity", "CO₂ incorporation proof", "carbon source tracing", "solvent", "catalyst stability"],
+    curationFocusZh: ["底物身份", "CO₂ 参与或固定证据", "碳源追踪", "溶剂", "催化剂稳定性"],
+    cautionEn: "This pathway should distinguish CO₂ as a reactant from CO₂ as a reaction-environment modifier.",
+    cautionZh: "该路径需要区分 CO₂ 作为反应物被固定，还是仅作为反应环境调控因素。",
   },
 ]
 
@@ -457,10 +502,18 @@ function stabilityStatus(metric, lang) {
   return `${metric.cycleCount} cycles · ${metric.durationH} h`
 }
 
+function compactList(value, lang) {
+  if (Array.isArray(value)) {
+    if (!value.length || value.every(item => item == null || item === "" || item === "pending")) return lang === "zh" ? "待补充" : "Pending"
+    return value.map(item => pendingCatalysisValue(item, lang)).join(", ")
+  }
+  return pendingCatalysisValue(value, lang)
+}
+
 function CatalysisRecordPreview({ records, status, lang, t }) {
   const headers = lang === "zh"
-    ? ["任务家族", "路径", "目标产物", "反应模式", "催化剂角色", "活性位点假设", "活性指标", "选择性指标", "稳定性证据", "证据", "来源"]
-    : ["Task family", "Pathway", "Target products", "Reaction mode", "Catalyst role", "Active-site hypothesis", "Activity metric", "Selectivity metric", "Stability evidence", "Evidence", "Source"]
+    ? ["路径", "目标产物", "相关模式", "关键指标", "MOF 相关作用", "整理重点", "证据", "来源"]
+    : ["Pathway", "Target products", "Relevant modes", "Key metrics", "MOF relevance", "Curation focus", "Evidence", "Source"]
 
   return (
     <div style={{ display: "grid", gap: 12 }}>
@@ -473,7 +526,7 @@ function CatalysisRecordPreview({ records, status, lang, t }) {
       {status === "error" && <Callout tone="warn">{lang === "zh" ? "催化记录结构加载失败。请刷新页面或检查 GitHub Pages 网络访问。" : "Catalysis record schema could not be loaded. Please refresh or check GitHub Pages network access."}</Callout>}
       {status === "empty" && <Callout tone="warn">{lang === "zh" ? "暂无催化记录结构。" : "No catalysis record schema is available."}</Callout>}
       <div style={{ overflowX: "auto" }}>
-        <table style={{ width: "100%", minWidth: 980, borderCollapse: "collapse" }}>
+        <table style={{ width: "100%", minWidth: 1040, borderCollapse: "collapse" }}>
           <thead>
             <tr>
               {headers.map(head => (
@@ -487,20 +540,17 @@ function CatalysisRecordPreview({ records, status, lang, t }) {
             {records.map(record => (
               <tr key={record.recordId}>
                 {[
-                  record.taskFamily,
                   record.pathway,
-                  Array.isArray(record.targetProducts) ? record.targetProducts.join(", ") : record.targetProducts,
-                  record.reactionCondition?.mode,
-                  record.catalystRole,
-                  record.activeSiteHypothesis,
-                  metricStatus(record.activityMetric, lang),
-                  metricStatus(record.selectivityMetric, lang),
-                  stabilityStatus(record.stabilityEvidence || record.stabilityMetric, lang),
+                  compactList(record.targetProducts, lang),
+                  compactList(record.relevantModes || record.reactionCondition?.mode, lang),
+                  compactList(record.keyMetrics || record.activityMetric?.type, lang),
+                  compactList(record.mofRelevance || record.activeSiteHypothesis, lang),
+                  compactList(record.curationFocus, lang),
                   record.evidenceLevel,
                   record.sourceStatus,
                 ].map((value, index) => (
                   <td key={`${record.recordId}-${index}`} style={{ padding: "9px 8px", borderBottom: `1px solid ${t.divider}`, color: index === 0 ? t.textStrong : t.muted, fontSize: 11, lineHeight: 1.45, verticalAlign: "top", fontWeight: index === 0 ? 850 : 600 }}>
-                    {index === 10 && record.sourceStatus === "pending"
+                    {index === 7 && record.sourceStatus === "pending"
                       ? (lang === "zh" ? "来源待补充" : "Source pending")
                       : pendingCatalysisValue(value, lang)}
                   </td>
@@ -996,18 +1046,35 @@ export function CatalysisLabTab({ onNavigate }) {
                 <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 880 }}>
                   {lang === "zh" ? pathway.zh : pathway.en}
                 </div>
-                <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.5, marginTop: 6 }}>
-                  {lang === "zh" ? "代表产物 / 方向" : "Representative products / direction"}
+                <div style={{ display: "grid", gap: 7, marginTop: 9 }}>
+                  {[
+                    [lang === "zh" ? "典型产物" : "Typical products", lang === "zh" ? pathway.productsZh : pathway.productsEn, t.accentText],
+                    [lang === "zh" ? "相关反应模式" : "Relevant modes", lang === "zh" ? pathway.modesZh : pathway.modesEn, t.muted],
+                    [lang === "zh" ? "关键指标" : "Key metrics", lang === "zh" ? pathway.metricsZh : pathway.metricsEn, t.muted],
+                    [lang === "zh" ? "MOF 相关作用" : "MOF relevance", lang === "zh" ? pathway.mofRelevanceZh : pathway.mofRelevanceEn, t.muted],
+                    [lang === "zh" ? "数据整理重点" : "Curation focus", lang === "zh" ? pathway.curationFocusZh : pathway.curationFocusEn, t.muted],
+                  ].map(([label, value, color]) => (
+                    <div key={label} style={{ display: "grid", gap: 2 }}>
+                      <div style={{ color: t.faint, fontSize: 9, fontWeight: 800, letterSpacing: 0, textTransform: "uppercase" }}>{label}</div>
+                      <div style={{ color, fontSize: 11, lineHeight: 1.5 }}>{compactList(value, lang)}</div>
+                    </div>
+                  ))}
                 </div>
-                <div style={{ color: t.accentText, fontSize: 11, lineHeight: 1.5, marginTop: 2 }}>
-                  {pathway.products}
+                <div style={{ marginTop: 9, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, padding: 9 }}>
+                  <div style={{ color: t.faint, fontSize: 9, fontWeight: 800, textTransform: "uppercase" }}>{lang === "zh" ? "注意事项" : "Caution"}</div>
+                  <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 3 }}>{lang === "zh" ? pathway.cautionZh : pathway.cautionEn}</div>
                 </div>
-                <p style={{ color: t.muted, fontSize: 11, lineHeight: 1.6, margin: "8px 0 0" }}>
-                  {lang === "zh" ? pathway.bodyZh : pathway.bodyEn}
-                </p>
               </article>
             ))}
           </div>
+        </div>
+        <div style={{ marginTop: 12 }}>
+          <Callout tone="info">
+            <strong>{lang === "zh" ? "跨路径比较注意事项：" : "Cross-pathway comparison cautions: "}</strong>
+            {lang === "zh"
+              ? "不同 CO₂ 转化路径不应使用单一指标直接比较。电催化中的法拉第效率、光催化中的 TON/TOF、热催化中的转化率/收率，以及环加成反应中的产率，分别对应不同反应语境。因此，EcoMOF-AI 将反应模式、产物路径、条件语境、活性/选择性指标、稳定性证据和来源状态分开整理。"
+              : "CO₂ conversion pathways should not be compared using a single metric. Electrocatalytic Faradaic efficiency, photocatalytic TON/TOF, thermal conversion/yield, and cycloaddition yield describe different reaction contexts. EcoMOF-AI therefore tracks reaction mode, product pathway, condition context, activity/selectivity metrics, stability evidence, and source status separately."}
+          </Callout>
         </div>
       </ResultLayer>
 
