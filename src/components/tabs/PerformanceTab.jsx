@@ -288,6 +288,16 @@ export function PerformanceTab({
               ? "Performance 模块用于提出吸附性能假设。它不替代实验等温线、GCMC 或严格混合气 IAST。"
               : "The Performance module is for adsorption-performance hypotheses. It does not replace experimental isotherms, GCMC, or rigorous mixture IAST."}
           </Callout>
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "10px 12px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap" }}>
+            <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.55 }}>
+              {lang === "zh"
+                ? "如需查看带气体比例、选择性条件、吸附量和等温线状态的记录，请进入 GasSep。"
+                : "For condition-aware selectivity, gas ratio, uptake, and isotherm status, see GasSep."}
+            </span>
+            <button type="button" onClick={() => onNavigate?.("gassep")} style={{ ...toolbarBtn(t), padding: "7px 10px", fontSize: 11 }}>
+              {lang === "zh" ? "打开 GasSep" : "Open GasSep"}
+            </button>
+          </div>
 
           <ResultLayer number="01" title={lang === "zh" ? "当前任务与运行" : "Current Task and Run"}>
             <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) auto", gap: 12, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, alignItems: "center" }}>

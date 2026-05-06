@@ -305,16 +305,35 @@ export function ContextualHeaderBar({
     return (
       <div style={layerStyle}>
         <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
-          {lang === "zh" ? "模块入口页 · 首页不承载复杂筛选器" : "Module entry page · no dense filters on Overview"}
+          {lang === "zh" ? "通过下方模块探索 MOF 候选材料、进行记录对比、查看数据溯源并阅读方法说明。" : "Use the modules below to explore MOF candidates, compare records, inspect provenance, and review methods."}
         </div>
         <button type="button" onClick={() => setActiveTab("performance")} style={{ ...headerChipBtn(t, true), padding: "9px 14px" }}>
           Performance
+        </button>
+        <button type="button" onClick={() => setActiveTab("gassep")} style={headerChipBtn(t)}>
+          {lang === "zh" ? "气体分离" : "GasSep"}
         </button>
         <button type="button" onClick={() => setActiveTab("ecoscreen")} style={headerChipBtn(t)}>
           EcoScreen
         </button>
         <button type="button" onClick={() => setActiveTab("catalysis")} style={headerChipBtn(t)}>
           CatalysisLab
+        </button>
+        <button type="button" onClick={() => setActiveTab("library")} style={headerChipBtn(t)}>
+          MOF Library
+        </button>
+      </div>
+    )
+  }
+
+  if (activeTab === "gassep") {
+    return (
+      <div style={layerStyle}>
+        <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
+          {lang === "zh" ? "GasSep 聚焦气体比例、温度、压力、方法、来源和等温线状态的条件化记录。" : "GasSep focuses on condition-aware records: gas ratio, temperature, pressure, method, source, and isotherm status."}
+        </div>
+        <button type="button" onClick={() => setActiveTab("performance")} style={headerChipBtn(t)}>
+          Performance
         </button>
         <button type="button" onClick={() => setActiveTab("library")} style={headerChipBtn(t)}>
           MOF Library

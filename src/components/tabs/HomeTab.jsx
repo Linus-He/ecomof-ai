@@ -63,6 +63,12 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
       desc: lang === "zh" ? "查看吸附相关候选优先级。" : "Explore adsorption-oriented candidate priority.",
     },
     {
+      id: "gassep",
+      hash: "gassep",
+      name: lang === "zh" ? "气体分离" : "GasSep",
+      desc: lang === "zh" ? "带条件说明的气体吸附与分离记录。" : "Condition-aware gas adsorption and separation records.",
+    },
+    {
       id: "ecoscreen",
       hash: "ecoscreen",
       name: "EcoScreen",
@@ -182,8 +188,8 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
             </p>
             <p style={{ margin: "5px 0 0", color: t.muted, fontSize: isMobile ? 13 : 14, lineHeight: 1.55, maxWidth: 780 }}>
               {lang === "zh"
-                ? "面向 MOF 早期筛选、可持续性评价、描述符整理和字段级溯源的科研原型。"
-                : "A research prototype for transparent MOF prioritization and data-quality inspection."}
+                ? "从这里进入候选材料筛选、对比、数据溯源与方法说明。"
+                : "Explore candidate screening, comparison, provenance, and methods from one place."}
             </p>
           </div>
         </div>
@@ -321,7 +327,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
         </div>
         <div style={{
           display: "grid",
-          gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))",
+          gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))",
           gap: 10,
         }}>
           {coreModules.map(mod => (

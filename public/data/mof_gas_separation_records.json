@@ -1,0 +1,248 @@
+[
+  {
+    "recordId": "gas-sep-template-001",
+    "mofName": "Template MOF Record",
+    "separationSystem": "C2H2/CO2",
+    "gasA": "C2H2",
+    "gasB": "CO2",
+    "gasRatio": "50/50 or 1/1",
+    "temperatureK": 298,
+    "pressureKPa": 100,
+    "method": "IAST or literature-reported method pending",
+    "selectivity": null,
+    "adsorption": [
+      {
+        "gas": "C2H2",
+        "uptake": null,
+        "unit": "mmol/g",
+        "temperatureK": 298,
+        "pressureKPa": 100
+      },
+      {
+        "gas": "CO2",
+        "uptake": null,
+        "unit": "mmol/g",
+        "temperatureK": 298,
+        "pressureKPa": 100
+      }
+    ],
+    "isothermStatus": "pending",
+    "sourceStatus": "pending",
+    "evidenceLevel": "pending",
+    "curationStatus": "planned",
+    "conditionCompleteness": {
+      "gasPair": true,
+      "gasRatio": true,
+      "temperature": true,
+      "pressure": true,
+      "method": true,
+      "source": false
+    },
+    "note": "Template record for condition-aware gas separation curation. No validated selectivity value is included."
+  },
+  {
+    "recordId": "gas-sep-template-002",
+    "mofName": "Template MOF Record",
+    "separationSystem": "C2H2/C2H4",
+    "gasA": "C2H2",
+    "gasB": "C2H4",
+    "gasRatio": "1/99 or 1/999",
+    "temperatureK": 298,
+    "pressureKPa": 100,
+    "method": "IAST or literature-reported method pending",
+    "selectivity": null,
+    "adsorption": [
+      {
+        "gas": "C2H2",
+        "uptake": null,
+        "unit": "mmol/g",
+        "temperatureK": 298,
+        "pressureKPa": 100
+      },
+      {
+        "gas": "C2H4",
+        "uptake": null,
+        "unit": "mmol/g",
+        "temperatureK": 298,
+        "pressureKPa": 100
+      }
+    ],
+    "isothermStatus": "pending",
+    "sourceStatus": "pending",
+    "evidenceLevel": "pending",
+    "curationStatus": "planned",
+    "conditionCompleteness": {
+      "gasPair": true,
+      "gasRatio": true,
+      "temperature": true,
+      "pressure": true,
+      "method": true,
+      "source": false
+    },
+    "note": "Template record for trace acetylene removal curation. No validated selectivity value is included."
+  },
+  {
+    "recordId": "gas-sep-template-003",
+    "mofName": "Template MOF Record",
+    "separationSystem": "CO2/N2",
+    "gasA": "CO2",
+    "gasB": "N2",
+    "gasRatio": "15/85",
+    "temperatureK": 298,
+    "pressureKPa": 100,
+    "method": "IAST or literature-reported method pending",
+    "selectivity": null,
+    "adsorption": [
+      {
+        "gas": "CO2",
+        "uptake": null,
+        "unit": "mmol/g",
+        "temperatureK": 298,
+        "pressureKPa": 100
+      },
+      {
+        "gas": "N2",
+        "uptake": null,
+        "unit": "mmol/g",
+        "temperatureK": 298,
+        "pressureKPa": 100
+      }
+    ],
+    "isothermStatus": "pending",
+    "sourceStatus": "pending",
+    "evidenceLevel": "pending",
+    "curationStatus": "planned",
+    "conditionCompleteness": {
+      "gasPair": true,
+      "gasRatio": true,
+      "temperature": true,
+      "pressure": true,
+      "method": true,
+      "source": false
+    },
+    "note": "Template record for flue gas capture curation. No validated selectivity value is included."
+  },
+  {
+    "recordId": "gas-sep-template-004",
+    "mofName": "Template MOF Record",
+    "separationSystem": "CO2/CH4",
+    "gasA": "CO2",
+    "gasB": "CH4",
+    "gasRatio": "50/50",
+    "temperatureK": 298,
+    "pressureKPa": 100,
+    "method": "IAST or literature-reported method pending",
+    "selectivity": null,
+    "adsorption": [
+      {
+        "gas": "CO2",
+        "uptake": null,
+        "unit": "mmol/g",
+        "temperatureK": 298,
+        "pressureKPa": 100
+      },
+      {
+        "gas": "CH4",
+        "uptake": null,
+        "unit": "mmol/g",
+        "temperatureK": 298,
+        "pressureKPa": 100
+      }
+    ],
+    "isothermStatus": "pending",
+    "sourceStatus": "pending",
+    "evidenceLevel": "pending",
+    "curationStatus": "planned",
+    "conditionCompleteness": {
+      "gasPair": true,
+      "gasRatio": true,
+      "temperature": true,
+      "pressure": true,
+      "method": true,
+      "source": false
+    },
+    "note": "Template record for natural gas upgrading curation. No validated selectivity value is included."
+  },
+  {
+    "recordId": "gas-sep-template-005",
+    "mofName": "Template MOF Record",
+    "separationSystem": "C2H6/C2H4",
+    "gasA": "C2H6",
+    "gasB": "C2H4",
+    "gasRatio": "condition-dependent",
+    "temperatureK": 298,
+    "pressureKPa": 100,
+    "method": "IAST or literature-reported method pending",
+    "selectivity": null,
+    "adsorption": [
+      {
+        "gas": "C2H6",
+        "uptake": null,
+        "unit": "mmol/g",
+        "temperatureK": 298,
+        "pressureKPa": 100
+      },
+      {
+        "gas": "C2H4",
+        "uptake": null,
+        "unit": "mmol/g",
+        "temperatureK": 298,
+        "pressureKPa": 100
+      }
+    ],
+    "isothermStatus": "pending",
+    "sourceStatus": "pending",
+    "evidenceLevel": "pending",
+    "curationStatus": "planned",
+    "conditionCompleteness": {
+      "gasPair": true,
+      "gasRatio": true,
+      "temperature": true,
+      "pressure": true,
+      "method": true,
+      "source": false
+    },
+    "note": "Template record for ethane/ethylene separation curation. No validated selectivity value is included."
+  },
+  {
+    "recordId": "gas-sep-template-006",
+    "mofName": "Template MOF Record",
+    "separationSystem": "Xe/Kr",
+    "gasA": "Xe",
+    "gasB": "Kr",
+    "gasRatio": "condition-dependent",
+    "temperatureK": 298,
+    "pressureKPa": 100,
+    "method": "IAST or literature-reported method pending",
+    "selectivity": null,
+    "adsorption": [
+      {
+        "gas": "Xe",
+        "uptake": null,
+        "unit": "mmol/g",
+        "temperatureK": 298,
+        "pressureKPa": 100
+      },
+      {
+        "gas": "Kr",
+        "uptake": null,
+        "unit": "mmol/g",
+        "temperatureK": 298,
+        "pressureKPa": 100
+      }
+    ],
+    "isothermStatus": "pending",
+    "sourceStatus": "pending",
+    "evidenceLevel": "pending",
+    "curationStatus": "planned",
+    "conditionCompleteness": {
+      "gasPair": true,
+      "gasRatio": true,
+      "temperature": true,
+      "pressure": true,
+      "method": true,
+      "source": false
+    },
+    "note": "Template record for noble gas separation curation. No validated selectivity value is included."
+  }
+]

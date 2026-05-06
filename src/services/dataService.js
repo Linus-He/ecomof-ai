@@ -10,6 +10,7 @@ const DATA_PATHS = {
   benchmarkReferences: "data/benchmark_references.json",
   mofStructures: "data/mof_structures.json",
   adsorptionLabels: "data/adsorption_labels.json",
+  gasSeparationRecords: "data/mof_gas_separation_records.json",
 }
 
 const QUALITY_FIELDS = [
@@ -88,6 +89,10 @@ export function getMofStructures({ throwOnError = false } = {}) {
 
 export function getAdsorptionLabels({ throwOnError = false } = {}) {
   return fetchJson(DATA_PATHS.adsorptionLabels, [], { throwOnError })
+}
+
+export function getGasSeparationRecords({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.gasSeparationRecords, [], { throwOnError })
 }
 
 function hasCuratedSource(source) {

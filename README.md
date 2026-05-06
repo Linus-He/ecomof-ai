@@ -11,6 +11,7 @@ It is designed for transparent candidate prioritization and research discussion.
 ## What can you do here?
 
 - **Screen MOF candidates** — Rank candidates by adsorption performance, sustainability, or catalysis fit. Scores express candidate priority, not validated predictions.
+- **Review gas separation conditions** — Inspect condition-aware gas adsorption and separation records with gas ratio, temperature, pressure, method, source status, and isotherm availability.
 - **Inspect descriptor completeness** — See which fields are curated, which are pending, and what evidence level each descriptor carries.
 - **Trace data provenance** — Know where each descriptor comes from: source type, database reference, measurement condition, and curation state.
 
@@ -26,6 +27,7 @@ It is designed for transparent candidate prioritization and research discussion.
 
 - Overview: https://linus-he.github.io/ecomof-ai/#overview
 - Performance: https://linus-he.github.io/ecomof-ai/#performance
+- GasSep: https://linus-he.github.io/ecomof-ai/#gassep
 - EcoScreen: https://linus-he.github.io/ecomof-ai/#ecoscreen
 - CatalysisLab: https://linus-he.github.io/ecomof-ai/#catalysis
 - MOF Library: https://linus-he.github.io/ecomof-ai/#library
@@ -53,6 +55,12 @@ The current version uses static JSON files from `public/data`. Data fetching is 
 Candidate Comparison allows users to compare selected MOF candidates across descriptor completeness, key descriptors, evidence levels, and provenance coverage. It is intended for transparent decision support and should not be treated as a final material performance conclusion.
 
 候选材料对比功能用于比较所选 MOF 在描述符完整性、关键描述符、证据等级和溯源覆盖方面的差异。该功能用于透明决策支持，不代表最终材料性能结论。
+
+## GasSep
+
+GasSep organizes condition-aware gas adsorption and separation records. Selectivity and uptake values should be interpreted with gas ratio, temperature, pressure, method, and source context. The current version does not perform IAST, GCMC, or breakthrough simulation.
+
+GasSep 用于整理带条件说明的气体吸附与分离记录。选择性和吸附量需要结合气体比例、温度、压力、方法和来源共同解读。当前版本不执行 IAST、GCMC 或穿透曲线模拟。
 
 ## Data Curation Statement
 

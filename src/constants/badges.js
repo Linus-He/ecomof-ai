@@ -17,6 +17,7 @@ export const TABS = [
   { id: "home",          copyKey: "overview" },
   { id: "ecoscreen",     copyKey: "ecoScreen" },
   { id: "performance",   copyKey: "performance" },
+  { id: "gassep",        copyKey: "gasSep" },
   { id: "catalysis",     copyKey: "catalysisLab" },
   { id: "library",       copyKey: "mofLibrary" },
   { id: "about",         copyKey: "methodology" },

@@ -182,6 +182,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       ["method-scoring", "评分模型"],
       ["method-formulas", "公式参考"],
       ["method-provenance", "证据与溯源"],
+      ["method-gassep-conditions", "气体分离条件"],
       ["benchmark-references", "标杆参考"],
       ["validation-evidence", "验证与证据"],
       ["method-limitations", "限制说明"],
@@ -193,6 +194,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       ["method-scoring", "Scoring Model"],
       ["method-formulas", "Formula Reference"],
       ["method-provenance", "Evidence & Provenance"],
+      ["method-gassep-conditions", "Gas Separation Conditions"],
       ["benchmark-references", "Benchmark References"],
       ["validation-evidence", "Validation & Evidence"],
       ["method-limitations", "Limitations"],
@@ -427,7 +429,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
         subtitle={zh
           ? "本页集中说明 EcoMOF-AI 的评分方法、数据假设、证据等级、标杆语境、验证状态、引用边界和能力限制。"
           : "A transparent overview of EcoMOF-AI scoring methods, data assumptions, evidence levels, benchmark context, validation status, citation boundaries, and limitations."}
-        meta={zh ? "工作流 · 数据层 · 评分模型 · 公式参考 · 证据与溯源 · 标杆参考 · 验证与证据 · 限制说明 · 参考与引用" : "Workflow · Data Layer · Scoring Model · Formula Reference · Evidence & Provenance · Benchmark References · Validation & Evidence · Limitations · References"}
+        meta={zh ? "工作流 · 数据层 · 评分模型 · 公式参考 · 证据与溯源 · 气体分离条件 · 标杆参考 · 验证与证据 · 限制说明 · 参考与引用" : "Workflow · Data Layer · Scoring Model · Formula Reference · Evidence & Provenance · Gas Separation Conditions · Benchmark References · Validation & Evidence · Limitations · References"}
         action={
           <>
             <BasisBadge tone="proxy">{zh ? "候选优先级" : "candidate priority"}</BasisBadge>
@@ -621,6 +623,36 @@ export function MethodsLimitationsTab({ onNavigate }) {
             {zh ? "查看数据质量图表" : "View Data Quality Dashboard"}
           </button>
         )}
+      </MethodSection>
+
+      <MethodSection
+        id="method-gassep-conditions"
+        title={zh ? "Gas Separation Conditions / 气体分离条件" : "Gas Separation Conditions"}
+        body={zh
+          ? "气体分离数据高度依赖条件。缺少气体比例、温度、压力、方法和来源语境时，不应直接比较选择性和吸附量。"
+          : "Gas separation values are condition-sensitive. Selectivity and uptake should not be compared without gas ratio, temperature, pressure, method, and source context."}
+        t={t}
+      >
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+          <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, maxWidth: 760 }}>
+            {zh
+              ? "GasSep 用于查看带条件说明的气体吸附与分离记录，包括体系、比例、温度、压力、方法、来源状态和等温线可用性。"
+              : "GasSep shows condition-aware gas adsorption and separation records, including system, ratio, temperature, pressure, method, source status, and isotherm availability."}
+          </div>
+          <button
+            type="button"
+            onClick={() => onNavigate?.("gassep")}
+            style={{
+              display: "inline-flex", alignItems: "center", gap: 7,
+              padding: "8px 12px", borderRadius: 7,
+              background: t.badgeInfoBg, border: `1px solid ${t.border}`,
+              color: t.accentText, fontSize: 11, fontWeight: 800,
+              cursor: "pointer", fontFamily: FONT_MONO,
+            }}
+          >
+            {zh ? "打开 GasSep" : "Open GasSep"}
+          </button>
+        </div>
       </MethodSection>
 
       <MethodSection

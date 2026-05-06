@@ -33,6 +33,7 @@ const lazyNamed = (loader, exportName) => lazy(async () => {
 const HomeTab = lazyNamed(() => import("./components/tabs/HomeTab.jsx"), "HomeTab")
 const EcoScreenTab = lazyNamed(() => import("./components/tabs/EcoScreenTab.jsx"), "EcoScreenTab")
 const PerformanceTab = lazyNamed(() => import("./components/tabs/PerformanceTab.jsx"), "PerformanceTab")
+const GasSepTab = lazyNamed(() => import("./components/tabs/GasSepTab.jsx"), "GasSepTab")
 const CatalysisLabTab = lazyNamed(() => import("./components/tabs/CatalysisLabTab.jsx"), "CatalysisLabTab")
 const MOFLibraryTab = lazyNamed(() => import("./components/tabs/MOFLibraryTab.jsx"), "MOFLibraryTab")
 const WorkflowTab = lazyNamed(() => import("./components/tabs/WorkflowTab.jsx"), "WorkflowTab")
@@ -308,6 +309,7 @@ function AppShell({
                 onAddComparison={addCurrentToComparison}
               />
             )}
+            {activeTab === "gassep" && <GasSepTab />}
             {activeTab === "catalysis" && <CatalysisLabTab />}
             {activeTab === "library" && <MOFLibraryTab results={results} inputs={inputs} />}
             {activeTab === "workflow" && <WorkflowTab setActiveTab={navigateTab} inputs={inputs} results={results} />}
@@ -669,6 +671,10 @@ export default function App() {
     }
     if (target === "performance") {
       go("performance")
+      return
+    }
+    if (target === "gassep" || target === "gasSep") {
+      go("gassep")
       return
     }
     if (target === "catalysisLab") {
