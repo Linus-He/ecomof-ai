@@ -514,6 +514,175 @@ const BIOMASS_DATA_FIELDS = [
   { en: "Source / confidentiality status", zh: "来源与保密状态", status: "private" },
 ]
 
+const BIOMASS_CASE_OVERVIEW = [
+  {
+    en: "Case type",
+    zh: "案例类型",
+    valueEn: "Schema-only collaboration template",
+    valueZh: "仅字段结构合作模板",
+  },
+  {
+    en: "Catalyst family",
+    zh: "催化剂家族",
+    valueEn: "MOF catalyst / transition-metal-modified MOF / pending",
+    valueZh: "MOF 催化剂 / 过渡金属改性 MOF / 待补充",
+  },
+  {
+    en: "Reaction family",
+    zh: "反应类型",
+    valueEn: "Hydrothermal synergistic conversion",
+    valueZh: "水热协同转化",
+  },
+  {
+    en: "CO₂/HCO₃⁻ source",
+    zh: "CO₂/HCO₃⁻ 来源",
+    valueEn: "NaHCO₃ / HCO₃⁻ / captured CO₂ equivalent",
+    valueZh: "NaHCO₃ / HCO₃⁻ / 捕集 CO₂ 等效来源",
+  },
+  {
+    en: "Target products",
+    zh: "目标产物",
+    valueEn: "formic acid, formate, lactic acid, acetic acid, glycolic acid",
+    valueZh: "甲酸、甲酸盐、乳酸、乙酸、乙醇酸",
+  },
+  {
+    en: "Data status",
+    zh: "数据状态",
+    valueEn: "schema-only / pending review",
+    valueZh: "仅字段结构 / 待复核",
+  },
+  {
+    en: "Confidentiality mode",
+    zh: "保密显示模式",
+    valueEn: "no private values displayed",
+    valueZh: "不展示私密数值",
+  },
+]
+
+const BIOMASS_CONDITION_PROFILE = [
+  { en: "Temperature", zh: "温度", valueEn: "170 ℃", valueZh: "170 ℃", accent: true },
+  { en: "Time", zh: "时间", valueEn: "pending / to be confirmed", valueZh: "待确认" },
+  { en: "Substrate", zh: "底物", valueEn: "glucose", valueZh: "葡萄糖" },
+  { en: "Substrate amount", zh: "底物用量", valueEn: "90 mg", valueZh: "90 mg" },
+  { en: "CO₂/HCO₃⁻ source amount", zh: "CO₂/HCO₃⁻ 来源用量", valueEn: "NaHCO₃ 252 mg", valueZh: "NaHCO₃ 252 mg" },
+  { en: "Water / solvent", zh: "水 / 溶剂", valueEn: "H₂O 10 mL", valueZh: "H₂O 10 mL" },
+  { en: "Catalyst dosage", zh: "催化剂用量", valueEn: "200 mg", valueZh: "200 mg" },
+  { en: "Condition status", zh: "条件状态", valueEn: "collaborator-context / pending review", valueZh: "collaborator-context / 待复核" },
+]
+
+const BIOMASS_CASE_PRODUCTS = [
+  {
+    en: "Formic acid",
+    zh: "甲酸",
+    roleEn: "main target product",
+    roleZh: "主要目标产物",
+    metricsEn: ["peak area", "concentration", "yield", "selectivity"],
+    metricsZh: ["峰面积", "浓度", "产率", "选择性"],
+    statusEn: "private / pending / schema-only",
+    statusZh: "私密 / 待补充 / 仅字段结构",
+    tone: "proxy",
+  },
+  {
+    en: "Formate",
+    zh: "甲酸盐",
+    roleEn: "main target product / paired species",
+    roleZh: "主要目标产物 / 配对物种",
+    metricsEn: ["peak area", "concentration", "yield", "selectivity"],
+    metricsZh: ["峰面积", "浓度", "产率", "选择性"],
+    statusEn: "private / pending / schema-only",
+    statusZh: "私密 / 待补充 / 仅字段结构",
+    tone: "proxy",
+  },
+  {
+    en: "Lactic acid",
+    zh: "乳酸",
+    roleEn: "side product or competing pathway indicator",
+    roleZh: "副产物或竞争路径指示物",
+    metricsEn: ["peak area", "concentration", "yield"],
+    metricsZh: ["峰面积", "浓度", "产率"],
+    statusEn: "pending / schema-only",
+    statusZh: "待补充 / 仅字段结构",
+    tone: "warn",
+  },
+  {
+    en: "Acetic acid",
+    zh: "乙酸",
+    roleEn: "side product or competing pathway indicator",
+    roleZh: "副产物或竞争路径指示物",
+    metricsEn: ["peak area", "concentration", "yield"],
+    metricsZh: ["峰面积", "浓度", "产率"],
+    statusEn: "pending / schema-only",
+    statusZh: "待补充 / 仅字段结构",
+    tone: "warn",
+  },
+  {
+    en: "Glycolic acid",
+    zh: "乙醇酸",
+    roleEn: "side product or competing pathway indicator",
+    roleZh: "副产物或竞争路径指示物",
+    metricsEn: ["peak area", "concentration", "yield"],
+    metricsZh: ["峰面积", "浓度", "产率"],
+    statusEn: "pending / schema-only",
+    statusZh: "待补充 / 仅字段结构",
+    tone: "warn",
+  },
+]
+
+const BIOMASS_CASE_MECHANISM_STEPS = [
+  { en: "Glucose", zh: "葡萄糖", status: "literature-supported" },
+  { en: "isomerization", zh: "异构化", status: "hypothesis" },
+  { en: "fructose / ketose intermediates", zh: "果糖 / 酮糖中间体", status: "pending evidence" },
+  { en: "retro-aldol cleavage", zh: "逆醛醇缩合", status: "hypothesis" },
+  { en: "C2/C3 aldehyde intermediates", zh: "C2/C3 醛类中间体", status: "pending evidence" },
+  { en: "redox with HCO₃⁻", zh: "与 HCO₃⁻ 氧化还原", status: "pending evidence" },
+  { en: "formic acid / formate", zh: "甲酸 / 甲酸盐", status: "pending evidence" },
+]
+
+const BIOMASS_CASE_SIDE_PATHWAY = [
+  { en: "dehydration / rearrangement", zh: "脱水 / 重排", status: "hypothesis" },
+  { en: "lactic acid, acetic acid, glycolic acid", zh: "乳酸、乙酸、乙醇酸", status: "pending evidence" },
+]
+
+const CONFIDENTIAL_DISPLAY_MODES = [
+  {
+    en: "Public literature",
+    zh: "公开文献",
+    bodyEn: "Published and citable data.",
+    bodyZh: "已发表且可引用的数据。",
+    tone: "calc",
+  },
+  {
+    en: "Collaborator private",
+    zh: "合作者保密数据",
+    bodyEn: "Used for private review only; not published without permission.",
+    bodyZh: "仅用于私下复核；未经许可不公开。",
+    tone: "warn",
+  },
+  {
+    en: "Anonymized demo",
+    zh: "匿名化演示",
+    bodyEn: "Identities or values masked for demonstration.",
+    bodyZh: "为演示遮蔽身份或数值。",
+    tone: "proxy",
+  },
+  {
+    en: "Schema-only",
+    zh: "仅字段结构",
+    bodyEn: "Only fields are displayed; no real values are shown.",
+    bodyZh: "只展示字段，不展示真实数值。",
+    tone: "info",
+  },
+]
+
+const BIOMASS_CASE_SUPPORTS = [
+  { en: "thesis or project presentation structure", zh: "论文或项目展示结构" },
+  { en: "catalyst comparison", zh: "催化剂对比" },
+  { en: "reaction condition tracking", zh: "反应条件追踪" },
+  { en: "product distribution review", zh: "产物分布复核" },
+  { en: "mechanism evidence mapping", zh: "机理证据映射" },
+  { en: "future ML-ready data accumulation", zh: "面向未来机器学习的数据积累" },
+]
+
 const CANDIDATES = [
   {
     id: "uio66nh2",
@@ -697,6 +866,8 @@ function curationTone(status) {
 function pendingCatalysisValue(value, lang) {
   if (value == null || value === "" || value === "pending") return lang === "zh" ? "待补充" : "Pending"
   if (value === "planned") return lang === "zh" ? "计划整理" : "Planned curation"
+  if (value === "schema-only") return lang === "zh" ? "仅字段结构" : "Schema only"
+  if (value === "private") return lang === "zh" ? "私有草稿" : "Private"
   return value
 }
 
@@ -806,6 +977,23 @@ function CatalysisCheckItem({ t, children }) {
       <span style={{ color: t.muted, fontSize: 10, lineHeight: 1.5, overflowWrap: "anywhere" }}>{children}</span>
     </div>
   )
+}
+
+function mechanismStatusLabel(status, lang) {
+  const labels = {
+    hypothesis: lang === "zh" ? "机制假设" : "hypothesis",
+    "pending evidence": lang === "zh" ? "证据待补充" : "pending evidence",
+    "literature-supported": lang === "zh" ? "文献支持" : "literature-supported",
+    "collaborator-private": lang === "zh" ? "合作者保密数据" : "collaborator-private",
+  }
+  return labels[status] || pendingCatalysisValue(status, lang)
+}
+
+function mechanismStatusTone(status) {
+  if (status === "literature-supported") return "calc"
+  if (status === "collaborator-private") return "warn"
+  if (status === "hypothesis") return "proxy"
+  return "info"
 }
 
 function CatalysisRecordPreview({ records, status, lang, t }) {
@@ -1596,6 +1784,148 @@ export function CatalysisLabTab({ onNavigate }) {
               >
                 {lang === "zh" ? "查看方法与边界" : "View methods & boundaries"}
               </button>
+            </CatalysisCard>
+          </div>
+        </div>
+      </ResultLayer>
+
+      <ResultLayer
+        number="03B"
+        title={lang === "zh" ? "生物质辅助 CO₂/HCO₃⁻ 转化案例模板" : "Biomass-assisted CO₂/HCO₃⁻ Case Study Template"}
+        subtitle={lang === "zh"
+          ? "用于整理催化剂身份、反应条件、产物分布、机理证据和保密状态的仅字段结构案例模板。"
+          : "A schema-only case template for organizing catalyst identity, reaction conditions, product distribution, mechanism evidence, and confidentiality status."}
+      >
+        <div style={{ display: "grid", gap: 12 }}>
+          <Callout tone="info">
+            {lang === "zh"
+              ? "该模板不包含私密实验数值，仅用于展示未来公开文献或经合作者同意的数据可以如何结构化。"
+              : "This template does not include private experimental values. It is designed to show how future public literature or collaborator-approved records can be structured."}
+          </Callout>
+
+          <CatalysisCard t={t}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start", flexWrap: "wrap" }}>
+              <CatalysisCardTitle t={t}>{lang === "zh" ? "案例总览" : "Case overview"}</CatalysisCardTitle>
+              <BasisBadge tone="info">{lang === "zh" ? "仅字段结构" : "schema-only"}</BasisBadge>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
+              {BIOMASS_CASE_OVERVIEW.map(item => (
+                <CatalysisFieldTile key={item.en} t={t} label={lang === "zh" ? item.zh : item.en} value={lang === "zh" ? item.valueZh : item.valueEn} />
+              ))}
+            </div>
+          </CatalysisCard>
+
+          <CatalysisCard t={t} strong>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start", flexWrap: "wrap" }}>
+              <CatalysisCardTitle t={t}>{lang === "zh" ? "反应条件档案" : "Reaction condition profile"}</CatalysisCardTitle>
+              <BasisBadge tone="proxy">{lang === "zh" ? "collaborator-context / 待复核" : "collaborator-context / pending review"}</BasisBadge>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
+              {BIOMASS_CONDITION_PROFILE.map(item => (
+                <CatalysisFieldTile key={item.en} t={t} label={lang === "zh" ? item.zh : item.en} value={lang === "zh" ? item.valueZh : item.valueEn} accent={item.accent} />
+              ))}
+            </div>
+            <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 10 }}>
+              {lang === "zh"
+                ? "170 ℃ 基准条件来自合作者提供的当前反应语境，不应被视为所有 MOF 催化剂的通用最佳条件。"
+                : "The 170 ℃ baseline reflects a collaborator-provided current reaction context and should not be treated as a universal optimum for all MOF catalysts."}
+            </div>
+          </CatalysisCard>
+
+          <CatalysisCard t={t}>
+            <CatalysisCardTitle t={t}>{lang === "zh" ? "产物分布结构" : "Product distribution schema"}</CatalysisCardTitle>
+            <CatalysisBodyText t={t} style={{ marginTop: 7 }}>
+              {lang === "zh"
+                ? "这里只展示产物角色和需要整理的指标字段，不展示真实峰面积、浓度、产率或选择性数值。"
+                : "This panel shows product roles and metric fields only; real peak areas, concentrations, yields, or selectivity values are not displayed."}
+            </CatalysisBodyText>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(5, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
+              {BIOMASS_CASE_PRODUCTS.map(product => (
+                <div key={product.en} style={{ ...catalysisCardStyle(t, { surface: "surface", padding: 11, radius: 9 }) }}>
+                  <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 880, lineHeight: 1.35 }}>{lang === "zh" ? product.zh : product.en}</div>
+                  <div style={{ marginTop: 8 }}>
+                    <CatalysisKicker t={t}>{lang === "zh" ? "产物角色" : "Product role"}</CatalysisKicker>
+                    <div style={{ color: t.muted, fontSize: 10, lineHeight: 1.5, marginTop: 4 }}>{lang === "zh" ? product.roleZh : product.roleEn}</div>
+                  </div>
+                  <div style={{ marginTop: 8 }}>
+                    <CatalysisKicker t={t}>{lang === "zh" ? "指标字段" : "Metric fields"}</CatalysisKicker>
+                    <PathwayPills items={lang === "zh" ? product.metricsZh : product.metricsEn} lang={lang} t={t} />
+                  </div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 9 }}>
+                    <BasisBadge tone={product.tone}>{lang === "zh" ? product.statusZh : product.statusEn}</BasisBadge>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CatalysisCard>
+
+          <CatalysisCard t={t}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start", flexWrap: "wrap" }}>
+              <CatalysisCardTitle t={t}>{lang === "zh" ? "机理证据地图" : "Mechanism evidence map"}</CatalysisCardTitle>
+              <BasisBadge tone="warn">{lang === "zh" ? "不代表完全验证" : "not fully validated"}</BasisBadge>
+            </div>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center", marginTop: 12 }}>
+              {BIOMASS_CASE_MECHANISM_STEPS.map((step, index) => (
+                <div key={step.en} style={{ display: "flex", alignItems: "center", gap: 7 }}>
+                  <div style={{ ...catalysisCardStyle(t, { surface: "surface", padding: "8px 9px", radius: 9 }) }}>
+                    <div style={{ color: index === 0 || index === BIOMASS_CASE_MECHANISM_STEPS.length - 1 ? t.accentText : t.textStrong, fontSize: 10, fontWeight: 850, lineHeight: 1.35 }}>
+                      {lang === "zh" ? step.zh : step.en}
+                    </div>
+                    <div style={{ marginTop: 5 }}>
+                      <BasisBadge tone={mechanismStatusTone(step.status)}>{mechanismStatusLabel(step.status, lang)}</BasisBadge>
+                    </div>
+                  </div>
+                  {index < BIOMASS_CASE_MECHANISM_STEPS.length - 1 && <span style={{ color: t.faint, fontSize: 12 }}>→</span>}
+                </div>
+              ))}
+            </div>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center", marginTop: 10 }}>
+              <span style={{ color: t.faint, fontSize: 10, fontWeight: 850 }}>{lang === "zh" ? "副路径" : "Side pathway"}:</span>
+              {BIOMASS_CASE_SIDE_PATHWAY.map((step, index) => (
+                <div key={step.en} style={{ display: "flex", alignItems: "center", gap: 7 }}>
+                  <div style={{ ...catalysisCardStyle(t, { surface: "surface", padding: "7px 9px", radius: 999 }) }}>
+                    <span style={{ color: t.subtle, fontSize: 10, fontWeight: 750 }}>{lang === "zh" ? step.zh : step.en}</span>
+                    <span style={{ marginLeft: 6 }}><BasisBadge tone={mechanismStatusTone(step.status)}>{mechanismStatusLabel(step.status, lang)}</BasisBadge></span>
+                  </div>
+                  {index < BIOMASS_CASE_SIDE_PATHWAY.length - 1 && <span style={{ color: t.faint, fontSize: 12 }}>→</span>}
+                </div>
+              ))}
+            </div>
+            <CatalysisBodyText t={t} style={{ marginTop: 10 }}>
+              {lang === "zh"
+                ? "证据选项包括 HPLC、GC-MS / LC-MS、NMR、同位素追踪或 DFT。模板不会填入私密证据，也不说明当前路径已全部证明。"
+                : "Evidence options include HPLC, GC-MS / LC-MS, NMR, isotope tracing, or DFT. The template does not fill private evidence or claim that the pathway is fully proven."}
+            </CatalysisBodyText>
+          </CatalysisCard>
+
+          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
+            <CatalysisCard t={t} surface="surface">
+              <CatalysisCardTitle t={t}>{lang === "zh" ? "保密展示模式" : "Confidential display mode"}</CatalysisCardTitle>
+              <div style={{ display: "grid", gap: 8, marginTop: 11 }}>
+                {CONFIDENTIAL_DISPLAY_MODES.map(mode => (
+                  <div key={mode.en} style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start", flexWrap: "wrap", ...catalysisCardStyle(t, { surface: "panel", padding: 10, radius: 8 }) }}>
+                    <div style={{ minWidth: 0, flex: "1 1 180px" }}>
+                      <div style={{ color: t.textStrong, fontSize: 11, fontWeight: 850 }}>{lang === "zh" ? mode.zh : mode.en}</div>
+                      <div style={{ color: t.muted, fontSize: 10, lineHeight: 1.5, marginTop: 4 }}>{lang === "zh" ? mode.bodyZh : mode.bodyEn}</div>
+                    </div>
+                    <BasisBadge tone={mode.tone}>{lang === "zh" ? mode.zh : mode.en}</BasisBadge>
+                  </div>
+                ))}
+              </div>
+            </CatalysisCard>
+
+            <CatalysisCard t={t}>
+              <CatalysisCardTitle t={t}>{lang === "zh" ? "该案例模板可支持什么" : "What this case can support"}</CatalysisCardTitle>
+              <div style={{ display: "grid", gap: 8, marginTop: 11 }}>
+                {BIOMASS_CASE_SUPPORTS.map(item => (
+                  <CatalysisCheckItem key={item.en} t={t}>{lang === "zh" ? item.zh : item.en}</CatalysisCheckItem>
+                ))}
+              </div>
+              <CatalysisBodyText t={t} style={{ marginTop: 10 }}>
+                {lang === "zh"
+                  ? "这些用途属于结构化整理和复核支持，不代表该模板可以替代实验、直接发表结论或预测催化性能。"
+                  : "These uses support structured organization and review; the template does not replace experiments, publish-ready conclusions, or catalytic performance prediction."}
+              </CatalysisBodyText>
             </CatalysisCard>
           </div>
         </div>

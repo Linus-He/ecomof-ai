@@ -184,6 +184,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       ["method-provenance", "证据与溯源"],
       ["method-gassep-conditions", "气体分离条件"],
       ["method-catalysis-boundaries", "催化边界"],
+      ["case-study-templates", "案例模板"],
       ["benchmark-references", "标杆参考"],
       ["validation-evidence", "验证与证据"],
       ["method-limitations", "限制说明"],
@@ -197,6 +198,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       ["method-provenance", "Evidence & Provenance"],
       ["method-gassep-conditions", "Gas Separation Conditions"],
       ["method-catalysis-boundaries", "Catalysis Boundaries"],
+      ["case-study-templates", "Case Study Templates"],
       ["benchmark-references", "Benchmark References"],
       ["validation-evidence", "Validation & Evidence"],
       ["method-limitations", "Limitations"],
@@ -431,7 +433,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
         subtitle={zh
           ? "本页集中说明 EcoMOF-AI 的评分方法、数据假设、证据等级、标杆语境、验证状态、引用边界和能力限制。"
           : "A transparent overview of EcoMOF-AI scoring methods, data assumptions, evidence levels, benchmark context, validation status, citation boundaries, and limitations."}
-        meta={zh ? "工作流 · 数据层 · 评分模型 · 公式参考 · 证据与溯源 · 气体分离条件 · 催化边界 · 标杆参考 · 验证与证据 · 限制说明 · 参考与引用" : "Workflow · Data Layer · Scoring Model · Formula Reference · Evidence & Provenance · Gas Separation Conditions · Catalysis Boundaries · Benchmark References · Validation & Evidence · Limitations · References"}
+        meta={zh ? "工作流 · 数据层 · 评分模型 · 公式参考 · 证据与溯源 · 气体分离条件 · 催化边界 · 案例模板 · 标杆参考 · 验证与证据 · 限制说明 · 参考与引用" : "Workflow · Data Layer · Scoring Model · Formula Reference · Evidence & Provenance · Gas Separation Conditions · Catalysis Boundaries · Case Study Templates · Benchmark References · Validation & Evidence · Limitations · References"}
         action={
           <>
             <BasisBadge tone="proxy">{zh ? "候选优先级" : "candidate priority"}</BasisBadge>
@@ -701,6 +703,15 @@ export function MethodsLimitationsTab({ onNavigate }) {
             : "This separation helps avoid mixing reaction conditions, product labels, confidential values, and evidence status in a single table."}
         </div>
       </MethodSection>
+
+      <MethodSection
+        id="case-study-templates"
+        title={zh ? "Case study templates / 案例模板" : "Case study templates"}
+        body={zh
+          ? "案例模板用于在记录公开或用于建模前，整理催化剂身份、反应条件、产物分布、机理证据和保密状态。仅字段结构案例模板不包含已验证性能数值。"
+          : "Case study templates are used to organize catalyst identity, reaction conditions, product distribution, mechanism evidence, and confidentiality status before any record is treated as public or model-ready. Schema-only case templates do not contain validated performance values."}
+        t={t}
+      />
 
       <MethodSection
         id="benchmark-references"

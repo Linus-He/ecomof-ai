@@ -68,6 +68,12 @@ CatalysisLab organizes CO₂ conversion by product pathway rather than a single 
 
 CatalysisLab 按产物路径组织 CO₂ 转化，而不是只围绕单一目标产物。路径包括 C1 还原产物、C2+ 产物、有机酸相关产物、环状碳酸酯、CO₂ 参与的生物质升级转化，以及 biomass-assisted CO₂/HCO₃⁻ conversion 这一可整理路径。每条路径整理相关反应模式、关键指标、MOF 相关作用、整理重点、条件语境、稳定性证据和来源状态，不代表已完成实验验证的催化性能结论，也不包含合作者私密产率数据。
 
+## Case Study Templates
+
+EcoMOF-AI can represent collaboration-oriented catalysis cases as schema-only templates before any public data release. A biomass-assisted CO₂/HCO₃⁻ conversion case template can organize reaction conditions, product distribution, mechanism evidence, confidentiality mode, and future ML-ready fields without publishing private values.
+
+EcoMOF-AI 可以在公开数据前，将合作型催化案例表示为仅字段结构模板。生物质辅助 CO₂/HCO₃⁻ 转化案例模板可整理反应条件、产物分布、机理证据、保密模式和面向未来机器学习的字段，而不公开私密数值。
+
 ## Data Intake & Collaboration
 
 EcoMOF-AI supports collaboration-oriented data structuring for catalyst records, reaction conditions, product metrics, characterization evidence, mechanism notes, and source status. Private or unpublished collaborator data should not be published without explicit permission. The current prototype does not provide public file upload or backend storage; data intake is handled through agreed templates and manual review.

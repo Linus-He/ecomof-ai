@@ -387,5 +387,95 @@
       "displayMode": "schema-only"
     },
     "note": "Schema-only template for biomass-assisted CO2/HCO3- conversion. No private experimental yield values are included."
+  },
+  {
+    "recordId": "cat-biomass-co2-case-template-001",
+    "caseType": "schema-only collaboration case template",
+    "taskFamily": "CO2 conversion",
+    "pathway": "biomass-assisted CO2/HCO3- conversion",
+    "reactionFamily": "hydrothermal synergistic conversion",
+    "subTask": "glucose + NaHCO3 to formic acid / organic acids",
+    "targetProducts": ["formic acid", "formate", "lactic acid", "acetic acid", "glycolic acid"],
+    "relevantModes": ["hydrothermal conversion", "heterogeneous catalysis", "schema-only case review"],
+    "keyMetrics": ["product distribution schema", "reaction condition profile", "mechanism evidence map", "confidentiality status"],
+    "mofRelevance": ["MOF catalyst identity", "transition-metal-modified MOF", "Lewis acid/base sites", "pending active-site evidence"],
+    "curationFocus": ["catalyst identity", "reaction conditions", "product distribution", "mechanism evidence", "confidentiality mode", "future ML-ready fields"],
+    "caution": "Schema-only case template. No private experimental values or validated catalytic performance claims are included.",
+    "reactionConditionProfile": {
+      "temperatureC": 170,
+      "temperatureStatus": "collaborator-context; pending review; not universal optimum",
+      "timeH": null,
+      "timeStatus": "pending",
+      "substrate": "glucose",
+      "substrateAmountMg": 90,
+      "co2Source": "NaHCO3 / HCO3-",
+      "NaHCO3Mg": 252,
+      "waterMl": 10,
+      "catalystMg": 200,
+      "conditionStatus": "schema-only baseline context"
+    },
+    "productDistributionSchema": [
+      {
+        "product": "formic acid",
+        "role": "main target product",
+        "metricFields": ["peak area", "concentration", "yield", "selectivity"],
+        "displayStatus": "schema-only"
+      },
+      {
+        "product": "formate",
+        "role": "main target product / paired species",
+        "metricFields": ["peak area", "concentration", "yield", "selectivity"],
+        "displayStatus": "schema-only"
+      },
+      {
+        "product": "lactic acid",
+        "role": "side product / competing pathway indicator",
+        "metricFields": ["peak area", "concentration", "yield"],
+        "displayStatus": "schema-only"
+      },
+      {
+        "product": "acetic acid",
+        "role": "side product / competing pathway indicator",
+        "metricFields": ["peak area", "concentration", "yield"],
+        "displayStatus": "schema-only"
+      },
+      {
+        "product": "glycolic acid",
+        "role": "side product / competing pathway indicator",
+        "metricFields": ["peak area", "concentration", "yield"],
+        "displayStatus": "schema-only"
+      }
+    ],
+    "mechanismEvidenceMap": [
+      {
+        "step": "glucose isomerization",
+        "status": "hypothesis / pending evidence"
+      },
+      {
+        "step": "retro-aldol cleavage",
+        "status": "hypothesis / pending evidence"
+      },
+      {
+        "step": "C2/C3 aldehyde intermediates",
+        "status": "pending evidence"
+      },
+      {
+        "step": "redox with HCO3-",
+        "status": "pending evidence"
+      },
+      {
+        "step": "formic acid / formate formation",
+        "status": "pending metrics"
+      }
+    ],
+    "confidentiality": {
+      "displayMode": "schema-only",
+      "canPublishValues": false,
+      "note": "No private collaborator values are included."
+    },
+    "evidenceLevel": "pending",
+    "sourceStatus": "schema-only",
+    "curationStatus": "planned",
+    "note": "Schema-only case template for biomass-assisted CO2/HCO3- conversion. No private experimental yield values, peak areas, concentrations, collaborator names, or institutional details are included."
   }
 ]
