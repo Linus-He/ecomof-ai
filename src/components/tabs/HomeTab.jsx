@@ -1,3 +1,4 @@
+import { useMemo } from "react"
 import { useT, useLang, useViewport, BrandMark } from "../../shared"
 import { toolbarBtn } from "../../utils/styles"
 
@@ -8,7 +9,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
 
   /* ── data ─────────────────────────────────────────────────────────── */
 
-  const whatYouCanDo = [
+  const whatYouCanDo = useMemo(() => [
     {
       id: "screen",
       number: "01",
@@ -33,9 +34,9 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
         ? "查看描述符来源、测试条件和整理状态。"
         : "Review descriptor source, measurement condition, and curation status.",
     },
-  ]
+  ], [lang])
 
-  const coreModules = [
+  const coreModules = useMemo(() => [
     {
       id: "mofLibrary",
       hash: "library",
@@ -72,9 +73,9 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
       name: lang === "zh" ? "Benchmark References" : "Benchmark References",
       desc: lang === "zh" ? "理解常见标杆材料语境。" : "Understand contextual benchmark anchors.",
     },
-  ]
+  ], [lang])
 
-  const forUsers = [
+  const forUsers = useMemo(() => [
     {
       id: "mof",
       role: lang === "zh" ? "MOF 研究者" : "MOF researchers",
@@ -110,9 +111,9 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
         ? "发现整理、验证和 benchmark 合作机会。"
         : "Find curation, validation, and benchmarking opportunities.",
     },
-  ]
+  ], [lang])
 
-  const workflowSteps = [
+  const workflowSteps = useMemo(() => [
     {
       number: "01",
       title: lang === "zh" ? "整理描述符" : "Curate descriptors",
@@ -128,14 +129,14 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
       title: lang === "zh" ? "判断候选优先级" : "Prioritize candidates",
       body: lang === "zh" ? "用透明规则辅助早期筛选和假设生成。" : "Use transparent rules for early screening and hypothesis generation.",
     },
-  ]
+  ], [lang])
 
-  const cardBase = {
+  const cardBase = useMemo(() => ({
     background: t.panel,
     border: `1px solid ${t.border}`,
     borderRadius: 10,
     transition: "box-shadow 0.15s, border-color 0.15s",
-  }
+  }), [t])
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 30 : 42 }}>

@@ -139,15 +139,21 @@ export function MethodsLimitationsTab({ onNavigate }) {
   const { isNarrow, isMobile } = useViewport()
   const zh = lang === "zh"
   const [references, setReferences] = useState([])
+  const [referencesStatus, setReferencesStatus] = useState("loading")
 
   useEffect(() => {
     let active = true
-    getReferences()
+    setReferencesStatus("loading")
+    getReferences({ throwOnError: true })
       .then(data => {
-        if (active) setReferences(Array.isArray(data) ? data : [])
+        if (!active) return
+        const next = Array.isArray(data) ? data : []
+        setReferences(next)
+        setReferencesStatus(next.length ? "loaded" : "empty")
       })
-      .catch(() => {
-        if (active) setReferences([])
+      .catch((error) => {
+        console.warn("References data load failed.", error)
+        if (active) { setReferences([]); setReferencesStatus("error") }
       })
     return () => { active = false }
   }, [])
@@ -839,6 +845,19 @@ export function MethodsLimitationsTab({ onNavigate }) {
                 ? "部分参考来源用于方法与证据说明或未来数据接入规划，不代表当前已完整接入。"
                 : "Some references are planned or contextual references, not necessarily fully ingested data sources."}
             </p>
+            {referencesStatus === "loading" && (
+              <Callout tone="info">{zh ? "正在加载参考信息…" : "Loading reference records..."}</Callout>
+            )}
+            {referencesStatus === "error" && (
+              <Callout tone="warn">
+                {zh
+                  ? "数据加载失败。请刷新页面，或检查当前网络是否可以访问 GitHub Pages。"
+                  : "Data could not be loaded. Please refresh the page or check network access to GitHub Pages."}
+              </Callout>
+            )}
+            {referencesStatus === "empty" && (
+              <Callout tone="warn">{zh ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
+            )}
             <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }}>
               {references.map(item => (
                 <div key={item.id} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, padding: 10 }}>

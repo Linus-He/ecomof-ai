@@ -370,14 +370,14 @@ function AppShell({
             </div>
             <span style={{ color: theme.faint, fontSize: 11, maxWidth: 520, textAlign: viewport.isMobile ? "left" : "right" }}>
               {lang === "zh"
-                ? "当前结果用于早期筛选和研究假设生成，不代表最终实验结论。"
-                : "Current results are intended for early-stage screening and research hypothesis generation, not final experimental conclusions."}
+                ? "当前结果用于早期筛选和研究假设生成，不代表最终实验结论。本项目托管于 GitHub Pages，不同网络环境下访问速度可能不同；如数据加载失败，请刷新页面或稍后重试。"
+                : "Current results are intended for early-stage screening and research hypothesis generation, not final experimental conclusions. Hosted on GitHub Pages; access speed may vary by network region. If data fails to load, refresh the page or try again later."}
             </span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
             <a
               href="https://github.com/Linus-He/ecomof-ai"
-              target="_blank" rel="noopener"
+              target="_blank" rel="noreferrer"
               style={{ color: theme.accentText, fontSize: 12, fontWeight: 700, textDecoration: "none" }}
             >
               GitHub ↗

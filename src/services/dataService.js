@@ -31,7 +31,7 @@ function dataUrl(path) {
   return `${baseWithSlash}${String(path || "").replace(/^\/+/, "")}`
 }
 
-export async function fetchJson(path, fallback = []) {
+export async function fetchJson(path, fallback = [], options = {}) {
   if (DATA_PROVIDER !== "static") {
     // Future adapters can branch here. The current prototype intentionally
     // remains static-only and does not request /api or external services.
@@ -39,48 +39,55 @@ export async function fetchJson(path, fallback = []) {
 
   try {
     const response = await fetch(dataUrl(path))
-    if (!response.ok) return fallback
+    if (!response.ok) {
+      const error = new Error(`Data request failed: ${response.status}`)
+      if (options.throwOnError) throw error
+      console.warn(error.message)
+      return fallback
+    }
     return await response.json()
-  } catch {
+  } catch (error) {
+    if (options.throwOnError) throw error
+    console.warn("Data could not be loaded from GitHub Pages.", error)
     return fallback
   }
 }
 
-export function fetchDataJson(fileName, fallback = []) {
-  return fetchJson(`data/${String(fileName || "").replace(/^\/+/, "")}`, fallback)
+export function fetchDataJson(fileName, fallback = [], options = {}) {
+  return fetchJson(`data/${String(fileName || "").replace(/^\/+/, "")}`, fallback, options)
 }
 
-export async function getMofCandidates({ mode = "demo" } = {}) {
+export async function getMofCandidates({ mode = "demo", throwOnError = false } = {}) {
   const path = mode === "real-seed" ? DATA_PATHS.mofCandidatesRealSeed : DATA_PATHS.mofCandidatesDemo
-  return fetchJson(path, [])
+  return fetchJson(path, [], { throwOnError })
 }
 
-export function getCatalysisTasks() {
-  return fetchJson(DATA_PATHS.catalysisTasks, [])
+export function getCatalysisTasks({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.catalysisTasks, [], { throwOnError })
 }
 
-export function getEvidenceLevels() {
-  return fetchJson(DATA_PATHS.evidenceLevels, [])
+export function getEvidenceLevels({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.evidenceLevels, [], { throwOnError })
 }
 
-export function getScoringWeights() {
-  return fetchJson(DATA_PATHS.scoringWeights, {})
+export function getScoringWeights({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.scoringWeights, {}, { throwOnError })
 }
 
-export function getReferences() {
-  return fetchJson(DATA_PATHS.references, [])
+export function getReferences({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.references, [], { throwOnError })
 }
 
-export function getBenchmarkReferences() {
-  return fetchJson(DATA_PATHS.benchmarkReferences, [])
+export function getBenchmarkReferences({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.benchmarkReferences, [], { throwOnError })
 }
 
-export function getMofStructures() {
-  return fetchJson(DATA_PATHS.mofStructures, [])
+export function getMofStructures({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.mofStructures, [], { throwOnError })
 }
 
-export function getAdsorptionLabels() {
-  return fetchJson(DATA_PATHS.adsorptionLabels, [])
+export function getAdsorptionLabels({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.adsorptionLabels, [], { throwOnError })
 }
 
 function hasCuratedSource(source) {

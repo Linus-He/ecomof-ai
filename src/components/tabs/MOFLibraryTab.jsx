@@ -275,21 +275,27 @@ export function MOFLibraryTab({ results, inputs }) {
 
   useEffect(() => {
     let active = true
+    setStatus("loading")
     Promise.all([
-      getMofStructures(),
-      getAdsorptionLabels(),
-      getMofCandidates({ mode: "demo" }),
-      getMofCandidates({ mode: "real-seed" }),
+      getMofStructures({ throwOnError: true }),
+      getAdsorptionLabels({ throwOnError: true }),
+      getMofCandidates({ mode: "demo", throwOnError: true }),
+      getMofCandidates({ mode: "real-seed", throwOnError: true }),
     ])
       .then(([structures, labels, demo, realSeed]) => {
         if (!active) return
-        setStructureRows(structures)
-        setLabelRows(labels)
-        setDemoRows(Array.isArray(demo) ? demo : [])
-        setRealSeedRows(Array.isArray(realSeed) ? realSeed : [])
-        setStatus("loaded")
+        const nextStructures = Array.isArray(structures) ? structures : []
+        const nextLabels = Array.isArray(labels) ? labels : []
+        const nextDemo = Array.isArray(demo) ? demo : []
+        const nextRealSeed = Array.isArray(realSeed) ? realSeed : []
+        setStructureRows(nextStructures)
+        setLabelRows(nextLabels)
+        setDemoRows(nextDemo)
+        setRealSeedRows(nextRealSeed)
+        setStatus(nextStructures.length || nextLabels.length || nextDemo.length || nextRealSeed.length ? "loaded" : "empty")
       })
-      .catch(() => {
+      .catch((error) => {
+        console.warn("MOF Library data load failed.", error)
         if (!active) return
         setStatus("fallback")
       })
@@ -445,6 +451,19 @@ export function MOFLibraryTab({ results, inputs }) {
         </span>
       </div>
       <DataModeNote lang={lang} />
+      {status === "loading" && (
+        <Callout tone="info">{lang === "zh" ? "正在加载 MOF Library 数据…" : "Loading MOF Library data..."}</Callout>
+      )}
+      {status === "fallback" && (
+        <Callout tone="warn">
+          {lang === "zh"
+            ? "数据加载失败。请刷新页面，或检查当前网络是否可以访问 GitHub Pages。当前页面会使用本地种子上下文继续展示。"
+            : "Data could not be loaded. Please refresh the page or check network access to GitHub Pages. This view continues with local seed context."}
+        </Callout>
+      )}
+      {status === "empty" && (
+        <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
+      )}
 
       {dataMode === "real-seed" && (
         <div style={{ display: "grid", gap: 8 }}>
@@ -508,6 +527,9 @@ export function MOFLibraryTab({ results, inputs }) {
 
       <ResultLayer number="03" title={lang === "zh" ? "MOF 记录" : "MOF Records"} subtitle={lang === "zh" ? "单个记录可展开查看结构、孔性质、吸附/电子、Eco、Catalysis 和限制字段。" : "Expand each record to inspect structure, pore, adsorption/electronic, Eco, Catalysis, and limitations fields."}>
         <div style={{ display: "grid", gap: 10 }}>
+          {filtered.length === 0 && (
+            <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
+          )}
           {filtered.map(item => (
             <div key={item.id} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 13 }}>
               <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>

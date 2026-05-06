@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import {
   useT, useLang, useViewport,
   LITERATURE_DB, METAL_CENTERS, ORGANIC_LINKERS,
@@ -151,19 +151,29 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
     minScore: 62,
     evidence: "all",
   })
+  const [dataStatus, setDataStatus] = useState("loading")
+  const [runStatus, setRunStatus] = useState("idle")
+  const [runNotice, setRunNotice] = useState("")
+  const [scenarioResult, setScenarioResult] = useState(null)
 
   useEffect(() => {
     let active = true
-    Promise.all([getMofStructures(), getAdsorptionLabels()])
+    setDataStatus("loading")
+    Promise.all([getMofStructures({ throwOnError: true }), getAdsorptionLabels({ throwOnError: true })])
       .then(([structures, labels]) => {
         if (!active) return
-        setStructureRows(structures)
-        setLabelRows(labels)
+        const nextStructures = Array.isArray(structures) ? structures : []
+        const nextLabels = Array.isArray(labels) ? labels : []
+        setStructureRows(nextStructures)
+        setLabelRows(nextLabels)
+        setDataStatus(nextStructures.length || nextLabels.length ? "loaded" : "empty")
       })
-      .catch(() => {
+      .catch((error) => {
+        console.warn("EcoScreen data load failed.", error)
         if (!active) return
         setStructureRows([])
         setLabelRows([])
+        setDataStatus("error")
       })
     return () => { active = false }
   }, [])
@@ -185,7 +195,47 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
       .sort((a, b) => b.score - a.score)
   }, [records, results, inputs, lang, filters])
 
-  const activeCandidate = selected || candidates[0]
+  const activeCandidate = useMemo(() => selected || candidates[0] || null, [selected, candidates])
+  const chartData = useMemo(() => ({
+    ranking: candidates,
+    evidence: evidenceDistribution(candidates),
+    scores: scoreDistribution(candidates),
+    sensitivity: sensitivityRows(candidates, "ecoscreen", DEFAULT_SCORING_WEIGHTS.ecoscreen, null, "sustainability"),
+  }), [candidates])
+  const hasRunnableContext = Boolean(activeCandidate || inputs?.mofName || records.length)
+  const runScenario = useCallback(() => {
+    if (!hasRunnableContext) {
+      setRunNotice(lang === "zh"
+        ? "请先选择候选材料，或使用当前材料库语境后再运行 EcoScreen。"
+        : "Select a candidate or use the current library context before running EcoScreen.")
+      return
+    }
+
+    const candidate = activeCandidate || candidates[0]
+    setRunNotice("")
+    setRunStatus("running")
+    window.setTimeout(() => {
+      const descriptorKeys = ["surfaceArea", "poreSizeA", "poreVolume", "co2Uptake", "bandGap", "waterStability", "thermalStability", "toxicityConcern"]
+      const available = descriptorKeys.filter(key => {
+        const value = candidate?.[key]
+        return value !== undefined && value !== null && value !== "" && value !== "pending" && value !== "—"
+      })
+      const pending = descriptorKeys.filter(key => !available.includes(key))
+      setScenarioResult({
+        name: candidate?.name || inputs?.mofName || `${inputs?.metalCenter || "—"}/${inputs?.organicLinker || "—"}`,
+        dataMode: candidate?.fieldSources ? "real-seed / static JSON" : "demo / library context",
+        availableCount: available.length,
+        pendingCount: pending.length,
+        pendingFields: pending,
+        signals: [
+          candidate?.metal ? `${lang === "zh" ? "金属节点" : "Metal node"}: ${candidate.metal}` : null,
+          candidate?.linker ? `${lang === "zh" ? "连接体" : "Linker"}: ${candidate.linker}` : null,
+          Number.isFinite(Number(candidate?.score)) ? `${lang === "zh" ? "生态评分" : "Eco Score"}: ${Number(candidate.score).toFixed(1)}` : null,
+        ].filter(Boolean),
+      })
+      setRunStatus("done")
+    }, 420)
+  }, [activeCandidate, candidates, hasRunnableContext, inputs, lang])
   const controlStyle = { background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "8px 10px", color: t.text, fontSize: 12, width: "100%" }
 
   return (
@@ -209,6 +259,19 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
           ? "EcoScreen 的目标是帮助形成低负担候选清单。数据库字段、模型评分和代理清单不能直接等同于科研结论。"
           : "EcoScreen helps form lower-burden candidate shortlists. Database fields, model scores, and proxy inventories are not direct scientific conclusions."}
       </Callout>
+      {dataStatus === "loading" && (
+        <Callout tone="info">{lang === "zh" ? "正在加载 EcoScreen 数据…" : "Loading EcoScreen data..."}</Callout>
+      )}
+      {dataStatus === "error" && (
+        <Callout tone="warn">
+          {lang === "zh"
+            ? "数据加载失败。请刷新页面，或检查当前网络是否可以访问 GitHub Pages。当前页面会使用本地种子上下文继续展示。"
+            : "Data could not be loaded. Please refresh the page or check network access to GitHub Pages. This view continues with local seed context."}
+        </Callout>
+      )}
+      {dataStatus === "empty" && (
+        <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
+      )}
 
       <ResultLayer number="01" title={lang === "zh" ? "可持续性筛选条件" : "Sustainability Filters"} subtitle={lang === "zh" ? "筛选规则影响排序展示，不改变原始数据库记录。" : "Filters affect ranking display, not the underlying database records."}>
         <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
@@ -243,15 +306,66 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
                 <option value="medium">{lang === "zh" ? "中等及以上" : "medium or higher"}</option>
               </select>
             </label>
-            <button type="button" onClick={onPredict} disabled={loading} style={{ ...toolbarBtn(t), alignSelf: "end", minHeight: 38 }}>
-              {loading ? (lang === "zh" ? "计算中..." : "Running...") : (lang === "zh" ? "运行当前结构" : "Run current structure")}
+            <button
+              type="button"
+              onClick={runScenario}
+              disabled={runStatus === "running"}
+              title={runStatus === "running" ? (lang === "zh" ? "EcoScreen 正在运行。" : "EcoScreen is running.") : undefined}
+              style={{ ...toolbarBtn(t), alignSelf: "end", minHeight: 38, opacity: runStatus === "running" ? 0.72 : 1, cursor: runStatus === "running" ? "not-allowed" : "pointer" }}
+            >
+              {runStatus === "running"
+                ? (lang === "zh" ? "正在运行..." : "Running...")
+                : runStatus === "done"
+                  ? (lang === "zh" ? "重新运行" : "Run again")
+                  : (lang === "zh" ? "运行当前结构" : "Run current structure")}
             </button>
+          </div>
+          {runNotice && (
+            <div style={{ color: t.warn, fontSize: 11, lineHeight: 1.55, marginTop: 10 }}>
+              {runNotice}
+            </div>
+          )}
+          <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.6, marginTop: 10 }}>
+            {lang === "zh"
+              ? "当前原型未接入自定义结构上传。本次运行基于当前候选材料语境和已有描述符信号进行展示。"
+              : "No custom structure is uploaded in this prototype. This run uses the current candidate context and available descriptor signals."}
           </div>
         </div>
       </ResultLayer>
+      {scenarioResult && (
+        <ResultLayer number="01B" title={lang === "zh" ? "EcoScreen 场景结果" : "EcoScreen scenario result"}>
+          <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, display: "grid", gap: 11 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
+              <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850 }}>{scenarioResult.name}</div>
+              <BasisBadge tone="proxy">{scenarioResult.dataMode}</BasisBadge>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+              {[
+                [lang === "zh" ? "数据模式" : "Data mode", scenarioResult.dataMode],
+                [lang === "zh" ? "可用描述符数量" : "Available descriptor count", `${scenarioResult.availableCount}/8`],
+                [lang === "zh" ? "可持续性信号" : "Sustainability signals", scenarioResult.signals.join("; ") || (lang === "zh" ? "待补充" : "Pending")],
+                [lang === "zh" ? "待补充字段" : "Pending fields", scenarioResult.pendingCount ? scenarioResult.pendingFields.join(", ") : (lang === "zh" ? "无" : "None")],
+              ].map(([label, value]) => (
+                <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: "9px 11px" }}>
+                  <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", fontWeight: 850 }}>{label}</div>
+                  <div style={{ color: t.textStrong, fontSize: 12, lineHeight: 1.55, marginTop: 5 }}>{value}</div>
+                </div>
+              ))}
+            </div>
+            <Callout tone="warn">
+              {lang === "zh"
+                ? "本次 EcoScreen 运行是基于当前可用描述符的前端决策支持预览，不代表完整 LCA 结果或已验证材料预测。"
+                : "This EcoScreen run is a front-end decision-support preview based on available descriptors. It is not a final LCA result or validated material prediction."}
+            </Callout>
+          </div>
+        </ResultLayer>
+      )}
 
       <ResultLayer number="02" title={lang === "zh" ? "生态评分排序" : "Eco Score Ranking"} subtitle={lang === "zh" ? "统一结果卡片：MOF 名称 / 评分 / 适合任务 / 关键原因 / 证据等级 / 查看详情。" : "Unified result cards: MOF name / Score / Suitable task / Key reasons / Evidence level / View details."}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 12, alignItems: "start" }}>
+          {candidates.length === 0 && (
+            <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
+          )}
           {candidates.slice(0, 6).map(candidate => (
             <UnifiedCandidateCard
               key={candidate.id}
@@ -298,12 +412,12 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
 
       <ResultLayer number="04" title={lang === "zh" ? "Model Results / 结果解释图表" : "Model Results / Results Interpretation"}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
-          <RankingBarChart data={candidates} scoreLabel={lang === "zh" ? "生态评分" : "Eco Score"} />
+          <RankingBarChart data={chartData.ranking} scoreLabel={lang === "zh" ? "生态评分" : "Eco Score"} />
           <ScoreBreakdownRadar data={activeCandidate?.breakdown || []} title={activeCandidate ? `${activeCandidate.name} · ${lang === "zh" ? "评分拆解" : "Score Breakdown"}` : (lang === "zh" ? "评分拆解" : "Score Breakdown")} />
           <WeightContributionChart data={activeCandidate?.weightContribution || []} />
-          <EvidenceDistributionChart data={evidenceDistribution(candidates)} />
-          <ScoreDistributionChart data={scoreDistribution(candidates)} />
-          <SensitivityAnalysisChart data={sensitivityRows(candidates, "ecoscreen", DEFAULT_SCORING_WEIGHTS.ecoscreen, null, "sustainability")} dimension="Sustainability" />
+          <EvidenceDistributionChart data={chartData.evidence} />
+          <ScoreDistributionChart data={chartData.scores} />
+          <SensitivityAnalysisChart data={chartData.sensitivity} dimension="Sustainability" />
         </div>
       </ResultLayer>
 

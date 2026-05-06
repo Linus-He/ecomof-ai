@@ -64,26 +64,34 @@ export function PerformanceTab({
   const [performanceView, setPerformanceView] = useState(consumePerfInitView)
   const [demoRows, setDemoRows] = useState([])
   const [realSeedRows, setRealSeedRows] = useState([])
+  const [dataStatus, setDataStatus] = useState("loading")
   const [selectedId, setSelectedId] = useState(null)
   const gas = getGasSystem(inputs.gasSystem)
   const hasResult = results && !results.unavailable
 
   useEffect(() => {
     let active = true
+    setDataStatus("loading")
     Promise.all([
-      getMofCandidates({ mode: "demo" }),
-      getMofCandidates({ mode: "real-seed" }),
+      getMofCandidates({ mode: "demo", throwOnError: true }),
+      getMofCandidates({ mode: "real-seed", throwOnError: true }),
     ])
       .then(([demo, realSeed]) => {
         if (!active) return
-        if (Array.isArray(demo)) setDemoRows(demo)
-        if (Array.isArray(realSeed)) setRealSeedRows(realSeed)
+        const nextDemo = Array.isArray(demo) ? demo : []
+        const nextRealSeed = Array.isArray(realSeed) ? realSeed : []
+        setDemoRows(nextDemo)
+        setRealSeedRows(nextRealSeed)
+        setDataStatus(nextDemo.length || nextRealSeed.length ? "loaded" : "empty")
       })
-      .catch(() => { if (active) { setDemoRows([]); setRealSeedRows([]) } })
+      .catch((error) => {
+        console.warn("Performance data load failed.", error)
+        if (active) { setDemoRows([]); setRealSeedRows([]); setDataStatus("error") }
+      })
     return () => { active = false }
   }, [])
 
-  const currentCandidate = hasResult ? {
+  const currentCandidate = useMemo(() => hasResult ? {
     id: "current-performance",
     name: inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`,
     metalNodes: [inputs.metalCenter],
@@ -100,7 +108,7 @@ export function PerformanceTab({
     toxicityConcern: "low",
     evidenceLevel: "rule-based",
     limitations: [lang === "zh" ? "当前浏览器端结果需要实测等温线、GCMC 或 IAST 验证。" : "Current browser-side result needs measured isotherm, GCMC, or IAST validation."],
-  } : null
+  } : null, [hasResult, inputs, results, lang])
 
   const baseRows = useMemo(() => {
     if (dataMode === "real-seed") return realSeedRows.map(normalizeRealSeedForPerf)
@@ -111,7 +119,13 @@ export function PerformanceTab({
     return buildScoredCandidates([...(currentCandidate ? [currentCandidate] : []), ...baseRows], "performance", DEFAULT_SCORING_WEIGHTS.performance)
   }, [currentCandidate, baseRows])
 
-  const activeCandidate = performanceCandidates.find(item => item.id === selectedId) || performanceCandidates[0]
+  const activeCandidate = useMemo(() => performanceCandidates.find(item => item.id === selectedId) || performanceCandidates[0] || null, [performanceCandidates, selectedId])
+  const chartData = useMemo(() => ({
+    ranking: performanceCandidates,
+    evidence: evidenceDistribution(performanceCandidates),
+    scores: scoreDistribution(performanceCandidates),
+    sensitivity: sensitivityRows(performanceCandidates, "performance", DEFAULT_SCORING_WEIGHTS.performance, null, "stability"),
+  }), [performanceCandidates])
   const score = activeCandidate?.score ?? 0
   const reasons = hasResult
     ? [
@@ -139,7 +153,7 @@ export function PerformanceTab({
   }, [hasResult, lang])
 
   // ── Mode definitions ──────────────────────────────────────────────────────
-  const modes = [
+  const modes = useMemo(() => [
     {
       id: "overview",
       icon: "📊",
@@ -156,7 +170,7 @@ export function PerformanceTab({
         ? "输入自定义 MOF 描述符、上传 CIF 信息、设置吸附条件，并运行早期筛选。"
         : "Input custom MOF descriptors, upload CIF information, configure adsorption conditions, and run early-stage screening.",
     },
-  ]
+  ], [lang])
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -255,6 +269,19 @@ export function PerformanceTab({
 
           {dataMode === "real-seed" && <RealSeedCallout lang={lang} />}
           {dataMode === "demo" && <DemoModeBanner lang={lang} />}
+          {dataStatus === "loading" && (
+            <Callout tone="info">{lang === "zh" ? "正在加载 Performance 数据…" : "Loading Performance data..."}</Callout>
+          )}
+          {dataStatus === "error" && (
+            <Callout tone="warn">
+              {lang === "zh"
+                ? "数据加载失败。请刷新页面，或检查当前网络是否可以访问 GitHub Pages。"
+                : "Data could not be loaded. Please refresh the page or check network access to GitHub Pages."}
+            </Callout>
+          )}
+          {dataStatus === "empty" && (
+            <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
+          )}
 
           <Callout tone="info">
             {lang === "zh"
@@ -269,7 +296,13 @@ export function PerformanceTab({
                 <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.55, marginTop: 4 }}>{gasLabel(gas?.label || inputs.gasSystem, lang)} · {inputs.temperature} K · {inputs.pressure} bar</div>
               </div>
               <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: isNarrow ? "flex-start" : "flex-end" }}>
-                <button type="button" onClick={onPredict} disabled={loading} style={{ ...toolbarBtn(t), background: t.accent, borderColor: t.accent, color: "#fff" }}>
+                <button
+                  type="button"
+                  onClick={onPredict}
+                  disabled={loading}
+                  title={loading ? (lang === "zh" ? "性能筛选正在运行。" : "Performance screen is running.") : undefined}
+                  style={{ ...toolbarBtn(t), background: t.accent, borderColor: t.accent, color: "#fff", opacity: loading ? 0.72 : 1, cursor: loading ? "not-allowed" : "pointer" }}
+                >
                   {loading ? (lang === "zh" ? "运行中..." : "Running...") : (lang === "zh" ? "运行性能筛选" : "Run performance screen")}
                 </button>
                 <button
@@ -285,6 +318,9 @@ export function PerformanceTab({
 
           <ResultLayer number="02" title={lang === "zh" ? "性能候选摘要" : "Performance Candidate Summary"}>
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 12, alignItems: "start" }}>
+              {performanceCandidates.length === 0 && (
+                <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
+              )}
               {performanceCandidates.slice(0, 6).map(candidate => (
                 <UnifiedCandidateCard
                   key={candidate.id}
@@ -334,12 +370,12 @@ export function PerformanceTab({
 
           <ResultLayer number="04" title={lang === "zh" ? "Model Results / 结果解释图表" : "Model Results / Results Interpretation"}>
             <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
-              <RankingBarChart data={performanceCandidates} scoreLabel={lang === "zh" ? "性能评分" : "Performance Score"} />
+              <RankingBarChart data={chartData.ranking} scoreLabel={lang === "zh" ? "性能评分" : "Performance Score"} />
               <ScoreBreakdownRadar data={activeCandidate?.scoreBreakdown || []} title={activeCandidate ? `${activeCandidate.name} · ${lang === "zh" ? "评分拆解" : "Score Breakdown"}` : (lang === "zh" ? "评分拆解" : "Score Breakdown")} />
               <WeightContributionChart data={activeCandidate?.weightContribution || []} />
-              <EvidenceDistributionChart data={evidenceDistribution(performanceCandidates)} />
-              <ScoreDistributionChart data={scoreDistribution(performanceCandidates)} />
-              <SensitivityAnalysisChart data={sensitivityRows(performanceCandidates, "performance", DEFAULT_SCORING_WEIGHTS.performance, null, "stability")} dimension="Stability" />
+              <EvidenceDistributionChart data={chartData.evidence} />
+              <ScoreDistributionChart data={chartData.scores} />
+              <SensitivityAnalysisChart data={chartData.sensitivity} dimension="Stability" />
             </div>
           </ResultLayer>
 

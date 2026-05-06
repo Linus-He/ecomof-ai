@@ -181,14 +181,26 @@ export function BatchModePanel({ inputs, onClose, onApplyToForm }) {
             <input type="file" accept=".csv" style={{ display: "none" }}
               onChange={e => e.target.files[0] && importCSV(e.target.files[0])} />
           </label>
-          <button onClick={runAll} disabled={running || rows.length === 0}
-            style={{ ...toolbarBtn(t), background: running ? t.border : t.accent, color: "#fff", borderColor: t.accent }}>
+          <button
+            onClick={runAll}
+            disabled={running || rows.length === 0}
+            title={rows.length === 0 ? (lang === "zh" ? "先添加至少一条候选记录。" : "Add at least one candidate first.") : undefined}
+            style={{ ...toolbarBtn(t), background: running ? t.border : t.accent, color: "#fff", borderColor: t.accent, cursor: running || rows.length === 0 ? "not-allowed" : "pointer", opacity: rows.length === 0 ? 0.55 : 1 }}
+          >
             {running ? c.batch.running : `▶ ${c.batch.run}`}
           </button>
-          <button onClick={exportAll} disabled={rows.every(r => !r.result)}
-            style={toolbarBtn(t)}>↓ {c.batch.export}</button>
-          <button onClick={sortByDecisionScore} disabled={completedRows.length === 0}
-            style={toolbarBtn(t)}>↕ {lang === "zh" ? "按决策分排序" : "Sort by score"}</button>
+          <button
+            onClick={exportAll}
+            disabled={rows.every(r => !r.result)}
+            title={rows.every(r => !r.result) ? (lang === "zh" ? "运行后才能导出结果。" : "Run candidates before exporting results.") : undefined}
+            style={{ ...toolbarBtn(t), cursor: rows.every(r => !r.result) ? "not-allowed" : "pointer", opacity: rows.every(r => !r.result) ? 0.55 : 1 }}
+          >↓ {c.batch.export}</button>
+          <button
+            onClick={sortByDecisionScore}
+            disabled={completedRows.length === 0}
+            title={completedRows.length === 0 ? (lang === "zh" ? "运行后才能排序。" : "Run candidates before sorting.") : undefined}
+            style={{ ...toolbarBtn(t), cursor: completedRows.length === 0 ? "not-allowed" : "pointer", opacity: completedRows.length === 0 ? 0.55 : 1 }}
+          >↕ {lang === "zh" ? "按决策分排序" : "Sort by score"}</button>
         </div>
         {completedRows.length > 0 && (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 10, marginBottom: 12 }}>

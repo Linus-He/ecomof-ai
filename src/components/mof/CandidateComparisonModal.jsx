@@ -138,6 +138,7 @@ export function CompareTray({ count, canCompare, notice, onCompare, onClear, t, 
           type="button"
           onClick={onCompare}
           disabled={!canCompare}
+          title={!canCompare ? (lang === "zh" ? "至少选择 2 个候选材料进行对比。" : "Select at least 2 candidates to compare.") : undefined}
           style={{
             ...toolbarBtn(t),
             opacity: canCompare ? 1 : 0.5,

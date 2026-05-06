@@ -538,6 +538,7 @@ export function CatalysisLabTab() {
   const [realSeedCandidates, setRealSeedCandidates] = useState([])
   const [candidates, setCandidates] = useState(CANDIDATES)
   const [weights, setWeights] = useState(WEIGHTS)
+  const [dataStatus, setDataStatus] = useState("loading")
   const [filters, setFilters] = useState({
     metalCenter: "all",
     bimetallic: "all",
@@ -557,11 +558,12 @@ export function CatalysisLabTab() {
 
   useEffect(() => {
     let active = true
+    setDataStatus("loading")
     Promise.all([
-      getMofCandidates({ mode: "demo" }),
-      getMofCandidates({ mode: "real-seed" }),
-      getCatalysisTasks(),
-      getScoringWeights(),
+      getMofCandidates({ mode: "demo", throwOnError: true }),
+      getMofCandidates({ mode: "real-seed", throwOnError: true }),
+      getCatalysisTasks({ throwOnError: true }),
+      getScoringWeights({ throwOnError: true }),
     ]).then(([candidateRows, realSeedRows, taskRows, weightRows]) => {
       if (!active) return
       const demo = Array.isArray(candidateRows) && candidateRows.length ? candidateRows.map(normalizeCandidate) : CANDIDATES
@@ -571,12 +573,15 @@ export function CatalysisLabTab() {
       if (Array.isArray(taskRows) && taskRows.length) setTasks(taskRows)
       if (weightRows?.CatalysisLab) setWeights(weightRows.CatalysisLab)
       else if (weightRows?.catalysisPotentialScore) setWeights(weightRows.catalysisPotentialScore)
-    }).catch(() => {
+      setDataStatus(demo.length || realSeedRows?.length || taskRows?.length ? "loaded" : "empty")
+    }).catch((error) => {
+      console.warn("CatalysisLab data load failed.", error)
       if (!active) return
       setDemoCandidates(CANDIDATES)
       setCandidates(CANDIDATES)
       setTasks(TASKS)
       setWeights(LEGACY_WEIGHTS)
+      setDataStatus("error")
     })
     return () => { active = false }
   }, [])
@@ -697,6 +702,19 @@ export function CatalysisLabTab() {
 
       {dataMode === "real-seed" && <RealSeedCallout lang={lang} />}
       {dataMode === "demo" && <DemoModeBanner lang={lang} />}
+      {dataStatus === "loading" && (
+        <Callout tone="info">{lang === "zh" ? "正在加载 CatalysisLab 数据…" : "Loading CatalysisLab data..."}</Callout>
+      )}
+      {dataStatus === "error" && (
+        <Callout tone="warn">
+          {lang === "zh"
+            ? "数据加载失败。请刷新页面，或检查当前网络是否可以访问 GitHub Pages。当前页面会使用内置演示上下文继续展示。"
+            : "Data could not be loaded. Please refresh the page or check network access to GitHub Pages. This view continues with built-in demo context."}
+        </Callout>
+      )}
+      {dataStatus === "empty" && (
+        <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
+      )}
 
       <ResultLayer number="01" title={lang === "zh" ? "催化任务选择器" : "Catalysis task selector"}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
@@ -730,6 +748,9 @@ export function CatalysisLabTab() {
 
       <ResultLayer number="03" title={lang === "zh" ? "Rule-based Catalysis Potential Score 排名" : "Rule-based Catalysis Potential Score ranking"}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 12, alignItems: "start" }}>
+          {ranked.length === 0 && (
+            <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
+          )}
           {ranked.map(candidate => (
             <UnifiedCandidateCard
               key={candidate.id}

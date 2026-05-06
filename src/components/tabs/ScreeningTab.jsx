@@ -420,6 +420,13 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
   const runLabel = inputValidation.blocked ? (lang === "zh" ? "⚠ 先修正输入" : "⚠ Fix inputs first") :
     loading ? `⏳ ${c.structure.computing}` :
     gas.priority === "unavailable" ? c.structure.unsupported : `▶ ${c.structure.run}`
+  const runDisabledTitle = inputValidation.blocked
+    ? (lang === "zh" ? "请先修正高亮输入字段。" : "Fix the highlighted input fields first.")
+    : loading
+      ? (lang === "zh" ? "筛选正在运行。" : "Screening is running.")
+      : gas.priority === "unavailable"
+        ? (lang === "zh" ? "当前气体任务暂未开放。" : "The current gas task is not available in this prototype.")
+        : undefined
   const runButtonStyle = {
     width: "100%", padding: "14px 0", borderRadius: 8, border: "none",
     cursor: isRunDisabled ? "not-allowed" : "pointer",
@@ -760,7 +767,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
           </SectionCard>
         </div>
         <div style={{ position: "sticky", bottom: 0, borderTop: `1px solid ${t.border}`, padding: "12px 0 0", marginTop: "auto", background: t.panel, boxShadow: "0 -8px 18px rgba(15,23,42,0.03)" }}>
-          <button className="btn-primary" onClick={onPredict} disabled={isRunDisabled} style={runButtonStyle}>
+          <button className="btn-primary" onClick={onPredict} disabled={isRunDisabled} title={runDisabledTitle} style={runButtonStyle}>
             {loading && <span className="button-spinner" aria-hidden="true" />}
             {runLabel}
           </button>

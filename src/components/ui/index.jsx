@@ -695,8 +695,24 @@ export function CandidateComparisonPanel({ candidates, onRemove, onMove, focusId
                 <td style={{ padding: "8px", borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11 }}>{item.robustness}%</td>
                 <td style={{ padding: "8px", borderBottom: `1px solid ${t.divider}` }}>
                   <div style={{ display: "flex", gap: 5, flexWrap: isNarrow ? "wrap" : "nowrap" }}>
-                    <button type="button" onClick={() => onMove?.(sourceIndex, -1)} disabled={sourceIndex === 0} style={{ ...toolbarBtn(t), padding: "3px 7px", fontSize: 10 }}>↑</button>
-                    <button type="button" onClick={() => onMove?.(sourceIndex, 1)} disabled={sourceIndex === candidates.length - 1} style={{ ...toolbarBtn(t), padding: "3px 7px", fontSize: 10 }}>↓</button>
+                    <button
+                      type="button"
+                      onClick={() => onMove?.(sourceIndex, -1)}
+                      disabled={sourceIndex === 0}
+                      title={sourceIndex === 0 ? (lang === "zh" ? "已在列表顶部。" : "Already at the top of the list.") : undefined}
+                      style={{ ...toolbarBtn(t), padding: "3px 7px", fontSize: 10, opacity: sourceIndex === 0 ? 0.55 : 1, cursor: sourceIndex === 0 ? "not-allowed" : "pointer" }}
+                    >
+                      ↑
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => onMove?.(sourceIndex, 1)}
+                      disabled={sourceIndex === candidates.length - 1}
+                      title={sourceIndex === candidates.length - 1 ? (lang === "zh" ? "已在列表底部。" : "Already at the bottom of the list.") : undefined}
+                      style={{ ...toolbarBtn(t), padding: "3px 7px", fontSize: 10, opacity: sourceIndex === candidates.length - 1 ? 0.55 : 1, cursor: sourceIndex === candidates.length - 1 ? "not-allowed" : "pointer" }}
+                    >
+                      ↓
+                    </button>
                     <button type="button" onClick={() => onRemove?.(item.id)} style={{ ...toolbarBtn(t), padding: "3px 7px", fontSize: 10 }}>
                       {lang === "zh" ? "移除" : "Remove"}
                     </button>

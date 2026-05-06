@@ -191,7 +191,12 @@ export function SavedRunsModal({ runs, onClose, onLoad, onDelete, onImport, onEx
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
           <div style={{ color: t.accentText, fontSize: 14, fontWeight: 800 }}>{c.common.savedRuns}</div>
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-            <button onClick={exportSavedCsv} disabled={!savedSummary.count} style={toolbarBtn(t)}>↓ CSV</button>
+            <button
+              onClick={exportSavedCsv}
+              disabled={!savedSummary.count}
+              title={!savedSummary.count ? (lang === "zh" ? "暂无已保存运行可导出。" : "No saved runs to export.") : undefined}
+              style={{ ...toolbarBtn(t), opacity: savedSummary.count ? 1 : 0.5, cursor: savedSummary.count ? "pointer" : "not-allowed" }}
+            >↓ CSV</button>
             <button onClick={onExport} style={toolbarBtn(t)}>↓ {lang === "zh" ? "JSON 备份" : "JSON backup"}</button>
             <label style={toolbarBtn(t)}>
               ↑ {lang === "zh" ? "导入 JSON" : "Import JSON"}
@@ -346,6 +351,7 @@ export function ContextualHeaderBar({
           type="button"
           onClick={onAddComparison}
           disabled={!results || results.unavailable}
+          title={!results || results.unavailable ? (lang === "zh" ? "先运行当前结构后再加入比较。" : "Run the current structure before adding it to comparison.") : undefined}
           style={{
             ...headerChipBtn(t, false),
             opacity: !results || results.unavailable ? 0.45 : 1,
