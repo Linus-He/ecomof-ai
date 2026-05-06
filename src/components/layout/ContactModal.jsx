@@ -445,6 +445,11 @@ export function ContactModal({ open, onClose }) {
                   ? "EcoMOF-AI 可以帮助整理催化剂记录、反应条件、产物指标、表征证据、机理说明和数据来源状态。"
                   : "EcoMOF-AI can help structure catalyst records, reaction conditions, product metrics, characterization evidence, mechanism notes, and source status."}
               </div>
+              <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 6 }}>
+                {zh
+                  ? "原始实验表格可映射为催化剂、反应条件、产物指标和证据记录。"
+                  : "Raw spreadsheets can be mapped into structured catalyst, condition, product, and evidence records."}
+              </div>
               <div style={{ display: "grid", gap: 7, marginTop: 10 }}>
                 {intakeDataTypes.map(([label, body]) => (
                   <div key={label} style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "130px 1fr", gap: 6 }}>

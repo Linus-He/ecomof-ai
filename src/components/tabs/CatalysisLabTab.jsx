@@ -133,6 +133,115 @@ function CatalysisDataTemplate({ lang, t, isNarrow, isMobile }) {
   )
 }
 
+const NORMALIZATION_TEMPLATE = `{
+  "catalyst_records": [
+    {
+      "catalystId": "",
+      "catalystName": "",
+      "mofScaffold": "",
+      "metalNode": "",
+      "modifierMetal": "",
+      "functionalGroup": "",
+      "metallicity": "single-metal | bimetal | unknown",
+      "batchId": "",
+      "curationStatus": "curated | needs-review | pending",
+      "confidentialityStatus": "public-literature | collaborator-private | anonymized-demo | schema-only"
+    }
+  ],
+  "reaction_conditions": [
+    {
+      "runId": "",
+      "catalystId": "",
+      "temperatureC": null,
+      "timeH": null,
+      "substrate": "",
+      "substrateAmountMg": null,
+      "co2Source": "CO2 | NaHCO3 | HCO3- | pending",
+      "NaHCO3Mg": null,
+      "waterMl": null,
+      "catalystMg": null,
+      "solvent": "water",
+      "conditionStatus": "complete | partial | pending"
+    }
+  ],
+  "product_metrics": [
+    {
+      "productMetricId": "",
+      "runId": "",
+      "product": "formic acid | lactic acid | acetic acid | glycolic acid | other",
+      "peakArea": null,
+      "concentration": null,
+      "yieldPercent": null,
+      "unit": "percent | wt% | mmol | mg | pending",
+      "calculationMethod": "",
+      "validityStatus": "valid | needs-review | missing | abnormal"
+    }
+  ],
+  "evidence_records": [
+    {
+      "evidenceId": "",
+      "relatedCatalystId": "",
+      "relatedRunId": "",
+      "evidenceType": "characterization | product-analysis | mechanism | stability",
+      "method": "XRD | BET | XPS | FTIR | ICP | SEM/TEM | HPLC | GC-MS | LC-MS | NMR | isotope tracing | other",
+      "fileStatus": "available | private | pending",
+      "sourceStatus": "public-literature | collaborator-private | pending",
+      "evidenceLevel": "high | medium | low | pending",
+      "reviewStatus": "reviewed | needs-review | pending"
+    }
+  ]
+}`
+
+const NORMALIZED_TABLES = [
+  {
+    key: "catalyst_records",
+    en: "catalyst_records",
+    zh: "catalyst_records",
+    bodyEn: "One row per catalyst or catalyst batch.",
+    bodyZh: "每种催化剂或每个催化剂批次一行。",
+    fields: ["catalystId", "catalystName", "MOF scaffold", "metal node", "modifier metal", "functional group", "single / bimetal status", "batchId", "curationStatus", "confidentialityStatus"],
+  },
+  {
+    key: "reaction_conditions",
+    en: "reaction_conditions",
+    zh: "reaction_conditions",
+    bodyEn: "One row per experimental run.",
+    bodyZh: "每组反应实验一行。",
+    fields: ["runId", "catalystId", "temperatureC", "timeH", "substrate", "substrateAmountMg", "CO₂/HCO₃⁻ source", "NaHCO₃Mg", "waterMl", "catalystMg", "solvent", "conditionStatus"],
+  },
+  {
+    key: "product_metrics",
+    en: "product_metrics",
+    zh: "product_metrics",
+    bodyEn: "One row per product per run.",
+    bodyZh: "每个实验 run 中的每种产物单独一行。",
+    fields: ["productMetricId", "runId", "product", "peakArea", "concentration", "yieldPercent", "unit", "calculationMethod", "validityStatus"],
+    examplesEn: "formic acid, lactic acid, acetic acid, glycolic acid",
+    examplesZh: "甲酸、乳酸、乙酸、乙醇酸",
+  },
+  {
+    key: "evidence_records",
+    en: "evidence_records",
+    zh: "evidence_records",
+    bodyEn: "One row per characterization or mechanism evidence item.",
+    bodyZh: "每条表征或机理证据单独一行。",
+    fields: ["evidenceId", "relatedCatalystId", "relatedRunId", "evidenceType", "method", "fileStatus", "sourceStatus", "evidenceLevel", "reviewStatus"],
+    examplesEn: "XRD, BET, XPS, FTIR, ICP, SEM/TEM, HPLC, GC-MS, LC-MS, NMR, isotope tracing",
+    examplesZh: "XRD、BET、XPS、FTIR、ICP、SEM/TEM、HPLC、GC-MS、LC-MS、NMR、同位素示踪",
+  },
+]
+
+const NORMALIZATION_QUALITY_CHECKS = [
+  { en: "Complete reaction condition", zh: "反应条件完整" },
+  { en: "Catalyst naming standardized", zh: "催化剂命名统一" },
+  { en: "Product metrics traceable to peak area or calculation method", zh: "产物指标可追溯至峰面积或计算方法" },
+  { en: "Batch and source clearly labeled", zh: "批次与来源清楚标记" },
+  { en: "Confidentiality status confirmed", zh: "保密状态已确认" },
+  { en: "Replicates or uncertainty noted", zh: "重复实验或不确定性已标注" },
+  { en: "Abnormal / negative / missing values flagged", zh: "异常值、负值或缺失值已标记" },
+  { en: "Evidence linked to catalyst or run", zh: "表征或机理证据已关联到催化剂或实验记录" },
+]
+
 const TASKS = [
   { id: "co2_conversion", en: "CO₂ conversion", zh: "CO₂ 转化", emphasis: ["co2Affinity", "activeSite", "stability"] },
   { id: "biomass_conversion", en: "Biomass conversion", zh: "生物质转化", emphasis: ["activeSite", "poreAccessibility", "waterStability"] },
@@ -938,6 +1047,7 @@ export function CatalysisLabTab({ onNavigate }) {
   const [dataStatus, setDataStatus] = useState("loading")
   const [selectedPathwayId, setSelectedPathwayId] = useState(CO2_CONVERSION_PATHWAYS[0].id)
   const [hoveredPathwayId, setHoveredPathwayId] = useState(null)
+  const [normalizationTemplateStatus, setNormalizationTemplateStatus] = useState("idle")
   const [filters, setFilters] = useState({
     metalCenter: "all",
     bimetallic: "all",
@@ -1032,6 +1142,18 @@ export function CatalysisLabTab({ onNavigate }) {
 
   const activeCandidate = selected || ranked[0]
   const updateFilter = (key, value) => setFilters(prev => ({ ...prev, [key]: value }))
+  const copyNormalizationTemplate = async () => {
+    try {
+      if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(NORMALIZATION_TEMPLATE)
+        setNormalizationTemplateStatus("copied")
+      } else {
+        setNormalizationTemplateStatus("fallback")
+      }
+    } catch {
+      setNormalizationTemplateStatus("fallback")
+    }
+  }
   const controlStyle = { background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "8px 10px", color: t.text, fontSize: 12, width: "100%" }
   const filterFields = (
     <>
@@ -1442,7 +1564,149 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="04" title={lang === "zh" ? "CO₂ 转化整理维度" : "CO₂ Conversion Curation Dimensions"}>
+      <ResultLayer number="04" title={lang === "zh" ? "Excel 实验表格到结构化记录" : "Excel-to-Structured Records Workflow"}>
+        <div style={{ display: "grid", gap: 12 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12, flexWrap: "wrap" }}>
+            <div style={{ minWidth: 0 }}>
+              <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, maxWidth: 820 }}>
+                {lang === "zh"
+                  ? "将催化实验表格转换为可用于对比、可视化、证据追踪和未来机器学习准备的结构化记录。"
+                  : "Turn catalyst experiment spreadsheets into structured records for comparison, visualization, evidence tracking, and future ML readiness."}
+              </div>
+              <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 6, maxWidth: 820 }}>
+                {lang === "zh"
+                  ? "本工作流仅说明字段结构和标准化逻辑，不导入私密表格，也不公开合作者数据。"
+                  : "This workflow describes schema and normalization logic only. It does not import private spreadsheets or publish collaborator data."}
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={copyNormalizationTemplate}
+              aria-label={lang === "zh" ? "复制标准化模板" : "Copy normalization template"}
+              style={{ ...toolbarBtn(t), fontWeight: 850, whiteSpace: "nowrap" }}
+            >
+              {lang === "zh" ? "复制标准化模板" : "Copy normalization template"}
+            </button>
+          </div>
+
+          {normalizationTemplateStatus === "copied" && (
+            <Callout tone="info">{lang === "zh" ? "模板已复制" : "Template copied"}</Callout>
+          )}
+          {normalizationTemplateStatus === "fallback" && (
+            <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <div style={{ color: t.warn, fontSize: 11, lineHeight: 1.55 }}>
+                {lang === "zh" ? "无法访问剪贴板。可从下方查看模板。" : "Clipboard access failed. The template is shown below."}
+              </div>
+              <pre style={{ margin: "8px 0 0", maxHeight: 220, overflow: "auto", whiteSpace: "pre-wrap", color: t.subtle, fontSize: 10, lineHeight: 1.45 }}>
+                {NORMALIZATION_TEMPLATE}
+              </pre>
+            </div>
+          )}
+
+          <Callout tone="info">
+            {lang === "zh"
+              ? "原始催化实验表格通常会把催化剂名称、反应条件、产物峰面积、浓度、产率和备注混在同一张表中。为了进行对比、可视化和未来机器学习，每组实验都应转换为具有明确字段的标准化记录。"
+              : "Raw catalyst spreadsheets often mix catalyst names, reaction conditions, product peak areas, concentrations, yields, and notes in the same sheet. For comparison, visualization, and future machine learning, each experiment should be converted into standardized records with explicit fields."}
+          </Callout>
+
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+            {NORMALIZED_TABLES.map(table => (
+              <article key={table.key} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, padding: 13 }}>
+                <div style={{ color: t.accentText, fontFamily: "monospace", fontSize: 12, fontWeight: 850 }}>{table.key}</div>
+                <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55, marginTop: 6 }}>
+                  {lang === "zh" ? table.bodyZh : table.bodyEn}
+                </div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginTop: 10 }}>
+                  {table.fields.map(field => (
+                    <span key={field} style={{
+                      background: t.surface,
+                      border: `1px solid ${t.border}`,
+                      borderRadius: 999,
+                      color: t.subtle,
+                      fontFamily: "monospace",
+                      fontSize: 9,
+                      fontWeight: 750,
+                      padding: "4px 7px",
+                    }}>
+                      {field}
+                    </span>
+                  ))}
+                </div>
+                {(table.examplesEn || table.examplesZh) && (
+                  <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.5, marginTop: 9 }}>
+                    {lang === "zh" ? table.examplesZh : table.examplesEn}
+                  </div>
+                )}
+              </article>
+            ))}
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
+            <article style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, padding: 14 }}>
+              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 880 }}>
+                {lang === "zh" ? "长表转换逻辑" : "Long-format conversion"}
+              </div>
+              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, marginTop: 7 }}>
+                {lang === "zh"
+                  ? "同一组实验可能产生多种产物指标。与其把甲酸、乳酸、乙酸和乙醇酸都放在同一行的多个宽列中，EcoMOF-AI 会将每种产物拆成单独的 product_metrics 记录，并通过 runId 关联。"
+                  : "A single experimental run can produce multiple product metrics. Instead of storing formic acid, lactic acid, acetic acid, and glycolic acid as separate wide columns, EcoMOF-AI treats each product as a separate product_metrics record linked by runId."}
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 9, marginTop: 11 }}>
+                <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
+                  <div style={{ color: t.faint, fontSize: 9, fontWeight: 850, textTransform: "uppercase" }}>
+                    {lang === "zh" ? "原始表格风格" : "Raw spreadsheet style"}
+                  </div>
+                  <div style={{ color: t.subtle, fontSize: 10, lineHeight: 1.65, marginTop: 6 }}>
+                    run A15<br />
+                    formic acid yield = pending<br />
+                    lactic acid yield = pending<br />
+                    acetic acid yield = pending<br />
+                    glycolic acid yield = pending
+                  </div>
+                </div>
+                <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
+                  <div style={{ color: t.faint, fontSize: 9, fontWeight: 850, textTransform: "uppercase" }}>
+                    {lang === "zh" ? "结构化长表" : "Structured long format"}
+                  </div>
+                  <div style={{ color: t.accentText, fontSize: 10, lineHeight: 1.65, marginTop: 6 }}>
+                    A15 + formic acid<br />
+                    A15 + lactic acid<br />
+                    A15 + acetic acid<br />
+                    A15 + glycolic acid
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, padding: 14 }}>
+              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 880 }}>
+                {lang === "zh" ? "复用前的数据质量检查" : "Data quality checks before reuse"}
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 7, marginTop: 10 }}>
+                {NORMALIZATION_QUALITY_CHECKS.map(item => (
+                  <div key={item.en} style={{ display: "flex", gap: 7, alignItems: "flex-start", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 8 }}>
+                    <span style={{ color: t.accentText, fontSize: 11, fontWeight: 900 }}>✓</span>
+                    <span style={{ color: t.muted, fontSize: 10, lineHeight: 1.45 }}>{lang === "zh" ? item.zh : item.en}</span>
+                  </div>
+                ))}
+              </div>
+            </article>
+          </div>
+
+          <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, padding: 14 }}>
+            <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 880 }}>
+              {lang === "zh" ? "机器学习准备度首先是数据质量问题" : "ML readiness is a data-quality question"}
+            </div>
+            <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, marginTop: 7 }}>
+              {lang === "zh"
+                ? "催化实验表格不能直接视为可训练的机器学习数据集。只有当反应条件、催化剂身份、目标变量、样本量和验证记录足够规范时，才适合进入模型训练。早期合作阶段，EcoMOF-AI 更关注数据结构化、规则辅助优先级和面向机器学习的字段设计，而不是声称已有训练好的预测模型。"
+                : "Catalysis spreadsheets should not be treated as a ready-to-train ML dataset until reaction conditions, catalyst identities, target variables, sample size, and validation records are standardized. In early collaboration stages, EcoMOF-AI focuses on data structuring, rule-based prioritization, and ML-ready field design rather than claiming a trained predictive model."}
+            </div>
+          </article>
+        </div>
+      </ResultLayer>
+
+      <ResultLayer number="05" title={lang === "zh" ? "CO₂ 转化整理维度" : "CO₂ Conversion Curation Dimensions"}>
         <Callout tone="info">
           {lang === "zh"
             ? "CO₂ 转化记录应结合产物路径和反应模式解读。不同路径的指标在缺少相近条件语境时不应直接比较。"
@@ -1458,7 +1722,7 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="05" title={lang === "zh" ? "CO₂ 转化整理清单" : "CO₂ Conversion Checklist"}>
+      <ResultLayer number="06" title={lang === "zh" ? "CO₂ 转化整理清单" : "CO₂ Conversion Checklist"}>
         <Callout tone="info">
           {lang === "zh"
             ? "只有当反应任务、产物路径与目标产物、催化剂角色、条件语境、活性/选择性指标、稳定性信息和来源证据较完整时，CO₂ 转化记录才应被视为已整理记录。"
@@ -1476,11 +1740,11 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="06" title={lang === "zh" ? "催化记录结构预览" : "Catalysis record schema preview"}>
+      <ResultLayer number="07" title={lang === "zh" ? "催化记录结构预览" : "Catalysis record schema preview"}>
         <CatalysisRecordPreview records={catalysisRecords} status={recordsStatus} lang={lang} t={t} />
       </ResultLayer>
 
-      <ResultLayer number="07" title={lang === "zh" ? "候选材料优先级工作区" : "Candidate prioritization workspace"}>
+      <ResultLayer number="08" title={lang === "zh" ? "候选材料优先级工作区" : "Candidate prioritization workspace"}>
         <Callout tone="warn">
           {lang === "zh"
             ? "以下工作区保留规则评分和候选排序，用于讨论整理优先级；它不是 CO₂ 转化真实性能结论。"
@@ -1488,7 +1752,7 @@ export function CatalysisLabTab({ onNavigate }) {
         </Callout>
       </ResultLayer>
 
-      <ResultLayer number="08" title={lang === "zh" ? "催化任务选择器" : "Catalysis task selector"}>
+      <ResultLayer number="09" title={lang === "zh" ? "催化任务选择器" : "Catalysis task selector"}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
           {tasks.map(item => (
             <button key={item.id} type="button" onClick={() => { setTaskId(item.id); setSelected(null) }} style={{
@@ -1507,7 +1771,7 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="09" title={lang === "zh" ? "催化筛选器" : "Catalysis filters"}>
+      <ResultLayer number="10" title={lang === "zh" ? "催化筛选器" : "Catalysis filters"}>
         <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
           <button type="button" onClick={() => setExpanded(prev => !prev)} style={{ ...controlStyle, display: isMobile ? "block" : "none", marginBottom: expanded ? 10 : 0 }}>
             {expanded ? (lang === "zh" ? "收起筛选器" : "Collapse filters") : (lang === "zh" ? "展开筛选器" : "Expand filters")}
@@ -1518,7 +1782,7 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="10" title={lang === "zh" ? "Rule-based Catalysis Potential Score 排名" : "Rule-based Catalysis Potential Score ranking"}>
+      <ResultLayer number="11" title={lang === "zh" ? "Rule-based Catalysis Potential Score 排名" : "Rule-based Catalysis Potential Score ranking"}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 12, alignItems: "start" }}>
           {ranked.length === 0 && (
             <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
@@ -1550,7 +1814,7 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="11" title={lang === "zh" ? "结果解释" : "Results Interpretation"}>
+      <ResultLayer number="12" title={lang === "zh" ? "结果解释" : "Results Interpretation"}>
         <Callout tone="info">
           {lang === "zh"
             ? "Catalysis Potential Score 表示候选材料在特定催化任务下的潜力优先级，不等同于真实催化活性或产率。"
@@ -1573,13 +1837,13 @@ export function CatalysisLabTab({ onNavigate }) {
         )}
       </ResultLayer>
 
-      <ResultLayer number="12" title={lang === "zh" ? "评分公式" : "Scoring formula"}>
+      <ResultLayer number="13" title={lang === "zh" ? "评分公式" : "Scoring formula"}>
         <MethodDrawer title="Catalysis Potential Score">
           Catalysis Potential Score = w1 × CO₂ Affinity + w2 × Active Site Potential + w3 × Pore Accessibility + w4 × Stability + w5 × Electronic Property + w6 × Sustainability + w7 × Evidence Confidence
         </MethodDrawer>
       </ResultLayer>
 
-      <ResultLayer number="13" title={lang === "zh" ? "Model Results / 结果解释图表" : "Model Results / Results Interpretation"}>
+      <ResultLayer number="14" title={lang === "zh" ? "Model Results / 结果解释图表" : "Model Results / Results Interpretation"}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
           <RankingBarChart data={ranked} scoreLabel={lang === "zh" ? "催化潜力评分" : "Catalysis Potential Score"} />
           <ScoreBreakdownRadar data={activeCandidate?.scoreBreakdown || []} title={activeCandidate ? `${activeCandidate.name} · ${lang === "zh" ? "评分拆解" : "Score Breakdown"}` : (lang === "zh" ? "评分拆解" : "Score Breakdown")} />
@@ -1590,7 +1854,7 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="14" title={lang === "zh" ? "Machine Learning Evaluation 占位" : "Machine Learning Evaluation Placeholder"}>
+      <ResultLayer number="15" title={lang === "zh" ? "Machine Learning Evaluation 占位" : "Machine Learning Evaluation Placeholder"}>
         <Callout tone="warn">
           {lang === "zh"
             ? "当前机器学习评估为占位展示。只有在积累足够带标签的实验或文献数据后，才会启用真实模型评估。"

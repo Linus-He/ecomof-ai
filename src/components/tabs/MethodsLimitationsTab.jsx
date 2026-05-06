@@ -688,6 +688,21 @@ export function MethodsLimitationsTab({ onNavigate }) {
       </MethodSection>
 
       <MethodSection
+        id="experimental-data-normalization"
+        title={zh ? "Experimental data normalization / 实验数据标准化" : "Experimental data normalization"}
+        body={zh
+          ? "催化实验表格在复用前应标准化为催化剂记录、反应条件、产物指标和证据记录。"
+          : "Experimental catalyst spreadsheets are normalized into catalyst records, reaction conditions, product metrics, and evidence records before reuse."}
+        t={t}
+      >
+        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, color: t.muted, fontSize: 11, lineHeight: 1.65 }}>
+          {zh
+            ? "这样的拆分有助于避免将反应条件、产物标签、保密数值和证据状态混在同一张表中。"
+            : "This separation helps avoid mixing reaction conditions, product labels, confidential values, and evidence status in a single table."}
+        </div>
+      </MethodSection>
+
+      <MethodSection
         id="benchmark-references"
         title={zh ? "Benchmark References / 标杆材料参考" : "Benchmark References"}
         body={zh

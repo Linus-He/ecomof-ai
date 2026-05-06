@@ -74,6 +74,12 @@ EcoMOF-AI supports collaboration-oriented data structuring for catalyst records,
 
 EcoMOF-AI 支持面向合作的数据结构化，包括催化剂记录、反应条件、产物指标、表征证据、机理说明和来源状态。未发表或保密数据不会在未经明确同意的情况下公开展示。当前原型不提供公开文件上传或后端存储，数据接入通过约定模板和人工确认完成。
 
+## Catalysis Data Normalization
+
+EcoMOF-AI treats catalyst experiment spreadsheets as raw records that require normalization before visualization, comparison, or future ML use. Suggested normalized tables include `catalyst_records`, `reaction_conditions`, `product_metrics`, and `evidence_records`. Private collaborator data should not be published without explicit permission.
+
+EcoMOF-AI 将催化实验表格视为需要标准化的原始记录。用于可视化、对比或未来机器学习之前，建议拆分为 `catalyst_records`、`reaction_conditions`、`product_metrics` 和 `evidence_records`。合作者保密数据不应在未经明确同意的情况下公开。
+
 ## Data Curation Statement
 
 EcoMOF-AI separates demo data, real-seed curation records, and field-level provenance. Demo data is used only to demonstrate workflow behavior. Real Seed Dataset provides a framework for curated real-data ingestion, but some descriptors remain pending curation.
