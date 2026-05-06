@@ -64,9 +64,15 @@ GasSep 用于整理带条件说明的气体吸附与分离记录。选择性和�
 
 ## CatalysisLab
 
-CatalysisLab organizes CO₂ conversion by product pathway rather than a single headline target. Pathways include C1 reduction products, C2+ products, organic-acid-related products, cyclic carbonates, and CO₂-assisted biomass upgrading. Each pathway tracks relevant reaction modes, key metrics, MOF relevance, curation focus, condition context, stability evidence, and source status. The module does not claim experimentally validated catalytic performance.
+CatalysisLab organizes CO₂ conversion by product pathway rather than a single headline target. Pathways include C1 reduction products, C2+ products, organic-acid-related products, cyclic carbonates, CO₂-assisted biomass upgrading, and biomass-assisted CO₂/HCO₃⁻ conversion as a curation-ready pathway. Each pathway tracks relevant reaction modes, key metrics, MOF relevance, curation focus, condition context, stability evidence, and source status. The module does not claim experimentally validated catalytic performance and does not include private collaborator yield values.
 
-CatalysisLab 按产物路径组织 CO₂ 转化，而不是只围绕单一目标产物。路径包括 C1 还原产物、C2+ 产物、有机酸相关产物、环状碳酸酯和 CO₂ 参与的生物质升级转化。每条路径整理相关反应模式、关键指标、MOF 相关作用、整理重点、条件语境、稳定性证据和来源状态，不代表已完成实验验证的催化性能结论。
+CatalysisLab 按产物路径组织 CO₂ 转化，而不是只围绕单一目标产物。路径包括 C1 还原产物、C2+ 产物、有机酸相关产物、环状碳酸酯、CO₂ 参与的生物质升级转化，以及 biomass-assisted CO₂/HCO₃⁻ conversion 这一可整理路径。每条路径整理相关反应模式、关键指标、MOF 相关作用、整理重点、条件语境、稳定性证据和来源状态，不代表已完成实验验证的催化性能结论，也不包含合作者私密产率数据。
+
+## Data Intake & Collaboration
+
+EcoMOF-AI supports collaboration-oriented data structuring for catalyst records, reaction conditions, product metrics, characterization evidence, mechanism notes, and source status. Private or unpublished collaborator data should not be published without explicit permission. The current prototype does not provide public file upload or backend storage; data intake is handled through agreed templates and manual review.
+
+EcoMOF-AI 支持面向合作的数据结构化，包括催化剂记录、反应条件、产物指标、表征证据、机理说明和来源状态。未发表或保密数据不会在未经明确同意的情况下公开展示。当前原型不提供公开文件上传或后端存储，数据接入通过约定模板和人工确认完成。
 
 ## Data Curation Statement
 

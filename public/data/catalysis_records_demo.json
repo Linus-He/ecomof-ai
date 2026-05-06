@@ -342,5 +342,50 @@
     "sourceStatus": "pending",
     "curationStatus": "planned",
     "note": "Template record for biomass conversion curation. No validated catalytic performance is included."
+  },
+  {
+    "recordId": "cat-biomass-co2-template-001",
+    "taskFamily": "CO2 conversion",
+    "pathway": "biomass-assisted CO2/HCO3- conversion",
+    "subTask": "glucose + NaHCO3 to formic acid / organic acids",
+    "targetProducts": ["formic acid", "formate", "lactic acid", "acetic acid", "glycolic acid"],
+    "relevantModes": ["hydrothermal conversion", "heterogeneous catalysis"],
+    "keyMetrics": ["formic acid yield", "product distribution", "substrate conversion", "stability evidence"],
+    "mofRelevance": ["metal nodes", "amino/basic sites", "Lewis acid sites", "transition-metal modified sites"],
+    "curationFocus": ["reaction condition", "substrate ratio", "CO2/HCO3- source", "product analysis", "mechanism evidence", "confidentiality status"],
+    "caution": "Schema-only collaborator-context record. Product yield values and private collaborator details are not included.",
+    "reactionCondition": {
+      "temperatureC": 170,
+      "temperatureStatus": "collaborator-context; pending review",
+      "glucoseMg": 90,
+      "NaHCO3Mg": 252,
+      "waterMl": 10,
+      "catalystMg": 200,
+      "timeH": null
+    },
+    "activityMetric": {
+      "type": "formic acid yield / organic acid yield",
+      "value": null,
+      "unit": "percent or wt%; pending"
+    },
+    "selectivityMetric": {
+      "type": "product distribution / selectivity",
+      "value": null,
+      "unit": "pending"
+    },
+    "stabilityEvidence": {
+      "cycleCount": null,
+      "durationH": null,
+      "structureRetained": "pending",
+      "leachingChecked": "pending"
+    },
+    "evidenceLevel": "pending",
+    "sourceStatus": "collaborator-context",
+    "curationStatus": "schema-only",
+    "confidentiality": {
+      "canPublishValues": false,
+      "displayMode": "schema-only"
+    },
+    "note": "Schema-only template for biomass-assisted CO2/HCO3- conversion. No private experimental yield values are included."
   }
 ]

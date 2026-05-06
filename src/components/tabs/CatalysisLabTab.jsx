@@ -336,6 +336,75 @@ const CO2_CURATION_DIMENSIONS = [
   },
 ]
 
+const BIOMASS_CO2_CONTEXT = [
+  {
+    en: "Reaction family",
+    zh: "反应家族",
+    valueEn: "Hydrothermal synergistic conversion",
+    valueZh: "水热协同转化",
+  },
+  {
+    en: "Substrate",
+    zh: "底物",
+    valueEn: "glucose / biomass-derived carbohydrates",
+    valueZh: "葡萄糖 / 生物质来源碳水化合物",
+  },
+  {
+    en: "CO₂ source",
+    zh: "CO₂ 来源",
+    valueEn: "NaHCO₃ / HCO₃⁻ / captured CO₂ equivalent",
+    valueZh: "NaHCO₃ / HCO₃⁻ / 捕集 CO₂ 等效来源",
+  },
+  {
+    en: "Target products",
+    zh: "目标产物",
+    valueEn: "formic acid, formate, lactic acid, acetic acid, glycolic acid",
+    valueZh: "甲酸、甲酸盐、乳酸、乙酸、乙醇酸",
+  },
+  {
+    en: "Catalyst family",
+    zh: "催化剂家族",
+    valueEn: "Fe-MOFs, amino-functionalized MOFs, transition-metal-modified MOFs",
+    valueZh: "Fe-MOFs、氨基功能化 MOFs、过渡金属改性 MOFs",
+  },
+]
+
+const BIOMASS_BASELINE = [
+  { en: "Temperature", zh: "温度", value: "170 ℃" },
+  { en: "Glucose", zh: "葡萄糖", value: "90 mg" },
+  { en: "NaHCO₃", zh: "NaHCO₃", value: "252 mg" },
+  { en: "H₂O", zh: "H₂O", value: "10 mL" },
+  { en: "Catalyst", zh: "催化剂", value: "200 mg" },
+]
+
+const BIOMASS_PATHWAY_STEPS = [
+  { en: "Glucose", zh: "葡萄糖" },
+  { en: "isomerization", zh: "异构化" },
+  { en: "fructose / ketose intermediates", zh: "果糖 / 酮糖中间体" },
+  { en: "retro-aldol cleavage", zh: "逆醛醇缩合" },
+  { en: "C2/C3 aldehyde intermediates", zh: "C2/C3 醛类中间体" },
+  { en: "redox with HCO₃⁻", zh: "与 HCO₃⁻ 氧化还原" },
+  { en: "formic acid / formate", zh: "甲酸 / 甲酸盐" },
+]
+
+const BIOMASS_SIDE_PATHWAY = [
+  { en: "dehydration / rearrangement", zh: "脱水 / 重排" },
+  { en: "lactic acid, acetic acid, glycolic acid", zh: "乳酸、乙酸、乙醇酸" },
+]
+
+const BIOMASS_DATA_FIELDS = [
+  { en: "Catalyst identity", zh: "催化剂身份", status: "needs-review" },
+  { en: "MOF scaffold", zh: "MOF 骨架", status: "needs-review" },
+  { en: "Metal node or modifier", zh: "金属节点或改性金属", status: "pending" },
+  { en: "Functional group", zh: "官能团", status: "pending" },
+  { en: "Reaction condition", zh: "反应条件", status: "needs-review" },
+  { en: "Product yield profile", zh: "产物产率分布", status: "private" },
+  { en: "Characterization evidence", zh: "表征证据", status: "pending" },
+  { en: "Mechanism evidence", zh: "机理证据", status: "pending" },
+  { en: "Stability evidence", zh: "稳定性证据", status: "pending" },
+  { en: "Source / confidentiality status", zh: "来源与保密状态", status: "private" },
+]
+
 const CANDIDATES = [
   {
     id: "uio66nh2",
@@ -504,6 +573,8 @@ function curationStatusLabel(status, lang) {
     "needs-review": lang === "zh" ? "需复核" : "needs review",
     pending: lang === "zh" ? "待补充" : "pending",
     planned: lang === "zh" ? "计划整理" : "Planned curation",
+    private: lang === "zh" ? "私有草稿" : "private",
+    "schema-only": lang === "zh" ? "仅字段结构" : "schema only",
   }
   return labels[status] || labels.pending
 }
@@ -1238,7 +1309,140 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="03" title={lang === "zh" ? "CO₂ 转化整理维度" : "CO₂ Conversion Curation Dimensions"}>
+      <ResultLayer number="03" title={lang === "zh" ? "生物质辅助 CO₂/HCO₃⁻ 转化" : "Biomass-assisted CO₂/HCO₃⁻ Conversion"}>
+        <div style={{ display: "grid", gap: 12 }}>
+          <Callout tone="info">
+            {lang === "zh"
+              ? "面向 MOF 催化葡萄糖或生物质衍生物与 CO₂/HCO₃⁻ 来源协同转化为甲酸及相关有机酸的可整理路径。本区块是数据整理框架；除非记录链接到公开文献或经合作者确认的数据，否则不代表已验证催化性能。"
+              : "A curation-ready pathway for MOF-catalyzed glucose or biomass derivative conversion with CO₂/HCO₃⁻ sources toward formic acid and related organic acids. This section is a curation framework; it does not claim validated catalytic performance unless records are linked to public literature or confirmed collaborator data."}
+          </Callout>
+
+          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1.15fr 0.85fr", gap: 12 }}>
+            <article style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, padding: 14 }}>
+              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 880 }}>
+                {lang === "zh" ? "反应语境" : "Reaction context"}
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 9, marginTop: 11 }}>
+                {BIOMASS_CO2_CONTEXT.map(item => (
+                  <div key={item.en} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
+                    <div style={{ color: t.faint, fontSize: 9, fontWeight: 850, textTransform: "uppercase" }}>
+                      {lang === "zh" ? item.zh : item.en}
+                    </div>
+                    <div style={{ color: t.textStrong, fontSize: 11, fontWeight: 750, lineHeight: 1.5, marginTop: 5 }}>
+                      {lang === "zh" ? item.valueZh : item.valueEn}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </article>
+
+            <article style={{ background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 9, padding: 14 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "flex-start", flexWrap: "wrap" }}>
+                <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 880 }}>
+                  {lang === "zh" ? "示例基准条件" : "Example baseline condition"}
+                </div>
+                <BasisBadge tone="proxy">{lang === "zh" ? "collaborator-context / 待复核" : "collaborator-context / pending review"}</BasisBadge>
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 8, marginTop: 11 }}>
+                {BIOMASS_BASELINE.map(item => (
+                  <div key={item.en} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 9 }}>
+                    <div style={{ color: t.faint, fontSize: 9, fontWeight: 850, textTransform: "uppercase" }}>
+                      {lang === "zh" ? item.zh : item.en}
+                    </div>
+                    <div style={{ color: t.accentText, fontSize: 12, fontWeight: 850, marginTop: 4 }}>{item.value}</div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 10 }}>
+                {lang === "zh"
+                  ? "该基准条件来自合作者提供的当前反应语境，不应被视为所有 MOF 催化剂的通用最佳条件。"
+                  : "This baseline reflects a collaborator-provided current reaction context and should not be treated as a universal optimum for all MOF catalysts."}
+              </div>
+            </article>
+          </div>
+
+          <article style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, padding: 14 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
+              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 880 }}>
+                {lang === "zh" ? "反应路径框架" : "Reaction pathway map"}
+              </div>
+              <BasisBadge tone="warn">{lang === "zh" ? "机制假设" : "mechanism hypothesis"}</BasisBadge>
+            </div>
+            <div style={{ display: "flex", gap: 7, flexWrap: "wrap", alignItems: "center", marginTop: 11 }}>
+              {BIOMASS_PATHWAY_STEPS.map((step, index) => (
+                <div key={step.en} style={{ display: "flex", alignItems: "center", gap: 7 }}>
+                  <span style={{
+                    background: t.surface,
+                    border: `1px solid ${t.border}`,
+                    borderRadius: 999,
+                    color: index === 0 || index === BIOMASS_PATHWAY_STEPS.length - 1 ? t.accentText : t.muted,
+                    fontSize: 10,
+                    fontWeight: 800,
+                    padding: "6px 9px",
+                  }}>
+                    {lang === "zh" ? step.zh : step.en}
+                  </span>
+                  {index < BIOMASS_PATHWAY_STEPS.length - 1 && <span style={{ color: t.faint, fontSize: 12 }}>→</span>}
+                </div>
+              ))}
+            </div>
+            <div style={{ display: "flex", gap: 7, flexWrap: "wrap", alignItems: "center", marginTop: 10 }}>
+              <span style={{ color: t.faint, fontSize: 10, fontWeight: 850 }}>{lang === "zh" ? "副路径" : "Side pathways"}:</span>
+              {BIOMASS_SIDE_PATHWAY.map((step, index) => (
+                <div key={step.en} style={{ display: "flex", alignItems: "center", gap: 7 }}>
+                  <span style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, color: t.subtle, fontSize: 10, fontWeight: 750, padding: "6px 9px" }}>
+                    {lang === "zh" ? step.zh : step.en}
+                  </span>
+                  {index < BIOMASS_SIDE_PATHWAY.length - 1 && <span style={{ color: t.faint, fontSize: 12 }}>→</span>}
+                </div>
+              ))}
+            </div>
+            <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 10 }}>
+              {lang === "zh"
+                ? "该机制框架需要 HPLC、GC-MS/LC-MS、NMR、同位素追踪或 DFT 等证据支持，不应被视为已完全验证路径。"
+                : "This mechanism framework requires evidence from HPLC, GC-MS/LC-MS, NMR, isotope tracing, or DFT and should not be treated as a fully validated pathway."}
+            </div>
+          </article>
+
+          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1.2fr 0.8fr", gap: 12 }}>
+            <article style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, padding: 14 }}>
+              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 880 }}>
+                {lang === "zh" ? "催化数据字段" : "Catalyst-data fields"}
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8, marginTop: 11 }}>
+                {BIOMASS_DATA_FIELDS.map(field => (
+                  <div key={field.en} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
+                    <div style={{ color: t.textStrong, fontSize: 11, fontWeight: 820 }}>{lang === "zh" ? field.zh : field.en}</div>
+                    <div style={{ marginTop: 7 }}>
+                      <BasisBadge tone={curationTone(field.status)}>{curationStatusLabel(field.status, lang)}</BasisBadge>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </article>
+
+            <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, padding: 14 }}>
+              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 880 }}>
+                {lang === "zh" ? "数据集成熟度说明" : "Dataset readiness note"}
+              </div>
+              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, marginTop: 8 }}>
+                {lang === "zh"
+                  ? "当前这类合作者实验记录更适合作为结构化实验数据，而不是可直接训练的机器学习数据集。可用于机器学习的数据集需要相对统一的条件、足够样本量、明确目标变量和实验验证闭环。"
+                  : "Current collaborator-style records are better treated as structured experimental records rather than a ready-to-train machine learning dataset. A useful ML dataset would require consistent conditions, sufficient sample size, clear target variables, and experimental validation."}
+              </div>
+              <button
+                type="button"
+                onClick={() => onNavigate?.("methodology")}
+                style={{ ...toolbarBtn(t), marginTop: 10, fontSize: 11 }}
+              >
+                {lang === "zh" ? "查看方法与边界" : "View methods & boundaries"}
+              </button>
+            </article>
+          </div>
+        </div>
+      </ResultLayer>
+
+      <ResultLayer number="04" title={lang === "zh" ? "CO₂ 转化整理维度" : "CO₂ Conversion Curation Dimensions"}>
         <Callout tone="info">
           {lang === "zh"
             ? "CO₂ 转化记录应结合产物路径和反应模式解读。不同路径的指标在缺少相近条件语境时不应直接比较。"
@@ -1254,7 +1458,7 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="04" title={lang === "zh" ? "CO₂ 转化整理清单" : "CO₂ Conversion Checklist"}>
+      <ResultLayer number="05" title={lang === "zh" ? "CO₂ 转化整理清单" : "CO₂ Conversion Checklist"}>
         <Callout tone="info">
           {lang === "zh"
             ? "只有当反应任务、产物路径与目标产物、催化剂角色、条件语境、活性/选择性指标、稳定性信息和来源证据较完整时，CO₂ 转化记录才应被视为已整理记录。"
@@ -1272,11 +1476,11 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="05" title={lang === "zh" ? "催化记录结构预览" : "Catalysis record schema preview"}>
+      <ResultLayer number="06" title={lang === "zh" ? "催化记录结构预览" : "Catalysis record schema preview"}>
         <CatalysisRecordPreview records={catalysisRecords} status={recordsStatus} lang={lang} t={t} />
       </ResultLayer>
 
-      <ResultLayer number="06" title={lang === "zh" ? "候选材料优先级工作区" : "Candidate prioritization workspace"}>
+      <ResultLayer number="07" title={lang === "zh" ? "候选材料优先级工作区" : "Candidate prioritization workspace"}>
         <Callout tone="warn">
           {lang === "zh"
             ? "以下工作区保留规则评分和候选排序，用于讨论整理优先级；它不是 CO₂ 转化真实性能结论。"
@@ -1284,7 +1488,7 @@ export function CatalysisLabTab({ onNavigate }) {
         </Callout>
       </ResultLayer>
 
-      <ResultLayer number="07" title={lang === "zh" ? "催化任务选择器" : "Catalysis task selector"}>
+      <ResultLayer number="08" title={lang === "zh" ? "催化任务选择器" : "Catalysis task selector"}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
           {tasks.map(item => (
             <button key={item.id} type="button" onClick={() => { setTaskId(item.id); setSelected(null) }} style={{
@@ -1303,7 +1507,7 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="08" title={lang === "zh" ? "催化筛选器" : "Catalysis filters"}>
+      <ResultLayer number="09" title={lang === "zh" ? "催化筛选器" : "Catalysis filters"}>
         <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
           <button type="button" onClick={() => setExpanded(prev => !prev)} style={{ ...controlStyle, display: isMobile ? "block" : "none", marginBottom: expanded ? 10 : 0 }}>
             {expanded ? (lang === "zh" ? "收起筛选器" : "Collapse filters") : (lang === "zh" ? "展开筛选器" : "Expand filters")}
@@ -1314,7 +1518,7 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="09" title={lang === "zh" ? "Rule-based Catalysis Potential Score 排名" : "Rule-based Catalysis Potential Score ranking"}>
+      <ResultLayer number="10" title={lang === "zh" ? "Rule-based Catalysis Potential Score 排名" : "Rule-based Catalysis Potential Score ranking"}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 12, alignItems: "start" }}>
           {ranked.length === 0 && (
             <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
@@ -1346,7 +1550,7 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="10" title={lang === "zh" ? "结果解释" : "Results Interpretation"}>
+      <ResultLayer number="11" title={lang === "zh" ? "结果解释" : "Results Interpretation"}>
         <Callout tone="info">
           {lang === "zh"
             ? "Catalysis Potential Score 表示候选材料在特定催化任务下的潜力优先级，不等同于真实催化活性或产率。"
@@ -1369,13 +1573,13 @@ export function CatalysisLabTab({ onNavigate }) {
         )}
       </ResultLayer>
 
-      <ResultLayer number="11" title={lang === "zh" ? "评分公式" : "Scoring formula"}>
+      <ResultLayer number="12" title={lang === "zh" ? "评分公式" : "Scoring formula"}>
         <MethodDrawer title="Catalysis Potential Score">
           Catalysis Potential Score = w1 × CO₂ Affinity + w2 × Active Site Potential + w3 × Pore Accessibility + w4 × Stability + w5 × Electronic Property + w6 × Sustainability + w7 × Evidence Confidence
         </MethodDrawer>
       </ResultLayer>
 
-      <ResultLayer number="12" title={lang === "zh" ? "Model Results / 结果解释图表" : "Model Results / Results Interpretation"}>
+      <ResultLayer number="13" title={lang === "zh" ? "Model Results / 结果解释图表" : "Model Results / Results Interpretation"}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
           <RankingBarChart data={ranked} scoreLabel={lang === "zh" ? "催化潜力评分" : "Catalysis Potential Score"} />
           <ScoreBreakdownRadar data={activeCandidate?.scoreBreakdown || []} title={activeCandidate ? `${activeCandidate.name} · ${lang === "zh" ? "评分拆解" : "Score Breakdown"}` : (lang === "zh" ? "评分拆解" : "Score Breakdown")} />
@@ -1386,7 +1590,7 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="13" title={lang === "zh" ? "Machine Learning Evaluation 占位" : "Machine Learning Evaluation Placeholder"}>
+      <ResultLayer number="14" title={lang === "zh" ? "Machine Learning Evaluation 占位" : "Machine Learning Evaluation Placeholder"}>
         <Callout tone="warn">
           {lang === "zh"
             ? "当前机器学习评估为占位展示。只有在积累足够带标签的实验或文献数据后，才会启用真实模型评估。"
@@ -1436,12 +1640,12 @@ export function CatalysisLabTab({ onNavigate }) {
       }}>
         <div style={{ minWidth: 0 }}>
           <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 880 }}>
-            {lang === "zh" ? "你是否从事 MOF 催化或 CO₂ 转化方向？" : "Working on MOF catalysis or CO₂ conversion?"}
+            {lang === "zh" ? "有催化数据想整理？" : "Have catalyst data to structure?"}
           </div>
           <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, marginTop: 6, maxWidth: 720 }}>
             {lang === "zh"
-              ? "欢迎对反应任务定义、催化指标、活性位点假设和数据整理优先级提出反馈。"
-              : "Feedback on reaction task definitions, catalytic metrics, active-site assumptions, and curation priorities is welcome."}
+              ? "可以先沟通数据范围；未发表或保密数据不会在未经明确同意的情况下公开展示。"
+              : "Share the scope first; private or unpublished data will not be published without explicit permission."}
           </div>
         </div>
         <button

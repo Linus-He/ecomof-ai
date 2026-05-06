@@ -476,8 +476,8 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
           </div>
           <p style={{ margin: 0, color: t.muted, fontSize: 13, lineHeight: 1.65, maxWidth: 520 }}>
             {lang === "zh"
-              ? "如果你希望将 EcoMOF-AI 用于 MOF 筛选、催化数据整理、LCA 评价或科研合作，可以留下联系方式并简述你的数据或研究问题。"
-              : "Interested in using EcoMOF-AI for MOF screening, catalysis data curation, LCA evaluation, or research collaboration? Send a short message describing your dataset or research question."}
+              ? "有催化数据想整理？EcoMOF-AI 可用带保密边界的数据状态标签帮助组织记录，也可以用于 MOF 筛选、LCA 评价或科研合作讨论。"
+              : "Have catalyst records to structure? EcoMOF-AI can help organize data with confidentiality-aware labels, alongside MOF screening, LCA evaluation, or research collaboration."}
           </p>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8, flexShrink: 0 }}>

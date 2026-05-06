@@ -5,6 +5,55 @@ import { toolbarBtn } from "../../utils/styles"
 
 const ENDPOINT = "https://formspree.io/f/mnjwnojy"
 const FALLBACK_EMAIL = "square.hwh@gmail.com"
+const DATA_INTAKE_TEMPLATE = `{
+  "recordId": "",
+  "sourceStatus": "public-literature | collaborator-private | anonymized-demo | pending-review | schema-only",
+  "catalyst": {
+    "name": "",
+    "mofScaffold": "",
+    "metalNode": "",
+    "modifierMetal": "",
+    "functionalGroup": "",
+    "batchId": ""
+  },
+  "reactionCondition": {
+    "temperatureC": null,
+    "timeH": null,
+    "substrate": "",
+    "substrateAmountMg": null,
+    "co2Source": "CO2 | NaHCO3 | HCO3- | pending",
+    "NaHCO3Mg": null,
+    "waterMl": null,
+    "catalystMg": null,
+    "solvent": "water"
+  },
+  "productMetrics": {
+    "formicAcidYieldPercent": null,
+    "lacticAcidYieldPercent": null,
+    "aceticAcidYieldPercent": null,
+    "glycolicAcidYieldPercent": null,
+    "peakAreaRecords": []
+  },
+  "characterizationEvidence": {
+    "XRD": "pending",
+    "BET": "pending",
+    "XPS": "pending",
+    "FTIR": "pending",
+    "ICP": "pending",
+    "SEM_TEM": "pending",
+    "NMR": "pending"
+  },
+  "mechanismNotes": {
+    "pathway": "isomerization | retro-aldol | redox with HCO3- | side reaction | pending",
+    "activeSiteHypothesis": "",
+    "stabilityNote": ""
+  },
+  "confidentiality": {
+    "canPublish": false,
+    "displayMode": "private-draft | anonymized-demo | schema-only"
+  },
+  "curationStatus": "pending"
+}`
 
 function Field({ label, required, children }) {
   const t = useT()
@@ -61,6 +110,7 @@ export function ContactModal({ open, onClose }) {
 
   const [form, setForm] = useState(BLANK)
   const [status, setStatus] = useState("idle") // idle | loading | success | error
+  const [templateStatus, setTemplateStatus] = useState("idle") // idle | copied | fallback
   const closeBtnRef = useRef(null)
   const triggerRef = useRef(null)
 
@@ -109,7 +159,21 @@ export function ContactModal({ open, onClose }) {
   const handleClose = () => {
     setForm(BLANK)
     setStatus("idle")
+    setTemplateStatus("idle")
     onClose()
+  }
+
+  const copyDataTemplate = async () => {
+    try {
+      if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(DATA_INTAKE_TEMPLATE)
+        setTemplateStatus("copied")
+      } else {
+        setTemplateStatus("fallback")
+      }
+    } catch {
+      setTemplateStatus("fallback")
+    }
   }
 
   // ── Shared input styles ──────────────────────────────────────────────────
@@ -260,6 +324,54 @@ export function ContactModal({ open, onClose }) {
        ["No rush", "No rush / 不着急"],
        ["Feedback only", "Feedback only / 只是反馈，不需要回复"]]
 
+  const intakeDataTypes = zh
+    ? [
+        ["催化剂记录", "MOF 骨架、金属节点、改性金属、官能团、催化剂批次"],
+        ["反应条件", "温度、时间、底物量、CO₂/HCO₃⁻ 来源、溶剂、催化剂用量"],
+        ["产物指标", "甲酸、乳酸、乙酸收率，浓度，峰面积记录"],
+        ["表征证据", "XRD、BET、XPS、FTIR、ICP、SEM/TEM、NMR"],
+        ["机理说明", "异构化、逆醛醇裂解、HCO₃⁻ 氧化还原、活性位点假设"],
+        ["来源状态", "公开文献、合作者保密数据、匿名化演示、待复核"],
+      ]
+    : [
+        ["Catalyst records", "MOF scaffold, metal node, modifier metal, functional group, catalyst batch"],
+        ["Reaction conditions", "temperature, time, substrate amount, CO₂/HCO₃⁻ source, solvent, catalyst dosage"],
+        ["Product metrics", "formic acid yield, lactic acid yield, acetic acid yield, concentration, peak area"],
+        ["Characterization evidence", "XRD, BET, XPS, FTIR, ICP, SEM/TEM, NMR"],
+        ["Mechanism notes", "isomerization, retro-aldol cleavage, redox with HCO₃⁻, active-site hypothesis"],
+        ["Source status", "public literature, collaborator-private data, anonymized demo, pending review"],
+      ]
+
+  const dataStatusLabels = zh
+    ? [
+        ["公开文献", "已发表且可引用的来源。"],
+        ["合作者保密数据", "仅用于私下复核的未发表数据。"],
+        ["匿名化演示", "数值或身份已被遮蔽，仅用于展示。"],
+        ["待复核", "记录在使用前需要领域复核。"],
+        ["仅字段结构", "只展示数据结构，不展示真实数值。"],
+      ]
+    : [
+        ["Public literature", "Published and citable source."],
+        ["Collaborator private", "Unpublished data shared for private review only."],
+        ["Anonymized demo", "Values or identities are masked for demonstration."],
+        ["Pending review", "Record needs domain review before use."],
+        ["Schema only", "Only the data structure is shown; no real values are displayed."],
+      ]
+
+  const intakeWorkflow = zh
+    ? [
+        ["1. 确认数据范围", "先沟通反应体系、数据量、公开边界和合作目标。"],
+        ["2. 映射字段结构", "把实验记录映射到 catalyst、condition、product metrics 和 evidence 字段。"],
+        ["3. 确认保密边界", "人工确认哪些字段可公开、匿名化或仅保留结构。"],
+        ["4. 构建演示模块", "在获准范围内制作 schema、private draft 或 anonymized demo。"],
+      ]
+    : [
+        ["1. Define data scope", "Discuss reaction scope, record volume, publication boundary, and collaboration goals."],
+        ["2. Map fields", "Map notes into catalyst, condition, product metrics, and evidence fields."],
+        ["3. Review confidentiality", "Manually confirm which fields may be public, anonymized, or schema-only."],
+        ["4. Build demo module", "Create a schema, private draft, or anonymized demo within the agreed scope."],
+      ]
+
   return (
     <div
       style={{
@@ -280,7 +392,7 @@ export function ContactModal({ open, onClose }) {
         aria-label={zh ? "联系 / 合作" : "Contact / Collaboration"}
         onClick={e => e.stopPropagation()}
         style={{
-          width: "min(680px, 96vw)",
+          width: "min(820px, 96vw)",
           background: t.panel,
           border: `1px solid ${t.border}`,
           borderRadius: 12,
@@ -314,6 +426,139 @@ export function ContactModal({ open, onClose }) {
             ? "如果你有科研合作、数据提交或方法与证据相关问题，可以留下简短信息。我通常会在 48 小时内回复。"
             : "For research collaborations, data submissions, or methods and evidence questions, please leave a short message. I usually reply within 48 hours."}
         </p>
+
+        <section id="data-intake" style={{ ...sectionBlock, marginBottom: 16 }}>
+          <SectionHeader
+            label={zh ? "Data Intake & Collaboration / 数据接入与合作说明" : "Data Intake & Collaboration"}
+            note={zh
+              ? "可以先沟通数据范围；未发表或保密数据不会在未经明确同意的情况下公开展示。"
+              : "Share the scope first; private or unpublished data will not be published without explicit permission."}
+          />
+
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 10 }}>
+            <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
+                {zh ? "可以整理哪些数据？" : "What data can be structured?"}
+              </div>
+              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.6, marginTop: 6 }}>
+                {zh
+                  ? "EcoMOF-AI 可以帮助整理催化剂记录、反应条件、产物指标、表征证据、机理说明和数据来源状态。"
+                  : "EcoMOF-AI can help structure catalyst records, reaction conditions, product metrics, characterization evidence, mechanism notes, and source status."}
+              </div>
+              <div style={{ display: "grid", gap: 7, marginTop: 10 }}>
+                {intakeDataTypes.map(([label, body]) => (
+                  <div key={label} style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "130px 1fr", gap: 6 }}>
+                    <div style={{ color: t.accentText, fontSize: 10, fontWeight: 850 }}>{label}</div>
+                    <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45 }}>{body}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ display: "grid", gap: 10 }}>
+              <div style={{ background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 8, padding: 12 }}>
+                <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
+                  {zh ? "保密边界" : "Confidentiality boundary"}
+                </div>
+                <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, marginTop: 6 }}>
+                  {zh
+                    ? "合作者提供的未发表或保密数据，不会在未经明确同意的情况下公开展示。保密数据可以仅作为私有草稿、匿名化演示数据，或只保留字段结构而不展示真实数值。"
+                    : "Private or unpublished collaborator data will not be published on the website without explicit permission. Confidential records can be handled as private drafts, anonymized demos, or schema-only entries."}
+                </div>
+                <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 8 }}>
+                  {zh
+                    ? "当前原型不提供公开文件上传或后端存储。数据接入通过约定模板和人工确认完成。"
+                    : "The current prototype does not provide public file upload or backend storage. Data intake is handled through agreed templates and manual review."}
+                </div>
+              </div>
+
+              <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+                <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
+                  {zh ? "数据状态标签" : "Data status labels"}
+                </div>
+                <div style={{ display: "grid", gap: 6, marginTop: 9 }}>
+                  {dataStatusLabels.map(([label, body]) => (
+                    <div key={label} style={{ display: "flex", alignItems: "flex-start", gap: 7 }}>
+                      <span style={{
+                        background: t.surface,
+                        border: `1px solid ${t.border}`,
+                        borderRadius: 999,
+                        color: label.includes("private") || label.includes("保密") ? t.warn : t.subtle,
+                        flexShrink: 0,
+                        fontSize: 10,
+                        fontWeight: 800,
+                        padding: "4px 7px",
+                      }}>
+                        {label}
+                      </span>
+                      <span style={{ color: t.faint, fontSize: 10, lineHeight: 1.45 }}>{body}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1.15fr 0.85fr", gap: 10 }}>
+            <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
+                {zh ? "数据接入流程" : "Intake workflow"}
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 8, marginTop: 10 }}>
+                {intakeWorkflow.map(([label, body]) => (
+                  <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 9 }}>
+                    <div style={{ color: t.accentText, fontSize: 10, fontWeight: 850, lineHeight: 1.35 }}>{label}</div>
+                    <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45, marginTop: 5 }}>{body}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
+                {zh ? "复制数据模板" : "Copy data template"}
+              </div>
+              <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 6 }}>
+                {zh
+                  ? "仅复制结构化 JSON 模板；不会上传文件或提交真实数据。"
+                  : "Copies a structured JSON template only; no file upload or real data submission is performed."}
+              </div>
+              <button
+                type="button"
+                onClick={copyDataTemplate}
+                aria-label={zh ? "复制数据模板" : "Copy data template"}
+                style={{ ...toolbarBtn(t), marginTop: 10, fontWeight: 850 }}
+              >
+                {zh ? "复制数据模板" : "Copy data template"}
+              </button>
+              {templateStatus === "copied" && (
+                <div style={{ color: t.success, fontSize: 10, marginTop: 8 }}>
+                  {zh ? "模板已复制" : "Template copied"}
+                </div>
+              )}
+              {templateStatus === "fallback" && (
+                <div style={{ marginTop: 8 }}>
+                  <div style={{ color: t.warn, fontSize: 10, lineHeight: 1.5 }}>
+                    {zh ? "无法访问剪贴板。可从下方查看模板。" : "Clipboard access failed. The template is shown below."}
+                  </div>
+                  <pre style={{
+                    margin: "8px 0 0",
+                    maxHeight: 180,
+                    overflow: "auto",
+                    whiteSpace: "pre-wrap",
+                    background: t.surface,
+                    border: `1px solid ${t.border}`,
+                    borderRadius: 6,
+                    color: t.subtle,
+                    fontSize: 9,
+                    lineHeight: 1.45,
+                    padding: 8,
+                  }}>{DATA_INTAKE_TEMPLATE}</pre>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
 
         {/* ── Success ── */}
         {status === "success" && (

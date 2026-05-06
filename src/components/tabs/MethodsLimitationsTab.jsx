@@ -673,6 +673,21 @@ export function MethodsLimitationsTab({ onNavigate }) {
       </MethodSection>
 
       <MethodSection
+        id="collaboration-data-boundaries"
+        title={zh ? "Collaboration data boundaries / 合作数据边界" : "Collaboration data boundaries"}
+        body={zh
+          ? "EcoMOF-AI 可以整理公开文献记录、合作者保密记录、匿名化演示记录和仅字段结构记录。未发表或保密数据不应在未经明确同意的情况下公开。"
+          : "EcoMOF-AI can structure public literature records, collaborator-private records, anonymized demos, and schema-only entries. Private or unpublished data should not be published without explicit permission."}
+        t={t}
+      >
+        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, color: t.muted, fontSize: 11, lineHeight: 1.65 }}>
+          {zh
+            ? "面向未来机器学习的数据记录应先经过字段完整性、条件一致性和证据状态复核。当前静态原型不提供公开上传或后端存储。"
+            : "Records intended for future machine learning should first pass field completeness, condition consistency, and evidence review. The current static prototype does not provide public upload or backend storage."}
+        </div>
+      </MethodSection>
+
+      <MethodSection
         id="benchmark-references"
         title={zh ? "Benchmark References / 标杆材料参考" : "Benchmark References"}
         body={zh
