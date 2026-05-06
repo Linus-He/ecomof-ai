@@ -148,8 +148,8 @@ const TASK_FAMILIES = [
     zh: "CO₂ 转化",
     badgeEn: "Priority task",
     badgeZh: "重点任务",
-    bodyEn: "Organize MOF-related reaction records for CO₂ reduction, conversion, and organic-acid-related product targets.",
-    bodyZh: "整理 MOF 相关的 CO₂ 还原、转化及有机酸相关产物方向的反应记录。",
+    bodyEn: "Organize MOF-related CO₂ conversion records across reduction products, C1/C2+ products, cyclic carbonates, organic-acid-related products, and CO₂-assisted upgrading pathways.",
+    bodyZh: "整理 MOF 相关的 CO₂ 转化记录，覆盖还原产物、C1/C2+ 产物、环状碳酸酯、有机酸相关产物以及 CO₂ 参与的升级转化路径。",
   },
   {
     id: "photocatalysis",
@@ -176,13 +176,89 @@ const TASK_FAMILIES = [
 
 const CO2_CONVERSION_CHECKLIST = [
   { key: "reactionTask", en: "reaction task", zh: "反应任务", status: "needs-review" },
-  { key: "targetProduct", en: "target product", zh: "目标产物", status: "needs-review" },
+  { key: "targetProduct", en: "product pathway + target product", zh: "产物路径 + 目标产物", status: "needs-review" },
   { key: "catalystRole", en: "catalyst role", zh: "催化剂角色", status: "pending" },
   { key: "activeSiteHypothesis", en: "active-site hypothesis", zh: "活性位点假设", status: "pending" },
-  { key: "reactionCondition", en: "reaction condition", zh: "反应条件", status: "pending" },
+  { key: "reactionCondition", en: "condition context", zh: "条件语境", status: "pending" },
   { key: "activityMetric", en: "activity metric", zh: "活性指标", status: "pending" },
   { key: "selectivityMetric", en: "selectivity metric", zh: "选择性指标", status: "pending" },
   { key: "stabilityRecyclability", en: "stability / recyclability", zh: "稳定性 / 循环性能", status: "pending" },
+]
+
+const CO2_CONVERSION_PATHWAYS = [
+  {
+    id: "c1-reduction",
+    en: "C1 reduction products",
+    zh: "C1 还原产物",
+    products: "CO, formate / formic acid, methanol, methane",
+    bodyEn: "Track product selectivity, FE or yield, reaction mode, and condition context.",
+    bodyZh: "整理产物选择性、法拉第效率或收率、反应模式和条件语境。",
+  },
+  {
+    id: "c2-plus",
+    en: "C2+ products",
+    zh: "C2+ 产物",
+    products: "ethylene, ethanol, acetate, propanol",
+    bodyEn: "Track C-C coupling-related product distribution, selectivity, and reaction conditions.",
+    bodyZh: "整理与 C-C 偶联相关的产物分布、选择性和反应条件。",
+  },
+  {
+    id: "organic-acids",
+    en: "Organic-acid products",
+    zh: "有机酸相关产物",
+    products: "formic acid / formate, oxalic acid, acetate",
+    bodyEn: "Track acid/formate-related products with pH, electrolyte or solvent context, and selectivity evidence.",
+    bodyZh: "整理酸类或甲酸盐相关产物，并记录 pH、电解液或溶剂条件及选择性证据。",
+  },
+  {
+    id: "cyclic-carbonates",
+    en: "Cyclic carbonates",
+    zh: "环状碳酸酯",
+    products: "epoxide + CO₂ -> cyclic carbonate",
+    bodyEn: "Track conversion, yield, pressure, temperature, co-catalyst, and recyclability.",
+    bodyZh: "整理转化率、收率、压力、温度、助催化剂和循环性能。",
+  },
+  {
+    id: "co2-biomass-upgrading",
+    en: "CO₂-assisted biomass upgrading",
+    zh: "CO₂ 参与的生物质升级转化",
+    products: "carboxylation-related or carbonate-mediated conversion",
+    bodyEn: "Track substrate scope, carbon balance, product selectivity, and sustainability context.",
+    bodyZh: "整理底物范围、碳平衡、产物选择性和可持续性语境。",
+  },
+]
+
+const CO2_CURATION_DIMENSIONS = [
+  {
+    en: "Reaction mode",
+    zh: "反应模式",
+    items: "photocatalysis, electrocatalysis, thermal catalysis, cycloaddition, photoelectrocatalysis",
+  },
+  {
+    en: "Product pathway",
+    zh: "产物路径",
+    items: "CO, formate, methanol, methane, C2+ products, cyclic carbonates, organic acids",
+  },
+  {
+    en: "Active-site hypothesis",
+    zh: "活性位点假设",
+    items: "metal node, defect site, functional linker, single-atom site, composite interface",
+  },
+  {
+    en: "Condition context",
+    zh: "条件语境",
+    items: "light source, applied potential, electrolyte, solvent, pressure, temperature, pH",
+  },
+  {
+    en: "Activity & selectivity metrics",
+    zh: "活性与选择性指标",
+    items: "TON, TOF, yield, conversion, FE, current density, rate, product distribution",
+  },
+  {
+    en: "Stability evidence",
+    zh: "稳定性证据",
+    items: "cycle count, duration, structure retention, leaching check, recyclability",
+  },
 ]
 
 const CANDIDATES = [
@@ -383,8 +459,8 @@ function stabilityStatus(metric, lang) {
 
 function CatalysisRecordPreview({ records, status, lang, t }) {
   const headers = lang === "zh"
-    ? ["任务家族", "子任务", "目标产物", "催化剂角色", "反应模式", "活性指标", "选择性指标", "稳定性", "证据", "来源"]
-    : ["Task family", "Sub-task", "Target product", "Catalyst role", "Reaction mode", "Activity metric", "Selectivity metric", "Stability", "Evidence", "Source"]
+    ? ["任务家族", "路径", "目标产物", "反应模式", "催化剂角色", "活性位点假设", "活性指标", "选择性指标", "稳定性证据", "证据", "来源"]
+    : ["Task family", "Pathway", "Target products", "Reaction mode", "Catalyst role", "Active-site hypothesis", "Activity metric", "Selectivity metric", "Stability evidence", "Evidence", "Source"]
 
   return (
     <div style={{ display: "grid", gap: 12 }}>
@@ -412,18 +488,19 @@ function CatalysisRecordPreview({ records, status, lang, t }) {
               <tr key={record.recordId}>
                 {[
                   record.taskFamily,
-                  record.subTask,
-                  record.targetProduct,
-                  record.catalystRole,
+                  record.pathway,
+                  Array.isArray(record.targetProducts) ? record.targetProducts.join(", ") : record.targetProducts,
                   record.reactionCondition?.mode,
+                  record.catalystRole,
+                  record.activeSiteHypothesis,
                   metricStatus(record.activityMetric, lang),
                   metricStatus(record.selectivityMetric, lang),
-                  stabilityStatus(record.stabilityMetric, lang),
+                  stabilityStatus(record.stabilityEvidence || record.stabilityMetric, lang),
                   record.evidenceLevel,
                   record.sourceStatus,
                 ].map((value, index) => (
                   <td key={`${record.recordId}-${index}`} style={{ padding: "9px 8px", borderBottom: `1px solid ${t.divider}`, color: index === 0 ? t.textStrong : t.muted, fontSize: 11, lineHeight: 1.45, verticalAlign: "top", fontWeight: index === 0 ? 850 : 600 }}>
-                    {index === 9 && record.sourceStatus === "pending"
+                    {index === 10 && record.sourceStatus === "pending"
                       ? (lang === "zh" ? "来源待补充" : "Source pending")
                       : pendingCatalysisValue(value, lang)}
                   </td>
@@ -901,8 +978,8 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="02" title={lang === "zh" ? "CO₂ 转化重点方向" : "CO₂ Conversion Focus"}>
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1.2fr 0.8fr", gap: 12 }}>
+      <ResultLayer number="02" title={lang === "zh" ? "CO₂ 转化路径" : "CO₂ Conversion Pathways"}>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1.05fr 1.95fr", gap: 12 }}>
           <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
             <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 850 }}>
               {lang === "zh" ? "CO₂ 转化记录不能只记录材料名称" : "A CO₂ conversion record needs more than a material name"}
@@ -913,25 +990,48 @@ export function CatalysisLabTab({ onNavigate }) {
                 : "A useful curation record should describe the reaction task, target product, catalyst role, active-site hypothesis, reaction conditions, activity metric, selectivity metric, stability evidence, and source status."}
             </p>
           </div>
-          <article style={{ background: t.surface, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 8, padding: 14 }}>
-            <BasisBadge tone="info">{lang === "zh" ? "CO₂ 转化为有机酸" : "CO₂-to-Organic Acids"}</BasisBadge>
-            <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 880, marginTop: 10 }}>
-              {lang === "zh" ? "CO₂ 转化为有机酸" : "CO₂-to-Organic Acids"}
-            </div>
-            <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.7, margin: "8px 0 0" }}>
-              {lang === "zh"
-                ? "关注 CO₂ 转化为甲酸、甲酸盐、草酸或其他有机酸相关产物的反应记录。当前原型主要整理任务定义、目标产物、反应条件、活性/选择性指标和证据状态。"
-                : "Focuses on reaction records where CO₂ is converted into formic acid, formate, oxalic acid, or other organic-acid-related products. Current prototype tracks task definition, product target, reaction condition, activity/selectivity metrics, and evidence status."}
-            </p>
-          </article>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 10 }}>
+            {CO2_CONVERSION_PATHWAYS.map(pathway => (
+              <article key={pathway.id} style={{ background: t.surface, border: `1px solid ${pathway.id === "organic-acids" ? (t.borderStrong || t.border) : t.border}`, borderRadius: 8, padding: 12 }}>
+                <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 880 }}>
+                  {lang === "zh" ? pathway.zh : pathway.en}
+                </div>
+                <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.5, marginTop: 6 }}>
+                  {lang === "zh" ? "代表产物 / 方向" : "Representative products / direction"}
+                </div>
+                <div style={{ color: t.accentText, fontSize: 11, lineHeight: 1.5, marginTop: 2 }}>
+                  {pathway.products}
+                </div>
+                <p style={{ color: t.muted, fontSize: 11, lineHeight: 1.6, margin: "8px 0 0" }}>
+                  {lang === "zh" ? pathway.bodyZh : pathway.bodyEn}
+                </p>
+              </article>
+            ))}
+          </div>
         </div>
       </ResultLayer>
 
-      <ResultLayer number="03" title={lang === "zh" ? "CO₂ 转化整理清单" : "CO₂ Conversion Checklist"}>
+      <ResultLayer number="03" title={lang === "zh" ? "CO₂ 转化整理维度" : "CO₂ Conversion Curation Dimensions"}>
         <Callout tone="info">
           {lang === "zh"
-            ? "只有当反应任务、目标产物、催化剂角色、反应条件、活性/选择性指标、稳定性信息和来源证据较完整时，CO₂ 转化记录才应被视为已整理记录。"
-            : "A CO₂ conversion record should only be treated as curated when task, product, catalyst role, reaction condition, activity/selectivity metrics, stability information, and source evidence are available."}
+            ? "CO₂ 转化记录应结合产物路径和反应模式解读。不同路径的指标在缺少相近条件语境时不应直接比较。"
+            : "CO₂ conversion records should be interpreted by pathway and reaction mode. Metrics from different pathways should not be directly compared without matching condition context."}
+        </Callout>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
+          {CO2_CURATION_DIMENSIONS.map(dimension => (
+            <article key={dimension.en} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>{lang === "zh" ? dimension.zh : dimension.en}</div>
+              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.6, marginTop: 7 }}>{dimension.items}</div>
+            </article>
+          ))}
+        </div>
+      </ResultLayer>
+
+      <ResultLayer number="04" title={lang === "zh" ? "CO₂ 转化整理清单" : "CO₂ Conversion Checklist"}>
+        <Callout tone="info">
+          {lang === "zh"
+            ? "只有当反应任务、产物路径与目标产物、催化剂角色、条件语境、活性/选择性指标、稳定性信息和来源证据较完整时，CO₂ 转化记录才应被视为已整理记录。"
+            : "A CO₂ conversion record should only be treated as curated when task, product pathway and target product, catalyst role, condition context, activity/selectivity metrics, stability information, and source evidence are available."}
         </Callout>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 9, marginTop: 12 }}>
           {CO2_CONVERSION_CHECKLIST.map(item => (
@@ -945,11 +1045,11 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="04" title={lang === "zh" ? "催化记录结构预览" : "Catalysis record schema preview"}>
+      <ResultLayer number="05" title={lang === "zh" ? "催化记录结构预览" : "Catalysis record schema preview"}>
         <CatalysisRecordPreview records={catalysisRecords} status={recordsStatus} lang={lang} t={t} />
       </ResultLayer>
 
-      <ResultLayer number="05" title={lang === "zh" ? "候选材料优先级工作区" : "Candidate prioritization workspace"}>
+      <ResultLayer number="06" title={lang === "zh" ? "候选材料优先级工作区" : "Candidate prioritization workspace"}>
         <Callout tone="warn">
           {lang === "zh"
             ? "以下工作区保留规则评分和候选排序，用于讨论整理优先级；它不是 CO₂ 转化真实性能结论。"
@@ -957,7 +1057,7 @@ export function CatalysisLabTab({ onNavigate }) {
         </Callout>
       </ResultLayer>
 
-      <ResultLayer number="06" title={lang === "zh" ? "催化任务选择器" : "Catalysis task selector"}>
+      <ResultLayer number="07" title={lang === "zh" ? "催化任务选择器" : "Catalysis task selector"}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
           {tasks.map(item => (
             <button key={item.id} type="button" onClick={() => { setTaskId(item.id); setSelected(null) }} style={{
@@ -976,7 +1076,7 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="07" title={lang === "zh" ? "催化筛选器" : "Catalysis filters"}>
+      <ResultLayer number="08" title={lang === "zh" ? "催化筛选器" : "Catalysis filters"}>
         <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
           <button type="button" onClick={() => setExpanded(prev => !prev)} style={{ ...controlStyle, display: isMobile ? "block" : "none", marginBottom: expanded ? 10 : 0 }}>
             {expanded ? (lang === "zh" ? "收起筛选器" : "Collapse filters") : (lang === "zh" ? "展开筛选器" : "Expand filters")}
@@ -987,7 +1087,7 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="08" title={lang === "zh" ? "Rule-based Catalysis Potential Score 排名" : "Rule-based Catalysis Potential Score ranking"}>
+      <ResultLayer number="09" title={lang === "zh" ? "Rule-based Catalysis Potential Score 排名" : "Rule-based Catalysis Potential Score ranking"}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 12, alignItems: "start" }}>
           {ranked.length === 0 && (
             <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
@@ -1019,7 +1119,7 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="09" title={lang === "zh" ? "结果解释" : "Results Interpretation"}>
+      <ResultLayer number="10" title={lang === "zh" ? "结果解释" : "Results Interpretation"}>
         <Callout tone="info">
           {lang === "zh"
             ? "Catalysis Potential Score 表示候选材料在特定催化任务下的潜力优先级，不等同于真实催化活性或产率。"
@@ -1042,13 +1142,13 @@ export function CatalysisLabTab({ onNavigate }) {
         )}
       </ResultLayer>
 
-      <ResultLayer number="10" title={lang === "zh" ? "评分公式" : "Scoring formula"}>
+      <ResultLayer number="11" title={lang === "zh" ? "评分公式" : "Scoring formula"}>
         <MethodDrawer title="Catalysis Potential Score">
           Catalysis Potential Score = w1 × CO₂ Affinity + w2 × Active Site Potential + w3 × Pore Accessibility + w4 × Stability + w5 × Electronic Property + w6 × Sustainability + w7 × Evidence Confidence
         </MethodDrawer>
       </ResultLayer>
 
-      <ResultLayer number="11" title={lang === "zh" ? "Model Results / 结果解释图表" : "Model Results / Results Interpretation"}>
+      <ResultLayer number="12" title={lang === "zh" ? "Model Results / 结果解释图表" : "Model Results / Results Interpretation"}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
           <RankingBarChart data={ranked} scoreLabel={lang === "zh" ? "催化潜力评分" : "Catalysis Potential Score"} />
           <ScoreBreakdownRadar data={activeCandidate?.scoreBreakdown || []} title={activeCandidate ? `${activeCandidate.name} · ${lang === "zh" ? "评分拆解" : "Score Breakdown"}` : (lang === "zh" ? "评分拆解" : "Score Breakdown")} />
@@ -1059,7 +1159,7 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="12" title={lang === "zh" ? "Machine Learning Evaluation 占位" : "Machine Learning Evaluation Placeholder"}>
+      <ResultLayer number="13" title={lang === "zh" ? "Machine Learning Evaluation 占位" : "Machine Learning Evaluation Placeholder"}>
         <Callout tone="warn">
           {lang === "zh"
             ? "当前机器学习评估为占位展示。只有在积累足够带标签的实验或文献数据后，才会启用真实模型评估。"

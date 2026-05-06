@@ -64,9 +64,9 @@ GasSep 用于整理带条件说明的气体吸附与分离记录。选择性和�
 
 ## CatalysisLab
 
-CatalysisLab organizes task-oriented MOF catalysis records, with CO₂ conversion highlighted as a priority curation direction. The module tracks reaction tasks, product targets, catalyst roles, active-site hypotheses, reaction conditions, activity/selectivity metrics, stability notes, and evidence status. It does not claim experimentally validated catalytic performance.
+CatalysisLab organizes task-oriented MOF catalysis records, with CO₂ conversion highlighted as a priority curation direction. CO₂ conversion is represented by product pathways such as C1 reduction products, C2+ products, organic-acid-related products, cyclic carbonates, and CO₂-assisted upgrading. The module tracks reaction mode, product pathway, catalyst role, active-site hypothesis, condition context, activity/selectivity metrics, stability evidence, and source status. It does not claim experimentally validated catalytic performance.
 
-CatalysisLab 用于整理面向任务的 MOF 催化记录，并将 CO₂ 转化作为重点整理方向。该模块关注反应任务、目标产物、催化剂角色、活性位点假设、反应条件、活性/选择性指标、稳定性说明和证据状态，不代表已完成实验验证的催化性能结论。
+CatalysisLab 用于整理面向任务的 MOF 催化记录，并将 CO₂ 转化作为重点整理方向。CO₂ 转化以产物路径组织，包括 C1 还原产物、C2+ 产物、有机酸相关产物、环状碳酸酯和 CO₂ 参与的升级转化。该模块关注反应模式、产物路径、催化剂角色、活性位点假设、条件语境、活性/选择性指标、稳定性证据和来源状态，不代表已完成实验验证的催化性能结论。
 
 ## Data Curation Statement
 

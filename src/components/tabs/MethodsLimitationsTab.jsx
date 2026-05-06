@@ -661,14 +661,14 @@ export function MethodsLimitationsTab({ onNavigate }) {
         id="method-catalysis-boundaries"
         title={zh ? "Catalysis curation boundaries / 催化数据整理边界" : "Catalysis curation boundaries"}
         body={zh
-          ? "CatalysisLab 区分反应任务、催化剂角色、反应条件、活性/选择性指标、稳定性说明和证据状态。待整理记录不应被解释为已验证催化结果。"
-          : "CatalysisLab separates task definitions, catalyst roles, reaction conditions, activity/selectivity metrics, stability notes, and evidence status. Pending records should not be interpreted as validated catalytic results."}
+          ? "CatalysisLab 区分反应任务、产物路径、催化剂角色、条件语境、活性/选择性指标、稳定性证据和来源状态。待整理记录不应被解释为已验证催化结果。"
+          : "CatalysisLab separates task definitions, product pathways, catalyst roles, condition context, activity/selectivity metrics, stability evidence, and source status. Pending records should not be interpreted as validated catalytic results."}
         t={t}
       >
         <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, color: t.muted, fontSize: 11, lineHeight: 1.65 }}>
           {zh
-            ? "CO₂ 转化和 CO₂-to-organic-acids 方向目前以 schema 与整理清单形式呈现，用于讨论未来数据接入优先级。"
-            : "CO₂ conversion and CO₂-to-organic-acids are currently represented as schema and checklist structures for discussing future data-ingestion priorities."}
+            ? "CO₂ 转化目前按 C1 还原产物、C2+ 产物、有机酸相关产物、环状碳酸酯和 CO₂ 参与升级转化等路径组织，用于讨论未来数据接入优先级。"
+            : "CO₂ conversion is currently organized by pathways such as C1 reduction products, C2+ products, organic-acid-related products, cyclic carbonates, and CO₂-assisted upgrading for discussing future data-ingestion priorities."}
         </div>
       </MethodSection>
 
