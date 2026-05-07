@@ -767,7 +767,7 @@ export default function App() {
     if (!candidate) return
     setComparisonCandidates(prev => {
       const withoutDuplicate = prev.filter(item => item.name !== candidate.name || item.gasSystem !== candidate.gasSystem)
-      return [candidate, ...withoutDuplicate].slice(0, 4)
+      return [candidate, ...withoutDuplicate].slice(0, 3)
     })
   }, [inputs, results, lang])
 
