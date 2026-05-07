@@ -1,0 +1,42 @@
+{
+  "schemaName": "glucose_co2_organic_acid_pathways",
+  "description": "Schema for curating electro/photo/thermal/photothermal pathways converting glucose, bicarbonate, or CO2 toward organic acids.",
+  "fields": {
+    "pathwayId": "",
+    "reactionFamily": "glucose-co2-organic-acids",
+    "feedstock": [],
+    "carbonSource": [],
+    "catalyticMode": "",
+    "catalystSystem": "",
+    "targetProducts": [],
+    "reactionConditions": {
+      "temperature": "",
+      "pressure": "",
+      "lightSource": "",
+      "wavelength": "",
+      "voltage": "",
+      "electrolyte": "",
+      "solvent": "",
+      "reactionTime": ""
+    },
+    "keyMetrics": {
+      "conversion": "",
+      "selectivity": "",
+      "yield": "",
+      "faradaicEfficiency": "",
+      "currentDensity": "",
+      "carbonEfficiency": "",
+      "energyPerProduct": ""
+    },
+    "comparabilityStatus": "",
+    "bridgeMetricsNeeded": [],
+    "source": {
+      "title": "",
+      "doi": "",
+      "year": "",
+      "sourceStatus": "literature-pending"
+    },
+    "dataStatus": "schema-only",
+    "notes": ""
+  }
+}
