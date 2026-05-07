@@ -672,9 +672,9 @@ export function MethodsLimitationsTab({ onNavigate }) {
       <PageHeader
         title={zh ? "方法与证据" : "Methods & Evidence"}
         subtitle={zh
-          ? "方法逻辑、数据边界和引用方式。"
-          : "Scoring logic, data boundaries, and citation."}
-        meta={zh ? "工作流 · 数据层 · 评分模型 · 证据溯源 · 引用" : "workflow · data layer · scoring · provenance · citation"}
+          ? "可视化评分方法、数据边界和引用方式。"
+          : "Visual scoring methodology, data boundaries, and citation."}
+        meta={zh ? "总分公式 · 子分数 · 权重配置 · 证据阶梯 · 引用" : "formula · score components · weights · evidence ladder · citation"}
         action={
           <>
             <BasisBadge tone="proxy">{zh ? "候选优先级" : "candidate priority"}</BasisBadge>

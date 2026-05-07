@@ -17,7 +17,7 @@ Scores and rankings are used for transparent candidate prioritization and resear
 - **GasSep**: condition-aware gas adsorption and separation records.
 - **CatalysisLab**: CO₂ conversion pathways, biomass-assisted CO₂/HCO₃⁻ case templates, data normalization, record preview, and rule-assisted candidate prioritization.
 - **MOF Library**: MOF records with descriptor completeness and field-level provenance.
-- **Methods & Evidence**: scoring formulas, data boundaries, evidence notes, and limitations.
+- **Methods & Evidence**: visual scoring methodology overview with formula structure, score components, evidence ladder, data workflow, use boundaries, and citation support.
 
 ## CatalysisLab
 
