@@ -124,6 +124,15 @@ function AppShell({
   closeDisclaimerModal,
 }) {
   const [homeComparisonOpen, setHomeComparisonOpen] = useState(false)
+  const [comparisonBuilderContext, setComparisonBuilderContext] = useState(null)
+  const openComparisonBuilder = useCallback((context = null) => {
+    setComparisonBuilderContext(context || null)
+    setHomeComparisonOpen(true)
+  }, [])
+  const closeComparisonBuilder = useCallback(() => {
+    setHomeComparisonOpen(false)
+    setComparisonBuilderContext(null)
+  }, [])
 
   return (
     <div
@@ -287,7 +296,7 @@ function AppShell({
       <main className="app-main" style={{ padding: viewport.isMobile ? "14px 12px" : "22px 24px", maxWidth: 1460, margin: "0 auto" }}>
         <Suspense fallback={<LoadingPanel theme={theme} lang={lang} />}>
           <div key={activeTab} className="page-transition" data-tab={activeTab}>
-            {activeTab === "home" && <HomeTab setActiveTab={navigateTab} onContactOpen={setContactOpen} onOpenComparisonBuilder={() => setHomeComparisonOpen(true)} />}
+            {activeTab === "home" && <HomeTab setActiveTab={navigateTab} onContactOpen={setContactOpen} onOpenComparisonBuilder={() => openComparisonBuilder()} />}
             {activeTab === "ecoscreen" && (
               <EcoScreenTab
                 inputs={inputs}
@@ -315,7 +324,7 @@ function AppShell({
                 onAddComparison={addCurrentToComparison}
               />
             )}
-            {activeTab === "gassep" && <GasSepTab onNavigate={navigateTab} onOpenComparisonBuilder={() => setHomeComparisonOpen(true)} />}
+            {activeTab === "gassep" && <GasSepTab onNavigate={navigateTab} onOpenComparisonBuilder={openComparisonBuilder} />}
             {activeTab === "catalysis" && <CatalysisLabTab onNavigate={navigateTab} />}
             {activeTab === "library" && <MOFLibraryTab results={results} inputs={inputs} />}
             {activeTab === "workflow" && <WorkflowTab setActiveTab={navigateTab} inputs={inputs} results={results} />}
@@ -448,7 +457,8 @@ function AppShell({
       <CandidateComparisonModal
         open={homeComparisonOpen}
         candidates={[]}
-        onClose={() => setHomeComparisonOpen(false)}
+        initialContext={comparisonBuilderContext}
+        onClose={closeComparisonBuilder}
         t={theme}
         lang={lang}
         isMobile={viewport.isMobile}

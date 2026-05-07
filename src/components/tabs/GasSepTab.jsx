@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import {
   useT, useLang, useViewport,
   FONT_MONO,
@@ -73,6 +73,21 @@ function displayGasPair(value = "") {
     .replace(/C2H4/g, "C₂H₄")
     .replace(/C2H6/g, "C₂H₆")
     .replace(/H2/g, "H₂")
+}
+
+function pressureLabel(record) {
+  if (record?.pressureKPa == null) return ""
+  const bar = Number(record.pressureKPa) / 100
+  return Number.isInteger(bar) ? `${bar} bar` : `${bar.toFixed(2)} bar`
+}
+
+function methodContextValue(method = "") {
+  const text = String(method || "").toLowerCase()
+  if (text.includes("iast")) return "IAST"
+  if (text.includes("gcmc")) return "GCMC"
+  if (text.includes("breakthrough")) return "breakthrough"
+  if (text.includes("experimental")) return "experimental"
+  return "pending"
 }
 
 function methodMatches(recordMethod, selectedMethod) {
@@ -209,6 +224,24 @@ function ActionButton({ children, onClick, disabled, title, t }) {
   )
 }
 
+function buildGasSepComparisonContext(record) {
+  return {
+    compareFunction: "gas-separation",
+    conditionContext: {
+      gasPair: displayGasPair(record?.separationSystem || ""),
+      temperature: record?.temperatureK == null ? "" : `${record.temperatureK} K`,
+      pressure: pressureLabel(record),
+      method: methodContextValue(record?.method),
+      dataStatus: record?.curationStatus || "",
+      sourceStatus: record?.sourceStatus || "",
+    },
+    source: "gassep-record",
+    sourceRecordId: record?.recordId || "",
+    candidateId: record?.candidateId || record?.mofId || record?.mof_id || "",
+    candidateName: record?.mofName || "",
+  }
+}
+
 export function GasSepTab({ onNavigate, onOpenComparisonBuilder }) {
   const t = useT()
   const { lang } = useLang()
@@ -251,6 +284,10 @@ export function GasSepTab({ onNavigate, onOpenComparisonBuilder }) {
   const updateFilter = (key, value) => setFilters(prev => ({ ...prev, [key]: value }))
   const clearFilters = () => setFilters({ gasPair: "all", customGasPair: "", temperature: "all", customTemperature: "", pressure: "all", customPressure: "", method: "all", dataStatus: "all" })
   const hasActiveFilters = ["gasPair", "temperature", "pressure", "method", "dataStatus"].some(key => filters[key] !== "all")
+  const openBuilderWithRecord = useCallback((record) => {
+    if (!onOpenComparisonBuilder) return
+    onOpenComparisonBuilder(buildGasSepComparisonContext(record))
+  }, [onOpenComparisonBuilder])
 
   const filterOptions = useMemo(() => ({
     gasPair: [
@@ -484,7 +521,7 @@ export function GasSepTab({ onNavigate, onOpenComparisonBuilder }) {
                   const canViewPerformance = Boolean(onNavigate && record.mofName && !isSchemaOnlyRecord(record))
                   const performanceTitle = canViewPerformance ? undefined : (zh ? "性能记录待补充。" : "Performance record pending.")
                   const builderTitle = onOpenComparisonBuilder
-                    ? (zh ? "条件语境可在对比器中选择。" : "Condition context should be selected in the builder.")
+                    ? (zh ? "将该记录的气体分离条件语境带入对比器。" : "Load this gas separation condition context into the builder.")
                     : (zh ? "对比器入口待补充。" : "Comparison builder entry pending.")
                   return (
                     <tr key={record.recordId} className="motion-table-row">
@@ -514,7 +551,7 @@ export function GasSepTab({ onNavigate, onOpenComparisonBuilder }) {
                             t={t}
                             disabled={!onOpenComparisonBuilder}
                             title={builderTitle}
-                            onClick={onOpenComparisonBuilder}
+                            onClick={() => openBuilderWithRecord(record)}
                           >
                             {zh ? "加入对比器" : "Add to Builder"}
                           </ActionButton>

@@ -97,6 +97,43 @@ const DEFAULT_CONTEXT = {
   },
 }
 
+function createDefaultContext() {
+  return Object.fromEntries(Object.entries(DEFAULT_CONTEXT).map(([key, value]) => [key, { ...value }]))
+}
+
+function normalizeCompareFunctionId(value) {
+  if (value === "gas-separation" || value === "gasSeparation") return "gasSeparation"
+  if (value === "data-completeness" || value === "dataCompleteness") return "dataCompleteness"
+  if (value === "co2-capture" || value === "co2Capture") return "co2Capture"
+  if (value === "sustainability") return "sustainability"
+  if (value === "catalysis") return "catalysis"
+  return "dataCompleteness"
+}
+
+function contextKey(initialContext) {
+  if (!initialContext) return "default"
+  return [
+    initialContext.source || "",
+    initialContext.sourceRecordId || "",
+    initialContext.candidateId || "",
+    initialContext.candidateName || "",
+    normalizeCompareFunctionId(initialContext.compareFunction),
+    JSON.stringify(initialContext.conditionContext || {}),
+  ].join("|")
+}
+
+function findCandidateFromContext(initialContext, rows) {
+  if (!initialContext || !Array.isArray(rows)) return null
+  const candidateId = String(initialContext.candidateId || "").trim().toLowerCase()
+  const candidateName = String(initialContext.candidateName || "").trim().toLowerCase()
+  if (!candidateId && !candidateName) return null
+  return rows.find(item => {
+    const id = String(item.id || "").toLowerCase()
+    const name = String(item.name || item.mofName || "").toLowerCase()
+    return (candidateId && id === candidateId) || (candidateName && name === candidateName)
+  }) || null
+}
+
 function isMissing(value) {
   return value === undefined || value === null || value === "" || value === "—" || value === "pending" || value === "unknown"
 }
@@ -217,6 +254,13 @@ function displayField(candidate, key, lang) {
   return unit ? `${raw} ${unit}` : String(raw)
 }
 
+function displayComparisonField(candidate, key, lang, compareFunctionId, currentContext = {}) {
+  if (compareFunctionId === "gasSeparation" && ["gasPair", "temperature", "pressure", "method"].includes(key)) {
+    return isMissing(currentContext[key]) ? pendingLabel(lang) : currentContext[key]
+  }
+  return displayField(candidate, key, lang)
+}
+
 function dataConfidence(candidate) {
   const statuses = CORE_FIELDS.map(field => fieldStatus(candidate, field.key))
   const withSource = CORE_FIELDS.filter(field => {
@@ -318,7 +362,7 @@ function addUnique(list, value) {
   if (value && !list.includes(value)) list.push(value)
 }
 
-function missingFieldsForFunction(candidate, compareFunction, lang) {
+function missingFieldsForFunction(candidate, compareFunction, lang, currentContext = {}) {
   const missing = []
   const zh = lang === "zh"
   const candidateKeys = new Set([...(compareFunction.actualFields || []), ...(compareFunction.keyFields || [])])
@@ -356,6 +400,7 @@ function missingFieldsForFunction(candidate, compareFunction, lang) {
       if (isMissing(candidate.activeSiteHypothesis)) addUnique(missing, fieldLabel(key, lang))
       return
     }
+    if (["gasPair", "temperature", "pressure", "method"].includes(key) && !isMissing(currentContext[key])) return
     if (["conditionContext", "productMetricStatus", "gasPair", "uptakeSelectivityStatus", "temperature", "pressure", "method", "recyclability"].includes(key)) {
       addUnique(missing, fieldLabel(key, lang))
     }
@@ -399,6 +444,11 @@ function FormControl({ label, value, onChange, options, t }) {
       </select>
     </label>
   )
+}
+
+function optionsWithCurrent(options, value) {
+  if (isMissing(value) || options.includes(value)) return options
+  return [value, ...options]
 }
 
 function TextControl({ label, value, onChange, placeholder, t }) {
@@ -493,6 +543,7 @@ export function CandidateComparisonModal({
   open,
   candidates = [],
   allCandidates = [],
+  initialContext = null,
   onSelectionChange,
   onClose,
   t,
@@ -506,7 +557,9 @@ export function CandidateComparisonModal({
   const [internalIds, setInternalIds] = useState([])
   const [query, setQuery] = useState("")
   const [compareFunctionId, setCompareFunctionId] = useState("dataCompleteness")
-  const [context, setContext] = useState(DEFAULT_CONTEXT)
+  const [context, setContext] = useState(() => createDefaultContext())
+  const [externalContext, setExternalContext] = useState(null)
+  const [appliedContextKey, setAppliedContextKey] = useState("")
   const [built, setBuilt] = useState(false)
   const [showFullTable, setShowFullTable] = useState(false)
   const [notice, setNotice] = useState("")
@@ -567,6 +620,58 @@ export function CandidateComparisonModal({
       .slice(0, q ? 12 : 8)
   }, [normalizedAll, query])
 
+  useEffect(() => {
+    if (!open) {
+      setAppliedContextKey("")
+      return
+    }
+
+    const key = contextKey(initialContext)
+    if (appliedContextKey === key) return
+
+    if (!initialContext) {
+      setCompareFunctionId("dataCompleteness")
+      setContext(createDefaultContext())
+      setExternalContext(null)
+      setNotice("")
+      setBuilt(false)
+      setShowFullTable(false)
+      setAppliedContextKey(key)
+      return
+    }
+
+    const nextFunctionId = normalizeCompareFunctionId(initialContext.compareFunction)
+    const nextDefaults = createDefaultContext()
+    nextDefaults[nextFunctionId] = {
+      ...nextDefaults[nextFunctionId],
+      ...(initialContext.conditionContext || {}),
+    }
+    setCompareFunctionId(nextFunctionId)
+    setContext(nextDefaults)
+    setExternalContext(initialContext)
+    setBuilt(false)
+    setShowFullTable(false)
+
+    const matched = findCandidateFromContext(initialContext, normalizedAll)
+    const currentIds = controlled ? candidates.map(item => item.id).filter(Boolean).slice(0, 3) : internalIds.slice(0, 3)
+    if (matched?.id) {
+      if (currentIds.includes(matched.id)) {
+        setNotice(zh ? "已从 GasSep 带入气体分离条件语境。" : "Gas separation context loaded from GasSep.")
+      } else if (currentIds.length >= 3) {
+        setNotice(zh ? "已达到对比上限，如需添加请先移除一个候选材料。" : "Comparison limit reached. Remove a candidate to add another.")
+      } else {
+        const nextIds = [...currentIds, matched.id].slice(0, 3)
+        if (controlled) onSelectionChange?.(nextIds)
+        else setInternalIds(nextIds)
+        setNotice(zh ? "已从 GasSep 带入气体分离条件语境。" : "Gas separation context loaded from GasSep.")
+      }
+    } else {
+      setNotice(zh ? "已带入条件语境，候选材料匹配待补充。" : "Condition context loaded. Candidate match is pending.")
+    }
+
+    setAppliedContextKey(key)
+  }, [open, initialContext, appliedContextKey, normalizedAll, controlled, candidates, internalIds, onSelectionChange, zh])
+
   if (!open) return null
 
   const updateSelectedIds = (nextIds) => {
@@ -587,7 +692,14 @@ export function CandidateComparisonModal({
   }
 
   const removeCandidate = (id) => updateSelectedIds(selectedIds.filter(item => item !== id))
-  const clearSelected = () => updateSelectedIds([])
+  const clearSelected = () => {
+    updateSelectedIds([])
+    setCompareFunctionId("dataCompleteness")
+    setContext(createDefaultContext())
+    setExternalContext(null)
+    setAppliedContextKey("")
+    setNotice("")
+  }
   const updateContext = (key, value) => {
     setContext(prev => ({ ...prev, [compareFunctionId]: { ...prev[compareFunctionId], [key]: value } }))
     setBuilt(false)
@@ -605,7 +717,7 @@ export function CandidateComparisonModal({
         dataStatus: candidate.dataStatus,
         evidenceLevel: candidate.evidenceLevel,
         conditionMatch: conditionMatch(candidate, compareFunction, lang).label,
-        keyFields: Object.fromEntries(compareFunction.keyFields.map(key => [key, displayField(candidate, key, lang)])),
+        keyFields: Object.fromEntries(compareFunction.keyFields.map(key => [key, displayComparisonField(candidate, key, lang, compareFunctionId, context[compareFunctionId])])),
         dataConfidence: dataConfidence(candidate),
       })),
     }
@@ -643,11 +755,11 @@ export function CandidateComparisonModal({
     if (compareFunctionId === "gasSeparation") {
       return (
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 8 }}>
-          <FormControl label={zh ? "气体对" : "Gas pair"} value={current.gasPair} onChange={value => updateContext("gasPair", value)} options={["CO₂/N₂", "CO₂/CH₄", "C₂H₂/CO₂", "custom"]} t={t} />
-          <FormControl label={zh ? "比例" : "Ratio"} value={current.ratio} onChange={value => updateContext("ratio", value)} options={["15/85", "50/50", "custom"]} t={t} />
-          <FormControl label={zh ? "温度" : "Temperature"} value={current.temperature} onChange={value => updateContext("temperature", value)} options={["298 K", "custom"]} t={t} />
-          <FormControl label={zh ? "压力" : "Pressure"} value={current.pressure} onChange={value => updateContext("pressure", value)} options={["1 bar", "custom"]} t={t} />
-          <FormControl label={zh ? "方法" : "Method"} value={current.method} onChange={value => updateContext("method", value)} options={["IAST", "GCMC", "breakthrough", "experimental", "pending"]} t={t} />
+          <FormControl label={zh ? "气体对" : "Gas pair"} value={current.gasPair} onChange={value => updateContext("gasPair", value)} options={optionsWithCurrent(["CO₂/N₂", "CO₂/CH₄", "C₂H₂/CO₂", "C₂H₂/C₂H₄", "Xe/Kr", "H₂/CO₂", "custom"], current.gasPair)} t={t} />
+          <FormControl label={zh ? "比例" : "Ratio"} value={current.ratio} onChange={value => updateContext("ratio", value)} options={optionsWithCurrent(["15/85", "50/50", "custom"], current.ratio)} t={t} />
+          <FormControl label={zh ? "温度" : "Temperature"} value={current.temperature} onChange={value => updateContext("temperature", value)} options={optionsWithCurrent(["273 K", "298 K", "313 K", "custom"], current.temperature)} t={t} />
+          <FormControl label={zh ? "压力" : "Pressure"} value={current.pressure} onChange={value => updateContext("pressure", value)} options={optionsWithCurrent(["1 bar", "5 bar", "custom"], current.pressure)} t={t} />
+          <FormControl label={zh ? "方法" : "Method"} value={current.method} onChange={value => updateContext("method", value)} options={optionsWithCurrent(["IAST", "GCMC", "breakthrough", "experimental", "pending"], current.method)} t={t} />
         </div>
       )
     }
@@ -893,6 +1005,21 @@ export function CandidateComparisonModal({
               subtitle={zh ? "这些条件用于对比语境，不代表已验证实验条件。" : "These settings define comparison context; they are not validated experimental conditions."}
               t={t}
             >
+              {externalContext?.source === "gassep-record" && compareFunctionId === "gasSeparation" && (
+                <div style={{
+                  background: t.surface,
+                  border: `1px solid ${t.border}`,
+                  borderRadius: 8,
+                  color: t.subtle,
+                  fontSize: 11,
+                  lineHeight: 1.55,
+                  padding: "8px 10px",
+                }}>
+                  {zh
+                    ? "已从 GasSep 带入气体分离条件语境。生成对比前仍可修改条件字段。"
+                    : "Gas separation context loaded from GasSep. You can edit the condition fields before building the comparison."}
+                </div>
+              )}
               {renderConditionControls()}
             </Section>
 
@@ -958,7 +1085,7 @@ export function CandidateComparisonModal({
                       {selected.map(candidate => (
                         <td key={candidate.id} style={{ padding: "8px 10px", color: t.textStrong, borderTop: `1px solid ${t.border}`, verticalAlign: "top" }}>
                           <span style={{ display: "inline-flex", alignItems: "center", gap: 3, maxWidth: "100%" }}>
-                            <span style={{ overflowWrap: "anywhere" }}>{displayField(candidate, key, lang)}</span>
+                            <span style={{ overflowWrap: "anywhere" }}>{displayComparisonField(candidate, key, lang, compareFunctionId, context[compareFunctionId])}</span>
                             {CORE_FIELDS.some(field => field.key === key) && (
                               <FieldProvenanceButton
                                 fieldKey={key}
@@ -1008,7 +1135,7 @@ export function CandidateComparisonModal({
             <Section title={zh ? "待补充字段" : "Missing fields"} t={t}>
               <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 8 }}>
                 {selected.map(candidate => {
-                  const missing = missingFieldsForFunction(candidate, compareFunction, lang)
+                  const missing = missingFieldsForFunction(candidate, compareFunction, lang, context[compareFunctionId])
                   return (
                     <div key={candidate.id} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
                       <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, marginBottom: 7 }}>{candidate.name}</div>
