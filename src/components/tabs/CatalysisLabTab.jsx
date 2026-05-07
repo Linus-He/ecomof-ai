@@ -2598,19 +2598,54 @@ function ReactFragmentLike({ children }) {
 function PathwayFlowMap({ selected, onSelect, lang, t, isMobile }) {
   const selectedFeed = FLOW_NODES.feedstock.find(item => item.key === selected.key)
   const selectedProduct = FLOW_NODES.products.find(item => item.key === selected.key)
-  const highlightedModes = selectedFeed?.modes || []
-  const highlightedProducts = selectedFeed?.products || (selectedProduct ? [selectedProduct.key] : [])
-  const highlightedMetrics = selectedProduct?.metrics || []
+  const selectedMode = RESEARCH_MODES.find(item => item.key === selected.key)
+  const selectedMetric = typeof selected.key === "string" && selected.type === "metric" ? selected.key : null
+  const modeRelatedRows = selectedMode ? RESEARCH_TASK_ROWS.filter(row => row.modeKeys.includes(selectedMode.key)) : []
+  const metricRelatedProducts = selectedMetric
+    ? FLOW_NODES.products.filter(item => item.metrics.includes(selectedMetric)).map(item => item.key)
+    : []
+  const highlightedModes = selectedFeed?.modes || (selectedMode ? [selectedMode.key] : [])
+  const highlightedProducts = selectedFeed?.products || (selectedProduct ? [selectedProduct.key] : metricRelatedProducts)
+  const highlightedMetrics = selectedProduct?.metrics || (selectedMode ? Array.from(new Set(modeRelatedRows.flatMap(row => row.metricsEn))).slice(0, 5) : selectedMetric ? [selectedMetric] : [])
+  const metricItems = highlightedMetrics.length ? highlightedMetrics : (lang === "zh" ? ["点击原料、催化方式或产物"] : ["Select feedstock, mode, or product"])
   return (
     <div style={{ display: "grid", gap: 12 }}>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr 1fr", gap: 12, alignItems: "stretch" }}>
         <FlowColumn title={lang === "zh" ? "原料" : "Feedstock"} items={FLOW_NODES.feedstock} activeKey={selected.key} onSelect={onSelect} lang={lang} t={t} />
-        <FlowColumn title={lang === "zh" ? "催化方式" : "Catalytic mode"} items={RESEARCH_MODES} activeKeys={highlightedModes} lang={lang} t={t} passive />
+        <FlowColumn title={lang === "zh" ? "催化方式" : "Catalytic mode"} items={RESEARCH_MODES} activeKeys={highlightedModes} activeKey={selected.key} onSelect={item => onSelect?.({ key: item.key, type: "mode" })} lang={lang} t={t} />
         <FlowColumn title={lang === "zh" ? "产物族" : "Product family"} items={FLOW_NODES.products} activeKeys={highlightedProducts} activeKey={selected.key} onSelect={onSelect} lang={lang} t={t} />
         <section style={{ ...catalysisCardStyle(t, { surface: "surface", padding: 12, radius: 12 }) }}>
-          <CatalysisKicker t={t}>{lang === "zh" ? "指标关注" : "Metric focus"}</CatalysisKicker>
-          <div style={{ marginTop: 10 }}>
-            <PathwayPills items={highlightedMetrics.length ? highlightedMetrics : (lang === "zh" ? ["点击原料或产物"] : ["Select a feedstock or product"])} lang={lang} t={t} tone={highlightedMetrics.length ? "accent" : "default"} />
+          <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center" }}>
+            <CatalysisKicker t={t}>{lang === "zh" ? "指标关注" : "Metric focus"}</CatalysisKicker>
+            <button type="button" onClick={() => onSelect?.({ key: "all", type: "all" })} style={{ ...toolbarBtn(t), fontSize: 10, padding: "5px 8px" }}>
+              {lang === "zh" ? "清除" : "Clear"}
+            </button>
+          </div>
+          <div style={{ display: "flex", gap: 7, flexWrap: "wrap", marginTop: 10 }}>
+            {metricItems.map(item => {
+              const active = selectedMetric === item
+              const disabled = !highlightedMetrics.length
+              return (
+                <button
+                  key={item}
+                  type="button"
+                  disabled={disabled}
+                  onClick={() => onSelect?.({ key: item, type: "metric" })}
+                  style={{
+                    background: active ? t.badgeInfoBg : t.panel,
+                    border: `1px solid ${active ? (t.borderStrong || t.border) : t.border}`,
+                    borderRadius: 999,
+                    color: active ? t.accentText : disabled ? t.faint : t.textStrong,
+                    cursor: disabled ? "default" : "pointer",
+                    fontSize: 10,
+                    fontWeight: 820,
+                    padding: "6px 9px",
+                  }}
+                >
+                  {item}
+                </button>
+              )
+            })}
           </div>
         </section>
       </div>
@@ -2656,7 +2691,7 @@ function FlowColumn({ title, items, activeKey, activeKeys = [], onSelect, lang, 
   )
 }
 
-function MetricCoverageRadar({ row, lang, t }) {
+function MetricCoverageRadar({ row, activeMetricKey, onMetricSelect, lang, t }) {
   const size = 230
   const center = size / 2
   const maxR = 82
@@ -2675,6 +2710,14 @@ function MetricCoverageRadar({ row, lang, t }) {
     }
   })
   const polygon = points.map(point => `${point.x},${point.y}`).join(" ")
+  const activeAxis = RADAR_METRIC_AXES.find(axis => axis.key === activeMetricKey) || RADAR_METRIC_AXES.find(axis => axis.key === "condition")
+  const activeStatus = row?.coverage?.[activeAxis.key] || "pending"
+  const metricStatusLabel = {
+    required: { en: "required", zh: "必需" },
+    optional: { en: "optional", zh: "可选" },
+    pending: { en: "pending", zh: "待补充" },
+    na: { en: "not applicable", zh: "不适用" },
+  }
   return (
     <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 250px) minmax(0, 1fr)", gap: 14, alignItems: "center" }}>
       <svg viewBox={`0 0 ${size} ${size}`} role="img" aria-label={lang === "zh" ? "指标覆盖雷达图" : "Metric coverage radar"} style={{ width: "100%", maxWidth: 250 }}>
@@ -2687,7 +2730,16 @@ function MetricCoverageRadar({ row, lang, t }) {
         <polygon points={polygon} fill={t.badgeInfoBg} stroke={t.accent} strokeWidth="2" opacity="0.9" />
         {points.map(point => (
           <g key={point.axis.key}>
-            <circle cx={point.x} cy={point.y} r="4" fill={point.status === "required" ? t.accent : point.status === "pending" ? (t.warn || t.accentSoft) : t.faint} />
+            <circle
+              cx={point.x}
+              cy={point.y}
+              r={point.axis.key === activeMetricKey ? "6" : "4"}
+              fill={point.status === "required" ? t.accent : point.status === "pending" ? (t.warn || t.accentSoft) : t.faint}
+              stroke={point.axis.key === activeMetricKey ? t.textStrong : "transparent"}
+              strokeWidth="2"
+              style={{ cursor: "pointer" }}
+              onClick={() => onMetricSelect?.(point.axis.key)}
+            />
             <text x={point.labelX} y={point.labelY} textAnchor={point.labelX > center + 8 ? "start" : point.labelX < center - 8 ? "end" : "middle"} dominantBaseline="middle" fill={t.faint} fontSize="9" fontWeight="700">
               {lang === "zh" ? point.axis.zh : point.axis.en}
             </text>
@@ -2697,6 +2749,12 @@ function MetricCoverageRadar({ row, lang, t }) {
       <div style={{ display: "grid", gap: 8 }}>
         <CatalysisCardTitle t={t}>{row ? (lang === "zh" ? row.taskZh : row.taskEn) : (lang === "zh" ? "通用催化任务需求" : "General catalysis task requirement")}</CatalysisCardTitle>
         <PathwayPills items={lang === "zh" ? ["必需", "待补充", "不适用"] : ["required", "pending", "not applicable"]} lang={lang} t={t} tone="accent" />
+        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 10 }}>
+          <CatalysisKicker t={t}>{lang === "zh" ? "选中维度" : "Selected metric"}</CatalysisKicker>
+          <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 880, marginTop: 5 }}>
+            {lang === "zh" ? activeAxis.zh : activeAxis.en} · {lang === "zh" ? metricStatusLabel[activeStatus]?.zh : metricStatusLabel[activeStatus]?.en}
+          </div>
+        </div>
         <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55 }}>
           {lang === "zh" ? "指标覆盖表示数据整理需求，不代表实测催化性能。" : "Metric coverage reflects curation requirements, not measured catalytic performance."}
         </div>
@@ -3433,17 +3491,18 @@ export function CatalysisLabTab({ onNavigate }) {
     domainKey: "co2-biomass-coupling",
     modeKey: "thermal",
   })
-  const [flowSelection, setFlowSelection] = useState({ key: "biomass", type: "feedstock" })
+  const [flowSelection, setFlowSelection] = useState({ key: "all", type: "all" })
+  const [flowFilterActive, setFlowFilterActive] = useState(false)
+  const [selectedTaskId, setSelectedTaskId] = useState("glucose-hco3-formic-case")
+  const [selectedComparisonIds, setSelectedComparisonIds] = useState(["glucose-hco3-formic-case", "co2-formate-electro"])
+  const [selectedRadarMetric, setSelectedRadarMetric] = useState("condition")
+  const [workspaceNotice, setWorkspaceNotice] = useState("")
   const [taskFilters, setTaskFilters] = useState({
     domain: "all",
     mode: "all",
     product: "all",
     curation: "all",
     comparability: "all",
-  })
-  const [taskComparisonPair, setTaskComparisonPair] = useState({
-    left: "glucose-hco3-formic-case",
-    right: "co2-formate-electro",
   })
   const [filters, setFilters] = useState({
     metalCenter: "all",
@@ -3597,17 +3656,44 @@ export function CatalysisLabTab({ onNavigate }) {
     }
   }, [analysisPair])
   const filteredResearchTasks = useMemo(() => {
+    const selectedFeed = flowFilterActive ? FLOW_NODES.feedstock.find(item => item.key === flowSelection.key) : null
+    const selectedProduct = flowFilterActive ? FLOW_NODES.products.find(item => item.key === flowSelection.key) : null
+    const selectedMode = flowFilterActive ? RESEARCH_MODES.find(item => item.key === flowSelection.key) : null
+    const selectedMetric = flowFilterActive && flowSelection.type === "metric" ? String(flowSelection.key || "").toLowerCase() : null
     return RESEARCH_TASK_ROWS.filter(row => (
       (taskFilters.domain === "all" || row.domainKey === taskFilters.domain) &&
       (taskFilters.mode === "all" || row.modeKeys.includes(taskFilters.mode)) &&
       (taskFilters.product === "all" || row.productKey === taskFilters.product) &&
       (taskFilters.curation === "all" || row.curationStatusKey === taskFilters.curation) &&
-      (taskFilters.comparability === "all" || row.comparabilityKey === taskFilters.comparability)
+      (taskFilters.comparability === "all" || row.comparabilityKey === taskFilters.comparability) &&
+      (!selectedFeed || (selectedFeed.products.includes(row.productKey) || row.modeKeys.some(mode => selectedFeed.modes.includes(mode)))) &&
+      (!selectedProduct || row.productKey === selectedProduct.key) &&
+      (!selectedMode || row.modeKeys.includes(selectedMode.key)) &&
+      (!selectedMetric || row.metricsEn.some(metric => metric.toLowerCase() === selectedMetric))
     ))
-  }, [taskFilters])
+  }, [taskFilters, flowSelection, flowFilterActive])
   const taskComparabilityAnalysis = useMemo(() => {
-    const left = RESEARCH_TASK_ROWS.find(row => row.id === taskComparisonPair.left) || RESEARCH_TASK_ROWS[0]
-    const right = RESEARCH_TASK_ROWS.find(row => row.id === taskComparisonPair.right) || RESEARCH_TASK_ROWS[1]
+    const [leftId, rightId] = selectedComparisonIds
+    const left = RESEARCH_TASK_ROWS.find(row => row.id === leftId) || null
+    const right = RESEARCH_TASK_ROWS.find(row => row.id === rightId) || null
+    if (!left || !right) {
+      return {
+        ready: false,
+        left,
+        right,
+        statusKey: "not-comparable",
+        status: PATHWAY_COMPARABILITY_LABELS["not-comparable"],
+        reason: {
+          en: "Select two catalysis tasks to assess comparability.",
+          zh: "选择两项催化任务以评估可比性。",
+        },
+        missingBridgeMetrics: [],
+        normalizedEn: [],
+        normalizedZh: [],
+        nextEn: [],
+        nextZh: [],
+      }
+    }
     const sameDomain = left.domainKey === right.domainKey
     const sharedMode = left.modeKeys.some(mode => right.modeKeys.includes(mode))
     const leftMetrics = new Set(left.metricsEn.map(item => item.toLowerCase()))
@@ -3636,6 +3722,7 @@ export function CatalysisLabTab({ onNavigate }) {
             : "这些任务在能量输入、指标体系或条件语境上存在差异，不建议在桥梁指标补充前直接比较。",
     }
     return {
+      ready: true,
       left,
       right,
       statusKey,
@@ -3647,10 +3734,15 @@ export function CatalysisLabTab({ onNavigate }) {
       nextEn: ["field-level evidence", "condition-context record", "source status", "product quantification method"],
       nextZh: ["逐字段证据", "条件语境记录", "来源状态", "产物定量方法"],
     }
-  }, [taskComparisonPair])
+  }, [selectedComparisonIds])
   const selectedRadarTask = useMemo(() => (
-    RESEARCH_TASK_ROWS.find(row => row.id === taskComparisonPair.left) || RESEARCH_TASK_ROWS[0]
-  ), [taskComparisonPair.left])
+    RESEARCH_TASK_ROWS.find(row => row.id === selectedTaskId) || RESEARCH_TASK_ROWS.find(row => row.id === selectedComparisonIds[0]) || RESEARCH_TASK_ROWS[0]
+  ), [selectedTaskId, selectedComparisonIds])
+  const selectedWorkspaceTask = selectedRadarTask
+  const selectedComparisonRows = selectedComparisonIds
+    .map(id => RESEARCH_TASK_ROWS.find(row => row.id === id))
+    .filter(Boolean)
+  const selectedMatrixDetail = matrixCellDetail(matrixSelection.domainKey, matrixSelection.modeKey)
   const chartData = useMemo(() => ({
     evidence: chartsReady ? evidenceDistribution(ranked) : [],
     scores: chartsReady ? scoreDistribution(ranked) : [],
@@ -3659,13 +3751,102 @@ export function CatalysisLabTab({ onNavigate }) {
   const updateFilter = useCallback((key, value) => setFilters(prev => ({ ...prev, [key]: value })), [])
   const updatePathwayFilter = useCallback((key, value) => setPathwayFilters(prev => ({ ...prev, [key]: value })), [])
   const updateTaskFilter = useCallback((key, value) => setTaskFilters(prev => ({ ...prev, [key]: value })), [])
-  const clearTaskFilters = useCallback(() => setTaskFilters({
-    domain: "all",
-    mode: "all",
-    product: "all",
-    curation: "all",
-    comparability: "all",
-  }), [])
+  const clearTaskFilters = useCallback(() => {
+    setTaskFilters({
+      domain: "all",
+      mode: "all",
+      product: "all",
+      curation: "all",
+      comparability: "all",
+    })
+    setFlowSelection({ key: "all", type: "all" })
+    setFlowFilterActive(false)
+    setWorkspaceNotice("")
+  }, [])
+  const syncTaskFromRow = useCallback((row) => {
+    if (!row) return
+    setSelectedTaskId(row.id)
+    setMatrixSelection({ domainKey: row.domainKey, modeKey: row.modeKeys[0] || "thermal" })
+    setSelectedRadarMetric(row.coverage?.condition ? "condition" : "selectivity")
+    const relatedFeed = FLOW_NODES.feedstock.find(item => item.products.includes(row.productKey) || row.modeKeys.some(mode => item.modes.includes(mode)))
+    setFlowSelection(relatedFeed ? { key: relatedFeed.key, type: "feedstock" } : { key: "all", type: "all" })
+    setFlowFilterActive(false)
+    setWorkspaceNotice("")
+  }, [])
+  const handleMatrixSelect = useCallback((selection) => {
+    setMatrixSelection(selection)
+    setTaskFilters(prev => ({
+      ...prev,
+      domain: selection.domainKey,
+      mode: selection.modeKey,
+    }))
+    const match = RESEARCH_TASK_ROWS.find(row => row.domainKey === selection.domainKey && row.modeKeys.includes(selection.modeKey))
+    if (match) {
+      setSelectedTaskId(match.id)
+      setSelectedComparisonIds(prev => {
+        const next = [match.id, ...prev.filter(id => id !== match.id)].slice(0, 2)
+        return next
+      })
+      const relatedFeed = FLOW_NODES.feedstock.find(item => item.products.includes(match.productKey) || match.modeKeys.some(mode => item.modes.includes(mode)))
+      setFlowSelection(relatedFeed ? { key: relatedFeed.key, type: "feedstock" } : { key: match.productKey, type: "product" })
+      setFlowFilterActive(false)
+      setSelectedRadarMetric(match.coverage?.condition ? "condition" : "selectivity")
+      setWorkspaceNotice("")
+    } else {
+      setWorkspaceNotice(lang === "zh" ? "该单元暂无整理任务。" : "No curated task yet for this cell.")
+    }
+  }, [lang])
+  const handleFlowSelect = useCallback((selection) => {
+    setFlowSelection(selection)
+    setFlowFilterActive(selection.type !== "all")
+    if (selection.type === "mode") {
+      setTaskFilters(prev => ({ ...prev, mode: selection.key }))
+      const match = RESEARCH_TASK_ROWS.find(row => row.modeKeys.includes(selection.key))
+      if (match) setSelectedTaskId(match.id)
+    } else if (selection.type === "product") {
+      setTaskFilters(prev => ({ ...prev, product: selection.key }))
+      const match = RESEARCH_TASK_ROWS.find(row => row.productKey === selection.key)
+      if (match) setSelectedTaskId(match.id)
+    } else if (selection.type === "metric") {
+      const axis = RADAR_METRIC_AXES.find(item => item.en.toLowerCase() === String(selection.key).toLowerCase() || item.key === selection.key)
+      setSelectedRadarMetric(axis?.key || "condition")
+      const match = RESEARCH_TASK_ROWS.find(row => row.metricsEn.some(metric => metric.toLowerCase() === String(selection.key).toLowerCase()))
+      if (match) setSelectedTaskId(match.id)
+    } else if (selection.type === "feedstock") {
+      const feed = FLOW_NODES.feedstock.find(item => item.key === selection.key)
+      const match = feed ? RESEARCH_TASK_ROWS.find(row => feed.products.includes(row.productKey) || row.modeKeys.some(mode => feed.modes.includes(mode))) : null
+      if (match) setSelectedTaskId(match.id)
+    } else {
+      setTaskFilters(prev => ({ ...prev, product: "all" }))
+    }
+    setWorkspaceNotice("")
+  }, [])
+  const handleTaskRowSelect = useCallback((row) => {
+    syncTaskFromRow(row)
+  }, [syncTaskFromRow])
+  const toggleTaskComparison = useCallback((rowId) => {
+    setSelectedComparisonIds(prev => {
+      if (prev.includes(rowId)) {
+        setWorkspaceNotice("")
+        return prev.filter(id => id !== rowId)
+      }
+      if (prev.length >= 2) {
+        setWorkspaceNotice(lang === "zh" ? "最多选择两项任务进行可比性评估；请先移除一项。" : "Compare up to two tasks; remove one selection first.")
+        return prev
+      }
+      setWorkspaceNotice("")
+      return [...prev, rowId]
+    })
+  }, [lang])
+  const clearWorkspaceSelection = useCallback(() => {
+    setTaskFilters({ domain: "all", mode: "all", product: "all", curation: "all", comparability: "all" })
+    setFlowSelection({ key: "all", type: "all" })
+    setFlowFilterActive(false)
+    setMatrixSelection({ domainKey: "co2-biomass-coupling", modeKey: "thermal" })
+    setSelectedTaskId("glucose-hco3-formic-case")
+    setSelectedComparisonIds([])
+    setWorkspaceNotice("")
+  }, [])
   const clearPathwayFilters = useCallback(() => setPathwayFilters({
     mode: "all",
     feedstock: "all",
@@ -3772,82 +3953,116 @@ export function CatalysisLabTab({ onNavigate }) {
 
       <ResultLayer
         number="01"
-        title={lang === "zh" ? "催化总览仪表盘" : "Catalysis Overview Dashboard"}
+        title={lang === "zh" ? "催化工作台总览" : "Catalysis Workspace Dashboard"}
         subtitle={lang === "zh"
-          ? "总览先显示领域、催化方式、指标体系和可比性状态。"
-          : "The overview starts with domains, catalytic modes, metric systems, and comparability status."}
+          ? "从总状态进入矩阵、路径、指标和可比性判断；点击任一图表会联动筛选表格与评估面板。"
+          : "Start from status, then link matrix, pathway flow, metric coverage, and comparability assessment through shared selections."}
       >
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr" : "minmax(280px, 0.92fr) minmax(0, 1.55fr)", gap: 14, alignItems: "stretch" }}>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "1fr", gap: 10 }}>
+        <div style={{ display: "grid", gap: 14 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
             {RESEARCH_OVERVIEW_CARDS.map(item => (
               <CatalysisMiniDashboardCard key={item.en} item={item} lang={lang} t={t} />
             ))}
           </div>
-          <CatalysisCard t={t} strong padding={isMobile ? 14 : 18}>
-            <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
-              <div>
-                <CatalysisKicker t={t}>{lang === "zh" ? "总体框架" : "Main framework"}</CatalysisKicker>
-                <div style={{ color: t.textStrong, fontSize: isMobile ? 22 : 28, fontWeight: 950, lineHeight: 1.1, marginTop: 6 }}>
-                  {lang === "zh" ? "Catalysis Research Workspace" : "Catalysis Research Workspace"}
+
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr" : "minmax(280px, 320px) minmax(0, 1fr)", gap: 14, alignItems: "start" }}>
+            <CatalysisCard t={t} strong padding={14}>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center" }}>
+                <div>
+                  <CatalysisKicker t={t}>{lang === "zh" ? "Control Panel" : "Control Panel"}</CatalysisKicker>
+                  <CatalysisCardTitle t={t}>{lang === "zh" ? "当前工作区选择" : "Current workspace selection"}</CatalysisCardTitle>
+                </div>
+                <button type="button" onClick={clearWorkspaceSelection} style={{ ...toolbarBtn(t), fontSize: 10, padding: "6px 9px" }}>
+                  {lang === "zh" ? "重置" : "Reset"}
+                </button>
+              </div>
+              {workspaceNotice && (
+                <div style={{ background: t.badgeWarnBg || t.surface, border: `1px solid ${t.warn || t.border}`, borderRadius: 9, color: t.muted, fontSize: 11, lineHeight: 1.45, marginTop: 10, padding: 9 }}>
+                  {workspaceNotice}
+                </div>
+              )}
+              <div style={{ display: "grid", gap: 9, marginTop: 12 }}>
+                {[
+                  ["domain", lang === "zh" ? "反应领域" : "Domain"],
+                  ["mode", lang === "zh" ? "催化方式" : "Catalytic mode"],
+                  ["product", lang === "zh" ? "产物族" : "Product family"],
+                  ["curation", lang === "zh" ? "整理状态" : "Curation status"],
+                  ["comparability", lang === "zh" ? "可比性状态" : "Comparability status"],
+                ].map(([key, label]) => (
+                  <label key={key} style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, fontWeight: 800, textTransform: "uppercase" }}>
+                    {label}
+                    <select value={taskFilters[key]} onChange={event => updateTaskFilter(key, event.target.value)} style={{ ...controlStyle, padding: "7px 9px", fontSize: 11 }}>
+                      {TASK_FILTERS[key].map(([value, en, zh]) => (
+                        <option key={value} value={value}>{lang === "zh" ? zh : en}</option>
+                      ))}
+                    </select>
+                  </label>
+                ))}
+              </div>
+              <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, marginTop: 12, padding: 10 }}>
+                <CatalysisKicker t={t}>{lang === "zh" ? "当前任务" : "Selected task"}</CatalysisKicker>
+                <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 880, lineHeight: 1.35, marginTop: 6 }}>
+                  {lang === "zh" ? selectedWorkspaceTask.taskZh : selectedWorkspaceTask.taskEn}
+                </div>
+                <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 8 }}>
+                  <BasisBadge tone="info">{lang === "zh" ? selectedWorkspaceTask.domainZh : selectedWorkspaceTask.domainEn}</BasisBadge>
+                  <BasisBadge tone="proxy">{lang === "zh" ? selectedWorkspaceTask.modeZh : selectedWorkspaceTask.modeEn}</BasisBadge>
                 </div>
               </div>
-              <BasisBadge tone="info">{lang === "zh" ? "科研工作台" : "research workspace"}</BasisBadge>
+              <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, marginTop: 10, padding: 10 }}>
+                <CatalysisKicker t={t}>{lang === "zh" ? "选中矩阵单元" : "Matrix cell"}</CatalysisKicker>
+                <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 880, lineHeight: 1.35, marginTop: 6 }}>
+                  {lang === "zh" ? selectedMatrixDetail.taskZh : selectedMatrixDetail.taskEn}
+                </div>
+                <div style={{ marginTop: 8 }}>
+                  <PathwayPills items={lang === "zh" ? selectedMatrixDetail.metricsZh : selectedMatrixDetail.metricsEn} lang={lang} t={t} tone="accent" />
+                </div>
+              </div>
+              <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 10 }}>
+                {lang === "zh" ? `${filteredResearchTasks.length} 条任务行匹配当前筛选。` : `${filteredResearchTasks.length} task rows match the current selection.`}
+              </div>
+            </CatalysisCard>
+
+            <div style={{ display: "grid", gap: 12 }}>
+              <CatalysisCard t={t} padding={12}>
+                <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center", flexWrap: "wrap", marginBottom: 10 }}>
+                  <CatalysisCardTitle t={t}>{lang === "zh" ? "Interactive Chart Canvas / 交互图表画布" : "Interactive Chart Canvas"}</CatalysisCardTitle>
+                  <BasisBadge tone="info">{lang === "zh" ? "联动筛选" : "linked filters"}</BasisBadge>
+                </div>
+                <CatalysisTaskMatrix selected={matrixSelection} onSelect={handleMatrixSelect} lang={lang} t={t} isMobile={isMobile} />
+              </CatalysisCard>
+
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) minmax(0, 1fr)", gap: 12, alignItems: "stretch" }}>
+                <CatalysisCard t={t} padding={12}>
+                  <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center", flexWrap: "wrap", marginBottom: 10 }}>
+                    <CatalysisCardTitle t={t}>{lang === "zh" ? "Pathway Flow / 路径流向" : "Pathway Flow"}</CatalysisCardTitle>
+                    <BasisBadge tone="calc">{lang === "zh" ? "概念路径图" : "conceptual flow"}</BasisBadge>
+                  </div>
+                  <PathwayFlowMap selected={flowSelection} onSelect={handleFlowSelect} lang={lang} t={t} isMobile={isMobile} />
+                </CatalysisCard>
+                <div style={{ display: "grid", gap: 12 }}>
+                  <CatalysisCard t={t} padding={12}>
+                    <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center", flexWrap: "wrap", marginBottom: 8 }}>
+                      <CatalysisCardTitle t={t}>{lang === "zh" ? "Metric Radar / 指标雷达" : "Metric Radar"}</CatalysisCardTitle>
+                      <BasisBadge tone="info">{lang === "zh" ? "整理需求" : "curation requirement"}</BasisBadge>
+                    </div>
+                    <MetricCoverageRadar row={selectedRadarTask} activeMetricKey={selectedRadarMetric} onMetricSelect={setSelectedRadarMetric} lang={lang} t={t} />
+                  </CatalysisCard>
+                  <CatalysisCard t={t} padding={12}>
+                    <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center", flexWrap: "wrap", marginBottom: 8 }}>
+                      <CatalysisCardTitle t={t}>{lang === "zh" ? "Comparability Quadrant / 可比性四象限" : "Comparability Quadrant"}</CatalysisCardTitle>
+                      <BasisBadge tone="proxy">{lang === "zh" ? "当前比较点" : "selected comparison"}</BasisBadge>
+                    </div>
+                    <ResearchComparabilityQuadrant analysis={taskComparabilityAnalysis} lang={lang} t={t} isMobile={isMobile} />
+                  </CatalysisCard>
+                </div>
+              </div>
             </div>
-            <div style={{ marginTop: 16 }}>
-              <CatalysisFrameworkFlow t={t} lang={lang} isMobile={isMobile} />
-            </div>
-            <div style={{ display: "flex", gap: 7, flexWrap: "wrap", marginTop: 14 }}>
-              {(lang === "zh"
-                ? ["路径层级任务组织", "指标对齐", "条件语境", "可比性评估", "证据与来源状态"]
-                : ["pathway-level task organization", "metric alignment", "condition context", "comparability assessment", "evidence and source status"]
-              ).map((item, index) => (
-                <BasisBadge key={item} tone={index < 2 ? "info" : index < 4 ? "proxy" : "calc"}>{item}</BasisBadge>
-              ))}
-            </div>
-          </CatalysisCard>
+          </div>
         </div>
       </ResultLayer>
 
-      <ResultLayer
-        number="02"
-        title={lang === "zh" ? "交互式催化任务矩阵" : "Interactive Catalysis Task Matrix"}
-        subtitle={lang === "zh" ? "点击反应领域 × 催化方式单元，查看任务、指标、条件语境和可比性提示。" : "Select a reaction-domain × catalytic-mode cell to inspect tasks, metrics, condition context, and comparability notes."}
-      >
-        <CatalysisTaskMatrix selected={matrixSelection} onSelect={setMatrixSelection} lang={lang} t={t} isMobile={isMobile} />
-      </ResultLayer>
-
-      <ResultLayer
-        number="03"
-        title={lang === "zh" ? "反应路径流向图" : "Pathway Flow Map"}
-        subtitle={lang === "zh" ? "从原料到催化方式、产物族和指标关注，展示概念化整理路径。" : "A conceptual flow from feedstock to catalytic mode, product family, and metric focus."}
-      >
-        <PathwayFlowMap selected={flowSelection} onSelect={setFlowSelection} lang={lang} t={t} isMobile={isMobile} />
-      </ResultLayer>
-
-      <ResultLayer
-        number="04"
-        title={lang === "zh" ? "指标覆盖雷达图与可比性四象限" : "Metric Coverage Radar and Comparability Quadrant"}
-        subtitle={lang === "zh" ? "图表展示整理需求和可比性判断，不展示实测性能分数。" : "Charts show curation requirements and comparability assessment, not measured performance scores."}
-      >
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "0.92fr 1.08fr", gap: 12, alignItems: "stretch" }}>
-          <CatalysisCard t={t} padding={isMobile ? 14 : 16}>
-            <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
-              <CatalysisCardTitle t={t}>{lang === "zh" ? "Metric Coverage Radar / 指标覆盖雷达图" : "Metric Coverage Radar"}</CatalysisCardTitle>
-              <BasisBadge tone="info">{lang === "zh" ? "整理需求" : "curation requirement"}</BasisBadge>
-            </div>
-            <div style={{ marginTop: 12 }}><MetricCoverageRadar row={selectedRadarTask} lang={lang} t={t} /></div>
-          </CatalysisCard>
-          <CatalysisCard t={t} padding={isMobile ? 14 : 16}>
-            <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
-              <CatalysisCardTitle t={t}>{lang === "zh" ? "Comparability Quadrant / 可比性四象限" : "Comparability Quadrant"}</CatalysisCardTitle>
-              <BasisBadge tone="calc">{lang === "zh" ? "当前比较联动" : "linked comparison"}</BasisBadge>
-            </div>
-            <div style={{ marginTop: 12 }}><ResearchComparabilityQuadrant analysis={taskComparabilityAnalysis} lang={lang} t={t} isMobile={isMobile} /></div>
-          </CatalysisCard>
-        </div>
-      </ResultLayer>
-
-      <ResultLayer number="05" title={lang === "zh" ? "催化任务交互表" : "Interactive Catalysis Task Table"}>
+      <ResultLayer number="02" title={lang === "zh" ? "催化任务交互表" : "Interactive Catalysis Task Table"}>
         <CatalysisCard t={t} surface="surface" padding={12}>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
             {[
@@ -3890,8 +4105,15 @@ export function CatalysisLabTab({ onNavigate }) {
               </tr>
             </thead>
             <tbody>
-              {filteredResearchTasks.map(row => (
-                <tr key={row.id}>
+              {filteredResearchTasks.map(row => {
+                const activeRow = selectedTaskId === row.id
+                const checkedForCompare = selectedComparisonIds.includes(row.id)
+                return (
+                <tr
+                  key={row.id}
+                  onClick={() => handleTaskRowSelect(row)}
+                  style={{ background: activeRow ? t.badgeInfoBg : "transparent", cursor: "pointer" }}
+                >
                   <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11 }}>{lang === "zh" ? row.domainZh : row.domainEn}</td>
                   <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 12, fontWeight: 860 }}>{lang === "zh" ? row.taskZh : row.taskEn}</td>
                   <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11 }}>{lang === "zh" ? row.modeZh : row.modeEn}</td>
@@ -3903,12 +4125,19 @@ export function CatalysisLabTab({ onNavigate }) {
                   <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}` }}><BasisBadge tone={row.comparabilityKey === "bridge-needed" ? "proxy" : row.comparabilityKey === "not-comparable" ? "warn" : "info"}>{lang === "zh" ? PATHWAY_COMPARABILITY_LABELS[row.comparabilityKey].zh : PATHWAY_COMPARABILITY_LABELS[row.comparabilityKey].en}</BasisBadge></td>
                   <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}` }}><PathwayPills items={row.missingBridgeKeys.map(key => lang === "zh" ? BRIDGE_CHECKLIST_ITEMS.find(item => item.key === key)?.zh || key : BRIDGE_CHECKLIST_ITEMS.find(item => item.key === key)?.en || key)} lang={lang} t={t} /></td>
                   <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}` }}>
-                    <button type="button" onClick={() => setTaskComparisonPair(prev => ({ ...prev, left: row.id }))} style={{ ...toolbarBtn(t), fontSize: 10, padding: "6px 8px" }}>
-                      {lang === "zh" ? "设为 A" : "Set A"}
-                    </button>
+                    <label onClick={event => event.stopPropagation()} style={{ display: "inline-flex", alignItems: "center", gap: 6, color: checkedForCompare ? t.accentText : t.muted, fontSize: 10, fontWeight: 850, cursor: "pointer" }}>
+                      <input
+                        type="checkbox"
+                        checked={checkedForCompare}
+                        onChange={() => toggleTaskComparison(row.id)}
+                        style={{ accentColor: t.accent }}
+                      />
+                      {lang === "zh" ? "比较" : "Compare"}
+                    </label>
                   </td>
                 </tr>
-              ))}
+                )
+              })}
               {filteredResearchTasks.length === 0 && (
                 <tr>
                   <td colSpan={11} style={{ padding: 18, color: t.faint, fontSize: 12, textAlign: "center" }}>
@@ -3921,85 +4150,86 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="06" title={lang === "zh" ? "催化可比性判断器" : "Catalysis Comparability Analyzer"}>
-        <CatalysisCard t={t} strong padding={isMobile ? 14 : 18}>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
-            {[
-              ["left", lang === "zh" ? "任务 A" : "Task A"],
-              ["right", lang === "zh" ? "任务 B" : "Task B"],
-            ].map(([key, label]) => (
-              <label key={key} style={{ display: "grid", gap: 6, color: t.faint, fontSize: 10, fontWeight: 800, textTransform: "uppercase" }}>
-                {label}
-                <select value={taskComparisonPair[key]} onChange={event => setTaskComparisonPair(prev => ({ ...prev, [key]: event.target.value }))} style={controlStyle}>
-                  {RESEARCH_TASK_ROWS.map(row => (
-                    <option key={row.id} value={row.id}>{lang === "zh" ? row.taskZh : row.taskEn}</option>
-                  ))}
-                </select>
-              </label>
-            ))}
-          </div>
+      <ResultLayer number="03" title={lang === "zh" ? "可比性评估" : "Comparability Assessment"}>
+        <CatalysisCard t={t} strong padding={isMobile ? 14 : 16}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "0.65fr 0.85fr 1.1fr", gap: 12, alignItems: "stretch" }}>
+            <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }}>
+              <CatalysisKicker t={t}>{lang === "zh" ? "比较任务" : "Selected tasks"}</CatalysisKicker>
+              <div style={{ display: "grid", gap: 8, marginTop: 10 }}>
+                {[0, 1].map(index => {
+                  const row = selectedComparisonRows[index]
+                  return (
+                    <div key={index} style={{ background: row ? t.panel : "transparent", border: `1px solid ${row ? t.borderStrong || t.border : t.border}`, borderRadius: 9, padding: 10 }}>
+                      <div style={{ color: t.faint, fontSize: 10, fontWeight: 850 }}>{lang === "zh" ? `任务 ${index === 0 ? "A" : "B"}` : `Task ${index === 0 ? "A" : "B"}`}</div>
+                      <div style={{ color: row ? t.textStrong : t.faint, fontSize: 12, fontWeight: 850, lineHeight: 1.35, marginTop: 5 }}>
+                        {row ? (lang === "zh" ? row.taskZh : row.taskEn) : (lang === "zh" ? "从表格勾选任务" : "Select from table")}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+              <button type="button" onClick={() => setSelectedComparisonIds([])} style={{ ...toolbarBtn(t), fontSize: 10, marginTop: 10, padding: "6px 9px" }}>
+                {lang === "zh" ? "清除比较" : "Clear comparison"}
+              </button>
+            </section>
 
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "0.72fr 1.28fr", gap: 12, marginTop: 14, alignItems: "stretch" }}>
-            <section style={{ background: t.surface, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 10, padding: 14 }}>
+            <section style={{ background: t.surface, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 10, padding: 12 }}>
               <CatalysisKicker t={t}>{lang === "zh" ? "判断结果" : "Status"}</CatalysisKicker>
-              <div style={{ marginTop: 10 }}>
+              <div style={{ marginTop: 9 }}>
                 <BasisBadge tone={taskComparabilityAnalysis.statusKey === "bridge-needed" ? "proxy" : taskComparabilityAnalysis.statusKey === "not-comparable" ? "warn" : "info"}>
                   {lang === "zh" ? taskComparabilityAnalysis.status.zh : taskComparabilityAnalysis.status.en}
                 </BasisBadge>
               </div>
-              <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, marginTop: 12 }}>
+              <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55, marginTop: 10 }}>
                 {lang === "zh" ? taskComparabilityAnalysis.reason.zh : taskComparabilityAnalysis.reason.en}
               </div>
-            </section>
-            <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
-              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 12 }}>
-                <div>
-                  <CatalysisKicker t={t}>{lang === "zh" ? "需归一化条件" : "Normalized conditions"}</CatalysisKicker>
-                  <div style={{ marginTop: 8 }}><PathwayPills items={lang === "zh" ? taskComparabilityAnalysis.normalizedZh : taskComparabilityAnalysis.normalizedEn} lang={lang} t={t} /></div>
-                </div>
-                <div>
-                  <CatalysisKicker t={t}>{lang === "zh" ? "缺失桥梁指标" : "Missing bridge metrics"}</CatalysisKicker>
-                  <div style={{ marginTop: 8 }}><PathwayPills items={taskComparabilityAnalysis.missingBridgeMetrics.map(key => lang === "zh" ? BRIDGE_CHECKLIST_ITEMS.find(item => item.key === key)?.zh || key : BRIDGE_CHECKLIST_ITEMS.find(item => item.key === key)?.en || key)} lang={lang} t={t} tone="accent" /></div>
-                </div>
-                <div>
-                  <CatalysisKicker t={t}>{lang === "zh" ? "下一步整理字段" : "Next curation fields"}</CatalysisKicker>
-                  <div style={{ marginTop: 8 }}><PathwayPills items={lang === "zh" ? taskComparabilityAnalysis.nextZh : taskComparabilityAnalysis.nextEn} lang={lang} t={t} /></div>
-                </div>
-              </div>
-            </section>
-          </div>
-        </CatalysisCard>
-      </ResultLayer>
-
-      <ResultLayer number="07" title={lang === "zh" ? "桥梁指标清单" : "Bridge Metrics Checklist"}>
-        <CatalysisCard t={t} padding={isMobile ? 14 : 16}>
-          <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
-            <CatalysisCardTitle t={t}>{lang === "zh" ? "跨路径比较前需要补充的信息" : "Information needed before cross-pathway comparison"}</CatalysisCardTitle>
-            <BasisBadge tone="proxy">{lang === "zh" ? "与分析器联动" : "linked to analyzer"}</BasisBadge>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 13 }}>
-            {BRIDGE_CHECKLIST_ITEMS.map(item => {
-              const needed = taskComparabilityAnalysis.missingBridgeMetrics.includes(item.key)
-              return (
-                <div key={item.key} style={{ background: needed ? t.badgeWarnBg : t.surface, border: `1px solid ${needed ? (t.warn || t.border) : t.border}`, borderRadius: 10, padding: 12 }}>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
-                    <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 880 }}>{lang === "zh" ? item.zh : item.en}</div>
-                    <BasisBadge tone={needed ? "warn" : "info"}>{needed ? (lang === "zh" ? "缺失" : "needed") : (lang === "zh" ? "已列入" : "tracked")}</BasisBadge>
+              {taskComparabilityAnalysis.ready && (
+                <div style={{ display: "grid", gap: 9, marginTop: 12 }}>
+                  <div>
+                    <CatalysisKicker t={t}>{lang === "zh" ? "需归一化条件" : "Normalized conditions"}</CatalysisKicker>
+                    <div style={{ marginTop: 7 }}><PathwayPills items={lang === "zh" ? taskComparabilityAnalysis.normalizedZh : taskComparabilityAnalysis.normalizedEn} lang={lang} t={t} /></div>
+                  </div>
+                  <div>
+                    <CatalysisKicker t={t}>{lang === "zh" ? "下一步整理字段" : "Next curation fields"}</CatalysisKicker>
+                    <div style={{ marginTop: 7 }}><PathwayPills items={lang === "zh" ? taskComparabilityAnalysis.nextZh : taskComparabilityAnalysis.nextEn} lang={lang} t={t} /></div>
                   </div>
                 </div>
-              )
-            })}
-          </div>
-          <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 12 }}>
-            {lang === "zh"
-              ? "桥梁指标用于提示跨路径比较前需要补充哪些信息，不代表当前已有验证换算公式。"
-              : "Bridge metrics identify what must be curated before cross-pathway comparison. They are not validated conversion formulas."}
+              )}
+            </section>
+
+            <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
+                <CatalysisKicker t={t}>{lang === "zh" ? "桥梁指标" : "Bridge metrics"}</CatalysisKicker>
+                <BasisBadge tone="proxy">{lang === "zh" ? "联动高亮" : "linked checklist"}</BasisBadge>
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8, marginTop: 10 }}>
+                {BRIDGE_CHECKLIST_ITEMS.map(item => {
+                  const needed = taskComparabilityAnalysis.missingBridgeMetrics.includes(item.key)
+                  const applicable = taskComparabilityAnalysis.ready
+                  return (
+                    <div key={item.key} style={{ background: needed ? t.badgeWarnBg : t.panel, border: `1px solid ${needed ? (t.warn || t.border) : t.border}`, borderRadius: 9, padding: 9 }}>
+                      <div style={{ color: t.textStrong, fontSize: 11, fontWeight: 860, lineHeight: 1.35 }}>{lang === "zh" ? item.zh : item.en}</div>
+                      <div style={{ marginTop: 5 }}>
+                        <BasisBadge tone={needed ? "warn" : applicable ? "info" : "proxy"}>
+                          {needed ? (lang === "zh" ? "必需" : "required") : applicable ? (lang === "zh" ? "可选 / 已覆盖" : "optional / tracked") : (lang === "zh" ? "待选择" : "select tasks")}
+                        </BasisBadge>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+              <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.5, marginTop: 10 }}>
+                {lang === "zh"
+                  ? "桥梁指标提示跨路径比较前需要补充的信息，不代表当前已有验证换算公式。"
+                  : "Bridge metrics indicate information needed before cross-pathway comparison; they are not validated conversion formulas."}
+              </div>
+            </section>
           </div>
         </CatalysisCard>
       </ResultLayer>
 
       <ResultLayer
-        number="08"
+        number="04"
         title={lang === "zh" ? "反应族案例库" : "Reaction Family Cases"}
         subtitle={lang === "zh"
           ? "有机酸方向只是 Focus Case 1，其他反应族作为后续整理入口保留。"
@@ -4029,7 +4259,7 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="09" title={lang === "zh" ? "数据接入与边界" : "Data Intake and Boundary"}>
+      <ResultLayer number="05" title={lang === "zh" ? "数据接入与边界" : "Data Intake and Boundary"}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12, marginBottom: 12 }}>
           <CatalysisCard t={t} strong padding={14}>
             <CatalysisKicker t={t}>{lang === "zh" ? "数据整理与合作" : "Data Curation & Collaboration"}</CatalysisKicker>
