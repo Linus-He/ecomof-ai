@@ -315,7 +315,7 @@ function AppShell({
                 onAddComparison={addCurrentToComparison}
               />
             )}
-            {activeTab === "gassep" && <GasSepTab />}
+            {activeTab === "gassep" && <GasSepTab onNavigate={navigateTab} onOpenComparisonBuilder={() => setHomeComparisonOpen(true)} />}
             {activeTab === "catalysis" && <CatalysisLabTab onNavigate={navigateTab} />}
             {activeTab === "library" && <MOFLibraryTab results={results} inputs={inputs} />}
             {activeTab === "workflow" && <WorkflowTab setActiveTab={navigateTab} inputs={inputs} results={results} />}
