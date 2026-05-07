@@ -228,6 +228,9 @@ function EvidenceCompletenessQuadrant({ zh, t }) {
     : [["Example A", 34, 72], ["Example B", 68, 58], ["Example C", 52, 32]]
   return (
     <div style={{ display: "grid", gap: 8 }}>
+      <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900 }}>
+        {zh ? "证据 × 完整性四象限" : "Evidence × Completeness Quadrant"}
+      </div>
       <div style={{
         position: "relative",
         height: 300,
@@ -300,6 +303,9 @@ function ScoreComponentBarChart({ zh, t }) {
     : ["Performance Signal", "Sustainability Signal", "Data Completeness", "Evidence Confidence", "Uncertainty Penalty"]
   return (
     <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }}>
+      <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900, marginBottom: 10 }}>
+        {zh ? "子分数构成条形图" : "Score Component Bars"}
+      </div>
       <div style={{ display: "grid", gap: 9 }}>
         {slots.map((label, index) => (
           <div key={label} style={{ display: "grid", gridTemplateColumns: "minmax(130px, 180px) minmax(0, 1fr) 42px", gap: 9, alignItems: "center" }}>
@@ -325,6 +331,9 @@ function ScoreComponentBarChart({ zh, t }) {
 function PriorityInterpretationCurve({ zh, t }) {
   return (
     <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }}>
+      <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900, marginBottom: 6 }}>
+        {zh ? "优先级解释曲线" : "Priority Interpretation Curve"}
+      </div>
       <svg viewBox="0 0 360 220" role="img" aria-label={zh ? "优先级解释概念曲线" : "Priority interpretation conceptual curve"} style={{ width: "100%", height: "auto", display: "block" }}>
         <line x1="44" y1="174" x2="326" y2="174" stroke={t.textStrong} strokeWidth="1.4" />
         <line x1="44" y1="174" x2="44" y2="28" stroke={t.textStrong} strokeWidth="1.4" />
@@ -542,51 +551,6 @@ function MiniPipeline({ steps, t }) {
   )
 }
 
-function ScoreCompositionGraph({ zh, isMobile, t }) {
-  const terms = zh
-    ? [["性能信号", "+"], ["可持续性信号", "+"], ["数据完整性", "+"], ["证据可信度", "−"], ["不确定性惩罚", ""]]
-    : [["Performance Signal", "+"], ["Sustainability Signal", "+"], ["Data Completeness", "+"], ["Evidence Confidence", "−"], ["Uncertainty Penalty", ""]]
-  return (
-    <div style={{ display: "grid", gap: 12 }}>
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : "repeat(5, minmax(0, 1fr))",
-        gap: 8,
-        alignItems: "center",
-      }}>
-        {terms.map(([label, connector], index) => (
-          <div key={label} style={{ position: "relative" }}>
-            <div style={{
-              background: index === 4 ? t.badgeWarnBg : t.panel,
-              border: `1px solid ${t.border}`,
-              borderRadius: 9,
-              padding: "11px 9px",
-              minHeight: 58,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: index === 4 ? t.warn : t.textStrong,
-              fontSize: 11.5,
-              fontWeight: 880,
-              lineHeight: 1.35,
-              textAlign: "center",
-            }}>
-              {label}
-            </div>
-            {connector && !isMobile && <span style={{ position: "absolute", right: -14, top: "50%", transform: "translateY(-50%)", color: t.faint, fontSize: 15, fontWeight: 900, zIndex: 2 }}>{connector}</span>}
-          </div>
-        ))}
-      </div>
-      <div style={{ display: "grid", justifyItems: "center", gap: 8 }}>
-        <span style={{ color: t.faint, fontSize: 16 }}>↓</span>
-        <div style={{ background: t.badgeInfoBg, color: t.accentText, border: `1px solid ${t.border}`, borderRadius: 10, padding: "12px 16px", fontSize: 13, fontWeight: 920, textAlign: "center", minWidth: isMobile ? "100%" : 260 }}>
-          {zh ? "候选优先级总分" : "Total Priority Score"}
-        </div>
-      </div>
-    </div>
-  )
-}
-
 export function MethodsLimitationsTab({ onNavigate }) {
   const t = useT()
   const { lang } = useLang()
@@ -668,28 +632,26 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
   const toc = zh
     ? [
-      ["method-score-overview", "方法评分总览"],
+      ["method-score-overview", "Dashboard"],
       ["method-formulas", "总分公式"],
-      ["score-components", "子分数构成"],
       ["scoring-axes", "评分坐标图"],
-      ["method-workflow", "数据与证据工作流"],
+      ["score-components", "描述符结构"],
+      ["method-workflow", "数据管线"],
       ["evidence-level-ladder", "证据等级阶梯"],
-      ["weight-configuration", "权重配置"],
-      ["method-data", "数据边界"],
       ["method-limitations", "使用边界"],
+      ["method-formula-reference", "公式参考"],
       ["method-references", "参考与引用"],
       ["method-disclaimer-center", "声明中心"],
     ]
     : [
-      ["method-score-overview", "Method Score Overview"],
+      ["method-score-overview", "Dashboard"],
       ["method-formulas", "Total Score Formula"],
-      ["score-components", "Score Components"],
       ["scoring-axes", "Scoring Axes"],
-      ["method-workflow", "Data & Evidence Workflow"],
+      ["score-components", "Descriptor Grid"],
+      ["method-workflow", "Data Pipeline"],
       ["evidence-level-ladder", "Evidence Level Ladder"],
-      ["weight-configuration", "Weight Configuration"],
-      ["method-data", "Data Boundaries"],
       ["method-limitations", "Use Boundaries"],
+      ["method-formula-reference", "Formula Reference"],
       ["method-references", "References & Citation"],
       ["method-disclaimer-center", "Disclaimer Center"],
     ]
@@ -822,12 +784,12 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
   const suggestedUse = zh
     ? {
-      appropriate: ["早期候选优先级筛选", "描述符整理", "数据来源查看", "科研假设生成", "教学或作品集展示", "合作讨论"],
-      notFor: ["最终材料性能结论", "替代实验", "完整 LCA 结论", "替代 GCMC / IAST", "已验证机器学习预测", "工业部署决策"],
+      appropriate: ["早期优先级", "描述符整理", "来源查看", "假设生成", "合作讨论"],
+      notFor: ["最终性能结论", "替代实验", "完整 LCA", "替代 GCMC / IAST", "已验证 ML", "工业决策"],
     }
     : {
-      appropriate: ["Early-stage candidate prioritization", "Descriptor organization", "Data provenance inspection", "Research hypothesis generation", "Teaching or portfolio demonstration", "Collaboration discussion"],
-      notFor: ["Final material performance conclusion", "Experimental replacement", "Complete LCA claim", "GCMC / IAST replacement", "Validated ML prediction", "Industrial deployment decision"],
+      appropriate: ["Early priority", "Descriptor curation", "Source review", "Hypothesis generation", "Collaboration discussion"],
+      notFor: ["Final performance conclusion", "Experimental replacement", "Complete LCA", "GCMC / IAST replacement", "Validated ML", "Industrial decision"],
     }
 
   const benchmarkReferences = zh
@@ -951,9 +913,9 @@ export function MethodsLimitationsTab({ onNavigate }) {
       <PageHeader
         title={zh ? "方法与证据" : "Methods & Evidence"}
         subtitle={zh
-          ? "可视化评分方法、数据边界和引用方式。"
-          : "Visual scoring methodology, data boundaries, and citation."}
-        meta={zh ? "总分公式 · 子分数 · 权重配置 · 证据阶梯 · 引用" : "formula · score components · weights · evidence ladder · citation"}
+          ? "用图表解释 EcoMOF-AI 的候选评分结构、数据证据状态和使用边界。"
+          : "A chart-first view of candidate scoring, evidence status, and use boundaries."}
+        meta={zh ? "总分公式 · 坐标图 · 描述符 · 证据阶梯 · 引用" : "formula · axes · descriptors · evidence ladder · citation"}
         action={
           <>
             <BasisBadge tone="proxy">{zh ? "候选优先级" : "candidate priority"}</BasisBadge>
@@ -961,12 +923,6 @@ export function MethodsLimitationsTab({ onNavigate }) {
           </>
         }
       />
-
-      <Callout tone="info">
-        {zh
-          ? "页面中的分数表示候选优先级（candidate priority），用于早期筛选和研究假设生成，不代表最终材料性能。"
-          : "Scores indicate candidate priority for early-stage screening and research hypothesis generation, not final material performance."}
-      </Callout>
 
       <nav aria-label={zh ? "方法与证据目录" : "Methods & Evidence contents"}
         style={{ display: "flex", gap: 6, flexWrap: "wrap", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: "10px 12px" }}>
@@ -988,71 +944,63 @@ export function MethodsLimitationsTab({ onNavigate }) {
         padding: 16,
         scrollMarginTop: 120,
       }}>
-        <span id="method-scoring" style={{ position: "relative", top: -120 }} />
-        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap", alignItems: "flex-start", marginBottom: 14 }}>
-          <div>
-            <SectionTitle>{zh ? "方法评分仪表盘" : "Methodology Dashboard"}</SectionTitle>
-            <p style={{ color: t.subtle, fontSize: 12, lineHeight: 1.55, margin: "6px 0 0", maxWidth: 840 }}>
-              {zh
-                ? "EcoMOF-AI 使用规则辅助的优先级评分，根据当前可用描述符、可持续性信号、数据完整性和证据可信度整理候选材料记录。"
-                : "EcoMOF-AI uses rule-assisted priority scoring to organize candidate records by available descriptors, sustainability signals, data completeness, and evidence confidence."}
-            </p>
-          </div>
-          <BasisBadge tone="proxy">{zh ? "研究原型" : "Research prototype"}</BasisBadge>
-        </div>
+        {[
+          "method-scoring",
+          "method-scoring-details",
+          "method-data",
+          "method-provenance",
+          "weight-configuration",
+          "method-gassep-conditions",
+          "method-catalysis-boundaries",
+          "collaboration-data-boundaries",
+          "experimental-data-normalization",
+          "case-study-templates",
+          "benchmark-references",
+          "validation-evidence",
+          "method-limitations-detail",
+        ].map(id => <span key={id} id={id} style={{ position: "relative", top: -120 }} />)}
 
         <div style={{
           display: "grid",
-          gridTemplateColumns: isNarrow ? "1fr" : "280px minmax(0, 1fr)",
+          gridTemplateColumns: isNarrow ? "1fr" : "320px minmax(0, 1fr)",
           gap: 14,
           alignItems: "start",
         }}>
           <aside style={{ display: "grid", gap: 10, position: isNarrow ? "static" : "sticky", top: 94 }}>
             <SummaryCard
-              title={zh ? "总分结构" : "Total score structure"}
-              value={zh ? "候选优先级总分" : "Total Priority Score"}
-              badge={zh ? "规则辅助" : "Rule-assisted"}
+              title={zh ? "评分框架" : "Score scaffold"}
+              value={zh ? "规则辅助" : "Rule-assisted"}
+              badge={zh ? "原型" : "Prototype"}
               t={t}
             >
-              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55 }}>
+              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.45 }}>
                 {zh ? "性能 + 可持续性 + 完整性 + 证据 − 不确定性" : "Performance + Sustainability + Completeness + Evidence − Uncertainty"}
               </div>
-              <BasisBadge tone="proxy">{zh ? "研究原型" : "Research prototype"}</BasisBadge>
             </SummaryCard>
 
             <SummaryCard
-              title={zh ? "核心描述符" : "Core descriptor set"}
-              value={zh ? "8 项核心描述符" : "8 core descriptors"}
+              title={zh ? "描述符集合" : "Descriptor set"}
+              value="8"
+              badge={zh ? "核心描述符" : "Core descriptors"}
               t={t}
             >
               <MiniDescriptorGrid zh={zh} t={t} />
             </SummaryCard>
 
             <SummaryCard
-              title={zh ? "证据覆盖" : "Evidence coverage"}
-              value={zh ? "证据等级" : "Evidence levels"}
+              title={zh ? "证据状态" : "Evidence status"}
+              value={zh ? "高 / 中 / 低 / 待补充" : "High / Medium / Low / Pending"}
               t={t}
             >
               <MiniEvidenceSegments zh={zh} t={t} />
-              <div style={{ color: t.faint, fontSize: 10.5, lineHeight: 1.45 }}>
-                {zh ? "高证据等级不等于实验验证完成。" : "High does not mean final experimental validation."}
+              <div style={{ color: t.faint, fontSize: 10.5, lineHeight: 1.35 }}>
+                {zh ? "高证据 ≠ 最终验证" : "High ≠ final validation"}
               </div>
             </SummaryCard>
 
             <SummaryCard
-              title={zh ? "数据工作流" : "Data workflow"}
-              value={zh ? "记录 → 评分" : "Records → Score"}
-              t={t}
-            >
-              <MiniPipeline
-                steps={zh ? ["记录", "溯源", "证据", "评分"] : ["Records", "Provenance", "Evidence", "Score"]}
-                t={t}
-              />
-            </SummaryCard>
-
-            <SummaryCard
-              title={zh ? "使用边界" : "Use boundary"}
-              value={zh ? "原型边界" : "Prototype boundary"}
+              title={zh ? "使用边界" : "Boundary"}
+              value={zh ? "优先级参考" : "Priority reference"}
               badge={zh ? "非最终预测" : "not final prediction"}
               t={t}
               action={onNavigate && (
@@ -1075,75 +1023,36 @@ export function MethodsLimitationsTab({ onNavigate }) {
                 </button>
               )}
             >
-              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55 }}>
-                {zh ? "优先级参考，不是最终预测。" : "Priority reference, not final prediction."}
+              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.45 }}>
+                {zh ? "不是最终预测" : "Not final prediction"}
               </div>
             </SummaryCard>
           </aside>
 
           <div style={{ display: "grid", gap: 12, minWidth: 0 }}>
-            <DashboardPanel
-              id="method-formulas"
-              title={zh ? "总分公式" : "Total Score Formula"}
-              kicker={zh ? "核心视觉" : "core visual"}
-              t={t}
-            >
-              <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
-                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8, color: t.textStrong, fontSize: 13, fontWeight: 900, lineHeight: 1.6 }}>
+            <DashboardPanel id="method-formulas" title={zh ? "总分公式" : "Total Score Formula"} t={t}>
+              <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: isMobile ? 14 : 18 }}>
+                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 9, color: t.textStrong, fontSize: isMobile ? 14 : 16, fontWeight: 930, lineHeight: 1.6 }}>
                   <span>{zh ? "候选优先级总分" : "Total Priority Score"}</span>
                   <span style={{ color: t.faint }}>=</span>
                   <FormulaTerm symbol="w₁" label={zh ? "性能信号" : "Performance"} tone="info" t={t} />
-                  <span style={{ color: t.faint }}>+</span>
+                  <span style={{ color: t.faint, fontWeight: 900 }}>+</span>
                   <FormulaTerm symbol="w₂" label={zh ? "可持续性信号" : "Sustainability"} tone="calc" t={t} />
-                  <span style={{ color: t.faint }}>+</span>
+                  <span style={{ color: t.faint, fontWeight: 900 }}>+</span>
                   <FormulaTerm symbol="w₃" label={zh ? "数据完整性" : "Data Completeness"} tone="proxy" t={t} />
-                  <span style={{ color: t.faint }}>+</span>
+                  <span style={{ color: t.faint, fontWeight: 900 }}>+</span>
                   <FormulaTerm symbol="w₄" label={zh ? "证据可信度" : "Evidence Confidence"} tone="info" t={t} />
-                  <span style={{ color: t.faint }}>−</span>
+                  <span style={{ color: t.faint, fontWeight: 900 }}>−</span>
                   <FormulaTerm symbol="w₅" label={zh ? "不确定性惩罚" : "Uncertainty Penalty"} tone="warn" t={t} />
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8, marginTop: 13 }}>
-                  {(zh ? [
-                    ["w₁–w₅", "规则权重"],
-                    ["性能", "性能相关描述符"],
-                    ["完整性", "核心字段整理完整度"],
-                    ["不确定性", "缺失、待复核或条件不足"],
-                  ] : [
-                    ["w₁–w₅", "rule weights"],
-                    ["Performance", "performance-related descriptors"],
-                    ["Completeness", "core-field curation completeness"],
-                    ["Uncertainty", "missing, review-needed, or condition-limited fields"],
-                  ]).map(([label, desc]) => (
-                    <div key={label} style={{ display: "flex", gap: 8, color: t.muted, fontSize: 11, lineHeight: 1.45 }}>
-                      <span style={{ color: t.textStrong, fontFamily: FONT_MONO, fontWeight: 850, minWidth: 92 }}>{label}</span>
-                      {desc}
-                    </div>
-                  ))}
-                </div>
-                <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 12, borderTop: `1px solid ${t.divider}`, paddingTop: 10 }}>
-                  {zh
-                    ? "透明评分框架，不是已验证性能预测。未在此处编造具体权重；真实配置见权重条。"
-                    : "Transparent scoring scaffold, not validated performance prediction. No concrete weights are invented here; current configuration appears in the weight bars."}
+                <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.45, marginTop: 12, borderTop: `1px solid ${t.divider}`, paddingTop: 10 }}>
+                  {zh ? "透明评分框架，不是已验证性能预测。" : "Transparent scoring scaffold, not validated performance prediction."}
                 </div>
               </div>
             </DashboardPanel>
 
-            <DashboardPanel id="score-components" title={zh ? "分数组成图" : "Score Composition"} t={t}>
-              <ScoreCompositionGraph zh={zh} isMobile={isMobile} t={t} />
-            </DashboardPanel>
-
-            <DashboardPanel
-              id="scoring-axes"
-              title={zh ? "评分坐标图" : "Scoring Axes"}
-              kicker={zh ? "概念可视化" : "conceptual visuals"}
-              t={t}
-            >
-              <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55, marginBottom: 10 }}>
-                {zh
-                  ? "通过坐标图展示数据完整性、证据可信度和不确定性如何影响优先级解释。"
-                  : "Visual axes show how data completeness, evidence confidence, and uncertainty affect priority interpretation."}
-              </div>
-              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1.25fr) minmax(0, 0.95fr)", gap: 10, alignItems: "stretch" }}>
+            <DashboardPanel id="scoring-axes" title={zh ? "评分坐标图" : "Scoring Axes"} t={t}>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1.18fr) minmax(0, 0.92fr)", gap: 10, alignItems: "stretch" }}>
                 <EvidenceCompletenessQuadrant zh={zh} t={t} />
                 <div style={{ display: "grid", gap: 10 }}>
                   <ScoreComponentBarChart zh={zh} t={t} />
@@ -1151,87 +1060,47 @@ export function MethodsLimitationsTab({ onNavigate }) {
                 </div>
               </div>
             </DashboardPanel>
-
-            <DashboardPanel
-              id="weight-configuration"
-              title={zh ? "权重配置" : "Weight Configuration"}
-              kicker={weightsStatus === "loaded" ? (zh ? "已读取配置" : "configuration loaded") : (zh ? "概念权重" : "conceptual slots")}
-              t={t}
-            >
-              <WeightBars weights={scoringWeights} zh={zh} t={t} />
-              <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 10 }}>
-                {weightsStatus === "loaded"
-                  ? (zh ? "已从 public/data/scoring_weights.json 读取当前配置；本页只展示，不修改权重。" : "Loaded current configuration from public/data/scoring_weights.json; this page visualizes weights without changing them.")
-                  : (zh ? "若没有明确权重配置，权重仅作为公式结构因子展示。" : "Weight slots are shown as conceptual factors unless an explicit configuration is available.")}
-              </div>
-            </DashboardPanel>
-
-            <DashboardPanel title={zh ? "子分数构成" : "Score Components"} t={t}>
-              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 10 }}>
-                {scoreComponents.map(([marker, title, body, tags]) => (
-                  <ScoreComponentCard key={title} marker={marker} title={title} body={body} tags={tags} t={t} />
-                ))}
-              </div>
-              <div style={{ marginTop: 10 }}>
-                <DescriptorGrid zh={zh} t={t} />
-              </div>
-            </DashboardPanel>
-
-            <DashboardPanel id="evidence-level-ladder" title={zh ? "证据等级阶梯" : "Evidence Level Ladder"} t={t}>
-              <EvidenceLadder levels={ladderLevels} zh={zh} t={t} />
-              <div style={{ marginTop: 10, color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
-                {evidenceLevels.length
-                  ? (zh ? `已读取当前 evidence 配置：${evidenceLevels.length} 个原始证据类别。` : `Current evidence configuration loaded: ${evidenceLevels.length} raw evidence categories.`)
-                  : (zh ? "未读取到 evidence 配置时，阶梯仅展示页面解释结构。" : "If evidence configuration is unavailable, the ladder shows the page-level interpretation structure.")}
-              </div>
-            </DashboardPanel>
-
-            <DashboardPanel id="method-workflow" title={zh ? "数据与证据工作流" : "Data & Evidence Workflow"} t={t}>
-              <WorkflowPipeline steps={workflowSteps} isMobile={isMobile} t={t} />
-            </DashboardPanel>
-
-            <DashboardPanel id="method-data" title={zh ? "数据边界" : "Data Boundaries"} t={t}>
-              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 10 }}>
-                {dataCards.map(([title, body, tone]) => <CompactCard key={title} title={title} body={body} tone={tone} t={t} />)}
-              </div>
-              <div style={{ marginTop: 10, display: "flex", gap: 7, flexWrap: "wrap" }}>
-                {scaleUpFields.map(item => (
-                  <span key={item} style={{ color: t.muted, fontSize: 10, lineHeight: 1.3, border: `1px solid ${t.border}`, borderRadius: 999, padding: "5px 8px", background: t.panel }}>
-                    {item}
-                  </span>
-                ))}
-              </div>
-              <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 10 }}>
-                {zh
-                  ? "字段类型用于说明记录结构；完整使用边界集中在声明中心。"
-                  : "Record types explain data structure; full use boundaries remain centralized in the Disclaimer Center."}
-                {" "}<DisclaimerLink />
-              </div>
-            </DashboardPanel>
-
-            <DashboardPanel id="method-limitations" title={zh ? "使用边界矩阵" : "Use Boundaries Matrix"} t={t}>
-              <UseBoundaryMatrix suggestedUse={suggestedUse} zh={zh} t={t} isMobile={isMobile} />
-            </DashboardPanel>
           </div>
         </div>
       </section>
 
       <MethodSection
-        id="method-scoring-details"
-        title={zh ? "评分模型" : "Scoring Model"}
-        body={zh
-          ? "当前是规则评分模型，不是训练完成的真实预测模型。所有分数都表示候选优先级，不表示最终材料性能。"
-          : "The current model is rule based, not a trained predictive model. Every score indicates candidate priority, not final material performance."}
+        id="score-components"
+        title={zh ? "描述符结构" : "Descriptor Grid"}
         t={t}
       >
-        <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-          <summary style={{ cursor: "pointer", color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
-            {zh ? "查看补充评分说明" : "View supplemental scoring notes"}
-          </summary>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 10 }}>
-          {scoreCards.map(([title, body, tone]) => <CompactCard key={title} title={title} body={body} tone={tone} t={t} />)}
-          </div>
-        </details>
+        <DescriptorGrid zh={zh} t={t} />
+      </MethodSection>
+
+      <MethodSection
+        id="method-workflow"
+        title={zh ? "数据管线" : "Data Pipeline"}
+        t={t}
+      >
+        <WorkflowPipeline
+          steps={(zh
+            ? [["记录", "来源"], ["标准化", "字段"], ["溯源", "来源"], ["证据", "等级"], ["评分", "规则"], ["解释", "优先级"], ["验证", "外部"]]
+            : [["Records", "source"], ["Normalize", "fields"], ["Provenance", "source"], ["Evidence", "level"], ["Score", "rules"], ["Interpret", "priority"], ["Validate", "external"]]
+          ).map(([title, note]) => ({ title, note }))}
+          isMobile={isMobile}
+          t={t}
+        />
+      </MethodSection>
+
+      <MethodSection
+        id="evidence-level-ladder"
+        title={zh ? "证据等级阶梯" : "Evidence Ladder"}
+        t={t}
+      >
+        <EvidenceLadder levels={ladderLevels} zh={zh} t={t} />
+      </MethodSection>
+
+      <MethodSection
+        id="method-limitations"
+        title={zh ? "使用边界矩阵" : "Use Boundaries Matrix"}
+        t={t}
+      >
+        <UseBoundaryMatrix suggestedUse={suggestedUse} zh={zh} t={t} isMobile={isMobile} />
       </MethodSection>
 
       <MethodSection
@@ -1254,8 +1123,9 @@ export function MethodsLimitationsTab({ onNavigate }) {
         </div>
       </MethodSection>
 
+      <div style={{ display: "none" }} aria-hidden="true">
       <MethodSection
-        id="method-provenance"
+        id="legacy-method-provenance"
         title={zh ? "证据与溯源" : "Evidence & Provenance"}
         body={zh
           ? "证据追踪用于说明字段来源和整理状态。证据等级（Evidence Level）和待整理状态需要一起解读。"
@@ -1300,7 +1170,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       </MethodSection>
 
       <MethodSection
-        id="method-gassep-conditions"
+        id="legacy-method-gassep-conditions"
         title={zh ? "气体分离条件" : "Gas Separation Conditions"}
         body={zh
           ? "气体分离数据高度依赖条件。缺少气体比例、温度、压力、方法和来源语境时，不应直接比较选择性和吸附量。"
@@ -1330,7 +1200,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       </MethodSection>
 
       <MethodSection
-        id="method-catalysis-boundaries"
+        id="legacy-method-catalysis-boundaries"
         title={zh ? "催化数据整理边界" : "Catalysis curation boundaries"}
         body={zh
           ? "催化实验室按产物路径和反应模式组织 CO₂ 转化记录，并区分条件语境、活性/选择性指标、稳定性证据和来源状态。待补充字段仍在复核中，后续可能更新。"
@@ -1345,7 +1215,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       </MethodSection>
 
       <MethodSection
-        id="collaboration-data-boundaries"
+        id="legacy-collaboration-data-boundaries"
         title={zh ? "合作数据边界" : "Collaboration data boundaries"}
         body={zh
           ? "EcoMOF-AI 可以整理公开文献记录、合作者保密记录、匿名化演示记录和仅字段结构记录。未发表或保密数据不应在未经明确同意的情况下公开。"
@@ -1360,7 +1230,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       </MethodSection>
 
       <MethodSection
-        id="experimental-data-normalization"
+        id="legacy-experimental-data-normalization"
         title={zh ? "实验数据标准化" : "Experimental data normalization"}
         body={zh
           ? "催化实验表格在复用前应标准化为催化剂记录、反应条件、产物指标和证据记录。"
@@ -1375,7 +1245,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       </MethodSection>
 
       <MethodSection
-        id="case-study-templates"
+        id="legacy-case-study-templates"
         title={zh ? "案例模板" : "Case study templates"}
         body={zh
           ? "案例模板用于在记录公开或用于建模前，整理催化剂身份、反应条件、产物分布、机理证据和保密状态。仅字段结构案例模板不包含已验证性能数值。"
@@ -1384,7 +1254,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       />
 
       <MethodSection
-        id="benchmark-references"
+        id="legacy-benchmark-references"
         title={zh ? "标杆材料参考" : "Benchmark References"}
         body={zh
           ? "这些标杆材料用于帮助理解 MOF 候选记录的研究语境，并不代表平台已完成严格预测对标，也不代表 EcoMOF-AI 声称候选材料性能优于这些材料。"
@@ -1426,7 +1296,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       </MethodSection>
 
       <MethodSection
-        id="validation-evidence"
+        id="legacy-validation-evidence"
         title={zh ? "验证与证据" : "Validation & Evidence"}
         body={zh
           ? "EcoMOF-AI 是一个早期科研原型，不是已验证的预测工具。本节说明当前的验证状态、已检查的内容和未来计划。"
@@ -1541,12 +1411,14 @@ export function MethodsLimitationsTab({ onNavigate }) {
         )}
       </MethodSection>
 
+      </div>
+
       <MethodSection
         id="method-disclaimer-center"
         title={zh ? "声明与使用边界" : "Disclaimer Center"}
         body={zh
-          ? "查看关于原型状态、数据解读、评分、可持续性信号、催化记录、面向机器学习字段和合作者保密数据的集中说明。"
-          : "Review the centralized boundaries for prototype status, data interpretation, scoring, sustainability signals, catalysis records, ML-ready fields, and collaborator-private data."}
+          ? "完整使用边界集中在声明中心。"
+          : "Full use boundaries are centralized in the Disclaimer Center."}
         t={t}
       >
         <button
@@ -1571,8 +1443,9 @@ export function MethodsLimitationsTab({ onNavigate }) {
         </button>
       </MethodSection>
 
+      <div style={{ display: "none" }} aria-hidden="true">
       <MethodSection
-        id="method-limitations-detail"
+        id="legacy-method-limitations-detail"
         title={zh ? "使用边界" : "Use Boundaries"}
         body={zh
           ? "矩阵用简短方式说明适合用途和不适合用途；完整说明集中在声明中心。"
@@ -1588,6 +1461,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
           ))}
         </div>
       </MethodSection>
+      </div>
 
       <MethodSection
         id="method-references"
@@ -1598,14 +1472,14 @@ export function MethodsLimitationsTab({ onNavigate }) {
         t={t}
       >
         <div style={{ display: "grid", gap: 10 }}>
-          <details open style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+          <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
             <summary style={{ cursor: "pointer", color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
               {zh ? "如何引用 EcoMOF-AI" : "How to cite EcoMOF-AI"}
             </summary>
             <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, margin: "10px 0 0" }}>
               {zh
-                ? "EcoMOF-AI 是一个早期科研原型。如果你在展示、作品集评审或非正式科研讨论中引用本项目，请引用项目仓库和网站。本平台不应被引用为已验证的科学数据库或最终预测工具。"
-                : "EcoMOF-AI is an early-stage research prototype. If you reference this project in a presentation, portfolio review, or informal research discussion, please cite the project repository and website. The platform should not be cited as a validated scientific database or final prediction engine."}
+                ? "引用本项目时请引用仓库和网站。"
+                : "Cite the repository and website when referencing this project."}
             </p>
           </details>
 
