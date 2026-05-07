@@ -157,6 +157,7 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
   const [runStatus, setRunStatus] = useState("idle")
   const [runNotice, setRunNotice] = useState("")
   const [scenarioResult, setScenarioResult] = useState(null)
+  const [chartsReady, setChartsReady] = useState(false)
 
   useEffect(() => {
     let active = true
@@ -189,6 +190,18 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
     }
   }, [])
 
+  useEffect(() => {
+    setChartsReady(false)
+    let timer = null
+    const frame = window.requestAnimationFrame(() => {
+      timer = window.setTimeout(() => setChartsReady(true), 80)
+    })
+    return () => {
+      window.cancelAnimationFrame(frame)
+      if (timer) window.clearTimeout(timer)
+    }
+  }, [])
+
   const records = useMemo(() => {
     const loaded = buildDatabaseRecords(structureRows, labelRows)
     return loaded.length ? loaded : LITERATURE_DB
@@ -208,11 +221,11 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
 
   const activeCandidate = useMemo(() => selected || candidates[0] || null, [selected, candidates])
   const chartData = useMemo(() => ({
-    ranking: candidates,
-    evidence: evidenceDistribution(candidates),
-    scores: scoreDistribution(candidates),
-    sensitivity: sensitivityRows(candidates, "ecoscreen", DEFAULT_SCORING_WEIGHTS.ecoscreen, null, "sustainability"),
-  }), [candidates])
+    ranking: chartsReady ? candidates : [],
+    evidence: chartsReady ? evidenceDistribution(candidates) : [],
+    scores: chartsReady ? scoreDistribution(candidates) : [],
+    sensitivity: chartsReady ? sensitivityRows(candidates, "ecoscreen", DEFAULT_SCORING_WEIGHTS.ecoscreen, null, "sustainability") : [],
+  }), [candidates, chartsReady])
   const hasRunnableContext = Boolean(activeCandidate || inputs?.mofName || records.length)
   const runScenario = useCallback(() => {
     if (!hasRunnableContext) {
@@ -421,14 +434,20 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
       </ResultLayer>
 
       <ResultLayer number="04" title={lang === "zh" ? "Model Results / 结果解释图表" : "Model Results / Results Interpretation"}>
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
-          <RankingBarChart data={chartData.ranking} scoreLabel={lang === "zh" ? "生态评分" : "Eco Score"} />
-          <ScoreBreakdownRadar data={activeCandidate?.breakdown || []} title={activeCandidate ? `${activeCandidate.name} · ${lang === "zh" ? "评分拆解" : "Score Breakdown"}` : (lang === "zh" ? "评分拆解" : "Score Breakdown")} />
-          <WeightContributionChart data={activeCandidate?.weightContribution || []} />
-          <EvidenceDistributionChart data={chartData.evidence} />
-          <ScoreDistributionChart data={chartData.scores} />
-          <SensitivityAnalysisChart data={chartData.sensitivity} dimension="Sustainability" />
-        </div>
+        {chartsReady ? (
+          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
+            <RankingBarChart data={chartData.ranking} scoreLabel={lang === "zh" ? "生态评分" : "Eco Score"} />
+            <ScoreBreakdownRadar data={activeCandidate?.breakdown || []} title={activeCandidate ? `${activeCandidate.name} · ${lang === "zh" ? "评分拆解" : "Score Breakdown"}` : (lang === "zh" ? "评分拆解" : "Score Breakdown")} />
+            <WeightContributionChart data={activeCandidate?.weightContribution || []} />
+            <EvidenceDistributionChart data={chartData.evidence} />
+            <ScoreDistributionChart data={chartData.scores} />
+            <SensitivityAnalysisChart data={chartData.sensitivity} dimension="Sustainability" />
+          </div>
+        ) : (
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, color: t.faint, fontSize: 12 }}>
+            {lang === "zh" ? "图表将在页面交互就绪后加载。" : "Charts load after the page interaction layer is ready."}
+          </div>
+        )}
       </ResultLayer>
 
       <ResultLayer number="05" title={lang === "zh" ? "方法与证据" : "Methods & Evidence"}>

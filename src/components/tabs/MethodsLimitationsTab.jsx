@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import {
   useT, useLang, useViewport,
   FONT_MONO,
@@ -140,6 +140,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
   const zh = lang === "zh"
   const [references, setReferences] = useState([])
   const [referencesStatus, setReferencesStatus] = useState("loading")
+  const [evidenceReady, setEvidenceReady] = useState(false)
 
   useEffect(() => {
     let active = true
@@ -158,7 +159,19 @@ export function MethodsLimitationsTab({ onNavigate }) {
     return () => { active = false }
   }, [])
 
-  const handleViewDataQuality = () => {
+  useEffect(() => {
+    setEvidenceReady(false)
+    let timer = null
+    const frame = window.requestAnimationFrame(() => {
+      timer = window.setTimeout(() => setEvidenceReady(true), 80)
+    })
+    return () => {
+      window.cancelAnimationFrame(frame)
+      if (timer) window.clearTimeout(timer)
+    }
+  }, [lang])
+
+  const handleViewDataQuality = useCallback(() => {
     if (onNavigate) {
       onNavigate("data-quality-provenance")
       let attempts = 0
@@ -173,7 +186,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       }
       setTimeout(tryScroll, 150)
     }
-  }
+  }, [onNavigate])
 
   const toc = zh
     ? [
@@ -765,7 +778,8 @@ export function MethodsLimitationsTab({ onNavigate }) {
           : "EcoMOF-AI is an early-stage research prototype, not a validated prediction engine. This section documents the current validation status, what is explicitly checked, and future plans."}
         t={t}
       >
-        <div style={{ display: "grid", gap: 12 }}>
+        {evidenceReady ? (
+          <div style={{ display: "grid", gap: 12 }}>
           <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
             <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, marginBottom: 10 }}>
               {zh ? "A. 当前状态" : "A. Current status"}
@@ -865,6 +879,11 @@ export function MethodsLimitationsTab({ onNavigate }) {
             <CopyLinkButton hash="validation-evidence" label={zh ? "复制验证与证据链接" : "Copy Validation & Evidence link"} copiedLabel={zh ? "链接已复制" : "Link copied"} ariaLabel={zh ? "复制验证与证据链接" : "Copy Validation & Evidence link"} />
           </div>
         </div>
+        ) : (
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, color: t.faint, fontSize: 12 }}>
+            {zh ? "验证与证据内容将在页面交互就绪后加载。" : "Validation and evidence content loads after the page interaction layer is ready."}
+          </div>
+        )}
       </MethodSection>
 
       <MethodSection
@@ -968,28 +987,36 @@ export function MethodsLimitationsTab({ onNavigate }) {
                 ? "部分参考来源用于方法与证据说明或未来数据接入规划，不代表当前已完整接入。"
                 : "Some references are planned or contextual references, not necessarily fully ingested data sources."}
             </p>
-            {referencesStatus === "loading" && (
-              <Callout tone="info">{zh ? "正在加载参考信息…" : "Loading reference records..."}</Callout>
-            )}
-            {referencesStatus === "error" && (
-              <Callout tone="warn">
-                {zh
-                  ? "数据加载失败。请刷新页面，或检查当前网络是否可以访问 GitHub Pages。"
-                  : "Data could not be loaded. Please refresh the page or check network access to GitHub Pages."}
-              </Callout>
-            )}
-            {referencesStatus === "empty" && (
-              <Callout tone="warn">{zh ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
-            )}
-            <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }}>
-              {references.map(item => (
-                <div key={item.id} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, padding: 10 }}>
-                  <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 820 }}>{item.title}</div>
-                  <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.5, marginTop: 4 }}>{item.category} · {item.type}</div>
-                  <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55, marginTop: 6 }}>{item.note}</div>
+            {evidenceReady ? (
+              <>
+                {referencesStatus === "loading" && (
+                  <Callout tone="info">{zh ? "正在加载参考信息…" : "Loading reference records..."}</Callout>
+                )}
+                {referencesStatus === "error" && (
+                  <Callout tone="warn">
+                    {zh
+                      ? "数据加载失败。请刷新页面，或检查当前网络是否可以访问 GitHub Pages。"
+                      : "Data could not be loaded. Please refresh the page or check network access to GitHub Pages."}
+                  </Callout>
+                )}
+                {referencesStatus === "empty" && (
+                  <Callout tone="warn">{zh ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
+                )}
+                <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }}>
+                  {references.map(item => (
+                    <div key={item.id} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, padding: 10 }}>
+                      <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 820 }}>{item.title}</div>
+                      <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.5, marginTop: 4 }}>{item.category} · {item.type}</div>
+                      <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55, marginTop: 6 }}>{item.note}</div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </>
+            ) : (
+              <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.6, marginTop: 10 }}>
+                {zh ? "参考记录将在页面交互就绪后加载。" : "Reference records load after the page interaction layer is ready."}
+              </div>
+            )}
           </details>
 
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>

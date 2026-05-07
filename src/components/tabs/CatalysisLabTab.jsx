@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import {
   useT, useLang, useViewport,
   getCatalysisRecords, getCatalysisTasks, getMofCandidates, getScoringWeights, BasisBadge, BrandMark, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard, CopyLinkButton, DisclaimerLink,
@@ -1478,15 +1478,15 @@ function CandidatePrioritizationWorkspace({ lang, t, isNarrow, isMobile, realSee
 
   // Score all candidates for CO₂ conversion task
   const TASK_ID = "co2_conversion"
-  const scored = sourceData
+  const scored = useMemo(() => sourceData
     .map(c => {
       const norm = normalizeCandidate(c)
       const result = computeCatalysisScore(norm, TASK_ID, weights)
       return { ...norm, score: result.score, parts: result.parts }
     })
-    .sort((a, b) => b.score - a.score)
+    .sort((a, b) => b.score - a.score), [sourceData, weights])
 
-  const top3 = scored.slice(0, 3)
+  const top3 = useMemo(() => scored.slice(0, 3), [scored])
   const RANK_COLORS = [t.accent, t.accentSoft || t.accent, t.subtle]
   const RANK_LABELS = ["#1", "#2", "#3"]
 
@@ -1670,6 +1670,7 @@ export function CatalysisLabTab({ onNavigate }) {
   const [hoveredPathwayId, setHoveredPathwayId] = useState(null)
   const [caseWorkspaceTab, setCaseWorkspaceTab] = useState("overview")
   const [normalizationTemplateStatus, setNormalizationTemplateStatus] = useState("idle")
+  const [chartsReady, setChartsReady] = useState(false)
   const [filters, setFilters] = useState({
     metalCenter: "all",
     bimetallic: "all",
@@ -1723,14 +1724,26 @@ export function CatalysisLabTab({ onNavigate }) {
     return () => { active = false }
   }, [])
 
+  useEffect(() => {
+    setChartsReady(false)
+    let timer = null
+    const frame = window.requestAnimationFrame(() => {
+      timer = window.setTimeout(() => setChartsReady(true), 100)
+    })
+    return () => {
+      window.cancelAnimationFrame(frame)
+      if (timer) window.clearTimeout(timer)
+    }
+  }, [dataMode, taskId])
+
   // Sync active candidates when dataMode changes
   useEffect(() => {
     setCandidates(dataMode === "real-seed" ? realSeedCandidates : demoCandidates)
     setSelected(null)
   }, [dataMode, demoCandidates, realSeedCandidates])
 
-  const task = tasks.find(item => item.id === taskId) || tasks[0]
-  const metals = Array.from(new Set(candidates.map(item => item.metalCenter))).sort()
+  const task = useMemo(() => tasks.find(item => item.id === taskId) || tasks[0], [tasks, taskId])
+  const metals = useMemo(() => Array.from(new Set(candidates.map(item => item.metalCenter))).sort(), [candidates])
 
   const ranked = useMemo(() => {
     return candidates
@@ -1762,9 +1775,14 @@ export function CatalysisLabTab({ onNavigate }) {
     CO2_CONVERSION_PATHWAYS.find(pathway => pathway.id === selectedPathwayId) || CO2_CONVERSION_PATHWAYS[0]
   ), [selectedPathwayId])
 
-  const activeCandidate = selected || ranked[0]
-  const updateFilter = (key, value) => setFilters(prev => ({ ...prev, [key]: value }))
-  const copyNormalizationTemplate = async () => {
+  const activeCandidate = useMemo(() => selected || ranked[0], [ranked, selected])
+  const chartData = useMemo(() => ({
+    evidence: chartsReady ? evidenceDistribution(ranked) : [],
+    scores: chartsReady ? scoreDistribution(ranked) : [],
+    sensitivity: chartsReady ? sensitivityRows(ranked, "catalysis", weights, task, "co2Affinity") : [],
+  }), [chartsReady, ranked, task, weights])
+  const updateFilter = useCallback((key, value) => setFilters(prev => ({ ...prev, [key]: value })), [])
+  const copyNormalizationTemplate = useCallback(async () => {
     try {
       if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(NORMALIZATION_TEMPLATE)
@@ -1775,7 +1793,7 @@ export function CatalysisLabTab({ onNavigate }) {
     } catch {
       setNormalizationTemplateStatus("fallback")
     }
-  }
+  }, [])
   const controlStyle = { background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "8px 10px", color: t.text, fontSize: 12, width: "100%" }
   const filterFields = (
     <>
@@ -2430,14 +2448,20 @@ export function CatalysisLabTab({ onNavigate }) {
                 Catalysis Potential Score = w1 × CO₂ Affinity + w2 × Active Site Potential + w3 × Pore Accessibility + w4 × Stability + w5 × Electronic Property + w6 × Sustainability + w7 × Evidence Confidence
               </MethodDrawer>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12, marginTop: 12 }}>
-              <RankingBarChart data={ranked} scoreLabel={lang === "zh" ? "催化潜力评分" : "Catalysis Potential Score"} />
-              <ScoreBreakdownRadar data={activeCandidate?.scoreBreakdown || []} title={activeCandidate ? `${activeCandidate.name} · ${lang === "zh" ? "评分拆解" : "Score Breakdown"}` : (lang === "zh" ? "评分拆解" : "Score Breakdown")} />
-              <WeightContributionChart data={activeCandidate?.weightContribution || []} />
-              <EvidenceDistributionChart data={evidenceDistribution(ranked)} />
-              <ScoreDistributionChart data={scoreDistribution(ranked)} />
-              <SensitivityAnalysisChart data={sensitivityRows(ranked, "catalysis", weights, task, "co2Affinity")} dimension="CO₂ Affinity" />
-            </div>
+            {chartsReady ? (
+              <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12, marginTop: 12 }}>
+                <RankingBarChart data={ranked} scoreLabel={lang === "zh" ? "催化潜力评分" : "Catalysis Potential Score"} />
+                <ScoreBreakdownRadar data={activeCandidate?.scoreBreakdown || []} title={activeCandidate ? `${activeCandidate.name} · ${lang === "zh" ? "评分拆解" : "Score Breakdown"}` : (lang === "zh" ? "评分拆解" : "Score Breakdown")} />
+                <WeightContributionChart data={activeCandidate?.weightContribution || []} />
+                <EvidenceDistributionChart data={chartData.evidence} />
+                <ScoreDistributionChart data={chartData.scores} />
+                <SensitivityAnalysisChart data={chartData.sensitivity} dimension="CO₂ Affinity" />
+              </div>
+            ) : (
+              <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, color: t.faint, fontSize: 12, marginTop: 12 }}>
+                {lang === "zh" ? "评分图表将在候选列表交互就绪后加载。" : "Scoring charts load after the candidate list is interactive."}
+              </div>
+            )}
           </CatalysisCard>
 
           <CatalysisCard t={t} surface="surface">

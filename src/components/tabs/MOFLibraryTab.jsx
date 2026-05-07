@@ -272,6 +272,7 @@ export function MOFLibraryTab({ results, inputs }) {
   const [selectedCompareIds, setSelectedCompareIds] = useState([])
   const [compareNotice, setCompareNotice] = useState("")
   const [comparisonOpen, setComparisonOpen] = useState(false)
+  const [qualityChartsReady, setQualityChartsReady] = useState(false)
 
   useEffect(() => {
     let active = true
@@ -301,6 +302,18 @@ export function MOFLibraryTab({ results, inputs }) {
       })
     return () => { active = false }
   }, [])
+
+  useEffect(() => {
+    setQualityChartsReady(false)
+    let timer = null
+    const frame = window.requestAnimationFrame(() => {
+      timer = window.setTimeout(() => setQualityChartsReady(true), 90)
+    })
+    return () => {
+      window.cancelAnimationFrame(frame)
+      if (timer) window.clearTimeout(timer)
+    }
+  }, [dataMode])
 
   useEffect(() => {
     setSelectedCompareIds([])
@@ -653,12 +666,18 @@ export function MOFLibraryTab({ results, inputs }) {
             {/* Evidence Level Legend */}
             <EvidenceLevelLegend lang={lang} />
           </div>
-          <DataQualitySection
-            realSeedRows={realSeedRows}
-            lang={lang}
-            t={t}
-            isMobile={isMobile}
-          />
+          {qualityChartsReady ? (
+            <DataQualitySection
+              realSeedRows={realSeedRows}
+              lang={lang}
+              t={t}
+              isMobile={isMobile}
+            />
+          ) : (
+            <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, color: t.faint, fontSize: 12 }}>
+              {lang === "zh" ? "数据质量图表将在基础记录就绪后加载。" : "Data-quality charts load after baseline records are ready."}
+            </div>
+          )}
         </div>
       </ResultLayer>
 

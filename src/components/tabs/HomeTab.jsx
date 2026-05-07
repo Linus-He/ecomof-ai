@@ -18,6 +18,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
         ? "按吸附性能、可持续性或催化适配性判断候选优先级。"
         : "Prioritize candidates by adsorption performance, sustainability, or catalysis fit.",
       target: "performance",
+      tone: "info",
     },
     {
       id: "inspect",
@@ -27,6 +28,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
         ? "查看哪些字段已整理、哪些待整理，以及证据等级是否明确。"
         : "See which fields are curated, pending, and supported by evidence levels.",
       target: "mofLibrary",
+      tone: "neutral",
     },
     {
       id: "provenance",
@@ -36,6 +38,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
         ? "查看描述符来源、测试条件和整理状态。"
         : "Review descriptor source, measurement condition, and curation status.",
       target: "data-quality-provenance",
+      tone: "calc",
     },
     {
       id: "compare",
@@ -46,6 +49,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
         : "Select 2–4 MOF candidates and compare descriptor completeness, key properties, evidence levels, and provenance coverage.",
       tag: lang === "zh" ? "决策支持" : "Decision support",
       target: "mofLibrary",
+      tone: "proxy",
     },
   ], [lang])
 
@@ -155,6 +159,29 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
     border: `1px solid ${t.border}`,
     borderRadius: 10,
     transition: "box-shadow 0.15s, border-color 0.15s",
+  }), [t])
+
+  const cardFill = useMemo(() => ({
+    info: {
+      background: t.badgeInfoBg,
+      border: t.border,
+      number: t.accentText,
+    },
+    neutral: {
+      background: t.surface,
+      border: t.border,
+      number: t.subtle,
+    },
+    calc: {
+      background: t.badgeCalcBg,
+      border: t.border,
+      number: t.badgeCalcText || t.subtle,
+    },
+    proxy: {
+      background: t.badgeUserBg || t.surface,
+      border: t.border,
+      number: t.subtle,
+    },
   }), [t])
 
   return (
@@ -278,6 +305,9 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
           gap: 14,
         }}>
           {whatYouCanDo.map(card => (
+            (() => {
+              const fill = cardFill[card.tone] || cardFill.neutral
+              return (
             <button
               key={card.id}
               type="button"
@@ -287,8 +317,9 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
               style={{
                 all: "unset",
                 ...cardBase,
+                background: fill.background,
+                borderColor: fill.border,
                 padding: isMobile ? "18px 16px" : "22px 20px",
-                borderTop: `3px solid ${t.accent}`,
                 display: "flex",
                 flexDirection: "column",
                 gap: 10,
@@ -297,8 +328,24 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
                 boxSizing: "border-box",
               }}
             >
-              <div style={{ color: t.accentText, fontSize: 12, fontWeight: 900, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}>
-                {card.number}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10 }}>
+                <span style={{ color: fill.number, fontSize: 12, fontWeight: 900, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}>
+                  {card.number}
+                </span>
+                {card.tag && (
+                  <span style={{
+                    color: t.subtle,
+                    background: t.panel,
+                    border: `1px solid ${t.border}`,
+                    borderRadius: 999,
+                    padding: "4px 8px",
+                    fontSize: 10,
+                    fontWeight: 800,
+                    lineHeight: 1.2,
+                  }}>
+                    {card.tag}
+                  </span>
+                )}
               </div>
               <div style={{ color: t.textStrong, fontSize: isMobile ? 17 : 19, fontWeight: 850, lineHeight: 1.25 }}>
                 {card.title}
@@ -306,12 +353,12 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
               <div style={{ color: t.muted, fontSize: 13, lineHeight: 1.6, flex: 1 }}>
                 {card.body}
               </div>
-              {card.tag && (
-                <div style={{ color: t.accentText, fontSize: 11, fontWeight: 850, marginTop: 2 }}>
-                  {card.tag} →
-                </div>
-              )}
+              <div style={{ color: t.accentText, fontSize: 11, fontWeight: 850, marginTop: 2 }}>
+                {lang === "zh" ? "打开" : "Open"} →
+              </div>
             </button>
+              )
+            })()
           ))}
         </div>
       </section>
