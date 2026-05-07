@@ -41,7 +41,9 @@ export function CopyLinkButton({
   const [status, setStatus] = useState("")
   const text = value || buildDeepLink(hash)
   const displayLabel = label || (lang === "zh" ? "复制链接" : "Copy link")
-  const successLabel = value && copiedLabel ? copiedLabel : (lang === "zh" ? "已复制 ✓" : "Copied ✓")
+  const defaultSuccessLabel = lang === "zh" ? "已复制 ✓" : "Copied ✓"
+  const isLinkCopy = Boolean(hash) || /link|链接/i.test(displayLabel)
+  const successLabel = isLinkCopy ? defaultSuccessLabel : (copiedLabel || defaultSuccessLabel)
   const failedLabel = lang === "zh" ? "复制失败" : "Copy failed"
 
   const copy = async () => {
@@ -1307,7 +1309,7 @@ export function RealSeedCallout({ lang }) {
       boxShadow: `inset 3px 0 0 0 ${t.accentSoft || t.border}`,
     }}>
       {lang === "zh"
-        ? "Real Seed Dataset 是真实数据接入框架。待补充字段仍在复核中，后续可能更新。"
+        ? "真实种子数据集是真实数据接入框架。待补充字段仍在复核中，后续可能更新。"
         : "Real Seed Dataset is a framework for curated real-data ingestion. Pending fields are under review and may change."}
     </div>
   )
@@ -1352,9 +1354,9 @@ export function DemoModeBanner({ lang }) {
 export function DataModeNote({ lang }) {
   const t = useT()
   const items = lang === "zh" ? [
-    "Demo Dataset 仅用于展示工作流，不用于科研结论",
-    "Real Seed Dataset 用于承载真实数据整理框架",
-    "Real Seed 不代表完整数据库",
+    "演示数据集仅用于展示工作流，不用于科研结论",
+    "真实种子数据集用于承载真实数据整理框架",
+    "真实种子数据集不代表完整数据库",
     "待补充字段仍在复核中，后续可能更新",
   ] : [
     "Demo Dataset is for workflow demonstration only",

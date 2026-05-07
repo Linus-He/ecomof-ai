@@ -201,7 +201,7 @@ function DataQualitySection({ realSeedRows, lang, t, isMobile }) {
 
       <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.6 }}>
         {zh
-          ? "图表数据从 Real Seed Dataset 的 fieldSources 实时计算。大部分字段当前显示为待整理，反映数据库的实际整理状态。"
+          ? "图表数据从真实种子数据集的字段来源记录实时计算。大部分字段当前显示为待整理，反映数据库的实际整理状态。"
           : "Chart data are computed from Real Seed Dataset fieldSources. Most fields appear as pending, reflecting the actual curation state of the dataset."}
       </div>
     </div>
@@ -494,7 +494,7 @@ export function MOFLibraryTab({ results, inputs }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title="MOF Library"
+        title={lang === "zh" ? "MOF 候选库" : "MOF Library"}
         subtitle={lang === "zh"
           ? "描述符整理、条件数据和逐字段溯源。"
           : "Descriptor curation, condition metadata, and field-level provenance."}
@@ -502,7 +502,7 @@ export function MOFLibraryTab({ results, inputs }) {
         action={
           <>
             <BasisBadge tone={status === "loaded" ? "calc" : "proxy"}>{status === "loaded" ? "public/data" : (lang === "zh" ? "种子数据" : "fallback seed")}</BasisBadge>
-            <CopyLinkButton hash="library" ariaLabel={lang === "zh" ? "复制 MOF Library 链接" : "Copy MOF Library link"} />
+            <CopyLinkButton hash="library" ariaLabel={lang === "zh" ? "复制 MOF 候选库链接" : "Copy MOF Library link"} />
           </>
         }
       />
@@ -517,7 +517,7 @@ export function MOFLibraryTab({ results, inputs }) {
       </div>
       <DataModeNote lang={lang} />
       {status === "loading" && (
-        <Callout tone="info">{lang === "zh" ? "正在加载 MOF Library 数据…" : "Loading MOF Library data..."}</Callout>
+        <Callout tone="info">{lang === "zh" ? "正在加载 MOF 候选库数据…" : "Loading MOF Library data..."}</Callout>
       )}
       {status === "fallback" && (
         <Callout tone="warn">
@@ -773,9 +773,9 @@ export function MOFLibraryTab({ results, inputs }) {
 
       <ResultLayer
         number="05"
-        title={lang === "zh" ? "数据质量与来源追踪" : "Data Quality & Provenance"}
+        title={lang === "zh" ? "数据质量与溯源" : "Data Quality & Provenance"}
         subtitle={lang === "zh"
-          ? "从 Real Seed Dataset 实时计算的字段覆盖率、证据等级分布和整理进度。"
+          ? "从真实种子数据集实时计算的字段覆盖率、证据等级分布和整理进度。"
           : "Field coverage, evidence distribution, and curation progress computed live from Real Seed Dataset."}
       >
         <div id="data-quality-provenance">

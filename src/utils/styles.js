@@ -5,6 +5,7 @@ export function toolbarBtn(t) {
   return {
     background: t.panel, border: `1px solid ${t.borderStrong}`, color: t.muted,
     fontSize: 12, padding: "6px 12px", borderRadius: 6, cursor: "pointer",
+    minHeight: 36,
     display: "inline-flex", alignItems: "center", gap: 6, fontFamily: FONT_SANS,
     fontWeight: 700,
   }
@@ -19,6 +20,7 @@ export function headerChipBtn(t, active = false) {
     padding: "7px 12px",
     borderRadius: 6,
     cursor: "pointer",
+    minHeight: 36,
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",

@@ -1616,7 +1616,7 @@ function CandidatePrioritizationWorkspace({ lang, t, isNarrow, isMobile, realSee
             </div>
             <ul style={{ margin: 0, paddingLeft: 16, color: t.muted, fontSize: 11, lineHeight: 1.7 }}>
               {(lang === "zh" ? [
-                "CO₂ 吸附量字段在 Real Seed Dataset 中暂为空值，评分基于活性位点和孔道假设。",
+                "CO₂ 吸附量字段在真实种子数据集中暂为空值，评分基于活性位点和孔道假设。",
                 "规则权重未经反应条件校准，不可等同于 GCMC 或 IAST 结果。",
                 "pore accessibility 对 null 孔径输入默认评分，不反映实际孔道结构。",
               ] : [
@@ -1847,19 +1847,19 @@ export function CatalysisLabTab({ onNavigate }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title="CatalysisLab"
+        title={lang === "zh" ? "催化实验室" : "CatalysisLab"}
         subtitle={lang === "zh"
           ? "面向 CO₂ 转化与催化数据整理的工作台。"
           : "Workspace for CO₂ conversion and catalysis data curation."}
         meta={lang === "zh" ? "路径 · 案例模板 · 数据管线 · 记录预览 · 候选排序" : "pathways · case template · data pipeline · records · candidate priority"}
         action={
           <>
-            <CopyLinkButton hash="catalysis" ariaLabel={lang === "zh" ? "复制 CatalysisLab 链接" : "Copy CatalysisLab link"} />
+            <CopyLinkButton hash="catalysis" ariaLabel={lang === "zh" ? "复制催化实验室链接" : "Copy CatalysisLab link"} />
           </>
         }
       />
       {dataStatus === "loading" && (
-        <Callout tone="info">{lang === "zh" ? "正在加载 CatalysisLab 数据…" : "Loading CatalysisLab data..."}</Callout>
+        <Callout tone="info">{lang === "zh" ? "正在加载催化实验室数据…" : "Loading CatalysisLab data..."}</Callout>
       )}
       {dataStatus === "error" && (
         <Callout tone="warn">

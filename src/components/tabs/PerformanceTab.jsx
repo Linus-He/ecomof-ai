@@ -138,7 +138,7 @@ export function PerformanceTab({
   const interpretation = useMemo(() => {
     if (!hasResult) {
       return {
-        means: lang === "zh" ? "Performance 分数会把吸附量、选择性、热力学线索和适用域提示合成为早期候选优先级。" : "The Performance score combines uptake, selectivity, thermodynamic cues, and applicability notes into an early-stage candidate priority.",
+        means: lang === "zh" ? "性能优先级分数会把吸附量、选择性、热力学线索和适用域提示合成为早期候选优先级。" : "The Performance score combines uptake, selectivity, thermodynamic cues, and applicability notes into an early-stage candidate priority.",
         high: lang === "zh" ? "当前还没有结果；请先运行浏览器端筛选模型。" : "No result yet; run the browser-side screening model first.",
         data: lang === "zh" ? "数据来源将显示为用户输入、MOF 预设或 seed 标签。" : "Data support will be user input, MOF preset, or seed label context.",
         next: lang === "zh" ? "下一步是补充实测等温线、GCMC 或严格 IAST 验证。" : "Next step is measured isotherms, GCMC, or strict IAST validation.",
@@ -175,7 +175,7 @@ export function PerformanceTab({
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title="Performance"
+        title={lang === "zh" ? "性能优先级" : "Performance"}
         subtitle={lang === "zh"
           ? "基于当前可用描述符的候选优先级参考。"
           : "Candidates are prioritized based on currently available descriptors."}
@@ -183,7 +183,7 @@ export function PerformanceTab({
         action={
           <>
             <BasisBadge tone="info">{lang === "zh" ? "不替代 GCMC / IAST" : "not GCMC / IAST"}</BasisBadge>
-            <CopyLinkButton hash="performance" ariaLabel={lang === "zh" ? "复制 Performance 链接" : "Copy Performance link"} />
+            <CopyLinkButton hash="performance" ariaLabel={lang === "zh" ? "复制性能优先级链接" : "Copy Performance link"} />
           </>
         }
       />
@@ -275,7 +275,7 @@ export function PerformanceTab({
           {dataMode === "real-seed" && <RealSeedCallout lang={lang} />}
           {dataMode === "demo" && <DemoModeBanner lang={lang} />}
           {dataStatus === "loading" && (
-            <Callout tone="info">{lang === "zh" ? "正在加载 Performance 数据…" : "Loading Performance data..."}</Callout>
+            <Callout tone="info">{lang === "zh" ? "正在加载性能优先级数据…" : "Loading Performance data..."}</Callout>
           )}
           {dataStatus === "error" && (
             <Callout tone="warn">
@@ -290,17 +290,17 @@ export function PerformanceTab({
 
           <Callout tone="note">
             {lang === "zh"
-              ? "Performance 模块用于提出吸附性能假设。它不替代实验等温线、GCMC 或严格混合气 IAST。"
+              ? "性能优先级模块用于提出吸附性能假设。它不替代实验等温线、GCMC 或严格混合气 IAST。"
               : "The Performance module is for adsorption-performance hypotheses. It does not replace experimental isotherms, GCMC, or rigorous mixture IAST."}
           </Callout>
           <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "10px 12px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap" }}>
             <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.55 }}>
               {lang === "zh"
-                ? "如需查看带气体比例、选择性条件、吸附量和等温线状态的记录，请进入 GasSep。"
+                ? "如需查看带气体比例、选择性条件、吸附量和等温线状态的记录，请进入气体分离。"
                 : "For condition-aware selectivity, gas ratio, uptake, and isotherm status, see GasSep."}
             </span>
             <button type="button" onClick={() => onNavigate?.("gassep")} style={{ ...toolbarBtn(t), padding: "7px 10px", fontSize: 11 }}>
-              {lang === "zh" ? "打开 GasSep" : "Open GasSep"}
+              {lang === "zh" ? "打开气体分离" : "Open GasSep"}
             </button>
           </div>
 
@@ -350,7 +350,7 @@ export function PerformanceTab({
                     `${lang === "zh" ? "稳定性" : "stability"} ${candidate.waterStability ?? "—"} / ${candidate.thermalStability ?? "—"}`,
                   ]}
                   evidenceLevel={`${lang === "zh" ? "证据等级" : "Evidence Level"}: ${candidate.evidenceLevel === "rule-based" ? (lang === "zh" ? "规则辅助" : "rule-assisted") : (candidate.evidenceLevel || (lang === "zh" ? "规则辅助" : "rule-assisted"))}`}
-                  limitations={lang === "zh" ? "Performance Score 用于比较候选材料的吸附和热力学表现，不能替代严格 GCMC 或 IAST 模拟。" : "Performance Score supports comparison of adsorption and thermodynamic indicators. It does not replace rigorous GCMC or IAST simulations."}
+                  limitations={lang === "zh" ? "性能评分用于比较候选材料的吸附和热力学表现，不能替代严格 GCMC 或 IAST 模拟。" : "Performance Score supports comparison of adsorption and thermodynamic indicators. It does not replace rigorous GCMC or IAST simulations."}
                   recommendedNextStep={lang === "zh"
                     ? ["补充实测等温线", "验证混合气选择性", "进行 GCMC 或 IAST 对照"]
                     : ["Add measured isotherms", "Validate mixture selectivity", "Run GCMC or IAST comparison"]}
@@ -365,7 +365,7 @@ export function PerformanceTab({
           <ResultLayer number="03" title={lang === "zh" ? "结果解释说明" : "Results Interpretation Notes"}>
             <Callout tone="info">
               {lang === "zh"
-                ? "Performance Score 用于比较候选材料的吸附和热力学表现，不能替代严格 GCMC 或 IAST 模拟。"
+                ? "性能评分用于比较候选材料的吸附和热力学表现，不能替代严格 GCMC 或 IAST 模拟。"
                 : "Performance Score supports comparison of adsorption and thermodynamic indicators. It does not replace rigorous GCMC or IAST simulations."}
             </Callout>
             <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>

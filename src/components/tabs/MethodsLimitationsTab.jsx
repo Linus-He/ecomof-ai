@@ -227,7 +227,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
   const dataCards = zh
     ? [
       ["演示数据集", "用于展示工作流和交互逻辑，不应被当作真实科研结论。", "proxy"],
-      ["真实种子数据集", "真实种子数据集（Real Seed Dataset）是公开数据库和文献记录的接入框架；当前不是完整 MOF 数据库。", "info"],
+      ["真实种子数据集", "真实种子数据集是公开数据库和文献记录的接入框架；当前不是完整 MOF 数据库。", "info"],
       ["催化数据模板", "用于统一记录催化剂、反应条件、产物指标和证据来源，方便后续对比与复核。", "warn"],
       ["后续数据接入", "真实建模需要结构化实验或文献数据，包括条件、标签、来源和限制。", "info"],
     ]
@@ -350,7 +350,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       "可持续性评分不替代完整工业 LCA；",
       "吸附相关结果不替代严格 GCMC 或 IAST 分析；",
       "机器学习评估需要带标签的实验或文献数据；",
-      "Real Seed Dataset 不是完整 MOF 数据库；",
+      "真实种子数据集不是完整 MOF 数据库；",
       "仍需实验验证。",
     ]
     : [
@@ -444,7 +444,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <PageHeader
-        title="Methods & Evidence"
+        title={zh ? "方法与证据" : "Methods & Evidence"}
         subtitle={zh
           ? "方法逻辑、数据边界和引用方式。"
           : "Scoring logic, data boundaries, and citation."}
@@ -655,8 +655,8 @@ export function MethodsLimitationsTab({ onNavigate }) {
       >
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
           <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, maxWidth: 760 }}>
-          {zh
-              ? "GasSep（气体分离）用于查看带条件语境的气体吸附与分离记录，包括体系、比例、温度、压力、方法、来源状态和等温线可用性。"
+            {zh
+              ? "气体分离模块用于查看带条件语境的气体吸附与分离记录，包括体系、比例、温度、压力、方法、来源状态和等温线可用性。"
               : "GasSep shows gas adsorption and separation records with condition context, including system, ratio, temperature, pressure, method, source status, and isotherm availability."}
           </div>
           <button
@@ -670,7 +670,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
               cursor: "pointer", fontFamily: FONT_MONO,
             }}
           >
-            {zh ? "打开 GasSep" : "Open GasSep"}
+            {zh ? "打开气体分离" : "Open GasSep"}
           </button>
         </div>
       </MethodSection>
@@ -679,7 +679,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
         id="method-catalysis-boundaries"
         title={zh ? "催化数据整理边界" : "Catalysis curation boundaries"}
         body={zh
-          ? "CatalysisLab（催化实验室）按产物路径和反应模式组织 CO₂ 转化记录，并区分条件语境、活性/选择性指标、稳定性证据和来源状态。待补充字段仍在复核中，后续可能更新。"
+          ? "催化实验室按产物路径和反应模式组织 CO₂ 转化记录，并区分条件语境、活性/选择性指标、稳定性证据和来源状态。待补充字段仍在复核中，后续可能更新。"
           : "CatalysisLab organizes CO₂ conversion records by product pathway and reaction mode, while separating condition context, activity/selectivity metrics, stability evidence, and source status. Pending fields are under review and may change."}
         t={t}
       >

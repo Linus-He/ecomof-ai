@@ -287,7 +287,7 @@ export function ContactModal({ open, onClose }) {
        ["Performance / Advanced Screening", "性能优先级 / 高级筛选"],
        ["CatalysisLab", "催化实验室"],
        ["MOF Library / Data Provenance", "MOF 候选库 / 数据溯源"],
-       ["Real Seed Dataset", "Real Seed Dataset"],
+       ["Real Seed Dataset", "真实种子数据集"],
        ["General collaboration", "一般合作"]]
     : [["", "Select…"],
        ["EcoScreen", "EcoScreen"],

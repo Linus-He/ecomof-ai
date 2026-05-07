@@ -65,7 +65,7 @@ export function PresetSearchControl({
           lineHeight: 1.3,
           zIndex: 121,
           pointerEvents: "none",
-        }}>
+        }} aria-live="polite">
           {resultFeedback}
         </div>
       )}
@@ -110,13 +110,13 @@ export function PresetSearchControl({
         </div>
       )}
       {status === "loaded" && (
-        <div style={{ position: "absolute", top: "calc(100% + 6px)", left: 14, color: t.success, fontSize: 10 }}>
+        <div style={{ position: "absolute", top: "calc(100% + 6px)", left: 14, color: t.success, fontSize: 10 }} aria-live="polite">
           ✓ {copy.header.loaded}
         </div>
       )}
       {status === "miss" && (
-        <div style={{ position: "absolute", top: "calc(100% + 6px)", left: 14, color: t.danger, fontSize: 10 }}>
-          {copy.header.miss}
+        <div style={{ position: "absolute", top: "calc(100% + 6px)", left: 14, color: t.danger, fontSize: 10 }} aria-live="polite">
+          {lang === "zh" ? "未找到匹配候选材料" : "No matching candidates"}
         </div>
       )}
     </div>
@@ -321,6 +321,17 @@ export function ContextualHeaderBar({
     borderRadius: 0,
     boxShadow: "none",
   }
+  const subnavChip = (active = false) => ({
+    ...headerChipBtn(t, active),
+    background: active ? t.surface : "transparent",
+    borderColor: active ? t.border : t.divider,
+    color: active ? t.accentText : t.subtle,
+    fontSize: 11,
+    fontWeight: active ? 760 : 650,
+    padding: "5px 9px",
+    minHeight: 30,
+    boxShadow: "none",
+  })
   const compactSelectStyle = { ...headerInputStyle(t), minWidth: 0, flex: "0 1 auto", cursor: "pointer" }
   const gasOptions = GAS_SYSTEMS.filter(item => item.priority !== "unavailable")
   const comparisonSubtabs = [
@@ -343,19 +354,19 @@ export function ContextualHeaderBar({
         <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
           {lang === "zh" ? "通过下方模块探索 MOF 候选材料、进行记录对比、查看数据溯源并阅读方法说明。" : "Use the modules below to explore MOF candidates, compare records, inspect provenance, and review methods."}
         </div>
-        <button type="button" onClick={() => setActiveTab("performance")} style={{ ...headerChipBtn(t, true), padding: "9px 14px" }}>
+        <button type="button" onClick={() => setActiveTab("performance")} style={subnavChip(true)}>
           {lang === "zh" ? "性能优先级" : "Performance"}
         </button>
-        <button type="button" onClick={() => setActiveTab("gassep")} style={headerChipBtn(t)}>
-          {lang === "zh" ? "GasSep（气体分离）" : "GasSep"}
+        <button type="button" onClick={() => setActiveTab("gassep")} style={subnavChip()}>
+          {lang === "zh" ? "气体分离" : "GasSep"}
         </button>
-        <button type="button" onClick={() => setActiveTab("ecoscreen")} style={headerChipBtn(t)}>
+        <button type="button" onClick={() => setActiveTab("ecoscreen")} style={subnavChip()}>
           {lang === "zh" ? "生态筛选" : "EcoScreen"}
         </button>
-        <button type="button" onClick={() => setActiveTab("catalysis")} style={headerChipBtn(t)}>
-          {lang === "zh" ? "CatalysisLab（催化实验室）" : "CatalysisLab"}
+        <button type="button" onClick={() => setActiveTab("catalysis")} style={subnavChip()}>
+          {lang === "zh" ? "催化实验室" : "CatalysisLab"}
         </button>
-        <button type="button" onClick={() => setActiveTab("library")} style={headerChipBtn(t)}>
+        <button type="button" onClick={() => setActiveTab("library")} style={subnavChip()}>
           {lang === "zh" ? "MOF 候选库" : "MOF Library"}
         </button>
       </div>
@@ -366,12 +377,12 @@ export function ContextualHeaderBar({
     return (
       <div style={layerStyle}>
         <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
-          {lang === "zh" ? "GasSep 聚焦气体比例、温度、压力、方法、来源和等温线状态的条件语境记录。" : "GasSep focuses on records with condition context: gas ratio, temperature, pressure, method, source, and isotherm status."}
+          {lang === "zh" ? "气体分离聚焦气体比例、温度、压力、方法、来源和等温线状态的条件语境记录。" : "GasSep focuses on records with condition context: gas ratio, temperature, pressure, method, source, and isotherm status."}
         </div>
-        <button type="button" onClick={() => setActiveTab("performance")} style={headerChipBtn(t)}>
+        <button type="button" onClick={() => setActiveTab("performance")} style={subnavChip()}>
           {lang === "zh" ? "性能优先级" : "Performance"}
         </button>
-        <button type="button" onClick={() => setActiveTab("library")} style={headerChipBtn(t)}>
+        <button type="button" onClick={() => setActiveTab("library")} style={subnavChip()}>
           {lang === "zh" ? "MOF 候选库" : "MOF Library"}
         </button>
       </div>
@@ -442,7 +453,7 @@ export function ContextualHeaderBar({
     return (
       <div style={layerStyle}>
         <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
-          {lang === "zh" ? "CatalysisLab 当前以演示记录展示催化任务和证据整理流程。" : "CatalysisLab is in demonstration mode with placeholder records for task and evidence exploration."}
+          {lang === "zh" ? "催化实验室当前以演示记录展示催化任务和证据整理流程。" : "CatalysisLab is in demonstration mode with placeholder records for task and evidence exploration."}
         </div>
         <button type="button" onClick={() => setActiveTab("about")} style={headerChipBtn(t)}>
           {lang === "zh" ? "查看方法与证据" : "View Methods & Evidence"}
@@ -455,7 +466,7 @@ export function ContextualHeaderBar({
     return (
       <div style={layerStyle}>
         <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
-          {lang === "zh" ? "MOF Library 展示基础候选记录和逐字段来源信息，不给出最终结论。" : "MOF Library presents baseline records and field-level source information without claiming final conclusions."}
+          {lang === "zh" ? "MOF 候选库展示基础候选记录和逐字段来源信息，不给出最终结论。" : "MOF Library presents baseline records and field-level source information without claiming final conclusions."}
         </div>
       </div>
     )
@@ -467,10 +478,10 @@ export function ContextualHeaderBar({
 export function InternalNav({ items, active, onChange }) {
   const t = useT()
   return (
-    <div style={{ display: "flex", gap: 6, flexWrap: "wrap", background: "transparent", border: `1px solid ${t.divider || t.border}`, borderRadius: 8, padding: 5 }}>
+    <div className="subnav-strip" style={{ display: "flex", gap: 5, flexWrap: "wrap", background: t.surface, border: `1px solid ${t.divider || t.border}`, borderRadius: 8, padding: 4 }}>
       {items.map(item => (
         <button key={item.id} type="button" onClick={() => onChange(item.id)}
-          style={{ ...toolbarBtn(t), padding: "5px 9px", fontSize: 11, background: active === item.id ? t.surface : "transparent", borderColor: active === item.id ? t.border : "transparent", color: active === item.id ? t.accentText : t.faint, boxShadow: "none" }}>
+          style={{ ...toolbarBtn(t), padding: "4px 8px", minHeight: 28, fontSize: 10.5, background: active === item.id ? t.panel : "transparent", borderColor: active === item.id ? t.border : "transparent", color: active === item.id ? t.accentText : t.faint, boxShadow: "none", fontWeight: active === item.id ? 760 : 650 }}>
           {item.label}
         </button>
       ))}

@@ -99,7 +99,7 @@ function buildEcoCandidates(records, results, inputs, lang) {
         toxicityConcern: "low",
         evidenceLevel: "rule-based",
       }, DEFAULT_SCORING_WEIGHTS.ecoscreen).score,
-      task: lang === "zh" ? "当前输入结构的 EcoScreen 候选" : "EcoScreen candidate for current input",
+      task: lang === "zh" ? "当前输入结构的生态筛选候选" : "EcoScreen candidate for current input",
       reasons: [
         lang === "zh" ? "来自当前输入" : "current input",
         lang === "zh" ? `选择性 ${results.selectivity}` : `selectivity ${results.selectivity}`,
@@ -230,7 +230,7 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
   const runScenario = useCallback(() => {
     if (!hasRunnableContext) {
       setRunNotice(lang === "zh"
-        ? "请先选择候选材料，或使用当前材料库语境后再运行 EcoScreen。"
+        ? "请先选择候选材料，或使用当前材料库语境后再运行生态筛选。"
         : "Select a candidate or use the current library context before running EcoScreen.")
       return
     }
@@ -265,7 +265,7 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title="EcoScreen"
+        title={lang === "zh" ? "生态筛选" : "EcoScreen"}
         subtitle={lang === "zh"
           ? "面向可持续性的早期筛选信号。"
           : "Early-stage sustainability screening signals."}
@@ -273,7 +273,7 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
         action={
           <>
             <BasisBadge tone="proxy">{lang === "zh" ? "不替代完整 LCA" : "not full LCA"}</BasisBadge>
-            <CopyLinkButton hash="ecoscreen" ariaLabel={lang === "zh" ? "复制 EcoScreen 链接" : "Copy EcoScreen link"} />
+            <CopyLinkButton hash="ecoscreen" ariaLabel={lang === "zh" ? "复制生态筛选链接" : "Copy EcoScreen link"} />
           </>
         }
       />
@@ -283,7 +283,7 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
         <DisclaimerLink />
       </Callout>
       {dataStatus === "loading" && (
-        <Callout tone="info">{lang === "zh" ? "正在加载 EcoScreen 数据…" : "Loading EcoScreen data..."}</Callout>
+        <Callout tone="info">{lang === "zh" ? "正在加载生态筛选数据…" : "Loading EcoScreen data..."}</Callout>
       )}
       {dataStatus === "error" && (
         <Callout tone="warn">
@@ -333,7 +333,7 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
               type="button"
               onClick={runScenario}
               disabled={runStatus === "running"}
-              title={runStatus === "running" ? (lang === "zh" ? "EcoScreen 正在运行。" : "EcoScreen is running.") : undefined}
+              title={runStatus === "running" ? (lang === "zh" ? "生态筛选正在运行。" : "EcoScreen is running.") : undefined}
               style={{ ...toolbarBtn(t), alignSelf: "end", minHeight: 38, opacity: runStatus === "running" ? 0.72 : 1, cursor: runStatus === "running" ? "not-allowed" : "pointer" }}
             >
               {runStatus === "running"
@@ -356,7 +356,7 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
         </div>
       </ResultLayer>
       {scenarioResult && (
-        <ResultLayer number="01B" title={lang === "zh" ? "EcoScreen 场景结果" : "EcoScreen scenario result"}>
+        <ResultLayer number="01B" title={lang === "zh" ? "生态筛选场景结果" : "EcoScreen scenario result"}>
           <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, display: "grid", gap: 11 }}>
             <div style={{ display: "flex", justifyContent: "space-between", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
               <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850 }}>{scenarioResult.name}</div>
@@ -456,7 +456,7 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
             {lang === "zh" ? "生态评分聚合金属节点、连接体、过程代理、性能趋势和来源质量。它是候选优先级，不是完整 LCIA 或供应商报价。" : "Eco Score aggregates node, linker, process proxies, performance trend, and source quality. It is candidate priority, not full LCIA or supplier pricing."}
           </MethodDrawer>
           <MethodDrawer title={lang === "zh" ? "已有 Eco 功能如何保留" : "How existing Eco features are preserved"}>
-            {lang === "zh" ? "现有 LCA/LCC、绿色评分、敏感性和结果解释内容已整合到 EcoScreen 的筛选、排序和方法说明中。" : "Existing LCA/LCC, green score, sensitivity, and explanation content are organized into EcoScreen filters, ranking, and methodology notes."}
+            {lang === "zh" ? "现有 LCA/LCC、绿色评分、敏感性和结果解释内容已整合到生态筛选的筛选、排序和方法说明中。" : "Existing LCA/LCC, green score, sensitivity, and explanation content are organized into EcoScreen filters, ranking, and methodology notes."}
           </MethodDrawer>
         </div>
       </ResultLayer>

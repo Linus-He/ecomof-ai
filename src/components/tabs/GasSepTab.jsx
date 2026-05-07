@@ -111,7 +111,8 @@ export function GasSepTab() {
     ["C2H6/C2H4", zh ? "取决于条件" : "condition-dependent", zh ? "乙烷/乙烯分离" : "ethane/ethylene separation"],
     ["Xe/Kr", zh ? "取决于条件" : "condition-dependent", zh ? "稀有气体分离" : "noble gas separation"],
   ], [zh])
-  const systemAccents = [t.badgeCalcText, t.badgeProxyText, t.accentText, t.badgeUserText, t.subtle, t.faint]
+  const systemAccents = [t.accentText, t.warn, t.success, t.violet, t.badgeCalcText, t.faint]
+  const systemTints = [t.badgeInfoBg, t.badgeProxyBg, t.badgeCalcBg, t.badgeDangerBg, t.surface, t.panel]
 
   const isothermStatuses = useMemo(() => [
     ["uptake-only", statusLabel("uptake-only", zh)],
@@ -123,7 +124,7 @@ export function GasSepTab() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title="GasSep"
+        title={zh ? "气体分离" : "GasSep"}
         subtitle={zh
           ? "带条件语境的气体吸附与分离记录。"
           : "Gas adsorption and separation records with condition context."}
@@ -131,7 +132,7 @@ export function GasSepTab() {
         action={
           <>
             <BasisBadge tone="proxy">{zh ? "条件化记录" : "condition-aware records"}</BasisBadge>
-            <CopyLinkButton hash="gassep" ariaLabel={zh ? "复制 GasSep 链接" : "Copy GasSep link"} />
+            <CopyLinkButton hash="gassep" ariaLabel={zh ? "复制气体分离链接" : "Copy GasSep link"} />
           </>
         }
       />
@@ -154,7 +155,7 @@ export function GasSepTab() {
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
           {systems.map(([system, ratio, context], index) => (
             <article key={system} className="content-card" style={{
-              background: index % 2 === 0 ? t.surface : t.panel,
+              background: systemTints[index] || (index % 2 === 0 ? t.surface : t.panel),
               border: `1px solid ${t.border}`,
               borderRadius: 8,
               padding: 12,
@@ -162,8 +163,22 @@ export function GasSepTab() {
               boxShadow: `inset 3px 0 0 0 ${systemAccents[index] || t.border}`,
             }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, flexWrap: "wrap" }}>
-                <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900, fontFamily: FONT_MONO }}>{system}</div>
-                <BasisBadge tone="user">{zh ? "常见报道语境" : "commonly reported context"}</BasisBadge>
+                <div style={{ display: "flex", alignItems: "center", gap: 7, minWidth: 0 }}>
+                  <span aria-hidden="true" style={{ width: 7, height: 7, borderRadius: 999, background: systemAccents[index] || t.border, boxShadow: `0 0 0 3px ${t.panel}` }} />
+                  <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900, fontFamily: FONT_MONO }}>{system}</div>
+                </div>
+                <span style={{
+                  color: t.subtle,
+                  background: t.badgeCalcBg,
+                  border: `1px solid ${t.border}`,
+                  borderRadius: 999,
+                  padding: "3px 7px",
+                  fontSize: 10,
+                  fontWeight: 800,
+                  lineHeight: 1.2,
+                }}>
+                  {zh ? "常见报道语境" : "commonly reported context"}
+                </span>
               </div>
               <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", marginTop: 10 }}>
                 {zh ? "常见比例" : "Common ratio"}
@@ -180,7 +195,7 @@ export function GasSepTab() {
 
       <section className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
         <SectionTitle>{zh ? "条件化记录表" : "Condition-aware Records Table"}</SectionTitle>
-        {status === "loading" && <Callout tone="info">{zh ? "正在加载 GasSep 记录…" : "Loading GasSep records..."}</Callout>}
+        {status === "loading" && <Callout tone="info">{zh ? "正在加载气体分离记录…" : "Loading GasSep records..."}</Callout>}
         {status === "error" && (
           <Callout tone="warn">
             {zh

@@ -57,31 +57,31 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
     {
       id: "mofLibrary",
       hash: "library",
-      name: lang === "zh" ? "MOF Library（候选库）" : "MOF Library",
+      name: lang === "zh" ? "MOF 候选库" : "MOF Library",
       desc: lang === "zh" ? "浏览候选材料、查看整理状态，并进入候选材料对比。" : "Browse candidates, inspect curation status, and launch candidate comparison.",
     },
     {
       id: "performance",
       hash: "performance",
-      name: lang === "zh" ? "Performance（性能优先级）" : "Performance",
+      name: lang === "zh" ? "性能优先级" : "Performance",
       desc: lang === "zh" ? "查看吸附相关候选优先级。" : "Explore adsorption-oriented candidate priorities.",
     },
     {
       id: "gassep",
       hash: "gassep",
-      name: lang === "zh" ? "GasSep（气体分离）" : "GasSep",
+      name: lang === "zh" ? "气体分离" : "GasSep",
       desc: lang === "zh" ? "带条件语境的气体吸附与分离记录。" : "Gas adsorption and separation records with condition context.",
     },
     {
       id: "ecoscreen",
       hash: "ecoscreen",
-      name: lang === "zh" ? "EcoScreen（生态筛选）" : "EcoScreen",
+      name: lang === "zh" ? "生态筛选" : "EcoScreen",
       desc: lang === "zh" ? "查看可持续性筛选信号。" : "Review sustainability screening signals.",
     },
     {
       id: "catalysis",
       hash: "catalysis",
-      name: lang === "zh" ? "CatalysisLab（催化实验室）" : "CatalysisLab",
+      name: lang === "zh" ? "催化实验室" : "CatalysisLab",
       desc: lang === "zh" ? "面向任务的 MOF 催化探索，包含 CO₂ 转化筛选。" : "Task-oriented MOF catalysis exploration, including CO₂ conversion screening.",
     },
     {
@@ -208,12 +208,12 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
               letterSpacing: 0,
               lineHeight: 1.1,
             }}>
-              EcoMOF-AI
+              {lang === "zh" ? "总览" : "Overview"}
             </h1>
             <p style={{ margin: "5px 0 0", color: t.textStrong, fontSize: isMobile ? 15 : 17, lineHeight: 1.45, maxWidth: 780 }}>
               {lang === "zh"
-                ? "透明的 MOF 筛选与数据溯源原型。"
-                : "Transparent MOF screening, provenance, and collaboration prototype."}
+                ? "EcoMOF-AI：透明的 MOF 筛选与数据溯源原型。"
+                : "EcoMOF-AI: Transparent MOF screening, provenance, and collaboration prototype."}
             </p>
             <p style={{ margin: "3px 0 0", color: t.muted, fontSize: isMobile ? 13 : 14, lineHeight: 1.5, maxWidth: 780 }}>
               {lang === "zh"
@@ -254,7 +254,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
               color: t.accentText,
             }}
           >
-            {lang === "zh" ? "查看 MOF Library →" : "Explore MOF Library →"}
+            {lang === "zh" ? "查看 MOF 候选库 →" : "Explore MOF Library →"}
           </button>
           <button
             type="button"
@@ -385,6 +385,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
               key={mod.id}
               type="button"
               onClick={() => setActiveTab(mod.id)}
+              className="content-card clickable-card"
               style={{
                 all: "unset",
                 cursor: "pointer",
@@ -395,14 +396,6 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
                 justifyContent: "space-between",
                 gap: 10,
                 textAlign: "left",
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.borderColor = t.accent
-                e.currentTarget.style.boxShadow = t.shadowSm
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.borderColor = t.border
-                e.currentTarget.style.boxShadow = "none"
               }}
             >
               <div style={{ minWidth: 0 }}>

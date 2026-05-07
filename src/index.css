@@ -42,6 +42,17 @@ button, input, select { transition: border-color 0.18s ease, background 0.18s ea
 input:focus, select:focus { border-color: #185FA5 !important; box-shadow: 0 0 0 2px rgba(26, 109, 181, 0.15) !important; outline: none; }
 button:hover:not(:disabled) { filter: none; transform: translateY(-1px); }
 button:active:not(:disabled) { transform: translateY(0); }
+button:focus-visible,
+[role="button"]:focus-visible,
+.clickable-card:focus-visible {
+  outline: 2px solid rgba(26, 109, 181, 0.42);
+  outline-offset: 2px;
+}
+button:disabled {
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
 
 .app-main {
   contain: paint;
@@ -112,6 +123,20 @@ button:active:not(:disabled) { transform: translateY(0); }
 .content-card:hover {
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
   transform: translateY(-2px) !important;
+}
+
+.clickable-card {
+  cursor: pointer;
+}
+
+.clickable-card:hover {
+  border-color: rgba(26, 109, 181, 0.34) !important;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.10) !important;
+  transform: translateY(-2px) !important;
+}
+
+.clickable-card:active {
+  transform: translateY(0) scale(0.995) !important;
 }
 
 .metric-card {
@@ -346,11 +371,11 @@ details[open].motion-surface {
 @keyframes page-fade-in {
   from {
     opacity: 0;
-    transform: translateY(12px) scale(0.996);
+    transform: translateY(4px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 

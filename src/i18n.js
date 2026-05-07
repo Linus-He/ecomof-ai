@@ -28,7 +28,7 @@ export const COPY = {
     header: {
       searchPlaceholder: "Search MOFs — UiO-66, HKUST-1, ZIF-8...",
       loaded: "Parameters loaded into form",
-      miss: "No preset match - v1.1 will broaden the preset catalog.",
+      miss: "No matching candidates",
       batch: "Batch Mode",
       light: "Switch to light mode",
       dark: "Switch to dark mode",
@@ -404,7 +404,7 @@ export const COPY = {
     header: {
       searchPlaceholder: "搜索 MOF — UiO-66、HKUST-1、ZIF-8...",
       loaded: "参数已填入左侧表单",
-      miss: "未匹配到预设结构 - v1.1 将扩展预设库。",
+      miss: "未找到匹配候选材料",
       batch: "批量模式",
       light: "切换浅色模式",
       dark: "切换深色模式",
