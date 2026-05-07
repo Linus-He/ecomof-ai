@@ -57,7 +57,6 @@ const DATA_INTAKE_TEMPLATE = `{
 
 function Field({ label, required, children }) {
   const t = useT()
-  const { lang } = useLang()
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
       <label style={{
@@ -68,22 +67,6 @@ function Field({ label, required, children }) {
         letterSpacing: "0.04em",
       }}>
         {label}
-        {required && (
-          <span style={{
-            color: t.accentText,
-            background: t.badgeInfoBg,
-            border: `1px solid ${t.border}`,
-            borderRadius: 999,
-            marginLeft: 6,
-            padding: "2px 6px",
-            fontSize: 9,
-            fontWeight: 850,
-            letterSpacing: 0,
-            textTransform: "none",
-          }}>
-            {lang === "zh" ? "必填" : "Required"}
-          </span>
-        )}
       </label>
       {children}
     </div>
