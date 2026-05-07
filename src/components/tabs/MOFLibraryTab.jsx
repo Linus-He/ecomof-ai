@@ -364,8 +364,8 @@ export function MOFLibraryTab({ results, inputs }) {
     setCompareNotice("")
     setSelectedCompareIds(prev => {
       if (prev.includes(item.id)) return prev.filter(id => id !== item.id)
-      if (prev.length >= 4) {
-        setCompareNotice(lang === "zh" ? "最多可对比 4 个候选材料。" : "You can compare up to 4 candidates.")
+      if (prev.length >= 3) {
+        setCompareNotice(lang === "zh" ? "为保证可读性，每次最多对比 3 个候选材料。" : "For readability, compare up to 3 candidates.")
         return prev
       }
       return [...prev, item.id]
@@ -512,6 +512,27 @@ export function MOFLibraryTab({ results, inputs }) {
 
       <ResultLayer number="01" title={lang === "zh" ? "搜索与基础筛选" : "Search and Basic Filters"}>
         <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 10 }}>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5 }}>
+              {lang === "zh" ? "先搜索或筛选候选材料，也可以直接打开对比配置器。" : "Search or filter candidates, or open the comparison builder directly."}
+            </div>
+            <button
+              type="button"
+              onClick={() => setComparisonOpen(true)}
+              style={{
+                ...toolbarBtn(t),
+                color: t.accentText,
+                border: `1px solid ${t.accent}`,
+                padding: isMobile ? "9px 12px" : "9px 14px",
+                width: isMobile ? "100%" : "auto",
+                justifyContent: "center",
+              }}
+            >
+              {selectedCompareIds.length
+                ? (lang === "zh" ? `对比候选材料 · 已选 ${selectedCompareIds.length} 个` : `Compare candidates · ${selectedCompareIds.length} selected`)
+                : (lang === "zh" ? "对比候选材料" : "Compare candidates")}
+            </button>
+          </div>
           <button type="button" onClick={() => setFiltersOpen(prev => !prev)} style={{ ...controlStyle, display: isMobile ? "block" : "none", marginBottom: filtersOpen ? 10 : 0 }}>
             {filtersOpen ? (lang === "zh" ? "收起筛选器" : "Collapse filters") : (lang === "zh" ? "展开筛选器" : "Expand filters")}
           </button>
@@ -544,6 +565,10 @@ export function MOFLibraryTab({ results, inputs }) {
           )}
           {filtered.map(item => (
             <div key={item.id} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 13 }}>
+              {(() => {
+                const isSelected = selectedCompareIds.includes(item.id)
+                const limitReached = selectedCompareIds.length >= 3 && !isSelected
+                return (
               <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
                 <div>
                   <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 900 }}>{item.name}</div>
@@ -555,23 +580,33 @@ export function MOFLibraryTab({ results, inputs }) {
                   <button
                     type="button"
                     onClick={() => toggleCompare(item)}
-                    aria-label={selectedCompareIds.includes(item.id)
+                    disabled={limitReached}
+                    title={limitReached
+                      ? (lang === "zh" ? "为保证可读性，每次最多对比 3 个候选材料。" : "For readability, compare up to 3 candidates.")
+                      : undefined}
+                    aria-label={isSelected
                       ? (lang === "zh" ? `取消选择 ${item.name}` : `Remove ${item.name} from comparison`)
-                      : (lang === "zh" ? `加入对比 ${item.name}` : `Compare ${item.name}`)}
+                      : (lang === "zh" ? `加入对比 ${item.name}` : `Add ${item.name} to compare`)}
                     style={{
                       ...toolbarBtn(t),
                       padding: "4px 9px",
                       fontSize: 10,
-                      color: selectedCompareIds.includes(item.id) ? t.accentText : t.subtle,
-                      border: `1px solid ${selectedCompareIds.includes(item.id) ? t.accent : t.borderStrong}`,
+                      color: isSelected ? t.accentText : limitReached ? t.faint : t.subtle,
+                      border: `1px solid ${isSelected ? t.accent : t.borderStrong}`,
+                      opacity: limitReached ? 0.6 : 1,
+                      cursor: limitReached ? "not-allowed" : "pointer",
                     }}
                   >
-                    {selectedCompareIds.includes(item.id)
-                      ? (lang === "zh" ? "已选择" : "Selected")
-                      : (lang === "zh" ? "加入对比" : "Compare")}
+                    {isSelected
+                      ? (lang === "zh" ? "已加入" : "Added")
+                      : limitReached
+                        ? (lang === "zh" ? "已达到对比上限" : "Compare limit reached")
+                        : (lang === "zh" ? "加入对比" : "Add to compare")}
                   </button>
                 </div>
               </div>
+                )
+              })()}
               <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(9, minmax(0, 1fr))", gap: 12, marginTop: 12 }}>
                 {field(lang === "zh" ? "金属节点" : "metal nodes", item.metal)}
                 {field(lang === "zh" ? "连接体" : "linker", item.linker)}
@@ -619,12 +654,13 @@ export function MOFLibraryTab({ results, inputs }) {
         {selectedCompareIds.length > 0 && (
           <CompareTray
             count={selectedCompareIds.length}
-            canCompare={selectedCompareIds.length >= 2}
+            names={selectedCompareCandidates.map(item => item.name)}
             notice={compareNotice}
-            onCompare={() => selectedCompareIds.length >= 2 && setComparisonOpen(true)}
+            onCompare={() => setComparisonOpen(true)}
             onClear={() => { setSelectedCompareIds([]); setCompareNotice(""); setComparisonOpen(false) }}
             t={t}
             lang={lang}
+            isMobile={isMobile}
           />
         )}
       </ResultLayer>
@@ -693,6 +729,8 @@ export function MOFLibraryTab({ results, inputs }) {
       <CandidateComparisonModal
         open={comparisonOpen}
         candidates={selectedCompareCandidates}
+        allCandidates={records}
+        onSelectionChange={setSelectedCompareIds}
         onClose={() => setComparisonOpen(false)}
         t={t}
         lang={lang}

@@ -2,7 +2,7 @@ import { useMemo } from "react"
 import { useT, useLang, useViewport, BrandMark } from "../../shared"
 import { toolbarBtn } from "../../utils/styles"
 
-export function HomeTab({ setActiveTab, onContactOpen }) {
+export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }) {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
@@ -43,12 +43,12 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
     {
       id: "compare",
       number: "04",
-      title: lang === "zh" ? "对比候选材料" : "Compare candidates",
+      title: lang === "zh" ? "对比 MOF 候选材料" : "Compare MOF candidates",
       body: lang === "zh"
-        ? "选择 2–4 个 MOF 候选材料，横向比较描述符完整性、关键属性、证据等级和溯源覆盖情况。"
-        : "Select 2–4 MOF candidates and compare descriptor completeness, key properties, evidence levels, and provenance coverage.",
+        ? "选择候选材料、比较功能和条件语境，只查看相关字段与缺失数据。"
+        : "Choose candidates, select a function, set condition context, and compare relevant fields.",
       tag: lang === "zh" ? "决策支持" : "Decision support",
-      target: "mofLibrary",
+      action: "builder",
       tone: "info",
     },
   ], [lang])
@@ -258,10 +258,10 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
           </button>
           <button
             type="button"
-            onClick={() => setActiveTab("mofLibrary")}
+            onClick={onOpenComparisonBuilder || (() => setActiveTab("mofLibrary"))}
             style={{ ...toolbarBtn(t), padding: "9px 16px", fontSize: 13 }}
           >
-            {lang === "zh" ? "候选材料对比" : "Compare Candidates"}
+            {lang === "zh" ? "打开对比器" : "Open builder"}
           </button>
           <button
             type="button"
@@ -311,8 +311,8 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
             <button
               key={card.id}
               type="button"
-              onClick={card.target ? () => setActiveTab(card.target) : undefined}
-              aria-label={card.target ? card.title : undefined}
+              onClick={card.action === "builder" ? (onOpenComparisonBuilder || (() => setActiveTab("mofLibrary"))) : (card.target ? () => setActiveTab(card.target) : undefined)}
+              aria-label={card.title}
               className="content-card"
               style={{
                 all: "unset",
@@ -324,7 +324,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
                 flexDirection: "column",
                 gap: 10,
                 minHeight: isMobile ? 0 : 154,
-                cursor: card.target ? "pointer" : "default",
+                cursor: card.target || card.action === "builder" ? "pointer" : "default",
                 boxSizing: "border-box",
               }}
             >
@@ -354,7 +354,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
                 {card.body}
               </div>
               <div style={{ color: t.accentText, fontSize: 11, fontWeight: 850, marginTop: 2 }}>
-                {lang === "zh" ? "打开" : "Open"} →
+                {card.action === "builder" ? (lang === "zh" ? "打开对比器" : "Open builder") : (lang === "zh" ? "打开" : "Open")} →
               </div>
             </button>
               )
