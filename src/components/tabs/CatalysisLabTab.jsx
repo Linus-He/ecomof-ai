@@ -596,55 +596,53 @@ const BRIDGE_METRICS = [
   },
 ]
 
-const ORGANIC_ACID_SUMMARY = [
+const CATALYSIS_FRAMEWORK_SUMMARY = [
   {
-    en: "Carbon sources",
-    zh: "碳源",
-    valuesEn: ["CO₂", "HCO₃⁻", "biomass"],
-    valuesZh: ["CO₂", "HCO₃⁻", "生物质"],
+    en: "Reaction pathways",
+    zh: "反应路径",
+    valuesEn: ["CO₂ conversion", "biomass conversion", "coupling", "organic transformation"],
+    valuesZh: ["CO₂ 转化", "生物质转化", "协同转化", "有机转化"],
     tone: "info",
   },
   {
-    en: "Target products",
-    zh: "目标产物",
-    valuesEn: ["formic acid", "organic acids"],
-    valuesZh: ["甲酸", "有机酸"],
+    en: "Catalytic modes",
+    zh: "催化方式",
+    valuesEn: ["electro", "photo", "thermal", "photothermal"],
+    valuesZh: ["电催", "光催", "热催", "光热催化"],
     tone: "calc",
   },
   {
-    en: "Pathway types",
-    zh: "路径类型",
-    valuesEn: ["CO₂ conversion", "biomass conversion", "coupled conversion"],
-    valuesZh: ["CO₂ 转化", "生物质转化", "协同转化"],
+    en: "Metric systems",
+    zh: "指标体系",
+    valuesEn: ["conversion", "selectivity", "yield", "FE", "energy"],
+    valuesZh: ["转化率", "选择性", "产率", "FE", "能耗"],
     tone: "proxy",
   },
   {
     en: "Comparability",
     zh: "可比性",
-    valuesEn: ["direct", "normalization needed", "bridge needed", "not comparable"],
-    valuesZh: ["直接比较", "需归一化", "需桥梁", "暂不可比"],
+    valuesEn: ["direct", "normalized", "bridge needed", "pending"],
+    valuesZh: ["直接比较", "条件归一化", "需桥梁", "待补充"],
     tone: "warn",
   },
 ]
 
-const ORGANIC_ACID_PATHWAY_TYPES = [
+const CATALYSIS_PATHWAY_TYPES = [
   {
-    id: "co2-hco3-conversion",
-    en: "CO₂ / HCO₃⁻ Conversion",
-    zh: "CO₂ / HCO₃⁻ 转化",
-    feedstockEn: "CO₂, HCO₃⁻",
-    feedstockZh: "CO₂、HCO₃⁻",
-    ideaEn: "CO₂-derived carbon routed toward reduced or acid-related products.",
-    ideaZh: "将 CO₂ 来源碳整理到还原产物或酸相关产物路径中。",
-    productsEn: ["formic acid", "CO", "methanol", "organic acids"],
-    productsZh: ["甲酸", "CO", "甲醇", "有机酸"],
+    id: "co2-conversion",
+    en: "CO₂ Conversion",
+    zh: "CO₂ 转化",
+    feedstockEn: "CO₂, HCO₃⁻, carbonate sources",
+    feedstockZh: "CO₂、HCO₃⁻、碳酸盐来源",
+    productsEn: ["CO", "formate", "methanol", "cyclic carbonates"],
+    productsZh: ["CO", "甲酸盐", "甲醇", "环状碳酸酯"],
     modesEn: ["electro", "photo", "thermal", "photothermal"],
     modesZh: ["电催", "光催", "热催", "光热催化"],
     metricsEn: ["conversion", "selectivity", "yield", "FE when electrochemical"],
     metricsZh: ["转化率", "选择性", "产率", "电化学时 FE"],
-    comparabilityEn: "Metric bridge needed",
-    comparabilityZh: "需指标桥梁",
-    tone: "proxy",
+    statusEn: "framework ready",
+    statusZh: "框架已建立",
+    tone: "info",
   },
   {
     id: "biomass-conversion",
@@ -652,17 +650,15 @@ const ORGANIC_ACID_PATHWAY_TYPES = [
     zh: "生物质转化",
     feedstockEn: "glucose, saccharides, alcohols",
     feedstockZh: "葡萄糖、糖类、醇类",
-    ideaEn: "Biomass-derived substrates are converted toward organic acids or platform chemicals.",
-    ideaZh: "将生物质来源底物转化为有机酸或平台化合物。",
     productsEn: ["organic acids", "platform chemicals"],
     productsZh: ["有机酸", "平台化合物"],
     modesEn: ["thermal", "hydrothermal", "photo-assisted"],
     modesZh: ["热催", "水热", "光辅助"],
     metricsEn: ["conversion", "selectivity", "yield"],
     metricsZh: ["转化率", "选择性", "产率"],
-    comparabilityEn: "Condition-normalized comparison needed",
-    comparabilityZh: "需条件归一化",
-    tone: "info",
+    statusEn: "curation workflow",
+    statusZh: "整理工作流",
+    tone: "proxy",
   },
   {
     id: "co2-biomass-coupling",
@@ -670,24 +666,54 @@ const ORGANIC_ACID_PATHWAY_TYPES = [
     zh: "CO₂ 与生物质协同转化",
     feedstockEn: "CO₂/HCO₃⁻ + biomass-derived substrates",
     feedstockZh: "CO₂/HCO₃⁻ + 生物质来源底物",
-    ideaEn: "Coupled carbon-source context for organic-acid routes, especially formic acid.",
-    ideaZh: "面向有机酸路径的双碳源语境，重点关注甲酸。",
-    productsEn: ["formic acid", "organic acids"],
-    productsZh: ["甲酸", "有机酸"],
+    productsEn: ["formic acid", "formate", "organic acids"],
+    productsZh: ["甲酸", "甲酸盐", "有机酸"],
     modesEn: ["hydrothermal thermocatalysis", "photo/thermal possible"],
     modesZh: ["水热热催化", "光/热可能"],
     metricsEn: ["product yield", "selectivity", "carbon efficiency"],
     metricsZh: ["产物产率", "选择性", "碳效率"],
-    comparabilityEn: "Bridge metrics needed",
-    comparabilityZh: "需桥梁指标",
+    statusEn: "case pathway available",
+    statusZh: "已有案例路径",
     tone: "calc",
+  },
+  {
+    id: "organic-transformation",
+    en: "Organic Transformation",
+    zh: "有机转化",
+    feedstockEn: "epoxides, alcohols, organic substrates",
+    feedstockZh: "环氧化物、醇类、有机底物",
+    productsEn: ["cyclic carbonates", "oxygenates", "functionalized products"],
+    productsZh: ["环状碳酸酯", "含氧化合物", "功能化产物"],
+    modesEn: ["thermal", "photo", "bifunctional catalysis"],
+    modesZh: ["热催", "光催", "双功能催化"],
+    metricsEn: ["conversion", "yield", "selectivity", "recyclability"],
+    metricsZh: ["转化率", "产率", "选择性", "循环性能"],
+    statusEn: "schema status",
+    statusZh: "字段结构状态",
+    tone: "warn",
+  },
+  {
+    id: "environmental-catalysis",
+    en: "Environmental Catalysis",
+    zh: "环境催化",
+    feedstockEn: "pollutants, dilute streams, water/air matrices",
+    feedstockZh: "污染物、稀释流、水/空气基质",
+    productsEn: ["degradation products", "remediated streams"],
+    productsZh: ["降解产物", "修复后流体"],
+    modesEn: ["photo", "thermal", "electro", "photothermal"],
+    modesZh: ["光催", "热催", "电催", "光热催化"],
+    metricsEn: ["removal efficiency", "rate", "stability", "toxicity signal"],
+    metricsZh: ["去除效率", "速率", "稳定性", "毒性信号"],
+    statusEn: "pathway template",
+    statusZh: "路径模板",
+    tone: "info",
   },
 ]
 
-const ORGANIC_ACID_METRIC_MATRIX = [
+const CATALYSIS_METRIC_MATRIX = [
   {
-    pathwayEn: "CO₂ / HCO₃⁻ conversion",
-    pathwayZh: "CO₂ / HCO₃⁻ 转化",
+    pathwayEn: "CO₂ Conversion",
+    pathwayZh: "CO₂ 转化",
     modesEn: "electro, photo, thermal, photothermal",
     modesZh: "电催、光催、热催、光热催化",
     metricsEn: "conversion, selectivity, yield, FE when electrochemical",
@@ -700,7 +726,7 @@ const ORGANIC_ACID_METRIC_MATRIX = [
     bridgeZh: "需要，尤其在催化方式或指标变化时",
   },
   {
-    pathwayEn: "Biomass conversion",
+    pathwayEn: "Biomass Conversion",
     pathwayZh: "生物质转化",
     modesEn: "thermal, hydrothermal, photo-assisted",
     modesZh: "热催、水热、光辅助",
@@ -714,7 +740,7 @@ const ORGANIC_ACID_METRIC_MATRIX = [
     bridgeZh: "先做条件归一化",
   },
   {
-    pathwayEn: "CO₂ + biomass coupling",
+    pathwayEn: "CO₂ + Biomass Coupling",
     pathwayZh: "CO₂ 与生物质协同转化",
     modesEn: "hydrothermal thermocatalysis, thermal/photo possible",
     modesZh: "水热热催化、热/光可能",
@@ -728,22 +754,36 @@ const ORGANIC_ACID_METRIC_MATRIX = [
     bridgeZh: "需要，需碳效率与能耗桥梁",
   },
   {
-    pathwayEn: "Organic acid production",
-    pathwayZh: "有机酸生成",
-    modesEn: "pathway-dependent tags",
-    modesZh: "随路径变化的催化方式标签",
-    metricsEn: "target acid selectivity, product form, carbon efficiency",
-    metricsZh: "目标酸选择性、产物形态、碳效率",
-    contextEn: "acid/base speciation, analytical method, separation context",
-    contextZh: "酸碱物种形态、分析方法、分离语境",
-    scopeEn: "same target acid and reporting form",
-    scopeZh: "相同目标酸和相同报道形态",
-    bridgeEn: "yes for cross-acid or cross-pathway comparison",
-    bridgeZh: "跨酸类或跨路径比较时需要",
+    pathwayEn: "Organic Transformation",
+    pathwayZh: "有机转化",
+    modesEn: "thermal, photo, bifunctional catalysis",
+    modesZh: "热催、光催、双功能催化",
+    metricsEn: "conversion, yield, selectivity, recyclability",
+    metricsZh: "转化率、产率、选择性、循环性能",
+    contextEn: "substrate scope, co-catalyst, solvent, pressure, time",
+    contextZh: "底物范围、助催化剂、溶剂、压力、时间",
+    scopeEn: "same reaction family and substrate class",
+    scopeZh: "相同反应家族与底物类别",
+    bridgeEn: "case-dependent",
+    bridgeZh: "视案例而定",
+  },
+  {
+    pathwayEn: "Environmental Catalysis",
+    pathwayZh: "环境催化",
+    modesEn: "photo, thermal, electro, photothermal",
+    modesZh: "光催、热催、电催、光热催化",
+    metricsEn: "removal efficiency, rate, stability, toxicity signal",
+    metricsZh: "去除效率、速率、稳定性、毒性信号",
+    contextEn: "pollutant concentration, matrix, light/voltage/heat, analysis method",
+    contextZh: "污染物浓度、基质、光/电/热条件、分析方法",
+    scopeEn: "matched pollutant and matrix context",
+    scopeZh: "相同污染物与基质语境",
+    bridgeEn: "yes for cross-matrix comparison",
+    bridgeZh: "跨基质比较时需要",
   },
 ]
 
-const ORGANIC_ACID_COMPARABILITY = [
+const CATALYSIS_COMPARABILITY = [
   {
     en: "Directly comparable",
     zh: "可直接比较",
@@ -774,20 +814,20 @@ const ORGANIC_ACID_COMPARABILITY = [
   },
 ]
 
-const ORGANIC_BRIDGE_METRICS = [
+const CATALYSIS_BRIDGE_METRICS = [
   {
-    en: "Energy per organic acid product",
-    zh: "单位有机酸产物能耗",
+    en: "Energy per product",
+    zh: "单位产物能耗",
     connectsEn: "electricity, light, heat, and coupled inputs",
     connectsZh: "电能、光能、热能和耦合输入",
     whyEn: "links pathways with different energy forms",
     whyZh: "连接不同能量形式的路径",
   },
   {
-    en: "Carbon efficiency to target acid",
-    zh: "目标酸产物碳效率",
-    connectsEn: "CO₂/HCO₃⁻ carbon, biomass carbon, target-acid carbon",
-    connectsZh: "CO₂/HCO₃⁻ 碳、生物质碳、目标酸产物碳",
+    en: "Carbon efficiency",
+    zh: "碳效率",
+    connectsEn: "CO₂ carbon, substrate carbon, product carbon",
+    connectsZh: "CO₂ 碳、底物碳、产物碳",
     whyEn: "keeps carbon-source accounting explicit",
     whyZh: "明确碳源核算边界",
   },
@@ -2303,11 +2343,11 @@ export function CatalysisLabTab({ onNavigate }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title={lang === "zh" ? "有机酸路径探索器" : "Organic Acid Pathway Explorer"}
+        title={lang === "zh" ? "催化路径探索器" : "Catalysis Pathway Explorer"}
         subtitle={lang === "zh"
-          ? "围绕 CO₂ / HCO₃⁻ / 生物质转化制有机酸，按反应路径、催化方式、指标体系和可比性状态进行整理。"
-          : "Organize CO₂ / HCO₃⁻ / biomass conversion routes toward organic acids by pathway type, catalytic mode, metric system, and comparability status."}
-        meta={lang === "zh" ? "有机酸路径 · 甲酸 · 路径标签 · 可比性 · 桥梁指标" : "organic acid pathways · formic acid · mode overlays · comparability · bridge metrics"}
+          ? "按反应路径、催化方式、指标体系和可比性状态组织 MOF 相关催化任务。"
+          : "Organize MOF-related catalytic tasks by reaction pathway, catalytic mode, metric system, and comparability status."}
+        meta={lang === "zh" ? "反应路径 · 催化方式标签 · 指标映射 · 可比性 · 桥梁指标" : "reaction pathways · mode overlays · metric mapping · comparability · bridge metrics"}
         action={
           <>
             <CopyLinkButton hash="catalysis" ariaLabel={lang === "zh" ? "复制催化实验室链接" : "Copy CatalysisLab link"} />
@@ -2330,21 +2370,21 @@ export function CatalysisLabTab({ onNavigate }) {
 
       <Callout tone="info">
         {lang === "zh"
-          ? "路径结构优先的有机酸工作台；不展示私密数值，也不代表已训练模型。"
-          : "Pathway-first organic-acid workspace; no private values or trained ML model."}{" "}
+          ? "当前阶段的功能重点是路径结构化、指标映射和可比性判断，而不是直接预测最佳催化剂。"
+          : "The current function is pathway structuring, metric mapping, and comparability assessment, not validated catalyst prediction."}{" "}
         <DisclaimerLink />
       </Callout>
 
       <ResultLayer
         number="01"
-        title={lang === "zh" ? "有机酸路径仪表盘" : "Organic Acid Pathway Dashboard"}
+        title={lang === "zh" ? "催化框架仪表盘" : "Catalysis Framework Dashboard"}
         subtitle={lang === "zh"
-          ? "首屏以 CO₂ / HCO₃⁻ / 生物质到甲酸 / 有机酸的路径关系为主线，催化方式只作为叠加标签。"
-          : "The first screen centers CO₂ / HCO₃⁻ / biomass routes toward formic acid / organic acids, with catalytic modes as overlays."}
+          ? "首屏以反应路径、催化方式标签、指标体系和可比性状态构成通用催化任务框架。"
+          : "The first screen frames catalytic tasks by reaction pathway, mode overlays, metric system, and comparability status."}
       >
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(260px, 0.82fr) minmax(0, 1.9fr)", gap: 14, alignItems: "stretch" }}>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, minmax(0, 1fr))" : "1fr", gap: 10 }}>
-            {ORGANIC_ACID_SUMMARY.map(item => (
+            {CATALYSIS_FRAMEWORK_SUMMARY.map(item => (
               <CatalysisCard key={item.en} t={t} surface="surface" padding={12}>
                 <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center" }}>
                   <CatalysisKicker t={t}>{lang === "zh" ? item.zh : item.en}</CatalysisKicker>
@@ -2373,63 +2413,35 @@ export function CatalysisLabTab({ onNavigate }) {
           <CatalysisCard t={t} strong padding={isMobile ? 14 : 18}>
             <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start", flexWrap: "wrap" }}>
               <div>
-                <CatalysisKicker t={t}>{lang === "zh" ? "有机酸路径图" : "Organic Acid Pathway Map"}</CatalysisKicker>
-                <CatalysisCardTitle t={t}>{lang === "zh" ? "CO₂ / HCO₃⁻ / 生物质 → 甲酸 / 有机酸" : "CO₂ / HCO₃⁻ / biomass → formic acid / organic acids"}</CatalysisCardTitle>
+                <CatalysisKicker t={t}>{lang === "zh" ? "催化任务框架图" : "Catalysis Task Framework Map"}</CatalysisKicker>
+                <CatalysisCardTitle t={t}>{lang === "zh" ? "反应路径 → 标签 → 指标 → 可比性 → 优先级语境" : "Pathway → tags → metrics → comparability → priority context"}</CatalysisCardTitle>
               </div>
-              <BasisBadge tone="proxy">{lang === "zh" ? "概念路径，不是实验结论" : "conceptual route, not an experimental claim"}</BasisBadge>
+              <BasisBadge tone="proxy">{lang === "zh" ? "框架视图，不是预测结果" : "framework view, not a prediction result"}</BasisBadge>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) 48px minmax(0, 0.9fr)", gap: 10, alignItems: "center", marginTop: 16 }}>
-              <div style={{ display: "grid", gap: 9 }}>
-                {[
-                  [lang === "zh" ? "CO₂ / HCO₃⁻" : "CO₂ / HCO₃⁻", lang === "zh" ? "CO₂ 来源碳" : "CO₂-source carbon"],
-                  [lang === "zh" ? "生物质 / 葡萄糖" : "biomass / glucose", lang === "zh" ? "生物质来源底物" : "biomass-derived substrate"],
-                  [lang === "zh" ? "CO₂ + 生物质协同" : "CO₂ + biomass coupling", lang === "zh" ? "双碳源路径语境" : "dual-carbon-source route"],
-                ].map(([title, body]) => (
-                  <div key={title} style={{
-                    background: t.surface,
-                    border: `1px solid ${t.border}`,
-                    borderRadius: 10,
-                    padding: "11px 12px",
-                  }}>
-                    <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900 }}>{title}</div>
-                    <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45, marginTop: 4 }}>{body}</div>
-                  </div>
-                ))}
-              </div>
-
-              <div aria-hidden="true" style={{
-                color: t.accentText,
-                display: "grid",
-                fontSize: isMobile ? 22 : 28,
-                fontWeight: 900,
-                justifyItems: "center",
-                gap: 6,
-                transform: isMobile ? "rotate(90deg)" : "none",
-              }}>
-                <span>→</span>
-                <span>→</span>
-                <span>→</span>
-              </div>
-
-              <div style={{
-                background: t.badgeInfoBg,
-                border: `1px solid ${t.borderStrong || t.border}`,
-                borderRadius: 12,
-                boxShadow: t.shadowSm,
-                padding: isMobile ? 14 : 18,
-                textAlign: "center",
-              }}>
-                <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, letterSpacing: 0.4, textTransform: "uppercase" }}>
-                  {lang === "zh" ? "目标产物" : "target products"}
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(5, minmax(0, 1fr))", gap: 9, alignItems: "stretch", marginTop: 16 }}>
+              {[
+                [lang === "zh" ? "反应路径" : "Reaction pathway", lang === "zh" ? "定义任务边界" : "task boundary"],
+                [lang === "zh" ? "催化方式标签" : "Catalytic mode tags", lang === "zh" ? "电 / 光 / 热 / 光热" : "electro / photo / thermal / photothermal"],
+                [lang === "zh" ? "指标体系" : "Metric system", lang === "zh" ? "转化率 / 选择性 / 产率 / FE" : "conversion / selectivity / yield / FE"],
+                [lang === "zh" ? "可比性状态" : "Comparability status", lang === "zh" ? "直接 / 归一化 / 桥梁 / 待补充" : "direct / normalized / bridge / pending"],
+                [lang === "zh" ? "候选优先级语境" : "Candidate prioritization context", lang === "zh" ? "规则辅助整理" : "rule-assisted curation"],
+              ].map(([title, body], index) => (
+                <div key={title} style={{
+                  background: index === 4 ? t.badgeInfoBg : t.surface,
+                  border: `1px solid ${index === 4 ? (t.borderStrong || t.border) : t.border}`,
+                  borderRadius: 10,
+                  minHeight: 112,
+                  padding: "12px 10px",
+                  position: "relative",
+                }}>
+                  <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900, lineHeight: 1.25 }}>{title}</div>
+                  <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45, marginTop: 8 }}>{body}</div>
+                  {index < 4 && !isMobile && (
+                    <span aria-hidden="true" style={{ color: t.accentText, fontSize: 20, fontWeight: 900, position: "absolute", right: -13, top: "42%", zIndex: 2 }}>→</span>
+                  )}
                 </div>
-                <div style={{ color: t.textStrong, fontSize: isMobile ? 20 : 24, fontWeight: 950, lineHeight: 1.1, marginTop: 8 }}>
-                  {lang === "zh" ? "甲酸 / 有机酸" : "Formic acid / Organic acids"}
-                </div>
-                <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.45, marginTop: 8 }}>
-                  {lang === "zh" ? "重点路径：CO₂/HCO₃⁻ + 生物质协同" : "Focus path: CO₂/HCO₃⁻ + biomass coupling"}
-                </div>
-              </div>
+              ))}
             </div>
 
             <div style={{ display: "flex", gap: 7, flexWrap: "wrap", marginTop: 14 }}>
@@ -2443,17 +2455,16 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="02" title={lang === "zh" ? "路径类型地图" : "Pathway Type Map"}>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
-          {ORGANIC_ACID_PATHWAY_TYPES.map(pathway => (
+      <ResultLayer number="02" title={lang === "zh" ? "反应路径地图" : "Reaction Pathway Map"}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
+          {CATALYSIS_PATHWAY_TYPES.map(pathway => (
             <CatalysisCard key={pathway.id} t={t} surface={pathway.id === "co2-biomass-coupling" ? "surface" : "panel"} strong={pathway.id === "co2-biomass-coupling"}>
               <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "flex-start", flexWrap: "wrap" }}>
                 <CatalysisCardTitle t={t}>{lang === "zh" ? pathway.zh : pathway.en}</CatalysisCardTitle>
-                <BasisBadge tone={pathway.tone}>{lang === "zh" ? pathway.comparabilityZh : pathway.comparabilityEn}</BasisBadge>
+                <BasisBadge tone={pathway.tone}>{lang === "zh" ? pathway.statusZh : pathway.statusEn}</BasisBadge>
               </div>
               <div style={{ display: "grid", gap: 9, marginTop: 11 }}>
                 <CatalysisFieldTile t={t} label={lang === "zh" ? "原料" : "Feedstock"} value={lang === "zh" ? pathway.feedstockZh : pathway.feedstockEn} />
-                <CatalysisBodyText t={t}>{lang === "zh" ? pathway.ideaZh : pathway.ideaEn}</CatalysisBodyText>
                 <div>
                   <CatalysisKicker t={t}>{lang === "zh" ? "目标产物" : "Target products"}</CatalysisKicker>
                   <div style={{ marginTop: 6 }}><PathwayPills items={lang === "zh" ? pathway.productsZh : pathway.productsEn} lang={lang} t={t} tone="accent" /></div>
@@ -2512,7 +2523,7 @@ export function CatalysisLabTab({ onNavigate }) {
               </tr>
             </thead>
             <tbody>
-              {ORGANIC_ACID_METRIC_MATRIX.map(row => (
+              {CATALYSIS_METRIC_MATRIX.map(row => (
                 <tr key={row.pathwayEn}>
                   <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 12, fontWeight: 860 }}>{lang === "zh" ? row.pathwayZh : row.pathwayEn}</td>
                   <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11, lineHeight: 1.55 }}>{lang === "zh" ? row.modesZh : row.modesEn}</td>
@@ -2532,7 +2543,7 @@ export function CatalysisLabTab({ onNavigate }) {
 
       <ResultLayer number="05" title={lang === "zh" ? "可比性状态" : "Comparability Status"}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
-          {ORGANIC_ACID_COMPARABILITY.map(item => (
+          {CATALYSIS_COMPARABILITY.map(item => (
             <CatalysisCard key={item.en} t={t} surface="surface">
               <BasisBadge tone={item.tone}>{lang === "zh" ? item.zh : item.en}</BasisBadge>
               <CatalysisBodyText t={t} style={{ marginTop: 9 }}>{lang === "zh" ? item.bodyZh : item.bodyEn}</CatalysisBodyText>
@@ -2541,9 +2552,9 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="06" title={lang === "zh" ? "跨路径桥梁指标" : "Cross-pathway Bridge Metrics"}>
+      <ResultLayer number="06" title={lang === "zh" ? "跨路径桥梁指标路线图" : "Cross-pathway Bridge Metrics Roadmap"}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
-          {ORGANIC_BRIDGE_METRICS.map(item => (
+          {CATALYSIS_BRIDGE_METRICS.map(item => (
             <CatalysisCard key={item.en} t={t}>
               <CatalysisCardTitle t={t}>{lang === "zh" ? item.zh : item.en}</CatalysisCardTitle>
               <div style={{ display: "grid", gap: 8, marginTop: 10 }}>
@@ -2556,21 +2567,23 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
         <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 9 }}>
           {lang === "zh"
-            ? "桥梁指标用于定义后续归一化目标，不代表当前原型已有验证换算公式。"
-            : "Bridge metrics define future normalization targets. They are not validated conversion formulas in the current prototype."}
+            ? "桥梁指标是后续归一化目标，不是当前原型中的验证换算公式。"
+            : "Bridge metrics are future normalization targets, not validated conversion formulas in the current prototype."}
         </div>
       </ResultLayer>
 
-      <ResultLayer number="07" title={lang === "zh" ? "生物质辅助 CO₂/HCO₃⁻ 制甲酸" : "Biomass-assisted CO₂/HCO₃⁻ to Formic Acid"}>
+      <ResultLayer number="07" title={lang === "zh" ? "案例路径：生物质辅助 CO₂ / HCO₃⁻ 转化制甲酸" : "Case Pathway: Biomass-assisted CO₂ / HCO₃⁻ to Formic Acid"}>
         <CatalysisCard t={t} strong>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
             {[
-              [lang === "zh" ? "路径" : "Pathway", lang === "zh" ? "CO₂ 与生物质协同转化" : "CO₂ + Biomass Coupling"],
+              [lang === "zh" ? "所属路径" : "Parent pathway", lang === "zh" ? "CO₂ 与生物质协同转化" : "CO₂ + Biomass Coupling"],
               [lang === "zh" ? "催化方式" : "Catalytic mode", lang === "zh" ? "水热热催化" : "Hydrothermal thermocatalysis"],
-              [lang === "zh" ? "原料" : "Feedstock", lang === "zh" ? "HCO₃⁻ / CO₂ 来源 + 葡萄糖或生物质来源底物" : "HCO₃⁻ / CO₂ source + glucose or biomass-derived substrate"],
+              [lang === "zh" ? "原料" : "Feedstock", lang === "zh" ? "HCO₃⁻ / CO₂ 来源 + 生物质来源底物" : "HCO₃⁻ / CO₂ source + biomass-derived substrate"],
               [lang === "zh" ? "目标产物" : "Target product", lang === "zh" ? "甲酸" : "Formic acid"],
-              [lang === "zh" ? "状态" : "Status", lang === "zh" ? "当前合作语境 · 待文献整理" : "Current collaborator context · pending literature curation"],
+              [lang === "zh" ? "指标关注" : "Metric focus", lang === "zh" ? "产率、选择性、碳效率、条件严苛度" : "yield, selectivity, carbon efficiency, condition severity"],
+              [lang === "zh" ? "状态" : "Status", lang === "zh" ? "合作语境 · 待文献整理" : "Collaborator context · literature curation pending"],
               [lang === "zh" ? "可比性" : "Comparability", lang === "zh" ? "需指标桥梁" : "Metric bridge needed"],
+              [lang === "zh" ? "边界" : "Boundary", lang === "zh" ? "路径模板，不是已验证预测结果" : "pathway template, not a validated prediction result"],
             ].map(([label, value]) => (
               <CatalysisFieldTile key={label} t={t} label={label} value={value} accent />
             ))}
@@ -2579,7 +2592,7 @@ export function CatalysisLabTab({ onNavigate }) {
             <BasisBadge tone="proxy">{lang === "zh" ? "不公开合作者身份" : "no collaborator identity"}</BasisBadge>
             <BasisBadge tone="proxy">{lang === "zh" ? "不展示真实实验数值" : "no private experimental values"}</BasisBadge>
             <BasisBadge tone="info">{lang === "zh" ? "非平台预测结果" : "not a platform prediction"}</BasisBadge>
-            <BasisBadge tone="warn">{lang === "zh" ? "170 ℃ 仅当前合作语境，非普适最优" : "170 ℃ is current collaborator context only, not universal optimum"}</BasisBadge>
+            <BasisBadge tone="warn">{lang === "zh" ? "170 ℃ 如出现，仅当前合作语境，非普适最优" : "170 ℃, if shown, is collaborator-context only, not universal optimum"}</BasisBadge>
           </div>
         </CatalysisCard>
       </ResultLayer>
