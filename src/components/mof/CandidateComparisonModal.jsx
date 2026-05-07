@@ -134,6 +134,15 @@ function normalizeCandidate(item) {
   }
 }
 
+function uniqueCandidates(rows) {
+  const map = new Map()
+  rows.map(normalizeCandidate).filter(Boolean).forEach(item => {
+    const key = item.id || item.name
+    if (!map.has(key)) map.set(key, item)
+  })
+  return Array.from(map.values())
+}
+
 function fieldSource(candidate, key) {
   return candidate?.fieldSources?.[key]
 }
@@ -234,6 +243,27 @@ function sourceStatus(candidate, lang) {
 function evidenceStatus(candidate, key, lang) {
   const source = fieldSource(candidate, key)
   return source?.evidenceLevel || candidate.evidenceLevel || curationPendingLabel(lang)
+}
+
+function curatedDescriptorCount(candidate) {
+  return CORE_FIELDS.filter(field => fieldStatus(candidate, field.key) === "curated").length
+}
+
+function candidateSearchText(candidate) {
+  return [
+    candidate.id,
+    candidate.name,
+    candidate.formula,
+    candidate.metal,
+    ...(candidate.metalNodes || []),
+    candidate.linker,
+    candidate.topology,
+    candidate.source,
+    candidate.dataStatus,
+    candidate.evidenceLevel,
+    ...(candidate.tags || []),
+    ...(candidate.reactionClasses || []),
+  ].filter(Boolean).join(" ").toLowerCase()
 }
 
 function missingCoreFields(candidate, lang) {
@@ -385,6 +415,27 @@ function TextControl({ label, value, onChange, placeholder, t }) {
   )
 }
 
+function EmptyCandidateState({ t, children }) {
+  return (
+    <div style={{
+      minHeight: 84,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      textAlign: "center",
+      color: t.faint,
+      fontSize: 11,
+      lineHeight: 1.6,
+      background: t.surface,
+      border: `1px dashed ${t.border}`,
+      borderRadius: 8,
+      padding: 12,
+    }}>
+      {children}
+    </div>
+  )
+}
+
 export function CompareTray({ count, names = [], notice, onCompare, onClear, t, lang, isMobile }) {
   const status = count === 0
     ? (lang === "zh" ? "尚未选择候选材料" : "No candidates selected")
@@ -459,6 +510,7 @@ export function CandidateComparisonModal({
   const [built, setBuilt] = useState(false)
   const [showFullTable, setShowFullTable] = useState(false)
   const [notice, setNotice] = useState("")
+  const [closeActive, setCloseActive] = useState(false)
 
   useEffect(() => {
     if (!open) return undefined
@@ -478,8 +530,11 @@ export function CandidateComparisonModal({
       getMofCandidates({ mode: "demo", throwOnError: false }),
     ]).then(([realSeed, demo]) => {
       if (!active) return
-      const rows = Array.isArray(realSeed) && realSeed.length ? realSeed : (Array.isArray(demo) ? demo : [])
-      setLoadedCandidates(rows.map(normalizeCandidate).filter(Boolean))
+      const rows = uniqueCandidates([
+        ...(Array.isArray(realSeed) ? realSeed : []),
+        ...(Array.isArray(demo) ? demo : []),
+      ])
+      setLoadedCandidates(rows)
       setLoadStatus(rows.length ? "loaded" : "empty")
     }).catch(() => {
       if (!active) return
@@ -496,7 +551,7 @@ export function CandidateComparisonModal({
 
   const normalizedAll = useMemo(() => {
     const rows = allCandidates.length ? allCandidates : loadedCandidates
-    return rows.map(normalizeCandidate).filter(Boolean)
+    return uniqueCandidates(rows)
   }, [allCandidates, loadedCandidates])
 
   const candidateMap = useMemo(() => new Map(normalizedAll.map(item => [item.id, item])), [normalizedAll])
@@ -508,17 +563,8 @@ export function CandidateComparisonModal({
   const filteredCandidates = useMemo(() => {
     const q = query.trim().toLowerCase()
     return normalizedAll
-      .filter(item => !q || [
-        item.name,
-        item.formula,
-        item.metal,
-        item.linker,
-        item.topology,
-        item.source,
-        item.evidenceLevel,
-        ...(item.reactionClasses || []),
-      ].some(value => String(value || "").toLowerCase().includes(q)))
-      .slice(0, 18)
+      .filter(item => !q || candidateSearchText(item).includes(q))
+      .slice(0, q ? 12 : 8)
   }, [normalizedAll, query])
 
   if (!open) return null
@@ -624,6 +670,28 @@ export function CandidateComparisonModal({
     )
   }
 
+  const modalHeight = isMobile ? "100dvh" : "min(86vh, 900px)"
+  const searchListHeight = isMobile ? 250 : 278
+  const closeButtonStyle = {
+    width: 42,
+    height: 42,
+    minWidth: 42,
+    minHeight: 42,
+    borderRadius: 8,
+    border: `1px solid ${closeActive ? t.accent : t.border}`,
+    background: closeActive ? t.badgeInfoBg : t.surface,
+    color: closeActive ? t.accentText : t.textStrong,
+    cursor: "pointer",
+    fontFamily: "inherit",
+    fontSize: 22,
+    fontWeight: 850,
+    lineHeight: 1,
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    boxShadow: closeActive ? t.shadowSm : "none",
+  }
+
   return (
     <div
       role="dialog"
@@ -642,18 +710,27 @@ export function CandidateComparisonModal({
     >
       <div style={{
         width: isMobile ? "100%" : "min(1180px, 100%)",
-        maxHeight: isMobile ? "100vh" : "min(860px, calc(100vh - 48px))",
-        overflow: "auto",
+        height: modalHeight,
+        maxHeight: modalHeight,
+        overflow: "hidden",
         background: t.bg,
         border: isMobile ? "none" : `1px solid ${t.borderStrong}`,
         borderRadius: isMobile ? 0 : 8,
         boxShadow: t.shadowLg || t.shadowSm,
-        padding: isMobile ? 14 : 18,
-        display: "grid",
-        gap: 14,
+        display: "flex",
+        flexDirection: "column",
+        minHeight: 0,
       }}>
-        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start" }}>
-          <div>
+        <div style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: 12,
+          alignItems: "flex-start",
+          padding: isMobile ? "14px 14px 12px" : "18px 18px 14px",
+          borderBottom: `1px solid ${t.border}`,
+          flex: "0 0 auto",
+        }}>
+          <div style={{ minWidth: 0, paddingRight: 4 }}>
             <h2 id="candidate-comparison-title" style={{ margin: 0, color: t.textStrong, fontSize: isMobile ? 18 : 20, lineHeight: 1.25 }}>
               {zh ? "MOF 对比配置器" : "MOF Comparison Builder"}
             </h2>
@@ -663,12 +740,29 @@ export function CandidateComparisonModal({
                 : "Choose candidates, select a comparison function, set condition context, and review comparable fields."}
             </p>
           </div>
-          <button type="button" onClick={onClose} aria-label={zh ? "关闭 MOF 对比配置器" : "Close MOF Comparison Builder"} style={toolbarBtn(t)}>
+          <button
+            type="button"
+            onClick={onClose}
+            onMouseEnter={() => setCloseActive(true)}
+            onMouseLeave={() => setCloseActive(false)}
+            onFocus={() => setCloseActive(true)}
+            onBlur={() => setCloseActive(false)}
+            aria-label={zh ? "关闭对比配置器" : "Close comparison builder"}
+            style={closeButtonStyle}
+          >
             ×
           </button>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(300px, 0.9fr) minmax(0, 1.35fr)", gap: 12, alignItems: "start" }}>
+        <div style={{
+          flex: "1 1 auto",
+          minHeight: 0,
+          overflowY: "auto",
+          padding: isMobile ? 14 : 18,
+          display: "grid",
+          gap: 14,
+        }}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(320px, 0.9fr) minmax(0, 1.35fr)", gap: 12, alignItems: "start" }}>
           <Section
             title={zh ? "1. 选择 MOF 候选材料" : "1. Select MOF candidates"}
             subtitle={zh ? "建议选择 2–3 个候选材料进行清晰对比。" : "Select 2–3 candidates for a readable comparison."}
@@ -681,7 +775,16 @@ export function CandidateComparisonModal({
               style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "9px 11px", color: t.text, fontSize: 12, width: "100%", boxSizing: "border-box" }}
             />
 
-            <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+            <div style={{
+              display: "flex",
+              gap: 6,
+              flexWrap: "wrap",
+              minHeight: 34,
+              maxHeight: 78,
+              overflowY: "auto",
+              alignContent: "flex-start",
+              paddingRight: 2,
+            }}>
               {selected.map(candidate => (
                 <span key={candidate.id} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, padding: "5px 8px", color: t.accentText, fontSize: 11, fontWeight: 800 }}>
                   {candidate.name}
@@ -701,18 +804,29 @@ export function CandidateComparisonModal({
               </div>
             )}
             {notice && <div style={{ color: t.warn, fontSize: 11, lineHeight: 1.5 }}>{notice}</div>}
-            {loadStatus === "loading" && <div style={{ color: t.faint, fontSize: 11 }}>{zh ? "正在加载候选材料…" : "Loading candidates..."}</div>}
-
-            <div style={{ display: "grid", gap: 7, maxHeight: isMobile ? 260 : 360, overflow: "auto", paddingRight: 2 }}>
-              {filteredCandidates.map(candidate => {
+            <div style={{ display: "grid", gap: 7, height: searchListHeight, overflowY: "auto", paddingRight: 2 }}>
+              {loadStatus === "loading" && (
+                <EmptyCandidateState t={t}>{zh ? "候选材料数据加载中。" : "Candidate data is loading."}</EmptyCandidateState>
+              )}
+              {loadStatus !== "loading" && normalizedAll.length === 0 && (
+                <EmptyCandidateState t={t}>
+                  {zh ? "暂无候选材料记录。可尝试打开 MOF Library 或刷新页面。" : "No candidate records are available. Try opening MOF Library or refreshing the page."}
+                </EmptyCandidateState>
+              )}
+              {loadStatus !== "loading" && normalizedAll.length > 0 && filteredCandidates.length === 0 && (
+                <EmptyCandidateState t={t}>{zh ? "未找到匹配候选材料" : "No matching candidates"}</EmptyCandidateState>
+              )}
+              {loadStatus !== "loading" && normalizedAll.length > 0 && filteredCandidates.map(candidate => {
                 const selectedAlready = selectedIds.includes(candidate.id)
                 const limitReached = selectedIds.length >= 3 && !selectedAlready
+                const curatedCount = curatedDescriptorCount(candidate)
                 return (
                   <button
                     key={candidate.id}
                     type="button"
                     onClick={() => selectedAlready ? removeCandidate(candidate.id) : addCandidate(candidate)}
                     disabled={limitReached}
+                    title={limitReached ? (zh ? "为保证可读性，每次最多对比 3 个候选材料。" : "For readability, compare up to 3 candidates.") : undefined}
                     style={{
                       all: "unset",
                       cursor: limitReached ? "not-allowed" : "pointer",
@@ -728,11 +842,17 @@ export function CandidateComparisonModal({
                     <div style={{ display: "flex", justifyContent: "space-between", gap: 8 }}>
                       <span style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>{candidate.name}</span>
                       <span style={{ color: selectedAlready ? t.accentText : t.faint, fontSize: 10, fontWeight: 800 }}>
-                        {selectedAlready ? (zh ? "已加入" : "Added") : limitReached ? (zh ? "已达到对比上限" : "Compare limit reached") : (zh ? "加入" : "Add")}
+                        {selectedAlready ? (zh ? "已加入" : "Added") : limitReached ? (zh ? "已达到对比上限" : "Compare limit reached") : (zh ? "加入对比" : "Add")}
                       </span>
                     </div>
                     <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45 }}>
-                      {candidate.metal} · {candidate.linker} · {candidate.evidenceLevel}
+                      {candidate.id} · {candidate.metal} · {candidate.linker}
+                    </div>
+                    <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
+                      <BasisBadge tone={curatedCount >= 5 ? "calc" : curatedCount > 0 ? "info" : "proxy"}>
+                        {zh ? `已整理 ${curatedCount}/8 个描述符` : `${curatedCount}/8 descriptors curated`}
+                      </BasisBadge>
+                      <BasisBadge tone="proxy">{candidate.dataStatus}</BasisBadge>
                     </div>
                   </button>
                 )
@@ -952,7 +1072,17 @@ export function CandidateComparisonModal({
           </div>
         )}
 
-        <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.6, borderTop: `1px solid ${t.border}`, paddingTop: 10 }}>
+        </div>
+
+        <div style={{
+          color: t.faint,
+          fontSize: 11,
+          lineHeight: 1.6,
+          borderTop: `1px solid ${t.border}`,
+          padding: isMobile ? "10px 14px 14px" : "10px 18px 16px",
+          flex: "0 0 auto",
+          background: t.bg,
+        }}>
           {zh ? "场景对比基于当前可用描述符、整理状态和条件语境。" : "Scenario comparison uses available descriptors, curation status, and condition context."}{" "}
           <DisclaimerLink />
         </div>
