@@ -404,10 +404,6 @@ export function MethodsLimitationsTab({ onNavigate }) {
       ["method-disclaimer-center", "Disclaimer Center"],
     ]
 
-  const workflow = zh
-    ? ["数据库 / 种子数据", "描述符提取", "规则评分", "候选排序", "结果解释", "实验验证"]
-    : ["Database / Seed Data", "Descriptor Extraction", "Rule-assisted Scoring", "Candidate Ranking", "Results Interpretation", "Experimental Validation"]
-
   const dataCards = zh
     ? [
       ["演示数据集", "用于展示工作流和交互逻辑，不应被当作真实科研结论。", "proxy"],
@@ -687,7 +683,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
         }
       />
 
-      <Callout tone="warn">
+      <Callout tone="info">
         {zh
           ? "页面中的分数表示候选优先级（candidate priority），用于早期筛选和研究假设生成，不代表最终材料性能。"
           : "Scores indicate candidate priority for early-stage screening and research hypothesis generation, not final material performance."}
@@ -730,7 +726,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
             {(zh ? [
               ["输入", "当前可用描述符、来源状态、证据等级"],
               ["输出", "候选优先级和可解释字段状态"],
-              ["边界", "不是 final prediction，也不是 validated model"],
+              ["边界", "不是最终预测，也不是已验证模型"],
             ] : [
               ["Input", "available descriptors, source status, evidence level"],
               ["Output", "candidate priority and explainable field status"],
@@ -867,7 +863,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       </MethodSection>
 
       <MethodSection
-        id="method-scoring"
+        id="method-scoring-details"
         title={zh ? "评分模型" : "Scoring Model"}
         body={zh
           ? "当前是规则评分模型，不是训练完成的真实预测模型。所有分数都表示候选优先级，不表示最终材料性能。"
