@@ -184,7 +184,9 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
               EcoMOF-AI
             </h1>
             <p style={{ margin: "8px 0 0", color: t.textStrong, fontSize: isMobile ? 15 : 17, lineHeight: 1.5, maxWidth: 780 }}>
-              Early-stage MOF candidate screening, sustainability evaluation, descriptor curation, and field-level provenance.
+              {lang === "zh"
+                ? "透明的 MOF 筛选、数据溯源与合作原型。"
+                : "Transparent MOF screening, provenance, and collaboration prototype."}
             </p>
             <p style={{ margin: "5px 0 0", color: t.muted, fontSize: isMobile ? 13 : 14, lineHeight: 1.55, maxWidth: 780 }}>
               {lang === "zh"

@@ -19,7 +19,7 @@ export function RankingBarChart({ data = [], scoreLabel }) {
   return (
     <ChartShell
       title={lang === "zh" ? "候选排名图" : "Ranking Bar Chart"}
-      description={lang === "zh" ? "分数越高表示在当前规则评分策略下候选优先级越高。" : "Higher score indicates higher candidate priority under the current rule-based scoring strategy."}
+      description={lang === "zh" ? "分数越高表示在当前规则辅助策略下候选优先级越高。" : "Higher score indicates higher candidate priority under the current rule-assisted scoring strategy."}
     >
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={rows} layout="vertical" margin={{ top: 6, right: 16, left: 16, bottom: 4 }}>

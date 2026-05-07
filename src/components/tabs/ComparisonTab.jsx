@@ -13,10 +13,10 @@ export function ComparisonTab({ activeSub, setActiveSub, results, inputs, onNavi
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <PageHeader
-        title={lang === "zh" ? "筛选后的比较层" : "Post-Screening Comparison Layers"}
+        title="Comparison"
         subtitle={lang === "zh"
-          ? "可行性、LCA/LCC 和敏感性在这里作为科学筛选之后的比较层，而不是同等早期的顶层筛选入口。"
-          : "Feasibility, LCA/LCC, and sensitivity live here as post-screening comparison layers, not equally early top-level screening features."}
+          ? "科学筛选之后的可行性、LCA/LCC 与敏感性比较。"
+          : "Feasibility, LCA/LCC, and sensitivity comparison after scientific screening."}
         meta={lang === "zh" ? "第 2-3 阶段" : "Stages 2-3"}
         action={<BasisBadge tone="proxy">{lang === "zh" ? "非主要命中识别" : "Not primary hit identification"}</BasisBadge>}
       />

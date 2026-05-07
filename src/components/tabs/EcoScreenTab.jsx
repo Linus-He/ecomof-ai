@@ -254,8 +254,8 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
       <PageHeader
         title="EcoScreen"
         subtitle={lang === "zh"
-          ? "面向可持续性和早期可行性的 MOF 候选筛选。这里保留 Eco Score、LCA/LCC 代理和解释卡片，但所有输出都只用于候选优先级排序。"
-          : "MOF candidate screening for sustainability and early feasibility. Eco Score, LCA/LCC proxies, and explanations are preserved here as candidate-prioritization outputs."}
+          ? "面向可持续性的筛选信号。"
+          : "Sustainability-oriented screening signals."}
         meta={lang === "zh" ? "任务介绍 · 可持续性筛选条件 · 生态评分排序 · 解释卡片 · 方法与证据" : "Task introduction · sustainability filters · Eco Score ranking · explanation cards · methods and evidence"}
         action={
           <>

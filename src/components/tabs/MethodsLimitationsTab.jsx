@@ -207,19 +207,19 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
   const workflow = zh
     ? ["数据库 / 种子数据", "描述符提取", "规则评分", "候选排序", "结果解释", "实验验证"]
-    : ["Database / Seed Data", "Descriptor Extraction", "Rule-based Scoring", "Candidate Ranking", "Results Interpretation", "Experimental Validation"]
+    : ["Database / Seed Data", "Descriptor Extraction", "Rule-assisted Scoring", "Candidate Ranking", "Results Interpretation", "Experimental Validation"]
 
   const dataCards = zh
     ? [
       ["演示数据集", "用于展示工作流和交互逻辑，不应被当作真实科研结论。", "proxy"],
       ["真实种子数据集", "真实种子数据集（Real Seed Dataset）是公开数据库和文献记录的接入框架；当前不是完整 MOF 数据库。", "info"],
-      ["催化数据模板", "定义后续催化数据接入所需的最小字段；模板本身不代表一定能训练机器学习模型。", "warn"],
+      ["催化数据模板", "用于统一记录催化剂、反应条件、产物指标和证据来源，方便后续对比与复核。", "warn"],
       ["后续数据接入", "真实建模需要结构化实验或文献数据，包括条件、标签、来源和限制。", "info"],
     ]
     : [
       ["Demo Dataset", "Used for workflow demonstration and interaction testing, not as final scientific evidence.", "proxy"],
       ["Real Seed Dataset", "Provides a framework for curated public database and literature records. It is not a complete MOF database.", "info"],
-      ["Catalysis Data Template", "Defines minimum fields for future catalysis data ingestion. The template alone does not guarantee machine learning readiness.", "warn"],
+      ["Catalysis Data Template", "Organizes catalyst identity, reaction conditions, product metrics, and evidence sources for later comparison and review.", "warn"],
       ["Future Data Ingestion", "Real modeling requires structured experimental or literature data with conditions, labels, sources, and limitations.", "info"],
     ]
 
@@ -234,7 +234,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       ["敏感性分析", "检查关键权重变化后候选排序是否稳定。", "info"],
     ]
     : [
-      ["Rule-based Scoring Model", "Combines descriptors, task fit, evidence confidence, and weights into candidate priority.", "info"],
+      ["Rule-assisted Scoring Model", "Combines descriptors, task fit, evidence confidence, and weights into candidate priority.", "info"],
       ["Eco Score", "Supports sustainability-priority comparison and does not replace full industrial LCA.", "proxy"],
       ["Performance Score", "Supports adsorption-related candidate ranking and does not replace rigorous GCMC or IAST.", "proxy"],
       ["Catalysis Potential Score", "Screens catalysis potential without claiming accurate conversion, selectivity, or TOF prediction.", "warn"],
@@ -287,7 +287,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
         : "Qst estimation requires reliable multi-temperature isotherm data. Current Qst outputs should be treated as interpretive guidance, not final thermodynamic evidence.",
     },
     {
-      title: zh ? "规则评分公式" : "Rule-based score formula",
+      title: zh ? "规则辅助评分公式" : "Rule-assisted score formula",
       formula: (
         <FormulaLine>
           Final Score = w<sub>1</sub> × Performance + w<sub>2</sub> × Stability + w<sub>3</sub> × Sustainability + w<sub>4</sub> × Application Fit + w<sub>5</sub> × Evidence Confidence
@@ -429,10 +429,10 @@ export function MethodsLimitationsTab({ onNavigate }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <PageHeader
-        title={zh ? "Methods & Evidence / 方法与证据" : "Methods & Evidence"}
+        title="Methods & Evidence"
         subtitle={zh
-          ? "本页集中说明 EcoMOF-AI 的评分方法、数据假设、证据等级、标杆语境、验证状态、引用边界和能力限制。"
-          : "A transparent overview of EcoMOF-AI scoring methods, data assumptions, evidence levels, benchmark context, validation status, citation boundaries, and limitations."}
+          ? "方法逻辑、数据边界、限制说明与引用方式。"
+          : "Scoring logic, data boundaries, limitations, and citation."}
         meta={zh ? "工作流 · 数据层 · 评分模型 · 公式参考 · 证据与溯源 · 气体分离条件 · 催化边界 · 案例模板 · 标杆参考 · 验证与证据 · 限制说明 · 参考与引用" : "Workflow · Data Layer · Scoring Model · Formula Reference · Evidence & Provenance · Gas Separation Conditions · Catalysis Boundaries · Case Study Templates · Benchmark References · Validation & Evidence · Limitations · References"}
         action={
           <>
@@ -466,7 +466,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
         title={zh ? "Workflow / 工作流" : "Workflow"}
         body={zh
           ? "平台将公开或示例数据整理为描述符，再通过规则评分形成候选排序。结果用于早期筛选和研究假设生成，不替代实验验证。"
-          : "The platform turns public or demo records into descriptors, then uses rule-based scoring to form candidate rankings. Results support early-stage screening and hypothesis generation, not experimental validation replacement."}
+          : "The platform turns public or demo records into descriptors, then uses rule-assisted scoring to form candidate rankings. Results support early-stage screening and hypothesis generation, not experimental validation replacement."}
         t={t}
       >
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(6, minmax(0, 1fr))", gap: 8 }}>
@@ -548,7 +548,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
         title={zh ? "Compact Formula Reference / 紧凑公式参考" : "Compact Formula Reference"}
         body={zh
           ? "公式参考默认只展开规则评分公式；吸附相关公式按需展开，避免页面被变量说明占满。"
-          : "The reference opens rule-based scoring by default and keeps adsorption formulas collapsed until needed."}
+          : "The reference opens rule-assisted scoring by default and keeps adsorption formulas collapsed until needed."}
         t={t}
       >
         <div style={{ display: "grid", gap: 8 }}>
@@ -559,7 +559,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
             padding: 12,
           }}>
             <summary style={{ cursor: "pointer", color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
-              {zh ? "Rule-based score formulas / 规则评分公式" : "Rule-based score formulas"}
+              {zh ? "规则辅助评分公式" : "Rule-assisted score formulas"}
             </summary>
             <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 10, marginTop: 10 }}>
               {formulaCards.slice(4).map(card => (
@@ -775,7 +775,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
                 ["字段级数据溯源", "每个已整理的描述符可关联来源类型、文献引用、测量条件和整理说明。"],
                 ["数据模式分离", "演示数据和真实种子数据明确分离；演示数据不用于科研结论。"],
               ] : [
-                ["Rule-based scoring model", "Scores are generated by auditable rules and weights, not a trained machine learning model."],
+                ["Rule-assisted scoring model", "Scores are generated by auditable rules and weights, not a trained machine learning model."],
                 ["Descriptor completeness tracking", "Curated fields carry evidence levels; pending fields are explicitly labeled, not silently omitted."],
                 ["Field-level provenance", "Each curated descriptor can be linked to source type, literature reference, measurement condition, and curation note."],
                 ["Data mode separation", "Demo data and real-seed data are explicitly separated; demo data is not presented as scientific evidence."],

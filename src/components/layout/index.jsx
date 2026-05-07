@@ -107,13 +107,14 @@ export function PresetSearchControl({
 
 export function PageHeader({ title, subtitle, meta, action }) {
   const t = useT()
+  const { isMobile } = useViewport()
   return (
     <div style={{
       display: "flex", justifyContent: "space-between", gap: 18, alignItems: "flex-start",
       flexWrap: "wrap", marginBottom: 8,
     }}>
-      <div>
-        <h1 style={{ margin: 0, color: t.textStrong, fontSize: 32, fontWeight: 700, letterSpacing: 0, lineHeight: 1.15 }}>{title}</h1>
+      <div style={{ minWidth: 0, flex: "1 1 520px" }}>
+        <h1 style={{ margin: 0, color: t.textStrong, fontSize: isMobile ? 30 : 32, fontWeight: 700, letterSpacing: 0, lineHeight: 1.15 }}>{title}</h1>
         {subtitle && (
           <p style={{ margin: "8px 0 0", color: t.muted, fontSize: 15, lineHeight: 1.6, maxWidth: 880 }}>
             {subtitle}
@@ -125,7 +126,7 @@ export function PageHeader({ title, subtitle, meta, action }) {
           </div>
         )}
       </div>
-      {action && <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>{action}</div>}
+      {action && <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: isMobile ? "flex-start" : "flex-end" }}>{action}</div>}
     </div>
   )
 }

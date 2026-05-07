@@ -389,7 +389,7 @@ export function ContactModal({ open, onClose }) {
       <div
         role="dialog"
         aria-modal="true"
-        aria-label={zh ? "联系 / 合作" : "Contact / Collaboration"}
+        aria-label="Contact / Collaboration"
         onClick={e => e.stopPropagation()}
         style={{
           width: "min(820px, 96vw)",
@@ -403,7 +403,7 @@ export function ContactModal({ open, onClose }) {
         {/* ── Header ── */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
           <div style={{ color: t.accentText, fontSize: 20, fontWeight: 850, lineHeight: 1.15 }}>
-            {zh ? "联系 / 合作" : "Contact / Collaboration"}
+            Contact / Collaboration
           </div>
           <button
             ref={closeBtnRef}
@@ -423,8 +423,8 @@ export function ContactModal({ open, onClose }) {
         {/* Intro */}
         <p style={{ margin: "0 0 22px", color: t.muted, fontSize: 12, lineHeight: 1.7 }}>
           {zh
-            ? "如果你有科研合作、数据提交或方法与证据相关问题，可以留下简短信息。我通常会在 48 小时内回复。"
-            : "For research collaborations, data submissions, or methods and evidence questions, please leave a short message. I usually reply within 48 hours."}
+            ? "反馈、合作范围与数据接入需求沟通。"
+            : "Share feedback, collaboration scope, or data-intake needs."}
         </p>
 
         <section id="data-intake" style={{ ...sectionBlock, marginBottom: 16 }}>
@@ -467,8 +467,8 @@ export function ContactModal({ open, onClose }) {
                 </div>
                 <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, marginTop: 6 }}>
                   {zh
-                    ? "合作者提供的未发表或保密数据，不会在未经明确同意的情况下公开展示。保密数据可以仅作为私有草稿、匿名化演示数据，或只保留字段结构而不展示真实数值。"
-                    : "Private or unpublished collaborator data will not be published on the website without explicit permission. Confidential records can be handled as private drafts, anonymized demos, or schema-only entries."}
+                    ? "合作者提供的未发表或保密数据，未经明确同意不会公开展示；可按保密记录、匿名化演示或仅字段结构处理。"
+                    : "Private or unpublished collaborator data will not be published without explicit permission; records can be handled as confidential drafts, anonymized demos, or schema-only entries."}
                 </div>
                 <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 8 }}>
                   {zh

@@ -429,10 +429,10 @@ export function MOFLibraryTab({ results, inputs }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title={lang === "zh" ? "MOF Library — 基础材料数据" : "MOF Library — Baseline material data"}
+        title="MOF Library"
         subtitle={lang === "zh"
-          ? "展示 MOF 基础字段、数据来源和证据等级。Library 是底层数据入口，不直接把数据库记录等同于科研结论。"
-          : "Browse MOF baseline fields, data sources, and evidence levels. The Library is a data entry point and does not turn database records into scientific conclusions."}
+          ? "描述符整理、字段溯源与候选材料记录。"
+          : "Descriptor curation, provenance, and candidate records."}
         meta={lang === "zh" ? "搜索 · 金属筛选 · 孔结构 · 数据来源 · 证据等级" : "Search · metal filter · pore descriptors · data source · Evidence Level"}
         action={
           <>

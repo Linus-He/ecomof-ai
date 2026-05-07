@@ -310,7 +310,7 @@ const BIOMASS_MATRIX_COLUMNS = [
   { id: "curated", en: "curated", zh: "已整理" },
   { id: "needs-review", en: "needs review", zh: "需复核" },
   { id: "pending", en: "pending", zh: "待补充" },
-  { id: "private", en: "private", zh: "私密" },
+  { id: "private", en: "private", zh: "保密" },
 ]
 
 const ML_READINESS_STAGES = [
@@ -614,7 +614,7 @@ const BIOMASS_CASE_PRODUCTS = [
     metricsEn: ["peak area", "concentration", "yield", "selectivity"],
     metricsZh: ["峰面积", "浓度", "产率", "选择性"],
     statusEn: "private / pending / schema-only",
-    statusZh: "私密 / 待补充 / 仅字段结构",
+    statusZh: "保密 / 待补充 / 仅字段结构",
     tone: "proxy",
   },
   {
@@ -625,7 +625,7 @@ const BIOMASS_CASE_PRODUCTS = [
     metricsEn: ["peak area", "concentration", "yield", "selectivity"],
     metricsZh: ["峰面积", "浓度", "产率", "选择性"],
     statusEn: "private / pending / schema-only",
-    statusZh: "私密 / 待补充 / 仅字段结构",
+    statusZh: "保密 / 待补充 / 仅字段结构",
     tone: "proxy",
   },
   {
@@ -1831,8 +1831,8 @@ export function CatalysisLabTab({ onNavigate }) {
       <PageHeader
         title="CatalysisLab"
         subtitle={lang === "zh"
-          ? "面向 CO₂ 转化、生物质辅助 HCO₃⁻ 转化、数据标准化和证据感知候选排序的 MOF 催化工作台。"
-          : "Task-oriented MOF catalysis workspace for CO₂ conversion, biomass-assisted HCO₃⁻ conversion, data normalization, and evidence-aware candidate prioritization."}
+          ? "面向 CO₂ 转化与催化数据整理的 MOF 催化工作台。"
+          : "Task-oriented MOF catalysis workspace."}
         meta={lang === "zh" ? "路径 · 案例模板 · 数据管线 · 记录预览 · 候选排序" : "pathways · case template · data pipeline · record preview · candidate ranking"}
         action={
           <>

@@ -20,10 +20,10 @@ export function ResourcesTab({ activeSub, setActiveSub, results, inputs }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <PageHeader
-        title={lang === "zh" ? "资源与证据层" : "Resources and Evidence Layers"}
+        title="Resources"
         subtitle={lang === "zh"
-          ? "数据来源、基准数据库和方法与证据说明集中在这里，作为工作流的支持材料。"
-          : "Data sources, benchmark databases, and methods and evidence notes are grouped here as supporting material for the staged workflow."}
+          ? "数据来源、基准数据库与方法证据说明。"
+          : "Data sources, benchmark databases, and methods evidence notes."}
         meta={lang === "zh" ? "支持页面" : "Supporting pages"}
       />
       <InternalNav items={items} active={safeActiveSub} onChange={setActiveSub} />

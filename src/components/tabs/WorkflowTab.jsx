@@ -22,10 +22,10 @@ export function WorkflowTab({ setActiveTab, inputs, results }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title={lang === "zh" ? "分阶段 MOF 决策工作流" : "Staged MOF Decision Workflow"}
+        title="Workflow"
         subtitle={lang === "zh"
-          ? "ecomof-ai 的顺序是性能与化学优先，可行性其次，更宽的生命周期、成本和稳健性比较只在入围候选之后出现。"
-          : "ecomof-ai is sequenced as performance and chemistry first, feasibility next, and broader lifecycle, cost, and robustness comparison only after shortlist formation."}
+          ? "MOF 候选筛选、可行性边界与入围后比较的分阶段路径。"
+          : "A staged path for MOF screening, feasibility boundaries, and shortlist comparison."}
         meta={lang === "zh" ? "不是扁平工具箱" : "Not a flat toolbox"}
         action={<BasisBadge tone="info">{lang === "zh" ? "分阶段原型" : "Staged prototype"}</BasisBadge>}
       />

@@ -122,10 +122,10 @@ export function GasSepTab() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title={zh ? "GasSep：气体吸附与分离" : "GasSep: Gas Adsorption & Separation"}
+        title="GasSep"
         subtitle={zh
-          ? "面向 MOF 候选材料的条件化气体吸附与分离记录。"
-          : "Condition-aware gas adsorption and separation records for MOF candidates."}
+          ? "带条件说明的气体吸附与分离记录。"
+          : "Condition-aware gas adsorption and separation records."}
         meta={zh ? "气体比例 · 温度 · 压力 · 方法 · 来源 · 等温线状态" : "gas ratio · temperature · pressure · method · source · isotherm status"}
         action={
           <>

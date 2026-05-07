@@ -58,10 +58,10 @@ export function FeasibilityTab({ results, inputs, onNavigate }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title={lang === "zh" ? "阶段 2 — 可行性边界" : "Stage 2 — Feasibility Boundaries"}
+        title="Feasibility"
         subtitle={lang === "zh"
-          ? "在科学筛选之后、正式 LCC 之前，检查粗略成本、可得性、供应和用途尺度边界。"
-          : "After scientific screening and before formal LCC, check rough cost, availability, supply, and use-scale boundaries."}
+          ? "科学筛选之后的可得性、粗略成本与用途尺度边界。"
+          : "Availability, rough cost, and use-scale boundaries after scientific screening."}
         meta={lang === "zh" ? "可行性边界 · 仅供探索" : "Feasibility boundary · exploratory only"}
         action={<BasisBadge tone="proxy">{lang === "zh" ? "不是正式生命周期成本" : "Not formal lifecycle costing"}</BasisBadge>}
       />

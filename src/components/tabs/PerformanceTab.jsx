@@ -177,8 +177,8 @@ export function PerformanceTab({
       <PageHeader
         title="Performance"
         subtitle={lang === "zh"
-          ? "围绕 CO₂ uptake、选择性和热力学解释的早期性能候选筛选。保留现有吸附/筛选能力，但把结果解释成候选优先级。"
-          : "Early-stage performance screening around CO₂ uptake, selectivity, and thermodynamic interpretation. Existing adsorption screening remains, but outputs are framed as candidate priority."}
+          ? "基于当前可用描述符的候选材料优先级参考。"
+          : "Candidate prioritization based on available descriptors."}
         meta={lang === "zh" ? "CO₂ uptake · selectivity · thermodynamic interpretation · Early-stage Screening" : "CO₂ uptake · selectivity · thermodynamic interpretation · Early-stage Screening"}
         action={
           <>
@@ -344,7 +344,7 @@ export function PerformanceTab({
                     `${lang === "zh" ? "选择性" : "selectivity"} ${candidate.selectivity ?? "—"}`,
                     `${lang === "zh" ? "稳定性" : "stability"} ${candidate.waterStability ?? "—"} / ${candidate.thermalStability ?? "—"}`,
                   ]}
-                  evidenceLevel={`${lang === "zh" ? "证据等级" : "Evidence Level"}: ${candidate.evidenceLevel || "rule-based"}`}
+                  evidenceLevel={`${lang === "zh" ? "证据等级" : "Evidence Level"}: ${candidate.evidenceLevel === "rule-based" ? (lang === "zh" ? "规则辅助" : "rule-assisted") : (candidate.evidenceLevel || (lang === "zh" ? "规则辅助" : "rule-assisted"))}`}
                   limitations={lang === "zh" ? "Performance Score 用于比较候选材料的吸附和热力学表现，不能替代严格 GCMC 或 IAST 模拟。" : "Performance Score supports comparison of adsorption and thermodynamic indicators. It does not replace rigorous GCMC or IAST simulations."}
                   recommendedNextStep={lang === "zh"
                     ? ["补充实测等温线", "验证混合气选择性", "进行 GCMC 或 IAST 对照"]
@@ -389,7 +389,7 @@ export function PerformanceTab({
             </div>
           </ResultLayer>
 
-          <ResultLayer number="05" title={lang === "zh" ? "Machine Learning Evaluation 占位" : "Machine Learning Evaluation Placeholder"}>
+          <ResultLayer number="05" title={lang === "zh" ? "机器学习评估占位" : "Machine Learning Evaluation Placeholder"}>
             <Callout tone="warn">
               {lang === "zh"
                 ? "当前机器学习评估为占位展示。只有在积累足够带标签的实验或文献数据后，才会启用真实模型评估。"
