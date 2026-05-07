@@ -1142,6 +1142,519 @@ const PATHWAY_SCHEMA_FIELD_GROUPS = [
   },
 ]
 
+const CATALYSIS_OVERVIEW_DASHBOARD = [
+  {
+    en: "Framework scope",
+    zh: "框架范围",
+    valueEn: "Catalysis comparability",
+    valueZh: "催化可比性",
+    tagsEn: ["pathway", "mode", "metrics"],
+    tagsZh: ["路径", "催化方式", "指标"],
+    tone: "info",
+  },
+  {
+    en: "Main status",
+    zh: "总体状态",
+    valueEn: "Bridge-first comparison",
+    valueZh: "桥梁优先比较",
+    tagsEn: ["direct", "normalized", "bridge", "pending"],
+    tagsZh: ["直接", "归一化", "桥梁", "待补充"],
+    tone: "proxy",
+  },
+  {
+    en: "Current focus case",
+    zh: "当前聚焦案例",
+    valueEn: "Glucose / HCO₃⁻ / CO₂",
+    valueZh: "葡萄糖 / HCO₃⁻ / CO₂",
+    tagsEn: ["organic acids", "schema rows"],
+    tagsZh: ["有机酸", "字段结构"],
+    tone: "calc",
+  },
+  {
+    en: "Boundary",
+    zh: "使用边界",
+    valueEn: "Not performance prediction",
+    valueZh: "非性能预测",
+    tagsEn: ["curation", "status", "provenance"],
+    tagsZh: ["整理", "状态", "来源"],
+    tone: "warn",
+  },
+]
+
+const CATALYSIS_FRAMEWORK_STEPS = [
+  { en: "Overview dashboard", zh: "总览仪表盘" },
+  { en: "Main comparability status", zh: "总体可比性" },
+  { en: "Status components", zh: "状态分项" },
+  { en: "Charts and matrices", zh: "图表与矩阵" },
+  { en: "Filters and comparator", zh: "筛选与比较器" },
+  { en: "Boundary and data status", zh: "边界与数据状态" },
+]
+
+const CATALYSIS_STATUS_COMPONENTS = [
+  {
+    en: "Pathway",
+    zh: "路径",
+    bodyEn: "Reaction family and feedstock/product scope.",
+    bodyZh: "反应族、原料和产物范围。",
+    examplesEn: ["CO₂ conversion", "biomass conversion", "coupling"],
+    examplesZh: ["CO₂ 转化", "生物质转化", "协同转化"],
+    tone: "info",
+  },
+  {
+    en: "Mode",
+    zh: "催化方式",
+    bodyEn: "Energy input and catalyst operation context.",
+    bodyZh: "能量输入与催化运行语境。",
+    examplesEn: ["electro", "photo", "thermal", "photothermal"],
+    examplesZh: ["电催", "光催", "热催", "光热催化"],
+    tone: "calc",
+  },
+  {
+    en: "Metrics",
+    zh: "指标",
+    bodyEn: "Primary readouts used inside a matched pathway.",
+    bodyZh: "同一路径内使用的主要读数。",
+    examplesEn: ["conversion", "selectivity", "yield", "FE"],
+    examplesZh: ["转化率", "选择性", "产率", "FE"],
+    tone: "proxy",
+  },
+  {
+    en: "Conditions",
+    zh: "条件",
+    bodyEn: "Temperature, pressure, light, voltage, time, and matrix.",
+    bodyZh: "温度、压力、光强、电压、时间和体系。",
+    examplesEn: ["temperature", "light", "voltage", "time"],
+    examplesZh: ["温度", "光照", "电压", "时间"],
+    tone: "info",
+  },
+  {
+    en: "Bridge metrics",
+    zh: "桥梁指标",
+    bodyEn: "Future normalization targets for cross-pathway interpretation.",
+    bodyZh: "跨路径解读的后续归一化目标。",
+    examplesEn: ["energy", "carbon efficiency", "LCA / TEA"],
+    examplesZh: ["能耗", "碳效率", "LCA / TEA"],
+    tone: "warn",
+  },
+]
+
+const RESEARCH_DOMAINS = [
+  { key: "co2-conversion", en: "CO₂ conversion", zh: "CO₂ 转化" },
+  { key: "biomass-conversion", en: "Biomass conversion", zh: "生物质转化" },
+  { key: "co2-biomass-coupling", en: "CO₂ + biomass coupling", zh: "CO₂ 与生物质协同转化" },
+  { key: "organic-acid-production", en: "Organic acid production", zh: "有机酸生成" },
+  { key: "organic-transformation", en: "Organic transformation", zh: "有机转化" },
+  { key: "environmental-catalysis", en: "Environmental catalysis", zh: "环境催化" },
+  { key: "photocatalytic-degradation", en: "Photocatalytic degradation", zh: "光催化降解" },
+  { key: "water-treatment", en: "Water / pollutant treatment", zh: "水处理与污染物降解" },
+]
+
+const RESEARCH_MODES = [
+  { key: "electrochemical", en: "Electrochemical", zh: "电催" },
+  { key: "photochemical", en: "Photochemical", zh: "光催" },
+  { key: "thermal", en: "Thermal", zh: "热催" },
+  { key: "photothermal", en: "Photothermal", zh: "光热催化" },
+]
+
+const RESEARCH_OVERVIEW_CARDS = [
+  {
+    en: "Catalytic domains",
+    zh: "催化领域",
+    valueEn: "8 task domains",
+    valueZh: "8 类任务领域",
+    tagsEn: ["CO₂", "biomass", "organic", "environmental"],
+    tagsZh: ["CO₂", "生物质", "有机", "环境"],
+    tone: "info",
+  },
+  {
+    en: "Catalytic modes",
+    zh: "催化方式",
+    valueEn: "4 mode overlays",
+    valueZh: "4 类方式叠加",
+    tagsEn: ["electro", "photo", "thermal", "photothermal"],
+    tagsZh: ["电催", "光催", "热催", "光热"],
+    tone: "calc",
+  },
+  {
+    en: "Metric systems",
+    zh: "指标体系",
+    valueEn: "Metric alignment",
+    valueZh: "指标对齐",
+    tagsEn: ["conversion", "selectivity", "yield", "energy"],
+    tagsZh: ["转化率", "选择性", "产率", "能量"],
+    tone: "proxy",
+  },
+  {
+    en: "Comparability status",
+    zh: "可比性状态",
+    valueEn: "Boundary-aware",
+    valueZh: "边界感知",
+    tagsEn: ["direct", "normalized", "bridge", "pending"],
+    tagsZh: ["直接", "归一化", "桥梁", "待补充"],
+    tone: "warn",
+  },
+]
+
+const RESEARCH_TASK_ROWS = [
+  {
+    id: "co2-formate-electro",
+    domainKey: "co2-conversion",
+    domainEn: "CO₂ conversion",
+    domainZh: "CO₂ 转化",
+    taskEn: "CO₂ conversion to formate",
+    taskZh: "CO₂ 转化制甲酸盐",
+    modeKeys: ["electrochemical"],
+    modeEn: "electrochemical",
+    modeZh: "电催",
+    feedstockEn: "CO₂ / HCO₃⁻",
+    feedstockZh: "CO₂ / HCO₃⁻",
+    productKey: "formate-c1",
+    productEn: "formate / C1 products",
+    productZh: "甲酸盐 / C1 产物",
+    metricsEn: ["Faradaic efficiency", "current density", "selectivity", "energy input"],
+    metricsZh: ["法拉第效率", "电流密度", "选择性", "能量输入"],
+    contextEn: ["electrolyte", "electrode", "voltage", "CO₂ source"],
+    contextZh: ["电解液", "电极", "电压", "CO₂ 来源"],
+    curationStatusKey: "literature-pending",
+    comparabilityKey: "condition-normalized",
+    missingBridgeKeys: ["energyPerProduct", "carbonEfficiency", "sourceCompleteness"],
+    coverage: { conversion: "pending", selectivity: "required", yield: "na", energy: "required", carbon: "required", condition: "required", source: "pending" },
+  },
+  {
+    id: "co2-co-photo",
+    domainKey: "co2-conversion",
+    domainEn: "CO₂ conversion",
+    domainZh: "CO₂ 转化",
+    taskEn: "CO₂ conversion to CO",
+    taskZh: "CO₂ 转化制 CO",
+    modeKeys: ["photochemical"],
+    modeEn: "photochemical",
+    modeZh: "光催",
+    feedstockEn: "CO₂",
+    feedstockZh: "CO₂",
+    productKey: "co-c1",
+    productEn: "CO / C1 products",
+    productZh: "CO / C1 产物",
+    metricsEn: ["product rate", "selectivity", "light intensity", "quantum yield if reported"],
+    metricsZh: ["产物速率", "选择性", "光强", "如有则量子效率"],
+    contextEn: ["light source", "wavelength", "reactor", "catalyst loading"],
+    contextZh: ["光源", "波长", "反应器", "催化剂负载"],
+    curationStatusKey: "literature-pending",
+    comparabilityKey: "bridge-needed",
+    missingBridgeKeys: ["energyPerProduct", "sourceCompleteness"],
+    coverage: { conversion: "pending", selectivity: "required", yield: "na", energy: "required", carbon: "pending", condition: "required", source: "pending" },
+  },
+  {
+    id: "biomass-platform-thermal",
+    domainKey: "biomass-conversion",
+    domainEn: "Biomass conversion",
+    domainZh: "生物质转化",
+    taskEn: "Biomass conversion to platform chemicals",
+    taskZh: "生物质转化制平台化合物",
+    modeKeys: ["thermal"],
+    modeEn: "thermal",
+    modeZh: "热催",
+    feedstockEn: "glucose / saccharides",
+    feedstockZh: "葡萄糖 / 糖类",
+    productKey: "platform-chemicals",
+    productEn: "platform chemicals",
+    productZh: "平台化合物",
+    metricsEn: ["conversion", "selectivity", "yield", "condition severity"],
+    metricsZh: ["转化率", "选择性", "产率", "条件严苛度"],
+    contextEn: ["temperature", "solvent", "time", "substrate concentration"],
+    contextZh: ["温度", "溶剂", "时间", "底物浓度"],
+    curationStatusKey: "structured-record",
+    comparabilityKey: "condition-normalized",
+    missingBridgeKeys: ["conditionSeverity", "productSelectivity"],
+    coverage: { conversion: "required", selectivity: "required", yield: "required", energy: "pending", carbon: "pending", condition: "required", source: "pending" },
+  },
+  {
+    id: "glucose-organic-acids-thermal",
+    domainKey: "organic-acid-production",
+    domainEn: "Organic acid production",
+    domainZh: "有机酸生成",
+    taskEn: "Glucose oxidation to organic acids",
+    taskZh: "葡萄糖氧化制有机酸",
+    modeKeys: ["thermal", "photothermal"],
+    modeEn: "thermal / photothermal",
+    modeZh: "热催 / 光热催化",
+    feedstockEn: "glucose",
+    feedstockZh: "葡萄糖",
+    productKey: "organic-acids",
+    productEn: "organic acids",
+    productZh: "有机酸",
+    metricsEn: ["conversion", "selectivity", "yield", "condition severity"],
+    metricsZh: ["转化率", "选择性", "产率", "条件严苛度"],
+    contextEn: ["temperature", "redox environment", "solvent", "time"],
+    contextZh: ["温度", "氧化还原环境", "溶剂", "时间"],
+    curationStatusKey: "structured-record",
+    comparabilityKey: "condition-normalized",
+    missingBridgeKeys: ["conditionSeverity", "productSelectivity", "sourceCompleteness"],
+    coverage: { conversion: "required", selectivity: "required", yield: "required", energy: "pending", carbon: "pending", condition: "required", source: "pending" },
+  },
+  {
+    id: "glucose-hco3-formic-case",
+    domainKey: "co2-biomass-coupling",
+    domainEn: "CO₂ + biomass coupling",
+    domainZh: "CO₂ 与生物质协同转化",
+    taskEn: "Glucose + HCO₃⁻ / CO₂ coupling to formic acid",
+    taskZh: "葡萄糖 + HCO₃⁻ / CO₂ 协同转化制甲酸",
+    modeKeys: ["thermal"],
+    modeEn: "hydrothermal thermocatalysis",
+    modeZh: "水热热催化",
+    feedstockEn: "glucose + HCO₃⁻ / CO₂ source",
+    feedstockZh: "葡萄糖 + HCO₃⁻ / CO₂ 来源",
+    productKey: "formic-acid",
+    productEn: "formic acid",
+    productZh: "甲酸",
+    metricsEn: ["yield", "selectivity", "carbon efficiency", "condition severity"],
+    metricsZh: ["产率", "选择性", "碳效率", "条件严苛度"],
+    contextEn: ["temperature", "solvent", "reaction time", "carbon source", "catalyst identity"],
+    contextZh: ["温度", "溶剂", "反应时间", "碳源", "催化剂身份"],
+    curationStatusKey: "collaborator-context",
+    comparabilityKey: "bridge-needed",
+    missingBridgeKeys: ["energyPerProduct", "carbonEfficiency", "conditionSeverity", "sourceCompleteness"],
+    coverage: { conversion: "pending", selectivity: "required", yield: "required", energy: "pending", carbon: "required", condition: "required", source: "pending" },
+    focusCase: true,
+  },
+  {
+    id: "organic-selective-oxidation",
+    domainKey: "organic-transformation",
+    domainEn: "Organic transformation",
+    domainZh: "有机转化",
+    taskEn: "Organic selective oxidation",
+    taskZh: "有机选择性氧化",
+    modeKeys: ["thermal", "photochemical"],
+    modeEn: "thermal / photochemical",
+    modeZh: "热催 / 光催",
+    feedstockEn: "organic substrates",
+    feedstockZh: "有机底物",
+    productKey: "oxidation-products",
+    productEn: "oxidation products",
+    productZh: "氧化产物",
+    metricsEn: ["conversion", "selectivity", "yield", "recyclability"],
+    metricsZh: ["转化率", "选择性", "产率", "循环性能"],
+    contextEn: ["substrate scope", "oxidant", "solvent", "time"],
+    contextZh: ["底物范围", "氧化剂", "溶剂", "时间"],
+    curationStatusKey: "structured-record",
+    comparabilityKey: "condition-normalized",
+    missingBridgeKeys: ["conditionSeverity", "sourceCompleteness"],
+    coverage: { conversion: "required", selectivity: "required", yield: "required", energy: "pending", carbon: "na", condition: "required", source: "pending" },
+  },
+  {
+    id: "photocatalytic-degradation",
+    domainKey: "photocatalytic-degradation",
+    domainEn: "Photocatalytic degradation",
+    domainZh: "光催化污染物降解",
+    taskEn: "Photocatalytic pollutant degradation",
+    taskZh: "光催化污染物降解",
+    modeKeys: ["photochemical"],
+    modeEn: "photochemical",
+    modeZh: "光催",
+    feedstockEn: "pollutants / water contaminants",
+    feedstockZh: "污染物 / 水体污染物",
+    productKey: "degradation-products",
+    productEn: "degradation products",
+    productZh: "降解产物",
+    metricsEn: ["removal efficiency", "rate", "mineralization efficiency", "stability"],
+    metricsZh: ["去除效率", "速率", "矿化效率", "稳定性"],
+    contextEn: ["pollutant concentration", "water matrix", "light source", "analysis method"],
+    contextZh: ["污染物浓度", "水体基质", "光源", "分析方法"],
+    curationStatusKey: "literature-pending",
+    comparabilityKey: "bridge-needed",
+    missingBridgeKeys: ["conditionSeverity", "sourceCompleteness", "lcaTea"],
+    coverage: { conversion: "na", selectivity: "pending", yield: "na", energy: "required", carbon: "na", condition: "required", source: "pending" },
+  },
+  {
+    id: "water-treatment-catalysis",
+    domainKey: "water-treatment",
+    domainEn: "Water / pollutant treatment",
+    domainZh: "水处理与污染物降解",
+    taskEn: "Water treatment catalysis",
+    taskZh: "水处理催化",
+    modeKeys: ["photochemical", "electrochemical", "photothermal"],
+    modeEn: "photo / electro / photothermal",
+    modeZh: "光催 / 电催 / 光热催化",
+    feedstockEn: "water contaminants",
+    feedstockZh: "水体污染物",
+    productKey: "treated-streams",
+    productEn: "treated streams",
+    productZh: "处理后流体",
+    metricsEn: ["removal efficiency", "toxicity signal", "energy input", "source completeness"],
+    metricsZh: ["去除效率", "毒性信号", "能量输入", "来源完整性"],
+    contextEn: ["matrix", "pollutant concentration", "light or voltage", "analysis method"],
+    contextZh: ["基质", "污染物浓度", "光照或电压", "分析方法"],
+    curationStatusKey: "literature-pending",
+    comparabilityKey: "not-comparable",
+    missingBridgeKeys: ["energyPerProduct", "conditionSeverity", "sourceCompleteness", "lcaTea"],
+    coverage: { conversion: "na", selectivity: "pending", yield: "na", energy: "required", carbon: "na", condition: "required", source: "pending" },
+  },
+]
+
+const MATRIX_CELL_OVERRIDES = [
+  {
+    domainKey: "co2-biomass-coupling",
+    modeKey: "thermal",
+    taskEn: "glucose + HCO₃⁻ / CO₂ to formic acid",
+    taskZh: "葡萄糖 + HCO₃⁻ / CO₂ 转化制甲酸",
+    metricsEn: ["yield", "selectivity", "carbon efficiency", "condition severity"],
+    metricsZh: ["产率", "选择性", "碳效率", "条件严苛度"],
+    contextEn: ["temperature", "solvent", "reaction time", "carbon source", "catalyst identity"],
+    contextZh: ["温度", "溶剂", "反应时间", "碳源", "催化剂身份"],
+    statusEn: "collaborator context + literature curation pending",
+    statusZh: "合作语境 + 文献整理待补充",
+    comparabilityKey: "bridge-needed",
+  },
+  {
+    domainKey: "photocatalytic-degradation",
+    modeKey: "photochemical",
+    taskEn: "photocatalytic pollutant degradation",
+    taskZh: "光催化污染物降解",
+    metricsEn: ["removal efficiency", "rate", "mineralization efficiency"],
+    metricsZh: ["去除效率", "速率", "矿化效率"],
+    contextEn: ["light source", "wavelength", "pollutant concentration", "water matrix"],
+    contextZh: ["光源", "波长", "污染物浓度", "水体基质"],
+    statusEn: "literature curation pending",
+    statusZh: "文献整理待补充",
+    comparabilityKey: "bridge-needed",
+  },
+  {
+    domainKey: "co2-conversion",
+    modeKey: "electrochemical",
+    taskEn: "CO₂ conversion to formate",
+    taskZh: "CO₂ 转化制甲酸盐",
+    metricsEn: ["Faradaic efficiency", "current density", "selectivity"],
+    metricsZh: ["法拉第效率", "电流密度", "选择性"],
+    contextEn: ["electrolyte", "electrode", "voltage", "CO₂ source"],
+    contextZh: ["电解液", "电极", "电压", "CO₂ 来源"],
+    statusEn: "literature curation pending",
+    statusZh: "文献整理待补充",
+    comparabilityKey: "condition-normalized",
+  },
+]
+
+const CURATION_STATUS_LABELS = {
+  "structured-record": { en: "structured record format", zh: "结构化记录格式" },
+  "literature-pending": { en: "literature curation pending", zh: "文献整理待补充" },
+  "collaborator-context": { en: "collaborator context", zh: "合作语境" },
+}
+
+const TASK_FILTERS = {
+  domain: [["all", "All", "全部"], ...RESEARCH_DOMAINS.map(item => [item.key, item.en, item.zh])],
+  mode: [["all", "All", "全部"], ...RESEARCH_MODES.map(item => [item.key, item.en, item.zh])],
+  product: [
+    ["all", "All", "全部"],
+    ["formate-c1", "formate / C1 products", "甲酸盐 / C1 产物"],
+    ["organic-acids", "organic acids", "有机酸"],
+    ["formic-acid", "formic acid", "甲酸"],
+    ["platform-chemicals", "platform chemicals", "平台化合物"],
+    ["oxidation-products", "oxidation products", "氧化产物"],
+    ["degradation-products", "degradation products", "降解产物"],
+    ["treated-streams", "treated streams", "处理后流体"],
+  ],
+  curation: [["all", "All", "全部"], ...Object.entries(CURATION_STATUS_LABELS).map(([key, label]) => [key, label.en, label.zh])],
+  comparability: [["all", "All", "全部"], ...Object.entries(PATHWAY_COMPARABILITY_LABELS).map(([key, label]) => [key, label.en, label.zh])],
+}
+
+const FLOW_NODES = {
+  feedstock: [
+    { key: "co2", en: "CO₂ / HCO₃⁻", zh: "CO₂ / HCO₃⁻", modes: ["electrochemical", "photochemical", "thermal"], products: ["formate-c1", "co-c1", "formic-acid"] },
+    { key: "biomass", en: "glucose / biomass-derived substrates", zh: "葡萄糖 / 生物质来源底物", modes: ["thermal", "photothermal"], products: ["organic-acids", "platform-chemicals", "formic-acid"] },
+    { key: "organic", en: "organic substrates", zh: "有机底物", modes: ["thermal", "photochemical"], products: ["oxidation-products"] },
+    { key: "pollutants", en: "pollutants / water contaminants", zh: "污染物 / 水体污染物", modes: ["photochemical", "electrochemical", "photothermal"], products: ["degradation-products", "treated-streams"] },
+  ],
+  products: [
+    { key: "formate-c1", en: "formate / CO / methanol", zh: "甲酸盐 / CO / 甲醇", metrics: ["selectivity", "energy input", "carbon efficiency"] },
+    { key: "organic-acids", en: "organic acids", zh: "有机酸", metrics: ["yield", "selectivity", "carbon efficiency"] },
+    { key: "platform-chemicals", en: "platform chemicals", zh: "平台化合物", metrics: ["conversion", "yield", "condition severity"] },
+    { key: "oxidation-products", en: "oxidation products", zh: "氧化产物", metrics: ["conversion", "selectivity", "yield"] },
+    { key: "degradation-products", en: "degradation products", zh: "降解产物", metrics: ["removal efficiency", "mineralization efficiency", "energy input"] },
+    { key: "treated-streams", en: "treated streams", zh: "处理后流体", metrics: ["toxicity signal", "source completeness", "condition context"] },
+  ],
+}
+
+const RADAR_METRIC_AXES = [
+  { key: "conversion", en: "conversion", zh: "转化率" },
+  { key: "selectivity", en: "selectivity", zh: "选择性" },
+  { key: "yield", en: "yield", zh: "产率" },
+  { key: "energy", en: "energy input", zh: "能量输入" },
+  { key: "carbon", en: "carbon efficiency", zh: "碳效率" },
+  { key: "condition", en: "condition context", zh: "条件语境" },
+  { key: "source", en: "source completeness", zh: "来源完整性" },
+]
+
+const REACTION_FAMILY_CASES = [
+  {
+    id: "glucose-hco3-formic",
+    titleEn: "Glucose + HCO₃⁻ / CO₂ to Formic Acid",
+    titleZh: "葡萄糖 + HCO₃⁻ / CO₂ 转化制甲酸",
+    domainEn: "CO₂ + Biomass Coupling",
+    domainZh: "CO₂ 与生物质协同转化",
+    relatedEn: "Organic Acid Production",
+    relatedZh: "有机酸生成",
+    modeEn: "Hydrothermal thermocatalysis",
+    modeZh: "水热热催化",
+    statusEn: ["collaborator context", "literature curation pending"],
+    statusZh: ["合作语境", "文献整理待补充"],
+    comparabilityEn: "metric bridge needed",
+    comparabilityZh: "需指标桥梁",
+    boundaryEn: "Curation and comparability test case, not a validated performance claim.",
+    boundaryZh: "用于测试字段整理与可比性判断流程，不代表已验证性能结论。",
+    focus: true,
+  },
+  {
+    id: "co2-reduction-routes",
+    titleEn: "CO₂ reduction routes",
+    titleZh: "CO₂ 还原路径",
+    domainEn: "CO₂ Conversion",
+    domainZh: "CO₂ 转化",
+    relatedEn: "C1 product family",
+    relatedZh: "C1 产物族",
+    modeEn: "Electrochemical / photochemical",
+    modeZh: "电催 / 光催",
+    statusEn: ["literature curation pending"],
+    statusZh: ["文献整理待补充"],
+    comparabilityEn: "condition-normalized comparison needed",
+    comparabilityZh: "需条件归一化",
+    boundaryEn: "Future case slot for structured literature review.",
+    boundaryZh: "后续用于结构化文献整理的案例槽位。",
+  },
+  {
+    id: "photocatalytic-degradation-case",
+    titleEn: "Photocatalytic pollutant degradation",
+    titleZh: "光催化污染物降解",
+    domainEn: "Environmental Catalysis",
+    domainZh: "环境催化",
+    relatedEn: "Water / pollutant treatment",
+    relatedZh: "水处理与污染物降解",
+    modeEn: "Photochemical",
+    modeZh: "光催",
+    statusEn: ["literature curation pending"],
+    statusZh: ["文献整理待补充"],
+    comparabilityEn: "metric bridge needed",
+    comparabilityZh: "需指标桥梁",
+    boundaryEn: "Future case slot for matrix and light-condition alignment.",
+    boundaryZh: "后续用于基质与光照条件对齐的案例槽位。",
+  },
+  {
+    id: "biomass-platform-case",
+    titleEn: "Biomass platform chemical conversion",
+    titleZh: "生物质平台化合物转化",
+    domainEn: "Biomass Conversion",
+    domainZh: "生物质转化",
+    relatedEn: "Platform chemicals",
+    relatedZh: "平台化合物",
+    modeEn: "Thermal / photothermal",
+    modeZh: "热催 / 光热催化",
+    statusEn: ["structured record format"],
+    statusZh: ["结构化记录格式"],
+    comparabilityEn: "condition-normalized comparison needed",
+    comparabilityZh: "需条件归一化",
+    boundaryEn: "Future case slot for feedstock and condition-context alignment.",
+    boundaryZh: "后续用于原料与条件语境对齐的案例槽位。",
+  },
+]
+
 const CO2_CONVERSION_PATHWAYS = [
   {
     id: "c1-reduction",
@@ -1795,6 +2308,459 @@ function CatalysisFieldTile({ t, label, value, accent = false }) {
       <div style={{ color: accent ? t.accentText : t.textStrong, fontSize: 11, fontWeight: accent ? 850 : 750, lineHeight: 1.5, marginTop: 6, overflowWrap: "anywhere" }}>
         {value}
       </div>
+    </div>
+  )
+}
+
+function CatalysisMiniDashboardCard({ item, lang, t }) {
+  return (
+    <section style={{ ...catalysisCardStyle(t, { surface: "surface", padding: 12, radius: 10 }), minHeight: 124 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "flex-start" }}>
+        <CatalysisKicker t={t}>{lang === "zh" ? item.zh : item.en}</CatalysisKicker>
+        <BasisBadge tone={item.tone}>{lang === "zh" ? "状态" : "status"}</BasisBadge>
+      </div>
+      <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 920, lineHeight: 1.2, marginTop: 10 }}>
+        {lang === "zh" ? item.valueZh : item.valueEn}
+      </div>
+      <div style={{ marginTop: 10 }}>
+        <PathwayPills items={lang === "zh" ? item.tagsZh : item.tagsEn} lang={lang} t={t} tone={item.tone === "info" ? "accent" : "default"} />
+      </div>
+    </section>
+  )
+}
+
+function CatalysisFrameworkFlow({ t, lang, isMobile }) {
+  return (
+    <div style={{
+      display: "grid",
+      gridTemplateColumns: isMobile ? "1fr" : `repeat(${CATALYSIS_FRAMEWORK_STEPS.length}, minmax(0, 1fr))`,
+      gap: isMobile ? 8 : 0,
+      alignItems: "stretch",
+    }}>
+      {CATALYSIS_FRAMEWORK_STEPS.map((step, index) => (
+        <div key={step.en} style={{ display: "flex", alignItems: "stretch", minWidth: 0 }}>
+          <div style={{
+            background: index === 1 ? t.badgeInfoBg : t.surface,
+            border: `1px solid ${index === 1 ? (t.borderStrong || t.border) : t.border}`,
+            borderRadius: 10,
+            color: index === 1 ? t.accentText : t.textStrong,
+            display: "grid",
+            gap: 6,
+            minHeight: 76,
+            padding: "10px 11px",
+            width: "100%",
+          }}>
+            <CatalysisKicker t={t}>{String(index + 1).padStart(2, "0")}</CatalysisKicker>
+            <div style={{ fontSize: 11, fontWeight: 880, lineHeight: 1.35 }}>
+              {lang === "zh" ? step.zh : step.en}
+            </div>
+          </div>
+          {index < CATALYSIS_FRAMEWORK_STEPS.length - 1 && !isMobile && (
+            <div style={{ alignItems: "center", color: t.faint, display: "flex", fontSize: 18, fontWeight: 900, padding: "0 5px" }}>→</div>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function ComparabilityStatusChart({ t, lang, isMobile }) {
+  const widths = [24, 28, 30, 18]
+  return (
+    <div style={{ display: "grid", gap: 12 }}>
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))",
+        gap: 8,
+      }}>
+        {CATALYSIS_COMPARABILITY.map((item, index) => (
+          <section key={item.en} style={{ ...catalysisCardStyle(t, { surface: "surface", padding: 11, radius: 9 }) }}>
+            <BasisBadge tone={item.tone}>{lang === "zh" ? item.zh : item.en}</BasisBadge>
+            <div style={{ color: t.muted, fontSize: 10, lineHeight: 1.5, marginTop: 8 }}>
+              {lang === "zh" ? item.bodyZh : item.bodyEn}
+            </div>
+            <div style={{ background: t.border, borderRadius: 999, height: 5, marginTop: 10, overflow: "hidden" }}>
+              <div style={{
+                background: index === 0 ? t.accent : index === 1 ? t.accentSoft : index === 2 ? (t.validationAccent || t.accent) : (t.warn || t.accent),
+                borderRadius: 999,
+                height: "100%",
+                width: `${widths[index]}%`,
+              }} />
+            </div>
+          </section>
+        ))}
+      </div>
+      <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55 }}>
+        {lang === "zh"
+          ? "状态条展示可比性判断路径，不代表真实数据分布。"
+          : "Status bars show the comparability decision path, not a real data distribution."}
+      </div>
+    </div>
+  )
+}
+
+function MetricMatrixVisual({ t, lang, isMobile }) {
+  return (
+    <div style={{ overflowX: "auto" }}>
+      <div style={{
+        display: "grid",
+        gap: 8,
+        gridTemplateColumns: isMobile ? "repeat(5, minmax(190px, 1fr))" : "repeat(5, minmax(0, 1fr))",
+        minWidth: isMobile ? 980 : 0,
+      }}>
+        {CATALYSIS_METRIC_MATRIX.map((row, index) => (
+          <section key={row.pathwayEn} style={{
+            ...catalysisCardStyle(t, { surface: index === 2 ? "panel" : "surface", strong: index === 2, padding: 11, radius: 10 }),
+            borderTop: `3px solid ${index === 2 ? t.accent : t.border}`,
+          }}>
+            <CatalysisKicker t={t}>{lang === "zh" ? row.pathwayZh : row.pathwayEn}</CatalysisKicker>
+            <div style={{ color: t.textStrong, fontSize: 11, fontWeight: 850, lineHeight: 1.45, marginTop: 8 }}>
+              {lang === "zh" ? row.metricsZh : row.metricsEn}
+            </div>
+            <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.5, marginTop: 8 }}>
+              {lang === "zh" ? row.bridgeZh : row.bridgeEn}
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function ComparabilityQuadrant({ t, lang, isMobile }) {
+  const cells = lang === "zh"
+    ? [
+      ["可直接比较", "同一路径 / 同指标 / 条件接近"],
+      ["需条件归一化", "同路径但条件不同"],
+      ["需指标桥梁", "跨模式或跨指标体系"],
+      ["暂不可比", "来源或字段不足"],
+    ]
+    : [
+      ["Direct", "same pathway / metric / close conditions"],
+      ["Normalize", "same pathway with different conditions"],
+      ["Bridge", "cross-mode or metric-system comparison"],
+      ["Pending", "source or fields insufficient"],
+    ]
+  return (
+    <div style={{ display: "grid", gap: 9 }}>
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: isMobile ? "1fr" : "42px 1fr 1fr",
+        gridTemplateRows: isMobile ? "auto" : "1fr 1fr 34px",
+        minHeight: isMobile ? "auto" : 238,
+      }}>
+        {!isMobile && (
+          <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, gridRow: "1 / span 2", writingMode: "vertical-rl", transform: "rotate(180deg)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            {lang === "zh" ? "指标 / 条件语境" : "metric / condition context"}
+          </div>
+        )}
+        {cells.map(([title, body], index) => (
+          <section key={title} style={{
+            background: index === 0 ? t.badgeInfoBg : t.surface,
+            border: `1px solid ${index === 0 ? (t.borderStrong || t.border) : t.border}`,
+            borderRadius: 10,
+            margin: 4,
+            padding: 12,
+          }}>
+            <div style={{ color: index === 0 ? t.accentText : t.textStrong, fontSize: 12, fontWeight: 900 }}>{title}</div>
+            <div style={{ color: t.muted, fontSize: 10, lineHeight: 1.5, marginTop: 7 }}>{body}</div>
+          </section>
+        ))}
+        {!isMobile && (
+          <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, gridColumn: "2 / span 2", display: "flex", justifyContent: "center", alignItems: "center" }}>
+            {lang === "zh" ? "反应路径相似度 →" : "reaction-pathway similarity →"}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function localized(item, lang, key = "") {
+  if (!item) return ""
+  if (key) return lang === "zh" ? item[`${key}Zh`] : item[`${key}En`]
+  return lang === "zh" ? item.zh : item.en
+}
+
+function matrixCellDetail(domainKey, modeKey) {
+  const override = MATRIX_CELL_OVERRIDES.find(item => item.domainKey === domainKey && item.modeKey === modeKey)
+  if (override) return override
+  const matching = RESEARCH_TASK_ROWS.filter(row => row.domainKey === domainKey && row.modeKeys.includes(modeKey))
+  const domain = RESEARCH_DOMAINS.find(item => item.key === domainKey)
+  const mode = RESEARCH_MODES.find(item => item.key === modeKey)
+  if (!matching.length) {
+    return {
+      domainKey,
+      modeKey,
+      taskEn: `${domain?.en || "Catalysis"} × ${mode?.en || "mode"}`,
+      taskZh: `${domain?.zh || "催化"} × ${mode?.zh || "方式"}`,
+      metricsEn: ["metric alignment pending"],
+      metricsZh: ["指标对齐待补充"],
+      contextEn: ["condition context pending"],
+      contextZh: ["条件语境待补充"],
+      statusEn: "structured record format needed",
+      statusZh: "需要结构化记录格式",
+      comparabilityKey: "not-comparable",
+    }
+  }
+  const first = matching[0]
+  return {
+    domainKey,
+    modeKey,
+    taskEn: matching.map(item => item.taskEn).join(" / "),
+    taskZh: matching.map(item => item.taskZh).join(" / "),
+    metricsEn: Array.from(new Set(matching.flatMap(item => item.metricsEn))).slice(0, 5),
+    metricsZh: Array.from(new Set(matching.flatMap(item => item.metricsZh))).slice(0, 5),
+    contextEn: Array.from(new Set(matching.flatMap(item => item.contextEn))).slice(0, 5),
+    contextZh: Array.from(new Set(matching.flatMap(item => item.contextZh))).slice(0, 5),
+    statusEn: localized(CURATION_STATUS_LABELS[first.curationStatusKey], "en"),
+    statusZh: localized(CURATION_STATUS_LABELS[first.curationStatusKey], "zh"),
+    comparabilityKey: first.comparabilityKey,
+  }
+}
+
+function CatalysisTaskMatrix({ selected, onSelect, lang, t, isMobile }) {
+  const detail = matrixCellDetail(selected.domainKey, selected.modeKey)
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1.35fr) minmax(260px, 0.65fr)", gap: 12, alignItems: "stretch" }}>
+      <div style={{ overflowX: "auto", border: `1px solid ${t.border}`, borderRadius: 12, background: t.panel }}>
+        <div style={{ minWidth: 760, display: "grid", gridTemplateColumns: `180px repeat(${RESEARCH_MODES.length}, minmax(130px, 1fr))` }}>
+          <div style={{ padding: 10, borderBottom: `1px solid ${t.border}`, color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>
+            {lang === "zh" ? "反应领域 × 催化方式" : "domain × mode"}
+          </div>
+          {RESEARCH_MODES.map(mode => (
+            <div key={mode.key} style={{ padding: 10, borderBottom: `1px solid ${t.border}`, borderLeft: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 11, fontWeight: 880, textAlign: "center" }}>
+              {lang === "zh" ? mode.zh : mode.en}
+            </div>
+          ))}
+          {RESEARCH_DOMAINS.map(domain => (
+            <ReactFragmentLike key={domain.key}>
+              <div style={{ padding: 10, borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 11, fontWeight: 850 }}>
+                {lang === "zh" ? domain.zh : domain.en}
+              </div>
+              {RESEARCH_MODES.map(mode => {
+                const active = selected.domainKey === domain.key && selected.modeKey === mode.key
+                const cell = matrixCellDetail(domain.key, mode.key)
+                const hasRows = RESEARCH_TASK_ROWS.some(row => row.domainKey === domain.key && row.modeKeys.includes(mode.key))
+                return (
+                  <button
+                    key={`${domain.key}-${mode.key}`}
+                    type="button"
+                    onClick={() => onSelect({ domainKey: domain.key, modeKey: mode.key })}
+                    style={{
+                      background: active ? t.badgeInfoBg : hasRows ? t.surface : "transparent",
+                      border: 0,
+                      borderBottom: `1px solid ${t.divider}`,
+                      borderLeft: `1px solid ${t.divider}`,
+                      color: active ? t.accentText : hasRows ? t.textStrong : t.faint,
+                      cursor: "pointer",
+                      minHeight: 64,
+                      padding: 9,
+                      textAlign: "left",
+                    }}
+                  >
+                    <div style={{ fontSize: 10, fontWeight: 850, lineHeight: 1.35 }}>
+                      {hasRows ? (lang === "zh" ? "已建整理入口" : "curation route") : (lang === "zh" ? "待补充" : "pending")}
+                    </div>
+                    <div style={{ color: active ? t.accentText : t.faint, fontSize: 9, lineHeight: 1.35, marginTop: 4 }}>
+                      {lang === "zh" ? PATHWAY_COMPARABILITY_LABELS[cell.comparabilityKey]?.zh : PATHWAY_COMPARABILITY_LABELS[cell.comparabilityKey]?.en}
+                    </div>
+                  </button>
+                )
+              })}
+            </ReactFragmentLike>
+          ))}
+        </div>
+      </div>
+      <CatalysisCard t={t} strong padding={14}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "flex-start", flexWrap: "wrap" }}>
+          <div>
+            <CatalysisKicker t={t}>{lang === "zh" ? "选中任务单元" : "Selected cell"}</CatalysisKicker>
+            <CatalysisCardTitle t={t}>{lang === "zh" ? detail.taskZh : detail.taskEn}</CatalysisCardTitle>
+          </div>
+          <BasisBadge tone="info">{lang === "zh" ? "概念任务图" : "Conceptual task map"}</BasisBadge>
+        </div>
+        <div style={{ display: "grid", gap: 10, marginTop: 12 }}>
+          <CatalysisFieldTile t={t} label={lang === "zh" ? "预期指标" : "Expected metrics"} value={(lang === "zh" ? detail.metricsZh : detail.metricsEn).join(" · ")} />
+          <CatalysisFieldTile t={t} label={lang === "zh" ? "必需条件语境" : "Required condition context"} value={(lang === "zh" ? detail.contextZh : detail.contextEn).join(" · ")} />
+          <CatalysisFieldTile t={t} label={lang === "zh" ? "整理状态" : "Curation status"} value={lang === "zh" ? detail.statusZh : detail.statusEn} />
+          <CatalysisFieldTile t={t} label={lang === "zh" ? "可比性提示" : "Comparability note"} value={lang === "zh" ? PATHWAY_COMPARABILITY_LABELS[detail.comparabilityKey]?.zh : PATHWAY_COMPARABILITY_LABELS[detail.comparabilityKey]?.en} accent />
+        </div>
+      </CatalysisCard>
+    </div>
+  )
+}
+
+function ReactFragmentLike({ children }) {
+  return <>{children}</>
+}
+
+function PathwayFlowMap({ selected, onSelect, lang, t, isMobile }) {
+  const selectedFeed = FLOW_NODES.feedstock.find(item => item.key === selected.key)
+  const selectedProduct = FLOW_NODES.products.find(item => item.key === selected.key)
+  const highlightedModes = selectedFeed?.modes || []
+  const highlightedProducts = selectedFeed?.products || (selectedProduct ? [selectedProduct.key] : [])
+  const highlightedMetrics = selectedProduct?.metrics || []
+  return (
+    <div style={{ display: "grid", gap: 12 }}>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr 1fr", gap: 12, alignItems: "stretch" }}>
+        <FlowColumn title={lang === "zh" ? "原料" : "Feedstock"} items={FLOW_NODES.feedstock} activeKey={selected.key} onSelect={onSelect} lang={lang} t={t} />
+        <FlowColumn title={lang === "zh" ? "催化方式" : "Catalytic mode"} items={RESEARCH_MODES} activeKeys={highlightedModes} lang={lang} t={t} passive />
+        <FlowColumn title={lang === "zh" ? "产物族" : "Product family"} items={FLOW_NODES.products} activeKeys={highlightedProducts} activeKey={selected.key} onSelect={onSelect} lang={lang} t={t} />
+        <section style={{ ...catalysisCardStyle(t, { surface: "surface", padding: 12, radius: 12 }) }}>
+          <CatalysisKicker t={t}>{lang === "zh" ? "指标关注" : "Metric focus"}</CatalysisKicker>
+          <div style={{ marginTop: 10 }}>
+            <PathwayPills items={highlightedMetrics.length ? highlightedMetrics : (lang === "zh" ? ["点击原料或产物"] : ["Select a feedstock or product"])} lang={lang} t={t} tone={highlightedMetrics.length ? "accent" : "default"} />
+          </div>
+        </section>
+      </div>
+      <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55 }}>
+        {lang === "zh" ? "概念路径流向用于组织整理逻辑，不展示真实流量、权重或统计。" : "Conceptual pathway flow organizes curation logic; it does not show real flow, weight, or statistics."}
+      </div>
+    </div>
+  )
+}
+
+function FlowColumn({ title, items, activeKey, activeKeys = [], onSelect, lang, t, passive = false }) {
+  return (
+    <section style={{ ...catalysisCardStyle(t, { surface: "panel", padding: 12, radius: 12 }) }}>
+      <CatalysisKicker t={t}>{title}</CatalysisKicker>
+      <div style={{ display: "grid", gap: 8, marginTop: 10 }}>
+        {items.map(item => {
+          const active = activeKey === item.key || activeKeys.includes(item.key)
+          return (
+            <button
+              key={item.key}
+              type="button"
+              onClick={() => !passive && onSelect?.({ key: item.key, type: item.modes ? "feedstock" : "product" })}
+              disabled={passive}
+              style={{
+                background: active ? t.badgeInfoBg : t.surface,
+                border: `1px solid ${active ? (t.borderStrong || t.border) : t.border}`,
+                borderRadius: 999,
+                color: active ? t.accentText : t.textStrong,
+                cursor: passive ? "default" : "pointer",
+                fontSize: 11,
+                fontWeight: 850,
+                lineHeight: 1.3,
+                padding: "8px 10px",
+                textAlign: "left",
+              }}
+            >
+              {lang === "zh" ? item.zh : item.en}
+            </button>
+          )
+        })}
+      </div>
+    </section>
+  )
+}
+
+function MetricCoverageRadar({ row, lang, t }) {
+  const size = 230
+  const center = size / 2
+  const maxR = 82
+  const statusRadius = { required: 0.86, pending: 0.54, na: 0.25 }
+  const points = RADAR_METRIC_AXES.map((axis, index) => {
+    const angle = (-90 + (360 / RADAR_METRIC_AXES.length) * index) * Math.PI / 180
+    const status = row?.coverage?.[axis.key] || "pending"
+    const r = maxR * (statusRadius[status] || 0.54)
+    return {
+      axis,
+      status,
+      x: center + Math.cos(angle) * r,
+      y: center + Math.sin(angle) * r,
+      labelX: center + Math.cos(angle) * (maxR + 28),
+      labelY: center + Math.sin(angle) * (maxR + 28),
+    }
+  })
+  const polygon = points.map(point => `${point.x},${point.y}`).join(" ")
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 250px) minmax(0, 1fr)", gap: 14, alignItems: "center" }}>
+      <svg viewBox={`0 0 ${size} ${size}`} role="img" aria-label={lang === "zh" ? "指标覆盖雷达图" : "Metric coverage radar"} style={{ width: "100%", maxWidth: 250 }}>
+        {[0.33, 0.66, 1].map(scale => (
+          <circle key={scale} cx={center} cy={center} r={maxR * scale} fill="none" stroke={t.border} strokeWidth="1" />
+        ))}
+        {points.map(point => (
+          <line key={point.axis.key} x1={center} y1={center} x2={point.labelX - (point.labelX > center ? 16 : -16)} y2={point.labelY - (point.labelY > center ? 8 : -8)} stroke={t.divider} strokeWidth="1" />
+        ))}
+        <polygon points={polygon} fill={t.badgeInfoBg} stroke={t.accent} strokeWidth="2" opacity="0.9" />
+        {points.map(point => (
+          <g key={point.axis.key}>
+            <circle cx={point.x} cy={point.y} r="4" fill={point.status === "required" ? t.accent : point.status === "pending" ? (t.warn || t.accentSoft) : t.faint} />
+            <text x={point.labelX} y={point.labelY} textAnchor={point.labelX > center + 8 ? "start" : point.labelX < center - 8 ? "end" : "middle"} dominantBaseline="middle" fill={t.faint} fontSize="9" fontWeight="700">
+              {lang === "zh" ? point.axis.zh : point.axis.en}
+            </text>
+          </g>
+        ))}
+      </svg>
+      <div style={{ display: "grid", gap: 8 }}>
+        <CatalysisCardTitle t={t}>{row ? (lang === "zh" ? row.taskZh : row.taskEn) : (lang === "zh" ? "通用催化任务需求" : "General catalysis task requirement")}</CatalysisCardTitle>
+        <PathwayPills items={lang === "zh" ? ["必需", "待补充", "不适用"] : ["required", "pending", "not applicable"]} lang={lang} t={t} tone="accent" />
+        <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55 }}>
+          {lang === "zh" ? "指标覆盖表示数据整理需求，不代表实测催化性能。" : "Metric coverage reflects curation requirements, not measured catalytic performance."}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ResearchComparabilityQuadrant({ analysis, lang, t, isMobile }) {
+  const coordinates = {
+    direct: [78, 76],
+    "condition-normalized": [78, 30],
+    "bridge-needed": [30, 76],
+    "not-comparable": [28, 28],
+  }
+  const [xPct, yPct] = coordinates[analysis.statusKey] || coordinates["bridge-needed"]
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 0.85fr", gap: 12, alignItems: "stretch" }}>
+      <div style={{ position: "relative", minHeight: 280, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: "26px 24px 34px 42px" }}>
+        <div style={{ position: "absolute", left: 16, top: "50%", transform: "rotate(-90deg) translateX(-50%)", transformOrigin: "left center", color: t.faint, fontSize: 10, fontWeight: 850 }}>
+          {lang === "zh" ? "条件相似度" : "Condition similarity"}
+        </div>
+        <div style={{ position: "absolute", bottom: 10, left: 0, right: 0, textAlign: "center", color: t.faint, fontSize: 10, fontWeight: 850 }}>
+          {lang === "zh" ? "指标相似度 低 → 高" : "Metric similarity Low → High"}
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "1fr 1fr", height: "100%", minHeight: 220 }}>
+          {(lang === "zh"
+            ? [["需指标桥梁", "可直接比较"], ["暂不可比", "需条件归一化"]]
+            : [["Metric bridge needed", "Direct comparison possible"], ["Not comparable yet", "Condition normalization needed"]]
+          ).flat().map((label, index) => (
+            <div key={label} style={{ border: `1px solid ${t.divider}`, background: index === 1 ? t.badgeInfoBg : t.surface, color: index === 1 ? t.accentText : t.muted, fontSize: 11, fontWeight: 850, padding: 10 }}>
+              {label}
+            </div>
+          ))}
+        </div>
+        <div style={{
+          position: "absolute",
+          left: `${xPct}%`,
+          bottom: `${yPct}%`,
+          transform: "translate(-50%, 50%)",
+          background: t.accent,
+          border: `2px solid ${t.panel}`,
+          borderRadius: 999,
+          boxShadow: t.shadowSm,
+          height: 16,
+          width: 16,
+        }} />
+        <div style={{
+          position: "absolute",
+          left: `calc(${xPct}% + 12px)`,
+          bottom: `calc(${yPct}% + 10px)`,
+          color: t.accentText,
+          fontSize: 10,
+          fontWeight: 850,
+          whiteSpace: "nowrap",
+        }}>
+          {lang === "zh" ? "当前比较" : "selected comparison"}
+        </div>
+      </div>
+      <CatalysisCard t={t} strong padding={14}>
+        <CatalysisKicker t={t}>{lang === "zh" ? "可比性判断" : "Comparability assessment"}</CatalysisKicker>
+        <div style={{ marginTop: 10 }}><BasisBadge tone={analysis.statusKey === "bridge-needed" ? "proxy" : analysis.statusKey === "not-comparable" ? "warn" : "info"}>{lang === "zh" ? analysis.status.zh : analysis.status.en}</BasisBadge></div>
+        <CatalysisBodyText t={t} style={{ marginTop: 12 }}>{lang === "zh" ? analysis.reason.zh : analysis.reason.en}</CatalysisBodyText>
+      </CatalysisCard>
     </div>
   )
 }
@@ -2463,6 +3429,22 @@ export function CatalysisLabTab({ onNavigate }) {
     left: GLUCOSE_CO2_PATHWAY_ROWS[0].id,
     right: GLUCOSE_CO2_PATHWAY_ROWS[2].id,
   })
+  const [matrixSelection, setMatrixSelection] = useState({
+    domainKey: "co2-biomass-coupling",
+    modeKey: "thermal",
+  })
+  const [flowSelection, setFlowSelection] = useState({ key: "biomass", type: "feedstock" })
+  const [taskFilters, setTaskFilters] = useState({
+    domain: "all",
+    mode: "all",
+    product: "all",
+    curation: "all",
+    comparability: "all",
+  })
+  const [taskComparisonPair, setTaskComparisonPair] = useState({
+    left: "glucose-hco3-formic-case",
+    right: "co2-formate-electro",
+  })
   const [filters, setFilters] = useState({
     metalCenter: "all",
     bimetallic: "all",
@@ -2614,6 +3596,61 @@ export function CatalysisLabTab({ onNavigate }) {
       nextZh: ["来源状态", "条件完整性", "产物定量方法", "碳核算"],
     }
   }, [analysisPair])
+  const filteredResearchTasks = useMemo(() => {
+    return RESEARCH_TASK_ROWS.filter(row => (
+      (taskFilters.domain === "all" || row.domainKey === taskFilters.domain) &&
+      (taskFilters.mode === "all" || row.modeKeys.includes(taskFilters.mode)) &&
+      (taskFilters.product === "all" || row.productKey === taskFilters.product) &&
+      (taskFilters.curation === "all" || row.curationStatusKey === taskFilters.curation) &&
+      (taskFilters.comparability === "all" || row.comparabilityKey === taskFilters.comparability)
+    ))
+  }, [taskFilters])
+  const taskComparabilityAnalysis = useMemo(() => {
+    const left = RESEARCH_TASK_ROWS.find(row => row.id === taskComparisonPair.left) || RESEARCH_TASK_ROWS[0]
+    const right = RESEARCH_TASK_ROWS.find(row => row.id === taskComparisonPair.right) || RESEARCH_TASK_ROWS[1]
+    const sameDomain = left.domainKey === right.domainKey
+    const sharedMode = left.modeKeys.some(mode => right.modeKeys.includes(mode))
+    const leftMetrics = new Set(left.metricsEn.map(item => item.toLowerCase()))
+    const rightMetrics = new Set(right.metricsEn.map(item => item.toLowerCase()))
+    const sharedMetrics = right.metricsEn.some(metric => leftMetrics.has(metric.toLowerCase()))
+    const missingBridgeMetrics = Array.from(new Set([...(left.missingBridgeKeys || []), ...(right.missingBridgeKeys || [])]))
+    let statusKey = "bridge-needed"
+    if (sameDomain && sharedMode && sharedMetrics) statusKey = "condition-normalized"
+    if (!sameDomain || !sharedMode || !sharedMetrics) statusKey = "bridge-needed"
+    if (left.comparabilityKey === "not-comparable" || right.comparabilityKey === "not-comparable") statusKey = "not-comparable"
+    if (sameDomain && sharedMode && sharedMetrics && missingBridgeMetrics.length <= 2) statusKey = "direct"
+    const reason = {
+      en: statusKey === "direct"
+        ? "These tasks share domain, catalytic mode, and metric system. Direct comparison is possible only after confirming condition context."
+        : statusKey === "condition-normalized"
+          ? "These tasks are related but require temperature, pressure, light, voltage, time, or matrix normalization."
+          : statusKey === "not-comparable"
+            ? "At least one task lacks sufficient metric or condition context for comparison."
+            : "These tasks differ in energy input, metric system, or condition context. Direct comparison is not recommended before bridge metrics are curated.",
+      zh: statusKey === "direct"
+        ? "这些任务共享领域、催化方式和指标体系；仍需确认条件语境后才能直接比较。"
+        : statusKey === "condition-normalized"
+          ? "这些任务相关，但需要对温度、压力、光照、电压、时间或基质进行条件归一化。"
+          : statusKey === "not-comparable"
+            ? "至少一个任务缺少足够的指标或条件语境，暂不适合比较。"
+            : "这些任务在能量输入、指标体系或条件语境上存在差异，不建议在桥梁指标补充前直接比较。",
+    }
+    return {
+      left,
+      right,
+      statusKey,
+      status: PATHWAY_COMPARABILITY_LABELS[statusKey],
+      reason,
+      missingBridgeMetrics,
+      normalizedEn: Array.from(new Set([...left.contextEn, ...right.contextEn])).slice(0, 6),
+      normalizedZh: Array.from(new Set([...left.contextZh, ...right.contextZh])).slice(0, 6),
+      nextEn: ["field-level evidence", "condition-context record", "source status", "product quantification method"],
+      nextZh: ["逐字段证据", "条件语境记录", "来源状态", "产物定量方法"],
+    }
+  }, [taskComparisonPair])
+  const selectedRadarTask = useMemo(() => (
+    RESEARCH_TASK_ROWS.find(row => row.id === taskComparisonPair.left) || RESEARCH_TASK_ROWS[0]
+  ), [taskComparisonPair.left])
   const chartData = useMemo(() => ({
     evidence: chartsReady ? evidenceDistribution(ranked) : [],
     scores: chartsReady ? scoreDistribution(ranked) : [],
@@ -2621,6 +3658,14 @@ export function CatalysisLabTab({ onNavigate }) {
   }), [chartsReady, ranked, task, weights])
   const updateFilter = useCallback((key, value) => setFilters(prev => ({ ...prev, [key]: value })), [])
   const updatePathwayFilter = useCallback((key, value) => setPathwayFilters(prev => ({ ...prev, [key]: value })), [])
+  const updateTaskFilter = useCallback((key, value) => setTaskFilters(prev => ({ ...prev, [key]: value })), [])
+  const clearTaskFilters = useCallback(() => setTaskFilters({
+    domain: "all",
+    mode: "all",
+    product: "all",
+    curation: "all",
+    comparability: "all",
+  }), [])
   const clearPathwayFilters = useCallback(() => setPathwayFilters({
     mode: "all",
     feedstock: "all",
@@ -2693,11 +3738,11 @@ export function CatalysisLabTab({ onNavigate }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title={lang === "zh" ? "催化路径探索器" : "Catalysis Pathway Explorer"}
+        title={lang === "zh" ? "催化研究工作台" : "Catalysis Research Workspace"}
         subtitle={lang === "zh"
-          ? "围绕葡萄糖 / HCO₃⁻ / CO₂ 转化制有机酸，结构化整理电催、光催、热催和光热催化路径，并判断其指标体系与可比性边界。"
-          : "Structure and compare glucose / HCO₃⁻ / CO₂ conversion routes toward organic acids across electro-, photo-, thermal-, and photothermal catalysis."}
-        meta={lang === "zh" ? "反应族聚焦 · 路径表 · 可比性分析 · 桥梁指标 · 字段结构" : "reaction family focus · pathway table · comparability analyzer · bridge metrics · schema"}
+          ? "面向 MOF 相关催化研究，组织催化领域、反应族、路径指标、条件语境和可比性边界。"
+          : "Organize catalytic domains, reaction families, pathway metrics, condition contexts, and comparability boundaries for MOF-related catalysis research."}
+        meta={lang === "zh" ? "研究工作台 · 指标对齐 · 条件语境 · 可比性评估" : "research workspace · metric alignment · condition context · comparability assessment"}
         action={
           <>
             <CopyLinkButton hash="catalysis" ariaLabel={lang === "zh" ? "复制催化实验室链接" : "Copy CatalysisLab link"} />
@@ -2711,7 +3756,7 @@ export function CatalysisLabTab({ onNavigate }) {
         <Callout tone="warn">
           {lang === "zh"
             ? "数据加载失败。请刷新页面，或检查当前网络是否可以访问 GitHub Pages。当前页面会使用内置演示上下文继续展示。"
-            : "Data could not be loaded. Please refresh the page or check network access to GitHub Pages. This view continues with built-in demo context."}
+            : "Data could not be loaded. Please refresh the page or check network access to GitHub Pages. This view continues with built-in curation context."}
         </Callout>
       )}
       {dataStatus === "empty" && (
@@ -2720,111 +3765,102 @@ export function CatalysisLabTab({ onNavigate }) {
 
       <Callout tone="info">
         {lang === "zh"
-          ? "当前重点是路径结构化、指标映射和可比性判断；不填真实产率、选择性或转化率，也不预测最佳催化剂。"
-          : "Current focus is pathway structuring, metric mapping, and comparability assessment; no real yield, selectivity, conversion, or best-catalyst prediction is claimed."}{" "}
+          ? "当前模块用于催化任务结构化、指标体系映射和可比性判断，不代表已验证催化性能预测，也不替代实验评价。"
+          : "This workspace supports task structuring, metric alignment, and comparability assessment. It does not replace experimental validation or validated catalytic performance prediction."}{" "}
         <DisclaimerLink />
       </Callout>
 
       <ResultLayer
         number="01"
-        title={lang === "zh" ? "反应族聚焦" : "Reaction Family Focus"}
+        title={lang === "zh" ? "催化总览仪表盘" : "Catalysis Overview Dashboard"}
         subtitle={lang === "zh"
-          ? "当前分析入口聚焦葡萄糖 / HCO₃⁻ / CO₂ → 有机酸；页面仍保留通用催化路径框架。"
-          : "The current analysis entry focuses on glucose / HCO₃⁻ / CO₂ → organic acids while keeping the broader catalysis pathway framework."}
+          ? "总览先显示领域、催化方式、指标体系和可比性状态。"
+          : "The overview starts with domains, catalytic modes, metric systems, and comparability status."}
       >
-        <CatalysisCard t={t} strong padding={isMobile ? 14 : 18}>
-          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-            <div>
-              <CatalysisKicker t={t}>{lang === "zh" ? "当前反应族" : "Current reaction family"}</CatalysisKicker>
-              <div style={{ color: t.textStrong, fontSize: isMobile ? 20 : 24, fontWeight: 950, lineHeight: 1.15, marginTop: 5 }}>
-                {lang === "zh" ? "葡萄糖 / HCO₃⁻ / CO₂ → 有机酸" : "Glucose / HCO₃⁻ / CO₂ → Organic acids"}
-              </div>
-            </div>
-            <BasisBadge tone="proxy">{lang === "zh" ? "字段结构与可比性工作流" : "schema and comparability workflow"}</BasisBadge>
-          </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 12, marginTop: 16 }}>
-            {REACTION_FAMILY_FOCUS.map(item => (
-              <section key={item.en} style={{
-                background: t.surface,
-                border: `1px solid ${t.border}`,
-                borderRadius: 10,
-                padding: "13px 12px",
-                minHeight: 116,
-              }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
-                  <CatalysisKicker t={t}>{lang === "zh" ? item.zh : item.en}</CatalysisKicker>
-                  <BasisBadge tone={item.tone}>{lang === "zh" ? "聚焦" : "focus"}</BasisBadge>
-                </div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 9 }}>
-                  {(lang === "zh" ? item.valuesZh : item.valuesEn).map(value => (
-                    <BasisBadge key={value} tone={item.tone}>{value}</BasisBadge>
-                  ))}
-                </div>
-              </section>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr" : "minmax(280px, 0.92fr) minmax(0, 1.55fr)", gap: 14, alignItems: "stretch" }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "1fr", gap: 10 }}>
+            {RESEARCH_OVERVIEW_CARDS.map(item => (
+              <CatalysisMiniDashboardCard key={item.en} item={item} lang={lang} t={t} />
             ))}
           </div>
-        </CatalysisCard>
+          <CatalysisCard t={t} strong padding={isMobile ? 14 : 18}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
+              <div>
+                <CatalysisKicker t={t}>{lang === "zh" ? "总体框架" : "Main framework"}</CatalysisKicker>
+                <div style={{ color: t.textStrong, fontSize: isMobile ? 22 : 28, fontWeight: 950, lineHeight: 1.1, marginTop: 6 }}>
+                  {lang === "zh" ? "Catalysis Research Workspace" : "Catalysis Research Workspace"}
+                </div>
+              </div>
+              <BasisBadge tone="info">{lang === "zh" ? "科研工作台" : "research workspace"}</BasisBadge>
+            </div>
+            <div style={{ marginTop: 16 }}>
+              <CatalysisFrameworkFlow t={t} lang={lang} isMobile={isMobile} />
+            </div>
+            <div style={{ display: "flex", gap: 7, flexWrap: "wrap", marginTop: 14 }}>
+              {(lang === "zh"
+                ? ["路径层级任务组织", "指标对齐", "条件语境", "可比性评估", "证据与来源状态"]
+                : ["pathway-level task organization", "metric alignment", "condition context", "comparability assessment", "evidence and source status"]
+              ).map((item, index) => (
+                <BasisBadge key={item} tone={index < 2 ? "info" : index < 4 ? "proxy" : "calc"}>{item}</BasisBadge>
+              ))}
+            </div>
+          </CatalysisCard>
+        </div>
       </ResultLayer>
 
       <ResultLayer
         number="02"
-        title={lang === "zh" ? "概念路径图" : "Conceptual Pathway Map"}
-        subtitle={lang === "zh" ? "节点与连线表示整理框架，不代表已验证反应路径或性能结果。" : "Nodes and connectors represent a curation framework, not validated reaction routes or performance results."}
+        title={lang === "zh" ? "交互式催化任务矩阵" : "Interactive Catalysis Task Matrix"}
+        subtitle={lang === "zh" ? "点击反应领域 × 催化方式单元，查看任务、指标、条件语境和可比性提示。" : "Select a reaction-domain × catalytic-mode cell to inspect tasks, metrics, condition context, and comparability notes."}
       >
-        <CatalysisCard t={t} padding={isMobile ? 14 : 18}>
-          <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
-            <CatalysisCardTitle t={t}>{lang === "zh" ? "葡萄糖 / 碳酸氢盐 / CO₂ 到有机酸" : "Glucose / bicarbonate / CO₂ toward organic acids"}</CatalysisCardTitle>
-            <BasisBadge tone="info">{lang === "zh" ? "概念路径图" : "Conceptual pathway map"}</BasisBadge>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 12, alignItems: "stretch", marginTop: 16 }}>
-            {PATHWAY_LAYER_MAP.map((layer, index) => (
-              <section key={layer.en} style={{
-                background: index === 1 ? t.badgeInfoBg : t.surface,
-                border: `1px solid ${index === 1 ? (t.borderStrong || t.border) : t.border}`,
-                borderRadius: 12,
-                padding: 14,
-                position: "relative",
-              }}>
-                <CatalysisKicker t={t}>{lang === "zh" ? layer.zh : layer.en}</CatalysisKicker>
-                <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 12 }}>
-                  {(lang === "zh" ? layer.valuesZh : layer.valuesEn).map(value => (
-                    <span key={value} style={{
-                      background: t.panel,
-                      border: `1px solid ${t.border}`,
-                      borderRadius: 999,
-                      color: t.textStrong,
-                      fontSize: 12,
-                      fontWeight: 850,
-                      padding: "7px 10px",
-                    }}>
-                      {value}
-                    </span>
-                  ))}
-                </div>
-                {index < 2 && !isMobile && (
-                  <span aria-hidden="true" style={{ color: t.accentText, fontSize: 28, fontWeight: 950, position: "absolute", right: -20, top: "45%", zIndex: 2 }}>→</span>
-                )}
-              </section>
-            ))}
-          </div>
-        </CatalysisCard>
+        <CatalysisTaskMatrix selected={matrixSelection} onSelect={setMatrixSelection} lang={lang} t={t} isMobile={isMobile} />
       </ResultLayer>
 
-      <ResultLayer number="03" title={lang === "zh" ? "路径分析表" : "Pathway Analysis Table"}>
+      <ResultLayer
+        number="03"
+        title={lang === "zh" ? "反应路径流向图" : "Pathway Flow Map"}
+        subtitle={lang === "zh" ? "从原料到催化方式、产物族和指标关注，展示概念化整理路径。" : "A conceptual flow from feedstock to catalytic mode, product family, and metric focus."}
+      >
+        <PathwayFlowMap selected={flowSelection} onSelect={setFlowSelection} lang={lang} t={t} isMobile={isMobile} />
+      </ResultLayer>
+
+      <ResultLayer
+        number="04"
+        title={lang === "zh" ? "指标覆盖雷达图与可比性四象限" : "Metric Coverage Radar and Comparability Quadrant"}
+        subtitle={lang === "zh" ? "图表展示整理需求和可比性判断，不展示实测性能分数。" : "Charts show curation requirements and comparability assessment, not measured performance scores."}
+      >
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "0.92fr 1.08fr", gap: 12, alignItems: "stretch" }}>
+          <CatalysisCard t={t} padding={isMobile ? 14 : 16}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+              <CatalysisCardTitle t={t}>{lang === "zh" ? "Metric Coverage Radar / 指标覆盖雷达图" : "Metric Coverage Radar"}</CatalysisCardTitle>
+              <BasisBadge tone="info">{lang === "zh" ? "整理需求" : "curation requirement"}</BasisBadge>
+            </div>
+            <div style={{ marginTop: 12 }}><MetricCoverageRadar row={selectedRadarTask} lang={lang} t={t} /></div>
+          </CatalysisCard>
+          <CatalysisCard t={t} padding={isMobile ? 14 : 16}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+              <CatalysisCardTitle t={t}>{lang === "zh" ? "Comparability Quadrant / 可比性四象限" : "Comparability Quadrant"}</CatalysisCardTitle>
+              <BasisBadge tone="calc">{lang === "zh" ? "当前比较联动" : "linked comparison"}</BasisBadge>
+            </div>
+            <div style={{ marginTop: 12 }}><ResearchComparabilityQuadrant analysis={taskComparabilityAnalysis} lang={lang} t={t} isMobile={isMobile} /></div>
+          </CatalysisCard>
+        </div>
+      </ResultLayer>
+
+      <ResultLayer number="05" title={lang === "zh" ? "催化任务交互表" : "Interactive Catalysis Task Table"}>
         <CatalysisCard t={t} surface="surface" padding={12}>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
             {[
+              ["domain", lang === "zh" ? "反应领域" : "Domain"],
               ["mode", lang === "zh" ? "催化方式" : "Catalytic mode"],
-              ["feedstock", lang === "zh" ? "原料" : "Feedstock"],
               ["product", lang === "zh" ? "产物" : "Product"],
-              ["dataStatus", lang === "zh" ? "数据状态" : "Data status"],
-              ["comparability", lang === "zh" ? "可比性" : "Comparability"],
+              ["curation", lang === "zh" ? "整理状态" : "Curation status"],
+              ["comparability", lang === "zh" ? "可比性状态" : "Comparability status"],
             ].map(([key, label]) => (
               <label key={key} style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, fontWeight: 800, textTransform: "uppercase" }}>
                 {label}
-                <select value={pathwayFilters[key]} onChange={event => updatePathwayFilter(key, event.target.value)} style={controlStyle}>
-                  {PATHWAY_FILTERS[key].map(([value, en, zh]) => (
+                <select value={taskFilters[key]} onChange={event => updateTaskFilter(key, event.target.value)} style={controlStyle}>
+                  {TASK_FILTERS[key].map(([value, en, zh]) => (
                     <option key={value} value={value}>{lang === "zh" ? zh : en}</option>
                   ))}
                 </select>
@@ -2833,44 +3869,50 @@ export function CatalysisLabTab({ onNavigate }) {
           </div>
           <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center", flexWrap: "wrap", marginTop: 10 }}>
             <span style={{ color: t.faint, fontSize: 11 }}>
-              {lang === "zh" ? `${filteredPathwayRows.length} 条路径行 · 均为 schema-only / 待整理语境` : `${filteredPathwayRows.length} pathway rows · schema-only / curation context`}
+              {lang === "zh" ? `${filteredResearchTasks.length} 条任务行 · 路径层级结构化记录` : `${filteredResearchTasks.length} task rows · pathway-level structured records`}
             </span>
-            <button type="button" onClick={clearPathwayFilters} style={{ ...toolbarBtn(t), fontSize: 11 }}>
+            <button type="button" onClick={clearTaskFilters} style={{ ...toolbarBtn(t), fontSize: 11 }}>
               {lang === "zh" ? "清除筛选" : "Clear filters"}
             </button>
           </div>
         </CatalysisCard>
 
         <div style={{ overflowX: "auto", border: `1px solid ${t.border}`, borderRadius: 10, background: t.panel, marginTop: 12 }}>
-          <table style={{ width: "100%", minWidth: 1120, borderCollapse: "collapse" }}>
+          <table style={{ width: "100%", minWidth: 1320, borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ background: t.surface }}>
                 {(lang === "zh"
-                  ? ["路径", "催化方式", "原料", "目标产物", "必需条件语境", "关键指标", "可比性", "缺失桥梁指标", "来源状态"]
-                  : ["Pathway", "Catalytic mode", "Feedstock", "Target products", "Required condition context", "Key metrics", "Comparability", "Missing bridge metrics", "Source status"]
+                  ? ["领域", "催化任务", "催化方式", "原料", "产物族", "关键指标", "必需条件语境", "整理状态", "可比性状态", "缺失桥梁指标", "操作"]
+                  : ["Domain", "Task", "Catalytic mode", "Feedstock", "Product family", "Key metrics", "Required condition context", "Curation status", "Comparability status", "Missing bridge metrics", "Actions"]
                 ).map(head => (
                   <th key={head} style={{ textAlign: "left", color: t.faint, fontSize: 10, padding: "10px", borderBottom: `1px solid ${t.border}`, textTransform: "uppercase" }}>{head}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {filteredPathwayRows.map(row => (
+              {filteredResearchTasks.map(row => (
                 <tr key={row.id}>
-                  <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 12, fontWeight: 860 }}>{lang === "zh" ? row.pathwayZh : row.pathwayEn}</td>
+                  <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11 }}>{lang === "zh" ? row.domainZh : row.domainEn}</td>
+                  <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 12, fontWeight: 860 }}>{lang === "zh" ? row.taskZh : row.taskEn}</td>
                   <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11 }}>{lang === "zh" ? row.modeZh : row.modeEn}</td>
                   <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11 }}>{lang === "zh" ? row.feedstockZh : row.feedstockEn}</td>
-                  <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}` }}><PathwayPills items={lang === "zh" ? row.productsZh : row.productsEn} lang={lang} t={t} tone="accent" /></td>
-                  <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11, lineHeight: 1.55 }}>{lang === "zh" ? row.contextZh : row.contextEn}</td>
+                  <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11 }}>{lang === "zh" ? row.productZh : row.productEn}</td>
                   <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}` }}><PathwayPills items={lang === "zh" ? row.metricsZh : row.metricsEn} lang={lang} t={t} /></td>
+                  <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}` }}><PathwayPills items={lang === "zh" ? row.contextZh : row.contextEn} lang={lang} t={t} /></td>
+                  <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}` }}><BasisBadge tone={row.curationStatusKey === "collaborator-context" ? "proxy" : "info"}>{lang === "zh" ? CURATION_STATUS_LABELS[row.curationStatusKey]?.zh : CURATION_STATUS_LABELS[row.curationStatusKey]?.en}</BasisBadge></td>
                   <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}` }}><BasisBadge tone={row.comparabilityKey === "bridge-needed" ? "proxy" : row.comparabilityKey === "not-comparable" ? "warn" : "info"}>{lang === "zh" ? PATHWAY_COMPARABILITY_LABELS[row.comparabilityKey].zh : PATHWAY_COMPARABILITY_LABELS[row.comparabilityKey].en}</BasisBadge></td>
                   <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}` }}><PathwayPills items={row.missingBridgeKeys.map(key => lang === "zh" ? BRIDGE_CHECKLIST_ITEMS.find(item => item.key === key)?.zh || key : BRIDGE_CHECKLIST_ITEMS.find(item => item.key === key)?.en || key)} lang={lang} t={t} /></td>
-                  <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}` }}><BasisBadge tone={row.dataStatusKey === "collaborator-context" ? "proxy" : "info"}>{lang === "zh" ? row.sourceStatusZh : row.sourceStatusEn}</BasisBadge></td>
+                  <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}` }}>
+                    <button type="button" onClick={() => setTaskComparisonPair(prev => ({ ...prev, left: row.id }))} style={{ ...toolbarBtn(t), fontSize: 10, padding: "6px 8px" }}>
+                      {lang === "zh" ? "设为 A" : "Set A"}
+                    </button>
+                  </td>
                 </tr>
               ))}
-              {filteredPathwayRows.length === 0 && (
+              {filteredResearchTasks.length === 0 && (
                 <tr>
-                  <td colSpan={9} style={{ padding: 18, color: t.faint, fontSize: 12, textAlign: "center" }}>
-                    {lang === "zh" ? "未找到匹配路径行。请清除筛选或放宽条件。" : "No matching pathway rows. Clear filters or broaden the criteria."}
+                  <td colSpan={11} style={{ padding: 18, color: t.faint, fontSize: 12, textAlign: "center" }}>
+                    {lang === "zh" ? "未找到匹配任务。请清除筛选或放宽条件。" : "No matching tasks. Clear filters or broaden the criteria."}
                   </td>
                 </tr>
               )}
@@ -2879,18 +3921,18 @@ export function CatalysisLabTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="04" title={lang === "zh" ? "可比性分析器" : "Comparability Analyzer"}>
+      <ResultLayer number="06" title={lang === "zh" ? "催化可比性判断器" : "Catalysis Comparability Analyzer"}>
         <CatalysisCard t={t} strong padding={isMobile ? 14 : 18}>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
             {[
-              ["left", lang === "zh" ? "路径 A" : "Pathway A"],
-              ["right", lang === "zh" ? "路径 B" : "Pathway B"],
+              ["left", lang === "zh" ? "任务 A" : "Task A"],
+              ["right", lang === "zh" ? "任务 B" : "Task B"],
             ].map(([key, label]) => (
               <label key={key} style={{ display: "grid", gap: 6, color: t.faint, fontSize: 10, fontWeight: 800, textTransform: "uppercase" }}>
                 {label}
-                <select value={analysisPair[key]} onChange={event => setAnalysisPair(prev => ({ ...prev, [key]: event.target.value }))} style={controlStyle}>
-                  {GLUCOSE_CO2_PATHWAY_ROWS.map(row => (
-                    <option key={row.id} value={row.id}>{lang === "zh" ? row.pathwayZh : row.pathwayEn}</option>
+                <select value={taskComparisonPair[key]} onChange={event => setTaskComparisonPair(prev => ({ ...prev, [key]: event.target.value }))} style={controlStyle}>
+                  {RESEARCH_TASK_ROWS.map(row => (
+                    <option key={row.id} value={row.id}>{lang === "zh" ? row.taskZh : row.taskEn}</option>
                   ))}
                 </select>
               </label>
@@ -2901,27 +3943,27 @@ export function CatalysisLabTab({ onNavigate }) {
             <section style={{ background: t.surface, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 10, padding: 14 }}>
               <CatalysisKicker t={t}>{lang === "zh" ? "判断结果" : "Status"}</CatalysisKicker>
               <div style={{ marginTop: 10 }}>
-                <BasisBadge tone={comparabilityAnalysis.statusKey === "bridge-needed" ? "proxy" : comparabilityAnalysis.statusKey === "not-comparable" ? "warn" : "info"}>
-                  {lang === "zh" ? comparabilityAnalysis.status.zh : comparabilityAnalysis.status.en}
+                <BasisBadge tone={taskComparabilityAnalysis.statusKey === "bridge-needed" ? "proxy" : taskComparabilityAnalysis.statusKey === "not-comparable" ? "warn" : "info"}>
+                  {lang === "zh" ? taskComparabilityAnalysis.status.zh : taskComparabilityAnalysis.status.en}
                 </BasisBadge>
               </div>
               <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, marginTop: 12 }}>
-                {lang === "zh" ? comparabilityAnalysis.reason.zh : comparabilityAnalysis.reason.en}
+                {lang === "zh" ? taskComparabilityAnalysis.reason.zh : taskComparabilityAnalysis.reason.en}
               </div>
             </section>
             <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
               <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 12 }}>
                 <div>
                   <CatalysisKicker t={t}>{lang === "zh" ? "需归一化条件" : "Normalized conditions"}</CatalysisKicker>
-                  <div style={{ marginTop: 8 }}><PathwayPills items={lang === "zh" ? comparabilityAnalysis.normalizedZh : comparabilityAnalysis.normalizedEn} lang={lang} t={t} /></div>
+                  <div style={{ marginTop: 8 }}><PathwayPills items={lang === "zh" ? taskComparabilityAnalysis.normalizedZh : taskComparabilityAnalysis.normalizedEn} lang={lang} t={t} /></div>
                 </div>
                 <div>
                   <CatalysisKicker t={t}>{lang === "zh" ? "缺失桥梁指标" : "Missing bridge metrics"}</CatalysisKicker>
-                  <div style={{ marginTop: 8 }}><PathwayPills items={comparabilityAnalysis.missingBridgeMetrics.map(key => lang === "zh" ? BRIDGE_CHECKLIST_ITEMS.find(item => item.key === key)?.zh || key : BRIDGE_CHECKLIST_ITEMS.find(item => item.key === key)?.en || key)} lang={lang} t={t} tone="accent" /></div>
+                  <div style={{ marginTop: 8 }}><PathwayPills items={taskComparabilityAnalysis.missingBridgeMetrics.map(key => lang === "zh" ? BRIDGE_CHECKLIST_ITEMS.find(item => item.key === key)?.zh || key : BRIDGE_CHECKLIST_ITEMS.find(item => item.key === key)?.en || key)} lang={lang} t={t} tone="accent" /></div>
                 </div>
                 <div>
                   <CatalysisKicker t={t}>{lang === "zh" ? "下一步整理字段" : "Next curation fields"}</CatalysisKicker>
-                  <div style={{ marginTop: 8 }}><PathwayPills items={lang === "zh" ? comparabilityAnalysis.nextZh : comparabilityAnalysis.nextEn} lang={lang} t={t} /></div>
+                  <div style={{ marginTop: 8 }}><PathwayPills items={lang === "zh" ? taskComparabilityAnalysis.nextZh : taskComparabilityAnalysis.nextEn} lang={lang} t={t} /></div>
                 </div>
               </div>
             </section>
@@ -2929,7 +3971,7 @@ export function CatalysisLabTab({ onNavigate }) {
         </CatalysisCard>
       </ResultLayer>
 
-      <ResultLayer number="05" title={lang === "zh" ? "桥梁指标清单" : "Bridge Metrics Checklist"}>
+      <ResultLayer number="07" title={lang === "zh" ? "桥梁指标清单" : "Bridge Metrics Checklist"}>
         <CatalysisCard t={t} padding={isMobile ? 14 : 16}>
           <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
             <CatalysisCardTitle t={t}>{lang === "zh" ? "跨路径比较前需要补充的信息" : "Information needed before cross-pathway comparison"}</CatalysisCardTitle>
@@ -2937,7 +3979,7 @@ export function CatalysisLabTab({ onNavigate }) {
           </div>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 13 }}>
             {BRIDGE_CHECKLIST_ITEMS.map(item => {
-              const needed = comparabilityAnalysis.missingBridgeMetrics.includes(item.key)
+              const needed = taskComparabilityAnalysis.missingBridgeMetrics.includes(item.key)
               return (
                 <div key={item.key} style={{ background: needed ? t.badgeWarnBg : t.surface, border: `1px solid ${needed ? (t.warn || t.border) : t.border}`, borderRadius: 10, padding: 12 }}>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
@@ -2956,29 +3998,74 @@ export function CatalysisLabTab({ onNavigate }) {
         </CatalysisCard>
       </ResultLayer>
 
-      <ResultLayer number="06" title={lang === "zh" ? "案例路径：葡萄糖 + HCO₃⁻ 转化制甲酸" : "Case Pathway: Glucose + HCO₃⁻ to Formic Acid"}>
-        <CatalysisCard t={t} strong padding={isMobile ? 14 : 16}>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
-            {[
-              [lang === "zh" ? "所属反应族" : "Parent reaction family", lang === "zh" ? "葡萄糖–CO₂ 有机酸路径" : "Glucose–CO₂ organic acid pathways"],
-              [lang === "zh" ? "催化方式" : "Catalytic mode", lang === "zh" ? "水热热催化" : "hydrothermal thermocatalysis"],
-              [lang === "zh" ? "原料" : "Feedstock", lang === "zh" ? "葡萄糖 + HCO₃⁻ / CO₂ 来源" : "glucose + HCO₃⁻ / CO₂ source"],
-              [lang === "zh" ? "目标产物" : "Target product", lang === "zh" ? "甲酸" : "formic acid"],
-              [lang === "zh" ? "数据状态" : "Data status", lang === "zh" ? "合作语境 / 待文献整理" : "collaborator context / literature curation pending"],
-              [lang === "zh" ? "可比性" : "Comparability", lang === "zh" ? "需指标桥梁" : "metric bridge needed"],
-              [lang === "zh" ? "边界" : "Boundary", lang === "zh" ? "测试字段整理和可比性流程，不代表已验证性能结论" : "tests curation schema and comparability workflow, not validated performance"],
-              [lang === "zh" ? "条件提示" : "Condition note", lang === "zh" ? "170 ℃ 如出现，仅当前合作语境，非普适最优" : "170 ℃, if shown, is collaborator-context only, not universal optimum"],
-            ].map(([label, value]) => (
-              <CatalysisFieldTile key={label} t={t} label={label} value={value} accent />
-            ))}
-          </div>
-        </CatalysisCard>
+      <ResultLayer
+        number="08"
+        title={lang === "zh" ? "反应族案例库" : "Reaction Family Cases"}
+        subtitle={lang === "zh"
+          ? "有机酸方向只是 Focus Case 1，其他反应族作为后续整理入口保留。"
+          : "Organic acid production is Focus Case 1; other reaction families remain available as future curation routes."}
+      >
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", gap: 12 }}>
+          {REACTION_FAMILY_CASES.map(item => (
+            <CatalysisCard key={item.id} t={t} strong={item.focus} padding={14}>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "flex-start", flexWrap: "wrap" }}>
+                <CatalysisCardTitle t={t}>{lang === "zh" ? item.titleZh : item.titleEn}</CatalysisCardTitle>
+                {item.focus && <BasisBadge tone="calc">{lang === "zh" ? "Focus Case 1" : "Focus Case 1"}</BasisBadge>}
+              </div>
+              <div style={{ display: "grid", gap: 9, marginTop: 12 }}>
+                <CatalysisFieldTile t={t} label={lang === "zh" ? "归属领域" : "Domain"} value={lang === "zh" ? item.domainZh : item.domainEn} />
+                <CatalysisFieldTile t={t} label={lang === "zh" ? "相关方向" : "Related family"} value={lang === "zh" ? item.relatedZh : item.relatedEn} />
+                <CatalysisFieldTile t={t} label={lang === "zh" ? "催化方式" : "Catalytic mode"} value={lang === "zh" ? item.modeZh : item.modeEn} />
+                <div><PathwayPills items={lang === "zh" ? item.statusZh : item.statusEn} lang={lang} t={t} tone="accent" /></div>
+                <CatalysisBodyText t={t}>{lang === "zh" ? item.boundaryZh : item.boundaryEn}</CatalysisBodyText>
+                {item.focus && (
+                  <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55 }}>
+                    {lang === "zh" ? "170 ℃ 如出现，仅当前合作语境，非普适最优。" : "170 ℃, if shown, is current collaborator context only, not a universal optimum."}
+                  </div>
+                )}
+              </div>
+            </CatalysisCard>
+          ))}
+        </div>
       </ResultLayer>
 
-      <ResultLayer number="07" title={lang === "zh" ? "路径收集 Schema" : "Pathway Collection Schema"}>
+      <ResultLayer number="09" title={lang === "zh" ? "数据接入与边界" : "Data Intake and Boundary"}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12, marginBottom: 12 }}>
+          <CatalysisCard t={t} strong padding={14}>
+            <CatalysisKicker t={t}>{lang === "zh" ? "数据整理与合作" : "Data Curation & Collaboration"}</CatalysisKicker>
+            <CatalysisCardTitle t={t}>{lang === "zh" ? "结构化记录格式与合作数据边界" : "Structured record format and collaboration data boundary"}</CatalysisCardTitle>
+            <div style={{ marginTop: 10 }}>
+              <PathwayPills
+                items={lang === "zh"
+                  ? ["逐字段证据", "条件语境记录", "文献整理待补充", "合作数据边界"]
+                  : ["field-level evidence", "condition-context record", "literature curation pending", "collaboration data boundary"]}
+                lang={lang}
+                t={t}
+                tone="accent"
+              />
+            </div>
+          </CatalysisCard>
+          <CatalysisCard t={t} padding={14}>
+            <CatalysisKicker t={t}>{lang === "zh" ? "方法边界" : "Method Boundaries"}</CatalysisKicker>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
+              <div style={{ ...catalysisCardStyle(t, { surface: "surface", padding: 10, radius: 9 }) }}>
+                <CatalysisCardTitle t={t}>{lang === "zh" ? "适合" : "Supports"}</CatalysisCardTitle>
+                <div style={{ marginTop: 8 }}>
+                  <PathwayPills items={lang === "zh" ? ["任务组织", "指标映射", "可比性评估"] : ["task structuring", "metric alignment", "comparability assessment"]} lang={lang} t={t} tone="accent" />
+                </div>
+              </div>
+              <div style={{ ...catalysisCardStyle(t, { surface: "surface", padding: 10, radius: 9 }) }}>
+                <CatalysisCardTitle t={t}>{lang === "zh" ? "不适合" : "Does not provide"}</CatalysisCardTitle>
+                <div style={{ marginTop: 8 }}>
+                  <PathwayPills items={lang === "zh" ? ["替代实验", "最佳催化剂预测", "跨路径换算公式"] : ["experimental replacement", "best-catalyst prediction", "cross-path conversion formula"]} lang={lang} t={t} />
+                </div>
+              </div>
+            </div>
+          </CatalysisCard>
+        </div>
         <details style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
           <summary style={{ cursor: "pointer", color: t.textStrong, fontSize: 13, fontWeight: 880 }}>
-            {lang === "zh" ? "查看 schema-only 字段结构" : "View schema-only field structure"}
+            {lang === "zh" ? "查看结构化记录字段" : "View structured record fields"}
           </summary>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
             {PATHWAY_SCHEMA_FIELD_GROUPS.map(group => (
@@ -2989,11 +4076,10 @@ export function CatalysisLabTab({ onNavigate }) {
             ))}
           </div>
         </details>
-      </ResultLayer>
 
-      <details style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
+      <details style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14, marginTop: 12 }}>
         <summary style={{ cursor: "pointer", color: t.textStrong, fontSize: 13, fontWeight: 880 }}>
-          {lang === "zh" ? "数据接入、合作说明、模板与候选记录（后置）" : "Data intake, collaboration notes, templates, and candidate records (secondary)"}
+          {lang === "zh" ? "数据整理、合作说明、结构化记录与候选记录（后置）" : "Data curation, collaboration notes, structured records, and candidate records (secondary)"}
         </summary>
         <div style={{ display: "grid", gap: 14, marginTop: 14 }}>
 
@@ -3032,7 +4118,7 @@ export function CatalysisLabTab({ onNavigate }) {
             <span style={{ color: t.faint, fontSize: 11 }}>
               {dataMode === "real-seed"
                 ? (lang === "zh" ? `${realSeedCandidates.length} 条真实种子记录 · 缺失字段保持待整理` : `${realSeedCandidates.length} real seed records · missing fields stay pending`)
-                : (lang === "zh" ? `${demoCandidates.length} 条演示记录` : `${demoCandidates.length} demo records`)}
+                : (lang === "zh" ? `${demoCandidates.length} 条示例整理记录` : `${demoCandidates.length} example curation records`)}
             </span>
           </div>
 
@@ -3332,13 +4418,13 @@ export function CatalysisLabTab({ onNavigate }) {
           <CatalysisCard t={t} padding={isMobile ? 13 : 15}>
             <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start", flexWrap: "wrap" }}>
               <div>
-                <CatalysisKicker t={t}>{lang === "zh" ? "案例模板" : "Case template"}</CatalysisKicker>
-                <CatalysisCardTitle t={t}>{lang === "zh" ? "生物质辅助 CO₂/HCO₃⁻ 转化案例模板" : "Biomass-assisted CO₂/HCO₃⁻ Case Study Template"}</CatalysisCardTitle>
+                <CatalysisKicker t={t}>{lang === "zh" ? "案例记录格式" : "Case record format"}</CatalysisKicker>
+                <CatalysisCardTitle t={t}>{lang === "zh" ? "生物质辅助 CO₂/HCO₃⁻ 转化结构化记录" : "Biomass-assisted CO₂/HCO₃⁻ structured record"}</CatalysisCardTitle>
               </div>
               <BasisBadge tone="info">{lang === "zh" ? "工作区" : "workspace"}</BasisBadge>
             </div>
             <div style={{ display: "flex", gap: 7, flexWrap: "wrap", alignItems: "center", marginTop: 10 }}>
-              <BasisBadge tone="info">{lang === "zh" ? "仅字段结构" : "schema-only"}</BasisBadge>
+              <BasisBadge tone="info">{lang === "zh" ? "结构化字段" : "structured fields"}</BasisBadge>
               <BasisBadge tone="proxy">{lang === "zh" ? "无私密数值" : "no private values"}</BasisBadge>
               <span style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
                 {lang === "zh"
@@ -3376,20 +4462,20 @@ export function CatalysisLabTab({ onNavigate }) {
             <button
               type="button"
               onClick={copyNormalizationTemplate}
-              aria-label={lang === "zh" ? "复制标准化模板" : "Copy normalization template"}
+              aria-label={lang === "zh" ? "复制标准化记录格式" : "Copy normalized record format"}
               style={{ ...toolbarBtn(t), fontWeight: 850, whiteSpace: "nowrap" }}
             >
-              {lang === "zh" ? "复制标准化模板" : "Copy normalization template"}
+              {lang === "zh" ? "复制标准化记录格式" : "Copy normalized record format"}
             </button>
           </div>
 
           {normalizationTemplateStatus === "copied" && (
-            <Callout tone="info">{lang === "zh" ? "模板已复制" : "Template copied"}</Callout>
+            <Callout tone="info">{lang === "zh" ? "记录格式已复制" : "Record format copied"}</Callout>
           )}
           {normalizationTemplateStatus === "fallback" && (
             <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
               <div style={{ color: t.warn, fontSize: 11, lineHeight: 1.55 }}>
-                {lang === "zh" ? "无法访问剪贴板。可从下方查看模板。" : "Clipboard access failed. The template is shown below."}
+                {lang === "zh" ? "无法访问剪贴板。可从下方查看记录格式。" : "Clipboard access failed. The record format is shown below."}
               </div>
               <pre style={{ margin: "8px 0 0", maxHeight: 220, overflow: "auto", whiteSpace: "pre-wrap", color: t.subtle, fontSize: 10, lineHeight: 1.45 }}>
                 {NORMALIZATION_TEMPLATE}
@@ -3537,7 +4623,7 @@ export function CatalysisLabTab({ onNavigate }) {
                     lang === "zh" ? "当前证据为规则辅助线索，仍需实验复核。" : "Current evidence is rule-assisted and requires experimental validation.",
                   ]}
                   evidenceLevel={`${lang === "zh" ? "证据等级" : "Evidence Level"}: ${candidate.evidenceLevel || "rule-assisted"}`}
-                  limitations={lang === "zh" ? "演示 / 占位 / 规则辅助数据；用于候选优先级参考。" : "Demo / placeholder / rule-assisted data for candidate-priority reference."}
+                  limitations={lang === "zh" ? "规则辅助示例记录；用于候选优先级参考。" : "Rule-assisted example record for candidate-priority reference."}
                   recommendedNextStep={lang === "zh"
                     ? ["定义反应条件与对照实验", "验证转化率、选择性和循环稳定性", "补充机理表征"]
                     : ["Define reaction conditions and controls", "Validate conversion, selectivity, and cycling stability", "Add mechanistic characterization"]}
@@ -3638,6 +4724,7 @@ export function CatalysisLabTab({ onNavigate }) {
           {lang === "zh" ? "联系 / 合作" : "Contact / Collaboration"}
         </button>
       </section>
+      </ResultLayer>
     </div>
   )
 }
