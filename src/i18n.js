@@ -427,7 +427,7 @@ export const COPY = {
       validationPredictedVsReference: "预测值 vs 参考值",
       validationResiduals: "残差画像",
       saveRun: "保存结果",
-      savedRuns: "历史结果",
+      savedRuns: "已保存运行",
       loadRun: "载入",
       deleteRun: "删除",
       noSavedRuns: "暂无保存结果。",

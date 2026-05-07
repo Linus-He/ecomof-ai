@@ -21,8 +21,13 @@ export function PresetSearchControl({
   width = 320,
 }) {
   const t = useT()
-  const { copy } = useLang()
+  const { lang, copy } = useLang()
   const borderColor = status === "miss" ? t.danger : status === "loaded" ? t.success : t.border
+  const trimmedQuery = value.trim()
+  const showSearchFeedback = trimmedQuery.length > 0 && status !== "loaded"
+  const resultFeedback = suggestions.length
+    ? (lang === "zh" ? `${suggestions.length} 个匹配候选材料` : `${suggestions.length} matching candidate${suggestions.length === 1 ? "" : "s"}`)
+    : (lang === "zh" ? "未找到匹配候选材料" : "No matching candidates")
 
   return (
     <div style={{ position: "relative", minWidth: 0, width: "100%", maxWidth: width }}>
@@ -49,10 +54,25 @@ export function PresetSearchControl({
       <div style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)", color: t.faint, fontSize: 13, pointerEvents: "none" }}>
         ⌕
       </div>
+      {showSearchFeedback && (
+        <div style={{
+          position: "absolute",
+          top: "calc(100% + 6px)",
+          left: 2,
+          color: suggestions.length ? t.subtle : t.danger,
+          fontSize: 10,
+          fontWeight: 750,
+          lineHeight: 1.3,
+          zIndex: 121,
+          pointerEvents: "none",
+        }}>
+          {resultFeedback}
+        </div>
+      )}
       {open && suggestions.length > 0 && value && status !== "loaded" && (
         <div style={{
           position: "absolute",
-          top: "calc(100% + 8px)",
+          top: "calc(100% + 26px)",
           left: 0,
           right: 0,
           background: t.panel,
@@ -291,13 +311,13 @@ export function ContextualHeaderBar({
   const layerStyle = {
     display: "flex",
     alignItems: "center",
-    gap: 10,
+    gap: 8,
     flexWrap: "wrap",
-    minHeight: 46,
-    padding: isMobile ? "8px 0 10px" : "8px 0 10px",
+    minHeight: 40,
+    padding: isMobile ? "6px 0 8px" : "6px 0 8px",
     background: darkenLayer(t),
     border: "none",
-    borderTop: `1px solid ${t.border}`,
+    borderTop: `1px solid ${t.divider || t.border}`,
     borderRadius: 0,
     boxShadow: "none",
   }
@@ -401,9 +421,17 @@ export function ContextualHeaderBar({
             onClick={onSavedRuns}
             title={copy.common.savedRuns}
             aria-label={copy.common.savedRuns}
-            style={{ ...headerChipBtn(t), width: 40, padding: "9px 0", justifyContent: "center", fontSize: 15 }}
+            style={{
+              ...headerChipBtn(t),
+              minWidth: 40,
+              minHeight: 38,
+              padding: isMobile ? "9px 0" : "9px 12px",
+              justifyContent: "center",
+              fontSize: 12,
+            }}
           >
-            ◧
+            <span aria-hidden="true" style={{ fontSize: 15, lineHeight: 1 }}>◧</span>
+            {!isMobile && <span>{copy.common.savedRuns}</span>}
           </button>
         </span>
       </div>
@@ -439,10 +467,10 @@ export function ContextualHeaderBar({
 export function InternalNav({ items, active, onChange }) {
   const t = useT()
   return (
-    <div style={{ display: "flex", gap: 8, flexWrap: "wrap", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 6 }}>
+    <div style={{ display: "flex", gap: 6, flexWrap: "wrap", background: "transparent", border: `1px solid ${t.divider || t.border}`, borderRadius: 8, padding: 5 }}>
       {items.map(item => (
         <button key={item.id} type="button" onClick={() => onChange(item.id)}
-          style={{ ...toolbarBtn(t), background: active === item.id ? t.badgeInfoBg : "transparent", borderColor: active === item.id ? t.borderStrong : t.border, color: active === item.id ? t.accentText : t.subtle }}>
+          style={{ ...toolbarBtn(t), padding: "5px 9px", fontSize: 11, background: active === item.id ? t.surface : "transparent", borderColor: active === item.id ? t.border : "transparent", color: active === item.id ? t.accentText : t.faint, boxShadow: "none" }}>
           {item.label}
         </button>
       ))}

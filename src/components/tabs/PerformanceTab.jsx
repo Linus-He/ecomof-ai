@@ -288,7 +288,7 @@ export function PerformanceTab({
             <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
           )}
 
-          <Callout tone="info">
+          <Callout tone="note">
             {lang === "zh"
               ? "Performance 模块用于提出吸附性能假设。它不替代实验等温线、GCMC 或严格混合气 IAST。"
               : "The Performance module is for adsorption-performance hypotheses. It does not replace experimental isotherms, GCMC, or rigorous mixture IAST."}
@@ -395,7 +395,7 @@ export function PerformanceTab({
           </ResultLayer>
 
           <ResultLayer number="05" title={lang === "zh" ? "机器学习评估占位" : "Machine Learning Evaluation Placeholder"}>
-            <Callout tone="warn">
+            <Callout tone="note">
               {lang === "zh"
                 ? "当前机器学习评估为占位展示。只有在积累足够带标签的实验或文献数据后，才会启用真实模型评估。"
                 : "Machine learning evaluation is currently a placeholder. It will be activated when enough labeled experimental or literature data are available."}

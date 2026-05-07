@@ -375,7 +375,7 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
                 </div>
               ))}
             </div>
-            <Callout tone="warn">
+            <Callout tone="note">
               {lang === "zh"
                 ? "本次运行基于当前可用描述符，仅用于早期决策支持预览。"
                 : "This run is based on currently available descriptors and is an early-stage decision-support preview."}

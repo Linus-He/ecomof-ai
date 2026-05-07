@@ -1507,7 +1507,7 @@ function CandidatePrioritizationWorkspace({ lang, t, isNarrow, isMobile, realSee
       <div style={{ marginTop: 14, display: "flex", flexDirection: "column", gap: 14 }}>
 
         {/* Disclaimer */}
-        <div style={{ background: t.badgeWarnBg || "#fffbeb", border: `1px solid ${t.warn || "#f59e0b"}`, borderRadius: 8, padding: "9px 13px", fontSize: 12, color: t.warn || "#92400e", lineHeight: 1.65 }}>
+        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "9px 13px", fontSize: 12, color: t.subtle, lineHeight: 1.65, boxShadow: `inset 3px 0 0 0 ${t.accentSoft || t.border}` }}>
           {lang === "zh"
             ? "用于讨论数据整理优先级的规则辅助候选材料参考，后续仍需实验复核。"
             : "Rule-assisted candidate prioritization for discussing curation priority, not final catalytic performance."}

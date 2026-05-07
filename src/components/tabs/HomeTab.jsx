@@ -93,8 +93,8 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
     {
       id: "benchmark-references",
       hash: "benchmark-references",
-      name: lang === "zh" ? "Benchmark References" : "Benchmark References",
-      desc: lang === "zh" ? "理解常见标杆材料语境。" : "Understand contextual benchmark anchors.",
+      name: lang === "zh" ? "基准参考" : "Benchmark References",
+      desc: lang === "zh" ? "查看标杆 MOF 及其参考语境。" : "Review benchmark MOFs and their reference context.",
     },
   ], [lang])
 
@@ -158,7 +158,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
     background: t.panel,
     border: `1px solid ${t.border}`,
     borderRadius: 10,
-    transition: "box-shadow 0.15s, border-color 0.15s",
+    transition: "box-shadow 0.18s ease, border-color 0.18s ease, transform 0.18s ease, background-color 0.18s ease",
   }), [t])
 
   const cardFill = useMemo(() => ({
@@ -280,9 +280,10 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
           <button
             type="button"
             onClick={() => setActiveTab("benchmark-references")}
-            style={{ ...toolbarBtn(t), padding: "9px 12px", fontSize: 12, color: t.subtle, borderColor: "transparent", background: "transparent" }}
+            className="btn-secondary"
+            style={{ ...toolbarBtn(t), padding: "9px 14px", fontSize: 13, color: t.accentText, border: `1px solid ${t.borderStrong}`, background: t.surface }}
           >
-            {lang === "zh" ? "标杆材料参考" : "Benchmark References"}
+            {lang === "zh" ? "基准参考" : "Benchmark References"}
           </button>
         </div>
       </section>
@@ -313,7 +314,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
               type="button"
               onClick={card.action === "builder" ? (onOpenComparisonBuilder || (() => setActiveTab("mofLibrary"))) : (card.target ? () => setActiveTab(card.target) : undefined)}
               aria-label={card.title}
-              className="content-card"
+              className="content-card clickable-card"
               style={{
                 all: "unset",
                 ...cardBase,

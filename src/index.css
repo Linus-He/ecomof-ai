@@ -106,7 +106,7 @@ button:active:not(:disabled) { transform: translateY(0); }
 }
 
 .content-card {
-  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 .content-card:hover {
@@ -154,6 +154,15 @@ button:active:not(:disabled) { transform: translateY(0); }
 
 .basis-badge:hover {
   transform: translateY(-1px);
+}
+
+details.motion-surface > summary,
+details > summary {
+  transition: color 0.18s ease, background-color 0.18s ease;
+}
+
+details[open].motion-surface {
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
 }
 
 .sticky-summary-bar {

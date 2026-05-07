@@ -111,6 +111,7 @@ export function GasSepTab() {
     ["C2H6/C2H4", zh ? "取决于条件" : "condition-dependent", zh ? "乙烷/乙烯分离" : "ethane/ethylene separation"],
     ["Xe/Kr", zh ? "取决于条件" : "condition-dependent", zh ? "稀有气体分离" : "noble gas separation"],
   ], [zh])
+  const systemAccents = [t.badgeCalcText, t.badgeProxyText, t.accentText, t.badgeUserText, t.subtle, t.faint]
 
   const isothermStatuses = useMemo(() => [
     ["uptake-only", statusLabel("uptake-only", zh)],
@@ -139,7 +140,7 @@ export function GasSepTab() {
         {zh ? "仅为带条件说明的数据记录；数值需结合条件语境解读。" : "Condition-aware records only; values require matching context."}{" "}
         <DisclaimerLink />
       </Callout>
-      <Callout tone="warn">
+      <Callout tone="note">
         {zh
           ? "本模块不执行 IAST、GCMC 或穿透曲线模拟，仅用于整理带条件说明的气体分离记录。"
           : "This module does not perform IAST, GCMC, or breakthrough simulation. It organizes condition-aware records for transparent comparison."}
@@ -151,11 +152,18 @@ export function GasSepTab() {
           {zh ? "以下比例是常见报道语境，不代表适用于所有论文或所有测试条件。" : "These ratios are commonly reported context, not universal conditions for every paper or test."}
         </div>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
-          {systems.map(([system, ratio, context]) => (
-            <article key={system} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, minHeight: 116 }}>
+          {systems.map(([system, ratio, context], index) => (
+            <article key={system} className="content-card" style={{
+              background: index % 2 === 0 ? t.surface : t.panel,
+              border: `1px solid ${t.border}`,
+              borderRadius: 8,
+              padding: 12,
+              minHeight: 116,
+              boxShadow: `inset 3px 0 0 0 ${systemAccents[index] || t.border}`,
+            }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, flexWrap: "wrap" }}>
                 <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900, fontFamily: FONT_MONO }}>{system}</div>
-                <BasisBadge tone="info">{zh ? "常见报道语境" : "commonly reported context"}</BasisBadge>
+                <BasisBadge tone="user">{zh ? "常见报道语境" : "commonly reported context"}</BasisBadge>
               </div>
               <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", marginTop: 10 }}>
                 {zh ? "常见比例" : "Common ratio"}

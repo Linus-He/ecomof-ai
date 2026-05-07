@@ -41,7 +41,8 @@ export function CopyLinkButton({
   const [status, setStatus] = useState("")
   const text = value || buildDeepLink(hash)
   const displayLabel = label || (lang === "zh" ? "复制链接" : "Copy link")
-  const successLabel = copiedLabel || (lang === "zh" ? "链接已复制" : "Link copied")
+  const successLabel = value && copiedLabel ? copiedLabel : (lang === "zh" ? "已复制 ✓" : "Copied ✓")
+  const failedLabel = lang === "zh" ? "复制失败" : "Copy failed"
 
   const copy = async () => {
     let ok = false
@@ -70,9 +71,11 @@ export function CopyLinkButton({
       }
     }
 
-    setStatus(ok ? successLabel : text)
-    window.setTimeout(() => setStatus(""), 1800)
+    setStatus(ok ? "copied" : "failed")
+    window.setTimeout(() => setStatus(""), 1500)
   }
+
+  const buttonLabel = status === "copied" ? successLabel : status === "failed" ? failedLabel : displayLabel
 
   return (
     <span style={{ display: "inline-flex", alignItems: "center", gap: 7, minWidth: 0 }}>
@@ -80,22 +83,20 @@ export function CopyLinkButton({
         type="button"
         onClick={copy}
         aria-label={ariaLabel || displayLabel}
+        aria-live="polite"
         style={{
           ...toolbarBtn(t),
           padding: "7px 10px",
           fontSize: 11,
-          fontWeight: 750,
-          color: tone === "accent" ? t.accentText : t.subtle,
+          fontWeight: status ? 850 : 750,
+          color: status === "copied" ? t.success : status === "failed" ? t.danger : tone === "accent" ? t.accentText : t.subtle,
+          borderColor: status === "copied" ? t.success : status === "failed" ? t.danger : t.borderStrong,
+          background: status === "copied" ? t.badgeCalcBg : status === "failed" ? t.badgeDangerBg : t.panel,
           whiteSpace: "nowrap",
         }}
       >
-        {displayLabel}
+        {buttonLabel}
       </button>
-      {status && (
-        <span style={{ color: status === text ? t.accentText : t.success, fontSize: 10, lineHeight: 1.3, maxWidth: 220, overflowWrap: "anywhere" }}>
-          {status}
-        </span>
-      )}
     </span>
   )
 }
@@ -885,6 +886,7 @@ export function Callout({ tone = "info", children }) {
   const t = useT()
   const palette = {
     info: { bg: t.badgeInfoBg, border: t.accent, color: t.badgeInfoText },
+    note: { bg: t.surface, border: t.border, color: t.subtle },
     warn: { bg: t.badgeWarnBg, border: t.warn, color: t.badgeWarnText },
     danger:{ bg: t.badgeDangerBg, border: t.danger, color: t.badgeDangerText },
     success:{ bg: t.badgeCalcBg, border: t.lcaAccent, color: t.badgeCalcText },
@@ -1295,13 +1297,14 @@ export function RealSeedCallout({ lang }) {
   const t = useT()
   return (
     <div style={{
-      background: t.badgeWarnBg || "#fffbeb",
-      border: `1px solid ${t.warn || "#f59e0b"}`,
+      background: t.surface,
+      border: `1px solid ${t.border}`,
       borderRadius: 8,
       padding: "10px 14px",
       fontSize: 12,
-      color: t.warn || "#92400e",
+      color: t.subtle,
       lineHeight: 1.65,
+      boxShadow: `inset 3px 0 0 0 ${t.accentSoft || t.border}`,
     }}>
       {lang === "zh"
         ? "Real Seed Dataset 是真实数据接入框架，不代表完整数据库。当前部分字段仍处于待整理状态，待整理字段不应被视为已整理事实。"
