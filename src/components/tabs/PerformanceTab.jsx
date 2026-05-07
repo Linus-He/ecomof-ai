@@ -177,9 +177,9 @@ export function PerformanceTab({
       <PageHeader
         title="Performance"
         subtitle={lang === "zh"
-          ? "基于当前可用描述符的候选材料优先级参考。"
-          : "Candidate prioritization based on available descriptors."}
-        meta={lang === "zh" ? "CO₂ uptake · selectivity · thermodynamic interpretation · Early-stage Screening" : "CO₂ uptake · selectivity · thermodynamic interpretation · Early-stage Screening"}
+          ? "基于当前可用描述符的候选优先级参考。"
+          : "Candidate priority based on currently available descriptors."}
+        meta={lang === "zh" ? "CO₂ 吸附 · 选择性 · 热力学解释 · 早期筛选" : "CO₂ uptake · selectivity · thermodynamic interpretation · early-stage screening"}
         action={
           <>
             <BasisBadge tone="info">{lang === "zh" ? "不替代 GCMC / IAST" : "not GCMC / IAST"}</BasisBadge>
@@ -383,7 +383,7 @@ export function PerformanceTab({
             </div>
           </ResultLayer>
 
-          <ResultLayer number="04" title={lang === "zh" ? "Model Results / 结果解释图表" : "Model Results / Results Interpretation"}>
+          <ResultLayer number="04" title={lang === "zh" ? "模型结果解释图表" : "Model Results / Results Interpretation"}>
             <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
               <RankingBarChart data={chartData.ranking} scoreLabel={lang === "zh" ? "性能评分" : "Performance Score"} />
               <ScoreBreakdownRadar data={activeCandidate?.scoreBreakdown || []} title={activeCandidate ? `${activeCandidate.name} · ${lang === "zh" ? "评分拆解" : "Score Breakdown"}` : (lang === "zh" ? "评分拆解" : "Score Breakdown")} />

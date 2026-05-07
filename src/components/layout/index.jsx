@@ -108,21 +108,36 @@ export function PresetSearchControl({
 export function PageHeader({ title, subtitle, meta, action }) {
   const t = useT()
   const { isMobile } = useViewport()
+  const metaItems = Array.isArray(meta) ? meta : String(meta || "").split("·").map(item => item.trim()).filter(Boolean)
   return (
     <div style={{
-      display: "flex", justifyContent: "space-between", gap: 18, alignItems: "flex-start",
-      flexWrap: "wrap", marginBottom: 8,
+      display: "flex", justifyContent: "space-between", gap: 16, alignItems: "flex-start",
+      flexWrap: "wrap", marginBottom: 6,
     }}>
       <div style={{ minWidth: 0, flex: "1 1 520px" }}>
         <h1 style={{ margin: 0, color: t.textStrong, fontSize: isMobile ? 30 : 32, fontWeight: 700, letterSpacing: 0, lineHeight: 1.15 }}>{title}</h1>
         {subtitle && (
-          <p style={{ margin: "8px 0 0", color: t.muted, fontSize: 15, lineHeight: 1.6, maxWidth: 880 }}>
+          <p style={{ margin: "6px 0 0", color: t.subtle, fontSize: isMobile ? 13 : 14, lineHeight: 1.45, maxWidth: 760 }}>
             {subtitle}
           </p>
         )}
-        {meta && (
-          <div style={{ marginTop: 10, color: t.faint, fontSize: 11, lineHeight: 1.5 }}>
-            {meta}
+        {metaItems.length > 0 && (
+          <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 9 }}>
+            {metaItems.slice(0, 6).map(item => (
+              <span key={item} style={{
+                color: t.faint,
+                background: t.surface,
+                border: `1px solid ${t.border}`,
+                borderRadius: 999,
+                fontSize: 10,
+                fontWeight: 800,
+                lineHeight: 1.2,
+                padding: "4px 7px",
+                whiteSpace: "nowrap",
+              }}>
+                {item}
+              </span>
+            ))}
           </div>
         )}
       </div>

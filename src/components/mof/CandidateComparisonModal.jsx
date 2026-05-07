@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
-import { BasisBadge, DisclaimerLink } from "../ui"
+import { BasisBadge, DisclaimerLink, FieldProvenanceButton } from "../ui"
 import { getMofCandidates } from "../../services/dataService"
 import { downloadTextFile } from "../../utils/report"
 import { toolbarBtn } from "../../utils/styles"
@@ -231,6 +231,11 @@ function sourceStatus(candidate, lang) {
   return lang === "zh" ? "来源待补充" : "Source pending"
 }
 
+function evidenceStatus(candidate, key, lang) {
+  const source = fieldSource(candidate, key)
+  return source?.evidenceLevel || candidate.evidenceLevel || curationPendingLabel(lang)
+}
+
 function missingCoreFields(candidate, lang) {
   return CORE_FIELDS
     .filter(field => fieldStatus(candidate, field.key) !== "curated")
@@ -277,6 +282,56 @@ function fieldLabel(key, lang) {
     method: { en: "method", zh: "方法" },
   }
   return labels[key]?.[lang === "zh" ? "zh" : "en"] || key
+}
+
+function addUnique(list, value) {
+  if (value && !list.includes(value)) list.push(value)
+}
+
+function missingFieldsForFunction(candidate, compareFunction, lang) {
+  const missing = []
+  const zh = lang === "zh"
+  const candidateKeys = new Set([...(compareFunction.actualFields || []), ...(compareFunction.keyFields || [])])
+
+  candidateKeys.forEach(key => {
+    const core = CORE_FIELDS.find(field => field.key === key)
+    if (core) {
+      const label = core.label[zh ? "zh" : "en"]
+      const status = fieldStatus(candidate, key)
+      const source = fieldSource(candidate, key)
+      if (status === "missing" || !fieldHasValue(candidate, key)) {
+        addUnique(missing, label)
+      } else if (!isCuratedSource(source)) {
+        addUnique(missing, zh ? `${label}来源` : `${label} source`)
+      }
+      if (status === "needs-review") addUnique(missing, zh ? `${label}复核` : `${label} review`)
+      return
+    }
+
+    if (key === "sourceStatus") {
+      if (sourceStatus(candidate, lang) === (zh ? "来源待补充" : "Source pending")) {
+        addUnique(missing, zh ? "来源状态" : "source status")
+      }
+      return
+    }
+    if (key === "evidenceLevel" || key === "mechanismEvidence" || key === "stabilityEvidence") {
+      if (isMissing(candidate.evidenceLevel)) addUnique(missing, fieldLabel(key, lang))
+      return
+    }
+    if (key === "reactionClasses" || key === "reactionPathway") {
+      if (!candidate.reactionClasses?.length) addUnique(missing, fieldLabel("reactionPathway", lang))
+      return
+    }
+    if (key === "activeSiteHypothesis") {
+      if (isMissing(candidate.activeSiteHypothesis)) addUnique(missing, fieldLabel(key, lang))
+      return
+    }
+    if (["conditionContext", "productMetricStatus", "gasPair", "uptakeSelectivityStatus", "temperature", "pressure", "method", "recyclability"].includes(key)) {
+      addUnique(missing, fieldLabel(key, lang))
+    }
+  })
+
+  return missing
 }
 
 function Section({ title, children, t, subtitle }) {
@@ -370,7 +425,12 @@ export function CompareTray({ count, names = [], notice, onCompare, onClear, t, 
         <button type="button" onClick={onCompare} style={{ ...toolbarBtn(t), color: t.accentText, border: `1px solid ${t.accent}` }}>
           {lang === "zh" ? "打开对比器" : "Open builder"}
         </button>
-        <button type="button" onClick={onClear} style={toolbarBtn(t)}>
+        <button
+          type="button"
+          onClick={onClear}
+          disabled={count === 0}
+          style={{ ...toolbarBtn(t), opacity: count === 0 ? 0.55 : 1, cursor: count === 0 ? "not-allowed" : "pointer" }}
+        >
           {lang === "zh" ? "清空" : "Clear"}
         </button>
       </div>
@@ -777,7 +837,17 @@ export function CandidateComparisonModal({
                       <td style={{ padding: "8px 10px", color: t.faint, borderTop: `1px solid ${t.border}` }}>{fieldLabel(key, lang)}</td>
                       {selected.map(candidate => (
                         <td key={candidate.id} style={{ padding: "8px 10px", color: t.textStrong, borderTop: `1px solid ${t.border}`, verticalAlign: "top" }}>
-                          {displayField(candidate, key, lang)}
+                          <span style={{ display: "inline-flex", alignItems: "center", gap: 3, maxWidth: "100%" }}>
+                            <span style={{ overflowWrap: "anywhere" }}>{displayField(candidate, key, lang)}</span>
+                            {CORE_FIELDS.some(field => field.key === key) && (
+                              <FieldProvenanceButton
+                                fieldKey={key}
+                                fieldLabel={fieldLabel(key, lang)}
+                                source={fieldSource(candidate, key)}
+                                lang={lang}
+                              />
+                            )}
+                          </span>
                         </td>
                       ))}
                     </tr>
@@ -818,9 +888,7 @@ export function CandidateComparisonModal({
             <Section title={zh ? "待补充字段" : "Missing fields"} t={t}>
               <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 8 }}>
                 {selected.map(candidate => {
-                  const missing = compareFunction.keyFields
-                    .filter(key => isMissing(displayField(candidate, key, lang)) || displayField(candidate, key, lang) === pendingLabel(lang) || displayField(candidate, key, lang) === curationPendingLabel(lang))
-                    .map(key => fieldLabel(key, lang))
+                  const missing = missingFieldsForFunction(candidate, compareFunction, lang)
                   return (
                     <div key={candidate.id} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
                       <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, marginBottom: 7 }}>{candidate.name}</div>
@@ -859,9 +927,18 @@ export function CandidateComparisonModal({
                           return (
                             <td key={candidate.id} style={{ padding: "8px 10px", color: t.textStrong, borderTop: `1px solid ${t.border}`, verticalAlign: "top" }}>
                               <div style={{ display: "grid", gap: 5 }}>
-                                <span>{displayField(candidate, field.key, lang)}</span>
+                                <span style={{ display: "inline-flex", alignItems: "center", gap: 3, maxWidth: "100%" }}>
+                                  <span style={{ overflowWrap: "anywhere" }}>{displayField(candidate, field.key, lang)}</span>
+                                  <FieldProvenanceButton
+                                    fieldKey={field.key}
+                                    fieldLabel={field.label[zh ? "zh" : "en"]}
+                                    source={fieldSource(candidate, field.key)}
+                                    lang={lang}
+                                  />
+                                </span>
                                 <BasisBadge tone={statusTone(status)}>{statusLabel(status, lang)}</BasisBadge>
-                                <span style={{ color: t.faint, fontSize: 10 }}>{sourceStatus(candidate, lang)}</span>
+                                <span style={{ color: t.faint, fontSize: 10 }}>{zh ? "来源状态" : "source status"}: {sourceStatus(candidate, lang)}</span>
+                                <span style={{ color: t.faint, fontSize: 10 }}>{zh ? "证据状态" : "evidence status"}: {evidenceStatus(candidate, field.key, lang)}</span>
                               </div>
                             </td>
                           )

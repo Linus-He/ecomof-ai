@@ -57,6 +57,7 @@ const DATA_INTAKE_TEMPLATE = `{
 
 function Field({ label, required, children }) {
   const t = useT()
+  const { lang } = useLang()
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
       <label style={{
@@ -67,7 +68,22 @@ function Field({ label, required, children }) {
         letterSpacing: "0.04em",
       }}>
         {label}
-        {required && <span style={{ color: t.danger, marginLeft: 2 }}>*</span>}
+        {required && (
+          <span style={{
+            color: t.accentText,
+            background: t.badgeInfoBg,
+            border: `1px solid ${t.border}`,
+            borderRadius: 999,
+            marginLeft: 6,
+            padding: "2px 6px",
+            fontSize: 9,
+            fontWeight: 850,
+            letterSpacing: 0,
+            textTransform: "none",
+          }}>
+            {lang === "zh" ? "必填" : "Required"}
+          </span>
+        )}
       </label>
       {children}
     </div>
@@ -111,6 +127,8 @@ export function ContactModal({ open, onClose }) {
   const [form, setForm] = useState(BLANK)
   const [status, setStatus] = useState("idle") // idle | loading | success | error
   const [templateStatus, setTemplateStatus] = useState("idle") // idle | copied | fallback
+  const [intakeOpen, setIntakeOpen] = useState(false)
+  const [validationError, setValidationError] = useState("")
   const closeBtnRef = useRef(null)
   const triggerRef = useRef(null)
 
@@ -135,10 +153,19 @@ export function ContactModal({ open, onClose }) {
 
   const canSubmit =
     form.name.trim() && form.email.trim() &&
+    form.organization.trim() && form.role &&
+    form.referral_source && form.use_goal && form.interest_module &&
+    form.collaboration_mode && form.data_type && form.has_dataset &&
+    form.dataset_readiness && form.reply_preference &&
     form.message.trim() && form.consent && status !== "loading"
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (!canSubmit) {
+      setValidationError(lang === "zh" ? "请填写所有必填字段，并确认同意后再提交。" : "Please complete all required fields and confirm consent before submitting.")
+      return
+    }
+    setValidationError("")
     setStatus("loading")
     try {
       const { consent: _c, ...payload } = form
@@ -160,6 +187,8 @@ export function ContactModal({ open, onClose }) {
     setForm(BLANK)
     setStatus("idle")
     setTemplateStatus("idle")
+    setIntakeOpen(false)
+    setValidationError("")
     onClose()
   }
 
@@ -201,6 +230,19 @@ export function ContactModal({ open, onClose }) {
     display: "flex",
     flexDirection: "column",
     gap: 14,
+  }
+  const compactTag = {
+    display: "inline-flex",
+    alignItems: "center",
+    width: "fit-content",
+    background: t.panel,
+    border: `1px solid ${t.border}`,
+    borderRadius: 999,
+    color: t.subtle,
+    fontSize: 10,
+    fontWeight: 800,
+    padding: "5px 8px",
+    lineHeight: 1.2,
   }
 
   // ── Option tables ────────────────────────────────────────────────────────
@@ -325,52 +367,16 @@ export function ContactModal({ open, onClose }) {
        ["Feedback only", "Feedback only / 只是反馈，不需要回复"]]
 
   const intakeDataTypes = zh
-    ? [
-        ["催化剂记录", "MOF 骨架、金属节点、改性金属、官能团、催化剂批次"],
-        ["反应条件", "温度、时间、底物量、CO₂/HCO₃⁻ 来源、溶剂、催化剂用量"],
-        ["产物指标", "甲酸、乳酸、乙酸收率，浓度，峰面积记录"],
-        ["表征证据", "XRD、BET、XPS、FTIR、ICP、SEM/TEM、NMR"],
-        ["机理说明", "异构化、逆醛醇裂解、HCO₃⁻ 氧化还原、活性位点假设"],
-        ["来源状态", "公开文献、合作者保密数据、匿名化演示、待复核"],
-      ]
-    : [
-        ["Catalyst records", "MOF scaffold, metal node, modifier metal, functional group, catalyst batch"],
-        ["Reaction conditions", "temperature, time, substrate amount, CO₂/HCO₃⁻ source, solvent, catalyst dosage"],
-        ["Product metrics", "formic acid yield, lactic acid yield, acetic acid yield, concentration, peak area"],
-        ["Characterization evidence", "XRD, BET, XPS, FTIR, ICP, SEM/TEM, NMR"],
-        ["Mechanism notes", "isomerization, retro-aldol cleavage, redox with HCO₃⁻, active-site hypothesis"],
-        ["Source status", "public literature, collaborator-private data, anonymized demo, pending review"],
-      ]
+    ? ["催化剂记录", "反应条件", "产物指标", "表征证据", "机理说明", "来源 / 保密状态"]
+    : ["Catalyst records", "Reaction conditions", "Product metrics", "Characterization evidence", "Mechanism notes", "Source / confidentiality status"]
 
   const dataStatusLabels = zh
-    ? [
-        ["公开文献", "已发表且可引用的来源。"],
-        ["合作者保密数据", "仅用于私下复核的未发表数据。"],
-        ["匿名化演示", "数值或身份已被遮蔽，仅用于展示。"],
-        ["待复核", "记录在使用前需要领域复核。"],
-        ["仅字段结构", "只展示数据结构，不展示真实数值。"],
-      ]
-    : [
-        ["Public literature", "Published and citable source."],
-        ["Collaborator private", "Unpublished data shared for private review only."],
-        ["Anonymized demo", "Values or identities are masked for demonstration."],
-        ["Pending review", "Record needs domain review before use."],
-        ["Schema only", "Only the data structure is shown; no real values are displayed."],
-      ]
+    ? ["公开文献", "合作者保密数据", "匿名化演示", "仅字段结构", "待复核"]
+    : ["Public literature", "Collaborator-private data", "Anonymized demo", "Schema-only", "Pending review"]
 
   const intakeWorkflow = zh
-    ? [
-        ["1. 确认数据范围", "先沟通反应体系、数据量、公开边界和合作目标。"],
-        ["2. 映射字段结构", "把实验记录映射到 catalyst、condition、product metrics 和 evidence 字段。"],
-        ["3. 确认保密边界", "人工确认哪些字段可公开、匿名化或仅保留结构。"],
-        ["4. 构建演示模块", "在获准范围内制作 schema、private draft 或 anonymized demo。"],
-      ]
-    : [
-        ["1. Define data scope", "Discuss reaction scope, record volume, publication boundary, and collaboration goals."],
-        ["2. Map fields", "Map notes into catalyst, condition, product metrics, and evidence fields."],
-        ["3. Review confidentiality", "Manually confirm which fields may be public, anonymized, or schema-only."],
-        ["4. Build demo module", "Create a schema, private draft, or anonymized demo within the agreed scope."],
-      ]
+    ? ["确认数据范围", "映射字段结构", "确认保密边界", "构建演示模块"]
+    : ["Define data scope", "Map field structure", "Confirm confidentiality boundary", "Build demo module"]
 
   return (
     <div
@@ -427,142 +433,112 @@ export function ContactModal({ open, onClose }) {
             : "Share feedback, collaboration scope, or data-intake needs."}
         </p>
 
-        <section id="data-intake" style={{ ...sectionBlock, marginBottom: 16 }}>
-          <SectionHeader
-            label={zh ? "Data Intake & Collaboration / 数据接入与合作说明" : "Data Intake & Collaboration"}
-            note={zh
-              ? "可以先沟通数据范围；未发表或保密数据不会在未经明确同意的情况下公开展示。"
-              : "Share the scope first; private or unpublished data will not be published without explicit permission."}
-          />
+        <div style={{
+          background: t.badgeInfoBg,
+          border: `1px solid ${t.border}`,
+          borderRadius: 8,
+          padding: "10px 12px",
+          color: t.muted,
+          fontSize: 12,
+          lineHeight: 1.65,
+          marginBottom: 14,
+        }}>
+          {zh
+            ? "你提交的所有信息都会被谨慎处理。未发表数据、合作想法、联系方式和私密内容不会在未经明确同意的情况下公开展示。"
+            : "All submitted information will be handled carefully. Unpublished data, collaboration ideas, contact details, and private content will not be published without explicit permission."}
+        </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 10 }}>
-            <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-              <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
-                {zh ? "可以整理哪些数据？" : "What data can be structured?"}
-              </div>
-              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.6, marginTop: 6 }}>
-                {zh
-                  ? "EcoMOF-AI 可以帮助整理催化剂记录、反应条件、产物指标、表征证据、机理说明和数据来源状态。"
-                  : "EcoMOF-AI can help structure catalyst records, reaction conditions, product metrics, characterization evidence, mechanism notes, and source status."}
-              </div>
-              <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 6 }}>
-                {zh
-                  ? "原始实验表格可映射为催化剂、反应条件、产物指标和证据记录。"
-                  : "Raw spreadsheets can be mapped into structured catalyst, condition, product, and evidence records."}
-              </div>
-              <div style={{ display: "grid", gap: 7, marginTop: 10 }}>
-                {intakeDataTypes.map(([label, body]) => (
-                  <div key={label} style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "130px 1fr", gap: 6 }}>
-                    <div style={{ color: t.accentText, fontSize: 10, fontWeight: 850 }}>{label}</div>
-                    <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45 }}>{body}</div>
+        <section id="data-intake" style={{ marginBottom: 16 }}>
+          <button
+            type="button"
+            onClick={() => setIntakeOpen(prev => !prev)}
+            aria-expanded={intakeOpen}
+            aria-controls="data-intake-details"
+            style={{
+              width: "100%",
+              background: t.surface,
+              border: `1px solid ${t.border}`,
+              borderRadius: 8,
+              padding: "12px 14px",
+              color: t.textStrong,
+              cursor: "pointer",
+              fontFamily: FONT_SANS,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 12,
+              textAlign: "left",
+            }}
+          >
+            <span style={{ display: "grid", gap: 3 }}>
+              <span style={{ fontSize: 12, fontWeight: 850 }}>{zh ? "数据接入与合作说明" : "Data Intake & Collaboration"}</span>
+              <span style={{ color: t.faint, fontSize: 11, lineHeight: 1.45 }}>
+                {zh ? "默认折叠；展开查看数据类型、处理方式、流程和模板。" : "Collapsed by default; expand for data types, handling, workflow, and template."}
+              </span>
+            </span>
+            <span style={{ color: t.subtle, fontSize: 16 }}>{intakeOpen ? "−" : "+"}</span>
+          </button>
+
+          {intakeOpen && (
+            <div id="data-intake-details" style={{ ...sectionBlock, marginTop: 8, padding: 14 }}>
+              {[
+                [zh ? "可以整理哪些数据" : "What data can be structured", intakeDataTypes],
+                [zh ? "数据如何处理" : "How data are handled", dataStatusLabels],
+                [zh ? "接入流程" : "Intake workflow", intakeWorkflow],
+              ].map(([title, items]) => (
+                <div key={title} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+                  <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, marginBottom: 8 }}>{title}</div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+                    {items.map(item => <span key={item} style={compactTag}>{item}</span>)}
                   </div>
-                ))}
-              </div>
-            </div>
+                </div>
+              ))}
 
-            <div style={{ display: "grid", gap: 10 }}>
-              <div style={{ background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 8, padding: 12 }}>
+              <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
                 <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
-                  {zh ? "保密边界" : "Confidentiality boundary"}
+                  {zh ? "模板复制" : "Template copy"}
                 </div>
-                <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, marginTop: 6 }}>
+                <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 6 }}>
                   {zh
-                    ? "合作者提供的未发表或保密数据，未经明确同意不会公开展示；可按保密记录、匿名化演示或仅字段结构处理。"
-                    : "Private or unpublished collaborator data will not be published without explicit permission; records can be handled as confidential drafts, anonymized demos, or schema-only entries."}
+                    ? "仅复制结构化 JSON 模板；不会上传文件或提交真实数据。"
+                    : "Copies a structured JSON template only; no upload or real data submission is performed."}
                 </div>
-                <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 8 }}>
-                  {zh
-                    ? "当前原型不提供公开文件上传或后端存储。数据接入通过约定模板和人工确认完成。"
-                    : "The current prototype does not provide public file upload or backend storage. Data intake is handled through agreed templates and manual review."}
-                </div>
-              </div>
-
-              <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-                <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
-                  {zh ? "数据状态标签" : "Data status labels"}
-                </div>
-                <div style={{ display: "grid", gap: 6, marginTop: 9 }}>
-                  {dataStatusLabels.map(([label, body]) => (
-                    <div key={label} style={{ display: "flex", alignItems: "flex-start", gap: 7 }}>
-                      <span style={{
-                        background: t.surface,
-                        border: `1px solid ${t.border}`,
-                        borderRadius: 999,
-                        color: label.includes("private") || label.includes("保密") ? t.warn : t.subtle,
-                        flexShrink: 0,
-                        fontSize: 10,
-                        fontWeight: 800,
-                        padding: "4px 7px",
-                      }}>
-                        {label}
-                      </span>
-                      <span style={{ color: t.faint, fontSize: 10, lineHeight: 1.45 }}>{body}</span>
+                <button
+                  type="button"
+                  onClick={copyDataTemplate}
+                  aria-label={zh ? "复制数据模板" : "Copy data template"}
+                  style={{ ...toolbarBtn(t), marginTop: 10, fontWeight: 850 }}
+                >
+                  {zh ? "复制数据模板" : "Copy data template"}
+                </button>
+                {templateStatus === "copied" && (
+                  <div style={{ color: t.success, fontSize: 10, marginTop: 8 }}>
+                    {zh ? "模板已复制" : "Template copied"}
+                  </div>
+                )}
+                {templateStatus === "fallback" && (
+                  <div style={{ marginTop: 8 }}>
+                    <div style={{ color: t.warn, fontSize: 10, lineHeight: 1.5 }}>
+                      {zh ? "无法访问剪贴板。可从下方查看模板。" : "Clipboard access failed. The template is shown below."}
                     </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1.15fr 0.85fr", gap: 10 }}>
-            <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-              <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
-                {zh ? "数据接入流程" : "Intake workflow"}
-              </div>
-              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 8, marginTop: 10 }}>
-                {intakeWorkflow.map(([label, body]) => (
-                  <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 9 }}>
-                    <div style={{ color: t.accentText, fontSize: 10, fontWeight: 850, lineHeight: 1.35 }}>{label}</div>
-                    <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45, marginTop: 5 }}>{body}</div>
+                    <pre style={{
+                      margin: "8px 0 0",
+                      maxHeight: 180,
+                      overflow: "auto",
+                      whiteSpace: "pre-wrap",
+                      background: t.surface,
+                      border: `1px solid ${t.border}`,
+                      borderRadius: 6,
+                      color: t.subtle,
+                      fontSize: 9,
+                      lineHeight: 1.45,
+                      padding: 8,
+                    }}>{DATA_INTAKE_TEMPLATE}</pre>
                   </div>
-                ))}
+                )}
               </div>
             </div>
-
-            <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-              <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
-                {zh ? "复制数据模板" : "Copy data template"}
-              </div>
-              <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 6 }}>
-                {zh
-                  ? "仅复制结构化 JSON 模板；不会上传文件或提交真实数据。"
-                  : "Copies a structured JSON template only; no file upload or real data submission is performed."}
-              </div>
-              <button
-                type="button"
-                onClick={copyDataTemplate}
-                aria-label={zh ? "复制数据模板" : "Copy data template"}
-                style={{ ...toolbarBtn(t), marginTop: 10, fontWeight: 850 }}
-              >
-                {zh ? "复制数据模板" : "Copy data template"}
-              </button>
-              {templateStatus === "copied" && (
-                <div style={{ color: t.success, fontSize: 10, marginTop: 8 }}>
-                  {zh ? "模板已复制" : "Template copied"}
-                </div>
-              )}
-              {templateStatus === "fallback" && (
-                <div style={{ marginTop: 8 }}>
-                  <div style={{ color: t.warn, fontSize: 10, lineHeight: 1.5 }}>
-                    {zh ? "无法访问剪贴板。可从下方查看模板。" : "Clipboard access failed. The template is shown below."}
-                  </div>
-                  <pre style={{
-                    margin: "8px 0 0",
-                    maxHeight: 180,
-                    overflow: "auto",
-                    whiteSpace: "pre-wrap",
-                    background: t.surface,
-                    border: `1px solid ${t.border}`,
-                    borderRadius: 6,
-                    color: t.subtle,
-                    fontSize: 9,
-                    lineHeight: 1.45,
-                    padding: 8,
-                  }}>{DATA_INTAKE_TEMPLATE}</pre>
-                </div>
-              )}
-            </div>
-          </div>
+          )}
         </section>
 
         {/* ── Success ── */}
@@ -601,11 +577,16 @@ export function ContactModal({ open, onClose }) {
 
         {/* ── Form ── */}
         {status !== "success" && (
-          <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          <form noValidate onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
 
             {/* ── A. Basic information ── */}
             <div style={sectionBlock}>
               <SectionHeader label={zh ? "A. 基本信息" : "A. Basic information"} />
+              {validationError && (
+                <div style={{ background: t.panel, border: `1px solid ${t.warn}`, borderRadius: 7, padding: "9px 11px", color: t.warn, fontSize: 11, lineHeight: 1.5 }}>
+                  {validationError}
+                </div>
+              )}
               <div style={col2}>
                 <Field label={zh ? "姓名或称呼" : "Name"} required>
                   <input
@@ -623,21 +604,21 @@ export function ContactModal({ open, onClose }) {
                 </Field>
               </div>
               <div style={col2}>
-                <Field label={zh ? "学校或机构" : "Organization"}>
+                <Field label={zh ? "学校、团队或单位" : "Organization"} required>
                   <input
-                    type="text" name="organization" autoComplete="organization"
+                    type="text" name="organization" required autoComplete="organization"
                     value={form.organization} onChange={e => set("organization", e.target.value)}
                     style={inputStyle}
                   />
                 </Field>
-                <Field label={zh ? "身份" : "Role"}>
-                  <select name="role" value={form.role} onChange={e => set("role", e.target.value)} style={selectStyle}>
+                <Field label={zh ? "身份或方向" : "Role"} required>
+                  <select name="role" required value={form.role} onChange={e => set("role", e.target.value)} style={selectStyle}>
                     {roleOpts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                   </select>
                 </Field>
               </div>
-              <Field label={zh ? "渠道来源" : "How did you hear about EcoMOF-AI?"}>
-                <select name="referral_source" value={form.referral_source} onChange={e => set("referral_source", e.target.value)} style={selectStyle}>
+              <Field label={zh ? "渠道来源" : "How did you hear about EcoMOF-AI?"} required>
+                <select name="referral_source" required value={form.referral_source} onChange={e => set("referral_source", e.target.value)} style={selectStyle}>
                   {referralSourceOpts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                 </select>
               </Field>
@@ -649,19 +630,19 @@ export function ContactModal({ open, onClose }) {
                 label={zh ? "B. 合作意向" : "B. Collaboration context"}
                 note={zh ? "帮助我了解你的使用目的和倾向的合作方式。" : "Helps me understand your goals and preferred collaboration mode."}
               />
-              <Field label={zh ? "你希望用 ecomof-ai 做什么？" : "What do you want to do with ecomof-ai?"}>
-                <select name="use_goal" value={form.use_goal} onChange={e => set("use_goal", e.target.value)} style={selectStyle}>
+              <Field label={zh ? "你希望用 EcoMOF-AI 做什么？" : "What do you want to do with EcoMOF-AI?"} required>
+                <select name="use_goal" required value={form.use_goal} onChange={e => set("use_goal", e.target.value)} style={selectStyle}>
                   {useGoalOpts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                 </select>
               </Field>
               <div style={col2}>
-                <Field label={zh ? "感兴趣模块" : "Interest module"}>
-                  <select name="interest_module" value={form.interest_module} onChange={e => set("interest_module", e.target.value)} style={selectStyle}>
+                <Field label={zh ? "感兴趣模块" : "Interest module"} required>
+                  <select name="interest_module" required value={form.interest_module} onChange={e => set("interest_module", e.target.value)} style={selectStyle}>
                     {moduleOpts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                   </select>
                 </Field>
-                <Field label={zh ? "倾向的合作方式" : "Preferred collaboration mode"}>
-                  <select name="collaboration_mode" value={form.collaboration_mode} onChange={e => set("collaboration_mode", e.target.value)} style={selectStyle}>
+                <Field label={zh ? "合作范围 / 方式" : "Collaboration scope / mode"} required>
+                  <select name="collaboration_mode" required value={form.collaboration_mode} onChange={e => set("collaboration_mode", e.target.value)} style={selectStyle}>
                     {collaborationModeOpts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                   </select>
                 </Field>
@@ -677,19 +658,19 @@ export function ContactModal({ open, onClose }) {
                   : "You do not need a complete dataset to contact me. Early-stage ideas are also welcome."}
               />
               <div style={col2}>
-                <Field label={zh ? "数据类型" : "Data type"}>
-                  <select name="data_type" value={form.data_type} onChange={e => set("data_type", e.target.value)} style={selectStyle}>
+                <Field label={zh ? "数据类型" : "Data type"} required>
+                  <select name="data_type" required value={form.data_type} onChange={e => set("data_type", e.target.value)} style={selectStyle}>
                     {dataTypeOpts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                   </select>
                 </Field>
-                <Field label={zh ? "数据准备程度" : "Dataset readiness"}>
-                  <select name="dataset_readiness" value={form.dataset_readiness} onChange={e => set("dataset_readiness", e.target.value)} style={selectStyle}>
+                <Field label={zh ? "数据准备程度" : "Dataset readiness"} required>
+                  <select name="dataset_readiness" required value={form.dataset_readiness} onChange={e => set("dataset_readiness", e.target.value)} style={selectStyle}>
                     {datasetReadinessOpts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                   </select>
                 </Field>
               </div>
-              <Field label={zh ? "是否已有数据集" : "Do you already have a dataset?"}>
-                <select name="has_dataset" value={form.has_dataset} onChange={e => set("has_dataset", e.target.value)} style={selectStyle}>
+              <Field label={zh ? "是否已有数据集" : "Do you already have a dataset?"} required>
+                <select name="has_dataset" required value={form.has_dataset} onChange={e => set("has_dataset", e.target.value)} style={selectStyle}>
                   {hasDatasetOpts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                 </select>
               </Field>
@@ -709,8 +690,8 @@ export function ContactModal({ open, onClose }) {
                   style={{ ...inputStyle, resize: "vertical", minHeight: 110 }}
                 />
               </Field>
-              <Field label={zh ? "你希望我回复你吗？" : "Do you want a reply?"}>
-                <select name="reply_preference" value={form.reply_preference} onChange={e => set("reply_preference", e.target.value)} style={selectStyle}>
+              <Field label={zh ? "你希望我回复你吗？" : "Do you want a reply?"} required>
+                <select name="reply_preference" required value={form.reply_preference} onChange={e => set("reply_preference", e.target.value)} style={selectStyle}>
                   {replyPreferenceOpts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                 </select>
               </Field>
@@ -734,6 +715,7 @@ export function ContactModal({ open, onClose }) {
               <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer" }}>
                 <input
                   type="checkbox"
+                  required
                   checked={form.consent}
                   onChange={e => set("consent", e.target.checked)}
                   style={{ marginTop: 2, flexShrink: 0, accentColor: t.accent, width: 15, height: 15 }}
@@ -762,14 +744,14 @@ export function ContactModal({ open, onClose }) {
                 </div>
                 <button
                   type="submit"
-                  disabled={!canSubmit}
+                  disabled={status === "loading"}
                   style={{
                     padding: "11px 28px",
                     borderRadius: 8, border: "none",
                     background: canSubmit ? t.accent : t.border,
                     color: canSubmit ? "#fff" : t.subtle,
                     fontSize: 14, fontWeight: 800,
-                    cursor: canSubmit ? "pointer" : "not-allowed",
+                    cursor: status === "loading" ? "not-allowed" : "pointer",
                     fontFamily: FONT_SANS,
                     transition: "background 0.15s, color 0.15s",
                     whiteSpace: "nowrap",

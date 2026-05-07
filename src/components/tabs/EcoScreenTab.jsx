@@ -267,9 +267,9 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
       <PageHeader
         title="EcoScreen"
         subtitle={lang === "zh"
-          ? "面向可持续性的筛选信号。"
-          : "Sustainability-oriented screening signals."}
-        meta={lang === "zh" ? "任务介绍 · 可持续性筛选条件 · 生态评分排序 · 解释卡片 · 方法与证据" : "Task introduction · sustainability filters · Eco Score ranking · explanation cards · methods and evidence"}
+          ? "面向可持续性的早期筛选信号。"
+          : "Early-stage sustainability screening signals."}
+        meta={lang === "zh" ? "筛选条件 · 生态评分 · 解释卡片 · 方法与证据" : "filters · Eco Score · explanation cards · methods and evidence"}
         action={
           <>
             <BasisBadge tone="proxy">{lang === "zh" ? "不替代完整 LCA" : "not full LCA"}</BasisBadge>
@@ -433,7 +433,7 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
         )}
       </ResultLayer>
 
-      <ResultLayer number="04" title={lang === "zh" ? "Model Results / 结果解释图表" : "Model Results / Results Interpretation"}>
+      <ResultLayer number="04" title={lang === "zh" ? "模型结果解释图表" : "Model Results / Results Interpretation"}>
         {chartsReady ? (
           <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
             <RankingBarChart data={chartData.ranking} scoreLabel={lang === "zh" ? "生态评分" : "Eco Score"} />

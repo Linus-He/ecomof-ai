@@ -185,14 +185,14 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
   }), [t])
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 30 : 42 }}>
-      <section style={{ paddingTop: isMobile ? 24 : 52, paddingBottom: isMobile ? 8 : 16 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 24 : 34 }}>
+      <section style={{ paddingTop: isMobile ? 14 : 34, paddingBottom: isMobile ? 4 : 10 }}>
         <div style={{
           display: "flex",
           flexDirection: isMobile ? "column" : "row",
           alignItems: isMobile ? "flex-start" : "center",
           gap: isMobile ? 12 : 20,
-          marginBottom: 20,
+          marginBottom: 14,
         }}>
           <BrandMark
             size={isMobile ? 52 : 64}
@@ -210,12 +210,12 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
             }}>
               EcoMOF-AI
             </h1>
-            <p style={{ margin: "8px 0 0", color: t.textStrong, fontSize: isMobile ? 15 : 17, lineHeight: 1.5, maxWidth: 780 }}>
+            <p style={{ margin: "5px 0 0", color: t.textStrong, fontSize: isMobile ? 15 : 17, lineHeight: 1.45, maxWidth: 780 }}>
               {lang === "zh"
                 ? "透明的 MOF 筛选、数据溯源与合作原型。"
                 : "Transparent MOF screening, provenance, and collaboration prototype."}
             </p>
-            <p style={{ margin: "5px 0 0", color: t.muted, fontSize: isMobile ? 13 : 14, lineHeight: 1.55, maxWidth: 780 }}>
+            <p style={{ margin: "3px 0 0", color: t.muted, fontSize: isMobile ? 13 : 14, lineHeight: 1.5, maxWidth: 780 }}>
               {lang === "zh"
                 ? "从这里进入候选材料筛选、对比、数据溯源与方法说明。"
                 : "Explore candidate screening, comparison, provenance, and methods from one place."}
@@ -231,7 +231,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
           border: `1px solid ${t.border}`,
           borderRadius: 999,
           padding: "6px 12px",
-          marginBottom: 18,
+          marginBottom: 12,
           maxWidth: "100%",
         }}>
           <span style={{ color: t.muted, fontSize: 11, lineHeight: 1.45 }}>

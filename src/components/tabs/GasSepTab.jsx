@@ -124,9 +124,9 @@ export function GasSepTab() {
       <PageHeader
         title="GasSep"
         subtitle={zh
-          ? "带条件说明的气体吸附与分离记录。"
+          ? "带条件语境的气体吸附与分离记录。"
           : "Condition-aware gas adsorption and separation records."}
-        meta={zh ? "气体比例 · 温度 · 压力 · 方法 · 来源 · 等温线状态" : "gas ratio · temperature · pressure · method · source · isotherm status"}
+        meta={zh ? "气体比例 · 温度 · 压力 · 方法 · 来源 · 等温线" : "gas ratio · temperature · pressure · method · source · isotherm status"}
         action={
           <>
             <BasisBadge tone="proxy">{zh ? "条件化记录" : "condition-aware records"}</BasisBadge>

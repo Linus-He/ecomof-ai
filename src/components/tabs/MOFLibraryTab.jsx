@@ -29,6 +29,46 @@ function isFieldCurated(src) {
   return true
 }
 
+function isMissingValue(value) {
+  return value === undefined || value === null || value === "" || value === "—" || value === "pending"
+}
+
+function recordFieldStatus(record, fieldKey) {
+  const src = record.fieldSources?.[fieldKey]
+  const hasValue = !isMissingValue(record[fieldKey]) || !isMissingValue(src?.value)
+  if (isFieldCurated(src) || (hasValue && !record.fieldSources)) return "curated"
+  if (src?.curationStatus === "needs-review" || src?.reviewStatus === "conflict" || src?.hasConflict) return "needs-review"
+  return "pending"
+}
+
+function getOverviewSummary(record, lang) {
+  const statuses = KEY_FIELDS.map(field => recordFieldStatus(record, field.key))
+  const curatedCount = statuses.filter(status => status === "curated").length
+  const needsReviewCount = statuses.filter(status => status === "needs-review").length
+  const pendingCount = KEY_FIELDS.length - curatedCount - needsReviewCount
+  const fieldsWithSource = KEY_FIELDS.filter(field => {
+    const src = record.fieldSources?.[field.key]
+    return src && src.sourceType !== "pending" && Boolean(src.sourceName || src.database || src.url || src.doi)
+  }).length
+  const fieldsWithCondition = KEY_FIELDS.filter(field => Boolean(record.fieldSources?.[field.key]?.condition)).length
+  const statusId = curatedCount >= 5 && fieldsWithSource >= 3 ? "ready" : curatedCount >= 3 ? "partial" : curatedCount >= 1 ? "limited" : "pending"
+  const labels = {
+    ready: lang === "zh" ? "可初步查看" : "Ready",
+    partial: lang === "zh" ? "部分完整" : "Partial",
+    limited: lang === "zh" ? "信息有限" : "Limited",
+    pending: lang === "zh" ? "待补充" : "Pending",
+  }
+  return {
+    curatedCount,
+    pendingCount,
+    needsReviewCount,
+    fieldsWithSource,
+    fieldsWithCondition,
+    statusId,
+    label: labels[statusId],
+  }
+}
+
 function DataQualitySection({ realSeedRows, lang, t, isMobile }) {
   const zh = lang === "zh"
 
@@ -360,6 +400,18 @@ export function MOFLibraryTab({ results, inputs }) {
     return selectedCompareIds.map(id => byId.get(id)).filter(Boolean)
   }, [records, selectedCompareIds])
 
+  const overviewRows = useMemo(() => filtered.map(item => ({
+    item,
+    summary: getOverviewSummary(item, lang),
+  })), [filtered, lang])
+
+  const openRecordFromOverview = (id) => {
+    setExpandedId(id)
+    window.setTimeout(() => {
+      document.getElementById(`mof-record-${id}`)?.scrollIntoView({ block: "start", behavior: "smooth" })
+    }, 80)
+  }
+
   const toggleCompare = (item) => {
     setCompareNotice("")
     setSelectedCompareIds(prev => {
@@ -444,9 +496,9 @@ export function MOFLibraryTab({ results, inputs }) {
       <PageHeader
         title="MOF Library"
         subtitle={lang === "zh"
-          ? "描述符整理、字段溯源与候选材料记录。"
-          : "Descriptor curation, provenance, and candidate records."}
-        meta={lang === "zh" ? "搜索 · 金属筛选 · 孔结构 · 数据来源 · 证据等级" : "Search · metal filter · pore descriptors · data source · Evidence Level"}
+          ? "描述符整理、条件数据和字段级溯源。"
+          : "Descriptor curation, condition metadata, and field-level provenance."}
+        meta={lang === "zh" ? "搜索 · 金属筛选 · 孔结构 · 数据来源 · 证据等级" : "search · metal filter · pore descriptors · data source · evidence level"}
         action={
           <>
             <BasisBadge tone={status === "loaded" ? "calc" : "proxy"}>{status === "loaded" ? "public/data" : (lang === "zh" ? "种子数据" : "fallback seed")}</BasisBadge>
@@ -493,12 +545,12 @@ export function MOFLibraryTab({ results, inputs }) {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12, flexWrap: "wrap" }}>
           <div>
             <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 850 }}>
-              {lang === "zh" ? "Data Quality & Provenance / 数据质量与溯源" : "Data Quality & Provenance"}
+              {lang === "zh" ? "数据质量与溯源" : "Data Quality & Provenance"}
             </div>
             <p style={{ margin: "7px 0 0", color: t.muted, fontSize: 12, lineHeight: 1.65, maxWidth: 860 }}>
               {lang === "zh"
-                ? "EcoMOF-AI 区分演示数据、真实种子整理记录和字段级数据溯源。Demo Dataset 仅用于展示工作流行为；Real Seed Dataset 用于承载真实数据接入框架，但部分描述符仍处于待整理状态。只有当某个描述符具有数值、必要单位或条件、证据等级和字段级来源记录时，才应被视为已整理字段。"
-                : "EcoMOF-AI separates demo data, real-seed curation records, and field-level provenance. Demo data is used only to demonstrate workflow behavior. Real Seed Dataset provides a framework for curated real-data ingestion, but some descriptors remain pending curation. A descriptor should only be treated as curated when it has a value, unit or condition when applicable, evidence level, and field-level source record."}
+                ? "先区分演示记录、真实种子记录和字段级来源；详情中的 ⓘ 可查看条件与整理状态。"
+                : "Separate demo records, real-seed records, and field-level provenance; use ⓘ for conditions and curation status."}
             </p>
           </div>
           <CopyLinkButton hash="data-quality-provenance" ariaLabel={lang === "zh" ? "复制数据质量与溯源链接" : "Copy Data Quality & Provenance link"} />
@@ -542,7 +594,63 @@ export function MOFLibraryTab({ results, inputs }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="02" title={lang === "zh" ? "基础数据概览" : "Baseline Data Overview"} subtitle={lang === "zh" ? "所有指标均为数据字段或筛选线索，不是最终科研判断。" : "All metrics are data fields or screening cues, not final scientific judgments."}>
+      <ResultLayer
+        number="02"
+        title={lang === "zh" ? "MOF 数据概览" : "MOF Data Overview"}
+        subtitle={lang === "zh"
+          ? "先查看描述符完整性、条件数据和来源状态，再进入详情。"
+          : "Review descriptor completeness, condition metadata, and source status before opening details."}
+      >
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+          {overviewRows.map(({ item, summary }) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => openRecordFromOverview(item.id)}
+              style={{
+                all: "unset",
+                cursor: "pointer",
+                background: t.panel,
+                border: `1px solid ${expandedId === item.id ? t.accent : t.border}`,
+                borderRadius: 8,
+                padding: 12,
+                display: "grid",
+                gap: 10,
+                boxShadow: expandedId === item.id ? t.shadowSm : "none",
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "flex-start" }}>
+                <div style={{ minWidth: 0 }}>
+                  <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 880, overflowWrap: "anywhere" }}>{item.name}</div>
+                  <div style={{ color: t.faint, fontSize: 10, marginTop: 3 }}>{item.metal}</div>
+                </div>
+                <BasisBadge tone={summary.statusId === "ready" ? "calc" : summary.statusId === "partial" ? "info" : summary.statusId === "limited" ? "warn" : "proxy"}>
+                  {summary.label}
+                </BasisBadge>
+              </div>
+              <div style={{ display: "grid", gap: 6 }}>
+                {[
+                  [lang === "zh" ? "已整理描述符" : "Curated descriptors", `${summary.curatedCount}/8`, summary.curatedCount / 8],
+                  [lang === "zh" ? "带条件字段" : "Condition fields", summary.fieldsWithCondition, Math.min(1, summary.fieldsWithCondition / 4)],
+                  [lang === "zh" ? "有来源字段" : "Source fields", summary.fieldsWithSource, Math.min(1, summary.fieldsWithSource / 8)],
+                ].map(([label, value, pct]) => (
+                  <div key={label} style={{ display: "grid", gap: 4 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", gap: 8, color: t.faint, fontSize: 10 }}>
+                      <span>{label}</span>
+                      <strong style={{ color: t.textStrong, fontWeight: 850 }}>{value}</strong>
+                    </div>
+                    <div style={{ height: 5, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, overflow: "hidden" }}>
+                      <div style={{ height: "100%", width: `${Math.round(pct * 100)}%`, background: t.accent }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </button>
+          ))}
+        </div>
+      </ResultLayer>
+
+      <ResultLayer number="03" title={lang === "zh" ? "基础数据统计" : "Baseline Data Summary"} subtitle={lang === "zh" ? "仅统计当前筛选结果中的字段与来源覆盖。" : "Counts field and source coverage in the current filtered set."}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
           {[
             [lang === "zh" ? "当前显示" : "Showing", `${filtered.length} / ${records.length}`],
@@ -558,13 +666,13 @@ export function MOFLibraryTab({ results, inputs }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="03" title={lang === "zh" ? "MOF 记录" : "MOF Records"} subtitle={lang === "zh" ? "单个记录可展开查看结构、孔性质、吸附/电子、Eco、Catalysis 和限制字段。" : "Expand each record to inspect structure, pore, adsorption/electronic, Eco, Catalysis, and limitations fields."}>
+      <ResultLayer number="04" title={lang === "zh" ? "MOF 记录详情" : "MOF Record Details"} subtitle={lang === "zh" ? "展开记录后继续通过字段旁 ⓘ 查看来源、条件和整理状态。" : "Expand records and use ⓘ to inspect source, condition, and curation status."}>
         <div style={{ display: "grid", gap: 10 }}>
           {filtered.length === 0 && (
             <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
           )}
           {filtered.map(item => (
-            <div key={item.id} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 13 }}>
+            <div id={`mof-record-${item.id}`} key={item.id} style={{ background: t.panel, border: `1px solid ${expandedId === item.id ? t.accent : t.border}`, borderRadius: 8, padding: 13 }}>
               {(() => {
                 const isSelected = selectedCompareIds.includes(item.id)
                 const limitReached = selectedCompareIds.length >= 3 && !isSelected
@@ -651,23 +759,21 @@ export function MOFLibraryTab({ results, inputs }) {
             </div>
           ))}
         </div>
-        {selectedCompareIds.length > 0 && (
-          <CompareTray
-            count={selectedCompareIds.length}
-            names={selectedCompareCandidates.map(item => item.name)}
-            notice={compareNotice}
-            onCompare={() => setComparisonOpen(true)}
-            onClear={() => { setSelectedCompareIds([]); setCompareNotice(""); setComparisonOpen(false) }}
-            t={t}
-            lang={lang}
-            isMobile={isMobile}
-          />
-        )}
+        <CompareTray
+          count={selectedCompareIds.length}
+          names={selectedCompareCandidates.map(item => item.name)}
+          notice={compareNotice}
+          onCompare={() => setComparisonOpen(true)}
+          onClear={() => { setSelectedCompareIds([]); setCompareNotice(""); setComparisonOpen(false) }}
+          t={t}
+          lang={lang}
+          isMobile={isMobile}
+        />
       </ResultLayer>
 
       <ResultLayer
-        number="04"
-        title={lang === "zh" ? "Data Quality & Provenance / 数据质量与来源追踪" : "Data Quality & Provenance"}
+        number="05"
+        title={lang === "zh" ? "数据质量与来源追踪" : "Data Quality & Provenance"}
         subtitle={lang === "zh"
           ? "从 Real Seed Dataset 实时计算的字段覆盖率、证据等级分布和整理进度。"
           : "Field coverage, evidence distribution, and curation progress computed live from Real Seed Dataset."}
@@ -718,7 +824,7 @@ export function MOFLibraryTab({ results, inputs }) {
       </ResultLayer>
 
       {results && !results.unavailable && (
-        <ResultLayer number="05" title={lang === "zh" ? "当前输入记录提示" : "Current Input Note"}>
+        <ResultLayer number="06" title={lang === "zh" ? "当前输入记录提示" : "Current Input Note"}>
           <Callout tone="success">
             {lang === "zh"
               ? `当前输入 ${inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`} 可在 EcoScreen、Performance 或 CatalysisLab 中作为候选解释对象；Library 只负责展示来源字段。`

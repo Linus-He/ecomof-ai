@@ -1849,9 +1849,9 @@ export function CatalysisLabTab({ onNavigate }) {
       <PageHeader
         title="CatalysisLab"
         subtitle={lang === "zh"
-          ? "面向 CO₂ 转化与催化数据整理的 MOF 催化工作台。"
-          : "Task-oriented MOF catalysis workspace."}
-        meta={lang === "zh" ? "路径 · 案例模板 · 数据管线 · 记录预览 · 候选排序" : "pathways · case template · data pipeline · record preview · candidate ranking"}
+          ? "面向 CO₂ 转化与催化数据整理的工作台。"
+          : "Workspace for CO₂ conversion and catalysis data curation."}
+        meta={lang === "zh" ? "路径 · 案例模板 · 数据管线 · 记录预览 · 候选排序" : "pathways · case template · data pipeline · records · candidate priority"}
         action={
           <>
             <CopyLinkButton hash="catalysis" ariaLabel={lang === "zh" ? "复制 CatalysisLab 链接" : "Copy CatalysisLab link"} />
@@ -1879,14 +1879,20 @@ export function CatalysisLabTab({ onNavigate }) {
         <DisclaimerLink />
       </Callout>
 
-      <ResultLayer number="01" title={lang === "zh" ? "CatalysisLab 总览" : "CatalysisLab Overview"}>
+      <ResultLayer
+        number="01"
+        title={lang === "zh" ? "催化总览" : "Catalysis overview"}
+        subtitle={lang === "zh"
+          ? "面向 CO₂ 转化、催化数据整理和候选材料优先级参考的 MOF 催化工作台。"
+          : "Task-oriented MOF catalysis workspace for CO₂ conversion, catalysis data curation, and candidate-priority discussion."}
+      >
         <div style={{ display: "grid", gap: 12 }}>
           <div style={{ display: "flex", gap: 7, flexWrap: "wrap", alignItems: "center" }}>
             {(lang === "zh"
-              ? ["字段结构优先", "不展示私密数值", "面向机器学习的字段"]
-              : ["schema-first", "no private values", "ML-ready fields"]
+              ? ["字段结构优先", "非已验证性能", "不展示私密数值", "面向机器学习的字段"]
+              : ["schema-first", "not validated performance", "no private values", "ML-ready fields"]
             ).map((item, index) => (
-              <BasisBadge key={item} tone={index === 1 ? "warn" : index === 2 ? "proxy" : "info"}>{item}</BasisBadge>
+              <BasisBadge key={item} tone={index === 1 ? "warn" : index === 3 ? "proxy" : "info"}>{item}</BasisBadge>
             ))}
           </div>
 
@@ -1907,7 +1913,7 @@ export function CatalysisLabTab({ onNavigate }) {
             <DataModeToggle value={dataMode} onChange={setDataMode} lang={lang} />
             <span style={{ color: t.faint, fontSize: 11 }}>
               {dataMode === "real-seed"
-                ? (lang === "zh" ? `${realSeedCandidates.length} 条真实种子记录 · null 字段按 0 处理` : `${realSeedCandidates.length} real seed records · null fields score as 0`)
+                ? (lang === "zh" ? `${realSeedCandidates.length} 条真实种子记录 · 缺失字段保持待整理` : `${realSeedCandidates.length} real seed records · missing fields stay pending`)
                 : (lang === "zh" ? `${demoCandidates.length} 条演示记录` : `${demoCandidates.length} demo records`)}
             </span>
           </div>

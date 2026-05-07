@@ -127,7 +127,7 @@ function MethodSection({ id, title, body, children, t }) {
       scrollMarginTop: 120,
     }}>
       <SectionTitle>{title}</SectionTitle>
-      {body && <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.7, margin: "8px 0 0" }}>{body}</p>}
+      {body && <p style={{ color: t.subtle, fontSize: 12, lineHeight: 1.55, margin: "6px 0 0", maxWidth: 880 }}>{body}</p>}
       <div style={{ marginTop: 14 }}>{children}</div>
     </section>
   )
@@ -446,9 +446,9 @@ export function MethodsLimitationsTab({ onNavigate }) {
       <PageHeader
         title="Methods & Evidence"
         subtitle={zh
-          ? "方法逻辑、数据边界、限制说明与引用方式。"
-          : "Scoring logic, data boundaries, limitations, and citation."}
-        meta={zh ? "工作流 · 数据层 · 评分模型 · 公式参考 · 证据与溯源 · 气体分离条件 · 催化边界 · 案例模板 · 标杆参考 · 验证与证据 · 限制说明 · 参考与引用" : "Workflow · Data Layer · Scoring Model · Formula Reference · Evidence & Provenance · Gas Separation Conditions · Catalysis Boundaries · Case Study Templates · Benchmark References · Validation & Evidence · Limitations · References"}
+          ? "方法逻辑、数据边界和引用方式。"
+          : "Scoring logic, data boundaries, and citation."}
+        meta={zh ? "工作流 · 数据层 · 评分模型 · 证据溯源 · 引用" : "workflow · data layer · scoring · provenance · citation"}
         action={
           <>
             <BasisBadge tone="proxy">{zh ? "候选优先级" : "candidate priority"}</BasisBadge>
@@ -478,10 +478,10 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
       <MethodSection
         id="method-workflow"
-        title={zh ? "Workflow / 工作流" : "Workflow"}
+        title={zh ? "工作流" : "Workflow"}
         body={zh
-          ? "平台将公开或示例数据整理为描述符，再通过规则评分形成候选排序。结果用于早期筛选和研究假设生成，不替代实验验证。"
-          : "The platform turns public or demo records into descriptors, then uses rule-assisted scoring to form candidate rankings. Results support early-stage screening and hypothesis generation, not experimental validation replacement."}
+          ? "平台将记录整理为描述符，再通过规则评分形成候选优先级。"
+          : "The platform turns records into descriptors, then uses rule-assisted scoring for candidate priority."}
         t={t}
       >
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(6, minmax(0, 1fr))", gap: 8 }}>
@@ -498,10 +498,10 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
       <MethodSection
         id="method-data"
-        title={zh ? "Data Layer / 数据层" : "Data Layer"}
+        title={zh ? "数据层" : "Data Layer"}
         body={zh
-          ? "演示数据集用于展示工作流；真实种子数据集用于承载未来整理的公开数据库和文献记录；催化数据模板定义后续催化数据接入所需的最小字段。"
-          : "Demo Dataset is used for workflow demonstration. Real Seed Dataset provides a framework for curated public database and literature records. Catalysis Data Template defines the minimum fields for future catalysis data ingestion."}
+          ? "数据层区分演示记录、真实种子记录、公开来源和字段结构模板。"
+          : "The data layer separates demo records, real-seed records, public sources, and schema templates."}
         t={t}
       >
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
@@ -511,13 +511,13 @@ export function MethodsLimitationsTab({ onNavigate }) {
           <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
             <BasisBadge tone="info">{zh ? "未来放大与产业化字段" : "Future Scale-up Fields"}</BasisBadge>
             <span style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>
-              {zh ? "planned / future curation target" : "planned / future curation target"}
+              {zh ? "后续整理目标" : "planned curation target"}
             </span>
           </div>
           <p style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, margin: "9px 0 0" }}>
             {zh
-              ? "未来版本可能加入面向放大与产业化判断的描述符，例如前驱体可获得性、配体成本等级、溶剂风险、合成温度、活化条件和能耗强度说明。这些字段目前仅作为后续整理目标，并不代表当前原型已完整接入。"
-              : "Future versions may add scale-up-oriented descriptors such as precursor availability, ligand cost class, solvent concern, synthesis temperature, activation condition, and energy-intensity notes. These fields are planned as curation targets and are not complete in the current prototype."}
+              ? "这些字段目前只作为后续整理目标，不代表当前原型已完整接入。"
+              : "These fields are planned curation targets and are not complete in the current prototype."}
           </p>
           <div style={{ display: "flex", gap: 7, flexWrap: "wrap", marginTop: 10 }}>
             {scaleUpFields.map(item => (
@@ -528,15 +528,16 @@ export function MethodsLimitationsTab({ onNavigate }) {
           </div>
           <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.6, marginTop: 10, borderTop: `1px solid ${t.divider}`, paddingTop: 10 }}>
             {zh
-              ? "未来版本可能探索 MOFTransformer 等面向 MOF 的结构表征模型，用于离线特征提取或候选优先级辅助。任何模型输出在作为科研证据使用前，都需要任务特定验证、适用域检查和不确定性说明。"
-              : "Future versions may explore MOF-specific representation models such as MOFTransformer for offline feature extraction or candidate-prioritization support. Any model-based output would require task-specific validation, applicability-domain checks, and uncertainty reporting before being used as research evidence."}
+              ? "通用使用边界集中放在声明中心，数据层这里只说明记录类型。"
+              : "General use boundaries live in the Disclaimer Center; this data layer only describes record types."}
+            {" "}<DisclaimerLink />
           </div>
         </div>
       </MethodSection>
 
       <MethodSection
         id="method-scoring"
-        title={zh ? "Scoring Model / 评分模型" : "Scoring Model"}
+        title={zh ? "评分模型" : "Scoring Model"}
         body={zh
           ? "当前是规则评分模型，不是训练完成的真实预测模型。所有分数都表示候选优先级，不表示最终材料性能。"
           : "The current model is rule based, not a trained predictive model. Every score indicates candidate priority, not final material performance."}
@@ -560,7 +561,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
       <MethodSection
         id="method-formulas"
-        title={zh ? "Compact Formula Reference / 紧凑公式参考" : "Compact Formula Reference"}
+        title={zh ? "紧凑公式参考" : "Compact Formula Reference"}
         body={zh
           ? "公式参考默认只展开规则评分公式；吸附相关公式按需展开，避免页面被变量说明占满。"
           : "The reference opens rule-assisted scoring by default and keeps adsorption formulas collapsed until needed."}
@@ -601,7 +602,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
       <MethodSection
         id="method-provenance"
-        title={zh ? "Evidence & Provenance / 证据与溯源" : "Evidence & Provenance"}
+        title={zh ? "证据与溯源" : "Evidence & Provenance"}
         body={zh
           ? "证据追踪用于说明字段来源和整理状态。证据等级（Evidence Level）和待整理状态需要一起解读。"
           : "Evidence tracking clarifies field sources and curation state. Data without verified provenance should not be over-interpreted."}
@@ -612,7 +613,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
         </div>
         <div style={{ marginTop: 12, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
           <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
-            {zh ? "Descriptor Conditions Matter / 描述符条件很重要" : "Descriptor Conditions Matter"}
+            {zh ? "描述符条件很重要" : "Descriptor Conditions Matter"}
           </div>
           <p style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, margin: "8px 0 0" }}>
             {zh
@@ -646,7 +647,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
       <MethodSection
         id="method-gassep-conditions"
-        title={zh ? "Gas Separation Conditions / 气体分离条件" : "Gas Separation Conditions"}
+        title={zh ? "气体分离条件" : "Gas Separation Conditions"}
         body={zh
           ? "气体分离数据高度依赖条件。缺少气体比例、温度、压力、方法和来源语境时，不应直接比较选择性和吸附量。"
           : "Gas separation values are condition-sensitive. Selectivity and uptake should not be compared without gas ratio, temperature, pressure, method, and source context."}
@@ -676,7 +677,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
       <MethodSection
         id="method-catalysis-boundaries"
-        title={zh ? "Catalysis curation boundaries / 催化数据整理边界" : "Catalysis curation boundaries"}
+        title={zh ? "催化数据整理边界" : "Catalysis curation boundaries"}
         body={zh
           ? "CatalysisLab 按产物路径和反应模式组织 CO₂ 转化记录，并区分条件语境、活性/选择性指标、稳定性证据和来源状态。待整理记录不应被解释为已验证催化结果。"
           : "CatalysisLab organizes CO₂ conversion records by product pathway and reaction mode, while separating condition context, activity/selectivity metrics, stability evidence, and source status. Pending records should not be interpreted as validated catalytic results."}
@@ -691,7 +692,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
       <MethodSection
         id="collaboration-data-boundaries"
-        title={zh ? "Collaboration data boundaries / 合作数据边界" : "Collaboration data boundaries"}
+        title={zh ? "合作数据边界" : "Collaboration data boundaries"}
         body={zh
           ? "EcoMOF-AI 可以整理公开文献记录、合作者保密记录、匿名化演示记录和仅字段结构记录。未发表或保密数据不应在未经明确同意的情况下公开。"
           : "EcoMOF-AI can structure public literature records, collaborator-private records, anonymized demos, and schema-only entries. Private or unpublished data should not be published without explicit permission."}
@@ -706,7 +707,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
       <MethodSection
         id="experimental-data-normalization"
-        title={zh ? "Experimental data normalization / 实验数据标准化" : "Experimental data normalization"}
+        title={zh ? "实验数据标准化" : "Experimental data normalization"}
         body={zh
           ? "催化实验表格在复用前应标准化为催化剂记录、反应条件、产物指标和证据记录。"
           : "Experimental catalyst spreadsheets are normalized into catalyst records, reaction conditions, product metrics, and evidence records before reuse."}
@@ -721,7 +722,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
       <MethodSection
         id="case-study-templates"
-        title={zh ? "Case study templates / 案例模板" : "Case study templates"}
+        title={zh ? "案例模板" : "Case study templates"}
         body={zh
           ? "案例模板用于在记录公开或用于建模前，整理催化剂身份、反应条件、产物分布、机理证据和保密状态。仅字段结构案例模板不包含已验证性能数值。"
           : "Case study templates are used to organize catalyst identity, reaction conditions, product distribution, mechanism evidence, and confidentiality status before any record is treated as public or model-ready. Schema-only case templates do not contain validated performance values."}
@@ -730,7 +731,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
       <MethodSection
         id="benchmark-references"
-        title={zh ? "Benchmark References / 标杆材料参考" : "Benchmark References"}
+        title={zh ? "标杆材料参考" : "Benchmark References"}
         body={zh
           ? "这些标杆材料用于帮助理解 MOF 候选记录的研究语境，并不代表平台已完成严格预测对标，也不代表 EcoMOF-AI 声称候选材料性能优于这些材料。"
           : "These benchmark references provide research context for interpreting MOF candidate records. They are not direct prediction baselines, and EcoMOF-AI does not claim validated performance superiority over these materials."}
@@ -772,7 +773,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
       <MethodSection
         id="validation-evidence"
-        title={zh ? "Validation & Evidence / 验证与证据" : "Validation & Evidence"}
+        title={zh ? "验证与证据" : "Validation & Evidence"}
         body={zh
           ? "EcoMOF-AI 是一个早期科研原型，不是已验证的预测工具。本节说明当前的验证状态、已检查的内容和未来计划。"
           : "EcoMOF-AI is an early-stage research prototype, not a validated prediction engine. This section documents the current validation status, what is explicitly checked, and future plans."}
@@ -888,7 +889,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
       <MethodSection
         id="method-disclaimer-center"
-        title={zh ? "Disclaimer Center / 声明与使用边界" : "Disclaimer Center"}
+        title={zh ? "声明与使用边界" : "Disclaimer Center"}
         body={zh
           ? "查看关于原型状态、数据解读、评分、可持续性信号、催化记录、面向机器学习字段和合作者保密数据的集中说明。"
           : "Review the centralized boundaries for prototype status, data interpretation, scoring, sustainability signals, catalysis records, ML-ready fields, and collaborator-private data."}
@@ -918,7 +919,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
       <MethodSection
         id="method-limitations"
-        title={zh ? "Limitations / 限制说明" : "Limitations"}
+        title={zh ? "限制说明" : "Limitations"}
         body={zh
           ? "这些限制用于把科研原型的边界说清楚，语气应严谨但不制造不必要的阻碍。"
           : "These limitations define the boundary of the research prototype with a cautious but practical tone."}
@@ -949,7 +950,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
       <MethodSection
         id="method-references"
-        title={zh ? "References & Citation / 参考与引用" : "References & Citation"}
+        title={zh ? "参考与引用" : "References & Citation"}
         body={zh
           ? "引用本项目时请引用仓库和网站；本平台不应被引用为已验证的科学数据库或最终预测工具。"
           : "When referencing this project, cite the repository and website; the platform should not be cited as a validated scientific database or final prediction engine."}
