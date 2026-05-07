@@ -2501,7 +2501,7 @@ export function CatalysisLabTab({ onNavigate }) {
       }}>
         <div style={{ minWidth: 0 }}>
           <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 880 }}>
-            {lang === "zh" ? "有催化数据想整理？" : "Have catalyst data to structure?"}
+            {lang === "zh" ? "如果您有催化数据需要整理" : "Have catalyst data to organize?"}
           </div>
           <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, marginTop: 6, maxWidth: 720 }}>
             {lang === "zh"

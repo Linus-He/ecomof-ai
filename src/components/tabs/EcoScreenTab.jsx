@@ -456,7 +456,7 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
             {lang === "zh" ? "生态评分聚合金属节点、连接体、过程代理、性能趋势和来源质量。它是候选优先级，不是完整 LCIA 或供应商报价。" : "Eco Score aggregates node, linker, process proxies, performance trend, and source quality. It is candidate priority, not full LCIA or supplier pricing."}
           </MethodDrawer>
           <MethodDrawer title={lang === "zh" ? "已有 Eco 功能如何保留" : "How existing Eco features are preserved"}>
-            {lang === "zh" ? "现有 LCA/LCC、绿色评分、敏感性和结果解释逻辑被整理到 EcoScreen 的筛选、排序和方法与证据说明中；旧的细分页面仍保留在代码中。" : "Existing LCA/LCC, green score, sensitivity, and explanation logic are reorganized into EcoScreen filters, ranking, and methods and evidence notes; older detailed pages remain in code."}
+            {lang === "zh" ? "现有 LCA/LCC、绿色评分、敏感性和结果解释内容已整合到 EcoScreen 的筛选、排序和方法说明中。" : "Existing LCA/LCC, green score, sensitivity, and explanation content are organized into EcoScreen filters, ranking, and methodology notes."}
           </MethodDrawer>
         </div>
       </ResultLayer>

@@ -283,10 +283,10 @@ export function ContactModal({ open, onClose }) {
 
   const moduleOpts = zh
     ? [["", "请选择"],
-       ["EcoScreen", "EcoScreen"],
-       ["Performance / Advanced Screening", "Performance / 高级筛选"],
-       ["CatalysisLab", "CatalysisLab"],
-       ["MOF Library / Data Provenance", "MOF Library / 数据溯源"],
+       ["EcoScreen", "生态筛选"],
+       ["Performance / Advanced Screening", "性能优先级 / 高级筛选"],
+       ["CatalysisLab", "催化实验室"],
+       ["MOF Library / Data Provenance", "MOF 候选库 / 数据溯源"],
        ["Real Seed Dataset", "Real Seed Dataset"],
        ["General collaboration", "一般合作"]]
     : [["", "Select…"],

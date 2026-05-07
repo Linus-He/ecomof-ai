@@ -57,37 +57,37 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
     {
       id: "mofLibrary",
       hash: "library",
-      name: lang === "zh" ? "MOF Library" : "MOF Library",
+      name: lang === "zh" ? "MOF Library（候选库）" : "MOF Library",
       desc: lang === "zh" ? "浏览候选材料、查看整理状态，并进入候选材料对比。" : "Browse candidates, inspect curation status, and launch candidate comparison.",
     },
     {
       id: "performance",
       hash: "performance",
-      name: "Performance",
-      desc: lang === "zh" ? "查看吸附相关候选优先级。" : "Explore adsorption-oriented candidate priority.",
+      name: lang === "zh" ? "Performance（性能优先级）" : "Performance",
+      desc: lang === "zh" ? "查看吸附相关候选优先级。" : "Explore adsorption-oriented candidate priorities.",
     },
     {
       id: "gassep",
       hash: "gassep",
-      name: "GasSep",
-      desc: lang === "zh" ? "带条件说明的气体吸附与分离记录。" : "Condition-aware gas adsorption and separation records.",
+      name: lang === "zh" ? "GasSep（气体分离）" : "GasSep",
+      desc: lang === "zh" ? "带条件语境的气体吸附与分离记录。" : "Gas adsorption and separation records with condition context.",
     },
     {
       id: "ecoscreen",
       hash: "ecoscreen",
-      name: "EcoScreen",
+      name: lang === "zh" ? "EcoScreen（生态筛选）" : "EcoScreen",
       desc: lang === "zh" ? "查看可持续性筛选信号。" : "Review sustainability screening signals.",
     },
     {
       id: "catalysis",
       hash: "catalysis",
-      name: "CatalysisLab",
-      desc: lang === "zh" ? "面向任务的 MOF 催化探索，并预留 CO₂ 转化整理框架。" : "Task-oriented MOF catalysis exploration with CO₂ conversion readiness.",
+      name: lang === "zh" ? "CatalysisLab（催化实验室）" : "CatalysisLab",
+      desc: lang === "zh" ? "面向任务的 MOF 催化探索，包含 CO₂ 转化筛选。" : "Task-oriented MOF catalysis exploration, including CO₂ conversion screening.",
     },
     {
       id: "methodology",
       hash: "methodology",
-      name: lang === "zh" ? "Methods & Evidence" : "Methods & Evidence",
+      name: lang === "zh" ? "方法与证据" : "Methods & Evidence",
       desc: lang === "zh" ? "阅读评分、证据和限制说明。" : "Read scoring, evidence, and limitations.",
     },
     {
@@ -131,8 +131,8 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
       id: "collab",
       role: lang === "zh" ? "潜在合作者" : "Potential collaborators",
       body: lang === "zh"
-        ? "发现整理、验证和 benchmark 合作机会。"
-        : "Find curation, validation, and benchmarking opportunities.",
+        ? "发现数据整理、实验验证和基准测试的合作机会。"
+        : "Contribute to curation, validation, or benchmarking efforts.",
     },
   ], [lang])
 
@@ -140,7 +140,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
     {
       number: "01",
       title: lang === "zh" ? "整理描述符" : "Curate descriptors",
-      body: lang === "zh" ? "把候选材料记录整理为可审计字段。" : "Organize candidate records into auditable fields.",
+      body: lang === "zh" ? "将候选材料记录整理为可追溯的结构化字段。" : "Organize candidate records into auditable fields.",
     },
     {
       number: "02",
@@ -212,7 +212,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
             </h1>
             <p style={{ margin: "5px 0 0", color: t.textStrong, fontSize: isMobile ? 15 : 17, lineHeight: 1.45, maxWidth: 780 }}>
               {lang === "zh"
-                ? "透明的 MOF 筛选、数据溯源与合作原型。"
+                ? "透明的 MOF 筛选与数据溯源原型。"
                 : "Transparent MOF screening, provenance, and collaboration prototype."}
             </p>
             <p style={{ margin: "3px 0 0", color: t.muted, fontSize: isMobile ? 13 : 14, lineHeight: 1.5, maxWidth: 780 }}>
@@ -236,8 +236,8 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
         }}>
           <span style={{ color: t.muted, fontSize: 11, lineHeight: 1.45 }}>
             {lang === "zh"
-              ? "非已验证预测引擎 · 透明优先级判断 · 描述符整理 · 字段级溯源"
-              : "Not a validated prediction engine · Transparent prioritization · Descriptor curation · Field-level provenance"}
+              ? "透明优先级参考 · 描述符整理 · 逐字段溯源 · 研究原型，非验证级预测引擎"
+              : "Transparent prioritization · Descriptor curation · Field-level provenance · Research prototype, not a validated prediction engine"}
           </span>
         </div>
 
@@ -526,8 +526,8 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
           </div>
           <p style={{ margin: 0, color: t.muted, fontSize: 13, lineHeight: 1.65, maxWidth: 520 }}>
             {lang === "zh"
-              ? "有催化数据想整理？EcoMOF-AI 可用带保密边界的数据状态标签帮助组织记录，也可以用于 MOF 筛选、LCA 评价或科研合作讨论。"
-              : "Have catalyst records to structure? EcoMOF-AI can help organize data with confidentiality-aware labels, alongside MOF screening, LCA evaluation, or research collaboration."}
+              ? "如果您有催化数据需要整理，EcoMOF-AI 可通过溯源标签帮助组织数据记录，也可以用于 MOF 筛选、LCA 评价或科研合作讨论。"
+              : "Have catalyst data to organize? EcoMOF-AI can help organize data with provenance and status labels, alongside MOF screening, LCA evaluation, or research collaboration."}
           </p>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8, flexShrink: 0 }}>

@@ -178,7 +178,7 @@ export function PerformanceTab({
         title="Performance"
         subtitle={lang === "zh"
           ? "基于当前可用描述符的候选优先级参考。"
-          : "Candidate priority based on currently available descriptors."}
+          : "Candidates are prioritized based on currently available descriptors."}
         meta={lang === "zh" ? "CO₂ 吸附 · 选择性 · 热力学解释 · 早期筛选" : "CO₂ uptake · selectivity · thermodynamic interpretation · early-stage screening"}
         action={
           <>
@@ -189,8 +189,8 @@ export function PerformanceTab({
       />
 
       <Callout tone="info">
-        {lang === "zh" ? "仅为规则辅助优先级参考。" : "Rule-assisted priority only."}{" "}
-        <DisclaimerLink />
+        {lang === "zh" ? "基于当前可用描述符和整理状态生成优先级参考。更多边界请" : "Rule-assisted priority only."}{" "}
+        <DisclaimerLink label={lang === "zh" ? "查看方法说明" : "See methodology notes"} />
       </Callout>
 
       {/* ── Mode selector cards ───────────────────────────────────────────── */}
@@ -267,7 +267,7 @@ export function PerformanceTab({
             <DataModeToggle value={dataMode} onChange={mode => { setDataMode(mode); setSelectedId(null) }} lang={lang} />
             <span style={{ color: t.faint, fontSize: 11 }}>
               {dataMode === "real-seed"
-                ? (lang === "zh" ? `${realSeedRows.length} 条真实种子记录` : `${realSeedRows.length} real seed records — scores set to 0 for null fields`)
+                ? (lang === "zh" ? `${realSeedRows.length} 条真实种子记录 · 缺失值按 0 处理` : `${realSeedRows.length} real seed records — missing values scored as zero`)
                 : (lang === "zh" ? "演示数据" : "demo data")}
             </span>
           </div>

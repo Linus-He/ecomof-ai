@@ -344,19 +344,19 @@ export function ContextualHeaderBar({
           {lang === "zh" ? "通过下方模块探索 MOF 候选材料、进行记录对比、查看数据溯源并阅读方法说明。" : "Use the modules below to explore MOF candidates, compare records, inspect provenance, and review methods."}
         </div>
         <button type="button" onClick={() => setActiveTab("performance")} style={{ ...headerChipBtn(t, true), padding: "9px 14px" }}>
-          Performance
+          {lang === "zh" ? "性能优先级" : "Performance"}
         </button>
         <button type="button" onClick={() => setActiveTab("gassep")} style={headerChipBtn(t)}>
-          GasSep
+          {lang === "zh" ? "GasSep（气体分离）" : "GasSep"}
         </button>
         <button type="button" onClick={() => setActiveTab("ecoscreen")} style={headerChipBtn(t)}>
-          EcoScreen
+          {lang === "zh" ? "生态筛选" : "EcoScreen"}
         </button>
         <button type="button" onClick={() => setActiveTab("catalysis")} style={headerChipBtn(t)}>
-          CatalysisLab
+          {lang === "zh" ? "CatalysisLab（催化实验室）" : "CatalysisLab"}
         </button>
         <button type="button" onClick={() => setActiveTab("library")} style={headerChipBtn(t)}>
-          MOF Library
+          {lang === "zh" ? "MOF 候选库" : "MOF Library"}
         </button>
       </div>
     )
@@ -366,13 +366,13 @@ export function ContextualHeaderBar({
     return (
       <div style={layerStyle}>
         <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
-          {lang === "zh" ? "GasSep 聚焦气体比例、温度、压力、方法、来源和等温线状态的条件化记录。" : "GasSep focuses on condition-aware records: gas ratio, temperature, pressure, method, source, and isotherm status."}
+          {lang === "zh" ? "GasSep 聚焦气体比例、温度、压力、方法、来源和等温线状态的条件语境记录。" : "GasSep focuses on records with condition context: gas ratio, temperature, pressure, method, source, and isotherm status."}
         </div>
         <button type="button" onClick={() => setActiveTab("performance")} style={headerChipBtn(t)}>
-          Performance
+          {lang === "zh" ? "性能优先级" : "Performance"}
         </button>
         <button type="button" onClick={() => setActiveTab("library")} style={headerChipBtn(t)}>
-          MOF Library
+          {lang === "zh" ? "MOF 候选库" : "MOF Library"}
         </button>
       </div>
     )
@@ -442,7 +442,7 @@ export function ContextualHeaderBar({
     return (
       <div style={layerStyle}>
         <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
-          {lang === "zh" ? "CatalysisLab 当前使用模拟数据；页面内切换催化任务和证据过滤。" : "CatalysisLab currently uses mock data; task and evidence filters are inside the page."}
+          {lang === "zh" ? "CatalysisLab 当前以演示记录展示催化任务和证据整理流程。" : "CatalysisLab is in demonstration mode with placeholder records for task and evidence exploration."}
         </div>
         <button type="button" onClick={() => setActiveTab("about")} style={headerChipBtn(t)}>
           {lang === "zh" ? "查看方法与证据" : "View Methods & Evidence"}
@@ -455,7 +455,7 @@ export function ContextualHeaderBar({
     return (
       <div style={layerStyle}>
         <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
-          {lang === "zh" ? "MOF 库只展示基础数据与来源字段，不输出科研结论。" : "MOF Library exposes baseline records and source fields; it does not claim conclusions."}
+          {lang === "zh" ? "MOF Library 展示基础候选记录和逐字段来源信息，不给出最终结论。" : "MOF Library presents baseline records and field-level source information without claiming final conclusions."}
         </div>
       </div>
     )

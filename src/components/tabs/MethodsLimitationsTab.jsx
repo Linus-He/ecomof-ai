@@ -213,7 +213,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       ["method-gassep-conditions", "Gas Separation Conditions"],
       ["method-catalysis-boundaries", "Catalysis Boundaries"],
       ["case-study-templates", "Case Study Templates"],
-      ["benchmark-references", "Benchmark References"],
+      ["benchmark-references", "基准参考"],
       ["validation-evidence", "Validation & Evidence"],
       ["method-disclaimer-center", "Disclaimer Center"],
       ["method-limitations", "Limitations"],
@@ -340,7 +340,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       ["Field-level Provenance", "Each curated descriptor can be linked to field-level provenance, including source type, database or literature reference, measurement condition, evidence level, curation note, and limitations.", "info"],
       ["fieldSources", "Field-level source mapping that describes where a descriptor comes from and its curation state.", "proxy"],
       ["sourceRecords", "Source records can include DOI, URL, condition, limitations, and curation note.", "info"],
-      ["Pending curation", "Missing provenance is shown as pending curation and should not be read as verified.", "warn"],
+      ["Pending curation", "Pending fields are under review and may change.", "warn"],
     ]
 
   const limitations = zh
@@ -617,14 +617,14 @@ export function MethodsLimitationsTab({ onNavigate }) {
           </div>
           <p style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, margin: "8px 0 0" }}>
             {zh
-              ? "CO₂ 吸附量、水稳定性、比表面积、孔体积等 MOF 描述符依赖具体测试或报道条件。只有当数值、单位、必要测试条件、证据等级和字段级来源记录同时存在时，才应将该描述符视为已整理字段。缺少条件的字段应显示为条件待补充。"
-              : "MOF descriptors such as CO₂ uptake, water stability, surface area, and pore volume depend on measurement or reporting conditions. A descriptor should not be interpreted as fully curated unless value, unit, condition when applicable, evidence level, and field-level source record are available. Fields without condition metadata should remain condition pending."}
+              ? "CO₂ 吸附量、水稳定性、比表面积、孔体积等 MOF 描述符依赖具体测试或报道条件。整理状态会同时标注数值、单位、必要测试条件、证据等级和逐字段来源记录；缺少条件的字段显示为条件待补充。"
+              : "MOF descriptors such as CO₂ uptake, water stability, surface area, and pore volume depend on measurement or reporting conditions. Curation status tracks value, unit, condition when applicable, evidence level, and field-level source records; fields without condition metadata remain condition pending."}
           </p>
         </div>
         <div style={{ marginTop: 12, color: t.muted, fontSize: 11, lineHeight: 1.65, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
           {zh
-            ? "在 MOF Library 展开记录后，以及 Performance 和 CatalysisLab 真实种子模式下的候选卡片中，可通过字段级数据溯源查看来源详情。该功能必须与 fieldSources 和 sourceRecords 一起理解；没有核实来源的数据不应被过度解读。"
-            : "In expanded MOF Library records and in Performance / CatalysisLab real-seed candidate cards, Field-level Provenance exposes source details. Interpret it together with fieldSources and sourceRecords."}
+            ? "在 MOF 候选库展开记录后，以及性能优先级和催化实验室的真实种子模式候选卡片中，可通过逐字段溯源查看来源详情。"
+            : "Expanded MOF Library records and real-seed candidate cards in Performance / CatalysisLab include field-level source details."}
         </div>
         {onNavigate && (
           <button
@@ -655,9 +655,9 @@ export function MethodsLimitationsTab({ onNavigate }) {
       >
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
           <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.65, maxWidth: 760 }}>
-            {zh
-              ? "GasSep 用于查看带条件说明的气体吸附与分离记录，包括体系、比例、温度、压力、方法、来源状态和等温线可用性。"
-              : "GasSep shows condition-aware gas adsorption and separation records, including system, ratio, temperature, pressure, method, source status, and isotherm availability."}
+          {zh
+              ? "GasSep（气体分离）用于查看带条件语境的气体吸附与分离记录，包括体系、比例、温度、压力、方法、来源状态和等温线可用性。"
+              : "GasSep shows gas adsorption and separation records with condition context, including system, ratio, temperature, pressure, method, source status, and isotherm availability."}
           </div>
           <button
             type="button"
@@ -679,8 +679,8 @@ export function MethodsLimitationsTab({ onNavigate }) {
         id="method-catalysis-boundaries"
         title={zh ? "催化数据整理边界" : "Catalysis curation boundaries"}
         body={zh
-          ? "CatalysisLab 按产物路径和反应模式组织 CO₂ 转化记录，并区分条件语境、活性/选择性指标、稳定性证据和来源状态。待整理记录不应被解释为已验证催化结果。"
-          : "CatalysisLab organizes CO₂ conversion records by product pathway and reaction mode, while separating condition context, activity/selectivity metrics, stability evidence, and source status. Pending records should not be interpreted as validated catalytic results."}
+          ? "CatalysisLab（催化实验室）按产物路径和反应模式组织 CO₂ 转化记录，并区分条件语境、活性/选择性指标、稳定性证据和来源状态。待补充字段仍在复核中，后续可能更新。"
+          : "CatalysisLab organizes CO₂ conversion records by product pathway and reaction mode, while separating condition context, activity/selectivity metrics, stability evidence, and source status. Pending fields are under review and may change."}
         t={t}
       >
         <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, color: t.muted, fontSize: 11, lineHeight: 1.65 }}>

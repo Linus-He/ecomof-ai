@@ -1193,7 +1193,7 @@ function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRect, isMobile, o
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
           <div>
             <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: 3 }}>
-              {lang === "zh" ? "字段级数据溯源" : "Field-level provenance"}
+              {lang === "zh" ? "逐字段数据溯源" : "Field-level provenance"}
             </div>
             <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 850 }}>{fieldLabel}</div>
             {source && source.value !== null && source.value !== undefined && (
@@ -1307,8 +1307,8 @@ export function RealSeedCallout({ lang }) {
       boxShadow: `inset 3px 0 0 0 ${t.accentSoft || t.border}`,
     }}>
       {lang === "zh"
-        ? "Real Seed Dataset 是真实数据接入框架，不代表完整数据库。当前部分字段仍处于待整理状态，待整理字段不应被视为已整理事实。"
-        : "Real Seed Dataset is a framework for curated real-data ingestion, not a complete database. Some fields remain pending curation — pending descriptors should not be treated as curated facts."}
+        ? "Real Seed Dataset 是真实数据接入框架。待补充字段仍在复核中，后续可能更新。"
+        : "Real Seed Dataset is a framework for curated real-data ingestion. Pending fields are under review and may change."}
     </div>
   )
 }
@@ -1355,12 +1355,12 @@ export function DataModeNote({ lang }) {
     "Demo Dataset 仅用于展示工作流，不用于科研结论",
     "Real Seed Dataset 用于承载真实数据整理框架",
     "Real Seed 不代表完整数据库",
-    "待整理字段不应被视为已整理事实",
+    "待补充字段仍在复核中，后续可能更新",
   ] : [
     "Demo Dataset is for workflow demonstration only",
     "Real Seed Dataset is a framework for curated real-data ingestion",
     "Real Seed does not mean a complete database",
-    "Pending descriptors should not be treated as curated facts",
+    "Pending fields are under review and may change",
   ]
   return (
     <ul style={{ margin: "4px 0 0", padding: "0 0 0 14px", color: t.faint, fontSize: 11, lineHeight: 1.7 }}>

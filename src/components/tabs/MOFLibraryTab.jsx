@@ -496,7 +496,7 @@ export function MOFLibraryTab({ results, inputs }) {
       <PageHeader
         title="MOF Library"
         subtitle={lang === "zh"
-          ? "描述符整理、条件数据和字段级溯源。"
+          ? "描述符整理、条件数据和逐字段溯源。"
           : "Descriptor curation, condition metadata, and field-level provenance."}
         meta={lang === "zh" ? "搜索 · 金属筛选 · 孔结构 · 数据来源 · 证据等级" : "search · metal filter · pore descriptors · data source · evidence level"}
         action={
@@ -827,8 +827,8 @@ export function MOFLibraryTab({ results, inputs }) {
         <ResultLayer number="06" title={lang === "zh" ? "当前输入记录提示" : "Current Input Note"}>
           <Callout tone="success">
             {lang === "zh"
-              ? `当前输入 ${inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`} 可在 EcoScreen、Performance 或 CatalysisLab 中作为候选解释对象；Library 只负责展示来源字段。`
-              : `Current input ${inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`} can be interpreted as a candidate in EcoScreen, Performance, or CatalysisLab; Library only exposes source fields.`}
+              ? `当前输入 ${inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`} 可在生态筛选、性能优先级或催化实验室中作为候选解释对象；MOF 候选库提供来源字段供复核。`
+              : `Current input ${inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`} can be interpreted as a candidate in EcoScreen, Performance, or CatalysisLab; Library presents source fields for review.`}
           </Callout>
         </ResultLayer>
       )}
