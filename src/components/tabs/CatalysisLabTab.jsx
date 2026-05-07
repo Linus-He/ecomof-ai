@@ -242,6 +242,92 @@ const NORMALIZATION_QUALITY_CHECKS = [
   { en: "Evidence linked to catalyst or run", zh: "表征或机理证据已关联到催化剂或实验记录" },
 ]
 
+const NORMALIZATION_PIPELINE = [
+  {
+    en: "Raw spreadsheet",
+    zh: "原始实验表格",
+    bodyEn: "mixed rows and columns",
+    bodyZh: "混合行列",
+  },
+  {
+    en: "Parse experiment runs",
+    zh: "解析实验 run",
+    bodyEn: "run-level identity",
+    bodyZh: "实验记录身份",
+  },
+  {
+    en: "Split normalized tables",
+    zh: "拆分为标准化表",
+    bodyEn: "linked IDs",
+    bodyZh: "用 ID 关联",
+  },
+  {
+    en: "Quality checks",
+    zh: "数据质量检查",
+    bodyEn: "status flags",
+    bodyZh: "状态标记",
+  },
+  {
+    en: "Visualization / comparison / ML-ready fields",
+    zh: "可视化 / 对比 / ML-ready 字段",
+    bodyEn: "schema first",
+    bodyZh: "先结构化",
+  },
+]
+
+const TABLE_RELATIONSHIP = [
+  {
+    key: "catalyst_records",
+    connector: "catalystId",
+    fields: ["catalystId", "catalystName", "mofScaffold", "metalNode", "curationStatus", "confidentialityStatus"],
+  },
+  {
+    key: "reaction_conditions",
+    connector: "runId",
+    fields: ["runId", "catalystId", "temperatureC", "timeH", "co2Source", "conditionStatus"],
+  },
+  {
+    key: "product_metrics",
+    connector: "runId / catalystId",
+    fields: ["productMetricId", "runId", "product", "peakArea", "concentration", "yieldPercent"],
+  },
+  {
+    key: "evidence_records",
+    connector: null,
+    fields: ["evidenceId", "relatedRunId", "evidenceType", "method", "fileStatus", "reviewStatus"],
+  },
+]
+
+const COMPARISON_MATRIX = [
+  { en: "Electrocatalysis", zh: "电催化", metricEn: "FE / current density", metricZh: "法拉第效率 / 电流密度" },
+  { en: "Photocatalysis", zh: "光催化", metricEn: "TON / TOF", metricZh: "TON / TOF" },
+  { en: "Thermal conversion", zh: "热转化", metricEn: "conversion / yield", metricZh: "转化率 / 收率" },
+  { en: "Cycloaddition", zh: "环加成", metricEn: "yield / recyclability", metricZh: "收率 / 循环性能" },
+]
+
+const CASE_WORKSPACE_TABS = [
+  { id: "overview", en: "Overview", zh: "总览" },
+  { id: "conditions", en: "Conditions", zh: "条件" },
+  { id: "products", en: "Products", zh: "产物" },
+  { id: "mechanism", en: "Mechanism", zh: "机理" },
+  { id: "privacy", en: "Privacy", zh: "保密" },
+  { id: "support", en: "Support", zh: "支持用途" },
+]
+
+const BIOMASS_MATRIX_COLUMNS = [
+  { id: "curated", en: "curated", zh: "已整理" },
+  { id: "needs-review", en: "needs review", zh: "需复核" },
+  { id: "pending", en: "pending", zh: "待补充" },
+  { id: "private", en: "private", zh: "私密" },
+]
+
+const ML_READINESS_STAGES = [
+  { en: "Stage 1", zh: "阶段 1", valueEn: "structured records", valueZh: "结构化记录" },
+  { en: "Stage 2", zh: "阶段 2", valueEn: "rule-based prioritization", valueZh: "规则辅助优先级" },
+  { en: "Stage 3", zh: "阶段 3", valueEn: "small exploratory model", valueZh: "小型探索模型" },
+  { en: "Stage 4", zh: "阶段 4", valueEn: "active learning / MLFF later", valueZh: "后续主动学习 / MLFF" },
+]
+
 const TASKS = [
   { id: "co2_conversion", en: "CO₂ conversion", zh: "CO₂ 转化", emphasis: ["co2Affinity", "activeSite", "stability"] },
   { id: "biomass_conversion", en: "Biomass conversion", zh: "生物质转化", emphasis: ["activeSite", "poreAccessibility", "waterStability"] },
@@ -484,6 +570,7 @@ const BIOMASS_BASELINE = [
   { en: "NaHCO₃", zh: "NaHCO₃", value: "252 mg" },
   { en: "H₂O", zh: "H₂O", value: "10 mL" },
   { en: "Catalyst", zh: "催化剂", value: "200 mg" },
+  { en: "Time", zh: "时间", valueEn: "pending", valueZh: "待确认" },
 ]
 
 const BIOMASS_PATHWAY_STEPS = [
@@ -979,10 +1066,333 @@ function CatalysisCheckItem({ t, children }) {
   )
 }
 
+function FlowStepCard({ t, lang, step, status, accent = false }) {
+  return (
+    <div style={{
+      ...catalysisCardStyle(t, { surface: "surface", padding: "8px 9px", radius: 9 }),
+      minWidth: 118,
+      flex: "1 1 118px",
+    }}>
+      <div style={{ color: accent ? t.accentText : t.textStrong, fontSize: 10, fontWeight: 850, lineHeight: 1.35 }}>
+        {lang === "zh" ? step.zh : step.en}
+      </div>
+      {status && (
+        <div style={{ marginTop: 6 }}>
+          <BasisBadge tone={mechanismStatusTone(status)}>{mechanismStatusLabel(status, lang)}</BasisBadge>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function VisualFlowMap({ t, lang, steps, sideSteps = [], statuses = [], sideStatuses = [], isMobile, evidenceNote }) {
+  const renderSteps = (items, statusItems = []) => (
+    <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 8, alignItems: isMobile ? "stretch" : "center", flexWrap: isMobile ? "nowrap" : "wrap" }}>
+      {items.map((step, index) => (
+        <div key={`${step.en}-${index}`} style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "stretch" : "center", gap: 8, flex: isMobile ? "0 0 auto" : "1 1 140px", minWidth: 0 }}>
+          <FlowStepCard
+            t={t}
+            lang={lang}
+            step={step}
+            status={statusItems[index]}
+            accent={index === 0 || index === items.length - 1}
+          />
+          {index < items.length - 1 && (
+            <span style={{ color: t.faint, fontSize: 13, fontWeight: 850, textAlign: "center" }}>{isMobile ? "↓" : "→"}</span>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+
+  return (
+    <div style={{ display: "grid", gap: 11 }}>
+      {renderSteps(steps, statuses)}
+      {!!sideSteps.length && (
+        <div style={{ ...catalysisCardStyle(t, { surface: "surface", padding: 10, radius: 9 }) }}>
+          <CatalysisKicker t={t}>{lang === "zh" ? "副路径" : "Side pathway"}</CatalysisKicker>
+          <div style={{ marginTop: 8 }}>{renderSteps(sideSteps, sideStatuses)}</div>
+        </div>
+      )}
+      {evidenceNote && (
+        <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55 }}>
+          {evidenceNote}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function StatusMatrix({ t, lang, rows }) {
+  return (
+    <div style={{ overflowX: "auto", border: `1px solid ${t.border}`, borderRadius: 10, background: t.panel }}>
+      <table style={{ width: "100%", minWidth: 620, borderCollapse: "collapse" }}>
+        <thead>
+          <tr style={{ background: t.surface }}>
+            <th style={{ textAlign: "left", color: t.faint, fontSize: 10, padding: "9px 10px", borderBottom: `1px solid ${t.border}`, textTransform: "uppercase" }}>
+              {lang === "zh" ? "字段" : "Field"}
+            </th>
+            {BIOMASS_MATRIX_COLUMNS.map(column => (
+              <th key={column.id} style={{ textAlign: "center", color: t.faint, fontSize: 10, padding: "9px 10px", borderBottom: `1px solid ${t.border}`, textTransform: "uppercase" }}>
+                {lang === "zh" ? column.zh : column.en}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(row => (
+            <tr key={row.en}>
+              <td style={{ padding: "10px", borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 11, fontWeight: 820 }}>
+                {lang === "zh" ? row.zh : row.en}
+              </td>
+              {BIOMASS_MATRIX_COLUMNS.map(column => {
+                const active = row.status === column.id
+                return (
+                  <td key={`${row.en}-${column.id}`} style={{ padding: "8px 10px", borderBottom: `1px solid ${t.divider}`, textAlign: "center" }}>
+                    <span style={{
+                      display: "inline-block",
+                      width: 10,
+                      height: 10,
+                      borderRadius: 999,
+                      background: active ? t.accent : "transparent",
+                      border: `1px solid ${active ? t.accent : t.border}`,
+                      opacity: active ? 1 : 0.55,
+                    }} />
+                  </td>
+                )
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+function ProductSchemaMatrix({ t, lang, products }) {
+  return (
+    <div style={{ overflowX: "auto", border: `1px solid ${t.border}`, borderRadius: 10, background: t.panel }}>
+      <table style={{ width: "100%", minWidth: 780, borderCollapse: "collapse" }}>
+        <thead>
+          <tr style={{ background: t.surface }}>
+            {(lang === "zh" ? ["产物", "产物角色", "指标字段", "显示状态"] : ["Product", "Role", "Metric fields", "Display status"]).map(head => (
+              <th key={head} style={{ textAlign: "left", color: t.faint, fontSize: 10, padding: "9px 10px", borderBottom: `1px solid ${t.border}`, textTransform: "uppercase" }}>
+                {head}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {products.map(product => (
+            <tr key={product.en}>
+              <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 12, fontWeight: 860 }}>{lang === "zh" ? product.zh : product.en}</td>
+              <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11, lineHeight: 1.5 }}>{lang === "zh" ? product.roleZh : product.roleEn}</td>
+              <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}` }}><PathwayPills items={lang === "zh" ? product.metricsZh : product.metricsEn} lang={lang} t={t} /></td>
+              <td style={{ padding: 10, borderBottom: `1px solid ${t.divider}` }}><BasisBadge tone={product.tone}>{lang === "zh" ? product.statusZh : product.statusEn}</BasisBadge></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+function VisualPipeline({ t, lang, steps, isMobile }) {
+  return (
+    <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 8, alignItems: "stretch" }}>
+      {steps.map((step, index) => (
+        <div key={step.en} style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: "stretch", gap: 8, flex: 1, minWidth: 0 }}>
+          <div style={{ ...catalysisCardStyle(t, { surface: "surface", padding: 11, radius: 9 }), flex: 1 }}>
+            <CatalysisKicker t={t}>{String(index + 1).padStart(2, "0")}</CatalysisKicker>
+            <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 860, lineHeight: 1.35, marginTop: 5 }}>
+              {lang === "zh" ? step.zh : step.en}
+            </div>
+            <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45, marginTop: 4 }}>
+              {lang === "zh" ? step.bodyZh : step.bodyEn}
+            </div>
+          </div>
+          {index < steps.length - 1 && <span style={{ alignSelf: "center", color: t.faint, fontSize: 13, fontWeight: 850 }}>{isMobile ? "↓" : "→"}</span>}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function TableRelationshipDiagram({ t, lang, isMobile }) {
+  return (
+    <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 8, alignItems: "stretch" }}>
+      {TABLE_RELATIONSHIP.map((table, index) => (
+        <div key={table.key} style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: "stretch", gap: 8, flex: 1, minWidth: 0 }}>
+          <CatalysisCard t={t} surface="surface" padding={11} style={{ flex: 1 }}>
+            <div style={{ color: t.accentText, fontFamily: "monospace", fontSize: 11, fontWeight: 850, overflowWrap: "anywhere" }}>{table.key}</div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginTop: 9 }}>
+              {table.fields.map(field => (
+                <span key={field} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, color: t.subtle, fontFamily: "monospace", fontSize: 9, fontWeight: 750, padding: "4px 7px" }}>
+                  {field}
+                </span>
+              ))}
+            </div>
+          </CatalysisCard>
+          {index < TABLE_RELATIONSHIP.length - 1 && (
+            <div style={{ alignSelf: "center", display: "grid", justifyItems: "center", gap: 4, color: t.faint, fontSize: 10, fontWeight: 800, minWidth: isMobile ? "auto" : 62 }}>
+              <span>{isMobile ? "↓" : "→"}</span>
+              <span style={{ fontFamily: "monospace" }}>{table.connector}</span>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function CaseStudyWorkspace({ t, lang, isMobile, isNarrow, activeTab, onTabChange }) {
+  const renderPanel = () => {
+    if (activeTab === "overview") {
+      return (
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+          {BIOMASS_CASE_OVERVIEW.map(item => (
+            <CatalysisFieldTile key={item.en} t={t} label={lang === "zh" ? item.zh : item.en} value={lang === "zh" ? item.valueZh : item.valueEn} />
+          ))}
+        </div>
+      )
+    }
+
+    if (activeTab === "conditions") {
+      return (
+        <div style={{ display: "grid", gap: 11 }}>
+          <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+            <BasisBadge tone="proxy">{lang === "zh" ? "合作者语境" : "collaborator-context"}</BasisBadge>
+            <BasisBadge tone="proxy">{lang === "zh" ? "待复核" : "pending review"}</BasisBadge>
+            <BasisBadge tone="info">{lang === "zh" ? "非通用最佳" : "not universal optimum"}</BasisBadge>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+            {BIOMASS_CONDITION_PROFILE.map(item => (
+              <CatalysisFieldTile key={item.en} t={t} label={lang === "zh" ? item.zh : item.en} value={lang === "zh" ? item.valueZh : item.valueEn} accent={item.accent} />
+            ))}
+          </div>
+          <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55 }}>
+            {lang === "zh"
+              ? "170 ℃ 基准条件来自合作者提供的当前反应语境，不应被视为所有 MOF 催化剂的通用最佳条件。"
+              : "The 170 ℃ baseline reflects a collaborator-provided current reaction context and should not be treated as a universal optimum for all MOF catalysts."}
+          </div>
+        </div>
+      )
+    }
+
+    if (activeTab === "products") {
+      return <ProductSchemaMatrix t={t} lang={lang} products={BIOMASS_CASE_PRODUCTS} />
+    }
+
+    if (activeTab === "mechanism") {
+      return (
+        <VisualFlowMap
+          t={t}
+          lang={lang}
+          steps={BIOMASS_CASE_MECHANISM_STEPS}
+          sideSteps={BIOMASS_CASE_SIDE_PATHWAY}
+          statuses={BIOMASS_CASE_MECHANISM_STEPS.map(step => step.status)}
+          sideStatuses={BIOMASS_CASE_SIDE_PATHWAY.map(step => step.status)}
+          isMobile={isMobile}
+          evidenceNote={lang === "zh"
+            ? "证据选项包括 HPLC、GC-MS / LC-MS、NMR、同位素追踪或 DFT；模板不填入私密证据。"
+            : "Evidence options include HPLC, GC-MS / LC-MS, NMR, isotope tracing, or DFT; private evidence is not filled into the template."}
+        />
+      )
+    }
+
+    if (activeTab === "privacy") {
+      return (
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 10 }}>
+          {CONFIDENTIAL_DISPLAY_MODES.map(mode => (
+            <CatalysisCard key={mode.en} t={t} surface="surface" padding={11}>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "flex-start", flexWrap: "wrap" }}>
+                <CatalysisCardTitle t={t}>{lang === "zh" ? mode.zh : mode.en}</CatalysisCardTitle>
+                <BasisBadge tone={mode.tone}>{lang === "zh" ? mode.zh : mode.en}</BasisBadge>
+              </div>
+              <CatalysisBodyText t={t} style={{ marginTop: 7 }}>
+                {lang === "zh" ? mode.bodyZh : mode.bodyEn}
+              </CatalysisBodyText>
+            </CatalysisCard>
+          ))}
+        </div>
+      )
+    }
+
+    return (
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }}>
+        {BIOMASS_CASE_SUPPORTS.map(item => (
+          <CatalysisCheckItem key={item.en} t={t}>{lang === "zh" ? item.zh : item.en}</CatalysisCheckItem>
+        ))}
+      </div>
+    )
+  }
+
+  return (
+    <div style={{
+      display: "grid",
+      gridTemplateColumns: isMobile ? "1fr" : "220px minmax(0, 1fr)",
+      gap: 12,
+      alignItems: "start",
+    }}>
+      <div
+        role="tablist"
+        aria-label={lang === "zh" ? "案例模板工作区" : "Case template workspace"}
+        style={{
+          display: isMobile ? "flex" : "grid",
+          gap: 8,
+          overflowX: isMobile ? "auto" : "visible",
+          paddingBottom: isMobile ? 6 : 0,
+          WebkitOverflowScrolling: "touch",
+        }}
+      >
+        {CASE_WORKSPACE_TABS.map(tab => {
+          const active = activeTab === tab.id
+          return (
+            <button
+              key={tab.id}
+              type="button"
+              role="tab"
+              aria-selected={active}
+              onClick={() => onTabChange(tab.id)}
+              style={{
+                textAlign: "left",
+                minWidth: isMobile ? 142 : "auto",
+                background: active ? t.badgeInfoBg : t.panel,
+                border: `1px solid ${active ? (t.borderStrong || t.accent) : t.border}`,
+                borderLeft: isMobile ? `1px solid ${active ? (t.borderStrong || t.accent) : t.border}` : `3px solid ${active ? t.accent : "transparent"}`,
+                borderRadius: 9,
+                color: active ? t.accentText : t.text,
+                cursor: "pointer",
+                fontSize: 11,
+                fontWeight: 850,
+                padding: "10px 11px",
+              }}
+            >
+              {lang === "zh" ? tab.zh : tab.en}
+            </button>
+          )
+        })}
+      </div>
+
+      <CatalysisCard t={t} strong padding={isMobile ? 13 : 16}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 12 }}>
+          <div>
+            <CatalysisKicker t={t}>{lang === "zh" ? "Case Study Workspace" : "Case Study Workspace"}</CatalysisKicker>
+            <CatalysisCardTitle t={t}>{lang === "zh" ? CASE_WORKSPACE_TABS.find(tab => tab.id === activeTab)?.zh : CASE_WORKSPACE_TABS.find(tab => tab.id === activeTab)?.en}</CatalysisCardTitle>
+          </div>
+          <BasisBadge tone="info">{lang === "zh" ? "仅字段结构" : "schema-only"}</BasisBadge>
+        </div>
+        {renderPanel()}
+      </CatalysisCard>
+    </div>
+  )
+}
+
 function mechanismStatusLabel(status, lang) {
   const labels = {
     hypothesis: lang === "zh" ? "机制假设" : "hypothesis",
     "pending evidence": lang === "zh" ? "证据待补充" : "pending evidence",
+    "evidence required": lang === "zh" ? "需要证据" : "evidence required",
     "literature-supported": lang === "zh" ? "文献支持" : "literature-supported",
     "collaborator-private": lang === "zh" ? "合作者保密数据" : "collaborator-private",
   }
@@ -1297,6 +1707,7 @@ export function CatalysisLabTab({ onNavigate }) {
   const [dataStatus, setDataStatus] = useState("loading")
   const [selectedPathwayId, setSelectedPathwayId] = useState(CO2_CONVERSION_PATHWAYS[0].id)
   const [hoveredPathwayId, setHoveredPathwayId] = useState(null)
+  const [caseWorkspaceTab, setCaseWorkspaceTab] = useState("overview")
   const [normalizationTemplateStatus, setNormalizationTemplateStatus] = useState("idle")
   const [filters, setFilters] = useState({
     metalCenter: "all",
@@ -1641,16 +2052,16 @@ export function CatalysisLabTab({ onNavigate }) {
 
             <div style={{
               display: "grid",
-              gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))",
-              gap: 12,
+              gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(3, minmax(0, 1fr))",
+              gap: 10,
               marginTop: 14,
             }}>
               {[
-                [lang === "zh" ? "典型产物" : "Typical products", lang === "zh" ? selectedPathway.productsZh : selectedPathway.productsEn, "accent"],
-                [lang === "zh" ? "相关反应模式" : "Relevant modes", lang === "zh" ? selectedPathway.modesZh : selectedPathway.modesEn, "default"],
-                [lang === "zh" ? "关键指标" : "Key metrics", lang === "zh" ? selectedPathway.metricsZh : selectedPathway.metricsEn, "default"],
-                [lang === "zh" ? "MOF 相关作用" : "MOF relevance", lang === "zh" ? selectedPathway.mofRelevanceZh : selectedPathway.mofRelevanceEn, "default"],
-                [lang === "zh" ? "数据整理重点" : "Curation focus", lang === "zh" ? selectedPathway.curationFocusZh : selectedPathway.curationFocusEn, "default"],
+                [lang === "zh" ? "产物" : "Products", lang === "zh" ? selectedPathway.productsZh : selectedPathway.productsEn, "accent"],
+                [lang === "zh" ? "反应模式" : "Modes", lang === "zh" ? selectedPathway.modesZh : selectedPathway.modesEn, "default"],
+                [lang === "zh" ? "指标" : "Metrics", lang === "zh" ? selectedPathway.metricsZh : selectedPathway.metricsEn, "default"],
+                [lang === "zh" ? "MOF 作用" : "MOF role", lang === "zh" ? selectedPathway.mofRelevanceZh : selectedPathway.mofRelevanceEn, "default"],
+                [lang === "zh" ? "整理重点" : "Curation", lang === "zh" ? selectedPathway.curationFocusZh : selectedPathway.curationFocusEn, "default"],
               ].map(([label, values, tone]) => (
                 <section key={label} style={{ ...catalysisCardStyle(t, { surface: "surface", padding: 12, radius: 9 }) }}>
                   <div style={{ marginBottom: 8 }}><CatalysisKicker t={t}>{label}</CatalysisKicker></div>
@@ -1668,31 +2079,56 @@ export function CatalysisLabTab({ onNavigate }) {
           </article>
         </div>
 
-        <div style={{ marginTop: 12 }}>
-          <Callout tone="info">
-            <strong>{lang === "zh" ? "跨路径比较注意事项：" : "Cross-pathway comparison cautions: "}</strong>
+        <CatalysisCard t={t} surface="surface" padding={12} style={{ marginTop: 12 }}>
+          <CatalysisCardTitle t={t}>{lang === "zh" ? "跨路径比较" : "Cross-pathway comparison"}</CatalysisCardTitle>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 8, marginTop: 10 }}>
+            {COMPARISON_MATRIX.map(item => (
+              <div key={item.en} style={{ ...catalysisCardStyle(t, { surface: "panel", padding: 10, radius: 8 }) }}>
+                <CatalysisKicker t={t}>{lang === "zh" ? item.zh : item.en}</CatalysisKicker>
+                <div style={{ color: t.textStrong, fontSize: 11, fontWeight: 850, lineHeight: 1.45, marginTop: 5 }}>
+                  {lang === "zh" ? item.metricZh : item.metricEn}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 9 }}>
             {lang === "zh"
-              ? "不同 CO₂ 转化路径不应使用单一指标直接比较。电催化中的法拉第效率、光催化中的 TON/TOF、热催化中的转化率/收率，以及环加成反应中的产率，分别对应不同反应语境。"
-              : "CO₂ conversion pathways should not be compared using a single metric. Electrocatalytic Faradaic efficiency, photocatalytic TON/TOF, thermal conversion/yield, and cycloaddition yield describe different reaction contexts."}
-          </Callout>
-        </div>
+              ? "缺少相近条件语境时，不应使用单一指标跨路径比较。"
+              : "Do not compare pathways with a single metric without matching condition context."}
+          </div>
+        </CatalysisCard>
       </ResultLayer>
 
       <ResultLayer number="03" title={lang === "zh" ? "生物质辅助 CO₂/HCO₃⁻ 转化" : "Biomass-assisted CO₂/HCO₃⁻ Conversion"}>
         <div style={{ display: "grid", gap: 12 }}>
-          <Callout tone="info">
-            {lang === "zh"
-              ? "面向 MOF 催化葡萄糖或生物质衍生物与 CO₂/HCO₃⁻ 来源协同转化为甲酸及相关有机酸的可整理路径。本区块是数据整理框架；除非记录链接到公开文献或经合作者确认的数据，否则不代表已验证催化性能。"
-              : "A curation-ready pathway for MOF-catalyzed glucose or biomass derivative conversion with CO₂/HCO₃⁻ sources toward formic acid and related organic acids. This section is a curation framework; it does not claim validated catalytic performance unless records are linked to public literature or confirmed collaborator data."}
-          </Callout>
+          <div style={{ display: "flex", gap: 7, flexWrap: "wrap", alignItems: "center" }}>
+            <BasisBadge tone="info">{lang === "zh" ? "整理框架" : "curation framework"}</BasisBadge>
+            <BasisBadge tone="proxy">{lang === "zh" ? "schema-first" : "schema-first"}</BasisBadge>
+            <span style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
+              {lang === "zh"
+                ? "用于组织葡萄糖 / 生物质衍生物与 CO₂/HCO₃⁻ 协同转化记录，不代表已验证性能。"
+                : "Organizes glucose / biomass-derivative conversion with CO₂/HCO₃⁻ context; not a validated performance claim."}
+            </span>
+          </div>
 
           <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1.15fr 0.85fr", gap: 12, alignItems: "stretch" }}>
             <CatalysisCard t={t}>
               <CatalysisCardTitle t={t}>{lang === "zh" ? "反应语境" : "Reaction context"}</CatalysisCardTitle>
               <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
-                {BIOMASS_CO2_CONTEXT.map(item => (
-                  <CatalysisFieldTile key={item.en} t={t} label={lang === "zh" ? item.zh : item.en} value={lang === "zh" ? item.valueZh : item.valueEn} />
-                ))}
+                {BIOMASS_CO2_CONTEXT.map(item => {
+                  const values = (lang === "zh" ? item.valueZh : item.valueEn).split(lang === "zh" ? "、" : ", ")
+                  const tagLike = item.en === "Target products" || item.en === "Catalyst family"
+                  return (
+                    <div key={item.en} style={{ ...catalysisCardStyle(t, { surface: "surface", padding: 10, radius: 8 }) }}>
+                      <CatalysisKicker t={t}>{lang === "zh" ? item.zh : item.en}</CatalysisKicker>
+                      <div style={{ marginTop: 7 }}>
+                        {tagLike
+                          ? <PathwayPills items={values} lang={lang} t={t} tone={item.en === "Target products" ? "accent" : "default"} />
+                          : <div style={{ color: t.textStrong, fontSize: 11, fontWeight: 760, lineHeight: 1.5 }}>{lang === "zh" ? item.valueZh : item.valueEn}</div>}
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
             </CatalysisCard>
 
@@ -1701,9 +2137,14 @@ export function CatalysisLabTab({ onNavigate }) {
                 <CatalysisCardTitle t={t}>{lang === "zh" ? "示例基准条件" : "Example baseline condition"}</CatalysisCardTitle>
                 <BasisBadge tone="proxy">{lang === "zh" ? "collaborator-context / 待复核" : "collaborator-context / pending review"}</BasisBadge>
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
+              <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 9 }}>
+                <BasisBadge tone="proxy">{lang === "zh" ? "合作者语境" : "collaborator-context"}</BasisBadge>
+                <BasisBadge tone="proxy">{lang === "zh" ? "待复核" : "pending review"}</BasisBadge>
+                <BasisBadge tone="info">{lang === "zh" ? "非通用最佳" : "not universal optimum"}</BasisBadge>
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
                 {BIOMASS_BASELINE.map(item => (
-                  <CatalysisFieldTile key={item.en} t={t} label={lang === "zh" ? item.zh : item.en} value={item.value} accent />
+                  <CatalysisFieldTile key={item.en} t={t} label={lang === "zh" ? item.zh : item.en} value={lang === "zh" ? (item.valueZh || item.value) : (item.valueEn || item.value)} accent />
                 ))}
               </div>
               <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 10 }}>
@@ -1719,64 +2160,37 @@ export function CatalysisLabTab({ onNavigate }) {
               <CatalysisCardTitle t={t}>{lang === "zh" ? "反应路径框架" : "Reaction pathway map"}</CatalysisCardTitle>
               <BasisBadge tone="warn">{lang === "zh" ? "机制假设" : "mechanism hypothesis"}</BasisBadge>
             </div>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center", marginTop: 12 }}>
-              {BIOMASS_PATHWAY_STEPS.map((step, index) => (
-                <div key={step.en} style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                  <span style={{
-                    background: t.surface,
-                    border: `1px solid ${t.border}`,
-                    borderRadius: 999,
-                    color: index === 0 || index === BIOMASS_PATHWAY_STEPS.length - 1 ? t.accentText : t.muted,
-                    fontSize: 10,
-                    fontWeight: 800,
-                    padding: "6px 9px",
-                  }}>
-                    {lang === "zh" ? step.zh : step.en}
-                  </span>
-                  {index < BIOMASS_PATHWAY_STEPS.length - 1 && <span style={{ color: t.faint, fontSize: 12 }}>→</span>}
-                </div>
-              ))}
-            </div>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center", marginTop: 10 }}>
-              <span style={{ color: t.faint, fontSize: 10, fontWeight: 850 }}>{lang === "zh" ? "副路径" : "Side pathways"}:</span>
-              {BIOMASS_SIDE_PATHWAY.map((step, index) => (
-                <div key={step.en} style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                  <span style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, color: t.subtle, fontSize: 10, fontWeight: 750, padding: "6px 9px" }}>
-                    {lang === "zh" ? step.zh : step.en}
-                  </span>
-                  {index < BIOMASS_SIDE_PATHWAY.length - 1 && <span style={{ color: t.faint, fontSize: 12 }}>→</span>}
-                </div>
-              ))}
-            </div>
-            <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 10 }}>
-              {lang === "zh"
-                ? "该机制框架需要 HPLC、GC-MS/LC-MS、NMR、同位素追踪或 DFT 等证据支持，不应被视为已完全验证路径。"
-                : "This mechanism framework requires evidence from HPLC, GC-MS/LC-MS, NMR, isotope tracing, or DFT and should not be treated as a fully validated pathway."}
+            <div style={{ marginTop: 12 }}>
+              <VisualFlowMap
+                t={t}
+                lang={lang}
+                steps={BIOMASS_PATHWAY_STEPS}
+                sideSteps={BIOMASS_SIDE_PATHWAY}
+                statuses={["hypothesis", "hypothesis", "pending evidence", "hypothesis", "pending evidence", "evidence required", "pending evidence"]}
+                sideStatuses={["hypothesis", "pending evidence"]}
+                isMobile={isMobile}
+                evidenceNote={lang === "zh"
+                  ? "证据选项：HPLC、GC-MS / LC-MS、NMR、同位素追踪、DFT。"
+                  : "Evidence options: HPLC, GC-MS / LC-MS, NMR, isotope tracing, DFT."}
+              />
             </div>
           </CatalysisCard>
 
           <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1.2fr 0.8fr", gap: 12, alignItems: "stretch" }}>
             <CatalysisCard t={t}>
               <CatalysisCardTitle t={t}>{lang === "zh" ? "催化数据字段" : "Catalyst-data fields"}</CatalysisCardTitle>
-              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
-                {BIOMASS_DATA_FIELDS.map(field => (
-                  <div key={field.en} style={{ ...catalysisCardStyle(t, { surface: "surface", padding: 10, radius: 8 }) }}>
-                    <div style={{ color: t.textStrong, fontSize: 11, fontWeight: 820 }}>{lang === "zh" ? field.zh : field.en}</div>
-                    <div style={{ marginTop: 7 }}>
-                      <BasisBadge tone={curationTone(field.status)}>{curationStatusLabel(field.status, lang)}</BasisBadge>
-                    </div>
-                  </div>
-                ))}
+              <div style={{ marginTop: 12 }}>
+                <StatusMatrix t={t} lang={lang} rows={BIOMASS_DATA_FIELDS} />
               </div>
             </CatalysisCard>
 
             <CatalysisCard t={t} surface="surface">
               <CatalysisCardTitle t={t}>{lang === "zh" ? "数据集成熟度说明" : "Dataset readiness note"}</CatalysisCardTitle>
-              <CatalysisBodyText t={t} style={{ marginTop: 8 }}>
-                {lang === "zh"
-                  ? "当前这类合作者实验记录更适合作为结构化实验数据，而不是可直接训练的机器学习数据集。可用于机器学习的数据集需要相对统一的条件、足够样本量、明确目标变量和实验验证闭环。"
-                  : "Current collaborator-style records are better treated as structured experimental records rather than a ready-to-train machine learning dataset. A useful ML dataset would require consistent conditions, sufficient sample size, clear target variables, and experimental validation."}
-              </CatalysisBodyText>
+              <div style={{ display: "grid", gap: 8, marginTop: 10 }}>
+                {ML_READINESS_STAGES.slice(0, 3).map(stage => (
+                  <CatalysisFieldTile key={stage.en} t={t} label={lang === "zh" ? stage.zh : stage.en} value={lang === "zh" ? stage.valueZh : stage.valueEn} />
+                ))}
+              </div>
               <button
                 type="button"
                 onClick={() => onNavigate?.("methodology")}
@@ -1797,137 +2211,24 @@ export function CatalysisLabTab({ onNavigate }) {
           : "A schema-only case template for organizing catalyst identity, reaction conditions, product distribution, mechanism evidence, and confidentiality status."}
       >
         <div style={{ display: "grid", gap: 12 }}>
-          <Callout tone="info">
-            {lang === "zh"
-              ? "该模板不包含私密实验数值，仅用于展示未来公开文献或经合作者同意的数据可以如何结构化。"
-              : "This template does not include private experimental values. It is designed to show how future public literature or collaborator-approved records can be structured."}
-          </Callout>
-
-          <CatalysisCard t={t}>
-            <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start", flexWrap: "wrap" }}>
-              <CatalysisCardTitle t={t}>{lang === "zh" ? "案例总览" : "Case overview"}</CatalysisCardTitle>
-              <BasisBadge tone="info">{lang === "zh" ? "仅字段结构" : "schema-only"}</BasisBadge>
-            </div>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
-              {BIOMASS_CASE_OVERVIEW.map(item => (
-                <CatalysisFieldTile key={item.en} t={t} label={lang === "zh" ? item.zh : item.en} value={lang === "zh" ? item.valueZh : item.valueEn} />
-              ))}
-            </div>
-          </CatalysisCard>
-
-          <CatalysisCard t={t} strong>
-            <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start", flexWrap: "wrap" }}>
-              <CatalysisCardTitle t={t}>{lang === "zh" ? "反应条件档案" : "Reaction condition profile"}</CatalysisCardTitle>
-              <BasisBadge tone="proxy">{lang === "zh" ? "collaborator-context / 待复核" : "collaborator-context / pending review"}</BasisBadge>
-            </div>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
-              {BIOMASS_CONDITION_PROFILE.map(item => (
-                <CatalysisFieldTile key={item.en} t={t} label={lang === "zh" ? item.zh : item.en} value={lang === "zh" ? item.valueZh : item.valueEn} accent={item.accent} />
-              ))}
-            </div>
-            <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 10 }}>
+          <div style={{ display: "flex", gap: 7, flexWrap: "wrap", alignItems: "center" }}>
+            <BasisBadge tone="info">{lang === "zh" ? "仅字段结构" : "schema-only"}</BasisBadge>
+            <BasisBadge tone="proxy">{lang === "zh" ? "无私密数值" : "no private values"}</BasisBadge>
+            <span style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
               {lang === "zh"
-                ? "170 ℃ 基准条件来自合作者提供的当前反应语境，不应被视为所有 MOF 催化剂的通用最佳条件。"
-                : "The 170 ℃ baseline reflects a collaborator-provided current reaction context and should not be treated as a universal optimum for all MOF catalysts."}
-            </div>
-          </CatalysisCard>
-
-          <CatalysisCard t={t}>
-            <CatalysisCardTitle t={t}>{lang === "zh" ? "产物分布结构" : "Product distribution schema"}</CatalysisCardTitle>
-            <CatalysisBodyText t={t} style={{ marginTop: 7 }}>
-              {lang === "zh"
-                ? "这里只展示产物角色和需要整理的指标字段，不展示真实峰面积、浓度、产率或选择性数值。"
-                : "This panel shows product roles and metric fields only; real peak areas, concentrations, yields, or selectivity values are not displayed."}
-            </CatalysisBodyText>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(5, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
-              {BIOMASS_CASE_PRODUCTS.map(product => (
-                <div key={product.en} style={{ ...catalysisCardStyle(t, { surface: "surface", padding: 11, radius: 9 }) }}>
-                  <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 880, lineHeight: 1.35 }}>{lang === "zh" ? product.zh : product.en}</div>
-                  <div style={{ marginTop: 8 }}>
-                    <CatalysisKicker t={t}>{lang === "zh" ? "产物角色" : "Product role"}</CatalysisKicker>
-                    <div style={{ color: t.muted, fontSize: 10, lineHeight: 1.5, marginTop: 4 }}>{lang === "zh" ? product.roleZh : product.roleEn}</div>
-                  </div>
-                  <div style={{ marginTop: 8 }}>
-                    <CatalysisKicker t={t}>{lang === "zh" ? "指标字段" : "Metric fields"}</CatalysisKicker>
-                    <PathwayPills items={lang === "zh" ? product.metricsZh : product.metricsEn} lang={lang} t={t} />
-                  </div>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 9 }}>
-                    <BasisBadge tone={product.tone}>{lang === "zh" ? product.statusZh : product.statusEn}</BasisBadge>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CatalysisCard>
-
-          <CatalysisCard t={t}>
-            <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start", flexWrap: "wrap" }}>
-              <CatalysisCardTitle t={t}>{lang === "zh" ? "机理证据地图" : "Mechanism evidence map"}</CatalysisCardTitle>
-              <BasisBadge tone="warn">{lang === "zh" ? "不代表完全验证" : "not fully validated"}</BasisBadge>
-            </div>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center", marginTop: 12 }}>
-              {BIOMASS_CASE_MECHANISM_STEPS.map((step, index) => (
-                <div key={step.en} style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                  <div style={{ ...catalysisCardStyle(t, { surface: "surface", padding: "8px 9px", radius: 9 }) }}>
-                    <div style={{ color: index === 0 || index === BIOMASS_CASE_MECHANISM_STEPS.length - 1 ? t.accentText : t.textStrong, fontSize: 10, fontWeight: 850, lineHeight: 1.35 }}>
-                      {lang === "zh" ? step.zh : step.en}
-                    </div>
-                    <div style={{ marginTop: 5 }}>
-                      <BasisBadge tone={mechanismStatusTone(step.status)}>{mechanismStatusLabel(step.status, lang)}</BasisBadge>
-                    </div>
-                  </div>
-                  {index < BIOMASS_CASE_MECHANISM_STEPS.length - 1 && <span style={{ color: t.faint, fontSize: 12 }}>→</span>}
-                </div>
-              ))}
-            </div>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center", marginTop: 10 }}>
-              <span style={{ color: t.faint, fontSize: 10, fontWeight: 850 }}>{lang === "zh" ? "副路径" : "Side pathway"}:</span>
-              {BIOMASS_CASE_SIDE_PATHWAY.map((step, index) => (
-                <div key={step.en} style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                  <div style={{ ...catalysisCardStyle(t, { surface: "surface", padding: "7px 9px", radius: 999 }) }}>
-                    <span style={{ color: t.subtle, fontSize: 10, fontWeight: 750 }}>{lang === "zh" ? step.zh : step.en}</span>
-                    <span style={{ marginLeft: 6 }}><BasisBadge tone={mechanismStatusTone(step.status)}>{mechanismStatusLabel(step.status, lang)}</BasisBadge></span>
-                  </div>
-                  {index < BIOMASS_CASE_SIDE_PATHWAY.length - 1 && <span style={{ color: t.faint, fontSize: 12 }}>→</span>}
-                </div>
-              ))}
-            </div>
-            <CatalysisBodyText t={t} style={{ marginTop: 10 }}>
-              {lang === "zh"
-                ? "证据选项包括 HPLC、GC-MS / LC-MS、NMR、同位素追踪或 DFT。模板不会填入私密证据，也不说明当前路径已全部证明。"
-                : "Evidence options include HPLC, GC-MS / LC-MS, NMR, isotope tracing, or DFT. The template does not fill private evidence or claim that the pathway is fully proven."}
-            </CatalysisBodyText>
-          </CatalysisCard>
-
-          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
-            <CatalysisCard t={t} surface="surface">
-              <CatalysisCardTitle t={t}>{lang === "zh" ? "保密展示模式" : "Confidential display mode"}</CatalysisCardTitle>
-              <div style={{ display: "grid", gap: 8, marginTop: 11 }}>
-                {CONFIDENTIAL_DISPLAY_MODES.map(mode => (
-                  <div key={mode.en} style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start", flexWrap: "wrap", ...catalysisCardStyle(t, { surface: "panel", padding: 10, radius: 8 }) }}>
-                    <div style={{ minWidth: 0, flex: "1 1 180px" }}>
-                      <div style={{ color: t.textStrong, fontSize: 11, fontWeight: 850 }}>{lang === "zh" ? mode.zh : mode.en}</div>
-                      <div style={{ color: t.muted, fontSize: 10, lineHeight: 1.5, marginTop: 4 }}>{lang === "zh" ? mode.bodyZh : mode.bodyEn}</div>
-                    </div>
-                    <BasisBadge tone={mode.tone}>{lang === "zh" ? mode.zh : mode.en}</BasisBadge>
-                  </div>
-                ))}
-              </div>
-            </CatalysisCard>
-
-            <CatalysisCard t={t}>
-              <CatalysisCardTitle t={t}>{lang === "zh" ? "该案例模板可支持什么" : "What this case can support"}</CatalysisCardTitle>
-              <div style={{ display: "grid", gap: 8, marginTop: 11 }}>
-                {BIOMASS_CASE_SUPPORTS.map(item => (
-                  <CatalysisCheckItem key={item.en} t={t}>{lang === "zh" ? item.zh : item.en}</CatalysisCheckItem>
-                ))}
-              </div>
-              <CatalysisBodyText t={t} style={{ marginTop: 10 }}>
-                {lang === "zh"
-                  ? "这些用途属于结构化整理和复核支持，不代表该模板可以替代实验、直接发表结论或预测催化性能。"
-                  : "These uses support structured organization and review; the template does not replace experiments, publish-ready conclusions, or catalytic performance prediction."}
-              </CatalysisBodyText>
-            </CatalysisCard>
+                ? "展示未来公开文献或经合作者同意记录的结构化方式。"
+                : "Shows how future public literature or collaborator-approved records can be structured."}
+            </span>
           </div>
+
+          <CaseStudyWorkspace
+            t={t}
+            lang={lang}
+            isMobile={isMobile}
+            isNarrow={isNarrow}
+            activeTab={caseWorkspaceTab}
+            onTabChange={setCaseWorkspaceTab}
+          />
         </div>
       </ResultLayer>
 
@@ -1970,68 +2271,36 @@ export function CatalysisLabTab({ onNavigate }) {
             </div>
           )}
 
-          <Callout tone="info">
-            {lang === "zh"
-              ? "原始催化实验表格通常会把催化剂名称、反应条件、产物峰面积、浓度、产率和备注混在同一张表中。为了进行对比、可视化和未来机器学习，每组实验都应转换为具有明确字段的标准化记录。"
-              : "Raw catalyst spreadsheets often mix catalyst names, reaction conditions, product peak areas, concentrations, yields, and notes in the same sheet. For comparison, visualization, and future machine learning, each experiment should be converted into standardized records with explicit fields."}
-          </Callout>
+          <CatalysisCard t={t} surface="surface" padding={12}>
+            <CatalysisCardTitle t={t}>{lang === "zh" ? "数据标准化管线" : "Data pipeline"}</CatalysisCardTitle>
+            <div style={{ marginTop: 11 }}>
+              <VisualPipeline t={t} lang={lang} steps={NORMALIZATION_PIPELINE} isMobile={isMobile} />
+            </div>
+          </CatalysisCard>
 
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 12 }}>
-            {NORMALIZED_TABLES.map(table => (
-              <CatalysisCard key={table.key} t={t} padding={14}>
-                <div style={{ color: t.accentText, fontFamily: "monospace", fontSize: 12, fontWeight: 850 }}>{table.key}</div>
-                <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55, marginTop: 6 }}>
-                  {lang === "zh" ? table.bodyZh : table.bodyEn}
-                </div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 11 }}>
-                  {table.fields.map(field => (
-                    <span key={field} style={{
-                      background: t.surface,
-                      border: `1px solid ${t.border}`,
-                      borderRadius: 999,
-                      color: t.subtle,
-                      fontFamily: "monospace",
-                      fontSize: 9,
-                      fontWeight: 750,
-                      lineHeight: 1.35,
-                      padding: "4px 8px",
-                      overflowWrap: "anywhere",
-                    }}>
-                      {field}
-                    </span>
-                  ))}
-                </div>
-                {(table.examplesEn || table.examplesZh) && (
-                  <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.5, marginTop: 9 }}>
-                  {lang === "zh" ? table.examplesZh : table.examplesEn}
-                </div>
-              )}
-              </CatalysisCard>
-            ))}
-          </div>
+          <CatalysisCard t={t}>
+            <CatalysisCardTitle t={t}>{lang === "zh" ? "四张标准表关系" : "Four-table relationship diagram"}</CatalysisCardTitle>
+            <div style={{ marginTop: 11 }}>
+              <TableRelationshipDiagram t={t} lang={lang} isMobile={isMobile} />
+            </div>
+          </CatalysisCard>
 
           <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
             <CatalysisCard t={t}>
               <CatalysisCardTitle t={t}>{lang === "zh" ? "长表转换逻辑" : "Long-format conversion"}</CatalysisCardTitle>
-              <CatalysisBodyText t={t} style={{ marginTop: 7 }}>
-                {lang === "zh"
-                  ? "同一组实验可能产生多种产物指标。与其把甲酸、乳酸、乙酸和乙醇酸都放在同一行的多个宽列中，EcoMOF-AI 会将每种产物拆成单独的 product_metrics 记录，并通过 runId 关联。"
-                  : "A single experimental run can produce multiple product metrics. Instead of storing formic acid, lactic acid, acetic acid, and glycolic acid as separate wide columns, EcoMOF-AI treats each product as a separate product_metrics record linked by runId."}
-              </CatalysisBodyText>
               <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 9, marginTop: 11 }}>
                 <div style={{ ...catalysisCardStyle(t, { surface: "surface", padding: 10, radius: 8 }) }}>
-                  <CatalysisKicker t={t}>{lang === "zh" ? "原始表格风格" : "Raw spreadsheet style"}</CatalysisKicker>
-                  <div style={{ color: t.subtle, fontSize: 10, lineHeight: 1.65, marginTop: 6 }}>
-                    run A15<br />
-                    formic acid yield = pending<br />
-                    lactic acid yield = pending<br />
-                    acetic acid yield = pending<br />
-                    glycolic acid yield = pending
+                  <CatalysisKicker t={t}>{lang === "zh" ? "Before / 宽表" : "Before / wide columns"}</CatalysisKicker>
+                  <div style={{ color: t.subtle, fontSize: 10, lineHeight: 1.75, marginTop: 6, fontFamily: "monospace" }}>
+                    run A15 → formic = pending<br />
+                    run A15 → lactic = pending<br />
+                    run A15 → acetic = pending<br />
+                    run A15 → glycolic = pending
                   </div>
                 </div>
                 <div style={{ ...catalysisCardStyle(t, { surface: "surface", padding: 10, radius: 8 }) }}>
-                  <CatalysisKicker t={t}>{lang === "zh" ? "结构化长表" : "Structured long format"}</CatalysisKicker>
-                  <div style={{ color: t.accentText, fontSize: 10, lineHeight: 1.65, marginTop: 6 }}>
+                  <CatalysisKicker t={t}>{lang === "zh" ? "After / 长表" : "After / long format"}</CatalysisKicker>
+                  <div style={{ color: t.accentText, fontSize: 10, lineHeight: 1.75, marginTop: 6, fontFamily: "monospace" }}>
                     A15 + formic acid<br />
                     A15 + lactic acid<br />
                     A15 + acetic acid<br />
@@ -2053,11 +2322,16 @@ export function CatalysisLabTab({ onNavigate }) {
 
           <CatalysisCard t={t} surface="surface">
             <CatalysisCardTitle t={t}>{lang === "zh" ? "机器学习准备度首先是数据质量问题" : "ML readiness is a data-quality question"}</CatalysisCardTitle>
-            <CatalysisBodyText t={t} style={{ marginTop: 7 }}>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 9, marginTop: 11 }}>
+              {ML_READINESS_STAGES.map(stage => (
+                <CatalysisFieldTile key={stage.en} t={t} label={lang === "zh" ? stage.zh : stage.en} value={lang === "zh" ? stage.valueZh : stage.valueEn} />
+              ))}
+            </div>
+            <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 9 }}>
               {lang === "zh"
-                ? "催化实验表格不能直接视为可训练的机器学习数据集。只有当反应条件、催化剂身份、目标变量、样本量和验证记录足够规范时，才适合进入模型训练。早期合作阶段，EcoMOF-AI 更关注数据结构化、规则辅助优先级和面向机器学习的字段设计，而不是声称已有训练好的预测模型。"
-                : "Catalysis spreadsheets should not be treated as a ready-to-train ML dataset until reaction conditions, catalyst identities, target variables, sample size, and validation records are standardized. In early collaboration stages, EcoMOF-AI focuses on data structuring, rule-based prioritization, and ML-ready field design rather than claiming a trained predictive model."}
-            </CatalysisBodyText>
+                ? "早期合作阶段强调结构化、规则辅助和字段设计，不声称已有训练好的预测模型。"
+                : "Early collaboration emphasizes structure, rule-based support, and field design; no trained predictive model is claimed."}
+            </div>
           </CatalysisCard>
         </div>
       </ResultLayer>
