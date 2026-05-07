@@ -42,22 +42,6 @@ function FormulaStrip({ formula, t }) {
   )
 }
 
-function CompactFormulaCard({ title, formula, note, t }) {
-  return (
-    <article style={{
-      background: t.surface,
-      border: `1px solid ${t.border}`,
-      borderRadius: 8,
-      padding: 12,
-      minHeight: 0,
-    }}>
-      <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, marginBottom: 8 }}>{title}</div>
-      <FormulaStrip formula={formula} t={t} />
-      {note && <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 8 }}>{note}</div>}
-    </article>
-  )
-}
-
 function FormulaDetails({ title, formula, variables, interpretation, limitation, t, zh, defaultOpen = false }) {
   return (
     <details open={defaultOpen} style={{
@@ -133,19 +117,6 @@ function MethodSection({ id, title, body, children, t }) {
   )
 }
 
-function VisualFormulaCard({ title, formula, note, boundary, t }) {
-  return (
-    <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
-      <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 880, marginBottom: 10 }}>{title}</div>
-      <div style={{ overflowX: "auto", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: "12px 14px", color: t.accentText, fontFamily: FONT_MONO, fontSize: 13, lineHeight: 1.8 }}>
-        {formula}
-      </div>
-      {note && <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.6, marginTop: 10 }}>{note}</div>}
-      {boundary && <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 8, borderTop: `1px solid ${t.divider}`, paddingTop: 8 }}>{boundary}</div>}
-    </article>
-  )
-}
-
 function ChipList({ items, t }) {
   return (
     <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
@@ -212,10 +183,17 @@ function WorkflowPipeline({ steps, isMobile, t }) {
 
 function EvidenceLadder({ levels, zh, t }) {
   return (
-    <div style={{ display: "grid", gap: 8 }}>
+    <div style={{ display: "grid", gap: 7, position: "relative" }}>
       {levels.map((item, index) => (
-        <div key={item.level} style={{ display: "grid", gridTemplateColumns: "80px minmax(0, 1fr)", gap: 10, alignItems: "stretch" }}>
-          <div style={{ background: index === 0 ? t.badgeInfoBg : index === 1 ? t.badgeCalcBg : index === 2 ? t.badgeProxyBg : t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10, color: index === 0 ? t.accentText : index === 1 ? t.badgeCalcText : index === 2 ? t.warn : t.faint, fontSize: 12, fontWeight: 900, textAlign: "center" }}>
+        <div key={item.level} style={{
+          display: "grid",
+          gridTemplateColumns: "84px minmax(0, 1fr)",
+          gap: 10,
+          alignItems: "stretch",
+          marginLeft: `${index * 16}px`,
+          width: `calc(100% - ${index * 16}px)`,
+        }}>
+          <div style={{ background: index === 0 ? t.badgeInfoBg : index === 1 ? t.badgeCalcBg : index === 2 ? t.badgeProxyBg : t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10, color: index === 0 ? t.accentText : index === 1 ? t.badgeCalcText : index === 2 ? t.warn : t.faint, fontSize: 12, fontWeight: 900, textAlign: "center", boxShadow: index === 0 ? `0 8px 20px ${t.shadow}` : "none" }}>
             {item.level}
           </div>
           <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
@@ -226,6 +204,149 @@ function EvidenceLadder({ levels, zh, t }) {
       ))}
       <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 2 }}>
         {zh ? "高证据等级不等于最终实验验证完成。" : "High evidence does not mean final experimental validation."}
+      </div>
+    </div>
+  )
+}
+
+function EvidenceCompletenessQuadrant({ zh, t }) {
+  const quadrants = zh
+    ? [
+      ["证据较强，字段待补充", "left-top"],
+      ["优先复核候选", "right-top"],
+      ["暂不适合比较", "left-bottom"],
+      ["字段较全，但证据不足", "right-bottom"],
+    ]
+    : [
+      ["Evidence strong, fields missing", "left-top"],
+      ["Strong review candidate", "right-top"],
+      ["Not ready for comparison", "left-bottom"],
+      ["Complete but uncertain", "right-bottom"],
+    ]
+  const points = zh
+    ? [["示例 A", 34, 72], ["示例 B", 68, 58], ["示例 C", 52, 32]]
+    : [["Example A", 34, 72], ["Example B", 68, 58], ["Example C", 52, 32]]
+  return (
+    <div style={{ display: "grid", gap: 8 }}>
+      <div style={{
+        position: "relative",
+        height: 300,
+        background: t.panel,
+        border: `1px solid ${t.border}`,
+        borderRadius: 10,
+        padding: "28px 28px 34px 42px",
+        overflow: "hidden",
+      }}>
+        <div aria-hidden="true" style={{ position: "absolute", left: 42, right: 28, top: 28, bottom: 34, display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "1fr 1fr" }}>
+          {quadrants.map(([label, key], index) => (
+            <div key={key} style={{
+              borderRight: index % 2 === 0 ? `1px solid ${t.border}` : "none",
+              borderBottom: index < 2 ? `1px solid ${t.border}` : "none",
+              background: index === 1 ? t.badgeInfoBg : index === 0 ? t.badgeCalcBg : index === 3 ? t.badgeProxyBg : t.surface,
+              opacity: 0.86,
+              padding: 10,
+              display: "flex",
+              alignItems: index < 2 ? "flex-start" : "flex-end",
+              justifyContent: index % 2 === 0 ? "flex-start" : "flex-end",
+              textAlign: index % 2 === 0 ? "left" : "right",
+              color: index === 1 ? t.accentText : t.muted,
+              fontSize: 10.5,
+              fontWeight: 820,
+              lineHeight: 1.35,
+            }}>
+              {label}
+            </div>
+          ))}
+        </div>
+        <div aria-hidden="true" style={{ position: "absolute", left: 42, right: 28, bottom: 34, height: 1, background: t.textStrong }} />
+        <div aria-hidden="true" style={{ position: "absolute", left: 42, top: 28, bottom: 34, width: 1, background: t.textStrong }} />
+        <div style={{ position: "absolute", left: 42, right: 28, top: 28, bottom: 34 }}>
+          {points.map(([label, x, y]) => (
+            <div key={label} style={{
+              position: "absolute",
+              left: `${x}%`,
+              bottom: `${y}%`,
+              transform: "translate(-50%, 50%)",
+              display: "grid",
+              justifyItems: "center",
+              gap: 3,
+            }}>
+              <span style={{ width: 10, height: 10, borderRadius: 999, background: t.accentText, border: `2px solid ${t.surface}`, boxShadow: `0 0 0 1px ${t.border}` }} />
+              <span style={{ color: t.faint, fontSize: 9.5, fontWeight: 800, whiteSpace: "nowrap" }}>{label}</span>
+            </div>
+          ))}
+        </div>
+        <div style={{ position: "absolute", left: 42, right: 28, bottom: 8, display: "flex", justifyContent: "space-between", color: t.faint, fontSize: 10, fontWeight: 800 }}>
+          <span>{zh ? "低" : "Low"}</span>
+          <span>{zh ? "数据完整性" : "Data Completeness"}</span>
+          <span>{zh ? "高" : "High"}</span>
+        </div>
+        <div style={{ position: "absolute", left: 8, top: 28, bottom: 34, display: "flex", flexDirection: "column", justifyContent: "space-between", color: t.faint, fontSize: 10, fontWeight: 800, writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
+          <span>{zh ? "低" : "Low"}</span>
+          <span>{zh ? "证据可信度" : "Evidence Confidence"}</span>
+          <span>{zh ? "高" : "High"}</span>
+        </div>
+      </div>
+      <div style={{ color: t.faint, fontSize: 10.5, lineHeight: 1.45 }}>
+        {zh ? "示例点仅说明坐标结构，不代表真实候选材料。" : "Example points illustrate chart structure only and do not represent real candidates."}
+      </div>
+    </div>
+  )
+}
+
+function ScoreComponentBarChart({ zh, t }) {
+  const slots = zh
+    ? ["性能信号", "可持续性信号", "数据完整性", "证据可信度", "不确定性惩罚"]
+    : ["Performance Signal", "Sustainability Signal", "Data Completeness", "Evidence Confidence", "Uncertainty Penalty"]
+  return (
+    <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }}>
+      <div style={{ display: "grid", gap: 9 }}>
+        {slots.map((label, index) => (
+          <div key={label} style={{ display: "grid", gridTemplateColumns: "minmax(130px, 180px) minmax(0, 1fr) 42px", gap: 9, alignItems: "center" }}>
+            <div style={{ color: index === 4 ? t.warn : t.muted, fontSize: 11, fontWeight: 820 }}>{label}</div>
+            <div style={{ position: "relative", height: 14, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, overflow: "hidden" }}>
+              <div style={{ position: "absolute", inset: 0, background: "repeating-linear-gradient(90deg, transparent 0, transparent calc(20% - 1px), rgba(127,127,127,0.22) calc(20% - 1px), rgba(127,127,127,0.22) 20%)" }} />
+              <div style={{ width: "100%", height: "100%", background: index === 4 ? t.badgeWarnBg : t.badgeInfoBg, borderRadius: 999 }} />
+            </div>
+            <div style={{ color: t.faint, fontSize: 10.5, fontFamily: FONT_MONO, textAlign: "right" }}>
+              {index === 4 ? "w₅" : `w${index + 1}`}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-between", color: t.faint, fontSize: 10, fontWeight: 800, marginTop: 8 }}>
+        <span>{zh ? "概念结构" : "Conceptual"}</span>
+        <span>{zh ? "无百分比" : "no percentages"}</span>
+      </div>
+    </div>
+  )
+}
+
+function PriorityInterpretationCurve({ zh, t }) {
+  return (
+    <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }}>
+      <svg viewBox="0 0 360 220" role="img" aria-label={zh ? "优先级解释概念曲线" : "Priority interpretation conceptual curve"} style={{ width: "100%", height: "auto", display: "block" }}>
+        <line x1="44" y1="174" x2="326" y2="174" stroke={t.textStrong} strokeWidth="1.4" />
+        <line x1="44" y1="174" x2="44" y2="28" stroke={t.textStrong} strokeWidth="1.4" />
+        {[0, 1, 2, 3, 4].map(i => (
+          <g key={i}>
+            <line x1={44 + i * 70.5} y1="170" x2={44 + i * 70.5} y2="178" stroke={t.border} />
+            <line x1="40" y1={174 - i * 36.5} x2="48" y2={174 - i * 36.5} stroke={t.border} />
+          </g>
+        ))}
+        <path d="M46 166 C96 154, 116 132, 152 116 S222 78, 326 50" fill="none" stroke={t.accentText} strokeWidth="4" strokeLinecap="round" />
+        <path d="M46 166 C96 154, 116 132, 152 116 S222 78, 326 50 L326 174 L46 174 Z" fill={t.badgeInfoBg} opacity="0.55" />
+        <circle cx="92" cy="151" r="4" fill={t.accentText} />
+        <circle cx="176" cy="106" r="4" fill={t.accentText} />
+        <circle cx="278" cy="64" r="4" fill={t.accentText} />
+        <text x="184" y="211" textAnchor="middle" fill={t.faint} fontSize="11" fontWeight="700">{zh ? "数据准备度" : "Data readiness"}</text>
+        <text x="15" y="104" textAnchor="middle" fill={t.faint} fontSize="11" fontWeight="700" transform="rotate(-90 15 104)">{zh ? "解释可信度" : "Interpretation confidence"}</text>
+        <text x="47" y="195" fill={t.faint} fontSize="10">{zh ? "低" : "Low"}</text>
+        <text x="305" y="195" fill={t.faint} fontSize="10">{zh ? "高" : "High"}</text>
+        <text x="214" y="40" fill={t.accentText} fontSize="11" fontWeight="800">{zh ? "概念曲线" : "Conceptual curve"}</text>
+      </svg>
+      <div style={{ color: t.faint, fontSize: 10.5, lineHeight: 1.45, marginTop: 6 }}>
+        {zh ? "数据准备度提升会增强优先级解释的可信度，但不代表已验证材料性能。" : "Higher data readiness strengthens priority interpretation confidence, but does not indicate validated material performance."}
       </div>
     </div>
   )
@@ -550,6 +671,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       ["method-score-overview", "方法评分总览"],
       ["method-formulas", "总分公式"],
       ["score-components", "子分数构成"],
+      ["scoring-axes", "评分坐标图"],
       ["method-workflow", "数据与证据工作流"],
       ["evidence-level-ladder", "证据等级阶梯"],
       ["weight-configuration", "权重配置"],
@@ -562,6 +684,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       ["method-score-overview", "Method Score Overview"],
       ["method-formulas", "Total Score Formula"],
       ["score-components", "Score Components"],
+      ["scoring-axes", "Scoring Axes"],
       ["method-workflow", "Data & Evidence Workflow"],
       ["evidence-level-ladder", "Evidence Level Ladder"],
       ["weight-configuration", "Weight Configuration"],
@@ -647,19 +770,6 @@ export function MethodsLimitationsTab({ onNavigate }) {
       limitation: zh
         ? "Qst 估算需要可靠的多温度等温线数据。当前 Qst 输出应作为解释性参考，不应视为最终热力学证据。"
         : "Qst estimation requires reliable multi-temperature isotherm data. Current Qst outputs should be treated as interpretive guidance, not final thermodynamic evidence.",
-    },
-    {
-      title: zh ? "规则辅助评分公式" : "Rule-assisted score formula",
-      formula: (
-        <FormulaLine>
-          Final Score = w<sub>1</sub> × Performance + w<sub>2</sub> × Stability + w<sub>3</sub> × Sustainability + w<sub>4</sub> × Application Fit + w<sub>5</sub> × Evidence Confidence
-        </FormulaLine>
-      ),
-      variables: zh
-        ? [["w₁…w₅", "可审计的规则权重"], ["Final Score", "候选优先级分数"]]
-        : [["w₁…w₅", "auditable rule weights"], ["Final Score", "candidate-priority score"]],
-      interpretation: zh ? "把多维筛选指标组合为候选优先级。" : "Combines multiple screening dimensions into candidate priority.",
-      limitation: zh ? "分数表示候选优先级，不表示最终材料性能。" : "The score indicates candidate priority, not final material performance.",
     },
     {
       title: zh ? "催化潜力评分" : "Catalysis Potential Score",
@@ -1023,6 +1133,26 @@ export function MethodsLimitationsTab({ onNavigate }) {
             </DashboardPanel>
 
             <DashboardPanel
+              id="scoring-axes"
+              title={zh ? "评分坐标图" : "Scoring Axes"}
+              kicker={zh ? "概念可视化" : "conceptual visuals"}
+              t={t}
+            >
+              <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55, marginBottom: 10 }}>
+                {zh
+                  ? "通过坐标图展示数据完整性、证据可信度和不确定性如何影响优先级解释。"
+                  : "Visual axes show how data completeness, evidence confidence, and uncertainty affect priority interpretation."}
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1.25fr) minmax(0, 0.95fr)", gap: 10, alignItems: "stretch" }}>
+                <EvidenceCompletenessQuadrant zh={zh} t={t} />
+                <div style={{ display: "grid", gap: 10 }}>
+                  <ScoreComponentBarChart zh={zh} t={t} />
+                  <PriorityInterpretationCurve zh={zh} t={t} />
+                </div>
+              </div>
+            </DashboardPanel>
+
+            <DashboardPanel
               id="weight-configuration"
               title={zh ? "权重配置" : "Weight Configuration"}
               kicker={weightsStatus === "loaded" ? (zh ? "已读取配置" : "configuration loaded") : (zh ? "概念权重" : "conceptual slots")}
@@ -1094,20 +1224,14 @@ export function MethodsLimitationsTab({ onNavigate }) {
           : "The current model is rule based, not a trained predictive model. Every score indicates candidate priority, not final material performance."}
         t={t}
       >
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
+        <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+          <summary style={{ cursor: "pointer", color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
+            {zh ? "查看补充评分说明" : "View supplemental scoring notes"}
+          </summary>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 10 }}>
           {scoreCards.map(([title, body, tone]) => <CompactCard key={title} title={title} body={body} tone={tone} t={t} />)}
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 10, marginTop: 12 }}>
-          {formulaCards.slice(4).map(card => (
-            <CompactFormulaCard
-              key={card.title}
-              title={card.title}
-              formula={card.formula}
-              note={card.limitation}
-              t={t}
-            />
-          ))}
-        </div>
+          </div>
+        </details>
       </MethodSection>
 
       <MethodSection
@@ -1119,7 +1243,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
         t={t}
       >
         <div style={{ display: "grid", gap: 8 }}>
-          {formulaCards.slice(0, 4).map(card => (
+          {formulaCards.map(card => (
             <FormulaDetails
               key={card.title}
               {...card}
