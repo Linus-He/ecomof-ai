@@ -1583,6 +1583,81 @@ const RADAR_METRIC_AXES = [
   { key: "source", en: "source completeness", zh: "来源完整性" },
 ]
 
+const METRIC_DOMAIN_AXES = [
+  ...RADAR_METRIC_AXES,
+  { key: "faradaic", en: "Faradaic efficiency", zh: "法拉第效率" },
+]
+
+const METRIC_DEFINITIONS = {
+  conversion: {
+    en: "Tracks substrate conversion when the reaction family uses conversion-based reporting.",
+    zh: "用于记录以转化率为核心指标的反应族。",
+  },
+  selectivity: {
+    en: "Captures product preference and must be interpreted with product scope.",
+    zh: "用于记录目标产物选择性，需要结合产物范围解读。",
+  },
+  yield: {
+    en: "Connects product amount with feedstock context; not interchangeable across pathways without normalization.",
+    zh: "连接产物量与原料语境；跨路径比较前需要归一化。",
+  },
+  energy: {
+    en: "Represents electricity, light, heat, or coupled energy inputs depending on catalytic mode.",
+    zh: "对应电、光、热或耦合能量输入，取决于催化方式。",
+  },
+  carbon: {
+    en: "Supports carbon accounting across CO₂, bicarbonate, biomass, and product families.",
+    zh: "用于 CO₂、碳酸氢盐、生物质与产物族之间的碳核算。",
+  },
+  condition: {
+    en: "Records temperature, pressure, time, light, voltage, solvent, matrix, and related context.",
+    zh: "记录温度、压力、时间、光照、电压、溶剂、基质等条件语境。",
+  },
+  source: {
+    en: "Marks whether source and field-level evidence are sufficient for curation review.",
+    zh: "标记来源与逐字段证据是否足以支持整理复核。",
+  },
+  faradaic: {
+    en: "Relevant to electrochemical tasks; not applicable to most thermal-only tasks.",
+    zh: "主要用于电催任务；通常不适用于纯热催路径。",
+  },
+}
+
+const QUADRANT_DETAILS = {
+  direct: {
+    shortEn: "Direct",
+    shortZh: "可直接比较",
+    titleEn: "Direct comparison possible",
+    titleZh: "可直接比较",
+    bodyEn: "Metric system and condition context are closely aligned. Confirm field-level evidence before comparing.",
+    bodyZh: "指标体系和条件语境接近；比较前仍需确认逐字段证据。",
+  },
+  "condition-normalized": {
+    shortEn: "Normalize",
+    shortZh: "条件归一化",
+    titleEn: "Condition normalization needed",
+    titleZh: "需条件归一化",
+    bodyEn: "Metrics are similar, but temperature, pressure, light, voltage, time, or matrix context differs.",
+    bodyZh: "指标相近，但温度、压力、光照、电压、时间或基质语境不同。",
+  },
+  "bridge-needed": {
+    shortEn: "Bridge needed",
+    shortZh: "需指标桥梁",
+    titleEn: "Metric bridge needed",
+    titleZh: "需指标桥梁",
+    bodyEn: "Different modes or metric systems require energy, carbon, condition, or LCA/TEA bridge metrics.",
+    bodyZh: "不同催化方式或指标体系之间需要能耗、碳效率、条件严苛度或 LCA/TEA 桥梁指标。",
+  },
+  "not-comparable": {
+    shortEn: "Not ready",
+    shortZh: "暂不可比",
+    titleEn: "Not comparable yet",
+    titleZh: "暂不可比",
+    bodyEn: "Source, metric, condition, or field structure is not sufficient for comparison.",
+    bodyZh: "来源、指标、条件或字段结构不足，暂不适合比较。",
+  },
+}
+
 const REACTION_FAMILY_CASES = [
   {
     id: "glucose-hco3-formic",
@@ -2521,6 +2596,11 @@ function matrixCellDetail(domainKey, modeKey) {
 
 function CatalysisTaskMatrix({ selected, onSelect, lang, t, isMobile }) {
   const detail = matrixCellDetail(selected.domainKey, selected.modeKey)
+  const compactStatus = {
+    "collaborator-context": { en: "collab", zh: "合作" },
+    "literature-pending": { en: "literature", zh: "文献" },
+    "structured-record": { en: "structured", zh: "结构" },
+  }
   return (
     <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1.35fr) minmax(260px, 0.65fr)", gap: 12, alignItems: "stretch" }}>
       <div style={{ overflowX: "auto", border: `1px solid ${t.border}`, borderRadius: 12, background: t.panel }}>
@@ -2541,29 +2621,54 @@ function CatalysisTaskMatrix({ selected, onSelect, lang, t, isMobile }) {
               {RESEARCH_MODES.map(mode => {
                 const active = selected.domainKey === domain.key && selected.modeKey === mode.key
                 const cell = matrixCellDetail(domain.key, mode.key)
-                const hasRows = RESEARCH_TASK_ROWS.some(row => row.domainKey === domain.key && row.modeKeys.includes(mode.key))
+                const matchingRows = RESEARCH_TASK_ROWS.filter(row => row.domainKey === domain.key && row.modeKeys.includes(mode.key))
+                const hasRows = matchingRows.length > 0
+                const statusKeys = Array.from(new Set(matchingRows.map(row => row.curationStatusKey)))
                 return (
                   <button
                     key={`${domain.key}-${mode.key}`}
                     type="button"
+                    aria-label={`${lang === "zh" ? domain.zh : domain.en} × ${lang === "zh" ? mode.zh : mode.en}`}
                     onClick={() => onSelect({ domainKey: domain.key, modeKey: mode.key })}
                     style={{
                       background: active ? t.badgeInfoBg : hasRows ? t.surface : "transparent",
-                      border: 0,
+                      border: active ? `1px solid ${t.accent}` : 0,
                       borderBottom: `1px solid ${t.divider}`,
                       borderLeft: `1px solid ${t.divider}`,
+                      boxShadow: active ? `inset 0 0 0 1px ${t.accent}` : "none",
                       color: active ? t.accentText : hasRows ? t.textStrong : t.faint,
                       cursor: "pointer",
                       minHeight: 64,
                       padding: 9,
                       textAlign: "left",
+                      transition: "background 160ms ease, box-shadow 160ms ease, transform 160ms ease",
                     }}
                   >
-                    <div style={{ fontSize: 10, fontWeight: 850, lineHeight: 1.35 }}>
-                      {hasRows ? (lang === "zh" ? "已建整理入口" : "curation route") : (lang === "zh" ? "待补充" : "pending")}
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 6 }}>
+                      <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 10, fontWeight: 850, lineHeight: 1.35 }}>
+                        <span style={{ width: 7, height: 7, borderRadius: 999, background: hasRows ? t.accent : t.faint, display: "inline-block" }} />
+                        {hasRows ? (lang === "zh" ? "整理中" : "active curation") : (lang === "zh" ? "后续方向" : "future scope")}
+                      </span>
+                      <span style={{ color: active ? t.accentText : t.faint, fontSize: 9, fontWeight: 900 }}>
+                        {hasRows ? `${matchingRows.length}` : "–"}
+                      </span>
                     </div>
-                    <div style={{ color: active ? t.accentText : t.faint, fontSize: 9, lineHeight: 1.35, marginTop: 4 }}>
-                      {lang === "zh" ? PATHWAY_COMPARABILITY_LABELS[cell.comparabilityKey]?.zh : PATHWAY_COMPARABILITY_LABELS[cell.comparabilityKey]?.en}
+                    <div style={{ display: "flex", gap: 3, marginTop: 7 }}>
+                      {[0, 1, 2].map(index => (
+                        <span key={index} style={{
+                          background: statusKeys[index] ? (index === 0 ? t.accent : t.accentSoft || t.border) : t.divider,
+                          borderRadius: 999,
+                          display: "block",
+                          height: 4,
+                          width: 18,
+                          opacity: statusKeys[index] ? 0.9 : 0.45,
+                        }} />
+                      ))}
+                    </div>
+                    <div style={{ color: active ? t.accentText : t.faint, fontSize: 9, lineHeight: 1.35, marginTop: 6 }}>
+                      {statusKeys.length
+                        ? statusKeys.map(key => lang === "zh" ? compactStatus[key]?.zh : compactStatus[key]?.en).filter(Boolean).join(" · ")
+                        : (lang === "zh" ? PATHWAY_COMPARABILITY_LABELS[cell.comparabilityKey]?.zh : PATHWAY_COMPARABILITY_LABELS[cell.comparabilityKey]?.en)}
                     </div>
                   </button>
                 )
@@ -2695,7 +2800,7 @@ function MetricCoverageRadar({ row, activeMetricKey, onMetricSelect, lang, t }) 
   const size = 230
   const center = size / 2
   const maxR = 82
-  const statusRadius = { required: 0.86, pending: 0.54, na: 0.25 }
+  const statusRadius = { required: 0.86, optional: 0.7, pending: 0.54, na: 0.25 }
   const points = RADAR_METRIC_AXES.map((axis, index) => {
     const angle = (-90 + (360 / RADAR_METRIC_AXES.length) * index) * Math.PI / 180
     const status = row?.coverage?.[axis.key] || "pending"
@@ -2728,9 +2833,12 @@ function MetricCoverageRadar({ row, activeMetricKey, onMetricSelect, lang, t }) 
           <line key={point.axis.key} x1={center} y1={center} x2={point.labelX - (point.labelX > center ? 16 : -16)} y2={point.labelY - (point.labelY > center ? 8 : -8)} stroke={t.divider} strokeWidth="1" />
         ))}
         <polygon points={polygon} fill={t.badgeInfoBg} stroke={t.accent} strokeWidth="2" opacity="0.9" />
-        {points.map(point => (
+          {points.map(point => (
           <g key={point.axis.key}>
             <circle
+              role="button"
+              tabIndex="0"
+              aria-label={lang === "zh" ? point.axis.zh : point.axis.en}
               cx={point.x}
               cy={point.y}
               r={point.axis.key === activeMetricKey ? "6" : "4"}
@@ -2739,6 +2847,9 @@ function MetricCoverageRadar({ row, activeMetricKey, onMetricSelect, lang, t }) 
               strokeWidth="2"
               style={{ cursor: "pointer" }}
               onClick={() => onMetricSelect?.(point.axis.key)}
+              onKeyDown={event => {
+                if (event.key === "Enter" || event.key === " ") onMetricSelect?.(point.axis.key)
+              }}
             />
             <text x={point.labelX} y={point.labelY} textAnchor={point.labelX > center + 8 ? "start" : point.labelX < center - 8 ? "end" : "middle"} dominantBaseline="middle" fill={t.faint} fontSize="9" fontWeight="700">
               {lang === "zh" ? point.axis.zh : point.axis.en}
@@ -2763,7 +2874,7 @@ function MetricCoverageRadar({ row, activeMetricKey, onMetricSelect, lang, t }) 
   )
 }
 
-function ResearchComparabilityQuadrant({ analysis, lang, t, isMobile }) {
+function ResearchComparabilityQuadrant({ analysis, selectedQuadrantKey, onQuadrantSelect, lang, t, isMobile }) {
   const coordinates = {
     direct: [78, 76],
     "condition-normalized": [78, 30],
@@ -2771,55 +2882,402 @@ function ResearchComparabilityQuadrant({ analysis, lang, t, isMobile }) {
     "not-comparable": [28, 28],
   }
   const [xPct, yPct] = coordinates[analysis.statusKey] || coordinates["bridge-needed"]
+  const quadrants = [
+    { key: "bridge-needed", area: { left: 42, top: 18, width: 120, height: 100 }, labelPos: { left: 50, top: 28 } },
+    { key: "direct", area: { left: 162, top: 18, width: 120, height: 100 }, labelPos: { left: 170, top: 28 } },
+    { key: "not-comparable", area: { left: 42, top: 118, width: 120, height: 100 }, labelPos: { left: 50, top: 190 } },
+    { key: "condition-normalized", area: { left: 162, top: 118, width: 120, height: 100 }, labelPos: { left: 170, top: 190 } },
+  ]
+  const detail = QUADRANT_DETAILS[selectedQuadrantKey] || QUADRANT_DETAILS[analysis.statusKey] || QUADRANT_DETAILS["bridge-needed"]
   return (
-    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 0.85fr", gap: 12, alignItems: "stretch" }}>
-      <div style={{ position: "relative", minHeight: 280, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: "26px 24px 34px 42px" }}>
-        <div style={{ position: "absolute", left: 16, top: "50%", transform: "rotate(-90deg) translateX(-50%)", transformOrigin: "left center", color: t.faint, fontSize: 10, fontWeight: 850 }}>
-          {lang === "zh" ? "条件相似度" : "Condition similarity"}
-        </div>
-        <div style={{ position: "absolute", bottom: 10, left: 0, right: 0, textAlign: "center", color: t.faint, fontSize: 10, fontWeight: 850 }}>
-          {lang === "zh" ? "指标相似度 低 → 高" : "Metric similarity Low → High"}
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "1fr 1fr", height: "100%", minHeight: 220 }}>
-          {(lang === "zh"
-            ? [["需指标桥梁", "可直接比较"], ["暂不可比", "需条件归一化"]]
-            : [["Metric bridge needed", "Direct comparison possible"], ["Not comparable yet", "Condition normalization needed"]]
-          ).flat().map((label, index) => (
-            <div key={label} style={{ border: `1px solid ${t.divider}`, background: index === 1 ? t.badgeInfoBg : t.surface, color: index === 1 ? t.accentText : t.muted, fontSize: 11, fontWeight: 850, padding: 10 }}>
-              {label}
-            </div>
-          ))}
-        </div>
-        <div style={{
-          position: "absolute",
-          left: `${xPct}%`,
-          bottom: `${yPct}%`,
-          transform: "translate(-50%, 50%)",
-          background: t.accent,
-          border: `2px solid ${t.panel}`,
-          borderRadius: 999,
-          boxShadow: t.shadowSm,
-          height: 16,
-          width: 16,
-        }} />
-        <div style={{
-          position: "absolute",
-          left: `calc(${xPct}% + 12px)`,
-          bottom: `calc(${yPct}% + 10px)`,
-          color: t.accentText,
-          fontSize: 10,
-          fontWeight: 850,
-          whiteSpace: "nowrap",
-        }}>
-          {lang === "zh" ? "当前比较" : "selected comparison"}
-        </div>
+    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) 240px", gap: 12, alignItems: "stretch" }}>
+      <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 10, overflow: "hidden" }}>
+        <svg viewBox="0 0 330 285" role="img" aria-label={lang === "zh" ? "可比性四象限坐标图" : "Comparability quadrant chart"} style={{ display: "block", width: "100%", minHeight: isMobile ? 260 : 300 }}>
+          <defs>
+            <filter id="comparisonPointShadow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="2" stdDeviation="2" floodColor={t.shadowColor || "#000"} floodOpacity="0.24" />
+            </filter>
+          </defs>
+          {quadrants.map((quad, index) => {
+            const active = selectedQuadrantKey === quad.key || analysis.statusKey === quad.key
+            const item = QUADRANT_DETAILS[quad.key]
+            return (
+              <g
+                key={quad.key}
+                role="button"
+                tabIndex="0"
+                aria-label={lang === "zh" ? item.titleZh : item.titleEn}
+                onClick={() => onQuadrantSelect?.(quad.key)}
+                onKeyDown={event => {
+                  if (event.key === "Enter" || event.key === " ") onQuadrantSelect?.(quad.key)
+                }}
+                style={{ cursor: "pointer" }}
+              >
+                <rect
+                  x={quad.area.left}
+                  y={quad.area.top}
+                  width={quad.area.width}
+                  height={quad.area.height}
+                  rx="10"
+                  fill={active ? t.badgeInfoBg : index % 2 === 0 ? t.surface : t.panel}
+                  stroke={active ? t.accent : t.divider}
+                  strokeWidth={active ? "2" : "1"}
+                  style={{ cursor: "pointer" }}
+                />
+                <text
+                  x={quad.labelPos.left}
+                  y={quad.labelPos.top}
+                  fill={active ? t.accentText : t.textStrong}
+                  fontSize="11"
+                  fontWeight="850"
+                  style={{ pointerEvents: "none" }}
+                >
+                  {lang === "zh" ? item.shortZh : item.shortEn}
+                </text>
+              </g>
+            )
+          })}
+          <line x1="42" y1="238" x2="292" y2="238" stroke={t.textStrong} strokeWidth="1.4" />
+          <line x1="42" y1="238" x2="42" y2="18" stroke={t.textStrong} strokeWidth="1.4" />
+          <path d="M292 238 l-8 -4 v8 z" fill={t.textStrong} />
+          <path d="M42 18 l-4 8 h8 z" fill={t.textStrong} />
+          <line x1="162" y1="18" x2="162" y2="238" stroke={t.divider} strokeDasharray="4 4" />
+          <line x1="42" y1="118" x2="292" y2="118" stroke={t.divider} strokeDasharray="4 4" />
+          <text x="167" y="270" textAnchor="middle" fill={t.faint} fontSize="10" fontWeight="850">
+            {lang === "zh" ? "指标相似度 低 → 高" : "Metric similarity Low → High"}
+          </text>
+          <text x="13" y="129" textAnchor="middle" fill={t.faint} fontSize="10" fontWeight="850" transform="rotate(-90 13 129)">
+            {lang === "zh" ? "条件相似度 低 → 高" : "Condition similarity Low → High"}
+          </text>
+          <circle
+            cx={42 + (xPct / 100) * 250}
+            cy={238 - (yPct / 100) * 220}
+            r="8"
+            fill={t.accent}
+            stroke={t.panel}
+            strokeWidth="3"
+            filter="url(#comparisonPointShadow)"
+          >
+            <title>{`${lang === "zh" ? "当前比较" : "Selected comparison"}: ${lang === "zh" ? analysis.status.zh : analysis.status.en}`}</title>
+          </circle>
+          <text
+            x={Math.min(270, 42 + (xPct / 100) * 250 + 12)}
+            y={Math.max(28, 238 - (yPct / 100) * 220 - 8)}
+            fill={t.accentText}
+            fontSize="9"
+            fontWeight="850"
+          >
+            {lang === "zh" ? "当前比较" : "selected"}
+          </text>
+        </svg>
       </div>
       <CatalysisCard t={t} strong padding={14}>
-        <CatalysisKicker t={t}>{lang === "zh" ? "可比性判断" : "Comparability assessment"}</CatalysisKicker>
-        <div style={{ marginTop: 10 }}><BasisBadge tone={analysis.statusKey === "bridge-needed" ? "proxy" : analysis.statusKey === "not-comparable" ? "warn" : "info"}>{lang === "zh" ? analysis.status.zh : analysis.status.en}</BasisBadge></div>
-        <CatalysisBodyText t={t} style={{ marginTop: 12 }}>{lang === "zh" ? analysis.reason.zh : analysis.reason.en}</CatalysisBodyText>
+        <CatalysisKicker t={t}>{lang === "zh" ? "象限语境" : "Quadrant context"}</CatalysisKicker>
+        <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 900, lineHeight: 1.35, marginTop: 8 }}>
+          {lang === "zh" ? detail.titleZh : detail.titleEn}
+        </div>
+        <CatalysisBodyText t={t} style={{ marginTop: 9 }}>{lang === "zh" ? detail.bodyZh : detail.bodyEn}</CatalysisBodyText>
+        <div style={{ marginTop: 12 }}>
+          <CatalysisKicker t={t}>{lang === "zh" ? "当前比较状态" : "Selected comparison"}</CatalysisKicker>
+          <div style={{ marginTop: 7 }}>
+            <BasisBadge tone={analysis.statusKey === "bridge-needed" ? "proxy" : analysis.statusKey === "not-comparable" ? "warn" : "info"}>
+              {lang === "zh" ? analysis.status.zh : analysis.status.en}
+            </BasisBadge>
+          </div>
+        </div>
       </CatalysisCard>
     </div>
+  )
+}
+
+function statusColor(status, t) {
+  if (status === "required") return t.accent
+  if (status === "optional") return t.accentSoft || t.badgeInfoBg
+  if (status === "pending") return t.warn || "#c58a22"
+  return t.divider
+}
+
+function CurationStatusDistribution({ rows, activeKey, onSelect, lang, t }) {
+  const statusRows = Object.entries(CURATION_STATUS_LABELS).map(([key, label]) => ({
+    key,
+    label,
+    count: rows.filter(row => row.curationStatusKey === key).length,
+  }))
+  const total = Math.max(1, rows.length)
+  return (
+    <div style={{ display: "grid", gap: 10 }}>
+      <div style={{ display: "flex", height: 18, overflow: "hidden", border: `1px solid ${t.border}`, borderRadius: 999, background: t.surface }}>
+        {statusRows.map((item, index) => (
+          <button
+            key={item.key}
+            type="button"
+            aria-label={lang === "zh" ? item.label.zh : item.label.en}
+            onClick={() => onSelect?.(item.key)}
+            title={lang === "zh" ? `${item.label.zh}: ${item.count}` : `${item.label.en}: ${item.count}`}
+            style={{
+              background: activeKey === item.key ? t.accent : index === 0 ? t.badgeInfoBg : index === 1 ? (t.badgeWarnBg || t.surface) : (t.accentSoft || t.panel),
+              border: 0,
+              borderRight: index < statusRows.length - 1 ? `1px solid ${t.border}` : 0,
+              cursor: "pointer",
+              minWidth: 28,
+              width: `${Math.max(10, (item.count / total) * 100)}%`,
+            }}
+          />
+        ))}
+      </div>
+      <div style={{ display: "grid", gap: 6 }}>
+        {statusRows.map(item => (
+          <button
+            key={item.key}
+            type="button"
+            onClick={() => onSelect?.(item.key)}
+            style={{
+              alignItems: "center",
+              background: activeKey === item.key ? t.badgeInfoBg : "transparent",
+              border: `1px solid ${activeKey === item.key ? (t.borderStrong || t.border) : t.border}`,
+              borderRadius: 9,
+              color: activeKey === item.key ? t.accentText : t.muted,
+              cursor: "pointer",
+              display: "flex",
+              fontSize: 11,
+              fontWeight: 820,
+              justifyContent: "space-between",
+              padding: "7px 9px",
+              textAlign: "left",
+            }}
+          >
+            <span>{lang === "zh" ? item.label.zh : item.label.en}</span>
+            <span>{item.count}</span>
+          </button>
+        ))}
+      </div>
+      <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45 }}>
+        {lang === "zh" ? "基于当前工作台任务行。" : "Based on current workspace task rows."}
+      </div>
+    </div>
+  )
+}
+
+function getDomainMetricStatus(domainKey, metricKey) {
+  const rows = RESEARCH_TASK_ROWS.filter(row => row.domainKey === domainKey)
+  if (!rows.length) return "na"
+  if (metricKey === "faradaic") {
+    return rows.some(row => row.metricsEn.some(metric => metric.toLowerCase().includes("faradaic"))) ? "required" : "na"
+  }
+  const statuses = rows.map(row => row.coverage?.[metricKey]).filter(Boolean)
+  if (statuses.includes("required")) return "required"
+  if (statuses.includes("optional")) return "optional"
+  if (statuses.includes("pending")) return "pending"
+  return "na"
+}
+
+function MetricDomainCoverageMap({ selectedCell, selectedMetric, onCellSelect, onDomainSelect, onMetricSelect, lang, t, isMobile }) {
+  const statusLabel = {
+    required: { en: "required", zh: "必需" },
+    optional: { en: "optional", zh: "可选" },
+    pending: { en: "pending", zh: "待补充" },
+    na: { en: "not applicable", zh: "不适用" },
+  }
+  return (
+    <div style={{ overflowX: "auto" }}>
+      <div style={{ minWidth: isMobile ? 780 : 680, display: "grid", gridTemplateColumns: `150px repeat(${METRIC_DOMAIN_AXES.length}, minmax(62px, 1fr))`, border: `1px solid ${t.border}`, borderRadius: 12, overflow: "hidden", background: t.panel }}>
+        <div style={{ background: t.surface, borderBottom: `1px solid ${t.border}`, color: t.faint, fontSize: 10, fontWeight: 850, padding: 9, textTransform: "uppercase" }}>
+          {lang === "zh" ? "领域 × 指标" : "domain × metric"}
+        </div>
+        {METRIC_DOMAIN_AXES.map(metric => (
+          <button
+            key={metric.key}
+            type="button"
+            onClick={() => onMetricSelect?.(metric.key)}
+            style={{
+              background: selectedMetric === metric.key ? t.badgeInfoBg : t.surface,
+              border: 0,
+              borderBottom: `1px solid ${t.border}`,
+              borderLeft: `1px solid ${t.divider}`,
+              color: selectedMetric === metric.key ? t.accentText : t.muted,
+              cursor: "pointer",
+              fontSize: 9,
+              fontWeight: 850,
+              lineHeight: 1.25,
+              minHeight: 44,
+              padding: 6,
+              textAlign: "center",
+            }}
+          >
+            {lang === "zh" ? metric.zh : metric.en}
+          </button>
+        ))}
+        {RESEARCH_DOMAINS.slice(0, 6).map(domain => (
+          <ReactFragmentLike key={domain.key}>
+            <button
+              type="button"
+              onClick={() => onDomainSelect?.(domain.key)}
+              style={{
+                background: selectedCell?.domainKey === domain.key ? t.badgeInfoBg : t.surface,
+                border: 0,
+                borderBottom: `1px solid ${t.divider}`,
+                color: selectedCell?.domainKey === domain.key ? t.accentText : t.textStrong,
+                cursor: "pointer",
+                fontSize: 10,
+                fontWeight: 850,
+                lineHeight: 1.25,
+                padding: 8,
+                textAlign: "left",
+              }}
+            >
+              {lang === "zh" ? domain.zh : domain.en}
+            </button>
+            {METRIC_DOMAIN_AXES.map(metric => {
+              const status = getDomainMetricStatus(domain.key, metric.key)
+              const active = selectedCell?.domainKey === domain.key && selectedCell?.metricKey === metric.key
+              return (
+                <button
+                  key={`${domain.key}-${metric.key}`}
+                  type="button"
+                  aria-label={`${lang === "zh" ? domain.zh : domain.en} ${lang === "zh" ? metric.zh : metric.en}`}
+                  onClick={() => onCellSelect?.({ domainKey: domain.key, metricKey: metric.key, status })}
+                  title={lang === "zh" ? statusLabel[status].zh : statusLabel[status].en}
+                  style={{
+                    background: active ? t.badgeInfoBg : t.panel,
+                    border: 0,
+                    borderBottom: `1px solid ${t.divider}`,
+                    borderLeft: `1px solid ${t.divider}`,
+                    cursor: "pointer",
+                    minHeight: 42,
+                    padding: 0,
+                  }}
+                >
+                  <span style={{
+                    background: statusColor(status, t),
+                    borderRadius: 999,
+                    boxShadow: active ? `0 0 0 3px ${t.panel}, 0 0 0 5px ${t.accent}` : "none",
+                    display: "inline-block",
+                    height: active ? 14 : 10,
+                    opacity: status === "na" ? 0.42 : 0.9,
+                    width: active ? 14 : 10,
+                  }} />
+                </button>
+              )
+            })}
+          </ReactFragmentLike>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function PathwayComparisonMiniSankey({ rows, lang, t }) {
+  if (rows.length < 2) {
+    return (
+      <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.faint, fontSize: 12, lineHeight: 1.5, padding: 12 }}>
+        {lang === "zh" ? "从任务表中选择两项任务后显示结构对比流图。" : "Select two task rows to show a structural comparison flow."}
+      </div>
+    )
+  }
+  const [left, right] = rows
+  const sharedMetrics = left.metricsEn.filter(metric => right.metricsEn.map(item => item.toLowerCase()).includes(metric.toLowerCase()))
+  const differentFields = [
+    left.domainKey !== right.domainKey ? (lang === "zh" ? "反应领域" : "domain") : null,
+    left.modeEn !== right.modeEn ? (lang === "zh" ? "催化方式" : "mode") : null,
+    left.productKey !== right.productKey ? (lang === "zh" ? "产物族" : "product family") : null,
+  ].filter(Boolean)
+  const FlowRow = ({ row, label }) => (
+    <div style={{ display: "grid", gridTemplateColumns: "58px repeat(4, minmax(0, 1fr))", gap: 6, alignItems: "center" }}>
+      <div style={{ color: t.faint, fontSize: 10, fontWeight: 850 }}>{label}</div>
+      {[lang === "zh" ? row.feedstockZh : row.feedstockEn, lang === "zh" ? row.modeZh : row.modeEn, lang === "zh" ? row.productZh : row.productEn, (lang === "zh" ? row.metricsZh : row.metricsEn).slice(0, 2).join(" · ")].map((item, index) => (
+        <div key={index} style={{ background: index === 3 ? t.badgeInfoBg : t.surface, border: `1px solid ${t.border}`, borderRadius: 9, color: index === 3 ? t.accentText : t.textStrong, fontSize: 10, fontWeight: 820, lineHeight: 1.3, minHeight: 40, padding: 8 }}>
+          {item}
+        </div>
+      ))}
+    </div>
+  )
+  return (
+    <div style={{ display: "grid", gap: 10 }}>
+      <FlowRow row={left} label={lang === "zh" ? "任务 A" : "Task A"} />
+      <FlowRow row={right} label={lang === "zh" ? "任务 B" : "Task B"} />
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 8 }}>
+        <CatalysisFieldTile t={t} label={lang === "zh" ? "共同字段" : "Shared fields"} value={sharedMetrics.length ? sharedMetrics.join(" · ") : (lang === "zh" ? "待对齐" : "alignment needed")} />
+        <CatalysisFieldTile t={t} label={lang === "zh" ? "差异字段" : "Different fields"} value={differentFields.length ? differentFields.join(" · ") : (lang === "zh" ? "结构接近" : "closely aligned")} />
+        <CatalysisFieldTile t={t} label={lang === "zh" ? "桥梁指标" : "Bridge needed"} value={Array.from(new Set([...left.missingBridgeKeys, ...right.missingBridgeKeys])).slice(0, 3).map(key => lang === "zh" ? BRIDGE_CHECKLIST_ITEMS.find(item => item.key === key)?.zh || key : BRIDGE_CHECKLIST_ITEMS.find(item => item.key === key)?.en || key).join(" · ")} accent />
+      </div>
+    </div>
+  )
+}
+
+function ChartDetailPanel({ activeChart, matrixDetail, flowSelection, selectedTask, analysis, selectedComparisonRows, selectedMetric, selectedHeatmapCell, selectedQuadrantKey, lang, t }) {
+  const metric = METRIC_DOMAIN_AXES.find(item => item.key === selectedMetric) || RADAR_METRIC_AXES.find(item => item.key === selectedMetric)
+  const metricDefinition = METRIC_DEFINITIONS[selectedMetric]
+  const domain = RESEARCH_DOMAINS.find(item => item.key === selectedHeatmapCell?.domainKey)
+  const quadrant = QUADRANT_DETAILS[selectedQuadrantKey] || QUADRANT_DETAILS[analysis.statusKey]
+  const flowLabel = (() => {
+    if (flowSelection.type === "feedstock") return localized(FLOW_NODES.feedstock.find(item => item.key === flowSelection.key), lang)
+    if (flowSelection.type === "product") return localized(FLOW_NODES.products.find(item => item.key === flowSelection.key), lang)
+    if (flowSelection.type === "mode") return localized(RESEARCH_MODES.find(item => item.key === flowSelection.key), lang)
+    if (flowSelection.type === "metric") return flowSelection.key
+    return lang === "zh" ? "全部路径" : "All pathways"
+  })()
+  const panels = {
+    matrix: {
+      title: lang === "zh" ? "矩阵选择" : "Matrix selection",
+      rows: [
+        [lang === "zh" ? "领域 / 方式" : "Domain / mode", lang === "zh" ? matrixDetail.taskZh : matrixDetail.taskEn],
+        [lang === "zh" ? "相关指标" : "Relevant metrics", (lang === "zh" ? matrixDetail.metricsZh : matrixDetail.metricsEn).join(" · ")],
+        [lang === "zh" ? "条件语境" : "Condition context", (lang === "zh" ? matrixDetail.contextZh : matrixDetail.contextEn).join(" · ")],
+      ],
+    },
+    flow: {
+      title: lang === "zh" ? "路径节点" : "Pathway node",
+      rows: [
+        [lang === "zh" ? "当前节点" : "Selected node", flowLabel],
+        [lang === "zh" ? "筛选方式" : "Filter mode", lang === "zh" ? "节点驱动任务表与指标图" : "Node selection updates the task table and metric view"],
+      ],
+    },
+    radar: {
+      title: lang === "zh" ? "指标维度" : "Metric dimension",
+      rows: [
+        [lang === "zh" ? "指标" : "Metric", metric ? (lang === "zh" ? metric.zh : metric.en) : selectedMetric],
+        [lang === "zh" ? "定义" : "Definition", metricDefinition ? (lang === "zh" ? metricDefinition.zh : metricDefinition.en) : ""],
+        [lang === "zh" ? "当前任务" : "Selected task", lang === "zh" ? selectedTask.taskZh : selectedTask.taskEn],
+      ],
+    },
+    heatmap: {
+      title: lang === "zh" ? "指标-领域热图" : "Metric-domain map",
+      rows: [
+        [lang === "zh" ? "领域" : "Domain", domain ? (lang === "zh" ? domain.zh : domain.en) : "—"],
+        [lang === "zh" ? "指标" : "Metric", metric ? (lang === "zh" ? metric.zh : metric.en) : "—"],
+        [lang === "zh" ? "整理要求" : "Curation requirement", selectedHeatmapCell?.status || "pending"],
+      ],
+    },
+    quadrant: {
+      title: lang === "zh" ? "可比性象限" : "Comparability quadrant",
+      rows: [
+        [lang === "zh" ? "象限" : "Quadrant", quadrant ? (lang === "zh" ? quadrant.titleZh : quadrant.titleEn) : "—"],
+        [lang === "zh" ? "任务 A" : "Task A", selectedComparisonRows[0] ? (lang === "zh" ? selectedComparisonRows[0].taskZh : selectedComparisonRows[0].taskEn) : "—"],
+        [lang === "zh" ? "任务 B" : "Task B", selectedComparisonRows[1] ? (lang === "zh" ? selectedComparisonRows[1].taskZh : selectedComparisonRows[1].taskEn) : "—"],
+        [lang === "zh" ? "判断" : "Status", lang === "zh" ? analysis.status.zh : analysis.status.en],
+      ],
+    },
+    curation: {
+      title: lang === "zh" ? "整理状态分布" : "Curation distribution",
+      rows: [
+        [lang === "zh" ? "当前状态筛选" : "Active status filter", "curation"],
+        [lang === "zh" ? "说明" : "Note", lang === "zh" ? "基于当前工作台任务行，不代表完整数据库统计。" : "Based on current workspace task rows, not complete database statistics."],
+      ],
+    },
+  }
+  const panel = panels[activeChart] || panels.matrix
+  return (
+    <CatalysisCard t={t} strong padding={12}>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
+        <CatalysisCardTitle t={t}>{lang === "zh" ? "Selected Context / 当前选择语境" : "Selected Context"}</CatalysisCardTitle>
+        <BasisBadge tone="info">{panel.title}</BasisBadge>
+      </div>
+      <div style={{ display: "grid", gap: 8, marginTop: 10 }}>
+        {panel.rows.map(([label, value]) => (
+          <CatalysisFieldTile key={label} t={t} label={label} value={value || "—"} />
+        ))}
+      </div>
+    </CatalysisCard>
   )
 }
 
@@ -3496,6 +3954,9 @@ export function CatalysisLabTab({ onNavigate }) {
   const [selectedTaskId, setSelectedTaskId] = useState("glucose-hco3-formic-case")
   const [selectedComparisonIds, setSelectedComparisonIds] = useState(["glucose-hco3-formic-case", "co2-formate-electro"])
   const [selectedRadarMetric, setSelectedRadarMetric] = useState("condition")
+  const [selectedQuadrantKey, setSelectedQuadrantKey] = useState("bridge-needed")
+  const [selectedHeatmapCell, setSelectedHeatmapCell] = useState({ domainKey: "co2-biomass-coupling", metricKey: "carbon", status: "required" })
+  const [activeChart, setActiveChart] = useState("matrix")
   const [workspaceNotice, setWorkspaceNotice] = useState("")
   const [taskFilters, setTaskFilters] = useState({
     domain: "all",
@@ -3735,6 +4196,9 @@ export function CatalysisLabTab({ onNavigate }) {
       nextZh: ["逐字段证据", "条件语境记录", "来源状态", "产物定量方法"],
     }
   }, [selectedComparisonIds])
+  useEffect(() => {
+    setSelectedQuadrantKey(taskComparabilityAnalysis.statusKey)
+  }, [taskComparabilityAnalysis.statusKey])
   const selectedRadarTask = useMemo(() => (
     RESEARCH_TASK_ROWS.find(row => row.id === selectedTaskId) || RESEARCH_TASK_ROWS.find(row => row.id === selectedComparisonIds[0]) || RESEARCH_TASK_ROWS[0]
   ), [selectedTaskId, selectedComparisonIds])
@@ -3743,6 +4207,10 @@ export function CatalysisLabTab({ onNavigate }) {
     .map(id => RESEARCH_TASK_ROWS.find(row => row.id === id))
     .filter(Boolean)
   const selectedMatrixDetail = matrixCellDetail(matrixSelection.domainKey, matrixSelection.modeKey)
+  const handleMetricSelect = useCallback((metricKey) => {
+    setSelectedRadarMetric(metricKey)
+    setActiveChart("radar")
+  }, [])
   const chartData = useMemo(() => ({
     evidence: chartsReady ? evidenceDistribution(ranked) : [],
     scores: chartsReady ? scoreDistribution(ranked) : [],
@@ -3766,6 +4234,7 @@ export function CatalysisLabTab({ onNavigate }) {
   const syncTaskFromRow = useCallback((row) => {
     if (!row) return
     setSelectedTaskId(row.id)
+    setActiveChart("table")
     setMatrixSelection({ domainKey: row.domainKey, modeKey: row.modeKeys[0] || "thermal" })
     setSelectedRadarMetric(row.coverage?.condition ? "condition" : "selectivity")
     const relatedFeed = FLOW_NODES.feedstock.find(item => item.products.includes(row.productKey) || row.modeKeys.some(mode => item.modes.includes(mode)))
@@ -3775,6 +4244,7 @@ export function CatalysisLabTab({ onNavigate }) {
   }, [])
   const handleMatrixSelect = useCallback((selection) => {
     setMatrixSelection(selection)
+    setActiveChart("matrix")
     setTaskFilters(prev => ({
       ...prev,
       domain: selection.domainKey,
@@ -3791,6 +4261,7 @@ export function CatalysisLabTab({ onNavigate }) {
       setFlowSelection(relatedFeed ? { key: relatedFeed.key, type: "feedstock" } : { key: match.productKey, type: "product" })
       setFlowFilterActive(false)
       setSelectedRadarMetric(match.coverage?.condition ? "condition" : "selectivity")
+      setSelectedHeatmapCell({ domainKey: match.domainKey, metricKey: match.coverage?.condition ? "condition" : "selectivity", status: match.coverage?.condition || match.coverage?.selectivity || "pending" })
       setWorkspaceNotice("")
     } else {
       setWorkspaceNotice(lang === "zh" ? "该单元暂无整理任务。" : "No curated task yet for this cell.")
@@ -3798,6 +4269,7 @@ export function CatalysisLabTab({ onNavigate }) {
   }, [lang])
   const handleFlowSelect = useCallback((selection) => {
     setFlowSelection(selection)
+    setActiveChart("flow")
     setFlowFilterActive(selection.type !== "all")
     if (selection.type === "mode") {
       setTaskFilters(prev => ({ ...prev, mode: selection.key }))
@@ -3810,6 +4282,7 @@ export function CatalysisLabTab({ onNavigate }) {
     } else if (selection.type === "metric") {
       const axis = RADAR_METRIC_AXES.find(item => item.en.toLowerCase() === String(selection.key).toLowerCase() || item.key === selection.key)
       setSelectedRadarMetric(axis?.key || "condition")
+      setActiveChart("radar")
       const match = RESEARCH_TASK_ROWS.find(row => row.metricsEn.some(metric => metric.toLowerCase() === String(selection.key).toLowerCase()))
       if (match) setSelectedTaskId(match.id)
     } else if (selection.type === "feedstock") {
@@ -3825,6 +4298,7 @@ export function CatalysisLabTab({ onNavigate }) {
     syncTaskFromRow(row)
   }, [syncTaskFromRow])
   const toggleTaskComparison = useCallback((rowId) => {
+    setActiveChart("quadrant")
     setSelectedComparisonIds(prev => {
       if (prev.includes(rowId)) {
         setWorkspaceNotice("")
@@ -3845,7 +4319,34 @@ export function CatalysisLabTab({ onNavigate }) {
     setMatrixSelection({ domainKey: "co2-biomass-coupling", modeKey: "thermal" })
     setSelectedTaskId("glucose-hco3-formic-case")
     setSelectedComparisonIds([])
+    setSelectedQuadrantKey("bridge-needed")
+    setSelectedHeatmapCell({ domainKey: "co2-biomass-coupling", metricKey: "carbon", status: "required" })
+    setActiveChart("matrix")
     setWorkspaceNotice("")
+  }, [])
+  const handleCurationStatusSelect = useCallback((statusKey) => {
+    setTaskFilters(prev => ({ ...prev, curation: statusKey }))
+    setActiveChart("curation")
+    setWorkspaceNotice("")
+  }, [])
+  const handleHeatmapCellSelect = useCallback((cell) => {
+    setSelectedHeatmapCell(cell)
+    setSelectedRadarMetric(cell.metricKey)
+    setTaskFilters(prev => ({ ...prev, domain: cell.domainKey }))
+    setActiveChart("heatmap")
+    const match = RESEARCH_TASK_ROWS.find(row => row.domainKey === cell.domainKey)
+    if (match) setSelectedTaskId(match.id)
+    setWorkspaceNotice("")
+  }, [])
+  const handleHeatmapDomainSelect = useCallback((domainKey) => {
+    setTaskFilters(prev => ({ ...prev, domain: domainKey }))
+    setSelectedHeatmapCell(prev => ({ ...prev, domainKey }))
+    setActiveChart("heatmap")
+    setWorkspaceNotice("")
+  }, [])
+  const handleQuadrantSelect = useCallback((quadrantKey) => {
+    setSelectedQuadrantKey(quadrantKey)
+    setActiveChart("quadrant")
   }, [])
   const clearPathwayFilters = useCallback(() => setPathwayFilters({
     mode: "all",
@@ -4046,16 +4547,54 @@ export function CatalysisLabTab({ onNavigate }) {
                       <CatalysisCardTitle t={t}>{lang === "zh" ? "Metric Radar / 指标雷达" : "Metric Radar"}</CatalysisCardTitle>
                       <BasisBadge tone="info">{lang === "zh" ? "整理需求" : "curation requirement"}</BasisBadge>
                     </div>
-                    <MetricCoverageRadar row={selectedRadarTask} activeMetricKey={selectedRadarMetric} onMetricSelect={setSelectedRadarMetric} lang={lang} t={t} />
+                    <MetricCoverageRadar row={selectedRadarTask} activeMetricKey={selectedRadarMetric} onMetricSelect={handleMetricSelect} lang={lang} t={t} />
                   </CatalysisCard>
                   <CatalysisCard t={t} padding={12}>
                     <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center", flexWrap: "wrap", marginBottom: 8 }}>
                       <CatalysisCardTitle t={t}>{lang === "zh" ? "Comparability Quadrant / 可比性四象限" : "Comparability Quadrant"}</CatalysisCardTitle>
                       <BasisBadge tone="proxy">{lang === "zh" ? "当前比较点" : "selected comparison"}</BasisBadge>
                     </div>
-                    <ResearchComparabilityQuadrant analysis={taskComparabilityAnalysis} lang={lang} t={t} isMobile={isMobile} />
+                    <ResearchComparabilityQuadrant analysis={taskComparabilityAnalysis} selectedQuadrantKey={selectedQuadrantKey} onQuadrantSelect={handleQuadrantSelect} lang={lang} t={t} isMobile={isMobile} />
                   </CatalysisCard>
                 </div>
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(240px, 0.7fr) minmax(0, 1.45fr) minmax(260px, 0.85fr)", gap: 12, alignItems: "stretch" }}>
+                <CatalysisCard t={t} padding={12}>
+                  <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center", flexWrap: "wrap", marginBottom: 8 }}>
+                    <CatalysisCardTitle t={t}>{lang === "zh" ? "整理状态分布" : "Curation Status Distribution"}</CatalysisCardTitle>
+                    <BasisBadge tone="info">{lang === "zh" ? "任务行" : "task rows"}</BasisBadge>
+                  </div>
+                  <CurationStatusDistribution rows={RESEARCH_TASK_ROWS} activeKey={taskFilters.curation === "all" ? null : taskFilters.curation} onSelect={handleCurationStatusSelect} lang={lang} t={t} />
+                </CatalysisCard>
+                <CatalysisCard t={t} padding={12}>
+                  <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center", flexWrap: "wrap", marginBottom: 8 }}>
+                    <CatalysisCardTitle t={t}>{lang === "zh" ? "指标–领域覆盖图" : "Metric–Domain Coverage Map"}</CatalysisCardTitle>
+                    <BasisBadge tone="calc">{lang === "zh" ? "整理需求" : "coverage requirement"}</BasisBadge>
+                  </div>
+                  <MetricDomainCoverageMap
+                    selectedCell={selectedHeatmapCell}
+                    selectedMetric={selectedRadarMetric}
+                    onCellSelect={handleHeatmapCellSelect}
+                    onDomainSelect={handleHeatmapDomainSelect}
+                    onMetricSelect={handleMetricSelect}
+                    lang={lang}
+                    t={t}
+                    isMobile={isMobile}
+                  />
+                </CatalysisCard>
+                <ChartDetailPanel
+                  activeChart={activeChart}
+                  matrixDetail={selectedMatrixDetail}
+                  flowSelection={flowSelection}
+                  selectedTask={selectedWorkspaceTask}
+                  analysis={taskComparabilityAnalysis}
+                  selectedComparisonRows={selectedComparisonRows}
+                  selectedMetric={selectedRadarMetric}
+                  selectedHeatmapCell={selectedHeatmapCell}
+                  selectedQuadrantKey={selectedQuadrantKey}
+                  lang={lang}
+                  t={t}
+                />
               </div>
             </div>
           </div>
@@ -4224,6 +4763,13 @@ export function CatalysisLabTab({ onNavigate }) {
                   : "Bridge metrics indicate information needed before cross-pathway comparison; they are not validated conversion formulas."}
               </div>
             </section>
+          </div>
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, marginTop: 12, padding: 12 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center", flexWrap: "wrap", marginBottom: 10 }}>
+              <CatalysisCardTitle t={t}>{lang === "zh" ? "Pathway Comparison Mini Sankey / 路径结构对比" : "Pathway Comparison Mini Sankey"}</CatalysisCardTitle>
+              <BasisBadge tone="info">{lang === "zh" ? "结构对比" : "structural comparison"}</BasisBadge>
+            </div>
+            <PathwayComparisonMiniSankey rows={selectedComparisonRows} lang={lang} t={t} />
           </div>
         </CatalysisCard>
       </ResultLayer>
