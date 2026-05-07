@@ -4,7 +4,7 @@ import {
   getCatalysisRecords, getCatalysisTasks, getMofCandidates, getScoringWeights, BasisBadge, BrandMark, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard, CopyLinkButton,
   calculateCatalysisScore, getScoreBreakdown, getWeightContribution, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
   RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
-  DataModeToggle, RealSeedCallout, DemoModeBanner, safeVal, toolbarBtn, SectionTitle, FieldProvenanceButton,
+  DataModeToggle, RealSeedCallout, DemoModeBanner, toolbarBtn,
 } from "../../shared"
 
 // ── Catalysis Data Template helpers ──────────────────────────────────────────
@@ -49,6 +49,16 @@ const CATALYSIS_TEMPLATE_FIELDS = [
 ]
 
 const TEMPLATE_CATEGORIES = [...new Set(CATALYSIS_TEMPLATE_FIELDS.map(f => f.category))]
+const CORE_CATALYSIS_TEMPLATE_KEYS = [
+  "mof_name",
+  "metal_nodes",
+  "reaction_type",
+  "temperature_c",
+  "reaction_time_h",
+  "product",
+  "evidence_level",
+  "data_source",
+]
 
 const CSV_HEADER = CATALYSIS_TEMPLATE_FIELDS.map(f => f.key).join(",")
 
@@ -64,7 +74,7 @@ function downloadCatalysisTemplate() {
 
 function CatalysisDataTemplate({ lang, t, isNarrow, isMobile }) {
   const [open, setOpen] = useState(false)
-  const categories = TEMPLATE_CATEGORIES
+  const coreFields = CATALYSIS_TEMPLATE_FIELDS.filter(field => CORE_CATALYSIS_TEMPLATE_KEYS.includes(field.key))
 
   return (
     <details open={open} onToggle={e => setOpen(e.currentTarget.open)}
@@ -79,10 +89,13 @@ function CatalysisDataTemplate({ lang, t, isNarrow, isMobile }) {
       </summary>
 
       <div style={{ marginTop: 14, display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.7 }}>
-          {lang === "zh"
-            ? "该模板定义了后续接入真实催化数据所需的最小字段。当前 CatalysisLab 结果为基于规则的候选材料优先级排序，仍需实验验证。"
-            : "This template defines the minimum fields needed for future catalysis data ingestion. Current CatalysisLab results are rule-based candidate prioritization and require experimental validation."}
+        <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
+          {(lang === "zh"
+            ? ["催化剂", "反应条件", "产物指标", "证据来源", "CSV 模板"]
+            : ["catalyst", "conditions", "product metrics", "evidence source", "CSV template"]
+          ).map(item => (
+            <BasisBadge key={item} tone="info">{item}</BasisBadge>
+          ))}
         </div>
 
         <button type="button" onClick={downloadCatalysisTemplate}
@@ -90,43 +103,22 @@ function CatalysisDataTemplate({ lang, t, isNarrow, isMobile }) {
           ↓ {lang === "zh" ? "下载 CSV 模板" : "Download CSV template"}
         </button>
 
-        {categories.map(cat => {
-          const fields = CATALYSIS_TEMPLATE_FIELDS.filter(f => f.category === cat)
-          return (
-            <div key={cat}>
-              <SectionTitle>{cat}</SectionTitle>
-              <div style={{ overflowX: "auto" }}>
-                <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
-                  <thead>
-                    <tr style={{ background: t.surface }}>
-                      {[lang === "zh" ? "字段" : "Field", lang === "zh" ? "标签" : "Label", lang === "zh" ? "必填" : "Required", lang === "zh" ? "示例" : "Example", lang === "zh" ? "说明" : "Note"].map(h => (
-                        <th key={h} style={{ padding: "6px 10px", textAlign: "left", color: t.subtle, fontWeight: 700, borderBottom: `1px solid ${t.border}`, whiteSpace: "nowrap" }}>{h}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {fields.map((f, i) => (
-                      <tr key={f.key} style={{ background: i % 2 === 0 ? t.surface : "transparent" }}>
-                        <td style={{ padding: "5px 10px", color: t.accentSoft, fontFamily: "monospace", whiteSpace: "nowrap" }}>{f.key}</td>
-                        <td style={{ padding: "5px 10px", color: t.textStrong, whiteSpace: "nowrap" }}>{f.label}</td>
-                        <td style={{ padding: "5px 10px", color: f.required ? t.accentText : t.faint, whiteSpace: "nowrap" }}>
-                          {f.required ? (lang === "zh" ? "必填" : "required") : (lang === "zh" ? "可选" : "optional")}
-                        </td>
-                        <td style={{ padding: "5px 10px", color: t.subtle }}>{f.example}</td>
-                        <td style={{ padding: "5px 10px", color: t.faint }}>{f.note}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
+          {coreFields.map(field => (
+            <div key={field.key} style={{ ...catalysisCardStyle(t, { surface: "surface", padding: 10, radius: 8 }) }}>
+              <div style={{ color: t.accentText, fontFamily: "monospace", fontSize: 10, fontWeight: 850 }}>{field.key}</div>
+              <div style={{ color: t.textStrong, fontSize: 11, fontWeight: 780, marginTop: 5 }}>{field.label}</div>
+              <div style={{ color: t.faint, fontSize: 10, marginTop: 5 }}>
+                {field.required ? (lang === "zh" ? "必填" : "required") : (lang === "zh" ? "可选" : "optional")}
               </div>
             </div>
-          )
-        })}
+          ))}
+        </div>
 
-        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, color: t.muted, fontSize: 11, lineHeight: 1.7 }}>
+        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, color: t.muted, fontSize: 11, lineHeight: 1.6 }}>
           {lang === "zh"
-            ? "提供这些字段并不意味着一定可以训练机器学习模型。是否适合建模取决于数据量、标签质量、描述符一致性和实验条件可比性。"
-            : "Providing these fields does not guarantee that a machine learning model can be trained. Model selection depends on data volume, label quality, descriptor consistency, and experimental comparability."}
+            ? "页面只展示核心字段；完整字段仍保留在 CSV 下载模板与标准化 JSON 模板中。"
+            : "Only core fields are shown here; the full field set remains in the CSV download and normalization JSON template."}
         </div>
       </div>
     </details>
@@ -269,7 +261,7 @@ const NORMALIZATION_PIPELINE = [
   },
   {
     en: "Visualization / comparison / ML-ready fields",
-    zh: "可视化 / 对比 / ML-ready 字段",
+    zh: "可视化 / 对比 / 面向机器学习的字段",
     bodyEn: "schema first",
     bodyZh: "先结构化",
   },
@@ -323,8 +315,8 @@ const BIOMASS_MATRIX_COLUMNS = [
 
 const ML_READINESS_STAGES = [
   { en: "Stage 1", zh: "阶段 1", valueEn: "structured records", valueZh: "结构化记录" },
-  { en: "Stage 2", zh: "阶段 2", valueEn: "rule-based prioritization", valueZh: "规则辅助优先级" },
-  { en: "Stage 3", zh: "阶段 3", valueEn: "small exploratory model", valueZh: "小型探索模型" },
+  { en: "Stage 2", zh: "阶段 2", valueEn: "rule-assisted prioritization", valueZh: "规则辅助优先级" },
+  { en: "Stage 3", zh: "阶段 3", valueEn: "future exploratory model", valueZh: "后续探索性模型" },
   { en: "Stage 4", zh: "阶段 4", valueEn: "active learning / MLFF later", valueZh: "后续主动学习 / MLFF" },
 ]
 
@@ -367,17 +359,6 @@ const TASK_FAMILIES = [
     bodyEn: "Track biomass-derived substrates, product selectivity, conversion metrics, and stability notes.",
     bodyZh: "整理生物质来源底物、产物选择性、转化率指标和稳定性说明。",
   },
-]
-
-const CO2_CONVERSION_CHECKLIST = [
-  { key: "reactionTask", en: "reaction task", zh: "反应任务", status: "needs-review" },
-  { key: "targetProduct", en: "product pathway + target product", zh: "产物路径 + 目标产物", status: "needs-review" },
-  { key: "catalystRole", en: "catalyst role", zh: "催化剂角色", status: "pending" },
-  { key: "activeSiteHypothesis", en: "active-site hypothesis", zh: "活性位点假设", status: "pending" },
-  { key: "reactionCondition", en: "condition context", zh: "条件语境", status: "pending" },
-  { key: "activityMetric", en: "activity metric", zh: "活性指标", status: "pending" },
-  { key: "selectivityMetric", en: "selectivity metric", zh: "选择性指标", status: "pending" },
-  { key: "stabilityRecyclability", en: "stability / recyclability", zh: "稳定性 / 循环性能", status: "pending" },
 ]
 
 const CO2_CONVERSION_PATHWAYS = [
@@ -498,39 +479,6 @@ const CO2_CONVERSION_PATHWAYS = [
   },
 ]
 
-const CO2_CURATION_DIMENSIONS = [
-  {
-    en: "Reaction mode",
-    zh: "反应模式",
-    items: "photocatalysis, electrocatalysis, thermal catalysis, cycloaddition, photoelectrocatalysis",
-  },
-  {
-    en: "Product pathway",
-    zh: "产物路径",
-    items: "CO, formate, methanol, methane, C2+ products, cyclic carbonates, organic acids",
-  },
-  {
-    en: "Active-site hypothesis",
-    zh: "活性位点假设",
-    items: "metal node, defect site, functional linker, single-atom site, composite interface",
-  },
-  {
-    en: "Condition context",
-    zh: "条件语境",
-    items: "light source, applied potential, electrolyte, solvent, pressure, temperature, pH",
-  },
-  {
-    en: "Activity & selectivity metrics",
-    zh: "活性与选择性指标",
-    items: "TON, TOF, yield, conversion, FE, current density, rate, product distribution",
-  },
-  {
-    en: "Stability evidence",
-    zh: "稳定性证据",
-    items: "cycle count, duration, structure retention, leaching check, recyclability",
-  },
-]
-
 const BIOMASS_CO2_CONTEXT = [
   {
     en: "Reaction family",
@@ -594,7 +542,7 @@ const BIOMASS_DATA_FIELDS = [
   { en: "Metal node or modifier", zh: "金属节点或改性金属", status: "pending" },
   { en: "Functional group", zh: "官能团", status: "pending" },
   { en: "Reaction condition", zh: "反应条件", status: "needs-review" },
-  { en: "Product yield profile", zh: "产物产率分布", status: "private" },
+  { en: "Product profile", zh: "产物分布", status: "private" },
   { en: "Characterization evidence", zh: "表征证据", status: "pending" },
   { en: "Mechanism evidence", zh: "机理证据", status: "pending" },
   { en: "Stability evidence", zh: "稳定性证据", status: "pending" },
@@ -654,7 +602,7 @@ const BIOMASS_CONDITION_PROFILE = [
   { en: "CO₂/HCO₃⁻ source amount", zh: "CO₂/HCO₃⁻ 来源用量", valueEn: "NaHCO₃ 252 mg", valueZh: "NaHCO₃ 252 mg" },
   { en: "Water / solvent", zh: "水 / 溶剂", valueEn: "H₂O 10 mL", valueZh: "H₂O 10 mL" },
   { en: "Catalyst dosage", zh: "催化剂用量", valueEn: "200 mg", valueZh: "200 mg" },
-  { en: "Condition status", zh: "条件状态", valueEn: "collaborator-context / pending review", valueZh: "collaborator-context / 待复核" },
+  { en: "Condition status", zh: "条件状态", valueEn: "collaborator context / pending review", valueZh: "当前语境 / 待复核" },
 ]
 
 const BIOMASS_CASE_PRODUCTS = [
@@ -767,7 +715,7 @@ const BIOMASS_CASE_SUPPORTS = [
   { en: "reaction condition tracking", zh: "反应条件追踪" },
   { en: "product distribution review", zh: "产物分布复核" },
   { en: "mechanism evidence mapping", zh: "机理证据映射" },
-  { en: "future ML-ready data accumulation", zh: "面向未来机器学习的数据积累" },
+  { en: "future ML-ready field accumulation", zh: "面向机器学习的字段积累" },
 ]
 
 const CANDIDATES = [
@@ -929,6 +877,15 @@ function zhValue(value, lang) {
     "Low-medium": "低-中",
     Possible: "可能",
     No: "否",
+    experimental: "实验数据",
+    "literature-supported": "文献支持",
+    "simulation-supported": "模拟支持",
+    "ML-predicted": "机器学习预测",
+    "rule-based": "规则辅助",
+    "needs-validation": "待验证",
+    low: "低",
+    medium: "中",
+    high: "高",
   }[value] || value
 }
 
@@ -938,7 +895,7 @@ function curationStatusLabel(status, lang) {
     "needs-review": lang === "zh" ? "需复核" : "needs review",
     pending: lang === "zh" ? "待补充" : "pending",
     planned: lang === "zh" ? "计划整理" : "Planned curation",
-    private: lang === "zh" ? "私有草稿" : "private",
+    private: lang === "zh" ? "保密" : "private",
     "schema-only": lang === "zh" ? "仅字段结构" : "schema only",
   }
   return labels[status] || labels.pending
@@ -954,7 +911,11 @@ function pendingCatalysisValue(value, lang) {
   if (value == null || value === "" || value === "pending") return lang === "zh" ? "待补充" : "Pending"
   if (value === "planned") return lang === "zh" ? "计划整理" : "Planned curation"
   if (value === "schema-only") return lang === "zh" ? "仅字段结构" : "Schema only"
-  if (value === "private") return lang === "zh" ? "私有草稿" : "Private"
+  if (value === "private") return lang === "zh" ? "保密" : "Private"
+  if (value === "pending review") return lang === "zh" ? "待复核" : "Pending review"
+  if (value === "needs review") return lang === "zh" ? "需复核" : "Needs review"
+  if (value === "source pending") return lang === "zh" ? "来源待补充" : "Source pending"
+  if (value === "evidence pending") return lang === "zh" ? "证据待补充" : "Evidence pending"
   return value
 }
 
@@ -1261,7 +1222,7 @@ function CaseStudyWorkspace({ t, lang, isMobile, isNarrow, activeTab, onTabChang
       return (
         <div style={{ display: "grid", gap: 11 }}>
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-            <BasisBadge tone="proxy">{lang === "zh" ? "合作者语境" : "collaborator-context"}</BasisBadge>
+            <BasisBadge tone="proxy">{lang === "zh" ? "当前语境" : "collaborator context"}</BasisBadge>
             <BasisBadge tone="proxy">{lang === "zh" ? "待复核" : "pending review"}</BasisBadge>
             <BasisBadge tone="info">{lang === "zh" ? "非通用最佳" : "not universal optimum"}</BasisBadge>
           </div>
@@ -1272,7 +1233,7 @@ function CaseStudyWorkspace({ t, lang, isMobile, isNarrow, activeTab, onTabChang
           </div>
           <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55 }}>
             {lang === "zh"
-              ? "170 ℃ 基准条件来自合作者提供的当前反应语境，不应被视为所有 MOF 催化剂的通用最佳条件。"
+              ? "170 ℃ 基准条件来自合作者提供的反应语境，仅用于字段结构示例，不应被理解为所有 MOF 催化剂的通用最佳条件。"
               : "The 170 ℃ baseline reflects a collaborator-provided current reaction context and should not be treated as a universal optimum for all MOF catalysts."}
           </div>
         </div>
@@ -1377,7 +1338,7 @@ function CaseStudyWorkspace({ t, lang, isMobile, isNarrow, activeTab, onTabChang
       <CatalysisCard t={t} strong padding={isMobile ? 13 : 16}>
         <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 12 }}>
           <div>
-            <CatalysisKicker t={t}>{lang === "zh" ? "Case Study Workspace" : "Case Study Workspace"}</CatalysisKicker>
+            <CatalysisKicker t={t}>{lang === "zh" ? "案例模板工作区" : "Case Study Workspace"}</CatalysisKicker>
             <CatalysisCardTitle t={t}>{lang === "zh" ? CASE_WORKSPACE_TABS.find(tab => tab.id === activeTab)?.zh : CASE_WORKSPACE_TABS.find(tab => tab.id === activeTab)?.en}</CatalysisCardTitle>
           </div>
           <BasisBadge tone="info">{lang === "zh" ? "仅字段结构" : "schema-only"}</BasisBadge>
@@ -1415,8 +1376,8 @@ function CatalysisRecordPreview({ records, status, lang, t }) {
     <div style={{ display: "grid", gap: 12 }}>
       <Callout tone="info">
         {lang === "zh"
-          ? "这些记录用于定义未来催化数据接入的整理结构，不是已验证性能记录。"
-          : "These records define the curation schema for future catalysis data ingestion. They are not validated performance entries."}
+          ? "记录预览展示路径、产物、证据和来源状态，便于后续复核。"
+          : "Record preview shows pathway, product, evidence, and source status for later review."}
       </Callout>
       {status === "loading" && <Callout tone="info">{lang === "zh" ? "正在加载催化记录结构…" : "Loading catalysis record schema..."}</Callout>}
       {status === "error" && <Callout tone="warn">{lang === "zh" ? "催化记录结构加载失败。请刷新页面或检查 GitHub Pages 网络访问。" : "Catalysis record schema could not be loaded. Please refresh or check GitHub Pages network access."}</Callout>}
@@ -1482,7 +1443,7 @@ const WORKFLOW_STEPS = [
   { enLabel: "Task",        zhLabel: "任务",    enVal: "CO₂ conversion",           zhVal: "CO₂ 转化" },
   { enLabel: "Dataset",     zhLabel: "数据集",  enVal: "Real Seed / Demo fallback", zhVal: "真实种子 / 演示回退" },
   { enLabel: "Descriptors", zhLabel: "描述符",  enVal: "CO₂ uptake · metal nodes · pore size · surface area · stability · evidence level", zhVal: "CO₂ 吸附量 · 金属节点 · 孔径 · 比表面积 · 稳定性 · 证据等级" },
-  { enLabel: "Scoring",     zhLabel: "评分",    enVal: "Rule-based Catalysis Potential Score", zhVal: "规则驱动催化潜力分" },
+  { enLabel: "Scoring",     zhLabel: "评分",    enVal: "Rule-assisted Catalysis Potential Score", zhVal: "规则辅助催化潜力分" },
   { enLabel: "Output",      zhLabel: "输出",    enVal: "Candidate priority ranking", zhVal: "候选材料优先级排序" },
 ]
 
@@ -1548,8 +1509,8 @@ function CandidatePrioritizationWorkspace({ lang, t, isNarrow, isMobile, realSee
         {/* Disclaimer */}
         <div style={{ background: t.badgeWarnBg || "#fffbeb", border: `1px solid ${t.warn || "#f59e0b"}`, borderRadius: 8, padding: "9px 13px", fontSize: 12, color: t.warn || "#92400e", lineHeight: 1.65 }}>
           {lang === "zh"
-            ? "用于讨论数据整理优先级的规则驱动候选排序，不代表最终催化性能。"
-            : "Rule-based candidate ranking for discussing curation priority, not final catalytic performance."}
+            ? "用于讨论数据整理优先级的规则辅助候选材料参考，后续仍需实验复核。"
+            : "Rule-assisted candidate prioritization for discussing curation priority, not final catalytic performance."}
         </div>
 
         {/* Workflow steps */}
@@ -1897,7 +1858,7 @@ export function CatalysisLabTab({ onNavigate }) {
         <div style={{ display: "grid", gap: 12 }}>
           <div style={{ display: "flex", gap: 7, flexWrap: "wrap", alignItems: "center" }}>
             {(lang === "zh"
-              ? ["字段结构优先", "非已验证性能", "不展示私密数值", "ML-ready 字段，不是已训练模型"]
+              ? ["字段结构优先", "非已验证性能", "不展示私密数值", "面向机器学习的字段"]
               : ["schema-first", "not validated performance", "no private values", "ML-ready fields, not trained model"]
             ).map((item, index) => (
               <BasisBadge key={item} tone={index === 1 ? "warn" : index === 2 ? "proxy" : "info"}>{item}</BasisBadge>
@@ -1907,7 +1868,7 @@ export function CatalysisLabTab({ onNavigate }) {
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             {[
               [lang === "zh" ? "CO₂ 路径" : "CO₂ pathways", "02"],
-              [lang === "zh" ? "Biomass workspace" : "Biomass workspace", "03"],
+              [lang === "zh" ? "生物质工作区" : "Biomass workspace", "03"],
               [lang === "zh" ? "数据标准化" : "Data normalization", "04"],
               [lang === "zh" ? "候选排序 / 记录" : "Candidates / records", "05"],
             ].map(([label, number]) => (
@@ -1954,7 +1915,7 @@ export function CatalysisLabTab({ onNavigate }) {
                   {priority && <BasisBadge tone="info">{lang === "zh" ? family.badgeZh : family.badgeEn}</BasisBadge>}
                 </div>
                 <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45, marginTop: 7 }}>
-                  {lang === "zh" ? "任务入口 / 规则排序上下文" : "Task entry / ranking context"}
+                  {lang === "zh" ? "任务入口 / 规则辅助上下文" : "Task entry / rule-assisted context"}
                 </div>
               </button>
             )
@@ -2121,10 +2082,10 @@ export function CatalysisLabTab({ onNavigate }) {
         <div style={{ display: "grid", gap: 12 }}>
           <div style={{ display: "flex", gap: 7, flexWrap: "wrap", alignItems: "center" }}>
             <BasisBadge tone="info">{lang === "zh" ? "整理框架" : "curation framework"}</BasisBadge>
-            <BasisBadge tone="proxy">{lang === "zh" ? "schema-first" : "schema-first"}</BasisBadge>
+            <BasisBadge tone="proxy">{lang === "zh" ? "字段结构优先" : "schema-first"}</BasisBadge>
             <span style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
               {lang === "zh"
-                ? "用于组织葡萄糖 / 生物质衍生物与 CO₂/HCO₃⁻ 协同转化记录，不代表已验证性能。"
+                ? "用于整理葡萄糖 / 生物质衍生物与 CO₂/HCO₃⁻ 协同转化记录。"
                 : "Organizes glucose / biomass-derivative conversion with CO₂/HCO₃⁻ context; not a validated performance claim."}
             </span>
           </div>
@@ -2153,10 +2114,10 @@ export function CatalysisLabTab({ onNavigate }) {
             <CatalysisCard t={t} strong>
               <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "flex-start", flexWrap: "wrap" }}>
                 <CatalysisCardTitle t={t}>{lang === "zh" ? "示例基准条件" : "Example baseline condition"}</CatalysisCardTitle>
-                <BasisBadge tone="proxy">{lang === "zh" ? "collaborator-context / 待复核" : "collaborator-context / pending review"}</BasisBadge>
+                <BasisBadge tone="proxy">{lang === "zh" ? "当前语境 / 待复核" : "collaborator context / pending review"}</BasisBadge>
               </div>
               <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 9 }}>
-                <BasisBadge tone="proxy">{lang === "zh" ? "合作者语境" : "collaborator-context"}</BasisBadge>
+                <BasisBadge tone="proxy">{lang === "zh" ? "当前语境" : "collaborator context"}</BasisBadge>
                 <BasisBadge tone="proxy">{lang === "zh" ? "待复核" : "pending review"}</BasisBadge>
                 <BasisBadge tone="info">{lang === "zh" ? "非通用最佳" : "not universal optimum"}</BasisBadge>
               </div>
@@ -2167,7 +2128,7 @@ export function CatalysisLabTab({ onNavigate }) {
               </div>
               <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 10 }}>
                 {lang === "zh"
-                  ? "该基准条件来自合作者提供的当前反应语境，不应被视为所有 MOF 催化剂的通用最佳条件。"
+                  ? "当前基准条件来自合作者提供的反应语境，仅用于字段结构示例，不应被理解为所有 MOF 催化剂的通用最佳条件。"
                   : "This baseline reflects a collaborator-provided current reaction context and should not be treated as a universal optimum for all MOF catalysts."}
               </div>
             </CatalysisCard>
@@ -2225,14 +2186,14 @@ export function CatalysisLabTab({ onNavigate }) {
                 <CatalysisKicker t={t}>{lang === "zh" ? "案例模板" : "Case template"}</CatalysisKicker>
                 <CatalysisCardTitle t={t}>{lang === "zh" ? "生物质辅助 CO₂/HCO₃⁻ 转化案例模板" : "Biomass-assisted CO₂/HCO₃⁻ Case Study Template"}</CatalysisCardTitle>
               </div>
-              <BasisBadge tone="info">workspace</BasisBadge>
+              <BasisBadge tone="info">{lang === "zh" ? "工作区" : "workspace"}</BasisBadge>
             </div>
             <div style={{ display: "flex", gap: 7, flexWrap: "wrap", alignItems: "center", marginTop: 10 }}>
               <BasisBadge tone="info">{lang === "zh" ? "仅字段结构" : "schema-only"}</BasisBadge>
               <BasisBadge tone="proxy">{lang === "zh" ? "无私密数值" : "no private values"}</BasisBadge>
               <span style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
                 {lang === "zh"
-                  ? "展示未来公开文献或经合作者同意记录的结构化方式。"
+                ? "展示未来公开文献或经合作者同意记录的结构化方式。"
                   : "Shows how future public literature or collaborator-approved records can be structured."}
               </span>
             </div>
@@ -2345,8 +2306,8 @@ export function CatalysisLabTab({ onNavigate }) {
             </div>
             <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.55, marginTop: 9 }}>
               {lang === "zh"
-                ? "早期合作阶段强调结构化、规则辅助和字段设计，不声称已有训练好的预测模型。"
-              : "Early collaboration emphasizes structure, rule-based support, and field design; no trained predictive model is claimed."}
+                ? "当前阶段重点是结构化、规则辅助和字段设计，为后续探索性模型做准备。"
+                : "Early collaboration emphasizes structure, rule-assisted support, and field design; no trained predictive model is claimed."}
             </div>
           </CatalysisCard>
 
@@ -2357,7 +2318,7 @@ export function CatalysisLabTab({ onNavigate }) {
       <ResultLayer number="05" title={lang === "zh" ? "候选材料优先级与记录预览" : "Candidate Prioritization & Record Preview"}>
         <div style={{ display: "grid", gap: 12 }}>
           <div style={{ display: "flex", gap: 7, flexWrap: "wrap", alignItems: "center" }}>
-            <BasisBadge tone="warn">{lang === "zh" ? "规则驱动排序" : "rule-based ranking"}</BasisBadge>
+            <BasisBadge tone="warn">{lang === "zh" ? "规则辅助排序" : "rule-assisted ranking"}</BasisBadge>
             <BasisBadge tone="info">{lang === "zh" ? "整理优先级" : "curation priority"}</BasisBadge>
             <BasisBadge tone="proxy">{lang === "zh" ? "非最终催化性能" : "not final performance"}</BasisBadge>
           </div>
@@ -2391,7 +2352,7 @@ export function CatalysisLabTab({ onNavigate }) {
                     cursor: "pointer",
                   }}>
                     <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>{zhTask(item, lang)}</div>
-                    <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45, marginTop: 5 }}>{lang === "zh" ? "规则驱动模型" : "Rule-based model"}</div>
+                    <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.45, marginTop: 5 }}>{lang === "zh" ? "规则辅助模型" : "Rule-assisted model"}</div>
                   </button>
                 ))}
               </div>
@@ -2407,7 +2368,7 @@ export function CatalysisLabTab({ onNavigate }) {
           </CatalysisCard>
 
           <CatalysisCard t={t}>
-            <CatalysisCardTitle t={t}>{lang === "zh" ? "Rule-based Catalysis Potential Score 排名" : "Rule-based Catalysis Potential Score ranking"}</CatalysisCardTitle>
+            <CatalysisCardTitle t={t}>{lang === "zh" ? "规则辅助催化潜力评分排名" : "Rule-assisted Catalysis Potential Score ranking"}</CatalysisCardTitle>
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 12, alignItems: "start", marginTop: 12 }}>
               {ranked.length === 0 && (
                 <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
@@ -2424,10 +2385,10 @@ export function CatalysisLabTab({ onNavigate }) {
                     lang === "zh" ? "较高 CO₂ 亲和能力可能有利于反应物富集。" : "High CO₂ affinity may benefit reactant enrichment.",
                     lang === "zh" ? "合适孔径可能有利于分子扩散。" : "Suitable pore size may support molecular diffusion.",
                     lang === "zh" ? "金属节点可能提供 Lewis 酸位点或氧化还原活性位点。" : "Metal nodes may provide Lewis acidic or redox-active sites.",
-                    lang === "zh" ? "当前证据为规则推断，仍需实验验证。" : "Current evidence is rule-based and requires experimental validation.",
+                    lang === "zh" ? "当前证据为规则辅助线索，仍需实验复核。" : "Current evidence is rule-assisted and requires experimental validation.",
                   ]}
-                  evidenceLevel={`${lang === "zh" ? "证据等级" : "Evidence Level"}: ${candidate.evidenceLevel || "rule-based"}`}
-                  limitations={lang === "zh" ? "Demo / placeholder / rule-based 数据；不代表真实催化活性或选择性。" : "Demo / placeholder / rule-based data; not real catalytic activity or selectivity."}
+                  evidenceLevel={`${lang === "zh" ? "证据等级" : "Evidence Level"}: ${candidate.evidenceLevel || "rule-assisted"}`}
+                  limitations={lang === "zh" ? "演示 / 占位 / 规则辅助数据；用于候选优先级参考。" : "Demo / placeholder / rule-assisted data for candidate-priority reference."}
                   recommendedNextStep={lang === "zh"
                     ? ["定义反应条件与对照实验", "验证转化率、选择性和循环稳定性", "补充机理表征"]
                     : ["Define reaction conditions and controls", "Validate conversion, selectivity, and cycling stability", "Add mechanistic characterization"]}
@@ -2473,14 +2434,19 @@ export function CatalysisLabTab({ onNavigate }) {
           </CatalysisCard>
 
           <CatalysisCard t={t} surface="surface">
-            <CatalysisCardTitle t={t}>{lang === "zh" ? "Machine Learning Evaluation 占位" : "Machine Learning Evaluation Placeholder"}</CatalysisCardTitle>
+            <CatalysisCardTitle t={t}>{lang === "zh" ? "机器学习评估占位" : "Machine Learning Evaluation Placeholder"}</CatalysisCardTitle>
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10, marginTop: 11 }}>
-              {[
-                ["Predicted vs Actual", lang === "zh" ? "需要带标签数据" : "requires labeled data"],
-                ["Residual Plot", lang === "zh" ? "模型训练后启用" : "after model training"],
-                ["Rule Contribution", lang === "zh" ? "规则贡献，不是 Feature Importance" : "rule contribution, not feature importance"],
-                ["R² / MAE / RMSE", lang === "zh" ? "pending，不伪造指标" : "pending, no fabricated metrics"],
-              ].map(([title, body]) => (
+              {(lang === "zh" ? [
+                ["预测与实测", "需要带标签数据"],
+                ["残差分析", "模型训练后启用"],
+                ["规则贡献", "规则贡献，不是特征重要性"],
+                ["R² / MAE / RMSE", "待补充，不伪造指标"],
+              ] : [
+                ["Predicted vs Actual", "requires labeled data"],
+                ["Residual Plot", "after model training"],
+                ["Rule Contribution", "rule contribution, not feature importance"],
+                ["R² / MAE / RMSE", "pending, no fabricated metrics"],
+              ]).map(([title, body]) => (
                 <CatalysisFieldTile key={title} t={t} label={title} value={body} />
               ))}
             </div>
