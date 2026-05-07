@@ -28,7 +28,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
         ? "查看哪些字段已整理、哪些待整理，以及证据等级是否明确。"
         : "See which fields are curated, pending, and supported by evidence levels.",
       target: "mofLibrary",
-      tone: "neutral",
+      tone: "info",
     },
     {
       id: "provenance",
@@ -38,7 +38,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
         ? "查看描述符来源、测试条件和整理状态。"
         : "Review descriptor source, measurement condition, and curation status.",
       target: "data-quality-provenance",
-      tone: "calc",
+      tone: "info",
     },
     {
       id: "compare",
@@ -49,7 +49,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
         : "Select 2–4 MOF candidates and compare descriptor completeness, key properties, evidence levels, and provenance coverage.",
       tag: lang === "zh" ? "决策支持" : "Decision support",
       target: "mofLibrary",
-      tone: "proxy",
+      tone: "info",
     },
   ], [lang])
 
