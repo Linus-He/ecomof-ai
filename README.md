@@ -57,6 +57,10 @@ A biomass-assisted CO₂/HCO₃⁻ conversion template can organize reaction con
 - ML-ready fields do not mean a trained predictive model is available.
 - Experimental validation, complete LCA, rigorous GCMC/IAST analysis, and uncertainty reporting remain outside the current prototype.
 
+## Disclaimer Center
+
+EcoMOF-AI centralizes use boundaries in a Disclaimer Center covering prototype status, data interpretation, scoring, sustainability signals, catalysis records, ML-ready fields, and collaborator-private data.
+
 ## Citation
 
 GitHub citation metadata is provided in [`CITATION.cff`](./CITATION.cff).

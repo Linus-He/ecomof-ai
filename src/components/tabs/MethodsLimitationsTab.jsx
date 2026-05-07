@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import {
   useT, useLang, useViewport,
   FONT_MONO,
-  BasisBadge, SectionTitle, Callout, PageHeader, CopyLinkButton, getReferences,
+  BasisBadge, SectionTitle, Callout, PageHeader, CopyLinkButton, DisclaimerLink, getReferences,
 } from "../../shared"
 
 const PROJECT_CITATION_EN = "Linus-He. EcoMOF-AI: An early-stage research prototype for MOF candidate screening, sustainability evaluation, catalysis-oriented exploration, and field-level data provenance. GitHub Pages, 2026. Available at: https://linus-he.github.io/ecomof-ai/"
@@ -187,6 +187,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       ["case-study-templates", "案例模板"],
       ["benchmark-references", "标杆参考"],
       ["validation-evidence", "验证与证据"],
+      ["method-disclaimer-center", "声明中心"],
       ["method-limitations", "限制说明"],
       ["method-references", "参考与引用"],
     ]
@@ -201,6 +202,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       ["case-study-templates", "Case Study Templates"],
       ["benchmark-references", "Benchmark References"],
       ["validation-evidence", "Validation & Evidence"],
+      ["method-disclaimer-center", "Disclaimer Center"],
       ["method-limitations", "Limitations"],
       ["method-references", "References & Citation"],
     ]
@@ -853,8 +855,9 @@ export function MethodsLimitationsTab({ onNavigate }) {
             </div>
             <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.7 }}>
               {zh
-                ? "EcoMOF-AI 尚未经过同行评审或独立科学验证。平台评分和排序不应被引用为已验证的计算预测结果。所有结果在用于科学结论之前，都需要独立的实验和计算验证。"
-                : "EcoMOF-AI has not undergone peer review or independent scientific validation. Scores and rankings should not be cited as validated computational predictions. All results require independent experimental and computational verification before use in scientific conclusions."}
+                ? "EcoMOF-AI 尚未经过同行评审或独立科学验证；评分和排序不应被引用为已验证预测。"
+                : "EcoMOF-AI has not undergone peer review or independent scientific validation; scores and rankings should not be cited as validated predictions."}{" "}
+              <DisclaimerLink />
             </div>
           </div>
 
@@ -862,6 +865,36 @@ export function MethodsLimitationsTab({ onNavigate }) {
             <CopyLinkButton hash="validation-evidence" label={zh ? "复制验证与证据链接" : "Copy Validation & Evidence link"} copiedLabel={zh ? "链接已复制" : "Link copied"} ariaLabel={zh ? "复制验证与证据链接" : "Copy Validation & Evidence link"} />
           </div>
         </div>
+      </MethodSection>
+
+      <MethodSection
+        id="method-disclaimer-center"
+        title={zh ? "Disclaimer Center / 声明与使用边界" : "Disclaimer Center"}
+        body={zh
+          ? "查看关于原型状态、数据解读、评分、可持续性信号、催化记录、面向机器学习字段和合作者保密数据的集中说明。"
+          : "Review the centralized boundaries for prototype status, data interpretation, scoring, sustainability signals, catalysis records, ML-ready fields, and collaborator-private data."}
+        t={t}
+      >
+        <button
+          type="button"
+          onClick={() => onNavigate?.("disclaimer")}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 7,
+            padding: "8px 12px",
+            borderRadius: 7,
+            background: t.badgeInfoBg,
+            border: `1px solid ${t.border}`,
+            color: t.accentText,
+            fontSize: 11,
+            fontWeight: 800,
+            cursor: "pointer",
+            fontFamily: FONT_MONO,
+          }}
+        >
+          {zh ? "查看声明" : "Open Disclaimer"}
+        </button>
       </MethodSection>
 
       <MethodSection

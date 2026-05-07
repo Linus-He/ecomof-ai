@@ -6,7 +6,7 @@ import {
 import {
   useT, useLang, useViewport,
   LITERATURE_DB, getAdsorptionLabels, getMofCandidates, getMofStructures, buildDatabaseRecords, downloadTextFile, toolbarBtn,
-  BasisBadge, PageHeader, ResultLayer, Callout, DataModeToggle, RealSeedCallout, DataModeNote, safeVal, CopyLinkButton,
+  BasisBadge, PageHeader, ResultLayer, Callout, DataModeToggle, RealSeedCallout, DataModeNote, safeVal, CopyLinkButton, DisclaimerLink,
   FieldProvenanceButton, SectionTitle, EvidenceLevelLegend,
 } from "../../shared"
 import { CandidateComparisonModal, CompareTray } from "../mof/CandidateComparisonModal"
@@ -493,9 +493,8 @@ export function MOFLibraryTab({ results, inputs }) {
       </section>
 
       <Callout tone="info">
-        {lang === "zh"
-          ? "当前数据包含 demo / placeholder / seed records。字段用于 early-stage screening 的数据审计，不能直接解释为实验性能、催化结论或完整 LCA 结论。"
-          : "Current data include demo / placeholder / seed records. Fields support data audit for early-stage screening and should not be read as experimental performance, catalysis conclusions, or complete LCA conclusions."}
+        {lang === "zh" ? "描述符记录需结合整理状态和字段来源解读。" : "Descriptor records depend on curation status and provenance."}{" "}
+        <DisclaimerLink />
       </Callout>
 
       <ResultLayer number="01" title={lang === "zh" ? "搜索与基础筛选" : "Search and Basic Filters"}>

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react"
 import {
   useT, useLang, useViewport,
   FONT_MONO,
-  BasisBadge, Callout, CopyLinkButton, PageHeader, SectionTitle,
+  BasisBadge, Callout, CopyLinkButton, DisclaimerLink, PageHeader, SectionTitle,
   getGasSeparationRecords,
 } from "../../shared"
 
@@ -136,9 +136,8 @@ export function GasSepTab() {
       />
 
       <Callout tone="info">
-        {zh
-          ? "气体吸附与分离数据高度依赖测试或计算条件。选择性和吸附量应结合气体比例、温度、压力、方法和来源共同解读。"
-          : "Gas adsorption and separation data are condition-sensitive. Selectivity and uptake should be interpreted with gas ratio, temperature, pressure, method, and source context."}
+        {zh ? "仅为带条件说明的数据记录；数值需结合条件语境解读。" : "Condition-aware records only; values require matching context."}{" "}
+        <DisclaimerLink />
       </Callout>
       <Callout tone="warn">
         {zh

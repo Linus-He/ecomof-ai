@@ -68,6 +68,10 @@ export const HASH_META = {
     title: "Acknowledgements | EcoMOF-AI",
     description: "Acknowledgements and maintainer information for the EcoMOF-AI early-stage research prototype.",
   },
+  disclaimer: {
+    title: "Disclaimer Center | EcoMOF-AI",
+    description: "Centralized use boundaries for EcoMOF-AI prototype status, data interpretation, scoring, sustainability signals, catalysis records, machine learning, and collaborator-private data.",
+  },
   "validation-evidence": {
     title: "Validation & Evidence | EcoMOF-AI",
     description: "Current validation status, what is explicitly checked, future validation plans, and non-validation disclaimer for EcoMOF-AI.",

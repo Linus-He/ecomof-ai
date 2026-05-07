@@ -4,7 +4,7 @@ import {
   gasLabel, getGasSystem, getMofCandidates, toolbarBtn,
   buildScoredCandidates, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
   RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
-  BasisBadge, PageHeader, ResultLayer, Callout, UnifiedCandidateCard, DataModeToggle, RealSeedCallout, DemoModeBanner, safeVal, CopyLinkButton,
+  BasisBadge, PageHeader, ResultLayer, Callout, UnifiedCandidateCard, DataModeToggle, RealSeedCallout, DemoModeBanner, safeVal, CopyLinkButton, DisclaimerLink,
   FieldProvenanceButton,
 } from "../../shared"
 import { ScreeningTab } from "./ScreeningTab"
@@ -187,6 +187,11 @@ export function PerformanceTab({
           </>
         }
       />
+
+      <Callout tone="info">
+        {lang === "zh" ? "仅为规则辅助优先级参考。" : "Rule-assisted priority only."}{" "}
+        <DisclaimerLink />
+      </Callout>
 
       {/* ── Mode selector cards ───────────────────────────────────────────── */}
       <div style={{

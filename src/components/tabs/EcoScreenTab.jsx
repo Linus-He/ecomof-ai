@@ -5,7 +5,7 @@ import {
   getAdsorptionLabels, getMofStructures, buildDatabaseRecords, toolbarBtn,
   calculateEcoScore, getScoreBreakdown, getWeightContribution, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
   RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
-  BasisBadge, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard, CopyLinkButton,
+  BasisBadge, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard, CopyLinkButton, DisclaimerLink,
 } from "../../shared"
 
 const ECO_LOAD_NOTICE_MS = 700
@@ -266,9 +266,8 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
       />
 
       <Callout tone="info">
-        {lang === "zh"
-          ? "EcoScreen 的目标是帮助形成低负担候选清单。数据库字段、模型评分和代理清单不能直接等同于科研结论。"
-          : "EcoScreen helps form lower-burden candidate shortlists. Database fields, model scores, and proxy inventories are not direct scientific conclusions."}
+        {lang === "zh" ? "仅为早期可持续性信号。" : "Early-stage sustainability signals only."}{" "}
+        <DisclaimerLink />
       </Callout>
       {dataStatus === "loading" && (
         <Callout tone="info">{lang === "zh" ? "正在加载 EcoScreen 数据…" : "Loading EcoScreen data..."}</Callout>
@@ -365,8 +364,8 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
             </div>
             <Callout tone="warn">
               {lang === "zh"
-                ? "本次 EcoScreen 运行是基于当前可用描述符的前端决策支持预览，不代表完整 LCA 结果或已验证材料预测。"
-                : "This EcoScreen run is a front-end decision-support preview based on available descriptors. It is not a final LCA result or validated material prediction."}
+                ? "本次运行基于当前可用描述符，仅用于早期决策支持预览。"
+                : "This run is based on currently available descriptors and is an early-stage decision-support preview."}
             </Callout>
           </div>
         </ResultLayer>

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 import {
   useT, useLang, useViewport,
-  getCatalysisRecords, getCatalysisTasks, getMofCandidates, getScoringWeights, BasisBadge, BrandMark, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard, CopyLinkButton,
+  getCatalysisRecords, getCatalysisTasks, getMofCandidates, getScoringWeights, BasisBadge, BrandMark, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard, CopyLinkButton, DisclaimerLink,
   calculateCatalysisScore, getScoreBreakdown, getWeightContribution, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
   RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
   DataModeToggle, RealSeedCallout, DemoModeBanner, toolbarBtn,
@@ -1854,12 +1854,19 @@ export function CatalysisLabTab({ onNavigate }) {
         <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
       )}
 
+      <Callout tone="info">
+        {lang === "zh"
+          ? "字段结构优先的催化工作台；不展示私密数值，也不代表已训练模型。"
+          : "Schema-first catalysis workspace; no private values or trained ML model."}{" "}
+        <DisclaimerLink />
+      </Callout>
+
       <ResultLayer number="01" title={lang === "zh" ? "CatalysisLab 总览" : "CatalysisLab Overview"}>
         <div style={{ display: "grid", gap: 12 }}>
           <div style={{ display: "flex", gap: 7, flexWrap: "wrap", alignItems: "center" }}>
             {(lang === "zh"
-              ? ["字段结构优先", "非已验证性能", "不展示私密数值", "面向机器学习的字段"]
-              : ["schema-first", "not validated performance", "no private values", "ML-ready fields, not trained model"]
+              ? ["字段结构优先", "不展示私密数值", "面向机器学习的字段"]
+              : ["schema-first", "no private values", "ML-ready fields"]
             ).map((item, index) => (
               <BasisBadge key={item} tone={index === 1 ? "warn" : index === 2 ? "proxy" : "info"}>{item}</BasisBadge>
             ))}

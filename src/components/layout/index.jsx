@@ -437,3 +437,4 @@ export function InternalNav({ items, active, onChange }) {
 
 export { ContactModal } from "./ContactModal"
 export { AcknowledgementsModal } from "./AcknowledgementsModal"
+export { DisclaimerModal } from "./DisclaimerModal"

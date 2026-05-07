@@ -100,6 +100,46 @@ export function CopyLinkButton({
   )
 }
 
+export function openDisclaimerCenter() {
+  if (typeof window === "undefined") return
+  const targetHash = "#disclaimer"
+  if (window.location.hash !== targetHash) {
+    const url = `${window.location.pathname}${window.location.search}${targetHash}`
+    window.history.pushState(null, "", url)
+  }
+  const event = typeof HashChangeEvent === "function" ? new HashChangeEvent("hashchange") : new Event("hashchange")
+  window.dispatchEvent(event)
+}
+
+export function DisclaimerLink({ label, ariaLabel, style }) {
+  const t = useT()
+  const { lang } = useLang()
+  const displayLabel = label || (lang === "zh" ? "查看声明" : "See Disclaimer")
+
+  return (
+    <button
+      type="button"
+      onClick={openDisclaimerCenter}
+      aria-label={ariaLabel || (lang === "zh" ? "打开声明与使用边界" : "Open Disclaimer Center")}
+      style={{
+        background: "none",
+        border: "none",
+        padding: 0,
+        color: t.accentText,
+        cursor: "pointer",
+        fontFamily: FONT_SANS,
+        fontSize: "inherit",
+        fontWeight: 800,
+        textDecoration: "underline",
+        textUnderlineOffset: 3,
+        ...style,
+      }}
+    >
+      {displayLabel}
+    </button>
+  )
+}
+
 export const CustomTooltip = ({ active, payload, label, unitX = "bar", unitY = "mmol/g" }) => {
   const t = useT()
   if (active && payload && payload.length) {

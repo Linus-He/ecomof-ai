@@ -10,7 +10,7 @@ import { predictMOF, validateScreeningInputs } from "./utils/prediction"
 import { downloadTextFile, buildComparisonCandidate } from "./utils/report"
 import { headerChipBtn } from "./utils/styles"
 import { HASH_TO_TAB, getHashMeta, normalizeHash, tabToHash } from "./utils/deepLinks"
-import { ContextualHeaderBar, SavedRunsModal, ContactModal, AcknowledgementsModal } from "./components/layout"
+import { ContextualHeaderBar, SavedRunsModal, ContactModal, AcknowledgementsModal, DisclaimerModal } from "./components/layout"
 import { BrandMark } from "./components/ui"
 
 const lazyNamed = (loader, exportName) => lazy(async () => {
@@ -116,8 +116,11 @@ function AppShell({
   setContactOpen,
   acknowledgementsOpen,
   setAcknowledgementsOpen,
+  disclaimerOpen,
+  setDisclaimerOpen,
   closeContactModal,
   closeAcknowledgementsModal,
+  closeDisclaimerModal,
 }) {
   return (
     <div
@@ -399,6 +402,18 @@ function AppShell({
             <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
             <button
               type="button"
+              onClick={() => setDisclaimerOpen(true)}
+              style={{
+                background: "none", border: "none", padding: 0,
+                color: theme.subtle, fontSize: 12, fontWeight: 600,
+                cursor: "pointer", fontFamily: FONT_SANS,
+              }}
+            >
+              {lang === "zh" ? "声明" : "Disclaimer"}
+            </button>
+            <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
+            <button
+              type="button"
               onClick={() => setContactOpen(true)}
               style={{
                 background: "none", border: "none", padding: 0,
@@ -426,6 +441,7 @@ function AppShell({
 
       <ContactModal open={contactOpen} onClose={closeContactModal} />
       <AcknowledgementsModal open={acknowledgementsOpen} onClose={closeAcknowledgementsModal} />
+      <DisclaimerModal open={disclaimerOpen} onClose={closeDisclaimerModal} />
 
       {savedOpen && (
         <SavedRunsModal
@@ -457,6 +473,7 @@ export default function App() {
   const [savedOpen, setSavedOpen] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
   const [acknowledgementsOpen, setAcknowledgementsOpen] = useState(false)
+  const [disclaimerOpen, setDisclaimerOpen] = useState(false)
   const [comparisonTab, setComparisonTab] = useState("feasibility")
   const [comparisonFocusId, setComparisonFocusId] = useState("all")
   const [resourcesTab, setResourcesTab] = useState("dataSources")
@@ -502,6 +519,7 @@ export default function App() {
     setActiveHash(hash)
     setContactOpen(routeHash === "contact")
     setAcknowledgementsOpen(routeHash === "acknowledgements")
+    setDisclaimerOpen(routeHash === "disclaimer")
 
     if (tab) {
       setActiveTab(tab)
@@ -538,6 +556,13 @@ export default function App() {
   const closeAcknowledgementsModal = useCallback(() => {
     setAcknowledgementsOpen(false)
     if (normalizeHash(window.location.hash) === "acknowledgements") {
+      setRouteHash(tabToHash(activeTab), { replace: true })
+    }
+  }, [activeTab, setRouteHash])
+
+  const closeDisclaimerModal = useCallback(() => {
+    setDisclaimerOpen(false)
+    if (normalizeHash(window.location.hash) === "disclaimer") {
       setRouteHash(tabToHash(activeTab), { replace: true })
     }
   }, [activeTab, setRouteHash])
@@ -679,6 +704,10 @@ export default function App() {
     }
     if (target === "contact") {
       go("contact")
+      return
+    }
+    if (target === "disclaimer") {
+      go("disclaimer")
       return
     }
     if (target === "catalysisLab") {
@@ -930,8 +959,11 @@ export default function App() {
             setContactOpen={() => setRouteHash("contact")}
             acknowledgementsOpen={acknowledgementsOpen}
             setAcknowledgementsOpen={() => setRouteHash("acknowledgements")}
+            disclaimerOpen={disclaimerOpen}
+            setDisclaimerOpen={() => setRouteHash("disclaimer")}
             closeContactModal={closeContactModal}
             closeAcknowledgementsModal={closeAcknowledgementsModal}
+            closeDisclaimerModal={closeDisclaimerModal}
           />
         </ViewportCtx.Provider>
       </LangCtx.Provider>
