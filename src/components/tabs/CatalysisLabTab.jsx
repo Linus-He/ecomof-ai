@@ -30,10 +30,10 @@ export function CatalysisLabTab() {
   const t = useT()
   const { lang } = useLang()
   const { isMobile, isNarrow } = useViewport()
-  const chartHeight = isMobile ? 340 : isNarrow ? 380 : 420
+  const chartHeight = isMobile ? 360 : isNarrow ? 380 : 420
   const [filters, setFilters] = useState(DEFAULT_FILTERS)
-  const [selectedTaskId, setSelectedTaskId] = useState("glucose-hco3-formic-case")
-  const [selectedComparisonIds, setSelectedComparisonIds] = useState(["glucose-hco3-formic-case", "co2-formate-electro"])
+  const [selectedTaskId, setSelectedTaskId] = useState(null)
+  const [selectedComparisonIds, setSelectedComparisonIds] = useState([])
   const [xMetric, setXMetric] = useState("yield")
   const [yMetric, setYMetric] = useState("selectivity")
   const [productMetricFamily, setProductMetricFamily] = useState("all")

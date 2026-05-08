@@ -39,29 +39,29 @@ export function ReactionPathwayScatter({ data, selectedTaskId, onSelectTask, lan
         </div>
       </div>
       <ResponsiveContainer width="100%" height={height} minHeight={height}>
-        <ScatterChart margin={{ top: 24, right: 28, bottom: 56, left: 48 }}>
+        <ScatterChart margin={{ top: 32, right: 40, bottom: 88, left: 72 }}>
           <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
           <XAxis
             type="number"
             dataKey="conditionIntensity"
             domain={[0, 100]}
-            tick={{ fill: t.subtle, fontSize: 10 }}
+            tick={{ fill: t.subtle, fontSize: 12 }}
             angle={-20}
             textAnchor="end"
             height={56}
-            label={{ value: lang === "zh" ? "条件强度" : "Condition intensity", fill: t.subtle, fontSize: 11, dy: 44 }}
+            label={{ value: lang === "zh" ? "反应条件强度" : "Reaction condition intensity", fill: t.subtle, fontSize: 13, position: "bottom", offset: 36 }}
           />
           <YAxis
             type="number"
             dataKey="dataReadiness"
             domain={[0, 100]}
-            width={56}
-            tick={{ fill: t.subtle, fontSize: 10 }}
-            label={{ value: lang === "zh" ? "数据就绪度" : "Data readiness", fill: t.subtle, fontSize: 11, angle: -90, position: "insideLeft" }}
+            width={72}
+            tick={{ fill: t.subtle, fontSize: 12 }}
+            label={{ value: lang === "zh" ? "数据就绪度" : "Data readiness", fill: t.subtle, fontSize: 13, angle: -90, position: "left" }}
           />
           <ZAxis type="number" dataKey="z" range={[70, 360]} />
           <Tooltip content={<TooltipBody lang={lang} t={t} />} cursor={{ stroke: t.accent, strokeDasharray: "3 3" }} allowEscapeViewBox={{ x: true, y: true }} wrapperStyle={{ zIndex: 20 }} />
-          <Legend wrapperStyle={{ color: t.subtle, fontSize: 10 }} />
+          <Legend verticalAlign="top" align="right" wrapperStyle={{ color: t.subtle, fontSize: 10, paddingBottom: 16 }} />
           {domains.map(domainKey => (
             <Scatter
               key={domainKey}
