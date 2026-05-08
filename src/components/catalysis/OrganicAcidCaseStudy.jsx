@@ -68,7 +68,7 @@ function DefinitionList({ items, t }) {
   )
 }
 
-function OrganicAcidHero({ lang, t }) {
+function OrganicAcidHero({ lang, summary, t }) {
   const cards = lang === "zh"
     ? [
         ["记录生命周期", "原始记录 → 标准化记录 → 准备度等级"],
@@ -89,13 +89,13 @@ function OrganicAcidHero({ lang, t }) {
             {lang === "zh" ? "框架优先的公开演示" : "Framework-first public demo"}
           </div>
           <h2 style={{ color: t.textStrong, fontSize: 22, fontWeight: 950, lineHeight: 1.18, margin: "5px 0 0" }}>
-            {lang === "zh" ? organicAcidCaseSummary.titleZh : organicAcidCaseSummary.titleEn} v0
+            {lang === "zh" ? summary.titleZh : summary.titleEn} v0
           </h2>
           <div style={{ color: t.accentText, fontSize: 13, fontWeight: 850, marginTop: 6 }}>
-            {lang === "zh" ? organicAcidCaseSummary.pathwayZh : organicAcidCaseSummary.pathwayEn}
+            {lang === "zh" ? summary.pathwayZh : summary.pathwayEn}
           </div>
           <p style={{ color: t.muted, fontSize: 13, lineHeight: 1.62, margin: "10px 0 0", maxWidth: 920 }}>
-            {lang === "zh" ? organicAcidCaseSummary.purposeZh : organicAcidCaseSummary.purposeEn}
+            {lang === "zh" ? summary.purposeZh : summary.purposeEn}
           </p>
         </div>
 
@@ -118,7 +118,7 @@ function OrganicAcidHero({ lang, t }) {
   )
 }
 
-function CurationWorkflow({ lang, t }) {
+function CurationWorkflow({ lang, t, workflowSteps }) {
   return (
     <Panel t={t}>
       <SectionHeader
@@ -128,7 +128,7 @@ function CurationWorkflow({ lang, t }) {
         t={t}
       />
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", marginTop: 16 }}>
-        {organicAcidWorkflowSteps.map((step, index) => (
+        {workflowSteps.map((step, index) => (
           <article key={step.stepEn} style={{ background: index === 0 ? t.badgeInfoBg : t.bg, border: `1px solid ${t.border}`, borderRadius: 12, minHeight: 150, padding: 12, position: "relative" }}>
             <div style={{ alignItems: "center", display: "flex", gap: 8 }}>
               <span style={{ alignItems: "center", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, color: t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 950, height: 24, justifyContent: "center", width: 24 }}>{index + 1}</span>
@@ -149,8 +149,8 @@ function CurationWorkflow({ lang, t }) {
   )
 }
 
-function FieldPriorityModel({ lang, t }) {
-  const groups = ["required", "recommended", "derived"].map(key => organicAcidFieldPriority[key])
+function FieldPriorityModel({ fieldPriority, lang, t }) {
+  const groups = ["required", "recommended", "derived"].map(key => fieldPriority[key])
   return (
     <Panel t={t}>
       <SectionHeader
@@ -178,7 +178,7 @@ function FieldPriorityModel({ lang, t }) {
   )
 }
 
-function MockRecordTransformation({ lang, t }) {
+function MockRecordTransformation({ lang, mockRecord, t }) {
   return (
     <Panel t={t} style={{ borderLeft: `3px solid ${t.accent}` }}>
       <SectionHeader
@@ -189,9 +189,9 @@ function MockRecordTransformation({ lang, t }) {
       />
       <div style={{ display: "grid", gap: 14, gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", marginTop: 16 }}>
         <aside style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 14 }}>
-          <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 950 }}>{lang === "zh" ? organicAcidMockRecord.labelZh : organicAcidMockRecord.labelEn}</div>
+          <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 950 }}>{lang === "zh" ? mockRecord.labelZh : mockRecord.labelEn}</div>
           <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, margin: "8px 0 0" }}>
-            {lang === "zh" ? organicAcidMockRecord.rawInputZh : organicAcidMockRecord.rawInputEn}
+            {lang === "zh" ? mockRecord.rawInputZh : mockRecord.rawInputEn}
           </p>
         </aside>
         <div style={{ overflowX: "auto" }}>
@@ -204,7 +204,7 @@ function MockRecordTransformation({ lang, t }) {
               </tr>
             </thead>
             <tbody>
-              {organicAcidMockRecord.normalizedRows.map(row => (
+              {mockRecord.normalizedRows.map(row => (
                 <tr key={row.fieldEn}>
                   <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 12, fontWeight: 850, padding: "10px" }}>{lang === "zh" ? row.fieldZh : row.fieldEn}</td>
                   <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 12, lineHeight: 1.45, padding: "10px" }}>{lang === "zh" ? row.valueZh : row.valueEn}</td>
@@ -225,8 +225,8 @@ function MockRecordTransformation({ lang, t }) {
   )
 }
 
-function RecordIntakeTemplate({ lang, t }) {
-  const groups = organicAcidIntakeTemplate.reduce((acc, row) => {
+function RecordIntakeTemplate({ intakeTemplate, lang, t }) {
+  const groups = intakeTemplate.reduce((acc, row) => {
     const label = lang === "zh" ? row.groupZh : row.groupEn
     acc[label] = acc[label] || []
     acc[label].push(row)
@@ -272,7 +272,7 @@ function RecordIntakeTemplate({ lang, t }) {
   )
 }
 
-function CompletenessMatrix({ lang, t }) {
+function CompletenessMatrix({ completenessMatrix, lang, t }) {
   return (
     <Panel t={t}>
       <SectionHeader
@@ -282,7 +282,7 @@ function CompletenessMatrix({ lang, t }) {
         t={t}
       />
       <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", marginTop: 14 }}>
-        {organicAcidCompletenessMatrix.map(item => (
+        {completenessMatrix.map(item => (
           <article key={item.groupEn} style={{ border: `1px solid ${t.border}`, borderRadius: 12, padding: 12 }}>
             <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 950 }}>{lang === "zh" ? item.groupZh : item.groupEn}</div>
             <DefinitionList
@@ -304,12 +304,12 @@ function CompletenessMatrix({ lang, t }) {
   )
 }
 
-function ReadinessTrace({ lang, t }) {
+function ReadinessTrace({ lang, readinessTrace, t }) {
   const traceItems = [
-    { label: lang === "zh" ? "必需字段检查" : "Required checks", value: lang === "zh" ? organicAcidReadinessTrace.requiredChecksZh : organicAcidReadinessTrace.requiredChecksEn },
-    { label: lang === "zh" ? "推荐字段检查" : "Recommended checks", value: lang === "zh" ? organicAcidReadinessTrace.recommendedChecksZh : organicAcidReadinessTrace.recommendedChecksEn },
-    { label: lang === "zh" ? "派生标签" : "Derived labels", value: lang === "zh" ? organicAcidReadinessTrace.derivedLabelsZh : organicAcidReadinessTrace.derivedLabelsEn },
-    { label: lang === "zh" ? "最终等级" : "Final class", value: organicAcidReadinessTrace.finalClass },
+    { label: lang === "zh" ? "必需字段检查" : "Required checks", value: lang === "zh" ? readinessTrace.requiredChecksZh : readinessTrace.requiredChecksEn },
+    { label: lang === "zh" ? "推荐字段检查" : "Recommended checks", value: lang === "zh" ? readinessTrace.recommendedChecksZh : readinessTrace.recommendedChecksEn },
+    { label: lang === "zh" ? "派生标签" : "Derived labels", value: lang === "zh" ? readinessTrace.derivedLabelsZh : readinessTrace.derivedLabelsEn },
+    { label: lang === "zh" ? "最终等级" : "Final class", value: readinessTrace.finalClass },
   ]
 
   return (
@@ -333,13 +333,13 @@ function ReadinessTrace({ lang, t }) {
       </div>
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12, lineHeight: 1.6, marginTop: 12, padding: 12 }}>
         <strong style={{ color: t.textStrong }}>{lang === "zh" ? "原因：" : "Reason: "}</strong>
-        {lang === "zh" ? organicAcidReadinessTrace.reasonZh : organicAcidReadinessTrace.reasonEn}
+        {lang === "zh" ? readinessTrace.reasonZh : readinessTrace.reasonEn}
       </div>
     </Panel>
   )
 }
 
-function ComparabilityDecisionLogic({ lang, t }) {
+function ComparabilityDecisionLogic({ decisionRules, lang, t }) {
   return (
     <Panel t={t}>
       <SectionHeader
@@ -358,7 +358,7 @@ function ComparabilityDecisionLogic({ lang, t }) {
             </tr>
           </thead>
           <tbody>
-            {organicAcidDecisionRules.map(rule => (
+            {decisionRules.map(rule => (
               <tr key={rule.conditionEn}>
                 <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 12, lineHeight: 1.45, padding: "10px" }}>{lang === "zh" ? rule.conditionZh : rule.conditionEn}</td>
                 <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.accentText, fontSize: 12, fontWeight: 850, padding: "10px" }}>{lang === "zh" ? rule.decisionZh : rule.decisionEn}</td>
@@ -372,7 +372,7 @@ function ComparabilityDecisionLogic({ lang, t }) {
   )
 }
 
-function ReadinessClasses({ lang, t }) {
+function ReadinessClasses({ lang, readinessClasses, readinessTrace, t }) {
   return (
     <Panel t={t}>
       <SectionHeader
@@ -385,16 +385,16 @@ function ReadinessClasses({ lang, t }) {
         <DefinitionList
           t={t}
           items={[
-            { label: lang === "zh" ? "必需字段" : "Required", value: lang === "zh" ? organicAcidReadinessTrace.requiredChecksZh : organicAcidReadinessTrace.requiredChecksEn },
-            { label: lang === "zh" ? "推荐字段" : "Recommended", value: lang === "zh" ? organicAcidReadinessTrace.recommendedChecksZh : organicAcidReadinessTrace.recommendedChecksEn },
-            { label: lang === "zh" ? "派生标签" : "Derived", value: lang === "zh" ? organicAcidReadinessTrace.derivedLabelsZh : organicAcidReadinessTrace.derivedLabelsEn },
-            { label: lang === "zh" ? "当前等级" : "Current class", value: organicAcidReadinessTrace.finalClass },
-            { label: lang === "zh" ? "原因" : "Reason", value: lang === "zh" ? organicAcidReadinessTrace.reasonZh : organicAcidReadinessTrace.reasonEn },
+            { label: lang === "zh" ? "必需字段" : "Required", value: lang === "zh" ? readinessTrace.requiredChecksZh : readinessTrace.requiredChecksEn },
+            { label: lang === "zh" ? "推荐字段" : "Recommended", value: lang === "zh" ? readinessTrace.recommendedChecksZh : readinessTrace.recommendedChecksEn },
+            { label: lang === "zh" ? "派生标签" : "Derived", value: lang === "zh" ? readinessTrace.derivedLabelsZh : readinessTrace.derivedLabelsEn },
+            { label: lang === "zh" ? "当前等级" : "Current class", value: readinessTrace.finalClass },
+            { label: lang === "zh" ? "原因" : "Reason", value: lang === "zh" ? readinessTrace.reasonZh : readinessTrace.reasonEn },
           ]}
         />
       </div>
       <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", marginTop: 14 }}>
-        {organicAcidReadinessClasses.map(item => (
+        {readinessClasses.map(item => (
           <article key={item.className} style={{ border: `1px solid ${t.border}`, borderRadius: 12, padding: 12 }}>
             <div style={{ color: t.textStrong, fontFamily: "monospace", fontSize: 13, fontWeight: 950 }}>{item.className}</div>
             <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55, marginTop: 7 }}>{lang === "zh" ? item.meaningZh : item.meaningEn}</div>
@@ -409,7 +409,7 @@ function ReadinessClasses({ lang, t }) {
   )
 }
 
-function FutureDataIntegrationLevels({ lang, t }) {
+function FutureDataIntegrationLevels({ futureDataLevels, lang, t }) {
   return (
     <Panel t={t}>
       <SectionHeader
@@ -419,7 +419,7 @@ function FutureDataIntegrationLevels({ lang, t }) {
         t={t}
       />
       <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", marginTop: 14 }}>
-        {organicAcidFutureDataLevels.map(level => (
+        {futureDataLevels.map(level => (
           <article key={level.levelEn} style={{ border: `1px solid ${t.border}`, borderRadius: 12, padding: 12 }}>
             <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 950 }}>{lang === "zh" ? level.levelZh : level.levelEn}</div>
             <DefinitionList
@@ -446,16 +446,16 @@ function FutureDataIntegrationLevels({ lang, t }) {
 export function OrganicAcidCaseStudy({ lang, t }) {
   return (
     <div style={{ display: "grid", gap: 18 }}>
-      <OrganicAcidHero lang={lang} t={t} />
-      <CurationWorkflow lang={lang} t={t} />
-      <FieldPriorityModel lang={lang} t={t} />
-      <MockRecordTransformation lang={lang} t={t} />
-      <RecordIntakeTemplate lang={lang} t={t} />
-      <CompletenessMatrix lang={lang} t={t} />
-      <ReadinessTrace lang={lang} t={t} />
-      <ComparabilityDecisionLogic lang={lang} t={t} />
-      <ReadinessClasses lang={lang} t={t} />
-      <FutureDataIntegrationLevels lang={lang} t={t} />
+      <OrganicAcidHero lang={lang} summary={organicAcidCaseSummary} t={t} />
+      <CurationWorkflow lang={lang} t={t} workflowSteps={organicAcidWorkflowSteps} />
+      <FieldPriorityModel fieldPriority={organicAcidFieldPriority} lang={lang} t={t} />
+      <MockRecordTransformation lang={lang} mockRecord={organicAcidMockRecord} t={t} />
+      <RecordIntakeTemplate intakeTemplate={organicAcidIntakeTemplate} lang={lang} t={t} />
+      <CompletenessMatrix completenessMatrix={organicAcidCompletenessMatrix} lang={lang} t={t} />
+      <ReadinessTrace lang={lang} readinessTrace={organicAcidReadinessTrace} t={t} />
+      <ComparabilityDecisionLogic decisionRules={organicAcidDecisionRules} lang={lang} t={t} />
+      <ReadinessClasses lang={lang} readinessClasses={organicAcidReadinessClasses} readinessTrace={organicAcidReadinessTrace} t={t} />
+      <FutureDataIntegrationLevels futureDataLevels={organicAcidFutureDataLevels} lang={lang} t={t} />
     </div>
   )
 }
