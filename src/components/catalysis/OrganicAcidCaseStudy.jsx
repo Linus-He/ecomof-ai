@@ -11,9 +11,9 @@ import {
   organicAcidWorkflowSteps,
 } from "../../data/organicAcidFramework"
 
-function Panel({ children, t, style = {} }) {
+function Panel({ ariaLabel, children, t, style = {} }) {
   return (
-    <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 14, padding: 18, ...style }}>
+    <section aria-label={ariaLabel} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 14, padding: 18, ...style }}>
       {children}
     </section>
   )
@@ -120,7 +120,7 @@ function OrganicAcidHero({ lang, summary, t }) {
 
 function CurationWorkflow({ lang, t, workflowSteps }) {
   return (
-    <Panel t={t}>
+    <Panel ariaLabel="Curation Workflow" t={t}>
       <SectionHeader
         eyebrow={lang === "zh" ? "数据整理工作流" : "Curation workflow"}
         title={lang === "zh" ? "从原始记录到可比性感知输出" : "From raw note to comparison-aware output"}
@@ -152,7 +152,7 @@ function CurationWorkflow({ lang, t, workflowSteps }) {
 function FieldPriorityModel({ fieldPriority, lang, t }) {
   const groups = ["required", "recommended", "derived"].map(key => fieldPriority[key])
   return (
-    <Panel t={t}>
+    <Panel ariaLabel="Field Priority Model" t={t}>
       <SectionHeader
         eyebrow={lang === "zh" ? "字段优先级模型" : "Field priority model"}
         title={lang === "zh" ? "字段不是清单，而是判定模型" : "Fields are a decision model, not a checklist"}
@@ -180,7 +180,7 @@ function FieldPriorityModel({ fieldPriority, lang, t }) {
 
 function MockRecordTransformation({ lang, mockRecord, t }) {
   return (
-    <Panel t={t} style={{ borderLeft: `3px solid ${t.accent}` }}>
+    <Panel ariaLabel="Mock Record Transformation" t={t} style={{ borderLeft: `3px solid ${t.accent}` }}>
       <SectionHeader
         eyebrow={lang === "zh" ? "Mock 记录转换" : "Mock record transformation"}
         title={lang === "zh" ? "一条记录如何被标准化" : "How one record is normalized"}
@@ -234,7 +234,7 @@ function RecordIntakeTemplate({ intakeTemplate, lang, t }) {
   }, {})
 
   return (
-    <Panel t={t}>
+    <Panel ariaLabel="Record Intake Template" t={t}>
       <SectionHeader
         eyebrow={lang === "zh" ? "记录输入模板" : "Record intake template"}
         title={lang === "zh" ? "实验记录需要如何提交和整理" : "How an experimental record is submitted and structured"}
@@ -274,7 +274,7 @@ function RecordIntakeTemplate({ intakeTemplate, lang, t }) {
 
 function CompletenessMatrix({ completenessMatrix, lang, t }) {
   return (
-    <Panel t={t}>
+    <Panel ariaLabel="Completeness Matrix" t={t}>
       <SectionHeader
         eyebrow={lang === "zh" ? "完整度矩阵" : "Completeness matrix"}
         title={lang === "zh" ? "缺失字段如何影响可比性" : "How missing fields affect comparability"}
@@ -313,7 +313,7 @@ function ReadinessTrace({ lang, readinessTrace, t }) {
   ]
 
   return (
-    <Panel t={t}>
+    <Panel ariaLabel="Readiness Trace" t={t}>
       <SectionHeader
         eyebrow={lang === "zh" ? "判定轨迹" : "Readiness trace"}
         title={lang === "zh" ? "为什么当前 mock 记录是 framework-only" : "Why the mock record is framework-only"}
@@ -341,7 +341,7 @@ function ReadinessTrace({ lang, readinessTrace, t }) {
 
 function ComparabilityDecisionLogic({ decisionRules, lang, t }) {
   return (
-    <Panel t={t}>
+    <Panel ariaLabel="Comparability Decision Logic" t={t}>
       <SectionHeader
         eyebrow={lang === "zh" ? "可比性判断逻辑" : "Comparability decision logic"}
         title={lang === "zh" ? "缺失字段如何改变可比性判断" : "How missing fields change comparability"}
@@ -374,7 +374,7 @@ function ComparabilityDecisionLogic({ decisionRules, lang, t }) {
 
 function ReadinessClasses({ lang, readinessClasses, readinessTrace, t }) {
   return (
-    <Panel t={t}>
+    <Panel ariaLabel="Output Readiness Classes" t={t}>
       <SectionHeader
         eyebrow={lang === "zh" ? "输出准备度等级" : "Output readiness classes"}
         title={lang === "zh" ? "最终输出等级如何产生" : "How final readiness class is produced"}
@@ -411,7 +411,7 @@ function ReadinessClasses({ lang, readinessClasses, readinessTrace, t }) {
 
 function FutureDataIntegrationLevels({ futureDataLevels, lang, t }) {
   return (
-    <Panel t={t}>
+    <Panel ariaLabel="Future Data Integration Levels" t={t}>
       <SectionHeader
         eyebrow={lang === "zh" ? "未来数据接入等级" : "Future data integration levels"}
         title={lang === "zh" ? "真实合作数据未来如何安全接入" : "How future collaborator data can be integrated safely"}
