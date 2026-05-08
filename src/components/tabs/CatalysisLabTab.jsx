@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { BasisBadge, Callout, ResultLayer, useLang, useT, useViewport } from "../../shared"
 import { CatalysisCurationLayer } from "../catalysis/CatalysisCurationLayer"
-import { CatalysisDetailPanel } from "../catalysis/CatalysisDetailPanel"
 import { CatalysisFilterBar } from "../catalysis/CatalysisFilterBar"
 import { CatalysisHero } from "../catalysis/CatalysisHero"
 import { CatalysisTaskCards } from "../catalysis/CatalysisTaskCards"
@@ -9,6 +8,7 @@ import { CatalysisTaskTable } from "../catalysis/CatalysisTaskTable"
 import { ComparabilityScatterQuadrant } from "../catalysis/ComparabilityScatterQuadrant"
 import { ProductMetricScatter } from "../catalysis/ProductMetricScatter"
 import { ReactionPathwayScatter } from "../catalysis/ReactionPathwayScatter"
+import { SelectionInspector } from "../catalysis/SelectionInspector"
 import {
   CATALYSIS_TASKS,
   analyzeComparability,
@@ -37,7 +37,7 @@ export function CatalysisLabTab() {
   const [xMetric, setXMetric] = useState("yield")
   const [yMetric, setYMetric] = useState("selectivity")
   const [productMetricFamily, setProductMetricFamily] = useState("all")
-  const [selectionSource, setSelectionSource] = useState("filter")
+  const [selectionSource, setSelectionSource] = useState("none")
   const [notice, setNotice] = useState("")
 
   const localizedTasks = useMemo(() => (
@@ -54,7 +54,7 @@ export function CatalysisLabTab() {
       return
     }
     if (!filteredTasks.some(task => task.id === selectedTaskId)) {
-      setSelectedTaskId(filteredTasks[0].id)
+      setSelectedTaskId(null)
       setSelectionSource("filter")
     }
   }, [filteredTasks, selectedTaskId])
@@ -63,15 +63,11 @@ export function CatalysisLabTab() {
     const filteredIds = new Set(filteredTasks.map(task => task.id))
     const inFilter = selectedComparisonIds.filter(id => filteredIds.has(id))
     if (inFilter.length === selectedComparisonIds.length) return
-    if (filteredTasks.length >= 2) {
-      setSelectedComparisonIds([filteredTasks[0].id, filteredTasks[1].id])
-      return
-    }
-    setSelectedComparisonIds([])
+    setSelectedComparisonIds(inFilter)
   }, [filteredTasks, selectedComparisonIds])
 
   const selectedTask = useMemo(() => (
-    filteredTasks.find(task => task.id === selectedTaskId) || filteredTasks[0] || null
+    selectedTaskId ? filteredTasks.find(task => task.id === selectedTaskId) || null : null
   ), [filteredTasks, selectedTaskId])
   const selectedIndex = useMemo(() => (
     selectedTask ? filteredTasks.findIndex(task => task.id === selectedTask.id) : -1
@@ -84,8 +80,8 @@ export function CatalysisLabTab() {
   const comparisonPoints = useMemo(() => buildComparisonPoints(filteredTasks), [filteredTasks])
   const selectedComparison = useMemo(() => {
     if (selectedComparisonRows.length === 2) return analyzeComparability(selectedComparisonRows[0], selectedComparisonRows[1], lang)
-    return comparisonPoints[0] || analyzeComparability(null, null, lang)
-  }, [comparisonPoints, lang, selectedComparisonRows])
+    return null
+  }, [lang, selectedComparisonRows])
 
   const updateFilter = (key, value) => {
     setFilters(prev => ({ ...prev, [key]: value }))
@@ -95,6 +91,14 @@ export function CatalysisLabTab() {
   const clearFilters = () => {
     setFilters(DEFAULT_FILTERS)
     setProductMetricFamily("all")
+    setSelectedTaskId(null)
+    setSelectionSource("none")
+    setNotice("")
+  }
+
+  const clearSelection = () => {
+    setSelectedTaskId(null)
+    setSelectionSource(Object.values(filters).some(value => value !== "all") ? "filter" : "none")
     setNotice("")
   }
 
@@ -143,7 +147,18 @@ export function CatalysisLabTab() {
       >
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.65fr) minmax(280px, 0.75fr)", gap: 14, alignItems: "stretch" }}>
           <ReactionPathwayScatter data={filteredTasks} selectedTaskId={selectedTask?.id} onSelectTask={(task) => selectTask(task, "chart")} lang={lang} t={t} height={chartHeight} />
-          <CatalysisDetailPanel selectedTask={selectedTask} filteredTasks={filteredTasks} selectedIndex={selectedIndex} selectionSource={selectionSource} selectedComparison={selectedComparison} lang={lang} t={t} />
+          <SelectionInspector
+            filters={filters}
+            filteredTasks={filteredTasks}
+            onClearSelection={clearSelection}
+            onSelectTask={(task) => selectTask(task, "list")}
+            selectedComparison={selectedComparison}
+            selectedIndex={selectedIndex}
+            selectedTask={selectedTask}
+            selectionSource={selectionSource}
+            lang={lang}
+            t={t}
+          />
         </div>
       </ResultLayer>
 
@@ -198,7 +213,7 @@ export function CatalysisLabTab() {
             tasks={filteredTasks}
             selectedTaskId={selectedTask?.id}
             selectedComparisonIds={selectedComparisonIds}
-            onSelectTask={(task) => selectTask(task, "table")}
+            onSelectTask={(task) => selectTask(task, "list")}
             onToggleComparison={toggleComparison}
             lang={lang}
             t={t}
@@ -208,7 +223,7 @@ export function CatalysisLabTab() {
             tasks={filteredTasks}
             selectedTaskId={selectedTask?.id}
             selectedComparisonIds={selectedComparisonIds}
-            onSelectTask={(task) => selectTask(task, "table")}
+            onSelectTask={(task) => selectTask(task, "list")}
             onToggleComparison={toggleComparison}
             lang={lang}
             t={t}
