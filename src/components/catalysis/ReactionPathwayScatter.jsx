@@ -1,0 +1,88 @@
+import {
+  CartesianGrid,
+  Cell,
+  Legend,
+  ResponsiveContainer,
+  Scatter,
+  ScatterChart,
+  Tooltip,
+  XAxis,
+  YAxis,
+  ZAxis,
+} from "recharts"
+import { DOMAIN_COLORS } from "./catalysisData"
+
+function TooltipBody({ active, payload, lang, t }) {
+  if (!active || !payload?.length) return null
+  const row = payload[0].payload
+  return (
+    <div style={{ background: t.tooltipBg, border: `1px solid ${t.border}`, borderRadius: 10, maxWidth: 320, padding: 10 }}>
+      <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900, lineHeight: 1.35 }}>{lang === "zh" ? row.taskZh : row.taskEn}</div>
+      <div style={{ color: t.faint, fontSize: 10, marginTop: 6 }}>{row.domainLabel} · {row.modeLabel} · {row.quantitativeStatus}</div>
+      <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.5, marginTop: 6 }}>
+        {row.feedstockLabel} → {row.productFamilyLabel}<br />
+        {(lang === "zh" ? row.keyMetricsZh : row.keyMetricsEn).join(" · ")}<br />
+        {(lang === "zh" ? row.missingBridgeMetricsZh : row.missingBridgeMetricsEn).join(" · ")}
+      </div>
+    </div>
+  )
+}
+
+export function ReactionPathwayScatter({ data, selectedTaskId, onSelectTask, lang, t }) {
+  const domains = Array.from(new Set(data.map(item => item.domainKey)))
+  return (
+    <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 14, minWidth: 0 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap", marginBottom: 8 }}>
+        <div>
+          <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900 }}>{lang === "zh" ? "Reaction Pathway Scatter / 反应路径坐标图" : "Reaction Pathway Scatter"}</div>
+          <div style={{ color: t.faint, fontSize: 10, marginTop: 4 }}>{lang === "zh" ? "点代表催化任务或路径。" : "Each point represents a catalysis task or pathway."}</div>
+        </div>
+      </div>
+      <ResponsiveContainer width="100%" height={360}>
+        <ScatterChart margin={{ top: 16, right: 22, bottom: 38, left: 8 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
+          <XAxis
+            type="number"
+            dataKey="conditionIntensity"
+            domain={[0, 100]}
+            tick={{ fill: t.subtle, fontSize: 10 }}
+            label={{ value: lang === "zh" ? "反应条件强度" : "Reaction condition intensity", fill: t.subtle, fontSize: 11, dy: 28 }}
+          />
+          <YAxis
+            type="number"
+            dataKey="dataReadiness"
+            domain={[0, 100]}
+            tick={{ fill: t.subtle, fontSize: 10 }}
+            label={{ value: lang === "zh" ? "数据准备度 / 证据强度" : "Data readiness / evidence strength", fill: t.subtle, fontSize: 11, angle: -90, dx: -18 }}
+          />
+          <ZAxis type="number" dataKey="z" range={[70, 360]} />
+          <Tooltip content={<TooltipBody lang={lang} t={t} />} cursor={{ stroke: t.accent, strokeDasharray: "3 3" }} />
+          <Legend wrapperStyle={{ color: t.subtle, fontSize: 10 }} />
+          {domains.map(domainKey => (
+            <Scatter
+              key={domainKey}
+              name={data.find(item => item.domainKey === domainKey)?.domainLabel || domainKey}
+              data={data.filter(item => item.domainKey === domainKey)}
+              fill={DOMAIN_COLORS[domainKey] || t.accent}
+              onClick={(point) => onSelectTask?.(point?.payload || point)}
+            >
+              {data.filter(item => item.domainKey === domainKey).map(item => (
+                <Cell
+                  key={item.id}
+                  fill={DOMAIN_COLORS[item.domainKey] || t.accent}
+                  stroke={item.id === selectedTaskId ? t.textStrong : "transparent"}
+                  strokeWidth={item.id === selectedTaskId ? 3 : 0}
+                />
+              ))}
+            </Scatter>
+          ))}
+        </ScatterChart>
+      </ResponsiveContainer>
+      <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.5 }}>
+        {lang === "zh"
+          ? "该图仅支持早期比较；除非明确标注为已整理，坐标值为演示或待整理状态。"
+          : "This chart supports early-stage comparison only; values are demo or pending curation unless explicitly marked as curated."}
+      </div>
+    </section>
+  )
+}
