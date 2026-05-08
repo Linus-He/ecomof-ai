@@ -3,7 +3,6 @@ import {
   organicAcidCompletenessMatrix,
   organicAcidDecisionRules,
   organicAcidFieldPriority,
-  organicAcidFutureCollaboratorData,
   organicAcidFutureDataLevels,
   organicAcidIntakeTemplate,
   organicAcidMockRecord,
@@ -140,10 +139,8 @@ function CurationWorkflow({ lang, t }) {
               <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.45, marginTop: 3 }}>{lang === "zh" ? step.inputZh : step.inputEn}</div>
               <div style={{ color: t.faint, fontSize: 10, fontWeight: 900, marginTop: 8 }}>{lang === "zh" ? "输出" : "Output"}</div>
               <div style={{ color: t.textStrong, fontSize: 11, lineHeight: 1.45, marginTop: 3 }}>{lang === "zh" ? step.outputZh : step.outputEn}</div>
-              <details style={{ color: t.muted, fontSize: 11, lineHeight: 1.45, marginTop: 8 }}>
-                <summary style={{ color: t.faint, cursor: "pointer", fontWeight: 850 }}>{lang === "zh" ? "处理方式" : "Processing"}</summary>
-                <div style={{ marginTop: 4 }}>{lang === "zh" ? step.processingZh : step.processingEn}</div>
-              </details>
+              <div style={{ color: t.faint, fontSize: 10, fontWeight: 900, marginTop: 8 }}>{lang === "zh" ? "处理方式" : "Processing"}</div>
+              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.45, marginTop: 3 }}>{lang === "zh" ? step.processingZh : step.processingEn}</div>
             </div>
           </article>
         ))}
@@ -440,14 +437,6 @@ function FutureDataIntegrationLevels({ lang, t }) {
           <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.6, margin: "8px 0 0" }}>
             {lang === "zh" ? "当前公开演示不包含合作方未公开实验数据；真实记录进入公开页面前需要来源、授权和敏感字段边界检查。" : "No collaborator-owned experimental data are included in this public demo. Real records require provenance, permission, and sensitivity checks before public display."}
           </p>
-        </div>
-        <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
-          {organicAcidFutureCollaboratorData.map((item, index) => (
-            <article key={item.en} style={{ borderTop: `2px solid ${index < 2 ? t.accent : t.divider}`, paddingTop: 10 }}>
-              <div style={{ color: t.faint, fontSize: 10, fontWeight: 900 }}>{String(index + 1).padStart(2, "0")}</div>
-              <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, lineHeight: 1.5, marginTop: 4 }}>{lang === "zh" ? item.zh : item.en}</div>
-            </article>
-          ))}
         </div>
       </div>
     </Panel>
