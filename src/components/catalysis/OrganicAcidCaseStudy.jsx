@@ -1,8 +1,11 @@
 import {
   organicAcidCaseSummary,
+  organicAcidCompletenessMatrix,
   organicAcidDecisionRules,
   organicAcidFieldPriority,
   organicAcidFutureCollaboratorData,
+  organicAcidFutureDataLevels,
+  organicAcidIntakeTemplate,
   organicAcidMockRecord,
   organicAcidReadinessClasses,
   organicAcidReadinessTrace,
@@ -204,6 +207,120 @@ function MockRecordTransformation({ lang, t }) {
   )
 }
 
+function RecordIntakeTemplate({ lang, t }) {
+  const groups = organicAcidIntakeTemplate.reduce((acc, row) => {
+    const label = lang === "zh" ? row.groupZh : row.groupEn
+    acc[label] = acc[label] || []
+    acc[label].push(row)
+    return acc
+  }, {})
+
+  return (
+    <Panel t={t}>
+      <SectionHeader
+        eyebrow={lang === "zh" ? "记录输入模板" : "Record intake template"}
+        title={lang === "zh" ? "实验记录需要如何提交和整理" : "How an experimental record is submitted and structured"}
+        note={lang === "zh" ? "输入模板说明字段组、优先级、占位示例和用途；示例不包含真实实验数值。" : "The intake template shows field group, priority, placeholder entry, and purpose; examples contain no experimental values."}
+        t={t}
+      />
+      <div style={{ display: "grid", gap: 12, marginTop: 14 }}>
+        {Object.entries(groups).map(([group, rows]) => (
+          <article key={group} style={{ border: `1px solid ${t.border}`, borderRadius: 12, padding: 12 }}>
+            <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 950 }}>{group}</div>
+            <div style={{ display: "grid", gap: 8, marginTop: 10 }}>
+              {rows.map(row => (
+                <div key={`${row.groupEn}-${row.fieldEn}`} style={{ borderTop: `1px solid ${t.divider}`, display: "grid", gap: 10, gridTemplateColumns: "minmax(150px, 0.8fr) minmax(0, 1.4fr)", paddingTop: 8 }}>
+                  <div>
+                    <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900 }}>{lang === "zh" ? row.fieldZh : row.fieldEn}</div>
+                    <div style={{ color: t.faint, fontSize: 11, fontWeight: 850, marginTop: 3 }}>{row.priority}</div>
+                  </div>
+                  <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))" }}>
+                    <div>
+                      <div style={{ color: t.faint, fontSize: 10, fontWeight: 900 }}>{lang === "zh" ? "占位示例" : "Example entry"}</div>
+                      <div style={{ color: t.textStrong, fontSize: 12, lineHeight: 1.45, marginTop: 3 }}>{lang === "zh" ? row.exampleZh : row.exampleEn}</div>
+                    </div>
+                    <div>
+                      <div style={{ color: t.faint, fontSize: 10, fontWeight: 900 }}>{lang === "zh" ? "用途" : "Why it matters"}</div>
+                      <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.45, marginTop: 3 }}>{lang === "zh" ? row.whyZh : row.whyEn}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </Panel>
+  )
+}
+
+function CompletenessMatrix({ lang, t }) {
+  return (
+    <Panel t={t}>
+      <SectionHeader
+        eyebrow={lang === "zh" ? "完整度矩阵" : "Completeness matrix"}
+        title={lang === "zh" ? "缺失字段如何影响可比性" : "How missing fields affect comparability"}
+        note={lang === "zh" ? "矩阵按字段组显示 available、partial、missing 和 framework-only 状态，并给出解释。" : "The matrix diagnoses available, partial, missing, and framework-only status by field group."}
+        t={t}
+      />
+      <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", marginTop: 14 }}>
+        {organicAcidCompletenessMatrix.map(item => (
+          <article key={item.groupEn} style={{ border: `1px solid ${t.border}`, borderRadius: 12, padding: 12 }}>
+            <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 950 }}>{lang === "zh" ? item.groupZh : item.groupEn}</div>
+            <DefinitionList
+              t={t}
+              items={[
+                { label: "available", value: lang === "zh" ? item.availableZh : item.availableEn },
+                { label: "partial", value: lang === "zh" ? item.partialZh : item.partialEn },
+                { label: "missing", value: lang === "zh" ? item.missingZh : item.missingEn },
+                { label: "framework-only", value: lang === "zh" ? item.frameworkOnlyZh : item.frameworkOnlyEn },
+              ]}
+            />
+            <div style={{ borderTop: `1px solid ${t.divider}`, color: t.muted, fontSize: 12, lineHeight: 1.55, marginTop: 10, paddingTop: 10 }}>
+              {lang === "zh" ? item.interpretationZh : item.interpretationEn}
+            </div>
+          </article>
+        ))}
+      </div>
+    </Panel>
+  )
+}
+
+function ReadinessTrace({ lang, t }) {
+  const traceItems = [
+    { label: lang === "zh" ? "必需字段检查" : "Required checks", value: lang === "zh" ? organicAcidReadinessTrace.requiredChecksZh : organicAcidReadinessTrace.requiredChecksEn },
+    { label: lang === "zh" ? "推荐字段检查" : "Recommended checks", value: lang === "zh" ? organicAcidReadinessTrace.recommendedChecksZh : organicAcidReadinessTrace.recommendedChecksEn },
+    { label: lang === "zh" ? "派生标签" : "Derived labels", value: lang === "zh" ? organicAcidReadinessTrace.derivedLabelsZh : organicAcidReadinessTrace.derivedLabelsEn },
+    { label: lang === "zh" ? "最终等级" : "Final class", value: organicAcidReadinessTrace.finalClass },
+  ]
+
+  return (
+    <Panel t={t}>
+      <SectionHeader
+        eyebrow={lang === "zh" ? "判定轨迹" : "Readiness trace"}
+        title={lang === "zh" ? "为什么当前 mock 记录是 framework-only" : "Why the mock record is framework-only"}
+        note={lang === "zh" ? "判定轨迹展示 required / recommended / derived 如何共同生成最终等级。" : "The trace shows how required, recommended, and derived checks produce the final class."}
+        t={t}
+      />
+      <div style={{ display: "grid", gap: 10, marginTop: 14 }}>
+        {traceItems.map((item, index) => (
+          <article key={item.label} style={{ alignItems: "start", display: "grid", gap: 10, gridTemplateColumns: "30px minmax(0, 1fr)" }}>
+            <div style={{ alignItems: "center", background: index === 3 ? t.badgeWarnBg : t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, color: index === 3 ? t.badgeWarnText : t.accentText, display: "flex", fontSize: 12, fontWeight: 950, height: 30, justifyContent: "center", width: 30 }}>{index + 1}</div>
+            <div style={{ borderBottom: `1px solid ${t.divider}`, paddingBottom: 10 }}>
+              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 950 }}>{item.label}</div>
+              <div style={{ color: index === 3 ? t.badgeWarnText : t.muted, fontSize: 12, fontWeight: index === 3 ? 850 : 500, lineHeight: 1.55, marginTop: 5 }}>{item.value}</div>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12, lineHeight: 1.6, marginTop: 12, padding: 12 }}>
+        <strong style={{ color: t.textStrong }}>{lang === "zh" ? "原因：" : "Reason: "}</strong>
+        {lang === "zh" ? organicAcidReadinessTrace.reasonZh : organicAcidReadinessTrace.reasonEn}
+      </div>
+    </Panel>
+  )
+}
+
 function ComparabilityDecisionLogic({ lang, t }) {
   return (
     <Panel t={t}>
@@ -284,6 +401,19 @@ function FutureDataIntegration({ lang, t }) {
         t={t}
       />
       <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", marginTop: 14 }}>
+        {organicAcidFutureDataLevels.map(level => (
+          <article key={level.levelEn} style={{ border: `1px solid ${t.border}`, borderRadius: 12, padding: 12 }}>
+            <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 950 }}>{lang === "zh" ? level.levelZh : level.levelEn}</div>
+            <DefinitionList
+              t={t}
+              items={[
+                { label: lang === "zh" ? "可展示" : "Can display", value: lang === "zh" ? level.canDisplayZh : level.canDisplayEn },
+                { label: lang === "zh" ? "需隐藏" : "Should hide", value: lang === "zh" ? level.shouldHideZh : level.shouldHideEn },
+                { label: lang === "zh" ? "用途" : "Use case", value: lang === "zh" ? level.useCaseZh : level.useCaseEn },
+              ]}
+            />
+          </article>
+        ))}
         <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 12 }}>
           <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 950 }}>{lang === "zh" ? "当前公开状态" : "Current public status"}</div>
           <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.6, margin: "8px 0 0" }}>
@@ -310,6 +440,9 @@ export function OrganicAcidCaseStudy({ lang, t }) {
       <CurationWorkflow lang={lang} t={t} />
       <FieldPriorityModel lang={lang} t={t} />
       <MockRecordTransformation lang={lang} t={t} />
+      <RecordIntakeTemplate lang={lang} t={t} />
+      <CompletenessMatrix lang={lang} t={t} />
+      <ReadinessTrace lang={lang} t={t} />
       <ComparabilityDecisionLogic lang={lang} t={t} />
       <ReadinessClasses lang={lang} t={t} />
       <FutureDataIntegration lang={lang} t={t} />
