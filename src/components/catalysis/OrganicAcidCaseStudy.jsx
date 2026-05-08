@@ -4,6 +4,7 @@ import {
   organicAcidCompletenessMatrix,
   organicAcidDecisionRules,
   organicAcidFieldPriority,
+  organicAcidFutureCollaboratorData,
   organicAcidFutureDataLevels,
   organicAcidIntakeTemplate,
   organicAcidMockRecord,
@@ -222,6 +223,7 @@ function CompletenessMatrix({ lang, t }) {
 }
 
 function ReadinessTrace({ lang, t }) {
+  const trace = organicAcidReadinessTrace
   return (
     <Panel t={t}>
       <SectionTitle
@@ -229,19 +231,25 @@ function ReadinessTrace({ lang, t }) {
         title={lang === "zh" ? "为什么当前 mock 记录仍是 framework-only" : "Why the current mock record remains framework-only"}
         t={t}
       />
-      <div style={{ display: "grid", gap: 10, marginTop: 14 }}>
-        {organicAcidReadinessTrace.map((step, index) => (
-          <article key={step.stageEn} style={{ alignItems: "start", display: "grid", gap: 10, gridTemplateColumns: "30px minmax(0, 1fr)" }}>
-            <div style={{ alignItems: "center", background: index === organicAcidReadinessTrace.length - 1 ? t.badgeWarnBg : t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, color: index === organicAcidReadinessTrace.length - 1 ? t.badgeWarnText : t.accentText, display: "flex", fontSize: 12, fontWeight: 950, height: 30, justifyContent: "center", width: 30 }}>{index + 1}</div>
+      <div style={{ display: "grid", gap: 12, marginTop: 14 }}>
+        {[
+          { label: lang === "zh" ? "必需字段检查" : "Required fields checked", value: lang === "zh" ? trace.requiredChecksZh : trace.requiredChecksEn },
+          { label: lang === "zh" ? "推荐字段检查" : "Recommended fields checked", value: lang === "zh" ? trace.recommendedChecksZh : trace.recommendedChecksEn },
+          { label: lang === "zh" ? "派生标签" : "Derived labels generated", value: lang === "zh" ? trace.derivedLabelsZh : trace.derivedLabelsEn },
+          { label: lang === "zh" ? "最终等级" : "Final readiness class", value: trace.finalClass },
+        ].map((item, index) => (
+          <article key={item.label} style={{ alignItems: "start", display: "grid", gap: 10, gridTemplateColumns: "30px minmax(0, 1fr)" }}>
+            <div style={{ alignItems: "center", background: index === 3 ? t.badgeWarnBg : t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, color: index === 3 ? t.badgeWarnText : t.accentText, display: "flex", fontSize: 12, fontWeight: 950, height: 30, justifyContent: "center", width: 30 }}>{index + 1}</div>
             <div style={{ borderBottom: `1px solid ${t.divider}`, paddingBottom: 10 }}>
-              <div style={{ alignItems: "baseline", display: "flex", gap: 8, justifyContent: "space-between", flexWrap: "wrap" }}>
-                <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 950 }}>{lang === "zh" ? step.stageZh : step.stageEn}</div>
-                <div style={{ color: t.accentText, fontSize: 12, fontWeight: 900 }}>{lang === "zh" ? step.resultZh : step.resultEn}</div>
-              </div>
-              <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.6, marginTop: 6 }}>{lang === "zh" ? step.evidenceZh : step.evidenceEn}</div>
+              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 950 }}>{item.label}</div>
+              <div style={{ color: index === 3 ? t.badgeWarnText : t.muted, fontSize: 12, fontWeight: index === 3 ? 850 : 500, lineHeight: 1.6, marginTop: 6 }}>{item.value}</div>
             </div>
           </article>
         ))}
+        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12, lineHeight: 1.6, padding: 12 }}>
+          <strong style={{ color: t.textStrong }}>{lang === "zh" ? "原因：" : "Reason: "}</strong>
+          {lang === "zh" ? trace.reasonZh : trace.reasonEn}
+        </div>
       </div>
     </Panel>
   )
@@ -314,11 +322,18 @@ function FutureDataIntegrationLevels({ lang, t }) {
               t={t}
               items={[
                 { label: lang === "zh" ? "可展示" : "Can display", value: lang === "zh" ? level.canDisplayZh : level.canDisplayEn },
-                { label: lang === "zh" ? "边界" : "Boundary", value: lang === "zh" ? level.boundaryZh : level.boundaryEn },
+                { label: lang === "zh" ? "需隐藏" : "Should hide", value: lang === "zh" ? level.shouldHideZh : level.shouldHideEn },
+                { label: lang === "zh" ? "用途" : "Use case", value: lang === "zh" ? level.useCaseZh : level.useCaseEn },
               ]}
             />
           </article>
         ))}
+      </div>
+      <div style={{ borderTop: `1px solid ${t.divider}`, marginTop: 14, paddingTop: 12 }}>
+        <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 950 }}>{lang === "zh" ? "未来授权数据可补充内容" : "What authorized data can add later"}</div>
+        <ol style={{ color: t.muted, fontSize: 12, lineHeight: 1.7, margin: "8px 0 0", paddingLeft: 18 }}>
+          {organicAcidFutureCollaboratorData.map(item => <li key={item.en}>{lang === "zh" ? item.zh : item.en}</li>)}
+        </ol>
       </div>
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12, lineHeight: 1.6, marginTop: 12, padding: 12 }}>
         {lang === "zh"

@@ -493,40 +493,17 @@ export const organicAcidDecisionRules = [
   },
 ]
 
-export const organicAcidReadinessTrace = [
-  {
-    stageEn: "Required fields checked",
-    stageZh: "必需字段检查",
-    resultEn: "partial",
-    resultZh: "部分满足",
-    evidenceEn: "product and metric type are represented; catalyst identity and source remain placeholders.",
-    evidenceZh: "产物和指标类型已表示；催化剂身份和来源仍为占位。",
-  },
-  {
-    stageEn: "Recommended fields checked",
-    stageZh: "推荐字段检查",
-    resultEn: "incomplete",
-    resultZh: "不完整",
-    evidenceEn: "selectivity, carbon balance, isotope evidence, and energy input are not provided.",
-    evidenceZh: "选择性、碳平衡、同位素证据和能量输入未提供。",
-  },
-  {
-    stageEn: "Derived labels generated",
-    stageZh: "派生标签生成",
-    resultEn: "framework-only / partial-pending",
-    resultZh: "仅框架 / 部分待补充",
-    evidenceEn: "missing bridge metrics and unresolved source status block comparison-ready output.",
-    evidenceZh: "缺失桥梁指标和未解决来源状态阻止 comparison-ready 输出。",
-  },
-  {
-    stageEn: "Final readiness class",
-    stageZh: "最终准备度等级",
-    resultEn: "framework-only",
-    resultZh: "仅框架",
-    evidenceEn: "public demo does not include collaborator-owned values; catalyst identity and source are placeholders; selectivity, carbon balance, and isotope evidence are missing.",
-    evidenceZh: "公开演示不包含合作方未公开数值；催化剂身份和来源为占位；选择性、碳平衡和同位素证据缺失。",
-  },
-]
+export const organicAcidReadinessTrace = {
+  requiredChecksEn: "Product and reported metric type are represented; source and catalyst identity remain placeholders.",
+  requiredChecksZh: "产物和已报告指标类型已表示；来源和催化剂身份仍为占位。",
+  recommendedChecksEn: "Selectivity, carbon balance, isotope evidence, and energy input are not provided.",
+  recommendedChecksZh: "选择性、碳平衡、同位素证据和能量输入未提供。",
+  derivedLabelsEn: "framework-only; partial-pending; missing bridge metrics",
+  derivedLabelsZh: "仅框架；部分待补充；缺失桥梁指标",
+  finalClass: "framework-only",
+  reasonEn: "Public demo does not include collaborator-owned values; catalyst identity and source are placeholders; selectivity, carbon balance, and isotope evidence are missing.",
+  reasonZh: "公开演示不包含合作方未公开数值；催化剂身份和来源为占位；选择性、碳平衡和同位素证据缺失。",
+}
 
 export const organicAcidReadinessClasses = [
   {
@@ -582,23 +559,29 @@ export const organicAcidFutureDataLevels = [
     levelZh: "Level 1 — 公开文献记录",
     canDisplayEn: "DOI, reported conditions, and quantitative values when publicly reported.",
     canDisplayZh: "可展示 DOI、已公开报告的条件和定量数值。",
-    boundaryEn: "Only public literature values enter the public demo.",
-    boundaryZh: "只有公开文献值可进入公开演示。",
+    shouldHideEn: "unpublished interpretation or non-public supplementary notes",
+    shouldHideZh: "未公开解释或非公开补充记录",
+    useCaseEn: "public-facing literature curation and comparison examples",
+    useCaseZh: "面向公开页面的文献整理和比较示例",
   },
   {
     levelEn: "Level 2 — Collaborator-anonymized records",
     levelZh: "Level 2 — 合作方匿名化记录",
     canDisplayEn: "product family, field availability, curation status, and missing evidence.",
     canDisplayZh: "可展示产物族、字段可用性、整理状态和缺失证据。",
-    boundaryEn: "Sensitive catalyst identity, exact values, or internal sources remain hidden unless explicitly authorized.",
-    boundaryZh: "敏感催化剂身份、精确数值或内部来源在明确授权前保持隐藏。",
+    shouldHideEn: "sensitive catalyst identity, exact values, and internal sources unless explicitly authorized",
+    shouldHideZh: "敏感催化剂身份、精确数值和内部来源，除非明确授权",
+    useCaseEn: "public gap map without disclosing restricted experimental values",
+    useCaseZh: "不披露受限实验数值的公开缺口图谱",
   },
   {
     levelEn: "Level 3 — Private experimental records",
     levelZh: "Level 3 — 私有实验记录",
     canDisplayEn: "used for local or private curation only.",
     canDisplayZh: "仅用于本地或私有整理。",
-    boundaryEn: "Not shown in the public demo without explicit permission.",
-    boundaryZh: "未经明确许可，不展示在公开演示中。",
+    shouldHideEn: "all collaborator-owned values and internal notes from the public demo unless permission is granted",
+    shouldHideZh: "未经许可，所有合作方未公开数值和内部记录均不进入公开演示",
+    useCaseEn: "private readiness review, normalization planning, and permission-gated release preparation",
+    useCaseZh: "私有准备度复核、归一化规划和授权发布准备",
   },
 ]
