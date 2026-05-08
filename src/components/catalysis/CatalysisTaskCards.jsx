@@ -1,6 +1,15 @@
 import { BasisBadge } from "../../shared"
 
 export function CatalysisTaskCards({ tasks, selectedTaskId, selectedComparisonIds, onSelectTask, onToggleComparison, lang, t }) {
+  if (tasks.length === 0) {
+    return (
+      <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, color: t.muted, fontSize: 12, lineHeight: 1.6, padding: 16 }}>
+        {lang === "zh"
+          ? "当前筛选条件下暂无催化任务。请放宽 reaction domain、product family 或 data status 条件。"
+          : "No catalysis task matches the current filters. Try broadening reaction domain, product family, or data status."}
+      </section>
+    )
+  }
   return (
     <section style={{ display: "grid", gap: 10 }}>
       {tasks.map(task => {

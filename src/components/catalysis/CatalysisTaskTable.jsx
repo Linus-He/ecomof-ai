@@ -11,6 +11,9 @@ function Pills({ items, t }) {
 }
 
 export function CatalysisTaskTable({ tasks, selectedTaskId, selectedComparisonIds, onSelectTask, onToggleComparison, lang, t }) {
+  const emptyText = lang === "zh"
+    ? "当前筛选条件下暂无催化任务。请放宽 reaction domain、product family 或 data status 条件。"
+    : "No catalysis task matches the current filters. Try broadening reaction domain, product family, or data status."
   return (
     <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 12 }}>
       <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center", flexWrap: "wrap", marginBottom: 10 }}>
@@ -30,7 +33,13 @@ export function CatalysisTaskTable({ tasks, selectedTaskId, selectedComparisonId
             </tr>
           </thead>
           <tbody>
-            {tasks.map(task => {
+            {tasks.length === 0 ? (
+              <tr>
+                <td colSpan={8} style={{ color: t.muted, fontSize: 12, lineHeight: 1.6, padding: 18, textAlign: "center" }}>
+                  {emptyText}
+                </td>
+              </tr>
+            ) : tasks.map(task => {
               const active = selectedTaskId === task.id
               const checked = selectedComparisonIds.includes(task.id)
               return (

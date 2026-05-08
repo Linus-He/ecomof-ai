@@ -16,7 +16,7 @@ function TooltipBody({ active, payload, lang, t }) {
   if (!active || !payload?.length) return null
   const row = payload[0].payload
   return (
-    <div style={{ background: t.tooltipBg, border: `1px solid ${t.border}`, borderRadius: 10, maxWidth: 320, padding: 10 }}>
+    <div style={{ background: t.tooltipBg, border: `1px solid ${t.border}`, borderRadius: 10, maxWidth: 280, padding: 10, whiteSpace: "normal", wordBreak: "break-word" }}>
       <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900, lineHeight: 1.35 }}>{lang === "zh" ? row.taskZh : row.taskEn}</div>
       <div style={{ color: t.faint, fontSize: 10, marginTop: 6 }}>{row.domainLabel} · {row.modeLabel} · {row.quantitativeStatus}</div>
       <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.5, marginTop: 6 }}>
@@ -28,35 +28,39 @@ function TooltipBody({ active, payload, lang, t }) {
   )
 }
 
-export function ReactionPathwayScatter({ data, selectedTaskId, onSelectTask, lang, t }) {
+export function ReactionPathwayScatter({ data, selectedTaskId, onSelectTask, lang, t, height = 420 }) {
   const domains = Array.from(new Set(data.map(item => item.domainKey)))
   return (
-    <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 14, minWidth: 0 }}>
+    <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 14, minWidth: 0, overflow: "visible" }}>
       <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap", marginBottom: 8 }}>
         <div>
           <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900 }}>{lang === "zh" ? "Reaction Pathway Scatter / 反应路径坐标图" : "Reaction Pathway Scatter"}</div>
           <div style={{ color: t.faint, fontSize: 10, marginTop: 4 }}>{lang === "zh" ? "点代表催化任务或路径。" : "Each point represents a catalysis task or pathway."}</div>
         </div>
       </div>
-      <ResponsiveContainer width="100%" height={360}>
-        <ScatterChart margin={{ top: 16, right: 22, bottom: 38, left: 8 }}>
+      <ResponsiveContainer width="100%" height={height} minHeight={height}>
+        <ScatterChart margin={{ top: 24, right: 28, bottom: 56, left: 48 }}>
           <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
           <XAxis
             type="number"
             dataKey="conditionIntensity"
             domain={[0, 100]}
             tick={{ fill: t.subtle, fontSize: 10 }}
-            label={{ value: lang === "zh" ? "反应条件强度" : "Reaction condition intensity", fill: t.subtle, fontSize: 11, dy: 28 }}
+            angle={-20}
+            textAnchor="end"
+            height={56}
+            label={{ value: lang === "zh" ? "条件强度" : "Condition intensity", fill: t.subtle, fontSize: 11, dy: 44 }}
           />
           <YAxis
             type="number"
             dataKey="dataReadiness"
             domain={[0, 100]}
+            width={56}
             tick={{ fill: t.subtle, fontSize: 10 }}
-            label={{ value: lang === "zh" ? "数据准备度 / 证据强度" : "Data readiness / evidence strength", fill: t.subtle, fontSize: 11, angle: -90, dx: -18 }}
+            label={{ value: lang === "zh" ? "数据就绪度" : "Data readiness", fill: t.subtle, fontSize: 11, angle: -90, position: "insideLeft" }}
           />
           <ZAxis type="number" dataKey="z" range={[70, 360]} />
-          <Tooltip content={<TooltipBody lang={lang} t={t} />} cursor={{ stroke: t.accent, strokeDasharray: "3 3" }} />
+          <Tooltip content={<TooltipBody lang={lang} t={t} />} cursor={{ stroke: t.accent, strokeDasharray: "3 3" }} allowEscapeViewBox={{ x: true, y: true }} wrapperStyle={{ zIndex: 20 }} />
           <Legend wrapperStyle={{ color: t.subtle, fontSize: 10 }} />
           {domains.map(domainKey => (
             <Scatter

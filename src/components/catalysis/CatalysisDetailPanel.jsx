@@ -10,16 +10,33 @@ function Field({ label, value, t }) {
   )
 }
 
-export function CatalysisDetailPanel({ selectedTask, selectedComparison, lang, t }) {
-  if (!selectedTask) return null
+export function CatalysisDetailPanel({ selectedTask, filteredCount = 0, selectedComparison, lang, t }) {
+  if (!selectedTask) {
+    return (
+      <aside style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 14, minWidth: 0 }}>
+        <div style={{ color: t.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>{lang === "zh" ? "当前选择" : "Current selection"}</div>
+        <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900, lineHeight: 1.35, marginTop: 8 }}>
+          {lang === "zh" ? "当前筛选条件下暂无催化任务" : "No catalysis task matches the current filters"}
+        </div>
+        <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.6, marginTop: 8 }}>
+          {lang === "zh"
+            ? "当前筛选条件下暂无催化任务。请放宽 reaction domain、product family 或 data status 条件。"
+            : "No catalysis task matches the current filters. Try broadening reaction domain, product family, or data status."}
+        </div>
+      </aside>
+    )
+  }
   return (
     <aside style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 14, minWidth: 0 }}>
       <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "flex-start", flexWrap: "wrap" }}>
         <div>
-          <div style={{ color: t.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>{lang === "zh" ? "当前选择" : "Selected context"}</div>
+          <div style={{ color: t.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>{lang === "zh" ? "当前选择" : "Current selection"}</div>
           <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 950, lineHeight: 1.25, marginTop: 5 }}>{lang === "zh" ? selectedTask.taskZh : selectedTask.taskEn}</div>
         </div>
         <BasisBadge tone={selectedTask.quantitativeStatus === "curated" ? "info" : "proxy"}>{selectedTask.quantitativeStatus}</BasisBadge>
+      </div>
+      <div style={{ color: t.faint, fontSize: 10, marginTop: 8 }}>
+        {lang === "zh" ? `当前筛选结果：${filteredCount} 项任务` : `${filteredCount} tasks in current filter set`}
       </div>
       <div style={{ display: "grid", gap: 8, marginTop: 12 }}>
         <Field label={lang === "zh" ? "领域 / 方式" : "Domain / mode"} value={`${selectedTask.domainLabel} · ${selectedTask.modeLabel}`} t={t} />
