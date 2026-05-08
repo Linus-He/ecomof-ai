@@ -35,6 +35,27 @@ function StatusDot({ status, t }) {
   return <span aria-hidden="true" style={{ background: color, borderRadius: 999, display: "inline-block", height: 7, width: 7 }} />
 }
 
+function formatPriority(priority, lang) {
+  if (lang !== "zh") return priority
+  const labels = {
+    required: "必需",
+    recommended: "推荐",
+    derived: "派生",
+  }
+  return labels[priority] || priority
+}
+
+function formatMatrixLabel(label, lang) {
+  if (lang !== "zh") return label
+  const labels = {
+    available: "可用",
+    partial: "部分",
+    missing: "缺失",
+    "framework-only": "仅框架",
+  }
+  return labels[label] || label
+}
+
 function DefinitionList({ items, t }) {
   return (
     <dl style={{ display: "grid", gap: 8, margin: 0 }}>
@@ -232,7 +253,7 @@ function RecordIntakeTemplate({ lang, t }) {
                 <div key={`${row.groupEn}-${row.fieldEn}`} style={{ borderTop: `1px solid ${t.divider}`, display: "grid", gap: 10, gridTemplateColumns: "minmax(150px, 0.8fr) minmax(0, 1.4fr)", paddingTop: 8 }}>
                   <div>
                     <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900 }}>{lang === "zh" ? row.fieldZh : row.fieldEn}</div>
-                    <div style={{ color: t.faint, fontSize: 11, fontWeight: 850, marginTop: 3 }}>{row.priority}</div>
+                    <div style={{ color: t.faint, fontSize: 11, fontWeight: 850, marginTop: 3 }}>{formatPriority(row.priority, lang)}</div>
                   </div>
                   <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))" }}>
                     <div>
@@ -270,10 +291,10 @@ function CompletenessMatrix({ lang, t }) {
             <DefinitionList
               t={t}
               items={[
-                { label: "available", value: lang === "zh" ? item.availableZh : item.availableEn },
-                { label: "partial", value: lang === "zh" ? item.partialZh : item.partialEn },
-                { label: "missing", value: lang === "zh" ? item.missingZh : item.missingEn },
-                { label: "framework-only", value: lang === "zh" ? item.frameworkOnlyZh : item.frameworkOnlyEn },
+                { label: formatMatrixLabel("available", lang), value: lang === "zh" ? item.availableZh : item.availableEn },
+                { label: formatMatrixLabel("partial", lang), value: lang === "zh" ? item.partialZh : item.partialEn },
+                { label: formatMatrixLabel("missing", lang), value: lang === "zh" ? item.missingZh : item.missingEn },
+                { label: formatMatrixLabel("framework-only", lang), value: lang === "zh" ? item.frameworkOnlyZh : item.frameworkOnlyEn },
               ]}
             />
             <div style={{ borderTop: `1px solid ${t.divider}`, color: t.muted, fontSize: 12, lineHeight: 1.55, marginTop: 10, paddingTop: 10 }}>
