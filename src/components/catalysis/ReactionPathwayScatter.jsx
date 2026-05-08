@@ -1,7 +1,6 @@
 import {
   CartesianGrid,
   Cell,
-  Legend,
   ResponsiveContainer,
   Scatter,
   ScatterChart,
@@ -29,7 +28,10 @@ function TooltipBody({ active, payload, lang, t }) {
 }
 
 export function ReactionPathwayScatter({ data, selectedTaskId, onSelectTask, lang, t, height = 420 }) {
-  const domains = Array.from(new Set(data.map(item => item.domainKey)))
+  const domains = Array.from(new Set(data.map(item => item.domainKey))).map(domainKey => ({
+    key: domainKey,
+    label: data.find(item => item.domainKey === domainKey)?.domainLabel || domainKey,
+  }))
   return (
     <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 14, minWidth: 0, overflow: "visible" }}>
       <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap", marginBottom: 8 }}>
@@ -37,9 +39,17 @@ export function ReactionPathwayScatter({ data, selectedTaskId, onSelectTask, lan
           <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900 }}>{lang === "zh" ? "Reaction Pathway Scatter / 反应路径坐标图" : "Reaction Pathway Scatter"}</div>
           <div style={{ color: t.faint, fontSize: 10, marginTop: 4 }}>{lang === "zh" ? "点代表催化任务或路径。" : "Each point represents a catalysis task or pathway."}</div>
         </div>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end", maxWidth: 460 }}>
+          {domains.map(domain => (
+            <span key={domain.key} style={{ alignItems: "center", color: t.muted, display: "inline-flex", fontSize: 10, fontWeight: 800, gap: 5, lineHeight: 1.2 }}>
+              <span aria-hidden="true" style={{ background: DOMAIN_COLORS[domain.key] || t.accent, borderRadius: 999, display: "inline-block", height: 8, width: 8 }} />
+              {domain.label}
+            </span>
+          ))}
+        </div>
       </div>
       <ResponsiveContainer width="100%" height={height} minHeight={height}>
-        <ScatterChart margin={{ top: 32, right: 40, bottom: 88, left: 72 }}>
+        <ScatterChart margin={{ top: 20, right: 32, bottom: 40, left: 72 }}>
           <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
           <XAxis
             type="number"
@@ -49,7 +59,6 @@ export function ReactionPathwayScatter({ data, selectedTaskId, onSelectTask, lan
             angle={-20}
             textAnchor="end"
             height={56}
-            label={{ value: lang === "zh" ? "反应条件强度" : "Reaction condition intensity", fill: t.subtle, fontSize: 13, position: "bottom", offset: 36 }}
           />
           <YAxis
             type="number"
@@ -61,16 +70,15 @@ export function ReactionPathwayScatter({ data, selectedTaskId, onSelectTask, lan
           />
           <ZAxis type="number" dataKey="z" range={[70, 360]} />
           <Tooltip content={<TooltipBody lang={lang} t={t} />} cursor={{ stroke: t.accent, strokeDasharray: "3 3" }} allowEscapeViewBox={{ x: true, y: true }} wrapperStyle={{ zIndex: 20 }} />
-          <Legend verticalAlign="top" align="right" wrapperStyle={{ color: t.subtle, fontSize: 10, paddingBottom: 16 }} />
-          {domains.map(domainKey => (
+          {domains.map(domain => (
             <Scatter
-              key={domainKey}
-              name={data.find(item => item.domainKey === domainKey)?.domainLabel || domainKey}
-              data={data.filter(item => item.domainKey === domainKey)}
-              fill={DOMAIN_COLORS[domainKey] || t.accent}
+              key={domain.key}
+              name={domain.label}
+              data={data.filter(item => item.domainKey === domain.key)}
+              fill={DOMAIN_COLORS[domain.key] || t.accent}
               onClick={(point) => onSelectTask?.(point?.payload || point)}
             >
-              {data.filter(item => item.domainKey === domainKey).map(item => (
+              {data.filter(item => item.domainKey === domain.key).map(item => (
                 <Cell
                   key={item.id}
                   fill={DOMAIN_COLORS[item.domainKey] || t.accent}
@@ -82,6 +90,9 @@ export function ReactionPathwayScatter({ data, selectedTaskId, onSelectTask, lan
           ))}
         </ScatterChart>
       </ResponsiveContainer>
+      <div style={{ color: t.subtle, fontSize: 13, fontWeight: 750, marginTop: 8, textAlign: "center" }}>
+        {lang === "zh" ? "反应条件强度" : "Reaction condition intensity"}
+      </div>
       <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.5 }}>
         {lang === "zh"
           ? "该图仅支持早期比较；除非明确标注为已整理，坐标值为演示或待整理状态。"

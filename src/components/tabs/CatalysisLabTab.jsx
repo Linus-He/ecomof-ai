@@ -37,6 +37,7 @@ export function CatalysisLabTab() {
   const [xMetric, setXMetric] = useState("yield")
   const [yMetric, setYMetric] = useState("selectivity")
   const [productMetricFamily, setProductMetricFamily] = useState("all")
+  const [selectionSource, setSelectionSource] = useState("filter")
   const [notice, setNotice] = useState("")
 
   const localizedTasks = useMemo(() => (
@@ -49,10 +50,12 @@ export function CatalysisLabTab() {
   useEffect(() => {
     if (!filteredTasks.length) {
       if (selectedTaskId !== null) setSelectedTaskId(null)
+      setSelectionSource("filter")
       return
     }
     if (!filteredTasks.some(task => task.id === selectedTaskId)) {
       setSelectedTaskId(filteredTasks[0].id)
+      setSelectionSource("filter")
     }
   }, [filteredTasks, selectedTaskId])
 
@@ -70,6 +73,9 @@ export function CatalysisLabTab() {
   const selectedTask = useMemo(() => (
     filteredTasks.find(task => task.id === selectedTaskId) || filteredTasks[0] || null
   ), [filteredTasks, selectedTaskId])
+  const selectedIndex = useMemo(() => (
+    selectedTask ? filteredTasks.findIndex(task => task.id === selectedTask.id) : -1
+  ), [filteredTasks, selectedTask])
 
   const selectedComparisonRows = useMemo(() => (
     selectedComparisonIds.map(id => filteredTasks.find(task => task.id === id)).filter(Boolean)
@@ -92,9 +98,10 @@ export function CatalysisLabTab() {
     setNotice("")
   }
 
-  const selectTask = (task) => {
+  const selectTask = (task, source = "table") => {
     if (!task?.id) return
     setSelectedTaskId(task.id)
+    setSelectionSource(source)
     setNotice("")
   }
 
@@ -117,6 +124,7 @@ export function CatalysisLabTab() {
     if (!comparison?.taskA?.id || !comparison?.taskB?.id) return
     setSelectedComparisonIds([comparison.taskA.id, comparison.taskB.id])
     setSelectedTaskId(comparison.taskA.id)
+    setSelectionSource("chart")
     setNotice("")
   }
 
@@ -134,8 +142,8 @@ export function CatalysisLabTab() {
           : "The first analysis view uses a true axis chart for condition intensity, data readiness, and evidence status."}
       >
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.65fr) minmax(280px, 0.75fr)", gap: 14, alignItems: "stretch" }}>
-          <ReactionPathwayScatter data={filteredTasks} selectedTaskId={selectedTask?.id} onSelectTask={selectTask} lang={lang} t={t} height={chartHeight} />
-          <CatalysisDetailPanel selectedTask={selectedTask} filteredCount={filteredTasks.length} selectedComparison={selectedComparison} lang={lang} t={t} />
+          <ReactionPathwayScatter data={filteredTasks} selectedTaskId={selectedTask?.id} onSelectTask={(task) => selectTask(task, "chart")} lang={lang} t={t} height={chartHeight} />
+          <CatalysisDetailPanel selectedTask={selectedTask} filteredTasks={filteredTasks} selectedIndex={selectedIndex} selectionSource={selectionSource} selectedComparison={selectedComparison} lang={lang} t={t} />
         </div>
       </ResultLayer>
 
@@ -156,7 +164,7 @@ export function CatalysisLabTab() {
             onXMetricChange={setXMetric}
             onYMetricChange={setYMetric}
             onProductChange={setProductMetricFamily}
-            onSelectTask={selectTask}
+            onSelectTask={(task) => selectTask(task, "chart")}
             lang={lang}
             t={t}
             height={chartHeight}
@@ -190,7 +198,7 @@ export function CatalysisLabTab() {
             tasks={filteredTasks}
             selectedTaskId={selectedTask?.id}
             selectedComparisonIds={selectedComparisonIds}
-            onSelectTask={selectTask}
+            onSelectTask={(task) => selectTask(task, "table")}
             onToggleComparison={toggleComparison}
             lang={lang}
             t={t}
@@ -200,7 +208,7 @@ export function CatalysisLabTab() {
             tasks={filteredTasks}
             selectedTaskId={selectedTask?.id}
             selectedComparisonIds={selectedComparisonIds}
-            onSelectTask={selectTask}
+            onSelectTask={(task) => selectTask(task, "table")}
             onToggleComparison={toggleComparison}
             lang={lang}
             t={t}

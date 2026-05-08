@@ -1,58 +1,100 @@
-import { BasisBadge } from "../../shared"
+import { BasisBadge, Callout } from "../../shared"
 import { DATA_STATUSES, labelFor } from "./catalysisData"
 
-function Field({ label, value, t }) {
-  return (
-    <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, padding: 10 }}>
-      <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>{label}</div>
-      <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, lineHeight: 1.45, marginTop: 5 }}>{value || "—"}</div>
-    </div>
-  )
+function Chip({ children, tone = "proxy" }) {
+  return <BasisBadge tone={tone}>{children}</BasisBadge>
 }
 
-export function CatalysisDetailPanel({ selectedTask, filteredCount = 0, selectedComparison, lang, t }) {
+function SourceBadge({ selectionSource, lang }) {
+  if (selectionSource === "chart") return <BasisBadge tone="info">{lang === "zh" ? "由坐标图选择" : "Selected from chart"}</BasisBadge>
+  if (selectionSource === "filter") return <BasisBadge tone="calc">{lang === "zh" ? "随筛选结果自动选择" : "Auto-selected by filters"}</BasisBadge>
+  return <BasisBadge tone="proxy">{lang === "zh" ? "由任务表选择" : "Selected from table"}</BasisBadge>
+}
+
+export function CatalysisDetailPanel({
+  selectedTask,
+  filteredTasks = [],
+  selectedIndex = -1,
+  selectionSource = "filter",
+  selectedComparison,
+  lang,
+  t,
+}) {
+  const count = filteredTasks.length
   if (!selectedTask) {
     return (
-      <aside style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 14, minWidth: 0 }}>
-        <div style={{ color: t.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>{lang === "zh" ? "当前选择" : "Current selection"}</div>
-        <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900, lineHeight: 1.35, marginTop: 8 }}>
-          {lang === "zh" ? "当前筛选条件下暂无催化任务" : "No catalysis task matches the current filters"}
+      <aside style={{ background: t.panel, border: `1px solid ${t.border}`, borderLeft: `4px solid ${t.accent}`, borderRadius: 12, minWidth: 0, padding: 16 }}>
+        <div style={{ alignItems: "center", display: "flex", gap: 8 }}>
+          <span aria-hidden="true" style={{ background: t.accent, borderRadius: 999, height: 8, width: 8 }} />
+          <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 950 }}>{lang === "zh" ? "选中任务详情" : "Selected Task Inspector"}</div>
         </div>
-        <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.6, marginTop: 8 }}>
+        <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.6, marginTop: 12 }}>
           {lang === "zh"
-            ? "当前筛选条件下暂无催化任务。请放宽 reaction domain、product family 或 data status 条件。"
+            ? "当前筛选条件下暂无催化任务。请放宽领域、产物族或数据状态条件。"
             : "No catalysis task matches the current filters. Try broadening reaction domain, product family, or data status."}
         </div>
       </aside>
     )
   }
+
+  const metrics = lang === "zh" ? selectedTask.keyMetricsZh : selectedTask.keyMetricsEn
+  const bridges = lang === "zh" ? selectedTask.missingBridgeMetricsZh : selectedTask.missingBridgeMetricsEn
+  const positionText = count > 0 && selectedIndex >= 0
+    ? (lang === "zh" ? `来自当前筛选结果 · ${selectedIndex + 1} / ${count}` : `From current filter set · ${selectedIndex + 1} / ${count}`)
+    : (lang === "zh" ? "点击坐标图中的点可切换任务" : "Click a point in the chart to switch tasks")
+
   return (
-    <aside style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 14, minWidth: 0 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "flex-start", flexWrap: "wrap" }}>
+    <aside style={{ background: t.panel, border: `1px solid ${t.border}`, borderLeft: `4px solid ${t.accent}`, borderRadius: 12, minWidth: 0, padding: 16 }}>
+      <div style={{ alignItems: "flex-start", display: "flex", gap: 10, justifyContent: "space-between", flexWrap: "wrap" }}>
         <div>
-          <div style={{ color: t.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>{lang === "zh" ? "当前选择" : "Current selection"}</div>
-          <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 950, lineHeight: 1.25, marginTop: 5 }}>{lang === "zh" ? selectedTask.taskZh : selectedTask.taskEn}</div>
+          <div style={{ alignItems: "center", color: t.textStrong, display: "flex", fontSize: 15, fontWeight: 950, gap: 8 }}>
+            <span aria-hidden="true" style={{ background: t.accent, borderRadius: 999, boxShadow: `0 0 0 4px ${t.badgeInfoBg}`, height: 8, width: 8 }} />
+            {lang === "zh" ? "选中任务详情" : "Selected Task Inspector"}
+          </div>
+          <div style={{ color: t.faint, fontSize: 11, marginTop: 6 }}>{positionText}</div>
         </div>
-        <BasisBadge tone={selectedTask.quantitativeStatus === "curated" ? "info" : "proxy"}>{selectedTask.quantitativeStatus}</BasisBadge>
+        <SourceBadge selectionSource={selectionSource} lang={lang} />
       </div>
-      <div style={{ color: t.faint, fontSize: 10, marginTop: 8 }}>
-        {lang === "zh" ? `当前筛选结果：${filteredCount} 项任务` : `${filteredCount} tasks in current filter set`}
+
+      <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, height: 8, marginTop: 14, overflow: "hidden" }}>
+        <div style={{ background: t.accent, height: "100%", width: `${Math.min(100, Math.max(8, selectedTask.fieldCompleteness || 0))}%` }} />
       </div>
-      <div style={{ display: "grid", gap: 8, marginTop: 12 }}>
-        <Field label={lang === "zh" ? "领域 / 方式" : "Domain / mode"} value={`${selectedTask.domainLabel} · ${selectedTask.modeLabel}`} t={t} />
-        <Field label={lang === "zh" ? "原料 / 产物族" : "Feedstock / product"} value={`${selectedTask.feedstockLabel} → ${selectedTask.productFamilyLabel}`} t={t} />
-        <Field label={lang === "zh" ? "关键指标" : "Key metrics"} value={(lang === "zh" ? selectedTask.keyMetricsZh : selectedTask.keyMetricsEn).join(" · ")} t={t} />
-        <Field label={lang === "zh" ? "条件语境" : "Condition context"} value={(lang === "zh" ? selectedTask.conditionContextZh : selectedTask.conditionContextEn).join(" · ")} t={t} />
-        <Field label={lang === "zh" ? "数据状态" : "Data status"} value={labelFor(DATA_STATUSES, selectedTask.dataStatusKey, lang)} t={t} />
+
+      <div style={{ color: t.textStrong, fontSize: 17, fontWeight: 950, lineHeight: 1.3, marginTop: 14 }}>
+        {lang === "zh" ? selectedTask.taskZh : selectedTask.taskEn}
       </div>
+
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 7, marginTop: 10 }}>
+        <Chip tone="info">{selectedTask.domainLabel}</Chip>
+        <Chip>{selectedTask.modeLabel}</Chip>
+        <Chip tone="calc">{selectedTask.productFamilyLabel}</Chip>
+        <Chip tone={selectedTask.quantitativeStatus === "curated" ? "info" : "proxy"}>{labelFor(DATA_STATUSES, selectedTask.dataStatusKey, lang)}</Chip>
+      </div>
+
+      <div style={{ color: t.faint, fontSize: 10, fontWeight: 900, marginTop: 14, textTransform: "uppercase" }}>
+        {lang === "zh" ? "关键指标" : "Key metrics"}
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 7 }}>
+        {metrics.map(metric => <Chip key={metric}>{metric}</Chip>)}
+      </div>
+
       {selectedComparison && (
-        <div style={{ borderTop: `1px solid ${t.border}`, marginTop: 12, paddingTop: 12 }}>
-          <div style={{ color: t.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>{lang === "zh" ? "可比性判断" : "Comparability"}</div>
-          <div style={{ marginTop: 7 }}><BasisBadge tone={selectedComparison.statusKey === "comparable" ? "info" : selectedComparison.statusKey === "not-comparable" ? "warn" : "proxy"}>{lang === "zh" ? selectedComparison.statusZh : selectedComparison.statusEn}</BasisBadge></div>
-          <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55, marginTop: 8 }}>{lang === "zh" ? selectedComparison.reasonZh : selectedComparison.reasonEn}</div>
-          <Field label={lang === "zh" ? "缺失桥梁指标" : "Missing bridge metrics"} value={(lang === "zh" ? selectedComparison.missingBridgeMetricsZh : selectedComparison.missingBridgeMetricsEn).join(" · ")} t={t} />
-        </div>
+        <Callout tone={selectedComparison.statusKey === "comparable" ? "info" : "warn"}>
+          <strong>{lang === "zh" ? selectedComparison.statusZh : selectedComparison.statusEn}</strong>
+          <div style={{ marginTop: 5 }}>{lang === "zh" ? selectedComparison.reasonZh : selectedComparison.reasonEn}</div>
+        </Callout>
       )}
+
+      <div style={{ color: t.faint, fontSize: 10, fontWeight: 900, marginTop: 14, textTransform: "uppercase" }}>
+        {lang === "zh" ? "缺失桥梁指标" : "Missing bridge metrics"}
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 7 }}>
+        {bridges.length ? bridges.map(metric => <Chip key={metric} tone="warn">{metric}</Chip>) : <Chip tone="info">{lang === "zh" ? "暂无缺失项" : "No missing items"}</Chip>}
+      </div>
+
+      <div style={{ borderTop: `1px solid ${t.border}`, color: t.faint, fontSize: 11, lineHeight: 1.5, marginTop: 14, paddingTop: 12 }}>
+        {lang === "zh" ? "点击坐标图中的其他点可切换当前任务。" : "Click another point in the chart to switch the current task."}
+      </div>
     </aside>
   )
 }
