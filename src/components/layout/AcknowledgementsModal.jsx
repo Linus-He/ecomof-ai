@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react"
 import { useT, useLang, useViewport } from "../../contexts"
 import { FONT_SANS } from "../../constants/theme"
 
+const XJU_EMBLEM_SRC = `${import.meta.env.BASE_URL || "/"}assets/xju-emblem.jpg`
+
 const acknowledgementCards = [
   {
     id: "happyflight",
@@ -21,6 +23,7 @@ const acknowledgementCards = [
   {
     id: "li-xinjian",
     variant: "xju-catalysis",
+    emblemSrc: XJU_EMBLEM_SRC,
     watermark: "XJU",
     secondaryWatermark: "CO₂ / HCO₃⁻",
     en: {
@@ -147,6 +150,28 @@ function AcknowledgementCard({ card, lang, isMobile }) {
         }}
       />
       <MoleculeWatermark variant={card.variant} />
+      {card.emblemSrc && (
+        <img
+          aria-hidden="true"
+          alt=""
+          src={card.emblemSrc}
+          style={{
+            bottom: isMobile ? 20 : 12,
+            filter: "grayscale(1) contrast(1.05)",
+            height: isMobile ? 150 : 210,
+            mixBlendMode: "screen",
+            objectFit: "contain",
+            opacity: isMobile ? 0.1 : 0.13,
+            pointerEvents: "none",
+            position: "absolute",
+            right: isMobile ? -28 : -20,
+            transform: "rotate(-7deg)",
+            userSelect: "none",
+            width: isMobile ? 150 : 210,
+            zIndex: 0,
+          }}
+        />
+      )}
       <div
         aria-hidden="true"
         style={{
