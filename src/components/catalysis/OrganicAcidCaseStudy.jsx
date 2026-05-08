@@ -391,11 +391,11 @@ function ReadinessClasses({ lang, t }) {
   )
 }
 
-function FutureDataIntegration({ lang, t }) {
+function FutureDataIntegrationLevels({ lang, t }) {
   return (
     <Panel t={t}>
       <SectionHeader
-        eyebrow={lang === "zh" ? "未来数据接入" : "Future data integration"}
+        eyebrow={lang === "zh" ? "未来数据接入等级" : "Future data integration levels"}
         title={lang === "zh" ? "真实合作数据未来如何安全接入" : "How future collaborator data can be integrated safely"}
         note={lang === "zh" ? "该区块只描述未来授权数据能补充什么，不暗示当前公开页面已包含合作方数据。" : "This section describes what authorized data could add later; it does not imply that collaborator data are included now."}
         t={t}
@@ -445,7 +445,7 @@ export function OrganicAcidCaseStudy({ lang, t }) {
       <ReadinessTrace lang={lang} t={t} />
       <ComparabilityDecisionLogic lang={lang} t={t} />
       <ReadinessClasses lang={lang} t={t} />
-      <FutureDataIntegration lang={lang} t={t} />
+      <FutureDataIntegrationLevels lang={lang} t={t} />
     </div>
   )
 }
