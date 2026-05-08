@@ -6,6 +6,7 @@ import { CatalysisHero } from "../catalysis/CatalysisHero"
 import { CatalysisTaskCards } from "../catalysis/CatalysisTaskCards"
 import { CatalysisTaskTable } from "../catalysis/CatalysisTaskTable"
 import { ComparabilityScatterQuadrant } from "../catalysis/ComparabilityScatterQuadrant"
+import { OrganicAcidCaseStudy } from "../catalysis/OrganicAcidCaseStudy"
 import { ProductMetricScatter } from "../catalysis/ProductMetricScatter"
 import { ReactionPathwayScatter } from "../catalysis/ReactionPathwayScatter"
 import { SelectionInspector } from "../catalysis/SelectionInspector"
@@ -233,6 +234,16 @@ export function CatalysisLabTab() {
 
       <ResultLayer
         number="04"
+        title={lang === "zh" ? "Organic Acid Case Study v0" : "Organic Acid Case Study v0"}
+        subtitle={lang === "zh"
+          ? "有机酸方向作为 framework-first 案例，用于说明字段框架、路径图、可比性逻辑和缺失证据。"
+          : "The organic-acid direction is a framework-first case for schema, pathway, comparability, and missing-evidence logic."}
+      >
+        <OrganicAcidCaseStudy lang={lang} t={t} />
+      </ResultLayer>
+
+      <ResultLayer
+        number="05"
         title={lang === "zh" ? "数据整理层与案例路径" : "Data Curation Layer and Case Pathway"}
         subtitle={lang === "zh"
           ? "Biomass-assisted CO₂ / HCO₃⁻ conversion 保留为案例研究，不作为整个催化页的唯一叙事。"
