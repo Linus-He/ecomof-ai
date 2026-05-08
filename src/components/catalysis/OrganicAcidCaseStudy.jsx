@@ -1,11 +1,12 @@
 import { BasisBadge } from "../../shared"
 import {
   organicAcidCaseSummary,
-  organicAcidComparabilityRules,
-  organicAcidEvidenceChecklist,
-  organicAcidPathwayLayers,
-  organicAcidProductFamilies,
-  organicAcidSchemaGroups,
+  organicAcidDecisionRules,
+  organicAcidFieldPriority,
+  organicAcidFutureCollaboratorData,
+  organicAcidMockRecord,
+  organicAcidReadinessClasses,
+  organicAcidWorkflowSteps,
 } from "../../data/organicAcidFramework"
 
 function SectionTitle({ eyebrow, title, t }) {
@@ -17,143 +18,205 @@ function SectionTitle({ eyebrow, title, t }) {
   )
 }
 
-function FrameworkNote({ lang, t }) {
+function Panel({ children, t, style = {} }) {
   return (
-    <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12, lineHeight: 1.65, padding: 12 }}>
-      {lang === "zh"
-        ? "本案例目前用于展示有机酸催化数据的结构化整理框架，暂不包含合作方未公开实验数据。"
-        : "This case study demonstrates a framework for structuring organic-acid catalysis records. No collaborator-owned experimental data are included at this stage."}
+    <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 16, ...style }}>
+      {children}
+    </section>
+  )
+}
+
+function DefinitionList({ items, t }) {
+  return (
+    <dl style={{ display: "grid", gap: 8, margin: 0 }}>
+      {items.map(item => (
+        <div key={item.label} style={{ borderTop: `1px solid ${t.divider}`, display: "grid", gap: 8, gridTemplateColumns: "112px minmax(0, 1fr)", paddingTop: 8 }}>
+          <dt style={{ color: t.faint, fontSize: 11, fontWeight: 850 }}>{item.label}</dt>
+          <dd style={{ color: t.textStrong, fontSize: 12, lineHeight: 1.5, margin: 0 }}>{item.value}</dd>
+        </div>
+      ))}
+    </dl>
+  )
+}
+
+function Purpose({ lang, t }) {
+  return (
+    <Panel t={t} style={{ borderLeft: `3px solid ${t.accent}` }}>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+        <div>
+          <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 950 }}>{lang === "zh" ? organicAcidCaseSummary.titleZh : organicAcidCaseSummary.titleEn} v0</div>
+          <div style={{ color: t.accentText, fontSize: 13, fontWeight: 850, marginTop: 5 }}>{lang === "zh" ? organicAcidCaseSummary.pathwayZh : organicAcidCaseSummary.pathwayEn}</div>
+        </div>
+        <BasisBadge tone="warn">{lang === "zh" ? "framework-first" : "framework-first"}</BasisBadge>
+      </div>
+      <div style={{ color: t.muted, fontSize: 13, lineHeight: 1.65, marginTop: 12 }}>
+        {lang === "zh" ? organicAcidCaseSummary.purposeZh : organicAcidCaseSummary.purposeEn}
+      </div>
+      <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12, lineHeight: 1.65, marginTop: 12, padding: 12 }}>
+        {lang === "zh"
+          ? "这是 framework-first demonstration，不是实验结果发布页。当前公开演示不包含合作方未公开实验数据。"
+          : "It is a framework-first demonstration, not a publication of experimental results. No collaborator-owned experimental data are included in this public demo."}
+      </div>
+    </Panel>
+  )
+}
+
+function Workflow({ lang, t }) {
+  return (
+    <Panel t={t}>
+      <SectionTitle eyebrow={lang === "zh" ? "整理流程" : "Curation workflow"} title={lang === "zh" ? "从原始记录到可比性输出" : "From raw note to comparison-aware output"} t={t} />
+      <div style={{ display: "grid", gap: 10, marginTop: 14 }}>
+        {organicAcidWorkflowSteps.map((step, index) => (
+          <article key={step.stepEn} style={{ alignItems: "stretch", display: "grid", gap: 10, gridTemplateColumns: "28px minmax(0, 1fr)", position: "relative" }}>
+            <div style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, color: t.accentText, display: "flex", fontSize: 12, fontWeight: 900, height: 28, justifyContent: "center", width: 28 }}>{index + 1}</div>
+            <div style={{ border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }}>
+              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 950 }}>{lang === "zh" ? step.stepZh : step.stepEn}</div>
+              <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", marginTop: 10 }}>
+                <MiniField label={lang === "zh" ? "Input" : "Input"} value={lang === "zh" ? step.inputZh : step.inputEn} t={t} />
+                <MiniField label={lang === "zh" ? "Processing" : "Processing"} value={lang === "zh" ? step.processingZh : step.processingEn} t={t} />
+                <MiniField label={lang === "zh" ? "Output" : "Output"} value={lang === "zh" ? step.outputZh : step.outputEn} t={t} />
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </Panel>
+  )
+}
+
+function MiniField({ label, value, t }) {
+  return (
+    <div>
+      <div style={{ color: t.faint, fontSize: 10, fontWeight: 900 }}>{label}</div>
+      <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.5, marginTop: 4 }}>{value}</div>
     </div>
   )
 }
 
-function PathwayMap({ lang, t }) {
+function FieldPriority({ lang, t }) {
+  const groups = ["required", "recommended", "derived"].map(key => organicAcidFieldPriority[key])
   return (
-    <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 16 }}>
-      <SectionTitle eyebrow={lang === "zh" ? "路径图" : "Pathway map"} title={lang === "zh" ? "CO₂ / HCO₃⁻ + 生物质底物 → 有机酸产物族" : "CO₂ / HCO₃⁻ + biomass substrates → organic-acid families"} t={t} />
-      <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", marginTop: 14 }}>
-        {organicAcidPathwayLayers.map((layer, index) => (
-          <div key={layer.key} style={{ minWidth: 0 }}>
-            <div style={{ color: t.accentText, fontSize: 12, fontWeight: 900 }}>{lang === "zh" ? layer.zh : layer.en}</div>
-            <div style={{ display: "grid", gap: 8, marginTop: 8 }}>
-              {(lang === "zh" ? layer.nodesZh : layer.nodesEn).map(node => (
-                <div key={node} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.textStrong, fontSize: 12, fontWeight: 800, lineHeight: 1.35, padding: "9px 10px" }}>
-                  {node}
-                </div>
-              ))}
-            </div>
-            {index < organicAcidPathwayLayers.length - 1 && (
-              <div style={{ color: t.faint, fontSize: 18, fontWeight: 900, marginTop: 8, textAlign: "center" }}>↓</div>
-            )}
-          </div>
-        ))}
-      </div>
-      <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5, marginTop: 12 }}>
-        {lang === "zh" ? "这是 pathway framework，不表示所有路线已完成实验验证。" : "This is a pathway framework; it does not imply that all routes have been experimentally validated."}
-      </div>
-    </section>
-  )
-}
-
-function ProductBreakdown({ lang, t }) {
-  return (
-    <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 16 }}>
-      <SectionTitle eyebrow={lang === "zh" ? "产物族" : "Product family"} title={lang === "zh" ? "有机酸产物拆解" : "Organic acid product breakdown"} t={t} />
+    <Panel t={t}>
+      <SectionTitle eyebrow={lang === "zh" ? "字段优先级" : "Field priority model"} title={lang === "zh" ? "字段如何服务整理、比较和 ML-ready 判断" : "How fields support curation, comparison, and ML-readiness"} t={t} />
       <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", marginTop: 14 }}>
-        {organicAcidProductFamilies.map(product => (
-          <article key={product.key} style={{ borderTop: `2px solid ${t.accent}`, paddingTop: 10 }}>
-            <div style={{ alignItems: "center", display: "flex", gap: 8, justifyContent: "space-between" }}>
-              <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 950 }}>{lang === "zh" ? product.zh : product.en}</div>
-              <BasisBadge tone="proxy">{product.carbon}</BasisBadge>
-            </div>
-            <dl style={{ display: "grid", gap: 7, margin: "10px 0 0" }}>
-              {[
-                [lang === "zh" ? "路线语境" : "Route context", lang === "zh" ? product.routeZh : product.routeEn],
-                [lang === "zh" ? "待收集指标" : "Metrics to collect", lang === "zh" ? product.metricsZh : product.metricsEn],
-                [lang === "zh" ? "所需证据" : "Evidence needed", lang === "zh" ? product.evidenceZh : product.evidenceEn],
-              ].map(([label, value]) => (
-                <div key={label} style={{ display: "grid", gap: 4 }}>
-                  <dt style={{ color: t.faint, fontSize: 10, fontWeight: 900 }}>{label}</dt>
-                  <dd style={{ color: t.muted, fontSize: 12, lineHeight: 1.5, margin: 0 }}>{value}</dd>
-                </div>
-              ))}
-            </dl>
-          </article>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-function DataSchema({ lang, t }) {
-  return (
-    <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 16 }}>
-      <SectionTitle eyebrow={lang === "zh" ? "字段框架" : "Data schema"} title={lang === "zh" ? "实验记录整理字段" : "Experimental data schema"} t={t} />
-      <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", marginTop: 14 }}>
-        {organicAcidSchemaGroups.map(group => (
-          <article key={group.key} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }}>
-            <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900 }}>{lang === "zh" ? group.zh : group.en}</div>
-            <ol style={{ color: t.muted, fontSize: 12, lineHeight: 1.6, margin: "9px 0 0", paddingLeft: 18 }}>
+        {groups.map(group => (
+          <article key={group.en} style={{ borderTop: `2px solid ${t.accent}`, paddingTop: 10 }}>
+            <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 950 }}>{lang === "zh" ? group.zh : group.en}</div>
+            <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55, marginTop: 6 }}>{lang === "zh" ? group.purposeZh : group.purposeEn}</div>
+            <ol style={{ color: t.textStrong, fontSize: 12, lineHeight: 1.6, margin: "9px 0 0", paddingLeft: 18 }}>
               {(lang === "zh" ? group.fieldsZh : group.fieldsEn).map(field => <li key={field}>{field}</li>)}
             </ol>
           </article>
         ))}
       </div>
-      <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5, marginTop: 12 }}>
-        {lang === "zh" ? "定量数值在当前公开页面中标记为 framework only / not provided。" : "Quantitative values are marked framework only / not provided in this public page."}
-      </div>
-    </section>
+    </Panel>
   )
 }
 
-function ComparabilityAndEvidence({ lang, t }) {
+function MockTransformation({ lang, t }) {
   return (
-    <section style={{ display: "grid", gap: 14, gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }}>
-      <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 16 }}>
-        <SectionTitle eyebrow={lang === "zh" ? "可比性逻辑" : "Comparability logic"} title={lang === "zh" ? "为什么不能直接横向比较" : "Why direct comparison is limited"} t={t} />
-        <ol style={{ color: t.muted, fontSize: 12, lineHeight: 1.6, margin: "12px 0 0", paddingLeft: 18 }}>
-          {organicAcidComparabilityRules.map(rule => <li key={rule.en}>{lang === "zh" ? rule.zh : rule.en}</li>)}
-        </ol>
+    <Panel t={t}>
+      <SectionTitle eyebrow={lang === "zh" ? "Mock 记录转换" : "Mock record transformation"} title={lang === "zh" ? "从原始描述到标准化记录" : "From raw description to normalized record"} t={t} />
+      <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12, lineHeight: 1.65, marginTop: 12, padding: 12 }}>
+        <strong style={{ color: t.textStrong }}>{lang === "zh" ? organicAcidMockRecord.labelZh : organicAcidMockRecord.labelEn}:</strong>{" "}
+        {lang === "zh" ? organicAcidMockRecord.rawInputZh : organicAcidMockRecord.rawInputEn}
       </div>
-      <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 16 }}>
-        <SectionTitle eyebrow={lang === "zh" ? "缺失证据" : "Missing evidence"} title={lang === "zh" ? "公开展示前需要补齐的证据" : "Evidence to curate before public comparison"} t={t} />
-        <ol style={{ color: t.muted, fontSize: 12, lineHeight: 1.6, margin: "12px 0 0", paddingLeft: 18 }}>
-          {organicAcidEvidenceChecklist.map(item => <li key={item.key}>{lang === "zh" ? item.zh : item.en}</li>)}
-        </ol>
+      <div style={{ display: "grid", gap: 10, marginTop: 12 }}>
+        {organicAcidMockRecord.normalizedRows.map(row => (
+          <article key={row.fieldEn} style={{ border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }}>
+            <div style={{ alignItems: "center", display: "flex", gap: 8, justifyContent: "space-between", flexWrap: "wrap" }}>
+              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 950 }}>{lang === "zh" ? row.fieldZh : row.fieldEn}</div>
+              <BasisBadge tone={row.statusEn === "available" ? "info" : row.statusEn === "missing" ? "warn" : "proxy"}>{lang === "zh" ? row.statusZh : row.statusEn}</BasisBadge>
+            </div>
+            <DefinitionList
+              t={t}
+              items={[
+                { label: lang === "zh" ? "标准化值" : "Normalized value", value: lang === "zh" ? row.valueZh : row.valueEn },
+                { label: lang === "zh" ? "为什么重要" : "Why it matters", value: lang === "zh" ? row.whyZh : row.whyEn },
+              ]}
+            />
+          </article>
+        ))}
       </div>
-    </section>
+    </Panel>
+  )
+}
+
+function DecisionRules({ lang, t }) {
+  return (
+    <Panel t={t}>
+      <SectionTitle eyebrow={lang === "zh" ? "规则表" : "Decision rules"} title={lang === "zh" ? "可比性判断逻辑" : "Comparability decision logic"} t={t} />
+      <div style={{ overflowX: "auto", marginTop: 12 }}>
+        <table style={{ borderCollapse: "collapse", minWidth: 720, width: "100%" }}>
+          <thead>
+            <tr>
+              {(lang === "zh" ? ["条件", "判断", "解释"] : ["Condition", "Decision", "Explanation"]).map(head => (
+                <th key={head} style={{ borderBottom: `1px solid ${t.border}`, color: t.faint, fontSize: 11, padding: "8px 10px", textAlign: "left" }}>{head}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {organicAcidDecisionRules.map(rule => (
+              <tr key={rule.conditionEn}>
+                <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 12, lineHeight: 1.45, padding: "10px" }}>{lang === "zh" ? rule.conditionZh : rule.conditionEn}</td>
+                <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.accentText, fontSize: 12, fontWeight: 850, padding: "10px" }}>{lang === "zh" ? rule.decisionZh : rule.decisionEn}</td>
+                <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 12, lineHeight: 1.5, padding: "10px" }}>{lang === "zh" ? rule.explanationZh : rule.explanationEn}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </Panel>
+  )
+}
+
+function ReadinessClasses({ lang, t }) {
+  return (
+    <Panel t={t}>
+      <SectionTitle eyebrow={lang === "zh" ? "输出等级" : "Output readiness classes"} title={lang === "zh" ? "从 framework-only 到 comparison-ready" : "From framework-only to comparison-ready"} t={t} />
+      <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", marginTop: 14 }}>
+        {organicAcidReadinessClasses.map(item => (
+          <article key={item.className} style={{ borderTop: `2px solid ${t.accent}`, paddingTop: 10 }}>
+            <div style={{ color: t.textStrong, fontFamily: "monospace", fontSize: 13, fontWeight: 950 }}>{item.className}</div>
+            <DefinitionList
+              t={t}
+              items={[
+                { label: lang === "zh" ? "含义" : "Meaning", value: lang === "zh" ? item.meaningZh : item.meaningEn },
+                { label: lang === "zh" ? "所需证据" : "Required", value: lang === "zh" ? item.requiredEvidenceZh : item.requiredEvidenceEn },
+                { label: lang === "zh" ? "允许用途" : "Allowed use", value: lang === "zh" ? item.allowedUseZh : item.allowedUseEn },
+              ]}
+            />
+          </article>
+        ))}
+      </div>
+    </Panel>
+  )
+}
+
+function FutureDataSlot({ lang, t }) {
+  return (
+    <Panel t={t}>
+      <SectionTitle eyebrow={lang === "zh" ? "后续数据槽" : "Future collaborator data slot"} title={lang === "zh" ? "真实合作数据后续会补充什么" : "What real collaborator data would add later"} t={t} />
+      <ol style={{ color: t.muted, fontSize: 12, lineHeight: 1.7, margin: "12px 0 0", paddingLeft: 18 }}>
+        {organicAcidFutureCollaboratorData.map(item => <li key={item.en}>{lang === "zh" ? item.zh : item.en}</li>)}
+      </ol>
+      <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5, marginTop: 10 }}>
+        {lang === "zh" ? "该区域仅说明未来授权数据可能带来的整理能力，不代表当前公开页面已包含这些数据。" : "This slot describes what authorized data could add later; it does not imply that those data are included in the current public page."}
+      </div>
+    </Panel>
   )
 }
 
 export function OrganicAcidCaseStudy({ lang, t }) {
   return (
     <div style={{ display: "grid", gap: 14 }}>
-      <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderLeft: `3px solid ${t.accent}`, borderRadius: 12, padding: 16 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-          <div>
-            <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 950 }}>{lang === "zh" ? organicAcidCaseSummary.titleZh : organicAcidCaseSummary.titleEn} v0</div>
-            <div style={{ color: t.accentText, fontSize: 13, fontWeight: 850, marginTop: 5 }}>
-              {lang === "zh" ? organicAcidCaseSummary.pathwayZh : organicAcidCaseSummary.pathwayEn}
-            </div>
-          </div>
-          <BasisBadge tone="warn">{lang === "zh" ? "framework-first" : "framework-first"}</BasisBadge>
-        </div>
-        <div style={{ color: t.muted, fontSize: 13, lineHeight: 1.65, marginTop: 12 }}>
-          {lang === "zh"
-            ? "有机酸是 CO₂/HCO₃⁻ 转化与生物质协同利用中的一个代表性产物族。本案例展示如何把分散的催化实验记录转化为可比较、可追溯、可补全的数据结构；当前不展示真实实验结果。"
-            : "Organic acids are a representative product family in CO₂/HCO₃⁻ conversion and biomass coupling. This case shows how dispersed catalysis records can be structured into comparable, traceable, and completable data records; no real experimental results are shown."}
-        </div>
-        <div style={{ marginTop: 12 }}><FrameworkNote lang={lang} t={t} /></div>
-        <div style={{ color: t.faint, fontSize: 11, fontWeight: 850, lineHeight: 1.5, marginTop: 10 }}>
-          {lang === "zh"
-            ? "当前公开演示不包含合作方未公开实验数据。"
-            : "No collaborator-owned experimental data are included in this public demo."}
-        </div>
-      </section>
-      <PathwayMap lang={lang} t={t} />
-      <ProductBreakdown lang={lang} t={t} />
-      <DataSchema lang={lang} t={t} />
-      <ComparabilityAndEvidence lang={lang} t={t} />
+      <Purpose lang={lang} t={t} />
+      <Workflow lang={lang} t={t} />
+      <FieldPriority lang={lang} t={t} />
+      <MockTransformation lang={lang} t={t} />
+      <DecisionRules lang={lang} t={t} />
+      <ReadinessClasses lang={lang} t={t} />
+      <FutureDataSlot lang={lang} t={t} />
     </div>
   )
 }
