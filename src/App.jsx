@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useMemo, lazy, Suspense } from "react"
+import { useState, useCallback, useEffect, useMemo, useRef, lazy, Suspense } from "react"
 import { COPY } from "./i18n"
 import { ThemeCtx, LangCtx, ViewportCtx } from "./contexts"
 import { THEME_DARK, THEME_LIGHT, FONT_SANS } from "./constants/theme"
@@ -125,6 +125,7 @@ function AppShell({
 }) {
   const [homeComparisonOpen, setHomeComparisonOpen] = useState(false)
   const [comparisonBuilderContext, setComparisonBuilderContext] = useState(null)
+  const navRef = useRef(null)
   const openComparisonBuilder = useCallback((context = null) => {
     setComparisonBuilderContext(context || null)
     setHomeComparisonOpen(true)
@@ -133,6 +134,11 @@ function AppShell({
     setHomeComparisonOpen(false)
     setComparisonBuilderContext(null)
   }, [])
+  useEffect(() => {
+    if (!viewport.isNarrow) return
+    const activeButton = navRef.current?.querySelector(`[data-tab-id="${activeTab}"]`)
+    activeButton?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" })
+  }, [activeTab, viewport.isNarrow])
 
   return (
     <div
@@ -177,13 +183,14 @@ function AppShell({
 
             <div style={{ display: "flex", justifyContent: "center", minWidth: 0, gridColumn: viewport.isNarrow ? "1 / -1" : "auto", order: viewport.isNarrow ? 3 : 2 }}>
               <nav
+                ref={navRef}
                 className="nav-capsule"
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "center",
+                  justifyContent: viewport.isNarrow ? "flex-start" : "center",
                   gap: 4,
-                  width: "fit-content",
+                  width: viewport.isNarrow ? "100%" : "fit-content",
                   maxWidth: "100%",
                   overflowX: "auto",
                   padding: 0,
@@ -202,6 +209,7 @@ function AppShell({
                       key={tab.id}
                       type="button"
                       className="nav-tab"
+                      data-tab-id={tab.id}
                       data-active={active ? "true" : "false"}
                       onClick={() => setActiveTab(tab.id)}
                       style={{
@@ -209,9 +217,10 @@ function AppShell({
                         border: active ? `1px solid ${theme.border}` : "1px solid transparent",
                         color: active ? theme.accentText : theme.subtle,
                         height: 32,
-                        padding: "0 14px",
+                        padding: viewport.isMobile ? "0 11px" : "0 14px",
                         borderRadius: 6,
                         cursor: "pointer",
+                        flex: "0 0 auto",
                         fontSize: 12,
                         fontWeight: active ? 800 : 700,
                         whiteSpace: "nowrap",
@@ -241,7 +250,7 @@ function AppShell({
                   whiteSpace: "nowrap",
                 }}
               >
-                {lang === "zh" ? "联系 / 合作" : "Contact"}
+                  {viewport.isMobile && lang === "zh" ? "联系" : (lang === "zh" ? "联系 / 合作" : "Contact")}
               </button>
               <button
                 type="button"

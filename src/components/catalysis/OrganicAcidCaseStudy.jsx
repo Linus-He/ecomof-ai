@@ -13,7 +13,7 @@ import {
 
 function Panel({ ariaLabel, children, t, style = {} }) {
   return (
-    <section aria-label={ariaLabel} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 14, padding: 18, ...style }}>
+    <section aria-label={ariaLabel} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 14, maxWidth: "100%", minWidth: 0, padding: 18, ...style }}>
       {children}
     </section>
   )
@@ -57,11 +57,11 @@ function formatMatrixLabel(label, lang) {
 
 function DefinitionList({ items, t }) {
   return (
-    <dl style={{ display: "grid", gap: 8, margin: 0 }}>
+    <dl style={{ display: "grid", gap: 8, margin: 0, minWidth: 0 }}>
       {items.map(item => (
-        <div key={item.label} style={{ borderTop: `1px solid ${t.divider}`, display: "grid", gap: 8, gridTemplateColumns: "128px minmax(0, 1fr)", paddingTop: 8 }}>
-          <dt style={{ color: t.faint, fontSize: 11, fontWeight: 850 }}>{item.label}</dt>
-          <dd style={{ color: t.textStrong, fontSize: 12, lineHeight: 1.5, margin: 0 }}>{item.value}</dd>
+        <div key={item.label} style={{ borderTop: `1px solid ${t.divider}`, display: "grid", gap: 8, gridTemplateColumns: "minmax(86px, 0.38fr) minmax(0, 1fr)", minWidth: 0, paddingTop: 8 }}>
+          <dt style={{ color: t.faint, fontSize: 11, fontWeight: 850, minWidth: 0 }}>{item.label}</dt>
+          <dd style={{ color: t.textStrong, fontSize: 12, lineHeight: 1.5, margin: 0, minWidth: 0, overflowWrap: "anywhere" }}>{item.value}</dd>
         </div>
       ))}
     </dl>
@@ -194,7 +194,7 @@ function MockRecordTransformation({ lang, mockRecord, t }) {
             {lang === "zh" ? mockRecord.rawInputZh : mockRecord.rawInputEn}
           </p>
         </aside>
-        <div style={{ overflowX: "auto" }}>
+        <div style={{ maxWidth: "100%", minWidth: 0, overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
           <table style={{ borderCollapse: "collapse", minWidth: 760, width: "100%" }}>
             <thead>
               <tr>
@@ -247,12 +247,12 @@ function RecordIntakeTemplate({ intakeTemplate, lang, t }) {
             <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 950 }}>{group}</div>
             <div style={{ display: "grid", gap: 8, marginTop: 10 }}>
               {rows.map(row => (
-                <div key={`${row.groupEn}-${row.fieldEn}`} style={{ borderTop: `1px solid ${t.divider}`, display: "grid", gap: 10, gridTemplateColumns: "minmax(150px, 0.8fr) minmax(0, 1.4fr)", paddingTop: 8 }}>
+                <div key={`${row.groupEn}-${row.fieldEn}`} style={{ borderTop: `1px solid ${t.divider}`, display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", minWidth: 0, paddingTop: 8 }}>
                   <div>
                     <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900 }}>{lang === "zh" ? row.fieldZh : row.fieldEn}</div>
                     <div style={{ color: t.faint, fontSize: 11, fontWeight: 850, marginTop: 3 }}>{formatPriority(row.priority, lang)}</div>
                   </div>
-                  <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))" }}>
+                  <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", minWidth: 0 }}>
                     <div>
                       <div style={{ color: t.faint, fontSize: 10, fontWeight: 900 }}>{lang === "zh" ? "占位示例" : "Example entry"}</div>
                       <div style={{ color: t.textStrong, fontSize: 12, lineHeight: 1.45, marginTop: 3 }}>{lang === "zh" ? row.exampleZh : row.exampleEn}</div>
@@ -348,7 +348,7 @@ function ComparabilityDecisionLogic({ decisionRules, lang, t }) {
         note={lang === "zh" ? "规则表将条件、判断和解释分开，避免把缺失字段误读为性能差。" : "Rules separate conditions, decisions, and explanations so missing fields are not treated as poor performance."}
         t={t}
       />
-      <div style={{ overflowX: "auto", marginTop: 14 }}>
+      <div style={{ marginTop: 14, maxWidth: "100%", minWidth: 0, overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
         <table style={{ borderCollapse: "collapse", minWidth: 720, width: "100%" }}>
           <thead>
             <tr>

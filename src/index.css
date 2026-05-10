@@ -6,6 +6,8 @@
 
 html, body, #root {
   height: 100%;
+  max-width: 100%;
+  width: 100%;
   background: #FAFBFD;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -19,6 +21,11 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+img, svg, canvas, video {
+  max-width: 100%;
 }
 
 /* Scrollbar */
@@ -56,6 +63,8 @@ button:disabled {
 
 .app-main {
   contain: paint;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .app-shell {
@@ -351,6 +360,28 @@ details[open].motion-surface {
 .page-transition {
   animation: page-fade-in 320ms cubic-bezier(0.22, 1, 0.36, 1);
   transform-origin: 50% 24px;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.recharts-wrapper,
+.recharts-surface {
+  max-width: 100%;
+}
+
+.recharts-tooltip-wrapper {
+  max-width: min(280px, calc(100vw - 32px));
+  white-space: normal !important;
+  word-break: break-word;
+}
+
+.nav-capsule {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.nav-capsule::-webkit-scrollbar {
+  display: none;
 }
 
 .ecomof-pulse-ring {

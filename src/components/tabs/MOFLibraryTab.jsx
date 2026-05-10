@@ -112,7 +112,9 @@ function DataQualitySection({ realSeedRows, lang, t, isMobile }) {
     background: t.surface,
     border: `1px solid ${t.border}`,
     borderRadius: 8,
-    padding: 14,
+    padding: isMobile ? 12 : 14,
+    minWidth: 0,
+    overflow: "visible",
   }
 
   if (!realSeedRows.length) {
@@ -135,11 +137,11 @@ function DataQualitySection({ realSeedRows, lang, t, isMobile }) {
             ? `有已核实来源的字段占比（n = ${realSeedRows.length} 条记录）`
             : `Fraction of records with a verified source for each field (n = ${realSeedRows.length})`}
         </div>
-        <ResponsiveContainer width="100%" height={160}>
-          <BarChart data={coverageData} margin={{ top: 4, right: 8, left: -18, bottom: 0 }}>
+        <ResponsiveContainer width="100%" height={isMobile ? 210 : 160}>
+          <BarChart data={coverageData} margin={isMobile ? { top: 8, right: 10, left: 0, bottom: 18 } : { top: 4, right: 8, left: -18, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
-            <XAxis dataKey="name" tick={{ fontSize: 9, fill: t.subtle }} interval={0} />
-            <YAxis domain={[0, 100]} tick={{ fontSize: 9, fill: t.subtle }} />
+            <XAxis dataKey="name" tick={isMobile ? false : { fontSize: 9, fill: t.subtle }} interval={0} height={isMobile ? 8 : 30} />
+            <YAxis domain={[0, 100]} width={isMobile ? 34 : 40} tick={{ fontSize: 9, fill: t.subtle }} />
             <RechartsTooltip
               contentStyle={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, fontSize: 11 }}
               formatter={(v) => [`${v}%`, zh ? "覆盖率" : "Coverage"]}
@@ -159,11 +161,11 @@ function DataQualitySection({ realSeedRows, lang, t, isMobile }) {
           <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, marginBottom: 10 }}>
             {zh ? "证据等级分布" : "Evidence Level Distribution"}
           </div>
-          <ResponsiveContainer width="100%" height={150}>
-            <BarChart data={evidenceData} layout="vertical" margin={{ top: 0, right: 16, left: 0, bottom: 0 }}>
+          <ResponsiveContainer width="100%" height={isMobile ? 190 : 150}>
+            <BarChart data={evidenceData} layout="vertical" margin={isMobile ? { top: 4, right: 12, left: 4, bottom: 10 } : { top: 0, right: 16, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={t.border} horizontal={false} />
               <XAxis type="number" tick={{ fontSize: 9, fill: t.subtle }} />
-              <YAxis dataKey="name" type="category" tick={{ fontSize: 9, fill: t.subtle }} width={70} />
+              <YAxis dataKey="name" type="category" tick={{ fontSize: isMobile ? 8 : 9, fill: t.subtle }} width={isMobile ? 96 : 70} />
               <RechartsTooltip
                 contentStyle={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, fontSize: 11 }}
                 formatter={(v) => [v, zh ? "记录数" : "Records"]}
@@ -185,11 +187,11 @@ function DataQualitySection({ realSeedRows, lang, t, isMobile }) {
           <div style={{ color: t.faint, fontSize: 10, marginBottom: 8 }}>
             {zh ? "■ 已整理  □ 待整理" : "■ Curated  □ Pending"}
           </div>
-          <ResponsiveContainer width="100%" height={150}>
-            <BarChart data={curationData} margin={{ top: 0, right: 8, left: -18, bottom: 0 }}>
+          <ResponsiveContainer width="100%" height={isMobile ? 210 : 150}>
+            <BarChart data={curationData} margin={isMobile ? { top: 4, right: 10, left: 0, bottom: 16 } : { top: 0, right: 8, left: -18, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
-              <XAxis dataKey="name" tick={{ fontSize: 8, fill: t.subtle }} interval={0} />
-              <YAxis domain={[0, 8]} tick={{ fontSize: 9, fill: t.subtle }} />
+              <XAxis dataKey="name" tick={isMobile ? false : { fontSize: 8, fill: t.subtle }} interval={0} height={isMobile ? 8 : 30} />
+              <YAxis domain={[0, 8]} width={isMobile ? 34 : 40} tick={{ fontSize: 9, fill: t.subtle }} />
               <RechartsTooltip
                 contentStyle={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, fontSize: 11 }}
                 formatter={(v, n) => [v, n === "curated" ? (zh ? "已整理" : "Curated") : (zh ? "待整理" : "Pending")]}
@@ -607,7 +609,7 @@ export function MOFLibraryTab({ results, inputs }) {
           <button type="button" onClick={() => setFiltersOpen(prev => !prev)} style={{ ...controlStyle, display: isMobile ? "block" : "none", marginBottom: filtersOpen ? 10 : 0 }}>
             {filtersOpen ? (lang === "zh" ? "收起筛选器" : "Collapse filters") : (lang === "zh" ? "展开筛选器" : "Expand filters")}
           </button>
-          <div style={{ display: isMobile && !filtersOpen ? "none" : "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "minmax(220px, 1.2fr) repeat(4, minmax(120px, 0.75fr)) auto", gap: 10, alignItems: "end" }}>
+          <div style={{ display: isMobile && !filtersOpen ? "none" : "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "minmax(220px, 1.2fr) repeat(4, minmax(120px, 0.75fr)) auto", gap: 10, alignItems: "end" }}>
             {filterFields}
           </div>
         </div>
@@ -625,13 +627,9 @@ export function MOFLibraryTab({ results, inputs }) {
             (() => {
               const scoring = getCriticSummary(item)
               return (
-            <button
+            <article
               key={item.id}
-              type="button"
-              onClick={() => openRecordFromOverview(item.id)}
               style={{
-                all: "unset",
-                cursor: "pointer",
                 background: t.panel,
                 border: `1px solid ${expandedId === item.id ? t.accent : t.border}`,
                 borderRadius: 8,
@@ -669,7 +667,7 @@ export function MOFLibraryTab({ results, inputs }) {
               </div>
               <div style={{
                 display: "grid",
-                gridTemplateColumns: "1fr 1fr",
+                gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))",
                 gap: 7,
                 borderTop: `1px solid ${t.divider}`,
                 paddingTop: 9,
@@ -681,16 +679,38 @@ export function MOFLibraryTab({ results, inputs }) {
                   </div>
                 </div>
                 <div style={{ minWidth: 0 }}>
-                  <div style={{ color: t.faint, fontSize: 9.5, textTransform: "uppercase", fontWeight: 850 }}>Q / Evidence</div>
+                  <div style={{ color: t.faint, fontSize: 9.5, textTransform: "uppercase", fontWeight: 850 }}>Evidence level</div>
                   <div style={{ color: t.textStrong, fontSize: 11, fontWeight: 850 }}>
-                    {scoring ? `${Number(scoring.confidence_Q_clipped).toFixed(2)} · ${scoring.evidenceLevel}` : "demo only"}
+                    {scoring ? scoring.evidenceLevel : zhValue(item.evidenceLevel, lang)}
+                  </div>
+                </div>
+                <div style={{ minWidth: 0 }}>
+                  <div style={{ color: t.faint, fontSize: 9.5, textTransform: "uppercase", fontWeight: 850 }}>Q / confidence_Q</div>
+                  <div style={{ color: t.textStrong, fontSize: 11, fontFamily: FONT_MONO, fontWeight: 850 }}>
+                    {scoring ? Number(scoring.confidence_Q_clipped).toFixed(2) : "not mapped"}
                   </div>
                 </div>
                 <div style={{ gridColumn: "1 / -1", color: scoring?.status?.tone === "warn" ? t.warn : t.accentText, fontSize: 10.5, fontWeight: 850, lineHeight: 1.3 }}>
                   {scoring ? scoring.status.label : "No CRITIC-MCDA demo summary for this record"}
                 </div>
+                <div style={{ gridColumn: "1 / -1", display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 7 }}>
+                  <button
+                    type="button"
+                    onClick={() => openRecordFromOverview(item.id)}
+                    style={{ ...toolbarBtn(t), justifyContent: "center", fontSize: 10.5, padding: "7px 9px" }}
+                  >
+                    {lang === "zh" ? "查看库记录" : "View record"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={openScoringDetails}
+                    style={{ ...toolbarBtn(t), justifyContent: "center", color: t.accentText, border: `1px solid ${t.accent}`, fontSize: 10.5, padding: "7px 9px" }}
+                  >
+                    View scoring details
+                  </button>
+                </div>
               </div>
-            </button>
+            </article>
               )
             })()
           ))}
@@ -698,7 +718,7 @@ export function MOFLibraryTab({ results, inputs }) {
       </ResultLayer>
 
       <ResultLayer number="03" title={lang === "zh" ? "基础数据统计" : "Baseline Data Summary"} subtitle={lang === "zh" ? "仅统计当前筛选结果中的字段与来源覆盖。" : "Counts field and source coverage in the current filtered set."}>
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
           {[
             [lang === "zh" ? "当前显示" : "Showing", `${filtered.length} / ${records.length}`],
             [lang === "zh" ? "数据来源" : "Data sources", sources.length],
@@ -730,12 +750,17 @@ export function MOFLibraryTab({ results, inputs }) {
                   <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 900 }}>{item.name}</div>
                   <div style={{ color: t.subtle, fontSize: 11, marginTop: 4 }}>{item.formula}</div>
                 </div>
-                <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
+                <div style={{ display: "flex", gap: 7, flexWrap: "wrap", width: isMobile ? "100%" : "auto" }}>
                   <BasisBadge tone="info">{zhValue(item.evidenceLevel, lang)}</BasisBadge>
                   <BasisBadge tone="proxy">{zhDataStatus(item.dataStatus, lang)}</BasisBadge>
                   <BasisBadge tone={scoring ? scoring.status.tone : "proxy"}>
                     {scoring ? `D_expected ${Number(scoring.D_expected).toFixed(3)}` : "CRITIC demo: not mapped"}
                   </BasisBadge>
+                  {scoring && (
+                    <BasisBadge tone="proxy">
+                      {`Q ${Number(scoring.confidence_Q_clipped).toFixed(2)}`}
+                    </BasisBadge>
+                  )}
                   <button
                     type="button"
                     onClick={() => toggleCompare(item)}
@@ -754,6 +779,8 @@ export function MOFLibraryTab({ results, inputs }) {
                       border: `1px solid ${isSelected ? t.accent : t.borderStrong}`,
                       opacity: limitReached ? 0.6 : 1,
                       cursor: limitReached ? "not-allowed" : "pointer",
+                      width: isMobile ? "100%" : "auto",
+                      justifyContent: "center",
                     }}
                   >
                     {isSelected
@@ -771,6 +798,8 @@ export function MOFLibraryTab({ results, inputs }) {
                       fontSize: 10,
                       color: t.accentText,
                       border: `1px solid ${t.accent}`,
+                      width: isMobile ? "100%" : "auto",
+                      justifyContent: "center",
                     }}
                   >
                     View scoring details
@@ -779,7 +808,7 @@ export function MOFLibraryTab({ results, inputs }) {
               </div>
                 )
               })()}
-              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(9, minmax(0, 1fr))", gap: 12, marginTop: 12 }}>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(9, minmax(0, 1fr))", gap: 12, marginTop: 12 }}>
                 {field(lang === "zh" ? "金属节点" : "metal nodes", item.metal)}
                 {field(lang === "zh" ? "连接体" : "linker", item.linker)}
                 {field(lang === "zh" ? "孔径" : "pore size",      item.poreSizeA  === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : `${item.poreSizeA || "—"} Å`,      "poreSizeA",  item.fieldSources)}

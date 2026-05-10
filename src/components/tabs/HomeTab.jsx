@@ -75,8 +75,10 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
     {
       id: "ecoscreen",
       hash: "ecoscreen",
-      name: lang === "zh" ? "生态筛选" : "EcoScreen",
-      desc: lang === "zh" ? "查看可持续性筛选信号。" : "Review sustainability screening signals.",
+      name: lang === "zh" ? "生态筛选 / 候选评分" : "EcoScreen / Candidate Scoring",
+      desc: lang === "zh"
+        ? "基于 CRITIC-MCDA，对 MOF 候选的水热稳定性、产甲酸关键能垒与副产物路径风险进行可解释排序。"
+        : "CRITIC-MCDA candidate scoring for hydrothermal formate-formation screening using stability, barrier, and byproduct-risk evidence.",
     },
     {
       id: "catalysis",
@@ -244,6 +246,25 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           <button
             type="button"
+            onClick={() => setActiveTab("ecoscreen")}
+            style={{
+              ...toolbarBtn(t),
+              padding: "9px 16px",
+              fontSize: 13,
+              fontWeight: 800,
+              border: `1px solid ${t.accent}`,
+              color: t.accentText,
+              background: t.badgeInfoBg,
+              width: isMobile ? "100%" : "auto",
+              justifyContent: "center",
+              whiteSpace: "normal",
+              textAlign: "center",
+            }}
+          >
+            {lang === "zh" ? "进入候选评分工作台 →" : "Open Candidate Scoring Lab →"}
+          </button>
+          <button
+            type="button"
             onClick={() => setActiveTab("mofLibrary")}
             style={{
               ...toolbarBtn(t),
@@ -286,6 +307,66 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
             {lang === "zh" ? "基准参考" : "Benchmark References"}
           </button>
         </div>
+      </section>
+
+      <section>
+        <button
+          type="button"
+          onClick={() => setActiveTab("ecoscreen")}
+          className="content-card clickable-card"
+          style={{
+            all: "unset",
+            cursor: "pointer",
+            ...cardBase,
+            background: t.badgeInfoBg,
+            borderColor: t.accent,
+            padding: isMobile ? "18px 16px" : "22px 24px",
+            display: "grid",
+            gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) auto",
+            gap: 14,
+            alignItems: "center",
+            boxSizing: "border-box",
+          }}
+        >
+          <div style={{ minWidth: 0 }}>
+            <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", letterSpacing: 0 }}>
+              EcoScreen · CRITIC-MCDA
+            </div>
+            <div style={{ color: t.textStrong, fontSize: isMobile ? 18 : 22, fontWeight: 900, lineHeight: 1.2, marginTop: 6 }}>
+              Candidate Scoring Lab
+            </div>
+            <div style={{ color: t.textStrong, fontSize: isMobile ? 14 : 16, fontWeight: 820, lineHeight: 1.3, marginTop: 4 }}>
+              候选材料评分工作台
+            </div>
+            <div style={{ color: t.muted, fontSize: 13, lineHeight: 1.6, marginTop: 9, maxWidth: 760 }}>
+              {lang === "zh"
+                ? "基于 CRITIC-MCDA，对 MOF 候选的水热稳定性、产甲酸关键能垒与副产物路径风险进行可解释排序。"
+                : "Rank MOF candidates using hydrothermal stability, formate-formation barrier, and byproduct-risk evidence."}
+            </div>
+            <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.5, marginTop: 6 }}>
+              Illustrative demo record — not validated catalytic evidence.
+            </div>
+          </div>
+          <span style={{
+            display: "inline-flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: 38,
+            padding: "9px 14px",
+            borderRadius: 7,
+            border: `1px solid ${t.accent}`,
+            background: t.panel,
+            color: t.accentText,
+            fontSize: 12,
+            fontWeight: 850,
+            whiteSpace: isMobile ? "normal" : "nowrap",
+            width: isMobile ? "100%" : "auto",
+            boxSizing: "border-box",
+            textAlign: "center",
+          }}>
+            {lang === "zh" ? "进入候选评分工作台" : "Open Candidate Scoring Lab"}
+          </span>
+        </button>
       </section>
 
       <section>
@@ -523,7 +604,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
               : "Have catalyst data to organize? EcoMOF-AI can help organize data with provenance and status labels, alongside MOF screening, LCA evaluation, or research collaboration."}
           </p>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 8, flexShrink: 0 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, flexShrink: 0, width: isMobile ? "100%" : "auto" }}>
           <button
             type="button"
             onClick={onContactOpen}
@@ -534,7 +615,9 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
               color: t.accentText,
               fontSize: 13,
               fontWeight: 800,
-              whiteSpace: "nowrap",
+              whiteSpace: isMobile ? "normal" : "nowrap",
+              width: isMobile ? "100%" : "auto",
+              justifyContent: "center",
             }}
           >
             {lang === "zh" ? "联系 / 合作 →" : "Contact / Collaboration →"}
@@ -546,8 +629,10 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
               ...toolbarBtn(t),
               padding: "10px 22px",
               fontSize: 13,
-              whiteSpace: "nowrap",
+              whiteSpace: isMobile ? "normal" : "nowrap",
               textAlign: "center",
+              width: isMobile ? "100%" : "auto",
+              justifyContent: "center",
             }}
           >
             {lang === "zh" ? "阅读方法与证据" : "Read Methods & Evidence"}

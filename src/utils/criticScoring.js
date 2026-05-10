@@ -5,6 +5,7 @@ const INDICATORS = [
 ]
 
 export const CRITIC_INDICATORS = INDICATORS
+export const UNKNOWN_SCORE = 0.5
 
 export const CRITIC_SCORING_DEMO_CANDIDATES = [
   {
@@ -136,10 +137,42 @@ export const CRITIC_SCORING_DEMO_CANDIDATES = [
   },
 ]
 
-export function clipScore(value, min = 0.01, max = 1) {
+export function isMissingScore(value) {
+  if (value === undefined || value === null) return true
+  if (typeof value === "string") {
+    const normalized = value.trim().toLowerCase()
+    return normalized === "" || normalized === "unknown" || normalized === "not reported" || normalized === "pending" || normalized === "n/a" || normalized === "na" || normalized === "—"
+  }
+  return false
+}
+
+export function normalizeScore(value, options = {}) {
+  const {
+    unknown = UNKNOWN_SCORE,
+    min = 0.01,
+    max = 1,
+  } = options
+  if (isMissingScore(value)) return Math.max(min, Math.min(max, unknown))
   const numeric = Number(value)
-  if (!Number.isFinite(numeric)) return min
+  if (!Number.isFinite(numeric)) return Math.max(min, Math.min(max, unknown))
   return Math.max(min, Math.min(max, numeric))
+}
+
+export function clipScore(value, min = 0.01, max = 1, unknownScore = UNKNOWN_SCORE) {
+  return normalizeScore(value, { unknown: unknownScore, min, max })
+}
+
+function normalizeIndicatorScore(candidate, key, unknownScore = UNKNOWN_SCORE) {
+  const rawValue = candidate?.[key]
+  const missing = isMissingScore(rawValue)
+  const numeric = Number(rawValue)
+  const trueZero = !missing && Number.isFinite(numeric) && numeric === 0
+  const normalized = clipScore(rawValue, 0.01, 1, unknownScore)
+  let inputState = "reported"
+  if (missing) inputState = "unknown / not reported"
+  else if (trueZero) inputState = "true zero / fatal descriptor"
+  else if (normalized < 0.5) inputState = "weak evidence"
+  return { key, rawValue, normalized, missing, trueZero, inputState }
 }
 
 export function computeStd(values) {
@@ -210,9 +243,12 @@ export function computeCandidateScores(candidates, weights) {
   const safeWeights = weights && typeof weights === "object" ? weights : computeCriticWeights(candidates).weights
   const scored = (Array.isArray(candidates) ? candidates : []).map(candidate => {
     const G = Number(candidate.G) === 0 ? 0 : 1
-    const dStab = clipScore(candidate.d_stab)
-    const dBarrier = clipScore(candidate.d_barrier)
-    const dSelect = clipScore(candidate.d_select)
+    const scoreInputs = Object.fromEntries(
+      INDICATORS.map(indicator => [indicator.key, normalizeIndicatorScore(candidate, indicator.key)])
+    )
+    const dStab = scoreInputs.d_stab.normalized
+    const dBarrier = scoreInputs.d_barrier.normalized
+    const dSelect = scoreInputs.d_select.normalized
     const raw = G === 0
       ? 0
       : (dStab ** safeWeights.d_stab) * (dBarrier ** safeWeights.d_barrier) * (dSelect ** safeWeights.d_select)
@@ -224,6 +260,7 @@ export function computeCandidateScores(candidates, weights) {
       d_barrier_clipped: dBarrier,
       d_select_clipped: dSelect,
       confidence_Q_clipped: confidence,
+      scoreInputs,
       D_raw: raw,
       D_expected: expected,
       status: getCandidateStatus(expected, G),
@@ -252,21 +289,45 @@ export function getDataGapRecommendations(candidate) {
     }]
   }
   const gaps = []
-  if (Number(candidate.d_stab) < 0.5) {
+  const inputs = candidate.scoreInputs || Object.fromEntries(
+    INDICATORS.map(indicator => [indicator.key, normalizeIndicatorScore(candidate, indicator.key)])
+  )
+  if (inputs.d_stab?.missing) {
+    gaps.push({
+      limitation: "170 C aqueous stability is unknown / not reported",
+      nextEvidence: "Add XRD/BET/ICP after 170 C aqueous exposure before treating stability as validated.",
+      priority: "High",
+    })
+  }
+  if (inputs.d_barrier?.missing) {
+    gaps.push({
+      limitation: "Formate-pathway barrier is unknown / not reported",
+      nextEvidence: "Run unified DFT for HCOO* formation or desorption barrier.",
+      priority: "High",
+    })
+  }
+  if (inputs.d_select?.missing) {
+    gaps.push({
+      limitation: "Byproduct-risk evidence is unknown / not reported",
+      nextEvidence: "Add HPLC/IC/NMR product distribution for acetate/lactate side paths.",
+      priority: "Medium",
+    })
+  }
+  if (!inputs.d_stab?.missing && Number(candidate.d_stab) < 0.5) {
     gaps.push({
       limitation: "Hydrothermal stability score below 0.50",
       nextEvidence: "Add XRD/BET/ICP after 170 C aqueous exposure.",
       priority: "High",
     })
   }
-  if (Number(candidate.d_barrier) < 0.5) {
+  if (!inputs.d_barrier?.missing && Number(candidate.d_barrier) < 0.5) {
     gaps.push({
       limitation: "Formate-pathway barrier score below 0.50",
       nextEvidence: "Run unified DFT for HCOO* formation or desorption barrier.",
       priority: "High",
     })
   }
-  if (Number(candidate.d_select) <= 0.5) {
+  if (!inputs.d_select?.missing && Number(candidate.d_select) <= 0.5) {
     gaps.push({
       limitation: "Byproduct-risk score at or below 0.50",
       nextEvidence: "Add HPLC/IC/NMR product distribution for acetate/lactate side paths.",
@@ -290,25 +351,27 @@ export function getDataGapRecommendations(candidate) {
   return gaps
 }
 
-function rankWithWeights(candidates, weights) {
-  return computeCandidateScores(candidates, weights).reduce((map, candidate) => {
-    map[candidate.id] = Number(candidate.G) === 0 ? "Excluded" : candidate.rank
+function rankWithWeights(candidates, weights, mode = "expected") {
+  const scoreKey = mode === "raw" ? "D_raw" : "D_expected"
+  const ranked = computeCandidateScores(candidates, weights).sort((a, b) => {
+    if (Number(a.G) === 0 && Number(b.G) !== 0) return 1
+    if (Number(a.G) !== 0 && Number(b.G) === 0) return -1
+    return b[scoreKey] - a[scoreKey]
+  })
+  let rank = 0
+  return ranked.reduce((map, candidate) => {
+    if (Number(candidate.G) === 0) {
+      map[candidate.id] = "Excluded"
+      return map
+    }
+    rank += 1
+    map[candidate.id] = rank
     return map
   }, {})
 }
 
-export function computeSensitivityRanks(candidates, criticWeights) {
-  const schemes = [
-    { id: "critic", label: "CRITIC weights", weights: criticWeights },
-    { id: "equal", label: "Equal weights", weights: { d_stab: 0.333, d_barrier: 0.333, d_select: 0.334 } },
-    { id: "stability", label: "Stability-prioritized", weights: { d_stab: 0.5, d_barrier: 0.3, d_select: 0.2 } },
-    { id: "barrier", label: "Barrier-prioritized", weights: { d_stab: 0.25, d_barrier: 0.55, d_select: 0.2 } },
-  ]
-  const ranksByScheme = schemes.map(scheme => ({
-    ...scheme,
-    ranks: rankWithWeights(candidates, scheme.weights),
-  }))
-  const rows = (Array.isArray(candidates) ? candidates : []).map(candidate => {
+function buildSensitivityRows(candidates, ranksByScheme) {
+  return (Array.isArray(candidates) ? candidates : []).map(candidate => {
     const ranks = Object.fromEntries(ranksByScheme.map(scheme => [scheme.id, scheme.ranks[candidate.id]]))
     const numericRanks = Object.values(ranks).filter(Number.isFinite)
     const topThreeCount = numericRanks.filter(rank => rank <= 3).length
@@ -320,14 +383,48 @@ export function computeSensitivityRanks(candidates, criticWeights) {
     else if (spread >= 3) robustness = "Weight-sensitive"
     return { id: candidate.id, name: candidate.name, ranks, robustness }
   })
-  return { schemes, rows }
+}
+
+export function computeSensitivityRanks(candidates, criticWeights) {
+  const schemes = [
+    { id: "critic", label: "CRITIC weights", weights: criticWeights },
+    { id: "equal", label: "Equal weights", weights: { d_stab: 0.333, d_barrier: 0.333, d_select: 0.334 } },
+    { id: "stability", label: "Stability-prioritized", weights: { d_stab: 0.5, d_barrier: 0.3, d_select: 0.2 } },
+    { id: "barrier", label: "Barrier-prioritized", weights: { d_stab: 0.25, d_barrier: 0.55, d_select: 0.2 } },
+  ]
+  const rawRanksByScheme = schemes.map(scheme => ({
+    ...scheme,
+    ranks: rankWithWeights(candidates, scheme.weights, "raw"),
+  }))
+  const expectedRanksByScheme = schemes.map(scheme => ({
+    ...scheme,
+    ranks: rankWithWeights(candidates, scheme.weights, "expected"),
+  }))
+  return {
+    schemes,
+    modes: [
+      {
+        id: "raw",
+        label: "Raw-score sensitivity based on D_raw",
+        zh: "基于 D_raw 的原始评分敏感性",
+        rows: buildSensitivityRows(candidates, rawRanksByScheme),
+      },
+      {
+        id: "expected",
+        label: "Confidence-adjusted sensitivity based on D_expected",
+        zh: "基于 D_expected 的置信度修正敏感性",
+        rows: buildSensitivityRows(candidates, expectedRanksByScheme),
+      },
+    ],
+    rows: buildSensitivityRows(candidates, expectedRanksByScheme),
+  }
 }
 
 export function buildCriticScoringModel(candidates = CRITIC_SCORING_DEMO_CANDIDATES) {
   const critic = computeCriticWeights(candidates)
   const scoredCandidates = computeCandidateScores(candidates, critic.weights)
   const sensitivity = computeSensitivityRanks(candidates, critic.weights)
-  return { ...critic, candidates: scoredCandidates, sensitivity }
+  return { ...critic, sourceCandidates: candidates, candidates: scoredCandidates, sensitivity }
 }
 
 export function findCriticCandidateByName(name, model = buildCriticScoringModel()) {

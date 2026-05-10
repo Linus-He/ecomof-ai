@@ -1111,7 +1111,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
               title={zh ? "方法定位" : "Method Positioning"}
               tone="info"
               t={t}
-              body="该框架用于早期候选初筛和实验优先级推荐，不用于直接预测甲酸产率。 This framework is designed for early-stage candidate prioritization, not direct formate yield prediction."
+              body="该框架用于早期候选初筛和实验优先级推荐，不用于直接预测甲酸产率。 This framework supports early-stage candidate prioritization, not direct formate yield prediction."
             />
             <CompactCard
               title={zh ? "CRITIC-MCDA 与 RSM" : "CRITIC-MCDA and RSM"}
@@ -1159,8 +1159,8 @@ export function MethodsLimitationsTab({ onNavigate }) {
               title={zh ? "综合评分公式" : "Composite Score Formula"}
               formula={<FormulaLine>D_raw = G * d_stab^w_stab * d_barrier^w_barrier * d_select^w_select<br />D_expected = D_raw * Q</FormulaLine>}
               variables={[
-                ["G", zh ? "硬筛因子。" : "Hard-screen factor."],
-                ["Q", zh ? "证据置信度。" : "Evidence confidence."],
+                ["G", zh ? "G 是硬筛因子。" : "G is the hard-screen factor."],
+                ["Q", zh ? "Q 是证据置信度因子。" : "Q is the evidence confidence factor."],
                 ["D_raw", zh ? "三维指标的原始综合分。" : "Raw composite score from the three indicators."],
                 ["D_expected", zh ? "证据置信度修正后的候选优先级分数。" : "Confidence-adjusted candidate priority score."],
               ]}
@@ -1187,7 +1187,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
               t={t}
               body={zh
                 ? "CRITIC 权重依赖标准差和指标相关性。在小样本候选库中，权重可能受极端值影响。因此本模块中的权重应理解为当前数据集下的探索性优先级权重，而不是普适物理常数。"
-                : "CRITIC weights depend on standard deviation and indicator correlation. In a small candidate set, weights can be affected by outliers. The weights here are exploratory priority weights for the current dataset, not universal physical constants."}
+                : "CRITIC weights are dataset-specific exploratory weights under small-sample conditions. They depend on standard deviation and indicator correlation, and can be affected by outliers."}
             />
             <CompactCard
               title={zh ? "为什么当前阶段不直接用 RSM" : "Why RSM Is Not Used Here"}
@@ -1198,6 +1198,36 @@ export function MethodsLimitationsTab({ onNavigate }) {
                 : "Response surface methodology is better suited after selecting one MOF, using a unified experimental design to optimize temperature, reaction time, pH, or HCO3- concentration. The current data come mainly from screening, literature, DFT, and characterization, so they are not suitable for cross-MOF RSM yield fitting."}
             />
           </div>
+        </div>
+      </MethodSection>
+
+      <MethodSection
+        id="critic-mcda-rsm-boundary"
+        title={zh
+          ? "CRITIC-MCDA 与响应面法 RSM：材料筛选与条件优化"
+          : "CRITIC-MCDA vs. RSM: material screening and condition optimization"}
+        body={zh
+          ? "该边界说明用于区分当前 EcoScreen 候选评分工作台与后续实验条件优化。"
+          : "This boundary note separates the current EcoScreen candidate-scoring workflow from next-stage condition optimization."}
+        t={t}
+      >
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) minmax(0, 1fr)", gap: 10 }}>
+          <CompactCard
+            title={zh ? "功能分工" : "Role Separation"}
+            tone="info"
+            t={t}
+            body={zh
+              ? "CRITIC-MCDA selects candidate materials; RSM optimizes reaction conditions for selected candidates. CRITIC-MCDA 用于候选材料初筛；响应面法 RSM 更适合在选定候选后，对温度、反应时间、pH、HCO3- 浓度或催化剂用量进行统一实验条件优化。"
+              : "CRITIC-MCDA selects candidate materials; RSM optimizes reaction conditions for selected candidates. RSM is better suited for optimizing temperature, residence time, pH, HCO3- concentration, or catalyst dosage after one or several candidate materials have been selected."}
+          />
+          <CompactCard
+            title={zh ? "为什么当前阶段不跨 MOF 使用 RSM" : "Why Cross-MOF RSM Is Not Used Now"}
+            tone="warn"
+            t={t}
+            body={zh
+              ? "当前阶段不适合直接使用 RSM 跨 MOF 拟合甲酸产率，因为不同候选的数据来源、反应条件、检测方法和产率口径并不统一。RSM 需要统一实验设计和连续变量输入，更适合在已经选定 1–3 个候选材料后，用于优化具体反应条件。"
+              : "At the current stage, RSM is not used for cross-MOF yield fitting because candidate records may come from different data sources, reaction conditions, analytical protocols, and yield definitions. RSM requires a unified experimental design and continuous process variables, so it is better suited for optimizing temperature, residence time, pH, HCO3- concentration, or catalyst dosage after one or several candidate materials have been selected."}
+          />
         </div>
       </MethodSection>
 

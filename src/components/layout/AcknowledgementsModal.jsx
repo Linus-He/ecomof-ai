@@ -271,7 +271,7 @@ export function AcknowledgementsModal({ open, onClose }) {
         inset: 0,
         justifyContent: "center",
         overflowY: "auto",
-        padding: isMobile ? "20px 10px" : "48px 16px",
+        padding: isMobile ? "16px 10px" : "48px 16px",
         position: "fixed",
         zIndex: 250,
       }}
@@ -304,10 +304,10 @@ export function AcknowledgementsModal({ open, onClose }) {
           borderRadius: isMobile ? 28 : 34,
           boxShadow: t.shadowLg,
           fontFamily: FONT_SANS,
-          maxHeight: isMobile ? "calc(100vh - 40px)" : "calc(100vh - 96px)",
+          maxHeight: isMobile ? "calc(100dvh - 32px)" : "calc(100dvh - 96px)",
           overflowY: "auto",
           padding: isMobile ? "22px 16px 28px" : "36px 38px 42px",
-          width: "min(1000px, 96vw)",
+          width: isMobile ? "calc(100vw - 20px)" : "min(1000px, 96vw)",
         }}
       >
         <header style={{ alignItems: "flex-start", display: "flex", gap: 18, justifyContent: "space-between", margin: "0 auto 26px", maxWidth: 920 }}>

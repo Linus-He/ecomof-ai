@@ -39,15 +39,15 @@ export function ComparabilityScatterQuadrant({ data, selectedComparisonId, onSel
     <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 14, minWidth: 0, overflow: "visible" }}>
       <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900, marginBottom: 8 }}>{lang === "zh" ? "Comparability Scatter Quadrant / 可比性坐标象限" : "Comparability Scatter Quadrant"}</div>
       <ResponsiveContainer width="100%" height={height} minHeight={height}>
-        <ScatterChart margin={{ top: 24, right: 28, bottom: 56, left: 48 }}>
+        <ScatterChart margin={{ top: 20, right: 32, bottom: 40, left: 72 }}>
           <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
           <ReferenceArea x1={50} x2={100} y1={50} y2={100} fill={t.badgeInfoBg} fillOpacity={0.45} />
           <ReferenceArea x1={50} x2={100} y1={0} y2={50} fill={t.surface} fillOpacity={0.6} />
           <ReferenceArea x1={0} x2={50} y1={50} y2={100} fill={t.badgeWarnBg || t.surface} fillOpacity={0.45} />
           <ReferenceLine x={50} stroke={t.borderStrong || t.border} strokeDasharray="4 4" />
           <ReferenceLine y={50} stroke={t.borderStrong || t.border} strokeDasharray="4 4" />
-          <XAxis type="number" dataKey="metricSimilarity" domain={[0, 100]} tick={{ fill: t.subtle, fontSize: 10 }} angle={-20} textAnchor="end" height={56} label={{ value: lang === "zh" ? "指标相似度" : "Metric similarity", fill: t.subtle, fontSize: 11, dy: 44 }} />
-          <YAxis type="number" dataKey="conditionSimilarity" domain={[0, 100]} width={56} tick={{ fill: t.subtle, fontSize: 10 }} label={{ value: lang === "zh" ? "条件相似度" : "Condition similarity", fill: t.subtle, fontSize: 11, angle: -90, position: "insideLeft" }} />
+          <XAxis type="number" dataKey="metricSimilarity" domain={[0, 100]} tick={{ fill: t.subtle, fontSize: 10 }} angle={-20} textAnchor="end" height={48} />
+          <YAxis type="number" dataKey="conditionSimilarity" domain={[0, 100]} width={72} tick={{ fill: t.subtle, fontSize: 10 }} label={{ value: lang === "zh" ? "条件相似度" : "Condition similarity", fill: t.subtle, fontSize: 11, angle: -90, position: "left" }} />
           <ZAxis range={[110, 230]} />
           <Tooltip content={<TooltipBody lang={lang} t={t} />} cursor={{ stroke: t.accent, strokeDasharray: "3 3" }} allowEscapeViewBox={{ x: true, y: true }} wrapperStyle={{ zIndex: 20 }} />
           <Scatter data={data} name={lang === "zh" ? "任务对" : "Task pairs"} onClick={(point) => onSelectComparison?.(point?.payload || point)}>
@@ -57,6 +57,9 @@ export function ComparabilityScatterQuadrant({ data, selectedComparisonId, onSel
           </Scatter>
         </ScatterChart>
       </ResponsiveContainer>
+      <div style={{ color: t.subtle, fontSize: 13, fontWeight: 750, marginTop: 8, textAlign: "center" }}>
+        {lang === "zh" ? "指标相似度" : "Metric similarity"}
+      </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(132px, 1fr))", gap: 6, color: t.faint, fontSize: 10, lineHeight: 1.35 }}>
         <span>{lang === "zh" ? "可比较：高指标 / 高条件" : "Comparable: high metric / high condition"}</span>
         <span>{lang === "zh" ? "条件归一化：高指标 / 低条件" : "Normalize: high metric / low condition"}</span>

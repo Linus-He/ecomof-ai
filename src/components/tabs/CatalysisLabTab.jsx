@@ -168,6 +168,9 @@ export function CatalysisLabTab({ onNavigate }) {
             fontWeight: 850,
             cursor: "pointer",
             justifyContent: "center",
+            width: isNarrow ? "100%" : "auto",
+            boxSizing: "border-box",
+            whiteSpace: isMobile ? "normal" : "nowrap",
           }}
         >
           Open Candidate Scoring Lab

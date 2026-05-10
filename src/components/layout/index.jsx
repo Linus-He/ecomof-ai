@@ -324,7 +324,7 @@ export function ContextualHeaderBar({
   const subnavChip = (active = false) => ({
     ...headerChipBtn(t, active),
     background: active ? t.surface : "transparent",
-    borderColor: active ? t.border : t.divider,
+    border: `1px solid ${active ? t.border : t.divider}`,
     color: active ? t.accentText : t.subtle,
     fontSize: 11,
     fontWeight: active ? 760 : 650,
@@ -481,7 +481,7 @@ export function InternalNav({ items, active, onChange }) {
     <div className="subnav-strip" style={{ display: "flex", gap: 5, flexWrap: "wrap", background: t.surface, border: `1px solid ${t.divider || t.border}`, borderRadius: 8, padding: 4 }}>
       {items.map(item => (
         <button key={item.id} type="button" onClick={() => onChange(item.id)}
-          style={{ ...toolbarBtn(t), padding: "4px 8px", minHeight: 28, fontSize: 10.5, background: active === item.id ? t.panel : "transparent", borderColor: active === item.id ? t.border : "transparent", color: active === item.id ? t.accentText : t.faint, boxShadow: "none", fontWeight: active === item.id ? 760 : 650 }}>
+          style={{ ...toolbarBtn(t), padding: "4px 8px", minHeight: 28, fontSize: 10.5, background: active === item.id ? t.panel : "transparent", border: `1px solid ${active === item.id ? t.border : "transparent"}`, color: active === item.id ? t.accentText : t.faint, boxShadow: "none", fontWeight: active === item.id ? 760 : 650 }}>
           {item.label}
         </button>
       ))}

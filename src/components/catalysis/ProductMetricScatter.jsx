@@ -73,10 +73,10 @@ export function ProductMetricScatter({
         <AxisSelect label={lang === "zh" ? "产物族" : "Product family"} value={selectedProduct} options={PRODUCT_FAMILIES} onChange={onProductChange} lang={lang} t={t} />
       </div>
       <ResponsiveContainer width="100%" height={height} minHeight={height}>
-        <ScatterChart margin={{ top: 24, right: 28, bottom: 56, left: 48 }}>
+        <ScatterChart margin={{ top: 20, right: 32, bottom: 40, left: 72 }}>
           <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
-          <XAxis type="number" dataKey="xValue" domain={[0, 100]} tick={{ fill: t.subtle, fontSize: 10 }} angle={-20} textAnchor="end" height={56} label={{ value: lang === "zh" ? xLabel?.zh : xLabel?.en, fill: t.subtle, fontSize: 11, dy: 44 }} />
-          <YAxis type="number" dataKey="yValue" domain={[0, 100]} width={56} tick={{ fill: t.subtle, fontSize: 10 }} label={{ value: lang === "zh" ? yLabel?.zh : yLabel?.en, fill: t.subtle, fontSize: 11, angle: -90, position: "insideLeft" }} />
+          <XAxis type="number" dataKey="xValue" domain={[0, 100]} tick={{ fill: t.subtle, fontSize: 10 }} angle={-20} textAnchor="end" height={48} />
+          <YAxis type="number" dataKey="yValue" domain={[0, 100]} width={72} tick={{ fill: t.subtle, fontSize: 10 }} label={{ value: lang === "zh" ? yLabel?.zh : yLabel?.en, fill: t.subtle, fontSize: 11, angle: -90, position: "left" }} />
           <ZAxis range={[90, 260]} />
           <Tooltip content={<TooltipBody lang={lang} t={t} xMetric={xMetric} yMetric={yMetric} />} cursor={{ stroke: t.accent, strokeDasharray: "3 3" }} allowEscapeViewBox={{ x: true, y: true }} wrapperStyle={{ zIndex: 20 }} />
           <Scatter name={lang === "zh" ? "产物指标" : "Product metrics"} data={chartData} onClick={(point) => onSelectTask?.(point?.payload || point)}>
@@ -86,6 +86,9 @@ export function ProductMetricScatter({
           </Scatter>
         </ScatterChart>
       </ResponsiveContainer>
+      <div style={{ color: t.subtle, fontSize: 13, fontWeight: 750, marginTop: 8, textAlign: "center" }}>
+        {lang === "zh" ? xLabel?.zh : xLabel?.en}
+      </div>
       <div style={{ color: t.faint, fontSize: 10, lineHeight: 1.5 }}>
         {lang === "zh"
           ? "产物指标坐标用于展示比较结构；数值为 Demo / Pending curation，不能作为真实性能结论。"
