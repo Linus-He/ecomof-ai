@@ -1,464 +1,440 @@
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import {
   useT, useLang, useViewport,
-  LITERATURE_DB, METAL_CENTERS, ORGANIC_LINKERS,
-  getAdsorptionLabels, getMofStructures, buildDatabaseRecords, toolbarBtn,
-  calculateEcoScore, getScoreBreakdown, getWeightContribution, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
-  RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
-  BasisBadge, PageHeader, ResultLayer, Callout, MethodDrawer, UnifiedCandidateCard, CopyLinkButton, DisclaimerLink,
+  FONT_MONO,
+  BasisBadge, PageHeader, ResultLayer, Callout, CopyLinkButton, DisclaimerLink,
+  toolbarBtn,
+  CRITIC_INDICATORS,
+  buildCriticScoringModel,
+  getDataGapRecommendations,
 } from "../../shared"
 
-const ECO_LOAD_NOTICE_MS = 700
+const pct = value => `${Math.round(Math.max(0, Math.min(1, Number(value) || 0)) * 100)}%`
+const fmt = (value, digits = 3) => Number(value || 0).toFixed(digits)
 
-function scoreTone(score) {
-  if (score >= 8) return "calc"
-  if (score >= 6.5) return "info"
-  if (score >= 5) return "proxy"
-  return "warn"
+function labelStatus(status, lang) {
+  return lang === "zh" ? status.zh : status.label
 }
 
-function evidenceTone(level) {
-  if (/high|高/i.test(level)) return "calc"
-  if (/medium|中/i.test(level)) return "info"
-  return "proxy"
+function Card({ children, style, t }) {
+  return (
+    <section style={{
+      background: t.panel,
+      border: `1px solid ${t.border}`,
+      borderRadius: 8,
+      padding: 14,
+      minWidth: 0,
+      ...style,
+    }}>
+      {children}
+    </section>
+  )
 }
 
-function sourceLabel(record, lang) {
-  if (lang !== "zh") return `${record.sourceDatabase || "local seed"} · ${record.sourceType || "screening proxy"}`
-  const db = record.sourceDatabase === "local seed" || !record.sourceDatabase ? "本地种子库" : record.sourceDatabase
-  const type = record.sourceType === "seed" || !record.sourceType ? "种子数据" : record.sourceType === "screening proxy" ? "筛选代理" : record.sourceType
-  return `${db} · ${type}`
+function MetricCard({ label, value, note, t }) {
+  return (
+    <Card t={t} style={{ display: "grid", gap: 6, padding: 13 }}>
+      <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase", letterSpacing: 0 }}>{label}</div>
+      <div style={{ color: t.textStrong, fontSize: 22, fontWeight: 920, lineHeight: 1 }}>{value}</div>
+      {note && <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.35 }}>{note}</div>}
+    </Card>
+  )
 }
 
-function buildEcoCandidates(records, results, inputs, lang) {
-  const metalByValue = new Map(METAL_CENTERS.map(item => [item.value, item]))
-  const linkerByValue = new Map(ORGANIC_LINKERS.map(item => [item.value, item]))
-  const candidates = records.map(record => {
-    const metal = metalByValue.get(record.metal)
-    const linker = linkerByValue.get(record.linker)
-    const metalScore = metal?.lcaScore ?? 6
-    const linkerScore = linker?.lcaScore ?? 5.5
-    const processFit = Math.max(0, Math.min(1, 1 - Math.abs(Number(record.bet || 0) - 1800) / 4200))
-    const selectivityFit = Math.min(1, Number(record.selectivity || 0) / 120)
-    const scoringCandidate = {
-      ...record,
-      co2Uptake: record.co2Uptake || record.co2 || record.primaryUptake || 3,
-      surfaceArea: record.bet || record.surfaceArea || 1200,
-      poreSizeA: record.pd || record.lcd || record.poreSizeA || 8,
-      selectivity: record.selectivity || 0,
-      waterStability: record.waterStability || "medium",
-      thermalStability: record.thermalStability || "medium",
-      costLevel: linkerScore >= 7 ? "low" : linkerScore >= 5.5 ? "medium" : "high",
-      toxicityConcern: metalScore >= 7 ? "low" : metalScore >= 5 ? "medium" : "high",
-      sustainabilityRisk: metalScore >= 7 && linkerScore >= 6 ? "low" : "medium",
-      evidenceLevel: record.sourceType?.includes("literature") || record.sourceType?.includes("GCMC") ? "literature-supported" : "rule-based",
-    }
-    const eco = calculateEcoScore(scoringCandidate, DEFAULT_SCORING_WEIGHTS.ecoscreen)
-    const reasons = [
-      metalScore >= 7.5 ? (lang === "zh" ? "低金属负担" : "lower metal burden") : (lang === "zh" ? "金属负担需复核" : "metal burden needs review"),
-      linkerScore >= 6 ? (lang === "zh" ? "连接体较可持续" : "more sustainable linker") : (lang === "zh" ? "连接体成本/来源敏感" : "linker source sensitive"),
-      Number(record.selectivity || 0) >= 40 ? (lang === "zh" ? "分离趋势较强" : "strong separation trend") : (lang === "zh" ? "性能需验证" : "performance needs validation"),
-    ]
-    return {
-      id: record.name,
-      name: record.name,
-      metal: record.metal,
-      linker: record.linker,
-      ...scoringCandidate,
-      score: eco.score,
-      task: lang === "zh" ? "低环境负担 CO₂ 捕集候选优先级" : "Low-burden CO2-capture candidate prioritization",
-      reasons,
-      breakdown: getScoreBreakdown(scoringCandidate, "ecoscreen"),
-      weightContribution: getWeightContribution(scoringCandidate, DEFAULT_SCORING_WEIGHTS.ecoscreen, "ecoscreen"),
-      evidence: record.sourceType?.includes("literature") || record.sourceType?.includes("GCMC")
-        ? (lang === "zh" ? "中等证据：文献 / GCMC 标签" : "Medium evidence: literature / GCMC labels")
-        : (lang === "zh" ? "低-中证据：种子库 / 代理字段" : "Low-medium evidence: seed / proxy fields"),
-      source: sourceLabel(record, lang),
-      note: lang === "zh"
-        ? "Eco Score 是筛选级候选优先级，不代表完整工业 LCA 结论。"
-        : "Eco Score is a screening-level candidate priority, not a complete industrial LCA conclusion.",
-      limitations: lang === "zh" ? "代理清单和 seed 记录不能替代完整工业 LCA/LCC。" : "Proxy inventory and seed records do not replace full industrial LCA/LCC.",
-      nextStep: lang === "zh" ? "补充合成路线、供应链数据、循环寿命和正式清单。" : "Add synthesis route, supply-chain data, cycle lifetime, and formal inventory.",
-    }
-  })
+function ScoreBar({ value, color, t }) {
+  return (
+    <div style={{ height: 7, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, overflow: "hidden" }}>
+      <div style={{ height: "100%", width: pct(value), background: color || t.accentText, borderRadius: 999 }} />
+    </div>
+  )
+}
 
-  if (results && !results.unavailable) {
-    candidates.unshift({
-      id: "current-run",
-      name: inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`,
-      metal: inputs.metalCenter,
-      linker: inputs.organicLinker,
-      score: calculateEcoScore({
-        co2Uptake: results.primaryUptake,
-        selectivity: results.selectivity,
-        surfaceArea: inputs.surfaceArea || inputs.bet || 1200,
-        poreSizeA: inputs.poreSizeA || inputs.poreSize || 8,
-        waterStability: "medium",
-        thermalStability: "medium",
-        costLevel: "medium",
-        toxicityConcern: "low",
-        evidenceLevel: "rule-based",
-      }, DEFAULT_SCORING_WEIGHTS.ecoscreen).score,
-      task: lang === "zh" ? "当前输入结构的生态筛选候选" : "EcoScreen candidate for current input",
-      reasons: [
-        lang === "zh" ? "来自当前输入" : "current input",
-        lang === "zh" ? `选择性 ${results.selectivity}` : `selectivity ${results.selectivity}`,
-        lang === "zh" ? "需要实验和清单验证" : "requires experimental and inventory validation",
-      ],
-      breakdown: getScoreBreakdown({
-        co2Uptake: results.primaryUptake,
-        selectivity: results.selectivity,
-        surfaceArea: inputs.surfaceArea || inputs.bet || 1200,
-        poreSizeA: inputs.poreSizeA || inputs.poreSize || 8,
-        waterStability: "medium",
-        thermalStability: "medium",
-        costLevel: "medium",
-        toxicityConcern: "low",
-        evidenceLevel: "rule-based",
-      }, "ecoscreen"),
-      weightContribution: getWeightContribution({
-        co2Uptake: results.primaryUptake,
-        selectivity: results.selectivity,
-        surfaceArea: inputs.surfaceArea || inputs.bet || 1200,
-        poreSizeA: inputs.poreSizeA || inputs.poreSize || 8,
-        waterStability: "medium",
-        thermalStability: "medium",
-        costLevel: "medium",
-        toxicityConcern: "low",
-        evidenceLevel: "rule-based",
-      }, DEFAULT_SCORING_WEIGHTS.ecoscreen, "ecoscreen"),
-      evidence: lang === "zh" ? "模型 / 代理证据" : "Model / proxy evidence",
-      source: lang === "zh" ? "当前浏览器端模型 + LCA 代理规则" : "Current browser model + LCA proxy rules",
-      note: lang === "zh"
-        ? "当前结果只说明候选排序方向，应进入数据补充和实验验证。"
-        : "The current result only indicates ranking direction and should move to data enrichment and validation.",
-      limitations: lang === "zh" ? "浏览器端模型与 LCA 代理不能替代实验、GCMC 或完整清单。" : "Browser model and LCA proxy cannot replace experiment, GCMC, or complete inventory.",
-      nextStep: lang === "zh" ? "验证实测吸附、材料寿命、再生能耗和供应商/工艺清单。" : "Validate measured adsorption, material lifetime, regeneration energy, and supplier/process inventory.",
-    })
+function IndicatorRow({ label, value, t }) {
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "116px minmax(0, 1fr) 44px", alignItems: "center", gap: 9 }}>
+      <div style={{ color: t.muted, fontSize: 11, fontWeight: 800 }}>{label}</div>
+      <ScoreBar value={value} t={t} />
+      <div style={{ color: t.textStrong, fontSize: 11, fontFamily: FONT_MONO, textAlign: "right" }}>{fmt(value, 2)}</div>
+    </div>
+  )
+}
+
+function findMainWeakness(candidate, lang) {
+  if (!candidate) return "—"
+  if (Number(candidate.G) === 0) return candidate.exclusionReason || (lang === "zh" ? "硬筛排除" : "Hard-screen exclusion")
+  const scores = [
+    ["d_stab", lang === "zh" ? "170 ℃水相稳定性较弱" : "weaker 170 C aqueous stability"],
+    ["d_barrier", lang === "zh" ? "产甲酸关键能垒证据不足" : "formate-step barrier evidence is weak"],
+    ["d_select", lang === "zh" ? "副产物路径风险偏高" : "byproduct-path risk remains high"],
+  ]
+  const [key, label] = scores.sort((a, b) => Number(candidate[a[0]]) - Number(candidate[b[0]]))[0]
+  if (Number(candidate[key]) >= 0.7 && Number(candidate.confidence_Q) < 0.7) {
+    return lang === "zh" ? "证据置信度限制排序解释" : "evidence confidence limits interpretation"
   }
-  return candidates
+  return label
 }
 
-export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, onNavigate }) {
+function RankingList({ candidates, selectedId, onSelect, lang, t, isMobile }) {
+  return (
+    <div style={{ display: "grid", gap: 8 }}>
+      <div style={{ overflowX: "auto" }}>
+        <div style={{ minWidth: isMobile ? 720 : 0, display: "grid", gap: 7 }}>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "48px minmax(140px, 1.25fr) minmax(140px, 1.35fr) 82px 82px 90px minmax(135px, 0.9fr)",
+            gap: 10,
+            color: t.faint,
+            fontSize: 10,
+            fontWeight: 850,
+            textTransform: "uppercase",
+            padding: "0 10px",
+          }}>
+            <span>Rank</span><span>MOF</span><span>D_expected</span><span>D_raw</span><span>Q</span><span>Evidence</span><span>Status</span>
+          </div>
+          {candidates.map(candidate => {
+            const active = candidate.id === selectedId
+            return (
+              <button
+                key={candidate.id}
+                type="button"
+                onClick={() => onSelect(candidate.id)}
+                style={{
+                  all: "unset",
+                  cursor: "pointer",
+                  display: "grid",
+                  gridTemplateColumns: "48px minmax(140px, 1.25fr) minmax(140px, 1.35fr) 82px 82px 90px minmax(135px, 0.9fr)",
+                  gap: 10,
+                  alignItems: "center",
+                  padding: "10px",
+                  background: active ? t.badgeInfoBg : t.surface,
+                  border: `1px solid ${active ? t.accent : t.border}`,
+                  borderRadius: 8,
+                  boxShadow: active ? t.shadowSm : "none",
+                }}
+              >
+                <span style={{ color: active ? t.accentText : t.textStrong, fontSize: 12, fontWeight: 900, fontFamily: FONT_MONO }}>
+                  {candidate.rank ? `#${candidate.rank}` : "—"}
+                </span>
+                <span style={{ minWidth: 0 }}>
+                  <span style={{ color: t.textStrong, fontSize: 13, fontWeight: 900, overflowWrap: "anywhere" }}>{candidate.name}</span>
+                  <span style={{ display: "block", color: t.faint, fontSize: 10.5, marginTop: 3 }}>{candidate.metalCenter} · demo / illustrative</span>
+                </span>
+                <span style={{ display: "grid", gap: 5 }}>
+                  <span style={{ color: t.textStrong, fontSize: 13, fontWeight: 900, fontFamily: FONT_MONO }}>{fmt(candidate.D_expected)}</span>
+                  <ScoreBar value={candidate.D_expected} t={t} color={candidate.status.tone === "warn" ? t.warn : t.accentText} />
+                </span>
+                <span style={{ color: t.textStrong, fontSize: 12, fontFamily: FONT_MONO }}>{fmt(candidate.D_raw)}</span>
+                <span style={{ color: t.textStrong, fontSize: 12, fontFamily: FONT_MONO }}>{fmt(candidate.confidence_Q_clipped)}</span>
+                <span style={{ color: t.muted, fontSize: 12, fontWeight: 800 }}>{candidate.evidenceLevel}</span>
+                <span style={{ color: candidate.status.tone === "warn" ? t.warn : t.accentText, fontSize: 11, fontWeight: 850, lineHeight: 1.25 }}>
+                  {labelStatus(candidate.status, lang)}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function SelectedCandidateExplanation({ candidate, lang, t }) {
+  if (!candidate) return null
+  const nextGaps = getDataGapRecommendations(candidate)
+  return (
+    <Card t={t} style={{ display: "grid", gap: 13, height: "100%" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start", flexWrap: "wrap" }}>
+        <div>
+          <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase" }}>
+            {lang === "zh" ? "选中候选解释" : "Selected Candidate Explanation"}
+          </div>
+          <h3 style={{ margin: "5px 0 0", color: t.textStrong, fontSize: 18, lineHeight: 1.15 }}>{candidate.name}</h3>
+        </div>
+        <BasisBadge tone={candidate.status.tone}>{labelStatus(candidate.status, lang)}</BasisBadge>
+      </div>
+
+      <div style={{ display: "grid", gap: 9 }}>
+        <IndicatorRow label="Stability" value={candidate.d_stab} t={t} />
+        <IndicatorRow label="Barrier" value={candidate.d_barrier} t={t} />
+        <IndicatorRow label="Byproduct-risk" value={candidate.d_select} t={t} />
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+        {[
+          [lang === "zh" ? "证据等级" : "Evidence level", candidate.evidenceLevel],
+          [lang === "zh" ? "Confidence Q" : "Confidence Q", fmt(candidate.confidence_Q_clipped)],
+          [lang === "zh" ? "硬筛结果" : "Hard screen", Number(candidate.G) === 0 ? (lang === "zh" ? "未通过" : "Failed") : (lang === "zh" ? "通过" : "Passed")],
+          ["D_expected", fmt(candidate.D_expected)],
+        ].map(([label, value]) => (
+          <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 10 }}>
+            <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", fontWeight: 850 }}>{label}</div>
+            <div style={{ color: t.textStrong, fontSize: 12, lineHeight: 1.45, marginTop: 5, fontWeight: 820 }}>{value}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+        <strong style={{ color: t.textStrong }}>{lang === "zh" ? "主要短板：" : "Main weakness: "}</strong>
+        {findMainWeakness(candidate, lang)}
+      </div>
+
+      <div style={{ display: "grid", gap: 7 }}>
+        <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 880 }}>{lang === "zh" ? "下一步证据" : "Next data needed"}</div>
+        {nextGaps.slice(0, 2).map(gap => (
+          <div key={`${gap.limitation}-${gap.nextEvidence}`} style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55, borderLeft: `3px solid ${gap.priority === "High" ? t.warn : t.accentText}`, paddingLeft: 9 }}>
+            {gap.nextEvidence}
+          </div>
+        ))}
+      </div>
+    </Card>
+  )
+}
+
+function WeightsPanel({ model, lang, t, isMobile }) {
+  const rows = model.decomposition
+  const matrixCells = [
+    <span key="matrix-corner" />,
+    ...CRITIC_INDICATORS.map(item => (
+      <span key={`matrix-head-${item.key}`} style={{ color: t.faint, fontSize: 10, fontWeight: 850, textAlign: "center" }}>{item.shortLabel}</span>
+    )),
+    ...CRITIC_INDICATORS.flatMap(row => [
+      <span key={`matrix-row-${row.key}`} style={{ color: t.faint, fontSize: 10, fontWeight: 850, alignSelf: "center" }}>{row.shortLabel}</span>,
+      ...CRITIC_INDICATORS.map(col => {
+        const value = model.correlationMatrix[row.key]?.[col.key] ?? 0
+        return (
+          <span key={`matrix-${row.key}-${col.key}`} style={{
+            color: t.textStrong,
+            background: row.key === col.key ? t.badgeInfoBg : t.surface,
+            border: `1px solid ${t.border}`,
+            borderRadius: 6,
+            padding: "8px 4px",
+            textAlign: "center",
+            fontSize: 10.5,
+            fontFamily: FONT_MONO,
+          }}>
+            {fmt(value, 2)}
+          </span>
+        )
+      }),
+    ]),
+  ]
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 0.95fr) minmax(0, 0.9fr) minmax(0, 1.15fr)", gap: 12 }}>
+      <Card t={t}>
+        <h3 style={{ margin: 0, color: t.textStrong, fontSize: 13 }}>{lang === "zh" ? "CRITIC-derived weights" : "CRITIC-derived weights"}</h3>
+        <div style={{ display: "grid", gap: 10, marginTop: 12 }}>
+          {CRITIC_INDICATORS.map(item => (
+            <div key={item.key} style={{ display: "grid", gap: 5 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 10, color: t.muted, fontSize: 11, fontWeight: 850 }}>
+                <span>{item.shortLabel}</span>
+                <span style={{ color: t.textStrong, fontFamily: FONT_MONO }}>{fmt(model.weights[item.key])}</span>
+              </div>
+              <ScoreBar value={model.weights[item.key]} t={t} />
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <Card t={t}>
+        <h3 style={{ margin: 0, color: t.textStrong, fontSize: 13 }}>{lang === "zh" ? "Indicator correlation matrix" : "Indicator correlation matrix"}</h3>
+        <div style={{ display: "grid", gridTemplateColumns: "72px repeat(3, minmax(0, 1fr))", gap: 5, marginTop: 12 }}>
+          {matrixCells}
+        </div>
+      </Card>
+
+      <Card t={t}>
+        <h3 style={{ margin: 0, color: t.textStrong, fontSize: 13 }}>{lang === "zh" ? "Information decomposition" : "Information decomposition"}</h3>
+        <div style={{ overflowX: "auto", marginTop: 10 }}>
+          <table style={{ width: "100%", borderCollapse: "separate", borderSpacing: "0 6px", minWidth: 320 }}>
+            <thead>
+              <tr style={{ color: t.faint, fontSize: 10, textAlign: "left" }}>
+                <th>Metric</th><th>sigma</th><th>conflict</th><th>C_j</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map(row => (
+                <tr key={row.key} style={{ color: t.textStrong, fontSize: 11 }}>
+                  <td style={{ padding: "7px 8px", background: t.surface, borderRadius: "6px 0 0 6px", fontWeight: 850 }}>{row.shortLabel}</td>
+                  <td style={{ padding: "7px 8px", background: t.surface, fontFamily: FONT_MONO }}>{fmt(row.sigma)}</td>
+                  <td style={{ padding: "7px 8px", background: t.surface, fontFamily: FONT_MONO }}>{fmt(row.conflict)}</td>
+                  <td style={{ padding: "7px 8px", background: t.surface, borderRadius: "0 6px 6px 0", fontFamily: FONT_MONO }}>{fmt(row.information)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+    </div>
+  )
+}
+
+function EvidenceGapsTable({ candidates, lang, t }) {
+  const rows = candidates.flatMap(candidate => getDataGapRecommendations(candidate).map(gap => ({ candidate, ...gap })))
+  return (
+    <div style={{ overflowX: "auto" }}>
+      <table style={{ width: "100%", borderCollapse: "separate", borderSpacing: "0 7px", minWidth: 760 }}>
+        <thead>
+          <tr style={{ color: t.faint, fontSize: 10, textAlign: "left", textTransform: "uppercase" }}>
+            <th style={{ padding: "0 10px" }}>MOF</th>
+            <th style={{ padding: "0 10px" }}>{lang === "zh" ? "当前限制" : "Current limitation"}</th>
+            <th style={{ padding: "0 10px" }}>{lang === "zh" ? "Recommended next evidence" : "Recommended next evidence"}</th>
+            <th style={{ padding: "0 10px" }}>Priority</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(row => (
+            <tr key={`${row.candidate.id}-${row.limitation}-${row.nextEvidence}`} style={{ color: t.muted, fontSize: 12 }}>
+              <td style={{ padding: "10px", background: t.surface, borderRadius: "7px 0 0 7px", color: t.textStrong, fontWeight: 850 }}>{row.candidate.name}</td>
+              <td style={{ padding: "10px", background: t.surface }}>{row.limitation}</td>
+              <td style={{ padding: "10px", background: t.surface }}>{row.nextEvidence}</td>
+              <td style={{ padding: "10px", background: t.surface, borderRadius: "0 7px 7px 0", color: row.priority === "High" ? t.warn : t.accentText, fontWeight: 850 }}>{row.priority}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+function SensitivityTable({ sensitivity, lang, t }) {
+  return (
+    <div style={{ overflowX: "auto" }}>
+      <table style={{ width: "100%", borderCollapse: "separate", borderSpacing: "0 7px", minWidth: 780 }}>
+        <thead>
+          <tr style={{ color: t.faint, fontSize: 10, textAlign: "left", textTransform: "uppercase" }}>
+            <th style={{ padding: "0 10px" }}>MOF</th>
+            {sensitivity.schemes.map(scheme => <th key={scheme.id} style={{ padding: "0 10px" }}>{scheme.label}</th>)}
+            <th style={{ padding: "0 10px" }}>{lang === "zh" ? "稳健性" : "Robustness"}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sensitivity.rows.map(row => (
+            <tr key={row.id} style={{ color: t.muted, fontSize: 12 }}>
+              <td style={{ padding: "10px", background: t.surface, borderRadius: "7px 0 0 7px", color: t.textStrong, fontWeight: 850 }}>{row.name}</td>
+              {sensitivity.schemes.map(scheme => (
+                <td key={scheme.id} style={{ padding: "10px", background: t.surface, fontFamily: FONT_MONO }}>
+                  {Number.isFinite(row.ranks[scheme.id]) ? `#${row.ranks[scheme.id]}` : row.ranks[scheme.id]}
+                </td>
+              ))}
+              <td style={{ padding: "10px", background: t.surface, borderRadius: "0 7px 7px 0", color: row.robustness === "Evidence-limited" || row.robustness === "Weight-sensitive" ? t.warn : t.accentText, fontWeight: 850 }}>
+                {row.robustness}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+export function EcoScreenTab({ onNavigate }) {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
-  const [structureRows, setStructureRows] = useState([])
-  const [labelRows, setLabelRows] = useState([])
-  const [selected, setSelected] = useState(null)
-  const [filtersOpen, setFiltersOpen] = useState(false)
-  const [filters, setFilters] = useState({
-    task: "co2-capture",
-    metalRisk: "noHigh",
-    minScore: 62,
-    evidence: "all",
-  })
-  const [dataStatus, setDataStatus] = useState("loading")
-  const [runStatus, setRunStatus] = useState("idle")
-  const [runNotice, setRunNotice] = useState("")
-  const [scenarioResult, setScenarioResult] = useState(null)
-  const [chartsReady, setChartsReady] = useState(false)
+  const [selectedId, setSelectedId] = useState("MOF-B")
+  const model = useMemo(() => buildCriticScoringModel(), [])
+  const selectedCandidate = useMemo(() => (
+    model.candidates.find(candidate => candidate.id === selectedId) || model.candidates[0]
+  ), [model, selectedId])
+  const scored = model.candidates.filter(candidate => Number(candidate.G) !== 0)
+  const excluded = model.candidates.filter(candidate => Number(candidate.G) === 0)
+  const topCandidate = scored[0]
 
-  useEffect(() => {
-    let active = true
-    let noticeTimer = null
-    setDataStatus("loading")
-    noticeTimer = window.setTimeout(() => {
-      if (active) setDataStatus("loaded")
-    }, ECO_LOAD_NOTICE_MS)
-    Promise.all([getMofStructures({ throwOnError: true }), getAdsorptionLabels({ throwOnError: true })])
-      .then(([structures, labels]) => {
-        if (!active) return
-        window.clearTimeout(noticeTimer)
-        const nextStructures = Array.isArray(structures) ? structures : []
-        const nextLabels = Array.isArray(labels) ? labels : []
-        setStructureRows(nextStructures)
-        setLabelRows(nextLabels)
-        setDataStatus(nextStructures.length || nextLabels.length ? "loaded" : "empty")
-      })
-      .catch((error) => {
-        console.warn("EcoScreen data load failed.", error)
-        if (!active) return
-        window.clearTimeout(noticeTimer)
-        setStructureRows([])
-        setLabelRows([])
-        setDataStatus("error")
-      })
-    return () => {
-      active = false
-      window.clearTimeout(noticeTimer)
+  const openMethodology = () => {
+    if (onNavigate) onNavigate("methodology")
+    if (typeof window !== "undefined") {
+      window.setTimeout(() => {
+        document.getElementById("critic-mcda-methodology")?.scrollIntoView({ block: "start", behavior: "smooth" })
+      }, 180)
     }
-  }, [])
-
-  useEffect(() => {
-    setChartsReady(false)
-    let timer = null
-    const frame = window.requestAnimationFrame(() => {
-      timer = window.setTimeout(() => setChartsReady(true), 80)
-    })
-    return () => {
-      window.cancelAnimationFrame(frame)
-      if (timer) window.clearTimeout(timer)
-    }
-  }, [])
-
-  const records = useMemo(() => {
-    const loaded = buildDatabaseRecords(structureRows, labelRows)
-    return loaded.length ? loaded : LITERATURE_DB
-  }, [structureRows, labelRows])
-
-  const candidates = useMemo(() => {
-    return buildEcoCandidates(records, results, inputs, lang)
-      .filter(item => {
-        if (filters.metalRisk === "noHigh" && ["Cr3+", "Co2+", "Ni2+"].includes(item.metal)) return false
-        if (filters.metalRisk === "lowOnly" && !["Zr4+", "Mg2+", "Al3+", "Fe3+"].includes(item.metal)) return false
-        if (item.score < Number(filters.minScore)) return false
-        if (filters.evidence === "medium" && !/中等|Medium|GCMC|literature/i.test(item.evidence)) return false
-        return true
-      })
-      .sort((a, b) => b.score - a.score)
-  }, [records, results, inputs, lang, filters])
-
-  const activeCandidate = useMemo(() => selected || candidates[0] || null, [selected, candidates])
-  const chartData = useMemo(() => ({
-    ranking: chartsReady ? candidates : [],
-    evidence: chartsReady ? evidenceDistribution(candidates) : [],
-    scores: chartsReady ? scoreDistribution(candidates) : [],
-    sensitivity: chartsReady ? sensitivityRows(candidates, "ecoscreen", DEFAULT_SCORING_WEIGHTS.ecoscreen, null, "sustainability") : [],
-  }), [candidates, chartsReady])
-  const hasRunnableContext = Boolean(activeCandidate || inputs?.mofName || records.length)
-  const runScenario = useCallback(() => {
-    if (!hasRunnableContext) {
-      setRunNotice(lang === "zh"
-        ? "请先选择候选材料，或使用当前材料库语境后再运行生态筛选。"
-        : "Select a candidate or use the current library context before running EcoScreen.")
-      return
-    }
-
-    const candidate = activeCandidate || candidates[0]
-    setRunNotice("")
-    setRunStatus("running")
-    window.setTimeout(() => {
-      const descriptorKeys = ["surfaceArea", "poreSizeA", "poreVolume", "co2Uptake", "bandGap", "waterStability", "thermalStability", "toxicityConcern"]
-      const available = descriptorKeys.filter(key => {
-        const value = candidate?.[key]
-        return value !== undefined && value !== null && value !== "" && value !== "pending" && value !== "—"
-      })
-      const pending = descriptorKeys.filter(key => !available.includes(key))
-      setScenarioResult({
-        name: candidate?.name || inputs?.mofName || `${inputs?.metalCenter || "—"}/${inputs?.organicLinker || "—"}`,
-        dataMode: candidate?.fieldSources ? "real-seed / static JSON" : "demo / library context",
-        availableCount: available.length,
-        pendingCount: pending.length,
-        pendingFields: pending,
-        signals: [
-          candidate?.metal ? `${lang === "zh" ? "金属节点" : "Metal node"}: ${candidate.metal}` : null,
-          candidate?.linker ? `${lang === "zh" ? "连接体" : "Linker"}: ${candidate.linker}` : null,
-          Number.isFinite(Number(candidate?.score)) ? `${lang === "zh" ? "生态评分" : "Eco Score"}: ${Number(candidate.score).toFixed(1)}` : null,
-        ].filter(Boolean),
-      })
-      setRunStatus("done")
-    }, 420)
-  }, [activeCandidate, candidates, hasRunnableContext, inputs, lang])
-  const controlStyle = { background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "8px 10px", color: t.text, fontSize: 12, width: "100%" }
+  }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+    <div id="candidate-scoring-lab" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title={lang === "zh" ? "生态筛选" : "EcoScreen"}
-        subtitle={lang === "zh"
-          ? "面向可持续性的早期筛选信号。"
-          : "Early-stage sustainability screening signals."}
-        meta={lang === "zh" ? "筛选条件 · 生态评分 · 解释卡片 · 方法与证据" : "filters · Eco Score · explanation cards · methods and evidence"}
+        title="Candidate Scoring Lab"
+        subtitle="Interpretable CRITIC-MCDA screening for hydrothermal formate-formation candidates."
+        meta={lang === "zh"
+          ? "基于水热稳定性、产甲酸关键能垒与副产物路径风险，对 MOF 候选进行可解释优先级排序。"
+          : "Ranks MOF candidates through hydrothermal stability, formate-step barrier, and byproduct-risk evidence."}
         action={
           <>
-            <BasisBadge tone="proxy">{lang === "zh" ? "不替代完整 LCA" : "not full LCA"}</BasisBadge>
-            <CopyLinkButton hash="ecoscreen" ariaLabel={lang === "zh" ? "复制生态筛选链接" : "Copy EcoScreen link"} />
+            <BasisBadge tone="proxy">demo / illustrative</BasisBadge>
+            <CopyLinkButton hash="ecoscreen" ariaLabel={lang === "zh" ? "复制 EcoScreen 链接" : "Copy EcoScreen link"} />
           </>
         }
       />
 
       <Callout tone="info">
-        {lang === "zh" ? "仅为早期可持续性信号。" : "Early-stage sustainability signals only."}{" "}
+        {lang === "zh"
+          ? "本模块用于早期候选优先级判断，不用于直接预测甲酸产率。"
+          : "This module supports early-stage candidate prioritization rather than direct formate yield prediction."}{" "}
         <DisclaimerLink />
       </Callout>
-      {dataStatus === "loading" && (
-        <Callout tone="info">{lang === "zh" ? "正在加载生态筛选数据…" : "Loading EcoScreen data..."}</Callout>
-      )}
-      {dataStatus === "error" && (
-        <Callout tone="warn">
-          {lang === "zh"
-            ? "数据加载失败。请刷新页面，或检查当前网络是否可以访问 GitHub Pages。当前页面会使用本地种子上下文继续展示。"
-            : "Data could not be loaded. Please refresh the page or check network access to GitHub Pages. This view continues with local seed context."}
-        </Callout>
-      )}
-      {dataStatus === "empty" && (
-        <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
-      )}
 
-      <ResultLayer number="01" title={lang === "zh" ? "可持续性筛选条件" : "Sustainability Filters"} subtitle={lang === "zh" ? "筛选规则影响排序展示，不改变原始数据库记录。" : "Filters affect ranking display, not the underlying database records."}>
-        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-          <button type="button" onClick={() => setFiltersOpen(prev => !prev)} style={{ ...controlStyle, display: isMobile ? "block" : "none", marginBottom: filtersOpen ? 10 : 0 }}>
-            {filtersOpen ? (lang === "zh" ? "收起筛选器" : "Collapse filters") : (lang === "zh" ? "展开筛选器" : "Expand filters")}
-          </button>
-          <div style={{ display: isMobile && !filtersOpen ? "none" : "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
-            <label style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }}>
-              {lang === "zh" ? "筛选任务" : "Task"}
-              <select value={filters.task} onChange={e => setFilters(prev => ({ ...prev, task: e.target.value }))} style={controlStyle}>
-                <option value="co2-capture">{lang === "zh" ? "CO₂ 捕集低负担候选" : "CO2 capture low-burden candidates"}</option>
-                <option value="solvent-light">{lang === "zh" ? "低溶剂/废弃物压力" : "lower solvent/waste pressure"}</option>
-                <option value="supply-aware">{lang === "zh" ? "供应与成本敏感性较低" : "lower supply/cost sensitivity"}</option>
-              </select>
-            </label>
-            <label style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }}>
-              {lang === "zh" ? "金属风险" : "Metal risk"}
-              <select value={filters.metalRisk} onChange={e => setFilters(prev => ({ ...prev, metalRisk: e.target.value }))} style={controlStyle}>
-                <option value="noHigh">{lang === "zh" ? "排除高风险节点" : "exclude high-risk nodes"}</option>
-                <option value="lowOnly">{lang === "zh" ? "只看低/中低负担节点" : "low-burden nodes only"}</option>
-                <option value="all">{lang === "zh" ? "全部显示" : "show all"}</option>
-              </select>
-            </label>
-            <label style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }}>
-              {lang === "zh" ? "最低生态评分" : "Minimum Eco Score"}
-              <input type="number" min="0" max="100" step="1" value={filters.minScore} onChange={e => setFilters(prev => ({ ...prev, minScore: e.target.value }))} style={controlStyle} />
-            </label>
-            <label style={{ display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }}>
-              {lang === "zh" ? "证据等级" : "Evidence"}
-              <select value={filters.evidence} onChange={e => setFilters(prev => ({ ...prev, evidence: e.target.value }))} style={controlStyle}>
-                <option value="all">{lang === "zh" ? "全部证据" : "all evidence"}</option>
-                <option value="medium">{lang === "zh" ? "中等及以上" : "medium or higher"}</option>
-              </select>
-            </label>
-            <button
-              type="button"
-              onClick={runScenario}
-              disabled={runStatus === "running"}
-              title={runStatus === "running" ? (lang === "zh" ? "生态筛选正在运行。" : "EcoScreen is running.") : undefined}
-              style={{ ...toolbarBtn(t), alignSelf: "end", minHeight: 38, opacity: runStatus === "running" ? 0.72 : 1, cursor: runStatus === "running" ? "not-allowed" : "pointer" }}
-            >
-              {runStatus === "running"
-                ? (lang === "zh" ? "正在运行..." : "Running...")
-                : runStatus === "done"
-                  ? (lang === "zh" ? "重新运行" : "Run again")
-                  : (lang === "zh" ? "运行当前结构" : "Run current structure")}
-            </button>
-          </div>
-          {runNotice && (
-            <div style={{ color: t.warn, fontSize: 11, lineHeight: 1.55, marginTop: 10 }}>
-              {runNotice}
+      <ResultLayer number="01" title={lang === "zh" ? "当前候选集概览" : "Overview Summary"}>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.25fr) minmax(360px, 0.75fr)", gap: 12, alignItems: "stretch" }}>
+          <Card t={t} style={{ display: "grid", gap: 10 }}>
+            <div style={{ color: t.textStrong, fontSize: isMobile ? 20 : 24, lineHeight: 1.08, fontWeight: 940 }}>
+              Candidate Scoring Lab
             </div>
-          )}
-          <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.6, marginTop: 10 }}>
-            {lang === "zh"
-              ? "当前原型未接入自定义结构上传。本次运行基于当前候选材料语境和已有描述符信号进行展示。"
-              : "No custom structure is uploaded in this prototype. This run uses the current candidate context and available descriptor signals."}
-          </div>
-        </div>
-      </ResultLayer>
-      {scenarioResult && (
-        <ResultLayer number="01B" title={lang === "zh" ? "生态筛选场景结果" : "EcoScreen scenario result"}>
-          <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, display: "grid", gap: 11 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
-              <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850 }}>{scenarioResult.name}</div>
-              <BasisBadge tone="proxy">{scenarioResult.dataMode}</BasisBadge>
+            <div style={{ color: t.muted, fontSize: 13, lineHeight: 1.65, maxWidth: 780 }}>
+              Interpretable CRITIC-MCDA screening for hydrothermal formate-formation candidates.
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
-              {[
-                [lang === "zh" ? "数据模式" : "Data mode", scenarioResult.dataMode],
-                [lang === "zh" ? "可用描述符数量" : "Available descriptor count", `${scenarioResult.availableCount}/8`],
-                [lang === "zh" ? "可持续性信号" : "Sustainability signals", scenarioResult.signals.join("; ") || (lang === "zh" ? "待补充" : "Pending")],
-                [lang === "zh" ? "待补充字段" : "Pending fields", scenarioResult.pendingCount ? scenarioResult.pendingFields.join(", ") : (lang === "zh" ? "无" : "None")],
-              ].map(([label, value]) => (
-                <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: "9px 11px" }}>
-                  <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", fontWeight: 850 }}>{label}</div>
-                  <div style={{ color: t.textStrong, fontSize: 12, lineHeight: 1.55, marginTop: 5 }}>{value}</div>
-                </div>
-              ))}
-            </div>
-            <Callout tone="note">
+            <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.65, maxWidth: 860 }}>
               {lang === "zh"
-                ? "本次运行基于当前可用描述符，仅用于早期决策支持预览。"
-                : "This run is based on currently available descriptors and is an early-stage decision-support preview."}
-            </Callout>
+                ? "基于水热稳定性、产甲酸关键能垒与副产物路径风险，对 MOF 候选进行可解释优先级排序。所有记录均为 demo / illustrative，不代表真实实验结论。"
+                : "Uses hydrothermal stability, formate-formation barrier, and byproduct-risk evidence to rank MOF candidates. All records are demo / illustrative, not experimental conclusions."}
+            </div>
+          </Card>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr", gap: 10 }}>
+            <MetricCard label="Total candidates" value={model.candidates.length} note="demo set" t={t} />
+            <MetricCard label="Scored candidates" value={scored.length} note="G = 1" t={t} />
+            <MetricCard label="Excluded" value={excluded.length} note="G = 0" t={t} />
+            <MetricCard label="Top candidate" value={topCandidate?.name || "—"} note={topCandidate ? `D_expected ${fmt(topCandidate.D_expected)}` : ""} t={t} />
           </div>
-        </ResultLayer>
-      )}
-
-      <ResultLayer number="02" title={lang === "zh" ? "生态评分排序" : "Eco Score Ranking"} subtitle={lang === "zh" ? "统一结果卡片：MOF 名称 / 评分 / 适合任务 / 关键原因 / 证据等级 / 查看详情。" : "Unified result cards: MOF name / Score / Suitable task / Key reasons / Evidence level / View details."}>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 12, alignItems: "start" }}>
-          {candidates.length === 0 && (
-            <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
-          )}
-          {candidates.slice(0, 6).map(candidate => (
-            <UnifiedCandidateCard
-              key={candidate.id}
-              name={candidate.name}
-              score={candidate.score}
-              scoreLabel={lang === "zh" ? "生态评分" : "Eco Score"}
-              suitableTask={candidate.task}
-              scoreBreakdown={candidate.breakdown}
-              keyReasons={candidate.reasons}
-              evidenceLevel={candidate.evidence}
-              limitations={candidate.limitations}
-              recommendedNextStep={candidate.nextStep}
-              fieldSources={candidate.fieldSources}
-              dataStatus={candidate.fieldSources ? undefined : "demo"}
-              onDetails={() => setSelected(candidate)}
-            />
-          ))}
         </div>
       </ResultLayer>
 
-      <ResultLayer number="03" title={lang === "zh" ? "结果解释说明" : "Results Interpretation Notes"} subtitle={lang === "zh" ? "Eco Score 表示候选材料在当前可持续性评分策略下的优先级，不等同于完整工业 LCA 结论。" : "Eco Score indicates candidate priority under the current sustainability scoring strategy. It does not replace full industrial LCA."}>
-        {activeCandidate && (
-          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr 1fr", gap: 12 }}>
-            <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
-              <BasisBadge tone={scoreTone(activeCandidate.score)}>{lang === "zh" ? "生态评分" : "Eco Score"} {activeCandidate.score.toFixed(1)}</BasisBadge>
-              <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850, marginTop: 10 }}>{activeCandidate.name}</div>
-              <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.6, marginTop: 8 }}>{activeCandidate.note}</div>
+      <ResultLayer number="02" title={lang === "zh" ? "候选排序与解释" : "Candidate Scoring Lab"} subtitle={lang === "zh" ? "点击任一候选，右侧解释卡片会联动更新。" : "Select a candidate to update the explanation panel."}>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.45fr) minmax(320px, 0.9fr)", gap: 12, alignItems: "stretch" }}>
+          <Card t={t}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "baseline", marginBottom: 12 }}>
+              <h3 style={{ margin: 0, color: t.textStrong, fontSize: 14 }}>{lang === "zh" ? "MOF Candidate Usefulness Ranking" : "MOF Candidate Usefulness Ranking"}</h3>
+              <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>D_expected = D_raw × Q</span>
             </div>
-            <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
-              <BasisBadge tone={evidenceTone(activeCandidate.evidence)}>{activeCandidate.evidence}</BasisBadge>
-              <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850, marginTop: 10 }}>{lang === "zh" ? "数据来源" : "Data source"}</div>
-              <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.6, marginTop: 8 }}>{activeCandidate.source}</div>
-            </div>
-            <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
-              <BasisBadge tone="proxy">{lang === "zh" ? "下一步" : "Next step"}</BasisBadge>
-              <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850, marginTop: 10 }}>{lang === "zh" ? "需要验证" : "Needs validation"}</div>
-              <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.6, marginTop: 8 }}>
-                {lang === "zh" ? "补充合成路线、实测吸附/再生数据和正式清单后，才能进入科研结论表述。" : "Add synthesis route, measured adsorption/regeneration data, and formal inventory before scientific claims."}
-              </div>
-            </div>
-          </div>
-        )}
-      </ResultLayer>
-
-      <ResultLayer number="04" title={lang === "zh" ? "模型结果解释图表" : "Model Results / Results Interpretation"}>
-        {chartsReady ? (
-          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
-            <RankingBarChart data={chartData.ranking} scoreLabel={lang === "zh" ? "生态评分" : "Eco Score"} />
-            <ScoreBreakdownRadar data={activeCandidate?.breakdown || []} title={activeCandidate ? `${activeCandidate.name} · ${lang === "zh" ? "评分拆解" : "Score Breakdown"}` : (lang === "zh" ? "评分拆解" : "Score Breakdown")} />
-            <WeightContributionChart data={activeCandidate?.weightContribution || []} />
-            <EvidenceDistributionChart data={chartData.evidence} />
-            <ScoreDistributionChart data={chartData.scores} />
-            <SensitivityAnalysisChart data={chartData.sensitivity} dimension="Sustainability" />
-          </div>
-        ) : (
-          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, color: t.faint, fontSize: 12 }}>
-            {lang === "zh" ? "图表将在页面交互就绪后加载。" : "Charts load after the page interaction layer is ready."}
-          </div>
-        )}
-      </ResultLayer>
-
-      <ResultLayer number="05" title={lang === "zh" ? "方法与证据" : "Methods & Evidence"}>
-        <div style={{ display: "grid", gap: 10 }}>
-          <MethodDrawer title={lang === "zh" ? "生态评分解释边界" : "Eco Score interpretation boundary"}>
-            {lang === "zh" ? "生态评分聚合金属节点、连接体、过程代理、性能趋势和来源质量。它是候选优先级，不是完整 LCIA 或供应商报价。" : "Eco Score aggregates node, linker, process proxies, performance trend, and source quality. It is candidate priority, not full LCIA or supplier pricing."}
-          </MethodDrawer>
-          <MethodDrawer title={lang === "zh" ? "已有 Eco 功能如何保留" : "How existing Eco features are preserved"}>
-            {lang === "zh" ? "现有 LCA/LCC、绿色评分、敏感性和结果解释内容已整合到生态筛选的筛选、排序和方法说明中。" : "Existing LCA/LCC, green score, sensitivity, and explanation content are organized into EcoScreen filters, ranking, and methodology notes."}
-          </MethodDrawer>
+            <RankingList candidates={model.candidates} selectedId={selectedCandidate?.id} onSelect={setSelectedId} lang={lang} t={t} isMobile={isMobile} />
+          </Card>
+          <SelectedCandidateExplanation candidate={selectedCandidate} lang={lang} t={t} />
         </div>
+      </ResultLayer>
+
+      <ResultLayer number="03" title={lang === "zh" ? "CRITIC 权重解释" : "CRITIC Weight Explanation"} subtitle="C_j = sigma_j * sum_k(1 - r_jk); w_j = C_j / sum(C_j)">
+        <WeightsPanel model={model} lang={lang} t={t} isMobile={isMobile} />
+      </ResultLayer>
+
+      <ResultLayer number="04" title={lang === "zh" ? "证据与数据缺口" : "Evidence & Data Gaps"}>
+        <EvidenceGapsTable candidates={model.candidates} lang={lang} t={t} />
+      </ResultLayer>
+
+      <ResultLayer number="05" title={lang === "zh" ? "权重敏感性分析" : "Sensitivity Analysis"} subtitle={lang === "zh" ? "比较 CRITIC、等权、稳定性优先和能垒优先四种权重方案。" : "Compares CRITIC, equal, stability-prioritized, and barrier-prioritized weight schemes."}>
+        <SensitivityTable sensitivity={model.sensitivity} lang={lang} t={t} />
+      </ResultLayer>
+
+      <ResultLayer number="06" title={lang === "zh" ? "方法论入口" : "Methodology Link"}>
+        <Card t={t} style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+          <div style={{ minWidth: 0 }}>
+            <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 900 }}>CRITIC-MCDA Candidate Scoring</div>
+            <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55, marginTop: 5 }}>
+              {lang === "zh"
+                ? "查看公式、边界、小样本限制，以及为什么当前阶段不直接使用 RSM 跨 MOF 拟合产率。"
+                : "Open formulas, boundaries, small-sample limits, and why RSM is not used for cross-MOF yield fitting at this stage."}
+            </div>
+          </div>
+          <button type="button" onClick={openMethodology} style={{ ...toolbarBtn(t), color: t.accentText, borderColor: t.accent, justifyContent: "center" }}>
+            {lang === "zh" ? "打开方法论说明" : "Open Methodology"}
+          </button>
+        </Card>
       </ResultLayer>
     </div>
   )

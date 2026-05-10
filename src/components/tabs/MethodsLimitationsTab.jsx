@@ -638,6 +638,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       ["score-components", "描述符结构"],
       ["method-workflow", "数据管线"],
       ["evidence-level-ladder", "证据等级阶梯"],
+      ["critic-mcda-methodology", "CRITIC-MCDA"],
       ["method-limitations", "使用边界"],
       ["method-formula-reference", "公式参考"],
       ["method-references", "参考与引用"],
@@ -650,6 +651,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
       ["score-components", "Descriptor Grid"],
       ["method-workflow", "Data Pipeline"],
       ["evidence-level-ladder", "Evidence Level Ladder"],
+      ["critic-mcda-methodology", "CRITIC-MCDA"],
       ["method-limitations", "Use Boundaries"],
       ["method-formula-reference", "Formula Reference"],
       ["method-references", "References & Citation"],
@@ -1093,6 +1095,110 @@ export function MethodsLimitationsTab({ onNavigate }) {
         t={t}
       >
         <EvidenceLadder levels={ladderLevels} zh={zh} t={t} />
+      </MethodSection>
+
+      <MethodSection
+        id="critic-mcda-methodology"
+        title="CRITIC-MCDA Candidate Scoring"
+        body={zh
+          ? "该小节解释 EcoScreen 中候选评分工作台的公式、适用范围和边界。"
+          : "This section explains the formulas, scope, and limits behind the EcoScreen Candidate Scoring Lab."}
+        t={t}
+      >
+        <div style={{ display: "grid", gap: 12 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) minmax(0, 1fr)", gap: 10 }}>
+            <CompactCard
+              title={zh ? "方法定位" : "Method Positioning"}
+              tone="info"
+              t={t}
+              body="该框架用于早期候选初筛和实验优先级推荐，不用于直接预测甲酸产率。 This framework is designed for early-stage candidate prioritization, not direct formate yield prediction."
+            />
+            <CompactCard
+              title={zh ? "CRITIC-MCDA 与 RSM" : "CRITIC-MCDA and RSM"}
+              tone="proxy"
+              t={t}
+              body="CRITIC-MCDA selects candidate materials; RSM optimizes reaction conditions for selected candidates."
+            />
+          </div>
+
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+            <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900, marginBottom: 9 }}>
+              {zh ? "三个指标的物理意义" : "Physical Meaning of the Three Indicators"}
+            </div>
+            <div style={{ display: "grid", gap: 7 }}>
+              {[
+                ["d_stab", zh ? "170 ℃水相稳定性，表示材料在目标热水相条件下是否能保持结构。" : "170 C aqueous stability, indicating whether the material can retain structure under target hydrothermal conditions."],
+                ["d_barrier", zh ? "产甲酸关键步骤能垒评分，表示 CO₂/HCO₃⁻ 到 HCOO* 或相关瓶颈步骤的动力学可行性。" : "Formate key-step barrier score, representing kinetic feasibility from CO2/HCO3- to HCOO* or a related bottleneck step."],
+                ["d_select", zh ? "副产物路径风险评分，表示候选是否不容易偏向乙酸、乳酸等副产物路径。" : "Byproduct-path risk score, indicating whether the candidate is less likely to shift toward acetate, lactate, or other side paths."],
+              ].map(([symbol, text]) => (
+                <div key={symbol} style={{ display: "grid", gridTemplateColumns: "92px minmax(0, 1fr)", gap: 10, color: t.muted, fontSize: 11.5, lineHeight: 1.55 }}>
+                  <span style={{ color: t.textStrong, fontFamily: FONT_MONO, fontWeight: 900 }}>{symbol}</span>
+                  <span>{text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) minmax(0, 1fr)", gap: 10 }}>
+            <FormulaDetails
+              title={zh ? "CRITIC 权重公式" : "CRITIC Weight Formula"}
+              formula={<FormulaLine>C_j = sigma_j * sum_k(1 - r_jk)<br />w_j = C_j / sum(C_j)</FormulaLine>}
+              variables={[
+                ["sigma_j", zh ? "第 j 个指标在候选集中的标准差，用于衡量该指标的区分能力。" : "Standard deviation of indicator j across the candidate set; measures discriminating power."],
+                ["r_jk", zh ? "指标 j 与指标 k 的相关系数，用于衡量指标之间的信息重复程度。" : "Correlation coefficient between indicators j and k; measures information redundancy."],
+                ["C_j", zh ? "第 j 个指标的信息量。" : "Information content of indicator j."],
+                ["w_j", zh ? "第 j 个指标的客观权重。" : "Objective weight of indicator j."],
+              ]}
+              interpretation={zh ? "CRITIC 用标准差和指标冲突度生成当前候选集下的客观权重。" : "CRITIC derives objective weights from dispersion and inter-indicator conflict within the current candidate set."}
+              limitation={zh ? "权重依赖当前候选集，不应被解释为普适物理常数。" : "Weights depend on the current candidate set and should not be treated as universal physical constants."}
+              t={t}
+              zh={zh}
+              defaultOpen
+            />
+            <FormulaDetails
+              title={zh ? "综合评分公式" : "Composite Score Formula"}
+              formula={<FormulaLine>D_raw = G * d_stab^w_stab * d_barrier^w_barrier * d_select^w_select<br />D_expected = D_raw * Q</FormulaLine>}
+              variables={[
+                ["G", zh ? "硬筛因子。" : "Hard-screen factor."],
+                ["Q", zh ? "证据置信度。" : "Evidence confidence."],
+                ["D_raw", zh ? "三维指标的原始综合分。" : "Raw composite score from the three indicators."],
+                ["D_expected", zh ? "证据置信度修正后的候选优先级分数。" : "Confidence-adjusted candidate priority score."],
+              ]}
+              interpretation={zh ? "D_expected 用于排序早期验证优先级，不用于直接预测甲酸产率。" : "D_expected ranks early validation priority and does not directly predict formate yield."}
+              limitation={zh ? "G = 0 的候选应排除，不参与优先推荐。" : "Candidates with G = 0 are excluded from priority recommendations."}
+              t={t}
+              zh={zh}
+              defaultOpen
+            />
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
+            <CompactCard
+              title={zh ? "为什么使用几何平均" : "Why Geometric Mean"}
+              tone="info"
+              t={t}
+              body={zh
+                ? "加权几何平均可以体现短板惩罚。如果某个关键指标很低，总分会被明显拉低，避免严重短板被其他高分完全掩盖。"
+                : "The weighted geometric mean introduces shortcoming penalties. A very low key indicator pulls down the total score, preventing severe weaknesses from being fully masked by high scores elsewhere."}
+            />
+            <CompactCard
+              title={zh ? "小样本限制" : "Small-sample Limitation"}
+              tone="warn"
+              t={t}
+              body={zh
+                ? "CRITIC 权重依赖标准差和指标相关性。在小样本候选库中，权重可能受极端值影响。因此本模块中的权重应理解为当前数据集下的探索性优先级权重，而不是普适物理常数。"
+                : "CRITIC weights depend on standard deviation and indicator correlation. In a small candidate set, weights can be affected by outliers. The weights here are exploratory priority weights for the current dataset, not universal physical constants."}
+            />
+            <CompactCard
+              title={zh ? "为什么当前阶段不直接用 RSM" : "Why RSM Is Not Used Here"}
+              tone="proxy"
+              t={t}
+              body={zh
+                ? "响应面法 RSM 更适合在选定某一个 MOF 后，基于统一实验设计优化温度、反应时间、pH 或 HCO₃⁻ 浓度等反应条件。当前阶段的数据主要来自候选筛选、文献、DFT 和表征，不适合直接用 RSM 跨 MOF 拟合产率。"
+                : "Response surface methodology is better suited after selecting one MOF, using a unified experimental design to optimize temperature, reaction time, pH, or HCO3- concentration. The current data come mainly from screening, literature, DFT, and characterization, so they are not suitable for cross-MOF RSM yield fitting."}
+            />
+          </div>
+        </div>
       </MethodSection>
 
       <MethodSection

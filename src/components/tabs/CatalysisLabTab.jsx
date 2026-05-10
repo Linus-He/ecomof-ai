@@ -27,7 +27,7 @@ const DEFAULT_FILTERS = {
   dataStatus: "all",
 }
 
-export function CatalysisLabTab() {
+export function CatalysisLabTab({ onNavigate }) {
   const t = useT()
   const { lang } = useLang()
   const { isMobile, isNarrow } = useViewport()
@@ -136,6 +136,43 @@ export function CatalysisLabTab() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <CatalysisHero lang={lang} stats={stats} t={t} />
+      <section style={{
+        background: t.panel,
+        border: `1px solid ${t.border}`,
+        borderRadius: 8,
+        padding: 14,
+        display: "grid",
+        gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) auto",
+        gap: 12,
+        alignItems: "center",
+      }}>
+        <div style={{ minWidth: 0 }}>
+          <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900 }}>
+            Formate Candidate Screening
+          </div>
+          <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.6, marginTop: 6, maxWidth: 820 }}>
+            Use hydrothermal stability, formate-formation barrier, and byproduct-risk evidence to prioritize MOF candidates before experimental optimization.
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={() => onNavigate ? onNavigate("ecoscreen") : window.location.assign("#ecoscreen")}
+          style={{
+            minHeight: 38,
+            padding: "9px 14px",
+            borderRadius: 7,
+            border: `1px solid ${t.accent}`,
+            background: t.badgeInfoBg,
+            color: t.accentText,
+            fontSize: 12,
+            fontWeight: 850,
+            cursor: "pointer",
+            justifyContent: "center",
+          }}
+        >
+          Open Candidate Scoring Lab
+        </button>
+      </section>
       <CatalysisFilterBar filters={filters} onChange={updateFilter} onClear={clearFilters} lang={lang} t={t} />
       {notice && <Callout tone="warn">{notice}</Callout>}
 

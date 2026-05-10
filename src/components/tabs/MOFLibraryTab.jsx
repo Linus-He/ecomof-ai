@@ -5,9 +5,11 @@ import {
 } from "recharts"
 import {
   useT, useLang, useViewport,
+  FONT_MONO,
   LITERATURE_DB, getAdsorptionLabels, getMofCandidates, getMofStructures, buildDatabaseRecords, downloadTextFile, toolbarBtn,
   BasisBadge, PageHeader, ResultLayer, Callout, DataModeToggle, RealSeedCallout, DataModeNote, safeVal, CopyLinkButton, DisclaimerLink,
   FieldProvenanceButton, SectionTitle, EvidenceLevelLegend,
+  buildCriticScoringModel,
 } from "../../shared"
 import { CandidateComparisonModal, CompareTray } from "../mof/CandidateComparisonModal"
 
@@ -313,6 +315,7 @@ export function MOFLibraryTab({ results, inputs }) {
   const [compareNotice, setCompareNotice] = useState("")
   const [comparisonOpen, setComparisonOpen] = useState(false)
   const [qualityChartsReady, setQualityChartsReady] = useState(false)
+  const criticModel = useMemo(() => buildCriticScoringModel(), [])
 
   useEffect(() => {
     let active = true
@@ -405,6 +408,17 @@ export function MOFLibraryTab({ results, inputs }) {
     summary: getOverviewSummary(item, lang),
   })), [filtered, lang])
 
+  const criticByName = useMemo(() => {
+    const map = new Map()
+    criticModel.candidates.forEach(candidate => {
+      map.set(String(candidate.name || "").toLowerCase(), candidate)
+      if (candidate.libraryName) map.set(String(candidate.libraryName).toLowerCase(), candidate)
+    })
+    return map
+  }, [criticModel])
+
+  const getCriticSummary = (item) => criticByName.get(String(item?.name || "").toLowerCase()) || null
+
   const openRecordFromOverview = (id) => {
     setExpandedId(id)
     window.setTimeout(() => {
@@ -422,6 +436,11 @@ export function MOFLibraryTab({ results, inputs }) {
       }
       return [...prev, item.id]
     })
+  }
+
+  const openScoringDetails = () => {
+    if (typeof window === "undefined") return
+    window.location.hash = "ecoscreen"
   }
 
   const exportCsv = () => {
@@ -603,6 +622,9 @@ export function MOFLibraryTab({ results, inputs }) {
       >
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
           {overviewRows.map(({ item, summary }) => (
+            (() => {
+              const scoring = getCriticSummary(item)
+              return (
             <button
               key={item.id}
               type="button"
@@ -645,7 +667,32 @@ export function MOFLibraryTab({ results, inputs }) {
                   </div>
                 ))}
               </div>
+              <div style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: 7,
+                borderTop: `1px solid ${t.divider}`,
+                paddingTop: 9,
+              }}>
+                <div style={{ minWidth: 0 }}>
+                  <div style={{ color: t.faint, fontSize: 9.5, textTransform: "uppercase", fontWeight: 850 }}>D_expected</div>
+                  <div style={{ color: t.textStrong, fontSize: 11, fontFamily: FONT_MONO, fontWeight: 850 }}>
+                    {scoring ? Number(scoring.D_expected).toFixed(3) : "not mapped"}
+                  </div>
+                </div>
+                <div style={{ minWidth: 0 }}>
+                  <div style={{ color: t.faint, fontSize: 9.5, textTransform: "uppercase", fontWeight: 850 }}>Q / Evidence</div>
+                  <div style={{ color: t.textStrong, fontSize: 11, fontWeight: 850 }}>
+                    {scoring ? `${Number(scoring.confidence_Q_clipped).toFixed(2)} · ${scoring.evidenceLevel}` : "demo only"}
+                  </div>
+                </div>
+                <div style={{ gridColumn: "1 / -1", color: scoring?.status?.tone === "warn" ? t.warn : t.accentText, fontSize: 10.5, fontWeight: 850, lineHeight: 1.3 }}>
+                  {scoring ? scoring.status.label : "No CRITIC-MCDA demo summary for this record"}
+                </div>
+              </div>
             </button>
+              )
+            })()
           ))}
         </div>
       </ResultLayer>
@@ -676,6 +723,7 @@ export function MOFLibraryTab({ results, inputs }) {
               {(() => {
                 const isSelected = selectedCompareIds.includes(item.id)
                 const limitReached = selectedCompareIds.length >= 3 && !isSelected
+                const scoring = getCriticSummary(item)
                 return (
               <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
                 <div>
@@ -685,6 +733,9 @@ export function MOFLibraryTab({ results, inputs }) {
                 <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
                   <BasisBadge tone="info">{zhValue(item.evidenceLevel, lang)}</BasisBadge>
                   <BasisBadge tone="proxy">{zhDataStatus(item.dataStatus, lang)}</BasisBadge>
+                  <BasisBadge tone={scoring ? scoring.status.tone : "proxy"}>
+                    {scoring ? `D_expected ${Number(scoring.D_expected).toFixed(3)}` : "CRITIC demo: not mapped"}
+                  </BasisBadge>
                   <button
                     type="button"
                     onClick={() => toggleCompare(item)}
@@ -710,6 +761,19 @@ export function MOFLibraryTab({ results, inputs }) {
                       : limitReached
                         ? (lang === "zh" ? "已达到对比上限" : "Compare limit reached")
                         : (lang === "zh" ? "加入对比" : "Add to compare")}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={openScoringDetails}
+                    style={{
+                      ...toolbarBtn(t),
+                      padding: "4px 9px",
+                      fontSize: 10,
+                      color: t.accentText,
+                      border: `1px solid ${t.accent}`,
+                    }}
+                  >
+                    View scoring details
                   </button>
                 </div>
               </div>
