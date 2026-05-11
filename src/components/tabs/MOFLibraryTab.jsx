@@ -693,6 +693,11 @@ export function MOFLibraryTab({ results, inputs }) {
                 <div style={{ gridColumn: "1 / -1", color: scoring?.status?.tone === "warn" ? t.warn : t.accentText, fontSize: 10.5, fontWeight: 850, lineHeight: 1.3 }}>
                   {scoring ? scoring.status.label : "No CRITIC-MCDA demo summary for this record"}
                 </div>
+                <div style={{ gridColumn: "1 / -1", color: t.faint, fontSize: 10.5, lineHeight: 1.45 }}>
+                  {scoring
+                    ? (lang === "zh" ? "该分数为演示占位，不代表该 MOF 的真实性能判断。" : "This score is an illustrative placeholder, not a validated statement about this MOF.")
+                    : "CRITIC demo: not mapped"}
+                </div>
                 <div style={{ gridColumn: "1 / -1", display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 7 }}>
                   <button
                     type="button"

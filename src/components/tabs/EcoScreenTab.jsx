@@ -452,10 +452,10 @@ export function EcoScreenTab({ onNavigate }) {
   return (
     <div id="candidate-scoring-lab" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title={lang === "zh" ? "Candidate Scoring Lab / 候选材料评分工作台" : "Candidate Scoring Lab / 候选材料评分工作台"}
+        title={lang === "zh" ? "EcoScreen / Candidate Scoring" : "EcoScreen / Candidate Scoring"}
         subtitle={lang === "zh"
-          ? "Interpretable CRITIC-MCDA screening for hydrothermal formate-formation candidates. 基于水热稳定性、产甲酸关键能垒与副产物路径风险，对 MOF 候选进行可解释优先级排序。"
-          : "Interpretable CRITIC-MCDA screening for hydrothermal formate-formation candidates. 基于水热稳定性、产甲酸关键能垒与副产物路径风险，对 MOF 候选进行可解释优先级排序。"}
+          ? "Candidate Scoring Lab 是 EcoScreen 的核心候选材料决策支持工作台。"
+          : "Candidate Scoring Lab is the core EcoScreen decision-support workspace for candidate materials."}
         meta={lang === "zh"
           ? "CRITIC weights · D_raw · confidence_Q · D_expected · status · rank · Evidence & Data Gaps · Sensitivity Analysis"
           : "CRITIC weights · D_raw · confidence_Q · D_expected · status · rank · Evidence & Data Gaps · Sensitivity Analysis"}
@@ -475,11 +475,11 @@ export function EcoScreenTab({ onNavigate }) {
       </Callout>
       <Callout tone="warn">
         {lang === "zh"
-          ? "演示记录，不代表已验证催化性能。"
-          : "Illustrative demo record — not validated catalytic evidence."}
+          ? "Illustrative demo records — not validated catalytic evidence. 演示记录，不代表已验证催化性能。"
+          : "Illustrative demo records — not validated catalytic evidence. 演示记录，不代表已验证催化性能。"}
       </Callout>
 
-      <ResultLayer number="01" title="Candidate Scoring Lab / 候选材料评分工作台" subtitle="CRITIC weights · D_raw · confidence_Q · D_expected · status · rank">
+      <ResultLayer number="01" title={lang === "zh" ? "Overview Summary / 当前候选集概览" : "Overview Summary / 当前候选集概览"} subtitle="CRITIC weights · D_raw · confidence_Q · D_expected · status · rank">
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.25fr) minmax(360px, 0.75fr)", gap: 12, alignItems: "stretch", marginBottom: 12 }}>
           <Card t={t} style={{ display: "grid", gap: 10 }}>
             <div style={{ color: t.textStrong, fontSize: isMobile ? 20 : 24, lineHeight: 1.08, fontWeight: 940 }}>
@@ -493,11 +493,6 @@ export function EcoScreenTab({ onNavigate }) {
             </div>
             <div style={{ color: t.muted, fontSize: 13, lineHeight: 1.65, maxWidth: 860 }}>
               基于水热稳定性、产甲酸关键能垒与副产物路径风险，对 MOF 候选进行可解释优先级排序。
-            </div>
-            <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.65, maxWidth: 860 }}>
-              {lang === "zh"
-                ? "基于水热稳定性、产甲酸关键能垒与副产物路径风险，对 MOF 候选进行可解释优先级排序。演示记录，不代表已验证催化性能。"
-                : "Uses hydrothermal stability, formate-formation barrier, and byproduct-risk evidence to rank MOF candidates. Illustrative demo record — not validated catalytic evidence."}
             </div>
           </Card>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 10 }}>
@@ -513,6 +508,11 @@ export function EcoScreenTab({ onNavigate }) {
             <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "baseline", marginBottom: 12 }}>
               <h3 style={{ margin: 0, color: t.textStrong, fontSize: 14 }}>{lang === "zh" ? "MOF Candidate Usefulness Ranking" : "MOF Candidate Usefulness Ranking"}</h3>
               <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>D_expected = D_raw × Q</span>
+            </div>
+            <div style={{ color: t.subtle, fontSize: 11.5, lineHeight: 1.55, marginBottom: 10 }}>
+              {lang === "zh"
+                ? "This score is an illustrative placeholder, not a validated statement about this MOF. 该分数为演示占位，不代表该 MOF 的真实性能判断。"
+                : "This score is an illustrative placeholder, not a validated statement about this MOF. 该分数为演示占位，不代表该 MOF 的真实性能判断。"}
             </div>
             <RankingList candidates={model.candidates} selectedId={selectedCandidate?.id} onSelect={setSelectedId} lang={lang} t={t} isMobile={isMobile} />
           </Card>
