@@ -13,7 +13,7 @@ import {
   parseCifText, zhText, gasLabel, toolbarBtn,
   CustomTooltip, MetricCard, BasisBadge, SectionTitle,
   ResultLayer, HowToRead, InfoTip, NextStepCTA,
-  ProvenanceGrid, ResultProvenanceDrawer, Callout, LinkerSubstitutionPreview,
+  ProvenanceGrid, ResultProvenanceDrawer, Callout, LinkerSubstitutionPreview, InlineFormula,
 } from "../../shared"
 
 function ColumnHeader({ title }) {
@@ -908,6 +908,11 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
                 <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", marginBottom: 10 }}>
                   <SectionTitle>{c.methods.selectivity}</SectionTitle>
                   <BasisBadge tone="proxy">{c.common.basisProxy}</BasisBadge>
+                </div>
+                <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center", color: t.faint, fontSize: 11, marginBottom: 10 }}>
+                  <InlineFormula math={"S_{A/B}=q_A/q_B"} fallback="S_A/B = q_A / q_B" />
+                  <InlineFormula math={"S_{H,A/B}=K_{H,A}/K_{H,B}"} fallback="S_H,A/B = K_H,A / K_H,B" />
+                  <InlineFormula math={"S_{IAST,A/B}\\approx (x_A/y_A)/(x_B/y_B)"} fallback="S_IAST,A/B ~= (x_A/y_A) / (x_B/y_B)" />
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
                   {[

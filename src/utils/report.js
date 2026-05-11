@@ -141,6 +141,7 @@ export function buildReportHtml(results, inputs, decision, c, lcaParams = {}) {
     th { background: #f1f5f9; }
     .note { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; padding: 12px; font-size: 12px; color: #7c2d12; }
     .small { color: #64748b; font-size: 11px; }
+    .formula { display: inline-block; font-family: "SFMono-Regular", Consolas, monospace; color: #0f172a; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 6px; padding: 2px 6px; margin: 0 2px; white-space: nowrap; }
     @media print { body { margin: 18mm; } .card, table, .note { break-inside: avoid; } .cover { min-height: 230px; } }
   </style>
 </head>
@@ -169,9 +170,9 @@ export function buildReportHtml(results, inputs, decision, c, lcaParams = {}) {
   <h3>Adsorption prediction</h3>
   <p class="small">The current browser build uses transparent model profiles and structure-property correlations. A production deployment should replace this with trained model artifacts loaded through the backend API.</p>
   <h3>Selectivity</h3>
-  <p class="small">Apparent selectivity is calculated from predicted single-gas uptake. Henry and IAST values are marked as screening proxies unless fitted pure-component isotherms are supplied.</p>
+  <p class="small">Apparent selectivity is calculated from predicted single-gas uptake, shown as <span class="formula">S<sub>A/B</sub> = q<sub>A</sub>/q<sub>B</sub></span>. Henry and IAST values are marked as screening proxies unless fitted pure-component isotherms are supplied.</p>
   <h3>Thermodynamics</h3>
-  <p class="small">Qst is derived from predicted 273 K / 298 K / 323 K isotherms. Research-grade Qst requires experimental or GCMC multi-temperature isotherm data.</p>
+  <p class="small"><span class="formula">Q<sub>st</sub></span> is derived from predicted 273 K / 298 K / 323 K isotherms. Research-grade Q<sub>st</sub> requires experimental or GCMC multi-temperature isotherm data.</p>
   <h3>LCA / LCC</h3>
   <p class="small">Inventory terms are screening-level proxy records unless replaced by supplier-specific or database-backed inventory and price data.</p>
   <h2>Basis & Limitations</h2>

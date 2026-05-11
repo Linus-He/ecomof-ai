@@ -137,7 +137,20 @@ function AppShell({
   useEffect(() => {
     if (!viewport.isNarrow) return
     const activeButton = navRef.current?.querySelector(`[data-tab-id="${activeTab}"]`)
-    activeButton?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" })
+    const nav = navRef.current
+    if (!activeButton || !nav) return
+
+    const centerActiveTab = () => {
+      const left = activeButton.offsetLeft - (nav.clientWidth - activeButton.clientWidth) / 2
+      nav.scrollTo({ left: Math.max(0, left), behavior: viewport.isMobile ? "auto" : "smooth" })
+    }
+
+    const frame = window.requestAnimationFrame(centerActiveTab)
+    const timeout = window.setTimeout(centerActiveTab, 180)
+    return () => {
+      window.cancelAnimationFrame(frame)
+      window.clearTimeout(timeout)
+    }
   }, [activeTab, viewport.isNarrow])
 
   return (

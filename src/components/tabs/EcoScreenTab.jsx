@@ -3,7 +3,7 @@ import {
   useT, useLang, useViewport,
   FONT_MONO,
   BasisBadge, PageHeader, ResultLayer, Callout, CopyLinkButton, DisclaimerLink,
-  toolbarBtn,
+  toolbarBtn, InlineFormula,
   CRITIC_INDICATORS,
   buildCriticScoringModel,
   computeCriticWeights,
@@ -507,7 +507,9 @@ export function EcoScreenTab({ onNavigate }) {
           <Card t={t}>
             <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "baseline", marginBottom: 12 }}>
               <h3 style={{ margin: 0, color: t.textStrong, fontSize: 14 }}>{lang === "zh" ? "MOF Candidate Usefulness Ranking" : "MOF Candidate Usefulness Ranking"}</h3>
-              <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>D_expected = D_raw × Q</span>
+              <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>
+                <InlineFormula math={"D_{expected}=D_{raw}\\times Q"} fallback="D_expected = D_raw x Q" />
+              </span>
             </div>
             <div style={{ color: t.subtle, fontSize: 11.5, lineHeight: 1.55, marginBottom: 10 }}>
               {lang === "zh"
@@ -520,7 +522,11 @@ export function EcoScreenTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="02" title={lang === "zh" ? "CRITIC 权重解释" : "CRITIC Weight Explanation"} subtitle="C_j = sigma_j * sum_k(1 - r_jk); w_j = C_j / sum(C_j)">
+      <ResultLayer number="02" title={lang === "zh" ? "CRITIC 权重解释" : "CRITIC Weight Explanation"} subtitle={lang === "zh" ? "CRITIC 信息量与客观权重" : "CRITIC information and objective weights"}>
+        <div style={{ display: "flex", gap: 12, flexWrap: "wrap", color: t.faint, fontSize: 11, marginBottom: 10 }}>
+          <InlineFormula math={"C_j=\\sigma_j\\sum_k(1-r_{jk})"} fallback="C_j = sigma_j * sum_k(1 - r_jk)" />
+          <InlineFormula math={"w_j=\\frac{C_j}{\\sum_j C_j}"} fallback="w_j = C_j / sum(C_j)" />
+        </div>
         <WeightsPanel model={model} lang={lang} t={t} isMobile={isMobile} />
       </ResultLayer>
 

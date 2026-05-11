@@ -1,6 +1,4 @@
 import { useMemo, useState } from "react"
-import { BlockMath } from "react-katex"
-import "katex/dist/katex.min.css"
 import {
   Bar, BarChart, CartesianGrid, Legend, Line, LineChart,
   ResponsiveContainer, Tooltip, XAxis, YAxis,
@@ -8,7 +6,7 @@ import {
 import {
   useT, useLang, useViewport,
   FONT_MONO,
-  BasisBadge, PageHeader, CopyLinkButton,
+  BasisBadge, PageHeader, CopyLinkButton, BlockFormula, InlineFormula,
   CRITIC_INDICATORS,
   buildCriticScoringModel,
   getDataGapRecommendations,
@@ -63,14 +61,7 @@ function MethodCard({ title, children, t, tone = "info" }) {
 }
 
 function MathBlock({ math, fallback, t }) {
-  return (
-    <div style={{ overflowX: "auto", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "10px 12px" }}>
-      <BlockMath math={math} />
-      <div style={{ color: t.faint, fontSize: 10.5, fontFamily: FONT_MONO, lineHeight: 1.45 }}>
-        {fallback}
-      </div>
-    </div>
-  )
+  return <BlockFormula math={math} fallback={fallback} t={t} />
 }
 
 function ChartCard({ title, why, children, t }) {
@@ -97,7 +88,7 @@ function TooltipBox({ active, payload, label, t }) {
   )
 }
 
-function MethodWorkflow({ zh, t }) {
+function MethodWorkflow({ zh, t, isMobile }) {
   const [active, setActive] = useState(0)
   const steps = [
     ["Evidence collection", "Collect literature, DFT, experiment, characterization, or inferred evidence.", "indicator-system"],
@@ -116,7 +107,7 @@ function MethodWorkflow({ zh, t }) {
     document.getElementById(target)?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(128px, 1fr))", gap: 8 }}>
+    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, minmax(0, 1fr))" : "repeat(auto-fit, minmax(124px, 1fr))", gap: 8 }}>
       {steps.map(([label, note, target], index) => (
         <button
           key={label}
@@ -129,21 +120,21 @@ function MethodWorkflow({ zh, t }) {
             background: active === index ? t.badgeInfoBg : t.surface,
             border: `1px solid ${active === index ? t.accent : t.border}`,
             borderRadius: 8,
-            padding: 11,
+            padding: isMobile ? 9 : 11,
             textAlign: "left",
             cursor: "pointer",
           }}
         >
-          <div style={{ color: active === index ? t.accentText : t.faint, fontFamily: FONT_MONO, fontSize: 11, fontWeight: 900 }}>{String(index + 1).padStart(2, "0")}</div>
-          <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 880, lineHeight: 1.3, marginTop: 7 }}>{zh ? zhSteps[index] : label}</div>
-          <div style={{ color: t.muted, fontSize: 10.5, lineHeight: 1.45, marginTop: 5 }}>{note}</div>
+          <div style={{ color: active === index ? t.accentText : t.faint, fontFamily: FONT_MONO, fontSize: 10.5, fontWeight: 900 }}>{String(index + 1).padStart(2, "0")}</div>
+          <div style={{ color: t.textStrong, fontSize: isMobile ? 11.5 : 12, fontWeight: 880, lineHeight: 1.3, marginTop: 6 }}>{zh ? zhSteps[index] : label}</div>
+          <div style={{ color: t.muted, fontSize: isMobile ? 10 : 10.5, lineHeight: 1.45, marginTop: 5 }}>{note}</div>
         </button>
       ))}
     </div>
   )
 }
 
-function IndicatorScoreMatrix({ candidates, selected, onSelect, zh, t }) {
+function IndicatorScoreMatrix({ candidates, selected, onSelect, zh, t, isMobile }) {
   const columns = [
     ["d_stab_clipped", "d_stab"],
     ["d_barrier_clipped", "d_barrier"],
@@ -160,9 +151,9 @@ function IndicatorScoreMatrix({ candidates, selected, onSelect, zh, t }) {
     return t.badgeInfoBg
   }
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1.4fr) minmax(260px, 0.8fr)", gap: 12 }}>
+    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1.4fr) minmax(250px, 0.8fr)", gap: 12 }}>
       <div style={{ overflowX: "auto" }}>
-        <table style={{ width: "100%", minWidth: 720, borderCollapse: "separate", borderSpacing: "0 6px" }}>
+        <table style={{ width: "100%", minWidth: isMobile ? 600 : 700, borderCollapse: "separate", borderSpacing: `0 ${isMobile ? 4 : 6}px` }}>
           <thead>
             <tr style={{ color: t.faint, fontSize: 10, textAlign: "left", textTransform: "uppercase" }}>
               <th style={{ padding: "0 8px" }}>MOF</th>
@@ -172,9 +163,9 @@ function IndicatorScoreMatrix({ candidates, selected, onSelect, zh, t }) {
           <tbody>
             {candidates.map(candidate => (
               <tr key={candidate.id} onClick={() => onSelect(candidate.id)} title={zh ? "点击查看候选评分分解" : "Click to inspect score decomposition"} style={{ cursor: "pointer" }}>
-                <td style={{ color: t.textStrong, background: selected === candidate.id ? t.badgeInfoBg : t.panel, borderRadius: "7px 0 0 7px", padding: 9, fontWeight: 850 }}>{candidate.name}</td>
+                <td style={{ color: t.textStrong, background: selected === candidate.id ? t.badgeInfoBg : t.panel, borderRadius: "7px 0 0 7px", padding: isMobile ? 7 : 9, fontWeight: 850, fontSize: isMobile ? 11 : 12 }}>{candidate.name}</td>
                 {columns.map(([key, label], index) => (
-                  <td key={key} title={`${candidate.name} ${label}: ${fmt(candidate[key])}`} style={{ background: heat(candidate[key]), color: t.textStrong, padding: 9, fontFamily: FONT_MONO, fontSize: 11, borderRadius: index === columns.length - 1 ? "0 7px 7px 0" : 0 }}>
+                  <td key={key} title={`${candidate.name} ${label}: ${fmt(candidate[key])}`} style={{ background: heat(candidate[key]), color: t.textStrong, padding: isMobile ? 7 : 9, fontFamily: FONT_MONO, fontSize: isMobile ? 10 : 11, borderRadius: index === columns.length - 1 ? "0 7px 7px 0" : 0 }}>
                     {fmt(candidate[key])}
                   </td>
                 ))}
@@ -207,7 +198,7 @@ function IndicatorScoreMatrix({ candidates, selected, onSelect, zh, t }) {
   )
 }
 
-function CriticWeightChart({ model, t }) {
+function CriticWeightChart({ model, t, isMobile }) {
   const data = CRITIC_INDICATORS.map(item => {
     const row = model.decomposition.find(entry => entry.key === item.key) || {}
     return {
@@ -219,8 +210,8 @@ function CriticWeightChart({ model, t }) {
     }
   })
   return (
-    <ResponsiveContainer width="100%" height={260}>
-      <BarChart data={data} margin={{ top: 12, right: 16, left: 0, bottom: 12 }}>
+    <ResponsiveContainer width="100%" height={isMobile ? 220 : 235}>
+      <BarChart data={data} margin={{ top: 10, right: 12, left: 0, bottom: 8 }}>
         <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
         <XAxis dataKey="key" tick={{ fill: t.subtle, fontSize: 11 }} />
         <YAxis tick={{ fill: t.subtle, fontSize: 10 }} width={42} />
@@ -264,7 +255,7 @@ function CorrelationMatrix({ model, t }) {
   )
 }
 
-function RawExpectedChart({ candidates, selected, onSelect, t }) {
+function RawExpectedChart({ candidates, selected, onSelect, t, isMobile }) {
   const data = candidates.map(candidate => ({
     id: candidate.id,
     name: candidate.name,
@@ -273,10 +264,10 @@ function RawExpectedChart({ candidates, selected, onSelect, t }) {
     Q: Number(candidate.confidence_Q_clipped.toFixed(3)),
   }))
   return (
-    <ResponsiveContainer width="100%" height={320}>
-      <BarChart data={data} margin={{ top: 12, right: 16, left: 0, bottom: 44 }} onClick={(event) => event?.activePayload?.[0]?.payload?.id && onSelect(event.activePayload[0].payload.id)}>
+    <ResponsiveContainer width="100%" height={isMobile ? 260 : 290}>
+      <BarChart data={data} margin={{ top: 10, right: 12, left: 0, bottom: isMobile ? 36 : 42 }} onClick={(event) => event?.activePayload?.[0]?.payload?.id && onSelect(event.activePayload[0].payload.id)}>
         <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
-        <XAxis dataKey="name" tick={{ fill: t.subtle, fontSize: 10 }} interval={0} angle={-22} textAnchor="end" height={58} />
+        <XAxis dataKey="name" tick={{ fill: t.subtle, fontSize: isMobile ? 9 : 10 }} interval={0} angle={isMobile ? -28 : -22} textAnchor="end" height={isMobile ? 52 : 58} />
         <YAxis domain={[0, 1]} tick={{ fill: t.subtle, fontSize: 10 }} width={42} />
         <Tooltip content={<TooltipBox t={t} />} />
         <Legend wrapperStyle={{ color: t.subtle, fontSize: 11 }} />
@@ -287,7 +278,7 @@ function RawExpectedChart({ candidates, selected, onSelect, t }) {
   )
 }
 
-function SensitivityRankChart({ sensitivity, selected, onSelect, zh, t }) {
+function SensitivityRankChart({ sensitivity, selected, onSelect, zh, t, isMobile }) {
   const [mode, setMode] = useState("expected")
   const current = sensitivity.modes?.find(item => item.id === mode) || sensitivity.modes?.[0]
   const schemes = sensitivity.schemes || []
@@ -310,10 +301,10 @@ function SensitivityRankChart({ sensitivity, selected, onSelect, zh, t }) {
           </button>
         ))}
       </div>
-      <ResponsiveContainer width="100%" height={290}>
-        <LineChart data={lineData} margin={{ top: 12, right: 18, left: 0, bottom: 42 }}>
+      <ResponsiveContainer width="100%" height={isMobile ? 245 : 270}>
+        <LineChart data={lineData} margin={{ top: 10, right: 12, left: 0, bottom: isMobile ? 36 : 42 }}>
           <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
-          <XAxis dataKey="scheme" tick={{ fill: t.subtle, fontSize: 10 }} interval={0} angle={-18} textAnchor="end" height={58} />
+          <XAxis dataKey="scheme" tick={{ fill: t.subtle, fontSize: isMobile ? 9 : 10 }} interval={0} angle={isMobile ? -26 : -18} textAnchor="end" height={isMobile ? 52 : 58} />
           <YAxis reversed domain={[1, 6]} tick={{ fill: t.subtle, fontSize: 10 }} width={42} />
           <Tooltip content={<TooltipBox t={t} />} />
           {current.rows.filter(row => Number(row.ranks?.critic) <= 4 || row.id === selected).map((row, index) => (
@@ -322,13 +313,13 @@ function SensitivityRankChart({ sensitivity, selected, onSelect, zh, t }) {
         </LineChart>
       </ResponsiveContainer>
       <div style={{ overflowX: "auto" }}>
-        <table style={{ width: "100%", minWidth: 620, borderCollapse: "separate", borderSpacing: "0 6px" }}>
+        <table style={{ width: "100%", minWidth: isMobile ? 540 : 610, borderCollapse: "separate", borderSpacing: `0 ${isMobile ? 4 : 6}px` }}>
           <tbody>
             {current.rows.map(row => (
               <tr key={row.id} onClick={() => onSelect(row.id)} title={`${row.name}: ${row.robustness}`} style={{ cursor: "pointer" }}>
-                <td style={{ background: row.id === selected ? t.badgeInfoBg : t.panel, borderRadius: "7px 0 0 7px", padding: 9, color: t.textStrong, fontWeight: 850 }}>{row.name}</td>
-                {schemes.map(scheme => <td key={scheme.id} style={{ background: t.panel, padding: 9, color: t.muted, fontFamily: FONT_MONO }}>{Number.isFinite(row.ranks[scheme.id]) ? `#${row.ranks[scheme.id]}` : row.ranks[scheme.id]}</td>)}
-                <td style={{ background: t.panel, borderRadius: "0 7px 7px 0", padding: 9, color: row.robustness === "Robust" ? t.accentText : t.warn, fontWeight: 850 }}>{row.robustness}</td>
+                <td style={{ background: row.id === selected ? t.badgeInfoBg : t.panel, borderRadius: "7px 0 0 7px", padding: isMobile ? 7 : 9, color: t.textStrong, fontWeight: 850, fontSize: isMobile ? 11 : 12 }}>{row.name}</td>
+                {schemes.map(scheme => <td key={scheme.id} style={{ background: t.panel, padding: isMobile ? 7 : 9, color: t.muted, fontFamily: FONT_MONO, fontSize: isMobile ? 10 : 11 }}>{Number.isFinite(row.ranks[scheme.id]) ? `#${row.ranks[scheme.id]}` : row.ranks[scheme.id]}</td>)}
+                <td style={{ background: t.panel, borderRadius: "0 7px 7px 0", padding: isMobile ? 7 : 9, color: row.robustness === "Robust" ? t.accentText : t.warn, fontWeight: 850, fontSize: isMobile ? 11 : 12 }}>{row.robustness}</td>
               </tr>
             ))}
           </tbody>
@@ -345,7 +336,7 @@ function CandidateNote({ candidate, zh, t }) {
     <MethodCard title={zh ? "选中候选解释" : "Selected candidate note"} t={t} tone={candidate.status?.tone || "info"}>
       <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 920 }}>{candidate.name}</div>
       <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55, marginTop: 6 }}>
-        D_raw {fmt(candidate.D_raw)} × Q {fmt(candidate.confidence_Q_clipped)} = D_expected {fmt(candidate.D_expected)}.
+        <InlineFormula math={`D_{raw}=${fmt(candidate.D_raw)}\\times Q=${fmt(candidate.confidence_Q_clipped)}\\Rightarrow D_{expected}=${fmt(candidate.D_expected)}`} fallback={`D_raw ${fmt(candidate.D_raw)} x Q ${fmt(candidate.confidence_Q_clipped)} = D_expected ${fmt(candidate.D_expected)}`} />
       </div>
       <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 8 }}>
         {zh ? "该分数为演示占位，不代表该 MOF 的真实性能判断。" : "This score is an illustrative placeholder, not a validated statement about this MOF."}
@@ -441,7 +432,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
                   : "When comparable yield labels are unavailable, the framework prioritizes candidates using interpretable descriptor evidence."}
               </TextBlock>
               <ChartCard title="Figure 1. CRITIC Workflow / 方法流程图" why={zh ? "为什么重要：展示从证据到候选排序和数据缺口建议的完整链路。" : "Why it matters: it shows the full path from evidence to ranking and data-gap recommendations."} t={t}>
-                <MethodWorkflow zh={zh} t={t} />
+                <MethodWorkflow zh={zh} t={t} isMobile={isMobile} />
               </ChartCard>
             </div>
           </Section>
@@ -449,7 +440,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
           <Section id="indicator-system" eyebrow="03" title={zh ? "Indicator System / 三维指标体系" : "Indicator System / 三维指标体系"} t={t}>
             <div style={{ display: "grid", gap: 12 }}>
               <div style={{ overflowX: "auto" }}>
-                <table style={{ width: "100%", minWidth: 780, borderCollapse: "separate", borderSpacing: "0 7px" }}>
+                <table style={{ width: "100%", minWidth: isMobile ? 650 : 760, borderCollapse: "separate", borderSpacing: `0 ${isMobile ? 5 : 7}px` }}>
                   <thead>
                     <tr style={{ color: t.faint, fontSize: 10, textAlign: "left", textTransform: "uppercase" }}>
                       <th>Indicator</th><th>Symbol</th><th>Meaning</th><th>Higher score means</th><th>Evidence examples</th>
@@ -463,7 +454,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
                     ].map(row => (
                       <tr key={row[1]} style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>
                         {row.map((cell, index) => (
-                          <td key={cell} style={{ background: t.surface, padding: 10, borderRadius: index === 0 ? "7px 0 0 7px" : index === row.length - 1 ? "0 7px 7px 0" : 0, color: index < 2 ? t.textStrong : t.muted, fontFamily: index === 1 ? FONT_MONO : undefined, fontWeight: index < 2 ? 850 : 500 }}>{cell}</td>
+                          <td key={cell} style={{ background: t.surface, padding: isMobile ? 8 : 10, borderRadius: index === 0 ? "7px 0 0 7px" : index === row.length - 1 ? "0 7px 7px 0" : 0, color: index < 2 ? t.textStrong : t.muted, fontFamily: index === 1 ? FONT_MONO : undefined, fontWeight: index < 2 ? 850 : 500, fontSize: isMobile ? 11 : 12 }}>{cell}</td>
                         ))}
                       </tr>
                     ))}
@@ -471,7 +462,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
                 </table>
               </div>
               <ChartCard title="Figure 2. Indicator Score Matrix / 指标评分矩阵" why={zh ? "为什么重要：直接显示每个候选的短板，以及 Q 如何进入最终排序。" : "Why it matters: it shows candidate weaknesses and where Q enters the final ranking."} t={t}>
-                <IndicatorScoreMatrix candidates={model.candidates} selected={selectedCandidateId} onSelect={setSelectedCandidateId} zh={zh} t={t} />
+                <IndicatorScoreMatrix candidates={model.candidates} selected={selectedCandidateId} onSelect={setSelectedCandidateId} zh={zh} t={t} isMobile={isMobile} />
               </ChartCard>
             </div>
           </Section>
@@ -479,16 +470,16 @@ export function MethodsLimitationsTab({ onNavigate }) {
           <Section id="critic-weighting" eyebrow="04" title={zh ? "CRITIC Weighting / CRITIC 客观赋权" : "CRITIC Weighting / CRITIC 客观赋权"} t={t}>
             <div style={{ display: "grid", gap: 12 }}>
               <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
-                <MathBlock math="C_j = \sigma_j \sum_{k=1}^{m}(1-r_{jk})" fallback="C_j = sigma_j * sum_k(1 - r_jk)" t={t} />
-                <MathBlock math="w_j = \frac{C_j}{\sum_{j=1}^{m}C_j}" fallback="w_j = C_j / sum(C_j)" t={t} />
+                <MathBlock math={"C_j = \\sigma_j \\sum_{k=1}^{m}(1-r_{jk})"} fallback="C_j = sigma_j * sum_k(1 - r_jk)" t={t} />
+                <MathBlock math={"w_j = \\frac{C_j}{\\sum_{j=1}^{m}C_j}"} fallback="w_j = C_j / sum(C_j)" t={t} />
               </div>
-              <MathBlock math="r_{jk}=\frac{\sum_i(x_{ij}-\bar{x}_j)(x_{ik}-\bar{x}_k)}{\sqrt{\sum_i(x_{ij}-\bar{x}_j)^2}\sqrt{\sum_i(x_{ik}-\bar{x}_k)^2}}" fallback="r_jk = cov(x_j, x_k) / (std(x_j) * std(x_k))" t={t} />
+              <MathBlock math={"r_{jk}=\\frac{\\sum_{i=1}^{n}(x_{ij}-\\bar{x}_{j})(x_{ik}-\\bar{x}_{k})}{\\sqrt{\\sum_{i=1}^{n}(x_{ij}-\\bar{x}_{j})^2}\\sqrt{\\sum_{i=1}^{n}(x_{ik}-\\bar{x}_{k})^2}}"} fallback="r_jk = cov(x_j, x_k) / (std(x_j) * std(x_k))" t={t} />
               <TextBlock t={t}>
                 {zh ? "sigma_j 表示指标区分能力，r_jk 表示信息重复程度，C_j 表示指标信息量，w_j 是当前候选集下的探索性客观权重，不是普适物理常数。" : "sigma_j represents discriminating power, r_jk captures information redundancy, C_j is information content, and w_j is a dataset-specific exploratory weight rather than a universal physical constant."}
               </TextBlock>
               <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
                 <ChartCard title="Figure 3. CRITIC Weight Explanation / CRITIC 权重解释图" why={zh ? "为什么重要：权重由标准差和指标冲突度共同决定，不是拍脑袋。" : "Why it matters: weights come from dispersion and conflict, not manual preference."} t={t}>
-                  <CriticWeightChart model={model} t={t} />
+                  <CriticWeightChart model={model} t={t} isMobile={isMobile} />
                 </ChartCard>
                 <ChartCard title="Figure 4. Correlation Matrix / 指标相关性矩阵" why={zh ? "为什么重要：相关性越高，信息越重复；相关性越低或为负，独立信息越多。" : "Why it matters: higher correlation means more repeated information; lower or negative correlation adds independent signal."} t={t}>
                   <CorrelationMatrix model={model} t={t} />
@@ -499,7 +490,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
           <Section id="candidate-score" eyebrow="05" title={zh ? "Candidate Score / 候选综合评分" : "Candidate Score / 候选综合评分"} t={t}>
             <div style={{ display: "grid", gap: 12 }}>
-              <MathBlock math="D_{raw,i}=G_i \cdot d_{stab,i}^{w_{stab}} d_{barrier,i}^{w_{barrier}} d_{select,i}^{w_{select}}" fallback="D_raw = G * d_stab^w_stab * d_barrier^w_barrier * d_select^w_select" t={t} />
+              <MathBlock math={"D_{raw,i}=G_i \\cdot d_{stab,i}^{w_{stab}} d_{barrier,i}^{w_{barrier}} d_{select,i}^{w_{select}}"} fallback="D_raw = G * d_stab^w_stab * d_barrier^w_barrier * d_select^w_select" t={t} />
               <TextBlock t={t}>
                 {zh ? "候选综合评分使用加权几何平均，以体现短板惩罚。某个关键指标很低时，不能被其他高分完全补偿。G=0 表示明确硬筛排除。" : "The composite score uses a weighted geometric mean to penalize severe weaknesses. A very low key indicator cannot be fully compensated by high values elsewhere. G=0 denotes confirmed hard-screen exclusion."}
               </TextBlock>
@@ -509,13 +500,13 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
           <Section id="evidence-confidence" eyebrow="06" title={zh ? "Evidence Confidence / 证据置信度" : "Evidence Confidence / 证据置信度"} t={t}>
             <div style={{ display: "grid", gap: 12 }}>
-              <MathBlock math="D_{expected,i}=D_{raw,i}\times Q_i" fallback="D_expected = D_raw * Q" t={t} />
+              <MathBlock math={"D_{expected,i}=D_{raw,i}\\times Q_i"} fallback="D_expected = D_raw * Q" t={t} />
               <TextBlock t={t}>
                 {zh ? "Q 表示证据置信度，用于区分“高分且证据强”和“高分但证据弱”。Q 不代表真实催化性能概率。" : "Q is the evidence confidence factor. It distinguishes high scores with strong evidence from high scores with weak evidence. Q is not a probability of true catalytic performance."}
               </TextBlock>
               <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) minmax(260px, 0.72fr)", gap: 12 }}>
                 <ChartCard title="Figure 5. Raw vs Expected Score / 置信度修正对比图" why={zh ? "为什么重要：展示 Q 如何降低证据较弱候选的最终优先级。" : "Why it matters: it shows how Q lowers final priority when evidence is weak."} t={t}>
-                  <RawExpectedChart candidates={model.candidates} selected={selectedCandidateId} onSelect={setSelectedCandidateId} t={t} />
+                  <RawExpectedChart candidates={model.candidates} selected={selectedCandidateId} onSelect={setSelectedCandidateId} t={t} isMobile={isMobile} />
                 </ChartCard>
                 <MethodCard title={zh ? "Q 等级参考" : "Q evidence ladder"} t={t}>
                   <div style={{ display: "grid", gap: 7 }}>
@@ -533,7 +524,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
 
           <Section id="interactive-visuals" eyebrow="07" title={zh ? "Interactive Method Visuals / 交互式方法图表" : "Interactive Method Visuals / 交互式方法图表"} t={t}>
             <ChartCard title="Figure 6. Sensitivity Analysis / 排名敏感性分析" why={zh ? "为什么重要：显示排序是否依赖某一种权重设定，并区分原始评分与置信度修正评分。" : "Why it matters: it shows whether rank depends on a single weighting scheme, separating raw and confidence-adjusted scoring."} t={t}>
-              <SensitivityRankChart sensitivity={model.sensitivity} selected={selectedCandidateId} onSelect={setSelectedCandidateId} zh={zh} t={t} />
+              <SensitivityRankChart sensitivity={model.sensitivity} selected={selectedCandidateId} onSelect={setSelectedCandidateId} zh={zh} t={t} isMobile={isMobile} />
             </ChartCard>
           </Section>
 

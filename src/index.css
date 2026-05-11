@@ -484,3 +484,41 @@ details[open].motion-surface {
     transition: none !important;
   }
 }
+
+.formula-scroll {
+  max-width: 100%;
+  scrollbar-width: thin;
+}
+
+.formula-scroll .katex-display {
+  margin: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 2px;
+}
+
+.formula-scroll .katex {
+  font-size: 1.02em;
+  white-space: nowrap;
+}
+
+.math-inline {
+  display: inline-flex;
+  align-items: baseline;
+  scrollbar-width: thin;
+}
+
+.math-inline .katex {
+  font-size: 1em;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .formula-scroll {
+    padding: 9px 10px !important;
+  }
+
+  .formula-scroll .katex {
+    font-size: 0.94em;
+  }
+}

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from "react"
+import { InlineMath, BlockMath } from "react-katex"
 import { useT, useLang, useViewport } from "../../contexts"
 import { FONT_SANS, FONT_MONO } from "../../constants/theme"
 import { WORKFLOW_STAGE_ITEMS, SOURCE_BADGES } from "../../constants/badges"
@@ -9,6 +10,52 @@ import { toolbarBtn } from "../../utils/styles"
 import { buildDeepLink } from "../../utils/deepLinks"
 
 export const ECOMOF_LOGO_SRC = "/ecomof-ai/ecomof-logo.png"
+
+function FormulaFallback({ children, block = false, t }) {
+  return (
+    <code style={{
+      display: block ? "block" : "inline",
+      color: t?.textStrong || "currentColor",
+      fontFamily: FONT_MONO,
+      fontSize: block ? 11 : "0.95em",
+      whiteSpace: "nowrap",
+    }}>
+      {children}
+    </code>
+  )
+}
+
+export function InlineFormula({ math, fallback, style }) {
+  const t = useT()
+  return (
+    <span className="math-inline" style={{ maxWidth: "100%", overflowX: "auto", overflowY: "hidden", verticalAlign: "middle", ...style }}>
+      <InlineMath math={math} renderError={() => <FormulaFallback t={t}>{fallback || math}</FormulaFallback>} />
+    </span>
+  )
+}
+
+export function BlockFormula({ math, fallback, t: tone, style }) {
+  const theme = useT()
+  const t = tone || theme
+  return (
+    <div className="formula-scroll" style={{
+      overflowX: "auto",
+      overflowY: "hidden",
+      background: t.surface,
+      border: `1px solid ${t.border}`,
+      borderRadius: 8,
+      padding: "10px 12px",
+      ...style,
+    }}>
+      <BlockMath math={math} renderError={() => <FormulaFallback block t={t}>{fallback || math}</FormulaFallback>} />
+      {fallback && (
+        <div style={{ color: t.faint, fontSize: 10.5, fontFamily: FONT_MONO, lineHeight: 1.45, marginTop: 5 }}>
+          {fallback}
+        </div>
+      )}
+    </div>
+  )
+}
 
 export function BrandMark({ size = 32, radius = 8, alt = "EcoMOF-AI logo", style }) {
   return (

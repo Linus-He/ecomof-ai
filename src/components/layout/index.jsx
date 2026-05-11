@@ -134,10 +134,10 @@ export function PageHeader({ title, subtitle, meta, action }) {
       display: "flex", justifyContent: "space-between", gap: 16, alignItems: "flex-start",
       flexWrap: "wrap", marginBottom: 6,
     }}>
-      <div style={{ minWidth: 0, flex: "1 1 520px" }}>
-        <h1 style={{ margin: 0, color: t.textStrong, fontSize: isMobile ? 30 : 32, fontWeight: 700, letterSpacing: 0, lineHeight: 1.15 }}>{title}</h1>
+      <div style={{ minWidth: 0, flex: isMobile ? "1 1 100%" : "1 1 520px", maxWidth: "100%" }}>
+        <h1 style={{ margin: 0, color: t.textStrong, fontSize: isMobile ? 28 : 32, fontWeight: 700, letterSpacing: 0, lineHeight: 1.15, overflowWrap: "anywhere" }}>{title}</h1>
         {subtitle && (
-          <p style={{ margin: "6px 0 0", color: t.subtle, fontSize: isMobile ? 13 : 14, lineHeight: 1.45, maxWidth: 760 }}>
+          <p style={{ margin: "6px 0 0", color: t.subtle, fontSize: isMobile ? 13 : 14, lineHeight: 1.45, maxWidth: 760, overflowWrap: "anywhere" }}>
             {subtitle}
           </p>
         )}
@@ -161,7 +161,7 @@ export function PageHeader({ title, subtitle, meta, action }) {
           </div>
         )}
       </div>
-      {action && <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: isMobile ? "flex-start" : "flex-end" }}>{action}</div>}
+      {action && <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: isMobile ? "flex-start" : "flex-end", maxWidth: "100%" }}>{action}</div>}
     </div>
   )
 }
