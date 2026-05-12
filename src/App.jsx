@@ -769,6 +769,10 @@ export default function App() {
       go("benchmark-references")
       return
     }
+    if (target === "validation-evidence") {
+      go("validation-evidence")
+      return
+    }
     if (target === "methodology" || target === "about" || target === "validation") {
       go("methodology")
       return
