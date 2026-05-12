@@ -29,15 +29,6 @@ const CORE_DESCRIPTOR_LABELS = [
   "Toxicity concern",
 ]
 
-const HERO_DESCRIPTOR_NODES = [
-  { label: "surfaceArea", left: "7%", top: "18%" },
-  { label: "poreSizeA", left: "26%", top: "9%" },
-  { label: "co2Uptake", left: "54%", top: "18%" },
-  { label: "evidence", left: "72%", top: "30%" },
-  { label: "weighting", left: "17%", top: "68%" },
-  { label: "ranking", left: "48%", top: "76%" },
-]
-
 const SCREENING_CANDIDATES = [
   {
     name: "MOF-801",
@@ -318,19 +309,11 @@ function CountUpNumber({ value, suffix = "", reducedMotion, t }) {
   )
 }
 
-function AnimatedScreeningPreview({ t, lang, isMobile, reducedMotion }) {
+function AnimatedScreeningPreview({ t, lang, isMobile }) {
   const zh = lang === "zh"
   const [activeIndex, setActiveIndex] = useState(0)
   const active = SCREENING_CANDIDATES[activeIndex]
   const completenessPct = Math.round((active.completeness / 8) * 100)
-
-  useEffect(() => {
-    if (reducedMotion) return undefined
-    const timer = window.setInterval(() => {
-      setActiveIndex(current => (current + 1) % SCREENING_CANDIDATES.length)
-    }, 2500)
-    return () => window.clearInterval(timer)
-  }, [reducedMotion])
 
   return (
     <aside className="content-card screening-preview-panel" style={{
@@ -378,7 +361,7 @@ function AnimatedScreeningPreview({ t, lang, isMobile, reducedMotion }) {
           lineHeight: 1.2,
           whiteSpace: "nowrap",
         }}>
-          {zh ? "Live Preview" : "Live Preview"}
+          {zh ? "手动预览" : "User Controlled"}
         </div>
       </div>
 
@@ -397,7 +380,9 @@ function AnimatedScreeningPreview({ t, lang, isMobile, reducedMotion }) {
                 key={candidate.name}
                 type="button"
                 onClick={() => setActiveIndex(index)}
+                onFocus={() => setActiveIndex(index)}
                 aria-label={`${candidate.name} screening preview`}
+                aria-pressed={isActive}
                 className="candidate-preview-row"
                 data-active={isActive ? "true" : "false"}
                 style={{
@@ -409,7 +394,6 @@ function AnimatedScreeningPreview({ t, lang, isMobile, reducedMotion }) {
                   borderRadius: 9,
                   padding: "10px 11px",
                   cursor: "pointer",
-                  transform: isActive && !reducedMotion ? "scale(1.015)" : "scale(1)",
                   minWidth: 0,
                 }}
               >
@@ -422,15 +406,20 @@ function AnimatedScreeningPreview({ t, lang, isMobile, reducedMotion }) {
           })}
         </div>
 
-        <div className="candidate-score-card" key={active.name} style={{
-          background: t.surface,
-          border: `1px solid ${t.border}`,
-          borderRadius: 10,
-          padding: 13,
-          display: "grid",
-          gap: 12,
-          minWidth: 0,
-        }}>
+        <div
+          className="candidate-score-card"
+          key={active.name}
+          role="region"
+          aria-label={`Screening details for ${active.name}`}
+          style={{
+            background: t.surface,
+            border: `1px solid ${t.border}`,
+            borderRadius: 10,
+            padding: 13,
+            display: "grid",
+            gap: 12,
+            minWidth: 0,
+          }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
             <div>
               <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", letterSpacing: 0 }}>
@@ -478,7 +467,7 @@ function AnimatedScreeningPreview({ t, lang, isMobile, reducedMotion }) {
             </div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 7, alignItems: "end", minHeight: 64 }}>
+          <div aria-label={`${active.name} mini descriptor chart`} style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 7, alignItems: "end", minHeight: 64 }}>
             {active.bars.map((value, index) => (
               <div key={`${active.name}-${index}`} style={{ display: "grid", alignItems: "end", gap: 5, minHeight: 64 }}>
                 <div style={{ height: 48, borderRadius: 7, background: t.panel, border: `1px solid ${t.border}`, display: "flex", alignItems: "end", overflow: "hidden" }}>
@@ -733,12 +722,6 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
   const heroBgTransform = reducedMotion || isMobile
     ? "none"
     : `translate3d(0, ${Math.round(heroProgress * 26)}px, 0) scale(${1 + heroProgress * 0.018})`
-  const heroPreviewTransform = reducedMotion || isMobile
-    ? "none"
-    : `translate3d(0, ${Math.round(heroProgress * -18)}px, 0) scale(${1 - heroProgress * 0.012})`
-  const heroForegroundTransform = reducedMotion || isMobile
-    ? "none"
-    : `translate3d(0, ${Math.round(heroProgress * -5)}px, 0)`
   const sectionStyle = {
     background: "transparent",
     border: "none",
@@ -1019,30 +1002,16 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
             transition: reducedMotion ? "none" : "transform 120ms linear",
           }}
         >
-          <BrandMotif
-            size={isMobile ? 180 : 300}
-            color={t.accentText}
-            opacity={isMobile ? 0.035 : 0.055}
-            className="hero-bg-brand-motif"
-            style={{ position: "absolute", right: isMobile ? -104 : -86, top: isMobile ? 72 : 10, pointerEvents: "none" }}
-            strokeWidth={1.2}
-          />
-          {!isMobile && HERO_DESCRIPTOR_NODES.map((node, index) => (
-            <span
-              key={node.label}
-              className="hero-descriptor-node"
-              style={{
-                "--node-delay": `${180 + index * 95}ms`,
-                left: node.left,
-                top: node.top,
-                borderColor: t.borderStrong,
-                color: t.subtle,
-                background: t.panel,
-              }}
-            >
-              {node.label}
-            </span>
-          ))}
+          {!isMobile && (
+            <BrandMotif
+              size={300}
+              color={t.accentText}
+              opacity={0.052}
+              className="hero-bg-brand-motif"
+              style={{ position: "absolute", right: -86, top: 10, pointerEvents: "none" }}
+              strokeWidth={1.2}
+            />
+          )}
         </div>
         <div style={{
           display: "grid",
@@ -1057,8 +1026,6 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
             className="home-hero-foreground"
             style={{
               minWidth: 0,
-              transform: heroForegroundTransform,
-              transition: reducedMotion ? "none" : "transform 120ms linear",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
@@ -1119,11 +1086,9 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
             className="home-hero-preview-shell"
             style={{
               minWidth: 0,
-              transform: heroPreviewTransform,
-              transition: reducedMotion ? "none" : "transform 120ms linear",
             }}
           >
-            <AnimatedScreeningPreview t={t} lang={lang} isMobile={isMobile} reducedMotion={reducedMotion} />
+            <AnimatedScreeningPreview t={t} lang={lang} isMobile={isMobile} />
           </div>
         </div>
       </section>
