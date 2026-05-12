@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
-import { BasisBadge, Callout, ResultLayer, useLang, useT, useViewport } from "../../shared"
+import { BasisBadge, Callout, CopyLinkButton, ResultLayer, useLang, useT, useViewport } from "../../shared"
 import { CatalysisCurationLayer } from "../catalysis/CatalysisCurationLayer"
 import { CatalysisFilterBar } from "../catalysis/CatalysisFilterBar"
-import { CatalysisHero } from "../catalysis/CatalysisHero"
 import { CatalysisTaskCards } from "../catalysis/CatalysisTaskCards"
 import { CatalysisTaskTable } from "../catalysis/CatalysisTaskTable"
 import { ComparabilityScatterQuadrant } from "../catalysis/ComparabilityScatterQuadrant"
@@ -10,6 +9,12 @@ import { OrganicAcidCaseStudy } from "../catalysis/OrganicAcidCaseStudy"
 import { ProductMetricScatter } from "../catalysis/ProductMetricScatter"
 import { ReactionPathwayScatter } from "../catalysis/ReactionPathwayScatter"
 import { SelectionInspector } from "../catalysis/SelectionInspector"
+import {
+  ModulePageHeader,
+  PrimaryWorkbenchCard,
+  ScopeNoticeBar,
+  SecondaryTabs,
+} from "../module/ModuleTop"
 import {
   CATALYSIS_TASKS,
   analyzeComparability,
@@ -40,6 +45,7 @@ export function CatalysisLabTab({ onNavigate }) {
   const [productMetricFamily, setProductMetricFamily] = useState("all")
   const [selectionSource, setSelectionSource] = useState("none")
   const [notice, setNotice] = useState("")
+  const [catalysisView, setCatalysisView] = useState("overview")
 
   const localizedTasks = useMemo(() => (
     CATALYSIS_TASKS.map(task => enrichTaskForCharts(task, lang))
@@ -47,6 +53,19 @@ export function CatalysisLabTab({ onNavigate }) {
 
   const filteredTasks = useMemo(() => filterTasks(localizedTasks, filters), [localizedTasks, filters])
   const stats = useMemo(() => buildStats(localizedTasks), [localizedTasks])
+  const catalysisTabs = useMemo(() => [
+    { id: "overview", label: lang === "zh" ? "总览" : "Overview" },
+    { id: "map", label: lang === "zh" ? "坐标轴图" : "Coordinate map" },
+    { id: "comparability", label: lang === "zh" ? "可比性评估" : "Comparability" },
+    { id: "curation", label: lang === "zh" ? "数据整理" : "Data curation" },
+  ], [lang])
+  const workbenchMetrics = useMemo(() => (
+    stats.map(item => ({
+      key: item.key,
+      value: item.value,
+      label: lang === "zh" ? item.zh : item.en,
+    }))
+  ), [lang, stats])
 
   useEffect(() => {
     if (!filteredTasks.length) {
@@ -135,50 +154,58 @@ export function CatalysisLabTab({ onNavigate }) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-      <CatalysisHero lang={lang} stats={stats} t={t} />
-      <section style={{
-        background: t.panel,
-        border: `1px solid ${t.border}`,
-        borderRadius: 8,
-        padding: 14,
-        display: "grid",
-        gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) auto",
-        gap: 12,
-        alignItems: "center",
-      }}>
-        <div style={{ minWidth: 0 }}>
-          <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900 }}>
-            Formate Candidate Screening
-          </div>
-          <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.6, marginTop: 6, maxWidth: 820 }}>
-            Use hydrothermal stability, formate-formation barrier, and byproduct-risk evidence to prioritize MOF candidates before experimental optimization.
-          </div>
-        </div>
-        <button
-          type="button"
-          onClick={() => onNavigate ? onNavigate("ecoscreen") : window.location.assign("#ecoscreen")}
-          style={{
-            minHeight: 38,
-            padding: "9px 14px",
-            borderRadius: 7,
-            border: `1px solid ${t.accent}`,
-            background: t.badgeInfoBg,
-            color: t.accentText,
-            fontSize: 12,
-            fontWeight: 850,
-            cursor: "pointer",
-            justifyContent: "center",
-            width: isNarrow ? "100%" : "auto",
-            boxSizing: "border-box",
-            whiteSpace: isMobile ? "normal" : "nowrap",
-          }}
-        >
-          Open Candidate Scoring Lab
-        </button>
-      </section>
-      <CatalysisFilterBar filters={filters} onChange={updateFilter} onClear={clearFilters} lang={lang} t={t} />
+      <ModulePageHeader
+        title={lang === "zh" ? "催化实验室" : "Catalysis Lab"}
+        subtitle={lang === "zh"
+          ? "组织 MOF 相关催化任务、反应条件、指标体系与可比性边界。"
+          : "Organize MOF-related catalysis tasks, reaction conditions, metric systems, and comparability boundaries."}
+        action={<CopyLinkButton hash="catalysis" ariaLabel={lang === "zh" ? "复制催化实验室链接" : "Copy Catalysis Lab link"} />}
+      />
+
+      <PrimaryWorkbenchCard
+        title={lang === "zh" ? "催化筛选与数据工作台" : "Catalysis Screening and Data Workbench"}
+        description={lang === "zh"
+          ? "查看坐标轴图、筛选任务、比较反应条件，并整理结构化催化记录。"
+          : "Inspect coordinate maps, filter tasks, compare reaction conditions, and curate structured catalysis records."}
+        capabilities={lang === "zh"
+          ? "多反应范围 · 坐标轴图 · 可比性评估 · 结构化记录"
+          : "multi-reaction scope · coordinate map · comparability check · structured records"}
+        metrics={workbenchMetrics}
+        note={lang === "zh"
+          ? "Formate candidate screening 仍保留为候选评分实验入口，用于在实验优化前参考 hydrothermal stability、formate-formation barrier 与 byproduct-risk evidence。"
+          : "Formate candidate screening remains available as a candidate-scoring entry for hydrothermal stability, formate-formation barrier, and byproduct-risk evidence before experimental optimization."}
+        primaryLabel={lang === "zh" ? "进入工作台 →" : "Open workbench →"}
+        onPrimary={() => setCatalysisView("map")}
+        secondaryLabel={lang === "zh" ? "打开候选评分实验室" : "Open Candidate Scoring Lab"}
+        onSecondary={() => onNavigate ? onNavigate("ecoscreen") : window.location.assign("#ecoscreen")}
+      />
+
+      <SecondaryTabs
+        items={catalysisTabs}
+        active={catalysisView}
+        onChange={setCatalysisView}
+        ariaLabel={lang === "zh" ? "催化实验室内容导航" : "Catalysis Lab content navigation"}
+      />
+
+      <ScopeNoticeBar label="Scope" tone="scope">
+        {lang === "zh"
+          ? "覆盖多反应催化任务；有机酸路径目前作为案例，不代表唯一研究方向。"
+          : "Covers multiple catalytic reaction tasks; the organic-acid pathway is currently a case example, not the only research direction."}
+      </ScopeNoticeBar>
+
+      <ScopeNoticeBar label={lang === "zh" ? "提示" : "Notice"} tone="warn">
+        {lang === "zh"
+          ? "该模块用于数据组织和可比性判断，不替代实验验证。"
+          : "This module supports data organization and comparability judgment; it does not replace experimental validation."}
+      </ScopeNoticeBar>
+
+      {catalysisView !== "curation" && (
+        <CatalysisFilterBar filters={filters} onChange={updateFilter} onClear={clearFilters} lang={lang} t={t} />
+      )}
       {notice && <Callout tone="warn">{notice}</Callout>}
 
+      {catalysisView === "overview" && (
+        <>
       <ResultLayer
         number="01"
         title={lang === "zh" ? "总览坐标轴分析" : "Overview Axis Analysis"}
@@ -202,9 +229,13 @@ export function CatalysisLabTab({ onNavigate }) {
           />
         </div>
       </ResultLayer>
+        </>
+      )}
 
+      {catalysisView === "map" && (
+        <>
       <ResultLayer
-        number="02"
+        number="01"
         title={lang === "zh" ? "产物指标与可比性坐标" : "Product Metrics and Comparability Axes"}
         subtitle={lang === "zh"
           ? "用可切换坐标轴展示产物指标结构，并用四象限判断任务对是否可比。"
@@ -241,14 +272,31 @@ export function CatalysisLabTab({ onNavigate }) {
           ).map((item, index) => <BasisBadge key={item} tone={index < 2 ? "info" : "warn"}>{item}</BasisBadge>)}
         </div>
       </ResultLayer>
+        </>
+      )}
 
+      {catalysisView === "comparability" && (
+        <>
       <ResultLayer
-        number="03"
-        title={lang === "zh" ? "催化任务表" : "Catalysis Task Records"}
+        number="01"
+        title={lang === "zh" ? "可比性评估与任务记录" : "Comparability Assessment and Task Records"}
         subtitle={lang === "zh"
-          ? "桌面端展示表格，手机端切换为任务卡片，避免 11 列表格溢出。"
-          : "Desktop uses a table; mobile switches to cards to avoid wide-table overflow."}
+          ? "选择两项任务进行可比性评估，并保留桌面表格 / 手机卡片的任务记录视图。"
+          : "Select two tasks for comparability assessment while keeping the desktop table / mobile card record view."}
       >
+        <div style={{ display: "grid", gap: 12 }}>
+          <SelectionInspector
+            filters={filters}
+            filteredTasks={filteredTasks}
+            onClearSelection={clearSelection}
+            onSelectTask={(task) => selectTask(task, "list")}
+            selectedComparison={selectedComparison}
+            selectedIndex={selectedIndex}
+            selectedTask={selectedTask}
+            selectionSource={selectionSource}
+            lang={lang}
+            t={t}
+          />
         {isMobile ? (
           <CatalysisTaskCards
             tasks={filteredTasks}
@@ -270,10 +318,15 @@ export function CatalysisLabTab({ onNavigate }) {
             t={t}
           />
         )}
+        </div>
       </ResultLayer>
+        </>
+      )}
 
+      {catalysisView === "curation" && (
+        <>
       <ResultLayer
-        number="04"
+        number="01"
         title={lang === "zh" ? "Organic Acid Case Study v0" : "Organic Acid Case Study v0"}
         subtitle={lang === "zh"
           ? "有机酸方向作为 framework-first 案例，用于说明字段框架、路径图、可比性逻辑和缺失证据。"
@@ -283,7 +336,7 @@ export function CatalysisLabTab({ onNavigate }) {
       </ResultLayer>
 
       <ResultLayer
-        number="05"
+        number="02"
         title={lang === "zh" ? "数据整理层与案例路径" : "Data Curation Layer and Case Pathway"}
         subtitle={lang === "zh"
           ? "Biomass-assisted CO₂ / HCO₃⁻ conversion 保留为案例研究，不作为整个催化页的唯一叙事。"
@@ -291,6 +344,8 @@ export function CatalysisLabTab({ onNavigate }) {
       >
         <CatalysisCurationLayer lang={lang} t={t} />
       </ResultLayer>
+        </>
+      )}
     </div>
   )
 }

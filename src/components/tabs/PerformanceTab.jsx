@@ -4,9 +4,15 @@ import {
   gasLabel, getGasSystem, getMofCandidates, toolbarBtn,
   buildScoredCandidates, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
   RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
-  BasisBadge, PageHeader, ResultLayer, Callout, UnifiedCandidateCard, DataModeToggle, RealSeedCallout, DemoModeBanner, safeVal, CopyLinkButton, DisclaimerLink,
-  FieldProvenanceButton,
+  BasisBadge, ResultLayer, Callout, UnifiedCandidateCard, RealSeedCallout, DemoModeBanner, CopyLinkButton, DisclaimerLink,
 } from "../../shared"
+import {
+  CompactDataModeBar,
+  ModulePageHeader,
+  PrimaryWorkbenchCard,
+  ScopeNoticeBar,
+  SecondaryTabs,
+} from "../module/ModuleTop"
 import { ScreeningTab } from "./ScreeningTab"
 
 /** Normalise a real-seed record into the shape PerformanceTab expects.
@@ -152,158 +158,70 @@ export function PerformanceTab({
     }
   }, [hasResult, lang])
 
-  // ── Mode definitions ──────────────────────────────────────────────────────
-  const modes = useMemo(() => [
-    {
-      id: "overview",
-      icon: "📊",
-      title: lang === "zh" ? "结果概览" : "Results Overview",
-      body: lang === "zh"
-        ? "查看候选 MOF 排名、模型结果图和基于描述符的评分解释。"
-        : "Explore ranked MOF candidates, model result visualizations, and descriptor-based score interpretation.",
-    },
-    {
-      id: "advanced",
-      icon: "🔬",
-      title: lang === "zh" ? "高级筛选工作台" : "Advanced Screening Workspace",
-      body: lang === "zh"
-        ? "输入自定义 MOF 描述符、上传 CIF 信息、设置吸附条件，并运行早期筛选。"
-        : "Input custom MOF descriptors, upload CIF information, configure adsorption conditions, and run early-stage screening.",
-    },
+  const contentTabs = useMemo(() => [
+    { id: "overview", label: lang === "zh" ? "结果概览" : "Results overview" },
+    { id: "explanation", label: lang === "zh" ? "评分解释" : "Scoring explanation" },
+    { id: "assumptions", label: lang === "zh" ? "数据与假设" : "Data & assumptions" },
   ], [lang])
+  const isContentTab = contentTabs.some(tab => tab.id === performanceView)
+  const dataRecordCount = dataMode === "real-seed" ? realSeedRows.length : demoRows.length
+  const dataModeStatus = dataStatus === "loading"
+    ? (lang === "zh" ? "正在加载记录 · 缺失值按 0 处理" : "Loading records · missing values scored as zero")
+    : dataStatus === "error"
+      ? (lang === "zh" ? "数据加载失败 · 缺失值按 0 处理" : "Data load failed · missing values scored as zero")
+      : (lang === "zh" ? `${dataRecordCount} 条记录 · 缺失值按 0 处理` : `${dataRecordCount} records · missing values scored as zero`)
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-      <PageHeader
+      <ModulePageHeader
         title={lang === "zh" ? "性能优先级" : "Performance"}
         subtitle={lang === "zh"
-          ? "基于当前可用描述符的候选优先级参考。"
-          : "Candidates are prioritized based on currently available descriptors."}
-        meta={lang === "zh" ? "CO₂ 吸附 · 选择性 · 热力学解释 · 早期筛选" : "CO₂ uptake · selectivity · thermodynamic interpretation · early-stage screening"}
-        action={
-          <>
-            <BasisBadge tone="info">{lang === "zh" ? "不替代 GCMC / IAST" : "not GCMC / IAST"}</BasisBadge>
-            <CopyLinkButton hash="performance" ariaLabel={lang === "zh" ? "复制性能优先级链接" : "Copy Performance link"} />
-          </>
-        }
+          ? "基于当前可用描述符，对 MOF 候选材料进行早期性能排序与解释。"
+          : "Rank and interpret MOF candidates for early-stage performance using currently available descriptors."}
+        action={<CopyLinkButton hash="performance" ariaLabel={lang === "zh" ? "复制性能优先级链接" : "Copy Performance link"} />}
       />
 
-      <Callout tone="info">
-        {lang === "zh" ? "基于当前可用描述符和整理状态生成优先级参考。更多边界请" : "Rule-assisted priority only."}{" "}
-        <DisclaimerLink label={lang === "zh" ? "查看方法说明" : "See methodology notes"} />
-      </Callout>
+      <PrimaryWorkbenchCard
+        title={lang === "zh" ? "高级筛选工作台" : "Advanced Screening Workspace"}
+        description={lang === "zh"
+          ? "上传 CIF 信息、设置吸附条件、调整权重，并运行早期筛选。"
+          : "Upload CIF information, configure adsorption conditions, adjust weights, and run early-stage screening."}
+        capabilities={lang === "zh"
+          ? "CO₂ 吸附 · 选择性 · 热力学解释 · 早期筛选"
+          : "CO₂ uptake · selectivity · thermal interpretation · early-stage screening"}
+        primaryLabel={lang === "zh" ? "进入筛选台 →" : "Open workbench →"}
+        onPrimary={() => setPerformanceView("advanced")}
+      />
 
-      {/* ── Mode selector cards ───────────────────────────────────────────── */}
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-        gap: 10,
-      }}>
-        {modes.map(mode => {
-          const isActive = performanceView === mode.id
-          return (
-            <button
-              key={mode.id}
-              type="button"
-              onClick={() => setPerformanceView(mode.id)}
-              style={{
-                textAlign: "left",
-                cursor: "pointer",
-                border: `2px solid ${isActive ? t.accent : t.border}`,
-                background: isActive ? t.badgeInfoBg : t.panel,
-                borderRadius: 10,
-                padding: isMobile ? "14px 16px" : "16px 20px",
-                transition: "border-color 0.15s, background 0.15s",
-                display: "flex",
-                flexDirection: "column",
-                gap: 8,
-                outline: "none",
-                width: "100%",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <span style={{ fontSize: 22, lineHeight: 1 }}>{mode.icon}</span>
-                <span style={{
-                  color: isActive ? t.accentText : t.textStrong,
-                  fontSize: 14,
-                  fontWeight: 850,
-                  lineHeight: 1.2,
-                  flex: 1,
-                }}>
-                  {mode.title}
-                </span>
-                {isActive && (
-                  <span style={{
-                    flexShrink: 0,
-                    background: t.accent,
-                    color: "#fff",
-                    borderRadius: 999,
-                    padding: "2px 10px",
-                    fontSize: 10,
-                    fontWeight: 800,
-                    letterSpacing: "0.02em",
-                  }}>
-                    {lang === "zh" ? "当前" : "Active"}
-                  </span>
-                )}
-              </div>
-              <p style={{
-                margin: 0,
-                color: isActive ? t.text : t.subtle,
-                fontSize: 12,
-                lineHeight: 1.6,
-              }}>
-                {mode.body}
-              </p>
-            </button>
-          )
-        })}
-      </div>
+      <SecondaryTabs
+        items={contentTabs}
+        active={isContentTab ? performanceView : ""}
+        onChange={setPerformanceView}
+        ariaLabel={lang === "zh" ? "性能优先级内容导航" : "Performance content navigation"}
+      />
+
+      <CompactDataModeBar
+        value={dataMode}
+        onChange={mode => { setDataMode(mode); setSelectedId(null) }}
+        lang={lang}
+        statusText={dataModeStatus}
+        infoLabel={lang === "zh" ? "数据说明 ⓘ" : "Data notes ⓘ"}
+        onInfo={() => setPerformanceView("assumptions")}
+      />
+
+      <ScopeNoticeBar
+        label={lang === "zh" ? "提示" : "Notice"}
+        actionLabel={lang === "zh" ? "打开气体分离 →" : "Open GasSep →"}
+        onAction={() => onNavigate?.("gassep")}
+      >
+        {lang === "zh"
+          ? "性能优先级为早期筛选参考，不替代实验等温线、GCMC 或 IAST；如需查看气体比例、选择性条件与吸量记录，请进入气体分离模块。"
+          : "Performance priority is an early-screening reference, not a replacement for experimental isotherms, GCMC, or IAST; use GasSep for gas ratio, selectivity conditions, and uptake records."}
+      </ScopeNoticeBar>
 
       {/* ── Results Overview ─────────────────────────────────────────────── */}
       {performanceView === "overview" && (
         <>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-            <DataModeToggle value={dataMode} onChange={mode => { setDataMode(mode); setSelectedId(null) }} lang={lang} />
-            <span style={{ color: t.faint, fontSize: 11 }}>
-              {dataMode === "real-seed"
-                ? (lang === "zh" ? `${realSeedRows.length} 条真实种子记录 · 缺失值按 0 处理` : `${realSeedRows.length} real seed records — missing values scored as zero`)
-                : (lang === "zh" ? "演示数据" : "demo data")}
-            </span>
-          </div>
-
-          {dataMode === "real-seed" && <RealSeedCallout lang={lang} />}
-          {dataMode === "demo" && <DemoModeBanner lang={lang} />}
-          {dataStatus === "loading" && (
-            <Callout tone="info">{lang === "zh" ? "正在加载性能优先级数据…" : "Loading Performance data..."}</Callout>
-          )}
-          {dataStatus === "error" && (
-            <Callout tone="warn">
-              {lang === "zh"
-                ? "数据加载失败。请刷新页面，或检查当前网络是否可以访问 GitHub Pages。"
-                : "Data could not be loaded. Please refresh the page or check network access to GitHub Pages."}
-            </Callout>
-          )}
-          {dataStatus === "empty" && (
-            <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
-          )}
-
-          <Callout tone="note">
-            {lang === "zh"
-              ? "性能优先级模块用于提出吸附性能假设。它不替代实验等温线、GCMC 或严格混合气 IAST。"
-              : "The Performance module is for adsorption-performance hypotheses. It does not replace experimental isotherms, GCMC, or rigorous mixture IAST."}
-          </Callout>
-          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "10px 12px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap" }}>
-            <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.55 }}>
-              {lang === "zh"
-                ? "如需查看带气体比例、选择性条件、吸附量和等温线状态的记录，请进入气体分离。"
-                : "For condition-aware selectivity, gas ratio, uptake, and isotherm status, see GasSep."}
-            </span>
-            <button type="button" onClick={() => onNavigate?.("gassep")} style={{ ...toolbarBtn(t), padding: "7px 10px", fontSize: 11 }}>
-              {lang === "zh" ? "打开气体分离" : "Open GasSep"}
-            </button>
-          </div>
-
           <ResultLayer number="01" title={lang === "zh" ? "当前任务与运行" : "Current Task and Run"}>
             <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) auto", gap: 12, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, alignItems: "center" }}>
               <div>
@@ -319,13 +237,6 @@ export function PerformanceTab({
                   style={{ ...toolbarBtn(t), background: t.accent, borderColor: t.accent, color: "#fff", opacity: loading ? 0.72 : 1, cursor: loading ? "not-allowed" : "pointer" }}
                 >
                   {loading ? (lang === "zh" ? "运行中..." : "Running...") : (lang === "zh" ? "运行性能筛选" : "Run performance screen")}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPerformanceView("advanced")}
-                  style={{ ...toolbarBtn(t), border: `1px solid ${t.accent}`, color: t.accentText }}
-                >
-                  {lang === "zh" ? "高级筛选工作台" : "Advanced Screening Workspace"}
                 </button>
               </div>
             </div>
@@ -361,7 +272,11 @@ export function PerformanceTab({
               ))}
             </div>
           </ResultLayer>
+        </>
+      )}
 
+      {performanceView === "explanation" && (
+        <>
           <ResultLayer number="03" title={lang === "zh" ? "结果解释说明" : "Results Interpretation Notes"}>
             <Callout tone="info">
               {lang === "zh"
@@ -408,6 +323,78 @@ export function PerformanceTab({
                   <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 6 }}>
                     {lang === "zh" ? "需要带标签的实验或文献数据。" : "Requires labeled experimental or literature data."}
                   </div>
+                </div>
+              ))}
+            </div>
+          </ResultLayer>
+        </>
+      )}
+
+      {performanceView === "assumptions" && (
+        <>
+          <ResultLayer
+            number="01"
+            title={lang === "zh" ? "数据模式与假设边界" : "Data Mode and Assumption Boundary"}
+            subtitle={lang === "zh"
+              ? "集中查看当前数据集状态、演示/真实种子数据边界，以及缺失值处理假设。"
+              : "Review dataset status, demo/real-seed boundaries, and the missing-value handling assumption."}
+          >
+            <div style={{ display: "grid", gap: 10 }}>
+              {dataMode === "real-seed" && <RealSeedCallout lang={lang} />}
+              {dataMode === "demo" && <DemoModeBanner lang={lang} />}
+              {dataStatus === "loading" && (
+                <Callout tone="info">{lang === "zh" ? "正在加载性能优先级数据…" : "Loading Performance data..."}</Callout>
+              )}
+              {dataStatus === "error" && (
+                <Callout tone="warn">
+                  {lang === "zh"
+                    ? "数据加载失败。请刷新页面，或检查当前网络是否可以访问 GitHub Pages。"
+                    : "Data could not be loaded. Please refresh the page or check network access to GitHub Pages."}
+                </Callout>
+              )}
+              {dataStatus === "empty" && (
+                <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
+              )}
+              <Callout tone="info">
+                {lang === "zh"
+                  ? "基于当前可用描述符和整理状态生成优先级参考。更多边界请"
+                  : "Rule-assisted priority only. For additional boundaries, "}{" "}
+                <DisclaimerLink label={lang === "zh" ? "查看方法说明" : "see methodology notes"} />
+              </Callout>
+            </div>
+          </ResultLayer>
+
+          <ResultLayer
+            number="02"
+            title={lang === "zh" ? "方法限制与验证路径" : "Method Limits and Validation Path"}
+            subtitle={lang === "zh"
+              ? "性能优先级只负责早期排序和解释，严格性能判断需要后续实验或模拟验证。"
+              : "Performance priority supports early ranking and explanation; rigorous performance claims require later experiments or simulation."}
+          >
+            <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
+              {[
+                [
+                  lang === "zh" ? "不替代 GCMC / IAST" : "Not GCMC / IAST",
+                  lang === "zh"
+                    ? "当前排序用于提出候选优先级，不输出严格混合气分离结论。"
+                    : "Current ranking proposes candidate priority and does not output rigorous mixture-separation conclusions.",
+                ],
+                [
+                  lang === "zh" ? "缺失值按 0 处理" : "Missing values scored as zero",
+                  lang === "zh"
+                    ? "缺失描述符会降低候选得分，并应被视为数据质量提示。"
+                    : "Missing descriptors reduce scores and should be treated as data-quality signals.",
+                ],
+                [
+                  lang === "zh" ? "气体分离记录另行查看" : "Gas separation records live separately",
+                  lang === "zh"
+                    ? "气体比例、选择性条件、吸附量和等温线状态保留在气体分离模块。"
+                    : "Gas ratio, selectivity conditions, uptake, and isotherm status remain in the GasSep module.",
+                ],
+              ].map(([title, body]) => (
+                <div key={title} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 13 }}>
+                  <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850 }}>{title}</div>
+                  <div style={{ color: t.subtle, fontSize: 11.5, lineHeight: 1.6, marginTop: 7 }}>{body}</div>
                 </div>
               ))}
             </div>
