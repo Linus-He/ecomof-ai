@@ -1,14 +1,21 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import {
   useT,
   useLang,
   useViewport,
-  BrandMark,
   DataModeNote,
   DataModeToggle,
   FONT_MONO,
-  InlineFormula,
+  LogoMark,
+  BrandMotif,
+  BrandNode,
 } from "../../shared"
+import {
+  BrandMotionBackground,
+  EvidenceChainAnimation,
+  ModuleRail,
+  ScrollNarrative,
+} from "../home"
 import { toolbarBtn } from "../../utils/styles"
 
 const CORE_DESCRIPTOR_LABELS = [
@@ -21,6 +28,145 @@ const CORE_DESCRIPTOR_LABELS = [
   "Thermal stability",
   "Toxicity concern",
 ]
+
+const HERO_DESCRIPTOR_NODES = [
+  { label: "surfaceArea", left: "7%", top: "18%" },
+  { label: "poreSizeA", left: "26%", top: "9%" },
+  { label: "co2Uptake", left: "54%", top: "18%" },
+  { label: "evidence", left: "72%", top: "30%" },
+  { label: "weighting", left: "17%", top: "68%" },
+  { label: "ranking", left: "48%", top: "76%" },
+]
+
+const SCREENING_CANDIDATES = [
+  {
+    name: "MOF-801",
+    score: 0.68,
+    completeness: 5,
+    evidence: "needs-validation",
+    status: "Real-seed / pending",
+    bars: [54, 62, 46, 70],
+  },
+  {
+    name: "UiO-66",
+    score: 0.74,
+    completeness: 6,
+    evidence: "literature-supported",
+    status: "Seed record",
+    bars: [76, 70, 63, 58],
+  },
+  {
+    name: "HKUST-1",
+    score: 0.59,
+    completeness: 8,
+    evidence: "rule-based",
+    status: "Demo only",
+    bars: [84, 52, 38, 66],
+  },
+]
+
+const EVIDENCE_CHAIN_FIELDS = [
+  {
+    field: "CO2 uptake",
+    status: "curated",
+    evidenceType: "literature-derived",
+    sourceType: "paper / database",
+    confidence: "medium-high",
+    note: "Comparable only under similar temperature and pressure conditions.",
+  },
+  {
+    field: "Surface area",
+    status: "needs review",
+    evidenceType: "BET report",
+    sourceType: "literature table",
+    confidence: "medium",
+    note: "Activation protocol and sample state must be checked before direct comparison.",
+  },
+  {
+    field: "Water stability",
+    status: "pending",
+    evidenceType: "qualitative inference",
+    sourceType: "synthesis report",
+    confidence: "low-medium",
+    note: "Needs pH, exposure time, humidity, and cycling conditions.",
+  },
+  {
+    field: "Thermal stability",
+    status: "demo only",
+    evidenceType: "rule-based placeholder",
+    sourceType: "demo record",
+    confidence: "low",
+    note: "Useful for interface testing, not for experimental conclusion.",
+  },
+]
+
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false)
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return undefined
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)")
+    const sync = () => setReduced(media.matches)
+    sync()
+    media.addEventListener?.("change", sync)
+    return () => media.removeEventListener?.("change", sync)
+  }, [])
+
+  return reduced
+}
+
+function useInViewOnce(options = {}) {
+  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const node = ref.current
+    if (!node || visible) return undefined
+    if (typeof IntersectionObserver === "undefined") {
+      setVisible(true)
+      return undefined
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setVisible(true)
+        observer.disconnect()
+      }
+    }, { threshold: 0.28, rootMargin: "0px 0px -8% 0px", ...options })
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [visible])
+
+  return [ref, visible]
+}
+
+function useWindowScrollY(disabled = false) {
+  const [scrollY, setScrollY] = useState(0)
+
+  useEffect(() => {
+    if (disabled || typeof window === "undefined") {
+      setScrollY(0)
+      return undefined
+    }
+
+    let frame = 0
+    const sync = () => {
+      if (frame) return
+      frame = window.requestAnimationFrame(() => {
+        setScrollY(window.scrollY || 0)
+        frame = 0
+      })
+    }
+
+    sync()
+    window.addEventListener("scroll", sync, { passive: true })
+    return () => {
+      window.removeEventListener("scroll", sync)
+      if (frame) window.cancelAnimationFrame(frame)
+    }
+  }, [disabled])
+
+  return scrollY
+}
 
 function SectionHeader({ eyebrow, title, subtitle, t, isMobile, action }) {
   return (
@@ -141,24 +287,53 @@ function InfoPopover({ label, title, body, t }) {
   )
 }
 
-function MiniBar({ label, value, color, t }) {
+function CountUpNumber({ value, suffix = "", reducedMotion, t }) {
+  const [display, setDisplay] = useState(reducedMotion ? value : 0)
+  const [ref, visible] = useInViewOnce()
+
+  useEffect(() => {
+    if (!visible) return undefined
+    if (reducedMotion) {
+      setDisplay(value)
+      return undefined
+    }
+
+    let frame
+    const start = performance.now()
+    const duration = 820
+    const tick = (now) => {
+      const progress = Math.min(1, (now - start) / duration)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      setDisplay(Math.round(value * eased))
+      if (progress < 1) frame = window.requestAnimationFrame(tick)
+    }
+    frame = window.requestAnimationFrame(tick)
+    return () => window.cancelAnimationFrame(frame)
+  }, [reducedMotion, value, visible])
+
   return (
-    <div style={{ display: "grid", gap: 5 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center" }}>
-        <span style={{ color: t.muted, fontSize: 11, fontWeight: 750 }}>{label}</span>
-        <span style={{ color: t.textStrong, fontSize: 11, fontWeight: 850, fontFamily: FONT_MONO }}>{value}%</span>
-      </div>
-      <div style={{ height: 7, borderRadius: 999, background: t.surface, border: `1px solid ${t.border}`, overflow: "hidden" }}>
-        <div style={{ width: `${value}%`, height: "100%", background: color || t.accent }} />
-      </div>
-    </div>
+    <span ref={ref} style={{ color: t.textStrong, fontSize: 25, fontWeight: 950, lineHeight: 1, fontFamily: FONT_MONO }}>
+      {display}{suffix}
+    </span>
   )
 }
 
-function HeroVisualPanel({ t, lang, isMobile }) {
+function AnimatedScreeningPreview({ t, lang, isMobile, reducedMotion }) {
   const zh = lang === "zh"
+  const [activeIndex, setActiveIndex] = useState(0)
+  const active = SCREENING_CANDIDATES[activeIndex]
+  const completenessPct = Math.round((active.completeness / 8) * 100)
+
+  useEffect(() => {
+    if (reducedMotion) return undefined
+    const timer = window.setInterval(() => {
+      setActiveIndex(current => (current + 1) % SCREENING_CANDIDATES.length)
+    }, 2500)
+    return () => window.clearInterval(timer)
+  }, [reducedMotion])
+
   return (
-    <aside className="content-card" style={{
+    <aside className="content-card screening-preview-panel" style={{
       background: t.panel,
       border: `1px solid ${t.border}`,
       borderRadius: 12,
@@ -167,15 +342,30 @@ function HeroVisualPanel({ t, lang, isMobile }) {
       minWidth: 0,
       display: "grid",
       gap: 15,
+      position: "relative",
+      overflow: "hidden",
     }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
-        <div>
-          <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase", letterSpacing: 0 }}>
-            Screening score preview
-          </div>
-          <div style={{ color: t.textStrong, fontSize: isMobile ? 26 : 32, lineHeight: 1, fontWeight: 950, marginTop: 6 }}>
-            0.72
-          </div>
+      <BrandMotif
+        size={150}
+        color={t.accentText}
+        opacity={0.045}
+        className="hero-brand-watermark"
+        style={{ position: "absolute", right: -28, top: -28, pointerEvents: "none" }}
+      />
+
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: 12,
+        position: "relative",
+        zIndex: 1,
+      }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 8, minWidth: 0 }}>
+          <LogoMark size={24} radius={7} />
+          <span style={{ color: t.textStrong, fontSize: 12, fontWeight: 900, lineHeight: 1.2 }}>
+            EcoMOF-AI Screening Engine
+          </span>
         </div>
         <div style={{
           border: `1px solid ${t.border}`,
@@ -186,33 +376,136 @@ function HeroVisualPanel({ t, lang, isMobile }) {
           fontSize: 11,
           fontWeight: 850,
           lineHeight: 1.2,
-          textAlign: "right",
+          whiteSpace: "nowrap",
         }}>
-          {zh ? "演示排序" : "Demo ranking"}
+          {zh ? "Live Preview" : "Live Preview"}
         </div>
-      </div>
-
-      <div style={{ display: "grid", gap: 10 }}>
-        <MiniBar label="Descriptor completeness" value={75} color={t.accent} t={t} />
-        <MiniBar label="Evidence coverage" value={58} color={t.cyan || t.accent} t={t} />
-        <MiniBar label="Uncertainty flagging" value={82} color={t.violet || t.accent} t={t} />
       </div>
 
       <div style={{
         display: "grid",
-        gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-        gap: 8,
+        gridTemplateColumns: isMobile ? "1fr" : "0.9fr 1.1fr",
+        gap: 12,
+        position: "relative",
+        zIndex: 1,
       }}>
-        {[
-          ["8", zh ? "核心描述符" : "core descriptors"],
-          ["6", zh ? "证据等级" : "evidence levels"],
-          ["2", zh ? "数据模式" : "data modes"],
-        ].map(([value, label]) => (
-          <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "10px 9px", minWidth: 0 }}>
-            <div style={{ color: t.textStrong, fontSize: 20, fontWeight: 900, lineHeight: 1 }}>{value}</div>
-            <div style={{ color: t.faint, fontSize: 10.5, lineHeight: 1.35, marginTop: 5 }}>{label}</div>
+        <div style={{ display: "grid", gap: 8 }}>
+          {SCREENING_CANDIDATES.map((candidate, index) => {
+            const isActive = index === activeIndex
+            return (
+              <button
+                key={candidate.name}
+                type="button"
+                onClick={() => setActiveIndex(index)}
+                aria-label={`${candidate.name} screening preview`}
+                className="candidate-preview-row"
+                data-active={isActive ? "true" : "false"}
+                style={{
+                  display: "grid",
+                  gap: 4,
+                  textAlign: "left",
+                  background: isActive ? t.badgeInfoBg : t.surface,
+                  border: `1px solid ${isActive ? t.accent : t.border}`,
+                  borderRadius: 9,
+                  padding: "10px 11px",
+                  cursor: "pointer",
+                  transform: isActive && !reducedMotion ? "scale(1.015)" : "scale(1)",
+                  minWidth: 0,
+                }}
+              >
+                <span style={{ color: t.textStrong, fontSize: 13, fontWeight: 900, lineHeight: 1.2 }}>{candidate.name}</span>
+                <span style={{ color: isActive ? t.accentText : t.faint, fontSize: 10.5, fontWeight: 800 }}>
+                  {candidate.completeness}/8 descriptors · {candidate.evidence}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+
+        <div className="candidate-score-card" key={active.name} style={{
+          background: t.surface,
+          border: `1px solid ${t.border}`,
+          borderRadius: 10,
+          padding: 13,
+          display: "grid",
+          gap: 12,
+          minWidth: 0,
+        }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
+            <div>
+              <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", letterSpacing: 0 }}>
+                Candidate name
+              </div>
+              <div style={{ color: t.textStrong, fontSize: 19, fontWeight: 950, lineHeight: 1.1, marginTop: 4 }}>
+                {active.name}
+              </div>
+            </div>
+            <div style={{ textAlign: "right" }}>
+              <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", letterSpacing: 0 }}>
+                Score
+              </div>
+              <div style={{ color: t.textStrong, fontSize: 25, fontWeight: 950, fontFamily: FONT_MONO, lineHeight: 1.05, marginTop: 4 }}>
+                {active.score.toFixed(2)}
+              </div>
+            </div>
           </div>
-        ))}
+
+          <div style={{ display: "grid", gap: 7 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 8 }}>
+              <span style={{ color: t.muted, fontSize: 11, fontWeight: 800 }}>Descriptor completeness</span>
+              <span style={{ color: t.textStrong, fontSize: 11, fontWeight: 900, fontFamily: FONT_MONO }}>{active.completeness}/8</span>
+            </div>
+            <div style={{ height: 8, borderRadius: 999, background: t.panel, border: `1px solid ${t.border}`, overflow: "hidden" }}>
+              <div
+                className="animated-progress-fill"
+                style={{
+                  width: `${completenessPct}%`,
+                  height: "100%",
+                  background: t.accent,
+                }}
+              />
+            </div>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 8 }}>
+            <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: "8px 9px" }}>
+              <div style={{ color: t.faint, fontSize: 9.5, fontWeight: 850, textTransform: "uppercase" }}>Evidence level</div>
+              <div style={{ color: t.textStrong, fontSize: 11.5, lineHeight: 1.35, fontWeight: 850, marginTop: 4 }}>{active.evidence}</div>
+            </div>
+            <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: "8px 9px" }}>
+              <div style={{ color: t.faint, fontSize: 9.5, fontWeight: 850, textTransform: "uppercase" }}>Data status</div>
+              <div style={{ color: t.textStrong, fontSize: 11.5, lineHeight: 1.35, fontWeight: 850, marginTop: 4 }}>{active.status}</div>
+            </div>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 7, alignItems: "end", minHeight: 64 }}>
+            {active.bars.map((value, index) => (
+              <div key={`${active.name}-${index}`} style={{ display: "grid", alignItems: "end", gap: 5, minHeight: 64 }}>
+                <div style={{ height: 48, borderRadius: 7, background: t.panel, border: `1px solid ${t.border}`, display: "flex", alignItems: "end", overflow: "hidden" }}>
+                  <div className="mini-chart-bar" style={{
+                    width: "100%",
+                    height: `${value}%`,
+                    background: index === 1 ? (t.cyan || t.accent) : index === 2 ? (t.violet || t.accent) : t.accent,
+                  }} />
+                </div>
+                <span style={{ color: t.faint, fontSize: 9.5, textAlign: "center", fontFamily: FONT_MONO }}>{index + 1}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div style={{
+        color: t.subtle,
+        fontSize: 11.5,
+        lineHeight: 1.5,
+        fontWeight: 820,
+        borderTop: `1px solid ${t.divider || t.border}`,
+        paddingTop: 10,
+        position: "relative",
+        zIndex: 1,
+      }}>
+        Transparent ranking, not black-box prediction.
       </div>
     </aside>
   )
@@ -261,9 +554,12 @@ function ReasonCard({ card, t, isMobile }) {
   )
 }
 
-function MetricCard({ metric, t }) {
+function MetricCard({ metric, t, reducedMotion }) {
+  const [ref, visible] = useInViewOnce()
+  const pct = metric.progress ?? 0
+
   return (
-    <article className="content-card metric-card" style={{
+    <article ref={ref} className="content-card metric-card home-motion-card" data-visible={visible ? "true" : "false"} style={{
       background: t.panel,
       border: `1px solid ${t.border}`,
       borderRadius: 10,
@@ -274,159 +570,78 @@ function MetricCard({ metric, t }) {
       gap: 9,
     }}>
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10 }}>
-        <div style={{ color: t.textStrong, fontSize: 25, fontWeight: 950, lineHeight: 1, fontFamily: FONT_MONO }}>
-          {metric.value}
-        </div>
+        {metric.countTo !== undefined ? (
+          <CountUpNumber value={metric.countTo} suffix={metric.suffix || ""} reducedMotion={reducedMotion} t={t} />
+        ) : (
+          <div style={{ color: t.textStrong, fontSize: 25, fontWeight: 950, lineHeight: 1, fontFamily: FONT_MONO }}>
+            {metric.value}
+          </div>
+        )}
         {metric.info && (
           <InfoPopover label="?" title={metric.title} body={metric.info} t={t} />
         )}
       </div>
       <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850, lineHeight: 1.35 }}>{metric.title}</div>
       <p style={{ margin: 0, color: t.muted, fontSize: 11.5, lineHeight: 1.6 }}>{metric.body}</p>
-    </article>
-  )
-}
-
-function ModuleCard({ module, t, isMobile, onNavigate, onOpenComparisonBuilder }) {
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault()
-      onNavigate(module.target)
-    }
-  }
-
-  return (
-    <article
-      role="button"
-      tabIndex={0}
-      onClick={() => onNavigate(module.target)}
-      onKeyDown={handleKeyDown}
-      className="content-card clickable-card"
-      style={{
-        background: t.panel,
-        border: `1px solid ${t.border}`,
-        borderRadius: 10,
-        boxShadow: t.shadowSm,
-        padding: isMobile ? 17 : 19,
-        minWidth: 0,
-        cursor: "pointer",
-        display: "grid",
-        gap: 14,
-      }}
-    >
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10 }}>
-        <div style={{ minWidth: 0 }}>
-          <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase", letterSpacing: 0 }}>
-            {module.kicker}
+      {metric.kind === "progress" && (
+        <div style={{ display: "grid", gap: 6, marginTop: 2 }}>
+          <div style={{ height: 7, borderRadius: 999, border: `1px solid ${t.border}`, background: t.surface, overflow: "hidden" }}>
+            <div className="animated-progress-fill" style={{ width: visible || reducedMotion ? `${pct}%` : "0%", height: "100%", background: t.accent }} />
           </div>
-          <h3 style={{ margin: "6px 0 0", color: t.textStrong, fontSize: isMobile ? 18 : 20, lineHeight: 1.25, fontWeight: 900 }}>
-            {module.name}
-          </h3>
-        </div>
-        <span aria-hidden="true" style={{ color: t.accentText, fontSize: 18, fontWeight: 900 }}>→</span>
-      </div>
-      <p style={{ margin: 0, color: t.muted, fontSize: 12.5, lineHeight: 1.65 }}>
-        {module.positioning}
-      </p>
-      <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
-        <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", letterSpacing: 0, marginBottom: 4 }}>
-          Core function
-        </div>
-        <div style={{ color: t.textStrong, fontSize: 12, lineHeight: 1.55, fontWeight: 720 }}>
-          {module.functionText}
-        </div>
-      </div>
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-        <span style={{
-          display: "inline-flex",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: 34,
-          padding: "8px 12px",
-          borderRadius: 7,
-          border: `1px solid ${t.accent}`,
-          color: t.accentText,
-          background: t.badgeInfoBg,
-          fontSize: 11.5,
-          fontWeight: 850,
-          lineHeight: 1.2,
-        }}>
-          {module.buttonLabel}
-        </span>
-        {module.compareAction && (
-          <button
-            type="button"
-            onClick={(event) => {
-              event.stopPropagation()
-              onOpenComparisonBuilder?.()
-            }}
-            style={{
-              ...toolbarBtn(t),
-              minHeight: 34,
-              padding: "8px 11px",
-              fontSize: 11.5,
-              color: t.subtle,
-              background: t.panel,
-            }}
-          >
-            {module.compareAction}
-          </button>
-        )}
-      </div>
-    </article>
-  )
-}
-
-function HowStep({ step, t, isMobile, isLast }) {
-  return (
-    <div style={{
-      display: "grid",
-      gridTemplateColumns: isMobile ? "1fr" : "auto minmax(0, 1fr) auto",
-      gap: isMobile ? 10 : 14,
-      alignItems: "center",
-      minWidth: 0,
-    }}>
-      <div style={{
-        width: 44,
-        height: 44,
-        borderRadius: 999,
-        border: `1px solid ${t.accent}`,
-        background: t.badgeInfoBg,
-        color: t.accentText,
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize: 13,
-        fontWeight: 950,
-        fontFamily: FONT_MONO,
-      }}>
-        {step.number}
-      </div>
-      <div style={{ minWidth: 0 }}>
-        <h3 style={{ margin: 0, color: t.textStrong, fontSize: isMobile ? 16 : 18, lineHeight: 1.25, fontWeight: 900 }}>
-          {step.title}
-        </h3>
-        <p style={{ margin: "5px 0 0", color: t.muted, fontSize: 12.5, lineHeight: 1.6 }}>
-          {step.body}
-        </p>
-        {step.formula && (
-          <div style={{ marginTop: 8, color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
-            <InlineFormula math={step.formula} fallback={step.fallback} />
-          </div>
-        )}
-      </div>
-      {!isLast && (
-        <div aria-hidden="true" style={{
-          color: t.accentText,
-          fontSize: isMobile ? 16 : 22,
-          fontWeight: 900,
-          justifySelf: isMobile ? "start" : "center",
-          transform: isMobile ? "rotate(90deg)" : "none",
-        }}>
-          →
+          <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 800 }}>{metric.value} descriptors curated</div>
         </div>
       )}
-    </div>
+      {metric.kind === "badges" && (
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 2 }}>
+          {["experimental", "literature", "simulation", "rule-based"].map((badge, index) => (
+            <span
+              key={badge}
+              className="evidence-badge-reveal"
+              data-visible={visible ? "true" : "false"}
+              style={{
+                "--badge-delay": `${index * 70}ms`,
+                color: t.accentText,
+                background: t.badgeInfoBg,
+                border: `1px solid ${t.border}`,
+                borderRadius: 999,
+                padding: "4px 7px",
+                fontSize: 9.5,
+                fontWeight: 850,
+              }}
+            >
+              {badge}
+            </span>
+          ))}
+        </div>
+      )}
+      {metric.kind === "toggle" && (
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: 6,
+          marginTop: 2,
+          background: t.surface,
+          border: `1px solid ${t.border}`,
+          borderRadius: 8,
+          padding: 4,
+        }}>
+          {["Demo data", "Seed data"].map((label, index) => (
+            <span key={label} style={{
+              textAlign: "center",
+              borderRadius: 6,
+              padding: "6px 5px",
+              color: index === 0 ? t.accentText : t.subtle,
+              background: index === 0 ? t.panel : "transparent",
+              border: index === 0 ? `1px solid ${t.borderStrong}` : "1px solid transparent",
+              fontSize: 10.5,
+              fontWeight: 850,
+            }}>
+              {label}
+            </span>
+          ))}
+        </div>
+      )}
+    </article>
   )
 }
 
@@ -472,9 +687,10 @@ function AudienceCard({ item, t }) {
   )
 }
 
-function RoadmapItem({ item, t, isLast }) {
+function RoadmapItem({ item, t, isLast, visible, index = 0 }) {
   return (
-    <div style={{
+    <div className="roadmap-motion-item" data-visible={visible ? "true" : "false"} style={{
+      "--roadmap-delay": `${index * 90}ms`,
       display: "grid",
       gridTemplateColumns: "auto minmax(0, 1fr)",
       gap: 12,
@@ -482,22 +698,10 @@ function RoadmapItem({ item, t, isLast }) {
       minWidth: 0,
     }}>
       <div style={{ display: "grid", justifyItems: "center", alignContent: "start", gap: 6 }}>
-        <div style={{
-          width: 22,
-          height: 22,
-          borderRadius: 999,
-          border: `1px solid ${item.active ? t.accent : t.borderStrong}`,
-          background: item.active ? t.badgeInfoBg : t.panel,
-          color: item.active ? t.accentText : t.subtle,
-          display: "inline-flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: 10,
-          fontWeight: 950,
-        }}>
+        <BrandNode active={item.active} t={t} style={{ width: 25, height: 25, fontSize: 10 }}>
           {item.index}
-        </div>
-        {!isLast && <div style={{ width: 1, height: 42, background: t.border }} />}
+        </BrandNode>
+        {!isLast && <div className="roadmap-connector" style={{ width: 1, height: 42, background: item.active ? t.accent : t.border }} />}
       </div>
       <div style={{ paddingBottom: isLast ? 0 : 12, minWidth: 0 }}>
         <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900, lineHeight: 1.35 }}>{item.title}</div>
@@ -512,6 +716,9 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
   const [dataMode, setDataMode] = useState("demo")
+  const reducedMotion = usePrefersReducedMotion()
+  const [roadmapRef, roadmapVisible] = useInViewOnce()
+  const heroScrollY = useWindowScrollY(reducedMotion || isMobile)
   const zh = lang === "zh"
 
   const go = (target) => setActiveTab?.(target)
@@ -521,6 +728,17 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
   }
 
   const pageGap = isMobile ? 34 : 52
+  const storyIsMobile = isNarrow
+  const heroProgress = Math.min(1, heroScrollY / 760)
+  const heroBgTransform = reducedMotion || isMobile
+    ? "none"
+    : `translate3d(0, ${Math.round(heroProgress * 26)}px, 0) scale(${1 + heroProgress * 0.018})`
+  const heroPreviewTransform = reducedMotion || isMobile
+    ? "none"
+    : `translate3d(0, ${Math.round(heroProgress * -18)}px, 0) scale(${1 - heroProgress * 0.012})`
+  const heroForegroundTransform = reducedMotion || isMobile
+    ? "none"
+    : `translate3d(0, ${Math.round(heroProgress * -5)}px, 0)`
   const sectionStyle = {
     background: "transparent",
     border: "none",
@@ -587,12 +805,15 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
   const metrics = useMemo(() => [
     {
       value: "8",
+      countTo: 8,
       title: "Core descriptors",
       body: zh ? "比表面积、孔径、孔体积、CO2 吸附量、带隙、水稳定性、热稳定性、毒性关注。" : CORE_DESCRIPTOR_LABELS.join(", "),
       info: zh ? "这是透明度检查框架，不代表所有记录都已经完整或验证。" : "This is a transparency frame, not a claim that every record is complete or validated.",
     },
     {
       value: dataMode === "demo" ? "8/8" : "0/8",
+      kind: "progress",
+      progress: dataMode === "demo" ? 100 : 0,
       title: "Descriptor completeness",
       body: dataMode === "demo"
         ? (zh ? "演示数据用于展示完整流程；真实种子字段仍需要逐项复核。" : "Demo data shows the full workflow; real-seed fields still need curation.")
@@ -601,12 +822,16 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
     },
     {
       value: "6",
+      countTo: 6,
+      kind: "badges",
       title: "Evidence levels",
       body: zh ? "experimental、literature、simulation、ML-predicted、rule-based、needs-validation。" : "Experimental, literature, simulation, ML-predicted, rule-based, and needs-validation states.",
       info: zh ? "证据等级说明数据状态；High 或 experimental 仍需结合具体任务与条件解释。" : "Evidence level describes data state and must still be read with task and condition context.",
     },
     {
       value: "2",
+      countTo: 2,
+      kind: "toggle",
       title: "Demo + seed separation",
       body: zh ? "演示数据与真实种子数据分离，避免把占位数据误读为科研结论。" : "Demo and real-seed data stay separated to avoid treating placeholders as conclusions.",
       info: zh ? "来源说明保留在 Data Mode、Field-level Provenance 和 Methodology 中。" : "Source boundaries remain visible through Data Mode, field provenance, and Methodology.",
@@ -618,16 +843,20 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
       name: "EcoScreen",
       kicker: "Candidate scoring",
       target: "ecoscreen",
+      mark: "E",
       positioning: zh ? "面向早期环境可行性与候选优先级的筛选入口。" : "Screening entry for early environmental feasibility and candidate priority.",
       functionText: zh ? "用可解释权重、硬筛选边界和不确定性提示排序候选材料。" : "Rank candidates with explainable weights, hard-screen boundaries, and uncertainty signals.",
+      capabilities: zh ? ["CRITIC-MCDA scoring", "Uncertainty flags", "Hard-screen boundary"] : ["CRITIC-MCDA scoring", "Uncertainty flags", "Hard-screen boundary"],
       buttonLabel: zh ? "Start Screening" : "Start Screening",
     },
     {
       name: "MOF Library",
       kicker: "Descriptors & provenance",
       target: "mofLibrary",
+      mark: "L",
       positioning: zh ? "候选材料、字段状态、来源信息和对比器的主要入口。" : "Main entry for candidates, field status, provenance, and comparison.",
       functionText: zh ? "浏览 demo / real-seed 数据，检查 8 个描述符、证据等级和字段级来源。" : "Browse demo / real-seed data and inspect 8 descriptors, evidence level, and field sources.",
+      capabilities: zh ? ["Demo / real-seed records", "Field provenance", "Candidate comparison"] : ["Demo / real-seed records", "Field provenance", "Candidate comparison"],
       buttonLabel: zh ? "Explore Library" : "Explore Library",
       compareAction: zh ? "Open builder" : "Open builder",
     },
@@ -635,45 +864,31 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
       name: "Performance Analysis",
       kicker: "Adsorption priority",
       target: "performance",
+      mark: "P",
       positioning: zh ? "面向吸附与性能线索的候选材料分析页面。" : "Candidate analysis page for adsorption and performance cues.",
       functionText: zh ? "查看静态浏览器端模型、候选优先级、保存结果和基准样例。" : "Review the static browser model, candidate priorities, saved runs, and benchmark examples.",
+      capabilities: zh ? ["Adsorption cues", "Static browser model", "Saved run context"] : ["Adsorption cues", "Static browser model", "Saved run context"],
       buttonLabel: zh ? "View Performance" : "View Performance",
     },
     {
       name: "Catalysis Lab",
       kicker: "Task-oriented records",
       target: "catalysis",
+      mark: "C",
       positioning: zh ? "围绕 CO2 转化与有机酸路径的催化探索原型。" : "Catalysis prototype for CO2 conversion and organic-acid pathway exploration.",
       functionText: zh ? "使用 mock / demo records 做任务语境探索，不把候选结果写成已验证结论。" : "Use mock / demo records for task-context exploration without claiming validated performance.",
+      capabilities: zh ? ["Task records", "CO2 conversion context", "Mock-data boundary"] : ["Task records", "CO2 conversion context", "Mock-data boundary"],
       buttonLabel: zh ? "Open Catalysis Lab" : "Open Catalysis Lab",
     },
     {
       name: "Methods & Limitations",
       kicker: "Methodology",
       target: "methodology",
+      mark: "M",
       positioning: zh ? "评分、证据、验证状态、限制和引用边界的集中说明。" : "Central explanation for scoring, evidence, validation state, limits, and citation boundaries.",
       functionText: zh ? "阅读 CRITIC-MCDA、RSM 边界、Validation & Evidence 与 benchmark references。" : "Read CRITIC-MCDA, RSM boundaries, Validation & Evidence, and benchmark references.",
+      capabilities: zh ? ["Method boundary", "Evidence language", "Benchmark context"] : ["Method boundary", "Evidence language", "Benchmark context"],
       buttonLabel: zh ? "Read Methodology" : "Read Methodology",
-    },
-  ], [zh])
-
-  const howSteps = useMemo(() => [
-    {
-      number: "01",
-      title: "Collect descriptors",
-      body: zh ? "把结构、吸附、稳定性和风险字段整理成可追溯记录。" : "Structure, adsorption, stability, and risk fields are organized into traceable records.",
-    },
-    {
-      number: "02",
-      title: "Normalize and weight indicators",
-      body: zh ? "对方向不同的指标做归一化，并用透明权重组合。" : "Indicators with different directions are normalized and combined through transparent weights.",
-      formula: "S_i = \\sum_j w_j \\cdot \\tilde{x}_{ij}",
-      fallback: "S_i = sum_j w_j * x_ij_normalized",
-    },
-    {
-      number: "03",
-      title: "Rank with uncertainty awareness",
-      body: zh ? "排序结果同时显示证据等级、缺失字段和需要验证的下一步。" : "Ranking is shown with evidence level, missing fields, and next validation needs.",
     },
   ], [zh])
 
@@ -790,18 +1005,64 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
   ], [zh])
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: pageGap, overflow: "hidden" }}>
-      <section id="overview" style={{ ...sectionStyle, paddingTop: isMobile ? 12 : 30 }}>
+    <div className="home-story-shell" style={{ display: "flex", flexDirection: "column", gap: pageGap, overflow: "hidden", position: "relative" }}>
+      <BrandMotionBackground t={t} isMobile={storyIsMobile} reducedMotion={reducedMotion} />
+      <section id="overview" className="home-hero-section" style={{ ...sectionStyle, paddingTop: isMobile ? 12 : 30, position: "relative", overflow: "hidden" }}>
+        <div
+          className="home-hero-bg-layer"
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            pointerEvents: "none",
+            transform: heroBgTransform,
+            transition: reducedMotion ? "none" : "transform 120ms linear",
+          }}
+        >
+          <BrandMotif
+            size={isMobile ? 180 : 300}
+            color={t.accentText}
+            opacity={isMobile ? 0.035 : 0.055}
+            className="hero-bg-brand-motif"
+            style={{ position: "absolute", right: isMobile ? -104 : -86, top: isMobile ? 72 : 10, pointerEvents: "none" }}
+            strokeWidth={1.2}
+          />
+          {!isMobile && HERO_DESCRIPTOR_NODES.map((node, index) => (
+            <span
+              key={node.label}
+              className="hero-descriptor-node"
+              style={{
+                "--node-delay": `${180 + index * 95}ms`,
+                left: node.left,
+                top: node.top,
+                borderColor: t.borderStrong,
+                color: t.subtle,
+                background: t.panel,
+              }}
+            >
+              {node.label}
+            </span>
+          ))}
+        </div>
         <div style={{
           display: "grid",
           gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.05fr) minmax(360px, 0.95fr)",
           gap: isMobile ? 18 : 28,
           alignItems: "center",
           minWidth: 0,
+          position: "relative",
+          zIndex: 1,
         }}>
-          <div style={{ minWidth: 0 }}>
+          <div
+            className="home-hero-foreground"
+            style={{
+              minWidth: 0,
+              transform: heroForegroundTransform,
+              transition: reducedMotion ? "none" : "transform 120ms linear",
+            }}
+          >
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-              <BrandMark size={isMobile ? 48 : 58} radius={14} style={{ boxShadow: t.shadowSm }} />
+              <LogoMark size={isMobile ? 48 : 58} radius={14} style={{ boxShadow: t.shadowSm }} />
               <div style={{ color: t.accentText, fontSize: 12, fontWeight: 900, letterSpacing: 0 }}>
                 Research prototype · MOF screening
               </div>
@@ -842,7 +1103,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
               gap: 10,
               flexWrap: "wrap",
               marginTop: 22,
-            }}>
+            }} className="home-hero-cta">
               <ActionButton t={t} primary wide={isMobile} onClick={() => go("ecoscreen")}>
                 Start Screening
               </ActionButton>
@@ -854,7 +1115,16 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
               </ActionButton>
             </div>
           </div>
-          <HeroVisualPanel t={t} lang={lang} isMobile={isMobile} />
+          <div
+            className="home-hero-preview-shell"
+            style={{
+              minWidth: 0,
+              transform: heroPreviewTransform,
+              transition: reducedMotion ? "none" : "transform 120ms linear",
+            }}
+          >
+            <AnimatedScreeningPreview t={t} lang={lang} isMobile={isMobile} reducedMotion={reducedMotion} />
+          </div>
         </div>
       </section>
 
@@ -912,11 +1182,22 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
           gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))",
           gap: 12,
         }}>
-          {metrics.map(metric => <MetricCard key={metric.title} metric={metric} t={t} />)}
+          {metrics.map(metric => <MetricCard key={metric.title} metric={metric} t={t} reducedMotion={reducedMotion} />)}
         </div>
         <div style={{ marginTop: 12, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, padding: "10px 12px" }}>
           <DataModeNote lang={lang} />
         </div>
+      </section>
+
+      <section style={{ ...bluePanel, padding: isMobile ? "18px 16px" : "24px" }}>
+        <SectionHeader
+          eyebrow="Scroll Narrative"
+          title="From descriptors to decisions"
+          subtitle={zh ? "滚动经过四个研究步骤时，右侧视觉面板会从描述符网络过渡到证据映射、权重归一化和候选排序。" : "As the user scrolls through four research steps, the visual panel moves from descriptor network to evidence mapping, weighting, normalization, and candidate ranking."}
+          t={t}
+          isMobile={isMobile}
+        />
+        <ScrollNarrative t={t} isMobile={storyIsMobile} reducedMotion={reducedMotion} />
       </section>
 
       <section style={sectionStyle}>
@@ -927,48 +1208,13 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
           t={t}
           isMobile={isMobile}
         />
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: isNarrow ? "1fr" : "repeat(5, minmax(0, 1fr))",
-          gap: 13,
-        }}>
-          {modules.map(module => (
-            <ModuleCard
-              key={module.name}
-              module={module}
-              t={t}
-              isMobile={isMobile}
-              onNavigate={go}
-              onOpenComparisonBuilder={onOpenComparisonBuilder}
-            />
-          ))}
-        </div>
-      </section>
-
-      <section style={{ ...bluePanel, padding: isMobile ? "18px 16px" : "24px" }}>
-        <SectionHeader
-          eyebrow="How It Works"
-          title={zh ? "三步把数据状态转成可质疑的排序" : "A three-step path from data state to questionable ranking"}
-          subtitle={zh ? "流程图强调描述符整理、指标归一化和不确定性呈现；公式用 KaTeX 渲染，避免不可读符号。" : "The flow emphasizes descriptor collection, normalization, and uncertainty-aware ranking. Formula rendering uses KaTeX."}
+        <ModuleRail
+          modules={modules}
           t={t}
-          isMobile={isMobile}
+          isMobile={storyIsMobile}
+          onNavigate={go}
+          onOpenComparisonBuilder={onOpenComparisonBuilder}
         />
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))",
-          gap: isMobile ? 18 : 14,
-          alignItems: "stretch",
-        }}>
-          {howSteps.map((step, index) => (
-            <HowStep
-              key={step.number}
-              step={step}
-              t={t}
-              isMobile={isMobile}
-              isLast={index === howSteps.length - 1}
-            />
-          ))}
-        </div>
       </section>
 
       <section style={sectionStyle}>
@@ -996,6 +1242,9 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
         }}>
           {validationItems.map(item => <ValidationItem key={item.title} item={item} t={t} />)}
         </div>
+        <div style={{ marginTop: 14 }}>
+          <EvidenceChainAnimation fields={EVIDENCE_CHAIN_FIELDS} t={t} isMobile={storyIsMobile} />
+        </div>
       </section>
 
       <section style={sectionStyle}>
@@ -1015,7 +1264,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
         </div>
       </section>
 
-      <section style={{ ...bluePanel, padding: isMobile ? "18px 16px" : "24px" }}>
+      <section ref={roadmapRef} style={{ ...bluePanel, padding: isMobile ? "18px 16px" : "24px" }}>
         <SectionHeader
           eyebrow="Development Roadmap"
           title={zh ? "从演示筛选走向可验证研究工作流" : "From demo screening to validation-ready research workflow"}
@@ -1029,7 +1278,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
           gap: isNarrow ? 10 : 14,
         }}>
           {roadmap.map((item, index) => (
-            <RoadmapItem key={item.title} item={item} t={t} isLast={index === roadmap.length - 1} />
+            <RoadmapItem key={item.title} item={item} t={t} isLast={index === roadmap.length - 1} visible={roadmapVisible || reducedMotion} index={index} />
           ))}
         </div>
       </section>

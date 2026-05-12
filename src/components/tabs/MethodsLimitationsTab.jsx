@@ -18,6 +18,7 @@ const pct = value => `${Math.round(Math.max(0, Math.min(1, Number(value) || 0)) 
 const sectionIds = [
   ["platform-scope", "Platform scope", "平台定位"],
   ["candidate-framework", "Candidate scoring", "候选评分框架"],
+  ["critic-methodology-decision-support", "CRITIC methodology", "CRITIC 方法论"],
   ["indicator-system", "Indicator system", "三维指标体系"],
   ["critic-weighting", "CRITIC weighting", "CRITIC 客观赋权"],
   ["candidate-score", "Candidate score", "候选综合评分"],
@@ -437,7 +438,63 @@ export function MethodsLimitationsTab({ onNavigate }) {
             </div>
           </Section>
 
-          <Section id="indicator-system" eyebrow="03" title={zh ? "Indicator System / 三维指标体系" : "Indicator System / 三维指标体系"} t={t}>
+          <Section id="critic-methodology-decision-support" eyebrow="03" title={zh ? "CRITIC Methodology / CRITIC 方法论" : "CRITIC Methodology / CRITIC 方法论"} t={t}>
+            <div style={{ display: "grid", gap: 12 }}>
+              <TextBlock t={t}>
+                {zh
+                  ? "CRITIC 在本平台中用于多指标排序影响力估计。它通过指标差异度与指标冲突度给出 objective weight，用来辅助 candidate ranking；这些权重不表示化学因果机制，也不能替代反应机理验证。"
+                  : "CRITIC is used here to estimate multi-indicator ranking influence. It derives objective weights from contrast intensity and conflict intensity to support candidate ranking; the weights do not imply chemical causality and do not replace mechanistic validation."}
+              </TextBlock>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
+                <MathBlock math={"x'_{ij}=\\frac{x_{ij}-\\min(x_j)}{\\max(x_j)-\\min(x_j)}"} fallback="benefit normalization: x' = (x - min) / (max - min)" t={t} />
+                <MathBlock math={"x'_{ij}=\\frac{\\max(x_j)-x_{ij}}{\\max(x_j)-\\min(x_j)}"} fallback="cost normalization: x' = (max - x) / (max - min)" t={t} />
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
+                <MathBlock math={"C_j=\\sigma_j\\sum_{k=1}^{m}(1-r_{jk})"} fallback="C_j = sigma_j * sum_k(1 - r_jk)" t={t} />
+                <MathBlock math={"w_j=\\frac{C_j}{\\sum_{j=1}^{m}C_j}"} fallback="w_j = C_j / sum_j(C_j)" t={t} />
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 8 }}>
+                {(zh
+                  ? [
+                    ["contrast intensity", "由标准差 sigma_j 表征，表示某指标在候选集内的区分能力。差异越大，该指标越可能影响排序。"],
+                    ["conflict intensity", "由 sum(1-r_jk) 表征，表示该指标与其他指标之间的信息非重复性。相关性越低，冲突度越高。"],
+                    ["objective weight", "由 C_j 归一化得到，表示当前候选集中的 ranking influence，不是化学因果强度。"],
+                  ]
+                  : [
+                    ["contrast intensity", "Represented by standard deviation sigma_j; it measures how strongly an indicator differentiates candidates."],
+                    ["conflict intensity", "Represented by sum(1-r_jk); it measures non-redundant information against other indicators."],
+                    ["objective weight", "Obtained by normalizing C_j; it expresses ranking influence in the current candidate set, not chemical causality."],
+                  ]).map(([title, body]) => (
+                  <MethodCard key={title} title={title} t={t}>
+                    <TextBlock t={t}>{body}</TextBlock>
+                  </MethodCard>
+                ))}
+              </div>
+              <MethodCard title={zh ? "CRITIC limitations / 使用限制" : "CRITIC limitations"} t={t} tone="warn">
+                <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
+                  {(zh
+                    ? [
+                      "small sample sensitivity：小样本下标准差和相关性可能被个别候选牵动。",
+                      "missing data：缺失值会降低解释确定性，不能直接视作材料失败。",
+                      "normalization dependence：归一化区间和 benefit/cost direction 会影响权重解释。",
+                      "evidence heterogeneity：实验、文献、DFT、模拟和 demo evidence 的可比性不同。",
+                    ]
+                    : [
+                      "small sample sensitivity: standard deviation and correlation can be moved by individual candidates.",
+                      "missing data: missing descriptors lower interpretive certainty and should not be read as material failure.",
+                      "normalization dependence: normalization range and benefit/cost direction affect weight interpretation.",
+                      "evidence heterogeneity: experimental, literature, DFT, simulated, and demo evidence are not equally comparable.",
+                    ]).map(item => (
+                    <div key={item} style={{ color: t.muted, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, padding: 10, fontSize: 11.5, lineHeight: 1.55 }}>
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </MethodCard>
+            </div>
+          </Section>
+
+          <Section id="indicator-system" eyebrow="04" title={zh ? "Indicator System / 三维指标体系" : "Indicator System / 三维指标体系"} t={t}>
             <div style={{ display: "grid", gap: 12 }}>
               <div style={{ overflowX: "auto" }}>
                 <table style={{ width: "100%", minWidth: isMobile ? 650 : 760, borderCollapse: "separate", borderSpacing: `0 ${isMobile ? 5 : 7}px` }}>
@@ -467,7 +524,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
             </div>
           </Section>
 
-          <Section id="critic-weighting" eyebrow="04" title={zh ? "CRITIC Weighting / CRITIC 客观赋权" : "CRITIC Weighting / CRITIC 客观赋权"} t={t}>
+          <Section id="critic-weighting" eyebrow="05" title={zh ? "CRITIC Weighting / CRITIC 客观赋权" : "CRITIC Weighting / CRITIC 客观赋权"} t={t}>
             <div style={{ display: "grid", gap: 12 }}>
               <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
                 <MathBlock math={"C_j = \\sigma_j \\sum_{k=1}^{m}(1-r_{jk})"} fallback="C_j = sigma_j * sum_k(1 - r_jk)" t={t} />
@@ -488,7 +545,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
             </div>
           </Section>
 
-          <Section id="candidate-score" eyebrow="05" title={zh ? "Candidate Score / 候选综合评分" : "Candidate Score / 候选综合评分"} t={t}>
+          <Section id="candidate-score" eyebrow="06" title={zh ? "Candidate Score / 候选综合评分" : "Candidate Score / 候选综合评分"} t={t}>
             <div style={{ display: "grid", gap: 12 }}>
               <MathBlock math={"D_{raw,i}=G_i \\cdot d_{stab,i}^{w_{stab}} d_{barrier,i}^{w_{barrier}} d_{select,i}^{w_{select}}"} fallback="D_raw = G * d_stab^w_stab * d_barrier^w_barrier * d_select^w_select" t={t} />
               <TextBlock t={t}>
@@ -498,7 +555,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
             </div>
           </Section>
 
-          <Section id="evidence-confidence" eyebrow="06" title={zh ? "Evidence Confidence / 证据置信度" : "Evidence Confidence / 证据置信度"} t={t}>
+          <Section id="evidence-confidence" eyebrow="07" title={zh ? "Evidence Confidence / 证据置信度" : "Evidence Confidence / 证据置信度"} t={t}>
             <div style={{ display: "grid", gap: 12 }}>
               <MathBlock math={"D_{expected,i}=D_{raw,i}\\times Q_i"} fallback="D_expected = D_raw * Q" t={t} />
               <TextBlock t={t}>
@@ -522,13 +579,13 @@ export function MethodsLimitationsTab({ onNavigate }) {
             </div>
           </Section>
 
-          <Section id="interactive-visuals" eyebrow="07" title={zh ? "Interactive Method Visuals / 交互式方法图表" : "Interactive Method Visuals / 交互式方法图表"} t={t}>
+          <Section id="interactive-visuals" eyebrow="08" title={zh ? "Interactive Method Visuals / 交互式方法图表" : "Interactive Method Visuals / 交互式方法图表"} t={t}>
             <ChartCard title="Figure 6. Sensitivity Analysis / 排名敏感性分析" why={zh ? "为什么重要：显示排序是否依赖某一种权重设定，并区分原始评分与置信度修正评分。" : "Why it matters: it shows whether rank depends on a single weighting scheme, separating raw and confidence-adjusted scoring."} t={t}>
               <SensitivityRankChart sensitivity={model.sensitivity} selected={selectedCandidateId} onSelect={setSelectedCandidateId} zh={zh} t={t} isMobile={isMobile} />
             </ChartCard>
           </Section>
 
-          <Section id="rsm-boundary" eyebrow="08" title={zh ? "CRITIC-MCDA vs. RSM / 材料筛选与条件优化边界" : "CRITIC-MCDA vs. RSM / 材料筛选与条件优化边界"} t={t}>
+          <Section id="rsm-boundary" eyebrow="09" title={zh ? "CRITIC-MCDA vs. RSM / 材料筛选与条件优化边界" : "CRITIC-MCDA vs. RSM / 材料筛选与条件优化边界"} t={t}>
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
               <MethodCard title={zh ? "功能分工" : "Role separation"} t={t} tone="info">
                 <TextBlock t={t}>
@@ -543,7 +600,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
             </div>
           </Section>
 
-          <Section id="method-limitations" eyebrow="09" title={zh ? "Limitations / 当前限制" : "Limitations / 当前限制"} t={t}>
+          <Section id="method-limitations" eyebrow="10" title={zh ? "Limitations / 当前限制" : "Limitations / 当前限制"} t={t}>
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }}>
               {(zh
                 ? [

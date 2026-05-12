@@ -11,7 +11,7 @@ import { downloadTextFile, buildComparisonCandidate } from "./utils/report"
 import { headerChipBtn } from "./utils/styles"
 import { HASH_TO_TAB, getHashMeta, normalizeHash, tabToHash } from "./utils/deepLinks"
 import { ContextualHeaderBar, SavedRunsModal, ContactModal, AcknowledgementsModal, DisclaimerModal } from "./components/layout"
-import { BrandMark } from "./components/ui"
+import { LogoWordmark } from "./components/brand"
 import { CandidateComparisonModal } from "./components/mof/CandidateComparisonModal"
 
 const lazyNamed = (loader, exportName) => lazy(async () => {
@@ -189,9 +189,13 @@ function AppShell({
               overflow: "visible",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: viewport.isMobile ? 6 : 8, minWidth: 0 }}>
-              <BrandMark size={viewport.isMobile ? 24 : 28} radius={viewport.isMobile ? 7 : 8} style={{ boxShadow: theme.shadowSm }} />
-              <div style={{ color: theme.subtle, fontSize: viewport.isMobile ? 11 : 12, fontWeight: 700, whiteSpace: "nowrap" }}>EcoMOF-AI</div>
+            <div className="brand-nav-wordmark" style={{ display: "flex", alignItems: "center", minWidth: 0 }}>
+              <LogoWordmark
+                markSize={viewport.isMobile ? 28 : 30}
+                radius={viewport.isMobile ? 7 : 8}
+                t={theme}
+                compact
+              />
             </div>
 
             <div style={{ display: "flex", justifyContent: "center", minWidth: 0, gridColumn: viewport.isNarrow ? "1 / -1" : "auto", order: viewport.isNarrow ? 3 : 2 }}>
@@ -398,12 +402,17 @@ function AppShell({
         </Suspense>
       </main>
 
-      <footer style={{ marginTop: 48, borderTop: `1px solid ${theme.border}`, padding: viewport.isMobile ? "18px 12px 22px" : "20px 24px 24px", fontFamily: FONT_SANS }}>
-        <div style={{ maxWidth: 1460, margin: "0 auto", display: "flex", flexDirection: "column", gap: 10 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16, flexWrap: "wrap" }}>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-              <BrandMark size={viewport.isMobile ? 28 : 30} radius={8} style={{ boxShadow: theme.shadowSm }} />
-              <span style={{ color: theme.textStrong, fontSize: 12, fontWeight: 800, whiteSpace: "nowrap" }}>
+      <footer style={{ marginTop: 48, borderTop: `1px solid ${theme.border}`, padding: viewport.isMobile ? "22px 12px 24px" : "28px 24px 30px", fontFamily: FONT_SANS, background: theme.panel }}>
+        <div style={{ maxWidth: 1460, margin: "0 auto", display: "flex", flexDirection: "column", gap: 14 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 18, flexWrap: "wrap" }}>
+            <div style={{ display: "grid", gap: 7, minWidth: 0 }}>
+              <LogoWordmark
+                markSize={viewport.isMobile ? 30 : 32}
+                radius={9}
+                t={theme}
+                tagline="Transparent decision-support for sustainable MOF screening."
+              />
+              <span style={{ color: theme.faint, fontSize: 11 }}>
                 {lang === "zh" ? "© 2026 EcoMOF-AI · Linus-He 维护" : "© 2026 EcoMOF-AI · Maintained by Linus-He"}
               </span>
             </div>
@@ -432,6 +441,18 @@ function AppShell({
               }}
             >
               {lang === "zh" ? "方法与证据" : "Methods & Evidence"}
+            </button>
+            <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
+            <button
+              type="button"
+              onClick={() => navigateTab("data-quality-provenance")}
+              style={{
+                background: "none", border: "none", padding: 0,
+                color: theme.subtle, fontSize: 12, fontWeight: 600,
+                cursor: "pointer", fontFamily: FONT_SANS,
+              }}
+            >
+              Data Quality
             </button>
             <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
             <button

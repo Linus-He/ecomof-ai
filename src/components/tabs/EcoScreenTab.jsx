@@ -1,27 +1,31 @@
 import { useMemo, useState } from "react"
 import {
+  Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, ReferenceLine,
+  ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis, ZAxis,
+} from "recharts"
+import {
   useT, useLang, useViewport,
   FONT_MONO,
   BasisBadge, PageHeader, ResultLayer, Callout, CopyLinkButton, DisclaimerLink,
   toolbarBtn, InlineFormula,
   CRITIC_INDICATORS,
   buildCriticScoringModel,
-  computeCriticWeights,
-  computeCandidateScores,
-  computeSensitivityRanks,
   getDataGapRecommendations,
 } from "../../shared"
 
-const pct = value => `${Math.round(Math.max(0, Math.min(1, Number(value) || 0)) * 100)}%`
+const clamp01 = value => Math.max(0, Math.min(1, Number(value) || 0))
+const pct = value => `${Math.round(clamp01(value) * 100)}%`
 const fmt = (value, digits = 3) => Number(value || 0).toFixed(digits)
+const fmtPct = value => `${Math.round(clamp01(value) * 100)}%`
 
 function labelStatus(status, lang) {
+  if (!status) return "—"
   return lang === "zh" ? status.zh : status.label
 }
 
-function Card({ children, style, t }) {
+function Card({ children, style, t, as: Tag = "section" }) {
   return (
-    <section style={{
+    <Tag style={{
       background: t.panel,
       border: `1px solid ${t.border}`,
       borderRadius: 8,
@@ -30,17 +34,16 @@ function Card({ children, style, t }) {
       ...style,
     }}>
       {children}
-    </section>
+    </Tag>
   )
 }
 
-function MetricCard({ label, value, note, t }) {
+function PanelTitle({ title, subtitle, t }) {
   return (
-    <Card t={t} style={{ display: "grid", gap: 6, padding: 13 }}>
-      <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase", letterSpacing: 0 }}>{label}</div>
-      <div style={{ color: t.textStrong, fontSize: 22, fontWeight: 920, lineHeight: 1.12, overflowWrap: "anywhere", wordBreak: "break-word" }}>{value}</div>
-      {note && <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.35 }}>{note}</div>}
-    </Card>
+    <div>
+      <h3 style={{ margin: 0, color: t.textStrong, fontSize: 14, lineHeight: 1.25, fontWeight: 900 }}>{title}</h3>
+      {subtitle && <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 4 }}>{subtitle}</div>}
+    </div>
   )
 }
 
@@ -52,32 +55,272 @@ function ScoreBar({ value, color, t }) {
   )
 }
 
-function IndicatorRow({ label, value, t, isMobile }) {
+function MetricCard({ label, value, note, t, tone = "info" }) {
+  const toneColor = tone === "warn" ? t.warn : tone === "calc" ? t.success : tone === "proxy" ? t.amber : t.accentText
   return (
-    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "minmax(0, 1fr) 44px" : "116px minmax(0, 1fr) 44px", alignItems: "center", gap: isMobile ? 6 : 9 }}>
-      <div style={{ gridColumn: isMobile ? "1 / -1" : "auto", color: t.muted, fontSize: 11, fontWeight: 800, overflowWrap: "anywhere" }}>{label}</div>
-      <ScoreBar value={value} t={t} />
-      <div style={{ color: t.textStrong, fontSize: 11, fontFamily: FONT_MONO, textAlign: "right" }}>{fmt(value, 2)}</div>
+    <Card t={t} style={{ display: "grid", gap: 6, padding: 13 }}>
+      <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase", letterSpacing: 0 }}>{label}</div>
+      <div style={{ color: toneColor, fontSize: 22, fontWeight: 920, lineHeight: 1.12, overflowWrap: "anywhere", wordBreak: "break-word" }}>{value}</div>
+      {note && <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.35 }}>{note}</div>}
+    </Card>
+  )
+}
+
+function SegmentedControl({ items, value, onChange, lang, t }) {
+  return (
+    <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+      {items.map(item => {
+        const active = item.id === value
+        return (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => onChange(item.id)}
+            title={lang === "zh" ? item.zhDescription || item.description : item.description}
+            style={{
+              background: active ? t.badgeInfoBg : t.panel,
+              border: `1px solid ${active ? t.accent : t.border}`,
+              borderRadius: 7,
+              color: active ? t.accentText : t.muted,
+              cursor: "pointer",
+              fontSize: 11,
+              fontWeight: 850,
+              lineHeight: 1.25,
+              padding: "8px 10px",
+              minHeight: 34,
+            }}
+          >
+            {lang === "zh" ? item.zhLabel || item.label : item.label}
+          </button>
+        )
+      })}
     </div>
   )
 }
 
-function findMainWeakness(candidate, lang) {
-  if (!candidate) return "—"
-  if (Number(candidate.G) === 0) return candidate.exclusionReason || (lang === "zh" ? "硬筛排除" : "Hard-screen exclusion")
-  const scores = [
-    [candidate.d_stab_clipped, lang === "zh" ? "170 ℃水相稳定性较弱" : "weaker 170 C aqueous stability"],
-    [candidate.d_barrier_clipped, lang === "zh" ? "产甲酸关键能垒证据不足" : "formate-step barrier evidence is weak"],
-    [candidate.d_select_clipped, lang === "zh" ? "副产物路径风险偏高" : "byproduct-path risk remains high"],
-  ]
-  const [value, label] = scores.sort((a, b) => Number(a[0]) - Number(b[0]))[0]
-  if (Number(value) >= 0.7 && Number(candidate.confidence_Q) < 0.7) {
-    return lang === "zh" ? "证据置信度限制排序解释" : "evidence confidence limits interpretation"
-  }
-  return label
+function ChartTooltip({ active, payload, label, t }) {
+  if (!active || !payload?.length) return null
+  return (
+    <div style={{ background: t.tooltipBg, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10, boxShadow: t.shadowSm, color: t.textStrong, fontSize: 11, lineHeight: 1.55 }}>
+      <div style={{ color: t.textStrong, fontWeight: 900, marginBottom: 4 }}>{label || payload[0]?.payload?.name}</div>
+      {payload.map(item => (
+        <div key={`${item.dataKey}-${item.name}`} style={{ color: item.color || t.muted }}>
+          {item.name || item.dataKey}: {Number.isFinite(Number(item.value)) ? fmt(item.value, 3) : item.value}
+        </div>
+      ))}
+    </div>
+  )
 }
 
-function RankingList({ candidates, selectedId, onSelect, lang, t, isMobile }) {
+function ScoringMethodSummary({ model, weightingMode, onWeightingModeChange, lang, t, isMobile }) {
+  const summary = model.methodSummary
+  const activeMode = model.activeWeightingMode
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1.2fr) minmax(320px, 0.8fr)", gap: 12 }}>
+      <Card t={t} style={{ display: "grid", gap: 12 }}>
+        <PanelTitle
+          t={t}
+          title={lang === "zh" ? "Scoring Method Summary / 评分方法摘要" : "Scoring Method Summary"}
+          subtitle={lang === "zh" ? "切换权重模式后，候选排序和候选详情会同步更新；诊断区仍保留 CRITIC 客观权重解释。" : "Changing the weighting mode updates ranking and candidate details; diagnostics still preserve the CRITIC objective-weight explanation."}
+        />
+        <SegmentedControl items={model.weightingModes} value={weightingMode} onChange={onWeightingModeChange} lang={lang} t={t} />
+        <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65 }}>
+          {lang === "zh" ? activeMode.zhDescription : activeMode.description}
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 8 }}>
+          {CRITIC_INDICATORS.map(indicator => (
+            <div key={indicator.key} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 10, display: "grid", gap: 6 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 8, color: t.faint, fontSize: 10.5, fontWeight: 850 }}>
+                <span>{lang === "zh" ? indicator.zhLabel : indicator.label}</span>
+                <span style={{ fontFamily: FONT_MONO }}>{indicator.symbol}</span>
+              </div>
+              <ScoreBar value={model.activeWeights[indicator.key]} t={t} />
+              <div style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 11, textAlign: "right" }}>{fmt(model.activeWeights[indicator.key])}</div>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr", gap: 10 }}>
+        <MetricCard label={lang === "zh" ? "Weighting mode / 权重模式" : "Weighting mode"} value={lang === "zh" ? summary.weightingModeZh : summary.weightingMode} note="CRITIC / Equal / Expert / Custom" t={t} />
+        <MetricCard label={lang === "zh" ? "Ranking stability / 排名稳定性" : "Ranking stability"} value={lang === "zh" ? summary.rankingStability.zh : summary.rankingStability.label} note={lang === "zh" ? "由权重对比和 remove-one 测试给出" : "From weighting comparison and remove-one tests"} tone={summary.rankingStability.tone} t={t} />
+        <MetricCard label={lang === "zh" ? "Candidates / 候选数" : "Candidates"} value={summary.candidateCount} note={lang === "zh" ? "含 G = 0 硬筛记录" : "includes G = 0 rows"} t={t} />
+        <MetricCard label={lang === "zh" ? "Indicators / 指标数" : "Indicators"} value={summary.indicatorCount} note="d_stab · d_barrier · d_select" t={t} />
+        <MetricCard label={lang === "zh" ? "Missing data / 缺失比例" : "Missing data"} value={fmtPct(summary.missingDataRatio)} note={`${summary.missingData.missingCells}/${summary.missingData.totalCells} indicator cells`} tone={summary.missingDataRatio > 0.1 ? "warn" : "calc"} t={t} />
+        <MetricCard label={lang === "zh" ? "Normalization / 归一化" : "Normalization"} value="0.01-1" note={lang === "zh" ? summary.normalizationMethodZh : summary.normalizationMethod} t={t} />
+      </div>
+
+      <Card t={t} style={{ gridColumn: isMobile ? "auto" : "1 / -1", display: "grid", gap: 7, background: t.surface }}>
+        <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{lang === "zh" ? "Benefit / Cost direction adjustment" : "Benefit / Cost direction adjustment"}</div>
+        <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65 }}>
+          {lang === "zh" ? summary.directionAdjustmentZh : summary.directionAdjustment}
+        </div>
+      </Card>
+    </div>
+  )
+}
+
+function WeightBarChart({ model, t, isMobile }) {
+  const data = CRITIC_INDICATORS.map(indicator => {
+    const row = model.decomposition.find(item => item.key === indicator.key) || {}
+    return {
+      name: indicator.shortLabel,
+      label: indicator.label,
+      weight: model.weights[indicator.key],
+      activeWeight: model.activeWeights[indicator.key],
+      sigma: row.sigma,
+      conflict: row.conflict,
+      information: row.information,
+    }
+  })
+  return (
+    <ResponsiveContainer width="100%" height={isMobile ? 230 : 255}>
+      <BarChart data={data} margin={{ top: 10, right: 12, left: 0, bottom: 8 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
+        <XAxis dataKey="name" tick={{ fill: t.subtle, fontSize: 11 }} />
+        <YAxis domain={[0, 1]} tick={{ fill: t.subtle, fontSize: 10 }} width={42} />
+        <Tooltip content={<ChartTooltip t={t} />} />
+        <Legend wrapperStyle={{ color: t.subtle, fontSize: 11 }} />
+        <Bar dataKey="weight" name="CRITIC weight" fill={t.accentText} radius={[4, 4, 0, 0]} />
+        <Bar dataKey="activeWeight" name="active mode weight" fill={t.badgeCalcText} radius={[4, 4, 0, 0]} />
+      </BarChart>
+    </ResponsiveContainer>
+  )
+}
+
+function ConflictHeatmap({ model, lang, t }) {
+  const [mode, setMode] = useState("conflict")
+  const maxConflict = CRITIC_INDICATORS.flatMap(row => CRITIC_INDICATORS.map(col => model.conflictMatrix[row.key]?.[col.key] || 0)).reduce((max, value) => Math.max(max, value), 1)
+  const cellBg = (value, isDiag) => {
+    if (isDiag) return t.surface
+    const ratio = mode === "conflict" ? clamp01(value / Math.max(1, maxConflict)) : clamp01((value + 1) / 2)
+    if (ratio > 0.72) return t.badgeInfoBg
+    if (ratio > 0.48) return t.badgeCalcBg
+    return t.panel
+  }
+  return (
+    <div style={{ display: "grid", gap: 10 }}>
+      <SegmentedControl
+        items={[
+          { id: "conflict", label: "1 - r_jk", zhLabel: "1 - r_jk 冲突度", description: "Conflict intensity between indicators." },
+          { id: "correlation", label: "correlation", zhLabel: "correlation 相关性", description: "Pearson correlation between indicators." },
+        ]}
+        value={mode}
+        onChange={setMode}
+        lang={lang}
+        t={t}
+      />
+      <div style={{ display: "grid", gridTemplateColumns: "86px repeat(3, minmax(0, 1fr))", gap: 6 }}>
+        <span />
+        {CRITIC_INDICATORS.map(item => <span key={item.key} style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textAlign: "center" }}>{item.shortLabel}</span>)}
+        {CRITIC_INDICATORS.flatMap(row => [
+          <span key={`${row.key}-head`} style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, alignSelf: "center" }}>{row.shortLabel}</span>,
+          ...CRITIC_INDICATORS.map(col => {
+            const isDiag = row.key === col.key
+            const value = mode === "conflict"
+              ? model.conflictMatrix[row.key]?.[col.key] ?? 0
+              : model.correlationMatrix[row.key]?.[col.key] ?? 0
+            return (
+              <span key={`${row.key}-${col.key}`} title={`${mode}: ${fmt(value, 3)}`} style={{ background: cellBg(value, isDiag), border: `1px solid ${t.border}`, borderRadius: 7, padding: "10px 6px", color: t.textStrong, fontFamily: FONT_MONO, fontSize: 11, textAlign: "center" }}>
+                {fmt(value, 2)}
+              </span>
+            )
+          }),
+        ])}
+      </div>
+      <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55 }}>
+        {lang === "zh"
+          ? "1 - r_jk 越高，两个指标提供的排序信息越不重复；这会提高 CRITIC 中的 conflict intensity。"
+          : "Higher 1 - r_jk means less redundant ranking information between two indicators, raising CRITIC conflict intensity."}
+      </div>
+    </div>
+  )
+}
+
+function IndicatorDiagnostics({ model, lang, t, isMobile }) {
+  return (
+    <div style={{ display: "grid", gap: 12 }}>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", minWidth: isMobile ? 720 : 760, borderCollapse: "separate", borderSpacing: "0 7px" }}>
+          <thead>
+            <tr style={{ color: t.faint, fontSize: 10, textAlign: "left", textTransform: "uppercase" }}>
+              <th style={{ padding: "0 10px" }}>Indicator</th>
+              <th style={{ padding: "0 10px" }}>Weight</th>
+              <th style={{ padding: "0 10px" }}>Standard deviation</th>
+              <th style={{ padding: "0 10px" }}>Contrast intensity</th>
+              <th style={{ padding: "0 10px" }}>Conflict intensity</th>
+              <th style={{ padding: "0 10px" }}>Interpretation</th>
+            </tr>
+          </thead>
+          <tbody>
+            {model.indicatorDiagnostics.map(row => (
+              <tr key={row.key} style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>
+                <td style={{ padding: "10px", background: t.surface, borderRadius: "7px 0 0 7px", color: t.textStrong, fontWeight: 850 }}>{lang === "zh" ? row.zhLabel : row.label}</td>
+                <td style={{ padding: "10px", background: t.surface, color: t.textStrong, fontFamily: FONT_MONO }}>{fmt(row.criticWeight)}</td>
+                <td style={{ padding: "10px", background: t.surface, fontFamily: FONT_MONO }}>{fmt(row.standardDeviation)}</td>
+                <td style={{ padding: "10px", background: t.surface, fontFamily: FONT_MONO }}>{fmt(row.contrastIntensity)}</td>
+                <td style={{ padding: "10px", background: t.surface, fontFamily: FONT_MONO }}>{fmt(row.conflictIntensity)}</td>
+                <td style={{ padding: "10px", background: t.surface, borderRadius: "0 7px 7px 0" }}>{lang === "zh" ? row.zhInterpretation : row.interpretation}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 8 }}>
+        {model.indicatorDiagnostics.map(row => (
+          <div key={`${row.key}-note`} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+            <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900 }}>{lang === "zh" ? row.zhLabel : row.label}</div>
+            <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55, marginTop: 6 }}>
+              {lang === "zh" ? row.zhDescription : row.description}
+            </div>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 7 }}>
+              {lang === "zh" ? row.zhInterpretation : row.interpretation}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function WeightDiagnostics({ model, lang, t, isMobile }) {
+  return (
+    <div style={{ display: "grid", gap: 12 }}>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) minmax(300px, 0.8fr)", gap: 12 }}>
+        <Card t={t}>
+          <PanelTitle
+            t={t}
+            title={lang === "zh" ? "CRITIC 权重柱状图" : "CRITIC Weight Overview"}
+            subtitle={lang === "zh" ? "蓝色为 CRITIC 客观权重；灰色为当前评分模式权重，用于判断 active ranking 是否偏离 CRITIC。" : "Blue shows objective CRITIC weights; gray shows the active scoring-mode weights."}
+          />
+          <WeightBarChart model={model} t={t} isMobile={isMobile} />
+        </Card>
+        <Card t={t}>
+          <PanelTitle
+            t={t}
+            title={lang === "zh" ? "指标冲突热图" : "Indicator Conflict Heatmap"}
+            subtitle={lang === "zh" ? "基于 correlation 与 1-r_jk 展示指标间的信息重复和冲突。" : "Uses correlation and 1-r_jk to show redundancy and conflict between indicators."}
+          />
+          <div style={{ marginTop: 12 }}>
+            <ConflictHeatmap model={model} lang={lang} t={t} />
+          </div>
+        </Card>
+      </div>
+      <Card t={t}>
+        <PanelTitle
+          t={t}
+          title={lang === "zh" ? "Weight Diagnostics / 权重诊断" : "Weight Diagnostics"}
+          subtitle={lang === "zh" ? "standard deviation 表示差异度，contrast intensity 在当前实现中等同于标准差项；conflict intensity 来自 1-r_jk 的累积。" : "Standard deviation represents contrast intensity; conflict intensity accumulates 1-r_jk."}
+        />
+        <div style={{ marginTop: 12 }}>
+          <IndicatorDiagnostics model={model} lang={lang} t={t} isMobile={isMobile} />
+        </div>
+      </Card>
+    </div>
+  )
+}
+
+function CandidateRanking({ candidates, selectedId, onSelect, lang, t, isMobile }) {
   if (isMobile) {
     return (
       <div style={{ display: "grid", gap: 8 }}>
@@ -91,44 +334,32 @@ function RankingList({ candidates, selectedId, onSelect, lang, t, isMobile }) {
               style={{
                 all: "unset",
                 cursor: "pointer",
-                display: "grid",
-                gap: 9,
-                padding: 11,
-                background: active ? t.badgeInfoBg : t.surface,
+                background: active ? t.badgeInfoBg : t.panel,
                 border: `1px solid ${active ? t.accent : t.border}`,
                 borderRadius: 8,
-                boxShadow: active ? t.shadowSm : "none",
-                boxSizing: "border-box",
+                padding: 11,
+                display: "grid",
+                gap: 9,
               }}
             >
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10, flexWrap: "wrap" }}>
-                <div style={{ minWidth: 0 }}>
-                  <div style={{ color: active ? t.accentText : t.textStrong, fontSize: 12, fontWeight: 900, fontFamily: FONT_MONO }}>
-                    {candidate.rank ? `#${candidate.rank}` : "—"}
-                  </div>
-                  <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 900, lineHeight: 1.25, marginTop: 3, overflowWrap: "anywhere" }}>{candidate.name}</div>
-                  <div style={{ color: t.faint, fontSize: 10.5, marginTop: 3 }}>{candidate.metalCenter} · demo / illustrative</div>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start" }}>
+                <div>
+                  <div style={{ color: active ? t.accentText : t.textStrong, fontFamily: FONT_MONO, fontSize: 12, fontWeight: 900 }}>{candidate.rank ? `#${candidate.rank}` : "—"}</div>
+                  <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 900, lineHeight: 1.25, marginTop: 3 }}>{candidate.name}</div>
+                  <div style={{ color: t.faint, fontSize: 10.5, marginTop: 2 }}>{candidate.metalCenter} · {lang === "zh" ? candidate.evidenceSource.zh : candidate.evidenceSource.label}</div>
                 </div>
-                <span style={{ color: candidate.status.tone === "warn" ? t.warn : t.accentText, fontSize: 11, fontWeight: 850, lineHeight: 1.25, textAlign: "right", maxWidth: 150 }}>
-                  {labelStatus(candidate.status, lang)}
-                </span>
+                <span style={{ color: candidate.status.tone === "warn" ? t.warn : t.accentText, fontSize: 11, fontWeight: 850, textAlign: "right" }}>{labelStatus(candidate.status, lang)}</span>
               </div>
-              <div style={{ display: "grid", gap: 5 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", gap: 10, color: t.faint, fontSize: 10.5, fontWeight: 850 }}>
-                  <span>D_expected</span>
-                  <span style={{ color: t.textStrong, fontFamily: FONT_MONO }}>{fmt(candidate.D_expected)}</span>
-                </div>
-                <ScoreBar value={candidate.D_expected} t={t} color={candidate.status.tone === "warn" ? t.warn : t.accentText} />
-              </div>
+              <ScoreBar value={candidate.overallScore} t={t} color={candidate.status.tone === "warn" ? t.warn : t.accentText} />
               <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 7 }}>
                 {[
-                  ["D_raw", fmt(candidate.D_raw)],
-                  ["Q / confidence_Q", fmt(candidate.confidence_Q_clipped)],
-                  ["Evidence", candidate.evidenceLevel],
+                  [lang === "zh" ? "Performance" : "Performance", candidate.performanceScore],
+                  [lang === "zh" ? "Sustainability" : "Sustainability", candidate.sustainabilityScore],
+                  [lang === "zh" ? "Evidence" : "Evidence", candidate.evidenceScore],
                 ].map(([label, value]) => (
-                  <div key={label} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, padding: "7px 8px", minWidth: 0 }}>
-                    <div style={{ color: t.faint, fontSize: 9.5, fontWeight: 850, textTransform: "uppercase", overflowWrap: "anywhere" }}>{label}</div>
-                    <div style={{ color: t.textStrong, fontSize: 11, fontWeight: 850, fontFamily: label === "Evidence" ? undefined : FONT_MONO, marginTop: 4, overflowWrap: "anywhere" }}>{value}</div>
+                  <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: "7px 8px" }}>
+                    <div style={{ color: t.faint, fontSize: 9.5, fontWeight: 850, textTransform: "uppercase" }}>{label}</div>
+                    <div style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 11, fontWeight: 850, marginTop: 4 }}>{fmt(value, 2)}</div>
                   </div>
                 ))}
               </div>
@@ -140,94 +371,91 @@ function RankingList({ candidates, selectedId, onSelect, lang, t, isMobile }) {
   }
 
   return (
-    <div style={{ display: "grid", gap: 8 }}>
-      <div style={{ overflowX: "auto" }}>
-        <div style={{ minWidth: isMobile ? 720 : 0, display: "grid", gap: 7 }}>
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "48px minmax(140px, 1.25fr) minmax(140px, 1.35fr) 82px 82px 90px minmax(135px, 0.9fr)",
-            gap: 10,
-            color: t.faint,
-            fontSize: 10,
-            fontWeight: 850,
-            textTransform: "uppercase",
-            padding: "0 10px",
-          }}>
-            <span>Rank</span><span>MOF name</span><span>D_expected</span><span>D_raw</span><span>Q / confidence_Q</span><span>Evidence level</span><span>Status</span>
-          </div>
-          {candidates.map(candidate => {
-            const active = candidate.id === selectedId
-            return (
-              <button
-                key={candidate.id}
-                type="button"
-                onClick={() => onSelect(candidate.id)}
-                style={{
-                  all: "unset",
-                  cursor: "pointer",
-                  display: "grid",
-                  gridTemplateColumns: "48px minmax(140px, 1.25fr) minmax(140px, 1.35fr) 82px 82px 90px minmax(135px, 0.9fr)",
-                  gap: 10,
-                  alignItems: "center",
-                  padding: "10px",
-                  background: active ? t.badgeInfoBg : t.surface,
-                  border: `1px solid ${active ? t.accent : t.border}`,
-                  borderRadius: 8,
-                  boxShadow: active ? t.shadowSm : "none",
-                }}
-              >
-                <span style={{ color: active ? t.accentText : t.textStrong, fontSize: 12, fontWeight: 900, fontFamily: FONT_MONO }}>
-                  {candidate.rank ? `#${candidate.rank}` : "—"}
-                </span>
-                <span style={{ minWidth: 0 }}>
-                  <span style={{ color: t.textStrong, fontSize: 13, fontWeight: 900, overflowWrap: "anywhere" }}>{candidate.name}</span>
-                  <span style={{ display: "block", color: t.faint, fontSize: 10.5, marginTop: 3 }}>{candidate.metalCenter} · demo / illustrative</span>
-                </span>
-                <span style={{ display: "grid", gap: 5 }}>
-                  <span style={{ color: t.textStrong, fontSize: 13, fontWeight: 900, fontFamily: FONT_MONO }}>{fmt(candidate.D_expected)}</span>
-                  <ScoreBar value={candidate.D_expected} t={t} color={candidate.status.tone === "warn" ? t.warn : t.accentText} />
-                </span>
-                <span style={{ color: t.textStrong, fontSize: 12, fontFamily: FONT_MONO }}>{fmt(candidate.D_raw)}</span>
-                <span style={{ color: t.textStrong, fontSize: 12, fontFamily: FONT_MONO }}>{fmt(candidate.confidence_Q_clipped)}</span>
-                <span style={{ color: t.muted, fontSize: 12, fontWeight: 800 }}>{candidate.evidenceLevel}</span>
-                <span style={{ color: candidate.status.tone === "warn" ? t.warn : t.accentText, fontSize: 11, fontWeight: 850, lineHeight: 1.25 }}>
-                  {labelStatus(candidate.status, lang)}
-                </span>
-              </button>
-            )
-          })}
+    <div style={{ overflowX: "auto" }}>
+      <div style={{ minWidth: 940, display: "grid", gap: 7 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "46px minmax(150px,1.2fr) 92px 92px 104px 86px 130px 110px 120px", gap: 10, color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", padding: "0 10px" }}>
+          <span>Rank</span><span>Candidate</span><span>Overall</span><span>Performance</span><span>Sustainability</span><span>Evidence</span><span>Completeness</span><span>Confidence</span><span>Status</span>
         </div>
+        {candidates.map(candidate => {
+          const active = candidate.id === selectedId
+          return (
+            <button
+              key={candidate.id}
+              type="button"
+              onClick={() => onSelect(candidate.id)}
+              style={{
+                all: "unset",
+                cursor: "pointer",
+                display: "grid",
+                gridTemplateColumns: "46px minmax(150px,1.2fr) 92px 92px 104px 86px 130px 110px 120px",
+                gap: 10,
+                alignItems: "center",
+                background: active ? t.badgeInfoBg : t.panel,
+                border: `1px solid ${active ? t.accent : t.border}`,
+                borderRadius: 8,
+                padding: "10px",
+              }}
+            >
+              <span style={{ color: active ? t.accentText : t.textStrong, fontFamily: FONT_MONO, fontSize: 12, fontWeight: 900 }}>{candidate.rank ? `#${candidate.rank}` : "—"}</span>
+              <span style={{ minWidth: 0 }}>
+                <span style={{ display: "block", color: t.textStrong, fontSize: 13, fontWeight: 900, overflowWrap: "anywhere" }}>{candidate.name}</span>
+                <span style={{ display: "block", color: t.faint, fontSize: 10.5, marginTop: 2 }}>{candidate.metalCenter} · {lang === "zh" ? candidate.evidenceSource.zh : candidate.evidenceSource.label}</span>
+              </span>
+              {[candidate.overallScore, candidate.performanceScore, candidate.sustainabilityScore, candidate.evidenceScore].map((value, index) => (
+                <span key={index} style={{ display: "grid", gap: 5 }}>
+                  <span style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 12, fontWeight: 850 }}>{fmt(value, 3)}</span>
+                  <ScoreBar value={value} t={t} color={index === 0 ? t.accentText : t.badgeCalcText} />
+                </span>
+              ))}
+              <span style={{ color: t.muted, fontSize: 11, fontWeight: 800 }}>{lang === "zh" ? candidate.descriptorCompleteness.zhLabel : candidate.descriptorCompleteness.label}</span>
+              <span style={{ color: candidate.rankingConfidence.tone === "warn" ? t.warn : candidate.rankingConfidence.tone === "proxy" ? t.amber : t.accentText, fontSize: 11, fontWeight: 850 }}>
+                {lang === "zh" ? candidate.rankingConfidence.zh : candidate.rankingConfidence.label}
+              </span>
+              <span style={{ color: candidate.status.tone === "warn" ? t.warn : t.accentText, fontSize: 11, fontWeight: 850 }}>{labelStatus(candidate.status, lang)}</span>
+            </button>
+          )
+        })}
       </div>
     </div>
   )
 }
 
-function SelectedCandidateExplanation({ candidate, lang, t, isMobile }) {
+function CandidateDetail({ candidate, lang, t, isMobile }) {
   if (!candidate) return null
-  const nextGaps = getDataGapRecommendations(candidate)
+  const gaps = getDataGapRecommendations(candidate)
+  const scoreRows = [
+    ["Overall Score", "综合分", candidate.overallScore],
+    ["Performance Score", "性能分", candidate.performanceScore],
+    ["Sustainability Score", "可持续性分", candidate.sustainabilityScore],
+    ["Evidence Score", "证据分", candidate.evidenceScore],
+  ]
   return (
     <Card t={t} style={{ display: "grid", gap: 13, height: "100%" }}>
       <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start", flexWrap: "wrap" }}>
         <div>
           <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase" }}>
-            {lang === "zh" ? "选中候选解释" : "Selected Candidate Explanation"}
+            {lang === "zh" ? "联动候选详情" : "Linked candidate detail"}
           </div>
           <h3 style={{ margin: "5px 0 0", color: t.textStrong, fontSize: 18, lineHeight: 1.15 }}>{candidate.name}</h3>
+          <div style={{ color: t.faint, fontSize: 11.5, marginTop: 5 }}>{candidate.metalCenter} · {candidate.frameworkType} · {lang === "zh" ? candidate.evidenceSource.zh : candidate.evidenceSource.label}</div>
         </div>
-        <BasisBadge tone={candidate.status.tone}>{labelStatus(candidate.status, lang)}</BasisBadge>
+        <BasisBadge tone={candidate.rankingConfidence.tone}>{lang === "zh" ? candidate.rankingConfidence.zh : candidate.rankingConfidence.label}</BasisBadge>
       </div>
 
-      <div style={{ display: "grid", gap: 9 }}>
-        <IndicatorRow label="Stability / d_stab" value={candidate.d_stab_clipped} t={t} isMobile={isMobile} />
-        <IndicatorRow label="Barrier / d_barrier" value={candidate.d_barrier_clipped} t={t} isMobile={isMobile} />
-        <IndicatorRow label="Byproduct-risk / d_select" value={candidate.d_select_clipped} t={t} isMobile={isMobile} />
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
+        {scoreRows.map(([en, zh, value]) => (
+          <div key={en} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 10, display: "grid", gap: 6 }}>
+            <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", fontWeight: 850 }}>{lang === "zh" ? zh : en}</div>
+            <div style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 14, fontWeight: 900 }}>{fmt(value)}</div>
+            <ScoreBar value={value} t={t} />
+          </div>
+        ))}
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 8 }}>
         {[
-          [lang === "zh" ? "证据等级" : "Evidence level", candidate.evidenceLevel],
-          [lang === "zh" ? "证据置信度 / Q" : "Evidence confidence / Q", fmt(candidate.confidence_Q_clipped)],
-          [lang === "zh" ? "硬筛结果" : "Hard screen", Number(candidate.G) === 0 ? (lang === "zh" ? "未通过" : "Failed") : (lang === "zh" ? "通过" : "Passed")],
+          [lang === "zh" ? "Descriptor completeness" : "Descriptor completeness", lang === "zh" ? candidate.descriptorCompleteness.zhLabel : candidate.descriptorCompleteness.label],
+          [lang === "zh" ? "Evidence level" : "Evidence level", candidate.evidenceLevel],
           ["D_raw", fmt(candidate.D_raw)],
           ["D_expected", fmt(candidate.D_expected)],
         ].map(([label, value]) => (
@@ -238,27 +466,23 @@ function SelectedCandidateExplanation({ candidate, lang, t, isMobile }) {
         ))}
       </div>
 
-      <div style={{ display: "grid", gap: 6 }}>
-        <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 880 }}>{lang === "zh" ? "指标数据状态" : "Indicator data state"}</div>
-        {CRITIC_INDICATORS.map(indicator => {
-          const input = candidate.scoreInputs?.[indicator.key]
-          return (
-            <div key={indicator.key} style={{ display: "flex", justifyContent: "space-between", gap: 8, color: t.muted, fontSize: 11.5, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: "7px 9px", flexWrap: "wrap" }}>
-              <span style={{ fontWeight: 850 }}>{indicator.label}</span>
-              <span style={{ color: input?.missing || input?.trueZero ? t.warn : t.faint }}>{input?.inputState || "reported"}</span>
-            </div>
-          )
-        })}
-      </div>
-
-      <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
-        <strong style={{ color: t.textStrong }}>{lang === "zh" ? "主要限制：" : "Main limitation: "}</strong>
-        {findMainWeakness(candidate, lang)}
-      </div>
+      <details open style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+        <summary style={{ color: t.textStrong, cursor: "pointer", fontSize: 12, fontWeight: 900 }}>
+          {lang === "zh" ? "Why this candidate ranks high? / 排序解释" : "Why this candidate ranks high?"}
+        </summary>
+        <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, marginTop: 9 }}>
+          {lang === "zh" ? candidate.whyHigh.zh : candidate.whyHigh.en}
+        </div>
+        <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 8 }}>
+          {lang === "zh"
+            ? "解释对象是 ranking influence，不是化学因果机制；真实结论仍需实验、DFT 或文献证据闭环。"
+            : "This explains ranking influence, not chemical causality; real conclusions still require experimental, DFT, or literature evidence closure."}
+        </div>
+      </details>
 
       <div style={{ display: "grid", gap: 7 }}>
-        <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 880 }}>{lang === "zh" ? "下一步证据" : "Next data needed"}</div>
-        {nextGaps.slice(0, 2).map(gap => (
+        <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 880 }}>{lang === "zh" ? "下一步证据" : "Next evidence"}</div>
+        {gaps.slice(0, 3).map(gap => (
           <div key={`${gap.limitation}-${gap.nextEvidence}`} style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55, borderLeft: `3px solid ${gap.priority === "High" ? t.warn : t.accentText}`, paddingLeft: 9 }}>
             {gap.nextEvidence}
           </div>
@@ -268,152 +492,254 @@ function SelectedCandidateExplanation({ candidate, lang, t, isMobile }) {
   )
 }
 
-function WeightsPanel({ model, lang, t, isMobile }) {
-  const rows = model.decomposition
-  const matrixCells = [
-    <span key="matrix-corner" />,
-    ...CRITIC_INDICATORS.map(item => (
-      <span key={`matrix-head-${item.key}`} style={{ color: t.faint, fontSize: 10, fontWeight: 850, textAlign: "center" }}>{item.shortLabel}</span>
-    )),
-    ...CRITIC_INDICATORS.flatMap(row => [
-      <span key={`matrix-row-${row.key}`} style={{ color: t.faint, fontSize: 10, fontWeight: 850, alignSelf: "center" }}>{row.shortLabel}</span>,
-      ...CRITIC_INDICATORS.map(col => {
-        const value = model.correlationMatrix[row.key]?.[col.key] ?? 0
-        return (
-          <span key={`matrix-${row.key}-${col.key}`} style={{
-            color: t.textStrong,
-            background: row.key === col.key ? t.badgeInfoBg : t.surface,
-            border: `1px solid ${t.border}`,
-            borderRadius: 6,
-            padding: "8px 4px",
-            textAlign: "center",
-            fontSize: 10.5,
-            fontFamily: FONT_MONO,
-          }}>
-            {fmt(value, 2)}
-          </span>
-        )
-      }),
-    ]),
-  ]
+function sourceColor(source, t) {
+  if (source?.label === "Experimental") return t.success
+  if (source?.label === "Literature") return t.accentText
+  if (source?.label === "Simulated") return t.amber
+  return t.veryFaint
+}
+
+function QuadrantPoint(props) {
+  const { cx, cy, payload, selectedId, onSelect, t } = props
+  const active = payload.id === selectedId
+  const radius = 5 + clamp01(payload.evidenceScore) * 7
+  const fill = active ? t.accentText : sourceColor(payload.evidenceSource, t)
+  const stroke = active ? t.textStrong : t.panel
+  const common = { fill, stroke, strokeWidth: active ? 2.2 : 1.2, cursor: "pointer", onClick: () => onSelect(payload.id) }
+  if (payload.evidenceSource?.label === "Literature") {
+    return <rect x={cx - radius * 0.75} y={cy - radius * 0.75} width={radius * 1.5} height={radius * 1.5} transform={`rotate(45 ${cx} ${cy})`} rx={2} {...common} />
+  }
+  if (payload.evidenceSource?.label === "Simulated") {
+    return <rect x={cx - radius} y={cy - radius} width={radius * 2} height={radius * 2} rx={3} {...common} />
+  }
+  if (payload.evidenceSource?.label === "Demo") {
+    const points = `${cx},${cy - radius} ${cx + radius},${cy + radius} ${cx - radius},${cy + radius}`
+    return <polygon points={points} {...common} />
+  }
+  return <circle cx={cx} cy={cy} r={radius} {...common} />
+}
+
+function QuadrantTooltip({ active, payload, t, lang }) {
+  if (!active || !payload?.length) return null
+  const row = payload[0].payload
   return (
-    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 0.95fr) minmax(0, 0.9fr) minmax(0, 1.15fr)", gap: 12 }}>
-      <Card t={t}>
-        <h3 style={{ margin: 0, color: t.textStrong, fontSize: 13 }}>CRITIC weights</h3>
-        <div style={{ display: "grid", gap: 10, marginTop: 12 }}>
-          {CRITIC_INDICATORS.map(item => (
-            <div key={item.key} style={{ display: "grid", gap: 5 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", gap: 10, color: t.muted, fontSize: 11, fontWeight: 850 }}>
-                <span>{item.key.replace("d_", "w_")}</span>
-                <span style={{ color: t.textStrong, fontFamily: FONT_MONO }}>{fmt(model.weights[item.key])}</span>
-              </div>
-              <ScoreBar value={model.weights[item.key]} t={t} />
-            </div>
-          ))}
-        </div>
-      </Card>
-
-      <Card t={t}>
-        <h3 style={{ margin: 0, color: t.textStrong, fontSize: 13 }}>{lang === "zh" ? "Indicator correlation matrix" : "Indicator correlation matrix"}</h3>
-        <div style={{ display: "grid", gridTemplateColumns: "72px repeat(3, minmax(0, 1fr))", gap: 5, marginTop: 12 }}>
-          {matrixCells}
-        </div>
-      </Card>
-
-      <Card t={t}>
-        <h3 style={{ margin: 0, color: t.textStrong, fontSize: 13 }}>{lang === "zh" ? "Information decomposition" : "Information decomposition"}</h3>
-        <div style={{ overflowX: "auto", marginTop: 10 }}>
-          <table style={{ width: "100%", borderCollapse: "separate", borderSpacing: "0 6px", minWidth: 320 }}>
-            <thead>
-              <tr style={{ color: t.faint, fontSize: 10, textAlign: "left" }}>
-                <th>Metric</th><th>sigma</th><th>conflict</th><th>C_j</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map(row => (
-                <tr key={row.key} style={{ color: t.textStrong, fontSize: 11 }}>
-                  <td style={{ padding: "7px 8px", background: t.surface, borderRadius: "6px 0 0 6px", fontWeight: 850 }}>{row.shortLabel}</td>
-                  <td style={{ padding: "7px 8px", background: t.surface, fontFamily: FONT_MONO }}>{fmt(row.sigma)}</td>
-                  <td style={{ padding: "7px 8px", background: t.surface, fontFamily: FONT_MONO }}>{fmt(row.conflict)}</td>
-                  <td style={{ padding: "7px 8px", background: t.surface, borderRadius: "0 6px 6px 0", fontFamily: FONT_MONO }}>{fmt(row.information)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </Card>
+    <div style={{ background: t.tooltipBg, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10, boxShadow: t.shadowSm, color: t.textStrong, fontSize: 11, lineHeight: 1.55 }}>
+      <div style={{ fontWeight: 900, marginBottom: 4 }}>{row.name}</div>
+      <div>Performance: {fmt(row.performanceScore)}</div>
+      <div>Sustainability: {fmt(row.sustainabilityScore)}</div>
+      <div>Evidence: {fmt(row.evidenceScore)}</div>
+      <div>{lang === "zh" ? row.evidenceSource.zh : row.evidenceSource.label}</div>
     </div>
   )
 }
 
-function EvidenceGapsTable({ candidates, lang, t }) {
-  const rows = candidates.flatMap(candidate => getDataGapRecommendations(candidate).map(gap => ({ candidate, ...gap })))
-  return (
-    <div style={{ overflowX: "auto" }}>
-      <table style={{ width: "100%", borderCollapse: "separate", borderSpacing: "0 7px", minWidth: 760 }}>
-        <thead>
-          <tr style={{ color: t.faint, fontSize: 10, textAlign: "left", textTransform: "uppercase" }}>
-            <th style={{ padding: "0 10px" }}>MOF</th>
-            <th style={{ padding: "0 10px" }}>{lang === "zh" ? "当前限制" : "Current limitation"}</th>
-            <th style={{ padding: "0 10px" }}>{lang === "zh" ? "Recommended next evidence" : "Recommended next evidence"}</th>
-            <th style={{ padding: "0 10px" }}>Priority</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map(row => (
-            <tr key={`${row.candidate.id}-${row.limitation}-${row.nextEvidence}`} style={{ color: t.muted, fontSize: 12 }}>
-              <td style={{ padding: "10px", background: t.surface, borderRadius: "7px 0 0 7px", color: t.textStrong, fontWeight: 850 }}>{row.candidate.name}</td>
-              <td style={{ padding: "10px", background: t.surface }}>{row.limitation}</td>
-              <td style={{ padding: "10px", background: t.surface }}>{row.nextEvidence}</td>
-              <td style={{ padding: "10px", background: t.surface, borderRadius: "0 7px 7px 0", color: row.priority === "High" ? t.warn : t.accentText, fontWeight: 850 }}>{row.priority}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  )
-}
-
-function SensitivityTable({ sensitivity, lang, t }) {
+function PerformanceSustainabilityQuadrant({ candidates, selectedId, onSelect, lang, t, isMobile }) {
+  const data = candidates.map(candidate => ({
+    ...candidate,
+    x: Number(candidate.sustainabilityScore.toFixed(3)),
+    y: Number(candidate.performanceScore.toFixed(3)),
+    z: Math.max(60, 320 * clamp01(candidate.evidenceScore)),
+  }))
   return (
     <div style={{ display: "grid", gap: 12 }}>
-      {(sensitivity.modes || [{ id: "expected", label: "Confidence-adjusted sensitivity based on D_expected", rows: sensitivity.rows }]).map(mode => (
-        <div key={mode.id} style={{ display: "grid", gap: 8 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "baseline", flexWrap: "wrap" }}>
-            <h3 style={{ margin: 0, color: t.textStrong, fontSize: 13 }}>{lang === "zh" ? mode.zh || mode.label : mode.label}</h3>
-            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{mode.id === "raw" ? "ranked by D_raw" : "ranked by D_expected"}</span>
+      <ResponsiveContainer width="100%" height={isMobile ? 310 : 380}>
+        <ScatterChart margin={{ top: 18, right: 22, bottom: 28, left: 8 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
+          <XAxis type="number" dataKey="x" name="Sustainability Score" domain={[0, 1]} tick={{ fill: t.subtle, fontSize: 10 }} label={{ value: "Sustainability Score", position: "insideBottom", offset: -16, fill: t.subtle, fontSize: 11 }} />
+          <YAxis type="number" dataKey="y" name="Performance Score" domain={[0, 1]} tick={{ fill: t.subtle, fontSize: 10 }} width={42} label={{ value: "Performance Score", angle: -90, position: "insideLeft", fill: t.subtle, fontSize: 11 }} />
+          <ZAxis type="number" dataKey="z" range={[70, 520]} />
+          <ReferenceLine x={0.65} stroke={t.borderStrong} strokeDasharray="4 4" />
+          <ReferenceLine y={0.65} stroke={t.borderStrong} strokeDasharray="4 4" />
+          <Tooltip content={<QuadrantTooltip t={t} lang={lang} />} />
+          <Scatter data={data} shape={props => <QuadrantPoint {...props} selectedId={selectedId} onSelect={onSelect} t={t} />}>
+            {data.map(candidate => <Cell key={candidate.id} fill={sourceColor(candidate.evidenceSource, t)} />)}
+          </Scatter>
+        </ScatterChart>
+      </ResponsiveContainer>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
+        {[
+          [lang === "zh" ? "High performance / high sustainability" : "High performance / high sustainability", lang === "zh" ? "优先复核证据闭环" : "priority for evidence closure"],
+          [lang === "zh" ? "High performance / low sustainability" : "High performance / low sustainability", lang === "zh" ? "需审查稳定性或风险代价" : "review stability or risk burden"],
+          [lang === "zh" ? "Low performance / high sustainability" : "Low performance / high sustainability", lang === "zh" ? "可能适合低风险探索" : "possible low-risk exploration"],
+          [lang === "zh" ? "Low performance / low sustainability" : "Low performance / low sustainability", lang === "zh" ? "暂不优先" : "lower priority"],
+        ].map(([title, body]) => (
+          <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 10 }}>
+            <div style={{ color: t.textStrong, fontSize: 11.5, fontWeight: 900 }}>{title}</div>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.45, marginTop: 4 }}>{body}</div>
           </div>
-          <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55 }}>
-            {mode.id === "raw"
-              ? (lang === "zh" ? "Raw-score sensitivity based on D_raw：仅观察权重变化对三维指标综合评分的影响。" : "Raw-score sensitivity based on D_raw: isolates the effect of weight changes on the three-indicator composite score.")
-              : (lang === "zh" ? "Confidence-adjusted sensitivity based on D_expected：同时考虑权重变化和证据置信度影响。" : "Confidence-adjusted sensitivity based on D_expected: includes both weight changes and evidence-confidence effects.")}
-          </div>
-          <div style={{ overflowX: "auto" }}>
-            <table style={{ width: "100%", borderCollapse: "separate", borderSpacing: "0 7px", minWidth: 780 }}>
-              <thead>
-                <tr style={{ color: t.faint, fontSize: 10, textAlign: "left", textTransform: "uppercase" }}>
-                  <th style={{ padding: "0 10px" }}>MOF</th>
-                  {sensitivity.schemes.map(scheme => <th key={scheme.id} style={{ padding: "0 10px" }}>{scheme.label}</th>)}
-                  <th style={{ padding: "0 10px" }}>{lang === "zh" ? "稳健性" : "Robustness"}</th>
+        ))}
+      </div>
+      <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55 }}>
+        {lang === "zh"
+          ? "点大小表示 Evidence Score；点形状/颜色表示 Experimental / Literature / Simulated / Demo 来源状态。点击候选点会联动右侧候选详情。"
+          : "Point size reflects Evidence Score; marker shape/color marks Experimental / Literature / Simulated / Demo source state. Click a point to update the candidate detail."}
+      </div>
+    </div>
+  )
+}
+
+function RankComparisonChart({ model, selectedId, onSelect, lang, t, isMobile }) {
+  const schemes = model.robustness.schemeRanks
+  const visibleCandidates = model.candidates.filter(candidate => Number(candidate.G) !== 0).slice(0, 5)
+  const lineData = schemes.map(scheme => {
+    const point = { scheme: lang === "zh" ? scheme.zhLabel : scheme.label }
+    visibleCandidates.forEach(candidate => {
+      point[candidate.name] = Number.isFinite(scheme.ranks[candidate.id]) ? scheme.ranks[candidate.id] : null
+    })
+    return point
+  })
+  const maxRank = Math.max(3, model.candidates.filter(candidate => Number(candidate.G) !== 0).length)
+  return (
+    <ResponsiveContainer width="100%" height={isMobile ? 250 : 285}>
+      <LineChart data={lineData} margin={{ top: 10, right: 14, left: 0, bottom: isMobile ? 36 : 42 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
+        <XAxis dataKey="scheme" tick={{ fill: t.subtle, fontSize: isMobile ? 9 : 10 }} interval={0} angle={isMobile ? -28 : -18} textAnchor="end" height={isMobile ? 54 : 58} />
+        <YAxis reversed domain={[1, maxRank]} tick={{ fill: t.subtle, fontSize: 10 }} width={42} />
+        <Tooltip content={<ChartTooltip t={t} />} />
+        {visibleCandidates.map((candidate, index) => (
+          <Line
+            key={candidate.id}
+            type="monotone"
+            dataKey={candidate.name}
+            stroke={candidate.id === selectedId ? t.accentText : index % 2 ? t.badgeCalcText : t.subtle}
+            strokeWidth={candidate.id === selectedId ? 3 : 1.7}
+            dot={{ r: candidate.id === selectedId ? 4 : 3, cursor: "pointer" }}
+            connectNulls
+            onClick={() => onSelect(candidate.id)}
+          />
+        ))}
+      </LineChart>
+    </ResponsiveContainer>
+  )
+}
+
+function RemoveOneSensitivity({ model, selectedRemovalId, onSelectRemoval, lang, t, isMobile }) {
+  const rows = model.robustness.removeOneRows
+  const active = rows.find(row => row.removedId === selectedRemovalId) || rows[0]
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1.15fr) minmax(260px, 0.85fr)", gap: 12 }}>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", minWidth: 620, borderCollapse: "separate", borderSpacing: "0 7px" }}>
+          <thead>
+            <tr style={{ color: t.faint, fontSize: 10, textAlign: "left", textTransform: "uppercase" }}>
+              <th style={{ padding: "0 10px" }}>Removed candidate</th>
+              <th style={{ padding: "0 10px" }}>Top-3 retained</th>
+              <th style={{ padding: "0 10px" }}>Max shift</th>
+              <th style={{ padding: "0 10px" }}>Mean shift</th>
+              <th style={{ padding: "0 10px" }}>Stability</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map(row => {
+              const activeRow = row.removedId === active.removedId
+              return (
+                <tr key={row.removedId} onClick={() => onSelectRemoval(row.removedId)} style={{ cursor: "pointer", color: t.muted, fontSize: 12 }}>
+                  <td style={{ padding: "10px", background: activeRow ? t.badgeInfoBg : t.surface, borderRadius: "7px 0 0 7px", color: t.textStrong, fontWeight: 850 }}>{row.removedName}</td>
+                  <td style={{ padding: "10px", background: activeRow ? t.badgeInfoBg : t.surface, fontFamily: FONT_MONO }}>{fmtPct(row.retainedTop3)}</td>
+                  <td style={{ padding: "10px", background: activeRow ? t.badgeInfoBg : t.surface, fontFamily: FONT_MONO }}>{fmt(row.maxShift, 0)}</td>
+                  <td style={{ padding: "10px", background: activeRow ? t.badgeInfoBg : t.surface, fontFamily: FONT_MONO }}>{fmt(row.meanShift, 2)}</td>
+                  <td style={{ padding: "10px", background: activeRow ? t.badgeInfoBg : t.surface, borderRadius: "0 7px 7px 0", color: row.stability === "Sensitive" ? t.warn : row.stability === "Moderate" ? t.amber : t.accentText, fontWeight: 850 }}>
+                    {lang === "zh" ? row.zhStability : row.stability}
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {mode.rows.map(row => (
-                  <tr key={`${mode.id}-${row.id}`} style={{ color: t.muted, fontSize: 12 }}>
-                    <td style={{ padding: "10px", background: t.surface, borderRadius: "7px 0 0 7px", color: t.textStrong, fontWeight: 850 }}>{row.name}</td>
-                    {sensitivity.schemes.map(scheme => (
-                      <td key={scheme.id} style={{ padding: "10px", background: t.surface, fontFamily: FONT_MONO }}>
-                        {Number.isFinite(row.ranks[scheme.id]) ? `#${row.ranks[scheme.id]}` : row.ranks[scheme.id]}
-                      </td>
-                    ))}
-                    <td style={{ padding: "10px", background: t.surface, borderRadius: "0 7px 7px 0", color: row.robustness === "Evidence-limited" || row.robustness === "Weight-sensitive" ? t.warn : t.accentText, fontWeight: 850 }}>
-                      {row.robustness}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
+      <Card t={t} style={{ background: t.surface, display: "grid", gap: 9 }}>
+        <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase" }}>{lang === "zh" ? "移除情景" : "Remove-one scenario"}</div>
+        <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 920 }}>{active?.removedName}</div>
+        <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55 }}>
+          {lang === "zh" ? "重新计算 CRITIC 权重后，当前 Top-3：" : "After recalculating CRITIC weights, current Top-3:"}
+        </div>
+        <div style={{ display: "grid", gap: 6 }}>
+          {(active?.top3 || []).map((id, index) => {
+            const candidate = model.candidates.find(item => item.id === id)
+            return (
+              <div key={id} style={{ display: "flex", justifyContent: "space-between", gap: 8, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, padding: "7px 9px", color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
+                <span>#{index + 1}</span>
+                <span>{candidate?.name || id}</span>
+              </div>
+            )
+          })}
+        </div>
+      </Card>
+    </div>
+  )
+}
+
+function RankingRobustness({ model, selectedId, onSelect, lang, t, isMobile }) {
+  const [selectedRemovalId, setSelectedRemovalId] = useState(model.robustness.removeOneRows[0]?.removedId)
+  return (
+    <div style={{ display: "grid", gap: 12 }}>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
+        <MetricCard label={lang === "zh" ? "Top-3 consistency" : "Top-3 consistency"} value={fmtPct(model.robustness.top3Consistency)} note={lang === "zh" ? "CRITIC vs Equal vs Expert 的 Top-3 重合度" : "Top-3 overlap across CRITIC, Equal, and Expert"} t={t} tone={model.robustness.top3Consistency >= 0.84 ? "calc" : "proxy"} />
+        <MetricCard label={lang === "zh" ? "Remove-one max shift" : "Remove-one max shift"} value={fmt(model.robustness.maxRemoveOneShift, 0)} note={lang === "zh" ? "移除任一候选后最大名次变化" : "Largest rank shift after removing one candidate"} t={t} tone={model.robustness.maxRemoveOneShift >= 3 ? "warn" : "calc"} />
+        <MetricCard label={lang === "zh" ? "Stability badge" : "Stability badge"} value={lang === "zh" ? model.robustness.stability.zh : model.robustness.stability.label} note={lang === "zh" ? "Stable / Moderate / Sensitive" : "Stable / Moderate / Sensitive"} t={t} tone={model.robustness.stability.tone} />
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) minmax(300px, 0.72fr)", gap: 12 }}>
+        <Card t={t}>
+          <PanelTitle
+            t={t}
+            title={lang === "zh" ? "CRITIC vs Equal vs Expert 排名对比" : "CRITIC vs Equal vs Expert Ranking"}
+            subtitle={lang === "zh" ? "线越平，说明候选对权重模式越不敏感。" : "Flatter lines indicate lower sensitivity to weighting mode."}
+          />
+          <RankComparisonChart model={model} selectedId={selectedId} onSelect={onSelect} lang={lang} t={t} isMobile={isMobile} />
+        </Card>
+        <Card t={t}>
+          <PanelTitle t={t} title={lang === "zh" ? "Top-3 consistency" : "Top-3 consistency"} />
+          <div style={{ display: "grid", gap: 8, marginTop: 12 }}>
+            {model.robustness.top3Rows.map(row => (
+              <div key={row.id} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 9 }}>
+                <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900 }}>{lang === "zh" ? row.zhLabel : row.label}</div>
+                <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55, marginTop: 4 }}>
+                  {row.top3.map((id, index) => {
+                    const candidate = model.candidates.find(item => item.id === id)
+                    return `${index + 1}. ${candidate?.name || id}`
+                  }).join("  /  ")}
+                </div>
+              </div>
+            ))}
           </div>
+        </Card>
+      </div>
+      <Card t={t}>
+        <PanelTitle
+          t={t}
+          title={lang === "zh" ? "Remove-one-candidate sensitivity test" : "Remove-one-candidate sensitivity test"}
+          subtitle={lang === "zh" ? "逐个移除候选并重新计算 CRITIC 权重，观察排序是否由单个样本主导。" : "Remove each candidate, recompute CRITIC weights, and check whether rank order is dominated by one sample."}
+        />
+        <div style={{ marginTop: 12 }}>
+          <RemoveOneSensitivity model={model} selectedRemovalId={selectedRemovalId} onSelectRemoval={setSelectedRemovalId} lang={lang} t={t} isMobile={isMobile} />
+        </div>
+      </Card>
+    </div>
+  )
+}
+
+function EvidenceNotes({ lang, t, isMobile }) {
+  const notes = lang === "zh"
+    ? [
+      ["Evidence boundary", "本页 ranking 表示候选优先级，不代表真实催化性能结论。"],
+      ["Weight limitation", "CRITIC 权重来自当前候选集的差异度与冲突度，解释 ranking influence，不解释 causal mechanism。"],
+      ["Missing data", "缺失描述符以 UNKNOWN_SCORE = 0.50 作为不确定性占位；缺失不等于材料失败。"],
+      ["Small sample sensitivity", "候选数较少时，新增或删除样本可能改变标准差、相关性和客观权重。"],
+      ["Evidence heterogeneity", "文献、DFT、实验和 inferred evidence 的可比性不同，必须在后续验证中分层处理。"],
+    ]
+    : [
+      ["Evidence boundary", "Ranking means candidate priority, not validated catalytic performance."],
+      ["Weight limitation", "CRITIC weights come from contrast and conflict in this candidate set; they explain ranking influence, not causal mechanism."],
+      ["Missing data", "Missing descriptors use UNKNOWN_SCORE = 0.50 as an uncertainty placeholder; missing is not material failure."],
+      ["Small sample sensitivity", "With small samples, adding or removing candidates may change standard deviation, correlation, and objective weights."],
+      ["Evidence heterogeneity", "Literature, DFT, experiment, and inferred evidence are not equally comparable and need layered validation."],
+    ]
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(5, minmax(0, 1fr))", gap: 8 }}>
+      {notes.map(([title, body]) => (
+        <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+          <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900 }}>{title}</div>
+          <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55, marginTop: 6 }}>{body}</div>
         </div>
       ))}
     </div>
@@ -424,15 +750,9 @@ export function EcoScreenTab({ onNavigate }) {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
+  const [weightingMode, setWeightingMode] = useState("critic")
   const [selectedId, setSelectedId] = useState("MOF-B")
-  const model = useMemo(() => {
-    const baseModel = buildCriticScoringModel()
-    const sourceCandidates = baseModel.sourceCandidates || []
-    const critic = computeCriticWeights(sourceCandidates)
-    const candidates = computeCandidateScores(sourceCandidates, critic.weights)
-    const sensitivity = computeSensitivityRanks(sourceCandidates, critic.weights)
-    return { ...critic, sourceCandidates, candidates, sensitivity }
-  }, [])
+  const model = useMemo(() => buildCriticScoringModel(undefined, weightingMode), [weightingMode])
   const selectedCandidate = useMemo(() => (
     model.candidates.find(candidate => candidate.id === selectedId) || model.candidates[0]
   ), [model, selectedId])
@@ -444,7 +764,7 @@ export function EcoScreenTab({ onNavigate }) {
     if (onNavigate) onNavigate("methodology")
     if (typeof window !== "undefined") {
       window.setTimeout(() => {
-        document.getElementById("critic-mcda-methodology")?.scrollIntoView({ block: "start", behavior: "smooth" })
+        document.getElementById("critic-methodology-decision-support")?.scrollIntoView({ block: "start", behavior: "smooth" })
       }, 180)
     }
   }
@@ -454,11 +774,11 @@ export function EcoScreenTab({ onNavigate }) {
       <PageHeader
         title={lang === "zh" ? "EcoScreen / Candidate Scoring" : "EcoScreen / Candidate Scoring"}
         subtitle={lang === "zh"
-          ? "Candidate Scoring Lab 是 EcoScreen 的核心候选材料决策支持工作台。"
-          : "Candidate Scoring Lab is the core EcoScreen decision-support workspace for candidate materials."}
+          ? "CRITIC 权重分析升级为可解释多指标决策支持面板。"
+          : "CRITIC weighting analysis upgraded into an interpretable multi-indicator decision-support panel."}
         meta={lang === "zh"
-          ? "CRITIC weights · D_raw · confidence_Q · D_expected · status · rank · Evidence & Data Gaps · Sensitivity Analysis"
-          : "CRITIC weights · D_raw · confidence_Q · D_expected · status · rank · Evidence & Data Gaps · Sensitivity Analysis"}
+          ? "Multi-indicator decision support with CRITIC diagnostics, robustness analysis, and evidence boundaries"
+          : "Multi-indicator decision support with CRITIC diagnostics, robustness analysis, and evidence boundaries"}
         action={
           <>
             <BasisBadge tone="proxy">demo / illustrative</BasisBadge>
@@ -469,7 +789,7 @@ export function EcoScreenTab({ onNavigate }) {
 
       <Callout tone="info">
         {lang === "zh"
-            ? "This module supports early-stage candidate prioritization, not direct formate yield prediction. 本模块用于早期候选优先级判断，不用于直接预测甲酸产率。"
+          ? "This module supports early-stage candidate prioritization, not direct formate yield prediction. 本模块用于早期候选优先级判断，不用于直接预测甲酸产率。"
           : "This module supports early-stage candidate prioritization, not direct formate yield prediction. 本模块用于早期候选优先级判断，不用于直接预测甲酸产率。"}{" "}
         <DisclaimerLink />
       </Callout>
@@ -479,36 +799,49 @@ export function EcoScreenTab({ onNavigate }) {
           : "Illustrative demo records — not validated catalytic evidence. 演示记录，不代表已验证催化性能。"}
       </Callout>
 
-      <ResultLayer number="01" title={lang === "zh" ? "Overview Summary / 当前候选集概览" : "Overview Summary / 当前候选集概览"} subtitle="CRITIC weights · D_raw · confidence_Q · D_expected · status · rank">
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.25fr) minmax(360px, 0.75fr)", gap: 12, alignItems: "stretch", marginBottom: 12 }}>
-          <Card t={t} style={{ display: "grid", gap: 10 }}>
-            <div style={{ color: t.textStrong, fontSize: isMobile ? 20 : 24, lineHeight: 1.08, fontWeight: 940 }}>
-              Candidate Scoring Lab
-            </div>
-            <div style={{ color: t.textStrong, fontSize: isMobile ? 16 : 18, lineHeight: 1.2, fontWeight: 860 }}>
-              候选材料评分工作台
-            </div>
-            <div style={{ color: t.muted, fontSize: 13, lineHeight: 1.65, maxWidth: 780 }}>
-              Interpretable CRITIC-MCDA screening for hydrothermal formate-formation candidates.
-            </div>
-            <div style={{ color: t.muted, fontSize: 13, lineHeight: 1.65, maxWidth: 860 }}>
-              基于水热稳定性、产甲酸关键能垒与副产物路径风险，对 MOF 候选进行可解释优先级排序。
-            </div>
-          </Card>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 10 }}>
-            <MetricCard label={lang === "zh" ? "Total candidates / 候选总数" : "Total candidates"} value={model.candidates.length} note="demo set" t={t} />
-            <MetricCard label={lang === "zh" ? "Scored candidates / 已评分候选" : "Scored candidates"} value={scored.length} note="G = 1" t={t} />
-            <MetricCard label={lang === "zh" ? "Excluded / 已硬筛排除" : "Excluded"} value={excluded.length} note="G = 0" t={t} />
-            <MetricCard label={lang === "zh" ? "Top candidate / 当前最高优先级候选" : "Top candidate"} value={topCandidate?.name || "—"} note={topCandidate ? `D_expected ${fmt(topCandidate.D_expected)}` : ""} t={t} />
-            <MetricCard label={lang === "zh" ? "Weighting method / 权重方法" : "Weighting method"} value="CRITIC-MCDA" note="dataset-specific weights" t={t} />
-          </div>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.45fr) minmax(320px, 0.9fr)", gap: 12, alignItems: "stretch" }}>
-          <Card t={t}>
-            <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "baseline", marginBottom: 12 }}>
-              <h3 style={{ margin: 0, color: t.textStrong, fontSize: 14 }}>{lang === "zh" ? "MOF Candidate Usefulness Ranking" : "MOF Candidate Usefulness Ranking"}</h3>
-              <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>
+      <ResultLayer number="01" title={lang === "zh" ? "Weight Overview / Scoring Method Summary" : "Weight Overview / Scoring Method Summary"} subtitle={lang === "zh" ? "权重模式、归一化、方向调整、缺失比例和稳定性徽标。" : "Weighting mode, normalization, direction adjustment, missing-data ratio, and stability badge."}>
+        <div style={{ display: "grid", gap: 12 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.25fr) minmax(360px, 0.75fr)", gap: 12, alignItems: "stretch" }}>
+            <Card t={t} style={{ display: "grid", gap: 10 }}>
+              <div style={{ color: t.textStrong, fontSize: isMobile ? 20 : 24, lineHeight: 1.08, fontWeight: 940 }}>
+                Candidate Scoring Lab
+              </div>
+              <div style={{ color: t.textStrong, fontSize: isMobile ? 16 : 18, lineHeight: 1.2, fontWeight: 860 }}>
+                候选材料多指标决策支持面板
+              </div>
+              <div style={{ color: t.muted, fontSize: 13, lineHeight: 1.65, maxWidth: 860 }}>
+                {lang === "zh"
+                  ? "面板将 CRITIC 权重、指标诊断、候选排名、稳健性测试和证据限制放在同一解释链路中。"
+                  : "The panel connects CRITIC weights, indicator diagnostics, candidate ranking, robustness testing, and evidence limitations in one explanation chain."}
+              </div>
+              <div style={{ display: "flex", gap: 12, flexWrap: "wrap", color: t.faint, fontSize: 11 }}>
                 <InlineFormula math={"D_{expected}=D_{raw}\\times Q"} fallback="D_expected = D_raw x Q" />
+                <InlineFormula math={"C_j=\\sigma_j\\sum_k(1-r_{jk})"} fallback="C_j = sigma_j * sum_k(1-r_jk)" />
+                <InlineFormula math={"w_j=\\frac{C_j}{\\sum_j C_j}"} fallback="w_j = C_j / sum(C_j)" />
+              </div>
+            </Card>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 10 }}>
+              <MetricCard label={lang === "zh" ? "Total candidates / 候选总数" : "Total candidates"} value={model.candidates.length} note="demo set" t={t} />
+              <MetricCard label={lang === "zh" ? "Scored candidates / 已评分候选" : "Scored candidates"} value={scored.length} note="G = 1" t={t} />
+              <MetricCard label={lang === "zh" ? "Excluded / 已硬筛排除" : "Excluded"} value={excluded.length} note="G = 0" t={t} tone={excluded.length ? "warn" : "calc"} />
+              <MetricCard label={lang === "zh" ? "Top candidate / 当前最高优先级候选" : "Top candidate"} value={topCandidate?.name || "—"} note={topCandidate ? `D_expected ${fmt(topCandidate.D_expected)}` : ""} t={t} />
+            </div>
+          </div>
+          <ScoringMethodSummary model={model} weightingMode={weightingMode} onWeightingModeChange={setWeightingMode} lang={lang} t={t} isMobile={isMobile} />
+        </div>
+      </ResultLayer>
+
+      <ResultLayer number="02" title={lang === "zh" ? "Weight Diagnostics / 指标权重诊断" : "Weight Diagnostics / 指标权重诊断"} subtitle={lang === "zh" ? "CRITIC 权重、指标冲突热图、标准差 / contrast intensity 和每个指标的解释文本。" : "CRITIC weights, conflict heatmap, standard deviation / contrast intensity, and per-indicator interpretation."}>
+        <WeightDiagnostics model={model} lang={lang} t={t} isMobile={isMobile} />
+      </ResultLayer>
+
+      <ResultLayer number="03" title={lang === "zh" ? "Candidate Ranking / 候选排序" : "Candidate Ranking / 候选排序"} subtitle={lang === "zh" ? "候选卡片新增 Overall、Performance、Sustainability、Evidence、descriptor completeness、ranking confidence 和展开解释。" : "Candidate rows include Overall, Performance, Sustainability, Evidence, descriptor completeness, ranking confidence, and expandable rationale."}>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.38fr) minmax(340px, 0.82fr)", gap: 12, alignItems: "stretch" }}>
+          <Card t={t}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "baseline", marginBottom: 12, flexWrap: "wrap" }}>
+              <PanelTitle t={t} title={lang === "zh" ? "MOF Candidate Ranking" : "MOF Candidate Ranking"} subtitle={lang === "zh" ? "点击候选行会联动右侧详情和四象限图。" : "Click a row to update the detail panel and quadrant chart."} />
+              <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>
+                {lang === "zh" ? "active mode: " : "active mode: "}{lang === "zh" ? model.activeWeightingMode.zhLabel : model.activeWeightingMode.label}
               </span>
             </div>
             <div style={{ color: t.subtle, fontSize: 11.5, lineHeight: 1.55, marginBottom: 10 }}>
@@ -516,36 +849,34 @@ export function EcoScreenTab({ onNavigate }) {
                 ? "This score is an illustrative placeholder, not a validated statement about this MOF. 该分数为演示占位，不代表该 MOF 的真实性能判断。"
                 : "This score is an illustrative placeholder, not a validated statement about this MOF. 该分数为演示占位，不代表该 MOF 的真实性能判断。"}
             </div>
-            <RankingList candidates={model.candidates} selectedId={selectedCandidate?.id} onSelect={setSelectedId} lang={lang} t={t} isMobile={isMobile} />
+            <CandidateRanking candidates={model.candidates} selectedId={selectedCandidate?.id} onSelect={setSelectedId} lang={lang} t={t} isMobile={isMobile} />
           </Card>
-          <SelectedCandidateExplanation candidate={selectedCandidate} lang={lang} t={t} isMobile={isMobile} />
+          <CandidateDetail candidate={selectedCandidate} lang={lang} t={t} isMobile={isMobile} />
         </div>
       </ResultLayer>
 
-      <ResultLayer number="02" title={lang === "zh" ? "CRITIC 权重解释" : "CRITIC Weight Explanation"} subtitle={lang === "zh" ? "CRITIC 信息量与客观权重" : "CRITIC information and objective weights"}>
-        <div style={{ display: "flex", gap: 12, flexWrap: "wrap", color: t.faint, fontSize: 11, marginBottom: 10 }}>
-          <InlineFormula math={"C_j=\\sigma_j\\sum_k(1-r_{jk})"} fallback="C_j = sigma_j * sum_k(1 - r_jk)" />
-          <InlineFormula math={"w_j=\\frac{C_j}{\\sum_j C_j}"} fallback="w_j = C_j / sum(C_j)" />
-        </div>
-        <WeightsPanel model={model} lang={lang} t={t} isMobile={isMobile} />
+      <ResultLayer number="04" title={lang === "zh" ? "Performance vs Sustainability 四象限图" : "Performance vs Sustainability Quadrant"} subtitle={lang === "zh" ? "x-axis: Sustainability Score；y-axis: Performance Score；点大小: Evidence Score；点形状/颜色: source state。" : "x-axis: Sustainability Score; y-axis: Performance Score; point size: Evidence Score; marker: source state."}>
+        <Card t={t}>
+          <PerformanceSustainabilityQuadrant candidates={model.candidates} selectedId={selectedCandidate?.id} onSelect={setSelectedId} lang={lang} t={t} isMobile={isMobile} />
+        </Card>
       </ResultLayer>
 
-      <ResultLayer number="03" title={lang === "zh" ? "Evidence & Data Gaps / 证据与数据缺口" : "Evidence & Data Gaps / 证据与数据缺口"}>
-        <EvidenceGapsTable candidates={model.candidates} lang={lang} t={t} />
+      <ResultLayer number="05" title={lang === "zh" ? "Ranking Robustness / 排名稳健性" : "Ranking Robustness / 排名稳健性"} subtitle={lang === "zh" ? "CRITIC vs Equal Weight vs Expert Preset、Top-3 consistency、remove-one-candidate sensitivity test。" : "CRITIC vs Equal Weight vs Expert Preset, Top-3 consistency, and remove-one-candidate sensitivity."}>
+        <RankingRobustness model={model} selectedId={selectedCandidate?.id} onSelect={setSelectedId} lang={lang} t={t} isMobile={isMobile} />
       </ResultLayer>
 
-      <ResultLayer number="04" title={lang === "zh" ? "Sensitivity Analysis / 权重敏感性分析" : "Sensitivity Analysis / 权重敏感性分析"} subtitle={lang === "zh" ? "同时展示基于 D_raw 的原始评分敏感性，以及基于 D_expected 的置信度修正敏感性。" : "Shows both raw-score sensitivity based on D_raw and confidence-adjusted sensitivity based on D_expected."}>
-        <SensitivityTable sensitivity={model.sensitivity} lang={lang} t={t} />
+      <ResultLayer number="06" title={lang === "zh" ? "Evidence and Limitation Notes / 证据与限制" : "Evidence and Limitation Notes / 证据与限制"}>
+        <EvidenceNotes lang={lang} t={t} isMobile={isMobile} />
       </ResultLayer>
 
-      <ResultLayer number="05" title={lang === "zh" ? "方法论入口" : "Methodology Link"}>
+      <ResultLayer number="07" title={lang === "zh" ? "Methodology Link / 方法论入口" : "Methodology Link"}>
         <Card t={t} style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
           <div style={{ minWidth: 0 }}>
-            <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 900 }}>CRITIC-MCDA Candidate Scoring</div>
+            <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 900 }}>CRITIC-MCDA Decision Support Methodology</div>
             <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55, marginTop: 5 }}>
               {lang === "zh"
-                ? "查看公式、边界、小样本限制，以及为什么当前阶段不直接使用 RSM 跨 MOF 拟合产率。"
-                : "Open formulas, boundaries, small-sample limits, and why RSM is not used for cross-MOF yield fitting at this stage."}
+                ? "查看 CRITIC 公式、contrast intensity、conflict intensity、objective weight、因果边界和 limitations。"
+                : "Open CRITIC formulas, contrast intensity, conflict intensity, objective weight, causal boundary, and limitations."}
             </div>
           </div>
           <button type="button" onClick={openMethodology} style={{ ...toolbarBtn(t), color: t.accentText, borderColor: t.accent, justifyContent: "center" }}>

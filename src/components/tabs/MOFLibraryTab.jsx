@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip,
   ResponsiveContainer, Cell,
@@ -7,8 +7,8 @@ import {
   useT, useLang, useViewport,
   FONT_MONO,
   LITERATURE_DB, getAdsorptionLabels, getMofCandidates, getMofStructures, buildDatabaseRecords, downloadTextFile, toolbarBtn,
-  BasisBadge, PageHeader, ResultLayer, Callout, DataModeToggle, RealSeedCallout, DataModeNote, safeVal, CopyLinkButton, DisclaimerLink,
-  FieldProvenanceButton, SectionTitle, EvidenceLevelLegend,
+  BasisBadge, PageHeader, ResultLayer, Callout, safeVal, CopyLinkButton,
+  FieldProvenanceButton, EvidenceLevelLegend,
   buildCriticScoringModel,
 } from "../../shared"
 import { CandidateComparisonModal, CompareTray } from "../mof/CandidateComparisonModal"
@@ -293,6 +293,190 @@ const zhDataStatus = (value, lang) => {
   }[value] || value
 }
 
+function dataModePanelPosition(anchorRect, isMobile) {
+  if (isMobile) {
+    return {
+      top: 96,
+      left: 16,
+      right: 16,
+      width: "auto",
+      maxHeight: "calc(100vh - 128px)",
+    }
+  }
+  const width = 380
+  const vw = typeof window !== "undefined" ? window.innerWidth : 1280
+  const left = Math.max(16, Math.min((anchorRect?.right ?? vw - 24) - width, vw - width - 16))
+  return {
+    top: (anchorRect?.bottom ?? 120) + 8,
+    left,
+    width,
+    maxHeight: "min(420px, calc(100vh - 140px))",
+  }
+}
+
+function DataModeInfoPopover({ open, onClose, anchorRect, lang, t, isMobile }) {
+  useEffect(() => {
+    if (!open) return undefined
+    const handleKey = event => {
+      if (event.key === "Escape") onClose()
+    }
+    window.addEventListener("keydown", handleKey)
+    return () => window.removeEventListener("keydown", handleKey)
+  }, [open, onClose])
+
+  if (!open) return null
+
+  const panelPos = dataModePanelPosition(anchorRect, isMobile)
+
+  return (
+    <>
+      <div
+        aria-hidden="true"
+        onClick={onClose}
+        style={{ position: "fixed", inset: 0, zIndex: 1198, background: "transparent" }}
+      />
+      <div
+        role="dialog"
+        aria-modal="false"
+        aria-label={lang === "zh" ? "数据模式说明" : "Data mode notes"}
+        onClick={event => event.stopPropagation()}
+        style={{
+          position: "fixed",
+          ...panelPos,
+          zIndex: 1199,
+          overflowY: "auto",
+          background: t.panel,
+          border: `1px solid ${t.borderStrong}`,
+          borderRadius: 10,
+          boxShadow: t.shadowMd,
+          padding: 14,
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12, marginBottom: 10 }}>
+          <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 900 }}>
+            {lang === "zh" ? "数据模式说明" : "Data mode notes"}
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label={lang === "zh" ? "关闭数据模式说明" : "Close data mode notes"}
+            style={{ background: "transparent", border: "none", color: t.subtle, cursor: "pointer", fontSize: 17, lineHeight: 1, padding: 0 }}
+          >
+            x
+          </button>
+        </div>
+        <div style={{ display: "grid", gap: 10, color: t.muted, fontSize: 12, lineHeight: 1.65 }}>
+          <p style={{ margin: 0 }}>
+            {lang === "zh"
+              ? "演示数据用于展示筛选流程和交互逻辑，不用于科研结论。"
+              : "Demo data are used to demonstrate the screening workflow and interaction logic, not for scientific conclusions."}
+          </p>
+          <p style={{ margin: 0 }}>
+            {lang === "zh"
+              ? "真实种子数据用于承载真实文献或数据库整理记录，但当前仍是种子库，不代表完整数据库。部分字段仍处于待复核状态，后续可能更新。"
+              : "Real seed data carry curated records from literature or databases, but the current set remains a seed library rather than a complete database. Some fields are still under review and may be updated later."}
+          </p>
+        </div>
+      </div>
+    </>
+  )
+}
+
+function DataModeBar({ dataMode, onChange, recordCount, infoOpen, setInfoOpen, lang, t, isMobile }) {
+  const infoButtonRef = useRef(null)
+  const [anchorRect, setAnchorRect] = useState(null)
+  const options = [
+    { id: "demo", label: lang === "zh" ? "演示数据" : "Demo" },
+    { id: "real-seed", label: lang === "zh" ? "真实种子数据" : "Real seed" },
+  ]
+  const modeNote = dataMode === "real-seed"
+    ? (lang === "zh" ? "当前模式：真实种子记录，用于查看字段来源、整理状态与证据等级。" : "Current mode: real seed records for reviewing field sources, curation status, and evidence level.")
+    : (lang === "zh" ? "当前模式：演示记录，用于查看筛选流程和交互逻辑。" : "Current mode: demo records for reviewing workflow and interaction logic.")
+
+  const toggleInfo = () => {
+    if (infoButtonRef.current) setAnchorRect(infoButtonRef.current.getBoundingClientRect())
+    setInfoOpen(prev => !prev)
+  }
+
+  return (
+    <section style={{
+      display: "grid",
+      gridTemplateColumns: isMobile ? "1fr" : "auto minmax(240px, 1fr) auto",
+      gap: isMobile ? 9 : 12,
+      alignItems: "center",
+      background: t.panel,
+      border: `1px solid ${t.border}`,
+      borderRadius: 8,
+      padding: isMobile ? 10 : "9px 12px",
+      position: "relative",
+    }}>
+      <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900 }}>
+        {lang === "zh" ? "数据模式" : "Data mode"}
+      </div>
+      <div style={{ display: "inline-flex", gap: 4, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 3, width: "fit-content", maxWidth: "100%" }}>
+        {options.map(option => {
+          const active = option.id === dataMode
+          return (
+            <button
+              key={option.id}
+              type="button"
+              onClick={() => onChange(option.id)}
+              aria-pressed={active}
+              style={{
+                border: `1px solid ${active ? t.accent : "transparent"}`,
+                background: active ? t.panel : "transparent",
+                color: active ? t.accentText : t.subtle,
+                borderRadius: 6,
+                cursor: "pointer",
+                fontSize: 11,
+                fontWeight: active ? 900 : 750,
+                lineHeight: 1.2,
+                padding: "7px 10px",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {option.label}
+            </button>
+          )
+        })}
+      </div>
+      <div style={{ display: "flex", gap: 10, alignItems: "center", justifyContent: isMobile ? "flex-start" : "flex-end", flexWrap: "wrap" }}>
+        <span style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 11.5, fontWeight: 850 }}>
+          {lang === "zh" ? `${recordCount} 条记录` : `${recordCount} records`}
+        </span>
+        <button
+          ref={infoButtonRef}
+          type="button"
+          onClick={toggleInfo}
+          aria-label={lang === "zh" ? "打开数据模式说明" : "Open data mode notes"}
+          aria-expanded={infoOpen}
+          style={{
+            ...toolbarBtn(t),
+            color: t.accentText,
+            borderColor: infoOpen ? t.accent : t.borderStrong,
+            padding: "6px 9px",
+            fontSize: 11,
+            fontWeight: 850,
+          }}
+        >
+          {lang === "zh" ? "数据说明" : "Data notes"} ⓘ
+        </button>
+      </div>
+      <div style={{ gridColumn: "1 / -1", color: t.faint, fontSize: 11.5, lineHeight: 1.45 }}>
+        {modeNote}
+      </div>
+      <DataModeInfoPopover
+        open={infoOpen}
+        onClose={() => setInfoOpen(false)}
+        anchorRect={anchorRect}
+        lang={lang}
+        t={t}
+        isMobile={isMobile}
+      />
+    </section>
+  )
+}
+
 export function MOFLibraryTab({ results, inputs }) {
   const t = useT()
   const { lang } = useLang()
@@ -307,6 +491,7 @@ export function MOFLibraryTab({ results, inputs }) {
   const [areaMin, setAreaMin] = useState(0)
   const [areaMax, setAreaMax] = useState(5000)
   const [filtersOpen, setFiltersOpen] = useState(false)
+  const [dataModeInfoOpen, setDataModeInfoOpen] = useState(false)
   const [expandedId, setExpandedId] = useState(null)
   const [structureRows, setStructureRows] = useState([])
   const [labelRows, setLabelRows] = useState([])
@@ -364,6 +549,7 @@ export function MOFLibraryTab({ results, inputs }) {
     setSelectedCompareIds([])
     setCompareNotice("")
     setComparisonOpen(false)
+    setDataModeInfoOpen(false)
   }, [dataMode])
 
   const records = useMemo(() => {
@@ -455,8 +641,9 @@ export function MOFLibraryTab({ results, inputs }) {
     downloadTextFile("ecomof_mof_library.csv", csv, "text/csv")
   }
 
-  const controlStyle = { background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "9px 11px", color: t.text, fontSize: 12, width: "100%" }
-  const labelStyle = { display: "grid", gap: 5, color: t.faint, fontSize: 10, textTransform: "uppercase" }
+  const controlStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, padding: "8px 10px", color: t.text, fontSize: 12, width: "100%", minWidth: 0 }
+  const compactInputStyle = { ...controlStyle, padding: "8px 8px", fontFamily: FONT_MONO }
+  const labelStyle = { display: "grid", gap: 5, color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", minWidth: 0 }
   const detailBlock = { background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }
   const field = (label, value, fieldKey, fieldSources) => (
     <div style={{ minWidth: 0 }}>
@@ -472,16 +659,28 @@ export function MOFLibraryTab({ results, inputs }) {
 
   const filterFields = (
     <>
-      <label style={{ ...labelStyle, gridColumn: isNarrow ? "1 / -1" : "auto" }}>
-        {lang === "zh" ? "搜索 MOF 名称" : "Search MOF name"}
-        <input value={query} onChange={e => setQuery(e.target.value)} placeholder={lang === "zh" ? "输入 MOF、金属、连接体或来源..." : "Type MOF, metal, linker, or source..."} style={controlStyle} />
+      <label style={labelStyle}>
+        {lang === "zh" ? "搜索" : "Search"}
+        <input
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+          placeholder={lang === "zh" ? "搜索材料名称、金属节点或数据来源" : "Search material name, metal node, or data source"}
+          style={controlStyle}
+        />
       </label>
       <label style={labelStyle}>
-        {lang === "zh" ? "金属中心" : "Metal center"}
+        {lang === "zh" ? "金属类型" : "Metal type"}
         <select value={metal} onChange={e => setMetal(e.target.value)} style={controlStyle}>
           <option value="all">{lang === "zh" ? "全部" : "all"}</option>
           {metals.map(item => <option key={item} value={item}>{item}</option>)}
         </select>
+      </label>
+      <label style={labelStyle}>
+        {lang === "zh" ? "孔结构" : "Pore structure"}
+        <span style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)", gap: 6 }}>
+          <input type="number" aria-label={lang === "zh" ? "最小孔径 Å" : "Pore min Å"} value={poreMin} onChange={e => setPoreMin(e.target.value)} style={compactInputStyle} />
+          <input type="number" aria-label={lang === "zh" ? "最大孔径 Å" : "Pore max Å"} value={poreMax} onChange={e => setPoreMax(e.target.value)} style={compactInputStyle} />
+        </span>
       </label>
       <label style={labelStyle}>
         {lang === "zh" ? "数据来源" : "Data source"}
@@ -497,29 +696,25 @@ export function MOFLibraryTab({ results, inputs }) {
           {evidenceLevels.map(item => <option key={item} value={item}>{zhValue(item, lang)}</option>)}
         </select>
       </label>
-      {[
-        [lang === "zh" ? "最小孔径 Å" : "Pore min Å", poreMin, setPoreMin],
-        [lang === "zh" ? "最大孔径 Å" : "Pore max Å", poreMax, setPoreMax],
-        [lang === "zh" ? "最小比表面积" : "Surface area min", areaMin, setAreaMin],
-        [lang === "zh" ? "最大比表面积" : "Surface area max", areaMax, setAreaMax],
-      ].map(([label, value, setter]) => (
-        <label key={label} style={labelStyle}>
-          {label}
-          <input type="number" value={value} onChange={e => setter(e.target.value)} style={controlStyle} />
-        </label>
-      ))}
-      <button type="button" onClick={exportCsv} style={{ ...toolbarBtn(t), height: 38, alignSelf: "end" }}>↓ CSV</button>
+      <button
+        type="button"
+        onClick={() => setFiltersOpen(prev => !prev)}
+        aria-expanded={filtersOpen}
+        style={{ ...toolbarBtn(t), height: 36, alignSelf: "end", justifyContent: "center", whiteSpace: "nowrap" }}
+      >
+        {filtersOpen ? (lang === "zh" ? "收起" : "Less") : (lang === "zh" ? "更多" : "More")}
+      </button>
     </>
   )
+  const modeRecordCount = records.length
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
         title={lang === "zh" ? "MOF 候选库" : "MOF Library"}
         subtitle={lang === "zh"
-          ? "描述符整理、条件数据和逐字段溯源。"
-          : "Descriptor curation, condition metadata, and field-level provenance."}
-        meta={lang === "zh" ? "搜索 · 金属筛选 · 孔结构 · 数据来源 · 证据等级" : "search · metal filter · pore descriptors · data source · evidence level"}
+          ? "浏览候选材料，查看描述符完整度、字段来源与证据等级。"
+          : "Browse candidate materials, descriptor completeness, field sources, and evidence levels."}
         action={
           <>
             <BasisBadge tone={status === "loaded" ? "calc" : "proxy"}>{status === "loaded" ? "public/data" : (lang === "zh" ? "种子数据" : "fallback seed")}</BasisBadge>
@@ -528,15 +723,86 @@ export function MOFLibraryTab({ results, inputs }) {
         }
       />
 
-      <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-        <DataModeToggle value={dataMode} onChange={mode => { setDataMode(mode); setExpandedId(null) }} lang={lang} />
-        <span style={{ color: t.faint, fontSize: 11 }}>
-          {dataMode === "real-seed"
-            ? (lang === "zh" ? `${realSeedRows.length} 条真实种子记录` : `${realSeedRows.length} real seed records`)
-            : (lang === "zh" ? `${demoRows.length} 条演示记录` : `${demoRows.length} demo records`)}
-        </span>
+      <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 8 }}>
+          <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900 }}>
+            {lang === "zh" ? "筛选条件" : "Filters"}
+          </div>
+          <div style={{ color: t.faint, fontSize: 11, fontFamily: FONT_MONO }}>
+            {filtered.length}/{records.length}
+          </div>
+        </div>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: isMobile
+            ? "1fr"
+            : isNarrow
+              ? "repeat(2, minmax(0, 1fr))"
+              : "minmax(260px, 1.45fr) minmax(120px, 0.7fr) minmax(170px, 0.78fr) minmax(150px, 0.82fr) minmax(135px, 0.72fr) auto",
+          gap: 8,
+          alignItems: "end",
+        }}>
+          {filterFields}
+        </div>
+        {filtersOpen && (
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr)) auto auto",
+            gap: 8,
+            alignItems: "end",
+            marginTop: 9,
+            paddingTop: 9,
+            borderTop: `1px solid ${t.divider}`,
+          }}>
+            {[
+              [lang === "zh" ? "最小比表面积" : "Surface area min", areaMin, setAreaMin],
+              [lang === "zh" ? "最大比表面积" : "Surface area max", areaMax, setAreaMax],
+            ].map(([label, value, setter]) => (
+              <label key={label} style={labelStyle}>
+                {label}
+                <input type="number" value={value} onChange={e => setter(e.target.value)} style={compactInputStyle} />
+              </label>
+            ))}
+            <button
+              type="button"
+              onClick={() => setComparisonOpen(true)}
+              style={{ ...toolbarBtn(t), height: 36, color: t.accentText, border: `1px solid ${t.accent}`, justifyContent: "center" }}
+            >
+              {selectedCompareIds.length
+                ? (lang === "zh" ? `对比 · ${selectedCompareIds.length}` : `Compare · ${selectedCompareIds.length}`)
+                : (lang === "zh" ? "候选对比" : "Compare")}
+            </button>
+            <button type="button" onClick={exportCsv} style={{ ...toolbarBtn(t), height: 36, justifyContent: "center" }}>↓ CSV</button>
+          </div>
+        )}
+      </section>
+
+      <DataModeBar
+        dataMode={dataMode}
+        onChange={mode => { setDataMode(mode); setExpandedId(null) }}
+        recordCount={modeRecordCount}
+        infoOpen={dataModeInfoOpen}
+        setInfoOpen={setDataModeInfoOpen}
+        lang={lang}
+        t={t}
+        isMobile={isMobile}
+      />
+
+      <div style={{
+        color: t.subtle,
+        fontSize: 11.5,
+        lineHeight: 1.45,
+        background: t.panel,
+        border: `1px solid ${t.border}`,
+        borderLeft: `3px solid ${t.accent}`,
+        borderRadius: 7,
+        padding: "7px 10px",
+      }}>
+        {lang === "zh"
+          ? "提示：点击字段旁的 ⓘ 查看来源、实验条件与整理状态；部分字段仍待复核。"
+          : "Tip: click the ⓘ icon next to a field to inspect source, experimental condition, and curation status; some fields remain under review."}
       </div>
-      <DataModeNote lang={lang} />
+
       {status === "loading" && (
         <Callout tone="info">{lang === "zh" ? "正在加载 MOF 候选库数据…" : "Loading MOF Library data..."}</Callout>
       )}
@@ -551,76 +817,12 @@ export function MOFLibraryTab({ results, inputs }) {
         <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
       )}
 
-      {dataMode === "real-seed" && (
-        <div style={{ display: "grid", gap: 8 }}>
-          <RealSeedCallout lang={lang} />
-          <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.6, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "8px 11px" }}>
-            {lang === "zh"
-              ? "提示：点击字段旁的 ⓘ 可查看该数据的来源、条件和整理状态。"
-              : "Tip: click the ⓘ icon next to a descriptor to view source, condition, and curation status."}
-          </div>
-        </div>
-      )}
-
-      <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 14 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12, flexWrap: "wrap" }}>
-          <div>
-            <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 850 }}>
-              {lang === "zh" ? "数据质量与溯源" : "Data Quality & Provenance"}
-            </div>
-            <p style={{ margin: "7px 0 0", color: t.muted, fontSize: 12, lineHeight: 1.65, maxWidth: 860 }}>
-              {lang === "zh"
-                ? "先区分演示记录、真实种子记录和字段级来源；详情中的 ⓘ 可查看条件与整理状态。"
-                : "Separate demo records, real-seed records, and field-level provenance; use ⓘ for conditions and curation status."}
-            </p>
-          </div>
-          <CopyLinkButton hash="data-quality-provenance" ariaLabel={lang === "zh" ? "复制数据质量与溯源链接" : "Copy Data Quality & Provenance link"} />
-        </div>
-      </section>
-
-      <Callout tone="info">
-        {lang === "zh" ? "描述符记录需结合整理状态和字段来源解读。" : "Descriptor records depend on curation status and provenance."}{" "}
-        <DisclaimerLink />
-      </Callout>
-
-      <ResultLayer number="01" title={lang === "zh" ? "搜索与基础筛选" : "Search and Basic Filters"}>
-        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 10 }}>
-            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5 }}>
-              {lang === "zh" ? "先搜索或筛选候选材料，也可以直接打开对比配置器。" : "Search or filter candidates, or open the comparison builder directly."}
-            </div>
-            <button
-              type="button"
-              onClick={() => setComparisonOpen(true)}
-              style={{
-                ...toolbarBtn(t),
-                color: t.accentText,
-                border: `1px solid ${t.accent}`,
-                padding: isMobile ? "9px 12px" : "9px 14px",
-                width: isMobile ? "100%" : "auto",
-                justifyContent: "center",
-              }}
-            >
-              {selectedCompareIds.length
-                ? (lang === "zh" ? `对比候选材料 · 已选 ${selectedCompareIds.length} 个` : `Compare candidates · ${selectedCompareIds.length} selected`)
-                : (lang === "zh" ? "对比候选材料" : "Compare candidates")}
-            </button>
-          </div>
-          <button type="button" onClick={() => setFiltersOpen(prev => !prev)} style={{ ...controlStyle, display: isMobile ? "block" : "none", marginBottom: filtersOpen ? 10 : 0 }}>
-            {filtersOpen ? (lang === "zh" ? "收起筛选器" : "Collapse filters") : (lang === "zh" ? "展开筛选器" : "Expand filters")}
-          </button>
-          <div style={{ display: isMobile && !filtersOpen ? "none" : "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "minmax(220px, 1.2fr) repeat(4, minmax(120px, 0.75fr)) auto", gap: 10, alignItems: "end" }}>
-            {filterFields}
-          </div>
-        </div>
-      </ResultLayer>
-
       <ResultLayer
-        number="02"
-        title={lang === "zh" ? "MOF 数据概览" : "MOF Data Overview"}
+        number="01"
+        title={lang === "zh" ? "候选材料列表" : "Candidate Material List"}
         subtitle={lang === "zh"
-          ? "先查看描述符完整性、条件数据和来源状态，再进入详情。"
-          : "Review descriptor completeness, condition metadata, and source status before opening details."}
+          ? "查看描述符完整度、来源字段和证据状态，再进入记录详情。"
+          : "Review descriptor completeness, source fields, and evidence status before opening record details."}
       >
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
           {overviewRows.map(({ item, summary }) => (
@@ -722,7 +924,7 @@ export function MOFLibraryTab({ results, inputs }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="03" title={lang === "zh" ? "基础数据统计" : "Baseline Data Summary"} subtitle={lang === "zh" ? "仅统计当前筛选结果中的字段与来源覆盖。" : "Counts field and source coverage in the current filtered set."}>
+      <ResultLayer number="02" title={lang === "zh" ? "基础数据统计" : "Baseline Data Summary"} subtitle={lang === "zh" ? "仅统计当前筛选结果中的字段与来源覆盖。" : "Counts field and source coverage in the current filtered set."}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
           {[
             [lang === "zh" ? "当前显示" : "Showing", `${filtered.length} / ${records.length}`],
@@ -738,7 +940,7 @@ export function MOFLibraryTab({ results, inputs }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="04" title={lang === "zh" ? "MOF 记录详情" : "MOF Record Details"} subtitle={lang === "zh" ? "展开记录后继续通过字段旁 ⓘ 查看来源、条件和整理状态。" : "Expand records and use ⓘ to inspect source, condition, and curation status."}>
+      <ResultLayer number="03" title={lang === "zh" ? "MOF 记录详情" : "MOF Record Details"} subtitle={lang === "zh" ? "展开记录后继续通过字段旁 ⓘ 查看来源、条件和整理状态。" : "Expand records and use ⓘ to inspect source, condition, and curation status."}>
         <div style={{ display: "grid", gap: 10 }}>
           {filtered.length === 0 && (
             <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
@@ -870,7 +1072,7 @@ export function MOFLibraryTab({ results, inputs }) {
       </ResultLayer>
 
       <ResultLayer
-        number="05"
+        number="04"
         title={lang === "zh" ? "数据质量与溯源" : "Data Quality & Provenance"}
         subtitle={lang === "zh"
           ? "从真实种子数据集实时计算的字段覆盖率、证据等级分布和整理进度。"
@@ -922,7 +1124,7 @@ export function MOFLibraryTab({ results, inputs }) {
       </ResultLayer>
 
       {results && !results.unavailable && (
-        <ResultLayer number="06" title={lang === "zh" ? "当前输入记录提示" : "Current Input Note"}>
+        <ResultLayer number="05" title={lang === "zh" ? "当前输入记录提示" : "Current Input Note"}>
           <Callout tone="success">
             {lang === "zh"
               ? `当前输入 ${inputs.mofName || `${inputs.metalCenter}/${inputs.organicLinker}`} 可在生态筛选、性能优先级或催化实验室中作为候选解释对象；MOF 候选库提供来源字段供复核。`

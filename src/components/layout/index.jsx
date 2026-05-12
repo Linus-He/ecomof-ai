@@ -352,23 +352,8 @@ export function ContextualHeaderBar({
     return (
       <div style={layerStyle}>
         <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
-          {lang === "zh" ? "通过下方模块探索 MOF 候选材料、进行记录对比、查看数据溯源并阅读方法说明。" : "Use the modules below to explore MOF candidates, compare records, inspect provenance, and review methods."}
+          {lang === "zh" ? "探索 MOF 筛选、性能分析、催化记录与数据证据链。" : "Explore screening, performance analysis, catalysis records, and evidence-linked data."}
         </div>
-        <button type="button" onClick={() => setActiveTab("performance")} style={subnavChip(true)}>
-          {lang === "zh" ? "性能优先级" : "Performance"}
-        </button>
-        <button type="button" onClick={() => setActiveTab("gassep")} style={subnavChip()}>
-          {lang === "zh" ? "气体分离" : "GasSep"}
-        </button>
-        <button type="button" onClick={() => setActiveTab("ecoscreen")} style={subnavChip()}>
-          {lang === "zh" ? "生态筛选" : "EcoScreen"}
-        </button>
-        <button type="button" onClick={() => setActiveTab("catalysis")} style={subnavChip()}>
-          {lang === "zh" ? "催化实验室" : "CatalysisLab"}
-        </button>
-        <button type="button" onClick={() => setActiveTab("library")} style={subnavChip()}>
-          {lang === "zh" ? "MOF 候选库" : "MOF Library"}
-        </button>
       </div>
     )
   }
