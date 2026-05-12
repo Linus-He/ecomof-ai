@@ -6,7 +6,8 @@ import {
 import {
   useT, useLang, useViewport,
   FONT_MONO,
-  LITERATURE_DB, getAdsorptionLabels, getMofCandidates, getMofStructures, buildDatabaseRecords, downloadTextFile, toolbarBtn,
+  LITERATURE_DB, getAdsorptionLabels, getMofCandidates, getMofStructures, buildDatabaseRecords, downloadTextFile,
+  buildMofMarkdownReport, buildMofCandidateMarkdownReport, buildMofDataGaps, toolbarBtn,
   BasisBadge, PageHeader, ResultLayer, Callout, safeVal, CopyLinkButton,
   FieldProvenanceButton, EvidenceLevelLegend,
   buildCriticScoringModel,
@@ -14,15 +15,20 @@ import {
 import { CandidateComparisonModal, CompareTray } from "../mof/CandidateComparisonModal"
 
 const KEY_FIELDS = [
-  { key: "surfaceArea",     label: { en: "Surface area", zh: "比表面积" } },
-  { key: "poreSizeA",       label: { en: "Pore size",    zh: "孔径"    } },
-  { key: "poreVolume",      label: { en: "Pore volume",  zh: "孔体积"  } },
-  { key: "co2Uptake",       label: { en: "CO₂ uptake",   zh: "CO₂ 吸附量" } },
-  { key: "bandGap",         label: { en: "Band gap",     zh: "带隙"    } },
-  { key: "waterStability",  label: { en: "Water stab.",  zh: "水稳定性" } },
-  { key: "thermalStability",label: { en: "Thermal stab.",zh: "热稳定性" } },
-  { key: "toxicityConcern", label: { en: "Toxicity",     zh: "毒性关注" } },
+  { key: "surfaceArea",      label: { en: "Surface area", zh: "比表面积" }, unit: "m²/g" },
+  { key: "poreSizeA",        label: { en: "Pore size",    zh: "孔径"    }, unit: "Å" },
+  { key: "poreVolume",       label: { en: "Pore volume",  zh: "孔体积"  }, unit: "cm³/g" },
+  { key: "co2Uptake",        label: { en: "CO₂ uptake",   zh: "CO₂ 吸附量" }, unit: "mmol/g" },
+  { key: "bandGap",          label: { en: "Band gap",     zh: "带隙"    }, unit: "eV" },
+  { key: "waterStability",   label: { en: "Water stab.",  zh: "水稳定性" }, unit: "" },
+  { key: "thermalStability", label: { en: "Thermal stab.", zh: "热稳定性" }, unit: "" },
+  { key: "toxicityConcern",  label: { en: "Toxicity",     zh: "毒性关注" }, unit: "" },
 ]
+
+const FILTER_CONTROL_HEIGHT = 38
+const FILTER_CONTROL_RADIUS = 6
+const FILTER_LABEL_HEIGHT = 14
+const FILTER_ACTION_WIDTH = 74
 
 function isFieldCurated(src) {
   if (!src) return false
@@ -314,6 +320,232 @@ function dataModePanelPosition(anchorRect, isMobile) {
   }
 }
 
+function inspectorStatusLabel(status, lang) {
+  if (status === "curated") return lang === "zh" ? "curated / 已整理" : "curated"
+  if (status === "needs-review") return lang === "zh" ? "needs review / 需复核" : "needs review"
+  return lang === "zh" ? "pending / 待补充" : "pending"
+}
+
+function inspectorStatusTone(status) {
+  if (status === "curated") return "calc"
+  if (status === "needs-review") return "danger"
+  return "warn"
+}
+
+function readFieldValue(record, field, lang) {
+  const source = record.fieldSources?.[field.key]
+  const raw = !isMissingValue(record[field.key]) ? record[field.key] : source?.value
+  if (isMissingValue(raw)) return lang === "zh" ? "待补充" : "Pending"
+  return field.unit ? `${raw} ${field.unit}` : zhValue(raw, lang)
+}
+
+function sourceLine(source, lang) {
+  if (!source) return lang === "zh" ? "来源待补充" : "Source pending"
+  return [
+    source.sourceName || source.database || source.sourceType || (lang === "zh" ? "未命名来源" : "Unnamed source"),
+    source.condition ? `${lang === "zh" ? "条件" : "Condition"}: ${source.condition}` : "",
+    source.doi ? `DOI: ${source.doi}` : "",
+  ].filter(Boolean).join(" · ")
+}
+
+function safeFileSegment(value) {
+  return String(value || "mof")
+    .toLowerCase()
+    .replace(/[^a-z0-9\u4e00-\u9fa5]+/gi, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 60) || "mof"
+}
+
+function MofInspector({
+  record,
+  isSelected,
+  limitReached,
+  onToggleCompare,
+  onExport,
+  onClose,
+  t,
+  lang,
+  isMobile,
+}) {
+  if (!record) return null
+  const gaps = buildMofDataGaps(record, lang)
+  const basicRows = [
+    [lang === "zh" ? "名称" : "Name", record.name],
+    [lang === "zh" ? "化学式" : "Formula", record.formula],
+    [lang === "zh" ? "金属节点" : "Metal node", record.metal],
+    [lang === "zh" ? "连接体" : "Linker", record.linker],
+    [lang === "zh" ? "拓扑" : "Topology", record.topology],
+  ]
+  const gapText = (items) => items.length ? items.join(", ") : (lang === "zh" ? "未发现关键缺口；仍需保持验证边界。" : "No obvious key gap; validation boundary still applies.")
+
+  const sectionTitle = {
+    color: t.textStrong,
+    fontSize: 12,
+    fontWeight: 900,
+    lineHeight: 1.35,
+  }
+  const sectionBox = {
+    background: t.surface,
+    border: `1px solid ${t.border}`,
+    borderRadius: 8,
+    padding: 11,
+    minWidth: 0,
+  }
+
+  return (
+    <aside
+      aria-label={lang === "zh" ? "MOF 详情 Inspector" : "MOF detail inspector"}
+      style={{
+        background: t.panel,
+        border: `1px solid ${t.borderStrong || t.border}`,
+        borderRadius: 8,
+        boxShadow: t.shadowSm,
+        padding: isMobile ? 12 : 14,
+        display: "grid",
+        gap: 12,
+        minWidth: 0,
+        position: isMobile ? "relative" : "sticky",
+        top: isMobile ? "auto" : 88,
+        maxHeight: isMobile ? "none" : "calc(100vh - 112px)",
+        overflowY: "auto",
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start" }}>
+        <div style={{ minWidth: 0 }}>
+          <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", fontWeight: 900, marginBottom: 4 }}>
+            Inspector
+          </div>
+          <div style={{ color: t.textStrong, fontSize: 17, fontWeight: 920, lineHeight: 1.2, overflowWrap: "anywhere" }}>
+            {record.name}
+          </div>
+          <div style={{ color: t.subtle, fontSize: 11, marginTop: 4, overflowWrap: "anywhere" }}>
+            {record.formula}
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label={lang === "zh" ? "关闭详情面板" : "Close inspector"}
+          style={{ ...toolbarBtn(t), padding: "5px 8px", fontSize: 12, lineHeight: 1 }}
+        >
+          x
+        </button>
+      </div>
+
+      <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+        <BasisBadge tone="info">{zhValue(record.evidenceLevel, lang)}</BasisBadge>
+        <BasisBadge tone="proxy">{zhDataStatus(record.dataStatus, lang)}</BasisBadge>
+      </div>
+
+      <section style={sectionBox}>
+        <div style={sectionTitle}>{lang === "zh" ? "基本信息" : "Basic information"}</div>
+        <div style={{ display: "grid", gap: 7, marginTop: 9 }}>
+          {basicRows.map(([label, value]) => (
+            <div key={label} style={{ display: "grid", gridTemplateColumns: "88px minmax(0, 1fr)", gap: 8, alignItems: "baseline" }}>
+              <span style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", fontWeight: 850 }}>{label}</span>
+              <span style={{ color: t.textStrong, fontSize: 12, fontWeight: 760, overflowWrap: "anywhere" }}>{value || "—"}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section style={sectionBox}>
+        <div style={sectionTitle}>{lang === "zh" ? "关键 descriptor 与字段来源状态" : "Key descriptors and field provenance"}</div>
+        <div style={{ display: "grid", gap: 7, marginTop: 9 }}>
+          {KEY_FIELDS.map(field => {
+            const status = recordFieldStatus(record, field.key)
+            const source = record.fieldSources?.[field.key]
+            return (
+              <div
+                key={field.key}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: isMobile ? "1fr" : "minmax(88px, 1fr) minmax(82px, 1fr)",
+                  gap: 6,
+                  alignItems: "start",
+                  background: t.panel,
+                  border: `1px solid ${t.border}`,
+                  borderRadius: 7,
+                  padding: "7px 8px",
+                  minWidth: 0,
+                }}
+              >
+                <div style={{ minWidth: 0 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 1, color: t.faint, fontSize: 10, fontWeight: 850 }}>
+                    {field.label[lang === "zh" ? "zh" : "en"]}
+                    <FieldProvenanceButton fieldKey={field.key} fieldLabel={field.label[lang === "zh" ? "zh" : "en"]} source={source} lang={lang} />
+                  </div>
+                  <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 800, marginTop: 3, overflowWrap: "anywhere" }}>
+                    {readFieldValue(record, field, lang)}
+                  </div>
+                </div>
+                <div style={{ display: "grid", gap: 4, justifyItems: isMobile ? "start" : "end", minWidth: 0 }}>
+                  <BasisBadge tone={inspectorStatusTone(status)}>{inspectorStatusLabel(status, lang)}</BasisBadge>
+                  <div style={{ color: t.faint, fontSize: 9.5, lineHeight: 1.35, textAlign: isMobile ? "left" : "right", overflowWrap: "anywhere" }}>
+                    {sourceLine(source, lang)}
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </section>
+
+      <section style={sectionBox}>
+        <div style={sectionTitle}>{lang === "zh" ? "证据状态与限制" : "Evidence status and limitations"}</div>
+        <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.6, marginTop: 8 }}>
+          <strong style={{ color: t.textStrong }}>{lang === "zh" ? "Evidence level：" : "Evidence level: "}</strong>{record.evidenceLevel || "pending"}
+          <br />
+          <strong style={{ color: t.textStrong }}>{lang === "zh" ? "Data status：" : "Data status: "}</strong>{zhDataStatus(record.dataStatus, lang)}
+          <br />
+          <strong style={{ color: t.textStrong }}>{lang === "zh" ? "Limitations：" : "Limitations: "}</strong>{Array.isArray(record.limitations) ? record.limitations.join("; ") : record.limitations}
+        </div>
+      </section>
+
+      <section style={{ ...sectionBox, borderLeft: `3px solid ${t.warn}` }}>
+        <div style={sectionTitle}>{lang === "zh" ? "数据缺口提示" : "Data gap notes"}</div>
+        <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.6, marginTop: 8 }}>
+          <div><strong style={{ color: t.textStrong }}>EcoScreen: </strong>{gapText(gaps.ecoScreen)}</div>
+          <div style={{ marginTop: 5 }}><strong style={{ color: t.textStrong }}>CatalysisLab: </strong>{gapText(gaps.catalysisLab)}</div>
+          <div style={{ color: t.faint, fontSize: 10.5, marginTop: 7 }}>
+            {lang === "zh"
+              ? "缺口字段会降低候选优先级判断的可解释性，不应被补齐为默认性能结论。"
+              : "Missing fields reduce interpretability of candidate-priority judgments and should not be imputed as final performance conclusions."}
+          </div>
+        </div>
+      </section>
+
+      <div style={{ display: "grid", gap: 7 }}>
+        <button
+          type="button"
+          onClick={onToggleCompare}
+          disabled={limitReached}
+          style={{
+            ...toolbarBtn(t),
+            justifyContent: "center",
+            color: isSelected ? t.accentText : limitReached ? t.faint : t.subtle,
+            border: `1px solid ${isSelected ? t.accent : t.borderStrong}`,
+            opacity: limitReached ? 0.62 : 1,
+            cursor: limitReached ? "not-allowed" : "pointer",
+          }}
+        >
+          {isSelected
+            ? (lang === "zh" ? "已加入候选对比" : "Added to comparison")
+            : limitReached
+              ? (lang === "zh" ? "已达到对比上限" : "Compare limit reached")
+              : (lang === "zh" ? "加入候选对比" : "Add to comparison")}
+        </button>
+        <button type="button" onClick={onExport} style={{ ...toolbarBtn(t), justifyContent: "center", color: t.accentText, border: `1px solid ${t.accent}` }}>
+          {lang === "zh" ? "导出该 MOF 报告" : "Export MOF report"}
+        </button>
+        <button type="button" onClick={onClose} style={{ ...toolbarBtn(t), justifyContent: "center" }}>
+          {lang === "zh" ? "关闭面板" : "Close panel"}
+        </button>
+      </div>
+    </aside>
+  )
+}
+
 function DataModeInfoPopover({ open, onClose, anchorRect, lang, t, isMobile }) {
   useEffect(() => {
     if (!open) return undefined
@@ -493,6 +725,7 @@ export function MOFLibraryTab({ results, inputs }) {
   const [filtersOpen, setFiltersOpen] = useState(false)
   const [dataModeInfoOpen, setDataModeInfoOpen] = useState(false)
   const [expandedId, setExpandedId] = useState(null)
+  const [selectedInspectorId, setSelectedInspectorId] = useState(null)
   const [structureRows, setStructureRows] = useState([])
   const [labelRows, setLabelRows] = useState([])
   const [demoRows, setDemoRows] = useState([])
@@ -550,6 +783,7 @@ export function MOFLibraryTab({ results, inputs }) {
     setCompareNotice("")
     setComparisonOpen(false)
     setDataModeInfoOpen(false)
+    setSelectedInspectorId(null)
   }, [dataMode])
 
   const records = useMemo(() => {
@@ -591,6 +825,11 @@ export function MOFLibraryTab({ results, inputs }) {
     return selectedCompareIds.map(id => byId.get(id)).filter(Boolean)
   }, [records, selectedCompareIds])
 
+  const selectedInspectorRecord = useMemo(() => {
+    if (!selectedInspectorId) return null
+    return records.find(item => item.id === selectedInspectorId) || null
+  }, [records, selectedInspectorId])
+
   const overviewRows = useMemo(() => filtered.map(item => ({
     item,
     summary: getOverviewSummary(item, lang),
@@ -608,10 +847,8 @@ export function MOFLibraryTab({ results, inputs }) {
   const getCriticSummary = (item) => criticByName.get(String(item?.name || "").toLowerCase()) || null
 
   const openRecordFromOverview = (id) => {
-    setExpandedId(id)
-    window.setTimeout(() => {
-      document.getElementById(`mof-record-${id}`)?.scrollIntoView({ block: "start", behavior: "smooth" })
-    }, 80)
+    setSelectedInspectorId(id)
+    setDataModeInfoOpen(false)
   }
 
   const toggleCompare = (item) => {
@@ -641,9 +878,60 @@ export function MOFLibraryTab({ results, inputs }) {
     downloadTextFile("ecomof_mof_library.csv", csv, "text/csv")
   }
 
-  const controlStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, padding: "8px 10px", color: t.text, fontSize: 12, width: "100%", minWidth: 0 }
-  const compactInputStyle = { ...controlStyle, padding: "8px 8px", fontFamily: FONT_MONO }
-  const labelStyle = { display: "grid", gap: 5, color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", minWidth: 0 }
+  const exportMofReport = (item) => {
+    if (!item) return
+    const markdown = buildMofMarkdownReport(item, {
+      lang,
+      dataMode,
+      scopeLabel: lang === "zh" ? "MOF Library 单条记录" : "MOF Library single record",
+    })
+    downloadTextFile(`ecomof_mof_${safeFileSegment(item.name)}.md`, markdown, "text/markdown")
+  }
+
+  const exportCandidateReport = () => {
+    const hasSelection = selectedCompareCandidates.length > 0
+    const rows = hasSelection ? selectedCompareCandidates : filtered
+    const markdown = buildMofCandidateMarkdownReport(rows, {
+      lang,
+      dataMode,
+      scopeLabel: hasSelection
+        ? (lang === "zh" ? `MOF Library 已选候选（${rows.length} 个）` : `MOF Library selected candidates (${rows.length})`)
+        : (lang === "zh" ? `MOF Library 当前筛选结果（${rows.length} 个）` : `MOF Library current filtered records (${rows.length})`),
+    })
+    const suffix = hasSelection ? `selected-${rows.length}` : `filtered-${rows.length}`
+    downloadTextFile(`ecomof_mof_candidates_${suffix}.md`, markdown, "text/markdown")
+  }
+
+  const controlStyle = {
+    background: t.panel,
+    border: `1px solid ${t.border}`,
+    borderRadius: FILTER_CONTROL_RADIUS,
+    boxSizing: "border-box",
+    color: t.text,
+    display: "block",
+    fontSize: 12,
+    height: FILTER_CONTROL_HEIGHT,
+    lineHeight: "16px",
+    minWidth: 0,
+    padding: "0 10px",
+    width: "100%",
+  }
+  const compactInputStyle = { ...controlStyle, fontFamily: FONT_MONO, padding: "0 8px" }
+  const labelStyle = {
+    alignItems: "stretch",
+    color: t.faint,
+    display: "grid",
+    fontSize: 10,
+    fontWeight: 850,
+    gap: 5,
+    gridTemplateRows: `${FILTER_LABEL_HEIGHT}px ${FILTER_CONTROL_HEIGHT}px`,
+    lineHeight: `${FILTER_LABEL_HEIGHT}px`,
+    minWidth: 0,
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    textTransform: "uppercase",
+    whiteSpace: "nowrap",
+  }
   const detailBlock = { background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }
   const field = (label, value, fieldKey, fieldSources) => (
     <div style={{ minWidth: 0 }}>
@@ -677,7 +965,7 @@ export function MOFLibraryTab({ results, inputs }) {
       </label>
       <label style={labelStyle}>
         {lang === "zh" ? "孔结构" : "Pore structure"}
-        <span style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)", gap: 6 }}>
+        <span style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)", gap: 6, height: FILTER_CONTROL_HEIGHT, minWidth: 0 }}>
           <input type="number" aria-label={lang === "zh" ? "最小孔径 Å" : "Pore min Å"} value={poreMin} onChange={e => setPoreMin(e.target.value)} style={compactInputStyle} />
           <input type="number" aria-label={lang === "zh" ? "最大孔径 Å" : "Pore max Å"} value={poreMax} onChange={e => setPoreMax(e.target.value)} style={compactInputStyle} />
         </span>
@@ -700,7 +988,7 @@ export function MOFLibraryTab({ results, inputs }) {
         type="button"
         onClick={() => setFiltersOpen(prev => !prev)}
         aria-expanded={filtersOpen}
-        style={{ ...toolbarBtn(t), height: 36, alignSelf: "end", justifyContent: "center", whiteSpace: "nowrap" }}
+        style={{ ...toolbarBtn(t), boxSizing: "border-box", height: FILTER_CONTROL_HEIGHT, alignSelf: "end", justifyContent: "center", whiteSpace: "nowrap", width: FILTER_ACTION_WIDTH }}
       >
         {filtersOpen ? (lang === "zh" ? "收起" : "Less") : (lang === "zh" ? "更多" : "More")}
       </button>
@@ -728,8 +1016,27 @@ export function MOFLibraryTab({ results, inputs }) {
           <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900 }}>
             {lang === "zh" ? "筛选条件" : "Filters"}
           </div>
-          <div style={{ color: t.faint, fontSize: 11, fontFamily: FONT_MONO }}>
-            {filtered.length}/{records.length}
+          <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
+            <div style={{ color: t.faint, fontSize: 11, fontFamily: FONT_MONO }}>
+              {filtered.length}/{records.length}
+            </div>
+            <button
+              type="button"
+              onClick={exportCandidateReport}
+              disabled={filtered.length === 0 && selectedCompareCandidates.length === 0}
+              style={{
+                ...toolbarBtn(t),
+                padding: "5px 9px",
+                fontSize: 10.5,
+                color: selectedCompareCandidates.length ? t.accentText : t.subtle,
+                border: `1px solid ${selectedCompareCandidates.length ? t.accent : t.borderStrong}`,
+                opacity: filtered.length === 0 && selectedCompareCandidates.length === 0 ? 0.55 : 1,
+              }}
+            >
+              {selectedCompareCandidates.length
+                ? (lang === "zh" ? `↓ 选中报告 · ${selectedCompareCandidates.length}` : `↓ Selected report · ${selectedCompareCandidates.length}`)
+                : (lang === "zh" ? "↓ 筛选报告" : "↓ Filtered report")}
+            </button>
           </div>
         </div>
         <div style={{
@@ -738,7 +1045,7 @@ export function MOFLibraryTab({ results, inputs }) {
             ? "1fr"
             : isNarrow
               ? "repeat(2, minmax(0, 1fr))"
-              : "minmax(260px, 1.45fr) minmax(120px, 0.7fr) minmax(170px, 0.78fr) minmax(150px, 0.82fr) minmax(135px, 0.72fr) auto",
+              : `repeat(5, minmax(0, 1fr)) ${FILTER_ACTION_WIDTH}px`,
           gap: 8,
           alignItems: "end",
         }}>
@@ -766,13 +1073,13 @@ export function MOFLibraryTab({ results, inputs }) {
             <button
               type="button"
               onClick={() => setComparisonOpen(true)}
-              style={{ ...toolbarBtn(t), height: 36, color: t.accentText, border: `1px solid ${t.accent}`, justifyContent: "center" }}
+              style={{ ...toolbarBtn(t), boxSizing: "border-box", height: FILTER_CONTROL_HEIGHT, color: t.accentText, border: `1px solid ${t.accent}`, justifyContent: "center" }}
             >
               {selectedCompareIds.length
                 ? (lang === "zh" ? `对比 · ${selectedCompareIds.length}` : `Compare · ${selectedCompareIds.length}`)
                 : (lang === "zh" ? "候选对比" : "Compare")}
             </button>
-            <button type="button" onClick={exportCsv} style={{ ...toolbarBtn(t), height: 36, justifyContent: "center" }}>↓ CSV</button>
+            <button type="button" onClick={exportCsv} style={{ ...toolbarBtn(t), boxSizing: "border-box", height: FILTER_CONTROL_HEIGHT, justifyContent: "center" }}>↓ CSV</button>
           </div>
         )}
       </section>
@@ -824,21 +1131,37 @@ export function MOFLibraryTab({ results, inputs }) {
           ? "查看描述符完整度、来源字段和证据状态，再进入记录详情。"
           : "Review descriptor completeness, source fields, and evidence status before opening record details."}
       >
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: selectedInspectorRecord && !isNarrow ? "minmax(0, 1fr) minmax(330px, 380px)" : "1fr",
+          gap: 12,
+          alignItems: "start",
+        }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", gap: 10, minWidth: 0 }}>
           {overviewRows.map(({ item, summary }) => (
             (() => {
               const scoring = getCriticSummary(item)
               return (
             <article
               key={item.id}
+              role="button"
+              tabIndex={0}
+              onClick={() => openRecordFromOverview(item.id)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault()
+                  openRecordFromOverview(item.id)
+                }
+              }}
               style={{
                 background: t.panel,
-                border: `1px solid ${expandedId === item.id ? t.accent : t.border}`,
+                border: `1px solid ${selectedInspectorId === item.id || expandedId === item.id ? t.accent : t.border}`,
                 borderRadius: 8,
                 padding: 12,
                 display: "grid",
                 gap: 10,
-                boxShadow: expandedId === item.id ? t.shadowSm : "none",
+                boxShadow: selectedInspectorId === item.id || expandedId === item.id ? t.shadowSm : "none",
+                cursor: "pointer",
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "flex-start" }}>
@@ -903,14 +1226,20 @@ export function MOFLibraryTab({ results, inputs }) {
                 <div style={{ gridColumn: "1 / -1", display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 7 }}>
                   <button
                     type="button"
-                    onClick={() => openRecordFromOverview(item.id)}
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      openRecordFromOverview(item.id)
+                    }}
                     style={{ ...toolbarBtn(t), justifyContent: "center", fontSize: 10.5, padding: "7px 9px" }}
                   >
-                    {lang === "zh" ? "查看库记录" : "View record"}
+                    {lang === "zh" ? "查看 Inspector" : "Open inspector"}
                   </button>
                   <button
                     type="button"
-                    onClick={openScoringDetails}
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      openScoringDetails()
+                    }}
                     style={{ ...toolbarBtn(t), justifyContent: "center", color: t.accentText, border: `1px solid ${t.accent}`, fontSize: 10.5, padding: "7px 9px" }}
                   >
                     View scoring details
@@ -921,6 +1250,20 @@ export function MOFLibraryTab({ results, inputs }) {
               )
             })()
           ))}
+          </div>
+          {selectedInspectorRecord && (
+            <MofInspector
+              record={selectedInspectorRecord}
+              isSelected={selectedCompareIds.includes(selectedInspectorRecord.id)}
+              limitReached={selectedCompareIds.length >= 3 && !selectedCompareIds.includes(selectedInspectorRecord.id)}
+              onToggleCompare={() => toggleCompare(selectedInspectorRecord)}
+              onExport={() => exportMofReport(selectedInspectorRecord)}
+              onClose={() => setSelectedInspectorId(null)}
+              t={t}
+              lang={lang}
+              isMobile={isMobile}
+            />
+          )}
         </div>
       </ResultLayer>
 

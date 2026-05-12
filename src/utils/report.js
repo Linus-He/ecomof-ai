@@ -91,6 +91,285 @@ export function downloadTextFile(filename, text, type = "text/plain") {
   URL.revokeObjectURL(a.href)
 }
 
+const REPORT_DESCRIPTOR_FIELDS = [
+  { key: "surfaceArea", label: { en: "Surface area", zh: "比表面积" }, unit: "m²/g" },
+  { key: "poreSizeA", label: { en: "Pore size", zh: "孔径" }, unit: "Å" },
+  { key: "poreVolume", label: { en: "Pore volume", zh: "孔体积" }, unit: "cm³/g" },
+  { key: "co2Uptake", label: { en: "CO₂ uptake", zh: "CO₂ 吸附量" }, unit: "mmol/g" },
+  { key: "bandGap", label: { en: "Band gap", zh: "带隙" }, unit: "eV" },
+  { key: "waterStability", label: { en: "Water stability", zh: "水稳定性" }, unit: "" },
+  { key: "thermalStability", label: { en: "Thermal stability", zh: "热稳定性" }, unit: "" },
+  { key: "toxicityConcern", label: { en: "Toxicity concern", zh: "毒性关注" }, unit: "" },
+]
+
+const REPORT_ECOSCREEN_FIELDS = [
+  "surfaceArea",
+  "poreSizeA",
+  "poreVolume",
+  "co2Uptake",
+  "waterStability",
+  "thermalStability",
+  "toxicityConcern",
+]
+
+const REPORT_CATALYSIS_FIELDS = [
+  "bandGap",
+  "waterStability",
+  "thermalStability",
+  "toxicityConcern",
+]
+
+function reportLocale(lang) {
+  return lang === "zh" ? "zh" : "en"
+}
+
+function reportLabel(field, lang) {
+  return field.label[reportLocale(lang)]
+}
+
+function reportList(value, fallback = "—") {
+  if (Array.isArray(value)) return value.filter(Boolean).join("; ") || fallback
+  if (value === undefined || value === null || value === "") return fallback
+  return String(value)
+}
+
+function reportIsMissing(value) {
+  return value === undefined || value === null || value === "" || value === "—" || value === "pending" || value === "unknown"
+}
+
+function reportFieldSource(record, key) {
+  return record?.fieldSources?.[key]
+}
+
+function reportRawFieldValue(record, key) {
+  const source = reportFieldSource(record, key)
+  if (!reportIsMissing(record?.[key])) return record[key]
+  if (!reportIsMissing(source?.value)) return source.value
+  return undefined
+}
+
+function reportFieldValue(record, field, lang) {
+  const source = reportFieldSource(record, field.key)
+  const raw = reportRawFieldValue(record, field.key)
+  if (reportIsMissing(raw)) return lang === "zh" ? "待补充" : "Pending"
+  const unit = source?.unit ?? field.unit
+  return unit ? `${raw} ${unit}` : String(raw)
+}
+
+function reportFieldStatus(record, key) {
+  const source = reportFieldSource(record, key)
+  if (source?.curationStatus === "needs-review" || source?.reviewStatus === "conflict" || source?.hasConflict) {
+    return "needs review"
+  }
+  if (!source) return "pending"
+  if (source.sourceType === "pending" || source.evidenceLevel === "needs-validation") return "pending"
+  if (source.sourceName || source.database || source.url || source.doi || source.condition || !reportIsMissing(source.value)) {
+    return "curated"
+  }
+  return "pending"
+}
+
+function reportSourceSummary(record, key, lang) {
+  const source = reportFieldSource(record, key)
+  if (!source) return lang === "zh" ? "来源记录待补充" : "source record pending"
+  return [
+    source.sourceName || source.database || source.sourceType || (lang === "zh" ? "未命名来源" : "unnamed source"),
+    source.condition ? `${lang === "zh" ? "条件" : "condition"}: ${source.condition}` : "",
+    source.doi ? `DOI: ${source.doi}` : "",
+  ].filter(Boolean).join("; ")
+}
+
+function reportStatusLabel(status, lang) {
+  if (lang !== "zh") return status
+  if (status === "curated") return "curated（已整理）"
+  if (status === "needs review") return "needs review（需复核）"
+  return "pending（待补充）"
+}
+
+function reportFieldGapLabels(record, keys, lang) {
+  return keys
+    .map(key => {
+      const field = REPORT_DESCRIPTOR_FIELDS.find(item => item.key === key)
+      if (!field) return null
+      const status = reportFieldStatus(record, key)
+      const missingValue = reportIsMissing(reportRawFieldValue(record, key))
+      if (status === "curated" && !missingValue) return null
+      return reportLabel(field, lang)
+    })
+    .filter(Boolean)
+}
+
+function reportCatalysisExtraGaps(record, lang) {
+  const gaps = []
+  if (!Array.isArray(record?.reactionClasses) || record.reactionClasses.length === 0) {
+    gaps.push(lang === "zh" ? "反应类别" : "reaction class")
+  }
+  if (reportIsMissing(record?.activeSiteHypothesis) || (Array.isArray(record?.activeSiteHypothesis) && record.activeSiteHypothesis.length === 0)) {
+    gaps.push(lang === "zh" ? "活性位点假设" : "active-site hypothesis")
+  }
+  return gaps
+}
+
+export function buildMofDataGaps(record, lang = "en") {
+  const ecoScreen = reportFieldGapLabels(record, REPORT_ECOSCREEN_FIELDS, lang)
+  const catalysisLab = [
+    ...reportFieldGapLabels(record, REPORT_CATALYSIS_FIELDS, lang),
+    ...reportCatalysisExtraGaps(record, lang),
+  ]
+  return { ecoScreen, catalysisLab }
+}
+
+function reportBoundaryText(lang) {
+  return lang === "zh"
+    ? "本报告仅用于候选优先级排序和研究讨论，不构成已验证的材料性能预测；吸附、催化或稳定性结论仍需实验、GCMC/DFT 或可追溯数据库记录验证。"
+    : "This report supports candidate priority and research discussion only. It is not a validated material-performance prediction; adsorption, catalysis, and stability conclusions still require experimental, GCMC/DFT, or traceable database validation."
+}
+
+function reportDescriptorRows(record, lang) {
+  return REPORT_DESCRIPTOR_FIELDS.map(field => {
+    const status = reportFieldStatus(record, field.key)
+    return `| ${reportLabel(field, lang)} | ${reportFieldValue(record, field, lang)} | ${reportStatusLabel(status, lang)} | ${reportSourceSummary(record, field.key, lang)} | ${reportFieldSource(record, field.key)?.evidenceLevel || record.evidenceLevel || "pending"} |`
+  })
+}
+
+function reportLimitations(record, lang) {
+  const limitations = reportList(record?.limitations, "")
+  if (limitations) return limitations
+  return lang === "zh" ? "限制说明待补充；应在使用前补齐来源和验证条件。" : "Limitations pending; source and validation conditions should be completed before use."
+}
+
+export function buildMofMarkdownReport(record, options = {}) {
+  const lang = reportLocale(options.lang)
+  const dataMode = options.dataMode || record?.dataMode || "public/data"
+  const generatedAt = new Date().toISOString()
+  const gaps = buildMofDataGaps(record, lang)
+  const title = lang === "zh" ? `MOF 记录报告：${record?.name || "候选材料"}` : `MOF Record Report: ${record?.name || "Candidate material"}`
+  const summaryRows = lang === "zh"
+    ? [
+        ["名称", record?.name],
+        ["化学式", record?.formula],
+        ["金属节点", reportList(record?.metalNodes?.length ? record.metalNodes : record?.metal)],
+        ["连接体", record?.linker],
+        ["拓扑", record?.topology],
+        ["证据等级", record?.evidenceLevel || "pending"],
+        ["数据状态", record?.dataStatus || record?.curationNote || "pending"],
+      ]
+    : [
+        ["Name", record?.name],
+        ["Formula", record?.formula],
+        ["Metal node", reportList(record?.metalNodes?.length ? record.metalNodes : record?.metal)],
+        ["Linker", record?.linker],
+        ["Topology", record?.topology],
+        ["Evidence level", record?.evidenceLevel || "pending"],
+        ["Data status", record?.dataStatus || record?.curationNote || "pending"],
+      ]
+
+  const gapText = (items) => items.length ? items.join(", ") : (lang === "zh" ? "未发现关键缺口，但仍需保持验证边界。" : "No obvious key gap detected, but validation boundaries still apply.")
+
+  return [
+    `# ${title}`,
+    "",
+    lang === "zh" ? `生成时间：${generatedAt}` : `Generated at: ${generatedAt}`,
+    "",
+    `> ${reportBoundaryText(lang)}`,
+    "",
+    lang === "zh" ? "## 1. 任务上下文 / 数据模式" : "## 1. Task context / data mode",
+    "",
+    `- ${lang === "zh" ? "数据模式" : "Data mode"}: ${dataMode}`,
+    `- ${lang === "zh" ? "报告用途" : "Report use"}: ${lang === "zh" ? "candidate priority / research discussion（候选优先级与研究讨论）" : "candidate priority / research discussion"}`,
+    `- ${lang === "zh" ? "范围" : "Scope"}: ${options.scopeLabel || (lang === "zh" ? "单个 MOF 记录" : "single MOF record")}`,
+    "",
+    lang === "zh" ? "## 2. Candidate or MOF summary" : "## 2. Candidate or MOF summary",
+    "",
+    "| Field | Value |",
+    "| --- | --- |",
+    ...summaryRows.map(([key, value]) => `| ${key} | ${reportList(value)} |`),
+    "",
+    lang === "zh" ? "## 3. Key descriptors" : "## 3. Key descriptors",
+    "",
+    "| Descriptor | Value | Provenance status | Source / condition | Evidence status |",
+    "| --- | --- | --- | --- | --- |",
+    ...reportDescriptorRows(record, lang),
+    "",
+    lang === "zh" ? "## 4. Field-level provenance and evidence status" : "## 4. Field-level provenance and evidence status",
+    "",
+    lang === "zh"
+      ? "字段状态采用 curated / pending / needs review。pending 或 needs review 字段不应被解释为已验证的性能证据。"
+      : "Field status uses curated / pending / needs review. Pending or needs review fields should not be treated as validated performance evidence.",
+    "",
+    lang === "zh" ? "## 5. Data gaps" : "## 5. Data gaps",
+    "",
+    `- EcoScreen: ${gapText(gaps.ecoScreen)}`,
+    `- CatalysisLab: ${gapText(gaps.catalysisLab)}`,
+    "",
+    lang === "zh" ? "## 6. Limitations and scientific boundary" : "## 6. Limitations and scientific boundary",
+    "",
+    reportLimitations(record, lang),
+    "",
+    reportBoundaryText(lang),
+  ].join("\n")
+}
+
+export function buildMofCandidateMarkdownReport(candidates = [], options = {}) {
+  const lang = reportLocale(options.lang)
+  const rows = Array.isArray(candidates) ? candidates : []
+  const generatedAt = new Date().toISOString()
+  const title = lang === "zh" ? "MOF 候选报告" : "MOF Candidate Report"
+  const scopeLabel = options.scopeLabel || (lang === "zh" ? "当前筛选 / 选中候选" : "current filtered / selected candidates")
+  const summaryLines = rows.map((record, index) => {
+    const gaps = buildMofDataGaps(record, lang)
+    const curatedCount = REPORT_DESCRIPTOR_FIELDS.filter(field => reportFieldStatus(record, field.key) === "curated").length
+    return [
+      `### ${index + 1}. ${record?.name || "MOF candidate"}`,
+      "",
+      `- ${lang === "zh" ? "化学式" : "Formula"}: ${reportList(record?.formula)}`,
+      `- ${lang === "zh" ? "金属节点 / 连接体 / 拓扑" : "Metal node / linker / topology"}: ${reportList(record?.metalNodes?.length ? record.metalNodes : record?.metal)} / ${reportList(record?.linker)} / ${reportList(record?.topology)}`,
+      `- ${lang === "zh" ? "证据等级" : "Evidence level"}: ${record?.evidenceLevel || "pending"}`,
+      `- ${lang === "zh" ? "数据状态" : "Data status"}: ${record?.dataStatus || record?.curationNote || "pending"}`,
+      `- ${lang === "zh" ? "已整理关键描述符" : "Curated key descriptors"}: ${curatedCount}/${REPORT_DESCRIPTOR_FIELDS.length}`,
+      `- EcoScreen ${lang === "zh" ? "缺口" : "gaps"}: ${gaps.ecoScreen.length ? gaps.ecoScreen.join(", ") : (lang === "zh" ? "未发现关键缺口" : "no obvious key gap")}`,
+      `- CatalysisLab ${lang === "zh" ? "缺口" : "gaps"}: ${gaps.catalysisLab.length ? gaps.catalysisLab.join(", ") : (lang === "zh" ? "未发现关键缺口" : "no obvious key gap")}`,
+      `- ${lang === "zh" ? "限制" : "Limitations"}: ${reportLimitations(record, lang)}`,
+      "",
+      "| Descriptor | Value | Provenance status | Evidence status |",
+      "| --- | --- | --- | --- |",
+      ...REPORT_DESCRIPTOR_FIELDS.map(field => {
+        const status = reportFieldStatus(record, field.key)
+        return `| ${reportLabel(field, lang)} | ${reportFieldValue(record, field, lang)} | ${reportStatusLabel(status, lang)} | ${reportFieldSource(record, field.key)?.evidenceLevel || record?.evidenceLevel || "pending"} |`
+      }),
+    ].join("\n")
+  })
+
+  return [
+    `# ${title}`,
+    "",
+    lang === "zh" ? `生成时间：${generatedAt}` : `Generated at: ${generatedAt}`,
+    "",
+    `> ${reportBoundaryText(lang)}`,
+    "",
+    lang === "zh" ? "## 1. 任务上下文 / 数据模式" : "## 1. Task context / data mode",
+    "",
+    `- ${lang === "zh" ? "数据模式" : "Data mode"}: ${options.dataMode || "public/data"}`,
+    `- ${lang === "zh" ? "候选范围" : "Candidate scope"}: ${scopeLabel}`,
+    `- ${lang === "zh" ? "候选数量" : "Candidate count"}: ${rows.length}`,
+    `- ${lang === "zh" ? "报告用途" : "Report use"}: ${lang === "zh" ? "candidate priority / research discussion（候选优先级与研究讨论）" : "candidate priority / research discussion"}`,
+    "",
+    lang === "zh" ? "## 2. Candidate or MOF summary" : "## 2. Candidate or MOF summary",
+    "",
+    rows.length
+      ? rows.map(record => `- ${record?.name || "MOF candidate"} · ${record?.evidenceLevel || "pending"} · ${record?.dataStatus || record?.curationNote || "pending"}`).join("\n")
+      : (lang === "zh" ? "当前没有可导出的候选记录。" : "No candidate records are available for export."),
+    "",
+    lang === "zh" ? "## 3. Key descriptors / 4. Provenance / 5. Data gaps" : "## 3. Key descriptors / 4. Provenance / 5. Data gaps",
+    "",
+    ...summaryLines,
+    "",
+    lang === "zh" ? "## 6. Limitations and scientific boundary" : "## 6. Limitations and scientific boundary",
+    "",
+    reportBoundaryText(lang),
+  ].join("\n")
+}
+
 export function escapeHtml(value) {
   return String(value ?? "")
     .replace(/&/g, "&amp;")
