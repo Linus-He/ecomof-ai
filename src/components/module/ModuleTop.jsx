@@ -2,7 +2,7 @@ import { DataModeToggle } from "../ui"
 import { useT, useViewport } from "../../contexts"
 import { toolbarBtn } from "../../utils/styles"
 
-export function ModulePageHeader({ title, subtitle, action }) {
+export function ModulePageHeader({ title = "", subtitle = "", action = null }) {
   const t = useT()
   const { isMobile } = useViewport()
 
@@ -26,18 +26,22 @@ export function ModulePageHeader({ title, subtitle, action }) {
 }
 
 export function PrimaryWorkbenchCard({
-  title,
-  description,
-  capabilities,
-  metrics,
-  note,
-  primaryLabel,
+  title = "",
+  description = "",
+  capabilities = [],
+  metrics = [],
+  note = "",
+  primaryLabel = "",
   onPrimary,
-  secondaryLabel,
+  secondaryLabel = "",
   onSecondary,
+  actions = null,
 }) {
   const t = useT()
   const { isNarrow, isMobile } = useViewport()
+  const safeMetrics = Array.isArray(metrics) ? metrics : []
+  const capabilityText = Array.isArray(capabilities) ? capabilities.filter(Boolean).join(" · ") : capabilities
+  const showActions = actions || primaryLabel || secondaryLabel
 
   return (
     <section style={{
@@ -60,9 +64,9 @@ export function PrimaryWorkbenchCard({
             {description}
           </p>
         </div>
-        {capabilities && (
+        {capabilityText && (
           <div style={{ color: t.accentText, fontSize: 12, lineHeight: 1.5, fontWeight: 800 }}>
-            {capabilities}
+            {capabilityText}
           </div>
         )}
         {note && (
@@ -70,71 +74,85 @@ export function PrimaryWorkbenchCard({
             {note}
           </div>
         )}
-        {Array.isArray(metrics) && metrics.length > 0 && (
+        {safeMetrics.length > 0 && (
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, minmax(0, 1fr))" : "repeat(auto-fit, minmax(104px, 1fr))", gap: 8, maxWidth: 760 }}>
-            {metrics.map(metric => (
-              <div key={metric.key} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "8px 9px", minWidth: 0 }}>
-                <div style={{ color: t.textStrong, fontSize: 18, lineHeight: 1, fontWeight: 920 }}>{metric.value}</div>
+            {safeMetrics.map(metric => (
+              <div key={metric.key || metric.label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "8px 9px", minWidth: 0 }}>
+                <div style={{ color: t.textStrong, fontSize: 18, lineHeight: 1, fontWeight: 920 }}>{metric.value ?? "—"}</div>
                 <div style={{ color: t.faint, fontSize: 9.5, lineHeight: 1.3, fontWeight: 850, textTransform: "uppercase", marginTop: 5 }}>
-                  {metric.label}
+                  {metric.label || ""}
                 </div>
               </div>
             ))}
           </div>
         )}
       </div>
-      <div style={{ display: "flex", gap: 9, justifyContent: isNarrow ? "flex-start" : "flex-end", flexWrap: "wrap", width: isNarrow ? "100%" : "auto" }}>
-        <button
-          type="button"
-          onClick={onPrimary}
-          className="btn-primary"
-          style={{
-            ...toolbarBtn(t),
-            background: t.accent,
-            borderColor: t.accent,
-            color: "#fff",
-            justifyContent: "center",
-            minHeight: 40,
-            padding: "10px 15px",
-            width: isMobile ? "100%" : "auto",
-          }}
-        >
-          {primaryLabel}
-        </button>
-        {secondaryLabel && (
-          <button
-            type="button"
-            onClick={onSecondary}
-            style={{
-              ...toolbarBtn(t),
-              justifyContent: "center",
-              minHeight: 40,
-              padding: "10px 13px",
-              width: isMobile ? "100%" : "auto",
-            }}
-          >
-            {secondaryLabel}
-          </button>
-        )}
-      </div>
+      {showActions && (
+        <div style={{ display: "flex", gap: 9, justifyContent: isNarrow ? "flex-start" : "flex-end", flexWrap: "wrap", width: isNarrow ? "100%" : "auto" }}>
+          {actions || (
+            <>
+              {primaryLabel && (
+                <button
+                  type="button"
+                  onClick={onPrimary}
+                  className="btn-primary"
+                  style={{
+                    ...toolbarBtn(t),
+                    background: t.accent,
+                    borderColor: t.accent,
+                    color: "#fff",
+                    justifyContent: "center",
+                    minHeight: 40,
+                    padding: "10px 15px",
+                    width: isMobile ? "100%" : "auto",
+                  }}
+                >
+                  {primaryLabel}
+                </button>
+              )}
+              {secondaryLabel && (
+                <button
+                  type="button"
+                  onClick={onSecondary}
+                  style={{
+                    ...toolbarBtn(t),
+                    justifyContent: "center",
+                    minHeight: 40,
+                    padding: "10px 13px",
+                    width: isMobile ? "100%" : "auto",
+                  }}
+                >
+                  {secondaryLabel}
+                </button>
+              )}
+            </>
+          )}
+        </div>
+      )}
     </section>
   )
 }
 
-export function SecondaryTabs({ items, active, onChange, ariaLabel }) {
+export function SecondaryTabs({ tabs = [], items, activeKey, active, onChange, ariaLabel }) {
   const t = useT()
+  const safeTabs = Array.isArray(items) ? items : (Array.isArray(tabs) ? tabs : [])
+  if (!safeTabs.length) return null
+  const requestedActive = activeKey ?? active
+  const fallbackKey = safeTabs[0]?.key ?? safeTabs[0]?.id
+  const resolvedActive = safeTabs.some(item => (item.key ?? item.id) === requestedActive) ? requestedActive : fallbackKey
 
   return (
     <div role="tablist" aria-label={ariaLabel} style={{ display: "flex", gap: 6, overflowX: "auto", maxWidth: "100%", paddingBottom: 2 }}>
-      {items.map(item => {
-        const selected = active === item.id
+      {safeTabs.map(item => {
+        const itemKey = item.key ?? item.id
+        const selected = resolvedActive === itemKey
         return (
           <button
-            key={item.id}
+            key={itemKey}
             type="button"
             role="tab"
             aria-selected={selected}
-            onClick={() => onChange(item.id)}
+            onClick={() => onChange?.(itemKey)}
             style={{
               background: selected ? t.badgeInfoBg : t.panel,
               border: `1px solid ${selected ? t.accent : t.border}`,
@@ -149,7 +167,7 @@ export function SecondaryTabs({ items, active, onChange, ariaLabel }) {
               whiteSpace: "nowrap",
             }}
           >
-            {item.label}
+            {item.label || itemKey}
           </button>
         )
       })}
@@ -157,11 +175,13 @@ export function SecondaryTabs({ items, active, onChange, ariaLabel }) {
   )
 }
 
-export function ScopeNoticeBar({ label, children, actionLabel, onAction, tone = "info" }) {
+export function ScopeNoticeBar({ label = "", children = null, actionLabel = "", onAction, tone, type = "info" }) {
   const t = useT()
   const { isNarrow } = useViewport()
-  const bg = tone === "warn" ? (t.badgeWarnBg || t.surface) : tone === "scope" ? t.surface : t.badgeInfoBg
-  const border = tone === "warn" ? (t.warn || t.border) : t.border
+  if (children === null || children === undefined || children === "") return null
+  const resolvedTone = tone || type
+  const bg = resolvedTone === "warn" ? (t.badgeWarnBg || t.surface) : resolvedTone === "scope" ? t.surface : t.badgeInfoBg
+  const border = resolvedTone === "warn" ? (t.warn || t.border) : t.border
 
   return (
     <div style={{
@@ -187,9 +207,11 @@ export function ScopeNoticeBar({ label, children, actionLabel, onAction, tone = 
   )
 }
 
-export function CompactDataModeBar({ value, onChange, lang, statusText, infoLabel, onInfo }) {
+export function CompactDataModeBar({ value, mode = "demo", onChange = () => {}, lang = "zh", statusText, infoLabel, onInfo, recordsCount = 0 }) {
   const t = useT()
   const { isNarrow } = useViewport()
+  const currentMode = value ?? mode
+  const resolvedStatusText = statusText ?? (lang === "zh" ? `${recordsCount} 条记录` : `${recordsCount} records`)
 
   return (
     <div style={{
@@ -205,9 +227,9 @@ export function CompactDataModeBar({ value, onChange, lang, statusText, infoLabe
       <span style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
         {lang === "zh" ? "数据模式：" : "Data mode:"}
       </span>
-      <DataModeToggle value={value} onChange={onChange} lang={lang} />
+      <DataModeToggle value={currentMode} onChange={onChange} lang={lang} />
       <span style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.45, flex: isNarrow ? "1 1 100%" : "1 1 auto" }}>
-        {statusText}
+        {resolvedStatusText}
       </span>
       {infoLabel && (
         <button type="button" onClick={onInfo} style={{ ...toolbarBtn(t), padding: "6px 9px", minHeight: 30, fontSize: 11, marginLeft: isNarrow ? 0 : "auto" }}>

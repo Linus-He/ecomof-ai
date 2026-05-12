@@ -5,6 +5,7 @@ export const HASH_TO_TAB = {
   ecoscreen: "ecoscreen",
   performance: "performance",
   gassep: "gassep",
+  "gas-separation": "gassep",
   catalysis: "catalysis",
   library: "library",
   methodology: "about",
@@ -41,6 +42,10 @@ export const HASH_META = {
     description: "Explore rule-based MOF candidate prioritization with descriptor curation status and field-level provenance.",
   },
   gassep: {
+    title: "GasSep | Condition-Aware Gas Separation Records",
+    description: "Review condition-aware gas adsorption and separation records for MOF candidates, including gas ratio, temperature, pressure, method, source status, and isotherm availability.",
+  },
+  "gas-separation": {
     title: "GasSep | Condition-Aware Gas Separation Records",
     description: "Review condition-aware gas adsorption and separation records for MOF candidates, including gas ratio, temperature, pressure, method, source status, and isotherm availability.",
   },

@@ -312,7 +312,14 @@ function CountUpNumber({ value, suffix = "", reducedMotion, t }) {
 function AnimatedScreeningPreview({ t, lang, isMobile }) {
   const zh = lang === "zh"
   const [activeIndex, setActiveIndex] = useState(0)
-  const active = SCREENING_CANDIDATES[activeIndex]
+  const candidates = Array.isArray(SCREENING_CANDIDATES) ? SCREENING_CANDIDATES : []
+  const active = candidates[activeIndex] || candidates[0] || {
+    name: "MOF",
+    completeness: 0,
+    status: "needs-validation",
+    score: "—",
+    evidence: "—",
+  }
   const completenessPct = Math.round((active.completeness / 8) * 100)
 
   return (
@@ -373,7 +380,7 @@ function AnimatedScreeningPreview({ t, lang, isMobile }) {
         zIndex: 1,
       }}>
         <div style={{ display: "grid", gap: 8 }}>
-          {SCREENING_CANDIDATES.map((candidate, index) => {
+          {candidates.map((candidate, index) => {
             const isActive = index === activeIndex
             return (
               <button

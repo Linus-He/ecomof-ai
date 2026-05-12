@@ -719,7 +719,8 @@ export default function App() {
       validation: "about",
       resources: "about",
     }
-    if (normalizedTabs[activeTab]) setActiveTab(normalizedTabs[activeTab])
+    const nextTab = normalizedTabs[activeTab] || (TABS.some(tab => tab.id === activeTab) ? activeTab : TABS[0]?.id || "home")
+    if (nextTab !== activeTab) setActiveTab(nextTab)
   }, [activeTab])
 
   useEffect(() => {
