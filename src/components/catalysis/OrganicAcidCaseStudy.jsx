@@ -50,9 +50,18 @@ function formatMatrixLabel(label, lang) {
     available: "可用",
     partial: "部分",
     missing: "缺失",
-    "framework-only": "仅框架",
+    "framework-only": "仅框架级",
   }
   return labels[label] || label
+}
+
+function formatClassLabel(label, lang) {
+  if (lang !== "zh") return label
+  if (label === "framework-only") return "仅框架级 / framework-only"
+  if (label === "comparison-ready") return "可比较 / comparison-ready"
+  if (label === "contextual-only") return "仅语境解释 / contextual-only"
+  if (label === "incomplete") return "不完整 / incomplete"
+  return label
 }
 
 function DefinitionList({ items, t }) {
@@ -182,9 +191,9 @@ function MockRecordTransformation({ lang, mockRecord, t }) {
   return (
     <Panel ariaLabel="Mock Record Transformation" t={t} style={{ borderLeft: `3px solid ${t.accent}` }}>
       <SectionHeader
-        eyebrow={lang === "zh" ? "Mock 记录转换" : "Mock record transformation"}
+        eyebrow={lang === "zh" ? "演示记录转换" : "Mock record transformation"}
         title={lang === "zh" ? "一条记录如何被标准化" : "How one record is normalized"}
-        note={lang === "zh" ? "该 mock 记录只展示整理逻辑；数值为隐藏、缺失或占位状态。" : "This mock record shows curation logic only; values are hidden, missing, or framework placeholders."}
+        note={lang === "zh" ? "该演示记录只展示整理逻辑；数值为隐藏、缺失或占位状态。" : "This mock record shows curation logic only; values are hidden, missing, or framework placeholders."}
         t={t}
       />
       <div style={{ display: "grid", gap: 14, gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", marginTop: 16 }}>
@@ -198,7 +207,7 @@ function MockRecordTransformation({ lang, mockRecord, t }) {
           <table style={{ borderCollapse: "collapse", minWidth: 760, width: "100%" }}>
             <thead>
               <tr>
-                {(lang === "zh" ? ["Field", "标准化值", "状态", "为什么重要"] : ["Field", "Value", "Status", "Why it matters"]).map(head => (
+                {(lang === "zh" ? ["字段", "标准化值", "状态", "重要性"] : ["Field", "Value", "Status", "Why it matters"]).map(head => (
                   <th key={head} style={{ borderBottom: `1px solid ${t.border}`, color: t.faint, fontSize: 11, padding: "8px 10px", textAlign: "left" }}>{head}</th>
                 ))}
               </tr>
@@ -278,7 +287,7 @@ function CompletenessMatrix({ completenessMatrix, lang, t }) {
       <SectionHeader
         eyebrow={lang === "zh" ? "完整度矩阵" : "Completeness matrix"}
         title={lang === "zh" ? "缺失字段如何影响可比性" : "How missing fields affect comparability"}
-        note={lang === "zh" ? "矩阵按字段组显示 available、partial、missing 和 framework-only 状态，并给出解释。" : "The matrix diagnoses available, partial, missing, and framework-only status by field group."}
+        note={lang === "zh" ? "矩阵按字段组显示可用、部分、缺失和仅框架级状态，并给出解释。" : "The matrix diagnoses available, partial, missing, and framework-only status by field group."}
         t={t}
       />
       <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", marginTop: 14 }}>
@@ -309,15 +318,15 @@ function ReadinessTrace({ lang, readinessTrace, t }) {
     { label: lang === "zh" ? "必需字段检查" : "Required checks", value: lang === "zh" ? readinessTrace.requiredChecksZh : readinessTrace.requiredChecksEn },
     { label: lang === "zh" ? "推荐字段检查" : "Recommended checks", value: lang === "zh" ? readinessTrace.recommendedChecksZh : readinessTrace.recommendedChecksEn },
     { label: lang === "zh" ? "派生标签" : "Derived labels", value: lang === "zh" ? readinessTrace.derivedLabelsZh : readinessTrace.derivedLabelsEn },
-    { label: lang === "zh" ? "最终等级" : "Final class", value: readinessTrace.finalClass },
+    { label: lang === "zh" ? "最终等级" : "Final class", value: formatClassLabel(readinessTrace.finalClass, lang) },
   ]
 
   return (
     <Panel ariaLabel="Readiness Trace" t={t}>
       <SectionHeader
         eyebrow={lang === "zh" ? "判定轨迹" : "Readiness trace"}
-        title={lang === "zh" ? "为什么当前 mock 记录是 framework-only" : "Why the mock record is framework-only"}
-        note={lang === "zh" ? "判定轨迹展示 required / recommended / derived 如何共同生成最终等级。" : "The trace shows how required, recommended, and derived checks produce the final class."}
+        title={lang === "zh" ? "为什么当前演示记录仅具备框架级信息" : "Why the mock record is framework-only"}
+        note={lang === "zh" ? "判定轨迹展示必需、推荐和派生字段如何共同生成最终等级。" : "The trace shows how required, recommended, and derived checks produce the final class."}
         t={t}
       />
       <div style={{ display: "grid", gap: 10, marginTop: 14 }}>
@@ -388,7 +397,7 @@ function ReadinessClasses({ lang, readinessClasses, readinessTrace, t }) {
             { label: lang === "zh" ? "必需字段" : "Required", value: lang === "zh" ? readinessTrace.requiredChecksZh : readinessTrace.requiredChecksEn },
             { label: lang === "zh" ? "推荐字段" : "Recommended", value: lang === "zh" ? readinessTrace.recommendedChecksZh : readinessTrace.recommendedChecksEn },
             { label: lang === "zh" ? "派生标签" : "Derived", value: lang === "zh" ? readinessTrace.derivedLabelsZh : readinessTrace.derivedLabelsEn },
-            { label: lang === "zh" ? "当前等级" : "Current class", value: readinessTrace.finalClass },
+            { label: lang === "zh" ? "当前等级" : "Current class", value: formatClassLabel(readinessTrace.finalClass, lang) },
             { label: lang === "zh" ? "原因" : "Reason", value: lang === "zh" ? readinessTrace.reasonZh : readinessTrace.reasonEn },
           ]}
         />
@@ -396,7 +405,7 @@ function ReadinessClasses({ lang, readinessClasses, readinessTrace, t }) {
       <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", marginTop: 14 }}>
         {readinessClasses.map(item => (
           <article key={item.className} style={{ border: `1px solid ${t.border}`, borderRadius: 12, padding: 12 }}>
-            <div style={{ color: t.textStrong, fontFamily: "monospace", fontSize: 13, fontWeight: 950 }}>{item.className}</div>
+            <div style={{ color: t.textStrong, fontFamily: "monospace", fontSize: 13, fontWeight: 950 }}>{formatClassLabel(item.className, lang)}</div>
             <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55, marginTop: 7 }}>{lang === "zh" ? item.meaningZh : item.meaningEn}</div>
             <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, lineHeight: 1.5, marginTop: 10 }}>{lang === "zh" ? item.allowedUseZh : item.allowedUseEn}</div>
             <div style={{ borderTop: `1px solid ${t.divider}`, color: t.faint, fontSize: 11, lineHeight: 1.45, marginTop: 10, paddingTop: 8 }}>

@@ -35,7 +35,9 @@ const SCREENING_CANDIDATES = [
     score: 0.68,
     completeness: 5,
     evidence: "needs-validation",
+    evidenceZh: "待验证 needs-validation",
     status: "Real-seed / pending",
+    statusZh: "真实种子 / 待整理",
     bars: [54, 62, 46, 70],
   },
   {
@@ -43,7 +45,9 @@ const SCREENING_CANDIDATES = [
     score: 0.74,
     completeness: 6,
     evidence: "literature-supported",
+    evidenceZh: "文献支持",
     status: "Seed record",
+    statusZh: "种子记录",
     bars: [76, 70, 63, 58],
   },
   {
@@ -51,7 +55,9 @@ const SCREENING_CANDIDATES = [
     score: 0.59,
     completeness: 8,
     evidence: "rule-based",
+    evidenceZh: "规则推断",
     status: "Demo only",
+    statusZh: "仅演示",
     bars: [84, 52, 38, 66],
   },
 ]
@@ -59,35 +65,59 @@ const SCREENING_CANDIDATES = [
 const EVIDENCE_CHAIN_FIELDS = [
   {
     field: "CO2 uptake",
+    zhField: "CO2 吸附量",
     status: "curated",
+    zhStatus: "已整理",
     evidenceType: "literature-derived",
+    zhEvidenceType: "文献整理",
     sourceType: "paper / database",
+    zhSourceType: "论文 / 数据库",
     confidence: "medium-high",
+    zhConfidence: "中高",
     note: "Comparable only under similar temperature and pressure conditions.",
+    zhNote: "只有在相近温度、压力和测试条件下才适合横向比较。",
   },
   {
     field: "Surface area",
+    zhField: "比表面积",
     status: "needs review",
+    zhStatus: "需复核",
     evidenceType: "BET report",
+    zhEvidenceType: "BET 报告",
     sourceType: "literature table",
+    zhSourceType: "文献表格",
     confidence: "medium",
+    zhConfidence: "中",
     note: "Activation protocol and sample state must be checked before direct comparison.",
+    zhNote: "直接比较前需要核对活化流程、样品状态和测量条件。",
   },
   {
     field: "Water stability",
+    zhField: "水稳定性",
     status: "pending",
+    zhStatus: "待补充",
     evidenceType: "qualitative inference",
+    zhEvidenceType: "定性推断",
     sourceType: "synthesis report",
+    zhSourceType: "合成记录",
     confidence: "low-medium",
+    zhConfidence: "中低",
     note: "Needs pH, exposure time, humidity, and cycling conditions.",
+    zhNote: "需要补充 pH、暴露时间、湿度和循环条件后才能用于排序解释。",
   },
   {
     field: "Thermal stability",
+    zhField: "热稳定性",
     status: "demo only",
+    zhStatus: "仅演示",
     evidenceType: "rule-based placeholder",
+    zhEvidenceType: "规则占位",
     sourceType: "demo record",
+    zhSourceType: "演示记录",
     confidence: "low",
+    zhConfidence: "低",
     note: "Useful for interface testing, not for experimental conclusion.",
+    zhNote: "用于界面和流程测试，不构成实验结论。",
   },
 ]
 
@@ -354,7 +384,7 @@ function AnimatedScreeningPreview({ t, lang, isMobile }) {
         <div style={{ display: "inline-flex", alignItems: "center", gap: 8, minWidth: 0 }}>
           <LogoMark size={24} radius={7} />
           <span style={{ color: t.textStrong, fontSize: 12, fontWeight: 900, lineHeight: 1.2 }}>
-            EcoMOF-AI Screening Engine
+            {zh ? "EcoMOF-AI 筛选引擎" : "EcoMOF-AI Screening Engine"}
           </span>
         </div>
         <div style={{
@@ -388,7 +418,7 @@ function AnimatedScreeningPreview({ t, lang, isMobile }) {
                 type="button"
                 onClick={() => setActiveIndex(index)}
                 onFocus={() => setActiveIndex(index)}
-                aria-label={`${candidate.name} screening preview`}
+                aria-label={zh ? `${candidate.name} 筛选预览` : `${candidate.name} screening preview`}
                 aria-pressed={isActive}
                 className="candidate-preview-row"
                 data-active={isActive ? "true" : "false"}
@@ -406,7 +436,7 @@ function AnimatedScreeningPreview({ t, lang, isMobile }) {
               >
                 <span style={{ color: t.textStrong, fontSize: 13, fontWeight: 900, lineHeight: 1.2 }}>{candidate.name}</span>
                 <span style={{ color: isActive ? t.accentText : t.faint, fontSize: 10.5, fontWeight: 800 }}>
-                  {candidate.completeness}/8 descriptors · {candidate.evidence}
+                  {candidate.completeness}/8 {zh ? "描述符" : "descriptors"} · {zh ? candidate.evidenceZh : candidate.evidence}
                 </span>
               </button>
             )
@@ -417,7 +447,7 @@ function AnimatedScreeningPreview({ t, lang, isMobile }) {
           className="candidate-score-card"
           key={active.name}
           role="region"
-          aria-label={`Screening details for ${active.name}`}
+          aria-label={zh ? `${active.name} 筛选详情` : `Screening details for ${active.name}`}
           style={{
             background: t.surface,
             border: `1px solid ${t.border}`,
@@ -430,7 +460,7 @@ function AnimatedScreeningPreview({ t, lang, isMobile }) {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
             <div>
               <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", letterSpacing: 0 }}>
-                Candidate name
+                {zh ? "候选名称" : "Candidate name"}
               </div>
               <div style={{ color: t.textStrong, fontSize: 19, fontWeight: 950, lineHeight: 1.1, marginTop: 4 }}>
                 {active.name}
@@ -438,7 +468,7 @@ function AnimatedScreeningPreview({ t, lang, isMobile }) {
             </div>
             <div style={{ textAlign: "right" }}>
               <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", letterSpacing: 0 }}>
-                Score
+                {zh ? "评分" : "Score"}
               </div>
               <div style={{ color: t.textStrong, fontSize: 25, fontWeight: 950, fontFamily: FONT_MONO, lineHeight: 1.05, marginTop: 4 }}>
                 {active.score.toFixed(2)}
@@ -448,7 +478,7 @@ function AnimatedScreeningPreview({ t, lang, isMobile }) {
 
           <div style={{ display: "grid", gap: 7 }}>
             <div style={{ display: "flex", justifyContent: "space-between", gap: 8 }}>
-              <span style={{ color: t.muted, fontSize: 11, fontWeight: 800 }}>Descriptor completeness</span>
+              <span style={{ color: t.muted, fontSize: 11, fontWeight: 800 }}>{zh ? "描述符完整度" : "Descriptor completeness"}</span>
               <span style={{ color: t.textStrong, fontSize: 11, fontWeight: 900, fontFamily: FONT_MONO }}>{active.completeness}/8</span>
             </div>
             <div style={{ height: 8, borderRadius: 999, background: t.panel, border: `1px solid ${t.border}`, overflow: "hidden" }}>
@@ -465,16 +495,16 @@ function AnimatedScreeningPreview({ t, lang, isMobile }) {
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 8 }}>
             <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: "8px 9px" }}>
-              <div style={{ color: t.faint, fontSize: 9.5, fontWeight: 850, textTransform: "uppercase" }}>Evidence level</div>
-              <div style={{ color: t.textStrong, fontSize: 11.5, lineHeight: 1.35, fontWeight: 850, marginTop: 4 }}>{active.evidence}</div>
+              <div style={{ color: t.faint, fontSize: 9.5, fontWeight: 850, textTransform: "uppercase" }}>{zh ? "证据等级" : "Evidence level"}</div>
+              <div style={{ color: t.textStrong, fontSize: 11.5, lineHeight: 1.35, fontWeight: 850, marginTop: 4 }}>{zh ? active.evidenceZh : active.evidence}</div>
             </div>
             <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: "8px 9px" }}>
-              <div style={{ color: t.faint, fontSize: 9.5, fontWeight: 850, textTransform: "uppercase" }}>Data status</div>
-              <div style={{ color: t.textStrong, fontSize: 11.5, lineHeight: 1.35, fontWeight: 850, marginTop: 4 }}>{active.status}</div>
+              <div style={{ color: t.faint, fontSize: 9.5, fontWeight: 850, textTransform: "uppercase" }}>{zh ? "数据状态" : "Data status"}</div>
+              <div style={{ color: t.textStrong, fontSize: 11.5, lineHeight: 1.35, fontWeight: 850, marginTop: 4 }}>{zh ? active.statusZh : active.status}</div>
             </div>
           </div>
 
-          <div aria-label={`${active.name} mini descriptor chart`} style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 7, alignItems: "end", minHeight: 64 }}>
+          <div aria-label={zh ? `${active.name} 描述符迷你图` : `${active.name} mini descriptor chart`} style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 7, alignItems: "end", minHeight: 64 }}>
             {active.bars.map((value, index) => (
               <div key={`${active.name}-${index}`} style={{ display: "grid", alignItems: "end", gap: 5, minHeight: 64 }}>
                 <div style={{ height: 48, borderRadius: 7, background: t.panel, border: `1px solid ${t.border}`, display: "flex", alignItems: "end", overflow: "hidden" }}>
@@ -501,7 +531,7 @@ function AnimatedScreeningPreview({ t, lang, isMobile }) {
         position: "relative",
         zIndex: 1,
       }}>
-        Transparent ranking, not black-box prediction.
+        {zh ? "透明排序，不是黑箱预测。" : "Transparent ranking, not black-box prediction."}
       </div>
     </aside>
   )
@@ -553,6 +583,8 @@ function ReasonCard({ card, t, isMobile }) {
 function MetricCard({ metric, t, reducedMotion }) {
   const [ref, visible] = useInViewOnce()
   const pct = metric.progress ?? 0
+  const badgeLabels = metric.badgeLabels || ["experimental", "literature", "simulation", "rule-based"]
+  const toggleLabels = metric.toggleLabels || ["Demo data", "Seed data"]
 
   return (
     <article ref={ref} className="content-card metric-card home-motion-card" data-visible={visible ? "true" : "false"} style={{
@@ -584,12 +616,12 @@ function MetricCard({ metric, t, reducedMotion }) {
           <div style={{ height: 7, borderRadius: 999, border: `1px solid ${t.border}`, background: t.surface, overflow: "hidden" }}>
             <div className="animated-progress-fill" style={{ width: visible || reducedMotion ? `${pct}%` : "0%", height: "100%", background: t.accent }} />
           </div>
-          <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 800 }}>{metric.value} descriptors curated</div>
+          <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 800 }}>{metric.progressLabel || `${metric.value} descriptors curated`}</div>
         </div>
       )}
       {metric.kind === "badges" && (
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 2 }}>
-          {["experimental", "literature", "simulation", "rule-based"].map((badge, index) => (
+          {badgeLabels.map((badge, index) => (
             <span
               key={badge}
               className="evidence-badge-reveal"
@@ -621,7 +653,7 @@ function MetricCard({ metric, t, reducedMotion }) {
           borderRadius: 8,
           padding: 4,
         }}>
-          {["Demo data", "Seed data"].map((label, index) => (
+          {toggleLabels.map((label, index) => (
             <span key={label} style={{
               textAlign: "center",
               borderRadius: 6,
@@ -746,7 +778,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
       mark: "D",
       color: t.accentText,
       tint: t.badgeInfoBg,
-      title: "Descriptor-aware screening",
+      title: zh ? "描述符感知筛选" : "Descriptor-aware screening",
       body: zh ? "先检查描述符是否足够，再解释排序结果。" : "Screening starts with descriptor coverage before ranking claims.",
       points: zh ? [
         "8 个核心描述符作为共享检查框架",
@@ -762,12 +794,12 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
       mark: "E",
       color: t.cyan || t.accentText,
       tint: t.surface,
-      title: "Evidence-linked data",
+      title: zh ? "证据关联数据" : "Evidence-linked data",
       body: zh ? "结果、描述符和来源状态放在同一个阅读语境里。" : "Results, descriptors, and source status are read together.",
       points: zh ? [
         "保留 evidence level 与字段级来源",
         "区分 demo record 与 real-seed record",
-        "支持跳转到 Data Quality & Provenance",
+        "支持跳转到数据质量与来源（Data Quality & Provenance）",
       ] : [
         "Evidence level and field provenance remain attached",
         "Demo records and real-seed records are separated",
@@ -778,7 +810,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
       mark: "L",
       color: t.violet || t.accentText,
       tint: t.badgeCalcBg,
-      title: "LCA-oriented thinking",
+      title: zh ? "面向 LCA 的早期判断" : "LCA-oriented thinking",
       body: zh ? "不是把 LCA 当作装饰指标，而是让可行性边界提前出现。" : "LCA is treated as an early feasibility lens, not decoration.",
       points: zh ? [
         "把稳定性、毒性关注和可持续性风险纳入早筛",
@@ -796,7 +828,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
     {
       value: "8",
       countTo: 8,
-      title: "Core descriptors",
+      title: zh ? "核心描述符" : "Core descriptors",
       body: zh ? "比表面积、孔径、孔体积、CO2 吸附量、带隙、水稳定性、热稳定性、毒性关注。" : CORE_DESCRIPTOR_LABELS.join(", "),
       info: zh ? "这是透明度检查框架，不代表所有记录都已经完整或验证。" : "This is a transparency frame, not a claim that every record is complete or validated.",
     },
@@ -804,7 +836,8 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
       value: dataMode === "demo" ? "8/8" : "0/8",
       kind: "progress",
       progress: dataMode === "demo" ? 100 : 0,
-      title: "Descriptor completeness",
+      title: zh ? "描述符完整度" : "Descriptor completeness",
+      progressLabel: zh ? `${dataMode === "demo" ? "8/8" : "0/8"} 个描述符已整理` : `${dataMode === "demo" ? "8/8" : "0/8"} descriptors curated`,
       body: dataMode === "demo"
         ? (zh ? "演示数据用于展示完整流程；真实种子字段仍需要逐项复核。" : "Demo data shows the full workflow; real-seed fields still need curation.")
         : (zh ? "真实种子模式优先暴露待整理状态，不伪装成完整数据库。" : "Real-seed mode exposes pending curation instead of pretending to be complete."),
@@ -814,81 +847,83 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
       value: "6",
       countTo: 6,
       kind: "badges",
-      title: "Evidence levels",
+      title: zh ? "证据等级" : "Evidence levels",
       body: zh ? "experimental、literature、simulation、ML-predicted、rule-based、needs-validation。" : "Experimental, literature, simulation, ML-predicted, rule-based, and needs-validation states.",
       info: zh ? "证据等级说明数据状态；High 或 experimental 仍需结合具体任务与条件解释。" : "Evidence level describes data state and must still be read with task and condition context.",
+      badgeLabels: zh ? ["实验", "文献", "模拟", "规则"] : ["experimental", "literature", "simulation", "rule-based"],
     },
     {
       value: "2",
       countTo: 2,
       kind: "toggle",
-      title: "Demo + seed separation",
+      title: zh ? "演示与种子库分离" : "Demo + seed separation",
       body: zh ? "演示数据与真实种子数据分离，避免把占位数据误读为科研结论。" : "Demo and real-seed data stay separated to avoid treating placeholders as conclusions.",
       info: zh ? "来源说明保留在 Data Mode、Field-level Provenance 和 Methodology 中。" : "Source boundaries remain visible through Data Mode, field provenance, and Methodology.",
+      toggleLabels: zh ? ["演示数据", "种子数据"] : ["Demo data", "Seed data"],
     },
   ], [dataMode, zh])
 
   const modules = useMemo(() => [
     {
       name: "EcoScreen",
-      kicker: "Candidate scoring",
+      kicker: zh ? "候选评分" : "Candidate scoring",
       target: "ecoscreen",
       mark: "E",
       positioning: zh ? "面向早期环境可行性与候选优先级的筛选入口。" : "Screening entry for early environmental feasibility and candidate priority.",
       functionText: zh ? "用可解释权重、硬筛选边界和不确定性提示排序候选材料。" : "Rank candidates with explainable weights, hard-screen boundaries, and uncertainty signals.",
-      capabilities: zh ? ["CRITIC-MCDA scoring", "Uncertainty flags", "Hard-screen boundary"] : ["CRITIC-MCDA scoring", "Uncertainty flags", "Hard-screen boundary"],
-      buttonLabel: zh ? "Start Screening" : "Start Screening",
+      capabilities: zh ? ["CRITIC-MCDA 评分", "不确定性提示", "硬筛选边界"] : ["CRITIC-MCDA scoring", "Uncertainty flags", "Hard-screen boundary"],
+      buttonLabel: zh ? "开始筛选" : "Start Screening",
     },
     {
-      name: "MOF Library",
-      kicker: "Descriptors & provenance",
+      name: zh ? "MOF 候选库" : "MOF Library",
+      kicker: zh ? "描述符与溯源" : "Descriptors & provenance",
       target: "mofLibrary",
       mark: "L",
       positioning: zh ? "候选材料、字段状态、来源信息和对比器的主要入口。" : "Main entry for candidates, field status, provenance, and comparison.",
-      functionText: zh ? "浏览 demo / real-seed 数据，检查 8 个描述符、证据等级和字段级来源。" : "Browse demo / real-seed data and inspect 8 descriptors, evidence level, and field sources.",
-      capabilities: zh ? ["Demo / real-seed records", "Field provenance", "Candidate comparison"] : ["Demo / real-seed records", "Field provenance", "Candidate comparison"],
-      buttonLabel: zh ? "Explore Library" : "Explore Library",
-      compareAction: zh ? "Open builder" : "Open builder",
+      functionText: zh ? "浏览演示 / 真实种子（demo / real-seed）数据，检查 8 个描述符、证据等级和字段级来源。" : "Browse demo / real-seed data and inspect 8 descriptors, evidence level, and field sources.",
+      capabilities: zh ? ["演示 / 真实种子记录", "字段级来源", "候选对比"] : ["Demo / real-seed records", "Field provenance", "Candidate comparison"],
+      buttonLabel: zh ? "浏览候选库" : "Explore Library",
+      compareAction: zh ? "打开对比器" : "Open builder",
     },
     {
-      name: "Performance Analysis",
-      kicker: "Adsorption priority",
+      name: zh ? "性能优先级" : "Performance Analysis",
+      kicker: zh ? "吸附优先级" : "Adsorption priority",
       target: "performance",
       mark: "P",
       positioning: zh ? "面向吸附与性能线索的候选材料分析页面。" : "Candidate analysis page for adsorption and performance cues.",
       functionText: zh ? "查看静态浏览器端模型、候选优先级、保存结果和基准样例。" : "Review the static browser model, candidate priorities, saved runs, and benchmark examples.",
-      capabilities: zh ? ["Adsorption cues", "Static browser model", "Saved run context"] : ["Adsorption cues", "Static browser model", "Saved run context"],
-      buttonLabel: zh ? "View Performance" : "View Performance",
+      capabilities: zh ? ["吸附线索", "静态浏览器端模型", "已保存运行语境"] : ["Adsorption cues", "Static browser model", "Saved run context"],
+      buttonLabel: zh ? "查看性能分析" : "View Performance",
     },
     {
-      name: "Catalysis Lab",
-      kicker: "Task-oriented records",
+      name: zh ? "催化实验室" : "Catalysis Lab",
+      kicker: zh ? "任务导向记录" : "Task-oriented records",
       target: "catalysis",
       mark: "C",
       positioning: zh ? "围绕 CO2 转化与有机酸路径的催化探索原型。" : "Catalysis prototype for CO2 conversion and organic-acid pathway exploration.",
-      functionText: zh ? "使用 mock / demo records 做任务语境探索，不把候选结果写成已验证结论。" : "Use mock / demo records for task-context exploration without claiming validated performance.",
-      capabilities: zh ? ["Task records", "CO2 conversion context", "Mock-data boundary"] : ["Task records", "CO2 conversion context", "Mock-data boundary"],
-      buttonLabel: zh ? "Open Catalysis Lab" : "Open Catalysis Lab",
+      functionText: zh ? "使用演示记录（mock / demo records）做任务语境探索，不把候选结果写成已验证结论。" : "Use mock / demo records for task-context exploration without claiming validated performance.",
+      capabilities: zh ? ["任务记录", "CO2 转化语境", "演示数据边界"] : ["Task records", "CO2 conversion context", "Mock-data boundary"],
+      buttonLabel: zh ? "打开催化实验室" : "Open Catalysis Lab",
     },
     {
-      name: "Methods & Limitations",
-      kicker: "Methodology",
+      name: zh ? "方法与限制" : "Methods & Limitations",
+      kicker: zh ? "方法论" : "Methodology",
       target: "methodology",
       mark: "M",
       positioning: zh ? "评分、证据、验证状态、限制和引用边界的集中说明。" : "Central explanation for scoring, evidence, validation state, limits, and citation boundaries.",
-      functionText: zh ? "阅读 CRITIC-MCDA、RSM 边界、Validation & Evidence 与 benchmark references。" : "Read CRITIC-MCDA, RSM boundaries, Validation & Evidence, and benchmark references.",
-      capabilities: zh ? ["Method boundary", "Evidence language", "Benchmark context"] : ["Method boundary", "Evidence language", "Benchmark context"],
-      buttonLabel: zh ? "Read Methodology" : "Read Methodology",
+      functionText: zh ? "阅读 CRITIC-MCDA、RSM 边界、验证与证据（Validation & Evidence）和基准参考（benchmark references）。" : "Read CRITIC-MCDA, RSM boundaries, Validation & Evidence, and benchmark references.",
+      capabilities: zh ? ["方法边界", "证据语言", "基准语境"] : ["Method boundary", "Evidence language", "Benchmark context"],
+      buttonLabel: zh ? "阅读方法论" : "Read Methodology",
     },
   ], [zh])
 
   const validationItems = useMemo(() => [
     {
-      title: "Current status",
+      title: zh ? "当前状态" : "Current status",
       body: zh ? "当前为研究原型与候选优先级工具，不是验证级预测引擎。" : "Current status is a research prototype and candidate-priority tool, not a validated prediction engine.",
       points: zh ? [
-        "Demo records 用于展示流程",
-        "Real-seed records 用于真实数据接入框架",
+        "演示记录用于展示流程",
+        "真实种子记录用于真实数据接入框架",
         "结果用于假设生成与早期筛选",
       ] : [
         "Demo records show the workflow",
@@ -898,12 +933,12 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
       info: zh ? "该说明不是为了弱化产品，而是让研究边界可审计。" : "This boundary makes the research state auditable rather than vague.",
     },
     {
-      title: "Checked fields",
+      title: zh ? "检查字段" : "Checked fields",
       body: zh ? "首页保留核心字段检查：描述符完整性、来源状态、条件语境和风险提示。" : "The homepage preserves checks for descriptor completeness, source status, condition context, and risk flags.",
       points: zh ? [
-        "8 core descriptors",
-        "Field-level provenance",
-        "Data Quality & Provenance deep link",
+        "8 个核心描述符",
+        "字段级来源",
+        "数据质量与来源深链",
       ] : [
         "8 core descriptors",
         "Field-level provenance",
@@ -911,12 +946,12 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
       ],
     },
     {
-      title: "Evidence levels",
+      title: zh ? "证据等级" : "Evidence levels",
       body: zh ? "证据等级是数据状态语言，不把规则推断、模拟和实验支持混为一谈。" : "Evidence level is a data-state language that separates rules, simulation, literature, and experiment.",
       points: zh ? [
-        "rule-based 与 needs-validation 默认谨慎呈现",
+        "规则推断（rule-based）与待验证（needs-validation）默认谨慎呈现",
         "ML-predicted 为保留类别，不冒充当前模型输出",
-        "benchmark references 只提供解释语境",
+        "基准参考只提供解释语境",
       ] : [
         "rule-based and needs-validation stay cautious",
         "ML-predicted is a reserved category, not active model output",
@@ -924,11 +959,11 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
       ],
     },
     {
-      title: "Next validation plan",
+      title: zh ? "下一步验证计划" : "Next validation plan",
       body: zh ? "下一步是把公开来源、实验记录、条件字段和生命周期数据逐步接入验证工作流。" : "Next work connects public sources, experimental records, condition fields, and lifecycle data into validation-ready workflows.",
       points: zh ? [
         "补全字段来源与条件",
-        "加入 replicate / benchmark checks",
+        "加入重复性与基准检查（replicate / benchmark checks）",
         "形成可导出的验证摘要",
       ] : [
         "Complete field sources and conditions",
@@ -940,23 +975,23 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
 
   const audiences = useMemo(() => [
     {
-      role: "MOF researchers",
+      role: zh ? "MOF 研究者" : "MOF researchers",
       body: zh ? "快速查看候选材料描述符、缺失字段和可疑边界。" : "Review descriptors, missing fields, and questionable boundaries quickly.",
     },
     {
-      role: "LCA researchers",
+      role: zh ? "LCA 研究者" : "LCA researchers",
       body: zh ? "把早期环境可行性信号放入材料筛选语境中。" : "Place early environmental feasibility signals inside the material-screening context.",
     },
     {
-      role: "ML / informatics researchers",
+      role: zh ? "信息学 / ML 研究者" : "ML / informatics researchers",
       body: zh ? "观察透明规则、证据等级和数据整理结构如何影响排序。" : "Inspect how transparent rules, evidence levels, and curation structure affect ranking.",
     },
     {
-      role: "Students / portfolio reviewers",
+      role: zh ? "学生 / 作品集评审者" : "Students / portfolio reviewers",
       body: zh ? "理解一个科研产品原型如何组织问题、数据、模型和限制。" : "Understand how a research product prototype organizes questions, data, models, and limits.",
     },
     {
-      role: "Potential collaborators",
+      role: zh ? "潜在合作者" : "Potential collaborators",
       body: zh ? "找到数据接入、验证、benchmark 和领域任务扩展的合作点。" : "Find collaboration points for data ingestion, validation, benchmarks, and domain tasks.",
     },
   ], [zh])
@@ -965,31 +1000,31 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
     {
       index: "1",
       active: true,
-      title: "Demo screening",
+      title: zh ? "演示筛选" : "Demo screening",
       body: zh ? "稳定展示候选评分、模块入口和研究边界。" : "Stabilize candidate scoring, module entry points, and research boundaries.",
     },
     {
       index: "2",
       active: true,
-      title: "Provenance layer",
-      body: zh ? "继续完善字段级来源、条件、证据等级和 Data Mode 语义。" : "Improve field sources, conditions, evidence levels, and Data Mode semantics.",
+      title: zh ? "溯源层" : "Provenance layer",
+      body: zh ? "继续完善字段级来源、条件、证据等级和数据模式（Data Mode）语义。" : "Improve field sources, conditions, evidence levels, and Data Mode semantics.",
     },
     {
       index: "3",
       active: false,
-      title: "Catalysis records",
-      body: zh ? "扩展任务导向催化记录，同时保留 mock / demo 边界。" : "Expand task-oriented catalysis records while keeping mock / demo boundaries explicit.",
+      title: zh ? "催化记录" : "Catalysis records",
+      body: zh ? "扩展任务导向催化记录，同时保留演示数据（mock / demo）边界。" : "Expand task-oriented catalysis records while keeping mock / demo boundaries explicit.",
     },
     {
       index: "4",
       active: false,
-      title: "Validation-ready workflow",
-      body: zh ? "接入 benchmark、replicate、导出摘要和人工复核流程。" : "Connect benchmarks, replicates, export summaries, and manual review workflow.",
+      title: zh ? "面向验证的工作流" : "Validation-ready workflow",
+      body: zh ? "接入基准、重复性检查、导出摘要和人工复核流程。" : "Connect benchmarks, replicates, export summaries, and manual review workflow.",
     },
     {
       index: "5",
       active: false,
-      title: "Future research workspace",
+      title: zh ? "未来研究工作台" : "Future research workspace",
       body: zh ? "面向团队协作、私有数据接入和可复现实验记录。" : "Support team collaboration, private data ingestion, and reproducible experiment records.",
     },
   ], [zh])
@@ -1038,7 +1073,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
               <LogoMark size={isMobile ? 48 : 58} radius={14} style={{ boxShadow: t.shadowSm }} />
               <div style={{ color: t.accentText, fontSize: 12, fontWeight: 900, letterSpacing: 0 }}>
-                Research prototype · MOF screening
+                {zh ? "研究原型 · MOF 筛选" : "Research prototype · MOF screening"}
               </div>
             </div>
             <h1 style={{
@@ -1059,7 +1094,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
               fontWeight: 900,
               maxWidth: 860,
             }}>
-              A transparent decision-support platform for sustainable MOF screening
+              {zh ? "面向可持续 MOF 筛选的透明决策支持平台" : "A transparent decision-support platform for sustainable MOF screening"}
             </p>
             <p style={{
               margin: "13px 0 0",
@@ -1079,13 +1114,13 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
               marginTop: 22,
             }} className="home-hero-cta">
               <ActionButton t={t} primary wide={isMobile} onClick={() => go("ecoscreen")}>
-                Start Screening
+                {zh ? "开始筛选" : "Start Screening"}
               </ActionButton>
               <ActionButton t={t} wide={isMobile} onClick={() => go("mofLibrary")}>
-                Explore MOF Library
+                {zh ? "浏览 MOF 候选库" : "Explore MOF Library"}
               </ActionButton>
               <ActionButton t={t} wide={isMobile} onClick={() => go("methodology")}>
-                View Methods & Evidence
+                {zh ? "查看方法与证据" : "View Methods & Evidence"}
               </ActionButton>
             </div>
           </div>
@@ -1102,7 +1137,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
 
       <section style={sectionStyle}>
         <SectionHeader
-          eyebrow="Why EcoMOF-AI"
+          eyebrow={zh ? "为什么使用 EcoMOF-AI" : "Why EcoMOF-AI"}
           title={zh ? "三个核心价值，而不是一组黑箱分数" : "Three reasons beyond a black-box score"}
           subtitle={zh ? "首页把筛选、数据证据和 LCA 思维按研究流程组织，避免让结果脱离来源和限制。" : "The homepage connects screening, evidence, and LCA-oriented reasoning so outputs are not detached from source and limits."}
           t={t}
@@ -1123,7 +1158,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
         background: t.badgeInfoBg,
       }}>
         <SectionHeader
-          eyebrow="Metrics / Trust Indicators"
+          eyebrow={zh ? "透明度指标 / 信任线索" : "Metrics / Trust Indicators"}
           title={zh ? "透明度指标，不是商业夸张指标" : "Transparency indicators, not marketing claims"}
           subtitle={zh ? "这些数字说明原型如何暴露描述符、证据状态和数据模式，而不是承诺科研结论已经完成。" : "These numbers explain how the prototype exposes descriptors, evidence state, and data mode rather than claiming completed scientific validation."}
           t={t}
@@ -1144,7 +1179,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
                   background: t.panel,
                 }}
               >
-                {zh ? "查看 Data Quality & Provenance" : "View Data Quality & Provenance"}
+                {zh ? "查看数据质量与溯源" : "View Data Quality & Provenance"}
               </button>
             </div>
           }
@@ -1163,18 +1198,18 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
 
       <section style={{ ...bluePanel, padding: isMobile ? "18px 16px" : "24px" }}>
         <SectionHeader
-          eyebrow="Scroll Narrative"
-          title="From descriptors to decisions"
+          eyebrow={zh ? "流程叙事" : "Scroll Narrative"}
+          title={zh ? "从描述符到决策支持" : "From descriptors to decisions"}
           subtitle={zh ? "滚动经过四个研究步骤时，右侧视觉面板会从描述符网络过渡到证据映射、权重归一化和候选排序。" : "As the user scrolls through four research steps, the visual panel moves from descriptor network to evidence mapping, weighting, normalization, and candidate ranking."}
           t={t}
           isMobile={isMobile}
         />
-        <ScrollNarrative t={t} isMobile={storyIsMobile} reducedMotion={reducedMotion} />
+        <ScrollNarrative t={t} isMobile={storyIsMobile} reducedMotion={reducedMotion} lang={lang} />
       </section>
 
       <section style={sectionStyle}>
         <SectionHeader
-          eyebrow="Platform Modules"
+          eyebrow={zh ? "平台模块" : "Platform Modules"}
           title={zh ? "从首页进入完整研究工作台" : "Enter the research workspace from the homepage"}
           subtitle={zh ? "模块卡片统一呈现定位、核心功能和入口，保留现有 EcoScreen、Library、Performance、Catalysis 与 Methodology 路由。" : "Module cards present positioning, core function, and entry points while preserving existing EcoScreen, Library, Performance, Catalysis, and Methodology routes."}
           t={t}
@@ -1191,7 +1226,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
 
       <section style={sectionStyle}>
         <SectionHeader
-          eyebrow="Validation & Evidence"
+          eyebrow={zh ? "验证与证据" : "Validation & Evidence"}
           title={zh ? "把可信度做成研究面板，而不是免责声明" : "Research credibility panel, not a generic disclaimer"}
           subtitle={zh ? "保留当前验证状态、检查字段、证据等级和下一步验证计划，让读者能质疑每个结果。" : "Current validation status, checked fields, evidence levels, and next validation plans remain visible so every result can be questioned."}
           t={t}
@@ -1199,10 +1234,10 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
           action={
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap", width: isMobile ? "100%" : "auto" }}>
               <ActionButton t={t} wide={isMobile} onClick={() => go("validation-evidence")}>
-                {zh ? "打开 Validation & Evidence" : "Open Validation & Evidence"}
+                {zh ? "打开验证与证据" : "Open Validation & Evidence"}
               </ActionButton>
               <ActionButton t={t} wide={isMobile} onClick={() => go("benchmark-references")}>
-                {zh ? "查看 Benchmark References" : "View Benchmark References"}
+                {zh ? "查看 benchmark 参考" : "View Benchmark References"}
               </ActionButton>
             </div>
           }
@@ -1215,13 +1250,13 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
           {validationItems.map(item => <ValidationItem key={item.title} item={item} t={t} />)}
         </div>
         <div style={{ marginTop: 14 }}>
-          <EvidenceChainAnimation fields={EVIDENCE_CHAIN_FIELDS} t={t} isMobile={storyIsMobile} />
+          <EvidenceChainAnimation fields={EVIDENCE_CHAIN_FIELDS} t={t} isMobile={storyIsMobile} lang={lang} />
         </div>
       </section>
 
       <section style={sectionStyle}>
         <SectionHeader
-          eyebrow="Audience"
+          eyebrow={zh ? "适用对象" : "Audience"}
           title={zh ? "面向不同用户的同一套透明语言" : "One transparent language for different users"}
           subtitle={zh ? "首页保留原有用户类型，并把每类用户能获得的价值压缩成一句话。" : "The homepage keeps the existing audience types and compresses each value proposition into one sentence."}
           t={t}
@@ -1238,7 +1273,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
 
       <section ref={roadmapRef} style={{ ...bluePanel, padding: isMobile ? "18px 16px" : "24px" }}>
         <SectionHeader
-          eyebrow="Development Roadmap"
+          eyebrow={zh ? "发展路线图" : "Development Roadmap"}
           title={zh ? "从演示筛选走向可验证研究工作流" : "From demo screening to validation-ready research workflow"}
           subtitle={zh ? "路线图保持简洁，说明当前完成的层、正在打磨的层和未来需要真实数据支撑的层。" : "A concise roadmap separates the current layer, the provenance work in progress, and future layers that need real validation data."}
           t={t}
@@ -1266,10 +1301,10 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
       }}>
         <div style={{ minWidth: 0 }}>
           <div style={{ color: t.accentText, fontSize: 11, fontWeight: 850, textTransform: "uppercase", letterSpacing: 0, marginBottom: 8 }}>
-            Contact / Collaboration
+            {zh ? "联系 / 合作" : "Contact / Collaboration"}
           </div>
           <h2 style={{ margin: 0, color: t.textStrong, fontSize: isMobile ? 24 : 32, lineHeight: 1.15, fontWeight: 950, letterSpacing: 0 }}>
-            Explore, evaluate, and question every result.
+            {zh ? "浏览、评估，并质疑每一个结果。" : "Explore, evaluate, and question every result."}
           </h2>
           <p style={{ margin: "9px 0 0", color: t.muted, fontSize: 13.5, lineHeight: 1.65, maxWidth: 760 }}>
             {zh
@@ -1279,13 +1314,13 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
         </div>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: isNarrow ? "flex-start" : "flex-end" }}>
           <ActionButton t={t} primary wide={isMobile} onClick={() => go("ecoscreen")}>
-            Open EcoScreen
+            {zh ? "打开 EcoScreen" : "Open EcoScreen"}
           </ActionButton>
           <ActionButton t={t} wide={isMobile} onClick={() => go("methodology")}>
-            Read Methodology
+            {zh ? "阅读方法论" : "Read Methodology"}
           </ActionButton>
           <ActionButton t={t} wide={isMobile} onClick={openContact}>
-            Contact / Collaborate
+            {zh ? "联系 / 合作" : "Contact / Collaborate"}
           </ActionButton>
         </div>
       </section>

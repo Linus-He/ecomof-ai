@@ -284,10 +284,60 @@ const zhValue = (value, lang) => {
     Medium: "中",
     Low: "低",
     "Low-medium": "低-中",
+    "needs-validation": "待验证 needs-validation",
     "unmarked": "未标注",
     "Demo seed": "演示种子数据",
     "local seed": "本地种子数据",
+    "real-seed / public-database-placeholder": "真实种子 / 公开数据库占位",
   }[value] || value
+}
+
+const LIBRARY_TEXT_ZH = {
+  "Real seed record. Structural topology (fcu) confirmed from CoRE MOF. Adsorption and electronic descriptors require curated literature or GCMC values before use.": "真实种子记录。结构拓扑（fcu）来自 CoRE MOF；吸附与电子描述符在作为性能标签前仍需补充整理后的文献或 GCMC 数值。",
+  "Real seed record based on Furukawa 2014 synthesis report. Descriptor values require GCMC or measured BET before use as performance label.": "基于 Furukawa 2014 合成报道的真实种子记录。描述符数值在作为性能标签前仍需 GCMC 或实测 BET 支撑。",
+  "Well-known benchmark MOF. Open Cu2+ sites reported in literature. Water stability is low — experimental conditions must be specified before drawing conclusions.": "常用基准 MOF。文献报道存在开放 Cu2+ 位点；水稳定性较低，得出结论前必须明确实验条件。",
+  "Real seed record. Chromium toxicity concern must be disclosed. Very high surface area reported in literature but requires experimental BET for each batch.": "真实种子记录。必须披露铬毒性关注；文献报道较高比表面积，但每个批次仍需实验 BET 支撑。",
+  "Real seed record. Sodalite topology confirmed. Wide band gap (~5 eV range) reduces photocatalytic interest without modification. CO2 uptake must be measured per sample.": "真实种子记录。Sodalite 拓扑已确认；较宽带隙（约 5 eV）在未改性时会降低光催化兴趣，CO2 吸附量仍需逐样品测量。",
+  "Real seed record. One of the highest-reported CO2 uptake MOFs at low pressure; values require source-specific citation and experimental confirmation before comparison.": "真实种子记录。低压 CO2 吸附量报道较高，但比较前需要逐来源引用和实验确认。",
+  "Real seed record. Extended biphenyl linker gives larger pore than UiO-66. Functionalization potential is a hypothesis, not a measured result.": "真实种子记录。延长的联苯连接体使孔径大于 UiO-66；官能化潜力仍是假设，不是实测结果。",
+  "Real seed record. Pyrene-based linker supports light absorption hypothesis. Photocatalytic performance must be measured, not inferred from linker alone.": "真实种子记录。芘基连接体支持光吸收假设；光催化性能必须实测，不能仅由连接体推断。",
+  "Real seed record. MIL-53 breathing behavior makes static pore descriptors unreliable — open and narrow forms have different pore sizes. Must specify phase before comparing descriptors.": "真实种子记录。MIL-53 的 breathing 行为会削弱静态孔描述符可靠性，open 与 narrow 形态孔径不同；比较描述符前必须明确相态。",
+  "Real seed record. Porphyrin linker hypothesis for photocatalysis and metalation. Actual catalytic performance requires measured quantum yield and TON.": "真实种子记录。卟啉连接体支持光催化和金属化假设；真实催化性能仍需实测量子产率和 TON。",
+  "Real seed record. Ti-oxo cluster photocatalytic hypothesis is supported by literature but remains task-specific. NH2-functionalized variant (MIL-125-NH2) is more studied for CO2 photoreduction.": "真实种子记录。Ti-oxo 簇的光催化假设有文献支持，但仍具有任务特异性；NH2 功能化变体（MIL-125-NH2）在 CO2 光还原方向研究更多。",
+  "This is a real-seed framework record, not a complete performance label.": "这是真实种子框架记录，不是完整性能标签。",
+  "Structural descriptors require validation against synthesized samples.": "结构描述符需要与合成样品进行验证。",
+  "Experimental validation is required before drawing catalytic conclusions.": "得出催化结论前需要实验验证。",
+  "Synthesis conditions vary by lab; pore descriptors are structure-dependent.": "合成条件随实验室而异；孔描述符依赖结构状态。",
+  "CO2 uptake not included — requires measured isotherm.": "尚未纳入 CO2 吸附量，需要实测等温线。",
+  "Experimental validation is required.": "需要实验验证。",
+  "Low water stability limits application range; must be explicitly stated.": "较低水稳定性限制应用范围，必须明确说明。",
+  "Open metal site hypothesis requires experimental confirmation for each batch.": "开放金属位点假设需要逐批次实验确认。",
+  "Chromium toxicity concern requires explicit disclosure in any application context.": "任何应用语境都需要明确披露铬毒性关注。",
+  "Reported BET values vary significantly across synthesis conditions.": "报道的 BET 数值会随合成条件显著变化。",
+  "Wide band gap reduces direct photocatalytic applicability without functionalization.": "在未功能化时，宽带隙会降低直接光催化适用性。",
+  "Pore size and uptake depend on activation and measurement conditions.": "孔径和吸附量依赖活化与测试条件。",
+  "CO2 uptake is strongly condition-dependent (temperature, pressure, humidity).": "CO2 吸附量强依赖温度、压力和湿度条件。",
+  "Mg variant only; Fe/Ni/Co variants have different stability and uptake profiles.": "仅指 Mg 变体；Fe/Ni/Co 变体具有不同稳定性和吸附特征。",
+  "Larger pore may reduce CO2 uptake versus UiO-66 at low pressure.": "在低压条件下，较大孔径可能降低相对 UiO-66 的 CO2 吸附量。",
+  "Biphenyl rotation can affect accessible pore volume; requires molecular dynamics.": "联苯旋转可能影响可达孔体积，需要分子动力学验证。",
+  "Photocatalytic activity is a hypothesis based on linker photophysics, not a measured result.": "光催化活性是基于连接体光物理性质的假设，不是实测结果。",
+  "ALD node modification changes structure; descriptors must be re-measured post-modification.": "ALD 节点改性会改变结构，改性后必须重新测量描述符。",
+  "Breathing behavior means a single pore size or uptake value is misleading.": "Breathing 行为意味着单一孔径或吸附量数值可能具有误导性。",
+  "CO2 uptake depends on the breathing transition pressure and temperature.": "CO2 吸附量依赖 breathing 转变压力和温度。",
+  "Experimental validation under defined conditions is required.": "需要在明确条件下进行实验验证。",
+  "Porphyrin metalation changes electronic structure; descriptors are metalation-specific.": "卟啉金属化会改变电子结构，描述符具有金属化特异性。",
+  "Photocatalytic activity requires measured quantum yield, not band gap alone.": "光催化活性需要实测量子产率，不能只看带隙。",
+  "Base MIL-125 absorbs primarily UV; visible-light activity requires NH2 or other functionalization.": "基础 MIL-125 主要吸收紫外光；可见光活性需要 NH2 或其他功能化。",
+  "Photocatalytic selectivity depends on reaction medium and co-catalyst.": "光催化选择性依赖反应介质和助催化剂。",
+}
+
+function zhLibraryText(value, lang) {
+  if (lang !== "zh") return value
+  if (Array.isArray(value)) return value.map(item => zhLibraryText(item, lang)).join("; ")
+  const text = String(value)
+  if (LIBRARY_TEXT_ZH[text]) return LIBRARY_TEXT_ZH[text]
+  if (text.includes("; ")) return text.split(/;\s*/).map(item => zhLibraryText(item, lang)).join("; ")
+  return zhValue(text, lang)
 }
 
 const zhDataStatus = (value, lang) => {
@@ -296,7 +346,7 @@ const zhDataStatus = (value, lang) => {
     "demo / placeholder / needs validation": "演示 / 占位 / 待验证",
     "local seed / needs validation": "本地种子 / 待验证",
     "real-seed / pending curation": "真实种子 / 待整理",
-  }[value] || value
+  }[value] || zhLibraryText(value, lang)
 }
 
 function dataModePanelPosition(anchorRect, isMobile) {
@@ -321,9 +371,9 @@ function dataModePanelPosition(anchorRect, isMobile) {
 }
 
 function inspectorStatusLabel(status, lang) {
-  if (status === "curated") return lang === "zh" ? "curated / 已整理" : "curated"
-  if (status === "needs-review") return lang === "zh" ? "needs review / 需复核" : "needs review"
-  return lang === "zh" ? "pending / 待补充" : "pending"
+  if (status === "curated") return lang === "zh" ? "已整理 / curated" : "curated"
+  if (status === "needs-review") return lang === "zh" ? "需复核 / needs review" : "needs review"
+  return lang === "zh" ? "待补充 / pending" : "pending"
 }
 
 function inspectorStatusTone(status) {
@@ -450,7 +500,7 @@ function MofInspector({
       </section>
 
       <section style={sectionBox}>
-        <div style={sectionTitle}>{lang === "zh" ? "关键 descriptor 与字段来源状态" : "Key descriptors and field provenance"}</div>
+        <div style={sectionTitle}>{lang === "zh" ? "关键描述符与字段来源状态" : "Key descriptors and field provenance"}</div>
         <div style={{ display: "grid", gap: 7, marginTop: 9 }}>
           {KEY_FIELDS.map(field => {
             const status = recordFieldStatus(record, field.key)
@@ -494,11 +544,11 @@ function MofInspector({
       <section style={sectionBox}>
         <div style={sectionTitle}>{lang === "zh" ? "证据状态与限制" : "Evidence status and limitations"}</div>
         <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.6, marginTop: 8 }}>
-          <strong style={{ color: t.textStrong }}>{lang === "zh" ? "Evidence level：" : "Evidence level: "}</strong>{record.evidenceLevel || "pending"}
+          <strong style={{ color: t.textStrong }}>{lang === "zh" ? "证据等级：" : "Evidence level: "}</strong>{record.evidenceLevel || "pending"}
           <br />
-          <strong style={{ color: t.textStrong }}>{lang === "zh" ? "Data status：" : "Data status: "}</strong>{zhDataStatus(record.dataStatus, lang)}
+          <strong style={{ color: t.textStrong }}>{lang === "zh" ? "数据状态：" : "Data status: "}</strong>{zhDataStatus(record.dataStatus, lang)}
           <br />
-          <strong style={{ color: t.textStrong }}>{lang === "zh" ? "Limitations：" : "Limitations: "}</strong>{Array.isArray(record.limitations) ? record.limitations.join("; ") : record.limitations}
+          <strong style={{ color: t.textStrong }}>{lang === "zh" ? "限制：" : "Limitations: "}</strong>{zhLibraryText(record.limitations, lang)}
         </div>
       </section>
 
@@ -1200,11 +1250,11 @@ export function MOFLibraryTab({ results, inputs }) {
                 <div style={{ minWidth: 0 }}>
                   <div style={{ color: t.faint, fontSize: 9.5, textTransform: "uppercase", fontWeight: 850 }}>D_expected</div>
                   <div style={{ color: t.textStrong, fontSize: 11, fontFamily: FONT_MONO, fontWeight: 850 }}>
-                    {scoring ? Number(scoring.D_expected).toFixed(3) : "not mapped"}
+                    {scoring ? Number(scoring.D_expected).toFixed(3) : (lang === "zh" ? "未映射" : "not mapped")}
                   </div>
                 </div>
                 <div style={{ minWidth: 0 }}>
-                  <div style={{ color: t.faint, fontSize: 9.5, textTransform: "uppercase", fontWeight: 850 }}>Evidence level</div>
+                  <div style={{ color: t.faint, fontSize: 9.5, textTransform: "uppercase", fontWeight: 850 }}>{lang === "zh" ? "证据等级" : "Evidence level"}</div>
                   <div style={{ color: t.textStrong, fontSize: 11, fontWeight: 850 }}>
                     {scoring ? scoring.evidenceLevel : zhValue(item.evidenceLevel, lang)}
                   </div>
@@ -1212,16 +1262,16 @@ export function MOFLibraryTab({ results, inputs }) {
                 <div style={{ minWidth: 0 }}>
                   <div style={{ color: t.faint, fontSize: 9.5, textTransform: "uppercase", fontWeight: 850 }}>Q / confidence_Q</div>
                   <div style={{ color: t.textStrong, fontSize: 11, fontFamily: FONT_MONO, fontWeight: 850 }}>
-                    {scoring ? Number(scoring.confidence_Q_clipped).toFixed(2) : "not mapped"}
+                    {scoring ? Number(scoring.confidence_Q_clipped).toFixed(2) : (lang === "zh" ? "未映射" : "not mapped")}
                   </div>
                 </div>
                 <div style={{ gridColumn: "1 / -1", color: scoring?.status?.tone === "warn" ? t.warn : t.accentText, fontSize: 10.5, fontWeight: 850, lineHeight: 1.3 }}>
-                  {scoring ? scoring.status.label : "No CRITIC-MCDA demo summary for this record"}
+                  {scoring ? (lang === "zh" ? scoring.status.zh : scoring.status.label) : (lang === "zh" ? "此记录暂无 CRITIC-MCDA 演示摘要" : "No CRITIC-MCDA demo summary for this record")}
                 </div>
                 <div style={{ gridColumn: "1 / -1", color: t.faint, fontSize: 10.5, lineHeight: 1.45 }}>
                   {scoring
                     ? (lang === "zh" ? "该分数为演示占位，不代表该 MOF 的真实性能判断。" : "This score is an illustrative placeholder, not a validated statement about this MOF.")
-                    : "CRITIC demo: not mapped"}
+                    : (lang === "zh" ? "CRITIC 演示：未映射" : "CRITIC demo: not mapped")}
                 </div>
                 <div style={{ gridColumn: "1 / -1", display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 7 }}>
                   <button
@@ -1242,7 +1292,7 @@ export function MOFLibraryTab({ results, inputs }) {
                     }}
                     style={{ ...toolbarBtn(t), justifyContent: "center", color: t.accentText, border: `1px solid ${t.accent}`, fontSize: 10.5, padding: "7px 9px" }}
                   >
-                    View scoring details
+                    {lang === "zh" ? "查看评分详情" : "View scoring details"}
                   </button>
                 </div>
               </div>
@@ -1304,7 +1354,7 @@ export function MOFLibraryTab({ results, inputs }) {
                   <BasisBadge tone="info">{zhValue(item.evidenceLevel, lang)}</BasisBadge>
                   <BasisBadge tone="proxy">{zhDataStatus(item.dataStatus, lang)}</BasisBadge>
                   <BasisBadge tone={scoring ? scoring.status.tone : "proxy"}>
-                    {scoring ? `D_expected ${Number(scoring.D_expected).toFixed(3)}` : "CRITIC demo: not mapped"}
+                    {scoring ? `D_expected ${Number(scoring.D_expected).toFixed(3)}` : (lang === "zh" ? "CRITIC 演示：未映射" : "CRITIC demo: not mapped")}
                   </BasisBadge>
                   {scoring && (
                     <BasisBadge tone="proxy">
@@ -1352,7 +1402,7 @@ export function MOFLibraryTab({ results, inputs }) {
                       justifyContent: "center",
                     }}
                   >
-                    View scoring details
+                    {lang === "zh" ? "查看评分详情" : "View scoring details"}
                   </button>
                 </div>
               </div>
@@ -1366,7 +1416,7 @@ export function MOFLibraryTab({ results, inputs }) {
                 {field(lang === "zh" ? "CO₂ 吸附量" : "CO₂ uptake",  item.co2Uptake === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : item.co2Uptake === "—" ? "—" : `${item.co2Uptake} mmol/g`,     "co2Uptake",  item.fieldSources)}
                 {field(lang === "zh" ? "带隙" : "band gap",    item.bandGap   === "pending" ? safeVal(null, lang, lang === "zh" ? "待整理" : "Pending curation") : item.bandGap   === "—" ? "—" : `${item.bandGap} eV`,            "bandGap",    item.fieldSources)}
                 {field(lang === "zh" ? "稳定性" : "stability", `${zhValue(item.waterStability, lang)} / ${zhValue(item.thermalStability, lang)}`)}
-                {field(lang === "zh" ? "来源" : "source", zhValue(item.source, lang))}
+                {field(lang === "zh" ? "来源" : "source", zhLibraryText(item.source, lang))}
                 {field(lang === "zh" ? "证据等级" : "Evidence Level", zhValue(item.evidenceLevel, lang))}
               </div>
               <button type="button" onClick={() => setExpandedId(expandedId === item.id ? null : item.id)} style={{ ...toolbarBtn(t), marginTop: 12 }}>
@@ -1395,8 +1445,8 @@ export function MOFLibraryTab({ results, inputs }) {
                       {field(lang === "zh" ? "毒性关注" : "Toxicity concern", zhValue(item.toxicityConcern, lang), "toxicityConcern", item.fieldSources)}
                     </div>
                   </div>
-                  <div style={detailBlock}>{field(lang === "zh" ? "催化潜力线索" : "Catalysis potential", `${item.reactionClasses.join(", ") || "—"}; ${item.activeSiteHypothesis}`)}</div>
-                  <div style={detailBlock}>{field(lang === "zh" ? "数据来源 / 限制" : "Data source / Limitations", `${item.source}; ${item.limitations}`)}</div>
+                  <div style={detailBlock}>{field(lang === "zh" ? "催化潜力线索" : "Catalysis potential", `${item.reactionClasses.join(", ") || "—"}; ${zhLibraryText(item.activeSiteHypothesis, lang)}`)}</div>
+                  <div style={detailBlock}>{field(lang === "zh" ? "数据来源 / 限制" : "Data source / Limitations", `${zhLibraryText(item.source, lang)}; ${zhLibraryText(item.limitations, lang)}`)}</div>
                 </div>
               )}
             </div>

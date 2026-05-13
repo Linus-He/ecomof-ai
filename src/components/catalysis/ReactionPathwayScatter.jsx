@@ -36,7 +36,7 @@ export function ReactionPathwayScatter({ data, selectedTaskId, onSelectTask, lan
     <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 14, minWidth: 0, overflow: "visible" }}>
       <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap", marginBottom: 8 }}>
         <div>
-          <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900 }}>{lang === "zh" ? "Reaction Pathway Scatter / 反应路径坐标图" : "Reaction Pathway Scatter"}</div>
+          <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900 }}>{lang === "zh" ? "反应路径坐标图 / Reaction Pathway Scatter" : "Reaction Pathway Scatter"}</div>
           <div style={{ color: t.faint, fontSize: 10, marginTop: 4 }}>{lang === "zh" ? "点代表催化任务或路径。" : "Each point represents a catalysis task or pathway."}</div>
         </div>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end", maxWidth: 460 }}>

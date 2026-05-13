@@ -20,7 +20,7 @@ export function ResourcesTab({ activeSub, setActiveSub, results, inputs }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <PageHeader
-        title="Resources"
+        title={lang === "zh" ? "资源与证据" : "Resources"}
         subtitle={lang === "zh"
           ? "数据来源、基准数据库与方法证据说明。"
           : "Data sources, benchmark databases, and methods evidence notes."}

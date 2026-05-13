@@ -443,7 +443,7 @@ function AppShell({
                 markSize={viewport.isMobile ? 30 : 32}
                 radius={9}
                 t={theme}
-                tagline="Transparent decision-support for sustainable MOF screening."
+                tagline={lang === "zh" ? "面向可持续 MOF 筛选的透明决策支持。" : "Transparent decision-support for sustainable MOF screening."}
               />
               <span style={{ color: theme.faint, fontSize: 11 }}>
                 {lang === "zh" ? "© 2026 EcoMOF-AI · Linus-He 维护" : "© 2026 EcoMOF-AI · Maintained by Linus-He"}
@@ -485,7 +485,7 @@ function AppShell({
                 cursor: "pointer", fontFamily: FONT_SANS,
               }}
             >
-              Data Quality
+              {lang === "zh" ? "数据质量" : "Data Quality"}
             </button>
             <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
             <button

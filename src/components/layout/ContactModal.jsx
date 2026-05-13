@@ -378,7 +378,7 @@ export function ContactModal({ open, onClose }) {
       <div
         role="dialog"
         aria-modal="true"
-        aria-label="Contact / Collaboration"
+        aria-label={zh ? "联系与合作 / Contact" : "Contact / Collaboration"}
         onClick={e => e.stopPropagation()}
         style={{
           width: "min(820px, 96vw)",
@@ -392,7 +392,7 @@ export function ContactModal({ open, onClose }) {
         {/* ── Header ── */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
           <div style={{ color: t.accentText, fontSize: 20, fontWeight: 850, lineHeight: 1.15 }}>
-            Contact / Collaboration
+            {zh ? "联系与合作 / Contact" : "Contact / Collaboration"}
           </div>
           <button
             ref={closeBtnRef}

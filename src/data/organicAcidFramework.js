@@ -258,7 +258,7 @@ export const organicAcidIntakeTemplate = [
     fieldZh: "准备度等级",
     priority: "derived",
     exampleEn: "framework-only",
-    exampleZh: "仅框架",
+    exampleZh: "仅框架级",
     whyEn: "Summarizes whether the record can support comparison, gap analysis, or ML-ready dataset use.",
     whyZh: "概括记录是否可用于比较、缺口分析或 ML-ready 数据集使用。",
   },
@@ -266,7 +266,7 @@ export const organicAcidIntakeTemplate = [
 
 export const organicAcidMockRecord = {
   labelEn: "Framework-only mock record",
-  labelZh: "仅框架 mock 记录",
+  labelZh: "仅框架级演示记录",
   rawInputEn: "A biomass-assisted CO₂/HCO₃⁻ conversion experiment reports formic acid as the target product. Yield and product quantification are reported, while carbon balance and isotope tracing are not provided.",
   rawInputZh: "一条生物质辅助 CO₂/HCO₃⁻ 转化实验记录将甲酸报告为目标产物。记录中报告了产率和产物定量，但未提供碳平衡和同位素追踪信息。",
   normalizedRows: [
@@ -296,7 +296,7 @@ export const organicAcidMockRecord = {
       valueEn: "framework-only placeholder",
       valueZh: "仅框架占位",
       statusEn: "framework-only",
-      statusZh: "仅框架",
+      statusZh: "仅框架级",
       whyEn: "Required for provenance and later structure-performance analysis.",
       whyZh: "用于来源追踪和后续结构-性能分析。",
     },

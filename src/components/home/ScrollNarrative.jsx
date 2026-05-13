@@ -4,31 +4,31 @@ import { InlineFormula } from "../ui"
 import { FONT_MONO } from "../../constants/theme"
 
 const DESCRIPTORS = [
-  "surfaceArea",
-  "poreSizeA",
-  "poreVolume",
-  "co2Uptake",
-  "bandGap",
-  "waterStability",
-  "thermalStability",
-  "toxicityConcern",
+  { key: "surfaceArea", label: "surfaceArea", zhLabel: "比表面积" },
+  { key: "poreSizeA", label: "poreSizeA", zhLabel: "孔径" },
+  { key: "poreVolume", label: "poreVolume", zhLabel: "孔体积" },
+  { key: "co2Uptake", label: "co2Uptake", zhLabel: "CO2 吸附量" },
+  { key: "bandGap", label: "bandGap", zhLabel: "带隙" },
+  { key: "waterStability", label: "waterStability", zhLabel: "水稳定性" },
+  { key: "thermalStability", label: "thermalStability", zhLabel: "热稳定性" },
+  { key: "toxicityConcern", label: "toxicityConcern", zhLabel: "毒性关注" },
 ]
 
 const STATUS_BY_DESCRIPTOR = [
-  "curated",
-  "curated",
-  "pending",
-  "curated",
-  "needs review",
-  "curated",
-  "needs review",
-  "demo only",
+  { label: "curated", zhLabel: "已整理" },
+  { label: "curated", zhLabel: "已整理" },
+  { label: "pending", zhLabel: "待补充" },
+  { label: "curated", zhLabel: "已整理" },
+  { label: "needs review", zhLabel: "需复核" },
+  { label: "curated", zhLabel: "已整理" },
+  { label: "needs review", zhLabel: "需复核" },
+  { label: "demo only", zhLabel: "仅演示" },
 ]
 
 const RANKINGS = [
-  { name: "UiO-66", score: 0.74, completeness: "6/8", confidence: "medium-high", warning: "2 fields need review" },
-  { name: "MOF-801", score: 0.68, completeness: "5/8", confidence: "medium", warning: "pending poreVolume" },
-  { name: "HKUST-1", score: 0.59, completeness: "8/8", confidence: "demo only", warning: "water stability risk" },
+  { name: "UiO-66", score: 0.74, completeness: "6/8", confidence: "medium-high", zhConfidence: "中高", warning: "2 fields need review", zhWarning: "2 个字段需复核" },
+  { name: "MOF-801", score: 0.68, completeness: "5/8", confidence: "medium", zhConfidence: "中", warning: "pending poreVolume", zhWarning: "孔体积待补充" },
+  { name: "HKUST-1", score: 0.59, completeness: "8/8", confidence: "demo only", zhConfidence: "仅演示", warning: "water stability risk", zhWarning: "水稳定性风险" },
 ]
 
 function useActiveStep(count, disabled = false) {
@@ -103,7 +103,8 @@ function StepTextCard({ step, index, active, setRef, setActive, t, isMobile }) {
   )
 }
 
-function DescriptorNetwork({ activeStep, t }) {
+function DescriptorNetwork({ activeStep, t, lang }) {
+  const zh = lang === "zh"
   return (
     <div className="decision-visual-network" style={{
       display: "grid",
@@ -112,16 +113,16 @@ function DescriptorNetwork({ activeStep, t }) {
     }}>
       {DESCRIPTORS.map((descriptor, index) => {
         const status = STATUS_BY_DESCRIPTOR[index]
-        const dim = activeStep === 0 ? false : status === "pending" || status === "demo only"
+        const dim = activeStep === 0 ? false : status.label === "pending" || status.label === "demo only"
         return (
           <div
-            key={descriptor}
+            key={descriptor.key}
             className="decision-descriptor-node"
             data-active={activeStep >= 0 ? "true" : "false"}
             style={{
               "--node-delay": `${index * 45}ms`,
               background: dim ? t.panel : t.badgeInfoBg,
-              border: `1px ${activeStep >= 1 && status === "pending" ? "dashed" : "solid"} ${dim ? t.borderStrong : t.accent}`,
+              border: `1px ${activeStep >= 1 && status.label === "pending" ? "dashed" : "solid"} ${dim ? t.borderStrong : t.accent}`,
               color: dim ? t.subtle : t.accentText,
               clipPath: "polygon(8% 0, 92% 0, 100% 50%, 92% 100%, 8% 100%, 0 50%)",
               minHeight: 48,
@@ -134,10 +135,10 @@ function DescriptorNetwork({ activeStep, t }) {
               fontWeight: 850,
             }}
           >
-            {descriptor}
+            {zh ? descriptor.zhLabel : descriptor.label}
             {activeStep >= 1 && (
               <span style={{ display: "block", color: dim ? t.faint : t.textStrong, fontSize: 8.8, fontWeight: 800, marginTop: 3 }}>
-                {status}
+                {zh ? status.zhLabel : status.label}
               </span>
             )}
           </div>
@@ -147,8 +148,13 @@ function DescriptorNetwork({ activeStep, t }) {
   )
 }
 
-function WeightingVisual({ activeStep, t }) {
-  const rows = [
+function WeightingVisual({ activeStep, t, lang }) {
+  const rows = lang === "zh" ? [
+    ["原始数值", 46],
+    ["归一化数值", 68],
+    ["加权指标", 76],
+    ["评分贡献", 81],
+  ] : [
     ["raw values", 46],
     ["normalized values", 68],
     ["weighted indicators", 76],
@@ -177,7 +183,8 @@ function WeightingVisual({ activeStep, t }) {
   )
 }
 
-function RankingVisual({ activeStep, t }) {
+function RankingVisual({ activeStep, t, lang }) {
+  const zh = lang === "zh"
   return (
     <div style={{ display: "grid", gap: 9 }}>
       {RANKINGS.map((candidate, index) => (
@@ -203,7 +210,7 @@ function RankingVisual({ activeStep, t }) {
           <span style={{ minWidth: 0 }}>
             <span style={{ display: "block", color: t.textStrong, fontSize: 13, fontWeight: 950, lineHeight: 1.2 }}>{candidate.name}</span>
             <span style={{ display: "block", color: t.faint, fontSize: 10.5, lineHeight: 1.4, marginTop: 3 }}>
-              {candidate.completeness} · {candidate.confidence} · {candidate.warning}
+              {candidate.completeness} · {zh ? candidate.zhConfidence : candidate.confidence} · {zh ? candidate.zhWarning : candidate.warning}
             </span>
           </span>
           <span style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 14, fontWeight: 950 }}>{candidate.score.toFixed(2)}</span>
@@ -213,7 +220,11 @@ function RankingVisual({ activeStep, t }) {
   )
 }
 
-function DescriptorDecisionVisual({ activeStep, t }) {
+function DescriptorDecisionVisual({ activeStep, t, lang }) {
+  const zh = lang === "zh"
+  const stepTitles = zh
+    ? ["描述符收集", "证据映射", "权重与归一化", "候选排序"]
+    : ["Descriptor collection", "Evidence mapping", "Weighting & normalization", "Candidate ranking"]
   return (
     <div className="decision-visual-panel" style={{
       background: t.panel,
@@ -230,30 +241,58 @@ function DescriptorDecisionVisual({ activeStep, t }) {
       <div style={{ position: "relative", zIndex: 1, display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start" }}>
         <div>
           <div style={{ color: t.faint, fontSize: 10.5, textTransform: "uppercase", fontWeight: 900, letterSpacing: 0 }}>
-            Decision-support pipeline
+            {zh ? "决策支持流程" : "Decision-support pipeline"}
           </div>
           <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 950, lineHeight: 1.2, marginTop: 5 }}>
-            {["Descriptor collection", "Evidence mapping", "Weighting & normalization", "Candidate ranking"][activeStep]}
+            {stepTitles[activeStep]}
           </div>
         </div>
         <span style={{ color: t.accentText, background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, padding: "6px 9px", fontSize: 10.5, fontWeight: 900 }}>
-          step {activeStep + 1}/4
+          {zh ? `步骤 ${activeStep + 1}/4` : `step ${activeStep + 1}/4`}
         </span>
       </div>
       <div style={{ position: "relative", zIndex: 1, display: "grid", gap: 16 }}>
-        <DescriptorNetwork activeStep={activeStep} t={t} />
-        {(activeStep >= 2) && <WeightingVisual activeStep={activeStep} t={t} />}
-        {(activeStep >= 3) && <RankingVisual activeStep={activeStep} t={t} />}
+        <DescriptorNetwork activeStep={activeStep} t={t} lang={lang} />
+        {(activeStep >= 2) && <WeightingVisual activeStep={activeStep} t={t} lang={lang} />}
+        {(activeStep >= 3) && <RankingVisual activeStep={activeStep} t={t} lang={lang} />}
       </div>
       <div style={{ position: "relative", zIndex: 1, color: t.faint, fontSize: 11, lineHeight: 1.55, borderTop: `1px solid ${t.divider || t.border}`, paddingTop: 10 }}>
-        The visual changes with the active scroll step. It illustrates data quality and scoring logic, not a validated prediction claim.
+        {zh
+          ? "视觉面板会随滚动步骤切换，用于说明数据质量与评分逻辑，不代表已验证预测结论。"
+          : "The visual changes with the active scroll step. It illustrates data quality and scoring logic, not a validated prediction claim."}
       </div>
     </div>
   )
 }
 
-export function ScrollNarrative({ t, isMobile, reducedMotion }) {
-  const steps = useMemo(() => [
+export function ScrollNarrative({ t, isMobile, reducedMotion, lang = "en" }) {
+  const zh = lang === "zh"
+  const steps = useMemo(() => zh ? [
+    {
+      eyebrow: "步骤 1",
+      title: "描述符收集",
+      body: "EcoMOF-AI 先把 MOF 记录整理为 8 个可检查描述符，而不是直接给出黑箱分数。",
+      note: "比表面积、孔径、孔体积、CO2 吸附量、带隙、水稳定性、热稳定性和毒性关注会进入同一复核界面。",
+    },
+    {
+      eyebrow: "步骤 2",
+      title: "证据映射",
+      body: "每个描述符都保留数据状态语言：已整理、待补充、需复核或仅演示。",
+      note: "字段来源和证据等级不会脱离记录本身，缺失信息会保持可见。",
+    },
+    {
+      eyebrow: "步骤 3",
+      title: "权重与归一化",
+      body: "指标先经过方向调整、归一化和加权，再形成候选评分。",
+      note: "计算过程保持可解释，研究者可以逐项质疑字段、权重和边界。",
+    },
+    {
+      eyebrow: "步骤 4",
+      title: "候选排序",
+      body: "排序同时考虑评分、描述符完整度、置信度和不确定性提示。",
+      note: "输出是决策支持优先级，不是最终实验结论。",
+    },
+  ] : [
     {
       eyebrow: "Step 1",
       title: "Descriptor collection",
@@ -278,7 +317,7 @@ export function ScrollNarrative({ t, isMobile, reducedMotion }) {
       body: "Ranking combines score, descriptor completeness, confidence, and uncertainty warnings.",
       note: "The output is a decision-support priority, not final experimental evidence.",
     },
-  ], [])
+  ], [zh])
 
   const [activeStep, setRef, setActiveStep] = useActiveStep(steps.length, reducedMotion || isMobile)
 
@@ -288,7 +327,7 @@ export function ScrollNarrative({ t, isMobile, reducedMotion }) {
         {steps.map((step, index) => (
           <div key={step.title} style={{ display: "grid", gap: 10 }}>
             <StepTextCard step={step} index={index} active={index} setRef={() => () => {}} setActive={() => {}} t={t} isMobile={isMobile} />
-            <DescriptorDecisionVisual activeStep={index} t={t} />
+            <DescriptorDecisionVisual activeStep={index} t={t} lang={lang} />
           </div>
         ))}
       </section>
@@ -317,7 +356,7 @@ export function ScrollNarrative({ t, isMobile, reducedMotion }) {
         ))}
       </div>
       <div className="decision-sticky-wrap" style={{ position: "sticky", top: 128, alignSelf: "start" }}>
-        <DescriptorDecisionVisual activeStep={activeStep} t={t} />
+        <DescriptorDecisionVisual activeStep={activeStep} t={t} lang={lang} />
       </div>
     </section>
   )

@@ -37,7 +37,7 @@ function TooltipBody({ active, payload, lang, t }) {
 export function ComparabilityScatterQuadrant({ data, selectedComparisonId, onSelectComparison, lang, t, height = 420 }) {
   return (
     <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, padding: 14, minWidth: 0, overflow: "visible" }}>
-      <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900, marginBottom: 8 }}>{lang === "zh" ? "Comparability Scatter Quadrant / 可比性坐标象限" : "Comparability Scatter Quadrant"}</div>
+      <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900, marginBottom: 8 }}>{lang === "zh" ? "可比性坐标象限 / Comparability Scatter Quadrant" : "Comparability Scatter Quadrant"}</div>
       <ResponsiveContainer width="100%" height={height} minHeight={height}>
         <ScatterChart margin={{ top: 20, right: 32, bottom: 40, left: 72 }}>
           <CartesianGrid strokeDasharray="3 3" stroke={t.border} />

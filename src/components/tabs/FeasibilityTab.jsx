@@ -58,7 +58,7 @@ export function FeasibilityTab({ results, inputs, onNavigate }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title="Feasibility"
+        title={lang === "zh" ? "可行性边界" : "Feasibility"}
         subtitle={lang === "zh"
           ? "科学筛选之后的可得性、粗略成本与用途尺度边界。"
           : "Availability, rough cost, and use-scale boundaries after scientific screening."}

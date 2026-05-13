@@ -17,10 +17,23 @@ const clamp01 = value => Math.max(0, Math.min(1, Number(value) || 0))
 const pct = value => `${Math.round(clamp01(value) * 100)}%`
 const fmt = (value, digits = 3) => Number(value || 0).toFixed(digits)
 const fmtPct = value => `${Math.round(clamp01(value) * 100)}%`
+const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
 function labelStatus(status, lang) {
   if (!status) return "—"
   return lang === "zh" ? status.zh : status.label
+}
+
+function chartName(name, lang) {
+  if (lang !== "zh") return name
+  const labels = {
+    "CRITIC weight": "CRITIC 权重",
+    "active mode weight": "当前模式权重",
+    "Performance Score": "性能分",
+    "Sustainability Score": "可持续性分",
+    "Evidence Score": "证据分",
+  }
+  return labels[name] || name
 }
 
 function Card({ children, style, t, as: Tag = "section" }) {
@@ -98,14 +111,14 @@ function SegmentedControl({ items, value, onChange, lang, t }) {
   )
 }
 
-function ChartTooltip({ active, payload, label, t }) {
+function ChartTooltip({ active, payload, label, t, lang }) {
   if (!active || !payload?.length) return null
   return (
     <div style={{ background: t.tooltipBg, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10, boxShadow: t.shadowSm, color: t.textStrong, fontSize: 11, lineHeight: 1.55 }}>
       <div style={{ color: t.textStrong, fontWeight: 900, marginBottom: 4 }}>{label || payload[0]?.payload?.name}</div>
       {payload.map(item => (
         <div key={`${item.dataKey}-${item.name}`} style={{ color: item.color || t.muted }}>
-          {item.name || item.dataKey}: {Number.isFinite(Number(item.value)) ? fmt(item.value, 3) : item.value}
+          {chartName(item.name || item.dataKey, lang)}: {Number.isFinite(Number(item.value)) ? fmt(item.value, 3) : item.value}
         </div>
       ))}
     </div>
@@ -120,7 +133,7 @@ function ScoringMethodSummary({ model, weightingMode, onWeightingModeChange, lan
       <Card t={t} style={{ display: "grid", gap: 12 }}>
         <PanelTitle
           t={t}
-          title={lang === "zh" ? "Scoring Method Summary / 评分方法摘要" : "Scoring Method Summary"}
+          title={text(lang, "评分方法摘要 / Scoring Method Summary", "Scoring Method Summary")}
           subtitle={lang === "zh" ? "切换权重模式后，候选排序和候选详情会同步更新；诊断区仍保留 CRITIC 客观权重解释。" : "Changing the weighting mode updates ranking and candidate details; diagnostics still preserve the CRITIC objective-weight explanation."}
         />
         <SegmentedControl items={model.weightingModes} value={weightingMode} onChange={onWeightingModeChange} lang={lang} t={t} />
@@ -142,16 +155,16 @@ function ScoringMethodSummary({ model, weightingMode, onWeightingModeChange, lan
       </Card>
 
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr", gap: 10 }}>
-        <MetricCard label={lang === "zh" ? "Weighting mode / 权重模式" : "Weighting mode"} value={lang === "zh" ? summary.weightingModeZh : summary.weightingMode} note="CRITIC / Equal / Expert / Custom" t={t} />
-        <MetricCard label={lang === "zh" ? "Ranking stability / 排名稳定性" : "Ranking stability"} value={lang === "zh" ? summary.rankingStability.zh : summary.rankingStability.label} note={lang === "zh" ? "由权重对比和 remove-one 测试给出" : "From weighting comparison and remove-one tests"} tone={summary.rankingStability.tone} t={t} />
-        <MetricCard label={lang === "zh" ? "Candidates / 候选数" : "Candidates"} value={summary.candidateCount} note={lang === "zh" ? "含 G = 0 硬筛记录" : "includes G = 0 rows"} t={t} />
-        <MetricCard label={lang === "zh" ? "Indicators / 指标数" : "Indicators"} value={summary.indicatorCount} note="d_stab · d_barrier · d_select" t={t} />
-        <MetricCard label={lang === "zh" ? "Missing data / 缺失比例" : "Missing data"} value={fmtPct(summary.missingDataRatio)} note={`${summary.missingData.missingCells}/${summary.missingData.totalCells} indicator cells`} tone={summary.missingDataRatio > 0.1 ? "warn" : "calc"} t={t} />
-        <MetricCard label={lang === "zh" ? "Normalization / 归一化" : "Normalization"} value="0.01-1" note={lang === "zh" ? summary.normalizationMethodZh : summary.normalizationMethod} t={t} />
+        <MetricCard label={text(lang, "权重模式 / Weighting mode", "Weighting mode")} value={lang === "zh" ? summary.weightingModeZh : summary.weightingMode} note="CRITIC / Equal / Expert / Custom" t={t} />
+        <MetricCard label={text(lang, "排名稳定性 / Ranking stability", "Ranking stability")} value={lang === "zh" ? summary.rankingStability.zh : summary.rankingStability.label} note={lang === "zh" ? "由权重对比和 remove-one 测试给出" : "From weighting comparison and remove-one tests"} tone={summary.rankingStability.tone} t={t} />
+        <MetricCard label={text(lang, "候选数 / Candidates", "Candidates")} value={summary.candidateCount} note={lang === "zh" ? "含 G = 0 硬筛记录" : "includes G = 0 rows"} t={t} />
+        <MetricCard label={text(lang, "指标数 / Indicators", "Indicators")} value={summary.indicatorCount} note="d_stab · d_barrier · d_select" t={t} />
+        <MetricCard label={text(lang, "缺失比例 / Missing data", "Missing data")} value={fmtPct(summary.missingDataRatio)} note={lang === "zh" ? `${summary.missingData.missingCells}/${summary.missingData.totalCells} 个指标单元格` : `${summary.missingData.missingCells}/${summary.missingData.totalCells} indicator cells`} tone={summary.missingDataRatio > 0.1 ? "warn" : "calc"} t={t} />
+        <MetricCard label={text(lang, "归一化 / Normalization", "Normalization")} value="0.01-1" note={lang === "zh" ? summary.normalizationMethodZh : summary.normalizationMethod} t={t} />
       </div>
 
       <Card t={t} style={{ gridColumn: isMobile ? "auto" : "1 / -1", display: "grid", gap: 7, background: t.surface }}>
-        <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{lang === "zh" ? "Benefit / Cost direction adjustment" : "Benefit / Cost direction adjustment"}</div>
+        <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{text(lang, "Benefit / Cost 方向调整", "Benefit / Cost direction adjustment")}</div>
         <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65 }}>
           {lang === "zh" ? summary.directionAdjustmentZh : summary.directionAdjustment}
         </div>
@@ -160,11 +173,11 @@ function ScoringMethodSummary({ model, weightingMode, onWeightingModeChange, lan
   )
 }
 
-function WeightBarChart({ model, t, isMobile }) {
+function WeightBarChart({ model, t, isMobile, lang }) {
   const data = CRITIC_INDICATORS.map(indicator => {
     const row = model.decomposition.find(item => item.key === indicator.key) || {}
     return {
-      name: indicator.shortLabel,
+      name: lang === "zh" ? indicator.zhLabel : indicator.shortLabel,
       label: indicator.label,
       weight: model.weights[indicator.key],
       activeWeight: model.activeWeights[indicator.key],
@@ -179,10 +192,10 @@ function WeightBarChart({ model, t, isMobile }) {
         <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
         <XAxis dataKey="name" tick={{ fill: t.subtle, fontSize: 11 }} />
         <YAxis domain={[0, 1]} tick={{ fill: t.subtle, fontSize: 10 }} width={42} />
-        <Tooltip content={<ChartTooltip t={t} />} />
+        <Tooltip content={<ChartTooltip t={t} lang={lang} />} />
         <Legend wrapperStyle={{ color: t.subtle, fontSize: 11 }} />
-        <Bar dataKey="weight" name="CRITIC weight" fill={t.accentText} radius={[4, 4, 0, 0]} />
-        <Bar dataKey="activeWeight" name="active mode weight" fill={t.badgeCalcText} radius={[4, 4, 0, 0]} />
+        <Bar dataKey="weight" name={text(lang, "CRITIC 权重", "CRITIC weight")} fill={t.accentText} radius={[4, 4, 0, 0]} />
+        <Bar dataKey="activeWeight" name={text(lang, "当前模式权重", "active mode weight")} fill={t.badgeCalcText} radius={[4, 4, 0, 0]} />
       </BarChart>
     </ResponsiveContainer>
   )
@@ -202,8 +215,8 @@ function ConflictHeatmap({ model, lang, t }) {
     <div style={{ display: "grid", gap: 10 }}>
       <SegmentedControl
         items={[
-          { id: "conflict", label: "1 - r_jk", zhLabel: "1 - r_jk 冲突度", description: "Conflict intensity between indicators." },
-          { id: "correlation", label: "correlation", zhLabel: "correlation 相关性", description: "Pearson correlation between indicators." },
+          { id: "conflict", label: "1 - r_jk", zhLabel: "1 - r_jk 冲突度", description: "Conflict intensity between indicators.", zhDescription: "指标之间的冲突强度。" },
+          { id: "correlation", label: "correlation", zhLabel: "correlation 相关性", description: "Pearson correlation between indicators.", zhDescription: "指标之间的 Pearson 相关性。" },
         ]}
         value={mode}
         onChange={setMode}
@@ -244,12 +257,12 @@ function IndicatorDiagnostics({ model, lang, t, isMobile }) {
         <table style={{ width: "100%", minWidth: isMobile ? 720 : 760, borderCollapse: "separate", borderSpacing: "0 7px" }}>
           <thead>
             <tr style={{ color: t.faint, fontSize: 10, textAlign: "left", textTransform: "uppercase" }}>
-              <th style={{ padding: "0 10px" }}>Indicator</th>
-              <th style={{ padding: "0 10px" }}>Weight</th>
-              <th style={{ padding: "0 10px" }}>Standard deviation</th>
-              <th style={{ padding: "0 10px" }}>Contrast intensity</th>
-              <th style={{ padding: "0 10px" }}>Conflict intensity</th>
-              <th style={{ padding: "0 10px" }}>Interpretation</th>
+              <th style={{ padding: "0 10px" }}>{text(lang, "指标", "Indicator")}</th>
+              <th style={{ padding: "0 10px" }}>{text(lang, "权重", "Weight")}</th>
+              <th style={{ padding: "0 10px" }}>{text(lang, "标准差", "Standard deviation")}</th>
+              <th style={{ padding: "0 10px" }}>{text(lang, "差异度", "Contrast intensity")}</th>
+              <th style={{ padding: "0 10px" }}>{text(lang, "冲突度", "Conflict intensity")}</th>
+              <th style={{ padding: "0 10px" }}>{text(lang, "解释", "Interpretation")}</th>
             </tr>
           </thead>
           <tbody>
@@ -290,10 +303,10 @@ function WeightDiagnostics({ model, lang, t, isMobile }) {
         <Card t={t}>
           <PanelTitle
             t={t}
-            title={lang === "zh" ? "CRITIC 权重柱状图" : "CRITIC Weight Overview"}
-            subtitle={lang === "zh" ? "蓝色为 CRITIC 客观权重；灰色为当前评分模式权重，用于判断 active ranking 是否偏离 CRITIC。" : "Blue shows objective CRITIC weights; gray shows the active scoring-mode weights."}
+            title={text(lang, "CRITIC 权重概览", "CRITIC Weight Overview")}
+            subtitle={lang === "zh" ? "蓝色为 CRITIC 客观权重；绿色为当前评分模式权重，用于判断 active ranking 是否偏离 CRITIC。" : "Blue shows objective CRITIC weights; gray shows the active scoring-mode weights."}
           />
-          <WeightBarChart model={model} t={t} isMobile={isMobile} />
+          <WeightBarChart model={model} t={t} isMobile={isMobile} lang={lang} />
         </Card>
         <Card t={t}>
           <PanelTitle
@@ -309,7 +322,7 @@ function WeightDiagnostics({ model, lang, t, isMobile }) {
       <Card t={t}>
         <PanelTitle
           t={t}
-          title={lang === "zh" ? "Weight Diagnostics / 权重诊断" : "Weight Diagnostics"}
+          title={text(lang, "权重诊断 / Weight Diagnostics", "Weight Diagnostics")}
           subtitle={lang === "zh" ? "standard deviation 表示差异度，contrast intensity 在当前实现中等同于标准差项；conflict intensity 来自 1-r_jk 的累积。" : "Standard deviation represents contrast intensity; conflict intensity accumulates 1-r_jk."}
         />
         <div style={{ marginTop: 12 }}>
@@ -353,9 +366,9 @@ function CandidateRanking({ candidates, selectedId, onSelect, lang, t, isMobile 
               <ScoreBar value={candidate.overallScore} t={t} color={candidate.status.tone === "warn" ? t.warn : t.accentText} />
               <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 7 }}>
                 {[
-                  [lang === "zh" ? "Performance" : "Performance", candidate.performanceScore],
-                  [lang === "zh" ? "Sustainability" : "Sustainability", candidate.sustainabilityScore],
-                  [lang === "zh" ? "Evidence" : "Evidence", candidate.evidenceScore],
+                  [text(lang, "性能", "Performance"), candidate.performanceScore],
+                  [text(lang, "可持续性", "Sustainability"), candidate.sustainabilityScore],
+                  [text(lang, "证据", "Evidence"), candidate.evidenceScore],
                 ].map(([label, value]) => (
                   <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: "7px 8px" }}>
                     <div style={{ color: t.faint, fontSize: 9.5, fontWeight: 850, textTransform: "uppercase" }}>{label}</div>
@@ -374,7 +387,7 @@ function CandidateRanking({ candidates, selectedId, onSelect, lang, t, isMobile 
     <div style={{ overflowX: "auto" }}>
       <div style={{ minWidth: 940, display: "grid", gap: 7 }}>
         <div style={{ display: "grid", gridTemplateColumns: "46px minmax(150px,1.2fr) 92px 92px 104px 86px 130px 110px 120px", gap: 10, color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", padding: "0 10px" }}>
-          <span>Rank</span><span>Candidate</span><span>Overall</span><span>Performance</span><span>Sustainability</span><span>Evidence</span><span>Completeness</span><span>Confidence</span><span>Status</span>
+          <span>{text(lang, "名次", "Rank")}</span><span>{text(lang, "候选材料", "Candidate")}</span><span>{text(lang, "综合分", "Overall")}</span><span>{text(lang, "性能", "Performance")}</span><span>{text(lang, "可持续性", "Sustainability")}</span><span>{text(lang, "证据", "Evidence")}</span><span>{text(lang, "完整度", "Completeness")}</span><span>{text(lang, "置信度", "Confidence")}</span><span>{text(lang, "状态", "Status")}</span>
         </div>
         {candidates.map(candidate => {
           const active = candidate.id === selectedId
@@ -454,8 +467,8 @@ function CandidateDetail({ candidate, lang, t, isMobile }) {
 
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 8 }}>
         {[
-          [lang === "zh" ? "Descriptor completeness" : "Descriptor completeness", lang === "zh" ? candidate.descriptorCompleteness.zhLabel : candidate.descriptorCompleteness.label],
-          [lang === "zh" ? "Evidence level" : "Evidence level", candidate.evidenceLevel],
+          [text(lang, "描述符完整度", "Descriptor completeness"), lang === "zh" ? candidate.descriptorCompleteness.zhLabel : candidate.descriptorCompleteness.label],
+          [text(lang, "证据等级", "Evidence level"), candidate.evidenceLevel],
           ["D_raw", fmt(candidate.D_raw)],
           ["D_expected", fmt(candidate.D_expected)],
         ].map(([label, value]) => (
@@ -468,7 +481,7 @@ function CandidateDetail({ candidate, lang, t, isMobile }) {
 
       <details open style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
         <summary style={{ color: t.textStrong, cursor: "pointer", fontSize: 12, fontWeight: 900 }}>
-          {lang === "zh" ? "Why this candidate ranks high? / 排序解释" : "Why this candidate ranks high?"}
+          {text(lang, "该候选为何排序靠前？/ 排序解释", "Why this candidate ranks high?")}
         </summary>
         <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, marginTop: 9 }}>
           {lang === "zh" ? candidate.whyHigh.zh : candidate.whyHigh.en}
@@ -525,9 +538,9 @@ function QuadrantTooltip({ active, payload, t, lang }) {
   return (
     <div style={{ background: t.tooltipBg, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10, boxShadow: t.shadowSm, color: t.textStrong, fontSize: 11, lineHeight: 1.55 }}>
       <div style={{ fontWeight: 900, marginBottom: 4 }}>{row.name}</div>
-      <div>Performance: {fmt(row.performanceScore)}</div>
-      <div>Sustainability: {fmt(row.sustainabilityScore)}</div>
-      <div>Evidence: {fmt(row.evidenceScore)}</div>
+      <div>{text(lang, "性能", "Performance")}: {fmt(row.performanceScore)}</div>
+      <div>{text(lang, "可持续性", "Sustainability")}: {fmt(row.sustainabilityScore)}</div>
+      <div>{text(lang, "证据", "Evidence")}: {fmt(row.evidenceScore)}</div>
       <div>{lang === "zh" ? row.evidenceSource.zh : row.evidenceSource.label}</div>
     </div>
   )
@@ -545,8 +558,8 @@ function PerformanceSustainabilityQuadrant({ candidates, selectedId, onSelect, l
       <ResponsiveContainer width="100%" height={isMobile ? 310 : 380}>
         <ScatterChart margin={{ top: 18, right: 22, bottom: 28, left: 8 }}>
           <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
-          <XAxis type="number" dataKey="x" name="Sustainability Score" domain={[0, 1]} tick={{ fill: t.subtle, fontSize: 10 }} label={{ value: "Sustainability Score", position: "insideBottom", offset: -16, fill: t.subtle, fontSize: 11 }} />
-          <YAxis type="number" dataKey="y" name="Performance Score" domain={[0, 1]} tick={{ fill: t.subtle, fontSize: 10 }} width={42} label={{ value: "Performance Score", angle: -90, position: "insideLeft", fill: t.subtle, fontSize: 11 }} />
+          <XAxis type="number" dataKey="x" name={text(lang, "可持续性分", "Sustainability Score")} domain={[0, 1]} tick={{ fill: t.subtle, fontSize: 10 }} label={{ value: text(lang, "可持续性分", "Sustainability Score"), position: "insideBottom", offset: -16, fill: t.subtle, fontSize: 11 }} />
+          <YAxis type="number" dataKey="y" name={text(lang, "性能分", "Performance Score")} domain={[0, 1]} tick={{ fill: t.subtle, fontSize: 10 }} width={42} label={{ value: text(lang, "性能分", "Performance Score"), angle: -90, position: "insideLeft", fill: t.subtle, fontSize: 11 }} />
           <ZAxis type="number" dataKey="z" range={[70, 520]} />
           <ReferenceLine x={0.65} stroke={t.borderStrong} strokeDasharray="4 4" />
           <ReferenceLine y={0.65} stroke={t.borderStrong} strokeDasharray="4 4" />
@@ -558,10 +571,10 @@ function PerformanceSustainabilityQuadrant({ candidates, selectedId, onSelect, l
       </ResponsiveContainer>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
         {[
-          [lang === "zh" ? "High performance / high sustainability" : "High performance / high sustainability", lang === "zh" ? "优先复核证据闭环" : "priority for evidence closure"],
-          [lang === "zh" ? "High performance / low sustainability" : "High performance / low sustainability", lang === "zh" ? "需审查稳定性或风险代价" : "review stability or risk burden"],
-          [lang === "zh" ? "Low performance / high sustainability" : "Low performance / high sustainability", lang === "zh" ? "可能适合低风险探索" : "possible low-risk exploration"],
-          [lang === "zh" ? "Low performance / low sustainability" : "Low performance / low sustainability", lang === "zh" ? "暂不优先" : "lower priority"],
+          [text(lang, "高性能 / 高可持续性", "High performance / high sustainability"), lang === "zh" ? "优先复核证据闭环" : "priority for evidence closure"],
+          [text(lang, "高性能 / 低可持续性", "High performance / low sustainability"), lang === "zh" ? "需审查稳定性或风险代价" : "review stability or risk burden"],
+          [text(lang, "低性能 / 高可持续性", "Low performance / high sustainability"), lang === "zh" ? "可能适合低风险探索" : "possible low-risk exploration"],
+          [text(lang, "低性能 / 低可持续性", "Low performance / low sustainability"), lang === "zh" ? "暂不优先" : "lower priority"],
         ].map(([title, body]) => (
           <div key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 10 }}>
             <div style={{ color: t.textStrong, fontSize: 11.5, fontWeight: 900 }}>{title}</div>
@@ -571,7 +584,7 @@ function PerformanceSustainabilityQuadrant({ candidates, selectedId, onSelect, l
       </div>
       <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55 }}>
         {lang === "zh"
-          ? "点大小表示 Evidence Score；点形状/颜色表示 Experimental / Literature / Simulated / Demo 来源状态。点击候选点会联动右侧候选详情。"
+          ? "点大小表示 Evidence Score；点形状/颜色表示 Experimental / Literature / Simulated / Demo 来源状态。点击候选点会联动候选详情。"
           : "Point size reflects Evidence Score; marker shape/color marks Experimental / Literature / Simulated / Demo source state. Click a point to update the candidate detail."}
       </div>
     </div>
@@ -595,7 +608,7 @@ function RankComparisonChart({ model, selectedId, onSelect, lang, t, isMobile })
         <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
         <XAxis dataKey="scheme" tick={{ fill: t.subtle, fontSize: isMobile ? 9 : 10 }} interval={0} angle={isMobile ? -28 : -18} textAnchor="end" height={isMobile ? 54 : 58} />
         <YAxis reversed domain={[1, maxRank]} tick={{ fill: t.subtle, fontSize: 10 }} width={42} />
-        <Tooltip content={<ChartTooltip t={t} />} />
+        <Tooltip content={<ChartTooltip t={t} lang={lang} />} />
         {visibleCandidates.map((candidate, index) => (
           <Line
             key={candidate.id}
@@ -622,11 +635,11 @@ function RemoveOneSensitivity({ model, selectedRemovalId, onSelectRemoval, lang,
         <table style={{ width: "100%", minWidth: 620, borderCollapse: "separate", borderSpacing: "0 7px" }}>
           <thead>
             <tr style={{ color: t.faint, fontSize: 10, textAlign: "left", textTransform: "uppercase" }}>
-              <th style={{ padding: "0 10px" }}>Removed candidate</th>
-              <th style={{ padding: "0 10px" }}>Top-3 retained</th>
-              <th style={{ padding: "0 10px" }}>Max shift</th>
-              <th style={{ padding: "0 10px" }}>Mean shift</th>
-              <th style={{ padding: "0 10px" }}>Stability</th>
+              <th style={{ padding: "0 10px" }}>{text(lang, "移除候选", "Removed candidate")}</th>
+              <th style={{ padding: "0 10px" }}>{text(lang, "Top-3 保留", "Top-3 retained")}</th>
+              <th style={{ padding: "0 10px" }}>{text(lang, "最大位移", "Max shift")}</th>
+              <th style={{ padding: "0 10px" }}>{text(lang, "平均位移", "Mean shift")}</th>
+              <th style={{ padding: "0 10px" }}>{text(lang, "稳定性", "Stability")}</th>
             </tr>
           </thead>
           <tbody>
@@ -674,9 +687,9 @@ function RankingRobustness({ model, selectedId, onSelect, lang, t, isMobile }) {
   return (
     <div style={{ display: "grid", gap: 12 }}>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
-        <MetricCard label={lang === "zh" ? "Top-3 consistency" : "Top-3 consistency"} value={fmtPct(model.robustness.top3Consistency)} note={lang === "zh" ? "CRITIC vs Equal vs Expert 的 Top-3 重合度" : "Top-3 overlap across CRITIC, Equal, and Expert"} t={t} tone={model.robustness.top3Consistency >= 0.84 ? "calc" : "proxy"} />
-        <MetricCard label={lang === "zh" ? "Remove-one max shift" : "Remove-one max shift"} value={fmt(model.robustness.maxRemoveOneShift, 0)} note={lang === "zh" ? "移除任一候选后最大名次变化" : "Largest rank shift after removing one candidate"} t={t} tone={model.robustness.maxRemoveOneShift >= 3 ? "warn" : "calc"} />
-        <MetricCard label={lang === "zh" ? "Stability badge" : "Stability badge"} value={lang === "zh" ? model.robustness.stability.zh : model.robustness.stability.label} note={lang === "zh" ? "Stable / Moderate / Sensitive" : "Stable / Moderate / Sensitive"} t={t} tone={model.robustness.stability.tone} />
+        <MetricCard label={text(lang, "Top-3 一致性", "Top-3 consistency")} value={fmtPct(model.robustness.top3Consistency)} note={lang === "zh" ? "CRITIC vs Equal vs Expert 的 Top-3 重合度" : "Top-3 overlap across CRITIC, Equal, and Expert"} t={t} tone={model.robustness.top3Consistency >= 0.84 ? "calc" : "proxy"} />
+        <MetricCard label={text(lang, "Remove-one 最大位移", "Remove-one max shift")} value={fmt(model.robustness.maxRemoveOneShift, 0)} note={lang === "zh" ? "移除任一候选后最大名次变化" : "Largest rank shift after removing one candidate"} t={t} tone={model.robustness.maxRemoveOneShift >= 3 ? "warn" : "calc"} />
+        <MetricCard label={text(lang, "稳定性徽标", "Stability badge")} value={lang === "zh" ? model.robustness.stability.zh : model.robustness.stability.label} note={lang === "zh" ? "Stable / Moderate / Sensitive" : "Stable / Moderate / Sensitive"} t={t} tone={model.robustness.stability.tone} />
       </div>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) minmax(300px, 0.72fr)", gap: 12 }}>
         <Card t={t}>
@@ -688,7 +701,7 @@ function RankingRobustness({ model, selectedId, onSelect, lang, t, isMobile }) {
           <RankComparisonChart model={model} selectedId={selectedId} onSelect={onSelect} lang={lang} t={t} isMobile={isMobile} />
         </Card>
         <Card t={t}>
-          <PanelTitle t={t} title={lang === "zh" ? "Top-3 consistency" : "Top-3 consistency"} />
+          <PanelTitle t={t} title={text(lang, "Top-3 一致性", "Top-3 consistency")} />
           <div style={{ display: "grid", gap: 8, marginTop: 12 }}>
             {model.robustness.top3Rows.map(row => (
               <div key={row.id} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 9 }}>
@@ -707,7 +720,7 @@ function RankingRobustness({ model, selectedId, onSelect, lang, t, isMobile }) {
       <Card t={t}>
         <PanelTitle
           t={t}
-          title={lang === "zh" ? "Remove-one-candidate sensitivity test" : "Remove-one-candidate sensitivity test"}
+          title={text(lang, "Remove-one-candidate 敏感性测试", "Remove-one-candidate sensitivity test")}
           subtitle={lang === "zh" ? "逐个移除候选并重新计算 CRITIC 权重，观察排序是否由单个样本主导。" : "Remove each candidate, recompute CRITIC weights, and check whether rank order is dominated by one sample."}
         />
         <div style={{ marginTop: 12 }}>
@@ -721,11 +734,11 @@ function RankingRobustness({ model, selectedId, onSelect, lang, t, isMobile }) {
 function EvidenceNotes({ lang, t, isMobile }) {
   const notes = lang === "zh"
     ? [
-      ["Evidence boundary", "本页 ranking 表示候选优先级，不代表真实催化性能结论。"],
-      ["Weight limitation", "CRITIC 权重来自当前候选集的差异度与冲突度，解释 ranking influence，不解释 causal mechanism。"],
-      ["Missing data", "缺失描述符以 UNKNOWN_SCORE = 0.50 作为不确定性占位；缺失不等于材料失败。"],
-      ["Small sample sensitivity", "候选数较少时，新增或删除样本可能改变标准差、相关性和客观权重。"],
-      ["Evidence heterogeneity", "文献、DFT、实验和 inferred evidence 的可比性不同，必须在后续验证中分层处理。"],
+      ["证据边界", "本页 ranking 表示候选优先级，不代表真实催化性能结论。"],
+      ["权重限制", "CRITIC 权重来自当前候选集的差异度与冲突度，解释 ranking influence，不解释 causal mechanism。"],
+      ["缺失数据", "缺失描述符以 UNKNOWN_SCORE = 0.50 作为不确定性占位；缺失不等于材料失败。"],
+      ["小样本敏感性", "候选数较少时，新增或删除样本可能改变标准差、相关性和客观权重。"],
+      ["证据异质性", "文献、DFT、实验和 inferred evidence 的可比性不同，必须在后续验证中分层处理。"],
     ]
     : [
       ["Evidence boundary", "Ranking means candidate priority, not validated catalytic performance."],
@@ -772,16 +785,16 @@ export function EcoScreenTab({ onNavigate }) {
   return (
     <div id="candidate-scoring-lab" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title={lang === "zh" ? "EcoScreen / Candidate Scoring" : "EcoScreen / Candidate Scoring"}
+        title={text(lang, "候选评分 / EcoScreen", "EcoScreen / Candidate Scoring")}
         subtitle={lang === "zh"
           ? "CRITIC 权重分析升级为可解释多指标决策支持面板。"
           : "CRITIC weighting analysis upgraded into an interpretable multi-indicator decision-support panel."}
         meta={lang === "zh"
-          ? "Multi-indicator decision support with CRITIC diagnostics, robustness analysis, and evidence boundaries"
+          ? "多指标决策支持：CRITIC 诊断、稳健性分析与证据边界"
           : "Multi-indicator decision support with CRITIC diagnostics, robustness analysis, and evidence boundaries"}
         action={
           <>
-            <BasisBadge tone="proxy">demo / illustrative</BasisBadge>
+            <BasisBadge tone="proxy">{text(lang, "演示 / illustrative", "demo / illustrative")}</BasisBadge>
             <CopyLinkButton hash="ecoscreen" ariaLabel={lang === "zh" ? "复制 EcoScreen 链接" : "Copy EcoScreen link"} />
           </>
         }
@@ -789,22 +802,22 @@ export function EcoScreenTab({ onNavigate }) {
 
       <Callout tone="info">
         {lang === "zh"
-          ? "This module supports early-stage candidate prioritization, not direct formate yield prediction. 本模块用于早期候选优先级判断，不用于直接预测甲酸产率。"
+          ? "本模块用于早期候选优先级判断，不用于直接预测甲酸产率；结果应作为研究假设与复核线索。"
           : "This module supports early-stage candidate prioritization, not direct formate yield prediction. 本模块用于早期候选优先级判断，不用于直接预测甲酸产率。"}{" "}
         <DisclaimerLink />
       </Callout>
       <Callout tone="warn">
         {lang === "zh"
-          ? "Illustrative demo records — not validated catalytic evidence. 演示记录，不代表已验证催化性能。"
+          ? "当前为 illustrative demo records，尚不是已验证催化证据，不应解读为真实性能结论。"
           : "Illustrative demo records — not validated catalytic evidence. 演示记录，不代表已验证催化性能。"}
       </Callout>
 
-      <ResultLayer number="01" title={lang === "zh" ? "Weight Overview / Scoring Method Summary" : "Weight Overview / Scoring Method Summary"} subtitle={lang === "zh" ? "权重模式、归一化、方向调整、缺失比例和稳定性徽标。" : "Weighting mode, normalization, direction adjustment, missing-data ratio, and stability badge."}>
+      <ResultLayer number="01" title={text(lang, "权重概览 / 评分方法摘要", "Weight Overview / Scoring Method Summary")} subtitle={lang === "zh" ? "权重模式、归一化、方向调整、缺失比例和稳定性徽标。" : "Weighting mode, normalization, direction adjustment, missing-data ratio, and stability badge."}>
         <div style={{ display: "grid", gap: 12 }}>
           <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.25fr) minmax(360px, 0.75fr)", gap: 12, alignItems: "stretch" }}>
             <Card t={t} style={{ display: "grid", gap: 10 }}>
               <div style={{ color: t.textStrong, fontSize: isMobile ? 20 : 24, lineHeight: 1.08, fontWeight: 940 }}>
-                Candidate Scoring Lab
+                {text(lang, "候选评分实验台", "Candidate Scoring Lab")}
               </div>
               <div style={{ color: t.textStrong, fontSize: isMobile ? 16 : 18, lineHeight: 1.2, fontWeight: 860 }}>
                 候选材料多指标决策支持面板
@@ -821,32 +834,32 @@ export function EcoScreenTab({ onNavigate }) {
               </div>
             </Card>
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 10 }}>
-              <MetricCard label={lang === "zh" ? "Total candidates / 候选总数" : "Total candidates"} value={model.candidates.length} note="demo set" t={t} />
-              <MetricCard label={lang === "zh" ? "Scored candidates / 已评分候选" : "Scored candidates"} value={scored.length} note="G = 1" t={t} />
-              <MetricCard label={lang === "zh" ? "Excluded / 已硬筛排除" : "Excluded"} value={excluded.length} note="G = 0" t={t} tone={excluded.length ? "warn" : "calc"} />
-              <MetricCard label={lang === "zh" ? "Top candidate / 当前最高优先级候选" : "Top candidate"} value={topCandidate?.name || "—"} note={topCandidate ? `D_expected ${fmt(topCandidate.D_expected)}` : ""} t={t} />
+              <MetricCard label={text(lang, "候选总数 / Total candidates", "Total candidates")} value={model.candidates.length} note={text(lang, "演示数据集", "demo set")} t={t} />
+              <MetricCard label={text(lang, "已评分候选 / Scored candidates", "Scored candidates")} value={scored.length} note="G = 1" t={t} />
+              <MetricCard label={text(lang, "已硬筛排除 / Excluded", "Excluded")} value={excluded.length} note="G = 0" t={t} tone={excluded.length ? "warn" : "calc"} />
+              <MetricCard label={text(lang, "当前最高优先级候选 / Top candidate", "Top candidate")} value={topCandidate?.name || "—"} note={topCandidate ? `D_expected ${fmt(topCandidate.D_expected)}` : ""} t={t} />
             </div>
           </div>
           <ScoringMethodSummary model={model} weightingMode={weightingMode} onWeightingModeChange={setWeightingMode} lang={lang} t={t} isMobile={isMobile} />
         </div>
       </ResultLayer>
 
-      <ResultLayer number="02" title={lang === "zh" ? "Weight Diagnostics / 指标权重诊断" : "Weight Diagnostics / 指标权重诊断"} subtitle={lang === "zh" ? "CRITIC 权重、指标冲突热图、标准差 / contrast intensity 和每个指标的解释文本。" : "CRITIC weights, conflict heatmap, standard deviation / contrast intensity, and per-indicator interpretation."}>
+      <ResultLayer number="02" title={text(lang, "指标权重诊断 / Weight Diagnostics", "Weight Diagnostics")} subtitle={lang === "zh" ? "CRITIC 权重、指标冲突热图、标准差 / contrast intensity 和每个指标的解释文本。" : "CRITIC weights, conflict heatmap, standard deviation / contrast intensity, and per-indicator interpretation."}>
         <WeightDiagnostics model={model} lang={lang} t={t} isMobile={isMobile} />
       </ResultLayer>
 
-      <ResultLayer number="03" title={lang === "zh" ? "Candidate Ranking / 候选排序" : "Candidate Ranking / 候选排序"} subtitle={lang === "zh" ? "候选卡片新增 Overall、Performance、Sustainability、Evidence、descriptor completeness、ranking confidence 和展开解释。" : "Candidate rows include Overall, Performance, Sustainability, Evidence, descriptor completeness, ranking confidence, and expandable rationale."}>
+      <ResultLayer number="03" title={text(lang, "候选排序 / Candidate Ranking", "Candidate Ranking")} subtitle={lang === "zh" ? "候选卡片展示 Overall、Performance、Sustainability、Evidence、descriptor completeness、ranking confidence 和可展开解释。" : "Candidate rows include Overall, Performance, Sustainability, Evidence, descriptor completeness, ranking confidence, and expandable rationale."}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.38fr) minmax(340px, 0.82fr)", gap: 12, alignItems: "stretch" }}>
           <Card t={t}>
             <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "baseline", marginBottom: 12, flexWrap: "wrap" }}>
-              <PanelTitle t={t} title={lang === "zh" ? "MOF Candidate Ranking" : "MOF Candidate Ranking"} subtitle={lang === "zh" ? "点击候选行会联动右侧详情和四象限图。" : "Click a row to update the detail panel and quadrant chart."} />
+              <PanelTitle t={t} title={text(lang, "MOF 候选排序", "MOF Candidate Ranking")} subtitle={lang === "zh" ? "点击候选行会联动详情和四象限图。" : "Click a row to update the detail panel and quadrant chart."} />
               <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>
-                {lang === "zh" ? "active mode: " : "active mode: "}{lang === "zh" ? model.activeWeightingMode.zhLabel : model.activeWeightingMode.label}
+                {text(lang, "当前模式：", "active mode: ")}{lang === "zh" ? model.activeWeightingMode.zhLabel : model.activeWeightingMode.label}
               </span>
             </div>
             <div style={{ color: t.subtle, fontSize: 11.5, lineHeight: 1.55, marginBottom: 10 }}>
               {lang === "zh"
-                ? "This score is an illustrative placeholder, not a validated statement about this MOF. 该分数为演示占位，不代表该 MOF 的真实性能判断。"
+                ? "该分数为演示占位，不代表该 MOF 的真实性能判断。"
                 : "This score is an illustrative placeholder, not a validated statement about this MOF. 该分数为演示占位，不代表该 MOF 的真实性能判断。"}
             </div>
             <CandidateRanking candidates={model.candidates} selectedId={selectedCandidate?.id} onSelect={setSelectedId} lang={lang} t={t} isMobile={isMobile} />
@@ -855,24 +868,24 @@ export function EcoScreenTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="04" title={lang === "zh" ? "Performance vs Sustainability 四象限图" : "Performance vs Sustainability Quadrant"} subtitle={lang === "zh" ? "x-axis: Sustainability Score；y-axis: Performance Score；点大小: Evidence Score；点形状/颜色: source state。" : "x-axis: Sustainability Score; y-axis: Performance Score; point size: Evidence Score; marker: source state."}>
+      <ResultLayer number="04" title={text(lang, "性能 vs 可持续性四象限图", "Performance vs Sustainability Quadrant")} subtitle={lang === "zh" ? "x-axis: Sustainability Score；y-axis: Performance Score；点大小: Evidence Score；点形状/颜色: source state。" : "x-axis: Sustainability Score; y-axis: Performance Score; point size: Evidence Score; marker: source state."}>
         <Card t={t}>
           <PerformanceSustainabilityQuadrant candidates={model.candidates} selectedId={selectedCandidate?.id} onSelect={setSelectedId} lang={lang} t={t} isMobile={isMobile} />
         </Card>
       </ResultLayer>
 
-      <ResultLayer number="05" title={lang === "zh" ? "Ranking Robustness / 排名稳健性" : "Ranking Robustness / 排名稳健性"} subtitle={lang === "zh" ? "CRITIC vs Equal Weight vs Expert Preset、Top-3 consistency、remove-one-candidate sensitivity test。" : "CRITIC vs Equal Weight vs Expert Preset, Top-3 consistency, and remove-one-candidate sensitivity."}>
+      <ResultLayer number="05" title={text(lang, "排名稳健性 / Ranking Robustness", "Ranking Robustness")} subtitle={lang === "zh" ? "CRITIC vs Equal Weight vs Expert Preset、Top-3 consistency、remove-one-candidate sensitivity test。" : "CRITIC vs Equal Weight vs Expert Preset, Top-3 consistency, and remove-one-candidate sensitivity."}>
         <RankingRobustness model={model} selectedId={selectedCandidate?.id} onSelect={setSelectedId} lang={lang} t={t} isMobile={isMobile} />
       </ResultLayer>
 
-      <ResultLayer number="06" title={lang === "zh" ? "Evidence and Limitation Notes / 证据与限制" : "Evidence and Limitation Notes / 证据与限制"}>
+      <ResultLayer number="06" title={text(lang, "证据与限制说明 / Evidence and Limitation Notes", "Evidence and Limitation Notes")}>
         <EvidenceNotes lang={lang} t={t} isMobile={isMobile} />
       </ResultLayer>
 
-      <ResultLayer number="07" title={lang === "zh" ? "Methodology Link / 方法论入口" : "Methodology Link"}>
+      <ResultLayer number="07" title={text(lang, "方法论入口 / Methodology Link", "Methodology Link")}>
         <Card t={t} style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
           <div style={{ minWidth: 0 }}>
-            <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 900 }}>CRITIC-MCDA Decision Support Methodology</div>
+            <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 900 }}>{text(lang, "CRITIC-MCDA 决策支持方法论", "CRITIC-MCDA Decision Support Methodology")}</div>
             <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55, marginTop: 5 }}>
               {lang === "zh"
                 ? "查看 CRITIC 公式、contrast intensity、conflict intensity、objective weight、因果边界和 limitations。"

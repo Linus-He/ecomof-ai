@@ -172,7 +172,7 @@ export function CatalysisLabTab({ onNavigate }) {
           : "multi-reaction scope · coordinate map · comparability check · structured records"}
         metrics={workbenchMetrics}
         note={lang === "zh"
-          ? "Formate candidate screening 仍保留为候选评分实验入口，用于在实验优化前参考 hydrothermal stability、formate-formation barrier 与 byproduct-risk evidence。"
+          ? "产甲酸候选筛选（formate candidate screening）仍保留为候选评分实验入口，用于在实验优化前参考水热稳定性、甲酸生成能垒与副产物风险证据。"
           : "Formate candidate screening remains available as a candidate-scoring entry for hydrothermal stability, formate-formation barrier, and byproduct-risk evidence before experimental optimization."}
         primaryLabel={lang === "zh" ? "进入工作台 →" : "Open workbench →"}
         onPrimary={() => setCatalysisView("map")}
@@ -187,7 +187,7 @@ export function CatalysisLabTab({ onNavigate }) {
         ariaLabel={lang === "zh" ? "催化实验室内容导航" : "Catalysis Lab content navigation"}
       />
 
-      <ScopeNoticeBar label="Scope" tone="scope">
+      <ScopeNoticeBar label={lang === "zh" ? "范围" : "Scope"} tone="scope">
         {lang === "zh"
           ? "覆盖多反应催化任务；有机酸路径目前作为案例，不代表唯一研究方向。"
           : "Covers multiple catalytic reaction tasks; the organic-acid pathway is currently a case example, not the only research direction."}
@@ -327,7 +327,7 @@ export function CatalysisLabTab({ onNavigate }) {
         <>
       <ResultLayer
         number="01"
-        title={lang === "zh" ? "Organic Acid Case Study v0" : "Organic Acid Case Study v0"}
+        title={lang === "zh" ? "有机酸案例研究 v0" : "Organic Acid Case Study v0"}
         subtitle={lang === "zh"
           ? "有机酸方向作为 framework-first 案例，用于说明字段框架、路径图、可比性逻辑和缺失证据。"
           : "The organic-acid direction is a framework-first case for schema, pathway, comparability, and missing-evidence logic."}
@@ -339,7 +339,7 @@ export function CatalysisLabTab({ onNavigate }) {
         number="02"
         title={lang === "zh" ? "数据整理层与案例路径" : "Data Curation Layer and Case Pathway"}
         subtitle={lang === "zh"
-          ? "Biomass-assisted CO₂ / HCO₃⁻ conversion 保留为案例研究，不作为整个催化页的唯一叙事。"
+          ? "生物质辅助 CO₂ / HCO₃⁻ 转化（Biomass-assisted conversion）保留为案例研究，不作为整个催化页的唯一叙事。"
           : "Biomass-assisted CO₂ / HCO₃⁻ conversion remains a case study, not the sole Catalysis Lab narrative."}
       >
         <CatalysisCurationLayer lang={lang} t={t} />

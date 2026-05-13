@@ -199,30 +199,30 @@ function weightedScore(parts, weights) {
 export function getScoreBreakdown(candidate, moduleType, task) {
   if (moduleType === "performance") {
     return [
-      { key: "co2Uptake", label: "CO₂ uptake", value: co2Affinity(candidate) },
-      { key: "selectivity", label: "Selectivity", value: selectivityCue(candidate) },
-      { key: "thermodynamicIndicator", label: "Thermodynamic indicator", value: thermodynamicCue(candidate) },
-      { key: "stability", label: "Stability", value: stabilityScore(candidate) },
-      { key: "evidenceConfidence", label: "Evidence Confidence", value: getEvidenceConfidence(candidate.evidenceLevel) * 100 },
+      { key: "co2Uptake", label: "CO₂ uptake", labelZh: "CO₂ 吸附量", value: co2Affinity(candidate) },
+      { key: "selectivity", label: "Selectivity", labelZh: "选择性", value: selectivityCue(candidate) },
+      { key: "thermodynamicIndicator", label: "Thermodynamic indicator", labelZh: "热力学指标", value: thermodynamicCue(candidate) },
+      { key: "stability", label: "Stability", labelZh: "稳定性", value: stabilityScore(candidate) },
+      { key: "evidenceConfidence", label: "Evidence Confidence", labelZh: "证据置信度", value: getEvidenceConfidence(candidate.evidenceLevel) * 100 },
     ]
   }
   if (moduleType === "catalysis") {
     return [
-      { key: "co2Affinity", label: "CO₂ Affinity", value: co2Affinity(candidate) },
-      { key: "activeSite", label: "Active Site Potential", value: activeSitePotential(candidate) },
-      { key: "poreAccessibility", label: "Pore Accessibility", value: poreAccessibility(candidate) },
-      { key: "stability", label: "Stability", value: stabilityScore(candidate) },
-      { key: "electronicProperty", label: "Electronic Property", value: electronicProperty(candidate) },
-      { key: "sustainability", label: "Sustainability", value: sustainabilityScore(candidate) },
-      { key: "evidenceConfidence", label: "Evidence Confidence", value: getEvidenceConfidence(candidate.evidenceLevel) * 100 },
+      { key: "co2Affinity", label: "CO₂ Affinity", labelZh: "CO₂ 亲和性", value: co2Affinity(candidate) },
+      { key: "activeSite", label: "Active Site Potential", labelZh: "活性位潜力", value: activeSitePotential(candidate) },
+      { key: "poreAccessibility", label: "Pore Accessibility", labelZh: "孔道可达性", value: poreAccessibility(candidate) },
+      { key: "stability", label: "Stability", labelZh: "稳定性", value: stabilityScore(candidate) },
+      { key: "electronicProperty", label: "Electronic Property", labelZh: "电子性质", value: electronicProperty(candidate) },
+      { key: "sustainability", label: "Sustainability", labelZh: "可持续性", value: sustainabilityScore(candidate) },
+      { key: "evidenceConfidence", label: "Evidence Confidence", labelZh: "证据置信度", value: getEvidenceConfidence(candidate.evidenceLevel) * 100 },
     ].map(item => ({ ...item, value: item.key === "co2Affinity" ? clamp(item.value * taskFit(candidate, task)) : item.value }))
   }
   return [
-    { key: "performance", label: "Performance", value: performanceCue(candidate) },
-    { key: "stability", label: "Stability", value: stabilityScore(candidate) },
-    { key: "sustainability", label: "Sustainability", value: sustainabilityScore(candidate) },
-    { key: "cost", label: "Cost", value: costScore(candidate) },
-    { key: "evidenceConfidence", label: "Evidence Confidence", value: getEvidenceConfidence(candidate.evidenceLevel) * 100 },
+    { key: "performance", label: "Performance", labelZh: "性能", value: performanceCue(candidate) },
+    { key: "stability", label: "Stability", labelZh: "稳定性", value: stabilityScore(candidate) },
+    { key: "sustainability", label: "Sustainability", labelZh: "可持续性", value: sustainabilityScore(candidate) },
+    { key: "cost", label: "Cost", labelZh: "成本", value: costScore(candidate) },
+    { key: "evidenceConfidence", label: "Evidence Confidence", labelZh: "证据置信度", value: getEvidenceConfidence(candidate.evidenceLevel) * 100 },
   ]
 }
 
@@ -259,6 +259,7 @@ export function getWeightContribution(candidate, weights = {}, moduleType = "eco
     const weight = Math.max(0, Number(activeWeights[item.key]) || 0) / total
     return {
       dimension: item.label,
+      dimensionZh: item.labelZh,
       key: item.key,
       weight,
       normalizedScore: clamp(item.value),

@@ -22,7 +22,7 @@ export function WorkflowTab({ setActiveTab, inputs, results }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title="Workflow"
+        title={lang === "zh" ? "工作流" : "Workflow"}
         subtitle={lang === "zh"
           ? "MOF 候选筛选、可行性边界与入围后比较的分阶段路径。"
           : "A staged path for MOF screening, feasibility boundaries, and shortlist comparison."}

@@ -5,7 +5,7 @@ export function WeightContributionChart({ data = [] }) {
   const t = useT()
   const { lang } = useLang()
   const rows = data.map(item => ({
-    dimension: item.dimension,
+    dimension: lang === "zh" ? (item.dimensionZh || item.dimension) : item.dimension,
     contribution: Number(item.contribution || 0),
     weight: Number(item.weight || 0),
     normalizedScore: Number(item.normalizedScore || 0),
@@ -25,7 +25,7 @@ export function WeightContributionChart({ data = [] }) {
             <Tooltip
               formatter={(value, name, item) => [
                 Number(value).toFixed(1),
-                `${name} · w=${Number(item.payload.weight).toFixed(2)} · n=${Number(item.payload.normalizedScore).toFixed(1)}`,
+                `${lang === "zh" ? "贡献" : name} · w=${Number(item.payload.weight).toFixed(2)} · n=${Number(item.payload.normalizedScore).toFixed(1)}`,
               ]}
               contentStyle={{ background: t.panel, border: `1px solid ${t.border}`, color: t.text }}
             />

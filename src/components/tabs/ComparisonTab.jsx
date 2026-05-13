@@ -13,7 +13,7 @@ export function ComparisonTab({ activeSub, setActiveSub, results, inputs, onNavi
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <PageHeader
-        title="Comparison"
+        title={lang === "zh" ? "候选比较" : "Comparison"}
         subtitle={lang === "zh"
           ? "科学筛选之后的可行性、LCA/LCC 与敏感性比较。"
           : "Feasibility, LCA/LCC, and sensitivity comparison after scientific screening."}

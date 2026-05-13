@@ -316,9 +316,12 @@ export function PerformanceTab({
                 : "Machine learning evaluation is currently a placeholder. It will be activated when enough labeled experimental or literature data are available."}
             </Callout>
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
-              {["Predicted vs Actual", "Residual Plot", "Descriptor Contribution", "R²: pending · MAE: pending · RMSE: pending · Cross-validation: pending"].map(item => (
+              {(lang === "zh"
+                ? ["预测值 vs 实际值", "残差图", "描述符贡献", "R²：待补充 · MAE：待补充 · RMSE：待补充 · 交叉验证：待补充"]
+                : ["Predicted vs Actual", "Residual Plot", "Descriptor Contribution", "R²: pending · MAE: pending · RMSE: pending · Cross-validation: pending"]
+              ).map(item => (
                 <div key={item} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-                  <BasisBadge tone="proxy">Demo only / Placeholder</BasisBadge>
+                  <BasisBadge tone="proxy">{lang === "zh" ? "演示占位 / Demo placeholder" : "Demo only / Placeholder"}</BasisBadge>
                   <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850, marginTop: 9 }}>{item}</div>
                   <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 6 }}>
                     {lang === "zh" ? "需要带标签的实验或文献数据。" : "Requires labeled experimental or literature data."}

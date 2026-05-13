@@ -45,7 +45,7 @@ export const CRITIC_WEIGHTING_MODES = [
   {
     id: "equal",
     label: "Equal Weight",
-    zhLabel: "Equal 等权重",
+    zhLabel: "等权重 Equal",
     weights: { d_stab: 1 / 3, d_barrier: 1 / 3, d_select: 1 / 3 },
     description: "Reference mode where every indicator has the same influence.",
     zhDescription: "参考模式，每个指标具有相同排序影响力。",
@@ -53,7 +53,7 @@ export const CRITIC_WEIGHTING_MODES = [
   {
     id: "expert",
     label: "Expert Preset",
-    zhLabel: "Expert 专家预设",
+    zhLabel: "专家预设 Expert",
     weights: { d_stab: 0.42, d_barrier: 0.38, d_select: 0.2 },
     description: "Hydrothermal formate-formation preset emphasizing stability and kinetic feasibility.",
     zhDescription: "面向水热产甲酸筛选的专家预设，更强调稳定性与关键能垒。",
@@ -61,7 +61,7 @@ export const CRITIC_WEIGHTING_MODES = [
   {
     id: "custom",
     label: "Custom",
-    zhLabel: "Custom 自定义",
+    zhLabel: "自定义 Custom",
     weights: { d_stab: 0.3, d_barrier: 0.45, d_select: 0.25 },
     description: "Example custom scenario for reviewing how a barrier-forward setting changes rank order.",
     zhDescription: "示例自定义情景，用于观察更强调能垒时排序如何变化。",
@@ -348,7 +348,7 @@ function getDescriptorCompleteness(candidate) {
     total: EXPECTED_DESCRIPTOR_FIELDS.length,
     ratio: curated / EXPECTED_DESCRIPTOR_FIELDS.length,
     label: `${curated}/${EXPECTED_DESCRIPTOR_FIELDS.length} descriptors curated`,
-    zhLabel: `${curated}/${EXPECTED_DESCRIPTOR_FIELDS.length} 个 descriptors 已整理`,
+    zhLabel: `${curated}/${EXPECTED_DESCRIPTOR_FIELDS.length} 个描述符已整理`,
   }
 }
 
@@ -359,15 +359,15 @@ function inferEvidenceSource(candidate) {
     ...(candidate?.sources || []).flatMap(source => [source?.label, source?.type, source?.note]),
   ].join(" ").toLowerCase()
   if (evidenceText.includes("experiment") || evidenceText.includes("characterization")) {
-    return { label: "Experimental", zh: "Experimental 实验", tone: "calc" }
+    return { label: "Experimental", zh: "实验 Experimental", tone: "calc" }
   }
   if (evidenceText.includes("literature") || evidenceText.includes("doi")) {
-    return { label: "Literature", zh: "Literature 文献", tone: "info" }
+    return { label: "Literature", zh: "文献 Literature", tone: "info" }
   }
   if (evidenceText.includes("dft") || evidenceText.includes("simulated") || evidenceText.includes("simulation")) {
-    return { label: "Simulated", zh: "Simulated 模拟", tone: "proxy" }
+    return { label: "Simulated", zh: "模拟 Simulated", tone: "proxy" }
   }
-  return { label: "Demo", zh: "Demo 演示", tone: "warn" }
+  return { label: "Demo", zh: "演示 Demo", tone: "warn" }
 }
 
 function deriveCandidateMetrics(candidate, weights) {
@@ -383,9 +383,9 @@ function deriveCandidateMetrics(candidate, weights) {
   const missingCount = Object.values(candidate.scoreInputs || {}).filter(input => input?.missing).length
   const scoreSpreadPenalty = lowIndicatorCount >= 2 ? 0.12 : lowIndicatorCount === 1 ? 0.06 : 0
   const confidenceBase = (evidenceScore * 0.48) + (completeness.ratio * 0.28) + ((1 - missingCount / INDICATORS.length) * 0.24) - scoreSpreadPenalty
-  let rankingConfidence = { label: "High", zh: "High 高", tone: "calc", value: confidenceBase }
-  if (Number(candidate.G) === 0 || confidenceBase < 0.58) rankingConfidence = { label: "Low", zh: "Low 低", tone: "warn", value: confidenceBase }
-  else if (confidenceBase < 0.74) rankingConfidence = { label: "Medium", zh: "Medium 中", tone: "proxy", value: confidenceBase }
+  let rankingConfidence = { label: "High", zh: "高 High", tone: "calc", value: confidenceBase }
+  if (Number(candidate.G) === 0 || confidenceBase < 0.58) rankingConfidence = { label: "Low", zh: "低 Low", tone: "warn", value: confidenceBase }
+  else if (confidenceBase < 0.74) rankingConfidence = { label: "Medium", zh: "中 Medium", tone: "proxy", value: confidenceBase }
   const weightedDrivers = INDICATORS.map(indicator => ({
     key: indicator.key,
     label: indicator.label,
@@ -572,9 +572,9 @@ function buildSensitivityRows(candidates, ranksByScheme) {
 export function computeSensitivityRanks(candidates, criticWeights) {
   const schemes = [
     { id: "critic", label: "CRITIC", zhLabel: "CRITIC", weights: normalizeWeights(criticWeights) },
-    { id: "equal", label: "Equal Weight", zhLabel: "Equal 等权重", weights: CRITIC_WEIGHTING_MODES.find(mode => mode.id === "equal").weights },
-    { id: "expert", label: "Expert Preset", zhLabel: "Expert 专家预设", weights: CRITIC_WEIGHTING_MODES.find(mode => mode.id === "expert").weights },
-    { id: "custom", label: "Custom", zhLabel: "Custom 自定义", weights: CRITIC_WEIGHTING_MODES.find(mode => mode.id === "custom").weights },
+    { id: "equal", label: "Equal Weight", zhLabel: "等权重 Equal", weights: CRITIC_WEIGHTING_MODES.find(mode => mode.id === "equal").weights },
+    { id: "expert", label: "Expert Preset", zhLabel: "专家预设 Expert", weights: CRITIC_WEIGHTING_MODES.find(mode => mode.id === "expert").weights },
+    { id: "custom", label: "Custom", zhLabel: "自定义 Custom", weights: CRITIC_WEIGHTING_MODES.find(mode => mode.id === "custom").weights },
   ]
   const rawRanksByScheme = schemes.map(scheme => ({
     ...scheme,
@@ -630,8 +630,8 @@ export function computeRankingRobustness(candidates, criticWeights) {
   const activeIds = activeCandidateIds(candidates)
   const schemes = [
     { id: "critic", label: "CRITIC", zhLabel: "CRITIC", weights: normalizeWeights(criticWeights) },
-    { id: "equal", label: "Equal Weight", zhLabel: "Equal 等权重", weights: CRITIC_WEIGHTING_MODES.find(mode => mode.id === "equal").weights },
-    { id: "expert", label: "Expert Preset", zhLabel: "Expert 专家预设", weights: CRITIC_WEIGHTING_MODES.find(mode => mode.id === "expert").weights },
+    { id: "equal", label: "Equal Weight", zhLabel: "等权重 Equal", weights: CRITIC_WEIGHTING_MODES.find(mode => mode.id === "equal").weights },
+    { id: "expert", label: "Expert Preset", zhLabel: "专家预设 Expert", weights: CRITIC_WEIGHTING_MODES.find(mode => mode.id === "expert").weights },
   ]
   const schemeRanks = schemes.map(scheme => ({
     ...scheme,
@@ -661,13 +661,13 @@ export function computeRankingRobustness(candidates, criticWeights) {
     const meanShift = shifts.length ? shifts.reduce((sum, value) => sum + value, 0) / shifts.length : 0
     const retainedTop3 = topThreeOverlap(baseTop3.filter(id => id !== removed.id), topThreeIds(subsetRanks))
     let stability = "Stable"
-    let zhStability = "Stable 稳定"
+    let zhStability = "稳定 Stable"
     if (maxShift >= 3 || retainedTop3 < 0.5) {
       stability = "Sensitive"
-      zhStability = "Sensitive 敏感"
+      zhStability = "敏感 Sensitive"
     } else if (maxShift >= 2 || retainedTop3 < 0.67) {
       stability = "Moderate"
-      zhStability = "Moderate 中等"
+      zhStability = "中等 Moderate"
     }
     return {
       removedId: removed.id,
@@ -682,11 +682,11 @@ export function computeRankingRobustness(candidates, criticWeights) {
     }
   })
   const maxRemoveOneShift = removeOneRows.reduce((max, row) => Math.max(max, row.maxShift), 0)
-  let stability = { label: "Stable", zh: "Stable 稳定", tone: "calc" }
+  let stability = { label: "Stable", zh: "稳定 Stable", tone: "calc" }
   if (top3Consistency < 0.5 || maxRemoveOneShift >= 3) {
-    stability = { label: "Sensitive", zh: "Sensitive 敏感", tone: "warn" }
+    stability = { label: "Sensitive", zh: "敏感 Sensitive", tone: "warn" }
   } else if (top3Consistency < 0.84 || maxRemoveOneShift >= 2) {
-    stability = { label: "Moderate", zh: "Moderate 中等", tone: "proxy" }
+    stability = { label: "Moderate", zh: "中等 Moderate", tone: "proxy" }
   }
   return {
     schemes,

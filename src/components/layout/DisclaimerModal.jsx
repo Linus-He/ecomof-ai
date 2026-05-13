@@ -134,7 +134,7 @@ export function DisclaimerModal({ open, onClose }) {
       <div
         role="dialog"
         aria-modal="true"
-        aria-label={zh ? "Disclaimer Center / 声明与使用边界" : "Disclaimer Center"}
+        aria-label={zh ? "声明与使用边界 / Disclaimer Center" : "Disclaimer Center"}
         onClick={e => e.stopPropagation()}
         style={{
           width: "min(860px, 96vw)",
@@ -153,7 +153,7 @@ export function DisclaimerModal({ open, onClose }) {
             <BrandMark size={isMobile ? 28 : 32} radius={8} style={{ boxShadow: t.shadowSm, flexShrink: 0 }} />
             <div>
               <div style={{ color: t.accentText, fontSize: 19, fontWeight: 850, lineHeight: 1.2 }}>
-                {zh ? "Disclaimer Center / 声明与使用边界" : "Disclaimer Center"}
+                {zh ? "声明与使用边界 / Disclaimer Center" : "Disclaimer Center"}
               </div>
               <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 4, maxWidth: 680 }}>
                 {zh

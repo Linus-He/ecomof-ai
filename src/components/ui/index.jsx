@@ -493,15 +493,17 @@ export function UnifiedCandidateCard({
             <div>
               <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 6 }}>{lang === "zh" ? "评分分解" : "Score breakdown"}</div>
               <div style={{ display: "grid", gap: 5 }}>
-                {scoreBreakdown.map(item => (
-                  <div key={item.label} style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 42px", gap: 8, alignItems: "center" }}>
+                {scoreBreakdown.map(item => {
+                  const itemLabel = lang === "zh" ? (item.labelZh || item.label) : item.label
+                  return (
+                  <div key={item.key || item.label} style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 42px", gap: 8, alignItems: "center" }}>
                     <div style={{ height: 4, background: t.border, borderRadius: 999, overflow: "hidden" }}>
                       <div style={{ height: "100%", width: `${normalizedWidth(item.value)}%`, background: item.color || t.accent, borderRadius: 999 }} />
                     </div>
                     <div style={{ color: t.subtle, fontSize: 10, fontWeight: 800 }}>{formattedValue(item.value)}</div>
-                    <div style={{ gridColumn: "1 / -1", color: t.faint, fontSize: 10, marginTop: -3 }}>{item.label}</div>
+                    <div style={{ gridColumn: "1 / -1", color: t.faint, fontSize: 10, marginTop: -3 }}>{itemLabel}</div>
                   </div>
-                ))}
+                )})}
               </div>
             </div>
           )}

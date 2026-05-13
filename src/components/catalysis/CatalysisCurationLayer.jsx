@@ -13,10 +13,10 @@ export function CatalysisCurationLayer({ lang, t }) {
   return (
     <section style={{ display: "grid", gap: 12 }}>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 12 }}>
-        <Card title={lang === "zh" ? "Case study：生物质辅助 CO₂ / HCO₃⁻ 转化" : "Case study: biomass-assisted CO₂ / HCO₃⁻ conversion"} t={t} accent>
+        <Card title={lang === "zh" ? "案例研究：生物质辅助 CO₂ / HCO₃⁻ 转化" : "Case study: biomass-assisted CO₂ / HCO₃⁻ conversion"} t={t} accent>
           <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65 }}>
             {lang === "zh"
-              ? "该案例用于测试有机酸路径的字段整理、条件语境和可比性判断。甲酸、乳酸、乙酸和乙醇酸是 product family 示例，不是整个 Catalysis Lab 的唯一主线。"
+              ? "该案例用于测试有机酸路径的字段整理、条件语境和可比性判断。甲酸、乳酸、乙酸和乙醇酸是产物家族（product family）示例，不是整个 CatalysisLab 的唯一主线。"
               : "This case tests field curation, condition context, and comparability for organic-acid pathways. Formic, lactic, acetic, and glycolic acids are product-family examples, not the whole Catalysis Lab scope."}
           </div>
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 10 }}>
@@ -29,7 +29,7 @@ export function CatalysisCurationLayer({ lang, t }) {
         <Card title={lang === "zh" ? "数据整理层" : "Data curation layer"} t={t}>
           <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65 }}>
             {lang === "zh"
-              ? "当前重点是 pathway-level task、metric alignment、condition context、field-level evidence 和 bridge metric requirement。"
+              ? "当前重点是路径级任务（pathway-level task）、指标对齐（metric alignment）、条件语境、字段级证据和桥接指标需求。"
               : "The current layer focuses on pathway-level tasks, metric alignment, condition context, field-level evidence, and bridge metric requirements."}
           </div>
         </Card>
@@ -46,7 +46,7 @@ export function CatalysisCurationLayer({ lang, t }) {
         <summary style={{ color: t.textStrong, cursor: "pointer", fontSize: 13, fontWeight: 900 }}>{lang === "zh" ? "结构化记录字段" : "Structured record fields"}</summary>
         <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.7, marginTop: 10 }}>
           {lang === "zh"
-            ? "建议记录 catalyst identity、reaction domain、catalytic mode、feedstock、product family、condition context、key metrics、source status、missing bridge metrics 和 curation status。"
+            ? "建议记录催化剂身份（catalyst identity）、反应域、催化模式、原料、产物家族、条件语境、关键指标、来源状态、缺失桥接指标和整理状态。"
             : "Recommended fields include catalyst identity, reaction domain, catalytic mode, feedstock, product family, condition context, key metrics, source status, missing bridge metrics, and curation status."}
         </div>
       </details>

@@ -26,64 +26,64 @@ export const TAB_TO_HASH = {
 
 export const HASH_META = {
   default: {
-    title: "EcoMOF-AI | MOF AI Prototype Platform",
-    description: "EcoMOF-AI is an early-stage research prototype for MOF candidate screening, sustainability evaluation, descriptor curation, catalysis-oriented exploration, and field-level data provenance.",
+    title: "EcoMOF-AI | MOF AI 原型研究平台",
+    description: "EcoMOF-AI 是面向 MOF 候选筛选、可持续性评价、描述符整理、催化探索和字段级数据来源追踪的早期研究原型。",
   },
   overview: {
-    title: "EcoMOF-AI | Transparent MOF Screening Prototype",
-    description: "EcoMOF-AI is an early-stage research prototype for MOF candidate screening, sustainability evaluation, descriptor curation, catalysis-oriented exploration, and field-level data provenance.",
+    title: "EcoMOF-AI | 透明 MOF 筛选原型",
+    description: "EcoMOF-AI 是面向 MOF 候选筛选、可持续性评价、描述符整理、催化探索和字段级数据来源追踪的早期研究原型。",
   },
   ecoscreen: {
-    title: "EcoScreen | Sustainability Screening for MOF Candidates",
-    description: "Explore sustainability-oriented MOF candidate prioritization with transparent assumptions, candidate-priority scores, and limitations.",
+    title: "EcoScreen | MOF 候选可持续性筛选",
+    description: "查看可持续性导向的 MOF 候选优先级、透明假设、候选评分和使用限制。",
   },
   performance: {
-    title: "Performance | MOF Candidate Prioritization",
-    description: "Explore rule-based MOF candidate prioritization with descriptor curation status and field-level provenance.",
+    title: "性能优先级 | MOF 候选排序",
+    description: "查看基于规则的 MOF 候选优先级、描述符整理状态和字段级来源信息。",
   },
   gassep: {
-    title: "GasSep | Condition-Aware Gas Separation Records",
-    description: "Review condition-aware gas adsorption and separation records for MOF candidates, including gas ratio, temperature, pressure, method, source status, and isotherm availability.",
+    title: "GasSep | 条件语境气体分离记录",
+    description: "查看 MOF 候选的气体吸附与分离记录，包括气体比例、温度、压力、方法、来源状态和等温线状态。",
   },
   "gas-separation": {
-    title: "GasSep | Condition-Aware Gas Separation Records",
-    description: "Review condition-aware gas adsorption and separation records for MOF candidates, including gas ratio, temperature, pressure, method, source status, and isotherm availability.",
+    title: "GasSep | 条件语境气体分离记录",
+    description: "查看 MOF 候选的气体吸附与分离记录，包括气体比例、温度、压力、方法、来源状态和等温线状态。",
   },
   catalysis: {
-    title: "CatalysisLab | Catalysis-Oriented MOF Exploration",
-    description: "Explore catalysis-oriented MOF candidate prioritization as an early-stage research prototype, not final catalytic performance prediction.",
+    title: "CatalysisLab | 催化导向 MOF 探索",
+    description: "以早期研究原型方式查看催化导向 MOF 候选优先级，不作为最终催化性能预测。",
   },
   library: {
-    title: "MOF Library | Descriptor Curation and Provenance",
-    description: "Review MOF descriptors, curation status, source records, and Data Quality & Provenance summaries.",
+    title: "MOF 候选库 | 描述符整理与来源追踪",
+    description: "查看 MOF 描述符、整理状态、来源记录和数据质量与来源摘要。",
   },
   methodology: {
-    title: "Methods & Evidence | EcoMOF-AI",
-    description: "Understand EcoMOF-AI scoring methods, evidence levels, data provenance, benchmark context, validation status, citation boundaries, and limitations.",
+    title: "方法与证据 | EcoMOF-AI",
+    description: "了解 EcoMOF-AI 的评分方法、证据等级、数据来源、基准语境、验证状态、引用边界和使用限制。",
   },
   "data-quality-provenance": {
-    title: "Data Quality & Provenance | EcoMOF-AI",
-    description: "Review how EcoMOF-AI separates demo data, real-seed curation records, field-level provenance, and pending curation states.",
+    title: "数据质量与来源 | EcoMOF-AI",
+    description: "查看 EcoMOF-AI 如何区分演示数据、真实种子整理记录、字段级来源和待复核状态。",
   },
   contact: {
-    title: "Contact / Collaboration | EcoMOF-AI",
-    description: "Contact the EcoMOF-AI maintainer about research collaboration, dataset integration, or feedback.",
+    title: "联系与合作 | EcoMOF-AI",
+    description: "联系 EcoMOF-AI 维护者，讨论研究合作、数据集接入或反馈。",
   },
   acknowledgements: {
-    title: "Acknowledgements | EcoMOF-AI",
-    description: "Acknowledgements and maintainer information for the EcoMOF-AI early-stage research prototype.",
+    title: "致谢 | EcoMOF-AI",
+    description: "EcoMOF-AI 早期研究原型的致谢与维护者信息。",
   },
   disclaimer: {
-    title: "Disclaimer Center | EcoMOF-AI",
-    description: "Centralized use boundaries for EcoMOF-AI prototype status, data interpretation, scoring, sustainability signals, catalysis records, machine learning, and collaborator-private data.",
+    title: "声明与使用边界 | EcoMOF-AI",
+    description: "集中说明 EcoMOF-AI 的原型状态、数据解释、评分、可持续性信号、催化记录、机器学习和合作方保密数据边界。",
   },
   "validation-evidence": {
-    title: "Validation & Evidence | EcoMOF-AI",
-    description: "Current validation status, what is explicitly checked, future validation plans, and non-validation disclaimer for EcoMOF-AI.",
+    title: "验证与证据 | EcoMOF-AI",
+    description: "查看 EcoMOF-AI 当前验证状态、已明确检查的内容、未来验证计划和非验证声明。",
   },
   "benchmark-references": {
-    title: "Benchmark References | EcoMOF-AI",
-    description: "Review contextual MOF benchmark references used to interpret candidate records without claiming validated prediction superiority.",
+    title: "基准参考 | EcoMOF-AI",
+    description: "查看用于解释候选记录的 MOF 基准参考，不宣称已验证的预测优越性。",
   },
 }
 

@@ -14,6 +14,13 @@ import {
 
 const fmt = (value, digits = 3) => Number(value || 0).toFixed(digits)
 const pct = value => `${Math.round(Math.max(0, Math.min(1, Number(value) || 0)) * 100)}%`
+const robustnessLabel = (value, zh) => {
+  if (!zh) return value
+  if (value === "Robust") return "稳健 Robust"
+  if (value === "Evidence-limited") return "证据受限 Evidence-limited"
+  if (value === "Excluded") return "已排除 Excluded"
+  return value
+}
 
 const sectionIds = [
   ["platform-scope", "Platform scope", "平台定位"],
@@ -92,13 +99,41 @@ function TooltipBox({ active, payload, label, t }) {
 function MethodWorkflow({ zh, t, isMobile }) {
   const [active, setActive] = useState(0)
   const steps = [
-    ["Evidence collection", "Collect literature, DFT, experiment, characterization, or inferred evidence.", "indicator-system"],
-    ["Descriptor scoring", "Convert stability, barrier, and byproduct-risk evidence into 0-1 scores.", "indicator-system"],
-    ["CRITIC weighting", "Use dispersion and correlation conflict to derive objective weights.", "critic-weighting"],
-    ["D_raw", "Compute the weighted geometric mean after the hard-screen factor.", "candidate-score"],
-    ["Evidence confidence Q", "Apply evidence confidence to distinguish strong and weak support.", "evidence-confidence"],
-    ["D_expected ranking", "Rank candidates by confidence-adjusted priority.", "interactive-visuals"],
-    ["Data gaps", "Recommend missing experiment, DFT, or characterization evidence.", "method-limitations"],
+    [
+      "Evidence collection",
+      zh ? "收集文献、DFT、实验、表征或推断证据。" : "Collect literature, DFT, experiment, characterization, or inferred evidence.",
+      "indicator-system",
+    ],
+    [
+      "Descriptor scoring",
+      zh ? "把稳定性、能垒和副产物风险证据转换为 0-1 评分。" : "Convert stability, barrier, and byproduct-risk evidence into 0-1 scores.",
+      "indicator-system",
+    ],
+    [
+      "CRITIC weighting",
+      zh ? "使用差异度和相关性冲突推导客观权重。" : "Use dispersion and correlation conflict to derive objective weights.",
+      "critic-weighting",
+    ],
+    [
+      "D_raw",
+      zh ? "在硬筛因子后计算加权几何平均。" : "Compute the weighted geometric mean after the hard-screen factor.",
+      "candidate-score",
+    ],
+    [
+      "Evidence confidence Q",
+      zh ? "用证据置信度区分强支持和弱支持。" : "Apply evidence confidence to distinguish strong and weak support.",
+      "evidence-confidence",
+    ],
+    [
+      "D_expected ranking",
+      zh ? "按置信度修正后的优先级进行候选排序。" : "Rank candidates by confidence-adjusted priority.",
+      "interactive-visuals",
+    ],
+    [
+      "Data gaps",
+      zh ? "建议需要补充的实验、DFT 或表征证据。" : "Recommend missing experiment, DFT, or characterization evidence.",
+      "method-limitations",
+    ],
   ]
   const zhSteps = [
     "证据收集", "描述符评分", "CRITIC 赋权", "D_raw", "证据置信度 Q", "D_expected 排序", "数据缺口",
@@ -116,7 +151,7 @@ function MethodWorkflow({ zh, t, isMobile }) {
           onMouseEnter={() => setActive(index)}
           onFocus={() => setActive(index)}
           onClick={() => openStep(index, target)}
-          title={zh ? note : note}
+          title={note}
           style={{
             background: active === index ? t.badgeInfoBg : t.surface,
             border: `1px solid ${active === index ? t.accent : t.border}`,
@@ -317,10 +352,10 @@ function SensitivityRankChart({ sensitivity, selected, onSelect, zh, t, isMobile
         <table style={{ width: "100%", minWidth: isMobile ? 540 : 610, borderCollapse: "separate", borderSpacing: `0 ${isMobile ? 4 : 6}px` }}>
           <tbody>
             {current.rows.map(row => (
-              <tr key={row.id} onClick={() => onSelect(row.id)} title={`${row.name}: ${row.robustness}`} style={{ cursor: "pointer" }}>
+              <tr key={row.id} onClick={() => onSelect(row.id)} title={`${row.name}: ${robustnessLabel(row.robustness, zh)}`} style={{ cursor: "pointer" }}>
                 <td style={{ background: row.id === selected ? t.badgeInfoBg : t.panel, borderRadius: "7px 0 0 7px", padding: isMobile ? 7 : 9, color: t.textStrong, fontWeight: 850, fontSize: isMobile ? 11 : 12 }}>{row.name}</td>
                 {schemes.map(scheme => <td key={scheme.id} style={{ background: t.panel, padding: isMobile ? 7 : 9, color: t.muted, fontFamily: FONT_MONO, fontSize: isMobile ? 10 : 11 }}>{Number.isFinite(row.ranks[scheme.id]) ? `#${row.ranks[scheme.id]}` : row.ranks[scheme.id]}</td>)}
-                <td style={{ background: t.panel, borderRadius: "0 7px 7px 0", padding: isMobile ? 7 : 9, color: row.robustness === "Robust" ? t.accentText : t.warn, fontWeight: 850, fontSize: isMobile ? 11 : 12 }}>{row.robustness}</td>
+                <td style={{ background: t.panel, borderRadius: "0 7px 7px 0", padding: isMobile ? 7 : 9, color: row.robustness === "Robust" ? t.accentText : t.warn, fontWeight: 850, fontSize: isMobile ? 11 : 12 }}>{robustnessLabel(row.robustness, zh)}</td>
               </tr>
             ))}
           </tbody>
@@ -362,18 +397,26 @@ export function MethodsLimitationsTab({ onNavigate }) {
   const [selectedCandidateId, setSelectedCandidateId] = useState(model.candidates[0]?.id)
   const selectedCandidate = model.candidates.find(item => item.id === selectedCandidateId) || model.candidates[0]
 
-  const qRows = [
-    ["A", "strong experimental + post-reaction evidence"],
-    ["B", "literature-supported evidence"],
-    ["C", "DFT-only or partial evidence"],
-    ["D", "inferred evidence"],
-    ["E", "missing or weak evidence"],
-  ]
+  const qRows = zh
+    ? [
+        ["A", "强实验 + 反应后表征证据"],
+        ["B", "文献支持证据"],
+        ["C", "仅 DFT 或部分证据"],
+        ["D", "推断证据"],
+        ["E", "缺失或较弱证据"],
+      ]
+    : [
+        ["A", "strong experimental + post-reaction evidence"],
+        ["B", "literature-supported evidence"],
+        ["C", "DFT-only or partial evidence"],
+        ["D", "inferred evidence"],
+        ["E", "missing or weak evidence"],
+      ]
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title={zh ? "Methodology / 方法论" : "Methodology / 方法论"}
+        title={zh ? "方法论 / Methodology" : "Methodology / 方法论"}
         subtitle={zh
           ? "论文方法页 + 网页可读版：解释候选评分、证据置信度、CRITIC 权重和 RSM 边界。"
           : "A paper-style method page for candidate scoring, evidence confidence, CRITIC weighting, and the RSM boundary."}
@@ -410,7 +453,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
         </aside>
 
         <main style={{ display: "grid", gap: 16, minWidth: 0 }}>
-          <Section id="platform-scope" eyebrow="01" title={zh ? "Platform scope / 平台定位" : "Platform scope / 平台定位"} t={t}>
+          <Section id="platform-scope" eyebrow="01" title={zh ? "平台定位 / Platform scope" : "Platform scope / 平台定位"} t={t}>
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1.2fr) minmax(260px, 0.8fr)", gap: 12 }}>
               <TextBlock t={t}>
                 {zh
@@ -419,26 +462,26 @@ export function MethodsLimitationsTab({ onNavigate }) {
               </TextBlock>
               <MethodCard title={zh ? "边界" : "Boundary"} t={t} tone="warn">
                 <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65 }}>
-                  {zh ? "当前模块用于 early-stage candidate prioritization，不用于 direct yield prediction。" : "The current module supports early-stage candidate prioritization, not direct yield prediction."}
+                  {zh ? "当前模块用于早期候选优先级判断（early-stage candidate prioritization），不用于直接产率预测（direct yield prediction）。" : "The current module supports early-stage candidate prioritization, not direct yield prediction."}
                 </div>
               </MethodCard>
             </div>
           </Section>
 
-          <Section id="candidate-framework" eyebrow="02" title={zh ? "Candidate Scoring Framework / 候选评分框架" : "Candidate Scoring Framework / 候选评分框架"} t={t}>
+          <Section id="candidate-framework" eyebrow="02" title={zh ? "候选评分框架 / Candidate Scoring Framework" : "Candidate Scoring Framework / 候选评分框架"} t={t}>
             <div style={{ display: "grid", gap: 12 }}>
               <TextBlock t={t}>
                 {zh
                   ? "在真实产率数据不足、文献条件不可直接横向比较的情况下，框架先对候选材料进行可解释优先级排序。"
                   : "When comparable yield labels are unavailable, the framework prioritizes candidates using interpretable descriptor evidence."}
               </TextBlock>
-              <ChartCard title="Figure 1. CRITIC Workflow / 方法流程图" why={zh ? "为什么重要：展示从证据到候选排序和数据缺口建议的完整链路。" : "Why it matters: it shows the full path from evidence to ranking and data-gap recommendations."} t={t}>
+              <ChartCard title={zh ? "图 1 / Figure 1. 方法流程图 / CRITIC Workflow" : "Figure 1. CRITIC Workflow / 方法流程图"} why={zh ? "为什么重要：展示从证据到候选排序和数据缺口建议的完整链路。" : "Why it matters: it shows the full path from evidence to ranking and data-gap recommendations."} t={t}>
                 <MethodWorkflow zh={zh} t={t} isMobile={isMobile} />
               </ChartCard>
             </div>
           </Section>
 
-          <Section id="critic-methodology-decision-support" eyebrow="03" title={zh ? "CRITIC Methodology / CRITIC 方法论" : "CRITIC Methodology / CRITIC 方法论"} t={t}>
+          <Section id="critic-methodology-decision-support" eyebrow="03" title={zh ? "CRITIC 方法论 / CRITIC Methodology" : "CRITIC Methodology / CRITIC 方法论"} t={t}>
             <div style={{ display: "grid", gap: 12 }}>
               <TextBlock t={t}>
                 {zh
@@ -456,9 +499,9 @@ export function MethodsLimitationsTab({ onNavigate }) {
               <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 8 }}>
                 {(zh
                   ? [
-                    ["contrast intensity", "由标准差 sigma_j 表征，表示某指标在候选集内的区分能力。差异越大，该指标越可能影响排序。"],
-                    ["conflict intensity", "由 sum(1-r_jk) 表征，表示该指标与其他指标之间的信息非重复性。相关性越低，冲突度越高。"],
-                    ["objective weight", "由 C_j 归一化得到，表示当前候选集中的 ranking influence，不是化学因果强度。"],
+                    ["差异度 / contrast intensity", "由标准差 sigma_j 表征，表示某指标在候选集内的区分能力。差异越大，该指标越可能影响排序。"],
+                    ["冲突度 / conflict intensity", "由 sum(1-r_jk) 表征，表示该指标与其他指标之间的信息非重复性。相关性越低，冲突度越高。"],
+                    ["客观权重 / objective weight", "由 C_j 归一化得到，表示当前候选集中的排序影响力（ranking influence），不是化学因果强度。"],
                   ]
                   : [
                     ["contrast intensity", "Represented by standard deviation sigma_j; it measures how strongly an indicator differentiates candidates."],
@@ -470,14 +513,14 @@ export function MethodsLimitationsTab({ onNavigate }) {
                   </MethodCard>
                 ))}
               </div>
-              <MethodCard title={zh ? "CRITIC limitations / 使用限制" : "CRITIC limitations"} t={t} tone="warn">
+              <MethodCard title={zh ? "使用限制 / CRITIC limitations" : "CRITIC limitations"} t={t} tone="warn">
                 <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
                   {(zh
                     ? [
-                      "small sample sensitivity：小样本下标准差和相关性可能被个别候选牵动。",
-                      "missing data：缺失值会降低解释确定性，不能直接视作材料失败。",
-                      "normalization dependence：归一化区间和 benefit/cost direction 会影响权重解释。",
-                      "evidence heterogeneity：实验、文献、DFT、模拟和 demo evidence 的可比性不同。",
+                      "小样本敏感性（small sample sensitivity）：小样本下标准差和相关性可能被个别候选牵动。",
+                      "缺失数据（missing data）：缺失值会降低解释确定性，不能直接视作材料失败。",
+                      "归一化依赖（normalization dependence）：归一化区间和 benefit/cost direction 会影响权重解释。",
+                      "证据异质性（evidence heterogeneity）：实验、文献、DFT、模拟和 demo evidence 的可比性不同。",
                     ]
                     : [
                       "small sample sensitivity: standard deviation and correlation can be moved by individual candidates.",
@@ -494,21 +537,27 @@ export function MethodsLimitationsTab({ onNavigate }) {
             </div>
           </Section>
 
-          <Section id="indicator-system" eyebrow="04" title={zh ? "Indicator System / 三维指标体系" : "Indicator System / 三维指标体系"} t={t}>
+          <Section id="indicator-system" eyebrow="04" title={zh ? "三维指标体系 / Indicator System" : "Indicator System / 三维指标体系"} t={t}>
             <div style={{ display: "grid", gap: 12 }}>
               <div style={{ overflowX: "auto" }}>
                 <table style={{ width: "100%", minWidth: isMobile ? 650 : 760, borderCollapse: "separate", borderSpacing: `0 ${isMobile ? 5 : 7}px` }}>
                   <thead>
                     <tr style={{ color: t.faint, fontSize: 10, textAlign: "left", textTransform: "uppercase" }}>
-                      <th>Indicator</th><th>Symbol</th><th>Meaning</th><th>Higher score means</th><th>Evidence examples</th>
+                      <th>{zh ? "指标" : "Indicator"}</th><th>{zh ? "符号" : "Symbol"}</th><th>{zh ? "含义" : "Meaning"}</th><th>{zh ? "高分含义" : "Higher score means"}</th><th>{zh ? "证据示例" : "Evidence examples"}</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {[
-                      ["Stability", "d_stab", "170 C aqueous stability; whether the material retains structure under target hydrothermal conditions.", "more stable under 170 C aqueous conditions", "post-reaction XRD / BET / ICP; literature source"],
-                      ["Barrier", "d_barrier", "Formate key-step barrier from CO2/HCO3- to HCOO* or a related bottleneck step.", "more favorable kinetic bottleneck", "DFT barrier; inferred evidence"],
-                      ["Byproduct-risk", "d_select", "Whether the candidate is less likely to shift toward acetate, lactate, or other side paths.", "lower byproduct-path risk", "HPLC / IC / NMR product distribution"],
-                    ].map(row => (
+                    {(zh
+                      ? [
+                        ["稳定性", "d_stab", "170 C 水相稳定性；目标水热条件下结构是否保持。", "170 C 水相条件下更稳定", "反应后 XRD / BET / ICP；文献来源"],
+                        ["关键能垒", "d_barrier", "CO2/HCO3- 到 HCOO* 或相关瓶颈步骤的关键能垒。", "动力学瓶颈更有利", "DFT 能垒；推断证据"],
+                        ["副产物风险", "d_select", "候选是否不易转向乙酸、乳酸或其他副路径。", "副产物路径风险更低", "HPLC / IC / NMR 产物分布"],
+                      ]
+                      : [
+                        ["Stability", "d_stab", "170 C aqueous stability; whether the material retains structure under target hydrothermal conditions.", "more stable under 170 C aqueous conditions", "post-reaction XRD / BET / ICP; literature source"],
+                        ["Barrier", "d_barrier", "Formate key-step barrier from CO2/HCO3- to HCOO* or a related bottleneck step.", "more favorable kinetic bottleneck", "DFT barrier; inferred evidence"],
+                        ["Byproduct-risk", "d_select", "Whether the candidate is less likely to shift toward acetate, lactate, or other side paths.", "lower byproduct-path risk", "HPLC / IC / NMR product distribution"],
+                      ]).map(row => (
                       <tr key={row[1]} style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>
                         {row.map((cell, index) => (
                           <td key={cell} style={{ background: t.surface, padding: isMobile ? 8 : 10, borderRadius: index === 0 ? "7px 0 0 7px" : index === row.length - 1 ? "0 7px 7px 0" : 0, color: index < 2 ? t.textStrong : t.muted, fontFamily: index === 1 ? FONT_MONO : undefined, fontWeight: index < 2 ? 850 : 500, fontSize: isMobile ? 11 : 12 }}>{cell}</td>
@@ -518,13 +567,13 @@ export function MethodsLimitationsTab({ onNavigate }) {
                   </tbody>
                 </table>
               </div>
-              <ChartCard title="Figure 2. Indicator Score Matrix / 指标评分矩阵" why={zh ? "为什么重要：直接显示每个候选的短板，以及 Q 如何进入最终排序。" : "Why it matters: it shows candidate weaknesses and where Q enters the final ranking."} t={t}>
+              <ChartCard title={zh ? "图 2 / Figure 2. 指标评分矩阵 / Indicator Score Matrix" : "Figure 2. Indicator Score Matrix / 指标评分矩阵"} why={zh ? "为什么重要：直接显示每个候选的短板，以及 Q 如何进入最终排序。" : "Why it matters: it shows candidate weaknesses and where Q enters the final ranking."} t={t}>
                 <IndicatorScoreMatrix candidates={model.candidates} selected={selectedCandidateId} onSelect={setSelectedCandidateId} zh={zh} t={t} isMobile={isMobile} />
               </ChartCard>
             </div>
           </Section>
 
-          <Section id="critic-weighting" eyebrow="05" title={zh ? "CRITIC Weighting / CRITIC 客观赋权" : "CRITIC Weighting / CRITIC 客观赋权"} t={t}>
+          <Section id="critic-weighting" eyebrow="05" title={zh ? "CRITIC 客观赋权 / CRITIC Weighting" : "CRITIC Weighting / CRITIC 客观赋权"} t={t}>
             <div style={{ display: "grid", gap: 12 }}>
               <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
                 <MathBlock math={"C_j = \\sigma_j \\sum_{k=1}^{m}(1-r_{jk})"} fallback="C_j = sigma_j * sum_k(1 - r_jk)" t={t} />
@@ -535,17 +584,17 @@ export function MethodsLimitationsTab({ onNavigate }) {
                 {zh ? "sigma_j 表示指标区分能力，r_jk 表示信息重复程度，C_j 表示指标信息量，w_j 是当前候选集下的探索性客观权重，不是普适物理常数。" : "sigma_j represents discriminating power, r_jk captures information redundancy, C_j is information content, and w_j is a dataset-specific exploratory weight rather than a universal physical constant."}
               </TextBlock>
               <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
-                <ChartCard title="Figure 3. CRITIC Weight Explanation / CRITIC 权重解释图" why={zh ? "为什么重要：权重由标准差和指标冲突度共同决定，不是拍脑袋。" : "Why it matters: weights come from dispersion and conflict, not manual preference."} t={t}>
+                <ChartCard title={zh ? "图 3 / Figure 3. CRITIC 权重解释图 / CRITIC Weight Explanation" : "Figure 3. CRITIC Weight Explanation / CRITIC 权重解释图"} why={zh ? "为什么重要：权重由标准差和指标冲突度共同决定，不是拍脑袋。" : "Why it matters: weights come from dispersion and conflict, not manual preference."} t={t}>
                   <CriticWeightChart model={model} t={t} isMobile={isMobile} />
                 </ChartCard>
-                <ChartCard title="Figure 4. Correlation Matrix / 指标相关性矩阵" why={zh ? "为什么重要：相关性越高，信息越重复；相关性越低或为负，独立信息越多。" : "Why it matters: higher correlation means more repeated information; lower or negative correlation adds independent signal."} t={t}>
+                <ChartCard title={zh ? "图 4 / Figure 4. 指标相关性矩阵 / Correlation Matrix" : "Figure 4. Correlation Matrix / 指标相关性矩阵"} why={zh ? "为什么重要：相关性越高，信息越重复；相关性越低或为负，独立信息越多。" : "Why it matters: higher correlation means more repeated information; lower or negative correlation adds independent signal."} t={t}>
                   <CorrelationMatrix model={model} t={t} />
                 </ChartCard>
               </div>
             </div>
           </Section>
 
-          <Section id="candidate-score" eyebrow="06" title={zh ? "Candidate Score / 候选综合评分" : "Candidate Score / 候选综合评分"} t={t}>
+          <Section id="candidate-score" eyebrow="06" title={zh ? "候选综合评分 / Candidate Score" : "Candidate Score / 候选综合评分"} t={t}>
             <div style={{ display: "grid", gap: 12 }}>
               <MathBlock math={"D_{raw,i}=G_i \\cdot d_{stab,i}^{w_{stab}} d_{barrier,i}^{w_{barrier}} d_{select,i}^{w_{select}}"} fallback="D_raw = G * d_stab^w_stab * d_barrier^w_barrier * d_select^w_select" t={t} />
               <TextBlock t={t}>
@@ -555,14 +604,14 @@ export function MethodsLimitationsTab({ onNavigate }) {
             </div>
           </Section>
 
-          <Section id="evidence-confidence" eyebrow="07" title={zh ? "Evidence Confidence / 证据置信度" : "Evidence Confidence / 证据置信度"} t={t}>
+          <Section id="evidence-confidence" eyebrow="07" title={zh ? "证据置信度 / Evidence Confidence" : "Evidence Confidence / 证据置信度"} t={t}>
             <div style={{ display: "grid", gap: 12 }}>
               <MathBlock math={"D_{expected,i}=D_{raw,i}\\times Q_i"} fallback="D_expected = D_raw * Q" t={t} />
               <TextBlock t={t}>
                 {zh ? "Q 表示证据置信度，用于区分“高分且证据强”和“高分但证据弱”。Q 不代表真实催化性能概率。" : "Q is the evidence confidence factor. It distinguishes high scores with strong evidence from high scores with weak evidence. Q is not a probability of true catalytic performance."}
               </TextBlock>
               <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) minmax(260px, 0.72fr)", gap: 12 }}>
-                <ChartCard title="Figure 5. Raw vs Expected Score / 置信度修正对比图" why={zh ? "为什么重要：展示 Q 如何降低证据较弱候选的最终优先级。" : "Why it matters: it shows how Q lowers final priority when evidence is weak."} t={t}>
+                <ChartCard title={zh ? "图 5 / Figure 5. 置信度修正对比图 / Raw vs Expected Score" : "Figure 5. Raw vs Expected Score / 置信度修正对比图"} why={zh ? "为什么重要：展示 Q 如何降低证据较弱候选的最终优先级。" : "Why it matters: it shows how Q lowers final priority when evidence is weak."} t={t}>
                   <RawExpectedChart candidates={model.candidates} selected={selectedCandidateId} onSelect={setSelectedCandidateId} t={t} isMobile={isMobile} />
                 </ChartCard>
                 <MethodCard title={zh ? "Q 等级参考" : "Q evidence ladder"} t={t}>
@@ -579,17 +628,17 @@ export function MethodsLimitationsTab({ onNavigate }) {
             </div>
           </Section>
 
-          <Section id="interactive-visuals" eyebrow="08" title={zh ? "Interactive Method Visuals / 交互式方法图表" : "Interactive Method Visuals / 交互式方法图表"} t={t}>
-            <ChartCard title="Figure 6. Sensitivity Analysis / 排名敏感性分析" why={zh ? "为什么重要：显示排序是否依赖某一种权重设定，并区分原始评分与置信度修正评分。" : "Why it matters: it shows whether rank depends on a single weighting scheme, separating raw and confidence-adjusted scoring."} t={t}>
+          <Section id="interactive-visuals" eyebrow="08" title={zh ? "交互式方法图表 / Interactive Method Visuals" : "Interactive Method Visuals / 交互式方法图表"} t={t}>
+            <ChartCard title={zh ? "图 6 / Figure 6. 排名敏感性分析 / Sensitivity Analysis" : "Figure 6. Sensitivity Analysis / 排名敏感性分析"} why={zh ? "为什么重要：显示排序是否依赖某一种权重设定，并区分原始评分与置信度修正评分。" : "Why it matters: it shows whether rank depends on a single weighting scheme, separating raw and confidence-adjusted scoring."} t={t}>
               <SensitivityRankChart sensitivity={model.sensitivity} selected={selectedCandidateId} onSelect={setSelectedCandidateId} zh={zh} t={t} isMobile={isMobile} />
             </ChartCard>
           </Section>
 
-          <Section id="rsm-boundary" eyebrow="09" title={zh ? "CRITIC-MCDA vs. RSM / 材料筛选与条件优化边界" : "CRITIC-MCDA vs. RSM / 材料筛选与条件优化边界"} t={t}>
+          <Section id="rsm-boundary" eyebrow="09" title={zh ? "材料筛选与条件优化边界 / CRITIC-MCDA vs. RSM" : "CRITIC-MCDA vs. RSM / 材料筛选与条件优化边界"} t={t}>
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
               <MethodCard title={zh ? "功能分工" : "Role separation"} t={t} tone="info">
                 <TextBlock t={t}>
-                  {zh ? "CRITIC-MCDA selects candidate materials; RSM optimizes reaction conditions for selected candidates. CRITIC-MCDA 用于候选材料初筛；响应面法 RSM 更适合在选定候选后，对温度、反应时间、pH、HCO3- 浓度或催化剂用量进行统一实验条件优化。" : "CRITIC-MCDA selects candidate materials; RSM optimizes reaction conditions for selected candidates. RSM is better suited for optimizing temperature, residence time, pH, HCO3- concentration, or catalyst dosage after one or several candidate materials have been selected."}
+                  {zh ? "CRITIC-MCDA 用于候选材料初筛；响应面法 RSM 更适合在选定候选后，对温度、反应时间、pH、HCO3- 浓度或催化剂用量进行统一实验条件优化。" : "CRITIC-MCDA selects candidate materials; RSM optimizes reaction conditions for selected candidates. RSM is better suited for optimizing temperature, residence time, pH, HCO3- concentration, or catalyst dosage after one or several candidate materials have been selected."}
                 </TextBlock>
               </MethodCard>
               <MethodCard title={zh ? "当前边界" : "Current boundary"} t={t} tone="warn">
@@ -600,7 +649,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
             </div>
           </Section>
 
-          <Section id="method-limitations" eyebrow="10" title={zh ? "Limitations / 当前限制" : "Limitations / 当前限制"} t={t}>
+          <Section id="method-limitations" eyebrow="10" title={zh ? "当前限制 / Limitations" : "Limitations / 当前限制"} t={t}>
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }}>
               {(zh
                 ? [
@@ -609,7 +658,7 @@ export function MethodsLimitationsTab({ onNavigate }) {
                   "文献数据条件不可完全比较。",
                   "缺失值不等于材料失败。",
                   "后续需要真实实验、DFT 和反应后表征验证。",
-                  "当前模块用于 early-stage prioritization，不用于 direct yield prediction。",
+                  "当前模块用于早期优先级判断（early-stage prioritization），不用于直接产率预测（direct yield prediction）。",
                 ]
                 : [
                   "Demo records do not represent real catalytic conclusions.",
