@@ -13,6 +13,7 @@ import { HASH_TO_TAB, getHashMeta, normalizeHash, tabToHash } from "./utils/deep
 import { ContextualHeaderBar, SavedRunsModal, ContactModal, AcknowledgementsModal, DisclaimerModal } from "./components/layout"
 import { LogoWordmark } from "./components/brand"
 import { CandidateComparisonModal } from "./components/mof/CandidateComparisonModal"
+import { HomeTab } from "./components/tabs/HomeTab.jsx"
 
 const lazyNamed = (loader, exportName) => lazy(async () => {
   const reloadKey = `ecomof-lazy-reload:${exportName}`
@@ -31,7 +32,6 @@ const lazyNamed = (loader, exportName) => lazy(async () => {
   }
 })
 
-const HomeTab = lazyNamed(() => import("./components/tabs/HomeTab.jsx"), "HomeTab")
 const EcoScreenTab = lazyNamed(() => import("./components/tabs/EcoScreenTab.jsx"), "EcoScreenTab")
 const PerformanceTab = lazyNamed(() => import("./components/tabs/PerformanceTab.jsx"), "PerformanceTab")
 const GasSepTab = lazyNamed(() => import("./components/tabs/GasSepTab.jsx"), "GasSepTab")
@@ -43,6 +43,39 @@ const ComparisonTab = lazyNamed(() => import("./components/tabs/ComparisonTab.js
 const ValidationTab = lazyNamed(() => import("./components/tabs/ValidationTab.jsx"), "ValidationTab")
 const ResourcesTab = lazyNamed(() => import("./components/tabs/ResourcesTab.jsx"), "ResourcesTab")
 const MethodsLimitationsTab = lazyNamed(() => import("./components/tabs/MethodsLimitationsTab.jsx"), "MethodsLimitationsTab")
+
+function shouldPreloadRouteModules() {
+  if (typeof navigator === "undefined") return true
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection
+  if (!connection) return true
+  if (connection.saveData) return false
+  return !/2g/i.test(String(connection.effectiveType || ""))
+}
+
+function preloadCommonRouteModules() {
+  return Promise.allSettled([
+    import("./components/tabs/PerformanceTab.jsx"),
+    import("./components/tabs/CatalysisLabTab.jsx"),
+    import("./components/tabs/MOFLibraryTab.jsx"),
+    import("./components/tabs/GasSepTab.jsx"),
+  ])
+}
+
+function getInitialDeepLinkState() {
+  const rawHash = typeof window === "undefined" ? "" : window.location.hash
+  const explicitHash = String(rawHash || "").replace(/^#/, "").trim()
+  const hash = explicitHash || "default"
+  const routeHash = hash === "default" ? "overview" : normalizeHash(hash)
+  const pendingScrollTarget = ["data-quality-provenance", "validation-evidence", "benchmark-references"].includes(routeHash)
+    ? routeHash
+    : null
+
+  return {
+    activeHash: hash,
+    activeTab: HASH_TO_TAB[routeHash] || "home",
+    pendingScrollTarget,
+  }
+}
 
 function LoadingPanel({ theme, lang }) {
   return (
@@ -522,12 +555,13 @@ function AppShell({
 }
 
 export default function App() {
+  const initialDeepLink = useMemo(() => getInitialDeepLinkState(), [])
   const [darkMode, setDarkMode] = useState(false)
   const [lang, setLang] = useState("zh")
   const [viewportWidth, setViewportWidth] = useState(() => (typeof window === "undefined" ? 1440 : window.innerWidth))
-  const [activeTab, setActiveTab] = useState("home")
-  const [activeHash, setActiveHash] = useState("default")
-  const [pendingScrollTarget, setPendingScrollTarget] = useState(null)
+  const [activeTab, setActiveTab] = useState(initialDeepLink.activeTab)
+  const [activeHash, setActiveHash] = useState(initialDeepLink.activeHash)
+  const [pendingScrollTarget, setPendingScrollTarget] = useState(initialDeepLink.pendingScrollTarget)
   const [inputs, setInputs] = useState(DEFAULT_INPUTS)
   const [results, setResults] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -648,6 +682,22 @@ export default function App() {
       window.removeEventListener("popstate", onHashChange)
     }
   }, [applyDeepLink])
+
+  useEffect(() => {
+    if (!shouldPreloadRouteModules()) return undefined
+
+    const preload = () => {
+      preloadCommonRouteModules()
+    }
+
+    if (typeof window.requestIdleCallback === "function") {
+      const idleId = window.requestIdleCallback(preload, { timeout: 3500 })
+      return () => window.cancelIdleCallback?.(idleId)
+    }
+
+    const timeoutId = window.setTimeout(preload, 2400)
+    return () => window.clearTimeout(timeoutId)
+  }, [])
 
   useEffect(() => {
     const meta = getHashMeta(activeHash)

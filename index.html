@@ -15,10 +15,20 @@
     <meta name="twitter:title" content="EcoMOF-AI | MOF AI Prototype Platform" />
     <meta name="twitter:description" content="EcoMOF-AI is an early-stage research prototype for MOF candidate screening, sustainability evaluation, descriptor curation, catalysis-oriented exploration, and field-level data provenance." />
     <title>EcoMOF-AI | MOF AI Prototype Platform</title>
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9830d7125bdd491cb6c67a7f5af8ec61"}'></script><!-- End Cloudflare Web Analytics -->
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      window.addEventListener("load", function () {
+        window.setTimeout(function () {
+          var script = document.createElement("script")
+          script.defer = true
+          script.src = "https://static.cloudflareinsights.com/beacon.min.js"
+          script.dataset.cfBeacon = '{"token":"9830d7125bdd491cb6c67a7f5af8ec61"}'
+          document.head.appendChild(script)
+        }, 1800)
+      })
+    </script>
   </body>
 </html>
