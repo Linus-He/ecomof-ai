@@ -552,7 +552,7 @@ details[open].motion-surface {
 }
 
 .narrative-step-card {
-  transition: transform 0.24s ease, border-color 0.24s ease, background-color 0.24s ease, box-shadow 0.24s ease;
+  transition: opacity 0.28s ease, transform 0.24s ease, border-color 0.24s ease, background-color 0.24s ease, box-shadow 0.24s ease;
 }
 
 .narrative-step-card[data-active="true"] {
@@ -560,17 +560,33 @@ details[open].motion-surface {
 }
 
 .decision-visual-panel {
-  transition: border-color 0.24s ease, box-shadow 0.24s ease;
+  transition: border-color 0.24s ease, box-shadow 0.24s ease, opacity 0.24s ease;
 }
 
-.decision-descriptor-node {
+.decision-visual-state {
+  animation: decision-state-fade 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.descriptor-network-canvas,
+.descriptor-network-node,
+.descriptor-network-center,
+.decision-stage-panel,
+.decision-step-indicator {
+  min-width: 0;
+}
+
+.descriptor-network-node {
   opacity: 0;
-  transform: translateY(10px) scale(0.96);
+  transform: translate(-50%, -48%) scale(0.96);
 }
 
-.decision-descriptor-node[data-active="true"] {
-  animation: descriptor-light-in 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+.descriptor-network-node[data-active="true"] {
+  animation: descriptor-network-node-in 440ms cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: var(--node-delay, 0ms);
+}
+
+.decision-stage-panel {
+  animation: decision-stage-panel-in 340ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .decision-flow-bar {
@@ -679,9 +695,37 @@ details[open].motion-surface {
     display: none !important;
   }
 
+  .scroll-narrative-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+  }
+
+  .scroll-narrative-section {
+    padding-bottom: 0 !important;
+  }
+
+  .narrative-step-card {
+    min-height: auto !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
   .decision-sticky-wrap {
     position: static !important;
     top: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .decision-visual-panel {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+  }
+
+  .descriptor-network-node {
+    width: 104px !important;
   }
 
   .module-rail-line {
@@ -717,8 +761,22 @@ details[open].motion-surface {
 }
 
 @media (max-width: 640px) {
-  .decision-visual-network {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  .descriptor-network-canvas {
+    min-height: 330px !important;
+  }
+
+  .descriptor-network-node {
+    width: 88px !important;
+    font-size: 9.2px !important;
+    padding: 7px 8px !important;
+  }
+
+  .descriptor-network-center {
+    width: 104px !important;
+  }
+
+  .decision-step-indicator {
+    min-width: 94px !important;
   }
 }
 
@@ -770,17 +828,6 @@ details[open].motion-surface {
   to {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
-  }
-}
-
-@keyframes descriptor-light-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
   }
 }
 
@@ -885,6 +932,39 @@ details[open].motion-surface {
   }
 }
 
+@keyframes decision-state-fade {
+  from {
+    opacity: 0;
+    transform: scale(0.988);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes decision-stage-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes descriptor-network-node-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -46%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -902,12 +982,19 @@ details[open].motion-surface {
   .home-hero-preview-shell,
   .home-hero-cta,
   .screening-preview-panel,
-  .decision-descriptor-node,
+  .descriptor-network-node,
+  .decision-visual-state,
+  .decision-stage-panel,
   .decision-ranking-row,
   .module-rail-card,
   .evidence-chain-animation .evidence-chain-node {
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  .descriptor-network-node {
+    opacity: 1 !important;
+    transform: translate(-50%, -50%) !important;
   }
 
   .evidence-chain-connector {
