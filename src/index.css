@@ -1002,6 +1002,103 @@ details[open].motion-surface {
   }
 }
 
+.method-architecture-card,
+.method-architecture-card * {
+  box-sizing: border-box;
+}
+
+.method-block {
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.method-block-clickable:hover,
+.method-block-clickable:focus-visible {
+  transform: translateY(-1px);
+  outline: none;
+  box-shadow: 0 10px 26px rgba(46, 94, 170, 0.10) !important;
+}
+
+.method-pipeline-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(230px, 0.42fr);
+  gap: 14px;
+  align-items: start;
+  min-width: 0;
+}
+
+.method-flow-chain,
+.method-flow-step,
+.method-horizontal-step,
+.method-quality-layer,
+.method-registry-examples,
+.method-plus-stack {
+  min-width: 0;
+}
+
+.method-flow-chain {
+  display: grid;
+  gap: 0;
+}
+
+.method-registry-layout {
+  display: grid;
+  grid-template-columns: minmax(230px, 0.72fr) minmax(260px, 1fr);
+  gap: 14px;
+  align-items: start;
+  min-width: 0;
+}
+
+.method-dual-branch {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  min-width: 0;
+}
+
+.method-explanation-grid {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.88fr) auto minmax(210px, 0.82fr) auto minmax(210px, 0.78fr);
+  gap: 12px;
+  align-items: center;
+  min-width: 0;
+}
+
+.method-horizontal-flow {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  align-items: stretch;
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .method-pipeline-layout,
+  .method-registry-layout,
+  .method-dual-branch,
+  .method-explanation-grid,
+  .method-horizontal-flow {
+    grid-template-columns: 1fr !important;
+  }
+
+  .method-explanation-arrow .method-arrow-horizontal,
+  .method-horizontal-step .method-arrow-horizontal {
+    min-height: 24px !important;
+  }
+
+  .method-explanation-arrow .method-arrow-horizontal span:first-child,
+  .method-horizontal-step .method-arrow-horizontal span:first-child {
+    width: 1px !important;
+    height: 16px !important;
+    border-top: 0 !important;
+    border-left: 1px solid currentColor !important;
+  }
+
+  .method-explanation-arrow .method-arrow-horizontal span:nth-child(2),
+  .method-horizontal-step .method-arrow-horizontal span:nth-child(2) {
+    transform: rotate(90deg);
+  }
+}
+
 .formula-scroll {
   max-width: 100%;
   scrollbar-width: thin;

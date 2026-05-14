@@ -15,6 +15,7 @@ import {
   ScopeNoticeBar,
   SecondaryTabs,
 } from "../module/ModuleTop"
+import { CatalysisWorkflowDiagram } from "../methods"
 import {
   CATALYSIS_TASKS,
   analyzeComparability,
@@ -214,6 +215,16 @@ export function CatalysisLabTab({ onNavigate }) {
         <>
       <ResultLayer
         number="00"
+        title={lang === "zh" ? "催化记录结构化流程" : "Catalysis Record Structuring Pipeline"}
+        subtitle={lang === "zh"
+          ? "先把原始催化记录拆成可复核表结构，再进入坐标图、任务表和 CRITIC case。"
+          : "Raw catalysis records are structured into reviewable tables before coordinate maps, task tables, and CRITIC cases."}
+      >
+        <CatalysisWorkflowDiagram t={t} lang={lang} />
+      </ResultLayer>
+
+      <ResultLayer
+        number="01"
         title={lang === "zh" ? "CRITIC-assisted catalysis ranking preview" : "CRITIC-assisted catalysis ranking preview"}
         subtitle={lang === "zh"
           ? "保留现有产甲酸路径 CRITIC 原型：d_stab / d_barrier / d_select、G 硬筛、D_raw、D_expected、confidence_Q 与数据缺口建议。"
@@ -270,7 +281,7 @@ export function CatalysisLabTab({ onNavigate }) {
       </ResultLayer>
 
       <ResultLayer
-        number="01"
+        number="02"
         title={lang === "zh" ? "总览坐标轴分析" : "Overview Axis Analysis"}
         subtitle={lang === "zh"
           ? "首屏以真实坐标轴图展示反应条件强度、数据准备度和证据状态。"

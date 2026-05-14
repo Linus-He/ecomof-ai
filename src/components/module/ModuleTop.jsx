@@ -95,6 +95,7 @@ export function PrimaryWorkbenchCard({
                 <button
                   type="button"
                   onClick={onPrimary}
+                  aria-label={primaryLabel}
                   className="btn-primary"
                   style={{
                     ...toolbarBtn(t),
@@ -114,6 +115,7 @@ export function PrimaryWorkbenchCard({
                 <button
                   type="button"
                   onClick={onSecondary}
+                  aria-label={secondaryLabel}
                   style={{
                     ...toolbarBtn(t),
                     justifyContent: "center",

@@ -4,7 +4,7 @@ import {
   gasLabel, getGasSystem, getMofCandidates, toolbarBtn,
   evidenceDistribution, scoreDistribution,
   createScoringModel, GlobalScoringWorkbench, DescriptorWeightChart, DescriptorConflictMatrix, ScoringDiagnosticsPanel,
-  ScoringModelCard, WeightingMethodPanel, DescriptorSetDrawer, CandidateRankingTable, WhyThisResultButton,
+  CandidateRankingTable, WhyThisResultButton, WhyThisWeightButton,
   RankingBarChart, ScoreBreakdownRadar, EvidenceDistributionChart, ScoreDistributionChart,
   BasisBadge, ResultLayer, Callout, UnifiedCandidateCard, RealSeedCallout, DemoModeBanner, CopyLinkButton, DisclaimerLink,
 } from "../../shared"
@@ -74,12 +74,17 @@ function rowKeyReasons(row, lang) {
   ]
 }
 
+const PERFORMANCE_VIEWS = new Set(["overview", "explanation", "assumptions", "advanced"])
+
 /** Read & consume a one-shot navigation signal from sessionStorage. */
 function consumePerfInitView() {
   try {
     if (typeof sessionStorage === "undefined") return "overview"
     const stored = sessionStorage.getItem("ecomof_perf_init_view")
-    if (stored) { sessionStorage.removeItem("ecomof_perf_init_view"); return stored }
+    if (stored) {
+      sessionStorage.removeItem("ecomof_perf_init_view")
+      return PERFORMANCE_VIEWS.has(stored) ? stored : "overview"
+    }
   } catch {}
   return "overview"
 }
@@ -99,16 +104,13 @@ export function PerformanceTab({
   const [realSeedRows, setRealSeedRows] = useState([])
   const [dataStatus, setDataStatus] = useState("loading")
   const [selectedId, setSelectedId] = useState(null)
-  const defaultScoringSettings = useMemo(() => ({
+  const appliedScoring = useMemo(() => ({
     descriptorPreset: "coreMof8",
     descriptorKeys: null,
     algorithm: "hybrid",
     hybridAlpha: 0.65,
     missingValueStrategy: "median",
   }), [])
-  const [appliedScoring, setAppliedScoring] = useState(defaultScoringSettings)
-  const [draftScoring, setDraftScoring] = useState(defaultScoringSettings)
-  const [descriptorDrawerOpen, setDescriptorDrawerOpen] = useState(false)
   const gas = getGasSystem(inputs.gasSystem)
   const hasResult = results && !results.unavailable
 
@@ -170,13 +172,9 @@ export function PerformanceTab({
   }), [currentCandidate, baseRows, appliedScoring])
 
   const performanceCandidates = performanceScoringModel.rankings || []
-  const scoringChanged = JSON.stringify(appliedScoring) !== JSON.stringify(draftScoring)
-  const applyScoring = () => setAppliedScoring(draftScoring)
-  const resetScoring = () => {
-    setDraftScoring(defaultScoringSettings)
-    setAppliedScoring(defaultScoringSettings)
-  }
   const activeCandidate = useMemo(() => performanceCandidates.find(item => item.id === selectedId) || performanceCandidates[0] || null, [performanceCandidates, selectedId])
+  const topWeightExplanation = performanceScoringModel.explanations?.weights?.[0] || null
+  const descriptorCompleteness = Math.round((1 - Math.max(0, Math.min(1, Number(performanceScoringModel.metadata?.missingRate) || 0))) * 100)
   const chartData = useMemo(() => ({
     ranking: performanceCandidates,
     evidence: evidenceDistribution(performanceCandidates),
@@ -212,6 +210,90 @@ export function PerformanceTab({
       ? (lang === "zh" ? "数据加载失败 · 保留评分诊断提示" : "Data load failed · scoring diagnostics remain visible")
       : (lang === "zh" ? `${dataRecordCount} 条记录 · ${appliedScoring.missingValueStrategy} 缺失值策略` : `${dataRecordCount} records · ${appliedScoring.missingValueStrategy} missing-value strategy`)
 
+  if (performanceView === "advanced") {
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <ModulePageHeader
+          title={lang === "zh" ? "高级筛选工作台" : "Advanced Screening Workbench"}
+          subtitle={lang === "zh"
+            ? "用于结构输入、描述符设置、权重配置和早期筛选结果解释。"
+            : "Use structure input, descriptor settings, weighting configuration, and early-screening result explanations."}
+          action={(
+            <button
+              type="button"
+              onClick={() => setPerformanceView("overview")}
+              aria-label={lang === "zh" ? "返回性能概览" : "Return to Performance overview"}
+              style={{ ...toolbarBtn(t), minHeight: 38 }}
+            >
+              {lang === "zh" ? "返回性能概览" : "Return to overview"}
+            </button>
+          )}
+        />
+
+        <CompactDataModeBar
+          value={dataMode}
+          onChange={mode => { setDataMode(mode); setSelectedId(null) }}
+          lang={lang}
+          statusText={dataModeStatus}
+          infoLabel={lang === "zh" ? "数据说明 ⓘ" : "Data notes ⓘ"}
+          onInfo={() => setPerformanceView("assumptions")}
+        />
+
+        <ScopeNoticeBar
+          label={lang === "zh" ? "筛选边界" : "Screening boundary"}
+          actionLabel={lang === "zh" ? "打开气体分离 →" : "Open GasSep →"}
+          onAction={() => onNavigate?.("gassep")}
+        >
+          {lang === "zh"
+            ? "高级筛选工作台用于结构预测、描述符输入、吸附条件设置和早期候选筛选；严格结论仍需实验等温线、GCMC 或 IAST 验证。"
+            : "The advanced workbench supports structure prediction, descriptor input, adsorption-condition setup, and early candidate screening; rigorous claims still require experimental isotherms, GCMC, or IAST."}
+        </ScopeNoticeBar>
+
+        <section style={{ background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 12, padding: isMobile ? 14 : 16, display: "grid", gap: 12 }}>
+          <div style={{ display: "grid", gap: 5 }}>
+            <div style={{ color: t.textStrong, fontSize: 17, fontWeight: 920 }}>
+              {lang === "zh" ? "结构预测 / 输入区" : "Structure Prediction / Input"}
+            </div>
+            <div style={{ color: t.subtle, fontSize: 12.5, lineHeight: 1.6 }}>
+              {lang === "zh"
+                ? "保留 CIF / descriptor input、吸附条件设置、运行预测、benchmark loading 与 comparison run。"
+                : "Keeps CIF / descriptor input, adsorption-condition setup, prediction runs, benchmark loading, and comparison runs."}
+            </div>
+          </div>
+          <ScreeningTab
+            inputs={inputs}
+            setInputs={setInputs}
+            results={results}
+            loading={loading}
+            onPredict={onPredict}
+            onSaveRun={onSaveRun}
+            apiUrl={apiUrl}
+            setApiUrl={setApiUrl}
+            apiStatus={apiStatus}
+            onCheckApi={onCheckApi}
+            setActiveTab={onNavigate}
+            onLoadBenchmark={onLoadBenchmark}
+            onAddComparison={onAddComparison}
+          />
+        </section>
+
+        <GlobalScoringWorkbench
+          candidates={[...(currentCandidate ? [currentCandidate] : []), ...baseRows]}
+          dataMode={dataMode}
+          lang={lang}
+          t={t}
+          isMobile={isMobile}
+          status={dataStatus}
+          number="02"
+          title={lang === "zh" ? "评分模型与解释诊断" : "Scoring Model and Explanation Diagnostics"}
+          subtitle={lang === "zh"
+            ? "基于全局描述符注册表、CRITIC / Hybrid 权重和候选解释诊断，对候选结果进行排序与解释。"
+            : "Rank and explain candidates using the descriptor registry, CRITIC / Hybrid weighting, and candidate-level diagnostics."}
+        />
+      </div>
+    )
+  }
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <ModulePageHeader
@@ -225,11 +307,11 @@ export function PerformanceTab({
       <PrimaryWorkbenchCard
         title={lang === "zh" ? "高级筛选工作台" : "Advanced Screening Workspace"}
         description={lang === "zh"
-          ? "上传 CIF 信息、设置吸附条件、调整权重，并运行早期筛选。"
-          : "Upload CIF information, configure adsorption conditions, adjust weights, and run early-stage screening."}
+          ? "上传 CIF 信息、输入结构描述符、设置吸附条件，并运行早期筛选。"
+          : "Upload CIF information, enter structure descriptors, configure adsorption conditions, and run early-stage screening."}
         capabilities={lang === "zh"
-          ? "CO₂ 吸附 · 选择性 · 热力学解释 · 早期筛选"
-          : "CO₂ uptake · selectivity · thermal interpretation · early-stage screening"}
+          ? "结构预测 · CIF / descriptor input · 条件设置 · run screening"
+          : "Structure prediction · CIF / descriptor input · condition setup · run screening"}
         primaryLabel={lang === "zh" ? "进入筛选台 →" : "Open workbench →"}
         onPrimary={() => setPerformanceView("advanced")}
       />
@@ -260,43 +342,6 @@ export function PerformanceTab({
           : "Performance priority is an early-screening reference, not a replacement for experimental isotherms, GCMC, or IAST; use GasSep for gas ratio, selectivity conditions, and uptake records."}
       </ScopeNoticeBar>
 
-      <DescriptorSetDrawer
-        open={descriptorDrawerOpen}
-        onClose={() => setDescriptorDrawerOpen(false)}
-        draft={draftScoring}
-        setDraft={setDraftScoring}
-        candidates={[...(currentCandidate ? [currentCandidate] : []), ...baseRows]}
-        t={t}
-        lang={lang}
-        isMobile={isMobile}
-      />
-
-      {performanceView !== "advanced" && (
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.2fr) minmax(330px, 0.8fr)", gap: 12, alignItems: "start" }}>
-          <ScoringModelCard
-            model={performanceScoringModel}
-            settings={draftScoring}
-            onManageDescriptors={() => setDescriptorDrawerOpen(true)}
-            onApply={applyScoring}
-            changed={scoringChanged}
-            t={t}
-            lang={lang}
-            isMobile={isMobile}
-          />
-          <WeightingMethodPanel
-            draft={draftScoring}
-            setDraft={setDraftScoring}
-            onApply={applyScoring}
-            onReset={resetScoring}
-            onManageDescriptors={() => setDescriptorDrawerOpen(true)}
-            changed={scoringChanged}
-            t={t}
-            lang={lang}
-            isMobile={isMobile}
-          />
-        </div>
-      )}
-
       {/* ── Results Overview ─────────────────────────────────────────────── */}
       {performanceView === "overview" && (
         <>
@@ -320,7 +365,55 @@ export function PerformanceTab({
             </div>
           </ResultLayer>
 
-          <ResultLayer number="02" title={lang === "zh" ? "性能候选摘要" : "Performance Candidate Summary"}>
+          <ResultLayer number="02" title={lang === "zh" ? "当前评分摘要" : "Current Scoring Summary"}>
+            <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14, display: "grid", gap: 12 }}>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, minmax(0, 1fr))" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
+                {[
+                  [lang === "zh" ? "当前算法" : "Algorithm", performanceScoringModel.algorithm?.toUpperCase?.() || "HYBRID"],
+                  [lang === "zh" ? "当前描述符集" : "Descriptor set", `${performanceScoringModel.metadata?.descriptorPreset || appliedScoring.descriptorPreset} · ${performanceScoringModel.metadata?.descriptorCount || 0}`],
+                  [lang === "zh" ? "数据模式" : "Data mode", dataMode],
+                  [lang === "zh" ? "候选数量" : "Candidates", performanceScoringModel.metadata?.candidateCount ?? performanceCandidates.length],
+                  [lang === "zh" ? "数据完整度" : "Completeness", `${descriptorCompleteness}%`],
+                ].map(([label, value]) => (
+                  <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "10px 11px", minWidth: 0 }}>
+                    <div style={{ color: t.faint, fontSize: 9.5, lineHeight: 1.3, fontWeight: 850, textTransform: "uppercase" }}>{label}</div>
+                    <div style={{ color: t.textStrong, fontSize: 13, lineHeight: 1.25, fontWeight: 900, marginTop: 6, overflowWrap: "anywhere" }}>{value}</div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
+                <button
+                  type="button"
+                  onClick={() => setPerformanceView("explanation")}
+                  aria-label={lang === "zh" ? "打开结果解释" : "Open result explanation"}
+                  style={{ ...toolbarBtn(t), minHeight: 34 }}
+                >
+                  {lang === "zh" ? "结果解释入口" : "Result explanation"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPerformanceView("explanation")}
+                  aria-label={lang === "zh" ? "打开权重解释" : "Open weight rationale"}
+                  style={{ ...toolbarBtn(t), minHeight: 34 }}
+                >
+                  {lang === "zh" ? "权重解释入口" : "Weight rationale"}
+                </button>
+                {activeCandidate && (
+                  <WhyThisResultButton model={performanceScoringModel} candidateId={activeCandidate.id} candidate={activeCandidate} t={t} lang={lang} isMobile={isMobile} compact />
+                )}
+                {topWeightExplanation && (
+                  <WhyThisWeightButton model={performanceScoringModel} descriptorKey={topWeightExplanation.key} item={topWeightExplanation} t={t} lang={lang} isMobile={isMobile} compact />
+                )}
+              </div>
+              <div style={{ color: t.subtle, fontSize: 11.5, lineHeight: 1.55 }}>
+                {lang === "zh"
+                  ? "这里只展示评分模型快照；完整描述符集管理、Manual / Equal / CRITIC / Hybrid 权重配置和排序诊断位于高级筛选工作台内部。"
+                  : "This is only a scoring-model snapshot; descriptor management, Manual / Equal / CRITIC / Hybrid weighting, and ranking diagnostics live inside the advanced workbench."}
+              </div>
+            </div>
+          </ResultLayer>
+
+          <ResultLayer number="03" title={lang === "zh" ? "性能候选摘要" : "Performance Candidate Summary"}>
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 12, alignItems: "start" }}>
               {performanceCandidates.length === 0 && (
                 <Callout tone="warn">{lang === "zh" ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>
@@ -420,22 +513,22 @@ export function PerformanceTab({
             </div>
           </ResultLayer>
 
-          <ResultLayer number="05" title={lang === "zh" ? "机器学习评估占位" : "Machine Learning Evaluation Placeholder"}>
+          <ResultLayer number="05" title={lang === "zh" ? "模型验证准备度" : "Model Evaluation Readiness"}>
             <Callout tone="note">
               {lang === "zh"
-                ? "当前机器学习评估为占位展示。只有在积累足够带标签的实验或文献数据后，才会启用真实模型评估。"
-                : "Machine learning evaluation is currently a placeholder. It will be activated when enough labeled experimental or literature data are available."}
+                ? "当前不会展示伪装成模型结果的占位图。只有在积累足够带标签的实验或文献数据后，才会启用真实模型评估。"
+                : "This section avoids fake model-result placeholders. Real model evaluation should only appear after enough labeled experimental or literature data are available."}
             </Callout>
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
               {(lang === "zh"
-                ? ["预测值 vs 实际值", "残差图", "描述符贡献", "R²：待补充 · MAE：待补充 · RMSE：待补充 · 交叉验证：待补充"]
-                : ["Predicted vs Actual", "Residual Plot", "Descriptor Contribution", "R²: pending · MAE: pending · RMSE: pending · Cross-validation: pending"]
+                ? ["标签数据集", "残差检查", "描述符贡献审计", "R² / MAE / RMSE / 交叉验证"]
+                : ["Labeled dataset", "Residual checks", "Descriptor contribution audit", "R² / MAE / RMSE / cross-validation"]
               ).map(item => (
                 <div key={item} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-                  <BasisBadge tone="proxy">{lang === "zh" ? "演示占位 / Demo placeholder" : "Demo only / Placeholder"}</BasisBadge>
+                  <BasisBadge tone="proxy">{lang === "zh" ? "待真实验证" : "needs real validation"}</BasisBadge>
                   <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850, marginTop: 9 }}>{item}</div>
                   <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 6 }}>
-                    {lang === "zh" ? "需要带标签的实验或文献数据。" : "Requires labeled experimental or literature data."}
+                    {lang === "zh" ? "需要带标签的实验或文献数据后才能报告，不用伪图替代。" : "Report only after labeled experimental or literature data exist; no placeholder chart is shown."}
                   </div>
                 </div>
               ))}
@@ -516,51 +609,6 @@ export function PerformanceTab({
         </>
       )}
 
-      {/* ── Advanced Screening Workspace ─────────────────────────────────── */}
-      {performanceView === "advanced" && (
-        <>
-          <Callout tone="info">
-            {lang === "zh"
-              ? "高级筛选工作台现在使用全局评分引擎：描述符集、Manual / Equal / CRITIC / Hybrid 权重、候选排序和解释诊断保持同一条评分链路。"
-              : "Advanced Screening now uses the global scoring engine: descriptor sets, Manual / Equal / CRITIC / Hybrid weighting, ranking, and explanation diagnostics stay on one scoring path."}
-          </Callout>
-          <GlobalScoringWorkbench
-            candidates={[...(currentCandidate ? [currentCandidate] : []), ...baseRows]}
-            dataMode={dataMode}
-            lang={lang}
-            t={t}
-            isMobile={isMobile}
-            status={dataStatus}
-            number="01"
-            title={lang === "zh" ? "高级筛选工作台" : "Advanced Screening Workbench"}
-            subtitle={lang === "zh"
-              ? "基于全局描述符注册表、CRITIC / Hybrid 权重和候选解释诊断进行早期筛选。"
-              : "Run early-stage screening with the descriptor registry, CRITIC / Hybrid weighting, and candidate-level explanations."}
-          />
-          <details style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-            <summary style={{ cursor: "pointer", color: t.textStrong, fontSize: 13, fontWeight: 900 }}>
-              {lang === "zh" ? "Legacy predictor / 结构输入预测" : "Legacy predictor / structure-input prediction"}
-            </summary>
-            <div style={{ marginTop: 12 }}>
-              <ScreeningTab
-                inputs={inputs}
-                setInputs={setInputs}
-                results={results}
-                loading={loading}
-                onPredict={onPredict}
-                onSaveRun={onSaveRun}
-                apiUrl={apiUrl}
-                setApiUrl={setApiUrl}
-                apiStatus={apiStatus}
-                onCheckApi={onCheckApi}
-                setActiveTab={onNavigate}
-                onLoadBenchmark={onLoadBenchmark}
-                onAddComparison={onAddComparison}
-              />
-            </div>
-          </details>
-        </>
-      )}
     </div>
   )
 }

@@ -1,59 +1,69 @@
-import { useMemo, useState } from "react"
 import {
-  Bar, BarChart, CartesianGrid, Legend, Line, LineChart,
-  ResponsiveContainer, Tooltip, XAxis, YAxis,
-} from "recharts"
-import {
-  useT, useLang, useViewport,
-  FONT_MONO,
-  BasisBadge, PageHeader, CopyLinkButton, BlockFormula, InlineFormula,
-  CRITIC_INDICATORS,
-  buildCriticScoringModel,
-  getDataGapRecommendations,
+  BasisBadge,
+  Callout,
+  CopyLinkButton,
   DescriptorRegistryViewer,
+  FONT_MONO,
+  PageHeader,
+  useLang,
+  useT,
+  useViewport,
 } from "../../shared"
+import {
+  CatalysisWorkflowDiagram,
+  CriticWeightingDiagram,
+  DescriptorRegistryDiagram,
+  ExplanationLayerDiagram,
+  ScoringPipelineDiagram,
+  scrollToMethodTarget,
+} from "../methods"
 
-const fmt = (value, digits = 3) => Number(value || 0).toFixed(digits)
-const pct = value => `${Math.round(Math.max(0, Math.min(1, Number(value) || 0)) * 100)}%`
-const robustnessLabel = (value, zh) => {
-  if (!zh) return value
-  if (value === "Robust") return "稳健 Robust"
-  if (value === "Evidence-limited") return "证据受限 Evidence-limited"
-  if (value === "Excluded") return "已排除 Excluded"
-  return value
-}
+const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
 const sectionIds = [
-  ["platform-scope", "Platform scope", "平台定位"],
-  ["candidate-framework", "Candidate scoring", "候选评分框架"],
-  ["global-scoring-engine", "Scoring engine", "全局评分引擎"],
-  ["descriptor-registry", "Descriptor registry", "描述符注册中心"],
-  ["critic-methodology-decision-support", "CRITIC methodology", "CRITIC 方法论"],
-  ["indicator-system", "Indicator system", "三维指标体系"],
-  ["critic-weighting", "CRITIC weighting", "CRITIC 客观赋权"],
-  ["candidate-score", "Candidate score", "候选综合评分"],
-  ["evidence-confidence", "Evidence confidence", "证据置信度"],
-  ["interactive-visuals", "Sensitivity", "敏感性分析"],
-  ["rsm-boundary", "CRITIC-MCDA vs. RSM", "CRITIC-MCDA 与 RSM"],
-  ["method-limitations", "Limitations", "当前限制"],
+  ["method-overview", "Overview", "总览"],
+  ["scoring-pipeline", "Scoring Pipeline", "评分管线"],
+  ["descriptor-registry", "Descriptor Registry", "描述符注册"],
+  ["weighting-algorithms", "Weighting Algorithms", "权重算法"],
+  ["explanation-evidence", "Explanation & Evidence", "解释与证据"],
+  ["method-limitations", "Limitations", "限制说明"],
+  ["catalysis-data-workflow", "Catalysis Workflow", "催化数据工作流"],
 ]
 
-function sectionLabel(item, zh) {
-  return zh ? item[2] : item[1]
+function sectionLabel(item, lang) {
+  return lang === "zh" ? item[2] : item[1]
 }
 
-function Section({ id, title, eyebrow, children, t }) {
+function Section({ id, eyebrow, title, subtitle, children, t }) {
   return (
-    <section id={id} className="content-card" style={{
-      background: t.panel,
-      border: `1px solid ${t.border}`,
-      borderRadius: 10,
-      padding: 18,
-      scrollMarginTop: 120,
-    }}>
-      <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase", letterSpacing: 0 }}>{eyebrow}</div>
-      <h2 style={{ color: t.textStrong, fontSize: 20, lineHeight: 1.18, margin: "5px 0 0", fontWeight: 920 }}>{title}</h2>
-      <div style={{ marginTop: 14 }}>{children}</div>
+    <section
+      id={id}
+      className="content-card"
+      style={{
+        background: t.panel,
+        border: `1px solid ${t.border}`,
+        borderRadius: 14,
+        padding: 18,
+        scrollMarginTop: 118,
+        display: "grid",
+        gap: 14,
+        minWidth: 0,
+      }}
+    >
+      <div>
+        <div style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase", letterSpacing: 0 }}>
+          {eyebrow}
+        </div>
+        <h2 style={{ color: t.textStrong, fontSize: 20, lineHeight: 1.18, margin: "5px 0 0", fontWeight: 930 }}>
+          {title}
+        </h2>
+        {subtitle && (
+          <p style={{ color: t.subtle, fontSize: 12.5, lineHeight: 1.65, margin: "7px 0 0", maxWidth: 840 }}>
+            {subtitle}
+          </p>
+        )}
+      </div>
+      {children}
     </section>
   )
 }
@@ -62,372 +72,97 @@ function TextBlock({ children, t }) {
   return <p style={{ color: t.muted, fontSize: 13, lineHeight: 1.75, margin: 0 }}>{children}</p>
 }
 
-function MethodCard({ title, children, t, tone = "info" }) {
+function MethodCard({ title, body, t, tone = "info" }) {
+  const palette = {
+    info: { bg: t.surface, border: t.border, label: t.accentText },
+    warn: { bg: t.badgeWarnBg, border: t.warn, label: t.badgeWarnText },
+    note: { bg: t.panel, border: t.borderStrong, label: t.faint },
+  }[tone]
   return (
-    <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 13, minWidth: 0 }}>
-      <BasisBadge tone={tone}>{title}</BasisBadge>
-      <div style={{ marginTop: 10 }}>{children}</div>
+    <article style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 12, padding: 13, minWidth: 0 }}>
+      <div style={{ color: palette.label, fontSize: 11, fontWeight: 900, textTransform: "uppercase", letterSpacing: 0 }}>
+        {title}
+      </div>
+      <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, marginTop: 8 }}>
+        {body}
+      </div>
     </article>
   )
 }
 
-function MathBlock({ math, fallback, t }) {
-  return <BlockFormula math={math} fallback={fallback} t={t} />
-}
-
-function ChartCard({ title, why, children, t }) {
-  return (
-    <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 13, minWidth: 0 }}>
-      <h3 style={{ color: t.textStrong, fontSize: 14, fontWeight: 900, margin: 0 }}>{title}</h3>
-      <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55, marginTop: 5, marginBottom: 12 }}>{why}</div>
-      {children}
-    </article>
+function AlgorithmGrid({ lang, t, isMobile }) {
+  const rows = text(
+    lang,
+    [
+      ["Manual", "由研究者设定权重，适合已有专家假设或特定项目目标。"],
+      ["Equal", "每个描述符权重相同，适合做 neutral baseline。"],
+      ["CRITIC", "基于当前候选集的差异度和冲突度生成 exploratory objective weights。"],
+      ["Hybrid", "把 CRITIC reference 与 manual preference 按 alpha 混合，用于避免完全依赖小样本相关结构。"],
+    ],
+    [
+      ["Manual", "Weights are set by a researcher when a project has explicit expert assumptions."],
+      ["Equal", "All descriptors receive the same weight; useful as a neutral baseline."],
+      ["CRITIC", "Generates exploratory objective weights from current-set contrast and conflict."],
+      ["Hybrid", "Blends CRITIC reference with manual preference through alpha to reduce small-sample dependence."],
+    ]
   )
-}
-
-function TooltipBox({ active, payload, label, t }) {
-  if (!active || !payload?.length) return null
   return (
-    <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10, boxShadow: t.shadowSm, color: t.textStrong, fontSize: 11, lineHeight: 1.55 }}>
-      <div style={{ fontWeight: 900, marginBottom: 4 }}>{label || payload[0]?.payload?.name}</div>
-      {payload.map(item => (
-        <div key={item.dataKey || item.name} style={{ color: item.color || t.muted }}>
-          {item.name || item.dataKey}: {Number.isFinite(Number(item.value)) ? fmt(item.value) : item.value}
-        </div>
+    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+      {rows.map(([title, body]) => (
+        <MethodCard key={title} title={title} body={body} t={t} tone={title === "CRITIC" ? "info" : "note"} />
       ))}
     </div>
   )
 }
 
-function MethodWorkflow({ zh, t, isMobile }) {
-  const [active, setActive] = useState(0)
-  const steps = [
+function LimitationGrid({ lang, t, isMobile }) {
+  const rows = text(
+    lang,
     [
-      "Evidence collection",
-      zh ? "收集文献、DFT、实验、表征或推断证据。" : "Collect literature, DFT, experiment, characterization, or inferred evidence.",
-      "indicator-system",
+      ["小样本", "CRITIC 的标准差和相关性会受当前候选集影响，不能读成普适物理权重。"],
+      ["缺失值", "缺失描述符进入 completeness、warning 和解释层；缺失不是材料失败。"],
+      ["证据等级", "实验、文献、DFT、模拟和 demo evidence 不能混作同等证据。"],
+      ["实验条件不可比", "文献条件、活化流程、压力温度和检测方法差异会限制横向排名。"],
+      ["不是 GCMC / IAST", "当前评分不能替代严格吸附模拟、IAST 混合气计算或实测等温线。"],
+      ["不是实验结论", "Decision-support output 只用于候选优先级和下一步验证讨论。"],
     ],
     [
-      "Descriptor scoring",
-      zh ? "把稳定性、能垒和副产物风险证据转换为 0-1 评分。" : "Convert stability, barrier, and byproduct-risk evidence into 0-1 scores.",
-      "indicator-system",
-    ],
-    [
-      "CRITIC weighting",
-      zh ? "使用差异度和相关性冲突推导客观权重。" : "Use dispersion and correlation conflict to derive objective weights.",
-      "critic-weighting",
-    ],
-    [
-      "D_raw",
-      zh ? "在硬筛因子后计算加权几何平均。" : "Compute the weighted geometric mean after the hard-screen factor.",
-      "candidate-score",
-    ],
-    [
-      "Evidence confidence Q",
-      zh ? "用证据置信度区分强支持和弱支持。" : "Apply evidence confidence to distinguish strong and weak support.",
-      "evidence-confidence",
-    ],
-    [
-      "D_expected ranking",
-      zh ? "按置信度修正后的优先级进行候选排序。" : "Rank candidates by confidence-adjusted priority.",
-      "interactive-visuals",
-    ],
-    [
-      "Data gaps",
-      zh ? "建议需要补充的实验、DFT 或表征证据。" : "Recommend missing experiment, DFT, or characterization evidence.",
-      "method-limitations",
-    ],
-  ]
-  const zhSteps = [
-    "证据收集", "描述符评分", "CRITIC 赋权", "D_raw", "证据置信度 Q", "D_expected 排序", "数据缺口",
-  ]
-  const openStep = (index, target) => {
-    setActive(index)
-    document.getElementById(target)?.scrollIntoView({ behavior: "smooth", block: "start" })
-  }
+      ["Small sample", "CRITIC standard deviation and correlation depend on the current candidate set, not universal physical weight."],
+      ["Missing values", "Missing descriptors enter completeness, warnings, and explanation; missing does not mean material failure."],
+      ["Evidence level", "Experimental, literature, DFT, simulated, and demo evidence are not equivalent."],
+      ["Condition comparability", "Different literature conditions, activation, temperature, pressure, and assay protocols limit direct ranking."],
+      ["Not GCMC / IAST", "Current scoring does not replace rigorous adsorption simulation, IAST mixture calculation, or measured isotherms."],
+      ["Not experimental conclusion", "Decision-support output is for candidate priority and validation planning only."],
+    ]
+  )
   return (
-    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, minmax(0, 1fr))" : "repeat(auto-fit, minmax(124px, 1fr))", gap: 8 }}>
-      {steps.map(([label, note, target], index) => (
-        <button
-          key={label}
-          type="button"
-          onMouseEnter={() => setActive(index)}
-          onFocus={() => setActive(index)}
-          onClick={() => openStep(index, target)}
-          title={note}
-          style={{
-            background: active === index ? t.badgeInfoBg : t.surface,
-            border: `1px solid ${active === index ? t.accent : t.border}`,
-            borderRadius: 8,
-            padding: isMobile ? 9 : 11,
-            textAlign: "left",
-            cursor: "pointer",
-          }}
-        >
-          <div style={{ color: active === index ? t.accentText : t.faint, fontFamily: FONT_MONO, fontSize: 10.5, fontWeight: 900 }}>{String(index + 1).padStart(2, "0")}</div>
-          <div style={{ color: t.textStrong, fontSize: isMobile ? 11.5 : 12, fontWeight: 880, lineHeight: 1.3, marginTop: 6 }}>{zh ? zhSteps[index] : label}</div>
-          <div style={{ color: t.muted, fontSize: isMobile ? 10 : 10.5, lineHeight: 1.45, marginTop: 5 }}>{note}</div>
-        </button>
+    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 10 }}>
+      {rows.map(([title, body], index) => (
+        <MethodCard key={title} title={title} body={body} t={t} tone={index >= 4 ? "warn" : "note"} />
       ))}
     </div>
   )
 }
 
-function IndicatorScoreMatrix({ candidates, selected, onSelect, zh, t, isMobile }) {
-  const columns = [
-    ["d_stab_clipped", "d_stab"],
-    ["d_barrier_clipped", "d_barrier"],
-    ["d_select_clipped", "d_select"],
-    ["confidence_Q_clipped", "Q"],
-    ["D_raw", "D_raw"],
-    ["D_expected", "D_expected"],
-  ]
-  const selectedCandidate = candidates.find(item => item.id === selected) || candidates[0]
-  const heat = value => {
-    const v = Math.max(0, Math.min(1, Number(value) || 0))
-    if (v < 0.35) return t.badgeWarnBg
-    if (v < 0.6) return t.badgeProxyBg
-    return t.badgeInfoBg
-  }
-  return (
-    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1.4fr) minmax(250px, 0.8fr)", gap: 12 }}>
-      <div style={{ overflowX: "auto" }}>
-        <table style={{ width: "100%", minWidth: isMobile ? 600 : 700, borderCollapse: "separate", borderSpacing: `0 ${isMobile ? 4 : 6}px` }}>
-          <thead>
-            <tr style={{ color: t.faint, fontSize: 10, textAlign: "left", textTransform: "uppercase" }}>
-              <th style={{ padding: "0 8px" }}>MOF</th>
-              {columns.map(([, label]) => <th key={label} style={{ padding: "0 8px" }}>{label}</th>)}
-            </tr>
-          </thead>
-          <tbody>
-            {candidates.map(candidate => (
-              <tr key={candidate.id} onClick={() => onSelect(candidate.id)} title={zh ? "点击查看候选评分分解" : "Click to inspect score decomposition"} style={{ cursor: "pointer" }}>
-                <td style={{ color: t.textStrong, background: selected === candidate.id ? t.badgeInfoBg : t.panel, borderRadius: "7px 0 0 7px", padding: isMobile ? 7 : 9, fontWeight: 850, fontSize: isMobile ? 11 : 12 }}>{candidate.name}</td>
-                {columns.map(([key, label], index) => (
-                  <td key={key} title={`${candidate.name} ${label}: ${fmt(candidate[key])}`} style={{ background: heat(candidate[key]), color: t.textStrong, padding: isMobile ? 7 : 9, fontFamily: FONT_MONO, fontSize: isMobile ? 10 : 11, borderRadius: index === columns.length - 1 ? "0 7px 7px 0" : 0 }}>
-                    {fmt(candidate[key])}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <MethodCard title={zh ? "候选分解" : "Candidate breakdown"} t={t}>
-        <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 920 }}>{selectedCandidate?.name}</div>
-        <div style={{ display: "grid", gap: 7, marginTop: 10 }}>
-          {[
-            ["d_stab", selectedCandidate?.d_stab_clipped],
-            ["d_barrier", selectedCandidate?.d_barrier_clipped],
-            ["d_select", selectedCandidate?.d_select_clipped],
-            ["Q", selectedCandidate?.confidence_Q_clipped],
-            ["D_expected", selectedCandidate?.D_expected],
-          ].map(([label, value]) => (
-            <div key={label} style={{ display: "grid", gridTemplateColumns: "90px minmax(0, 1fr) 48px", gap: 8, alignItems: "center" }}>
-              <span style={{ color: t.faint, fontFamily: FONT_MONO, fontSize: 10.5 }}>{label}</span>
-              <span style={{ height: 7, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, overflow: "hidden" }}>
-                <span style={{ display: "block", height: "100%", width: pct(value), background: label === "D_expected" ? t.accentText : t.badgeCalcText, borderRadius: 999 }} />
-              </span>
-              <span style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 10.5, textAlign: "right" }}>{fmt(value)}</span>
-            </div>
-          ))}
-        </div>
-      </MethodCard>
-    </div>
-  )
-}
-
-function CriticWeightChart({ model, t, isMobile }) {
-  const data = CRITIC_INDICATORS.map(item => {
-    const row = model.decomposition.find(entry => entry.key === item.key) || {}
-    return {
-      key: item.shortLabel,
-      weight: model.weights[item.key],
-      sigma: row.sigma,
-      conflict: row.conflict,
-      information: row.information,
-    }
-  })
-  return (
-    <ResponsiveContainer width="100%" height={isMobile ? 220 : 235}>
-      <BarChart data={data} margin={{ top: 10, right: 12, left: 0, bottom: 8 }}>
-        <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
-        <XAxis dataKey="key" tick={{ fill: t.subtle, fontSize: 11 }} />
-        <YAxis tick={{ fill: t.subtle, fontSize: 10 }} width={42} />
-        <Tooltip content={({ active, payload, label }) => {
-          if (!active || !payload?.length) return null
-          const row = payload[0].payload
-          return (
-            <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10, boxShadow: t.shadowSm, color: t.textStrong, fontSize: 11, lineHeight: 1.55 }}>
-              <div style={{ fontWeight: 900 }}>{label}</div>
-              <div>weight: {fmt(row.weight)}</div>
-              <div>sigma_j: {fmt(row.sigma)}</div>
-              <div>conflict_j: {fmt(row.conflict)}</div>
-              <div>C_j: {fmt(row.information)}</div>
-            </div>
-          )
-        }} />
-        <Bar dataKey="weight" name="weight" fill={t.accentText} radius={[4, 4, 0, 0]} />
-      </BarChart>
-    </ResponsiveContainer>
-  )
-}
-
-function CorrelationMatrix({ model, t }) {
-  return (
-    <div style={{ display: "grid", gridTemplateColumns: "78px repeat(3, minmax(0, 1fr))", gap: 6 }}>
-      <span />
-      {CRITIC_INDICATORS.map(item => <span key={item.key} style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textAlign: "center" }}>{item.shortLabel}</span>)}
-      {CRITIC_INDICATORS.flatMap(row => [
-        <span key={`${row.key}-head`} style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, alignSelf: "center" }}>{row.shortLabel}</span>,
-        ...CRITIC_INDICATORS.map(col => {
-          const value = model.correlationMatrix[row.key]?.[col.key] ?? 0
-          const bg = row.key === col.key ? t.badgeInfoBg : Math.abs(value) > 0.65 ? t.badgeCalcBg : t.surface
-          return (
-            <span key={`${row.key}-${col.key}`} title={`r_jk = ${fmt(value)}. Higher correlation means more repeated information.`} style={{ background: bg, border: `1px solid ${t.border}`, borderRadius: 7, padding: "10px 6px", color: t.textStrong, fontFamily: FONT_MONO, fontSize: 11, textAlign: "center" }}>
-              {fmt(value, 2)}
-            </span>
-          )
-        }),
-      ])}
-    </div>
-  )
-}
-
-function RawExpectedChart({ candidates, selected, onSelect, t, isMobile }) {
-  const data = candidates.map(candidate => ({
-    id: candidate.id,
-    name: candidate.name,
-    D_raw: Number(candidate.D_raw.toFixed(3)),
-    D_expected: Number(candidate.D_expected.toFixed(3)),
-    Q: Number(candidate.confidence_Q_clipped.toFixed(3)),
-  }))
-  return (
-    <ResponsiveContainer width="100%" height={isMobile ? 260 : 290}>
-      <BarChart data={data} margin={{ top: 10, right: 12, left: 0, bottom: isMobile ? 36 : 42 }} onClick={(event) => event?.activePayload?.[0]?.payload?.id && onSelect(event.activePayload[0].payload.id)}>
-        <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
-        <XAxis dataKey="name" tick={{ fill: t.subtle, fontSize: isMobile ? 9 : 10 }} interval={0} angle={isMobile ? -28 : -22} textAnchor="end" height={isMobile ? 52 : 58} />
-        <YAxis domain={[0, 1]} tick={{ fill: t.subtle, fontSize: 10 }} width={42} />
-        <Tooltip content={<TooltipBox t={t} />} />
-        <Legend wrapperStyle={{ color: t.subtle, fontSize: 11 }} />
-        <Bar dataKey="D_raw" name="D_raw" fill={t.badgeCalcText} radius={[3, 3, 0, 0]} />
-        <Bar dataKey="D_expected" name="D_expected" fill={t.accentText} radius={[3, 3, 0, 0]} />
-      </BarChart>
-    </ResponsiveContainer>
-  )
-}
-
-function SensitivityRankChart({ sensitivity, selected, onSelect, zh, t, isMobile }) {
-  const [mode, setMode] = useState("expected")
-  const current = sensitivity.modes?.find(item => item.id === mode) || sensitivity.modes?.[0]
-  const schemes = sensitivity.schemes || []
-  const lineData = schemes.map(scheme => {
-    const point = { scheme: scheme.label }
-    current.rows.forEach(row => {
-      point[row.name] = Number.isFinite(row.ranks[scheme.id]) ? row.ranks[scheme.id] : null
-    })
-    return point
-  })
-  return (
-    <div style={{ display: "grid", gap: 12 }}>
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-        {[
-          ["raw", zh ? "D_raw 原始评分" : "Raw-score D_raw"],
-          ["expected", zh ? "D_expected 置信度修正" : "Confidence-adjusted D_expected"],
-        ].map(([id, label]) => (
-          <button key={id} type="button" onClick={() => setMode(id)} style={{ background: mode === id ? t.badgeInfoBg : t.surface, border: `1px solid ${mode === id ? t.accent : t.border}`, borderRadius: 7, color: mode === id ? t.accentText : t.muted, padding: "7px 10px", cursor: "pointer", fontSize: 11, fontWeight: 850 }}>
-            {label}
-          </button>
-        ))}
-      </div>
-      <ResponsiveContainer width="100%" height={isMobile ? 245 : 270}>
-        <LineChart data={lineData} margin={{ top: 10, right: 12, left: 0, bottom: isMobile ? 36 : 42 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
-          <XAxis dataKey="scheme" tick={{ fill: t.subtle, fontSize: isMobile ? 9 : 10 }} interval={0} angle={isMobile ? -26 : -18} textAnchor="end" height={isMobile ? 52 : 58} />
-          <YAxis reversed domain={[1, 6]} tick={{ fill: t.subtle, fontSize: 10 }} width={42} />
-          <Tooltip content={<TooltipBox t={t} />} />
-          {current.rows.filter(row => Number(row.ranks?.critic) <= 4 || row.id === selected).map((row, index) => (
-            <Line key={row.id} type="monotone" dataKey={row.name} stroke={row.id === selected ? t.accentText : index % 2 ? t.badgeCalcText : t.subtle} strokeWidth={row.id === selected ? 3 : 1.6} dot={{ r: row.id === selected ? 4 : 3 }} connectNulls onClick={() => onSelect(row.id)} />
-          ))}
-        </LineChart>
-      </ResponsiveContainer>
-      <div style={{ overflowX: "auto" }}>
-        <table style={{ width: "100%", minWidth: isMobile ? 540 : 610, borderCollapse: "separate", borderSpacing: `0 ${isMobile ? 4 : 6}px` }}>
-          <tbody>
-            {current.rows.map(row => (
-              <tr key={row.id} onClick={() => onSelect(row.id)} title={`${row.name}: ${robustnessLabel(row.robustness, zh)}`} style={{ cursor: "pointer" }}>
-                <td style={{ background: row.id === selected ? t.badgeInfoBg : t.panel, borderRadius: "7px 0 0 7px", padding: isMobile ? 7 : 9, color: t.textStrong, fontWeight: 850, fontSize: isMobile ? 11 : 12 }}>{row.name}</td>
-                {schemes.map(scheme => <td key={scheme.id} style={{ background: t.panel, padding: isMobile ? 7 : 9, color: t.muted, fontFamily: FONT_MONO, fontSize: isMobile ? 10 : 11 }}>{Number.isFinite(row.ranks[scheme.id]) ? `#${row.ranks[scheme.id]}` : row.ranks[scheme.id]}</td>)}
-                <td style={{ background: t.panel, borderRadius: "0 7px 7px 0", padding: isMobile ? 7 : 9, color: row.robustness === "Robust" ? t.accentText : t.warn, fontWeight: 850, fontSize: isMobile ? 11 : 12 }}>{robustnessLabel(row.robustness, zh)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  )
-}
-
-function CandidateNote({ candidate, zh, t }) {
-  if (!candidate) return null
-  const gaps = getDataGapRecommendations(candidate).slice(0, 2)
-  return (
-    <MethodCard title={zh ? "选中候选解释" : "Selected candidate note"} t={t} tone={candidate.status?.tone || "info"}>
-      <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 920 }}>{candidate.name}</div>
-      <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55, marginTop: 6 }}>
-        <InlineFormula math={`D_{raw}=${fmt(candidate.D_raw)}\\times Q=${fmt(candidate.confidence_Q_clipped)}\\Rightarrow D_{expected}=${fmt(candidate.D_expected)}`} fallback={`D_raw ${fmt(candidate.D_raw)} x Q ${fmt(candidate.confidence_Q_clipped)} = D_expected ${fmt(candidate.D_expected)}`} />
-      </div>
-      <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 8 }}>
-        {zh ? "该分数为演示占位，不代表该 MOF 的真实性能判断。" : "This score is an illustrative placeholder, not a validated statement about this MOF."}
-      </div>
-      <div style={{ display: "grid", gap: 6, marginTop: 10 }}>
-        {gaps.map(gap => (
-          <div key={`${gap.limitation}-${gap.nextEvidence}`} style={{ borderLeft: `3px solid ${gap.priority === "High" ? t.warn : t.accentText}`, paddingLeft: 8, color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>
-            {gap.nextEvidence}
-          </div>
-        ))}
-      </div>
-    </MethodCard>
-  )
-}
-
-export function MethodsLimitationsTab({ onNavigate }) {
+export function MethodsLimitationsTab() {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
-  const zh = lang === "zh"
-  const model = useMemo(() => buildCriticScoringModel(), [])
-  const [selectedCandidateId, setSelectedCandidateId] = useState(model.candidates[0]?.id)
-  const selectedCandidate = model.candidates.find(item => item.id === selectedCandidateId) || model.candidates[0]
-
-  const qRows = zh
-    ? [
-        ["A", "强实验 + 反应后表征证据"],
-        ["B", "文献支持证据"],
-        ["C", "仅 DFT 或部分证据"],
-        ["D", "推断证据"],
-        ["E", "缺失或较弱证据"],
-      ]
-    : [
-        ["A", "strong experimental + post-reaction evidence"],
-        ["B", "literature-supported evidence"],
-        ["C", "DFT-only or partial evidence"],
-        ["D", "inferred evidence"],
-        ["E", "missing or weak evidence"],
-      ]
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title={zh ? "方法论 / Methodology" : "Methodology / 方法论"}
-        subtitle={zh
-          ? "论文方法页 + 网页可读版：解释候选评分、证据置信度、CRITIC 权重和 RSM 边界。"
-          : "A paper-style method page for candidate scoring, evidence confidence, CRITIC weighting, and the RSM boundary."}
-        meta={zh ? "CRITIC-MCDA · LaTeX 公式 · 交互图表 · 限制说明" : "CRITIC-MCDA · LaTeX formulas · interactive visuals · limitations"}
+        title={text(lang, "方法与证据 / Methods & Evidence", "Methods & Evidence / 方法与证据")}
+        subtitle={text(
+          lang,
+          "以系统架构图说明 EcoMOF-AI 的输入、分层模块、中间处理、解释输出与限制边界。",
+          "Architecture diagrams for EcoMOF-AI inputs, layered modules, intermediate processing, explanation output, and method boundaries."
+        )}
+        meta={text(lang, "decision-support prototype · descriptor registry · CRITIC reference · evidence limits", "decision-support prototype · descriptor registry · CRITIC reference · evidence limits")}
         action={
           <>
-            <BasisBadge tone="proxy">{zh ? "早期决策支持" : "early-stage decision support"}</BasisBadge>
-            <CopyLinkButton hash="methodology" ariaLabel={zh ? "复制方法论链接" : "Copy methodology link"} />
+            <BasisBadge tone="proxy">{text(lang, "原型边界", "prototype boundary")}</BasisBadge>
+            <CopyLinkButton hash="methodology" ariaLabel={text(lang, "复制方法论链接", "Copy methodology link")} />
           </>
         }
       />
@@ -438,277 +173,157 @@ export function MethodsLimitationsTab({ onNavigate }) {
           top: 92,
           background: t.panel,
           border: `1px solid ${t.border}`,
-          borderRadius: 10,
+          borderRadius: 12,
           padding: 10,
           maxHeight: isNarrow ? "none" : "calc(100vh - 120px)",
           overflow: "auto",
         }}>
           <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase", marginBottom: 8 }}>
-            {zh ? "页面结构" : "Contents"}
+            {text(lang, "页面结构", "Contents")}
           </div>
-          <nav style={{ display: isMobile ? "flex" : "grid", gap: 6, overflowX: isMobile ? "auto" : "visible" }}>
+          <nav style={{ display: isMobile ? "flex" : "grid", gap: 6, overflowX: isMobile ? "auto" : "visible", paddingBottom: isMobile ? 2 : 0 }}>
             {sectionIds.map(item => (
-              <a key={item[0]} href={`#${item[0]}`} style={{ color: t.accentText, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: "7px 8px", textDecoration: "none", fontSize: 11, fontWeight: 820, whiteSpace: "nowrap" }}>
-                {sectionLabel(item, zh)}
-              </a>
+              <button
+                key={item[0]}
+                type="button"
+                onClick={() => scrollToMethodTarget(item[0])}
+                style={{
+                  color: t.accentText,
+                  background: t.surface,
+                  border: `1px solid ${t.border}`,
+                  borderRadius: 8,
+                  padding: "7px 8px",
+                  textAlign: "left",
+                  fontSize: 11,
+                  fontWeight: 820,
+                  whiteSpace: "nowrap",
+                  cursor: "pointer",
+                  fontFamily: FONT_MONO,
+                }}
+              >
+                {sectionLabel(item, lang)}
+              </button>
             ))}
           </nav>
         </aside>
 
         <main style={{ display: "grid", gap: 16, minWidth: 0 }}>
-          <Section id="platform-scope" eyebrow="01" title={zh ? "平台定位 / Platform scope" : "Platform scope / 平台定位"} t={t}>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1.2fr) minmax(260px, 0.8fr)", gap: 12 }}>
+          <Section
+            id="method-overview"
+            eyebrow="01"
+            title={text(lang, "Overview", "Overview")}
+            subtitle={text(lang, "先说明平台角色，再展示方法架构。", "The page starts with platform role, then shows method architecture.")}
+            t={t}
+          >
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1.15fr) minmax(260px, 0.85fr)", gap: 12 }}>
               <TextBlock t={t}>
-                {zh
-                  ? "EcoMOF-AI 是面向 MOF 候选筛选、证据追踪与绿色评价的早期决策支持平台。它不是直接产率预测工具，不是已验证催化性能数据库；当前 demo 数据用于展示方法流程。"
-                  : "EcoMOF-AI is an early-stage decision-support platform for MOF candidate screening, evidence tracking, and sustainability-oriented evaluation. It is not a direct yield-prediction tool or a validated catalytic-performance database; demo records illustrate the method workflow."}
+                {text(
+                  lang,
+                  "EcoMOF-AI 是面向 MOF 候选筛选、描述符整理、证据追踪和绿色评价的 decision-support prototype。它帮助研究者检查“为什么某个候选被排在前面”，但不声称当前分数是已验证预测器，也不替代实验、GCMC、IAST 或完整机理研究。",
+                  "EcoMOF-AI is a decision-support prototype for MOF candidate screening, descriptor curation, evidence tracking, and sustainability-oriented evaluation. It helps researchers inspect why a candidate is prioritized, but the score is not a validated predictor and does not replace experiments, GCMC, IAST, or full mechanistic studies."
+                )}
               </TextBlock>
-              <MethodCard title={zh ? "边界" : "Boundary"} t={t} tone="warn">
-                <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65 }}>
-                  {zh ? "当前模块用于早期候选优先级判断（early-stage candidate prioritization），不用于直接产率预测（direct yield prediction）。" : "The current module supports early-stage candidate prioritization, not direct yield prediction."}
-                </div>
-              </MethodCard>
+              <MethodCard
+                t={t}
+                tone="warn"
+                title={text(lang, "使用边界", "Boundary")}
+                body={text(
+                  lang,
+                  "当前输出应读作 candidate priority / research discussion，不应读作最终催化性能、吸附性能或 LCA 结论。",
+                  "Current output should be read as candidate priority / research discussion, not final catalysis, adsorption, or LCA conclusion."
+                )}
+              />
             </div>
           </Section>
 
-          <Section id="candidate-framework" eyebrow="02" title={zh ? "候选评分框架 / Candidate Scoring Framework" : "Candidate Scoring Framework / 候选评分框架"} t={t}>
-            <div style={{ display: "grid", gap: 12 }}>
-              <TextBlock t={t}>
-                {zh
-                  ? "在真实产率数据不足、文献条件不可直接横向比较的情况下，框架先对候选材料进行可解释优先级排序。"
-                  : "When comparable yield labels are unavailable, the framework prioritizes candidates using interpretable descriptor evidence."}
-              </TextBlock>
-              <ChartCard title={zh ? "图 1 / Figure 1. 方法流程图 / CRITIC Workflow" : "Figure 1. CRITIC Workflow / 方法流程图"} why={zh ? "为什么重要：展示从证据到候选排序和数据缺口建议的完整链路。" : "Why it matters: it shows the full path from evidence to ranking and data-gap recommendations."} t={t}>
-                <MethodWorkflow zh={zh} t={t} isMobile={isMobile} />
-              </ChartCard>
+          <Section
+            id="scoring-pipeline"
+            eyebrow="02"
+            title="EcoMOF-AI Scoring Pipeline"
+            subtitle={text(lang, "Methods 页面最重要的总图：输入、模块、旁路数据质量、解释输出都在同一链路中。", "The main Methods diagram: input, modules, side data quality, and explanation output are shown in one chain.")}
+            t={t}
+          >
+            <ScoringPipelineDiagram t={t} lang={lang} />
+          </Section>
+
+          <Section
+            id="descriptor-registry"
+            eyebrow="03"
+            title={text(lang, "Descriptor Registry", "Descriptor Registry")}
+            subtitle={text(lang, "说明全局描述符注册中心如何管理单位、方向、normalizer、缺失策略和证据要求。", "How the global descriptor registry manages units, direction, normalizer, missing policy, and evidence requirements.")}
+            t={t}
+          >
+            <DescriptorRegistryDiagram t={t} lang={lang} />
+            <div id="registry-viewer" style={{ scrollMarginTop: 118 }}>
+              <DescriptorRegistryViewer t={t} lang={lang} isMobile={isMobile} />
             </div>
           </Section>
 
-          <Section id="global-scoring-engine" eyebrow="03" title={zh ? "全局评分引擎 / Scoring Engine" : "Scoring Engine / 全局评分引擎"} t={t}>
-            <div style={{ display: "grid", gap: 12 }}>
-              <TextBlock t={t}>
-                {zh
-                  ? "全局评分架构统一为 Raw candidates → Descriptor normalization → Weighting algorithm → Scoring algorithm → Ranking → Explanation → UI presentation。CRITIC、Equal、Manual、Hybrid 等权重算法遵守同一接口，后续可以继续接入 Entropy、AHP、TOPSIS、VIKOR 或 LCA weighting。"
-                  : "The global scoring architecture follows Raw candidates → Descriptor normalization → Weighting algorithm → Scoring algorithm → Ranking → Explanation → UI presentation. CRITIC, Equal, Manual, and Hybrid weighting follow the same interface so Entropy, AHP, TOPSIS, VIKOR, or LCA weighting can be added later."}
-              </TextBlock>
-              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
-                {(zh
-                  ? [
-                    ["Descriptor direction", "benefit / cost 方向由注册中心读取，不在页面内写死。"],
-                    ["Missing value strategy", "median、zeroPenalty、exclude 作为模型配置处理，warning 会进入 UI。"],
-                    ["Evidence integration", "字段级来源和证据等级通过 descriptor accessor 保持连接。"],
-                    ["Algorithm plugin", "computeWeighting 接口统一，权重最终归一化到 sum = 1。"],
-                  ]
-                  : [
-                    ["Descriptor direction", "benefit / cost direction is read from the registry, not hardcoded in pages."],
-                    ["Missing value strategy", "median, zeroPenalty, and exclude are model settings; warnings surface in the UI."],
-                    ["Evidence integration", "Field-level provenance and evidence levels stay connected through descriptor accessors."],
-                    ["Algorithm plugin", "The computeWeighting interface is shared and weights are normalized to sum = 1."],
-                  ]).map(([title, body]) => (
-                  <MethodCard key={title} title={title} t={t}>
-                    <TextBlock t={t}>{body}</TextBlock>
-                  </MethodCard>
-                ))}
-              </div>
+          <Section
+            id="weighting-algorithms"
+            eyebrow="04"
+            title={text(lang, "Weighting Algorithms", "Weighting Algorithms")}
+            subtitle={text(lang, "Manual / Equal / CRITIC / Hybrid 使用同一 scoring engine 接口；CRITIC 只是探索性参考，不是证明。", "Manual / Equal / CRITIC / Hybrid use the same scoring-engine interface; CRITIC is an exploratory reference, not proof.")}
+            t={t}
+          >
+            <AlgorithmGrid lang={lang} t={t} isMobile={isMobile} />
+            <div id="critic-weighting" style={{ scrollMarginTop: 118 }}>
+              <CriticWeightingDiagram t={t} lang={lang} />
             </div>
           </Section>
 
-          <Section id="descriptor-registry" eyebrow="04" title={zh ? "描述符注册中心 / Descriptor Registry" : "Descriptor Registry / 描述符注册中心"} t={t}>
-            <DescriptorRegistryViewer t={t} lang={lang} isMobile={isMobile} />
-          </Section>
-
-          <Section id="critic-methodology-decision-support" eyebrow="05" title={zh ? "CRITIC 方法论 / CRITIC Methodology" : "CRITIC Methodology / CRITIC 方法论"} t={t}>
-            <div style={{ display: "grid", gap: 12 }}>
-              <TextBlock t={t}>
-                {zh
-                  ? "CRITIC 在本平台中用于多指标排序影响力估计。它通过指标差异度与指标冲突度给出 objective weight，用来辅助 candidate ranking；这些权重不表示化学因果机制，也不能替代反应机理验证。"
-                  : "CRITIC is used here to estimate multi-indicator ranking influence. It derives objective weights from contrast intensity and conflict intensity to support candidate ranking; the weights do not imply chemical causality and do not replace mechanistic validation."}
-              </TextBlock>
-              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
-                <MathBlock math={"x'_{ij}=\\frac{x_{ij}-\\min(x_j)}{\\max(x_j)-\\min(x_j)}"} fallback="benefit normalization: x' = (x - min) / (max - min)" t={t} />
-                <MathBlock math={"x'_{ij}=\\frac{\\max(x_j)-x_{ij}}{\\max(x_j)-\\min(x_j)}"} fallback="cost normalization: x' = (max - x) / (max - min)" t={t} />
-              </div>
-              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
-                <MathBlock math={"C_j=\\sigma_j\\sum_{k=1}^{m}(1-r_{jk})"} fallback="C_j = sigma_j * sum_k(1 - r_jk)" t={t} />
-                <MathBlock math={"w_j=\\frac{C_j}{\\sum_{j=1}^{m}C_j}"} fallback="w_j = C_j / sum_j(C_j)" t={t} />
-              </div>
-              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 8 }}>
-                {(zh
-                  ? [
-                    ["差异度 / contrast intensity", "由标准差 sigma_j 表征，表示某指标在候选集内的区分能力。差异越大，该指标越可能影响排序。"],
-                    ["冲突度 / conflict intensity", "由 sum(1-r_jk) 表征，表示该指标与其他指标之间的信息非重复性。相关性越低，冲突度越高。"],
-                    ["客观权重 / objective weight", "由 C_j 归一化得到，表示当前候选集中的排序影响力（ranking influence），不是化学因果强度。"],
-                  ]
-                  : [
-                    ["contrast intensity", "Represented by standard deviation sigma_j; it measures how strongly an indicator differentiates candidates."],
-                    ["conflict intensity", "Represented by sum(1-r_jk); it measures non-redundant information against other indicators."],
-                    ["objective weight", "Obtained by normalizing C_j; it expresses ranking influence in the current candidate set, not chemical causality."],
-                  ]).map(([title, body]) => (
-                  <MethodCard key={title} title={title} t={t}>
-                    <TextBlock t={t}>{body}</TextBlock>
-                  </MethodCard>
-                ))}
-              </div>
-              <MethodCard title={zh ? "使用限制 / CRITIC limitations" : "CRITIC limitations"} t={t} tone="warn">
-                <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
-                  {(zh
-                    ? [
-                      "小样本敏感性（small sample sensitivity）：小样本下标准差和相关性可能被个别候选牵动。",
-                      "缺失数据（missing data）：缺失值会降低解释确定性，不能直接视作材料失败。",
-                      "归一化依赖（normalization dependence）：归一化区间和 benefit/cost direction 会影响权重解释。",
-                      "证据异质性（evidence heterogeneity）：实验、文献、DFT、模拟和 demo evidence 的可比性不同。",
-                    ]
-                    : [
-                      "small sample sensitivity: standard deviation and correlation can be moved by individual candidates.",
-                      "missing data: missing descriptors lower interpretive certainty and should not be read as material failure.",
-                      "normalization dependence: normalization range and benefit/cost direction affect weight interpretation.",
-                      "evidence heterogeneity: experimental, literature, DFT, simulated, and demo evidence are not equally comparable.",
-                    ]).map(item => (
-                    <div key={item} style={{ color: t.muted, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, padding: 10, fontSize: 11.5, lineHeight: 1.55 }}>
-                      {item}
-                    </div>
-                  ))}
-                </div>
-              </MethodCard>
+          <Section
+            id="explanation-evidence"
+            eyebrow="05"
+            title={text(lang, "Explanation & Evidence", "Explanation & Evidence")}
+            subtitle={text(lang, "把“为什么是这个结果”的用户入口，拆成更专业的评分依据、结果解释和排序解释。", "The “Why this result?” entry is structured into scoring basis, result explanation, and ranking explanation.")}
+            t={t}
+          >
+            <ExplanationLayerDiagram t={t} lang={lang} />
+            <div id="why-this-result-ui" style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10, scrollMarginTop: 118 }}>
+              <MethodCard
+                t={t}
+                title={text(lang, "评分依据", "Scoring basis")}
+                body={text(lang, "展示分数、主导描述符、descriptor completeness 与缺失字段处理。", "Shows score, main descriptors, descriptor completeness, and missing-field handling.")}
+              />
+              <MethodCard
+                t={t}
+                title={text(lang, "结果解释", "Result explanation")}
+                body={text(lang, "解释候选为什么靠前、为什么靠后，以及哪些数据限制影响判断。", "Explains why a candidate ranks higher or lower and which data limits affect the judgment.")}
+              />
+              <MethodCard
+                t={t}
+                title={text(lang, "排序解释", "Ranking explanation")}
+                body={text(lang, "连接权重模式、CRITIC reference、evidence warning 与下一步验证建议。", "Connects weighting mode, CRITIC reference, evidence warnings, and next validation steps.")}
+              />
             </div>
+            <Callout tone="info">
+              {text(
+                lang,
+                "中文入口“为什么是这个结果”可以保留为用户按钮；方法页内部用“评分依据 / 结果解释 / 排序解释”来组织信息。",
+                "The Chinese user-facing entry “为什么是这个结果” can remain on buttons; the method page organizes the content as scoring basis / result explanation / ranking explanation."
+              )}
+            </Callout>
           </Section>
 
-          <Section id="indicator-system" eyebrow="04" title={zh ? "三维指标体系 / Indicator System" : "Indicator System / 三维指标体系"} t={t}>
-            <div style={{ display: "grid", gap: 12 }}>
-              <div style={{ overflowX: "auto" }}>
-                <table style={{ width: "100%", minWidth: isMobile ? 650 : 760, borderCollapse: "separate", borderSpacing: `0 ${isMobile ? 5 : 7}px` }}>
-                  <thead>
-                    <tr style={{ color: t.faint, fontSize: 10, textAlign: "left", textTransform: "uppercase" }}>
-                      <th>{zh ? "指标" : "Indicator"}</th><th>{zh ? "符号" : "Symbol"}</th><th>{zh ? "含义" : "Meaning"}</th><th>{zh ? "高分含义" : "Higher score means"}</th><th>{zh ? "证据示例" : "Evidence examples"}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {(zh
-                      ? [
-                        ["稳定性", "d_stab", "170 C 水相稳定性；目标水热条件下结构是否保持。", "170 C 水相条件下更稳定", "反应后 XRD / BET / ICP；文献来源"],
-                        ["关键能垒", "d_barrier", "CO2/HCO3- 到 HCOO* 或相关瓶颈步骤的关键能垒。", "动力学瓶颈更有利", "DFT 能垒；推断证据"],
-                        ["副产物风险", "d_select", "候选是否不易转向乙酸、乳酸或其他副路径。", "副产物路径风险更低", "HPLC / IC / NMR 产物分布"],
-                      ]
-                      : [
-                        ["Stability", "d_stab", "170 C aqueous stability; whether the material retains structure under target hydrothermal conditions.", "more stable under 170 C aqueous conditions", "post-reaction XRD / BET / ICP; literature source"],
-                        ["Barrier", "d_barrier", "Formate key-step barrier from CO2/HCO3- to HCOO* or a related bottleneck step.", "more favorable kinetic bottleneck", "DFT barrier; inferred evidence"],
-                        ["Byproduct-risk", "d_select", "Whether the candidate is less likely to shift toward acetate, lactate, or other side paths.", "lower byproduct-path risk", "HPLC / IC / NMR product distribution"],
-                      ]).map(row => (
-                      <tr key={row[1]} style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>
-                        {row.map((cell, index) => (
-                          <td key={cell} style={{ background: t.surface, padding: isMobile ? 8 : 10, borderRadius: index === 0 ? "7px 0 0 7px" : index === row.length - 1 ? "0 7px 7px 0" : 0, color: index < 2 ? t.textStrong : t.muted, fontFamily: index === 1 ? FONT_MONO : undefined, fontWeight: index < 2 ? 850 : 500, fontSize: isMobile ? 11 : 12 }}>{cell}</td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <ChartCard title={zh ? "图 2 / Figure 2. 指标评分矩阵 / Indicator Score Matrix" : "Figure 2. Indicator Score Matrix / 指标评分矩阵"} why={zh ? "为什么重要：直接显示每个候选的短板，以及 Q 如何进入最终排序。" : "Why it matters: it shows candidate weaknesses and where Q enters the final ranking."} t={t}>
-                <IndicatorScoreMatrix candidates={model.candidates} selected={selectedCandidateId} onSelect={setSelectedCandidateId} zh={zh} t={t} isMobile={isMobile} />
-              </ChartCard>
-            </div>
+          <Section
+            id="method-limitations"
+            eyebrow="06"
+            title={text(lang, "Limitations", "Limitations")}
+            subtitle={text(lang, "限制说明和架构图同等重要，避免把原型输出误读为已验证科研结论。", "Limitations are part of the method architecture and prevent prototype output from being misread as validated scientific conclusion.")}
+            t={t}
+          >
+            <LimitationGrid lang={lang} t={t} isMobile={isMobile} />
           </Section>
 
-          <Section id="critic-weighting" eyebrow="05" title={zh ? "CRITIC 客观赋权 / CRITIC Weighting" : "CRITIC Weighting / CRITIC 客观赋权"} t={t}>
-            <div style={{ display: "grid", gap: 12 }}>
-              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
-                <MathBlock math={"C_j = \\sigma_j \\sum_{k=1}^{m}(1-r_{jk})"} fallback="C_j = sigma_j * sum_k(1 - r_jk)" t={t} />
-                <MathBlock math={"w_j = \\frac{C_j}{\\sum_{j=1}^{m}C_j}"} fallback="w_j = C_j / sum(C_j)" t={t} />
-              </div>
-              <MathBlock math={"r_{jk}=\\frac{\\sum_{i=1}^{n}(x_{ij}-\\bar{x}_{j})(x_{ik}-\\bar{x}_{k})}{\\sqrt{\\sum_{i=1}^{n}(x_{ij}-\\bar{x}_{j})^2}\\sqrt{\\sum_{i=1}^{n}(x_{ik}-\\bar{x}_{k})^2}}"} fallback="r_jk = cov(x_j, x_k) / (std(x_j) * std(x_k))" t={t} />
-              <TextBlock t={t}>
-                {zh ? "sigma_j 表示指标区分能力，r_jk 表示信息重复程度，C_j 表示指标信息量，w_j 是当前候选集下的探索性客观权重，不是普适物理常数。" : "sigma_j represents discriminating power, r_jk captures information redundancy, C_j is information content, and w_j is a dataset-specific exploratory weight rather than a universal physical constant."}
-              </TextBlock>
-              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
-                <ChartCard title={zh ? "图 3 / Figure 3. CRITIC 权重解释图 / CRITIC Weight Explanation" : "Figure 3. CRITIC Weight Explanation / CRITIC 权重解释图"} why={zh ? "为什么重要：权重由标准差和指标冲突度共同决定，不是拍脑袋。" : "Why it matters: weights come from dispersion and conflict, not manual preference."} t={t}>
-                  <CriticWeightChart model={model} t={t} isMobile={isMobile} />
-                </ChartCard>
-                <ChartCard title={zh ? "图 4 / Figure 4. 指标相关性矩阵 / Correlation Matrix" : "Figure 4. Correlation Matrix / 指标相关性矩阵"} why={zh ? "为什么重要：相关性越高，信息越重复；相关性越低或为负，独立信息越多。" : "Why it matters: higher correlation means more repeated information; lower or negative correlation adds independent signal."} t={t}>
-                  <CorrelationMatrix model={model} t={t} />
-                </ChartCard>
-              </div>
-            </div>
-          </Section>
-
-          <Section id="candidate-score" eyebrow="06" title={zh ? "候选综合评分 / Candidate Score" : "Candidate Score / 候选综合评分"} t={t}>
-            <div style={{ display: "grid", gap: 12 }}>
-              <MathBlock math={"D_{raw,i}=G_i \\cdot d_{stab,i}^{w_{stab}} d_{barrier,i}^{w_{barrier}} d_{select,i}^{w_{select}}"} fallback="D_raw = G * d_stab^w_stab * d_barrier^w_barrier * d_select^w_select" t={t} />
-              <TextBlock t={t}>
-                {zh ? "候选综合评分使用加权几何平均，以体现短板惩罚。某个关键指标很低时，不能被其他高分完全补偿。G=0 表示明确硬筛排除。" : "The composite score uses a weighted geometric mean to penalize severe weaknesses. A very low key indicator cannot be fully compensated by high values elsewhere. G=0 denotes confirmed hard-screen exclusion."}
-              </TextBlock>
-              <CandidateNote candidate={selectedCandidate} zh={zh} t={t} />
-            </div>
-          </Section>
-
-          <Section id="evidence-confidence" eyebrow="07" title={zh ? "证据置信度 / Evidence Confidence" : "Evidence Confidence / 证据置信度"} t={t}>
-            <div style={{ display: "grid", gap: 12 }}>
-              <MathBlock math={"D_{expected,i}=D_{raw,i}\\times Q_i"} fallback="D_expected = D_raw * Q" t={t} />
-              <TextBlock t={t}>
-                {zh ? "Q 表示证据置信度，用于区分“高分且证据强”和“高分但证据弱”。Q 不代表真实催化性能概率。" : "Q is the evidence confidence factor. It distinguishes high scores with strong evidence from high scores with weak evidence. Q is not a probability of true catalytic performance."}
-              </TextBlock>
-              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) minmax(260px, 0.72fr)", gap: 12 }}>
-                <ChartCard title={zh ? "图 5 / Figure 5. 置信度修正对比图 / Raw vs Expected Score" : "Figure 5. Raw vs Expected Score / 置信度修正对比图"} why={zh ? "为什么重要：展示 Q 如何降低证据较弱候选的最终优先级。" : "Why it matters: it shows how Q lowers final priority when evidence is weak."} t={t}>
-                  <RawExpectedChart candidates={model.candidates} selected={selectedCandidateId} onSelect={setSelectedCandidateId} t={t} isMobile={isMobile} />
-                </ChartCard>
-                <MethodCard title={zh ? "Q 等级参考" : "Q evidence ladder"} t={t}>
-                  <div style={{ display: "grid", gap: 7 }}>
-                    {qRows.map(([level, desc]) => (
-                      <div key={level} style={{ display: "grid", gridTemplateColumns: "32px minmax(0, 1fr)", gap: 8, color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>
-                        <span style={{ color: t.textStrong, fontFamily: FONT_MONO, fontWeight: 900 }}>{level}</span>
-                        <span>{desc}</span>
-                      </div>
-                    ))}
-                  </div>
-                </MethodCard>
-              </div>
-            </div>
-          </Section>
-
-          <Section id="interactive-visuals" eyebrow="08" title={zh ? "交互式方法图表 / Interactive Method Visuals" : "Interactive Method Visuals / 交互式方法图表"} t={t}>
-            <ChartCard title={zh ? "图 6 / Figure 6. 排名敏感性分析 / Sensitivity Analysis" : "Figure 6. Sensitivity Analysis / 排名敏感性分析"} why={zh ? "为什么重要：显示排序是否依赖某一种权重设定，并区分原始评分与置信度修正评分。" : "Why it matters: it shows whether rank depends on a single weighting scheme, separating raw and confidence-adjusted scoring."} t={t}>
-              <SensitivityRankChart sensitivity={model.sensitivity} selected={selectedCandidateId} onSelect={setSelectedCandidateId} zh={zh} t={t} isMobile={isMobile} />
-            </ChartCard>
-          </Section>
-
-          <Section id="rsm-boundary" eyebrow="09" title={zh ? "材料筛选与条件优化边界 / CRITIC-MCDA vs. RSM" : "CRITIC-MCDA vs. RSM / 材料筛选与条件优化边界"} t={t}>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
-              <MethodCard title={zh ? "功能分工" : "Role separation"} t={t} tone="info">
-                <TextBlock t={t}>
-                  {zh ? "CRITIC-MCDA 用于候选材料初筛；响应面法 RSM 更适合在选定候选后，对温度、反应时间、pH、HCO3- 浓度或催化剂用量进行统一实验条件优化。" : "CRITIC-MCDA selects candidate materials; RSM optimizes reaction conditions for selected candidates. RSM is better suited for optimizing temperature, residence time, pH, HCO3- concentration, or catalyst dosage after one or several candidate materials have been selected."}
-                </TextBlock>
-              </MethodCard>
-              <MethodCard title={zh ? "当前边界" : "Current boundary"} t={t} tone="warn">
-                <TextBlock t={t}>
-                  {zh ? "当前阶段不适合直接使用 RSM 跨 MOF 拟合甲酸产率，因为不同候选的数据来源、反应条件、检测方法和产率口径并不统一。RSM 需要统一实验设计和连续变量输入，更适合在已经选定 1–3 个候选材料后，用于优化具体反应条件。" : "At the current stage, RSM is not used for cross-MOF yield fitting because candidate records may come from different data sources, reaction conditions, analytical protocols, and yield definitions. RSM requires a unified experimental design and continuous process variables, so it is better suited for optimizing temperature, residence time, pH, HCO3- concentration, or catalyst dosage after one or several candidate materials have been selected."}
-                </TextBlock>
-              </MethodCard>
-            </div>
-          </Section>
-
-          <Section id="method-limitations" eyebrow="10" title={zh ? "当前限制 / Limitations" : "Limitations / 当前限制"} t={t}>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }}>
-              {(zh
-                ? [
-                  "demo 数据不代表真实催化结论。",
-                  "小样本下 CRITIC 权重可能受候选集影响。",
-                  "文献数据条件不可完全比较。",
-                  "缺失值不等于材料失败。",
-                  "后续需要真实实验、DFT 和反应后表征验证。",
-                  "当前模块用于早期优先级判断（early-stage prioritization），不用于直接产率预测（direct yield prediction）。",
-                ]
-                : [
-                  "Demo records do not represent real catalytic conclusions.",
-                  "CRITIC weights can be candidate-set dependent in small samples.",
-                  "Literature conditions are not fully comparable.",
-                  "Missing values are not material failure.",
-                  "Next steps require experiment, DFT, and post-reaction characterization.",
-                  "The module supports early-stage prioritization, not direct yield prediction.",
-                ]).map(item => (
-                <div key={item} style={{ color: t.muted, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11, fontSize: 12, lineHeight: 1.55 }}>
-                  {item}
-                </div>
-              ))}
-            </div>
+          <Section
+            id="catalysis-data-workflow"
+            eyebrow="07"
+            title={text(lang, "Catalysis Data Workflow", "Catalysis Data Workflow")}
+            subtitle={text(lang, "说明 CatalysisLab 是通用催化记录工作台，而不是只有有机酸 case。", "Shows that CatalysisLab is a general catalysis-record workbench, not only the organic-acid case.")}
+            t={t}
+          >
+            <CatalysisWorkflowDiagram t={t} lang={lang} />
           </Section>
         </main>
       </div>
