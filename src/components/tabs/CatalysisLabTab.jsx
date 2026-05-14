@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
-import { BasisBadge, Callout, CopyLinkButton, ResultLayer, buildCriticScoringModel, useLang, useT, useViewport } from "../../shared"
+import { BasisBadge, Callout, CopyLinkButton, ResultLayer, buildCriticScoringModel, toolbarBtn, useLang, useT, useViewport } from "../../shared"
 import { CatalysisCurationLayer } from "../catalysis/CatalysisCurationLayer"
 import { CatalysisFilterBar } from "../catalysis/CatalysisFilterBar"
 import { CatalysisTaskCards } from "../catalysis/CatalysisTaskCards"
@@ -47,6 +47,11 @@ export function CatalysisLabTab({ onNavigate }) {
   const [notice, setNotice] = useState("")
   const [catalysisView, setCatalysisView] = useState("overview")
   const formateCriticModel = useMemo(() => buildCriticScoringModel(), [])
+  const topFormateCandidate = useMemo(() => (
+    formateCriticModel.candidates
+      .filter(candidate => Number(candidate.G) !== 0)
+      .sort((a, b) => Number(b.D_expected || 0) - Number(a.D_expected || 0))[0] || null
+  ), [formateCriticModel])
 
   const localizedTasks = useMemo(() => (
     CATALYSIS_TASKS.map(task => enrichTaskForCharts(task, lang))
@@ -214,42 +219,52 @@ export function CatalysisLabTab({ onNavigate }) {
           ? "保留现有产甲酸路径 CRITIC 原型：d_stab / d_barrier / d_select、G 硬筛、D_raw、D_expected、confidence_Q 与数据缺口建议。"
           : "Retains the existing formate-pathway CRITIC prototype: d_stab / d_barrier / d_select, G hard screening, D_raw, D_expected, confidence_Q, and data-gap recommendations."}
       >
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 0.9fr) minmax(0, 1.1fr)", gap: 12 }}>
-          <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, display: "grid", gap: 8 }}>
-            <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900 }}>{lang === "zh" ? "当前 CRITIC 权重" : "Current CRITIC weights"}</div>
-            {formateCriticModel.indicatorDiagnostics.map(row => (
-              <div key={row.key} style={{ display: "grid", gridTemplateColumns: "110px minmax(0, 1fr) 54px", gap: 8, alignItems: "center", color: t.muted, fontSize: 11.5 }}>
-                <span style={{ color: t.textStrong, fontWeight: 850 }}>{lang === "zh" ? row.zhLabel : row.label}</span>
-                <span style={{ height: 7, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, overflow: "hidden" }}>
-                  <span style={{ display: "block", height: "100%", width: `${Math.round(row.criticWeight * 100)}%`, background: t.accent }} />
-                </span>
-                <span>{row.criticWeight.toFixed(3)}</span>
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 13, display: "grid", gap: 12 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) minmax(220px, 0.55fr)", gap: 12, alignItems: "start" }}>
+            <div style={{ display: "grid", gap: 9 }}>
+              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900 }}>
+                {lang === "zh" ? "d_stab / d_barrier / d_select 权重" : "d_stab / d_barrier / d_select weights"}
               </div>
-            ))}
-          </div>
-          <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, overflowX: "auto" }}>
-            <table style={{ width: "100%", minWidth: 560, borderCollapse: "separate", borderSpacing: "0 6px" }}>
-              <thead>
-                <tr style={{ color: t.faint, fontSize: 10, textAlign: "left", textTransform: "uppercase" }}>
-                  <th>Rank</th><th>Candidate</th><th>D_raw</th><th>D_expected</th><th>confidence_Q</th><th>G</th>
-                </tr>
-              </thead>
-              <tbody>
-                {formateCriticModel.candidates.slice(0, 6).map(candidate => (
-                  <tr key={candidate.id} style={{ color: t.muted, fontSize: 11.5 }}>
-                    <td style={{ background: t.surface, padding: 8, borderRadius: "7px 0 0 7px", color: t.textStrong, fontWeight: 850 }}>{candidate.rank || "G=0"}</td>
-                    <td style={{ background: t.surface, padding: 8, color: t.textStrong }}>{candidate.name}</td>
-                    <td style={{ background: t.surface, padding: 8 }}>{Number(candidate.D_raw).toFixed(3)}</td>
-                    <td style={{ background: t.surface, padding: 8 }}>{Number(candidate.D_expected).toFixed(3)}</td>
-                    <td style={{ background: t.surface, padding: 8 }}>{Number(candidate.confidence_Q_clipped).toFixed(2)}</td>
-                    <td style={{ background: t.surface, padding: 8, borderRadius: "0 7px 7px 0" }}>{candidate.G}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 8 }}>
-              {lang === "zh" ? "数据缺口建议和 sensitivity ranks 仍由现有 criticScoring.js 原型生成。" : "Data-gap recommendations and sensitivity ranks still come from the existing criticScoring.js prototype."}
+              {formateCriticModel.indicatorDiagnostics.map(row => (
+                <div key={row.key} style={{ display: "grid", gridTemplateColumns: "110px minmax(0, 1fr) 54px", gap: 8, alignItems: "center", color: t.muted, fontSize: 11.5 }}>
+                  <span style={{ color: t.textStrong, fontWeight: 850 }}>{lang === "zh" ? row.zhLabel : row.label}</span>
+                  <span style={{ height: 7, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, overflow: "hidden" }}>
+                    <span style={{ display: "block", height: "100%", width: `${Math.round(row.criticWeight * 100)}%`, background: t.accent }} />
+                  </span>
+                  <span>{row.criticWeight.toFixed(3)}</span>
+                </div>
+              ))}
             </div>
+            <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+              <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>
+                {lang === "zh" ? "Top candidate by D_expected" : "Top candidate by D_expected"}
+              </div>
+              <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 920, marginTop: 6 }}>{topFormateCandidate?.name || "—"}</div>
+              <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55, marginTop: 6 }}>
+                D_expected {topFormateCandidate ? Number(topFormateCandidate.D_expected).toFixed(3) : "—"} · confidence_Q {topFormateCandidate ? Number(topFormateCandidate.confidence_Q_clipped).toFixed(2) : "—"}
+              </div>
+            </div>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 9 }}>
+            <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10, color: t.muted, fontSize: 11.5, lineHeight: 1.55 }}>
+              <strong style={{ color: t.textStrong }}>{lang === "zh" ? "confidence_Q note" : "confidence_Q note"}: </strong>
+              {lang === "zh" ? "D_expected 会用 confidence_Q 对 D_raw 进行置信度修正。" : "D_expected adjusts D_raw with confidence_Q."}
+            </div>
+            <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10, color: t.muted, fontSize: 11.5, lineHeight: 1.55 }}>
+              <strong style={{ color: t.textStrong }}>{lang === "zh" ? "Robustness" : "Robustness"}: </strong>
+              {lang === "zh" ? formateCriticModel.robustness?.stability?.zh : formateCriticModel.robustness?.stability?.label}
+              {` · max shift ${formateCriticModel.robustness?.maxRemoveOneShift ?? "—"}`}
+            </div>
+            <button
+              type="button"
+              onClick={() => onNavigate ? onNavigate("ecoscreen") : window.location.assign("#ecoscreen")}
+              style={{ ...toolbarBtn(t), justifyContent: "center", color: t.accentText, borderColor: t.accent, minHeight: 42 }}
+            >
+              {lang === "zh" ? "打开完整 case" : "Open full case"}
+            </button>
+          </div>
+          <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
+            {lang === "zh" ? "数据缺口建议和 sensitivity ranks 仍由现有 criticScoring.js 原型生成。" : "Data-gap recommendations and sensitivity ranks still come from the existing criticScoring.js prototype."}
           </div>
         </div>
       </ResultLayer>

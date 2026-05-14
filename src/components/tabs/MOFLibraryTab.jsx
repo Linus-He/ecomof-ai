@@ -10,11 +10,11 @@ import {
   buildMofMarkdownReport, buildMofCandidateMarkdownReport, buildMofDataGaps, toolbarBtn,
   BasisBadge, PageHeader, ResultLayer, Callout, safeVal, CopyLinkButton,
   FieldProvenanceButton, EvidenceLevelLegend,
-  createScoringModel, getDescriptorsForPreset,
+  createScoringModel, getDescriptorsForPreset, WhyThisResultButton,
 } from "../../shared"
 import { CandidateComparisonModal, CompareTray } from "../mof/CandidateComparisonModal"
 
-const KEY_FIELDS = getDescriptorsForPreset("coreMof8").map(descriptor => ({
+const CORE_DESCRIPTOR_FIELDS = getDescriptorsForPreset("coreMof8").filter(descriptor => !descriptor.planned).map(descriptor => ({
   key: descriptor.key,
   label: { en: descriptor.label, zh: descriptor.labelZh },
   unit: descriptor.unit,
@@ -44,17 +44,18 @@ function recordFieldStatus(record, fieldKey) {
   return "pending"
 }
 
-function getOverviewSummary(record, lang) {
-  const statuses = KEY_FIELDS.map(field => recordFieldStatus(record, field.key))
+function getOverviewSummary(record, lang, descriptorFields = CORE_DESCRIPTOR_FIELDS) {
+  const statuses = descriptorFields.map(field => recordFieldStatus(record, field.key))
   const curatedCount = statuses.filter(status => status === "curated").length
   const needsReviewCount = statuses.filter(status => status === "needs-review").length
-  const pendingCount = KEY_FIELDS.length - curatedCount - needsReviewCount
-  const fieldsWithSource = KEY_FIELDS.filter(field => {
+  const pendingCount = descriptorFields.length - curatedCount - needsReviewCount
+  const fieldsWithSource = descriptorFields.filter(field => {
     const src = record.fieldSources?.[field.key]
     return src && src.sourceType !== "pending" && Boolean(src.sourceName || src.database || src.url || src.doi)
   }).length
-  const fieldsWithCondition = KEY_FIELDS.filter(field => Boolean(record.fieldSources?.[field.key]?.condition)).length
-  const statusId = curatedCount >= 5 && fieldsWithSource >= 3 ? "ready" : curatedCount >= 3 ? "partial" : curatedCount >= 1 ? "limited" : "pending"
+  const fieldsWithCondition = descriptorFields.filter(field => Boolean(record.fieldSources?.[field.key]?.condition)).length
+  const total = Math.max(1, descriptorFields.length)
+  const statusId = curatedCount / total >= 0.65 && fieldsWithSource / total >= 0.35 ? "ready" : curatedCount / total >= 0.35 ? "partial" : curatedCount >= 1 ? "limited" : "pending"
   const labels = {
     ready: lang === "zh" ? "可初步查看" : "Ready",
     partial: lang === "zh" ? "部分完整" : "Partial",
@@ -72,17 +73,17 @@ function getOverviewSummary(record, lang) {
   }
 }
 
-function DataQualitySection({ realSeedRows, lang, t, isMobile }) {
+function DataQualitySection({ realSeedRows, descriptorFields = CORE_DESCRIPTOR_FIELDS, lang, t, isMobile }) {
   const zh = lang === "zh"
 
   // 1. Provenance coverage by field
   const coverageData = useMemo(() => {
-    if (!realSeedRows.length) return KEY_FIELDS.map(f => ({ name: f.label[zh ? "zh" : "en"], pct: 0 }))
-    return KEY_FIELDS.map(f => {
+    if (!realSeedRows.length) return descriptorFields.map(f => ({ name: f.label[zh ? "zh" : "en"], pct: 0 }))
+    return descriptorFields.map(f => {
       const count = realSeedRows.filter(row => isFieldCurated(row.fieldSources?.[f.key])).length
       return { name: f.label[zh ? "zh" : "en"], pct: Math.round((count / realSeedRows.length) * 100) }
     })
-  }, [realSeedRows, zh])
+  }, [realSeedRows, descriptorFields, zh])
 
   // 2. Evidence level distribution
   const evidenceData = useMemo(() => {
@@ -97,11 +98,11 @@ function DataQualitySection({ realSeedRows, lang, t, isMobile }) {
   // 3. Curation status per MOF
   const curationData = useMemo(() => {
     return realSeedRows.map(row => {
-      const curated = KEY_FIELDS.filter(f => isFieldCurated(row.fieldSources?.[f.key])).length
-      const pending = KEY_FIELDS.length - curated
+      const curated = descriptorFields.filter(f => isFieldCurated(row.fieldSources?.[f.key])).length
+      const pending = descriptorFields.length - curated
       return { name: row.name || row.id || "—", curated, pending }
     })
-  }, [realSeedRows])
+  }, [realSeedRows, descriptorFields])
 
   const COLORS = {
     curated: t.accent || "#4f86f7",
@@ -405,6 +406,7 @@ function MofInspector({
   record,
   isSelected,
   limitReached,
+  descriptorFields = CORE_DESCRIPTOR_FIELDS,
   onToggleCompare,
   onExport,
   onClose,
@@ -497,7 +499,7 @@ function MofInspector({
       <section style={sectionBox}>
         <div style={sectionTitle}>{lang === "zh" ? "关键描述符与字段来源状态" : "Key descriptors and field provenance"}</div>
         <div style={{ display: "grid", gap: 7, marginTop: 9 }}>
-          {KEY_FIELDS.map(field => {
+          {descriptorFields.map(field => {
             const status = recordFieldStatus(record, field.key)
             const source = record.fieldSources?.[field.key]
             return (
@@ -780,6 +782,14 @@ export function MOFLibraryTab({ results, inputs }) {
   const [compareNotice, setCompareNotice] = useState("")
   const [comparisonOpen, setComparisonOpen] = useState(false)
   const [qualityChartsReady, setQualityChartsReady] = useState(false)
+  const selectedDescriptorPreset = "coreMof8"
+  const descriptorFields = useMemo(() => getDescriptorsForPreset(selectedDescriptorPreset)
+    .filter(descriptor => !descriptor.planned)
+    .map(descriptor => ({
+      key: descriptor.key,
+      label: { en: descriptor.label, zh: descriptor.labelZh },
+      unit: descriptor.unit,
+    })), [selectedDescriptorPreset])
 
   useEffect(() => {
     let active = true
@@ -850,11 +860,13 @@ export function MOFLibraryTab({ results, inputs }) {
 
   const libraryScoringModel = useMemo(() => createScoringModel({
     candidates: records,
-    preset: "coreMof8",
+    preset: "generalMofScreening",
+    descriptorPreset: selectedDescriptorPreset,
     algorithm: "hybrid",
     hybridAlpha: 0.65,
     missingValueStrategy: "median",
-  }), [records])
+    evidenceMode: "descriptor-evidence",
+  }), [records, selectedDescriptorPreset])
 
   const metals = useMemo(() => Array.from(new Set(records.flatMap(item => item.metalNodes).filter(Boolean))).sort(), [records])
   const sources = useMemo(() => Array.from(new Set(records.map(item => item.source || "local seed"))).sort(), [records])
@@ -884,8 +896,8 @@ export function MOFLibraryTab({ results, inputs }) {
 
   const overviewRows = useMemo(() => filtered.map(item => ({
     item,
-    summary: getOverviewSummary(item, lang),
-  })), [filtered, lang])
+    summary: getOverviewSummary(item, lang, descriptorFields),
+  })), [filtered, lang, descriptorFields])
 
   const scoringByName = useMemo(() => {
     const map = new Map()
@@ -1227,9 +1239,9 @@ export function MOFLibraryTab({ results, inputs }) {
               </div>
               <div style={{ display: "grid", gap: 6 }}>
                 {[
-                  [lang === "zh" ? "已整理描述符" : "Curated descriptors", `${summary.curatedCount}/${KEY_FIELDS.length}`, summary.curatedCount / KEY_FIELDS.length],
+                  [lang === "zh" ? "已整理描述符" : "Curated descriptors", `${summary.curatedCount}/${descriptorFields.length}`, summary.curatedCount / Math.max(1, descriptorFields.length)],
                   [lang === "zh" ? "带条件字段" : "Condition fields", summary.fieldsWithCondition, Math.min(1, summary.fieldsWithCondition / 4)],
-                  [lang === "zh" ? "有来源字段" : "Source fields", summary.fieldsWithSource, Math.min(1, summary.fieldsWithSource / 8)],
+                  [lang === "zh" ? "有来源字段" : "Source fields", summary.fieldsWithSource, Math.min(1, summary.fieldsWithSource / Math.max(1, descriptorFields.length))],
                 ].map(([label, value, pct]) => (
                   <div key={label} style={{ display: "grid", gap: 4 }}>
                     <div style={{ display: "flex", justifyContent: "space-between", gap: 8, color: t.faint, fontSize: 10 }}>
@@ -1296,6 +1308,15 @@ export function MOFLibraryTab({ results, inputs }) {
                   >
                     {lang === "zh" ? "查看评分详情" : "View scoring details"}
                   </button>
+                  <WhyThisResultButton
+                    model={libraryScoringModel}
+                    candidateId={scoring?.id || item.id}
+                    candidate={scoring}
+                    t={t}
+                    lang={lang}
+                    isMobile={isMobile}
+                    compact
+                  />
                 </div>
               </div>
             </article>
@@ -1308,6 +1329,7 @@ export function MOFLibraryTab({ results, inputs }) {
               record={selectedInspectorRecord}
               isSelected={selectedCompareIds.includes(selectedInspectorRecord.id)}
               limitReached={selectedCompareIds.length >= 3 && !selectedCompareIds.includes(selectedInspectorRecord.id)}
+              descriptorFields={descriptorFields}
               onToggleCompare={() => toggleCompare(selectedInspectorRecord)}
               onExport={() => exportMofReport(selectedInspectorRecord)}
               onClose={() => setSelectedInspectorId(null)}
@@ -1426,6 +1448,22 @@ export function MOFLibraryTab({ results, inputs }) {
               </button>
               {expandedId === item.id && (
                 <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
+                  <div style={{ ...detailBlock, gridColumn: "1 / -1", display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
+                    <div style={{ color: t.subtle, fontSize: 11.5, lineHeight: 1.55 }}>
+                      {lang === "zh"
+                        ? "全局评分解释来自 createScoringModel 的 candidate explanations、scores、rankings、diagnostics 和 warnings。"
+                        : "Global scoring explanation comes from createScoringModel candidate explanations, scores, rankings, diagnostics, and warnings."}
+                    </div>
+                    <WhyThisResultButton
+                      model={libraryScoringModel}
+                      candidateId={getScoringSummary(item)?.id || item.id}
+                      candidate={getScoringSummary(item)}
+                      t={t}
+                      lang={lang}
+                      isMobile={isMobile}
+                      compact
+                    />
+                  </div>
                   <div style={detailBlock}>{field(lang === "zh" ? "基础结构" : "Basic structure", `${item.topology}; ${item.formula}`)}</div>
                   <div style={detailBlock}>
                     <div style={{ display: "grid", gap: 8 }}>
@@ -1506,6 +1544,7 @@ export function MOFLibraryTab({ results, inputs }) {
           {qualityChartsReady ? (
             <DataQualitySection
               realSeedRows={realSeedRows}
+              descriptorFields={descriptorFields}
               lang={lang}
               t={t}
               isMobile={isMobile}

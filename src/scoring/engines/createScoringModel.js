@@ -81,20 +81,24 @@ export function createScoringModel(config = {}) {
       ? getDescriptors(config.descriptors.map(descriptor => descriptor.key || descriptor))
       : getDescriptorsForPreset(presetKey, preset.descriptors)
   const descriptorCoverage = getDatasetDescriptorCoverage(config.candidates || [], requestedDescriptors.map(descriptor => descriptor.key))
+  const plannedKeys = descriptorCoverage.rows
+    .filter(row => row.planned)
+    .map(row => row.key)
   const unavailablePlannedKeys = descriptorCoverage.rows
     .filter(row => row.planned && row.availableCount === 0)
     .map(row => row.key)
-  const descriptors = config.includeUnavailableDescriptors
+  const includePlannedDescriptors = Boolean(config.includePlannedDescriptors || config.includeUnavailableDescriptors)
+  const descriptors = includePlannedDescriptors
     ? requestedDescriptors
-    : requestedDescriptors.filter(descriptor => !(descriptor.planned && unavailablePlannedKeys.includes(descriptor.key)))
+    : requestedDescriptors.filter(descriptor => !descriptor.planned)
   const algorithm = config.algorithm || preset.defaultAlgorithm || DEFAULT_SCORING_OPTIONS.algorithm
   const missingValueStrategy = config.missingValueStrategy || preset.defaultMissingValueStrategy || DEFAULT_SCORING_OPTIONS.missingValueStrategy
   const evidenceMode = config.evidenceMode || preset.defaultEvidenceMode || DEFAULT_SCORING_OPTIONS.evidenceMode
   const hybridAlpha = Number.isFinite(Number(config.hybridAlpha)) ? Number(config.hybridAlpha) : (preset.hybridAlpha ?? DEFAULT_SCORING_OPTIONS.hybridAlpha)
   const candidates = Array.isArray(config.candidates) ? config.candidates : []
   const descriptorWarnings = []
-  if (unavailablePlannedKeys.length && !config.includeUnavailableDescriptors) {
-    descriptorWarnings.push(`Planned descriptors without current dataset values were not scored: ${unavailablePlannedKeys.join(", ")}.`)
+  if (plannedKeys.length && !includePlannedDescriptors) {
+    descriptorWarnings.push(`Planned descriptors were not scored by default: ${plannedKeys.join(", ")}.`)
   }
   if (requestedDescriptors.length && descriptors.length === 0) {
     descriptorWarnings.push("Selected descriptor set has no currently scorable descriptors; the engine returned empty rankings.")
@@ -194,6 +198,7 @@ export function createScoringModel(config = {}) {
     boundsByDescriptor: matrixResult.boundsByDescriptor,
     descriptorCoverage,
     requestedDescriptors,
+    excludedPlannedKeys: includePlannedDescriptors ? [] : plannedKeys,
     unavailablePlannedKeys,
   }
 }

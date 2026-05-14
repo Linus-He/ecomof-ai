@@ -2,9 +2,10 @@ import { useEffect, useMemo, useState } from "react"
 import {
   useT, useLang, useViewport,
   gasLabel, getGasSystem, getMofCandidates, toolbarBtn,
-  buildScoredCandidates, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
-  createScoringModel, DescriptorWeightChart, DescriptorConflictMatrix, ScoringDiagnosticsPanel,
-  RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
+  evidenceDistribution, scoreDistribution,
+  createScoringModel, GlobalScoringWorkbench, DescriptorWeightChart, DescriptorConflictMatrix, ScoringDiagnosticsPanel,
+  ScoringModelCard, WeightingMethodPanel, DescriptorSetDrawer, CandidateRankingTable, WhyThisResultButton,
+  RankingBarChart, ScoreBreakdownRadar, EvidenceDistributionChart, ScoreDistributionChart,
   BasisBadge, ResultLayer, Callout, UnifiedCandidateCard, RealSeedCallout, DemoModeBanner, CopyLinkButton, DisclaimerLink,
 } from "../../shared"
 import {
@@ -48,6 +49,31 @@ function normalizeRealSeedForPerf(item) {
   }
 }
 
+function rowValue(row, key, fallback = "—") {
+  return row?.candidate?.[key] ?? row?.[key] ?? fallback
+}
+
+function rowScoreBreakdown(row) {
+  return (row?.contributions || []).map(item => ({
+    key: item.key,
+    label: item.label,
+    labelZh: item.labelZh,
+    value: Number(item.normalizedValue || 0) * 10,
+  }))
+}
+
+function rowKeyReasons(row, lang) {
+  const drivers = (row?.topDrivers || []).slice(0, 3).map(item => {
+    const label = (lang === "zh" ? item.labelZh : item.label) || item.key
+    const raw = item.rawValue == null || item.rawValue === "" ? "—" : item.rawValue
+    return `${label} ${raw}`
+  })
+  return drivers.length ? drivers : [
+    `CO₂ uptake ${rowValue(row, "co2Uptake")}`,
+    `${lang === "zh" ? "稳定性" : "stability"} ${rowValue(row, "waterStability")} / ${rowValue(row, "thermalStability")}`,
+  ]
+}
+
 /** Read & consume a one-shot navigation signal from sessionStorage. */
 function consumePerfInitView() {
   try {
@@ -73,6 +99,16 @@ export function PerformanceTab({
   const [realSeedRows, setRealSeedRows] = useState([])
   const [dataStatus, setDataStatus] = useState("loading")
   const [selectedId, setSelectedId] = useState(null)
+  const defaultScoringSettings = useMemo(() => ({
+    descriptorPreset: "coreMof8",
+    descriptorKeys: null,
+    algorithm: "hybrid",
+    hybridAlpha: 0.65,
+    missingValueStrategy: "median",
+  }), [])
+  const [appliedScoring, setAppliedScoring] = useState(defaultScoringSettings)
+  const [draftScoring, setDraftScoring] = useState(defaultScoringSettings)
+  const [descriptorDrawerOpen, setDescriptorDrawerOpen] = useState(false)
   const gas = getGasSystem(inputs.gasSystem)
   const hasResult = results && !results.unavailable
 
@@ -122,33 +158,30 @@ export function PerformanceTab({
     return demoRows
   }, [dataMode, demoRows, realSeedRows])
 
-  const performanceCandidates = useMemo(() => {
-    return buildScoredCandidates([...(currentCandidate ? [currentCandidate] : []), ...baseRows], "performance", DEFAULT_SCORING_WEIGHTS.performance)
-  }, [currentCandidate, baseRows])
   const performanceScoringModel = useMemo(() => createScoringModel({
     candidates: [...(currentCandidate ? [currentCandidate] : []), ...baseRows],
-    preset: "coreMof8",
-    algorithm: "hybrid",
-    hybridAlpha: 0.65,
-    missingValueStrategy: "median",
-  }), [currentCandidate, baseRows])
+    preset: "generalMofScreening",
+    descriptorPreset: appliedScoring.descriptorPreset,
+    descriptorKeys: appliedScoring.descriptorKeys,
+    algorithm: appliedScoring.algorithm,
+    missingValueStrategy: appliedScoring.missingValueStrategy,
+    hybridAlpha: appliedScoring.hybridAlpha,
+    evidenceMode: "descriptor-evidence",
+  }), [currentCandidate, baseRows, appliedScoring])
 
+  const performanceCandidates = performanceScoringModel.rankings || []
+  const scoringChanged = JSON.stringify(appliedScoring) !== JSON.stringify(draftScoring)
+  const applyScoring = () => setAppliedScoring(draftScoring)
+  const resetScoring = () => {
+    setDraftScoring(defaultScoringSettings)
+    setAppliedScoring(defaultScoringSettings)
+  }
   const activeCandidate = useMemo(() => performanceCandidates.find(item => item.id === selectedId) || performanceCandidates[0] || null, [performanceCandidates, selectedId])
   const chartData = useMemo(() => ({
     ranking: performanceCandidates,
     evidence: evidenceDistribution(performanceCandidates),
     scores: scoreDistribution(performanceCandidates),
-    sensitivity: sensitivityRows(performanceCandidates, "performance", DEFAULT_SCORING_WEIGHTS.performance, null, "stability"),
   }), [performanceCandidates])
-  const score = activeCandidate?.score ?? 0
-  const reasons = hasResult
-    ? [
-        `${results.primaryName || "CO₂"} uptake ${results.primaryUptake} mmol/g`,
-        `${lang === "zh" ? "表观选择性" : "apparent selectivity"} ${results.selectivity}`,
-        `${lang === "zh" ? "置信度" : "confidence"} ${Math.round(Number(results.confidenceScore || 0) * 100)}%`,
-      ]
-    : [lang === "zh" ? "运行当前结构后生成性能候选解释" : "Run the current structure to generate performance interpretation"]
-
   const interpretation = useMemo(() => {
     if (!hasResult) {
       return {
@@ -174,10 +207,10 @@ export function PerformanceTab({
   const isContentTab = contentTabs.some(tab => tab.id === performanceView)
   const dataRecordCount = dataMode === "real-seed" ? realSeedRows.length : demoRows.length
   const dataModeStatus = dataStatus === "loading"
-    ? (lang === "zh" ? "正在加载记录 · 缺失值按 0 处理" : "Loading records · missing values scored as zero")
+    ? (lang === "zh" ? "正在加载记录 · 缺失值由全局评分引擎处理" : "Loading records · missing values handled by the global scoring engine")
     : dataStatus === "error"
-      ? (lang === "zh" ? "数据加载失败 · 缺失值按 0 处理" : "Data load failed · missing values scored as zero")
-      : (lang === "zh" ? `${dataRecordCount} 条记录 · 缺失值按 0 处理` : `${dataRecordCount} records · missing values scored as zero`)
+      ? (lang === "zh" ? "数据加载失败 · 保留评分诊断提示" : "Data load failed · scoring diagnostics remain visible")
+      : (lang === "zh" ? `${dataRecordCount} 条记录 · ${appliedScoring.missingValueStrategy} 缺失值策略` : `${dataRecordCount} records · ${appliedScoring.missingValueStrategy} missing-value strategy`)
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -227,6 +260,43 @@ export function PerformanceTab({
           : "Performance priority is an early-screening reference, not a replacement for experimental isotherms, GCMC, or IAST; use GasSep for gas ratio, selectivity conditions, and uptake records."}
       </ScopeNoticeBar>
 
+      <DescriptorSetDrawer
+        open={descriptorDrawerOpen}
+        onClose={() => setDescriptorDrawerOpen(false)}
+        draft={draftScoring}
+        setDraft={setDraftScoring}
+        candidates={[...(currentCandidate ? [currentCandidate] : []), ...baseRows]}
+        t={t}
+        lang={lang}
+        isMobile={isMobile}
+      />
+
+      {performanceView !== "advanced" && (
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.2fr) minmax(330px, 0.8fr)", gap: 12, alignItems: "start" }}>
+          <ScoringModelCard
+            model={performanceScoringModel}
+            settings={draftScoring}
+            onManageDescriptors={() => setDescriptorDrawerOpen(true)}
+            onApply={applyScoring}
+            changed={scoringChanged}
+            t={t}
+            lang={lang}
+            isMobile={isMobile}
+          />
+          <WeightingMethodPanel
+            draft={draftScoring}
+            setDraft={setDraftScoring}
+            onApply={applyScoring}
+            onReset={resetScoring}
+            onManageDescriptors={() => setDescriptorDrawerOpen(true)}
+            changed={scoringChanged}
+            t={t}
+            lang={lang}
+            isMobile={isMobile}
+          />
+        </div>
+      )}
+
       {/* ── Results Overview ─────────────────────────────────────────────── */}
       {performanceView === "overview" && (
         <>
@@ -262,20 +332,18 @@ export function PerformanceTab({
                   score={candidate.score}
                   scoreLabel={lang === "zh" ? "性能评分" : "Performance score"}
                   suitableTask={lang === "zh" ? "CO₂ 吸附量 / 选择性 / 热力学解释" : "CO₂ uptake / selectivity / thermodynamic interpretation"}
-                  scoreBreakdown={candidate.scoreBreakdown}
-                  keyReasons={[
-                    `CO₂ uptake ${candidate.co2Uptake ?? "—"}`,
-                    `${lang === "zh" ? "选择性" : "selectivity"} ${candidate.selectivity ?? "—"}`,
-                    `${lang === "zh" ? "稳定性" : "stability"} ${candidate.waterStability ?? "—"} / ${candidate.thermalStability ?? "—"}`,
-                  ]}
+                  scoreBreakdown={rowScoreBreakdown(candidate)}
+                  keyReasons={rowKeyReasons(candidate, lang)}
                   evidenceLevel={`${lang === "zh" ? "证据等级" : "Evidence Level"}: ${candidate.evidenceLevel === "rule-based" ? (lang === "zh" ? "规则辅助" : "rule-assisted") : (candidate.evidenceLevel || (lang === "zh" ? "规则辅助" : "rule-assisted"))}`}
                   limitations={lang === "zh" ? "性能评分用于比较候选材料的吸附和热力学表现，不能替代严格 GCMC 或 IAST 模拟。" : "Performance Score supports comparison of adsorption and thermodynamic indicators. It does not replace rigorous GCMC or IAST simulations."}
                   recommendedNextStep={lang === "zh"
                     ? ["补充实测等温线", "验证混合气选择性", "进行 GCMC 或 IAST 对照"]
                     : ["Add measured isotherms", "Validate mixture selectivity", "Run GCMC or IAST comparison"]}
-                  fieldSources={candidate.fieldSources}
-                  dataStatus={candidate.dataMode || dataMode}
+                  fieldSources={candidate.candidate?.fieldSources}
+                  dataStatus={candidate.candidate?.dataMode || dataMode}
                   onDetails={() => setSelectedId(candidate.id)}
+                  descriptorTotal={performanceScoringModel.descriptors?.length || 0}
+                  extraAction={<WhyThisResultButton model={performanceScoringModel} candidateId={candidate.id} candidate={candidate} t={t} lang={lang} isMobile={isMobile} compact />}
                 />
               ))}
             </div>
@@ -289,21 +357,30 @@ export function PerformanceTab({
             <div style={{ display: "grid", gap: 12 }}>
               <Callout tone="info">
                 {lang === "zh"
-                  ? "此处复用全局 scoring engine 的 coreMof8 描述符集，展示权重快照、候选解释和限制提示；Performance 页面不作为完整算法操作台。"
-                  : "This view reuses the global scoring engine with the coreMof8 descriptor set for a weight snapshot, candidate explanations, and limitations; Performance is not the full algorithm console."}
+                  ? "此处复用全局 scoring engine 和当前描述符集，展示权重快照、候选解释和限制提示；Performance 页面不作为完整算法操作台。"
+                  : "This view reuses the global scoring engine and current descriptor set for a weight snapshot, candidate explanations, and limitations; Performance is not the full algorithm console."}
               </Callout>
               <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
                 {performanceScoringModel.rankings.slice(0, 3).map(row => (
-                  <div key={row.id} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+                  <div key={row.id} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, display: "grid", gap: 8 }}>
                     <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900 }}>{row.rank}. {row.name}</div>
                     <div style={{ color: t.accentText, fontSize: 18, fontWeight: 920, marginTop: 5 }}>{row.score.toFixed(1)}</div>
                     <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55, marginTop: 6 }}>
                       {lang === "zh" ? "主要贡献" : "Main driver"}: {lang === "zh" ? row.mainDriver?.labelZh : row.mainDriver?.label}<br />
                       {lang === "zh" ? "完整度" : "Completeness"}: {Math.round(row.descriptorCompleteness * 100)}%
                     </div>
+                    <WhyThisResultButton model={performanceScoringModel} candidateId={row.id} candidate={row} t={t} lang={lang} isMobile={isMobile} compact />
                   </div>
                 ))}
               </div>
+              <CandidateRankingTable
+                model={performanceScoringModel}
+                selectedId={selectedId}
+                onSelect={setSelectedId}
+                t={t}
+                lang={lang}
+                isMobile={isMobile}
+              />
               <DescriptorWeightChart model={performanceScoringModel} t={t} lang={lang} />
               <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
                 <DescriptorConflictMatrix model={performanceScoringModel} t={t} lang={lang} />
@@ -336,11 +413,10 @@ export function PerformanceTab({
           <ResultLayer number="04" title={lang === "zh" ? "模型结果解释图表" : "Model Results / Results Interpretation"}>
             <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
               <RankingBarChart data={chartData.ranking} scoreLabel={lang === "zh" ? "性能评分" : "Performance Score"} />
-              <ScoreBreakdownRadar data={activeCandidate?.scoreBreakdown || []} title={activeCandidate ? `${activeCandidate.name} · ${lang === "zh" ? "评分拆解" : "Score Breakdown"}` : (lang === "zh" ? "评分拆解" : "Score Breakdown")} />
-              <WeightContributionChart data={activeCandidate?.weightContribution || []} />
+              <ScoreBreakdownRadar data={rowScoreBreakdown(activeCandidate)} title={activeCandidate ? `${activeCandidate.name} · ${lang === "zh" ? "评分拆解" : "Score Breakdown"}` : (lang === "zh" ? "评分拆解" : "Score Breakdown")} />
               <EvidenceDistributionChart data={chartData.evidence} />
               <ScoreDistributionChart data={chartData.scores} />
-              <SensitivityAnalysisChart data={chartData.sensitivity} dimension="Stability" />
+              <ScoringDiagnosticsPanel model={performanceScoringModel} t={t} lang={lang} isMobile={isMobile} />
             </div>
           </ResultLayer>
 
@@ -418,10 +494,10 @@ export function PerformanceTab({
                     : "Current ranking proposes candidate priority and does not output rigorous mixture-separation conclusions.",
                 ],
                 [
-                  lang === "zh" ? "缺失值按 0 处理" : "Missing values scored as zero",
+                  lang === "zh" ? "缺失值由评分引擎处理" : "Missing values handled by scoring engine",
                   lang === "zh"
-                    ? "缺失描述符会降低候选得分，并应被视为数据质量提示。"
-                    : "Missing descriptors reduce scores and should be treated as data-quality signals.",
+                    ? "缺失描述符会通过当前策略进入权重、完整度和 warning，应被视为数据质量提示。"
+                    : "Missing descriptors flow through the current strategy into weights, completeness, and warnings, and should be treated as data-quality signals.",
                 ],
                 [
                   lang === "zh" ? "气体分离记录另行查看" : "Gas separation records live separately",
@@ -445,24 +521,44 @@ export function PerformanceTab({
         <>
           <Callout tone="info">
             {lang === "zh"
-              ? "高级筛选工作台用于基于描述符输入的自定义 MOF 早期筛选。输出仍属于早期筛选证据，不替代实验验证、GCMC 或严格 IAST 分析。"
-              : "Advanced Screening restores the descriptor-level input workflow for custom MOF screening. Outputs remain early-stage screening evidence and do not replace experimental validation, GCMC, or rigorous IAST analysis."}
+              ? "高级筛选工作台现在使用全局评分引擎：描述符集、Manual / Equal / CRITIC / Hybrid 权重、候选排序和解释诊断保持同一条评分链路。"
+              : "Advanced Screening now uses the global scoring engine: descriptor sets, Manual / Equal / CRITIC / Hybrid weighting, ranking, and explanation diagnostics stay on one scoring path."}
           </Callout>
-          <ScreeningTab
-            inputs={inputs}
-            setInputs={setInputs}
-            results={results}
-            loading={loading}
-            onPredict={onPredict}
-            onSaveRun={onSaveRun}
-            apiUrl={apiUrl}
-            setApiUrl={setApiUrl}
-            apiStatus={apiStatus}
-            onCheckApi={onCheckApi}
-            setActiveTab={onNavigate}
-            onLoadBenchmark={onLoadBenchmark}
-            onAddComparison={onAddComparison}
+          <GlobalScoringWorkbench
+            candidates={[...(currentCandidate ? [currentCandidate] : []), ...baseRows]}
+            dataMode={dataMode}
+            lang={lang}
+            t={t}
+            isMobile={isMobile}
+            status={dataStatus}
+            number="01"
+            title={lang === "zh" ? "Global Scoring Workbench / 全局评分工作台" : "Global Scoring Workbench"}
+            subtitle={lang === "zh"
+              ? "主流程接入 createScoringModel，默认 planned descriptors 不参与评分；设置变更后需点击 Apply scoring 才更新。"
+              : "Main workflow is powered by createScoringModel. Planned descriptors are excluded by default; settings update only after Apply scoring."}
           />
+          <details style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+            <summary style={{ cursor: "pointer", color: t.textStrong, fontSize: 13, fontWeight: 900 }}>
+              {lang === "zh" ? "Legacy predictor / 结构输入预测" : "Legacy predictor / structure-input prediction"}
+            </summary>
+            <div style={{ marginTop: 12 }}>
+              <ScreeningTab
+                inputs={inputs}
+                setInputs={setInputs}
+                results={results}
+                loading={loading}
+                onPredict={onPredict}
+                onSaveRun={onSaveRun}
+                apiUrl={apiUrl}
+                setApiUrl={setApiUrl}
+                apiStatus={apiStatus}
+                onCheckApi={onCheckApi}
+                setActiveTab={onNavigate}
+                onLoadBenchmark={onLoadBenchmark}
+                onAddComparison={onAddComparison}
+              />
+            </div>
+          </details>
         </>
       )}
     </div>

@@ -10,17 +10,9 @@ import {
   toolbarBtn, InlineFormula,
   CRITIC_INDICATORS,
   buildCriticScoringModel,
-  createScoringModel,
+  GlobalScoringWorkbench,
   getDataGapRecommendations,
   getMofCandidates,
-  ScoringModelCard,
-  WeightingMethodPanel,
-  DescriptorSetDrawer,
-  DescriptorWeightChart,
-  CandidateRankingTable,
-  DescriptorConflictMatrix,
-  ScoringDiagnosticsPanel,
-  MethodComparisonTable,
 } from "../../shared"
 
 const clamp01 = value => Math.max(0, Math.min(1, Number(value) || 0))
@@ -773,21 +765,11 @@ export function EcoScreenTab({ onNavigate }) {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
+  const [scoringMode, setScoringMode] = useState("general")
   const [weightingMode, setWeightingMode] = useState("critic")
   const [selectedId, setSelectedId] = useState("MOF-B")
   const [generalRows, setGeneralRows] = useState([])
   const [generalStatus, setGeneralStatus] = useState("loading")
-  const defaultScoringSettings = useMemo(() => ({
-    descriptorPreset: "coreMof8",
-    descriptorKeys: null,
-    algorithm: "hybrid",
-    hybridAlpha: 0.65,
-    missingValueStrategy: "median",
-  }), [])
-  const [appliedScoring, setAppliedScoring] = useState(defaultScoringSettings)
-  const [draftScoring, setDraftScoring] = useState(defaultScoringSettings)
-  const [descriptorDrawerOpen, setDescriptorDrawerOpen] = useState(false)
-  const [selectedGeneralId, setSelectedGeneralId] = useState(null)
   const model = useMemo(() => buildCriticScoringModel(undefined, weightingMode), [weightingMode])
   useEffect(() => {
     let active = true
@@ -806,21 +788,6 @@ export function EcoScreenTab({ onNavigate }) {
       })
     return () => { active = false }
   }, [])
-  const generalScoringModel = useMemo(() => createScoringModel({
-    candidates: generalRows,
-    preset: "generalMofScreening",
-    descriptorPreset: appliedScoring.descriptorPreset,
-    descriptorKeys: appliedScoring.descriptorKeys,
-    algorithm: appliedScoring.algorithm,
-    hybridAlpha: appliedScoring.hybridAlpha,
-    missingValueStrategy: appliedScoring.missingValueStrategy,
-  }), [generalRows, appliedScoring])
-  const scoringChanged = JSON.stringify(appliedScoring) !== JSON.stringify(draftScoring)
-  const applyScoring = () => setAppliedScoring(draftScoring)
-  const resetScoring = () => {
-    setDraftScoring(defaultScoringSettings)
-    setAppliedScoring(defaultScoringSettings)
-  }
   const selectedCandidate = useMemo(() => (
     model.candidates.find(candidate => candidate.id === selectedId) || model.candidates[0]
   ), [model, selectedId])
@@ -842,11 +809,11 @@ export function EcoScreenTab({ onNavigate }) {
       <PageHeader
         title={text(lang, "候选评分 / EcoScreen", "EcoScreen / Candidate Scoring")}
         subtitle={lang === "zh"
-          ? "CRITIC 权重分析升级为可解释多指标决策支持面板。"
-          : "CRITIC weighting analysis upgraded into an interpretable multi-indicator decision-support panel."}
+          ? "默认展示通用 MOF 全局评分工作台，formate CRITIC 作为 case study 保留。"
+          : "Defaults to the general MOF global scoring workbench, with the formate CRITIC case retained as a case study."}
         meta={lang === "zh"
-          ? "多指标决策支持：CRITIC 诊断、稳健性分析与证据边界"
-          : "Multi-indicator decision support with CRITIC diagnostics, robustness analysis, and evidence boundaries"}
+          ? "全局描述符评分、CRITIC / Hybrid 权重、解释诊断与证据边界"
+          : "Global descriptor scoring, CRITIC / Hybrid weighting, explanation diagnostics, and evidence boundaries"}
         action={
           <>
             <BasisBadge tone="proxy">{text(lang, "演示 / illustrative", "demo / illustrative")}</BasisBadge>
@@ -867,67 +834,62 @@ export function EcoScreenTab({ onNavigate }) {
           : "Illustrative demo records — not validated catalytic evidence. 演示记录，不代表已验证催化性能。"}
       </Callout>
 
-      <DescriptorSetDrawer
-        open={descriptorDrawerOpen}
-        onClose={() => setDescriptorDrawerOpen(false)}
-        draft={draftScoring}
-        setDraft={setDraftScoring}
-        candidates={generalRows}
-        t={t}
-        lang={lang}
-        isMobile={isMobile}
-      />
-
-      <ResultLayer
-        number="00"
-        title={text(lang, "全局评分引擎 / Global Scoring Engine", "Global Scoring Engine / 全局评分引擎")}
-        subtitle={lang === "zh"
-          ? "Raw candidates → Descriptor normalization → Weighting algorithm → Scoring algorithm → Ranking → Explanation → UI presentation。"
-          : "Raw candidates → Descriptor normalization → Weighting algorithm → Scoring algorithm → Ranking → Explanation → UI presentation."}
-      >
-        <div style={{ display: "grid", gap: 12 }}>
-          {generalStatus === "loading" && <Callout tone="info">{lang === "zh" ? "正在加载通用 MOF 描述符数据…" : "Loading general MOF descriptor data..."}</Callout>}
-          {generalStatus === "error" && <Callout tone="warn">{lang === "zh" ? "通用评分数据加载失败；页面仍保留催化 CRITIC preview。" : "General scoring data failed to load; the catalysis CRITIC preview remains available."}</Callout>}
-          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.2fr) minmax(330px, 0.8fr)", gap: 12, alignItems: "start" }}>
-            <ScoringModelCard
-              model={generalScoringModel}
-              settings={draftScoring}
-              onManageDescriptors={() => setDescriptorDrawerOpen(true)}
-              onApply={applyScoring}
-              changed={scoringChanged}
-              t={t}
-              lang={lang}
-              isMobile={isMobile}
-            />
-            <WeightingMethodPanel
-              draft={draftScoring}
-              setDraft={setDraftScoring}
-              onApply={applyScoring}
-              onReset={resetScoring}
-              changed={scoringChanged}
-              t={t}
-              lang={lang}
-              isMobile={isMobile}
-            />
-          </div>
-          <DescriptorWeightChart model={generalScoringModel} t={t} lang={lang} />
-          <CandidateRankingTable
-            model={generalScoringModel}
-            selectedId={selectedGeneralId}
-            onSelect={setSelectedGeneralId}
-            t={t}
-            lang={lang}
-            isMobile={isMobile}
-          />
-          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) minmax(0, 1fr)", gap: 12, alignItems: "start" }}>
-            <DescriptorConflictMatrix model={generalScoringModel} t={t} lang={lang} />
-            <ScoringDiagnosticsPanel model={generalScoringModel} t={t} lang={lang} isMobile={isMobile} />
-          </div>
-          <MethodComparisonTable model={generalScoringModel} t={t} lang={lang} isMobile={isMobile} />
+      <Card t={t} style={{ display: "grid", gap: 10 }}>
+        <PanelTitle
+          t={t}
+          title={text(lang, "评分模式", "Scoring mode")}
+          subtitle={text(
+            lang,
+            "默认使用全局 MOF 描述符评分；formate CRITIC case 作为催化 case study 保留。",
+            "Default mode uses the global MOF descriptor scoring engine; the formate CRITIC case remains as a catalysis case study."
+          )}
+        />
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          {[
+            { id: "general", zh: "General MOF Scoring", en: "General MOF Scoring" },
+            { id: "formate", zh: "Formate CRITIC Case", en: "Formate CRITIC Case" },
+          ].map(item => {
+            const active = scoringMode === item.id
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setScoringMode(item.id)}
+                style={{
+                  ...toolbarBtn(t),
+                  background: active ? t.badgeInfoBg : t.panel,
+                  borderColor: active ? t.accent : t.border,
+                  color: active ? t.accentText : t.muted,
+                }}
+              >
+                {lang === "zh" ? item.zh : item.en}
+              </button>
+            )
+          })}
         </div>
-      </ResultLayer>
+      </Card>
 
-      <ResultLayer number="01" title={text(lang, "权重概览 / 评分方法摘要", "Weight Overview / Scoring Method Summary")} subtitle={lang === "zh" ? "权重模式、归一化、方向调整、缺失比例和稳定性徽标。" : "Weighting mode, normalization, direction adjustment, missing-data ratio, and stability badge."}>
+      {scoringMode === "general" && (
+        <GlobalScoringWorkbench
+          candidates={generalRows}
+          dataMode="demo"
+          lang={lang}
+          t={t}
+          isMobile={isMobile}
+          status={generalStatus}
+          number="01"
+          title={text(lang, "General MOF Scoring Workbench / 通用 MOF 评分工作台", "General MOF Scoring Workbench")}
+          subtitle={text(
+            lang,
+            "EcoScreen 复用全局评分工作台；descriptor registry、权重方法、候选解释和诊断统一来自 createScoringModel。",
+            "EcoScreen reuses the global scoring workbench; descriptor registry, weighting methods, candidate explanations, and diagnostics all come from createScoringModel."
+          )}
+        />
+      )}
+
+      {scoringMode === "formate" && (
+      <>
+      <ResultLayer number="01" title={text(lang, "Formate CRITIC Case / 权重概览", "Formate CRITIC Case / Weight Overview")} subtitle={lang === "zh" ? "保留旧 criticScoring.js：d_stab、d_barrier、d_select、D_raw、D_expected、confidence_Q 与 G hard screening。" : "Retains the legacy criticScoring.js case: d_stab, d_barrier, d_select, D_raw, D_expected, confidence_Q, and G hard screening."}>
         <div style={{ display: "grid", gap: 12 }}>
           <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.25fr) minmax(360px, 0.75fr)", gap: 12, alignItems: "stretch" }}>
             <Card t={t} style={{ display: "grid", gap: 10 }}>
@@ -1012,6 +974,8 @@ export function EcoScreenTab({ onNavigate }) {
           </button>
         </Card>
       </ResultLayer>
+      </>
+      )}
     </div>
   )
 }

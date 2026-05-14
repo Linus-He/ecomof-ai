@@ -402,6 +402,8 @@ export function UnifiedCandidateCard({
   fieldSources,
   dataStatus,
   onDetails,
+  descriptorTotal = 8,
+  extraAction,
 }) {
   const [expanded, setExpanded] = useState(false)
   const t = useT()
@@ -480,8 +482,8 @@ export function UnifiedCandidateCard({
           fontWeight: curatedCount === 0 ? 750 : 600,
         }}>
           {lang === "zh"
-            ? `8 个关键描述符中 ${curatedCount} 个已整理`
-            : `${curatedCount}/8 descriptors curated`}
+            ? `${descriptorTotal} 个关键描述符中 ${curatedCount} 个已整理`
+            : `${curatedCount}/${descriptorTotal} descriptors curated`}
         </div>
       )}
 
@@ -558,6 +560,7 @@ export function UnifiedCandidateCard({
             {lang === "zh" ? "详细分析" : "Full analysis"}
           </button>
         )}
+        {extraAction}
       </div>
     </article>
   )

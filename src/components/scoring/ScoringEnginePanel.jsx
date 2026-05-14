@@ -11,6 +11,8 @@ import {
 import { FONT_MONO } from "../../constants/theme"
 import { toolbarBtn } from "../../utils/styles"
 import { BasisBadge } from "../ui"
+import { WhyThisResultButton } from "./WhyThisResultButton"
+import { WhyThisWeightButton } from "./WhyThisWeightButton"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 const fmt = (value, digits = 3) => Number(value || 0).toFixed(digits)
@@ -68,6 +70,11 @@ function SegmentedButtons({ items, value, onChange, t, lang }) {
 
 export function ScoringModelCard({ model, settings, onManageDescriptors, onApply, changed, t, lang, isMobile }) {
   const presetLabel = model?.preset ? (lang === "zh" ? model.preset.labelZh : model.preset.label) : "—"
+  const descriptorPreset = model?.metadata?.descriptorPreset || settings?.descriptorPreset || "—"
+  const descriptorCoverage = model?.descriptorCoverage?.coverage
+  const descriptorCoverageLabel = Number.isFinite(Number(descriptorCoverage))
+    ? pct(descriptorCoverage)
+    : "—"
   return (
     <Card t={t} style={{ display: "grid", gap: 12 }}>
       <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
@@ -95,14 +102,16 @@ export function ScoringModelCard({ model, settings, onManageDescriptors, onApply
         </div>
       </div>
       {changed && <BasisBadge tone="warn">{text(lang, "Settings changed，点击 Apply scoring 后更新结果", "Settings changed. Apply scoring to update results.")}</BasisBadge>}
-      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(6, minmax(0, 1fr))", gap: 8 }}>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
         {[
           [text(lang, "Dataset", "Dataset"), lang === "zh" ? model.preset?.datasetLabelZh : model.preset?.datasetLabel],
           [text(lang, "Preset", "Preset"), presetLabel],
+          [text(lang, "Descriptor preset", "Descriptor preset"), descriptorPreset],
           [text(lang, "Algorithm", "Algorithm"), String(settings.algorithm || model.algorithm).toUpperCase()],
-          [text(lang, "Descriptors", "Descriptors"), `${model.metadata?.descriptorCount || 0}/${model.metadata?.requestedDescriptorCount || model.metadata?.descriptorCount || 0}`],
-          [text(lang, "Missing", "Missing"), settings.missingValueStrategy || model.missingValueStrategy],
-          [text(lang, "Candidates", "Candidates"), model.metadata?.candidateCount || 0],
+          [text(lang, "Missing strategy", "Missing strategy"), settings.missingValueStrategy || model.missingValueStrategy],
+          [text(lang, "Hybrid alpha", "Hybrid alpha"), Number(settings.hybridAlpha ?? model.hybridAlpha ?? 0).toFixed(2)],
+          [text(lang, "Candidate count", "Candidate count"), model.metadata?.candidateCount || 0],
+          [text(lang, "Descriptor coverage", "Descriptor coverage"), `${descriptorCoverageLabel} · ${model.metadata?.descriptorCount || 0}/${model.metadata?.requestedDescriptorCount || model.metadata?.descriptorCount || 0}`],
         ].map(([label, value]) => (
           <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 10, minWidth: 0 }}>
             <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>{label}</div>
@@ -114,7 +123,7 @@ export function ScoringModelCard({ model, settings, onManageDescriptors, onApply
   )
 }
 
-export function WeightingMethodPanel({ draft, setDraft, onApply, onReset, changed, t, lang, isMobile }) {
+export function WeightingMethodPanel({ draft, setDraft, onApply, onReset, onManageDescriptors, changed, t, lang, isMobile }) {
   const methods = [
     { id: "manual", label: "Manual", labelZh: "Manual 手动" },
     { id: "equal", label: "Equal", labelZh: "Equal 等权重" },
@@ -156,6 +165,11 @@ export function WeightingMethodPanel({ draft, setDraft, onApply, onReset, change
         </label>
       </div>
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
+        {onManageDescriptors && (
+          <button type="button" onClick={onManageDescriptors} style={{ ...toolbarBtn(t), color: t.accentText, borderColor: t.accent }}>
+            {text(lang, "管理描述符集", "Manage descriptor set")}
+          </button>
+        )}
         <button type="button" onClick={onReset} style={toolbarBtn(t)}>{text(lang, "Reset", "Reset")}</button>
         <button type="button" onClick={onApply} disabled={!changed} style={{ ...toolbarBtn(t), background: changed ? t.accent : t.surface, borderColor: changed ? t.accent : t.border, color: changed ? "#fff" : t.faint }}>
           {text(lang, "Apply scoring", "Apply scoring")}
@@ -270,9 +284,7 @@ export function DescriptorSetDrawer({ open, onClose, draft, setDraft, candidates
 }
 
 export function DescriptorWeightChart({ model, t, lang }) {
-  const [activeKey, setActiveKey] = useState(null)
   const explanations = model.explanations?.weights || []
-  const active = explanations.find(item => item.key === activeKey)
   return (
     <Card t={t} style={{ display: "grid", gap: 12 }}>
       <MiniTitle t={t} title={text(lang, "Descriptor weights", "Descriptor weights")} subtitle={text(lang, "显示权重、contrast intensity、conflict score 与缺失率。", "Shows weight, contrast intensity, conflict score, and missing rate.")} />
@@ -288,26 +300,11 @@ export function DescriptorWeightChart({ model, t, lang }) {
                 w {fmt(item.weight)} · contrast {fmt(item.contrastIntensity)} · conflict {fmt(item.conflictScore)} · missing {pct(item.missingRate)}
               </div>
             </div>
-            <button type="button" onClick={() => setActiveKey(activeKey === item.key ? null : item.key)} style={{ ...toolbarBtn(t), fontSize: 10.5, padding: "6px 8px" }}>
-              {text(lang, "Why this weight?", "Why this weight?")}
-            </button>
+            <WhyThisWeightButton model={model} descriptorKey={item.key} item={item} t={t} lang={lang} />
           </div>
         ))}
       </div>
-      {active && <WeightExplanationPopover item={active} t={t} lang={lang} />}
     </Card>
-  )
-}
-
-export function WeightExplanationPopover({ item, t, lang }) {
-  return (
-    <div style={{ background: t.badgeInfoBg || t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, color: t.muted, fontSize: 12, lineHeight: 1.6 }}>
-      <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900 }}>{lang === "zh" ? item.labelZh : item.label}</div>
-      <div>{text(lang, "权重", "Weight")}: <strong style={{ color: t.textStrong }}>{fmt(item.weight)}</strong></div>
-      <div>{text(lang, "Contrast intensity", "Contrast intensity")}: {fmt(item.contrastIntensity)} · {text(lang, "Conflict score", "Conflict score")}: {fmt(item.conflictScore)} · {text(lang, "Missing rate", "Missing rate")}: {pct(item.missingRate)}</div>
-      <div>{text(lang, "Evidence status", "Evidence status")}: {item.evidenceStatus}</div>
-      <div style={{ marginTop: 5 }}>{lang === "zh" ? item.interpretation : item.interpretation}</div>
-    </div>
   )
 }
 
@@ -319,10 +316,10 @@ export function CandidateRankingTable({ model, selectedId, onSelect, t, lang, is
     <Card t={t} style={{ display: "grid", gap: 10 }}>
       <MiniTitle t={t} title={text(lang, "Candidate ranking", "Candidate ranking")} subtitle={text(lang, "Rank / score / completeness / driver / warning / confidence.", "Rank / score / completeness / driver / warning / confidence.")} />
       <div style={{ overflowX: "auto" }}>
-        <table style={{ width: "100%", minWidth: isMobile ? 760 : 820, borderCollapse: "separate", borderSpacing: "0 7px" }}>
+        <table style={{ width: "100%", minWidth: isMobile ? 900 : 960, borderCollapse: "separate", borderSpacing: "0 7px" }}>
           <thead>
             <tr style={{ color: t.faint, fontSize: 10, textAlign: "left", textTransform: "uppercase" }}>
-              <th style={{ padding: "0 8px" }}>Rank</th><th>Candidate</th><th>Score</th><th>Completeness</th><th>Main driver</th><th>Evidence warning</th><th>Confidence</th>
+              <th style={{ padding: "0 8px" }}>Rank</th><th>Candidate</th><th>Score</th><th>Completeness</th><th>Main driver</th><th>Evidence warning</th><th>Confidence</th><th>Explain</th>
             </tr>
           </thead>
           <tbody>
@@ -336,7 +333,10 @@ export function CandidateRankingTable({ model, selectedId, onSelect, t, lang, is
                     <td style={{ background: t.surface, padding: 10 }}>{pct(row.descriptorCompleteness)}</td>
                     <td style={{ background: t.surface, padding: 10 }}>{lang === "zh" ? row.mainDriver?.labelZh : row.mainDriver?.label}</td>
                     <td style={{ background: t.surface, padding: 10, color: row.evidenceWarning ? t.warn : t.faint }}>{row.evidenceWarning || "—"}</td>
-                    <td style={{ background: t.surface, padding: 10, borderRadius: "0 7px 7px 0" }}>{pct(row.confidence)}</td>
+                    <td style={{ background: t.surface, padding: 10 }}>{pct(row.confidence)}</td>
+                    <td style={{ background: t.surface, padding: 10, borderRadius: "0 7px 7px 0" }}>
+                      <WhyThisResultButton model={model} candidateId={row.id} candidate={row} t={t} lang={lang} isMobile={isMobile} compact />
+                    </td>
                 </tr>
               )
             })}
@@ -407,10 +407,13 @@ export function DescriptorConflictMatrix({ model, t, lang }) {
 export function ScoringDiagnosticsPanel({ model, t, lang, isMobile }) {
   const diagnostics = model.diagnostics || {}
   const warnings = model.warnings || []
+  const comparisonRows = diagnostics.methodComparison?.rows || []
+  const maxShift = diagnostics.rankingStability?.maxShift ?? 0
+  const fallbackUsed = Boolean(model.weightingDiagnostics?.fallbackUsed || model.weightingDiagnostics?.critic?.fallbackUsed)
   return (
     <Card t={t} style={{ display: "grid", gap: 12 }}>
       <MiniTitle t={t} title={text(lang, "Scoring diagnostics", "Scoring diagnostics")} subtitle={text(lang, "缺失影响、排名稳定性、算法对比和 warning。", "Missing impact, ranking stability, method comparison, and warnings.")} />
-      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 8 }}>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(5, minmax(0, 1fr))", gap: 8 }}>
         <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 10 }}>
           <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{text(lang, "Missing data impact", "Missing data impact")}</div>
           <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 900, marginTop: 5 }}>{pct(diagnostics.missingDataImpact?.missingRate)}</div>
@@ -423,8 +426,22 @@ export function ScoringDiagnosticsPanel({ model, t, lang, isMobile }) {
           <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{text(lang, "Valid records", "Valid records")}</div>
           <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 900, marginTop: 5 }}>{model.metadata?.validRecordCount || 0}/{model.metadata?.candidateCount || 0}</div>
         </div>
+        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 10 }}>
+          <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{text(lang, "Fallback status", "Fallback status")}</div>
+          <div style={{ color: fallbackUsed ? t.warn : t.textStrong, fontSize: 18, fontWeight: 900, marginTop: 5 }}>{fallbackUsed ? "Used" : "None"}</div>
+        </div>
+        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 10 }}>
+          <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{text(lang, "Method comparison", "Method comparison")}</div>
+          <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 900, marginTop: 5 }}>{comparisonRows.length} · Δ {maxShift}</div>
+        </div>
       </div>
       {diagnostics.smallSeedNotice && <BasisBadge tone="warn">{diagnostics.smallSeedNotice}</BasisBadge>}
+      {comparisonRows.length > 0 && (
+        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 10, color: t.muted, fontSize: 11.5, lineHeight: 1.55 }}>
+          <strong style={{ color: t.textStrong }}>{text(lang, "Ranking stability preview", "Ranking stability preview")}: </strong>
+          {comparisonRows.slice(0, 3).map(row => `${row.name}: Manual #${row.ranks.manual || "—"} / Equal #${row.ranks.equal || "—"} / CRITIC #${row.ranks.critic || "—"} / Hybrid #${row.ranks.hybrid || "—"}`).join(" · ")}
+        </div>
+      )}
       {warnings.length > 0 && (
         <div style={{ display: "grid", gap: 6 }}>
           {warnings.map(warning => <div key={warning} style={{ color: t.warn, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 9, fontSize: 11.5, lineHeight: 1.45 }}>{warning}</div>)}
