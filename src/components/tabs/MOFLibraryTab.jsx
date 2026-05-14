@@ -10,20 +10,15 @@ import {
   buildMofMarkdownReport, buildMofCandidateMarkdownReport, buildMofDataGaps, toolbarBtn,
   BasisBadge, PageHeader, ResultLayer, Callout, safeVal, CopyLinkButton,
   FieldProvenanceButton, EvidenceLevelLegend,
-  buildCriticScoringModel,
+  createScoringModel, getDescriptorsForPreset,
 } from "../../shared"
 import { CandidateComparisonModal, CompareTray } from "../mof/CandidateComparisonModal"
 
-const KEY_FIELDS = [
-  { key: "surfaceArea",      label: { en: "Surface area", zh: "比表面积" }, unit: "m²/g" },
-  { key: "poreSizeA",        label: { en: "Pore size",    zh: "孔径"    }, unit: "Å" },
-  { key: "poreVolume",       label: { en: "Pore volume",  zh: "孔体积"  }, unit: "cm³/g" },
-  { key: "co2Uptake",        label: { en: "CO₂ uptake",   zh: "CO₂ 吸附量" }, unit: "mmol/g" },
-  { key: "bandGap",          label: { en: "Band gap",     zh: "带隙"    }, unit: "eV" },
-  { key: "waterStability",   label: { en: "Water stab.",  zh: "水稳定性" }, unit: "" },
-  { key: "thermalStability", label: { en: "Thermal stab.", zh: "热稳定性" }, unit: "" },
-  { key: "toxicityConcern",  label: { en: "Toxicity",     zh: "毒性关注" }, unit: "" },
-]
+const KEY_FIELDS = getDescriptorsForPreset("coreMof8").map(descriptor => ({
+  key: descriptor.key,
+  label: { en: descriptor.label, zh: descriptor.labelZh },
+  unit: descriptor.unit,
+}))
 
 const FILTER_CONTROL_HEIGHT = 38
 const FILTER_CONTROL_RADIUS = 6
@@ -785,7 +780,6 @@ export function MOFLibraryTab({ results, inputs }) {
   const [compareNotice, setCompareNotice] = useState("")
   const [comparisonOpen, setComparisonOpen] = useState(false)
   const [qualityChartsReady, setQualityChartsReady] = useState(false)
-  const criticModel = useMemo(() => buildCriticScoringModel(), [])
 
   useEffect(() => {
     let active = true
@@ -854,6 +848,14 @@ export function MOFLibraryTab({ results, inputs }) {
     return (loaded.length ? loaded : LITERATURE_DB).map(normalizeLegacyRecord)
   }, [dataMode, demoRows, realSeedRows, structureRows, labelRows])
 
+  const libraryScoringModel = useMemo(() => createScoringModel({
+    candidates: records,
+    preset: "coreMof8",
+    algorithm: "hybrid",
+    hybridAlpha: 0.65,
+    missingValueStrategy: "median",
+  }), [records])
+
   const metals = useMemo(() => Array.from(new Set(records.flatMap(item => item.metalNodes).filter(Boolean))).sort(), [records])
   const sources = useMemo(() => Array.from(new Set(records.map(item => item.source || "local seed"))).sort(), [records])
   const evidenceLevels = useMemo(() => Array.from(new Set(records.map(item => item.evidenceLevel || "Low"))).sort(), [records])
@@ -885,16 +887,16 @@ export function MOFLibraryTab({ results, inputs }) {
     summary: getOverviewSummary(item, lang),
   })), [filtered, lang])
 
-  const criticByName = useMemo(() => {
+  const scoringByName = useMemo(() => {
     const map = new Map()
-    criticModel.candidates.forEach(candidate => {
+    libraryScoringModel.rankings.forEach(candidate => {
       map.set(String(candidate.name || "").toLowerCase(), candidate)
-      if (candidate.libraryName) map.set(String(candidate.libraryName).toLowerCase(), candidate)
+      map.set(String(candidate.id || "").toLowerCase(), candidate)
     })
     return map
-  }, [criticModel])
+  }, [libraryScoringModel])
 
-  const getCriticSummary = (item) => criticByName.get(String(item?.name || "").toLowerCase()) || null
+  const getScoringSummary = (item) => scoringByName.get(String(item?.name || "").toLowerCase()) || scoringByName.get(String(item?.id || "").toLowerCase()) || null
 
   const openRecordFromOverview = (id) => {
     setSelectedInspectorId(id)
@@ -1190,7 +1192,7 @@ export function MOFLibraryTab({ results, inputs }) {
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", gap: 10, minWidth: 0 }}>
           {overviewRows.map(({ item, summary }) => (
             (() => {
-              const scoring = getCriticSummary(item)
+              const scoring = getScoringSummary(item)
               return (
             <article
               key={item.id}
@@ -1225,7 +1227,7 @@ export function MOFLibraryTab({ results, inputs }) {
               </div>
               <div style={{ display: "grid", gap: 6 }}>
                 {[
-                  [lang === "zh" ? "已整理描述符" : "Curated descriptors", `${summary.curatedCount}/8`, summary.curatedCount / 8],
+                  [lang === "zh" ? "已整理描述符" : "Curated descriptors", `${summary.curatedCount}/${KEY_FIELDS.length}`, summary.curatedCount / KEY_FIELDS.length],
                   [lang === "zh" ? "带条件字段" : "Condition fields", summary.fieldsWithCondition, Math.min(1, summary.fieldsWithCondition / 4)],
                   [lang === "zh" ? "有来源字段" : "Source fields", summary.fieldsWithSource, Math.min(1, summary.fieldsWithSource / 8)],
                 ].map(([label, value, pct]) => (
@@ -1248,9 +1250,9 @@ export function MOFLibraryTab({ results, inputs }) {
                 paddingTop: 9,
               }}>
                 <div style={{ minWidth: 0 }}>
-                  <div style={{ color: t.faint, fontSize: 9.5, textTransform: "uppercase", fontWeight: 850 }}>D_expected</div>
+                  <div style={{ color: t.faint, fontSize: 9.5, textTransform: "uppercase", fontWeight: 850 }}>{lang === "zh" ? "全局评分" : "Global score"}</div>
                   <div style={{ color: t.textStrong, fontSize: 11, fontFamily: FONT_MONO, fontWeight: 850 }}>
-                    {scoring ? Number(scoring.D_expected).toFixed(3) : (lang === "zh" ? "未映射" : "not mapped")}
+                    {scoring ? Number(scoring.score).toFixed(1) : (lang === "zh" ? "未映射" : "not mapped")}
                   </div>
                 </div>
                 <div style={{ minWidth: 0 }}>
@@ -1260,18 +1262,18 @@ export function MOFLibraryTab({ results, inputs }) {
                   </div>
                 </div>
                 <div style={{ minWidth: 0 }}>
-                  <div style={{ color: t.faint, fontSize: 9.5, textTransform: "uppercase", fontWeight: 850 }}>Q / confidence_Q</div>
+                  <div style={{ color: t.faint, fontSize: 9.5, textTransform: "uppercase", fontWeight: 850 }}>{lang === "zh" ? "完整度" : "Completeness"}</div>
                   <div style={{ color: t.textStrong, fontSize: 11, fontFamily: FONT_MONO, fontWeight: 850 }}>
-                    {scoring ? Number(scoring.confidence_Q_clipped).toFixed(2) : (lang === "zh" ? "未映射" : "not mapped")}
+                    {scoring ? `${Math.round(scoring.descriptorCompleteness * 100)}%` : (lang === "zh" ? "未映射" : "not mapped")}
                   </div>
                 </div>
-                <div style={{ gridColumn: "1 / -1", color: scoring?.status?.tone === "warn" ? t.warn : t.accentText, fontSize: 10.5, fontWeight: 850, lineHeight: 1.3 }}>
-                  {scoring ? (lang === "zh" ? scoring.status.zh : scoring.status.label) : (lang === "zh" ? "此记录暂无 CRITIC-MCDA 演示摘要" : "No CRITIC-MCDA demo summary for this record")}
+                <div style={{ gridColumn: "1 / -1", color: scoring?.evidenceWarning ? t.warn : t.accentText, fontSize: 10.5, fontWeight: 850, lineHeight: 1.3 }}>
+                  {scoring ? `${lang === "zh" ? "Rank" : "Rank"} ${scoring.rank} · ${lang === "zh" ? "主要贡献" : "main driver"}: ${lang === "zh" ? scoring.mainDriver?.labelZh : scoring.mainDriver?.label}` : (lang === "zh" ? "此记录暂无全局评分摘要" : "No global scoring summary for this record")}
                 </div>
                 <div style={{ gridColumn: "1 / -1", color: t.faint, fontSize: 10.5, lineHeight: 1.45 }}>
                   {scoring
-                    ? (lang === "zh" ? "该分数为演示占位，不代表该 MOF 的真实性能判断。" : "This score is an illustrative placeholder, not a validated statement about this MOF.")
-                    : (lang === "zh" ? "CRITIC 演示：未映射" : "CRITIC demo: not mapped")}
+                    ? (scoring.evidenceWarning || (lang === "zh" ? "全局评分用于候选优先级摘要，不代表真实性能结论。" : "Global scoring is a candidate-priority summary, not a validated performance conclusion."))
+                    : (lang === "zh" ? "全局评分：未映射" : "Global scoring: not mapped")}
                 </div>
                 <div style={{ gridColumn: "1 / -1", display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 7 }}>
                   <button
@@ -1343,7 +1345,7 @@ export function MOFLibraryTab({ results, inputs }) {
               {(() => {
                 const isSelected = selectedCompareIds.includes(item.id)
                 const limitReached = selectedCompareIds.length >= 3 && !isSelected
-                const scoring = getCriticSummary(item)
+                const scoring = getScoringSummary(item)
                 return (
               <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
                 <div>
@@ -1353,12 +1355,12 @@ export function MOFLibraryTab({ results, inputs }) {
                 <div style={{ display: "flex", gap: 7, flexWrap: "wrap", width: isMobile ? "100%" : "auto" }}>
                   <BasisBadge tone="info">{zhValue(item.evidenceLevel, lang)}</BasisBadge>
                   <BasisBadge tone="proxy">{zhDataStatus(item.dataStatus, lang)}</BasisBadge>
-                  <BasisBadge tone={scoring ? scoring.status.tone : "proxy"}>
-                    {scoring ? `D_expected ${Number(scoring.D_expected).toFixed(3)}` : (lang === "zh" ? "CRITIC 演示：未映射" : "CRITIC demo: not mapped")}
+                  <BasisBadge tone={scoring ? (scoring.evidenceWarning ? "warn" : "calc") : "proxy"}>
+                    {scoring ? `Score ${Number(scoring.score).toFixed(1)} · #${scoring.rank}` : (lang === "zh" ? "全局评分：未映射" : "Global score: not mapped")}
                   </BasisBadge>
                   {scoring && (
                     <BasisBadge tone="proxy">
-                      {`Q ${Number(scoring.confidence_Q_clipped).toFixed(2)}`}
+                      {`${lang === "zh" ? "完整度" : "Completeness"} ${Math.round(scoring.descriptorCompleteness * 100)}%`}
                     </BasisBadge>
                   )}
                   <button

@@ -10,6 +10,7 @@ import {
   CRITIC_INDICATORS,
   buildCriticScoringModel,
   getDataGapRecommendations,
+  DescriptorRegistryViewer,
 } from "../../shared"
 
 const fmt = (value, digits = 3) => Number(value || 0).toFixed(digits)
@@ -25,6 +26,8 @@ const robustnessLabel = (value, zh) => {
 const sectionIds = [
   ["platform-scope", "Platform scope", "平台定位"],
   ["candidate-framework", "Candidate scoring", "候选评分框架"],
+  ["global-scoring-engine", "Scoring engine", "全局评分引擎"],
+  ["descriptor-registry", "Descriptor registry", "描述符注册中心"],
   ["critic-methodology-decision-support", "CRITIC methodology", "CRITIC 方法论"],
   ["indicator-system", "Indicator system", "三维指标体系"],
   ["critic-weighting", "CRITIC weighting", "CRITIC 客观赋权"],
@@ -481,7 +484,40 @@ export function MethodsLimitationsTab({ onNavigate }) {
             </div>
           </Section>
 
-          <Section id="critic-methodology-decision-support" eyebrow="03" title={zh ? "CRITIC 方法论 / CRITIC Methodology" : "CRITIC Methodology / CRITIC 方法论"} t={t}>
+          <Section id="global-scoring-engine" eyebrow="03" title={zh ? "全局评分引擎 / Scoring Engine" : "Scoring Engine / 全局评分引擎"} t={t}>
+            <div style={{ display: "grid", gap: 12 }}>
+              <TextBlock t={t}>
+                {zh
+                  ? "全局评分架构统一为 Raw candidates → Descriptor normalization → Weighting algorithm → Scoring algorithm → Ranking → Explanation → UI presentation。CRITIC、Equal、Manual、Hybrid 等权重算法遵守同一接口，后续可以继续接入 Entropy、AHP、TOPSIS、VIKOR 或 LCA weighting。"
+                  : "The global scoring architecture follows Raw candidates → Descriptor normalization → Weighting algorithm → Scoring algorithm → Ranking → Explanation → UI presentation. CRITIC, Equal, Manual, and Hybrid weighting follow the same interface so Entropy, AHP, TOPSIS, VIKOR, or LCA weighting can be added later."}
+              </TextBlock>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
+                {(zh
+                  ? [
+                    ["Descriptor direction", "benefit / cost 方向由注册中心读取，不在页面内写死。"],
+                    ["Missing value strategy", "median、zeroPenalty、exclude 作为模型配置处理，warning 会进入 UI。"],
+                    ["Evidence integration", "字段级来源和证据等级通过 descriptor accessor 保持连接。"],
+                    ["Algorithm plugin", "computeWeighting 接口统一，权重最终归一化到 sum = 1。"],
+                  ]
+                  : [
+                    ["Descriptor direction", "benefit / cost direction is read from the registry, not hardcoded in pages."],
+                    ["Missing value strategy", "median, zeroPenalty, and exclude are model settings; warnings surface in the UI."],
+                    ["Evidence integration", "Field-level provenance and evidence levels stay connected through descriptor accessors."],
+                    ["Algorithm plugin", "The computeWeighting interface is shared and weights are normalized to sum = 1."],
+                  ]).map(([title, body]) => (
+                  <MethodCard key={title} title={title} t={t}>
+                    <TextBlock t={t}>{body}</TextBlock>
+                  </MethodCard>
+                ))}
+              </div>
+            </div>
+          </Section>
+
+          <Section id="descriptor-registry" eyebrow="04" title={zh ? "描述符注册中心 / Descriptor Registry" : "Descriptor Registry / 描述符注册中心"} t={t}>
+            <DescriptorRegistryViewer t={t} lang={lang} isMobile={isMobile} />
+          </Section>
+
+          <Section id="critic-methodology-decision-support" eyebrow="05" title={zh ? "CRITIC 方法论 / CRITIC Methodology" : "CRITIC Methodology / CRITIC 方法论"} t={t}>
             <div style={{ display: "grid", gap: 12 }}>
               <TextBlock t={t}>
                 {zh

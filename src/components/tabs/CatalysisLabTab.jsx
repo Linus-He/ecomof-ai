@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
-import { BasisBadge, Callout, CopyLinkButton, ResultLayer, useLang, useT, useViewport } from "../../shared"
+import { BasisBadge, Callout, CopyLinkButton, ResultLayer, buildCriticScoringModel, useLang, useT, useViewport } from "../../shared"
 import { CatalysisCurationLayer } from "../catalysis/CatalysisCurationLayer"
 import { CatalysisFilterBar } from "../catalysis/CatalysisFilterBar"
 import { CatalysisTaskCards } from "../catalysis/CatalysisTaskCards"
@@ -46,6 +46,7 @@ export function CatalysisLabTab({ onNavigate }) {
   const [selectionSource, setSelectionSource] = useState("none")
   const [notice, setNotice] = useState("")
   const [catalysisView, setCatalysisView] = useState("overview")
+  const formateCriticModel = useMemo(() => buildCriticScoringModel(), [])
 
   const localizedTasks = useMemo(() => (
     CATALYSIS_TASKS.map(task => enrichTaskForCharts(task, lang))
@@ -206,6 +207,53 @@ export function CatalysisLabTab({ onNavigate }) {
 
       {catalysisView === "overview" && (
         <>
+      <ResultLayer
+        number="00"
+        title={lang === "zh" ? "CRITIC-assisted catalysis ranking preview" : "CRITIC-assisted catalysis ranking preview"}
+        subtitle={lang === "zh"
+          ? "保留现有产甲酸路径 CRITIC 原型：d_stab / d_barrier / d_select、G 硬筛、D_raw、D_expected、confidence_Q 与数据缺口建议。"
+          : "Retains the existing formate-pathway CRITIC prototype: d_stab / d_barrier / d_select, G hard screening, D_raw, D_expected, confidence_Q, and data-gap recommendations."}
+      >
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 0.9fr) minmax(0, 1.1fr)", gap: 12 }}>
+          <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, display: "grid", gap: 8 }}>
+            <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900 }}>{lang === "zh" ? "当前 CRITIC 权重" : "Current CRITIC weights"}</div>
+            {formateCriticModel.indicatorDiagnostics.map(row => (
+              <div key={row.key} style={{ display: "grid", gridTemplateColumns: "110px minmax(0, 1fr) 54px", gap: 8, alignItems: "center", color: t.muted, fontSize: 11.5 }}>
+                <span style={{ color: t.textStrong, fontWeight: 850 }}>{lang === "zh" ? row.zhLabel : row.label}</span>
+                <span style={{ height: 7, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, overflow: "hidden" }}>
+                  <span style={{ display: "block", height: "100%", width: `${Math.round(row.criticWeight * 100)}%`, background: t.accent }} />
+                </span>
+                <span>{row.criticWeight.toFixed(3)}</span>
+              </div>
+            ))}
+          </div>
+          <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, overflowX: "auto" }}>
+            <table style={{ width: "100%", minWidth: 560, borderCollapse: "separate", borderSpacing: "0 6px" }}>
+              <thead>
+                <tr style={{ color: t.faint, fontSize: 10, textAlign: "left", textTransform: "uppercase" }}>
+                  <th>Rank</th><th>Candidate</th><th>D_raw</th><th>D_expected</th><th>confidence_Q</th><th>G</th>
+                </tr>
+              </thead>
+              <tbody>
+                {formateCriticModel.candidates.slice(0, 6).map(candidate => (
+                  <tr key={candidate.id} style={{ color: t.muted, fontSize: 11.5 }}>
+                    <td style={{ background: t.surface, padding: 8, borderRadius: "7px 0 0 7px", color: t.textStrong, fontWeight: 850 }}>{candidate.rank || "G=0"}</td>
+                    <td style={{ background: t.surface, padding: 8, color: t.textStrong }}>{candidate.name}</td>
+                    <td style={{ background: t.surface, padding: 8 }}>{Number(candidate.D_raw).toFixed(3)}</td>
+                    <td style={{ background: t.surface, padding: 8 }}>{Number(candidate.D_expected).toFixed(3)}</td>
+                    <td style={{ background: t.surface, padding: 8 }}>{Number(candidate.confidence_Q_clipped).toFixed(2)}</td>
+                    <td style={{ background: t.surface, padding: 8, borderRadius: "0 7px 7px 0" }}>{candidate.G}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 8 }}>
+              {lang === "zh" ? "数据缺口建议和 sensitivity ranks 仍由现有 criticScoring.js 原型生成。" : "Data-gap recommendations and sensitivity ranks still come from the existing criticScoring.js prototype."}
+            </div>
+          </div>
+        </div>
+      </ResultLayer>
+
       <ResultLayer
         number="01"
         title={lang === "zh" ? "总览坐标轴分析" : "Overview Axis Analysis"}

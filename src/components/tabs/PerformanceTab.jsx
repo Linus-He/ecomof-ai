@@ -3,6 +3,7 @@ import {
   useT, useLang, useViewport,
   gasLabel, getGasSystem, getMofCandidates, toolbarBtn,
   buildScoredCandidates, DEFAULT_SCORING_WEIGHTS, evidenceDistribution, scoreDistribution, sensitivityRows,
+  createScoringModel, DescriptorWeightChart, DescriptorConflictMatrix, ScoringDiagnosticsPanel,
   RankingBarChart, ScoreBreakdownRadar, WeightContributionChart, EvidenceDistributionChart, ScoreDistributionChart, SensitivityAnalysisChart,
   BasisBadge, ResultLayer, Callout, UnifiedCandidateCard, RealSeedCallout, DemoModeBanner, CopyLinkButton, DisclaimerLink,
 } from "../../shared"
@@ -124,6 +125,13 @@ export function PerformanceTab({
   const performanceCandidates = useMemo(() => {
     return buildScoredCandidates([...(currentCandidate ? [currentCandidate] : []), ...baseRows], "performance", DEFAULT_SCORING_WEIGHTS.performance)
   }, [currentCandidate, baseRows])
+  const performanceScoringModel = useMemo(() => createScoringModel({
+    candidates: [...(currentCandidate ? [currentCandidate] : []), ...baseRows],
+    preset: "coreMof8",
+    algorithm: "hybrid",
+    hybridAlpha: 0.65,
+    missingValueStrategy: "median",
+  }), [currentCandidate, baseRows])
 
   const activeCandidate = useMemo(() => performanceCandidates.find(item => item.id === selectedId) || performanceCandidates[0] || null, [performanceCandidates, selectedId])
   const chartData = useMemo(() => ({
@@ -277,6 +285,33 @@ export function PerformanceTab({
 
       {performanceView === "explanation" && (
         <>
+          <ResultLayer number="02" title={lang === "zh" ? "当前全局评分摘要" : "Current Global Scoring Summary"}>
+            <div style={{ display: "grid", gap: 12 }}>
+              <Callout tone="info">
+                {lang === "zh"
+                  ? "此处复用全局 scoring engine 的 coreMof8 描述符集，展示权重快照、候选解释和限制提示；Performance 页面不作为完整算法操作台。"
+                  : "This view reuses the global scoring engine with the coreMof8 descriptor set for a weight snapshot, candidate explanations, and limitations; Performance is not the full algorithm console."}
+              </Callout>
+              <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
+                {performanceScoringModel.rankings.slice(0, 3).map(row => (
+                  <div key={row.id} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+                    <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900 }}>{row.rank}. {row.name}</div>
+                    <div style={{ color: t.accentText, fontSize: 18, fontWeight: 920, marginTop: 5 }}>{row.score.toFixed(1)}</div>
+                    <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55, marginTop: 6 }}>
+                      {lang === "zh" ? "主要贡献" : "Main driver"}: {lang === "zh" ? row.mainDriver?.labelZh : row.mainDriver?.label}<br />
+                      {lang === "zh" ? "完整度" : "Completeness"}: {Math.round(row.descriptorCompleteness * 100)}%
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <DescriptorWeightChart model={performanceScoringModel} t={t} lang={lang} />
+              <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 12 }}>
+                <DescriptorConflictMatrix model={performanceScoringModel} t={t} lang={lang} />
+                <ScoringDiagnosticsPanel model={performanceScoringModel} t={t} lang={lang} isMobile={isMobile} />
+              </div>
+            </div>
+          </ResultLayer>
+
           <ResultLayer number="03" title={lang === "zh" ? "结果解释说明" : "Results Interpretation Notes"}>
             <Callout tone="info">
               {lang === "zh"

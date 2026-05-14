@@ -1,3 +1,5 @@
+import { CORE_MOF_DESCRIPTOR_KEYS } from "../scoring/descriptors/descriptorRegistry"
+
 const DATA_PROVIDER = import.meta.env.VITE_DATA_PROVIDER || "static"
 
 const DATA_PATHS = {
@@ -14,16 +16,7 @@ const DATA_PATHS = {
   gasSeparationRecords: "data/mof_gas_separation_records.json",
 }
 
-const QUALITY_FIELDS = [
-  "surfaceArea",
-  "poreSizeA",
-  "poreVolume",
-  "co2Uptake",
-  "bandGap",
-  "waterStability",
-  "thermalStability",
-  "toxicityConcern",
-]
+const QUALITY_FIELDS = CORE_MOF_DESCRIPTOR_KEYS
 
 export { DATA_PROVIDER }
 
