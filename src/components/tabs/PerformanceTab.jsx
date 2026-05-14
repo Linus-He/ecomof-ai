@@ -532,10 +532,10 @@ export function PerformanceTab({
             isMobile={isMobile}
             status={dataStatus}
             number="01"
-            title={lang === "zh" ? "Global Scoring Workbench / 全局评分工作台" : "Global Scoring Workbench"}
+            title={lang === "zh" ? "高级筛选工作台" : "Advanced Screening Workbench"}
             subtitle={lang === "zh"
-              ? "主流程接入 createScoringModel，默认 planned descriptors 不参与评分；设置变更后需点击 Apply scoring 才更新。"
-              : "Main workflow is powered by createScoringModel. Planned descriptors are excluded by default; settings update only after Apply scoring."}
+              ? "基于全局描述符注册表、CRITIC / Hybrid 权重和候选解释诊断进行早期筛选。"
+              : "Run early-stage screening with the descriptor registry, CRITIC / Hybrid weighting, and candidate-level explanations."}
           />
           <details style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
             <summary style={{ cursor: "pointer", color: t.textStrong, fontSize: 13, fontWeight: 900 }}>
