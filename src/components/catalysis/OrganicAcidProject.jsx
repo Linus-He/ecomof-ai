@@ -23,39 +23,49 @@ const palette = {
   faint: "#64748B",
   accent: "#1A6DB5",
   accentSoft: "#E8F2FC",
-  positive: "#15803D",
+  positive: "#147C43",
   positiveSoft: "#ECFDF3",
-  risk: "#B91C1C",
-  riskSoft: "#FEF2F2",
-  mixed: "#B45309",
+  mixed: "#A15C13",
   mixedSoft: "#FFF7ED",
+  risk: "#8F3B1B",
+  riskSoft: "#FFF1E8",
 }
 
 const pathwayRows = [
   {
     id: "glyceraldehyde",
     path: "Path 1",
-    title: "glyceraldehyde pathway",
-    equation: "glyceraldehyde -> formic acid or glycolic acid / acetic acid",
+    title: "Glyceraldehyde pathway / 甘油醛路径",
+    intermediate: "glyceraldehyde",
     status: "mixed pathway",
+    route: ["Glucose / Fructose", "glyceraldehyde", "formic acid"],
+    riskProducts: ["glycolic acid", "acetic acid"],
+    definition: "Contributes to formic acid, but can branch toward C2 byproducts.",
     color: palette.mixed,
     bg: palette.mixedSoft,
   },
   {
     id: "formaldehyde",
     path: "Path 2",
-    title: "formaldehyde pathway",
-    equation: "formaldehyde -> formic acid",
+    title: "Formaldehyde pathway / 甲醛路径",
+    intermediate: "formaldehyde",
     status: "positive pathway",
+    route: ["Glucose / Fructose", "formaldehyde", "formic acid / formate"],
+    riskProducts: [],
+    definition: "Most direct C1 route and the primary positive mechanistic path.",
     color: palette.positive,
     bg: palette.positiveSoft,
+    featured: true,
   },
   {
     id: "pyruvaldehyde",
     path: "Path 3",
-    title: "pyruvaldehyde pathway",
-    equation: "pyruvaldehyde -> lactic acid / pyruvic acid / acetic acid",
+    title: "Pyruvaldehyde pathway / 丙酮醛路径",
+    intermediate: "pyruvaldehyde",
     status: "risk pathway",
+    route: ["Glucose / Fructose", "pyruvaldehyde", "lactic acid / pyruvic acid / acetic acid"],
+    riskProducts: ["lactic acid", "pyruvic acid", "acetic acid"],
+    definition: "Main competitive branch; lactic and pyruvic acids indicate side-path accumulation.",
     color: palette.risk,
     bg: palette.riskSoft,
   },
@@ -76,6 +86,7 @@ const validationSteps = [
   "Glyceraldehyde feeding test",
   "Pyruvaldehyde feeding test",
   "Time-series product analysis",
+  "Carbon balance check",
   "NaH13CO3 isotope tracing",
   "DFT adsorption descriptor update",
 ]
@@ -86,10 +97,23 @@ function fmt(value, digits = 3) {
   return number.toFixed(digits)
 }
 
+function pct(value) {
+  const number = Number(value)
+  if (!Number.isFinite(number)) return "0%"
+  return `${Math.round(Math.max(0, Math.min(1, number)) * 100)}%`
+}
+
 function humanizePathway(value) {
   return String(value || "pending")
     .replace(/_/g, " ")
     .replace(/\bto\b/g, "->")
+}
+
+function recommendationForClass(candidateClass) {
+  if (candidateClass === "A") return "priority candidate"
+  if (candidateClass === "B") return "optimization candidate"
+  if (candidateClass === "C") return "mechanistic candidate"
+  return "not recommended"
 }
 
 function ProjectSection({ kicker, title, note, children }) {
@@ -109,7 +133,7 @@ function MetricCard({ label, value, note }) {
   return (
     <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, padding: 11, minWidth: 0 }}>
       <div style={{ color: palette.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>{label}</div>
-      <div style={{ color: palette.text, fontFamily: FONT_MONO, fontSize: 20, fontWeight: 950, lineHeight: 1, marginTop: 7 }}>{value}</div>
+      <div style={{ color: palette.text, fontFamily: FONT_MONO, fontSize: 20, fontWeight: 950, lineHeight: 1, marginTop: 7, overflowWrap: "anywhere" }}>{value}</div>
       {note ? <div style={{ color: palette.muted, fontSize: 11, lineHeight: 1.4, marginTop: 6 }}>{note}</div> : null}
     </div>
   )
@@ -186,118 +210,159 @@ function PrototypeGate({ lang, t, onUnlock }) {
 function ProjectHero({ topCandidate, rankedRows, isNarrow }) {
   return (
     <section style={{ background: palette.bg, border: `1px solid ${palette.borderStrong}`, borderRadius: 12, boxShadow: "0 14px 38px rgba(15, 23, 42, 0.08)", padding: 18 }}>
-      <div style={{ display: "grid", gap: 16, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.35fr) minmax(260px, 0.65fr)", alignItems: "start" }}>
+      <div style={{ display: "grid", gap: 16, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.3fr) minmax(260px, 0.7fr)", alignItems: "start" }}>
         <div>
-          <div style={{ color: palette.faint, fontSize: 11, fontWeight: 900, textTransform: "uppercase" }}>Prototype access gate</div>
+          <div style={{ color: palette.faint, fontSize: 11, fontWeight: 900, textTransform: "uppercase" }}>
+            Mechanism-guided MOF screening workbench
+          </div>
           <h1 style={{ color: palette.text, fontSize: isNarrow ? 27 : 32, lineHeight: 1.1, letterSpacing: 0, margin: "6px 0 0" }}>
             Organic Acid Project / 有机酸项目
           </h1>
-          <p style={{ color: palette.muted, fontSize: 14, lineHeight: 1.6, margin: "9px 0 0", maxWidth: 760 }}>
-            Mechanism-guided MOF screening for glucose–NaHCO3 conversion to formic acid
+          <p style={{ color: palette.muted, fontSize: 14, lineHeight: 1.6, margin: "9px 0 0", maxWidth: 820 }}>
+            Glucose–NaHCO3 conversion to formic acid / formate, guided by formaldehyde-positive routing and byproduct-pathway suppression.
           </p>
-          <div style={{ background: palette.accentSoft, borderLeft: `3px solid ${palette.accent}`, color: palette.muted, fontSize: 12.5, lineHeight: 1.58, marginTop: 13, padding: "10px 12px" }}>
-            Current dataset is demo / prototype data. Scores indicate a front-end screening hypothesis and do not replace reaction validation.
+          <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderLeft: `3px solid ${palette.accent}`, borderRadius: 8, marginTop: 13, padding: 12 }}>
+            <div style={{ color: palette.text, fontFamily: FONT_MONO, fontSize: 13.5, fontWeight: 900, lineHeight: 1.55, overflowWrap: "anywhere" }}>
+              Glucose + NaHCO3 + H2O + MOF → formic acid / formate
+            </div>
+            <div style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.55, marginTop: 7 }}>
+              Objective: maximize formic acid yield and carbon-based selectivity while suppressing lactic acid, acetic acid, glycolic acid, pyruvic acid, and solid byproducts.
+            </div>
           </div>
         </div>
         <div style={{ display: "grid", gap: 9 }}>
-          <MetricCard label="Demo records" value={rankedRows.length} note="public/data/organic_acid_project_demo.json" />
-          <MetricCard label="Top RGFA candidate" value={topCandidate?.mof || "-"} note={topCandidate ? `RGFA ${fmt(topCandidate.rgfaScore)} · Class ${topCandidate.computedClass}` : "Awaiting data"} />
+          <MetricCard label="Data status" value="demo / prototype" note="No collaborator-owned or unpublished experimental records are embedded." />
+          <MetricCard label="Demo candidates" value={rankedRows.length} note="Independent organic_acid_project_demo.json dataset" />
+          <MetricCard label="Current top candidate" value={topCandidate?.mof || "-"} note={topCandidate ? `RGFA ${fmt(topCandidate.rgfaScore)} · ${recommendationForClass(topCandidate.computedClass)}` : "Awaiting data"} />
         </div>
       </div>
     </section>
   )
 }
 
-function PrincipleSection({ isNarrow }) {
+function ReactionPathwayMap({ isNarrow }) {
   return (
     <ProjectSection
-      kicker="Principle"
-      title="Project Principle / 项目原理"
-      note="Evaluate whether a MOF can promote formic acid generation while suppressing lactic, acetic, glycolic, and pyruvic side routes."
+      kicker="Reaction pathway map"
+      title="Three-pathway Mechanism / 三路径机理"
+      note="This map defines the positive pathway, mixed pathway, and byproduct penalty terms used by the RGFA Score."
     >
-      <div style={{ display: "grid", gap: 13, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 0.95fr) minmax(0, 1.05fr)" }}>
-        <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, padding: 14 }}>
-          <div style={{ color: palette.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>Reaction target</div>
-          <div style={{ color: palette.text, fontFamily: FONT_MONO, fontSize: 14, fontWeight: 850, lineHeight: 1.6, marginTop: 9, overflowWrap: "anywhere" }}>
-            Glucose + NaHCO3 + H2O + MOF → Formic acid / formate + byproducts
+      <div style={{ display: "grid", gap: 12, gridTemplateColumns: isNarrow ? "1fr" : "170px minmax(0, 1fr) 190px", alignItems: "stretch" }}>
+        <div style={{ background: palette.surface, border: `1px solid ${palette.borderStrong}`, borderRadius: 10, display: "grid", placeItems: "center", minHeight: isNarrow ? 80 : 270, padding: 14, textAlign: "center" }}>
+          <div>
+            <div style={{ color: palette.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>Feedstock</div>
+            <div style={{ color: palette.text, fontSize: 16, fontWeight: 950, lineHeight: 1.25, marginTop: 7 }}>Glucose / Fructose</div>
           </div>
         </div>
-        <div style={{ color: palette.muted, fontSize: 13, lineHeight: 1.65 }}>
-          该模块评估 MOF 是否能够促进葡萄糖-NaHCO3 协同转化中的甲酸 / 甲酸盐生成，并降低乳酸、乙酸、乙醇酸、丙酮酸以及固体副产物路径的相对风险。评分仅作为候选排序假设，后续需要主反应、路径投料和同位素追踪共同验证。
-        </div>
-      </div>
-    </ProjectSection>
-  )
-}
 
-function MechanismSection({ isNarrow }) {
-  return (
-    <ProjectSection
-      kicker="Mechanism"
-      title="Three-pathway Mechanism / 三路径机理"
-      note="The project separates productive formic-acid routes from mixed and risk pathways before ranking candidates."
-    >
-      <div style={{ display: "grid", gap: 10, gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))" }}>
-        {pathwayRows.map((row) => (
-          <article key={row.id} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderTop: `3px solid ${row.color}`, borderRadius: 8, minHeight: 168, padding: 13 }}>
-            <div style={{ color: row.color, fontSize: 11, fontWeight: 950 }}>{row.path}</div>
-            <h3 style={{ color: palette.text, fontSize: 15, lineHeight: 1.25, margin: "6px 0 0" }}>{row.title}</h3>
-            <div style={{ background: row.bg, border: `1px solid ${palette.border}`, borderRadius: 7, color: palette.text, fontFamily: FONT_MONO, fontSize: 12, lineHeight: 1.55, marginTop: 11, padding: 10 }}>
-              {row.equation}
+        <div style={{ display: "grid", gap: 10 }}>
+          {pathwayRows.map((row) => (
+            <article
+              key={row.id}
+              style={{
+                background: row.featured ? palette.positiveSoft : palette.bg,
+                border: `1px solid ${row.featured ? row.color : palette.border}`,
+                borderLeft: `4px solid ${row.color}`,
+                borderRadius: 10,
+                boxShadow: row.featured ? "0 10px 26px rgba(20, 124, 67, 0.10)" : "none",
+                display: "grid",
+                gap: 10,
+                gridTemplateColumns: isNarrow ? "1fr" : "minmax(150px, 0.32fr) 26px minmax(160px, 0.34fr) 26px minmax(170px, 0.34fr)",
+                alignItems: "center",
+                padding: row.featured ? 14 : 12,
+              }}
+            >
+              <div>
+                <div style={{ color: row.color, fontSize: 10.5, fontWeight: 950 }}>{row.path} · {row.status}</div>
+                <h3 style={{ color: palette.text, fontSize: 14.5, lineHeight: 1.25, margin: "5px 0 0" }}>{row.title}</h3>
+                <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45, marginTop: 5 }}>{row.definition}</div>
+              </div>
+              {!isNarrow && <div style={{ color: row.color, fontSize: 18, fontWeight: 900, textAlign: "center" }}>→</div>}
+              <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, padding: 10 }}>
+                <div style={{ color: palette.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>Intermediate</div>
+                <div style={{ color: palette.text, fontFamily: FONT_MONO, fontSize: 13, fontWeight: 900, marginTop: 5 }}>{row.intermediate}</div>
+              </div>
+              {!isNarrow && <div style={{ color: row.color, fontSize: 18, fontWeight: 900, textAlign: "center" }}>→</div>}
+              <div style={{ display: "grid", gap: 7 }}>
+                <div style={{ background: palette.bg, border: `1px solid ${row.featured ? row.color : palette.border}`, borderRadius: 8, color: palette.text, fontFamily: FONT_MONO, fontSize: 12.5, fontWeight: 850, lineHeight: 1.4, padding: 9 }}>
+                  {row.route[2]}
+                </div>
+                {row.riskProducts.length > 0 && (
+                  <div style={{ background: row.bg, border: `1px solid ${palette.border}`, borderRadius: 8, color: palette.muted, fontSize: 11.5, lineHeight: 1.45, padding: 9 }}>
+                    Risk products: {row.riskProducts.join(" / ")}
+                  </div>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div style={{ background: palette.surface, border: `1px solid ${palette.borderStrong}`, borderRadius: 10, display: "grid", gap: 10, alignContent: "center", minHeight: isNarrow ? "auto" : 270, padding: 14 }}>
+          <div>
+            <div style={{ color: palette.positive, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>Target output</div>
+            <div style={{ color: palette.text, fontSize: 15, fontWeight: 950, lineHeight: 1.3, marginTop: 6 }}>formic acid / formate</div>
+          </div>
+          <div style={{ borderTop: `1px solid ${palette.border}`, paddingTop: 10 }}>
+            <div style={{ color: palette.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>Penalty outputs</div>
+            <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.55, marginTop: 6 }}>
+              lactic acid, acetic acid, glycolic acid, pyruvic acid, and solid byproducts
             </div>
-            <div style={{ color: row.color, fontSize: 12, fontWeight: 850, marginTop: 10 }}>{row.status}</div>
-          </article>
-        ))}
+          </div>
+        </div>
       </div>
     </ProjectSection>
   )
 }
 
 function AlgorithmSection({ topCandidate, isNarrow }) {
+  const cards = [
+    ["Gate", "Material entry check", "waterStabilityScore × accessibilityScore × activeSiteConfidence"],
+    ["StepScore", "Reaction-step ability", "A1/A2/A3/A4 reward terms minus B1 byproduct risk; A3 has the highest weight."],
+    ["SelectivityFactor", "Product-level objective", "Y_FA and S_FA,C divided by weighted lactic/acetic/glycolic/pyruvic/solid penalties."],
+  ]
+
   return (
     <ProjectSection
-      kicker="Scoring"
+      kicker="RGFA score"
       title="RGFA Score Algorithm / 算法评分"
-      note="RGFA combines a front-end gate, mechanistic step score, and product selectivity factor."
+      note="The score is a transparent prototype ranking function for reaction-guided candidate selection."
     >
-      <div style={{ display: "grid", gap: 13, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.05fr) minmax(260px, 0.75fr)" }}>
+      <div style={{ display: "grid", gap: 13, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.05fr) minmax(290px, 0.75fr)" }}>
         <div style={{ display: "grid", gap: 10 }}>
           <pre style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, color: palette.text, fontFamily: FONT_MONO, fontSize: 12, lineHeight: 1.65, margin: 0, overflowX: "auto", padding: 13 }}>
 {`RGFA Score = Gate × StepScore × SelectivityFactor
+
+Gate =
+waterStabilityScore × accessibilityScore × activeSiteConfidence
 
 StepScore =
 0.15A1 + 0.20A2 + 0.35A3 + 0.15A4 - 0.15B1
 
 SelectivityFactor =
-Y_FA × S_FA,C /
+(Y_FA × S_FA,C) /
 (1 + 1.0Y_lactic + 0.8Y_acetic + 0.5Y_glycolic
    + 0.4Y_pyruvic + 0.3Y_solid)`}
           </pre>
           <div style={{ color: palette.faint, fontSize: 11.5, lineHeight: 1.55 }}>
-            Gate uses water stability, accessibility, and active-site confidence in the prototype rule.
+            A3 carries the highest weight because it directly measures whether key intermediates are routed toward formic acid.
           </div>
         </div>
-        <div style={{ display: "grid", gap: 8 }}>
-          {[
-            ["A1", "glucose isomerization / activation ability"],
-            ["A2", "formic-acid precursor generation ability"],
-            ["A3", "intermediate-to-formic-acid conversion ability"],
-            ["A4", "formate release and stability ability"],
-            ["B1", "byproduct pathway risk"],
-          ].map(([key, value]) => (
-            <div key={key} style={{ borderBottom: `1px solid ${palette.border}`, display: "grid", gap: 9, gridTemplateColumns: "44px minmax(0, 1fr)", padding: "0 0 8px" }}>
-              <div style={{ color: palette.accent, fontFamily: FONT_MONO, fontSize: 13, fontWeight: 950 }}>{key}</div>
-              <div style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.45 }}>{value}</div>
-            </div>
+        <div style={{ display: "grid", gap: 9 }}>
+          {cards.map(([title, subtitle, body]) => (
+            <article key={title} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, padding: 11 }}>
+              <div style={{ color: palette.text, fontSize: 13, fontWeight: 950 }}>{title}</div>
+              <div style={{ color: palette.accent, fontSize: 11, fontWeight: 850, marginTop: 3 }}>{subtitle}</div>
+              <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45, marginTop: 6 }}>{body}</div>
+            </article>
           ))}
           {topCandidate ? (
-            <div style={{ background: palette.accentSoft, border: `1px solid ${palette.border}`, borderRadius: 8, marginTop: 4, padding: 11 }}>
+            <article style={{ background: palette.accentSoft, border: `1px solid ${palette.border}`, borderRadius: 8, padding: 11 }}>
               <div style={{ color: palette.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>Top candidate score trace</div>
               <div style={{ color: palette.text, fontSize: 13, fontWeight: 900, marginTop: 6 }}>{topCandidate.mof}</div>
               <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.55, marginTop: 5 }}>
                 Gate {fmt(topCandidate.gateScore)} · StepScore {fmt(topCandidate.stepScore)} · SelectivityFactor {fmt(topCandidate.selectivityFactor)}
               </div>
-            </div>
+            </article>
           ) : null}
         </div>
       </div>
@@ -308,9 +373,9 @@ Y_FA × S_FA,C /
 function DescriptorSection() {
   return (
     <ProjectSection
-      kicker="Descriptors"
+      kicker="Descriptor matrix"
       title="Descriptor Matrix / 描述符体系"
-      note="Descriptor groups are kept as a matrix so new fields can be attached to scoring and validation without changing page-level ranking logic."
+      note="The descriptor matrix connects MOF structure, active sites, pathway intermediates, and product-level labels."
     >
       <div style={{ border: `1px solid ${palette.border}`, borderRadius: 8, overflow: "hidden" }}>
         {descriptorGroups.map(([category, descriptors], index) => (
@@ -337,9 +402,9 @@ function DescriptorSection() {
 function DatasetSection({ rankedRows, status }) {
   return (
     <ProjectSection
-      kicker="Dataset"
+      kicker="Independent dataset"
       title="Independent Demo Dataset / 独立数据"
-      note="This project reads its own static demo dataset and does not reuse the general CatalysisLab task table."
+      note="This project reads a standalone prototype dataset and does not write into the general MOF Library data model."
     >
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
         <MetricCard label="Data file" value="JSON" note="public/data/organic_acid_project_demo.json" />
@@ -353,10 +418,10 @@ function DatasetSection({ rankedRows, status }) {
 function RankingTable({ rankedRows, selectedMof, onSelect }) {
   return (
     <div style={{ maxWidth: "100%", minWidth: 0, overflowX: "auto" }}>
-      <table style={{ borderCollapse: "collapse", minWidth: 760, width: "100%" }}>
+      <table style={{ borderCollapse: "collapse", minWidth: 780, width: "100%" }}>
         <thead>
           <tr>
-            {["Rank", "MOF", "RGFA Score", "Class", "Dominant pathway", "Main risk pathway"].map((head) => (
+            {["Rank", "MOF", "RGFA Score", "Class", "Dominant pathway", "Main risk", "Evidence"].map((head) => (
               <th key={head} style={{ borderBottom: `1px solid ${palette.borderStrong}`, color: palette.faint, fontSize: 11, padding: "8px 10px", textAlign: "left" }}>{head}</th>
             ))}
           </tr>
@@ -367,11 +432,12 @@ function RankingTable({ rankedRows, selectedMof, onSelect }) {
             return (
               <tr key={row.mof} onClick={() => onSelect(row.mof)} style={{ background: selected ? palette.accentSoft : "transparent", cursor: "pointer" }}>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.accent, fontFamily: FONT_MONO, fontSize: 12, fontWeight: 900, padding: "10px" }}>#{index + 1}</td>
-                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 12.5, fontWeight: 900, padding: "10px" }}>{row.mof}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 12.5, fontWeight: 900, padding: "10px", whiteSpace: "nowrap" }}>{row.mof}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontFamily: FONT_MONO, fontSize: 12.5, padding: "10px" }}>{fmt(row.rgfaScore)}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 12.5, fontWeight: 900, padding: "10px" }}>{row.computedClass}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "10px" }}>{humanizePathway(row.dominantPathway)}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "10px" }}>{humanizePathway(row.riskPathway)}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "10px" }}>{row.evidenceLevel || "demo"}</td>
               </tr>
             )
           })}
@@ -381,38 +447,68 @@ function RankingTable({ rankedRows, selectedMof, onSelect }) {
   )
 }
 
-function CandidateCard({ row, rank }) {
+function ScoreBar({ label, value, tone = palette.accent }) {
   return (
-    <article style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 9, padding: 13 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "start" }}>
-        <div>
-          <div style={{ color: palette.accent, fontFamily: FONT_MONO, fontSize: 11, fontWeight: 950 }}>#{rank}</div>
-          <h3 style={{ color: palette.text, fontSize: 15, lineHeight: 1.25, margin: "4px 0 0" }}>{row.mof}</h3>
-        </div>
-        <div style={{ textAlign: "right" }}>
-          <div style={{ color: palette.text, fontFamily: FONT_MONO, fontSize: 16, fontWeight: 950 }}>{fmt(row.rgfaScore)}</div>
-          <div style={{ color: palette.faint, fontSize: 11 }}>Class {row.computedClass}</div>
-        </div>
+    <div style={{ display: "grid", gap: 5 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 10 }}>
+        <span style={{ color: palette.muted, fontSize: 11.5, fontWeight: 850 }}>{label}</span>
+        <span style={{ color: palette.text, fontFamily: FONT_MONO, fontSize: 11.5, fontWeight: 900 }}>{fmt(value, 2)}</span>
       </div>
-      <dl style={{ display: "grid", gap: 7, margin: "11px 0 0" }}>
-        {[
-          ["Dominant pathway", humanizePathway(row.dominantPathway)],
-          ["Main risk pathway", humanizePathway(row.riskPathway)],
-          ["Evidence level", row.evidenceLevel || "demo"],
-        ].map(([label, value]) => (
-          <div key={label} style={{ borderTop: `1px solid ${palette.border}`, display: "grid", gap: 8, gridTemplateColumns: "120px minmax(0, 1fr)", paddingTop: 7 }}>
-            <dt style={{ color: palette.faint, fontSize: 11 }}>{label}</dt>
-            <dd style={{ color: palette.text, fontSize: 12, lineHeight: 1.45, margin: 0 }}>{value}</dd>
-          </div>
-        ))}
-      </dl>
-      <div style={{ borderTop: `1px solid ${palette.border}`, marginTop: 10, paddingTop: 9 }}>
-        <div style={{ color: palette.text, fontSize: 12, fontWeight: 900 }}>Why this candidate?</div>
-        <ul style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.55, margin: "6px 0 0", paddingLeft: 17 }}>
-          {row.explanations.slice(0, 4).map((reason) => <li key={reason}>{reason}</li>)}
+      <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 999, height: 7, overflow: "hidden" }}>
+        <div style={{ background: tone, height: "100%", width: pct(value) }} />
+      </div>
+    </div>
+  )
+}
+
+function CandidateDetailPanel({ candidate }) {
+  if (!candidate) return null
+  const productRows = [
+    ["Y_FA", candidate.Y_FA, palette.positive],
+    ["S_FA,C", candidate.S_FA_C, palette.positive],
+    ["Y_lactic", candidate.Y_lactic, palette.risk],
+    ["Y_acetic", candidate.Y_acetic, palette.risk],
+    ["Y_glycolic", candidate.Y_glycolic, palette.mixed],
+    ["Y_pyruvic", candidate.Y_pyruvic, palette.risk],
+    ["Y_solid", candidate.Y_solid, palette.muted],
+  ]
+
+  return (
+    <aside style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, padding: 13 }}>
+      <div style={{ color: palette.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>Candidate Detail Panel</div>
+      <h3 style={{ color: palette.text, fontSize: 17, lineHeight: 1.25, margin: "6px 0 0" }}>{candidate.mof}</h3>
+      <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.55, marginTop: 6 }}>
+        RGFA {fmt(candidate.rgfaScore)} · Class {candidate.computedClass} · {recommendationForClass(candidate.computedClass)}
+      </div>
+
+      <div style={{ display: "grid", gap: 8, marginTop: 12 }}>
+        <div style={{ color: palette.text, fontSize: 12, fontWeight: 950 }}>Step scores</div>
+        <ScoreBar label="A1 glucose activation" value={candidate.A1} />
+        <ScoreBar label="A2 precursor generation" value={candidate.A2} />
+        <ScoreBar label="A3 intermediate-to-FA" value={candidate.A3} tone={palette.positive} />
+        <ScoreBar label="A4 formate release" value={candidate.A4} />
+        <ScoreBar label="B1 byproduct risk" value={candidate.B1} tone={palette.risk} />
+      </div>
+
+      <div style={{ display: "grid", gap: 8, marginTop: 14 }}>
+        <div style={{ color: palette.text, fontSize: 12, fontWeight: 950 }}>Product profile</div>
+        {productRows.map(([label, value, color]) => <ScoreBar key={label} label={label} value={value} tone={color} />)}
+      </div>
+
+      <div style={{ display: "grid", gap: 8, marginTop: 14 }}>
+        <div style={{ color: palette.text, fontSize: 12, fontWeight: 950 }}>Gate factors</div>
+        <ScoreBar label="Water stability" value={candidate.waterStabilityScore} />
+        <ScoreBar label="Accessibility" value={candidate.accessibilityScore} />
+        <ScoreBar label="Active-site confidence" value={candidate.activeSiteConfidence} />
+      </div>
+
+      <div style={{ borderTop: `1px solid ${palette.border}`, marginTop: 13, paddingTop: 11 }}>
+        <div style={{ color: palette.text, fontSize: 12, fontWeight: 950 }}>Why this candidate?</div>
+        <ul style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.55, margin: "7px 0 0", paddingLeft: 17 }}>
+          {candidate.explanations.map((reason) => <li key={reason}>{reason}</li>)}
         </ul>
       </div>
-    </article>
+    </aside>
   )
 }
 
@@ -420,27 +516,13 @@ function CandidateRankingSection({ rankedRows, selectedMof, setSelectedMof, isNa
   const selected = rankedRows.find((row) => row.mof === selectedMof) || rankedRows[0]
   return (
     <ProjectSection
-      kicker="Ranking"
+      kicker="Candidate ranking"
       title="Candidate Ranking / 候选排序"
-      note="Candidates are automatically ranked by RGFA Score using the prototype formula and demo descriptor fields."
+      note="Rows are sorted automatically by RGFA Score. Select a candidate to inspect pathway assumptions, gate factors, product labels, and generated explanation."
     >
-      <div style={{ display: "grid", gap: 13, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.25fr) minmax(270px, 0.75fr)" }}>
+      <div style={{ display: "grid", gap: 13, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.25fr) minmax(300px, 0.75fr)" }}>
         <RankingTable rankedRows={rankedRows} selectedMof={selected?.mof} onSelect={setSelectedMof} />
-        {selected ? (
-          <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, padding: 13 }}>
-            <div style={{ color: palette.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>Selected candidate explanation</div>
-            <h3 style={{ color: palette.text, fontSize: 16, lineHeight: 1.25, margin: "6px 0 0" }}>{selected.mof}</h3>
-            <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.55, marginTop: 6 }}>
-              RGFA {fmt(selected.rgfaScore)} · Class {selected.computedClass} · Gate {fmt(selected.gateScore)}
-            </div>
-            <ul style={{ color: palette.muted, fontSize: 12, lineHeight: 1.6, margin: "10px 0 0", paddingLeft: 18 }}>
-              {selected.explanations.map((reason) => <li key={reason}>{reason}</li>)}
-            </ul>
-          </div>
-        ) : null}
-      </div>
-      <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))", marginTop: 13 }}>
-        {rankedRows.map((row, index) => <CandidateCard key={row.mof} row={row} rank={index + 1} />)}
+        <CandidateDetailPanel candidate={selected} />
       </div>
     </ProjectSection>
   )
@@ -449,9 +531,9 @@ function CandidateRankingSection({ rankedRows, selectedMof, setSelectedMof, isNa
 function ValidationSection() {
   return (
     <ProjectSection
-      kicker="Validation"
+      kicker="Validation roadmap"
       title="Validation Roadmap / 后续验证"
-      note="The roadmap turns ranking hypotheses into testable reaction and descriptor updates."
+      note="The roadmap converts ranked hypotheses into main-reaction tests, pathway-feeding tests, carbon accounting, isotope tracing, and DFT descriptor updates."
     >
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))" }}>
         {validationSteps.map((step, index) => (
@@ -541,8 +623,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
     <div style={{ background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 12, padding: isNarrow ? 12 : 16 }}>
       <div style={{ display: "grid", gap: 14 }}>
         <ProjectHero topCandidate={topCandidate} rankedRows={rankedRows} isNarrow={isNarrow} />
-        <PrincipleSection isNarrow={isNarrow} />
-        <MechanismSection isNarrow={isNarrow} />
+        <ReactionPathwayMap isNarrow={isNarrow} />
         <AlgorithmSection topCandidate={topCandidate} isNarrow={isNarrow} />
         <DescriptorSection />
         <DatasetSection rankedRows={rankedRows} status={status} />
