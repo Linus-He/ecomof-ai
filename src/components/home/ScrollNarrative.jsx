@@ -431,7 +431,7 @@ function CandidateRankingPreview({ lang }) {
   )
 }
 
-function DescriptorDecisionVisual({ activeStep, steps, reducedMotion, isMobile, lang }) {
+function DescriptorDecisionVisual({ activeStep, steps, reducedMotion, isMobile, lang, inline = false }) {
   const active = steps[activeStep]
   const compactNetwork = activeStep === 2 && !isMobile
   const showNetwork = activeStep !== 3
@@ -441,9 +441,9 @@ function DescriptorDecisionVisual({ activeStep, steps, reducedMotion, isMobile, 
       border: `1px solid ${visualPalette.border}`,
       borderRadius: 24,
       boxShadow: "0 24px 70px rgba(34, 91, 145, 0.12)",
-      minHeight: isMobile ? 0 : "100%",
-      height: isMobile ? "auto" : "100%",
-      maxHeight: isMobile ? "none" : "calc(100vh - 140px)",
+      minHeight: isMobile ? 0 : inline ? 360 : "100%",
+      height: isMobile || inline ? "auto" : "100%",
+      maxHeight: isMobile || inline ? "none" : "calc(100vh - 140px)",
       padding: isMobile ? 16 : 22,
       display: "grid",
       gridTemplateRows: "auto minmax(0, 1fr) auto",
@@ -579,40 +579,53 @@ export function ScrollNarrative({ t, isMobile, reducedMotion, lang = "en" }) {
   }
 
   return (
-    <section ref={sectionRef} className="scroll-narrative-section" style={{ paddingBottom: 6 }}>
-      <div className="scroll-narrative-grid" style={{
+    <section ref={sectionRef} className="scroll-narrative-section" style={{ paddingBottom: 0 }}>
+      <div className="scroll-narrative-steps" style={{
         display: "grid",
-        gridTemplateColumns: "minmax(280px, 0.86fr) minmax(400px, 1.14fr)",
-        gap: 30,
-        alignItems: "start",
+        gap: 24,
+        paddingTop: 4,
       }}>
-        <div className="scroll-narrative-steps" style={{ display: "grid", gap: 18, paddingTop: 4 }}>
-          {steps.map((step, index) => (
-            <StepTextCard
+        {steps.map((step, index) => {
+          const isActive = activeStep === index
+          return (
+            <div
               key={step.title}
-              cardRef={(node) => {
-                stepRefs.current[index] = node
+              className="scroll-narrative-step-row"
+              data-active={isActive ? "true" : "false"}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "minmax(280px, 0.86fr) minmax(400px, 1.14fr)",
+                gap: 30,
+                alignItems: "center",
+                minWidth: 0,
               }}
-              step={step}
-              index={index}
-              active={activeStep}
-              setActive={setActiveStep}
-              t={t}
-              isMobile={isMobile}
-              lang={lang}
-            />
-          ))}
-        </div>
-        <div className="scroll-narrative-visual-wrap decision-sticky-wrap" style={{
-          position: "sticky",
-          top: 96,
-          height: "min(620px, calc(100vh - 140px))",
-          maxHeight: "calc(100vh - 140px)",
-          minHeight: 0,
-          alignSelf: "start",
-        }}>
-          <DescriptorDecisionVisual activeStep={activeStep} steps={steps} reducedMotion={reducedMotion} isMobile={isMobile} lang={lang} />
-        </div>
+            >
+              <StepTextCard
+                cardRef={(node) => {
+                  stepRefs.current[index] = node
+                }}
+                step={step}
+                index={index}
+                active={activeStep}
+                setActive={setActiveStep}
+                t={t}
+                isMobile={isMobile}
+                lang={lang}
+              />
+              <div
+                className="scroll-narrative-inline-visual"
+                style={{
+                  minWidth: 0,
+                  opacity: isActive ? 1 : 0.66,
+                  transform: isActive ? "translateY(0)" : "translateY(6px)",
+                  transition: reducedMotion ? "none" : "opacity 260ms ease, transform 280ms cubic-bezier(0.22, 1, 0.36, 1)",
+                }}
+              >
+                <DescriptorDecisionVisual activeStep={index} steps={steps} reducedMotion={reducedMotion} isMobile={isMobile} lang={lang} inline />
+              </div>
+            </div>
+          )
+        })}
       </div>
     </section>
   )
