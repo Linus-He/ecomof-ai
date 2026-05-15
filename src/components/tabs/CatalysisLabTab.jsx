@@ -6,6 +6,7 @@ import { CatalysisTaskCards } from "../catalysis/CatalysisTaskCards"
 import { CatalysisTaskTable } from "../catalysis/CatalysisTaskTable"
 import { ComparabilityScatterQuadrant } from "../catalysis/ComparabilityScatterQuadrant"
 import { OrganicAcidCaseStudy } from "../catalysis/OrganicAcidCaseStudy"
+import { OrganicAcidProject } from "../catalysis/OrganicAcidProject"
 import { ProductMetricScatter } from "../catalysis/ProductMetricScatter"
 import { ReactionPathwayScatter } from "../catalysis/ReactionPathwayScatter"
 import { SelectionInspector } from "../catalysis/SelectionInspector"
@@ -31,6 +32,51 @@ const DEFAULT_FILTERS = {
   feedstock: "all",
   productFamily: "all",
   dataStatus: "all",
+}
+
+function OrganicAcidProjectEntry({ lang, t, isNarrow, onOpen }) {
+  return (
+    <section style={{
+      background: t.panel,
+      border: `1px solid ${t.borderStrong || t.border}`,
+      borderLeft: `3px solid ${t.accent}`,
+      borderRadius: 10,
+      boxShadow: t.shadowSm,
+      display: "grid",
+      gap: isNarrow ? 12 : 16,
+      gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) auto",
+      padding: 15,
+      alignItems: "center",
+    }}>
+      <div style={{ minWidth: 0 }}>
+        <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>
+          Prototype access gate
+        </div>
+        <h2 style={{ color: t.textStrong, fontSize: 19, fontWeight: 930, lineHeight: 1.2, margin: "5px 0 0" }}>
+          Organic Acid Project / 有机酸项目
+        </h2>
+        <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.55, margin: "7px 0 0", maxWidth: 860 }}>
+          Mechanism-guided MOF screening for glucose–NaHCO3 conversion to formic acid
+        </p>
+      </div>
+      <button
+        type="button"
+        onClick={onOpen}
+        style={{
+          ...toolbarBtn(t),
+          background: t.accent,
+          borderColor: t.accent,
+          color: "#fff",
+          justifyContent: "center",
+          minHeight: 38,
+          padding: "9px 13px",
+          width: isNarrow ? "100%" : "auto",
+        }}
+      >
+        {lang === "zh" ? "进入项目" : "Open project"}
+      </button>
+    </section>
+  )
 }
 
 export function CatalysisLabTab({ onNavigate }) {
@@ -62,6 +108,7 @@ export function CatalysisLabTab({ onNavigate }) {
   const stats = useMemo(() => buildStats(localizedTasks), [localizedTasks])
   const catalysisTabs = useMemo(() => [
     { id: "overview", label: lang === "zh" ? "总览" : "Overview" },
+    { id: "organic-acid", label: lang === "zh" ? "有机酸项目" : "Organic Acid Project" },
     { id: "map", label: lang === "zh" ? "坐标轴图" : "Coordinate map" },
     { id: "comparability", label: lang === "zh" ? "可比性评估" : "Comparability" },
     { id: "curation", label: lang === "zh" ? "数据整理" : "Data curation" },
@@ -187,6 +234,15 @@ export function CatalysisLabTab({ onNavigate }) {
         onSecondary={() => onNavigate ? onNavigate("ecoscreen") : window.location.assign("#ecoscreen")}
       />
 
+      {catalysisView !== "organic-acid" && (
+        <OrganicAcidProjectEntry
+          lang={lang}
+          t={t}
+          isNarrow={isNarrow}
+          onOpen={() => setCatalysisView("organic-acid")}
+        />
+      )}
+
       <SecondaryTabs
         items={catalysisTabs}
         active={catalysisView}
@@ -194,6 +250,8 @@ export function CatalysisLabTab({ onNavigate }) {
         ariaLabel={lang === "zh" ? "催化实验室内容导航" : "Catalysis Lab content navigation"}
       />
 
+      {catalysisView !== "organic-acid" && (
+        <>
       <ScopeNoticeBar label={lang === "zh" ? "范围" : "Scope"} tone="scope">
         {lang === "zh"
           ? "覆盖多反应催化任务；有机酸路径目前作为案例，不代表唯一研究方向。"
@@ -205,11 +263,17 @@ export function CatalysisLabTab({ onNavigate }) {
           ? "该模块用于数据组织和可比性判断，不替代实验验证。"
           : "This module supports data organization and comparability judgment; it does not replace experimental validation."}
       </ScopeNoticeBar>
+        </>
+      )}
 
-      {catalysisView !== "curation" && (
+      {["overview", "map", "comparability"].includes(catalysisView) && (
         <CatalysisFilterBar filters={filters} onChange={updateFilter} onClear={clearFilters} lang={lang} t={t} />
       )}
       {notice && <Callout tone="warn">{notice}</Callout>}
+
+      {catalysisView === "organic-acid" && (
+        <OrganicAcidProject lang={lang} t={t} />
+      )}
 
       {catalysisView === "overview" && (
         <>
