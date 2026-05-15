@@ -1,15 +1,17 @@
 const DEFAULT_LOW = 0.05
 const DEFAULT_GATE = 0.5
 
-function clamp01(value, fallback = 0) {
+export function safeNumber(value, fallback = 0) {
   const number = Number(value)
-  if (!Number.isFinite(number)) return fallback
-  return Math.max(0, Math.min(1, number))
+  return Number.isFinite(number) ? number : fallback
+}
+
+function clamp01(value, fallback = 0) {
+  return Math.max(0, Math.min(1, safeNumber(value, fallback)))
 }
 
 function round(value, digits = 3) {
-  const number = Number(value)
-  if (!Number.isFinite(number)) return 0
+  const number = safeNumber(value, 0)
   const factor = 10 ** digits
   return Math.round(number * factor) / factor
 }
@@ -30,13 +32,14 @@ export function calculateStepScore(item = {}) {
     0.15 * clamp01(item.A4, DEFAULT_LOW) -
     0.15 * clamp01(item.B1, DEFAULT_LOW)
   )
+
   return round(Math.max(0, score))
 }
 
 export function calculateSelectivityFactor(item = {}) {
   const yFA = clamp01(item.Y_FA, DEFAULT_LOW)
   const sFAC = clamp01(item.S_FA_C, DEFAULT_LOW)
-  const denominator = (
+  const penalty = (
     1 +
     1.0 * clamp01(item.Y_lactic, 0) +
     0.8 * clamp01(item.Y_acetic, 0) +
@@ -45,7 +48,7 @@ export function calculateSelectivityFactor(item = {}) {
     0.3 * clamp01(item.Y_solid, 0)
   )
 
-  if (!Number.isFinite(denominator) || denominator <= 0) return round(DEFAULT_LOW * DEFAULT_LOW)
+  const denominator = Math.max(DEFAULT_LOW, safeNumber(penalty, 1))
   return round((yFA * sFAC) / denominator)
 }
 
@@ -58,15 +61,16 @@ export function calculateRGFAScore(item = {}) {
 }
 
 export function classifyCandidate(score, item = {}) {
-  const value = Number(score)
+  const value = safeNumber(score, 0)
   const b1 = clamp01(item.B1, DEFAULT_LOW)
   const a3 = clamp01(item.A3, DEFAULT_LOW)
   const gate = calculateGateScore(item)
+  const formaldehydeRoute = clamp01(item.pathwayScores?.formaldehyde_to_formic, DEFAULT_LOW)
 
-  if (!Number.isFinite(value) || value < 0.02 || b1 >= 0.6 || gate < 0.18) return "D"
-  if (value >= 0.12 && b1 <= 0.3 && gate >= 0.45) return "A"
-  if (value >= 0.06 && b1 <= 0.45) return "B"
-  if (value >= 0.03 || a3 >= 0.56) return "C"
+  if (value < 0.02 || b1 >= 0.6 || gate < 0.18) return "D"
+  if (value >= 0.095 && b1 <= 0.3 && gate >= 0.45) return "A"
+  if (value >= 0.05 && b1 <= 0.45) return "B"
+  if (value >= 0.03 || a3 >= 0.56 || formaldehydeRoute >= 0.65) return "C"
   return "D"
 }
 
@@ -74,18 +78,24 @@ export function generateCandidateExplanation(item = {}) {
   const explanations = []
   const a3 = clamp01(item.A3, DEFAULT_LOW)
   const b1 = clamp01(item.B1, DEFAULT_LOW)
+  const a4 = clamp01(item.A4, DEFAULT_LOW)
   const water = clamp01(item.waterStabilityScore, DEFAULT_GATE)
   const accessibility = clamp01(item.accessibilityScore, DEFAULT_GATE)
   const activeSite = clamp01(item.activeSiteConfidence, DEFAULT_GATE)
+  const selectivityFactor = calculateSelectivityFactor(item)
   const dominantPathway = String(item.dominantPathway || "")
   const riskPathway = String(item.riskPathway || "")
+  const pathwayScores = item.pathwayScores || {}
+  const formaldehydeRoute = clamp01(pathwayScores.formaldehyde_to_formic, DEFAULT_LOW)
+  const glyceraldehydeRisk = clamp01(pathwayScores.glyceraldehyde_to_c2_byproducts, DEFAULT_LOW)
+  const pyruvaldehydeRisk = clamp01(pathwayScores.pyruvaldehyde_to_lactic, DEFAULT_LOW)
 
   if (a3 >= 0.75) {
     explanations.push("High A3 suggests strong intermediate-to-formic-acid conversion.")
   } else if (a3 >= 0.62) {
-    explanations.push("A3 is moderate and supports a mechanistic candidate interpretation.")
+    explanations.push("A3 is moderate and supports mechanistic follow-up with intermediate feeding.")
   } else {
-    explanations.push("A3 remains limited and should be tested with intermediate feeding.")
+    explanations.push("A3 remains limited and should be tested before priority ranking.")
   }
 
   if (b1 <= 0.3) {
@@ -96,7 +106,7 @@ export function generateCandidateExplanation(item = {}) {
     explanations.push("B1 is manageable but side products need time-series monitoring.")
   }
 
-  if (dominantPathway.includes("formaldehyde")) {
+  if (formaldehydeRoute >= 0.72 || dominantPathway.includes("formaldehyde")) {
     explanations.push("Formaldehyde pathway appears dominant.")
   } else if (dominantPathway.includes("glyceraldehyde")) {
     explanations.push("Glyceraldehyde pathway suggests mixed formic-acid and C2-product behavior.")
@@ -104,9 +114,9 @@ export function generateCandidateExplanation(item = {}) {
     explanations.push("Pyruvaldehyde pathway dominance limits priority for formic acid screening.")
   }
 
-  if (riskPathway.includes("pyruvaldehyde")) {
+  if (pyruvaldehydeRisk >= 0.4 || riskPathway.includes("pyruvaldehyde")) {
     explanations.push("Pyruvaldehyde-to-lactic-acid risk requires attention.")
-  } else if (riskPathway.includes("glyceraldehyde")) {
+  } else if (glyceraldehydeRisk >= 0.32 || riskPathway.includes("glyceraldehyde")) {
     explanations.push("Glyceraldehyde-to-glycolic/acetic-acid risk should be checked.")
   }
 
@@ -114,6 +124,14 @@ export function generateCandidateExplanation(item = {}) {
     explanations.push("Water stability and accessibility gates passed.")
   } else {
     explanations.push("Gate factors need validation under aqueous NaHCO3 conditions.")
+  }
+
+  if (selectivityFactor >= 0.28) {
+    explanations.push("Selectivity factor is higher than the prototype baseline.")
+  }
+
+  if (a4 >= 0.74) {
+    explanations.push("A4 supports formate release and product stability assumptions.")
   }
 
   return explanations

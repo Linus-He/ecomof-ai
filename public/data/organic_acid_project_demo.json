@@ -2,6 +2,7 @@
   {
     "mof": "NH2-MIL-53(Fe)",
     "class": "A",
+    "dataStatus": "prototype",
     "A1": 0.72,
     "A2": 0.68,
     "A3": 0.81,
@@ -19,11 +20,19 @@
     "activeSiteConfidence": 0.85,
     "dominantPathway": "formaldehyde_to_formic_acid",
     "riskPathway": "pyruvaldehyde_to_lactic_acid",
-    "evidenceLevel": "demo"
+    "evidenceLevel": "demo",
+    "pathwayScores": {
+      "formaldehyde_to_formic": 0.82,
+      "glyceraldehyde_to_formic": 0.58,
+      "glyceraldehyde_to_c2_byproducts": 0.31,
+      "pyruvaldehyde_to_formic": 0.36,
+      "pyruvaldehyde_to_lactic": 0.42
+    }
   },
   {
     "mof": "MIL-101(Fe)",
     "class": "B",
+    "dataStatus": "prototype",
     "A1": 0.69,
     "A2": 0.66,
     "A3": 0.67,
@@ -41,11 +50,19 @@
     "activeSiteConfidence": 0.82,
     "dominantPathway": "glyceraldehyde_to_formic_acid",
     "riskPathway": "pyruvaldehyde_to_lactic_acid",
-    "evidenceLevel": "demo"
+    "evidenceLevel": "demo",
+    "pathwayScores": {
+      "formaldehyde_to_formic": 0.62,
+      "glyceraldehyde_to_formic": 0.7,
+      "glyceraldehyde_to_c2_byproducts": 0.39,
+      "pyruvaldehyde_to_formic": 0.33,
+      "pyruvaldehyde_to_lactic": 0.53
+    }
   },
   {
     "mof": "MIL-100(Fe)",
     "class": "B",
+    "dataStatus": "prototype",
     "A1": 0.66,
     "A2": 0.63,
     "A3": 0.69,
@@ -63,11 +80,19 @@
     "activeSiteConfidence": 0.79,
     "dominantPathway": "glyceraldehyde_to_formic_acid",
     "riskPathway": "glyceraldehyde_to_acetic_acid",
-    "evidenceLevel": "demo"
+    "evidenceLevel": "demo",
+    "pathwayScores": {
+      "formaldehyde_to_formic": 0.65,
+      "glyceraldehyde_to_formic": 0.68,
+      "glyceraldehyde_to_c2_byproducts": 0.42,
+      "pyruvaldehyde_to_formic": 0.31,
+      "pyruvaldehyde_to_lactic": 0.46
+    }
   },
   {
     "mof": "UiO-66",
     "class": "C",
+    "dataStatus": "prototype",
     "A1": 0.52,
     "A2": 0.5,
     "A3": 0.58,
@@ -85,11 +110,19 @@
     "activeSiteConfidence": 0.58,
     "dominantPathway": "formaldehyde_to_formic_acid",
     "riskPathway": "glyceraldehyde_to_glycolic_acid",
-    "evidenceLevel": "demo"
+    "evidenceLevel": "demo",
+    "pathwayScores": {
+      "formaldehyde_to_formic": 0.66,
+      "glyceraldehyde_to_formic": 0.45,
+      "glyceraldehyde_to_c2_byproducts": 0.34,
+      "pyruvaldehyde_to_formic": 0.24,
+      "pyruvaldehyde_to_lactic": 0.31
+    }
   },
   {
     "mof": "NH2-UiO-66",
     "class": "A",
+    "dataStatus": "prototype",
     "A1": 0.64,
     "A2": 0.66,
     "A3": 0.76,
@@ -107,11 +140,19 @@
     "activeSiteConfidence": 0.8,
     "dominantPathway": "formaldehyde_to_formic_acid",
     "riskPathway": "glyceraldehyde_to_glycolic_acid",
-    "evidenceLevel": "demo"
+    "evidenceLevel": "demo",
+    "pathwayScores": {
+      "formaldehyde_to_formic": 0.78,
+      "glyceraldehyde_to_formic": 0.57,
+      "glyceraldehyde_to_c2_byproducts": 0.27,
+      "pyruvaldehyde_to_formic": 0.34,
+      "pyruvaldehyde_to_lactic": 0.35
+    }
   },
   {
     "mof": "MOF-808",
     "class": "B",
+    "dataStatus": "prototype",
     "A1": 0.58,
     "A2": 0.62,
     "A3": 0.72,
@@ -129,11 +170,19 @@
     "activeSiteConfidence": 0.73,
     "dominantPathway": "formaldehyde_to_formic_acid",
     "riskPathway": "pyruvaldehyde_to_lactic_acid",
-    "evidenceLevel": "demo"
+    "evidenceLevel": "demo",
+    "pathwayScores": {
+      "formaldehyde_to_formic": 0.74,
+      "glyceraldehyde_to_formic": 0.52,
+      "glyceraldehyde_to_c2_byproducts": 0.33,
+      "pyruvaldehyde_to_formic": 0.38,
+      "pyruvaldehyde_to_lactic": 0.45
+    }
   },
   {
     "mof": "MIL-101(Cr)",
     "class": "C",
+    "dataStatus": "prototype",
     "A1": 0.56,
     "A2": 0.54,
     "A3": 0.61,
@@ -151,11 +200,19 @@
     "activeSiteConfidence": 0.63,
     "dominantPathway": "glyceraldehyde_to_formic_acid",
     "riskPathway": "pyruvaldehyde_to_lactic_acid",
-    "evidenceLevel": "demo"
+    "evidenceLevel": "demo",
+    "pathwayScores": {
+      "formaldehyde_to_formic": 0.55,
+      "glyceraldehyde_to_formic": 0.6,
+      "glyceraldehyde_to_c2_byproducts": 0.46,
+      "pyruvaldehyde_to_formic": 0.29,
+      "pyruvaldehyde_to_lactic": 0.56
+    }
   },
   {
     "mof": "NH2-MIL-53(Al)",
     "class": "C",
+    "dataStatus": "prototype",
     "A1": 0.6,
     "A2": 0.52,
     "A3": 0.57,
@@ -173,6 +230,13 @@
     "activeSiteConfidence": 0.64,
     "dominantPathway": "glyceraldehyde_to_formic_acid",
     "riskPathway": "glyceraldehyde_to_glycolic_acid",
-    "evidenceLevel": "demo"
+    "evidenceLevel": "demo",
+    "pathwayScores": {
+      "formaldehyde_to_formic": 0.58,
+      "glyceraldehyde_to_formic": 0.54,
+      "glyceraldehyde_to_c2_byproducts": 0.37,
+      "pyruvaldehyde_to_formic": 0.27,
+      "pyruvaldehyde_to_lactic": 0.39
+    }
   }
 ]

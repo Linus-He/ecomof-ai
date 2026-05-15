@@ -1,12 +1,26 @@
 import { useEffect, useMemo, useState } from "react"
 import { FONT_MONO, fetchDataJson, toolbarBtn, useViewport } from "../../shared"
 import {
+  AceticAcidStructure,
+  FormaldehydeStructure,
+  FormicAcidStructure,
+  FructoseStructure,
+  GlucoseStructure,
+  GlyceraldehydeStructure,
+  GlycolicAcidStructure,
+  LacticAcidStructure,
+  MoleculeNode,
+  PyruvaldehydeStructure,
+  PyruvicAcidStructure,
+} from "./ChemicalStructure"
+import {
   calculateGateScore,
   calculateRGFAScore,
   calculateSelectivityFactor,
   calculateStepScore,
   classifyCandidate,
   generateCandidateExplanation,
+  safeNumber,
 } from "../../utils/rgfaScore"
 
 const ACCESS_KEY = "ecomof_organic_acid_project_access"
@@ -24,89 +38,106 @@ const palette = {
   accent: "#1A6DB5",
   accentSoft: "#E8F2FC",
   positive: "#147C43",
-  positiveSoft: "#ECFDF3",
+  positiveSoft: "#F2FBF6",
   mixed: "#A15C13",
   mixedSoft: "#FFF7ED",
   risk: "#8F3B1B",
   riskSoft: "#FFF1E8",
 }
 
-const pathwayRows = [
+const PATHWAY_LABELS = {
+  formaldehyde_to_formic_acid: "Formaldehyde → formic acid",
+  glyceraldehyde_to_formic_acid: "Glyceraldehyde → formic acid",
+  glyceraldehyde_to_acetic_acid: "Glyceraldehyde → acetic acid",
+  glyceraldehyde_to_glycolic_acid: "Glyceraldehyde → glycolic acid",
+  pyruvaldehyde_to_lactic_acid: "Pyruvaldehyde → lactic acid",
+  pyruvaldehyde_to_pyruvic_acid: "Pyruvaldehyde → pyruvic acid",
+}
+
+const descriptorGroups = [
   {
-    id: "glyceraldehyde",
-    path: "Path 1",
-    title: "Glyceraldehyde pathway / 甘油醛路径",
-    intermediate: "glyceraldehyde",
-    status: "mixed pathway",
-    route: ["Glucose / Fructose", "glyceraldehyde", "formic acid"],
-    riskProducts: ["glycolic acid", "acetic acid"],
-    definition: "Contributes to formic acid, but can branch toward C2 byproducts.",
-    color: palette.mixed,
+    category: "Stability descriptors",
+    descriptors: ["water stability", "hydrothermal stability", "metal leaching risk", "post-reaction PXRD retention"],
+  },
+  {
+    category: "Accessibility descriptors",
+    descriptors: ["PLD", "LCD", "pore volume", "hydrophilic pore environment"],
+  },
+  {
+    category: "Active-site descriptors",
+    descriptors: ["metal type", "valence state", "Lewis acidity", "basic sites", "open metal sites"],
+  },
+  {
+    category: "Functional-group descriptors",
+    descriptors: ["-NH2", "-OH", "-COOH", "defects", "Zr-OH", "Fe-OH"],
+  },
+  {
+    category: "Reaction descriptors",
+    descriptors: ["Eads(HCO3-)", "Eads(formaldehyde)", "Eads(glyceraldehyde)", "Eads(pyruvaldehyde)", "Eads(formate)"],
+  },
+  {
+    category: "Product descriptors",
+    descriptors: ["Y_FA", "S_FA_C", "Y_lactic", "Y_acetic", "Y_glycolic", "Y_pyruvic", "Y_solid"],
+  },
+]
+
+const mappingRows = [
+  {
+    title: "Positive C1 route",
+    route: "Formaldehyde → Formic acid",
+    body: "Contributes mainly to A3 and SelectivityFactor because it routes a C1 intermediate toward the target product.",
+    tone: palette.positive,
+    bg: palette.positiveSoft,
+  },
+  {
+    title: "Mixed route",
+    route: "Glyceraldehyde → Formic acid / Glycolic acid / Acetic acid",
+    body: "Contributes to A2/A3 when formic acid is favored, while glycolic and acetic acid branches increase B1.",
+    tone: palette.mixed,
     bg: palette.mixedSoft,
   },
   {
-    id: "formaldehyde",
-    path: "Path 2",
-    title: "Formaldehyde pathway / 甲醛路径",
-    intermediate: "formaldehyde",
-    status: "positive pathway",
-    route: ["Glucose / Fructose", "formaldehyde", "formic acid / formate"],
-    riskProducts: [],
-    definition: "Most direct C1 route and the primary positive mechanistic path.",
-    color: palette.positive,
-    bg: palette.positiveSoft,
-    featured: true,
-  },
-  {
-    id: "pyruvaldehyde",
-    path: "Path 3",
-    title: "Pyruvaldehyde pathway / 丙酮醛路径",
-    intermediate: "pyruvaldehyde",
-    status: "risk pathway",
-    route: ["Glucose / Fructose", "pyruvaldehyde", "lactic acid / pyruvic acid / acetic acid"],
-    riskProducts: ["lactic acid", "pyruvic acid", "acetic acid"],
-    definition: "Main competitive branch; lactic and pyruvic acids indicate side-path accumulation.",
-    color: palette.risk,
+    title: "Risk-dominant route",
+    route: "Pyruvaldehyde → Lactic acid / Pyruvic acid / Acetic acid",
+    body: "Increases B1 and lowers SelectivityFactor through weighted byproduct penalties.",
+    tone: palette.risk,
     bg: palette.riskSoft,
   },
-]
-
-const descriptorGroups = [
-  ["Stability descriptors", "water stability, hydrothermal stability, metal leaching risk"],
-  ["Accessibility descriptors", "PLD, LCD, pore volume, hydrophilic pore environment"],
-  ["Active-site descriptors", "metal type, valence state, Lewis acidity, basic sites, open metal sites"],
-  ["Functional-group descriptors", "-NH2, -OH, -COOH, defects, Zr-OH, Fe-OH"],
-  ["Reaction descriptors", "Eads(HCO3-), Eads(formaldehyde), Eads(glyceraldehyde), Eads(pyruvaldehyde), Eads(formate)"],
-  ["Product descriptors", "Y_FA, S_FA_C, Y_lactic, Y_acetic, Y_glycolic, Y_pyruvic, Y_solid"],
+  {
+    title: "Formate release",
+    route: "Formic acid / formate desorption",
+    body: "Contributes to A4 by testing whether generated formate can leave active sites without over-stabilization.",
+    tone: palette.accent,
+    bg: palette.accentSoft,
+  },
 ]
 
 const validationSteps = [
-  "Main reaction test",
-  "Formaldehyde feeding test",
-  "Glyceraldehyde feeding test",
-  "Pyruvaldehyde feeding test",
-  "Time-series product analysis",
-  "Carbon balance check",
-  "NaH13CO3 isotope tracing",
-  "DFT adsorption descriptor update",
+  ["Main reaction test", "Glucose + NaHCO3 + MOF under aqueous reaction conditions."],
+  ["Formaldehyde feeding test", "Validate the C1 positive route and intermediate-to-formic-acid conversion."],
+  ["Glyceraldehyde feeding test", "Validate the mixed route and quantify glycolic/acetic acid leakage."],
+  ["Pyruvaldehyde feeding test", "Validate the risk-dominant route toward lactic and pyruvic acids."],
+  ["Time-series product analysis", "Separate transient intermediates from terminal byproducts."],
+  ["Carbon balance check", "Decide whether a record is suitable as a machine-learning label."],
+  ["NaH13CO3 isotope tracing", "Estimate bicarbonate contribution to the carbon in formic acid."],
+  ["DFT adsorption descriptor update", "Update Eads, Bader charge, and formate desorption descriptors."],
 ]
 
 function fmt(value, digits = 3) {
-  const number = Number(value)
-  if (!Number.isFinite(number)) return "0.000"
-  return number.toFixed(digits)
+  return safeNumber(value, 0).toFixed(digits)
 }
 
 function pct(value) {
-  const number = Number(value)
-  if (!Number.isFinite(number)) return "0%"
-  return `${Math.round(Math.max(0, Math.min(1, number)) * 100)}%`
+  return `${Math.round(Math.max(0, Math.min(1, safeNumber(value, 0))) * 100)}%`
+}
+
+function Sub({ children }) {
+  return <sub style={{ fontSize: "0.72em", lineHeight: 0 }}>{children}</sub>
 }
 
 function humanizePathway(value) {
-  return String(value || "pending")
-    .replace(/_/g, " ")
-    .replace(/\bto\b/g, "->")
+  if (PATHWAY_LABELS[value]) return PATHWAY_LABELS[value]
+  return String(value || "pending").replace(/_/g, " ").replace(/\bto\b/g, "→")
 }
 
 function recommendationForClass(candidateClass) {
@@ -120,7 +151,9 @@ function ProjectSection({ kicker, title, note, children }) {
   return (
     <section style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, padding: 16 }}>
       <div style={{ display: "grid", gap: 4, marginBottom: 13 }}>
-        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, letterSpacing: 0.2, textTransform: "uppercase" }}>{kicker}</div>
+        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, letterSpacing: 0.2, textTransform: "uppercase" }}>
+          {kicker}
+        </div>
         <h2 style={{ color: palette.text, fontSize: 17, lineHeight: 1.25, margin: 0 }}>{title}</h2>
         {note ? <p style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>{note}</p> : null}
       </div>
@@ -133,7 +166,7 @@ function MetricCard({ label, value, note }) {
   return (
     <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, padding: 11, minWidth: 0 }}>
       <div style={{ color: palette.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>{label}</div>
-      <div style={{ color: palette.text, fontFamily: FONT_MONO, fontSize: 20, fontWeight: 950, lineHeight: 1, marginTop: 7, overflowWrap: "anywhere" }}>{value}</div>
+      <div style={{ color: palette.text, fontFamily: FONT_MONO, fontSize: 19, fontWeight: 950, lineHeight: 1.05, marginTop: 7, overflowWrap: "anywhere" }}>{value}</div>
       {note ? <div style={{ color: palette.muted, fontSize: 11, lineHeight: 1.4, marginTop: 6 }}>{note}</div> : null}
     </div>
   )
@@ -161,7 +194,7 @@ function PrototypeGate({ lang, t, onUnlock }) {
 
   return (
     <section style={{ background: palette.bg, border: `1px solid ${palette.borderStrong}`, borderRadius: 12, boxShadow: "0 14px 38px rgba(15, 23, 42, 0.08)", padding: 18 }}>
-      <div style={{ display: "grid", gap: 16, gridTemplateColumns: "minmax(0, 1fr)", maxWidth: 780 }}>
+      <div style={{ display: "grid", gap: 16, maxWidth: 800 }}>
         <div>
           <div style={{ color: palette.faint, fontSize: 11, fontWeight: 900, textTransform: "uppercase" }}>Prototype access gate</div>
           <h2 style={{ color: palette.text, fontSize: 24, lineHeight: 1.14, margin: "6px 0 0" }}>
@@ -169,8 +202,8 @@ function PrototypeGate({ lang, t, onUnlock }) {
           </h2>
           <p style={{ color: palette.muted, fontSize: 13, lineHeight: 1.62, margin: "9px 0 0" }}>
             {lang === "zh"
-              ? "该访问码校验只在浏览器前端运行，用于原型展示入口。本模块数据仍是 demo / prototype data。"
-              : "This access-code check runs only in the browser and is used as a prototype display gate. The module still uses demo / prototype data."}
+              ? "该访问码校验只在浏览器前端运行，用于原型展示入口。本模块数据为 demo / prototype data。"
+              : "This access-code check runs only in the browser and is used as a prototype display gate. This module uses demo / prototype data."}
           </p>
         </div>
         <form onSubmit={submit} style={{ alignItems: "end", display: "grid", gap: 10, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 280px) auto" }}>
@@ -212,18 +245,16 @@ function ProjectHero({ topCandidate, rankedRows, isNarrow }) {
     <section style={{ background: palette.bg, border: `1px solid ${palette.borderStrong}`, borderRadius: 12, boxShadow: "0 14px 38px rgba(15, 23, 42, 0.08)", padding: 18 }}>
       <div style={{ display: "grid", gap: 16, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.3fr) minmax(260px, 0.7fr)", alignItems: "start" }}>
         <div>
-          <div style={{ color: palette.faint, fontSize: 11, fontWeight: 900, textTransform: "uppercase" }}>
-            Mechanism-guided MOF screening workbench
-          </div>
+          <div style={{ color: palette.faint, fontSize: 11, fontWeight: 900, textTransform: "uppercase" }}>Mechanism-guided MOF screening workbench</div>
           <h1 style={{ color: palette.text, fontSize: isNarrow ? 27 : 32, lineHeight: 1.1, letterSpacing: 0, margin: "6px 0 0" }}>
-            Organic Acid Project / 有机酸项目
+            Organic Acid Project
           </h1>
           <p style={{ color: palette.muted, fontSize: 14, lineHeight: 1.6, margin: "9px 0 0", maxWidth: 820 }}>
-            Glucose–NaHCO3 conversion to formic acid / formate, guided by formaldehyde-positive routing and byproduct-pathway suppression.
+            Reaction-guided screening of MOFs for glucose–NaHCO3 conversion to formic acid
           </p>
           <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderLeft: `3px solid ${palette.accent}`, borderRadius: 8, marginTop: 13, padding: 12 }}>
             <div style={{ color: palette.text, fontFamily: FONT_MONO, fontSize: 13.5, fontWeight: 900, lineHeight: 1.55, overflowWrap: "anywhere" }}>
-              Glucose + NaHCO3 + H2O + MOF → formic acid / formate
+              Glucose + NaHCO<Sub>3</Sub> + H<Sub>2</Sub>O + MOF → formic acid / formate + suppressed byproducts
             </div>
             <div style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.55, marginTop: 7 }}>
               Objective: maximize formic acid yield and carbon-based selectivity while suppressing lactic acid, acetic acid, glycolic acid, pyruvic acid, and solid byproducts.
@@ -231,8 +262,8 @@ function ProjectHero({ topCandidate, rankedRows, isNarrow }) {
           </div>
         </div>
         <div style={{ display: "grid", gap: 9 }}>
-          <MetricCard label="Data status" value="demo / prototype" note="No collaborator-owned or unpublished experimental records are embedded." />
-          <MetricCard label="Demo candidates" value={rankedRows.length} note="Independent organic_acid_project_demo.json dataset" />
+          <MetricCard label="Data status" value="Demo / Prototype Data" note="No real collaboration data or unpublished experimental data is embedded." />
+          <MetricCard label="Demo candidates" value={rankedRows.length} note="Standalone organic_acid_project_demo.json dataset" />
           <MetricCard label="Current top candidate" value={topCandidate?.mof || "-"} note={topCandidate ? `RGFA ${fmt(topCandidate.rgfaScore)} · ${recommendationForClass(topCandidate.computedClass)}` : "Awaiting data"} />
         </div>
       </div>
@@ -240,115 +271,262 @@ function ProjectHero({ topCandidate, rankedRows, isNarrow }) {
   )
 }
 
-function ReactionPathwayMap({ isNarrow }) {
+function FlowArrow({ tone = palette.accent, label }) {
+  return (
+    <div style={{ alignItems: "center", color: tone, display: "grid", gap: 3, justifyItems: "center", minWidth: 28 }}>
+      <div style={{ fontSize: 22, fontWeight: 900, lineHeight: 1 }}>→</div>
+      {label ? <div style={{ fontSize: 9.5, fontWeight: 850, lineHeight: 1.15, textAlign: "center" }}>{label}</div> : null}
+    </div>
+  )
+}
+
+function ProductStack({ title, tone, children }) {
+  return (
+    <div style={{ display: "grid", gap: 7, minWidth: 0 }}>
+      <div style={{ color: tone, fontSize: 10.5, fontWeight: 900, lineHeight: 1.25 }}>{title}</div>
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", minWidth: 0 }}>
+        {children}
+      </div>
+    </div>
+  )
+}
+
+function ReactionMechanismMap() {
+  const canvasStyle = {
+    alignItems: "center",
+    display: "grid",
+    gap: "0 12px",
+    gridTemplateColumns: "220px 34px 202px 34px minmax(440px, 1fr)",
+    gridTemplateRows: "auto auto auto",
+    minWidth: 1120,
+    position: "relative",
+  }
+  const laneCell = (row, border = true) => ({
+    alignSelf: "stretch",
+    borderBottom: border ? `1px solid ${palette.border}` : "none",
+    display: "grid",
+    minHeight: 184,
+    padding: "12px 0",
+    position: "relative",
+    zIndex: 1,
+    gridRow: row,
+  })
+  const centerCell = (row, border = true) => ({
+    ...laneCell(row, border),
+    alignItems: "center",
+  })
+
   return (
     <ProjectSection
-      kicker="Reaction pathway map"
-      title="Three-pathway Mechanism / 三路径机理"
-      note="This map defines the positive pathway, mixed pathway, and byproduct penalty terms used by the RGFA Score."
+      kicker="Reaction mechanism map"
+      title="Three-pathway Reaction Network / 三路径反应网络"
+      note="Organic structures are shown as prototype mechanism nodes. The formaldehyde branch is the primary C1 positive route, while glyceraldehyde and pyruvaldehyde define mixed and penalty pathways."
     >
-      <div style={{ display: "grid", gap: 12, gridTemplateColumns: isNarrow ? "1fr" : "170px minmax(0, 1fr) 190px", alignItems: "stretch" }}>
-        <div style={{ background: palette.surface, border: `1px solid ${palette.borderStrong}`, borderRadius: 10, display: "grid", placeItems: "center", minHeight: isNarrow ? 80 : 270, padding: 14, textAlign: "center" }}>
-          <div>
-            <div style={{ color: palette.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>Feedstock</div>
-            <div style={{ color: palette.text, fontSize: 16, fontWeight: 950, lineHeight: 1.25, marginTop: 7 }}>Glucose / Fructose</div>
-          </div>
-        </div>
+      <div style={{ maxWidth: "100%", overflowX: "auto", paddingBottom: 4 }}>
+        <div style={canvasStyle}>
+          <div style={{ background: palette.positiveSoft, border: `1px solid ${palette.positive}`, borderRadius: 10, gridColumn: "2 / 6", gridRow: 2, inset: "5px -8px", position: "absolute", zIndex: 0 }} />
 
-        <div style={{ display: "grid", gap: 10 }}>
-          {pathwayRows.map((row) => (
-            <article
-              key={row.id}
-              style={{
-                background: row.featured ? palette.positiveSoft : palette.bg,
-                border: `1px solid ${row.featured ? row.color : palette.border}`,
-                borderLeft: `4px solid ${row.color}`,
-                borderRadius: 10,
-                boxShadow: row.featured ? "0 10px 26px rgba(20, 124, 67, 0.10)" : "none",
-                display: "grid",
-                gap: 10,
-                gridTemplateColumns: isNarrow ? "1fr" : "minmax(150px, 0.32fr) 26px minmax(160px, 0.34fr) 26px minmax(170px, 0.34fr)",
-                alignItems: "center",
-                padding: row.featured ? 14 : 12,
-              }}
-            >
-              <div>
-                <div style={{ color: row.color, fontSize: 10.5, fontWeight: 950 }}>{row.path} · {row.status}</div>
-                <h3 style={{ color: palette.text, fontSize: 14.5, lineHeight: 1.25, margin: "5px 0 0" }}>{row.title}</h3>
-                <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45, marginTop: 5 }}>{row.definition}</div>
-              </div>
-              {!isNarrow && <div style={{ color: row.color, fontSize: 18, fontWeight: 900, textAlign: "center" }}>→</div>}
-              <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, padding: 10 }}>
-                <div style={{ color: palette.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>Intermediate</div>
-                <div style={{ color: palette.text, fontFamily: FONT_MONO, fontSize: 13, fontWeight: 900, marginTop: 5 }}>{row.intermediate}</div>
-              </div>
-              {!isNarrow && <div style={{ color: row.color, fontSize: 18, fontWeight: 900, textAlign: "center" }}>→</div>}
-              <div style={{ display: "grid", gap: 7 }}>
-                <div style={{ background: palette.bg, border: `1px solid ${row.featured ? row.color : palette.border}`, borderRadius: 8, color: palette.text, fontFamily: FONT_MONO, fontSize: 12.5, fontWeight: 850, lineHeight: 1.4, padding: 9 }}>
-                  {row.route[2]}
-                </div>
-                {row.riskProducts.length > 0 && (
-                  <div style={{ background: row.bg, border: `1px solid ${palette.border}`, borderRadius: 8, color: palette.muted, fontSize: 11.5, lineHeight: 1.45, padding: 9 }}>
-                    Risk products: {row.riskProducts.join(" / ")}
-                  </div>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
+          <div style={{ alignSelf: "stretch", display: "grid", gap: 10, gridColumn: 1, gridRow: "1 / span 3", gridTemplateRows: "1fr 1fr", paddingRight: 2 }}>
+            <MoleculeNode title="Glucose / 葡萄糖" subtitle="feedstock" tone="feedstock">
+              <GlucoseStructure />
+            </MoleculeNode>
+            <MoleculeNode title="Fructose / 果糖" subtitle="isomerized feedstock" tone="feedstock">
+              <FructoseStructure />
+            </MoleculeNode>
+          </div>
 
-        <div style={{ background: palette.surface, border: `1px solid ${palette.borderStrong}`, borderRadius: 10, display: "grid", gap: 10, alignContent: "center", minHeight: isNarrow ? "auto" : 270, padding: 14 }}>
-          <div>
-            <div style={{ color: palette.positive, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>Target output</div>
-            <div style={{ color: palette.text, fontSize: 15, fontWeight: 950, lineHeight: 1.3, marginTop: 6 }}>formic acid / formate</div>
+          <div style={{ ...centerCell(1), gridColumn: 2 }}><FlowArrow tone={palette.mixed} label="C3 split" /></div>
+          <div style={{ ...centerCell(1), gridColumn: 3 }}>
+            <MoleculeNode title="Glyceraldehyde / 甘油醛" subtitle="mixed pathway" tone="mixed">
+              <GlyceraldehydeStructure />
+            </MoleculeNode>
           </div>
-          <div style={{ borderTop: `1px solid ${palette.border}`, paddingTop: 10 }}>
-            <div style={{ color: palette.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>Penalty outputs</div>
-            <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.55, marginTop: 6 }}>
-              lactic acid, acetic acid, glycolic acid, pyruvic acid, and solid byproducts
-            </div>
+          <div style={{ ...centerCell(1), gridColumn: 4 }}><FlowArrow tone={palette.mixed} label="branch" /></div>
+          <div style={{ ...laneCell(1), gridColumn: 5, display: "grid", gap: 12 }}>
+            <ProductStack title="Target branch" tone={palette.positive}>
+              <MoleculeNode title="Formic acid / Formate" subtitle="target endpoint" tone="positive" compact>
+                <FormicAcidStructure />
+              </MoleculeNode>
+            </ProductStack>
+            <ProductStack title="C2 byproduct risk" tone={palette.mixed}>
+              <MoleculeNode title="Glycolic acid" subtitle="risk endpoint" tone="mixed" compact>
+                <GlycolicAcidStructure />
+              </MoleculeNode>
+              <MoleculeNode title="Acetic acid" subtitle="risk endpoint" tone="mixed" compact>
+                <AceticAcidStructure />
+              </MoleculeNode>
+            </ProductStack>
+          </div>
+
+          <div style={{ ...centerCell(2), borderBottom: `1px solid ${palette.positive}`, gridColumn: 2 }}><FlowArrow tone={palette.positive} label="C1 route" /></div>
+          <div style={{ ...centerCell(2), borderBottom: `1px solid ${palette.positive}`, gridColumn: 3 }}>
+            <MoleculeNode title="Formaldehyde / 甲醛" subtitle="primary C1 positive route" tone="positive" featured>
+              <FormaldehydeStructure />
+            </MoleculeNode>
+          </div>
+          <div style={{ ...centerCell(2), borderBottom: `1px solid ${palette.positive}`, gridColumn: 4 }}><FlowArrow tone={palette.positive} label="oxidation" /></div>
+          <div style={{ ...laneCell(2), borderBottom: `1px solid ${palette.positive}`, display: "grid", gap: 12, gridColumn: 5 }}>
+            <ProductStack title="Primary target route" tone={palette.positive}>
+              <MoleculeNode title="Formic acid / Formate" subtitle="positive endpoint" tone="positive" featured>
+                <FormicAcidStructure />
+              </MoleculeNode>
+            </ProductStack>
+          </div>
+
+          <div style={{ ...centerCell(3, false), gridColumn: 2 }}><FlowArrow tone={palette.risk} label="dehydration" /></div>
+          <div style={{ ...centerCell(3, false), gridColumn: 3 }}>
+            <MoleculeNode title="Pyruvaldehyde / 丙酮醛" subtitle="risk-dominant pathway" tone="risk">
+              <PyruvaldehydeStructure />
+            </MoleculeNode>
+          </div>
+          <div style={{ ...centerCell(3, false), gridColumn: 4 }}><FlowArrow tone={palette.risk} label="competes" /></div>
+          <div style={{ ...laneCell(3, false), display: "grid", gap: 12, gridColumn: 5 }}>
+            <ProductStack title="Possible formic-acid branch" tone={palette.positive}>
+              <MoleculeNode title="Formic acid / Formate" subtitle="minor target branch" tone="positive" compact>
+                <FormicAcidStructure />
+              </MoleculeNode>
+            </ProductStack>
+            <ProductStack title="Risk endpoints" tone={palette.risk}>
+              <MoleculeNode title="Lactic acid" subtitle="risk endpoint" tone="risk" compact>
+                <LacticAcidStructure />
+              </MoleculeNode>
+              <MoleculeNode title="Pyruvic acid" subtitle="risk endpoint" tone="risk" compact>
+                <PyruvicAcidStructure />
+              </MoleculeNode>
+              <MoleculeNode title="Acetic acid" subtitle="risk endpoint" tone="risk" compact>
+                <AceticAcidStructure />
+              </MoleculeNode>
+            </ProductStack>
           </div>
         </div>
+      </div>
+      <div style={{ borderTop: `1px solid ${palette.border}`, color: palette.muted, fontSize: 11.5, lineHeight: 1.55, marginTop: 12, paddingTop: 10 }}>
+        This mechanism map defines the positive route, mixed route, and penalty terms used by the RGFA Score.
       </div>
     </ProjectSection>
   )
 }
 
+function FormulaLine({ children }) {
+  return (
+    <div style={{ alignItems: "baseline", color: palette.text, display: "flex", flexWrap: "wrap", fontFamily: FONT_MONO, fontSize: 13, fontWeight: 900, gap: "4px 7px", lineHeight: 1.55, minWidth: 0 }}>
+      {children}
+    </div>
+  )
+}
+
+function FractionFormula() {
+  const formulaPart = (children) => (
+    <span style={{ display: "inline-flex", flexWrap: "wrap", gap: "2px 5px", lineHeight: 1.45, minWidth: 0 }}>
+      {children}
+    </span>
+  )
+
+  return (
+    <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, display: "grid", gap: 8, padding: 12 }}>
+      <FormulaLine>
+        <span>SelectivityFactor</span>
+        <span>=</span>
+      </FormulaLine>
+      <div style={{ color: palette.text, display: "grid", fontFamily: FONT_MONO, fontSize: 12.5, fontWeight: 850, gap: 6, lineHeight: 1.5, minWidth: 0 }}>
+        <div style={{ borderBottom: `1.5px solid ${palette.text}`, paddingBottom: 6 }}>
+          {formulaPart(
+            <>
+              <span>Y<Sub>FA</Sub></span>
+              <span>×</span>
+              <span>S<Sub>FA,C</Sub></span>
+            </>,
+          )}
+        </div>
+        <div>
+          {formulaPart(
+            <>
+              <span>1</span>
+              <span>+</span>
+              <span>1.0Y<Sub>lactic</Sub></span>
+              <span>+</span>
+              <span>0.8Y<Sub>acetic</Sub></span>
+              <span>+</span>
+              <span>0.5Y<Sub>glycolic</Sub></span>
+              <span>+</span>
+              <span>0.4Y<Sub>pyruvic</Sub></span>
+              <span>+</span>
+              <span>0.3Y<Sub>solid</Sub></span>
+            </>,
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function AlgorithmSection({ topCandidate, isNarrow }) {
-  const cards = [
-    ["Gate", "Material entry check", "waterStabilityScore × accessibilityScore × activeSiteConfidence"],
-    ["StepScore", "Reaction-step ability", "A1/A2/A3/A4 reward terms minus B1 byproduct risk; A3 has the highest weight."],
-    ["SelectivityFactor", "Product-level objective", "Y_FA and S_FA,C divided by weighted lactic/acetic/glycolic/pyruvic/solid penalties."],
+  const termCards = [
+    ["Gate", "Material entry check", "Water stability, pore accessibility, and active-site confidence determine whether the candidate should enter reaction screening."],
+    ["StepScore", "Reaction-step ability", "A3 carries the highest weight because it measures intermediate-to-formic-acid conversion."],
+    ["SelectivityFactor", "Product objective", "Y_FA and S_FA,C are rewarded while lactic, acetic, glycolic, pyruvic, and solid byproducts are penalized."],
   ]
 
   return (
     <ProjectSection
-      kicker="RGFA score"
-      title="RGFA Score Algorithm / 算法评分"
-      note="The score is a transparent prototype ranking function for reaction-guided candidate selection."
+      kicker="RGFA score algorithm"
+      title="Reaction-Guided Formic Acid Score / RGFA Score"
+      note="The score is a transparent prototype ranking function. It is intended for mechanism-guided prioritization, not as an experimental conclusion."
     >
-      <div style={{ display: "grid", gap: 13, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.05fr) minmax(290px, 0.75fr)" }}>
+      <div style={{ display: "grid", gap: 13, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.1fr) minmax(290px, 0.72fr)" }}>
         <div style={{ display: "grid", gap: 10 }}>
-          <pre style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, color: palette.text, fontFamily: FONT_MONO, fontSize: 12, lineHeight: 1.65, margin: 0, overflowX: "auto", padding: 13 }}>
-{`RGFA Score = Gate × StepScore × SelectivityFactor
-
-Gate =
-waterStabilityScore × accessibilityScore × activeSiteConfidence
-
-StepScore =
-0.15A1 + 0.20A2 + 0.35A3 + 0.15A4 - 0.15B1
-
-SelectivityFactor =
-(Y_FA × S_FA,C) /
-(1 + 1.0Y_lactic + 0.8Y_acetic + 0.5Y_glycolic
-   + 0.4Y_pyruvic + 0.3Y_solid)`}
-          </pre>
-          <div style={{ color: palette.faint, fontSize: 11.5, lineHeight: 1.55 }}>
-            A3 carries the highest weight because it directly measures whether key intermediates are routed toward formic acid.
+          <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, display: "grid", gap: 9, padding: 12 }}>
+            <FormulaLine>
+              <span>RGFA Score</span>
+              <span>=</span>
+              <span>Gate</span>
+              <span>×</span>
+              <span>StepScore</span>
+              <span>×</span>
+              <span>SelectivityFactor</span>
+            </FormulaLine>
+            <FormulaLine>
+              <span>Gate</span>
+              <span>=</span>
+              <span>waterStabilityScore</span>
+              <span>×</span>
+              <span>accessibilityScore</span>
+              <span>×</span>
+              <span>activeSiteConfidence</span>
+            </FormulaLine>
+            <FormulaLine>
+              <span>StepScore</span>
+              <span>=</span>
+              <span>0.15A<Sub>1</Sub></span>
+              <span>+</span>
+              <span>0.20A<Sub>2</Sub></span>
+              <span>+</span>
+              <span>0.35A<Sub>3</Sub></span>
+              <span>+</span>
+              <span>0.15A<Sub>4</Sub></span>
+              <span>−</span>
+              <span>0.15B<Sub>1</Sub></span>
+            </FormulaLine>
+          </div>
+          <FractionFormula />
+          <div style={{ border: `1px solid ${palette.border}`, borderRadius: 8, display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", padding: 11 }}>
+            {[
+              ["A1", "glucose isomerization / activation ability"],
+              ["A2", "formic-acid precursor generation ability"],
+              ["A3", "intermediate-to-formic-acid conversion ability"],
+              ["A4", "formate release and stability ability"],
+              ["B1", "byproduct pathway risk"],
+            ].map(([term, definition]) => (
+              <div key={term} style={{ minWidth: 0 }}>
+                <div style={{ color: palette.text, fontFamily: FONT_MONO, fontSize: 12, fontWeight: 950 }}>{term}</div>
+                <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45 }}>{definition}</div>
+              </div>
+            ))}
           </div>
         </div>
+
         <div style={{ display: "grid", gap: 9 }}>
-          {cards.map(([title, subtitle, body]) => (
+          {termCards.map(([title, subtitle, body]) => (
             <article key={title} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, padding: 11 }}>
               <div style={{ color: palette.text, fontSize: 13, fontWeight: 950 }}>{title}</div>
               <div style={{ color: palette.accent, fontSize: 11, fontWeight: 850, marginTop: 3 }}>{subtitle}</div>
@@ -370,55 +548,38 @@ SelectivityFactor =
   )
 }
 
-function DescriptorSection() {
+function PathwayScoreMappingSection() {
   return (
     <ProjectSection
-      kicker="Descriptor matrix"
-      title="Descriptor Matrix / 描述符体系"
-      note="The descriptor matrix connects MOF structure, active sites, pathway intermediates, and product-level labels."
+      kicker="Pathway-to-score mapping"
+      title="How Mechanism Enters RGFA / 路径与评分映射"
+      note="The three organic routes define which terms reward the target product and which terms penalize competing organic acids."
     >
-      <div style={{ border: `1px solid ${palette.border}`, borderRadius: 8, overflow: "hidden" }}>
-        {descriptorGroups.map(([category, descriptors], index) => (
-          <div
-            key={category}
-            style={{
-              background: index % 2 === 0 ? palette.bg : palette.surface,
-              borderTop: index === 0 ? "none" : `1px solid ${palette.border}`,
-              display: "grid",
-              gap: 12,
-              gridTemplateColumns: "minmax(170px, 0.35fr) minmax(0, 1fr)",
-              padding: "11px 12px",
-            }}
-          >
-            <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 900 }}>{category}</div>
-            <div style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.5, overflowWrap: "anywhere" }}>{descriptors}</div>
-          </div>
+      <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+        {mappingRows.map((row) => (
+          <article key={row.title} style={{ background: row.bg, border: `1px solid ${palette.border}`, borderLeft: `3px solid ${row.tone}`, borderRadius: 8, padding: 12 }}>
+            <div style={{ color: row.tone, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{row.title}</div>
+            <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 900, lineHeight: 1.35, marginTop: 6 }}>{row.route}</div>
+            <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.5, marginTop: 6 }}>{row.body}</div>
+          </article>
         ))}
       </div>
     </ProjectSection>
   )
 }
 
-function DatasetSection({ rankedRows, status }) {
-  return (
-    <ProjectSection
-      kicker="Independent dataset"
-      title="Independent Demo Dataset / 独立数据"
-      note="This project reads a standalone prototype dataset and does not write into the general MOF Library data model."
-    >
-      <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
-        <MetricCard label="Data file" value="JSON" note="public/data/organic_acid_project_demo.json" />
-        <MetricCard label="Records" value={status === "loading" ? "-" : rankedRows.length} note={status === "loaded" ? "Loaded from public/data" : "Loading demo data"} />
-        <MetricCard label="Evidence level" value="demo" note="Prototype values for screening workflow display" />
-      </div>
-    </ProjectSection>
-  )
-}
-
 function RankingTable({ rankedRows, selectedMof, onSelect }) {
+  if (!rankedRows.length) {
+    return (
+      <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, color: palette.muted, fontSize: 12.5, padding: 12 }}>
+        Loading independent demo dataset from public/data/organic_acid_project_demo.json.
+      </div>
+    )
+  }
+
   return (
     <div style={{ maxWidth: "100%", minWidth: 0, overflowX: "auto" }}>
-      <table style={{ borderCollapse: "collapse", minWidth: 780, width: "100%" }}>
+      <table style={{ borderCollapse: "collapse", minWidth: 820, width: "100%" }}>
         <thead>
           <tr>
             {["Rank", "MOF", "RGFA Score", "Class", "Dominant pathway", "Main risk", "Evidence"].map((head) => (
@@ -454,7 +615,7 @@ function ScoreBar({ label, value, tone = palette.accent }) {
         <span style={{ color: palette.muted, fontSize: 11.5, fontWeight: 850 }}>{label}</span>
         <span style={{ color: palette.text, fontFamily: FONT_MONO, fontSize: 11.5, fontWeight: 900 }}>{fmt(value, 2)}</span>
       </div>
-      <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 999, height: 7, overflow: "hidden" }}>
+      <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 999, height: 7, overflow: "hidden" }}>
         <div style={{ background: tone, height: "100%", width: pct(value) }} />
       </div>
     </div>
@@ -472,6 +633,13 @@ function CandidateDetailPanel({ candidate }) {
     ["Y_pyruvic", candidate.Y_pyruvic, palette.risk],
     ["Y_solid", candidate.Y_solid, palette.muted],
   ]
+  const pathwayRows = [
+    ["Formaldehyde → Formic acid score", candidate.pathwayScores?.formaldehyde_to_formic, palette.positive],
+    ["Glyceraldehyde → Formic acid score", candidate.pathwayScores?.glyceraldehyde_to_formic, palette.mixed],
+    ["Glyceraldehyde → C2 byproducts risk", candidate.pathwayScores?.glyceraldehyde_to_c2_byproducts, palette.mixed],
+    ["Pyruvaldehyde → Formic acid score", candidate.pathwayScores?.pyruvaldehyde_to_formic, palette.risk],
+    ["Pyruvaldehyde → Lactic/Pyruvic acid risk", candidate.pathwayScores?.pyruvaldehyde_to_lactic, palette.risk],
+  ]
 
   return (
     <aside style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, padding: 13 }}>
@@ -485,21 +653,26 @@ function CandidateDetailPanel({ candidate }) {
         <div style={{ color: palette.text, fontSize: 12, fontWeight: 950 }}>Step scores</div>
         <ScoreBar label="A1 glucose activation" value={candidate.A1} />
         <ScoreBar label="A2 precursor generation" value={candidate.A2} />
-        <ScoreBar label="A3 intermediate-to-FA" value={candidate.A3} tone={palette.positive} />
+        <ScoreBar label="A3 intermediate → formic acid" value={candidate.A3} tone={palette.positive} />
         <ScoreBar label="A4 formate release" value={candidate.A4} />
         <ScoreBar label="B1 byproduct risk" value={candidate.B1} tone={palette.risk} />
       </div>
 
       <div style={{ display: "grid", gap: 8, marginTop: 14 }}>
-        <div style={{ color: palette.text, fontSize: 12, fontWeight: 950 }}>Product profile</div>
+        <div style={{ color: palette.text, fontSize: 12, fontWeight: 950 }}>Gate scores</div>
+        <ScoreBar label="water stability" value={candidate.waterStabilityScore} />
+        <ScoreBar label="accessibility" value={candidate.accessibilityScore} />
+        <ScoreBar label="active site confidence" value={candidate.activeSiteConfidence} />
+      </div>
+
+      <div style={{ display: "grid", gap: 8, marginTop: 14 }}>
+        <div style={{ color: palette.text, fontSize: 12, fontWeight: 950 }}>Product and selectivity</div>
         {productRows.map(([label, value, color]) => <ScoreBar key={label} label={label} value={value} tone={color} />)}
       </div>
 
       <div style={{ display: "grid", gap: 8, marginTop: 14 }}>
-        <div style={{ color: palette.text, fontSize: 12, fontWeight: 950 }}>Gate factors</div>
-        <ScoreBar label="Water stability" value={candidate.waterStabilityScore} />
-        <ScoreBar label="Accessibility" value={candidate.accessibilityScore} />
-        <ScoreBar label="Active-site confidence" value={candidate.activeSiteConfidence} />
+        <div style={{ color: palette.text, fontSize: 12, fontWeight: 950 }}>Pathway fingerprint</div>
+        {pathwayRows.map(([label, value, color]) => <ScoreBar key={label} label={label} value={value} tone={color} />)}
       </div>
 
       <div style={{ borderTop: `1px solid ${palette.border}`, marginTop: 13, paddingTop: 11 }}>
@@ -518,11 +691,47 @@ function CandidateRankingSection({ rankedRows, selectedMof, setSelectedMof, isNa
     <ProjectSection
       kicker="Candidate ranking"
       title="Candidate Ranking / 候选排序"
-      note="Rows are sorted automatically by RGFA Score. Select a candidate to inspect pathway assumptions, gate factors, product labels, and generated explanation."
+      note="Rows are sorted automatically by RGFA Score from the standalone demo dataset. Select a candidate to inspect pathway assumptions, score components, and generated explanation."
     >
+      <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", marginBottom: 12 }}>
+        <MetricCard label="Data file" value="JSON" note="public/data/organic_acid_project_demo.json" />
+        <MetricCard label="Records" value={rankedRows.length || "-"} note="Independent from the general MOF Library" />
+        <MetricCard label="Evidence level" value="demo" note="Prototype values for workflow display" />
+      </div>
       <div style={{ display: "grid", gap: 13, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.25fr) minmax(300px, 0.75fr)" }}>
         <RankingTable rankedRows={rankedRows} selectedMof={selected?.mof} onSelect={setSelectedMof} />
         <CandidateDetailPanel candidate={selected} />
+      </div>
+    </ProjectSection>
+  )
+}
+
+function DescriptorSection({ isNarrow }) {
+  return (
+    <ProjectSection
+      kicker="Descriptor matrix"
+      title="Descriptor Matrix / 描述符体系"
+      note="The descriptor matrix connects MOF stability, access, active-site chemistry, pathway intermediates, and product labels."
+    >
+      <div style={{ border: `1px solid ${palette.border}`, borderRadius: 8, overflow: "hidden" }}>
+        {descriptorGroups.map((group, index) => (
+          <div
+            key={group.category}
+            style={{
+              background: index % 2 === 0 ? palette.bg : palette.surface,
+              borderTop: index === 0 ? "none" : `1px solid ${palette.border}`,
+              display: "grid",
+              gap: isNarrow ? 6 : 12,
+              gridTemplateColumns: isNarrow ? "1fr" : "minmax(190px, 0.35fr) minmax(0, 1fr)",
+              padding: "11px 12px",
+            }}
+          >
+            <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 900 }}>{group.category}</div>
+            <div style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.5, overflowWrap: "anywhere" }}>
+              {group.descriptors.join(" · ")}
+            </div>
+          </div>
+        ))}
       </div>
     </ProjectSection>
   )
@@ -532,14 +741,17 @@ function ValidationSection() {
   return (
     <ProjectSection
       kicker="Validation roadmap"
-      title="Validation Roadmap / 后续验证"
-      note="The roadmap converts ranked hypotheses into main-reaction tests, pathway-feeding tests, carbon accounting, isotope tracing, and DFT descriptor updates."
+      title="Validation Roadmap / 后续实验与 DFT 验证"
+      note="The roadmap converts ranked hypotheses into main-reaction tests, pathway-feeding tests, carbon accounting, isotope tracing, and descriptor updates."
     >
-      <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))" }}>
-        {validationSteps.map((step, index) => (
+      <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))" }}>
+        {validationSteps.map(([step, body], index) => (
           <article key={step} style={{ alignItems: "start", background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, display: "grid", gap: 9, gridTemplateColumns: "34px minmax(0, 1fr)", padding: 11 }}>
             <div style={{ alignItems: "center", background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 999, color: palette.accent, display: "flex", fontFamily: FONT_MONO, fontSize: 12, fontWeight: 950, height: 30, justifyContent: "center", width: 30 }}>{index + 1}</div>
-            <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 850, lineHeight: 1.42 }}>{step}</div>
+            <div>
+              <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 900, lineHeight: 1.35 }}>{step}</div>
+              <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.5, marginTop: 4 }}>{body}</div>
+            </div>
           </article>
         ))}
       </div>
@@ -623,10 +835,9 @@ export function OrganicAcidProject({ lang = "zh", t }) {
     <div style={{ background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 12, padding: isNarrow ? 12 : 16 }}>
       <div style={{ display: "grid", gap: 14 }}>
         <ProjectHero topCandidate={topCandidate} rankedRows={rankedRows} isNarrow={isNarrow} />
-        <ReactionPathwayMap isNarrow={isNarrow} />
+        <ReactionMechanismMap />
         <AlgorithmSection topCandidate={topCandidate} isNarrow={isNarrow} />
-        <DescriptorSection />
-        <DatasetSection rankedRows={rankedRows} status={status} />
+        <PathwayScoreMappingSection />
         {status === "error" ? (
           <div style={{ background: palette.riskSoft, border: `1px solid ${palette.border}`, borderRadius: 8, color: palette.risk, fontSize: 12.5, fontWeight: 850, padding: 12 }}>
             Demo dataset could not be loaded from public/data/organic_acid_project_demo.json.
@@ -634,6 +845,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
         ) : (
           <CandidateRankingSection rankedRows={rankedRows} selectedMof={selectedMof} setSelectedMof={setSelectedMof} isNarrow={isNarrow} />
         )}
+        <DescriptorSection isNarrow={isNarrow} />
         <ValidationSection />
       </div>
     </div>
