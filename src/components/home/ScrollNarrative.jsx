@@ -3,7 +3,6 @@ import { getDescriptorsForPreset } from "../../scoring"
 import { FONT_MONO } from "../../constants/theme"
 import { BrandMotif, BrandNode } from "../brand"
 
-const clamp = (value, min = 0, max = 1) => Math.max(min, Math.min(max, Number(value) || 0))
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
 const STATUS_BY_KEY = {
@@ -92,64 +91,75 @@ const visualPalette = {
   warning: "#94612d",
 }
 
-function useScrollProgressStep(sectionRef, count, disabled = false) {
+const INTERSECTION_THRESHOLDS = Array.from({ length: 11 }, (_, index) => index / 10)
+
+function useStepIntersection(stepRefs, count, disabled = false) {
   const [active, setActive] = useState(0)
 
   useEffect(() => {
     if (disabled) return undefined
     if (typeof window === "undefined") return undefined
+    if (typeof IntersectionObserver === "undefined") return undefined
 
-    let raf = 0
-    const update = () => {
-      raf = 0
-      const section = sectionRef.current
-      if (!section) return
-      const viewportHeight = window.innerHeight || 1
-      const scrollY = window.scrollY || window.pageYOffset || 0
-      const rect = section.getBoundingClientRect()
-      const sectionTop = rect.top + scrollY
-      const sectionHeight = section.offsetHeight || rect.height || viewportHeight
-      const denominator = Math.max(1, sectionHeight - viewportHeight)
-      const progress = clamp((scrollY + viewportHeight * 0.45 - sectionTop) / denominator)
-      const next = Math.min(count - 1, Math.max(0, Math.floor(progress * count)))
-      setActive(next)
-    }
-    const schedule = () => {
-      if (raf) return
-      raf = window.requestAnimationFrame(update)
-    }
+    const nodes = stepRefs.current.slice(0, count).filter(Boolean)
+    if (!nodes.length) return undefined
 
-    update()
-    window.addEventListener("scroll", schedule, { passive: true })
-    window.addEventListener("resize", schedule)
-    return () => {
-      if (raf) window.cancelAnimationFrame(raf)
-      window.removeEventListener("scroll", schedule)
-      window.removeEventListener("resize", schedule)
-    }
-  }, [sectionRef, count, disabled])
+    const visibleRatios = new Map(nodes.map((node) => [Number(node.getAttribute("data-step-index")), 0]))
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const index = Number(entry.target.getAttribute("data-step-index"))
+        if (Number.isFinite(index)) {
+          visibleRatios.set(index, entry.isIntersecting ? entry.intersectionRatio : 0)
+        }
+      })
+
+      setActive((previous) => {
+        let next = previous
+        let strongestRatio = visibleRatios.get(previous) ?? 0
+        visibleRatios.forEach((ratio, index) => {
+          if (ratio > strongestRatio + 0.03) {
+            strongestRatio = ratio
+            next = index
+          }
+        })
+        return strongestRatio > 0.04 ? next : previous
+      })
+    }, {
+      threshold: INTERSECTION_THRESHOLDS,
+      rootMargin: "-14% 0px -22% 0px",
+    })
+
+    nodes.forEach((node) => observer.observe(node))
+    return () => observer.disconnect()
+  }, [stepRefs, count, disabled])
 
   return [active, setActive]
 }
 
-function StepTextCard({ step, index, active, setActive, t, isMobile, lang }) {
+function StepTextCard({ step, index, active, setActive, t, isMobile, lang, cardRef }) {
   const isActive = active === index
   return (
     <article
+      ref={cardRef}
       tabIndex={0}
       aria-current={isActive ? "step" : undefined}
+      data-step-index={index}
       onFocus={() => setActive(index)}
+      onClick={() => setActive(index)}
       className="narrative-step-card"
       data-active={isActive ? "true" : "false"}
       style={{
-        minHeight: isMobile ? "auto" : "72vh",
+        minHeight: isMobile ? "auto" : 300,
         display: "flex",
-        alignItems: "center",
-        opacity: isMobile || isActive ? 1 : 0.56,
+        alignItems: "stretch",
+        opacity: isMobile || isActive ? 1 : 0.68,
+        cursor: isMobile ? "default" : "pointer",
+        scrollMarginTop: 112,
       }}
     >
       <div style={{
         width: "100%",
+        flex: 1,
         background: isActive ? "rgba(239, 247, 255, 0.94)" : t.panel,
         border: `1px solid ${isActive ? "rgba(33, 113, 181, 0.32)" : t.border}`,
         borderRadius: 18,
@@ -157,6 +167,7 @@ function StepTextCard({ step, index, active, setActive, t, isMobile, lang }) {
         boxShadow: isActive ? "0 18px 42px rgba(15, 72, 122, 0.10)" : "none",
         display: "grid",
         gap: 12,
+        alignContent: "center",
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <BrandNode active={isActive} t={t}>{String(index + 1).padStart(2, "0")}</BrandNode>
@@ -206,7 +217,7 @@ function DescriptorNetwork({ activeStep, lang, compact = false, reducedMotion = 
       data-compact={compact ? "true" : "false"}
       style={{
         position: "relative",
-        minHeight: compact ? 256 : 370,
+        minHeight: compact ? 246 : 342,
         borderRadius: 22,
         background: "radial-gradient(circle at 50% 46%, rgba(75, 160, 220, 0.13), rgba(255, 255, 255, 0) 54%)",
         overflow: "hidden",
@@ -422,16 +433,17 @@ function CandidateRankingPreview({ lang }) {
 
 function DescriptorDecisionVisual({ activeStep, steps, reducedMotion, isMobile, lang }) {
   const active = steps[activeStep]
-  const compactNetwork = activeStep >= 2 && !isMobile
+  const compactNetwork = activeStep === 2 && !isMobile
+  const showNetwork = activeStep !== 3
   return (
-    <div className="decision-visual-panel" style={{
+    <div className="decision-visual-panel" data-step={activeStep} style={{
       background: visualPalette.panel,
       border: `1px solid ${visualPalette.border}`,
       borderRadius: 24,
       boxShadow: "0 24px 70px rgba(34, 91, 145, 0.12)",
-      minHeight: isMobile ? 0 : 560,
-      height: isMobile ? "auto" : "calc(100vh - 132px)",
-      maxHeight: isMobile ? "none" : 720,
+      minHeight: isMobile ? 0 : "100%",
+      height: isMobile ? "auto" : "100%",
+      maxHeight: isMobile ? "none" : "calc(100vh - 140px)",
       padding: isMobile ? 16 : 22,
       display: "grid",
       gridTemplateRows: "auto minmax(0, 1fr) auto",
@@ -463,9 +475,14 @@ function DescriptorDecisionVisual({ activeStep, steps, reducedMotion, isMobile, 
           gap: 16,
           alignContent: "center",
           minWidth: 0,
+          opacity: 1,
+          transform: "translateY(0)",
+          transition: reducedMotion ? "none" : "opacity 260ms ease, transform 300ms cubic-bezier(0.22, 1, 0.36, 1)",
+          animation: reducedMotion ? "none" : undefined,
+          willChange: reducedMotion ? "auto" : "opacity, transform",
         }}
       >
-        <DescriptorNetwork activeStep={activeStep} lang={lang} compact={compactNetwork} reducedMotion={reducedMotion} />
+        {showNetwork && <DescriptorNetwork activeStep={activeStep} lang={lang} compact={compactNetwork} reducedMotion={reducedMotion} />}
         {activeStep === 1 && <EvidenceMappingLayer lang={lang} />}
         {activeStep === 2 && <WeightingBars lang={lang} />}
         {activeStep === 3 && <CandidateRankingPreview lang={lang} />}
@@ -493,6 +510,7 @@ function DescriptorDecisionVisual({ activeStep, steps, reducedMotion, isMobile, 
 export function ScrollNarrative({ t, isMobile, reducedMotion, lang = "en" }) {
   const zh = lang === "zh"
   const sectionRef = useRef(null)
+  const stepRefs = useRef([])
   const steps = useMemo(() => zh ? [
     {
       eyebrow: "Descriptor collection",
@@ -545,7 +563,7 @@ export function ScrollNarrative({ t, isMobile, reducedMotion, lang = "en" }) {
     },
   ], [zh])
 
-  const [activeStep, setActiveStep] = useScrollProgressStep(sectionRef, steps.length, isMobile)
+  const [activeStep, setActiveStep] = useStepIntersection(stepRefs, steps.length, isMobile)
 
   if (isMobile) {
     return (
@@ -561,17 +579,20 @@ export function ScrollNarrative({ t, isMobile, reducedMotion, lang = "en" }) {
   }
 
   return (
-    <section ref={sectionRef} className="scroll-narrative-section" style={{ paddingBottom: "78vh" }}>
+    <section ref={sectionRef} className="scroll-narrative-section" style={{ paddingBottom: 6 }}>
       <div className="scroll-narrative-grid" style={{
         display: "grid",
-        gridTemplateColumns: "minmax(0, 0.9fr) minmax(420px, 1.1fr)",
-        gap: 40,
+        gridTemplateColumns: "minmax(280px, 0.86fr) minmax(400px, 1.14fr)",
+        gap: 30,
         alignItems: "start",
       }}>
-        <div className="scroll-narrative-steps" style={{ display: "grid", gap: 0, paddingTop: 4 }}>
+        <div className="scroll-narrative-steps" style={{ display: "grid", gap: 18, paddingTop: 4 }}>
           {steps.map((step, index) => (
             <StepTextCard
               key={step.title}
+              cardRef={(node) => {
+                stepRefs.current[index] = node
+              }}
               step={step}
               index={index}
               active={activeStep}
@@ -585,8 +606,9 @@ export function ScrollNarrative({ t, isMobile, reducedMotion, lang = "en" }) {
         <div className="scroll-narrative-visual-wrap decision-sticky-wrap" style={{
           position: "sticky",
           top: 96,
-          height: "calc(100vh - 132px)",
-          minHeight: 560,
+          height: "min(620px, calc(100vh - 140px))",
+          maxHeight: "calc(100vh - 140px)",
+          minHeight: 0,
           alignSelf: "start",
         }}>
           <DescriptorDecisionVisual activeStep={activeStep} steps={steps} reducedMotion={reducedMotion} isMobile={isMobile} lang={lang} />
