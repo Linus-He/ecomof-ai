@@ -23,6 +23,48 @@
     "sustainability": 0.11,
     "evidenceConfidence": 0.12
   },
+  "organicAcid": {
+    "stepWeights": {
+      "A1": 0.15,
+      "A2": 0.2,
+      "A3": 0.35,
+      "A4": 0.15,
+      "B1": -0.15
+    },
+    "byproductMechanismPrior": {
+      "Y_lactic": 1.0,
+      "Y_acetic": 0.8,
+      "Y_glycolic": 0.5,
+      "Y_pyruvic": 0.4,
+      "Y_solid": 0.3
+    },
+    "criticBlend": {
+      "mechanism": 0.7,
+      "critic": 0.3
+    },
+    "status": "prototype"
+  },
+  "rgfaScoring": {
+    "stepWeights": {
+      "A1": 0.15,
+      "A2": 0.2,
+      "A3": 0.35,
+      "A4": 0.15,
+      "B1": -0.15
+    },
+    "byproductMechanismPrior": {
+      "Y_lactic": 1.0,
+      "Y_acetic": 0.8,
+      "Y_glycolic": 0.5,
+      "Y_pyruvic": 0.4,
+      "Y_solid": 0.3
+    },
+    "criticBlend": {
+      "mechanism": 0.7,
+      "critic": 0.3
+    },
+    "status": "prototype"
+  },
   "notes": [
     "Weights are demo defaults for the current Rule-based Scoring Model.",
     "Rule-based visualizations are real outputs of the current scoring strategy.",

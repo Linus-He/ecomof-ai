@@ -56,7 +56,7 @@ function OrganicAcidProjectEntry({ lang, t, isNarrow, onOpen }) {
           Organic Acid Project / 有机酸项目
         </h2>
         <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.55, margin: "7px 0 0", maxWidth: 860 }}>
-          Mechanism-guided MOF screening for glucose–NaHCO3 conversion to formic acid
+          机理导向 MOF 筛选：glucose–NaHCO<sub>3</sub> 协同转化为 formic acid，并追踪 RGFA 算法过程。
         </p>
       </div>
       <button

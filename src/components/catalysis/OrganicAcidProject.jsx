@@ -1,15 +1,8 @@
 import { useEffect, useMemo, useState } from "react"
 import { FONT_MONO, fetchDataJson, toolbarBtn, useViewport } from "../../shared"
+import { AlgorithmTraceExplorer } from "./AlgorithmTraceExplorer"
 import { OrganicAcidPathwayMap } from "./OrganicAcidPathwayMap"
-import {
-  calculateGateScore,
-  calculateRGFAScore,
-  calculateSelectivityFactor,
-  calculateStepScore,
-  classifyCandidate,
-  generateCandidateExplanation,
-  safeNumber,
-} from "../../utils/rgfaScore"
+import { calculateRGFARanking, safeNumber } from "../../utils/rgfaScore"
 
 const ACCESS_KEY = "ecomof_organic_acid_project_access"
 const PROJECT_PASSWORD = "acid"
@@ -44,27 +37,27 @@ const PATHWAY_LABELS = {
 
 const descriptorGroups = [
   {
-    category: "Stability descriptors",
+    category: "稳定性描述符 Stability descriptors",
     descriptors: ["waterStability", "hydrothermalStability", "metalLeachingRisk", "pxrdRetention"],
   },
   {
-    category: "Accessibility descriptors",
+    category: "可及性描述符 Accessibility descriptors",
     descriptors: ["PLD", "LCD", "poreVolume", "hydrophilicPoreEnvironment"],
   },
   {
-    category: "Active-site descriptors",
+    category: "活性位点描述符 Active-site descriptors",
     descriptors: ["metalType", "valenceState", "lewisAcidity", "basicSites", "openMetalSites"],
   },
   {
-    category: "Functional-group descriptors",
+    category: "官能团描述符 Functional-group descriptors",
     descriptors: ["amino", "hydroxyl", "carboxyl", "defects", "zrHydroxyl", "feHydroxyl"],
   },
   {
-    category: "Reaction descriptors",
+    category: "反应描述符 Reaction descriptors",
     descriptors: ["eadsBicarbonate", "eadsFormaldehyde", "eadsGlyceraldehyde", "eadsPyruvaldehyde", "eadsFormate"],
   },
   {
-    category: "Product descriptors",
+    category: "产物描述符 Product descriptors",
     descriptors: ["yFormicAcid", "sFormicCarbon", "yLactic", "yAcetic", "yGlycolic", "yPyruvic", "ySolid"],
   },
 ]
@@ -299,24 +292,24 @@ function ProjectHero({ topCandidate, rankedRows, isNarrow }) {
         <div>
           <div style={{ color: palette.faint, fontSize: 11, fontWeight: 900, textTransform: "uppercase" }}>Mechanism-guided MOF screening workbench</div>
           <h1 style={{ color: palette.text, fontSize: isNarrow ? 27 : 32, lineHeight: 1.1, letterSpacing: 0, margin: "6px 0 0" }}>
-            Organic Acid Project
+            有机酸项目 Organic Acid Project
           </h1>
           <p style={{ color: palette.muted, fontSize: 14, lineHeight: 1.6, margin: "9px 0 0", maxWidth: 820 }}>
-            Reaction-guided screening of MOFs for glucose–<ChemFormula kind="sodiumBicarbonate" /> conversion to formic acid
+            面向葡萄糖–<ChemFormula kind="sodiumBicarbonate" /> 协同转化为甲酸的机理导向、算法可追踪 MOF 筛选工作台。
           </p>
           <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderLeft: `3px solid ${palette.accent}`, borderRadius: 8, marginTop: 13, padding: 12 }}>
             <div style={{ color: palette.text, fontFamily: FONT_MONO, fontSize: 13.5, fontWeight: 900, lineHeight: 1.55, overflowWrap: "anywhere" }}>
               Glucose + <ChemFormula kind="sodiumBicarbonate" /> + <ChemFormula kind="water" /> + MOF → formic acid / formate + suppressed byproducts
             </div>
             <div style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.55, marginTop: 7 }}>
-              Objective: maximize formic acid yield and carbon-based selectivity while suppressing lactic acid, acetic acid, glycolic acid, pyruvic acid, and solid byproducts.
+              目标：在提高甲酸产率和碳选择性的同时，抑制乳酸、乙酸、乙醇酸、丙酮酸和固体副产物。当前为演示数据 / Demo data，不代表真实实验结论。
             </div>
           </div>
         </div>
         <div style={{ display: "grid", gap: 9 }}>
-          <MetricCard label="Data status" value="Demo / Prototype Data" note="No real collaboration data or unpublished experimental data is embedded." />
-          <MetricCard label="Demo candidates" value={rankedRows.length} note="Standalone organic_acid_project_demo.json dataset" />
-          <MetricCard label="Current top candidate" value={topCandidate?.mof || "-"} note={topCandidate ? `RGFA ${fmt(topCandidate.rgfaScore)} · ${recommendationForClass(topCandidate.computedClass)}` : "Awaiting data"} />
+          <MetricCard label="数据状态 Data status" value="Demo / Prototype Data" note="不嵌入真实合作数据或未公开实验数据。" />
+          <MetricCard label="候选数量 Demo candidates" value={rankedRows.length} note="独立 organic_acid_project_demo.json 数据集" />
+          <MetricCard label="当前首位候选 Current top candidate" value={topCandidate?.mof || "-"} note={topCandidate ? `RGFA ${fmt(topCandidate.rgfaScore)} · ${recommendationForClass(topCandidate.computedClass)}` : "等待数据加载"} />
         </div>
       </div>
     </section>
@@ -474,17 +467,17 @@ function RankingTable({ rankedRows, selectedMof, onSelect }) {
   if (!rankedRows.length) {
     return (
       <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, color: palette.muted, fontSize: 12.5, padding: 12 }}>
-        Loading independent demo dataset from public/data/organic_acid_project_demo.json.
+        正在加载 public/data/organic_acid_project_demo.json 演示数据。
       </div>
     )
   }
 
   return (
     <div style={{ maxWidth: "100%", minWidth: 0, overflowX: "auto" }}>
-      <table style={{ borderCollapse: "collapse", minWidth: 820, width: "100%" }}>
+      <table style={{ borderCollapse: "collapse", minWidth: 980, width: "100%" }}>
         <thead>
           <tr>
-            {["Rank", "MOF", "RGFA Score", "Class", "Dominant pathway", "Main risk", "Evidence"].map((head) => (
+            {["排名 Rank", "MOF", "RGFA Score", "类别 Class", "主导路径 Dominant pathway", "主要风险 Main risk", "证据 Evidence", "产率排序 Yield-only", "算法排序 RGFA"].map((head) => (
               <th key={head} style={{ borderBottom: `1px solid ${palette.borderStrong}`, color: palette.faint, fontSize: 11, padding: "8px 10px", textAlign: "left" }}>{head}</th>
             ))}
           </tr>
@@ -494,13 +487,15 @@ function RankingTable({ rankedRows, selectedMof, onSelect }) {
             const selected = row.mof === selectedMof
             return (
               <tr key={row.mof} onClick={() => onSelect(row.mof)} style={{ background: selected ? palette.accentSoft : "transparent", cursor: "pointer" }}>
-                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.accent, fontFamily: FONT_MONO, fontSize: 12, fontWeight: 900, padding: "10px" }}>#{index + 1}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.accent, fontFamily: FONT_MONO, fontSize: 12, fontWeight: 900, padding: "10px" }}>#{row.rgfaRank || index + 1}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 12.5, fontWeight: 900, padding: "10px", whiteSpace: "nowrap" }}>{row.mof}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontFamily: FONT_MONO, fontSize: 12.5, padding: "10px" }}>{fmt(row.rgfaScore)}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 12.5, fontWeight: 900, padding: "10px" }}>{row.computedClass}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "10px" }}>{humanizePathway(row.dominantPathway)}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "10px" }}>{humanizePathway(row.riskPathway)}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "10px" }}>{row.evidenceLevel || "demo"}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontFamily: FONT_MONO, fontSize: 12, padding: "10px" }}>#{row.yieldOnlyRank || "-"}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontFamily: FONT_MONO, fontSize: 12, fontWeight: 900, padding: "10px" }}>#{row.rgfaRank || "-"}</td>
               </tr>
             )
           })}
@@ -542,37 +537,37 @@ function CandidateDetailPanel({ candidate }) {
       <div style={{ color: palette.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>Candidate Detail Panel</div>
       <h3 style={{ color: palette.text, fontSize: 17, lineHeight: 1.25, margin: "6px 0 0" }}>{candidate.mof}</h3>
       <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.55, marginTop: 6 }}>
-        RGFA {fmt(candidate.rgfaScore)} · Class {candidate.computedClass} · {recommendationForClass(candidate.computedClass)}
+        RGFA {fmt(candidate.rgfaScore)} · Class {candidate.computedClass} · {candidate.recommendation?.type || recommendationForClass(candidate.computedClass)}
       </div>
 
       <div style={{ display: "grid", gap: 8, marginTop: 12 }}>
-        <div style={{ color: palette.text, fontSize: 12, fontWeight: 950 }}>Step scores</div>
-        <ScoreBar label="A1 glucose activation" value={candidate.A1} />
-        <ScoreBar label="A2 precursor generation" value={candidate.A2} />
-        <ScoreBar label="A3 intermediate → formic acid" value={candidate.A3} tone={palette.positive} />
-        <ScoreBar label="A4 formate release" value={candidate.A4} />
-        <ScoreBar label="B1 byproduct risk" value={candidate.B1} tone={palette.risk} />
+        <div style={{ color: palette.text, fontSize: 12, fontWeight: 950 }}>步骤评分 Step Scores</div>
+        <ScoreBar label="A1 葡萄糖活化/异构化" value={candidate.A1} />
+        <ScoreBar label="A2 甲酸前体生成" value={candidate.A2} />
+        <ScoreBar label="A3 中间体 → 甲酸" value={candidate.A3} tone={palette.positive} />
+        <ScoreBar label="A4 甲酸/甲酸盐释放" value={candidate.A4} />
+        <ScoreBar label="B1 副产物路径风险" value={candidate.B1} tone={palette.risk} />
       </div>
 
       <div style={{ display: "grid", gap: 8, marginTop: 14 }}>
-        <div style={{ color: palette.text, fontSize: 12, fontWeight: 950 }}>Gate scores</div>
-        <ScoreBar label="water stability" value={candidate.waterStabilityScore} />
-        <ScoreBar label="accessibility" value={candidate.accessibilityScore} />
-        <ScoreBar label="active site confidence" value={candidate.activeSiteConfidence} />
+        <div style={{ color: palette.text, fontSize: 12, fontWeight: 950 }}>门槛分数 Gate Scores</div>
+        <ScoreBar label="水相稳定性 water stability" value={candidate.waterStabilityScore} />
+        <ScoreBar label="孔道/底物可及性 accessibility" value={candidate.accessibilityScore} />
+        <ScoreBar label="活性位点可信度 active-site confidence" value={candidate.activeSiteConfidence} />
       </div>
 
       <div style={{ display: "grid", gap: 8, marginTop: 14 }}>
-        <div style={{ color: palette.text, fontSize: 12, fontWeight: 950 }}>Product and selectivity</div>
+        <div style={{ color: palette.text, fontSize: 12, fontWeight: 950 }}>产物与选择性 Product and Selectivity</div>
         {productRows.map(([label, value, color]) => <ScoreBar key={label} label={<VariableLabel name={label} />} value={value} tone={color} />)}
       </div>
 
       <div style={{ display: "grid", gap: 8, marginTop: 14 }}>
-        <div style={{ color: palette.text, fontSize: 12, fontWeight: 950 }}>Pathway fingerprint</div>
+        <div style={{ color: palette.text, fontSize: 12, fontWeight: 950 }}>路径指纹 Pathway Fingerprint</div>
         {pathwayRows.map(([label, value, color]) => <ScoreBar key={label} label={label} value={value} tone={color} />)}
       </div>
 
       <div style={{ borderTop: `1px solid ${palette.border}`, marginTop: 13, paddingTop: 11 }}>
-        <div style={{ color: palette.text, fontSize: 12, fontWeight: 950 }}>Why this candidate?</div>
+        <div style={{ color: palette.text, fontSize: 12, fontWeight: 950 }}>为什么推荐该候选？ Why this candidate?</div>
         <ul style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.55, margin: "7px 0 0", paddingLeft: 17 }}>
           {candidate.explanations.map((reason) => <li key={reason}>{reason}</li>)}
         </ul>
@@ -587,12 +582,12 @@ function CandidateRankingSection({ rankedRows, selectedMof, setSelectedMof, isNa
     <ProjectSection
       kicker="Candidate ranking"
       title="Candidate Ranking / 候选排序"
-      note="Rows are sorted automatically by RGFA Score from the standalone demo dataset. Select a candidate to inspect pathway assumptions, score components, and generated explanation."
+      note="候选按 RGFA Score 自动排序，并与仅按甲酸产率的排序对照。点击候选可查看路径指纹、分数组成和自动生成的推荐解释。"
     >
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", marginBottom: 12 }}>
-        <MetricCard label="Data file" value="JSON" note="public/data/organic_acid_project_demo.json" />
-        <MetricCard label="Records" value={rankedRows.length || "-"} note="Independent from the general MOF Library" />
-        <MetricCard label="Evidence level" value="demo" note="Prototype values for workflow display" />
+        <MetricCard label="数据文件 Data file" value="JSON" note="public/data/organic_acid_project_demo.json" />
+        <MetricCard label="记录数 Records" value={rankedRows.length || "-"} note="独立于通用 MOF Library 的演示数据" />
+        <MetricCard label="证据等级 Evidence level" value="demo" note="Prototype values for workflow display" />
       </div>
       <div style={{ display: "grid", gap: 13, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.25fr) minmax(300px, 0.75fr)" }}>
         <RankingTable rankedRows={rankedRows} selectedMof={selected?.mof} onSelect={setSelectedMof} />
@@ -660,6 +655,35 @@ function ValidationSection() {
   )
 }
 
+function OrganicLimitationsSection() {
+  const rows = [
+    ["演示数据限制 Demo data limitation", "当前数据为 demo / prototype data，用于展示算法工作流，不代表真实实验结论。"],
+    ["小样本 CRITIC 限制 Small-sample CRITIC limitation", "CRITIC 权重对候选集规模和分布敏感，真实实验数据增加后需要重新计算。"],
+    ["机理先验限制 Mechanism prior limitation", "A1/A2/A3/A4/B1 权重为机理先验，应随投料实验、时间序列和同位素示踪结果更新。"],
+    ["结构式展示限制 Molecular structure display limitation", "结构式用于路径沟通；论文级结构图应由校验过的化学绘图工具生成。"],
+    ["DFT 限制 DFT limitation", <><DescriptorLabel descriptor="eadsBicarbonate" />、Bader charge 和反应自由能属于后续验证描述符。</>],
+    ["同位素示踪限制 Isotope tracing limitation", <><ChemFormula kind="isotopeBicarbonate" /> 示踪用于 Top 候选机理验证，不作为第一轮筛选必要条件。</>],
+    ["催化剂稳定性限制 Catalyst stability limitation", "MOF 稳定性需要反应后 PXRD、ICP、FTIR、SEM/TEM 等表征确认。"],
+    ["碳平衡限制 Carbon balance limitation", "碳平衡不足的数据应标记为低可信度，不应作为高质量机器学习标签。"],
+  ]
+  return (
+    <ProjectSection
+      kicker="Limitations"
+      title="有机酸筛选模块的限制说明 / Limitations"
+      note="限制说明用于界定原型筛选结果的使用边界，避免把候选优先级误读为已验证结论。"
+    >
+      <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}>
+        {rows.map(([title, body]) => (
+          <article key={title} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, padding: 11 }}>
+            <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 950, lineHeight: 1.35 }}>{title}</div>
+            <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.55, marginTop: 6 }}>{body}</div>
+          </article>
+        ))}
+      </div>
+    </ProjectSection>
+  )
+}
+
 export function OrganicAcidProject({ lang = "zh", t }) {
   const { isNarrow } = useViewport()
   const [hasAccess, setHasAccess] = useState(false)
@@ -695,25 +719,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
     }
   }, [hasAccess])
 
-  const rankedRows = useMemo(() => (
-    rows
-      .map((item) => {
-        const stepScore = calculateStepScore(item)
-        const selectivityFactor = calculateSelectivityFactor(item)
-        const gateScore = calculateGateScore(item)
-        const rgfaScore = calculateRGFAScore(item)
-        return {
-          ...item,
-          stepScore,
-          selectivityFactor,
-          gateScore,
-          rgfaScore,
-          computedClass: classifyCandidate(rgfaScore, item),
-          explanations: generateCandidateExplanation(item),
-        }
-      })
-      .sort((a, b) => b.rgfaScore - a.rgfaScore)
-  ), [rows])
+  const rankedRows = useMemo(() => calculateRGFARanking(rows), [rows])
 
   useEffect(() => {
     if (!rankedRows.length) return
@@ -737,7 +743,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
       <div style={{ display: "grid", gap: 14 }}>
         <ProjectHero topCandidate={topCandidate} rankedRows={rankedRows} isNarrow={isNarrow} />
         <OrganicAcidPathwayMap />
-        <AlgorithmSection topCandidate={topCandidate} isNarrow={isNarrow} />
+        <AlgorithmTraceExplorer rankedRows={rankedRows} selectedMof={selectedMof} setSelectedMof={setSelectedMof} />
         {status === "error" ? (
           <div style={{ background: palette.riskSoft, border: `1px solid ${palette.border}`, borderRadius: 8, color: palette.risk, fontSize: 12.5, fontWeight: 850, padding: 12 }}>
             Demo dataset could not be loaded from public/data/organic_acid_project_demo.json.
@@ -747,6 +753,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
         )}
         <DescriptorSection isNarrow={isNarrow} />
         <ValidationSection />
+        <OrganicLimitationsSection />
       </div>
     </div>
   )

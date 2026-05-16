@@ -1,10 +1,52 @@
 [
   {
+    "level": "demo",
+    "labelZh": "演示数据",
+    "confidence": 0.25,
+    "meaning": "Demo-only values for workflow display; not a validated result.",
+    "prototypeUse": "Use only to explain UI, traceability, and ranking mechanics."
+  },
+  {
+    "level": "prototype",
+    "labelZh": "原型数据",
+    "confidence": 0.35,
+    "meaning": "Prototype data or assumptions used to exercise the decision-support workflow.",
+    "prototypeUse": "Not equivalent to experimental validation."
+  },
+  {
+    "level": "literature",
+    "labelZh": "文献证据",
+    "confidence": 0.78,
+    "meaning": "Literature evidence relevant to the descriptor, pathway, or catalyst family.",
+    "prototypeUse": "Requires source and condition comparability checks."
+  },
+  {
     "level": "experimental",
     "labelZh": "实验支持",
     "confidence": 1.0,
     "meaning": "Direct experimental data for the relevant task and conditions.",
     "prototypeUse": "Highest confidence, but still needs independent validation for a new use case."
+  },
+  {
+    "level": "dft",
+    "labelZh": "DFT 证据",
+    "confidence": 0.72,
+    "meaning": "Calculated adsorption or reaction descriptors such as adsorption energy, charge, or free-energy indicators.",
+    "prototypeUse": "Supports mechanistic interpretation but does not replace product analysis."
+  },
+  {
+    "level": "isotope_pending",
+    "labelZh": "同位素待验证",
+    "confidence": 0.45,
+    "meaning": "Isotope tracing is planned or required but not yet completed.",
+    "prototypeUse": "Useful for marking bicarbonate-origin mechanism uncertainty."
+  },
+  {
+    "level": "validation_pending",
+    "labelZh": "验证待完成",
+    "confidence": 0.4,
+    "meaning": "Candidate or descriptor is awaiting targeted validation.",
+    "prototypeUse": "Use for next-experiment planning rather than final ranking confidence."
   },
   {
     "level": "literature-supported",

@@ -251,8 +251,8 @@ function PathButton({ path, active, onSelect, onHover, onLeave }) {
         alignItems: "start",
         background: active ? path.soft : palette.bg,
         border: `1px solid ${active ? path.color : palette.border}`,
-        borderLeft: `4px solid ${path.color}`,
         borderRadius: 8,
+        boxShadow: `inset 4px 0 0 ${path.color}`,
         color: palette.text,
         cursor: "pointer",
         display: "grid",
@@ -276,7 +276,7 @@ function MoleculeDetailPanel({ nodeId }) {
   const tone = node.paths.length === 1 ? pathwayTone[node.paths[0]] : pathwayTone.formaldehyde
 
   return (
-    <article style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderLeft: `3px solid ${tone.color}`, borderRadius: 8, padding: 12 }}>
+    <article style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 8, boxShadow: `inset 3px 0 0 ${tone.color}`, padding: 12 }}>
       <div style={{ color: palette.faint, fontSize: 10, fontWeight: 950, textTransform: "uppercase" }}>Molecule detail</div>
       <div style={{ display: "grid", gap: 10, marginTop: 8 }}>
         <div>
@@ -331,7 +331,7 @@ function PathwayMappingPanel({ activePath }) {
           const path = pathwayMeta[row.path]
           const active = row.path === activePath
           return (
-            <div key={row.title} style={{ background: active ? path.soft : palette.bg, border: `1px solid ${active ? path.color : palette.border}`, borderLeft: `3px solid ${path.color}`, borderRadius: 7, padding: 9 }}>
+            <div key={row.title} style={{ background: active ? path.soft : palette.bg, border: `1px solid ${active ? path.color : palette.border}`, borderRadius: 7, boxShadow: `inset 3px 0 0 ${path.color}`, padding: 9 }}>
               <div style={{ color: path.color, fontSize: 10.2, fontWeight: 920, lineHeight: 1.3 }}>{row.title}</div>
               <div style={{ color: palette.text, fontSize: 11.5, fontWeight: 880, lineHeight: 1.35, marginTop: 4 }}>{row.route}</div>
               <div style={{ color: palette.muted, fontSize: 10.8, lineHeight: 1.45, marginTop: 4 }}>{row.body}</div>
