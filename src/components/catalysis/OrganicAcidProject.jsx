@@ -83,33 +83,214 @@ const descriptorGroups = [
 
 const mappingRows = [
   {
-    title: "Positive C1 route",
-    route: "Formaldehyde → Formic acid",
-    body: "Contributes mainly to A3 and SelectivityFactor because it routes a C1 intermediate toward the target product.",
+    title: "Formaldehyde → Formic acid",
+    route: "primary C1 positive route",
+    body: "Contributes to A3 and SelectivityFactor.",
     tone: palette.positive,
     bg: palette.positiveSoft,
   },
   {
-    title: "Mixed route",
-    route: "Glyceraldehyde → Formic acid / Glycolic acid / Acetic acid",
-    body: "Contributes to A2/A3 when formic acid is favored, while glycolic and acetic acid branches increase B1.",
+    title: "Glyceraldehyde → Formic acid",
+    route: "mixed route, positive branch",
+    body: "Contributes to A2/A3.",
     tone: palette.mixed,
     bg: palette.mixedSoft,
   },
   {
-    title: "Risk-dominant route",
-    route: "Pyruvaldehyde → Lactic acid / Pyruvic acid / Acetic acid",
-    body: "Increases B1 and lowers SelectivityFactor through weighted byproduct penalties.",
+    title: "Glyceraldehyde → Glycolic acid / Acetic acid",
+    route: "mixed route, C2 byproduct branch",
+    body: "Increases B1.",
+    tone: palette.mixed,
+    bg: palette.mixedSoft,
+  },
+  {
+    title: "Pyruvaldehyde → Formic acid",
+    route: "possible positive branch",
+    body: "Possible positive branch but lower priority.",
     tone: palette.risk,
     bg: palette.riskSoft,
   },
   {
-    title: "Formate release",
-    route: "Formic acid / formate desorption",
-    body: "Contributes to A4 by testing whether generated formate can leave active sites without over-stabilization.",
-    tone: palette.accent,
-    bg: palette.accentSoft,
+    title: "Pyruvaldehyde → Lactic acid / Pyruvic acid / Acetic acid",
+    route: "risk-dominant branch",
+    body: "Increases B1 and lowers SelectivityFactor.",
+    tone: palette.risk,
+    bg: palette.riskSoft,
   },
+]
+
+const pathwayMeta = {
+  formaldehyde: {
+    id: "formaldehyde",
+    label: "Path 1",
+    title: "Formaldehyde → Formic acid",
+    subtitle: "primary positive route",
+    color: palette.positive,
+    soft: palette.positiveSoft,
+    focusNode: "formaldehyde",
+  },
+  glyceraldehyde: {
+    id: "glyceraldehyde",
+    label: "Path 2",
+    title: "Glyceraldehyde branches",
+    subtitle: "mixed route",
+    color: palette.mixed,
+    soft: palette.mixedSoft,
+    focusNode: "glyceraldehyde",
+  },
+  pyruvaldehyde: {
+    id: "pyruvaldehyde",
+    label: "Path 3",
+    title: "Pyruvaldehyde branches",
+    subtitle: "risk-dominant route",
+    color: palette.risk,
+    soft: palette.riskSoft,
+    focusNode: "pyruvaldehyde",
+  },
+}
+
+const pathwayScoreRows = [
+  ["Formaldehyde → Formic acid", "formaldehyde_to_formic", palette.positive],
+  ["Glyceraldehyde → Formic acid", "glyceraldehyde_to_formic", palette.mixed],
+  ["Glyceraldehyde → C2 byproducts", "glyceraldehyde_to_c2_byproducts", palette.mixed],
+  ["Pyruvaldehyde → Formic acid", "pyruvaldehyde_to_formic", palette.risk],
+  ["Pyruvaldehyde → Lactic/Pyruvic acid", "pyruvaldehyde_to_lactic", palette.risk],
+]
+
+const moleculeDefinitions = {
+  glucose: {
+    name: "Glucose",
+    zhName: "葡萄糖",
+    role: "Feedstock entering isomerization, retro-aldol, and C1/C3 fragmentation routes.",
+    scoreTerm: "A1 glucose activation",
+    tone: "feedstock",
+    paths: ["formaldehyde", "glyceraldehyde", "pyruvaldehyde"],
+    Structure: GlucoseStructure,
+  },
+  fructose: {
+    name: "Fructose",
+    zhName: "果糖",
+    role: "Isomerized feedstock that supplies key C1 and C3 intermediates.",
+    scoreTerm: "A1/A2 precursor generation",
+    tone: "feedstock",
+    paths: ["formaldehyde", "glyceraldehyde", "pyruvaldehyde"],
+    Structure: FructoseStructure,
+  },
+  glyceraldehyde: {
+    name: "Glyceraldehyde",
+    zhName: "甘油醛",
+    role: "Mixed C3 intermediate: can feed formic acid but also leaks to C2 byproducts.",
+    scoreTerm: "A2/A3 if routed to formic acid; B1 if routed to C2 byproducts",
+    tone: "mixed",
+    paths: ["glyceraldehyde"],
+    Structure: GlyceraldehydeStructure,
+  },
+  formaldehyde: {
+    name: "Formaldehyde",
+    zhName: "甲醛",
+    role: "Primary C1 positive intermediate toward formic acid / formate.",
+    scoreTerm: "A3 and SelectivityFactor",
+    tone: "positive",
+    paths: ["formaldehyde"],
+    Structure: FormaldehydeStructure,
+  },
+  pyruvaldehyde: {
+    name: "Pyruvaldehyde",
+    zhName: "丙酮醛",
+    role: "Risk-dominant C3 intermediate that competes through lactic, pyruvic, and acetic acid branches.",
+    scoreTerm: "B1 and SelectivityFactor penalty",
+    tone: "risk",
+    paths: ["pyruvaldehyde"],
+    Structure: PyruvaldehydeStructure,
+  },
+  formic: {
+    name: "Formic acid / Formate",
+    zhName: "甲酸 / 甲酸盐",
+    role: "Target product endpoint shared by all three routes.",
+    scoreTerm: "A3, A4, Y_FA, S_FA,C, SelectivityFactor",
+    tone: "positive",
+    paths: ["formaldehyde", "glyceraldehyde", "pyruvaldehyde"],
+    Structure: FormicAcidStructure,
+  },
+  glycolic: {
+    name: "Glycolic acid",
+    zhName: "乙醇酸",
+    role: "C2 byproduct endpoint from the glyceraldehyde branch.",
+    scoreTerm: "B1 byproduct penalty",
+    tone: "mixed",
+    paths: ["glyceraldehyde"],
+    Structure: GlycolicAcidStructure,
+  },
+  acetic: {
+    name: "Acetic acid",
+    zhName: "乙酸",
+    role: "C2 byproduct endpoint from glyceraldehyde and pyruvaldehyde branches.",
+    scoreTerm: "B1 and SelectivityFactor penalty",
+    tone: "risk",
+    paths: ["glyceraldehyde", "pyruvaldehyde"],
+    Structure: AceticAcidStructure,
+  },
+  lactic: {
+    name: "Lactic acid",
+    zhName: "乳酸",
+    role: "Risk-dominant C3 byproduct endpoint.",
+    scoreTerm: "B1 and SelectivityFactor penalty",
+    tone: "risk",
+    paths: ["pyruvaldehyde"],
+    Structure: LacticAcidStructure,
+  },
+  pyruvic: {
+    name: "Pyruvic acid",
+    zhName: "丙酮酸",
+    role: "Risk-dominant oxidized C3 byproduct endpoint.",
+    scoreTerm: "B1 and SelectivityFactor penalty",
+    tone: "risk",
+    paths: ["pyruvaldehyde"],
+    Structure: PyruvicAcidStructure,
+  },
+}
+
+const networkNodes = {
+  glucose: { x: 34, y: 112, w: 214, h: 168, column: "Feedstock", compact: false },
+  fructose: { x: 34, y: 356, w: 214, h: 168, column: "Feedstock", compact: false },
+  glyceraldehyde: { x: 356, y: 48, w: 232, h: 150, column: "Key intermediates", compact: false },
+  formaldehyde: { x: 356, y: 268, w: 232, h: 136, column: "Key intermediates", compact: false },
+  pyruvaldehyde: { x: 356, y: 488, w: 232, h: 150, column: "Key intermediates", compact: false },
+  glycolic: { x: 750, y: 38, w: 194, h: 136, column: "Products / Byproducts", compact: true },
+  formic: { x: 794, y: 208, w: 218, h: 136, column: "Products / Byproducts", compact: true },
+  acetic: { x: 984, y: 350, w: 194, h: 128, column: "Products / Byproducts", compact: true },
+  lactic: { x: 742, y: 512, w: 202, h: 136, column: "Products / Byproducts", compact: true },
+  pyruvic: { x: 980, y: 512, w: 202, h: 136, column: "Products / Byproducts", compact: true },
+}
+
+const moleculeNodeSubtitles = {
+  glucose: "feedstock",
+  fructose: "isomerized feedstock",
+  glyceraldehyde: "mixed C3 route",
+  formaldehyde: "primary C1 positive route",
+  pyruvaldehyde: "risk-dominant C3 route",
+  formic: "target product",
+  glycolic: "C2 byproduct",
+  acetic: "C2 byproduct",
+  lactic: "C3 byproduct",
+  pyruvic: "oxidized C3 byproduct",
+}
+
+const edgeDefinitions = [
+  { id: "glucose-glyceraldehyde", path: "glyceraldehyde", from: "glucose", to: "glyceraldehyde", label: "C3 split" },
+  { id: "fructose-glyceraldehyde", path: "glyceraldehyde", from: "fructose", to: "glyceraldehyde", label: "retro-aldol" },
+  { id: "glyceraldehyde-formic", path: "glyceraldehyde", from: "glyceraldehyde", to: "formic", label: "A2/A3", tone: palette.positive },
+  { id: "glyceraldehyde-glycolic", path: "glyceraldehyde", from: "glyceraldehyde", to: "glycolic", label: "B1" },
+  { id: "glyceraldehyde-acetic", path: "glyceraldehyde", from: "glyceraldehyde", to: "acetic", label: "B1" },
+  { id: "glucose-formaldehyde", path: "formaldehyde", from: "glucose", to: "formaldehyde", label: "C1" },
+  { id: "fructose-formaldehyde", path: "formaldehyde", from: "fructose", to: "formaldehyde", label: "C1" },
+  { id: "formaldehyde-formic", path: "formaldehyde", from: "formaldehyde", to: "formic", label: "A3" },
+  { id: "glucose-pyruvaldehyde", path: "pyruvaldehyde", from: "glucose", to: "pyruvaldehyde", label: "C3 risk" },
+  { id: "fructose-pyruvaldehyde", path: "pyruvaldehyde", from: "fructose", to: "pyruvaldehyde", label: "dehydration" },
+  { id: "pyruvaldehyde-formic", path: "pyruvaldehyde", from: "pyruvaldehyde", to: "formic", label: "minor", tone: palette.positive },
+  { id: "pyruvaldehyde-lactic", path: "pyruvaldehyde", from: "pyruvaldehyde", to: "lactic", label: "B1" },
+  { id: "pyruvaldehyde-pyruvic", path: "pyruvaldehyde", from: "pyruvaldehyde", to: "pyruvic", label: "B1" },
+  { id: "pyruvaldehyde-acetic", path: "pyruvaldehyde", from: "pyruvaldehyde", to: "acetic", label: "B1" },
 ]
 
 const validationSteps = [
@@ -271,137 +452,240 @@ function ProjectHero({ topCandidate, rankedRows, isNarrow }) {
   )
 }
 
-function FlowArrow({ tone = palette.accent, label }) {
-  return (
-    <div style={{ alignItems: "center", color: tone, display: "grid", gap: 3, justifyItems: "center", minWidth: 28 }}>
-      <div style={{ fontSize: 22, fontWeight: 900, lineHeight: 1 }}>→</div>
-      {label ? <div style={{ fontSize: 9.5, fontWeight: 850, lineHeight: 1.15, textAlign: "center" }}>{label}</div> : null}
-    </div>
-  )
+function nodePoint(id, side = "right") {
+  const node = networkNodes[id]
+  if (!node) return { x: 0, y: 0 }
+  const y = node.y + node.h / 2
+  if (side === "left") return { x: node.x, y }
+  if (side === "top") return { x: node.x + node.w / 2, y: node.y }
+  if (side === "bottom") return { x: node.x + node.w / 2, y: node.y + node.h }
+  return { x: node.x + node.w, y }
 }
 
-function ProductStack({ title, tone, children }) {
-  return (
-    <div style={{ display: "grid", gap: 7, minWidth: 0 }}>
-      <div style={{ color: tone, fontSize: 10.5, fontWeight: 900, lineHeight: 1.25 }}>{title}</div>
-      <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", minWidth: 0 }}>
-        {children}
-      </div>
-    </div>
-  )
-}
-
-function ReactionMechanismMap() {
-  const canvasStyle = {
-    alignItems: "center",
-    display: "grid",
-    gap: "0 12px",
-    gridTemplateColumns: "220px 34px 202px 34px minmax(440px, 1fr)",
-    gridTemplateRows: "auto auto auto",
-    minWidth: 1120,
-    position: "relative",
+function edgeCurve(edge) {
+  const from = nodePoint(edge.from, "right")
+  const to = nodePoint(edge.to, "left")
+  const span = Math.max(60, Math.abs(to.x - from.x) * 0.48)
+  const c1 = { x: from.x + span, y: from.y }
+  const c2 = { x: to.x - span, y: to.y }
+  return {
+    d: `M ${from.x} ${from.y} C ${c1.x} ${c1.y}, ${c2.x} ${c2.y}, ${to.x} ${to.y}`,
+    labelX: (from.x + to.x) / 2,
+    labelY: (from.y + to.y) / 2,
   }
-  const laneCell = (row, border = true) => ({
-    alignSelf: "stretch",
-    borderBottom: border ? `1px solid ${palette.border}` : "none",
-    display: "grid",
-    minHeight: 184,
-    padding: "12px 0",
-    position: "relative",
-    zIndex: 1,
-    gridRow: row,
-  })
-  const centerCell = (row, border = true) => ({
-    ...laneCell(row, border),
-    alignItems: "center",
-  })
+}
+
+function PathButton({ path, active, onSelect, onHover, onLeave }) {
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+      style={{
+        alignItems: "start",
+        background: active ? path.soft : palette.bg,
+        border: `1px solid ${active ? path.color : palette.border}`,
+        borderLeft: `4px solid ${path.color}`,
+        borderRadius: 8,
+        color: palette.text,
+        cursor: "pointer",
+        display: "grid",
+        gap: 3,
+        minHeight: 54,
+        padding: "8px 10px",
+        textAlign: "left",
+      }}
+    >
+      <span style={{ color: path.color, fontSize: 10, fontWeight: 950, textTransform: "uppercase" }}>{path.label}</span>
+      <span style={{ fontSize: 12.5, fontWeight: 950, lineHeight: 1.25 }}>{path.title}</span>
+      <span style={{ color: palette.muted, fontSize: 10.8, fontWeight: 750, lineHeight: 1.25 }}>{path.subtitle}</span>
+    </button>
+  )
+}
+
+function MoleculeDetailPanel({ nodeId }) {
+  const molecule = moleculeDefinitions[nodeId] || moleculeDefinitions.formaldehyde
+  const Structure = molecule.Structure
+  const tone = {
+    feedstock: palette.accent,
+    positive: palette.positive,
+    mixed: palette.mixed,
+    risk: palette.risk,
+  }[molecule.tone] || palette.accent
+  return (
+    <article style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderLeft: `3px solid ${tone}`, borderRadius: 8, padding: 12 }}>
+      <div style={{ color: palette.faint, fontSize: 10, fontWeight: 950, textTransform: "uppercase" }}>Molecule detail</div>
+      <div style={{ alignItems: "start", display: "grid", gap: 9, gridTemplateColumns: "minmax(0, 1fr)", marginTop: 8 }}>
+        <div>
+          <div style={{ color: palette.text, fontSize: 14, fontWeight: 950, lineHeight: 1.25 }}>{molecule.name}</div>
+          <div style={{ color: tone, fontSize: 12, fontWeight: 850, marginTop: 3 }}>{molecule.zhName}</div>
+        </div>
+        <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 7, display: "flex", justifyContent: "center", padding: 6 }}>
+          <Structure />
+        </div>
+        <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.55 }}>
+          <strong style={{ color: palette.text }}>Role:</strong> {molecule.role}
+        </div>
+        <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.55 }}>
+          <strong style={{ color: palette.text }}>Score term:</strong> {molecule.scoreTerm}
+        </div>
+      </div>
+    </article>
+  )
+}
+
+function PathwayMappingPanel({ activePath }) {
+  return (
+    <article style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, padding: 12 }}>
+      <div style={{ color: palette.faint, fontSize: 10, fontWeight: 950, textTransform: "uppercase" }}>Pathway-to-score mapping</div>
+      <div style={{ display: "grid", gap: 8, marginTop: 9 }}>
+        {mappingRows.map((row) => {
+          const pathActive = row.tone === pathwayMeta[activePath]?.color
+          return (
+            <div key={row.title} style={{ background: pathActive ? row.bg : palette.bg, border: `1px solid ${pathActive ? row.tone : palette.border}`, borderLeft: `3px solid ${row.tone}`, borderRadius: 7, padding: 9 }}>
+              <div style={{ color: row.tone, fontSize: 10.2, fontWeight: 920, lineHeight: 1.3 }}>{row.title}</div>
+              <div style={{ color: palette.text, fontSize: 11.5, fontWeight: 880, lineHeight: 1.35, marginTop: 4 }}>{row.route}</div>
+              <div style={{ color: palette.muted, fontSize: 10.8, lineHeight: 1.45, marginTop: 4 }}>{row.body}</div>
+            </div>
+          )
+        })}
+      </div>
+    </article>
+  )
+}
+
+function ReactionPathwayMap() {
+  const { isNarrow } = useViewport()
+  const [activePath, setActivePath] = useState("formaldehyde")
+  const [hoveredPath, setHoveredPath] = useState("")
+  const [hoveredNode, setHoveredNode] = useState("")
+  const [selectedNode, setSelectedNode] = useState("formaldehyde")
+  const highlightedPath = hoveredPath || activePath
+
+  const selectPath = (pathId) => {
+    setActivePath(pathId)
+    setSelectedNode(pathwayMeta[pathId].focusNode)
+  }
 
   return (
     <ProjectSection
       kicker="Reaction mechanism map"
       title="Three-pathway Reaction Network / 三路径反应网络"
-      note="Organic structures are shown as prototype mechanism nodes. The formaldehyde branch is the primary C1 positive route, while glyceraldehyde and pyruvaldehyde define mixed and penalty pathways."
+      note="Interactive mechanism map for glucose/fructose conversion. Hover a route to inspect its branch, click a molecule to view its pathway role, and use the path labels to lock the active route."
     >
-      <div style={{ maxWidth: "100%", overflowX: "auto", paddingBottom: 4 }}>
-        <div style={canvasStyle}>
-          <div style={{ background: palette.positiveSoft, border: `1px solid ${palette.positive}`, borderRadius: 10, gridColumn: "2 / 6", gridRow: 2, inset: "5px -8px", position: "absolute", zIndex: 0 }} />
+      <div style={{ display: "grid", gap: 12 }}>
+        <div style={{ display: "grid", gap: 9, gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))" }}>
+          {Object.values(pathwayMeta).map((path) => (
+            <PathButton
+              key={path.id}
+              path={path}
+              active={highlightedPath === path.id}
+              onSelect={() => selectPath(path.id)}
+              onHover={() => setHoveredPath(path.id)}
+              onLeave={() => setHoveredPath("")}
+            />
+          ))}
+        </div>
 
-          <div style={{ alignSelf: "stretch", display: "grid", gap: 10, gridColumn: 1, gridRow: "1 / span 3", gridTemplateRows: "1fr 1fr", paddingRight: 2 }}>
-            <MoleculeNode title="Glucose / 葡萄糖" subtitle="feedstock" tone="feedstock">
-              <GlucoseStructure />
-            </MoleculeNode>
-            <MoleculeNode title="Fructose / 果糖" subtitle="isomerized feedstock" tone="feedstock">
-              <FructoseStructure />
-            </MoleculeNode>
+        <div style={{ display: "grid", gap: 13, gridTemplateColumns: isNarrow ? "minmax(0, 1fr)" : "minmax(0, 1fr) minmax(280px, 0.32fr)", alignItems: "start", minWidth: 0 }}>
+          <div style={{ maxWidth: "100%", minWidth: 0, overflowX: "auto", paddingBottom: 4, width: "100%" }}>
+            <div
+              style={{
+                background: palette.bg,
+                border: `1px solid ${palette.border}`,
+                borderRadius: 10,
+                height: 690,
+                minWidth: 1200,
+                position: "relative",
+                width: 1200,
+              }}
+            >
+              <svg aria-hidden="true" viewBox="0 0 1200 690" preserveAspectRatio="none" style={{ height: "100%", inset: 0, position: "absolute", width: "100%", zIndex: 1 }}>
+                <defs>
+                  {Object.values(pathwayMeta).map((path) => (
+                    <marker key={path.id} id={`arrow-${path.id}`} markerHeight="8" markerWidth="8" orient="auto" refX="7" refY="4" viewBox="0 0 8 8">
+                      <path d="M 0 0 L 8 4 L 0 8 z" fill={path.color} />
+                    </marker>
+                  ))}
+                </defs>
+                <rect x="330" y="250" width="728" height="176" rx="12" fill={palette.positiveSoft} stroke={palette.positive} strokeOpacity="0.28" />
+                {edgeDefinitions.map((edge) => {
+                  const path = pathwayMeta[edge.path]
+                  const active = highlightedPath === edge.path
+                  const curve = edgeCurve(edge)
+                  const stroke = edge.tone || path.color
+                  return (
+                    <g
+                      key={edge.id}
+                      opacity={active ? 1 : 0.2}
+                      onMouseEnter={() => setHoveredPath(edge.path)}
+                      onMouseLeave={() => setHoveredPath("")}
+                      style={{ cursor: "pointer", pointerEvents: "stroke" }}
+                    >
+                      <path d={curve.d} fill="none" markerEnd={`url(#arrow-${edge.path})`} stroke={stroke} strokeLinecap="round" strokeWidth={active ? 3.2 : 2} />
+                      <text x={curve.labelX} y={curve.labelY - 6} fill={stroke} fontFamily="Arial, Helvetica, sans-serif" fontSize="10.5" fontWeight="800" textAnchor="middle">
+                        {edge.label}
+                      </text>
+                    </g>
+                  )
+                })}
+              </svg>
+
+              {[
+                ["Feedstock", 34],
+                ["Key intermediates", 356],
+                ["Products / Byproducts", 748],
+              ].map(([label, x]) => (
+                <div key={label} style={{ color: palette.faint, fontSize: 10.5, fontWeight: 950, left: x, letterSpacing: 0.2, position: "absolute", textTransform: "uppercase", top: 12, zIndex: 2 }}>
+                  {label}
+                </div>
+              ))}
+
+              {Object.entries(networkNodes).map(([id, position]) => {
+                const molecule = moleculeDefinitions[id]
+                const Structure = molecule.Structure
+                const nodeActive = molecule.paths.includes(highlightedPath)
+                const selected = selectedNode === id
+                const dimmed = !nodeActive && !selected && !hoveredNode
+                return (
+                  <div
+                    key={id}
+                    style={{
+                      height: position.h,
+                      left: position.x,
+                      position: "absolute",
+                      top: position.y,
+                      width: position.w,
+                      zIndex: 3,
+                    }}
+                  >
+                    <MoleculeNode
+                      title={`${molecule.name} / ${molecule.zhName}`}
+                      subtitle={moleculeNodeSubtitles[id]}
+                      tone={molecule.tone}
+                      compact={position.compact}
+                      active={nodeActive}
+                      selected={selected}
+                      dimmed={dimmed}
+                      onClick={() => setSelectedNode(id)}
+                      onMouseEnter={() => setHoveredNode(id)}
+                      onMouseLeave={() => setHoveredNode("")}
+                      style={{ height: "100%", width: "100%" }}
+                    >
+                      <Structure />
+                    </MoleculeNode>
+                  </div>
+                )
+              })}
+            </div>
           </div>
 
-          <div style={{ ...centerCell(1), gridColumn: 2 }}><FlowArrow tone={palette.mixed} label="C3 split" /></div>
-          <div style={{ ...centerCell(1), gridColumn: 3 }}>
-            <MoleculeNode title="Glyceraldehyde / 甘油醛" subtitle="mixed pathway" tone="mixed">
-              <GlyceraldehydeStructure />
-            </MoleculeNode>
-          </div>
-          <div style={{ ...centerCell(1), gridColumn: 4 }}><FlowArrow tone={palette.mixed} label="branch" /></div>
-          <div style={{ ...laneCell(1), gridColumn: 5, display: "grid", gap: 12 }}>
-            <ProductStack title="Target branch" tone={palette.positive}>
-              <MoleculeNode title="Formic acid / Formate" subtitle="target endpoint" tone="positive" compact>
-                <FormicAcidStructure />
-              </MoleculeNode>
-            </ProductStack>
-            <ProductStack title="C2 byproduct risk" tone={palette.mixed}>
-              <MoleculeNode title="Glycolic acid" subtitle="risk endpoint" tone="mixed" compact>
-                <GlycolicAcidStructure />
-              </MoleculeNode>
-              <MoleculeNode title="Acetic acid" subtitle="risk endpoint" tone="mixed" compact>
-                <AceticAcidStructure />
-              </MoleculeNode>
-            </ProductStack>
-          </div>
-
-          <div style={{ ...centerCell(2), borderBottom: `1px solid ${palette.positive}`, gridColumn: 2 }}><FlowArrow tone={palette.positive} label="C1 route" /></div>
-          <div style={{ ...centerCell(2), borderBottom: `1px solid ${palette.positive}`, gridColumn: 3 }}>
-            <MoleculeNode title="Formaldehyde / 甲醛" subtitle="primary C1 positive route" tone="positive" featured>
-              <FormaldehydeStructure />
-            </MoleculeNode>
-          </div>
-          <div style={{ ...centerCell(2), borderBottom: `1px solid ${palette.positive}`, gridColumn: 4 }}><FlowArrow tone={palette.positive} label="oxidation" /></div>
-          <div style={{ ...laneCell(2), borderBottom: `1px solid ${palette.positive}`, display: "grid", gap: 12, gridColumn: 5 }}>
-            <ProductStack title="Primary target route" tone={palette.positive}>
-              <MoleculeNode title="Formic acid / Formate" subtitle="positive endpoint" tone="positive" featured>
-                <FormicAcidStructure />
-              </MoleculeNode>
-            </ProductStack>
-          </div>
-
-          <div style={{ ...centerCell(3, false), gridColumn: 2 }}><FlowArrow tone={palette.risk} label="dehydration" /></div>
-          <div style={{ ...centerCell(3, false), gridColumn: 3 }}>
-            <MoleculeNode title="Pyruvaldehyde / 丙酮醛" subtitle="risk-dominant pathway" tone="risk">
-              <PyruvaldehydeStructure />
-            </MoleculeNode>
-          </div>
-          <div style={{ ...centerCell(3, false), gridColumn: 4 }}><FlowArrow tone={palette.risk} label="competes" /></div>
-          <div style={{ ...laneCell(3, false), display: "grid", gap: 12, gridColumn: 5 }}>
-            <ProductStack title="Possible formic-acid branch" tone={palette.positive}>
-              <MoleculeNode title="Formic acid / Formate" subtitle="minor target branch" tone="positive" compact>
-                <FormicAcidStructure />
-              </MoleculeNode>
-            </ProductStack>
-            <ProductStack title="Risk endpoints" tone={palette.risk}>
-              <MoleculeNode title="Lactic acid" subtitle="risk endpoint" tone="risk" compact>
-                <LacticAcidStructure />
-              </MoleculeNode>
-              <MoleculeNode title="Pyruvic acid" subtitle="risk endpoint" tone="risk" compact>
-                <PyruvicAcidStructure />
-              </MoleculeNode>
-              <MoleculeNode title="Acetic acid" subtitle="risk endpoint" tone="risk" compact>
-                <AceticAcidStructure />
-              </MoleculeNode>
-            </ProductStack>
+          <div style={{ display: "grid", gap: 10 }}>
+            <MoleculeDetailPanel nodeId={selectedNode} />
+            <PathwayMappingPanel activePath={highlightedPath} />
           </div>
         </div>
-      </div>
-      <div style={{ borderTop: `1px solid ${palette.border}`, color: palette.muted, fontSize: 11.5, lineHeight: 1.55, marginTop: 12, paddingTop: 10 }}>
-        This mechanism map defines the positive route, mixed route, and penalty terms used by the RGFA Score.
       </div>
     </ProjectSection>
   )
@@ -633,13 +917,7 @@ function CandidateDetailPanel({ candidate }) {
     ["Y_pyruvic", candidate.Y_pyruvic, palette.risk],
     ["Y_solid", candidate.Y_solid, palette.muted],
   ]
-  const pathwayRows = [
-    ["Formaldehyde → Formic acid score", candidate.pathwayScores?.formaldehyde_to_formic, palette.positive],
-    ["Glyceraldehyde → Formic acid score", candidate.pathwayScores?.glyceraldehyde_to_formic, palette.mixed],
-    ["Glyceraldehyde → C2 byproducts risk", candidate.pathwayScores?.glyceraldehyde_to_c2_byproducts, palette.mixed],
-    ["Pyruvaldehyde → Formic acid score", candidate.pathwayScores?.pyruvaldehyde_to_formic, palette.risk],
-    ["Pyruvaldehyde → Lactic/Pyruvic acid risk", candidate.pathwayScores?.pyruvaldehyde_to_lactic, palette.risk],
-  ]
+  const pathwayRows = pathwayScoreRows.map(([label, key, color]) => [label, candidate.pathwayScores?.[key], color])
 
   return (
     <aside style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, padding: 13 }}>
@@ -835,9 +1113,8 @@ export function OrganicAcidProject({ lang = "zh", t }) {
     <div style={{ background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 12, padding: isNarrow ? 12 : 16 }}>
       <div style={{ display: "grid", gap: 14 }}>
         <ProjectHero topCandidate={topCandidate} rankedRows={rankedRows} isNarrow={isNarrow} />
-        <ReactionMechanismMap />
+        <ReactionPathwayMap />
         <AlgorithmSection topCandidate={topCandidate} isNarrow={isNarrow} />
-        <PathwayScoreMappingSection />
         {status === "error" ? (
           <div style={{ background: palette.riskSoft, border: `1px solid ${palette.border}`, borderRadius: 8, color: palette.risk, fontSize: 12.5, fontWeight: 850, padding: 12 }}>
             Demo dataset could not be loaded from public/data/organic_acid_project_demo.json.
