@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 91 85" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="91pt" height="85pt" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1">
+ <title>Structural formula of formaldehyde.eps</title>
+ <defs>
+  <clipPath id="Clip0">
+   <path d="M0 0 L82.2187 0 L82.2187 77.55 L0 77.55 L0 0 Z"/>
+  </clipPath>
+ </defs>
+ <g inkscape:label="Hintergrund" inkscape:groupmode="layer" id="Hintergrund">
+  <g clip-rule="evenodd" style="fill:none; stroke:none" clip-path="url(#Clip0)" transform="translate(4.68438, 5.3) scale(1, 1)" id="Gruppe2">
+   <g style="fill:none; stroke:none" transform="translate(0, 39.7) scale(1, 1)" id="Gruppe1">
+    <path style="fill:#000000; fill-rule:nonzero;stroke:none;" d="M11.2344 9.96875 L11.2344 18 L13.4688 18 L13.4688 0 L11.2344 0 L11.2344 8 L2.23438 8 L2.23438 0 L0 0 L0 18 L2.23438 18 L2.23438 9.96875 L11.2344 9.96875 Z" transform="translate(0, 19.85)"/>
+    <path style="fill:#000000; fill-rule:nonzero;stroke:none;" d="M14.7344 5.64062 C14.0469 1.875 11.8438 0 8 0 C5.64062 0 3.75 0.75 2.45312 2.1875 C0.875 3.875 0 6.3125 0 9.07812 C0 11.8906 0.890625 14.3125 2.53125 15.9688 C3.89062 17.3594 5.625 18 7.90625 18 C12.1719 18 14.5781 15.7188 15.0938 11.1875 L12.7969 11.1875 C12.6094 12.3594 12.3594 13.1562 12 13.8438 C11.2812 15.25 9.79688 16.0469 7.92188 16.0469 C4.4375 16.0469 2.23438 13.3281 2.23438 9.0625 C2.23438 4.67188 4.32812 1.96875 7.73438 1.96875 C9.15625 1.96875 10.4688 2.375 11.1875 3.0625 C11.8438 3.64062 12.2031 4.34375 12.4531 5.64062 L14.7344 5.64062 Z" transform="translate(33.5063, 0)"/>
+   </g>
+   <path style="fill:#000000; fill-rule:nonzero;stroke:none;" d="M14.9 0 L15.75 1.45 L0.85 10.05 L0 8.6 L14.9 0 Z" transform="translate(16.4656, 52.85)"/>
+   <path style="fill:#000000; fill-rule:nonzero;stroke:none;" d="M11.2344 9.96875 L11.2344 18 L13.4688 18 L13.4688 0 L11.2344 0 L11.2344 8 L2.23438 8 L2.23438 0 L0 0 L0 18 L2.23438 18 L2.23438 9.96875 L11.2344 9.96875 Z" transform="translate(68.75, 59.55)"/>
+   <path style="fill:#000000; fill-rule:nonzero;stroke:none;" d="M15.2 8.3 L14.35 9.75 L0 1.45 L0.85 0 L15.2 8.3 Z" transform="translate(50.4156, 53.15)"/>
+   <path style="fill:#000000; fill-rule:nonzero;stroke:none;" d="M8.42188 0 C3.40625 0 0 3.67188 0 9.01562 C0 14.375 3.375 18 8.45312 18 C10.5781 18 12.4531 17.3594 13.875 16.1562 C15.7656 14.5938 16.8906 11.9375 16.8906 9.15625 C16.8906 3.64062 13.5625 0 8.42188 0 Z M8.42188 1.96875 C12.2188 1.96875 14.6562 4.76562 14.6562 9.10938 C14.6562 13.2344 12.1406 16.0469 8.45312 16.0469 C4.70312 16.0469 2.23438 13.2344 2.23438 9.01562 C2.23438 4.79688 4.70312 1.96875 8.42188 1.96875 Z" transform="translate(32.6219, 0)"/>
+   <path style="fill:#000000; fill-rule:nonzero;stroke:none;" d="M0 17.45 L1.7 17.45 L1.7 0 L0 0 L0 17.45 Z" transform="translate(37.2156, 20.5)"/>
+   <path style="fill:#000000; fill-rule:nonzero;stroke:none;" d="M0 17.45 L1.7 17.45 L1.7 0 L0 0 L0 17.45 Z" transform="translate(43.1656, 20.5)"/>
+  </g>
+ </g>
+</svg>

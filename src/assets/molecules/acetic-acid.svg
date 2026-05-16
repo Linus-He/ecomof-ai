@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:cdml="http://www.freesoftware.fsf.org/bkchem/cdml"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   width="434.96536"
+   height="326.17102"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.48.1 "
+   sodipodi:docname="Acetic_acid_2.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <metadata
+     id="metadata26">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     inkscape:window-height="667"
+     inkscape:window-width="640"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     guidetolerance="10.0"
+     gridtolerance="10.0"
+     objecttolerance="10.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base"
+     showgrid="false"
+     inkscape:zoom="1.088"
+     inkscape:cx="221.48339"
+     inkscape:cy="135.74077"
+     inkscape:window-x="198"
+     inkscape:window-y="225"
+     inkscape:current-layer="svg2"
+     units="px"
+     inkscape:window-maximized="0" />
+  <defs
+     id="defs47">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 200 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="500 : 200 : 1"
+       inkscape:persp3d-origin="250 : 133.33333 : 1"
+       id="perspective28" />
+  </defs>
+  <g
+     transform="matrix(4.2157359,0,0,4.2157359,-334.55565,-307.52278)"
+     id="g4"
+     style="font-size:15px;stroke-linecap:round;font-family:Helvetica">
+    <g
+       id="g6"
+       style="stroke:#000000;stroke-width:1;stroke-linecap:butt">
+      <path
+         style=""
+         d="m 111,114 -15,0"
+         id="line8" />
+    </g>
+    <g
+       id="g10"
+       style="stroke:#000000;stroke-width:1;stroke-linecap:butt">
+      <path
+         style=""
+         d="m 119,122 0,12"
+         id="line12" />
+    </g>
+    <g
+       id="g14"
+       style="stroke:#000000;stroke-width:1;stroke-linecap:butt">
+      <path
+         style=""
+         d="m 127,114 14,0"
+         id="line16" />
+    </g>
+    <g
+       id="g18"
+       style="stroke:#000000;stroke-width:1;stroke-linecap:butt">
+      <path
+         style=""
+         d="m 153.83,122 4.62,8"
+         id="line20" />
+    </g>
+    <g
+       id="g22"
+       style="stroke:#000000;stroke-width:1;stroke-linecap:butt">
+      <path
+         style=""
+         d="m 119,104 0,-12"
+         id="line24" />
+    </g>
+    <g
+       transform="translate(-1.7205885,1.7205885)"
+       id="g26"
+       style="stroke:#000000;stroke-width:1;stroke-linecap:butt">
+      <path
+         style=""
+         d="m 153.25,103 4.62,-8"
+         id="line28" />
+      <path
+         style=""
+         d="M 156.71001,105 161.33,97"
+         id="line30" />
+    </g>
+    <g
+       style="fill:#000000;font-family:helvetica"
+       id="text32">
+      <path
+         d="m 114.88353,147.21001 0,-10.73731 1.4209,0 0,4.40918 5.58105,0 0,-4.40918 1.4209,0 0,10.73731 -1.4209,0 0,-5.06104 -5.58105,0 0,5.06104 z"
+         style="fill:#000000;font-family:helvetica"
+         id="path3011" />
+    </g>
+    <g
+       style="fill:#000000;font-family:helvetica"
+       id="text34">
+      <path
+         d="m 122.26542,115.36658 1.4209,0.35889 c -0.29786,1.167 -0.83375,2.05689 -1.60767,2.66968 -0.77393,0.61279 -1.71998,0.91919 -2.83813,0.91919 -1.15723,0 -2.0984,-0.2356 -2.82349,-0.70679 -0.7251,-0.47119 -1.27686,-1.15356 -1.65527,-2.04712 -0.37842,-0.89355 -0.56763,-1.85302 -0.56763,-2.87842 0,-1.11815 0.21362,-2.09349 0.64087,-2.92602 0.42724,-0.83251 1.03515,-1.46483 1.82373,-1.89697 0.78857,-0.43212 1.65649,-0.64819 2.60376,-0.6482 1.07421,1e-5 1.97753,0.27345 2.70996,0.82032 0.73241,0.54688 1.24267,1.31592 1.53076,2.30712 l -1.39892,0.32959 c -0.24904,-0.78124 -0.61036,-1.35008 -1.08399,-1.70654 -0.47364,-0.35643 -1.06934,-0.53466 -1.78711,-0.53467 -0.8252,10e-6 -1.51489,0.19777 -2.06909,0.59327 -0.5542,0.39551 -0.94361,0.92652 -1.16821,1.59301 -0.22461,0.66651 -0.33692,1.35377 -0.33692,2.06177 0,0.91309 0.13306,1.71021 0.39917,2.39136 0.26611,0.68115 0.67993,1.19019 1.24146,1.5271 0.56152,0.33691 1.16943,0.50537 1.82373,0.50537 0.79589,0 1.46972,-0.22949 2.02148,-0.68848 0.55175,-0.45898 0.92529,-1.14013 1.12061,-2.04346 z"
+         style="fill:#000000;font-family:helvetica"
+         id="path3014" />
+    </g>
+    <g
+       style="fill:#000000;font-family:helvetica"
+       id="text36">
+      <path
+         d="m 151.88307,115.33828 1.4209,0.35889 c -0.29786,1.16699 -0.83375,2.05688 -1.60767,2.66967 -0.77393,0.6128 -1.71997,0.91919 -2.83813,0.91919 -1.15723,0 -2.09839,-0.23559 -2.82349,-0.70678 -0.7251,-0.47119 -1.27685,-1.15357 -1.65527,-2.04712 -0.37842,-0.89355 -0.56763,-1.85303 -0.56763,-2.87842 0,-1.11816 0.21362,-2.0935 0.64087,-2.92603 0.42725,-0.83251 1.03516,-1.46483 1.82373,-1.89697 0.78857,-0.43212 1.65649,-0.64818 2.60376,-0.64819 1.07421,1e-5 1.97753,0.27345 2.70996,0.82031 0.73242,0.54689 1.24267,1.31593 1.53076,2.30713 l -1.39892,0.32959 c -0.24903,-0.78124 -0.61036,-1.35009 -1.08399,-1.70654 -0.47364,-0.35644 -1.06934,-0.53466 -1.7871,-0.53467 -0.8252,10e-6 -1.5149,0.19776 -2.0691,0.59326 -0.5542,0.39552 -0.9436,0.92652 -1.16821,1.59302 -0.22461,0.66651 -0.33692,1.35376 -0.33691,2.06177 -1e-5,0.91309 0.13305,1.7102 0.39917,2.39135 0.26611,0.68116 0.67992,1.19019 1.24145,1.5271 0.56152,0.33692 1.16943,0.50537 1.82373,0.50537 0.79589,0 1.46972,-0.22949 2.02149,-0.68847 0.55175,-0.45899 0.92528,-1.14014 1.1206,-2.04346 z"
+         style="fill:#000000;font-family:helvetica"
+         id="path3017" />
+    </g>
+    <g
+       style="fill:#000000;font-family:helvetica"
+       id="text38">
+      <path
+         d="m 115.07471,86.790001 0,-10.737305 1.4209,0 0,4.40918 5.58106,0 0,-4.40918 1.4209,0 0,10.737305 -1.4209,0 0,-5.061035 -5.58106,0 0,5.061035 z"
+         style="fill:#000000;font-family:helvetica"
+         id="path3020" />
+    </g>
+    <g
+       style="fill:#000000;font-family:helvetica"
+       id="text40">
+      <path
+         d="m 83.501175,119.13123 0,-10.7373 1.420898,0 0,4.40918 5.581055,0 0,-4.40918 1.420898,0 0,10.7373 -1.420898,0 0,-5.06103 -5.581055,0 0,5.06103 z"
+         style="fill:#000000;font-family:helvetica"
+         id="path3023" />
+    </g>
+    <g
+       style="fill:#000000;font-family:helvetica"
+       id="text42">
+      <path
+         d="m 156.3045,90.581116 c 0,-1.78222 0.47852,-3.177482 1.43555,-4.185791 0.95703,-1.008291 2.19238,-1.512441 3.70606,-1.512451 0.9912,1e-5 1.88475,0.236827 2.68066,0.710449 0.79589,0.473642 1.40258,1.134042 1.82007,1.981201 0.41747,0.847175 0.62621,1.807868 0.62622,2.88208 -1e-5,1.088871 -0.21974,2.062992 -0.65918,2.922363 -0.43946,0.859377 -1.06202,1.510011 -1.86768,1.951905 -0.80567,0.441894 -1.67481,0.662841 -2.60742,0.662841 -1.01075,0 -1.91406,-0.24414 -2.70996,-0.732421 -0.7959,-0.488281 -1.39893,-1.154784 -1.80908,-1.999512 -0.41016,-0.844723 -0.61524,-1.738277 -0.61524,-2.680664 z m 1.46485,0.02197 c 0,1.29395 0.3479,2.313236 1.0437,3.057862 0.6958,0.74463 1.5686,1.116944 2.61841,1.116943 1.06933,10e-7 1.94945,-0.375975 2.64038,-1.12793 0.69091,-0.75195 1.03637,-1.818843 1.03638,-3.200683 -10e-6,-0.874017 -0.14772,-1.636956 -0.44312,-2.288819 -0.29542,-0.651847 -0.72755,-1.157217 -1.29639,-1.516113 -0.56885,-0.358877 -1.20728,-0.53832 -1.91528,-0.53833 -1.00586,10e-6 -1.87134,0.345468 -2.59644,1.036377 -0.7251,0.690926 -1.08764,1.844489 -1.08764,3.460693 z"
+         style="fill:#000000;font-family:helvetica"
+         id="path3026" />
+    </g>
+    <g
+       style="fill:#000000;font-family:helvetica"
+       id="text44">
+      <path
+         d="m 157.83392,137.73933 c 0,-1.78222 0.47852,-3.17748 1.43555,-4.18579 0.95703,-1.00829 2.19238,-1.51244 3.70605,-1.51245 0.99121,1e-5 1.88476,0.23683 2.68067,0.71045 0.79589,0.47364 1.40258,1.13404 1.82007,1.9812 0.41747,0.84718 0.62621,1.80787 0.62622,2.88208 -1e-5,1.08887 -0.21974,2.06299 -0.65918,2.92237 -0.43946,0.85937 -1.06202,1.51001 -1.86768,1.9519 -0.80567,0.44189 -1.67481,0.66284 -2.60742,0.66284 -1.01075,0 -1.91407,-0.24414 -2.70996,-0.73242 -0.7959,-0.48828 -1.39893,-1.15478 -1.80908,-1.99951 -0.41016,-0.84473 -0.61524,-1.73828 -0.61524,-2.68067 z m 1.46485,0.022 c -1e-5,1.29395 0.34789,2.31323 1.0437,3.05786 0.6958,0.74463 1.5686,1.11694 2.61841,1.11694 1.06933,0 1.94945,-0.37597 2.64038,-1.12793 0.69091,-0.75195 1.03636,-1.81884 1.03637,-3.20068 -1e-5,-0.87402 -0.14771,-1.63696 -0.44311,-2.28882 -0.29542,-0.65185 -0.72755,-1.15722 -1.29639,-1.51611 -0.56885,-0.35888 -1.20728,-0.53832 -1.91528,-0.53833 -1.00587,1e-5 -1.87134,0.34546 -2.59644,1.03637 -0.7251,0.69093 -1.08765,1.84449 -1.08764,3.4607 z"
+         style="fill:#000000;font-family:helvetica"
+         id="path3029" />
+      <path
+         d="m 169.97015,142.96883 0,-10.73731 1.4209,0 0,4.40918 5.58106,0 0,-4.40918 1.4209,0 0,10.73731 -1.4209,0 0,-5.06104 -5.58106,0 0,5.06104 z"
+         style="fill:#000000;font-family:helvetica"
+         id="path3031" />
+    </g>
+  </g>
+  <cdml:cdml
+     version="0.15">
+    <cdml:info>
+      <cdml:author_program
+         version="0.13.0">BKchem</cdml:author_program>
+    </cdml:info>
+    <cdml:paper
+       use_real_minus="0"
+       type="A4"
+       replace_minus="0"
+       orientation="portrait"
+       crop_svg="1"
+       crop_margin="1" />
+    <cdml:viewport
+       viewport="0.000000 0.000000 640.000000 480.000000" />
+    <cdml:standard
+       paper_type="A4"
+       paper_orientation="portrait"
+       paper_crop_svg="1"
+       paper_crop_margin="1"
+       line_width="1.0px"
+       line_color="#000"
+       font_size="12"
+       font_family="helvetica"
+       area_color="">
+      <cdml:bond
+         width="6.0px"
+         wedge-width="5.0px"
+         length="0.8cm"
+         double-ratio="0.75" />
+      <cdml:arrow
+         length="1.6cm" />
+      <cdml:atom
+         show_hydrogens="0" />
+    </cdml:standard>
+    <cdml:molecule
+       name=""
+       id="molecule22920">
+      <cdml:atom
+         valency="1"
+         pos="center-first"
+         name="H"
+         id="atom32486">
+        <cdml:point
+           y="3.819cm"
+           x="3.152cm" />
+      </cdml:atom>
+      <cdml:atom
+         valency="4"
+         show="yes"
+         pos="center-first"
+         name="C"
+         id="atom33460">
+        <cdml:point
+           y="3.019cm"
+           x="3.152cm" />
+      </cdml:atom>
+      <cdml:atom
+         valency="4"
+         show="yes"
+         pos="center-last"
+         name="C"
+         id="atom96685">
+        <cdml:point
+           y="3.019cm"
+           x="3.952cm" />
+      </cdml:atom>
+      <cdml:atom
+         valency="1"
+         pos="center-first"
+         name="H"
+         id="atom74307">
+        <cdml:point
+           y="2.219cm"
+           x="3.152cm" />
+      </cdml:atom>
+      <cdml:atom
+         valency="1"
+         pos="center-first"
+         name="H"
+         id="atom69961">
+        <cdml:point
+           y="3.019cm"
+           x="2.352cm" />
+      </cdml:atom>
+      <cdml:atom
+         valency="2"
+         pos="center-first"
+         name="O"
+         id="atom71910">
+        <cdml:point
+           y="2.326cm"
+           x="4.352cm" />
+      </cdml:atom>
+      <cdml:atom
+         valency="2"
+         pos="center-first"
+         name="O"
+         id="atom98251"
+         hydrogens="on">
+        <cdml:point
+           y="3.712cm"
+           x="4.352cm" />
+      </cdml:atom>
+      <cdml:bond
+         type="n1"
+         start="atom33460"
+         line_width="1.0"
+         id="bond80277"
+         end="atom69961"
+         double_ratio="0.75" />
+      <cdml:bond
+         type="n1"
+         start="atom33460"
+         line_width="1.0"
+         id="bond97471"
+         end="atom32486"
+         double_ratio="0.75" />
+      <cdml:bond
+         type="n1"
+         start="atom33460"
+         line_width="1.0"
+         id="bond13736"
+         end="atom96685"
+         double_ratio="0.75" />
+      <cdml:bond
+         type="n1"
+         start="atom96685"
+         line_width="1.0"
+         id="bond12880"
+         end="atom98251"
+         double_ratio="0.75" />
+      <cdml:bond
+         type="n1"
+         start="atom33460"
+         line_width="1.0"
+         id="bond76282"
+         end="atom74307"
+         double_ratio="0.75" />
+      <cdml:bond
+         type="n2"
+         start="atom96685"
+         line_width="1.0"
+         id="bond85442"
+         end="atom71910"
+         double_ratio="0.75"
+         center="yes"
+         bond_width="6.0" />
+    </cdml:molecule>
+  </cdml:cdml>
+</svg>

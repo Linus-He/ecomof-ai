@@ -123,7 +123,7 @@ export function generateCandidateExplanation(item = {}) {
   if (water >= 0.7 && accessibility >= 0.65 && activeSite >= 0.65) {
     explanations.push("Water stability and accessibility gates passed.")
   } else {
-    explanations.push("Gate factors need validation under aqueous NaHCO3 conditions.")
+    explanations.push("Gate factors need validation under aqueous bicarbonate conditions.")
   }
 
   if (selectivityFactor >= 0.28) {
