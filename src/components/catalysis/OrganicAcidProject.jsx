@@ -742,7 +742,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
     <div style={{ background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 12, padding: isNarrow ? 12 : 16 }}>
       <div style={{ display: "grid", gap: 14 }}>
         <ProjectHero topCandidate={topCandidate} rankedRows={rankedRows} isNarrow={isNarrow} />
-        <OrganicAcidPathwayMap />
+        <OrganicAcidPathwayMap lang={lang} />
         <AlgorithmTraceExplorer rankedRows={rankedRows} selectedMof={selectedMof} setSelectedMof={setSelectedMof} />
         {status === "error" ? (
           <div style={{ background: palette.riskSoft, border: `1px solid ${palette.border}`, borderRadius: 8, color: palette.risk, fontSize: 12.5, fontWeight: 850, padding: 12 }}>

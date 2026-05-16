@@ -9,6 +9,22 @@ import aceticAcidSvg from "../../assets/molecules/acetic-acid.svg"
 import lacticAcidSvg from "../../assets/molecules/lactic-acid.svg"
 import pyruvicAcidSvg from "../../assets/molecules/pyruvic-acid.svg"
 
+const text = (lang, zh, en) => (lang === "zh" ? zh : en)
+
+const roleLabels = {
+  feedstock: { zh: "原料", en: "feedstock" },
+  intermediate: { zh: "中间体", en: "intermediate" },
+  "target product": { zh: "目标产物", en: "target product" },
+  byproduct: { zh: "副产物", en: "byproduct" },
+}
+
+function localizedRole(role, lang) {
+  const key = String(role || "").trim()
+  const label = roleLabels[key]
+  if (!label) return key
+  return lang === "zh" ? label.zh : label.en
+}
+
 export const moleculeCatalog = {
   glucose: {
     id: "glucose",
@@ -16,7 +32,9 @@ export const moleculeCatalog = {
     englishName: "Glucose",
     zhName: "葡萄糖",
     role: "feedstock",
+    pathwayRoleZh: "进入异构化、逆醛醇和 C1/C3 裂解路径的原料。",
     pathwayRole: "Feedstock entering isomerization, retro-aldol, and C1/C3 fragmentation routes.",
+    scoreTermZh: "A1 葡萄糖活化；为 A2/A3/B1 提供前体背景。",
     scoreTerm: "A1 glucose activation; precursor context for A2/A3/B1.",
     contributesTo: { A2: false, A3: false, A4: false, B1: false, SelectivityFactor: false },
   },
@@ -26,7 +44,9 @@ export const moleculeCatalog = {
     englishName: "Fructose",
     zhName: "果糖",
     role: "feedstock",
+    pathwayRoleZh: "异构化后的原料，为 C1 和 C3 中间体提供来源。",
     pathwayRole: "Isomerized feedstock that supplies C1 and C3 intermediates.",
+    scoreTermZh: "A1/A2 前体生成背景。",
     scoreTerm: "A1/A2 precursor generation context.",
     contributesTo: { A2: true, A3: false, A4: false, B1: false, SelectivityFactor: false },
   },
@@ -36,7 +56,9 @@ export const moleculeCatalog = {
     englishName: "Glyceraldehyde",
     zhName: "甘油醛",
     role: "intermediate",
+    pathwayRoleZh: "混合 C3 中间体：可支持甲酸生成，也可能泄漏到 C2 副产物。",
     pathwayRole: "Mixed C3 intermediate: can support formic acid formation and leak to C2 byproducts.",
+    scoreTermZh: "导向甲酸时贡献 A2/A3；导向乙醇酸或乙酸时提高 B1。",
     scoreTerm: "A2/A3 when routed to formic acid; B1 when routed to glycolic or acetic acid.",
     contributesTo: { A2: true, A3: true, A4: false, B1: true, SelectivityFactor: true },
   },
@@ -46,7 +68,9 @@ export const moleculeCatalog = {
     englishName: "Formaldehyde",
     zhName: "甲醛",
     role: "intermediate",
+    pathwayRoleZh: "导向甲酸 / 甲酸盐的主 C1 正向中间体。",
     pathwayRole: "Primary C1 positive intermediate toward formic acid / formate.",
+    scoreTermZh: "A3 和 SelectivityFactor。",
     scoreTerm: "A3 and SelectivityFactor.",
     contributesTo: { A2: false, A3: true, A4: false, B1: false, SelectivityFactor: true },
   },
@@ -56,7 +80,9 @@ export const moleculeCatalog = {
     englishName: "Pyruvaldehyde",
     zhName: "丙酮醛",
     role: "intermediate",
+    pathwayRoleZh: "风险主导 C3 中间体，竞争性导向乳酸、丙酮酸和乙酸分支。",
     pathwayRole: "Risk-dominant C3 intermediate competing through lactic, pyruvic, and acetic acid branches.",
+    scoreTermZh: "B1 和 SelectivityFactor 惩罚项。",
     scoreTerm: "B1 and SelectivityFactor penalty.",
     contributesTo: { A2: false, A3: false, A4: false, B1: true, SelectivityFactor: true },
   },
@@ -66,7 +92,9 @@ export const moleculeCatalog = {
     englishName: "Formic acid / Formate",
     zhName: "甲酸 / 甲酸盐",
     role: "target product",
+    pathwayRoleZh: "三条路径共享的目标产物终点。",
     pathwayRole: "Target product endpoint shared by the three routes.",
+    scoreTermZh: "A3、A4、产率、碳选择性和 SelectivityFactor。",
     scoreTerm: "A3, A4, yield, carbon selectivity, and SelectivityFactor.",
     contributesTo: { A2: false, A3: true, A4: true, B1: false, SelectivityFactor: true },
   },
@@ -76,7 +104,9 @@ export const moleculeCatalog = {
     englishName: "Glycolic acid",
     zhName: "乙醇酸",
     role: "byproduct",
+    pathwayRoleZh: "甘油醛分支形成的 C2 副产物终点。",
     pathwayRole: "C2 byproduct endpoint from the glyceraldehyde branch.",
+    scoreTermZh: "B1 和 SelectivityFactor 惩罚项。",
     scoreTerm: "B1 and SelectivityFactor penalty.",
     contributesTo: { A2: false, A3: false, A4: false, B1: true, SelectivityFactor: true },
   },
@@ -86,7 +116,9 @@ export const moleculeCatalog = {
     englishName: "Acetic acid",
     zhName: "乙酸",
     role: "byproduct",
+    pathwayRoleZh: "甘油醛和丙酮醛分支形成的 C2 副产物终点。",
     pathwayRole: "C2 byproduct endpoint from glyceraldehyde and pyruvaldehyde branches.",
+    scoreTermZh: "B1 和 SelectivityFactor 惩罚项。",
     scoreTerm: "B1 and SelectivityFactor penalty.",
     contributesTo: { A2: false, A3: false, A4: false, B1: true, SelectivityFactor: true },
   },
@@ -96,7 +128,9 @@ export const moleculeCatalog = {
     englishName: "Lactic acid",
     zhName: "乳酸",
     role: "byproduct",
+    pathwayRoleZh: "风险主导的 C3 副产物终点。",
     pathwayRole: "Risk-dominant C3 byproduct endpoint.",
+    scoreTermZh: "B1 和 SelectivityFactor 惩罚项。",
     scoreTerm: "B1 and SelectivityFactor penalty.",
     contributesTo: { A2: false, A3: false, A4: false, B1: true, SelectivityFactor: true },
   },
@@ -106,7 +140,9 @@ export const moleculeCatalog = {
     englishName: "Pyruvic acid",
     zhName: "丙酮酸",
     role: "byproduct",
+    pathwayRoleZh: "风险主导的氧化 C3 副产物终点。",
     pathwayRole: "Risk-dominant oxidized C3 byproduct endpoint.",
+    scoreTermZh: "B1 和 SelectivityFactor 惩罚项。",
     scoreTerm: "B1 and SelectivityFactor penalty.",
     contributesTo: { A2: false, A3: false, A4: false, B1: true, SelectivityFactor: true },
   },
@@ -123,14 +159,14 @@ const toneMap = {
   dimmed: { bg: "#FFFFFF", border: "#D9E2EC", accent: "#64748B", shadow: "none" },
 }
 
-export function MoleculeStructureImage({ moleculeId, compact = false }) {
+export function MoleculeStructureImage({ moleculeId, compact = false, lang = "zh" }) {
   const molecule = moleculeCatalog[moleculeId]
   if (!molecule) return null
 
   return (
     <img
       src={molecule.svg}
-      alt={`${molecule.englishName} molecular structure`}
+      alt={text(lang, `${molecule.zhName}分子结构式`, `${molecule.englishName} molecular structure`)}
       draggable="false"
       style={{
         display: "block",
@@ -156,6 +192,7 @@ export function MoleculeSvgNode({
   onMouseEnter,
   onMouseLeave,
   style,
+  lang = "zh",
 }) {
   const molecule = moleculeCatalog[moleculeId]
   if (!molecule) return null
@@ -164,6 +201,9 @@ export function MoleculeSvgNode({
   const resolvedStatus = selected ? "selected" : dimmed ? "dimmed" : active ? status || "active" : status
   const colors = toneMap[resolvedStatus] || toneMap.neutral
   const displayRole = role || molecule.role
+  const roleLabel = localizedRole(displayRole, lang)
+  const primaryName = lang === "zh" ? molecule.zhName : molecule.englishName
+  const secondaryName = lang === "zh" ? molecule.englishName : molecule.zhName
 
   return (
     <div
@@ -198,10 +238,10 @@ export function MoleculeSvgNode({
     >
       <div style={{ display: "grid", gap: 2, minWidth: 0 }}>
         <div style={{ color: "#0F172A", fontSize: compact ? 11.5 : 12.5, fontWeight: 900, lineHeight: 1.2 }}>
-          {molecule.englishName}
+          {primaryName}
         </div>
         <div style={{ color: colors.accent, fontSize: compact ? 10 : 10.6, fontWeight: 850, lineHeight: 1.2 }}>
-          {molecule.zhName} · {displayRole}
+          {secondaryName} · {roleLabel}
         </div>
       </div>
       <div
@@ -216,7 +256,7 @@ export function MoleculeSvgNode({
           padding: compact ? 4 : 6,
         }}
       >
-        <MoleculeStructureImage moleculeId={moleculeId} compact={compact} />
+        <MoleculeStructureImage moleculeId={moleculeId} compact={compact} lang={lang} />
       </div>
     </div>
   )

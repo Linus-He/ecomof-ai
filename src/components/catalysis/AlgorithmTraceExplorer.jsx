@@ -493,23 +493,27 @@ export function AlgorithmTraceExplorer({ rankedRows = [], selectedMof, setSelect
                   type="button"
                   onClick={() => setSelectedMof(row.mof)}
                   style={{
-                    alignItems: "start",
+                    alignItems: "flex-start",
                     background: selectedRow ? palette.accentSoft : palette.bg,
                     border: `1px solid ${selectedRow ? palette.accent : palette.border}`,
                     borderRadius: 8,
+                    boxSizing: "border-box",
                     color: palette.text,
                     cursor: "pointer",
-                    display: "grid",
+                    display: "flex",
+                    flexDirection: "column",
                     fontFamily: "inherit",
-                    gap: 4,
-                    justifyItems: "start",
-                    minHeight: 0,
-                    padding: "9px 10px",
+                    gap: 6,
+                    justifyContent: "flex-start",
+                    minHeight: 70,
+                    overflow: "hidden",
+                    padding: "10px 12px",
                     textAlign: "left",
+                    width: "100%",
                   }}
                 >
-                  <span style={{ fontSize: 12.5, fontWeight: 950 }}>{row.mof}</span>
-                  <span style={{ color: palette.muted, fontFamily: FONT_MONO, fontSize: 11 }}>
+                  <span style={{ display: "block", fontSize: 12.5, fontWeight: 950, lineHeight: 1.25, minWidth: 0, overflowWrap: "anywhere" }}>{row.mof}</span>
+                  <span style={{ color: palette.muted, display: "block", fontFamily: FONT_MONO, fontSize: 11, lineHeight: 1.35, minWidth: 0, overflowWrap: "anywhere" }}>
                     RGFA #{row.rgfaRank} · Score {fmt(row.rgfaScore)}
                   </span>
                 </button>
