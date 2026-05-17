@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { FONT_MONO, useViewport } from "../../shared"
+import { useViewport } from "../../shared"
+import { ORGANIC_ACID_FONT } from "./FormulaInline"
 import { MoleculeStructureImage, MoleculeSvgNode, moleculeCatalog } from "./MoleculeSvgNode"
 
 const palette = {
@@ -339,7 +340,7 @@ function MoleculeDetailPanel({ nodeId, lang }) {
                   padding: "7px 9px",
                 }}
               >
-                <span style={{ color: palette.text, fontFamily: FONT_MONO, fontSize: 11.5, fontWeight: 900 }}>{term}</span>
+                <span style={{ color: palette.text, fontFamily: ORGANIC_ACID_FONT, fontSize: 11.5, fontWeight: 700 }}>{term}</span>
                 <span style={{ color: active ? tone.color : palette.faint, fontSize: 11.2, fontWeight: active ? 850 : 650 }}>
                   {active ? text(lang, "参与", "contributes") : text(lang, "无直接贡献", "no direct contribution")}
                 </span>

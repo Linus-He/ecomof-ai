@@ -93,11 +93,11 @@ function nextStepLabel(candidate) {
 
 function SectionShell({ kicker, title, note, children }) {
   return (
-    <section style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 12, display: "grid", gap: 14, padding: 20 }}>
+    <section style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 18 }}>
       <div style={{ display: "grid", gap: 5 }}>
-        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, letterSpacing: 0.18, textTransform: "uppercase" }}>{kicker}</div>
+        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 800, letterSpacing: 0.18, textTransform: "uppercase" }}>{kicker}</div>
         <h2 style={{ color: palette.text, fontSize: 22, lineHeight: 1.2, margin: 0 }}>{title}</h2>
-        {note ? <p style={{ color: palette.muted, fontSize: 13.5, lineHeight: 1.6, margin: 0 }}>{note}</p> : null}
+        {note ? <p style={{ color: palette.muted, fontSize: 13, lineHeight: 1.55, margin: 0 }}>{note}</p> : null}
       </div>
       {children}
     </section>
@@ -106,10 +106,10 @@ function SectionShell({ kicker, title, note, children }) {
 
 function StatCard({ label, value, note, tone = palette.text }) {
   return (
-    <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, padding: 10 }}>
-      <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900 }}>{label}</div>
-      <div style={{ color: tone, fontSize: 16, fontWeight: 800, lineHeight: 1.15, marginTop: 6 }}>{value}</div>
-      {note ? <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45, marginTop: 5 }}>{note}</div> : null}
+    <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, padding: "10px 11px" }}>
+      <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 800 }}>{label}</div>
+      <div style={{ color: tone, fontSize: 15, fontWeight: 700, lineHeight: 1.15, marginTop: 5 }}>{value}</div>
+      {note ? <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.4, marginTop: 4 }}>{note}</div> : null}
     </div>
   )
 }
@@ -204,14 +204,14 @@ function ProjectObjectiveSection({ topCandidate, rankedRows, isNarrow }) {
       <div style={{ display: "grid", gap: 14, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.1fr) minmax(280px, 0.9fr)" }}>
         <div style={{ display: "grid", gap: 12 }}>
           <div style={{ display: "grid", gap: 7 }}>
-            <h1 style={{ color: palette.text, fontSize: 26, lineHeight: 1.1, margin: 0 }}>Organic Acid Project / 有机酸项目</h1>
+            <h1 style={{ color: palette.text, fontSize: 24, lineHeight: 1.1, margin: 0 }}>有机酸项目 Organic Acid Project</h1>
             <p style={{ color: palette.muted, fontSize: 13.5, lineHeight: 1.6, margin: 0 }}>
               面向葡萄糖–<ChemFormula kind="sodiumBicarbonate" /> 协同转化为甲酸的机理导向 MOF 筛选平台。当前展示的是可追踪算法工作台，不发布真实实验结论。
             </p>
           </div>
 
-          <FormulaCard title="Core objective">
-            <FormulaInline>
+          <FormulaCard title="反应目标 Reaction objective">
+            <FormulaInline size={14} weight={600} gap="4px 8px">
               <span>Glucose</span><span>+</span><span><ChemFormula kind="sodiumBicarbonate" /></span><span>+</span><span><ChemFormula kind="water" /></span><span>+</span><span>MOF</span><span>→</span><span>formic acid / formate</span>
             </FormulaInline>
             <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.55 }}>
@@ -220,13 +220,13 @@ function ProjectObjectiveSection({ topCandidate, rankedRows, isNarrow }) {
           </FormulaCard>
 
           <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
-            <FormulaCard title="RGFA formula">
-              <FormulaInline>
-                <span>RGFA</span><span>=</span><span>Gate</span><span>×</span><span>StepScore</span><span>×</span><span>SelectivityFactor</span>
+            <FormulaCard title="RGFA 公式 RGFA formula">
+              <FormulaInline size={13.5} weight={600}>
+                <span>RGFA Score</span><span>=</span><span>Gate</span><span>×</span><span>StepScore</span><span>×</span><span>SelectivityFactor</span>
               </FormulaInline>
             </FormulaCard>
-            <FormulaCard title="SelectivityFactor">
-              <FormulaInline>
+            <FormulaCard title="选择性因子 SelectivityFactor">
+              <FormulaInline size={13.5} weight={600}>
                 <span><VariableLabel name="Y_FA" /></span><span>×</span><span><VariableLabel name="S_FA_C" /></span><span>/</span><span>(1 + weighted penalties)</span>
               </FormulaInline>
             </FormulaCard>
@@ -234,9 +234,9 @@ function ProjectObjectiveSection({ topCandidate, rankedRows, isNarrow }) {
         </div>
 
         <div style={{ display: "grid", gap: 10 }}>
-          <StatCard label="Demo candidates" value={<NumericText>{rankedRows.length}</NumericText>} note="independent JSON demo dataset" />
-          <StatCard label="Current top candidate" value={topCandidate?.mof || "-"} note={topCandidate ? `RGFA ${fmt(topCandidate.rgfaScore)} · ${recommendationForClass(topCandidate.computedClass)}` : "waiting for data"} tone={palette.accent} />
-          <StatCard label="Data boundary" value="Demo / Prototype" note="不引入真实合作数据或保密实验数据" />
+          <StatCard label="演示候选 Demo candidates" value={<NumericText>{rankedRows.length}</NumericText>} note="独立 JSON demo dataset" />
+          <StatCard label="当前最高优先级 Current top candidate" value={topCandidate?.mof || "-"} note={topCandidate ? `RGFA ${fmt(topCandidate.rgfaScore)} · ${recommendationForClass(topCandidate.computedClass)}` : "waiting for data"} tone={palette.accent} />
+          <StatCard label="数据边界 Data boundary" value="Demo / Prototype" note="不引入真实合作数据或保密实验数据" />
         </div>
       </div>
     </SectionShell>
@@ -249,8 +249,8 @@ function RankingTable({ rankedRows, selectedMof, onSelect }) {
       <table style={{ borderCollapse: "collapse", minWidth: 560, width: "100%" }}>
         <thead>
           <tr>
-            {["Rank", "MOF", "RGFA Score", "Class", "Rank shift"].map((head) => (
-              <th key={head} style={{ borderBottom: `1px solid ${palette.borderStrong}`, color: palette.faint, fontSize: 11, fontWeight: 900, padding: "8px 9px", textAlign: "left" }}>{head}</th>
+            {["排名 Rank", "候选 MOF", "评分 RGFA Score", "类别 Class", "变化 Rank shift"].map((head) => (
+              <th key={head} style={{ borderBottom: `1px solid ${palette.borderStrong}`, color: palette.faint, fontSize: 11, fontWeight: 800, padding: "8px 9px", textAlign: "left" }}>{head}</th>
             ))}
           </tr>
         </thead>
@@ -263,14 +263,14 @@ function RankingTable({ rankedRows, selectedMof, onSelect }) {
                 onClick={() => onSelect(row.mof)}
                 style={{ background: selected ? palette.accentSoft : "transparent", cursor: "pointer" }}
               >
-                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.accent, fontSize: 12.5, fontWeight: 800, padding: "10px 9px", whiteSpace: "nowrap" }}>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.accent, fontSize: 12.5, fontWeight: 700, padding: "10px 9px", whiteSpace: "nowrap" }}>
                   <NumericText>#{row.rgfaRank}</NumericText>
                 </td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 12.5, fontWeight: 700, padding: "10px 9px" }}>{row.mof}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 12.5, padding: "10px 9px", whiteSpace: "nowrap" }}>
                   <NumericText>{fmt(row.rgfaScore)}</NumericText>
                 </td>
-                <td style={{ borderBottom: `1px solid ${palette.border}`, color: classTone(row.computedClass), fontSize: 12.5, fontWeight: 800, padding: "10px 9px" }}>{row.computedClass}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: classTone(row.computedClass), fontSize: 12.5, fontWeight: 700, padding: "10px 9px" }}>{row.computedClass}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "10px 9px", whiteSpace: "nowrap" }}>
                   <NumericText>#{row.yieldOnlyRank}</NumericText> → <NumericText>#{row.rgfaRank}</NumericText>
                 </td>
@@ -291,13 +291,14 @@ function CandidateDetailPanel({ candidate }) {
   const trace = candidate.trace
 
   return (
-    <aside style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 14, alignSelf: "start" }}>
-      <div style={{ borderBottom: `1px solid ${palette.border}`, display: "grid", gap: 4, paddingBottom: 10 }}>
-        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Candidate Detail</div>
-        <div style={{ color: palette.text, fontSize: 17, fontWeight: 800, lineHeight: 1.2 }}>{candidate.mof}</div>
+    <aside style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 12, display: "grid", gap: 10, padding: 12, alignSelf: "start" }}>
+      <div style={{ borderBottom: `1px solid ${palette.border}`, display: "grid", gap: 4, paddingBottom: 9 }}>
+        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 800, textTransform: "uppercase" }}>Candidate Detail</div>
+        <div style={{ color: palette.text, fontSize: 16, fontWeight: 700, lineHeight: 1.2 }}>{candidate.mof}</div>
         <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.45 }}>
           <NumericText>Yield-only #{candidate.yieldOnlyRank}</NumericText> → <NumericText>RGFA #{candidate.rgfaRank}</NumericText>
         </div>
+        <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.4 }}>Evidence level: {candidate.evidenceLevel || "demo"}</div>
       </div>
 
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}>
@@ -308,7 +309,7 @@ function CandidateDetailPanel({ candidate }) {
       </div>
 
       <div style={{ display: "grid", gap: 9 }}>
-        <div style={{ color: palette.text, fontSize: 14, fontWeight: 800 }}>Pathway fingerprint / 路径指纹</div>
+        <div style={{ color: palette.text, fontSize: 13.5, fontWeight: 700 }}>Pathway fingerprint / 路径指纹</div>
         {Object.keys(pathwayMeta).map((key) => (
           <ScoreBar
             key={key}
@@ -321,23 +322,27 @@ function CandidateDetailPanel({ candidate }) {
       </div>
 
       <div style={{ display: "grid", gap: 8 }}>
-        <div style={{ color: palette.text, fontSize: 14, fontWeight: 800 }}>Gate summary / 门槛摘要</div>
-        <ScoreBar label="Water stability" value={candidate.waterStabilityScore} tone={palette.accent} />
-        <ScoreBar label="Accessibility" value={candidate.accessibilityScore} tone={palette.accent} />
-        <ScoreBar label="Active-site confidence" value={candidate.activeSiteConfidence} tone={palette.accent} />
+        <div style={{ color: palette.text, fontSize: 13.5, fontWeight: 700 }}>Why this candidate / 为什么是它</div>
+        <div style={{ display: "grid", gap: 6 }}>
+          {candidate.explanations.slice(0, 3).map((reason) => (
+            <div key={reason} style={{ color: palette.muted, fontSize: 12, lineHeight: 1.45 }}>
+              • {reason}
+            </div>
+          ))}
+        </div>
       </div>
 
       <div style={{ display: "grid", gap: 8 }}>
-        <div style={{ color: palette.text, fontSize: 14, fontWeight: 800 }}>Why this candidate / 为什么是它</div>
-        {candidate.explanations.slice(0, 3).map((reason) => (
-          <div key={reason} style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.muted, fontSize: 12, lineHeight: 1.5, padding: 10 }}>
-            {reason}
-          </div>
-        ))}
+        <div style={{ color: palette.text, fontSize: 13.5, fontWeight: 700 }}>Gate summary / 门槛摘要</div>
+        <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }}>
+          <StatCard label="Water stability" value={<NumericText>{fmt(candidate.waterStabilityScore, 2)}</NumericText>} />
+          <StatCard label="Accessibility" value={<NumericText>{fmt(candidate.accessibilityScore, 2)}</NumericText>} />
+          <StatCard label="Active-site confidence" value={<NumericText>{fmt(candidate.activeSiteConfidence, 2)}</NumericText>} />
+        </div>
       </div>
 
       <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, padding: 10 }}>
-        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900 }}>Recommended next step</div>
+        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 800 }}>Recommended next step</div>
         <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700, lineHeight: 1.45, marginTop: 6 }}>{nextStepLabel(candidate)}</div>
         <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.5, marginTop: 5 }}>{trace.recommendation.reason}</div>
       </div>
@@ -352,14 +357,17 @@ function CandidateRankingSection({ rankedRows, selectedMof, setSelectedMof, isNa
     <SectionShell
       kicker="Candidate ranking"
       title="候选排序 Candidate Ranking"
-      note="表格仅保留 Rank / MOF / RGFA Score / Class / Rank shift；详细解释移到右侧联动详情。点击任一候选会同步切换 Algorithm Trace Explorer。"
+      note="按 RGFA Score 与 CRITIC-adjusted penalties 紧凑排序。表格只保留核心字段，点击任一候选会同步切换 Algorithm Trace Explorer。"
     >
       <div style={{ display: "grid", gap: 12, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 0.92fr) minmax(320px, 1.08fr)", alignItems: "start" }}>
         <div style={{ display: "grid", gap: 10 }}>
-          <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))" }}>
-            <StatCard label="Records" value={<NumericText>{rankedRows.length}</NumericText>} note="demo candidates" />
-            <StatCard label="Evidence level" value="demo" note="workflow-only prototype data" />
-            <StatCard label="Selected" value={selected?.mof || "pending"} note="与 Trace 和 Descriptor Matrix 联动" tone={palette.accent} />
+          <div style={{ alignItems: "center", background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.muted, display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between", padding: "9px 11px" }}>
+            <div style={{ fontSize: 12, lineHeight: 1.45 }}>
+              Sorted by <span style={{ color: palette.text, fontWeight: 700 }}>RGFA Score</span> with CRITIC-adjusted penalties
+            </div>
+            <div style={{ fontSize: 12, lineHeight: 1.45 }}>
+              <NumericText>{rankedRows.length}</NumericText> records · selected {selected?.mof || "pending"}
+            </div>
           </div>
           <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 12, padding: 10 }}>
             <RankingTable rankedRows={rankedRows} selectedMof={selected?.mof} onSelect={setSelectedMof} />
@@ -381,7 +389,7 @@ function ValidationSection() {
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
         {validationSteps.map(([title, body], index) => (
           <article key={title} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, display: "grid", gap: 8, gridTemplateColumns: "28px minmax(0, 1fr)", padding: 11 }}>
-            <div style={{ alignItems: "center", background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 999, color: palette.accent, display: "flex", fontSize: 11.5, fontWeight: 800, height: 24, justifyContent: "center", width: 24 }}>{index + 1}</div>
+            <div style={{ alignItems: "center", background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 999, color: palette.accent, display: "flex", fontSize: 11.5, fontWeight: 700, height: 24, justifyContent: "center", width: 24 }}>{index + 1}</div>
             <div>
               <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700, lineHeight: 1.4 }}>{title}</div>
               <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45, marginTop: 4 }}>{body}</div>
@@ -461,7 +469,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
 
   if (!hasAccess) {
     return (
-      <div style={{ background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 12, padding: isNarrow ? 12 : 16, fontFamily: ORGANIC_ACID_FONT }}>
+      <div className="organic-acid-page" style={{ background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 12, padding: isNarrow ? 12 : 16, fontFamily: ORGANIC_ACID_FONT }}>
         <PrototypeGate lang={lang} t={t} onUnlock={() => setHasAccess(true)} />
       </div>
     )
@@ -470,8 +478,8 @@ export function OrganicAcidProject({ lang = "zh", t }) {
   const topCandidate = rankedRows[0] || null
 
   return (
-    <div style={{ background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 12, padding: isNarrow ? 12 : 16, fontFamily: ORGANIC_ACID_FONT }}>
-      <div style={{ display: "grid", gap: 14, margin: "0 auto", maxWidth: 1240 }}>
+    <div className="organic-acid-page" style={{ background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 12, padding: isNarrow ? 12 : 16, fontFamily: ORGANIC_ACID_FONT }}>
+      <div style={{ display: "grid", gap: 14, margin: "0 auto", maxWidth: 1220 }}>
         <ProjectObjectiveSection topCandidate={topCandidate} rankedRows={rankedRows} isNarrow={isNarrow} />
         <OrganicAcidPathwayMap lang={lang} />
         <AlgorithmTraceExplorer rankedRows={rankedRows} selectedMof={selectedMof} setSelectedMof={setSelectedMof} />

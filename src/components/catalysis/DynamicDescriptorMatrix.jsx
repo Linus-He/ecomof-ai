@@ -27,9 +27,9 @@ function toneForStatus(status) {
 
 function DescriptorStat({ label, value, tone }) {
   return (
-    <div style={{ background: organicAcidPalette.surface, border: `1px solid ${organicAcidPalette.border}`, borderRadius: 10, padding: 10 }}>
-      <div style={{ color: organicAcidPalette.faint, fontSize: 10.5, fontWeight: 900 }}>{label}</div>
-      <div style={{ color: tone, fontSize: 16, fontWeight: 800, lineHeight: 1.15, marginTop: 6 }}>{value}</div>
+    <div style={{ background: organicAcidPalette.surface, border: `1px solid ${organicAcidPalette.border}`, borderRadius: 10, padding: "9px 10px" }}>
+      <div style={{ color: organicAcidPalette.faint, fontSize: 10.5, fontWeight: 800 }}>{label}</div>
+      <div style={{ color: tone, fontSize: 15, fontWeight: 700, lineHeight: 1.15, marginTop: 5 }}>{value}</div>
     </div>
   )
 }
@@ -47,19 +47,19 @@ export function DynamicDescriptorMatrix({ candidate }) {
   }, {}), [rows])
 
   return (
-    <section style={{ background: organicAcidPalette.bg, border: `1px solid ${organicAcidPalette.border}`, borderRadius: 12, display: "grid", gap: 14, padding: 20, fontFamily: ORGANIC_ACID_FONT }}>
+    <section style={{ background: organicAcidPalette.bg, border: `1px solid ${organicAcidPalette.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 18, fontFamily: ORGANIC_ACID_FONT }}>
       <div style={{ display: "grid", gap: 5 }}>
-        <div style={{ color: organicAcidPalette.faint, fontSize: 10.5, fontWeight: 900, letterSpacing: 0.18, textTransform: "uppercase" }}>Dynamic Descriptor Matrix</div>
+        <div style={{ color: organicAcidPalette.faint, fontSize: 10.5, fontWeight: 800, letterSpacing: 0.18, textTransform: "uppercase" }}>Dynamic Descriptor Matrix</div>
         <h2 style={{ color: organicAcidPalette.text, fontSize: 22, lineHeight: 1.2, margin: 0 }}>动态描述符表 Dynamic Descriptor Matrix</h2>
-        <p style={{ color: organicAcidPalette.muted, fontSize: 13.5, lineHeight: 1.6, margin: 0 }}>
+        <p style={{ color: organicAcidPalette.muted, fontSize: 13, lineHeight: 1.55, margin: 0 }}>
           以当前候选为中心展示可直接填数的数据表。缺失字段保留为 pending / demo placeholder，便于后续接入真实整理数据。
         </p>
       </div>
 
       <div style={{ alignItems: "start", display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))" }}>
         <div style={{ background: organicAcidPalette.surface, border: `1px solid ${organicAcidPalette.border}`, borderRadius: 10, padding: 10 }}>
-          <div style={{ color: organicAcidPalette.faint, fontSize: 10.5, fontWeight: 900 }}>当前候选 Current candidate</div>
-          <div style={{ color: organicAcidPalette.text, fontSize: 16, fontWeight: 800, lineHeight: 1.2, marginTop: 6 }}>{candidate?.mof || "pending"}</div>
+          <div style={{ color: organicAcidPalette.faint, fontSize: 10.5, fontWeight: 800 }}>当前候选 Current candidate</div>
+          <div style={{ color: organicAcidPalette.text, fontSize: 15.5, fontWeight: 700, lineHeight: 1.2, marginTop: 5 }}>{candidate?.mof || "pending"}</div>
           <div style={{ color: organicAcidPalette.muted, fontSize: 12, lineHeight: 1.5, marginTop: 5 }}>
             表格随 Candidate Ranking / Algorithm Trace 选中项同步。
           </div>
@@ -80,13 +80,13 @@ export function DynamicDescriptorMatrix({ candidate }) {
               style={{
                 background: active ? organicAcidPalette.accentSoft : organicAcidPalette.bg,
                 border: `1px solid ${active ? organicAcidPalette.accent : organicAcidPalette.border}`,
-                borderRadius: 999,
+                borderRadius: 10,
                 color: active ? organicAcidPalette.accent : organicAcidPalette.muted,
                 cursor: "pointer",
                 fontFamily: ORGANIC_ACID_FONT,
                 fontSize: 12.5,
                 fontWeight: 700,
-                padding: "7px 12px",
+                padding: "6px 10px",
               }}
             >
               {tab.labelZh} {tab.labelEn}

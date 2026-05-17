@@ -103,10 +103,10 @@ function fieldLabel(key) {
 
 function SummaryMetric({ label, value, note, tone = palette.accent }) {
   return (
-    <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, padding: 10 }}>
-      <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900 }}>{label}</div>
-      <div style={{ color: tone, fontSize: 16, fontWeight: 800, lineHeight: 1.15, marginTop: 6 }}>{value}</div>
-      {note ? <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45, marginTop: 5 }}>{note}</div> : null}
+    <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, padding: "9px 10px" }}>
+      <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 800 }}>{label}</div>
+      <div style={{ color: tone, fontSize: 14.5, fontWeight: 700, lineHeight: 1.15, marginTop: 5 }}>{value}</div>
+      {note ? <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.4, marginTop: 4 }}>{note}</div> : null}
     </div>
   )
 }
@@ -134,18 +134,18 @@ function ContributionBar({ label, value, tone, note, accent = false }) {
 
 function TraceLayout({ title, subtitle, lead, detail, summary, isNarrow }) {
   return (
-    <div style={{ display: "grid", gap: 12 }}>
-      <div style={{ display: "grid", gap: 4 }}>
-        <h3 style={{ color: palette.text, fontSize: 18, lineHeight: 1.25, margin: 0 }}>{title}</h3>
-        <p style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.55, margin: 0 }}>{subtitle}</p>
+    <div style={{ display: "grid", gap: 10 }}>
+      <div style={{ display: "grid", gap: 3 }}>
+        <h3 style={{ color: palette.text, fontSize: 17, lineHeight: 1.25, margin: 0 }}>{title}</h3>
+        <p style={{ color: palette.muted, fontSize: 12.25, lineHeight: 1.5, margin: 0 }}>{subtitle}</p>
       </div>
-      <div style={{ display: "grid", gap: 12, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.25fr) minmax(240px, 0.75fr)" }}>
-        <div style={{ display: "grid", gap: 12 }}>
+      <div style={{ display: "grid", gap: 12, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.26fr) minmax(220px, 0.74fr)" }}>
+        <div style={{ display: "grid", gap: 10 }}>
           {lead}
           {detail}
         </div>
-        <aside style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 12, alignSelf: "start" }}>
-          <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Step summary</div>
+        <aside style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 11, alignSelf: "start" }}>
+          <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 800, textTransform: "uppercase" }}>Step summary</div>
           {summary}
         </aside>
       </div>
@@ -153,38 +153,16 @@ function TraceLayout({ title, subtitle, lead, detail, summary, isNarrow }) {
   )
 }
 
-function CandidateSelector({ rankedRows, selected, setSelectedMof }) {
+function CandidateSelector({ rankedRows, selected, setSelectedMof, isNarrow }) {
   const quickRows = useMemo(() => {
     const top = rankedRows.slice(0, 3)
     return top.some((row) => row.mof === selected.mof) ? top : [selected, ...top.slice(0, 2)]
   }, [rankedRows, selected])
 
   return (
-    <div style={{ display: "grid", gap: 10 }}>
-      <div style={{ alignItems: "center", display: "grid", gap: 10, gridTemplateColumns: "minmax(220px, 320px) minmax(0, 1fr)" }}>
-        <label style={{ display: "grid", gap: 5 }}>
-          <span style={{ color: palette.text, fontSize: 12.5, fontWeight: 700 }}>候选选择 Candidate Selector</span>
-          <select
-            value={selected.mof}
-            onChange={(event) => setSelectedMof(event.target.value)}
-            style={{
-              appearance: "none",
-              background: palette.bg,
-              border: `1px solid ${palette.borderStrong}`,
-              borderRadius: 10,
-              color: palette.text,
-              fontFamily: ORGANIC_ACID_FONT,
-              fontSize: 13,
-              minHeight: 38,
-              padding: "0 12px",
-            }}
-          >
-            {rankedRows.map((row) => (
-              <option key={row.mof} value={row.mof}>{row.mof}</option>
-            ))}
-          </select>
-        </label>
-        <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))" }}>
+    <div style={{ display: "grid", gap: 8 }}>
+      <div style={{ color: palette.faint, fontSize: 11, fontWeight: 800 }}>快速候选 Quick picks</div>
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isNarrow ? "repeat(3, minmax(0, 1fr))" : "repeat(3, minmax(140px, 1fr))" }}>
           {quickRows.map((row) => {
             const active = row.mof === selected.mof
             return (
@@ -199,19 +177,19 @@ function CandidateSelector({ rankedRows, selected, setSelectedMof }) {
                   color: palette.text,
                   cursor: "pointer",
                   display: "grid",
-                  gap: 4,
-                  padding: "10px 12px",
+                  gap: 3,
+                  minHeight: 64,
+                  padding: "9px 11px",
                   textAlign: "left",
                 }}
               >
-                <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 800, lineHeight: 1.25 }}>{row.mof}</div>
+                <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700, lineHeight: 1.25 }}>{row.mof}</div>
                 <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45 }}>
                   <NumericText>RGFA #{row.rgfaRank}</NumericText> · <NumericText>{fmt(row.rgfaScore)}</NumericText>
                 </div>
               </button>
             )
           })}
-        </div>
       </div>
     </div>
   )
@@ -219,7 +197,7 @@ function CandidateSelector({ rankedRows, selected, setSelectedMof }) {
 
 function Stepper({ activeStep, setActiveStep }) {
   return (
-    <nav style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 2 }}>
+    <nav style={{ borderBottom: `1px solid ${palette.border}`, display: "flex", gap: 0, minHeight: 58, overflowX: "auto", paddingBottom: 2 }}>
       {steps.map((step, index) => {
         const active = step.id === activeStep
         return (
@@ -228,24 +206,41 @@ function Stepper({ activeStep, setActiveStep }) {
             type="button"
             onClick={() => setActiveStep(step.id)}
             style={{
-              alignItems: "flex-start",
-              background: active ? palette.accent : palette.surface,
-              border: `1px solid ${active ? palette.accent : palette.border}`,
-              borderRadius: 999,
-              color: active ? "#fff" : palette.text,
+              alignItems: "center",
+              background: "transparent",
+              border: "none",
+              borderBottom: `2px solid ${active ? palette.accent : "transparent"}`,
+              color: active ? palette.accent : palette.text,
               cursor: "pointer",
-              display: "inline-flex",
-              flexDirection: "column",
+              display: "grid",
               flexShrink: 0,
-              gap: 1,
-              minWidth: 122,
-              padding: "8px 12px",
+              gap: 3,
+              minWidth: 112,
+              padding: "8px 12px 10px",
               textAlign: "left",
             }}
           >
-            <span style={{ fontSize: 10.5, fontWeight: 900, opacity: active ? 0.84 : 1 }}>0{index + 1}</span>
-            <span style={{ fontSize: 12.5, fontWeight: 800, lineHeight: 1.25 }}>{step.zh}</span>
-            <span style={{ color: active ? "rgba(255,255,255,0.82)" : palette.muted, fontSize: 11 }}>{step.en}</span>
+            <span style={{ alignItems: "center", display: "inline-flex", gap: 8 }}>
+              <span
+                style={{
+                  background: active ? palette.accent : palette.bg,
+                  border: `1px solid ${active ? palette.accent : palette.borderStrong}`,
+                  borderRadius: 999,
+                  color: active ? "#fff" : palette.faint,
+                  display: "inline-flex",
+                  fontSize: 10.5,
+                  fontWeight: 800,
+                  height: 20,
+                  justifyContent: "center",
+                  minWidth: 20,
+                  padding: "0 6px",
+                }}
+              >
+                0{index + 1}
+              </span>
+              <span style={{ fontSize: 12.5, fontWeight: active ? 800 : 700, lineHeight: 1.2 }}>{step.zh}</span>
+            </span>
+            <span style={{ color: active ? palette.accent : palette.muted, fontSize: 10.5, lineHeight: 1.2 }}>{step.en}</span>
           </button>
         )
       })}
@@ -261,35 +256,39 @@ function CandidateSummary({ candidate, activeStep }) {
   const activeMeta = steps.find((step) => step.id === activeStep) || steps[0]
 
   return (
-    <aside style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 14, alignSelf: "start" }}>
-      <div style={{ borderBottom: `1px solid ${palette.border}`, display: "grid", gap: 5, paddingBottom: 10 }}>
-        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Candidate summary</div>
-        <div style={{ color: palette.text, fontSize: 16, fontWeight: 800, lineHeight: 1.2 }}>{candidate.mof}</div>
-        <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.45 }}>当前步骤 Current step: {activeMeta.zh} {activeMeta.en}</div>
+    <aside style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 12, display: "grid", gap: 10, padding: 12, alignSelf: "start" }}>
+      <div style={{ borderBottom: `1px solid ${palette.border}`, display: "grid", gap: 4, paddingBottom: 9 }}>
+        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 800, textTransform: "uppercase" }}>Candidate summary</div>
+        <div style={{ color: palette.text, fontSize: 16, fontWeight: 700, lineHeight: 1.2 }}>{candidate.mof}</div>
+        <div style={{ color: palette.muted, fontSize: 11.75, lineHeight: 1.45 }}>当前步骤 Current step: {activeMeta.zh} {activeMeta.en}</div>
       </div>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}>
-        <SummaryMetric label="RGFA Score" value={<NumericText style={{ color: palette.positive, fontSize: 16, fontWeight: 800 }}>{fmt(candidate.rgfaScore)}</NumericText>} tone={palette.positive} />
+        <SummaryMetric label="RGFA Score" value={<NumericText style={{ color: palette.positive, fontSize: 15, fontWeight: 700 }}>{fmt(candidate.rgfaScore)}</NumericText>} tone={palette.positive} />
         <SummaryMetric label="Class" value={candidate.computedClass} tone={classTone} />
         <SummaryMetric label="Rank shift" value={<><NumericText>#{candidate.yieldOnlyRank}</NumericText> → <NumericText>#{candidate.rgfaRank}</NumericText></>} note="Yield-only → RGFA" />
         <SummaryMetric label="Evidence level" value={candidate.evidenceLevel || "demo"} note="prototype data" />
       </div>
       <div style={{ display: "grid", gap: 8 }}>
-        <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 800 }}>关键判断 Key signals</div>
+        <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700 }}>关键判断 Key signals</div>
         <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, padding: 10 }}>
-          <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900 }}>Main driver</div>
+          <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 800 }}>Main driver</div>
           <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700, lineHeight: 1.45, marginTop: 5 }}>
             <VariableLabel name={driverKey} /> · {stepLabels[driverKey]}
           </div>
         </div>
         <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, padding: 10 }}>
-          <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900 }}>Main penalty</div>
+          <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 800 }}>Main penalty</div>
           <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700, lineHeight: 1.45, marginTop: 5 }}>
             <VariableLabel name={penaltyKey} /> · {byproductNotes[penaltyKey]}
           </div>
         </div>
         <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, padding: 10 }}>
-          <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900 }}>Why this candidate</div>
+          <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 800 }}>Why this candidate</div>
           <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.5, marginTop: 5 }}>{candidate.explanations[0]}</div>
+        </div>
+        <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, padding: 10 }}>
+          <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 800 }}>Recommended next step</div>
+          <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700, lineHeight: 1.45, marginTop: 5 }}>{trace.recommendation.nextExperiment?.[0] || "Main reaction test / 主反应测试"}</div>
         </div>
       </div>
     </aside>
@@ -754,28 +753,57 @@ export function AlgorithmTraceExplorer({ rankedRows = [], selectedMof, setSelect
 
   if (!selected) {
     return (
-      <section style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 12, padding: 20, fontFamily: ORGANIC_ACID_FONT }}>
-        <div style={{ color: palette.text, fontSize: 16, fontWeight: 800 }}>算法追踪器 Algorithm Trace Explorer</div>
+      <section style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 12, padding: 18, fontFamily: ORGANIC_ACID_FONT }}>
+        <div style={{ color: palette.text, fontSize: 16, fontWeight: 700 }}>算法追踪器 Algorithm Trace Explorer</div>
         <div style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.55, marginTop: 6 }}>正在等待 organic_acid_project_demo.json 演示数据。</div>
       </section>
     )
   }
 
   return (
-    <section style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 12, display: "grid", gap: 14, padding: 20, fontFamily: ORGANIC_ACID_FONT }}>
-      <div style={{ display: "grid", gap: 5 }}>
-        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, letterSpacing: 0.18, textTransform: "uppercase" }}>Algorithm Trace Explorer</div>
-        <h2 style={{ color: palette.text, fontSize: 22, lineHeight: 1.2, margin: 0 }}>算法追踪器 Algorithm Trace Explorer</h2>
-        <p style={{ color: palette.muted, fontSize: 13.5, lineHeight: 1.6, margin: 0 }}>
-          候选选择、横向流程条、当前步骤工作台和候选摘要联动展示。保留上方三路径动态图，仅重构算法工作台区域。
-        </p>
+    <section style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 18, fontFamily: ORGANIC_ACID_FONT }}>
+      <div style={{ alignItems: "end", display: "grid", gap: 10, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 0.95fr) minmax(220px, 0.65fr) minmax(280px, 0.7fr)" }}>
+        <div style={{ display: "grid", gap: 4 }}>
+          <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 800, letterSpacing: 0.18, textTransform: "uppercase" }}>Algorithm Trace Explorer</div>
+          <h2 style={{ color: palette.text, fontSize: 22, lineHeight: 1.15, margin: 0 }}>算法追踪器 Algorithm Trace Explorer</h2>
+          <p style={{ color: palette.muted, fontSize: 12.75, lineHeight: 1.55, margin: 0 }}>
+            候选选择、紧凑流程条与当前步骤工作台联动展示。保留上方三路径动态图，只修复算法工作台的视觉密度与排版。
+          </p>
+        </div>
+        <label style={{ display: "grid", gap: 5 }}>
+          <span style={{ color: palette.text, fontSize: 12.5, fontWeight: 700 }}>当前候选 Candidate</span>
+          <select
+            value={selected.mof}
+            onChange={(event) => setSelectedMof(event.target.value)}
+            style={{
+              appearance: "none",
+              background: palette.bg,
+              border: `1px solid ${palette.borderStrong}`,
+              borderRadius: 10,
+              color: palette.text,
+              fontFamily: ORGANIC_ACID_FONT,
+              fontSize: 13,
+              minHeight: 36,
+              padding: "0 12px",
+            }}
+          >
+            {rankedRows.map((row) => (
+              <option key={row.mof} value={row.mof}>{row.mof}</option>
+            ))}
+          </select>
+        </label>
+        <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }}>
+          <SummaryMetric label="RGFA Score" value={<NumericText style={{ color: palette.positive, fontSize: 15, fontWeight: 700 }}>{fmt(selected.rgfaScore)}</NumericText>} tone={palette.positive} />
+          <SummaryMetric label="Class" value={selected.computedClass} tone={toneForClass(selected.computedClass)} />
+          <SummaryMetric label="Rank shift" value={<><NumericText>#{selected.yieldOnlyRank}</NumericText> → <NumericText>#{selected.rgfaRank}</NumericText></>} note="Yield-only → RGFA" />
+        </div>
       </div>
 
-      <CandidateSelector rankedRows={rankedRows} selected={selected} setSelectedMof={setSelectedMof} />
+      <CandidateSelector rankedRows={rankedRows} selected={selected} setSelectedMof={setSelectedMof} isNarrow={isNarrow} />
       <Stepper activeStep={activeStep} setActiveStep={setActiveStep} />
 
-      <div style={{ display: "grid", gap: 12, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.3fr) minmax(280px, 0.7fr)", alignItems: "start" }}>
-        <article style={{ background: palette.bg, border: `1px solid ${palette.borderStrong}`, borderRadius: 12, padding: 14, minWidth: 0 }}>
+      <div style={{ display: "grid", gap: 12, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.28fr) minmax(280px, 0.72fr)", alignItems: "start" }}>
+        <article style={{ background: palette.bg, border: `1px solid ${palette.borderStrong}`, borderRadius: 12, minWidth: 0, padding: 12 }}>
           <StepDetail candidate={selected} activeStep={activeStep} isNarrow={isNarrow} />
         </article>
         <CandidateSummary candidate={selected} activeStep={activeStep} />

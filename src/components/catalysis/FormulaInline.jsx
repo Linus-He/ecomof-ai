@@ -1,5 +1,3 @@
-import { FONT_MONO } from "../../shared"
-
 export const ORGANIC_ACID_FONT = '"Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif'
 
 export const organicAcidPalette = {
@@ -22,7 +20,7 @@ export const organicAcidPalette = {
 }
 
 export const numericTextStyle = {
-  fontFamily: FONT_MONO,
+  fontFamily: ORGANIC_ACID_FONT,
   fontVariantNumeric: "tabular-nums",
 }
 
@@ -38,7 +36,7 @@ export function NumericText({ children, style = {} }) {
   return <span style={{ ...numericTextStyle, ...style }}>{children}</span>
 }
 
-export function FormulaInline({ children, size = 13, weight = 800, color = organicAcidPalette.text, gap = "4px 7px", wrap = true }) {
+export function FormulaInline({ children, size = 13, weight = 600, color = organicAcidPalette.text, gap = "4px 7px", wrap = true }) {
   return (
     <div
       style={{
@@ -46,7 +44,8 @@ export function FormulaInline({ children, size = 13, weight = 800, color = organ
         color,
         display: "flex",
         flexWrap: wrap ? "wrap" : "nowrap",
-        fontFamily: FONT_MONO,
+        fontFamily: ORGANIC_ACID_FONT,
+        fontStyle: "normal",
         fontSize: size,
         fontVariantNumeric: "tabular-nums",
         fontWeight: weight,
@@ -63,7 +62,7 @@ export function FormulaInline({ children, size = 13, weight = 800, color = organ
 export function FormulaCard({ title, children }) {
   return (
     <div style={{ background: organicAcidPalette.surface, border: `1px solid ${organicAcidPalette.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 12 }}>
-      {title ? <div style={{ color: organicAcidPalette.faint, fontSize: 10.5, fontWeight: 900 }}>{title}</div> : null}
+      {title ? <div style={{ color: organicAcidPalette.faint, fontSize: 10.5, fontWeight: 800, letterSpacing: 0.04 }}>{title}</div> : null}
       {children}
     </div>
   )
