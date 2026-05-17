@@ -1,96 +1,61 @@
 import { useMemo, useState } from "react"
-import { FONT_MONO, useViewport } from "../../shared"
+import { useViewport } from "../../shared"
 import { BYPRODUCT_KEYS, PATHWAY_SCORE_KEYS, STEP_WEIGHTS, safeNumber } from "../../utils/rgfaScore"
-
-const palette = {
-  bg: "#FFFFFF",
-  surface: "#F8FAFC",
-  surfaceStrong: "#F1F5F9",
-  border: "#D9E2EC",
-  borderStrong: "#B8C5D4",
-  text: "#0F172A",
-  muted: "#475569",
-  faint: "#64748B",
-  accent: "#1A6DB5",
-  accentSoft: "#E8F2FC",
-  positive: "#147C43",
-  positiveSoft: "#F2FBF6",
-  mixed: "#A15C13",
-  mixedSoft: "#FFF7ED",
-  risk: "#8F3B1B",
-  riskSoft: "#FFF1E8",
-}
+import {
+  DescriptorLabel,
+  FormulaCard,
+  FormulaInline,
+  NumericText,
+  ORGANIC_ACID_FONT,
+  organicAcidPalette as palette,
+  pathwayMeta,
+  VariableLabel,
+} from "./FormulaInline"
 
 const steps = [
   { id: "raw", zh: "原始输入", en: "Raw Input" },
-  { id: "gate", zh: "门槛初筛", en: "Gate Screening" },
-  { id: "pathway", zh: "路径指纹", en: "Pathway Fingerprint" },
+  { id: "gate", zh: "门槛初筛", en: "Gate" },
+  { id: "pathway", zh: "路径指纹", en: "Pathway" },
   { id: "step", zh: "步骤评分", en: "StepScore" },
-  { id: "selectivity", zh: "选择性因子", en: "SelectivityFactor" },
-  { id: "critic", zh: "CRITIC 权重校正", en: "CRITIC Adjustment" },
-  { id: "rgfa", zh: "RGFA 最终评分", en: "RGFA Score" },
-  { id: "ranking", zh: "排名影响", en: "Ranking Impact" },
-  { id: "experiment", zh: "下一步实验", en: "Next Experiment" },
+  { id: "selectivity", zh: "选择性因子", en: "Selectivity" },
+  { id: "critic", zh: "权重校正", en: "CRITIC" },
+  { id: "rgfa", zh: "最终评分", en: "RGFA" },
+  { id: "ranking", zh: "排名影响", en: "Ranking" },
+  { id: "experiment", zh: "下一步实验", en: "Experiment" },
 ]
 
-const inputGroups = [
-  {
-    title: "产物标签 Product labels",
-    rows: [
-      ["Y_FA", "Y_FA"],
-      ["S_FA_C", "S_FA_C"],
-      ["Y_lactic", "Y_lactic"],
-      ["Y_acetic", "Y_acetic"],
-      ["Y_glycolic", "Y_glycolic"],
-      ["Y_pyruvic", "Y_pyruvic"],
-      ["Y_solid", "Y_solid"],
-    ],
-  },
-  {
-    title: "步骤输入 Step inputs",
-    rows: [["A1", "A1"], ["A2", "A2"], ["A3", "A3"], ["A4", "A4"], ["B1", "B1"]],
-  },
-  {
-    title: "门槛输入 Gate inputs",
-    rows: [
-      ["waterStabilityScore", "waterStabilityScore"],
-      ["accessibilityScore", "accessibilityScore"],
-      ["activeSiteConfidence", "activeSiteConfidence"],
-    ],
-  },
+const inputRows = [
+  { key: "Y_FA", usage: "甲酸产率", status: "available" },
+  { key: "S_FA_C", usage: "甲酸碳基选择性", status: "available" },
+  { key: "Y_lactic", usage: "副产物惩罚", status: "available" },
+  { key: "Y_acetic", usage: "副产物惩罚", status: "available" },
+  { key: "Y_glycolic", usage: "副产物惩罚", status: "available" },
+  { key: "Y_pyruvic", usage: "副产物惩罚", status: "available" },
+  { key: "Y_solid", usage: "固相副产物惩罚", status: "available" },
+  { key: "A1", usage: "葡萄糖活化/异构化能力", status: "available" },
+  { key: "A2", usage: "甲酸前体生成能力", status: "available" },
+  { key: "A3", usage: "中间体转甲酸能力", status: "available" },
+  { key: "A4", usage: "甲酸释放与稳定能力", status: "available" },
+  { key: "B1", usage: "副产物风险路径", status: "available" },
+  { key: "waterStabilityScore", usage: "Gate 水相稳定性", status: "available" },
+  { key: "accessibilityScore", usage: "Gate 可及性", status: "available" },
+  { key: "activeSiteConfidence", usage: "Gate 活性位点可信度", status: "available" },
 ]
 
-const pathwayMeta = {
-  formaldehyde_to_formic: {
-    label: "甲醛 → 甲酸",
-    en: "Formaldehyde → Formic acid",
-    note: "主正路径 Primary C1 positive route",
-    color: palette.positive,
-  },
-  glyceraldehyde_to_formic: {
-    label: "甘油醛 → 甲酸",
-    en: "Glyceraldehyde → Formic acid",
-    note: "混合路径中的正向分支",
-    color: palette.mixed,
-  },
-  glyceraldehyde_to_c2_byproducts: {
-    label: "甘油醛 → 乙醇酸/乙酸",
-    en: "Glyceraldehyde → C2 byproducts",
-    note: "C2 副产物风险",
-    color: palette.mixed,
-  },
-  pyruvaldehyde_to_formic: {
-    label: "丙酮醛 → 甲酸",
-    en: "Pyruvaldehyde → Formic acid",
-    note: "可能正向分支",
-    color: palette.risk,
-  },
-  pyruvaldehyde_to_lactic: {
-    label: "丙酮醛 → 乳酸/丙酮酸",
-    en: "Pyruvaldehyde → Lactic/Pyruvic acid",
-    note: "风险主导分支",
-    color: palette.risk,
-  },
+const stepLabels = {
+  A1: "葡萄糖活化/异构化",
+  A2: "甲酸前体生成",
+  A3: "中间体 → 甲酸",
+  A4: "甲酸/甲酸盐释放",
+  B1: "副产物路径风险",
+}
+
+const byproductNotes = {
+  Y_lactic: "乳酸副产物",
+  Y_acetic: "乙酸副产物",
+  Y_glycolic: "乙醇酸副产物",
+  Y_pyruvic: "丙酮酸副产物",
+  Y_solid: "固相副产物",
 }
 
 function fmt(value, digits = 3) {
@@ -101,462 +66,719 @@ function pct(value) {
   return `${Math.round(Math.max(0, Math.min(1, safeNumber(value, 0))) * 100)}%`
 }
 
-function Sub({ children }) {
-  return <sub style={{ fontSize: "0.72em", lineHeight: 0 }}>{children}</sub>
+function toneForClass(candidateClass) {
+  if (candidateClass === "A") return palette.positive
+  if (candidateClass === "B") return palette.accent
+  if (candidateClass === "C") return palette.mixed
+  return palette.risk
 }
 
-function Sup({ children }) {
-  return <sup style={{ fontSize: "0.72em", lineHeight: 0 }}>{children}</sup>
+function dominantContribution(trace) {
+  const entries = ["A1", "A2", "A3", "A4"].map((key) => [key, safeNumber(trace.stepScore[key]?.contribution, 0)])
+  return entries.sort((a, b) => b[1] - a[1])[0]?.[0] || "A3"
 }
 
-function VarLabel({ id }) {
-  const labels = {
-    Y_FA: <>Y<Sub>FA</Sub></>,
-    S_FA_C: <>S<Sub>FA,C</Sub></>,
-    Y_lactic: <>Y<Sub>lactic</Sub></>,
-    Y_acetic: <>Y<Sub>acetic</Sub></>,
-    Y_glycolic: <>Y<Sub>glycolic</Sub></>,
-    Y_pyruvic: <>Y<Sub>pyruvic</Sub></>,
-    Y_solid: <>Y<Sub>solid</Sub></>,
+function dominantPenalty(trace) {
+  const penalty = BYPRODUCT_KEYS
+    .map((key) => [key, safeNumber(trace.selectivityFactor.penaltyTerms[key]?.contribution, 0)])
+    .sort((a, b) => b[1] - a[1])[0]?.[0]
+  return penalty || "Y_lactic"
+}
+
+function nextExperimentCards(recommendation) {
+  const items = recommendation?.nextExperiment || []
+  return [
+    { title: "Primary test", label: items[0] || "Main reaction test / 主反应测试", reason: "先确认主反应是否支撑当前排序。" },
+    { title: "Pathway test", label: items.find((item) => /feeding|Tracing|示踪|投料/.test(item)) || items[1] || "Pathway validation pending", reason: "验证三路径中最关键的正向或风险分支。" },
+    { title: "Validation test", label: items.find((item) => /balance|DFT|stability|完整度|碳平衡/.test(item)) || items[items.length - 1] || "Validation pending", reason: "补齐证据链与后续建模输入。" },
+  ]
+}
+
+function fieldLabel(key) {
+  if (["Y_FA", "S_FA_C", "Y_lactic", "Y_acetic", "Y_glycolic", "Y_pyruvic", "Y_solid", "A1", "A2", "A3", "A4", "B1"].includes(key)) {
+    return <VariableLabel name={key} />
   }
-  return labels[id] || id
+  return key
 }
 
-function ChemLabel({ id }) {
-  if (id === "isotopeBicarbonate") return <>NaH<Sup>13</Sup>CO<Sub>3</Sub></>
-  return null
-}
-
-function ExperimentLabel({ value }) {
-  if (value === "isotopeTracing") {
-    return (
-      <>
-        <ChemLabel id="isotopeBicarbonate" /> isotope tracing / <ChemLabel id="isotopeBicarbonate" /> 同位素示踪
-      </>
-    )
-  }
-  return value
-}
-
-function FormulaBox({ children }) {
+function SummaryMetric({ label, value, note, tone = palette.accent }) {
   return (
-    <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, color: palette.text, display: "flex", flexWrap: "wrap", fontFamily: FONT_MONO, fontSize: 12.5, fontWeight: 900, gap: "4px 7px", lineHeight: 1.6, padding: 11, minWidth: 0 }}>
-      {children}
+    <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, padding: 10 }}>
+      <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900 }}>{label}</div>
+      <div style={{ color: tone, fontSize: 16, fontWeight: 800, lineHeight: 1.15, marginTop: 6 }}>{value}</div>
+      {note ? <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45, marginTop: 5 }}>{note}</div> : null}
     </div>
   )
 }
 
-function InfoBlock({ title, children }) {
+function ProgressBar({ value, tone = palette.accent }) {
   return (
-    <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 8, padding: 11, minWidth: 0 }}>
-      <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{title}</div>
-      <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.62, marginTop: 7 }}>{children}</div>
+    <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 999, height: 8, overflow: "hidden" }}>
+      <div style={{ background: tone, height: "100%", width: pct(value) }} />
     </div>
   )
 }
 
-function MetricCell({ label, value, note, tone = palette.accent }) {
+function ContributionBar({ label, value, tone, note, accent = false }) {
   return (
-    <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, padding: 10, minWidth: 0 }}>
-      <div style={{ color: palette.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>{label}</div>
-      <div style={{ color: tone, fontFamily: FONT_MONO, fontSize: 18, fontWeight: 950, lineHeight: 1.05, marginTop: 7 }}>{value}</div>
-      {note ? <div style={{ color: palette.muted, fontSize: 11, lineHeight: 1.45, marginTop: 6 }}>{note}</div> : null}
-    </div>
-  )
-}
-
-function ValueRow({ label, value, color = palette.accent, note }) {
-  const width = pct(value)
-  return (
-    <div style={{ display: "grid", gap: 5, minWidth: 0 }}>
+    <div style={{ display: "grid", gap: 6 }}>
       <div style={{ alignItems: "baseline", display: "flex", gap: 10, justifyContent: "space-between" }}>
-        <span style={{ color: palette.text, fontSize: 12, fontWeight: 850, minWidth: 0 }}>{label}</span>
-        <span style={{ color: palette.text, fontFamily: FONT_MONO, fontSize: 11.5, fontWeight: 900 }}>{fmt(value)}</span>
+        <div style={{ color: palette.text, fontSize: 12.5, fontWeight: accent ? 800 : 700 }}>{label}</div>
+        <NumericText style={{ color: palette.text, fontSize: 11.5, fontWeight: 800 }}>{fmt(value)}</NumericText>
       </div>
-      {note ? <div style={{ color: palette.muted, fontSize: 11, lineHeight: 1.4 }}>{note}</div> : null}
-      <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 999, height: 7, overflow: "hidden" }}>
-        <div style={{ background: color, height: "100%", width }} />
+      {note ? <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45 }}>{note}</div> : null}
+      <ProgressBar value={Math.min(Math.abs(value) / 0.9, 1)} tone={tone} />
+    </div>
+  )
+}
+
+function TraceLayout({ title, subtitle, lead, detail, summary, isNarrow }) {
+  return (
+    <div style={{ display: "grid", gap: 12 }}>
+      <div style={{ display: "grid", gap: 4 }}>
+        <h3 style={{ color: palette.text, fontSize: 18, lineHeight: 1.25, margin: 0 }}>{title}</h3>
+        <p style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.55, margin: 0 }}>{subtitle}</p>
+      </div>
+      <div style={{ display: "grid", gap: 12, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.25fr) minmax(240px, 0.75fr)" }}>
+        <div style={{ display: "grid", gap: 12 }}>
+          {lead}
+          {detail}
+        </div>
+        <aside style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 12, alignSelf: "start" }}>
+          <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Step summary</div>
+          {summary}
+        </aside>
       </div>
     </div>
   )
 }
 
-function ContributionRow({ id, term }) {
-  const isPenalty = safeNumber(term.weight, 0) < 0
-  const color = id === "A3" ? palette.positive : isPenalty ? palette.risk : palette.accent
-  return (
-    <div style={{ display: "grid", gap: 5 }}>
-      <div style={{ alignItems: "baseline", display: "flex", gap: 10, justifyContent: "space-between" }}>
-        <span style={{ color: palette.text, fontSize: 12, fontWeight: 900 }}>{id} · {term.label}</span>
-        <span style={{ color: isPenalty ? palette.risk : palette.text, fontFamily: FONT_MONO, fontSize: 11.5, fontWeight: 900 }}>
-          {fmt(term.weight, 2)} × {fmt(term.value, 2)} = {fmt(term.contribution)}
-        </span>
-      </div>
-      <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 999, height: 8, overflow: "hidden" }}>
-        <div style={{ background: color, height: "100%", width: pct(Math.abs(safeNumber(term.contribution, 0)) / 0.35) }} />
-      </div>
-    </div>
-  )
-}
+function CandidateSelector({ rankedRows, selected, setSelectedMof }) {
+  const quickRows = useMemo(() => {
+    const top = rankedRows.slice(0, 3)
+    return top.some((row) => row.mof === selected.mof) ? top : [selected, ...top.slice(0, 2)]
+  }, [rankedRows, selected])
 
-function DetailShell({ title, subtitle, children }) {
   return (
-    <div style={{ display: "grid", gap: 12, minWidth: 0 }}>
-      <div>
-        <h3 style={{ color: palette.text, fontSize: 17, lineHeight: 1.25, margin: 0 }}>{title}</h3>
-        <p style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.6, margin: "6px 0 0" }}>{subtitle}</p>
-      </div>
-      {children}
-    </div>
-  )
-}
-
-function RawInputStep({ candidate, trace }) {
-  return (
-    <DetailShell
-      title="原始输入 Raw Input"
-      subtitle="该步骤展示算法使用的原始输入，包括产物分布、步骤能力、门槛分数和路径指纹。当前为演示数据 / Demo data，不代表真实实验结果。"
-    >
-      <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))" }}>
-        {inputGroups.map(group => (
-          <InfoBlock key={group.title} title={group.title}>
-            <div style={{ display: "grid", gap: 6 }}>
-              {group.rows.map(([label, key]) => (
-                <div key={key} style={{ display: "flex", justifyContent: "space-between", gap: 10 }}>
-                  <span>{label.startsWith("Y_") || label === "S_FA_C" ? <VarLabel id={label} /> : label}</span>
-                  <span style={{ color: palette.text, fontFamily: FONT_MONO, fontWeight: 900 }}>{fmt(trace.input[key])}</span>
+    <div style={{ display: "grid", gap: 10 }}>
+      <div style={{ alignItems: "center", display: "grid", gap: 10, gridTemplateColumns: "minmax(220px, 320px) minmax(0, 1fr)" }}>
+        <label style={{ display: "grid", gap: 5 }}>
+          <span style={{ color: palette.text, fontSize: 12.5, fontWeight: 700 }}>候选选择 Candidate Selector</span>
+          <select
+            value={selected.mof}
+            onChange={(event) => setSelectedMof(event.target.value)}
+            style={{
+              appearance: "none",
+              background: palette.bg,
+              border: `1px solid ${palette.borderStrong}`,
+              borderRadius: 10,
+              color: palette.text,
+              fontFamily: ORGANIC_ACID_FONT,
+              fontSize: 13,
+              minHeight: 38,
+              padding: "0 12px",
+            }}
+          >
+            {rankedRows.map((row) => (
+              <option key={row.mof} value={row.mof}>{row.mof}</option>
+            ))}
+          </select>
+        </label>
+        <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))" }}>
+          {quickRows.map((row) => {
+            const active = row.mof === selected.mof
+            return (
+              <button
+                key={row.mof}
+                type="button"
+                onClick={() => setSelectedMof(row.mof)}
+                style={{
+                  background: active ? palette.accentSoft : palette.surface,
+                  border: `1px solid ${active ? palette.accent : palette.border}`,
+                  borderRadius: 10,
+                  color: palette.text,
+                  cursor: "pointer",
+                  display: "grid",
+                  gap: 4,
+                  padding: "10px 12px",
+                  textAlign: "left",
+                }}
+              >
+                <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 800, lineHeight: 1.25 }}>{row.mof}</div>
+                <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45 }}>
+                  <NumericText>RGFA #{row.rgfaRank}</NumericText> · <NumericText>{fmt(row.rgfaScore)}</NumericText>
                 </div>
-              ))}
-            </div>
-          </InfoBlock>
-        ))}
+              </button>
+            )
+          })}
+        </div>
       </div>
-      <InfoBlock title="路径分数 Pathway scores">
-        <div style={{ display: "grid", gap: 7 }}>
-          {PATHWAY_SCORE_KEYS.map(key => (
-            <ValueRow key={key} label={pathwayMeta[key].label} note={pathwayMeta[key].en} value={trace.pathwayFingerprint[key]} color={pathwayMeta[key].color} />
+    </div>
+  )
+}
+
+function Stepper({ activeStep, setActiveStep }) {
+  return (
+    <nav style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 2 }}>
+      {steps.map((step, index) => {
+        const active = step.id === activeStep
+        return (
+          <button
+            key={step.id}
+            type="button"
+            onClick={() => setActiveStep(step.id)}
+            style={{
+              alignItems: "flex-start",
+              background: active ? palette.accent : palette.surface,
+              border: `1px solid ${active ? palette.accent : palette.border}`,
+              borderRadius: 999,
+              color: active ? "#fff" : palette.text,
+              cursor: "pointer",
+              display: "inline-flex",
+              flexDirection: "column",
+              flexShrink: 0,
+              gap: 1,
+              minWidth: 122,
+              padding: "8px 12px",
+              textAlign: "left",
+            }}
+          >
+            <span style={{ fontSize: 10.5, fontWeight: 900, opacity: active ? 0.84 : 1 }}>0{index + 1}</span>
+            <span style={{ fontSize: 12.5, fontWeight: 800, lineHeight: 1.25 }}>{step.zh}</span>
+            <span style={{ color: active ? "rgba(255,255,255,0.82)" : palette.muted, fontSize: 11 }}>{step.en}</span>
+          </button>
+        )
+      })}
+    </nav>
+  )
+}
+
+function CandidateSummary({ candidate, activeStep }) {
+  const trace = candidate.trace
+  const driverKey = dominantContribution(trace)
+  const penaltyKey = dominantPenalty(trace)
+  const classTone = toneForClass(candidate.computedClass)
+  const activeMeta = steps.find((step) => step.id === activeStep) || steps[0]
+
+  return (
+    <aside style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 14, alignSelf: "start" }}>
+      <div style={{ borderBottom: `1px solid ${palette.border}`, display: "grid", gap: 5, paddingBottom: 10 }}>
+        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Candidate summary</div>
+        <div style={{ color: palette.text, fontSize: 16, fontWeight: 800, lineHeight: 1.2 }}>{candidate.mof}</div>
+        <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.45 }}>当前步骤 Current step: {activeMeta.zh} {activeMeta.en}</div>
+      </div>
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}>
+        <SummaryMetric label="RGFA Score" value={<NumericText style={{ color: palette.positive, fontSize: 16, fontWeight: 800 }}>{fmt(candidate.rgfaScore)}</NumericText>} tone={palette.positive} />
+        <SummaryMetric label="Class" value={candidate.computedClass} tone={classTone} />
+        <SummaryMetric label="Rank shift" value={<><NumericText>#{candidate.yieldOnlyRank}</NumericText> → <NumericText>#{candidate.rgfaRank}</NumericText></>} note="Yield-only → RGFA" />
+        <SummaryMetric label="Evidence level" value={candidate.evidenceLevel || "demo"} note="prototype data" />
+      </div>
+      <div style={{ display: "grid", gap: 8 }}>
+        <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 800 }}>关键判断 Key signals</div>
+        <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, padding: 10 }}>
+          <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900 }}>Main driver</div>
+          <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700, lineHeight: 1.45, marginTop: 5 }}>
+            <VariableLabel name={driverKey} /> · {stepLabels[driverKey]}
+          </div>
+        </div>
+        <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, padding: 10 }}>
+          <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900 }}>Main penalty</div>
+          <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700, lineHeight: 1.45, marginTop: 5 }}>
+            <VariableLabel name={penaltyKey} /> · {byproductNotes[penaltyKey]}
+          </div>
+        </div>
+        <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, padding: 10 }}>
+          <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900 }}>Why this candidate</div>
+          <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.5, marginTop: 5 }}>{candidate.explanations[0]}</div>
+        </div>
+      </div>
+    </aside>
+  )
+}
+
+function RawStep({ candidate, trace, isNarrow }) {
+  const completion = trace.inputCompleteness.availableFields / trace.inputCompleteness.totalFields
+  const rows = inputRows.map((row) => ({ ...row, value: trace.input[row.key] }))
+
+  return (
+    <TraceLayout
+      isNarrow={isNarrow}
+      title="原始输入 Raw Input"
+      subtitle="把当前候选进入算法前的原始输入压成一张紧凑数据表，先看字段、再看完整度。"
+      lead={(
+        <FormulaCard title="Input schema">
+          <FormulaInline>
+            <span>Raw Input</span><span>=</span><span>Product labels</span><span>+</span><span>Step inputs</span><span>+</span><span>Gate inputs</span><span>+</span><span>Pathway scores</span>
+          </FormulaInline>
+          <div style={{ display: "grid", gap: 7 }}>
+            <div style={{ alignItems: "center", display: "flex", gap: 10, justifyContent: "space-between" }}>
+              <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700 }}>Data completeness</div>
+              <NumericText style={{ color: palette.text, fontSize: 12, fontWeight: 800 }}>
+                {trace.inputCompleteness.availableFields} / {trace.inputCompleteness.totalFields}
+              </NumericText>
+            </div>
+            <ProgressBar value={completion} tone={palette.accent} />
+          </div>
+        </FormulaCard>
+      )}
+      detail={(
+        <div style={{ maxWidth: "100%", overflowX: "auto" }}>
+          <table style={{ borderCollapse: "collapse", width: "100%" }}>
+            <thead>
+              <tr>
+                {["字段 Field", "值 Value", "用途 Use", "状态 Status"].map((head) => (
+                  <th key={head} style={{ borderBottom: `1px solid ${palette.borderStrong}`, color: palette.faint, fontSize: 11, padding: "8px 9px", textAlign: "left" }}>{head}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row) => (
+                <tr key={row.key}>
+                  <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 12.5, fontWeight: 700, padding: "8px 9px" }}>{fieldLabel(row.key)}</td>
+                  <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 12, padding: "8px 9px" }}><NumericText>{fmt(row.value)}</NumericText></td>
+                  <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "8px 9px" }}>{row.usage}</td>
+                  <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "8px 9px" }}>{row.status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+      summary={(
+        <>
+          <SummaryMetric label="Demo status" value={candidate.dataStatus || "prototype"} note="当前为方法演示数据" />
+          <SummaryMetric label="Evidence" value={candidate.evidenceLevel || "demo"} note="not experimental truth" />
+          <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.55 }}>
+            当前候选输入完整，后续真实版本可在同一表结构下直接补齐 pending 字段。
+          </div>
+        </>
+      )}
+    />
+  )
+}
+
+function GateStep({ trace, isNarrow }) {
+  const cards = [
+    ["Water stability", trace.gate.waterStabilityScore, "水相稳定性"],
+    ["Accessibility", trace.gate.accessibilityScore, "孔道/底物可及性"],
+    ["Active-site confidence", trace.gate.activeSiteConfidence, "活性位点可信度"],
+  ]
+
+  return (
+    <TraceLayout
+      isNarrow={isNarrow}
+      title="门槛初筛 Gate Screening"
+      subtitle="先判断材料是否值得进入反应筛选，再讨论更细的路径与选择性。"
+      lead={(
+        <FormulaCard title="Gate formula">
+          <FormulaInline>
+            <span>Gate</span><span>=</span><span>water stability</span><span>×</span><span>accessibility</span><span>×</span><span>active-site confidence</span>
+          </FormulaInline>
+          <FormulaInline color={palette.accent}>
+            <span>{fmt(trace.gate.waterStabilityScore)}</span><span>×</span><span>{fmt(trace.gate.accessibilityScore)}</span><span>×</span><span>{fmt(trace.gate.activeSiteConfidence)}</span><span>=</span><span>{fmt(trace.gate.result)}</span>
+          </FormulaInline>
+        </FormulaCard>
+      )}
+      detail={(
+        <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))" }}>
+          {cards.map(([title, value, note]) => (
+            <SummaryMetric
+              key={title}
+              label={title}
+              value={<NumericText style={{ color: palette.text, fontSize: 16, fontWeight: 800 }}>{fmt(value)}</NumericText>}
+              note={note}
+            />
           ))}
         </div>
-      </InfoBlock>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 10 }}>
-        <MetricCell label="数据完整度 Data completeness" value={`${trace.inputCompleteness.availableFields}/${trace.inputCompleteness.totalFields}`} note="available fields / total fields" />
-        <MetricCell label="数据状态 Data status" value={candidate.dataStatus || "prototype"} note="原型数据 / Prototype data" />
-        <MetricCell label="证据等级 Evidence" value={candidate.evidenceLevel || "demo"} note="演示数据 / Demo data" />
-      </div>
-      {trace.inputCompleteness.missingFields.length ? (
-        <InfoBlock title="缺失字段 Missing fields">
-          {trace.inputCompleteness.missingFields.join(", ")}
-        </InfoBlock>
-      ) : null}
-    </DetailShell>
+      )}
+      summary={(
+        <>
+          <SummaryMetric label="Gate output" value={<NumericText style={{ color: palette.positive, fontSize: 16, fontWeight: 800 }}>{fmt(trace.gate.result)}</NumericText>} tone={palette.positive} />
+          <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.55 }}>
+            Gate 低时优先回到稳定性、孔道或位点可信度补证据，而不是直接讨论排序。
+          </div>
+        </>
+      )}
+    />
   )
 }
 
-function GateStep({ trace }) {
-  return (
-    <DetailShell
-      title="门槛初筛 Gate Screening"
-      subtitle="Gate 用于判断候选 MOF 是否具备进入反应筛选的基本条件，包括水相稳定性、底物可及性和活性位点可信度。"
-    >
-      <FormulaBox>
-        <span>Gate</span><span>=</span><span>water stability</span><span>×</span><span>accessibility</span><span>×</span><span>active-site confidence</span>
-      </FormulaBox>
-      <FormulaBox>
-        <span>{fmt(trace.gate.waterStabilityScore)}</span><span>×</span><span>{fmt(trace.gate.accessibilityScore)}</span><span>×</span><span>{fmt(trace.gate.activeSiteConfidence)}</span><span>=</span><span>{fmt(trace.gate.result)}</span>
-      </FormulaBox>
-      <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))" }}>
-        <MetricCell label="水相稳定性 Water stability" value={fmt(trace.gate.waterStabilityScore)} note="反应水相条件下的结构保真假设" />
-        <MetricCell label="孔道/底物可及性 Accessibility" value={fmt(trace.gate.accessibilityScore)} note="葡萄糖、中间体和甲酸盐的通行可行性" />
-        <MetricCell label="活性位点可信度 Active-site confidence" value={fmt(trace.gate.activeSiteConfidence)} note="金属位点/官能团参与反应的可信度" />
-      </div>
-    </DetailShell>
-  )
-}
+function PathwayStep({ trace, isNarrow }) {
+  const dominantKey = PATHWAY_SCORE_KEYS
+    .map((key) => ({ key, value: trace.pathwayFingerprint[key] }))
+    .sort((a, b) => safeNumber(b.value, 0) - safeNumber(a.value, 0))[0]?.key
 
-function PathwayStep({ trace }) {
   return (
-    <DetailShell
+    <TraceLayout
+      isNarrow={isNarrow}
       title="路径指纹 Pathway Fingerprint"
-      subtitle="路径指纹把三路径反应网络转化为可计算特征。颜色与上方动态图保持一致，副产物分支作为 B1 和选择性惩罚的依据。"
-    >
-      <div style={{ display: "grid", gap: 10 }}>
-        {PATHWAY_SCORE_KEYS.map(key => (
-          <ValueRow
-            key={key}
-            label={`${pathwayMeta[key].label} / ${pathwayMeta[key].en}`}
-            note={pathwayMeta[key].note}
-            value={trace.pathwayFingerprint[key]}
-            color={pathwayMeta[key].color}
-          />
-        ))}
-      </div>
-    </DetailShell>
+      subtitle="把三路径动态图的机理假设翻译成可排序的路径分数，但不改变上方动态图视觉。"
+      lead={(
+        <FormulaCard title="Pathway fingerprint">
+          <FormulaInline>
+            <span>Pathway fingerprint</span><span>=</span><span>C1 positive route</span><span>+</span><span>mixed route</span><span>+</span><span>risk route</span>
+          </FormulaInline>
+        </FormulaCard>
+      )}
+      detail={(
+        <div style={{ display: "grid", gap: 10 }}>
+          {PATHWAY_SCORE_KEYS.map((key) => (
+            <ContributionBar
+              key={key}
+              label={`${pathwayMeta[key].labelZh} / ${pathwayMeta[key].labelEn}`}
+              value={trace.pathwayFingerprint[key]}
+              tone={pathwayMeta[key].color}
+              note={pathwayMeta[key].note}
+            />
+          ))}
+        </div>
+      )}
+      summary={(
+        <>
+          <SummaryMetric label="Dominant route" value={dominantKey ? pathwayMeta[dominantKey].labelZh : "pending"} />
+          <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.55 }}>
+            强正向路径会推高 A3，风险路径则会体现在 B1 与选择性惩罚中。
+          </div>
+        </>
+      )}
+    />
   )
 }
 
-function StepScoreStep({ trace }) {
+function StepScoreStep({ trace, isNarrow }) {
+  const peak = dominantContribution(trace)
+
   return (
-    <DetailShell
+    <TraceLayout
+      isNarrow={isNarrow}
       title="步骤评分 StepScore"
-      subtitle="A3 权重最高，因为它直接反映中间体是否被导向甲酸；B1 是副产物路径风险，因此作为扣分项。"
-    >
-      <FormulaBox>
-        <span>StepScore</span><span>=</span><span>0.15A<Sub>1</Sub></span><span>+</span><span>0.20A<Sub>2</Sub></span><span>+</span><span>0.35A<Sub>3</Sub></span><span>+</span><span>0.15A<Sub>4</Sub></span><span>−</span><span>0.15B<Sub>1</Sub></span>
-      </FormulaBox>
-      <div style={{ display: "grid", gap: 9 }}>
-        {Object.keys(STEP_WEIGHTS).map(key => <ContributionRow key={key} id={key} term={trace.stepScore[key]} />)}
-      </div>
-      <MetricCell label="输出 Output" value={fmt(trace.stepScore.result)} note="贡献项相加后小于 0 时按 0 处理，避免负分进入乘法评分。" tone={palette.positive} />
-    </DetailShell>
+      subtitle="A3 权重最高，用于强调中间体是否真正被导向甲酸；B1 为负项。"
+      lead={(
+        <FormulaCard title="StepScore formula">
+          <FormulaInline>
+            <span>StepScore</span><span>=</span><span>0.15<VariableLabel name="A1" /></span><span>+</span><span>0.20<VariableLabel name="A2" /></span><span>+</span><span>0.35<VariableLabel name="A3" /></span><span>+</span><span>0.15<VariableLabel name="A4" /></span><span>−</span><span>0.15<VariableLabel name="B1" /></span>
+          </FormulaInline>
+        </FormulaCard>
+      )}
+      detail={(
+        <div style={{ display: "grid", gap: 10 }}>
+          {Object.keys(STEP_WEIGHTS).map((key) => {
+            const term = trace.stepScore[key]
+            const penalty = safeNumber(term.weight, 0) < 0
+            return (
+              <ContributionBar
+                key={key}
+                label={<><VariableLabel name={key} /> · {stepLabels[key]}</>}
+                value={term.contribution}
+                tone={penalty ? palette.risk : key === "A3" ? palette.positive : palette.accent}
+                note={`${fmt(term.weight, 2)} × ${fmt(term.value, 2)} = ${fmt(term.contribution)}`}
+                accent={key === peak}
+              />
+            )
+          })}
+        </div>
+      )}
+      summary={(
+        <>
+          <SummaryMetric label="StepScore output" value={<NumericText style={{ color: palette.positive, fontSize: 16, fontWeight: 800 }}>{fmt(trace.stepScore.result)}</NumericText>} tone={palette.positive} />
+          <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700, lineHeight: 1.45 }}>
+            <VariableLabel name={peak} /> 是当前最大正贡献项。
+          </div>
+          <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.55 }}>
+            当前候选由 {stepLabels[peak]} 主导，不再是单纯的说明文档，而是可核对的贡献拆解。
+          </div>
+        </>
+      )}
+    />
   )
 }
 
-function SelectivityStep({ trace }) {
+function SelectivityStep({ trace, isNarrow }) {
   return (
-    <DetailShell
+    <TraceLayout
+      isNarrow={isNarrow}
       title="选择性因子 SelectivityFactor"
-      subtitle="该因子用于避免只看甲酸产率而忽视副产物。乳酸、乙酸、乙醇酸、丙酮酸和固体副产物越高，分母越大，最终分数越低。"
-    >
-      <FormulaBox>
-        <span>Numerator</span><span>=</span><span><VarLabel id="Y_FA" /></span><span>×</span><span><VarLabel id="S_FA_C" /></span><span>=</span><span>{fmt(trace.selectivityFactor.numerator)}</span>
-      </FormulaBox>
-      <FormulaBox>
-        <span>Denominator</span><span>=</span><span>1</span><span>+</span><span>weighted byproduct penalties</span><span>=</span><span>{fmt(trace.selectivityFactor.denominator)}</span>
-      </FormulaBox>
-      <div style={{ display: "grid", gap: 8 }}>
-        {BYPRODUCT_KEYS.map(key => {
-          const term = trace.selectivityFactor.penaltyTerms[key]
-          return (
-            <div key={key} style={{ alignItems: "center", background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, display: "grid", gap: 8, gridTemplateColumns: "minmax(90px, 0.7fr) minmax(0, 1fr)", padding: 9 }}>
-              <div style={{ color: palette.text, fontSize: 12, fontWeight: 900 }}><VarLabel id={key} /></div>
-              <div style={{ color: palette.muted, fontFamily: FONT_MONO, fontSize: 12, lineHeight: 1.5 }}>
-                {fmt(term.weight)} × {fmt(term.value)} = <strong style={{ color: palette.risk }}>{fmt(term.contribution)}</strong>
-              </div>
-            </div>
-          )
-        })}
-      </div>
-      <MetricCell label="输出 Output" value={fmt(trace.selectivityFactor.result)} note="SelectivityFactor = Numerator / Denominator" tone={palette.positive} />
-    </DetailShell>
-  )
-}
-
-function CriticStep({ trace }) {
-  return (
-    <DetailShell
-      title="CRITIC 权重校正 CRITIC Adjustment"
-      subtitle="CRITIC 用于根据演示数据中的离散度和冲突性校正副产物惩罚权重，但不替代反应机理先验。当前 CRITIC 校正基于原型数据，仅用于方法展示。"
-    >
-      <FormulaBox>
-        <span>Final weight</span><span>=</span><span>0.7 × mechanism prior</span><span>+</span><span>0.3 × CRITIC weight</span>
-      </FormulaBox>
-      <div style={{ maxWidth: "100%", overflowX: "auto" }}>
-        <table style={{ borderCollapse: "collapse", minWidth: 560, width: "100%" }}>
-          <thead>
-            <tr>
-              {["指标 Term", "机理先验 Mechanism prior", "CRITIC 权重", "最终融合权重 Final blended"].map(head => (
-                <th key={head} style={{ borderBottom: `1px solid ${palette.borderStrong}`, color: palette.faint, fontSize: 11, padding: "8px 9px", textAlign: "left" }}>{head}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {BYPRODUCT_KEYS.map(key => (
-              <tr key={key}>
-                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 12, fontWeight: 900, padding: "9px" }}><VarLabel id={key} /></td>
-                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontFamily: FONT_MONO, fontSize: 12, padding: "9px" }}>{fmt(trace.criticAdjustment.mechanismPriorWeights[key])}</td>
-                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontFamily: FONT_MONO, fontSize: 12, padding: "9px" }}>{fmt(trace.criticAdjustment.criticWeights[key])}</td>
-                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontFamily: FONT_MONO, fontSize: 12, fontWeight: 900, padding: "9px" }}>{fmt(trace.criticAdjustment.blendedWeights[key])}</td>
+      subtitle="用分子鼓励甲酸方向，用分母惩罚副产物，避免高产率但副产物重的候选被高估。"
+      lead={(
+        <div style={{ display: "grid", gap: 10, gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
+          <FormulaCard title="Numerator">
+            <FormulaInline>
+              <span><VariableLabel name="Y_FA" /></span><span>×</span><span><VariableLabel name="S_FA_C" /></span><span>=</span><span>{fmt(trace.selectivityFactor.numerator)}</span>
+            </FormulaInline>
+          </FormulaCard>
+          <FormulaCard title="Denominator">
+            <FormulaInline>
+              <span>1</span><span>+</span><span>weighted byproduct penalties</span><span>=</span><span>{fmt(trace.selectivityFactor.denominator)}</span>
+            </FormulaInline>
+          </FormulaCard>
+        </div>
+      )}
+      detail={(
+        <div style={{ maxWidth: "100%", overflowX: "auto" }}>
+          <table style={{ borderCollapse: "collapse", width: "100%" }}>
+            <thead>
+              <tr>
+                {["Term", "value", "weight", "contribution"].map((head) => (
+                  <th key={head} style={{ borderBottom: `1px solid ${palette.borderStrong}`, color: palette.faint, fontSize: 11, padding: "8px 9px", textAlign: "left" }}>{head}</th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <InfoBlock title="方法边界 Method boundary">
-        CRITIC adjustment is calculated from prototype data for demonstration only. 当前 CRITIC 校正基于原型数据，仅用于方法展示。
-      </InfoBlock>
-    </DetailShell>
+            </thead>
+            <tbody>
+              {BYPRODUCT_KEYS.map((key) => {
+                const term = trace.selectivityFactor.penaltyTerms[key]
+                return (
+                  <tr key={key}>
+                    <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 12.5, fontWeight: 700, padding: "8px 9px" }}><VariableLabel name={key} /></td>
+                    <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 12, padding: "8px 9px" }}><NumericText>{fmt(term.value)}</NumericText></td>
+                    <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 12, padding: "8px 9px" }}><NumericText>{fmt(term.weight)}</NumericText></td>
+                    <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.risk, fontSize: 12, padding: "8px 9px" }}><NumericText>{fmt(term.contribution)}</NumericText></td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+      summary={(
+        <>
+          <SummaryMetric label="SelectivityFactor" value={<NumericText style={{ color: palette.positive, fontSize: 16, fontWeight: 800 }}>{fmt(trace.selectivityFactor.result)}</NumericText>} tone={palette.positive} />
+          <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.55 }}>
+            分母越大，说明副产物越强；这一步直接决定“看起来高产”是否真的值得排前面。
+          </div>
+        </>
+      )}
+    />
   )
 }
 
-function RgfaStep({ candidate, trace }) {
+function CriticStep({ trace, isNarrow }) {
   return (
-    <DetailShell
-      title="RGFA 最终评分 RGFA Score"
-      subtitle="RGFA Score 将材料门槛、反应步骤能力和产物选择性合并为一个用于候选优先级讨论的原型评分。"
-    >
-      <FormulaBox>
-        <span>RGFA Score</span><span>=</span><span>Gate</span><span>×</span><span>StepScore</span><span>×</span><span>SelectivityFactor</span>
-      </FormulaBox>
-      <FormulaBox>
-        <span>{fmt(trace.rgfaScore.gate)}</span><span>×</span><span>{fmt(trace.rgfaScore.stepScore)}</span><span>×</span><span>{fmt(trace.rgfaScore.selectivityFactor)}</span><span>=</span><span>{fmt(trace.rgfaScore.result)}</span>
-      </FormulaBox>
-      <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))" }}>
-        <MetricCell label="RGFA Score" value={fmt(trace.rgfaScore.result)} tone={palette.positive} />
-        <MetricCell label="Candidate class / 类别" value={trace.recommendation.class} note={trace.recommendation.type} />
-        <MetricCell label="Recommendation / 推荐类型" value={candidate.mof} note={trace.recommendation.reason} />
-      </div>
-    </DetailShell>
+    <TraceLayout
+      isNarrow={isNarrow}
+      title="权重校正 CRITIC Adjustment"
+      subtitle="CRITIC 不替代机理先验，只在当前候选集里对副产物惩罚做轻量校正。"
+      lead={(
+        <FormulaCard title="Blend rule">
+          <FormulaInline>
+            <span>Final</span><span>=</span><span>0.7 × prior</span><span>+</span><span>0.3 × CRITIC</span>
+          </FormulaInline>
+        </FormulaCard>
+      )}
+      detail={(
+        <div style={{ maxWidth: "100%", overflowX: "auto" }}>
+          <table style={{ borderCollapse: "collapse", width: "100%" }}>
+            <thead>
+              <tr>
+                {["Indicator", "Mechanism prior", "CRITIC weight", "Final blended", "Δ"].map((head) => (
+                  <th key={head} style={{ borderBottom: `1px solid ${palette.borderStrong}`, color: palette.faint, fontSize: 11, padding: "8px 9px", textAlign: "left" }}>{head}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {BYPRODUCT_KEYS.map((key) => {
+                const prior = trace.criticAdjustment.mechanismPriorWeights[key]
+                const critic = trace.criticAdjustment.criticWeights[key]
+                const blended = trace.criticAdjustment.blendedWeights[key]
+                return (
+                  <tr key={key}>
+                    <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 12.5, fontWeight: 700, padding: "8px 9px" }}><VariableLabel name={key} /></td>
+                    <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 12, padding: "8px 9px" }}><NumericText>{fmt(prior)}</NumericText></td>
+                    <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 12, padding: "8px 9px" }}><NumericText>{fmt(critic)}</NumericText></td>
+                    <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 12, padding: "8px 9px" }}><NumericText>{fmt(blended)}</NumericText></td>
+                    <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "8px 9px" }}><NumericText>{fmt(blended - prior)}</NumericText></td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+      summary={(
+        <>
+          <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700, lineHeight: 1.45 }}>当前规则：先验权重保持主导，CRITIC 只做 30% 融合。</div>
+          <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.55 }}>
+            这一步强调权重来源可审计，避免把方法说明写成大段文档。
+          </div>
+        </>
+      )}
+    />
   )
 }
 
-function RankingStep({ trace }) {
+function RgfaStep({ candidate, trace, isNarrow }) {
+  const cards = [
+    ["Gate", trace.rgfaScore.gate, palette.accent],
+    ["StepScore", trace.rgfaScore.stepScore, palette.mixed],
+    ["SelectivityFactor", trace.rgfaScore.selectivityFactor, palette.positive],
+    ["RGFA", trace.rgfaScore.result, palette.positive],
+  ]
+
   return (
-    <DetailShell
+    <TraceLayout
+      isNarrow={isNarrow}
+      title="最终评分 RGFA Score"
+      subtitle="把材料门槛、反应步骤和选择性三部分压缩成一个可解释的排序信号。"
+      lead={(
+        <FormulaCard title="RGFA formula">
+          <FormulaInline>
+            <span>Gate</span><span>×</span><span>StepScore</span><span>×</span><span>SelectivityFactor</span><span>=</span><span>{fmt(trace.rgfaScore.result)}</span>
+          </FormulaInline>
+        </FormulaCard>
+      )}
+      detail={(
+        <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))" }}>
+          {cards.map(([label, value, tone]) => (
+            <SummaryMetric
+              key={label}
+              label={label}
+              value={<NumericText style={{ color: tone, fontSize: 16, fontWeight: 800 }}>{fmt(value)}</NumericText>}
+              tone={tone}
+            />
+          ))}
+        </div>
+      )}
+      summary={(
+        <>
+          <SummaryMetric label="Candidate class" value={candidate.computedClass} tone={toneForClass(candidate.computedClass)} />
+          <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.55 }}>
+            RGFA 不是实验结论，而是下一轮验证资源应该优先给谁的工作台分数。
+          </div>
+        </>
+      )}
+    />
+  )
+}
+
+function RankingStep({ candidate, trace, isNarrow }) {
+  const shift = `${trace.rankingImpact.yieldOnlyRank ? `#${trace.rankingImpact.yieldOnlyRank}` : "-"} → ${trace.rankingImpact.rgfaRank ? `#${trace.rankingImpact.rgfaRank}` : "-"}`
+
+  return (
+    <TraceLayout
+      isNarrow={isNarrow}
       title="排名影响 Ranking Impact"
-      subtitle="如果只看甲酸产率，某些副产物较高的材料可能被高估。RGFA + CRITIC 排名会综合考虑选择性、副产物惩罚、路径风险和门槛分数。"
-    >
-      <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))" }}>
-        <MetricCell label="仅按甲酸产率 Yield-only ranking" value={trace.rankingImpact.yieldOnlyRank ? `#${trace.rankingImpact.yieldOnlyRank}` : "-"} note="以甲酸产率为主，辅以碳选择性打破并列。" />
-        <MetricCell label="RGFA + CRITIC 校正排序" value={trace.rankingImpact.rgfaRank ? `#${trace.rankingImpact.rgfaRank}` : "-"} note="综合路径、门槛、选择性与 CRITIC 校正。" tone={palette.positive} />
-      </div>
-      <InfoBlock title="解释 Explanation">
-        {trace.rankingImpact.explanation}
-      </InfoBlock>
-    </DetailShell>
+      subtitle="左右对照“只看产率”和“引入 RGFA 后”的位置变化。"
+      lead={(
+        <div style={{ display: "grid", gap: 10, gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
+          <SummaryMetric label="Yield-only ranking" value={<NumericText style={{ color: palette.text, fontSize: 16, fontWeight: 800 }}>#{trace.rankingImpact.yieldOnlyRank || "-"}</NumericText>} note="只看甲酸产率，碳选择性用于打破并列" />
+          <SummaryMetric label="RGFA + CRITIC ranking" value={<NumericText style={{ color: palette.positive, fontSize: 16, fontWeight: 800 }}>#{trace.rankingImpact.rgfaRank || "-"}</NumericText>} tone={palette.positive} note="加入路径风险、Gate 和副产物惩罚" />
+        </div>
+      )}
+      detail={(
+        <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, padding: 12 }}>
+          <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Rank shift</div>
+          <div style={{ color: palette.text, fontSize: 20, fontWeight: 800, marginTop: 6 }}><NumericText>{shift}</NumericText></div>
+          <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.55, marginTop: 8 }}>{trace.rankingImpact.explanation}</div>
+        </div>
+      )}
+      summary={(
+        <>
+          <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700, lineHeight: 1.45 }}>{candidate.explanations.at(-1) || "当前候选排名变化不大。"}</div>
+          <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.55 }}>
+            排名变化本质上回答一个问题：为什么该候选不该只靠产率排位。
+          </div>
+        </>
+      )}
+    />
   )
 }
 
-function ExperimentStep({ trace }) {
+function ExperimentStep({ trace, isNarrow }) {
+  const cards = nextExperimentCards(trace.recommendation)
+
   return (
-    <DetailShell
+    <TraceLayout
+      isNarrow={isNarrow}
       title="下一步实验 Next Experiment"
-      subtitle="推荐实验用于把原型排序转化为可验证的机理问题和候选优先级，不代表已经验证的实验结论。"
-    >
-      <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))" }}>
-        <MetricCell label="候选类别 Candidate class" value={trace.recommendation.class} note={trace.recommendation.type} />
-        <MetricCell label="推荐类型 Recommendation" value={trace.recommendation.type.split("/")[0].trim()} note={trace.recommendation.reason} tone={palette.positive} />
-      </div>
-      <div style={{ display: "grid", gap: 8 }}>
-        {trace.recommendation.nextExperiment.map((item, index) => (
-          <article key={item} style={{ alignItems: "start", background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, display: "grid", gap: 9, gridTemplateColumns: "30px minmax(0, 1fr)", padding: 10 }}>
-            <div style={{ alignItems: "center", background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 999, color: palette.accent, display: "flex", fontFamily: FONT_MONO, fontSize: 11.5, fontWeight: 950, height: 26, justifyContent: "center", width: 26 }}>{index + 1}</div>
-            <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 900, lineHeight: 1.45 }}><ExperimentLabel value={item} /></div>
-          </article>
-        ))}
-      </div>
-    </DetailShell>
+      subtitle="把当前排序转成可执行的实验动作，而不是留在抽象解释层。"
+      lead={(
+        <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
+          {cards.map((card, index) => (
+            <article key={card.title} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, display: "grid", gap: 7, padding: 12 }}>
+              <div style={{ alignItems: "center", display: "flex", gap: 8 }}>
+                <div style={{ alignItems: "center", background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 999, color: palette.accent, display: "flex", fontSize: 11.5, fontWeight: 800, height: 24, justifyContent: "center", width: 24 }}>{index + 1}</div>
+                <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 800 }}>{card.title}</div>
+              </div>
+              <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700, lineHeight: 1.45 }}>{card.label}</div>
+              <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45 }}>{card.reason}</div>
+            </article>
+          ))}
+        </div>
+      )}
+      detail={(
+        <FormulaCard title="Recommendation type">
+          <div style={{ color: palette.text, fontSize: 13, fontWeight: 700, lineHeight: 1.45 }}>{trace.recommendation.type}</div>
+          <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.55 }}>{trace.recommendation.reason}</div>
+        </FormulaCard>
+      )}
+      summary={(
+        <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.55 }}>
+          当前建议优先级来自 RGFA、路径风险和证据状态的组合，不代表实验已经完成。
+        </div>
+      )}
+    />
   )
 }
 
-function StepDetail({ candidate, trace, activeStep }) {
-  const renderers = {
-    raw: <RawInputStep candidate={candidate} trace={trace} />,
-    gate: <GateStep trace={trace} />,
-    pathway: <PathwayStep trace={trace} />,
-    step: <StepScoreStep trace={trace} />,
-    selectivity: <SelectivityStep trace={trace} />,
-    critic: <CriticStep trace={trace} />,
-    rgfa: <RgfaStep candidate={candidate} trace={trace} />,
-    ranking: <RankingStep trace={trace} />,
-    experiment: <ExperimentStep trace={trace} />,
+function PathwaySummary({ trace }) {
+  const sorted = PATHWAY_SCORE_KEYS
+    .map((key) => ({ key, value: trace.pathwayFingerprint[key] }))
+    .sort((a, b) => safeNumber(b.value, 0) - safeNumber(a.value, 0))
+  return sorted[0]?.key
+}
+
+function StepDetail({ candidate, activeStep, isNarrow }) {
+  const trace = candidate.trace
+  const dominantPath = PathwaySummary({ trace })
+
+  const detailMap = {
+    raw: <RawStep candidate={candidate} trace={trace} isNarrow={isNarrow} />,
+    gate: <GateStep trace={trace} isNarrow={isNarrow} />,
+    pathway: <PathwayStep trace={trace} isNarrow={isNarrow} dominantPath={dominantPath} />,
+    step: <StepScoreStep trace={trace} isNarrow={isNarrow} />,
+    selectivity: <SelectivityStep trace={trace} isNarrow={isNarrow} />,
+    critic: <CriticStep trace={trace} isNarrow={isNarrow} />,
+    rgfa: <RgfaStep candidate={candidate} trace={trace} isNarrow={isNarrow} />,
+    ranking: <RankingStep candidate={candidate} trace={trace} isNarrow={isNarrow} />,
+    experiment: <ExperimentStep trace={trace} isNarrow={isNarrow} />,
   }
-  return renderers[activeStep] || renderers.raw
+
+  return detailMap[activeStep] || detailMap.raw
 }
 
 export function AlgorithmTraceExplorer({ rankedRows = [], selectedMof, setSelectedMof }) {
   const { isNarrow } = useViewport()
   const [activeStep, setActiveStep] = useState("raw")
   const selected = useMemo(() => (
-    rankedRows.find(row => row.mof === selectedMof) || rankedRows[0] || null
+    rankedRows.find((row) => row.mof === selectedMof) || rankedRows[0] || null
   ), [rankedRows, selectedMof])
 
-  if (!rankedRows.length || !selected) {
+  if (!selected) {
     return (
-      <section style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, padding: 16 }}>
-        <div style={{ color: palette.text, fontSize: 15, fontWeight: 900 }}>算法追踪器 Algorithm Trace Explorer</div>
-        <div style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.6, marginTop: 7 }}>正在等待 organic_acid_project_demo.json 演示数据。</div>
+      <section style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 12, padding: 20, fontFamily: ORGANIC_ACID_FONT }}>
+        <div style={{ color: palette.text, fontSize: 16, fontWeight: 800 }}>算法追踪器 Algorithm Trace Explorer</div>
+        <div style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.55, marginTop: 6 }}>正在等待 organic_acid_project_demo.json 演示数据。</div>
       </section>
     )
   }
 
-  const activeIndex = steps.findIndex(step => step.id === activeStep)
-
   return (
-    <section style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, padding: 16 }}>
-      <div style={{ display: "grid", gap: 4, marginBottom: 13 }}>
-        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, letterSpacing: 0.2, textTransform: "uppercase" }}>Algorithm Trace Explorer</div>
-        <h2 style={{ color: palette.text, fontSize: 17, lineHeight: 1.25, margin: 0 }}>算法追踪器 Algorithm Trace Explorer</h2>
-        <p style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
-          从原始输入到 RGFA 最终评分逐步展开，展示候选 MOF 如何经过 Gate 初筛、路径指纹、选择性惩罚和 CRITIC 权重校正进入排序。
+    <section style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 12, display: "grid", gap: 14, padding: 20, fontFamily: ORGANIC_ACID_FONT }}>
+      <div style={{ display: "grid", gap: 5 }}>
+        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, letterSpacing: 0.18, textTransform: "uppercase" }}>Algorithm Trace Explorer</div>
+        <h2 style={{ color: palette.text, fontSize: 22, lineHeight: 1.2, margin: 0 }}>算法追踪器 Algorithm Trace Explorer</h2>
+        <p style={{ color: palette.muted, fontSize: 13.5, lineHeight: 1.6, margin: 0 }}>
+          候选选择、横向流程条、当前步骤工作台和候选摘要联动展示。保留上方三路径动态图，仅重构算法工作台区域。
         </p>
       </div>
 
-      <div style={{ display: "grid", gap: 12, gridTemplateColumns: isNarrow ? "1fr" : "230px minmax(300px, 0.9fr) minmax(360px, 1.2fr)", alignItems: "start" }}>
-        <aside style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 10 }}>
-          <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 950 }}>候选选择器 Candidate Selector</div>
-          <div style={{ display: "grid", gap: 7, maxHeight: isNarrow ? "none" : 360, overflowY: isNarrow ? "visible" : "auto" }}>
-            {rankedRows.map(row => {
-              const selectedRow = row.mof === selected.mof
-              return (
-                <button
-                  key={row.mof}
-                  type="button"
-                  onClick={() => setSelectedMof(row.mof)}
-                  style={{
-                    alignItems: "flex-start",
-                    background: selectedRow ? palette.accentSoft : palette.bg,
-                    border: `1px solid ${selectedRow ? palette.accent : palette.border}`,
-                    borderRadius: 8,
-                    boxSizing: "border-box",
-                    color: palette.text,
-                    cursor: "pointer",
-                    display: "flex",
-                    flexDirection: "column",
-                    fontFamily: "inherit",
-                    gap: 6,
-                    justifyContent: "flex-start",
-                    minHeight: 70,
-                    overflow: "hidden",
-                    padding: "10px 12px",
-                    textAlign: "left",
-                    width: "100%",
-                  }}
-                >
-                  <span style={{ display: "block", fontSize: 12.5, fontWeight: 950, lineHeight: 1.25, minWidth: 0, overflowWrap: "anywhere" }}>{row.mof}</span>
-                  <span style={{ color: palette.muted, display: "block", fontFamily: FONT_MONO, fontSize: 11, lineHeight: 1.35, minWidth: 0, overflowWrap: "anywhere" }}>
-                    RGFA #{row.rgfaRank} · Score {fmt(row.rgfaScore)}
-                  </span>
-                </button>
-              )
-            })}
-          </div>
-        </aside>
+      <CandidateSelector rankedRows={rankedRows} selected={selected} setSelectedMof={setSelectedMof} />
+      <Stepper activeStep={activeStep} setActiveStep={setActiveStep} />
 
-        <nav style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, display: isNarrow ? "flex" : "grid", gap: 7, overflowX: isNarrow ? "auto" : "visible", padding: 10 }}>
-          {steps.map((step, index) => {
-            const current = step.id === activeStep
-            const completed = index < activeIndex
-            return (
-              <button
-                key={step.id}
-                type="button"
-                onClick={() => setActiveStep(step.id)}
-                style={{
-                  background: current ? palette.accent : completed ? palette.accentSoft : palette.bg,
-                  border: `1px solid ${current ? palette.accent : palette.border}`,
-                  borderRadius: 8,
-                  color: current ? "#fff" : palette.text,
-                  cursor: "pointer",
-                  display: "grid",
-                  gap: 3,
-                  minWidth: isNarrow ? 170 : 0,
-                  padding: "8px 9px",
-                  textAlign: "left",
-                }}
-              >
-                <span style={{ fontFamily: FONT_MONO, fontSize: 10.5, fontWeight: 900 }}>
-                  {completed ? "completed" : `step ${index + 1}`}
-                </span>
-                <span style={{ fontSize: 12.5, fontWeight: 930, lineHeight: 1.3 }}>{step.zh}</span>
-                <span style={{ color: current ? "rgba(255,255,255,0.78)" : palette.muted, fontSize: 11 }}>{step.en}</span>
-              </button>
-            )
-          })}
-        </nav>
-
-        <article style={{ background: palette.bg, border: `1px solid ${palette.borderStrong}`, borderRadius: 10, padding: 13, minWidth: 0 }}>
-          <StepDetail candidate={selected} trace={selected.trace} activeStep={activeStep} />
+      <div style={{ display: "grid", gap: 12, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.3fr) minmax(280px, 0.7fr)", alignItems: "start" }}>
+        <article style={{ background: palette.bg, border: `1px solid ${palette.borderStrong}`, borderRadius: 12, padding: 14, minWidth: 0 }}>
+          <StepDetail candidate={selected} activeStep={activeStep} isNarrow={isNarrow} />
         </article>
+        <CandidateSummary candidate={selected} activeStep={activeStep} />
       </div>
     </section>
   )
