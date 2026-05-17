@@ -16,7 +16,6 @@ import {
   ScopeNoticeBar,
   SecondaryTabs,
 } from "../module/ModuleTop"
-import { CatalysisWorkflowDiagram } from "../methods"
 import {
   CATALYSIS_TASKS,
   analyzeComparability,
@@ -32,6 +31,480 @@ const DEFAULT_FILTERS = {
   feedstock: "all",
   productFamily: "all",
   dataStatus: "all",
+}
+
+const numericStyle = {
+  fontVariantNumeric: "tabular-nums",
+}
+
+const workflowSteps = [
+  {
+    id: "raw-record",
+    index: "01",
+    titleZh: "原始催化记录",
+    titleEn: "Raw catalysis record",
+    summary: "收集催化实验中的催化剂、反应条件、底物或 CO2 来源、产物指标和证据来源。",
+    inputs: [
+      "catalyst / 催化剂",
+      "reaction condition / 反应条件",
+      "substrate or CO2 source / 底物或 CO2 来源",
+      "product metrics / 产物指标",
+      "evidence source / 证据来源",
+    ],
+    process: "保留原始字段，不直接用于排序，先进入标准化步骤。",
+    outputs: ["raw_record_id", "raw fields", "evidence note"],
+    evidence: "demo / literature / experiment",
+    usedFor: ["数据追溯", "后续标准化"],
+    next: "记录标准化 Record normalization",
+  },
+  {
+    id: "normalization",
+    index: "02",
+    titleZh: "记录标准化",
+    titleEn: "Record normalization",
+    summary: "统一单位、字段命名、产物选择性、收率和证据状态，减少不同实验记录之间的格式差异。",
+    inputs: [
+      "raw record",
+      "unit information",
+      "product labels",
+      "reaction metadata",
+    ],
+    process: "统一温度、时间、产率、选择性和证据状态的表示方式，形成可比较输入。",
+    outputs: [
+      "normalized condition fields",
+      "normalized product metrics",
+      "evidence status",
+    ],
+    evidence: "demo / prototype",
+    usedFor: ["产物标准化", "排序输入"],
+    next: "结构化数据表 Structured tables",
+  },
+  {
+    id: "tables",
+    index: "03",
+    titleZh: "结构化数据表",
+    titleEn: "Structured tables",
+    summary: "将复杂实验记录拆分为可查询、可追溯、可复核的结构化表格。",
+    inputs: [
+      "normalized records",
+      "condition keys",
+      "product keys",
+      "evidence metadata",
+    ],
+    process: "按催化剂、反应条件、产物指标和证据来源拆表，保留候选级可追踪关系。",
+    outputs: [
+      "catalyst_records / 催化剂记录表",
+      "reaction_conditions / 反应条件表",
+      "product_metrics / 产物指标表",
+      "evidence_records / 证据记录表",
+    ],
+    evidence: "demo structured tables",
+    usedFor: ["检索", "候选聚合", "证据追溯"],
+    next: "可比性检查 Comparability check",
+  },
+  {
+    id: "comparability",
+    index: "04",
+    titleZh: "可比性检查",
+    titleEn: "Comparability check",
+    summary: "判断不同实验记录是否可以直接比较，避免把条件差异过大的结果放在同一排序中。",
+    inputs: [
+      "temperature comparable?",
+      "reaction time comparable?",
+      "same product basis?",
+      "same carbon basis?",
+      "evidence confidence sufficient?",
+    ],
+    process: "生成可比性标签、warning flags 和置信度修正建议，不让不可比记录直接进入同层解释。",
+    outputs: [
+      "comparable / partially comparable / not comparable",
+      "warning flags",
+      "confidence adjustment",
+    ],
+    evidence: "rule-based + demo review",
+    usedFor: ["结果解释", "置信度修正", "排序边界"],
+    next: "任务映射与 CRITIC case Task mapping & CRITIC case",
+  },
+  {
+    id: "mapping",
+    index: "05",
+    titleZh: "任务映射与 CRITIC case",
+    titleEn: "Task mapping & CRITIC case",
+    summary: "把标准化数据映射到任务表、坐标图和 CRITIC 权重原型，用于候选排序和敏感性分析。",
+    inputs: [
+      "normalized task rows",
+      "comparability labels",
+      "candidate-level indicators",
+      "confidence signals",
+    ],
+    process: "整理出坐标图字段、排名任务表和 CRITIC-ready indicators；该模块不限于有机酸案例。",
+    outputs: [
+      "coordinate map fields",
+      "ranking task table",
+      "CRITIC-ready indicators",
+      "sensitivity case",
+    ],
+    evidence: "prototype ranking case",
+    usedFor: ["任务映射", "候选排序", "敏感性分析"],
+    next: "Coordinate map / task table / CRITIC preview",
+  },
+]
+
+function FormulaLabel({ lead, sub }) {
+  return (
+    <span>
+      {lead}
+      <sub style={{ fontSize: "0.72em", lineHeight: 0 }}>{sub}</sub>
+    </span>
+  )
+}
+
+function SmallActionButton({ t, children, onClick }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      style={{
+        ...toolbarBtn(t),
+        minHeight: 34,
+        padding: "7px 11px",
+      }}
+    >
+      {children}
+    </button>
+  )
+}
+
+function WorkflowStepButton({ step, state, active, hovered, isNarrow, onClick, onEnter, onLeave, t }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+      style={{
+        alignItems: "flex-start",
+        background: active ? t.panel : t.bg,
+        border: `1px solid ${active ? t.accent : hovered ? t.borderStrong || t.border : t.border}`,
+        borderRadius: 10,
+        boxShadow: hovered || active ? t.shadowSm : "none",
+        color: t.textStrong,
+        cursor: "pointer",
+        display: "grid",
+        gap: 7,
+        minHeight: isNarrow ? "auto" : 98,
+        padding: "10px 11px",
+        position: "relative",
+        textAlign: "left",
+      }}
+    >
+      <div style={{ alignItems: "center", display: "flex", gap: 8, justifyContent: "space-between", width: "100%" }}>
+        <span
+          style={{
+            alignItems: "center",
+            background: active ? t.accent : t.surface,
+            border: `1px solid ${active ? t.accent : t.border}`,
+            borderRadius: 999,
+            color: active ? "#fff" : t.faint,
+            display: "inline-flex",
+            fontSize: 10.5,
+            fontWeight: 800,
+            height: 22,
+            justifyContent: "center",
+            minWidth: 22,
+            padding: "0 7px",
+          }}
+        >
+          {step.index}
+        </span>
+        <span
+          style={{
+            background: state === "completed" ? t.surface : t.panel,
+            border: `1px solid ${t.border}`,
+            borderRadius: 999,
+            color: t.muted,
+            fontSize: 10.5,
+            fontWeight: 700,
+            padding: "2px 7px",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {state === "completed" ? "已进入下一步" : state === "active" ? "当前步骤" : "预览"}
+        </span>
+      </div>
+      <div style={{ display: "grid", gap: 3 }}>
+        <div style={{ color: active ? t.accent : t.textStrong, fontSize: 13, fontWeight: 800, lineHeight: 1.3 }}>
+          {step.titleZh}
+        </div>
+        <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.35 }}>{step.titleEn}</div>
+      </div>
+      <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>
+        {step.summary}
+      </div>
+    </button>
+  )
+}
+
+function WorkflowWorkbench({ activeStepId, setActiveStepId, lang, isNarrow, t }) {
+  const [hoverStepId, setHoverStepId] = useState(null)
+  const activeStep = workflowSteps.find(step => step.id === activeStepId) || workflowSteps[0]
+  const activeIndex = workflowSteps.findIndex(step => step.id === activeStep.id)
+
+  return (
+    <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 12, padding: 14 }}>
+      <div style={{ display: "grid", gap: 4 }}>
+        <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 800, letterSpacing: 0.16, textTransform: "uppercase" }}>
+          Catalysis Data Workflow
+        </div>
+        <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 900, lineHeight: 1.2 }}>
+          催化数据工作流 Catalysis Data Workflow
+        </div>
+        <div style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.55 }}>
+          把原始催化实验记录转化为可比较、可评分、可追溯的数据结构。
+        </div>
+      </div>
+
+      <div
+        style={{
+          alignItems: isNarrow ? "stretch" : "center",
+          display: "grid",
+          gap: isNarrow ? 8 : 10,
+          gridTemplateColumns: isNarrow ? "1fr" : "repeat(5, minmax(0, 1fr))",
+        }}
+      >
+        {workflowSteps.map((step, index) => {
+          const state = index < activeIndex ? "completed" : index === activeIndex ? "active" : "preview"
+          return (
+            <div
+              key={step.id}
+              style={{
+                alignItems: "center",
+                display: "grid",
+                gap: isNarrow || index === workflowSteps.length - 1 ? 0 : 8,
+                gridTemplateColumns: isNarrow || index === workflowSteps.length - 1 ? "1fr" : "minmax(0, 1fr) 16px",
+              }}
+            >
+              <WorkflowStepButton
+                step={step}
+                state={state}
+                active={state === "active"}
+                hovered={hoverStepId === step.id}
+                isNarrow={isNarrow}
+                onClick={() => setActiveStepId(step.id)}
+                onEnter={() => setHoverStepId(step.id)}
+                onLeave={() => setHoverStepId(null)}
+                t={t}
+              />
+              {!isNarrow && index < workflowSteps.length - 1 && (
+                <div style={{ alignItems: "center", color: t.borderStrong || t.border, display: "flex", fontSize: 16, justifyContent: "center" }}>→</div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+
+      <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 12, padding: 14 }}>
+        <div style={{ display: "grid", gap: 4 }}>
+          <div style={{ alignItems: "baseline", display: "flex", flexWrap: "wrap", gap: 8 }}>
+            <span style={{ color: t.accent, fontSize: 12.5, fontWeight: 900 }}>{activeStep.index}</span>
+            <span style={{ color: t.textStrong, fontSize: 16, fontWeight: 900 }}>{activeStep.titleZh}</span>
+            <span style={{ color: t.muted, fontSize: 12.5 }}>{activeStep.titleEn}</span>
+          </div>
+          <div style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.55 }}>{activeStep.summary}</div>
+        </div>
+
+        <div style={{ display: "grid", gap: 10, gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))" }}>
+          <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+            <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 800 }}>输入 Inputs</div>
+            <div style={{ color: t.textStrong, fontSize: 12, lineHeight: 1.5, marginTop: 7 }}>
+              {activeStep.inputs.map(item => (
+                <div key={item}>• {item}</div>
+              ))}
+            </div>
+          </div>
+          <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+            <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 800 }}>处理 Process</div>
+            <div style={{ color: t.textStrong, fontSize: 12, lineHeight: 1.55, marginTop: 7 }}>{activeStep.process}</div>
+          </div>
+          <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+            <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 800 }}>输出 Outputs</div>
+            <div style={{ color: t.textStrong, fontSize: 12, lineHeight: 1.5, marginTop: 7 }}>
+              {activeStep.outputs.map(item => (
+                <div key={item}>• {item}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display: "grid", gap: 10, gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
+          <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+            <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 800 }}>证据状态 Evidence</div>
+            <div style={{ color: t.textStrong, fontSize: 12, lineHeight: 1.5, marginTop: 7 }}>{activeStep.evidence}</div>
+          </div>
+          <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
+            <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 800 }}>用于后续 Used for</div>
+            <div style={{ color: t.textStrong, fontSize: 12, lineHeight: 1.5, marginTop: 7 }}>
+              {activeStep.usedFor.join(" / ")}
+            </div>
+            <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45, marginTop: 6 }}>
+              下一步 Next: {activeStep.next}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function CriticPreviewWorkbench({ model, topCandidate, lang, isNarrow, onNavigate, t }) {
+  const indicatorRows = model.indicatorDiagnostics.map(row => {
+    const mapping = {
+      d_stab: {
+        labelZh: "稳定性贡献",
+        labelEn: "Stability contribution",
+        description: "表示水热稳定性、结构保持和数据可信度对候选排序的贡献。",
+      },
+      d_barrier: {
+        labelZh: "关键能垒贡献",
+        labelEn: "Barrier contribution",
+        description: "表示反应关键步骤能垒或路径障碍对预期性能的影响。",
+      },
+      d_select: {
+        labelZh: "选择性风险贡献",
+        labelEn: "Selectivity-risk contribution",
+        description: "表示副产物风险和选择性偏移对排序的影响。",
+      },
+    }
+    return {
+      ...row,
+      ...mapping[row.key],
+    }
+  })
+
+  const topName = topCandidate?.name || "—"
+  const dExpected = topCandidate ? Number(topCandidate.D_expected).toFixed(3) : "—"
+  const confidenceQ = topCandidate ? Number(topCandidate.confidence_Q_clipped).toFixed(2) : "—"
+  const maxShift = model.robustness?.maxRemoveOneShift ?? "—"
+  const robustnessLabel = lang === "zh" ? model.robustness?.stability?.zh : model.robustness?.stability?.label
+
+  return (
+    <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 12, padding: 14 }}>
+      <div style={{ alignItems: "start", display: "grid", gap: 12, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.15fr) minmax(260px, 0.85fr)" }}>
+        <div style={{ display: "grid", gap: 10 }}>
+          <div style={{ display: "grid", gap: 4 }}>
+            <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 800, letterSpacing: 0.16, textTransform: "uppercase" }}>
+              CRITIC-assisted Catalysis Ranking Preview
+            </div>
+            <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 900, lineHeight: 1.2 }}>
+              CRITIC 辅助催化排序预览
+            </div>
+            <div style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.55 }}>
+              展示稳定性、关键能垒和选择性风险三个原型指标如何通过 CRITIC 权重影响候选排序。
+            </div>
+          </div>
+
+          <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 12 }}>
+            <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900 }}>权重解释 Weighting breakdown</div>
+            {indicatorRows.map(row => (
+              <div key={row.key} style={{ display: "grid", gap: 6 }}>
+                <div style={{ alignItems: "baseline", display: "grid", gap: 8, gridTemplateColumns: isNarrow ? "1fr auto" : "minmax(0, 1fr) auto" }}>
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 800, lineHeight: 1.35 }}>
+                      {row.labelZh}
+                    </div>
+                    <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.35 }}>{row.labelEn}</div>
+                    <div style={{ color: t.faint, fontSize: 10.5, lineHeight: 1.35, marginTop: 2 }}>
+                      原型字段 field: {row.key}
+                    </div>
+                  </div>
+                  <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 800, ...numericStyle }}>
+                    {row.criticWeight.toFixed(3)}
+                  </div>
+                </div>
+                <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, height: 7, overflow: "hidden" }}>
+                  <div style={{ background: t.accent, height: "100%", width: `${Math.round(row.criticWeight * 100)}%` }} />
+                </div>
+                <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>
+                  {row.description}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ display: "grid", gap: 10 }}>
+          <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }}>
+            <div style={{ alignItems: "start", display: "flex", gap: 8, justifyContent: "space-between" }}>
+              <div>
+                <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 800 }}>推荐候选 Top candidate</div>
+                <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 900, lineHeight: 1.2, marginTop: 5 }}>{topName}</div>
+              </div>
+              <SmallActionButton t={t} onClick={() => onNavigate ? onNavigate("ecoscreen") : window.location.assign("#ecoscreen")}>
+                {lang === "zh" ? "查看完整 case" : "View full case"}
+              </SmallActionButton>
+            </div>
+            <div style={{ color: t.textStrong, fontSize: 12.5, lineHeight: 1.6, marginTop: 10 }}>
+              <div>
+                预期综合表现 <FormulaLabel lead="D" sub="expected" />: <span style={numericStyle}>{dExpected}</span>
+              </div>
+              <div>
+                置信度 confidence<sub style={{ fontSize: "0.72em", lineHeight: 0 }}>Q</sub>: <span style={numericStyle}>{confidenceQ}</span>
+              </div>
+            </div>
+            <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.5, marginTop: 8 }}>
+              该候选在稳定性、关键能垒和选择性风险的综合权重下排名最高。
+            </div>
+          </div>
+
+          <div style={{ display: "grid", gap: 10, gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
+            <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }}>
+              <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 800 }}>置信度修正 Confidence correction</div>
+              <div style={{ color: t.textStrong, fontSize: 12.5, lineHeight: 1.55, marginTop: 8 }}>
+                <FormulaLabel lead="D" sub="expected" /> = <FormulaLabel lead="D" sub="raw" /> × confidence<sub style={{ fontSize: "0.72em", lineHeight: 0 }}>Q</sub>
+              </div>
+              <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.5, marginTop: 6 }}>
+                用于降低低证据质量记录对排序的影响。
+              </div>
+            </div>
+
+            <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }}>
+              <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 800 }}>稳健性检查 Robustness check</div>
+              <div style={{ color: t.textStrong, fontSize: 12.5, lineHeight: 1.55, marginTop: 8 }}>
+                {robustnessLabel || "Stable"} · max shift <span style={numericStyle}>{maxShift}</span>
+              </div>
+              <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.5, marginTop: 6 }}>
+                当前 case 在敏感性扰动下最大排名变化为 {maxShift}，说明排序相对稳定。
+              </div>
+            </div>
+          </div>
+
+          <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 10 }}>
+            <SmallActionButton t={t} onClick={() => onNavigate ? onNavigate("methodology") : window.location.assign("#methodology")}>
+              {lang === "zh" ? "查看字段解释" : "View field notes"}
+            </SmallActionButton>
+            <button
+              type="button"
+              onClick={() => onNavigate ? onNavigate("ecoscreen") : window.location.assign("#ecoscreen")}
+              style={{
+                background: "transparent",
+                border: "none",
+                color: t.accent,
+                cursor: "pointer",
+                fontSize: 12,
+                fontWeight: 700,
+                padding: 0,
+              }}
+            >
+              {lang === "zh" ? "查看敏感性分析" : "View sensitivity analysis"}
+            </button>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.45 }}>
+              原型字段保留为 d_stab / d_barrier / d_select；数据缺口建议和 sensitivity ranks 仍由现有 criticScoring.js 原型生成。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 function OrganicAcidProjectEntry({ lang, t, isNarrow, onOpen }) {
@@ -93,6 +566,7 @@ export function CatalysisLabTab({ onNavigate }) {
   const [selectionSource, setSelectionSource] = useState("none")
   const [notice, setNotice] = useState("")
   const [catalysisView, setCatalysisView] = useState("overview")
+  const [activeWorkflowStepId, setActiveWorkflowStepId] = useState(workflowSteps[0].id)
   const formateCriticModel = useMemo(() => buildCriticScoringModel(), [])
   const topFormateCandidate = useMemo(() => (
     formateCriticModel.candidates
@@ -279,69 +753,35 @@ export function CatalysisLabTab({ onNavigate }) {
         <>
       <ResultLayer
         number="00"
-        title={lang === "zh" ? "催化记录结构化流程" : "Catalysis Record Structuring Pipeline"}
+        title={lang === "zh" ? "催化数据工作流" : "Catalysis Data Workflow"}
         subtitle={lang === "zh"
-          ? "先把原始催化记录拆成可复核表结构，再进入坐标图、任务表和 CRITIC case。"
-          : "Raw catalysis records are structured into reviewable tables before coordinate maps, task tables, and CRITIC cases."}
+          ? "点击每个步骤查看输入、处理、输出、证据状态与后续用途。"
+          : "Click each step to inspect inputs, processing logic, outputs, evidence status, and downstream use."}
       >
-        <CatalysisWorkflowDiagram t={t} lang={lang} />
+        <WorkflowWorkbench
+          activeStepId={activeWorkflowStepId}
+          setActiveStepId={setActiveWorkflowStepId}
+          lang={lang}
+          isNarrow={isNarrow}
+          t={t}
+        />
       </ResultLayer>
 
       <ResultLayer
         number="01"
-        title={lang === "zh" ? "CRITIC-assisted catalysis ranking preview" : "CRITIC-assisted catalysis ranking preview"}
+        title={lang === "zh" ? "CRITIC 辅助催化排序预览" : "CRITIC-assisted Catalysis Ranking Preview"}
         subtitle={lang === "zh"
-          ? "保留现有产甲酸路径 CRITIC 原型：d_stab / d_barrier / d_select、G 硬筛、D_raw、D_expected、confidence_Q 与数据缺口建议。"
-          : "Retains the existing formate-pathway CRITIC prototype: d_stab / d_barrier / d_select, G hard screening, D_raw, D_expected, confidence_Q, and data-gap recommendations."}
+          ? "展示稳定性、关键能垒和副产物风险如何通过 CRITIC 权重影响候选排序。"
+          : "Shows how stability, barrier, and selectivity-risk signals shape candidate ranking through CRITIC weighting."}
       >
-        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 13, display: "grid", gap: 12 }}>
-          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) minmax(220px, 0.55fr)", gap: 12, alignItems: "start" }}>
-            <div style={{ display: "grid", gap: 9 }}>
-              <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900 }}>
-                {lang === "zh" ? "d_stab / d_barrier / d_select 权重" : "d_stab / d_barrier / d_select weights"}
-              </div>
-              {formateCriticModel.indicatorDiagnostics.map(row => (
-                <div key={row.key} style={{ display: "grid", gridTemplateColumns: "110px minmax(0, 1fr) 54px", gap: 8, alignItems: "center", color: t.muted, fontSize: 11.5 }}>
-                  <span style={{ color: t.textStrong, fontWeight: 850 }}>{lang === "zh" ? row.zhLabel : row.label}</span>
-                  <span style={{ height: 7, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, overflow: "hidden" }}>
-                    <span style={{ display: "block", height: "100%", width: `${Math.round(row.criticWeight * 100)}%`, background: t.accent }} />
-                  </span>
-                  <span>{row.criticWeight.toFixed(3)}</span>
-                </div>
-              ))}
-            </div>
-            <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
-              <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>
-                {lang === "zh" ? "Top candidate by D_expected" : "Top candidate by D_expected"}
-              </div>
-              <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 920, marginTop: 6 }}>{topFormateCandidate?.name || "—"}</div>
-              <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55, marginTop: 6 }}>
-                D_expected {topFormateCandidate ? Number(topFormateCandidate.D_expected).toFixed(3) : "—"} · confidence_Q {topFormateCandidate ? Number(topFormateCandidate.confidence_Q_clipped).toFixed(2) : "—"}
-              </div>
-            </div>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 9 }}>
-            <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10, color: t.muted, fontSize: 11.5, lineHeight: 1.55 }}>
-              <strong style={{ color: t.textStrong }}>{lang === "zh" ? "confidence_Q note" : "confidence_Q note"}: </strong>
-              {lang === "zh" ? "D_expected 会用 confidence_Q 对 D_raw 进行置信度修正。" : "D_expected adjusts D_raw with confidence_Q."}
-            </div>
-            <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10, color: t.muted, fontSize: 11.5, lineHeight: 1.55 }}>
-              <strong style={{ color: t.textStrong }}>{lang === "zh" ? "Robustness" : "Robustness"}: </strong>
-              {lang === "zh" ? formateCriticModel.robustness?.stability?.zh : formateCriticModel.robustness?.stability?.label}
-              {` · max shift ${formateCriticModel.robustness?.maxRemoveOneShift ?? "—"}`}
-            </div>
-            <button
-              type="button"
-              onClick={() => onNavigate ? onNavigate("ecoscreen") : window.location.assign("#ecoscreen")}
-              style={{ ...toolbarBtn(t), justifyContent: "center", color: t.accentText, borderColor: t.accent, minHeight: 42 }}
-            >
-              {lang === "zh" ? "打开完整 case" : "Open full case"}
-            </button>
-          </div>
-          <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>
-            {lang === "zh" ? "数据缺口建议和 sensitivity ranks 仍由现有 criticScoring.js 原型生成。" : "Data-gap recommendations and sensitivity ranks still come from the existing criticScoring.js prototype."}
-          </div>
-        </div>
+        <CriticPreviewWorkbench
+          model={formateCriticModel}
+          topCandidate={topFormateCandidate}
+          lang={lang}
+          isNarrow={isNarrow}
+          onNavigate={onNavigate}
+          t={t}
+        />
       </ResultLayer>
 
       <ResultLayer
