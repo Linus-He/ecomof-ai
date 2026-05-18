@@ -291,9 +291,9 @@ function CandidateDetailPanel({ candidate }) {
   const trace = candidate.trace
 
   return (
-    <aside style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 12, display: "grid", gap: 10, padding: 12, alignSelf: "start" }}>
+    <aside style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 12, display: "grid", gap: 10, minWidth: 0, padding: 12, position: "relative", width: "100%", alignSelf: "start" }}>
       <div style={{ borderBottom: `1px solid ${palette.border}`, display: "grid", gap: 4, paddingBottom: 9 }}>
-        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 800, textTransform: "uppercase" }}>Candidate Detail</div>
+        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 800, textTransform: "uppercase" }}>候选详情 Candidate Detail</div>
         <div style={{ color: palette.text, fontSize: 16, fontWeight: 700, lineHeight: 1.2 }}>{candidate.mof}</div>
         <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.45 }}>
           <NumericText>Yield-only #{candidate.yieldOnlyRank}</NumericText> → <NumericText>RGFA #{candidate.rgfaRank}</NumericText>
@@ -359,8 +359,8 @@ function CandidateRankingSection({ rankedRows, selectedMof, setSelectedMof, isNa
       title="候选排序 Candidate Ranking"
       note="按 RGFA Score 与 CRITIC-adjusted penalties 紧凑排序。表格只保留核心字段，点击任一候选会同步切换 Algorithm Trace Explorer。"
     >
-      <div style={{ display: "grid", gap: 12, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 0.92fr) minmax(320px, 1.08fr)", alignItems: "start" }}>
-        <div style={{ display: "grid", gap: 10 }}>
+      <div style={{ display: "grid", gap: 20, gridTemplateColumns: isNarrow ? "1fr" : "minmax(520px, 1fr) minmax(420px, 0.9fr)", alignItems: "start" }}>
+        <div style={{ display: "grid", gap: 10, minWidth: 0, position: "relative", width: "100%" }}>
           <div style={{ alignItems: "center", background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.muted, display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between", padding: "9px 11px" }}>
             <div style={{ fontSize: 12, lineHeight: 1.45 }}>
               Sorted by <span style={{ color: palette.text, fontWeight: 700 }}>RGFA Score</span> with CRITIC-adjusted penalties
@@ -369,11 +369,13 @@ function CandidateRankingSection({ rankedRows, selectedMof, setSelectedMof, isNa
               <NumericText>{rankedRows.length}</NumericText> records · selected {selected?.mof || "pending"}
             </div>
           </div>
-          <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 12, padding: 10 }}>
+          <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 12, minWidth: 0, overflowX: "auto", padding: 10, position: "relative", width: "100%" }}>
             <RankingTable rankedRows={rankedRows} selectedMof={selected?.mof} onSelect={setSelectedMof} />
           </div>
         </div>
-        <CandidateDetailPanel candidate={selected} />
+        <div style={{ minWidth: 0, position: "relative", width: "100%" }}>
+          <CandidateDetailPanel candidate={selected} />
+        </div>
       </div>
     </SectionShell>
   )
@@ -426,6 +428,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
   const [rows, setRows] = useState([])
   const [status, setStatus] = useState("idle")
   const [selectedMof, setSelectedMof] = useState("")
+  const [activeTraceStep, setActiveTraceStep] = useState("raw")
 
   useEffect(() => {
     try {
@@ -482,7 +485,13 @@ export function OrganicAcidProject({ lang = "zh", t }) {
       <div style={{ display: "grid", gap: 14, margin: "0 auto", maxWidth: 1220 }}>
         <ProjectObjectiveSection topCandidate={topCandidate} rankedRows={rankedRows} isNarrow={isNarrow} />
         <OrganicAcidPathwayMap lang={lang} />
-        <AlgorithmTraceExplorer rankedRows={rankedRows} selectedMof={selectedMof} setSelectedMof={setSelectedMof} />
+        <AlgorithmTraceExplorer
+          rankedRows={rankedRows}
+          selectedMof={selectedMof}
+          setSelectedMof={setSelectedMof}
+          activeStep={activeTraceStep}
+          onActiveStepChange={setActiveTraceStep}
+        />
         {status === "error" ? (
           <div style={{ background: palette.riskSoft, border: `1px solid ${palette.border}`, borderRadius: 12, color: palette.risk, fontSize: 12.5, fontWeight: 700, padding: 12 }}>
             Demo dataset could not be loaded from public/data/organic_acid_project_demo.json.
@@ -490,7 +499,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
         ) : (
           <>
             <CandidateRankingSection rankedRows={rankedRows} selectedMof={selectedMof} setSelectedMof={setSelectedMof} isNarrow={isNarrow} />
-            <DynamicDescriptorMatrix candidate={selectedCandidate} />
+            <DynamicDescriptorMatrix candidate={selectedCandidate} activeStep={activeTraceStep} />
           </>
         )}
         <ValidationSection />

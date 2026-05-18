@@ -170,8 +170,8 @@ export function MoleculeStructureImage({ moleculeId, compact = false, lang = "zh
       draggable="false"
       style={{
         display: "block",
-        height: compact ? 58 : 82,
-        maxHeight: compact ? 58 : 82,
+        height: "100%",
+        maxHeight: "100%",
         maxWidth: "100%",
         objectFit: "contain",
         width: "100%",
@@ -222,41 +222,50 @@ export function MoleculeSvgNode({
       style={{
         background: colors.bg,
         border: `${selected || active ? 2 : 1}px solid ${colors.border}`,
-        borderRadius: 8,
+        borderRadius: 12,
         boxShadow: selected || active ? colors.shadow : "none",
         cursor: interactive ? "pointer" : "default",
         display: "grid",
-        gap: compact ? 5 : 7,
-        minWidth: compact ? 154 : 184,
+        gap: compact ? 8 : 10,
+        gridTemplateRows: "auto minmax(140px, 1fr)",
+        minHeight: 220,
+        minWidth: 260,
         opacity: dimmed ? 0.36 : 1,
         outline: "none",
-        padding: compact ? 8 : 10,
+        overflow: "visible",
+        padding: compact ? 16 : 20,
         transform: selected || active ? "translateY(-1px)" : "none",
         transition: "opacity 180ms ease, transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease",
         ...style,
       }}
     >
-      <div style={{ display: "grid", gap: 2, minWidth: 0 }}>
-        <div style={{ color: "#0F172A", fontSize: compact ? 11.5 : 12.5, fontWeight: 900, lineHeight: 1.2 }}>
+      <div style={{ display: "grid", gap: 4, minWidth: 0 }}>
+        <div style={{ color: "#0F172A", fontSize: compact ? 14 : 14.5, fontWeight: 800, lineHeight: 1.2 }}>
           {primaryName}
         </div>
-        <div style={{ color: colors.accent, fontSize: compact ? 10 : 10.6, fontWeight: 850, lineHeight: 1.2 }}>
-          {secondaryName} · {roleLabel}
+        <div style={{ color: colors.accent, fontSize: compact ? 11 : 11.2, fontWeight: 700, lineHeight: 1.25 }}>
+          {secondaryName}
+        </div>
+        <div style={{ color: "#64748B", fontSize: compact ? 10.5 : 10.8, fontWeight: 700, lineHeight: 1.2 }}>
+          {roleLabel}
         </div>
       </div>
       <div
         style={{
           alignItems: "center",
           background: "#FFFFFF",
-          border: "1px solid #EEF2F7",
-          borderRadius: 7,
+          border: "1px solid #E2E8F0",
+          borderRadius: 12,
           display: "flex",
           justifyContent: "center",
-          minHeight: compact ? 66 : 92,
-          padding: compact ? 4 : 6,
+          minHeight: 140,
+          overflow: "visible",
+          padding: compact ? 14 : 16,
         }}
       >
-        <MoleculeStructureImage moleculeId={moleculeId} compact={compact} lang={lang} />
+        <div style={{ alignItems: "center", display: "flex", height: "100%", justifyContent: "center", maxHeight: "100%", maxWidth: "100%", minHeight: 108, width: "100%" }}>
+          <MoleculeStructureImage moleculeId={moleculeId} compact={compact} lang={lang} />
+        </div>
       </div>
     </div>
   )

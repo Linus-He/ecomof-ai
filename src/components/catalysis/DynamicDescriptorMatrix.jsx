@@ -1,5 +1,4 @@
-import { useMemo, useState } from "react"
-import { safeNumber } from "../../utils/rgfaScore"
+import { useMemo } from "react"
 import {
   buildDescriptorRows,
   DescriptorLabel,
@@ -8,22 +7,7 @@ import {
   ORGANIC_ACID_FONT,
   organicAcidPalette,
 } from "./FormulaInline"
-
-function fmtValue(value) {
-  if (value === null || value === undefined || value === "") return "pending"
-  if (typeof value === "number") {
-    const digits = Math.abs(value) >= 10 ? 2 : 3
-    return safeNumber(value, 0).toFixed(digits)
-  }
-  return String(value)
-}
-
-function toneForStatus(status) {
-  if (status === "available") return { bg: organicAcidPalette.positiveSoft, text: organicAcidPalette.positive }
-  if (status === "partial") return { bg: organicAcidPalette.mixedSoft, text: organicAcidPalette.mixed }
-  if (status === "missing") return { bg: organicAcidPalette.riskSoft, text: organicAcidPalette.risk }
-  return { bg: organicAcidPalette.surfaceStrong, text: organicAcidPalette.faint }
-}
+import { getOrganicAcidStepHighlight, InteractiveDataTable } from "./InteractiveDataTable"
 
 function DescriptorStat({ label, value, tone }) {
   return (
@@ -34,17 +18,31 @@ function DescriptorStat({ label, value, tone }) {
   )
 }
 
-export function DynamicDescriptorMatrix({ candidate }) {
-  const [activeGroup, setActiveGroup] = useState("all")
-  const rows = useMemo(() => buildDescriptorRows(candidate), [candidate])
-  const visibleRows = useMemo(() => (
-    activeGroup === "all" ? rows : rows.filter((row) => row.group === activeGroup)
-  ), [activeGroup, rows])
+export function DynamicDescriptorMatrix({ candidate, activeStep = "raw" }) {
+  const rows = useMemo(() => buildDescriptorRows(candidate).map((row) => ({
+    ...row,
+    labelNode: <DescriptorLabel descriptor={row.key} />,
+    label: row.key,
+    nameZh: row.labelZh,
+    nameEn: row.labelEn,
+    use: `${row.labelZh}，当前用于 ${row.usedIn.join(" / ")}。`,
+    formula: `当前描述符主要进入：${row.usedIn.join(" / ")}。`,
+    impact: row.status === "available"
+      ? "该字段已可直接进入工作台解释层，但仍属于 demo / prototype data。"
+      : "当前字段仍为 pending / missing / partial，占位结构已保留，等待后续真实整理数据或 DFT 结果补入。",
+    needsData: row.status === "available"
+      ? "当前字段仍属于 demo / prototype data，后续可被真实数据覆盖。"
+      : "当前字段尚未整理完成，页面会明确保留 pending / missing 状态，不编造数值。",
+    tags: [row.group],
+  })), [candidate])
 
   const counts = useMemo(() => rows.reduce((acc, row) => {
     acc[row.status] = (acc[row.status] || 0) + 1
     return acc
   }, {}), [rows])
+
+  const highlight = getOrganicAcidStepHighlight(activeStep)
+  const filterTabs = [...descriptorGroupTabs, { key: "pending", label: "待补充 Pending" }]
 
   return (
     <section style={{ background: organicAcidPalette.bg, border: `1px solid ${organicAcidPalette.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 18, fontFamily: ORGANIC_ACID_FONT }}>
@@ -52,7 +50,7 @@ export function DynamicDescriptorMatrix({ candidate }) {
         <div style={{ color: organicAcidPalette.faint, fontSize: 10.5, fontWeight: 800, letterSpacing: 0.18, textTransform: "uppercase" }}>Dynamic Descriptor Matrix</div>
         <h2 style={{ color: organicAcidPalette.text, fontSize: 22, lineHeight: 1.2, margin: 0 }}>动态描述符表 Dynamic Descriptor Matrix</h2>
         <p style={{ color: organicAcidPalette.muted, fontSize: 13, lineHeight: 1.55, margin: 0 }}>
-          以当前候选为中心展示可直接填数的数据表。缺失字段保留为 pending / demo placeholder，便于后续接入真实整理数据。
+          复用与 Raw Input 相同的交互式数据表。当前高亮会跟随 Algorithm Trace Explorer 的步骤切换，方便查看哪个描述符正在参与当前算法环节。
         </p>
       </div>
 
@@ -61,89 +59,26 @@ export function DynamicDescriptorMatrix({ candidate }) {
           <div style={{ color: organicAcidPalette.faint, fontSize: 10.5, fontWeight: 800 }}>当前候选 Current candidate</div>
           <div style={{ color: organicAcidPalette.text, fontSize: 15.5, fontWeight: 700, lineHeight: 1.2, marginTop: 5 }}>{candidate?.mof || "pending"}</div>
           <div style={{ color: organicAcidPalette.muted, fontSize: 12, lineHeight: 1.5, marginTop: 5 }}>
-            表格随 Candidate Ranking / Algorithm Trace 选中项同步。
+            表格随 Candidate Ranking 与 Algorithm Trace 的选中候选同步切换。
           </div>
         </div>
-        <DescriptorStat label="Available" value={counts.available || 0} tone={organicAcidPalette.positive} />
-        <DescriptorStat label="Pending" value={counts.pending || 0} tone={organicAcidPalette.faint} />
-        <DescriptorStat label="Missing / Partial" value={(counts.missing || 0) + (counts.partial || 0)} tone={organicAcidPalette.mixed} />
+        <DescriptorStat label="可用 Available" value={<NumericText>{counts.available || 0}</NumericText>} tone={organicAcidPalette.positive} />
+        <DescriptorStat label="待补充 Pending" value={<NumericText>{counts.pending || 0}</NumericText>} tone={organicAcidPalette.faint} />
+        <DescriptorStat label="缺失 / 部分 Missing / Partial" value={<NumericText>{(counts.missing || 0) + (counts.partial || 0)}</NumericText>} tone={organicAcidPalette.mixed} />
       </div>
 
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-        {descriptorGroupTabs.map((tab) => {
-          const active = tab.key === activeGroup
-          return (
-            <button
-              key={tab.key}
-              type="button"
-              onClick={() => setActiveGroup(tab.key)}
-              style={{
-                background: active ? organicAcidPalette.accentSoft : organicAcidPalette.bg,
-                border: `1px solid ${active ? organicAcidPalette.accent : organicAcidPalette.border}`,
-                borderRadius: 10,
-                color: active ? organicAcidPalette.accent : organicAcidPalette.muted,
-                cursor: "pointer",
-                fontFamily: ORGANIC_ACID_FONT,
-                fontSize: 12.5,
-                fontWeight: 700,
-                padding: "6px 10px",
-              }}
-            >
-              {tab.labelZh} {tab.labelEn}
-            </button>
-          )
-        })}
-      </div>
-
-      <div style={{ maxWidth: "100%", overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
-        <table style={{ borderCollapse: "collapse", minWidth: 980, width: "100%" }}>
-          <thead>
-            <tr>
-              {["描述符 Descriptor", "分组 Group", "当前值 Value", "单位 Unit", "数据状态 Status", "证据等级 Evidence", "用于算法 Used in", "来源 / 备注 Source note"].map((head) => (
-                <th key={head} style={{ borderBottom: `1px solid ${organicAcidPalette.borderStrong}`, color: organicAcidPalette.faint, fontSize: 11, fontWeight: 900, padding: "9px 10px", textAlign: "left", whiteSpace: "nowrap" }}>
-                  {head}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {visibleRows.map((row, index) => {
-              const tone = toneForStatus(row.status)
-              return (
-                <tr key={row.key} style={{ background: index % 2 === 0 ? organicAcidPalette.bg : organicAcidPalette.surface }}>
-                  <td style={{ borderBottom: `1px solid ${organicAcidPalette.border}`, color: organicAcidPalette.text, fontSize: 12.5, fontWeight: 700, lineHeight: 1.45, padding: "10px" }}>
-                    <div><DescriptorLabel descriptor={row.key} /></div>
-                    <div style={{ color: organicAcidPalette.muted, fontSize: 11.5, fontWeight: 500, marginTop: 4 }}>{row.labelZh} / {row.labelEn}</div>
-                  </td>
-                  <td style={{ borderBottom: `1px solid ${organicAcidPalette.border}`, color: organicAcidPalette.muted, fontSize: 12, padding: "10px", whiteSpace: "nowrap" }}>
-                    {row.groupZh} {row.groupEn}
-                  </td>
-                  <td style={{ borderBottom: `1px solid ${organicAcidPalette.border}`, color: organicAcidPalette.text, fontSize: 12, padding: "10px", whiteSpace: "nowrap" }}>
-                    <NumericText>{fmtValue(row.value)}</NumericText>
-                  </td>
-                  <td style={{ borderBottom: `1px solid ${organicAcidPalette.border}`, color: organicAcidPalette.muted, fontSize: 12, padding: "10px", whiteSpace: "nowrap" }}>
-                    {row.unit || "—"}
-                  </td>
-                  <td style={{ borderBottom: `1px solid ${organicAcidPalette.border}`, padding: "10px", whiteSpace: "nowrap" }}>
-                    <span style={{ background: tone.bg, borderRadius: 999, color: tone.text, display: "inline-flex", fontSize: 11.5, fontWeight: 800, padding: "4px 8px" }}>
-                      {row.status}
-                    </span>
-                  </td>
-                  <td style={{ borderBottom: `1px solid ${organicAcidPalette.border}`, color: organicAcidPalette.muted, fontSize: 12, padding: "10px", whiteSpace: "nowrap" }}>
-                    {row.evidence}
-                  </td>
-                  <td style={{ borderBottom: `1px solid ${organicAcidPalette.border}`, color: organicAcidPalette.text, fontSize: 12, lineHeight: 1.45, padding: "10px" }}>
-                    {row.usedIn.join(" / ")}
-                  </td>
-                  <td style={{ borderBottom: `1px solid ${organicAcidPalette.border}`, color: organicAcidPalette.muted, fontSize: 12, lineHeight: 1.45, padding: "10px" }}>
-                    {row.source}
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      </div>
+      <InteractiveDataTable
+        rows={rows}
+        filterTabs={filterTabs}
+        defaultFilter="all"
+        detailTitle="描述符详情 Descriptor Detail"
+        emptyMessage="当前筛选下没有描述符。"
+        showGroup
+        showUnit
+        highlightKeys={highlight.keys}
+        highlightUsedIn={highlight.usedIn}
+        activeHighlightLabel={highlight.keys.length || highlight.usedIn.length ? highlight.label : ""}
+      />
     </section>
   )
 }

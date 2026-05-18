@@ -2,6 +2,7 @@ import { useMemo, useState } from "react"
 import { useViewport } from "../../shared"
 import { BYPRODUCT_KEYS, PATHWAY_SCORE_KEYS, STEP_WEIGHTS, safeNumber } from "../../utils/rgfaScore"
 import {
+  buildDescriptorRows,
   DescriptorLabel,
   FormulaCard,
   FormulaInline,
@@ -11,6 +12,7 @@ import {
   pathwayMeta,
   VariableLabel,
 } from "./FormulaInline"
+import { InteractiveDataTable } from "./InteractiveDataTable"
 
 const steps = [
   { id: "raw", zh: "原始输入", en: "Raw Input" },
@@ -24,22 +26,14 @@ const steps = [
   { id: "experiment", zh: "下一步实验", en: "Experiment" },
 ]
 
-const inputRows = [
-  { key: "Y_FA", usage: "甲酸产率", status: "available" },
-  { key: "S_FA_C", usage: "甲酸碳基选择性", status: "available" },
-  { key: "Y_lactic", usage: "副产物惩罚", status: "available" },
-  { key: "Y_acetic", usage: "副产物惩罚", status: "available" },
-  { key: "Y_glycolic", usage: "副产物惩罚", status: "available" },
-  { key: "Y_pyruvic", usage: "副产物惩罚", status: "available" },
-  { key: "Y_solid", usage: "固相副产物惩罚", status: "available" },
-  { key: "A1", usage: "葡萄糖活化/异构化能力", status: "available" },
-  { key: "A2", usage: "甲酸前体生成能力", status: "available" },
-  { key: "A3", usage: "中间体转甲酸能力", status: "available" },
-  { key: "A4", usage: "甲酸释放与稳定能力", status: "available" },
-  { key: "B1", usage: "副产物风险路径", status: "available" },
-  { key: "waterStabilityScore", usage: "Gate 水相稳定性", status: "available" },
-  { key: "accessibilityScore", usage: "Gate 可及性", status: "available" },
-  { key: "activeSiteConfidence", usage: "Gate 活性位点可信度", status: "available" },
+const rawFilterTabs = [
+  { key: "all", label: "全部 All" },
+  { key: "product", label: "产物 Product" },
+  { key: "step", label: "步骤 Step" },
+  { key: "gate", label: "门槛 Gate" },
+  { key: "pathway", label: "路径 Pathway" },
+  { key: "descriptor", label: "描述符 Descriptor" },
+  { key: "pending", label: "待补充 Pending" },
 ]
 
 const stepLabels = {
@@ -99,6 +93,153 @@ function fieldLabel(key) {
     return <VariableLabel name={key} />
   }
   return key
+}
+
+function buildRawInputRows(candidate, trace) {
+  const descriptorRecord = (key) => candidate?.descriptors?.[key] || null
+  const evidenceFallback = candidate?.evidenceLevel || "demo"
+  const sourceFallback = candidate?.dataStatus === "prototype" ? "prototype dataset" : "demo placeholder"
+
+  const rows = [
+    {
+      key: "Y_FA",
+      labelNode: <VariableLabel name="Y_FA" />,
+      nameZh: "甲酸产率",
+      value: trace.input.Y_FA,
+      use: "进入 SelectivityFactor 分子，决定主产物方向的有效输出。",
+      usedIn: ["SelectivityFactor", "Ranking"],
+      status: descriptorRecord("Y_FA")?.status || "available",
+      evidence: descriptorRecord("Y_FA")?.evidence || evidenceFallback,
+      source: descriptorRecord("Y_FA")?.source || sourceFallback,
+      formula: "SelectivityFactor 分子 = YFA × SFA,C。",
+      impact: "YFA 越高，若副产物不同时升高，最终 RGFA 越容易提升。",
+      tags: ["product"],
+    },
+    {
+      key: "S_FA_C",
+      labelNode: <VariableLabel name="S_FA_C" />,
+      nameZh: "甲酸碳基选择性",
+      value: trace.input.S_FA_C,
+      use: "与甲酸产率共同形成 SelectivityFactor 分子。",
+      usedIn: ["SelectivityFactor", "Ranking"],
+      status: descriptorRecord("S_FA_C")?.status || "available",
+      evidence: descriptorRecord("S_FA_C")?.evidence || evidenceFallback,
+      source: descriptorRecord("S_FA_C")?.source || sourceFallback,
+      formula: "SelectivityFactor 分子 = YFA × SFA,C。",
+      impact: "SFA,C 用于区分“高产率但碳效率差”和“真正导向甲酸”的候选。",
+      tags: ["product"],
+    },
+    ...BYPRODUCT_KEYS.map((key) => ({
+      key,
+      labelNode: <VariableLabel name={key} />,
+      nameZh: byproductNotes[key],
+      value: trace.input[key],
+      use: "作为分母惩罚项，并在 CRITIC 中参与副产物权重校正。",
+      usedIn: ["SelectivityFactor", "CRITIC"],
+      status: descriptorRecord(key)?.status || "available",
+      evidence: descriptorRecord(key)?.evidence || evidenceFallback,
+      source: descriptorRecord(key)?.source || sourceFallback,
+      formula: "Denominator = 1 + Σ(weighted byproduct penalties)。",
+      impact: "该项越高，选择性因子越低；若在候选集内区分度高，CRITIC 会进一步放大其作用。",
+      tags: ["product"],
+    })),
+    ...Object.keys(STEP_WEIGHTS).map((key) => ({
+      key,
+      labelNode: <VariableLabel name={key} />,
+      nameZh: stepLabels[key],
+      value: trace.input[key],
+      use: `进入 StepScore，反映${stepLabels[key]}。`,
+      usedIn: [key],
+      status: "available",
+      evidence: evidenceFallback,
+      source: sourceFallback,
+      formula: "StepScore = 0.15A1 + 0.20A2 + 0.35A3 + 0.15A4 − 0.15B1。",
+      impact: key === "B1" ? "B1 为负贡献项，用于压低副产物风险大的候选。" : `${key} 越高，对 StepScore 的正向拉动越强。`,
+      tags: ["step"],
+    })),
+    {
+      key: "waterStabilityScore",
+      label: "waterStabilityScore",
+      nameZh: "水相稳定性评分",
+      value: trace.input.waterStabilityScore,
+      use: "Gate 中的稳定性项，先判断候选是否值得进入后续排序。",
+      usedIn: ["Gate"],
+      status: "available",
+      evidence: evidenceFallback,
+      source: sourceFallback,
+      formula: "Gate = water stability × accessibility × active-site confidence。",
+      impact: "Gate 偏低时，即使产率较高，也不适合直接排进优先验证序列。",
+      tags: ["gate"],
+    },
+    {
+      key: "accessibilityScore",
+      label: "accessibilityScore",
+      nameZh: "可及性评分",
+      value: trace.input.accessibilityScore,
+      use: "Gate 中的孔道 / 底物可及性项。",
+      usedIn: ["Gate", "Accessibility"],
+      status: "available",
+      evidence: evidenceFallback,
+      source: sourceFallback,
+      formula: "Gate = water stability × accessibility × active-site confidence。",
+      impact: "低可及性会压低 Gate，并提示需要回到孔道与传质描述符。",
+      tags: ["gate"],
+    },
+    {
+      key: "activeSiteConfidence",
+      label: "activeSiteConfidence",
+      nameZh: "活性位点可信度",
+      value: trace.input.activeSiteConfidence,
+      use: "Gate 中的位点可信度项。",
+      usedIn: ["Gate"],
+      status: "available",
+      evidence: evidenceFallback,
+      source: sourceFallback,
+      formula: "Gate = water stability × accessibility × active-site confidence。",
+      impact: "位点证据越弱，越不应把排序结果当成高置信结论。",
+      tags: ["gate"],
+    },
+    ...PATHWAY_SCORE_KEYS.map((key) => ({
+      key: `pathway_${key}`,
+      label: pathwayMeta[key]?.labelEn || key,
+      nameZh: pathwayMeta[key]?.labelZh || key,
+      value: trace.pathwayFingerprint[key],
+      use: "作为路径指纹输入，解释正向分支与风险分支如何影响排序。",
+      usedIn: ["Pathway", "Reaction descriptors"],
+      status: "available",
+      evidence: evidenceFallback,
+      source: "pathwayScores in prototype dataset",
+      formula: "Pathway fingerprint 汇总三条主要机理分支，并反馈到 A2/A3/B1 的解释层。",
+      impact: pathwayMeta[key]?.note || "用于判断该候选当前更接近正向还是风险主导路径。",
+      tags: ["pathway"],
+    })),
+  ]
+
+  const usedKeys = new Set(rows.map((row) => row.key))
+  const descriptorRows = buildDescriptorRows(candidate).filter((row) => !usedKeys.has(row.key)).map((row) => ({
+    key: row.key,
+    labelNode: <DescriptorLabel descriptor={row.key} />,
+    label: row.key,
+    nameZh: row.labelZh,
+    nameEn: row.labelEn,
+    value: row.value,
+    unit: row.unit,
+    use: `${row.labelZh}，后续可直接补入真实整理值。`,
+    usedIn: row.usedIn,
+    status: row.status,
+    evidence: row.evidence,
+    source: row.source,
+    formula: `当前描述符主要用于：${row.usedIn.join(" / ")}。`,
+    impact: row.status === "available"
+      ? "该描述符已可直接进入工作台解释层。"
+      : "该描述符仍待补充，不应被误读为已完成实验或 DFT 证据。",
+    needsData: row.status === "available"
+      ? "当前字段仍属于 demo / prototype data，后续可继续被真实数据覆盖。"
+      : "当前字段仍为 pending / missing，占位结构已保留，方便后续直接填入真实整理值。",
+    tags: ["descriptor", row.group],
+  }))
+
+  return [...rows, ...descriptorRows]
 }
 
 function SummaryMetric({ label, value, note, tone = palette.accent }) {
@@ -297,7 +438,8 @@ function CandidateSummary({ candidate, activeStep }) {
 
 function RawStep({ candidate, trace, isNarrow }) {
   const completion = trace.inputCompleteness.availableFields / trace.inputCompleteness.totalFields
-  const rows = inputRows.map((row) => ({ ...row, value: trace.input[row.key] }))
+  const rows = useMemo(() => buildRawInputRows(candidate, trace), [candidate, trace])
+  const [selectedField, setSelectedField] = useState(rows[0] || null)
 
   return (
     <TraceLayout
@@ -311,7 +453,7 @@ function RawStep({ candidate, trace, isNarrow }) {
           </FormulaInline>
           <div style={{ display: "grid", gap: 7 }}>
             <div style={{ alignItems: "center", display: "flex", gap: 10, justifyContent: "space-between" }}>
-              <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700 }}>Data completeness</div>
+              <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700 }}>数据完整度 Data completeness</div>
               <NumericText style={{ color: palette.text, fontSize: 12, fontWeight: 800 }}>
                 {trace.inputCompleteness.availableFields} / {trace.inputCompleteness.totalFields}
               </NumericText>
@@ -321,34 +463,26 @@ function RawStep({ candidate, trace, isNarrow }) {
         </FormulaCard>
       )}
       detail={(
-        <div style={{ maxWidth: "100%", overflowX: "auto" }}>
-          <table style={{ borderCollapse: "collapse", width: "100%" }}>
-            <thead>
-              <tr>
-                {["字段 Field", "值 Value", "用途 Use", "状态 Status"].map((head) => (
-                  <th key={head} style={{ borderBottom: `1px solid ${palette.borderStrong}`, color: palette.faint, fontSize: 11, padding: "8px 9px", textAlign: "left" }}>{head}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row) => (
-                <tr key={row.key}>
-                  <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 12.5, fontWeight: 700, padding: "8px 9px" }}>{fieldLabel(row.key)}</td>
-                  <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 12, padding: "8px 9px" }}><NumericText>{fmt(row.value)}</NumericText></td>
-                  <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "8px 9px" }}>{row.usage}</td>
-                  <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "8px 9px" }}>{row.status}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <InteractiveDataTable
+          rows={rows}
+          filterTabs={rawFilterTabs}
+          detailTitle="字段详情 Field Detail"
+          emptyMessage="当前筛选下暂无原始输入字段。"
+          activeHighlightLabel="点击字段后可查看它进入 Gate / StepScore / SelectivityFactor / CRITIC 的方式。"
+          onSelectedRowChange={setSelectedField}
+        />
       )}
       summary={(
         <>
           <SummaryMetric label="Demo status" value={candidate.dataStatus || "prototype"} note="当前为方法演示数据" />
           <SummaryMetric label="Evidence" value={candidate.evidenceLevel || "demo"} note="not experimental truth" />
+          <SummaryMetric
+            label="当前字段 Current field"
+            value={selectedField?.labelNode || selectedField?.label || fieldLabel(selectedField?.key || "")}
+            note={selectedField ? `进入 ${selectedField.usedIn.join(" / ")}` : "点击左侧字段查看联动"}
+          />
           <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.55 }}>
-            当前候选输入完整，后续真实版本可在同一表结构下直接补齐 pending 字段。
+            当前候选输入完整度已单独量化；字段点击后可以追溯它属于哪一步、证据等级如何、以及是否仍需补数据。
           </div>
         </>
       )}
@@ -744,12 +878,14 @@ function StepDetail({ candidate, activeStep, isNarrow }) {
   return detailMap[activeStep] || detailMap.raw
 }
 
-export function AlgorithmTraceExplorer({ rankedRows = [], selectedMof, setSelectedMof }) {
+export function AlgorithmTraceExplorer({ rankedRows = [], selectedMof, setSelectedMof, activeStep: controlledStep, onActiveStepChange }) {
   const { isNarrow } = useViewport()
-  const [activeStep, setActiveStep] = useState("raw")
+  const [internalStep, setInternalStep] = useState("raw")
   const selected = useMemo(() => (
     rankedRows.find((row) => row.mof === selectedMof) || rankedRows[0] || null
   ), [rankedRows, selectedMof])
+  const activeStep = controlledStep || internalStep
+  const setActiveStep = onActiveStepChange || setInternalStep
 
   if (!selected) {
     return (

@@ -71,13 +71,17 @@ const pathwayMeta = {
   },
 }
 
+const MAP_WIDTH = 1480
+const MAP_HEIGHT = 920
+const NODE_LINE_GAP = 10
+
 const networkNodes = {
   glucose: {
     moleculeId: "glucose",
-    x: 34,
-    y: 112,
-    w: 214,
-    h: 168,
+    x: 40,
+    y: 148,
+    w: 260,
+    h: 220,
     column: "Feedstock",
     compact: false,
     status: "feedstock",
@@ -85,10 +89,10 @@ const networkNodes = {
   },
   fructose: {
     moleculeId: "fructose",
-    x: 34,
-    y: 356,
-    w: 214,
-    h: 168,
+    x: 40,
+    y: 536,
+    w: 260,
+    h: 220,
     column: "Feedstock",
     compact: false,
     status: "feedstock",
@@ -96,10 +100,10 @@ const networkNodes = {
   },
   glyceraldehyde: {
     moleculeId: "glyceraldehyde",
-    x: 356,
-    y: 48,
-    w: 232,
-    h: 150,
+    x: 432,
+    y: 52,
+    w: 270,
+    h: 220,
     column: "Intermediates",
     compact: false,
     status: "mixed",
@@ -107,10 +111,10 @@ const networkNodes = {
   },
   formaldehyde: {
     moleculeId: "formaldehyde",
-    x: 356,
-    y: 268,
-    w: 232,
-    h: 136,
+    x: 432,
+    y: 340,
+    w: 270,
+    h: 220,
     column: "Intermediates",
     compact: false,
     status: "positive",
@@ -118,10 +122,10 @@ const networkNodes = {
   },
   pyruvaldehyde: {
     moleculeId: "pyruvaldehyde",
-    x: 356,
-    y: 488,
-    w: 232,
-    h: 150,
+    x: 432,
+    y: 628,
+    w: 270,
+    h: 220,
     column: "Intermediates",
     compact: false,
     status: "risk",
@@ -129,10 +133,10 @@ const networkNodes = {
   },
   glycolicAcid: {
     moleculeId: "glycolicAcid",
-    x: 750,
-    y: 38,
-    w: 194,
-    h: 136,
+    x: 902,
+    y: 42,
+    w: 260,
+    h: 220,
     column: "Products / Byproducts",
     compact: true,
     status: "mixed",
@@ -140,10 +144,10 @@ const networkNodes = {
   },
   formicAcid: {
     moleculeId: "formicAcid",
-    x: 794,
-    y: 208,
-    w: 218,
-    h: 136,
+    x: 1038,
+    y: 338,
+    w: 270,
+    h: 220,
     column: "Products / Byproducts",
     compact: true,
     status: "positive",
@@ -151,10 +155,10 @@ const networkNodes = {
   },
   aceticAcid: {
     moleculeId: "aceticAcid",
-    x: 984,
-    y: 350,
-    w: 194,
-    h: 128,
+    x: 1180,
+    y: 112,
+    w: 260,
+    h: 220,
     column: "Products / Byproducts",
     compact: true,
     status: "risk",
@@ -162,10 +166,10 @@ const networkNodes = {
   },
   lacticAcid: {
     moleculeId: "lacticAcid",
-    x: 742,
-    y: 512,
-    w: 202,
-    h: 136,
+    x: 902,
+    y: 650,
+    w: 260,
+    h: 220,
     column: "Products / Byproducts",
     compact: true,
     status: "risk",
@@ -173,10 +177,10 @@ const networkNodes = {
   },
   pyruvicAcid: {
     moleculeId: "pyruvicAcid",
-    x: 980,
-    y: 512,
-    w: 202,
-    h: 136,
+    x: 1180,
+    y: 650,
+    w: 260,
+    h: 220,
     column: "Products / Byproducts",
     compact: true,
     status: "risk",
@@ -253,8 +257,8 @@ function nodePoint(id, side = "right") {
   const node = networkNodes[id]
   if (!node) return { x: 0, y: 0 }
   const y = node.y + node.h / 2
-  if (side === "left") return { x: node.x, y }
-  return { x: node.x + node.w, y }
+  if (side === "left") return { x: node.x - NODE_LINE_GAP, y }
+  return { x: node.x + node.w + NODE_LINE_GAP, y }
 }
 
 function edgeCurve(edge) {
@@ -315,7 +319,7 @@ function MoleculeDetailPanel({ nodeId, lang }) {
           <div style={{ color: palette.text, fontSize: 14, fontWeight: 950, lineHeight: 1.25 }}>{primaryName}</div>
           <div style={{ color: tone.color, fontSize: 12, fontWeight: 850, marginTop: 3 }}>{secondaryName}</div>
         </div>
-        <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 7, display: "flex", justifyContent: "center", padding: 8 }}>
+        <div style={{ alignItems: "center", background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, display: "flex", justifyContent: "center", minHeight: 170, overflow: "visible", padding: 14 }}>
           <MoleculeStructureImage moleculeId={molecule.id} lang={lang} />
         </div>
         <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.55 }}>
@@ -426,13 +430,13 @@ export function OrganicAcidPathwayMap({ lang = "zh" }) {
                 background: palette.bg,
                 border: `1px solid ${palette.border}`,
                 borderRadius: 10,
-                height: 690,
-                minWidth: 1200,
+                height: MAP_HEIGHT,
+                minWidth: MAP_WIDTH,
                 position: "relative",
-                width: 1200,
+                width: MAP_WIDTH,
               }}
             >
-              <svg aria-hidden="true" viewBox="0 0 1200 690" preserveAspectRatio="none" style={{ height: "100%", inset: 0, position: "absolute", width: "100%", zIndex: 1 }}>
+              <svg aria-hidden="true" viewBox={`0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`} preserveAspectRatio="none" style={{ height: "100%", inset: 0, position: "absolute", width: "100%", zIndex: 1 }}>
                 <defs>
                   {edgeDefinitions.map((edge) => {
                     const color = edge.tone || pathwayMeta[edge.path].color
@@ -443,7 +447,7 @@ export function OrganicAcidPathwayMap({ lang = "zh" }) {
                     )
                   })}
                 </defs>
-                <rect x="330" y="250" width="728" height="176" rx="12" fill={palette.positiveSoft} stroke={palette.positive} strokeOpacity="0.28" />
+                <rect x="390" y="304" width="980" height="292" rx="18" fill={palette.positiveSoft} stroke={palette.positive} strokeOpacity="0.22" />
                 {edgeDefinitions.map((edge) => {
                   const path = pathwayMeta[edge.path]
                   const active = highlightedPath === edge.path
@@ -467,9 +471,9 @@ export function OrganicAcidPathwayMap({ lang = "zh" }) {
               </svg>
 
               {[
-                { zh: "原料", en: "Feedstock", x: 34 },
-                { zh: "中间体", en: "Intermediates", x: 356 },
-                { zh: "产物 / 副产物", en: "Products / Byproducts", x: 748 },
+                { zh: "原料", en: "Feedstock", x: 40 },
+                { zh: "中间体", en: "Intermediates", x: 432 },
+                { zh: "产物 / 副产物", en: "Products / Byproducts", x: 902 },
               ].map(({ zh, en, x }) => (
                 <div key={en} style={{ color: palette.faint, fontSize: 10.5, fontWeight: 950, left: x, letterSpacing: 0.2, position: "absolute", textTransform: "uppercase", top: 12, zIndex: 2 }}>
                   {text(lang, zh, en)}
