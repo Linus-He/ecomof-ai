@@ -162,6 +162,8 @@ const toneMap = {
 export function MoleculeStructureImage({ moleculeId, compact = false, lang = "zh" }) {
   const molecule = moleculeCatalog[moleculeId]
   if (!molecule) return null
+  const isFormaldehyde = moleculeId === "formaldehyde"
+  const maxHeight = isFormaldehyde ? 176 : compact ? 138 : 150
 
   return (
     <img
@@ -170,11 +172,11 @@ export function MoleculeStructureImage({ moleculeId, compact = false, lang = "zh
       draggable="false"
       style={{
         display: "block",
-        height: "100%",
-        maxHeight: "100%",
+        height: "auto",
+        maxHeight,
         maxWidth: "100%",
         objectFit: "contain",
-        width: "100%",
+        width: "auto",
       }}
     />
   )
@@ -204,6 +206,12 @@ export function MoleculeSvgNode({
   const roleLabel = localizedRole(displayRole, lang)
   const primaryName = lang === "zh" ? molecule.zhName : molecule.englishName
   const secondaryName = lang === "zh" ? molecule.englishName : molecule.zhName
+  const isFormaldehyde = moleculeId === "formaldehyde"
+  const nodeMinHeight = isFormaldehyde ? 250 : 220
+  const nodeMinWidth = isFormaldehyde ? 300 : 260
+  const structureMinHeight = isFormaldehyde ? 165 : 140
+  const structurePadding = isFormaldehyde ? 18 : compact ? 14 : 16
+  const structureInnerMinHeight = isFormaldehyde ? 150 : 108
 
   return (
     <div
@@ -225,11 +233,11 @@ export function MoleculeSvgNode({
         borderRadius: 12,
         boxShadow: selected || active ? colors.shadow : "none",
         cursor: interactive ? "pointer" : "default",
-        display: "grid",
-        gap: compact ? 8 : 10,
-        gridTemplateRows: "auto minmax(140px, 1fr)",
-        minHeight: 220,
-        minWidth: 260,
+        display: "flex",
+        flexDirection: "column",
+        gap: 12,
+        minHeight: nodeMinHeight,
+        minWidth: nodeMinWidth,
         opacity: dimmed ? 0.36 : 1,
         outline: "none",
         overflow: "visible",
@@ -257,13 +265,14 @@ export function MoleculeSvgNode({
           border: "1px solid #E2E8F0",
           borderRadius: 12,
           display: "flex",
+          flex: "1 1 auto",
           justifyContent: "center",
-          minHeight: 140,
+          minHeight: structureMinHeight,
           overflow: "visible",
-          padding: compact ? 14 : 16,
+          padding: structurePadding,
         }}
       >
-        <div style={{ alignItems: "center", display: "flex", height: "100%", justifyContent: "center", maxHeight: "100%", maxWidth: "100%", minHeight: 108, width: "100%" }}>
+        <div style={{ alignItems: "center", display: "flex", height: "100%", justifyContent: "center", maxHeight: "100%", maxWidth: "100%", minHeight: structureInnerMinHeight, overflow: "visible", width: "100%" }}>
           <MoleculeStructureImage moleculeId={moleculeId} compact={compact} lang={lang} />
         </div>
       </div>

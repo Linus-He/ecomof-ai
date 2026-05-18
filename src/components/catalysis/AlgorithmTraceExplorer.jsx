@@ -2,8 +2,6 @@ import { useMemo, useState } from "react"
 import { useViewport } from "../../shared"
 import { BYPRODUCT_KEYS, PATHWAY_SCORE_KEYS, STEP_WEIGHTS, safeNumber } from "../../utils/rgfaScore"
 import {
-  buildDescriptorRows,
-  DescriptorLabel,
   FormulaCard,
   FormulaInline,
   NumericText,
@@ -32,7 +30,7 @@ const rawFilterTabs = [
   { key: "step", label: "步骤 Step" },
   { key: "gate", label: "门槛 Gate" },
   { key: "pathway", label: "路径 Pathway" },
-  { key: "descriptor", label: "描述符 Descriptor" },
+  { key: "byproduct", label: "副产物 Byproduct" },
   { key: "pending", label: "待补充 Pending" },
 ]
 
@@ -88,13 +86,6 @@ function nextExperimentCards(recommendation) {
   ]
 }
 
-function fieldLabel(key) {
-  if (["Y_FA", "S_FA_C", "Y_lactic", "Y_acetic", "Y_glycolic", "Y_pyruvic", "Y_solid", "A1", "A2", "A3", "A4", "B1"].includes(key)) {
-    return <VariableLabel name={key} />
-  }
-  return key
-}
-
 function buildRawInputRows(candidate, trace) {
   const descriptorRecord = (key) => candidate?.descriptors?.[key] || null
   const evidenceFallback = candidate?.evidenceLevel || "demo"
@@ -141,7 +132,7 @@ function buildRawInputRows(candidate, trace) {
       source: descriptorRecord(key)?.source || sourceFallback,
       formula: "Denominator = 1 + Σ(weighted byproduct penalties)。",
       impact: "该项越高，选择性因子越低；若在候选集内区分度高，CRITIC 会进一步放大其作用。",
-      tags: ["product"],
+      tags: ["product", "byproduct"],
     })),
     ...Object.keys(STEP_WEIGHTS).map((key) => ({
       key,
@@ -214,32 +205,7 @@ function buildRawInputRows(candidate, trace) {
       tags: ["pathway"],
     })),
   ]
-
-  const usedKeys = new Set(rows.map((row) => row.key))
-  const descriptorRows = buildDescriptorRows(candidate).filter((row) => !usedKeys.has(row.key)).map((row) => ({
-    key: row.key,
-    labelNode: <DescriptorLabel descriptor={row.key} />,
-    label: row.key,
-    nameZh: row.labelZh,
-    nameEn: row.labelEn,
-    value: row.value,
-    unit: row.unit,
-    use: `${row.labelZh}，后续可直接补入真实整理值。`,
-    usedIn: row.usedIn,
-    status: row.status,
-    evidence: row.evidence,
-    source: row.source,
-    formula: `当前描述符主要用于：${row.usedIn.join(" / ")}。`,
-    impact: row.status === "available"
-      ? "该描述符已可直接进入工作台解释层。"
-      : "该描述符仍待补充，不应被误读为已完成实验或 DFT 证据。",
-    needsData: row.status === "available"
-      ? "当前字段仍属于 demo / prototype data，后续可继续被真实数据覆盖。"
-      : "当前字段仍为 pending / missing，占位结构已保留，方便后续直接填入真实整理值。",
-    tags: ["descriptor", row.group],
-  }))
-
-  return [...rows, ...descriptorRows]
+  return rows
 }
 
 function SummaryMetric({ label, value, note, tone = palette.accent }) {
@@ -249,6 +215,64 @@ function SummaryMetric({ label, value, note, tone = palette.accent }) {
       <div style={{ color: tone, fontSize: 14.5, fontWeight: 700, lineHeight: 1.15, marginTop: 5 }}>{value}</div>
       {note ? <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.4, marginTop: 4 }}>{note}</div> : null}
     </div>
+  )
+}
+
+function CompactCandidateSummary({ candidate, selectedField }) {
+  const trace = candidate.trace
+  const driverKey = dominantContribution(trace)
+  const penaltyKey = dominantPenalty(trace)
+
+  return (
+    <aside style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 12, alignSelf: "start" }}>
+      <div style={{ borderBottom: `1px solid ${palette.border}`, display: "grid", gap: 4, paddingBottom: 8 }}>
+        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 800, textTransform: "uppercase" }}>候选摘要 Candidate Summary</div>
+        <div style={{ color: palette.text, fontSize: 15.5, fontWeight: 700, lineHeight: 1.2 }}>{candidate.mof}</div>
+      </div>
+
+      <div style={{ display: "grid", gap: 7 }}>
+        {[
+          ["RGFA Score", <NumericText key="rgfa">{fmt(candidate.rgfaScore)}</NumericText>],
+          ["Class", candidate.computedClass],
+          ["Rank shift", <span key="shift"><NumericText>#{candidate.yieldOnlyRank}</NumericText> → <NumericText>#{candidate.rgfaRank}</NumericText></span>],
+          ["Evidence", candidate.evidenceLevel || "demo"],
+        ].map(([label, value]) => (
+          <div key={label} style={{ alignItems: "baseline", display: "flex", gap: 10, justifyContent: "space-between" }}>
+            <div style={{ color: palette.faint, fontSize: 11, fontWeight: 800 }}>{label}</div>
+            <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700, lineHeight: 1.35, textAlign: "right" }}>{value}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ display: "grid", gap: 6 }}>
+        <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700 }}>关键判断</div>
+        <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.5 }}>
+          Main driver: <span style={{ color: palette.text, fontWeight: 700 }}><VariableLabel name={driverKey} /></span> {stepLabels[driverKey]}
+        </div>
+        <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.5 }}>
+          Main penalty: <span style={{ color: palette.text, fontWeight: 700 }}><VariableLabel name={penaltyKey} /></span> {byproductNotes[penaltyKey]}
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gap: 5 }}>
+        <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700 }}>Why this candidate</div>
+        {candidate.explanations.slice(0, 2).map((reason) => (
+          <div key={reason} style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45 }}>
+            • {reason}
+          </div>
+        ))}
+      </div>
+
+      <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 8, padding: "9px 10px" }}>
+        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 800 }}>当前字段 Current field</div>
+        <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700, lineHeight: 1.4, marginTop: 5 }}>
+          {selectedField?.labelNode || selectedField?.label || selectedField?.key || "YFA"}
+        </div>
+        <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45, marginTop: 4 }}>
+          {selectedField ? `进入 ${selectedField.usedIn.join(" / ")}` : "点击左侧字段查看联动"}
+        </div>
+      </div>
+    </aside>
   )
 }
 
@@ -440,16 +464,21 @@ function RawStep({ candidate, trace, isNarrow }) {
   const completion = trace.inputCompleteness.availableFields / trace.inputCompleteness.totalFields
   const rows = useMemo(() => buildRawInputRows(candidate, trace), [candidate, trace])
   const [selectedField, setSelectedField] = useState(rows[0] || null)
+  const availableKeys = useMemo(() => rows.filter((row) => row.status === "available").map((row) => row.key), [rows])
 
   return (
-    <TraceLayout
-      isNarrow={isNarrow}
-      title="原始输入 Raw Input"
-      subtitle="把当前候选进入算法前的原始输入压成一张紧凑数据表，先看字段、再看完整度。"
-      lead={(
+    <div style={{ display: "grid", gap: 12 }}>
+      <div style={{ display: "grid", gap: 3 }}>
+        <h3 style={{ color: palette.text, fontSize: 17, lineHeight: 1.25, margin: 0 }}>原始输入 Raw Input</h3>
+        <p style={{ color: palette.muted, fontSize: 12.25, lineHeight: 1.5, margin: 0 }}>
+          把当前候选进入算法前的核心输入收成一张可点击字段表。点击字段后，右侧会直接解释它进入哪一步算法。
+        </p>
+      </div>
+
+      <div style={{ display: "grid", gap: 12, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.15fr) minmax(280px, 0.85fr)", alignItems: "start" }}>
         <FormulaCard title="Input schema">
           <FormulaInline>
-            <span>Raw Input</span><span>=</span><span>Product labels</span><span>+</span><span>Step inputs</span><span>+</span><span>Gate inputs</span><span>+</span><span>Pathway scores</span>
+            <span>Raw Input</span><span>=</span><span>product metrics</span><span>+</span><span>step inputs</span><span>+</span><span>gate inputs</span><span>+</span><span>pathway scores</span>
           </FormulaInline>
           <div style={{ display: "grid", gap: 7 }}>
             <div style={{ alignItems: "center", display: "flex", gap: 10, justifyContent: "space-between" }}>
@@ -461,32 +490,19 @@ function RawStep({ candidate, trace, isNarrow }) {
             <ProgressBar value={completion} tone={palette.accent} />
           </div>
         </FormulaCard>
-      )}
-      detail={(
-        <InteractiveDataTable
-          rows={rows}
-          filterTabs={rawFilterTabs}
-          detailTitle="字段详情 Field Detail"
-          emptyMessage="当前筛选下暂无原始输入字段。"
-          activeHighlightLabel="点击字段后可查看它进入 Gate / StepScore / SelectivityFactor / CRITIC 的方式。"
-          onSelectedRowChange={setSelectedField}
-        />
-      )}
-      summary={(
-        <>
-          <SummaryMetric label="Demo status" value={candidate.dataStatus || "prototype"} note="当前为方法演示数据" />
-          <SummaryMetric label="Evidence" value={candidate.evidenceLevel || "demo"} note="not experimental truth" />
-          <SummaryMetric
-            label="当前字段 Current field"
-            value={selectedField?.labelNode || selectedField?.label || fieldLabel(selectedField?.key || "")}
-            note={selectedField ? `进入 ${selectedField.usedIn.join(" / ")}` : "点击左侧字段查看联动"}
-          />
-          <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.55 }}>
-            当前候选输入完整度已单独量化；字段点击后可以追溯它属于哪一步、证据等级如何、以及是否仍需补数据。
-          </div>
-        </>
-      )}
-    />
+        <CompactCandidateSummary candidate={candidate} selectedField={selectedField} />
+      </div>
+
+      <InteractiveDataTable
+        rows={rows}
+        filterTabs={rawFilterTabs}
+        detailTitle="字段详情 Field Detail"
+        emptyMessage="当前筛选下暂无原始输入字段。"
+        highlightKeys={availableKeys}
+        activeHighlightLabel="原始输入 Raw Input"
+        onSelectedRowChange={setSelectedField}
+      />
+    </div>
   )
 }
 
@@ -938,11 +954,11 @@ export function AlgorithmTraceExplorer({ rankedRows = [], selectedMof, setSelect
       <CandidateSelector rankedRows={rankedRows} selected={selected} setSelectedMof={setSelectedMof} isNarrow={isNarrow} />
       <Stepper activeStep={activeStep} setActiveStep={setActiveStep} />
 
-      <div style={{ display: "grid", gap: 12, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.28fr) minmax(280px, 0.72fr)", alignItems: "start" }}>
+      <div style={{ display: "grid", gap: 12, gridTemplateColumns: isNarrow || activeStep === "raw" ? "1fr" : "minmax(0, 1.28fr) minmax(280px, 0.72fr)", alignItems: "start" }}>
         <article style={{ background: palette.bg, border: `1px solid ${palette.borderStrong}`, borderRadius: 12, minWidth: 0, padding: 12 }}>
           <StepDetail candidate={selected} activeStep={activeStep} isNarrow={isNarrow} />
         </article>
-        <CandidateSummary candidate={selected} activeStep={activeStep} />
+        {activeStep === "raw" ? null : <CandidateSummary candidate={selected} activeStep={activeStep} />}
       </div>
     </section>
   )

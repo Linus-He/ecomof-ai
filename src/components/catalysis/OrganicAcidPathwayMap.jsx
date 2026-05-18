@@ -73,7 +73,7 @@ const pathwayMeta = {
 
 const MAP_WIDTH = 1480
 const MAP_HEIGHT = 920
-const NODE_LINE_GAP = 10
+const NODE_LINE_GAP = 20
 
 const networkNodes = {
   glucose: {
@@ -112,9 +112,9 @@ const networkNodes = {
   formaldehyde: {
     moleculeId: "formaldehyde",
     x: 432,
-    y: 340,
-    w: 270,
-    h: 220,
+    y: 330,
+    w: 300,
+    h: 260,
     column: "Intermediates",
     compact: false,
     status: "positive",
