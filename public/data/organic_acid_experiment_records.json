@@ -1,0 +1,100 @@
+[
+  {
+    "recordId": "exp_pending_001",
+    "mofId": "pending",
+    "mofName": "pending",
+    "reactionSystem": "glucose_NaHCO3",
+    "experimentStatus": "pending",
+    "reactionConditions": {
+      "temperatureC": null,
+      "timeH": null,
+      "solvent": "water",
+      "glucoseConcentrationM": null,
+      "nahco3ConcentrationM": null,
+      "mofLoadingMg": null,
+      "pHInitial": null,
+      "pHFinal": null,
+      "atmosphere": "pending"
+    },
+    "productDistribution": {
+      "formicAcidYield": null,
+      "lacticAcidYield": null,
+      "aceticAcidYield": null,
+      "glycolicAcidYield": null,
+      "otherProducts": [],
+      "carbonBalance": null,
+      "unit": "pending"
+    },
+    "postReactionStability": {
+      "pxrd": "pending",
+      "ftir": "pending",
+      "sem": "pending",
+      "icp": "pending",
+      "massLoss": null,
+      "notes": "pending"
+    },
+    "pathwayEvidence": {
+      "supportsFormicPathway": "pending",
+      "suppressesCompetingProducts": "pending",
+      "hco3ResponseObserved": "pending",
+      "hcooEvidence": "pending",
+      "confidence": "pending"
+    },
+    "provenance": {
+      "source": "collaboration experiment",
+      "date": "pending",
+      "operator": "pending",
+      "rawDataFile": "pending",
+      "notes": "Schema placeholder for future experimental feedback."
+    }
+  },
+  {
+    "recordId": "exp_pending_002",
+    "mofId": "pending",
+    "mofName": "pending",
+    "reactionSystem": "glucose_NaHCO3",
+    "experimentStatus": "pending",
+    "reactionConditions": {
+      "temperatureC": null,
+      "timeH": null,
+      "solvent": "water",
+      "glucoseConcentrationM": null,
+      "nahco3ConcentrationM": null,
+      "mofLoadingMg": null,
+      "pHInitial": null,
+      "pHFinal": null,
+      "atmosphere": "pending"
+    },
+    "productDistribution": {
+      "formicAcidYield": null,
+      "lacticAcidYield": null,
+      "aceticAcidYield": null,
+      "glycolicAcidYield": null,
+      "otherProducts": [],
+      "carbonBalance": null,
+      "unit": "pending"
+    },
+    "postReactionStability": {
+      "pxrd": "pending",
+      "ftir": "pending",
+      "sem": "pending",
+      "icp": "pending",
+      "massLoss": null,
+      "notes": "pending"
+    },
+    "pathwayEvidence": {
+      "supportsFormicPathway": "pending",
+      "suppressesCompetingProducts": "pending",
+      "hco3ResponseObserved": "pending",
+      "hcooEvidence": "pending",
+      "confidence": "pending"
+    },
+    "provenance": {
+      "source": "collaboration experiment",
+      "date": "pending",
+      "operator": "pending",
+      "rawDataFile": "pending",
+      "notes": "Schema placeholder for a repeat-condition or control experiment."
+    }
+  }
+]

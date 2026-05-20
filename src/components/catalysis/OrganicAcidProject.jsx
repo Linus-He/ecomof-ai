@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
-import { fetchDataJson, getMofCandidates, toolbarBtn, useViewport } from "../../shared"
+import { fetchDataJson, getMofCandidates, getOrganicAcidExperimentRecords, toolbarBtn, useViewport } from "../../shared"
 import { calculateRGFARanking, safeNumber } from "../../utils/rgfaScore"
 import { AlgorithmTraceExplorer } from "./AlgorithmTraceExplorer"
 import { DynamicDescriptorMatrix } from "./DynamicDescriptorMatrix"
@@ -17,7 +17,9 @@ import {
 import { OrganicAcidPathwayMap } from "./OrganicAcidPathwayMap"
 import { OrganicAcidGraphExplorer } from "./OrganicAcidGraphExplorer"
 import { OrganicAcidCandidateMap } from "./OrganicAcidCandidateMap"
+import { OrganicAcidExperimentFeedbackPanel } from "./OrganicAcidExperimentFeedbackPanel"
 import { CompactDataModeBar } from "../module/ModuleTop"
+import { DataStatusSummary, OpenMofIntegrationReport } from "../data/OpenMofIntegrationReport"
 
 const ACCESS_KEY = "ecomof_organic_acid_project_access"
 const PROJECT_PASSWORD = "acid"
@@ -430,6 +432,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
   const [hasAccess, setHasAccess] = useState(false)
   const [rows, setRows] = useState([])
   const [candidateRows, setCandidateRows] = useState([])
+  const [summaryData, setSummaryData] = useState({ demo: [], realSeed: [], openSeed: [], experiments: [] })
   const [candidateDataMode, setCandidateDataMode] = useState("demo")
   const [candidateStatus, setCandidateStatus] = useState("idle")
   const [status, setStatus] = useState("idle")
@@ -460,6 +463,28 @@ export function OrganicAcidProject({ lang = "zh", t }) {
         setRows([])
         setStatus("error")
       })
+    return () => {
+      live = false
+    }
+  }, [hasAccess])
+
+  useEffect(() => {
+    if (!hasAccess) return
+    let live = true
+    Promise.all([
+      getMofCandidates({ mode: "demo", throwOnError: false }),
+      getMofCandidates({ mode: "real-seed", throwOnError: false }),
+      getMofCandidates({ mode: "open-mof-seed", throwOnError: false }),
+      getOrganicAcidExperimentRecords({ throwOnError: false }),
+    ]).then(([demo, realSeed, openSeed, experiments]) => {
+      if (!live) return
+      setSummaryData({
+        demo: Array.isArray(demo) ? demo : [],
+        realSeed: Array.isArray(realSeed) ? realSeed : [],
+        openSeed: Array.isArray(openSeed) ? openSeed : [],
+        experiments: Array.isArray(experiments) ? experiments : [],
+      })
+    })
     return () => {
       live = false
     }
@@ -540,14 +565,22 @@ export function OrganicAcidProject({ lang = "zh", t }) {
           options={[
             { id: "demo", label: lang === "zh" ? "Demo" : "Demo" },
             { id: "real-seed", label: lang === "zh" ? "Real Seed" : "Real Seed" },
-            { id: "core-seed", label: lang === "zh" ? "CoRE Seed" : "CoRE Seed" },
+            { id: "open-mof-seed", label: lang === "zh" ? "Open MOF Seed" : "Open MOF Seed" },
           ]}
         />
-        {candidateDataMode === "core-seed" && (
+        {candidateDataMode === "open-mof-seed" && (
           <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.muted, fontSize: 12.5, lineHeight: 1.55, padding: 11 }}>
-            CoRE MOF seed integration is prepared but not yet populated with curated records. 当前记录用于验证 schema、provenance 和 pending 状态，不作为有机酸筛选结论。
+            Open MOF seed records are imported from multiple public sources with separate provenance. 当前记录只提供结构、几何或电子描述符；有机酸路径相关性仍为 pending，不作为甲酸路径结论。
           </div>
         )}
+        <DataStatusSummary
+          seedRecords={summaryData.openSeed}
+          experimentRecords={summaryData.experiments}
+          demoCount={summaryData.demo.length}
+          realSeedCount={summaryData.realSeed.length}
+          lang={lang}
+          t={t}
+        />
         <OrganicAcidGraphExplorer lang={lang} t={t} selectedCandidate={selectedPathwayCandidate} />
         <OrganicAcidCandidateMap
           candidates={candidateRows}
@@ -556,6 +589,13 @@ export function OrganicAcidProject({ lang = "zh", t }) {
           lang={lang}
           t={t}
         />
+        <OpenMofIntegrationReport
+          seedRecords={summaryData.openSeed}
+          experimentRecords={summaryData.experiments}
+          lang={lang}
+          t={t}
+        />
+        <OrganicAcidExperimentFeedbackPanel records={summaryData.experiments} lang={lang} t={t} />
         <OrganicAcidPathwayMap lang={lang} />
         <AlgorithmTraceExplorer
           rankedRows={rankedRows}

@@ -5,7 +5,8 @@ const DATA_PROVIDER = import.meta.env.VITE_DATA_PROVIDER || "static"
 const DATA_PATHS = {
   mofCandidatesDemo: "data/mof_candidates_demo.json",
   mofCandidatesRealSeed: "data/mof_candidates_real_seed.json",
-  coreMofSeedCandidates: "data/core_mof_seed_candidates.json",
+  openMofSeedCandidates: "data/open_mof_seed_candidates.json",
+  organicAcidExperimentRecords: "data/organic_acid_experiment_records.json",
   catalysisTasks: "data/catalysis_tasks.json",
   catalysisRecords: "data/catalysis_records_demo.json",
   evidenceLevels: "data/evidence_levels.json",
@@ -54,12 +55,16 @@ export function fetchDataJson(fileName, fallback = [], options = {}) {
 }
 
 export async function getMofCandidates({ mode = "demo", throwOnError = false } = {}) {
-  const path = mode === "core-seed"
-    ? DATA_PATHS.coreMofSeedCandidates
+  const path = mode === "open-mof-seed"
+    ? DATA_PATHS.openMofSeedCandidates
     : mode === "real-seed"
       ? DATA_PATHS.mofCandidatesRealSeed
       : DATA_PATHS.mofCandidatesDemo
   return fetchJson(path, [], { throwOnError })
+}
+
+export function getOrganicAcidExperimentRecords({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.organicAcidExperimentRecords, [], { throwOnError })
 }
 
 export function getCatalysisTasks({ throwOnError = false } = {}) {

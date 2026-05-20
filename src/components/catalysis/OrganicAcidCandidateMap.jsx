@@ -36,6 +36,31 @@ function validationList(candidate) {
   return Array.isArray(rows) && rows.length ? rows : ["Organic acid pathway relevance pending curation"]
 }
 
+function provenanceRows(candidate) {
+  const provenance = candidate?.provenance || {}
+  return [
+    ["sourceDatabase", provenance.sourceDatabase || candidate?.sourceDatabase || provenance.database],
+    ["sourceRecordId", candidate?.sourceRecordId || provenance.sourceRecordId],
+    ["sourceVersion", candidate?.sourceVersion || provenance.sourceVersion],
+    ["retrievedAt", provenance.retrievedAt],
+    ["citation", provenance.citation],
+    ["sourceUrl", provenance.sourceUrl],
+    ["license", provenance.license],
+    ["curationStatus", provenance.curationStatus || candidate?.curationStatus],
+  ]
+}
+
+function completenessRows(candidate) {
+  const completeness = candidate?.descriptorCompleteness || {}
+  return [
+    ["surfaceArea", completeness.surfaceArea],
+    ["poreSizeA", completeness.poreSizeA],
+    ["poreVolume", completeness.poreVolume],
+    ["bandGap", completeness.bandGap],
+    ["waterStability", completeness.waterStability],
+  ]
+}
+
 function candidatePriority(candidate) {
   const relevance = candidate?.organicAcidRelevance || {}
   const direct = safeNumber(relevance.pathwayPriorityScore, null)
@@ -89,6 +114,7 @@ function CandidateExplanation({ candidate, point, lang, t }) {
     )
   }
   const roles = roleList(candidate)
+  const openSeed = String(candidate?.dataStatus || "").toLowerCase().includes("open-mof-seed")
   return (
     <aside style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, display: "grid", gap: 10, minWidth: 0, alignSelf: "stretch" }}>
       <div style={{ display: "grid", gap: 4 }}>
@@ -106,13 +132,23 @@ function CandidateExplanation({ candidate, point, lang, t }) {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 8 }}>
         <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, padding: 9 }}>
           <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "证据可信度", "Evidence Confidence")}</div>
-          <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 940, marginTop: 4, fontFamily: FONT_MONO }}>{Math.round(point.x)}</div>
+          <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 940, marginTop: 4, fontFamily: FONT_MONO }}>{point.pending ? "pending" : Math.round(point.x)}</div>
         </div>
         <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, padding: 9 }}>
           <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "甲酸路径优先级", "Pathway Priority")}</div>
-          <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 940, marginTop: 4, fontFamily: FONT_MONO }}>{Math.round(point.y)}</div>
+          <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 940, marginTop: 4, fontFamily: FONT_MONO }}>{point.pending ? "pending" : Math.round(point.y)}</div>
         </div>
       </div>
+
+      {openSeed ? (
+        <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 7, color: t.muted, fontSize: 11.5, lineHeight: 1.55, padding: 9 }}>
+          {text(
+            lang,
+            "该候选物来自 Open MOF seed 数据。目前可能已有结构、几何或电子描述符，但有机酸路径相关性仍待整理。在没有文献、DFT 或实验支持前，不赋予甲酸路径导向作用结论。",
+            "This candidate is imported from Open MOF seed data. Structural, geometric, or electronic descriptors may be available, but organic-acid pathway relevance is pending curation. No formic-acid-oriented role is assigned without literature, DFT, or experimental support."
+          )}
+        </div>
+      ) : null}
 
       <div style={{ display: "grid", gap: 7 }}>
         <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>Candidate-related MOF roles</div>
@@ -130,6 +166,26 @@ function CandidateExplanation({ candidate, point, lang, t }) {
       </div>
 
       <FeatureBars features={point.features} lang={lang} t={t} />
+
+      {openSeed ? (
+        <div style={{ display: "grid", gap: 7 }}>
+          <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>Open database provenance</div>
+          {provenanceRows(candidate).map(([label, value]) => (
+            <div key={label} style={{ display: "grid", gap: 5, gridTemplateColumns: "92px minmax(0, 1fr)", minWidth: 0 }}>
+              <span style={{ color: t.faint, fontSize: 10.8, fontWeight: 850 }}>{label}</span>
+              <span style={{ color: t.muted, fontSize: 10.8, lineHeight: 1.4, overflowWrap: "anywhere" }}>{safeText(value)}</span>
+            </div>
+          ))}
+          <div style={{ borderTop: `1px solid ${t.border}`, display: "grid", gap: 5, paddingTop: 7 }}>
+            {completenessRows(candidate).map(([label, value]) => (
+              <div key={label} style={{ display: "flex", gap: 8, justifyContent: "space-between" }}>
+                <span style={{ color: t.faint, fontSize: 10.8 }}>{label}</span>
+                <strong style={{ color: t.textStrong, fontSize: 10.8 }}>{safeText(value)}</strong>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
 
       <div style={{ display: "grid", gap: 6 }}>
         <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{text(lang, "需要验证", "Validation needed")}</div>

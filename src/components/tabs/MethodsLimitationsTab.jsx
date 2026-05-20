@@ -18,6 +18,7 @@ import {
   ScoringPipelineDiagram,
   scrollToMethodTarget,
 } from "../methods"
+import { OpenMofIntegrationReport } from "../data/OpenMofIntegrationReport"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -303,8 +304,8 @@ function OpenMofDatabaseIntegrationPlan({ lang, t, isMobile }) {
       <TextBlock t={t}>
         {text(
           lang,
-          "当前新增的 CoRE MOF seed 文件用于验证 EcoMOF-AI 统一 schema：sourceDatabase、sourceVersion、provenance、graphMetadata 和 organicAcidRelevance 必须同时存在。真实记录进入前，所有未整理字段保持 pending，不进入产率或机理论断。",
-          "The new CoRE MOF seed file validates the unified EcoMOF-AI schema: sourceDatabase, sourceVersion, provenance, graphMetadata, and organicAcidRelevance must coexist. Before curated records are available, missing fields remain pending and are not used as yield or mechanism claims."
+          "当前新增的 Open MOF seed 文件用于验证 EcoMOF-AI 统一 schema：sourceDatabase、sourceRecordId、sourceVersion、provenance、graphMetadata 和 organicAcidRelevance 必须同时存在。未整理字段保持 pending，不进入产率或机理论断。",
+          "The new Open MOF seed file validates the unified EcoMOF-AI schema: sourceDatabase, sourceRecordId, sourceVersion, provenance, graphMetadata, and organicAcidRelevance must coexist. Uncurated fields remain pending and are not used as yield or mechanism claims."
         )}
       </TextBlock>
     </div>
@@ -674,10 +675,11 @@ export function MethodsLimitationsTab() {
             id="open-mof-database-integration"
             eyebrow="11"
             title={text(lang, "开源 MOF 数据库接入计划", "Open MOF Database Integration Plan")}
-            subtitle={text(lang, "CoRE MOF 小样本真实数据库接入先走离线筛选与统一 schema，不在 GitHub Pages 前端加载全量数据库。", "CoRE MOF seed integration starts with offline filtering and a unified schema; GitHub Pages will not load the full database directly.")}
+            subtitle={text(lang, "多源 Open MOF seed 先走离线筛选、统一 schema 和 provenance 保留，不在 GitHub Pages 前端加载全量数据库。", "Multi-source Open MOF seed integration starts with offline filtering, unified schema, and provenance retention; GitHub Pages will not load full databases directly.")}
             t={t}
           >
             <OpenMofDatabaseIntegrationPlan lang={lang} t={t} isMobile={isMobile} />
+            <OpenMofIntegrationReport lang={lang} t={t} isMobile={isMobile} />
           </Section>
 
           <Section
