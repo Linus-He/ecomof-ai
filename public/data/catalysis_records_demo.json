@@ -346,13 +346,13 @@
   {
     "recordId": "cat-biomass-co2-template-001",
     "taskFamily": "CO2 conversion",
-    "pathway": "biomass-assisted CO2/HCO3- conversion",
-    "subTask": "glucose + NaHCO3 to formic acid / organic acids",
+    "pathway": "biomass-assisted CO2/HCO₃⁻ conversion",
+    "subTask": "glucose + NaHCO₃ to formic acid / organic acids",
     "targetProducts": ["formic acid", "formate", "lactic acid", "acetic acid", "glycolic acid"],
     "relevantModes": ["hydrothermal conversion", "heterogeneous catalysis"],
     "keyMetrics": ["formic acid yield", "product distribution", "substrate conversion", "stability evidence"],
     "mofRelevance": ["metal nodes", "amino/basic sites", "Lewis acid sites", "transition-metal modified sites"],
-    "curationFocus": ["reaction condition", "substrate ratio", "CO2/HCO3- source", "product analysis", "mechanism evidence", "confidentiality status"],
+    "curationFocus": ["reaction condition", "substrate ratio", "CO2/HCO₃⁻ source", "product analysis", "mechanism evidence", "confidentiality status"],
     "caution": "Schema-only collaborator-context record. Product yield values and private collaborator details are not included.",
     "reactionCondition": {
       "temperatureC": 170,
@@ -386,15 +386,15 @@
       "canPublishValues": false,
       "displayMode": "schema-only"
     },
-    "note": "Schema-only template for biomass-assisted CO2/HCO3- conversion. No private experimental yield values are included."
+    "note": "Schema-only template for biomass-assisted CO2/HCO₃⁻ conversion. No private experimental yield values are included."
   },
   {
     "recordId": "cat-biomass-co2-case-template-001",
     "caseType": "schema-only collaboration case template",
     "taskFamily": "CO2 conversion",
-    "pathway": "biomass-assisted CO2/HCO3- conversion",
+    "pathway": "biomass-assisted CO2/HCO₃⁻ conversion",
     "reactionFamily": "hydrothermal synergistic conversion",
-    "subTask": "glucose + NaHCO3 to formic acid / organic acids",
+    "subTask": "glucose + NaHCO₃ to formic acid / organic acids",
     "targetProducts": ["formic acid", "formate", "lactic acid", "acetic acid", "glycolic acid"],
     "relevantModes": ["hydrothermal conversion", "heterogeneous catalysis", "schema-only case review"],
     "keyMetrics": ["product distribution schema", "reaction condition profile", "mechanism evidence map", "confidentiality status"],
@@ -408,7 +408,7 @@
       "timeStatus": "pending",
       "substrate": "glucose",
       "substrateAmountMg": 90,
-      "co2Source": "NaHCO3 / HCO3-",
+      "co2Source": "NaHCO₃ / HCO₃⁻",
       "NaHCO3Mg": 252,
       "waterMl": 10,
       "catalystMg": 200,
@@ -460,7 +460,7 @@
         "status": "pending evidence"
       },
       {
-        "step": "redox with HCO3-",
+        "step": "redox with HCO₃⁻",
         "status": "pending evidence"
       },
       {
@@ -476,6 +476,6 @@
     "evidenceLevel": "pending",
     "sourceStatus": "schema-only",
     "curationStatus": "planned",
-    "note": "Schema-only case template for biomass-assisted CO2/HCO3- conversion. No private experimental yield values, peak areas, concentrations, collaborator names, or institutional details are included."
+    "note": "Schema-only case template for biomass-assisted CO2/HCO₃⁻ conversion. No private experimental yield values, peak areas, concentrations, collaborator names, or institutional details are included."
   }
 ]

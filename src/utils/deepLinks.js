@@ -57,7 +57,7 @@ export const HASH_META = {
   },
   "organic-acid-graph-explorer": {
     title: "Organic Acid Graph Explorer | EcoMOF-AI",
-    description: "查看 glucose / HCO3- 到 formic acid 和竞争有机酸路径的图论演示器，以及可能的 MOF influence hypothesis。",
+    description: "查看 glucose / HCO₃⁻ 到 formic acid 和竞争有机酸路径的图论演示器，以及可能的 MOF influence hypothesis。",
   },
   library: {
     title: "MOF 候选库 | 描述符整理与来源追踪",

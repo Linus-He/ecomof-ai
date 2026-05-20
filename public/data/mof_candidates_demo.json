@@ -59,7 +59,7 @@
         },
         {
           "motif": "-NH2 linker",
-          "role": "Potential CO2/HCO3- interaction site",
+          "role": "Potential CO2/HCO₃⁻ interaction site",
           "evidenceLevel": "hypothesis"
         }
       ],
@@ -82,7 +82,7 @@
         },
         {
           "role": "hco3_hcoo_interaction_hypothesis",
-          "label": "HCO3-/HCOO- interaction hypothesis",
+          "label": "HCO₃⁻/HCOO⁻ interaction hypothesis",
           "relatedFeature": "functionalGroup",
           "relatedPathwayNode": "hcoo",
           "evidenceLevel": "hypothesis",
@@ -102,8 +102,8 @@
       "validationNeeded": [
         "Product distribution under MOF-assisted conditions",
         "MOF structural stability after reaction",
-        "HCO3- concentration response",
-        "HCOO- adsorption or binding evidence"
+        "HCO₃⁻ concentration response",
+        "HCOO⁻ adsorption or binding evidence"
       ],
       "notes": "Organic acid relevance is currently a hypothesis-layer decision-support score, not a validated yield prediction."
     }
@@ -204,8 +204,8 @@
       "validationNeeded": [
         "Product distribution under MOF-assisted conditions",
         "MOF structural stability after reaction",
-        "HCO3- concentration response",
-        "HCOO- adsorption or binding evidence"
+        "HCO₃⁻ concentration response",
+        "HCOO⁻ adsorption or binding evidence"
       ],
       "notes": "Organic acid relevance is currently a hypothesis-layer decision-support score, not a validated yield prediction."
     }
@@ -305,8 +305,8 @@
       "validationNeeded": [
         "Product distribution under MOF-assisted conditions",
         "MOF structural stability after reaction",
-        "HCO3- concentration response",
-        "HCOO- adsorption or binding evidence"
+        "HCO₃⁻ concentration response",
+        "HCOO⁻ adsorption or binding evidence"
       ],
       "notes": "Organic acid relevance is currently a hypothesis-layer decision-support score, not a validated yield prediction."
     }
@@ -406,8 +406,8 @@
       "validationNeeded": [
         "Product distribution under MOF-assisted conditions",
         "MOF structural stability after reaction",
-        "HCO3- concentration response",
-        "HCOO- adsorption or binding evidence"
+        "HCO₃⁻ concentration response",
+        "HCOO⁻ adsorption or binding evidence"
       ],
       "notes": "Organic acid relevance is currently a hypothesis-layer decision-support score, not a validated yield prediction."
     }
@@ -508,8 +508,8 @@
       "validationNeeded": [
         "Product distribution under MOF-assisted conditions",
         "MOF structural stability after reaction",
-        "HCO3- concentration response",
-        "HCOO- adsorption or binding evidence"
+        "HCO₃⁻ concentration response",
+        "HCOO⁻ adsorption or binding evidence"
       ],
       "notes": "Organic acid relevance is currently a hypothesis-layer decision-support score, not a validated yield prediction."
     }
@@ -609,8 +609,8 @@
       "validationNeeded": [
         "Product distribution under MOF-assisted conditions",
         "MOF structural stability after reaction",
-        "HCO3- concentration response",
-        "HCOO- adsorption or binding evidence"
+        "HCO₃⁻ concentration response",
+        "HCOO⁻ adsorption or binding evidence"
       ],
       "notes": "Organic acid relevance is currently a hypothesis-layer decision-support score, not a validated yield prediction."
     }

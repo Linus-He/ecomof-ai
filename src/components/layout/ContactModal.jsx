@@ -21,7 +21,7 @@ const DATA_INTAKE_TEMPLATE = `{
     "timeH": null,
     "substrate": "",
     "substrateAmountMg": null,
-    "co2Source": "CO2 | NaHCO3 | HCO3- | pending",
+    "co2Source": "CO2 | NaHCO₃ | HCO₃⁻ | pending",
     "NaHCO3Mg": null,
     "waterMl": null,
     "catalystMg": null,
@@ -44,7 +44,7 @@ const DATA_INTAKE_TEMPLATE = `{
     "NMR": "pending"
   },
   "mechanismNotes": {
-    "pathway": "isomerization | retro-aldol | redox with HCO3- | side reaction | pending",
+    "pathway": "isomerization | retro-aldol | redox with HCO₃⁻ | side reaction | pending",
     "activeSiteHypothesis": "",
     "stabilityNote": ""
   },

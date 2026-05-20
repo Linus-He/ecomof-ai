@@ -12,9 +12,9 @@
     },
     {
       "id": "hco3",
-      "label": "HCO3−",
+      "label": "HCO₃⁻",
       "type": "co2_source",
-      "description": "Bicarbonate source used as a CO2-related reaction component in the hypothesis-layer map.",
+      "description": "Bicarbonate source used as a CO₂-related reaction component in the hypothesis-layer map.",
       "evidenceLevel": "literature-derived",
       "dataStatus": "demo pathway context"
     },
@@ -28,7 +28,7 @@
     },
     {
       "id": "hcoo",
-      "label": "HCOO−",
+      "label": "HCOO⁻",
       "type": "intermediate",
       "description": "Formate anion node used to connect bicarbonate and formic-acid-oriented interpretation.",
       "evidenceLevel": "hypothesis",
@@ -191,7 +191,7 @@
     {
       "feature": "functional_group",
       "label": "Functional group",
-      "description": "May modulate HCO3-/HCOO- interaction hypotheses and local polarity.",
+      "description": "May modulate HCO₃⁻/HCOO⁻ interaction hypotheses and local polarity.",
       "relatedNodes": [
         "hco3",
         "hcoo"

@@ -13,6 +13,8 @@ import {
   GlobalScoringWorkbench,
   getDataGapRecommendations,
   getMofCandidates,
+  GraphDescriptorPanel,
+  OrganicAcidRelevancePanel,
 } from "../../shared"
 
 const clamp01 = value => Math.max(0, Math.min(1, Number(value) || 0))
@@ -503,6 +505,15 @@ function CandidateDetail({ candidate, lang, t, isMobile }) {
           </div>
         ))}
       </div>
+
+      <GraphDescriptorPanel graphMetadata={candidate.candidate?.graphMetadata || candidate.graphMetadata} t={t} lang={lang} isMobile={isMobile} />
+      <OrganicAcidRelevancePanel
+        relevance={candidate.candidate?.organicAcidRelevance || candidate.organicAcidRelevance}
+        candidate={candidate.candidate || candidate}
+        t={t}
+        lang={lang}
+        isMobile={isMobile}
+      />
     </Card>
   )
 }

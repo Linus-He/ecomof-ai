@@ -8,7 +8,7 @@ const PATHWAY_LABELS = {
   formic_acid_oriented: ["Formic-acid-oriented pathway", "甲酸导向路径"],
   formic_acid_oriented_but_stability_limited: ["Formic-acid-oriented, stability-limited", "甲酸导向但受稳定性限制"],
   formic_acid_oriented_after_functionalization: ["Formic-acid-oriented after functionalization", "功能化后甲酸导向"],
-  hco3_hcoo_interaction_hypothesis: ["HCO3-/HCOO- interaction hypothesis", "HCO3-/HCOO- 相互作用假设"],
+  hco3_hcoo_interaction_hypothesis: ["HCO₃⁻/HCOO⁻ interaction hypothesis", "HCO₃⁻/HCOO⁻ 相互作用假设"],
   c1_intermediate_hypothesis: ["C1 intermediate hypothesis", "C1 中间体假设"],
   competing_pathway_control: ["Competing pathway control", "竞争路径控制"],
   pending: ["Pending curation", "待整理"],
@@ -36,7 +36,7 @@ function ScoreBreakdown({ breakdown, t, lang }) {
     [text(lang, "Thermal score", "Thermal score"), breakdown.thermalScore],
     [text(lang, "Graph motif", "Graph motif"), breakdown.graphMotifScore],
     [text(lang, "Active motif", "Active motif"), breakdown.activeMotifBonus],
-    [text(lang, "HCO3-/HCOO-", "HCO3-/HCOO-"), breakdown.hco3RoleBonus],
+    [text(lang, "HCO₃⁻/HCOO⁻", "HCO₃⁻/HCOO⁻"), breakdown.hco3RoleBonus],
     [text(lang, "Diversity", "Diversity"), breakdown.diversityBonus],
     [text(lang, "Toxicity penalty", "Toxicity penalty"), -breakdown.toxicityPenalty],
     [text(lang, "Evidence penalty", "Evidence penalty"), -breakdown.evidencePenalty],
@@ -68,7 +68,7 @@ export function OrganicAcidRelevancePanel({ relevance, candidate, t: tone, lang:
     pathwayPriorityScore: null,
     scoreStatus: "pending",
     validationNeeded: ["Organic acid pathway relevance pending curation"],
-    notes: "Organic acid relevance has not yet been curated for this record.",
+    notes: "Organic acid relevance pending curation.",
   }
   const roles = Array.isArray(data.possibleRoles) ? data.possibleRoles : []
   const validationNeeded = Array.isArray(data.validationNeeded) ? data.validationNeeded : []
@@ -138,7 +138,7 @@ export function OrganicAcidRelevancePanel({ relevance, candidate, t: tone, lang:
             </div>
           ) : (
             <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55 }}>
-              {text(lang, "Organic acid relevance is pending curation for this record.", "Organic acid relevance is pending curation for this record.")}
+              {text(lang, "Organic acid relevance pending curation.", "Organic acid relevance pending curation.")}
             </div>
           )}
         </DetailCard>

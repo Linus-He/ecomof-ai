@@ -11,6 +11,7 @@ import {
   BasisBadge, PageHeader, ResultLayer, Callout, safeVal, CopyLinkButton,
   FieldProvenanceButton, EvidenceLevelLegend,
   createScoringModel, getDescriptorsForPreset, WhyThisResultButton,
+  GraphDescriptorPanel, OrganicAcidRelevancePanel,
 } from "../../shared"
 import { CandidateComparisonModal, CompareTray } from "../mof/CandidateComparisonModal"
 
@@ -1487,6 +1488,12 @@ export function MOFLibraryTab({ results, inputs }) {
                   </div>
                   <div style={detailBlock}>{field(lang === "zh" ? "催化潜力线索" : "Catalysis potential", `${item.reactionClasses.join(", ") || "—"}; ${zhLibraryText(item.activeSiteHypothesis, lang)}`)}</div>
                   <div style={detailBlock}>{field(lang === "zh" ? "数据来源 / 限制" : "Data source / Limitations", `${zhLibraryText(item.source, lang)}; ${zhLibraryText(item.limitations, lang)}`)}</div>
+                  <div style={{ gridColumn: "1 / -1", minWidth: 0 }}>
+                    <GraphDescriptorPanel graphMetadata={item.graphMetadata} t={t} lang={lang} isMobile={isMobile} />
+                  </div>
+                  <div style={{ gridColumn: "1 / -1", minWidth: 0 }}>
+                    <OrganicAcidRelevancePanel relevance={item.organicAcidRelevance} candidate={item} t={t} lang={lang} isMobile={isMobile} />
+                  </div>
                 </div>
               )}
             </div>

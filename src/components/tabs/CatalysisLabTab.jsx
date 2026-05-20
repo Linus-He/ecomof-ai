@@ -756,8 +756,8 @@ export function CatalysisLabTab({ onNavigate }) {
         number="OA"
         title={lang === "zh" ? "Organic Acid Graph Explorer / 有机酸图论路径演示器" : "Organic Acid Graph Explorer"}
         subtitle={lang === "zh"
-          ? "用节点-边网络展示 glucose / HCO3- 到甲酸和竞争有机酸路径的 hypothesis-layer mapping。"
-          : "Node-edge network for hypothesis-layer mapping from glucose / HCO3- toward formic acid and competing organic acids."}
+          ? "用节点-边网络展示 glucose / HCO₃⁻ 到甲酸和竞争有机酸路径的 hypothesis-layer mapping。"
+          : "Node-edge network for hypothesis-layer mapping from glucose / HCO₃⁻ toward formic acid and competing organic acids."}
       >
         <OrganicAcidGraphExplorer lang={lang} t={t} isMobile={isMobile} />
       </ResultLayer>

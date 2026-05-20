@@ -196,7 +196,7 @@ const descriptorDefinitions = [
   { group: "functionalGroup", groupZh: "官能团", groupEn: "Functional-group", key: "defects", labelZh: "缺陷位", labelEn: "Defects", unit: "", usedIn: ["A3", "A4"] },
   { group: "functionalGroup", groupZh: "官能团", groupEn: "Functional-group", key: "zrHydroxyl", labelZh: "Zr-OH", labelEn: "Zr-OH", unit: "", usedIn: ["A2", "A3"] },
   { group: "functionalGroup", groupZh: "官能团", groupEn: "Functional-group", key: "feHydroxyl", labelZh: "Fe-OH", labelEn: "Fe-OH", unit: "", usedIn: ["A2", "A3"] },
-  { group: "reaction", groupZh: "反应", groupEn: "Reaction", key: "Eads_HCO3", labelZh: "Eads(HCO3−)", labelEn: "Eads(HCO3−)", unit: "eV", usedIn: ["A3", "Reaction descriptors"] },
+  { group: "reaction", groupZh: "反应", groupEn: "Reaction", key: "Eads_HCO3", labelZh: "Eads(HCO₃⁻)", labelEn: "Eads(HCO₃⁻)", unit: "eV", usedIn: ["A3", "Reaction descriptors"] },
   { group: "reaction", groupZh: "反应", groupEn: "Reaction", key: "Eads_formaldehyde", labelZh: "Eads(formaldehyde)", labelEn: "Eads(formaldehyde)", unit: "eV", usedIn: ["A2", "A3"] },
   { group: "reaction", groupZh: "反应", groupEn: "Reaction", key: "Eads_glyceraldehyde", labelZh: "Eads(glyceraldehyde)", labelEn: "Eads(glyceraldehyde)", unit: "eV", usedIn: ["A2", "A3"] },
   { group: "reaction", groupZh: "反应", groupEn: "Reaction", key: "Eads_pyruvaldehyde", labelZh: "Eads(pyruvaldehyde)", labelEn: "Eads(pyruvaldehyde)", unit: "eV", usedIn: ["B1", "Reaction descriptors"] },

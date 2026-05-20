@@ -27,7 +27,7 @@ const validationSteps = [
   ["Pyruvaldehyde feeding test", "丙酮醛投料实验，用于确认乳酸/丙酮酸风险支路。"],
   ["Time-series product analysis", "时间序列产物分析，用于分离中间体峰值与终产物累计。"],
   ["Carbon balance check", "碳平衡检查，用于决定记录是否适合作为后续建模标签。"],
-  ["NaH13CO3 isotope tracing", "同位素示踪，用于确认 HCO3− 对甲酸碳源的真实贡献。"],
+  ["NaH13CO3 isotope tracing", "同位素示踪，用于确认 HCO₃⁻ 对甲酸碳源的真实贡献。"],
   ["DFT descriptor update", "补齐吸附能与位点相关描述符，为后续 A3/A4 更新提供依据。"],
 ]
 
