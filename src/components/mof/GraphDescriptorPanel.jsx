@@ -26,6 +26,7 @@ function displayList(values, labels, lang) {
 }
 
 function scoreLabel(value, prefix = "") {
+  if (value === null || value === undefined || value === "") return "pending"
   const number = Number(value)
   if (!Number.isFinite(number)) return "pending"
   return `${prefix}${number.toFixed(prefix ? 0 : 2)}`
@@ -100,7 +101,7 @@ export function GraphDescriptorPanel({ graphMetadata, t: tone, lang: forcedLang,
     diversityScore: null,
     graphMotifScore: 0,
     graphConfidence: "pending",
-    notes: "Graph information is pending validation and is not used as a validated prediction.",
+    notes: "Graph metadata pending curation.",
   }
   const motifs = Array.isArray(graph.activeMotifs) ? graph.activeMotifs : []
 

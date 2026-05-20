@@ -1,0 +1,247 @@
+{
+  "schema": "organic-acid-pathway-graph-v1",
+  "status": "decision-support preview / hypothesis layer / pending experimental and DFT validation",
+  "nodes": [
+    {
+      "id": "glucose",
+      "label": "Glucose",
+      "type": "feedstock",
+      "description": "Biomass-derived carbon source entering competing organic-acid pathways.",
+      "evidenceLevel": "literature-derived",
+      "dataStatus": "demo pathway context"
+    },
+    {
+      "id": "hco3",
+      "label": "HCO3−",
+      "type": "co2_source",
+      "description": "Bicarbonate source used as a CO2-related reaction component in the hypothesis-layer map.",
+      "evidenceLevel": "literature-derived",
+      "dataStatus": "demo pathway context"
+    },
+    {
+      "id": "c1_intermediate",
+      "label": "C1 intermediate",
+      "type": "intermediate",
+      "description": "Conceptual C1 pool between glucose transformation and formate-oriented chemistry.",
+      "evidenceLevel": "hypothesis",
+      "dataStatus": "pending validation"
+    },
+    {
+      "id": "hcoo",
+      "label": "HCOO−",
+      "type": "intermediate",
+      "description": "Formate anion node used to connect bicarbonate and formic-acid-oriented interpretation.",
+      "evidenceLevel": "hypothesis",
+      "dataStatus": "pending validation"
+    },
+    {
+      "id": "formic_acid",
+      "label": "Formic acid",
+      "type": "target_product",
+      "description": "Target organic acid product in the formic-acid-oriented pathway view.",
+      "evidenceLevel": "literature-derived",
+      "dataStatus": "demo target"
+    },
+    {
+      "id": "lactic_acid",
+      "label": "Lactic acid",
+      "type": "competing_product",
+      "description": "Competing organic acid product that can draw carbon away from formic acid.",
+      "evidenceLevel": "literature-derived",
+      "dataStatus": "demo competing product"
+    },
+    {
+      "id": "acetic_acid",
+      "label": "Acetic acid",
+      "type": "competing_product",
+      "description": "Competing C2 product branch in the organic-acid pathway map.",
+      "evidenceLevel": "literature-derived",
+      "dataStatus": "demo competing product"
+    },
+    {
+      "id": "glycolic_acid",
+      "label": "Glycolic acid",
+      "type": "competing_product",
+      "description": "Competing organic acid branch that may indicate alternate carbon rearrangement.",
+      "evidenceLevel": "literature-derived",
+      "dataStatus": "demo competing product"
+    },
+    {
+      "id": "humins_byproducts",
+      "label": "Humins / by-products",
+      "type": "byproduct",
+      "description": "Undesired side-product sink that reduces target-pathway selectivity.",
+      "evidenceLevel": "hypothesis",
+      "dataStatus": "pending validation"
+    }
+  ],
+  "edges": [
+    {
+      "source": "glucose",
+      "target": "c1_intermediate",
+      "label": "C1 formation hypothesis",
+      "reactionType": "fragmentation / oxidation hypothesis",
+      "possibleMofInfluence": [
+        "pore_environment",
+        "active_motif"
+      ],
+      "evidenceLevel": "hypothesis",
+      "confidence": "low"
+    },
+    {
+      "source": "hco3",
+      "target": "hcoo",
+      "label": "bicarbonate to formate pool",
+      "reactionType": "bicarbonate participation hypothesis",
+      "possibleMofInfluence": [
+        "functional_group",
+        "metal_node"
+      ],
+      "evidenceLevel": "hypothesis",
+      "confidence": "low"
+    },
+    {
+      "source": "c1_intermediate",
+      "target": "hcoo",
+      "label": "C1 to formate-oriented intermediate",
+      "reactionType": "C1 stabilization hypothesis",
+      "possibleMofInfluence": [
+        "metal_node",
+        "active_motif",
+        "water_stability"
+      ],
+      "evidenceLevel": "hypothesis",
+      "confidence": "low"
+    },
+    {
+      "source": "hcoo",
+      "target": "formic_acid",
+      "label": "formate / formic acid relation",
+      "reactionType": "acid-base / product relation",
+      "possibleMofInfluence": [
+        "water_stability",
+        "pore_environment"
+      ],
+      "evidenceLevel": "literature-derived",
+      "confidence": "medium"
+    },
+    {
+      "source": "glucose",
+      "target": "lactic_acid",
+      "label": "lactic acid branch",
+      "reactionType": "competing organic-acid pathway",
+      "possibleMofInfluence": [
+        "pore_environment"
+      ],
+      "evidenceLevel": "literature-derived",
+      "confidence": "medium"
+    },
+    {
+      "source": "glucose",
+      "target": "acetic_acid",
+      "label": "acetic acid branch",
+      "reactionType": "competing C2 pathway",
+      "possibleMofInfluence": [
+        "active_motif",
+        "pore_environment"
+      ],
+      "evidenceLevel": "hypothesis",
+      "confidence": "low"
+    },
+    {
+      "source": "glucose",
+      "target": "glycolic_acid",
+      "label": "glycolic acid branch",
+      "reactionType": "competing organic-acid pathway",
+      "possibleMofInfluence": [
+        "functional_group",
+        "pore_environment"
+      ],
+      "evidenceLevel": "hypothesis",
+      "confidence": "low"
+    },
+    {
+      "source": "glucose",
+      "target": "humins_byproducts",
+      "label": "dehydration / by-product sink",
+      "reactionType": "side-product pathway",
+      "possibleMofInfluence": [
+        "water_stability",
+        "pore_environment"
+      ],
+      "evidenceLevel": "pending",
+      "confidence": "low"
+    }
+  ],
+  "mofInfluencePoints": [
+    {
+      "feature": "metal_node",
+      "label": "Metal node",
+      "description": "May provide Lewis-acidic or redox-relevant local environments, pending validation.",
+      "relatedNodes": [
+        "c1_intermediate",
+        "hcoo"
+      ],
+      "relatedEdges": [
+        "c1_intermediate->hcoo",
+        "hco3->hcoo"
+      ],
+      "evidenceLevel": "hypothesis"
+    },
+    {
+      "feature": "functional_group",
+      "label": "Functional group",
+      "description": "May modulate HCO3-/HCOO- interaction hypotheses and local polarity.",
+      "relatedNodes": [
+        "hco3",
+        "hcoo"
+      ],
+      "relatedEdges": [
+        "hco3->hcoo",
+        "glucose->glycolic_acid"
+      ],
+      "evidenceLevel": "hypothesis"
+    },
+    {
+      "feature": "active_motif",
+      "label": "Active motif",
+      "description": "Conceptual local structure that can be mapped to C1 intermediate stabilization hypotheses.",
+      "relatedNodes": [
+        "c1_intermediate"
+      ],
+      "relatedEdges": [
+        "glucose->c1_intermediate",
+        "c1_intermediate->hcoo"
+      ],
+      "evidenceLevel": "hypothesis"
+    },
+    {
+      "feature": "pore_environment",
+      "label": "Pore environment",
+      "description": "May influence accessibility, confinement, and competing product distribution.",
+      "relatedNodes": [
+        "glucose",
+        "formic_acid",
+        "humins_byproducts"
+      ],
+      "relatedEdges": [
+        "glucose->c1_intermediate",
+        "glucose->humins_byproducts"
+      ],
+      "evidenceLevel": "hypothesis"
+    },
+    {
+      "feature": "water_stability",
+      "label": "Water stability",
+      "description": "Constrains whether a MOF remains relevant under water-phase organic-acid conditions.",
+      "relatedNodes": [
+        "formic_acid"
+      ],
+      "relatedEdges": [
+        "hcoo->formic_acid",
+        "glucose->humins_byproducts"
+      ],
+      "evidenceLevel": "literature-derived"
+    }
+  ]
+}

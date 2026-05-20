@@ -9,6 +9,7 @@ import { getGasSystem } from "../../utils/prediction"
 import { toolbarBtn } from "../../utils/styles"
 import { buildDeepLink } from "../../utils/deepLinks"
 import { GraphDescriptorPanel } from "../mof/GraphDescriptorPanel"
+import { OrganicAcidRelevancePanel } from "../mof/OrganicAcidRelevancePanel"
 
 export const ECOMOF_LOGO_SRC = "/ecomof-ai/ecomof-logo.png"
 
@@ -402,6 +403,8 @@ export function UnifiedCandidateCard({
   recommendedNextStep,
   fieldSources,
   graphMetadata,
+  organicAcidRelevance,
+  candidate,
   dataStatus,
   onDetails,
   descriptorTotal = 8,
@@ -544,9 +547,8 @@ export function UnifiedCandidateCard({
             <DescriptorCurationChecklist fieldSources={fieldSources} lang={lang} t={t} />
           )}
           {/* Graph descriptor panel */}
-          {graphMetadata && (
-            <GraphDescriptorPanel graphMetadata={graphMetadata} t={t} lang={lang} />
-          )}
+          <GraphDescriptorPanel graphMetadata={graphMetadata} t={t} lang={lang} />
+          <OrganicAcidRelevancePanel relevance={organicAcidRelevance} candidate={candidate || { organicAcidRelevance, graphMetadata }} t={t} lang={lang} />
         </div>
       )}
 

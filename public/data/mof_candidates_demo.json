@@ -3,9 +3,15 @@
     "id": "MOF-DEMO-001",
     "name": "UiO-66-NH2",
     "formula": "Zr6O4(OH)4(NH2-BDC)6",
-    "source": ["demo", "placeholder", "literature-placeholder"],
+    "source": [
+      "demo",
+      "placeholder",
+      "literature-placeholder"
+    ],
     "dataStatus": "demo / placeholder / rule-based / needs validation",
-    "metalNodes": ["Zr"],
+    "metalNodes": [
+      "Zr"
+    ],
     "bimetallic": false,
     "linker": "NH2-BDC",
     "topology": "fcu",
@@ -21,8 +27,14 @@
     "costLevel": "medium",
     "toxicityConcern": "low",
     "sustainabilityRisk": "low",
-    "reactionClasses": ["co2_conversion", "photocatalysis"],
-    "activeSiteHypothesis": ["Zr Lewis acid node", "amine functionality may support CO2 affinity"],
+    "reactionClasses": [
+      "co2_conversion",
+      "photocatalysis"
+    ],
+    "activeSiteHypothesis": [
+      "Zr Lewis acid node",
+      "amine functionality may support CO2 affinity"
+    ],
     "evidenceLevel": "rule-based",
     "limitations": [
       "Demo descriptor record, not a measured catalytic conclusion",
@@ -30,8 +42,15 @@
     ],
     "graphMetadata": {
       "graphStatus": "demo",
-      "nodeTypes": ["metal", "linker", "functional_group"],
-      "edgeTypes": ["coordination_bond", "organic_bond"],
+      "nodeTypes": [
+        "metal",
+        "linker",
+        "functional_group"
+      ],
+      "edgeTypes": [
+        "coordination_bond",
+        "organic_bond"
+      ],
       "activeMotifs": [
         {
           "motif": "Zr-O cluster",
@@ -49,15 +68,59 @@
       "graphMotifScore": 8,
       "graphConfidence": "demo",
       "notes": "Graph information is used as an explanation layer in the current demo version. Pending DFT/GNN validation."
+    },
+    "organicAcidRelevance": {
+      "targetPathway": "formic_acid_oriented",
+      "possibleRoles": [
+        {
+          "role": "water_phase_stability_support",
+          "label": "Water-phase stability support",
+          "relatedFeature": "waterStability",
+          "relatedPathwayNode": "formic_acid",
+          "evidenceLevel": "literature-derived",
+          "confidence": "medium"
+        },
+        {
+          "role": "hco3_hcoo_interaction_hypothesis",
+          "label": "HCO3-/HCOO- interaction hypothesis",
+          "relatedFeature": "functionalGroup",
+          "relatedPathwayNode": "hcoo",
+          "evidenceLevel": "hypothesis",
+          "confidence": "low"
+        },
+        {
+          "role": "c1_intermediate_stabilization",
+          "label": "C1 intermediate stabilization",
+          "relatedFeature": "activeMotif",
+          "relatedPathwayNode": "c1_intermediate",
+          "evidenceLevel": "hypothesis",
+          "confidence": "low"
+        }
+      ],
+      "pathwayPriorityScore": 72,
+      "scoreStatus": "demo",
+      "validationNeeded": [
+        "Product distribution under MOF-assisted conditions",
+        "MOF structural stability after reaction",
+        "HCO3- concentration response",
+        "HCOO- adsorption or binding evidence"
+      ],
+      "notes": "Organic acid relevance is currently a hypothesis-layer decision-support score, not a validated yield prediction."
     }
   },
   {
     "id": "MOF-DEMO-002",
     "name": "PCN-222",
     "formula": "Zr6O8(TCPP)2",
-    "source": ["demo", "placeholder", "literature-placeholder"],
+    "source": [
+      "demo",
+      "placeholder",
+      "literature-placeholder"
+    ],
     "dataStatus": "demo / placeholder / rule-based / needs validation",
-    "metalNodes": ["Zr"],
+    "metalNodes": [
+      "Zr"
+    ],
     "bimetallic": true,
     "linker": "TCPP",
     "topology": "csq",
@@ -73,8 +136,15 @@
     "costLevel": "high",
     "toxicityConcern": "low",
     "sustainabilityRisk": "medium",
-    "reactionClasses": ["photocatalysis", "electrocatalysis", "co2_conversion"],
-    "activeSiteHypothesis": ["porphyrinic linker", "metalation handle for photo/electrocatalysis"],
+    "reactionClasses": [
+      "photocatalysis",
+      "electrocatalysis",
+      "co2_conversion"
+    ],
+    "activeSiteHypothesis": [
+      "porphyrinic linker",
+      "metalation handle for photo/electrocatalysis"
+    ],
     "evidenceLevel": "rule-based",
     "limitations": [
       "Demo electronic descriptors do not establish activity or yield",
@@ -82,8 +152,15 @@
     ],
     "graphMetadata": {
       "graphStatus": "demo",
-      "nodeTypes": ["metal", "linker", "functional_group"],
-      "edgeTypes": ["coordination_bond", "organic_bond"],
+      "nodeTypes": [
+        "metal",
+        "linker",
+        "functional_group"
+      ],
+      "edgeTypes": [
+        "coordination_bond",
+        "organic_bond"
+      ],
       "activeMotifs": [
         {
           "motif": "Zr-oxo node",
@@ -101,15 +178,51 @@
       "graphMotifScore": 7,
       "graphConfidence": "demo",
       "notes": "Graph motif annotations support explanation and diversity-aware prioritization only. Pending DFT/GNN validation."
+    },
+    "organicAcidRelevance": {
+      "targetPathway": "competing_pathway_control",
+      "possibleRoles": [
+        {
+          "role": "large_pore_accessibility",
+          "label": "Large-pore accessibility context",
+          "relatedFeature": "poreEnvironment",
+          "relatedPathwayNode": "glucose",
+          "evidenceLevel": "hypothesis",
+          "confidence": "low"
+        },
+        {
+          "role": "photoactive_linker_hypothesis",
+          "label": "Photoactive linker hypothesis",
+          "relatedFeature": "linker",
+          "relatedPathwayNode": "c1_intermediate",
+          "evidenceLevel": "hypothesis",
+          "confidence": "low"
+        }
+      ],
+      "pathwayPriorityScore": 62,
+      "scoreStatus": "demo",
+      "validationNeeded": [
+        "Product distribution under MOF-assisted conditions",
+        "MOF structural stability after reaction",
+        "HCO3- concentration response",
+        "HCOO- adsorption or binding evidence"
+      ],
+      "notes": "Organic acid relevance is currently a hypothesis-layer decision-support score, not a validated yield prediction."
     }
   },
   {
     "id": "MOF-DEMO-003",
     "name": "HKUST-1",
     "formula": "Cu3(BTC)2",
-    "source": ["demo", "placeholder", "literature-placeholder"],
+    "source": [
+      "demo",
+      "placeholder",
+      "literature-placeholder"
+    ],
     "dataStatus": "demo / placeholder / rule-based / needs validation",
-    "metalNodes": ["Cu"],
+    "metalNodes": [
+      "Cu"
+    ],
     "bimetallic": false,
     "linker": "BTC",
     "topology": "tbo",
@@ -125,8 +238,14 @@
     "costLevel": "low",
     "toxicityConcern": "medium",
     "sustainabilityRisk": "medium",
-    "reactionClasses": ["biomass_conversion", "co2_conversion"],
-    "activeSiteHypothesis": ["open Cu site", "Lewis acid metal node"],
+    "reactionClasses": [
+      "biomass_conversion",
+      "co2_conversion"
+    ],
+    "activeSiteHypothesis": [
+      "open Cu site",
+      "Lewis acid metal node"
+    ],
     "evidenceLevel": "rule-based",
     "limitations": [
       "Hydrolytic stability and deactivation risk must be validated",
@@ -134,8 +253,15 @@
     ],
     "graphMetadata": {
       "graphStatus": "demo",
-      "nodeTypes": ["metal", "linker", "functional_group"],
-      "edgeTypes": ["coordination_bond", "organic_bond"],
+      "nodeTypes": [
+        "metal",
+        "linker",
+        "functional_group"
+      ],
+      "edgeTypes": [
+        "coordination_bond",
+        "organic_bond"
+      ],
       "activeMotifs": [
         {
           "motif": "Open Cu site",
@@ -153,15 +279,51 @@
       "graphMotifScore": 4,
       "graphConfidence": "literature-derived",
       "notes": "Graph motif context is useful for explanation, but hydrolytic stability risk prevents over-interpreting the score."
+    },
+    "organicAcidRelevance": {
+      "targetPathway": "formic_acid_oriented_but_stability_limited",
+      "possibleRoles": [
+        {
+          "role": "open_cu_site_hypothesis",
+          "label": "Open Cu site hypothesis",
+          "relatedFeature": "metalNode",
+          "relatedPathwayNode": "hcoo",
+          "evidenceLevel": "literature-derived",
+          "confidence": "medium"
+        },
+        {
+          "role": "water_stability_risk",
+          "label": "Water-stability risk for aqueous pathway",
+          "relatedFeature": "waterStability",
+          "relatedPathwayNode": "formic_acid",
+          "evidenceLevel": "literature-derived",
+          "confidence": "medium"
+        }
+      ],
+      "pathwayPriorityScore": 44,
+      "scoreStatus": "demo",
+      "validationNeeded": [
+        "Product distribution under MOF-assisted conditions",
+        "MOF structural stability after reaction",
+        "HCO3- concentration response",
+        "HCOO- adsorption or binding evidence"
+      ],
+      "notes": "Organic acid relevance is currently a hypothesis-layer decision-support score, not a validated yield prediction."
     }
   },
   {
     "id": "MOF-DEMO-004",
     "name": "Fe-MIL-100",
     "formula": "Fe3O(BTC)2",
-    "source": ["demo", "placeholder", "literature-placeholder"],
+    "source": [
+      "demo",
+      "placeholder",
+      "literature-placeholder"
+    ],
     "dataStatus": "demo / placeholder / rule-based / needs validation",
-    "metalNodes": ["Fe"],
+    "metalNodes": [
+      "Fe"
+    ],
     "bimetallic": false,
     "linker": "BTC",
     "topology": "mtn",
@@ -177,8 +339,14 @@
     "costLevel": "low",
     "toxicityConcern": "low",
     "sustainabilityRisk": "low",
-    "reactionClasses": ["biomass_conversion", "electrocatalysis"],
-    "activeSiteHypothesis": ["Fe oxo cluster", "redox-active metal node"],
+    "reactionClasses": [
+      "biomass_conversion",
+      "electrocatalysis"
+    ],
+    "activeSiteHypothesis": [
+      "Fe oxo cluster",
+      "redox-active metal node"
+    ],
     "evidenceLevel": "rule-based",
     "limitations": [
       "Substrate diffusion and leaching must be tested",
@@ -186,8 +354,15 @@
     ],
     "graphMetadata": {
       "graphStatus": "demo",
-      "nodeTypes": ["metal", "linker", "functional_group"],
-      "edgeTypes": ["coordination_bond", "organic_bond"],
+      "nodeTypes": [
+        "metal",
+        "linker",
+        "functional_group"
+      ],
+      "edgeTypes": [
+        "coordination_bond",
+        "organic_bond"
+      ],
       "activeMotifs": [
         {
           "motif": "Fe-oxo cluster",
@@ -205,15 +380,51 @@
       "graphMotifScore": 6,
       "graphConfidence": "demo",
       "notes": "Graph motif score is a decision-support preview and requires leaching, stability, and reaction testing."
+    },
+    "organicAcidRelevance": {
+      "targetPathway": "c1_intermediate_hypothesis",
+      "possibleRoles": [
+        {
+          "role": "redox_active_node_hypothesis",
+          "label": "Redox-active node hypothesis",
+          "relatedFeature": "metalNode",
+          "relatedPathwayNode": "c1_intermediate",
+          "evidenceLevel": "hypothesis",
+          "confidence": "low"
+        },
+        {
+          "role": "mesopore_diffusion_context",
+          "label": "Mesopore diffusion context",
+          "relatedFeature": "poreEnvironment",
+          "relatedPathwayNode": "glucose",
+          "evidenceLevel": "demo",
+          "confidence": "low"
+        }
+      ],
+      "pathwayPriorityScore": 58,
+      "scoreStatus": "demo",
+      "validationNeeded": [
+        "Product distribution under MOF-assisted conditions",
+        "MOF structural stability after reaction",
+        "HCO3- concentration response",
+        "HCOO- adsorption or binding evidence"
+      ],
+      "notes": "Organic acid relevance is currently a hypothesis-layer decision-support score, not a validated yield prediction."
     }
   },
   {
     "id": "MOF-DEMO-005",
     "name": "NU-1000",
     "formula": "Zr6O8(TBAPy)2",
-    "source": ["demo", "placeholder", "literature-placeholder"],
+    "source": [
+      "demo",
+      "placeholder",
+      "literature-placeholder"
+    ],
     "dataStatus": "demo / placeholder / rule-based / needs validation",
-    "metalNodes": ["Zr"],
+    "metalNodes": [
+      "Zr"
+    ],
     "bimetallic": true,
     "linker": "TBAPy",
     "topology": "csq",
@@ -229,8 +440,15 @@
     "costLevel": "high",
     "toxicityConcern": "low",
     "sustainabilityRisk": "medium",
-    "reactionClasses": ["photocatalysis", "custom_task"],
-    "activeSiteHypothesis": ["Zr node", "pyrene linker", "post-synthetic active-site installation"],
+    "reactionClasses": [
+      "photocatalysis",
+      "custom_task"
+    ],
+    "activeSiteHypothesis": [
+      "Zr node",
+      "pyrene linker",
+      "post-synthetic active-site installation"
+    ],
     "evidenceLevel": "needs-validation",
     "limitations": [
       "Functionalization success and synthesis cost need validation",
@@ -238,8 +456,15 @@
     ],
     "graphMetadata": {
       "graphStatus": "demo",
-      "nodeTypes": ["metal", "linker", "functional_group"],
-      "edgeTypes": ["coordination_bond", "organic_bond"],
+      "nodeTypes": [
+        "metal",
+        "linker",
+        "functional_group"
+      ],
+      "edgeTypes": [
+        "coordination_bond",
+        "organic_bond"
+      ],
       "activeMotifs": [
         {
           "motif": "Zr6 node",
@@ -257,15 +482,51 @@
       "graphMotifScore": 7,
       "graphConfidence": "demo",
       "notes": "Graph information is explanatory; functionalization success and task-specific validation remain pending."
+    },
+    "organicAcidRelevance": {
+      "targetPathway": "formic_acid_oriented_after_functionalization",
+      "possibleRoles": [
+        {
+          "role": "water_phase_stability_support",
+          "label": "Water-phase stability support",
+          "relatedFeature": "waterStability",
+          "relatedPathwayNode": "formic_acid",
+          "evidenceLevel": "literature-derived",
+          "confidence": "medium"
+        },
+        {
+          "role": "post_synthetic_active_site_hypothesis",
+          "label": "Post-synthetic active-site hypothesis",
+          "relatedFeature": "activeMotif",
+          "relatedPathwayNode": "c1_intermediate",
+          "evidenceLevel": "hypothesis",
+          "confidence": "low"
+        }
+      ],
+      "pathwayPriorityScore": 66,
+      "scoreStatus": "demo",
+      "validationNeeded": [
+        "Product distribution under MOF-assisted conditions",
+        "MOF structural stability after reaction",
+        "HCO3- concentration response",
+        "HCOO- adsorption or binding evidence"
+      ],
+      "notes": "Organic acid relevance is currently a hypothesis-layer decision-support score, not a validated yield prediction."
     }
   },
   {
     "id": "MOF-DEMO-006",
     "name": "MOF-74-Mg",
     "formula": "Mg2(DOBDC)",
-    "source": ["demo", "placeholder", "literature-placeholder"],
+    "source": [
+      "demo",
+      "placeholder",
+      "literature-placeholder"
+    ],
     "dataStatus": "demo / placeholder / rule-based / needs validation",
-    "metalNodes": ["Mg"],
+    "metalNodes": [
+      "Mg"
+    ],
     "bimetallic": false,
     "linker": "DOBDC",
     "topology": "hcb",
@@ -281,8 +542,14 @@
     "costLevel": "low",
     "toxicityConcern": "low",
     "sustainabilityRisk": "low",
-    "reactionClasses": ["co2_conversion", "custom_task"],
-    "activeSiteHypothesis": ["open Mg site", "strong CO2 adsorption cue"],
+    "reactionClasses": [
+      "co2_conversion",
+      "custom_task"
+    ],
+    "activeSiteHypothesis": [
+      "open Mg site",
+      "strong CO2 adsorption cue"
+    ],
     "evidenceLevel": "rule-based",
     "limitations": [
       "Strong adsorption can complicate turnover and regeneration",
@@ -290,8 +557,15 @@
     ],
     "graphMetadata": {
       "graphStatus": "demo",
-      "nodeTypes": ["metal", "linker", "functional_group"],
-      "edgeTypes": ["coordination_bond", "organic_bond"],
+      "nodeTypes": [
+        "metal",
+        "linker",
+        "functional_group"
+      ],
+      "edgeTypes": [
+        "coordination_bond",
+        "organic_bond"
+      ],
       "activeMotifs": [
         {
           "motif": "Open Mg site",
@@ -309,6 +583,36 @@
       "graphMotifScore": 5,
       "graphConfidence": "literature-derived",
       "notes": "Graph motif context supports explanation only; strong adsorption must be balanced against regeneration and turnover validation."
+    },
+    "organicAcidRelevance": {
+      "targetPathway": "hco3_hcoo_interaction_hypothesis",
+      "possibleRoles": [
+        {
+          "role": "open_mg_site_hypothesis",
+          "label": "Open Mg site hypothesis",
+          "relatedFeature": "metalNode",
+          "relatedPathwayNode": "hcoo",
+          "evidenceLevel": "literature-derived",
+          "confidence": "medium"
+        },
+        {
+          "role": "regeneration_tradeoff",
+          "label": "Adsorption/regeneration trade-off",
+          "relatedFeature": "activeMotif",
+          "relatedPathwayNode": "formic_acid",
+          "evidenceLevel": "hypothesis",
+          "confidence": "low"
+        }
+      ],
+      "pathwayPriorityScore": 63,
+      "scoreStatus": "demo",
+      "validationNeeded": [
+        "Product distribution under MOF-assisted conditions",
+        "MOF structural stability after reaction",
+        "HCO3- concentration response",
+        "HCOO- adsorption or binding evidence"
+      ],
+      "notes": "Organic acid relevance is currently a hypothesis-layer decision-support score, not a validated yield prediction."
     }
   }
 ]

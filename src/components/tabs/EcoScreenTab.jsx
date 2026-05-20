@@ -807,6 +807,10 @@ export function EcoScreenTab({ onNavigate }) {
     if (onNavigate) onNavigate("graph-informed-descriptor-integration")
     else if (typeof window !== "undefined") window.location.assign("#graph-informed-descriptor-integration")
   }
+  const openOrganicGraph = () => {
+    if (onNavigate) onNavigate("organic-acid-graph-explorer")
+    else if (typeof window !== "undefined") window.location.assign("#organic-acid-graph-explorer")
+  }
 
   return (
     <div id="candidate-scoring-lab" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -828,8 +832,8 @@ export function EcoScreenTab({ onNavigate }) {
 
       <Callout tone="info">
         {lang === "zh"
-          ? "本模块用于早期候选优先级判断，不用于直接预测甲酸产率；结果应作为研究假设与复核线索。"
-          : "This module supports early-stage candidate prioritization, not direct formate yield prediction. 本模块用于早期候选优先级判断，不用于直接预测甲酸产率。"}{" "}
+          ? "本模块用于早期候选优先级判断，不用于输出甲酸产物结果；结果应作为研究假设与复核线索。"
+          : "This module supports early-stage candidate prioritization, not direct formate-yield output. 本模块用于早期候选优先级判断，不用于输出甲酸产物结果。"}{" "}
         <DisclaimerLink />
       </Callout>
       <Callout tone="warn">
@@ -851,9 +855,14 @@ export function EcoScreenTab({ onNavigate }) {
             )}
           </div>
         </div>
-        <button type="button" onClick={openGraphMethodology} style={{ ...toolbarBtn(t), color: t.accentText, borderColor: t.accent, justifyContent: "center" }}>
-          {text(lang, "打开图论方法图", "Open graph method")}
-        </button>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          <button type="button" onClick={openGraphMethodology} style={{ ...toolbarBtn(t), color: t.accentText, borderColor: t.accent, justifyContent: "center" }}>
+            {text(lang, "打开图论方法图", "Open graph method")}
+          </button>
+          <button type="button" onClick={openOrganicGraph} style={{ ...toolbarBtn(t), justifyContent: "center" }}>
+            {text(lang, "View organic acid relevance", "View organic acid relevance")}
+          </button>
+        </div>
       </Card>
 
       <Card t={t} style={{ display: "grid", gap: 10 }}>

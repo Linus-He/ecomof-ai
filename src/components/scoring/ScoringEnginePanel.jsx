@@ -12,6 +12,7 @@ import { FONT_MONO } from "../../constants/theme"
 import { toolbarBtn } from "../../utils/styles"
 import { BasisBadge } from "../ui"
 import { GraphDescriptorPanel } from "../mof/GraphDescriptorPanel"
+import { OrganicAcidRelevancePanel } from "../mof/OrganicAcidRelevancePanel"
 import { WhyThisResultButton } from "./WhyThisResultButton"
 import { WhyThisWeightButton } from "./WhyThisWeightButton"
 
@@ -352,6 +353,7 @@ export function CandidateRankingTable({ model, selectedId, onSelect, t, lang, is
 export function ScoreBreakdownPanel({ row, t, lang }) {
   const graphScore = row.graphScore
   const graphMetadata = row.candidate?.graphMetadata
+  const organicAcidRelevance = row.candidate?.organicAcidRelevance
   return (
     <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, display: "grid", gap: 10, marginBottom: 6 }}>
       {graphScore && (
@@ -388,6 +390,7 @@ export function ScoreBreakdownPanel({ row, t, lang }) {
         {text(lang, "Top drivers", "Top drivers")}: {row.topDrivers.map(item => lang === "zh" ? item.labelZh : item.label).join(", ")} · {text(lang, "Main weakness", "Main weakness")}: {lang === "zh" ? row.mainWeakness?.labelZh : row.mainWeakness?.label}
       </div>
       <GraphDescriptorPanel graphMetadata={graphMetadata} t={t} lang={lang} />
+      <OrganicAcidRelevancePanel relevance={organicAcidRelevance} candidate={row.candidate} t={t} lang={lang} />
     </div>
   )
 }

@@ -46,6 +46,8 @@ function normalizeRealSeedForPerf(item) {
     dataMode: "real-seed",
     curationNote: item.curationNote || "",
     fieldSources: item.fieldSources || undefined,
+    graphMetadata: item.graphMetadata,
+    organicAcidRelevance: item.organicAcidRelevance,
   }
 }
 
@@ -153,6 +155,25 @@ export function PerformanceTab({
     toxicityConcern: "low",
     evidenceLevel: "rule-based",
     limitations: [lang === "zh" ? "当前浏览器端结果需要实测等温线、GCMC 或 IAST 验证。" : "Current browser-side result needs measured isotherm, GCMC, or IAST validation."],
+    graphMetadata: {
+      graphStatus: "pending",
+      nodeTypes: [],
+      edgeTypes: [],
+      activeMotifs: [],
+      graphCluster: "pending",
+      diversityScore: null,
+      graphMotifScore: 0,
+      graphConfidence: "pending",
+      notes: "Graph metadata is pending curation for this browser-side candidate.",
+    },
+    organicAcidRelevance: {
+      targetPathway: "pending",
+      possibleRoles: [],
+      pathwayPriorityScore: null,
+      scoreStatus: "pending",
+      validationNeeded: ["Organic acid pathway relevance pending curation"],
+      notes: "Organic acid relevance has not yet been curated for this browser-side candidate.",
+    },
   } : null, [hasResult, inputs, results, lang])
 
   const baseRows = useMemo(() => {
@@ -434,6 +455,8 @@ export function PerformanceTab({
                     : ["Add measured isotherms", "Validate mixture selectivity", "Run GCMC or IAST comparison"]}
                   fieldSources={candidate.candidate?.fieldSources}
                   graphMetadata={candidate.candidate?.graphMetadata || { graphStatus: "pending", graphConfidence: "pending", graphCluster: "pending", diversityScore: null, graphMotifScore: 0, notes: "Graph descriptor metadata is pending validation for this record." }}
+                  organicAcidRelevance={candidate.candidate?.organicAcidRelevance}
+                  candidate={candidate.candidate}
                   dataStatus={candidate.candidate?.dataMode || dataMode}
                   onDetails={() => setSelectedId(candidate.id)}
                   descriptorTotal={performanceScoringModel.descriptors?.length || 0}

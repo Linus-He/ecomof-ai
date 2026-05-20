@@ -4,7 +4,10 @@
     "name": "UiO-66",
     "dataMode": "real-seed",
     "formula": "Zr6O4(OH)4(BDC)6",
-    "source": ["real-seed", "public-database-placeholder"],
+    "source": [
+      "real-seed",
+      "public-database-placeholder"
+    ],
     "sourceRecords": [
       {
         "type": "database",
@@ -16,15 +19,28 @@
       }
     ],
     "sourceDOI": "10.1021/acs.chemmater.7b00141",
-    "sourceDatabase": ["CoRE MOF", "QMOF"],
+    "sourceDatabase": [
+      "CoRE MOF",
+      "QMOF"
+    ],
     "curationNote": "Real seed record. Structural topology (fcu) confirmed from CoRE MOF. Adsorption and electronic descriptors require curated literature or GCMC values before use.",
-    "missingFields": ["poreSizeA", "surfaceArea", "poreVolume", "co2Uptake", "bandGap", "costLevel", "toxicityConcern"],
+    "missingFields": [
+      "poreSizeA",
+      "surfaceArea",
+      "poreVolume",
+      "co2Uptake",
+      "bandGap",
+      "costLevel",
+      "toxicityConcern"
+    ],
     "limitations": [
       "This is a real-seed framework record, not a complete performance label.",
       "Structural descriptors require validation against synthesized samples.",
       "Experimental validation is required before drawing catalytic conclusions."
     ],
-    "metalNodes": ["Zr"],
+    "metalNodes": [
+      "Zr"
+    ],
     "bimetallic": false,
     "linker": "BDC",
     "topology": "fcu",
@@ -38,18 +54,139 @@
     "costLevel": "unknown",
     "toxicityConcern": "unknown",
     "sustainabilityRisk": "unknown",
-    "reactionClasses": ["co2_conversion"],
-    "activeSiteHypothesis": ["Zr6 oxo-cluster Lewis acid node"],
+    "reactionClasses": [
+      "co2_conversion"
+    ],
+    "activeSiteHypothesis": [
+      "Zr6 oxo-cluster Lewis acid node"
+    ],
     "evidenceLevel": "needs-validation",
     "fieldSources": {
-      "surfaceArea":      {"value": null,   "unit": "m²/g",  "sourceType": "pending",             "sourceName": "Pending curation",                 "database": "", "doi": "", "url": "", "condition": "",                                                                      "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                     "limitations": ""},
-      "poreSizeA":        {"value": null,   "unit": "Å",     "sourceType": "pending",             "sourceName": "Pending curation",                 "database": "", "doi": "", "url": "", "condition": "",                                                                      "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                     "limitations": ""},
-      "poreVolume":       {"value": null,   "unit": "cm³/g", "sourceType": "pending",             "sourceName": "Pending curation",                 "database": "", "doi": "", "url": "", "condition": "",                                                                      "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                     "limitations": ""},
-      "co2Uptake":        {"value": null,   "unit": "mmol/g",    "sourceType": "pending",             "sourceName": "Pending curation",                 "database": "", "doi": "", "url": "", "condition": "",                                                                      "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                     "limitations": ""},
-      "bandGap":          {"value": null,   "unit": "eV",        "sourceType": "pending",             "sourceName": "Pending curation",                 "database": "", "doi": "", "url": "", "condition": "",                                                                      "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                     "limitations": ""},
-      "waterStability":   {"value": "high", "unit": "",          "sourceType": "literature-inferred", "sourceName": "Synthesis literature / CoRE MOF",  "database": "", "doi": "", "url": "", "condition": "Qualitative stability from synthesis reports",                          "evidenceLevel": "needs-validation", "curationNote": "Stability inferred from published synthesis reports. Quantitative conditions not specified.",                                  "limitations": "Qualitative assessment; actual stability depends on synthesis batch and activation conditions."},
-      "thermalStability": {"value": "high", "unit": "",          "sourceType": "literature-inferred", "sourceName": "TGA / synthesis literature",        "database": "", "doi": "", "url": "", "condition": "TGA under N₂ or air, decomposition onset from literature",       "evidenceLevel": "needs-validation", "curationNote": "Thermal stability inferred from TGA data in synthesis literature. Decomposition temperature not specified.",                    "limitations": "Qualitative assessment; TGA under defined atmosphere required for quantitative comparison."},
-      "toxicityConcern":  {"value": "unknown","unit": "",        "sourceType": "pending",             "sourceName": "Pending curation",                 "database": "", "doi": "", "url": "", "condition": "",                                                                      "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                     "limitations": ""}
+      "surfaceArea": {
+        "value": null,
+        "unit": "m²/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "poreSizeA": {
+        "value": null,
+        "unit": "Å",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "poreVolume": {
+        "value": null,
+        "unit": "cm³/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "co2Uptake": {
+        "value": null,
+        "unit": "mmol/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "bandGap": {
+        "value": null,
+        "unit": "eV",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "waterStability": {
+        "value": "high",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "Synthesis literature / CoRE MOF",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "Qualitative stability from synthesis reports",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Stability inferred from published synthesis reports. Quantitative conditions not specified.",
+        "limitations": "Qualitative assessment; actual stability depends on synthesis batch and activation conditions."
+      },
+      "thermalStability": {
+        "value": "high",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "TGA / synthesis literature",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "TGA under N₂ or air, decomposition onset from literature",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Thermal stability inferred from TGA data in synthesis literature. Decomposition temperature not specified.",
+        "limitations": "Qualitative assessment; TGA under defined atmosphere required for quantitative comparison."
+      },
+      "toxicityConcern": {
+        "value": "unknown",
+        "unit": "",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      }
+    },
+    "graphMetadata": {
+      "graphStatus": "pending",
+      "nodeTypes": [],
+      "edgeTypes": [],
+      "activeMotifs": [],
+      "graphCluster": "pending",
+      "diversityScore": null,
+      "graphMotifScore": 0,
+      "graphConfidence": "pending",
+      "notes": "Graph metadata is pending curation for this real-seed record."
+    },
+    "organicAcidRelevance": {
+      "targetPathway": "pending",
+      "possibleRoles": [],
+      "pathwayPriorityScore": null,
+      "scoreStatus": "pending",
+      "validationNeeded": [
+        "Organic acid pathway relevance pending curation"
+      ],
+      "notes": "Organic acid relevance has not yet been curated for this record."
     }
   },
   {
@@ -57,7 +194,10 @@
     "name": "MOF-808",
     "dataMode": "real-seed",
     "formula": "Zr6O4(OH)4(BTC)2(HCOO)6",
-    "source": ["real-seed", "public-database-placeholder"],
+    "source": [
+      "real-seed",
+      "public-database-placeholder"
+    ],
     "sourceRecords": [
       {
         "type": "literature",
@@ -69,15 +209,28 @@
       }
     ],
     "sourceDOI": "10.1021/ja5062531",
-    "sourceDatabase": ["CoRE MOF", "literature"],
+    "sourceDatabase": [
+      "CoRE MOF",
+      "literature"
+    ],
     "curationNote": "Real seed record based on Furukawa 2014 synthesis report. Descriptor values require GCMC or measured BET before use as performance label.",
-    "missingFields": ["poreSizeA", "surfaceArea", "poreVolume", "co2Uptake", "bandGap", "costLevel", "toxicityConcern"],
+    "missingFields": [
+      "poreSizeA",
+      "surfaceArea",
+      "poreVolume",
+      "co2Uptake",
+      "bandGap",
+      "costLevel",
+      "toxicityConcern"
+    ],
     "limitations": [
       "Synthesis conditions vary by lab; pore descriptors are structure-dependent.",
       "CO2 uptake not included — requires measured isotherm.",
       "Experimental validation is required."
     ],
-    "metalNodes": ["Zr"],
+    "metalNodes": [
+      "Zr"
+    ],
     "bimetallic": false,
     "linker": "BTC",
     "topology": "spn",
@@ -91,18 +244,141 @@
     "costLevel": "unknown",
     "toxicityConcern": "unknown",
     "sustainabilityRisk": "unknown",
-    "reactionClasses": ["co2_conversion", "biomass_conversion"],
-    "activeSiteHypothesis": ["Zr6 oxo-cluster Lewis acid", "formate-capped defect sites"],
+    "reactionClasses": [
+      "co2_conversion",
+      "biomass_conversion"
+    ],
+    "activeSiteHypothesis": [
+      "Zr6 oxo-cluster Lewis acid",
+      "formate-capped defect sites"
+    ],
     "evidenceLevel": "needs-validation",
     "fieldSources": {
-      "surfaceArea":      {"value": null,   "unit": "m²/g",  "sourceType": "pending",             "sourceName": "Pending curation",                 "database": "", "doi": "", "url": "", "condition": "",                                                                     "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                 "limitations": ""},
-      "poreSizeA":        {"value": null,   "unit": "Å",     "sourceType": "pending",             "sourceName": "Pending curation",                 "database": "", "doi": "", "url": "", "condition": "",                                                                     "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                 "limitations": ""},
-      "poreVolume":       {"value": null,   "unit": "cm³/g", "sourceType": "pending",             "sourceName": "Pending curation",                 "database": "", "doi": "", "url": "", "condition": "",                                                                     "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                 "limitations": ""},
-      "co2Uptake":        {"value": null,   "unit": "mmol/g",    "sourceType": "pending",             "sourceName": "Pending curation",                 "database": "", "doi": "", "url": "", "condition": "",                                                                     "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                 "limitations": ""},
-      "bandGap":          {"value": null,   "unit": "eV",        "sourceType": "pending",             "sourceName": "Pending curation",                 "database": "", "doi": "", "url": "", "condition": "",                                                                     "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                 "limitations": ""},
-      "waterStability":   {"value": "high", "unit": "",          "sourceType": "literature-inferred", "sourceName": "Synthesis literature / CoRE MOF",  "database": "", "doi": "", "url": "", "condition": "Qualitative stability from synthesis reports",                         "evidenceLevel": "needs-validation", "curationNote": "Stability inferred from published synthesis reports. Quantitative conditions not specified.",                              "limitations": "Qualitative assessment; actual stability depends on synthesis batch and activation conditions."},
-      "thermalStability": {"value": "high", "unit": "",          "sourceType": "literature-inferred", "sourceName": "TGA / synthesis literature",        "database": "", "doi": "", "url": "", "condition": "TGA data from synthesis reports",                                    "evidenceLevel": "needs-validation", "curationNote": "Thermal stability inferred from TGA in synthesis literature. Decomposition temperature not specified.",                    "limitations": "Qualitative assessment; TGA under defined atmosphere required."},
-      "toxicityConcern":  {"value": "unknown","unit": "",        "sourceType": "pending",             "sourceName": "Pending curation",                 "database": "", "doi": "", "url": "", "condition": "",                                                                     "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                 "limitations": ""}
+      "surfaceArea": {
+        "value": null,
+        "unit": "m²/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "poreSizeA": {
+        "value": null,
+        "unit": "Å",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "poreVolume": {
+        "value": null,
+        "unit": "cm³/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "co2Uptake": {
+        "value": null,
+        "unit": "mmol/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "bandGap": {
+        "value": null,
+        "unit": "eV",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "waterStability": {
+        "value": "high",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "Synthesis literature / CoRE MOF",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "Qualitative stability from synthesis reports",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Stability inferred from published synthesis reports. Quantitative conditions not specified.",
+        "limitations": "Qualitative assessment; actual stability depends on synthesis batch and activation conditions."
+      },
+      "thermalStability": {
+        "value": "high",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "TGA / synthesis literature",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "TGA data from synthesis reports",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Thermal stability inferred from TGA in synthesis literature. Decomposition temperature not specified.",
+        "limitations": "Qualitative assessment; TGA under defined atmosphere required."
+      },
+      "toxicityConcern": {
+        "value": "unknown",
+        "unit": "",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      }
+    },
+    "graphMetadata": {
+      "graphStatus": "pending",
+      "nodeTypes": [],
+      "edgeTypes": [],
+      "activeMotifs": [],
+      "graphCluster": "pending",
+      "diversityScore": null,
+      "graphMotifScore": 0,
+      "graphConfidence": "pending",
+      "notes": "Graph metadata is pending curation for this real-seed record."
+    },
+    "organicAcidRelevance": {
+      "targetPathway": "pending",
+      "possibleRoles": [],
+      "pathwayPriorityScore": null,
+      "scoreStatus": "pending",
+      "validationNeeded": [
+        "Organic acid pathway relevance pending curation"
+      ],
+      "notes": "Organic acid relevance has not yet been curated for this record."
     }
   },
   {
@@ -110,7 +386,10 @@
     "name": "HKUST-1",
     "dataMode": "real-seed",
     "formula": "Cu3(BTC)2",
-    "source": ["real-seed", "public-database-placeholder"],
+    "source": [
+      "real-seed",
+      "public-database-placeholder"
+    ],
     "sourceRecords": [
       {
         "type": "database",
@@ -122,15 +401,27 @@
       }
     ],
     "sourceDOI": "10.1126/science.283.5405.1148",
-    "sourceDatabase": ["CoRE MOF"],
+    "sourceDatabase": [
+      "CoRE MOF"
+    ],
     "curationNote": "Well-known benchmark MOF. Open Cu2+ sites reported in literature. Water stability is low — experimental conditions must be specified before drawing conclusions.",
-    "missingFields": ["poreSizeA", "surfaceArea", "poreVolume", "co2Uptake", "bandGap", "costLevel", "toxicityConcern"],
+    "missingFields": [
+      "poreSizeA",
+      "surfaceArea",
+      "poreVolume",
+      "co2Uptake",
+      "bandGap",
+      "costLevel",
+      "toxicityConcern"
+    ],
     "limitations": [
       "Low water stability limits application range; must be explicitly stated.",
       "Open metal site hypothesis requires experimental confirmation for each batch.",
       "Experimental validation is required."
     ],
-    "metalNodes": ["Cu"],
+    "metalNodes": [
+      "Cu"
+    ],
     "bimetallic": false,
     "linker": "BTC",
     "topology": "tbo",
@@ -144,18 +435,140 @@
     "costLevel": "unknown",
     "toxicityConcern": "unknown",
     "sustainabilityRisk": "unknown",
-    "reactionClasses": ["co2_conversion", "biomass_conversion"],
-    "activeSiteHypothesis": ["open Cu2+ site (Jahn-Teller distortion)"],
+    "reactionClasses": [
+      "co2_conversion",
+      "biomass_conversion"
+    ],
+    "activeSiteHypothesis": [
+      "open Cu2+ site (Jahn-Teller distortion)"
+    ],
     "evidenceLevel": "needs-validation",
     "fieldSources": {
-      "surfaceArea":      {"value": null,  "unit": "m²/g",  "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                                      "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                                          "limitations": ""},
-      "poreSizeA":        {"value": null,  "unit": "Å",     "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                                      "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                                          "limitations": ""},
-      "poreVolume":       {"value": null,  "unit": "cm³/g", "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                                      "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                                          "limitations": ""},
-      "co2Uptake":        {"value": null,  "unit": "mmol/g",    "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                                      "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                                          "limitations": ""},
-      "bandGap":          {"value": null,  "unit": "eV",        "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                                      "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                                          "limitations": ""},
-      "waterStability":   {"value": "low", "unit": "",          "sourceType": "literature-inferred", "sourceName": "Synthesis literature / CoRE MOF", "database": "", "doi": "", "url": "", "condition": "Qualitative water stability from synthesis reports",                   "evidenceLevel": "needs-validation", "curationNote": "Low water stability noted in synthesis literature; HKUST-1 degrades rapidly in liquid water.",                              "limitations": "Qualitative assessment; exact stability boundary depends on humidity and exposure conditions."},
-      "thermalStability": {"value": "medium","unit": "",        "sourceType": "literature-inferred", "sourceName": "TGA / synthesis literature",       "database": "", "doi": "", "url": "", "condition": "TGA data from synthesis reports",                                    "evidenceLevel": "needs-validation", "curationNote": "Thermal stability classified as medium from literature TGA. Framework begins to degrade at moderate temperatures in air.",    "limitations": "Qualitative assessment; quantitative TGA under defined atmosphere required."},
-      "toxicityConcern":  {"value": "unknown","unit": "",       "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                                      "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                                          "limitations": ""}
+      "surfaceArea": {
+        "value": null,
+        "unit": "m²/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "poreSizeA": {
+        "value": null,
+        "unit": "Å",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "poreVolume": {
+        "value": null,
+        "unit": "cm³/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "co2Uptake": {
+        "value": null,
+        "unit": "mmol/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "bandGap": {
+        "value": null,
+        "unit": "eV",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "waterStability": {
+        "value": "low",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "Synthesis literature / CoRE MOF",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "Qualitative water stability from synthesis reports",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Low water stability noted in synthesis literature; HKUST-1 degrades rapidly in liquid water.",
+        "limitations": "Qualitative assessment; exact stability boundary depends on humidity and exposure conditions."
+      },
+      "thermalStability": {
+        "value": "medium",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "TGA / synthesis literature",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "TGA data from synthesis reports",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Thermal stability classified as medium from literature TGA. Framework begins to degrade at moderate temperatures in air.",
+        "limitations": "Qualitative assessment; quantitative TGA under defined atmosphere required."
+      },
+      "toxicityConcern": {
+        "value": "unknown",
+        "unit": "",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      }
+    },
+    "graphMetadata": {
+      "graphStatus": "pending",
+      "nodeTypes": [],
+      "edgeTypes": [],
+      "activeMotifs": [],
+      "graphCluster": "pending",
+      "diversityScore": null,
+      "graphMotifScore": 0,
+      "graphConfidence": "pending",
+      "notes": "Graph metadata is pending curation for this real-seed record."
+    },
+    "organicAcidRelevance": {
+      "targetPathway": "pending",
+      "possibleRoles": [],
+      "pathwayPriorityScore": null,
+      "scoreStatus": "pending",
+      "validationNeeded": [
+        "Organic acid pathway relevance pending curation"
+      ],
+      "notes": "Organic acid relevance has not yet been curated for this record."
     }
   },
   {
@@ -163,7 +576,10 @@
     "name": "MIL-101(Cr)",
     "dataMode": "real-seed",
     "formula": "Cr3F(H2O)2O(BDC)3",
-    "source": ["real-seed", "public-database-placeholder"],
+    "source": [
+      "real-seed",
+      "public-database-placeholder"
+    ],
     "sourceRecords": [
       {
         "type": "literature",
@@ -175,15 +591,27 @@
       }
     ],
     "sourceDOI": "10.1126/science.1116275",
-    "sourceDatabase": ["CoRE MOF", "literature"],
+    "sourceDatabase": [
+      "CoRE MOF",
+      "literature"
+    ],
     "curationNote": "Real seed record. Chromium toxicity concern must be disclosed. Very high surface area reported in literature but requires experimental BET for each batch.",
-    "missingFields": ["poreSizeA", "surfaceArea", "poreVolume", "co2Uptake", "bandGap", "costLevel"],
+    "missingFields": [
+      "poreSizeA",
+      "surfaceArea",
+      "poreVolume",
+      "co2Uptake",
+      "bandGap",
+      "costLevel"
+    ],
     "limitations": [
       "Chromium toxicity concern requires explicit disclosure in any application context.",
       "Reported BET values vary significantly across synthesis conditions.",
       "Experimental validation is required."
     ],
-    "metalNodes": ["Cr"],
+    "metalNodes": [
+      "Cr"
+    ],
     "bimetallic": false,
     "linker": "BDC",
     "topology": "mtn",
@@ -197,18 +625,141 @@
     "costLevel": "unknown",
     "toxicityConcern": "high",
     "sustainabilityRisk": "unknown",
-    "reactionClasses": ["co2_conversion", "photocatalysis"],
-    "activeSiteHypothesis": ["Cr3+ open metal site", "Lewis acid catalysis"],
+    "reactionClasses": [
+      "co2_conversion",
+      "photocatalysis"
+    ],
+    "activeSiteHypothesis": [
+      "Cr3+ open metal site",
+      "Lewis acid catalysis"
+    ],
     "evidenceLevel": "needs-validation",
     "fieldSources": {
-      "surfaceArea":      {"value": null,   "unit": "m²/g",  "sourceType": "pending",             "sourceName": "Pending curation",                        "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet. Reported BET values in literature vary significantly by synthesis batch.",                  "limitations": ""},
-      "poreSizeA":        {"value": null,   "unit": "Å",     "sourceType": "pending",             "sourceName": "Pending curation",                        "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                              "limitations": ""},
-      "poreVolume":       {"value": null,   "unit": "cm³/g", "sourceType": "pending",             "sourceName": "Pending curation",                        "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                              "limitations": ""},
-      "co2Uptake":        {"value": null,   "unit": "mmol/g",    "sourceType": "pending",             "sourceName": "Pending curation",                        "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                              "limitations": ""},
-      "bandGap":          {"value": null,   "unit": "eV",        "sourceType": "pending",             "sourceName": "Pending curation",                        "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                              "limitations": ""},
-      "waterStability":   {"value": "high", "unit": "",          "sourceType": "literature-inferred", "sourceName": "Synthesis literature / CoRE MOF",          "database": "", "doi": "", "url": "", "condition": "Qualitative stability from synthesis reports",               "evidenceLevel": "needs-validation", "curationNote": "Stability inferred from published synthesis reports. Cr framework reported as water-stable in multiple sources.",                  "limitations": "Qualitative assessment; actual stability depends on synthesis conditions."},
-      "thermalStability": {"value": "high", "unit": "",          "sourceType": "literature-inferred", "sourceName": "TGA / synthesis literature",               "database": "", "doi": "", "url": "", "condition": "TGA data from synthesis reports",                           "evidenceLevel": "needs-validation", "curationNote": "Thermal stability inferred from literature TGA. Framework reported stable up to high temperatures.",                         "limitations": "Qualitative assessment; quantitative TGA required."},
-      "toxicityConcern":  {"value": "high", "unit": "",          "sourceType": "literature-inferred", "sourceName": "Material safety / CoRE MOF metadata",      "database": "", "doi": "", "url": "", "condition": "Qualitative toxicity from known Cr3+ toxicity profiles",     "evidenceLevel": "needs-validation", "curationNote": "Toxicity concern inferred from Cr3+ known toxicity. Formal ecotoxicity assessment not included.",                             "limitations": "Qualitative assessment only; formal toxicological evaluation required for regulatory use."}
+      "surfaceArea": {
+        "value": null,
+        "unit": "m²/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet. Reported BET values in literature vary significantly by synthesis batch.",
+        "limitations": ""
+      },
+      "poreSizeA": {
+        "value": null,
+        "unit": "Å",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "poreVolume": {
+        "value": null,
+        "unit": "cm³/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "co2Uptake": {
+        "value": null,
+        "unit": "mmol/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "bandGap": {
+        "value": null,
+        "unit": "eV",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "waterStability": {
+        "value": "high",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "Synthesis literature / CoRE MOF",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "Qualitative stability from synthesis reports",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Stability inferred from published synthesis reports. Cr framework reported as water-stable in multiple sources.",
+        "limitations": "Qualitative assessment; actual stability depends on synthesis conditions."
+      },
+      "thermalStability": {
+        "value": "high",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "TGA / synthesis literature",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "TGA data from synthesis reports",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Thermal stability inferred from literature TGA. Framework reported stable up to high temperatures.",
+        "limitations": "Qualitative assessment; quantitative TGA required."
+      },
+      "toxicityConcern": {
+        "value": "high",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "Material safety / CoRE MOF metadata",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "Qualitative toxicity from known Cr3+ toxicity profiles",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Toxicity concern inferred from Cr3+ known toxicity. Formal ecotoxicity assessment not included.",
+        "limitations": "Qualitative assessment only; formal toxicological evaluation required for regulatory use."
+      }
+    },
+    "graphMetadata": {
+      "graphStatus": "pending",
+      "nodeTypes": [],
+      "edgeTypes": [],
+      "activeMotifs": [],
+      "graphCluster": "pending",
+      "diversityScore": null,
+      "graphMotifScore": 0,
+      "graphConfidence": "pending",
+      "notes": "Graph metadata is pending curation for this real-seed record."
+    },
+    "organicAcidRelevance": {
+      "targetPathway": "pending",
+      "possibleRoles": [],
+      "pathwayPriorityScore": null,
+      "scoreStatus": "pending",
+      "validationNeeded": [
+        "Organic acid pathway relevance pending curation"
+      ],
+      "notes": "Organic acid relevance has not yet been curated for this record."
     }
   },
   {
@@ -216,7 +767,10 @@
     "name": "ZIF-8",
     "dataMode": "real-seed",
     "formula": "Zn(MeIM)2",
-    "source": ["real-seed", "public-database-placeholder"],
+    "source": [
+      "real-seed",
+      "public-database-placeholder"
+    ],
     "sourceRecords": [
       {
         "type": "database",
@@ -228,15 +782,28 @@
       }
     ],
     "sourceDOI": "10.1073/pnas.0602439103",
-    "sourceDatabase": ["CoRE MOF", "QMOF"],
+    "sourceDatabase": [
+      "CoRE MOF",
+      "QMOF"
+    ],
     "curationNote": "Real seed record. Sodalite topology confirmed. Wide band gap (~5 eV range) reduces photocatalytic interest without modification. CO2 uptake must be measured per sample.",
-    "missingFields": ["poreSizeA", "surfaceArea", "poreVolume", "co2Uptake", "bandGap", "costLevel", "toxicityConcern"],
+    "missingFields": [
+      "poreSizeA",
+      "surfaceArea",
+      "poreVolume",
+      "co2Uptake",
+      "bandGap",
+      "costLevel",
+      "toxicityConcern"
+    ],
     "limitations": [
       "Wide band gap reduces direct photocatalytic applicability without functionalization.",
       "Pore size and uptake depend on activation and measurement conditions.",
       "Experimental validation is required."
     ],
-    "metalNodes": ["Zn"],
+    "metalNodes": [
+      "Zn"
+    ],
     "bimetallic": false,
     "linker": "2-methylimidazole",
     "topology": "sod",
@@ -250,18 +817,140 @@
     "costLevel": "unknown",
     "toxicityConcern": "low",
     "sustainabilityRisk": "unknown",
-    "reactionClasses": ["co2_conversion"],
-    "activeSiteHypothesis": ["Zn2+ coordination node", "gate-opening dynamics"],
+    "reactionClasses": [
+      "co2_conversion"
+    ],
+    "activeSiteHypothesis": [
+      "Zn2+ coordination node",
+      "gate-opening dynamics"
+    ],
     "evidenceLevel": "needs-validation",
     "fieldSources": {
-      "surfaceArea":      {"value": null,     "unit": "m²/g",  "sourceType": "pending",             "sourceName": "Pending curation",               "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                "limitations": ""},
-      "poreSizeA":        {"value": null,     "unit": "Å",     "sourceType": "pending",             "sourceName": "Pending curation",               "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                "limitations": ""},
-      "poreVolume":       {"value": null,     "unit": "cm³/g", "sourceType": "pending",             "sourceName": "Pending curation",               "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                "limitations": ""},
-      "co2Uptake":        {"value": null,     "unit": "mmol/g",    "sourceType": "pending",             "sourceName": "Pending curation",               "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                "limitations": ""},
-      "bandGap":          {"value": null,     "unit": "eV",        "sourceType": "pending",             "sourceName": "Pending curation",               "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet. QMOF-calculated band gap exists in literature but requires per-record citation.", "limitations": ""},
-      "waterStability":   {"value": "medium", "unit": "",          "sourceType": "literature-inferred", "sourceName": "Synthesis literature",           "database": "", "doi": "", "url": "", "condition": "Qualitative stability from synthesis reports",               "evidenceLevel": "needs-validation", "curationNote": "Medium water stability inferred from literature. ZIF-8 is relatively stable compared to carboxylate MOFs but degrades under strong acid/base.", "limitations": "Qualitative assessment; stability boundary requires humidity cycling tests."},
-      "thermalStability": {"value": "high",   "unit": "",          "sourceType": "literature-inferred", "sourceName": "TGA / synthesis literature",      "database": "", "doi": "", "url": "", "condition": "TGA under N₂ or inert atmosphere",                    "evidenceLevel": "needs-validation", "curationNote": "Thermal stability inferred from TGA data showing stability up to ~400 °C under inert conditions.",                           "limitations": "Qualitative assessment; TGA atmosphere and heating rate must be specified."},
-      "toxicityConcern":  {"value": "low",    "unit": "",          "sourceType": "literature-inferred", "sourceName": "Material safety assessment",      "database": "", "doi": "", "url": "", "condition": "Qualitative toxicity from known Zn metal profile",             "evidenceLevel": "needs-validation", "curationNote": "Toxicity classified as low based on Zn2+ profile. Formal ecotoxicity assessment not included.",                              "limitations": "Qualitative assessment; formal ecotoxicological testing required for application contexts."}
+      "surfaceArea": {
+        "value": null,
+        "unit": "m²/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "poreSizeA": {
+        "value": null,
+        "unit": "Å",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "poreVolume": {
+        "value": null,
+        "unit": "cm³/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "co2Uptake": {
+        "value": null,
+        "unit": "mmol/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "bandGap": {
+        "value": null,
+        "unit": "eV",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet. QMOF-calculated band gap exists in literature but requires per-record citation.",
+        "limitations": ""
+      },
+      "waterStability": {
+        "value": "medium",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "Synthesis literature",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "Qualitative stability from synthesis reports",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Medium water stability inferred from literature. ZIF-8 is relatively stable compared to carboxylate MOFs but degrades under strong acid/base.",
+        "limitations": "Qualitative assessment; stability boundary requires humidity cycling tests."
+      },
+      "thermalStability": {
+        "value": "high",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "TGA / synthesis literature",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "TGA under N₂ or inert atmosphere",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Thermal stability inferred from TGA data showing stability up to ~400 °C under inert conditions.",
+        "limitations": "Qualitative assessment; TGA atmosphere and heating rate must be specified."
+      },
+      "toxicityConcern": {
+        "value": "low",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "Material safety assessment",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "Qualitative toxicity from known Zn metal profile",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Toxicity classified as low based on Zn2+ profile. Formal ecotoxicity assessment not included.",
+        "limitations": "Qualitative assessment; formal ecotoxicological testing required for application contexts."
+      }
+    },
+    "graphMetadata": {
+      "graphStatus": "pending",
+      "nodeTypes": [],
+      "edgeTypes": [],
+      "activeMotifs": [],
+      "graphCluster": "pending",
+      "diversityScore": null,
+      "graphMotifScore": 0,
+      "graphConfidence": "pending",
+      "notes": "Graph metadata is pending curation for this real-seed record."
+    },
+    "organicAcidRelevance": {
+      "targetPathway": "pending",
+      "possibleRoles": [],
+      "pathwayPriorityScore": null,
+      "scoreStatus": "pending",
+      "validationNeeded": [
+        "Organic acid pathway relevance pending curation"
+      ],
+      "notes": "Organic acid relevance has not yet been curated for this record."
     }
   },
   {
@@ -269,7 +958,10 @@
     "name": "MOF-74(Mg)",
     "dataMode": "real-seed",
     "formula": "Mg2(DOBDC)",
-    "source": ["real-seed", "public-database-placeholder"],
+    "source": [
+      "real-seed",
+      "public-database-placeholder"
+    ],
     "sourceRecords": [
       {
         "type": "literature",
@@ -281,15 +973,29 @@
       }
     ],
     "sourceDOI": "10.1021/ja0509798",
-    "sourceDatabase": ["CoRE MOF", "MOFX-DB", "literature"],
+    "sourceDatabase": [
+      "CoRE MOF",
+      "MOFX-DB",
+      "literature"
+    ],
     "curationNote": "Real seed record. One of the highest-reported CO2 uptake MOFs at low pressure; values require source-specific citation and experimental confirmation before comparison.",
-    "missingFields": ["poreSizeA", "surfaceArea", "poreVolume", "co2Uptake", "bandGap", "costLevel", "toxicityConcern"],
+    "missingFields": [
+      "poreSizeA",
+      "surfaceArea",
+      "poreVolume",
+      "co2Uptake",
+      "bandGap",
+      "costLevel",
+      "toxicityConcern"
+    ],
     "limitations": [
       "CO2 uptake is strongly condition-dependent (temperature, pressure, humidity).",
       "Mg variant only; Fe/Ni/Co variants have different stability and uptake profiles.",
       "Experimental validation is required."
     ],
-    "metalNodes": ["Mg"],
+    "metalNodes": [
+      "Mg"
+    ],
     "bimetallic": false,
     "linker": "DOBDC",
     "topology": "etb",
@@ -303,18 +1009,139 @@
     "costLevel": "unknown",
     "toxicityConcern": "low",
     "sustainabilityRisk": "unknown",
-    "reactionClasses": ["co2_conversion"],
-    "activeSiteHypothesis": ["open Mg2+ site, strong CO2 dipole interaction"],
+    "reactionClasses": [
+      "co2_conversion"
+    ],
+    "activeSiteHypothesis": [
+      "open Mg2+ site, strong CO2 dipole interaction"
+    ],
     "evidenceLevel": "needs-validation",
     "fieldSources": {
-      "surfaceArea":      {"value": null,     "unit": "m²/g",  "sourceType": "pending",             "sourceName": "Pending curation",               "database": "", "doi": "", "url": "", "condition": "",                                                                  "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet. Literature reports high surface area but exact BET conditions must be cited.",    "limitations": ""},
-      "poreSizeA":        {"value": null,     "unit": "Å",     "sourceType": "pending",             "sourceName": "Pending curation",               "database": "", "doi": "", "url": "", "condition": "",                                                                  "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                    "limitations": ""},
-      "poreVolume":       {"value": null,     "unit": "cm³/g", "sourceType": "pending",             "sourceName": "Pending curation",               "database": "", "doi": "", "url": "", "condition": "",                                                                  "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                    "limitations": ""},
-      "co2Uptake":        {"value": null,     "unit": "mmol/g",    "sourceType": "pending",             "sourceName": "Pending curation",               "database": "", "doi": "", "url": "", "condition": "",                                                                  "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet. CO2 uptake is strongly condition-dependent; literature values must be cited with exact T, P, and humidity.", "limitations": ""},
-      "bandGap":          {"value": null,     "unit": "eV",        "sourceType": "pending",             "sourceName": "Pending curation",               "database": "", "doi": "", "url": "", "condition": "",                                                                  "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                    "limitations": ""},
-      "waterStability":   {"value": "medium", "unit": "",          "sourceType": "literature-inferred", "sourceName": "Synthesis literature",           "database": "", "doi": "", "url": "", "condition": "Qualitative water stability from synthesis reports",               "evidenceLevel": "needs-validation", "curationNote": "Medium water stability inferred from literature. MOF-74(Mg) can degrade under humid conditions; Mg variant is more sensitive than Ni.", "limitations": "Qualitative assessment; quantitative humidity cycling test required."},
-      "thermalStability": {"value": "medium", "unit": "",          "sourceType": "literature-inferred", "sourceName": "TGA / synthesis literature",      "database": "", "doi": "", "url": "", "condition": "TGA data from synthesis reports",                               "evidenceLevel": "needs-validation", "curationNote": "Thermal stability classified as medium from TGA literature. Decomposition temperature depends on activation and atmosphere.", "limitations": "Qualitative assessment; quantitative TGA under defined conditions required."},
-      "toxicityConcern":  {"value": "low",    "unit": "",          "sourceType": "literature-inferred", "sourceName": "Material safety assessment",      "database": "", "doi": "", "url": "", "condition": "Qualitative toxicity from known Mg metal profile",                "evidenceLevel": "needs-validation", "curationNote": "Toxicity classified as low based on Mg2+ biocompatibility profile. Formal ecotoxicity assessment not included.",       "limitations": "Qualitative assessment; formal ecotoxicological testing required for application contexts."}
+      "surfaceArea": {
+        "value": null,
+        "unit": "m²/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet. Literature reports high surface area but exact BET conditions must be cited.",
+        "limitations": ""
+      },
+      "poreSizeA": {
+        "value": null,
+        "unit": "Å",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "poreVolume": {
+        "value": null,
+        "unit": "cm³/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "co2Uptake": {
+        "value": null,
+        "unit": "mmol/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet. CO2 uptake is strongly condition-dependent; literature values must be cited with exact T, P, and humidity.",
+        "limitations": ""
+      },
+      "bandGap": {
+        "value": null,
+        "unit": "eV",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "waterStability": {
+        "value": "medium",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "Synthesis literature",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "Qualitative water stability from synthesis reports",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Medium water stability inferred from literature. MOF-74(Mg) can degrade under humid conditions; Mg variant is more sensitive than Ni.",
+        "limitations": "Qualitative assessment; quantitative humidity cycling test required."
+      },
+      "thermalStability": {
+        "value": "medium",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "TGA / synthesis literature",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "TGA data from synthesis reports",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Thermal stability classified as medium from TGA literature. Decomposition temperature depends on activation and atmosphere.",
+        "limitations": "Qualitative assessment; quantitative TGA under defined conditions required."
+      },
+      "toxicityConcern": {
+        "value": "low",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "Material safety assessment",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "Qualitative toxicity from known Mg metal profile",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Toxicity classified as low based on Mg2+ biocompatibility profile. Formal ecotoxicity assessment not included.",
+        "limitations": "Qualitative assessment; formal ecotoxicological testing required for application contexts."
+      }
+    },
+    "graphMetadata": {
+      "graphStatus": "pending",
+      "nodeTypes": [],
+      "edgeTypes": [],
+      "activeMotifs": [],
+      "graphCluster": "pending",
+      "diversityScore": null,
+      "graphMotifScore": 0,
+      "graphConfidence": "pending",
+      "notes": "Graph metadata is pending curation for this real-seed record."
+    },
+    "organicAcidRelevance": {
+      "targetPathway": "pending",
+      "possibleRoles": [],
+      "pathwayPriorityScore": null,
+      "scoreStatus": "pending",
+      "validationNeeded": [
+        "Organic acid pathway relevance pending curation"
+      ],
+      "notes": "Organic acid relevance has not yet been curated for this record."
     }
   },
   {
@@ -322,7 +1149,10 @@
     "name": "UiO-67",
     "dataMode": "real-seed",
     "formula": "Zr6O4(OH)4(BPDC)6",
-    "source": ["real-seed", "public-database-placeholder"],
+    "source": [
+      "real-seed",
+      "public-database-placeholder"
+    ],
     "sourceRecords": [
       {
         "type": "literature",
@@ -334,15 +1164,28 @@
       }
     ],
     "sourceDOI": "10.1021/ja8057953",
-    "sourceDatabase": ["CoRE MOF", "literature"],
+    "sourceDatabase": [
+      "CoRE MOF",
+      "literature"
+    ],
     "curationNote": "Real seed record. Extended biphenyl linker gives larger pore than UiO-66. Functionalization potential is a hypothesis, not a measured result.",
-    "missingFields": ["poreSizeA", "surfaceArea", "poreVolume", "co2Uptake", "bandGap", "costLevel", "toxicityConcern"],
+    "missingFields": [
+      "poreSizeA",
+      "surfaceArea",
+      "poreVolume",
+      "co2Uptake",
+      "bandGap",
+      "costLevel",
+      "toxicityConcern"
+    ],
     "limitations": [
       "Larger pore may reduce CO2 uptake versus UiO-66 at low pressure.",
       "Biphenyl rotation can affect accessible pore volume; requires molecular dynamics.",
       "Experimental validation is required."
     ],
-    "metalNodes": ["Zr"],
+    "metalNodes": [
+      "Zr"
+    ],
     "bimetallic": false,
     "linker": "BPDC",
     "topology": "fcu",
@@ -356,18 +1199,141 @@
     "costLevel": "unknown",
     "toxicityConcern": "unknown",
     "sustainabilityRisk": "unknown",
-    "reactionClasses": ["co2_conversion", "biomass_conversion"],
-    "activeSiteHypothesis": ["Zr6 oxo-cluster Lewis acid", "functionalization handle on biphenyl"],
+    "reactionClasses": [
+      "co2_conversion",
+      "biomass_conversion"
+    ],
+    "activeSiteHypothesis": [
+      "Zr6 oxo-cluster Lewis acid",
+      "functionalization handle on biphenyl"
+    ],
     "evidenceLevel": "needs-validation",
     "fieldSources": {
-      "surfaceArea":      {"value": null,   "unit": "m²/g",  "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                "limitations": ""},
-      "poreSizeA":        {"value": null,   "unit": "Å",     "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                "limitations": ""},
-      "poreVolume":       {"value": null,   "unit": "cm³/g", "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                "limitations": ""},
-      "co2Uptake":        {"value": null,   "unit": "mmol/g",    "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                "limitations": ""},
-      "bandGap":          {"value": null,   "unit": "eV",        "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                "limitations": ""},
-      "waterStability":   {"value": "high", "unit": "",          "sourceType": "literature-inferred", "sourceName": "Synthesis literature / CoRE MOF", "database": "", "doi": "", "url": "", "condition": "Qualitative stability from synthesis reports",               "evidenceLevel": "needs-validation", "curationNote": "Stability inferred from published synthesis reports. Zr-based frameworks are generally reported as water-stable.",  "limitations": "Qualitative assessment; actual stability depends on synthesis batch and activation conditions."},
-      "thermalStability": {"value": "high", "unit": "",          "sourceType": "literature-inferred", "sourceName": "TGA / synthesis literature",       "database": "", "doi": "", "url": "", "condition": "TGA data from synthesis reports",                          "evidenceLevel": "needs-validation", "curationNote": "Thermal stability inferred from TGA literature. Decomposition temperature not specified.",                              "limitations": "Qualitative assessment; TGA under defined atmosphere required."},
-      "toxicityConcern":  {"value": "unknown","unit": "",        "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                "limitations": ""}
+      "surfaceArea": {
+        "value": null,
+        "unit": "m²/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "poreSizeA": {
+        "value": null,
+        "unit": "Å",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "poreVolume": {
+        "value": null,
+        "unit": "cm³/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "co2Uptake": {
+        "value": null,
+        "unit": "mmol/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "bandGap": {
+        "value": null,
+        "unit": "eV",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "waterStability": {
+        "value": "high",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "Synthesis literature / CoRE MOF",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "Qualitative stability from synthesis reports",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Stability inferred from published synthesis reports. Zr-based frameworks are generally reported as water-stable.",
+        "limitations": "Qualitative assessment; actual stability depends on synthesis batch and activation conditions."
+      },
+      "thermalStability": {
+        "value": "high",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "TGA / synthesis literature",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "TGA data from synthesis reports",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Thermal stability inferred from TGA literature. Decomposition temperature not specified.",
+        "limitations": "Qualitative assessment; TGA under defined atmosphere required."
+      },
+      "toxicityConcern": {
+        "value": "unknown",
+        "unit": "",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      }
+    },
+    "graphMetadata": {
+      "graphStatus": "pending",
+      "nodeTypes": [],
+      "edgeTypes": [],
+      "activeMotifs": [],
+      "graphCluster": "pending",
+      "diversityScore": null,
+      "graphMotifScore": 0,
+      "graphConfidence": "pending",
+      "notes": "Graph metadata is pending curation for this real-seed record."
+    },
+    "organicAcidRelevance": {
+      "targetPathway": "pending",
+      "possibleRoles": [],
+      "pathwayPriorityScore": null,
+      "scoreStatus": "pending",
+      "validationNeeded": [
+        "Organic acid pathway relevance pending curation"
+      ],
+      "notes": "Organic acid relevance has not yet been curated for this record."
     }
   },
   {
@@ -375,7 +1341,10 @@
     "name": "NU-1000",
     "dataMode": "real-seed",
     "formula": "Zr6(OH)16(TBAPy)2",
-    "source": ["real-seed", "public-database-placeholder"],
+    "source": [
+      "real-seed",
+      "public-database-placeholder"
+    ],
     "sourceRecords": [
       {
         "type": "literature",
@@ -387,15 +1356,28 @@
       }
     ],
     "sourceDOI": "10.1021/ja4050828",
-    "sourceDatabase": ["CoRE MOF", "literature"],
+    "sourceDatabase": [
+      "CoRE MOF",
+      "literature"
+    ],
     "curationNote": "Real seed record. Pyrene-based linker supports light absorption hypothesis. Photocatalytic performance must be measured, not inferred from linker alone.",
-    "missingFields": ["poreSizeA", "surfaceArea", "poreVolume", "co2Uptake", "bandGap", "costLevel", "toxicityConcern"],
+    "missingFields": [
+      "poreSizeA",
+      "surfaceArea",
+      "poreVolume",
+      "co2Uptake",
+      "bandGap",
+      "costLevel",
+      "toxicityConcern"
+    ],
     "limitations": [
       "Photocatalytic activity is a hypothesis based on linker photophysics, not a measured result.",
       "ALD node modification changes structure; descriptors must be re-measured post-modification.",
       "Experimental validation is required."
     ],
-    "metalNodes": ["Zr"],
+    "metalNodes": [
+      "Zr"
+    ],
     "bimetallic": false,
     "linker": "TBAPy",
     "topology": "csq",
@@ -409,18 +1391,141 @@
     "costLevel": "unknown",
     "toxicityConcern": "unknown",
     "sustainabilityRisk": "unknown",
-    "reactionClasses": ["photocatalysis", "co2_conversion"],
-    "activeSiteHypothesis": ["pyrene linker light absorption", "Zr node ALD modification handle"],
+    "reactionClasses": [
+      "photocatalysis",
+      "co2_conversion"
+    ],
+    "activeSiteHypothesis": [
+      "pyrene linker light absorption",
+      "Zr node ALD modification handle"
+    ],
     "evidenceLevel": "needs-validation",
     "fieldSources": {
-      "surfaceArea":      {"value": null,   "unit": "m²/g",  "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                               "limitations": ""},
-      "poreSizeA":        {"value": null,   "unit": "Å",     "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                               "limitations": ""},
-      "poreVolume":       {"value": null,   "unit": "cm³/g", "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                               "limitations": ""},
-      "co2Uptake":        {"value": null,   "unit": "mmol/g",    "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                               "limitations": ""},
-      "bandGap":          {"value": null,   "unit": "eV",        "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet. Pyrene linker optical properties are in literature but field-level curation not done.", "limitations": ""},
-      "waterStability":   {"value": "high", "unit": "",          "sourceType": "literature-inferred", "sourceName": "Synthesis literature / CoRE MOF", "database": "", "doi": "", "url": "", "condition": "Qualitative stability from synthesis reports",               "evidenceLevel": "needs-validation", "curationNote": "Stability inferred from published synthesis reports. Zr-based frameworks are generally reported as water-stable.",  "limitations": "Qualitative assessment; actual stability depends on synthesis conditions."},
-      "thermalStability": {"value": "high", "unit": "",          "sourceType": "literature-inferred", "sourceName": "TGA / synthesis literature",       "database": "", "doi": "", "url": "", "condition": "TGA data from synthesis reports",                          "evidenceLevel": "needs-validation", "curationNote": "Thermal stability inferred from TGA data. Decomposition temperature not specified.",                                   "limitations": "Qualitative assessment; TGA under defined atmosphere required."},
-      "toxicityConcern":  {"value": "unknown","unit": "",        "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                               "limitations": ""}
+      "surfaceArea": {
+        "value": null,
+        "unit": "m²/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "poreSizeA": {
+        "value": null,
+        "unit": "Å",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "poreVolume": {
+        "value": null,
+        "unit": "cm³/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "co2Uptake": {
+        "value": null,
+        "unit": "mmol/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "bandGap": {
+        "value": null,
+        "unit": "eV",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet. Pyrene linker optical properties are in literature but field-level curation not done.",
+        "limitations": ""
+      },
+      "waterStability": {
+        "value": "high",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "Synthesis literature / CoRE MOF",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "Qualitative stability from synthesis reports",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Stability inferred from published synthesis reports. Zr-based frameworks are generally reported as water-stable.",
+        "limitations": "Qualitative assessment; actual stability depends on synthesis conditions."
+      },
+      "thermalStability": {
+        "value": "high",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "TGA / synthesis literature",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "TGA data from synthesis reports",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Thermal stability inferred from TGA data. Decomposition temperature not specified.",
+        "limitations": "Qualitative assessment; TGA under defined atmosphere required."
+      },
+      "toxicityConcern": {
+        "value": "unknown",
+        "unit": "",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      }
+    },
+    "graphMetadata": {
+      "graphStatus": "pending",
+      "nodeTypes": [],
+      "edgeTypes": [],
+      "activeMotifs": [],
+      "graphCluster": "pending",
+      "diversityScore": null,
+      "graphMotifScore": 0,
+      "graphConfidence": "pending",
+      "notes": "Graph metadata is pending curation for this real-seed record."
+    },
+    "organicAcidRelevance": {
+      "targetPathway": "pending",
+      "possibleRoles": [],
+      "pathwayPriorityScore": null,
+      "scoreStatus": "pending",
+      "validationNeeded": [
+        "Organic acid pathway relevance pending curation"
+      ],
+      "notes": "Organic acid relevance has not yet been curated for this record."
     }
   },
   {
@@ -428,7 +1533,10 @@
     "name": "MIL-53(Al)",
     "dataMode": "real-seed",
     "formula": "Al(OH)(BDC)",
-    "source": ["real-seed", "public-database-placeholder"],
+    "source": [
+      "real-seed",
+      "public-database-placeholder"
+    ],
     "sourceRecords": [
       {
         "type": "literature",
@@ -440,15 +1548,28 @@
       }
     ],
     "sourceDOI": "",
-    "sourceDatabase": ["CoRE MOF", "literature"],
+    "sourceDatabase": [
+      "CoRE MOF",
+      "literature"
+    ],
     "curationNote": "Real seed record. MIL-53 breathing behavior makes static pore descriptors unreliable — open and narrow forms have different pore sizes. Must specify phase before comparing descriptors.",
-    "missingFields": ["poreSizeA", "surfaceArea", "poreVolume", "co2Uptake", "bandGap", "costLevel", "toxicityConcern"],
+    "missingFields": [
+      "poreSizeA",
+      "surfaceArea",
+      "poreVolume",
+      "co2Uptake",
+      "bandGap",
+      "costLevel",
+      "toxicityConcern"
+    ],
     "limitations": [
       "Breathing behavior means a single pore size or uptake value is misleading.",
       "CO2 uptake depends on the breathing transition pressure and temperature.",
       "Experimental validation under defined conditions is required."
     ],
-    "metalNodes": ["Al"],
+    "metalNodes": [
+      "Al"
+    ],
     "bimetallic": false,
     "linker": "BDC",
     "topology": "sra",
@@ -462,18 +1583,140 @@
     "costLevel": "unknown",
     "toxicityConcern": "low",
     "sustainabilityRisk": "unknown",
-    "reactionClasses": ["co2_conversion"],
-    "activeSiteHypothesis": ["flexible framework breathing", "Al-OH Brønsted acid site"],
+    "reactionClasses": [
+      "co2_conversion"
+    ],
+    "activeSiteHypothesis": [
+      "flexible framework breathing",
+      "Al-OH Brønsted acid site"
+    ],
     "evidenceLevel": "needs-validation",
     "fieldSources": {
-      "surfaceArea":      {"value": null,     "unit": "m²/g",  "sourceType": "pending",             "sourceName": "Pending curation",               "database": "", "doi": "", "url": "", "condition": "",                                                                     "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet. BET must be specified for open or narrow phase separately.",                    "limitations": ""},
-      "poreSizeA":        {"value": null,     "unit": "Å",     "sourceType": "pending",             "sourceName": "Pending curation",               "database": "", "doi": "", "url": "", "condition": "",                                                                     "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet. Pore size differs between open and narrow breathing phases.",                     "limitations": ""},
-      "poreVolume":       {"value": null,     "unit": "cm³/g", "sourceType": "pending",             "sourceName": "Pending curation",               "database": "", "doi": "", "url": "", "condition": "",                                                                     "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                    "limitations": ""},
-      "co2Uptake":        {"value": null,     "unit": "mmol/g",    "sourceType": "pending",             "sourceName": "Pending curation",               "database": "", "doi": "", "url": "", "condition": "",                                                                     "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet. CO2 uptake depends on breathing transition T and P; a single value is insufficient.", "limitations": ""},
-      "bandGap":          {"value": null,     "unit": "eV",        "sourceType": "pending",             "sourceName": "Pending curation",               "database": "", "doi": "", "url": "", "condition": "",                                                                     "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                    "limitations": ""},
-      "waterStability":   {"value": "medium", "unit": "",          "sourceType": "literature-inferred", "sourceName": "Synthesis literature",           "database": "", "doi": "", "url": "", "condition": "Qualitative stability from synthesis reports",                          "evidenceLevel": "needs-validation", "curationNote": "Medium water stability inferred from literature. Al-based MIL-53 is more stable than Cu-based MOFs but sensitive to strong base.", "limitations": "Qualitative assessment; humidity cycling required."},
-      "thermalStability": {"value": "high",   "unit": "",          "sourceType": "literature-inferred", "sourceName": "TGA / synthesis literature",      "database": "", "doi": "", "url": "", "condition": "TGA data from synthesis reports",                                   "evidenceLevel": "needs-validation", "curationNote": "High thermal stability inferred from TGA literature. Al framework reported stable up to high temperatures.",             "limitations": "Qualitative assessment; TGA under defined atmosphere required."},
-      "toxicityConcern":  {"value": "low",    "unit": "",          "sourceType": "literature-inferred", "sourceName": "Material safety assessment",      "database": "", "doi": "", "url": "", "condition": "Qualitative toxicity from known Al metal profile",                   "evidenceLevel": "needs-validation", "curationNote": "Toxicity classified as low based on Al3+ biocompatibility profile. Formal assessment not included.",                     "limitations": "Qualitative assessment; formal ecotoxicological testing required for application contexts."}
+      "surfaceArea": {
+        "value": null,
+        "unit": "m²/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet. BET must be specified for open or narrow phase separately.",
+        "limitations": ""
+      },
+      "poreSizeA": {
+        "value": null,
+        "unit": "Å",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet. Pore size differs between open and narrow breathing phases.",
+        "limitations": ""
+      },
+      "poreVolume": {
+        "value": null,
+        "unit": "cm³/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "co2Uptake": {
+        "value": null,
+        "unit": "mmol/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet. CO2 uptake depends on breathing transition T and P; a single value is insufficient.",
+        "limitations": ""
+      },
+      "bandGap": {
+        "value": null,
+        "unit": "eV",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "waterStability": {
+        "value": "medium",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "Synthesis literature",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "Qualitative stability from synthesis reports",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Medium water stability inferred from literature. Al-based MIL-53 is more stable than Cu-based MOFs but sensitive to strong base.",
+        "limitations": "Qualitative assessment; humidity cycling required."
+      },
+      "thermalStability": {
+        "value": "high",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "TGA / synthesis literature",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "TGA data from synthesis reports",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "High thermal stability inferred from TGA literature. Al framework reported stable up to high temperatures.",
+        "limitations": "Qualitative assessment; TGA under defined atmosphere required."
+      },
+      "toxicityConcern": {
+        "value": "low",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "Material safety assessment",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "Qualitative toxicity from known Al metal profile",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Toxicity classified as low based on Al3+ biocompatibility profile. Formal assessment not included.",
+        "limitations": "Qualitative assessment; formal ecotoxicological testing required for application contexts."
+      }
+    },
+    "graphMetadata": {
+      "graphStatus": "pending",
+      "nodeTypes": [],
+      "edgeTypes": [],
+      "activeMotifs": [],
+      "graphCluster": "pending",
+      "diversityScore": null,
+      "graphMotifScore": 0,
+      "graphConfidence": "pending",
+      "notes": "Graph metadata is pending curation for this real-seed record."
+    },
+    "organicAcidRelevance": {
+      "targetPathway": "pending",
+      "possibleRoles": [],
+      "pathwayPriorityScore": null,
+      "scoreStatus": "pending",
+      "validationNeeded": [
+        "Organic acid pathway relevance pending curation"
+      ],
+      "notes": "Organic acid relevance has not yet been curated for this record."
     }
   },
   {
@@ -481,7 +1724,10 @@
     "name": "PCN-222",
     "dataMode": "real-seed",
     "formula": "Zr6O8(TCPP-H2)2",
-    "source": ["real-seed", "public-database-placeholder"],
+    "source": [
+      "real-seed",
+      "public-database-placeholder"
+    ],
     "sourceRecords": [
       {
         "type": "literature",
@@ -493,15 +1739,28 @@
       }
     ],
     "sourceDOI": "10.1002/anie.201204475",
-    "sourceDatabase": ["CoRE MOF", "literature"],
+    "sourceDatabase": [
+      "CoRE MOF",
+      "literature"
+    ],
     "curationNote": "Real seed record. Porphyrin linker hypothesis for photocatalysis and metalation. Actual catalytic performance requires measured quantum yield and TON.",
-    "missingFields": ["poreSizeA", "surfaceArea", "poreVolume", "co2Uptake", "bandGap", "costLevel", "toxicityConcern"],
+    "missingFields": [
+      "poreSizeA",
+      "surfaceArea",
+      "poreVolume",
+      "co2Uptake",
+      "bandGap",
+      "costLevel",
+      "toxicityConcern"
+    ],
     "limitations": [
       "Porphyrin metalation changes electronic structure; descriptors are metalation-specific.",
       "Photocatalytic activity requires measured quantum yield, not band gap alone.",
       "Experimental validation is required."
     ],
-    "metalNodes": ["Zr"],
+    "metalNodes": [
+      "Zr"
+    ],
     "bimetallic": false,
     "linker": "TCPP",
     "topology": "csq",
@@ -515,18 +1774,142 @@
     "costLevel": "unknown",
     "toxicityConcern": "unknown",
     "sustainabilityRisk": "unknown",
-    "reactionClasses": ["photocatalysis", "electrocatalysis", "co2_conversion"],
-    "activeSiteHypothesis": ["porphyrinic linker light absorption", "metalation handle for photo/electrocatalysis"],
+    "reactionClasses": [
+      "photocatalysis",
+      "electrocatalysis",
+      "co2_conversion"
+    ],
+    "activeSiteHypothesis": [
+      "porphyrinic linker light absorption",
+      "metalation handle for photo/electrocatalysis"
+    ],
     "evidenceLevel": "needs-validation",
     "fieldSources": {
-      "surfaceArea":      {"value": null,     "unit": "m²/g",  "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                "limitations": ""},
-      "poreSizeA":        {"value": null,     "unit": "Å",     "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                "limitations": ""},
-      "poreVolume":       {"value": null,     "unit": "cm³/g", "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                "limitations": ""},
-      "co2Uptake":        {"value": null,     "unit": "mmol/g",    "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                "limitations": ""},
-      "bandGap":          {"value": null,     "unit": "eV",        "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet. Porphyrin optical properties in literature but field-level curation not done.", "limitations": ""},
-      "waterStability":   {"value": "medium", "unit": "",          "sourceType": "literature-inferred", "sourceName": "Synthesis literature / CoRE MOF", "database": "", "doi": "", "url": "", "condition": "Qualitative stability from synthesis reports",               "evidenceLevel": "needs-validation", "curationNote": "Medium stability inferred from synthesis literature.",                                                                    "limitations": "Qualitative assessment; actual stability depends on synthesis conditions and metalation state."},
-      "thermalStability": {"value": "medium", "unit": "",          "sourceType": "literature-inferred", "sourceName": "TGA / synthesis literature",       "database": "", "doi": "", "url": "", "condition": "TGA data from synthesis reports",                          "evidenceLevel": "needs-validation", "curationNote": "Thermal stability classified as medium from TGA literature.",                                                            "limitations": "Qualitative assessment; quantitative TGA required."},
-      "toxicityConcern":  {"value": "unknown","unit": "",          "sourceType": "pending",             "sourceName": "Pending curation",                "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                                "limitations": ""}
+      "surfaceArea": {
+        "value": null,
+        "unit": "m²/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "poreSizeA": {
+        "value": null,
+        "unit": "Å",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "poreVolume": {
+        "value": null,
+        "unit": "cm³/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "co2Uptake": {
+        "value": null,
+        "unit": "mmol/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "bandGap": {
+        "value": null,
+        "unit": "eV",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet. Porphyrin optical properties in literature but field-level curation not done.",
+        "limitations": ""
+      },
+      "waterStability": {
+        "value": "medium",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "Synthesis literature / CoRE MOF",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "Qualitative stability from synthesis reports",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Medium stability inferred from synthesis literature.",
+        "limitations": "Qualitative assessment; actual stability depends on synthesis conditions and metalation state."
+      },
+      "thermalStability": {
+        "value": "medium",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "TGA / synthesis literature",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "TGA data from synthesis reports",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Thermal stability classified as medium from TGA literature.",
+        "limitations": "Qualitative assessment; quantitative TGA required."
+      },
+      "toxicityConcern": {
+        "value": "unknown",
+        "unit": "",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      }
+    },
+    "graphMetadata": {
+      "graphStatus": "pending",
+      "nodeTypes": [],
+      "edgeTypes": [],
+      "activeMotifs": [],
+      "graphCluster": "pending",
+      "diversityScore": null,
+      "graphMotifScore": 0,
+      "graphConfidence": "pending",
+      "notes": "Graph metadata is pending curation for this real-seed record."
+    },
+    "organicAcidRelevance": {
+      "targetPathway": "pending",
+      "possibleRoles": [],
+      "pathwayPriorityScore": null,
+      "scoreStatus": "pending",
+      "validationNeeded": [
+        "Organic acid pathway relevance pending curation"
+      ],
+      "notes": "Organic acid relevance has not yet been curated for this record."
     }
   },
   {
@@ -534,7 +1917,10 @@
     "name": "MIL-125(Ti)",
     "dataMode": "real-seed",
     "formula": "Ti8O8(OH)4(BDC)6",
-    "source": ["real-seed", "public-database-placeholder"],
+    "source": [
+      "real-seed",
+      "public-database-placeholder"
+    ],
     "sourceRecords": [
       {
         "type": "literature",
@@ -546,15 +1932,29 @@
       }
     ],
     "sourceDOI": "10.1021/ja905087d",
-    "sourceDatabase": ["CoRE MOF", "QMOF", "literature"],
+    "sourceDatabase": [
+      "CoRE MOF",
+      "QMOF",
+      "literature"
+    ],
     "curationNote": "Real seed record. Ti-oxo cluster photocatalytic hypothesis is supported by literature but remains task-specific. NH2-functionalized variant (MIL-125-NH2) is more studied for CO2 photoreduction.",
-    "missingFields": ["poreSizeA", "surfaceArea", "poreVolume", "co2Uptake", "bandGap", "costLevel", "toxicityConcern"],
+    "missingFields": [
+      "poreSizeA",
+      "surfaceArea",
+      "poreVolume",
+      "co2Uptake",
+      "bandGap",
+      "costLevel",
+      "toxicityConcern"
+    ],
     "limitations": [
       "Base MIL-125 absorbs primarily UV; visible-light activity requires NH2 or other functionalization.",
       "Photocatalytic selectivity depends on reaction medium and co-catalyst.",
       "Experimental validation is required."
     ],
-    "metalNodes": ["Ti"],
+    "metalNodes": [
+      "Ti"
+    ],
     "bimetallic": false,
     "linker": "BDC",
     "topology": "sqc",
@@ -568,18 +1968,141 @@
     "costLevel": "unknown",
     "toxicityConcern": "low",
     "sustainabilityRisk": "unknown",
-    "reactionClasses": ["photocatalysis", "co2_conversion"],
-    "activeSiteHypothesis": ["Ti4+/Ti3+ redox photocatalytic cycle", "oxo-cluster charge transfer"],
+    "reactionClasses": [
+      "photocatalysis",
+      "co2_conversion"
+    ],
+    "activeSiteHypothesis": [
+      "Ti4+/Ti3+ redox photocatalytic cycle",
+      "oxo-cluster charge transfer"
+    ],
     "evidenceLevel": "needs-validation",
     "fieldSources": {
-      "surfaceArea":      {"value": null,     "unit": "m²/g",  "sourceType": "pending",             "sourceName": "Pending curation",               "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                               "limitations": ""},
-      "poreSizeA":        {"value": null,     "unit": "Å",     "sourceType": "pending",             "sourceName": "Pending curation",               "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                               "limitations": ""},
-      "poreVolume":       {"value": null,     "unit": "cm³/g", "sourceType": "pending",             "sourceName": "Pending curation",               "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                               "limitations": ""},
-      "co2Uptake":        {"value": null,     "unit": "mmol/g",    "sourceType": "pending",             "sourceName": "Pending curation",               "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet.",                                                                               "limitations": ""},
-      "bandGap":          {"value": null,     "unit": "eV",        "sourceType": "pending",             "sourceName": "Pending curation",               "database": "", "doi": "", "url": "", "condition": "",                                                              "evidenceLevel": "needs-validation", "curationNote": "Source record has not been curated yet. Ti-oxo QMOF band gap calculations exist but require field-level curation.",    "limitations": ""},
-      "waterStability":   {"value": "medium", "unit": "",          "sourceType": "literature-inferred", "sourceName": "Synthesis literature",           "database": "", "doi": "", "url": "", "condition": "Qualitative stability from synthesis reports",               "evidenceLevel": "needs-validation", "curationNote": "Medium water stability inferred from synthesis literature. Ti framework sensitive to hydrolysis under acidic conditions.", "limitations": "Qualitative assessment; humidity cycling required."},
-      "thermalStability": {"value": "high",   "unit": "",          "sourceType": "literature-inferred", "sourceName": "TGA / synthesis literature",      "database": "", "doi": "", "url": "", "condition": "TGA data from synthesis reports",                          "evidenceLevel": "needs-validation", "curationNote": "High thermal stability inferred from TGA literature. Ti-oxo framework reported stable to high temperatures.",           "limitations": "Qualitative assessment; TGA under defined atmosphere required."},
-      "toxicityConcern":  {"value": "low",    "unit": "",          "sourceType": "literature-inferred", "sourceName": "Material safety assessment",      "database": "", "doi": "", "url": "", "condition": "Qualitative toxicity from known Ti metal profile",             "evidenceLevel": "needs-validation", "curationNote": "Toxicity classified as low based on Ti4+ biocompatibility profile. Formal assessment not included.",                 "limitations": "Qualitative assessment; formal ecotoxicological testing required for application contexts."}
+      "surfaceArea": {
+        "value": null,
+        "unit": "m²/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "poreSizeA": {
+        "value": null,
+        "unit": "Å",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "poreVolume": {
+        "value": null,
+        "unit": "cm³/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "co2Uptake": {
+        "value": null,
+        "unit": "mmol/g",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet.",
+        "limitations": ""
+      },
+      "bandGap": {
+        "value": null,
+        "unit": "eV",
+        "sourceType": "pending",
+        "sourceName": "Pending curation",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Source record has not been curated yet. Ti-oxo QMOF band gap calculations exist but require field-level curation.",
+        "limitations": ""
+      },
+      "waterStability": {
+        "value": "medium",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "Synthesis literature",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "Qualitative stability from synthesis reports",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Medium water stability inferred from synthesis literature. Ti framework sensitive to hydrolysis under acidic conditions.",
+        "limitations": "Qualitative assessment; humidity cycling required."
+      },
+      "thermalStability": {
+        "value": "high",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "TGA / synthesis literature",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "TGA data from synthesis reports",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "High thermal stability inferred from TGA literature. Ti-oxo framework reported stable to high temperatures.",
+        "limitations": "Qualitative assessment; TGA under defined atmosphere required."
+      },
+      "toxicityConcern": {
+        "value": "low",
+        "unit": "",
+        "sourceType": "literature-inferred",
+        "sourceName": "Material safety assessment",
+        "database": "",
+        "doi": "",
+        "url": "",
+        "condition": "Qualitative toxicity from known Ti metal profile",
+        "evidenceLevel": "needs-validation",
+        "curationNote": "Toxicity classified as low based on Ti4+ biocompatibility profile. Formal assessment not included.",
+        "limitations": "Qualitative assessment; formal ecotoxicological testing required for application contexts."
+      }
+    },
+    "graphMetadata": {
+      "graphStatus": "pending",
+      "nodeTypes": [],
+      "edgeTypes": [],
+      "activeMotifs": [],
+      "graphCluster": "pending",
+      "diversityScore": null,
+      "graphMotifScore": 0,
+      "graphConfidence": "pending",
+      "notes": "Graph metadata is pending curation for this real-seed record."
+    },
+    "organicAcidRelevance": {
+      "targetPathway": "pending",
+      "possibleRoles": [],
+      "pathwayPriorityScore": null,
+      "scoreStatus": "pending",
+      "validationNeeded": [
+        "Organic acid pathway relevance pending curation"
+      ],
+      "notes": "Organic acid relevance has not yet been curated for this record."
     }
   }
 ]

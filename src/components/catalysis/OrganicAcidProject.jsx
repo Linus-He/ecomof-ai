@@ -15,6 +15,7 @@ import {
   VariableLabel,
 } from "./FormulaInline"
 import { OrganicAcidPathwayMap } from "./OrganicAcidPathwayMap"
+import { OrganicAcidGraphExplorer } from "./OrganicAcidGraphExplorer"
 
 const ACCESS_KEY = "ecomof_organic_acid_project_access"
 const PROJECT_PASSWORD = "acid"
@@ -484,6 +485,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
     <div className="organic-acid-page" style={{ background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 12, padding: isNarrow ? 12 : 16, fontFamily: ORGANIC_ACID_FONT }}>
       <div style={{ display: "grid", gap: 14, margin: "0 auto", maxWidth: 1220 }}>
         <ProjectObjectiveSection topCandidate={topCandidate} rankedRows={rankedRows} isNarrow={isNarrow} />
+        <OrganicAcidGraphExplorer lang={lang} t={t} />
         <OrganicAcidPathwayMap lang={lang} />
         <AlgorithmTraceExplorer
           rankedRows={rankedRows}

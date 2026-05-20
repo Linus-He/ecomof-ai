@@ -7,6 +7,7 @@ export const HASH_TO_TAB = {
   gassep: "gassep",
   "gas-separation": "gassep",
   catalysis: "catalysis",
+  "organic-acid-graph-explorer": "catalysis",
   library: "library",
   methodology: "about",
   "graph-informed-descriptor-integration": "about",
@@ -53,6 +54,10 @@ export const HASH_META = {
   catalysis: {
     title: "CatalysisLab | 催化导向 MOF 探索",
     description: "以早期研究原型方式查看催化导向 MOF 候选优先级，不作为最终催化性能预测。",
+  },
+  "organic-acid-graph-explorer": {
+    title: "Organic Acid Graph Explorer | EcoMOF-AI",
+    description: "查看 glucose / HCO3- 到 formic acid 和竞争有机酸路径的图论演示器，以及可能的 MOF influence hypothesis。",
   },
   library: {
     title: "MOF 候选库 | 描述符整理与来源追踪",

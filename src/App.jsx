@@ -66,7 +66,7 @@ function getInitialDeepLinkState() {
   const explicitHash = String(rawHash || "").replace(/^#/, "").trim()
   const hash = explicitHash || "default"
   const routeHash = hash === "default" ? "overview" : normalizeHash(hash)
-  const pendingScrollTarget = ["data-quality-provenance", "validation-evidence", "benchmark-references", "graph-informed-descriptor-integration"].includes(routeHash)
+  const pendingScrollTarget = ["data-quality-provenance", "validation-evidence", "benchmark-references", "graph-informed-descriptor-integration", "organic-acid-graph-explorer"].includes(routeHash)
     ? routeHash
     : null
 
@@ -633,6 +633,9 @@ export default function App() {
       if (routeHash === "graph-informed-descriptor-integration") {
         setPendingScrollTarget("graph-informed-descriptor-integration")
       }
+      if (routeHash === "organic-acid-graph-explorer") {
+        setPendingScrollTarget("organic-acid-graph-explorer")
+      }
     }
   }, [])
 
@@ -737,6 +740,19 @@ export default function App() {
       }
     }
     const frame = window.requestAnimationFrame(() => window.setTimeout(scroll, 80))
+    return () => window.cancelAnimationFrame(frame)
+  }, [activeTab, pendingScrollTarget])
+
+  useEffect(() => {
+    if (!pendingScrollTarget || activeTab !== "catalysis") return
+    const scroll = () => {
+      const target = document.getElementById(pendingScrollTarget)
+      if (target) {
+        target.scrollIntoView({ block: "start", behavior: "smooth" })
+        setPendingScrollTarget(null)
+      }
+    }
+    const frame = window.requestAnimationFrame(() => window.setTimeout(scroll, 120))
     return () => window.cancelAnimationFrame(frame)
   }, [activeTab, pendingScrollTarget])
 
@@ -850,6 +866,10 @@ export default function App() {
     }
     if (target === "graph-informed-descriptor-integration") {
       go("graph-informed-descriptor-integration")
+      return
+    }
+    if (target === "organic-acid-graph-explorer") {
+      go("organic-acid-graph-explorer")
       return
     }
     if (target === "methodology" || target === "about" || target === "validation") {
