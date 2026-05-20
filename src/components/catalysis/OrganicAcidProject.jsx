@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
-import { fetchDataJson, toolbarBtn, useViewport } from "../../shared"
+import { fetchDataJson, getMofCandidates, toolbarBtn, useViewport } from "../../shared"
 import { calculateRGFARanking, safeNumber } from "../../utils/rgfaScore"
 import { AlgorithmTraceExplorer } from "./AlgorithmTraceExplorer"
 import { DynamicDescriptorMatrix } from "./DynamicDescriptorMatrix"
@@ -16,6 +16,8 @@ import {
 } from "./FormulaInline"
 import { OrganicAcidPathwayMap } from "./OrganicAcidPathwayMap"
 import { OrganicAcidGraphExplorer } from "./OrganicAcidGraphExplorer"
+import { OrganicAcidCandidateMap } from "./OrganicAcidCandidateMap"
+import { CompactDataModeBar } from "../module/ModuleTop"
 
 const ACCESS_KEY = "ecomof_organic_acid_project_access"
 const PROJECT_PASSWORD = "acid"
@@ -427,8 +429,12 @@ export function OrganicAcidProject({ lang = "zh", t }) {
   const { isNarrow } = useViewport()
   const [hasAccess, setHasAccess] = useState(false)
   const [rows, setRows] = useState([])
+  const [candidateRows, setCandidateRows] = useState([])
+  const [candidateDataMode, setCandidateDataMode] = useState("demo")
+  const [candidateStatus, setCandidateStatus] = useState("idle")
   const [status, setStatus] = useState("idle")
   const [selectedMof, setSelectedMof] = useState("")
+  const [selectedPathwayCandidateId, setSelectedPathwayCandidateId] = useState("")
   const [activeTraceStep, setActiveTraceStep] = useState("raw")
 
   useEffect(() => {
@@ -459,10 +465,34 @@ export function OrganicAcidProject({ lang = "zh", t }) {
     }
   }, [hasAccess])
 
+  useEffect(() => {
+    if (!hasAccess) return
+    let live = true
+    setCandidateStatus("loading")
+    getMofCandidates({ mode: candidateDataMode, throwOnError: false })
+      .then(data => {
+        if (!live) return
+        const nextRows = Array.isArray(data) ? data : []
+        setCandidateRows(nextRows)
+        setCandidateStatus(nextRows.length ? "loaded" : "empty")
+      })
+      .catch(() => {
+        if (!live) return
+        setCandidateRows([])
+        setCandidateStatus("error")
+      })
+    return () => {
+      live = false
+    }
+  }, [candidateDataMode, hasAccess])
+
   const rankedRows = useMemo(() => calculateRGFARanking(rows), [rows])
-  const selectedCandidate = useMemo(() => (
+  const selectedRgfaCandidate = useMemo(() => (
     rankedRows.find((row) => row.mof === selectedMof) || rankedRows[0] || null
   ), [rankedRows, selectedMof])
+  const selectedPathwayCandidate = useMemo(() => (
+    candidateRows.find((row) => (row.id || row.name) === selectedPathwayCandidateId) || candidateRows[0] || null
+  ), [candidateRows, selectedPathwayCandidateId])
 
   useEffect(() => {
     if (!rankedRows.length) return
@@ -470,6 +500,17 @@ export function OrganicAcidProject({ lang = "zh", t }) {
       setSelectedMof(rankedRows[0].mof)
     }
   }, [rankedRows, selectedMof])
+
+  useEffect(() => {
+    if (!candidateRows.length) {
+      if (selectedPathwayCandidateId) setSelectedPathwayCandidateId("")
+      return
+    }
+    if (!selectedPathwayCandidateId || !candidateRows.some(row => (row.id || row.name) === selectedPathwayCandidateId)) {
+      const firstCurated = candidateRows.find(row => !String(`${row.dataStatus || ""} ${row.organicAcidRelevance?.scoreStatus || ""}`).toLowerCase().includes("pending"))
+      setSelectedPathwayCandidateId((firstCurated || candidateRows[0]).id || (firstCurated || candidateRows[0]).name)
+    }
+  }, [candidateRows, selectedPathwayCandidateId])
 
   if (!hasAccess) {
     return (
@@ -485,7 +526,36 @@ export function OrganicAcidProject({ lang = "zh", t }) {
     <div className="organic-acid-page" style={{ background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 12, padding: isNarrow ? 12 : 16, fontFamily: ORGANIC_ACID_FONT }}>
       <div style={{ display: "grid", gap: 14, margin: "0 auto", maxWidth: 1220 }}>
         <ProjectObjectiveSection topCandidate={topCandidate} rankedRows={rankedRows} isNarrow={isNarrow} />
-        <OrganicAcidGraphExplorer lang={lang} t={t} />
+        <CompactDataModeBar
+          value={candidateDataMode}
+          onChange={mode => {
+            setCandidateDataMode(mode)
+            setSelectedPathwayCandidateId("")
+          }}
+          lang={lang}
+          recordsCount={candidateRows.length}
+          statusText={lang === "zh"
+            ? `${candidateRows.length} 条候选记录 · ${candidateStatus === "loaded" ? "已载入" : candidateStatus === "empty" ? "待填充" : candidateStatus}`
+            : `${candidateRows.length} candidate records · ${candidateStatus === "loaded" ? "loaded" : candidateStatus === "empty" ? "pending population" : candidateStatus}`}
+          options={[
+            { id: "demo", label: lang === "zh" ? "Demo" : "Demo" },
+            { id: "real-seed", label: lang === "zh" ? "Real Seed" : "Real Seed" },
+            { id: "core-seed", label: lang === "zh" ? "CoRE Seed" : "CoRE Seed" },
+          ]}
+        />
+        {candidateDataMode === "core-seed" && (
+          <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.muted, fontSize: 12.5, lineHeight: 1.55, padding: 11 }}>
+            CoRE MOF seed integration is prepared but not yet populated with curated records. 当前记录用于验证 schema、provenance 和 pending 状态，不作为有机酸筛选结论。
+          </div>
+        )}
+        <OrganicAcidGraphExplorer lang={lang} t={t} selectedCandidate={selectedPathwayCandidate} />
+        <OrganicAcidCandidateMap
+          candidates={candidateRows}
+          selectedCandidateId={selectedPathwayCandidateId}
+          onSelectCandidate={setSelectedPathwayCandidateId}
+          lang={lang}
+          t={t}
+        />
         <OrganicAcidPathwayMap lang={lang} />
         <AlgorithmTraceExplorer
           rankedRows={rankedRows}
@@ -501,7 +571,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
         ) : (
           <>
             <CandidateRankingSection rankedRows={rankedRows} selectedMof={selectedMof} setSelectedMof={setSelectedMof} isNarrow={isNarrow} />
-            <DynamicDescriptorMatrix candidate={selectedCandidate} activeStep={activeTraceStep} />
+            <DynamicDescriptorMatrix candidate={selectedRgfaCandidate} activeStep={activeTraceStep} />
           </>
         )}
         <ValidationSection />

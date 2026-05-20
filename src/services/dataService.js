@@ -5,6 +5,7 @@ const DATA_PROVIDER = import.meta.env.VITE_DATA_PROVIDER || "static"
 const DATA_PATHS = {
   mofCandidatesDemo: "data/mof_candidates_demo.json",
   mofCandidatesRealSeed: "data/mof_candidates_real_seed.json",
+  coreMofSeedCandidates: "data/core_mof_seed_candidates.json",
   catalysisTasks: "data/catalysis_tasks.json",
   catalysisRecords: "data/catalysis_records_demo.json",
   evidenceLevels: "data/evidence_levels.json",
@@ -53,7 +54,11 @@ export function fetchDataJson(fileName, fallback = [], options = {}) {
 }
 
 export async function getMofCandidates({ mode = "demo", throwOnError = false } = {}) {
-  const path = mode === "real-seed" ? DATA_PATHS.mofCandidatesRealSeed : DATA_PATHS.mofCandidatesDemo
+  const path = mode === "core-seed"
+    ? DATA_PATHS.coreMofSeedCandidates
+    : mode === "real-seed"
+      ? DATA_PATHS.mofCandidatesRealSeed
+      : DATA_PATHS.mofCandidatesDemo
   return fetchJson(path, [], { throwOnError })
 }
 

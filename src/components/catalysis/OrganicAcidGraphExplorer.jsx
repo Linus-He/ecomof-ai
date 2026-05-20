@@ -43,12 +43,12 @@ const MOBILE_LAYOUT = {
 }
 
 const NODE_TONES = {
-  feedstock: { stroke: "#1D4ED8", fill: "rgba(37, 99, 235, 0.1)" },
-  co2_source: { stroke: "#0E7490", fill: "rgba(14, 116, 144, 0.12)" },
+  reactant: { stroke: "#1D4ED8", fill: "rgba(37, 99, 235, 0.1)" },
+  "co-reactant": { stroke: "#0E7490", fill: "rgba(14, 116, 144, 0.12)" },
   intermediate: { stroke: "#7C3AED", fill: "rgba(124, 58, 237, 0.11)" },
-  target_product: { stroke: "#15803D", fill: "rgba(22, 163, 74, 0.14)" },
-  competing_product: { stroke: "#D97706", fill: "rgba(217, 119, 6, 0.11)" },
-  byproduct: { stroke: "#9F3A38", fill: "rgba(159, 58, 56, 0.1)" },
+  "target product": { stroke: "#15803D", fill: "rgba(22, 163, 74, 0.14)" },
+  "competing product": { stroke: "#D97706", fill: "rgba(217, 119, 6, 0.11)" },
+  "by-product": { stroke: "#9F3A38", fill: "rgba(159, 58, 56, 0.1)" },
 }
 
 const FORMIC_EDGES = new Set(["glucose->c1_intermediate", "c1_intermediate->hcoo", "hco3->hcoo", "hcoo->formic_acid"])
@@ -335,7 +335,7 @@ function NodeCard({ node, box, active, selected, related, muted, t, onSelect }) 
         y={box.y}
         width={box.w}
         height={box.h}
-        rx="12"
+        rx="8"
         fill={fill}
         stroke={related ? t.accent : tone.stroke}
         strokeWidth={selected ? 3 : related ? 2.6 : active ? 2.2 : 1.4}
@@ -522,7 +522,7 @@ export function OrganicAcidGraphExplorer({ t: tone, lang: forcedLang, isMobile: 
             Organic Acid Graph Explorer
           </div>
           <h2 style={{ color: t.textStrong, fontSize: isMobile ? 20 : 24, lineHeight: 1.14, margin: "5px 0 0", fontWeight: 940 }}>
-            {text(lang, "有机酸图论路径演示器", "Organic Acid Graph Explorer")}
+            {text(lang, "有机酸图论路径工作台", "Organic Acid Graph Workspace")}
           </h2>
           <div style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.6, marginTop: 6, maxWidth: 900 }}>
             {text(

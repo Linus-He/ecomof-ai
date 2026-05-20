@@ -209,7 +209,7 @@ export function ScopeNoticeBar({ label = "", children = null, actionLabel = "", 
   )
 }
 
-export function CompactDataModeBar({ value, mode = "demo", onChange = () => {}, lang = "zh", statusText, infoLabel, onInfo, recordsCount = 0 }) {
+export function CompactDataModeBar({ value, mode = "demo", onChange = () => {}, lang = "zh", statusText, infoLabel, onInfo, recordsCount = 0, options }) {
   const t = useT()
   const { isNarrow } = useViewport()
   const currentMode = value ?? mode
@@ -229,7 +229,7 @@ export function CompactDataModeBar({ value, mode = "demo", onChange = () => {}, 
       <span style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
         {lang === "zh" ? "数据模式：" : "Data mode:"}
       </span>
-      <DataModeToggle value={currentMode} onChange={onChange} lang={lang} />
+      <DataModeToggle value={currentMode} onChange={onChange} lang={lang} options={options} />
       <span style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.45, flex: isNarrow ? "1 1 100%" : "1 1 auto" }}>
         {resolvedStatusText}
       </span>

@@ -1146,11 +1146,11 @@ export function safeVal(value, lang, fallback) {
 
 /**
  * DataModeToggle — compact pill toggle for Demo Dataset / Real Seed Dataset.
- * Emits onChange("demo" | "real-seed").
+ * Emits the selected option id.
  */
-export function DataModeToggle({ value, onChange, lang }) {
+export function DataModeToggle({ value, onChange, lang, options: customOptions }) {
   const t = useT()
-  const options = [
+  const options = customOptions || [
     { id: "demo",      label: lang === "zh" ? "演示数据集" : "Demo Dataset" },
     { id: "real-seed", label: lang === "zh" ? "真实种子数据集" : "Real Seed Dataset" },
   ]

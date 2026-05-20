@@ -26,6 +26,18 @@ const EVIDENCE_PENALTY = {
   "needs-validation": 12,
 }
 
+export function mapEvidenceConfidence(status) {
+  const text = String(status || "").toLowerCase()
+  if (text.includes("experimental")) return 90
+  if (text.includes("computed")) return 85
+  if (text.includes("dft")) return 80
+  if (text.includes("literature")) return 70
+  if (text.includes("demo")) return 40
+  if (text.includes("hypothesis")) return 30
+  if (text.includes("pending")) return 15
+  return 20
+}
+
 function normalizedText(value, fallback = "unknown") {
   if (Array.isArray(value)) return normalizedText(value[0], fallback)
   return String(value || fallback).trim().toLowerCase()

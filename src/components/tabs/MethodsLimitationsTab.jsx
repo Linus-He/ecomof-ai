@@ -32,6 +32,7 @@ const sectionIds = [
   ["explanation-evidence", "Explanation & Evidence", "解释与证据"],
   ["organic-evidence-matrix", "Evidence Matrix", "证据矩阵"],
   ["organic-catalysis-workflow", "Organic Acid Workflow", "有机酸工作流"],
+  ["open-mof-database-integration", "Open MOF Database", "开源 MOF 接入"],
   ["organic-acid-limitations", "Organic Acid Limits", "有机酸限制"],
   ["method-limitations", "Limitations", "限制说明"],
   ["catalysis-data-workflow", "Catalysis Workflow", "催化数据工作流"],
@@ -257,6 +258,55 @@ function OrganicAcidWorkflowMethod({ t, isMobile }) {
     <div style={{ display: "grid", gap: 12 }}>
       <Callout tone="info">当前有机酸筛选数据统一标注为演示数据 / Demo data 或原型数据 / Prototype data，不作为真实实验结论。</Callout>
       <MiniFlow rows={rows} t={t} isMobile={isMobile} />
+    </div>
+  )
+}
+
+function OpenMofDatabaseIntegrationPlan({ lang, t, isMobile }) {
+  const rows = text(
+    lang,
+    [
+      ["浏览器边界", "EcoMOF-AI 不会在浏览器端直接加载全量 MOF 数据库。"],
+      ["离线处理", "大型 MOF 数据库会先经过离线筛选、字段标准化和轻量化导出。"],
+      ["种子子集", "当前前端只读取 curated seed subset JSON，目标规模为 100-300 条候选。"],
+      ["来源保留", "每条记录必须保留来源数据库、版本、获取时间、引用信息和数据状态。"],
+      ["有机酸边界", "与有机酸路径相关的字段在没有实验或 DFT 支持前统一标注为 pending 或 hypothesis。"],
+    ],
+    [
+      ["Browser boundary", "EcoMOF-AI will not load full-scale MOF databases directly in the browser."],
+      ["Offline processing", "Large MOF databases will be filtered, standardized, and exported offline before UI use."],
+      ["Seed subset", "The front end reads a curated seed subset JSON, with a target scale of 100-300 candidates."],
+      ["Provenance", "Each record must include source database, version, retrieval time, citation, and data status."],
+      ["Organic-acid boundary", "Organic acid relevance remains pending or hypothesis until supported by experimental or DFT evidence."],
+    ]
+  )
+  return (
+    <div style={{ display: "grid", gap: 12 }}>
+      <Callout tone="info">
+        {text(
+          lang,
+          "EcoMOF-AI 不会在浏览器端直接加载全量 MOF 数据库。大型 MOF 数据库会先经过离线筛选和字段标准化，再导出为轻量 JSON 种子数据。",
+          "EcoMOF-AI will not load full-scale MOF databases directly in the browser. Large MOF databases are processed offline, standardized, and exported as lightweight seed JSON."
+        )}
+      </Callout>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
+        {rows.map(([title, body], index) => (
+          <MethodCard
+            key={title}
+            t={t}
+            tone={index === 4 ? "warn" : "info"}
+            title={title}
+            body={body}
+          />
+        ))}
+      </div>
+      <TextBlock t={t}>
+        {text(
+          lang,
+          "当前新增的 CoRE MOF seed 文件用于验证 EcoMOF-AI 统一 schema：sourceDatabase、sourceVersion、provenance、graphMetadata 和 organicAcidRelevance 必须同时存在。真实记录进入前，所有未整理字段保持 pending，不进入产率或机理论断。",
+          "The new CoRE MOF seed file validates the unified EcoMOF-AI schema: sourceDatabase, sourceVersion, provenance, graphMetadata, and organicAcidRelevance must coexist. Before curated records are available, missing fields remain pending and are not used as yield or mechanism claims."
+        )}
+      </TextBlock>
     </div>
   )
 }
@@ -621,8 +671,18 @@ export function MethodsLimitationsTab() {
           </Section>
 
           <Section
-            id="organic-acid-limitations"
+            id="open-mof-database-integration"
             eyebrow="11"
+            title={text(lang, "开源 MOF 数据库接入计划", "Open MOF Database Integration Plan")}
+            subtitle={text(lang, "CoRE MOF 小样本真实数据库接入先走离线筛选与统一 schema，不在 GitHub Pages 前端加载全量数据库。", "CoRE MOF seed integration starts with offline filtering and a unified schema; GitHub Pages will not load the full database directly.")}
+            t={t}
+          >
+            <OpenMofDatabaseIntegrationPlan lang={lang} t={t} isMobile={isMobile} />
+          </Section>
+
+          <Section
+            id="organic-acid-limitations"
+            eyebrow="12"
             title="有机酸筛选模块的限制说明 / Organic Acid Screening Limitations"
             subtitle="限制说明用于界定原型筛选结果的使用边界，不削弱项目价值，也不把原型分数误读为已验证结论。"
             t={t}
@@ -632,7 +692,7 @@ export function MethodsLimitationsTab() {
 
           <Section
             id="method-limitations"
-            eyebrow="12"
+            eyebrow="13"
             title={text(lang, "Limitations", "Limitations")}
             subtitle={text(lang, "限制说明和架构图同等重要，避免把原型输出误读为已验证科研结论。", "Limitations are part of the method architecture and prevent prototype output from being misread as validated scientific conclusion.")}
             t={t}
@@ -642,7 +702,7 @@ export function MethodsLimitationsTab() {
 
           <Section
             id="catalysis-data-workflow"
-            eyebrow="13"
+            eyebrow="14"
             title={text(lang, "Catalysis Data Workflow", "Catalysis Data Workflow")}
             subtitle={text(lang, "说明 CatalysisLab 是通用催化记录工作台，而不是只有有机酸 case。", "Shows that CatalysisLab is a general catalysis-record workbench, not only the organic-acid case.")}
             t={t}

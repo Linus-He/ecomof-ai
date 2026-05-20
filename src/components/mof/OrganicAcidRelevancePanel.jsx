@@ -19,6 +19,12 @@ function labelFor(value, lang) {
   return label ? (lang === "zh" ? label[1] : label[0]) : String(value || "pending").replace(/_/g, " ")
 }
 
+function safeText(value, fallback = "pending") {
+  if (value === null || value === undefined || value === "") return fallback
+  if (typeof value === "number" && !Number.isFinite(value)) return fallback
+  return String(value).replace(/_/g, " ")
+}
+
 function DetailCard({ title, children, t, tone = "normal" }) {
   const bg = tone === "warn" ? t.badgeWarnBg : t.surface
   const border = tone === "warn" ? t.warn : t.border
@@ -109,7 +115,11 @@ export function OrganicAcidRelevancePanel({ relevance, candidate, t: tone, lang:
         </DetailCard>
 
         <DetailCard title={text(lang, "Score basis", "Score basis")} t={t}>
-          {score ? <ScoreBreakdown breakdown={score} t={t} lang={lang} /> : (
+          {data.scoreStatus === "pending" ? (
+            <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55 }}>
+              {text(lang, "Organic acid relevance pending curation.", "Organic acid relevance pending curation.")}
+            </div>
+          ) : score ? <ScoreBreakdown breakdown={score} t={t} lang={lang} /> : (
             <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55 }}>
               {text(lang, "Score breakdown is pending candidate context.", "Score breakdown is pending candidate context.")}
             </div>
@@ -123,15 +133,15 @@ export function OrganicAcidRelevancePanel({ relevance, candidate, t: tone, lang:
             <div style={{ display: "grid", gap: 8 }}>
               {roles.map((role, index) => (
                 <article key={`${role.role || role.label}-${index}`} style={{ borderTop: index ? `1px solid ${t.border}` : "none", paddingTop: index ? 8 : 0, display: "grid", gap: 4 }}>
-                  <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{role.label || role.role}</div>
+                  <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{safeText(role.label || role.role)}</div>
                   <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.5 }}>
-                    {text(lang, "Related feature", "Related feature")}: {String(role.relatedFeature || "pending").replace(/_/g, " ")}
+                    {text(lang, "Related feature", "Related feature")}: {safeText(role.relatedFeature)}
                   </div>
                   <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.5 }}>
-                    {text(lang, "Related pathway node", "Related pathway node")}: {String(role.relatedPathwayNode || "pending").replace(/_/g, " ")}
+                    {text(lang, "Related pathway node", "Related pathway node")}: {safeText(role.relatedPathwayNode)}
                   </div>
                   <div style={{ color: t.faint, fontSize: 10.5, lineHeight: 1.45 }}>
-                    {text(lang, "Evidence", "Evidence")}: {role.evidenceLevel || "pending"} · {text(lang, "Confidence", "Confidence")}: {role.confidence || "pending"}
+                    {text(lang, "Evidence", "Evidence")}: {safeText(role.evidenceLevel)} · {text(lang, "Confidence", "Confidence")}: {safeText(role.confidence)}
                   </div>
                 </article>
               ))}
@@ -147,7 +157,7 @@ export function OrganicAcidRelevancePanel({ relevance, candidate, t: tone, lang:
           <div style={{ display: "grid", gap: 6 }}>
             {(validationNeeded.length ? validationNeeded : ["Organic acid pathway relevance pending curation"]).slice(0, 5).map(item => (
               <div key={item} style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>
-                {item}
+                {safeText(item)}
               </div>
             ))}
           </div>
@@ -156,7 +166,7 @@ export function OrganicAcidRelevancePanel({ relevance, candidate, t: tone, lang:
 
       <DetailCard title={text(lang, "Notes / limitation", "Notes / limitation")} t={t}>
         <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55 }}>
-          {data.notes || text(lang, "Organic acid relevance is used for hypothesis-layer mapping only.", "Organic acid relevance is used for hypothesis-layer mapping only.")}
+          {safeText(data.notes, text(lang, "Organic acid relevance is used for hypothesis-layer mapping only.", "Organic acid relevance is used for hypothesis-layer mapping only."))}
         </div>
       </DetailCard>
     </div>

@@ -5,7 +5,7 @@
     {
       "id": "glucose",
       "label": "Glucose",
-      "type": "feedstock",
+      "type": "reactant",
       "description": "Biomass-derived carbon source entering competing organic-acid pathways.",
       "evidenceLevel": "literature-derived",
       "dataStatus": "demo pathway context"
@@ -13,7 +13,7 @@
     {
       "id": "hco3",
       "label": "HCO₃⁻",
-      "type": "co2_source",
+      "type": "co-reactant",
       "description": "Bicarbonate source used as a CO₂-related reaction component in the hypothesis-layer map.",
       "evidenceLevel": "literature-derived",
       "dataStatus": "demo pathway context"
@@ -37,7 +37,7 @@
     {
       "id": "formic_acid",
       "label": "Formic acid",
-      "type": "target_product",
+      "type": "target product",
       "description": "Target organic acid product in the formic-acid-oriented pathway view.",
       "evidenceLevel": "literature-derived",
       "dataStatus": "demo target"
@@ -45,7 +45,7 @@
     {
       "id": "lactic_acid",
       "label": "Lactic acid",
-      "type": "competing_product",
+      "type": "competing product",
       "description": "Competing organic acid product that can draw carbon away from formic acid.",
       "evidenceLevel": "literature-derived",
       "dataStatus": "demo competing product"
@@ -53,7 +53,7 @@
     {
       "id": "acetic_acid",
       "label": "Acetic acid",
-      "type": "competing_product",
+      "type": "competing product",
       "description": "Competing C2 product branch in the organic-acid pathway map.",
       "evidenceLevel": "literature-derived",
       "dataStatus": "demo competing product"
@@ -61,7 +61,7 @@
     {
       "id": "glycolic_acid",
       "label": "Glycolic acid",
-      "type": "competing_product",
+      "type": "competing product",
       "description": "Competing organic acid branch that may indicate alternate carbon rearrangement.",
       "evidenceLevel": "literature-derived",
       "dataStatus": "demo competing product"
@@ -69,7 +69,7 @@
     {
       "id": "humins_byproducts",
       "label": "Humins / by-products",
-      "type": "byproduct",
+      "type": "by-product",
       "description": "Undesired side-product sink that reduces target-pathway selectivity.",
       "evidenceLevel": "hypothesis",
       "dataStatus": "pending validation"
