@@ -13,6 +13,7 @@ import {
   CatalysisWorkflowDiagram,
   CriticWeightingDiagram,
   DescriptorRegistryDiagram,
+  DescriptorRelationshipGraph,
   ExplanationLayerDiagram,
   ScoringPipelineDiagram,
   scrollToMethodTarget,
@@ -24,6 +25,7 @@ const sectionIds = [
   ["method-overview", "Overview", "总览"],
   ["scoring-pipeline", "Scoring Pipeline", "评分管线"],
   ["descriptor-registry", "Descriptor Registry", "描述符注册"],
+  ["graph-informed-descriptor-integration", "Graph Integration", "图论整合"],
   ["weighting-algorithms", "Weighting Algorithms", "权重算法"],
   ["organic-acid-rgfa", "Organic Acid RGFA", "有机酸 RGFA"],
   ["algorithm-traceability", "Algorithm Traceability", "算法可追踪性"],
@@ -479,8 +481,61 @@ export function MethodsLimitationsTab() {
           </Section>
 
           <Section
-            id="weighting-algorithms"
+            id="graph-informed-descriptor-integration"
             eyebrow="04"
+            title={text(lang, "图论辅助的描述符整合", "Graph-informed Descriptor Integration")}
+            subtitle={text(
+              lang,
+              "用关系图解释传统描述符、结构基元、证据等级与最终评分之间的连接；当前定位为 explanation layer，不是已验证 GNN 预测器。",
+              "A relationship graph connects traditional descriptors, structural motifs, evidence level, and final score; this is an explanation layer, not a validated GNN predictor."
+            )}
+            t={t}
+          >
+            <div style={{ display: "grid", gap: 12 }}>
+              <DescriptorRelationshipGraph t={t} lang={lang} isMobile={isMobile} />
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
+                <MethodCard
+                  t={t}
+                  title={text(lang, "Current status", "Current status")}
+                  body={text(
+                    lang,
+                    "当前版本将 MOF 概念化为由金属节点、配体和官能团连接而成的结构图，用于描述符关系可视化、active motif 标注、结构多样性解释和 evidence-adjusted score。",
+                    "This version represents MOFs conceptually as structure graphs of metal nodes, linkers, and functional groups for descriptor relationship visualization, active motif annotation, structural diversity explanation, and evidence-adjusted score."
+                  )}
+                />
+                <MethodCard
+                  t={t}
+                  title={text(lang, "Future upgrade", "Future upgrade")}
+                  body={text(
+                    lang,
+                    "后续可在获得高质量 DFT 或实验验证数据后，接入 CGCNN、SchNet、DimeNet++ 等模型，学习图嵌入并探索吸附能导向筛选。",
+                    "Future versions may integrate CGCNN, SchNet, or DimeNet++ after curated DFT or experimental validation data are available for learned graph embeddings and adsorption-energy-aware screening."
+                  )}
+                />
+                <MethodCard
+                  t={t}
+                  tone="warn"
+                  title={text(lang, "Data limitations", "Data limitations")}
+                  body={text(
+                    lang,
+                    "吸附能预测和反应网络路径搜索属于中长期验证方向。当前图论结果必须标注 demo、literature-derived、computed 或 pending validation，不作为机理定论或性能结论。",
+                    "Adsorption-energy prediction and reaction-network path search remain medium-term validation directions. Current graph results must be marked demo, literature-derived, computed, or pending validation and must not be read as validated mechanisms or real performance conclusions."
+                  )}
+                />
+              </div>
+              <TextBlock t={t}>
+                {text(
+                  lang,
+                  "传统描述符筛选可以帮助快速排序 MOF 候选物，但孤立描述符很难表达金属节点、有机配体、官能团和孔环境之间的相互关系。EcoMOF-AI 因此引入图论辅助解释层：它说明结构关系如何影响 Graph Motif Bonus、多样性线索和证据修正，而不声称已经实现经过验证的 GNN 吸附能预测。",
+                  "Traditional descriptor-based screening helps rank MOF candidates, but isolated descriptors cannot fully capture how metal nodes, organic linkers, functional groups, and pore environments interact. EcoMOF-AI therefore adds a graph-informed explanation layer: it explains how structure relationships inform graph motif bonus, diversity cues, and evidence adjustment without claiming validated GNN adsorption-energy prediction."
+                )}
+              </TextBlock>
+            </div>
+          </Section>
+
+          <Section
+            id="weighting-algorithms"
+            eyebrow="05"
             title={text(lang, "Weighting Algorithms", "Weighting Algorithms")}
             subtitle={text(lang, "Manual / Equal / CRITIC / Hybrid 使用同一 scoring engine 接口；CRITIC 只是探索性参考，不是证明。", "Manual / Equal / CRITIC / Hybrid use the same scoring-engine interface; CRITIC is an exploratory reference, not proof.")}
             t={t}
@@ -493,7 +548,7 @@ export function MethodsLimitationsTab() {
 
           <Section
             id="organic-acid-rgfa"
-            eyebrow="05"
+            eyebrow="06"
             title="有机酸筛选的反应主导型权重算法 / Reaction-Guided Weighting"
             subtitle="Organic Acid Project 使用机理先验 + CRITIC 校正 + RGFA Score，而不是纯描述符排名。"
             t={t}
@@ -503,7 +558,7 @@ export function MethodsLimitationsTab() {
 
           <Section
             id="algorithm-traceability"
-            eyebrow="06"
+            eyebrow="07"
             title="算法可追踪性 / Algorithm Traceability"
             subtitle="从原始输入到推荐实验，展示候选 MOF 为什么靠前以及哪些数据导致了该推荐。"
             t={t}
@@ -513,7 +568,7 @@ export function MethodsLimitationsTab() {
 
           <Section
             id="explanation-evidence"
-            eyebrow="07"
+            eyebrow="08"
             title={text(lang, "Explanation & Evidence", "Explanation & Evidence")}
             subtitle={text(lang, "把“为什么是这个结果”的用户入口，拆成更专业的评分依据、结果解释和排序解释。", "The “Why this result?” entry is structured into scoring basis, result explanation, and ranking explanation.")}
             t={t}
@@ -547,7 +602,7 @@ export function MethodsLimitationsTab() {
 
           <Section
             id="organic-evidence-matrix"
-            eyebrow="08"
+            eyebrow="09"
             title="证据与解释矩阵 / Evidence & Explanation Matrix"
             subtitle="统一产品证据、路径证据、描述符证据、算法证据和机理证据的状态标注。"
             t={t}
@@ -557,7 +612,7 @@ export function MethodsLimitationsTab() {
 
           <Section
             id="organic-catalysis-workflow"
-            eyebrow="09"
+            eyebrow="10"
             title="有机酸筛选的催化数据工作流 / Catalysis Data Workflow"
             subtitle="把原始实验记录转化为路径标签、描述符、RGFA 分数、证据等级和候选决策。"
             t={t}
@@ -567,7 +622,7 @@ export function MethodsLimitationsTab() {
 
           <Section
             id="organic-acid-limitations"
-            eyebrow="10"
+            eyebrow="11"
             title="有机酸筛选模块的限制说明 / Organic Acid Screening Limitations"
             subtitle="限制说明用于界定原型筛选结果的使用边界，不削弱项目价值，也不把原型分数误读为已验证结论。"
             t={t}
@@ -577,7 +632,7 @@ export function MethodsLimitationsTab() {
 
           <Section
             id="method-limitations"
-            eyebrow="11"
+            eyebrow="12"
             title={text(lang, "Limitations", "Limitations")}
             subtitle={text(lang, "限制说明和架构图同等重要，避免把原型输出误读为已验证科研结论。", "Limitations are part of the method architecture and prevent prototype output from being misread as validated scientific conclusion.")}
             t={t}
@@ -587,7 +642,7 @@ export function MethodsLimitationsTab() {
 
           <Section
             id="catalysis-data-workflow"
-            eyebrow="12"
+            eyebrow="13"
             title={text(lang, "Catalysis Data Workflow", "Catalysis Data Workflow")}
             subtitle={text(lang, "说明 CatalysisLab 是通用催化记录工作台，而不是只有有机酸 case。", "Shows that CatalysisLab is a general catalysis-record workbench, not only the organic-acid case.")}
             t={t}

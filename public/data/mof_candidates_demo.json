@@ -27,7 +27,29 @@
     "limitations": [
       "Demo descriptor record, not a measured catalytic conclusion",
       "Requires experimental validation under defined reaction conditions"
-    ]
+    ],
+    "graphMetadata": {
+      "graphStatus": "demo",
+      "nodeTypes": ["metal", "linker", "functional_group"],
+      "edgeTypes": ["coordination_bond", "organic_bond"],
+      "activeMotifs": [
+        {
+          "motif": "Zr-O cluster",
+          "role": "Water stability support and possible Lewis acidic site",
+          "evidenceLevel": "literature-derived"
+        },
+        {
+          "motif": "-NH2 linker",
+          "role": "Potential CO2/HCO3- interaction site",
+          "evidenceLevel": "hypothesis"
+        }
+      ],
+      "graphCluster": "Cluster A",
+      "diversityScore": 0.76,
+      "graphMotifScore": 8,
+      "graphConfidence": "demo",
+      "notes": "Graph information is used as an explanation layer in the current demo version. Pending DFT/GNN validation."
+    }
   },
   {
     "id": "MOF-DEMO-002",
@@ -57,7 +79,29 @@
     "limitations": [
       "Demo electronic descriptors do not establish activity or yield",
       "Requires photophysical and electrochemical validation"
-    ]
+    ],
+    "graphMetadata": {
+      "graphStatus": "demo",
+      "nodeTypes": ["metal", "linker", "functional_group"],
+      "edgeTypes": ["coordination_bond", "organic_bond"],
+      "activeMotifs": [
+        {
+          "motif": "Zr-oxo node",
+          "role": "Stability-supporting secondary building unit in a large-pore framework",
+          "evidenceLevel": "literature-derived"
+        },
+        {
+          "motif": "Porphyrinic linker",
+          "role": "Possible photo/electrocatalysis handle pending task-specific validation",
+          "evidenceLevel": "hypothesis"
+        }
+      ],
+      "graphCluster": "Cluster B",
+      "diversityScore": 0.83,
+      "graphMotifScore": 7,
+      "graphConfidence": "demo",
+      "notes": "Graph motif annotations support explanation and diversity-aware prioritization only. Pending DFT/GNN validation."
+    }
   },
   {
     "id": "MOF-DEMO-003",
@@ -87,7 +131,29 @@
     "limitations": [
       "Hydrolytic stability and deactivation risk must be validated",
       "No direct catalytic experiment in this demo dataset"
-    ]
+    ],
+    "graphMetadata": {
+      "graphStatus": "demo",
+      "nodeTypes": ["metal", "linker", "functional_group"],
+      "edgeTypes": ["coordination_bond", "organic_bond"],
+      "activeMotifs": [
+        {
+          "motif": "Open Cu site",
+          "role": "Possible Lewis acidic adsorption or activation site",
+          "evidenceLevel": "literature-derived"
+        },
+        {
+          "motif": "Cu-BTC paddlewheel",
+          "role": "Known structural motif with water-stability limitation in screening context",
+          "evidenceLevel": "literature-derived"
+        }
+      ],
+      "graphCluster": "Cluster C",
+      "diversityScore": 0.69,
+      "graphMotifScore": 4,
+      "graphConfidence": "literature-derived",
+      "notes": "Graph motif context is useful for explanation, but hydrolytic stability risk prevents over-interpreting the score."
+    }
   },
   {
     "id": "MOF-DEMO-004",
@@ -117,7 +183,29 @@
     "limitations": [
       "Substrate diffusion and leaching must be tested",
       "Rule-based score is not a final catalytic-performance claim"
-    ]
+    ],
+    "graphMetadata": {
+      "graphStatus": "demo",
+      "nodeTypes": ["metal", "linker", "functional_group"],
+      "edgeTypes": ["coordination_bond", "organic_bond"],
+      "activeMotifs": [
+        {
+          "motif": "Fe-oxo cluster",
+          "role": "Potential redox-active motif for hypothesis generation",
+          "evidenceLevel": "hypothesis"
+        },
+        {
+          "motif": "Mesoporous BTC framework",
+          "role": "Large-pore accessibility cue for diffusion discussion",
+          "evidenceLevel": "demo"
+        }
+      ],
+      "graphCluster": "Cluster C",
+      "diversityScore": 0.72,
+      "graphMotifScore": 6,
+      "graphConfidence": "demo",
+      "notes": "Graph motif score is a decision-support preview and requires leaching, stability, and reaction testing."
+    }
   },
   {
     "id": "MOF-DEMO-005",
@@ -147,7 +235,29 @@
     "limitations": [
       "Functionalization success and synthesis cost need validation",
       "Large-pore accessibility is a screening cue only"
-    ]
+    ],
+    "graphMetadata": {
+      "graphStatus": "demo",
+      "nodeTypes": ["metal", "linker", "functional_group"],
+      "edgeTypes": ["coordination_bond", "organic_bond"],
+      "activeMotifs": [
+        {
+          "motif": "Zr6 node",
+          "role": "Stable node context for post-synthetic active-site installation",
+          "evidenceLevel": "literature-derived"
+        },
+        {
+          "motif": "Pyrene linker",
+          "role": "Extended pi-system cue for photocatalysis-oriented discussion",
+          "evidenceLevel": "hypothesis"
+        }
+      ],
+      "graphCluster": "Cluster B",
+      "diversityScore": 0.88,
+      "graphMotifScore": 7,
+      "graphConfidence": "demo",
+      "notes": "Graph information is explanatory; functionalization success and task-specific validation remain pending."
+    }
   },
   {
     "id": "MOF-DEMO-006",
@@ -177,6 +287,28 @@
     "limitations": [
       "Strong adsorption can complicate turnover and regeneration",
       "Catalytic performance needs direct reaction testing"
-    ]
+    ],
+    "graphMetadata": {
+      "graphStatus": "demo",
+      "nodeTypes": ["metal", "linker", "functional_group"],
+      "edgeTypes": ["coordination_bond", "organic_bond"],
+      "activeMotifs": [
+        {
+          "motif": "Open Mg site",
+          "role": "Strong CO2 interaction cue for adsorption-priority screening",
+          "evidenceLevel": "literature-derived"
+        },
+        {
+          "motif": "DOBDC linker channel",
+          "role": "One-dimensional channel context for diffusion and regeneration discussion",
+          "evidenceLevel": "demo"
+        }
+      ],
+      "graphCluster": "Cluster D",
+      "diversityScore": 0.61,
+      "graphMotifScore": 5,
+      "graphConfidence": "literature-derived",
+      "notes": "Graph motif context supports explanation only; strong adsorption must be balanced against regeneration and turnover validation."
+    }
   }
 ]

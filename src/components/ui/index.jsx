@@ -8,6 +8,7 @@ import { formatFunctionalGroupSummary, getFunctionalGroupEntries } from "../../u
 import { getGasSystem } from "../../utils/prediction"
 import { toolbarBtn } from "../../utils/styles"
 import { buildDeepLink } from "../../utils/deepLinks"
+import { GraphDescriptorPanel } from "../mof/GraphDescriptorPanel"
 
 export const ECOMOF_LOGO_SRC = "/ecomof-ai/ecomof-logo.png"
 
@@ -400,6 +401,7 @@ export function UnifiedCandidateCard({
   limitations,
   recommendedNextStep,
   fieldSources,
+  graphMetadata,
   dataStatus,
   onDetails,
   descriptorTotal = 8,
@@ -540,6 +542,10 @@ export function UnifiedCandidateCard({
           {/* Descriptor curation checklist */}
           {fieldSources && (
             <DescriptorCurationChecklist fieldSources={fieldSources} lang={lang} t={t} />
+          )}
+          {/* Graph descriptor panel */}
+          {graphMetadata && (
+            <GraphDescriptorPanel graphMetadata={graphMetadata} t={t} lang={lang} />
           )}
         </div>
       )}

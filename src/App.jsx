@@ -66,7 +66,7 @@ function getInitialDeepLinkState() {
   const explicitHash = String(rawHash || "").replace(/^#/, "").trim()
   const hash = explicitHash || "default"
   const routeHash = hash === "default" ? "overview" : normalizeHash(hash)
-  const pendingScrollTarget = ["data-quality-provenance", "validation-evidence", "benchmark-references"].includes(routeHash)
+  const pendingScrollTarget = ["data-quality-provenance", "validation-evidence", "benchmark-references", "graph-informed-descriptor-integration"].includes(routeHash)
     ? routeHash
     : null
 
@@ -630,6 +630,9 @@ export default function App() {
       if (routeHash === "benchmark-references") {
         setPendingScrollTarget("benchmark-references")
       }
+      if (routeHash === "graph-informed-descriptor-integration") {
+        setPendingScrollTarget("graph-informed-descriptor-integration")
+      }
     }
   }, [])
 
@@ -843,6 +846,10 @@ export default function App() {
     }
     if (target === "validation-evidence") {
       go("validation-evidence")
+      return
+    }
+    if (target === "graph-informed-descriptor-integration") {
+      go("graph-informed-descriptor-integration")
       return
     }
     if (target === "methodology" || target === "about" || target === "validation") {

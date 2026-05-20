@@ -11,6 +11,7 @@ import {
 import { FONT_MONO } from "../../constants/theme"
 import { toolbarBtn } from "../../utils/styles"
 import { BasisBadge } from "../ui"
+import { GraphDescriptorPanel } from "../mof/GraphDescriptorPanel"
 import { WhyThisResultButton } from "./WhyThisResultButton"
 import { WhyThisWeightButton } from "./WhyThisWeightButton"
 
@@ -349,8 +350,28 @@ export function CandidateRankingTable({ model, selectedId, onSelect, t, lang, is
 }
 
 export function ScoreBreakdownPanel({ row, t, lang }) {
+  const graphScore = row.graphScore
+  const graphMetadata = row.candidate?.graphMetadata
   return (
     <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, display: "grid", gap: 10, marginBottom: 6 }}>
+      {graphScore && (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 8 }}>
+          {[
+            [text(lang, "Descriptor Score", "Descriptor Score"), graphScore.descriptorScore, ""],
+            [text(lang, "Graph Motif Bonus", "Graph Motif Bonus"), graphScore.graphMotifScore, "+"],
+            [text(lang, "Diversity Bonus", "Diversity Bonus"), graphScore.diversityBonus, "+"],
+            [text(lang, "Evidence Penalty", "Evidence Penalty"), graphScore.evidencePenalty, "-"],
+            [text(lang, "Final Score", "Final Score"), graphScore.finalScore, ""],
+          ].map(([label, value, prefix]) => (
+            <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 9, minWidth: 0 }}>
+              <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>{label}</div>
+              <div style={{ color: label === "Final Score" ? t.textStrong : t.muted, fontFamily: FONT_MONO, fontSize: 16, fontWeight: 900, marginTop: 5 }}>
+                {prefix}{Number.isFinite(Number(value)) ? Number(value).toFixed(1) : "—"}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 8 }}>
         {row.contributions.map(item => (
           <div key={item.key} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 9 }}>
@@ -366,6 +387,7 @@ export function ScoreBreakdownPanel({ row, t, lang }) {
       <div style={{ color: t.faint, fontSize: 11 }}>
         {text(lang, "Top drivers", "Top drivers")}: {row.topDrivers.map(item => lang === "zh" ? item.labelZh : item.label).join(", ")} · {text(lang, "Main weakness", "Main weakness")}: {lang === "zh" ? row.mainWeakness?.labelZh : row.mainWeakness?.label}
       </div>
+      <GraphDescriptorPanel graphMetadata={graphMetadata} t={t} lang={lang} />
     </div>
   )
 }

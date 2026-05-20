@@ -1,4 +1,4 @@
-import { getEvidenceConfidence } from "../../utils/scoring"
+import { calculateGraphAdjustedScore, getEvidenceConfidence } from "../../utils/scoring"
 import { clamp01, safeNumber } from "../types/scoringTypes"
 
 function candidateName(candidate, fallback) {
@@ -53,6 +53,8 @@ export function scoreCandidates({
     const adjustedScore01 = evidenceMode === "quality-adjusted"
       ? weightedScore01 * (0.72 + 0.28 * confidence)
       : weightedScore01
+    const descriptorScore = Number((adjustedScore01 * 100).toFixed(1))
+    const graphScore = calculateGraphAdjustedScore(candidate, descriptorScore)
     const sortedContributions = [...contributions].sort((a, b) => b.contribution - a.contribution)
     const nonMissing = contributions.filter(item => !item.missing)
     const weakness = [...(nonMissing.length ? nonMissing : contributions)].sort((a, b) => a.normalizedValue - b.normalizedValue)[0]
@@ -61,7 +63,9 @@ export function scoreCandidates({
       id,
       name: candidateName(candidate, `Candidate ${index + 1}`),
       candidate,
-      score: Number((adjustedScore01 * 100).toFixed(1)),
+      score: graphScore.finalScore,
+      descriptorScore,
+      graphScore,
       score01: adjustedScore01,
       descriptorCompleteness: completeness,
       missingCount,

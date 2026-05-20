@@ -1,5 +1,7 @@
+import { createPortal } from "react-dom"
 import { FONT_MONO } from "../../constants/theme"
 import { toolbarBtn } from "../../utils/styles"
+import { GraphDescriptorPanel } from "../mof/GraphDescriptorPanel"
 import { BasisBadge } from "../ui"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
@@ -41,6 +43,8 @@ export function ScoreExplanationDrawer({ open, onClose, model, candidateId, cand
     .slice(0, 3)
   const warnings = rowWarnings(model, row, explanation)
   const methodNote = row?.methodNote || explanation?.methodNote || model?.metadata?.methodSummary || ""
+  const graphScore = row?.graphScore
+  const graphMetadata = row?.candidate?.graphMetadata
   const hasFullExplanation = Boolean(row && (explanation || contributions.length))
   const message = fallbackMessage || text(
     lang,
@@ -50,7 +54,7 @@ export function ScoreExplanationDrawer({ open, onClose, model, candidateId, cand
   const descriptorCoverage = model?.descriptorCoverage?.coverage
   const fallbackWarning = !hasFullExplanation || model?.weightingDiagnostics?.fallbackUsed || model?.weightingDiagnostics?.critic?.fallbackUsed
 
-  return (
+  const drawer = (
     <>
       <button
         type="button"
@@ -113,6 +117,38 @@ export function ScoreExplanationDrawer({ open, onClose, model, candidateId, cand
           </div>
         )}
 
+        {graphScore && (
+          <section style={{ display: "grid", gap: 8 }}>
+            <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>
+              {text(lang, "Evidence-adjusted score", "Evidence-adjusted score")}
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }}>
+              {[
+                [text(lang, "Descriptor Score", "Descriptor Score"), graphScore.descriptorScore, ""],
+                [text(lang, "Graph Motif Bonus", "Graph Motif Bonus"), graphScore.graphMotifScore, "+"],
+                [text(lang, "Diversity Bonus", "Diversity Bonus"), graphScore.diversityBonus, "+"],
+                [text(lang, "Evidence Penalty", "Evidence Penalty"), graphScore.evidencePenalty, "-"],
+                [text(lang, "Final Score", "Final Score"), graphScore.finalScore, ""],
+                [text(lang, "Graph status", "Graph status"), graphScore.confidence, ""],
+              ].map(([label, value, prefix]) => (
+                <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10, minWidth: 0 }}>
+                  <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>{label}</div>
+                  <div style={{ color: label === "Final Score" ? t.textStrong : t.muted, fontFamily: FONT_MONO, fontSize: 15, fontWeight: 900, marginTop: 5, overflowWrap: "anywhere" }}>
+                    {Number.isFinite(Number(value)) ? `${prefix}${Number(value).toFixed(1)}` : value || "pending"}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10, color: t.muted, fontSize: 11.5, lineHeight: 1.55 }}>
+              {text(
+                lang,
+                "图论相关结果当前作为 demo / literature-derived / computed / pending validation 状态展示；它解释 active motif 和多样性线索，不声称已经完成经过验证的图模型预测。",
+                "Graph-related results are shown with demo / literature-derived / computed / pending validation status; they explain active motifs and diversity cues, not validated GNN or adsorption-energy prediction."
+              )}
+            </div>
+          </section>
+        )}
+
         {drivers.length > 0 && (
           <section style={{ display: "grid", gap: 8 }}>
             <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{text(lang, "Main contributing descriptors", "Main contributing descriptors")}</div>
@@ -166,6 +202,10 @@ export function ScoreExplanationDrawer({ open, onClose, model, candidateId, cand
           </section>
         )}
 
+        {graphMetadata && (
+          <GraphDescriptorPanel graphMetadata={graphMetadata} t={t} lang={lang} isMobile={isMobile} />
+        )}
+
         <section style={{ background: t.badgeInfoBg || t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11, color: t.muted, fontSize: 12, lineHeight: 1.6 }}>
           <div><strong style={{ color: t.textStrong }}>{text(lang, "Weighting method used", "Weighting method used")}:</strong> {String(model?.algorithm || "legacy").toUpperCase()}</div>
           {methodNote && <div style={{ marginTop: 5 }}><strong style={{ color: t.textStrong }}>{text(lang, "Method note", "Method note")}:</strong> {methodNote}</div>}
@@ -184,4 +224,6 @@ export function ScoreExplanationDrawer({ open, onClose, model, candidateId, cand
       </aside>
     </>
   )
+  if (typeof document === "undefined") return drawer
+  return createPortal(drawer, document.body)
 }

@@ -433,6 +433,7 @@ export function PerformanceTab({
                     ? ["补充实测等温线", "验证混合气选择性", "进行 GCMC 或 IAST 对照"]
                     : ["Add measured isotherms", "Validate mixture selectivity", "Run GCMC or IAST comparison"]}
                   fieldSources={candidate.candidate?.fieldSources}
+                  graphMetadata={candidate.candidate?.graphMetadata || { graphStatus: "pending", graphConfidence: "pending", graphCluster: "pending", diversityScore: null, graphMotifScore: 0, notes: "Graph descriptor metadata is pending validation for this record." }}
                   dataStatus={candidate.candidate?.dataMode || dataMode}
                   onDetails={() => setSelectedId(candidate.id)}
                   descriptorTotal={performanceScoringModel.descriptors?.length || 0}

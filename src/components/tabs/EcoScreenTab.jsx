@@ -803,6 +803,10 @@ export function EcoScreenTab({ onNavigate }) {
       }, 180)
     }
   }
+  const openGraphMethodology = () => {
+    if (onNavigate) onNavigate("graph-informed-descriptor-integration")
+    else if (typeof window !== "undefined") window.location.assign("#graph-informed-descriptor-integration")
+  }
 
   return (
     <div id="candidate-scoring-lab" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -833,6 +837,24 @@ export function EcoScreenTab({ onNavigate }) {
           ? "当前为 illustrative demo records，尚不是已验证催化证据，不应解读为真实性能结论。"
           : "Illustrative demo records — not validated catalytic evidence. 演示记录，不代表已验证催化性能。"}
       </Callout>
+
+      <Card t={t} style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+        <div style={{ minWidth: 0 }}>
+          <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 900 }}>
+            {text(lang, "How descriptors are connected", "How descriptors are connected")}
+          </div>
+          <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55, marginTop: 5, maxWidth: 760 }}>
+            {text(
+              lang,
+              "查看图论辅助关系图：传统描述符、metal node / linker / functional group、active motif、evidence modifier 和 final score 如何连接。",
+              "Open the graph-informed relationship network for traditional descriptors, metal node / linker / functional group, active motif, evidence modifier, and final score."
+            )}
+          </div>
+        </div>
+        <button type="button" onClick={openGraphMethodology} style={{ ...toolbarBtn(t), color: t.accentText, borderColor: t.accent, justifyContent: "center" }}>
+          {text(lang, "打开图论方法图", "Open graph method")}
+        </button>
+      </Card>
 
       <Card t={t} style={{ display: "grid", gap: 10 }}>
         <PanelTitle

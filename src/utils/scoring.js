@@ -251,6 +251,37 @@ export function calculateCatalysisScore(candidate, task, weights = DEFAULT_SCORI
   }
 }
 
+export function calculateGraphAdjustedScore(candidate, descriptorScore) {
+  const graph = candidate?.graphMetadata || {}
+  const graphMotifScore = Number(graph.graphMotifScore || 0)
+  const diversityScore = Number(graph.diversityScore || 0)
+  let diversityBonus = 0
+  if (diversityScore >= 0.75) {
+    diversityBonus = 5
+  } else if (diversityScore >= 0.5) {
+    diversityBonus = 3
+  }
+  const confidence = graph.graphConfidence || graph.graphStatus || "pending"
+  const evidencePenaltyMap = {
+    computed: 0,
+    "literature-derived": 2,
+    literature: 2,
+    demo: 5,
+    hypothesis: 6,
+    pending: 8,
+  }
+  const evidencePenalty = evidencePenaltyMap[confidence] ?? 8
+  const finalScore = clamp(Number(descriptorScore || 0) + graphMotifScore + diversityBonus - evidencePenalty)
+  return {
+    descriptorScore: Number(Number(descriptorScore || 0).toFixed(1)),
+    graphMotifScore,
+    diversityBonus,
+    evidencePenalty,
+    finalScore: Number(finalScore.toFixed(1)),
+    confidence,
+  }
+}
+
 export function getWeightContribution(candidate, weights = {}, moduleType = "ecoscreen", task) {
   const breakdown = getScoreBreakdown(candidate, moduleType, task)
   const activeWeights = weights[moduleType] || weights || DEFAULT_SCORING_WEIGHTS[moduleType] || DEFAULT_SCORING_WEIGHTS.ecoscreen
@@ -278,9 +309,12 @@ export function buildScoredCandidates(candidates, moduleType, weights, task) {
   return (candidates || [])
     .map(candidate => {
       const result = moduleType === "catalysis" ? scorer(candidate, task, activeWeights) : scorer(candidate, activeWeights)
+      const graphScore = calculateGraphAdjustedScore(candidate, result.score)
       return {
         ...candidate,
-        score: result.score,
+        score: graphScore.finalScore,
+        descriptorScore: graphScore.descriptorScore,
+        graphScore,
         scoreParts: result.parts,
         scoreBreakdown: getScoreBreakdown(candidate, moduleType, task),
         weightContribution: getWeightContribution(candidate, activeWeights, moduleType, task),

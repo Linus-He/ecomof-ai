@@ -9,6 +9,7 @@ export const HASH_TO_TAB = {
   catalysis: "catalysis",
   library: "library",
   methodology: "about",
+  "graph-informed-descriptor-integration": "about",
   "data-quality-provenance": "library",
   "validation-evidence": "about",
   "benchmark-references": "about",
@@ -60,6 +61,10 @@ export const HASH_META = {
   methodology: {
     title: "方法与证据 | EcoMOF-AI",
     description: "了解 EcoMOF-AI 的评分方法、证据等级、数据来源、基准语境、验证状态、引用边界和使用限制。",
+  },
+  "graph-informed-descriptor-integration": {
+    title: "图论辅助描述符整合 | EcoMOF-AI",
+    description: "查看 EcoMOF-AI 如何用图论解释传统描述符、结构基元、证据等级和最终评分之间的关系。",
   },
   "data-quality-provenance": {
     title: "数据质量与来源 | EcoMOF-AI",
