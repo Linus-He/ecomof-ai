@@ -126,17 +126,18 @@ export function resolveMofDisplayName(record = {}, aliasDictionary = []) {
   }
 
   const fallback = databaseFallback(record)
+  const rawIdOnly = looksLikeRawRecordId(rawName)
   return {
     displayName: fallback,
-    displayNameType: "database_record",
+    displayNameType: rawIdOnly ? "source_record_id_only" : "generic_source_record",
     aliasNames: [],
     rawName: rawName || "pending",
     nameCuration: {
-      status: "pending",
+      status: rawIdOnly ? "source_record_id_only" : "manual_curation_needed",
       confidence: "low",
       needsManualNameCuration: true,
-      reason: looksLikeRawRecordId(rawName)
-        ? "Raw name looks like a database ID, CSD refcode, CIF file, or supplementary-information filename."
+      reason: rawIdOnly
+        ? "This record currently resolves only to a source structure identifier, CIF filename, CSD refcode, or database record ID."
         : "No known common MOF name was found in the current alias dictionary.",
     },
   }
@@ -155,8 +156,14 @@ export function buildCandidateSearchText(candidate = {}) {
     candidate.linker,
     candidate.topology,
     candidate.mofid,
+    candidate.cifFile,
+    candidate.cifUrl,
     candidate.citation,
+    candidate.sourceUrl,
     candidate.provenance?.citation,
+    candidate.provenance?.sourceUrl,
+    candidate.provenance?.recordId,
+    candidate.provenance?.database,
     candidate.provenance?.sourceDatabase,
     candidate.provenance?.sourceRecordId,
     candidate.name,

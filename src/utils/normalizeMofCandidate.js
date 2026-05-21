@@ -1,5 +1,5 @@
 import { DEFAULT_CANDIDATE_DATA_MODE } from "../config/dataModes"
-import { resolveMofDisplayName } from "./mofDisplayName"
+import { buildCandidateSearchText, resolveMofDisplayName } from "./mofDisplayName"
 
 const PENDING = "pending"
 
@@ -10,6 +10,28 @@ function firstDefined(...values) {
 function firstText(...values) {
   const value = values.find(item => item !== undefined && item !== null && String(item).trim() !== "")
   return value === undefined ? PENDING : String(value)
+}
+
+function makeFieldSource(candidate, key, value, unit = "") {
+  const status = candidate.descriptorCompleteness?.[key] || candidate.curationStatus || PENDING
+  if (value === null || value === undefined || value === "" || status === "pending") {
+    return { sourceType: "pending", value, unit, curationStatus: status }
+  }
+  return {
+    sourceType: "open-mof-seed",
+    sourceName: candidate.sourceDatabase,
+    sourceDatabase: candidate.sourceDatabase,
+    database: candidate.sourceDatabase,
+    sourceRecordId: candidate.sourceRecordId,
+    sourceVersion: candidate.sourceVersion,
+    sourceUrl: candidate.sourceUrl,
+    url: candidate.sourceUrl,
+    citation: candidate.citation,
+    license: candidate.license,
+    curationStatus: status,
+    value,
+    unit,
+  }
 }
 
 export function pendingGraphMetadata() {
@@ -69,7 +91,7 @@ export function normalizeMofCandidate(raw = {}, options = {}) {
     options.aliasDictionary || [],
   )
 
-  return {
+  const normalized = {
     ...raw,
     id: firstText(raw.id, sourceRecordId),
     name: nameResolution.displayName,
@@ -122,5 +144,26 @@ export function normalizeMofCandidate(raw = {}, options = {}) {
     dataMode,
     dataStatus: raw.dataStatus || dataMode,
     rawRecord: raw,
+  }
+  const fieldSourceCandidate = {
+    ...normalized,
+    descriptorCompleteness: normalized.descriptorCompleteness || {},
+  }
+  const fieldSources = {
+    ...(raw.fieldSources || {}),
+    surfaceArea: makeFieldSource(fieldSourceCandidate, "surfaceArea", normalized.surfaceArea, "m²/g"),
+    poreSizeA: makeFieldSource(fieldSourceCandidate, "poreSizeA", normalized.poreSizeA, "Å"),
+    pldA: makeFieldSource(fieldSourceCandidate, "pldA", normalized.pldA, "Å"),
+    lcdA: makeFieldSource(fieldSourceCandidate, "lcdA", normalized.lcdA, "Å"),
+    poreVolume: makeFieldSource(fieldSourceCandidate, "poreVolume", normalized.poreVolume, "cm³/g"),
+    density: makeFieldSource(fieldSourceCandidate, "density", normalized.density, "g/cm³"),
+    voidFraction: makeFieldSource(fieldSourceCandidate, "voidFraction", normalized.voidFraction),
+    bandGap: makeFieldSource(fieldSourceCandidate, "bandGap", normalized.bandGap, "eV"),
+    co2Uptake: makeFieldSource(fieldSourceCandidate, "co2Uptake", normalized.co2Uptake, "mmol/g"),
+  }
+  return {
+    ...normalized,
+    fieldSources,
+    searchText: buildCandidateSearchText(normalized),
   }
 }

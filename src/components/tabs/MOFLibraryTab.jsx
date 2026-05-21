@@ -116,6 +116,24 @@ function normalizeStatus(status, lang) {
   return text(lang, "待整理", "pending")
 }
 
+function nameStatusLabel(item, lang) {
+  const type = item?.displayNameType || item?.nameCuration?.status || "manual_curation_needed"
+  if (type === "recognized_mof_name" || type === "recognized") return text(lang, "已识别通用名", "Recognized common name")
+  if (type === "explicit_name" || type === "curated") return text(lang, "已整理名称", "Curated name")
+  if (type === "generic_source_record" || type === "database_record") return text(lang, "原始数据库记录", "Generic source record")
+  if (type === "source_record_id_only") return text(lang, "原始记录 ID", "Source record ID only")
+  if (type === "ambiguous_name") return text(lang, "名称存在歧义", "Ambiguous name")
+  return text(lang, "需要人工整理", "Manual curation needed")
+}
+
+function nameReasonText(item, lang) {
+  if (lang !== "zh") return item?.nameCuration?.reason || "Name source pending curation."
+  if (item?.nameCuration?.needsManualNameCuration) {
+    return "该记录当前只识别到原始结构编号、CIF 文件名或数据库记录 ID，尚未匹配到通用 MOF 名称。"
+  }
+  return "该记录已匹配到可展示名称，原始记录 ID 仍保留在 provenance 中。"
+}
+
 function getDatabaseName(item) {
   return cleanValue(item.sourceDatabase || item.provenance?.sourceDatabase || item.provenance?.database, "Unknown source")
 }
@@ -195,7 +213,7 @@ function normalizeOpenMofRecord(item) {
     id: item.id || sourceRecordId || item.name,
     name: item.name || sourceRecordId,
     displayName: item.displayName || getDisplayName({ ...item, sourceDatabase, provenance: { ...(item.provenance || {}), sourceDatabase } }),
-    displayNameType: item.displayNameType || "database_record",
+    displayNameType: item.displayNameType || "generic_source_record",
     aliasNames: item.aliasNames || [],
     rawName: item.rawName || item.name || item.cifFile || sourceRecordId,
     nameCuration: item.nameCuration || {
@@ -532,7 +550,7 @@ function OpenMofSeedCard({ item, expanded, onToggle, lang, t, isMobile }) {
         <div style={{ color: t.subtle, fontSize: 11.5, fontWeight: 760, lineHeight: 1.4, overflowWrap: "anywhere" }}>{versionLicense}</div>
         <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
           <StatusPill t={t} tone={item.displayNameType === "recognized_mof_name" ? "good" : "neutral"}>
-            {item.displayNameType === "recognized_mof_name" ? text(lang, "已识别名称", "Recognized name") : text(lang, "名称待整理", "Name pending")}
+            {text(lang, "名称状态：", "Name status: ")}{nameStatusLabel(item, lang)}
           </StatusPill>
         </div>
       </div>
@@ -599,13 +617,13 @@ function AdvancedMetadata({ item, lang, t, isMobile }) {
 function OpenMofSeedDetailPanel({ item, lang, t, isMobile }) {
   const nameRows = [
     [text(lang, "显示名称", "Display name"), item.displayName],
-    [text(lang, "名称状态", "Name status"), item.nameCuration?.needsManualNameCuration ? text(lang, "名称待整理", "Name curation pending") : text(lang, "已识别名称", "Recognized name")],
+    [text(lang, "名称状态", "Name status"), nameStatusLabel(item, lang)],
     [text(lang, "原始名称 / 文件名", "Raw name / file name"), item.rawName],
     [text(lang, "原始记录 ID", "Source record ID"), item.sourceRecordId],
     [text(lang, "来源数据库", "Source database"), item.sourceDatabase],
     [text(lang, "别名", "Aliases"), item.aliasNames?.length ? item.aliasNames.join(", ") : text(lang, "待整理", "pending")],
     [text(lang, "需要人工整理", "Needs manual curation"), item.nameCuration?.needsManualNameCuration ? text(lang, "是", "Yes") : text(lang, "否", "No")],
-    [text(lang, "原因", "Reason"), item.nameCuration?.reason || "pending"],
+    [text(lang, "原因", "Reason"), nameReasonText(item, lang)],
   ]
   const provenanceRows = [
     [text(lang, "来源数据库", "Source database"), item.sourceDatabase],
@@ -626,7 +644,7 @@ function OpenMofSeedDetailPanel({ item, lang, t, isMobile }) {
     [text(lang, "密度", "Density"), formatValue(item.density, " g/cm3", lang), "density"],
     [text(lang, "空隙率", "Void fraction"), formatValue(item.voidFraction, "", lang), "voidFraction"],
     [text(lang, "带隙", "Band gap"), formatValue(item.bandGap, " eV", lang), "bandGap"],
-    [text(lang, "CO₂ 吸附", "CO2 uptake"), formatValue(item.co2Uptake, "", lang), "co2Uptake"],
+    [text(lang, "CO₂ 吸附", "CO₂ uptake"), formatValue(item.co2Uptake, "", lang), "co2Uptake"],
     [text(lang, "CIF 文件", "CIF file"), `${formatValue(item.cifFile, "", lang)} / ${formatValue(item.cifUrl, "", lang)}`],
   ]
   return (
@@ -710,10 +728,14 @@ function NameCurationQueue({ records, lang, t, isMobile }) {
     <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 10, padding: isMobile ? 12 : 14 }}>
       <div>
         <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900 }}>
-          {text(lang, "名称整理队列", "Name Curation Queue")}
+          {text(lang, "MOF 名称解析状态", "MOF Name Resolution Status")}
         </div>
         <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 3 }}>
-          {text(lang, "无法识别通用 MOF 名称的记录会保留来源 ID，并进入人工整理队列。", "Records without a recognized common MOF name keep their source ID and enter manual curation.")}
+          {text(
+            lang,
+            "部分数据库记录只提供结构编号、CIF 文件名或 CSD refcode，而不提供通用 MOF 名称。系统会保留原始记录 ID，并在可确认时匹配通用名称。",
+            "Some database records provide structure IDs, CIF filenames, or CSD refcodes rather than common MOF names. EcoMOF-AI preserves source IDs and matches common names only when they can be confirmed."
+          )}
         </div>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }}>
@@ -723,9 +745,16 @@ function NameCurationQueue({ records, lang, t, isMobile }) {
             <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.45, overflowWrap: "anywhere" }}>
               {text(lang, "原始记录", "Record ID")}: <span style={{ fontFamily: FONT_MONO }}>{item.sourceRecordId}</span>
             </div>
-            <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.5 }}>{item.nameCuration?.reason || text(lang, "名称来源待整理。", "Name source pending curation.")}</div>
+            <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.5 }}>{nameReasonText(item, lang)}</div>
+            <div style={{ color: t.faint, fontSize: 11.2, lineHeight: 1.45 }}>
+              {text(lang, "名称状态", "Name status")}: {nameStatusLabel(item, lang)}
+            </div>
             <div style={{ color: t.accentText, fontSize: 11.5, lineHeight: 1.5, fontWeight: 800 }}>
-              {text(lang, "下一步：检查 CIF metadata、source DOI 或 supplementary information。", "Next: inspect CIF metadata, source DOI, or supplementary information.")}
+              {text(
+                lang,
+                "下一步：检查 CIF metadata、source DOI、supplementary information 或 CSD refcode，确认是否存在通用 MOF 名称。",
+                "Next: inspect CIF metadata, source DOI, supplementary information, or CSD refcode to confirm whether a common MOF name exists."
+              )}
             </div>
           </article>
         ))}

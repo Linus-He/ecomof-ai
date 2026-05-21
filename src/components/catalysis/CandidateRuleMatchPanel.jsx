@@ -67,6 +67,7 @@ function StatusPill({ children, t, tone = "info" }) {
 
 export function CandidateRuleMatchPanel({
   selectedCandidate,
+  selectedRuleId,
   reactionRules = [],
   evidenceItems = [],
   lang: forcedLang,
@@ -81,9 +82,12 @@ export function CandidateRuleMatchPanel({
   const isMobile = forcedMobile ?? viewport.isMobile
   const isNarrow = isMobile || viewport.isNarrow
 
-  const matches = useMemo(() => (
-    matchesForCandidate(selectedCandidate, reactionRules, evidenceItems)
-  ), [evidenceItems, reactionRules, selectedCandidate])
+  const matches = useMemo(() => {
+    const rows = matchesForCandidate(selectedCandidate, reactionRules, evidenceItems)
+    if (!selectedRuleId) return rows
+    const selectedRows = rows.filter(row => row.rule.ruleId === selectedRuleId)
+    return selectedRows.length ? selectedRows : rows
+  }, [evidenceItems, reactionRules, selectedCandidate, selectedRuleId])
   const pending = isPendingRelevance(selectedCandidate)
   const validationNeeded = list(selectedCandidate?.organicAcidRelevance?.validationNeeded)
 
@@ -109,10 +113,13 @@ export function CandidateRuleMatchPanel({
         <div style={{ display: "grid", gap: 4 }}>
           <div style={{ color: t.faint, fontSize: 11, fontWeight: 850 }}>{text(lang, "候选物", "Candidate")}</div>
           <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 940, lineHeight: 1.2 }}>
-            {safeText(selectedCandidate?.name || selectedCandidate?.id)}
+            {safeText(selectedCandidate?.displayName || selectedCandidate?.name || selectedCandidate?.id)}
           </div>
           <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>
             {safeText(selectedCandidate?.sourceDatabase || selectedCandidate?.provenance?.sourceDatabase || selectedCandidate?.dataStatus)} · {safeText(selectedCandidate?.organicAcidRelevance?.scoreStatus)}
+          </div>
+          <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.45 }}>
+            {text(lang, "名称状态", "Name status")}: {safeText(selectedCandidate?.nameCuration?.status || selectedCandidate?.displayNameType)}
           </div>
         </div>
 

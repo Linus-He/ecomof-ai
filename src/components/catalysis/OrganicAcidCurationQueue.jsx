@@ -55,6 +55,22 @@ function nextTask(candidate, lang) {
   return text(lang, "进行文献整理，或标记为 structural-only seed。", "Run literature curation or mark as a structural-only seed.")
 }
 
+function nameStatus(candidate, lang) {
+  if (candidate?.displayNameType === "recognized_mof_name") {
+    return text(lang, "已识别通用名", "recognized common name")
+  }
+  if (candidate?.displayNameType === "explicit_name") {
+    return text(lang, "已整理名称", "curated name")
+  }
+  if (candidate?.displayNameType === "source_record_id_only") {
+    return text(lang, "待解析通用名", "pending common-name resolution")
+  }
+  if (candidate?.nameCuration?.needsManualNameCuration) {
+    return text(lang, "需要人工整理", "manual name curation needed")
+  }
+  return text(lang, "名称状态待整理", "name status pending")
+}
+
 export function OrganicAcidCurationQueue({
   candidates = [],
   lang: forcedLang,
@@ -113,6 +129,9 @@ export function OrganicAcidCurationQueue({
                 </span>
                 <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>
                   {text(lang, "缺口", "Missing")}: {missingEvidence(candidate, lang).join(", ")}
+                </span>
+                <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>
+                  {text(lang, "名称状态", "Name status")}: {nameStatus(candidate, lang)}
                 </span>
                 <span style={{ color: t.faint, fontSize: 11, lineHeight: 1.45 }}>
                   {text(lang, "下一步", "Next")}: {nextTask(candidate, lang)}

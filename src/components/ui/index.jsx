@@ -1184,20 +1184,25 @@ export function DataModeToggle({ value, onChange, lang, options: customOptions }
 // ── Field-level Provenance ────────────────────────────────────────────────────
 
 function computePanelPos(isMobile, anchorRect) {
-  const PW = 380
+  const popoverWidth = 380
   const vw = typeof window !== "undefined" ? window.innerWidth  : 1440
   const vh = typeof window !== "undefined" ? window.innerHeight : 800
-  const width = Math.min(PW, vw - 32)
-  const maxH = Math.min(vh * (isMobile ? 0.72 : 0.6), 480)
-  let top = (anchorRect?.bottom ?? 0) + 8
-  let left = isMobile ? ((anchorRect?.left ?? vw / 2) + (anchorRect?.width ?? 0) / 2 - width / 2) : (anchorRect?.left ?? 0)
-  if (left + PW > vw - 16) left = vw - PW - 16
+  const width = Math.min(popoverWidth, vw - 32)
+  const belowSpace = Math.max(0, vh - (anchorRect?.bottom ?? 0) - 16)
+  const aboveSpace = Math.max(0, (anchorRect?.top ?? 0) - 16)
+  const placeAbove = belowSpace < 260 && aboveSpace > belowSpace
+  const availableSpace = placeAbove ? aboveSpace : belowSpace
+  const maxH = Math.min(480, Math.max(220, availableSpace - 8))
+  let top = placeAbove
+    ? (anchorRect?.top ?? 0) - maxH - 8
+    : (anchorRect?.bottom ?? 0) + 8
+  let left = isMobile
+    ? ((anchorRect?.left ?? vw / 2) + (anchorRect?.width ?? 0) / 2 - width / 2)
+    : (anchorRect?.left ?? 0)
   if (left + width > vw - 16) left = vw - width - 16
   if (left < 16) left = 16
-  if (top + maxH > vh - 16) {
-    top = (anchorRect?.top ?? 0) - maxH - 8
-    if (top < 16) top = 16
-  }
+  if (top + maxH > vh - 16) top = vh - maxH - 16
+  if (top < 16) top = 16
   return {
     position: "fixed", top, left,
     width,
@@ -1225,12 +1230,6 @@ function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRect, isMobile, o
     }
     window.addEventListener("mousedown", handler)
     return () => window.removeEventListener("mousedown", handler)
-  }, [onClose])
-
-  useEffect(() => {
-    const closeOnScroll = () => onClose()
-    window.addEventListener("scroll", closeOnScroll, true)
-    return () => window.removeEventListener("scroll", closeOnScroll, true)
   }, [onClose])
 
   const isPending = !source || source.sourceType === "pending"

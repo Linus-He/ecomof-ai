@@ -658,6 +658,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
         />
         <CandidateRuleMatchPanel
           selectedCandidate={selectedPathwayCandidate}
+          selectedRuleId={selectedRuleId}
           reactionRules={reactionRules}
           evidenceItems={evidenceItems}
           lang={lang}

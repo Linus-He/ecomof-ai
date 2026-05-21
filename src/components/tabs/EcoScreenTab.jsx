@@ -785,7 +785,10 @@ export function EcoScreenTab({ onNavigate }) {
     status: generalStatus,
     mode: globalCandidateMode,
   } = useMofCandidates(DEFAULT_CANDIDATE_DATA_MODE)
-  const model = useMemo(() => buildCriticScoringModel(undefined, weightingMode), [weightingMode])
+  const model = useMemo(
+    () => buildCriticScoringModel(generalRows, weightingMode),
+    [generalRows, weightingMode],
+  )
   const selectedCandidate = useMemo(() => (
     model.candidates.find(candidate => candidate.id === selectedId) || model.candidates[0]
   ), [model, selectedId])
@@ -836,8 +839,8 @@ export function EcoScreenTab({ onNavigate }) {
       </Callout>
       <Callout tone="warn">
         {lang === "zh"
-          ? "当前全局候选数据源为 Open MOF Seed。部分记录缺少 CO₂ 吸附量、水稳定性或毒性字段，筛选结果仅作为临时优先级参考。"
-          : "Current global candidate source: Open MOF Seed. Some records lack CO₂ uptake, water-stability, or toxicity fields, so screening results are provisional prioritization cues only."}
+          ? "当前全局候选数据源为 Open MOF Seed。部分记录缺少 CO₂ 吸附量、水稳定性、毒性或有机酸证据字段，当前筛选结果仅作为临时优先级参考。"
+          : "Current global candidate source: Open MOF Seed. Some records lack CO₂ uptake, water stability, toxicity, or organic-acid evidence fields. Current screening results are provisional."}
       </Callout>
       <Callout tone="info">
         {lang === "zh"
