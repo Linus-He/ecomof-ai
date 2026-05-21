@@ -114,20 +114,49 @@ function candidateRelatedNodes(selectedCandidate) {
   return new Set(roles.map(role => role.relatedPathwayNode).filter(Boolean))
 }
 
+function candidateRelatedRuleIds(selectedCandidate) {
+  const roles = selectedCandidate?.organicAcidRelevance?.possibleRoles
+  if (!Array.isArray(roles)) return new Set()
+  return new Set(roles.map(role => role.relatedRuleId).filter(Boolean))
+}
+
 function candidateRolesForNode(selectedCandidate, nodeId) {
   const roles = selectedCandidate?.organicAcidRelevance?.possibleRoles
   if (!Array.isArray(roles)) return []
   return roles.filter(role => role.relatedPathwayNode === nodeId)
 }
 
-function modeEdgeActive(mode, edge, relatedNodes) {
+function modeEdgeActive(mode, edge, relatedNodes, relatedRuleIds) {
   const key = edgeKey(edge)
+  if (relatedRuleIds?.size && relatedRuleIds.has(edge.ruleId)) return true
   if (relatedNodes?.size && (relatedNodes.has(edge.source) || relatedNodes.has(edge.target))) return true
   if (mode === "formic") return FORMIC_EDGES.has(key)
   if (mode === "competing") return COMPETING_NODES.has(edge.target)
   if (mode === "mof") return isMofInfluenced(edge)
   if (mode === "evidence") return true
   return false
+}
+
+function ruleForEdge(edge, reactionRules) {
+  const rules = Array.isArray(reactionRules) ? reactionRules : []
+  return rules.find(rule => rule.ruleId === edge?.ruleId)
+    || rules.find(rule => (rule.sourceNodes || []).includes(edge?.source) && (rule.targetNodes || []).includes(edge?.target))
+    || null
+}
+
+function rulesForNode(nodeId, reactionRules) {
+  const rules = Array.isArray(reactionRules) ? reactionRules : []
+  return rules.filter(rule => [...(rule.sourceNodes || []), ...(rule.targetNodes || [])].includes(nodeId))
+}
+
+function evidenceForRule(ruleId, evidenceItems) {
+  const items = Array.isArray(evidenceItems) ? evidenceItems : []
+  return items.filter(item => item.relatedRuleId === ruleId)
+}
+
+function evidenceForNode(nodeId, evidenceItems) {
+  const items = Array.isArray(evidenceItems) ? evidenceItems : []
+  return items.filter(item => item.relatedPathwayNode === nodeId)
 }
 
 function modeNodeActive(mode, node, relatedNodes) {
@@ -197,10 +226,15 @@ function Card({ title, children, t, style }) {
   )
 }
 
-function DetailPanel({ selection, nodesById, selectedCandidate, t, lang }) {
+function DetailPanel({ selection, nodesById, selectedCandidate, reactionRules, evidenceItems, t, lang }) {
   if (!selection) return null
   const isEdge = selection.kind === "edge"
   const item = selection.item
+  const selectedRule = isEdge ? ruleForEdge(item, reactionRules) : null
+  const nodeRules = !isEdge ? rulesForNode(item.id, reactionRules) : []
+  const relatedEvidence = isEdge
+    ? (selectedRule ? evidenceForRule(selectedRule.ruleId, evidenceItems) : [])
+    : evidenceForNode(item.id, evidenceItems)
   const title = isEdge
     ? `${chemicalLabel(nodeLabel(nodesById[item.source]))} -> ${chemicalLabel(nodeLabel(nodesById[item.target]))}`
     : chemicalLabel(nodeLabel(item))
@@ -210,7 +244,7 @@ function DetailPanel({ selection, nodesById, selectedCandidate, t, lang }) {
     [text(lang, "可能的 MOF 影响", "Possible MOF influence"), (item.possibleMofInfluence || []).join(", ") || "pending"],
     [text(lang, "证据等级", "Evidence level"), item.evidenceLevel || "pending"],
     [text(lang, "置信度", "Confidence"), item.confidence || "pending"],
-    [text(lang, "需要验证", "Validation needed"), "Pending experimental / DFT validation"],
+    [text(lang, "需要验证", "Validation needed"), (selectedRule?.requiredValidation || []).join("; ") || "Pending experimental / DFT validation"],
   ] : [
     [text(lang, "含义", "Meaning"), item.description],
     [text(lang, "节点类型", "Node type"), item.type],
@@ -242,6 +276,52 @@ function DetailPanel({ selection, nodesById, selectedCandidate, t, lang }) {
           {roles.map((role, index) => (
             <div key={`${role.role || role.label}-${index}`} style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.5 }}>
               <strong style={{ color: t.textStrong }}>{role.label || cleanText(role.role)}:</strong> {cleanText(role.relatedFeature)} · {cleanText(role.evidenceLevel)}
+            </div>
+          ))}
+        </div>
+      )}
+      {isEdge && (
+        <div style={{ borderTop: `1px solid ${t.border}`, paddingTop: 8, display: "grid", gap: 7 }}>
+          <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>
+            {text(lang, "关联反应规则", "Linked reaction rule")}
+          </div>
+          {selectedRule ? (
+            <>
+              <div style={{ color: t.textStrong, fontSize: 12.5, lineHeight: 1.45, fontWeight: 850 }}>{cleanText(selectedRule.label)}</div>
+              <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.5 }}>
+                {text(lang, "可能 MOF 影响点", "Possible MOF influence")}: {(selectedRule.possibleMofInfluence || []).map(value => cleanText(value)).join(", ") || "pending"}
+              </div>
+              <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.45 }}>
+                {cleanText(selectedRule.status)} · {cleanText(selectedRule.confidence)}
+              </div>
+            </>
+          ) : (
+            <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.5 }}>
+              {text(lang, "该边的 ruleId 待整理。", "RuleId for this edge is pending curation.")}
+            </div>
+          )}
+        </div>
+      )}
+      {!isEdge && nodeRules.length > 0 && (
+        <div style={{ borderTop: `1px solid ${t.border}`, paddingTop: 8, display: "grid", gap: 7 }}>
+          <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>
+            {text(lang, "相关反应规则", "Related reaction rules")}
+          </div>
+          {nodeRules.slice(0, 4).map(rule => (
+            <div key={rule.ruleId} style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>
+              <strong style={{ color: t.textStrong }}>{cleanText(rule.label)}</strong> · {cleanText(rule.status)}
+            </div>
+          ))}
+        </div>
+      )}
+      {relatedEvidence.length > 0 && (
+        <div style={{ borderTop: `1px solid ${t.border}`, paddingTop: 8, display: "grid", gap: 7 }}>
+          <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>
+            {text(lang, "证据条目", "Evidence items")}
+          </div>
+          {relatedEvidence.slice(0, 3).map(evidence => (
+            <div key={evidence.evidenceId} style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>
+              <strong style={{ color: t.textStrong }}>{cleanText(evidence.evidenceType)}</strong>: {cleanText(evidence.claim)} · {cleanText(evidence.status)}
             </div>
           ))}
         </div>
@@ -384,6 +464,7 @@ function PathwayGraph({ graph, mode, selection, setSelection, selectedCandidate,
   const layout = isMobile ? MOBILE_LAYOUT : DESKTOP_LAYOUT
   const [hoveredEdge, setHoveredEdge] = useState(null)
   const relatedNodes = useMemo(() => candidateRelatedNodes(selectedCandidate), [selectedCandidate])
+  const relatedRuleIds = useMemo(() => candidateRelatedRuleIds(selectedCandidate), [selectedCandidate])
 
   return (
     <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: isMobile ? 8 : 10, minWidth: 0, overflow: "hidden" }}>
@@ -404,7 +485,7 @@ function PathwayGraph({ graph, mode, selection, setSelection, selectedCandidate,
           if (!layout.nodes[edge.source] || !layout.nodes[edge.target]) return null
           const selected = selection?.kind === "edge" && edgeKey(selection.item) === key
           const hovered = hoveredEdge === key
-          const active = modeEdgeActive(mode, edge, relatedNodes) || selected || hovered
+          const active = modeEdgeActive(mode, edge, relatedNodes, relatedRuleIds) || selected || hovered
           const evidence = evidenceStyle(edge.evidenceLevel, edge.dataStatus)
           const formic = FORMIC_EDGES.has(key)
           const competing = COMPETING_NODES.has(edge.target)
@@ -479,7 +560,7 @@ function PathwayGraph({ graph, mode, selection, setSelection, selectedCandidate,
   )
 }
 
-export function OrganicAcidGraphExplorer({ t: tone, lang: forcedLang, isMobile: forcedMobile, selectedCandidate }) {
+export function OrganicAcidGraphExplorer({ t: tone, lang: forcedLang, isMobile: forcedMobile, selectedCandidate, reactionRules = [], evidenceItems = [] }) {
   const theme = useT()
   const { lang: contextLang } = useLang()
   const viewport = useViewport()
@@ -568,7 +649,7 @@ export function OrganicAcidGraphExplorer({ t: tone, lang: forcedLang, isMobile: 
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(210px, 0.72fr) minmax(0, 1.9fr) minmax(260px, 0.9fr)", gap: 12, alignItems: "stretch", minWidth: 0 }}>
         {!isMobile && <PathwaySummary graph={graph} mode={mode} t={t} lang={lang} />}
         <PathwayGraph graph={graph} mode={mode} selection={selection} setSelection={setSelection} selectedCandidate={selectedCandidate} t={t} isMobile={isMobile} />
-        <DetailPanel selection={selection} nodesById={nodesById} selectedCandidate={selectedCandidate} t={t} lang={lang} />
+        <DetailPanel selection={selection} nodesById={nodesById} selectedCandidate={selectedCandidate} reactionRules={reactionRules} evidenceItems={evidenceItems} t={t} lang={lang} />
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) minmax(0, 1fr)", gap: 12 }}>

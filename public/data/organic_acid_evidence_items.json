@@ -1,0 +1,82 @@
+[
+  {
+    "evidenceId": "ev_pending_c1_001",
+    "relatedCandidateId": "pending",
+    "relatedRuleId": "rule_glucose_to_c1",
+    "relatedPathwayNode": "c1_intermediate",
+    "evidenceType": "hypothesis",
+    "claim": "Possible C1-intermediate formation influence requires validation.",
+    "confidence": "low",
+    "source": "pending",
+    "status": "pending validation",
+    "validationNeeded": [
+      "C1 intermediate evidence",
+      "Time-series product analysis",
+      "MOF post-reaction stability"
+    ]
+  },
+  {
+    "evidenceId": "ev_pending_hcoo_001",
+    "relatedCandidateId": "pending",
+    "relatedRuleId": "rule_c1_to_hcoo",
+    "relatedPathwayNode": "hcoo",
+    "evidenceType": "hypothesis",
+    "claim": "Possible formate-related interaction requires validation.",
+    "confidence": "low",
+    "source": "pending",
+    "status": "pending validation",
+    "validationNeeded": [
+      "HCOO- adsorption evidence",
+      "Formic acid product distribution",
+      "MOF post-reaction stability"
+    ]
+  },
+  {
+    "evidenceId": "ev_pending_hco3_001",
+    "relatedCandidateId": "pending",
+    "relatedRuleId": "rule_hco3_to_hcoo",
+    "relatedPathwayNode": "hco3",
+    "evidenceType": "hypothesis",
+    "claim": "Bicarbonate / formate interaction remains pending validation.",
+    "confidence": "low",
+    "source": "pending",
+    "status": "pending validation",
+    "validationNeeded": [
+      "HCO3- concentration-response experiment",
+      "HCOO- or HCO3- binding evidence",
+      "Isotope tracing or experimental proxy"
+    ]
+  },
+  {
+    "evidenceId": "ev_pending_competing_001",
+    "relatedCandidateId": "pending",
+    "relatedRuleId": "rule_glucose_to_lactic_acid",
+    "relatedPathwayNode": "lactic_acid",
+    "evidenceType": "hypothesis",
+    "claim": "Competing product branch risk requires product-distribution validation.",
+    "confidence": "low",
+    "source": "pending",
+    "status": "pending validation",
+    "validationNeeded": [
+      "Lactic acid product distribution",
+      "Reaction condition comparison",
+      "Carbon balance"
+    ]
+  },
+  {
+    "evidenceId": "ev_pending_stability_001",
+    "relatedCandidateId": "pending",
+    "relatedRuleId": "rule_glucose_to_humins_byproducts",
+    "relatedPathwayNode": "humins_byproducts",
+    "evidenceType": "hypothesis",
+    "claim": "Side-product and stability risks require reaction and post-reaction evidence.",
+    "confidence": "low",
+    "source": "pending",
+    "status": "pending validation",
+    "validationNeeded": [
+      "Solid by-product quantification",
+      "PXRD / FTIR / SEM / ICP stability checks",
+      "Carbon balance"
+    ]
+  }
+]

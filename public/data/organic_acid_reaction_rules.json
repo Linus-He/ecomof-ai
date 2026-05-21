@@ -1,0 +1,146 @@
+[
+  {
+    "ruleId": "rule_glucose_to_c1",
+    "label": "Glucose → C1 intermediate",
+    "sourceNodes": ["glucose"],
+    "targetNodes": ["c1_intermediate"],
+    "reactionType": "C1 intermediate formation",
+    "pathwayRole": "formic_acid_pathway",
+    "possibleMofInfluence": ["active_motif", "metal_node", "pore_environment"],
+    "evidenceLevel": "hypothesis",
+    "confidence": "low",
+    "requiredValidation": [
+      "C1 intermediate evidence under controlled reaction conditions",
+      "Product distribution under MOF-assisted conditions",
+      "Time-series analysis for intermediate formation"
+    ],
+    "status": "pending validation",
+    "notes": "This rule is a hypothesis-layer representation and does not confirm the mechanism."
+  },
+  {
+    "ruleId": "rule_hco3_to_hcoo",
+    "label": "HCO3- → HCOO-",
+    "sourceNodes": ["hco3"],
+    "targetNodes": ["hcoo"],
+    "reactionType": "bicarbonate to formate pool hypothesis",
+    "pathwayRole": "formic_acid_pathway",
+    "possibleMofInfluence": ["functional_group", "metal_node", "pore_environment"],
+    "evidenceLevel": "hypothesis",
+    "confidence": "low",
+    "requiredValidation": [
+      "HCO3- concentration-response experiment",
+      "HCOO- adsorption or binding evidence",
+      "Isotope tracing or experimental proxy"
+    ],
+    "status": "pending validation",
+    "notes": "This rule is a hypothesis-layer representation and does not confirm bicarbonate incorporation."
+  },
+  {
+    "ruleId": "rule_c1_to_hcoo",
+    "label": "C1 intermediate → HCOO-",
+    "sourceNodes": ["c1_intermediate"],
+    "targetNodes": ["hcoo"],
+    "reactionType": "formate formation",
+    "pathwayRole": "formic_acid_pathway",
+    "possibleMofInfluence": ["active_motif", "functional_group", "metal_node"],
+    "evidenceLevel": "hypothesis",
+    "confidence": "low",
+    "requiredValidation": [
+      "HCOO- adsorption or binding evidence",
+      "Product distribution under MOF-assisted conditions",
+      "DFT binding energy or experimental proxy"
+    ],
+    "status": "pending validation",
+    "notes": "This rule is a hypothesis-layer representation and does not confirm the mechanism."
+  },
+  {
+    "ruleId": "rule_hcoo_to_formic_acid",
+    "label": "HCOO- → Formic acid",
+    "sourceNodes": ["hcoo"],
+    "targetNodes": ["formic_acid"],
+    "reactionType": "product release / protonation",
+    "pathwayRole": "formic_acid_pathway",
+    "possibleMofInfluence": ["functional_group", "pore_environment"],
+    "evidenceLevel": "hypothesis",
+    "confidence": "low",
+    "requiredValidation": [
+      "Formate release evidence",
+      "Formic acid product distribution",
+      "Reaction-condition comparison with and without MOF"
+    ],
+    "status": "pending validation",
+    "notes": "This rule links formate-related species to formic acid as a hypothesis-layer decision map."
+  },
+  {
+    "ruleId": "rule_glucose_to_lactic_acid",
+    "label": "Glucose → Lactic acid",
+    "sourceNodes": ["glucose"],
+    "targetNodes": ["lactic_acid"],
+    "reactionType": "competing organic acid formation",
+    "pathwayRole": "competing_pathway",
+    "possibleMofInfluence": ["acid_base_site", "pore_environment"],
+    "evidenceLevel": "hypothesis",
+    "confidence": "low",
+    "requiredValidation": [
+      "Lactic acid product distribution",
+      "Reaction condition comparison",
+      "Competing pathway suppression evidence"
+    ],
+    "status": "pending validation",
+    "notes": "This rule tracks a competing branch and does not establish selectivity."
+  },
+  {
+    "ruleId": "rule_glucose_to_acetic_acid",
+    "label": "Glucose → Acetic acid",
+    "sourceNodes": ["glucose"],
+    "targetNodes": ["acetic_acid"],
+    "reactionType": "competing organic acid formation",
+    "pathwayRole": "competing_pathway",
+    "possibleMofInfluence": ["acid_base_site", "metal_node", "pore_environment"],
+    "evidenceLevel": "hypothesis",
+    "confidence": "low",
+    "requiredValidation": [
+      "Acetic acid product distribution",
+      "Carbon balance analysis",
+      "Competing pathway risk comparison"
+    ],
+    "status": "pending validation",
+    "notes": "This rule tracks a competing branch and does not establish selectivity."
+  },
+  {
+    "ruleId": "rule_glucose_to_glycolic_acid",
+    "label": "Glucose → Glycolic acid",
+    "sourceNodes": ["glucose"],
+    "targetNodes": ["glycolic_acid"],
+    "reactionType": "competing organic acid formation",
+    "pathwayRole": "competing_pathway",
+    "possibleMofInfluence": ["functional_group", "pore_environment"],
+    "evidenceLevel": "hypothesis",
+    "confidence": "low",
+    "requiredValidation": [
+      "Glycolic acid product distribution",
+      "Controlled reaction-condition comparison",
+      "Competing branch quantification"
+    ],
+    "status": "pending validation",
+    "notes": "This rule tracks a competing branch and does not establish selectivity."
+  },
+  {
+    "ruleId": "rule_glucose_to_humins_byproducts",
+    "label": "Glucose → Humins / by-products",
+    "sourceNodes": ["glucose"],
+    "targetNodes": ["humins_byproducts"],
+    "reactionType": "side reaction / by-product sink",
+    "pathwayRole": "side_reaction",
+    "possibleMofInfluence": ["pore_environment", "acid_base_site", "stability_risk"],
+    "evidenceLevel": "hypothesis",
+    "confidence": "low",
+    "requiredValidation": [
+      "Solid by-product quantification",
+      "Post-reaction MOF stability",
+      "Carbon balance and product distribution"
+    ],
+    "status": "pending validation",
+    "notes": "This rule tracks side-product risk and does not confirm a degradation mechanism."
+  }
+]

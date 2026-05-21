@@ -119,6 +119,28 @@ function getDatabaseName(item) {
   return cleanValue(item.sourceDatabase || item.provenance?.sourceDatabase || item.provenance?.database, "Unknown source")
 }
 
+function looksLikeRawRecordId(value) {
+  const raw = String(value || "")
+  const normalized = raw.toLowerCase()
+  return (
+    raw.length > 22 ||
+    normalized.includes("_si_") ||
+    normalized.includes("_pacman") ||
+    normalized.includes("jacs.") ||
+    (normalized.includes("ja") && normalized.includes("_")) ||
+    normalized.startsWith("qmof-")
+  )
+}
+
+function getDisplayName(record) {
+  const explicitName = firstValue(record.displayName, record.commonName, record.name, record.mofName, record.structure?.name)
+  if (explicitName && !looksLikeRawRecordId(explicitName)) return explicitName
+  const database = getDatabaseName(record)
+  if (database.includes("CoRE")) return "CoRE MOF record"
+  if (database.includes("QMOF")) return "QMOF record"
+  return "Open MOF record"
+}
+
 function descriptorValue(item, key) {
   if (key === "provenance") return getDatabaseName(item) !== "Unknown source" && hasValue(item.sourceRecordId)
   return firstValue(item[key], item.descriptors?.[key])
@@ -171,6 +193,7 @@ function normalizeOpenMofRecord(item) {
     ...item,
     id: item.id || sourceRecordId || item.name,
     name: cleanValue(item.name || sourceRecordId),
+    displayName: getDisplayName({ ...item, sourceDatabase, provenance: { ...(item.provenance || {}), sourceDatabase } }),
     dataMode: DATA_MODE,
     dataStatus: "open-mof-seed",
     sourceDatabase,
@@ -283,7 +306,7 @@ function FieldRow({ label, value, fieldKey, fieldSources, lang, t }) {
   return (
     <div style={{ minWidth: 0 }}>
       <div style={{ alignItems: "center", display: "flex", gap: 4, marginBottom: 3 }}>
-        <span style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>{label}</span>
+        <span style={{ color: t.faint, fontSize: 11, fontWeight: 780 }}>{label}</span>
         {fieldKey && <FieldProvenanceButton fieldKey={fieldKey} fieldLabel={label} source={fieldSources?.[fieldKey]} lang={lang} />}
       </div>
       <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 760, lineHeight: 1.45, overflowWrap: "anywhere" }}>
@@ -296,16 +319,9 @@ function FieldRow({ label, value, fieldKey, fieldSources, lang, t }) {
 function OpenMofSeedQualitySummary({ records, lang, t, isMobile }) {
   const stats = useMemo(() => summarizeRecords(records), [records])
   const sourceEntries = Object.entries(stats.sourceCounts)
-  const statCards = [
-    [text(lang, "总记录数", "Total records"), stats.total],
-    ...sourceEntries.map(([source, count]) => [source, count]),
-    [text(lang, "比表面积可用", "Surface area available"), `${stats.surfaceArea} / ${stats.total}`],
-    [text(lang, "孔径可用", "Pore size available"), `${stats.poreSizeA} / ${stats.total}`],
-    [text(lang, "孔体积可用", "Pore volume available"), `${stats.poreVolume} / ${stats.total}`],
-    [text(lang, "带隙可用", "Band gap available"), `${stats.bandGap} / ${stats.total}`],
-    [text(lang, "有机酸相关性待整理", "Organic acid relevance pending"), `${stats.organicPending} / ${stats.total}`],
-    [text(lang, "图结构元数据待整理", "Graph metadata pending"), `${stats.graphPending} / ${stats.total}`],
-  ]
+  const groupCardStyle = { background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 8, minWidth: 0, padding: 12 }
+  const groupTitle = { color: t.textStrong, fontSize: 12.5, fontWeight: 900 }
+  const metricStyle = { display: "flex", justifyContent: "space-between", gap: 12, color: t.muted, fontSize: 12, lineHeight: 1.45 }
   return (
     <section style={{
       background: t.panel,
@@ -321,18 +337,33 @@ function OpenMofSeedQualitySummary({ records, lang, t, isMobile }) {
             {text(lang, "Open MOF Seed 数据质量摘要", "Open MOF Seed Data Quality Summary")}
           </div>
           <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 3 }}>
-            {text(lang, "统计基于当前加载的 seed JSON 实时计算。", "Statistics are computed from the loaded seed JSON.")}
+            {text(lang, "统计结果来自当前加载的种子数据。", "Statistics are computed from the loaded seed records.")}
           </div>
         </div>
         <StatusPill t={t} tone="source">open_mof_seed_candidates.json</StatusPill>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))", gap: 8 }}>
-        {statCards.map(([label, value]) => (
-          <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, minWidth: 0, padding: "9px 10px" }}>
-            <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, lineHeight: 1.2, marginBottom: 6, overflowWrap: "anywhere", textTransform: "uppercase" }}>{label}</div>
-            <div style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 14, fontWeight: 900, lineHeight: 1.2 }}>{value}</div>
-          </div>
-        ))}
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 10 }}>
+        <div style={groupCardStyle}>
+          <div style={groupTitle}>{text(lang, "数据质量摘要", "Data quality summary")}</div>
+          <div style={metricStyle}><span>{text(lang, "总记录数", "Total records")}</span><strong style={{ color: t.textStrong }}>{stats.total}</strong></div>
+          <div style={metricStyle}><span>{text(lang, "来源数量", "Source count")}</span><strong style={{ color: t.textStrong }}>{sourceEntries.length}</strong></div>
+          <div style={metricStyle}><span>{text(lang, "Provenance", "Provenance")}</span><strong style={{ color: t.textStrong }}>{text(lang, "已记录", "recorded")}</strong></div>
+        </div>
+        <div style={groupCardStyle}>
+          <div style={groupTitle}>{text(lang, "来源分布", "Source distribution")}</div>
+          {sourceEntries.map(([source, count]) => (
+            <div key={source} style={metricStyle}><span>{source}</span><strong style={{ color: t.textStrong }}>{count}</strong></div>
+          ))}
+        </div>
+        <div style={groupCardStyle}>
+          <div style={groupTitle}>{text(lang, "描述符状态", "Descriptor status")}</div>
+          <div style={metricStyle}><span>{text(lang, "孔径", "Pore size")}</span><strong style={{ color: t.textStrong }}>{stats.poreSizeA} / {stats.total}</strong></div>
+          <div style={metricStyle}><span>{text(lang, "比表面积", "Surface area")}</span><strong style={{ color: t.textStrong }}>{stats.surfaceArea} / {stats.total}</strong></div>
+          <div style={metricStyle}><span>{text(lang, "孔体积", "Pore volume")}</span><strong style={{ color: t.textStrong }}>{stats.poreVolume} / {stats.total}</strong></div>
+          <div style={metricStyle}><span>{text(lang, "带隙", "Band gap")}</span><strong style={{ color: t.textStrong }}>{stats.bandGap} / {stats.total}</strong></div>
+          <div style={metricStyle}><span>{text(lang, "有机酸相关性待整理", "Organic acid relevance pending")}</span><strong style={{ color: t.textStrong }}>{stats.organicPending} / {stats.total}</strong></div>
+          <div style={metricStyle}><span>{text(lang, "图结构元数据待整理", "Graph metadata pending")}</span><strong style={{ color: t.textStrong }}>{stats.graphPending} / {stats.total}</strong></div>
+        </div>
       </div>
     </section>
   )
@@ -359,7 +390,8 @@ function OpenMofSeedFilters({
     padding: "0 9px",
     width: "100%",
   }
-  const labelStyle = { color: t.faint, display: "grid", fontSize: 10, fontWeight: 850, gap: 5, minWidth: 0, textTransform: "uppercase" }
+  const [advancedOpen, setAdvancedOpen] = useState(false)
+  const labelStyle = { color: t.faint, display: "grid", fontSize: 11, fontWeight: 760, gap: 5, minWidth: 0 }
   const updateAvailability = (key) => {
     setFilters(prev => ({
       ...prev,
@@ -367,8 +399,8 @@ function OpenMofSeedFilters({
     }))
   }
   return (
-    <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 12, padding: 12 }}>
-      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1.3fr 1fr 1fr 1fr", gap: 9, alignItems: "end" }}>
+    <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 10, padding: 11 }}>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1.4fr 1fr 1fr 1fr auto", gap: 8, alignItems: "end" }}>
         <label style={labelStyle}>
           {text(lang, "搜索", "Search")}
           <input
@@ -379,21 +411,21 @@ function OpenMofSeedFilters({
           />
         </label>
         <label style={labelStyle}>
-          {text(lang, "Source Database", "Source Database")}
+          {text(lang, "来源数据库", "Source database")}
           <select value={filters.source} onChange={event => setFilters(prev => ({ ...prev, source: event.target.value }))} style={controlStyle}>
             <option value="all">All</option>
             {sources.map(source => <option key={source} value={source}>{source}</option>)}
           </select>
         </label>
         <label style={labelStyle}>
-          {text(lang, "Metal Node", "Metal Node")}
+          {text(lang, "金属节点", "Metal node")}
           <select value={filters.metal} onChange={event => setFilters(prev => ({ ...prev, metal: event.target.value }))} style={controlStyle}>
             <option value="all">All</option>
             {metals.map(metal => <option key={metal} value={metal}>{metal}</option>)}
           </select>
         </label>
         <label style={labelStyle}>
-          {text(lang, "Organic Acid Relevance", "Organic Acid Relevance")}
+          {text(lang, "有机酸相关性", "Organic acid relevance")}
           <select value={filters.organicStatus} onChange={event => setFilters(prev => ({ ...prev, organicStatus: event.target.value }))} style={controlStyle}>
             <option value="all">All</option>
             {organicStatuses.map(status => <option key={status} value={status}>{status}</option>)}
@@ -402,8 +434,22 @@ function OpenMofSeedFilters({
             {!organicStatuses.includes("experiment-supported") && <option value="experiment-supported">Experiment-supported</option>}
           </select>
         </label>
+        <button
+          type="button"
+          onClick={() => setFilters({ query: "", source: "all", metal: "all", organicStatus: "all", availability: {} })}
+          style={{ ...toolbarBtn(t), fontSize: 11, height: 36, justifyContent: "center", padding: "0 10px" }}
+        >
+          {text(lang, "重置筛选", "Reset filters")}
+        </button>
       </div>
-      <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
+      <button
+        type="button"
+        onClick={() => setAdvancedOpen(prev => !prev)}
+        style={{ ...toolbarBtn(t), borderStyle: "dashed", fontSize: 11, justifyContent: "center", padding: "6px 9px", width: isMobile ? "100%" : "fit-content" }}
+      >
+        {advancedOpen ? text(lang, "收起字段筛选", "Hide descriptor filters") : text(lang, "更多字段筛选", "More descriptor filters")}
+      </button>
+      {advancedOpen && <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
         {DESCRIPTOR_FILTERS.map(filter => {
           const active = Boolean(filters.availability[filter.key])
           return (
@@ -426,14 +472,7 @@ function OpenMofSeedFilters({
             </button>
           )
         })}
-        <button
-          type="button"
-          onClick={() => setFilters({ query: "", source: "all", metal: "all", organicStatus: "all", availability: {} })}
-          style={{ ...toolbarBtn(t), fontSize: 11, marginLeft: "auto", padding: "6px 9px" }}
-        >
-          {text(lang, "重置筛选", "Reset filters")}
-        </button>
-      </div>
+      </div>}
     </section>
   )
 }
@@ -458,7 +497,7 @@ function OpenMofSeedCard({ item, expanded, onToggle, lang, t, isMobile }) {
   const db = getDatabaseName(item)
   const geometryCurated = ["surfaceArea", "poreSizeA", "pldA", "lcdA", "poreVolume", "density", "voidFraction"].some(key => hasValue(item[key]))
   const electronicAvailable = hasValue(item.bandGap)
-  const sourceLine = `${db} · ${displayVersion(item.sourceVersion)} · ${shortLicense(item.license)}`
+  const versionLicense = `${displayVersion(item.sourceVersion)} · ${shortLicense(item.license)}`
   return (
     <article style={{
       background: t.panel,
@@ -473,12 +512,14 @@ function OpenMofSeedCard({ item, expanded, onToggle, lang, t, isMobile }) {
       <div style={{ display: "grid", gap: 7 }}>
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10 }}>
           <div style={{ minWidth: 0 }}>
-            <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 900, lineHeight: 1.25, overflowWrap: "anywhere" }}>{item.name}</div>
-            <div style={{ color: t.faint, fontFamily: FONT_MONO, fontSize: 10.5, lineHeight: 1.4, marginTop: 3, overflowWrap: "anywhere" }}>{item.sourceRecordId}</div>
+            <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900, lineHeight: 1.25, overflowWrap: "anywhere" }}>{item.displayName || getDisplayName(item)}</div>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.45, marginTop: 3, overflowWrap: "anywhere" }}>
+              {text(lang, "原始记录", "Record ID")}: <span style={{ fontFamily: FONT_MONO }}>{item.sourceRecordId}</span>
+            </div>
           </div>
           <StatusPill t={t} tone="source">{db}</StatusPill>
         </div>
-        <div style={{ color: t.subtle, fontSize: 11.5, fontWeight: 760, lineHeight: 1.4, overflowWrap: "anywhere" }}>{sourceLine}</div>
+        <div style={{ color: t.subtle, fontSize: 11.5, fontWeight: 760, lineHeight: 1.4, overflowWrap: "anywhere" }}>{versionLicense}</div>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 8 }}>
@@ -488,11 +529,11 @@ function OpenMofSeedCard({ item, expanded, onToggle, lang, t, isMobile }) {
       <DescriptorLine label={text(lang, "配体状态", "Linker status")} value={item.linker} lang={lang} t={t} compact />
 
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }}>
-        <DescriptorLine label="Surface area" value={formatValue(item.surfaceArea, " m2/g", lang)} fieldKey="surfaceArea" fieldSources={item.fieldSources} lang={lang} t={t} compact />
+        <DescriptorLine label={text(lang, "比表面积", "Surface area")} value={formatValue(item.surfaceArea, " m2/g", lang)} fieldKey="surfaceArea" fieldSources={item.fieldSources} lang={lang} t={t} compact />
         <DescriptorLine label="PLD" value={formatValue(item.pldA, " A", lang)} fieldKey="pldA" fieldSources={item.fieldSources} lang={lang} t={t} compact />
         <DescriptorLine label="LCD" value={formatValue(item.lcdA, " A", lang)} fieldKey="lcdA" fieldSources={item.fieldSources} lang={lang} t={t} compact />
-        <DescriptorLine label="Pore volume" value={formatValue(item.poreVolume, " cm3/g", lang)} fieldKey="poreVolume" fieldSources={item.fieldSources} lang={lang} t={t} compact />
-        {electronicAvailable && <DescriptorLine label="Band gap" value={formatValue(item.bandGap, " eV", lang)} fieldKey="bandGap" fieldSources={item.fieldSources} lang={lang} t={t} compact />}
+        <DescriptorLine label={text(lang, "孔体积", "Pore volume")} value={formatValue(item.poreVolume, " cm3/g", lang)} fieldKey="poreVolume" fieldSources={item.fieldSources} lang={lang} t={t} compact />
+        {electronicAvailable && <DescriptorLine label={text(lang, "带隙", "Band gap")} value={formatValue(item.bandGap, " eV", lang)} fieldKey="bandGap" fieldSources={item.fieldSources} lang={lang} t={t} compact />}
       </div>
 
       <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
@@ -527,12 +568,12 @@ function AdvancedMetadata({ item, lang, t, isMobile }) {
   return (
     <div style={{ display: "grid", gap: 8 }}>
       <button type="button" onClick={() => setGraphOpen(prev => !prev)} style={buttonStyle}>
-        <span>{text(lang, "Advanced graph metadata", "Advanced graph metadata")}</span>
+        <span>{text(lang, "高级图结构元数据", "Advanced graph metadata")}</span>
         <span>{graphOpen ? "−" : "+"}</span>
       </button>
       {graphOpen && <GraphDescriptorPanel graphMetadata={item.graphMetadata} t={t} lang={lang} isMobile={isMobile} />}
       <button type="button" onClick={() => setOrganicOpen(prev => !prev)} style={buttonStyle}>
-        <span>{text(lang, "Organic acid relevance metadata", "Organic acid relevance metadata")}</span>
+        <span>{text(lang, "有机酸相关性元数据", "Organic acid relevance metadata")}</span>
         <span>{organicOpen ? "−" : "+"}</span>
       </button>
       {organicOpen && <OrganicAcidRelevancePanel relevance={item.organicAcidRelevance} candidate={item} t={t} lang={lang} isMobile={isMobile} />}
@@ -542,30 +583,30 @@ function AdvancedMetadata({ item, lang, t, isMobile }) {
 
 function OpenMofSeedDetailPanel({ item, lang, t, isMobile }) {
   const provenanceRows = [
-    ["Database", item.sourceDatabase],
-    ["Record ID", item.sourceRecordId],
-    ["Version", item.sourceVersion],
-    ["Source URL", item.sourceUrl],
-    ["Citation", item.citation],
-    ["License", item.license],
-    ["Retrieved at", item.retrievedAt],
-    ["Curation status", normalizeStatus(item.curationStatus, lang)],
+    [text(lang, "来源数据库", "Source database"), item.sourceDatabase],
+    [text(lang, "原始记录", "Record ID"), item.sourceRecordId],
+    [text(lang, "数据库版本", "Source version"), item.sourceVersion],
+    [text(lang, "来源链接", "Source URL"), item.sourceUrl],
+    [text(lang, "引用", "Citation"), item.citation],
+    [text(lang, "许可证", "License"), item.license],
+    [text(lang, "获取时间", "Retrieved at"), item.retrievedAt],
+    [text(lang, "整理状态", "Curation status"), normalizeStatus(item.curationStatus, lang)],
   ]
   const descriptorRows = [
-    ["Surface area", formatValue(item.surfaceArea, " m2/g", lang), "surfaceArea"],
-    ["Pore size", formatValue(item.poreSizeA, " A", lang), "poreSizeA"],
+    [text(lang, "比表面积", "Surface area"), formatValue(item.surfaceArea, " m2/g", lang), "surfaceArea"],
+    [text(lang, "孔径", "Pore size"), formatValue(item.poreSizeA, " A", lang), "poreSizeA"],
     ["PLD", formatValue(item.pldA, " A", lang), "pldA"],
     ["LCD", formatValue(item.lcdA, " A", lang), "lcdA"],
-    ["Pore volume", formatValue(item.poreVolume, " cm3/g", lang), "poreVolume"],
-    ["Density", formatValue(item.density, " g/cm3", lang), "density"],
-    ["Void fraction", formatValue(item.voidFraction, "", lang), "voidFraction"],
-    ["Band gap", formatValue(item.bandGap, " eV", lang), "bandGap"],
-    ["CO2 uptake", formatValue(item.co2Uptake, "", lang), "co2Uptake"],
-    ["CIF file / CIF URL", `${formatValue(item.cifFile, "", lang)} / ${formatValue(item.cifUrl, "", lang)}`],
+    [text(lang, "孔体积", "Pore volume"), formatValue(item.poreVolume, " cm3/g", lang), "poreVolume"],
+    [text(lang, "密度", "Density"), formatValue(item.density, " g/cm3", lang), "density"],
+    [text(lang, "空隙率", "Void fraction"), formatValue(item.voidFraction, "", lang), "voidFraction"],
+    [text(lang, "带隙", "Band gap"), formatValue(item.bandGap, " eV", lang), "bandGap"],
+    [text(lang, "CO₂ 吸附", "CO2 uptake"), formatValue(item.co2Uptake, "", lang), "co2Uptake"],
+    [text(lang, "CIF 文件", "CIF file"), `${formatValue(item.cifFile, "", lang)} / ${formatValue(item.cifUrl, "", lang)}`],
   ]
   return (
     <div style={{ borderTop: `1px solid ${t.divider}`, display: "grid", gap: 12, minWidth: 0, paddingTop: 12 }}>
-      <DetailBlock title="Source & Provenance" t={t}>
+      <DetailBlock title={text(lang, "来源与溯源", "Source & Provenance")} t={t}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }}>
           {provenanceRows.map(([label, value]) => (
             <DescriptorLine key={label} label={label} value={formatValue(value, "", lang)} lang={lang} t={t} compact />
@@ -573,7 +614,7 @@ function OpenMofSeedDetailPanel({ item, lang, t, isMobile }) {
         </div>
       </DetailBlock>
 
-      <DetailBlock title="Geometry / Electronic Descriptors" t={t}>
+      <DetailBlock title={text(lang, "几何 / 电子描述符", "Geometry / Electronic Descriptors")} t={t}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }}>
           {descriptorRows.map(([label, value, fieldKey]) => (
             <DescriptorLine key={label} label={label} value={value} fieldKey={fieldKey} fieldSources={item.fieldSources} lang={lang} t={t} compact />
@@ -581,7 +622,7 @@ function OpenMofSeedDetailPanel({ item, lang, t, isMobile }) {
         </div>
       </DetailBlock>
 
-      <DetailBlock title="Descriptor Completeness" t={t}>
+      <DetailBlock title={text(lang, "描述符完整度", "Descriptor Completeness")} t={t}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
           {COMPLETENESS_FIELDS.map(key => {
             const status = item.descriptorCompleteness?.[key] || "pending"
@@ -597,7 +638,7 @@ function OpenMofSeedDetailPanel({ item, lang, t, isMobile }) {
         </div>
       </DetailBlock>
 
-      <DetailBlock title="Organic Acid Boundary" t={t}>
+      <DetailBlock title={text(lang, "有机酸边界说明", "Organic Acid Boundary")} t={t}>
         <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.7 }}>
           {text(
             lang,
@@ -631,7 +672,7 @@ function passesFilters(item, filters) {
 
 export function MOFLibraryTab() {
   const t = useT()
-  const lang = useLang()
+  const { lang } = useLang()
   const { isMobile } = useViewport()
   const [rows, setRows] = useState([])
   const [status, setStatus] = useState("loading")
@@ -683,11 +724,11 @@ export function MOFLibraryTab() {
   return (
     <div id="library" style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}>
       <PageHeader
-        title="Open MOF Seed Library / 多源开源 MOF 种子库"
+        title={text(lang, "多源开源 MOF 种子库", "Open MOF Seed Library")}
         subtitle={text(
           lang,
-          "一个带有来源追踪的轻量级多源 MOF 种子数据层，整合来自公开数据库的结构、几何与电子描述符。",
-          "A lightweight, provenance-aware seed layer integrating open MOF records from multiple public sources."
+          "Open MOF Seed Library · 一个带有来源追踪的轻量级多源 MOF 种子数据层，整合来自公开数据库的结构、几何与电子描述符。",
+          "Multi-source open MOF seed database · A lightweight, provenance-aware seed layer integrating open MOF records from multiple public sources."
         )}
         action={<CopyLinkButton hash="library" ariaLabel={text(lang, "复制 MOF Library 链接", "Copy MOF Library link")} />}
       />

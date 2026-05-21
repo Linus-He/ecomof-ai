@@ -79,6 +79,7 @@
     {
       "source": "glucose",
       "target": "c1_intermediate",
+      "ruleId": "rule_glucose_to_c1",
       "label": "C1 formation hypothesis",
       "reactionType": "fragmentation / oxidation hypothesis",
       "possibleMofInfluence": [
@@ -91,6 +92,7 @@
     {
       "source": "hco3",
       "target": "hcoo",
+      "ruleId": "rule_hco3_to_hcoo",
       "label": "bicarbonate to formate pool",
       "reactionType": "bicarbonate participation hypothesis",
       "possibleMofInfluence": [
@@ -103,6 +105,7 @@
     {
       "source": "c1_intermediate",
       "target": "hcoo",
+      "ruleId": "rule_c1_to_hcoo",
       "label": "C1 to formate-oriented intermediate",
       "reactionType": "C1 stabilization hypothesis",
       "possibleMofInfluence": [
@@ -116,6 +119,7 @@
     {
       "source": "hcoo",
       "target": "formic_acid",
+      "ruleId": "rule_hcoo_to_formic_acid",
       "label": "formate / formic acid relation",
       "reactionType": "acid-base / product relation",
       "possibleMofInfluence": [
@@ -128,6 +132,7 @@
     {
       "source": "glucose",
       "target": "lactic_acid",
+      "ruleId": "rule_glucose_to_lactic_acid",
       "label": "lactic acid branch",
       "reactionType": "competing organic-acid pathway",
       "possibleMofInfluence": [
@@ -139,6 +144,7 @@
     {
       "source": "glucose",
       "target": "acetic_acid",
+      "ruleId": "rule_glucose_to_acetic_acid",
       "label": "acetic acid branch",
       "reactionType": "competing C2 pathway",
       "possibleMofInfluence": [
@@ -151,6 +157,7 @@
     {
       "source": "glucose",
       "target": "glycolic_acid",
+      "ruleId": "rule_glucose_to_glycolic_acid",
       "label": "glycolic acid branch",
       "reactionType": "competing organic-acid pathway",
       "possibleMofInfluence": [
@@ -163,6 +170,7 @@
     {
       "source": "glucose",
       "target": "humins_byproducts",
+      "ruleId": "rule_glucose_to_humins_byproducts",
       "label": "dehydration / by-product sink",
       "reactionType": "side-product pathway",
       "possibleMofInfluence": [

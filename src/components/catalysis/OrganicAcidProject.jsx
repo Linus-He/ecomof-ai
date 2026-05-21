@@ -18,6 +18,8 @@ import { OrganicAcidPathwayMap } from "./OrganicAcidPathwayMap"
 import { OrganicAcidGraphExplorer } from "./OrganicAcidGraphExplorer"
 import { OrganicAcidCandidateMap } from "./OrganicAcidCandidateMap"
 import { OrganicAcidExperimentFeedbackPanel } from "./OrganicAcidExperimentFeedbackPanel"
+import { ReactionRuleExplorer } from "./ReactionRuleExplorer"
+import { CandidateRuleMatchPanel } from "./CandidateRuleMatchPanel"
 import { CompactDataModeBar } from "../module/ModuleTop"
 import { DataStatusSummary, OpenMofIntegrationReport } from "../data/OpenMofIntegrationReport"
 
@@ -436,6 +438,8 @@ export function OrganicAcidProject({ lang = "zh", t }) {
   const [candidateDataMode, setCandidateDataMode] = useState("demo")
   const [candidateStatus, setCandidateStatus] = useState("idle")
   const [status, setStatus] = useState("idle")
+  const [reactionRules, setReactionRules] = useState([])
+  const [evidenceItems, setEvidenceItems] = useState([])
   const [selectedMof, setSelectedMof] = useState("")
   const [selectedPathwayCandidateId, setSelectedPathwayCandidateId] = useState("")
   const [activeTraceStep, setActiveTraceStep] = useState("raw")
@@ -484,6 +488,26 @@ export function OrganicAcidProject({ lang = "zh", t }) {
         openSeed: Array.isArray(openSeed) ? openSeed : [],
         experiments: Array.isArray(experiments) ? experiments : [],
       })
+    })
+    return () => {
+      live = false
+    }
+  }, [hasAccess])
+
+  useEffect(() => {
+    if (!hasAccess) return
+    let live = true
+    Promise.all([
+      fetchDataJson("organic_acid_reaction_rules.json", []),
+      fetchDataJson("organic_acid_evidence_items.json", []),
+    ]).then(([rules, evidence]) => {
+      if (!live) return
+      setReactionRules(Array.isArray(rules) ? rules : [])
+      setEvidenceItems(Array.isArray(evidence) ? evidence : [])
+    }).catch(() => {
+      if (!live) return
+      setReactionRules([])
+      setEvidenceItems([])
     })
     return () => {
       live = false
@@ -581,11 +605,31 @@ export function OrganicAcidProject({ lang = "zh", t }) {
           lang={lang}
           t={t}
         />
-        <OrganicAcidGraphExplorer lang={lang} t={t} selectedCandidate={selectedPathwayCandidate} />
+        <OrganicAcidGraphExplorer
+          lang={lang}
+          t={t}
+          selectedCandidate={selectedPathwayCandidate}
+          reactionRules={reactionRules}
+          evidenceItems={evidenceItems}
+        />
+        <ReactionRuleExplorer
+          reactionRules={reactionRules}
+          evidenceItems={evidenceItems}
+          selectedCandidate={selectedPathwayCandidate}
+          lang={lang}
+          t={t}
+        />
         <OrganicAcidCandidateMap
           candidates={candidateRows}
           selectedCandidateId={selectedPathwayCandidateId}
           onSelectCandidate={setSelectedPathwayCandidateId}
+          lang={lang}
+          t={t}
+        />
+        <CandidateRuleMatchPanel
+          selectedCandidate={selectedPathwayCandidate}
+          reactionRules={reactionRules}
+          evidenceItems={evidenceItems}
           lang={lang}
           t={t}
         />
