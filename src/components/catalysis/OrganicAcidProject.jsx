@@ -570,7 +570,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
         />
         {candidateDataMode === "open-mof-seed" && (
           <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.muted, fontSize: 12.5, lineHeight: 1.55, padding: 11 }}>
-            Open MOF seed records are imported from multiple public sources with separate provenance. 当前记录只提供结构、几何或电子描述符；有机酸路径相关性仍为 pending，不作为甲酸路径结论。
+            Open MOF Seed 已接入多源开源记录；当前有机酸路径相关性在没有文献、DFT 或实验支持前仍保持 pending。
           </div>
         )}
         <DataStatusSummary

@@ -216,35 +216,72 @@ function DataQualitySection({ realSeedRows, descriptorFields = CORE_DESCRIPTOR_F
 }
 
 function normalizeDemoRecord(item) {
-  const metalNodes = Array.isArray(item.metalNodes) ? item.metalNodes : item.metal ? [item.metal] : []
+  const numericOrFallback = (value, fallback = "pending") => {
+    const number = Number(value)
+    return Number.isFinite(number) ? number : fallback
+  }
+  const arrayOrEmpty = (value) => Array.isArray(value) ? value.filter(Boolean) : []
+  const firstValue = (...values) => {
+    for (const value of values) {
+      if (value === undefined || value === null || value === "") continue
+      return value
+    }
+    return undefined
+  }
   const source = Array.isArray(item.source) ? item.source.join(" / ") : item.source
   const limitations = Array.isArray(item.limitations) ? item.limitations.join("; ") : item.limitations
   const activeSiteHypothesis = Array.isArray(item.activeSiteHypothesis) ? item.activeSiteHypothesis.join("; ") : item.activeSiteHypothesis
+  const metalNodeValue = firstValue(item.metalNode, item.chemistry?.metalNode, item.metal)
+  const linkerValue = firstValue(item.linker, item.chemistry?.linker)
+  const topologyValue = firstValue(item.topology, item.structure?.topology)
+  const sourceValue = firstValue(item.sourceDatabase, item.provenance?.database, item.provenance?.sourceDatabase, item.sourceType, source)
+  const evidenceLevel = firstValue(item.evidenceLevel, item.provenance?.evidenceLevel, item.curationStatus === "raw-import" ? "Pending" : undefined, "Low")
+  const fieldSources = item.fieldSources || {
+    surfaceArea: sourceValue ? { sourceName: sourceValue, database: sourceValue, value: item.surfaceArea ?? item.descriptors?.surfaceArea, sourceType: "open-mof-seed", curationStatus: item.provenance?.curationStatus || item.curationStatus || "raw-import" } : undefined,
+    poreSizeA: sourceValue ? { sourceName: sourceValue, database: sourceValue, value: item.poreSizeA ?? item.descriptors?.poreSizeA ?? item.descriptors?.lcdA, sourceType: "open-mof-seed", curationStatus: item.provenance?.curationStatus || item.curationStatus || "raw-import" } : undefined,
+    pldA: sourceValue ? { sourceName: sourceValue, database: sourceValue, value: item.pldA ?? item.descriptors?.pldA, sourceType: "open-mof-seed", curationStatus: item.provenance?.curationStatus || item.curationStatus || "raw-import" } : undefined,
+    poreVolume: sourceValue ? { sourceName: sourceValue, database: sourceValue, value: item.poreVolume ?? item.descriptors?.poreVolume, sourceType: "open-mof-seed", curationStatus: item.provenance?.curationStatus || item.curationStatus || "raw-import" } : undefined,
+    bandGap: sourceValue ? { sourceName: sourceValue, database: sourceValue, value: item.bandGap ?? item.descriptors?.bandGap, sourceType: "open-mof-seed", curationStatus: item.provenance?.curationStatus || item.curationStatus || "raw-import" } : undefined,
+    metalNode: sourceValue ? { sourceName: sourceValue, database: sourceValue, value: metalNodeValue, sourceType: "open-mof-seed", curationStatus: item.provenance?.curationStatus || item.curationStatus || "raw-import" } : undefined,
+    linker: sourceValue ? { sourceName: sourceValue, database: sourceValue, value: linkerValue, sourceType: "open-mof-seed", curationStatus: item.provenance?.curationStatus || item.curationStatus || "raw-import" } : undefined,
+    topology: sourceValue ? { sourceName: sourceValue, database: sourceValue, value: topologyValue, sourceType: "open-mof-seed", curationStatus: item.provenance?.curationStatus || item.curationStatus || "raw-import" } : undefined,
+  }
+  const metalNodes = arrayOrEmpty(item.metalNodes).length
+    ? arrayOrEmpty(item.metalNodes)
+    : arrayOrEmpty(item.chemistry?.metalNodes).length
+      ? arrayOrEmpty(item.chemistry?.metalNodes)
+      : metalNodeValue
+        ? [metalNodeValue]
+        : []
   return {
     id: item.id || item.name,
     name: item.name,
     formula: item.formula || "—",
     metalNodes,
-    metal: metalNodes.join(", ") || item.metal || "—",
-    linker: item.linker || "—",
-    topology: item.topology || "—",
-    poreSizeA: Number(item.poreSizeA ?? item.pd ?? item.lcd ?? 0),
-    surfaceArea: Number(item.surfaceArea ?? item.bet ?? 0),
-    poreVolume: item.poreVolume ?? item.pv ?? "—",
-    co2Uptake: item.co2Uptake ?? "—",
-    bandGap: item.bandGap ?? "—",
+    metal: metalNodes.join(", ") || metalNodeValue || "pending",
+    linker: linkerValue || "pending",
+    topology: topologyValue || "pending",
+    poreSizeA: numericOrFallback(firstValue(item.poreSizeA, item.descriptors?.poreSizeA, item.pldA, item.descriptors?.pldA, item.pd, item.lcd, item.descriptors?.lcdA)),
+    surfaceArea: numericOrFallback(firstValue(item.surfaceArea, item.descriptors?.surfaceArea, item.bet)),
+    poreVolume: numericOrFallback(firstValue(item.poreVolume, item.descriptors?.poreVolume, item.pv), "pending"),
+    co2Uptake: numericOrFallback(firstValue(item.co2Uptake, item.descriptors?.co2Uptake), "pending"),
+    bandGap: numericOrFallback(firstValue(item.bandGap, item.descriptors?.bandGap), "pending"),
     waterStability: item.waterStability || "—",
     thermalStability: item.thermalStability || "—",
     costLevel: item.costLevel || "—",
     toxicityConcern: item.toxicityConcern || "—",
     reactionClasses: Array.isArray(item.reactionClasses) ? item.reactionClasses : [],
     activeSiteHypothesis: activeSiteHypothesis || "—",
-    source: source || item.sourceDatabase || item.sourceType || "Demo seed",
-    evidenceLevel: item.evidenceLevel || "Low",
-    limitations: limitations || "Demo / placeholder record; needs validation.",
-    dataStatus: item.dataStatus || "demo / placeholder / needs validation",
-    dataMode: item.dataMode || "demo",
-    fieldSources: item.fieldSources || undefined,
+    source: sourceValue || "Demo seed",
+    evidenceLevel,
+    limitations: limitations || item.provenance?.processingNote || "Demo / placeholder record; needs validation.",
+    dataStatus: item.dataStatus || item.curationStatus || "demo / placeholder / needs validation",
+    dataMode: item.dataMode || item.dataStatus || "demo",
+    sourceDatabase: item.sourceDatabase || item.provenance?.database || item.provenance?.sourceDatabase || "—",
+    sourceRecordId: item.sourceRecordId || item.provenance?.sourceRecordId || "—",
+    sourceVersion: item.sourceVersion || item.provenance?.sourceVersion || "—",
+    provenance: item.provenance || undefined,
+    fieldSources,
   }
 }
 
@@ -668,10 +705,13 @@ function DataModeBar({ dataMode, onChange, recordCount, infoOpen, setInfoOpen, l
   const options = [
     { id: "demo", label: lang === "zh" ? "演示数据" : "Demo" },
     { id: "real-seed", label: lang === "zh" ? "真实种子数据" : "Real seed" },
+    { id: "open-mof-seed", label: lang === "zh" ? "Open MOF Seed" : "Open MOF Seed" },
   ]
   const modeNote = dataMode === "real-seed"
     ? (lang === "zh" ? "当前模式：真实种子记录，用于查看字段来源、整理状态与证据等级。" : "Current mode: real seed records for reviewing field sources, curation status, and evidence level.")
-    : (lang === "zh" ? "当前模式：演示记录，用于查看筛选流程和交互逻辑。" : "Current mode: demo records for reviewing workflow and interaction logic.")
+    : dataMode === "open-mof-seed"
+      ? (lang === "zh" ? "当前模式：Open MOF Seed，多源开源记录已接入；已有结构与描述符字段直接显示，缺失字段保持 pending。" : "Current mode: Open MOF Seed. Multi-source public records are loaded, with existing structural/descriptor fields shown directly and missing fields kept as pending.")
+      : (lang === "zh" ? "当前模式：演示记录，用于查看筛选流程和交互逻辑。" : "Current mode: demo records for reviewing workflow and interaction logic.")
 
   const toggleInfo = () => {
     if (infoButtonRef.current) setAnchorRect(infoButtonRef.current.getBoundingClientRect())
@@ -776,7 +816,7 @@ export function MOFLibraryTab({ results, inputs }) {
   const [selectedInspectorId, setSelectedInspectorId] = useState(null)
   const [structureRows, setStructureRows] = useState([])
   const [labelRows, setLabelRows] = useState([])
-  const [demoRows, setDemoRows] = useState([])
+  const [modeRows, setModeRows] = useState([])
   const [realSeedRows, setRealSeedRows] = useState([])
   const [status, setStatus] = useState("loading")
   const [selectedCompareIds, setSelectedCompareIds] = useState([])
@@ -794,24 +834,40 @@ export function MOFLibraryTab({ results, inputs }) {
 
   useEffect(() => {
     let active = true
+    getMofCandidates({ mode: dataMode, throwOnError: true })
+      .then((rows) => {
+        if (!active) return
+        setModeRows(Array.isArray(rows) ? rows : [])
+      })
+      .catch((error) => {
+        console.warn("MOF Library mode data load failed.", error)
+        if (!active) return
+        setModeRows([])
+      })
+    return () => { active = false }
+  }, [dataMode])
+
+  useEffect(() => {
+    let active = true
     setStatus("loading")
     Promise.all([
       getMofStructures({ throwOnError: true }),
       getAdsorptionLabels({ throwOnError: true }),
       getMofCandidates({ mode: "demo", throwOnError: true }),
       getMofCandidates({ mode: "real-seed", throwOnError: true }),
+      getMofCandidates({ mode: "open-mof-seed", throwOnError: true }),
     ])
-      .then(([structures, labels, demo, realSeed]) => {
+      .then(([structures, labels, demo, realSeed, openSeed]) => {
         if (!active) return
         const nextStructures = Array.isArray(structures) ? structures : []
         const nextLabels = Array.isArray(labels) ? labels : []
         const nextDemo = Array.isArray(demo) ? demo : []
         const nextRealSeed = Array.isArray(realSeed) ? realSeed : []
+        const nextOpenSeed = Array.isArray(openSeed) ? openSeed : []
         setStructureRows(nextStructures)
         setLabelRows(nextLabels)
-        setDemoRows(nextDemo)
         setRealSeedRows(nextRealSeed)
-        setStatus(nextStructures.length || nextLabels.length || nextDemo.length || nextRealSeed.length ? "loaded" : "empty")
+        setStatus(nextStructures.length || nextLabels.length || nextDemo.length || nextRealSeed.length || nextOpenSeed.length ? "loaded" : "empty")
       })
       .catch((error) => {
         console.warn("MOF Library data load failed.", error)
@@ -842,8 +898,14 @@ export function MOFLibraryTab({ results, inputs }) {
   }, [dataMode])
 
   const records = useMemo(() => {
-    if (dataMode === "real-seed" && realSeedRows.length) {
-      return realSeedRows.map(item => normalizeDemoRecord({
+    if (dataMode === "open-mof-seed" && modeRows.length) {
+      return modeRows.map(item => normalizeDemoRecord({
+        ...item,
+        dataMode: "open-mof-seed",
+      }))
+    }
+    if (dataMode === "real-seed" && modeRows.length) {
+      return modeRows.map(item => normalizeDemoRecord({
         ...item,
         // Graceful fallback for null numeric fields
         poreSizeA: item.poreSizeA ?? "pending",
@@ -854,10 +916,10 @@ export function MOFLibraryTab({ results, inputs }) {
         dataStatus: item.curationNote || "real-seed / pending curation",
       }))
     }
-    if (demoRows.length) return demoRows.map(normalizeDemoRecord)
+    if (dataMode === "demo" && modeRows.length) return modeRows.map(normalizeDemoRecord)
     const loaded = buildDatabaseRecords(structureRows, labelRows)
     return (loaded.length ? loaded : LITERATURE_DB).map(normalizeLegacyRecord)
-  }, [dataMode, demoRows, realSeedRows, structureRows, labelRows])
+  }, [dataMode, modeRows, structureRows, labelRows])
 
   const libraryScoringModel = useMemo(() => createScoringModel({
     candidates: records,
@@ -880,8 +942,14 @@ export function MOFLibraryTab({ results, inputs }) {
       .filter(item => metal === "all" || item.metalNodes.includes(metal))
       .filter(item => source === "all" || item.source === source)
       .filter(item => evidence === "all" || item.evidenceLevel === evidence)
-      .filter(item => Number(item.poreSizeA || 0) >= Number(poreMin) && Number(item.poreSizeA || 0) <= Number(poreMax))
-      .filter(item => Number(item.surfaceArea || 0) >= Number(areaMin) && Number(item.surfaceArea || 0) <= Number(areaMax))
+      .filter(item => {
+        const poreValue = Number.isFinite(Number(item.poreSizeA)) ? Number(item.poreSizeA) : 0
+        return poreValue >= Number(poreMin) && poreValue <= Number(poreMax)
+      })
+      .filter(item => {
+        const areaValue = Number.isFinite(Number(item.surfaceArea)) ? Number(item.surfaceArea) : 0
+        return areaValue >= Number(areaMin) && areaValue <= Number(areaMax)
+      })
       .sort((a, b) => String(a.name).localeCompare(String(b.name)))
   }, [records, query, metal, source, evidence, poreMin, poreMax, areaMin, areaMax])
 
