@@ -1222,14 +1222,20 @@ function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRect, isMobile, o
   }, [onClose])
 
   const isPending = !source || source.sourceType === "pending"
+  const sourceDatabase = source?.sourceDatabase || source?.database || source?.sourceName
+  const sourceRecordId = source?.sourceRecordId || source?.recordId
+  const sourceVersion = source?.sourceVersion || source?.version
+  const sourceUrl = source?.sourceUrl || source?.url
   const rows = isPending ? [] : [
-    source.sourceType    && ["sourceType",    lang === "zh" ? "来源类型"    : "Source type",            source.sourceType],
-    source.sourceName    && ["sourceName",    lang === "zh" ? "来源名称"    : "Source name",            source.sourceName],
-    source.database      && ["database",      lang === "zh" ? "数据库"      : "Database",               source.database],
-    source.doi           && ["doi",           "DOI",                                                     source.doi],
-    source.url           && ["url",           "URL",                                                     source.url],
+    sourceDatabase       && ["sourceDatabase", lang === "zh" ? "来源数据库" : "Source database", sourceDatabase],
+    sourceRecordId       && ["sourceRecordId", lang === "zh" ? "原始记录" : "Source record", sourceRecordId],
+    sourceVersion        && ["sourceVersion", lang === "zh" ? "来源版本" : "Source version", sourceVersion],
+    sourceUrl            && ["sourceUrl", lang === "zh" ? "来源链接" : "Source URL", sourceUrl],
+    source.citation      && ["citation", lang === "zh" ? "引用" : "Citation", source.citation],
+    source.license       && ["license", lang === "zh" ? "许可" : "License", source.license],
     source.condition     && ["condition",     lang === "zh" ? "测量条件"    : "Measurement condition",   source.condition],
     source.evidenceLevel && ["evidenceLevel", lang === "zh" ? "证据等级"    : "Evidence level",          source.evidenceLevel],
+    source.curationStatus && ["curationStatus", lang === "zh" ? "整理状态" : "Curation status", source.curationStatus],
     source.curationNote  && ["curationNote",  lang === "zh" ? "整理说明"    : "Curation note",           source.curationNote],
     source.limitations && source.limitations !== "" && ["limitations", lang === "zh" ? "限制" : "Limitations", source.limitations],
   ].filter(Boolean)
@@ -1286,9 +1292,13 @@ function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRect, isMobile, o
           </div>
         )}
         <div style={{ marginTop: 12, color: t.faint, fontSize: 10, lineHeight: 1.5, borderTop: `1px solid ${t.divider || t.border}`, paddingTop: 10 }}>
-          {lang === "zh"
-            ? "字段级数据溯源说明数据框架，不替代手动数据核实和实验验证。"
-            : "Field-level provenance describes the data framework and does not replace manual data verification."}
+          {source?.sourceType === "open-mof-seed"
+            ? (lang === "zh"
+              ? "Open MOF Seed 是 EcoMOF-AI 的多源数据层，不代表原始数据库名称。该字段的原始来源见上方 source database。"
+              : "Open MOF Seed is the EcoMOF-AI multi-source data layer, not the original database name. The original source is shown above as source database.")
+            : (lang === "zh"
+              ? "字段级数据溯源说明数据框架，不替代手动数据核实和实验验证。"
+              : "Field-level provenance describes the data framework and does not replace manual data verification.")}
         </div>
       </div>
     </>
