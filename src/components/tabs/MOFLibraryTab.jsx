@@ -37,6 +37,38 @@ function isMissingValue(value) {
   return value === undefined || value === null || value === "" || value === "—" || value === "pending"
 }
 
+const DEFAULT_GRAPH_METADATA = {
+  graphStatus: "pending",
+  nodeTypes: [],
+  edgeTypes: [],
+  activeMotifs: [],
+  graphCluster: "pending",
+  diversityScore: null,
+  graphMotifScore: 0,
+  graphConfidence: "pending",
+  notes: "Graph metadata pending curation.",
+}
+
+const DEFAULT_ORGANIC_ACID_RELEVANCE = {
+  targetPathway: "pending",
+  possibleRoles: [],
+  pathwayPriorityScore: null,
+  scoreStatus: "pending",
+  validationNeeded: ["Organic acid pathway relevance pending curation."],
+  notes: "No organic acid relevance has been assigned.",
+}
+
+const OPEN_MOF_COMPLETENESS_FIELDS = [
+  "surfaceArea",
+  "poreSizeA",
+  "poreVolume",
+  "co2Uptake",
+  "bandGap",
+  "waterStability",
+  "thermalStability",
+  "toxicityConcern",
+]
+
 function recordFieldStatus(record, fieldKey) {
   const src = record.fieldSources?.[fieldKey]
   const hasValue = !isMissingValue(record[fieldKey]) || !isMissingValue(src?.value)
@@ -240,12 +272,17 @@ function normalizeDemoRecord(item) {
     surfaceArea: sourceValue ? { sourceName: sourceValue, database: sourceValue, value: item.surfaceArea ?? item.descriptors?.surfaceArea, sourceType: "open-mof-seed", curationStatus: item.provenance?.curationStatus || item.curationStatus || "raw-import" } : undefined,
     poreSizeA: sourceValue ? { sourceName: sourceValue, database: sourceValue, value: item.poreSizeA ?? item.descriptors?.poreSizeA ?? item.descriptors?.lcdA, sourceType: "open-mof-seed", curationStatus: item.provenance?.curationStatus || item.curationStatus || "raw-import" } : undefined,
     pldA: sourceValue ? { sourceName: sourceValue, database: sourceValue, value: item.pldA ?? item.descriptors?.pldA, sourceType: "open-mof-seed", curationStatus: item.provenance?.curationStatus || item.curationStatus || "raw-import" } : undefined,
+    lcdA: sourceValue ? { sourceName: sourceValue, database: sourceValue, value: item.lcdA ?? item.descriptors?.lcdA, sourceType: "open-mof-seed", curationStatus: item.provenance?.curationStatus || item.curationStatus || "raw-import" } : undefined,
     poreVolume: sourceValue ? { sourceName: sourceValue, database: sourceValue, value: item.poreVolume ?? item.descriptors?.poreVolume, sourceType: "open-mof-seed", curationStatus: item.provenance?.curationStatus || item.curationStatus || "raw-import" } : undefined,
+    density: sourceValue ? { sourceName: sourceValue, database: sourceValue, value: item.density ?? item.descriptors?.density, sourceType: "open-mof-seed", curationStatus: item.provenance?.curationStatus || item.curationStatus || "raw-import" } : undefined,
+    voidFraction: sourceValue ? { sourceName: sourceValue, database: sourceValue, value: item.voidFraction ?? item.descriptors?.voidFraction, sourceType: "open-mof-seed", curationStatus: item.provenance?.curationStatus || item.curationStatus || "raw-import" } : undefined,
     bandGap: sourceValue ? { sourceName: sourceValue, database: sourceValue, value: item.bandGap ?? item.descriptors?.bandGap, sourceType: "open-mof-seed", curationStatus: item.provenance?.curationStatus || item.curationStatus || "raw-import" } : undefined,
     metalNode: sourceValue ? { sourceName: sourceValue, database: sourceValue, value: metalNodeValue, sourceType: "open-mof-seed", curationStatus: item.provenance?.curationStatus || item.curationStatus || "raw-import" } : undefined,
     linker: sourceValue ? { sourceName: sourceValue, database: sourceValue, value: linkerValue, sourceType: "open-mof-seed", curationStatus: item.provenance?.curationStatus || item.curationStatus || "raw-import" } : undefined,
     topology: sourceValue ? { sourceName: sourceValue, database: sourceValue, value: topologyValue, sourceType: "open-mof-seed", curationStatus: item.provenance?.curationStatus || item.curationStatus || "raw-import" } : undefined,
   }
+  const graphMetadata = item.graphMetadata || DEFAULT_GRAPH_METADATA
+  const organicAcidRelevance = item.organicAcidRelevance || DEFAULT_ORGANIC_ACID_RELEVANCE
   const metalNodes = arrayOrEmpty(item.metalNodes).length
     ? arrayOrEmpty(item.metalNodes)
     : arrayOrEmpty(item.chemistry?.metalNodes).length
@@ -264,12 +301,18 @@ function normalizeDemoRecord(item) {
     poreSizeA: numericOrFallback(firstValue(item.poreSizeA, item.descriptors?.poreSizeA, item.pldA, item.descriptors?.pldA, item.pd, item.lcd, item.descriptors?.lcdA)),
     surfaceArea: numericOrFallback(firstValue(item.surfaceArea, item.descriptors?.surfaceArea, item.bet)),
     poreVolume: numericOrFallback(firstValue(item.poreVolume, item.descriptors?.poreVolume, item.pv), "pending"),
+    pldA: item.pldA ?? item.descriptors?.pldA ?? null,
+    lcdA: item.lcdA ?? item.descriptors?.lcdA ?? null,
+    density: item.density ?? item.descriptors?.density ?? null,
+    voidFraction: item.voidFraction ?? item.descriptors?.voidFraction ?? null,
+    cifFile: item.cifFile || item.structure?.cifFile || null,
+    cifUrl: item.cifUrl || item.structure?.cifUrl || null,
     co2Uptake: numericOrFallback(firstValue(item.co2Uptake, item.descriptors?.co2Uptake), "pending"),
     bandGap: numericOrFallback(firstValue(item.bandGap, item.descriptors?.bandGap), "pending"),
-    waterStability: item.waterStability || "—",
-    thermalStability: item.thermalStability || "—",
+    waterStability: item.waterStability || "pending",
+    thermalStability: item.thermalStability || "pending",
     costLevel: item.costLevel || "—",
-    toxicityConcern: item.toxicityConcern || "—",
+    toxicityConcern: item.toxicityConcern || "pending",
     reactionClasses: Array.isArray(item.reactionClasses) ? item.reactionClasses : [],
     activeSiteHypothesis: activeSiteHypothesis || "—",
     source: sourceValue || "Demo seed",
@@ -277,9 +320,17 @@ function normalizeDemoRecord(item) {
     limitations: limitations || item.provenance?.processingNote || "Demo / placeholder record; needs validation.",
     dataStatus: item.dataStatus || item.curationStatus || "demo / placeholder / needs validation",
     dataMode: item.dataMode || item.dataStatus || "demo",
-    sourceDatabase: item.sourceDatabase || item.provenance?.database || item.provenance?.sourceDatabase || "—",
-    sourceRecordId: item.sourceRecordId || item.provenance?.sourceRecordId || "—",
-    sourceVersion: item.sourceVersion || item.provenance?.sourceVersion || "—",
+    sourceDatabase: item.sourceDatabase || item.provenance?.sourceDatabase || item.provenance?.database || "pending",
+    sourceRecordId: item.sourceRecordId || item.provenance?.sourceRecordId || "pending",
+    sourceVersion: item.sourceVersion || item.provenance?.sourceVersion || "pending",
+    sourceUrl: item.sourceUrl || item.provenance?.sourceUrl || "pending",
+    citation: item.citation || item.provenance?.citation || "pending",
+    license: item.license || item.provenance?.license || "pending",
+    retrievedAt: item.retrievedAt || item.provenance?.retrievedAt || "pending",
+    curationStatus: item.curationStatus || item.provenance?.curationStatus || "pending",
+    descriptorCompleteness: item.descriptorCompleteness || {},
+    graphMetadata,
+    organicAcidRelevance,
     provenance: item.provenance || undefined,
     fieldSources,
   }
@@ -320,8 +371,13 @@ const zhValue = (value, lang) => {
     "Low-medium": "低-中",
     "needs-validation": "待验证 needs-validation",
     "unmarked": "未标注",
+    pending: "待整理",
+    "raw-import": "原始接入",
+    curated: "已接入",
+    missing: "缺失",
     "Demo seed": "演示种子数据",
     "local seed": "本地种子数据",
+    "open-mof-seed": "Open MOF Seed",
     "real-seed / public-database-placeholder": "真实种子 / 公开数据库占位",
   }[value] || value
 }
@@ -1077,6 +1133,26 @@ export function MOFLibraryTab({ results, inputs }) {
       </div>
     </div>
   )
+  const pendingLabel = lang === "zh" ? "待整理" : "pending"
+  const formatOpenSeedValue = (value, suffix = "") => {
+    if (value === undefined || value === null || value === "" || value === "—") return pendingLabel
+    if (String(value).toLowerCase() === "pending") return pendingLabel
+    if (typeof value === "number" && Number.isFinite(value)) return `${value.toLocaleString()}${suffix}`
+    return `${value}${suffix}`
+  }
+  const completenessLabel = (status) => {
+    const normalized = String(status || "pending").toLowerCase()
+    if (normalized === "curated") return lang === "zh" ? "已接入" : "curated"
+    if (normalized === "missing") return lang === "zh" ? "缺失" : "missing"
+    return lang === "zh" ? "待整理" : "pending"
+  }
+  const completenessTone = (status) => {
+    const normalized = String(status || "pending").toLowerCase()
+    if (normalized === "curated") return { color: t.successText || t.accentText, background: t.successSoft || t.accentSoft, border: t.success || t.accent }
+    if (normalized === "missing") return { color: t.dangerText || t.warn, background: t.dangerSoft || t.surface, border: t.danger || t.warn }
+    return { color: t.subtle, background: t.surface, border: t.border }
+  }
+  const openSeedDetailGrid = { display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }
 
   const filterFields = (
     <>
@@ -1556,6 +1632,86 @@ export function MOFLibraryTab({ results, inputs }) {
                   </div>
                   <div style={detailBlock}>{field(lang === "zh" ? "催化潜力线索" : "Catalysis potential", `${item.reactionClasses.join(", ") || "—"}; ${zhLibraryText(item.activeSiteHypothesis, lang)}`)}</div>
                   <div style={detailBlock}>{field(lang === "zh" ? "数据来源 / 限制" : "Data source / Limitations", `${zhLibraryText(item.source, lang)}; ${zhLibraryText(item.limitations, lang)}`)}</div>
+                  {(dataMode === "open-mof-seed" || item.dataStatus === "open-mof-seed") && (
+                    <div style={{ ...detailBlock, gridColumn: "1 / -1", display: "grid", gap: 14 }}>
+                      <div style={{
+                        background: t.accentSoft,
+                        border: `1px solid ${t.accent}`,
+                        borderRadius: 8,
+                        color: t.accentText,
+                        fontSize: 11.5,
+                        lineHeight: 1.6,
+                        padding: 10,
+                      }}>
+                        {lang === "zh"
+                          ? "该记录来自多源 Open MOF Seed 数据层。结构和几何字段可能已接入，但有机酸路径相关性在没有文献、DFT 或实验支持前保持 pending。"
+                          : "This record comes from the multi-source Open MOF Seed layer. Structural and geometric fields may be available, while organic-acid pathway relevance remains pending without literature, DFT, or experimental support."}
+                      </div>
+
+                      <div style={{ display: "grid", gap: 10 }}>
+                        <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900 }}>
+                          {lang === "zh" ? "Open MOF Seed Detail" : "Open MOF Seed Detail"}
+                        </div>
+                        <div style={{ ...openSeedDetailGrid }}>
+                          <div style={{ display: "grid", gap: 9, minWidth: 0 }}>
+                            <div style={{ color: t.textStrong, fontSize: 11.5, fontWeight: 850 }}>
+                              {lang === "zh" ? "Source & Provenance" : "Source & Provenance"}
+                            </div>
+                            {field("sourceDatabase", formatOpenSeedValue(item.sourceDatabase))}
+                            {field("sourceRecordId", formatOpenSeedValue(item.sourceRecordId))}
+                            {field("sourceVersion", formatOpenSeedValue(item.sourceVersion))}
+                            {field("sourceUrl", formatOpenSeedValue(item.sourceUrl))}
+                            {field("citation", formatOpenSeedValue(item.citation))}
+                            {field("license", formatOpenSeedValue(item.license))}
+                            {field("retrievedAt", formatOpenSeedValue(item.retrievedAt))}
+                            {field("curationStatus", zhValue(formatOpenSeedValue(item.curationStatus), lang))}
+                          </div>
+                          <div style={{ display: "grid", gap: 9, minWidth: 0 }}>
+                            <div style={{ color: t.textStrong, fontSize: 11.5, fontWeight: 850 }}>
+                              {lang === "zh" ? "Geometry Descriptors" : "Geometry Descriptors"}
+                            </div>
+                            {field("surfaceArea", formatOpenSeedValue(item.surfaceArea, item.surfaceArea === "pending" ? "" : " m2/g"), "surfaceArea", item.fieldSources)}
+                            {field("poreSizeA", formatOpenSeedValue(item.poreSizeA, item.poreSizeA === "pending" ? "" : " A"), "poreSizeA", item.fieldSources)}
+                            {field("pldA", formatOpenSeedValue(item.pldA, " A"), "pldA", item.fieldSources)}
+                            {field("lcdA", formatOpenSeedValue(item.lcdA, " A"), "lcdA", item.fieldSources)}
+                            {field("poreVolume", formatOpenSeedValue(item.poreVolume, item.poreVolume === "pending" ? "" : " cm3/g"), "poreVolume", item.fieldSources)}
+                            {field("density", formatOpenSeedValue(item.density, " g/cm3"), "density", item.fieldSources)}
+                            {field("voidFraction", formatOpenSeedValue(item.voidFraction), "voidFraction", item.fieldSources)}
+                            {field("cifFile / cifUrl", `${formatOpenSeedValue(item.cifFile)} / ${formatOpenSeedValue(item.cifUrl)}`)}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div style={{ display: "grid", gap: 9 }}>
+                        <div style={{ color: t.textStrong, fontSize: 11.5, fontWeight: 850 }}>
+                          {lang === "zh" ? "Descriptor Completeness" : "Descriptor Completeness"}
+                        </div>
+                        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
+                          {OPEN_MOF_COMPLETENESS_FIELDS.map(key => {
+                            const status = item.descriptorCompleteness?.[key] || "pending"
+                            const tone = completenessTone(status)
+                            return (
+                              <div key={key} style={{
+                                border: `1px solid ${tone.border}`,
+                                background: tone.background,
+                                borderRadius: 7,
+                                display: "flex",
+                                justifyContent: "space-between",
+                                gap: 8,
+                                minWidth: 0,
+                                padding: "8px 9px",
+                              }}>
+                                <span style={{ color: t.subtle, fontSize: 10.5, fontWeight: 800, overflowWrap: "anywhere" }}>{key}</span>
+                                <span style={{ color: tone.color, fontSize: 10.5, fontWeight: 900, whiteSpace: "nowrap" }}>
+                                  {completenessLabel(status)}
+                                </span>
+                              </div>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  )}
                   <div style={{ gridColumn: "1 / -1", minWidth: 0 }}>
                     <GraphDescriptorPanel graphMetadata={item.graphMetadata} t={t} lang={lang} isMobile={isMobile} />
                   </div>
