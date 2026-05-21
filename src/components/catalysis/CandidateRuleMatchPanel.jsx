@@ -13,6 +13,22 @@ function list(value) {
   return Array.isArray(value) ? value.filter(Boolean) : []
 }
 
+function curationTasks(candidate, lang) {
+  const source = `${candidate?.sourceDatabase || candidate?.provenance?.sourceDatabase || ""}`.toLowerCase()
+  if (source.includes("qmof")) {
+    return [
+      text(lang, "作为电子描述符种子保留。", "Use as an electronic descriptor seed."),
+      text(lang, "补查几何描述符和水稳定性。", "Curate geometry descriptors and water stability."),
+      text(lang, "不要推断甲酸路径相关性。", "Do not infer formic-acid relevance."),
+    ]
+  }
+  return [
+    text(lang, "查询水稳定性文献。", "Curate water-stability literature."),
+    text(lang, "查询 HCOO⁻ / HCO₃⁻ 吸附或结合证据。", "Curate HCOO⁻ / HCO₃⁻ adsorption or binding evidence."),
+    text(lang, "若进入实验，记录产物分布和反应后 MOF 稳定性。", "If tested, record product distribution and post-reaction MOF stability."),
+  ]
+}
+
 function isPendingRelevance(candidate) {
   const relevance = candidate?.organicAcidRelevance || {}
   const statusText = `${relevance.scoreStatus || ""} ${relevance.targetPathway || ""} ${candidate?.dataStatus || ""}`.toLowerCase()
@@ -112,6 +128,10 @@ export function CandidateRuleMatchPanel({
                 "Without literature, DFT, or experimental support, this candidate remains a database record in the curation queue and receives no formic-acid-oriented role assignment."
               )}
             </span>
+            <div style={{ borderTop: `1px solid ${t.border}`, display: "grid", gap: 5, marginTop: 4, paddingTop: 8 }}>
+              <strong style={{ color: t.textStrong }}>{text(lang, "建议整理", "Suggested curation")}</strong>
+              {curationTasks(selectedCandidate, lang).map(task => <span key={task}>{safeText(task)}</span>)}
+            </div>
           </div>
         ) : (
           <div style={{ display: "grid", gap: 10 }}>
@@ -138,6 +158,12 @@ export function CandidateRuleMatchPanel({
                     </div>
                   ) : null}
                 </article>
+              ))}
+            </div>
+            <div style={{ borderTop: `1px solid ${t.border}`, display: "grid", gap: 6, paddingTop: 9 }}>
+              <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "下一步整理任务", "Next curation tasks")}</strong>
+              {curationTasks(selectedCandidate, lang).map(task => (
+                <span key={task} style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>{safeText(task)}</span>
               ))}
             </div>
           </div>

@@ -1,4 +1,6 @@
 import { CORE_MOF_DESCRIPTOR_KEYS } from "../scoring/descriptors/descriptorRegistry"
+import { DATA_MODES, DEFAULT_CANDIDATE_DATA_MODE } from "../config/dataModes"
+import { normalizeMofCandidate } from "../utils/normalizeMofCandidate"
 
 const DATA_PROVIDER = import.meta.env.VITE_DATA_PROVIDER || "static"
 
@@ -6,6 +8,7 @@ const DATA_PATHS = {
   mofCandidatesDemo: "data/mof_candidates_demo.json",
   mofCandidatesRealSeed: "data/mof_candidates_real_seed.json",
   openMofSeedCandidates: "data/open_mof_seed_candidates.json",
+  mofNameAliases: "data/mof_name_aliases.json",
   organicAcidExperimentRecords: "data/organic_acid_experiment_records.json",
   catalysisTasks: "data/catalysis_tasks.json",
   catalysisRecords: "data/catalysis_records_demo.json",
@@ -54,13 +57,26 @@ export function fetchDataJson(fileName, fallback = [], options = {}) {
   return fetchJson(`data/${String(fileName || "").replace(/^\/+/, "")}`, fallback, options)
 }
 
-export async function getMofCandidates({ mode = "demo", throwOnError = false } = {}) {
-  const path = mode === "open-mof-seed"
+export async function getMofCandidates({ mode = DEFAULT_CANDIDATE_DATA_MODE, throwOnError = false } = {}) {
+  const path = mode === DATA_MODES.OPEN_MOF_SEED
     ? DATA_PATHS.openMofSeedCandidates
-    : mode === "real-seed"
+    : mode === DATA_MODES.REAL_SEED
       ? DATA_PATHS.mofCandidatesRealSeed
       : DATA_PATHS.mofCandidatesDemo
   return fetchJson(path, [], { throwOnError })
+}
+
+export async function getGlobalMofCandidates(options = {}) {
+  const mode = options.mode || DEFAULT_CANDIDATE_DATA_MODE
+  const [rows, aliasDictionary] = await Promise.all([
+    getMofCandidates({ ...options, mode }),
+    getMofNameAliases({ throwOnError: false }),
+  ])
+  return Array.isArray(rows) ? rows.map(row => normalizeMofCandidate(row, { mode, aliasDictionary })) : []
+}
+
+export function getMofNameAliases({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.mofNameAliases, [], { throwOnError })
 }
 
 export function getOrganicAcidExperimentRecords({ throwOnError = false } = {}) {
@@ -111,7 +127,7 @@ function hasCuratedSource(source) {
 }
 
 export async function getDataQualitySummary() {
-  const rows = await getMofCandidates({ mode: "real-seed" })
+  const rows = await getGlobalMofCandidates({ mode: DEFAULT_CANDIDATE_DATA_MODE })
   if (!Array.isArray(rows) || rows.length === 0) {
     return { recordCount: 0, fieldCoverage: [], evidenceCounts: {} }
   }

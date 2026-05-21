@@ -26,7 +26,7 @@
     "source": "pending",
     "status": "pending validation",
     "validationNeeded": [
-      "HCOO- adsorption evidence",
+      "HCOO⁻ adsorption evidence",
       "Formic acid product distribution",
       "MOF post-reaction stability"
     ]
@@ -42,8 +42,8 @@
     "source": "pending",
     "status": "pending validation",
     "validationNeeded": [
-      "HCO3- concentration-response experiment",
-      "HCOO- or HCO3- binding evidence",
+      "HCO₃⁻ concentration-response experiment",
+      "HCOO⁻ or HCO₃⁻ binding evidence",
       "Isotope tracing or experimental proxy"
     ]
   },

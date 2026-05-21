@@ -1,0 +1,55 @@
+[
+  {
+    "canonicalName": "UiO-66",
+    "aliases": ["UiO-66", "UiO66", "uio_66", "uio66"],
+    "family": "UiO",
+    "metalNode": "Zr",
+    "confidence": "high"
+  },
+  {
+    "canonicalName": "UiO-66-NH₂",
+    "aliases": ["UiO-66-NH2", "UiO66-NH2", "uio_66_nh2", "uio66nh2"],
+    "family": "UiO",
+    "metalNode": "Zr",
+    "confidence": "high"
+  },
+  {
+    "canonicalName": "HKUST-1",
+    "aliases": ["HKUST-1", "HKUST1", "Cu-BTC", "MOF-199", "mof199"],
+    "family": "HKUST",
+    "metalNode": "Cu",
+    "confidence": "high"
+  },
+  {
+    "canonicalName": "MOF-74",
+    "aliases": ["MOF-74", "MOF74", "CPO-27", "CPO27", "Mg-MOF-74", "Ni-MOF-74", "Co-MOF-74"],
+    "family": "MOF-74",
+    "confidence": "medium"
+  },
+  {
+    "canonicalName": "MIL-101",
+    "aliases": ["MIL-101", "MIL101", "MIL-101(Cr)", "MIL101Cr"],
+    "family": "MIL",
+    "confidence": "medium"
+  },
+  {
+    "canonicalName": "MIL-53",
+    "aliases": ["MIL-53", "MIL53", "MIL-53(Al)", "MIL53Al"],
+    "family": "MIL",
+    "confidence": "medium"
+  },
+  {
+    "canonicalName": "ZIF-8",
+    "aliases": ["ZIF-8", "ZIF8", "zeolitic imidazolate framework-8"],
+    "family": "ZIF",
+    "metalNode": "Zn",
+    "confidence": "high"
+  },
+  {
+    "canonicalName": "IRMOF-1",
+    "aliases": ["IRMOF-1", "IRMOF1", "MOF-5", "MOF5"],
+    "family": "IRMOF",
+    "metalNode": "Zn",
+    "confidence": "high"
+  }
+]

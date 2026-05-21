@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from "react"
 import {
   useT, useLang, useViewport,
   FONT_MONO,
-  getMofCandidates,
+  buildCandidateSearchText,
+  getGlobalMofCandidates,
   toolbarBtn,
   PageHeader,
   ResultLayer,
@@ -192,8 +193,17 @@ function normalizeOpenMofRecord(item) {
   const normalized = {
     ...item,
     id: item.id || sourceRecordId || item.name,
-    name: cleanValue(item.name || sourceRecordId),
-    displayName: getDisplayName({ ...item, sourceDatabase, provenance: { ...(item.provenance || {}), sourceDatabase } }),
+    name: item.name || sourceRecordId,
+    displayName: item.displayName || getDisplayName({ ...item, sourceDatabase, provenance: { ...(item.provenance || {}), sourceDatabase } }),
+    displayNameType: item.displayNameType || "database_record",
+    aliasNames: item.aliasNames || [],
+    rawName: item.rawName || item.name || item.cifFile || sourceRecordId,
+    nameCuration: item.nameCuration || {
+      status: "pending",
+      confidence: "low",
+      needsManualNameCuration: true,
+      reason: "Name curation status pending.",
+    },
     dataMode: DATA_MODE,
     dataStatus: "open-mof-seed",
     sourceDatabase,
@@ -520,6 +530,11 @@ function OpenMofSeedCard({ item, expanded, onToggle, lang, t, isMobile }) {
           <StatusPill t={t} tone="source">{db}</StatusPill>
         </div>
         <div style={{ color: t.subtle, fontSize: 11.5, fontWeight: 760, lineHeight: 1.4, overflowWrap: "anywhere" }}>{versionLicense}</div>
+        <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
+          <StatusPill t={t} tone={item.displayNameType === "recognized_mof_name" ? "good" : "neutral"}>
+            {item.displayNameType === "recognized_mof_name" ? text(lang, "已识别名称", "Recognized name") : text(lang, "名称待整理", "Name pending")}
+          </StatusPill>
+        </div>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 8 }}>
@@ -582,6 +597,16 @@ function AdvancedMetadata({ item, lang, t, isMobile }) {
 }
 
 function OpenMofSeedDetailPanel({ item, lang, t, isMobile }) {
+  const nameRows = [
+    [text(lang, "显示名称", "Display name"), item.displayName],
+    [text(lang, "名称状态", "Name status"), item.nameCuration?.needsManualNameCuration ? text(lang, "名称待整理", "Name curation pending") : text(lang, "已识别名称", "Recognized name")],
+    [text(lang, "原始名称 / 文件名", "Raw name / file name"), item.rawName],
+    [text(lang, "原始记录 ID", "Source record ID"), item.sourceRecordId],
+    [text(lang, "来源数据库", "Source database"), item.sourceDatabase],
+    [text(lang, "别名", "Aliases"), item.aliasNames?.length ? item.aliasNames.join(", ") : text(lang, "待整理", "pending")],
+    [text(lang, "需要人工整理", "Needs manual curation"), item.nameCuration?.needsManualNameCuration ? text(lang, "是", "Yes") : text(lang, "否", "No")],
+    [text(lang, "原因", "Reason"), item.nameCuration?.reason || "pending"],
+  ]
   const provenanceRows = [
     [text(lang, "来源数据库", "Source database"), item.sourceDatabase],
     [text(lang, "原始记录", "Record ID"), item.sourceRecordId],
@@ -606,6 +631,14 @@ function OpenMofSeedDetailPanel({ item, lang, t, isMobile }) {
   ]
   return (
     <div style={{ borderTop: `1px solid ${t.divider}`, display: "grid", gap: 12, minWidth: 0, paddingTop: 12 }}>
+      <DetailBlock title={text(lang, "名称解析", "Name Resolution")} t={t}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }}>
+          {nameRows.map(([label, value]) => (
+            <DescriptorLine key={label} label={label} value={formatValue(value, "", lang)} lang={lang} t={t} compact />
+          ))}
+        </div>
+      </DetailBlock>
+
       <DetailBlock title={text(lang, "来源与溯源", "Source & Provenance")} t={t}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }}>
           {provenanceRows.map(([label, value]) => (
@@ -656,7 +689,7 @@ function OpenMofSeedDetailPanel({ item, lang, t, isMobile }) {
 function passesFilters(item, filters) {
   const query = filters.query.trim().toLowerCase()
   if (query) {
-    const haystack = [item.name, item.sourceRecordId, item.sourceDatabase, item.metalNode, item.topology, item.linker].join(" ").toLowerCase()
+    const haystack = buildCandidateSearchText(item)
     if (!haystack.includes(query)) return false
   }
   if (filters.source !== "all" && getDatabaseName(item) !== filters.source) return false
@@ -668,6 +701,37 @@ function passesFilters(item, filters) {
     if (!status.includes(filters.organicStatus.toLowerCase())) return false
   }
   return true
+}
+
+function NameCurationQueue({ records, lang, t, isMobile }) {
+  const pending = useMemo(() => records.filter(item => item.nameCuration?.needsManualNameCuration).slice(0, 8), [records])
+  if (!pending.length) return null
+  return (
+    <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 10, padding: isMobile ? 12 : 14 }}>
+      <div>
+        <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900 }}>
+          {text(lang, "名称整理队列", "Name Curation Queue")}
+        </div>
+        <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 3 }}>
+          {text(lang, "无法识别通用 MOF 名称的记录会保留来源 ID，并进入人工整理队列。", "Records without a recognized common MOF name keep their source ID and enter manual curation.")}
+        </div>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }}>
+        {pending.map(item => (
+          <article key={item.id} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, display: "grid", gap: 6, minWidth: 0, padding: 10 }}>
+            <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{item.displayName}</div>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.45, overflowWrap: "anywhere" }}>
+              {text(lang, "原始记录", "Record ID")}: <span style={{ fontFamily: FONT_MONO }}>{item.sourceRecordId}</span>
+            </div>
+            <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.5 }}>{item.nameCuration?.reason || text(lang, "名称来源待整理。", "Name source pending curation.")}</div>
+            <div style={{ color: t.accentText, fontSize: 11.5, lineHeight: 1.5, fontWeight: 800 }}>
+              {text(lang, "下一步：检查 CIF metadata、source DOI 或 supplementary information。", "Next: inspect CIF metadata, source DOI, or supplementary information.")}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
 }
 
 export function MOFLibraryTab() {
@@ -683,7 +747,7 @@ export function MOFLibraryTab() {
   useEffect(() => {
     let active = true
     setStatus("loading")
-    getMofCandidates({ mode: DATA_MODE, throwOnError: true })
+    getGlobalMofCandidates({ mode: DATA_MODE, throwOnError: true })
       .then(data => {
         if (!active) return
         const normalized = Array.isArray(data) ? data.map(normalizeOpenMofRecord) : []
@@ -743,6 +807,7 @@ export function MOFLibraryTab() {
       {status === "empty" && <Callout tone="warn">{text(lang, "当前 Open MOF Seed 文件暂无记录。", "The current Open MOF Seed file has no records.")}</Callout>}
 
       <OpenMofSeedQualitySummary records={rows} lang={lang} t={t} isMobile={isMobile} />
+      <NameCurationQueue records={rows} lang={lang} t={t} isMobile={isMobile} />
 
       <OpenMofSeedFilters
         filters={filters}

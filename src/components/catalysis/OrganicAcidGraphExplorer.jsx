@@ -560,7 +560,18 @@ function PathwayGraph({ graph, mode, selection, setSelection, selectedCandidate,
   )
 }
 
-export function OrganicAcidGraphExplorer({ t: tone, lang: forcedLang, isMobile: forcedMobile, selectedCandidate, reactionRules = [], evidenceItems = [] }) {
+export function OrganicAcidGraphExplorer({
+  t: tone,
+  lang: forcedLang,
+  isMobile: forcedMobile,
+  selectedCandidate,
+  reactionRules = [],
+  evidenceItems = [],
+  selectedRuleId,
+  onSelectRule = () => {},
+  selectedPathwayNodeId,
+  onSelectPathwayNode = () => {},
+}) {
   const theme = useT()
   const { lang: contextLang } = useLang()
   const viewport = useViewport()
@@ -594,6 +605,32 @@ export function OrganicAcidGraphExplorer({ t: tone, lang: forcedLang, isMobile: 
   }, [])
 
   const nodesById = useMemo(() => Object.fromEntries((graph.nodes || []).map(node => [node.id, node])), [graph.nodes])
+
+  useEffect(() => {
+    if (!selectedRuleId) return
+    const edge = (graph.edges || []).find(item => item.ruleId === selectedRuleId)
+    if (edge && (selection?.kind !== "edge" || selection.item.ruleId !== selectedRuleId)) {
+      setSelection({ kind: "edge", item: edge })
+    }
+  }, [graph.edges, selectedRuleId, selection])
+
+  useEffect(() => {
+    if (!selectedPathwayNodeId || selectedRuleId) return
+    const node = nodesById[selectedPathwayNodeId]
+    if (node && (selection?.kind !== "node" || selection.item.id !== selectedPathwayNodeId)) {
+      setSelection({ kind: "node", item: node })
+    }
+  }, [nodesById, selectedPathwayNodeId, selectedRuleId, selection])
+
+  const handleSelection = (nextSelection) => {
+    setSelection(nextSelection)
+    if (nextSelection?.kind === "edge") {
+      onSelectRule(nextSelection.item.ruleId || null)
+    }
+    if (nextSelection?.kind === "node") {
+      onSelectPathwayNode(nextSelection.item.id || null)
+    }
+  }
 
   return (
     <section id="organic-acid-graph-explorer" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: isMobile ? 12 : 14, display: "grid", gap: 12, scrollMarginTop: 118, minWidth: 0 }}>
@@ -648,7 +685,7 @@ export function OrganicAcidGraphExplorer({ t: tone, lang: forcedLang, isMobile: 
 
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(210px, 0.72fr) minmax(0, 1.9fr) minmax(260px, 0.9fr)", gap: 12, alignItems: "stretch", minWidth: 0 }}>
         {!isMobile && <PathwaySummary graph={graph} mode={mode} t={t} lang={lang} />}
-        <PathwayGraph graph={graph} mode={mode} selection={selection} setSelection={setSelection} selectedCandidate={selectedCandidate} t={t} isMobile={isMobile} />
+        <PathwayGraph graph={graph} mode={mode} selection={selection} setSelection={handleSelection} selectedCandidate={selectedCandidate} t={t} isMobile={isMobile} />
         <DetailPanel selection={selection} nodesById={nodesById} selectedCandidate={selectedCandidate} reactionRules={reactionRules} evidenceItems={evidenceItems} t={t} lang={lang} />
       </div>
 

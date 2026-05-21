@@ -2,11 +2,19 @@
   {
     "ruleId": "rule_glucose_to_c1",
     "label": "Glucose → C1 intermediate",
-    "sourceNodes": ["glucose"],
-    "targetNodes": ["c1_intermediate"],
+    "sourceNodes": [
+      "glucose"
+    ],
+    "targetNodes": [
+      "c1_intermediate"
+    ],
     "reactionType": "C1 intermediate formation",
     "pathwayRole": "formic_acid_pathway",
-    "possibleMofInfluence": ["active_motif", "metal_node", "pore_environment"],
+    "possibleMofInfluence": [
+      "active_motif",
+      "metal_node",
+      "pore_environment"
+    ],
     "evidenceLevel": "hypothesis",
     "confidence": "low",
     "requiredValidation": [
@@ -19,17 +27,25 @@
   },
   {
     "ruleId": "rule_hco3_to_hcoo",
-    "label": "HCO3- → HCOO-",
-    "sourceNodes": ["hco3"],
-    "targetNodes": ["hcoo"],
+    "label": "HCO₃⁻ → HCOO⁻",
+    "sourceNodes": [
+      "hco3"
+    ],
+    "targetNodes": [
+      "hcoo"
+    ],
     "reactionType": "bicarbonate to formate pool hypothesis",
     "pathwayRole": "formic_acid_pathway",
-    "possibleMofInfluence": ["functional_group", "metal_node", "pore_environment"],
+    "possibleMofInfluence": [
+      "functional_group",
+      "metal_node",
+      "pore_environment"
+    ],
     "evidenceLevel": "hypothesis",
     "confidence": "low",
     "requiredValidation": [
-      "HCO3- concentration-response experiment",
-      "HCOO- adsorption or binding evidence",
+      "HCO₃⁻ concentration-response experiment",
+      "HCOO⁻ adsorption or binding evidence",
       "Isotope tracing or experimental proxy"
     ],
     "status": "pending validation",
@@ -37,16 +53,24 @@
   },
   {
     "ruleId": "rule_c1_to_hcoo",
-    "label": "C1 intermediate → HCOO-",
-    "sourceNodes": ["c1_intermediate"],
-    "targetNodes": ["hcoo"],
+    "label": "C1 intermediate → HCOO⁻",
+    "sourceNodes": [
+      "c1_intermediate"
+    ],
+    "targetNodes": [
+      "hcoo"
+    ],
     "reactionType": "formate formation",
     "pathwayRole": "formic_acid_pathway",
-    "possibleMofInfluence": ["active_motif", "functional_group", "metal_node"],
+    "possibleMofInfluence": [
+      "active_motif",
+      "functional_group",
+      "metal_node"
+    ],
     "evidenceLevel": "hypothesis",
     "confidence": "low",
     "requiredValidation": [
-      "HCOO- adsorption or binding evidence",
+      "HCOO⁻ adsorption or binding evidence",
       "Product distribution under MOF-assisted conditions",
       "DFT binding energy or experimental proxy"
     ],
@@ -55,12 +79,19 @@
   },
   {
     "ruleId": "rule_hcoo_to_formic_acid",
-    "label": "HCOO- → Formic acid",
-    "sourceNodes": ["hcoo"],
-    "targetNodes": ["formic_acid"],
+    "label": "HCOO⁻ → Formic acid",
+    "sourceNodes": [
+      "hcoo"
+    ],
+    "targetNodes": [
+      "formic_acid"
+    ],
     "reactionType": "product release / protonation",
     "pathwayRole": "formic_acid_pathway",
-    "possibleMofInfluence": ["functional_group", "pore_environment"],
+    "possibleMofInfluence": [
+      "functional_group",
+      "pore_environment"
+    ],
     "evidenceLevel": "hypothesis",
     "confidence": "low",
     "requiredValidation": [
@@ -74,11 +105,18 @@
   {
     "ruleId": "rule_glucose_to_lactic_acid",
     "label": "Glucose → Lactic acid",
-    "sourceNodes": ["glucose"],
-    "targetNodes": ["lactic_acid"],
+    "sourceNodes": [
+      "glucose"
+    ],
+    "targetNodes": [
+      "lactic_acid"
+    ],
     "reactionType": "competing organic acid formation",
     "pathwayRole": "competing_pathway",
-    "possibleMofInfluence": ["acid_base_site", "pore_environment"],
+    "possibleMofInfluence": [
+      "acid_base_site",
+      "pore_environment"
+    ],
     "evidenceLevel": "hypothesis",
     "confidence": "low",
     "requiredValidation": [
@@ -92,11 +130,19 @@
   {
     "ruleId": "rule_glucose_to_acetic_acid",
     "label": "Glucose → Acetic acid",
-    "sourceNodes": ["glucose"],
-    "targetNodes": ["acetic_acid"],
+    "sourceNodes": [
+      "glucose"
+    ],
+    "targetNodes": [
+      "acetic_acid"
+    ],
     "reactionType": "competing organic acid formation",
     "pathwayRole": "competing_pathway",
-    "possibleMofInfluence": ["acid_base_site", "metal_node", "pore_environment"],
+    "possibleMofInfluence": [
+      "acid_base_site",
+      "metal_node",
+      "pore_environment"
+    ],
     "evidenceLevel": "hypothesis",
     "confidence": "low",
     "requiredValidation": [
@@ -110,11 +156,18 @@
   {
     "ruleId": "rule_glucose_to_glycolic_acid",
     "label": "Glucose → Glycolic acid",
-    "sourceNodes": ["glucose"],
-    "targetNodes": ["glycolic_acid"],
+    "sourceNodes": [
+      "glucose"
+    ],
+    "targetNodes": [
+      "glycolic_acid"
+    ],
     "reactionType": "competing organic acid formation",
     "pathwayRole": "competing_pathway",
-    "possibleMofInfluence": ["functional_group", "pore_environment"],
+    "possibleMofInfluence": [
+      "functional_group",
+      "pore_environment"
+    ],
     "evidenceLevel": "hypothesis",
     "confidence": "low",
     "requiredValidation": [
@@ -128,11 +181,19 @@
   {
     "ruleId": "rule_glucose_to_humins_byproducts",
     "label": "Glucose → Humins / by-products",
-    "sourceNodes": ["glucose"],
-    "targetNodes": ["humins_byproducts"],
+    "sourceNodes": [
+      "glucose"
+    ],
+    "targetNodes": [
+      "humins_byproducts"
+    ],
     "reactionType": "side reaction / by-product sink",
     "pathwayRole": "side_reaction",
-    "possibleMofInfluence": ["pore_environment", "acid_base_site", "stability_risk"],
+    "possibleMofInfluence": [
+      "pore_environment",
+      "acid_base_site",
+      "stability_risk"
+    ],
     "evidenceLevel": "hypothesis",
     "confidence": "low",
     "requiredValidation": [

@@ -3,13 +3,29 @@ import { useLang, useT, useViewport } from "../../contexts"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
-function safeText(value, fallback = "pending") {
-  if (value === null || value === undefined || value === "") return fallback
-  if (typeof value === "number" && !Number.isFinite(value)) return fallback
-  return String(value).replace(/_/g, " ")
+const NODE_POSITIONS = {
+  glucose: { x: 70, y: 210, label: "Glucose" },
+  hco3: { x: 70, y: 80, label: "HCO₃⁻" },
+  c1_intermediate: { x: 330, y: 170, label: "C1 intermediate" },
+  hcoo: { x: 330, y: 80, label: "HCOO⁻" },
+  formic_acid: { x: 610, y: 80, label: "Formic acid" },
+  lactic_acid: { x: 610, y: 180, label: "Lactic acid" },
+  acetic_acid: { x: 610, y: 260, label: "Acetic acid" },
+  glycolic_acid: { x: 330, y: 315, label: "Glycolic acid" },
+  humins_byproducts: { x: 610, y: 340, label: "Humins / by-products" },
 }
 
-function normalizeList(value) {
+function chemicalText(value, fallback = "pending") {
+  if (value === null || value === undefined || value === "") return fallback
+  if (typeof value === "number" && !Number.isFinite(value)) return fallback
+  return String(value)
+    .replace(/HCO3[−-]/g, "HCO₃⁻")
+    .replace(/HCOO[−-]/g, "HCOO⁻")
+    .replace(/CO2/g, "CO₂")
+    .replace(/_/g, " ")
+}
+
+function list(value) {
   return Array.isArray(value) ? value.filter(Boolean) : []
 }
 
@@ -28,11 +44,59 @@ function groupLabel(group, lang) {
   return text(lang, "验证规则", "Validation rules")
 }
 
+function ruleTone(rule, t) {
+  const group = ruleGroup(rule)
+  if (group === "formic") return t.success || "#15803D"
+  if (group === "competing") return t.warn || "#D97706"
+  if (group === "side") return "#8B5E5E"
+  return t.accentText || "#2563EB"
+}
+
+function evidenceStroke(rule) {
+  const evidence = `${rule?.evidenceLevel || ""} ${rule?.status || ""}`.toLowerCase()
+  if (evidence.includes("experiment")) return { dash: "", opacity: 1, width: 3.5 }
+  if (evidence.includes("literature")) return { dash: "", opacity: 0.9, width: 2.4 }
+  if (evidence.includes("hypothesis")) return { dash: "8 6", opacity: 0.76, width: 2.2 }
+  return { dash: "4 8", opacity: 0.42, width: 1.8 }
+}
+
+function sourceNode(rule) {
+  return list(rule?.sourceNodes)[0]
+}
+
+function targetNode(rule) {
+  return list(rule?.targetNodes)[0]
+}
+
+function pathForRule(rule) {
+  const source = NODE_POSITIONS[sourceNode(rule)]
+  const target = NODE_POSITIONS[targetNode(rule)]
+  if (!source || !target) return ""
+  const sx = source.x + 70
+  const sy = source.y + 24
+  const tx = target.x
+  const ty = target.y + 24
+  const midX = sx + (tx - sx) * 0.52
+  const offset = target.y > source.y ? 18 : -10
+  return `M ${sx} ${sy} C ${midX} ${sy + offset}, ${midX} ${ty - offset}, ${tx} ${ty}`
+}
+
+function relatedEvidenceForRule(evidenceItems, ruleId) {
+  return list(evidenceItems).filter(item => item.relatedRuleId === ruleId)
+}
+
+function relatedEvidenceForNode(evidenceItems, nodeId) {
+  return list(evidenceItems).filter(item => item.relatedPathwayNode === nodeId)
+}
+
+function rulesForNode(rules, nodeId) {
+  return list(rules).filter(rule => [...list(rule.sourceNodes), ...list(rule.targetNodes)].includes(nodeId))
+}
+
 function Pill({ children, t, tone = "info" }) {
-  const background = tone === "warn" ? t.badgeWarnBg : t.badgeInfoBg
-  const color = tone === "warn" ? t.warn : t.accentText
+  const warn = tone === "warn"
   return (
-    <span style={{ background, border: `1px solid ${tone === "warn" ? t.warn : t.border}`, borderRadius: 999, color, display: "inline-flex", fontSize: 11, fontWeight: 800, lineHeight: 1.2, padding: "4px 8px" }}>
+    <span style={{ background: warn ? t.badgeWarnBg : t.badgeInfoBg, border: `1px solid ${warn ? t.warn : t.border}`, borderRadius: 999, color: warn ? t.warn : t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 800, lineHeight: 1.2, padding: "4px 8px" }}>
       {children}
     </span>
   )
@@ -47,23 +111,88 @@ function SectionCard({ title, children, t }) {
   )
 }
 
-function DetailRow({ label, children, t }) {
+function ReactionRuleNetwork({
+  rules,
+  selectedRule,
+  selectedPathwayNodeId,
+  candidateRuleIds,
+  candidateNodeIds,
+  onSelectRule,
+  onSelectPathwayNode,
+  t,
+  lang,
+}) {
   return (
-    <div style={{ display: "grid", gap: 4 }}>
-      <div style={{ color: t.faint, fontSize: 11, fontWeight: 850 }}>{label}</div>
-      <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55 }}>{children}</div>
-    </div>
-  )
-}
+    <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 8, minWidth: 0, padding: 10 }}>
+      <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
+        <strong style={{ color: t.textStrong, fontSize: 13.5 }}>{text(lang, "Reaction Rule Network / 反应规则网络", "Reaction Rule Network")}</strong>
+        <span style={{ color: t.faint, fontSize: 11 }}>
+          {text(lang, "节点是路径物种，边是 reaction rules。", "Nodes are pathway species; edges are reaction rules.")}
+        </span>
+      </div>
+      <svg viewBox="0 0 760 410" role="img" aria-label="Reaction Rule Network" style={{ display: "block", width: "100%", height: "auto", fontFamily: "inherit" }}>
+        <defs>
+          <marker id="rule-network-arrow" markerHeight="8" markerWidth="8" orient="auto" refX="7.5" refY="4">
+            <path d="M0,0 L8,4 L0,8 Z" fill={t.faint} />
+          </marker>
+        </defs>
 
-function findEvidenceForRule(evidenceItems, ruleId) {
-  return normalizeList(evidenceItems).filter(item => item.relatedRuleId === ruleId)
+        {rules.map(rule => {
+          const active = selectedRule?.ruleId === rule.ruleId
+          const candidateLinked = candidateRuleIds.has(rule.ruleId)
+          const stroke = evidenceStroke(rule)
+          const color = ruleTone(rule, t)
+          return (
+            <path
+              key={rule.ruleId}
+              d={pathForRule(rule)}
+              fill="none"
+              markerEnd="url(#rule-network-arrow)"
+              onClick={() => onSelectRule(rule.ruleId)}
+              opacity={active || candidateLinked ? 1 : stroke.opacity}
+              stroke={active || candidateLinked ? color : t.borderStrong || color}
+              strokeDasharray={stroke.dash}
+              strokeWidth={active ? stroke.width + 1.8 : candidateLinked ? stroke.width + 0.8 : stroke.width}
+              style={{ cursor: "pointer" }}
+            />
+          )
+        })}
+
+        {Object.entries(NODE_POSITIONS).map(([nodeId, node]) => {
+          const selected = selectedPathwayNodeId === nodeId
+          const candidateLinked = candidateNodeIds.has(nodeId)
+          const active = selected || candidateLinked
+          return (
+            <g key={nodeId} role="button" tabIndex="0" onClick={() => onSelectPathwayNode(nodeId)} style={{ cursor: "pointer" }}>
+              <rect
+                x={node.x}
+                y={node.y}
+                width="140"
+                height="48"
+                rx="8"
+                fill={active ? t.badgeInfoBg : t.panel}
+                stroke={selected ? t.accent : candidateLinked ? t.success || t.accent : t.border}
+                strokeWidth={selected ? 2.6 : candidateLinked ? 2 : 1.2}
+              />
+              <text x={node.x + 12} y={node.y + 29} fill={t.textStrong} fontSize="13" fontWeight="900">
+                {node.label}
+              </text>
+            </g>
+          )
+        })}
+      </svg>
+    </section>
+  )
 }
 
 export function ReactionRuleExplorer({
   reactionRules = [],
   evidenceItems = [],
   selectedCandidate,
+  selectedRuleId,
+  onSelectRule = () => {},
+  selectedPathwayNodeId,
+  onSelectPathwayNode = () => {},
   lang: forcedLang,
   t: tone,
   isMobile: forcedMobile,
@@ -75,6 +204,7 @@ export function ReactionRuleExplorer({
   const lang = forcedLang || contextLang
   const isMobile = forcedMobile ?? viewport.isMobile
   const isNarrow = isMobile || viewport.isNarrow
+  const [localRuleId, setLocalRuleId] = useState("")
 
   const rules = useMemo(() => (Array.isArray(reactionRules) ? reactionRules : []), [reactionRules])
   const groupedRules = useMemo(() => {
@@ -85,32 +215,32 @@ export function ReactionRuleExplorer({
     return groups
   }, [rules])
 
-  const [selectedRuleId, setSelectedRuleId] = useState("")
-  const selectedRule = useMemo(() => (
-    rules.find(rule => rule.ruleId === selectedRuleId) || groupedRules.formic[0] || rules[0] || null
-  ), [groupedRules.formic, rules, selectedRuleId])
-
-  const selectedEvidence = useMemo(() => (
-    selectedRule ? findEvidenceForRule(evidenceItems, selectedRule.ruleId) : []
-  ), [evidenceItems, selectedRule])
-
-  const candidateRoles = normalizeList(selectedCandidate?.organicAcidRelevance?.possibleRoles)
+  const activeRuleId = selectedRuleId || localRuleId || groupedRules.formic[0]?.ruleId || rules[0]?.ruleId || ""
+  const selectedRule = rules.find(rule => rule.ruleId === activeRuleId) || null
+  const selectedEvidence = selectedRule ? relatedEvidenceForRule(evidenceItems, selectedRule.ruleId) : []
+  const nodeRules = selectedPathwayNodeId ? rulesForNode(rules, selectedPathwayNodeId) : []
+  const nodeEvidence = selectedPathwayNodeId ? relatedEvidenceForNode(evidenceItems, selectedPathwayNodeId) : []
+  const candidateRoles = list(selectedCandidate?.organicAcidRelevance?.possibleRoles)
   const candidateRuleIds = new Set(candidateRoles.map(role => role.relatedRuleId).filter(Boolean))
+  const candidateNodeIds = new Set(candidateRoles.map(role => role.relatedPathwayNode).filter(Boolean))
+
+  const selectRule = (ruleId) => {
+    setLocalRuleId(ruleId)
+    onSelectRule(ruleId)
+  }
 
   return (
     <section id="organic-acid-reaction-rule-explorer" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 12, minWidth: 0, padding: isMobile ? 12 : 14, scrollMarginTop: 118 }}>
       <div style={{ display: "grid", gap: 6 }}>
-        <div style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900 }}>
-          Reaction Rule Explorer
-        </div>
+        <div style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900 }}>Reaction Rule Explorer</div>
         <h2 style={{ color: t.textStrong, fontSize: isMobile ? 20 : 23, fontWeight: 940, lineHeight: 1.16, margin: 0 }}>
           {text(lang, "有机酸反应规则与证据图", "Organic Acid Reaction Rules and Evidence")}
         </h2>
         <div style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.6, maxWidth: 920 }}>
           {text(
             lang,
-            "把路径图中的边拆解为可验证的反应规则，并把证据条目、候选物匹配和待验证内容连接起来。",
-            "Pathway edges are represented as verifiable reaction rules connected to evidence items, candidate matches, and validation needs."
+            "用节点—边网络展示路径节点、反应规则、证据条目和候选物角色之间的关系。",
+            "A node-edge network connecting pathway nodes, reaction rules, evidence items, and candidate roles."
           )}
         </div>
         <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 8, color: t.muted, fontSize: 11.5, lineHeight: 1.55, padding: 10 }}>
@@ -122,19 +252,31 @@ export function ReactionRuleExplorer({
         </div>
       </div>
 
+      <ReactionRuleNetwork
+        rules={rules}
+        selectedRule={selectedRule}
+        selectedPathwayNodeId={selectedPathwayNodeId}
+        candidateRuleIds={candidateRuleIds}
+        candidateNodeIds={candidateNodeIds}
+        onSelectRule={selectRule}
+        onSelectPathwayNode={onSelectPathwayNode}
+        t={t}
+        lang={lang}
+      />
+
       <div style={{ display: "grid", gap: 12, gridTemplateColumns: isNarrow ? "1fr" : "minmax(260px, 0.82fr) minmax(0, 1.35fr)", minWidth: 0 }}>
         <SectionCard t={t} title={text(lang, "反应规则", "Reaction rules")}>
           {Object.entries(groupedRules).map(([group, rows]) => (
             <div key={group} style={{ display: "grid", gap: 7 }}>
               <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{groupLabel(group, lang)}</div>
-              {rows.length ? rows.map(rule => {
+              {rows.map(rule => {
                 const active = selectedRule?.ruleId === rule.ruleId
                 const candidateMatched = candidateRuleIds.has(rule.ruleId)
                 return (
                   <button
                     key={rule.ruleId}
                     type="button"
-                    onClick={() => setSelectedRuleId(rule.ruleId)}
+                    onClick={() => selectRule(rule.ruleId)}
                     style={{
                       background: active ? t.badgeInfoBg : t.panel,
                       border: `1px solid ${active ? t.accent : t.border}`,
@@ -148,14 +290,12 @@ export function ReactionRuleExplorer({
                       width: "100%",
                     }}
                   >
-                    <span style={{ fontSize: 12.5, fontWeight: 900, lineHeight: 1.3 }}>{safeText(rule.label)}</span>
-                    <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.4 }}>{safeText(rule.reactionType)} · {safeText(rule.status)}</span>
+                    <span style={{ fontSize: 12.5, fontWeight: 900, lineHeight: 1.3 }}>{chemicalText(rule.label)}</span>
+                    <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.4 }}>{chemicalText(rule.reactionType)} · {chemicalText(rule.status)}</span>
                     {candidateMatched ? <Pill t={t}>{text(lang, "候选物已关联", "Candidate-linked")}</Pill> : null}
                   </button>
                 )
-              }) : (
-                <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.45 }}>{text(lang, "暂无规则", "No rules")}</div>
-              )}
+              })}
             </div>
           ))}
         </SectionCard>
@@ -165,47 +305,33 @@ export function ReactionRuleExplorer({
             {selectedRule ? (
               <>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                  <Pill t={t}>{safeText(selectedRule.evidenceLevel)}</Pill>
-                  <Pill t={t} tone="warn">{safeText(selectedRule.status)}</Pill>
-                  <Pill t={t}>{safeText(selectedRule.confidence)}</Pill>
+                  <Pill t={t}>{chemicalText(selectedRule.evidenceLevel)}</Pill>
+                  <Pill t={t} tone="warn">{chemicalText(selectedRule.status)}</Pill>
+                  <Pill t={t}>{chemicalText(selectedRule.confidence)}</Pill>
                 </div>
-                <h3 style={{ color: t.textStrong, fontSize: 18, lineHeight: 1.22, margin: 0 }}>{safeText(selectedRule.label)}</h3>
-                <div style={{ display: "grid", gap: 10, gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
-                  <DetailRow t={t} label={text(lang, "路径节点", "Pathway nodes")}>
-                    {normalizeList(selectedRule.sourceNodes).join(", ") || "pending"} → {normalizeList(selectedRule.targetNodes).join(", ") || "pending"}
-                  </DetailRow>
-                  <DetailRow t={t} label={text(lang, "反应类型", "Reaction type")}>{safeText(selectedRule.reactionType)}</DetailRow>
-                  <DetailRow t={t} label={text(lang, "可能 MOF 影响点", "Possible MOF influence")}>
-                    {normalizeList(selectedRule.possibleMofInfluence).map(item => safeText(item)).join(", ") || "pending"}
-                  </DetailRow>
-                  <DetailRow t={t} label={text(lang, "证据等级", "Evidence level")}>
-                    {safeText(selectedRule.evidenceLevel)} · {safeText(selectedRule.confidence)}
-                  </DetailRow>
+                <h3 style={{ color: t.textStrong, fontSize: 18, lineHeight: 1.22, margin: 0 }}>{chemicalText(selectedRule.label)}</h3>
+                <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55 }}>
+                  {list(selectedRule.sourceNodes).map(chemicalText).join(", ") || "pending"} → {list(selectedRule.targetNodes).map(chemicalText).join(", ") || "pending"}
                 </div>
-                <DetailRow t={t} label={text(lang, "待验证内容", "Required validation")}>
-                  <div style={{ display: "grid", gap: 5 }}>
-                    {normalizeList(selectedRule.requiredValidation).map(item => <span key={item}>{safeText(item)}</span>)}
-                  </div>
-                </DetailRow>
-                <DetailRow t={t} label={text(lang, "说明", "Notes")}>{safeText(selectedRule.notes)}</DetailRow>
+                <div style={{ display: "grid", gap: 8 }}>
+                  <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "待验证内容", "Validation needed")}</strong>
+                  {list(selectedRule.requiredValidation).map(item => (
+                    <span key={item} style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>{chemicalText(item)}</span>
+                  ))}
+                </div>
               </>
             ) : (
               <div style={{ color: t.muted, fontSize: 12 }}>{text(lang, "反应规则待加载。", "Reaction rules pending load.")}</div>
             )}
           </SectionCard>
 
-          <SectionCard t={t} title={text(lang, "证据条目与候选物", "Evidence items and candidate context")}>
-            <div style={{ display: "grid", gap: 9 }}>
-              <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>
-                {text(lang, "关联证据", "Related evidence")}
-              </div>
+          <SectionCard t={t} title={text(lang, "证据条目与节点上下文", "Evidence items and node context")}>
+            <div style={{ display: "grid", gap: 8 }}>
+              <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "规则证据", "Rule evidence")}</strong>
               {selectedEvidence.length ? selectedEvidence.map(item => (
                 <article key={item.evidenceId} style={{ borderTop: `1px solid ${t.border}`, display: "grid", gap: 4, paddingTop: 8 }}>
-                  <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 850 }}>{safeText(item.claim)}</div>
-                  <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.5 }}>{safeText(item.evidenceType)} · {safeText(item.confidence)} · {safeText(item.status)}</div>
-                  <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.45 }}>
-                    {text(lang, "待验证", "Validation")}: {normalizeList(item.validationNeeded).map(row => safeText(row)).join("; ") || "pending"}
-                  </div>
+                  <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 850 }}>{chemicalText(item.claim)}</div>
+                  <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.5 }}>{chemicalText(item.evidenceType)} · {chemicalText(item.confidence)} · {chemicalText(item.status)}</div>
                 </article>
               )) : (
                 <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.5 }}>
@@ -213,12 +339,20 @@ export function ReactionRuleExplorer({
                 </div>
               )}
             </div>
-            <div style={{ borderTop: `1px solid ${t.border}`, color: t.muted, display: "grid", fontSize: 12, gap: 5, lineHeight: 1.5, paddingTop: 9 }}>
-              <strong style={{ color: t.textStrong }}>{text(lang, "当前候选物", "Current candidate")}: {safeText(selectedCandidate?.name || selectedCandidate?.id)}</strong>
-              {candidateRoles.length
-                ? candidateRoles.slice(0, 4).map((role, index) => <span key={`${role.relatedRuleId || role.relatedPathwayNode || index}`}>{safeText(role.label || role.role)} · {safeText(role.relatedRuleId || role.relatedPathwayNode)} · {safeText(role.evidenceLevel)}</span>)
-                : <span>{text(lang, "尚未分配候选物规则匹配。", "No candidate rule match assigned yet.")}</span>}
-            </div>
+
+            {selectedPathwayNodeId && (
+              <div style={{ borderTop: `1px solid ${t.border}`, display: "grid", gap: 7, paddingTop: 9 }}>
+                <strong style={{ color: t.textStrong, fontSize: 12.5 }}>
+                  {text(lang, "选中节点", "Selected node")}: {chemicalText(NODE_POSITIONS[selectedPathwayNodeId]?.label || selectedPathwayNodeId)}
+                </strong>
+                <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>
+                  {text(lang, "相关规则", "Related rules")}: {nodeRules.map(rule => chemicalText(rule.label)).join("; ") || "pending"}
+                </span>
+                <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>
+                  {text(lang, "相关证据", "Related evidence")}: {nodeEvidence.map(item => chemicalText(item.claim)).join("; ") || "pending"}
+                </span>
+              </div>
+            )}
           </SectionCard>
         </div>
       </div>

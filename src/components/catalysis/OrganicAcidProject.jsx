@@ -1,5 +1,14 @@
 import { useEffect, useMemo, useState } from "react"
-import { fetchDataJson, getMofCandidates, getOrganicAcidExperimentRecords, toolbarBtn, useViewport } from "../../shared"
+import {
+  DATA_MODES,
+  DEFAULT_CANDIDATE_DATA_MODE,
+  fetchDataJson,
+  getGlobalMofCandidates,
+  getMofCandidates,
+  getOrganicAcidExperimentRecords,
+  toolbarBtn,
+  useViewport,
+} from "../../shared"
 import { calculateRGFARanking, safeNumber } from "../../utils/rgfaScore"
 import { AlgorithmTraceExplorer } from "./AlgorithmTraceExplorer"
 import { DynamicDescriptorMatrix } from "./DynamicDescriptorMatrix"
@@ -20,6 +29,7 @@ import { OrganicAcidCandidateMap } from "./OrganicAcidCandidateMap"
 import { OrganicAcidExperimentFeedbackPanel } from "./OrganicAcidExperimentFeedbackPanel"
 import { ReactionRuleExplorer } from "./ReactionRuleExplorer"
 import { CandidateRuleMatchPanel } from "./CandidateRuleMatchPanel"
+import { OrganicAcidCurationQueue } from "./OrganicAcidCurationQueue"
 import { CompactDataModeBar } from "../module/ModuleTop"
 import { DataStatusSummary, OpenMofIntegrationReport } from "../data/OpenMofIntegrationReport"
 
@@ -435,13 +445,15 @@ export function OrganicAcidProject({ lang = "zh", t }) {
   const [rows, setRows] = useState([])
   const [candidateRows, setCandidateRows] = useState([])
   const [summaryData, setSummaryData] = useState({ demo: [], realSeed: [], openSeed: [], experiments: [] })
-  const [candidateDataMode, setCandidateDataMode] = useState("demo")
+  const [candidateDataMode, setCandidateDataMode] = useState(DEFAULT_CANDIDATE_DATA_MODE)
   const [candidateStatus, setCandidateStatus] = useState("idle")
   const [status, setStatus] = useState("idle")
   const [reactionRules, setReactionRules] = useState([])
   const [evidenceItems, setEvidenceItems] = useState([])
   const [selectedMof, setSelectedMof] = useState("")
   const [selectedPathwayCandidateId, setSelectedPathwayCandidateId] = useState("")
+  const [selectedRuleId, setSelectedRuleId] = useState(null)
+  const [selectedPathwayNodeId, setSelectedPathwayNodeId] = useState(null)
   const [activeTraceStep, setActiveTraceStep] = useState("raw")
 
   useEffect(() => {
@@ -476,9 +488,9 @@ export function OrganicAcidProject({ lang = "zh", t }) {
     if (!hasAccess) return
     let live = true
     Promise.all([
-      getMofCandidates({ mode: "demo", throwOnError: false }),
-      getMofCandidates({ mode: "real-seed", throwOnError: false }),
-      getMofCandidates({ mode: "open-mof-seed", throwOnError: false }),
+      getMofCandidates({ mode: DATA_MODES.DEMO, throwOnError: false }),
+      getMofCandidates({ mode: DATA_MODES.REAL_SEED, throwOnError: false }),
+      getGlobalMofCandidates({ mode: DATA_MODES.OPEN_MOF_SEED, throwOnError: false }),
       getOrganicAcidExperimentRecords({ throwOnError: false }),
     ]).then(([demo, realSeed, openSeed, experiments]) => {
       if (!live) return
@@ -518,7 +530,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
     if (!hasAccess) return
     let live = true
     setCandidateStatus("loading")
-    getMofCandidates({ mode: candidateDataMode, throwOnError: false })
+    getGlobalMofCandidates({ mode: candidateDataMode, throwOnError: false })
       .then(data => {
         if (!live) return
         const nextRows = Array.isArray(data) ? data : []
@@ -542,6 +554,14 @@ export function OrganicAcidProject({ lang = "zh", t }) {
   const selectedPathwayCandidate = useMemo(() => (
     candidateRows.find((row) => (row.id || row.name) === selectedPathwayCandidateId) || candidateRows[0] || null
   ), [candidateRows, selectedPathwayCandidateId])
+
+  const handleSelectPathwayCandidate = (candidateId) => {
+    setSelectedPathwayCandidateId(candidateId)
+    const candidate = candidateRows.find((row) => (row.id || row.name) === candidateId)
+    const firstRole = candidate?.organicAcidRelevance?.possibleRoles?.[0]
+    if (firstRole?.relatedRuleId) setSelectedRuleId(firstRole.relatedRuleId)
+    if (firstRole?.relatedPathwayNode) setSelectedPathwayNodeId(firstRole.relatedPathwayNode)
+  }
 
   useEffect(() => {
     if (!rankedRows.length) return
@@ -580,6 +600,8 @@ export function OrganicAcidProject({ lang = "zh", t }) {
           onChange={mode => {
             setCandidateDataMode(mode)
             setSelectedPathwayCandidateId("")
+            setSelectedRuleId(null)
+            setSelectedPathwayNodeId(null)
           }}
           lang={lang}
           recordsCount={candidateRows.length}
@@ -587,14 +609,14 @@ export function OrganicAcidProject({ lang = "zh", t }) {
             ? `${candidateRows.length} 条候选记录 · ${candidateStatus === "loaded" ? "已载入" : candidateStatus === "empty" ? "待填充" : candidateStatus}`
             : `${candidateRows.length} candidate records · ${candidateStatus === "loaded" ? "loaded" : candidateStatus === "empty" ? "pending population" : candidateStatus}`}
           options={[
-            { id: "demo", label: lang === "zh" ? "Demo" : "Demo" },
-            { id: "real-seed", label: lang === "zh" ? "Real Seed" : "Real Seed" },
-            { id: "open-mof-seed", label: lang === "zh" ? "Open MOF Seed" : "Open MOF Seed" },
+            { id: DATA_MODES.OPEN_MOF_SEED, label: lang === "zh" ? "Open MOF Seed" : "Open MOF Seed" },
+            { id: DATA_MODES.DEMO, label: lang === "zh" ? "Demo" : "Demo" },
+            { id: DATA_MODES.REAL_SEED, label: lang === "zh" ? "Real Seed" : "Real Seed" },
           ]}
         />
-        {candidateDataMode === "open-mof-seed" && (
+        {candidateDataMode === DATA_MODES.OPEN_MOF_SEED && (
           <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.muted, fontSize: 12.5, lineHeight: 1.55, padding: 11 }}>
-            Open MOF Seed 已接入多源开源记录；当前有机酸路径相关性在没有文献、DFT 或实验支持前仍保持 pending。
+            当前全局候选数据源：Open MOF Seed · 已加载记录：{candidateRows.length} 条 · 已接入模块：MOF Library / EcoScreen / Organic Acid Project。当前有机酸路径相关性在没有文献、DFT 或实验支持前仍保持 pending。
           </div>
         )}
         <DataStatusSummary
@@ -611,18 +633,26 @@ export function OrganicAcidProject({ lang = "zh", t }) {
           selectedCandidate={selectedPathwayCandidate}
           reactionRules={reactionRules}
           evidenceItems={evidenceItems}
+          selectedRuleId={selectedRuleId}
+          onSelectRule={setSelectedRuleId}
+          selectedPathwayNodeId={selectedPathwayNodeId}
+          onSelectPathwayNode={setSelectedPathwayNodeId}
         />
         <ReactionRuleExplorer
           reactionRules={reactionRules}
           evidenceItems={evidenceItems}
           selectedCandidate={selectedPathwayCandidate}
+          selectedRuleId={selectedRuleId}
+          onSelectRule={setSelectedRuleId}
+          selectedPathwayNodeId={selectedPathwayNodeId}
+          onSelectPathwayNode={setSelectedPathwayNodeId}
           lang={lang}
           t={t}
         />
         <OrganicAcidCandidateMap
           candidates={candidateRows}
           selectedCandidateId={selectedPathwayCandidateId}
-          onSelectCandidate={setSelectedPathwayCandidateId}
+          onSelectCandidate={handleSelectPathwayCandidate}
           lang={lang}
           t={t}
         />
@@ -633,6 +663,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
           lang={lang}
           t={t}
         />
+        <OrganicAcidCurationQueue candidates={candidateRows} lang={lang} t={t} />
         <OpenMofIntegrationReport
           seedRecords={summaryData.openSeed}
           experimentRecords={summaryData.experiments}

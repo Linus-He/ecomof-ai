@@ -1184,28 +1184,23 @@ export function DataModeToggle({ value, onChange, lang, options: customOptions }
 // ── Field-level Provenance ────────────────────────────────────────────────────
 
 function computePanelPos(isMobile, anchorRect) {
-  if (isMobile) {
-    return {
-      position: "fixed", bottom: 0, left: 0, right: 0,
-      maxHeight: "70vh", borderRadius: "12px 12px 0 0",
-      zIndex: 1200, overflowY: "auto",
-    }
-  }
   const PW = 380
   const vw = typeof window !== "undefined" ? window.innerWidth  : 1440
   const vh = typeof window !== "undefined" ? window.innerHeight : 800
-  const maxH = Math.min(vh * 0.6, 480)
-  let top  = (anchorRect?.bottom ?? 0) + 8
-  let left = anchorRect?.left ?? 0
+  const width = Math.min(PW, vw - 32)
+  const maxH = Math.min(vh * (isMobile ? 0.72 : 0.6), 480)
+  let top = (anchorRect?.bottom ?? 0) + 8
+  let left = isMobile ? ((anchorRect?.left ?? vw / 2) + (anchorRect?.width ?? 0) / 2 - width / 2) : (anchorRect?.left ?? 0)
   if (left + PW > vw - 16) left = vw - PW - 16
-  if (left < 8) left = 8
+  if (left + width > vw - 16) left = vw - width - 16
+  if (left < 16) left = 16
   if (top + maxH > vh - 16) {
     top = (anchorRect?.top ?? 0) - maxH - 8
     if (top < 16) top = 16
   }
   return {
     position: "fixed", top, left,
-    width: Math.min(PW, vw - 32),
+    width,
     maxHeight: maxH, borderRadius: 12,
     zIndex: 1200, overflowY: "auto",
   }
@@ -1215,10 +1210,27 @@ function computePanelPos(isMobile, anchorRect) {
  * FieldSourcePanel — popover (desktop) / bottom-sheet (mobile) for field-level provenance.
  */
 function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRect, isMobile, onClose }) {
+  const panelRef = useRef(null)
+
   useEffect(() => {
     const handler = (e) => { if (e.key === "Escape") onClose() }
     window.addEventListener("keydown", handler)
     return () => window.removeEventListener("keydown", handler)
+  }, [onClose])
+
+  useEffect(() => {
+    const handler = (event) => {
+      if (panelRef.current?.contains(event.target)) return
+      onClose()
+    }
+    window.addEventListener("mousedown", handler)
+    return () => window.removeEventListener("mousedown", handler)
+  }, [onClose])
+
+  useEffect(() => {
+    const closeOnScroll = () => onClose()
+    window.addEventListener("scroll", closeOnScroll, true)
+    return () => window.removeEventListener("scroll", closeOnScroll, true)
   }, [onClose])
 
   const isPending = !source || source.sourceType === "pending"
@@ -1232,7 +1244,7 @@ function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRect, isMobile, o
     sourceVersion        && ["sourceVersion", lang === "zh" ? "来源版本" : "Source version", sourceVersion],
     sourceUrl            && ["sourceUrl", lang === "zh" ? "来源链接" : "Source URL", sourceUrl],
     source.citation      && ["citation", lang === "zh" ? "引用" : "Citation", source.citation],
-    source.license       && ["license", lang === "zh" ? "许可" : "License", source.license],
+    source.license       && ["license", lang === "zh" ? "许可证" : "License", source.license],
     source.condition     && ["condition",     lang === "zh" ? "测量条件"    : "Measurement condition",   source.condition],
     source.evidenceLevel && ["evidenceLevel", lang === "zh" ? "证据等级"    : "Evidence level",          source.evidenceLevel],
     source.curationStatus && ["curationStatus", lang === "zh" ? "整理状态" : "Curation status", source.curationStatus],
@@ -1244,10 +1256,8 @@ function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRect, isMobile, o
 
   return (
     <>
-      {/* Transparent backdrop for click-outside */}
-      <div style={{ position: "fixed", inset: 0, zIndex: 1199 }} onClick={onClose} />
-      {/* Panel */}
       <div
+        ref={panelRef}
         style={{
           ...panelPos,
           background: t.panel || t.bg,
@@ -1261,12 +1271,14 @@ function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRect, isMobile, o
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
           <div>
             <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: 3 }}>
-              {lang === "zh" ? "逐字段数据溯源" : "Field-level provenance"}
+              {lang === "zh" ? "字段来源" : "Field provenance"}
             </div>
-            <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 850 }}>{fieldLabel}</div>
+            <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 850 }}>
+              {lang === "zh" ? "字段：" : "Field: "}{fieldLabel}
+            </div>
             {source && source.value !== null && source.value !== undefined && (
               <div style={{ color: t.accentText, fontSize: 11, marginTop: 2 }}>
-                {lang === "zh" ? "当前值：" : "Value: "}{source.value}{source.unit ? ` ${source.unit}` : ""}
+                {lang === "zh" ? "当前值：" : "Current value: "}{source.value}{source.unit ? ` ${source.unit}` : ""}
               </div>
             )}
           </div>
@@ -1294,8 +1306,8 @@ function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRect, isMobile, o
         <div style={{ marginTop: 12, color: t.faint, fontSize: 10, lineHeight: 1.5, borderTop: `1px solid ${t.divider || t.border}`, paddingTop: 10 }}>
           {source?.sourceType === "open-mof-seed"
             ? (lang === "zh"
-              ? "Open MOF Seed 是 EcoMOF-AI 的多源数据层，不代表原始数据库名称。该字段的原始来源见上方 source database。"
-              : "Open MOF Seed is the EcoMOF-AI multi-source data layer, not the original database name. The original source is shown above as source database.")
+              ? "Open MOF Seed 是 EcoMOF-AI 的多源数据层，不是原始数据库名称。该字段的原始来源见上方来源数据库。"
+              : "Open MOF Seed is EcoMOF-AI's multi-source data layer, not the original database name. The original source is shown above as source database.")
             : (lang === "zh"
               ? "字段级数据溯源说明数据框架，不替代手动数据核实和实验验证。"
               : "Field-level provenance describes the data framework and does not replace manual data verification.")}

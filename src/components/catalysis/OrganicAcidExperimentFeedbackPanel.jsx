@@ -82,8 +82,8 @@ export function OrganicAcidExperimentFeedbackPanel({ records: providedRecords, l
       text(lang, "降低 structureFeasibility，并增加 instability penalty。", "Reduce structureFeasibility and add an instability penalty."),
     ],
     [
-      text(lang, "HCO3- 响应明显", "HCO3- response is observed"),
-      text(lang, "增强 HCO3-/HCOO- interaction hypothesis，并提高相关边的 evidence confidence。", "Strengthen the HCO3-/HCOO- interaction hypothesis and increase evidence confidence for related edges."),
+      text(lang, "HCO₃⁻ 响应明显", "HCO₃⁻ response is observed"),
+      text(lang, "增强 HCO₃⁻ / HCOO⁻ interaction hypothesis，并提高相关边的 evidence confidence。", "Strengthen the HCO₃⁻ / HCOO⁻ interaction hypothesis and increase evidence confidence for related edges."),
     ],
     [
       text(lang, "无明显变化", "No measurable change"),
@@ -101,14 +101,14 @@ export function OrganicAcidExperimentFeedbackPanel({ records: providedRecords, l
         <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.6, margin: 0, maxWidth: 920 }}>
           {text(
             lang,
-            "该模块用于后续接入合作实验数据，包括反应条件、产物分布、反应后 MOF 稳定性、HCO3- 浓度响应、HCOO- / 甲酸盐相关证据和证据可信度。当前状态：等待合作实验数据回填。",
-            "This module is prepared for collaboration experiment data: reaction conditions, product distribution, post-reaction MOF stability, HCO3- response, HCOO-/formate evidence, and evidence confidence. Current status: pending collaboration experiment data."
+            "该模块用于后续接入合作实验数据，包括反应条件、产物分布、反应后 MOF 稳定性、HCO₃⁻ 浓度响应、HCOO⁻ / 甲酸盐相关证据和证据可信度。当前状态：等待合作实验数据回填。",
+            "This module is prepared for collaboration experiment data: reaction conditions, product distribution, post-reaction MOF stability, HCO₃⁻ response, HCOO⁻/formate evidence, and evidence confidence. Current status: pending collaboration experiment data."
           )}
         </p>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 9 }}>
-        <InfoCard t={t} title="What this will capture" body="Reaction conditions · product distribution · post-reaction MOF stability · HCO3- response · HCOO-/formate evidence · evidence confidence" />
+        <InfoCard t={t} title="What this will capture" body="Reaction conditions · product distribution · post-reaction MOF stability · HCO₃⁻ response · HCOO⁻/formate evidence · evidence confidence" />
         <InfoCard t={t} title="Current status" body="Pending collaboration experiment data. The records below are schema placeholders and do not represent completed experiments." tone="warning" />
         <InfoCard t={t} title="Data boundary" body="Experimental feedback can update prioritization only after provenance, raw data reference, and evidence confidence are curated." />
       </div>

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { BasisBadge, DisclaimerLink, FieldProvenanceButton } from "../ui"
-import { getMofCandidates } from "../../services/dataService"
+import { getGlobalMofCandidates, getMofCandidates } from "../../services/dataService"
+import { buildCandidateSearchText } from "../../utils/mofDisplayName"
 import { downloadTextFile } from "../../utils/report"
 import { toolbarBtn } from "../../utils/styles"
 
@@ -295,13 +296,8 @@ function curatedDescriptorCount(candidate) {
 
 function candidateSearchText(candidate) {
   return [
-    candidate.id,
-    candidate.name,
+    buildCandidateSearchText(candidate),
     candidate.formula,
-    candidate.metal,
-    ...(candidate.metalNodes || []),
-    candidate.linker,
-    candidate.topology,
     candidate.source,
     candidate.dataStatus,
     candidate.evidenceLevel,
@@ -579,12 +575,12 @@ export function CandidateComparisonModal({
     let active = true
     setLoadStatus("loading")
     Promise.all([
-      getMofCandidates({ mode: "real-seed", throwOnError: false }),
+      getGlobalMofCandidates({ mode: "open-mof-seed", throwOnError: false }),
       getMofCandidates({ mode: "demo", throwOnError: false }),
-    ]).then(([realSeed, demo]) => {
+    ]).then(([openSeed, demo]) => {
       if (!active) return
       const rows = uniqueCandidates([
-        ...(Array.isArray(realSeed) ? realSeed : []),
+        ...(Array.isArray(openSeed) ? openSeed : []),
         ...(Array.isArray(demo) ? demo : []),
       ])
       setLoadedCandidates(rows)

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import {
   Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, ReferenceLine,
   ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis, ZAxis,
@@ -12,7 +12,8 @@ import {
   buildCriticScoringModel,
   GlobalScoringWorkbench,
   getDataGapRecommendations,
-  getMofCandidates,
+  DEFAULT_CANDIDATE_DATA_MODE,
+  useMofCandidates,
   GraphDescriptorPanel,
   OrganicAcidRelevancePanel,
 } from "../../shared"
@@ -779,26 +780,12 @@ export function EcoScreenTab({ onNavigate }) {
   const [scoringMode, setScoringMode] = useState("general")
   const [weightingMode, setWeightingMode] = useState("critic")
   const [selectedId, setSelectedId] = useState("MOF-B")
-  const [generalRows, setGeneralRows] = useState([])
-  const [generalStatus, setGeneralStatus] = useState("loading")
+  const {
+    candidates: generalRows,
+    status: generalStatus,
+    mode: globalCandidateMode,
+  } = useMofCandidates(DEFAULT_CANDIDATE_DATA_MODE)
   const model = useMemo(() => buildCriticScoringModel(undefined, weightingMode), [weightingMode])
-  useEffect(() => {
-    let active = true
-    setGeneralStatus("loading")
-    getMofCandidates({ mode: "demo", throwOnError: true })
-      .then(rows => {
-        if (!active) return
-        setGeneralRows(Array.isArray(rows) ? rows : [])
-        setGeneralStatus(Array.isArray(rows) && rows.length ? "loaded" : "empty")
-      })
-      .catch(error => {
-        console.warn("EcoScreen descriptor scoring data failed to load.", error)
-        if (!active) return
-        setGeneralRows([])
-        setGeneralStatus("error")
-      })
-    return () => { active = false }
-  }, [])
   const selectedCandidate = useMemo(() => (
     model.candidates.find(candidate => candidate.id === selectedId) || model.candidates[0]
   ), [model, selectedId])
@@ -835,7 +822,7 @@ export function EcoScreenTab({ onNavigate }) {
           : "Global descriptor scoring, CRITIC / Hybrid weighting, explanation diagnostics, and evidence boundaries"}
         action={
           <>
-            <BasisBadge tone="proxy">{text(lang, "演示 / illustrative", "demo / illustrative")}</BasisBadge>
+            <BasisBadge tone="proxy">{text(lang, "Open MOF Seed / 全局候选源", "Open MOF Seed / global source")}</BasisBadge>
             <CopyLinkButton hash="ecoscreen" ariaLabel={lang === "zh" ? "复制 EcoScreen 链接" : "Copy EcoScreen link"} />
           </>
         }
@@ -849,8 +836,13 @@ export function EcoScreenTab({ onNavigate }) {
       </Callout>
       <Callout tone="warn">
         {lang === "zh"
-          ? "当前为 illustrative demo records，尚不是已验证催化证据，不应解读为真实性能结论。"
-          : "Illustrative demo records — not validated catalytic evidence. 演示记录，不代表已验证催化性能。"}
+          ? "当前全局候选数据源为 Open MOF Seed。部分记录缺少 CO₂ 吸附量、水稳定性或毒性字段，筛选结果仅作为临时优先级参考。"
+          : "Current global candidate source: Open MOF Seed. Some records lack CO₂ uptake, water-stability, or toxicity fields, so screening results are provisional prioritization cues only."}
+      </Callout>
+      <Callout tone="info">
+        {lang === "zh"
+          ? `当前全局候选数据源：Open MOF Seed · 已加载记录：${generalRows.length} 条 · 已接入模块：MOF Library / EcoScreen / Organic Acid Project。`
+          : `Current global candidate source: Open MOF Seed · Records loaded: ${generalRows.length} · Used by: MOF Library / EcoScreen / Organic Acid Project.`}
       </Callout>
 
       <Card t={t} style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
@@ -914,7 +906,7 @@ export function EcoScreenTab({ onNavigate }) {
       {scoringMode === "general" && (
         <GlobalScoringWorkbench
           candidates={generalRows}
-          dataMode="demo"
+          dataMode={globalCandidateMode}
           lang={lang}
           t={t}
           isMobile={isMobile}

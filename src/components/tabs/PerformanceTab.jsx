@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react"
 import {
   useT, useLang, useViewport,
-  gasLabel, getGasSystem, getMofCandidates, toolbarBtn,
+  DATA_MODES, DEFAULT_CANDIDATE_DATA_MODE,
+  gasLabel, getGasSystem, getGlobalMofCandidates, getMofCandidates, toolbarBtn,
   evidenceDistribution, scoreDistribution,
   createScoringModel, GlobalScoringWorkbench, DescriptorWeightChart, DescriptorConflictMatrix, ScoringDiagnosticsPanel,
   CandidateRankingTable, WhyThisResultButton, WhyThisWeightButton,
@@ -98,12 +99,13 @@ export function PerformanceTab({
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
-  const [dataMode, setDataMode] = useState("real-seed")
+  const [dataMode, setDataMode] = useState(DEFAULT_CANDIDATE_DATA_MODE)
   // Read sessionStorage on first mount so HomeTab "Advanced Screening" button
   // can pre-select the advanced workspace without extra prop drilling.
   const [performanceView, setPerformanceView] = useState(consumePerfInitView)
   const [demoRows, setDemoRows] = useState([])
   const [realSeedRows, setRealSeedRows] = useState([])
+  const [openSeedRows, setOpenSeedRows] = useState([])
   const [dataStatus, setDataStatus] = useState("loading")
   const [selectedId, setSelectedId] = useState(null)
   const appliedScoring = useMemo(() => ({
@@ -120,20 +122,23 @@ export function PerformanceTab({
     let active = true
     setDataStatus("loading")
     Promise.all([
-      getMofCandidates({ mode: "demo", throwOnError: true }),
-      getMofCandidates({ mode: "real-seed", throwOnError: true }),
+      getMofCandidates({ mode: DATA_MODES.DEMO, throwOnError: true }),
+      getMofCandidates({ mode: DATA_MODES.REAL_SEED, throwOnError: true }),
+      getGlobalMofCandidates({ mode: DATA_MODES.OPEN_MOF_SEED, throwOnError: true }),
     ])
-      .then(([demo, realSeed]) => {
+      .then(([demo, realSeed, openSeed]) => {
         if (!active) return
         const nextDemo = Array.isArray(demo) ? demo : []
         const nextRealSeed = Array.isArray(realSeed) ? realSeed : []
+        const nextOpenSeed = Array.isArray(openSeed) ? openSeed : []
         setDemoRows(nextDemo)
         setRealSeedRows(nextRealSeed)
-        setDataStatus(nextDemo.length || nextRealSeed.length ? "loaded" : "empty")
+        setOpenSeedRows(nextOpenSeed)
+        setDataStatus(nextOpenSeed.length || nextDemo.length || nextRealSeed.length ? "loaded" : "empty")
       })
       .catch((error) => {
         console.warn("Performance data load failed.", error)
-        if (active) { setDemoRows([]); setRealSeedRows([]); setDataStatus("error") }
+        if (active) { setDemoRows([]); setRealSeedRows([]); setOpenSeedRows([]); setDataStatus("error") }
       })
     return () => { active = false }
   }, [])
@@ -177,9 +182,10 @@ export function PerformanceTab({
   } : null, [hasResult, inputs, results, lang])
 
   const baseRows = useMemo(() => {
-    if (dataMode === "real-seed") return realSeedRows.map(normalizeRealSeedForPerf)
+    if (dataMode === DATA_MODES.OPEN_MOF_SEED) return openSeedRows
+    if (dataMode === DATA_MODES.REAL_SEED) return realSeedRows.map(normalizeRealSeedForPerf)
     return demoRows
-  }, [dataMode, demoRows, realSeedRows])
+  }, [dataMode, demoRows, openSeedRows, realSeedRows])
 
   const performanceScoringModel = useMemo(() => createScoringModel({
     candidates: [...(currentCandidate ? [currentCandidate] : []), ...baseRows],
@@ -224,7 +230,11 @@ export function PerformanceTab({
     { id: "assumptions", label: lang === "zh" ? "数据与假设" : "Data & assumptions" },
   ], [lang])
   const isContentTab = contentTabs.some(tab => tab.id === performanceView)
-  const dataRecordCount = dataMode === "real-seed" ? realSeedRows.length : demoRows.length
+  const dataRecordCount = dataMode === DATA_MODES.OPEN_MOF_SEED
+    ? openSeedRows.length
+    : dataMode === DATA_MODES.REAL_SEED
+      ? realSeedRows.length
+      : demoRows.length
   const dataModeStatus = dataStatus === "loading"
     ? (lang === "zh" ? "正在加载记录 · 缺失值由全局评分引擎处理" : "Loading records · missing values handled by the global scoring engine")
     : dataStatus === "error"
@@ -258,6 +268,11 @@ export function PerformanceTab({
           statusText={dataModeStatus}
           infoLabel={lang === "zh" ? "数据说明 ⓘ" : "Data notes ⓘ"}
           onInfo={() => setPerformanceView("assumptions")}
+          options={[
+            { id: DATA_MODES.OPEN_MOF_SEED, label: lang === "zh" ? "Open MOF Seed" : "Open MOF Seed" },
+            { id: DATA_MODES.DEMO, label: lang === "zh" ? "Demo" : "Demo" },
+            { id: DATA_MODES.REAL_SEED, label: lang === "zh" ? "Real Seed" : "Real Seed" },
+          ]}
         />
 
         <ScopeNoticeBar
@@ -351,6 +366,11 @@ export function PerformanceTab({
         statusText={dataModeStatus}
         infoLabel={lang === "zh" ? "数据说明 ⓘ" : "Data notes ⓘ"}
         onInfo={() => setPerformanceView("assumptions")}
+        options={[
+          { id: DATA_MODES.OPEN_MOF_SEED, label: lang === "zh" ? "Open MOF Seed" : "Open MOF Seed" },
+          { id: DATA_MODES.DEMO, label: lang === "zh" ? "Demo" : "Demo" },
+          { id: DATA_MODES.REAL_SEED, label: lang === "zh" ? "Real Seed" : "Real Seed" },
+        ]}
       />
 
       <ScopeNoticeBar
@@ -571,8 +591,15 @@ export function PerformanceTab({
               : "Review dataset status, demo/real-seed boundaries, and the missing-value handling assumption."}
           >
             <div style={{ display: "grid", gap: 10 }}>
-              {dataMode === "real-seed" && <RealSeedCallout lang={lang} />}
-              {dataMode === "demo" && <DemoModeBanner lang={lang} />}
+              {dataMode === DATA_MODES.OPEN_MOF_SEED && (
+                <Callout tone="warn">
+                  {lang === "zh"
+                    ? "当前全局候选数据源为 Open MOF Seed。部分记录缺少 CO₂ 吸附量、水稳定性或毒性字段，筛选结果仅作为临时优先级参考。"
+                    : "Current global candidate source: Open MOF Seed. Some records lack CO₂ uptake, water-stability, or toxicity fields, so screening results are provisional prioritization cues only."}
+                </Callout>
+              )}
+              {dataMode === DATA_MODES.REAL_SEED && <RealSeedCallout lang={lang} />}
+              {dataMode === DATA_MODES.DEMO && <DemoModeBanner lang={lang} />}
               {dataStatus === "loading" && (
                 <Callout tone="info">{lang === "zh" ? "正在加载性能优先级数据…" : "Loading Performance data..."}</Callout>
               )}

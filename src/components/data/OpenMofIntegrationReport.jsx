@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { FONT_MONO } from "../../constants/theme"
 import { useLang, useT, useViewport } from "../../contexts"
-import { getMofCandidates, getOrganicAcidExperimentRecords } from "../../services/dataService"
+import { getGlobalMofCandidates, getOrganicAcidExperimentRecords } from "../../services/dataService"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -122,7 +122,7 @@ export function OpenMofIntegrationReport({ seedRecords: providedSeedRecords, exp
   useEffect(() => {
     if (Array.isArray(providedSeedRecords)) return
     let live = true
-    getMofCandidates({ mode: "open-mof-seed" }).then(rows => {
+    getGlobalMofCandidates({ mode: "open-mof-seed" }).then(rows => {
       if (live) setSeedRecords(Array.isArray(rows) ? rows : [])
     })
     return () => {
@@ -160,8 +160,8 @@ export function OpenMofIntegrationReport({ seedRecords: providedSeedRecords, exp
   const limitationRows = [
     text(
       lang,
-      "Open MOF seed 记录主要提供结构、几何或电子描述符，不能直接证明甲酸选择性、HCO3-/HCOO- 结合能力或 MOF 辅助有机酸转化能力。",
-      "Open MOF seed records provide structural, geometric, or electronic descriptors; they do not directly validate formic acid selectivity, HCO3-/HCOO- binding, or MOF-assisted organic acid conversion."
+      "Open MOF seed 记录主要提供结构、几何或电子描述符，不能直接证明甲酸选择性、HCO₃⁻ / HCOO⁻ 结合能力或 MOF 辅助有机酸转化能力。",
+      "Open MOF seed records provide structural, geometric, or electronic descriptors; they do not directly validate formic acid selectivity, HCO₃⁻ / HCOO⁻ binding, or MOF-assisted organic acid conversion."
     ),
     text(
       lang,
