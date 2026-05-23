@@ -477,7 +477,7 @@ function OpenMofSeedFilters({
       <button
         type="button"
         onClick={() => setAdvancedOpen(prev => !prev)}
-        style={{ ...toolbarBtn(t), borderStyle: "dashed", fontSize: 11, justifyContent: "center", padding: "6px 9px", width: isMobile ? "100%" : "fit-content" }}
+        style={{ ...toolbarBtn(t), border: `1px dashed ${t.border}`, fontSize: 11, justifyContent: "center", padding: "6px 9px", width: isMobile ? "100%" : "fit-content" }}
       >
         {advancedOpen ? text(lang, "收起字段筛选", "Hide descriptor filters") : text(lang, "更多字段筛选", "More descriptor filters")}
       </button>
@@ -697,7 +697,7 @@ function OpenMofSeedDetailPanel({ item, lang, t, isMobile }) {
       <DetailBlock title={text(lang, "催化路径解释层", "Reaction Pathway Explanation Layer")} t={t}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 0.95fr) minmax(0, 1.05fr)", gap: 10 }}>
           <div style={{ display: "grid", gap: 10 }}>
-            <ReactionReadinessTags profile={profile} t={t} />
+            <ReactionReadinessTags profile={profile} t={t} defaultVisible={3} />
             <ReactionFingerprintPanel profile={profile} t={t} compact />
           </div>
           <MofRationaleCard profile={profile} t={t} />

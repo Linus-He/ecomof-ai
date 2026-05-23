@@ -129,11 +129,11 @@ const readinessRows = [
 ]
 
 const provenanceNotes = [
-  "Demo data is for workflow demonstration.",
-  "Real-seed records may still contain pending descriptors.",
-  "Expert-prior data should not be interpreted as experimental evidence.",
-  "Each MOF descriptor should have curation status: curated / pending / needs review.",
-  "Field-level provenance is required for research trust.",
+  ["Demo data", "Workflow demonstration only; it is not experimental evidence."],
+  ["Real-seed data", "Public seed records may still contain pending descriptors and name-curation gaps."],
+  ["Expert-prior data", "Mechanistic priors support ranking discussions, not measured catalytic conclusions."],
+  ["Field-level provenance", "Every research-facing field needs source, version, citation, and curation state."],
+  ["Descriptor curation", "Each MOF descriptor should be marked curated, pending, or needs review."],
 ]
 
 const validationRows = [
@@ -201,7 +201,7 @@ function MiniCard({ children, t, tone = "neutral", style }) {
 
 function FlowStep({ step, index, t, lang }) {
   return (
-    <MiniCard t={t} style={{ display: "grid", gap: 7, minHeight: 150 }}>
+    <MiniCard t={t} style={{ display: "grid", gap: 7, minHeight: 142, position: "relative" }}>
       <div style={{ color: t.accentText, fontFamily: FONT_MONO, fontSize: 11, fontWeight: 950 }}>
         {String(index + 1).padStart(2, "0")}
       </div>
@@ -212,6 +212,21 @@ function FlowStep({ step, index, t, lang }) {
         {text(lang, step.zhBody, step.body)}
       </div>
     </MiniCard>
+  )
+}
+
+function MethodFlow({ t, lang, isMobile }) {
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: isMobile ? 9 : 12, alignItems: "stretch" }}>
+      {overviewSteps.map((step, index) => (
+        <div key={step.title} style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) 18px", gap: isMobile ? 8 : 7, alignItems: "center" }}>
+          <FlowStep step={step} index={index} t={t} lang={lang} />
+          {!isMobile && index < overviewSteps.length - 1 && (
+            <div style={{ color: t.accentText, fontSize: 19, fontWeight: 900, textAlign: "center" }}>→</div>
+          )}
+        </div>
+      ))}
+    </div>
   )
 }
 
@@ -257,13 +272,19 @@ function FingerprintRow({ row, t }) {
       borderRadius: 8,
       display: "grid",
       gap: 7,
-      gridTemplateColumns: "46px minmax(0, 0.82fr) minmax(0, 1.18fr)",
+      gridTemplateColumns: "46px minmax(0, 0.72fr) minmax(0, 1.05fr) minmax(90px, 0.35fr)",
       minWidth: 0,
       padding: 10,
     }}>
       <div style={{ color: risk ? t.warn : t.accentText, fontFamily: FONT_MONO, fontSize: 13, fontWeight: 950 }}>{key}</div>
       <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900, lineHeight: 1.35 }}>{label}</div>
       <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>{description}</div>
+      <div style={{ display: "grid", gap: 4 }}>
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, height: 7, overflow: "hidden" }}>
+          <div style={{ background: risk ? t.warn : t.accentText, height: "100%", width: risk ? "42%" : "64%" }} />
+        </div>
+        <div style={{ color: risk ? t.warn : t.faint, fontSize: 10.5, fontWeight: 850 }}>{risk ? "risk term" : "capability"}</div>
+      </div>
     </div>
   )
 }
@@ -301,6 +322,22 @@ function CompactList({ title, rows, t, columns = 2 }) {
 }
 
 function ValidationTable({ t, isMobile }) {
+  if (isMobile) {
+    return (
+      <div style={{ display: "grid", gap: 8 }}>
+        {validationRows.map(([task, supports, status, priority]) => (
+          <MiniCard key={task} t={t} style={{ display: "grid", gap: 7 }}>
+            <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{task}</div>
+            <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>{supports}</div>
+            <div style={{ display: "flex", gap: 8, justifyContent: "space-between" }}>
+              <span style={{ color: t.faint, fontSize: 11, fontWeight: 850 }}>{status}</span>
+              <span style={{ color: priority.includes("high") ? t.warn : t.accentText, fontSize: 11, fontWeight: 900 }}>{priority}</span>
+            </div>
+          </MiniCard>
+        ))}
+      </div>
+    )
+  }
   return (
     <div style={{ overflowX: "auto" }}>
       <table style={{ borderCollapse: "separate", borderSpacing: "0 7px", minWidth: isMobile ? 760 : "100%", width: "100%" }}>
@@ -330,15 +367,15 @@ function ValidationTable({ t, isMobile }) {
 function ProvenanceSection({ t, lang, isMobile }) {
   return (
     <div style={{ display: "grid", gap: 12 }}>
-      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1.05fr) minmax(0, 0.95fr)", gap: 12 }}>
-        <MiniCard t={t} style={{ display: "grid", gap: 8 }}>
-          <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>
-            {text(lang, "数据来源与整理边界", "Provenance and curation boundary")}
-          </div>
-          <ul style={{ color: t.muted, display: "grid", fontSize: 11.8, gap: 6, lineHeight: 1.5, margin: 0, paddingLeft: 18 }}>
-            {provenanceNotes.map(item => <li key={item}>{item}</li>)}
-          </ul>
-        </MiniCard>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(5, minmax(0, 1fr))", gap: 9 }}>
+        {provenanceNotes.map(([title, body]) => (
+          <MiniCard key={title} t={t} style={{ display: "grid", gap: 7, minHeight: 118 }}>
+            <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900 }}>{title}</div>
+            <div style={{ color: t.muted, fontSize: 11.3, lineHeight: 1.5 }}>{body}</div>
+          </MiniCard>
+        ))}
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) minmax(0, 1fr)", gap: 12 }}>
         <MiniCard t={t} tone="warn" style={{ color: t.muted, display: "grid", fontSize: 12, gap: 7, lineHeight: 1.55 }}>
           <strong style={{ color: t.textStrong }}>{text(lang, "关键边界", "Key boundary")}</strong>
           <span>
@@ -349,11 +386,9 @@ function ProvenanceSection({ t, lang, isMobile }) {
             )}
           </span>
         </MiniCard>
-      </div>
-      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 12 }}>
         <CompactList title="Core descriptor checklist" rows={descriptorRows} t={t} columns={isMobile ? 1 : 2} />
-        <CompactList title="Reaction-readiness tags" rows={readinessRows} t={t} columns={isMobile ? 1 : 2} />
       </div>
+      <CompactList title="Reaction-readiness tags" rows={readinessRows} t={t} columns={isMobile ? 1 : 3} />
     </div>
   )
 }
@@ -442,9 +477,7 @@ export function MethodsLimitationsTab() {
             )}
             t={t}
           >
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
-              {overviewSteps.map((step, index) => <FlowStep key={step.title} step={step} index={index} t={t} lang={lang} />)}
-            </div>
+            <MethodFlow t={t} lang={lang} isMobile={isMobile} />
           </Section>
 
           <Section

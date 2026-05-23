@@ -65,7 +65,7 @@ function EdgeButton({ pathway, active, dimmed, onClick, t }) {
         <span style={{ color: risk ? t.warn : t.textStrong, fontSize: 12, fontWeight: 900, lineHeight: 1.3 }}>
           {pathway.from} → {pathway.to}
         </span>
-        <PathwayEvidenceBadge level={pathway.evidenceLevel} t={t} compact />
+        <PathwayEvidenceBadge level={pathway.evidenceLevel} t={t} compact interactive={false} />
       </div>
       <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.35 }}>
         {pathway.module} · {pathway.routeGroup} · {pathway.edgeType}
@@ -75,30 +75,43 @@ function EdgeButton({ pathway, active, dimmed, onClick, t }) {
 }
 
 function EvidenceMatrix({ pathways, t, isMobile }) {
+  const [expanded, setExpanded] = useState(false)
+  const visiblePathways = expanded ? pathways : pathways.slice(0, 5)
   return (
-    <div style={{ overflowX: "auto" }}>
-      <table style={{ borderCollapse: "separate", borderSpacing: "0 7px", minWidth: isMobile ? 780 : "100%", width: "100%" }}>
-        <thead>
-          <tr style={{ color: t.faint, fontSize: 10.5, textAlign: "left", textTransform: "uppercase" }}>
-            <th style={{ padding: "0 10px" }}>Pathway</th>
-            <th style={{ padding: "0 10px" }}>Route group</th>
-            <th style={{ padding: "0 10px" }}>Evidence</th>
-            <th style={{ padding: "0 10px" }}>Status</th>
-            <th style={{ padding: "0 10px" }}>Validation needed</th>
-          </tr>
-        </thead>
-        <tbody>
-          {pathways.map(pathway => (
-            <tr key={pathway.edgeId} style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>
-              <td style={{ background: t.surface, borderRadius: "7px 0 0 7px", color: t.textStrong, fontWeight: 850, padding: 10 }}>{pathway.from} → {pathway.to}</td>
-              <td style={{ background: t.surface, padding: 10 }}>{pathway.routeGroup}</td>
-              <td style={{ background: t.surface, padding: 10 }}><PathwayEvidenceBadge level={pathway.evidenceLevel} t={t} compact /></td>
-              <td style={{ background: t.surface, padding: 10 }}>{pathway.status}</td>
-              <td style={{ background: t.surface, borderRadius: "0 7px 7px 0", padding: 10 }}>{pathway.validationNeeded?.[0] || "pending validation"}</td>
+    <div style={{ display: "grid", gap: 9 }}>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ borderCollapse: "separate", borderSpacing: "0 7px", minWidth: isMobile ? 720 : "100%", width: "100%" }}>
+          <thead>
+            <tr style={{ color: t.faint, fontSize: 10.5, textAlign: "left", textTransform: "uppercase" }}>
+              <th style={{ padding: "0 10px" }}>Pathway</th>
+              <th style={{ padding: "0 10px" }}>Route group</th>
+              <th style={{ padding: "0 10px" }}>Evidence</th>
+              <th style={{ padding: "0 10px" }}>Status</th>
+              <th style={{ padding: "0 10px" }}>Validation needed</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {visiblePathways.map(pathway => (
+              <tr key={pathway.edgeId} style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>
+                <td style={{ background: t.surface, borderRadius: "7px 0 0 7px", color: t.textStrong, fontWeight: 850, padding: 10 }}>{pathway.from} → {pathway.to}</td>
+                <td style={{ background: t.surface, padding: 10 }}>{pathway.routeGroup}</td>
+                <td style={{ background: t.surface, padding: 10 }}><PathwayEvidenceBadge level={pathway.evidenceLevel} t={t} compact /></td>
+                <td style={{ background: t.surface, padding: 10 }}>{pathway.status}</td>
+                <td style={{ background: t.surface, borderRadius: "0 7px 7px 0", padding: 10 }}>{pathway.validationNeeded?.[0] || "pending validation"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {pathways.length > 5 && (
+        <button
+          type="button"
+          onClick={() => setExpanded(prev => !prev)}
+          style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.accentText, cursor: "pointer", fontSize: 11.5, fontWeight: 850, justifySelf: "start", padding: "7px 10px" }}
+        >
+          {expanded ? "Show fewer pathways" : "View all pathways"}
+        </button>
+      )}
     </div>
   )
 }
@@ -108,7 +121,6 @@ export function PathwayNetwork({ t, lang, isMobile }) {
   const [activeGroup, setActiveGroup] = useState("All")
   const [selected, setSelected] = useState(null)
 
-  const nodeByLabel = useMemo(() => new Map(nodes.map(node => [node.label, node])), [nodes])
   const activeLabels = useMemo(() => {
     const labels = new Set()
     pathways.forEach(pathway => {
@@ -140,6 +152,28 @@ export function PathwayNetwork({ t, lang, isMobile }) {
     return <div style={{ color: t.warn, fontSize: 12, padding: 12 }}>Catalytic pathway network data could not be loaded.</div>
   }
 
+  const edgeList = (
+    <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 9, padding: 10 }}>
+      <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Pathway cards</div>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }}>
+        {pathways.map(pathway => {
+          const active = selected?.kind === "pathway" && selected.pathway.edgeId === pathway.edgeId
+          const dimmed = activeGroup !== "All" && pathway.routeGroup !== activeGroup
+          return (
+            <EdgeButton
+              key={pathway.edgeId}
+              pathway={pathway}
+              active={active}
+              dimmed={dimmed}
+              onClick={() => setSelected({ kind: "pathway", pathway })}
+              t={t}
+            />
+          )
+        })}
+      </div>
+    </section>
+  )
+
   return (
     <div style={{ display: "grid", gap: 14 }}>
       <PathwayRouteTabs activeGroup={activeGroup} onChange={setActiveGroup} t={t} isMobile={isMobile} />
@@ -157,8 +191,9 @@ export function PathwayNetwork({ t, lang, isMobile }) {
 
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1.3fr) minmax(320px, 0.7fr)", gap: 12, alignItems: "start" }}>
         <div style={{ display: "grid", gap: 12, minWidth: 0 }}>
-          <div style={{ overflowX: isMobile ? "auto" : "visible" }}>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "210px 250px 250px" : "0.78fr 1fr 1.05fr", gap: 10, minWidth: isMobile ? 740 : 0 }}>
+          {!isMobile && (
+          <div style={{ overflowX: "visible" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "0.78fr 1fr 1.05fr", gap: 10, minWidth: 0 }}>
               <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 8, padding: 10 }}>
                 <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{LAYER_LABELS["carbon-source"]}</div>
                 {layers["carbon-source"].map(node => (
@@ -202,26 +237,9 @@ export function PathwayNetwork({ t, lang, isMobile }) {
               </section>
             </div>
           </div>
+          )}
 
-          <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 9, padding: 10 }}>
-            <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Route edges</div>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }}>
-              {pathways.map(pathway => {
-                const active = selected?.kind === "pathway" && selected.pathway.edgeId === pathway.edgeId
-                const dimmed = activeGroup !== "All" && pathway.routeGroup !== activeGroup
-                return (
-                  <EdgeButton
-                    key={pathway.edgeId}
-                    pathway={pathway}
-                    active={active}
-                    dimmed={dimmed}
-                    onClick={() => setSelected({ kind: "pathway", pathway })}
-                    t={t}
-                  />
-                )
-              })}
-            </div>
-          </section>
+          {edgeList}
         </div>
 
         <PathwayDetailPanel selected={selected} t={t} lang={lang} />

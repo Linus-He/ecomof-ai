@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 const READINESS_FIELDS = [
   ["waterStability", "Water stability"],
   ["poreAccess", "Pore access"],
@@ -14,13 +16,15 @@ function toneForValue(value, t) {
   return { border: t.border, color: t.muted, bg: t.panel }
 }
 
-export function ReactionReadinessTags({ profile, t }) {
+export function ReactionReadinessTags({ profile, t, defaultVisible = READINESS_FIELDS.length }) {
+  const [open, setOpen] = useState(false)
   const readiness = profile?.readiness?.reactionReadiness || profile?.reactionReadiness
+  const visibleFields = open ? READINESS_FIELDS : READINESS_FIELDS.slice(0, defaultVisible)
   return (
     <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 9, padding: 12 }}>
       <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>Reaction-readiness tags</div>
       <div style={{ display: "grid", gap: 7 }}>
-        {READINESS_FIELDS.map(([key, label]) => {
+        {visibleFields.map(([key, label]) => {
           const value = readiness?.[key] || "unknown / pending"
           const tone = toneForValue(value, t)
           return (
@@ -31,6 +35,15 @@ export function ReactionReadinessTags({ profile, t }) {
           )
         })}
       </div>
+      {defaultVisible < READINESS_FIELDS.length && (
+        <button
+          type="button"
+          onClick={() => setOpen(prev => !prev)}
+          style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.accentText, cursor: "pointer", fontSize: 11, fontWeight: 850, justifySelf: "start", padding: "6px 9px" }}
+        >
+          {open ? "Show fewer reaction tags" : "Show all reaction tags"}
+        </button>
+      )}
       <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.45 }}>
         These tags indicate readiness and risk cues, not absolute pass/fail conclusions.
       </div>

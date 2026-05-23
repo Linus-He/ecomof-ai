@@ -704,24 +704,24 @@ export function CatalysisLabTab({ onNavigate }) {
       />
 
       <PrimaryWorkbenchCard
-        title={lang === "zh" ? "催化筛选与数据工作台" : "Catalysis Screening and Data Workbench"}
+        title={lang === "zh" ? "候选路径网络与 MOF 解释工作台" : "Candidate Pathway Network and MOF Rationale Workbench"}
         description={lang === "zh"
-          ? "查看坐标轴图、筛选任务、比较反应条件，并整理结构化催化记录。"
-          : "Inspect coordinate maps, filter tasks, compare reaction conditions, and curate structured catalysis records."}
+          ? "解释 glucose / NaHCO3 / H2O 到 formate 的候选碳流路径，并说明 MOF 描述符、风险标签和验证需求如何影响优先级。"
+          : "Explain candidate carbon-flow routes from glucose / NaHCO3 / H2O to formate, and connect MOF descriptors, risk tags, and validation needs to prioritization."}
         capabilities={lang === "zh"
-          ? "多反应范围 · 坐标轴图 · 可比性评估 · 结构化记录"
-          : "multi-reaction scope · coordinate map · comparability check · structured records"}
+          ? "路径网络 · 证据等级 · 路径指纹 · 推荐理由"
+          : "pathway network · evidence levels · reaction fingerprint · recommendation rationale"}
         metrics={workbenchMetrics}
         note={lang === "zh"
-          ? "产甲酸候选筛选（formate candidate screening）仍保留为候选评分实验入口，用于在实验优化前参考水热稳定性、甲酸生成能垒与副产物风险证据。"
-          : "Formate candidate screening remains available as a candidate-scoring entry for hydrothermal stability, formate-formation barrier, and byproduct-risk evidence before experimental optimization."}
-        primaryLabel={lang === "zh" ? "进入工作台 →" : "Open workbench →"}
-        onPrimary={() => setCatalysisView("map")}
+          ? "当前网络用于假设生成与实验优先级排序，不代表已确认唯一反应机理。"
+          : "This network is for hypothesis generation and experimental prioritization, not a confirmed single mechanism."}
+        primaryLabel={lang === "zh" ? "查看路径网络 →" : "View pathway network →"}
+        onPrimary={() => setCatalysisView("overview")}
         secondaryLabel={lang === "zh" ? "打开候选评分实验室" : "Open Candidate Scoring Lab"}
         onSecondary={() => onNavigate ? onNavigate("ecoscreen") : window.location.assign("#ecoscreen")}
       />
 
-      {catalysisView !== "organic-acid" && (
+      {catalysisView !== "organic-acid" && catalysisView !== "overview" && (
         <OrganicAcidProjectEntry
           lang={lang}
           t={t}
@@ -737,7 +737,7 @@ export function CatalysisLabTab({ onNavigate }) {
         ariaLabel={lang === "zh" ? "催化实验室内容导航" : "Catalysis Lab content navigation"}
       />
 
-      {catalysisView !== "organic-acid" && (
+      {catalysisView !== "organic-acid" && catalysisView !== "overview" && (
         <>
       <ScopeNoticeBar label={lang === "zh" ? "范围" : "Scope"} tone="scope">
         {lang === "zh"
@@ -753,7 +753,7 @@ export function CatalysisLabTab({ onNavigate }) {
         </>
       )}
 
-      {["overview", "map", "comparability"].includes(catalysisView) && (
+      {["map", "comparability"].includes(catalysisView) && (
         <CatalysisFilterBar filters={filters} onChange={updateFilter} onClear={clearFilters} lang={lang} t={t} />
       )}
       {notice && <Callout tone="warn">{notice}</Callout>}
@@ -781,37 +781,27 @@ export function CatalysisLabTab({ onNavigate }) {
           ? "A1/A2/A3/A4/B1 为 expert-prior 路径指纹，当前需要实验校准。"
           : "A1/A2/A3/A4/B1 are expert-prior pathway fingerprints and require experimental calibration."}
       >
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 0.92fr) minmax(0, 1.08fr)", gap: 12, alignItems: "start" }}>
+        <ReactionFingerprintPanel profile={uioReactionProfile} t={t} />
+      </ResultLayer>
+
+      <ResultLayer
+        number="CR"
+        title={lang === "zh" ? "Candidate Rationale / 候选推荐理由" : "Candidate Rationale"}
+        subtitle={lang === "zh"
+          ? "用 reaction-readiness tags、推荐理由、风险提示和验证路线解释 MOF 为什么值得优先验证。"
+          : "Explains why a candidate MOF is worth prioritizing through readiness tags, rationale, risk flags, and validation needs."}
+      >
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 0.9fr) minmax(0, 1.1fr)", gap: 12, alignItems: "start" }}>
           <div style={{ display: "grid", gap: 12 }}>
-            <ReactionFingerprintPanel profile={uioReactionProfile} t={t} />
             <ReactionReadinessTags profile={uioReactionProfile} t={t} />
+            <MofRationaleCard profile={uioReactionProfile} t={t} />
           </div>
-          <MofRationaleCard profile={uioReactionProfile} t={t} defaultOpen />
+          <ValidationRoadmap t={t} isMobile={isMobile} />
         </div>
       </ResultLayer>
 
       <ResultLayer
-        number="VR"
-        title={lang === "zh" ? "Validation Roadmap / 验证需求路线" : "Validation Roadmap"}
-        subtitle={lang === "zh"
-          ? "从路径网络、MOF 风险标签和路径指纹，落到中间体投料、同位素、时间序列和反应后表征。"
-          : "Connects the pathway network, MOF risk tags, and reaction fingerprints to feeding tests, isotope tracing, time-series detection, and post-reaction characterization."}
-      >
-        <ValidationRoadmap t={t} isMobile={isMobile} />
-      </ResultLayer>
-
-      <ResultLayer
-        number="OA"
-        title={lang === "zh" ? "Organic Acid Graph Workspace / 有机酸图论工作台" : "Organic Acid Graph Workspace"}
-        subtitle={lang === "zh"
-          ? "用节点-边网络展示 glucose / HCO₃⁻ 到甲酸和竞争有机酸路径的 hypothesis-layer mapping。"
-          : "Node-edge network for hypothesis-layer mapping from glucose / HCO₃⁻ toward formic acid and competing organic acids."}
-      >
-        <OrganicAcidGraphExplorer lang={lang} t={t} isMobile={isMobile} />
-      </ResultLayer>
-
-      <ResultLayer
-        number="00"
+        number="DW"
         title={lang === "zh" ? "催化数据工作流" : "Catalysis Data Workflow"}
         subtitle={lang === "zh"
           ? "点击每个步骤查看输入、处理、输出、证据状态与后续用途。"
@@ -826,46 +816,28 @@ export function CatalysisLabTab({ onNavigate }) {
         />
       </ResultLayer>
 
-      <ResultLayer
-        number="01"
-        title={lang === "zh" ? "CRITIC 辅助催化排序预览" : "CRITIC-assisted Catalysis Ranking Preview"}
-        subtitle={lang === "zh"
-          ? "展示稳定性、关键能垒和副产物风险如何通过 CRITIC 权重影响候选排序。"
-          : "Shows how stability, barrier, and selectivity-risk signals shape candidate ranking through CRITIC weighting."}
-      >
-        <CriticPreviewWorkbench
-          model={formateCriticModel}
-          topCandidate={topFormateCandidate}
-          lang={lang}
-          isNarrow={isNarrow}
-          onNavigate={onNavigate}
-          t={t}
-        />
-      </ResultLayer>
-
-      <ResultLayer
-        number="02"
-        title={lang === "zh" ? "总览坐标轴分析" : "Overview Axis Analysis"}
-        subtitle={lang === "zh"
-          ? "首屏以真实坐标轴图展示反应条件强度、数据准备度和证据状态。"
-          : "The first analysis view uses a true axis chart for condition intensity, data readiness, and evidence status."}
-      >
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.65fr) minmax(280px, 0.75fr)", gap: 14, alignItems: "stretch" }}>
-          <ReactionPathwayScatter data={filteredTasks} selectedTaskId={selectedTask?.id} onSelectTask={(task) => selectTask(task, "chart")} lang={lang} t={t} height={chartHeight} />
-          <SelectionInspector
-            filters={filters}
-            filteredTasks={filteredTasks}
-            onClearSelection={clearSelection}
-            onSelectTask={(task) => selectTask(task, "list")}
-            selectedComparison={selectedComparison}
-            selectedIndex={selectedIndex}
-            selectedTask={selectedTask}
-            selectionSource={selectionSource}
+      <details style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }}>
+        <summary style={{ color: t.textStrong, cursor: "pointer", fontSize: 13, fontWeight: 900 }}>
+          {lang === "zh" ? "打开旧版催化工作台与案例视图" : "Open secondary catalysis workbench and case views"}
+        </summary>
+        <div style={{ display: "grid", gap: 14, marginTop: 12 }}>
+          <OrganicAcidProjectEntry
             lang={lang}
+            t={t}
+            isNarrow={isNarrow}
+            onOpen={() => setCatalysisView("organic-acid")}
+          />
+          <OrganicAcidGraphExplorer lang={lang} t={t} isMobile={isMobile} />
+          <CriticPreviewWorkbench
+            model={formateCriticModel}
+            topCandidate={topFormateCandidate}
+            lang={lang}
+            isNarrow={isNarrow}
+            onNavigate={onNavigate}
             t={t}
           />
         </div>
-      </ResultLayer>
+      </details>
         </>
       )}
 

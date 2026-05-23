@@ -2,6 +2,7 @@
 node_modules/
 dist/
 tmp/
+test-results/
 backend/models/
 backend/.venv/
 __pycache__/

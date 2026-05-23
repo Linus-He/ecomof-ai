@@ -23,31 +23,39 @@ export function getEvidenceInfo(level) {
   return EVIDENCE_LEVELS[level] || EVIDENCE_LEVELS.D
 }
 
-export function PathwayEvidenceBadge({ level, t, compact = false }) {
+export function PathwayEvidenceBadge({ level, t, compact = false, interactive = true }) {
   const [open, setOpen] = useState(false)
   const info = getEvidenceInfo(level)
   const isWeak = level === "C" || level === "D"
+  const badgeStyle = {
+    background: isWeak ? t.surface : t.panel,
+    border: `1px solid ${isWeak ? t.warn : t.accent}`,
+    borderRadius: 6,
+    color: isWeak ? t.warn : t.accentText,
+    cursor: interactive ? "pointer" : "default",
+    fontSize: compact ? 10.5 : 11,
+    fontWeight: 850,
+    lineHeight: 1.2,
+    padding: compact ? "3px 6px" : "4px 7px",
+    whiteSpace: "nowrap",
+  }
+  const label = `Level ${level} · ${compact ? info.label.replace("Literature-supported", "Literature") : info.label}`
   return (
     <span style={{ display: "inline-grid", gap: 5, position: "relative", verticalAlign: "middle" }}>
-      <button
-        type="button"
-        onClick={() => setOpen(prev => !prev)}
-        title={`Level ${level} — ${info.label}: ${info.explanation}`}
-        style={{
-          background: isWeak ? t.surface : t.panel,
-          border: `1px solid ${isWeak ? t.warn : t.accent}`,
-          borderRadius: 6,
-          color: isWeak ? t.warn : t.accentText,
-          cursor: "pointer",
-          fontSize: compact ? 10.5 : 11,
-          fontWeight: 850,
-          lineHeight: 1.2,
-          padding: compact ? "3px 6px" : "4px 7px",
-          whiteSpace: "nowrap",
-        }}
-      >
-        Level {level} · {compact ? info.label.replace("Literature-supported", "Literature") : info.label}
-      </button>
+      {interactive ? (
+        <button
+          type="button"
+          onClick={() => setOpen(prev => !prev)}
+          title={`Level ${level} — ${info.label}: ${info.explanation}`}
+          style={badgeStyle}
+        >
+          {label}
+        </button>
+      ) : (
+        <span title={`Level ${level} — ${info.label}: ${info.explanation}`} style={badgeStyle}>
+          {label}
+        </span>
+      )}
       {open && (
         <span
           role="tooltip"

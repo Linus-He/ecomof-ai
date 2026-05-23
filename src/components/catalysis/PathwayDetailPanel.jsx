@@ -38,34 +38,31 @@ export function PathwayDetailPanel({ selected, t, lang }) {
     <aside style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 10, minWidth: 0, padding: 13 }}>
       <div>
         <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase" }}>
-          {lang === "zh" ? "Pathway detail / 路径详情" : "Pathway detail"}
+          Pathway
         </div>
         <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 920, lineHeight: 1.2, marginTop: 4 }}>
           {pathway.from} → {pathway.to}
         </div>
+        <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.45, marginTop: 5 }}>
+          {pathway.module} · {pathway.routeGroup} · {pathway.edgeType}
+        </div>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 7 }}>
-        {[
-          ["Module", `${pathway.module} · ${pathway.edgeType}`],
-          ["Route group", pathway.routeGroup],
-          ["Status", pathway.status],
-          ["Evidence", `Level ${pathway.evidenceLevel} — ${evidence.label}`],
-        ].map(([label, value]) => (
-          <div key={label} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, padding: 8, minWidth: 0 }}>
-            <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>{label}</div>
-            <div style={{ color: t.textStrong, fontSize: 11.5, fontWeight: 820, lineHeight: 1.35, marginTop: 4, overflowWrap: "anywhere" }}>{value}</div>
-          </div>
-        ))}
+      <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8 }}>
+        <PathwayEvidenceBadge level={pathway.evidenceLevel} t={t} />
+        <span style={{ color: t.faint, fontSize: 11.5 }}>Level {pathway.evidenceLevel} — {evidence.label}</span>
       </div>
-      <PathwayEvidenceBadge level={pathway.evidenceLevel} t={t} />
+      <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.textStrong, fontSize: 11.5, fontWeight: 820, lineHeight: 1.35, padding: 8 }}>
+        <span style={{ color: t.faint, fontSize: 10, fontWeight: 850, marginRight: 8, textTransform: "uppercase" }}>Status</span>
+        {pathway.status}
+      </div>
       <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.6 }}>
-        <strong style={{ color: t.textStrong }}>{lang === "zh" ? "What this pathway means: " : "What this pathway means: "}</strong>
+        <strong style={{ color: t.textStrong }}>What this means: </strong>
         {pathway.uncertainty}
       </div>
       <SectionList title="MOF factors" rows={pathway.mofFactors} t={t} />
       <SectionList title="Validation needed" rows={pathway.validationNeeded} t={t} />
       <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55 }}>
-        {lang === "zh" ? "不确定性：" : "Uncertainty: "} {pathway.uncertainty}
+        <strong style={{ color: t.textStrong }}>Uncertainty: </strong>{pathway.uncertainty}
       </div>
     </aside>
   )
