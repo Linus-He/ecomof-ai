@@ -1,0 +1,29 @@
+[
+  {
+    "mofId": "UiO-66-NH2",
+    "displayName": "NH2-UiO-66",
+    "fingerprint": {
+      "A1_sugarActivation": 62,
+      "A2_precursorGeneration": 58,
+      "A3_intermediateToFormate": 66,
+      "A4_formateRelease": 54,
+      "B1_byproductRisk": 41
+    },
+    "confidence": "expert-prior",
+    "validationStatus": "pending experimental calibration",
+    "rationale": [
+      "Amino groups may support HCO3- enrichment.",
+      "Zr nodes may provide Lewis acidic sites.",
+      "Water stability is relatively favorable."
+    ],
+    "riskFlags": [
+      "Formate adsorption has not been experimentally validated.",
+      "C3 byproduct pathway remains uncertain."
+    ],
+    "validationNeeded": [
+      "HCHO feeding experiment",
+      "Glyceraldehyde feeding experiment",
+      "HCOONa recovery experiment"
+    ]
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "mofId": "UiO-66-NH2",
+    "displayName": "NH2-UiO-66",
+    "reactionReadiness": {
+      "waterStability": "known / favorable",
+      "poreAccess": "moderate",
+      "hydrophilicSites": "present",
+      "lewisAcidSites": "present",
+      "formateReleaseRisk": "unknown",
+      "synthesisReadiness": "reported synthesis"
+    },
+    "screeningRole": [
+      "Zr stable framework",
+      "Amino-functionalized comparison",
+      "Bicarbonate enrichment hypothesis"
+    ],
+    "notes": "Use as a stable Zr-based amino-functionalized candidate, but formate release and C3 byproduct routes require validation."
+  }
+]

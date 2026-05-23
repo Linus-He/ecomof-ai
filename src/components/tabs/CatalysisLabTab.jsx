@@ -8,9 +8,15 @@ import { ComparabilityScatterQuadrant } from "../catalysis/ComparabilityScatterQ
 import { OrganicAcidCaseStudy } from "../catalysis/OrganicAcidCaseStudy"
 import { OrganicAcidGraphExplorer } from "../catalysis/OrganicAcidGraphExplorer"
 import { OrganicAcidProject } from "../catalysis/OrganicAcidProject"
+import { MofRationaleCard } from "../catalysis/MofRationaleCard"
+import { PathwayNetwork } from "../catalysis/PathwayNetwork"
 import { ProductMetricScatter } from "../catalysis/ProductMetricScatter"
 import { ReactionPathwayScatter } from "../catalysis/ReactionPathwayScatter"
+import { ReactionFingerprintPanel } from "../catalysis/ReactionFingerprintPanel"
+import { ReactionReadinessTags } from "../catalysis/ReactionReadinessTags"
 import { SelectionInspector } from "../catalysis/SelectionInspector"
+import { ValidationRoadmap } from "../catalysis/ValidationRoadmap"
+import { getMofReactionProfile, useReactionRationaleData } from "../catalysis/reactionRationaleData"
 import {
   ModulePageHeader,
   PrimaryWorkbenchCard,
@@ -568,7 +574,13 @@ export function CatalysisLabTab({ onNavigate }) {
   const [notice, setNotice] = useState("")
   const [catalysisView, setCatalysisView] = useState("overview")
   const [activeWorkflowStepId, setActiveWorkflowStepId] = useState(workflowSteps[0].id)
+  const reactionRationaleData = useReactionRationaleData()
   const formateCriticModel = useMemo(() => buildCriticScoringModel(), [])
+  const uioReactionProfile = useMemo(() => getMofReactionProfile(
+    { id: "UiO-66-NH2-DEMO", name: "UiO-66-NH2", displayName: "NH2-UiO-66" },
+    reactionRationaleData.fingerprints,
+    reactionRationaleData.readiness,
+  ), [reactionRationaleData.fingerprints, reactionRationaleData.readiness])
   const topFormateCandidate = useMemo(() => (
     formateCriticModel.candidates
       .filter(candidate => Number(candidate.G) !== 0)
@@ -752,6 +764,42 @@ export function CatalysisLabTab({ onNavigate }) {
 
       {catalysisView === "overview" && (
         <>
+      <ResultLayer
+        number="CN"
+        title={lang === "zh" ? "Candidate Carbon-Flow Network / 候选碳流路径网络" : "Candidate Carbon-Flow Network"}
+        subtitle={lang === "zh"
+          ? "葡萄糖 / 碳酸氢钠转甲酸体系的候选路径网络，用于假设生成与实验优先级排序，不代表已确认唯一机理。"
+          : "Candidate carbon-flow routes for glucose / bicarbonate conversion to formate; designed for hypothesis generation and experimental prioritization, not a confirmed single mechanism."}
+      >
+        <PathwayNetwork lang={lang} t={t} isMobile={isMobile} />
+      </ResultLayer>
+
+      <ResultLayer
+        number="RF"
+        title={lang === "zh" ? "Reaction Fingerprint Metrics / 路径指纹指标" : "Reaction Fingerprint Metrics"}
+        subtitle={lang === "zh"
+          ? "A1/A2/A3/A4/B1 为 expert-prior 路径指纹，当前需要实验校准。"
+          : "A1/A2/A3/A4/B1 are expert-prior pathway fingerprints and require experimental calibration."}
+      >
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 0.92fr) minmax(0, 1.08fr)", gap: 12, alignItems: "start" }}>
+          <div style={{ display: "grid", gap: 12 }}>
+            <ReactionFingerprintPanel profile={uioReactionProfile} t={t} />
+            <ReactionReadinessTags profile={uioReactionProfile} t={t} />
+          </div>
+          <MofRationaleCard profile={uioReactionProfile} t={t} defaultOpen />
+        </div>
+      </ResultLayer>
+
+      <ResultLayer
+        number="VR"
+        title={lang === "zh" ? "Validation Roadmap / 验证需求路线" : "Validation Roadmap"}
+        subtitle={lang === "zh"
+          ? "从路径网络、MOF 风险标签和路径指纹，落到中间体投料、同位素、时间序列和反应后表征。"
+          : "Connects the pathway network, MOF risk tags, and reaction fingerprints to feeding tests, isotope tracing, time-series detection, and post-reaction characterization."}
+      >
+        <ValidationRoadmap t={t} isMobile={isMobile} />
+      </ResultLayer>
+
       <ResultLayer
         number="OA"
         title={lang === "zh" ? "Organic Acid Graph Workspace / 有机酸图论工作台" : "Organic Acid Graph Workspace"}

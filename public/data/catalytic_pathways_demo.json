@@ -1,0 +1,239 @@
+[
+  {
+    "edgeId": "GLUCOSE_TO_FRUCTOSE",
+    "from": "Glucose",
+    "to": "Fructose",
+    "module": "P1",
+    "routeGroup": "Sugar activation",
+    "edgeType": "isomerization",
+    "evidenceLevel": "B",
+    "status": "literature-supported",
+    "validationNeeded": [
+      "Early-stage time-series detection of glucose and fructose",
+      "Comparison with no-catalyst control"
+    ],
+    "mofFactors": [
+      "Lewis acid site",
+      "basic site",
+      "hydrophilic pore environment"
+    ],
+    "uncertainty": "Glucose-fructose isomerization may occur under alkaline conditions, but MOF-specific promotion requires validation.",
+    "displayPriority": 1
+  },
+  {
+    "edgeId": "FRUCTOSE_TO_FORMALDEHYDE",
+    "from": "Fructose",
+    "to": "Formaldehyde",
+    "module": "P2",
+    "routeGroup": "C1-to-formate route",
+    "edgeType": "C-C cleavage",
+    "evidenceLevel": "C",
+    "status": "hypothesis",
+    "validationNeeded": [
+      "Formaldehyde derivatization or trapping",
+      "Time-series detection",
+      "Carbon balance analysis"
+    ],
+    "mofFactors": [
+      "Lewis acid site",
+      "defect site",
+      "water-compatible pore"
+    ],
+    "uncertainty": "Detected formaldehyde would support a possible C1 route, but absence of detectable formaldehyde does not fully exclude transient C1 formation.",
+    "displayPriority": 2
+  },
+  {
+    "edgeId": "FORMALDEHYDE_TO_FORMATE",
+    "from": "Formaldehyde",
+    "to": "Formate",
+    "module": "P3",
+    "routeGroup": "C1-to-formate route",
+    "edgeType": "C1-to-formate",
+    "evidenceLevel": "B",
+    "status": "literature-supported",
+    "validationNeeded": [
+      "HCHO feeding experiment",
+      "Formate quantification",
+      "Comparison with no-MOF and no-NaHCO3 controls"
+    ],
+    "mofFactors": [
+      "Lewis acid metal site",
+      "HCO3- enrichment",
+      "hydrophilic pore"
+    ],
+    "uncertainty": "HCHO feeding can prove C1-to-formate capability, but does not alone prove the main glucose reaction proceeds through HCHO.",
+    "displayPriority": 3
+  },
+  {
+    "edgeId": "FRUCTOSE_TO_GLYCERALDEHYDE",
+    "from": "Fructose",
+    "to": "Glyceraldehyde",
+    "module": "P2",
+    "routeGroup": "C2/C3-to-formate route",
+    "edgeType": "C-C cleavage",
+    "evidenceLevel": "B",
+    "status": "literature-supported",
+    "validationNeeded": [
+      "Glyceraldehyde time-series detection",
+      "Glyceraldehyde feeding experiment"
+    ],
+    "mofFactors": [
+      "Lewis acid site",
+      "pore accessibility",
+      "hydrophilic pore"
+    ],
+    "uncertainty": "Glyceraldehyde may contribute to formate formation or divert to glycolic/acetic acid depending on MOF environment.",
+    "displayPriority": 4
+  },
+  {
+    "edgeId": "GLYCERALDEHYDE_TO_FORMATE",
+    "from": "Glyceraldehyde",
+    "to": "Formate",
+    "module": "P4",
+    "routeGroup": "C2/C3-to-formate route",
+    "edgeType": "C3-to-formate",
+    "evidenceLevel": "C",
+    "status": "hypothesis",
+    "validationNeeded": [
+      "Glyceraldehyde feeding experiment",
+      "Formate and byproduct quantification"
+    ],
+    "mofFactors": [
+      "Lewis acid site",
+      "hydrophilic channel",
+      "formate release ability"
+    ],
+    "uncertainty": "C3 intermediates may also generate glycolic acid, acetic acid, or other byproducts.",
+    "displayPriority": 5
+  },
+  {
+    "edgeId": "PYRUVALDEHYDE_TO_FORMATE",
+    "from": "Pyruvaldehyde",
+    "to": "Formate",
+    "module": "P4",
+    "routeGroup": "C2/C3-to-formate route",
+    "edgeType": "C3-to-formate",
+    "evidenceLevel": "C",
+    "status": "hypothesis",
+    "validationNeeded": [
+      "Pyruvaldehyde feeding experiment",
+      "Formate/lactate/pyruvate quantification"
+    ],
+    "mofFactors": [
+      "Lewis acid site",
+      "redox-active site",
+      "formate release ability"
+    ],
+    "uncertainty": "Pyruvaldehyde may be a formate precursor for some MOFs but a lactic acid precursor for others.",
+    "displayPriority": 6
+  },
+  {
+    "edgeId": "PYRUVALDEHYDE_TO_LACTIC_ACID",
+    "from": "Pyruvaldehyde",
+    "to": "Lactic acid",
+    "module": "P6",
+    "routeGroup": "Byproduct / carbon-loss route",
+    "edgeType": "byproduct",
+    "evidenceLevel": "B",
+    "status": "literature-supported",
+    "validationNeeded": [
+      "Pyruvaldehyde feeding experiment",
+      "Lactic acid quantification"
+    ],
+    "mofFactors": [
+      "basic site",
+      "Lewis acid site",
+      "aqueous stability"
+    ],
+    "uncertainty": "High lactic acid formation indicates a competing side pathway and should increase byproduct risk.",
+    "displayPriority": 7
+  },
+  {
+    "edgeId": "GLYCERALDEHYDE_TO_GLYCOLIC_ACETIC",
+    "from": "Glyceraldehyde",
+    "to": "Glycolic acid / Acetic acid",
+    "module": "P6",
+    "routeGroup": "Byproduct / carbon-loss route",
+    "edgeType": "byproduct",
+    "evidenceLevel": "C",
+    "status": "hypothesis",
+    "validationNeeded": [
+      "Glyceraldehyde feeding experiment",
+      "Glycolic acid and acetic acid quantification"
+    ],
+    "mofFactors": [
+      "Lewis acid strength",
+      "basicity",
+      "pore hydrophilicity"
+    ],
+    "uncertainty": "C2/C3 fragments may contribute to formate or side products depending on MOF-specific pathway weights.",
+    "displayPriority": 8
+  },
+  {
+    "edgeId": "BICARBONATE_TO_FORMATE",
+    "from": "HCO3-",
+    "to": "Formate",
+    "module": "P5",
+    "routeGroup": "Bicarbonate role",
+    "edgeType": "bicarbonate-carbon contribution",
+    "evidenceLevel": "C",
+    "status": "hypothesis",
+    "validationNeeded": [
+      "NaH13CO3 isotope tracing",
+      "No-glucose control",
+      "13C-formate fraction measurement"
+    ],
+    "mofFactors": [
+      "basic site",
+      "M-OH site",
+      "bifunctional site",
+      "HCO3- adsorption"
+    ],
+    "uncertainty": "HCO3- may act as carbon source, buffer/base, or local environment regulator. Isotope tracing is required.",
+    "displayPriority": 9
+  },
+  {
+    "edgeId": "FORMATE_RELEASE_RISK",
+    "from": "Formate",
+    "to": "Adsorbed formate / decomposition",
+    "module": "P7",
+    "routeGroup": "Byproduct / carbon-loss route",
+    "edgeType": "release-risk",
+    "evidenceLevel": "C",
+    "status": "hypothesis",
+    "validationNeeded": [
+      "HCOONa or HCOOH recovery experiment",
+      "FTIR/XPS after reaction",
+      "Formate adsorption assessment"
+    ],
+    "mofFactors": [
+      "HCOO- adsorption strength",
+      "open metal site",
+      "pore polarity"
+    ],
+    "uncertainty": "Strong formate adsorption may cause product retention, poisoning, or underestimated formate yield.",
+    "displayPriority": 10
+  },
+  {
+    "edgeId": "UNKNOWN_CARBON_LOSS",
+    "from": "Glucose fragments",
+    "to": "Humins / unknown carbon loss",
+    "module": "P8",
+    "routeGroup": "Byproduct / carbon-loss route",
+    "edgeType": "carbon-loss",
+    "evidenceLevel": "D",
+    "status": "open uncertainty",
+    "validationNeeded": [
+      "TOC analysis",
+      "LC-MS / GC-MS unknown peak tracking",
+      "Solid residue analysis"
+    ],
+    "mofFactors": [
+      "strong acid/base site",
+      "excessive adsorption",
+      "pore blockage"
+    ],
+    "uncertainty": "Unknown carbon-loss pathways should remain open until carbon balance and residue analysis are available.",
+    "displayPriority": 11
+  }
+]

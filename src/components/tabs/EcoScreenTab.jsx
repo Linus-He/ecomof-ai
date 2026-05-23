@@ -17,6 +17,9 @@ import {
   GraphDescriptorPanel,
   OrganicAcidRelevancePanel,
 } from "../../shared"
+import { MofRationaleCard } from "../catalysis/MofRationaleCard"
+import { ReactionFingerprintPanel } from "../catalysis/ReactionFingerprintPanel"
+import { useMofReactionProfile } from "../catalysis/reactionRationaleData"
 
 const clamp01 = value => Math.max(0, Math.min(1, Number(value) || 0))
 const pct = value => `${Math.round(clamp01(value) * 100)}%`
@@ -439,6 +442,7 @@ function CandidateRanking({ candidates, selectedId, onSelect, lang, t, isMobile 
 }
 
 function CandidateDetail({ candidate, lang, t, isMobile }) {
+  const { profile } = useMofReactionProfile(candidate)
   if (!candidate) return null
   const gaps = getDataGapRecommendations(candidate)
   const scoreRows = [
@@ -483,6 +487,22 @@ function CandidateDetail({ candidate, lang, t, isMobile }) {
           </div>
         ))}
       </div>
+
+      <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 7, padding: 11 }}>
+        <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>
+          {text(lang, "Expert-prior score, pending experimental calibration", "Expert-prior score, pending experimental calibration")}
+        </div>
+        <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55 }}>
+          {text(
+            lang,
+            "这里解释候选优先级和路径假设，不输出 predicted yield 或 validated AI score。",
+            "This explains candidate priority and pathway hypothesis; it does not output predicted yield or a validated AI score."
+          )}
+        </div>
+      </div>
+
+      <ReactionFingerprintPanel profile={profile} t={t} compact />
+      <MofRationaleCard profile={profile} t={t} defaultOpen />
 
       <details open style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
         <summary style={{ color: t.textStrong, cursor: "pointer", fontSize: 12, fontWeight: 900 }}>

@@ -1,0 +1,72 @@
+[
+  {
+    "id": "glucose",
+    "label": "Glucose",
+    "type": "substrate",
+    "layer": "carbon-source",
+    "description": "Primary organic carbon source."
+  },
+  {
+    "id": "hco3",
+    "label": "HCO3-",
+    "type": "inorganic-carbon",
+    "layer": "carbon-source",
+    "description": "May act as carbon source, buffer/base, or local environment regulator."
+  },
+  {
+    "id": "fructose",
+    "label": "Fructose",
+    "type": "intermediate",
+    "layer": "intermediate",
+    "description": "Possible sugar activation/isomerization intermediate."
+  },
+  {
+    "id": "formaldehyde",
+    "label": "Formaldehyde",
+    "type": "c1-intermediate",
+    "layer": "intermediate",
+    "description": "Candidate C1 intermediate."
+  },
+  {
+    "id": "glyceraldehyde",
+    "label": "Glyceraldehyde",
+    "type": "c3-intermediate",
+    "layer": "intermediate",
+    "description": "Candidate C3 intermediate."
+  },
+  {
+    "id": "pyruvaldehyde",
+    "label": "Pyruvaldehyde",
+    "type": "c3-intermediate",
+    "layer": "intermediate",
+    "description": "Candidate C3 intermediate with possible byproduct risk."
+  },
+  {
+    "id": "formate",
+    "label": "Formate",
+    "type": "target-product",
+    "layer": "product",
+    "description": "Target product / formic acid salt."
+  },
+  {
+    "id": "lactic_acid",
+    "label": "Lactic acid",
+    "type": "byproduct",
+    "layer": "byproduct",
+    "description": "Competing byproduct pathway."
+  },
+  {
+    "id": "glycolic_acetic",
+    "label": "Glycolic acid / Acetic acid",
+    "type": "byproduct",
+    "layer": "byproduct",
+    "description": "Competing C2/C3 byproduct route."
+  },
+  {
+    "id": "humins_unknown",
+    "label": "Humins / unknown carbon loss",
+    "type": "unknown",
+    "layer": "carbon-loss",
+    "description": "Open carbon-loss and unknown product space."
+  }
+]

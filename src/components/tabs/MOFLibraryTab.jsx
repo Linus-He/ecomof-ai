@@ -13,6 +13,10 @@ import {
   GraphDescriptorPanel,
   OrganicAcidRelevancePanel,
 } from "../../shared"
+import { MofRationaleCard } from "../catalysis/MofRationaleCard"
+import { ReactionFingerprintPanel } from "../catalysis/ReactionFingerprintPanel"
+import { ReactionReadinessTags } from "../catalysis/ReactionReadinessTags"
+import { useMofReactionProfile } from "../catalysis/reactionRationaleData"
 
 const DATA_MODE = "open-mof-seed"
 const PAGE_SIZE = 24
@@ -615,6 +619,7 @@ function AdvancedMetadata({ item, lang, t, isMobile }) {
 }
 
 function OpenMofSeedDetailPanel({ item, lang, t, isMobile }) {
+  const { profile } = useMofReactionProfile(item)
   const nameRows = [
     [text(lang, "显示名称", "Display name"), item.displayName],
     [text(lang, "名称状态", "Name status"), nameStatusLabel(item, lang)],
@@ -686,6 +691,16 @@ function OpenMofSeedDetailPanel({ item, lang, t, isMobile }) {
               </div>
             )
           })}
+        </div>
+      </DetailBlock>
+
+      <DetailBlock title={text(lang, "催化路径解释层", "Reaction Pathway Explanation Layer")} t={t}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 0.95fr) minmax(0, 1.05fr)", gap: 10 }}>
+          <div style={{ display: "grid", gap: 10 }}>
+            <ReactionReadinessTags profile={profile} t={t} />
+            <ReactionFingerprintPanel profile={profile} t={t} compact />
+          </div>
+          <MofRationaleCard profile={profile} t={t} />
         </div>
       </DetailBlock>
 
