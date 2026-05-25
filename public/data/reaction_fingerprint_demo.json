@@ -1,7 +1,12 @@
 [
   {
     "mofId": "UiO-66-NH2",
+    "candidateId": "uio-66-nh2",
+    "candidateName": "UiO-66-NH2",
     "displayName": "NH2-UiO-66",
+    "pathwayId": "co2-to-formate",
+    "pathwayName": "CO2 to formate",
+    "mainProduct": "formate",
     "fingerprint": {
       "A1_sugarActivation": 62,
       "A2_precursorGeneration": 58,
@@ -9,21 +14,215 @@
       "A4_formateRelease": 54,
       "B1_byproductRisk": 41
     },
+    "rules": [
+      {
+        "ruleId": "co2-activation",
+        "label": "CO2 activation",
+        "status": "matched",
+        "evidenceLevel": "derived",
+        "reason": "Amino groups and Zr nodes support bicarbonate enrichment as a working hypothesis."
+      },
+      {
+        "ruleId": "aqueous-stability",
+        "label": "Aqueous stability",
+        "status": "partial",
+        "evidenceLevel": "literature",
+        "reason": "Framework stability is favorable, but reaction-relevant aqueous testing is incomplete."
+      },
+      {
+        "ruleId": "c-c-coupling",
+        "label": "C-C coupling possibility",
+        "status": "missing",
+        "evidenceLevel": "hypothesis",
+        "reason": "No direct evidence for C-C coupling under comparable conditions."
+      }
+    ],
+    "priorityScore": 0.68,
+    "evidenceReadiness": 0.58,
+    "dataCoverage": 0.67,
+    "mainRisk": "Yield is inferred and isotope tracing is missing",
+    "riskFlags": ["yield inferred from conversion x selectivity", "missing aqueous stability evidence"],
+    "nextValidationStep": "Validate product selectivity under aqueous CO2 conversion conditions.",
+    "validationStatus": "needs_validation",
+    "sourceType": "inferred",
     "confidence": "expert-prior",
-    "validationStatus": "pending experimental calibration",
+    "validationStatusText": "pending experimental calibration",
     "rationale": [
       "Amino groups may support HCO3- enrichment.",
       "Zr nodes may provide Lewis acidic sites.",
       "Water stability is relatively favorable."
-    ],
-    "riskFlags": [
-      "Formate adsorption has not been experimentally validated.",
-      "C3 byproduct pathway remains uncertain."
     ],
     "validationNeeded": [
       "HCHO feeding experiment",
       "Glyceraldehyde feeding experiment",
       "HCOONa recovery experiment"
     ]
+  },
+  {
+    "mofId": "MOF-801",
+    "candidateId": "mof-801",
+    "candidateName": "MOF-801",
+    "displayName": "MOF-801",
+    "pathwayId": "co2-to-formate",
+    "pathwayName": "CO2 to formate",
+    "mainProduct": "formate",
+    "rules": [
+      {
+        "ruleId": "co2-activation",
+        "label": "CO2 activation",
+        "status": "matched",
+        "evidenceLevel": "literature",
+        "reason": "Reported CO2 uptake and accessible Zr sites support activation potential."
+      },
+      {
+        "ruleId": "hydrogen-transfer",
+        "label": "Hydrogen transfer route",
+        "status": "partial",
+        "evidenceLevel": "derived",
+        "reason": "Potential proton-transfer environment is plausible but not validated for this route."
+      },
+      {
+        "ruleId": "aqueous-stability",
+        "label": "Aqueous stability",
+        "status": "partial",
+        "evidenceLevel": "derived",
+        "reason": "Stability evidence is incomplete under reaction-relevant aqueous conditions."
+      },
+      {
+        "ruleId": "pore-accessibility",
+        "label": "Pore accessibility",
+        "status": "matched",
+        "evidenceLevel": "literature",
+        "reason": "Pore accessibility is consistent with small-molecule transport assumptions."
+      }
+    ],
+    "priorityScore": 0.72,
+    "evidenceReadiness": 0.64,
+    "dataCoverage": 0.73,
+    "mainRisk": "Missing long-term stability data",
+    "riskFlags": ["missing kinetic data", "missing aqueous stability evidence"],
+    "nextValidationStep": "Validate product selectivity under aqueous CO2 conversion conditions.",
+    "validationStatus": "needs_validation",
+    "sourceType": "literature-derived"
+  },
+  {
+    "mofId": "ZIF-8 derived Zn sites",
+    "candidateId": "zif-8-zn",
+    "candidateName": "ZIF-8 derived Zn sites",
+    "displayName": "ZIF-8 derived Zn sites",
+    "pathwayId": "co2-to-lactate",
+    "pathwayName": "CO2 to lactate",
+    "mainProduct": "lactate",
+    "rules": [
+      {
+        "ruleId": "biomass-assisted-intermediate",
+        "label": "Biomass-assisted intermediate",
+        "status": "matched",
+        "evidenceLevel": "literature",
+        "reason": "Lactate-oriented biomass conversion is represented in related literature records."
+      },
+      {
+        "ruleId": "lewis-acid-base",
+        "label": "Lewis acid/base site relevance",
+        "status": "matched",
+        "evidenceLevel": "literature",
+        "reason": "Zn sites and basic linkers can support intermediate rearrangement."
+      },
+      {
+        "ruleId": "redox-compatibility",
+        "label": "Redox compatibility",
+        "status": "partial",
+        "evidenceLevel": "derived",
+        "reason": "Redox contribution is not directly measured."
+      }
+    ],
+    "priorityScore": 0.7,
+    "evidenceReadiness": 0.61,
+    "dataCoverage": 0.8,
+    "mainRisk": "Kinetic data and stability are incomplete",
+    "riskFlags": ["missing kinetic data", "no long-term stability"],
+    "nextValidationStep": "Run time-series lactate and byproduct quantification.",
+    "validationStatus": "needs_validation",
+    "sourceType": "literature-derived"
+  },
+  {
+    "mofId": "HKUST-1 derived Cu sites",
+    "candidateId": "hkust-cu",
+    "candidateName": "HKUST-1 derived Cu sites",
+    "displayName": "HKUST-1 derived Cu sites",
+    "pathwayId": "co2-to-acetate",
+    "pathwayName": "CO2 to acetate",
+    "mainProduct": "acetate",
+    "rules": [
+      {
+        "ruleId": "c-c-coupling",
+        "label": "C-C coupling possibility",
+        "status": "partial",
+        "evidenceLevel": "hypothesis",
+        "reason": "Cu-site analogy suggests possible C-C coupling, but direct MOF evidence is missing."
+      },
+      {
+        "ruleId": "pore-accessibility",
+        "label": "Pore accessibility",
+        "status": "partial",
+        "evidenceLevel": "demo",
+        "reason": "Transport constraints are not yet measured for acetate formation."
+      },
+      {
+        "ruleId": "aqueous-stability",
+        "label": "Aqueous stability",
+        "status": "missing",
+        "evidenceLevel": "unknown",
+        "reason": "Water-stability evidence under comparable conditions is missing."
+      }
+    ],
+    "priorityScore": 0.42,
+    "evidenceReadiness": 0.33,
+    "dataCoverage": 0.47,
+    "mainRisk": "Unclear product and carbon basis",
+    "riskFlags": ["unclear product basis", "condition mismatch"],
+    "nextValidationStep": "Harmonize reporting basis before validation ranking.",
+    "validationStatus": "hypothesis",
+    "sourceType": "demo-seed"
+  },
+  {
+    "mofId": "MIL-101(Fe)",
+    "candidateId": "mil-101-fe",
+    "candidateName": "MIL-101(Fe)",
+    "displayName": "MIL-101(Fe)",
+    "pathwayId": "co2-to-glycolate",
+    "pathwayName": "CO2 to glycolate",
+    "mainProduct": "glycolate",
+    "rules": [
+      {
+        "ruleId": "lewis-acid-base",
+        "label": "Lewis acid/base site relevance",
+        "status": "partial",
+        "evidenceLevel": "derived",
+        "reason": "Fe sites may support oxygenate transformation, but selectivity evidence is sparse."
+      },
+      {
+        "ruleId": "hydrogen-transfer",
+        "label": "Hydrogen transfer route",
+        "status": "partial",
+        "evidenceLevel": "hypothesis",
+        "reason": "Hydrogen-transfer role is a mechanism hypothesis."
+      },
+      {
+        "ruleId": "aqueous-stability",
+        "label": "Aqueous stability",
+        "status": "missing",
+        "evidenceLevel": "demo",
+        "reason": "Reaction-relevant aqueous stability is not documented."
+      }
+    ],
+    "priorityScore": 0.39,
+    "evidenceReadiness": 0.34,
+    "dataCoverage": 0.53,
+    "mainRisk": "Demo-only source and missing carbon efficiency",
+    "riskFlags": ["demo-only source", "unclear product basis"],
+    "nextValidationStep": "Complete pressure and carbon-efficiency fields before ranking.",
+    "validationStatus": "demo_only",
+    "sourceType": "demo-seed"
   }
 ]

@@ -1,6 +1,7 @@
 [
   {
     "mofId": "UiO-66-NH2",
+    "candidateId": "uio-66-nh2",
     "displayName": "NH2-UiO-66",
     "reactionReadiness": {
       "waterStability": "known / favorable",
@@ -16,5 +17,42 @@
       "Bicarbonate enrichment hypothesis"
     ],
     "notes": "Use as a stable Zr-based amino-functionalized candidate, but formate release and C3 byproduct routes require validation."
+  },
+  {
+    "mofId": "MOF-801",
+    "candidateId": "mof-801",
+    "displayName": "MOF-801",
+    "reactionReadiness": {
+      "waterStability": "partial",
+      "poreAccess": "favorable",
+      "hydrophilicSites": "present",
+      "lewisAcidSites": "present",
+      "formateReleaseRisk": "unknown",
+      "synthesisReadiness": "reported synthesis"
+    },
+    "screeningRole": [
+      "Formate-oriented organic-acid case",
+      "Accessible Zr site comparison",
+      "Aqueous stability validation candidate"
+    ],
+    "notes": "Priority is decision-support only until product selectivity and long-term stability are measured."
+  },
+  {
+    "mofId": "ZIF-8 derived Zn sites",
+    "candidateId": "zif-8-zn",
+    "displayName": "ZIF-8 derived Zn sites",
+    "reactionReadiness": {
+      "waterStability": "condition-dependent",
+      "poreAccess": "moderate",
+      "hydrophilicSites": "limited",
+      "lewisAcidSites": "present",
+      "formateReleaseRisk": "not primary route",
+      "synthesisReadiness": "derived catalyst"
+    },
+    "screeningRole": [
+      "Lactate-oriented case comparison",
+      "Lewis acid/base route probe"
+    ],
+    "notes": "Requires kinetic and stability evidence before being treated as a high-confidence lactate route."
   }
 ]

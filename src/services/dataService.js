@@ -12,6 +12,10 @@ const DATA_PATHS = {
   organicAcidExperimentRecords: "data/organic_acid_experiment_records.json",
   catalysisTasks: "data/catalysis_tasks.json",
   catalysisRecords: "data/catalysis_records_demo.json",
+  catalyticPathways: "data/catalytic_pathways_demo.json",
+  pathwayNodes: "data/pathway_nodes_demo.json",
+  reactionFingerprints: "data/reaction_fingerprint_demo.json",
+  mofReactionScreeningTags: "data/mof_reaction_screening_tags.json",
   evidenceLevels: "data/evidence_levels.json",
   scoringWeights: "data/scoring_weights.json",
   references: "data/references.json",
@@ -89,6 +93,22 @@ export function getCatalysisTasks({ throwOnError = false } = {}) {
 
 export function getCatalysisRecords({ throwOnError = false } = {}) {
   return fetchJson(DATA_PATHS.catalysisRecords, [], { throwOnError })
+}
+
+export function getCatalyticPathways({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.catalyticPathways, [], { throwOnError })
+}
+
+export function getPathwayNodes({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.pathwayNodes, [], { throwOnError })
+}
+
+export function getReactionFingerprints({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.reactionFingerprints, [], { throwOnError })
+}
+
+export function getMofReactionScreeningTags({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.mofReactionScreeningTags, [], { throwOnError })
 }
 
 export function getEvidenceLevels({ throwOnError = false } = {}) {

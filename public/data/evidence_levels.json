@@ -1,5 +1,40 @@
 [
   {
+    "level": "validated",
+    "labelZh": "已验证",
+    "confidence": 1.0,
+    "meaning": "Validated experiment or curated benchmark directly tied to the pathway and conditions.",
+    "prototypeUse": "Reference-level evidence; still requires context when transferred to new candidates."
+  },
+  {
+    "level": "real_seed",
+    "labelZh": "真实种子记录",
+    "confidence": 0.75,
+    "meaning": "Seed record based on curated real-source fields but not a final validated prediction.",
+    "prototypeUse": "Useful for evidence mapping after comparability checks."
+  },
+  {
+    "level": "derived",
+    "labelZh": "派生证据",
+    "confidence": 0.6,
+    "meaning": "Derived from descriptors, curated rules, or partial source records.",
+    "prototypeUse": "Decision-support only; requires validation before scientific claims."
+  },
+  {
+    "level": "hypothesis",
+    "labelZh": "假设证据",
+    "confidence": 0.2,
+    "meaning": "Mechanistic or pathway hypothesis with sparse direct evidence.",
+    "prototypeUse": "Use for experiment planning, not ranking as a confirmed result."
+  },
+  {
+    "level": "unknown",
+    "labelZh": "未知",
+    "confidence": 0.1,
+    "meaning": "Evidence level is not yet reported or mapped.",
+    "prototypeUse": "Keep visible as a data gap."
+  },
+  {
     "level": "demo",
     "labelZh": "演示数据",
     "confidence": 0.25,

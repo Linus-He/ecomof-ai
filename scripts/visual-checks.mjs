@@ -7,7 +7,7 @@ const baseUrl = process.env.VISUAL_CHECK_BASE_URL || "http://127.0.0.1:5173/ecom
 const outDir = path.join(process.cwd(), "test-results", "visual-checks")
 
 const routes = [
-  ["catalysis", "#catalysis", ["Candidate Carbon-Flow Network", "Pathway Evidence Matrix"]],
+  ["catalysis", "#catalysis", [["Reaction Pathway Evidence Map", "催化路径证据图"], ["Data Harmonization & Comparability Workflow", "数据整理与可比性评估流程"], ["Organic Acid Pathway Decision Panel", "有机酸路径决策面板"]]],
   ["library", "#library", [["Open MOF Seed Records", "Open MOF Seed 记录"], ["View database details", "查看数据库详情"]]],
   ["ecoscreen", "#ecoscreen", ["EcoScreen", ["Candidate Scoring", "候选评分"]]],
   ["methodology", "#methodology", ["Methods & Evidence", "Evidence Levels", "Validation Roadmap"]],
