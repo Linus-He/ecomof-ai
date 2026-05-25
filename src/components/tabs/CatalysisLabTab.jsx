@@ -10,7 +10,8 @@ import {
 import { ModulePageHeader } from "../module/ModuleTop"
 import { DataHarmonizationWorkflow } from "../catalysis/DataHarmonizationWorkflow"
 import { enrichCatalysisRecord } from "../catalysis/evidenceScoring"
-import { OrganicAcidDecisionPanel } from "../catalysis/OrganicAcidDecisionPanel"
+import { OrganicAcidEntryCard } from "../catalysis/OrganicAcidEntryCard"
+import { OrganicAcidWorkspace } from "../catalysis/OrganicAcidWorkspace"
 import { ReactionPathwayEvidenceMap } from "../catalysis/ReactionPathwayEvidenceMap"
 import { SelectedPathwayInspector } from "../catalysis/SelectedPathwayInspector"
 import { ValidationRoadmap } from "../catalysis/ValidationRoadmap"
@@ -51,6 +52,12 @@ function BoundaryStrip({ t, lang }) {
   )
 }
 
+function workspaceFromHash() {
+  if (typeof window === "undefined") return "overview"
+  const hash = String(window.location.hash || "").replace(/^#/, "").trim()
+  return hash === "catalysis-organic-acid" || hash === "organic-acid-graph-explorer" ? "organic-acid" : "overview"
+}
+
 export function CatalysisLabTab() {
   const t = useT()
   const { lang } = useLang()
@@ -59,6 +66,7 @@ export function CatalysisLabTab() {
   const [rawRecords, setRawRecords] = useState([])
   const [fingerprints, setFingerprints] = useState([])
   const [status, setStatus] = useState("loading")
+  const [activeWorkspace, setActiveWorkspace] = useState(workspaceFromHash)
   const [filters, setFilters] = useState(DEFAULT_FILTERS)
   const [selectedRecordId, setSelectedRecordId] = useState(null)
   const [selectedCandidateId, setSelectedCandidateId] = useState(null)
@@ -85,6 +93,17 @@ export function CatalysisLabTab() {
         setStatus("error")
       })
     return () => { active = false }
+  }, [])
+
+  useEffect(() => {
+    const syncWorkspace = () => setActiveWorkspace(workspaceFromHash())
+    syncWorkspace()
+    window.addEventListener("hashchange", syncWorkspace)
+    window.addEventListener("popstate", syncWorkspace)
+    return () => {
+      window.removeEventListener("hashchange", syncWorkspace)
+      window.removeEventListener("popstate", syncWorkspace)
+    }
   }, [])
 
   const catalysisRecords = useMemo(() => (
@@ -137,6 +156,30 @@ export function CatalysisLabTab() {
     }
   }
 
+  const openOrganicAcidWorkspace = () => {
+    setActiveWorkspace("organic-acid")
+    if (typeof window !== "undefined" && window.location.hash !== "#catalysis-organic-acid") {
+      window.history.pushState(null, "", `${window.location.pathname}${window.location.search}#catalysis-organic-acid`)
+      window.dispatchEvent(new Event("hashchange"))
+    }
+  }
+
+  const backToOverview = () => {
+    setActiveWorkspace("overview")
+    if (typeof window !== "undefined" && window.location.hash !== "#catalysis") {
+      window.history.pushState(null, "", `${window.location.pathname}${window.location.search}#catalysis`)
+      window.dispatchEvent(new Event("hashchange"))
+    }
+  }
+
+  if (activeWorkspace === "organic-acid") {
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: 16, margin: "0 auto", maxWidth: 1280, padding: isMobile ? "0 2px" : 0 }}>
+        <OrganicAcidWorkspace lang={lang} t={t} isMobile={isMobile} onBack={backToOverview} />
+      </div>
+    )
+  }
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16, margin: "0 auto", maxWidth: 1280, padding: isMobile ? "0 2px" : 0 }}>
       <ModulePageHeader
@@ -175,15 +218,11 @@ export function CatalysisLabTab() {
 
           <DataHarmonizationWorkflow lang={lang} t={t} isMobile={isMobile} />
 
-          <OrganicAcidDecisionPanel
-            records={catalysisRecords}
-            fingerprints={fingerprints}
-            selectedCandidateId={selectedCandidateId}
-            selectedPathwayId={selectedPathwayId}
-            onSelectCandidate={handleSelectCandidate}
+          <OrganicAcidEntryCard
             t={t}
             lang={lang}
             isMobile={isMobile}
+            onOpen={openOrganicAcidWorkspace}
           />
 
           <ValidationRoadmap t={t} lang={lang} isMobile={isMobile} />

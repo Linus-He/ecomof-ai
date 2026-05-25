@@ -170,12 +170,16 @@ function PrototypeGate({ lang, t, onUnlock }) {
     <section style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 12, padding: 20 }}>
       <div style={{ display: "grid", gap: 14, maxWidth: 760 }}>
         <div>
-          <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Prototype access gate</div>
-          <h1 style={{ color: palette.text, fontSize: 24, lineHeight: 1.14, margin: "6px 0 0" }}>Organic Acid Project / 有机酸项目</h1>
+          <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>
+            {lang === "zh" ? "前端访问入口" : "Access Gate / Frontend Passcode"}
+          </div>
+          <h1 style={{ color: palette.text, fontSize: 24, lineHeight: 1.14, margin: "6px 0 0" }}>
+            {lang === "zh" ? "有机酸路径工作台" : "Organic Acid Workspace"}
+          </h1>
           <p style={{ color: palette.muted, fontSize: 13, lineHeight: 1.6, margin: "8px 0 0" }}>
             {lang === "zh"
-              ? "该访问码仅用于前端原型展示入口。本模块数据为 demo / prototype data。"
-              : "This access code is only used as a prototype display gate. This module uses demo / prototype data."}
+              ? "已启用前端访问口令，用于将实验性有机酸流程与催化总览分开展示。该口令仅为展示层访问门槛，不是真正的安全认证。"
+              : "Frontend passcode is enabled to keep this experimental workflow separate from the overview. It is a presentation gate, not secure authentication."}
           </p>
         </div>
         <form onSubmit={submit} style={{ alignItems: "end", display: "grid", gap: 10, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 280px) auto" }}>
@@ -200,12 +204,17 @@ function PrototypeGate({ lang, t, onUnlock }) {
           </label>
           <button
             type="submit"
-            style={{ ...toolbarBtn(t), background: palette.accent, borderColor: palette.accent, color: "#fff", justifyContent: "center", minHeight: 38, padding: "8px 14px", width: isNarrow ? "100%" : "auto" }}
+            style={{ ...toolbarBtn(t), background: palette.accent, border: `1px solid ${palette.accent}`, color: "#fff", justifyContent: "center", minHeight: 38, padding: "8px 14px", width: isNarrow ? "100%" : "auto" }}
           >
             {lang === "zh" ? "进入项目" : "Enter project"}
           </button>
         </form>
         {error ? <div style={{ color: palette.risk, fontSize: 12, fontWeight: 700 }}>{error}</div> : null}
+        <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.muted, fontSize: 11.8, lineHeight: 1.55, padding: 10 }}>
+          {lang === "zh"
+            ? "用途：恢复有机酸独立子工作台入口；解锁后可查看算法追踪器、路径显示图、图论网络、证据矩阵、优先级矩阵和候选物队列。"
+            : "Purpose: restore the organic-acid workspace entry. Unlock to inspect the algorithm tracker, pathway map, graph network, evidence matrix, priority matrix, and candidate queue."}
+        </div>
       </div>
     </section>
   )
@@ -649,22 +658,26 @@ export function OrganicAcidProject({ lang = "zh", t }) {
           lang={lang}
           t={t}
         />
-        <OrganicAcidCandidateMap
-          candidates={candidateRows}
-          selectedCandidateId={selectedPathwayCandidateId}
-          onSelectCandidate={handleSelectPathwayCandidate}
-          lang={lang}
-          t={t}
-        />
-        <CandidateRuleMatchPanel
-          selectedCandidate={selectedPathwayCandidate}
-          selectedRuleId={selectedRuleId}
-          reactionRules={reactionRules}
-          evidenceItems={evidenceItems}
-          lang={lang}
-          t={t}
-        />
-        <OrganicAcidCurationQueue candidates={candidateRows} lang={lang} t={t} />
+        <div id="priority" style={{ scrollMarginTop: 118 }}>
+          <OrganicAcidCandidateMap
+            candidates={candidateRows}
+            selectedCandidateId={selectedPathwayCandidateId}
+            onSelectCandidate={handleSelectPathwayCandidate}
+            lang={lang}
+            t={t}
+          />
+        </div>
+        <div id="candidates" style={{ display: "grid", gap: 14, scrollMarginTop: 118 }}>
+          <CandidateRuleMatchPanel
+            selectedCandidate={selectedPathwayCandidate}
+            selectedRuleId={selectedRuleId}
+            reactionRules={reactionRules}
+            evidenceItems={evidenceItems}
+            lang={lang}
+            t={t}
+          />
+          <OrganicAcidCurationQueue candidates={candidateRows} lang={lang} t={t} />
+        </div>
         <OpenMofIntegrationReport
           seedRecords={summaryData.openSeed}
           experimentRecords={summaryData.experiments}
@@ -672,14 +685,18 @@ export function OrganicAcidProject({ lang = "zh", t }) {
           t={t}
         />
         <OrganicAcidExperimentFeedbackPanel records={summaryData.experiments} lang={lang} t={t} />
-        <OrganicAcidPathwayMap lang={lang} />
-        <AlgorithmTraceExplorer
-          rankedRows={rankedRows}
-          selectedMof={selectedMof}
-          setSelectedMof={setSelectedMof}
-          activeStep={activeTraceStep}
-          onActiveStepChange={setActiveTraceStep}
-        />
+        <div id="pathway-map" style={{ scrollMarginTop: 118 }}>
+          <OrganicAcidPathwayMap lang={lang} />
+        </div>
+        <div id="algorithm" style={{ scrollMarginTop: 118 }}>
+          <AlgorithmTraceExplorer
+            rankedRows={rankedRows}
+            selectedMof={selectedMof}
+            setSelectedMof={setSelectedMof}
+            activeStep={activeTraceStep}
+            onActiveStepChange={setActiveTraceStep}
+          />
+        </div>
         {status === "error" ? (
           <div style={{ background: palette.riskSoft, border: `1px solid ${palette.border}`, borderRadius: 12, color: palette.risk, fontSize: 12.5, fontWeight: 700, padding: 12 }}>
             Demo dataset could not be loaded from public/data/organic_acid_project_demo.json.
@@ -690,7 +707,9 @@ export function OrganicAcidProject({ lang = "zh", t }) {
             <DynamicDescriptorMatrix candidate={selectedRgfaCandidate} activeStep={activeTraceStep} />
           </>
         )}
-        <ValidationSection />
+        <div id="validation" style={{ scrollMarginTop: 118 }}>
+          <ValidationSection />
+        </div>
         <OrganicLimitationsSection />
       </div>
     </div>

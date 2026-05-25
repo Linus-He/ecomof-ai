@@ -7,7 +7,8 @@ const baseUrl = process.env.VISUAL_CHECK_BASE_URL || "http://127.0.0.1:5173/ecom
 const outDir = path.join(process.cwd(), "test-results", "visual-checks")
 
 const routes = [
-  ["catalysis", "#catalysis", [["Reaction Pathway Evidence Map", "催化路径证据图"], ["Data Harmonization & Comparability Workflow", "数据整理与可比性评估流程"], ["Organic Acid Pathway Decision Panel", "有机酸路径决策面板"]]],
+  ["catalysis", "#catalysis", [["Reaction Pathway Evidence Map", "催化路径证据图"], ["Data Harmonization & Comparability Workflow", "数据整理与可比性评估流程"], ["Organic Acid Workspace", "有机酸路径工作台"]]],
+  ["organic-acid", "#catalysis-organic-acid", [["Access Gate / Frontend Passcode", "前端访问入口"], ["Algorithm Trace Explorer", "算法追踪器"], ["Organic Acid Graph Workspace", "有机酸图论路径工作台"], ["Pathway-to-score mapping", "路径与评分映射"], ["Organic Acid Candidate Matrix", "有机酸候选物优先级矩阵"]]],
   ["library", "#library", [["Open MOF Seed Records", "Open MOF Seed 记录"], ["View database details", "查看数据库详情"]]],
   ["ecoscreen", "#ecoscreen", ["EcoScreen", ["Candidate Scoring", "候选评分"]]],
   ["methodology", "#methodology", ["Methods & Evidence", "Evidence Levels", "Validation Roadmap"]],
@@ -84,6 +85,15 @@ for (const [viewportName, width, height] of viewports) {
         if (await detailButton.count()) {
           await detailButton.click()
           await page.waitForTimeout(400)
+        }
+      }
+
+      if (routeName === "organic-acid") {
+        const passcode = page.locator('input[type="password"]').first()
+        if (await passcode.count()) {
+          await passcode.fill("acid")
+          await page.getByText(/进入项目|Enter project/).first().click()
+          await waitForApp(page)
         }
       }
 
