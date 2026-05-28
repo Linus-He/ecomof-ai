@@ -1,0 +1,46 @@
+[
+  {
+    "id": "che-2026-afm-ni-bic",
+    "title": "Ni-BIC adsorbent for CH4/N2 separation",
+    "authors": "Che et al.",
+    "journal": "Advanced Functional Materials",
+    "year": 2026,
+    "doi": "10.1002/adfm.75634",
+    "sourceType": "literature",
+    "evidenceSummary": "Experimental isotherm + IAST + breakthrough + cycling",
+    "curationStatus": "reviewed"
+  },
+  {
+    "id": "pending-fju-90a-c2h2-co2",
+    "title": "FJU-90a C2H2/CO2 separation source pending",
+    "authors": "Pending",
+    "journal": "Pending",
+    "year": null,
+    "doi": "pending",
+    "sourceType": "pending",
+    "evidenceSummary": "Condition demo only; exact source metadata and selectivity value not verified.",
+    "curationStatus": "source-pending"
+  },
+  {
+    "id": "pending-utsa-74a-c2h2-co2",
+    "title": "UTSA-74a C2H2/CO2 separation source pending",
+    "authors": "Pending",
+    "journal": "Pending",
+    "year": null,
+    "doi": "pending",
+    "sourceType": "pending",
+    "evidenceSummary": "Condition demo only; exact source metadata and selectivity value not verified.",
+    "curationStatus": "source-pending"
+  },
+  {
+    "id": "benchmark-MOF74-Mg",
+    "title": "MOF-74-Mg screening seed adsorption label",
+    "authors": "Seed benchmark record",
+    "journal": "Local demo dataset",
+    "year": null,
+    "doi": "seed-record",
+    "sourceType": "screening-seed",
+    "evidenceSummary": "Migrated from public/data/adsorption_labels.json for UI comparability testing.",
+    "curationStatus": "screening-seed"
+  }
+]

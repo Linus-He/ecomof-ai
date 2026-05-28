@@ -1,0 +1,8 @@
+[
+  {
+    "sourceFile": "mof_gas_separation_records.json",
+    "description": "Condition-aware GasSep records used by the existing GasSep module.",
+    "recordCount": 4,
+    "versionBoundary": "curated literature data, not an online IAST/GCMC calculator"
+  }
+]

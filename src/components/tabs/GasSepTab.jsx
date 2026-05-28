@@ -1,71 +1,25 @@
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { createPortal } from "react-dom"
+import {
+  CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Scatter, ScatterChart,
+  Tooltip, XAxis, YAxis, ZAxis,
+} from "recharts"
 import {
   useT, useLang, useViewport,
   FONT_MONO,
   BasisBadge, Callout, CopyLinkButton, DisclaimerLink, PageHeader, SectionTitle,
-  getGasSeparationRecords,
+  getGasSeparationRecords, getGasSystemsDemo, getGasSourcesDemo,
+  getComparabilityStatus, getComparisonWarning,
 } from "../../shared"
 
-const CONDITION_KEYS = ["gasPair", "gasRatio", "temperature", "pressure", "method", "source"]
+const DEFAULT_SYSTEMS = ["CH4/N2", "C2H2/CO2", "CO2/N2", "C2H2/C2H4"]
+const CHART_COLORS = ["#69A7DD", "#F59E0B", "#34D399", "#C084FC", "#F87171", "#94A3B8"]
 
 function pendingText(zh) {
   return zh ? "待补充" : "Pending"
 }
 
-function sourceText(status, zh) {
-  return status === "pending" ? (zh ? "来源待补充" : "Source pending") : (status || pendingText(zh))
-}
-
-function conditionLabels(zh) {
-  return {
-    gasPair: zh ? "气体体系" : "gas pair",
-    gasRatio: zh ? "气体比例" : "gas ratio",
-    temperature: zh ? "温度" : "temperature",
-    pressure: zh ? "压力" : "pressure",
-    method: zh ? "方法" : "method",
-    source: zh ? "来源" : "source",
-  }
-}
-
-function conditionSummary(record) {
-  const completeness = record?.conditionCompleteness || {}
-  const present = CONDITION_KEYS.filter(key => completeness[key] === true)
-  const missing = CONDITION_KEYS.filter(key => completeness[key] !== true)
-  return { count: present.length, total: CONDITION_KEYS.length, missing }
-}
-
-function statusLabel(status, zh) {
-  const labels = {
-    "uptake-only": zh ? "仅有吸附量数值" : "Only adsorption values are available.",
-    "single-component": zh ? "单组分等温线可用" : "Single-component isotherm available.",
-    "multi-gas-planned": zh ? "多气体叠加等温线规划中" : "Multi-gas overlay planned.",
-    pending: zh ? "等温线数据待补充" : "Isotherm data pending.",
-  }
-  return labels[status] || labels.pending
-}
-
-const GAS_PAIR_OPTIONS = ["CO2/N2", "CO2/CH4", "C2H2/CO2", "C2H2/C2H4", "Xe/Kr", "H2/CO2"]
-const TEMPERATURE_OPTIONS = [273, 298, 313]
-const PRESSURE_OPTIONS = [
-  { value: "1bar", label: "1 bar", kPa: 100 },
-  { value: "5bar", label: "5 bar", kPa: 500 },
-]
-const METHOD_OPTIONS = ["IAST", "GCMC", "Breakthrough", "Experimental", "Pending"]
-const DATA_STATUS_OPTIONS = ["curated", "pending", "source-pending", "schema-only"]
-
-function normalizeGasPair(value = "") {
-  return String(value)
-    .replace(/CO₂/g, "CO2")
-    .replace(/CH₄/g, "CH4")
-    .replace(/C₂H₂/g, "C2H2")
-    .replace(/C₂H₄/g, "C2H4")
-    .replace(/C₂H₆/g, "C2H6")
-    .replace(/H₂/g, "H2")
-    .replace(/\s+/g, "")
-    .toUpperCase()
-}
-
-function displayGasPair(value = "") {
+function displayGas(value = "") {
   return String(value)
     .replace(/CO2/g, "CO₂")
     .replace(/CH4/g, "CH₄")
@@ -73,173 +27,303 @@ function displayGasPair(value = "") {
     .replace(/C2H4/g, "C₂H₄")
     .replace(/C2H6/g, "C₂H₆")
     .replace(/H2/g, "H₂")
+    .replace(/N2/g, "N₂")
 }
 
-function pressureLabel(record) {
-  if (record?.pressureKPa == null) return ""
-  const bar = Number(record.pressureKPa) / 100
-  return Number.isInteger(bar) ? `${bar} bar` : `${bar.toFixed(2)} bar`
+function normalizeText(value = "") {
+  return String(value).replace(/[₂₄₆]/g, match => ({ "₂": "2", "₄": "4", "₆": "6" }[match])).trim().toLowerCase()
 }
 
-function methodContextValue(method = "") {
-  const text = String(method || "").toLowerCase()
-  if (text.includes("iast")) return "IAST"
-  if (text.includes("gcmc")) return "GCMC"
-  if (text.includes("breakthrough")) return "breakthrough"
-  if (text.includes("experimental")) return "experimental"
-  return "pending"
+function conditionText(item, zh) {
+  if (!item) return pendingText(zh)
+  const pressure = item.pressureKPa != null
+    ? `${item.pressureKPa} kPa`
+    : item.pressureBar != null
+      ? `${item.pressureBar} bar`
+      : pendingText(zh)
+  return `${item.feedRatio || pendingText(zh)} · ${item.temperatureK ?? "—"} K · ${pressure} · ${item.method || pendingText(zh)}`
 }
 
-function methodMatches(recordMethod, selectedMethod) {
-  if (!selectedMethod || selectedMethod === "all") return true
-  const method = String(recordMethod || "").toLowerCase()
-  if (selectedMethod === "Pending") return method.includes("pending") || method === ""
-  return method.includes(selectedMethod.toLowerCase())
+function pressureText(item, zh) {
+  if (item?.pressureKPa != null && item?.pressureBar != null) return `${item.pressureKPa} kPa / ${item.pressureBar} bar`
+  if (item?.pressureKPa != null) return `${item.pressureKPa} kPa`
+  if (item?.pressureBar != null) return `${item.pressureBar} bar`
+  return pendingText(zh)
 }
 
-function pressureMatches(record, selectedPressure) {
-  if (!selectedPressure || selectedPressure === "all") return true
-  const option = PRESSURE_OPTIONS.find(item => item.value === selectedPressure)
-  if (!option || record.pressureKPa == null) return false
-  return Math.abs(Number(record.pressureKPa) - option.kPa) <= 5
+function statusTone(status = "") {
+  const text = String(status).toLowerCase()
+  if (text.includes("review")) return "calc"
+  if (text.includes("seed")) return "info"
+  if (text.includes("pending") || text.includes("validation")) return "warn"
+  return "proxy"
 }
 
-function isSchemaOnlyRecord(record) {
-  return /template/i.test(String(record?.recordId || "")) || /template/i.test(String(record?.mofName || "")) || record?.sourceStatus === "schema-only" || record?.curationStatus === "schema-only"
-}
-
-function dataStatusMatches(record, selectedStatus) {
-  if (!selectedStatus || selectedStatus === "all") return true
-  const source = String(record?.sourceStatus || "").toLowerCase()
-  const curation = String(record?.curationStatus || "").toLowerCase()
-  const evidence = String(record?.evidenceLevel || "").toLowerCase()
-  if (selectedStatus === "curated") return curation === "curated" || source === "curated"
-  if (selectedStatus === "pending") return curation.includes("planned") || curation.includes("pending") || evidence.includes("pending")
-  if (selectedStatus === "source-pending") return source.includes("pending") || !source
-  if (selectedStatus === "schema-only") return isSchemaOnlyRecord(record)
-  return true
-}
-
-function metricStatuses(record, zh) {
-  const rows = Array.isArray(record?.adsorption) ? record.adsorption : []
-  const hasUptake = rows.some(item => item?.uptake != null)
-  const statuses = []
-  if (isSchemaOnlyRecord(record)) statuses.push(zh ? "仅字段结构" : "schema-only")
-  if (hasUptake) statuses.push(zh ? "吸附量可用" : "uptake available")
-  if (record?.selectivity == null) statuses.push(zh ? "选择性待补充" : "selectivity pending")
-  if (record?.isothermStatus === "pending") statuses.push(zh ? "等温线待补充" : "isotherm pending")
-  return statuses.length ? statuses : [zh ? "指标待补充" : "metrics pending"]
-}
-
-function sourceStatusInfo(record, zh) {
-  if (record?.sourceStatus === "pending" || !record?.sourceStatus) return { label: zh ? "来源待补充" : "Source pending", tone: "warn" }
-  if (isSchemaOnlyRecord(record)) return { label: zh ? "仅字段结构" : "Schema-only", tone: "proxy" }
-  return { label: sourceText(record.sourceStatus, zh), tone: "calc" }
-}
-
-function conditionMatchInfo(record, filters, zh) {
-  const completeness = record?.conditionCompleteness || {}
-  const selectedKeys = [
-    filters.gasPair !== "all" ? "gasPair" : null,
-    filters.temperature !== "all" ? "temperature" : null,
-    filters.pressure !== "all" ? "pressure" : null,
-    filters.method !== "all" ? "method" : null,
-  ].filter(Boolean)
-  const missingSelected = selectedKeys.filter(key => completeness[key] !== true)
-  const corePresent = ["gasPair", "temperature", "pressure", "method"].filter(key => completeness[key] === true).length
-  if (corePresent === 0) return { id: "not-comparable", label: zh ? "暂不可比" : "Not comparable", tone: "proxy" }
-  if (missingSelected.length) return { id: "context-missing", label: zh ? "条件缺失" : "Context missing", tone: "warn" }
-  if (selectedKeys.length >= 2 && record?.sourceStatus !== "pending" && !isSchemaOnlyRecord(record)) {
-    return { id: "exact", label: zh ? "条件匹配" : "Exact context match", tone: "calc" }
+function getFieldSource(record, path, fallback = {}) {
+  return {
+    ...(record?.fieldSources?.[path] || {}),
+    ...fallback,
   }
-  if (selectedKeys.length > 0 || corePresent >= 2) return { id: "partial", label: zh ? "条件部分匹配" : "Partial context", tone: "info" }
-  return { id: "context-missing", label: zh ? "条件缺失" : "Context missing", tone: "warn" }
 }
 
-function CompactCell({ children, strong = false, t }) {
-  return (
-    <td style={{
-      padding: "9px 8px",
-      borderBottom: `1px solid ${t.divider}`,
-      color: strong ? t.textStrong : t.muted,
-      fontSize: 11,
-      lineHeight: 1.45,
-      verticalAlign: "top",
-      fontWeight: strong ? 850 : 600,
-    }}>
-      {children}
-    </td>
+function makeSelectivityRows(records, sourcesById) {
+  return records.flatMap(record => (record.selectivityRecords || []).map((selectivityRecord, index) => ({
+    ...selectivityRecord,
+    record,
+    recordId: record.id || record.recordId,
+    mofName: record.mofName,
+    gasSystem: record.gasSystem || record.separationSystem,
+    gasSystemId: record.gasSystemId,
+    targetGas: record.targetGas,
+    application: record.application,
+    overallEvidenceLevel: record.overallEvidenceLevel || record.evidenceLevel,
+    fieldIndex: index,
+    source: sourcesById.get(selectivityRecord.sourceId) || {},
+  })))
+}
+
+function findMatchingUptake(record, point) {
+  const targetGas = record.targetGas || record.gasA
+  return (record.uptakeRecords || []).find(item =>
+    item.gas === targetGas &&
+    Number(item.temperatureK) === Number(point.temperatureK) &&
+    (Number(item.pressureKPa) === Number(point.pressureKPa) || Number(item.pressureBar) === Number(point.pressureBar))
   )
 }
 
-function FilterSelect({ label, value, onChange, options, t }) {
+function findMatchingBreakthrough(record, point) {
+  return (record.breakthroughRecords || []).find(item =>
+    item.feedRatio === point.feedRatio &&
+    Number(item.temperatureK) === Number(point.temperatureK) &&
+    (Number(item.pressureKPa) === Number(point.pressureKPa) || Number(item.pressureBar) === Number(point.pressureBar))
+  )
+}
+
+function FilterSelect({ label, value, options, onChange, t }) {
   return (
     <label style={{ display: "grid", gap: 5, minWidth: 0 }}>
       <span style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>{label}</span>
       <select
         value={value}
-        onChange={e => onChange(e.target.value)}
+        onChange={event => onChange(event.target.value)}
         style={{
+          minHeight: 38,
           width: "100%",
-          minHeight: 36,
           background: t.surface,
           border: `1px solid ${t.border}`,
-          borderRadius: 7,
+          borderRadius: 8,
           color: t.text,
           fontSize: 12,
           padding: "8px 10px",
           outline: "none",
         }}
       >
-        {options.map(option => (
-          <option key={option.value} value={option.value}>{option.label}</option>
-        ))}
+        {options.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
       </select>
     </label>
   )
 }
 
-function ActionButton({ children, onClick, disabled, title, t }) {
+function FieldInfoButton({ field, value, condition, method, source, fieldSource, onOpen, t, ariaLabel }) {
+  const buttonRef = useRef(null)
   return (
     <button
+      ref={buttonRef}
       type="button"
-      onClick={onClick}
-      disabled={disabled}
-      title={title}
+      aria-label={ariaLabel}
+      onClick={() => onOpen({
+        trigger: buttonRef.current,
+        field,
+        value,
+        condition,
+        method,
+        source,
+        fieldSource,
+      })}
       style={{
-        background: t.surface,
-        border: `1px solid ${t.border}`,
-        borderRadius: 6,
-        color: disabled ? t.faint : t.accentText,
-        cursor: disabled ? "not-allowed" : "pointer",
-        fontSize: 10,
-        fontWeight: 800,
-        padding: "5px 7px",
-        opacity: disabled ? 0.58 : 1,
-        whiteSpace: "nowrap",
+        width: 18,
+        height: 18,
+        borderRadius: 999,
+        border: `1px solid ${t.borderStrong}`,
+        background: t.panel,
+        color: t.accentText,
+        cursor: "pointer",
+        fontSize: 11,
+        fontWeight: 900,
+        lineHeight: "16px",
+        padding: 0,
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flex: "0 0 auto",
       }}
     >
-      {children}
+      ⓘ
     </button>
   )
 }
 
-function buildGasSepComparisonContext(record) {
-  return {
-    compareFunction: "gas-separation",
-    conditionContext: {
-      gasPair: displayGasPair(record?.separationSystem || ""),
-      temperature: record?.temperatureK == null ? "" : `${record.temperatureK} K`,
-      pressure: pressureLabel(record),
-      method: methodContextValue(record?.method),
-      dataStatus: record?.curationStatus || "",
-      sourceStatus: record?.sourceStatus || "",
-    },
-    source: "gassep-record",
-    sourceRecordId: record?.recordId || "",
-    candidateId: record?.candidateId || record?.mofId || record?.mof_id || "",
-    candidateName: record?.mofName || "",
-  }
+function FieldValue({ label, value, field, condition, method, source, fieldSource, onOpen, t, zh, strong = false }) {
+  return (
+    <div style={{ minWidth: 0 }}>
+      <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", marginBottom: 4 }}>{label}</div>
+      <div style={{ display: "flex", alignItems: "center", gap: 6, minWidth: 0 }}>
+        <span style={{
+          color: strong ? t.textStrong : t.muted,
+          fontSize: strong ? 18 : 12,
+          fontWeight: strong ? 900 : 760,
+          fontFamily: strong ? FONT_MONO : undefined,
+          lineHeight: 1.35,
+          overflowWrap: "anywhere",
+        }}>
+          {value ?? pendingText(zh)}
+        </span>
+        <FieldInfoButton
+          field={field}
+          value={value ?? pendingText(zh)}
+          condition={condition}
+          method={method}
+          source={source}
+          fieldSource={fieldSource}
+          onOpen={onOpen}
+          t={t}
+          ariaLabel={zh ? `查看 ${label} 字段来源` : `View provenance for ${label}`}
+        />
+      </div>
+    </div>
+  )
+}
+
+function ProvenancePopover({ active, onClose, t, zh, isMobile }) {
+  const panelRef = useRef(null)
+  const [, setPositionTick] = useState(0)
+
+  useEffect(() => {
+    if (!active) return undefined
+    const handleKey = event => {
+      if (event.key === "Escape") onClose()
+    }
+    const handlePointer = event => {
+      if (panelRef.current?.contains(event.target)) return
+      if (active.trigger?.contains?.(event.target)) return
+      onClose()
+    }
+    const handleReposition = () => setPositionTick(value => value + 1)
+    document.addEventListener("keydown", handleKey)
+    document.addEventListener("pointerdown", handlePointer)
+    window.addEventListener("scroll", handleReposition, true)
+    window.addEventListener("resize", handleReposition)
+    return () => {
+      document.removeEventListener("keydown", handleKey)
+      document.removeEventListener("pointerdown", handlePointer)
+      window.removeEventListener("scroll", handleReposition, true)
+      window.removeEventListener("resize", handleReposition)
+    }
+  }, [active, onClose])
+
+  if (!active) return null
+
+  const rect = active.trigger?.getBoundingClientRect?.()
+  const maxLeft = Math.max(12, window.innerWidth - 340)
+  const maxTop = Math.max(12, window.innerHeight - 360)
+  const left = rect ? Math.max(12, Math.min(maxLeft, rect.left - 290)) : 18
+  const top = rect ? Math.max(12, Math.min(maxTop, rect.bottom + 8)) : 80
+  const source = active.source || {}
+  const fieldSource = active.fieldSource || {}
+  const rows = [
+    [zh ? "字段" : "Field", active.field],
+    [zh ? "数值" : "Value", active.value],
+    [zh ? "条件" : "Condition", active.condition],
+    [zh ? "方法" : "Method", active.method || fieldSource.method],
+    [zh ? "来源标题" : "Source title", source.title || pendingText(zh)],
+    [zh ? "作者 / 期刊 / 年份" : "Authors / Journal / Year", `${source.authors || pendingText(zh)} / ${source.journal || pendingText(zh)} / ${source.year || pendingText(zh)}`],
+    ["DOI", source.doi || pendingText(zh)],
+    [zh ? "论文位置" : "Location in paper", fieldSource.location || active.sourceLocation || pendingText(zh)],
+    [zh ? "证据类型" : "Evidence type", fieldSource.evidenceType || active.evidenceType || pendingText(zh)],
+    [zh ? "整理状态" : "Curation status", fieldSource.curationStatus || source.curationStatus || pendingText(zh)],
+  ]
+
+  return createPortal(
+    <div
+      ref={panelRef}
+      role="dialog"
+      aria-modal={isMobile ? "true" : "false"}
+      style={{
+        position: "fixed",
+        left: isMobile ? 12 : left,
+        right: isMobile ? 12 : "auto",
+        bottom: isMobile ? 12 : "auto",
+        top: isMobile ? "auto" : top,
+        width: isMobile ? "auto" : 328,
+        maxHeight: isMobile ? "74vh" : 350,
+        overflowY: "auto",
+        background: t.panel,
+        border: `1px solid ${t.borderStrong}`,
+        borderRadius: isMobile ? 14 : 10,
+        padding: 14,
+        zIndex: 10000,
+        boxShadow: t.shadowMd,
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", marginBottom: 10 }}>
+        <div>
+          <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900 }}>{zh ? "字段级来源" : "Field-level provenance"}</div>
+          <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.45, marginTop: 2 }}>{active.field}</div>
+        </div>
+        <button type="button" onClick={onClose} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.subtle, cursor: "pointer", fontSize: 12, fontWeight: 850, padding: "3px 7px" }}>
+          Esc
+        </button>
+      </div>
+      <div style={{ display: "grid", gap: 7 }}>
+        {rows.map(([label, value]) => (
+          <div key={label} style={{ display: "grid", gridTemplateColumns: "112px minmax(0, 1fr)", gap: 8, borderTop: `1px solid ${t.divider}`, paddingTop: 7 }}>
+            <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>{label}</div>
+            <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45, overflowWrap: "anywhere" }}>{value || pendingText(zh)}</div>
+          </div>
+        ))}
+      </div>
+    </div>,
+    document.body
+  )
+}
+
+function SelectivityTooltip({ active, payload, label, t, zh }) {
+  if (!active || !payload?.length) return null
+  const visible = payload.filter(item => item.value != null)
+  return (
+    <div style={{ background: t.tooltipBg, border: `1px solid ${t.border}`, borderRadius: 8, padding: "9px 11px", maxWidth: 310 }}>
+      <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>{zh ? "总压力" : "Total pressure"}: {label} kPa</div>
+      {visible.map(item => {
+        const meta = item.payload?.[`${item.dataKey}Meta`] || {}
+        return (
+          <div key={item.dataKey} style={{ color: item.color, fontSize: 11, lineHeight: 1.5, marginTop: 6 }}>
+            <strong>{item.dataKey}</strong>: {item.value}
+            <div style={{ color: t.subtle }}>{displayGas(meta.gasSystem)} · {conditionText(meta, zh)} · {meta.sourceLocation}</div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+function ScatterTooltip({ active, payload, t, zh }) {
+  if (!active || !payload?.length) return null
+  const point = payload[0]?.payload
+  if (!point) return null
+  return (
+    <div style={{ background: t.tooltipBg, border: `1px solid ${t.border}`, borderRadius: 8, padding: "9px 11px", maxWidth: 310 }}>
+      <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900 }}>{point.mofName}</div>
+      <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55, marginTop: 5 }}>
+        {displayGas(point.gasSystem)} · {point.feedRatio} · {point.temperatureK} K · {point.pressureKPa} kPa · {point.method}
+      </div>
+      <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 5 }}>
+        {zh ? "吸附量" : "Uptake"}: {point.uptake ?? "—"} {point.uptakeUnit || ""}<br />
+        {zh ? "选择性" : "Selectivity"}: {point.selectivity ?? "—"}<br />
+        {zh ? "动态容量" : "Dynamic capacity"}: {point.dynamicCapacity ?? "—"} {point.dynamicCapacityUnit || ""}<br />
+        {zh ? "位置" : "Location"}: {point.sourceLocation || pendingText(zh)}
+      </div>
+    </div>
+  )
 }
 
 export function GasSepTab({ onNavigate, onOpenComparisonBuilder }) {
@@ -248,399 +332,261 @@ export function GasSepTab({ onNavigate, onOpenComparisonBuilder }) {
   const { isNarrow, isMobile } = useViewport()
   const zh = lang === "zh"
   const [records, setRecords] = useState([])
+  const [systems, setSystems] = useState([])
+  const [sources, setSources] = useState([])
   const [status, setStatus] = useState("loading")
   const [filters, setFilters] = useState({
-    gasPair: "all",
-    customGasPair: "",
+    gasSystem: "all",
+    feedRatio: "all",
     temperature: "all",
-    customTemperature: "",
     pressure: "all",
-    customPressure: "",
     method: "all",
-    dataStatus: "all",
   })
+  const [activeProvenance, setActiveProvenance] = useState(null)
 
   useEffect(() => {
     let active = true
     setStatus("loading")
-    getGasSeparationRecords({ throwOnError: true })
-      .then(data => {
+    Promise.all([
+      getGasSeparationRecords({ throwOnError: true }),
+      getGasSystemsDemo({ throwOnError: false }),
+      getGasSourcesDemo({ throwOnError: false }),
+    ])
+      .then(([recordRows, systemRows, sourceRows]) => {
         if (!active) return
-        const next = Array.isArray(data) ? data : []
-        setRecords(next)
-        setStatus(next.length ? "loaded" : "empty")
+        setRecords(Array.isArray(recordRows) ? recordRows : [])
+        setSystems(Array.isArray(systemRows) ? systemRows : [])
+        setSources(Array.isArray(sourceRows) ? sourceRows : [])
+        setStatus(Array.isArray(recordRows) && recordRows.length ? "loaded" : "empty")
       })
       .catch(error => {
         console.warn("GasSep data load failed.", error)
-        if (active) {
-          setRecords([])
-          setStatus("error")
-        }
+        if (active) setStatus("error")
       })
     return () => { active = false }
   }, [])
 
-  const labels = useMemo(() => conditionLabels(zh), [zh])
-  const updateFilter = (key, value) => setFilters(prev => ({ ...prev, [key]: value }))
-  const clearFilters = () => setFilters({ gasPair: "all", customGasPair: "", temperature: "all", customTemperature: "", pressure: "all", customPressure: "", method: "all", dataStatus: "all" })
-  const hasActiveFilters = ["gasPair", "temperature", "pressure", "method", "dataStatus"].some(key => filters[key] !== "all")
-  const openBuilderWithRecord = useCallback((record) => {
-    if (!onOpenComparisonBuilder) return
-    onOpenComparisonBuilder(buildGasSepComparisonContext(record))
-  }, [onOpenComparisonBuilder])
+  const sourcesById = useMemo(() => new Map(sources.map(source => [source.id, source])), [sources])
+  const selectivityRows = useMemo(() => makeSelectivityRows(records, sourcesById), [records, sourcesById])
 
-  const filterOptions = useMemo(() => ({
-    gasPair: [
-      { value: "all", label: zh ? "全部" : "All" },
-      ...GAS_PAIR_OPTIONS.map(value => ({ value, label: displayGasPair(value) })),
-      { value: "custom", label: zh ? "自定义" : "Custom" },
-    ],
-    temperature: [
-      { value: "all", label: zh ? "全部" : "All" },
-      ...TEMPERATURE_OPTIONS.map(value => ({ value: String(value), label: `${value} K` })),
-      { value: "custom", label: zh ? "自定义" : "Custom" },
-    ],
-    pressure: [
-      { value: "all", label: zh ? "全部" : "All" },
-      ...PRESSURE_OPTIONS.map(option => ({ value: option.value, label: option.label })),
-      { value: "custom", label: zh ? "自定义" : "Custom" },
-    ],
-    method: [
-      { value: "all", label: zh ? "全部" : "All" },
-      ...METHOD_OPTIONS.map(value => ({ value, label: value === "Pending" ? (zh ? "待补充" : "Pending") : value })),
-    ],
-    dataStatus: [
-      { value: "all", label: zh ? "全部" : "All" },
-      ...DATA_STATUS_OPTIONS.map(value => ({
-        value,
-        label: {
-          curated: zh ? "已整理" : "Curated",
-          pending: zh ? "待补充" : "Pending",
-          "source-pending": zh ? "来源待补充" : "Source pending",
-          "schema-only": zh ? "仅字段结构" : "Schema-only",
-        }[value],
-      })),
-    ],
-  }), [zh])
+  const options = useMemo(() => {
+    const all = { value: "all", label: zh ? "全部" : "All" }
+    const unique = (items, getValue, formatter = value => value) => [all, ...Array.from(new Set(items.map(getValue).filter(Boolean))).map(value => ({ value: String(value), label: formatter(value) }))]
+    return {
+      gasSystem: unique(selectivityRows, row => row.gasSystem, displayGas),
+      feedRatio: unique(selectivityRows, row => row.feedRatio),
+      temperature: unique(selectivityRows, row => row.temperatureK, value => `${value} K`),
+      pressure: unique(selectivityRows, row => row.pressureKPa, value => `${value} kPa`),
+      method: unique(selectivityRows, row => row.method),
+    }
+  }, [selectivityRows, zh])
 
-  const filteredRecords = useMemo(() => records.filter(record => {
-    const selectedGasPair = filters.gasPair === "custom" ? filters.customGasPair : filters.gasPair
-    if (selectedGasPair !== "all" && selectedGasPair.trim() && normalizeGasPair(record.separationSystem) !== normalizeGasPair(selectedGasPair)) return false
-    if (filters.temperature === "custom") {
-      if (filters.customTemperature.trim() && Number(record.temperatureK) !== Number(filters.customTemperature)) return false
-    } else if (filters.temperature !== "all" && Number(record.temperatureK) !== Number(filters.temperature)) return false
-    if (filters.pressure === "custom") {
-      const customKpa = Number(filters.customPressure) * 100
-      if (filters.customPressure.trim() && Math.abs(Number(record.pressureKPa) - customKpa) > 5) return false
-    } else if (!pressureMatches(record, filters.pressure)) return false
-    if (!methodMatches(record.method, filters.method)) return false
-    if (!dataStatusMatches(record, filters.dataStatus)) return false
+  const filteredRows = useMemo(() => selectivityRows.filter(row => {
+    if (filters.gasSystem !== "all" && normalizeText(row.gasSystem) !== normalizeText(filters.gasSystem)) return false
+    if (filters.feedRatio !== "all" && row.feedRatio !== filters.feedRatio) return false
+    if (filters.temperature !== "all" && Number(row.temperatureK) !== Number(filters.temperature)) return false
+    if (filters.pressure !== "all" && Number(row.pressureKPa) !== Number(filters.pressure)) return false
+    if (filters.method !== "all" && row.method !== filters.method) return false
     return true
-  }), [records, filters])
+  }), [selectivityRows, filters])
 
-  const recordsWithMatch = useMemo(() => filteredRecords.map(record => ({
-    record,
-    match: conditionMatchInfo(record, filters, zh),
-    source: sourceStatusInfo(record, zh),
-    metrics: metricStatuses(record, zh),
-  })), [filteredRecords, filters, zh])
+  const numericRows = useMemo(() => filteredRows.filter(row => row.selectivity != null), [filteredRows])
+  const comparabilityStatus = getComparabilityStatus(numericRows)
+  const comparisonWarning = getComparisonWarning(numericRows, lang)
 
-  const summary = useMemo(() => {
-    const partial = recordsWithMatch.filter(item => item.match.id === "partial").length
-    const sourcePending = recordsWithMatch.filter(item => item.source.label === (zh ? "来源待补充" : "Source pending")).length
-    return zh
-      ? `显示 ${recordsWithMatch.length} 条记录 · ${partial} 条条件部分匹配 · ${sourcePending} 条来源待补充`
-      : `Showing ${recordsWithMatch.length} records · ${partial} partial context · ${sourcePending} source pending`
-  }, [recordsWithMatch, zh])
+  const chartData = useMemo(() => {
+    const pressureRows = new Map()
+    numericRows.forEach(row => {
+      const pressure = Number(row.pressureKPa ?? row.pressureBar * 100)
+      const existing = pressureRows.get(pressure) || { pressureKPa: pressure }
+      existing[row.mofName] = Number(row.selectivity)
+      existing[`${row.mofName}Meta`] = row
+      pressureRows.set(pressure, existing)
+    })
+    return Array.from(pressureRows.values()).sort((a, b) => a.pressureKPa - b.pressureKPa)
+  }, [numericRows])
 
-  const systems = useMemo(() => [
-    ["C2H2/CO2", "50/50 or 1/1", zh ? "乙炔纯化" : "acetylene purification"],
-    ["C2H2/C2H4", "1/99 or 1/999", zh ? "痕量乙炔脱除" : "trace acetylene removal"],
-    ["CO2/N2", "15/85", zh ? "烟道气 CO2 捕集" : "flue gas capture"],
-    ["CO2/CH4", "50/50", zh ? "天然气提纯" : "natural gas upgrading"],
-    ["C2H6/C2H4", zh ? "取决于条件" : "condition-dependent", zh ? "乙烷/乙烯分离" : "ethane/ethylene separation"],
-    ["Xe/Kr", zh ? "取决于条件" : "condition-dependent", zh ? "稀有气体分离" : "noble gas separation"],
-  ], [zh])
-  const systemAccents = [t.accentText, t.warn, t.success, t.violet, t.badgeCalcText, t.faint]
-  const systemTints = [t.badgeInfoBg, t.badgeProxyBg, t.badgeCalcBg, t.badgeDangerBg, t.surface, t.panel]
+  const mofSeries = useMemo(() => Array.from(new Set(numericRows.map(row => row.mofName))), [numericRows])
 
-  const isothermStatuses = useMemo(() => [
-    ["uptake-only", statusLabel("uptake-only", zh)],
-    ["single-component", statusLabel("single-component", zh)],
-    ["multi-gas-planned", statusLabel("multi-gas-planned", zh)],
-    ["pending", statusLabel("pending", zh)],
-  ], [zh])
+  const scatterPoints = useMemo(() => numericRows.map(row => {
+    const uptake = findMatchingUptake(row.record, row)
+    const breakthrough = findMatchingBreakthrough(row.record, row)
+    return {
+      id: row.id,
+      mofName: row.mofName,
+      gasSystem: row.gasSystem,
+      feedRatio: row.feedRatio,
+      temperatureK: row.temperatureK,
+      pressureKPa: row.pressureKPa,
+      method: row.method,
+      sourceLocation: row.sourceLocation,
+      selectivity: Number(row.selectivity),
+      uptake: uptake?.uptake == null ? null : Number(uptake.uptake),
+      uptakeUnit: uptake?.unit,
+      dynamicCapacity: breakthrough?.dynamicCapacity == null ? null : Number(breakthrough.dynamicCapacity),
+      dynamicCapacityUnit: breakthrough?.dynamicCapacityUnit,
+      evidenceLevel: row.overallEvidenceLevel || "pending",
+      z: Math.max(120, Number(breakthrough?.dynamicCapacity || 2) * 80),
+    }
+  }).filter(point => point.uptake != null && point.selectivity != null), [numericRows])
+
+  const evidenceGroups = useMemo(() => {
+    const groups = new Map()
+    scatterPoints.forEach(point => {
+      const key = point.evidenceLevel || "pending"
+      groups.set(key, [...(groups.get(key) || []), point])
+    })
+    return Array.from(groups.entries())
+  }, [scatterPoints])
+
+  const selectedTitleContext = useMemo(() => {
+    const values = key => Array.from(new Set(numericRows.map(row => row[key]).filter(Boolean)))
+    const pick = key => values(key).length === 1 ? values(key)[0] : (zh ? "混合条件" : "mixed conditions")
+    return `${displayGas(pick("gasSystem"))} · ${pick("feedRatio")} · ${pick("temperatureK")} K · ${pick("method")}`
+  }, [numericRows, zh])
+
+  const openProvenance = useCallback(payload => {
+    setActiveProvenance(payload)
+  }, [])
+
+  const clearFilters = () => setFilters({ gasSystem: "all", feedRatio: "all", temperature: "all", pressure: "all", method: "all" })
+
+  const systemCards = useMemo(() => {
+    const fromData = systems.length ? systems : DEFAULT_SYSTEMS.map(label => ({ id: label, label, commonFeedRatios: [], application: "" }))
+    return fromData.map(system => ({
+      ...system,
+      count: selectivityRows.filter(row => normalizeText(row.gasSystem) === normalizeText(system.label)).length,
+    }))
+  }, [systems, selectivityRows])
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title={zh ? "气体分离" : "GasSep"}
+        title={zh ? "GasSep 气体分离工作台" : "GasSep Workspace"}
         subtitle={zh
-          ? "带条件语境的气体吸附与分离记录。"
-          : "Gas adsorption and separation records with condition context."}
-        meta={zh ? "气体比例 · 温度 · 压力 · 方法 · 来源 · 等温线" : "gas ratio · temperature · pressure · method · source · isotherm status"}
+          ? "条件感知的气体分离文献数据整理：选择性必须与气体体系、比例、温度、压力、方法和来源一起阅读。"
+          : "Condition-aware gas separation curation: selectivity is read with gas system, feed ratio, temperature, pressure, method, and source provenance."}
+        meta={zh ? "curated literature data · 字段级来源 · 不做在线 IAST/GCMC" : "curated literature data · field provenance · no online IAST/GCMC"}
         action={
           <>
-            <BasisBadge tone="proxy">{zh ? "条件化记录" : "condition-aware records"}</BasisBadge>
-            <CopyLinkButton hash="gassep" ariaLabel={zh ? "复制气体分离链接" : "Copy GasSep link"} />
+            <BasisBadge tone="proxy">{zh ? "保留现有 GasSep 入口" : "existing GasSep route"}</BasisBadge>
+            <CopyLinkButton hash="gassep" ariaLabel={zh ? "复制 GasSep 链接" : "Copy GasSep link"} />
           </>
         }
       />
 
+      <Callout tone="info">
+        {zh
+          ? "Current version: curated literature data, not an online IAST/GCMC calculator. 当前版本展示已整理或待整理的文献记录，不执行真实在线 IAST、GCMC、PDF 抽取或穿透曲线预测。"
+          : "Current version: curated literature data, not an online IAST/GCMC calculator. This version does not run live IAST, GCMC, PDF extraction, or breakthrough prediction."}
+      </Callout>
+
       <section className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap", marginBottom: 12 }}>
-          <SectionTitle>{zh ? "条件筛选器" : "Condition Filter"}</SectionTitle>
-          <button
-            type="button"
-            onClick={clearFilters}
-            disabled={!hasActiveFilters}
-            style={{
-              background: t.surface,
-              border: `1px solid ${t.border}`,
-              borderRadius: 6,
-              color: hasActiveFilters ? t.accentText : t.faint,
-              cursor: hasActiveFilters ? "pointer" : "not-allowed",
-              fontSize: 11,
-              fontWeight: 800,
-              padding: "6px 9px",
-              opacity: hasActiveFilters ? 1 : 0.55,
-            }}
-          >
-            {zh ? "清空筛选" : "Clear filters"}
-          </button>
-        </div>
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(5, minmax(0, 1fr))",
-          gap: 10,
-        }}>
-          <FilterSelect label={zh ? "气体对" : "Gas pair"} value={filters.gasPair} onChange={value => updateFilter("gasPair", value)} options={filterOptions.gasPair} t={t} />
-          <FilterSelect label={zh ? "温度" : "Temperature"} value={filters.temperature} onChange={value => updateFilter("temperature", value)} options={filterOptions.temperature} t={t} />
-          <FilterSelect label={zh ? "压力" : "Pressure"} value={filters.pressure} onChange={value => updateFilter("pressure", value)} options={filterOptions.pressure} t={t} />
-          <FilterSelect label={zh ? "方法" : "Method"} value={filters.method} onChange={value => updateFilter("method", value)} options={filterOptions.method} t={t} />
-          <FilterSelect label={zh ? "数据状态" : "Data status"} value={filters.dataStatus} onChange={value => updateFilter("dataStatus", value)} options={filterOptions.dataStatus} t={t} />
-        </div>
-        {(filters.gasPair === "custom" || filters.temperature === "custom" || filters.pressure === "custom") && (
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))",
-            gap: 10,
-            marginTop: 10,
-          }}>
-            {filters.gasPair === "custom" && (
-              <label style={{ display: "grid", gap: 5 }}>
-                <span style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>{zh ? "自定义气体对" : "Custom gas pair"}</span>
-                <input
-                  value={filters.customGasPair}
-                  onChange={e => updateFilter("customGasPair", e.target.value)}
-                  placeholder={zh ? "例如 H2/CO2" : "e.g. H2/CO2"}
-                  style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.text, fontSize: 12, padding: "8px 10px", minHeight: 36 }}
-                />
-              </label>
-            )}
-            {filters.temperature === "custom" && (
-              <label style={{ display: "grid", gap: 5 }}>
-                <span style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>{zh ? "自定义温度 K" : "Custom temperature K"}</span>
-                <input
-                  type="number"
-                  value={filters.customTemperature}
-                  onChange={e => updateFilter("customTemperature", e.target.value)}
-                  placeholder="298"
-                  style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.text, fontSize: 12, padding: "8px 10px", minHeight: 36 }}
-                />
-              </label>
-            )}
-            {filters.pressure === "custom" && (
-              <label style={{ display: "grid", gap: 5 }}>
-                <span style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>{zh ? "自定义压力 bar" : "Custom pressure bar"}</span>
-                <input
-                  type="number"
-                  value={filters.customPressure}
-                  onChange={e => updateFilter("customPressure", e.target.value)}
-                  placeholder="1"
-                  style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.text, fontSize: 12, padding: "8px 10px", minHeight: 36 }}
-                />
-              </label>
-            )}
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap", alignItems: "flex-start" }}>
+          <div>
+            <SectionTitle>{zh ? "Gas system selector" : "Gas system selector"}</SectionTitle>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 5 }}>
+              {zh ? "常见 feed ratio 是比较语境，不是跨体系通用排名标准。" : "Common feed ratios are comparison context, not a universal ranking standard."}
+            </div>
           </div>
-        )}
-      </section>
-
-      <div style={{
-        color: t.subtle,
-        background: t.surface,
-        border: `1px solid ${t.border}`,
-        borderRadius: 8,
-        padding: "8px 11px",
-        fontSize: 12,
-        fontWeight: 750,
-        lineHeight: 1.5,
-      }}>
-        {summary}
-      </div>
-
-      <section className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
-        <SectionTitle>{zh ? "条件化记录" : "Condition-aware records"}</SectionTitle>
-        {status === "loading" && <Callout tone="info">{zh ? "正在加载气体分离记录…" : "Loading GasSep records..."}</Callout>}
-        {status === "error" && (
-          <Callout tone="warn">
-            {zh
-              ? "数据加载失败。请刷新页面，或检查当前网络是否可以访问 GitHub Pages。"
-              : "Data could not be loaded. Please refresh the page or check network access to GitHub Pages."}
-          </Callout>
-        )}
-        {status === "empty" && <Callout tone="warn">{zh ? "当前筛选条件下暂无记录。" : "No records are available for the current filters."}</Callout>}
-        {status === "loaded" && recordsWithMatch.length === 0 ? (
-          <div style={{ background: t.surface, border: `1px dashed ${t.borderStrong || t.border}`, borderRadius: 8, padding: 18, marginTop: 12 }}>
-            <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 850 }}>
-              {zh ? "未找到匹配的气体分离记录。" : "No matching gas separation records."}
-            </div>
-            <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.6, marginTop: 6 }}>
-              {zh ? "可尝试放宽气体对、温度、压力或方法筛选条件。" : "Try relaxing gas pair, temperature, pressure, or method filters."}
-            </div>
-            <button type="button" onClick={clearFilters} style={{ marginTop: 12, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, color: t.accentText, cursor: "pointer", fontSize: 11, fontWeight: 800, padding: "7px 10px" }}>
-              {zh ? "清空筛选" : "Clear filters"}
+          <BasisBadge tone={comparabilityStatus === "directly-comparable" ? "calc" : comparabilityStatus === "condition-mixed" ? "warn" : "info"}>
+            {comparabilityStatus === "directly-comparable"
+              ? (zh ? "directly comparable" : "directly comparable")
+              : comparabilityStatus === "condition-mixed"
+                ? (zh ? "condition-mixed" : "condition-mixed")
+                : (zh ? "single condition" : "single condition")}
+          </BasisBadge>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
+          {systemCards.map((system, index) => (
+            <button
+              key={system.id || system.label}
+              type="button"
+              onClick={() => setFilters(prev => ({ ...prev, gasSystem: system.label }))}
+              style={{
+                textAlign: "left",
+                background: normalizeText(filters.gasSystem) === normalizeText(system.label) ? t.badgeInfoBg : t.surface,
+                border: `1px solid ${normalizeText(filters.gasSystem) === normalizeText(system.label) ? t.accent : t.border}`,
+                borderRadius: 8,
+                padding: 12,
+                cursor: "pointer",
+                minHeight: 126,
+                boxShadow: `inset 3px 0 0 ${CHART_COLORS[index % CHART_COLORS.length]}`,
+              }}
+            >
+              <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900, fontFamily: FONT_MONO }}>{displayGas(system.label)}</div>
+              <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 7 }}>{system.application || pendingText(zh)}</div>
+              <div style={{ display: "flex", gap: 5, flexWrap: "wrap", marginTop: 9 }}>
+                {(system.commonFeedRatios || []).map(ratio => <BasisBadge key={ratio} tone="info">{ratio}</BasisBadge>)}
+                <BasisBadge tone="proxy">{zh ? `${system.count} 条记录` : `${system.count} records`}</BasisBadge>
+              </div>
             </button>
-          </div>
-        ) : (
-          <div style={{ overflowX: "auto", marginTop: 12 }}>
-            <table style={{ width: "100%", minWidth: 1120, borderCollapse: "collapse" }}>
-              <thead>
-                <tr>
-                  {(zh
-                    ? ["材料", "气体对", "温度", "压力", "方法", "指标状态", "来源状态", "条件匹配度", "操作"]
-                    : ["MOF", "Gas pair", "Temperature", "Pressure", "Method", "Metric status", "Source status", "Condition match", "Actions"]).map(head => (
-                    <th key={head} style={{ textAlign: "left", color: t.faint, fontSize: 10, padding: "7px 8px", borderBottom: `1px solid ${t.border}`, textTransform: "uppercase" }}>
-                      {head}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {recordsWithMatch.map(({ record, match, source, metrics }) => {
-                  const canViewPerformance = Boolean(onNavigate && record.mofName && !isSchemaOnlyRecord(record))
-                  const performanceTitle = canViewPerformance ? undefined : (zh ? "性能记录待补充。" : "Performance record pending.")
-                  const builderTitle = onOpenComparisonBuilder
-                    ? (zh ? "将该记录的气体分离条件语境带入对比器。" : "Load this gas separation condition context into the builder.")
-                    : (zh ? "对比器入口待补充。" : "Comparison builder entry pending.")
-                  return (
-                    <tr key={record.recordId} className="motion-table-row">
-                      <CompactCell t={t} strong>{record.mofName || pendingText(zh)}</CompactCell>
-                      <CompactCell t={t}>{displayGasPair(record.separationSystem || pendingText(zh))}</CompactCell>
-                      <CompactCell t={t}>{record.temperatureK == null ? pendingText(zh) : `${record.temperatureK} K`}</CompactCell>
-                      <CompactCell t={t}>{record.pressureKPa == null ? pendingText(zh) : `${(Number(record.pressureKPa) / 100).toFixed(0)} bar`}</CompactCell>
-                      <CompactCell t={t}>{record.method || pendingText(zh)}</CompactCell>
-                      <CompactCell t={t}>
-                        <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
-                          {metrics.map(item => <BasisBadge key={item} tone={/pending|待补充/.test(item) ? "warn" : "proxy"}>{item}</BasisBadge>)}
-                        </div>
-                      </CompactCell>
-                      <CompactCell t={t}><BasisBadge tone={source.tone}>{source.label}</BasisBadge></CompactCell>
-                      <CompactCell t={t}><BasisBadge tone={match.tone}>{match.label}</BasisBadge></CompactCell>
-                      <CompactCell t={t}>
-                        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                          <ActionButton
-                            t={t}
-                            disabled={!canViewPerformance}
-                            title={performanceTitle}
-                            onClick={() => onNavigate?.("performance")}
-                          >
-                            {zh ? "查看性能优先级" : "View in Performance"}
-                          </ActionButton>
-                          <ActionButton
-                            t={t}
-                            disabled={!onOpenComparisonBuilder}
-                            title={builderTitle}
-                            onClick={() => openBuilderWithRecord(record)}
-                          >
-                            {zh ? "加入对比器" : "Add to Builder"}
-                          </ActionButton>
-                        </div>
-                      </CompactCell>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </section>
-
-      <section className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
-        <SectionTitle>{zh ? "分离体系卡片" : "Separation System Cards"}</SectionTitle>
-        <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 6 }}>
-          {zh ? "以下比例是常见报道语境，不代表适用于所有论文或所有测试条件。" : "These ratios are commonly reported context, not universal conditions for every paper or test."}
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
-          {systems.map(([system, ratio, context], index) => (
-            <article key={system} className="content-card" style={{
-              background: systemTints[index] || (index % 2 === 0 ? t.surface : t.panel),
-              border: `1px solid ${t.border}`,
-              borderRadius: 8,
-              padding: 12,
-              minHeight: 116,
-              boxShadow: `inset 3px 0 0 0 ${systemAccents[index] || t.border}`,
-            }}>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, flexWrap: "wrap" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 7, minWidth: 0 }}>
-                  <span aria-hidden="true" style={{ width: 7, height: 7, borderRadius: 999, background: systemAccents[index] || t.border, boxShadow: `0 0 0 3px ${t.panel}` }} />
-                  <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900, fontFamily: FONT_MONO }}>{system}</div>
-                </div>
-                <span style={{
-                  color: t.subtle,
-                  background: t.badgeCalcBg,
-                  border: `1px solid ${t.border}`,
-                  borderRadius: 999,
-                  padding: "3px 7px",
-                  fontSize: 10,
-                  fontWeight: 800,
-                  lineHeight: 1.2,
-                }}>
-                  {zh ? "常见报道语境" : "commonly reported context"}
-                </span>
-              </div>
-              <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", marginTop: 10 }}>
-                {zh ? "常见比例" : "Common ratio"}
-              </div>
-              <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.5, marginTop: 3 }}>{ratio}</div>
-              <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", marginTop: 8 }}>
-                {zh ? "语境" : "Context"}
-              </div>
-              <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.5, marginTop: 3 }}>{context}</div>
-            </article>
           ))}
         </div>
       </section>
 
       <section className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
-        <SectionTitle>{zh ? "条件完整度" : "Condition Completeness"}</SectionTitle>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
-          {records.map(record => {
-            const summary = conditionSummary(record)
-            const missing = summary.missing.map(key => labels[key]).join(", ") || (zh ? "无" : "none")
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap", alignItems: "center", marginBottom: 12 }}>
+          <SectionTitle>{zh ? "Condition filter" : "Condition filter"}</SectionTitle>
+          <button type="button" onClick={clearFilters} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.accentText, cursor: "pointer", fontSize: 11, fontWeight: 850, padding: "7px 10px" }}>
+            {zh ? "清空筛选" : "Clear filters"}
+          </button>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
+          <FilterSelect label={zh ? "气体体系" : "Gas system"} value={filters.gasSystem} options={options.gasSystem} onChange={value => setFilters(prev => ({ ...prev, gasSystem: value }))} t={t} />
+          <FilterSelect label={zh ? "Feed ratio" : "Feed ratio"} value={filters.feedRatio} options={options.feedRatio} onChange={value => setFilters(prev => ({ ...prev, feedRatio: value }))} t={t} />
+          <FilterSelect label={zh ? "温度" : "Temperature"} value={filters.temperature} options={options.temperature} onChange={value => setFilters(prev => ({ ...prev, temperature: value }))} t={t} />
+          <FilterSelect label={zh ? "压力" : "Pressure"} value={filters.pressure} options={options.pressure} onChange={value => setFilters(prev => ({ ...prev, pressure: value }))} t={t} />
+          <FilterSelect label={zh ? "方法" : "Method"} value={filters.method} options={options.method} onChange={value => setFilters(prev => ({ ...prev, method: value }))} t={t} />
+        </div>
+      </section>
+
+      {comparisonWarning && (
+        <Callout tone="warn">
+          <strong>Condition-mixed comparison warning:</strong> {comparisonWarning}
+        </Callout>
+      )}
+
+      <section className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap", alignItems: "flex-start", marginBottom: 12 }}>
+          <div>
+            <SectionTitle>{zh ? "Condition-aware selectivity comparison" : "Condition-aware selectivity comparison"}</SectionTitle>
+            <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 5 }}>
+              {zh ? "选择性不再作为孤立数字显示；每个值都绑定条件和来源。" : "Selectivity is no longer displayed as a standalone number; every value carries condition and source context."}
+            </div>
+          </div>
+          <BasisBadge tone="proxy">{zh ? `显示 ${filteredRows.length} 条条件记录` : `${filteredRows.length} condition records`}</BasisBadge>
+        </div>
+        {status === "loading" && <Callout tone="info">{zh ? "正在加载 GasSep 数据…" : "Loading GasSep data..."}</Callout>}
+        {status === "error" && <Callout tone="warn">{zh ? "GasSep 数据加载失败。" : "GasSep data could not be loaded."}</Callout>}
+        {status === "loaded" && filteredRows.length === 0 && <Callout tone="warn">{zh ? "当前条件下暂无记录。" : "No records match the current conditions."}</Callout>}
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 12 }}>
+          {filteredRows.map(row => {
+            const record = row.record
+            const condition = conditionText(row, zh)
+            const source = row.source
+            const selectivityPath = `selectivityRecords[${row.fieldIndex}].selectivity`
+            const feedPath = `selectivityRecords[${row.fieldIndex}].feedRatio`
+            const tempPath = `selectivityRecords[${row.fieldIndex}].temperatureK`
+            const pressurePath = `selectivityRecords[${row.fieldIndex}].pressureKPa`
+            const methodPath = `selectivityRecords[${row.fieldIndex}].method`
+            const locationPath = `selectivityRecords[${row.fieldIndex}].sourceLocation`
             return (
-              <article key={record.recordId} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-                <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>{record.separationSystem}</div>
-                <div style={{ color: t.accentText, fontSize: 12, fontWeight: 850, marginTop: 8 }}>
-                  {zh ? "条件完整度" : "Condition completeness"}: {summary.count}/{summary.total}
+              <article key={row.id} className="content-card" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, padding: 14, minWidth: 0 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start", flexWrap: "wrap" }}>
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 900 }}>{row.mofName}</div>
+                    <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5, marginTop: 3 }}>{displayGas(row.gasSystem)} · {row.application}</div>
+                  </div>
+                  <BasisBadge tone={statusTone(row.curationStatus)}>{row.curationStatus}</BasisBadge>
                 </div>
-                <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 6 }}>
-                  {zh ? "缺失" : "Missing"}: {missing}
-                </div>
-                <div style={{ display: "flex", gap: 5, flexWrap: "wrap", marginTop: 10 }}>
-                  {CONDITION_KEYS.map(key => (
-                    <span key={key} style={{
-                      border: `1px solid ${record.conditionCompleteness?.[key] ? t.border : t.warn}`,
-                      background: record.conditionCompleteness?.[key] ? t.panel : t.badgeWarnBg,
-                      color: record.conditionCompleteness?.[key] ? t.muted : t.warn,
-                      borderRadius: 999,
-                      padding: "4px 7px",
-                      fontSize: 10,
-                      fontWeight: 780,
-                    }}>
-                      {labels[key]}
-                    </span>
-                  ))}
+                <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "1.1fr 1fr 1fr", gap: 12, marginTop: 13 }}>
+                  <FieldValue label={zh ? "选择性" : "Selectivity"} field="selectivity" value={row.selectivity ?? pendingText(zh)} condition={condition} method={row.method} source={source} fieldSource={getFieldSource(record, selectivityPath, row)} onOpen={openProvenance} t={t} zh={zh} strong />
+                  <FieldValue label="feed ratio" field="feedRatio" value={row.feedRatio} condition={condition} method={row.method} source={source} fieldSource={getFieldSource(record, feedPath, row)} onOpen={openProvenance} t={t} zh={zh} />
+                  <FieldValue label={zh ? "温度" : "temperature"} field="temperature" value={`${row.temperatureK} K`} condition={condition} method={row.method} source={source} fieldSource={getFieldSource(record, tempPath, row)} onOpen={openProvenance} t={t} zh={zh} />
+                  <FieldValue label={zh ? "压力" : "pressure"} field="pressure" value={pressureText(row, zh)} condition={condition} method={row.method} source={source} fieldSource={getFieldSource(record, pressurePath, row)} onOpen={openProvenance} t={t} zh={zh} />
+                  <FieldValue label={zh ? "方法" : "method"} field="method" value={row.method} condition={condition} method={row.method} source={source} fieldSource={getFieldSource(record, methodPath, row)} onOpen={openProvenance} t={t} zh={zh} />
+                  <FieldValue label={zh ? "文献位置" : "source location"} field="sourceLocation" value={row.sourceLocation} condition={condition} method={row.method} source={source} fieldSource={getFieldSource(record, locationPath, row)} onOpen={openProvenance} t={t} zh={zh} />
                 </div>
               </article>
             )
@@ -649,38 +595,166 @@ export function GasSepTab({ onNavigate, onOpenComparisonBuilder }) {
       </section>
 
       <section className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
-        <SectionTitle>{zh ? "等温线可用性" : "Isotherm Availability"}</SectionTitle>
-        <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, margin: "8px 0 0" }}>
-          {zh
-            ? "当前原型优先整理选择性、吸附量和条件元数据。多气体等温线叠加需要整理后的原始等温线点数据，属于后续工作。"
-            : "Current prototype prioritizes selectivity, uptake, and condition metadata. Multi-gas isotherm overlays require curated raw isotherm points and are treated as future work."}
-        </p>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
-          {isothermStatuses.map(([key, label]) => (
-            <div key={key} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-              <BasisBadge tone={key === "pending" ? "warn" : "info"}>{key}</BasisBadge>
-              <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55, marginTop: 8 }}>{label}</div>
+        <SectionTitle>{zh ? "Selectivity vs pressure" : "Selectivity vs pressure"}</SectionTitle>
+        <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 5 }}>
+          {zh ? "标题条件：" : "Title condition:"} {selectedTitleContext}
+        </div>
+        <div style={{ height: isMobile ? 270 : 330, marginTop: 12 }}>
+          {chartData.length ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={chartData} margin={{ top: 14, right: 20, bottom: 36, left: 8 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
+                <XAxis type="number" dataKey="pressureKPa" tick={{ fill: t.subtle, fontSize: 11 }} label={{ value: zh ? "总压力 / kPa" : "Total gas pressure / kPa", fill: t.subtle, fontSize: 11, dy: 22 }} />
+                <YAxis tick={{ fill: t.subtle, fontSize: 11 }} label={{ value: zh ? "吸附选择性" : "Adsorption selectivity", fill: t.subtle, fontSize: 11, angle: -90, dx: -12 }} />
+                <Tooltip content={<SelectivityTooltip t={t} zh={zh} />} wrapperStyle={{ zIndex: 20 }} />
+                <Legend wrapperStyle={{ color: t.subtle, fontSize: 11 }} />
+                {mofSeries.map((mof, index) => (
+                  <Line key={mof} type="linear" dataKey={mof} name={mof} stroke={CHART_COLORS[index % CHART_COLORS.length]} dot={{ r: 4 }} activeDot={{ r: 6 }} connectNulls={false} strokeWidth={chartData.length === 1 ? 0 : 2} />
+                ))}
+              </LineChart>
+            </ResponsiveContainer>
+          ) : (
+            <Callout tone="warn">{zh ? "当前筛选下没有可绘制的数值选择性点。" : "No numeric selectivity points are available for the current filters."}</Callout>
+          )}
+        </div>
+      </section>
+
+      <section className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+        <SectionTitle>{zh ? "Uptake vs selectivity" : "Uptake vs selectivity"}</SectionTitle>
+        <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 5 }}>
+          {zh ? "横轴为目标气体吸附量，纵轴为选择性，气泡大小代表动态容量（如可用）。" : "X-axis is target gas uptake, Y-axis is selectivity, and bubble size represents dynamic capacity when available."}
+        </div>
+        <div style={{ height: isMobile ? 285 : 350, marginTop: 12 }}>
+          {scatterPoints.length ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <ScatterChart margin={{ top: 16, right: 22, bottom: 38, left: 8 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
+                <XAxis type="number" dataKey="uptake" tick={{ fill: t.subtle, fontSize: 11 }} label={{ value: zh ? "目标气体吸附量" : "Target gas uptake", fill: t.subtle, fontSize: 11, dy: 22 }} />
+                <YAxis type="number" dataKey="selectivity" tick={{ fill: t.subtle, fontSize: 11 }} label={{ value: zh ? "选择性" : "Selectivity", fill: t.subtle, fontSize: 11, angle: -90, dx: -12 }} />
+                <ZAxis type="number" dataKey="z" range={[140, 820]} />
+                <Tooltip content={<ScatterTooltip t={t} zh={zh} />} wrapperStyle={{ zIndex: 20 }} cursor={{ strokeDasharray: "3 3" }} />
+                <Legend wrapperStyle={{ color: t.subtle, fontSize: 11 }} />
+                {evidenceGroups.map(([level, points], index) => (
+                  <Scatter key={level} name={level} data={points} fill={CHART_COLORS[index % CHART_COLORS.length]} />
+                ))}
+              </ScatterChart>
+            </ResponsiveContainer>
+          ) : (
+            <Callout tone="warn">{zh ? "当前筛选下没有同时具备吸附量和选择性的点。" : "No points with both uptake and selectivity are available for the current filters."}</Callout>
+          )}
+        </div>
+      </section>
+
+      <section className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+        <SectionTitle>{zh ? "Gas candidate cards" : "Gas candidate cards"}</SectionTitle>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
+          {records.map(record => {
+            const firstSel = record.selectivityRecords?.[0]
+            const uptakeIndex = (record.uptakeRecords || []).findIndex(item => item === findMatchingUptake(record, firstSel || {}))
+            const breakthroughIndex = (record.breakthroughRecords || []).findIndex(item => item === findMatchingBreakthrough(record, firstSel || {}))
+            const uptake = uptakeIndex >= 0 ? record.uptakeRecords[uptakeIndex] : null
+            const breakthrough = breakthroughIndex >= 0 ? record.breakthroughRecords[breakthroughIndex] : null
+            const condition = conditionText(firstSel, zh)
+            const source = sourcesById.get(firstSel?.sourceId) || {}
+            return (
+              <article key={record.id || record.recordId} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, minWidth: 0 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "flex-start" }}>
+                  <div>
+                    <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 900 }}>{record.mofName}</div>
+                    <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.5, marginTop: 3 }}>{displayGas(record.gasSystem)} · {record.application}</div>
+                  </div>
+                  <BasisBadge tone={statusTone(record.overallEvidenceLevel)}>{record.overallEvidenceLevel}</BasisBadge>
+                </div>
+                <div style={{ display: "grid", gap: 8, marginTop: 12 }}>
+                  <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.5 }}>{condition}</div>
+                  <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                    <BasisBadge tone={firstSel?.selectivity == null ? "warn" : "calc"}>{zh ? `选择性 ${firstSel?.selectivity ?? "pending"}` : `Selectivity ${firstSel?.selectivity ?? "pending"}`}</BasisBadge>
+                    <BasisBadge tone={uptake ? "info" : "warn"}>{zh ? `吸附量 ${uptake?.uptake ?? "pending"}` : `Uptake ${uptake?.uptake ?? "pending"}`}</BasisBadge>
+                    <BasisBadge tone={breakthrough ? "proxy" : "warn"}>{zh ? `动态容量 ${breakthrough?.dynamicCapacity ?? "pending"}` : `Dynamic ${breakthrough?.dynamicCapacity ?? "pending"}`}</BasisBadge>
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 10, marginTop: 3 }}>
+                    <FieldValue
+                      label={zh ? "吸附量" : "uptake"}
+                      field="uptake"
+                      value={uptake ? `${uptake.uptake} ${uptake.unit}` : pendingText(zh)}
+                      condition={condition}
+                      method={firstSel?.method}
+                      source={sourcesById.get(uptake?.sourceId) || source}
+                      fieldSource={uptakeIndex >= 0 ? getFieldSource(record, `uptakeRecords[${uptakeIndex}].uptake`, uptake) : {}}
+                      onOpen={openProvenance}
+                      t={t}
+                      zh={zh}
+                    />
+                    <FieldValue
+                      label={zh ? "动态容量" : "dynamic capacity"}
+                      field="dynamicCapacity"
+                      value={breakthrough ? `${breakthrough.dynamicCapacity} ${breakthrough.dynamicCapacityUnit}` : pendingText(zh)}
+                      condition={condition}
+                      method={firstSel?.method}
+                      source={sourcesById.get(breakthrough?.sourceId) || source}
+                      fieldSource={breakthroughIndex >= 0 ? getFieldSource(record, `breakthroughRecords[${breakthroughIndex}].dynamicCapacity`, breakthrough) : {}}
+                      onOpen={openProvenance}
+                      t={t}
+                      zh={zh}
+                    />
+                  </div>
+                  {onOpenComparisonBuilder && (
+                    <button
+                      type="button"
+                      onClick={() => onOpenComparisonBuilder({
+                        compareFunction: "gas-separation",
+                        source: "gassep-record",
+                        sourceRecordId: record.id || record.recordId,
+                        candidateName: record.mofName,
+                        conditionContext: firstSel ? {
+                          gasPair: displayGas(record.gasSystem),
+                          feedRatio: firstSel.feedRatio,
+                          temperature: `${firstSel.temperatureK} K`,
+                          pressure: pressureText(firstSel, zh),
+                          method: firstSel.method,
+                        } : {},
+                      })}
+                      style={{ width: "fit-content", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.accentText, cursor: "pointer", fontSize: 11, fontWeight: 850, padding: "6px 9px" }}
+                    >
+                      {zh ? "加入对比器" : "Add to Builder"}
+                    </button>
+                  )}
+                </div>
+              </article>
+            )
+          })}
+        </div>
+      </section>
+
+      <section className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+        <SectionTitle>{zh ? "Data curation / provenance panel" : "Data curation / provenance panel"}</SectionTitle>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
+          {[
+            [zh ? "记录文件" : "Record file", "public/data/mof_gas_separation_records.json", "calc"],
+            [zh ? "体系索引" : "System index", "public/data/gas_systems_demo.json", "info"],
+            [zh ? "来源索引" : "Source index", "public/data/gas_sources_demo.json", "proxy"],
+          ].map(([label, value, tone]) => (
+            <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
+              <BasisBadge tone={tone}>{label}</BasisBadge>
+              <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55, marginTop: 8, overflowWrap: "anywhere" }}>{value}</div>
             </div>
           ))}
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 8, marginTop: 12 }}>
-          {records.map(record => (
-            <div key={record.recordId} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "9px 11px" }}>
-              <div style={{ color: t.textStrong, fontSize: 11, fontWeight: 850 }}>{record.separationSystem}</div>
-              <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 4 }}>
-                {statusLabel(record.isothermStatus, zh)}
-              </div>
-            </div>
-          ))}
+        <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.65, marginTop: 12 }}>
+          {zh
+            ? "字段级 ⓘ 覆盖 selectivity、feedRatio、temperature、pressure、method、uptake、dynamicCapacity 和 sourceLocation。内部滚动不会关闭弹层，Esc 与外部点击可关闭。"
+            : "Field-level ⓘ is available for selectivity, feedRatio, temperature, pressure, method, uptake, dynamicCapacity, and sourceLocation. Internal scrolling does not close the popover; Esc and outside click close it."}
         </div>
       </section>
 
       <Callout tone="note">
         {zh
-          ? "本模块不执行 IAST、GCMC 或穿透曲线模拟，仅用于整理带条件说明的气体分离记录。"
-          : "This module does not perform IAST, GCMC, or breakthrough simulation. It organizes condition-aware records for transparent comparison."}{" "}
+          ? "GasSep 仍使用现有导航、路由/hash、首页入口和模块身份；本轮没有新增 Gas Adsorption Lab 一级模块。"
+          : "GasSep still uses the existing navigation, route/hash, homepage entry, and module identity; no new top-level Gas Adsorption Lab was added."}{" "}
         <DisclaimerLink />
       </Callout>
+
+      <ProvenancePopover active={activeProvenance} onClose={() => setActiveProvenance(null)} t={t} zh={zh} isMobile={isMobile} />
     </div>
   )
 }

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "c2h2-co2",
+    "label": "C2H2/CO2",
+    "commonFeedRatios": ["1/1"],
+    "typicalTemperatureK": 298,
+    "typicalPressureKPa": 100,
+    "application": "acetylene purification",
+    "curationNote": "Demo condition included; exact source metadata remains pending for seed records."
+  },
+  {
+    "id": "co2-n2",
+    "label": "CO2/N2",
+    "commonFeedRatios": ["15/85"],
+    "typicalTemperatureK": 298,
+    "typicalPressureKPa": 15,
+    "application": "flue gas carbon capture",
+    "curationNote": "Feed ratio is essential because reported selectivity changes with mixture composition."
+  },
+  {
+    "id": "c2h2-c2h4",
+    "label": "C2H2/C2H4",
+    "commonFeedRatios": ["1/99", "1/999"],
+    "typicalTemperatureK": 298,
+    "typicalPressureKPa": 100,
+    "application": "trace acetylene removal",
+    "curationNote": "Trace-feed systems must not be directly compared with equimolar selectivity records."
+  },
+  {
+    "id": "ch4-n2",
+    "label": "CH4/N2",
+    "commonFeedRatios": ["50/50"],
+    "typicalTemperatureK": 298,
+    "typicalPressureKPa": 100,
+    "application": "coalbed methane purification",
+    "curationNote": "Ni-BIC seed record includes adsorption isotherm, IAST, breakthrough, and cycling evidence."
+  }
+]

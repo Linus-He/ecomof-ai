@@ -1,248 +1,372 @@
 [
   {
-    "recordId": "gas-sep-template-001",
-    "mofName": "Template MOF Record",
+    "id": "ni-bic-ch4-n2",
+    "recordId": "ni-bic-ch4-n2",
+    "mofName": "Ni-BIC",
+    "aliases": [],
+    "gasSystem": "CH4/N2",
+    "gasSystemId": "ch4-n2",
+    "separationSystem": "CH4/N2",
+    "gasA": "CH4",
+    "gasB": "N2",
+    "targetGas": "CH4",
+    "application": "coalbed methane purification",
+    "selectivityRecords": [
+      {
+        "id": "ni-bic-ch4-n2-50-50-298k-1bar-iast",
+        "feedRatio": "50/50",
+        "temperatureK": 298,
+        "pressureBar": 1,
+        "pressureKPa": 100,
+        "selectivity": 13.1,
+        "method": "IAST",
+        "sourceId": "che-2026-afm-ni-bic",
+        "sourceLocation": "Abstract / Section 2.5 / Figure 4",
+        "evidenceType": "IAST calculated selectivity",
+        "curationStatus": "reviewed"
+      }
+    ],
+    "uptakeRecords": [
+      {
+        "id": "ni-bic-ch4-uptake-298k-1bar",
+        "gas": "CH4",
+        "temperatureK": 298,
+        "pressureBar": 1,
+        "pressureKPa": 100,
+        "uptake": 19.14,
+        "unit": "cm3/g",
+        "basis": "single-component adsorption isotherm",
+        "sourceId": "che-2026-afm-ni-bic",
+        "sourceLocation": "Section 2.4 / Figure 4a",
+        "curationStatus": "reviewed"
+      },
+      {
+        "id": "ni-bic-n2-uptake-298k-1bar",
+        "gas": "N2",
+        "temperatureK": 298,
+        "pressureBar": 1,
+        "pressureKPa": 100,
+        "uptake": 2.99,
+        "unit": "cm3/g",
+        "basis": "single-component adsorption isotherm",
+        "sourceId": "che-2026-afm-ni-bic",
+        "sourceLocation": "Section 2.4 / Figure 4a",
+        "curationStatus": "reviewed"
+      }
+    ],
+    "breakthroughRecords": [
+      {
+        "id": "ni-bic-ch4-n2-breakthrough-50-50-298k",
+        "feedRatio": "50/50",
+        "temperatureK": 298,
+        "pressureBar": 1,
+        "pressureKPa": 100,
+        "dynamicCapacity": 9.0,
+        "dynamicCapacityUnit": "cm3/g",
+        "targetGas": "CH4",
+        "sourceId": "che-2026-afm-ni-bic",
+        "sourceLocation": "Section 2.6 / Figure 5",
+        "curationStatus": "reviewed"
+      }
+    ],
+    "fieldSources": {
+      "selectivityRecords[0].feedRatio": {
+        "sourceId": "che-2026-afm-ni-bic",
+        "location": "Section 2.5 / Figure 4 caption",
+        "evidenceType": "mixture condition",
+        "curationStatus": "reviewed"
+      },
+      "selectivityRecords[0].temperatureK": {
+        "sourceId": "che-2026-afm-ni-bic",
+        "location": "Section 2.5 / Figure 4 caption",
+        "evidenceType": "mixture condition",
+        "curationStatus": "reviewed"
+      },
+      "selectivityRecords[0].pressureKPa": {
+        "sourceId": "che-2026-afm-ni-bic",
+        "location": "Section 2.5 / Figure 4 caption",
+        "evidenceType": "mixture pressure condition",
+        "curationStatus": "reviewed"
+      },
+      "selectivityRecords[0].method": {
+        "sourceId": "che-2026-afm-ni-bic",
+        "location": "Section 2.5",
+        "evidenceType": "IAST calculation method",
+        "curationStatus": "reviewed"
+      },
+      "selectivityRecords[0].selectivity": {
+        "sourceId": "che-2026-afm-ni-bic",
+        "location": "Abstract / Section 2.5",
+        "evidenceType": "IAST selectivity value",
+        "curationStatus": "reviewed"
+      },
+      "selectivityRecords[0].sourceLocation": {
+        "sourceId": "che-2026-afm-ni-bic",
+        "location": "Abstract / Section 2.5 / Figure 4",
+        "evidenceType": "paper location for selectivity record",
+        "curationStatus": "reviewed"
+      },
+      "uptakeRecords[0].uptake": {
+        "sourceId": "che-2026-afm-ni-bic",
+        "location": "Section 2.4 / Figure 4a",
+        "evidenceType": "single-component CH4 uptake",
+        "curationStatus": "reviewed"
+      },
+      "uptakeRecords[1].uptake": {
+        "sourceId": "che-2026-afm-ni-bic",
+        "location": "Section 2.4 / Figure 4a",
+        "evidenceType": "single-component N2 uptake",
+        "curationStatus": "reviewed"
+      },
+      "breakthroughRecords[0].dynamicCapacity": {
+        "sourceId": "che-2026-afm-ni-bic",
+        "location": "Section 2.6 / Figure 5",
+        "evidenceType": "dynamic breakthrough capacity",
+        "curationStatus": "reviewed"
+      }
+    },
+    "overallEvidenceLevel": "high",
+    "evidenceLevel": "high",
+    "recordStatus": "demo-reviewed",
+    "curationStatus": "demo-reviewed",
+    "sourceStatus": "reviewed",
+    "note": "Seed record supplied for condition-aware GasSep curation; current UI does not perform live IAST/GCMC calculation."
+  },
+  {
+    "id": "fju-90a-c2h2-co2",
+    "recordId": "fju-90a-c2h2-co2",
+    "mofName": "FJU-90a",
+    "aliases": [],
+    "gasSystem": "C2H2/CO2",
+    "gasSystemId": "c2h2-co2",
     "separationSystem": "C2H2/CO2",
     "gasA": "C2H2",
     "gasB": "CO2",
-    "gasRatio": "50/50 or 1/1",
-    "temperatureK": 298,
-    "pressureKPa": 100,
-    "method": "IAST or literature-reported method pending",
-    "selectivity": null,
-    "adsorption": [
+    "targetGas": "C2H2",
+    "application": "acetylene purification",
+    "selectivityRecords": [
       {
-        "gas": "C2H2",
-        "uptake": null,
-        "unit": "mmol/g",
+        "id": "fju-90a-c2h2-co2-1-1-298k-100kpa-iast",
+        "feedRatio": "1/1",
         "temperatureK": 298,
-        "pressureKPa": 100
-      },
-      {
-        "gas": "CO2",
-        "uptake": null,
-        "unit": "mmol/g",
-        "temperatureK": 298,
-        "pressureKPa": 100
+        "pressureBar": 1,
+        "pressureKPa": 100,
+        "selectivity": null,
+        "method": "IAST",
+        "sourceId": "pending-fju-90a-c2h2-co2",
+        "sourceLocation": "Pending literature verification",
+        "evidenceType": "condition placeholder; selectivity value not curated",
+        "curationStatus": "source-pending"
       }
     ],
-    "isothermStatus": "pending",
-    "sourceStatus": "pending",
-    "evidenceLevel": "pending",
-    "curationStatus": "planned",
-    "conditionCompleteness": {
-      "gasPair": true,
-      "gasRatio": true,
-      "temperature": true,
-      "pressure": true,
-      "method": true,
-      "source": false
+    "uptakeRecords": [],
+    "breakthroughRecords": [],
+    "fieldSources": {
+      "selectivityRecords[0].feedRatio": {
+        "sourceId": "pending-fju-90a-c2h2-co2",
+        "location": "Pending literature verification",
+        "evidenceType": "commonly reported C2H2/CO2 mixture condition",
+        "curationStatus": "source-pending"
+      },
+      "selectivityRecords[0].temperatureK": {
+        "sourceId": "pending-fju-90a-c2h2-co2",
+        "location": "Pending literature verification",
+        "evidenceType": "demo condition",
+        "curationStatus": "source-pending"
+      },
+      "selectivityRecords[0].pressureKPa": {
+        "sourceId": "pending-fju-90a-c2h2-co2",
+        "location": "Pending literature verification",
+        "evidenceType": "demo condition",
+        "curationStatus": "source-pending"
+      },
+      "selectivityRecords[0].method": {
+        "sourceId": "pending-fju-90a-c2h2-co2",
+        "location": "Pending literature verification",
+        "evidenceType": "method placeholder",
+        "curationStatus": "source-pending"
+      },
+      "selectivityRecords[0].selectivity": {
+        "sourceId": "pending-fju-90a-c2h2-co2",
+        "location": "Pending literature verification",
+        "evidenceType": "selectivity value not curated",
+        "curationStatus": "source-pending"
+      },
+      "selectivityRecords[0].sourceLocation": {
+        "sourceId": "pending-fju-90a-c2h2-co2",
+        "location": "Pending literature verification",
+        "evidenceType": "source location pending",
+        "curationStatus": "source-pending"
+      }
     },
-    "note": "Template record for condition-aware gas separation curation. No validated selectivity value is included."
+    "overallEvidenceLevel": "needs-validation",
+    "evidenceLevel": "needs-validation",
+    "recordStatus": "demo-source-pending",
+    "curationStatus": "source-pending",
+    "sourceStatus": "pending",
+    "note": "C2H2/CO2 condition demo. Exact source metadata and selectivity value remain pending instead of being invented."
   },
   {
-    "recordId": "gas-sep-template-002",
-    "mofName": "Template MOF Record",
-    "separationSystem": "C2H2/C2H4",
+    "id": "utsa-74a-c2h2-co2",
+    "recordId": "utsa-74a-c2h2-co2",
+    "mofName": "UTSA-74a",
+    "aliases": [],
+    "gasSystem": "C2H2/CO2",
+    "gasSystemId": "c2h2-co2",
+    "separationSystem": "C2H2/CO2",
     "gasA": "C2H2",
-    "gasB": "C2H4",
-    "gasRatio": "1/99 or 1/999",
-    "temperatureK": 298,
-    "pressureKPa": 100,
-    "method": "IAST or literature-reported method pending",
-    "selectivity": null,
-    "adsorption": [
+    "gasB": "CO2",
+    "targetGas": "C2H2",
+    "application": "acetylene purification",
+    "selectivityRecords": [
       {
-        "gas": "C2H2",
-        "uptake": null,
-        "unit": "mmol/g",
+        "id": "utsa-74a-c2h2-co2-1-1-298k-100kpa-iast",
+        "feedRatio": "1/1",
         "temperatureK": 298,
-        "pressureKPa": 100
-      },
-      {
-        "gas": "C2H4",
-        "uptake": null,
-        "unit": "mmol/g",
-        "temperatureK": 298,
-        "pressureKPa": 100
+        "pressureBar": 1,
+        "pressureKPa": 100,
+        "selectivity": null,
+        "method": "IAST",
+        "sourceId": "pending-utsa-74a-c2h2-co2",
+        "sourceLocation": "Pending literature verification",
+        "evidenceType": "condition placeholder; selectivity value not curated",
+        "curationStatus": "source-pending"
       }
     ],
-    "isothermStatus": "pending",
-    "sourceStatus": "pending",
-    "evidenceLevel": "pending",
-    "curationStatus": "planned",
-    "conditionCompleteness": {
-      "gasPair": true,
-      "gasRatio": true,
-      "temperature": true,
-      "pressure": true,
-      "method": true,
-      "source": false
+    "uptakeRecords": [],
+    "breakthroughRecords": [],
+    "fieldSources": {
+      "selectivityRecords[0].feedRatio": {
+        "sourceId": "pending-utsa-74a-c2h2-co2",
+        "location": "Pending literature verification",
+        "evidenceType": "commonly reported C2H2/CO2 mixture condition",
+        "curationStatus": "source-pending"
+      },
+      "selectivityRecords[0].temperatureK": {
+        "sourceId": "pending-utsa-74a-c2h2-co2",
+        "location": "Pending literature verification",
+        "evidenceType": "demo condition",
+        "curationStatus": "source-pending"
+      },
+      "selectivityRecords[0].pressureKPa": {
+        "sourceId": "pending-utsa-74a-c2h2-co2",
+        "location": "Pending literature verification",
+        "evidenceType": "demo condition",
+        "curationStatus": "source-pending"
+      },
+      "selectivityRecords[0].method": {
+        "sourceId": "pending-utsa-74a-c2h2-co2",
+        "location": "Pending literature verification",
+        "evidenceType": "method placeholder",
+        "curationStatus": "source-pending"
+      },
+      "selectivityRecords[0].selectivity": {
+        "sourceId": "pending-utsa-74a-c2h2-co2",
+        "location": "Pending literature verification",
+        "evidenceType": "selectivity value not curated",
+        "curationStatus": "source-pending"
+      },
+      "selectivityRecords[0].sourceLocation": {
+        "sourceId": "pending-utsa-74a-c2h2-co2",
+        "location": "Pending literature verification",
+        "evidenceType": "source location pending",
+        "curationStatus": "source-pending"
+      }
     },
-    "note": "Template record for trace acetylene removal curation. No validated selectivity value is included."
+    "overallEvidenceLevel": "needs-validation",
+    "evidenceLevel": "needs-validation",
+    "recordStatus": "demo-source-pending",
+    "curationStatus": "source-pending",
+    "sourceStatus": "pending",
+    "note": "C2H2/CO2 condition demo. Exact source metadata and selectivity value remain pending instead of being invented."
   },
   {
-    "recordId": "gas-sep-template-003",
-    "mofName": "Template MOF Record",
+    "id": "mof-74-mg-co2-n2",
+    "recordId": "mof-74-mg-co2-n2",
+    "mofName": "MOF-74-Mg",
+    "aliases": ["Mg-MOF-74"],
+    "gasSystem": "CO2/N2",
+    "gasSystemId": "co2-n2",
     "separationSystem": "CO2/N2",
     "gasA": "CO2",
     "gasB": "N2",
-    "gasRatio": "15/85",
-    "temperatureK": 298,
-    "pressureKPa": 100,
-    "method": "IAST or literature-reported method pending",
-    "selectivity": null,
-    "adsorption": [
+    "targetGas": "CO2",
+    "application": "flue gas carbon capture",
+    "selectivityRecords": [
       {
-        "gas": "CO2",
-        "uptake": null,
-        "unit": "mmol/g",
+        "id": "mof-74-mg-co2-n2-15-85-298k-15kpa-literature",
+        "feedRatio": "15/85",
         "temperatureK": 298,
-        "pressureKPa": 100
+        "pressureBar": 0.15,
+        "pressureKPa": 15,
+        "selectivity": 182,
+        "method": "literature label",
+        "sourceId": "benchmark-MOF74-Mg",
+        "sourceLocation": "Seed adsorption label",
+        "evidenceType": "screening seed selectivity label",
+        "curationStatus": "screening-seed"
+      }
+    ],
+    "uptakeRecords": [
+      {
+        "id": "mof-74-mg-co2-uptake-298k-0-15bar",
+        "gas": "CO2",
+        "temperatureK": 298,
+        "pressureBar": 0.15,
+        "pressureKPa": 15,
+        "uptake": 8.61,
+        "unit": "mmol/g",
+        "basis": "seed adsorption label",
+        "sourceId": "benchmark-MOF74-Mg",
+        "sourceLocation": "public/data/adsorption_labels.json",
+        "curationStatus": "screening-seed"
       },
       {
+        "id": "mof-74-mg-n2-uptake-298k-0-15bar",
         "gas": "N2",
-        "uptake": null,
-        "unit": "mmol/g",
         "temperatureK": 298,
-        "pressureKPa": 100
+        "pressureBar": 0.15,
+        "pressureKPa": 15,
+        "uptake": 0.047,
+        "unit": "mmol/g",
+        "basis": "seed adsorption label",
+        "sourceId": "benchmark-MOF74-Mg",
+        "sourceLocation": "public/data/adsorption_labels.json",
+        "curationStatus": "screening-seed"
       }
     ],
-    "isothermStatus": "pending",
-    "sourceStatus": "pending",
-    "evidenceLevel": "pending",
-    "curationStatus": "planned",
-    "conditionCompleteness": {
-      "gasPair": true,
-      "gasRatio": true,
-      "temperature": true,
-      "pressure": true,
-      "method": true,
-      "source": false
-    },
-    "note": "Template record for flue gas capture curation. No validated selectivity value is included."
-  },
-  {
-    "recordId": "gas-sep-template-004",
-    "mofName": "Template MOF Record",
-    "separationSystem": "CO2/CH4",
-    "gasA": "CO2",
-    "gasB": "CH4",
-    "gasRatio": "50/50",
-    "temperatureK": 298,
-    "pressureKPa": 100,
-    "method": "IAST or literature-reported method pending",
-    "selectivity": null,
-    "adsorption": [
-      {
-        "gas": "CO2",
-        "uptake": null,
-        "unit": "mmol/g",
-        "temperatureK": 298,
-        "pressureKPa": 100
+    "breakthroughRecords": [],
+    "fieldSources": {
+      "selectivityRecords[0].feedRatio": {
+        "sourceId": "benchmark-MOF74-Mg",
+        "location": "public/data/adsorption_labels.json",
+        "evidenceType": "screening seed condition",
+        "curationStatus": "screening-seed"
       },
-      {
-        "gas": "CH4",
-        "uptake": null,
-        "unit": "mmol/g",
-        "temperatureK": 298,
-        "pressureKPa": 100
-      }
-    ],
-    "isothermStatus": "pending",
-    "sourceStatus": "pending",
-    "evidenceLevel": "pending",
-    "curationStatus": "planned",
-    "conditionCompleteness": {
-      "gasPair": true,
-      "gasRatio": true,
-      "temperature": true,
-      "pressure": true,
-      "method": true,
-      "source": false
-    },
-    "note": "Template record for natural gas upgrading curation. No validated selectivity value is included."
-  },
-  {
-    "recordId": "gas-sep-template-005",
-    "mofName": "Template MOF Record",
-    "separationSystem": "C2H6/C2H4",
-    "gasA": "C2H6",
-    "gasB": "C2H4",
-    "gasRatio": "condition-dependent",
-    "temperatureK": 298,
-    "pressureKPa": 100,
-    "method": "IAST or literature-reported method pending",
-    "selectivity": null,
-    "adsorption": [
-      {
-        "gas": "C2H6",
-        "uptake": null,
-        "unit": "mmol/g",
-        "temperatureK": 298,
-        "pressureKPa": 100
+      "selectivityRecords[0].selectivity": {
+        "sourceId": "benchmark-MOF74-Mg",
+        "location": "public/data/adsorption_labels.json",
+        "evidenceType": "screening seed selectivity label",
+        "curationStatus": "screening-seed"
       },
-      {
-        "gas": "C2H4",
-        "uptake": null,
-        "unit": "mmol/g",
-        "temperatureK": 298,
-        "pressureKPa": 100
-      }
-    ],
-    "isothermStatus": "pending",
-    "sourceStatus": "pending",
-    "evidenceLevel": "pending",
-    "curationStatus": "planned",
-    "conditionCompleteness": {
-      "gasPair": true,
-      "gasRatio": true,
-      "temperature": true,
-      "pressure": true,
-      "method": true,
-      "source": false
-    },
-    "note": "Template record for ethane/ethylene separation curation. No validated selectivity value is included."
-  },
-  {
-    "recordId": "gas-sep-template-006",
-    "mofName": "Template MOF Record",
-    "separationSystem": "Xe/Kr",
-    "gasA": "Xe",
-    "gasB": "Kr",
-    "gasRatio": "condition-dependent",
-    "temperatureK": 298,
-    "pressureKPa": 100,
-    "method": "IAST or literature-reported method pending",
-    "selectivity": null,
-    "adsorption": [
-      {
-        "gas": "Xe",
-        "uptake": null,
-        "unit": "mmol/g",
-        "temperatureK": 298,
-        "pressureKPa": 100
+      "uptakeRecords[0].uptake": {
+        "sourceId": "benchmark-MOF74-Mg",
+        "location": "public/data/adsorption_labels.json",
+        "evidenceType": "CO2 uptake seed label",
+        "curationStatus": "screening-seed"
       },
-      {
-        "gas": "Kr",
-        "uptake": null,
-        "unit": "mmol/g",
-        "temperatureK": 298,
-        "pressureKPa": 100
+      "uptakeRecords[1].uptake": {
+        "sourceId": "benchmark-MOF74-Mg",
+        "location": "public/data/adsorption_labels.json",
+        "evidenceType": "N2 uptake seed label",
+        "curationStatus": "screening-seed"
       }
-    ],
-    "isothermStatus": "pending",
-    "sourceStatus": "pending",
-    "evidenceLevel": "pending",
-    "curationStatus": "planned",
-    "conditionCompleteness": {
-      "gasPair": true,
-      "gasRatio": true,
-      "temperature": true,
-      "pressure": true,
-      "method": true,
-      "source": false
     },
-    "note": "Template record for noble gas separation curation. No validated selectivity value is included."
+    "overallEvidenceLevel": "medium",
+    "evidenceLevel": "medium",
+    "recordStatus": "screening-seed",
+    "curationStatus": "screening-seed",
+    "sourceStatus": "seed",
+    "note": "Migrated from the existing adsorption label seed. Replace with verified literature source before scientific use."
   }
 ]

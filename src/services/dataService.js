@@ -23,6 +23,9 @@ const DATA_PATHS = {
   mofStructures: "data/mof_structures.json",
   adsorptionLabels: "data/adsorption_labels.json",
   gasSeparationRecords: "data/mof_gas_separation_records.json",
+  gasSystemsDemo: "data/gas_systems_demo.json",
+  gasSourcesDemo: "data/gas_sources_demo.json",
+  gasAdsorptionRecordsDemo: "data/gas_adsorption_records_demo.json",
 }
 
 const QUALITY_FIELDS = CORE_MOF_DESCRIPTOR_KEYS
@@ -137,6 +140,18 @@ export function getAdsorptionLabels({ throwOnError = false } = {}) {
 
 export function getGasSeparationRecords({ throwOnError = false } = {}) {
   return fetchJson(DATA_PATHS.gasSeparationRecords, [], { throwOnError })
+}
+
+export function getGasSystemsDemo({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.gasSystemsDemo, [], { throwOnError })
+}
+
+export function getGasSourcesDemo({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.gasSourcesDemo, [], { throwOnError })
+}
+
+export function getGasAdsorptionRecordsDemo({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.gasAdsorptionRecordsDemo, [], { throwOnError })
 }
 
 function hasCuratedSource(source) {
