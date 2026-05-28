@@ -1,5 +1,6 @@
 import { useMemo } from "react"
 import { useLang, useT, useViewport } from "../../contexts"
+import { ChemicalText } from "../../shared"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -42,9 +43,9 @@ function availableDescriptors(candidate, lang) {
 function missingEvidence(candidate, lang) {
   const source = sourceDatabase(candidate).toLowerCase()
   if (source.includes("qmof")) {
-    return [text(lang, "几何描述符", "geometry"), text(lang, "水稳定性", "water stability"), "HCOO⁻ / HCO₃⁻ evidence"]
+    return [text(lang, "几何描述符", "geometry"), text(lang, "水稳定性", "water stability"), "HCOO- / HCO3- evidence"]
   }
-  return [text(lang, "水稳定性", "water stability"), "HCOO⁻ / HCO₃⁻ evidence", text(lang, "产物分布", "product distribution")]
+  return [text(lang, "水稳定性", "water stability"), "HCOO- / HCO3- evidence", text(lang, "产物分布", "product distribution")]
 }
 
 function nextTask(candidate, lang) {
@@ -128,7 +129,7 @@ export function OrganicAcidCurationQueue({
                   {text(lang, "可用", "Available")}: {availableDescriptors(candidate, lang).join(", ")}
                 </span>
                 <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>
-                  {text(lang, "缺口", "Missing")}: {missingEvidence(candidate, lang).join(", ")}
+                  {text(lang, "缺口", "Missing")}: <ChemicalText value={missingEvidence(candidate, lang).join(", ")} />
                 </span>
                 <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>
                   {text(lang, "名称状态", "Name status")}: {nameStatus(candidate, lang)}

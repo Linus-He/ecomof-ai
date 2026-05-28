@@ -1,4 +1,5 @@
 import { SCIENTIFIC_TOKEN_FONT, organicAcidPalette as palette } from "./FormulaInline"
+import { ChemicalText } from "../../shared"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -18,7 +19,7 @@ function Tags({ values }) {
     <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
       {values.map(value => (
         <span key={value} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 999, color: palette.muted, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11.5, padding: "4px 7px" }}>
-          {value}
+          <ChemicalText value={value} />
         </span>
       ))}
     </div>
@@ -34,7 +35,7 @@ export function GraphNodeDetailPanel({ node, lang }) {
           {text(lang, "节点详情", "Node detail")}
         </div>
         <h3 style={{ color: palette.text, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 22, lineHeight: 1.1, margin: 0 }}>
-          {text(lang, node.labelZh, node.label)}
+          <ChemicalText value={text(lang, node.labelZh, node.label)} />
         </h3>
       </header>
       <Field label={text(lang, "节点类型", "Node type")}>{node.category}</Field>

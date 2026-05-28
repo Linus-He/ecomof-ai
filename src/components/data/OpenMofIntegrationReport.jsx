@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react"
 import { FONT_MONO } from "../../constants/theme"
 import { useLang, useT, useViewport } from "../../contexts"
 import { getGlobalMofCandidates, getOrganicAcidExperimentRecords } from "../../services/dataService"
+import { ChemicalText } from "../../shared"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -24,7 +25,7 @@ function Card({ title, value, note, t }) {
     <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, minWidth: 0, padding: 11 }}>
       <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{title}</div>
       <div style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 18, fontWeight: 930, lineHeight: 1.15, marginTop: 6 }}>{value}</div>
-      {note ? <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45, marginTop: 5 }}>{note}</div> : null}
+      {note ? <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45, marginTop: 5 }}><ChemicalText value={note} /></div> : null}
     </article>
   )
 }
@@ -45,7 +46,7 @@ function MiniTable({ rows, headers, t, isMobile }) {
             <tr key={`${row[0]}-${rowIndex}`}>
               {row.map((cell, cellIndex) => (
                 <td key={`${row[0]}-${cellIndex}`} style={{ borderBottom: `1px solid ${t.border}`, color: cellIndex === 0 ? t.textStrong : t.muted, fontSize: 12, fontWeight: cellIndex === 0 ? 850 : 500, lineHeight: 1.55, padding: "9px" }}>
-                  {cell}
+                  <ChemicalText value={cell} />
                 </td>
               ))}
             </tr>
@@ -160,8 +161,8 @@ export function OpenMofIntegrationReport({ seedRecords: providedSeedRecords, exp
   const limitationRows = [
     text(
       lang,
-      "Open MOF seed 记录主要提供结构、几何或电子描述符，不能直接证明甲酸选择性、HCO₃⁻ / HCOO⁻ 结合能力或 MOF 辅助有机酸转化能力。",
-      "Open MOF seed records provide structural, geometric, or electronic descriptors; they do not directly validate formic acid selectivity, HCO₃⁻ / HCOO⁻ binding, or MOF-assisted organic acid conversion."
+	      "Open MOF seed 记录主要提供结构、几何或电子描述符，不能直接证明甲酸选择性、HCO3- / HCOO- 结合能力或 MOF 辅助有机酸转化能力。",
+	      "Open MOF seed records provide structural, geometric, or electronic descriptors; they do not directly validate formic acid selectivity, HCO3- / HCOO- binding, or MOF-assisted organic acid conversion."
     ),
     text(
       lang,
@@ -218,7 +219,7 @@ export function OpenMofIntegrationReport({ seedRecords: providedSeedRecords, exp
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 9 }}>
         {limitationRows.map((body, index) => (
           <article key={body} style={{ background: index === 0 ? t.badgeWarnBg : t.surface, border: `1px solid ${index === 0 ? t.warn : t.border}`, borderRadius: 8, color: t.muted, fontSize: 12, lineHeight: 1.6, padding: 11 }}>
-            {body}
+            <ChemicalText value={body} />
           </article>
         ))}
       </div>

@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { ChemicalText } from "../../shared"
 
 const steps = [
   {
@@ -57,14 +58,14 @@ function StepCard({ step, active, onClick, lang, t }) {
         style={{ background: "transparent", border: "none", color: t.textStrong, cursor: "pointer", display: "grid", gap: 5, padding: 0, textAlign: "left" }}
       >
         <div style={{ color: active ? t.accent : t.textStrong, fontSize: 13, fontWeight: 930, lineHeight: 1.25 }}>{zh ? step.titleZh : step.titleEn}</div>
-        <div style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.5 }}>{zh ? step.summaryZh : step.summaryEn}</div>
+        <div style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.5 }}><ChemicalText value={zh ? step.summaryZh : step.summaryEn} /></div>
       </button>
       <div style={{ color: t.textStrong, display: "grid", fontSize: 11.5, gap: 4, lineHeight: 1.4 }}>
-        {(zh ? step.fieldsZh : step.fieldsEn).map(field => <div key={field}>- {field}</div>)}
+        {(zh ? step.fieldsZh : step.fieldsEn).map(field => <div key={field}>- <ChemicalText value={field} /></div>)}
       </div>
       <details style={{ color: t.faint, fontSize: 11.3, lineHeight: 1.5 }}>
         <summary style={{ color: t.accentText, cursor: "pointer", fontWeight: 800 }}>{zh ? "展开字段映射" : "Field mapping"}</summary>
-        <div style={{ marginTop: 6 }}>{zh ? step.detailZh : step.detailEn}</div>
+        <div style={{ marginTop: 6 }}><ChemicalText value={zh ? step.detailZh : step.detailEn} /></div>
       </details>
     </article>
   )

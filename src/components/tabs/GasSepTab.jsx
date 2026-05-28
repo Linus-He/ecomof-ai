@@ -6,7 +6,8 @@ import {
   BasisBadge, Callout, CopyLinkButton, DisclaimerLink, PageHeader, SectionTitle,
   getGasSeparationRecords, getGasSystemsDemo, getGasSourcesDemo,
   getComparabilityStatus, getComparisonWarning,
-  chemText,
+  ChemicalFormula,
+  ChemicalText,
 } from "../../shared"
 import {
   displayGasFormula,
@@ -27,6 +28,10 @@ function pendingText(zh) {
 
 function displayGas(value = "") {
   return displayGasFormula(value)
+}
+
+function GasFormulaText({ value, style }) {
+  return <ChemicalFormula value={value} style={style} />
 }
 
 function normalizeText(value = "") {
@@ -277,7 +282,7 @@ function ProvenancePopover({ active, onClose, t, zh, isMobile }) {
         {rows.map(([label, value]) => (
           <div key={label} style={{ display: "grid", gridTemplateColumns: "112px minmax(0, 1fr)", gap: 8, borderTop: `1px solid ${t.divider}`, paddingTop: 7 }}>
             <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>{label}</div>
-            <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45, overflowWrap: "anywhere" }}>{value || pendingText(zh)}</div>
+            <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45, overflowWrap: "anywhere" }}><ChemicalText value={value || pendingText(zh)} /></div>
           </div>
         ))}
       </div>
@@ -297,7 +302,7 @@ function SelectivityTooltip({ active, payload, label, t, zh }) {
         return (
           <div key={item.dataKey} style={{ color: item.color, fontSize: 11, lineHeight: 1.5, marginTop: 6 }}>
             <strong>{item.dataKey}</strong>: {item.value}
-            <div style={{ color: t.subtle }}>{displayGas(meta.gasSystem)} · {conditionText(meta, zh)} · {meta.sourceLocation}</div>
+            <div style={{ color: t.subtle }}><GasFormulaText value={meta.gasSystem} /> · {conditionText(meta, zh)} · {meta.sourceLocation}</div>
           </div>
         )
       })}
@@ -313,7 +318,7 @@ function ScatterTooltip({ active, payload, t, zh }) {
     <div style={{ background: t.tooltipBg, border: `1px solid ${t.border}`, borderRadius: 8, padding: "9px 11px", maxWidth: 310 }}>
       <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900 }}>{point.mofName}</div>
       <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55, marginTop: 5 }}>
-        {displayGas(point.gasSystem)} · {point.feedRatio} · {point.temperatureK} K · {point.pressureKPa} kPa · {point.method}
+        <GasFormulaText value={point.gasSystem} /> · {point.feedRatio} · {point.temperatureK} K · {point.pressureKPa} kPa · {point.method}
       </div>
       <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 5 }}>
         {zh ? "吸附量" : "Uptake"}: {point.uptake ?? "—"} {point.uptakeUnit || ""}<br />
@@ -521,7 +526,9 @@ export function GasSepTab({ onNavigate, onOpenComparisonBuilder }) {
                 boxShadow: `inset 3px 0 0 ${CHART_COLORS[index % CHART_COLORS.length]}`,
               }}
             >
-              <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900, fontFamily: FONT_MONO }}>{displayGas(system.label)}</div>
+              <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 900 }}>
+                <GasFormulaText value={system.label} />
+              </div>
               <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 7 }}>{system.application || pendingText(zh)}</div>
               <div style={{ display: "flex", gap: 5, flexWrap: "wrap", marginTop: 9 }}>
                 {(system.commonFeedRatios || []).map(ratio => <BasisBadge key={ratio} tone="info">{ratio}</BasisBadge>)}
@@ -578,7 +585,9 @@ export function GasSepTab({ onNavigate, onOpenComparisonBuilder }) {
                 <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start", flexWrap: "wrap" }}>
                   <div style={{ minWidth: 0 }}>
                     <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 900 }}>{row.mofName}</div>
-                    <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5, marginTop: 3 }}>{displayGas(row.gasSystem)} · {row.application}</div>
+                    <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5, marginTop: 3 }}>
+                      <GasFormulaText value={row.gasSystem} /> · {row.application}
+                    </div>
                   </div>
                   <BasisBadge tone={statusTone(row.curationStatus)}>{row.curationStatus}</BasisBadge>
                 </div>
@@ -629,7 +638,9 @@ export function GasSepTab({ onNavigate, onOpenComparisonBuilder }) {
                 <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "flex-start" }}>
                   <div>
                     <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 900 }}>{record.mofName}</div>
-                    <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.5, marginTop: 3 }}>{displayGas(record.gasSystem)} · {record.application}</div>
+                    <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.5, marginTop: 3 }}>
+                      <GasFormulaText value={record.gasSystem} /> · {record.application}
+                    </div>
                   </div>
                   <BasisBadge tone={statusTone(record.overallEvidenceLevel)}>{record.overallEvidenceLevel}</BasisBadge>
                 </div>
@@ -675,7 +686,7 @@ export function GasSepTab({ onNavigate, onOpenComparisonBuilder }) {
                         sourceRecordId: record.id || record.recordId,
                         candidateName: record.mofName,
                         conditionContext: firstSel ? {
-                          gasPair: displayGas(record.gasSystem),
+                          gasPair: record.gasSystem,
                           feedRatio: firstSel.feedRatio,
                           temperature: `${firstSel.temperatureK} K`,
                           pressure: pressureText(firstSel, zh),

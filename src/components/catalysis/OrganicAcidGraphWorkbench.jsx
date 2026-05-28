@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
-import { fetchDataJson, useViewport } from "../../shared"
+import { ChemicalFormula, fetchDataJson, useViewport } from "../../shared"
 import { ORGANIC_ACID_FONT, organicAcidPalette as palette } from "./FormulaInline"
 import { GraphEdgeDetailPanel } from "./GraphEdgeDetailPanel"
 import { GraphEvidencePanel } from "./GraphEvidencePanel"
@@ -146,7 +146,11 @@ export function OrganicAcidGraphWorkbench({
           {text(lang, "有机酸碳流图论路径工作台", "Organic acid carbon-flow graph workbench")}
         </h2>
         <p style={{ color: palette.muted, fontSize: 13, lineHeight: 1.6, margin: 0, maxWidth: 1000 }}>
-          {text(lang, "基于葡萄糖 / NaHCO₃ 协同转甲酸和副产物路径的候选网络，将节点、边、路径权重、MOF 调控和验证状态组织为可点击工作台。", "A candidate network for synergistic glucose / NaHCO3 conversion to formate and by-products, organized as clickable nodes, edges, pathway weights, MOF regulation, and validation status.")}
+          {lang === "zh" ? (
+            <>基于葡萄糖 / <ChemicalFormula value="NaHCO3" /> 协同转甲酸和副产物路径的候选网络，将节点、边、路径权重、MOF 调控和验证状态组织为可点击工作台。</>
+          ) : (
+            <>A candidate network for synergistic glucose / <ChemicalFormula value="NaHCO3" /> conversion to formate and by-products, organized as clickable nodes, edges, pathway weights, MOF regulation, and validation status.</>
+          )}
         </p>
       </header>
 

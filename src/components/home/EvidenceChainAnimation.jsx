@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { BrandMotif, LogoMark } from "../brand"
+import { ChemicalText } from "../../shared"
 
 const CHAIN_NODES = [
   { label: "CO2 uptake", zhLabel: "CO2 吸附量", sublabel: "field", zhSublabel: "字段" },
@@ -92,7 +93,7 @@ export function EvidenceChainAnimation({ fields, t, isMobile, lang = "en" }) {
             position: "relative",
           }}>
             <div style={{ color: index === 0 ? t.accentText : t.textStrong, fontSize: 12, fontWeight: 900, lineHeight: 1.3 }}>
-              {zh ? node.zhLabel : node.label}
+              <ChemicalText value={zh ? node.zhLabel : node.label} />
             </div>
             <div style={{ color: t.faint, fontSize: 10.2, lineHeight: 1.35 }}>
               {zh ? node.zhSublabel : node.sublabel}

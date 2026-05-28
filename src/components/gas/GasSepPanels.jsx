@@ -2,7 +2,7 @@ import {
   CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Scatter, ScatterChart,
   Tooltip, XAxis, YAxis, ZAxis,
 } from "recharts"
-import { BasisBadge, Callout, SectionTitle, SCIENTIFIC_TOKEN_FONT, chemText } from "../../shared"
+import { BasisBadge, Callout, SectionTitle, SCIENTIFIC_TOKEN_FONT, chemText, ChemicalFormula } from "../../shared"
 
 export const GAS_CHART_COLORS = ["#69A7DD", "#F59E0B", "#34D399", "#C084FC", "#F87171", "#94A3B8"]
 
@@ -12,6 +12,10 @@ function text(lang, zh, en) {
 
 export function displayGasFormula(value = "") {
   return chemText(value)
+}
+
+export function GasFormula({ value, style }) {
+  return <ChemicalFormula value={value} style={style} />
 }
 
 function conditionText(item, lang) {
@@ -93,7 +97,7 @@ function SelectivityTooltip({ active, payload, label, t, lang }) {
         return (
           <div key={item.dataKey} style={{ color: item.color, fontSize: 11, lineHeight: 1.5, marginTop: 6, fontFamily: SCIENTIFIC_TOKEN_FONT }}>
             <strong>{chemText(item.dataKey)}</strong>: {item.value}
-            <div style={{ color: t.subtle }}>{displayGasFormula(meta.gasSystem)} · {conditionText(meta, lang)} · {meta.sourceLocation}</div>
+            <div style={{ color: t.subtle }}><GasFormula value={meta.gasSystem} /> · {conditionText(meta, lang)} · {meta.sourceLocation}</div>
           </div>
         )
       })}
@@ -138,7 +142,7 @@ function ScatterTooltip({ active, payload, t, lang }) {
     <div style={{ background: t.tooltipBg, border: `1px solid ${t.border}`, borderRadius: 8, padding: "9px 11px", maxWidth: 310 }}>
       <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900 }}>{point.mofName}</div>
       <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55, marginTop: 5, fontFamily: SCIENTIFIC_TOKEN_FONT }}>
-        {displayGasFormula(point.gasSystem)} · {point.feedRatio} · {point.temperatureK} K · {point.pressureKPa} kPa · {point.method}
+        <GasFormula value={point.gasSystem} /> · {point.feedRatio} · {point.temperatureK} K · {point.pressureKPa} kPa · {point.method}
       </div>
       <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.55, marginTop: 5 }}>
         {text(lang, "吸附量", "Uptake")}: {point.uptake ?? "—"} {point.uptakeUnit || ""}<br />

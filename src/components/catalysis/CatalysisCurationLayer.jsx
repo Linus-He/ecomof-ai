@@ -1,9 +1,9 @@
-import { BasisBadge, DisclaimerLink } from "../../shared"
+import { BasisBadge, ChemicalText, DisclaimerLink } from "../../shared"
 
 function Card({ title, children, t, accent = false }) {
   return (
     <div style={{ background: accent ? t.badgeInfoBg : t.panel, border: `1px solid ${accent ? (t.borderStrong || t.border) : t.border}`, borderRadius: 12, padding: 14 }}>
-      <div style={{ color: accent ? t.accentText : t.textStrong, fontSize: 14, fontWeight: 900, lineHeight: 1.3 }}>{title}</div>
+      <div style={{ color: accent ? t.accentText : t.textStrong, fontSize: 14, fontWeight: 900, lineHeight: 1.3 }}><ChemicalText value={title} /></div>
       <div style={{ marginTop: 10 }}>{children}</div>
     </div>
   )

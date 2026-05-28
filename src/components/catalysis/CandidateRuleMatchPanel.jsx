@@ -1,5 +1,6 @@
 import { useMemo } from "react"
 import { useLang, useT, useViewport } from "../../contexts"
+import { ChemicalText } from "../../shared"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -24,7 +25,7 @@ function curationTasks(candidate, lang) {
   }
   return [
     text(lang, "查询水稳定性文献。", "Curate water-stability literature."),
-    text(lang, "查询 HCOO⁻ / HCO₃⁻ 吸附或结合证据。", "Curate HCOO⁻ / HCO₃⁻ adsorption or binding evidence."),
+    text(lang, "查询 HCOO- / HCO3- 吸附或结合证据。", "Curate HCOO- / HCO3- adsorption or binding evidence."),
     text(lang, "若进入实验，记录产物分布和反应后 MOF 稳定性。", "If tested, record product distribution and post-reaction MOF stability."),
   ]
 }
@@ -137,7 +138,7 @@ export function CandidateRuleMatchPanel({
             </span>
             <div style={{ borderTop: `1px solid ${t.border}`, display: "grid", gap: 5, marginTop: 4, paddingTop: 8 }}>
               <strong style={{ color: t.textStrong }}>{text(lang, "建议整理", "Suggested curation")}</strong>
-              {curationTasks(selectedCandidate, lang).map(task => <span key={task}>{safeText(task)}</span>)}
+              {curationTasks(selectedCandidate, lang).map(task => <span key={task}><ChemicalText value={safeText(task)} /></span>)}
             </div>
           </div>
         ) : (

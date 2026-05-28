@@ -11,6 +11,7 @@ import { toolbarBtn } from "../../utils/styles"
 import { buildDeepLink } from "../../utils/deepLinks"
 import { GraphDescriptorPanel } from "../mof/GraphDescriptorPanel"
 import { OrganicAcidRelevancePanel } from "../mof/OrganicAcidRelevancePanel"
+import { ChemicalFormula as ChemicalFormulaText } from "../common/ChemicalFormula"
 
 export const ECOMOF_LOGO_SRC = "/ecomof-ai/ecomof-logo.png"
 
@@ -50,11 +51,7 @@ export function ScientificText({ children, as: Tag = "span", style }) {
 }
 
 export function ChemFormula({ children, value, style }) {
-  return (
-    <span style={{ fontFamily: SCIENTIFIC_TOKEN_FONT, ...style }}>
-      {chemText(value ?? children)}
-    </span>
-  )
+  return <ChemicalFormulaText value={value ?? children} style={style} />
 }
 
 export function BlockFormula({ math, fallback, t: tone, style }) {

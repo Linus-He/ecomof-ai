@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
-import { fetchDataJson, useViewport } from "../../shared"
+import { ChemicalFormula, fetchDataJson, useViewport } from "../../shared"
 import { ORGANIC_ACID_FONT, SCIENTIFIC_TOKEN_FONT, organicAcidPalette as palette } from "./FormulaInline"
 import { CandidateCurationQueue } from "./CandidateCurationQueue"
 import { CandidatePriorityMatrix } from "./CandidatePriorityMatrix"
@@ -130,7 +130,7 @@ export function CandidatePrioritizationWorkspace({ lang, selectedCandidateId: ex
         <SummaryTile label={text(lang, "候选物总数", "Candidates")} value={summary.total} />
         <SummaryTile label={text(lang, "高优先级候选物", "High priority")} value={summary.high} />
         <SummaryTile label={text(lang, "需要整理", "Need review")} value={summary.needReview} />
-        <SummaryTile label={text(lang, "命中 HCO₃⁻ 活化规则", "Match HCO3 activation")} value={summary.hco3} />
+        <SummaryTile label={lang === "zh" ? <>命中 <ChemicalFormula value="HCO3-" /> 活化规则</> : <>Match <ChemicalFormula value="HCO3-" /> activation</>} value={summary.hco3} />
         <SummaryTile label={text(lang, "平均证据完整度", "Avg evidence completeness")} value={pct(summary.avg)} />
       </div>
 

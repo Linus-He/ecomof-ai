@@ -1,4 +1,5 @@
 import { ORGANIC_ACID_FONT, organicAcidPalette as palette } from "./FormulaInline"
+import { ChemicalText } from "../../shared"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -38,7 +39,7 @@ export function PathwayFilterBar({ activeFilter, onChange, lang }) {
               whiteSpace: "nowrap",
             }}
           >
-            {text(lang, filter.labelZh, filter.label)}
+            <ChemicalText value={text(lang, filter.labelZh, filter.label)} />
           </button>
         )
       })}

@@ -28,6 +28,35 @@ img, svg, canvas, video {
   max-width: 100%;
 }
 
+.chemical-formula {
+  font-family: "Times New Roman", "STIX Two Text", Times, serif;
+  font-variant-numeric: lining-nums;
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+}
+
+.chemical-formula sub,
+.chemical-formula sup {
+  font-size: 0.68em;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.chemical-formula sub {
+  bottom: -0.24em;
+}
+
+.chemical-formula sup {
+  top: -0.44em;
+}
+
+.chemical-formula-separator {
+  color: currentColor;
+  opacity: 0.72;
+  padding: 0 0.12em;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: #F1F5F9; }

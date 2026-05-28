@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { FONT_MONO } from "../../constants/theme"
 import { useLang, useT, useViewport } from "../../contexts"
 import { getOrganicAcidExperimentRecords } from "../../services/dataService"
+import { ChemicalText } from "../common/ChemicalFormula"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -15,8 +16,8 @@ function InfoCard({ title, body, t, tone = "normal" }) {
   const warning = tone === "warning"
   return (
     <article style={{ background: warning ? t.badgeWarnBg : t.surface, border: `1px solid ${warning ? t.warn : t.border}`, borderRadius: 8, minWidth: 0, padding: 11 }}>
-      <div style={{ color: warning ? t.badgeWarnText : t.textStrong, fontSize: 12.5, fontWeight: 900, lineHeight: 1.35 }}>{title}</div>
-      <div style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.6, marginTop: 6 }}>{body}</div>
+      <div style={{ color: warning ? t.badgeWarnText : t.textStrong, fontSize: 12.5, fontWeight: 900, lineHeight: 1.35 }}><ChemicalText value={title} /></div>
+      <div style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.6, marginTop: 6 }}><ChemicalText value={body} /></div>
     </article>
   )
 }
@@ -99,11 +100,11 @@ export function OrganicAcidExperimentFeedbackPanel({ records: providedRecords, l
           {text(lang, "待回填实验数据结构", "Organic Acid Experimental Feedback Schema")}
         </h2>
         <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.6, margin: 0, maxWidth: 920 }}>
-          {text(
+          <ChemicalText value={text(
             lang,
             "该模块用于后续接入合作实验数据，包括反应条件、产物分布、反应后 MOF 稳定性、HCO₃⁻ 浓度响应、HCOO⁻ / 甲酸盐相关证据和证据可信度。当前状态：等待合作实验数据回填。",
             "This module is prepared for collaboration experiment data: reaction conditions, product distribution, post-reaction MOF stability, HCO₃⁻ response, HCOO⁻/formate evidence, and evidence confidence. Current status: pending collaboration experiment data."
-          )}
+          )} />
         </p>
       </div>
 

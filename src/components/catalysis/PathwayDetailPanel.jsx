@@ -1,4 +1,5 @@
 import { SCIENTIFIC_TOKEN_FONT, organicAcidPalette as palette } from "./FormulaInline"
+import { ChemicalText } from "../../shared"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 const pct = value => `${Math.round(Math.max(0, Math.min(1, Number(value) || 0)) * 100)}%`
@@ -9,7 +10,7 @@ function Tags({ values }) {
     <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
       {values.map(value => (
         <span key={value} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 999, color: palette.muted, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11.5, padding: "4px 7px" }}>
-          {value}
+          <ChemicalText value={value} />
         </span>
       ))}
     </div>

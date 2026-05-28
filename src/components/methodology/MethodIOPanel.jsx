@@ -1,11 +1,11 @@
-import { SCIENTIFIC_TOKEN_FONT, chemText } from "../../shared"
+import { ChemicalText, SCIENTIFIC_TOKEN_FONT } from "../../shared"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
 function Pill({ children, t }) {
   return (
     <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, color: t.textStrong, display: "inline-flex", fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11, fontWeight: 780, lineHeight: 1.2, padding: "5px 8px" }}>
-      {chemText(children)}
+      <ChemicalText value={children} />
     </span>
   )
 }

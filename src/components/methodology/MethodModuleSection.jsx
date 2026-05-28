@@ -1,4 +1,4 @@
-import { BasisBadge, SCIENTIFIC_TOKEN_FONT, chemText } from "../../shared"
+import { BasisBadge, ChemicalText, SCIENTIFIC_TOKEN_FONT } from "../../shared"
 import { MethodAlgorithmStepper } from "./MethodAlgorithmStepper"
 import { MethodEvidenceBoundary } from "./MethodEvidenceBoundary"
 import { MethodFormulaCard } from "./MethodFormulaCard"
@@ -12,7 +12,7 @@ function BadgeList({ rows = [], t }) {
     <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
       {rows.map(row => (
         <span key={row} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, color: t.textStrong, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11, fontWeight: 760, lineHeight: 1.2, padding: "5px 8px" }}>
-          {chemText(row)}
+          <ChemicalText value={row} />
         </span>
       ))}
     </div>
@@ -43,7 +43,7 @@ function MethodSummaryCard({ item, lang, t }) {
       {example ? (
         <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 5, padding: 10 }}>
           <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, example.titleZh, example.title)}</strong>
-          <span style={{ color: t.muted, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 12.5, lineHeight: 1.45 }}>{chemText(text(lang, example.bodyZh, example.body))}</span>
+          <span style={{ color: t.muted, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 12.5, lineHeight: 1.45 }}><ChemicalText value={text(lang, example.bodyZh, example.body)} /></span>
         </div>
       ) : null}
     </article>

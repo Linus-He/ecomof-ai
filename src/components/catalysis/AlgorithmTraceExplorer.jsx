@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react"
-import { useLang, useViewport } from "../../shared"
+import { ChemicalText, useLang, useViewport } from "../../shared"
 import { safeNumber } from "../../utils/rgfaScore"
 import {
   NumericText,
@@ -107,7 +107,7 @@ function StepDetails({ step, candidate, lang }) {
   const detailRows = {
     descriptor: [
       ["matched descriptors", candidate?.trace?.inputCompleteness ? `${candidate.trace.inputCompleteness.availableFields}/${candidate.trace.inputCompleteness.totalFields}` : "descriptor support pending"],
-      ["missing fields", candidate?.organicAcidRelevance?.missingFields?.join?.(", ") || "Eads(HCO₃⁻), formate desorption, post-reaction stability where absent"],
+      ["missing fields", candidate?.organicAcidRelevance?.missingFields?.join?.(", ") || "Eads(HCO3-), formate desorption, post-reaction stability where absent"],
     ],
     rules: [
       ["matched rules", roles(candidate).map(role => role.relatedRuleId).filter(Boolean).join(", ") || "pending"],
@@ -131,7 +131,7 @@ function StepDetails({ step, candidate, lang }) {
       {(detailRows[step.id] || []).map(([label, value]) => (
         <div key={label} style={{ display: "grid", gap: 3 }}>
           <span style={{ color: palette.faint, fontSize: 10.5, fontWeight: 850 }}>{label}</span>
-          <span style={{ color: palette.muted, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 12, lineHeight: 1.45 }}>{value}</span>
+          <span style={{ color: palette.muted, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 12, lineHeight: 1.45 }}><ChemicalText value={value} /></span>
         </div>
       ))}
     </div>
@@ -218,7 +218,7 @@ export function AlgorithmTraceExplorer({
             </div>
           </div>
         </div>
-        <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.55 }}>{traceSummary}</div>
+        <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.55 }}><ChemicalText value={traceSummary} /></div>
       </div>
 
       <div style={{ display: "grid", gap: 8 }}>

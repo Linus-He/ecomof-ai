@@ -66,6 +66,53 @@ function edgeDash(edge) {
   return "7 5"
 }
 
+function formulaAscii(value = "") {
+  return String(value)
+    .replace(/HCO₃⁻/g, "HCO3-")
+    .replace(/CO₂/g, "CO2")
+    .replace(/CH₄/g, "CH4")
+    .replace(/N₂/g, "N2")
+    .replace(/C₂H₂/g, "C2H2")
+    .replace(/C₂H₄/g, "C2H4")
+    .replace(/NaH¹³CO₃/g, "NaH13CO3")
+}
+
+function SvgFormulaText({ value, x, y, color, size, weight, anchor = "middle" }) {
+  const raw = formulaAscii(value)
+  const chemicalLike = /^[A-Za-z0-9+\-/\s]+$/.test(raw) && /[A-Z]/.test(raw)
+  if (!chemicalLike) {
+    return <text x={x} y={y} fill={color} fontFamily={SCIENTIFIC_TOKEN_FONT} fontSize={size} fontWeight={weight} textAnchor={anchor}>{value}</text>
+  }
+  const parts = raw.split(/\s*\/\s*/).filter(Boolean)
+  const tokens = []
+  parts.forEach((part, partIndex) => {
+    if (partIndex > 0) tokens.push({ text: " / " })
+    let body = part
+    let charge = ""
+    if (/[+-]$/.test(body)) {
+      const sign = body.slice(-1)
+      body = body.slice(0, -1)
+      charge = sign === "-" ? "−" : "+"
+    }
+    const matches = [...body.matchAll(/([A-Z][a-z]?)(\d*)/g)]
+    if (!matches.length) tokens.push({ text: body })
+    matches.forEach(match => {
+      tokens.push({ text: match[1] })
+      if (match[2]) tokens.push({ text: match[2], type: "sub" })
+    })
+    if (charge) tokens.push({ text: charge, type: "sup" })
+  })
+  return (
+    <text x={x} y={y} fill={color} fontFamily={SCIENTIFIC_TOKEN_FONT} fontSize={size} fontWeight={weight} textAnchor={anchor}>
+      {tokens.map((token, index) => (
+        <tspan key={`${token.text}-${index}`} baselineShift={token.type === "sub" ? "-25%" : token.type === "sup" ? "42%" : "0"} fontSize={token.type ? Number(size) * 0.68 : size}>
+          {token.text}
+        </tspan>
+      ))}
+    </text>
+  )
+}
+
 export function ReactionNetworkGraph({
   nodes,
   edges,
@@ -165,12 +212,8 @@ export function ReactionNetworkGraph({
                 strokeDasharray={style.dash || ""}
                 strokeWidth={selected ? 3 : 1.6}
               />
-              <text x={box.x + box.w / 2} y={box.y + 23} fill={palette.text} fontFamily={SCIENTIFIC_TOKEN_FONT} fontSize="15" fontWeight="900" textAnchor="middle">
-                {text(lang, node.labelZh, node.label)?.split(" / ")[0]}
-              </text>
-              <text x={box.x + box.w / 2} y={box.y + 43} fill={palette.muted} fontFamily={SCIENTIFIC_TOKEN_FONT} fontSize="12" fontWeight="700" textAnchor="middle">
-                {text(lang, node.labelZh, node.label)?.split(" / ").slice(1).join(" / ") || node.role}
-              </text>
+              <SvgFormulaText x={box.x + box.w / 2} y={box.y + 23} color={palette.text} size="15" weight="900" value={text(lang, node.labelZh, node.label)?.split(" / ")[0]} />
+              <SvgFormulaText x={box.x + box.w / 2} y={box.y + 43} color={palette.muted} size="12" weight="700" value={text(lang, node.labelZh, node.label)?.split(" / ").slice(1).join(" / ") || node.role} />
             </g>
           )
         })}

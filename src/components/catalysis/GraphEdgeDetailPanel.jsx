@@ -1,4 +1,5 @@
 import { SCIENTIFIC_TOKEN_FONT, organicAcidPalette as palette } from "./FormulaInline"
+import { ChemicalText } from "../../shared"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 const pct = value => `${Math.round(Math.max(0, Math.min(1, Number(value) || 0)) * 100)}%`
@@ -23,7 +24,7 @@ function Tags({ values }) {
     <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
       {values.map(value => (
         <span key={value} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 999, color: palette.muted, fontSize: 11.5, padding: "4px 7px" }}>
-          {value}
+          <ChemicalText value={value} />
         </span>
       ))}
     </div>
@@ -41,9 +42,9 @@ export function GraphEdgeDetailPanel({ edge, nodesById, lang }) {
           {text(lang, "边详情", "Edge detail")}
         </div>
         <h3 style={{ color: palette.text, fontSize: 20, lineHeight: 1.15, margin: 0 }}>
-          <span style={{ fontFamily: SCIENTIFIC_TOKEN_FONT }}>{text(lang, source?.labelZh, source?.label)}</span>
+          <span style={{ fontFamily: SCIENTIFIC_TOKEN_FONT }}><ChemicalText value={text(lang, source?.labelZh, source?.label)} /></span>
           {" → "}
-          <span style={{ fontFamily: SCIENTIFIC_TOKEN_FONT }}>{text(lang, target?.labelZh, target?.label)}</span>
+          <span style={{ fontFamily: SCIENTIFIC_TOKEN_FONT }}><ChemicalText value={text(lang, target?.labelZh, target?.label)} /></span>
         </h3>
         <span style={{ color: palette.muted, fontSize: 12.5 }}>{text(lang, edge.labelZh, edge.label)}</span>
       </header>
