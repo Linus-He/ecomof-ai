@@ -66,13 +66,16 @@ function getInitialDeepLinkState() {
   const explicitHash = String(rawHash || "").replace(/^#/, "").trim()
   const hash = explicitHash || "default"
   const routeHash = hash === "default" ? "overview" : normalizeHash(hash)
-  const pendingScrollTarget = ["data-quality-provenance", "validation-evidence", "benchmark-references", "graph-informed-descriptor-integration", "organic-acid-graph-explorer", "methodology-gassep", "methodology-organic-acid"].includes(routeHash)
+  const pendingScrollTarget = (
+    routeHash.startsWith("methodology-") ||
+    ["data-quality-provenance", "validation-evidence", "benchmark-references", "graph-informed-descriptor-integration", "organic-acid-graph-explorer"].includes(routeHash)
+  )
     ? routeHash
     : null
 
   return {
     activeHash: hash,
-    activeTab: HASH_TO_TAB[routeHash] || "home",
+    activeTab: HASH_TO_TAB[routeHash] || (routeHash.startsWith("methodology-") ? "about" : "home"),
     pendingScrollTarget,
   }
 }
@@ -612,7 +615,7 @@ export default function App() {
     const explicitHash = String(rawHash || "").replace(/^#/, "").trim()
     const hash = explicitHash || "default"
     const routeHash = hash === "default" ? "overview" : normalizeHash(hash)
-    const tab = HASH_TO_TAB[routeHash]
+    const tab = HASH_TO_TAB[routeHash] || (routeHash.startsWith("methodology-") ? "about" : null)
 
     setActiveHash(hash)
     setContactOpen(routeHash === "contact")
@@ -635,6 +638,9 @@ export default function App() {
       }
       if (routeHash === "organic-acid-graph-explorer") {
         setPendingScrollTarget("organic-acid-graph-explorer")
+      }
+      if (routeHash.startsWith("methodology-")) {
+        setPendingScrollTarget(routeHash)
       }
     }
   }, [])

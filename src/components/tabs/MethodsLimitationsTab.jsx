@@ -1,32 +1,33 @@
 import { useEffect, useMemo, useState } from "react"
 import {
   BasisBadge,
+  BlockFormula,
   ChemFormula,
   CopyLinkButton,
-  FONT_MONO,
   PageHeader,
   SCIENTIFIC_TOKEN_FONT,
-  ScientificText,
   chemText,
   fetchDataJson,
   useLang,
   useT,
   useViewport,
 } from "../../shared"
+import { MethodologySidebar } from "../methodology/MethodologySidebar"
+import { MethodModuleSection } from "../methodology/MethodModuleSection"
 
-const NAV_ORDER = [
-  "home-platform",
+const MODULE_ORDER = [
+  "platform-overview",
   "ecoscreen",
+  "performance",
   "gassep",
   "catalysis-lab",
   "organic-acid",
   "mof-library",
-  "performance",
+  "shared-evidence",
+  "limitations-validation",
 ]
 
-function text(lang, zh, en) {
-  return lang === "zh" ? zh : en
-}
+const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
 function scrollToSection(id) {
   if (typeof document === "undefined") return
@@ -37,86 +38,122 @@ function scrollToSection(id) {
   }
 }
 
-function Pill({ children, t, tone = "info" }) {
-  const palette = {
-    info: { bg: t.badgeInfoBg, color: t.accentText, border: t.border },
-    warn: { bg: t.badgeWarnBg, color: t.warn, border: t.warn },
-    proxy: { bg: t.surface, color: t.subtle, border: t.border },
-  }[tone]
-  return (
-    <span style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 999, color: palette.color, display: "inline-flex", fontSize: 10.5, fontWeight: 850, lineHeight: 1.25, padding: "4px 8px" }}>
-      <ScientificText>{children}</ScientificText>
-    </span>
-  )
+function buildDirectory(modules, lang) {
+  const items = []
+  modules.forEach(module => {
+    items.push({
+      id: `methodology-${module.id}`,
+      label: module.module,
+      labelZh: module.moduleZh,
+      level: 1,
+      children: (module.methodGroups || []).slice(0, 3).map(group => ({
+        id: `methodology-${group.id}`,
+        label: group.title,
+        labelZh: group.titleZh,
+      })),
+    })
+    ;(module.methodGroups || []).forEach(group => {
+      const show =
+        module.id === "ecoscreen" ||
+        module.id === "gassep" ||
+        module.id === "organic-acid" ||
+        module.id === "shared-evidence" ||
+        module.id === "limitations-validation"
+      if (!show) return
+      items.push({
+        id: `methodology-${group.id}`,
+        label: group.title,
+        labelZh: group.titleZh,
+        level: 2,
+      })
+    })
+  })
+  return items.map(item => ({
+    ...item,
+    display: text(lang, item.labelZh, item.label),
+  }))
 }
 
-function SectionShell({ id, eyebrow, title, subtitle, children, t }) {
+function PlatformFlowCard({ lang, t, isMobile }) {
+  const steps = [
+    [text(lang, "Data source", "Data source"), text(lang, "整理文献 / 种子数据 / 显式演示数据", "curated literature / seed dataset / explicit demonstration data")],
+    [text(lang, "Descriptor / condition extraction", "Descriptor / condition extraction"), text(lang, "描述符、条件、路径规则、验证字段", "descriptors, conditions, pathway rules, validation fields")],
+    [text(lang, "Field-level provenance", "Field-level provenance"), text(lang, "来源、位置、证据类型、整理状态", "source, location, evidence type, curation status")],
+    [text(lang, "Task-specific scoring / comparison", "Task-specific scoring / comparison"), text(lang, "CRITIC、条件可比性、规则贡献", "CRITIC, condition comparability, rule contribution")],
+    [text(lang, "Candidate explanation", "Candidate explanation"), text(lang, "驱动因素、警告、验证缺口", "drivers, warnings, validation gaps")],
+  ]
   return (
-    <section id={id} className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 14, minWidth: 0, padding: 16, scrollMarginTop: 118 }}>
+    <section id="methodology-platform-flow" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 15 }}>
       <header style={{ display: "grid", gap: 5 }}>
-        <div style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{eyebrow}</div>
-        <h2 style={{ color: t.textStrong, fontSize: 21, fontWeight: 930, lineHeight: 1.18, margin: 0 }}>{title}</h2>
-        {subtitle ? <p style={{ color: t.subtle, fontSize: 12.5, lineHeight: 1.6, margin: 0, maxWidth: 900 }}>{subtitle}</p> : null}
+        <div style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>
+          {text(lang, "总方法流", "Platform method flow")}
+        </div>
+        <h2 style={{ color: t.textStrong, fontSize: 22, lineHeight: 1.15, margin: 0 }}>
+          {text(lang, "证据感知的决策支持原型", "Evidence-aware decision-support prototype")}
+        </h2>
+        <p style={{ color: t.muted, fontSize: 13, lineHeight: 1.6, margin: 0, maxWidth: 940 }}>
+          {text(
+            lang,
+            "EcoMOF-AI 不是黑箱排名工具；页面把数据来源、条件、字段级来源、证据状态、模块算法和验证路线放在同一解释链路中。",
+            "EcoMOF-AI is not a black-box ranking tool; the page connects data source, conditions, field-level provenance, evidence status, module algorithms, and validation roadmap in one explanation chain."
+          )}
+        </p>
       </header>
-      {children}
+      <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(5, minmax(0, 1fr))" }}>
+        {steps.map(([title, body], index) => (
+          <article key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 7, padding: 10 }}>
+            <span style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, color: t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 900, height: 24, justifyContent: "center", width: 24 }}>{index + 1}</span>
+            <strong style={{ color: t.textStrong, fontSize: 12.5, lineHeight: 1.3 }}>{title}</strong>
+            <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>{body}</span>
+          </article>
+        ))}
+      </div>
     </section>
   )
 }
 
-function MethodCard({ item, t, lang }) {
-  const zh = lang === "zh"
+function FormulaIndex({ lang, t }) {
+  const formulas = [
+    ["C_j = \\sigma_j \\times \\sum_{k=1}^{m}(1-r_{jk})", "C_j = sigma_j x sum(1-r_jk)", text(lang, "CRITIC 信息量", "CRITIC information content")],
+    ["w_j = \\frac{C_j}{\\sum_{j=1}^{m}C_j}", "w_j = C_j / sum(C_j)", text(lang, "CRITIC 权重", "CRITIC weight")],
+    ["D_{raw}=G\\times\\prod_{j=1}^{m}d_j^{w_j}", "D_raw = G x product(d_j ^ w_j)", text(lang, "候选综合评分", "Candidate score")],
+    ["D_{expected}=D_{raw}\\times Q", "D_expected = D_raw x Q", text(lang, "证据置信度修正", "Evidence confidence correction")],
+    ["\\mathrm{Comparable}=\\mathrm{same}(gasSystem, feedRatio, T, P, method)", "Comparable = same(gasSystem, feedRatio, T, P, method)", text(lang, "GasSep 可比性规则", "GasSep comparability rule")],
+    ["\\mathrm{Priority\\ Tier}=f(pathway\\ fit,\\ motif/rule\\ match,\\ evidence\\ support,\\ risk\\ penalty,\\ validation\\ gap)", "Priority Tier = f(pathway fit, motif/rule match, evidence support, risk penalty, validation gap)", text(lang, "Organic Acid 优先级逻辑", "Organic Acid priority logic")],
+  ]
   return (
-    <article id={`methodology-${item.id === "organic-acid" ? "organic-acid" : item.id}`} style={{ background: t.surface, border: `1px solid ${item.id === "gassep" || item.id === "organic-acid" ? t.accent : t.border}`, borderRadius: 10, display: "grid", gap: 10, minWidth: 0, padding: 13, scrollMarginTop: 118 }}>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
-        <div style={{ minWidth: 0 }}>
-          <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, item.moduleZh, item.module)}</div>
-          <h3 style={{ color: t.textStrong, fontSize: 16, fontWeight: 930, lineHeight: 1.25, margin: "4px 0 0" }}>{text(lang, item.titleZh, item.title)}</h3>
+    <section id="methodology-formula-index" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 15 }}>
+      <header style={{ display: "grid", gap: 4 }}>
+        <div style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>
+          {text(lang, "公式索引", "Formula index")}
         </div>
-        <BasisBadge tone={item.id === "gassep" || item.id === "organic-acid" ? "warn" : "info"}>
-          {item.id === "gassep" ? "GasSep" : item.id === "organic-acid" ? "Organic Acid" : "method"}
-        </BasisBadge>
-      </div>
-
-      <div style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58 }}>{text(lang, item.purposeZh, item.purpose)}</div>
-
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 9 }}>
-        {[
-          [text(lang, "输入", "Inputs"), zh ? item.inputsZh : item.inputs],
-          [text(lang, "输出", "Outputs"), zh ? item.outputsZh : item.outputs],
-          [text(lang, "证据类型", "Evidence types"), item.evidenceTypes],
-        ].map(([label, rows]) => (
-          <div key={label} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
-            <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900, marginBottom: 7 }}>{label}</div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
-              {(rows || []).map(row => <Pill key={row} t={t} tone="proxy">{chemText(row)}</Pill>)}
-            </div>
-          </div>
+        <h2 style={{ color: t.textStrong, fontSize: 20, lineHeight: 1.18, margin: 0 }}>
+          {text(lang, "跨模块算法公式", "Cross-module algorithms and formulas")}
+        </h2>
+      </header>
+      <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
+        {formulas.map(([math, fallback, label]) => (
+          <article key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 8, minWidth: 0, padding: 11 }}>
+            <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{label}</strong>
+            <BlockFormula math={math} fallback={fallback} t={t} />
+          </article>
         ))}
       </div>
-
-      <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 8, color: t.muted, fontSize: 12, lineHeight: 1.55, padding: 10 }}>
-        {((zh ? item.limitationsZh : item.limitations) || []).map(limit => <div key={limit}>{chemText(limit)}</div>)}
-      </div>
-    </article>
+    </section>
   )
 }
 
-function SharedComponents({ t, lang, isMobile }) {
+function MethodologyDataBoundary({ lang, t }) {
   const rows = [
-    ["Field-level provenance", "字段级来源", "sourceId / sourceLocation / evidenceType / curationStatus"],
-    ["Evidence level", "证据等级", "experimental / literature / simulation / rule-based / needs-validation"],
-    ["Condition key", "条件键", "gas system + feed ratio + temperature + pressure + method"],
-    ["Chemistry text", "化学文本", "CO₂ / CH₄ / N₂ / C₂H₂ / C₂H₄ / HCO₃⁻"],
+    text(lang, "demonstration / seed dataset：用于展示方法流程，不应作为最终科研结论。", "demonstration / seed dataset: used to show method flow and should not be treated as final scientific conclusions."),
+    text(lang, "curated literature：来自已整理文献，但仍需要条件、来源位置和证据等级语境。", "curated literature: sourced from curated literature but still requires condition, source location, and evidence-level context."),
+    text(lang, "reviewed record：已完成字段核查的记录，也仍需按任务条件判断可比性。", "reviewed record: field-reviewed data that still needs task-specific comparability checks."),
   ]
   return (
-    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
-      {rows.map(([en, zh, body]) => (
-        <article key={en} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, padding: 12 }}>
-          <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900 }}>{text(lang, zh, en)}</div>
-          <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.5, marginTop: 7, fontFamily: SCIENTIFIC_TOKEN_FONT }}>{chemText(body)}</div>
-        </article>
-      ))}
-    </div>
+    <section id="methodology-data-boundary" style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 12, display: "grid", gap: 8, padding: 14 }}>
+      <strong style={{ color: t.warn, fontSize: 13 }}>{text(lang, "全站证据边界", "Platform evidence boundary")}</strong>
+      {rows.map(row => <div key={row} style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.55 }}>{row}</div>)}
+    </section>
   )
 }
 
@@ -125,6 +162,7 @@ export function MethodsLimitationsTab() {
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
   const [modules, setModules] = useState([])
+  const [activeId, setActiveId] = useState("methodology-platform-overview")
 
   useEffect(() => {
     let active = true
@@ -141,17 +179,25 @@ export function MethodsLimitationsTab() {
 
   const orderedModules = useMemo(() => {
     const byId = new Map(modules.map(item => [item.id, item]))
-    return NAV_ORDER.map(id => byId.get(id)).filter(Boolean)
+    return MODULE_ORDER.map(id => byId.get(id)).filter(Boolean)
   }, [modules])
 
-  const sectionLinks = [
-    ["platform-method-overview", text(lang, "平台总览", "Overview")],
-    ["module-method-index", text(lang, "模块索引", "Module Index")],
-    ["methods-by-module", text(lang, "按模块方法", "Methods by Module")],
-    ["shared-method-components", text(lang, "共享方法组件", "Shared Components")],
-    ["limitations", text(lang, "限制", "Limitations")],
-    ["future-validation-roadmap", text(lang, "未来验证", "Future Validation")],
-  ]
+  const directoryItems = useMemo(() => buildDirectory(orderedModules, lang), [orderedModules, lang])
+
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") return undefined
+    const ids = directoryItems.map(item => item.id)
+    const targets = ids.map(id => document.getElementById(id)).filter(Boolean)
+    if (!targets.length) return undefined
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries
+        .filter(entry => entry.isIntersecting)
+        .sort((a, b) => Math.abs(a.boundingClientRect.top) - Math.abs(b.boundingClientRect.top))[0]
+      if (visible?.target?.id) setActiveId(visible.target.id)
+    }, { rootMargin: "-120px 0px -58% 0px", threshold: [0, 0.2, 0.6] })
+    targets.forEach(target => observer.observe(target))
+    return () => observer.disconnect()
+  }, [directoryItems])
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}>
@@ -159,91 +205,52 @@ export function MethodsLimitationsTab() {
         title={text(lang, "方法与证据", "Methods & Evidence")}
         subtitle={text(
           lang,
-          "按 Web 菜单栏分类说明 EcoMOF-AI 各模块的方法、输入、输出、证据类型、限制与验证路线。",
-          "Methodology is organized by the web navigation: module purpose, inputs, outputs, evidence types, limitations, and validation roadmap."
+          "按网站菜单顺序组织全站方法论：模块目的、方法流程、算法公式、输入输出、可视化、证据边界、限制和验证路线。",
+          "A menu-aligned methods hub covering module purpose, workflow, algorithms, formulas, inputs, outputs, visualizations, evidence boundaries, limitations, and validation roadmap."
         )}
-        meta={text(lang, "platform overview · module methods · shared components · limitations", "platform overview · module methods · shared components · limitations")}
+        meta={text(lang, "科学方法中心 · 证据感知 · 决策支持原型", "scientific methods hub · evidence-aware · decision-support prototype")}
         action={
           <>
-            <BasisBadge tone="proxy">{text(lang, "决策支持，不是验证结论", "decision support, not validation")}</BasisBadge>
+            <BasisBadge tone="proxy">{text(lang, "不是验证排名", "not validated ranking")}</BasisBadge>
             <CopyLinkButton hash="methodology" ariaLabel={text(lang, "复制方法论链接", "Copy methodology link")} />
           </>
         }
       />
 
-      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "230px minmax(0, 1fr)", gap: 16, alignItems: "start" }}>
-        <aside style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, maxHeight: isNarrow ? "none" : "calc(100vh - 120px)", overflow: "auto", padding: 10, position: isNarrow ? "static" : "sticky", top: 92 }}>
-          <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, marginBottom: 8, textTransform: "uppercase" }}>{text(lang, "页面结构", "Contents")}</div>
-          <nav style={{ display: isMobile ? "flex" : "grid", gap: 6, overflowX: isMobile ? "auto" : "visible" }}>
-            {[...sectionLinks, ["methodology-gassep", "GasSep"], ["methodology-organic-acid", "Organic Acid"]].map(([id, label]) => (
-              <button key={id} type="button" onClick={() => scrollToSection(id)} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.accentText, cursor: "pointer", fontFamily: FONT_MONO, fontSize: 11, fontWeight: 820, padding: "7px 8px", textAlign: "left", whiteSpace: "nowrap" }}>
-                {label}
-              </button>
-            ))}
-          </nav>
-        </aside>
+      <div style={{ display: "grid", gap: 16, gridTemplateColumns: isNarrow ? "1fr" : "270px minmax(0, 1fr)", alignItems: "start" }}>
+        <MethodologySidebar
+          items={directoryItems}
+          activeId={activeId}
+          onJump={scrollToSection}
+          lang={lang}
+          t={t}
+          isMobile={isMobile || isNarrow}
+        />
 
         <main style={{ display: "grid", gap: 16, minWidth: 0 }}>
-          <SectionShell id="platform-method-overview" eyebrow="01" title={text(lang, "Platform Method Overview", "Platform Method Overview")} subtitle={text(lang, "先总览，再进入各模块方法。所有结果都按证据状态和使用边界解释。", "Overview first, then module-level methods. Every output is read with evidence status and usage boundaries.")} t={t}>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
-              {[
-                [text(lang, "数据来源", "Data sources"), text(lang, "静态 JSON、Open MOF Seed、demo records 与字段级来源。", "Static JSON, Open MOF Seed, demo records, and field-level provenance.")],
-                [text(lang, "解释方式", "Interpretation"), text(lang, "候选优先级和证据提示，不输出验证级结论。", "Candidate priority and evidence cues, not validated conclusions.")],
-                [text(lang, "化学文本", "Chemistry text"), <span key="chem"><ChemFormula>CO2</ChemFormula> / <ChemFormula>CH4</ChemFormula> / <ChemFormula>N2</ChemFormula> / <ChemFormula>HCO3-</ChemFormula></span>],
-              ].map(([title, body]) => (
-                <article key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, padding: 12 }}>
-                  <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900 }}>{title}</div>
-                  <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55, marginTop: 7 }}>{body}</div>
-                </article>
-              ))}
+          <section id="methodology-platform-overview" style={{ display: "grid", gap: 16, scrollMarginTop: 118 }}>
+            <PlatformFlowCard lang={lang} t={t} isMobile={isMobile} />
+            <FormulaIndex lang={lang} t={t} />
+            <MethodologyDataBoundary lang={lang} t={t} />
+            <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12.5, lineHeight: 1.55, padding: 11 }}>
+              <span style={{ color: t.textStrong, fontWeight: 900 }}>{text(lang, "化学式与科学 token：", "Chemistry and scientific tokens: ")}</span>
+              <span style={{ fontFamily: SCIENTIFIC_TOKEN_FONT }}>
+                {chemText("CO2 / CH4 / N2 / C2H2 / C2H4 / HCO3-")}
+              </span>
+              {" · "}
+              <ChemFormula>CO2</ChemFormula>
+              {" / "}
+              <ChemFormula>CH4</ChemFormula>
+              {" / "}
+              <ChemFormula>N2</ChemFormula>
             </div>
-          </SectionShell>
+          </section>
 
-          <SectionShell id="module-method-index" eyebrow="02" title={text(lang, "Module Method Index", "Module Method Index")} subtitle={text(lang, "顺序与 Web 菜单栏保持一致。", "Order follows the web navigation.")} t={t}>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
-              {orderedModules.map(item => (
-                <button key={item.id} type="button" onClick={() => scrollToSection(`methodology-${item.id === "organic-acid" ? "organic-acid" : item.id}`)} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", display: "grid", gap: 4, padding: 10, textAlign: "left" }}>
-                  <span style={{ color: t.accentText, fontFamily: FONT_MONO, fontSize: 11, fontWeight: 900 }}>{String(item.navOrder).padStart(2, "0")}</span>
-                  <span style={{ fontSize: 12.5, fontWeight: 900 }}>{text(lang, item.moduleZh, item.module)}</span>
-                </button>
-              ))}
-            </div>
-          </SectionShell>
-
-          <SectionShell id="methods-by-module" eyebrow="03" title={text(lang, "Methods by Module", "Methods by Module")} subtitle={text(lang, "每个模块统一列出 purpose、inputs、outputs、evidence types 与 limitations。", "Each module lists purpose, inputs, outputs, evidence types, and limitations.")} t={t}>
-            <div style={{ display: "grid", gap: 12 }}>
-              {orderedModules.map(item => <MethodCard key={item.id} item={item} t={t} lang={lang} />)}
-            </div>
-          </SectionShell>
-
-          <SectionShell id="shared-method-components" eyebrow="04" title={text(lang, "Shared Method Components", "Shared Method Components")} subtitle={text(lang, "跨页面复用的条件键、证据状态、字段级来源和化学文本处理。", "Reusable condition keys, evidence status, field provenance, and chemistry text formatting.")} t={t}>
-            <SharedComponents t={t} lang={lang} isMobile={isMobile} />
-          </SectionShell>
-
-          <SectionShell id="limitations" eyebrow="05" title={text(lang, "Limitations", "Limitations")} subtitle={text(lang, "集中列出不能被误读为验证结论的边界。", "Central limits that prevent decision-support views from being read as validation.")} t={t}>
-            <div style={{ display: "grid", gap: 9 }}>
-              {[
-                text(lang, "GasSep 当前是 curated literature data，不是在线 IAST/GCMC。", "GasSep is curated literature data, not online IAST/GCMC."),
-                text(lang, "Organic Acid priority matrix 是决策支持视图，不是已经实验验证的真实排名。", "Organic Acid priority matrix is a decision-support view, not an experimentally validated ranking."),
-                text(lang, "Algorithm Trace Explorer 用于解释规则和证据贡献，不证明真实机理因果关系。", "Algorithm Trace Explorer explains rule and evidence contributions. It does not prove mechanistic causality."),
-              ].map(row => <div key={row} style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 8, color: t.muted, fontSize: 12.5, lineHeight: 1.55, padding: 10 }}>{row}</div>)}
-            </div>
-          </SectionShell>
-
-          <SectionShell id="future-validation-roadmap" eyebrow="06" title={text(lang, "Future Validation Roadmap", "Future Validation Roadmap")} subtitle={text(lang, "下一步应把文献整理、DFT、实验与字段级来源持续接入。", "Next steps should connect literature curation, DFT, experiments, and field-level provenance.")} t={t}>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
-              {[
-                [text(lang, "GasSep", "GasSep"), text(lang, "接入核验 DOI、原始等温线点和统一条件元数据。", "Add verified DOI, raw isotherm points, and normalized condition metadata.")],
-                [text(lang, "Organic Acid", "Organic Acid"), text(lang, "用投料实验、同位素示踪、DFT 与碳平衡更新规则权重。", "Use feeding tests, isotope tracing, DFT, and carbon balance to update rule weights.")],
-                [text(lang, "Platform", "Platform"), text(lang, "把字段级 provenance 扩展到每个研究级输出。", "Extend field-level provenance to each research-facing output.")],
-              ].map(([title, body]) => (
-                <article key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, padding: 12 }}>
-                  <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900 }}>{title}</div>
-                  <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55, marginTop: 7 }}>{body}</div>
-                </article>
-              ))}
-            </div>
-          </SectionShell>
+          {orderedModules.map(item => (
+            item.id === "platform-overview" ? null : (
+              <MethodModuleSection key={item.id} item={item} lang={lang} t={t} />
+            )
+          ))}
         </main>
       </div>
     </div>
