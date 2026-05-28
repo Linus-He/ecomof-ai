@@ -1,4 +1,5 @@
 export const ORGANIC_ACID_FONT = '"Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif'
+export const SCIENTIFIC_TOKEN_FONT = '"Times New Roman", Times, serif'
 
 export const organicAcidPalette = {
   bg: "#FFFFFF",
@@ -20,7 +21,7 @@ export const organicAcidPalette = {
 }
 
 export const numericTextStyle = {
-  fontFamily: ORGANIC_ACID_FONT,
+  fontFamily: SCIENTIFIC_TOKEN_FONT,
   fontVariantNumeric: "tabular-nums",
 }
 
@@ -44,7 +45,7 @@ export function FormulaInline({ children, size = 13, weight = 600, color = organ
         color,
         display: "flex",
         flexWrap: wrap ? "wrap" : "nowrap",
-        fontFamily: ORGANIC_ACID_FONT,
+        fontFamily: SCIENTIFIC_TOKEN_FONT,
         fontStyle: "normal",
         fontSize: size,
         fontVariantNumeric: "tabular-nums",
@@ -69,10 +70,10 @@ export function FormulaCard({ title, children }) {
 }
 
 export function ChemFormula({ kind }) {
-  if (kind === "sodiumBicarbonate") return <>NaHCO<Sub>3</Sub></>
-  if (kind === "water") return <>H<Sub>2</Sub>O</>
-  if (kind === "bicarbonate") return <>HCO<Sub>3</Sub><Sup>−</Sup></>
-  if (kind === "isotopeBicarbonate") return <>NaH<Sup>13</Sup>CO<Sub>3</Sub></>
+  if (kind === "sodiumBicarbonate") return <span style={{ fontFamily: SCIENTIFIC_TOKEN_FONT }}>NaHCO<Sub>3</Sub></span>
+  if (kind === "water") return <span style={{ fontFamily: SCIENTIFIC_TOKEN_FONT }}>H<Sub>2</Sub>O</span>
+  if (kind === "bicarbonate") return <span style={{ fontFamily: SCIENTIFIC_TOKEN_FONT }}>HCO<Sub>3</Sub><Sup>−</Sup></span>
+  if (kind === "isotopeBicarbonate") return <span style={{ fontFamily: SCIENTIFIC_TOKEN_FONT }}>NaH<Sup>13</Sup>CO<Sub>3</Sub></span>
   return null
 }
 

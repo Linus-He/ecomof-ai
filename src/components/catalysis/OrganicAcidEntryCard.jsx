@@ -14,7 +14,7 @@ export function OrganicAcidEntryCard({ lang, t, isMobile, onOpen }) {
         <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.55, margin: 0, maxWidth: 920 }}>
           {zh
             ? "进入有机酸路径工作台，查看前端访问入口、算法追踪器、路径显示图、图论网络分析、证据矩阵、优先级矩阵和候选物队列。"
-            : "Explore organic-acid-oriented CO2 conversion as an independent case workspace with access gate, algorithm tracing, pathway maps, graph reasoning, evidence matrices, and candidate prioritization."}
+            : "Explore organic-acid-oriented CO₂ conversion as an independent case workspace with access gate, algorithm tracing, pathway maps, graph reasoning, evidence matrices, and candidate prioritization."}
         </p>
       </div>
       <div style={{ alignItems: "center", display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) auto" }}>

@@ -463,7 +463,8 @@ export function OrganicAcidProject({ lang = "zh", t }) {
   const [selectedPathwayCandidateId, setSelectedPathwayCandidateId] = useState("")
   const [selectedRuleId, setSelectedRuleId] = useState(null)
   const [selectedPathwayNodeId, setSelectedPathwayNodeId] = useState(null)
-  const [activeTraceStep, setActiveTraceStep] = useState("raw")
+  const [selectedOrganicPathway, setSelectedOrganicPathway] = useState("formaldehyde")
+  const [activeTraceStep, setActiveTraceStep] = useState("descriptor")
 
   useEffect(() => {
     try {
@@ -567,6 +568,8 @@ export function OrganicAcidProject({ lang = "zh", t }) {
   const handleSelectPathwayCandidate = (candidateId) => {
     setSelectedPathwayCandidateId(candidateId)
     const candidate = candidateRows.find((row) => (row.id || row.name) === candidateId)
+    const displayName = candidate?.displayName || candidate?.commonName || candidate?.name || candidate?.mofName
+    if (displayName && rankedRows.some(row => row.mof === displayName)) setSelectedMof(displayName)
     const firstRole = candidate?.organicAcidRelevance?.possibleRoles?.[0]
     if (firstRole?.relatedRuleId) setSelectedRuleId(firstRole.relatedRuleId)
     if (firstRole?.relatedPathwayNode) setSelectedPathwayNodeId(firstRole.relatedPathwayNode)
@@ -604,6 +607,53 @@ export function OrganicAcidProject({ lang = "zh", t }) {
     <div className="organic-acid-page" style={{ background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 12, padding: isNarrow ? 12 : 16, fontFamily: ORGANIC_ACID_FONT }}>
       <div style={{ display: "grid", gap: 14, margin: "0 auto", maxWidth: 1220 }}>
         <ProjectObjectiveSection topCandidate={topCandidate} rankedRows={rankedRows} isNarrow={isNarrow} />
+        <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.muted, fontSize: 12.5, lineHeight: 1.55, padding: 11 }}>
+          {lang === "zh"
+            ? "有机酸转化是 Catalysis Lab 中优先展示的子工作台，但不是催化模块的全部范围。"
+            : "Organic acid conversion is a prioritized sub-workspace within Catalysis Lab, not the full scope of catalysis."}
+        </div>
+        <div id="pathway-map" style={{ scrollMarginTop: 118 }}>
+          <OrganicAcidPathwayMap
+            lang={lang}
+            activePath={selectedOrganicPathway}
+            onSelectPathway={setSelectedOrganicPathway}
+            selectedNode={selectedPathwayNodeId}
+            onSelectNode={setSelectedPathwayNodeId}
+          />
+        </div>
+        <ReactionRuleExplorer
+          reactionRules={reactionRules}
+          evidenceItems={evidenceItems}
+          selectedCandidate={selectedPathwayCandidate}
+          selectedRuleId={selectedRuleId}
+          onSelectRule={setSelectedRuleId}
+          selectedPathwayNodeId={selectedPathwayNodeId}
+          onSelectPathwayNode={setSelectedPathwayNodeId}
+          selectedPathwayId={selectedOrganicPathway}
+          lang={lang}
+          t={t}
+        />
+        <div id="priority" style={{ scrollMarginTop: 118 }}>
+          <OrganicAcidCandidateMap
+            candidates={candidateRows}
+            selectedCandidateId={selectedPathwayCandidateId}
+            onSelectCandidate={handleSelectPathwayCandidate}
+            selectedPathwayId={selectedOrganicPathway}
+            lang={lang}
+            t={t}
+          />
+        </div>
+        <div id="algorithm" style={{ scrollMarginTop: 118 }}>
+          <AlgorithmTraceExplorer
+            rankedRows={rankedRows}
+            selectedMof={selectedMof}
+            setSelectedMof={setSelectedMof}
+            activeStep={activeTraceStep}
+            onActiveStepChange={setActiveTraceStep}
+            selectedCandidate={selectedPathwayCandidate}
+            selectedPathwayId={selectedOrganicPathway}
+          />
+        </div>
         <CompactDataModeBar
           value={candidateDataMode}
           onChange={mode => {
@@ -611,6 +661,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
             setSelectedPathwayCandidateId("")
             setSelectedRuleId(null)
             setSelectedPathwayNodeId(null)
+            setSelectedOrganicPathway("formaldehyde")
           }}
           lang={lang}
           recordsCount={candidateRows.length}
@@ -647,26 +698,6 @@ export function OrganicAcidProject({ lang = "zh", t }) {
           selectedPathwayNodeId={selectedPathwayNodeId}
           onSelectPathwayNode={setSelectedPathwayNodeId}
         />
-        <ReactionRuleExplorer
-          reactionRules={reactionRules}
-          evidenceItems={evidenceItems}
-          selectedCandidate={selectedPathwayCandidate}
-          selectedRuleId={selectedRuleId}
-          onSelectRule={setSelectedRuleId}
-          selectedPathwayNodeId={selectedPathwayNodeId}
-          onSelectPathwayNode={setSelectedPathwayNodeId}
-          lang={lang}
-          t={t}
-        />
-        <div id="priority" style={{ scrollMarginTop: 118 }}>
-          <OrganicAcidCandidateMap
-            candidates={candidateRows}
-            selectedCandidateId={selectedPathwayCandidateId}
-            onSelectCandidate={handleSelectPathwayCandidate}
-            lang={lang}
-            t={t}
-          />
-        </div>
         <div id="candidates" style={{ display: "grid", gap: 14, scrollMarginTop: 118 }}>
           <CandidateRuleMatchPanel
             selectedCandidate={selectedPathwayCandidate}
@@ -685,18 +716,6 @@ export function OrganicAcidProject({ lang = "zh", t }) {
           t={t}
         />
         <OrganicAcidExperimentFeedbackPanel records={summaryData.experiments} lang={lang} t={t} />
-        <div id="pathway-map" style={{ scrollMarginTop: 118 }}>
-          <OrganicAcidPathwayMap lang={lang} />
-        </div>
-        <div id="algorithm" style={{ scrollMarginTop: 118 }}>
-          <AlgorithmTraceExplorer
-            rankedRows={rankedRows}
-            selectedMof={selectedMof}
-            setSelectedMof={setSelectedMof}
-            activeStep={activeTraceStep}
-            onActiveStepChange={setActiveTraceStep}
-          />
-        </div>
         {status === "error" ? (
           <div style={{ background: palette.riskSoft, border: `1px solid ${palette.border}`, borderRadius: 12, color: palette.risk, fontSize: 12.5, fontWeight: 700, padding: 12 }}>
             Demo dataset could not be loaded from public/data/organic_acid_project_demo.json.

@@ -15,21 +15,35 @@ import { formatScore, pct } from "./evidenceScoring"
 const categoryColors = {
   "Organic acid formation": "#2563eb",
   "Hydrogenation": "#15803d",
-  "Electrochemical CO2 conversion": "#be123c",
+  "Electrochemical CO₂ conversion": "#be123c",
   "Biomass-assisted conversion": "#64748b",
   "Cyclic carbonate formation": "#0f766e",
   "Photocatalytic conversion": "#7c3aed",
-  "CO2 to formate": "#2563eb",
-  "CO2 to acetate": "#0f766e",
-  "CO2 to lactate": "#b45309",
-  "CO2 to glycolate": "#7c3aed",
-  "CO2 hydrogenation": "#15803d",
-  "Electrochemical CO2 reduction": "#be123c",
-  "Biomass-assisted CO2 conversion": "#64748b",
+  "CO₂ to formate": "#2563eb",
+  "CO₂ to acetate": "#0f766e",
+  "CO₂ to lactate": "#b45309",
+  "CO₂ to glycolate": "#7c3aed",
+  "CO₂ hydrogenation": "#15803d",
+  "Electrochemical CO₂ reduction": "#be123c",
+  "Biomass-assisted CO₂ conversion": "#64748b",
 }
 
 function safeLabel(value, fallback = "unknown") {
   return value || fallback
+}
+
+function displayChemLabel(value) {
+  return safeLabel(value)
+    .replace(/CO2/g, "CO₂")
+    .replace(/CH4/g, "CH₄")
+    .replace(/N2/g, "N₂")
+    .replace(/C2H2/g, "C₂H₂")
+    .replace(/C2H4/g, "C₂H₄")
+    .replace(/HCO3[−-]/g, "HCO₃⁻")
+}
+
+function categoryColor(value, t) {
+  return categoryColors[displayChemLabel(value)] || categoryColors[value] || t.accent
 }
 
 function FilterSelect({ label, value, options, onChange, t }) {
@@ -64,9 +78,9 @@ function TooltipBody({ active, payload, t, lang }) {
   const zh = lang === "zh"
   return (
     <div style={{ background: t.tooltipBg, border: `1px solid ${t.border}`, borderRadius: 10, maxWidth: 310, padding: 11, whiteSpace: "normal" }}>
-      <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900, lineHeight: 1.35 }}>{safeLabel(row.pathwayName)}</div>
+      <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900, lineHeight: 1.35 }}>{displayChemLabel(row.pathwayName)}</div>
       <div style={{ color: t.faint, fontSize: 10.5, lineHeight: 1.35, marginTop: 4 }}>
-        {safeLabel(row.mainProduct)} · {safeLabel(row.catalyst)}
+        {displayChemLabel(row.mainProduct)} · {displayChemLabel(row.catalyst)}
       </div>
       <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55, marginTop: 7 }}>
         {zh ? "性能潜力" : "Performance potential"}: {formatScore(row.performancePotential)}<br />
@@ -88,7 +102,7 @@ function TooltipBody({ active, payload, t, lang }) {
 
 function optionList(records, key, allLabel) {
   const values = Array.from(new Set(records.map(row => row[key]).filter(Boolean))).sort()
-  return [{ value: "all", label: allLabel }, ...values.map(value => ({ value, label: value }))]
+  return [{ value: "all", label: allLabel }, ...values.map(value => ({ value, label: displayChemLabel(value) }))]
 }
 
 function validationOpacity(row) {
@@ -187,14 +201,14 @@ export function ReactionPathwayEvidenceMap({
                 {categories.map(category => {
                   const rows = visibleChartRecords.filter(row => (row.pathwayCategory || row.pathwayName || "unknown") === category)
                   return (
-                    <Scatter key={category} name={category} data={rows} onClick={(point) => onSelectRecord?.(point?.payload || point)}>
+                    <Scatter key={category} name={displayChemLabel(category)} data={rows} onClick={(point) => onSelectRecord?.(point?.payload || point)}>
                       {rows.map(row => {
                         const warning = row.missingFields?.length > 0 || row.comparabilityStatus === "not_directly_comparable"
                         const selected = row.id === selectedRecordId
                         return (
                           <Cell
                             key={row.id}
-                            fill={categoryColors[row.pathwayCategory] || categoryColors[row.pathwayName] || t.accent}
+                            fill={categoryColor(row.pathwayCategory || row.pathwayName, t)}
                             fillOpacity={validationOpacity(row)}
                             stroke={selected ? t.textStrong : warning ? t.warn : "rgba(255,255,255,0.85)"}
                             strokeWidth={selected ? 3 : warning ? 2 : 1}

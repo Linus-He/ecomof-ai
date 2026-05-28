@@ -1,7 +1,9 @@
 [
   {
     "sourceFile": "mof_gas_separation_records.json",
-    "description": "Condition-aware GasSep records used by the existing GasSep module.",
+    "role": "documentation-index",
+    "primaryDataSource": "public/data/mof_gas_separation_records.json",
+    "description": "mof_gas_separation_records.json is the primary condition-aware GasSep record table. This file documents the data-source role and is not loaded as the main GasSep records array.",
     "recordCount": 4,
     "versionBoundary": "curated literature data, not an online IAST/GCMC calculator"
   }

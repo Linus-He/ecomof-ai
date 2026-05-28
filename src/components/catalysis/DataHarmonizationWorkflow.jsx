@@ -20,8 +20,8 @@ const steps = [
     summaryEn: "Splits one multi-product run into product-level records for pathway comparison.",
     fieldsZh: ["Run 001 -> formate", "Run 001 -> acetate", "Run 001 -> lactate"],
     fieldsEn: ["Run 001 -> formate", "Run 001 -> acetate", "Run 001 -> lactate"],
-    detailZh: "示例：CO2 + biomass-derived substrate -> formate / acetate / lactate，会拆成三条可追踪记录。",
-    detailEn: "Example: CO2 + biomass-derived substrate -> formate / acetate / lactate becomes three traceable records.",
+    detailZh: "示例：CO₂ + biomass-derived substrate -> formate / acetate / lactate，会拆成三条可追踪记录。",
+    detailEn: "Example: CO₂ + biomass-derived substrate -> formate / acetate / lactate becomes three traceable records.",
   },
   {
     id: "comparability",

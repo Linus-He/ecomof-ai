@@ -185,8 +185,8 @@ export function CatalysisLabTab() {
       <ModulePageHeader
         title={zh ? "催化实验室" : "Catalysis Lab"}
         subtitle={zh
-          ? "查看催化路径证据、反应数据可比性，以及 CO2 转化等方向的早期验证优先级。"
-          : "Explore catalyst-pathway evidence, reaction-data comparability, and early validation priorities for CO2 conversion routes."}
+          ? "查看催化路径证据、反应数据可比性，以及 CO₂ 转化等方向的早期验证优先级。"
+          : "Explore catalyst-pathway evidence, reaction-data comparability, and early validation priorities for CO₂ conversion routes."}
         action={<CopyLinkButton hash="catalysis" ariaLabel={zh ? "复制催化实验室链接" : "Copy Catalysis Lab link"} />}
       />
 
@@ -201,6 +201,22 @@ export function CatalysisLabTab() {
 
       {status === "loaded" ? (
         <>
+          <OrganicAcidEntryCard
+            t={t}
+            lang={lang}
+            isMobile={isMobile}
+            onOpen={openOrganicAcidWorkspace}
+          />
+
+          <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12.5, lineHeight: 1.55, padding: "11px 13px" }}>
+            <strong style={{ color: t.textStrong }}>
+              {zh ? "有机酸子工作台边界：" : "Organic Acid workspace boundary: "}
+            </strong>
+            {zh
+              ? "有机酸转化是 Catalysis Lab 中优先展示的子工作台，但不是催化模块的全部范围。"
+              : "Organic acid conversion is a prioritized sub-workspace within Catalysis Lab, not the full scope of catalysis."}
+          </section>
+
           <ReactionPathwayEvidenceMap
             records={filteredRecords}
             allRecords={catalysisRecords}
@@ -217,13 +233,6 @@ export function CatalysisLabTab() {
           <SelectedPathwayInspector record={selectedRecord} t={t} lang={lang} isMobile={isMobile} />
 
           <DataHarmonizationWorkflow lang={lang} t={t} isMobile={isMobile} />
-
-          <OrganicAcidEntryCard
-            t={t}
-            lang={lang}
-            isMobile={isMobile}
-            onOpen={openOrganicAcidWorkspace}
-          />
 
           <ValidationRoadmap t={t} lang={lang} isMobile={isMobile} />
         </>

@@ -1,33 +1,32 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import {
-  CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Scatter, ScatterChart,
-  Tooltip, XAxis, YAxis, ZAxis,
-} from "recharts"
-import {
   useT, useLang, useViewport,
   FONT_MONO,
   BasisBadge, Callout, CopyLinkButton, DisclaimerLink, PageHeader, SectionTitle,
   getGasSeparationRecords, getGasSystemsDemo, getGasSourcesDemo,
   getComparabilityStatus, getComparisonWarning,
+  chemText,
 } from "../../shared"
+import {
+  displayGasFormula,
+  GasComparabilityBadge,
+  GasConditionFilter,
+  GasDataCurationPanel,
+  GasSelectivityPressureChart,
+  GasUptakeSelectivityScatter,
+  GAS_CHART_COLORS,
+} from "../gas/GasSepPanels"
 
 const DEFAULT_SYSTEMS = ["CH4/N2", "C2H2/CO2", "CO2/N2", "C2H2/C2H4"]
-const CHART_COLORS = ["#69A7DD", "#F59E0B", "#34D399", "#C084FC", "#F87171", "#94A3B8"]
+const CHART_COLORS = GAS_CHART_COLORS
 
 function pendingText(zh) {
   return zh ? "待补充" : "Pending"
 }
 
 function displayGas(value = "") {
-  return String(value)
-    .replace(/CO2/g, "CO₂")
-    .replace(/CH4/g, "CH₄")
-    .replace(/C2H2/g, "C₂H₂")
-    .replace(/C2H4/g, "C₂H₄")
-    .replace(/C2H6/g, "C₂H₆")
-    .replace(/H2/g, "H₂")
-    .replace(/N2/g, "N₂")
+  return displayGasFormula(value)
 }
 
 function normalizeText(value = "") {
@@ -481,6 +480,20 @@ export function GasSepTab({ onNavigate, onOpenComparisonBuilder }) {
           : "Current version: curated literature data, not an online IAST/GCMC calculator. This version does not run live IAST, GCMC, PDF extraction, or breakthrough prediction."}
       </Callout>
 
+      <div style={{ display: "flex", justifyContent: "flex-start" }}>
+        <button
+          type="button"
+          onClick={() => {
+            if (typeof window !== "undefined") {
+              window.location.hash = "methodology-gassep"
+            }
+          }}
+          style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.accentText, cursor: "pointer", fontSize: 12, fontWeight: 850, padding: "8px 11px" }}
+        >
+          {zh ? "查看方法说明：条件化气体分离数据记录" : "View methodology: condition-aware gas separation records"}
+        </button>
+      </div>
+
       <section className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
         <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap", alignItems: "flex-start" }}>
           <div>
@@ -489,13 +502,7 @@ export function GasSepTab({ onNavigate, onOpenComparisonBuilder }) {
               {zh ? "常见 feed ratio 是比较语境，不是跨体系通用排名标准。" : "Common feed ratios are comparison context, not a universal ranking standard."}
             </div>
           </div>
-          <BasisBadge tone={comparabilityStatus === "directly-comparable" ? "calc" : comparabilityStatus === "condition-mixed" ? "warn" : "info"}>
-            {comparabilityStatus === "directly-comparable"
-              ? (zh ? "directly comparable" : "directly comparable")
-              : comparabilityStatus === "condition-mixed"
-                ? (zh ? "condition-mixed" : "condition-mixed")
-                : (zh ? "single condition" : "single condition")}
-          </BasisBadge>
+          <GasComparabilityBadge status={comparabilityStatus} lang={lang} />
         </div>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
           {systemCards.map((system, index) => (
@@ -525,21 +532,16 @@ export function GasSepTab({ onNavigate, onOpenComparisonBuilder }) {
         </div>
       </section>
 
-      <section className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap", alignItems: "center", marginBottom: 12 }}>
-          <SectionTitle>{zh ? "Condition filter" : "Condition filter"}</SectionTitle>
-          <button type="button" onClick={clearFilters} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.accentText, cursor: "pointer", fontSize: 11, fontWeight: 850, padding: "7px 10px" }}>
-            {zh ? "清空筛选" : "Clear filters"}
-          </button>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
-          <FilterSelect label={zh ? "气体体系" : "Gas system"} value={filters.gasSystem} options={options.gasSystem} onChange={value => setFilters(prev => ({ ...prev, gasSystem: value }))} t={t} />
-          <FilterSelect label={zh ? "Feed ratio" : "Feed ratio"} value={filters.feedRatio} options={options.feedRatio} onChange={value => setFilters(prev => ({ ...prev, feedRatio: value }))} t={t} />
-          <FilterSelect label={zh ? "温度" : "Temperature"} value={filters.temperature} options={options.temperature} onChange={value => setFilters(prev => ({ ...prev, temperature: value }))} t={t} />
-          <FilterSelect label={zh ? "压力" : "Pressure"} value={filters.pressure} options={options.pressure} onChange={value => setFilters(prev => ({ ...prev, pressure: value }))} t={t} />
-          <FilterSelect label={zh ? "方法" : "Method"} value={filters.method} options={options.method} onChange={value => setFilters(prev => ({ ...prev, method: value }))} t={t} />
-        </div>
-      </section>
+      <GasConditionFilter
+        filters={filters}
+        options={options}
+        setFilters={setFilters}
+        clearFilters={clearFilters}
+        t={t}
+        lang={lang}
+        isMobile={isMobile}
+        isNarrow={isNarrow}
+      />
 
       {comparisonWarning && (
         <Callout tone="warn">
@@ -594,56 +596,22 @@ export function GasSepTab({ onNavigate, onOpenComparisonBuilder }) {
         </div>
       </section>
 
-      <section className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
-        <SectionTitle>{zh ? "Selectivity vs pressure" : "Selectivity vs pressure"}</SectionTitle>
-        <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 5 }}>
-          {zh ? "标题条件：" : "Title condition:"} {selectedTitleContext}
-        </div>
-        <div style={{ height: isMobile ? 270 : 330, marginTop: 12 }}>
-          {chartData.length ? (
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={chartData} margin={{ top: 14, right: 20, bottom: 36, left: 8 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
-                <XAxis type="number" dataKey="pressureKPa" tick={{ fill: t.subtle, fontSize: 11 }} label={{ value: zh ? "总压力 / kPa" : "Total gas pressure / kPa", fill: t.subtle, fontSize: 11, dy: 22 }} />
-                <YAxis tick={{ fill: t.subtle, fontSize: 11 }} label={{ value: zh ? "吸附选择性" : "Adsorption selectivity", fill: t.subtle, fontSize: 11, angle: -90, dx: -12 }} />
-                <Tooltip content={<SelectivityTooltip t={t} zh={zh} />} wrapperStyle={{ zIndex: 20 }} />
-                <Legend wrapperStyle={{ color: t.subtle, fontSize: 11 }} />
-                {mofSeries.map((mof, index) => (
-                  <Line key={mof} type="linear" dataKey={mof} name={mof} stroke={CHART_COLORS[index % CHART_COLORS.length]} dot={{ r: 4 }} activeDot={{ r: 6 }} connectNulls={false} strokeWidth={chartData.length === 1 ? 0 : 2} />
-                ))}
-              </LineChart>
-            </ResponsiveContainer>
-          ) : (
-            <Callout tone="warn">{zh ? "当前筛选下没有可绘制的数值选择性点。" : "No numeric selectivity points are available for the current filters."}</Callout>
-          )}
-        </div>
-      </section>
+      <GasSelectivityPressureChart
+        chartData={chartData}
+        mofSeries={mofSeries}
+        selectedTitleContext={selectedTitleContext}
+        t={t}
+        lang={lang}
+        isMobile={isMobile}
+      />
 
-      <section className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
-        <SectionTitle>{zh ? "Uptake vs selectivity" : "Uptake vs selectivity"}</SectionTitle>
-        <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55, marginTop: 5 }}>
-          {zh ? "横轴为目标气体吸附量，纵轴为选择性，气泡大小代表动态容量（如可用）。" : "X-axis is target gas uptake, Y-axis is selectivity, and bubble size represents dynamic capacity when available."}
-        </div>
-        <div style={{ height: isMobile ? 285 : 350, marginTop: 12 }}>
-          {scatterPoints.length ? (
-            <ResponsiveContainer width="100%" height="100%">
-              <ScatterChart margin={{ top: 16, right: 22, bottom: 38, left: 8 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
-                <XAxis type="number" dataKey="uptake" tick={{ fill: t.subtle, fontSize: 11 }} label={{ value: zh ? "目标气体吸附量" : "Target gas uptake", fill: t.subtle, fontSize: 11, dy: 22 }} />
-                <YAxis type="number" dataKey="selectivity" tick={{ fill: t.subtle, fontSize: 11 }} label={{ value: zh ? "选择性" : "Selectivity", fill: t.subtle, fontSize: 11, angle: -90, dx: -12 }} />
-                <ZAxis type="number" dataKey="z" range={[140, 820]} />
-                <Tooltip content={<ScatterTooltip t={t} zh={zh} />} wrapperStyle={{ zIndex: 20 }} cursor={{ strokeDasharray: "3 3" }} />
-                <Legend wrapperStyle={{ color: t.subtle, fontSize: 11 }} />
-                {evidenceGroups.map(([level, points], index) => (
-                  <Scatter key={level} name={level} data={points} fill={CHART_COLORS[index % CHART_COLORS.length]} />
-                ))}
-              </ScatterChart>
-            </ResponsiveContainer>
-          ) : (
-            <Callout tone="warn">{zh ? "当前筛选下没有同时具备吸附量和选择性的点。" : "No points with both uptake and selectivity are available for the current filters."}</Callout>
-          )}
-        </div>
-      </section>
+      <GasUptakeSelectivityScatter
+        scatterPoints={scatterPoints}
+        evidenceGroups={evidenceGroups}
+        t={t}
+        lang={lang}
+        isMobile={isMobile}
+      />
 
       <section className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
         <SectionTitle>{zh ? "Gas candidate cards" : "Gas candidate cards"}</SectionTitle>
@@ -726,26 +694,7 @@ export function GasSepTab({ onNavigate, onOpenComparisonBuilder }) {
         </div>
       </section>
 
-      <section className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
-        <SectionTitle>{zh ? "Data curation / provenance panel" : "Data curation / provenance panel"}</SectionTitle>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
-          {[
-            [zh ? "记录文件" : "Record file", "public/data/mof_gas_separation_records.json", "calc"],
-            [zh ? "体系索引" : "System index", "public/data/gas_systems_demo.json", "info"],
-            [zh ? "来源索引" : "Source index", "public/data/gas_sources_demo.json", "proxy"],
-          ].map(([label, value, tone]) => (
-            <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12 }}>
-              <BasisBadge tone={tone}>{label}</BasisBadge>
-              <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55, marginTop: 8, overflowWrap: "anywhere" }}>{value}</div>
-            </div>
-          ))}
-        </div>
-        <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.65, marginTop: 12 }}>
-          {zh
-            ? "字段级 ⓘ 覆盖 selectivity、feedRatio、temperature、pressure、method、uptake、dynamicCapacity 和 sourceLocation。内部滚动不会关闭弹层，Esc 与外部点击可关闭。"
-            : "Field-level ⓘ is available for selectivity, feedRatio, temperature, pressure, method, uptake, dynamicCapacity, and sourceLocation. Internal scrolling does not close the popover; Esc and outside click close it."}
-        </div>
-      </section>
+      <GasDataCurationPanel t={t} lang={lang} isMobile={isMobile} />
 
       <Callout tone="note">
         {zh

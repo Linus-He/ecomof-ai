@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useViewport } from "../../shared"
-import { ORGANIC_ACID_FONT } from "./FormulaInline"
+import { ORGANIC_ACID_FONT, SCIENTIFIC_TOKEN_FONT } from "./FormulaInline"
 import { MoleculeStructureImage, MoleculeSvgNode, moleculeCatalog } from "./MoleculeSvgNode"
 
 const palette = {
@@ -379,17 +379,56 @@ function PathwayMappingPanel({ activePath, lang }) {
   )
 }
 
-export function OrganicAcidPathwayMap({ lang = "zh" }) {
+function PathwayContextPanel({ activePath, lang }) {
+  const path = pathwayMeta[activePath] || pathwayMeta.formaldehyde
+  const rows = [
+    [text(lang, "Pathway / 路径", "Pathway"), text(lang, path.titleZh, path.titleEn)],
+    [text(lang, "Reactant / 反应物", "Reactant"), activePath === "formaldehyde" ? "Glucose / fructose" : activePath === "glyceraldehyde" ? "Glyceraldehyde" : "Pyruvaldehyde"],
+    [text(lang, "Product / 产物", "Product"), activePath === "pyruvaldehyde" ? "Formic acid + lactic / pyruvic acid risk" : activePath === "glyceraldehyde" ? "Formic acid + C2 byproduct risk" : "Formic acid / formate"],
+    [text(lang, "MOF rationale / MOF 依据", "MOF rationale"), activePath === "formaldehyde" ? "C1 intermediate activation and formate release" : activePath === "glyceraldehyde" ? "C3 split and C2 byproduct control" : "dehydration-risk suppression"],
+    [text(lang, "Evidence level / 证据等级", "Evidence level"), activePath === "formaldehyde" ? "curated hypothesis + demo evidence" : "hypothesis / pending validation"],
+    [text(lang, "Data status / 数据状态", "Data status"), "demo-curated / source pending where not attached"],
+  ]
+  return (
+    <article style={{ background: path.soft, border: `1px solid ${path.color}`, borderRadius: 8, display: "grid", gap: 7, padding: 11 }}>
+      <div style={{ color: path.color, fontSize: 10.5, fontWeight: 950, textTransform: "uppercase" }}>
+        {text(lang, "当前路径上下文", "Current pathway context")}
+      </div>
+      {rows.map(([label, value]) => (
+        <div key={label} style={{ display: "grid", gap: 2 }}>
+          <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 850 }}>{label}</div>
+          <div style={{ color: palette.text, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11.7, fontWeight: 800, lineHeight: 1.35 }}>{value}</div>
+        </div>
+      ))}
+    </article>
+  )
+}
+
+export function OrganicAcidPathwayMap({
+  lang = "zh",
+  activePath: controlledActivePath,
+  onSelectPathway,
+  selectedNode: controlledSelectedNode,
+  onSelectNode,
+}) {
   const { isNarrow } = useViewport()
-  const [activePath, setActivePath] = useState("formaldehyde")
+  const [internalActivePath, setInternalActivePath] = useState("formaldehyde")
   const [hoveredPath, setHoveredPath] = useState("")
   const [hoveredNode, setHoveredNode] = useState("")
-  const [selectedNode, setSelectedNode] = useState("formaldehyde")
+  const [internalSelectedNode, setInternalSelectedNode] = useState("formaldehyde")
+  const activePath = controlledActivePath || internalActivePath
+  const selectedNode = controlledSelectedNode || internalSelectedNode
   const highlightedPath = hoveredPath || activePath
 
+  const selectNode = (nodeId) => {
+    setInternalSelectedNode(nodeId)
+    onSelectNode?.(nodeId)
+  }
+
   const selectPath = (pathId) => {
-    setActivePath(pathId)
-    setSelectedNode(pathwayMeta[pathId].focusNode)
+    setInternalActivePath(pathId)
+    onSelectPathway?.(pathId)
+    selectNode(pathwayMeta[pathId].focusNode)
   }
 
   return (
@@ -457,12 +496,13 @@ export function OrganicAcidPathwayMap({ lang = "zh" }) {
                     <g
                       key={edge.id}
                       opacity={active ? 1 : 0.18}
+                      onClick={() => selectPath(edge.path)}
                       onMouseEnter={() => setHoveredPath(edge.path)}
                       onMouseLeave={() => setHoveredPath("")}
                       style={{ cursor: "pointer", pointerEvents: "stroke" }}
                     >
                       <path d={curve.d} fill="none" markerEnd={`url(#arrow-${edge.id})`} stroke={stroke} strokeLinecap="round" strokeWidth={active ? 3.3 : 2} />
-                      <text x={curve.labelX} y={curve.labelY - 6} fill={stroke} fontFamily="Arial, Helvetica, sans-serif" fontSize="10.5" fontWeight="800" textAnchor="middle">
+                      <text x={curve.labelX} y={curve.labelY - 6} fill={stroke} fontFamily={SCIENTIFIC_TOKEN_FONT} fontSize="10.5" fontWeight="800" textAnchor="middle">
                         {text(lang, edge.labelZh, edge.labelEn)}
                       </text>
                     </g>
@@ -503,7 +543,7 @@ export function OrganicAcidPathwayMap({ lang = "zh" }) {
                       active={nodeActive}
                       selected={selected}
                       dimmed={dimmed}
-                      onClick={() => setSelectedNode(id)}
+                      onClick={() => selectNode(id)}
                       onMouseEnter={() => setHoveredNode(id)}
                       onMouseLeave={() => setHoveredNode("")}
                       style={{ height: "100%", width: "100%" }}
@@ -516,6 +556,7 @@ export function OrganicAcidPathwayMap({ lang = "zh" }) {
           </div>
 
           <div style={{ display: "grid", gap: 10 }}>
+            <PathwayContextPanel activePath={highlightedPath} lang={lang} />
             <MoleculeDetailPanel nodeId={selectedNode} lang={lang} />
             <PathwayMappingPanel activePath={highlightedPath} lang={lang} />
           </div>

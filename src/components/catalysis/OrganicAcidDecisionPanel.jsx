@@ -16,7 +16,7 @@ function ruleDot(status, t) {
 function ruleLabel(rule, lang) {
   if (lang !== "zh") return rule.label || rule.ruleId
   const map = {
-    "co2-activation": "CO2 活化",
+    "co2-activation": "CO₂ 活化",
     "aqueous-stability": "水相稳定性",
     "c-c-coupling": "C-C 偶联可能性",
     "hydrogen-transfer": "氢转移路径",
@@ -153,7 +153,7 @@ function CandidateDetail({ candidate, linkedRecord, t, lang }) {
     matched.length ? `${zh ? "匹配规则" : "Matches"}: ${matched.map(rule => ruleLabel(rule, lang)).slice(0, 3).join(", ")}.` : null,
     partial.length ? `${zh ? "部分支持" : "Partial support"}: ${partial.map(rule => ruleLabel(rule, lang)).slice(0, 2).join(", ")}.` : null,
     candidate.mainRisk ? `${zh ? "主要限制" : "Main limitation"}: ${readableRisk(candidate.mainRisk, lang)}.` : null,
-    candidate.nextValidationStep ? `${zh ? "下一步" : "Next step"}: ${zh ? "在水相 CO2 转化条件下验证产物选择性。" : candidate.nextValidationStep}` : null,
+    candidate.nextValidationStep ? `${zh ? "下一步" : "Next step"}: ${zh ? "在水相 CO₂ 转化条件下验证产物选择性。" : candidate.nextValidationStep}` : null,
   ].filter(Boolean)
 
   return (

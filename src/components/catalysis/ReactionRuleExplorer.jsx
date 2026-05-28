@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react"
 import { useLang, useT, useViewport } from "../../contexts"
+import { SCIENTIFIC_TOKEN_FONT } from "./FormulaInline"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -81,6 +82,40 @@ function pathForRule(rule) {
   return `M ${sx} ${sy} C ${midX} ${sy + offset}, ${midX} ${ty - offset}, ${tx} ${ty}`
 }
 
+function pathwayForRule(rule) {
+  const haystack = [
+    rule?.ruleId,
+    rule?.label,
+    rule?.pathwayRole,
+    rule?.reactionType,
+    ...(Array.isArray(rule?.sourceNodes) ? rule.sourceNodes : []),
+    ...(Array.isArray(rule?.targetNodes) ? rule.targetNodes : []),
+  ].join(" ").toLowerCase()
+  if (/formaldehyde|formic|hcoo|c1/.test(haystack)) return "formaldehyde"
+  if (/glycer|glycolic|c2/.test(haystack)) return "glyceraldehyde"
+  if (/pyru|lactic|dehydration/.test(haystack)) return "pyruvaldehyde"
+  return "all"
+}
+
+function pathwayLabel(pathway, lang) {
+  if (pathway === "formaldehyde") return text(lang, "甲醛 → 甲酸", "Formaldehyde → formic acid")
+  if (pathway === "glyceraldehyde") return text(lang, "甘油醛分支", "Glyceraldehyde branches")
+  if (pathway === "pyruvaldehyde") return text(lang, "丙酮醛分支", "Pyruvaldehyde branches")
+  return text(lang, "全部路径", "All pathways")
+}
+
+function selectStyle(t) {
+  return {
+    background: t.surface,
+    border: `1px solid ${t.border}`,
+    borderRadius: 8,
+    color: t.textStrong,
+    fontSize: 12,
+    minHeight: 34,
+    padding: "0 9px",
+  }
+}
+
 function relatedEvidenceForRule(evidenceItems, ruleId) {
   return list(evidenceItems).filter(item => item.relatedRuleId === ruleId)
 }
@@ -130,7 +165,7 @@ function ReactionRuleNetwork({
           {text(lang, "节点是路径物种，边是 reaction rules。", "Nodes are pathway species; edges are reaction rules.")}
         </span>
       </div>
-      <svg viewBox="0 0 760 410" role="img" aria-label="Reaction Rule Network" style={{ display: "block", width: "100%", height: "auto", fontFamily: "inherit" }}>
+      <svg viewBox="0 0 760 410" role="img" aria-label="Reaction Rule Network" style={{ display: "block", width: "100%", height: "auto", fontFamily: SCIENTIFIC_TOKEN_FONT }}>
         <defs>
           <marker id="rule-network-arrow" markerHeight="8" markerWidth="8" orient="auto" refX="7.5" refY="4">
             <path d="M0,0 L8,4 L0,8 Z" fill={t.faint} />
@@ -193,6 +228,7 @@ export function ReactionRuleExplorer({
   onSelectRule = () => {},
   selectedPathwayNodeId,
   onSelectPathwayNode = () => {},
+  selectedPathwayId = "formaldehyde",
   lang: forcedLang,
   t: tone,
   isMobile: forcedMobile,
@@ -205,17 +241,40 @@ export function ReactionRuleExplorer({
   const isMobile = forcedMobile ?? viewport.isMobile
   const isNarrow = isMobile || viewport.isNarrow
   const [localRuleId, setLocalRuleId] = useState("")
+  const [filters, setFilters] = useState({
+    pathway: "synced",
+    product: "all",
+    evidence: "all",
+    mechanism: "all",
+    status: "all",
+  })
 
   const rules = useMemo(() => (Array.isArray(reactionRules) ? reactionRules : []), [reactionRules])
+  const effectivePathway = filters.pathway === "synced" ? selectedPathwayId : filters.pathway
+  const filterOptions = useMemo(() => ({
+    evidence: [...new Set(rules.map(rule => chemicalText(rule.evidenceLevel)).filter(Boolean))],
+    mechanism: [...new Set(rules.map(rule => chemicalText(rule.reactionType)).filter(Boolean))],
+    status: [...new Set(rules.map(rule => chemicalText(rule.status)).filter(Boolean))],
+  }), [rules])
+  const filteredRules = useMemo(() => rules.filter(rule => {
+    const rulePath = pathwayForRule(rule)
+    const productText = list(rule.targetNodes).join(" ").toLowerCase()
+    const matchPathway = effectivePathway === "all" || rulePath === effectivePathway || rulePath === "all"
+    const matchProduct = filters.product === "all" || productText.includes(filters.product)
+    const matchEvidence = filters.evidence === "all" || chemicalText(rule.evidenceLevel) === filters.evidence
+    const matchMechanism = filters.mechanism === "all" || chemicalText(rule.reactionType) === filters.mechanism
+    const matchStatus = filters.status === "all" || chemicalText(rule.status) === filters.status
+    return matchPathway && matchProduct && matchEvidence && matchMechanism && matchStatus
+  }), [effectivePathway, filters.evidence, filters.mechanism, filters.product, filters.status, rules])
   const groupedRules = useMemo(() => {
     const groups = { formic: [], competing: [], side: [], validation: [] }
-    rules.forEach(rule => {
+    filteredRules.forEach(rule => {
       groups[ruleGroup(rule)].push(rule)
     })
     return groups
-  }, [rules])
+  }, [filteredRules])
 
-  const activeRuleId = selectedRuleId || localRuleId || groupedRules.formic[0]?.ruleId || rules[0]?.ruleId || ""
+  const activeRuleId = selectedRuleId || localRuleId || groupedRules.formic[0]?.ruleId || filteredRules[0]?.ruleId || rules[0]?.ruleId || ""
   const selectedRule = rules.find(rule => rule.ruleId === activeRuleId) || null
   const selectedEvidence = selectedRule ? relatedEvidenceForRule(evidenceItems, selectedRule.ruleId) : []
   const nodeRules = selectedPathwayNodeId ? rulesForNode(rules, selectedPathwayNodeId) : []
@@ -250,19 +309,75 @@ export function ReactionRuleExplorer({
             "This is a hypothesis-layer reaction rule map. It does not confirm the organic-acid mechanism. It does not predict formic acid yield. Experimental or DFT validation is required."
           )}
         </div>
+        <div style={{ display: "grid", gap: 8, gridTemplateColumns: isNarrow ? "1fr" : "repeat(5, minmax(0, 1fr))" }}>
+          <label style={{ display: "grid", gap: 4 }}>
+            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "Pathway", "Pathway")}</span>
+            <select value={filters.pathway} onChange={event => setFilters(prev => ({ ...prev, pathway: event.target.value }))} style={selectStyle(t)}>
+              <option value="synced">{text(lang, "跟随三路径网络", "Synced to network")}: {pathwayLabel(selectedPathwayId, lang)}</option>
+              <option value="all">{text(lang, "全部路径", "All pathways")}</option>
+              <option value="formaldehyde">{pathwayLabel("formaldehyde", lang)}</option>
+              <option value="glyceraldehyde">{pathwayLabel("glyceraldehyde", lang)}</option>
+              <option value="pyruvaldehyde">{pathwayLabel("pyruvaldehyde", lang)}</option>
+            </select>
+          </label>
+          <label style={{ display: "grid", gap: 4 }}>
+            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "Product class", "Product class")}</span>
+            <select value={filters.product} onChange={event => setFilters(prev => ({ ...prev, product: event.target.value }))} style={selectStyle(t)}>
+              <option value="all">{text(lang, "全部", "All")}</option>
+              <option value="formic">formic / HCOO</option>
+              <option value="lactic">lactic</option>
+              <option value="acetic">acetic</option>
+              <option value="glycolic">glycolic</option>
+            </select>
+          </label>
+          <label style={{ display: "grid", gap: 4 }}>
+            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "Evidence", "Evidence")}</span>
+            <select value={filters.evidence} onChange={event => setFilters(prev => ({ ...prev, evidence: event.target.value }))} style={selectStyle(t)}>
+              <option value="all">{text(lang, "全部", "All")}</option>
+              {filterOptions.evidence.map(value => <option key={value} value={value}>{value}</option>)}
+            </select>
+          </label>
+          <label style={{ display: "grid", gap: 4 }}>
+            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "Mechanism", "Mechanism")}</span>
+            <select value={filters.mechanism} onChange={event => setFilters(prev => ({ ...prev, mechanism: event.target.value }))} style={selectStyle(t)}>
+              <option value="all">{text(lang, "全部", "All")}</option>
+              {filterOptions.mechanism.map(value => <option key={value} value={value}>{value}</option>)}
+            </select>
+          </label>
+          <label style={{ display: "grid", gap: 4 }}>
+            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "Status", "Status")}</span>
+            <select value={filters.status} onChange={event => setFilters(prev => ({ ...prev, status: event.target.value }))} style={selectStyle(t)}>
+              <option value="all">{text(lang, "全部", "All")}</option>
+              {filterOptions.status.map(value => <option key={value} value={value}>{value}</option>)}
+            </select>
+          </label>
+        </div>
       </div>
 
-      <ReactionRuleNetwork
-        rules={rules}
-        selectedRule={selectedRule}
-        selectedPathwayNodeId={selectedPathwayNodeId}
-        candidateRuleIds={candidateRuleIds}
-        candidateNodeIds={candidateNodeIds}
-        onSelectRule={selectRule}
-        onSelectPathwayNode={onSelectPathwayNode}
-        t={t}
-        lang={lang}
-      />
+      {isMobile ? (
+        <SectionCard t={t} title={text(lang, "移动端规则列表", "Mobile rule list")}>
+          <div style={{ display: "grid", gap: 7 }}>
+            {filteredRules.map(rule => (
+              <button key={rule.ruleId} type="button" onClick={() => selectRule(rule.ruleId)} style={{ background: selectedRule?.ruleId === rule.ruleId ? t.badgeInfoBg : t.panel, border: `1px solid ${selectedRule?.ruleId === rule.ruleId ? t.accent : t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", padding: 10, textAlign: "left" }}>
+                <strong style={{ display: "block", fontSize: 12.5, lineHeight: 1.35 }}>{chemicalText(rule.label)}</strong>
+                <span style={{ color: t.muted, display: "block", fontSize: 11.5, lineHeight: 1.45, marginTop: 3 }}>{pathwayLabel(pathwayForRule(rule), lang)} · {chemicalText(rule.status)}</span>
+              </button>
+            ))}
+          </div>
+        </SectionCard>
+      ) : (
+        <ReactionRuleNetwork
+          rules={filteredRules}
+          selectedRule={selectedRule}
+          selectedPathwayNodeId={selectedPathwayNodeId}
+          candidateRuleIds={candidateRuleIds}
+          candidateNodeIds={candidateNodeIds}
+          onSelectRule={selectRule}
+          onSelectPathwayNode={onSelectPathwayNode}
+          t={t}
+          lang={lang}
+        />
+      )}
 
       <div style={{ display: "grid", gap: 12, gridTemplateColumns: isNarrow ? "1fr" : "minmax(260px, 0.82fr) minmax(0, 1.35fr)", minWidth: 0 }}>
         <SectionCard t={t} title={text(lang, "反应规则", "Reaction rules")}>

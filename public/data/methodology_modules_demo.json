@@ -1,0 +1,326 @@
+[
+  {
+    "id": "home-platform",
+    "navOrder": 1,
+    "module": "Home / Platform",
+    "moduleZh": "总览 / 平台",
+    "title": "Platform Method Overview",
+    "titleZh": "平台方法总览",
+    "purpose": "Organize MOF screening, evidence boundaries, and module routing as a research prototype.",
+    "purposeZh": "将 MOF 筛选、证据边界和模块入口组织为研究原型平台。",
+    "inputs": [
+      "module metadata",
+      "demo and seed data status",
+      "navigation/hash state"
+    ],
+    "inputsZh": [
+      "模块元数据",
+      "演示与种子数据状态",
+      "导航与 hash 状态"
+    ],
+    "outputs": [
+      "module entry points",
+      "evidence boundary copy",
+      "deep-linkable routes"
+    ],
+    "outputsZh": [
+      "模块入口",
+      "证据边界说明",
+      "可深链路由"
+    ],
+    "evidenceTypes": [
+      "UI architecture",
+      "data status disclosure",
+      "route metadata"
+    ],
+    "limitations": [
+      "Platform overview does not validate any material performance."
+    ],
+    "limitationsZh": [
+      "平台总览不验证任何材料性能。"
+    ]
+  },
+  {
+    "id": "ecoscreen",
+    "navOrder": 2,
+    "module": "EcoScreen",
+    "moduleZh": "生态筛选",
+    "title": "Sustainability-oriented Screening",
+    "titleZh": "可持续性导向筛选",
+    "purpose": "Expose early sustainability signals alongside candidate feasibility assumptions.",
+    "purposeZh": "将早期可持续性信号与候选可行性假设并列展示。",
+    "inputs": [
+      "descriptor coverage",
+      "toxicity and stability flags",
+      "screening assumptions"
+    ],
+    "inputsZh": [
+      "描述符覆盖度",
+      "毒性与稳定性标记",
+      "筛选假设"
+    ],
+    "outputs": [
+      "eco priority signal",
+      "assumption-sensitive warnings",
+      "candidate context"
+    ],
+    "outputsZh": [
+      "生态优先级信号",
+      "假设敏感警告",
+      "候选语境"
+    ],
+    "evidenceTypes": [
+      "descriptor curation",
+      "rule-based proxy",
+      "needs-validation"
+    ],
+    "limitations": [
+      "EcoScreen is not a full ISO LCA or validated cost model."
+    ],
+    "limitationsZh": [
+      "EcoScreen 不是完整 ISO LCA 或已验证成本模型。"
+    ]
+  },
+  {
+    "id": "performance",
+    "navOrder": 3,
+    "module": "Performance",
+    "moduleZh": "性能优先级",
+    "title": "Candidate Performance Priority",
+    "titleZh": "候选物性能优先级",
+    "purpose": "Combine uptake, selectivity, confidence, and descriptor availability into early-stage decision support.",
+    "purposeZh": "将吸附量、选择性、置信度和描述符可用性组合为早期决策支持。",
+    "inputs": [
+      "screening outputs",
+      "global scoring descriptors",
+      "evidence status",
+      "candidate metadata"
+    ],
+    "inputsZh": [
+      "筛选输出",
+      "全局评分描述符",
+      "证据状态",
+      "候选元数据"
+    ],
+    "outputs": [
+      "priority tier",
+      "score contribution",
+      "data gap warning"
+    ],
+    "outputsZh": [
+      "优先级层级",
+      "评分贡献",
+      "数据缺口警告"
+    ],
+    "evidenceTypes": [
+      "rule-based",
+      "screening proxy",
+      "descriptor provenance",
+      "needs-validation"
+    ],
+    "limitations": [
+      "Performance priority is not a replacement for measured isotherms, mixture selectivity, or validation experiments."
+    ],
+    "limitationsZh": [
+      "性能优先级不能替代实测等温线、混合气选择性或验证实验。"
+    ]
+  },
+  {
+    "id": "gassep",
+    "navOrder": 4,
+    "module": "GasSep",
+    "moduleZh": "气体分离",
+    "title": "Condition-aware Gas Separation Records",
+    "titleZh": "条件化气体分离数据记录",
+    "purpose": "Curate gas separation selectivity, uptake, breakthrough, and provenance records with explicit experimental or literature conditions.",
+    "purposeZh": "在明确实验或文献条件下整理气体分离选择性、吸附量、穿透容量与字段级来源。",
+    "inputs": [
+      "gas system classification",
+      "feed ratio",
+      "temperature",
+      "pressure",
+      "method",
+      "source location",
+      "curation status"
+    ],
+    "inputsZh": [
+      "气体体系分类",
+      "气体比例",
+      "温度",
+      "压力",
+      "方法",
+      "来源位置",
+      "整理状态"
+    ],
+    "outputs": [
+      "condition-aware selectivity",
+      "feed ratio-aware comparison",
+      "selectivity vs pressure visualization",
+      "uptake vs selectivity visualization",
+      "field-level provenance",
+      "comparability warning"
+    ],
+    "outputsZh": [
+      "条件化选择性",
+      "气体比例感知比较",
+      "选择性-压力可视化",
+      "吸附量-选择性可视化",
+      "字段级来源",
+      "可比性警告"
+    ],
+    "evidenceTypes": [
+      "IAST calculated selectivity",
+      "experimental isotherm",
+      "breakthrough record",
+      "screening seed",
+      "source-pending demo"
+    ],
+    "limitations": [
+      "Current limitation: curated literature data, not online IAST/GCMC. Directly comparable only if gas system, feed ratio, temperature, pressure, and method are all identical."
+    ],
+    "limitationsZh": [
+      "当前限制：展示 curated literature data，不是在线 IAST/GCMC。只有气体体系、气体比例、温度、压力、方法都一致时，才视为可直接比较。"
+    ]
+  },
+  {
+    "id": "catalysis-lab",
+    "navOrder": 5,
+    "module": "Catalysis Lab",
+    "moduleZh": "催化实验室",
+    "title": "Catalytic Pathway Evidence Workspace",
+    "titleZh": "催化路径证据工作台",
+    "purpose": "Compare catalytic pathway evidence, reaction fingerprints, MOF rationale, and validation roadmap items without treating hypotheses as proof.",
+    "purposeZh": "比较催化路径证据、反应指纹、MOF 依据和验证路线，但不把假设当作证明。",
+    "inputs": [
+      "catalytic pathway evidence map",
+      "reaction pathway classification",
+      "reaction fingerprint",
+      "MOF rationale",
+      "validation roadmap"
+    ],
+    "inputsZh": [
+      "催化路径证据图",
+      "反应路径分类",
+      "反应指纹",
+      "MOF 依据",
+      "验证路线"
+    ],
+    "outputs": [
+      "pathway evidence context",
+      "candidate validation priorities",
+      "comparability notes"
+    ],
+    "outputsZh": [
+      "路径证据语境",
+      "候选验证优先级",
+      "可比性说明"
+    ],
+    "evidenceTypes": [
+      "literature-derived",
+      "rule-based",
+      "simulation/planned",
+      "needs-validation"
+    ],
+    "limitations": [
+      "Organic acid conversion is a prioritized sub-workspace within Catalysis Lab, not the full scope of catalysis."
+    ],
+    "limitationsZh": [
+      "有机酸转化是 Catalysis Lab 中优先展示的子工作台，但不是催化模块的全部范围。"
+    ]
+  },
+  {
+    "id": "organic-acid",
+    "navOrder": 6,
+    "module": "Organic Acid Workspace",
+    "moduleZh": "有机酸工作台",
+    "title": "Rule-based and Evidence-weighted Organic Acid Priority Logic",
+    "titleZh": "规则驱动与证据加权的有机酸优先级逻辑",
+    "purpose": "Explain candidate MOF / catalyst priority across organic-acid pathways using pathway fit, descriptors, evidence support, risk penalty, and validation gaps.",
+    "purposeZh": "用路径适配、描述符、证据支持、风险惩罚和验证缺口解释候选 MOF / catalyst 在有机酸路径下的优先级。",
+    "inputs": [
+      "three-pathway dynamic reaction network",
+      "reaction rules and evidence graph",
+      "candidate priority matrix",
+      "Algorithm Trace Explorer",
+      "field-level provenance"
+    ],
+    "inputsZh": [
+      "三路径动态反应网络",
+      "反应规则与证据图",
+      "候选物优先级矩阵",
+      "Algorithm Trace Explorer",
+      "字段级来源"
+    ],
+    "outputs": [
+      "priority tier",
+      "rule-based contribution",
+      "evidence-weighted priority",
+      "validation gap tracking",
+      "trace explanation"
+    ],
+    "outputsZh": [
+      "优先级层级",
+      "规则贡献",
+      "证据加权优先级",
+      "验证缺口追踪",
+      "追踪解释"
+    ],
+    "evidenceTypes": [
+      "descriptor curation",
+      "rule match",
+      "pending source",
+      "DFT roadmap",
+      "experiment roadmap"
+    ],
+    "limitations": [
+      "Organic Acid priority matrix is a decision-support view, not an experimentally validated ranking. Algorithm Trace Explorer explains rule and evidence contributions. It does not prove mechanistic causality."
+    ],
+    "limitationsZh": [
+      "有机酸候选物优先级矩阵是决策支持视图，不是已经实验验证的真实排名。Algorithm Trace Explorer 用于解释规则和证据对优先级的贡献，不证明真实机理因果关系。"
+    ]
+  },
+  {
+    "id": "mof-library",
+    "navOrder": 7,
+    "module": "MOF Library",
+    "moduleZh": "MOF 候选库",
+    "title": "Descriptor and Source-record Curation",
+    "titleZh": "描述符与来源记录整理",
+    "purpose": "Separate common MOF display names, source record IDs, field values, and provenance status.",
+    "purposeZh": "区分 MOF 常用名、来源记录 ID、字段数值和来源整理状态。",
+    "inputs": [
+      "Open MOF Seed",
+      "aliases",
+      "fieldSources",
+      "descriptor registry"
+    ],
+    "inputsZh": [
+      "Open MOF Seed",
+      "别名",
+      "字段来源",
+      "描述符注册表"
+    ],
+    "outputs": [
+      "candidate inspector",
+      "field-level provenance",
+      "data quality summary"
+    ],
+    "outputsZh": [
+      "候选检查器",
+      "字段级来源",
+      "数据质量摘要"
+    ],
+    "evidenceTypes": [
+      "curated descriptor",
+      "pending descriptor",
+      "source record ID",
+      "needs review"
+    ],
+    "limitations": [
+      "Database records are not scientific conclusions until task-specific evidence is verified."
+    ],
+    "limitationsZh": [
+      "数据库记录在完成任务相关证据验证前，不等同于科研结论。"
+    ]
+  }
+]

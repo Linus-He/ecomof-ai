@@ -66,7 +66,7 @@ function getInitialDeepLinkState() {
   const explicitHash = String(rawHash || "").replace(/^#/, "").trim()
   const hash = explicitHash || "default"
   const routeHash = hash === "default" ? "overview" : normalizeHash(hash)
-  const pendingScrollTarget = ["data-quality-provenance", "validation-evidence", "benchmark-references", "graph-informed-descriptor-integration", "organic-acid-graph-explorer"].includes(routeHash)
+  const pendingScrollTarget = ["data-quality-provenance", "validation-evidence", "benchmark-references", "graph-informed-descriptor-integration", "organic-acid-graph-explorer", "methodology-gassep", "methodology-organic-acid"].includes(routeHash)
     ? routeHash
     : null
 

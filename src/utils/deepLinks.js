@@ -11,6 +11,8 @@ export const HASH_TO_TAB = {
   "organic-acid-graph-explorer": "catalysis",
   library: "library",
   methodology: "about",
+  "methodology-gassep": "about",
+  "methodology-organic-acid": "about",
   "graph-informed-descriptor-integration": "about",
   "data-quality-provenance": "library",
   "validation-evidence": "about",
@@ -71,6 +73,14 @@ export const HASH_META = {
   methodology: {
     title: "方法与证据 | EcoMOF-AI",
     description: "了解 EcoMOF-AI 的评分方法、证据等级、数据来源、基准语境、验证状态、引用边界和使用限制。",
+  },
+  "methodology-gassep": {
+    title: "GasSep 方法 | EcoMOF-AI",
+    description: "查看条件化气体分离数据记录、可比性规则、字段级来源和当前 curated literature data 边界。",
+  },
+  "methodology-organic-acid": {
+    title: "Organic Acid 方法 | EcoMOF-AI",
+    description: "查看 Organic Acid Workspace 的三路径网络、规则证据图、候选优先级矩阵和算法追踪解释方法。",
   },
   "graph-informed-descriptor-integration": {
     title: "图论辅助描述符整合 | EcoMOF-AI",

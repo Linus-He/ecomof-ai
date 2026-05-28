@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useMemo } from "react"
 import { InlineMath, BlockMath } from "react-katex"
 import { useT, useLang, useViewport } from "../../contexts"
 import { FONT_SANS, FONT_MONO } from "../../constants/theme"
+import { chemText, isScientificToken, SCIENTIFIC_TOKEN_FONT } from "../../utils/chemText"
 import { WORKFLOW_STAGE_ITEMS, SOURCE_BADGES } from "../../constants/badges"
 import { zhText, gasLabel } from "../../utils/labels"
 import { formatFunctionalGroupSummary, getFunctionalGroupEntries } from "../../utils/functionalGroups"
@@ -32,6 +33,26 @@ export function InlineFormula({ math, fallback, style }) {
   return (
     <span className="math-inline" style={{ maxWidth: "100%", overflowX: "auto", overflowY: "hidden", verticalAlign: "middle", ...style }}>
       <InlineMath math={math} renderError={() => <FormulaFallback t={t}>{fallback || math}</FormulaFallback>} />
+    </span>
+  )
+}
+
+export function ScientificText({ children, as: Tag = "span", style }) {
+  const value = chemText(children)
+  return (
+    <Tag style={{
+      fontFamily: isScientificToken(value) ? SCIENTIFIC_TOKEN_FONT : undefined,
+      ...style,
+    }}>
+      {value}
+    </Tag>
+  )
+}
+
+export function ChemFormula({ children, value, style }) {
+  return (
+    <span style={{ fontFamily: SCIENTIFIC_TOKEN_FONT, ...style }}>
+      {chemText(value ?? children)}
     </span>
   )
 }
