@@ -23,13 +23,9 @@ import {
   pathwayMeta,
   VariableLabel,
 } from "./FormulaInline"
-import { OrganicAcidPathwayMap } from "./OrganicAcidPathwayMap"
-import { OrganicAcidGraphExplorer } from "./OrganicAcidGraphExplorer"
-import { OrganicAcidCandidateMap } from "./OrganicAcidCandidateMap"
 import { OrganicAcidExperimentFeedbackPanel } from "./OrganicAcidExperimentFeedbackPanel"
-import { ReactionRuleExplorer } from "./ReactionRuleExplorer"
-import { CandidateRuleMatchPanel } from "./CandidateRuleMatchPanel"
-import { OrganicAcidCurationQueue } from "./OrganicAcidCurationQueue"
+import { OrganicAcidGraphWorkbench } from "./OrganicAcidGraphWorkbench"
+import { CandidatePrioritizationWorkspace } from "./CandidatePrioritizationWorkspace"
 import { CompactDataModeBar } from "../module/ModuleTop"
 import { DataStatusSummary, OpenMofIntegrationReport } from "../data/OpenMofIntegrationReport"
 
@@ -464,6 +460,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
   const [selectedRuleId, setSelectedRuleId] = useState(null)
   const [selectedPathwayNodeId, setSelectedPathwayNodeId] = useState(null)
   const [selectedOrganicPathway, setSelectedOrganicPathway] = useState("formaldehyde")
+  const [graphFocusEdgeIds, setGraphFocusEdgeIds] = useState([])
   const [activeTraceStep, setActiveTraceStep] = useState("descriptor")
 
   useEffect(() => {
@@ -612,35 +609,24 @@ export function OrganicAcidProject({ lang = "zh", t }) {
             ? "有机酸转化是 Catalysis Lab 中优先展示的子工作台，但不是催化模块的全部范围。"
             : "Organic acid conversion is a prioritized sub-workspace within Catalysis Lab, not the full scope of catalysis."}
         </div>
-        <div id="pathway-map" style={{ scrollMarginTop: 118 }}>
-          <OrganicAcidPathwayMap
-            lang={lang}
-            activePath={selectedOrganicPathway}
-            onSelectPathway={setSelectedOrganicPathway}
-            selectedNode={selectedPathwayNodeId}
-            onSelectNode={setSelectedPathwayNodeId}
-          />
-        </div>
-        <ReactionRuleExplorer
-          reactionRules={reactionRules}
-          evidenceItems={evidenceItems}
-          selectedCandidate={selectedPathwayCandidate}
-          selectedRuleId={selectedRuleId}
-          onSelectRule={setSelectedRuleId}
-          selectedPathwayNodeId={selectedPathwayNodeId}
-          onSelectPathwayNode={setSelectedPathwayNodeId}
-          selectedPathwayId={selectedOrganicPathway}
+        <OrganicAcidGraphWorkbench
           lang={lang}
-          t={t}
+          selectedNodeId={selectedPathwayNodeId}
+          focusEdgeIds={graphFocusEdgeIds}
+          onSelectNode={setSelectedPathwayNodeId}
+          onSelectPathway={(pathway) => {
+            setSelectedOrganicPathway(pathway.id)
+            setSelectedPathwayNodeId(pathway.nodeSequence?.[0] || null)
+          }}
+          onHighlightEdges={setGraphFocusEdgeIds}
         />
         <div id="priority" style={{ scrollMarginTop: 118 }}>
-          <OrganicAcidCandidateMap
-            candidates={candidateRows}
+          <CandidatePrioritizationWorkspace
+            lang={lang}
             selectedCandidateId={selectedPathwayCandidateId}
             onSelectCandidate={handleSelectPathwayCandidate}
-            selectedPathwayId={selectedOrganicPathway}
-            lang={lang}
-            t={t}
+            onSelectRule={setSelectedRuleId}
+            onHighlightEdges={setGraphFocusEdgeIds}
           />
         </div>
         <div id="algorithm" style={{ scrollMarginTop: 118 }}>
@@ -687,28 +673,6 @@ export function OrganicAcidProject({ lang = "zh", t }) {
           lang={lang}
           t={t}
         />
-        <OrganicAcidGraphExplorer
-          lang={lang}
-          t={t}
-          selectedCandidate={selectedPathwayCandidate}
-          reactionRules={reactionRules}
-          evidenceItems={evidenceItems}
-          selectedRuleId={selectedRuleId}
-          onSelectRule={setSelectedRuleId}
-          selectedPathwayNodeId={selectedPathwayNodeId}
-          onSelectPathwayNode={setSelectedPathwayNodeId}
-        />
-        <div id="candidates" style={{ display: "grid", gap: 14, scrollMarginTop: 118 }}>
-          <CandidateRuleMatchPanel
-            selectedCandidate={selectedPathwayCandidate}
-            selectedRuleId={selectedRuleId}
-            reactionRules={reactionRules}
-            evidenceItems={evidenceItems}
-            lang={lang}
-            t={t}
-          />
-          <OrganicAcidCurationQueue candidates={candidateRows} lang={lang} t={t} />
-        </div>
         <OpenMofIntegrationReport
           seedRecords={summaryData.openSeed}
           experimentRecords={summaryData.experiments}

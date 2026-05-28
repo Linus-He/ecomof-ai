@@ -1,0 +1,58 @@
+{
+  "nodeCentrality": [
+    {
+      "nodeId": "c3_intermediate",
+      "degreeCentrality": 0.83,
+      "betweennessCentrality": 0.76,
+      "role": "key branching node",
+      "roleZh": "关键分流节点",
+      "interpretation": "C3 intermediate links glucose/fructose cleavage, C2/C1 formation, and by-product branches.",
+      "interpretationZh": "C3 中间体连接葡萄糖/果糖裂解、C2/C1 生成和副产物分支。"
+    },
+    {
+      "nodeId": "formate",
+      "degreeCentrality": 0.72,
+      "betweennessCentrality": 0.64,
+      "role": "target sink",
+      "roleZh": "目标产物汇点",
+      "interpretation": "Formate collects C1, C2, and HCO3/CO2 candidate carbon-flow routes.",
+      "interpretationZh": "甲酸/甲酸盐汇集 C1、C2 和 HCO₃⁻/CO₂ 候选碳流路径。"
+    },
+    {
+      "nodeId": "fructose",
+      "degreeCentrality": 0.69,
+      "betweennessCentrality": 0.58,
+      "role": "branching entry",
+      "roleZh": "分流入口",
+      "interpretation": "Fructose connects isomerization, C3 cleavage, and HMF/Humins side path.",
+      "interpretationZh": "果糖连接异构化、C3 裂解和 HMF/腐殖质副路径。"
+    }
+  ],
+  "edgeWeightFormula": {
+    "latex": "w_{ij}=S_{evidence}\\times P_{chem}\\times F_{MOF}\\times V_{support}",
+    "fallback": "w_ij = E_ij × P_ij × M_ij × V_ij",
+    "explanation": "Edge weight combines evidence score, chemical plausibility, MOF regulation factor, and validation support.",
+    "explanationZh": "边权重由证据分数、化学合理性、MOF 调控因子和验证支持度共同决定。"
+  },
+  "mostProbablePathway": "glucose-c3-c1-formate",
+  "competingBranches": [
+    {
+      "id": "hmf-humins-pathway",
+      "label": "HMF / Humins branch",
+      "labelZh": "HMF / 腐殖质分支",
+      "edgeIds": ["fructose-to-hmf"],
+      "controlFactors": ["pH / buffer", "pore accessibility", "functional group"],
+      "reason": "Sugar dehydration and polymerization drain carbon away from formate.",
+      "reasonZh": "糖脱水和聚合会将碳流从甲酸路径分流。"
+    },
+    {
+      "id": "organic-acid-byproduct-pathway",
+      "label": "Organic acid product pool",
+      "labelZh": "有机酸副产物池",
+      "edgeIds": ["c3-to-organic-acid-pool", "c2-to-organic-acid-pool"],
+      "controlFactors": ["functional group", "open metal site", "pore accessibility"],
+      "reason": "C3/C2 branches can form lactic, acetic, glycolic, or oxalic acids.",
+      "reasonZh": "C3/C2 分支可能生成乳酸、乙酸、乙醇酸或草酸。"
+    }
+  ]
+}

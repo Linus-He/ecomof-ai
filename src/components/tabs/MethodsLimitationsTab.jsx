@@ -13,16 +13,17 @@ import {
   useViewport,
 } from "../../shared"
 import { MethodologySidebar } from "../methodology/MethodologySidebar"
+import { MethodFormulaCard } from "../methodology/MethodFormulaCard"
 import { MethodModuleSection } from "../methodology/MethodModuleSection"
 
 const MODULE_ORDER = [
   "platform-overview",
+  "mof-library",
   "ecoscreen",
-  "performance",
   "gassep",
   "catalysis-lab",
   "organic-acid",
-  "mof-library",
+  "performance",
   "shared-evidence",
   "limitations-validation",
 ]
@@ -39,39 +40,18 @@ function scrollToSection(id) {
 }
 
 function buildDirectory(modules, lang) {
-  const items = []
-  modules.forEach(module => {
-    items.push({
+  return modules.map(module => ({
       id: `methodology-${module.id}`,
       label: module.module,
       labelZh: module.moduleZh,
       level: 1,
-      children: (module.methodGroups || []).slice(0, 3).map(group => ({
+      children: (module.methodGroups || []).map(group => ({
         id: `methodology-${group.id}`,
         label: group.title,
         labelZh: group.titleZh,
       })),
-    })
-    ;(module.methodGroups || []).forEach(group => {
-      const show =
-        module.id === "ecoscreen" ||
-        module.id === "gassep" ||
-        module.id === "organic-acid" ||
-        module.id === "shared-evidence" ||
-        module.id === "limitations-validation"
-      if (!show) return
-      items.push({
-        id: `methodology-${group.id}`,
-        label: group.title,
-        labelZh: group.titleZh,
-        level: 2,
-      })
-    })
-  })
-  return items.map(item => ({
-    ...item,
-    display: text(lang, item.labelZh, item.label),
-  }))
+      display: text(lang, module.moduleZh, module.module),
+    }))
 }
 
 function PlatformFlowCard({ lang, t, isMobile }) {
@@ -114,12 +94,12 @@ function PlatformFlowCard({ lang, t, isMobile }) {
 
 function FormulaIndex({ lang, t }) {
   const formulas = [
-    ["C_j = \\sigma_j \\times \\sum_{k=1}^{m}(1-r_{jk})", "C_j = sigma_j x sum(1-r_jk)", text(lang, "CRITIC 信息量", "CRITIC information content")],
-    ["w_j = \\frac{C_j}{\\sum_{j=1}^{m}C_j}", "w_j = C_j / sum(C_j)", text(lang, "CRITIC 权重", "CRITIC weight")],
-    ["D_{raw}=G\\times\\prod_{j=1}^{m}d_j^{w_j}", "D_raw = G x product(d_j ^ w_j)", text(lang, "候选综合评分", "Candidate score")],
-    ["D_{expected}=D_{raw}\\times Q", "D_expected = D_raw x Q", text(lang, "证据置信度修正", "Evidence confidence correction")],
-    ["\\mathrm{Comparable}=\\mathrm{same}(gasSystem, feedRatio, T, P, method)", "Comparable = same(gasSystem, feedRatio, T, P, method)", text(lang, "GasSep 可比性规则", "GasSep comparability rule")],
-    ["\\mathrm{Priority\\ Tier}=f(pathway\\ fit,\\ motif/rule\\ match,\\ evidence\\ support,\\ risk\\ penalty,\\ validation\\ gap)", "Priority Tier = f(pathway fit, motif/rule match, evidence support, risk penalty, validation gap)", text(lang, "Organic Acid 优先级逻辑", "Organic Acid priority logic")],
+    { id: "critic-information", label: "CRITIC information content", labelZh: "CRITIC 信息量", latex: "C_j=\\sigma_j\\sum_{k=1}^{m}(1-r_{jk})", fallback: "C_j = σ_j Σ(1-r_jk)" },
+    { id: "critic-weight", label: "CRITIC weight", labelZh: "CRITIC 权重", latex: "w_j=\\frac{C_j}{\\sum_{j=1}^{m}C_j}", fallback: "w_j = C_j / ΣC_j" },
+    { id: "candidate-raw", label: "Candidate score", labelZh: "候选综合评分", latex: "D_{\\mathrm{raw}}=G\\times\\prod_{j=1}^{m}d_j^{w_j}", fallback: "D_raw = G × Π d_j^w_j" },
+    { id: "evidence-confidence", label: "Evidence confidence correction", labelZh: "证据置信度修正", latex: "D_{\\mathrm{expected}}=D_{\\mathrm{raw}}\\times Q", fallback: "D_expected = D_raw × Q" },
+    { id: "organic-edge-weight", label: "Organic Acid edge weight", labelZh: "有机酸边权重", latex: "w_{ij}=E_{ij}\\times P_{ij}\\times M_{ij}\\times V_{ij}", fallback: "w_ij = E_ij × P_ij × M_ij × V_ij" },
+    { id: "candidate-priority-score", label: "Candidate priority score", labelZh: "候选物优先级评分", latex: "P_c=R_c\\times E_c\\times F_c\\times V_c", fallback: "P_c = R_c × E_c × F_c × V_c" },
   ]
   return (
     <section id="methodology-formula-index" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 15 }}>
@@ -132,12 +112,7 @@ function FormulaIndex({ lang, t }) {
         </h2>
       </header>
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
-        {formulas.map(([math, fallback, label]) => (
-          <article key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 8, minWidth: 0, padding: 11 }}>
-            <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{label}</strong>
-            <BlockFormula math={math} fallback={fallback} t={t} />
-          </article>
-        ))}
+        {formulas.map(formula => <MethodFormulaCard key={formula.id} formula={formula} lang={lang} t={t} />)}
       </div>
     </section>
   )
@@ -186,7 +161,7 @@ export function MethodsLimitationsTab() {
 
   useEffect(() => {
     if (typeof IntersectionObserver === "undefined") return undefined
-    const ids = directoryItems.map(item => item.id)
+    const ids = directoryItems.flatMap(item => [item.id, ...(item.children || []).map(child => child.id)])
     const targets = ids.map(id => document.getElementById(id)).filter(Boolean)
     if (!targets.length) return undefined
     const observer = new IntersectionObserver(entries => {

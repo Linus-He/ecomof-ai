@@ -1,0 +1,62 @@
+[
+  {
+    "id": "metal_center",
+    "label": "Metal center",
+    "labelZh": "金属中心",
+    "type": "regulation_promote",
+    "affectedEdges": ["c3-to-c1", "c1-to-formate", "hco3-to-formate"],
+    "direction": "promote",
+    "evidenceLevel": "literature_inference",
+    "explanation": "Metal centers may influence electron transfer, oxidative cleavage, and HCO3-/CO2 activation; currently a candidate regulation factor requiring evidence weighting.",
+    "explanationZh": "金属中心可能影响电子转移、氧化裂解和 HCO₃⁻/CO₂ 活化，但当前仅作为候选调控因子，需要实验或文献赋权。",
+    "validationMethods": ["intermediate_feeding", "isotope_tracing", "DFT descriptor update"]
+  },
+  {
+    "id": "open_metal_site",
+    "label": "Defect / open metal site",
+    "labelZh": "缺陷 / 开放金属位点",
+    "type": "regulation_promote",
+    "affectedEdges": ["glucose-to-c3", "fructose-to-c3", "c3-to-c1", "hco3-to-formate"],
+    "direction": "promote",
+    "evidenceLevel": "literature_inference",
+    "explanation": "Open metal sites may enhance intermediate adsorption, C-C cleavage, and bicarbonate activation.",
+    "explanationZh": "开放金属位点可能增强中间体吸附、C–C 裂解以及碳酸氢根活化。",
+    "validationMethods": ["site characterization", "intermediate_feeding", "isotope_tracing"]
+  },
+  {
+    "id": "functional_group",
+    "label": "Functional group",
+    "labelZh": "官能团",
+    "type": "regulation_promote",
+    "affectedEdges": ["glucose-to-fructose", "fructose-to-c3", "c3-to-organic-acid-pool", "fructose-to-hmf"],
+    "direction": "mixed",
+    "evidenceLevel": "hypothesis_guided",
+    "explanation": "-NH2, -COOH, and -SO3H groups may change acid-base microenvironments and steer isomerization, cleavage, and side paths.",
+    "explanationZh": "–NH₂、–COOH、–SO₃H 等官能团可能改变酸碱微环境，影响糖异构化、裂解以及副路径生成。",
+    "validationMethods": ["functional group comparison", "product distribution"]
+  },
+  {
+    "id": "pore_accessibility",
+    "label": "Pore accessibility",
+    "labelZh": "孔道可达性",
+    "type": "regulation_inhibit",
+    "affectedEdges": ["glucose-to-fructose", "fructose-to-c3", "c3-to-c2", "fructose-to-hmf"],
+    "direction": "selectivity_control",
+    "evidenceLevel": "hypothesis_guided",
+    "explanation": "Pore accessibility affects substrate entry, intermediate diffusion, and polymerization risk.",
+    "explanationZh": "孔道可达性影响大分子底物进入、反应中间体扩散和副产物聚合风险。",
+    "validationMethods": ["diffusion descriptor", "substrate-size test"]
+  },
+  {
+    "id": "water_stability",
+    "label": "Water stability",
+    "labelZh": "水相稳定性",
+    "type": "regulation_inhibit",
+    "affectedEdges": ["glucose-to-fructose", "fructose-to-c3", "c3-to-c1", "c1-to-formate", "hco3-to-formate", "c2-to-formate"],
+    "direction": "feasibility_gate",
+    "evidenceLevel": "strong_literature",
+    "explanation": "Aqueous stability is a prerequisite before glucose/NaHCO3 validation.",
+    "explanationZh": "水相稳定性决定 MOF 是否适合葡萄糖 / NaHCO₃ 共反应体系，是进入实验验证前的必要筛选条件。",
+    "validationMethods": ["post-reaction PXRD", "ICP", "water stability source review"]
+  }
+]

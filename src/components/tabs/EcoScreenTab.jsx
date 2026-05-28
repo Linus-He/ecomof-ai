@@ -223,7 +223,7 @@ function ConflictHeatmap({ model, lang, t }) {
     <div style={{ display: "grid", gap: 10 }}>
       <SegmentedControl
         items={[
-          { id: "conflict", label: "1 - r_jk", zhLabel: "1 - r_jk 冲突度", description: "Conflict intensity between indicators.", zhDescription: "指标之间的冲突强度。" },
+          { id: "conflict", label: "Descriptor conflict", zhLabel: "指标冲突度", description: "Non-redundant information between descriptors.", zhDescription: "指标之间的非冗余信息。" },
           { id: "correlation", label: "correlation", zhLabel: "correlation 相关性", description: "Pearson correlation between indicators.", zhDescription: "指标之间的 Pearson 相关性。" },
         ]}
         value={mode}
@@ -251,8 +251,8 @@ function ConflictHeatmap({ model, lang, t }) {
       </div>
       <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55 }}>
         {lang === "zh"
-          ? "1 - r_jk 越高，两个指标提供的排序信息越不重复；这会提高 CRITIC 中的 conflict intensity。"
-          : "Higher 1 - r_jk means less redundant ranking information between two indicators, raising CRITIC conflict intensity."}
+          ? "指标冲突度越高，说明两个指标提供的排序信息越不重复；这会提高 CRITIC 权重中的非冗余贡献。"
+          : "Higher descriptor conflict means less redundant ranking information between two descriptors, increasing the non-redundant contribution in CRITIC weighting."}
       </div>
     </div>
   )
@@ -320,7 +320,7 @@ function WeightDiagnostics({ model, lang, t, isMobile }) {
           <PanelTitle
             t={t}
             title={lang === "zh" ? "指标冲突热图" : "Indicator Conflict Heatmap"}
-            subtitle={lang === "zh" ? "基于 correlation 与 1-r_jk 展示指标间的信息重复和冲突。" : "Uses correlation and 1-r_jk to show redundancy and conflict between indicators."}
+            subtitle={lang === "zh" ? "基于相关性矩阵展示指标间的信息重复和非冗余贡献。" : "Uses the descriptor correlation matrix to show redundancy and non-redundant information."}
           />
           <div style={{ marginTop: 12 }}>
             <ConflictHeatmap model={model} lang={lang} t={t} />
@@ -331,7 +331,7 @@ function WeightDiagnostics({ model, lang, t, isMobile }) {
         <PanelTitle
           t={t}
           title={text(lang, "权重诊断 / Weight Diagnostics", "Weight Diagnostics")}
-          subtitle={lang === "zh" ? "standard deviation 表示差异度，contrast intensity 在当前实现中等同于标准差项；conflict intensity 来自 1-r_jk 的累积。" : "Standard deviation represents contrast intensity; conflict intensity accumulates 1-r_jk."}
+          subtitle={lang === "zh" ? "标准差表示候选物之间的区分度；冲突度表示指标之间的非冗余信息贡献。" : "Standard deviation represents contrast intensity across candidates; descriptor conflict represents non-redundant information across indicators."}
         />
         <div style={{ marginTop: 12 }}>
           <IndicatorDiagnostics model={model} lang={lang} t={t} isMobile={isMobile} />
@@ -478,8 +478,8 @@ function CandidateDetail({ candidate, lang, t, isMobile }) {
         {[
           [text(lang, "描述符完整度", "Descriptor completeness"), lang === "zh" ? candidate.descriptorCompleteness.zhLabel : candidate.descriptorCompleteness.label],
           [text(lang, "证据等级", "Evidence level"), candidate.evidenceLevel],
-          ["D_raw", fmt(candidate.D_raw)],
-          ["D_expected", fmt(candidate.D_expected)],
+          [text(lang, "证据修正前综合评分", "Raw candidate score"), fmt(candidate.D_raw)],
+          [text(lang, "证据修正后期望评分", "Evidence-corrected expected score"), fmt(candidate.D_expected)],
         ].map(([label, value]) => (
           <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 10 }}>
             <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", fontWeight: 850 }}>{label}</div>
@@ -770,14 +770,14 @@ function EvidenceNotes({ lang, t, isMobile }) {
     ? [
       ["证据边界", "本页 ranking 表示候选优先级，不代表真实催化性能结论。"],
       ["权重限制", "CRITIC 权重来自当前候选集的差异度与冲突度，解释 ranking influence，不解释 causal mechanism。"],
-      ["缺失数据", "缺失描述符以 UNKNOWN_SCORE = 0.50 作为不确定性占位；缺失不等于材料失败。"],
+      ["缺失数据", "缺失描述符采用中性不确定性得分处理；缺失不等于材料失败。"],
       ["小样本敏感性", "候选数较少时，新增或删除样本可能改变标准差、相关性和客观权重。"],
       ["证据异质性", "文献、DFT、实验和 inferred evidence 的可比性不同，必须在后续验证中分层处理。"],
     ]
     : [
       ["Evidence boundary", "Ranking means candidate priority, not validated catalytic performance."],
       ["Weight limitation", "CRITIC weights come from contrast and conflict in this candidate set; they explain ranking influence, not causal mechanism."],
-      ["Missing data", "Missing descriptors use UNKNOWN_SCORE = 0.50 as an uncertainty placeholder; missing is not material failure."],
+      ["Missing data", "Missing descriptors are handled with a neutral uncertainty score; missing data is not treated as material failure."],
       ["Small sample sensitivity", "With small samples, adding or removing candidates may change standard deviation, correlation, and objective weights."],
       ["Evidence heterogeneity", "Literature, DFT, experiment, and inferred evidence are not equally comparable and need layered validation."],
     ]
@@ -946,7 +946,7 @@ export function EcoScreenTab({ onNavigate }) {
 
       {scoringMode === "formate" && (
       <>
-      <ResultLayer number="01" title={text(lang, "Formate CRITIC Case / 权重概览", "Formate CRITIC Case / Weight Overview")} subtitle={lang === "zh" ? "保留旧 criticScoring.js：d_stab、d_barrier、d_select、D_raw、D_expected、confidence_Q 与 G hard screening。" : "Retains the legacy criticScoring.js case: d_stab, d_barrier, d_select, D_raw, D_expected, confidence_Q, and G hard screening."}>
+      <ResultLayer number="01" title={text(lang, "Formate CRITIC Case / 权重概览", "Formate CRITIC Case / Weight Overview")} subtitle={lang === "zh" ? "展示稳定性、反应能垒、选择性代理、证据修正和可行性门控如何共同形成候选优先级。" : "Shows how stability, reaction-barrier proxy, selectivity proxy, evidence correction, and feasibility gating form candidate priority."}>
         <div style={{ display: "grid", gap: 12 }}>
           <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.25fr) minmax(360px, 0.75fr)", gap: 12, alignItems: "stretch" }}>
             <Card t={t} style={{ display: "grid", gap: 10 }}>
@@ -962,16 +962,16 @@ export function EcoScreenTab({ onNavigate }) {
                   : "The panel connects CRITIC weights, indicator diagnostics, candidate ranking, robustness testing, and evidence limitations in one explanation chain."}
               </div>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap", color: t.faint, fontSize: 11 }}>
-                <InlineFormula math={"D_{expected}=D_{raw}\\times Q"} fallback="D_expected = D_raw x Q" />
-                <InlineFormula math={"C_j=\\sigma_j\\sum_k(1-r_{jk})"} fallback="C_j = sigma_j * sum_k(1-r_jk)" />
-                <InlineFormula math={"w_j=\\frac{C_j}{\\sum_j C_j}"} fallback="w_j = C_j / sum(C_j)" />
+                <InlineFormula math={"D_{\\mathrm{expected}}=D_{\\mathrm{raw}}\\times Q"} fallback="D_expected = D_raw × Q" />
+                <InlineFormula math={"C_j=\\sigma_j\\sum_{k=1}^{m}(1-r_{jk})"} fallback="C_j = σ_j Σ(1-r_jk)" />
+                <InlineFormula math={"w_j=\\frac{C_j}{\\sum_{j=1}^{m}C_j}"} fallback="w_j = C_j / ΣC_j" />
               </div>
             </Card>
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 10 }}>
-              <MetricCard label={text(lang, "候选总数 / Total candidates", "Total candidates")} value={model.candidates.length} note={text(lang, "演示数据集", "demo set")} t={t} />
-              <MetricCard label={text(lang, "已评分候选 / Scored candidates", "Scored candidates")} value={scored.length} note="G = 1" t={t} />
-              <MetricCard label={text(lang, "已硬筛排除 / Excluded", "Excluded")} value={excluded.length} note="G = 0" t={t} tone={excluded.length ? "warn" : "calc"} />
-              <MetricCard label={text(lang, "当前最高优先级候选 / Top candidate", "Top candidate")} value={topCandidate?.name || "—"} note={topCandidate ? `D_expected ${fmt(topCandidate.D_expected)}` : ""} t={t} />
+              <MetricCard label={text(lang, "候选总数 / Total candidates", "Total candidates")} value={model.candidates.length} note={text(lang, "种子记录集", "seed record set")} t={t} />
+              <MetricCard label={text(lang, "已评分候选 / Scored candidates", "Scored candidates")} value={scored.length} note={text(lang, "通过可行性门控", "passed feasibility gate")} t={t} />
+              <MetricCard label={text(lang, "已门控排除 / Excluded", "Excluded")} value={excluded.length} note={text(lang, "未通过可行性门控", "failed feasibility gate")} t={t} tone={excluded.length ? "warn" : "calc"} />
+              <MetricCard label={text(lang, "当前最高优先级候选 / Top candidate", "Top candidate")} value={topCandidate?.name || "—"} note={topCandidate ? `${text(lang, "证据修正后期望评分", "evidence-corrected score")} ${fmt(topCandidate.D_expected)}` : ""} t={t} />
             </div>
           </div>
           <ScoringMethodSummary model={model} weightingMode={weightingMode} onWeightingModeChange={setWeightingMode} lang={lang} t={t} isMobile={isMobile} />
@@ -993,8 +993,8 @@ export function EcoScreenTab({ onNavigate }) {
             </div>
             <div style={{ color: t.subtle, fontSize: 11.5, lineHeight: 1.55, marginBottom: 10 }}>
               {lang === "zh"
-                ? "该分数为演示占位，不代表该 MOF 的真实性能判断。"
-                : "This score is an illustrative placeholder, not a validated statement about this MOF. 该分数为演示占位，不代表该 MOF 的真实性能判断。"}
+                ? "该分数用于方法展示和候选优先级解释，不代表该 MOF 的真实性能结论。"
+                : "This score supports method demonstration and candidate-priority explanation; it is not a validated performance conclusion for the MOF."}
             </div>
             <CandidateRanking candidates={model.candidates} selectedId={selectedCandidate?.id} onSelect={setSelectedId} lang={lang} t={t} isMobile={isMobile} />
           </Card>

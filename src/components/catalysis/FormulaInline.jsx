@@ -233,7 +233,7 @@ export function buildDescriptorRows(candidate) {
       value: record?.value ?? null,
       unit: record?.unit ?? definition.unit ?? "",
       status: record?.status ?? "pending",
-      evidence: record?.evidence ?? "demo placeholder",
+      evidence: record?.evidence ?? "evidence pending curation",
       source: record?.source ?? "not yet curated",
       usedIn: Array.isArray(record?.usedIn) && record.usedIn.length ? record.usedIn : definition.usedIn,
     }

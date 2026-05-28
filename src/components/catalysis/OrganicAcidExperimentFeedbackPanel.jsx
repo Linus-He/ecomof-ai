@@ -109,7 +109,7 @@ export function OrganicAcidExperimentFeedbackPanel({ records: providedRecords, l
 
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 9 }}>
         <InfoCard t={t} title="What this will capture" body="Reaction conditions · product distribution · post-reaction MOF stability · HCO₃⁻ response · HCOO⁻/formate evidence · evidence confidence" />
-        <InfoCard t={t} title="Current status" body="Pending collaboration experiment data. The records below are schema placeholders and do not represent completed experiments." tone="warning" />
+        <InfoCard t={t} title="Current status" body="Pending collaboration experiment data. The records below define the planned evidence fields and do not represent completed experiments." tone="warning" />
         <InfoCard t={t} title="Data boundary" body="Experimental feedback can update prioritization only after provenance, raw data reference, and evidence confidence are curated." />
       </div>
 

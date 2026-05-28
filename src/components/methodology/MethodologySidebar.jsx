@@ -1,6 +1,38 @@
+import { useEffect, useMemo, useState } from "react"
+import { CollapsibleNavGroup } from "./CollapsibleNavGroup"
+
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
 export function MethodologySidebar({ items, activeId, onJump, lang, t, isMobile }) {
+  const parentByChild = useMemo(() => {
+    const map = new Map()
+    items.forEach(item => {
+      ;(item.children || []).forEach(child => map.set(child.id, item.id))
+    })
+    return map
+  }, [items])
+  const [openIds, setOpenIds] = useState(() => new Set(items.slice(0, 2).map(item => item.id)))
+
+  useEffect(() => {
+    const parentId = parentByChild.get(activeId) || activeId
+    if (!parentId) return
+    setOpenIds(prev => {
+      if (prev.has(parentId)) return prev
+      const next = new Set(prev)
+      next.add(parentId)
+      return next
+    })
+  }, [activeId, parentByChild])
+
+  const toggle = id => {
+    setOpenIds(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
   return (
     <aside
       style={{
@@ -18,39 +50,19 @@ export function MethodologySidebar({ items, activeId, onJump, lang, t, isMobile 
         {text(lang, "方法目录", "Methods directory")}
       </div>
       <nav style={{ display: isMobile ? "flex" : "grid", gap: 6, overflowX: isMobile ? "auto" : "visible" }}>
-        {items.map(item => {
-          const active = activeId === item.id
-          return (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => onJump(item.id)}
-              style={{
-                background: active ? t.badgeInfoBg : t.surface,
-                border: `1px solid ${active ? t.accent : t.border}`,
-                borderRadius: 8,
-                color: active ? t.accentText : t.textStrong,
-                cursor: "pointer",
-                display: "grid",
-                flex: "0 0 auto",
-                fontSize: item.level === 2 ? 11.2 : 12.2,
-                fontWeight: active ? 900 : 780,
-                gap: 3,
-                lineHeight: 1.25,
-                padding: item.level === 2 ? "7px 8px 7px 16px" : "8px 9px",
-                textAlign: "left",
-                whiteSpace: "nowrap",
-              }}
-            >
-              <span>{text(lang, item.labelZh, item.label)}</span>
-              {item.children?.length ? (
-                <span style={{ color: active ? t.accentText : t.faint, fontSize: 10.5, fontWeight: 700 }}>
-                  {item.children.map(child => text(lang, child.labelZh, child.label)).join(" · ")}
-                </span>
-              ) : null}
-            </button>
-          )
-        })}
+        {items.map(item => (
+          <CollapsibleNavGroup
+            key={item.id}
+            item={item}
+            activeId={activeId}
+            isOpen={openIds.has(item.id)}
+            onToggle={toggle}
+            onJump={onJump}
+            lang={lang}
+            t={t}
+            isMobile={isMobile}
+          />
+        ))}
       </nav>
     </aside>
   )

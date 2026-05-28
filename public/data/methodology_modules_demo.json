@@ -87,8 +87,8 @@
           {"label": "Normalize weights", "labelZh": "归一化权重", "description": "Convert information content into weights that sum to one.", "descriptionZh": "将信息量转换为总和为 1 的权重。"}
         ],
         "formulas": [
-          {"id": "critic-information", "label": "CRITIC information content", "labelZh": "CRITIC 信息量", "latex": "C_j = \\sigma_j \\times \\sum_{k=1}^{m}(1-r_{jk})", "fallback": "C_j = sigma_j x sum_k(1-r_jk)", "explanation": "C_j increases when descriptor j has high spread and low redundancy.", "explanationZh": "当描述符 j 具有高区分度且与其他指标低冗余时，C_j 增大。"},
-          {"id": "critic-weight", "label": "CRITIC weight", "labelZh": "CRITIC 权重", "latex": "w_j = \\frac{C_j}{\\sum_{j=1}^{m}C_j}", "fallback": "w_j = C_j / sum(C_j)", "explanation": "Information content is normalized into a weight vector.", "explanationZh": "信息量被归一化为权重向量。"}
+          {"id": "critic-information", "label": "CRITIC information content", "labelZh": "CRITIC 信息量", "latex": "C_j = \\sigma_j \\times \\sum_{k=1}^{m}(1-r_{jk})", "fallback": "C_j = σ_j Σ(1-r_jk)", "explanation": "C_j increases when descriptor j has high spread and low redundancy.", "explanationZh": "当描述符 j 具有高区分度且与其他指标低冗余时，C_j 增大。"},
+          {"id": "critic-weight", "label": "CRITIC weight", "labelZh": "CRITIC 权重", "latex": "w_j = \\frac{C_j}{\\sum_{j=1}^{m}C_j}", "fallback": "w_j = C_j / ΣC_j", "explanation": "Information content is normalized into a weight vector.", "explanationZh": "信息量被归一化为权重向量。"}
         ],
         "inputs": ["normalized descriptor matrix", "indicator directions", "candidate set"],
         "inputsZh": ["归一化描述符矩阵", "指标方向", "候选集合"],
@@ -110,13 +110,13 @@
           {"label": "Apply evidence confidence", "labelZh": "应用证据置信度", "description": "Scale the raw score by Q to reflect data quality.", "descriptionZh": "用 Q 缩放原始评分以反映数据质量。"}
         ],
         "formulas": [
-          {"id": "candidate-raw", "label": "Candidate raw score", "labelZh": "候选原始评分", "latex": "D_{raw}=G\\times\\prod_{j=1}^{m}d_j^{w_j}", "fallback": "D_raw = G x product(d_j ^ w_j)", "explanation": "G applies hard feasibility constraints; d_j are normalized descriptors.", "explanationZh": "G 表示硬性可行性约束；d_j 为归一化描述符。"},
-          {"id": "evidence-confidence", "label": "Evidence confidence correction", "labelZh": "证据置信度修正", "latex": "D_{expected}=D_{raw}\\times Q", "fallback": "D_expected = D_raw x Q", "explanation": "Q reduces apparent priority when evidence is weak, pending, or incomplete.", "explanationZh": "当证据较弱、待整理或不完整时，Q 会降低表观优先级。"}
+          {"id": "candidate-raw", "label": "Candidate raw score", "labelZh": "候选原始评分", "latex": "D_{\\mathrm{raw}}=G\\times\\prod_{j=1}^{m}d_j^{w_j}", "fallback": "D_raw = G × Π d_j^w_j", "explanation": "G applies hard feasibility constraints; d_j are normalized descriptors.", "explanationZh": "G 表示硬性可行性约束；d_j 为归一化描述符。"},
+          {"id": "evidence-confidence", "label": "Evidence confidence correction", "labelZh": "证据置信度修正", "latex": "D_{\\mathrm{expected}}=D_{\\mathrm{raw}}\\times Q", "fallback": "D_expected = D_raw × Q", "explanation": "Q reduces apparent priority when evidence is weak, pending, or incomplete.", "explanationZh": "当证据较弱、待整理或不完整时，Q 会降低表观优先级。"}
         ],
         "inputs": ["descriptor weights", "gate status", "evidence confidence Q"],
         "inputsZh": ["描述符权重", "门槛状态", "证据置信度 Q"],
-        "outputs": ["D_raw", "D_expected", "risk and validation gap summary"],
-        "outputsZh": ["D_raw", "D_expected", "风险与验证缺口摘要"],
+        "outputs": ["raw candidate score", "evidence-corrected expected score", "risk and validation gap summary"],
+        "outputsZh": ["证据修正前综合评分", "证据修正后期望评分", "风险与验证缺口摘要"],
         "visualizations": [{"title": "Candidate score cards", "titleZh": "候选评分卡", "description": "Score, confidence, explanation, and missing-field warnings.", "descriptionZh": "评分、置信度、解释和缺失字段警告。", "chartType": "score"}],
         "limitations": ["Scores are used for screening discussions and should not be read as measured material performance."],
         "limitationsZh": ["评分用于筛选讨论，不应被解读为实测材料性能。"]
@@ -181,7 +181,7 @@
           {"label": "Attach quality warning", "labelZh": "附加质量警告", "description": "Show missing, pending, estimated, or weak-evidence fields near the tier.", "descriptionZh": "在分层旁显示 missing、pending、estimated 或弱证据字段。"}
         ],
         "formulas": [
-          {"id": "performance-expected", "label": "Evidence-corrected score relation", "labelZh": "证据修正评分关系", "latex": "D_{expected}=D_{raw}\\times Q", "fallback": "D_expected = D_raw x Q", "explanation": "Performance uses the same evidence-confidence idea when score estimates depend on curated fields.", "explanationZh": "当评分估计依赖整理字段时，Performance 使用相同的证据置信度思想。"}
+          {"id": "evidence-confidence", "label": "Evidence-corrected score relation", "labelZh": "证据修正评分关系", "latex": "D_{\\mathrm{expected}}=D_{\\mathrm{raw}}\\times Q", "fallback": "D_expected = D_raw × Q", "explanation": "Performance uses the same evidence-confidence idea when score estimates depend on curated fields.", "explanationZh": "当评分估计依赖整理字段时，Performance 使用相同的证据置信度思想。"}
         ],
         "inputs": ["benchmark metrics", "descriptor completeness", "evidence confidence Q"],
         "inputsZh": ["基准指标", "描述符完整度", "证据置信度 Q"],
@@ -347,6 +347,53 @@
     "specialNoteZh": "受分子指纹挖掘思路启发，有机酸工作台使用 motif-level rationale layer，将配体片段、金属位点环境和孔结构特征连接到路径规则、候选物优先级和验证缺口。",
     "methodGroups": [
       {
+        "id": "graph-theoretic-reaction-network",
+        "title": "Graph-theoretic reaction network model",
+        "titleZh": "图论反应网络模型",
+        "purpose": "Represent organic-acid carbon flow as a weighted network of species, intermediates, products, competing branches, and regulation factors.",
+        "purposeZh": "将有机酸碳流表示为由物种、中间体、产物、竞争分支和调控因子组成的加权网络。",
+        "algorithmSteps": [
+          {"label": "Define nodes", "labelZh": "定义节点", "description": "Nodes represent chemical species, intermediates, products, environment factors, or MOF regulation factors.", "descriptionZh": "节点代表化学物种、中间体、产物、环境因素或 MOF 调控因子。"},
+          {"label": "Define edges", "labelZh": "定义边", "description": "Edges represent candidate transformations, competing branches, or regulation effects.", "descriptionZh": "边代表候选转化步骤、竞争分支或调控作用。"},
+          {"label": "Weight edges", "labelZh": "边权重赋值", "description": "Combine evidence score, chemical plausibility, MOF regulation contribution, and validation support.", "descriptionZh": "综合证据分数、化学合理性、MOF 调控贡献和验证支持度。"},
+          {"label": "Score pathways", "labelZh": "路径评分", "description": "Aggregate edge weights along a selected pathway to identify likely routes and bottleneck steps.", "descriptionZh": "沿选定路径聚合边权重，用于识别候选主路径和瓶颈步骤。"}
+        ],
+        "formulas": [
+          {"id": "organic-edge-weight", "label": "Edge weight", "labelZh": "边权重", "latex": "w_{ij}=E_{ij}\\times P_{ij}\\times M_{ij}\\times V_{ij}", "fallback": "w_ij = E_ij × P_ij × M_ij × V_ij", "explanation": "Edge weight combines evidence, chemical plausibility, MOF regulation, and validation support.", "explanationZh": "边权重综合证据、化学合理性、MOF 调控和验证支持度。"},
+          {"id": "organic-path-score", "label": "Pathway score", "labelZh": "路径评分", "latex": "S_p=\\prod_{(i,j)\\in p}w_{ij}", "fallback": "S_p = Π w_ij", "explanation": "The current pathway score uses multiplicative aggregation so that weak steps remain visible.", "explanationZh": "当前路径评分采用乘积聚合，使低证据步骤能够作为瓶颈被保留。"}
+        ],
+        "inputs": ["reaction nodes", "candidate reaction edges", "evidence score", "chemical plausibility", "MOF regulation factors", "validation support"],
+        "inputsZh": ["反应节点", "候选反应边", "证据分数", "化学合理性", "MOF 调控因子", "验证支持度"],
+        "outputs": ["edge weights", "pathway score", "bottleneck edge", "competing branch warning"],
+        "outputsZh": ["边权重", "路径评分", "瓶颈边", "竞争分支提示"],
+        "visualizations": [{"title": "Carbon-flow graph", "titleZh": "碳流图", "description": "Clickable nodes, edges, pathway filters, graph metrics, and MOF regulation highlights.", "descriptionZh": "可点击节点、边、路径筛选器、图论指标和 MOF 调控高亮。", "chartType": "flow"}],
+        "limitations": ["Current edge weights are hypothesis-guided and require isotope tracing, intermediate feeding, time-series monitoring, and by-product distribution validation."],
+        "limitationsZh": ["当前边权重属于假设驱动，需要同位素示踪、中间体投料、时间序列监测和副产物分布验证。"]
+      },
+      {
+        "id": "candidate-prioritization-method",
+        "title": "Candidate prioritization method",
+        "titleZh": "候选物优先级方法",
+        "purpose": "Connect rule matches, curation status, priority matrix position, and recommended validation actions.",
+        "purposeZh": "连接规则命中、整理状态、优先级矩阵位置和推荐验证动作。",
+        "algorithmSteps": [
+          {"label": "Rule matching", "labelZh": "规则匹配", "description": "Match candidates to water stability, open metal site, pore accessibility, functional group, bicarbonate activation, and side-path suppression rules.", "descriptionZh": "将候选物匹配到水相稳定性、开放金属位点、孔道可达性、官能团、碳酸氢根活化和副路径抑制规则。"},
+          {"label": "Curation queue", "labelZh": "整理队列", "description": "Mark missing descriptors, provenance gaps, and reaction-mapping gaps before priority interpretation.", "descriptionZh": "在解释优先级前标记缺失描述符、来源缺口和反应路径关联缺口。"},
+          {"label": "Priority matrix", "labelZh": "优先级矩阵", "description": "Place candidates by pathway relevance and evidence readiness, with point size representing MOF feasibility.", "descriptionZh": "按路径相关性和证据就绪度定位候选物，点大小表示 MOF 可行性。"},
+          {"label": "Next action", "labelZh": "下一步动作", "description": "Assign candidates to priority validation, priority data completion, control candidate, or defer zones.", "descriptionZh": "将候选物分配到优先验证、优先补数据、对照候选或暂缓区域。"}
+        ],
+        "formulas": [
+          {"id": "candidate-priority-score", "label": "Candidate priority score", "labelZh": "候选物优先级评分", "latex": "P_c=R_c\\times E_c\\times F_c\\times V_c", "fallback": "P_c = R_c × E_c × F_c × V_c", "explanation": "Candidate priority combines pathway relevance, evidence readiness, MOF feasibility, and validation value.", "explanationZh": "候选物优先级综合路径相关性、证据就绪度、MOF 可行性和验证价值。"}
+        ],
+        "inputs": ["rule matches", "curation status", "pathway relevance", "evidence readiness", "MOF feasibility", "validation value"],
+        "inputsZh": ["规则命中", "整理状态", "路径相关性", "证据就绪度", "MOF 可行性", "验证价值"],
+        "outputs": ["matrix quadrant", "priority tier", "missing-field list", "recommended next action"],
+        "outputsZh": ["矩阵象限", "优先级层级", "缺失字段列表", "推荐下一步动作"],
+        "visualizations": [{"title": "Candidate prioritization workspace", "titleZh": "候选物优先级工作台", "description": "Rule cards, curation queue, priority matrix, and candidate detail panel are linked to the carbon-flow graph.", "descriptionZh": "规则卡、整理队列、优先级矩阵和候选详情面板与碳流图联动。", "chartType": "score"}],
+        "limitations": ["Priority is a decision-support label for validation planning, not an experimentally validated performance ranking."],
+        "limitationsZh": ["优先级是用于验证规划的决策支持标签，不是实验验证的真实性能排名。"]
+      },
+      {
         "id": "organic-priority-logic",
         "title": "Evidence-weighted priority logic",
         "titleZh": "证据加权优先级逻辑",
@@ -360,7 +407,7 @@
           {"label": "Validation gap", "labelZh": "验证缺口", "description": "Keep missing experiments visible in the final tier explanation.", "descriptionZh": "在最终分层解释中保留缺失实验。"}
         ],
         "formulas": [
-          {"id": "organic-priority-tier", "label": "Organic Acid priority tier", "labelZh": "有机酸优先级逻辑", "latex": "\\mathrm{Priority\\ Tier}=f(pathway\\ fit,\\ motif/rule\\ match,\\ evidence\\ support,\\ risk\\ penalty,\\ validation\\ gap)", "fallback": "Priority Tier = f(pathway fit, motif/rule match, evidence support, risk penalty, validation gap)", "explanation": "The tier is an explanation label derived from rule and evidence context.", "explanationZh": "该层级是由规则和证据语境生成的解释标签。"}
+          {"id": "candidate-priority-score", "label": "Candidate priority score", "labelZh": "候选物优先级评分", "latex": "P_c=R_c\\times E_c\\times F_c\\times V_c", "fallback": "P_c = R_c × E_c × F_c × V_c", "explanation": "The priority score supports validation planning from rule and evidence context.", "explanationZh": "该优先级评分用于从规则和证据语境支持验证规划。"}
         ],
         "inputs": ["pathway fit", "motif/rule match", "evidence support", "risk penalty", "validation gap"],
         "inputsZh": ["路径适配", "motif/rule 匹配", "证据支持", "风险惩罚", "验证缺口"],

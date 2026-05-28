@@ -1,0 +1,80 @@
+[
+  {
+    "id": "rule-water-stability",
+    "name": "Water stability passes",
+    "nameZh": "水相稳定性通过",
+    "description": "Candidate has or needs evidence for water stability under aqueous glucose/NaHCO3 conditions.",
+    "descriptionZh": "候选物具备或需要补充葡萄糖/NaHCO₃ 水相条件下的稳定性证据。",
+    "relatedEdges": ["glucose-to-fructose", "c3-to-c1", "c1-to-formate"],
+    "relatedDescriptors": ["waterStability", "thermalStability"],
+    "weightInPriority": 0.16,
+    "evidenceLevel": "literature_inference",
+    "matchedCandidates": ["UiO-66-NH2", "MIL-101-Fe", "MOF-808"],
+    "participatesInPriority": true
+  },
+  {
+    "id": "rule-open-metal-site",
+    "name": "Open metal site",
+    "nameZh": "开放金属位点",
+    "description": "Open metal sites may promote intermediate adsorption, C-C cleavage, and HCO3-/CO2 activation.",
+    "descriptionZh": "开放金属位点可能促进中间体吸附、C–C 裂解和 HCO₃⁻/CO₂ 活化。",
+    "relatedEdges": ["c3-to-c1", "hco3-to-formate"],
+    "relatedDescriptors": ["openMetalSite", "poreAccessibility"],
+    "weightInPriority": 0.18,
+    "evidenceLevel": "literature_inference",
+    "matchedCandidates": ["UiO-66-NH2", "MIL-101-Fe", "MOF-808"],
+    "participatesInPriority": true
+  },
+  {
+    "id": "rule-pore-access",
+    "name": "Pore size allows diffusion",
+    "nameZh": "孔道尺寸允许扩散",
+    "description": "Pore accessibility may allow glucose and key intermediates to reach active environments.",
+    "descriptionZh": "孔道可达性可能允许葡萄糖和关键中间体进入活性环境。",
+    "relatedEdges": ["glucose-to-fructose", "fructose-to-c3", "c3-to-c2"],
+    "relatedDescriptors": ["poreSizeA", "poreVolume"],
+    "weightInPriority": 0.14,
+    "evidenceLevel": "hypothesis_guided",
+    "matchedCandidates": ["MIL-101-Fe", "MOF-808"],
+    "participatesInPriority": true
+  },
+  {
+    "id": "rule-functional-group",
+    "name": "Acid-base functional group",
+    "nameZh": "酸碱官能团",
+    "description": "Functional groups may tune isomerization, cleavage, and by-product suppression.",
+    "descriptionZh": "官能团可能调节异构化、裂解和副产物抑制。",
+    "relatedEdges": ["glucose-to-fructose", "fructose-to-c3", "fructose-to-hmf"],
+    "relatedDescriptors": ["amino", "carboxyl", "sulfonic"],
+    "weightInPriority": 0.13,
+    "evidenceLevel": "hypothesis_guided",
+    "matchedCandidates": ["UiO-66-NH2"],
+    "participatesInPriority": true
+  },
+  {
+    "id": "rule-hco3-activation",
+    "name": "HCO3- / CO2 activation relevance",
+    "nameZh": "HCO₃⁻ / CO₂ 活化相关",
+    "description": "Candidate has a plausible link to bicarbonate/carbon dioxide participation in formate formation.",
+    "descriptionZh": "候选物与碳酸氢根/二氧化碳参与甲酸生成存在合理关联。",
+    "relatedEdges": ["hco3-to-formate"],
+    "relatedDescriptors": ["metalCenter", "openMetalSite", "Eads_HCO3"],
+    "weightInPriority": 0.2,
+    "evidenceLevel": "hypothesis_guided",
+    "matchedCandidates": ["MIL-101-Fe", "MOF-808"],
+    "participatesInPriority": true
+  },
+  {
+    "id": "rule-hmf-suppression",
+    "name": "Suppress HMF / Humins side path",
+    "nameZh": "抑制 HMF / 腐殖质副路径",
+    "description": "Candidate may reduce dehydration/polymerization side-path risk.",
+    "descriptionZh": "候选物可能降低脱水/聚合副路径风险。",
+    "relatedEdges": ["fructose-to-hmf"],
+    "relatedDescriptors": ["poreAccessibility", "functionalGroup", "waterStability"],
+    "weightInPriority": 0.1,
+    "evidenceLevel": "missing",
+    "matchedCandidates": ["MOF-808"],
+    "participatesInPriority": true
+  }
+]

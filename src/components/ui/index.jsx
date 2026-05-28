@@ -71,11 +71,6 @@ export function BlockFormula({ math, fallback, t: tone, style }) {
       ...style,
     }}>
       <BlockMath math={math} renderError={() => <FormulaFallback block t={t}>{fallback || math}</FormulaFallback>} />
-      {fallback && (
-        <div style={{ color: t.faint, fontSize: 10.5, fontFamily: FONT_MONO, lineHeight: 1.45, marginTop: 5 }}>
-          {fallback}
-        </div>
-      )}
     </div>
   )
 }

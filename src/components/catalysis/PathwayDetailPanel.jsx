@@ -1,69 +1,98 @@
-import { PathwayEvidenceBadge, getEvidenceInfo } from "./PathwayEvidenceBadge"
+import { SCIENTIFIC_TOKEN_FONT, organicAcidPalette as palette } from "./FormulaInline"
 
-function SectionList({ title, rows, t }) {
-  if (!rows?.length) return null
+const text = (lang, zh, en) => (lang === "zh" ? zh : en)
+const pct = value => `${Math.round(Math.max(0, Math.min(1, Number(value) || 0)) * 100)}%`
+
+function Tags({ values }) {
+  if (!values?.length) return null
   return (
-    <div style={{ display: "grid", gap: 5 }}>
-      <div style={{ color: t.textStrong, fontSize: 11.5, fontWeight: 900 }}>{title}</div>
-      <ul style={{ color: t.muted, display: "grid", fontSize: 11.5, gap: 4, lineHeight: 1.45, margin: 0, paddingLeft: 17 }}>
-        {rows.map(row => <li key={row}>{row}</li>)}
-      </ul>
+    <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+      {values.map(value => (
+        <span key={value} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 999, color: palette.muted, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11.5, padding: "4px 7px" }}>
+          {value}
+        </span>
+      ))}
     </div>
   )
 }
 
-export function PathwayDetailPanel({ selected, t, lang }) {
+function LegacySelectedPanel({ selected, t, lang }) {
   if (!selected) {
     return (
-      <aside style={{ background: t.surface, border: `1px dashed ${t.border}`, borderRadius: 8, color: t.faint, fontSize: 12, lineHeight: 1.6, padding: 13 }}>
-        {lang === "zh" ? "点击节点或路径边查看证据等级、验证需求和不确定性。" : "Click a node or pathway edge to inspect evidence level, validation needs, and uncertainty."}
+      <aside style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, color: t.muted, display: "grid", gap: 6, padding: 12 }}>
+        <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "路径详情", "Pathway detail")}</strong>
+        <span style={{ fontSize: 12, lineHeight: 1.5 }}>
+          {text(lang, "选择节点或路径卡片查看证据等级、规则作用和验证缺口。", "Select a node or pathway card to inspect evidence level, rule role, and validation gaps.")}
+        </span>
       </aside>
     )
   }
-
-  if (selected.kind === "node") {
-    return (
-      <aside style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 8, padding: 13 }}>
-        <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase" }}>Node detail</div>
-        <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 900 }}>{selected.node.label}</div>
-        <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55 }}>{selected.node.description}</div>
-        <div style={{ color: t.faint, fontSize: 11.5 }}>{selected.node.type} · {selected.node.layer}</div>
-      </aside>
-    )
-  }
-
-  const pathway = selected.pathway
-  const evidence = getEvidenceInfo(pathway.evidenceLevel)
+  const row = selected.kind === "node" ? selected.node : selected.pathway
   return (
-    <aside style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 10, minWidth: 0, padding: 13 }}>
-      <div>
-        <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase" }}>
-          Pathway
-        </div>
-        <div style={{ color: t.textStrong, fontSize: 16, fontWeight: 920, lineHeight: 1.2, marginTop: 4 }}>
-          {pathway.from} → {pathway.to}
-        </div>
-        <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.45, marginTop: 5 }}>
-          {pathway.module} · {pathway.routeGroup} · {pathway.edgeType}
-        </div>
+    <aside style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 8, padding: 12 }}>
+      <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>
+        {selected.kind === "node" ? text(lang, "节点详情", "Node detail") : text(lang, "路径详情", "Pathway detail")}
       </div>
-      <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8 }}>
-        <PathwayEvidenceBadge level={pathway.evidenceLevel} t={t} />
-        <span style={{ color: t.faint, fontSize: 11.5 }}>Level {pathway.evidenceLevel} — {evidence.label}</span>
+      <strong style={{ color: t.textStrong, fontSize: 14, lineHeight: 1.3 }}>
+        {selected.kind === "node" ? row.label : `${row.from} → ${row.to}`}
+      </strong>
+      <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55 }}>
+        {row.description || row.rationale || row.status || text(lang, "该条目用于解释路径证据与验证状态。", "This item explains pathway evidence and validation status.")}
       </div>
-      <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.textStrong, fontSize: 11.5, fontWeight: 820, lineHeight: 1.35, padding: 8 }}>
-        <span style={{ color: t.faint, fontSize: 10, fontWeight: 850, marginRight: 8, textTransform: "uppercase" }}>Status</span>
-        {pathway.status}
-      </div>
-      <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.6 }}>
-        <strong style={{ color: t.textStrong }}>What this means: </strong>
-        {pathway.uncertainty}
-      </div>
-      <SectionList title="MOF factors" rows={pathway.mofFactors} t={t} />
-      <SectionList title="Validation needed" rows={pathway.validationNeeded} t={t} />
-      <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55 }}>
-        <strong style={{ color: t.textStrong }}>Uncertainty: </strong>{pathway.uncertainty}
-      </div>
+      {row.evidenceLevel ? <div style={{ color: t.accentText, fontSize: 12, fontWeight: 850 }}>{row.evidenceLevel}</div> : null}
+      {row.validationGap ? <div style={{ color: t.warn, fontSize: 12, lineHeight: 1.45 }}>{row.validationGap}</div> : null}
     </aside>
+  )
+}
+
+export function PathwayDetailPanel({ pathway, nodesById, edgesById, lang, selected, t }) {
+  if (!pathway && selected !== undefined) return <LegacySelectedPanel selected={selected} t={t} lang={lang} />
+  if (!pathway) return null
+  const nodes = pathway.nodeSequence?.map(id => nodesById.get(id)).filter(Boolean) || []
+  const bottleneck = edgesById.get(pathway.bottleneckEdge)
+  return (
+    <article style={{ display: "grid", gap: 12 }}>
+      <header style={{ display: "grid", gap: 4 }}>
+        <div style={{ color: palette.accent, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>
+          {text(lang, "路径详情", "Pathway detail")}
+        </div>
+        <h3 style={{ color: palette.text, fontSize: 20, lineHeight: 1.15, margin: 0 }}>
+          {text(lang, pathway.nameZh, pathway.name)}
+        </h3>
+      </header>
+      <div style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.55 }}>{text(lang, pathway.summaryZh, pathway.summary)}</div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+        {nodes.map((node, index) => (
+          <span key={node.id} style={{ color: palette.text, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 12.5, fontWeight: 800 }}>
+            {index > 0 ? " → " : ""}{text(lang, node.labelZh, node.label)}
+          </span>
+        ))}
+      </div>
+      <div style={{ display: "grid", gap: 7, gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}>
+        <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 9, padding: 9 }}>
+          <span style={{ color: palette.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "路径分数", "Path score")}</span>
+          <div style={{ color: palette.text, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 18, fontWeight: 900 }}>{pct(pathway.overallScore)}</div>
+        </div>
+        <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 9, padding: 9 }}>
+          <span style={{ color: palette.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "置信度", "Confidence")}</span>
+          <div style={{ color: palette.text, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 18, fontWeight: 900 }}>{pct(pathway.confidence)}</div>
+        </div>
+      </div>
+      <div style={{ color: palette.muted, fontSize: 12.5 }}>
+        <strong style={{ color: palette.text }}>{text(lang, "瓶颈边", "Bottleneck edge")}:</strong> {bottleneck ? text(lang, bottleneck.labelZh, bottleneck.label) : pathway.bottleneckEdge}
+      </div>
+      <div style={{ display: "grid", gap: 6 }}>
+        <strong style={{ color: palette.text, fontSize: 12.5 }}>{text(lang, "竞争分支", "Competing branches")}</strong>
+        <Tags values={pathway.competingBranches} />
+      </div>
+      <div style={{ display: "grid", gap: 6 }}>
+        <strong style={{ color: palette.text, fontSize: 12.5 }}>{text(lang, "MOF 调控点", "MOF control points")}</strong>
+        <Tags values={pathway.mofControlPoints} />
+      </div>
+      <div style={{ display: "grid", gap: 6 }}>
+        <strong style={{ color: palette.text, fontSize: 12.5 }}>{text(lang, "推荐验证", "Recommended validation")}</strong>
+        <Tags values={pathway.recommendedValidation} />
+      </div>
+    </article>
   )
 }

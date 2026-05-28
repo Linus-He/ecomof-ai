@@ -191,9 +191,9 @@ function MockRecordTransformation({ lang, mockRecord, t }) {
   return (
     <Panel ariaLabel="Mock Record Transformation" t={t} style={{ borderLeft: `3px solid ${t.accent}` }}>
       <SectionHeader
-        eyebrow={lang === "zh" ? "演示记录转换" : "Mock record transformation"}
+        eyebrow={lang === "zh" ? "示例记录转换" : "Example record transformation"}
         title={lang === "zh" ? "一条记录如何被标准化" : "How one record is normalized"}
-        note={lang === "zh" ? "该演示记录只展示整理逻辑；数值为隐藏、缺失或占位状态。" : "This mock record shows curation logic only; values are hidden, missing, or framework placeholders."}
+        note={lang === "zh" ? "该示例记录只展示整理逻辑；数值为隐藏、缺失或待补充状态。" : "This example record shows curation logic only; values are hidden, missing, or awaiting curation."}
         t={t}
       />
       <div style={{ display: "grid", gap: 14, gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", marginTop: 16 }}>
@@ -247,7 +247,7 @@ function RecordIntakeTemplate({ intakeTemplate, lang, t }) {
       <SectionHeader
         eyebrow={lang === "zh" ? "记录输入模板" : "Record intake template"}
         title={lang === "zh" ? "实验记录需要如何提交和整理" : "How an experimental record is submitted and structured"}
-        note={lang === "zh" ? "输入模板说明字段组、优先级、占位示例和用途；示例不包含真实实验数值。" : "The intake template shows field group, priority, placeholder entry, and purpose; examples contain no experimental values."}
+        note={lang === "zh" ? "输入模板说明字段组、优先级、示例格式和用途；示例不包含真实实验数值。" : "The intake template shows field group, priority, example format, and purpose; examples contain no experimental values."}
         t={t}
       />
       <div style={{ display: "grid", gap: 12, marginTop: 14 }}>
@@ -325,7 +325,7 @@ function ReadinessTrace({ lang, readinessTrace, t }) {
     <Panel ariaLabel="Readiness Trace" t={t}>
       <SectionHeader
         eyebrow={lang === "zh" ? "判定轨迹" : "Readiness trace"}
-        title={lang === "zh" ? "为什么当前演示记录仅具备框架级信息" : "Why the mock record is framework-only"}
+        title={lang === "zh" ? "为什么当前示例记录仅具备框架级信息" : "Why the example record is framework-level"}
         note={lang === "zh" ? "判定轨迹展示必需、推荐和派生字段如何共同生成最终等级。" : "The trace shows how required, recommended, and derived checks produce the final class."}
         t={t}
       />

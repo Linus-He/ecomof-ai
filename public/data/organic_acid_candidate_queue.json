@@ -1,0 +1,58 @@
+[
+  {
+    "id": "uio-66-nh2",
+    "name": "UiO-66-NH2",
+    "curationStatus": "needs_reaction_mapping",
+    "matchedRuleCount": 5,
+    "missingFields": ["reactionEvidence", "hco3ActivationEvidence"],
+    "evidenceCompleteness": 0.64,
+    "priorityTier": "medium",
+    "recommendedAction": "补充 HCO₃⁻ / CO₂ 活化路径证据，并确认水相稳定性来源。",
+    "matchedRules": ["rule-water-stability", "rule-open-metal-site", "rule-functional-group", "rule-pore-access", "rule-hco3-activation"],
+    "relatedEdges": ["c3-to-c1", "hco3-to-formate"],
+    "relatedPathways": ["glucose-c3-c1-formate", "hco3-formate"],
+    "risk": ["副产物选择性证据不足"]
+  },
+  {
+    "id": "mil-101-fe",
+    "name": "MIL-101-Fe",
+    "curationStatus": "ready_for_screening",
+    "matchedRuleCount": 6,
+    "missingFields": ["byproductDistribution"],
+    "evidenceCompleteness": 0.72,
+    "priorityTier": "high",
+    "recommendedAction": "优先补充中间体投料和副产物分布数据。",
+    "matchedRules": ["rule-water-stability", "rule-open-metal-site", "rule-pore-access", "rule-hco3-activation"],
+    "relatedEdges": ["c3-to-c1", "c1-to-formate", "hco3-to-formate"],
+    "relatedPathways": ["glucose-c3-c1-formate", "hco3-formate"],
+    "risk": ["水相长期稳定性仍需确认"]
+  },
+  {
+    "id": "mof-808",
+    "name": "MOF-808",
+    "curationStatus": "needs_provenance",
+    "matchedRuleCount": 4,
+    "missingFields": ["sourceLocation", "reactionEvidence"],
+    "evidenceCompleteness": 0.58,
+    "priorityTier": "medium",
+    "recommendedAction": "补充来源位置和 HMF/Humins 抑制相关证据。",
+    "matchedRules": ["rule-water-stability", "rule-open-metal-site", "rule-pore-access", "rule-hmf-suppression"],
+    "relatedEdges": ["fructose-to-hmf", "c3-to-c1"],
+    "relatedPathways": ["hmf-humins-pathway", "glucose-c3-c1-formate"],
+    "risk": ["来源位置待补充"]
+  },
+  {
+    "id": "hkust-1",
+    "name": "HKUST-1",
+    "curationStatus": "low_priority",
+    "matchedRuleCount": 2,
+    "missingFields": ["waterStability", "reactionEvidence"],
+    "evidenceCompleteness": 0.38,
+    "priorityTier": "low",
+    "recommendedAction": "暂缓；优先确认水相稳定性后再讨论路径相关性。",
+    "matchedRules": ["rule-open-metal-site"],
+    "relatedEdges": ["c3-to-c1"],
+    "relatedPathways": ["glucose-c3-c1-formate"],
+    "risk": ["水相稳定性风险较高"]
+  }
+]

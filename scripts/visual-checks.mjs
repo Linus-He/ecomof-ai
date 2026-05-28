@@ -8,7 +8,7 @@ const outDir = path.join(process.cwd(), "test-results", "visual-checks")
 
 const routes = [
   ["catalysis", "#catalysis", [["Reaction Pathway Evidence Map", "催化路径证据图"], ["Data Harmonization & Comparability Workflow", "数据整理与可比性评估流程"], ["Organic Acid Workspace", "有机酸路径工作台"]]],
-  ["organic-acid", "#catalysis-organic-acid", [["Access Gate / Frontend Passcode", "前端访问入口"], ["Algorithm Trace Explorer", "算法追踪器"], ["Organic Acid Graph Workspace", "有机酸图论路径工作台"], ["Pathway-to-score mapping", "路径与评分映射"], ["Organic Acid Candidate Matrix", "有机酸候选物优先级矩阵"]]],
+  ["organic-acid", "#catalysis-organic-acid", [["Access Gate / Frontend Passcode", "前端访问入口"], ["Algorithm Trace Explorer", "算法追踪器"], ["Organic Acid Carbon-Flow Graph Workbench", "有机酸碳流图论路径工作台"], ["Candidate Prioritization Workspace", "候选物优先级与规则匹配工作台"], ["Priority Matrix", "优先级矩阵"]]],
   ["library", "#library", [["Open MOF Seed Records", "Open MOF Seed 记录"], ["View database details", "查看数据库详情"]]],
   ["ecoscreen", "#ecoscreen", ["EcoScreen", ["Candidate Scoring", "候选评分"]]],
   ["methodology", "#methodology", ["Methods & Evidence", "Evidence Levels", "Validation Roadmap"]],
