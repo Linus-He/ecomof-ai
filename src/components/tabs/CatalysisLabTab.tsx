@@ -11,6 +11,7 @@ import {
 import { ModulePageHeader } from "../module/ModuleTop"
 import { DataHarmonizationWorkflow } from "../catalysis/DataHarmonizationWorkflow"
 import { enrichCatalysisRecord } from "../catalysis/evidenceScoring"
+import { CatalysisEnergyBarrierDemo } from "../catalysis/CatalysisEnergyBarrierDemo"
 import { OrganicAcidEntryCard } from "../catalysis/OrganicAcidEntryCard"
 import { OrganicAcidWorkspace } from "../catalysis/OrganicAcidWorkspace"
 import { ReactionPathwayEvidenceMap } from "../catalysis/ReactionPathwayEvidenceMap"
@@ -72,6 +73,7 @@ export function CatalysisLabTab() {
   const [selectedRecordId, setSelectedRecordId] = useState(null)
   const [selectedCandidateId, setSelectedCandidateId] = useState(null)
   const [selectedPathwayId, setSelectedPathwayId] = useState(null)
+  const [pendingOrganicScrollTarget, setPendingOrganicScrollTarget] = useState(null)
 
   useEffect(() => {
     let active = true
@@ -106,6 +108,19 @@ export function CatalysisLabTab() {
       window.removeEventListener("popstate", syncWorkspace)
     }
   }, [])
+
+  useEffect(() => {
+    if (typeof window === "undefined" || activeWorkspace !== "organic-acid" || !pendingOrganicScrollTarget) return undefined
+    const delays = [90, 260, 620, 1100, 1650]
+    const timers = delays.map((delay, index) => window.setTimeout(() => {
+      document.getElementById(pendingOrganicScrollTarget)?.scrollIntoView({
+        behavior: index === 0 ? "smooth" : "auto",
+        block: "start",
+      })
+      if (index === delays.length - 1) setPendingOrganicScrollTarget(null)
+    }, delay))
+    return () => timers.forEach(timer => window.clearTimeout(timer))
+  }, [activeWorkspace, pendingOrganicScrollTarget])
 
   const catalysisRecords = useMemo(() => (
     rawRecords.map(record => enrichCatalysisRecord(record))
@@ -165,6 +180,11 @@ export function CatalysisLabTab() {
     }
   }
 
+  const openOrganicAcidSection = (targetId) => {
+    setPendingOrganicScrollTarget(targetId)
+    openOrganicAcidWorkspace()
+  }
+
   const backToOverview = () => {
     setActiveWorkspace("overview")
     if (typeof window !== "undefined" && window.location.hash !== "#catalysis") {
@@ -192,6 +212,13 @@ export function CatalysisLabTab() {
       />
 
       <BoundaryStrip t={t} lang={lang} />
+
+      <CatalysisEnergyBarrierDemo
+        t={t}
+        lang={lang}
+        isMobile={isMobile}
+        onNavigateToSection={openOrganicAcidSection}
+      />
 
       {status === "loading" ? <LoadingPanel t={t} lang={lang} /> : null}
       {status === "error" ? (

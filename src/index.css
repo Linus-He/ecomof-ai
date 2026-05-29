@@ -719,6 +719,39 @@ details[open].motion-surface {
   transform: scaleX(1);
 }
 
+.catalysis-cat-demo {
+  isolation: isolate;
+}
+
+.catalysis-energy-svg {
+  display: block;
+  height: auto;
+  max-height: 520px;
+  min-width: 0;
+  width: 100%;
+}
+
+.catalyst-curve-glow {
+  animation: catalysis-curve-pulse 4.8s ease-in-out infinite;
+}
+
+.energy-cat-mascot {
+  animation: catalysis-cat-hop 4.8s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+.energy-cat-mascot:focus-visible {
+  outline: 2px solid rgba(26, 109, 181, 0.48);
+  outline-offset: 4px;
+}
+
+.mof-cube-node {
+  animation: mof-cube-breathe 4.8s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center center;
+}
+
 @media (max-width: 979px) {
   .home-motion-background {
     display: none !important;
@@ -991,6 +1024,45 @@ details[open].motion-surface {
   to {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes catalysis-cat-hop {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  35% {
+    transform: translate(6px, -7px) rotate(-1.5deg);
+  }
+  58% {
+    transform: translate(12px, -2px) rotate(1.2deg);
+  }
+  72% {
+    transform: translate(8px, 0) rotate(0deg);
+  }
+}
+
+@keyframes catalysis-curve-pulse {
+  0%, 100% {
+    opacity: 0.88;
+    stroke-width: 6.5;
+  }
+  42% {
+    opacity: 1;
+    stroke-width: 8;
+  }
+  62% {
+    opacity: 0.92;
+    stroke-width: 6.8;
+  }
+}
+
+@keyframes mof-cube-breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.05);
   }
 }
 

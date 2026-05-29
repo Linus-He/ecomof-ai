@@ -610,17 +610,19 @@ export function OrganicAcidProject({ lang = "zh", t }) {
             ? "有机酸转化是 Catalysis Lab 中优先展示的子工作台，但不是催化模块的全部范围。"
             : "Organic acid conversion is a prioritized sub-workspace within Catalysis Lab, not the full scope of catalysis."}
         </div>
-        <OrganicAcidGraphWorkbench
-          lang={lang}
-          selectedNodeId={selectedPathwayNodeId}
-          focusEdgeIds={graphFocusEdgeIds}
-          onSelectNode={setSelectedPathwayNodeId}
-          onSelectPathway={(pathway) => {
-            setSelectedOrganicPathway(pathway.id)
-            setSelectedPathwayNodeId(pathway.nodeSequence?.[0] || null)
-          }}
-          onHighlightEdges={setGraphFocusEdgeIds}
-        />
+        <div id="organic-acid-workbench" style={{ scrollMarginTop: 118 }}>
+          <OrganicAcidGraphWorkbench
+            lang={lang}
+            selectedNodeId={selectedPathwayNodeId}
+            focusEdgeIds={graphFocusEdgeIds}
+            onSelectNode={setSelectedPathwayNodeId}
+            onSelectPathway={(pathway) => {
+              setSelectedOrganicPathway(pathway.id)
+              setSelectedPathwayNodeId(pathway.nodeSequence?.[0] || null)
+            }}
+            onHighlightEdges={setGraphFocusEdgeIds}
+          />
+        </div>
         <div id="priority" style={{ scrollMarginTop: 118 }}>
           <CandidatePrioritizationWorkspace
             lang={lang}
@@ -631,15 +633,17 @@ export function OrganicAcidProject({ lang = "zh", t }) {
           />
         </div>
         <div id="algorithm" style={{ scrollMarginTop: 118 }}>
-          <AlgorithmTraceExplorer
-            rankedRows={rankedRows}
-            selectedMof={selectedMof}
-            setSelectedMof={setSelectedMof}
-            activeStep={activeTraceStep}
-            onActiveStepChange={setActiveTraceStep}
-            selectedCandidate={selectedPathwayCandidate}
-            selectedPathwayId={selectedOrganicPathway}
-          />
+          <div id="algorithm-trace-explorer" style={{ scrollMarginTop: 118 }}>
+            <AlgorithmTraceExplorer
+              rankedRows={rankedRows}
+              selectedMof={selectedMof}
+              setSelectedMof={setSelectedMof}
+              activeStep={activeTraceStep}
+              onActiveStepChange={setActiveTraceStep}
+              selectedCandidate={selectedPathwayCandidate}
+              selectedPathwayId={selectedOrganicPathway}
+            />
+          </div>
         </div>
         <CompactDataModeBar
           value={candidateDataMode}
