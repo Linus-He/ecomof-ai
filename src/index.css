@@ -1170,3 +1170,108 @@ details[open].motion-surface {
     font-size: 0.94em;
   }
 }
+
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"] {
+  touch-action: manipulation;
+}
+
+.mof-card-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.isotherm-chart-wrap {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  color: #1f2937;
+}
+
+.isotherm-chart-svg {
+  width: 100%;
+  min-width: 560px;
+  height: auto;
+  display: block;
+}
+
+.isotherm-chart-empty {
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+  border: 1px dashed rgba(148, 163, 184, 0.45);
+  border-radius: 8px;
+  color: rgb(100, 116, 139);
+  font-size: 13px;
+}
+
+.isotherm-tooltip {
+  position: absolute;
+  transform: translate(10px, -92%);
+  pointer-events: none;
+  display: grid;
+  gap: 3px;
+  min-width: 150px;
+  padding: 8px 10px;
+  border-radius: 7px;
+  background: rgba(15, 23, 42, 0.92);
+  color: #fff;
+  font-size: 11px;
+  line-height: 1.35;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.22);
+  z-index: 4;
+}
+
+.adsorption-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.42);
+}
+
+.adsorption-modal {
+  width: min(980px, 90vw);
+  max-height: min(780px, 90vh);
+  overflow: auto;
+  border-radius: 10px;
+  padding: 18px;
+  display: grid;
+  gap: 16px;
+  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.32);
+}
+
+@media (max-width: 900px) {
+  .mof-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .mof-card-grid,
+  .adsorption-workbench-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .adsorption-filter-panel {
+    width: 100%;
+  }
+
+  .isotherm-chart-svg {
+    min-width: 480px;
+  }
+
+  .adsorption-modal-backdrop {
+    padding: 12px;
+  }
+
+  .adsorption-modal {
+    width: min(90vw, 720px);
+    max-height: 90vh;
+    padding: 14px;
+  }
+}

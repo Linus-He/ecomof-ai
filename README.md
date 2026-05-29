@@ -1,84 +1,122 @@
 # EcoMOF-AI
 
-## Project Overview
+EcoMOF-AI is a research prototype for transparent MOF screening, adsorption-performance interpretation, sustainability comparison, and catalysis-oriented evidence structuring. It is designed for exploratory scientific workflows where every score, label, and visualization must keep its data boundary visible.
 
-EcoMOF-AI is an early-stage research prototype for MOF candidate screening, sustainability evaluation, gas separation records, and catalysis-oriented data structuring.
+Live site: https://linus-he.github.io/ecomof-ai/
 
-Scores and rankings are used for transparent candidate prioritization and research discussion. They are not validated material-performance predictions.
+## 1. Project Motivation
 
-## Live Demo
+MOF screening tools often compress structural descriptors, adsorption labels, sustainability proxies, and literature evidence into a single rank without showing where the data came from or where it is missing. EcoMOF-AI takes the opposite approach: it keeps candidate prioritization useful while exposing data mode, curation status, descriptor provenance, and validation gaps.
 
-[https://linus-he.github.io/ecomof-ai/](https://linus-he.github.io/ecomof-ai/)
+The current application is not a publication-grade predictor. It is a browser-based decision-support prototype for comparing candidate records, organizing evidence, and identifying what must be measured or curated next.
 
-## Key Modules
+## 2. Key Features
 
-- **Overview**: entry point for the staged MOF decision-support workflow.
-- **EcoScreen**: sustainability-aware candidate screening and evidence-aware ranking.
-- **GasSep**: condition-aware gas adsorption and separation records.
-- **CatalysisLab**: CO₂ conversion pathways, biomass-assisted CO₂/HCO₃⁻ case templates, data normalization, record preview, and rule-assisted candidate prioritization.
-- **MOF Library**: MOF records with descriptor completeness and field-level provenance.
-- **Methods & Evidence**: visual scoring methodology overview with formula structure, score components, evidence ladder, data workflow, use boundaries, and citation support.
+- **Data Provenance**: field-level source popovers and dataset notes identify whether values are curated, pending, inferred, demo-only, or source-record placeholders.
+- **Curation Badge**: cards and tables keep curated, pending, and missing descriptor states visible instead of silently imputing final evidence.
+- **Real/Demo Mode**: data-mode controls separate Open MOF Seed, Real Seed, and Demo workflows so demo records do not masquerade as real evidence.
+- **Interactive Isotherms**: Performance includes a pure-SVG adsorption isotherm chart with multiple gases, temperatures, adsorption/desorption line styles, grid axes, and hover tooltips.
+- **Adsorption Filters**: gas, temperature, pressure, minimum uptake, BET area, pore volume, gas pair, and selectivity filters update the Performance adsorption board in real time.
+- **Scoring Diagnostics**: reusable scoring utilities and the global scoring workbench show candidate rankings, descriptor weights, evidence distribution, and explanation panels.
+- **Catalysis Evidence Workspace**: CatalysisLab preserves a dedicated organic-acid sub-workspace with graph/rule-network evidence, pending queues, and validation-roadmap language.
 
-## CatalysisLab
+## 3. Data Curation Status
 
-CatalysisLab organizes CO₂ conversion records by product pathway, including C1 products, C2+ products, organic-acid-related products, cyclic carbonates, and CO₂-assisted upgrading.
+Current bundled datasets:
 
-The module is schema-first: it displays pathway context, reaction conditions, product distribution fields, evidence status, and source status without publishing private values or claiming validated catalytic performance.
+- Open MOF Seed candidates: 50 records in `public/data/open_mof_seed_candidates.json`.
+- Real Seed framework candidates: 11 records in `public/data/mof_candidates_real_seed.json`.
+- Demo candidates: 6 records in `public/data/mof_candidates_demo.json`.
+- Curated adsorption seed records: 5 records in `src/data/realSeedData.ts`, all marked `DataMode: real` and all containing isotherm points.
 
-## GasSep
+Adsorption curation coverage in the new typed seed file is 5/5 records with at least one isotherm curve. Descriptor coverage is not complete for every scientific use case: detailed digitized source tables, full uncertainty, feed composition, fitted pure-component models, and final IAST recalculation remain known gaps. The UI labels incomplete or non-comparable conditions rather than hiding them.
 
-GasSep organizes gas adsorption and separation records with condition context such as gas ratio, temperature, pressure, method, source status, and isotherm availability.
+## 4. Tech Stack
 
-The current prototype does not perform IAST, GCMC, or breakthrough simulation.
+- Vite
+- React
+- TypeScript
+- Vitest
+- React Testing Library
+- jsdom
+- Recharts for existing legacy charts
+- Pure SVG for the new isotherm chart to avoid adding another heavy chart dependency
 
-## Data Intake & Collaboration
+## 5. Getting Started
 
-EcoMOF-AI supports collaboration-oriented data structuring for catalyst records, reaction conditions, product metrics, characterization evidence, mechanism notes, and source status.
+```bash
+npm install
+npm run dev
+npm run build
+npm test
+```
 
-Private or unpublished data should only be represented as approved public records, anonymized demos, or schema-only templates.
+Additional checks:
 
-## Catalysis Data Normalization
+```bash
+npm run typecheck
+npx depcheck
+```
 
-Catalysis experiment sheets are treated as raw records that need normalization before visualization, comparison, or future exploratory modeling.
+## 6. Project Structure
 
-Suggested tables include `catalyst_records`, `reaction_conditions`, `product_metrics`, and `evidence_records`. The current site does not provide public upload, backend storage, or live API ingestion.
+```text
+.
+├── .github/workflows/        # GitHub Pages deployment and CI
+├── public/data/              # JSON seed datasets served by Vite/GitHub Pages
+├── src/
+│   ├── components/           # UI, tabs, charts, catalysis, scoring, layout
+│   ├── components/IsothermChart.tsx
+│   ├── data/realSeedData.ts  # Typed real adsorption seed records
+│   ├── scoring/              # Descriptor registry, weighting, ranking engines
+│   ├── types/mof.ts          # Shared MOF adsorption data interfaces
+│   ├── utils/                # Scoring, prediction, units, provenance helpers
+│   └── __tests__/            # Vitest coverage
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
+```
 
-## Case Study Templates
+## 7. Architecture Decisions
 
-EcoMOF-AI can represent collaboration-oriented catalysis cases as schema-only templates before public data release.
+**CSR + Hash Router**
 
-A biomass-assisted CO₂/HCO₃⁻ conversion template can organize reaction conditions, product distribution, mechanism evidence, confidentiality mode, and ML-ready fields without publishing private values.
+EcoMOF-AI is deployed on GitHub Pages, so client-side rendering with hash-based deep links keeps routes stable without server rewrites. Existing links such as `#performance`, methodology anchors, and module-specific deep links remain portable.
 
-## Limitations
+**Typed MOF Data Model**
 
-- Scores indicate candidate priority, not final material performance.
-- Demo data is for workflow demonstration and should not be interpreted as scientific evidence.
-- Real-seed records may contain pending descriptors and source gaps.
-- ML-ready fields do not mean a trained predictive model is available.
-- Experimental validation, complete LCA, rigorous GCMC/IAST analysis, and uncertainty reporting remain outside the current prototype.
+The `MOFData` model separates structure descriptors, adsorption isotherm points, selectivity metadata, heat of adsorption, descriptor curation status, and source DOI. Isotherm uptake is normalized internally to `mmol/g`; unit conversion helpers support `mmol/g`, `cm³/g (STP)`, `mg/g`, and `wt%`.
 
-## Disclaimer Center
+**Avoiding a Heavy Isotherm Library**
 
-EcoMOF-AI centralizes use boundaries in a Disclaimer Center covering prototype status, data interpretation, scoring, sustainability signals, catalysis records, ML-ready fields, and collaborator-private data.
+The new isotherm chart uses pure SVG because the required chart grammar is small: grouped curves, grid axes, tooltip points, and adsorption/desorption line styles. This keeps the adsorption board inspectable and avoids another visualization dependency.
 
-## Citation
+**Evidence-Bound UI**
+
+Real Seed and Open MOF Seed records can be useful before they are complete, but the UI must surface missing descriptors and method differences. Scores are prioritization signals, not claims of validated material performance.
+
+## 8. Limitations
+
+- Scores and rankings are decision-support cues, not validated MOF performance predictions.
+- Adsorption data are curated from literature under varying temperature, pressure, activation, and measurement conditions.
+- Selectivity values must be compared by method; IAST, Henry, breakthrough, and ideal selectivity are not interchangeable.
+- The browser app does not replace GCMC, IAST fitting, breakthrough modeling, complete LCA, or experimental validation.
+- Some seed data remain incomplete or condition-specific and should be replaced with digitized primary-source tables before publication use.
+
+## 9. Future Roadmap
+
+- Static generation or hybrid rendering for faster first load while preserving GitHub Pages compatibility.
+- Larger verified MOF adsorption dataset with digitized pure-component isotherms and source-level uncertainty.
+- User-uploaded candidate records with schema validation and private/local-only review mode.
+- Full IAST workflow from fitted isotherms with feed composition and comparable condition controls.
+- Broader CI checks for visual regression, deep-link coverage, and dataset schema validation.
+
+## 10. How to Cite
 
 GitHub citation metadata is provided in [`CITATION.cff`](./CITATION.cff).
 
 Suggested citation:
 
 ```text
-EcoMOF-AI contributors. EcoMOF-AI: An early-stage research prototype for MOF candidate screening, sustainability evaluation, catalysis-oriented exploration, and field-level data provenance. GitHub Pages, 2026. Available at: https://linus-he.github.io/ecomof-ai/
+EcoMOF-AI contributors. EcoMOF-AI: A transparent research prototype for MOF candidate screening, gas adsorption evidence curation, sustainability comparison, and catalysis-oriented data provenance. GitHub Pages, 2026. Available at: https://linus-he.github.io/ecomof-ai/
 ```
-
-## Local Development
-
-```bash
-npm install
-npm run dev
-npm run build
-```
-
-## Deployment
-
-The project uses Vite + React and is deployed to GitHub Pages with the base path `/ecomof-ai/`. Deep links use URL hashes so GitHub Pages can serve the SPA reliably.
