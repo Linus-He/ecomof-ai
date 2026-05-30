@@ -25,7 +25,7 @@ export const SCORING_PRESETS = {
     datasetLabelZh: "MOF 候选描述符",
     defaultAlgorithm: "hybrid",
     descriptorPreset: "coreMof8",
-    defaultMissingValueStrategy: "median",
+    defaultMissingValueStrategy: "penalize",
     defaultEvidenceMode: "descriptor-evidence",
     hybridAlpha: 0.65,
     descriptors: generalDescriptors,

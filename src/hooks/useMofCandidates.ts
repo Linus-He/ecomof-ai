@@ -12,7 +12,7 @@ export function useMofCandidates(mode = DEFAULT_CANDIDATE_DATA_MODE, options = {
     let active = true
     setStatus("loading")
     setError(null)
-    getGlobalMofCandidates({ mode, throwOnError: options.throwOnError ?? true })
+    getGlobalMofCandidates({ throwOnError: options.throwOnError ?? true })
       .then(rows => {
         if (!active) return
         const nextRows = Array.isArray(rows) ? rows : []
@@ -29,7 +29,7 @@ export function useMofCandidates(mode = DEFAULT_CANDIDATE_DATA_MODE, options = {
     return () => {
       active = false
     }
-  }, [mode, options.throwOnError])
+  }, [options.throwOnError])
 
-  return { candidates, loading: status === "loading", status, error, mode }
+  return { candidates, loading: status === "loading", status, error, mode: DEFAULT_CANDIDATE_DATA_MODE }
 }

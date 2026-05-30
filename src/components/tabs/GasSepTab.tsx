@@ -7,6 +7,7 @@ import {
   BasisBadge, Callout, CopyLinkButton, DisclaimerLink, PageHeader, SectionTitle,
   getGasSeparationRecords, getGasSystemsDemo, getGasSourcesDemo,
   getComparabilityStatus, getComparisonWarning,
+  convertPressure,
   ChemicalFormula,
   ChemicalText,
 } from "../../shared"
@@ -402,7 +403,15 @@ export function GasSepTab({ onNavigate, onOpenComparisonBuilder }) {
   const chartData = useMemo(() => {
     const pressureRows = new Map()
     numericRows.forEach(row => {
-      const pressure = Number(row.pressureKPa ?? row.pressureBar * 100)
+      let pressure = null
+      try {
+        pressure = row.pressureKPa != null
+          ? convertPressure(row.pressureKPa, "kPa", "kPa")
+          : convertPressure(row.pressureBar, "bar", "kPa")
+      } catch {
+        pressure = null
+      }
+      if (!Number.isFinite(pressure)) return
       const existing = pressureRows.get(pressure) || { pressureKPa: pressure }
       existing[row.mofName] = Number(row.selectivity)
       existing[`${row.mofName}Meta`] = row

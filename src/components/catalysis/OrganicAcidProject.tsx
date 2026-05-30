@@ -1,11 +1,9 @@
 // @ts-nocheck
 import { useEffect, useMemo, useState } from "react"
 import {
-  DATA_MODES,
   DEFAULT_CANDIDATE_DATA_MODE,
   fetchDataJson,
   getGlobalMofCandidates,
-  getMofCandidates,
   getOrganicAcidExperimentRecords,
   toolbarBtn,
   useViewport,
@@ -450,8 +448,8 @@ export function OrganicAcidProject({ lang = "zh", t }) {
   const [hasAccess, setHasAccess] = useState(false)
   const [rows, setRows] = useState([])
   const [candidateRows, setCandidateRows] = useState([])
-  const [summaryData, setSummaryData] = useState({ demo: [], realSeed: [], openSeed: [], experiments: [] })
-  const [candidateDataMode, setCandidateDataMode] = useState(DEFAULT_CANDIDATE_DATA_MODE)
+  const [summaryData, setSummaryData] = useState({ openSeed: [], experiments: [] })
+  const candidateDataMode = DEFAULT_CANDIDATE_DATA_MODE
   const [candidateStatus, setCandidateStatus] = useState("idle")
   const [status, setStatus] = useState("idle")
   const [reactionRules, setReactionRules] = useState([])
@@ -496,15 +494,11 @@ export function OrganicAcidProject({ lang = "zh", t }) {
     if (!hasAccess) return
     let live = true
     Promise.all([
-      getMofCandidates({ mode: DATA_MODES.DEMO, throwOnError: false }),
-      getMofCandidates({ mode: DATA_MODES.REAL_SEED, throwOnError: false }),
-      getGlobalMofCandidates({ mode: DATA_MODES.OPEN_MOF_SEED, throwOnError: false }),
+      getGlobalMofCandidates({ throwOnError: false }),
       getOrganicAcidExperimentRecords({ throwOnError: false }),
-    ]).then(([demo, realSeed, openSeed, experiments]) => {
+    ]).then(([openSeed, experiments]) => {
       if (!live) return
       setSummaryData({
-        demo: Array.isArray(demo) ? demo : [],
-        realSeed: Array.isArray(realSeed) ? realSeed : [],
         openSeed: Array.isArray(openSeed) ? openSeed : [],
         experiments: Array.isArray(experiments) ? experiments : [],
       })
@@ -538,7 +532,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
     if (!hasAccess) return
     let live = true
     setCandidateStatus("loading")
-    getGlobalMofCandidates({ mode: candidateDataMode, throwOnError: false })
+    getGlobalMofCandidates({ throwOnError: false })
       .then(data => {
         if (!live) return
         const nextRows = Array.isArray(data) ? data : []
@@ -553,7 +547,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
     return () => {
       live = false
     }
-  }, [candidateDataMode, hasAccess])
+  }, [hasAccess])
 
   const rankedRows = useMemo(() => calculateRGFARanking(rows), [rows])
   const selectedRgfaCandidate = useMemo(() => (
@@ -647,8 +641,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
         </div>
         <CompactDataModeBar
           value={candidateDataMode}
-          onChange={mode => {
-            setCandidateDataMode(mode)
+          onChange={() => {
             setSelectedPathwayCandidateId("")
             setSelectedRuleId(null)
             setSelectedPathwayNodeId(null)
@@ -660,21 +653,17 @@ export function OrganicAcidProject({ lang = "zh", t }) {
             ? `${candidateRows.length} 条候选记录 · ${candidateStatus === "loaded" ? "已载入" : candidateStatus === "empty" ? "待填充" : candidateStatus}`
             : `${candidateRows.length} candidate records · ${candidateStatus === "loaded" ? "loaded" : candidateStatus === "empty" ? "pending population" : candidateStatus}`}
           options={[
-            { id: DATA_MODES.OPEN_MOF_SEED, label: lang === "zh" ? "Open MOF Seed" : "Open MOF Seed" },
-            { id: DATA_MODES.DEMO, label: lang === "zh" ? "Demo" : "Demo" },
-            { id: DATA_MODES.REAL_SEED, label: lang === "zh" ? "Real Seed" : "Real Seed" },
+            { id: DEFAULT_CANDIDATE_DATA_MODE, label: lang === "zh" ? "Open MOF Seed" : "Open MOF Seed" },
           ]}
         />
-        {candidateDataMode === DATA_MODES.OPEN_MOF_SEED && (
-          <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.muted, fontSize: 12.5, lineHeight: 1.55, padding: 11 }}>
-            当前全局候选数据源：Open MOF Seed · 已加载记录：{candidateRows.length} 条 · 已接入模块：MOF Library / EcoScreen / Organic Acid Project。当前有机酸路径相关性在没有文献、DFT 或实验支持前仍保持 pending。
-          </div>
-        )}
+        <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.muted, fontSize: 12.5, lineHeight: 1.55, padding: 11 }}>
+          当前全局候选数据源：Open MOF Seed · 已加载记录：{candidateRows.length} 条 · 已接入模块：MOF Library / EcoScreen / Organic Acid Project。当前有机酸路径相关性在没有文献、DFT 或实验支持前仍保持 pending。
+        </div>
         <DataStatusSummary
           seedRecords={summaryData.openSeed}
           experimentRecords={summaryData.experiments}
-          demoCount={summaryData.demo.length}
-          realSeedCount={summaryData.realSeed.length}
+          demoCount={0}
+          realSeedCount={0}
           lang={lang}
           t={t}
         />

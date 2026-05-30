@@ -1,6 +1,8 @@
 // @ts-nocheck
 import { isMissingScore } from "../../utils/criticScoring"
+import { normalizeCompletenessStatus } from "../types/scoringTypes"
 import { getDescriptor, getDescriptors } from "./descriptorRegistry"
+import { CORE_MOF_DESCRIPTOR_KEYS } from "./descriptorRegistry"
 import { getDescriptorPreset } from "./descriptorPresets"
 
 function readNestedDescriptor(candidate, descriptor) {
@@ -128,6 +130,38 @@ export function getDescriptorCoverage(candidate, descriptorKeys = []) {
     availableCount: rows.filter(row => !row.missing).length,
     plannedCount: rows.filter(row => row.planned).length,
     ratio: denominator ? curatedCount / denominator : 0,
+  }
+}
+
+export function getCoreDescriptorCompleteness(candidate, descriptorKeys = CORE_MOF_DESCRIPTOR_KEYS) {
+  const descriptors = getDescriptors(descriptorKeys)
+  const rows = descriptors.map(descriptor => {
+    const value = getCandidateDescriptorValue(candidate, descriptor)
+    const explicitStatus = candidate?.descriptorCompleteness?.[descriptor.key]
+      || value.source?.curationStatus
+      || value.source?.status
+      || value.evidence?.status
+    const status = value.missing ? "missing" : normalizeCompletenessStatus(explicitStatus, value.value)
+    const curated = status === "curated" && !value.missing
+    return {
+      key: descriptor.key,
+      label: descriptor.label,
+      labelZh: descriptor.labelZh,
+      value: value.value,
+      status,
+      curated,
+      evidenceLevel: value.evidence?.evidenceLevel || candidate?.evidenceLevel || "needs-validation",
+      source: value.evidence?.source || value.source || null,
+    }
+  })
+  const curatedCount = rows.filter(row => row.curated).length
+  return {
+    rows,
+    curatedCount,
+    descriptorCount: rows.length,
+    ratio: rows.length ? curatedCount / rows.length : 0,
+    label: `${curatedCount}/${rows.length} descriptors curated`,
+    labelZh: `${curatedCount}/${rows.length} 个描述符已整理`,
   }
 }
 

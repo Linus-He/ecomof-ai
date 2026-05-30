@@ -99,8 +99,8 @@ export function DataStatusSummary({ seedRecords = [], experimentRecords = [], de
         <div style={{ color: t.muted, fontSize: 12.3, lineHeight: 1.55 }}>{sourceText}</div>
       </div>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "repeat(2, minmax(0, 1fr))" : "repeat(7, minmax(0, 1fr))" }}>
-        <Card t={t} title="Demo records" value={stats.demoCount} />
-        <Card t={t} title="Real seed records" value={stats.realSeedCount} />
+        <Card t={t} title="Isolated demo records" value={stats.demoCount} />
+        <Card t={t} title="Legacy seed records" value={stats.realSeedCount} />
         <Card t={t} title="Open MOF seed" value={stats.openSeedCount} />
         <Card t={t} title="Experiment records" value={stats.experimentCount} />
         <Card t={t} title="Pending organic-acid" value={stats.pendingOrganicAcid} />

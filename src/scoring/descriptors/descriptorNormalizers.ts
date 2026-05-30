@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { isMissingScore } from "../../utils/criticScoring"
-import { clamp01, safeNumber } from "../types/scoringTypes"
+import { clamp01, finiteNumberOrNull, safeNumber } from "../types/scoringTypes"
 import { getCandidateDescriptorValue } from "./descriptorAccessors"
 import { resolveDescriptorDefinitions } from "./descriptorDefinitions"
 import { normalizeDescriptorDirections } from "./descriptorDirections"
@@ -47,8 +47,7 @@ function readRawValue(candidate, descriptor) {
   if (descriptor.valueType === "ordinal") return normalizeLevel(value, descriptor.levels)
   if (descriptor.valueType === "boolean") return value === true || String(value).toLowerCase() === "true" ? 1 : value === false || String(value).toLowerCase() === "false" ? 0 : null
   if (valueRecord.missing) return null
-  const numeric = Number(value)
-  return Number.isFinite(numeric) ? numeric : null
+  return finiteNumberOrNull(value)
 }
 
 function getBounds(values, descriptor, normalization = "minmax") {
@@ -74,7 +73,10 @@ function normalizeRaw(rawValue, bounds, direction) {
 function fillMissing(value, fillValue, strategy, descriptor = {}) {
   if (Number.isFinite(value)) return clamp01(value)
   if (descriptor.missingPolicy === "penalize") return 0
+  if (strategy === "penalize") return 0
   if (strategy === "zeroPenalty") return 0
+  if (strategy === "ignore") return Number.isFinite(fillValue) ? clamp01(fillValue) : 0.5
+  if (strategy === "impute") return Number.isFinite(fillValue) ? clamp01(fillValue) : 0.5
   if (strategy === "exclude") return Number.isFinite(fillValue) ? clamp01(fillValue) : 0.5
   return Number.isFinite(fillValue) ? clamp01(fillValue) : 0.5
 }

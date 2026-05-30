@@ -2,13 +2,13 @@
 import { useEffect, useMemo, useState } from "react"
 import {
   useT, useLang, useViewport,
-  DATA_MODES, DEFAULT_CANDIDATE_DATA_MODE,
-  gasLabel, getGasSystem, getGlobalMofCandidates, getMofCandidates, toolbarBtn,
+  DEFAULT_CANDIDATE_DATA_MODE,
+  gasLabel, getGasSystem, getGlobalMofCandidates, toolbarBtn,
   evidenceDistribution, scoreDistribution,
   createScoringModel, GlobalScoringWorkbench, DescriptorWeightChart, DescriptorConflictMatrix, ScoringDiagnosticsPanel,
   CandidateRankingTable, WhyThisResultButton, WhyThisWeightButton,
   RankingBarChart, ScoreBreakdownRadar, EvidenceDistributionChart, ScoreDistributionChart,
-  BasisBadge, ResultLayer, Callout, UnifiedCandidateCard, RealSeedCallout, DemoModeBanner, CopyLinkButton, DisclaimerLink,
+  BasisBadge, ResultLayer, Callout, UnifiedCandidateCard, CopyLinkButton, DisclaimerLink,
 } from "../../shared"
 import {
   CompactDataModeBar,
@@ -322,12 +322,10 @@ export function PerformanceTab({
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
-  const [dataMode, setDataMode] = useState(DEFAULT_CANDIDATE_DATA_MODE)
+  const dataMode = DEFAULT_CANDIDATE_DATA_MODE
   // Read sessionStorage on first mount so HomeTab "Advanced Screening" button
   // can pre-select the advanced workspace without extra prop drilling.
   const [performanceView, setPerformanceView] = useState(consumePerfInitView)
-  const [demoRows, setDemoRows] = useState([])
-  const [realSeedRows, setRealSeedRows] = useState([])
   const [openSeedRows, setOpenSeedRows] = useState([])
   const [dataStatus, setDataStatus] = useState("loading")
   const [selectedId, setSelectedId] = useState(null)
@@ -339,7 +337,7 @@ export function PerformanceTab({
     descriptorKeys: null,
     algorithm: "hybrid",
     hybridAlpha: 0.65,
-    missingValueStrategy: "median",
+    missingValueStrategy: "penalize",
   }), [])
   const gas = getGasSystem(inputs.gasSystem)
   const hasResult = results && !results.unavailable
@@ -347,24 +345,16 @@ export function PerformanceTab({
   useEffect(() => {
     let active = true
     setDataStatus("loading")
-    Promise.all([
-      getMofCandidates({ mode: DATA_MODES.DEMO, throwOnError: true }),
-      getMofCandidates({ mode: DATA_MODES.REAL_SEED, throwOnError: true }),
-      getGlobalMofCandidates({ mode: DATA_MODES.OPEN_MOF_SEED, throwOnError: true }),
-    ])
-      .then(([demo, realSeed, openSeed]) => {
+    getGlobalMofCandidates({ throwOnError: true })
+      .then(openSeed => {
         if (!active) return
-        const nextDemo = Array.isArray(demo) ? demo : []
-        const nextRealSeed = Array.isArray(realSeed) ? realSeed : []
         const nextOpenSeed = Array.isArray(openSeed) ? openSeed : []
-        setDemoRows(nextDemo)
-        setRealSeedRows(nextRealSeed)
         setOpenSeedRows(nextOpenSeed)
-        setDataStatus(nextOpenSeed.length || nextDemo.length || nextRealSeed.length ? "loaded" : "empty")
+        setDataStatus(nextOpenSeed.length ? "loaded" : "empty")
       })
       .catch((error) => {
         console.warn("Performance data load failed.", error)
-        if (active) { setDemoRows([]); setRealSeedRows([]); setOpenSeedRows([]); setDataStatus("error") }
+        if (active) { setOpenSeedRows([]); setDataStatus("error") }
       })
     return () => { active = false }
   }, [])
@@ -407,11 +397,7 @@ export function PerformanceTab({
     },
   } : null, [hasResult, inputs, results, lang])
 
-  const baseRows = useMemo(() => {
-    if (dataMode === DATA_MODES.OPEN_MOF_SEED) return openSeedRows
-    if (dataMode === DATA_MODES.REAL_SEED) return realSeedRows.map(normalizeRealSeedForPerf)
-    return demoRows
-  }, [dataMode, demoRows, openSeedRows, realSeedRows])
+  const baseRows = useMemo(() => openSeedRows, [openSeedRows])
 
   const performanceScoringModel = useMemo(() => createScoringModel({
     candidates: [...(currentCandidate ? [currentCandidate] : []), ...baseRows],
@@ -437,7 +423,7 @@ export function PerformanceTab({
     () => filterAdsorptionRecords(realSeedMofData, adsorptionFilters),
     [adsorptionFilters],
   )
-  const adsorptionDataAvailable = dataMode !== DATA_MODES.DEMO
+  const adsorptionDataAvailable = true
   const interpretation = useMemo(() => {
     if (!hasResult) {
       return {
@@ -461,11 +447,7 @@ export function PerformanceTab({
     { id: "assumptions", label: lang === "zh" ? "数据与假设" : "Data & assumptions" },
   ], [lang])
   const isContentTab = contentTabs.some(tab => tab.id === performanceView)
-  const dataRecordCount = dataMode === DATA_MODES.OPEN_MOF_SEED
-    ? openSeedRows.length
-    : dataMode === DATA_MODES.REAL_SEED
-      ? realSeedRows.length
-      : demoRows.length
+  const dataRecordCount = openSeedRows.length
   const dataModeStatus = dataStatus === "loading"
     ? (lang === "zh" ? "正在加载记录 · 缺失值由全局评分引擎处理" : "Loading records · missing values handled by the global scoring engine")
     : dataStatus === "error"
@@ -494,15 +476,13 @@ export function PerformanceTab({
 
         <CompactDataModeBar
           value={dataMode}
-          onChange={mode => { setDataMode(mode); setSelectedId(null) }}
+          onChange={() => setSelectedId(null)}
           lang={lang}
           statusText={dataModeStatus}
           infoLabel={lang === "zh" ? "数据说明 ⓘ" : "Data notes ⓘ"}
           onInfo={() => setPerformanceView("assumptions")}
           options={[
-            { id: DATA_MODES.OPEN_MOF_SEED, label: lang === "zh" ? "Open MOF Seed" : "Open MOF Seed" },
-            { id: DATA_MODES.DEMO, label: lang === "zh" ? "Demo" : "Demo" },
-            { id: DATA_MODES.REAL_SEED, label: lang === "zh" ? "Real Seed" : "Real Seed" },
+            { id: DEFAULT_CANDIDATE_DATA_MODE, label: lang === "zh" ? "Open MOF Seed" : "Open MOF Seed" },
           ]}
         />
 
@@ -592,15 +572,13 @@ export function PerformanceTab({
 
       <CompactDataModeBar
         value={dataMode}
-        onChange={mode => { setDataMode(mode); setSelectedId(null) }}
+        onChange={() => setSelectedId(null)}
         lang={lang}
         statusText={dataModeStatus}
         infoLabel={lang === "zh" ? "数据说明 ⓘ" : "Data notes ⓘ"}
         onInfo={() => setPerformanceView("assumptions")}
         options={[
-          { id: DATA_MODES.OPEN_MOF_SEED, label: lang === "zh" ? "Open MOF Seed" : "Open MOF Seed" },
-          { id: DATA_MODES.DEMO, label: lang === "zh" ? "Demo" : "Demo" },
-          { id: DATA_MODES.REAL_SEED, label: lang === "zh" ? "Real Seed" : "Real Seed" },
+          { id: DEFAULT_CANDIDATE_DATA_MODE, label: lang === "zh" ? "Open MOF Seed" : "Open MOF Seed" },
         ]}
       />
 
@@ -620,8 +598,8 @@ export function PerformanceTab({
         number="00"
         title={lang === "zh" ? "真实气体吸附数据" : "Curated Gas Adsorption Data"}
         subtitle={lang === "zh"
-          ? `${realSeedDataSummary.records} 条真实种子记录，${realSeedDataSummary.recordsWithIsotherms} 条包含等温线点；Demo 模式不展示真实吸附曲线。`
-          : `${realSeedDataSummary.records} real-seed records, ${realSeedDataSummary.recordsWithIsotherms} with isotherm points; Demo mode does not display curated adsorption curves.`}
+          ? `${realSeedDataSummary.records} 条吸附参考记录，${realSeedDataSummary.recordsWithIsotherms} 条包含等温线点；主候选筛选仍统一使用 Open MOF Seed。`
+          : `${realSeedDataSummary.records} adsorption reference records, ${realSeedDataSummary.recordsWithIsotherms} with isotherm points; candidate screening still uses Open MOF Seed.`}
       >
         <div style={{ display: "grid", gap: 12 }}>
           <div style={{ display: "flex", justifyContent: "space-between", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
@@ -634,13 +612,7 @@ export function PerformanceTab({
               </button>
             )}
           </div>
-          {!adsorptionDataAvailable ? (
-            <Callout tone="warn">
-              {lang === "zh"
-                ? "当前为 Demo 模式。真实气体吸附板块只展示 DataMode=real 的整理记录；请切换到 Open MOF Seed 或 Real Seed。"
-                : "Demo mode is active. The adsorption board only shows DataMode=real curated records; switch to Open MOF Seed or Real Seed."}
-            </Callout>
-          ) : (
+          {adsorptionDataAvailable && (
             <div className="adsorption-workbench-grid" style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "260px minmax(0, 1fr)", gap: 12, alignItems: "start" }}>
               {(!isMobile || showMobileFilters) && (
                 <AdsorptionFilterPanel filters={adsorptionFilters} setFilters={setAdsorptionFilters} t={t} lang={lang} />
@@ -697,7 +669,7 @@ export function PerformanceTab({
                 {[
                   [lang === "zh" ? "当前算法" : "Algorithm", performanceScoringModel.algorithm?.toUpperCase?.() || "HYBRID"],
                   [lang === "zh" ? "当前描述符集" : "Descriptor set", `${performanceScoringModel.metadata?.descriptorPreset || appliedScoring.descriptorPreset} · ${performanceScoringModel.metadata?.descriptorCount || 0}`],
-                  [lang === "zh" ? "数据模式" : "Data mode", dataMode],
+                  [lang === "zh" ? "数据路线" : "Data route", dataMode],
                   [lang === "zh" ? "候选数量" : "Candidates", performanceScoringModel.metadata?.candidateCount ?? performanceCandidates.length],
                   [lang === "zh" ? "数据完整度" : "Completeness", `${descriptorCompleteness}%`],
                 ].map(([label, value]) => (
@@ -870,21 +842,17 @@ export function PerformanceTab({
         <>
           <ResultLayer
             number="01"
-            title={lang === "zh" ? "数据模式与假设边界" : "Data Mode and Assumption Boundary"}
+            title={lang === "zh" ? "数据路线与假设边界" : "Data Route and Assumption Boundary"}
             subtitle={lang === "zh"
-              ? "集中查看当前数据集状态、演示/真实种子数据边界，以及缺失值处理假设。"
-              : "Review dataset status, demo/real-seed boundaries, and the missing-value handling assumption."}
+              ? "集中查看 Open MOF Seed 主路线、字段整理状态，以及缺失值处理假设。"
+              : "Review the Open MOF Seed route, field curation status, and the missing-value handling assumption."}
           >
             <div style={{ display: "grid", gap: 10 }}>
-              {dataMode === DATA_MODES.OPEN_MOF_SEED && (
-                <Callout tone="warn">
-                  {lang === "zh"
-                    ? "当前全局候选数据源为 Open MOF Seed。部分记录缺少 CO₂ 吸附量、水稳定性或毒性字段，筛选结果仅作为临时优先级参考。"
-                    : "Current global candidate source: Open MOF Seed. Some records lack CO₂ uptake, water-stability, or toxicity fields, so screening results are provisional prioritization cues only."}
-                </Callout>
-              )}
-              {dataMode === DATA_MODES.REAL_SEED && <RealSeedCallout lang={lang} />}
-              {dataMode === DATA_MODES.DEMO && <DemoModeBanner lang={lang} />}
+              <Callout tone="warn">
+                {lang === "zh"
+                  ? "当前全局候选数据源为 Open MOF Seed。部分记录缺少 CO₂ 吸附量、水稳定性或毒性字段，筛选结果仅作为临时优先级参考。"
+                  : "Current global candidate source: Open MOF Seed. Some records lack CO₂ uptake, water-stability, or toxicity fields, so screening results are provisional prioritization cues only."}
+              </Callout>
               {dataStatus === "loading" && (
                 <Callout tone="info">{lang === "zh" ? "正在加载性能优先级数据…" : "Loading Performance data..."}</Callout>
               )}

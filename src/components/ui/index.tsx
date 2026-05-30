@@ -1159,14 +1159,13 @@ export function safeVal(value, lang, fallback) {
 }
 
 /**
- * DataModeToggle — compact pill toggle for Demo Dataset / Real Seed Dataset.
+ * DataModeToggle — compact pill toggle for the active candidate data route.
  * Emits the selected option id.
  */
 export function DataModeToggle({ value, onChange, lang, options: customOptions }) {
   const t = useT()
   const options = customOptions || [
-    { id: "demo",      label: lang === "zh" ? "演示数据集" : "Demo Dataset" },
-    { id: "real-seed", label: lang === "zh" ? "真实种子数据集" : "Real Seed Dataset" },
+    { id: "open-mof-seed", label: lang === "zh" ? "Open MOF Seed" : "Open MOF Seed" },
   ]
   return (
     <div style={{ display: "inline-flex", gap: 4, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 4 }}>
@@ -1449,15 +1448,15 @@ export function DemoModeBanner({ lang }) {
 export function DataModeNote({ lang }) {
   const t = useT()
   const items = lang === "zh" ? [
-    "演示数据集仅用于展示工作流，不用于科研结论",
-    "真实种子数据集用于承载真实数据整理框架",
-    "真实种子数据集不代表完整数据库",
+    "Open MOF Seed 是主候选数据路线",
+    "可信度通过字段级来源、证据等级和整理状态表达",
     "待补充字段仍在复核中，后续可能更新",
+    "示例数据只保留在隔离的演示页面",
   ] : [
-    "Demo Dataset is for workflow demonstration only",
-    "Real Seed Dataset is a framework for curated real-data ingestion",
-    "Real Seed does not mean a complete database",
+    "Open MOF Seed is the main candidate data route",
+    "Trust is expressed by field provenance, evidence level, and curation status",
     "Pending fields are under review and may change",
+    "Example data stays in isolated demo surfaces",
   ]
   return (
     <ul style={{ margin: "4px 0 0", padding: "0 0 0 14px", color: t.faint, fontSize: 11, lineHeight: 1.7 }}>

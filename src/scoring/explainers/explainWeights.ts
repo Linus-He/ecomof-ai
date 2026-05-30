@@ -8,6 +8,7 @@ export function explainWeights({
   lang = "en",
 } = {}) {
   const critic = diagnostics.method === "critic" ? diagnostics : diagnostics.critic || {}
+  const hybrid = diagnostics.method === "hybrid" ? diagnostics : {}
   return descriptors.map(descriptor => {
     const key = descriptor.key
     const weight = Number(weights?.[key]) || 0
@@ -23,6 +24,9 @@ export function explainWeights({
       contrastIntensity: contrast,
       conflictScore: conflict,
       missingRate,
+      fallbackUsed: Boolean(diagnostics.fallbackUsed || critic.fallbackUsed),
+      expertPriorUsed: Boolean(hybrid.expertPriorUsed || diagnostics.manual),
+      alpha: hybrid.actualAlpha ?? hybrid.alpha,
       evidenceStatus: missingRate > 0.35
         ? (lang === "zh" ? "缺失较多" : "limited coverage")
         : (lang === "zh" ? "可解释" : "interpretable"),
@@ -33,7 +37,7 @@ export function explainWeights({
         : strong
           ? "CRITIC suggests this descriptor contributes strongly in the current candidate set."
           : "This descriptor contributes less strongly or overlaps with other descriptors in the current candidate set.",
-      summary: `${descriptor.label || key}: ${toPercent(weight, 1)} weight`,
+      summary: `${descriptor.label || key}: ${toPercent(weight, 1)} weight${diagnostics.fallbackUsed || critic.fallbackUsed ? " · fallback active" : ""}`,
     }
   })
 }

@@ -1,7 +1,11 @@
 // @ts-nocheck
+import { convertPressure } from "./units"
+
 function normalizePressure(record = {}) {
-  if (record.pressureKPa != null) return Number(record.pressureKPa)
-  if (record.pressureBar != null) return Number(record.pressureBar) * 100
+  try {
+    if (record.pressureKPa != null) return convertPressure(record.pressureKPa, "kPa", "kPa")
+    if (record.pressureBar != null) return convertPressure(record.pressureBar, "bar", "kPa")
+  } catch {}
   return null
 }
 

@@ -19,7 +19,7 @@ const DEFAULT_SCORING_SETTINGS = {
   descriptorKeys: null,
   algorithm: "hybrid",
   hybridAlpha: 0.65,
-  missingValueStrategy: "median",
+  missingValueStrategy: "penalize",
 }
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
@@ -37,9 +37,7 @@ function statusMessage(status, lang, candidateCount, dataMode) {
   if (!candidateCount) return text(lang, "当前没有候选记录；仍可管理描述符集并查看评分模型元数据。", "No candidate records are available; descriptor management and model metadata remain visible.")
   const label = dataMode === "open-mof-seed"
     ? text(lang, "Open MOF Seed 全局候选源", "Open MOF Seed global candidate source")
-    : dataMode === "real-seed"
-      ? text(lang, "真实种子数据集", "real-seed dataset")
-      : text(lang, "演示数据集", "demo dataset")
+    : text(lang, "字段级来源数据", "field-level provenance data")
   return text(lang, `${label} · ${candidateCount} 条候选记录。`, `${label} · ${candidateCount} candidate records.`)
 }
 

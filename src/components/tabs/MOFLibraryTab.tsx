@@ -13,6 +13,8 @@ import {
   FieldProvenanceButton,
   GraphDescriptorPanel,
   OrganicAcidRelevancePanel,
+  getCoreDescriptorCompleteness,
+  normalizeUnitLabel,
 } from "../../shared"
 import { MofRationaleCard } from "../catalysis/MofRationaleCard"
 import { ReactionFingerprintPanel } from "../catalysis/ReactionFingerprintPanel"
@@ -269,12 +271,12 @@ function normalizeOpenMofRecord(item) {
   }
 
   normalized.fieldSources = {
-    surfaceArea: makeFieldSource(normalized, "surfaceArea", surfaceArea, "m2/g"),
-    poreSizeA: makeFieldSource(normalized, "poreSizeA", poreSizeA, "A"),
-    pldA: makeFieldSource(normalized, "pldA", pldA, "A"),
-    lcdA: makeFieldSource(normalized, "lcdA", lcdA, "A"),
-    poreVolume: makeFieldSource(normalized, "poreVolume", poreVolume, "cm3/g"),
-    density: makeFieldSource(normalized, "density", density, "g/cm3"),
+    surfaceArea: makeFieldSource(normalized, "surfaceArea", surfaceArea, normalizeUnitLabel("m2/g")),
+    poreSizeA: makeFieldSource(normalized, "poreSizeA", poreSizeA, normalizeUnitLabel("A")),
+    pldA: makeFieldSource(normalized, "pldA", pldA, normalizeUnitLabel("A")),
+    lcdA: makeFieldSource(normalized, "lcdA", lcdA, normalizeUnitLabel("A")),
+    poreVolume: makeFieldSource(normalized, "poreVolume", poreVolume, normalizeUnitLabel("cm3/g")),
+    density: makeFieldSource(normalized, "density", density, normalizeUnitLabel("g/cm3")),
     voidFraction: makeFieldSource(normalized, "voidFraction", voidFraction, ""),
     bandGap: makeFieldSource(normalized, "bandGap", bandGap, "eV"),
     co2Uptake: makeFieldSource(normalized, "co2Uptake", co2Uptake, ""),
@@ -528,6 +530,7 @@ function DescriptorLine({ label, value, fieldKey, fieldSources, lang, t, compact
 
 function OpenMofSeedCard({ item, expanded, onToggle, lang, t, isMobile }) {
   const db = getDatabaseName(item)
+  const completeness = getCoreDescriptorCompleteness(item)
   const geometryCurated = ["surfaceArea", "poreSizeA", "pldA", "lcdA", "poreVolume", "density", "voidFraction"].some(key => hasValue(item[key]))
   const electronicAvailable = hasValue(item.bandGap)
   const versionLicense = `${displayVersion(item.sourceVersion)} · ${shortLicense(item.license)}`
@@ -557,6 +560,12 @@ function OpenMofSeedCard({ item, expanded, onToggle, lang, t, isMobile }) {
           <StatusPill t={t} tone={item.displayNameType === "recognized_mof_name" ? "good" : "neutral"}>
             {text(lang, "名称状态：", "Name status: ")}{nameStatusLabel(item, lang)}
           </StatusPill>
+          <StatusPill t={t} tone={String(item.curationStatus).toLowerCase() === "curated" ? "good" : "warn"}>
+            Data Status: {normalizeStatus(item.curationStatus, lang)}
+          </StatusPill>
+          <StatusPill t={t} tone={completeness.curatedCount === completeness.descriptorCount ? "good" : "neutral"}>
+            {completeness.curatedCount}/{completeness.descriptorCount} descriptors curated
+          </StatusPill>
         </div>
       </div>
 
@@ -567,10 +576,10 @@ function OpenMofSeedCard({ item, expanded, onToggle, lang, t, isMobile }) {
       <DescriptorLine label={text(lang, "配体状态", "Linker status")} value={item.linker} lang={lang} t={t} compact />
 
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 8 }}>
-        <DescriptorLine label={text(lang, "比表面积", "Surface area")} value={formatValue(item.surfaceArea, " m2/g", lang)} fieldKey="surfaceArea" fieldSources={item.fieldSources} lang={lang} t={t} compact />
-        <DescriptorLine label="PLD" value={formatValue(item.pldA, " A", lang)} fieldKey="pldA" fieldSources={item.fieldSources} lang={lang} t={t} compact />
-        <DescriptorLine label="LCD" value={formatValue(item.lcdA, " A", lang)} fieldKey="lcdA" fieldSources={item.fieldSources} lang={lang} t={t} compact />
-        <DescriptorLine label={text(lang, "孔体积", "Pore volume")} value={formatValue(item.poreVolume, " cm3/g", lang)} fieldKey="poreVolume" fieldSources={item.fieldSources} lang={lang} t={t} compact />
+        <DescriptorLine label={text(lang, "比表面积", "Surface area")} value={formatValue(item.surfaceArea, ` ${normalizeUnitLabel("m2/g")}`, lang)} fieldKey="surfaceArea" fieldSources={item.fieldSources} lang={lang} t={t} compact />
+        <DescriptorLine label="PLD" value={formatValue(item.pldA, ` ${normalizeUnitLabel("A")}`, lang)} fieldKey="pldA" fieldSources={item.fieldSources} lang={lang} t={t} compact />
+        <DescriptorLine label="LCD" value={formatValue(item.lcdA, ` ${normalizeUnitLabel("A")}`, lang)} fieldKey="lcdA" fieldSources={item.fieldSources} lang={lang} t={t} compact />
+        <DescriptorLine label={text(lang, "孔体积", "Pore volume")} value={formatValue(item.poreVolume, ` ${normalizeUnitLabel("cm3/g")}`, lang)} fieldKey="poreVolume" fieldSources={item.fieldSources} lang={lang} t={t} compact />
         {electronicAvailable && <DescriptorLine label={text(lang, "带隙", "Band gap")} value={formatValue(item.bandGap, " eV", lang)} fieldKey="bandGap" fieldSources={item.fieldSources} lang={lang} t={t} compact />}
       </div>
 
@@ -621,6 +630,7 @@ function AdvancedMetadata({ item, lang, t, isMobile }) {
 
 function OpenMofSeedDetailPanel({ item, lang, t, isMobile }) {
   const { profile } = useMofReactionProfile(item)
+  const completeness = getCoreDescriptorCompleteness(item)
   const nameRows = [
     [text(lang, "显示名称", "Display name"), item.displayName],
     [text(lang, "名称状态", "Name status"), nameStatusLabel(item, lang)],
@@ -642,12 +652,12 @@ function OpenMofSeedDetailPanel({ item, lang, t, isMobile }) {
     [text(lang, "整理状态", "Curation status"), normalizeStatus(item.curationStatus, lang)],
   ]
   const descriptorRows = [
-    [text(lang, "比表面积", "Surface area"), formatValue(item.surfaceArea, " m2/g", lang), "surfaceArea"],
-    [text(lang, "孔径", "Pore size"), formatValue(item.poreSizeA, " A", lang), "poreSizeA"],
-    ["PLD", formatValue(item.pldA, " A", lang), "pldA"],
-    ["LCD", formatValue(item.lcdA, " A", lang), "lcdA"],
-    [text(lang, "孔体积", "Pore volume"), formatValue(item.poreVolume, " cm3/g", lang), "poreVolume"],
-    [text(lang, "密度", "Density"), formatValue(item.density, " g/cm3", lang), "density"],
+    [text(lang, "比表面积", "Surface area"), formatValue(item.surfaceArea, ` ${normalizeUnitLabel("m2/g")}`, lang), "surfaceArea"],
+    [text(lang, "孔径", "Pore size"), formatValue(item.poreSizeA, ` ${normalizeUnitLabel("A")}`, lang), "poreSizeA"],
+    ["PLD", formatValue(item.pldA, ` ${normalizeUnitLabel("A")}`, lang), "pldA"],
+    ["LCD", formatValue(item.lcdA, ` ${normalizeUnitLabel("A")}`, lang), "lcdA"],
+    [text(lang, "孔体积", "Pore volume"), formatValue(item.poreVolume, ` ${normalizeUnitLabel("cm3/g")}`, lang), "poreVolume"],
+    [text(lang, "密度", "Density"), formatValue(item.density, ` ${normalizeUnitLabel("g/cm3")}`, lang), "density"],
     [text(lang, "空隙率", "Void fraction"), formatValue(item.voidFraction, "", lang), "voidFraction"],
     [text(lang, "带隙", "Band gap"), formatValue(item.bandGap, " eV", lang), "bandGap"],
     [text(lang, "CO₂ 吸附", "CO₂ uptake"), formatValue(item.co2Uptake, "", lang), "co2Uptake"],
@@ -681,14 +691,13 @@ function OpenMofSeedDetailPanel({ item, lang, t, isMobile }) {
 
       <DetailBlock title={text(lang, "描述符完整度", "Descriptor Completeness")} t={t}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
-          {COMPLETENESS_FIELDS.map(key => {
-            const status = item.descriptorCompleteness?.[key] || "pending"
-            const normalized = String(status).toLowerCase()
+          {completeness.rows.map(row => {
+            const normalized = String(row.status).toLowerCase()
             const tone = normalized === "curated" ? "good" : normalized === "missing" ? "warn" : "neutral"
             return (
-              <div key={key} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, display: "flex", justifyContent: "space-between", gap: 8, minWidth: 0, padding: "8px 9px" }}>
-                <span style={{ color: t.subtle, fontSize: 10.5, fontWeight: 850, overflowWrap: "anywhere" }}>{key}</span>
-                <StatusPill t={t} tone={tone}>{normalizeStatus(status, lang)}</StatusPill>
+              <div key={row.key} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, display: "flex", justifyContent: "space-between", gap: 8, minWidth: 0, padding: "8px 9px" }}>
+                <span style={{ color: t.subtle, fontSize: 10.5, fontWeight: 850, overflowWrap: "anywhere" }}>{lang === "zh" ? row.labelZh : row.label}</span>
+                <StatusPill t={t} tone={tone}>{normalizeStatus(row.status, lang)}</StatusPill>
               </div>
             )
           })}

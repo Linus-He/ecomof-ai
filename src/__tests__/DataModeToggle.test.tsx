@@ -10,7 +10,7 @@ function renderToggle(onChange = vi.fn()) {
     <ThemeCtx.Provider value={THEME_LIGHT}>
       <LangCtx.Provider value={{ lang: "en", copy: COPY.en, setLang: vi.fn() }}>
         <ViewportCtx.Provider value={{ isMobile: false, isNarrow: false }}>
-          <DataModeToggle value="real-seed" onChange={onChange} lang="en" options={undefined} />
+          <DataModeToggle value="open-mof-seed" onChange={onChange} lang="en" options={undefined} />
         </ViewportCtx.Provider>
       </LangCtx.Provider>
     </ThemeCtx.Provider>,
@@ -19,13 +19,13 @@ function renderToggle(onChange = vi.fn()) {
 }
 
 describe("DataModeToggle", () => {
-  it("shows the Demo marker and emits changes", () => {
+  it("shows the Open MOF Seed route and emits changes", () => {
     const onChange = renderToggle()
-    const demoButton = screen.getByRole("button", { name: /demo dataset/i })
+    const demoButton = screen.getByRole("button", { name: /open mof seed/i })
 
     expect(demoButton).toBeInTheDocument()
     fireEvent.click(demoButton)
 
-    expect(onChange).toHaveBeenCalledWith("demo")
+    expect(onChange).toHaveBeenCalledWith("open-mof-seed")
   })
 })

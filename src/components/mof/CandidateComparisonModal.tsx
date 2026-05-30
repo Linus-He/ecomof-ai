@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useEffect, useMemo, useState } from "react"
 import { BasisBadge, DisclaimerLink, FieldProvenanceButton } from "../ui"
-import { getGlobalMofCandidates, getMofCandidates } from "../../services/dataService"
+import { getGlobalMofCandidates } from "../../services/dataService"
 import { buildCandidateSearchText } from "../../utils/mofDisplayName"
 import { downloadTextFile } from "../../utils/report"
 import { toolbarBtn } from "../../utils/styles"
@@ -575,14 +575,10 @@ export function CandidateComparisonModal({
     if (!open || allCandidates.length) return undefined
     let active = true
     setLoadStatus("loading")
-    Promise.all([
-      getGlobalMofCandidates({ mode: "open-mof-seed", throwOnError: false }),
-      getMofCandidates({ mode: "demo", throwOnError: false }),
-    ]).then(([openSeed, demo]) => {
+    getGlobalMofCandidates({ throwOnError: false }).then(openSeed => {
       if (!active) return
       const rows = uniqueCandidates([
         ...(Array.isArray(openSeed) ? openSeed : []),
-        ...(Array.isArray(demo) ? demo : []),
       ])
       setLoadedCandidates(rows)
       setLoadStatus(rows.length ? "loaded" : "empty")

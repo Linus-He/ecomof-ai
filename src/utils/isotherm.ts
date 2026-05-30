@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { CURRENCIES } from "../constants/catalogs"
 import { fetchDataJson } from "../services/dataService"
+import { convertPressure, convertUptake } from "./units"
 
 export function formatCurrency(valueUsd, currencyCode = "USD", digits = 1) {
   const currency = CURRENCIES[currencyCode] || CURRENCIES.USD
@@ -32,8 +33,25 @@ export function normalizeIsothermRows(rows) {
     name: row.name || row.mof_name || row.mof || "Uploaded isotherm",
     gas: row.gas || row.component || "CO2",
     temperature_k: Number(row.temperature_k ?? row.temperature ?? row.t ?? row.temp_k),
-    pressure_bar: Number(row.pressure_bar ?? row.pressure ?? row.p_bar ?? row.p),
-    loading_mmolg: Number(row.loading_mmolg ?? row.loading ?? row.q_mmolg ?? row.q),
+    pressure_bar: (() => {
+      const value = row.pressure_bar ?? row.pressureBar ?? row.p_bar ?? row.p ?? row.pressure
+      const unit = row.pressure_unit || row.pressureUnit || (row.pressure_kpa || row.pressureKPa ? "kPa" : "bar")
+      const pressureValue = row.pressure_kpa ?? row.pressureKPa ?? value
+      try {
+        return convertPressure(pressureValue, unit, "bar")
+      } catch {
+        return Number(value)
+      }
+    })(),
+    loading_mmolg: (() => {
+      const value = row.loading_mmolg ?? row.loading ?? row.q_mmolg ?? row.q
+      const unit = row.loading_unit || row.uptake_unit || row.unit || "mmol/g"
+      try {
+        return convertUptake(value, unit, "mmol/g", { gas: row.gas || row.component || "CO2" })
+      } catch {
+        return Number(value)
+      }
+    })(),
     method: row.method || row.source_type || "uploaded",
     source_ref: row.source_ref || row.source || "user CSV",
     doi_or_url: row.doi_or_url || row.doi || "—",

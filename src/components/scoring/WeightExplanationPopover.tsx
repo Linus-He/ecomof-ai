@@ -74,6 +74,7 @@ export function WeightExplanationPopover({
   const explanation = item || model?.explanations?.weights?.find(row => row.key === key) || {}
   const descriptor = descriptorFromModel(model, key)
   const diagnostics = model?.weightingDiagnostics || {}
+  const criticDiagnostics = diagnostics.method === "critic" ? diagnostics : diagnostics.critic || {}
   const coverage = getCoverage(model, key)
   const weight = explanation.weight ?? model?.weights?.[key]
   const sigma = explanation.contrastIntensity ?? diagnosticValue(diagnostics, key, ["sigma", "contrastIntensity"])
@@ -94,6 +95,12 @@ export function WeightExplanationPopover({
     "CRITIC 表明该指标在当前候选集中具有较高区分贡献；该结论依赖当前数据覆盖、相关性结构和缺失值处理。",
     "CRITIC suggests this descriptor contributes strongly in the current candidate set; this depends on current data coverage, correlation structure, and missing-value handling."
   )
+  const methodRows = [
+    [text(lang, "权重方法", "Weighting method"), String(model?.algorithm || diagnostics.method || "legacy").toUpperCase()],
+    [text(lang, "CRITIC fallback", "CRITIC fallback"), (diagnostics.fallbackUsed || criticDiagnostics.fallbackUsed) ? text(lang, "是", "yes") : text(lang, "否", "no")],
+    [text(lang, "Expert prior", "Expert prior"), diagnostics.expertPriorUsed ? text(lang, "已参与", "used") : text(lang, "未参与 / 等权 fallback", "not used / equal fallback")],
+    [text(lang, "Alpha", "Alpha"), fmt(diagnostics.actualAlpha ?? diagnostics.alpha ?? model?.hybridAlpha, 2)],
+  ]
 
   const updatePosition = useCallback(() => {
     if (drawerMode || typeof window === "undefined") return
@@ -261,6 +268,15 @@ export function WeightExplanationPopover({
             {text(lang, "有效数据比例", "Valid data ratio")}: <span style={{ color: t.textStrong, fontFamily: FONT_MONO }}>{pct(validRatio)}</span>
           </div>
         )}
+
+        <div style={{ display: "grid", gap: 6 }}>
+          {methodRows.map(([label, value]) => (
+            <div key={label} style={{ display: "flex", justifyContent: "space-between", gap: 12, color: t.faint, fontSize: 10.5, lineHeight: 1.45 }}>
+              <span>{label}</span>
+              <span style={{ color: t.textStrong, fontFamily: FONT_MONO, textAlign: "right" }}>{value}</span>
+            </div>
+          ))}
+        </div>
 
         <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 11, color: t.muted, fontSize: 11.5, lineHeight: 1.6 }}>
           <strong style={{ color: t.textStrong }}>{text(lang, "Interpretation", "Interpretation")}: </strong>

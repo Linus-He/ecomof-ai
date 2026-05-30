@@ -228,7 +228,7 @@ export function CompactDataModeBar({ value, mode = "demo", onChange = () => {}, 
       flexWrap: "wrap",
     }}>
       <span style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>
-        {lang === "zh" ? "数据模式：" : "Data mode:"}
+        {lang === "zh" ? "数据路线：" : "Data route:"}
       </span>
       <DataModeToggle value={currentMode} onChange={onChange} lang={lang} options={options} />
       <span style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.45, flex: isNarrow ? "1 1 100%" : "1 1 auto" }}>

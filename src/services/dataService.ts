@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { CORE_MOF_DESCRIPTOR_KEYS } from "../scoring/descriptors/descriptorRegistry"
-import { DATA_MODES, DEFAULT_CANDIDATE_DATA_MODE } from "../config/dataModes"
+import { DEFAULT_CANDIDATE_DATA_MODE } from "../config/dataModes"
 import { normalizeMofCandidate } from "../utils/normalizeMofCandidate"
 
 const DATA_PROVIDER = import.meta.env.VITE_DATA_PROVIDER || "static"
@@ -66,16 +66,19 @@ export function fetchDataJson(fileName, fallback = [], options = {}) {
 }
 
 export async function getMofCandidates({ mode = DEFAULT_CANDIDATE_DATA_MODE, throwOnError = false } = {}) {
-  const path = mode === DATA_MODES.OPEN_MOF_SEED
-    ? DATA_PATHS.openMofSeedCandidates
-    : mode === DATA_MODES.REAL_SEED
-      ? DATA_PATHS.mofCandidatesRealSeed
-      : DATA_PATHS.mofCandidatesDemo
+  if (mode !== DEFAULT_CANDIDATE_DATA_MODE) {
+    console.warn(`Ignoring legacy MOF candidate mode "${mode}"; using Open MOF Seed as the single candidate route.`)
+  }
+  return fetchJson(DATA_PATHS.openMofSeedCandidates, [], { throwOnError })
+}
+
+export async function getIsolatedMofExampleCandidates({ dataset = "demo", throwOnError = false } = {}) {
+  const path = dataset === "real-seed" ? DATA_PATHS.mofCandidatesRealSeed : DATA_PATHS.mofCandidatesDemo
   return fetchJson(path, [], { throwOnError })
 }
 
 export async function getGlobalMofCandidates(options = {}) {
-  const mode = options.mode || DEFAULT_CANDIDATE_DATA_MODE
+  const mode = DEFAULT_CANDIDATE_DATA_MODE
   const [rows, aliasDictionary] = await Promise.all([
     getMofCandidates({ ...options, mode }),
     getMofNameAliases({ throwOnError: false }),

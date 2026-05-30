@@ -1,11 +1,51 @@
-export type CurationStatus = 'curated' | 'pending' | 'missing';
-export type DataMode = 'real' | 'demo';
+export type SourceDatabase =
+  | 'CoRE MOF'
+  | 'QMOF'
+  | 'CSD'
+  | 'Literature'
+  | 'User Upload'
+  | 'Demo'
+  | 'Unknown';
+
+export type EvidenceLevel =
+  | 'experimental'
+  | 'literature'
+  | 'literature-supported'
+  | 'simulation'
+  | 'simulation-supported'
+  | 'ML-predicted'
+  | 'ml-predicted'
+  | 'rule-based'
+  | 'database'
+  | 'needs-validation';
+
+export type CurationStatus = 'curated' | 'pending' | 'missing' | 'needs-review' | 'demo' | 'raw-import';
+export type DataRoute = 'open-mof-seed';
+export type DataMode = DataRoute | 'real' | 'demo';
+
+export interface DescriptorSource {
+  database?: SourceDatabase | string;
+  recordId?: string;
+  url?: string;
+  doi?: string;
+  citation?: string;
+  retrievedAt?: string;
+}
 
 export interface Descriptor {
   name: string;
-  value: number | string;
-  unit: string;
-  source: string;
+  value: number | string | boolean | null;
+  unit?: string;
+  source?: string | DescriptorSource;
+  evidenceLevel?: EvidenceLevel;
+  curationStatus: CurationStatus;
+}
+
+export interface DescriptorStatus {
+  value: number | string | boolean | null;
+  unit?: string;
+  source?: DescriptorSource;
+  evidenceLevel: EvidenceLevel;
   curationStatus: CurationStatus;
 }
 
@@ -20,6 +60,16 @@ export interface IsothermPoint {
 export interface MOFData {
   id: string;
   name: string;
+  displayName?: string;
+  rawName?: string;
+  aliasNames?: string[];
+  sourceDatabase?: SourceDatabase | string;
+  sourceRecordId?: string;
+  sourceVersion?: string;
+  sourceUrl?: string;
+  citation?: string;
+  license?: string;
+  retrievedAt?: string;
   formula?: string;
   surfaceArea?: number;
   poreVolume?: number;
@@ -33,9 +83,10 @@ export interface MOFData {
   };
   heatOfAdsorption?: number;
   curationStatus: CurationStatus;
+  evidenceLevel?: EvidenceLevel;
   curatedDescriptors: number;
   totalDescriptors: number;
-  descriptors: Descriptor[];
+  descriptors: Descriptor[] | Record<string, DescriptorStatus | number | string | boolean | null>;
   sourceDoi?: string;
   notes?: string;
   dataMode?: DataMode;

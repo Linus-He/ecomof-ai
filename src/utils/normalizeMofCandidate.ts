@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { DEFAULT_CANDIDATE_DATA_MODE } from "../config/dataModes"
 import { buildCandidateSearchText, resolveMofDisplayName } from "./mofDisplayName"
+import { normalizeUnitLabel } from "./units"
 
 const PENDING = "pending"
 
@@ -152,12 +153,12 @@ export function normalizeMofCandidate(raw = {}, options = {}) {
   }
   const fieldSources = {
     ...(raw.fieldSources || {}),
-    surfaceArea: makeFieldSource(fieldSourceCandidate, "surfaceArea", normalized.surfaceArea, "m²/g"),
-    poreSizeA: makeFieldSource(fieldSourceCandidate, "poreSizeA", normalized.poreSizeA, "Å"),
-    pldA: makeFieldSource(fieldSourceCandidate, "pldA", normalized.pldA, "Å"),
-    lcdA: makeFieldSource(fieldSourceCandidate, "lcdA", normalized.lcdA, "Å"),
-    poreVolume: makeFieldSource(fieldSourceCandidate, "poreVolume", normalized.poreVolume, "cm³/g"),
-    density: makeFieldSource(fieldSourceCandidate, "density", normalized.density, "g/cm³"),
+    surfaceArea: makeFieldSource(fieldSourceCandidate, "surfaceArea", normalized.surfaceArea, normalizeUnitLabel("m2/g")),
+    poreSizeA: makeFieldSource(fieldSourceCandidate, "poreSizeA", normalized.poreSizeA, normalizeUnitLabel("A")),
+    pldA: makeFieldSource(fieldSourceCandidate, "pldA", normalized.pldA, normalizeUnitLabel("A")),
+    lcdA: makeFieldSource(fieldSourceCandidate, "lcdA", normalized.lcdA, normalizeUnitLabel("A")),
+    poreVolume: makeFieldSource(fieldSourceCandidate, "poreVolume", normalized.poreVolume, normalizeUnitLabel("cm3/g")),
+    density: makeFieldSource(fieldSourceCandidate, "density", normalized.density, normalizeUnitLabel("g/cm3")),
     voidFraction: makeFieldSource(fieldSourceCandidate, "voidFraction", normalized.voidFraction),
     bandGap: makeFieldSource(fieldSourceCandidate, "bandGap", normalized.bandGap, "eV"),
     co2Uptake: makeFieldSource(fieldSourceCandidate, "co2Uptake", normalized.co2Uptake, "mmol/g"),

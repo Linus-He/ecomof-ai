@@ -8,6 +8,7 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "test:run": "vitest run",
     "validate:data": "node scripts/validate-reaction-rationale-data.mjs",
     "visual:check": "node scripts/visual-checks.mjs"
   },

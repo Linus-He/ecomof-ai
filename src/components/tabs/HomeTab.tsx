@@ -744,7 +744,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
-  const [dataMode, setDataMode] = useState("demo")
+  const [dataMode, setDataMode] = useState("open-mof-seed")
   const reducedMotion = usePrefersReducedMotion()
   const [roadmapRef, roadmapVisible] = useInViewOnce()
   const heroScrollY = useWindowScrollY(reducedMotion || isMobile)
@@ -799,11 +799,11 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
       body: zh ? "结果、描述符和来源状态放在同一个阅读语境里。" : "Results, descriptors, and source status are read together.",
       points: zh ? [
         "保留 evidence level 与字段级来源",
-        "区分 demo record 与 real-seed record",
+        "以 Open MOF Seed 作为主候选数据路线",
         "支持跳转到数据质量与来源（Data Quality & Provenance）",
       ] : [
         "Evidence level and field provenance remain attached",
-        "Demo records and real-seed records are separated",
+        "Open MOF Seed is the main candidate data route",
         "Data Quality & Provenance is a first-class route",
       ],
     },
@@ -834,15 +834,15 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
       info: zh ? "这是透明度检查框架，不代表所有记录都已经完整或验证。" : "This is a transparency frame, not a claim that every record is complete or validated.",
     },
     {
-      value: dataMode === "demo" ? "8/8" : "0/8",
+      value: "Open",
       kind: "progress",
-      progress: dataMode === "demo" ? 100 : 0,
+      progress: 100,
       title: zh ? "描述符完整度" : "Descriptor completeness",
-      progressLabel: zh ? `${dataMode === "demo" ? "8/8" : "0/8"} 个描述符已整理` : `${dataMode === "demo" ? "8/8" : "0/8"} descriptors curated`,
-      body: dataMode === "demo"
-        ? (zh ? "演示数据用于展示完整流程；真实种子字段仍需要逐项复核。" : "Demo data shows the full workflow; real-seed fields still need curation.")
-        : (zh ? "真实种子模式优先暴露待整理状态，不伪装成完整数据库。" : "Real-seed mode exposes pending curation instead of pretending to be complete."),
-      info: zh ? "X/8 只表示当前模式下核心字段可读程度，不等同实验验证。" : "X/8 describes field readability in the selected mode; it is not experimental validation.",
+      progressLabel: zh ? "字段级 curation status 控制 X/8 描述符已整理显示" : "Field-level curation status controls X/8 descriptors curated",
+      body: zh
+        ? "Open MOF Seed 作为主数据路线；字段来源、证据等级和整理状态用于表达可信度。"
+        : "Open MOF Seed is the main data route; field provenance, evidence level, and curation status express trust.",
+      info: zh ? "X/8 只表示核心字段可读程度，不等同实验验证。" : "X/8 describes field readability; it is not experimental validation.",
     },
     {
       value: "6",
@@ -854,13 +854,13 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
       badgeLabels: zh ? ["实验", "文献", "模拟", "规则"] : ["experimental", "literature", "simulation", "rule-based"],
     },
     {
-      value: "2",
-      countTo: 2,
+      value: "1",
+      countTo: 1,
       kind: "toggle",
-      title: zh ? "演示与种子库分离" : "Demo + seed separation",
-      body: zh ? "演示数据与真实种子数据分离，避免把占位数据误读为科研结论。" : "Demo and real-seed data stay separated to avoid treating placeholders as conclusions.",
-      info: zh ? "来源说明保留在 Data Mode、Field-level Provenance 和 Methodology 中。" : "Source boundaries remain visible through Data Mode, field provenance, and Methodology.",
-      toggleLabels: zh ? ["演示数据", "种子数据"] : ["Demo data", "Seed data"],
+      title: zh ? "Open MOF Seed 主路线" : "Open MOF Seed route",
+      body: zh ? "主筛选不再通过 demo / real-seed / open-mof 三模式表达可信度。" : "Main screening no longer uses demo / real-seed / open-mof modes to express trust.",
+      info: zh ? "来源说明保留在字段级 Provenance、Data Status 和 Methodology 中。" : "Source boundaries remain visible through field provenance, Data Status, and Methodology.",
+      toggleLabels: ["Open MOF Seed"],
     },
   ], [dataMode, zh])
 
@@ -881,8 +881,8 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
       target: "mofLibrary",
       mark: "L",
       positioning: zh ? "候选材料、字段状态、来源信息和对比器的主要入口。" : "Main entry for candidates, field status, provenance, and comparison.",
-      functionText: zh ? "浏览演示 / 真实种子（demo / real-seed）数据，检查 8 个描述符、证据等级和字段级来源。" : "Browse demo / real-seed data and inspect 8 descriptors, evidence level, and field sources.",
-      capabilities: zh ? ["演示 / 真实种子记录", "字段级来源", "候选对比"] : ["Demo / real-seed records", "Field provenance", "Candidate comparison"],
+      functionText: zh ? "浏览 Open MOF Seed normalized records，检查 8 个描述符、证据等级和字段级来源。" : "Browse Open MOF Seed normalized records and inspect 8 descriptors, evidence level, and field sources.",
+      capabilities: zh ? ["Open MOF Seed 记录", "字段级来源", "候选对比"] : ["Open MOF Seed records", "Field provenance", "Candidate comparison"],
       buttonLabel: zh ? "浏览候选库" : "Explore Library",
       compareAction: zh ? "打开对比器" : "Open builder",
     },
@@ -923,12 +923,12 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
       title: zh ? "当前状态" : "Current status",
       body: zh ? "当前为研究原型与候选优先级工具，不是验证级预测引擎。" : "Current status is a research prototype and candidate-priority tool, not a validated prediction engine.",
       points: zh ? [
-        "演示记录用于展示流程",
-        "真实种子记录用于真实数据接入框架",
+        "Open MOF Seed 是主候选数据路线",
+        "字段级来源与整理状态表达可信度",
         "结果用于假设生成与早期筛选",
       ] : [
-        "Demo records show the workflow",
-        "Real-seed records define the ingestion frame",
+        "Open MOF Seed is the main candidate data route",
+        "Field provenance and curation status express trust",
         "Outputs support hypothesis generation and early screening",
       ],
       info: zh ? "该说明不是为了弱化产品，而是让研究边界可审计。" : "This boundary makes the research state auditable rather than vague.",

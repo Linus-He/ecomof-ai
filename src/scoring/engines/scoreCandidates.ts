@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { calculateGraphAdjustedScore, getEvidenceConfidence } from "../../utils/scoring"
-import { clamp01, safeNumber } from "../types/scoringTypes"
+import { DEFAULT_MISSING_DESCRIPTOR_POLICY, clamp01, safeNumber } from "../types/scoringTypes"
 
 function candidateName(candidate, fallback) {
   return candidate?.name || candidate?.id || fallback
@@ -22,6 +22,7 @@ export function scoreCandidates({
   weights = {},
   missingValueStrategy = "median",
   evidenceMode = "descriptor-evidence",
+  missingDescriptorPolicy = DEFAULT_MISSING_DESCRIPTOR_POLICY,
 } = {}) {
   const rowsById = new Map(matrix.map(row => [row.id, row]))
   return (Array.isArray(candidates) ? candidates : []).map((candidate, index) => {
@@ -51,9 +52,14 @@ export function scoreCandidates({
     const missingPenalty = contributions.filter(item => item.missing).reduce((sum, item) => sum + item.weight, 0)
     const evidenceConfidence = getEvidenceConfidence(candidate?.evidenceLevel)
     const confidence = clamp01((evidenceConfidence * 0.58) + (completeness * 0.42), 0.3)
+    const policyMode = missingDescriptorPolicy?.mode || (missingValueStrategy === "exclude" ? "ignore" : "penalize")
+    const penaltyStrength = clamp01(missingDescriptorPolicy?.penaltyStrength, DEFAULT_MISSING_DESCRIPTOR_POLICY.penaltyStrength)
+    const completenessMultiplier = policyMode === "penalize"
+      ? (1 - penaltyStrength) + (penaltyStrength * completeness)
+      : 1
     const adjustedScore01 = evidenceMode === "quality-adjusted"
-      ? weightedScore01 * (0.72 + 0.28 * confidence)
-      : weightedScore01
+      ? weightedScore01 * completenessMultiplier * (0.72 + 0.28 * confidence)
+      : weightedScore01 * completenessMultiplier
     const descriptorScore = Number((adjustedScore01 * 100).toFixed(1))
     const graphScore = calculateGraphAdjustedScore(candidate, descriptorScore)
     const sortedContributions = [...contributions].sort((a, b) => b.contribution - a.contribution)
@@ -83,7 +89,15 @@ export function scoreCandidates({
         ? "Missing descriptor cells contribute zero under the current strategy."
         : missingValueStrategy === "exclude"
           ? "Missing descriptor cells are excluded from CRITIC pairwise validity and imputed for display stability."
-          : "Missing descriptor cells use median imputation for scoring stability.",
+          : policyMode === "penalize"
+            ? `Score adjusted by descriptor completeness: weightedScore x ${completenessMultiplier.toFixed(3)}.`
+            : "Missing descriptor cells use median imputation for scoring stability.",
+      missingDescriptorPolicy: {
+        mode: policyMode,
+        penaltyStrength,
+        completenessMultiplier,
+        explanation: "finalScore = weightedScore x (0.75 + 0.25 x completenessRatio)",
+      },
     }
   }).filter(row => Number.isFinite(row.score))
 }
