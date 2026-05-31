@@ -13,9 +13,8 @@ import {
 } from "../../shared"
 import {
   BrandMotionBackground,
-  EvidenceChainAnimation,
   ModuleRail,
-  ScrollNarrative,
+  WorkflowNarrative,
 } from "../home"
 import { toolbarBtn } from "../../utils/styles"
 
@@ -1199,13 +1198,19 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
 
       <section style={{ ...bluePanel, padding: isMobile ? "18px 16px" : "24px" }}>
         <SectionHeader
-          eyebrow={zh ? "流程叙事" : "Scroll Narrative"}
-          title={zh ? "从描述符到决策支持" : "From descriptors to decisions"}
-          subtitle={zh ? "滚动经过四个研究步骤时，右侧视觉面板会从描述符网络过渡到证据映射、权重归一化和候选排序。" : "As the user scrolls through four research steps, the visual panel moves from descriptor network to evidence mapping, weighting, normalization, and candidate ranking."}
+          eyebrow={zh ? "流程叙事" : "Workflow Narrative"}
+          title={zh ? "从来源接入到证据与验证闭环" : "From source intake to evidence and validation loop"}
+          subtitle={zh ? "六步工作流把结构来源、描述符、场景、透明评分、推荐解释和验证规划连成一个证据感知的决策支持流程。" : "A six-step workflow links source intake, descriptors, scenario setup, transparent scoring, recommendation explanation, and validation planning into evidence-aware decision support."}
           t={t}
           isMobile={isMobile}
         />
-        <ScrollNarrative t={t} isMobile={storyIsMobile} reducedMotion={reducedMotion} lang={lang} />
+        <WorkflowNarrative
+          t={t}
+          isMobile={storyIsMobile}
+          reducedMotion={reducedMotion}
+          lang={lang}
+          onNavigate={go}
+        />
       </section>
 
       <section style={sectionStyle}>
@@ -1223,36 +1228,6 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
           onNavigate={go}
           onOpenComparisonBuilder={onOpenComparisonBuilder}
         />
-      </section>
-
-      <section style={sectionStyle}>
-        <SectionHeader
-          eyebrow={zh ? "验证与证据" : "Validation & Evidence"}
-          title={zh ? "把可信度做成研究面板，而不是免责声明" : "Research credibility panel, not a generic disclaimer"}
-          subtitle={zh ? "保留当前验证状态、检查字段、证据等级和下一步验证计划，让读者能质疑每个结果。" : "Current validation status, checked fields, evidence levels, and next validation plans remain visible so every result can be questioned."}
-          t={t}
-          isMobile={isMobile}
-          action={
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", width: isMobile ? "100%" : "auto" }}>
-              <ActionButton t={t} wide={isMobile} onClick={() => go("validation-evidence")}>
-                {zh ? "打开验证与证据" : "Open Validation & Evidence"}
-              </ActionButton>
-              <ActionButton t={t} wide={isMobile} onClick={() => go("benchmark-references")}>
-                {zh ? "查看 benchmark 参考" : "View Benchmark References"}
-              </ActionButton>
-            </div>
-          }
-        />
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))",
-          gap: 12,
-        }}>
-          {validationItems.map(item => <ValidationItem key={item.title} item={item} t={t} />)}
-        </div>
-        <div style={{ marginTop: 14 }}>
-          <EvidenceChainAnimation fields={EVIDENCE_CHAIN_FIELDS} t={t} isMobile={storyIsMobile} lang={lang} />
-        </div>
       </section>
 
       <section style={sectionStyle}>
