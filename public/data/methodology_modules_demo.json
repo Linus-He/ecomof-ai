@@ -198,26 +198,28 @@
     "order": 4,
     "module": "GasSep",
     "moduleZh": "气体分离",
-    "summary": "GasSep treats selectivity as a condition-bound literature record rather than a standalone number.",
-    "summaryZh": "GasSep 将选择性视为绑定条件的文献记录，而不是孤立数字。",
+    "summary": "GasSep treats selectivity and uptake as condition-bound records, then builds a scenario-specific GasScore for candidate-priority screening.",
+    "summaryZh": "GasSep 将选择性和吸附量视为绑定工况的记录，并用场景化 GasScore 做候选优先级筛选。",
     "methodWorkflow": [
       {"label": "Gas system classification", "labelZh": "气体体系分类", "description": "Group records by gas pair, target gas, and application context.", "descriptionZh": "按气体对、目标气体和应用语境分组记录。"},
       {"label": "Condition-aware selectivity", "labelZh": "条件化选择性", "description": "Bind selectivity to feed ratio, temperature, pressure, method, and source.", "descriptionZh": "将选择性绑定到气体比例、温度、压力、方法和来源。"},
       {"label": "Feed ratio-aware comparison", "labelZh": "气体比例感知比较", "description": "Warn when records mix feed ratios or methods.", "descriptionZh": "当记录混合不同气体比例或方法时显示警告。"},
-      {"label": "Visualization", "labelZh": "可视化", "description": "Use selectivity vs pressure and uptake vs selectivity views without fabricating curves.", "descriptionZh": "使用选择性-压力和吸附量-选择性视图，不伪造曲线。"}
+      {"label": "GasScore ranking", "labelZh": "GasScore 排序", "description": "Combine uptake, selectivity, working capacity, regenerability, stability, and evidence with scenario-specific weights.", "descriptionZh": "按场景权重组合吸附量、选择性、工作容量、可再生性、稳定性和证据。"},
+      {"label": "Linked visualization", "labelZh": "联动可视化", "description": "Use performance map, ranking bars, radar profile, and heatmap without fabricating curves.", "descriptionZh": "使用性能图谱、排序条形图、雷达图和热力图，不伪造曲线。"}
     ],
-    "inputs": ["gas system", "feed ratio", "temperature", "pressure", "method", "selectivity", "uptake", "dynamic capacity", "source location"],
-    "inputsZh": ["气体体系", "气体比例", "温度", "压力", "方法", "选择性", "吸附量", "动态容量", "来源位置"],
-    "outputs": ["condition-aware selectivity record", "comparability warning", "selectivity vs pressure visualization", "uptake vs selectivity visualization"],
-    "outputsZh": ["条件化选择性记录", "可比性警告", "选择性-压力可视化", "吸附量-选择性可视化"],
+    "inputs": ["gas system", "feed ratio", "temperature", "pressure", "target priority", "selectivity", "uptake", "working capacity", "regenerability", "stability", "evidence level", "data type", "source location"],
+    "inputsZh": ["气体体系", "气体比例", "温度", "压力", "目标优先级", "选择性", "吸附量", "工作容量", "可再生性", "稳定性", "证据等级", "数据类型", "来源位置"],
+    "outputs": ["scenario-specific GasScore", "candidate ranking", "performance map", "radar profile", "heatmap", "why-this-MOF explanation", "validation roadmap"],
+    "outputsZh": ["场景化 GasScore", "候选材料排序", "性能图谱", "雷达图", "热力图", "为什么推荐该 MOF 解释", "验证路线"],
     "visualizations": [
-      {"title": "Selectivity vs pressure", "titleZh": "选择性-压力图", "description": "x-axis total gas pressure / kPa; y-axis adsorption selectivity; one point remains one point.", "descriptionZh": "x 轴为总气压 / kPa，y 轴为吸附选择性；单点数据仍显示为单点。", "chartType": "line"},
-      {"title": "Uptake vs selectivity", "titleZh": "吸附量-选择性散点图", "description": "x-axis target gas uptake; y-axis selectivity; bubble size can encode dynamic capacity.", "descriptionZh": "x 轴为目标气体吸附量，y 轴为选择性，气泡大小可表示动态容量。", "chartType": "scatter"}
+      {"title": "Interactive performance map", "titleZh": "交互性能图谱", "description": "x/y metrics, bubble size, and color are configurable; legend remains outside the plot area.", "descriptionZh": "x/y 指标、气泡大小和颜色可切换；图例保留在绘图区外。", "chartType": "scatter"},
+      {"title": "Top candidates bar chart", "titleZh": "Top 候选条形图", "description": "Shows Top 5 / Top 10 GasScore ranking and links selection to the explanation panel.", "descriptionZh": "展示 Top 5 / Top 10 GasScore 排序，并联动解释面板。", "chartType": "bar"},
+      {"title": "Radar profile and heatmap", "titleZh": "雷达图与热力图", "description": "Shows multi-metric candidate profiles without replacing missing values with zero.", "descriptionZh": "展示多指标画像，缺失值显示 pending，不用 0 冒充。", "chartType": "radar"}
     ],
-    "evidenceBoundary": ["Current version: curated literature data, not an online IAST/GCMC calculator.", "Source-pending or value-pending records cannot be treated as benchmark rankings."],
-    "evidenceBoundaryZh": ["当前版本展示 curated literature data，不是在线 IAST/GCMC 计算器。", "source-pending 或 value-pending 记录不能作为基准排名依据。"],
-    "validationRoadmap": ["Verify DOI and figure/table locations", "curate raw isotherm points", "separate measured, IAST, simulated, and breakthrough evidence"],
-    "validationRoadmapZh": ["核验 DOI 和图/表位置", "整理原始等温线点", "区分实测、IAST、模拟和穿透证据"],
+    "evidenceBoundary": ["Current demo records are scenario-workbench seeds, not online IAST/GCMC results.", "Source-pending, predicted, simulated, and demo records cannot be treated as benchmark rankings.", "GasScore is a candidate-priority score and must be followed by adsorption simulation, stability checks, experiments, and process assessment."],
+    "evidenceBoundaryZh": ["当前 demo 记录是场景工作台 seed，不是在线 IAST/GCMC 结果。", "source-pending、predicted、simulated 和 demo 记录不能作为基准排名。", "GasScore 是候选优先级分数，必须接续吸附模拟、稳定性检查、实验验证和过程评估。"],
+    "validationRoadmap": ["Descriptor screening", "Adsorption simulation", "Stability check", "Experimental validation", "Process-level assessment"],
+    "validationRoadmapZh": ["描述符初筛", "吸附模拟", "稳定性检查", "实验验证", "过程级评估"],
     "example": {
       "title": "Ni-BIC condition record",
       "titleZh": "Ni-BIC 条件记录",
@@ -246,6 +248,29 @@
         "visualizations": [{"title": "Condition-aware comparison panel", "titleZh": "条件感知比较面板", "description": "Shows each selectivity value with condition tags and provenance.", "descriptionZh": "为每个选择性值显示条件标签和来源。", "chartType": "score"}],
         "limitations": ["Different feed ratios, temperatures, pressures, or methods cannot be mixed as strict rankings."],
         "limitationsZh": ["不同气体比例、温度、压力或方法的数据不能混合作为严格排名。"]
+      },
+      {
+        "id": "gassep-gasscore-ranking",
+        "title": "GasScore candidate ranking",
+        "titleZh": "GasScore 候选排序",
+        "purpose": "Rank gas-separation candidates for a selected gas pair and operating condition while keeping demo, simulated, predicted, and experimental-style records separate.",
+        "purposeZh": "在选定气体对和工况下排序气体分离候选，同时区分 demo、simulated、predicted 和 experimental-style 记录。",
+        "algorithmSteps": [
+          {"label": "Select scenario weights", "labelZh": "选择场景权重", "description": "Start from default weights and adjust them by gas pair and target priority.", "descriptionZh": "从默认权重出发，按气体对和目标优先级动态调整。"},
+          {"label": "Normalize metrics", "labelZh": "归一化指标", "description": "Normalize uptake, selectivity, working capacity, regenerability, stability, and evidence within the current gas pair.", "descriptionZh": "在当前气体对内归一化吸附量、选择性、工作容量、可再生性、稳定性和证据。"},
+          {"label": "Apply penalties", "labelZh": "应用扣分", "description": "Subtract evidence, stability, toxicity, and condition-mismatch penalties from the weighted score.", "descriptionZh": "从加权分中扣除证据、稳定性、毒性和工况不匹配惩罚。"},
+          {"label": "Expose explanation", "labelZh": "暴露解释", "description": "Show driver metrics, draggers, risk penalty, evidence level, and validation next step.", "descriptionZh": "展示贡献指标、拖累项、风险扣分、证据等级和下一步验证。"}
+        ],
+        "formulas": [
+          {"id": "gassep-score", "label": "GasScore", "labelZh": "GasScore", "latex": "\\mathrm{GasScore}=w_1U+w_2S+w_3C_w+w_4R+w_5T_s+w_6E-P_{risk}", "fallback": "GasScore = w1*uptake + w2*selectivity + w3*workingCapacity + w4*regenerability + w5*stability + w6*evidence - riskPenalty", "explanation": "Default weights are uptake 0.22, selectivity 0.22, working capacity 0.20, regenerability 0.14, stability 0.12, and evidence 0.10. Gas pair and priority settings shift the normalized weights.", "explanationZh": "默认权重为吸附量 0.22、选择性 0.22、工作容量 0.20、可再生性 0.14、稳定性 0.12、证据 0.10；气体对和目标优先级会动态调整归一化权重。"}
+        ],
+        "inputs": ["record metrics", "gas pair", "temperatureK", "pressureBar", "mixtureRatio", "targetPriority", "evidenceLevel", "dataType"],
+        "inputsZh": ["记录指标", "气体对", "temperatureK", "pressureBar", "mixtureRatio", "targetPriority", "evidenceLevel", "dataType"],
+        "outputs": ["GasScore 0-100", "score contribution", "risk penalty", "top drivers", "draggers", "validation suggestion"],
+        "outputsZh": ["GasScore 0-100", "评分贡献", "风险扣分", "主要贡献项", "拖累项", "验证建议"],
+        "visualizations": [{"title": "GasScore ranking table", "titleZh": "GasScore 排序表", "description": "Table sorting and filters remain linked to selected candidate explanations.", "descriptionZh": "表头排序和筛选与候选解释面板联动。", "chartType": "score"}],
+        "limitations": ["GasScore is a screening priority score, not a validated separation performance.", "Demo records intentionally expose data boundaries and should be replaced by curated literature or experimental records before scientific use."],
+        "limitationsZh": ["GasScore 是筛选优先级分数，不是验证后的分离性能。", "Demo 记录刻意暴露数据边界，科研使用前应替换为整理后的文献或实验记录。"]
       },
       {
         "id": "gassep-visualization",

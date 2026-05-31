@@ -10,6 +10,7 @@ const routes = [
   ["catalysis", "#catalysis", [["Catalysis Energy Playground", "催化能垒交互工作台"], ["Reaction Pathway Evidence Map", "催化路径证据图"], ["Data Harmonization & Comparability Workflow", "数据整理与可比性评估流程"], ["Organic Acid Workspace", "有机酸路径工作台"]]],
   ["organic-acid", "#catalysis-organic-acid", [["Access Gate / Frontend Passcode", "前端访问入口"], ["Algorithm Trace Explorer", "算法追踪器"], ["Organic Acid Carbon-Flow Graph Workbench", "有机酸碳流图论路径工作台"], ["Candidate Prioritization Workspace", "候选物优先级与规则匹配工作台"], ["Priority Matrix", "优先级矩阵"]]],
   ["library", "#library", [["Open MOF Seed Records", "Open MOF Seed 记录"], ["View database details", "查看数据库详情"]]],
+  ["gassep", "#gassep", [["Gas Separation Scenario Builder", "气体分离场景构建器"], ["Interactive Performance Map", "性能图谱"], ["Candidate Ranking", "候选材料排序"], ["Validation Roadmap", "验证路线"]]],
   ["ecoscreen", "#ecoscreen", ["EcoScreen", ["Candidate Scoring", "候选评分"]]],
   ["methodology", "#methodology", [["Methods & Evidence", "方法与证据"], ["Evidence Levels", "证据等级"], ["Validation Roadmap", "验证路线"]]],
 ]
