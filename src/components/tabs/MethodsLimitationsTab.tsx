@@ -133,6 +133,49 @@ function MethodologyDataBoundary({ lang, t }) {
   )
 }
 
+function StructuredFactorEffectsMethod({ lang, t, isMobile }) {
+  const rows = [
+    ["Why not direct black-box ML?", "为什么不直接黑箱机器学习？", "Sparse chemical data often mixes descriptors, categorical factors, conditions, and uneven evidence; direct prediction can hide data-generation structure.", "稀疏化学数据常混合描述符、分类因素、条件和不均衡证据；直接预测容易掩盖数据生成结构。"],
+    ["Categorical factors", "分类因素", "MOF candidate, metal node, linker, pore class, pathway, condition, gas pair, and evidence type are treated as interpretable factors.", "将 MOF 候选物、金属节点、连接体、孔径类别、路径、条件、气体对和证据类型作为可解释因素。"],
+    ["Main effects", "主效应", "First-order factor directions are shown before any interaction is trusted.", "先展示一阶因素方向，再判断交互是否可信。"],
+    ["Interaction effects", "交互效应", "Pairwise hypotheses explain when a factor matters only under a pathway, condition, risk dimension, or gas pair.", "二阶假设解释某因素何时只在特定路径、条件、风险维度或气体对下起作用。"],
+    ["Heredity rule", "遗传规则", "Interactions are downgraded unless related main effects or explicit literature/experimental evidence exist.", "若缺少相关主效应或明确文献 / 实验证据，交互效应默认降权。"],
+    ["Evidence-adjusted interpretation", "证据校正解释", "Demo, inferred, literature-derived, and curated records change confidence rather than pretending to be equal labels.", "演示、推断、文献整理和已整理记录改变置信度，而不是被当作同等标签。"],
+    ["Validation-first output", "验证优先输出", "The result is a validation queue and decision-support explanation, not final yield or performance prediction.", "输出是验证队列和决策支持解释，不是最终产率或真实性能预测。"],
+    ["Limitation", "限制", "This is a structured interpretation layer; it is not a fitted potential energy surface, kinetic model, or process simulator.", "这是结构化解释层，不是拟合势能面、动力学模型或过程模拟器。"],
+  ]
+  return (
+    <section id="structured-factor-effects" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 13, padding: 15 }}>
+      <header style={{ display: "grid", gap: 6 }}>
+        <div style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>
+          {text(lang, "稀疏化学数据的结构化因素效应分析", "Structured Factor Effects for Sparse Chemical Data")}
+        </div>
+        <h2 style={{ color: t.textStrong, fontFamily: lang === "zh" ? '"Songti SC", "Noto Serif SC", serif' : '"Times New Roman", Times, serif', fontSize: 21, lineHeight: 1.16, margin: 0 }}>
+          {text(lang, "Structured Factor Effects for Sparse Chemical Data / 稀疏化学数据的结构化因素效应分析", "Structured Factor Effects for Sparse Chemical Data")}
+        </h2>
+        <p style={{ color: t.muted, fontSize: 12.8, lineHeight: 1.62, margin: 0, maxWidth: 980 }}>
+          {text(
+            lang,
+            "EcoMOF-AI 不把稀疏化学数据简单处理为黑箱预测问题，而是将描述符、分类因素、交互假设和证据等级组织成可解释的决策工作流。",
+            "EcoMOF-AI does not treat sparse chemical data as a black-box prediction problem. It organizes descriptors, categorical factors, interaction hypotheses, and evidence levels into an interpretable decision workflow."
+          )}
+        </p>
+      </header>
+      <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
+        {rows.map(([en, zh, bodyEn, bodyZh], index) => (
+          <article key={en} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 7, padding: 11 }}>
+            <div style={{ alignItems: "center", display: "flex", gap: 8 }}>
+              <span style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, color: t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 900, height: 24, justifyContent: "center", width: 24 }}>{index + 1}</span>
+              <strong style={{ color: t.textStrong, fontSize: 12.5, lineHeight: 1.3 }}>{text(lang, zh, en)}</strong>
+            </div>
+            <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.55 }}>{text(lang, bodyZh, bodyEn)}</span>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 export function MethodsLimitationsTab() {
   const t = useT()
   const { lang } = useLang()
@@ -208,6 +251,7 @@ export function MethodsLimitationsTab() {
             <PlatformFlowCard lang={lang} t={t} isMobile={isMobile} />
             <FormulaIndex lang={lang} t={t} />
             <MethodologyDataBoundary lang={lang} t={t} />
+            <StructuredFactorEffectsMethod lang={lang} t={t} isMobile={isMobile} />
             <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12.5, lineHeight: 1.55, padding: 11 }}>
               <span style={{ color: t.textStrong, fontWeight: 900 }}>{text(lang, "化学式与科学 token：", "Chemistry and scientific tokens: ")}</span>
               <span style={{ fontFamily: SCIENTIFIC_TOKEN_FONT }}>

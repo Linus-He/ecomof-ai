@@ -18,6 +18,7 @@ import {
   FormulaInline,
   NumericText,
   ORGANIC_ACID_FONT,
+  SCIENTIFIC_TOKEN_FONT,
   organicAcidPalette as palette,
   pathwayMeta,
   VariableLabel,
@@ -25,6 +26,8 @@ import {
 import { OrganicAcidExperimentFeedbackPanel } from "./OrganicAcidExperimentFeedbackPanel"
 import { OrganicAcidGraphWorkbench } from "./OrganicAcidGraphWorkbench"
 import { CandidatePrioritizationWorkspace } from "./CandidatePrioritizationWorkspace"
+import { OrganicAcidInteractionWorkbench } from "./OrganicAcidInteractionWorkbench"
+import { CollapsibleResearchSection, SectionLayoutControls } from "../common/CollapsibleResearchSection"
 import { CompactDataModeBar } from "../module/ModuleTop"
 import { DataStatusSummary, OpenMofIntegrationReport } from "../data/OpenMofIntegrationReport"
 
@@ -461,6 +464,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
   const [selectedOrganicPathway, setSelectedOrganicPathway] = useState("formaldehyde")
   const [graphFocusEdgeIds, setGraphFocusEdgeIds] = useState([])
   const [activeTraceStep, setActiveTraceStep] = useState("descriptor")
+  const [layoutCommand, setLayoutCommand] = useState(null)
 
   useEffect(() => {
     try {
@@ -594,17 +598,58 @@ export function OrganicAcidProject({ lang = "zh", t }) {
   }
 
   const topCandidate = rankedRows[0] || null
+  const candidateEvidenceMix = candidateRows.reduce((acc, row) => {
+    const key = row.evidenceLevel || row.organicAcidRelevance?.evidenceLevel || row.dataStatus || "pending"
+    acc[key] = (acc[key] || 0) + 1
+    return acc
+  }, {})
 
   return (
     <div className="organic-acid-page" style={{ background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 12, padding: isNarrow ? 12 : 16, fontFamily: ORGANIC_ACID_FONT }}>
       <div style={{ display: "grid", gap: 14, margin: "0 auto", maxWidth: 1220 }}>
         <ProjectObjectiveSection topCandidate={topCandidate} rankedRows={rankedRows} isNarrow={isNarrow} />
+        <div style={{ background: palette.positiveSoft, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.muted, fontSize: 12, lineHeight: 1.5, padding: 10 }}>
+          {lang === "zh"
+            ? "Access Gate / Frontend Passcode：已通过前端访问入口；该入口仅用于原型页面分区，不代表真实权限控制。"
+            : "Access Gate / Frontend Passcode: frontend access gate passed; this prototype gate is for page segmentation, not real authorization."}
+        </div>
         <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.muted, fontSize: 12.5, lineHeight: 1.55, padding: 11 }}>
           {lang === "zh"
             ? "有机酸转化是 Catalysis Lab 中优先展示的子工作台，但不是催化模块的全部范围。"
             : "Organic acid conversion is a prioritized sub-workspace within Catalysis Lab, not the full scope of catalysis."}
         </div>
-        <div id="organic-acid-workbench" style={{ scrollMarginTop: 118 }}>
+        <SectionLayoutControls command={setLayoutCommand} t={t} lang={lang} />
+        <CollapsibleResearchSection
+          id="organic-acid-workbench"
+          title="Organic Acid Carbon-Flow Graph Workbench"
+          titleZh="有机酸碳流图论路径工作台"
+          description="Inspect carbon-flow nodes, edge evidence, graph metrics, and pathway control factors."
+          descriptionZh="检查碳流节点、边证据、图论指标和路径控制因素。"
+          defaultState="expanded"
+          layoutCommand={layoutCommand}
+          statusBadges={[
+            { label: lang === "zh" ? "图网络" : "graph network", tone: "info" },
+            { label: lang === "zh" ? "演示数据" : "Demo data", tone: "proxy" },
+          ]}
+          summaryItems={[
+            { label: lang === "zh" ? "选中路径" : "Selected pathway", value: selectedOrganicPathway },
+            { label: lang === "zh" ? "节点数" : "Nodes", value: 8 },
+            { label: lang === "zh" ? "边数" : "Edges", value: graphFocusEdgeIds.length || 11 },
+            { label: lang === "zh" ? "主控因素" : "Top control factor", value: lang === "zh" ? "水稳定性 / 路径证据" : "water stability / pathway evidence" },
+          ]}
+          miniPreview={
+            <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, display: "grid", gap: 7, padding: 10 }}>
+              <div style={{ alignItems: "center", display: "grid", gridTemplateColumns: "20px 1fr 20px 1fr 20px", gap: 5 }}>
+                <span style={{ background: palette.positive, borderRadius: 999, height: 18, width: 18 }} />
+                <span style={{ background: palette.borderStrong, height: 2 }} />
+                <span style={{ background: palette.accent, borderRadius: 999, height: 18, width: 18 }} />
+                <span style={{ background: palette.borderStrong, height: 2 }} />
+                <span style={{ background: palette.mixed, borderRadius: 999, height: 18, width: 18 }} />
+              </div>
+              <div style={{ color: palette.faint, fontSize: 11 }}>{lang === "zh" ? "mini node-edge preview · 展开查看路径网络。" : "mini node-edge preview · expand for pathway graph."}</div>
+            </div>
+          }
+        >
           <OrganicAcidGraphWorkbench
             lang={lang}
             selectedNodeId={selectedPathwayNodeId}
@@ -616,8 +661,37 @@ export function OrganicAcidProject({ lang = "zh", t }) {
             }}
             onHighlightEdges={setGraphFocusEdgeIds}
           />
-        </div>
-        <div id="priority" style={{ scrollMarginTop: 118 }}>
+        </CollapsibleResearchSection>
+        <CollapsibleResearchSection
+          id="priority"
+          title="Candidate Prioritization Workspace"
+          titleZh="候选物优先级与规则匹配工作台"
+          description="Compare candidate priority, evidence coverage, validation need, and rule/pathway matches."
+          descriptionZh="比较候选优先级、证据覆盖、验证需求与规则 / 路径匹配。"
+          defaultState="compact"
+          layoutCommand={layoutCommand}
+          statusBadges={[
+            { label: lang === "zh" ? "需要验证" : "Needs validation", tone: "warn" },
+            { label: lang === "zh" ? "证据状态" : "Evidence status", tone: "info" },
+          ]}
+          summaryItems={[
+            { label: lang === "zh" ? "Top 候选" : "Top candidate", value: topCandidate?.mof || topCandidate?.displayName || "pending" },
+            { label: lang === "zh" ? "候选数量" : "Candidates", value: candidateRows.length },
+            { label: lang === "zh" ? "证据覆盖" : "Evidence coverage", value: Object.entries(candidateEvidenceMix).map(([key, count]) => `${key}:${count}`).join(" · ") || "pending" },
+            { label: lang === "zh" ? "验证优先级" : "Main validation priority", value: recommendationForClass(topCandidate?.computedClass || "B") },
+          ]}
+          miniPreview={
+            <div style={{ display: "grid", gap: 6 }}>
+              {rankedRows.slice(0, 3).map((row, index) => (
+                <div key={row.mof || index} style={{ alignItems: "center", display: "grid", gap: 6, gridTemplateColumns: "22px minmax(0, 1fr) 48px" }}>
+                  <span style={{ color: palette.faint, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11 }}>{index + 1}</span>
+                  <span style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 999, height: 8, overflow: "hidden" }}><span style={{ background: palette.accent, display: "block", height: "100%", width: pct(row.rgfaScore || 0.4) }} /></span>
+                  <span style={{ color: palette.text, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11, textAlign: "right" }}>{fmt(row.rgfaScore || 0, 2)}</span>
+                </div>
+              ))}
+            </div>
+          }
+        >
           <CandidatePrioritizationWorkspace
             lang={lang}
             selectedCandidateId={selectedPathwayCandidateId}
@@ -625,9 +699,38 @@ export function OrganicAcidProject({ lang = "zh", t }) {
             onSelectRule={setSelectedRuleId}
             onHighlightEdges={setGraphFocusEdgeIds}
           />
-        </div>
+        </CollapsibleResearchSection>
         <div id="algorithm" style={{ scrollMarginTop: 118 }}>
-          <div id="algorithm-trace-explorer" style={{ scrollMarginTop: 118 }}>
+          <CollapsibleResearchSection
+            id="algorithm-trace-explorer"
+            title="Algorithm Trace Explorer"
+            titleZh="算法追踪器"
+            description="Trace how candidate scores are derived from descriptors, rules, evidence adjustment, interaction effects, and risk penalties."
+            descriptionZh="追踪候选评分如何由描述符、规则、证据修正、交互效应和风险惩罚得到。"
+            defaultState="compact"
+            layoutCommand={layoutCommand}
+            statusBadges={[
+              { label: "6 factors", tone: "info" },
+              { label: "3 interactions", tone: "proxy" },
+              { label: lang === "zh" ? "效应拆解器" : "Effect Decomposition Explorer", tone: "info" },
+              { label: lang === "zh" ? "风险惩罚" : "risk penalty", tone: "warn" },
+            ]}
+            summaryItems={[
+              { label: lang === "zh" ? "因素数量" : "Factor count", value: 6 },
+            { label: lang === "zh" ? "评分方法" : "Scoring method", value: "RGFA + effects" },
+              { label: lang === "zh" ? "效应拆解器" : "Effect Decomposition Explorer", value: lang === "zh" ? "主效应 + 交互 + 证据 - 风险" : "main + interaction + evidence - risk" },
+              { label: lang === "zh" ? "证据修正" : "Evidence adjustment", value: lang === "zh" ? "启用" : "enabled" },
+              { label: lang === "zh" ? "风险项" : "Risk penalties", value: 2 },
+            ]}
+            miniPreview={
+              <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, display: "flex", height: 16, overflow: "hidden" }}>
+                <span style={{ background: palette.positive, width: "34%" }} />
+                <span style={{ background: palette.accent, width: "22%" }} />
+                <span style={{ background: palette.mixed, width: "18%" }} />
+                <span style={{ background: palette.risk, width: "12%" }} />
+              </div>
+            }
+          >
             <AlgorithmTraceExplorer
               rankedRows={rankedRows}
               selectedMof={selectedMof}
@@ -637,8 +740,42 @@ export function OrganicAcidProject({ lang = "zh", t }) {
               selectedCandidate={selectedPathwayCandidate}
               selectedPathwayId={selectedOrganicPathway}
             />
-          </div>
+          </CollapsibleResearchSection>
         </div>
+        <CollapsibleResearchSection
+          id="organic-acid-interaction-section"
+          title="Interaction Effect Matrix"
+          titleZh="交互效应矩阵"
+          description="Separate main effects, interaction hypotheses, heredity checks, design coverage, and validation queue for sparse chemical data."
+          descriptionZh="面向稀疏化学数据拆分主效应、交互假设、遗传规则检查、设计覆盖和验证队列。"
+          defaultState="compact"
+          layoutCommand={layoutCommand}
+          statusBadges={[
+            { label: lang === "zh" ? "交互效应" : "interaction effects", tone: "info" },
+            { label: lang === "zh" ? "实验设计覆盖图" : "Experimental Design Coverage Map", tone: "info" },
+            { label: lang === "zh" ? "推断数据" : "Inferred", tone: "proxy" },
+            { label: lang === "zh" ? "需要验证" : "Needs validation", tone: "warn" },
+          ]}
+          summaryItems={[
+            { label: lang === "zh" ? "交互数量" : "Interactions", value: 4 },
+            { label: lang === "zh" ? "正向协同" : "Positive synergy", value: 1 },
+            { label: lang === "zh" ? "负向冲突" : "Negative conflict", value: 1 },
+            { label: lang === "zh" ? "不确定" : "Uncertain", value: 1 },
+          ]}
+          miniPreview={
+            <div style={{ display: "grid", gap: 4, gridTemplateColumns: "repeat(3, 1fr)", maxWidth: 220 }}>
+              {[palette.positive, palette.risk, palette.mixed, palette.accent, palette.surfaceStrong, palette.positive, palette.surfaceStrong, palette.mixed, palette.accent].map((color, index) => (
+                <span key={index} style={{ background: color, border: `1px solid ${palette.border}`, borderRadius: 5, height: 22 }} />
+              ))}
+            </div>
+          }
+        >
+          <OrganicAcidInteractionWorkbench
+            lang={lang}
+            selectedCandidate={selectedPathwayCandidate}
+            selectedPathwayId={selectedOrganicPathway}
+          />
+        </CollapsibleResearchSection>
         <CompactDataModeBar
           value={candidateDataMode}
           onChange={() => {
@@ -656,37 +793,99 @@ export function OrganicAcidProject({ lang = "zh", t }) {
             { id: DEFAULT_CANDIDATE_DATA_MODE, label: lang === "zh" ? "Open MOF Seed" : "Open MOF Seed" },
           ]}
         />
-        <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.muted, fontSize: 12.5, lineHeight: 1.55, padding: 11 }}>
-          当前全局候选数据源：Open MOF Seed · 已加载记录：{candidateRows.length} 条 · 已接入模块：MOF Library / EcoScreen / Organic Acid Project。当前有机酸路径相关性在没有文献、DFT 或实验支持前仍保持 pending。
-        </div>
-        <DataStatusSummary
-          seedRecords={summaryData.openSeed}
-          experimentRecords={summaryData.experiments}
-          demoCount={0}
-          realSeedCount={0}
-          lang={lang}
-          t={t}
-        />
-        <OpenMofIntegrationReport
-          seedRecords={summaryData.openSeed}
-          experimentRecords={summaryData.experiments}
-          lang={lang}
-          t={t}
-        />
-        <OrganicAcidExperimentFeedbackPanel records={summaryData.experiments} lang={lang} t={t} />
+        <CollapsibleResearchSection
+          id="organic-acid-evidence-matrix"
+          title="Evidence Matrix"
+          titleZh="证据矩阵"
+          description="Track seed records, experiment feedback, missing citations, and evidence-review status before using data as labels."
+          descriptionZh="在把数据作为标签前，跟踪种子记录、实验反馈、缺失引用和证据复核状态。"
+          defaultState="compact"
+          lowPriority
+          layoutCommand={layoutCommand}
+          statusBadges={[
+            { label: lang === "zh" ? "演示数据" : "Demo data", tone: "proxy" },
+            { label: lang === "zh" ? "需要复核" : "needs review", tone: "warn" },
+          ]}
+          summaryItems={[
+            { label: lang === "zh" ? "Open MOF Seed" : "Open MOF Seed", value: summaryData.openSeed.length },
+            { label: lang === "zh" ? "实验记录" : "Experiment records", value: summaryData.experiments.length },
+            { label: lang === "zh" ? "推断 / pending" : "Inferred / pending", value: candidateRows.length },
+            { label: lang === "zh" ? "缺失引用" : "Missing citations", value: lang === "zh" ? "待复核" : "needs review" },
+          ]}
+          miniPreview={
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+              {["A", "B", "C", "D"].map(level => <span key={level} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 999, color: palette.text, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11.5, fontWeight: 900, padding: "5px 9px" }}>Evidence {level}</span>)}
+            </div>
+          }
+        >
+          <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.muted, fontSize: 12.5, lineHeight: 1.55, padding: 11 }}>
+            当前全局候选数据源：Open MOF Seed · 已加载记录：{candidateRows.length} 条 · 已接入模块：MOF Library / EcoScreen / Organic Acid Project。当前有机酸路径相关性在没有文献、DFT 或实验支持前仍保持 pending。
+          </div>
+          <DataStatusSummary
+            seedRecords={summaryData.openSeed}
+            experimentRecords={summaryData.experiments}
+            demoCount={0}
+            realSeedCount={0}
+            lang={lang}
+            t={t}
+          />
+          <OpenMofIntegrationReport
+            seedRecords={summaryData.openSeed}
+            experimentRecords={summaryData.experiments}
+            lang={lang}
+            t={t}
+          />
+          <OrganicAcidExperimentFeedbackPanel records={summaryData.experiments} lang={lang} t={t} />
+        </CollapsibleResearchSection>
         {status === "error" ? (
           <div style={{ background: palette.riskSoft, border: `1px solid ${palette.border}`, borderRadius: 12, color: palette.risk, fontSize: 12.5, fontWeight: 700, padding: 12 }}>
             Demo dataset could not be loaded from public/data/organic_acid_project_demo.json.
           </div>
         ) : (
-          <>
+          <CollapsibleResearchSection
+            id="organic-acid-mechanism-descriptor"
+            title="Mechanism / Descriptor Interpretation"
+            titleZh="机理 / 描述符解释"
+            description="Connect RGFA ranking, descriptor matrix, and mechanism priors to the active trace step."
+            descriptionZh="将 RGFA 排序、描述符矩阵和机理先验连接到当前追踪步骤。"
+            defaultState="compact"
+            lowPriority
+            layoutCommand={layoutCommand}
+            statusBadges={[
+              { label: lang === "zh" ? "描述符解释" : "descriptor interpretation", tone: "info" },
+              { label: lang === "zh" ? "不是验证排名" : "not validated ranking", tone: "warn" },
+            ]}
+            summaryItems={[
+              { label: lang === "zh" ? "当前候选" : "Selected candidate", value: selectedRgfaCandidate?.mof || "pending" },
+              { label: lang === "zh" ? "活跃步骤" : "Active step", value: activeTraceStep },
+              { label: lang === "zh" ? "候选数量" : "Candidates", value: rankedRows.length },
+            ]}
+          >
             <CandidateRankingSection rankedRows={rankedRows} selectedMof={selectedMof} setSelectedMof={setSelectedMof} isNarrow={isNarrow} />
             <DynamicDescriptorMatrix candidate={selectedRgfaCandidate} activeStep={activeTraceStep} />
-          </>
+          </CollapsibleResearchSection>
         )}
-        <div id="validation" style={{ scrollMarginTop: 118 }}>
+        <CollapsibleResearchSection
+          id="validation"
+          title="Validation Queue / Validation Roadmap"
+          titleZh="验证队列 / 验证路线"
+          description="Prioritize experiments, required data, uncertainty reduction, and expected evidence impact."
+          descriptionZh="优先安排实验、所需数据、不确定性降低和预期证据影响。"
+          defaultState="compact"
+          layoutCommand={layoutCommand}
+          statusBadges={[
+            { label: lang === "zh" ? "验证优先级" : "Validation priority", tone: "warn" },
+            { label: lang === "zh" ? "需要验证" : "Needs validation", tone: "info" },
+          ]}
+          summaryItems={[
+            { label: lang === "zh" ? "高优先级验证" : "High-priority validations", value: 4 },
+            { label: lang === "zh" ? "下一步实验" : "Next experiment", value: "NaH13CO3 tracing" },
+            { label: lang === "zh" ? "所需数据" : "Required data", value: lang === "zh" ? "碳平衡 / PXRD / ICP" : "carbon balance / PXRD / ICP" },
+            { label: lang === "zh" ? "证据影响" : "Evidence impact", value: lang === "zh" ? "A-D 等级升级" : "A-D upgrade" },
+          ]}
+        >
           <ValidationSection />
-        </div>
+        </CollapsibleResearchSection>
         <OrganicLimitationsSection />
       </div>
     </div>

@@ -139,6 +139,103 @@ function StepDetails({ step, candidate, lang }) {
   )
 }
 
+function EffectDecompositionExplorer({ candidate, selectedPathwayId, lang, isNarrow }) {
+  const [activeKey, setActiveKey] = useState("main")
+  const rawScore = safeNumber(candidate?.rgfaScore, 0.68)
+  const evidencePending = String(`${candidate?.dataStatus || ""} ${candidate?.organicAcidRelevance?.scoreStatus || ""}`).toLowerCase().includes("pending")
+  const risk = evidencePending ? 0.07 : 0.04
+  const items = [
+    {
+      key: "baseline",
+      labelZh: "基线",
+      labelEn: "Baseline",
+      value: 0.42,
+      color: palette.faint,
+      explanationZh: "未加入候选描述符前的路径可行性基线。",
+      explanationEn: "Pathway-feasibility baseline before candidate descriptors are added.",
+      badge: "demo",
+    },
+    {
+      key: "main",
+      labelZh: "主效应贡献",
+      labelEn: "Main effect contribution",
+      value: 0.18,
+      color: palette.positive,
+      explanationZh: "来自水稳定性、孔道可及性、位点与反应路径匹配等主效应。",
+      explanationEn: "From main effects such as water stability, pore accessibility, active sites, and pathway match.",
+      badge: "inferred",
+    },
+    {
+      key: "interaction",
+      labelZh: "交互效应贡献",
+      labelEn: "Interaction contribution",
+      value: 0.08,
+      color: palette.accent,
+      explanationZh: "来自 MOF 因素 × 反应路径 / 条件 / 风险维度的交互假设，受 heredity rule 约束。",
+      explanationEn: "From MOF-factor × pathway / condition / risk interaction hypotheses, constrained by the heredity rule.",
+      badge: "demo / inferred",
+    },
+    {
+      key: "evidence",
+      labelZh: "证据修正",
+      labelEn: "Evidence adjustment",
+      value: evidencePending ? -0.03 : 0.04,
+      color: evidencePending ? palette.mixed : palette.positive,
+      explanationZh: "根据 curated / literature-derived / pending 状态修正置信度。",
+      explanationEn: "Adjusts confidence based on curated, literature-derived, or pending evidence state.",
+      badge: "A-D evidence",
+    },
+    {
+      key: "risk",
+      labelZh: "风险惩罚",
+      labelEn: "Risk penalty",
+      value: -risk,
+      color: palette.risk,
+      explanationZh: "对稳定性、副产物、缺失字段或条件不可比性降权。",
+      explanationEn: "Downgrades for stability, byproducts, missing fields, or condition incomparability.",
+      badge: "needs validation",
+    },
+  ]
+  const active = items.find(item => item.key === activeKey) || items[1]
+  const total = Math.max(0, Math.min(1, rawScore || items.reduce((sum, item) => sum + item.value, 0)))
+  const positiveTotal = items.reduce((sum, item) => sum + Math.max(0, item.value), 0)
+
+  return (
+    <section style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 9, display: "grid", gap: 11, padding: 12 }}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
+        <div style={{ display: "grid", gap: 4 }}>
+          <strong style={{ color: palette.text, fontSize: 15 }}>{text(lang, "Effect Decomposition Explorer / 效应拆解器", "Effect Decomposition Explorer")}</strong>
+          <span style={{ color: palette.muted, fontSize: 12, lineHeight: 1.5 }}>
+            {text(lang, "CandidateScore = 主效应 + 交互效应 + 证据修正 - 风险惩罚；输出是优先级解释，不是真实产率预测。", "CandidateScore = main effects + interaction effects + evidence adjustment - risk penalty; this explains priority, not real yield prediction.")}
+          </span>
+        </div>
+        <span style={{ color: palette.accent, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 13, fontWeight: 900 }}>{text(lang, "Final priority", "Final priority")} {fmt(total, 2)}</span>
+      </div>
+      <div style={{ display: "grid", gap: 9, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.25fr) minmax(260px, 0.75fr)" }}>
+        <div style={{ display: "grid", gap: 8 }}>
+          {items.map(item => {
+            const width = `${Math.max(5, Math.abs(item.value) / Math.max(0.01, positiveTotal) * 100)}%`
+            return (
+              <button key={item.key} type="button" onClick={() => setActiveKey(item.key)} style={{ background: activeKey === item.key ? palette.accentSoft : palette.bg, border: `1px solid ${activeKey === item.key ? palette.accent : palette.border}`, borderRadius: 8, cursor: "pointer", display: "grid", gap: 7, gridTemplateColumns: "132px minmax(0, 1fr) 54px", minHeight: 42, padding: 8, textAlign: "left" }}>
+                <span style={{ color: palette.text, fontSize: 11.5, fontWeight: 850 }}>{text(lang, item.labelZh, item.labelEn)}</span>
+                <span style={{ alignSelf: "center", background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 999, height: 10, overflow: "hidden" }}>
+                  <span style={{ background: item.color, display: "block", height: "100%", marginLeft: item.value < 0 ? "auto" : 0, width }} />
+                </span>
+                <span style={{ color: item.value < 0 ? palette.risk : palette.accent, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11.5, fontWeight: 900, textAlign: "right" }}>{item.value > 0 ? "+" : ""}{fmt(item.value, 2)}</span>
+              </button>
+            )
+          })}
+        </div>
+        <aside style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 8, color: palette.muted, display: "grid", fontSize: 12, gap: 8, lineHeight: 1.55, padding: 10 }}>
+          <strong style={{ color: palette.text }}>{text(lang, active.labelZh, active.labelEn)}</strong>
+          <span><ChemicalText value={text(lang, active.explanationZh, active.explanationEn)} /></span>
+          <span style={{ color: palette.faint, fontFamily: SCIENTIFIC_TOKEN_FONT }}>{active.badge} · {selectedPathwayId || "formaldehyde"}</span>
+        </aside>
+      </div>
+    </section>
+  )
+}
+
 export function AlgorithmTraceExplorer({
   rankedRows = [],
   selectedMof,
@@ -221,6 +318,8 @@ export function AlgorithmTraceExplorer({
         </div>
         <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.55 }}><ChemicalText value={traceSummary} /></div>
       </div>
+
+      <EffectDecompositionExplorer candidate={candidate} selectedPathwayId={selectedPathwayId} lang={lang} isNarrow={isNarrow} />
 
       <div style={{ display: "grid", gap: 8 }}>
         {TRACE_STEPS.map((step, index) => {

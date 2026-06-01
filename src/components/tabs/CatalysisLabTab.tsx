@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useEffect, useMemo, useState } from "react"
 import {
+  BasisBadge,
   CopyLinkButton,
   getCatalysisRecords,
   getReactionFingerprints,
@@ -9,6 +10,7 @@ import {
   useViewport,
 } from "../../shared"
 import { ModulePageHeader } from "../module/ModuleTop"
+import { CollapsibleResearchSection, SectionLayoutControls } from "../common/CollapsibleResearchSection"
 import { DataHarmonizationWorkflow } from "../catalysis/DataHarmonizationWorkflow"
 import { enrichCatalysisRecord } from "../catalysis/evidenceScoring"
 import { CatalysisEnergyBarrierDemo } from "../catalysis/CatalysisEnergyBarrierDemo"
@@ -74,6 +76,7 @@ export function CatalysisLabTab() {
   const [selectedCandidateId, setSelectedCandidateId] = useState(null)
   const [selectedPathwayId, setSelectedPathwayId] = useState(null)
   const [pendingOrganicScrollTarget, setPendingOrganicScrollTarget] = useState(null)
+  const [layoutCommand, setLayoutCommand] = useState(null)
 
   useEffect(() => {
     let active = true
@@ -146,6 +149,14 @@ export function CatalysisLabTab() {
     selectedRecordId ? filteredRecords.find(record => record.id === selectedRecordId) || null : null
   ), [filteredRecords, selectedRecordId])
 
+  const evidenceMix = useMemo(() => filteredRecords.reduce((acc, record) => {
+    const key = record.evidenceLevel || "pending"
+    acc[key] = (acc[key] || 0) + 1
+    return acc
+  }, {}), [filteredRecords])
+
+  const highestRisk = useMemo(() => filteredRecords.find(record => String(record.validationStatus || record.riskStatus || "").toLowerCase().includes("risk")) || filteredRecords.find(record => record.validationStatus !== "validated") || filteredRecords[0], [filteredRecords])
+
   const updateFilter = (key, value) => {
     setFilters(prev => ({ ...prev, [key]: value }))
   }
@@ -213,6 +224,8 @@ export function CatalysisLabTab() {
 
       <BoundaryStrip t={t} lang={lang} />
 
+      <SectionLayoutControls command={setLayoutCommand} t={t} lang={lang} />
+
       <CatalysisEnergyBarrierDemo
         t={t}
         lang={lang}
@@ -245,24 +258,103 @@ export function CatalysisLabTab() {
               : "Organic acid conversion is a prioritized sub-workspace within Catalysis Lab, not the full scope of catalysis."}
           </section>
 
-          <ReactionPathwayEvidenceMap
-            records={filteredRecords}
-            allRecords={catalysisRecords}
-            filters={filters}
-            onFilterChange={updateFilter}
-            selectedRecordId={selectedRecordId}
-            onSelectRecord={handleSelectRecord}
-            onClearFilters={clearFilters}
-            t={t}
-            lang={lang}
-            isMobile={isMobile}
-          />
+          <CollapsibleResearchSection
+            id="catalysis-pathway-evidence-section"
+            title="Catalytic Pathway Evidence Map"
+            titleZh="催化路径证据图"
+            description="Browse pathway evidence, comparability status, product direction, and validation gaps before entering detailed workspaces."
+            descriptionZh="在进入详细工作台前，浏览路径证据、可比性状态、产物方向和验证缺口。"
+            defaultState="expanded"
+            layoutCommand={layoutCommand}
+            statusBadges={[
+              { label: zh ? "需要实验验证" : "Needs validation", tone: "warn" },
+              { label: zh ? "演示 / 文献整理" : "demo / literature-derived", tone: "proxy" },
+            ]}
+            summaryItems={[
+              { label: zh ? "路径数量" : "Pathways", value: filteredRecords.length },
+              { label: zh ? "当前路径" : "Active pathway", value: selectedRecord?.pathwayName || selectedRecord?.pathwayId || (zh ? "未选择" : "none") },
+              { label: zh ? "证据覆盖" : "Evidence coverage", value: Object.entries(evidenceMix).map(([key, count]) => `${key}:${count}`).join(" · ") || "pending" },
+              { label: zh ? "最高风险路径" : "Highest risk pathway", value: highestRisk?.pathwayName || highestRisk?.pathwayId || "pending" },
+            ]}
+            miniPreview={
+              <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 7, padding: 10 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 6 }}>
+                  {[0, 1, 2, 3].map(index => (
+                    <span key={index} style={{ background: index === 1 ? t.accent : t.borderStrong, borderRadius: 999, height: 8 }} />
+                  ))}
+                </div>
+                <div style={{ color: t.subtle, fontSize: 11 }}>{zh ? "简化路径线 · 点击展开查看筛选器、证据表和路径详情。" : "Mini pathway preview · expand to inspect filters, evidence table, and pathway details."}</div>
+              </div>
+            }
+          >
+            <ReactionPathwayEvidenceMap
+              records={filteredRecords}
+              allRecords={catalysisRecords}
+              filters={filters}
+              onFilterChange={updateFilter}
+              selectedRecordId={selectedRecordId}
+              onSelectRecord={handleSelectRecord}
+              onClearFilters={clearFilters}
+              t={t}
+              lang={lang}
+              isMobile={isMobile}
+            />
+          </CollapsibleResearchSection>
 
           <SelectedPathwayInspector record={selectedRecord} t={t} lang={lang} isMobile={isMobile} />
 
-          <DataHarmonizationWorkflow lang={lang} t={t} isMobile={isMobile} />
+          <CollapsibleResearchSection
+            id="catalysis-harmonization-section"
+            title="Mechanism / Descriptor Interpretation"
+            titleZh="机理 / 描述符解释"
+            description="Shows how reaction fingerprints, MOF modulation factors, evidence state, and comparability checks enter the decision workflow."
+            descriptionZh="展示反应指纹、MOF 调控因素、证据状态和可比性检查如何进入决策工作流。"
+            defaultState="compact"
+            lowPriority
+            layoutCommand={layoutCommand}
+            statusBadges={[
+              { label: zh ? "证据状态" : "Evidence status", tone: "info" },
+              { label: zh ? "推断数据" : "Inferred", tone: "proxy" },
+            ]}
+            summaryItems={[
+              { label: zh ? "反应指纹" : "Fingerprints", value: fingerprints.length },
+              { label: zh ? "候选记录" : "Records", value: catalysisRecords.length },
+              { label: zh ? "调控因素" : "MOF factors", value: "descriptor / condition / evidence" },
+            ]}
+            miniPreview={
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                {["fingerprint", "MOF factor", "evidence", "validation"].map(label => <BasisBadge key={label} tone="proxy">{label}</BasisBadge>)}
+              </div>
+            }
+          >
+            <DataHarmonizationWorkflow lang={lang} t={t} isMobile={isMobile} />
+          </CollapsibleResearchSection>
 
-          <ValidationRoadmap t={t} lang={lang} isMobile={isMobile} />
+          <CollapsibleResearchSection
+            id="catalysis-validation-roadmap-section"
+            title="Validation Roadmap"
+            titleZh="验证路线"
+            description="Keeps candidate claims tied to the next experiment, required data, and expected evidence upgrade."
+            descriptionZh="将候选结论绑定到下一步实验、所需数据和预期证据升级。"
+            defaultState="compact"
+            layoutCommand={layoutCommand}
+            statusBadges={[
+              { label: zh ? "验证优先级" : "Validation priority", tone: "warn" },
+              { label: zh ? "不是最终结论" : "not final conclusion", tone: "proxy" },
+            ]}
+            summaryItems={[
+              { label: zh ? "高优先级验证" : "High priority", value: highestRisk ? 1 : 0 },
+              { label: zh ? "下一步实验" : "Next experiment", value: zh ? "同条件验证" : "same-condition validation" },
+              { label: zh ? "预期影响" : "Expected impact", value: zh ? "升级证据等级" : "evidence upgrade" },
+            ]}
+            miniPreview={
+              <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 8, color: t.muted, fontSize: 12, lineHeight: 1.45, padding: 10 }}>
+                {zh ? "下一步：优先补齐同条件证据、碳平衡和稳定性验证。" : "Next: prioritize same-condition evidence, carbon balance, and stability validation."}
+              </div>
+            }
+          >
+            <ValidationRoadmap t={t} lang={lang} isMobile={isMobile} />
+          </CollapsibleResearchSection>
         </>
       ) : null}
     </div>
