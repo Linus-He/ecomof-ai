@@ -50,7 +50,7 @@ export function DescriptorRegistryDiagram({ t, lang = "en" }) {
           onClick={() => scrollToMethodTarget("registry-viewer")}
           style={{ background: t.badgeInfoBg, border: `1px solid ${t.accent}`, borderRadius: 10, color: t.accentText, padding: "8px 10px", fontSize: 11, fontWeight: 850, cursor: "pointer" }}
         >
-          {text(lang, "打开 registry table", "Open registry table")}
+          {text(lang, "查看 registry table", "View registry table")}
         </button>
       }
     >

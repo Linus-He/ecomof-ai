@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EcoMOF-AI Gas Adsorption Record v1",
+  "schemaVersion": "gas-adsorption-v1",
+  "type": "array",
+  "minItems": 40,
+  "coverageMinimums": {
+    "CO2/N2": 10,
+    "CO2/CH4": 10,
+    "H2/CO2": 5,
+    "O2/N2": 5,
+    "VOC/N2": 5,
+    "otherGasSystems": 5
+  },
+  "requiredRecordFields": [
+    "id",
+    "schemaVersion",
+    "mofId",
+    "displayName",
+    "rawName",
+    "aliasNames",
+    "gasPair",
+    "primaryGas",
+    "secondaryGas",
+    "applicationScenario",
+    "condition",
+    "metrics",
+    "units",
+    "rawValues",
+    "descriptors",
+    "score",
+    "evidence",
+    "recordProvenance",
+    "fieldSources",
+    "whyRecommended",
+    "risks",
+    "validationRecommendation",
+    "limitationNote"
+  ],
+  "requiredFieldSources": [
+    "primaryUptake",
+    "secondaryUptake",
+    "selectivity",
+    "workingCapacity",
+    "regenerability",
+    "heatOfAdsorption",
+    "surfaceArea",
+    "poreSizeA",
+    "poreVolume",
+    "waterStability",
+    "thermalStability",
+    "evidenceLevel",
+    "confidence",
+    "gasScore"
+  ],
+  "notes": [
+    "Internal keys keep ASCII gas formulas for stable filtering; UI formatters render CO2/CH4/N2/H2/O2 with subscripts.",
+    "Seed fixture records are not validated scientific claims."
+  ]
+}

@@ -1,6 +1,7 @@
 // @ts-nocheck
-import { BasisBadge, ChemicalText, SectionTitle } from "../../shared"
+import { BasisBadge, ChemicalText, SectionTitle, formatGasPairLabel } from "../../shared"
 import { text, validationForRecord } from "./gasViewUtils"
+import { dataTypeLabel } from "./gasEvidence"
 
 function priorityTone(priority = "") {
   const label = String(priority).toLowerCase()
@@ -58,8 +59,8 @@ export function GasValidationRecommendation({ record, scenario, lang, t }) {
       <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 9, color: t.muted, fontSize: 12, lineHeight: 1.58, marginTop: 12, padding: 10 }}>
         {text(
           lang,
-          `建议下一步进行 ${recommendationType}，因为当前候选仍包含 ${record.dataType || "demo"} 证据边界。该验证可提高证据等级，并确认其在 ${scenario.gasPair || record.gasPair} 混合气条件下是否仍保持优势。`,
-          `Next step: ${recommendation.type}. The current record still carries a ${record.dataType || "demo"} evidence boundary. This validation can improve evidence confidence and test whether the advantage holds under ${scenario.gasPair || record.gasPair} mixture conditions.`
+          `建议下一步进行 ${recommendationType}，因为当前候选仍包含 ${dataTypeLabel(record.dataType, lang)} 证据边界。该验证可提高证据等级，并确认其在 ${formatGasPairLabel(scenario.gasPair || record.gasPair)} 混合气条件下是否仍保持优势。`,
+          `Next step: ${recommendation.type}. The current record still carries a ${dataTypeLabel(record.dataType, lang)} evidence boundary. This validation can improve evidence confidence and test whether the advantage holds under ${formatGasPairLabel(scenario.gasPair || record.gasPair)} mixture conditions.`
         )}
       </div>
     </section>

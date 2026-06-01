@@ -22,7 +22,7 @@ const CORE_DESCRIPTOR_LABELS = [
   "Surface area",
   "Pore size",
   "Pore volume",
-  "CO2 uptake",
+  "CO₂ uptake",
   "Band gap",
   "Water stability",
   "Thermal stability",
@@ -34,8 +34,8 @@ const SCREENING_CANDIDATES = [
     name: "MOF-801",
     score: 0.68,
     completeness: 5,
-    evidence: "needs-validation",
-    evidenceZh: "待验证 needs-validation",
+    evidence: "needs validation",
+    evidenceZh: "待验证",
     status: "Real-seed / pending",
     statusZh: "真实种子 / 待整理",
     bars: [54, 62, 46, 70],
@@ -56,16 +56,16 @@ const SCREENING_CANDIDATES = [
     completeness: 8,
     evidence: "rule-based",
     evidenceZh: "规则推断",
-    status: "Demo only",
-    statusZh: "仅演示",
+    status: "Demo | interface validation only",
+    statusZh: "Demo｜仅用于界面验证",
     bars: [84, 52, 38, 66],
   },
 ]
 
 const EVIDENCE_CHAIN_FIELDS = [
   {
-    field: "CO2 uptake",
-    zhField: "CO2 吸附量",
+    field: "CO₂ uptake",
+    zhField: "CO₂ 吸附量",
     status: "curated",
     zhStatus: "已整理",
     evidenceType: "literature-derived",
@@ -470,8 +470,8 @@ function AnimatedScreeningPreview({ t, lang, isMobile }) {
               <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", letterSpacing: 0 }}>
                 {zh ? "评分" : "Score"}
               </div>
-              <div style={{ color: t.textStrong, fontSize: 25, fontWeight: 950, fontFamily: FONT_MONO, lineHeight: 1.05, marginTop: 4 }}>
-                {active.score.toFixed(2)}
+              <div aria-label={zh ? `${active.name} 评分 ${Math.round(active.score * 100)}/100` : `${active.name} score ${Math.round(active.score * 100)}/100`} style={{ color: t.textStrong, fontSize: 25, fontWeight: 950, fontFamily: FONT_MONO, lineHeight: 1.05, marginTop: 4 }}>
+                {Math.round(active.score * 100)}/100
               </div>
             </div>
           </div>
@@ -826,40 +826,35 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
 
   const metrics = useMemo(() => [
     {
-      value: "8",
-      countTo: 8,
-      title: zh ? "核心描述符" : "Core descriptors",
-      body: zh ? "比表面积、孔径、孔体积、CO2 吸附量、带隙、水稳定性、热稳定性、毒性关注。" : CORE_DESCRIPTOR_LABELS.join(", "),
-      info: zh ? "这是透明度检查框架，不代表所有记录都已经完整或验证。" : "This is a transparency frame, not a claim that every record is complete or validated.",
-    },
-    {
-      value: "Open",
+      value: "6/8",
       kind: "progress",
-      progress: 100,
+      progress: 75,
       title: zh ? "描述符完整度" : "Descriptor completeness",
-      progressLabel: zh ? "字段级 curation status 控制 X/8 描述符已整理显示" : "Field-level curation status controls X/8 descriptors curated",
-      body: zh
-        ? "Open MOF Seed 作为主数据路线；字段来源、证据等级和整理状态用于表达可信度。"
-        : "Open MOF Seed is the main data route; field provenance, evidence level, and curation status express trust.",
-      info: zh ? "X/8 只表示核心字段可读程度，不等同实验验证。" : "X/8 describes field readability; it is not experimental validation.",
+      progressLabel: zh ? "6/8 描述符已整理" : "6/8 descriptors curated",
+      body: zh ? "已整理 6 项；待复核 1 项；缺失 1 项。" : "6 curated; 1 awaiting review; 1 missing.",
+      info: zh ? "6/8 只表示字段可读与已整理状态，不代表实验验证。" : "6/8 means fields are readable and curated; it is not experimental validation.",
     },
     {
-      value: "6",
-      countTo: 6,
+      value: "6 · 1 · 1",
+      title: zh ? "整理状态" : "Curation status",
+      body: zh ? "已整理 / 待复核 / 缺失，用于解释每项指标可用边界。" : "Curated / awaiting review / missing states explain metric usability.",
+      info: zh ? "整理状态来自字段级溯源，不等同证据等级。" : "Curation status comes from field-level provenance and is separate from evidence level.",
+    },
+    {
+      value: "A/B/C/D",
       kind: "badges",
-      title: zh ? "证据等级" : "Evidence levels",
-      body: zh ? "experimental、literature、simulation、ML-predicted、rule-based、needs-validation。" : "Experimental, literature, simulation, ML-predicted, rule-based, and needs-validation states.",
-      info: zh ? "证据等级说明数据状态；High 或 experimental 仍需结合具体任务与条件解释。" : "Evidence level describes data state and must still be read with task and condition context.",
-      badgeLabels: zh ? ["实验", "文献", "模拟", "规则"] : ["experimental", "literature", "simulation", "rule-based"],
+      title: zh ? "证据等级分布" : "Evidence-level distribution",
+      body: zh ? "A：实验或高质量文献；B：模拟或部分整理；C：预测或不完整；D：演示或占位。" : "A: experimental/high-quality literature; B: simulation/partial curation; C: predicted/incomplete; D: demo/placeholder.",
+      info: zh ? "证据等级只说明数据依据强弱，不直接证明材料优劣。" : "Evidence level describes support strength; it does not prove material superiority.",
+      badgeLabels: zh ? ["实验数据", "文献数据", "模拟数据", "待验证"] : ["experimental", "literature", "simulation", "needs validation"],
     },
     {
-      value: "1",
-      countTo: 1,
+      value: "Open MOF Seed",
       kind: "toggle",
-      title: zh ? "Open MOF Seed 主路线" : "Open MOF Seed route",
-      body: zh ? "主筛选不再通过 demo / real-seed / open-mof 三模式表达可信度。" : "Main screening no longer uses demo / real-seed / open-mof modes to express trust.",
-      info: zh ? "来源说明保留在字段级 Provenance、Data Status 和 Methodology 中。" : "Source boundaries remain visible through field provenance, Data Status, and Methodology.",
-      toggleLabels: ["Open MOF Seed"],
+      title: zh ? "数据模式分布" : "Data-mode distribution",
+      body: zh ? "主筛选使用 Open MOF Seed；Demo｜仅用于界面验证只保留在演示模块。" : "Main screening uses Open MOF Seed; Demo | interface validation only remains in demo modules.",
+      info: zh ? "数据模式说明数据路线，不替代 provenance 与 evidence level。" : "Data mode explains the route and does not replace provenance or evidence level.",
+      toggleLabels: zh ? ["Open MOF Seed", "Demo｜仅用于界面验证"] : ["Open MOF Seed", "Demo only"],
     },
   ], [dataMode, zh])
 
@@ -883,7 +878,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
       functionText: zh ? "浏览 Open MOF Seed normalized records，检查 8 个描述符、证据等级和字段级来源。" : "Browse Open MOF Seed normalized records and inspect 8 descriptors, evidence level, and field sources.",
       capabilities: zh ? ["Open MOF Seed 记录", "字段级来源", "候选对比"] : ["Open MOF Seed records", "Field provenance", "Candidate comparison"],
       buttonLabel: zh ? "浏览候选库" : "Explore Library",
-      compareAction: zh ? "打开对比器" : "Open builder",
+      compareAction: zh ? "进入对比器" : "Enter comparator",
     },
     {
       name: zh ? "性能优先级" : "Performance Analysis",
@@ -900,10 +895,10 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
       kicker: zh ? "任务导向记录" : "Task-oriented records",
       target: "catalysis",
       mark: "C",
-      positioning: zh ? "围绕 CO2 转化与有机酸路径的催化探索原型。" : "Catalysis prototype for CO2 conversion and organic-acid pathway exploration.",
-      functionText: zh ? "使用演示记录（mock / demo records）做任务语境探索，不把候选结果写成已验证结论。" : "Use mock / demo records for task-context exploration without claiming validated performance.",
-      capabilities: zh ? ["任务记录", "CO2 转化语境", "演示数据边界"] : ["Task records", "CO2 conversion context", "Mock-data boundary"],
-      buttonLabel: zh ? "打开催化实验室" : "Open Catalysis Lab",
+      positioning: zh ? "围绕 CO₂ 转化与有机酸路径的催化探索原型。" : "Catalysis prototype for CO₂ conversion and organic-acid pathway exploration.",
+      functionText: zh ? "使用 Demo｜仅用于界面验证 的任务记录做语境探索，不把候选结果写成已验证结论。" : "Use Demo | interface validation only task records for context exploration without claiming validated performance.",
+      capabilities: zh ? ["任务记录", "CO₂ 转化语境", "演示数据边界"] : ["Task records", "CO₂ conversion context", "Demo-data boundary"],
+      buttonLabel: zh ? "进入 Catalysis Lab" : "Enter Catalysis Lab",
     },
     {
       name: zh ? "方法与限制" : "Methods & Limitations",
@@ -1073,7 +1068,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
               <LogoMark size={isMobile ? 48 : 58} radius={14} style={{ boxShadow: t.shadowSm }} />
               <div style={{ color: t.accentText, fontSize: 12, fontWeight: 900, letterSpacing: 0 }}>
-                {zh ? "研究原型 · MOF 筛选" : "Research prototype · MOF screening"}
+                {zh ? "研究原型 / 数据溯源 / 早期筛选" : "Research prototype / provenance / early screening"}
               </div>
             </div>
             <h1 style={{
@@ -1094,7 +1089,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
               fontWeight: 900,
               maxWidth: 860,
             }}>
-              {zh ? "面向可持续 MOF 筛选的透明决策支持平台" : "A transparent decision-support platform for sustainable MOF screening"}
+              {zh ? "透明决策支持 · 可持续 MOF 筛选" : "Transparent decision support · sustainable MOF screening"}
             </p>
             <p style={{
               margin: "13px 0 0",
@@ -1104,9 +1099,19 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
               maxWidth: 760,
             }}>
               {zh
-                ? "面向 MOF 候选材料筛选、数据溯源与早期环境可行性判断的交互式研究原型。"
-                : "Interactive research prototype for MOF candidate screening, data provenance, and early environmental feasibility judgment."}
+                ? "所有结果均标注证据等级与不确定性，不代表最终实验结论。"
+                : "Every result is annotated with evidence level and uncertainty; it is not a final experimental conclusion."}
             </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 16 }}>
+              {(zh
+                ? ["描述符完整性检查", "证据等级与字段溯源", "早期环境可行性判断"]
+                : ["Descriptor completeness check", "Evidence level and field provenance", "Early environmental feasibility"]
+              ).map(item => (
+                <span key={item} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, color: t.muted, fontSize: 12, fontWeight: 850, lineHeight: 1.3, padding: "7px 10px" }}>
+                  {item}
+                </span>
+              ))}
+            </div>
             <div style={{
               display: "flex",
               gap: 10,
@@ -1120,7 +1125,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
                 {zh ? "浏览 MOF 候选库" : "Explore MOF Library"}
               </ActionButton>
               <ActionButton t={t} wide={isMobile} onClick={() => go("methodology")}>
-                {zh ? "查看方法与证据" : "View Methods & Evidence"}
+                {zh ? "阅读方法论" : "Read methodology"}
               </ActionButton>
             </div>
           </div>
@@ -1200,7 +1205,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
         <SectionHeader
           eyebrow={zh ? "流程叙事" : "Workflow Narrative"}
           title={zh ? "从来源接入到证据与验证闭环" : "From source intake to evidence and validation loop"}
-          subtitle={zh ? "六步工作流把结构来源、描述符、场景、透明评分、推荐解释和验证规划连成一个证据感知的决策支持流程。" : "A six-step workflow links source intake, descriptors, scenario setup, transparent scoring, recommendation explanation, and validation planning into evidence-aware decision support."}
+          subtitle={zh ? "六步工作流保留核心动作、关键产出和详情入口，减少首页长段说明。" : "The six-step workflow keeps one core action, key output, and detail entry per step."}
           t={t}
           isMobile={isMobile}
         />
@@ -1277,7 +1282,7 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
       }}>
         <div style={{ minWidth: 0 }}>
           <div style={{ color: t.accentText, fontSize: 11, fontWeight: 850, textTransform: "uppercase", letterSpacing: 0, marginBottom: 8 }}>
-            {zh ? "联系 / 合作" : "Contact / Collaboration"}
+            {zh ? "合作联系" : "Collaboration contact"}
           </div>
           <h2 style={{ margin: 0, color: t.textStrong, fontSize: isMobile ? 24 : 32, lineHeight: 1.15, fontWeight: 950, letterSpacing: 0 }}>
             {zh ? "浏览、评估，并质疑每一个结果。" : "Explore, evaluate, and question every result."}
@@ -1290,13 +1295,13 @@ export function HomeTab({ setActiveTab, onContactOpen, onOpenComparisonBuilder }
         </div>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: isNarrow ? "flex-start" : "flex-end" }}>
           <ActionButton t={t} primary wide={isMobile} onClick={() => go("ecoscreen")}>
-            {zh ? "打开 EcoScreen" : "Open EcoScreen"}
+            {zh ? "进入 EcoScreen" : "Enter EcoScreen"}
           </ActionButton>
           <ActionButton t={t} wide={isMobile} onClick={() => go("methodology")}>
             {zh ? "阅读方法论" : "Read Methodology"}
           </ActionButton>
           <ActionButton t={t} wide={isMobile} onClick={openContact}>
-            {zh ? "联系 / 合作" : "Contact / Collaborate"}
+            {zh ? "合作联系" : "Collaboration contact"}
           </ActionButton>
         </div>
       </section>

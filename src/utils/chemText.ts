@@ -7,6 +7,7 @@ const FORMULA_REPLACEMENTS = [
   [/CO2/g, "CO₂"],
   [/CH4/g, "CH₄"],
   [/N2/g, "N₂"],
+  [/O2/g, "O₂"],
   [/C2H2/g, "C₂H₂"],
   [/C2H4/g, "C₂H₄"],
   [/C2H6/g, "C₂H₆"],

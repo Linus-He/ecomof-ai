@@ -1,5 +1,8 @@
 // @ts-nocheck
-import { BasisBadge, ChemicalText, FONT_MONO, SectionTitle } from "../../shared"
+import { BasisBadge, ChemicalText, FONT_MONO, SectionTitle, formatPercent } from "../../shared"
+import { GasFieldProvenanceButton } from "./GasFieldProvenanceButton"
+import { GasUnitNormalizationNote } from "./GasUnitNormalizationNote"
+import { getFieldSource } from "./gasDataSchema"
 import {
   dataStatus,
   formatNumber,
@@ -30,17 +33,20 @@ export function GasMetricInspector({ cell, ranked = [], scenario = {}, onClose, 
   const contribution = metricContribution(record, metric)
   const weight = record.scoreBreakdown?.weights?.[scoreKey]
   const recommendation = validationForRecord(record, scenario, lang)
+  const sourceField = metric === "stability" ? "waterStability" : metric === "evidence" ? "evidenceLevel" : metric
+  const source = getFieldSource(record, sourceField)
 
   const rows = [
     [text(lang, "MOF 名称", "MOF name"), record.displayName],
     [text(lang, "指标", "Metric"), metricLabel(metric, lang)],
-    [text(lang, "归一化值", "Normalized value"), normalized == null ? "pending" : `${Math.round(normalized * 100)}%`],
+    [text(lang, "归一化值", "Normalized value"), normalized == null ? "pending" : formatPercent(normalized, { lang, normalized: true })],
     [text(lang, "原始值", "Raw value"), metricDisplayValue(record, metric, lang, ranked)],
     [text(lang, "单位", "Unit"), meta.unit || "dimensionless"],
-    [text(lang, "当前权重", "Current weight"), weight == null ? "pending" : `${Math.round(weight * 100)}%`],
+    [text(lang, "当前权重", "Current weight"), weight == null ? "pending" : formatPercent(weight, { lang })],
     [text(lang, "分数贡献", "Score contribution"), contribution == null ? "pending" : formatNumber(contribution)],
-    [text(lang, "数据类型", "Data type"), record.dataType || "demo"],
+    [text(lang, "数据类型", "Data type"), dataStatus(record, lang)],
     [text(lang, "证据等级", "Evidence level"), record.evidenceLevel || "C"],
+    [text(lang, "字段来源类型", "Field source type"), source.sourceType || "pending"],
     [text(lang, "建议验证", "Suggested validation"), lang === "zh" && recommendation.typeZh ? recommendation.typeZh : recommendation.type],
   ]
 
@@ -53,7 +59,7 @@ export function GasMetricInspector({ cell, ranked = [], scenario = {}, onClose, 
             <ChemicalText value={record.displayName} /> × {metricLabel(metric, lang)}
           </div>
         </div>
-        <button type="button" onClick={onClose} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.subtle, cursor: "pointer", fontSize: 12, fontWeight: 850, minHeight: 40, padding: "7px 10px" }}>Esc</button>
+        <button type="button" onClick={onClose} aria-label={text(lang, "关闭指标诊断", "Close metric inspector")} title={text(lang, "关闭", "Close")} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.subtle, cursor: "pointer", fontSize: 12, fontWeight: 850, minHeight: 40, padding: "7px 10px" }}>Esc</button>
       </div>
 
       <div style={{ display: "grid", gap: 7, marginTop: 12 }}>
@@ -64,6 +70,12 @@ export function GasMetricInspector({ cell, ranked = [], scenario = {}, onClose, 
           </div>
         ))}
       </div>
+
+      <div style={{ marginTop: 12 }}>
+        <GasFieldProvenanceButton record={record} field={sourceField} currentValue={metricDisplayValue(record, metric, lang, ranked)} unit={meta.unit || "dimensionless"} lang={lang} t={t} label={metricLabel(metric, lang)} />
+        <span style={{ color: t.subtle, fontSize: 11.5, marginLeft: 8 }}>{text(lang, "查看该 heatmap 字段的来源、换算与整理状态。", "View source, conversion, and curation status for this heatmap field.")}</span>
+      </div>
+      <GasUnitNormalizationNote record={record} field={sourceField} lang={lang} t={t} />
 
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", marginTop: 12 }}>
         <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.muted, fontSize: 12, lineHeight: 1.58, padding: 10 }}>

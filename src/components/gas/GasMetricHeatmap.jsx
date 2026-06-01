@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { Fragment } from "react"
-import { BasisBadge, ChemicalText, FONT_MONO, SectionTitle } from "../../shared"
+import { BasisBadge, ChemicalText, FONT_MONO, SectionTitle, formatPercent, formatScore100 } from "../../shared"
 import {
   GAS_METRICS,
   CONTRIBUTION_COLORS,
@@ -24,7 +24,7 @@ function cellValue(row, metric, view, ranked, lang) {
     return contribution == null ? "pending" : formatNumber(contribution)
   }
   const normalized = metricNormalizedValue(row, metric, ranked)
-  return normalized == null ? "pending" : `${Math.round(normalized * 100)}%`
+  return normalized == null ? "pending" : formatPercent(normalized, { lang, normalized: true })
 }
 
 function backgroundFor(row, metric, view, ranked, t) {
@@ -59,7 +59,7 @@ export function GasMetricHeatmap({
         <div>
           <SectionTitle>{text(lang, "可诊断指标热力图", "Diagnostic Metric Heatmap")}</SectionTitle>
           <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 5 }}>
-            {text(lang, "支持 normalized / raw / weighted contribution；点击单元格打开指标诊断。", "Switch normalized / raw / weighted contribution views; click a cell to inspect the metric.")}
+            {text(lang, "支持 normalized / raw / weighted contribution；点击单元格查看指标诊断。", "Switch normalized / raw / weighted contribution views; click a cell to inspect the metric.")}
           </div>
         </div>
         <BasisBadge tone="info">{heatmapView}</BasisBadge>
@@ -68,7 +68,7 @@ export function GasMetricHeatmap({
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 9, marginTop: 12 }}>
         <label style={{ display: "grid", gap: 5 }}>
           <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase" }}>{text(lang, "视图", "View")}</span>
-          <select value={heatmapView} onChange={event => setHeatmapView(event.target.value)} style={{ minHeight: 40, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.text, padding: "8px 10px" }}>
+          <select aria-label={text(lang, "选择热力图视图模式", "Select heatmap view mode")} value={heatmapView} onChange={event => setHeatmapView(event.target.value)} style={{ minHeight: 40, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.text, padding: "8px 10px" }}>
             <option value="normalized">{text(lang, "Normalized 归一化", "Normalized view")}</option>
             <option value="raw">{text(lang, "Raw 原始值", "Raw value view")}</option>
             <option value="weighted">{text(lang, "Weighted 贡献值", "Weighted contribution view")}</option>
@@ -76,7 +76,7 @@ export function GasMetricHeatmap({
         </label>
         <label style={{ display: "grid", gap: 5 }}>
           <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase" }}>{text(lang, "排序", "Sort")}</span>
-          <select value={heatmapSortMetric} onChange={event => setHeatmapSortMetric(event.target.value)} style={{ minHeight: 40, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.text, padding: "8px 10px" }}>
+          <select aria-label={text(lang, "选择热力图排序指标", "Select heatmap sort metric")} value={heatmapSortMetric} onChange={event => setHeatmapSortMetric(event.target.value)} style={{ minHeight: 40, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.text, padding: "8px 10px" }}>
             <option value="GasScore">GasScore</option>
             {GAS_METRICS.map(metric => <option key={metric.key} value={metric.key}>{text(lang, metric.labelZh, metric.label)}</option>)}
           </select>
@@ -92,7 +92,7 @@ export function GasMetricHeatmap({
             {GAS_METRICS.map(metric => {
               const active = selectedMetric === metric.key
               return (
-                <button key={metric.key} type="button" onClick={() => setSelectedMetric(metric.key)} style={{ background: active ? t.badgeInfoBg : "transparent", border: `1px solid ${active ? t.accent : "transparent"}`, borderRadius: 7, color: active ? t.textStrong : t.faint, cursor: "pointer", fontSize: 10.5, fontWeight: 850, minHeight: 36, padding: "5px 4px" }}>
+                <button key={metric.key} type="button" onClick={() => setSelectedMetric(metric.key)} aria-label={text(lang, `切换热力图指标：${metric.labelZh}`, `Switch heatmap metric: ${metric.label}`)} title={text(lang, metric.labelZh, metric.label)} style={{ background: active ? t.badgeInfoBg : "transparent", border: `1px solid ${active ? t.accent : "transparent"}`, borderRadius: 7, color: active ? t.textStrong : t.faint, cursor: "pointer", fontSize: 10.5, fontWeight: 850, minHeight: 36, padding: "5px 4px" }}>
                   {text(lang, metric.labelZh, metric.label)}
                 </button>
               )
@@ -101,12 +101,12 @@ export function GasMetricHeatmap({
               <Fragment key={row.id}>
                 <button key={`${row.id}-name`} type="button" onClick={() => onSelectCell(row, selectedMetricKey)} style={{ background: row.id === selectedId ? t.badgeInfoBg : t.surface, border: `1px solid ${row.id === selectedId ? t.accent : t.border}`, borderRadius: 7, color: t.textStrong, cursor: "pointer", display: "grid", gap: 3, fontSize: 11.5, fontWeight: 850, minHeight: 58, padding: 8, textAlign: "left" }}>
                   <ChemicalText value={row.displayName} />
-                  <small style={{ color: t.subtle, fontWeight: 600 }}>{dataStatus(row, lang)} · {Math.round(row.score || 0)}</small>
+                  <small style={{ color: t.subtle, fontWeight: 600 }}>{dataStatus(row, lang)} · {formatScore100(row.score, lang)}</small>
                 </button>
                 {GAS_METRICS.map(metric => {
                   const active = selectedMetric === metric.key
                   return (
-                    <button key={`${row.id}-${metric.key}`} type="button" onClick={() => onSelectCell(row, metric.key)} style={{ background: backgroundFor(row, metric.key, heatmapView, ranked, t), border: `1px solid ${row.id === selectedId || active ? t.accent : t.border}`, borderRadius: 7, color: t.textStrong, cursor: "pointer", fontFamily: FONT_MONO, fontSize: 11, fontWeight: 850, minHeight: 58, padding: 7, textAlign: "center" }}>
+                    <button key={`${row.id}-${metric.key}`} type="button" onClick={() => onSelectCell(row, metric.key)} aria-label={text(lang, `查看 ${row.displayName} 的 ${metric.labelZh} 指标诊断`, `Inspect ${metric.label} for ${row.displayName}`)} title={text(lang, `查看 ${metric.labelZh}`, `Inspect ${metric.label}`)} style={{ background: backgroundFor(row, metric.key, heatmapView, ranked, t), border: `1px solid ${row.id === selectedId || active ? t.accent : t.border}`, borderRadius: 7, color: t.textStrong, cursor: "pointer", fontFamily: FONT_MONO, fontSize: 11, fontWeight: 850, minHeight: 58, padding: 7, textAlign: "center" }}>
                       {cellValue(row, metric.key, heatmapView, ranked, lang)}
                     </button>
                   )

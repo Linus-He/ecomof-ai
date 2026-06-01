@@ -1,5 +1,7 @@
 // @ts-nocheck
 import { getEvidenceScore, getStabilityScore, normalizeGasMetric } from "../../utils/gasScoring"
+import { formatPending, formatPercent } from "../../utils/formatters"
+import { dataTypeLabel } from "./gasEvidence"
 
 export const GAS_METRICS = [
   { key: "primaryUptake", scoreKey: "uptake", label: "Uptake", labelZh: "吸附量", unit: "mmol/g" },
@@ -71,19 +73,15 @@ export function metricContribution(record, metric) {
 
 export function metricDisplayValue(record, metric, lang, peers = []) {
   const raw = metricRawValue(record, metric)
-  if (raw == null) return text(lang, "pending", "pending")
-  if (metric === "stability" || metric === "evidence") return `${Math.round(raw * 100)}%`
+  if (raw == null) return formatPending(lang)
+  if (metric === "stability" || metric === "evidence") return formatPercent(raw, { lang, normalized: true })
+  if (metric === "regenerability") return formatPercent(raw, { lang })
   const unit = metricMeta(metric).unit
   return `${formatNumber(raw)}${unit ? ` ${unit}` : ""}`
 }
 
 export function dataStatus(record, lang) {
-  const type = String(record?.dataType || "unknown").toLowerCase()
-  if (type.includes("experimental")) return text(lang, "demo experimental-template", "demo experimental-template")
-  if (type.includes("simulated")) return text(lang, "demo / simulated", "demo / simulated")
-  if (type.includes("predicted")) return text(lang, "demo / predicted", "demo / predicted")
-  if (type.includes("demo")) return text(lang, "demo", "demo")
-  return text(lang, "unknown", "unknown")
+  return dataTypeLabel(record?.dataType || "needs_validation", lang)
 }
 
 export function metricInterpretation(record, metric, lang, peers = []) {
@@ -114,7 +112,7 @@ export function validationForRecord(record = {}, scenario = {}, lang = "en") {
       typeZh: "GCMC 吸附模拟",
       priority: "high",
       reason: "Current record is demo/predicted and needs adsorption simulation before scientific ranking.",
-      reasonZh: "当前记录仍是 demo / predicted，需要先用吸附模拟确认后才能进入科研排序。",
+      reasonZh: "当前记录仍是演示数据或预测数据，需要先用吸附模拟确认后才能进入科研排序。",
       requiredData: ["CIF structure", "force field", "partial charges", "temperature", "pressure"],
       requiredDataZh: ["CIF 结构", "力场", "部分电荷", "温度", "压力"],
       expectedOutput: "Single-component and mixture uptake estimates under the selected gas pair.",

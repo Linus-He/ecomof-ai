@@ -15,6 +15,7 @@ function IpoColumn({ label, value }) {
 
 export function WorkflowStepDetail({ step, index, active, lang = "en", t, onNavigate, setRef, compact = false }) {
   const shortcuts = step.shortcuts || [step.shortcut]
+  const detailEntry = shortcuts.filter(Boolean).map(shortcut => text(lang, shortcut.zh, shortcut.en)).join(" / ")
   return (
     <article
       ref={setRef}
@@ -35,6 +36,7 @@ export function WorkflowStepDetail({ step, index, active, lang = "en", t, onNavi
               key={shortcut.target}
               type="button"
               onClick={() => onNavigate?.(shortcut.target)}
+              aria-label={text(lang, `进入详情：${shortcut.zh}`, `Open detail entry: ${shortcut.en}`)}
               style={{ ...toolbarBtn(t), minHeight: 40, justifyContent: "center" }}
             >
               {text(lang, shortcut.zh, shortcut.en)}
@@ -44,9 +46,9 @@ export function WorkflowStepDetail({ step, index, active, lang = "en", t, onNavi
       </div>
 
       <div className="workflow-ipo-grid">
-        <IpoColumn label={text(lang, "输入", "Input")} value={text(lang, step.input.zh, step.input.en)} />
-        <IpoColumn label={text(lang, "处理", "Process")} value={text(lang, step.process.zh, step.process.en)} />
-        <IpoColumn label={text(lang, "输出", "Output")} value={text(lang, step.output.zh, step.output.en)} />
+        <IpoColumn label={text(lang, "核心动作", "Core action")} value={text(lang, step.process.zh, step.process.en)} />
+        <IpoColumn label={text(lang, "关键产出", "Key output")} value={text(lang, step.output.zh, step.output.en)} />
+        <IpoColumn label={text(lang, "详情入口", "Detail entry")} value={detailEntry || text(lang, "待补充", "pending")} />
       </div>
 
       <div className="workflow-mini-visual-shell">

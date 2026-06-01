@@ -1,4 +1,6 @@
 // @ts-nocheck
+import { ChemicalText } from "../../shared"
+
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
 export function MethodAlgorithmStepper({ steps = [], lang, t }) {
@@ -24,10 +26,10 @@ export function MethodAlgorithmStepper({ steps = [], lang, t }) {
           </span>
           <span style={{ display: "grid", gap: 3 }}>
             <strong style={{ color: t.textStrong, fontSize: 13, lineHeight: 1.3 }}>
-              {text(lang, step.labelZh, step.label)}
+              <ChemicalText value={text(lang, step.labelZh, step.label)} />
             </strong>
             <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.5 }}>
-              {text(lang, step.descriptionZh, step.description)}
+              <ChemicalText value={text(lang, step.descriptionZh, step.description)} />
             </span>
           </span>
         </article>

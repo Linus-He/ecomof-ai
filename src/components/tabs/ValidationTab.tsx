@@ -64,13 +64,13 @@ export function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi, 
   const applicabilityPoints = buildApplicabilityPoints(inputs || DEFAULT_INPUTS, results)
   const cards = [
     { title: c.validation.dataset, body: `${c.validation.datasetBody} ${manifest ? `Manifest: ${manifest.origin || "unknown"} · rows ${manifest.rows ?? "—"} · source ${manifestSource}.` : "Manifest not loaded."}` },
-    { title: c.validation.metrics, body: `CO2 uptake: ${metricText("co2_uptake")} · N2 uptake: ${metricText("n2_uptake")} · selectivity: ${metricText("selectivity")}.` },
+    { title: c.validation.metrics, body: `CO₂ uptake: ${metricText("co2_uptake")} · N₂ uptake: ${metricText("n2_uptake")} · selectivity: ${metricText("selectivity")}.` },
     { title: c.validation.error, body: c.validation.errorBody },
     { title: c.validation.applicability, body: results?.applicability?.warnings?.length ? results.applicability.warnings.map(w => w.message).join(" ") : c.methods.applicabilityBody },
     { title: c.validation.benchmark, body: c.validation.benchmarkBody },
   ]
   const validationCsv = [["MOF", "Reference uptake", "Predicted uptake", "Residual"], ...validationData.map(row => [row.name, row.reference, row.predicted, row.residual])].map(row => row.join(",")).join("\n")
-  const validationReport = ["# ecomof-ai Validation Summary", "", `Manifest source: ${manifestSource}`, `Training origin: ${manifest?.origin || "not loaded"}`, `Rows: ${manifest?.rows ?? "unknown"}`, "", "## Metrics", `CO2 uptake: ${metricText("co2_uptake")}`, `N2 uptake: ${metricText("n2_uptake")}`, `Selectivity: ${metricText("selectivity")}`].join("\n")
+  const validationReport = ["# ecomof-ai Validation Summary", "", `Manifest source: ${manifestSource}`, `Training origin: ${manifest?.origin || "not loaded"}`, `Rows: ${manifest?.rows ?? "unknown"}`, "", "## Metrics", `CO₂ uptake: ${metricText("co2_uptake")}`, `N₂ uptake: ${metricText("n2_uptake")}`, `Selectivity: ${metricText("selectivity")}`].join("\n")
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -155,7 +155,7 @@ export function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi, 
       <NextStepCTA
         label={lang === "zh" ? "下一步：查看数据来源" : "Next: review data sources"}
         body={lang === "zh" ? "验证页只支持筛选层；数据来源页说明每个数据层属于哪个工作流阶段。" : "Validation supports the screening layer; Data Sources explains which workflow stage each data layer belongs to."}
-        actionLabel={lang === "zh" ? "打开数据来源" : "Open data sources"}
+        actionLabel={lang === "zh" ? "查看数据来源" : "View data sources"}
         onClick={() => onNavigate?.("dataSources")}
       />
       <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>

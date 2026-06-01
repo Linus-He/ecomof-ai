@@ -7,23 +7,88 @@
     "summary": "EcoMOF-AI organizes material records, descriptors, separation conditions, catalytic hypotheses, evidence status, and validation needs into a transparent decision-support workflow.",
     "summaryZh": "EcoMOF-AI 将材料记录、描述符、分离条件、催化假设、证据状态和验证需求组织成透明的决策支持流程。",
     "methodWorkflow": [
-      {"label": "Data source", "labelZh": "数据来源", "description": "Start from curated literature, seed datasets, and explicit demonstration records.", "descriptionZh": "从已整理文献、种子数据集和显式边界的演示记录开始。"},
-      {"label": "Descriptor / condition extraction", "labelZh": "描述符 / 条件提取", "description": "Extract descriptors, gas-separation conditions, catalytic pathway annotations, and validation fields.", "descriptionZh": "提取描述符、气体分离条件、催化路径注释和验证字段。"},
-      {"label": "Field-level provenance", "labelZh": "字段级来源", "description": "Attach source, location, evidence type, and curation status to fields that drive interpretation.", "descriptionZh": "为影响解释的字段绑定来源、位置、证据类型和整理状态。"},
-      {"label": "Task-specific scoring / comparison", "labelZh": "任务特定评分 / 比较", "description": "Use module-specific comparison logic instead of a single black-box ranking.", "descriptionZh": "使用模块特定比较逻辑，而不是单一黑箱排名。"},
-      {"label": "Candidate explanation", "labelZh": "候选解释", "description": "Expose drivers, warnings, missing fields, and validation gaps.", "descriptionZh": "展示驱动因素、警告、缺失字段和验证缺口。"}
+      {
+        "label": "Data source",
+        "labelZh": "数据来源",
+        "description": "Start from curated literature, seed datasets, and explicit demonstration records.",
+        "descriptionZh": "从已整理文献、种子数据集和显式边界的演示记录开始。"
+      },
+      {
+        "label": "Descriptor / condition extraction",
+        "labelZh": "描述符 / 条件提取",
+        "description": "Extract descriptors, gas-separation conditions, catalytic pathway annotations, and validation fields.",
+        "descriptionZh": "提取描述符、气体分离条件、催化路径注释和验证字段。"
+      },
+      {
+        "label": "Field-level provenance",
+        "labelZh": "字段级来源",
+        "description": "Attach source, location, evidence type, and curation status to fields that drive interpretation.",
+        "descriptionZh": "为影响解释的字段绑定来源、位置、证据类型和整理状态。"
+      },
+      {
+        "label": "Task-specific scoring / comparison",
+        "labelZh": "任务特定评分 / 比较",
+        "description": "Use module-specific comparison logic instead of a single black-box ranking.",
+        "descriptionZh": "使用模块特定比较逻辑，而不是单一黑箱排名。"
+      },
+      {
+        "label": "Candidate explanation",
+        "labelZh": "候选解释",
+        "description": "Expose drivers, warnings, missing fields, and validation gaps.",
+        "descriptionZh": "展示驱动因素、警告、缺失字段和验证缺口。"
+      }
     ],
-    "inputs": ["curated literature records", "seed datasets", "descriptor fields", "condition fields", "source-linked data records"],
-    "inputsZh": ["整理文献记录", "种子数据集", "描述符字段", "条件字段", "来源关联数据记录"],
-    "outputs": ["evidence-aware candidate explanation", "module-specific comparison", "validation roadmap"],
-    "outputsZh": ["证据感知候选解释", "模块特定比较", "验证路线"],
+    "inputs": [
+      "curated literature records",
+      "seed datasets",
+      "descriptor fields",
+      "condition fields",
+      "source-linked data records"
+    ],
+    "inputsZh": [
+      "整理文献记录",
+      "种子数据集",
+      "描述符字段",
+      "条件字段",
+      "来源关联数据记录"
+    ],
+    "outputs": [
+      "evidence-aware candidate explanation",
+      "module-specific comparison",
+      "validation roadmap"
+    ],
+    "outputsZh": [
+      "证据感知候选解释",
+      "模块特定比较",
+      "验证路线"
+    ],
     "visualizations": [
-      {"title": "Evidence-aware method flow", "titleZh": "证据感知方法流", "description": "Data source to descriptor extraction to provenance to comparison to validation roadmap.", "descriptionZh": "从数据来源到描述符提取、来源绑定、比较和验证路线。", "chartType": "flow"}
+      {
+        "title": "Evidence-aware method flow",
+        "titleZh": "证据感知方法流",
+        "description": "Data source to descriptor extraction to provenance to comparison to validation roadmap.",
+        "descriptionZh": "从数据来源到描述符提取、来源绑定、比较和验证路线。",
+        "chartType": "flow"
+      }
     ],
-    "evidenceBoundary": ["Decision-support prototype, not a black-box validated ranking tool.", "Outputs require module-specific validation before scientific claims."],
-    "evidenceBoundaryZh": ["决策支持原型，不是黑箱式已验证排名工具。", "任何输出都需要模块特定验证后才能作为科研结论。"],
-    "validationRoadmap": ["Expand reviewed records", "connect field-level provenance to each derived output", "add experiment and DFT feedback loops"],
-    "validationRoadmapZh": ["扩展已核查记录", "将字段级来源连接到每个派生输出", "接入实验与 DFT 反馈循环"],
+    "evidenceBoundary": [
+      "Decision-support prototype, not a black-box validated ranking tool.",
+      "Outputs require module-specific validation before scientific claims."
+    ],
+    "evidenceBoundaryZh": [
+      "决策支持原型，不是黑箱式已验证排名工具。",
+      "任何输出都需要模块特定验证后才能作为科研结论。"
+    ],
+    "validationRoadmap": [
+      "Expand reviewed records",
+      "connect field-level provenance to each derived output",
+      "add experiment and DFT feedback loops"
+    ],
+    "validationRoadmapZh": [
+      "扩展已核查记录",
+      "将字段级来源连接到每个派生输出",
+      "接入实验与 DFT 反馈循环"
+    ],
     "methodGroups": [
       {
         "id": "platform-flow",
@@ -32,18 +97,63 @@
         "purpose": "Make every module read as an explainable research workflow rather than an isolated ranking screen.",
         "purposeZh": "让每个模块都呈现为可解释研究流程，而不是孤立排名界面。",
         "algorithmSteps": [
-          {"label": "Collect records", "labelZh": "收集记录", "description": "Use source-linked records with explicit data status.", "descriptionZh": "使用带来源和数据状态的记录。"},
-          {"label": "Normalize evidence fields", "labelZh": "规范证据字段", "description": "Keep reviewed, pending, estimated, and missing states visible.", "descriptionZh": "保持 reviewed、pending、estimated、missing 状态可见。"},
-          {"label": "Apply module logic", "labelZh": "应用模块逻辑", "description": "Choose scoring, condition comparison, or pathway reasoning according to task.", "descriptionZh": "按任务选择评分、条件比较或路径推理。"}
+          {
+            "label": "Collect records",
+            "labelZh": "收集记录",
+            "description": "Use source-linked records with explicit data status.",
+            "descriptionZh": "使用带来源和数据状态的记录。"
+          },
+          {
+            "label": "Normalize evidence fields",
+            "labelZh": "规范证据字段",
+            "description": "Keep reviewed, pending, estimated, and missing states visible.",
+            "descriptionZh": "保持 reviewed、pending、estimated、missing 状态可见。"
+          },
+          {
+            "label": "Apply module logic",
+            "labelZh": "应用模块逻辑",
+            "description": "Choose scoring, condition comparison, or pathway reasoning according to task.",
+            "descriptionZh": "按任务选择评分、条件比较或路径推理。"
+          }
         ],
         "formulas": [],
-        "inputs": ["records", "descriptors", "conditions", "evidence status"],
-        "inputsZh": ["记录", "描述符", "条件", "证据状态"],
-        "outputs": ["candidate explanation", "warnings", "validation needs"],
-        "outputsZh": ["候选解释", "警告", "验证需求"],
-        "visualizations": [{"title": "Workflow cards", "titleZh": "流程卡片", "description": "Module summaries, method steps, formulas, warnings, and validation roadmap.", "descriptionZh": "模块摘要、方法步骤、公式、警告和验证路线。", "chartType": "flow"}],
-        "limitations": ["The platform provides structured reasoning support; it does not replace laboratory validation."],
-        "limitationsZh": ["平台提供结构化推理支持，不能替代实验室验证。"]
+        "inputs": [
+          "records",
+          "descriptors",
+          "conditions",
+          "evidence status"
+        ],
+        "inputsZh": [
+          "记录",
+          "描述符",
+          "条件",
+          "证据状态"
+        ],
+        "outputs": [
+          "candidate explanation",
+          "warnings",
+          "validation needs"
+        ],
+        "outputsZh": [
+          "候选解释",
+          "警告",
+          "验证需求"
+        ],
+        "visualizations": [
+          {
+            "title": "Workflow cards",
+            "titleZh": "流程卡片",
+            "description": "Module summaries, method steps, formulas, warnings, and validation roadmap.",
+            "descriptionZh": "模块摘要、方法步骤、公式、警告和验证路线。",
+            "chartType": "flow"
+          }
+        ],
+        "limitations": [
+          "The platform provides structured reasoning support; it does not replace laboratory validation."
+        ],
+        "limitationsZh": [
+          "平台提供结构化推理支持，不能替代实验室验证。"
+        ]
       }
     ]
   },
@@ -55,24 +165,99 @@
     "summary": "EcoScreen combines task-specific filtering, descriptor weighting, evidence confidence, and sensitivity checks to preview sustainability and feasibility signals.",
     "summaryZh": "EcoScreen 结合任务筛选、描述符赋权、证据置信度和敏感性检查，预览可持续性与可行性信号。",
     "methodWorkflow": [
-      {"label": "Task-specific filtering", "labelZh": "任务特定筛选", "description": "Select candidates and descriptors relevant to the screening question.", "descriptionZh": "选择与筛选问题相关的候选物和描述符。"},
-      {"label": "Direction-aware normalization", "labelZh": "方向感知归一化", "description": "Normalize benefit and cost indicators with consistent direction.", "descriptionZh": "按一致方向归一化收益型与成本型指标。"},
-      {"label": "CRITIC objective weighting", "labelZh": "CRITIC 客观赋权", "description": "Estimate information content from descriptor contrast and non-redundancy.", "descriptionZh": "由描述符区分度和非冗余性估计信息量。"},
-      {"label": "Evidence confidence correction", "labelZh": "证据置信度修正", "description": "Scale raw scores using evidence confidence Q.", "descriptionZh": "用证据置信度 Q 修正原始分数。"},
-      {"label": "Sensitivity and validation gaps", "labelZh": "敏感性与验证缺口", "description": "Report robustness and fields that would change interpretation.", "descriptionZh": "报告稳健性和可能改变解释的字段缺口。"}
+      {
+        "label": "Task-specific filtering",
+        "labelZh": "任务特定筛选",
+        "description": "Select candidates and descriptors relevant to the screening question.",
+        "descriptionZh": "选择与筛选问题相关的候选物和描述符。"
+      },
+      {
+        "label": "Direction-aware normalization",
+        "labelZh": "方向感知归一化",
+        "description": "Normalize benefit and cost indicators with consistent direction.",
+        "descriptionZh": "按一致方向归一化收益型与成本型指标。"
+      },
+      {
+        "label": "CRITIC objective weighting",
+        "labelZh": "CRITIC 客观赋权",
+        "description": "Estimate information content from descriptor contrast and non-redundancy.",
+        "descriptionZh": "由描述符区分度和非冗余性估计信息量。"
+      },
+      {
+        "label": "Evidence confidence correction",
+        "labelZh": "证据置信度修正",
+        "description": "Scale raw scores using evidence confidence Q.",
+        "descriptionZh": "用证据置信度 Q 修正原始分数。"
+      },
+      {
+        "label": "Sensitivity and validation gaps",
+        "labelZh": "敏感性与验证缺口",
+        "description": "Report robustness and fields that would change interpretation.",
+        "descriptionZh": "报告稳健性和可能改变解释的字段缺口。"
+      }
     ],
-    "inputs": ["surface area", "pore size", "stability flags", "toxicity concern", "descriptor coverage", "evidence confidence Q"],
-    "inputsZh": ["比表面积", "孔径", "稳定性标记", "毒性关注", "描述符覆盖度", "证据置信度 Q"],
-    "outputs": ["decision-support preview", "candidate score", "risk / validation gap output", "sensitivity diagnostics"],
-    "outputsZh": ["决策支持预览", "候选综合评分", "风险 / 验证缺口输出", "敏感性诊断"],
+    "inputs": [
+      "surface area",
+      "pore size",
+      "stability flags",
+      "toxicity concern",
+      "descriptor coverage",
+      "evidence confidence Q"
+    ],
+    "inputsZh": [
+      "比表面积",
+      "孔径",
+      "稳定性标记",
+      "毒性关注",
+      "描述符覆盖度",
+      "证据置信度 Q"
+    ],
+    "outputs": [
+      "decision-support preview",
+      "candidate score",
+      "risk / validation gap output",
+      "sensitivity diagnostics"
+    ],
+    "outputsZh": [
+      "决策支持预览",
+      "候选综合评分",
+      "风险 / 验证缺口输出",
+      "敏感性诊断"
+    ],
     "visualizations": [
-      {"title": "CRITIC weight distribution", "titleZh": "CRITIC 权重分布", "description": "Shows which indicators carry higher contrast and lower redundancy in the current candidate set.", "descriptionZh": "展示当前候选集中哪些指标具有更高区分度和更低冗余。", "chartType": "bar"},
-      {"title": "Sensitivity analysis", "titleZh": "敏感性分析", "description": "Shows how ranking or tier assignment changes under weight perturbation.", "descriptionZh": "展示权重扰动下排序或分层如何变化。", "chartType": "line"}
+      {
+        "title": "CRITIC weight distribution",
+        "titleZh": "CRITIC 权重分布",
+        "description": "Shows which indicators carry higher contrast and lower redundancy in the current candidate set.",
+        "descriptionZh": "展示当前候选集中哪些指标具有更高区分度和更低冗余。",
+        "chartType": "bar"
+      },
+      {
+        "title": "Sensitivity analysis",
+        "titleZh": "敏感性分析",
+        "description": "Shows how ranking or tier assignment changes under weight perturbation.",
+        "descriptionZh": "展示权重扰动下排序或分层如何变化。",
+        "chartType": "line"
+      }
     ],
-    "evidenceBoundary": ["EcoScreen is a decision-support preview, not a validated performance or environmental prediction.", "CRITIC weights describe the current candidate set and should not be generalized without validation."],
-    "evidenceBoundaryZh": ["EcoScreen 是决策支持预览，不是已验证性能或环境预测。", "CRITIC 权重描述当前候选集，未经验证不应外推。"],
-    "validationRoadmap": ["Curate missing descriptors", "compare with measured stability and toxicity data", "repeat sensitivity analysis after data updates"],
-    "validationRoadmapZh": ["补齐缺失描述符", "与实测稳定性和毒性数据对照", "数据更新后重复敏感性分析"],
+    "evidenceBoundary": [
+      "EcoScreen is a decision-support preview, not a validated performance or environmental prediction.",
+      "CRITIC weights describe the current candidate set and should not be generalized without validation."
+    ],
+    "evidenceBoundaryZh": [
+      "EcoScreen 是决策支持预览，不是已验证性能或环境预测。",
+      "CRITIC 权重描述当前候选集，未经验证不应外推。"
+    ],
+    "validationRoadmap": [
+      "Curate missing descriptors",
+      "compare with measured stability and toxicity data",
+      "repeat sensitivity analysis after data updates"
+    ],
+    "validationRoadmapZh": [
+      "补齐缺失描述符",
+      "与实测稳定性和毒性数据对照",
+      "数据更新后重复敏感性分析"
+    ],
     "methodGroups": [
       {
         "id": "critic-weighting",
@@ -81,22 +266,86 @@
         "purpose": "Estimate descriptor weights from contrast intensity and conflict with other indicators.",
         "purposeZh": "根据指标区分度及其与其他指标的冲突程度估计描述符权重。",
         "algorithmSteps": [
-          {"label": "Normalize indicators", "labelZh": "指标归一化", "description": "Bring all descriptors to a comparable 0-1 scale.", "descriptionZh": "将所有描述符转换到可比较的 0-1 尺度。"},
-          {"label": "Compute standard deviation", "labelZh": "计算标准差", "description": "Use sigma to represent contrast intensity across candidates.", "descriptionZh": "用 sigma 表示候选集内的区分度。"},
-          {"label": "Compute correlation conflict", "labelZh": "计算相关性冲突", "description": "Lower redundancy against other indicators increases information content.", "descriptionZh": "与其他指标冗余越低，信息量越高。"},
-          {"label": "Normalize weights", "labelZh": "归一化权重", "description": "Convert information content into weights that sum to one.", "descriptionZh": "将信息量转换为总和为 1 的权重。"}
+          {
+            "label": "Normalize indicators",
+            "labelZh": "指标归一化",
+            "description": "Bring all descriptors to a comparable 0-1 scale.",
+            "descriptionZh": "将所有描述符转换到可比较的 0-1 尺度。"
+          },
+          {
+            "label": "Compute standard deviation",
+            "labelZh": "计算标准差",
+            "description": "Use sigma to represent contrast intensity across candidates.",
+            "descriptionZh": "用 sigma 表示候选集内的区分度。"
+          },
+          {
+            "label": "Compute correlation conflict",
+            "labelZh": "计算相关性冲突",
+            "description": "Lower redundancy against other indicators increases information content.",
+            "descriptionZh": "与其他指标冗余越低，信息量越高。"
+          },
+          {
+            "label": "Normalize weights",
+            "labelZh": "归一化权重",
+            "description": "Convert information content into weights that sum to one.",
+            "descriptionZh": "将信息量转换为总和为 1 的权重。"
+          }
         ],
         "formulas": [
-          {"id": "critic-information", "label": "CRITIC information content", "labelZh": "CRITIC 信息量", "latex": "C_j = \\sigma_j \\times \\sum_{k=1}^{m}(1-r_{jk})", "fallback": "C_j = σ_j Σ(1-r_jk)", "explanation": "C_j increases when descriptor j has high spread and low redundancy.", "explanationZh": "当描述符 j 具有高区分度且与其他指标低冗余时，C_j 增大。"},
-          {"id": "critic-weight", "label": "CRITIC weight", "labelZh": "CRITIC 权重", "latex": "w_j = \\frac{C_j}{\\sum_{j=1}^{m}C_j}", "fallback": "w_j = C_j / ΣC_j", "explanation": "Information content is normalized into a weight vector.", "explanationZh": "信息量被归一化为权重向量。"}
+          {
+            "id": "critic-information",
+            "label": "CRITIC information content",
+            "labelZh": "CRITIC 信息量",
+            "latex": "C_j = \\sigma_j \\times \\sum_{k=1}^{m}(1-r_{jk})",
+            "fallback": "C_j = σ_j Σ(1-r_jk)",
+            "explanation": "C_j increases when descriptor j has high spread and low redundancy.",
+            "explanationZh": "当描述符 j 具有高区分度且与其他指标低冗余时，C_j 增大。"
+          },
+          {
+            "id": "critic-weight",
+            "label": "CRITIC weight",
+            "labelZh": "CRITIC 权重",
+            "latex": "w_j = \\frac{C_j}{\\sum_{j=1}^{m}C_j}",
+            "fallback": "w_j = C_j / ΣC_j",
+            "explanation": "Information content is normalized into a weight vector.",
+            "explanationZh": "信息量被归一化为权重向量。"
+          }
         ],
-        "inputs": ["normalized descriptor matrix", "indicator directions", "candidate set"],
-        "inputsZh": ["归一化描述符矩阵", "指标方向", "候选集合"],
-        "outputs": ["descriptor weights", "weight rationale", "contrast and conflict diagnostics"],
-        "outputsZh": ["描述符权重", "权重依据", "区分度与冲突诊断"],
-        "visualizations": [{"title": "Weight diagnostics", "titleZh": "权重诊断", "description": "Bar chart and conflict-oriented explanation for each descriptor.", "descriptionZh": "每个描述符的柱状图和冲突解释。", "chartType": "bar"}],
-        "limitations": ["CRITIC indicates information contribution in the current candidate set; it does not prove descriptor causality."],
-        "limitationsZh": ["CRITIC 表示当前候选集中指标的信息贡献，不证明描述符因果作用。"]
+        "inputs": [
+          "normalized descriptor matrix",
+          "indicator directions",
+          "candidate set"
+        ],
+        "inputsZh": [
+          "归一化描述符矩阵",
+          "指标方向",
+          "候选集合"
+        ],
+        "outputs": [
+          "descriptor weights",
+          "weight rationale",
+          "contrast and conflict diagnostics"
+        ],
+        "outputsZh": [
+          "描述符权重",
+          "权重依据",
+          "区分度与冲突诊断"
+        ],
+        "visualizations": [
+          {
+            "title": "Weight diagnostics",
+            "titleZh": "权重诊断",
+            "description": "Bar chart and conflict-oriented explanation for each descriptor.",
+            "descriptionZh": "每个描述符的柱状图和冲突解释。",
+            "chartType": "bar"
+          }
+        ],
+        "limitations": [
+          "CRITIC indicates information contribution in the current candidate set; it does not prove descriptor causality."
+        ],
+        "limitationsZh": [
+          "CRITIC 表示当前候选集中指标的信息贡献，不证明描述符因果作用。"
+        ]
       },
       {
         "id": "candidate-score",
@@ -105,21 +354,80 @@
         "purpose": "Combine weighted descriptors with a gate and evidence confidence correction.",
         "purposeZh": "将加权描述符、门槛函数和证据置信度修正组合起来。",
         "algorithmSteps": [
-          {"label": "Apply gate G", "labelZh": "应用门槛 G", "description": "Exclude or penalize candidates that fail required feasibility constraints.", "descriptionZh": "排除或惩罚不满足基本可行性约束的候选物。"},
-          {"label": "Aggregate descriptors", "labelZh": "聚合描述符", "description": "Use a weighted geometric form to avoid one descriptor dominating by scale.", "descriptionZh": "使用加权几何形式，避免单个描述符因尺度主导。"},
-          {"label": "Apply evidence confidence", "labelZh": "应用证据置信度", "description": "Scale the raw score by Q to reflect data quality.", "descriptionZh": "用 Q 缩放原始评分以反映数据质量。"}
+          {
+            "label": "Apply gate G",
+            "labelZh": "应用门槛 G",
+            "description": "Exclude or penalize candidates that fail required feasibility constraints.",
+            "descriptionZh": "排除或惩罚不满足基本可行性约束的候选物。"
+          },
+          {
+            "label": "Aggregate descriptors",
+            "labelZh": "聚合描述符",
+            "description": "Use a weighted geometric form to avoid one descriptor dominating by scale.",
+            "descriptionZh": "使用加权几何形式，避免单个描述符因尺度主导。"
+          },
+          {
+            "label": "Apply evidence confidence",
+            "labelZh": "应用证据置信度",
+            "description": "Scale the raw score by Q to reflect data quality.",
+            "descriptionZh": "用 Q 缩放原始评分以反映数据质量。"
+          }
         ],
         "formulas": [
-          {"id": "candidate-raw", "label": "Candidate raw score", "labelZh": "候选原始评分", "latex": "D_{\\mathrm{raw}}=G\\times\\prod_{j=1}^{m}d_j^{w_j}", "fallback": "D_raw = G × Π d_j^w_j", "explanation": "G applies hard feasibility constraints; d_j are normalized descriptors.", "explanationZh": "G 表示硬性可行性约束；d_j 为归一化描述符。"},
-          {"id": "evidence-confidence", "label": "Evidence confidence correction", "labelZh": "证据置信度修正", "latex": "D_{\\mathrm{expected}}=D_{\\mathrm{raw}}\\times Q", "fallback": "D_expected = D_raw × Q", "explanation": "Q reduces apparent priority when evidence is weak, pending, or incomplete.", "explanationZh": "当证据较弱、待整理或不完整时，Q 会降低表观优先级。"}
+          {
+            "id": "candidate-raw",
+            "label": "Candidate raw score",
+            "labelZh": "候选原始评分",
+            "latex": "D_{\\mathrm{raw}}=G\\times\\prod_{j=1}^{m}d_j^{w_j}",
+            "fallback": "D_raw = G × Π d_j^w_j",
+            "explanation": "G applies hard feasibility constraints; d_j are normalized descriptors.",
+            "explanationZh": "G 表示硬性可行性约束；d_j 为归一化描述符。"
+          },
+          {
+            "id": "evidence-confidence",
+            "label": "Evidence confidence correction",
+            "labelZh": "证据置信度修正",
+            "latex": "D_{\\mathrm{expected}}=D_{\\mathrm{raw}}\\times Q",
+            "fallback": "D_expected = D_raw × Q",
+            "explanation": "Q reduces apparent priority when evidence is weak, pending, or incomplete.",
+            "explanationZh": "当证据较弱、待整理或不完整时，Q 会降低表观优先级。"
+          }
         ],
-        "inputs": ["descriptor weights", "gate status", "evidence confidence Q"],
-        "inputsZh": ["描述符权重", "门槛状态", "证据置信度 Q"],
-        "outputs": ["raw candidate score", "evidence-corrected expected score", "risk and validation gap summary"],
-        "outputsZh": ["证据修正前综合评分", "证据修正后期望评分", "风险与验证缺口摘要"],
-        "visualizations": [{"title": "Candidate score cards", "titleZh": "候选评分卡", "description": "Score, confidence, explanation, and missing-field warnings.", "descriptionZh": "评分、置信度、解释和缺失字段警告。", "chartType": "score"}],
-        "limitations": ["Scores are used for screening discussions and should not be read as measured material performance."],
-        "limitationsZh": ["评分用于筛选讨论，不应被解读为实测材料性能。"]
+        "inputs": [
+          "descriptor weights",
+          "gate status",
+          "evidence confidence Q"
+        ],
+        "inputsZh": [
+          "描述符权重",
+          "门槛状态",
+          "证据置信度 Q"
+        ],
+        "outputs": [
+          "raw candidate score",
+          "evidence-corrected expected score",
+          "risk and validation gap summary"
+        ],
+        "outputsZh": [
+          "证据修正前综合评分",
+          "证据修正后期望评分",
+          "风险与验证缺口摘要"
+        ],
+        "visualizations": [
+          {
+            "title": "Candidate score cards",
+            "titleZh": "候选评分卡",
+            "description": "Score, confidence, explanation, and missing-field warnings.",
+            "descriptionZh": "评分、置信度、解释和缺失字段警告。",
+            "chartType": "score"
+          }
+        ],
+        "limitations": [
+          "Scores are used for screening discussions and should not be read as measured material performance."
+        ],
+        "limitationsZh": [
+          "评分用于筛选讨论，不应被解读为实测材料性能。"
+        ]
       },
       {
         "id": "sensitivity",
@@ -128,18 +436,61 @@
         "purpose": "Check whether candidate priority is stable under weight and evidence perturbations.",
         "purposeZh": "检查权重和证据扰动下候选优先级是否稳定。",
         "algorithmSteps": [
-          {"label": "Perturb weights", "labelZh": "扰动权重", "description": "Apply controlled changes to descriptor weights.", "descriptionZh": "对描述符权重施加受控变化。"},
-          {"label": "Recompute scores", "labelZh": "重算评分", "description": "Re-run candidate scoring under each perturbation.", "descriptionZh": "在每次扰动下重新计算候选评分。"},
-          {"label": "Report instability", "labelZh": "报告不稳定性", "description": "Flag candidates whose tier changes under small perturbations.", "descriptionZh": "标记小扰动下分层发生变化的候选物。"}
+          {
+            "label": "Perturb weights",
+            "labelZh": "扰动权重",
+            "description": "Apply controlled changes to descriptor weights.",
+            "descriptionZh": "对描述符权重施加受控变化。"
+          },
+          {
+            "label": "Recompute scores",
+            "labelZh": "重算评分",
+            "description": "Re-run candidate scoring under each perturbation.",
+            "descriptionZh": "在每次扰动下重新计算候选评分。"
+          },
+          {
+            "label": "Report instability",
+            "labelZh": "报告不稳定性",
+            "description": "Flag candidates whose tier changes under small perturbations.",
+            "descriptionZh": "标记小扰动下分层发生变化的候选物。"
+          }
         ],
         "formulas": [],
-        "inputs": ["weight vector", "candidate score", "evidence confidence"],
-        "inputsZh": ["权重向量", "候选评分", "证据置信度"],
-        "outputs": ["robustness note", "sensitivity warning", "validation priority"],
-        "outputsZh": ["稳健性说明", "敏感性警告", "验证优先级"],
-        "visualizations": [{"title": "Sensitivity curve", "titleZh": "敏感性曲线", "description": "Shows score or tier variation after perturbation.", "descriptionZh": "展示扰动后的评分或分层变化。", "chartType": "line"}],
-        "limitations": ["Sensitivity analysis only probes model assumptions; it does not validate candidate behavior."],
-        "limitationsZh": ["敏感性分析只检验模型假设，不能验证候选物行为。"]
+        "inputs": [
+          "weight vector",
+          "candidate score",
+          "evidence confidence"
+        ],
+        "inputsZh": [
+          "权重向量",
+          "候选评分",
+          "证据置信度"
+        ],
+        "outputs": [
+          "robustness note",
+          "sensitivity warning",
+          "validation priority"
+        ],
+        "outputsZh": [
+          "稳健性说明",
+          "敏感性警告",
+          "验证优先级"
+        ],
+        "visualizations": [
+          {
+            "title": "Sensitivity curve",
+            "titleZh": "敏感性曲线",
+            "description": "Shows score or tier variation after perturbation.",
+            "descriptionZh": "展示扰动后的评分或分层变化。",
+            "chartType": "line"
+          }
+        ],
+        "limitations": [
+          "Sensitivity analysis only probes model assumptions; it does not validate candidate behavior."
+        ],
+        "limitationsZh": [
+          "敏感性分析只检验模型假设，不能验证候选物行为。"
+        ]
       }
     ]
   },
@@ -151,23 +502,89 @@
     "summary": "Performance organizes benchmark comparison, normalization, tiering, and robustness checks for candidate performance signals.",
     "summaryZh": "Performance 组织基准比较、归一化、分层和稳健性检查，用于解释候选性能信号。",
     "methodWorkflow": [
-      {"label": "Benchmark comparison", "labelZh": "基准比较", "description": "Compare candidates against task-relevant benchmark ranges.", "descriptionZh": "将候选物与任务相关基准范围比较。"},
-      {"label": "Normalization", "labelZh": "归一化", "description": "Transform heterogeneous performance metrics to comparable scales.", "descriptionZh": "将异构性能指标转换为可比较尺度。"},
-      {"label": "Ranking / tiering", "labelZh": "排序 / 分层", "description": "Report tiers with data-quality context rather than absolute claims.", "descriptionZh": "结合数据质量语境报告分层，而不是绝对结论。"},
-      {"label": "Sensitivity / robustness", "labelZh": "敏感性 / 稳健性", "description": "Check whether tier assignment depends on uncertain inputs.", "descriptionZh": "检查分层是否依赖不确定输入。"}
+      {
+        "label": "Benchmark comparison",
+        "labelZh": "基准比较",
+        "description": "Compare candidates against task-relevant benchmark ranges.",
+        "descriptionZh": "将候选物与任务相关基准范围比较。"
+      },
+      {
+        "label": "Normalization",
+        "labelZh": "归一化",
+        "description": "Transform heterogeneous performance metrics to comparable scales.",
+        "descriptionZh": "将异构性能指标转换为可比较尺度。"
+      },
+      {
+        "label": "Ranking / tiering",
+        "labelZh": "排序 / 分层",
+        "description": "Report tiers with data-quality context rather than absolute claims.",
+        "descriptionZh": "结合数据质量语境报告分层，而不是绝对结论。"
+      },
+      {
+        "label": "Sensitivity / robustness",
+        "labelZh": "敏感性 / 稳健性",
+        "description": "Check whether tier assignment depends on uncertain inputs.",
+        "descriptionZh": "检查分层是否依赖不确定输入。"
+      }
     ],
-    "inputs": ["uptake", "selectivity", "stability", "descriptor completeness", "evidence status"],
-    "inputsZh": ["吸附量", "选择性", "稳定性", "描述符完整度", "证据状态"],
-    "outputs": ["benchmark-relative tier", "score contribution", "data-quality-aware comparison"],
-    "outputsZh": ["相对基准分层", "评分贡献", "数据质量感知比较"],
+    "inputs": [
+      "uptake",
+      "selectivity",
+      "stability",
+      "descriptor completeness",
+      "evidence status"
+    ],
+    "inputsZh": [
+      "吸附量",
+      "选择性",
+      "稳定性",
+      "描述符完整度",
+      "证据状态"
+    ],
+    "outputs": [
+      "benchmark-relative tier",
+      "score contribution",
+      "data-quality-aware comparison"
+    ],
+    "outputsZh": [
+      "相对基准分层",
+      "评分贡献",
+      "数据质量感知比较"
+    ],
     "visualizations": [
-      {"title": "Benchmark comparison panel", "titleZh": "基准比较面板", "description": "Shows candidate performance against task-specific reference bands.", "descriptionZh": "展示候选物相对任务基准区间的性能。", "chartType": "bar"},
-      {"title": "Robustness diagnostics", "titleZh": "稳健性诊断", "description": "Shows whether score ordering changes when uncertain weights or evidence confidence change.", "descriptionZh": "展示不确定权重或证据置信度变化时评分顺序是否改变。", "chartType": "line"}
+      {
+        "title": "Benchmark comparison panel",
+        "titleZh": "基准比较面板",
+        "description": "Shows candidate performance against task-specific reference bands.",
+        "descriptionZh": "展示候选物相对任务基准区间的性能。",
+        "chartType": "bar"
+      },
+      {
+        "title": "Robustness diagnostics",
+        "titleZh": "稳健性诊断",
+        "description": "Shows whether score ordering changes when uncertain weights or evidence confidence change.",
+        "descriptionZh": "展示不确定权重或证据置信度变化时评分顺序是否改变。",
+        "chartType": "line"
+      }
     ],
-    "evidenceBoundary": ["Performance tiers reuse EcoScreen-style formulas when descriptors are weighted, but they remain decision-support labels.", "Benchmark-relative comparison is not a replacement for measured isotherms or validation experiments."],
-    "evidenceBoundaryZh": ["当描述符加权时，性能分层复用 EcoScreen 公式思路，但仍是决策支持标签。", "相对基准比较不能替代实测等温线或验证实验。"],
-    "validationRoadmap": ["Add benchmark datasets", "separate measured and estimated performance fields", "connect score changes to provenance"],
-    "validationRoadmapZh": ["接入基准数据集", "区分实测与估计性能字段", "将评分变化连接到来源信息"],
+    "evidenceBoundary": [
+      "Performance tiers reuse EcoScreen-style formulas when descriptors are weighted, but they remain decision-support labels.",
+      "Benchmark-relative comparison is not a replacement for measured isotherms or validation experiments."
+    ],
+    "evidenceBoundaryZh": [
+      "当描述符加权时，性能分层复用 EcoScreen 公式思路，但仍是决策支持标签。",
+      "相对基准比较不能替代实测等温线或验证实验。"
+    ],
+    "validationRoadmap": [
+      "Add benchmark datasets",
+      "separate measured and estimated performance fields",
+      "connect score changes to provenance"
+    ],
+    "validationRoadmapZh": [
+      "接入基准数据集",
+      "区分实测与估计性能字段",
+      "将评分变化连接到来源信息"
+    ],
     "methodGroups": [
       {
         "id": "performance-tiering",
@@ -176,20 +593,71 @@
         "purpose": "Use normalized performance indicators together with evidence confidence and descriptor completeness.",
         "purposeZh": "结合归一化性能指标、证据置信度和描述符完整度进行分层。",
         "algorithmSteps": [
-          {"label": "Normalize benchmark metrics", "labelZh": "归一化基准指标", "description": "Convert each metric to a task-consistent scale.", "descriptionZh": "将每个指标转换为任务一致尺度。"},
-          {"label": "Apply score logic", "labelZh": "应用评分逻辑", "description": "Reuse weighted-score ideas from EcoScreen when multiple descriptors are combined.", "descriptionZh": "当组合多个描述符时复用 EcoScreen 的加权评分思路。"},
-          {"label": "Attach quality warning", "labelZh": "附加质量警告", "description": "Show missing, pending, estimated, or weak-evidence fields near the tier.", "descriptionZh": "在分层旁显示 missing、pending、estimated 或弱证据字段。"}
+          {
+            "label": "Normalize benchmark metrics",
+            "labelZh": "归一化基准指标",
+            "description": "Convert each metric to a task-consistent scale.",
+            "descriptionZh": "将每个指标转换为任务一致尺度。"
+          },
+          {
+            "label": "Apply score logic",
+            "labelZh": "应用评分逻辑",
+            "description": "Reuse weighted-score ideas from EcoScreen when multiple descriptors are combined.",
+            "descriptionZh": "当组合多个描述符时复用 EcoScreen 的加权评分思路。"
+          },
+          {
+            "label": "Attach quality warning",
+            "labelZh": "附加质量警告",
+            "description": "Show missing, pending, estimated, or weak-evidence fields near the tier.",
+            "descriptionZh": "在分层旁显示 missing、pending、estimated 或弱证据字段。"
+          }
         ],
         "formulas": [
-          {"id": "evidence-confidence", "label": "Evidence-corrected score relation", "labelZh": "证据修正评分关系", "latex": "D_{\\mathrm{expected}}=D_{\\mathrm{raw}}\\times Q", "fallback": "D_expected = D_raw × Q", "explanation": "Performance uses the same evidence-confidence idea when score estimates depend on curated fields.", "explanationZh": "当评分估计依赖整理字段时，Performance 使用相同的证据置信度思想。"}
+          {
+            "id": "evidence-confidence",
+            "label": "Evidence-corrected score relation",
+            "labelZh": "证据修正评分关系",
+            "latex": "D_{\\mathrm{expected}}=D_{\\mathrm{raw}}\\times Q",
+            "fallback": "D_expected = D_raw × Q",
+            "explanation": "Performance uses the same evidence-confidence idea when score estimates depend on curated fields.",
+            "explanationZh": "当评分估计依赖整理字段时，Performance 使用相同的证据置信度思想。"
+          }
         ],
-        "inputs": ["benchmark metrics", "descriptor completeness", "evidence confidence Q"],
-        "inputsZh": ["基准指标", "描述符完整度", "证据置信度 Q"],
-        "outputs": ["tier", "score contribution", "quality warning"],
-        "outputsZh": ["分层", "评分贡献", "质量警告"],
-        "visualizations": [{"title": "Ranking and tier plot", "titleZh": "排序与分层图", "description": "Shows score contribution and confidence together.", "descriptionZh": "同时展示评分贡献和置信度。", "chartType": "bar"}],
-        "limitations": ["Performance labels depend on data coverage and task definition."],
-        "limitationsZh": ["性能标签依赖数据覆盖度和任务定义。"]
+        "inputs": [
+          "benchmark metrics",
+          "descriptor completeness",
+          "evidence confidence Q"
+        ],
+        "inputsZh": [
+          "基准指标",
+          "描述符完整度",
+          "证据置信度 Q"
+        ],
+        "outputs": [
+          "tier",
+          "score contribution",
+          "quality warning"
+        ],
+        "outputsZh": [
+          "分层",
+          "评分贡献",
+          "质量警告"
+        ],
+        "visualizations": [
+          {
+            "title": "Ranking and tier plot",
+            "titleZh": "排序与分层图",
+            "description": "Shows score contribution and confidence together.",
+            "descriptionZh": "同时展示评分贡献和置信度。",
+            "chartType": "bar"
+          }
+        ],
+        "limitations": [
+          "Performance labels depend on data coverage and task definition."
+        ],
+        "limitationsZh": [
+          "性能标签依赖数据覆盖度和任务定义。"
+        ]
       }
     ]
   },
@@ -201,25 +669,132 @@
     "summary": "GasSep treats selectivity and uptake as condition-bound records, then builds a scenario-specific GasScore for candidate-priority screening.",
     "summaryZh": "GasSep 将选择性和吸附量视为绑定工况的记录，并用场景化 GasScore 做候选优先级筛选。",
     "methodWorkflow": [
-      {"label": "Gas system classification", "labelZh": "气体体系分类", "description": "Group records by gas pair, target gas, and application context.", "descriptionZh": "按气体对、目标气体和应用语境分组记录。"},
-      {"label": "Condition-aware selectivity", "labelZh": "条件化选择性", "description": "Bind selectivity to feed ratio, temperature, pressure, method, and source.", "descriptionZh": "将选择性绑定到气体比例、温度、压力、方法和来源。"},
-      {"label": "Feed ratio-aware comparison", "labelZh": "气体比例感知比较", "description": "Warn when records mix feed ratios or methods.", "descriptionZh": "当记录混合不同气体比例或方法时显示警告。"},
-      {"label": "GasScore ranking", "labelZh": "GasScore 排序", "description": "Combine uptake, selectivity, working capacity, regenerability, stability, and evidence with scenario-specific weights.", "descriptionZh": "按场景权重组合吸附量、选择性、工作容量、可再生性、稳定性和证据。"},
-      {"label": "Linked visualization", "labelZh": "联动可视化", "description": "Use performance map, ranking bars, radar profile, and heatmap without fabricating curves.", "descriptionZh": "使用性能图谱、排序条形图、雷达图和热力图，不伪造曲线。"}
+      {
+        "label": "Gas system classification",
+        "labelZh": "气体体系分类",
+        "description": "Group records by gas pair, target gas, and application context.",
+        "descriptionZh": "按气体对、目标气体和应用语境分组记录。"
+      },
+      {
+        "label": "Condition-aware selectivity",
+        "labelZh": "条件化选择性",
+        "description": "Bind selectivity to feed ratio, temperature, pressure, method, and source.",
+        "descriptionZh": "将选择性绑定到气体比例、温度、压力、方法和来源。"
+      },
+      {
+        "label": "Feed ratio-aware comparison",
+        "labelZh": "气体比例感知比较",
+        "description": "Warn when records mix feed ratios or methods.",
+        "descriptionZh": "当记录混合不同气体比例或方法时显示警告。"
+      },
+      {
+        "label": "GasScore ranking",
+        "labelZh": "GasScore 排序",
+        "description": "Combine uptake, selectivity, working capacity, regenerability, stability, and evidence with scenario-specific weights.",
+        "descriptionZh": "按场景权重组合吸附量、选择性、工作容量、可再生性、稳定性和证据。"
+      },
+      {
+        "label": "Linked visualization",
+        "labelZh": "联动可视化",
+        "description": "Use performance map, ranking bars, radar profile, and heatmap without fabricating curves.",
+        "descriptionZh": "使用性能图谱、排序条形图、雷达图和热力图，不伪造曲线。"
+      }
     ],
-    "inputs": ["gas system", "feed ratio", "temperature", "pressure", "target priority", "selectivity", "uptake", "working capacity", "regenerability", "stability", "evidence level", "data type", "source location"],
-    "inputsZh": ["气体体系", "气体比例", "温度", "压力", "目标优先级", "选择性", "吸附量", "工作容量", "可再生性", "稳定性", "证据等级", "数据类型", "来源位置"],
-    "outputs": ["scenario-specific GasScore", "candidate ranking", "performance map", "radar profile", "heatmap", "why-this-MOF explanation", "validation roadmap"],
-    "outputsZh": ["场景化 GasScore", "候选材料排序", "性能图谱", "雷达图", "热力图", "为什么推荐该 MOF 解释", "验证路线"],
+    "inputs": [
+      "gas system",
+      "feed ratio",
+      "temperature",
+      "pressure",
+      "target priority",
+      "selectivity",
+      "uptake",
+      "working capacity",
+      "regenerability",
+      "stability",
+      "evidence level",
+      "data type",
+      "source location"
+    ],
+    "inputsZh": [
+      "气体体系",
+      "气体比例",
+      "温度",
+      "压力",
+      "目标优先级",
+      "选择性",
+      "吸附量",
+      "工作容量",
+      "可再生性",
+      "稳定性",
+      "证据等级",
+      "数据类型",
+      "来源位置"
+    ],
+    "outputs": [
+      "scenario-specific GasScore",
+      "candidate ranking",
+      "performance map",
+      "radar profile",
+      "heatmap",
+      "why-this-MOF explanation",
+      "validation roadmap"
+    ],
+    "outputsZh": [
+      "场景化 GasScore",
+      "候选材料排序",
+      "性能图谱",
+      "雷达图",
+      "热力图",
+      "为什么推荐该 MOF 解释",
+      "验证路线"
+    ],
     "visualizations": [
-      {"title": "Interactive performance map", "titleZh": "交互性能图谱", "description": "x/y metrics, bubble size, and color are configurable; legend remains outside the plot area.", "descriptionZh": "x/y 指标、气泡大小和颜色可切换；图例保留在绘图区外。", "chartType": "scatter"},
-      {"title": "Top candidates bar chart", "titleZh": "Top 候选条形图", "description": "Shows Top 5 / Top 10 GasScore ranking and links selection to the explanation panel.", "descriptionZh": "展示 Top 5 / Top 10 GasScore 排序，并联动解释面板。", "chartType": "bar"},
-      {"title": "Radar profile and heatmap", "titleZh": "雷达图与热力图", "description": "Shows multi-metric candidate profiles without replacing missing values with zero.", "descriptionZh": "展示多指标画像，缺失值显示 pending，不用 0 冒充。", "chartType": "radar"}
+      {
+        "title": "Interactive performance map",
+        "titleZh": "交互性能图谱",
+        "description": "x/y metrics, bubble size, and color are configurable; legend remains outside the plot area.",
+        "descriptionZh": "x/y 指标、气泡大小和颜色可切换；图例保留在绘图区外。",
+        "chartType": "scatter"
+      },
+      {
+        "title": "Top candidates bar chart",
+        "titleZh": "Top 候选条形图",
+        "description": "Shows Top 5 / Top 10 GasScore ranking and links selection to the explanation panel.",
+        "descriptionZh": "展示 Top 5 / Top 10 GasScore 排序，并联动解释面板。",
+        "chartType": "bar"
+      },
+      {
+        "title": "Radar profile and heatmap",
+        "titleZh": "雷达图与热力图",
+        "description": "Shows multi-metric candidate profiles without replacing missing values with zero.",
+        "descriptionZh": "展示多指标画像，缺失值显示 pending，不用 0 冒充。",
+        "chartType": "radar"
+      }
     ],
-    "evidenceBoundary": ["Current demo records are scenario-workbench seeds, not online IAST/GCMC results.", "Source-pending, predicted, simulated, and demo records cannot be treated as benchmark rankings.", "GasScore is a candidate-priority score and must be followed by adsorption simulation, stability checks, experiments, and process assessment."],
-    "evidenceBoundaryZh": ["当前 demo 记录是场景工作台 seed，不是在线 IAST/GCMC 结果。", "source-pending、predicted、simulated 和 demo 记录不能作为基准排名。", "GasScore 是候选优先级分数，必须接续吸附模拟、稳定性检查、实验验证和过程评估。"],
-    "validationRoadmap": ["Descriptor screening", "Adsorption simulation", "Stability check", "Experimental validation", "Process-level assessment"],
-    "validationRoadmapZh": ["描述符初筛", "吸附模拟", "稳定性检查", "实验验证", "过程级评估"],
+    "evidenceBoundary": [
+      "Gas Adsorption Data Layer v1 records are structured seed fixtures for UI, schema, and field-provenance validation.",
+      "experimental, literature, simulation, predicted, rule-based, demo, and needs validation labels must not be treated as interchangeable evidence.",
+      "GasScore is a candidate-priority score and must be followed by adsorption simulation, stability checks, experiments, and process assessment."
+    ],
+    "evidenceBoundaryZh": [
+      "Gas Adsorption Data Layer v1 记录是用于界面、schema 和字段级溯源验证的结构化种子数据。",
+      "实验数据、文献数据、模拟数据、预测数据、规则推断、演示数据和待验证标签不能混作同等证据。",
+      "GasScore 是候选优先级分数，必须接续吸附模拟、稳定性检查、实验验证和过程级评估。"
+    ],
+    "validationRoadmap": [
+      "Descriptor screening",
+      "Adsorption simulation",
+      "Stability check",
+      "Experimental validation",
+      "Process-level assessment"
+    ],
+    "validationRoadmapZh": [
+      "描述符初筛",
+      "吸附模拟",
+      "稳定性检查",
+      "实验验证",
+      "过程级评估"
+    ],
     "example": {
       "title": "Ni-BIC condition record",
       "titleZh": "Ni-BIC 条件记录",
@@ -228,49 +803,297 @@
     },
     "methodGroups": [
       {
+        "id": "gas-adsorption-data-standard-field-provenance",
+        "title": "Gas Adsorption Data Standard & Field Provenance",
+        "titleZh": "气体吸附数据标准与字段级溯源",
+        "purpose": "Define the Gas Adsorption Data Layer v1 record contract, record-level provenance, field-level provenance, unit normalization, evidence labels, and demo-data boundaries used by GasSep.",
+        "purposeZh": "定义 GasSep 使用的 Gas Adsorption Data Layer v1 记录契约、记录级溯源、字段级溯源、单位规范化、证据标签和演示数据边界。",
+        "algorithmSteps": [
+          {
+            "label": "Load v1 records first",
+            "labelZh": "优先加载 v1 记录",
+            "description": "GasSep loads public/data/gas_adsorption_records_v1.json before falling back to legacy demo records.",
+            "descriptionZh": "GasSep 优先加载 public/data/gas_adsorption_records_v1.json，失败时才回退到旧 demo 记录。"
+          },
+          {
+            "label": "Normalize display fields",
+            "labelZh": "规范化展示字段",
+            "description": "Keep ASCII gas keys for filtering, but render CO2, CH4, N2, H2, and O2 with subscripts in visible UI.",
+            "descriptionZh": "筛选 key 保持 ASCII，但用户可见 UI 将 CO2、CH4、N2、H2、O2 渲染为下标格式。"
+          },
+          {
+            "label": "Attach record provenance",
+            "labelZh": "绑定记录级溯源",
+            "description": "Each record stores source database, source record id, version, citation, DOI/URL, license, retrieval date, curator, and curation note.",
+            "descriptionZh": "每条记录包含来源数据库、来源记录 ID、版本、引用、DOI/URL、许可、检索时间、整理者和整理说明。"
+          },
+          {
+            "label": "Attach field provenance",
+            "labelZh": "绑定字段级溯源",
+            "description": "Core metric and descriptor fields expose source type, citation, original value, normalized value, conversion note, curation status, and confidence.",
+            "descriptionZh": "核心指标和描述符字段暴露来源类型、引用、原始值、规范化值、换算说明、整理状态和置信度。"
+          },
+          {
+            "label": "Separate evidence labels",
+            "labelZh": "区分证据标签",
+            "description": "Evidence levels A/B/C/D are separate from data type labels such as experimental, literature, simulation, predicted, rule-based, demo, and needs validation.",
+            "descriptionZh": "证据等级 A/B/C/D 与实验数据、文献数据、模拟数据、预测数据、规则推断、演示数据、待验证等数据类型标签分开显示。"
+          },
+          {
+            "label": "Expose quality gaps",
+            "labelZh": "暴露质量缺口",
+            "description": "Quality panels show condition, unit, source, descriptor provenance, and validation gaps instead of hiding pending values.",
+            "descriptionZh": "质量面板展示工况、单位、来源、描述符溯源和验证缺口，不隐藏待补充值。"
+          }
+        ],
+        "formulas": [
+          {
+            "id": "gassep-unit-normalization",
+            "label": "Unit normalization",
+            "labelZh": "单位规范化",
+            "latex": "q_{norm}=convert(q_{raw}, unit_{raw}, unit_{target})",
+            "fallback": "q_norm = convert(q_raw, rawUnit, targetUnit)",
+            "explanation": "Primary uptake, secondary uptake, and working capacity are normalized to mmol/g for UI comparison while raw values remain visible in provenance popovers.",
+            "explanationZh": "主气吸附量、副气吸附量和工作容量规范化为 mmol/g 用于 UI 比较，原始值保留在溯源弹窗中。"
+          },
+          {
+            "id": "gassep-evidence-levels",
+            "label": "Evidence levels",
+            "labelZh": "证据等级",
+            "latex": "A>B>C>D",
+            "fallback": "A = experimental/high-quality literature; B = simulation/partial curation; C = predicted/inferred/incomplete; D = demo/placeholder",
+            "explanation": "The evidence level is a boundary label and does not validate a GasScore by itself.",
+            "explanationZh": "证据等级是边界标签，本身不验证 GasScore。"
+          }
+        ],
+        "inputs": [
+          "gas_adsorption_records_v1.json",
+          "gas_adsorption_sources_v1.json",
+          "gas_adsorption_field_sources_v1.json",
+          "gas_adsorption_schema_v1.json"
+        ],
+        "inputsZh": [
+          "gas_adsorption_records_v1.json",
+          "gas_adsorption_sources_v1.json",
+          "gas_adsorption_field_sources_v1.json",
+          "gas_adsorption_schema_v1.json"
+        ],
+        "outputs": [
+          "record source panel",
+          "field provenance popover",
+          "data quality panel",
+          "unit normalization note",
+          "evidence/data-type badges"
+        ],
+        "outputsZh": [
+          "记录来源面板",
+          "字段级溯源弹窗",
+          "数据质量面板",
+          "单位规范化说明",
+          "证据/数据类型标签"
+        ],
+        "visualizations": [
+          {
+            "title": "Field provenance popover",
+            "titleZh": "字段级溯源弹窗",
+            "description": "Every ranking metric can show source type, citation, raw value, normalized value, and conversion note.",
+            "descriptionZh": "排序表中的核心指标可展示来源类型、引用、原始值、规范化值和换算说明。",
+            "chartType": "popover"
+          },
+          {
+            "title": "Record source and quality panels",
+            "titleZh": "记录来源与质量面板",
+            "description": "Selected candidates expose record-level source metadata and a quality checklist.",
+            "descriptionZh": "选中候选展示记录级来源元数据和质量检查清单。",
+            "chartType": "panel"
+          }
+        ],
+        "limitations": [
+          "The v1 dataset is a structured seed fixture for UI and validation workflow testing, not a final scientific dataset.",
+          "Field provenance can describe source status, but it does not turn seed values into validated measurements.",
+          "Internal gasPair keys remain ASCII to avoid breaking filters and data routes."
+        ],
+        "limitationsZh": [
+          "v1 数据集是用于 UI 与验证工作流测试的结构化种子数据，不是最终科研数据集。",
+          "字段级溯源可以说明来源状态，但不会把种子值变成已验证测量。",
+          "内部 gasPair key 保持 ASCII，避免破坏筛选和数据路线。"
+        ]
+      },
+      {
         "id": "condition-aware-selectivity",
         "title": "Condition-aware selectivity",
         "titleZh": "条件化选择性",
         "purpose": "Prevent selectivity values from being compared without gas system, feed ratio, temperature, pressure, method, and source.",
         "purposeZh": "防止选择性在缺少气体体系、比例、温度、压力、方法和来源时被直接比较。",
         "algorithmSteps": [
-          {"label": "Create selectivity record", "labelZh": "创建选择性记录", "description": "Store each value in selectivityRecords with condition fields.", "descriptionZh": "将每个数值存入带条件字段的 selectivityRecords。"},
-          {"label": "Attach field provenance", "labelZh": "绑定字段来源", "description": "Attach source location and curation status to selectivity, feed ratio, method, and pressure.", "descriptionZh": "为选择性、气体比例、方法和压力绑定来源位置和整理状态。"},
-          {"label": "Compare by condition key", "labelZh": "按条件键比较", "description": "Only directly compare records with the same gas system, feed ratio, temperature, pressure, and method.", "descriptionZh": "仅直接比较气体体系、比例、温度、压力和方法完全一致的记录。"}
+          {
+            "label": "Create selectivity record",
+            "labelZh": "创建选择性记录",
+            "description": "Store each value in selectivityRecords with condition fields.",
+            "descriptionZh": "将每个数值存入带条件字段的 selectivityRecords。"
+          },
+          {
+            "label": "Attach field provenance",
+            "labelZh": "绑定字段来源",
+            "description": "Attach source location and curation status to selectivity, feed ratio, method, and pressure.",
+            "descriptionZh": "为选择性、气体比例、方法和压力绑定来源位置和整理状态。"
+          },
+          {
+            "label": "Compare by condition key",
+            "labelZh": "按条件键比较",
+            "description": "Only directly compare records with the same gas system, feed ratio, temperature, pressure, and method.",
+            "descriptionZh": "仅直接比较气体体系、比例、温度、压力和方法完全一致的记录。"
+          }
         ],
         "formulas": [
-          {"id": "gassep-comparable", "label": "Comparability rule", "labelZh": "可比性规则", "latex": "\\mathrm{Comparable}=\\mathrm{same}(gasSystem, feedRatio, T, P, method)", "fallback": "Comparable = same(gasSystem, feedRatio, T, P, method)", "explanation": "Direct ranking is allowed only when the full condition key matches.", "explanationZh": "只有完整条件键一致时才允许直接排名。"}
+          {
+            "id": "gassep-comparable",
+            "label": "Comparability rule",
+            "labelZh": "可比性规则",
+            "latex": "\\mathrm{Comparable}=\\mathrm{same}(gasSystem, feedRatio, T, P, method)",
+            "fallback": "Comparable = same(gasSystem, feedRatio, T, P, method)",
+            "explanation": "Direct ranking is allowed only when the full condition key matches.",
+            "explanationZh": "只有完整条件键一致时才允许直接排名。"
+          }
         ],
-        "inputs": ["gasSystem", "feedRatio", "temperatureK", "pressureKPa / pressureBar", "method", "sourceLocation"],
-        "inputsZh": ["gasSystem", "feedRatio", "temperatureK", "pressureKPa / pressureBar", "method", "sourceLocation"],
-        "outputs": ["directly comparable / condition-mixed status", "condition warning", "field provenance popover"],
-        "outputsZh": ["可直接比较 / 条件混合状态", "条件警告", "字段来源弹窗"],
-        "visualizations": [{"title": "Condition-aware comparison panel", "titleZh": "条件感知比较面板", "description": "Shows each selectivity value with condition tags and provenance.", "descriptionZh": "为每个选择性值显示条件标签和来源。", "chartType": "score"}],
-        "limitations": ["Different feed ratios, temperatures, pressures, or methods cannot be mixed as strict rankings."],
-        "limitationsZh": ["不同气体比例、温度、压力或方法的数据不能混合作为严格排名。"]
+        "inputs": [
+          "gasSystem",
+          "feedRatio",
+          "temperatureK",
+          "pressureKPa / pressureBar",
+          "method",
+          "sourceLocation"
+        ],
+        "inputsZh": [
+          "gasSystem",
+          "feedRatio",
+          "temperatureK",
+          "pressureKPa / pressureBar",
+          "method",
+          "sourceLocation"
+        ],
+        "outputs": [
+          "directly comparable / condition-mixed status",
+          "condition warning",
+          "field provenance popover"
+        ],
+        "outputsZh": [
+          "可直接比较 / 条件混合状态",
+          "条件警告",
+          "字段来源弹窗"
+        ],
+        "visualizations": [
+          {
+            "title": "Condition-aware comparison panel",
+            "titleZh": "条件感知比较面板",
+            "description": "Shows each selectivity value with condition tags and provenance.",
+            "descriptionZh": "为每个选择性值显示条件标签和来源。",
+            "chartType": "score"
+          }
+        ],
+        "limitations": [
+          "Different feed ratios, temperatures, pressures, or methods cannot be mixed as strict rankings."
+        ],
+        "limitationsZh": [
+          "不同气体比例、温度、压力或方法的数据不能混合作为严格排名。"
+        ]
       },
       {
         "id": "gassep-gasscore-ranking",
         "title": "GasScore candidate ranking",
         "titleZh": "GasScore 候选排序",
         "purpose": "Rank gas-separation candidates for a selected gas pair and operating condition while keeping demo, simulated, predicted, and experimental-style records separate.",
-        "purposeZh": "在选定气体对和工况下排序气体分离候选，同时区分 demo、simulated、predicted 和 experimental-style 记录。",
+        "purposeZh": "在选定气体对和工况下排序气体分离候选，同时区分演示数据、模拟数据、预测数据和实验风格记录。",
         "algorithmSteps": [
-          {"label": "Select scenario weights", "labelZh": "选择场景权重", "description": "Start from default weights and adjust them by gas pair and target priority.", "descriptionZh": "从默认权重出发，按气体对和目标优先级动态调整。"},
-          {"label": "Normalize metrics", "labelZh": "归一化指标", "description": "Normalize uptake, selectivity, working capacity, regenerability, stability, and evidence within the current gas pair.", "descriptionZh": "在当前气体对内归一化吸附量、选择性、工作容量、可再生性、稳定性和证据。"},
-          {"label": "Apply penalties", "labelZh": "应用扣分", "description": "Subtract evidence, stability, toxicity, and condition-mismatch penalties from the weighted score.", "descriptionZh": "从加权分中扣除证据、稳定性、毒性和工况不匹配惩罚。"},
-          {"label": "Expose explanation", "labelZh": "暴露解释", "description": "Show driver metrics, draggers, risk penalty, evidence level, and validation next step.", "descriptionZh": "展示贡献指标、拖累项、风险扣分、证据等级和下一步验证。"}
+          {
+            "label": "Select scenario weights",
+            "labelZh": "选择场景权重",
+            "description": "Start from default weights and adjust them by gas pair and target priority.",
+            "descriptionZh": "从默认权重出发，按气体对和目标优先级动态调整。"
+          },
+          {
+            "label": "Normalize metrics",
+            "labelZh": "归一化指标",
+            "description": "Normalize uptake, selectivity, working capacity, regenerability, stability, and evidence within the current gas pair.",
+            "descriptionZh": "在当前气体对内归一化吸附量、选择性、工作容量、可再生性、稳定性和证据。"
+          },
+          {
+            "label": "Apply penalties",
+            "labelZh": "应用扣分",
+            "description": "Subtract evidence, stability, toxicity, and condition-mismatch penalties from the weighted score.",
+            "descriptionZh": "从加权分中扣除证据、稳定性、毒性和工况不匹配惩罚。"
+          },
+          {
+            "label": "Expose explanation",
+            "labelZh": "暴露解释",
+            "description": "Show driver metrics, draggers, risk penalty, evidence level, and validation next step.",
+            "descriptionZh": "展示贡献指标、拖累项、风险扣分、证据等级和下一步验证。"
+          }
         ],
         "formulas": [
-          {"id": "gassep-score", "label": "GasScore", "labelZh": "GasScore", "latex": "\\mathrm{GasScore}=w_1U+w_2S+w_3C_w+w_4R+w_5T_s+w_6E-P_{risk}", "fallback": "GasScore = w1*uptake + w2*selectivity + w3*workingCapacity + w4*regenerability + w5*stability + w6*evidence - riskPenalty", "explanation": "Default weights are uptake 0.22, selectivity 0.22, working capacity 0.20, regenerability 0.14, stability 0.12, and evidence 0.10. Gas pair and priority settings shift the normalized weights.", "explanationZh": "默认权重为吸附量 0.22、选择性 0.22、工作容量 0.20、可再生性 0.14、稳定性 0.12、证据 0.10；气体对和目标优先级会动态调整归一化权重。"}
+          {
+            "id": "gassep-score",
+            "label": "GasScore",
+            "labelZh": "GasScore",
+            "latex": "\\mathrm{GasScore}=w_1U+w_2S+w_3C_w+w_4R+w_5T_s+w_6E-P_{risk}",
+            "fallback": "GasScore = w1*uptake + w2*selectivity + w3*workingCapacity + w4*regenerability + w5*stability + w6*evidence - riskPenalty",
+            "explanation": "Default weights are uptake 0.22, selectivity 0.22, working capacity 0.20, regenerability 0.14, stability 0.12, and evidence 0.10. Gas pair and priority settings shift the normalized weights.",
+            "explanationZh": "默认权重为吸附量 0.22、选择性 0.22、工作容量 0.20、可再生性 0.14、稳定性 0.12、证据 0.10；气体对和目标优先级会动态调整归一化权重。"
+          }
         ],
-        "inputs": ["record metrics", "gas pair", "temperatureK", "pressureBar", "mixtureRatio", "targetPriority", "evidenceLevel", "dataType"],
-        "inputsZh": ["记录指标", "气体对", "temperatureK", "pressureBar", "mixtureRatio", "targetPriority", "evidenceLevel", "dataType"],
-        "outputs": ["GasScore 0-100", "score contribution", "risk penalty", "top drivers", "draggers", "validation suggestion"],
-        "outputsZh": ["GasScore 0-100", "评分贡献", "风险扣分", "主要贡献项", "拖累项", "验证建议"],
-        "visualizations": [{"title": "GasScore ranking table", "titleZh": "GasScore 排序表", "description": "Table sorting and filters remain linked to selected candidate explanations.", "descriptionZh": "表头排序和筛选与候选解释面板联动。", "chartType": "score"}],
-        "limitations": ["GasScore is a screening priority score, not a validated separation performance.", "Demo records intentionally expose data boundaries and should be replaced by curated literature or experimental records before scientific use."],
-        "limitationsZh": ["GasScore 是筛选优先级分数，不是验证后的分离性能。", "Demo 记录刻意暴露数据边界，科研使用前应替换为整理后的文献或实验记录。"]
+        "inputs": [
+          "record metrics",
+          "gas pair",
+          "temperatureK",
+          "pressureBar",
+          "mixtureRatio",
+          "targetPriority",
+          "evidenceLevel",
+          "dataType"
+        ],
+        "inputsZh": [
+          "记录指标",
+          "气体对",
+          "temperatureK",
+          "pressureBar",
+          "mixtureRatio",
+          "targetPriority",
+          "evidenceLevel",
+          "dataType"
+        ],
+        "outputs": [
+          "GasScore 0-100",
+          "score contribution",
+          "risk penalty",
+          "top drivers",
+          "draggers",
+          "validation suggestion"
+        ],
+        "outputsZh": [
+          "GasScore 0-100",
+          "评分贡献",
+          "风险扣分",
+          "主要贡献项",
+          "拖累项",
+          "验证建议"
+        ],
+        "visualizations": [
+          {
+            "title": "GasScore ranking table",
+            "titleZh": "GasScore 排序表",
+            "description": "Table sorting and filters remain linked to selected candidate explanations.",
+            "descriptionZh": "表头排序和筛选与候选解释面板联动。",
+            "chartType": "score"
+          }
+        ],
+        "limitations": [
+          "GasScore is a screening priority score, not a validated separation performance.",
+          "Demo records intentionally expose data boundaries and should be replaced by curated literature or experimental records before scientific use."
+        ],
+        "limitationsZh": [
+          "GasScore 是筛选优先级分数，不是验证后的分离性能。",
+          "Demo 记录刻意暴露数据边界，科研使用前应替换为整理后的文献或实验记录。"
+        ]
       },
       {
         "id": "gas-separation-scoring-validation-method",
@@ -279,32 +1102,171 @@
         "purpose": "Explain how GasSep turns condition-bound adsorption records into scenario-specific screening priority and validation recommendations without treating demo data as validated rankings.",
         "purposeZh": "说明 GasSep 如何把绑定工况的吸附记录转化为场景化筛选优先级和验证建议，同时避免把 demo 数据当作已验证排名。",
         "algorithmSteps": [
-          {"label": "Scenario-aware screening", "labelZh": "场景感知筛选", "description": "Filter by gas pair, feed ratio, temperature, pressure, and target priority before comparing candidates.", "descriptionZh": "先按气体对、进料比例、温度、压力和目标优先级筛选，再比较候选。"},
-          {"label": "GasScore formula", "labelZh": "GasScore 公式", "description": "Combine normalized uptake, selectivity, working capacity, regenerability, stability, and evidence confidence with scenario-specific weights.", "descriptionZh": "用场景权重组合归一化吸附量、选择性、工作容量、可再生性、稳定性和证据置信度。"},
-          {"label": "Working capacity", "labelZh": "工作容量", "description": "Prefer candidates with useful loading swing between adsorption and desorption conditions instead of maximum uptake alone.", "descriptionZh": "优先考虑吸附 / 脱附条件之间有实际装载差的候选，而不是只看最大吸附量。"},
-          {"label": "Regenerability proxy", "labelZh": "可再生性 proxy", "description": "Use regenerability and heat-of-adsorption signals as a screening proxy for cyclic operation burden.", "descriptionZh": "用可再生性和吸附热信号作为循环运行负担的筛选 proxy。"},
-          {"label": "Selectivity methods", "labelZh": "选择性方法", "description": "Keep IAST, simulated, predicted, and experimental-style selectivity separate unless conditions and methods match.", "descriptionZh": "除非条件和方法匹配，否则分开看 IAST、模拟、预测和 experimental-style 选择性。"},
-          {"label": "Evidence-adjusted scoring", "labelZh": "证据修正评分", "description": "Apply evidence level, data type, stability, toxicity, and condition-mismatch penalties before ranking.", "descriptionZh": "排序前应用证据等级、数据类型、稳定性、毒性和工况不匹配扣分。"},
-          {"label": "Validation roadmap", "labelZh": "验证路线", "description": "Map each selected candidate to GCMC, IAST, water stability, regeneration cycling, breakthrough, or process-level assessment.", "descriptionZh": "把每个选中候选连接到 GCMC、IAST、水稳定性、再生循环、穿透实验或过程级评估。"}
+          {
+            "label": "Scenario-aware screening",
+            "labelZh": "场景感知筛选",
+            "description": "Filter by gas pair, feed ratio, temperature, pressure, and target priority before comparing candidates.",
+            "descriptionZh": "先按气体对、进料比例、温度、压力和目标优先级筛选，再比较候选。"
+          },
+          {
+            "label": "GasScore formula",
+            "labelZh": "GasScore 公式",
+            "description": "Combine normalized uptake, selectivity, working capacity, regenerability, stability, and evidence confidence with scenario-specific weights.",
+            "descriptionZh": "用场景权重组合归一化吸附量、选择性、工作容量、可再生性、稳定性和证据置信度。"
+          },
+          {
+            "label": "Working capacity",
+            "labelZh": "工作容量",
+            "description": "Prefer candidates with useful loading swing between adsorption and desorption conditions instead of maximum uptake alone.",
+            "descriptionZh": "优先考虑吸附 / 脱附条件之间有实际装载差的候选，而不是只看最大吸附量。"
+          },
+          {
+            "label": "Regenerability proxy",
+            "labelZh": "可再生性 proxy",
+            "description": "Use regenerability and heat-of-adsorption signals as a screening proxy for cyclic operation burden.",
+            "descriptionZh": "用可再生性和吸附热信号作为循环运行负担的筛选 proxy。"
+          },
+          {
+            "label": "Selectivity methods",
+            "labelZh": "选择性方法",
+            "description": "Keep IAST, simulated, predicted, and experimental-style selectivity separate unless conditions and methods match.",
+            "descriptionZh": "除非条件和方法匹配，否则分开看 IAST、模拟、预测和实验风格选择性。"
+          },
+          {
+            "label": "Evidence-adjusted scoring",
+            "labelZh": "证据修正评分",
+            "description": "Apply evidence level, data type, stability, toxicity, and condition-mismatch penalties before ranking.",
+            "descriptionZh": "排序前应用证据等级、数据类型、稳定性、毒性和工况不匹配扣分。"
+          },
+          {
+            "label": "Validation roadmap",
+            "labelZh": "验证路线",
+            "description": "Map each selected candidate to GCMC, IAST, water stability, regeneration cycling, breakthrough, or process-level assessment.",
+            "descriptionZh": "把每个选中候选连接到 GCMC、IAST、水稳定性、再生循环、穿透实验或过程级评估。"
+          }
         ],
         "formulas": [
-          {"id": "gassep-score-expanded", "label": "Scenario GasScore", "labelZh": "场景 GasScore", "latex": "\\mathrm{GasScore}=100\\times\\sum_i w_i\\hat{x}_i-P_{risk}", "fallback": "GasScore = 100 * sum(w_i * normalized_metric_i) - riskPenalty", "explanation": "Weights depend on gas pair and target priority; normalized metrics are computed only within the current scenario candidate set.", "explanationZh": "权重由气体对和目标优先级决定；归一化只在当前场景候选集内计算。"},
-          {"id": "gassep-working-capacity", "label": "Working capacity", "labelZh": "工作容量", "latex": "C_w=q_{ads}(P_{ads})-q_{des}(P_{des})", "fallback": "Cw = q_ads(P_ads) - q_des(P_des)", "explanation": "Working capacity estimates useful loading swing rather than total storage capacity.", "explanationZh": "工作容量估计可用装载差，而不是总储量。"},
-          {"id": "gassep-regenerability-proxy", "label": "Regenerability proxy", "labelZh": "可再生性 proxy", "latex": "R=\\min(1,C_w/q_{ads})\\times f(Q_{st})", "fallback": "R = min(1, Cw / q_ads) * f(Qst)", "explanation": "The current demo uses regenerability and heat-of-adsorption as screening signals for regeneration burden.", "explanationZh": "当前 demo 使用可再生性和吸附热作为再生负担的筛选信号。"},
-          {"id": "gassep-iast-selectivity", "label": "IAST selectivity", "labelZh": "IAST 选择性", "latex": "S_{A/B}=\\frac{x_A/y_A}{x_B/y_B}", "fallback": "S_A/B = (x_A / y_A) / (x_B / y_B)", "explanation": "IAST requires comparable single-component isotherms and explicit gas composition.", "explanationZh": "IAST 需要可比的单组分等温线和明确气体组成。"},
-          {"id": "gassep-evidence-adjusted-score", "label": "Evidence-adjusted score", "labelZh": "证据修正评分", "latex": "Score_{evidence}=Score_{raw}\\times E_{confidence}", "fallback": "Score_evidence = Score_raw * evidenceConfidence", "explanation": "Evidence confidence does not validate the result; it keeps data quality visible in prioritization.", "explanationZh": "证据置信度不验证结果，只是在优先级中保持数据质量可见。"}
+          {
+            "id": "gassep-score-expanded",
+            "label": "Scenario GasScore",
+            "labelZh": "场景 GasScore",
+            "latex": "\\mathrm{GasScore}=100\\times\\sum_i w_i\\hat{x}_i-P_{risk}",
+            "fallback": "GasScore = 100 * sum(w_i * normalized_metric_i) - riskPenalty",
+            "explanation": "Weights depend on gas pair and target priority; normalized metrics are computed only within the current scenario candidate set.",
+            "explanationZh": "权重由气体对和目标优先级决定；归一化只在当前场景候选集内计算。"
+          },
+          {
+            "id": "gassep-working-capacity",
+            "label": "Working capacity",
+            "labelZh": "工作容量",
+            "latex": "C_w=q_{ads}(P_{ads})-q_{des}(P_{des})",
+            "fallback": "Cw = q_ads(P_ads) - q_des(P_des)",
+            "explanation": "Working capacity estimates useful loading swing rather than total storage capacity.",
+            "explanationZh": "工作容量估计可用装载差，而不是总储量。"
+          },
+          {
+            "id": "gassep-regenerability-proxy",
+            "label": "Regenerability proxy",
+            "labelZh": "可再生性 proxy",
+            "latex": "R=\\min(1,C_w/q_{ads})\\times f(Q_{st})",
+            "fallback": "R = min(1, Cw / q_ads) * f(Qst)",
+            "explanation": "The current demo uses regenerability and heat-of-adsorption as screening signals for regeneration burden.",
+            "explanationZh": "当前 demo 使用可再生性和吸附热作为再生负担的筛选信号。"
+          },
+          {
+            "id": "gassep-iast-selectivity",
+            "label": "IAST selectivity",
+            "labelZh": "IAST 选择性",
+            "latex": "S_{A/B}=\\frac{x_A/y_A}{x_B/y_B}",
+            "fallback": "S_A/B = (x_A / y_A) / (x_B / y_B)",
+            "explanation": "IAST requires comparable single-component isotherms and explicit gas composition.",
+            "explanationZh": "IAST 需要可比的单组分等温线和明确气体组成。"
+          },
+          {
+            "id": "gassep-evidence-adjusted-score",
+            "label": "Evidence-adjusted score",
+            "labelZh": "证据修正评分",
+            "latex": "Score_{evidence}=Score_{raw}\\times E_{confidence}",
+            "fallback": "Score_evidence = Score_raw * evidenceConfidence",
+            "explanation": "Evidence confidence does not validate the result; it keeps data quality visible in prioritization.",
+            "explanationZh": "证据置信度不验证结果，只是在优先级中保持数据质量可见。"
+          }
         ],
-        "inputs": ["gas pair", "feed ratio", "temperature", "pressure", "uptake", "selectivity", "working capacity", "regenerability", "heat of adsorption", "stability", "evidence level", "data type"],
-        "inputsZh": ["气体对", "进料比例", "温度", "压力", "吸附量", "选择性", "工作容量", "可再生性", "吸附热", "稳定性", "证据等级", "数据类型"],
-        "outputs": ["scenario GasScore", "score contribution", "trade-off summary", "metric inspector", "validation recommendation"],
-        "outputsZh": ["场景 GasScore", "评分贡献", "trade-off 摘要", "指标诊断面板", "验证建议"],
+        "inputs": [
+          "gas pair",
+          "feed ratio",
+          "temperature",
+          "pressure",
+          "uptake",
+          "selectivity",
+          "working capacity",
+          "regenerability",
+          "heat of adsorption",
+          "stability",
+          "evidence level",
+          "data type"
+        ],
+        "inputsZh": [
+          "气体对",
+          "进料比例",
+          "温度",
+          "压力",
+          "吸附量",
+          "选择性",
+          "工作容量",
+          "可再生性",
+          "吸附热",
+          "稳定性",
+          "证据等级",
+          "数据类型"
+        ],
+        "outputs": [
+          "scenario GasScore",
+          "score contribution",
+          "trade-off summary",
+          "metric inspector",
+          "validation recommendation"
+        ],
+        "outputsZh": [
+          "场景 GasScore",
+          "评分贡献",
+          "trade-off 摘要",
+          "指标诊断面板",
+          "验证建议"
+        ],
         "visualizations": [
-          {"title": "Interactive Top ranking", "titleZh": "交互 Top 排序", "description": "Top 5 / Top 10 bars switch between overall score and contribution mode and link to the selected candidate.", "descriptionZh": "Top 5 / Top 10 条形图可在综合分与贡献拆解模式间切换，并联动选中候选。", "chartType": "bar"},
-          {"title": "Radar profile comparison", "titleZh": "雷达画像对比", "description": "Selected or compared MOFs are shown by normalized uptake, selectivity, working capacity, regenerability, stability, and evidence.", "descriptionZh": "按归一化吸附量、选择性、工作容量、可再生性、稳定性和证据展示选中或对比 MOF。", "chartType": "radar"},
-          {"title": "Diagnostic heatmap", "titleZh": "诊断热力图", "description": "Normalized, raw, and weighted views expose which metric drives or limits a candidate.", "descriptionZh": "normalized、raw 和 weighted 视图显示哪些指标驱动或限制候选。", "chartType": "heatmap"}
+          {
+            "title": "Interactive Top ranking",
+            "titleZh": "交互 Top 排序",
+            "description": "Top 5 / Top 10 bars switch between overall score and contribution mode and link to the selected candidate.",
+            "descriptionZh": "Top 5 / Top 10 条形图可在综合分与贡献拆解模式间切换，并联动选中候选。",
+            "chartType": "bar"
+          },
+          {
+            "title": "Radar profile comparison",
+            "titleZh": "雷达画像对比",
+            "description": "Selected or compared MOFs are shown by normalized uptake, selectivity, working capacity, regenerability, stability, and evidence.",
+            "descriptionZh": "按归一化吸附量、选择性、工作容量、可再生性、稳定性和证据展示选中或对比 MOF。",
+            "chartType": "radar"
+          },
+          {
+            "title": "Diagnostic heatmap",
+            "titleZh": "诊断热力图",
+            "description": "Normalized, raw, and weighted views expose which metric drives or limits a candidate.",
+            "descriptionZh": "normalized、raw 和 weighted 视图显示哪些指标驱动或限制候选。",
+            "chartType": "heatmap"
+          }
         ],
-        "limitations": ["GasScore is a screening priority score, not measured separation performance.", "Demo, predicted, simulated, and experimental-template records are not interchangeable evidence levels.", "Heatmap and radar values are scenario-normalized diagnostics, not universal material rankings."],
-        "limitationsZh": ["GasScore 是筛选优先级分数，不是实测分离性能。", "demo、predicted、simulated 和 experimental-template 记录不是可互换的证据等级。", "热力图和雷达图数值是场景归一化诊断，不是通用材料排名。"]
+        "limitations": [
+          "GasScore is a screening priority score, not measured separation performance.",
+          "Demo, predicted, simulated, and experimental-template records are not interchangeable evidence levels.",
+          "Heatmap and radar values are scenario-normalized diagnostics, not universal material rankings."
+        ],
+        "limitationsZh": [
+          "GasScore 是筛选优先级分数，不是实测分离性能。",
+          "演示数据、预测数据、模拟数据和实验风格模板记录不是可互换的证据等级。",
+          "热力图和雷达图数值是场景归一化诊断，不是通用材料排名。"
+        ]
       },
       {
         "id": "gassep-visualization",
@@ -313,18 +1275,63 @@
         "purpose": "Show how selectivity changes with pressure and how target uptake relates to selectivity under explicit conditions.",
         "purposeZh": "在明确条件下展示选择性随压力变化，以及目标气吸附量与选择性的关系。",
         "algorithmSteps": [
-          {"label": "Build pressure series", "labelZh": "构建压力序列", "description": "Group records by MOF and condition metadata; do not interpolate missing values.", "descriptionZh": "按 MOF 和条件元数据分组，不插值缺失数值。"},
-          {"label": "Build uptake-selectivity points", "labelZh": "构建吸附量-选择性点", "description": "Match target-gas uptake records to selectivity records by temperature and pressure.", "descriptionZh": "按温度和压力将目标气吸附记录与选择性记录匹配。"},
-          {"label": "Encode evidence level", "labelZh": "编码证据等级", "description": "Use color or badge to distinguish reviewed, pending, and source-pending values.", "descriptionZh": "用颜色或标签区分 reviewed、pending 和 source-pending。"}
+          {
+            "label": "Build pressure series",
+            "labelZh": "构建压力序列",
+            "description": "Group records by MOF and condition metadata; do not interpolate missing values.",
+            "descriptionZh": "按 MOF 和条件元数据分组，不插值缺失数值。"
+          },
+          {
+            "label": "Build uptake-selectivity points",
+            "labelZh": "构建吸附量-选择性点",
+            "description": "Match target-gas uptake records to selectivity records by temperature and pressure.",
+            "descriptionZh": "按温度和压力将目标气吸附记录与选择性记录匹配。"
+          },
+          {
+            "label": "Encode evidence level",
+            "labelZh": "编码证据等级",
+            "description": "Use color or badge to distinguish reviewed, pending, and source-pending values.",
+            "descriptionZh": "用颜色或标签区分 reviewed、pending 和 source-pending。"
+          }
         ],
         "formulas": [],
-        "inputs": ["selectivityRecords", "uptakeRecords", "breakthroughRecords", "fieldSources"],
-        "inputsZh": ["selectivityRecords", "uptakeRecords", "breakthroughRecords", "fieldSources"],
-        "outputs": ["selectivity-pressure chart", "uptake-selectivity scatter", "tooltip with full condition"],
-        "outputsZh": ["选择性-压力图", "吸附量-选择性散点图", "带完整条件的 tooltip"],
-        "visualizations": [{"title": "Pressure and uptake charts", "titleZh": "压力与吸附量图", "description": "Chart titles and tooltips include gas system, feed ratio, T, P, method, and source location.", "descriptionZh": "图标题和 tooltip 包含气体体系、比例、温度、压力、方法和来源位置。", "chartType": "scatter"}],
-        "limitations": ["A single point is displayed as a single point; the interface does not fabricate a curve."],
-        "limitationsZh": ["单点数据只显示为单点，界面不伪造曲线。"]
+        "inputs": [
+          "selectivityRecords",
+          "uptakeRecords",
+          "breakthroughRecords",
+          "fieldSources"
+        ],
+        "inputsZh": [
+          "selectivityRecords",
+          "uptakeRecords",
+          "breakthroughRecords",
+          "fieldSources"
+        ],
+        "outputs": [
+          "selectivity-pressure chart",
+          "uptake-selectivity scatter",
+          "tooltip with full condition"
+        ],
+        "outputsZh": [
+          "选择性-压力图",
+          "吸附量-选择性散点图",
+          "带完整条件的 tooltip"
+        ],
+        "visualizations": [
+          {
+            "title": "Pressure and uptake charts",
+            "titleZh": "压力与吸附量图",
+            "description": "Chart titles and tooltips include gas system, feed ratio, T, P, method, and source location.",
+            "descriptionZh": "图标题和 tooltip 包含气体体系、比例、温度、压力、方法和来源位置。",
+            "chartType": "scatter"
+          }
+        ],
+        "limitations": [
+          "A single point is displayed as a single point; the interface does not fabricate a curve."
+        ],
+        "limitationsZh": [
+          "单点数据只显示为单点，界面不伪造曲线。"
+        ]
       }
     ]
   },
@@ -336,22 +1343,82 @@
     "summary": "Catalysis Lab organizes catalytic pathway evidence, reaction fingerprints, MOF rationale, and validation needs while keeping hypotheses separate from proof.",
     "summaryZh": "Catalysis Lab 整理催化路径证据、反应指纹、MOF 依据和验证需求，同时区分假设与证明。",
     "methodWorkflow": [
-      {"label": "Pathway evidence map", "labelZh": "路径证据图", "description": "Place catalytic records in a pathway-by-evidence landscape.", "descriptionZh": "将催化记录放入路径-证据空间。"},
-      {"label": "Reaction pathway classification", "labelZh": "反应路径分类", "description": "Separate product classes, mechanism hints, and validation status.", "descriptionZh": "区分产物类别、机理线索和验证状态。"},
-      {"label": "Reaction fingerprint", "labelZh": "反应指纹", "description": "Summarize pathway features, candidate rationale, and evidence coverage.", "descriptionZh": "汇总路径特征、候选依据和证据覆盖。"},
-      {"label": "Validation roadmap", "labelZh": "验证路线", "description": "Translate evidence gaps into next experiments or DFT tasks.", "descriptionZh": "将证据缺口转换为后续实验或 DFT 任务。"}
+      {
+        "label": "Pathway evidence map",
+        "labelZh": "路径证据图",
+        "description": "Place catalytic records in a pathway-by-evidence landscape.",
+        "descriptionZh": "将催化记录放入路径-证据空间。"
+      },
+      {
+        "label": "Reaction pathway classification",
+        "labelZh": "反应路径分类",
+        "description": "Separate product classes, mechanism hints, and validation status.",
+        "descriptionZh": "区分产物类别、机理线索和验证状态。"
+      },
+      {
+        "label": "Reaction fingerprint",
+        "labelZh": "反应指纹",
+        "description": "Summarize pathway features, candidate rationale, and evidence coverage.",
+        "descriptionZh": "汇总路径特征、候选依据和证据覆盖。"
+      },
+      {
+        "label": "Validation roadmap",
+        "labelZh": "验证路线",
+        "description": "Translate evidence gaps into next experiments or DFT tasks.",
+        "descriptionZh": "将证据缺口转换为后续实验或 DFT 任务。"
+      }
     ],
-    "inputs": ["pathway class", "reaction fingerprint", "MOF rationale", "evidence level", "validation status"],
-    "inputsZh": ["路径类别", "反应指纹", "MOF 依据", "证据等级", "验证状态"],
-    "outputs": ["pathway evidence context", "candidate validation priority", "comparability note"],
-    "outputsZh": ["路径证据语境", "候选验证优先级", "可比性说明"],
+    "inputs": [
+      "pathway class",
+      "reaction fingerprint",
+      "MOF rationale",
+      "evidence level",
+      "validation status"
+    ],
+    "inputsZh": [
+      "路径类别",
+      "反应指纹",
+      "MOF 依据",
+      "证据等级",
+      "验证状态"
+    ],
+    "outputs": [
+      "pathway evidence context",
+      "candidate validation priority",
+      "comparability note"
+    ],
+    "outputsZh": [
+      "路径证据语境",
+      "候选验证优先级",
+      "可比性说明"
+    ],
     "visualizations": [
-      {"title": "Catalytic pathway evidence map", "titleZh": "催化路径证据图", "description": "Scatter-style map for performance potential, evidence readiness, and data coverage.", "descriptionZh": "用散点图表达性能潜力、证据成熟度和数据覆盖度。", "chartType": "scatter"}
+      {
+        "title": "Catalytic pathway evidence map",
+        "titleZh": "催化路径证据图",
+        "description": "Scatter-style map for performance potential, evidence readiness, and data coverage.",
+        "descriptionZh": "用散点图表达性能潜力、证据成熟度和数据覆盖度。",
+        "chartType": "scatter"
+      }
     ],
-    "evidenceBoundary": ["Organic acid conversion is a prioritized sub-workspace within Catalysis Lab, not the full scope of catalysis.", "Pathway evidence maps organize hypotheses and literature signals; they do not establish mechanism by themselves."],
-    "evidenceBoundaryZh": ["有机酸转化是 Catalysis Lab 中优先展示的子工作台，但不是催化模块的全部范围。", "路径证据图组织假设和文献信号，本身不证明机理。"],
-    "validationRoadmap": ["Add reaction condition metadata", "separate measured yields from rule-derived hypotheses", "connect post-reaction characterization"],
-    "validationRoadmapZh": ["补充反应条件元数据", "区分实测产率与规则派生假设", "接入反应后表征"],
+    "evidenceBoundary": [
+      "Organic acid conversion is a prioritized sub-workspace within Catalysis Lab, not the full scope of catalysis.",
+      "Pathway evidence maps organize hypotheses and literature signals; they do not establish mechanism by themselves."
+    ],
+    "evidenceBoundaryZh": [
+      "有机酸转化是 Catalysis Lab 中优先展示的子工作台，但不是催化模块的全部范围。",
+      "路径证据图组织假设和文献信号，本身不证明机理。"
+    ],
+    "validationRoadmap": [
+      "Add reaction condition metadata",
+      "separate measured yields from rule-derived hypotheses",
+      "connect post-reaction characterization"
+    ],
+    "validationRoadmapZh": [
+      "补充反应条件元数据",
+      "区分实测产率与规则派生假设",
+      "接入反应后表征"
+    ],
     "methodGroups": [
       {
         "id": "catalytic-pathway-map",
@@ -360,18 +1427,63 @@
         "purpose": "Compare pathway records by evidence readiness, data coverage, and validation status.",
         "purposeZh": "按证据成熟度、数据覆盖度和验证状态比较路径记录。",
         "algorithmSteps": [
-          {"label": "Classify pathway", "labelZh": "路径分类", "description": "Assign reaction records to product and pathway categories.", "descriptionZh": "将反应记录分配到产物和路径类别。"},
-          {"label": "Score evidence readiness", "labelZh": "评估证据成熟度", "description": "Combine literature, measured, rule-based, and pending status.", "descriptionZh": "组合文献、实测、规则和 pending 状态。"},
-          {"label": "Expose validation needs", "labelZh": "展示验证需求", "description": "Show which experiments or simulations are still needed.", "descriptionZh": "展示仍需哪些实验或模拟。"}
+          {
+            "label": "Classify pathway",
+            "labelZh": "路径分类",
+            "description": "Assign reaction records to product and pathway categories.",
+            "descriptionZh": "将反应记录分配到产物和路径类别。"
+          },
+          {
+            "label": "Score evidence readiness",
+            "labelZh": "评估证据成熟度",
+            "description": "Combine literature, measured, rule-based, and pending status.",
+            "descriptionZh": "组合文献、实测、规则和 pending 状态。"
+          },
+          {
+            "label": "Expose validation needs",
+            "labelZh": "展示验证需求",
+            "description": "Show which experiments or simulations are still needed.",
+            "descriptionZh": "展示仍需哪些实验或模拟。"
+          }
         ],
         "formulas": [],
-        "inputs": ["pathway category", "main product", "evidence readiness", "data coverage"],
-        "inputsZh": ["路径类别", "主要产物", "证据成熟度", "数据覆盖度"],
-        "outputs": ["pathway context", "validation status", "evidence warning"],
-        "outputsZh": ["路径语境", "验证状态", "证据警告"],
-        "visualizations": [{"title": "Evidence map", "titleZh": "证据图", "description": "Scatter chart of performance potential and evidence readiness.", "descriptionZh": "性能潜力与证据成熟度散点图。", "chartType": "scatter"}],
-        "limitations": ["The map supports prioritization, not proof of catalytic activity."],
-        "limitationsZh": ["该图支持优先级判断，不证明催化活性。"]
+        "inputs": [
+          "pathway category",
+          "main product",
+          "evidence readiness",
+          "data coverage"
+        ],
+        "inputsZh": [
+          "路径类别",
+          "主要产物",
+          "证据成熟度",
+          "数据覆盖度"
+        ],
+        "outputs": [
+          "pathway context",
+          "validation status",
+          "evidence warning"
+        ],
+        "outputsZh": [
+          "路径语境",
+          "验证状态",
+          "证据警告"
+        ],
+        "visualizations": [
+          {
+            "title": "Evidence map",
+            "titleZh": "证据图",
+            "description": "Scatter chart of performance potential and evidence readiness.",
+            "descriptionZh": "性能潜力与证据成熟度散点图。",
+            "chartType": "scatter"
+          }
+        ],
+        "limitations": [
+          "The map supports prioritization, not proof of catalytic activity."
+        ],
+        "limitationsZh": [
+          "该图支持优先级判断，不证明催化活性。"
+        ]
       }
     ]
   },
@@ -385,23 +1497,95 @@
     "summary": "Organic Acid Workspace links a three-pathway reaction network, reaction rules, candidate priority matrix, motif-level rationale, and Algorithm Trace Explorer.",
     "summaryZh": "有机酸工作台连接三路径反应网络、反应规则、候选优先级矩阵、motif-level rationale 和 Algorithm Trace Explorer。",
     "methodWorkflow": [
-      {"label": "Three-pathway dynamic reaction network", "labelZh": "三路径动态反应网络", "description": "Interactively select formaldehyde, glyceraldehyde, or pyruvaldehyde routes.", "descriptionZh": "交互选择甲醛、甘油醛或丙酮醛路径。"},
-      {"label": "Reaction rules and evidence graph", "labelZh": "反应规则与证据图", "description": "Filter and inspect pathway rules, evidence items, candidate nodes, and pending sources.", "descriptionZh": "筛选并查看路径规则、证据条目、候选节点和 pending 来源。"},
-      {"label": "Candidate priority matrix", "labelZh": "候选物优先级矩阵", "description": "Explain candidate tiers using pathway fit, motif/rule matches, evidence, risk, and validation gaps.", "descriptionZh": "用路径适配、motif/rule 匹配、证据、风险和验证缺口解释候选分层。"},
-      {"label": "Algorithm Trace Explorer", "labelZh": "Algorithm Trace Explorer", "description": "Summarize rule and evidence contributions through a compact step timeline.", "descriptionZh": "通过紧凑步骤时间线总结规则和证据贡献。"}
+      {
+        "label": "Three-pathway dynamic reaction network",
+        "labelZh": "三路径动态反应网络",
+        "description": "Interactively select formaldehyde, glyceraldehyde, or pyruvaldehyde routes.",
+        "descriptionZh": "交互选择甲醛、甘油醛或丙酮醛路径。"
+      },
+      {
+        "label": "Reaction rules and evidence graph",
+        "labelZh": "反应规则与证据图",
+        "description": "Filter and inspect pathway rules, evidence items, candidate nodes, and pending sources.",
+        "descriptionZh": "筛选并查看路径规则、证据条目、候选节点和 pending 来源。"
+      },
+      {
+        "label": "Candidate priority matrix",
+        "labelZh": "候选物优先级矩阵",
+        "description": "Explain candidate tiers using pathway fit, motif/rule matches, evidence, risk, and validation gaps.",
+        "descriptionZh": "用路径适配、motif/rule 匹配、证据、风险和验证缺口解释候选分层。"
+      },
+      {
+        "label": "Algorithm Trace Explorer",
+        "labelZh": "Algorithm Trace Explorer",
+        "description": "Summarize rule and evidence contributions through a compact step timeline.",
+        "descriptionZh": "通过紧凑步骤时间线总结规则和证据贡献。"
+      }
     ],
-    "inputs": ["pathway fit", "motif / rule match", "evidence support", "risk penalty", "validation gap", "field-level provenance"],
-    "inputsZh": ["路径适配", "motif / 规则匹配", "证据支持", "风险惩罚", "验证缺口", "字段级来源"],
-    "outputs": ["priority tier", "rule-based contribution", "evidence-weighted priority", "trace explanation"],
-    "outputsZh": ["优先级层级", "规则贡献", "证据加权优先级", "追踪解释"],
+    "inputs": [
+      "pathway fit",
+      "motif / rule match",
+      "evidence support",
+      "risk penalty",
+      "validation gap",
+      "field-level provenance"
+    ],
+    "inputsZh": [
+      "路径适配",
+      "motif / 规则匹配",
+      "证据支持",
+      "风险惩罚",
+      "验证缺口",
+      "字段级来源"
+    ],
+    "outputs": [
+      "priority tier",
+      "rule-based contribution",
+      "evidence-weighted priority",
+      "trace explanation"
+    ],
+    "outputsZh": [
+      "优先级层级",
+      "规则贡献",
+      "证据加权优先级",
+      "追踪解释"
+    ],
     "visualizations": [
-      {"title": "Three-pathway network", "titleZh": "三路径网络", "description": "Interactive pathway graph with node and edge selection.", "descriptionZh": "支持节点和边选择的交互路径图。", "chartType": "flow"},
-      {"title": "Candidate priority matrix", "titleZh": "候选优先级矩阵", "description": "Tiered matrix for candidates, evidence, risk, and validation gaps.", "descriptionZh": "展示候选物、证据、风险和验证缺口的分层矩阵。", "chartType": "score"}
+      {
+        "title": "Three-pathway network",
+        "titleZh": "三路径网络",
+        "description": "Interactive pathway graph with node and edge selection.",
+        "descriptionZh": "支持节点和边选择的交互路径图。",
+        "chartType": "flow"
+      },
+      {
+        "title": "Candidate priority matrix",
+        "titleZh": "候选优先级矩阵",
+        "description": "Tiered matrix for candidates, evidence, risk, and validation gaps.",
+        "descriptionZh": "展示候选物、证据、风险和验证缺口的分层矩阵。",
+        "chartType": "score"
+      }
     ],
-    "evidenceBoundary": ["Priority matrix is a decision-support view, not an experimentally validated ranking.", "Algorithm Trace Explorer explains rule and evidence contributions. It does not prove mechanistic causality.", "Motif rationale is not a trained MACCS/SHAP model."],
-    "evidenceBoundaryZh": ["优先级矩阵是决策支持视图，不是已经实验验证的真实排名。", "Algorithm Trace Explorer 用于解释规则和证据贡献，不证明真实机理因果关系。", "motif rationale 不是已训练的 MACCS/SHAP 模型。"],
-    "validationRoadmap": ["Run feeding tests for pathway branches", "add isotope tracing and carbon balance", "curate DFT descriptors for bicarbonate and formate binding"],
-    "validationRoadmapZh": ["开展路径分支投料实验", "加入同位素示踪和碳平衡", "整理 HCO₃⁻ 与甲酸盐结合的 DFT 描述符"],
+    "evidenceBoundary": [
+      "Priority matrix is a decision-support view, not an experimentally validated ranking.",
+      "Algorithm Trace Explorer explains rule and evidence contributions. It does not prove mechanistic causality.",
+      "Motif rationale is not a trained MACCS/SHAP model."
+    ],
+    "evidenceBoundaryZh": [
+      "优先级矩阵是决策支持视图，不是已经实验验证的真实排名。",
+      "Algorithm Trace Explorer 用于解释规则和证据贡献，不证明真实机理因果关系。",
+      "motif rationale 不是已训练的 MACCS/SHAP 模型。"
+    ],
+    "validationRoadmap": [
+      "Run feeding tests for pathway branches",
+      "add isotope tracing and carbon balance",
+      "curate DFT descriptors for bicarbonate and formate binding"
+    ],
+    "validationRoadmapZh": [
+      "开展路径分支投料实验",
+      "加入同位素示踪和碳平衡",
+      "整理 HCO₃⁻ 与甲酸盐结合的 DFT 描述符"
+    ],
     "specialNote": "Inspired by molecular fingerprint mining, the Organic Acid Workspace uses a motif-level rationale layer to connect ligand fragments, metal-site environments, and pore features with pathway rules, candidate priority, and validation gaps.",
     "specialNoteZh": "受分子指纹挖掘思路启发，有机酸工作台使用 motif-level rationale layer，将配体片段、金属位点环境和孔结构特征连接到路径规则、候选物优先级和验证缺口。",
     "methodGroups": [
@@ -412,22 +1596,94 @@
         "purpose": "Represent organic-acid carbon flow as a weighted network of species, intermediates, products, competing branches, and regulation factors.",
         "purposeZh": "将有机酸碳流表示为由物种、中间体、产物、竞争分支和调控因子组成的加权网络。",
         "algorithmSteps": [
-          {"label": "Define nodes", "labelZh": "定义节点", "description": "Nodes represent chemical species, intermediates, products, environment factors, or MOF regulation factors.", "descriptionZh": "节点代表化学物种、中间体、产物、环境因素或 MOF 调控因子。"},
-          {"label": "Define edges", "labelZh": "定义边", "description": "Edges represent candidate transformations, competing branches, or regulation effects.", "descriptionZh": "边代表候选转化步骤、竞争分支或调控作用。"},
-          {"label": "Weight edges", "labelZh": "边权重赋值", "description": "Combine evidence score, chemical plausibility, MOF regulation contribution, and validation support.", "descriptionZh": "综合证据分数、化学合理性、MOF 调控贡献和验证支持度。"},
-          {"label": "Score pathways", "labelZh": "路径评分", "description": "Aggregate edge weights along a selected pathway to identify likely routes and bottleneck steps.", "descriptionZh": "沿选定路径聚合边权重，用于识别候选主路径和瓶颈步骤。"}
+          {
+            "label": "Define nodes",
+            "labelZh": "定义节点",
+            "description": "Nodes represent chemical species, intermediates, products, environment factors, or MOF regulation factors.",
+            "descriptionZh": "节点代表化学物种、中间体、产物、环境因素或 MOF 调控因子。"
+          },
+          {
+            "label": "Define edges",
+            "labelZh": "定义边",
+            "description": "Edges represent candidate transformations, competing branches, or regulation effects.",
+            "descriptionZh": "边代表候选转化步骤、竞争分支或调控作用。"
+          },
+          {
+            "label": "Weight edges",
+            "labelZh": "边权重赋值",
+            "description": "Combine evidence score, chemical plausibility, MOF regulation contribution, and validation support.",
+            "descriptionZh": "综合证据分数、化学合理性、MOF 调控贡献和验证支持度。"
+          },
+          {
+            "label": "Score pathways",
+            "labelZh": "路径评分",
+            "description": "Aggregate edge weights along a selected pathway to identify likely routes and bottleneck steps.",
+            "descriptionZh": "沿选定路径聚合边权重，用于识别候选主路径和瓶颈步骤。"
+          }
         ],
         "formulas": [
-          {"id": "organic-edge-weight", "label": "Edge weight", "labelZh": "边权重", "latex": "w_{ij}=E_{ij}\\times P_{ij}\\times M_{ij}\\times V_{ij}", "fallback": "w_ij = E_ij × P_ij × M_ij × V_ij", "explanation": "Edge weight combines evidence, chemical plausibility, MOF regulation, and validation support.", "explanationZh": "边权重综合证据、化学合理性、MOF 调控和验证支持度。"},
-          {"id": "organic-path-score", "label": "Pathway score", "labelZh": "路径评分", "latex": "S_p=\\prod_{(i,j)\\in p}w_{ij}", "fallback": "S_p = Π w_ij", "explanation": "The current pathway score uses multiplicative aggregation so that weak steps remain visible.", "explanationZh": "当前路径评分采用乘积聚合，使低证据步骤能够作为瓶颈被保留。"}
+          {
+            "id": "organic-edge-weight",
+            "label": "Edge weight",
+            "labelZh": "边权重",
+            "latex": "w_{ij}=E_{ij}\\times P_{ij}\\times M_{ij}\\times V_{ij}",
+            "fallback": "w_ij = E_ij × P_ij × M_ij × V_ij",
+            "explanation": "Edge weight combines evidence, chemical plausibility, MOF regulation, and validation support.",
+            "explanationZh": "边权重综合证据、化学合理性、MOF 调控和验证支持度。"
+          },
+          {
+            "id": "organic-path-score",
+            "label": "Pathway score",
+            "labelZh": "路径评分",
+            "latex": "S_p=\\prod_{(i,j)\\in p}w_{ij}",
+            "fallback": "S_p = Π w_ij",
+            "explanation": "The current pathway score uses multiplicative aggregation so that weak steps remain visible.",
+            "explanationZh": "当前路径评分采用乘积聚合，使低证据步骤能够作为瓶颈被保留。"
+          }
         ],
-        "inputs": ["reaction nodes", "candidate reaction edges", "evidence score", "chemical plausibility", "MOF regulation factors", "validation support"],
-        "inputsZh": ["反应节点", "候选反应边", "证据分数", "化学合理性", "MOF 调控因子", "验证支持度"],
-        "outputs": ["edge weights", "pathway score", "bottleneck edge", "competing branch warning"],
-        "outputsZh": ["边权重", "路径评分", "瓶颈边", "竞争分支提示"],
-        "visualizations": [{"title": "Carbon-flow graph", "titleZh": "碳流图", "description": "Clickable nodes, edges, pathway filters, graph metrics, and MOF regulation highlights.", "descriptionZh": "可点击节点、边、路径筛选器、图论指标和 MOF 调控高亮。", "chartType": "flow"}],
-        "limitations": ["Current edge weights are hypothesis-guided and require isotope tracing, intermediate feeding, time-series monitoring, and by-product distribution validation."],
-        "limitationsZh": ["当前边权重属于假设驱动，需要同位素示踪、中间体投料、时间序列监测和副产物分布验证。"]
+        "inputs": [
+          "reaction nodes",
+          "candidate reaction edges",
+          "evidence score",
+          "chemical plausibility",
+          "MOF regulation factors",
+          "validation support"
+        ],
+        "inputsZh": [
+          "反应节点",
+          "候选反应边",
+          "证据分数",
+          "化学合理性",
+          "MOF 调控因子",
+          "验证支持度"
+        ],
+        "outputs": [
+          "edge weights",
+          "pathway score",
+          "bottleneck edge",
+          "competing branch warning"
+        ],
+        "outputsZh": [
+          "边权重",
+          "路径评分",
+          "瓶颈边",
+          "竞争分支提示"
+        ],
+        "visualizations": [
+          {
+            "title": "Carbon-flow graph",
+            "titleZh": "碳流图",
+            "description": "Clickable nodes, edges, pathway filters, graph metrics, and MOF regulation highlights.",
+            "descriptionZh": "可点击节点、边、路径筛选器、图论指标和 MOF 调控高亮。",
+            "chartType": "flow"
+          }
+        ],
+        "limitations": [
+          "Current edge weights are hypothesis-guided and require isotope tracing, intermediate feeding, time-series monitoring, and by-product distribution validation."
+        ],
+        "limitationsZh": [
+          "当前边权重属于假设驱动，需要同位素示踪、中间体投料、时间序列监测和副产物分布验证。"
+        ]
       },
       {
         "id": "candidate-prioritization-method",
@@ -436,21 +1692,85 @@
         "purpose": "Connect rule matches, curation status, priority matrix position, and recommended validation actions.",
         "purposeZh": "连接规则命中、整理状态、优先级矩阵位置和推荐验证动作。",
         "algorithmSteps": [
-          {"label": "Rule matching", "labelZh": "规则匹配", "description": "Match candidates to water stability, open metal site, pore accessibility, functional group, bicarbonate activation, and side-path suppression rules.", "descriptionZh": "将候选物匹配到水相稳定性、开放金属位点、孔道可达性、官能团、碳酸氢根活化和副路径抑制规则。"},
-          {"label": "Curation queue", "labelZh": "整理队列", "description": "Mark missing descriptors, provenance gaps, and reaction-mapping gaps before priority interpretation.", "descriptionZh": "在解释优先级前标记缺失描述符、来源缺口和反应路径关联缺口。"},
-          {"label": "Priority matrix", "labelZh": "优先级矩阵", "description": "Place candidates by pathway relevance and evidence readiness, with point size representing MOF feasibility.", "descriptionZh": "按路径相关性和证据就绪度定位候选物，点大小表示 MOF 可行性。"},
-          {"label": "Next action", "labelZh": "下一步动作", "description": "Assign candidates to priority validation, priority data completion, control candidate, or defer zones.", "descriptionZh": "将候选物分配到优先验证、优先补数据、对照候选或暂缓区域。"}
+          {
+            "label": "Rule matching",
+            "labelZh": "规则匹配",
+            "description": "Match candidates to water stability, open metal site, pore accessibility, functional group, bicarbonate activation, and side-path suppression rules.",
+            "descriptionZh": "将候选物匹配到水相稳定性、开放金属位点、孔道可达性、官能团、碳酸氢根活化和副路径抑制规则。"
+          },
+          {
+            "label": "Curation queue",
+            "labelZh": "整理队列",
+            "description": "Mark missing descriptors, provenance gaps, and reaction-mapping gaps before priority interpretation.",
+            "descriptionZh": "在解释优先级前标记缺失描述符、来源缺口和反应路径关联缺口。"
+          },
+          {
+            "label": "Priority matrix",
+            "labelZh": "优先级矩阵",
+            "description": "Place candidates by pathway relevance and evidence readiness, with point size representing MOF feasibility.",
+            "descriptionZh": "按路径相关性和证据就绪度定位候选物，点大小表示 MOF 可行性。"
+          },
+          {
+            "label": "Next action",
+            "labelZh": "下一步动作",
+            "description": "Assign candidates to priority validation, priority data completion, control candidate, or defer zones.",
+            "descriptionZh": "将候选物分配到优先验证、优先补数据、对照候选或暂缓区域。"
+          }
         ],
         "formulas": [
-          {"id": "candidate-priority-score", "label": "Candidate priority score", "labelZh": "候选物优先级评分", "latex": "P_c=R_c\\times E_c\\times F_c\\times V_c", "fallback": "P_c = R_c × E_c × F_c × V_c", "explanation": "Candidate priority combines pathway relevance, evidence readiness, MOF feasibility, and validation value.", "explanationZh": "候选物优先级综合路径相关性、证据就绪度、MOF 可行性和验证价值。"}
+          {
+            "id": "candidate-priority-score",
+            "label": "Candidate priority score",
+            "labelZh": "候选物优先级评分",
+            "latex": "P_c=R_c\\times E_c\\times F_c\\times V_c",
+            "fallback": "P_c = R_c × E_c × F_c × V_c",
+            "explanation": "Candidate priority combines pathway relevance, evidence readiness, MOF feasibility, and validation value.",
+            "explanationZh": "候选物优先级综合路径相关性、证据就绪度、MOF 可行性和验证价值。"
+          }
         ],
-        "inputs": ["rule matches", "curation status", "pathway relevance", "evidence readiness", "MOF feasibility", "validation value"],
-        "inputsZh": ["规则命中", "整理状态", "路径相关性", "证据就绪度", "MOF 可行性", "验证价值"],
-        "outputs": ["matrix quadrant", "priority tier", "missing-field list", "recommended next action"],
-        "outputsZh": ["矩阵象限", "优先级层级", "缺失字段列表", "推荐下一步动作"],
-        "visualizations": [{"title": "Candidate prioritization workspace", "titleZh": "候选物优先级工作台", "description": "Rule cards, curation queue, priority matrix, and candidate detail panel are linked to the carbon-flow graph.", "descriptionZh": "规则卡、整理队列、优先级矩阵和候选详情面板与碳流图联动。", "chartType": "score"}],
-        "limitations": ["Priority is a decision-support label for validation planning, not an experimentally validated performance ranking."],
-        "limitationsZh": ["优先级是用于验证规划的决策支持标签，不是实验验证的真实性能排名。"]
+        "inputs": [
+          "rule matches",
+          "curation status",
+          "pathway relevance",
+          "evidence readiness",
+          "MOF feasibility",
+          "validation value"
+        ],
+        "inputsZh": [
+          "规则命中",
+          "整理状态",
+          "路径相关性",
+          "证据就绪度",
+          "MOF 可行性",
+          "验证价值"
+        ],
+        "outputs": [
+          "matrix quadrant",
+          "priority tier",
+          "missing-field list",
+          "recommended next action"
+        ],
+        "outputsZh": [
+          "矩阵象限",
+          "优先级层级",
+          "缺失字段列表",
+          "推荐下一步动作"
+        ],
+        "visualizations": [
+          {
+            "title": "Candidate prioritization workspace",
+            "titleZh": "候选物优先级工作台",
+            "description": "Rule cards, curation queue, priority matrix, and candidate detail panel are linked to the carbon-flow graph.",
+            "descriptionZh": "规则卡、整理队列、优先级矩阵和候选详情面板与碳流图联动。",
+            "chartType": "score"
+          }
+        ],
+        "limitations": [
+          "Priority is a decision-support label for validation planning, not an experimentally validated performance ranking."
+        ],
+        "limitationsZh": [
+          "优先级是用于验证规划的决策支持标签，不是实验验证的真实性能排名。"
+        ]
       },
       {
         "id": "organic-priority-logic",
@@ -459,22 +1779,91 @@
         "purpose": "Assign priority tiers from pathway fit, motif/rule matching, evidence support, risk penalty, and validation gaps.",
         "purposeZh": "根据路径适配、motif/rule 匹配、证据支持、风险惩罚和验证缺口生成优先级层级。",
         "algorithmSteps": [
-          {"label": "Pathway fit", "labelZh": "路径适配", "description": "Estimate whether a candidate supports the selected organic-acid route.", "descriptionZh": "估计候选物是否支持所选有机酸路径。"},
-          {"label": "Motif / rule match", "labelZh": "motif / 规则匹配", "description": "Connect ligand fragments, metal-site environments, and pore features to pathway rules.", "descriptionZh": "将配体片段、金属位点环境和孔结构特征连接到路径规则。"},
-          {"label": "Evidence support", "labelZh": "证据支持", "description": "Weight curated, pending, DFT-roadmap, and experiment-roadmap evidence differently.", "descriptionZh": "区分整理证据、pending、DFT 路线和实验路线证据。"},
-          {"label": "Risk penalty", "labelZh": "风险惩罚", "description": "Penalize byproduct, stability, toxicity, and sustainability concerns.", "descriptionZh": "惩罚副产物、稳定性、毒性和可持续性风险。"},
-          {"label": "Validation gap", "labelZh": "验证缺口", "description": "Keep missing experiments visible in the final tier explanation.", "descriptionZh": "在最终分层解释中保留缺失实验。"}
+          {
+            "label": "Pathway fit",
+            "labelZh": "路径适配",
+            "description": "Estimate whether a candidate supports the selected organic-acid route.",
+            "descriptionZh": "估计候选物是否支持所选有机酸路径。"
+          },
+          {
+            "label": "Motif / rule match",
+            "labelZh": "motif / 规则匹配",
+            "description": "Connect ligand fragments, metal-site environments, and pore features to pathway rules.",
+            "descriptionZh": "将配体片段、金属位点环境和孔结构特征连接到路径规则。"
+          },
+          {
+            "label": "Evidence support",
+            "labelZh": "证据支持",
+            "description": "Weight curated, pending, DFT-roadmap, and experiment-roadmap evidence differently.",
+            "descriptionZh": "区分整理证据、pending、DFT 路线和实验路线证据。"
+          },
+          {
+            "label": "Risk penalty",
+            "labelZh": "风险惩罚",
+            "description": "Penalize byproduct, stability, toxicity, and sustainability concerns.",
+            "descriptionZh": "惩罚副产物、稳定性、毒性和可持续性风险。"
+          },
+          {
+            "label": "Validation gap",
+            "labelZh": "验证缺口",
+            "description": "Keep missing experiments visible in the final tier explanation.",
+            "descriptionZh": "在最终分层解释中保留缺失实验。"
+          }
         ],
         "formulas": [
-          {"id": "candidate-priority-score", "label": "Candidate priority score", "labelZh": "候选物优先级评分", "latex": "P_c=R_c\\times E_c\\times F_c\\times V_c", "fallback": "P_c = R_c × E_c × F_c × V_c", "explanation": "The priority score supports validation planning from rule and evidence context.", "explanationZh": "该优先级评分用于从规则和证据语境支持验证规划。"}
+          {
+            "id": "candidate-priority-score",
+            "label": "Candidate priority score",
+            "labelZh": "候选物优先级评分",
+            "latex": "P_c=R_c\\times E_c\\times F_c\\times V_c",
+            "fallback": "P_c = R_c × E_c × F_c × V_c",
+            "explanation": "The priority score supports validation planning from rule and evidence context.",
+            "explanationZh": "该优先级评分用于从规则和证据语境支持验证规划。"
+          }
         ],
-        "inputs": ["pathway fit", "motif/rule match", "evidence support", "risk penalty", "validation gap"],
-        "inputsZh": ["路径适配", "motif/rule 匹配", "证据支持", "风险惩罚", "验证缺口"],
-        "outputs": ["Tier A-D", "driver explanation", "missing-field warning", "trace summary"],
-        "outputsZh": ["Tier A-D", "驱动解释", "缺失字段警告", "追踪摘要"],
-        "visualizations": [{"title": "Priority matrix", "titleZh": "优先级矩阵", "description": "Candidate rows with clickable metric cells and evidence/risk explanation.", "descriptionZh": "候选行包含可点击指标单元格和证据/风险解释。", "chartType": "score"}],
-        "limitations": ["Priority tiers are not validated experimental rankings.", "Motif rationale is a curation layer, not a trained MACCS/SHAP model."],
-        "limitationsZh": ["优先级层级不是实验验证排名。", "motif rationale 是整理层，不是已训练的 MACCS/SHAP 模型。"]
+        "inputs": [
+          "pathway fit",
+          "motif/rule match",
+          "evidence support",
+          "risk penalty",
+          "validation gap"
+        ],
+        "inputsZh": [
+          "路径适配",
+          "motif/rule 匹配",
+          "证据支持",
+          "风险惩罚",
+          "验证缺口"
+        ],
+        "outputs": [
+          "Tier A-D",
+          "driver explanation",
+          "missing-field warning",
+          "trace summary"
+        ],
+        "outputsZh": [
+          "Tier A-D",
+          "驱动解释",
+          "缺失字段警告",
+          "追踪摘要"
+        ],
+        "visualizations": [
+          {
+            "title": "Priority matrix",
+            "titleZh": "优先级矩阵",
+            "description": "Candidate rows with clickable metric cells and evidence/risk explanation.",
+            "descriptionZh": "候选行包含可点击指标单元格和证据/风险解释。",
+            "chartType": "score"
+          }
+        ],
+        "limitations": [
+          "Priority tiers are not validated experimental rankings.",
+          "Motif rationale is a curation layer, not a trained MACCS/SHAP model."
+        ],
+        "limitationsZh": [
+          "优先级层级不是实验验证排名。",
+          "motif rationale 是整理层，不是已训练的 MACCS/SHAP 模型。"
+        ]
       },
       {
         "id": "algorithm-trace",
@@ -483,20 +1872,77 @@
         "purpose": "Expose how descriptors, rule matches, evidence weights, risk penalties, and tier assignment contribute to a candidate explanation.",
         "purposeZh": "展示描述符、规则匹配、证据权重、风险惩罚和分层如何贡献到候选解释。",
         "algorithmSteps": [
-          {"label": "Descriptor availability", "labelZh": "描述符可用性", "description": "Check field coverage before interpretation.", "descriptionZh": "解释前检查字段覆盖度。"},
-          {"label": "Rule matching", "labelZh": "规则匹配", "description": "Match candidate roles to reaction rules.", "descriptionZh": "将候选角色匹配到反应规则。"},
-          {"label": "Evidence weighting", "labelZh": "证据加权", "description": "Scale contribution by evidence status.", "descriptionZh": "按证据状态缩放贡献。"},
-          {"label": "Risk penalty", "labelZh": "风险惩罚", "description": "Show penalties and missing fields.", "descriptionZh": "显示惩罚项和缺失字段。"},
-          {"label": "Tier assignment", "labelZh": "层级分配", "description": "Summarize final decision-support tier.", "descriptionZh": "总结最终决策支持层级。"}
+          {
+            "label": "Descriptor availability",
+            "labelZh": "描述符可用性",
+            "description": "Check field coverage before interpretation.",
+            "descriptionZh": "解释前检查字段覆盖度。"
+          },
+          {
+            "label": "Rule matching",
+            "labelZh": "规则匹配",
+            "description": "Match candidate roles to reaction rules.",
+            "descriptionZh": "将候选角色匹配到反应规则。"
+          },
+          {
+            "label": "Evidence weighting",
+            "labelZh": "证据加权",
+            "description": "Scale contribution by evidence status.",
+            "descriptionZh": "按证据状态缩放贡献。"
+          },
+          {
+            "label": "Risk penalty",
+            "labelZh": "风险惩罚",
+            "description": "Show penalties and missing fields.",
+            "descriptionZh": "显示惩罚项和缺失字段。"
+          },
+          {
+            "label": "Tier assignment",
+            "labelZh": "层级分配",
+            "description": "Summarize final decision-support tier.",
+            "descriptionZh": "总结最终决策支持层级。"
+          }
         ],
         "formulas": [],
-        "inputs": ["selected candidate", "selected pathway", "matched rules", "evidence sources", "penalty reasons"],
-        "inputsZh": ["选中候选物", "选中路径", "匹配规则", "证据来源", "惩罚原因"],
-        "outputs": ["compact summary", "step timeline", "copyable trace summary"],
-        "outputsZh": ["紧凑摘要", "步骤时间线", "可复制追踪摘要"],
-        "visualizations": [{"title": "Trace timeline", "titleZh": "追踪时间线", "description": "Five-step timeline with only the active step expanded.", "descriptionZh": "五步时间线，仅展开当前步骤。", "chartType": "flow"}],
-        "limitations": ["Trace explanation does not prove mechanistic causality."],
-        "limitationsZh": ["追踪解释不证明真实机理因果关系。"]
+        "inputs": [
+          "selected candidate",
+          "selected pathway",
+          "matched rules",
+          "evidence sources",
+          "penalty reasons"
+        ],
+        "inputsZh": [
+          "选中候选物",
+          "选中路径",
+          "匹配规则",
+          "证据来源",
+          "惩罚原因"
+        ],
+        "outputs": [
+          "compact summary",
+          "step timeline",
+          "copyable trace summary"
+        ],
+        "outputsZh": [
+          "紧凑摘要",
+          "步骤时间线",
+          "可复制追踪摘要"
+        ],
+        "visualizations": [
+          {
+            "title": "Trace timeline",
+            "titleZh": "追踪时间线",
+            "description": "Five-step timeline with only the active step expanded.",
+            "descriptionZh": "五步时间线，仅展开当前步骤。",
+            "chartType": "flow"
+          }
+        ],
+        "limitations": [
+          "Trace explanation does not prove mechanistic causality."
+        ],
+        "limitationsZh": [
+          "追踪解释不证明真实机理因果关系。"
+        ]
       }
     ]
   },
@@ -508,21 +1954,84 @@
     "summary": "MOF Library provides descriptor curation status, name resolution, source-linked data records, and field-level provenance.",
     "summaryZh": "MOF 候选库提供描述符整理状态、名称解析、来源关联数据记录和字段级来源。",
     "methodWorkflow": [
-      {"label": "Name resolution", "labelZh": "名称解析", "description": "Separate common display names, aliases, and source-linked records.", "descriptionZh": "区分常用显示名、别名和来源关联记录。"},
-      {"label": "Descriptor curation checklist", "labelZh": "描述符整理清单", "description": "Track the eight core descriptors and their data status.", "descriptionZh": "追踪 8 个核心描述符及其数据状态。"},
-      {"label": "Field-level provenance", "labelZh": "字段级来源", "description": "Attach source, location, and curation status to each important field.", "descriptionZh": "为每个重要字段绑定来源、位置和整理状态。"}
+      {
+        "label": "Name resolution",
+        "labelZh": "名称解析",
+        "description": "Separate common display names, aliases, and source-linked records.",
+        "descriptionZh": "区分常用显示名、别名和来源关联记录。"
+      },
+      {
+        "label": "Descriptor curation checklist",
+        "labelZh": "描述符整理清单",
+        "description": "Track the eight core descriptors and their data status.",
+        "descriptionZh": "追踪 8 个核心描述符及其数据状态。"
+      },
+      {
+        "label": "Field-level provenance",
+        "labelZh": "字段级来源",
+        "description": "Attach source, location, and curation status to each important field.",
+        "descriptionZh": "为每个重要字段绑定来源、位置和整理状态。"
+      }
     ],
-    "inputs": ["surfaceArea", "poreSizeA", "poreVolume", "co2Uptake", "bandGap", "waterStability", "thermalStability", "toxicityConcern"],
-    "inputsZh": ["surfaceArea", "poreSizeA", "poreVolume", "co2Uptake", "bandGap", "waterStability", "thermalStability", "toxicityConcern"],
-    "outputs": ["X/8 descriptors curated", "data status badge", "field provenance", "name resolution status"],
-    "outputsZh": ["X/8 描述符已整理", "数据状态标签", "字段来源", "名称解析状态"],
+    "inputs": [
+      "surfaceArea",
+      "poreSizeA",
+      "poreVolume",
+      "co2Uptake",
+      "bandGap",
+      "waterStability",
+      "thermalStability",
+      "toxicityConcern"
+    ],
+    "inputsZh": [
+      "surfaceArea",
+      "poreSizeA",
+      "poreVolume",
+      "co2Uptake",
+      "bandGap",
+      "waterStability",
+      "thermalStability",
+      "toxicityConcern"
+    ],
+    "outputs": [
+      "X/8 descriptors curated",
+      "data status badge",
+      "field provenance",
+      "name resolution status"
+    ],
+    "outputsZh": [
+      "X/8 描述符已整理",
+      "数据状态标签",
+      "字段来源",
+      "名称解析状态"
+    ],
     "visualizations": [
-      {"title": "Descriptor coverage card", "titleZh": "描述符覆盖卡", "description": "Shows curated core descriptors and pending fields.", "descriptionZh": "展示已整理核心描述符和待补字段。", "chartType": "score"}
+      {
+        "title": "Descriptor coverage card",
+        "titleZh": "描述符覆盖卡",
+        "description": "Shows curated core descriptors and pending fields.",
+        "descriptionZh": "展示已整理核心描述符和待补字段。",
+        "chartType": "score"
+      }
     ],
-    "evidenceBoundary": ["Library records are source-linked data records, not scientific conclusions by themselves.", "Name resolution status must remain visible when aliases or identifiers are uncertain."],
-    "evidenceBoundaryZh": ["候选库记录是来源关联数据记录，本身不是科研结论。", "当别名或标识符不确定时，必须显示名称解析状态。"],
-    "validationRoadmap": ["Add DOI and figure/table locations", "curate core descriptor coverage", "resolve aliases before cross-module scoring"],
-    "validationRoadmapZh": ["补充 DOI 和图/表位置", "整理核心描述符覆盖度", "跨模块评分前解析别名"],
+    "evidenceBoundary": [
+      "Library records are source-linked data records, not scientific conclusions by themselves.",
+      "Name resolution status must remain visible when aliases or identifiers are uncertain."
+    ],
+    "evidenceBoundaryZh": [
+      "候选库记录是来源关联数据记录，本身不是科研结论。",
+      "当别名或标识符不确定时，必须显示名称解析状态。"
+    ],
+    "validationRoadmap": [
+      "Add DOI and figure/table locations",
+      "curate core descriptor coverage",
+      "resolve aliases before cross-module scoring"
+    ],
+    "validationRoadmapZh": [
+      "补充 DOI 和图/表位置",
+      "整理核心描述符覆盖度",
+      "跨模块评分前解析别名"
+    ],
     "methodGroups": [
       {
         "id": "descriptor-curation",
@@ -531,18 +2040,61 @@
         "purpose": "Keep eight core descriptor fields visible and separate available, pending, estimated, and missing values.",
         "purposeZh": "保持 8 个核心描述符字段可见，并区分 available、pending、estimated 和 missing。",
         "algorithmSteps": [
-          {"label": "Check eight descriptors", "labelZh": "检查 8 个描述符", "description": "surfaceArea, poreSizeA, poreVolume, co2Uptake, bandGap, waterStability, thermalStability, toxicityConcern.", "descriptionZh": "surfaceArea、poreSizeA、poreVolume、co2Uptake、bandGap、waterStability、thermalStability、toxicityConcern。"},
-          {"label": "Assign status badge", "labelZh": "分配状态标签", "description": "Mark reviewed, pending, estimated, or missing.", "descriptionZh": "标记 reviewed、pending、estimated 或 missing。"},
-          {"label": "Attach source-linked record", "labelZh": "绑定来源关联记录", "description": "Connect field values to paper, database, figure, table, or section when known.", "descriptionZh": "在已知时将字段值连接到论文、数据库、图、表或章节。"}
+          {
+            "label": "Check eight descriptors",
+            "labelZh": "检查 8 个描述符",
+            "description": "surfaceArea, poreSizeA, poreVolume, co2Uptake, bandGap, waterStability, thermalStability, toxicityConcern.",
+            "descriptionZh": "surfaceArea、poreSizeA、poreVolume、co2Uptake、bandGap、waterStability、thermalStability、toxicityConcern。"
+          },
+          {
+            "label": "Assign status badge",
+            "labelZh": "分配状态标签",
+            "description": "Mark reviewed, pending, estimated, or missing.",
+            "descriptionZh": "标记 reviewed、pending、estimated 或 missing。"
+          },
+          {
+            "label": "Attach source-linked record",
+            "labelZh": "绑定来源关联记录",
+            "description": "Connect field values to paper, database, figure, table, or section when known.",
+            "descriptionZh": "在已知时将字段值连接到论文、数据库、图、表或章节。"
+          }
         ],
         "formulas": [],
-        "inputs": ["core descriptor fields", "source-linked data record", "name resolution status"],
-        "inputsZh": ["核心描述符字段", "来源关联数据记录", "名称解析状态"],
-        "outputs": ["descriptor coverage", "data status badge", "field-level provenance"],
-        "outputsZh": ["描述符覆盖度", "数据状态标签", "字段级来源"],
-        "visualizations": [{"title": "Descriptor coverage", "titleZh": "描述符覆盖", "description": "X/8 descriptors curated with field status badges.", "descriptionZh": "以字段状态标签显示 X/8 描述符已整理。", "chartType": "score"}],
-        "limitations": ["Missing descriptors must stay visible and should not be silently imputed in user-facing claims."],
-        "limitationsZh": ["缺失描述符必须保持可见，不应在用户可见结论中静默填补。"]
+        "inputs": [
+          "core descriptor fields",
+          "source-linked data record",
+          "name resolution status"
+        ],
+        "inputsZh": [
+          "核心描述符字段",
+          "来源关联数据记录",
+          "名称解析状态"
+        ],
+        "outputs": [
+          "descriptor coverage",
+          "data status badge",
+          "field-level provenance"
+        ],
+        "outputsZh": [
+          "描述符覆盖度",
+          "数据状态标签",
+          "字段级来源"
+        ],
+        "visualizations": [
+          {
+            "title": "Descriptor coverage",
+            "titleZh": "描述符覆盖",
+            "description": "X/8 descriptors curated with field status badges.",
+            "descriptionZh": "以字段状态标签显示 X/8 描述符已整理。",
+            "chartType": "score"
+          }
+        ],
+        "limitations": [
+          "Missing descriptors must stay visible and should not be silently imputed in user-facing claims."
+        ],
+        "limitationsZh": [
+          "缺失描述符必须保持可见，不应在用户可见结论中静默填补。"
+        ]
       }
     ]
   },
@@ -554,21 +2106,80 @@
     "summary": "Shared evidence methods define field-level provenance, evidence levels, curation status, source location, and comparison warnings across modules.",
     "summaryZh": "共享证据方法定义跨模块的字段级来源、证据等级、整理状态、来源位置和比较警告。",
     "methodWorkflow": [
-      {"label": "Field-level provenance", "labelZh": "字段级来源", "description": "Record source, source location, evidence type, and curation status for important values.", "descriptionZh": "为重要数值记录来源、来源位置、证据类型和整理状态。"},
-      {"label": "Evidence levels", "labelZh": "证据等级", "description": "Distinguish reviewed, pending, estimated, missing, literature-derived, and experiment-roadmap records.", "descriptionZh": "区分 reviewed、pending、estimated、missing、literature-derived 和 experiment-roadmap 记录。"},
-      {"label": "Comparison warning", "labelZh": "比较警告", "description": "Warn when values are not comparable because conditions, evidence, or methods differ.", "descriptionZh": "当条件、证据或方法不同导致不可比时显示警告。"}
+      {
+        "label": "Field-level provenance",
+        "labelZh": "字段级来源",
+        "description": "Record source, source location, evidence type, and curation status for important values.",
+        "descriptionZh": "为重要数值记录来源、来源位置、证据类型和整理状态。"
+      },
+      {
+        "label": "Evidence levels",
+        "labelZh": "证据等级",
+        "description": "Distinguish reviewed, pending, estimated, missing, literature-derived, and experiment-roadmap records.",
+        "descriptionZh": "区分 reviewed、pending、estimated、missing、literature-derived 和 experiment-roadmap 记录。"
+      },
+      {
+        "label": "Comparison warning",
+        "labelZh": "比较警告",
+        "description": "Warn when values are not comparable because conditions, evidence, or methods differ.",
+        "descriptionZh": "当条件、证据或方法不同导致不可比时显示警告。"
+      }
     ],
-    "inputs": ["field value", "source title", "authors / journal / year", "DOI", "figure / table / section", "curation status"],
-    "inputsZh": ["字段值", "来源标题", "作者 / 期刊 / 年份", "DOI", "图 / 表 / 章节", "整理状态"],
-    "outputs": ["provenance popover", "evidence badge", "comparison warning", "curation boundary"],
-    "outputsZh": ["来源弹窗", "证据标签", "比较警告", "整理边界"],
+    "inputs": [
+      "field value",
+      "source title",
+      "authors / journal / year",
+      "DOI",
+      "figure / table / section",
+      "curation status"
+    ],
+    "inputsZh": [
+      "字段值",
+      "来源标题",
+      "作者 / 期刊 / 年份",
+      "DOI",
+      "图 / 表 / 章节",
+      "整理状态"
+    ],
+    "outputs": [
+      "provenance popover",
+      "evidence badge",
+      "comparison warning",
+      "curation boundary"
+    ],
+    "outputsZh": [
+      "来源弹窗",
+      "证据标签",
+      "比较警告",
+      "整理边界"
+    ],
     "visualizations": [
-      {"title": "Evidence boundary badges", "titleZh": "证据边界标签", "description": "Reviewed, pending, estimated, missing, demonstration, seed, and curated literature statuses remain visible.", "descriptionZh": "reviewed、pending、estimated、missing、demonstration、seed 和 curated literature 状态保持可见。", "chartType": "score"}
+      {
+        "title": "Evidence boundary badges",
+        "titleZh": "证据边界标签",
+        "description": "Reviewed, pending, estimated, missing, demonstration, seed, and curated literature statuses remain visible.",
+        "descriptionZh": "reviewed、pending、estimated、missing、demonstration、seed 和 curated literature 状态保持可见。",
+        "chartType": "score"
+      }
     ],
-    "evidenceBoundary": ["Demonstration, seed dataset, curated literature, and reviewed record are not interchangeable.", "DOI, figure, table, and section locations should be shown when available."],
-    "evidenceBoundaryZh": ["demonstration、seed dataset、curated literature 和 reviewed record 不能互换。", "可用时应显示 DOI、图、表和章节位置。"],
-    "validationRoadmap": ["Expand source-location coverage", "connect provenance to tooltips and popovers", "separate verified and pending evidence paths"],
-    "validationRoadmapZh": ["扩展来源位置覆盖度", "将来源连接到 tooltip 和弹窗", "区分已核查和 pending 证据路径"],
+    "evidenceBoundary": [
+      "Demonstration, seed dataset, curated literature, and reviewed record are not interchangeable.",
+      "DOI, figure, table, and section locations should be shown when available."
+    ],
+    "evidenceBoundaryZh": [
+      "demonstration、seed dataset、curated literature 和 reviewed record 不能互换。",
+      "可用时应显示 DOI、图、表和章节位置。"
+    ],
+    "validationRoadmap": [
+      "Expand source-location coverage",
+      "connect provenance to tooltips and popovers",
+      "separate verified and pending evidence paths"
+    ],
+    "validationRoadmapZh": [
+      "扩展来源位置覆盖度",
+      "将来源连接到 tooltip 和弹窗",
+      "区分已核查和 pending 证据路径"
+    ],
     "methodGroups": [
       {
         "id": "field-provenance",
@@ -577,18 +2188,67 @@
         "purpose": "Make every important field explain where it came from and how strongly it can be used.",
         "purposeZh": "让每个重要字段都能解释来源以及可使用强度。",
         "algorithmSteps": [
-          {"label": "Identify critical field", "labelZh": "识别关键字段", "description": "Select fields that drive scores, comparisons, or warnings.", "descriptionZh": "选择影响评分、比较或警告的字段。"},
-          {"label": "Attach source context", "labelZh": "绑定来源语境", "description": "Store title, DOI, figure/table/section, evidence type, and status.", "descriptionZh": "存储标题、DOI、图/表/章节、证据类型和状态。"},
-          {"label": "Render warning when needed", "labelZh": "需要时显示警告", "description": "Show pending or mixed-condition warnings near the value.", "descriptionZh": "在数值旁显示 pending 或条件混合警告。"}
+          {
+            "label": "Identify critical field",
+            "labelZh": "识别关键字段",
+            "description": "Select fields that drive scores, comparisons, or warnings.",
+            "descriptionZh": "选择影响评分、比较或警告的字段。"
+          },
+          {
+            "label": "Attach source context",
+            "labelZh": "绑定来源语境",
+            "description": "Store title, DOI, figure/table/section, evidence type, and status.",
+            "descriptionZh": "存储标题、DOI、图/表/章节、证据类型和状态。"
+          },
+          {
+            "label": "Render warning when needed",
+            "labelZh": "需要时显示警告",
+            "description": "Show pending or mixed-condition warnings near the value.",
+            "descriptionZh": "在数值旁显示 pending 或条件混合警告。"
+          }
         ],
         "formulas": [],
-        "inputs": ["field", "value", "condition", "method", "source location", "curation status"],
-        "inputsZh": ["字段", "数值", "条件", "方法", "来源位置", "整理状态"],
-        "outputs": ["provenance explanation", "evidence badge", "comparison warning"],
-        "outputsZh": ["来源解释", "证据标签", "比较警告"],
-        "visualizations": [{"title": "Provenance popover", "titleZh": "来源弹窗", "description": "Anchored explanation for field, value, condition, method, source, location, evidence type, and status.", "descriptionZh": "锚定展示字段、数值、条件、方法、来源、位置、证据类型和状态。", "chartType": "score"}],
-        "limitations": ["Pending source fields should not be used as benchmark evidence."],
-        "limitationsZh": ["source pending 字段不应作为基准证据使用。"]
+        "inputs": [
+          "field",
+          "value",
+          "condition",
+          "method",
+          "source location",
+          "curation status"
+        ],
+        "inputsZh": [
+          "字段",
+          "数值",
+          "条件",
+          "方法",
+          "来源位置",
+          "整理状态"
+        ],
+        "outputs": [
+          "provenance explanation",
+          "evidence badge",
+          "comparison warning"
+        ],
+        "outputsZh": [
+          "来源解释",
+          "证据标签",
+          "比较警告"
+        ],
+        "visualizations": [
+          {
+            "title": "Provenance popover",
+            "titleZh": "来源弹窗",
+            "description": "Anchored explanation for field, value, condition, method, source, location, evidence type, and status.",
+            "descriptionZh": "锚定展示字段、数值、条件、方法、来源、位置、证据类型和状态。",
+            "chartType": "score"
+          }
+        ],
+        "limitations": [
+          "Pending source fields should not be used as benchmark evidence."
+        ],
+        "limitationsZh": [
+          "source pending 字段不应作为基准证据使用。"
+        ]
       }
     ]
   },
@@ -600,21 +2260,78 @@
     "summary": "Limitations make demonstration, seed, curated literature, and reviewed evidence boundaries explicit across the platform.",
     "summaryZh": "限制说明明确平台中 demonstration、seed、curated literature 和 reviewed evidence 的边界。",
     "methodWorkflow": [
-      {"label": "State data boundary", "labelZh": "说明数据边界", "description": "Disclose whether a record is demonstration, seed, curated literature, reviewed, pending, or missing.", "descriptionZh": "说明记录是 demonstration、seed、curated literature、reviewed、pending 还是 missing。"},
-      {"label": "Avoid validation claims", "labelZh": "避免验证声称", "description": "Do not treat decision-support labels as measured results.", "descriptionZh": "不将决策支持标签当作实测结果。"},
-      {"label": "Plan validation", "labelZh": "规划验证", "description": "Connect missing evidence to literature curation, DFT, or experiment steps.", "descriptionZh": "将缺失证据连接到文献整理、DFT 或实验步骤。"}
+      {
+        "label": "State data boundary",
+        "labelZh": "说明数据边界",
+        "description": "Disclose whether a record is demonstration, seed, curated literature, reviewed, pending, or missing.",
+        "descriptionZh": "说明记录是 demonstration、seed、curated literature、reviewed、pending 还是 missing。"
+      },
+      {
+        "label": "Avoid validation claims",
+        "labelZh": "避免验证声称",
+        "description": "Do not treat decision-support labels as measured results.",
+        "descriptionZh": "不将决策支持标签当作实测结果。"
+      },
+      {
+        "label": "Plan validation",
+        "labelZh": "规划验证",
+        "description": "Connect missing evidence to literature curation, DFT, or experiment steps.",
+        "descriptionZh": "将缺失证据连接到文献整理、DFT 或实验步骤。"
+      }
     ],
-    "inputs": ["module outputs", "evidence boundary", "missing fields", "validation gaps"],
-    "inputsZh": ["模块输出", "证据边界", "缺失字段", "验证缺口"],
-    "outputs": ["limitation notes", "validation roadmap", "data quality warning"],
-    "outputsZh": ["限制说明", "验证路线", "数据质量警告"],
+    "inputs": [
+      "module outputs",
+      "evidence boundary",
+      "missing fields",
+      "validation gaps"
+    ],
+    "inputsZh": [
+      "模块输出",
+      "证据边界",
+      "缺失字段",
+      "验证缺口"
+    ],
+    "outputs": [
+      "limitation notes",
+      "validation roadmap",
+      "data quality warning"
+    ],
+    "outputsZh": [
+      "限制说明",
+      "验证路线",
+      "数据质量警告"
+    ],
     "visualizations": [
-      {"title": "Validation roadmap cards", "titleZh": "验证路线卡", "description": "Show what must be curated, computed, or measured next.", "descriptionZh": "展示下一步需要整理、计算或测量的内容。", "chartType": "flow"}
+      {
+        "title": "Validation roadmap cards",
+        "titleZh": "验证路线卡",
+        "description": "Show what must be curated, computed, or measured next.",
+        "descriptionZh": "展示下一步需要整理、计算或测量的内容。",
+        "chartType": "flow"
+      }
     ],
-    "evidenceBoundary": ["No module output is a validated scientific conclusion without external validation.", "Decision-support views should remain tied to evidence level and curation status."],
-    "evidenceBoundaryZh": ["没有外部验证时，任何模块输出都不是已验证科研结论。", "决策支持视图必须绑定证据等级和整理状态。"],
-    "validationRoadmap": ["Literature source verification", "DFT descriptor calculation", "controlled experiment", "post-reaction characterization", "uncertainty review"],
-    "validationRoadmapZh": ["文献来源核查", "DFT 描述符计算", "受控实验", "反应后表征", "不确定性复核"],
+    "evidenceBoundary": [
+      "No module output is a validated scientific conclusion without external validation.",
+      "Decision-support views should remain tied to evidence level and curation status."
+    ],
+    "evidenceBoundaryZh": [
+      "没有外部验证时，任何模块输出都不是已验证科研结论。",
+      "决策支持视图必须绑定证据等级和整理状态。"
+    ],
+    "validationRoadmap": [
+      "Literature source verification",
+      "DFT descriptor calculation",
+      "controlled experiment",
+      "post-reaction characterization",
+      "uncertainty review"
+    ],
+    "validationRoadmapZh": [
+      "文献来源核查",
+      "DFT 描述符计算",
+      "受控实验",
+      "反应后表征",
+      "不确定性复核"
+    ],
     "methodGroups": [
       {
         "id": "validation-roadmap",
@@ -623,19 +2340,69 @@
         "purpose": "Translate evidence limitations into concrete next validation tasks.",
         "purposeZh": "将证据限制转化为具体后续验证任务。",
         "algorithmSteps": [
-          {"label": "Review source", "labelZh": "核查来源", "description": "Verify DOI, figure, table, and section references.", "descriptionZh": "核验 DOI、图、表和章节。"},
-          {"label": "Compute missing descriptors", "labelZh": "计算缺失描述符", "description": "Use DFT or curated databases where appropriate.", "descriptionZh": "必要时使用 DFT 或整理数据库。"},
-          {"label": "Run experiment", "labelZh": "开展实验", "description": "Measure task-specific outputs under comparable conditions.", "descriptionZh": "在可比条件下测量任务特定输出。"},
-          {"label": "Update evidence status", "labelZh": "更新证据状态", "description": "Move records from pending or estimated toward reviewed when justified.", "descriptionZh": "有依据时将记录从 pending 或 estimated 更新为 reviewed。"}
+          {
+            "label": "Review source",
+            "labelZh": "核查来源",
+            "description": "Verify DOI, figure, table, and section references.",
+            "descriptionZh": "核验 DOI、图、表和章节。"
+          },
+          {
+            "label": "Compute missing descriptors",
+            "labelZh": "计算缺失描述符",
+            "description": "Use DFT or curated databases where appropriate.",
+            "descriptionZh": "必要时使用 DFT 或整理数据库。"
+          },
+          {
+            "label": "Run experiment",
+            "labelZh": "开展实验",
+            "description": "Measure task-specific outputs under comparable conditions.",
+            "descriptionZh": "在可比条件下测量任务特定输出。"
+          },
+          {
+            "label": "Update evidence status",
+            "labelZh": "更新证据状态",
+            "description": "Move records from pending or estimated toward reviewed when justified.",
+            "descriptionZh": "有依据时将记录从 pending 或 estimated 更新为 reviewed。"
+          }
         ],
         "formulas": [],
-        "inputs": ["missing field", "source gap", "condition gap", "validation need"],
-        "inputsZh": ["缺失字段", "来源缺口", "条件缺口", "验证需求"],
-        "outputs": ["validation task", "updated curation status", "residual uncertainty"],
-        "outputsZh": ["验证任务", "更新后的整理状态", "残余不确定性"],
-        "visualizations": [{"title": "Roadmap steps", "titleZh": "路线步骤", "description": "Literature, DFT, experiment, and status update sequence.", "descriptionZh": "文献、DFT、实验和状态更新序列。", "chartType": "flow"}],
-        "limitations": ["Roadmap tasks are plans until completed and reviewed."],
-        "limitationsZh": ["验证路线在完成和复核前仍是计划。"]
+        "inputs": [
+          "missing field",
+          "source gap",
+          "condition gap",
+          "validation need"
+        ],
+        "inputsZh": [
+          "缺失字段",
+          "来源缺口",
+          "条件缺口",
+          "验证需求"
+        ],
+        "outputs": [
+          "validation task",
+          "updated curation status",
+          "residual uncertainty"
+        ],
+        "outputsZh": [
+          "验证任务",
+          "更新后的整理状态",
+          "残余不确定性"
+        ],
+        "visualizations": [
+          {
+            "title": "Roadmap steps",
+            "titleZh": "路线步骤",
+            "description": "Literature, DFT, experiment, and status update sequence.",
+            "descriptionZh": "文献、DFT、实验和状态更新序列。",
+            "chartType": "flow"
+          }
+        ],
+        "limitations": [
+          "Roadmap tasks are plans until completed and reviewed."
+        ],
+        "limitationsZh": [
+          "验证路线在完成和复核前仍是计划。"
+        ]
       }
     ]
   }

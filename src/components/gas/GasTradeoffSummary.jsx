@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { BasisBadge, ChemicalText, SectionTitle } from "../../shared"
+import { BasisBadge, ChemicalText, SectionTitle, formatGasPairLabel, formatScore100 } from "../../shared"
 import { metricNormalizedValue, text } from "./gasViewUtils"
 
 function pickMax(rows, metric) {
@@ -27,10 +27,10 @@ export function GasTradeoffSummary({ ranked = [], scenario = {}, lang, t }) {
     : text(lang, "GCMC 模拟 / 证据升级", "GCMC simulation / evidence upgrade")
 
   const cards = [
-    [text(lang, "综合最均衡候选", "Best balanced candidate"), balanced.displayName, `${Math.round(balanced.score || 0)} / 100`, "calc"],
+    [text(lang, "综合最均衡候选", "Best balanced candidate"), balanced.displayName, formatScore100(balanced.score, lang), "calc"],
     [text(lang, "选择性最高候选", "Highest selectivity candidate"), selectivity.displayName, `${selectivity.selectivity}`, "info"],
     [text(lang, "工作容量最高候选", "Highest working capacity candidate"), capacity.displayName, `${capacity.workingCapacity} mmol/g`, "proxy"],
-    [text(lang, "验证优先级", "Validation priority"), validationPriority, scenario.gasPair || balanced.gasPair, "warn"],
+    [text(lang, "验证优先级", "Validation priority"), validationPriority, formatGasPairLabel(scenario.gasPair || balanced.gasPair), "warn"],
   ]
 
   return (

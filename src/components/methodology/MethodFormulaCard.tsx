@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { BlockFormula, InlineFormula, SCIENTIFIC_TOKEN_FONT } from "../../shared"
+import { BlockFormula, ChemicalText, InlineFormula, SCIENTIFIC_TOKEN_FONT } from "../../shared"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -129,7 +129,7 @@ function DetailLine({ labelZh, label, valueZh, value, lang, t }) {
   return (
     <div style={{ display: "grid", gap: 3 }}>
       <strong style={{ color: t.textStrong, fontSize: 11.5 }}>{text(lang, labelZh, label)}</strong>
-      <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.48 }}>{text(lang, valueZh, value)}</span>
+      <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.48 }}><ChemicalText value={text(lang, valueZh, value)} /></span>
     </div>
   )
 }

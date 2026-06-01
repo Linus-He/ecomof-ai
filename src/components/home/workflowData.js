@@ -3,14 +3,14 @@
 export const evidenceLevels = [
   {
     level: "A",
-    zh: "整理后的实验数据或高质量文献数据",
-    en: "curated experimental / high-quality literature",
+    zh: "实验或高质量文献",
+    en: "experimental or high-quality literature",
     tone: "success",
   },
   {
     level: "B",
-    zh: "模拟数据或部分整理文献数据",
-    en: "simulation / partially curated literature",
+    zh: "模拟或部分整理数据",
+    en: "simulation or partially curated data",
     tone: "info",
   },
   {
@@ -21,8 +21,8 @@ export const evidenceLevels = [
   },
   {
     level: "D",
-    zh: "演示数据、占位数据或待替换数据",
-    en: "demo / placeholder / needs replacement",
+    zh: "演示或占位数据",
+    en: "demo or placeholder data",
     tone: "muted",
   },
 ]
@@ -95,7 +95,7 @@ export const workflowSteps = [
       en: "A source-aware MOF candidate record.",
     },
     visual: "source-flow",
-    shortcut: { zh: "打开 MOF 候选库", en: "Open MOF Library", target: "mofLibrary" },
+    shortcut: { zh: "浏览 MOF 候选库", en: "Browse MOF Library", target: "mofLibrary" },
   },
   {
     id: "descriptor-curation",
@@ -106,7 +106,7 @@ export const workflowSteps = [
       en: "Check whether core descriptors are curated, pending, or need review.",
     },
     input: {
-      zh: "比表面积、孔径、孔容、CO2 吸附量、带隙、水稳定性、热稳定性、毒性关注",
+      zh: "比表面积、孔径、孔容、CO₂ 吸附量、带隙、水稳定性、热稳定性、毒性关注",
       en: "surfaceArea, poreSizeA, poreVolume, co2Uptake, bandGap, waterStability, thermalStability, toxicityConcern",
     },
     process: {
@@ -142,9 +142,9 @@ export const workflowSteps = [
     },
     visual: "scenario-chips",
     shortcuts: [
-      { zh: "打开 GasSep", en: "Open GasSep", target: "gassep" },
-      { zh: "打开 Catalysis Lab", en: "Open Catalysis Lab", target: "catalysisLab" },
-      { zh: "打开 EcoScreen", en: "Open EcoScreen", target: "ecoScreen" },
+      { zh: "进入 GasSep", en: "Enter GasSep", target: "gassep" },
+      { zh: "进入 Catalysis Lab", en: "Enter Catalysis Lab", target: "catalysisLab" },
+      { zh: "进入 EcoScreen", en: "Enter EcoScreen", target: "ecoScreen" },
     ],
   },
   {
@@ -191,7 +191,7 @@ export const workflowSteps = [
       en: "A Why this result explanation card.",
     },
     visual: "explanation-card",
-    shortcut: { zh: "打开解释面板", en: "Open explanation panel", target: "ecoScreen" },
+    shortcut: { zh: "查看原因", en: "View reason", target: "ecoScreen" },
   },
   {
     id: "evidence-validation-loop",
@@ -214,7 +214,7 @@ export const workflowSteps = [
       en: "Evidence level, limitation notes, and validation roadmap.",
     },
     visual: "evidence-loop",
-    shortcut: { zh: "查看证据与验证方法", en: "View evidence and validation method", target: "validation-evidence" },
+    shortcut: { zh: "查看验证", en: "View validation", target: "validation-evidence" },
   },
 ]
 

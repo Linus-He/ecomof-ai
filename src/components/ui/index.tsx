@@ -186,7 +186,7 @@ export function DisclaimerLink({ label, ariaLabel, style }) {
     <button
       type="button"
       onClick={openDisclaimerCenter}
-      aria-label={ariaLabel || (lang === "zh" ? "打开声明与使用边界" : "Open Disclaimer Center")}
+      aria-label={ariaLabel || (lang === "zh" ? "查看声明与使用边界" : "View Disclaimer Center")}
       style={{
         background: "none",
         border: "none",
@@ -317,7 +317,7 @@ export function MetricCard({ label, value, unit, badge, badgeColor, badgeBg, com
   )
 }
 
-export function BasisBadge({ children, tone = "info" }) {
+export function BasisBadge({ children, tone = "info", style, ...props }) {
   const t = useT()
   const { lang } = useLang()
   const palette = {
@@ -329,9 +329,9 @@ export function BasisBadge({ children, tone = "info" }) {
     danger: { color: t.badgeDangerText, bg: t.badgeDangerBg, border: "rgba(232,134,134,0.42)" },
   }[tone] || {}
   return (
-    <span className="basis-badge" style={{ display: "inline-flex", alignItems: "center", width: "fit-content",
+    <span {...props} className="basis-badge" style={{ display: "inline-flex", alignItems: "center", width: "fit-content",
       color: palette.color, background: palette.bg, border: `1px solid ${palette.border}`,
-      borderRadius: 999, padding: "2px 8px", fontSize: 10, fontWeight: 800, lineHeight: 1.4 }}>
+      borderRadius: 999, padding: "2px 8px", fontSize: 10, fontWeight: 800, lineHeight: 1.4, ...style }}>
       {zhText(lang, children)}
     </span>
   )

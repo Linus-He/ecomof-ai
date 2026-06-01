@@ -35,10 +35,10 @@ function MethodSummaryCard({ item, lang, t }) {
         </div>
         <BasisBadge tone={item.id === "limitations-validation" ? "warn" : "info"}>{item.module}</BasisBadge>
       </div>
-      <p style={{ color: t.muted, fontSize: 13, lineHeight: 1.62, margin: 0 }}>{text(lang, item.summaryZh, item.summary)}</p>
+      <p style={{ color: t.muted, fontSize: 13, lineHeight: 1.62, margin: 0 }}><ChemicalText value={text(lang, item.summaryZh, item.summary)} /></p>
       {item.specialNote ? (
         <div style={{ background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 9, color: t.muted, fontSize: 12.2, lineHeight: 1.55, padding: 10 }}>
-          {text(lang, item.specialNoteZh, item.specialNote)}
+          <ChemicalText value={text(lang, item.specialNoteZh, item.specialNote)} />
         </div>
       ) : null}
       {example ? (
@@ -61,7 +61,7 @@ function MethodGroup({ group, lang, t }) {
         <h3 style={{ color: t.textStrong, fontSize: 17, fontWeight: 930, lineHeight: 1.2, margin: 0 }}>
           {text(lang, group.titleZh, group.title)}
         </h3>
-        <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>{text(lang, group.purposeZh, group.purpose)}</p>
+        <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}><ChemicalText value={text(lang, group.purposeZh, group.purpose)} /></p>
       </header>
       <MethodAlgorithmStepper steps={group.algorithmSteps} lang={lang} t={t} />
       {formulas.length ? (
@@ -77,7 +77,7 @@ function MethodGroup({ group, lang, t }) {
       ) : null}
       {limits?.length ? (
         <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 9, display: "grid", gap: 5, padding: 10 }}>
-          {limits.map(limit => <div key={limit} style={{ color: t.muted, fontSize: 12, lineHeight: 1.5 }}>{limit}</div>)}
+          {limits.map(limit => <div key={limit} style={{ color: t.muted, fontSize: 12, lineHeight: 1.5 }}><ChemicalText value={limit} /></div>)}
         </div>
       ) : null}
     </article>

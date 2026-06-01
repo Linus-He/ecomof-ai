@@ -85,7 +85,7 @@ export function LiteratureTab({ results, inputs }) {
             <BasisBadge tone="info">{zhText(lang, filtered[0]?.sourceType || "benchmark-backed")}</BasisBadge>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
-            {[["PLD/LCD", `${filtered[0]?.pd ?? "—"} / ${filtered[0]?.lcd ?? "—"} Å`], ["BET/PV", `${Number(filtered[0]?.bet || 0).toLocaleString()} / ${filtered[0]?.pv ?? "—"}`], [lang === "zh" ? "CO₂ 吸附量" : "CO2 uptake", filtered[0]?.co2 ?? "—"], [lang === "zh" ? "选择性" : "Selectivity", filtered[0]?.selectivity ?? "—"]].map(([label, value]) => (
+            {[["PLD/LCD", `${filtered[0]?.pd ?? "—"} / ${filtered[0]?.lcd ?? "—"} Å`], ["BET/PV", `${Number(filtered[0]?.bet || 0).toLocaleString()} / ${filtered[0]?.pv ?? "—"}`], [lang === "zh" ? "CO₂ 吸附量" : "CO₂ uptake", filtered[0]?.co2 ?? "—"], [lang === "zh" ? "选择性" : "Selectivity", filtered[0]?.selectivity ?? "—"]].map(([label, value]) => (
               <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
                 <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{label}</div>
                 <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 800, marginTop: 6 }}>{value}</div>
@@ -132,7 +132,7 @@ export function LiteratureTab({ results, inputs }) {
           <ResponsiveContainer width="100%" height={280}>
             <ScatterChart margin={{ top: 18, right: 24, bottom: 24, left: 8 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={t.border} />
-              <XAxis type="number" dataKey="uptake" tick={{ fill: t.subtle, fontSize: 10 }} label={{ value: lang === "zh" ? "CO₂ 吸附量" : "CO2 uptake", fill: t.subtle, fontSize: 10, dy: 16 }} />
+              <XAxis type="number" dataKey="uptake" tick={{ fill: t.subtle, fontSize: 10 }} label={{ value: lang === "zh" ? "CO₂ 吸附量" : "CO₂ uptake", fill: t.subtle, fontSize: 10, dy: 16 }} />
               <YAxis type="number" dataKey="selectivity" tick={{ fill: t.subtle, fontSize: 10 }} label={{ value: lang === "zh" ? "选择性" : "Selectivity", fill: t.subtle, fontSize: 10, angle: -90, dx: -10 }} />
               <ZAxis type="number" dataKey="lca" range={[90, 540]} />
               <Tooltip contentStyle={{ background: t.tooltipBg, border: `1px solid ${t.border}` }} />

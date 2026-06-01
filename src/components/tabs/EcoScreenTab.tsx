@@ -884,7 +884,7 @@ export function EcoScreenTab({ onNavigate }) {
         </div>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           <button type="button" onClick={openGraphMethodology} style={{ ...toolbarBtn(t), color: t.accentText, borderColor: t.accent, justifyContent: "center" }}>
-            {text(lang, "打开图论方法图", "Open graph method")}
+            {text(lang, "查看图论方法图", "View graph method")}
           </button>
           <button type="button" onClick={openOrganicGraph} style={{ ...toolbarBtn(t), justifyContent: "center" }}>
             {text(lang, "View organic acid relevance", "View organic acid relevance")}
@@ -1028,7 +1028,7 @@ export function EcoScreenTab({ onNavigate }) {
             </div>
           </div>
           <button type="button" onClick={openMethodology} style={{ ...toolbarBtn(t), color: t.accentText, borderColor: t.accent, justifyContent: "center" }}>
-            {lang === "zh" ? "打开方法论说明" : "Open Methodology"}
+            {lang === "zh" ? "阅读方法论说明" : "Read methodology"}
           </button>
         </Card>
       </ResultLayer>

@@ -13,7 +13,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts"
-import { SCIENTIFIC_TOKEN_FONT } from "../../shared"
+import { ChemicalText, SCIENTIFIC_TOKEN_FONT } from "../../shared"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -95,10 +95,10 @@ export function MethodVisualizationCard({ visualization, lang, t }) {
     <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 9, minWidth: 0, padding: 11 }}>
       <div>
         <strong style={{ color: t.textStrong, display: "block", fontSize: 12.5, lineHeight: 1.3 }}>
-          {text(lang, visualization.titleZh, visualization.title)}
+          <ChemicalText value={text(lang, visualization.titleZh, visualization.title)} />
         </strong>
         <p style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.5, margin: "5px 0 0" }}>
-          {text(lang, visualization.descriptionZh, visualization.description)}
+          <ChemicalText value={text(lang, visualization.descriptionZh, visualization.description)} />
         </p>
       </div>
       <MiniChart type={visualization.chartType} t={t} />

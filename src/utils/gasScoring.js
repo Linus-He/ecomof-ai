@@ -119,11 +119,16 @@ export function getStabilityScore(record = {}, scenarioConfig = {}) {
 export function getEvidenceScore(record = {}) {
   record = record || {}
   const level = String(record.evidenceLevel || "C").toUpperCase()
-  const levelScore = level === "A" ? 1 : level === "B" ? 0.78 : 0.52
+  const levelScore = level === "A" ? 1 : level === "B" ? 0.78 : level === "C" ? 0.52 : 0.28
   const confidence = finite(record.confidence)
   const confidenceScore = confidence == null ? 0.62 : clamp(confidence)
   const type = String(record.dataType || "").toLowerCase()
-  const typeFactor = type.includes("experimental") ? 1 : type.includes("simulated") ? 0.88 : type.includes("predicted") ? 0.78 : 0.7
+  const typeFactor = type.includes("experimental") || type.includes("literature") ? 1
+    : type.includes("simulated") || type.includes("gcmc") || type.includes("iast") ? 0.88
+      : type.includes("predicted") || type.includes("ml") ? 0.78
+        : type.includes("derived") || type.includes("rule") ? 0.64
+          : type.includes("demo") || type.includes("placeholder") ? 0.44
+            : 0.6
   return clamp(levelScore * 0.56 + confidenceScore * 0.3 + typeFactor * 0.14)
 }
 

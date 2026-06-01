@@ -7,7 +7,7 @@ const descriptorStates = [
   ["surfaceArea", "curated", "比表面积"],
   ["poreSizeA", "curated", "孔径"],
   ["poreVolume", "pending", "孔容"],
-  ["co2Uptake", "curated", "CO2 吸附量"],
+  ["co2Uptake", "curated", "CO₂ 吸附量"],
   ["bandGap", "review", "带隙"],
   ["waterStability", "curated", "水稳定性"],
   ["thermalStability", "review", "热稳定性"],
@@ -47,8 +47,8 @@ function ScenarioChips({ lang }) {
   return (
     <div className="workflow-scenario-chips">
       {[
-        ["GasSep", "CO2/N2"],
-        ["Catalysis", "CO2 route"],
+        ["GasSep", "CO₂/N₂"],
+        ["Catalysis", "CO₂ route"],
         [text(lang, "有机酸", "Organic Acid"), "C1/C2"],
         ["LCA-LCC", text(lang, "边界", "boundary")],
       ].map(([label, meta]) => (
@@ -90,7 +90,7 @@ function ExplanationPreview({ lang }) {
       </header>
       <div>
         <strong>{text(lang, "优势", "Strengths")}</strong>
-        <p>{text(lang, "水稳定性与 CO2 描述符较完整。", "Water stability and CO2 descriptors are relatively complete.")}</p>
+        <p>{text(lang, "水稳定性与 CO₂ 描述符较完整。", "Water stability and CO₂ descriptors are relatively complete.")}</p>
       </div>
       <div>
         <strong>{text(lang, "风险", "Risks")}</strong>

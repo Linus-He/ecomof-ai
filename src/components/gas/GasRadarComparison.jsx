@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useEffect, useMemo, useState } from "react"
-import { BasisBadge, ChemicalText, FONT_MONO, SectionTitle } from "../../shared"
+import { BasisBadge, ChemicalText, FONT_MONO, SectionTitle, formatPercent } from "../../shared"
 import { GAS_METRICS, dataStatus, formatNumber, metricDisplayValue, metricInterpretation, metricNormalizedValue, text } from "./gasViewUtils"
 
 const COLORS = ["#2F7D7B", "#4E72B8", "#B87333"]
@@ -37,7 +37,7 @@ function DetailRows({ record, ranked, lang, t }) {
                 {metricDisplayValue(record, metric.key, lang, ranked)} · {dataStatus(record, lang)}
               </span>
             </span>
-            <span style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 11, fontWeight: 850, textAlign: "right" }}>{normalized == null ? "pending" : `${Math.round(normalized * 100)}%`}</span>
+            <span style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 11, fontWeight: 850, textAlign: "right" }}>{normalized == null ? "pending" : formatPercent(normalized, { lang, normalized: true })}</span>
           </div>
         )
       })}
@@ -60,7 +60,7 @@ function CompactComparison({ records, ranked, lang, t }) {
                   <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, height: 8, overflow: "hidden" }}>
                     {normalized == null ? null : <span style={{ background: COLORS[index % COLORS.length], display: "block", height: "100%", width: `${Math.round(normalized * 100)}%` }} />}
                   </span>
-                  <span style={{ color: t.subtle, fontFamily: FONT_MONO, fontSize: 10.5, textAlign: "right" }}>{normalized == null ? "pending" : `${Math.round(normalized * 100)}%`}</span>
+                  <span style={{ color: t.subtle, fontFamily: FONT_MONO, fontSize: 10.5, textAlign: "right" }}>{normalized == null ? "pending" : formatPercent(normalized, { lang, normalized: true })}</span>
                 </div>
               )
             })}
@@ -134,7 +134,7 @@ export function GasRadarComparison({ selectedRecord, compareRecords = [], ranked
               {records.map((record, index) => {
                 const off = hidden.includes(record.id)
                 return (
-                  <button key={record.id} type="button" onClick={() => setHidden(prev => off ? prev.filter(id => id !== record.id) : [...prev, record.id])} style={{ alignItems: "center", background: off ? t.surface : t.badgeInfoBg, border: `1px solid ${off ? t.border : COLORS[index % COLORS.length]}`, borderRadius: 999, color: t.textStrong, cursor: "pointer", display: "inline-flex", fontSize: 11.5, gap: 6, minHeight: 40, padding: "7px 10px" }}>
+                  <button key={record.id} type="button" onClick={() => setHidden(prev => off ? prev.filter(id => id !== record.id) : [...prev, record.id])} aria-label={off ? text(lang, `显示 ${record.displayName} 雷达图`, `Show ${record.displayName} radar profile`) : text(lang, `隐藏 ${record.displayName} 雷达图`, `Hide ${record.displayName} radar profile`)} style={{ alignItems: "center", background: off ? t.surface : t.badgeInfoBg, border: `1px solid ${off ? t.border : COLORS[index % COLORS.length]}`, borderRadius: 999, color: t.textStrong, cursor: "pointer", display: "inline-flex", fontSize: 11.5, gap: 6, minHeight: 40, padding: "7px 10px" }}>
                     <span style={{ background: COLORS[index % COLORS.length], borderRadius: 999, height: 9, width: 9 }} />
                     <ChemicalText value={record.displayName} />
                     <small style={{ color: t.subtle }}>{dataStatus(record, lang)}</small>
@@ -144,7 +144,7 @@ export function GasRadarComparison({ selectedRecord, compareRecords = [], ranked
             </div>
             {comparisonMode ? (
               <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.58 }}>
-                {text(lang, "多候选叠加用于观察 trade-off；demo/simulated/predicted 标签保留在图例中。", "Overlay comparison is for trade-off inspection; demo/simulated/predicted labels remain visible in the legend.")}
+                {text(lang, "多候选叠加用于观察 trade-off；数据类型标签保留在图例中。", "Overlay comparison is for trade-off inspection; data-type labels remain visible in the legend.")}
               </div>
             ) : <DetailRows record={selectedRecord} ranked={ranked} lang={lang} t={t} />}
             {selected ? (

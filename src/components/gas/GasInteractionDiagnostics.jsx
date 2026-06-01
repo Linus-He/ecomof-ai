@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useEffect, useMemo, useState } from "react"
-import { BasisBadge, ChemicalText, fetchDataJson, SectionTitle } from "../../shared"
+import { BasisBadge, ChemicalText, fetchDataJson, formatGasPairLabel, SectionTitle } from "../../shared"
+import { GasDataStatusBadge } from "./GasDataStatusBadge"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -51,7 +52,7 @@ export function GasInteractionDiagnostics({ scenario = {}, record, lang = "en", 
       status: row[4],
       statusZh: row[5],
       evidenceLevel: "C",
-      dataStatus: "demo / inferred",
+      dataStatus: "demo_placeholder",
       mechanismNote: row[6],
       mechanismNoteZh: row[7],
       riskNote: "Decision-support diagnostic only; not a real separation-performance prediction.",
@@ -125,8 +126,8 @@ export function GasInteractionDiagnostics({ scenario = {}, record, lang = "en", 
             </h3>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
               <BasisBadge tone={tone(active.status)}>{text(lang, active.statusZh, active.status)}</BasisBadge>
-              <BasisBadge tone="proxy">{active.dataStatus || "demo / inferred"}</BasisBadge>
-              <BasisBadge tone="info">{scenario.gasPair || record?.gasPair || "selected gas pair"}</BasisBadge>
+              <GasDataStatusBadge type="dataType" value={active.dataStatus || "demo_placeholder"} lang={lang} />
+              <BasisBadge tone="info">{formatGasPairLabel(scenario.gasPair || record?.gasPair || text(lang, "待补充气体对", "selected gas pair"))}</BasisBadge>
             </div>
             <div style={{ color: t.muted, fontSize: 12.2, lineHeight: 1.58 }}>
               <ChemicalText value={text(lang, active.mechanismNoteZh, active.mechanismNote)} />

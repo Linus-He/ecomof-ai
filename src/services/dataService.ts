@@ -26,6 +26,10 @@ const DATA_PATHS = {
   gasSeparationRecords: "data/mof_gas_separation_records.json",
   gasSystemsDemo: "data/gas_systems_demo.json",
   gasSourcesDemo: "data/gas_sources_demo.json",
+  gasAdsorptionRecordsV1: "data/gas_adsorption_records_v1.json",
+  gasAdsorptionSourcesV1: "data/gas_adsorption_sources_v1.json",
+  gasAdsorptionFieldSourcesV1: "data/gas_adsorption_field_sources_v1.json",
+  gasAdsorptionSchemaV1: "data/gas_adsorption_schema_v1.json",
   gasAdsorptionRecordsDemo: "data/gas_adsorption_records_demo.json",
 }
 
@@ -152,6 +156,22 @@ export function getGasSystemsDemo({ throwOnError = false } = {}) {
 
 export function getGasSourcesDemo({ throwOnError = false } = {}) {
   return fetchJson(DATA_PATHS.gasSourcesDemo, [], { throwOnError })
+}
+
+export function getGasAdsorptionRecordsV1({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.gasAdsorptionRecordsV1, [], { throwOnError })
+}
+
+export function getGasAdsorptionSourcesV1({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.gasAdsorptionSourcesV1, [], { throwOnError })
+}
+
+export function getGasAdsorptionFieldSourcesV1({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.gasAdsorptionFieldSourcesV1, {}, { throwOnError })
+}
+
+export function getGasAdsorptionSchemaV1({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.gasAdsorptionSchemaV1, {}, { throwOnError })
 }
 
 export function getGasAdsorptionRecordsDemo({ throwOnError = false } = {}) {

@@ -1,0 +1,52 @@
+[
+  {
+    "sourceId": "gassep-v1-seed-literature",
+    "sourceType": "literature_seed",
+    "sourceDatabase": "EcoMOF Gas Adsorption Seed v1",
+    "citation": "EcoMOF Gas Adsorption Data Layer v1 seed fixture; replace with verified publication source before scientific use.",
+    "doi": null,
+    "sourceUrl": "#methodology-gas-adsorption-data-standard",
+    "license": "UI/data-pipeline validation seed; not a publication claim.",
+    "retrievedAt": "2026-06-01"
+  },
+  {
+    "sourceId": "gassep-v1-simulation-seed",
+    "sourceType": "simulation_seed",
+    "sourceDatabase": "EcoMOF Gas Adsorption Seed v1",
+    "citation": "EcoMOF Gas Adsorption Data Layer v1 simulation-shaped seed fixture; values require reproducible GCMC/IAST replacement before scientific use.",
+    "doi": null,
+    "sourceUrl": "#methodology-gas-adsorption-data-standard",
+    "license": "UI/data-pipeline validation seed; not a publication claim.",
+    "retrievedAt": "2026-06-01"
+  },
+  {
+    "sourceId": "gassep-v1-predicted-seed",
+    "sourceType": "predicted_seed",
+    "sourceDatabase": "EcoMOF Gas Adsorption Seed v1",
+    "citation": "EcoMOF Gas Adsorption Data Layer v1 prediction-shaped seed fixture; values are for interface validation only.",
+    "doi": null,
+    "sourceUrl": "#methodology-gas-adsorption-data-standard",
+    "license": "UI/data-pipeline validation seed; not a publication claim.",
+    "retrievedAt": "2026-06-01"
+  },
+  {
+    "sourceId": "gassep-v1-descriptor-seed",
+    "sourceType": "descriptor_seed",
+    "sourceDatabase": "EcoMOF Gas Adsorption Seed v1",
+    "citation": "EcoMOF descriptor seed used to exercise field-level provenance display; replace with source-specific descriptors before publication.",
+    "doi": null,
+    "sourceUrl": "#methodology-gas-adsorption-data-standard",
+    "license": "UI/data-pipeline validation seed; not a publication claim.",
+    "retrievedAt": "2026-06-01"
+  },
+  {
+    "sourceId": "gassep-v1-scoring-runtime",
+    "sourceType": "normalized_score",
+    "sourceDatabase": "EcoMOF GasSep scoring model",
+    "citation": "GasScore is computed at runtime from normalized descriptors and scenario weights.",
+    "doi": null,
+    "sourceUrl": "#methodology-gassep",
+    "license": "EcoMOF-AI method note.",
+    "retrievedAt": "2026-06-01"
+  }
+]

@@ -69,6 +69,7 @@ function toAsciiFormula(value) {
     .replace(/CO₂/g, "CO2")
     .replace(/CH₄/g, "CH4")
     .replace(/N₂/g, "N2")
+    .replace(/O₂/g, "O2")
     .replace(/H₂/g, "H2")
     .replace(/C₂H₂/g, "C2H2")
     .replace(/C₂H₄/g, "C2H4")
@@ -94,8 +95,8 @@ export function ChemicalFormula({ value, formula, className = "", style, separat
 
 export function ChemicalText({ value, children, style }) {
   const raw = String(value ?? children ?? "")
-  const pattern = /(NaH13CO3|NaH¹³CO₃|NaHCO3|NaHCO₃|HCO3[−-]?|HCO₃⁻|HCOO[−-]?|HCOO⁻|CO2|CO₂|CH4|CH₄|N2|N₂|H2|H₂|C2H2|C₂H₂|C2H4|C₂H₄|Fe3\+|Fe³⁺|Mg2\+|Mg²⁺|Li\+|Li⁺)/g
-  const exactPattern = /^(NaH13CO3|NaH¹³CO₃|NaHCO3|NaHCO₃|HCO3[−-]?|HCO₃⁻|HCOO[−-]?|HCOO⁻|CO2|CO₂|CH4|CH₄|N2|N₂|H2|H₂|C2H2|C₂H₂|C2H4|C₂H₄|Fe3\+|Fe³⁺|Mg2\+|Mg²⁺|Li\+|Li⁺)$/
+  const pattern = /(NaH13CO3|NaH¹³CO₃|NaHCO3|NaHCO₃|HCO3[−-]?|HCO₃⁻|HCOO[−-]?|HCOO⁻|CO2|CO₂|CH4|CH₄|N2|N₂|O2|O₂|H2|H₂|C2H2|C₂H₂|C2H4|C₂H₄|Fe3\+|Fe³⁺|Mg2\+|Mg²⁺|Li\+|Li⁺)/g
+  const exactPattern = /^(NaH13CO3|NaH¹³CO₃|NaHCO3|NaHCO₃|HCO3[−-]?|HCO₃⁻|HCOO[−-]?|HCOO⁻|CO2|CO₂|CH4|CH₄|N2|N₂|O2|O₂|H2|H₂|C2H2|C₂H₂|C2H4|C₂H₄|Fe3\+|Fe³⁺|Mg2\+|Mg²⁺|Li\+|Li⁺)$/
   const parts = raw.split(pattern).filter(part => part !== "")
   return (
     <span style={style}>

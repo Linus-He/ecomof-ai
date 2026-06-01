@@ -521,7 +521,7 @@ export function CompareTray({ count, names = [], notice, onCompare, onClear, t, 
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 7, flexWrap: "wrap" }}>
         <button type="button" onClick={onCompare} style={{ ...toolbarBtn(t), color: t.accentText, border: `1px solid ${t.accent}` }}>
-          {lang === "zh" ? "打开对比器" : "Open builder"}
+          {lang === "zh" ? "进入对比器" : "Enter comparator"}
         </button>
         <button
           type="button"

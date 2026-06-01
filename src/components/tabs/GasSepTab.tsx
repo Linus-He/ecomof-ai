@@ -11,6 +11,13 @@ import {
   SCIENTIFIC_TOKEN_FONT,
   SectionTitle,
   getGasAdsorptionRecordsDemo,
+  getGasAdsorptionRecordsV1,
+  formatDemoLabel,
+  formatGasPairLabel,
+  formatPending,
+  formatPercent,
+  formatRiskPenalty,
+  formatScore100,
   useLang,
   useT,
   useViewport,
@@ -28,62 +35,81 @@ import { GasInteractionDiagnostics } from "../gas/GasInteractionDiagnostics"
 import { GasTopRankingChart } from "../gas/GasTopRankingChart"
 import { GasTradeoffSummary } from "../gas/GasTradeoffSummary"
 import { GasValidationRecommendation } from "../gas/GasValidationRecommendation"
+import { GasDataQualityPanel } from "../gas/GasDataQualityPanel"
+import { GasDataStatusBadge } from "../gas/GasDataStatusBadge"
+import { GasFieldProvenanceButton } from "../gas/GasFieldProvenanceButton"
+import { GasRecordSourcePanel } from "../gas/GasRecordSourcePanel"
+import { GasUnitNormalizationNote } from "../gas/GasUnitNormalizationNote"
+import { normalizeGasRecords } from "../gas/gasDataNormalize"
+import { dataTypeLabel } from "../gas/gasEvidence"
+import { getFieldSource } from "../gas/gasDataSchema"
 
 const SCENARIOS = [
   {
     gasPair: "CO2/N2",
     applicationScenario: "flue gas carbon capture",
-    labelZh: "CO2/N2：烟气碳捕集",
-    labelEn: "CO2/N2: flue gas carbon capture",
+    labelZh: "CO₂/N₂：烟气碳捕集",
+    labelEn: "CO₂/N₂: flue gas carbon capture",
     defaultRatio: "15/85",
     primaryGas: "CO2",
     secondaryGas: "N2",
-    mechanismZh: ["四极矩驱动 CO2 亲和", "孔径匹配和极性位点", "湿烟气需要水稳定性", "再生能耗由 Qst 和工作容量共同约束"],
-    mechanismEn: ["CO2 quadrupole affinity", "Pore matching and polar sites", "Wet flue gas needs water stability", "Regeneration is constrained by Qst and working capacity"],
+    mechanismZh: ["四极矩驱动 CO₂ 亲和", "孔径匹配和极性位点", "湿烟气需要水稳定性", "再生能耗由 Qst 和工作容量共同约束"],
+    mechanismEn: ["CO₂ quadrupole affinity", "Pore matching and polar sites", "Wet flue gas needs water stability", "Regeneration is constrained by Qst and working capacity"],
   },
   {
     gasPair: "CO2/CH4",
     applicationScenario: "natural gas upgrading",
-    labelZh: "CO2/CH4：天然气净化",
-    labelEn: "CO2/CH4: natural gas upgrading",
+    labelZh: "CO₂/CH₄：天然气净化",
+    labelEn: "CO₂/CH₄: natural gas upgrading",
     defaultRatio: "50/50",
     primaryGas: "CO2",
     secondaryGas: "CH4",
-    mechanismZh: ["CO2 优先吸附提升甲烷纯度", "需要控制 CH4 损失", "中高压下工作容量更关键", "稳定性决定循环使用窗口"],
-    mechanismEn: ["Preferential CO2 adsorption upgrades methane", "Methane loss must be controlled", "Working capacity matters at moderate pressure", "Stability defines cyclic operating window"],
+    mechanismZh: ["CO₂ 优先吸附提升甲烷纯度", "需要控制 CH₄ 损失", "中高压下工作容量更关键", "稳定性决定循环使用窗口"],
+    mechanismEn: ["Preferential CO₂ adsorption upgrades methane", "Methane loss must be controlled", "Working capacity matters at moderate pressure", "Stability defines cyclic operating window"],
   },
   {
     gasPair: "H2/CO2",
     applicationScenario: "hydrogen purification",
-    labelZh: "H2/CO2：氢气纯化",
-    labelEn: "H2/CO2: hydrogen purification",
+    labelZh: "H₂/CO₂：氢气纯化",
+    labelEn: "H₂/CO₂: hydrogen purification",
     defaultRatio: "75/25",
     primaryGas: "H2",
     secondaryGas: "CO2",
-    mechanismZh: ["优先滞留 CO2 杂质", "H2 回收率需要过程级评估", "压力摆动再生窗口重要", "高亲和位点可能提高再生负担"],
-    mechanismEn: ["Preferentially retains CO2 impurity", "H2 recovery needs process assessment", "PSA regenerability window matters", "Strong affinity can increase regeneration burden"],
+    mechanismZh: ["优先滞留 CO₂ 杂质", "H₂ 回收率需要过程级评估", "压力摆动再生窗口重要", "高亲和位点可能提高再生负担"],
+    mechanismEn: ["Preferentially retains CO₂ impurity", "H₂ recovery needs process assessment", "PSA regenerability window matters", "Strong affinity can increase regeneration burden"],
   },
   {
     gasPair: "O2/N2",
     applicationScenario: "air separation",
-    labelZh: "O2/N2：空气分离",
-    labelEn: "O2/N2: air separation",
+    labelZh: "O₂/N₂：空气分离",
+    labelEn: "O₂/N₂: air separation",
     defaultRatio: "21/79",
     primaryGas: "O2",
     secondaryGas: "N2",
-    mechanismZh: ["分子尺寸接近，选择性挑战大", "开放金属位点可能改变 O2 亲和", "安全与氧化稳定性需要验证", "低证据记录不得直接排名"],
-    mechanismEn: ["Similar molecular sizes make selectivity difficult", "Open metal sites may shift O2 affinity", "Safety and oxidative stability need checks", "Weak-evidence records should not be ranked strictly"],
+    mechanismZh: ["分子尺寸接近，选择性挑战大", "开放金属位点可能改变 O₂ 亲和", "安全与氧化稳定性需要验证", "低证据记录不得直接排名"],
+    mechanismEn: ["Similar molecular sizes make selectivity difficult", "Open metal sites may shift O₂ affinity", "Safety and oxidative stability need checks", "Weak-evidence records should not be ranked strictly"],
   },
   {
     gasPair: "VOC/N2",
     applicationScenario: "VOC capture",
-    labelZh: "VOC/N2：挥发性有机物捕集",
-    labelEn: "VOC/N2: VOC capture",
+    labelZh: "VOC/N₂：挥发性有机物捕集",
+    labelEn: "VOC/N₂: VOC capture",
     defaultRatio: "1/99",
     primaryGas: "VOC",
     secondaryGas: "N2",
     mechanismZh: ["高吸附量通常来自孔体积和疏水环境", "再生成本受吸附热控制", "湿度竞争可能改变有效容量", "材料热/水稳定性决定循环寿命"],
     mechanismEn: ["High uptake often follows pore volume and hydrophobicity", "Regeneration cost is tied to adsorption heat", "Humidity can reduce effective capacity", "Thermal and water stability shape cycle life"],
+  },
+  {
+    gasPair: "CH4/N2",
+    applicationScenario: "methane nitrogen rejection",
+    labelZh: "CH₄/N₂：甲烷氮气分离",
+    labelEn: "CH₄/N₂: methane nitrogen rejection",
+    defaultRatio: "50/50",
+    primaryGas: "CH4",
+    secondaryGas: "N2",
+    mechanismZh: ["CH₄/N₂ 数据作为其他气体体系覆盖", "候选优先级依赖选择性、工作容量与压力窗口", "字段级溯源用于区分推断与模拟来源", "进入工艺判断前需要穿透验证"],
+    mechanismEn: ["CH₄/N₂ records cover other gas systems", "Priority depends on selectivity, working capacity, and pressure window", "Field provenance separates inferred and simulated sources", "Breakthrough validation is needed before process claims"],
   },
 ]
 
@@ -122,12 +148,16 @@ const TABLE_COLUMNS = [
 ]
 
 const CHART_COLORS = ["#2F7D7B", "#D2862F", "#4E72B8", "#7B61A9", "#B95F6B", "#64748B"]
-const COLOR_BY_EVIDENCE = { A: "#2F7D7B", B: "#4E72B8", C: "#D2862F" }
+const COLOR_BY_EVIDENCE = { A: "#2F7D7B", B: "#4E72B8", C: "#D2862F", D: "#64748B" }
 const COLOR_BY_TYPE = {
-  "demo-experimental-template": "#2F7D7B",
-  "demo-simulated": "#4E72B8",
-  "demo-predicted": "#D2862F",
-  "demo-literature-template": "#7B61A9",
+  experimental_literature: "#2F7D7B",
+  experimental_literature_seed: "#2F7D7B",
+  literature_seed: "#7B61A9",
+  simulated_gcmc: "#4E72B8",
+  simulated_iast: "#4E72B8",
+  predicted_ml: "#D2862F",
+  derived_metric: "#B87333",
+  demo_placeholder: "#64748B",
 }
 
 const ROADMAP = [
@@ -172,8 +202,9 @@ function valueForMetric(record, metric) {
 
 function formatMetricValue(record, metric, lang) {
   const value = valueForMetric(record, metric)
-  if (value == null) return text(lang, "pending", "pending")
-  if (metric === "stability" || metric === "evidence" || metric === "confidence") return `${Math.round(value * 100)}%`
+  if (value == null) return formatPending(lang)
+  if (metric === "stability" || metric === "evidence" || metric === "confidence") return formatPercent(value, { lang, normalized: true })
+  if (metric === "regenerability") return formatPercent(value, { lang })
   const unit = METRICS[metric]?.unit
   return `${formatNumber(value)}${unit ? ` ${unit}` : ""}`
 }
@@ -297,18 +328,18 @@ function Overview({ ranked, scenario, t, lang, isMobile }) {
           <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.6, margin: "7px 0 0" }}>
             {text(
               lang,
-              "GasSep 现在按具体气体对和工况筛选候选材料；所有推荐都保留 demo / simulated / predicted / experimental 边界，不能替代真实 IAST、GCMC、穿透实验或过程模拟。",
-              "GasSep now screens candidates by gas pair and operating condition. Every recommendation keeps demo / simulated / predicted / experimental boundaries and does not replace IAST, GCMC, breakthrough experiments, or process simulation."
+              "GasSep 现在按具体气体对和工况筛选候选材料；所有推荐都保留数据类型、证据等级与字段级溯源，不替代真实 IAST、GCMC、穿透实验或过程模拟。",
+              "GasSep screens candidates by gas pair and operating condition. Every recommendation keeps data type, evidence level, and field-level provenance boundaries; it does not replace IAST, GCMC, breakthrough experiments, or process simulation."
             )}
           </p>
         </div>
-        <BasisBadge tone="warn">{text(lang, "demo decision support", "demo decision support")}</BasisBadge>
+        <BasisBadge tone="warn" aria-label={formatDemoLabel(lang)} title={formatDemoLabel(lang)}>{formatDemoLabel(lang)}</BasisBadge>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10, marginTop: 14 }}>
-        <MetricTile label={text(lang, "当前气体对", "Gas pair")} value={scenario.gasPair} note={scenario.applicationScenario} t={t} />
+        <MetricTile label={text(lang, "当前气体对", "Gas pair")} value={formatGasPairLabel(scenario.gasPair)} note={scenario.applicationScenario} t={t} />
         <MetricTile label={text(lang, "候选数量", "Candidates")} value={ranked.length} note={text(lang, "当前场景数据", "scenario records")} t={t} />
-        <MetricTile label={text(lang, "Top MOF", "Top MOF")} value={top?.displayName || "pending"} note={top ? `${formatScore(top.score)} / 100` : "pending"} t={t} />
-        <MetricTile label={text(lang, "证据混合", "Evidence mix")} value={Object.entries(evidenceMix).map(([key, count]) => `${key}:${count}`).join(" · ") || "pending"} note={text(lang, "A/B/C 证据等级", "A/B/C evidence levels")} t={t} />
+        <MetricTile label={text(lang, "Top MOF", "Top MOF")} value={top?.displayName || formatPending(lang)} note={top ? formatScore100(top.score, lang) : formatPending(lang)} t={t} />
+        <MetricTile label={text(lang, "证据等级分布", "Evidence mix")} value={Object.entries(evidenceMix).map(([key, count]) => `${key}:${count}`).join(" · ") || formatPending(lang)} note={text(lang, "A/B/C/D 证据等级", "A/B/C/D evidence levels")} t={t} />
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7, marginTop: 12 }}>
         {Object.entries(weights).map(([key, value]) => (
@@ -349,7 +380,7 @@ function ScenarioBuilder({ scenario, setScenario, t, lang, isMobile, isNarrow })
             {text(lang, "切换气体体系后，排序、图表、机制解释和评分权重会同步更新。", "Changing the gas system updates ranking, charts, mechanism notes, and scoring weights together.")}
           </div>
         </div>
-        <BasisBadge tone="calc">{text(lang, "5 个可切换场景", "5 scenarios")}</BasisBadge>
+        <BasisBadge tone="calc">{text(lang, "6 个可切换场景", "6 scenarios")}</BasisBadge>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(3, minmax(0, 1fr))", gap: 11 }}>
         <FormField label={text(lang, "气体对", "Gas pair")} t={t}>
@@ -396,10 +427,10 @@ function ConditionSummary({ ranked, scenario, t, lang, isMobile }) {
       <SectionTitle>{text(lang, "Condition Summary + Key Metrics", "Condition Summary + Key Metrics")}</SectionTitle>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
         <MetricTile label={text(lang, "工况", "Condition")} value={`${scenario.temperatureK} K`} note={`${scenario.pressureBar} bar · ${scenario.mixtureRatio}`} t={t} />
-        <MetricTile label={text(lang, "平均吸附量", "Avg uptake")} value={avg("primaryUptake") == null ? "pending" : `${formatNumber(avg("primaryUptake"))} mmol/g`} note={scenario.gasPair} t={t} />
-        <MetricTile label={text(lang, "平均选择性", "Avg selectivity")} value={avg("selectivity") == null ? "pending" : formatNumber(avg("selectivity"))} note={text(lang, "当前场景", "scenario")} t={t} />
-        <MetricTile label={text(lang, "平均工作容量", "Avg capacity")} value={avg("workingCapacity") == null ? "pending" : `${formatNumber(avg("workingCapacity"))} mmol/g`} note={text(lang, "工作容量", "working capacity")} t={t} />
-        <MetricTile label={text(lang, "推荐候选", "Recommended")} value={top?.displayName || "pending"} note={top ? `${formatScore(top.score)} / 100` : "pending"} t={t} />
+        <MetricTile label={text(lang, "平均吸附量", "Avg uptake")} value={avg("primaryUptake") == null ? formatPending(lang) : `${formatNumber(avg("primaryUptake"))} mmol/g`} note={formatGasPairLabel(scenario.gasPair)} t={t} />
+        <MetricTile label={text(lang, "平均选择性", "Avg selectivity")} value={avg("selectivity") == null ? formatPending(lang) : formatNumber(avg("selectivity"))} note={text(lang, "当前场景", "scenario")} t={t} />
+        <MetricTile label={text(lang, "平均工作容量", "Avg capacity")} value={avg("workingCapacity") == null ? formatPending(lang) : `${formatNumber(avg("workingCapacity"))} mmol/g`} note={text(lang, "工作容量", "working capacity")} t={t} />
+        <MetricTile label={text(lang, "推荐候选", "Recommended")} value={top?.displayName || formatPending(lang)} note={top ? formatScore100(top.score, lang) : formatPending(lang)} t={t} />
       </div>
     </section>
   )
@@ -512,8 +543,8 @@ function PerformanceMap({ ranked, selectedId, onSelect, chartConfig, setChartCon
                 <div>{metricLabel("selectivity", lang)}: {formatMetricValue(tooltip.row, "selectivity", lang)}</div>
                 <div>{metricLabel("workingCapacity", lang)}: {formatMetricValue(tooltip.row, "workingCapacity", lang)}</div>
                 <div>{text(lang, "证据等级", "Evidence level")}: {tooltip.row.evidenceLevel}</div>
-                <div>{text(lang, "数据类型", "Data type")}: {tooltip.row.dataType}</div>
-                <div>{text(lang, "分数", "Score")}: {formatScore(tooltip.row.score)} / 100</div>
+                <div>{text(lang, "数据类型", "Data type")}: {dataTypeLabel(tooltip.row.dataType, lang)}</div>
+                <div aria-label={text(lang, "GasScore 评分", "GasScore score")}>{text(lang, "分数", "Score")}: {formatScore100(tooltip.row.score, lang)}</div>
               </div>
             ) : null}
           </>
@@ -594,7 +625,7 @@ function CandidateRankingTable({ ranked, selectedId, onSelect, compareIds, setCo
               <th style={{ ...tableHeadStyle(t), width: 56 }}>Compare</th>
               {TABLE_COLUMNS.map(([key, en, zh]) => (
                 <th key={key} style={tableHeadStyle(t)}>
-                  <button type="button" onClick={() => updateSort(key)} style={{ background: "transparent", border: 0, color: t.textStrong, cursor: "pointer", fontSize: 11, fontWeight: 900, padding: 0, textAlign: "left" }}>
+                  <button type="button" onClick={() => updateSort(key)} aria-label={text(lang, `按 ${zh} 排序`, `Sort by ${en}`)} title={text(lang, `按 ${zh} 排序`, `Sort by ${en}`)} style={{ background: "transparent", border: 0, color: t.textStrong, cursor: "pointer", fontSize: 11, fontWeight: 900, padding: 0, textAlign: "left" }}>
                     {text(lang, zh, en)} {sort.key === key ? (sort.dir === "desc" ? "↓" : "↑") : ""}
                   </button>
                 </th>
@@ -612,19 +643,19 @@ function CandidateRankingTable({ ranked, selectedId, onSelect, compareIds, setCo
                   </td>
                   <td style={tableCellStyle(t)}>{ranked.findIndex(item => item.id === row.id) + 1}</td>
                   <td style={{ ...tableCellStyle(t), color: t.textStrong, fontWeight: 900 }}><ChemicalText value={row.displayName} /></td>
-                  <td style={tableCellStyle(t)}>{row.sourceDatabase}</td>
+                  <td style={tableCellStyle(t)}><ChemicalText value={row.sourceDatabase} /></td>
                   <td style={tableCellStyle(t)}><ChemicalFormula value={row.gasPair} /></td>
-                  <td style={tableCellStyle(t)}>{formatMetricValue(row, "primaryUptake", lang)}</td>
-                  <td style={tableCellStyle(t)}>{formatMetricValue(row, "selectivity", lang)}</td>
-                  <td style={tableCellStyle(t)}>{formatMetricValue(row, "workingCapacity", lang)}</td>
-                  <td style={tableCellStyle(t)}>{formatMetricValue(row, "regenerability", lang)}</td>
-                  <td style={tableCellStyle(t)}><BasisBadge tone={statusTone(row.waterStability)}>{row.waterStability}</BasisBadge></td>
-                  <td style={tableCellStyle(t)}><BasisBadge tone={statusTone(row.evidenceLevel)}>{row.evidenceLevel}</BasisBadge></td>
-                  <td style={tableCellStyle(t)}>{row.dataType}</td>
-                  <td style={{ ...tableCellStyle(t), fontFamily: FONT_MONO, fontWeight: 900 }}>{formatScore(row.score)}</td>
+                  <td style={tableCellStyle(t)}><MetricWithSource record={row} metric="primaryUptake" value={formatMetricValue(row, "primaryUptake", lang)} unit="mmol/g" t={t} lang={lang} /></td>
+                  <td style={tableCellStyle(t)}><MetricWithSource record={row} metric="selectivity" value={formatMetricValue(row, "selectivity", lang)} unit="dimensionless" t={t} lang={lang} /></td>
+                  <td style={tableCellStyle(t)}><MetricWithSource record={row} metric="workingCapacity" value={formatMetricValue(row, "workingCapacity", lang)} unit="mmol/g" t={t} lang={lang} /></td>
+                  <td style={tableCellStyle(t)}><MetricWithSource record={row} metric="regenerability" value={formatMetricValue(row, "regenerability", lang)} unit="%" t={t} lang={lang} /></td>
+                  <td style={tableCellStyle(t)}><MetricWithSource record={row} field="waterStability" value={row.waterStability || formatPending(lang)} unit="status" t={t} lang={lang} label={text(lang, "水稳定性", "Water stability")} /></td>
+                  <td style={tableCellStyle(t)}><GasDataStatusBadge type="evidence" value={row.evidenceLevel} lang={lang} /> <GasFieldProvenanceButton record={row} field="evidenceLevel" currentValue={row.evidenceLevel} unit="level" lang={lang} t={t} label={text(lang, "证据等级", "Evidence level")} /></td>
+                  <td style={tableCellStyle(t)}><GasDataStatusBadge type="dataType" value={row.dataType} lang={lang} /></td>
+                  <td style={{ ...tableCellStyle(t), fontFamily: FONT_MONO, fontWeight: 900 }}><MetricWithSource record={row} field="gasScore" value={formatScore100(row.score, lang)} unit="/100" t={t} lang={lang} label="GasScore" /></td>
                   <td style={tableCellStyle(t)}>
-                    <button type="button" onClick={event => { event.stopPropagation(); window.location.hash = "library" }} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.accentText, cursor: "pointer", fontSize: 11, fontWeight: 850, padding: "6px 8px" }}>
-                      {text(lang, "View in MOF Library", "View in MOF Library")}
+                    <button type="button" onClick={event => { event.stopPropagation(); window.location.hash = "library" }} aria-label={text(lang, `查看 ${row.displayName} 的 MOF Library 记录`, `View ${row.displayName} in MOF Library`)} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.accentText, cursor: "pointer", fontSize: 11, fontWeight: 850, padding: "6px 8px" }}>
+                      {text(lang, "查看 MOF Library", "View in MOF Library")}
                     </button>
                   </td>
                 </tr>
@@ -646,25 +677,51 @@ function tableCellStyle(t) {
   return { borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11.5, lineHeight: 1.45, padding: "9px 8px", verticalAlign: "top" }
 }
 
+function fieldForMetric(metric) {
+  if (metric === "score") return "gasScore"
+  if (metric === "stability") return "waterStability"
+  if (metric === "evidence") return "evidenceLevel"
+  return metric
+}
+
+function MetricWithSource({ record, field, metric, value, unit, t, lang, label }) {
+  const sourceField = field || fieldForMetric(metric)
+  return (
+    <span style={{ alignItems: "center", display: "inline-flex", gap: 2, maxWidth: "100%" }}>
+      <span style={{ overflowWrap: "anywhere" }}><ChemicalText value={value} /></span>
+      <GasFieldProvenanceButton record={record} field={sourceField} currentValue={value} unit={unit} lang={lang} t={t} label={label || metricLabel(metric || sourceField, lang)} />
+    </span>
+  )
+}
+
 function ExplanationPanel({ record, t, lang, onOpenMethod }) {
   if (!record) return <Callout tone="warn">{text(lang, "selected MOF 不存在。", "Selected MOF does not exist.")}</Callout>
   const breakdown = record.scoreBreakdown || {}
   const contributions = breakdown.contributions || {}
   const contributionRows = ["uptake", "selectivity", "workingCapacity", "regenerability", "stability", "evidence"]
+  const sourceRows = ["primaryUptake", "selectivity", "workingCapacity", "evidenceLevel", "gasScore"].map(field => {
+    const source = getFieldSource(record, field)
+    return `${metricLabel(field === "gasScore" ? "score" : field, lang)}：${source.sourceType || "pending"}`
+  })
   return (
     <section style={cardStyle(t)}>
       <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
         <div>
           <SectionTitle>{text(lang, "为什么推荐这个 MOF？", "Why this MOF?")}</SectionTitle>
           <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 930, lineHeight: 1.2, marginTop: 7 }}><ChemicalText value={record.displayName} /></div>
-          <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5, marginTop: 4 }}>{record.sourceRecordId} · {record.dataType} · Evidence {record.evidenceLevel}</div>
+          <div style={{ alignItems: "center", color: t.subtle, display: "flex", flexWrap: "wrap", fontSize: 12, gap: 6, lineHeight: 1.5, marginTop: 5 }}>
+            <span>{record.sourceRecordId}</span>
+            <GasDataStatusBadge type="dataType" value={record.dataType} lang={lang} />
+            <GasDataStatusBadge type="evidence" value={record.evidenceLevel} lang={lang} />
+          </div>
         </div>
-        <BasisBadge tone={statusTone(record.dataType)}>{record.dataType.includes("demo") ? "Demo" : record.dataType}</BasisBadge>
+        <BasisBadge tone={statusTone(record.dataType)} aria-label={dataTypeLabel(record.dataType, lang)} title={dataTypeLabel(record.dataType, lang)}>{dataTypeLabel(record.dataType, lang)}</BasisBadge>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: 10, marginTop: 14 }}>
         <InfoList title={text(lang, "适合当前气体对的原因", "Why it fits this gas pair")} rows={record.whyRecommended || []} t={t} />
         <InfoList title={text(lang, "主要贡献指标", "Largest contributors")} rows={breakdown.topDrivers || []} t={t} />
         <InfoList title={text(lang, "拖累项与风险", "Draggers and risks")} rows={[...(breakdown.draggers || []), ...(record.risks || [])]} t={t} />
+        <InfoList title={text(lang, "解释使用的数据来源类型", "Source types used in explanation")} rows={sourceRows} t={t} />
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10, marginTop: 12 }}>
         <div style={surfaceStyle(t)}>
@@ -683,7 +740,7 @@ function ExplanationPanel({ record, t, lang, onOpenMethod }) {
               )
             })}
             <div style={{ color: t.warn, fontSize: 11.5, lineHeight: 1.45 }}>
-              {text(lang, "风险扣分", "Risk penalty")}: {formatNumber(breakdown.riskPenalty || 0)}
+              {formatRiskPenalty(breakdown.riskPenalty || 0, lang)}
             </div>
           </div>
         </div>
@@ -691,10 +748,13 @@ function ExplanationPanel({ record, t, lang, onOpenMethod }) {
           <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "适用边界与下一步", "Applicability and next validation")}</strong>
           <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.58, margin: "9px 0 0" }}>{record.applicabilityNote}</p>
           <p style={{ color: t.subtle, fontSize: 11.5, lineHeight: 1.55, margin: "8px 0 0" }}>{record.limitationNote}</p>
-          <button type="button" onClick={onOpenMethod} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.accentText, cursor: "pointer", fontSize: 11.5, fontWeight: 850, marginTop: 10, padding: "7px 9px" }}>
-            {text(lang, "View GasSep scoring method", "View GasSep scoring method")}
+          <button type="button" onClick={onOpenMethod} aria-label={text(lang, "查看 GasSep 评分方法", "View GasSep scoring method")} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.accentText, cursor: "pointer", fontSize: 11.5, fontWeight: 850, marginTop: 10, padding: "7px 9px" }}>
+            {text(lang, "查看评分方法", "View scoring method")}
           </button>
         </div>
+      </div>
+      <div style={{ marginTop: 12 }}>
+        <GasUnitNormalizationNote record={record} field="primaryUptake" lang={lang} t={t} />
       </div>
     </section>
   )
@@ -753,7 +813,7 @@ function EvidenceLimitations({ record, t, lang }) {
     <section style={cardStyle(t)}>
       <SectionTitle>{text(lang, "证据与限制", "Evidence & Limitations")}</SectionTitle>
       <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 5 }}>
-        {text(lang, "A: curated experimental or high-quality literature record；B: simulation or partially curated record；C: inferred / incomplete / demo-level record。", "A: curated experimental or high-quality literature record; B: simulation or partially curated record; C: inferred / incomplete / demo-level record.")}
+        {text(lang, "A：实验或高质量文献；B：模拟或部分整理数据；C：预测、推断或不完整数据；D：演示或占位数据。", "A: experimental or high-quality literature; B: simulation or partially curated data; C: predicted, inferred, or incomplete data; D: demo or placeholder data.")}
       </div>
       <div style={{ display: "grid", gap: 7, marginTop: 12 }}>
         {rows.map(([label, value]) => (
@@ -816,12 +876,16 @@ export function GasSepTab({ onNavigate }) {
   useEffect(() => {
     let active = true
     setStatus("loading")
-    getGasAdsorptionRecordsDemo({ throwOnError: true })
-      .then(rows => {
+    Promise.all([
+      getGasAdsorptionRecordsV1({ throwOnError: false }),
+      getGasAdsorptionRecordsDemo({ throwOnError: false }),
+    ])
+      .then(([v1Rows, demoRows]) => {
         if (!active) return
-        const safeRows = Array.isArray(rows) ? rows : []
+        const sourceRows = Array.isArray(v1Rows) && v1Rows.length ? v1Rows : demoRows
+        const safeRows = normalizeGasRecords(sourceRows)
         setRecords(safeRows)
-        setStatus(safeRows.length ? "loaded" : "empty")
+        setStatus(safeRows.length ? (Array.isArray(v1Rows) && v1Rows.length ? "loaded" : "fallback") : "empty")
       })
       .catch(error => {
         console.warn("GasSep data load failed.", error)
@@ -873,8 +937,8 @@ export function GasSepTab({ onNavigate }) {
         title={text(lang, "GasSep 气体分离场景工作台", "GasSep Gas Separation Scenario Workbench")}
         subtitle={text(
           lang,
-          "从静态图表升级为工况驱动的候选筛选、排序、解释和验证路线工作台；所有数值保持 demo / evidence boundary。",
-          "A condition-driven workspace for candidate screening, ranking, explanation, and validation planning; all values keep demo / evidence boundaries."
+          "从静态图表升级为工况驱动的候选筛选、排序、解释和验证路线工作台；所有数值保持证据等级、字段溯源与不确定性边界。",
+          "A condition-driven workspace for candidate screening, ranking, explanation, and validation planning; all values keep evidence level, field provenance, and uncertainty boundaries."
         )}
         meta={text(lang, "scenario builder · performance map · evidence chain", "scenario builder · performance map · evidence chain")}
         action={
@@ -888,6 +952,7 @@ export function GasSepTab({ onNavigate }) {
       {status === "loading" ? <Callout tone="info">{text(lang, "正在加载 GasSep 数据…", "Loading GasSep data...")}</Callout> : null}
       {status === "error" ? <Callout tone="warn">{text(lang, "GasSep 数据加载失败。", "GasSep data could not be loaded.")}</Callout> : null}
       {status === "empty" ? <Callout tone="warn">{text(lang, "当前场景无数据。", "No GasSep records are available.")}</Callout> : null}
+      {status === "fallback" ? <Callout tone="warn">{text(lang, "Gas Adsorption v1 数据不可用，已回退到 Demo｜仅用于界面验证。", "Gas Adsorption v1 data is unavailable; falling back to Demo | interface validation only.")}</Callout> : null}
 
       <Overview ranked={ranked} scenario={scenario} t={t} lang={lang} isMobile={isMobile} />
       <ScenarioBuilder scenario={scenario} setScenario={setScenario} t={t} lang={lang} isMobile={isMobile} isNarrow={isNarrow} />
@@ -907,6 +972,10 @@ export function GasSepTab({ onNavigate }) {
         isMobile={isMobile}
       />
       <ExplanationPanel record={selected} t={t} lang={lang} onOpenMethod={openMethod} />
+      <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) minmax(0, 1fr)", gap: 16 }}>
+        <GasDataQualityPanel record={selected} t={t} lang={lang} />
+        <GasRecordSourcePanel record={selected} t={t} lang={lang} />
+      </div>
       <GasInteractionDiagnostics scenario={scenario} record={selected} t={t} lang={lang} isMobile={isMobile} />
 
       <section style={cardStyle(t)}>

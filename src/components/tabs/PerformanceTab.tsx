@@ -9,6 +9,7 @@ import {
   CandidateRankingTable, WhyThisResultButton, WhyThisWeightButton,
   RankingBarChart, ScoreBreakdownRadar, EvidenceDistributionChart, ScoreDistributionChart,
   BasisBadge, ResultLayer, Callout, UnifiedCandidateCard, CopyLinkButton, DisclaimerLink,
+  chemText,
 } from "../../shared"
 import {
   CompactDataModeBar,
@@ -68,7 +69,7 @@ function filterAdsorptionRecords(records, filters) {
 }
 
 function filterSummary(filters) {
-  const gasText = filters.gases.length ? filters.gases.join("/") : "any gas"
+  const gasText = filters.gases.length ? chemText(filters.gases.join("/")) : "any gas"
   const uptake = Number(filters.minUptake || 0)
   const bet = Number(filters.minBet || 0)
   const pressure = Number(filters.pressureMax || 1)
@@ -81,7 +82,7 @@ function MethodLabel({ selectivity }) {
   const method = selectivity.method || "reported as in literature"
   return (
     <span title={selectivity.source}>
-      {method} {selectivity.gasPair} Selectivity: {selectivity.value} ({selectivity.condition})
+      {method} {chemText(selectivity.gasPair)} Selectivity: {selectivity.value} ({selectivity.condition})
     </span>
   )
 }
@@ -110,7 +111,7 @@ function DataLimitationsCallout({ lang, t }) {
         aria-expanded={open}
         style={{ ...toolbarBtn(t), justifyContent: "space-between", minHeight: 44, width: "100%" }}
       >
-        <span>{lang === "zh" ? "⚠️ 数据限制与使用说明" : "⚠️ Data Limitations & Usage Notes"}</span>
+        <span>{lang === "zh" ? "数据限制与使用说明" : "Data Limitations & Usage Notes"}</span>
         <span>{open ? "−" : "+"}</span>
       </button>
       {open && (
@@ -148,8 +149,8 @@ function AdsorptionFilterPanel({ filters, setFilters, t, lang }) {
       <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900 }}>{lang === "zh" ? "筛选条件" : "Filters"}</div>
       <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
         {GAS_OPTIONS.map(gas => (
-          <button key={gas} type="button" onClick={() => toggleGas(gas)} style={{ ...toolbarBtn(t), minHeight: 44, minWidth: 44, background: filters.gases.includes(gas) ? t.accent : t.surface, color: filters.gases.includes(gas) ? "#fff" : t.textStrong }}>
-            {gas}
+          <button key={gas} type="button" onClick={() => toggleGas(gas)} aria-label={lang === "zh" ? `切换气体筛选：${chemText(gas)}` : `Toggle gas filter: ${chemText(gas)}`} style={{ ...toolbarBtn(t), minHeight: 44, minWidth: 44, background: filters.gases.includes(gas) ? t.accent : t.surface, color: filters.gases.includes(gas) ? "#fff" : t.textStrong }}>
+            {chemText(gas)}
           </button>
         ))}
       </div>
@@ -170,7 +171,7 @@ function AdsorptionFilterPanel({ filters, setFilters, t, lang }) {
       <label style={{ display: "grid", gap: 5, color: t.subtle, fontSize: 11.5, fontWeight: 750 }}>
         {lang === "zh" ? "气体对" : "Gas pair"}
         <select value={filters.gasPair} onChange={event => update("gasPair", event.target.value)} style={inputStyle}>
-          {GAS_PAIR_OPTIONS.map(pair => <option key={pair || "none"} value={pair}>{pair || (lang === "zh" ? "不筛选" : "No selectivity filter")}</option>)}
+          {GAS_PAIR_OPTIONS.map(pair => <option key={pair || "none"} value={pair}>{pair ? chemText(pair) : (lang === "zh" ? "不筛选" : "No selectivity filter")}</option>)}
         </select>
       </label>
       <label style={{ display: "grid", gap: 5, color: t.subtle, fontSize: 11.5, fontWeight: 750, opacity: filters.gasPair ? 1 : 0.55 }}>
@@ -194,7 +195,7 @@ function AdsorptionRecordCard({ record, t, lang, onOpen }) {
           ["BET", record.surfaceArea ? `${record.surfaceArea.toLocaleString()} m²/g` : "Insufficient curated data"],
           [lang === "zh" ? "孔容" : "Pore volume", record.poreVolume ? `${record.poreVolume} cm³/g` : "Insufficient curated data"],
           ["Qst", record.heatOfAdsorption ? `${record.heatOfAdsorption} kJ/mol` : "Insufficient curated data"],
-          ["CO2 @ 1 bar", co2 == null ? "Insufficient curated data" : `${co2} mmol/g`],
+          ["CO₂ @ 1 bar", co2 == null ? "Insufficient curated data" : `${co2} mmol/g`],
         ].map(([label, value]) => (
           <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: 9 }}>
             <div style={{ color: t.faint, fontSize: 9.5, fontWeight: 900, textTransform: "uppercase" }}>{label}</div>
@@ -488,7 +489,7 @@ export function PerformanceTab({
 
         <ScopeNoticeBar
           label={lang === "zh" ? "筛选边界" : "Screening boundary"}
-          actionLabel={lang === "zh" ? "打开气体分离 →" : "Open GasSep →"}
+          actionLabel={lang === "zh" ? "进入 GasSep →" : "Enter GasSep →"}
           onAction={() => onNavigate?.("gassep")}
         >
           {lang === "zh"
@@ -559,7 +560,7 @@ export function PerformanceTab({
         capabilities={lang === "zh"
           ? "结构预测 · CIF / descriptor input · 条件设置 · run screening"
           : "Structure prediction · CIF / descriptor input · condition setup · run screening"}
-        primaryLabel={lang === "zh" ? "进入筛选台 →" : "Open workbench →"}
+        primaryLabel={lang === "zh" ? "进入筛选台 →" : "Enter workbench →"}
         onPrimary={() => setPerformanceView("advanced")}
       />
 
@@ -584,7 +585,7 @@ export function PerformanceTab({
 
       <ScopeNoticeBar
         label={lang === "zh" ? "提示" : "Notice"}
-        actionLabel={lang === "zh" ? "打开气体分离 →" : "Open GasSep →"}
+        actionLabel={lang === "zh" ? "进入 GasSep →" : "Enter GasSep →"}
         onAction={() => onNavigate?.("gassep")}
       >
         {lang === "zh"
@@ -683,7 +684,7 @@ export function PerformanceTab({
                 <button
                   type="button"
                   onClick={() => setPerformanceView("explanation")}
-                  aria-label={lang === "zh" ? "打开结果解释" : "Open result explanation"}
+                  aria-label={lang === "zh" ? "查看结果解释" : "View result explanation"}
                   style={{ ...toolbarBtn(t), minHeight: 34 }}
                 >
                   {lang === "zh" ? "结果解释入口" : "Result explanation"}
@@ -691,7 +692,7 @@ export function PerformanceTab({
                 <button
                   type="button"
                   onClick={() => setPerformanceView("explanation")}
-                  aria-label={lang === "zh" ? "打开权重解释" : "Open weight rationale"}
+                  aria-label={lang === "zh" ? "查看权重解释" : "View weight rationale"}
                   style={{ ...toolbarBtn(t), minHeight: 34 }}
                 >
                   {lang === "zh" ? "权重解释入口" : "Weight rationale"}

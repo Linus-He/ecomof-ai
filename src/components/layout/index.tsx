@@ -442,7 +442,7 @@ export function ContextualHeaderBar({
           {lang === "zh" ? "催化实验室当前以演示记录展示催化任务和证据整理流程。" : "CatalysisLab is in demonstration mode with placeholder records for task and evidence exploration."}
         </div>
         <button type="button" onClick={() => setActiveTab("about")} style={headerChipBtn(t)}>
-          {lang === "zh" ? "查看方法与证据" : "View Methods & Evidence"}
+          {lang === "zh" ? "阅读方法论" : "Read methodology"}
         </button>
       </div>
     )

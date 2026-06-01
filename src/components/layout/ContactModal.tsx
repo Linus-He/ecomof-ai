@@ -22,7 +22,7 @@ const DATA_INTAKE_TEMPLATE = `{
     "timeH": null,
     "substrate": "",
     "substrateAmountMg": null,
-    "co2Source": "CO2 | NaHCO₃ | HCO₃⁻ | pending",
+    "co2Source": "CO₂ | NaHCO₃ | HCO₃⁻ | pending",
     "NaHCO3Mg": null,
     "waterMl": null,
     "catalystMg": null,

@@ -4,7 +4,7 @@ import { BrandMotif, LogoMark } from "../brand"
 import { ChemicalText } from "../../shared"
 
 const CHAIN_NODES = [
-  { label: "CO2 uptake", zhLabel: "CO2 吸附量", sublabel: "field", zhSublabel: "字段" },
+  { label: "CO₂ uptake", zhLabel: "CO₂ 吸附量", sublabel: "field", zhSublabel: "字段" },
   { label: "literature / database source", zhLabel: "文献 / 数据库来源", sublabel: "source", zhSublabel: "来源" },
   { label: "evidence level", zhLabel: "证据等级", sublabel: "confidence language", zhSublabel: "置信语言" },
   { label: "data status", zhLabel: "数据状态", sublabel: "curation state", zhSublabel: "整理状态" },
@@ -124,7 +124,7 @@ export function EvidenceChainAnimation({ fields, t, isMobile, lang = "en" }) {
                 setActiveField(current => current === field.field ? null : field.field)
               }}
               onMouseDown={event => event.stopPropagation()}
-              aria-label={zh ? `打开 ${field.zhField || field.field} 的证据详情` : `Open evidence details for ${field.field}`}
+              aria-label={zh ? `查看 ${field.zhField || field.field} 的证据详情` : `View evidence details for ${field.field}`}
               className="evidence-field-button"
               data-active={selected ? "true" : "false"}
               style={{

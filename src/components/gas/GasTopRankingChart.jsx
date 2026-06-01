@@ -1,15 +1,12 @@
 // @ts-nocheck
 import { useMemo, useState } from "react"
-import { BasisBadge, ChemicalText, FONT_MONO, SectionTitle } from "../../shared"
+import { ChemicalText, FONT_MONO, SectionTitle, formatPercent, formatScore100 } from "../../shared"
 import { getEvidenceScore, getStabilityScore } from "../../utils/gasScoring"
+import { GasDataStatusBadge } from "./GasDataStatusBadge"
 import { GasScoreBreakdown } from "./GasScoreBreakdown"
 import {
   CONTRIBUTION_COLORS,
-  dataStatus,
-  formatNumber,
-  formatScore,
   metricDisplayValue,
-  metricRawValue,
   metricLabel,
   text,
 } from "./gasViewUtils"
@@ -31,25 +28,17 @@ function scoreForSort(record, key) {
   return Number(record?.[key] || 0)
 }
 
-function toneForDataType(type = "") {
-  const text = String(type).toLowerCase()
-  if (text.includes("experimental")) return "calc"
-  if (text.includes("simulated")) return "info"
-  if (text.includes("predicted")) return "warn"
-  return "proxy"
-}
-
 function Tooltip({ row, t, lang }) {
   if (!row) return null
   const breakdown = row.scoreBreakdown || {}
   return (
     <div style={{ background: t.tooltipBg, border: `1px solid ${t.border}`, borderRadius: 8, boxShadow: t.shadowMd, color: t.muted, fontSize: 11.5, lineHeight: 1.48, maxWidth: 300, padding: 10 }}>
       <strong style={{ color: t.textStrong, display: "block", fontSize: 12.5, marginBottom: 5 }}><ChemicalText value={row.displayName} /></strong>
-      <div>GasScore: {formatScore(row.score)} / 100</div>
-      <div>{metricLabel("uptake", lang)}: {formatNumber(breakdown.normalized?.uptake * 100)}%</div>
-      <div>{metricLabel("selectivity", lang)}: {formatNumber(breakdown.normalized?.selectivity * 100)}%</div>
-      <div>{metricLabel("workingCapacity", lang)}: {formatNumber(breakdown.normalized?.workingCapacity * 100)}%</div>
-      <div>{metricLabel("stability", lang)}: {formatNumber(getStabilityScore(row) * 100)}%</div>
+      <div aria-label={text(lang, "GasScore 评分", "GasScore score")}>GasScore: {formatScore100(row.score, lang)}</div>
+      <div>{metricLabel("uptake", lang)}: {formatPercent(breakdown.normalized?.uptake, { lang, normalized: true })}</div>
+      <div>{metricLabel("selectivity", lang)}: {formatPercent(breakdown.normalized?.selectivity, { lang, normalized: true })}</div>
+      <div>{metricLabel("workingCapacity", lang)}: {formatPercent(breakdown.normalized?.workingCapacity, { lang, normalized: true })}</div>
+      <div>{metricLabel("stability", lang)}: {formatPercent(getStabilityScore(row), { lang, normalized: true })}</div>
       <div>{text(lang, "证据等级", "Evidence level")}: {row.evidenceLevel || "C"}</div>
       <div>{text(lang, "数据类型", "Data type")}: {row.dataType || "demo"}</div>
       <div>{text(lang, "主要风险", "Main risk")}: {(row.risks || [text(lang, "待补充", "pending")])[0]}</div>
@@ -102,7 +91,7 @@ export function GasTopRankingChart({
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
           {["overall", "contribution"].map(mode => (
-            <button key={mode} type="button" onClick={() => setRankingMode(mode)} style={{ minHeight: 40, background: rankingMode === mode ? t.badgeInfoBg : t.surface, border: `1px solid ${rankingMode === mode ? t.accent : t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", fontSize: 11.5, fontWeight: 850, padding: "7px 10px" }}>
+            <button key={mode} type="button" onClick={() => setRankingMode(mode)} aria-label={mode === "overall" ? text(lang, "切换到综合分模式", "Switch to overall score mode") : text(lang, "切换到贡献拆解模式", "Switch to score contribution mode")} title={mode === "overall" ? text(lang, "综合分", "Overall Score") : text(lang, "贡献拆解", "Score Contribution")} style={{ minHeight: 40, background: rankingMode === mode ? t.badgeInfoBg : t.surface, border: `1px solid ${rankingMode === mode ? t.accent : t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", fontSize: 11.5, fontWeight: 850, padding: "7px 10px" }}>
               {mode === "overall" ? text(lang, "综合分", "Overall Score") : text(lang, "贡献拆解", "Score Contribution")}
             </button>
           ))}
@@ -112,14 +101,14 @@ export function GasTopRankingChart({
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "150px 190px minmax(0, 1fr)", marginTop: 12 }}>
         <label style={{ display: "grid", gap: 5 }}>
           <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase" }}>Top N</span>
-          <select value={limit} onChange={event => setLimit(Number(event.target.value))} style={{ minHeight: 40, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.text, padding: "8px 10px" }}>
+          <select aria-label={text(lang, "选择 Top N 候选数量", "Select Top N candidates")} value={limit} onChange={event => setLimit(Number(event.target.value))} style={{ minHeight: 40, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.text, padding: "8px 10px" }}>
             <option value={5}>Top 5</option>
             <option value={10}>Top 10</option>
           </select>
         </label>
         <label style={{ display: "grid", gap: 5 }}>
           <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase" }}>{text(lang, "排序依据", "Sort by")}</span>
-          <select value={sortMetric} onChange={event => setSortMetric(event.target.value)} style={{ minHeight: 40, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.text, padding: "8px 10px" }}>
+          <select aria-label={text(lang, "选择 Top 候选排序指标", "Select top candidate sort metric")} value={sortMetric} onChange={event => setSortMetric(event.target.value)} style={{ minHeight: 40, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.text, padding: "8px 10px" }}>
             {SORT_OPTIONS.map(([key, en, zh]) => <option key={key} value={key}>{text(lang, zh, en)}</option>)}
           </select>
         </label>
@@ -134,7 +123,7 @@ export function GasTopRankingChart({
         ) : visible.map(row => {
           const selected = row.id === selectedId
           const score = Number(row.score || 0)
-          const sortValue = sortMetric === "GasScore" ? `${formatScore(row.score)} / 100` : metricDisplayValue(row, sortMetric, lang, ranked)
+          const sortValue = sortMetric === "GasScore" ? formatScore100(row.score, lang) : metricDisplayValue(row, sortMetric, lang, ranked)
           return (
             <button
               key={row.id}
@@ -157,8 +146,8 @@ export function GasTopRankingChart({
               <span style={{ minWidth: 0 }}>
                 <strong style={{ color: t.textStrong, display: "block", fontSize: 12.5, fontWeight: 920, overflowWrap: "anywhere" }}><ChemicalText value={row.displayName} /></strong>
                 <span style={{ display: "flex", flexWrap: "wrap", gap: 5, marginTop: 5 }}>
-                  <BasisBadge tone={toneForDataType(row.dataType)}>{dataStatus(row, lang)}</BasisBadge>
-                  <BasisBadge tone={row.evidenceLevel === "B" ? "info" : row.evidenceLevel === "A" ? "calc" : "warn"}>Evidence {row.evidenceLevel || "C"}</BasisBadge>
+                  <GasDataStatusBadge type="dataType" value={row.dataType} lang={lang} />
+                  <GasDataStatusBadge type="evidence" value={row.evidenceLevel} lang={lang} />
                 </span>
               </span>
               {rankingMode === "overall" ? (

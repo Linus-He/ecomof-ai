@@ -88,7 +88,7 @@ export function WorkflowNarrative({ lang = "en", t, isMobile = false, reducedMot
             const open = openMobileStep === index
             return (
               <article key={step.id} className="workflow-mobile-step-card" ref={(node) => { stepRefs.current[index] = node }} data-step-index={index}>
-                <button type="button" onClick={() => setOpenMobileStep(open ? -1 : index)} aria-expanded={open}>
+                <button type="button" onClick={() => setOpenMobileStep(open ? -1 : index)} aria-expanded={open} aria-label={text(lang, `${open ? "折叠" : "展开"}${step.title.zh}`, `${open ? "Collapse" : "Expand"} ${step.title.en}`)}>
                   <span>{step.number}</span>
                   <strong>{text(lang, step.title.zh, step.title.en)}</strong>
                 </button>
