@@ -1,0 +1,90 @@
+[
+  {
+    "id": "formic-acid",
+    "labelZh": "甲酸路径",
+    "labelEn": "Formic acid pathway",
+    "baselineEa": 72,
+    "baselineDeltaE": -6,
+    "mofEa": 54,
+    "mofDeltaE": -8,
+    "priority": "high",
+    "evidenceLevel": "C",
+    "notesZh": "甲酸路径适合作为优先解释路径，但仍需同条件验证。",
+    "notesEn": "The formic acid pathway is prioritized for explanation but still needs same-condition validation.",
+    "descriptorWeights": {
+      "pore-matching": 1.15,
+      "open-metal-site": 1.05,
+      "polar-functional-group": 1.1,
+      "water-stability": 1.05,
+      "strong-adsorption-heat": 1,
+      "framework-collapse-risk": 1.15,
+      "evidence-missing": 1.1
+    }
+  },
+  {
+    "id": "acetic-acid",
+    "labelZh": "乙酸竞争路径",
+    "labelEn": "Acetic acid competing pathway",
+    "baselineEa": 78,
+    "baselineDeltaE": -2,
+    "mofEa": 68,
+    "mofDeltaE": -3,
+    "priority": "medium",
+    "evidenceLevel": "D",
+    "notesZh": "乙酸竞争路径用于观察选择性风险，不应被解读为已验证主路径。",
+    "notesEn": "The acetic-acid route is used to inspect selectivity risk and should not be treated as a validated main path.",
+    "descriptorWeights": {
+      "pore-matching": 0.8,
+      "open-metal-site": 1,
+      "polar-functional-group": 0.9,
+      "water-stability": 1,
+      "strong-adsorption-heat": 1.25,
+      "framework-collapse-risk": 1.2,
+      "evidence-missing": 1.2
+    }
+  },
+  {
+    "id": "lactic-acid",
+    "labelZh": "乳酸竞争路径",
+    "labelEn": "Lactic acid competing pathway",
+    "baselineEa": 84,
+    "baselineDeltaE": 3,
+    "mofEa": 76,
+    "mofDeltaE": 2,
+    "priority": "low",
+    "evidenceLevel": "D",
+    "notesZh": "乳酸路径中较大中间体可能带来扩散限制，孔径匹配权重不同。",
+    "notesEn": "Lactic-acid intermediates may be bulkier, so pore matching can become diffusion-limited.",
+    "descriptorWeights": {
+      "pore-matching": 0.55,
+      "open-metal-site": 0.9,
+      "polar-functional-group": 0.85,
+      "water-stability": 1,
+      "strong-adsorption-heat": 1.3,
+      "framework-collapse-risk": 1.25,
+      "evidence-missing": 1.25
+    }
+  },
+  {
+    "id": "side-reaction",
+    "labelZh": "副反应路径",
+    "labelEn": "Side reaction pathway",
+    "baselineEa": 88,
+    "baselineDeltaE": 7,
+    "mofEa": 82,
+    "mofDeltaE": 8,
+    "priority": "low",
+    "evidenceLevel": "D",
+    "notesZh": "副反应路径主要用于风险提示和验证队列，不作为优先产物路径。",
+    "notesEn": "The side-reaction path is mainly for risk warnings and validation queues, not prioritized product routing.",
+    "descriptorWeights": {
+      "pore-matching": 0.7,
+      "open-metal-site": 0.8,
+      "polar-functional-group": 0.75,
+      "water-stability": 0.95,
+      "strong-adsorption-heat": 1.4,
+      "framework-collapse-risk": 1.35,
+      "evidence-missing": 1.25
+    }
+  }
+]

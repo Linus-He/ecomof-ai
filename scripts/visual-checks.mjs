@@ -8,12 +8,12 @@ const outDir = path.join(process.cwd(), "test-results", "visual-checks")
 
 const routes = [
   ["home", "#overview", [["Workflow Narrative", "流程叙事"], ["Evidence & Validation Loop", "证据与验证闭环"], ["What this workflow produces", "这套流程最终产出什么"], ["Structure & Source Intake", "结构与来源接入"]]],
-  ["catalysis", "#catalysis", [["Section layout controls", "Section 布局控制"], ["Catalysis Energy Playground", "催化能垒交互工作台"], ["Reaction Pathway Evidence Map", "催化路径证据图"], ["Organic Acid Workspace", "有机酸路径工作台"]]],
+  ["catalysis", "#catalysis", [["Section layout controls", "Section 布局控制"], ["Catalyst Cat Energy Playground", "催化小猫能量游乐场"], ["Reaction Pathway Evidence Map", "催化路径证据图"], ["Organic Acid Workspace", "有机酸路径工作台"]]],
   ["organic-acid", "#catalysis-organic-acid", [["Access Gate / Frontend Passcode", "前端访问入口"], ["Section layout controls", "Section 布局控制"], ["Algorithm Trace Explorer", "算法追踪器"], ["Effect Decomposition Explorer", "效应拆解器"], ["Organic Acid Carbon-Flow Graph Workbench", "有机酸碳流图论路径工作台"], ["Interaction Effect Matrix", "交互效应矩阵"], ["Experimental Design Coverage Map", "实验设计覆盖图"]]],
   ["library", "#library", [["Open MOF Seed Records", "Open MOF Seed 记录"], ["View database details", "查看数据库详情"]]],
   ["gassep", "#gassep", [["Gas Separation Scenario Builder", "气体分离场景构建器"], ["Interactive Performance Map", "性能图谱"], ["GasSep Interaction Diagnostics", "交互诊断"], ["Validation Roadmap", "验证路线"]]],
   ["ecoscreen", "#ecoscreen", ["EcoScreen", ["Candidate Scoring", "候选评分"]]],
-  ["methodology", "#methodology", [["Methods & Evidence", "方法与证据"], ["Structured Factor Effects", "结构化因素效应"], ["Evidence Levels", "证据等级"], ["Validation Roadmap", "验证路线"]]],
+  ["methodology", "#methodology", [["Methods & Evidence", "方法与证据"], ["Structured Factor Effects", "结构化因素效应"], ["Catalysis Energy Playground Method", "催化能量游乐场方法说明"], ["Evidence Levels", "证据等级"], ["Validation Roadmap", "验证路线"]]],
 ]
 const viewports = [
   ["desktop", 1440, 1100],

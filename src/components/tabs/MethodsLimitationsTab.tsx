@@ -176,6 +176,39 @@ function StructuredFactorEffectsMethod({ lang, t, isMobile }) {
   )
 }
 
+function CatalysisEnergyPlaygroundMethod({ lang, t, isMobile }) {
+  const rows = [
+    ["Activation energy proxy", "活化能 proxy", "ΔEa changes are explanatory proxies driven by descriptor chips and cat-zone emphasis, not calculated barriers.", "ΔEa 变化是由描述符 chip 和小猫位置驱动的解释性 proxy，不是计算能垒。"],
+    ["Descriptor-to-barrier mapping", "描述符到能垒映射", "Pore matching, open metal sites, polar groups, water stability, surface area, and adsorption heat are mapped to Ea, ΔE, stabilization, and risk shifts.", "孔径匹配、开放金属位点、极性官能团、水稳定性、比表面积和吸附热被映射到 Ea、ΔE、稳定化和风险变化。"],
+    ["Risk penalty", "风险惩罚", "Strong adsorption heat, framework-collapse risk, and missing evidence reduce pathway priority even when the curve looks favorable.", "过强吸附热、结构坍塌风险和证据不足会降低路径优先级，即使曲线看起来有利。"],
+    ["Evidence level", "证据等级", "Each interaction carries an A-D evidence level so demo and inferred states remain visible.", "每个交互绑定 A-D 证据等级，让 demo 和 inferred 状态保持可见。"],
+    ["Limitations", "限制", "The playground is not DFT, microkinetics, or experimental yield prediction; it is an interactive explanation layer.", "该游乐场不是 DFT、微观动力学或实验产率预测，而是交互式解释层。"],
+  ]
+  return (
+    <section id="catalysis-energy-playground-method" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 15 }}>
+      <header style={{ display: "grid", gap: 5 }}>
+        <div style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>
+          {text(lang, "催化能量游乐场方法说明", "Catalysis Energy Playground Method")}
+        </div>
+        <h2 style={{ color: t.textStrong, fontSize: 20, lineHeight: 1.18, margin: 0 }}>
+          {text(lang, "Catalysis Energy Playground Method / 催化能量游乐场方法说明", "Catalysis Energy Playground Method")}
+        </h2>
+        <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0, maxWidth: 940 }}>
+          {text(lang, "该方法说明连接催化小猫交互、描述符映射、风险惩罚和证据等级，强调它是解释性假设视图。", "This method note links the catalyst-cat interaction, descriptor mapping, risk penalties, and evidence levels while keeping the view hypothesis-based.")}
+        </p>
+      </header>
+      <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(5, minmax(0, 1fr))" }}>
+        {rows.map(([en, zh, bodyEn, bodyZh], index) => (
+          <article key={en} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 7, padding: 10 }}>
+            <strong style={{ color: t.textStrong, fontSize: 12.2, lineHeight: 1.28 }}>{index + 1}. {text(lang, zh, en)}</strong>
+            <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.48 }}>{text(lang, bodyZh, bodyEn)}</span>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 export function MethodsLimitationsTab() {
   const t = useT()
   const { lang } = useLang()
@@ -252,6 +285,7 @@ export function MethodsLimitationsTab() {
             <FormulaIndex lang={lang} t={t} />
             <MethodologyDataBoundary lang={lang} t={t} />
             <StructuredFactorEffectsMethod lang={lang} t={t} isMobile={isMobile} />
+            <CatalysisEnergyPlaygroundMethod lang={lang} t={t} isMobile={isMobile} />
             <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12.5, lineHeight: 1.55, padding: 11 }}>
               <span style={{ color: t.textStrong, fontWeight: 900 }}>{text(lang, "化学式与科学 token：", "Chemistry and scientific tokens: ")}</span>
               <span style={{ fontFamily: SCIENTIFIC_TOKEN_FONT }}>
