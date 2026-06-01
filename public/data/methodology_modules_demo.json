@@ -273,6 +273,40 @@
         "limitationsZh": ["GasScore 是筛选优先级分数，不是验证后的分离性能。", "Demo 记录刻意暴露数据边界，科研使用前应替换为整理后的文献或实验记录。"]
       },
       {
+        "id": "gas-separation-scoring-validation-method",
+        "title": "Gas Separation Scoring & Validation Method",
+        "titleZh": "气体分离评分与验证方法",
+        "purpose": "Explain how GasSep turns condition-bound adsorption records into scenario-specific screening priority and validation recommendations without treating demo data as validated rankings.",
+        "purposeZh": "说明 GasSep 如何把绑定工况的吸附记录转化为场景化筛选优先级和验证建议，同时避免把 demo 数据当作已验证排名。",
+        "algorithmSteps": [
+          {"label": "Scenario-aware screening", "labelZh": "场景感知筛选", "description": "Filter by gas pair, feed ratio, temperature, pressure, and target priority before comparing candidates.", "descriptionZh": "先按气体对、进料比例、温度、压力和目标优先级筛选，再比较候选。"},
+          {"label": "GasScore formula", "labelZh": "GasScore 公式", "description": "Combine normalized uptake, selectivity, working capacity, regenerability, stability, and evidence confidence with scenario-specific weights.", "descriptionZh": "用场景权重组合归一化吸附量、选择性、工作容量、可再生性、稳定性和证据置信度。"},
+          {"label": "Working capacity", "labelZh": "工作容量", "description": "Prefer candidates with useful loading swing between adsorption and desorption conditions instead of maximum uptake alone.", "descriptionZh": "优先考虑吸附 / 脱附条件之间有实际装载差的候选，而不是只看最大吸附量。"},
+          {"label": "Regenerability proxy", "labelZh": "可再生性 proxy", "description": "Use regenerability and heat-of-adsorption signals as a screening proxy for cyclic operation burden.", "descriptionZh": "用可再生性和吸附热信号作为循环运行负担的筛选 proxy。"},
+          {"label": "Selectivity methods", "labelZh": "选择性方法", "description": "Keep IAST, simulated, predicted, and experimental-style selectivity separate unless conditions and methods match.", "descriptionZh": "除非条件和方法匹配，否则分开看 IAST、模拟、预测和 experimental-style 选择性。"},
+          {"label": "Evidence-adjusted scoring", "labelZh": "证据修正评分", "description": "Apply evidence level, data type, stability, toxicity, and condition-mismatch penalties before ranking.", "descriptionZh": "排序前应用证据等级、数据类型、稳定性、毒性和工况不匹配扣分。"},
+          {"label": "Validation roadmap", "labelZh": "验证路线", "description": "Map each selected candidate to GCMC, IAST, water stability, regeneration cycling, breakthrough, or process-level assessment.", "descriptionZh": "把每个选中候选连接到 GCMC、IAST、水稳定性、再生循环、穿透实验或过程级评估。"}
+        ],
+        "formulas": [
+          {"id": "gassep-score-expanded", "label": "Scenario GasScore", "labelZh": "场景 GasScore", "latex": "\\mathrm{GasScore}=100\\times\\sum_i w_i\\hat{x}_i-P_{risk}", "fallback": "GasScore = 100 * sum(w_i * normalized_metric_i) - riskPenalty", "explanation": "Weights depend on gas pair and target priority; normalized metrics are computed only within the current scenario candidate set.", "explanationZh": "权重由气体对和目标优先级决定；归一化只在当前场景候选集内计算。"},
+          {"id": "gassep-working-capacity", "label": "Working capacity", "labelZh": "工作容量", "latex": "C_w=q_{ads}(P_{ads})-q_{des}(P_{des})", "fallback": "Cw = q_ads(P_ads) - q_des(P_des)", "explanation": "Working capacity estimates useful loading swing rather than total storage capacity.", "explanationZh": "工作容量估计可用装载差，而不是总储量。"},
+          {"id": "gassep-regenerability-proxy", "label": "Regenerability proxy", "labelZh": "可再生性 proxy", "latex": "R=\\min(1,C_w/q_{ads})\\times f(Q_{st})", "fallback": "R = min(1, Cw / q_ads) * f(Qst)", "explanation": "The current demo uses regenerability and heat-of-adsorption as screening signals for regeneration burden.", "explanationZh": "当前 demo 使用可再生性和吸附热作为再生负担的筛选信号。"},
+          {"id": "gassep-iast-selectivity", "label": "IAST selectivity", "labelZh": "IAST 选择性", "latex": "S_{A/B}=\\frac{x_A/y_A}{x_B/y_B}", "fallback": "S_A/B = (x_A / y_A) / (x_B / y_B)", "explanation": "IAST requires comparable single-component isotherms and explicit gas composition.", "explanationZh": "IAST 需要可比的单组分等温线和明确气体组成。"},
+          {"id": "gassep-evidence-adjusted-score", "label": "Evidence-adjusted score", "labelZh": "证据修正评分", "latex": "Score_{evidence}=Score_{raw}\\times E_{confidence}", "fallback": "Score_evidence = Score_raw * evidenceConfidence", "explanation": "Evidence confidence does not validate the result; it keeps data quality visible in prioritization.", "explanationZh": "证据置信度不验证结果，只是在优先级中保持数据质量可见。"}
+        ],
+        "inputs": ["gas pair", "feed ratio", "temperature", "pressure", "uptake", "selectivity", "working capacity", "regenerability", "heat of adsorption", "stability", "evidence level", "data type"],
+        "inputsZh": ["气体对", "进料比例", "温度", "压力", "吸附量", "选择性", "工作容量", "可再生性", "吸附热", "稳定性", "证据等级", "数据类型"],
+        "outputs": ["scenario GasScore", "score contribution", "trade-off summary", "metric inspector", "validation recommendation"],
+        "outputsZh": ["场景 GasScore", "评分贡献", "trade-off 摘要", "指标诊断面板", "验证建议"],
+        "visualizations": [
+          {"title": "Interactive Top ranking", "titleZh": "交互 Top 排序", "description": "Top 5 / Top 10 bars switch between overall score and contribution mode and link to the selected candidate.", "descriptionZh": "Top 5 / Top 10 条形图可在综合分与贡献拆解模式间切换，并联动选中候选。", "chartType": "bar"},
+          {"title": "Radar profile comparison", "titleZh": "雷达画像对比", "description": "Selected or compared MOFs are shown by normalized uptake, selectivity, working capacity, regenerability, stability, and evidence.", "descriptionZh": "按归一化吸附量、选择性、工作容量、可再生性、稳定性和证据展示选中或对比 MOF。", "chartType": "radar"},
+          {"title": "Diagnostic heatmap", "titleZh": "诊断热力图", "description": "Normalized, raw, and weighted views expose which metric drives or limits a candidate.", "descriptionZh": "normalized、raw 和 weighted 视图显示哪些指标驱动或限制候选。", "chartType": "heatmap"}
+        ],
+        "limitations": ["GasScore is a screening priority score, not measured separation performance.", "Demo, predicted, simulated, and experimental-template records are not interchangeable evidence levels.", "Heatmap and radar values are scenario-normalized diagnostics, not universal material rankings."],
+        "limitationsZh": ["GasScore 是筛选优先级分数，不是实测分离性能。", "demo、predicted、simulated 和 experimental-template 记录不是可互换的证据等级。", "热力图和雷达图数值是场景归一化诊断，不是通用材料排名。"]
+      },
+      {
         "id": "gassep-visualization",
         "title": "Gas separation visual analytics",
         "titleZh": "气体分离可视分析",

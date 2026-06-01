@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { Fragment, useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import {
   BasisBadge,
   Callout,
@@ -19,9 +19,15 @@ import {
   getEvidenceScore,
   getScenarioWeights,
   getStabilityScore,
-  normalizeGasMetric,
   rankGasCandidates,
 } from "../../utils/gasScoring"
+import { GasMetricHeatmap } from "../gas/GasMetricHeatmap"
+import { GasMetricInspector } from "../gas/GasMetricInspector"
+import { GasRadarComparison } from "../gas/GasRadarComparison"
+import { GasInteractionDiagnostics } from "../gas/GasInteractionDiagnostics"
+import { GasTopRankingChart } from "../gas/GasTopRankingChart"
+import { GasTradeoffSummary } from "../gas/GasTradeoffSummary"
+import { GasValidationRecommendation } from "../gas/GasValidationRecommendation"
 
 const SCENARIOS = [
   {
@@ -529,114 +535,6 @@ function PerformanceMap({ ranked, selectedId, onSelect, chartConfig, setChartCon
   )
 }
 
-function TopCandidatesBarChart({ ranked, selectedId, onSelect, t, lang }) {
-  const [limit, setLimit] = useState(5)
-  const visible = ranked.slice(0, limit)
-  return (
-    <section style={cardStyle(t)}>
-      <div style={{ display: "flex", justifyContent: "space-between", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
-        <SectionTitle>{text(lang, "Top Candidates Bar Chart", "Top Candidates Bar Chart")}</SectionTitle>
-        <div style={{ display: "flex", gap: 6 }}>
-          {[5, 10].map(size => (
-            <button key={size} type="button" onClick={() => setLimit(size)} style={{ background: limit === size ? t.badgeInfoBg : t.surface, border: `1px solid ${limit === size ? t.accent : t.border}`, borderRadius: 7, color: t.textStrong, cursor: "pointer", fontSize: 11, fontWeight: 850, padding: "6px 9px" }}>Top {size}</button>
-          ))}
-        </div>
-      </div>
-      <div style={{ display: "grid", gap: 8, marginTop: 12 }}>
-        {visible.map(row => (
-          <button key={row.id} type="button" onClick={() => onSelect(row.id)} style={{ alignItems: "center", background: row.id === selectedId ? t.badgeInfoBg : t.surface, border: `1px solid ${row.id === selectedId ? t.accent : t.border}`, borderRadius: 8, cursor: "pointer", display: "grid", gap: 8, gridTemplateColumns: "minmax(110px, 0.8fr) minmax(0, 1.7fr) 56px", padding: 9, textAlign: "left" }}>
-            <span style={{ color: t.textStrong, fontSize: 12, fontWeight: 900, overflowWrap: "anywhere" }}><ChemicalText value={row.displayName} /></span>
-            <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, height: 10, overflow: "hidden" }}>
-              <span style={{ background: COLOR_BY_EVIDENCE[row.evidenceLevel] || t.accent, display: "block", height: "100%", width: `${Math.max(4, Math.round(row.score))}%` }} />
-            </span>
-            <span style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 12, fontWeight: 900, textAlign: "right" }}>{formatScore(row.score)}</span>
-            <span style={{ color: t.subtle, fontSize: 10.5, gridColumn: "1 / -1" }}>{row.dataType.includes("demo") ? "Demo" : row.dataType} · {row.sourceRecordId}</span>
-          </button>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-function RadarProfile({ record, ranked, t, lang }) {
-  const metrics = ["primaryUptake", "selectivity", "workingCapacity", "regenerability", "stability", "evidence"]
-  if (!record) {
-    return (
-      <section style={cardStyle(t)}>
-        <SectionTitle>{text(lang, "Radar Profile", "Radar Profile")}</SectionTitle>
-        <Callout tone="warn">{text(lang, "未选中候选。", "No candidate selected.")}</Callout>
-      </section>
-    )
-  }
-  const cx = 155
-  const cy = 148
-  const maxR = 104
-  const points = metrics.map((metric, index) => {
-    const angle = -Math.PI / 2 + (Math.PI * 2 * index) / metrics.length
-    const value = metric === "stability" ? getStabilityScore(record) : metric === "evidence" ? getEvidenceScore(record) : normalizeGasMetric(valueForMetric(record, metric), metric, ranked)
-    const radius = value == null ? 0 : maxR * value
-    return { metric, value, x: cx + Math.cos(angle) * radius, y: cy + Math.sin(angle) * radius, labelX: cx + Math.cos(angle) * (maxR + 30), labelY: cy + Math.sin(angle) * (maxR + 30) }
-  })
-  return (
-    <section style={cardStyle(t)}>
-      <SectionTitle>{text(lang, "Radar Profile", "Radar Profile")}</SectionTitle>
-      <div style={{ display: "grid", gap: 10, gridTemplateColumns: "minmax(0, 320px) minmax(0, 1fr)", alignItems: "center", marginTop: 8 }}>
-          <svg viewBox="0 0 310 296" style={{ maxWidth: 320, width: "100%" }} role="img" aria-label="selected MOF radar profile">
-            {[0.25, 0.5, 0.75, 1].map(part => (
-              <circle key={part} cx={cx} cy={cy} r={maxR * part} fill="none" stroke={t.divider} strokeDasharray="3 4" />
-            ))}
-            {points.map(point => (
-              <g key={point.metric}>
-                <line x1={cx} y1={cy} x2={cx + (point.labelX - cx) * 0.82} y2={cy + (point.labelY - cy) * 0.82} stroke={t.divider} />
-                <text x={point.labelX} y={point.labelY} textAnchor={point.labelX < cx ? "end" : point.labelX > cx ? "start" : "middle"} fill={t.subtle} fontSize="10.5">{metricLabel(point.metric, lang)}</text>
-              </g>
-            ))}
-            <polygon points={points.map(point => `${point.x},${point.y}`).join(" ")} fill="#2F7D7B" fillOpacity="0.22" stroke="#2F7D7B" strokeWidth="2" />
-          </svg>
-          <div style={{ display: "grid", gap: 7 }}>
-            {points.map(point => (
-              <div key={point.metric} style={{ display: "grid", gridTemplateColumns: "136px minmax(0, 1fr) 54px", gap: 8, alignItems: "center" }}>
-                <span style={{ color: t.muted, fontSize: 11.5 }}>{metricLabel(point.metric, lang)}</span>
-                <span style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, height: 8, overflow: "hidden" }}>
-                  {point.value == null ? null : <span style={{ background: "#2F7D7B", display: "block", height: "100%", width: `${Math.round(point.value * 100)}%` }} />}
-                </span>
-                <span style={{ color: t.subtle, fontFamily: FONT_MONO, fontSize: 11, textAlign: "right" }}>{point.value == null ? "pending" : `${Math.round(point.value * 100)}%`}</span>
-              </div>
-            ))}
-          </div>
-      </div>
-    </section>
-  )
-}
-
-function Heatmap({ ranked, t, lang }) {
-  const metrics = ["primaryUptake", "selectivity", "workingCapacity", "regenerability", "stability", "evidence"]
-  const rows = ranked.slice(0, 8)
-  return (
-    <section style={cardStyle(t)}>
-      <SectionTitle>{text(lang, "Heatmap", "Heatmap")}</SectionTitle>
-      <div style={{ display: "grid", gridTemplateColumns: `minmax(140px, 1.2fr) repeat(${metrics.length}, minmax(74px, 1fr))`, gap: 3, marginTop: 12, overflowX: "auto" }}>
-        <div />
-        {metrics.map(metric => <div key={metric} style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textAlign: "center" }}>{metricLabel(metric, lang)}</div>)}
-        {rows.map(row => (
-          <Fragment key={row.id}>
-            <div key={`${row.id}-name`} style={{ ...surfaceStyle(t, { padding: 8 }), color: t.textStrong, fontSize: 11.5, fontWeight: 850, overflowWrap: "anywhere" }}><ChemicalText value={row.displayName} /></div>
-            {metrics.map(metric => {
-              const normalized = metric === "stability" ? getStabilityScore(row) : metric === "evidence" ? getEvidenceScore(row) : normalizeGasMetric(valueForMetric(row, metric), metric, ranked)
-              const opacity = normalized == null ? 0.06 : 0.16 + normalized * 0.58
-              return (
-                <div key={`${row.id}-${metric}`} style={{ background: `rgba(47, 125, 123, ${opacity})`, border: `1px solid ${t.border}`, borderRadius: 6, color: t.textStrong, fontFamily: FONT_MONO, fontSize: 11, fontWeight: 850, padding: "8px 5px", textAlign: "center" }}>
-                  {normalized == null ? "pending" : `${Math.round(normalized * 100)}%`}
-                </div>
-              )
-            })}
-          </Fragment>
-        ))}
-      </div>
-    </section>
-  )
-}
-
 function CandidateRankingTable({ ranked, selectedId, onSelect, compareIds, setCompareIds, t, lang, isMobile }) {
   const [sort, setSort] = useState({ key: "score", dir: "desc" })
   const [filters, setFilters] = useState({ evidence: "all", dataType: "all", stability: "all", source: "all" })
@@ -892,8 +790,14 @@ export function GasSepTab({ onNavigate }) {
   const { isNarrow, isMobile } = useViewport()
   const [records, setRecords] = useState([])
   const [status, setStatus] = useState("loading")
-  const [selectedId, setSelectedId] = useState(null)
-  const [compareIds, setCompareIds] = useState([])
+  const [selectedMofId, setSelectedMofId] = useState(null)
+  const [selectedMetric, setSelectedMetric] = useState("primaryUptake")
+  const [rankingMode, setRankingMode] = useState("overall")
+  const [rankingSortMetric, setRankingSortMetric] = useState("GasScore")
+  const [heatmapView, setHeatmapView] = useState("normalized")
+  const [heatmapSortMetric, setHeatmapSortMetric] = useState("GasScore")
+  const [compareMofIds, setCompareMofIds] = useState([])
+  const [activeInspectorCell, setActiveInspectorCell] = useState(null)
   const [scenario, setScenario] = useState({
     gasPair: "CO2/N2",
     applicationScenario: "flue gas carbon capture",
@@ -927,18 +831,31 @@ export function GasSepTab({ onNavigate }) {
   }, [])
 
   const ranked = useMemo(() => rankGasCandidates(records, scenario), [records, scenario])
-  const selected = useMemo(() => ranked.find(row => row.id === selectedId) || ranked[0] || null, [ranked, selectedId])
-  const compareRows = useMemo(() => compareIds.map(id => ranked.find(row => row.id === id)).filter(Boolean), [compareIds, ranked])
+  const selected = useMemo(() => ranked.find(row => row.id === selectedMofId) || ranked[0] || null, [ranked, selectedMofId])
+  const compareRows = useMemo(() => compareMofIds.map(id => ranked.find(row => row.id === id)).filter(Boolean), [compareMofIds, ranked])
 
   useEffect(() => {
     if (!ranked.length) {
-      setSelectedId(null)
-      setCompareIds([])
+      setSelectedMofId(null)
+      setCompareMofIds([])
       return
     }
-    if (!selectedId || !ranked.some(row => row.id === selectedId)) setSelectedId(ranked[0].id)
-    setCompareIds(prev => prev.filter(id => ranked.some(row => row.id === id)).slice(0, 3))
-  }, [ranked, selectedId])
+    if (!selectedMofId || !ranked.some(row => row.id === selectedMofId)) setSelectedMofId(ranked[0].id)
+    setCompareMofIds(prev => prev.filter(id => ranked.some(row => row.id === id)).slice(0, 3))
+  }, [ranked, selectedMofId])
+
+  useEffect(() => {
+    setActiveInspectorCell(null)
+    setSelectedMetric("primaryUptake")
+    setHeatmapSortMetric("GasScore")
+  }, [scenario.gasPair])
+
+  const selectMetricCell = useCallback((row, metric) => {
+    if (!row) return
+    setSelectedMofId(row.id)
+    setSelectedMetric(metric)
+    setActiveInspectorCell({ record: row, metric })
+  }, [])
 
   const openMethod = useCallback(() => {
     if (onNavigate) onNavigate("methodology")
@@ -975,9 +892,22 @@ export function GasSepTab({ onNavigate }) {
       <Overview ranked={ranked} scenario={scenario} t={t} lang={lang} isMobile={isMobile} />
       <ScenarioBuilder scenario={scenario} setScenario={setScenario} t={t} lang={lang} isMobile={isMobile} isNarrow={isNarrow} />
       <ConditionSummary ranked={ranked} scenario={scenario} t={t} lang={lang} isMobile={isMobile} />
-      <PerformanceMap ranked={ranked} selectedId={selected?.id} onSelect={setSelectedId} chartConfig={chartConfig} setChartConfig={setChartConfig} t={t} lang={lang} isMobile={isMobile} isNarrow={isNarrow} />
-      <CandidateRankingTable ranked={ranked} selectedId={selected?.id} onSelect={setSelectedId} compareIds={compareIds} setCompareIds={setCompareIds} t={t} lang={lang} isMobile={isMobile} />
+      <PerformanceMap ranked={ranked} selectedId={selected?.id} onSelect={setSelectedMofId} chartConfig={chartConfig} setChartConfig={setChartConfig} t={t} lang={lang} isMobile={isMobile} isNarrow={isNarrow} />
+      <CandidateRankingTable ranked={ranked} selectedId={selected?.id} onSelect={setSelectedMofId} compareIds={compareMofIds} setCompareIds={setCompareMofIds} t={t} lang={lang} isMobile={isMobile} />
+      <GasTopRankingChart
+        ranked={ranked}
+        selectedId={selected?.id}
+        onSelect={setSelectedMofId}
+        rankingMode={rankingMode}
+        setRankingMode={setRankingMode}
+        sortMetric={rankingSortMetric}
+        setSortMetric={setRankingSortMetric}
+        t={t}
+        lang={lang}
+        isMobile={isMobile}
+      />
       <ExplanationPanel record={selected} t={t} lang={lang} onOpenMethod={openMethod} />
+      <GasInteractionDiagnostics scenario={scenario} record={selected} t={t} lang={lang} isMobile={isMobile} />
 
       <section style={cardStyle(t)}>
         <SectionTitle>{text(lang, "Multi-Metric Comparison", "Multi-Metric Comparison")}</SectionTitle>
@@ -992,10 +922,26 @@ export function GasSepTab({ onNavigate }) {
       </section>
 
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 0.9fr) minmax(0, 1.1fr)", gap: 16 }}>
-        <TopCandidatesBarChart ranked={ranked} selectedId={selected?.id} onSelect={setSelectedId} t={t} lang={lang} />
-        <RadarProfile record={selected} ranked={ranked} t={t} lang={lang} />
+        <GasTradeoffSummary ranked={ranked} scenario={scenario} t={t} lang={lang} />
+        <GasValidationRecommendation record={selected} scenario={scenario} t={t} lang={lang} />
       </div>
-      <Heatmap ranked={ranked} t={t} lang={lang} />
+      <GasRadarComparison selectedRecord={selected} compareRecords={compareRows} ranked={ranked} t={t} lang={lang} isMobile={isMobile} />
+      <GasMetricHeatmap
+        ranked={ranked}
+        selectedId={selected?.id}
+        selectedMetric={selectedMetric}
+        setSelectedMetric={setSelectedMetric}
+        heatmapView={heatmapView}
+        setHeatmapView={setHeatmapView}
+        heatmapSortMetric={heatmapSortMetric}
+        setHeatmapSortMetric={setHeatmapSortMetric}
+        onSelectCell={selectMetricCell}
+        t={t}
+        lang={lang}
+      />
+      {activeInspectorCell ? (
+        <GasMetricInspector cell={activeInspectorCell} ranked={ranked} scenario={scenario} onClose={() => setActiveInspectorCell(null)} t={t} lang={lang} />
+      ) : null}
       <MechanismAndEvidence scenario={scenario} record={selected} t={t} lang={lang} isMobile={isMobile} />
       <EvidenceLimitations record={selected} t={t} lang={lang} />
       <ValidationRoadmap t={t} lang={lang} />

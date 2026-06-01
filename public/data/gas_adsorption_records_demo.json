@@ -45,7 +45,30 @@
     "whyRecommended": ["High CO2/N2 selectivity template", "Water-stability note fits flue gas screening", "Moderate regeneration burden"],
     "risks": ["Demo value only", "Real flue gas impurities not modeled"],
     "applicabilityNote": "Use as a scenario-builder example for flue gas capture at near-ambient conditions.",
-    "limitationNote": "Does not replace measured isotherms, breakthrough data, or IAST validation."
+    "limitationNote": "Does not replace measured isotherms, breakthrough data, or IAST validation.",
+    "validationRecommendation": {
+      "type": "Breakthrough experiment",
+      "typeZh": "穿透实验",
+      "priority": "medium",
+      "reason": "The candidate has a balanced screening profile and should be tested with dynamic mixture flow before stronger claims.",
+      "reasonZh": "该候选的筛选画像较均衡，需要在动态混合气流中验证后才能形成更强声称。",
+      "requiredData": [
+        "packed-bed condition",
+        "feed composition",
+        "flow rate",
+        "outlet concentration curve"
+      ],
+      "requiredDataZh": [
+        "固定床条件",
+        "进料组成",
+        "流速",
+        "出口浓度曲线"
+      ],
+      "expectedOutput": "Breakthrough time, dynamic capacity, and separation factor.",
+      "expectedOutputZh": "穿透时间、动态容量和分离因子。",
+      "evidenceImpact": "Can upgrade the record toward process-level evidence if the dynamic result remains consistent.",
+      "evidenceImpactZh": "若动态结果一致，可将记录推进到过程级证据。"
+    }
   },
   {
     "id": "gassep-co2n2-mg-mof74-002",
@@ -93,7 +116,30 @@
     "whyRecommended": ["Strong CO2 uptake proxy", "Open metal sites support quadrupole interaction"],
     "risks": ["Higher heat of adsorption may increase regeneration cost", "Humidity tolerance requires validation"],
     "applicabilityNote": "Useful for high-uptake CO2/N2 screening.",
-    "limitationNote": "Demo simulated values require independent isotherm and cyclic stability checks."
+    "limitationNote": "Demo simulated values require independent isotherm and cyclic stability checks.",
+    "validationRecommendation": {
+      "type": "Water stability test",
+      "typeZh": "水稳定性测试",
+      "priority": "medium",
+      "reason": "CO2/N2 streams may include humidity or contaminant exposure, while this record is not marked high water-stability.",
+      "reasonZh": "CO2/N2 气流可能涉及湿度或污染物暴露，而该记录未标记为高水稳定性。",
+      "requiredData": [
+        "humidity exposure condition",
+        "post-exposure crystallinity",
+        "uptake retention",
+        "adsorption cycle check"
+      ],
+      "requiredDataZh": [
+        "湿度暴露条件",
+        "暴露后结晶性",
+        "吸附保持率",
+        "吸附循环检查"
+      ],
+      "expectedOutput": "Stability window and uptake retention after humidity exposure under the target gas pair.",
+      "expectedOutputZh": "目标气体对湿度暴露后的稳定窗口和吸附保持率。",
+      "evidenceImpact": "Clarifies whether the candidate can move from scenario screening into process-level assessment.",
+      "evidenceImpactZh": "判断候选能否从场景筛选进入过程级评估。"
+    }
   },
   {
     "id": "gassep-co2n2-uio66nh2-003",
@@ -141,7 +187,34 @@
     "whyRecommended": ["Stable Zr node template", "Amino functionality supports CO2 affinity"],
     "risks": ["Lower uptake than open-metal-site examples", "Prediction needs benchmark data"],
     "applicabilityNote": "Stability-first CO2/N2 screening candidate.",
-    "limitationNote": "Predicted demo values should be treated as pending."
+    "limitationNote": "Predicted demo values should be treated as pending.",
+    "validationRecommendation": {
+      "type": "GCMC simulation",
+      "typeZh": "GCMC 吸附模拟",
+      "priority": "high",
+      "reason": "The record is demo-predicted, so adsorption simulation should be completed before treating the ranking as research evidence.",
+      "reasonZh": "该记录为 demo-predicted，需要先完成吸附模拟，不能直接作为科研排名证据。",
+      "requiredData": [
+        "CIF structure",
+        "force field",
+        "partial charges",
+        "temperature",
+        "pressure",
+        "gas model"
+      ],
+      "requiredDataZh": [
+        "CIF 结构",
+        "力场",
+        "部分电荷",
+        "温度",
+        "压力",
+        "气体模型"
+      ],
+      "expectedOutput": "Single-component and mixture uptake estimates for CO2/N2.",
+      "expectedOutputZh": "CO2/N2 的单组分和混合气吸附量估计。",
+      "evidenceImpact": "May raise confidence from predicted demo status toward simulation-supported screening if reproducible.",
+      "evidenceImpactZh": "若可复现，可将置信度从预测 demo 推进到模拟支持的筛选层级。"
+    }
   },
   {
     "id": "gassep-co2n2-hkust1-004",
@@ -189,7 +262,30 @@
     "whyRecommended": ["High surface area reference material", "Useful baseline for visualization"],
     "risks": ["Water sensitivity risk", "Copper node toxicity and stability need review"],
     "applicabilityNote": "Baseline comparison material, not a recommendation without stability evidence.",
-    "limitationNote": "Demo field values are not a validated benchmark."
+    "limitationNote": "Demo field values are not a validated benchmark.",
+    "validationRecommendation": {
+      "type": "Water stability test",
+      "typeZh": "水稳定性测试",
+      "priority": "medium",
+      "reason": "CO2/N2 streams may include humidity or contaminant exposure, while this record is not marked high water-stability.",
+      "reasonZh": "CO2/N2 气流可能涉及湿度或污染物暴露，而该记录未标记为高水稳定性。",
+      "requiredData": [
+        "humidity exposure condition",
+        "post-exposure crystallinity",
+        "uptake retention",
+        "adsorption cycle check"
+      ],
+      "requiredDataZh": [
+        "湿度暴露条件",
+        "暴露后结晶性",
+        "吸附保持率",
+        "吸附循环检查"
+      ],
+      "expectedOutput": "Stability window and uptake retention after humidity exposure under the target gas pair.",
+      "expectedOutputZh": "目标气体对湿度暴露后的稳定窗口和吸附保持率。",
+      "evidenceImpact": "Clarifies whether the candidate can move from scenario screening into process-level assessment.",
+      "evidenceImpactZh": "判断候选能否从场景筛选进入过程级评估。"
+    }
   },
   {
     "id": "gassep-co2n2-sifsix3zn-005",
@@ -237,7 +333,30 @@
     "whyRecommended": ["Narrow pore and polar site motif can favor CO2", "High selectivity proxy"],
     "risks": ["Fluorinated pillar stability needs review", "Source is demo-predicted"],
     "applicabilityNote": "Selectivity-first CO2/N2 screening example.",
-    "limitationNote": "Needs real adsorption and moisture cycling data."
+    "limitationNote": "Needs real adsorption and moisture cycling data.",
+    "validationRecommendation": {
+      "type": "Water stability test",
+      "typeZh": "水稳定性测试",
+      "priority": "medium",
+      "reason": "CO2/N2 streams may include humidity or contaminant exposure, while this record is not marked high water-stability.",
+      "reasonZh": "CO2/N2 气流可能涉及湿度或污染物暴露，而该记录未标记为高水稳定性。",
+      "requiredData": [
+        "humidity exposure condition",
+        "post-exposure crystallinity",
+        "uptake retention",
+        "adsorption cycle check"
+      ],
+      "requiredDataZh": [
+        "湿度暴露条件",
+        "暴露后结晶性",
+        "吸附保持率",
+        "吸附循环检查"
+      ],
+      "expectedOutput": "Stability window and uptake retention after humidity exposure under the target gas pair.",
+      "expectedOutputZh": "目标气体对湿度暴露后的稳定窗口和吸附保持率。",
+      "evidenceImpact": "Clarifies whether the candidate can move from scenario screening into process-level assessment.",
+      "evidenceImpactZh": "判断候选能否从场景筛选进入过程级评估。"
+    }
   },
   {
     "id": "gassep-co2ch4-utsa16-006",
@@ -285,7 +404,30 @@
     "whyRecommended": ["Natural-gas upgrading template with stable node note", "Balanced uptake and regeneration"],
     "risks": ["Methane loss must be checked at process level"],
     "applicabilityNote": "CO2 removal from CH4-rich streams under moderate pressure.",
-    "limitationNote": "Demo values require mixture adsorption or breakthrough validation."
+    "limitationNote": "Demo values require mixture adsorption or breakthrough validation.",
+    "validationRecommendation": {
+      "type": "Breakthrough experiment",
+      "typeZh": "穿透实验",
+      "priority": "medium",
+      "reason": "The candidate has a balanced screening profile and should be tested with dynamic mixture flow before stronger claims.",
+      "reasonZh": "该候选的筛选画像较均衡，需要在动态混合气流中验证后才能形成更强声称。",
+      "requiredData": [
+        "packed-bed condition",
+        "feed composition",
+        "flow rate",
+        "outlet concentration curve"
+      ],
+      "requiredDataZh": [
+        "固定床条件",
+        "进料组成",
+        "流速",
+        "出口浓度曲线"
+      ],
+      "expectedOutput": "Breakthrough time, dynamic capacity, and separation factor.",
+      "expectedOutputZh": "穿透时间、动态容量和分离因子。",
+      "evidenceImpact": "Can upgrade the record toward process-level evidence if the dynamic result remains consistent.",
+      "evidenceImpactZh": "若动态结果一致，可将记录推进到过程级证据。"
+    }
   },
   {
     "id": "gassep-co2ch4-ni-mof74-007",
@@ -333,7 +475,32 @@
     "whyRecommended": ["High CO2 loading in CO2/CH4 scenario", "Open metal site motif supports CO2 affinity"],
     "risks": ["Higher regeneration energy", "Metal toxicity and moisture tolerance need validation"],
     "applicabilityNote": "High-uptake natural gas upgrading screen.",
-    "limitationNote": "Does not model CH4 product recovery or PSA/VSA cycle behavior."
+    "limitationNote": "Does not model CH4 product recovery or PSA/VSA cycle behavior.",
+    "validationRecommendation": {
+      "type": "IAST validation",
+      "typeZh": "IAST 混合吸附验证",
+      "priority": "high",
+      "reason": "The current score depends on simulated uptake/selectivity; mixture behavior needs an explicit comparable estimate.",
+      "reasonZh": "当前分数依赖模拟吸附量 / 选择性，需要显式、可比的混合气估计。",
+      "requiredData": [
+        "single-component isotherms",
+        "mixture ratio",
+        "temperature",
+        "pressure",
+        "model fit residuals"
+      ],
+      "requiredDataZh": [
+        "单组分等温线",
+        "混合气比例",
+        "温度",
+        "压力",
+        "模型拟合残差"
+      ],
+      "expectedOutput": "Mixture selectivity and uptake estimate under CO2/CH4 at the selected feed ratio.",
+      "expectedOutputZh": "在 CO2/CH4 与选定进料比例下得到混合气选择性和吸附量估计。",
+      "evidenceImpact": "Can move a reproducible simulated record toward stronger evidence if assumptions and residuals are transparent.",
+      "evidenceImpactZh": "若假设和残差透明，可将可复现模拟记录推进到更强证据。"
+    }
   },
   {
     "id": "gassep-co2ch4-zif8-008",
@@ -381,7 +548,34 @@
     "whyRecommended": ["Strong regenerability and robust framework template", "Useful low-energy baseline"],
     "risks": ["Selectivity is modest in this scenario"],
     "applicabilityNote": "Regenerability-first natural gas upgrading comparison point.",
-    "limitationNote": "Prediction is not a validated mixture-separation result."
+    "limitationNote": "Prediction is not a validated mixture-separation result.",
+    "validationRecommendation": {
+      "type": "GCMC simulation",
+      "typeZh": "GCMC 吸附模拟",
+      "priority": "high",
+      "reason": "The record is demo-predicted, so adsorption simulation should be completed before treating the ranking as research evidence.",
+      "reasonZh": "该记录为 demo-predicted，需要先完成吸附模拟，不能直接作为科研排名证据。",
+      "requiredData": [
+        "CIF structure",
+        "force field",
+        "partial charges",
+        "temperature",
+        "pressure",
+        "gas model"
+      ],
+      "requiredDataZh": [
+        "CIF 结构",
+        "力场",
+        "部分电荷",
+        "温度",
+        "压力",
+        "气体模型"
+      ],
+      "expectedOutput": "Single-component and mixture uptake estimates for CO2/CH4.",
+      "expectedOutputZh": "CO2/CH4 的单组分和混合气吸附量估计。",
+      "evidenceImpact": "May raise confidence from predicted demo status toward simulation-supported screening if reproducible.",
+      "evidenceImpactZh": "若可复现，可将置信度从预测 demo 推进到模拟支持的筛选层级。"
+    }
   },
   {
     "id": "gassep-co2ch4-uio66-009",
@@ -429,7 +623,34 @@
     "whyRecommended": ["Stability-first baseline", "Moderate uptake with low risk profile"],
     "risks": ["Selectivity may not be enough for aggressive upgrading targets"],
     "applicabilityNote": "Stable reference candidate for CO2/CH4 ranking.",
-    "limitationNote": "Needs process model to quantify CH4 loss."
+    "limitationNote": "Needs process model to quantify CH4 loss.",
+    "validationRecommendation": {
+      "type": "GCMC simulation",
+      "typeZh": "GCMC 吸附模拟",
+      "priority": "high",
+      "reason": "The record is demo-predicted, so adsorption simulation should be completed before treating the ranking as research evidence.",
+      "reasonZh": "该记录为 demo-predicted，需要先完成吸附模拟，不能直接作为科研排名证据。",
+      "requiredData": [
+        "CIF structure",
+        "force field",
+        "partial charges",
+        "temperature",
+        "pressure",
+        "gas model"
+      ],
+      "requiredDataZh": [
+        "CIF 结构",
+        "力场",
+        "部分电荷",
+        "温度",
+        "压力",
+        "气体模型"
+      ],
+      "expectedOutput": "Single-component and mixture uptake estimates for CO2/CH4.",
+      "expectedOutputZh": "CO2/CH4 的单组分和混合气吸附量估计。",
+      "evidenceImpact": "May raise confidence from predicted demo status toward simulation-supported screening if reproducible.",
+      "evidenceImpactZh": "若可复现，可将置信度从预测 demo 推进到模拟支持的筛选层级。"
+    }
   },
   {
     "id": "gassep-co2ch4-mil101cr-010",
@@ -477,7 +698,32 @@
     "whyRecommended": ["Large capacity proxy under higher pressure", "Useful working-capacity comparison"],
     "risks": ["Lower selectivity", "Chromium node and cycle stability require screening"],
     "applicabilityNote": "Working-capacity-oriented CO2/CH4 scenario.",
-    "limitationNote": "High-pressure extrapolation is illustrative only."
+    "limitationNote": "High-pressure extrapolation is illustrative only.",
+    "validationRecommendation": {
+      "type": "IAST validation",
+      "typeZh": "IAST 混合吸附验证",
+      "priority": "high",
+      "reason": "The current score depends on simulated uptake/selectivity; mixture behavior needs an explicit comparable estimate.",
+      "reasonZh": "当前分数依赖模拟吸附量 / 选择性，需要显式、可比的混合气估计。",
+      "requiredData": [
+        "single-component isotherms",
+        "mixture ratio",
+        "temperature",
+        "pressure",
+        "model fit residuals"
+      ],
+      "requiredDataZh": [
+        "单组分等温线",
+        "混合气比例",
+        "温度",
+        "压力",
+        "模型拟合残差"
+      ],
+      "expectedOutput": "Mixture selectivity and uptake estimate under CO2/CH4 at the selected feed ratio.",
+      "expectedOutputZh": "在 CO2/CH4 与选定进料比例下得到混合气选择性和吸附量估计。",
+      "evidenceImpact": "Can move a reproducible simulated record toward stronger evidence if assumptions and residuals are transparent.",
+      "evidenceImpactZh": "若假设和残差透明，可将可复现模拟记录推进到更强证据。"
+    }
   },
   {
     "id": "gassep-h2co2-mof5-011",
@@ -525,7 +771,34 @@
     "whyRecommended": ["High porosity baseline for H2-rich streams", "Useful comparison for impurity capture logic"],
     "risks": ["Low moisture stability", "H2 recovery requires process-level evaluation"],
     "applicabilityNote": "Hydrogen purification demo where CO2 is preferentially retained.",
-    "limitationNote": "Does not represent verified H2/CO2 PSA performance."
+    "limitationNote": "Does not represent verified H2/CO2 PSA performance.",
+    "validationRecommendation": {
+      "type": "GCMC simulation",
+      "typeZh": "GCMC 吸附模拟",
+      "priority": "high",
+      "reason": "The record is demo-predicted, so adsorption simulation should be completed before treating the ranking as research evidence.",
+      "reasonZh": "该记录为 demo-predicted，需要先完成吸附模拟，不能直接作为科研排名证据。",
+      "requiredData": [
+        "CIF structure",
+        "force field",
+        "partial charges",
+        "temperature",
+        "pressure",
+        "gas model"
+      ],
+      "requiredDataZh": [
+        "CIF 结构",
+        "力场",
+        "部分电荷",
+        "温度",
+        "压力",
+        "气体模型"
+      ],
+      "expectedOutput": "Single-component and mixture uptake estimates for H2/CO2.",
+      "expectedOutputZh": "H2/CO2 的单组分和混合气吸附量估计。",
+      "evidenceImpact": "May raise confidence from predicted demo status toward simulation-supported screening if reproducible.",
+      "evidenceImpactZh": "若可复现，可将置信度从预测 demo 推进到模拟支持的筛选层级。"
+    }
   },
   {
     "id": "gassep-h2co2-mil101-012",
@@ -573,7 +846,32 @@
     "whyRecommended": ["CO2 impurity uptake supports H2 purification concept", "Large pore volume helps capacity"],
     "risks": ["Chromium and humidity issues need review"],
     "applicabilityNote": "CO2 capture from H2-rich stream in screening context.",
-    "limitationNote": "No real PSA cycle or multicomponent breakthrough model is included."
+    "limitationNote": "No real PSA cycle or multicomponent breakthrough model is included.",
+    "validationRecommendation": {
+      "type": "IAST validation",
+      "typeZh": "IAST 混合吸附验证",
+      "priority": "high",
+      "reason": "The current score depends on simulated uptake/selectivity; mixture behavior needs an explicit comparable estimate.",
+      "reasonZh": "当前分数依赖模拟吸附量 / 选择性，需要显式、可比的混合气估计。",
+      "requiredData": [
+        "single-component isotherms",
+        "mixture ratio",
+        "temperature",
+        "pressure",
+        "model fit residuals"
+      ],
+      "requiredDataZh": [
+        "单组分等温线",
+        "混合气比例",
+        "温度",
+        "压力",
+        "模型拟合残差"
+      ],
+      "expectedOutput": "Mixture selectivity and uptake estimate under H2/CO2 at the selected feed ratio.",
+      "expectedOutputZh": "在 H2/CO2 与选定进料比例下得到混合气选择性和吸附量估计。",
+      "evidenceImpact": "Can move a reproducible simulated record toward stronger evidence if assumptions and residuals are transparent.",
+      "evidenceImpactZh": "若假设和残差透明，可将可复现模拟记录推进到更强证据。"
+    }
   },
   {
     "id": "gassep-h2co2-sifsix3zn-013",
@@ -621,7 +919,34 @@
     "whyRecommended": ["CO2-selective impurity capture motif", "Compact pore environment"],
     "risks": ["High affinity may complicate regeneration", "Fluorinated pillar review needed"],
     "applicabilityNote": "Selectivity-first H2 purification example.",
-    "limitationNote": "Predicted demo values are pending."
+    "limitationNote": "Predicted demo values are pending.",
+    "validationRecommendation": {
+      "type": "GCMC simulation",
+      "typeZh": "GCMC 吸附模拟",
+      "priority": "high",
+      "reason": "The record is demo-predicted, so adsorption simulation should be completed before treating the ranking as research evidence.",
+      "reasonZh": "该记录为 demo-predicted，需要先完成吸附模拟，不能直接作为科研排名证据。",
+      "requiredData": [
+        "CIF structure",
+        "force field",
+        "partial charges",
+        "temperature",
+        "pressure",
+        "gas model"
+      ],
+      "requiredDataZh": [
+        "CIF 结构",
+        "力场",
+        "部分电荷",
+        "温度",
+        "压力",
+        "气体模型"
+      ],
+      "expectedOutput": "Single-component and mixture uptake estimates for H2/CO2.",
+      "expectedOutputZh": "H2/CO2 的单组分和混合气吸附量估计。",
+      "evidenceImpact": "May raise confidence from predicted demo status toward simulation-supported screening if reproducible.",
+      "evidenceImpactZh": "若可复现，可将置信度从预测 demo 推进到模拟支持的筛选层级。"
+    }
   },
   {
     "id": "gassep-o2n2-fe-mof74-014",
@@ -669,7 +994,32 @@
     "whyRecommended": ["Open metal site motif for difficult O2/N2 selectivity", "Moderate working capacity"],
     "risks": ["O2/N2 selectivity is challenging and values are demo-only"],
     "applicabilityNote": "Air separation screening example, not validated process result.",
-    "limitationNote": "Requires high-quality mixture adsorption and safety review."
+    "limitationNote": "Requires high-quality mixture adsorption and safety review.",
+    "validationRecommendation": {
+      "type": "IAST validation",
+      "typeZh": "IAST 混合吸附验证",
+      "priority": "high",
+      "reason": "The current score depends on simulated uptake/selectivity; mixture behavior needs an explicit comparable estimate.",
+      "reasonZh": "当前分数依赖模拟吸附量 / 选择性，需要显式、可比的混合气估计。",
+      "requiredData": [
+        "single-component isotherms",
+        "mixture ratio",
+        "temperature",
+        "pressure",
+        "model fit residuals"
+      ],
+      "requiredDataZh": [
+        "单组分等温线",
+        "混合气比例",
+        "温度",
+        "压力",
+        "模型拟合残差"
+      ],
+      "expectedOutput": "Mixture selectivity and uptake estimate under O2/N2 at the selected feed ratio.",
+      "expectedOutputZh": "在 O2/N2 与选定进料比例下得到混合气选择性和吸附量估计。",
+      "evidenceImpact": "Can move a reproducible simulated record toward stronger evidence if assumptions and residuals are transparent.",
+      "evidenceImpactZh": "若假设和残差透明，可将可复现模拟记录推进到更强证据。"
+    }
   },
   {
     "id": "gassep-o2n2-co-mof74-015",
@@ -717,7 +1067,34 @@
     "whyRecommended": ["Regenerability proxy is favorable", "Open metal site baseline for O2/N2"],
     "risks": ["Selectivity margin is small", "Predicted demo record only"],
     "applicabilityNote": "Low-energy O2/N2 comparison material.",
-    "limitationNote": "Requires real gas purity and cycle checks."
+    "limitationNote": "Requires real gas purity and cycle checks.",
+    "validationRecommendation": {
+      "type": "GCMC simulation",
+      "typeZh": "GCMC 吸附模拟",
+      "priority": "high",
+      "reason": "The record is demo-predicted, so adsorption simulation should be completed before treating the ranking as research evidence.",
+      "reasonZh": "该记录为 demo-predicted，需要先完成吸附模拟，不能直接作为科研排名证据。",
+      "requiredData": [
+        "CIF structure",
+        "force field",
+        "partial charges",
+        "temperature",
+        "pressure",
+        "gas model"
+      ],
+      "requiredDataZh": [
+        "CIF 结构",
+        "力场",
+        "部分电荷",
+        "温度",
+        "压力",
+        "气体模型"
+      ],
+      "expectedOutput": "Single-component and mixture uptake estimates for O2/N2.",
+      "expectedOutputZh": "O2/N2 的单组分和混合气吸附量估计。",
+      "evidenceImpact": "May raise confidence from predicted demo status toward simulation-supported screening if reproducible.",
+      "evidenceImpactZh": "若可复现，可将置信度从预测 demo 推进到模拟支持的筛选层级。"
+    }
   },
   {
     "id": "gassep-o2n2-cupligand-016",
@@ -765,7 +1142,34 @@
     "whyRecommended": ["Included to show low-evidence O2/N2 candidate behavior", "Regeneration proxy is high"],
     "risks": ["Water stability low", "Air separation evidence is weak"],
     "applicabilityNote": "Illustrates why evidence and stability penalties matter.",
-    "limitationNote": "Not a validated air separation candidate."
+    "limitationNote": "Not a validated air separation candidate.",
+    "validationRecommendation": {
+      "type": "GCMC simulation",
+      "typeZh": "GCMC 吸附模拟",
+      "priority": "high",
+      "reason": "The record is demo-predicted, so adsorption simulation should be completed before treating the ranking as research evidence.",
+      "reasonZh": "该记录为 demo-predicted，需要先完成吸附模拟，不能直接作为科研排名证据。",
+      "requiredData": [
+        "CIF structure",
+        "force field",
+        "partial charges",
+        "temperature",
+        "pressure",
+        "gas model"
+      ],
+      "requiredDataZh": [
+        "CIF 结构",
+        "力场",
+        "部分电荷",
+        "温度",
+        "压力",
+        "气体模型"
+      ],
+      "expectedOutput": "Single-component and mixture uptake estimates for O2/N2.",
+      "expectedOutputZh": "O2/N2 的单组分和混合气吸附量估计。",
+      "evidenceImpact": "May raise confidence from predicted demo status toward simulation-supported screening if reproducible.",
+      "evidenceImpactZh": "若可复现，可将置信度从预测 demo 推进到模拟支持的筛选层级。"
+    }
   },
   {
     "id": "gassep-vocn2-mil101-017",
@@ -813,7 +1217,30 @@
     "whyRecommended": ["High VOC capacity proxy", "Large pore volume supports bulky molecules"],
     "risks": ["Regeneration cost may be high", "Humidity competition is not modeled"],
     "applicabilityNote": "VOC capture screening under dilute feed condition.",
-    "limitationNote": "Needs humidity, desorption energy, and cycling data."
+    "limitationNote": "Needs humidity, desorption energy, and cycling data.",
+    "validationRecommendation": {
+      "type": "Water stability test",
+      "typeZh": "水稳定性测试",
+      "priority": "high",
+      "reason": "VOC/N2 streams may include humidity or contaminant exposure, while this record is not marked high water-stability.",
+      "reasonZh": "VOC/N2 气流可能涉及湿度或污染物暴露，而该记录未标记为高水稳定性。",
+      "requiredData": [
+        "humidity exposure condition",
+        "post-exposure crystallinity",
+        "uptake retention",
+        "adsorption cycle check"
+      ],
+      "requiredDataZh": [
+        "湿度暴露条件",
+        "暴露后结晶性",
+        "吸附保持率",
+        "吸附循环检查"
+      ],
+      "expectedOutput": "Stability window and uptake retention after humidity exposure under the target gas pair.",
+      "expectedOutputZh": "目标气体对湿度暴露后的稳定窗口和吸附保持率。",
+      "evidenceImpact": "Clarifies whether the candidate can move from scenario screening into process-level assessment.",
+      "evidenceImpactZh": "判断候选能否从场景筛选进入过程级评估。"
+    }
   },
   {
     "id": "gassep-vocn2-uio66-018",
@@ -861,7 +1288,34 @@
     "whyRecommended": ["Stable Zr node template", "Balanced VOC capacity and regeneration proxy"],
     "risks": ["Capacity lower than mesoporous examples"],
     "applicabilityNote": "Stability-first VOC/N2 capture example.",
-    "limitationNote": "Predicted demo record needs adsorption and humidity validation."
+    "limitationNote": "Predicted demo record needs adsorption and humidity validation.",
+    "validationRecommendation": {
+      "type": "GCMC simulation",
+      "typeZh": "GCMC 吸附模拟",
+      "priority": "high",
+      "reason": "The record is demo-predicted, so adsorption simulation should be completed before treating the ranking as research evidence.",
+      "reasonZh": "该记录为 demo-predicted，需要先完成吸附模拟，不能直接作为科研排名证据。",
+      "requiredData": [
+        "CIF structure",
+        "force field",
+        "partial charges",
+        "temperature",
+        "pressure",
+        "gas model"
+      ],
+      "requiredDataZh": [
+        "CIF 结构",
+        "力场",
+        "部分电荷",
+        "温度",
+        "压力",
+        "气体模型"
+      ],
+      "expectedOutput": "Single-component and mixture uptake estimates for VOC/N2.",
+      "expectedOutputZh": "VOC/N2 的单组分和混合气吸附量估计。",
+      "evidenceImpact": "May raise confidence from predicted demo status toward simulation-supported screening if reproducible.",
+      "evidenceImpactZh": "若可复现，可将置信度从预测 demo 推进到模拟支持的筛选层级。"
+    }
   },
   {
     "id": "gassep-vocn2-zif8-019",
@@ -909,6 +1363,33 @@
     "whyRecommended": ["High regenerability proxy for VOC capture", "Hydrophobic framework motif"],
     "risks": ["Smaller pore limits bulky VOCs", "Predicted demo evidence"],
     "applicabilityNote": "Regenerable VOC/N2 screening example.",
-    "limitationNote": "Requires multi-VOC and humidity testing."
+    "limitationNote": "Requires multi-VOC and humidity testing.",
+    "validationRecommendation": {
+      "type": "GCMC simulation",
+      "typeZh": "GCMC 吸附模拟",
+      "priority": "high",
+      "reason": "The record is demo-predicted, so adsorption simulation should be completed before treating the ranking as research evidence.",
+      "reasonZh": "该记录为 demo-predicted，需要先完成吸附模拟，不能直接作为科研排名证据。",
+      "requiredData": [
+        "CIF structure",
+        "force field",
+        "partial charges",
+        "temperature",
+        "pressure",
+        "gas model"
+      ],
+      "requiredDataZh": [
+        "CIF 结构",
+        "力场",
+        "部分电荷",
+        "温度",
+        "压力",
+        "气体模型"
+      ],
+      "expectedOutput": "Single-component and mixture uptake estimates for VOC/N2.",
+      "expectedOutputZh": "VOC/N2 的单组分和混合气吸附量估计。",
+      "evidenceImpact": "May raise confidence from predicted demo status toward simulation-supported screening if reproducible.",
+      "evidenceImpactZh": "若可复现，可将置信度从预测 demo 推进到模拟支持的筛选层级。"
+    }
   }
 ]

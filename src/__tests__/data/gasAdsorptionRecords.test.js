@@ -48,6 +48,7 @@ const requiredFields = [
   "risks",
   "applicabilityNote",
   "limitationNote",
+  "validationRecommendation",
 ]
 
 describe("gas adsorption demo records", () => {
@@ -74,7 +75,19 @@ describe("gas adsorption demo records", () => {
       expect(record.citation.toLowerCase()).toContain("demo")
       expect(Array.isArray(record.whyRecommended)).toBe(true)
       expect(Array.isArray(record.risks)).toBe(true)
+      expect(record.validationRecommendation).toMatchObject({
+        type: expect.any(String),
+        typeZh: expect.any(String),
+        priority: expect.any(String),
+        reason: expect.any(String),
+        reasonZh: expect.any(String),
+        expectedOutput: expect.any(String),
+        expectedOutputZh: expect.any(String),
+        evidenceImpact: expect.any(String),
+        evidenceImpactZh: expect.any(String),
+      })
+      expect(Array.isArray(record.validationRecommendation.requiredData)).toBe(true)
+      expect(Array.isArray(record.validationRecommendation.requiredDataZh)).toBe(true)
     }
   })
 })
-
