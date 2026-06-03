@@ -9,6 +9,7 @@ export const HASH_TO_TAB = {
   "gas-separation": "gassep",
   catalysis: "catalysis",
   "catalysis-organic-acid": "catalysis",
+  "catalysis-organic-acid-final-screening": "catalysis",
   "organic-acid-graph-explorer": "catalysis",
   library: "library",
   methodology: "about",
@@ -63,6 +64,10 @@ export const HASH_META = {
     title: "Organic Acid Workspace | EcoMOF-AI",
     description: "进入有机酸路径工作台，查看前端访问入口、算法追踪器、路径图、图论网络、证据矩阵、优先级矩阵和候选物队列。",
   },
+  "catalysis-organic-acid-final-screening": {
+    title: "Organic Acid Final Screening | EcoMOF-AI",
+    description: "查看 170°C 水相 CO₂ 到甲酸 / 有机酸的 Al-MOF 稳定骨架筛选、第二金属推荐、Why Mo、敏感性分析和 EXAFS 可证伪预测。",
+  },
   "organic-acid-graph-explorer": {
     title: "Organic Acid Graph Explorer | EcoMOF-AI",
     description: "查看 glucose / HCO₃⁻ 到 formic acid 和竞争有机酸路径的图论演示器，以及可能的 MOF influence hypothesis。",
@@ -82,6 +87,10 @@ export const HASH_META = {
   "methodology-organic-acid": {
     title: "Organic Acid 方法 | EcoMOF-AI",
     description: "查看 Organic Acid Workspace 的三路径网络、规则证据图、候选优先级矩阵和算法追踪解释方法。",
+  },
+  "methodology-organic-acid-final-screening": {
+    title: "Organic Acid Final Screening 方法 | EcoMOF-AI",
+    description: "查看 Al-MOF 水热硬阈值、OACS、DMRS、CRITIC+AHP、敏感性分析、盲测基线、EXAFS 和复现声明。",
   },
   "graph-informed-descriptor-integration": {
     title: "图论辅助描述符整合 | EcoMOF-AI",

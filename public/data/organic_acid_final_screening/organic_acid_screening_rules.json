@@ -1,0 +1,133 @@
+{
+  "moduleName": "Organic Acid Final Screening",
+  "screeningMode": "two-stage-target-conditioned",
+  "dataStatus": "demonstration / seed / literature-derived proxies; not a validated catalyst prediction",
+  "designHypothesis": "Al-MOF stable scaffold plus defect-anchored Mo-oxo / pore-confined MoOx-like active-site hypothesis for 170C aqueous CO2 to formic acid / organic acids.",
+  "forbiddenClaims": [
+    "directly screening Al/Mo bimetallic MOFs",
+    "proving Al/Mo is the optimal catalyst",
+    "predicting absolute conversion rate"
+  ],
+  "hardRules": [
+    "Do not describe the workflow as direct Al/Mo-MOF screening.",
+    "Stage 1 screens only Al-MOF stable scaffolds.",
+    "Stage 1 applies a hydrothermal hard gate at >=150C.",
+    "Candidates without >=150C hydrothermal evidence fail or need review before high-score recommendation.",
+    "Stage 2 recommends a second metal from the configured pool.",
+    "Do not use alOFrameworkCompatibility as a single governing score.",
+    "Resolve the second-metal mechanism into node substitution, defect anchoring, and pore confinement.",
+    "Represent Mo primarily as defect-anchored Mo-oxo or pore-confined MoOx-like species.",
+    "Use CRITIC+AHP weighting rather than pure CRITIC.",
+    "Keep chemically important descriptors at >=5% minimum weight.",
+    "Run 1000 Monte Carlo sensitivity iterations with +/-20% weight perturbation.",
+    "Mark robust recommendation only when Mo Top 3 probability is >=85%.",
+    "Include Ru, Pd, and Ag blind baselines.",
+    "Explain Why Mo with a contribution waterfall.",
+    "Include pure Al-MOF, Mo-anchored Al-MOF, Al-MOF + MoOx physical mixture, MoOx alone, and blank controls.",
+    "Require post-reaction Mo K-edge XANES/EXAFS validation.",
+    "State metal-pool and missing-microkinetics limitations.",
+    "Show EXAFS expected fingerprints and falsification criteria before validation claims.",
+    "Mark blind-baseline negative evidence as evidence pending when no real DOI is available.",
+    "Provide a reproducibility statement covering descriptor dictionary, CRITIC+AHP config, metal matrix, and sensitivity scripts."
+  ],
+  "reactionConstraints": {
+    "targetReaction": "CO2 to formic acid / organic acids",
+    "temperatureC": 170,
+    "phase": "aqueous",
+    "nobleMetalFree": true,
+    "requiresStableFramework": true,
+    "requiresSecondaryMetalOxoSite": true
+  },
+  "hydrothermalHardGate": {
+    "minimumTempC": 150,
+    "requiredEvidence": ["post_treatment_PXRD"],
+    "failAction": "set_oacs_zero",
+    "reviewAction": "needs_review"
+  },
+  "frameworkWeights": {
+    "hydrothermalEvidenceStrength": 0.18,
+    "thermalStability": 0.12,
+    "waterBlockingResistance": 0.1,
+    "poreAccessibility": 0.14,
+    "c1IntermediateAccessibility": 0.12,
+    "alOFrameworkRobustness": 0.14,
+    "linkerMicroenvironmentMatch": 0.1,
+    "evidenceConfidence": 0.06,
+    "collapseRisk": 0.14
+  },
+  "dopantWeights": {
+    "activeSiteValue": 0.34,
+    "mechanismFeasibility": 0.28,
+    "aqueousStability": 0.16,
+    "evidenceSupport": 0.12,
+    "riskPenalty": 0.1
+  },
+  "weightingMethod": {
+    "type": "CRITIC+AHP",
+    "eta": 0.5,
+    "minimumChemicalDescriptorWeight": 0.05
+  },
+  "sensitivityAnalysis": {
+    "iterations": 1000,
+    "perturbationRange": 0.2,
+    "robustTop3Threshold": 0.85,
+    "seed": 170
+  },
+  "mechanismPaths": [
+    "nodeSubstitution",
+    "defectAnchoring",
+    "poreConfinement"
+  ],
+  "dopantMetalPool": [
+    "Mo",
+    "W",
+    "V",
+    "Ti",
+    "Zr",
+    "Fe",
+    "Cu",
+    "Co",
+    "Ni",
+    "Mn",
+    "Ce",
+    "Ru",
+    "Pd",
+    "Ag"
+  ],
+  "blindBaselineMetals": ["Ru", "Pd", "Ag"],
+  "requiredControls": [
+    "Pure Al-MOF",
+    "Mo-anchored Al-MOF",
+    "Al-MOF + MoOx physical mixture",
+    "MoOx alone",
+    "Blank reaction"
+  ],
+  "requiredCharacterization": [
+    "PXRD",
+    "BET",
+    "ICP-OES",
+    "XPS",
+    "Raman / FTIR",
+    "Mo K-edge XANES / EXAFS"
+  ],
+  "requiredReactionValidation": [
+    "170C aqueous CO2 conversion test",
+    "HPLC / IC quantification of formic acid, acetic acid, oxalic acid",
+    "carbon balance",
+    "recycle test",
+    "hot filtration test",
+    "Mo leaching test"
+  ],
+  "requiredMethodologySections": [
+    "problem_definition",
+    "stage1_framework_mining",
+    "stage2_dopant_recommendation",
+    "critic_ahp_weighting",
+    "sensitivity_analysis",
+    "blind_baseline",
+    "exafs_prediction",
+    "experimental_controls",
+    "limitations",
+    "reproducibility_statement"
+  ]
+}

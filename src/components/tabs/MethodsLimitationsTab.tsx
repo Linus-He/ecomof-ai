@@ -16,6 +16,7 @@ import {
 import { MethodologySidebar } from "../methodology/MethodologySidebar"
 import { MethodFormulaCard } from "../methodology/MethodFormulaCard"
 import { MethodModuleSection } from "../methodology/MethodModuleSection"
+import { ORGANIC_ACID_FINAL_DIRECTORY, OrganicAcidFinalMethodology } from "../methodology/OrganicAcidFinalMethodology"
 
 const MODULE_ORDER = [
   "platform-overview",
@@ -234,7 +235,26 @@ export function MethodsLimitationsTab() {
     return MODULE_ORDER.map(id => byId.get(id)).filter(Boolean)
   }, [modules])
 
-  const directoryItems = useMemo(() => buildDirectory(orderedModules, lang), [orderedModules, lang])
+  const directoryItems = useMemo(() => {
+    const items = buildDirectory(orderedModules, lang)
+    const insertIndex = items.findIndex(item => item.id === "methodology-organic-acid")
+    const finalItem = {
+      ...ORGANIC_ACID_FINAL_DIRECTORY,
+      display: text(lang, ORGANIC_ACID_FINAL_DIRECTORY.labelZh, ORGANIC_ACID_FINAL_DIRECTORY.label),
+      children: (ORGANIC_ACID_FINAL_DIRECTORY.children || []).map(child => ({
+        ...child,
+        display: text(lang, child.labelZh, child.label),
+      })),
+    }
+    if (insertIndex >= 0) {
+      return [
+        ...items.slice(0, insertIndex + 1),
+        finalItem,
+        ...items.slice(insertIndex + 1),
+      ]
+    }
+    return [...items, finalItem]
+  }, [orderedModules, lang])
 
   useEffect(() => {
     if (typeof IntersectionObserver === "undefined") return undefined
@@ -249,6 +269,20 @@ export function MethodsLimitationsTab() {
     }, { rootMargin: "-120px 0px -58% 0px", threshold: [0, 0.2, 0.6] })
     targets.forEach(target => observer.observe(target))
     return () => observer.disconnect()
+  }, [directoryItems])
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined
+    const targetId = String(window.location.hash || "").replace(/^#/, "").trim()
+    if (!targetId.startsWith("methodology-")) return undefined
+    const delays = [120, 360, 820, 1400]
+    const timers = delays.map((delay, index) => window.setTimeout(() => {
+      const target = document.getElementById(targetId)
+      if (target) {
+        target.scrollIntoView({ behavior: index === 0 ? "smooth" : "auto", block: "start" })
+      }
+    }, delay))
+    return () => timers.forEach(timer => window.clearTimeout(timer))
   }, [directoryItems])
 
   return (
@@ -302,7 +336,10 @@ export function MethodsLimitationsTab() {
 
           {orderedModules.map(item => (
             item.id === "platform-overview" ? null : (
-              <MethodModuleSection key={item.id} item={item} lang={lang} t={t} />
+              <div key={item.id} style={{ display: "grid", gap: 16 }}>
+                <MethodModuleSection item={item} lang={lang} t={t} />
+                {item.id === "organic-acid" ? <OrganicAcidFinalMethodology lang={lang} t={t} /> : null}
+              </div>
             )
           ))}
         </main>

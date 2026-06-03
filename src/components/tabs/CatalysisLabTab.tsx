@@ -15,6 +15,7 @@ import { DataHarmonizationWorkflow } from "../catalysis/DataHarmonizationWorkflo
 import { enrichCatalysisRecord } from "../catalysis/evidenceScoring"
 import { CatalysisEnergyBarrierDemo } from "../catalysis/CatalysisEnergyBarrierDemo"
 import { OrganicAcidEntryCard } from "../catalysis/OrganicAcidEntryCard"
+import { OrganicAcidFinalScreening } from "../catalysis/organic-acid-final/OrganicAcidFinalScreening"
 import { OrganicAcidWorkspace } from "../catalysis/OrganicAcidWorkspace"
 import { ReactionPathwayEvidenceMap } from "../catalysis/ReactionPathwayEvidenceMap"
 import { SelectedPathwayInspector } from "../catalysis/SelectedPathwayInspector"
@@ -59,6 +60,7 @@ function BoundaryStrip({ t, lang }) {
 function workspaceFromHash() {
   if (typeof window === "undefined") return "overview"
   const hash = String(window.location.hash || "").replace(/^#/, "").trim()
+  if (hash === "catalysis-organic-acid-final-screening") return "organic-acid-final"
   return hash === "catalysis-organic-acid" || hash === "organic-acid-graph-explorer" ? "organic-acid" : "overview"
 }
 
@@ -191,6 +193,14 @@ export function CatalysisLabTab() {
     }
   }
 
+  const openOrganicAcidFinalScreening = () => {
+    setActiveWorkspace("organic-acid-final")
+    if (typeof window !== "undefined" && window.location.hash !== "#catalysis-organic-acid-final-screening") {
+      window.history.pushState(null, "", `${window.location.pathname}${window.location.search}#catalysis-organic-acid-final-screening`)
+      window.dispatchEvent(new Event("hashchange"))
+    }
+  }
+
   const openOrganicAcidSection = (targetId) => {
     setPendingOrganicScrollTarget(targetId)
     openOrganicAcidWorkspace()
@@ -210,6 +220,10 @@ export function CatalysisLabTab() {
         <OrganicAcidWorkspace lang={lang} t={t} isMobile={isMobile} onBack={backToOverview} />
       </div>
     )
+  }
+
+  if (activeWorkspace === "organic-acid-final") {
+    return <OrganicAcidFinalScreening lang={lang} t={t} isMobile={isMobile} onBack={backToOverview} />
   }
 
   return (
@@ -248,6 +262,34 @@ export function CatalysisLabTab() {
             isMobile={isMobile}
             onOpen={openOrganicAcidWorkspace}
           />
+
+          <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 11, padding: 14 }}>
+            <div style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
+              <div style={{ display: "grid", gap: 5, minWidth: 0 }}>
+                <div style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>
+                  {zh ? "最终筛选闭环" : "Final screening loop"}
+                </div>
+                <h2 style={{ color: t.textStrong, fontSize: 20, lineHeight: 1.18, margin: 0 }}>
+                  {zh ? "Organic Acid Final Screening" : "Organic Acid Final Screening"}
+                </h2>
+                <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0, maxWidth: 860 }}>
+                  {zh
+                    ? "独立展示 170°C 水相 CO₂ 到甲酸 / 有机酸的 Al-MOF 稳定骨架筛选、第二金属推荐、Why Mo 瀑布图、敏感性分析、盲测基线和 EXAFS 可证伪预测。"
+                    : "Open the separate 170°C aqueous CO₂ to formic acid / organic acids workflow for Al-MOF scaffold mining, dopant recommendation, Why Mo waterfall, sensitivity analysis, blind baselines, and EXAFS falsification."}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={openOrganicAcidFinalScreening}
+                style={{ background: t.accent, border: `1px solid ${t.accent}`, borderRadius: 8, color: t.buttonText || "#fff", cursor: "pointer", fontSize: 12, fontWeight: 900, minHeight: 36, padding: "8px 12px" }}
+              >
+                {zh ? "进入最终筛选" : "Enter final screening"}
+              </button>
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+              {["Stage 1: Al-MOF only", "Stage 2: dopant recommendation", "Mo as outcome", "needs validation"].map(label => <BasisBadge key={label} tone={label === "needs validation" ? "warn" : "proxy"}>{label}</BasisBadge>)}
+            </div>
+          </section>
 
           <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12.5, lineHeight: 1.55, padding: "11px 13px" }}>
             <strong style={{ color: t.textStrong }}>
