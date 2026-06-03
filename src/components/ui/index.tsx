@@ -13,6 +13,7 @@ import { buildDeepLink } from "../../utils/deepLinks"
 import { GraphDescriptorPanel } from "../mof/GraphDescriptorPanel"
 import { OrganicAcidRelevancePanel } from "../mof/OrganicAcidRelevancePanel"
 import { ChemicalFormula as ChemicalFormulaText } from "../common/ChemicalFormula"
+import { AnchoredFieldProvenancePanel } from "../common/FieldProvenanceButton"
 
 export const ECOMOF_LOGO_SRC = "/ecomof-ai/ecomof-logo.png"
 
@@ -1196,56 +1197,13 @@ export function DataModeToggle({ value, onChange, lang, options: customOptions }
 
 // ── Field-level Provenance ────────────────────────────────────────────────────
 
-function computePanelPos(isMobile, anchorRect) {
-  const popoverWidth = 380
-  const vw = typeof window !== "undefined" ? window.innerWidth  : 1440
-  const vh = typeof window !== "undefined" ? window.innerHeight : 800
-  const width = Math.min(popoverWidth, vw - 32)
-  const belowSpace = Math.max(0, vh - (anchorRect?.bottom ?? 0) - 16)
-  const aboveSpace = Math.max(0, (anchorRect?.top ?? 0) - 16)
-  const placeAbove = belowSpace < 260 && aboveSpace > belowSpace
-  const availableSpace = placeAbove ? aboveSpace : belowSpace
-  const maxH = Math.min(480, Math.max(220, availableSpace - 8))
-  let top = placeAbove
-    ? (anchorRect?.top ?? 0) - maxH - 8
-    : (anchorRect?.bottom ?? 0) + 8
-  let left = isMobile
-    ? ((anchorRect?.left ?? vw / 2) + (anchorRect?.width ?? 0) / 2 - width / 2)
-    : (anchorRect?.left ?? 0)
-  if (left + width > vw - 16) left = vw - width - 16
-  if (left < 16) left = 16
-  if (top + maxH > vh - 16) top = vh - maxH - 16
-  if (top < 16) top = 16
-  return {
-    position: "fixed", top, left,
-    width,
-    maxHeight: maxH, borderRadius: 12,
-    zIndex: 1200, overflowY: "auto",
-  }
-}
-
 /**
  * FieldSourcePanel — popover (desktop) / bottom-sheet (mobile) for field-level provenance.
  */
-function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRect, isMobile, onClose }) {
+function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRef, isMobile, onClose }) {
   const panelRef = useRef(null)
 
-  useEffect(() => {
-    const handler = (e) => { if (e.key === "Escape") onClose() }
-    window.addEventListener("keydown", handler)
-    return () => window.removeEventListener("keydown", handler)
-  }, [onClose])
-
-  useEffect(() => {
-    const handler = (event) => {
-      if (panelRef.current?.contains(event.target)) return
-      onClose()
-    }
-    window.addEventListener("mousedown", handler)
-    return () => window.removeEventListener("mousedown", handler)
-  }, [onClose])
-
-  const isPending = !source || source.sourceType === "pending"
+  const isPending = !source || ["pending", "missing", "pending_provenance"].includes(source.sourceType)
   const sourceDatabase = source?.sourceDatabase || source?.database || source?.sourceName
   const sourceRecordId = source?.sourceRecordId || source?.recordId
   const sourceVersion = source?.sourceVersion || source?.version
@@ -1264,22 +1222,23 @@ function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRect, isMobile, o
     source.limitations && source.limitations !== "" && ["limitations", lang === "zh" ? "限制" : "Limitations", source.limitations],
   ].filter(Boolean)
 
-  const panelPos = computePanelPos(isMobile, anchorRect)
-
   return (
-    <>
-      <div
-        ref={panelRef}
-        style={{
-          ...panelPos,
-          background: t.panel || t.bg,
-          border: `1px solid ${t.borderStrong || t.border}`,
-          padding: 16,
-          boxShadow: "0 8px 32px rgba(0,0,0,0.22)",
-          fontFamily: FONT_SANS,
-        }}
-        onClick={e => e.stopPropagation()}
-      >
+    <AnchoredFieldProvenancePanel
+      open
+      anchorRef={anchorRef}
+      panelRef={panelRef}
+      isMobile={isMobile}
+      onClose={onClose}
+      ariaLabel={lang === "zh" ? "字段级溯源" : "Field-level provenance"}
+      style={{
+        background: t.panel || t.bg,
+        border: `1px solid ${t.borderStrong || t.border}`,
+        padding: 16,
+        boxShadow: "0 8px 32px rgba(0,0,0,0.22)",
+        fontFamily: FONT_SANS,
+      }}
+    >
+      <div onClick={e => e.stopPropagation()}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
           <div>
             <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: 3 }}>
@@ -1294,7 +1253,7 @@ function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRect, isMobile, o
               </div>
             )}
           </div>
-          <button type="button" onClick={onClose} aria-label="Close"
+          <button type="button" onClick={onClose} aria-label={lang === "zh" ? "关闭字段来源" : "Close field provenance"}
             style={{ background: "transparent", border: "none", color: t.subtle, fontSize: 18, cursor: "pointer", padding: "2px 6px", lineHeight: 1, flexShrink: 0 }}>
             ✕
           </button>
@@ -1310,7 +1269,13 @@ function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRect, isMobile, o
             {rows.map(([key, label, value]) => (
               <div key={key} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "7px 10px" }}>
                 <div style={{ color: t.faint, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 2 }}>{label}</div>
-                <div style={{ color: t.textStrong, fontSize: 12, lineHeight: 1.5, wordBreak: "break-all" }}>{value}</div>
+                <div style={{ color: t.textStrong, fontSize: 12, lineHeight: 1.5, wordBreak: "break-all" }}>
+                  {key === "sourceUrl" ? (
+                    <a href={value} target="_blank" rel="noopener noreferrer" aria-label={lang === "zh" ? "在新标签页打开字段来源链接" : "Open field source link in a new tab"} style={{ color: t.accentText, overflowWrap: "anywhere" }}>
+                      {value}
+                    </a>
+                  ) : value}
+                </div>
               </div>
             ))}
           </div>
@@ -1325,7 +1290,7 @@ function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRect, isMobile, o
               : "Field-level provenance describes the data framework and does not replace manual data verification.")}
         </div>
       </div>
-    </>
+    </AnchoredFieldProvenancePanel>
   )
 }
 
@@ -1335,19 +1300,17 @@ function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRect, isMobile, o
  */
 export function FieldProvenanceButton({ fieldKey, fieldLabel, source, lang }) {
   const [open, setOpen] = useState(false)
-  const [anchorRect, setAnchorRect] = useState(null)
   const btnRef = useRef(null)
   const t = useT()
   const { isMobile } = useViewport()
 
   if (source === undefined) return null
 
-  const isPending = !source || source.sourceType === "pending"
+  const isPending = !source || ["pending", "missing", "pending_provenance"].includes(source.sourceType)
 
   const handleOpen = (e) => {
     e.stopPropagation()
-    if (btnRef.current) setAnchorRect(btnRef.current.getBoundingClientRect())
-    setOpen(true)
+    setOpen(prev => !prev)
   }
 
   return (
@@ -1357,7 +1320,8 @@ export function FieldProvenanceButton({ fieldKey, fieldLabel, source, lang }) {
         type="button"
         onClick={handleOpen}
         title={lang === "zh" ? "查看来源" : "View source"}
-        aria-label="View field provenance"
+        aria-label={lang === "zh" ? `查看 ${fieldLabel} 字段来源` : `View field provenance for ${fieldLabel}`}
+        aria-expanded={open}
         style={{
           display: "inline-flex", alignItems: "center", justifyContent: "center",
           width: 16, height: 16, borderRadius: "50%",
@@ -1377,7 +1341,7 @@ export function FieldProvenanceButton({ fieldKey, fieldLabel, source, lang }) {
           source={source}
           lang={lang}
           t={t}
-          anchorRect={anchorRect}
+          anchorRef={btnRef}
           isMobile={isMobile}
           onClose={() => setOpen(false)}
         />
