@@ -2,6 +2,20 @@
 import { ChemicalText } from "../../../shared"
 import { displayValue, formatScore, Panel, StatusPill, statusTone, text, ValueWithSource } from "./FinalScreeningShared"
 
+const PROVENANCE_KEYS = [
+  "co2ActivationPotential",
+  "redoxAdaptability",
+  "lewisAcidContribution",
+  "oxoAffinity",
+  "formateAffinityProxy",
+  "hydrothermalRisk",
+  "leachingRisk",
+  "aggregationRisk",
+  "costPenalty",
+  "toxicityPenalty",
+  "nobleMetalPenalty",
+]
+
 function sensitivityLabel(row, lang) {
   if (row?.sensitivity?.robust) {
     return text(lang, "Robust high-priority dopant recommendation", "Robust high-priority dopant recommendation")
@@ -9,12 +23,50 @@ function sensitivityLabel(row, lang) {
   return text(lang, "Hypothesis-generating candidate", "Hypothesis-generating candidate")
 }
 
+function provenanceSummary(row) {
+  const source = row?.source || {}
+  const basisCounts = {}
+  const confidenceCounts = {}
+  let doiCount = 0
+  let pendingDoiCount = 0
+
+  PROVENANCE_KEYS.forEach(key => {
+    const field = source[key]
+    const sourceBasis = field?.sourceBasis || field?.basis || "pending"
+    const confidence = field?.confidence || "pending"
+    basisCounts[sourceBasis] = (basisCounts[sourceBasis] || 0) + 1
+    confidenceCounts[confidence] = (confidenceCounts[confidence] || 0) + 1
+    if (field?.sourceDoi || field?.doi) doiCount += 1
+    else pendingDoiCount += 1
+  })
+
+  const basis = Object.entries(basisCounts).sort((a, b) => b[1] - a[1]).map(([key, value]) => `${key} (${value})`).join(", ")
+  const confidence = Object.entries(confidenceCounts).sort((a, b) => b[1] - a[1]).map(([key, value]) => `${key} (${value})`).join(", ")
+  return {
+    basis: basis || "pending",
+    confidence: confidence || "pending",
+    doi: doiCount ? `${doiCount} DOI / ${pendingDoiCount} pending` : "evidence pending",
+  }
+}
+
 function metalRecord(row) {
+  const descriptorFieldSources = Object.fromEntries(PROVENANCE_KEYS.map(key => {
+    const field = row?.source?.[key] || {}
+    return [key, {
+      sourceType: field.sourceBasis || field.basis || "pending_provenance",
+      sourceDatabase: "Organic Acid Final Screening metal matrix",
+      sourceRecordId: `OA-METAL-${row?.metal || "pending"}-${key}`,
+      curationStatus: row?.source?.dataStatus?.level || "demo / needs review",
+      confidence: null,
+      doi: field.sourceDoi || field.doi || null,
+      note: field.note || field.notes || "Descriptor-level source detail is retained; direct selected Al-MOF validation may be pending.",
+    }]
+  }))
   return {
     ...(row?.source || {}),
     sourceDatabase: "Organic Acid Final Screening metal matrix",
     sourceRecordId: `OA-METAL-${row?.metal || "pending"}`,
-    fieldSources: row?.source?.fieldSources || {},
+    fieldSources: { ...descriptorFieldSources, ...(row?.source?.fieldSources || {}) },
   }
 }
 
@@ -50,14 +102,21 @@ export function DopantMetalRecommendationMatrix({ metals, moRecommendation, sele
               "Node substitution is explicitly down-weighted; the current experimental hypothesis favors defect-anchored Mo-oxo and pore-confined MoOx-like species."
             )} />
           </span>
+          <span style={{ color: t.warn, fontSize: 12.2, fontWeight: 850, lineHeight: 1.45 }}>
+            <ChemicalText value={text(
+              lang,
+              "Mo: direct selected Al-MOF DFT pending；Mo K-edge XANES/EXAFS 必须验证后才能提升证据等级。",
+              "Mo: direct selected Al-MOF DFT pending; Mo K-edge XANES/EXAFS is required before the evidence level can be raised."
+            )} />
+          </span>
         </article>
       ) : null}
 
       <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
-        <table style={{ borderCollapse: "separate", borderSpacing: 0, minWidth: 960, width: "100%" }}>
+        <table style={{ borderCollapse: "separate", borderSpacing: 0, minWidth: 1320, width: "100%" }}>
           <thead>
             <tr>
-              {[text(lang, "Rank", "Rank"), text(lang, "Metal", "Metal"), "DMRS", text(lang, "Most likely form", "Most likely form"), text(lang, "Main strength", "Main strength"), text(lang, "Main risk", "Main risk"), text(lang, "Sensitivity status", "Sensitivity status")].map(label => (
+              {[text(lang, "Rank", "Rank"), text(lang, "Metal", "Metal"), "DMRS", text(lang, "Data Status", "Data Status"), "Source Basis", "Confidence", "DOI / Pending", text(lang, "Most likely form", "Most likely form"), text(lang, "Main strength", "Main strength"), text(lang, "Main risk", "Main risk"), text(lang, "Sensitivity status", "Sensitivity status")].map(label => (
                 <th key={label} style={{ background: t.surface, borderBottom: `1px solid ${t.border}`, color: t.faint, fontSize: 10.5, fontWeight: 900, padding: "9px 8px", textAlign: "left", textTransform: "uppercase" }}>{label}</th>
               ))}
             </tr>
@@ -65,6 +124,7 @@ export function DopantMetalRecommendationMatrix({ metals, moRecommendation, sele
           <tbody>
             {rows.map(row => {
               const record = metalRecord(row)
+              const provenance = provenanceSummary(row)
               const isBaseline = ["Ru", "Pd", "Ag"].includes(row.metal)
               return (
                 <tr key={row.metal}>
@@ -75,6 +135,18 @@ export function DopantMetalRecommendationMatrix({ metals, moRecommendation, sele
                   </td>
                   <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 12, fontWeight: 900, padding: "9px 8px" }}>
                     <ValueWithSource record={record} field="DMRS" label="DMRS" value={formatScore(row.dmrs)} lang={lang} t={t} />
+                  </td>
+                  <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11.8, lineHeight: 1.45, padding: "9px 8px" }}>
+                    <StatusPill tone={row.dataStatus?.tone || "warn"} t={t}>{row.dataStatus?.label || "Pending"}</StatusPill>
+                  </td>
+                  <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11.5, lineHeight: 1.4, padding: "9px 8px" }}>
+                    <ChemicalText value={provenance.basis} />
+                  </td>
+                  <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11.5, lineHeight: 1.4, padding: "9px 8px" }}>
+                    <ChemicalText value={provenance.confidence} />
+                  </td>
+                  <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.warn, fontSize: 11.5, fontWeight: 850, lineHeight: 1.4, padding: "9px 8px" }}>
+                    <ChemicalText value={provenance.doi} />
                   </td>
                   <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 12, lineHeight: 1.45, padding: "9px 8px" }}>
                     <ChemicalText value={displayValue(row.mostLikelyForm)} />

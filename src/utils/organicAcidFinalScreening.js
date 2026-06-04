@@ -21,6 +21,31 @@ const DEFAULT_DOPANT_WEIGHTS = {
   riskPenalty: 0.1,
 }
 
+export const METAL_DESCRIPTOR_KEYS = [
+  "co2ActivationPotential",
+  "redoxAdaptability",
+  "lewisAcidContribution",
+  "oxoAffinity",
+  "formateAffinityProxy",
+  "hydrothermalRisk",
+  "leachingRisk",
+  "aggregationRisk",
+  "costPenalty",
+  "toxicityPenalty",
+  "nobleMetalPenalty",
+]
+
+const COMPETITIVE_METALS = ["W", "V", "Ti", "Zr", "Fe"]
+const DOI_PATTERN = /^10\.\d{4,9}\/\S+$/i
+const CONFIDENCE_SCORES = {
+  high: 0.82,
+  verified: 0.9,
+  medium: 0.64,
+  "medium-high": 0.74,
+  low: 0.36,
+  pending: 0.22,
+}
+
 const LEVELS = [
   { max: 0.4, label: "low" },
   { max: 0.65, label: "medium" },
@@ -55,19 +80,57 @@ function levelFor(score) {
   return LEVELS.find(level => normalized < level.max)?.label || "high"
 }
 
-function evidenceConfidenceScore(value) {
+export function descriptorValue(field, fallback = 0) {
+  if (field && typeof field === "object" && !Array.isArray(field) && "value" in field) {
+    return clamp01(field.value)
+  }
+  return clamp01(field ?? fallback)
+}
+
+function descriptorSourceBasis(field) {
+  if (!field || typeof field !== "object") return "pending"
+  return field.sourceBasis || field.basis || "pending"
+}
+
+function descriptorConfidence(field) {
+  if (!field || typeof field !== "object") return "pending"
+  return field.confidence || "pending"
+}
+
+function descriptorDoi(field) {
+  if (!field || typeof field !== "object") return null
+  return field.sourceDoi || field.doi || null
+}
+
+function confidenceScore(value) {
   const text = String(value || "").toLowerCase()
-  if (text.includes("high")) return 0.82
-  if (text.includes("medium")) return 0.64
-  if (text.includes("low")) return 0.36
+  const exact = CONFIDENCE_SCORES[text]
+  if (Number.isFinite(exact)) return exact
+  if (text.includes("high")) return CONFIDENCE_SCORES.high
+  if (text.includes("medium")) return CONFIDENCE_SCORES.medium
+  if (text.includes("low")) return CONFIDENCE_SCORES.low
+  if (text.includes("pending")) return CONFIDENCE_SCORES.pending
   return clamp01(value)
 }
 
-function normalizeWeights(weights, fallback) {
+function evidenceConfidenceScore(value) {
+  if (value && typeof value === "object" && !Array.isArray(value)) {
+    return confidenceScore(value.confidence || value.evidenceConfidence || value.sourceConfidence)
+  }
+  const text = String(value || "").toLowerCase()
+  const score = confidenceScore(text)
+  return score || clamp01(value)
+}
+
+export function normalizePerturbedWeights(weights, fallback = DEFAULT_DOPANT_WEIGHTS) {
   const source = { ...fallback, ...(weights || {}) }
   const total = Object.values(source).reduce((sum, value) => sum + Math.max(0, Number(value) || 0), 0)
   if (!total) return { ...fallback }
   return Object.fromEntries(Object.entries(source).map(([key, value]) => [key, Math.max(0, Number(value) || 0) / total]))
+}
+
+function normalizeWeights(weights, fallback) {
+  return normalizePerturbedWeights(weights, fallback)
 }
 
 function seededRandom(seed = 170) {
@@ -209,7 +272,7 @@ export function calculateDefectAnchoringScore(metal, framework) {
   const score = avg([
     d.missingLinkerDefectCompatibility,
     d.terminalOHAvailability,
-    d.metalOxoAnchoringTrend ?? metal?.oxoAffinity,
+    d.metalOxoAnchoringTrend ?? descriptorValue(metal?.oxoAffinity),
     d.defectBindingEnergyProxy,
     d.postSyntheticModificationFeasibility,
     frameworkDefectFit,
@@ -237,7 +300,7 @@ export function calculatePoreConfinementScore(metal, framework) {
     framework?.descriptorScores?.poreAccessibility,
     framework?.descriptorScores?.c1IntermediateAccessibility,
   ])
-  const riskPenalty = avg([metal?.aggregationRisk, metal?.leachingRisk]) * 0.3
+  const riskPenalty = avg([descriptorValue(metal?.aggregationRisk), descriptorValue(metal?.leachingRisk)]) * 0.3
   const score = clamp01(poreFit - riskPenalty)
   return {
     score: round3(score),
@@ -278,24 +341,24 @@ export function inferMostLikelyMetalForm(mechanism) {
 
 function activeSiteValue(metal) {
   return avg([
-    metal?.co2ActivationPotential,
-    metal?.redoxAdaptability,
-    metal?.lewisAcidContribution,
-    metal?.formateAffinityProxy?.value,
+    descriptorValue(metal?.co2ActivationPotential),
+    descriptorValue(metal?.redoxAdaptability),
+    descriptorValue(metal?.lewisAcidContribution),
+    descriptorValue(metal?.formateAffinityProxy),
   ])
 }
 
 function aqueousStabilityValue(metal, framework) {
   const frameworkCompatibility = clamp01(framework?.organicAcidScore?.oacs ?? framework?.descriptorScores?.hydrothermalEvidenceStrength)
-  return clamp01(0.55 * frameworkCompatibility + 0.45 * (1 - clamp01(metal?.hydrothermalRisk)))
+  return clamp01(0.55 * frameworkCompatibility + 0.45 * (1 - descriptorValue(metal?.hydrothermalRisk)))
 }
 
 function riskValue(metal) {
   return avg([
-    metal?.leachingRisk,
-    metal?.aggregationRisk,
-    metal?.nobleMetalPenalty,
-    metal?.costPenalty,
+    descriptorValue(metal?.leachingRisk),
+    descriptorValue(metal?.aggregationRisk),
+    descriptorValue(metal?.nobleMetalPenalty),
+    descriptorValue(metal?.costPenalty),
   ])
 }
 
@@ -304,10 +367,12 @@ export function calculateDMRS(metal, framework, weights = DEFAULT_DOPANT_WEIGHTS
   const mechanism = calculateMechanismFeasibility(metal, framework)
   const activeSite = activeSiteValue(metal)
   const aqueousStability = aqueousStabilityValue(metal, framework)
+  const formateProxy = metal?.formateAffinityProxy || {}
   const evidenceSupport = avg([
     evidenceConfidenceScore(metal?.evidenceConfidence),
-    clamp01((metal?.formateAffinityProxy?.evidence_count || 0) / 4),
-    metal?.formateAffinityProxy?.direct_dft_available ? 0.85 : 0.45,
+    confidenceScore(descriptorConfidence(formateProxy)),
+    clamp01((formateProxy?.evidence_count || formateProxy?.evidenceCount || 0) / 4),
+    formateProxy?.direct_dft_available ? 0.85 : 0.45,
   ])
   const risk = riskValue(metal)
   const score =
@@ -318,30 +383,30 @@ export function calculateDMRS(metal, framework, weights = DEFAULT_DOPANT_WEIGHTS
     w.riskPenalty * risk
 
   const contributionBreakdown = [
-    { key: "co2ActivationPotential", label: "CO2 activation", value: roundMetric(w.activeSiteValue * clamp01(metal?.co2ActivationPotential) * 0.25) },
-    { key: "redoxAdaptability", label: "Redox adaptability", value: roundMetric(w.activeSiteValue * clamp01(metal?.redoxAdaptability) * 0.25) },
-    { key: "lewisAcidContribution", label: "Lewis acid contribution", value: roundMetric(w.activeSiteValue * clamp01(metal?.lewisAcidContribution) * 0.25) },
+    { key: "co2ActivationPotential", label: "CO2 activation", value: roundMetric(w.activeSiteValue * descriptorValue(metal?.co2ActivationPotential) * 0.25) },
+    { key: "redoxAdaptability", label: "Redox adaptability", value: roundMetric(w.activeSiteValue * descriptorValue(metal?.redoxAdaptability) * 0.25) },
+    { key: "lewisAcidContribution", label: "Lewis acid contribution", value: roundMetric(w.activeSiteValue * descriptorValue(metal?.lewisAcidContribution) * 0.25) },
     { key: "defectAnchoringFeasibility", label: "Defect anchoring feasibility", value: roundMetric(w.mechanismFeasibility * mechanism.defectAnchoring.score) },
-    { key: "formateAffinityProxy", label: "Formate affinity proxy", value: roundMetric(w.activeSiteValue * clamp01(metal?.formateAffinityProxy?.value) * 0.25) },
+    { key: "formateAffinityProxy", label: "Formate affinity proxy", value: roundMetric(w.activeSiteValue * descriptorValue(metal?.formateAffinityProxy) * 0.25) },
     { key: "aqueousStability", label: "Aqueous stability support", value: roundMetric(w.aqueousStability * aqueousStability) },
     { key: "evidenceSupport", label: "Evidence support", value: roundMetric(w.evidenceSupport * evidenceSupport) },
-    { key: "leachingRisk", label: "Leaching risk", value: -roundMetric(w.riskPenalty * clamp01(metal?.leachingRisk) * 0.45) },
-    { key: "aggregationRisk", label: "Aggregation risk", value: -roundMetric(w.riskPenalty * clamp01(metal?.aggregationRisk) * 0.35) },
+    { key: "leachingRisk", label: "Leaching risk", value: -roundMetric(w.riskPenalty * descriptorValue(metal?.leachingRisk) * 0.45) },
+    { key: "aggregationRisk", label: "Aggregation risk", value: -roundMetric(w.riskPenalty * descriptorValue(metal?.aggregationRisk) * 0.35) },
     { key: "nodeSubstitutionMismatch", label: "Node substitution mismatch", value: -roundMetric(w.mechanismFeasibility * (1 - mechanism.nodeSubstitution.score) * 0.16) },
   ]
 
   const strengths = [
-    ["CO2 activation", metal?.co2ActivationPotential],
-    ["redox adaptability", metal?.redoxAdaptability],
-    ["Lewis acid contribution", metal?.lewisAcidContribution],
+    ["CO2 activation", descriptorValue(metal?.co2ActivationPotential)],
+    ["redox adaptability", descriptorValue(metal?.redoxAdaptability)],
+    ["Lewis acid contribution", descriptorValue(metal?.lewisAcidContribution)],
     ["defect anchoring", mechanism.defectAnchoring.score],
     ["pore confinement", mechanism.poreConfinement.score],
   ].sort((a, b) => (b[1] || 0) - (a[1] || 0))
   const risks = [
-    ["leaching", metal?.leachingRisk],
-    ["aggregation", metal?.aggregationRisk],
-    ["hydrothermal risk", metal?.hydrothermalRisk],
-    ["cost / noble-metal penalty", (metal?.costPenalty || 0) + (metal?.nobleMetalPenalty || 0)],
+    ["leaching", descriptorValue(metal?.leachingRisk)],
+    ["aggregation", descriptorValue(metal?.aggregationRisk)],
+    ["hydrothermal risk", descriptorValue(metal?.hydrothermalRisk)],
+    ["cost / noble-metal penalty", descriptorValue(metal?.costPenalty) + descriptorValue(metal?.nobleMetalPenalty)],
   ].sort((a, b) => (b[1] || 0) - (a[1] || 0))
 
   return {
@@ -359,35 +424,135 @@ export function calculateDMRS(metal, framework, weights = DEFAULT_DOPANT_WEIGHTS
     mainStrength: strengths[0]?.[0] || "pending",
     mainRisk: risks[0]?.[0] || "pending",
     negativeEvidence: metal?.negativeEvidence,
+    dataStatus: getDataStatusBadge(metal),
     source: metal,
   }
 }
 
-export function runSensitivityAnalysis(metals, framework, baseWeights = DEFAULT_DOPANT_WEIGHTS, iterations = 1000, options = {}) {
+export function getDataStatusBadge(item) {
+  const status = item?.dataStatus || {}
+  const level = String(status.level || status || "pending_validation").toLowerCase()
+  const label = status.label || level.replaceAll("_", " ")
+  const tone = level.includes("verified")
+    ? "pass"
+    : level.includes("pending") || level.includes("demo")
+      ? "warn"
+      : "info"
+  return {
+    level,
+    label,
+    description: status.description || "Validation status pending.",
+    verified: Boolean(status.verified || level.includes("verified")),
+    tone,
+  }
+}
+
+export function validateSensitivityPerturbation(baseWeights, perturbationAudit = [], options = {}) {
+  const perturbationRange = options.perturbationRange ?? 0.2
+  const base = normalizePerturbedWeights(baseWeights, DEFAULT_DOPANT_WEIGHTS)
+
+  if (!Array.isArray(perturbationAudit) && perturbationAudit && typeof perturbationAudit === "object") {
+    return {
+      sampleCount: perturbationAudit.sampleCount || 0,
+      perturbationRange: `+/-${Math.round(perturbationRange * 100)}%`,
+      withinRange: perturbationAudit.withinRange !== false,
+      normalized: perturbationAudit.normalized !== false,
+      minPerturbationFactor: roundMetric(perturbationAudit.minFactor ?? 1, 3),
+      maxPerturbationFactor: roundMetric(perturbationAudit.maxFactor ?? 1, 3),
+      maxWeightSumDeviation: roundMetric(perturbationAudit.maxWeightSumDeviation ?? 0, 6),
+      changedWeightCount: perturbationAudit.changedWeightCount ?? Object.keys(base).length,
+      status: perturbationAudit.withinRange === false || perturbationAudit.normalized === false ? "needs_review" : "valid",
+    }
+  }
+
+  const samples = perturbationAudit || []
+  let withinRange = true
+  let normalized = true
+  let minFactor = Infinity
+  let maxFactor = -Infinity
+  let maxWeightSumDeviation = 0
+  const changedWeights = new Set()
+
+  samples.forEach(sample => {
+    const raw = sample.raw || sample.perturbed || {}
+    const weights = sample.weights || sample.normalized || {}
+    Object.entries(base).forEach(([key, baseValue]) => {
+      const rawValue = Number(raw[key])
+      if (!Number.isFinite(rawValue) || !Number.isFinite(baseValue) || baseValue <= 0) return
+      const factor = rawValue / baseValue
+      minFactor = Math.min(minFactor, factor)
+      maxFactor = Math.max(maxFactor, factor)
+      if (factor < 1 - perturbationRange - 1e-9 || factor > 1 + perturbationRange + 1e-9) withinRange = false
+      if (Math.abs(factor - 1) > 1e-6) changedWeights.add(key)
+    })
+    const weightSum = Object.values(weights).reduce((sum, value) => sum + (Number(value) || 0), 0)
+    const deviation = Math.abs(weightSum - 1)
+    maxWeightSumDeviation = Math.max(maxWeightSumDeviation, deviation)
+    if (deviation > 1e-6) normalized = false
+  })
+
+  return {
+    sampleCount: samples.length,
+    perturbationRange: `+/-${Math.round(perturbationRange * 100)}%`,
+    withinRange,
+    normalized,
+    minPerturbationFactor: Number.isFinite(minFactor) ? roundMetric(minFactor, 3) : 1,
+    maxPerturbationFactor: Number.isFinite(maxFactor) ? roundMetric(maxFactor, 3) : 1,
+    maxWeightSumDeviation: roundMetric(maxWeightSumDeviation, 6),
+    changedWeightCount: changedWeights.size,
+    status: withinRange && normalized ? "valid" : "needs_review",
+  }
+}
+
+export function runFullMetalSensitivityDistribution(metals, framework, baseWeights = DEFAULT_DOPANT_WEIGHTS, iterations = 1000, options = {}) {
   const perturbationRange = options.perturbationRange ?? 0.2
   const rng = seededRandom(options.seed ?? 170)
-  const rankStats = new Map((metals || []).map(metal => [metal.metal, []]))
-  const base = normalizeWeights(baseWeights, DEFAULT_DOPANT_WEIGHTS)
+  const rows = metals || []
+  const rankStats = new Map(rows.map(metal => [metal.metal, { ranks: [], dmrsScores: [] }]))
+  const base = normalizePerturbedWeights(baseWeights, DEFAULT_DOPANT_WEIGHTS)
+  const validationAudit = {
+    sampleCount: iterations,
+    withinRange: true,
+    normalized: true,
+    minFactor: Infinity,
+    maxFactor: -Infinity,
+    maxWeightSumDeviation: 0,
+    changedWeights: new Set(),
+  }
 
   for (let iteration = 0; iteration < iterations; iteration += 1) {
     const perturbed = Object.fromEntries(Object.entries(base).map(([key, value]) => {
       const delta = (rng() * 2 - 1) * perturbationRange
-      return [key, Math.max(0.01, value * (1 + delta))]
+      const factor = 1 + delta
+      validationAudit.minFactor = Math.min(validationAudit.minFactor, factor)
+      validationAudit.maxFactor = Math.max(validationAudit.maxFactor, factor)
+      if (factor < 1 - perturbationRange - 1e-9 || factor > 1 + perturbationRange + 1e-9) validationAudit.withinRange = false
+      if (Math.abs(delta) > 1e-6) validationAudit.changedWeights.add(key)
+      return [key, Math.max(0.0001, value * factor)]
     }))
-    const weights = normalizeWeights(perturbed, DEFAULT_DOPANT_WEIGHTS)
-    const ranked = (metals || [])
+    const weights = normalizePerturbedWeights(perturbed, base)
+    const weightSum = Object.values(weights).reduce((sum, value) => sum + (Number(value) || 0), 0)
+    const deviation = Math.abs(weightSum - 1)
+    validationAudit.maxWeightSumDeviation = Math.max(validationAudit.maxWeightSumDeviation, deviation)
+    if (deviation > 1e-6) validationAudit.normalized = false
+    const ranked = rows
       .map(metal => calculateDMRS(metal, framework, weights))
       .sort((a, b) => b.dmrs - a.dmrs)
     ranked.forEach((row, index) => {
-      rankStats.get(row.metal)?.push(index + 1)
+      const stat = rankStats.get(row.metal)
+      if (!stat) return
+      stat.ranks.push(index + 1)
+      stat.dmrsScores.push(row.dmrs)
     })
   }
 
-  const summaries = [...rankStats.entries()].map(([metal, ranks]) => {
+  const summaries = [...rankStats.entries()].map(([metal, stat]) => {
+    const ranks = stat.ranks || []
     const meanRank = ranks.reduce((sum, rank) => sum + rank, 0) / Math.max(1, ranks.length)
     const variance = ranks.reduce((sum, rank) => sum + (rank - meanRank) ** 2, 0) / Math.max(1, ranks.length)
     const top1 = ranks.filter(rank => rank === 1).length / Math.max(1, ranks.length)
     const top3 = ranks.filter(rank => rank <= 3).length / Math.max(1, ranks.length)
+    const dmrsMean = avg(stat.dmrsScores || [])
     return {
       metal,
       iterations,
@@ -396,15 +561,241 @@ export function runSensitivityAnalysis(metals, framework, baseWeights = DEFAULT_
       top3Probability: roundMetric(top3),
       meanRank: roundMetric(meanRank, 2),
       rankStd: roundMetric(Math.sqrt(variance), 2),
+      minRank: Math.min(...ranks),
+      maxRank: Math.max(...ranks),
+      rankRange: `${Math.min(...ranks)}-${Math.max(...ranks)}`,
+      meanDmrs: roundMetric(dmrsMean),
       robust: top3 >= (options.robustTop3Threshold ?? 0.85),
+      status: top1 >= 0.95
+        ? "rank-locked"
+        : top3 >= (options.robustTop3Threshold ?? 0.85)
+          ? "top3-robust"
+          : "sensitive",
     }
-  })
+  }).sort((a, b) => a.meanRank - b.meanRank || b.top1Probability - a.top1Probability)
+
+  validationAudit.changedWeightCount = validationAudit.changedWeights.size
+  delete validationAudit.changedWeights
+  const validation = validateSensitivityPerturbation(base, validationAudit, { perturbationRange })
 
   return {
     iterations,
     perturbationRange: `+/-${Math.round(perturbationRange * 100)}%`,
+    baseWeights: base,
+    validation,
     summaries,
     targetMetal: summaries.find(row => row.metal === "Mo") || summaries[0] || null,
+  }
+}
+
+export function runSensitivityAnalysis(metals, framework, baseWeights = DEFAULT_DOPANT_WEIGHTS, iterations = 1000, options = {}) {
+  return runFullMetalSensitivityDistribution(metals, framework, baseWeights, iterations, options)
+}
+
+export function calculateDmrsDiagnostics(rankedMetals) {
+  const rows = [...(rankedMetals || [])].sort((a, b) => (a.rank || 99) - (b.rank || 99))
+  const leader = rows[0] || null
+  const runnerUp = rows[1] || null
+  const mo = rows.find(row => row.metal === "Mo") || null
+  const closestToMo = mo
+    ? rows.filter(row => row.metal !== "Mo").sort((a, b) => Math.abs((mo.dmrs || 0) - (a.dmrs || 0)) - Math.abs((mo.dmrs || 0) - (b.dmrs || 0)))[0]
+    : null
+  return {
+    leaderMetal: leader?.metal || null,
+    leaderDmrs: leader?.dmrs ?? null,
+    runnerUpMetal: runnerUp?.metal || null,
+    topMargin: leader && runnerUp ? roundMetric((leader.dmrs || 0) - (runnerUp.dmrs || 0)) : null,
+    moRank: mo?.rank || null,
+    moDmrs: mo?.dmrs ?? null,
+    closestCompetitorToMo: closestToMo?.metal || null,
+    moMarginToClosestCompetitor: mo && closestToMo ? roundMetric((mo.dmrs || 0) - (closestToMo.dmrs || 0)) : null,
+    top5Spread: rows.length >= 5 ? roundMetric((rows[0]?.dmrs || 0) - (rows[4]?.dmrs || 0)) : null,
+  }
+}
+
+export function auditMoRobustnessReason(sensitivityDistribution, rankedMetals) {
+  const summaries = sensitivityDistribution?.summaries || sensitivityDistribution || []
+  const mo = summaries.find(row => row.metal === "Mo") || null
+  const diagnostics = calculateDmrsDiagnostics(rankedMetals)
+  if (!mo) {
+    return {
+      status: "missing_mo",
+      label: "Mo audit unavailable",
+      reason: "Mo is not present in the configured metal pool.",
+      recommendedAction: "Add Mo to the metal matrix before interpreting Mo robustness.",
+    }
+  }
+  if (mo.top1Probability >= 1) {
+    return {
+      status: "audit_required",
+      label: "robust but audit required",
+      reason: "Mo rank is unchanged across all perturbations. This is robust under the demo descriptor set, but it requires an audit for descriptor saturation, source bias, and insufficient competitor variance; it is not definitive proof that Mo is optimal.",
+      possibleCauses: [
+        "Mo proxy descriptors may be saturated relative to W/V/Ti/Zr/Fe.",
+        "Direct selected Al-MOF DFT and same-condition experimental evidence are pending.",
+        "Risk descriptors may not yet capture leaching, aggregation, and speciation tradeoffs under 170C aqueous CO2.",
+      ],
+      recommendedAction: "Run descriptor ablation, direct DFT on the selected Al-MOF, and EXAFS/ICP-OES validation before treating Mo as more than a high-priority hypothesis.",
+      top1Probability: mo.top1Probability,
+      top3Probability: mo.top3Probability,
+      closestCompetitor: diagnostics.closestCompetitorToMo,
+      dmrsMarginToClosestCompetitor: diagnostics.moMarginToClosestCompetitor,
+    }
+  }
+  if (mo.top3Probability >= 0.85) {
+    return {
+      status: "robust_hypothesis",
+      label: "top3 robust hypothesis",
+      reason: "Mo remains within the Top 3 for the configured perturbation distribution, but the result is still demo/proxy-level and not a final material-discovery conclusion.",
+      recommendedAction: "Compare Mo against close competitors with direct descriptors and same-condition validation.",
+      top1Probability: mo.top1Probability,
+      top3Probability: mo.top3Probability,
+      closestCompetitor: diagnostics.closestCompetitorToMo,
+      dmrsMarginToClosestCompetitor: diagnostics.moMarginToClosestCompetitor,
+    }
+  }
+  return {
+    status: "sensitive",
+    label: "sensitive hypothesis",
+    reason: "Mo moves outside the Top 3 in a meaningful fraction of perturbations, so it should remain a hypothesis-generating candidate.",
+    recommendedAction: "Inspect descriptor weights and collect direct evidence before prioritizing Mo.",
+    top1Probability: mo.top1Probability,
+    top3Probability: mo.top3Probability,
+    closestCompetitor: diagnostics.closestCompetitorToMo,
+    dmrsMarginToClosestCompetitor: diagnostics.moMarginToClosestCompetitor,
+  }
+}
+
+function contributionMap(row) {
+  return new Map((row?.contributionBreakdown || []).map(item => [item.key, item]))
+}
+
+function describeUncertainty(record) {
+  const lowConfidence = METAL_DESCRIPTOR_KEYS
+    .filter(key => ["low", "pending"].includes(String(descriptorConfidence(record?.[key])).toLowerCase()))
+    .slice(0, 4)
+  const missingDoiCount = METAL_DESCRIPTOR_KEYS.filter(key => !descriptorDoi(record?.[key])).length
+  return {
+    lowConfidenceDescriptors: lowConfidence,
+    missingDoiCount,
+    summary: missingDoiCount
+      ? `${missingDoiCount}/${METAL_DESCRIPTOR_KEYS.length} descriptor DOI fields are evidence pending; low-confidence descriptors: ${lowConfidence.join(", ") || "none"}.`
+      : "Descriptor DOI coverage is complete for the configured descriptor set.",
+  }
+}
+
+export function compareCompetitiveMetals(rankedMetals, targetMetal = "Mo", competitors = COMPETITIVE_METALS) {
+  const rows = rankedMetals || []
+  const target = rows.find(row => row.metal === targetMetal)
+  if (!target) return []
+  const targetContributions = contributionMap(target)
+
+  return competitors
+    .map(metal => rows.find(row => row.metal === metal))
+    .filter(Boolean)
+    .map(competitor => {
+      const competitorContributions = contributionMap(competitor)
+      const sharedKeys = [...targetContributions.keys()].filter(key => competitorContributions.has(key))
+      const targetWins = sharedKeys
+        .map(key => {
+          const targetItem = targetContributions.get(key)
+          const competitorItem = competitorContributions.get(key)
+          return {
+            key,
+            label: targetItem?.label || key,
+            delta: roundMetric((targetItem?.value || 0) - (competitorItem?.value || 0)),
+          }
+        })
+        .filter(item => item.delta > 0.004)
+        .sort((a, b) => b.delta - a.delta)
+        .slice(0, 3)
+      const competitorWins = sharedKeys
+        .map(key => {
+          const targetItem = targetContributions.get(key)
+          const competitorItem = competitorContributions.get(key)
+          return {
+            key,
+            label: competitorItem?.label || key,
+            delta: roundMetric((competitorItem?.value || 0) - (targetItem?.value || 0)),
+          }
+        })
+        .filter(item => item.delta > 0.004)
+        .sort((a, b) => b.delta - a.delta)
+        .slice(0, 3)
+
+      return {
+        targetMetal,
+        competitor: competitor.metal,
+        targetRank: target.rank,
+        competitorRank: competitor.rank,
+        targetDmrs: target.dmrs,
+        competitorDmrs: competitor.dmrs,
+        dmrsGap: roundMetric((target.dmrs || 0) - (competitor.dmrs || 0)),
+        targetWins,
+        competitorWins,
+        sharedUncertainty: {
+          target: describeUncertainty(target.source),
+          competitor: describeUncertainty(competitor.source),
+        },
+        dataStatus: {
+          target: getDataStatusBadge(target.source),
+          competitor: getDataStatusBadge(competitor.source),
+        },
+        note: competitor.source?.competitiveNote || "Demo/proxy-level competitive comparison; direct evidence is pending.",
+      }
+    })
+}
+
+export function calculateProvenanceCoverage(items, descriptorKeys = METAL_DESCRIPTOR_KEYS) {
+  const rows = items || []
+  const totalFields = rows.length * descriptorKeys.length
+  const counts = {
+    structuredValue: 0,
+    sourceBasis: 0,
+    confidence: 0,
+    doiPresent: 0,
+    doiMissing: 0,
+    fakeDoi: 0,
+  }
+  const bySourceBasis = {}
+  const byConfidence = {}
+  const dataStatusCounts = {}
+
+  rows.forEach(row => {
+    const status = getDataStatusBadge(row)
+    dataStatusCounts[status.level] = (dataStatusCounts[status.level] || 0) + 1
+    descriptorKeys.forEach(key => {
+      const field = row?.[key]
+      if (field && typeof field === "object" && "value" in field) counts.structuredValue += 1
+      const sourceBasis = descriptorSourceBasis(field)
+      const confidence = descriptorConfidence(field)
+      if (sourceBasis !== "pending") counts.sourceBasis += 1
+      if (confidence !== "pending") counts.confidence += 1
+      bySourceBasis[sourceBasis] = (bySourceBasis[sourceBasis] || 0) + 1
+      byConfidence[confidence] = (byConfidence[confidence] || 0) + 1
+      const doi = descriptorDoi(field)
+      if (doi) {
+        counts.doiPresent += 1
+        if (!DOI_PATTERN.test(String(doi))) counts.fakeDoi += 1
+      } else {
+        counts.doiMissing += 1
+      }
+    })
+  })
+
+  return {
+    itemCount: rows.length,
+    descriptorFieldCount: totalFields,
+    structuredValueCoverage: totalFields ? roundMetric(counts.structuredValue / totalFields) : 0,
+    sourceBasisCoverage: totalFields ? roundMetric(counts.sourceBasis / totalFields) : 0,
+    confidenceCoverage: totalFields ? roundMetric(counts.confidence / totalFields) : 0,
+    doiCoverage: totalFields ? roundMetric(counts.doiPresent / totalFields) : 0,
+    pendingDoiCount: counts.doiMissing,
+    fakeDoiCount: counts.fakeDoi,
+    noFakeDoiPolicyActive: counts.fakeDoi === 0,
+    bySourceBasis,
+    byConfidence,
+    dataStatusCounts,
   }
 }
 
@@ -506,10 +897,25 @@ export function runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, r
       ...row,
       rank: index + 1,
       sensitivity: sensitivityByMetal.get(row.metal) || null,
-      sensitivityStatus: sensitivityByMetal.get(row.metal)?.robust ? "robust recommendation" : "hypothesis-generating",
+      sensitivityStatus: sensitivityByMetal.get(row.metal)?.status === "rank-locked"
+        ? "robust but audit required"
+        : sensitivityByMetal.get(row.metal)?.robust
+          ? "robust recommendation"
+          : "hypothesis-generating",
     }))
 
   const moRecommendation = rankedMetals.find(row => row.metal === "Mo") || null
+  const dmrsDiagnostics = calculateDmrsDiagnostics(rankedMetals)
+  const moRobustnessAudit = auditMoRobustnessReason(sensitivity, rankedMetals)
+  const competitiveMetalComparison = compareCompetitiveMetals(
+    rankedMetals,
+    "Mo",
+    rules.auditCompetitiveMetals || COMPETITIVE_METALS,
+  )
+  const provenanceCoverage = calculateProvenanceCoverage(
+    metalMatrix || [],
+    rules.provenanceDescriptorKeys || METAL_DESCRIPTOR_KEYS,
+  )
   const hardGateSummary = rankedFrameworks.reduce((acc, row) => {
     const status = row.hydrothermalGate?.status || "pending"
     acc[status] = (acc[status] || 0) + 1
@@ -523,6 +929,11 @@ export function runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, r
     rankedMetals,
     moRecommendation,
     sensitivity,
+    fullMetalSensitivityDistribution: sensitivity.summaries || [],
+    dmrsDiagnostics,
+    moRobustnessAudit,
+    competitiveMetalComparison,
+    provenanceCoverage,
     blindBaselineSummary: generateBlindBaselineSummary(rankedMetals),
     exafsSignature: generateExpectedEXAFSSignature("Mo", moRecommendation?.mostLikelyForm),
     reproducibilityStatement: generateReproducibilityStatement(),

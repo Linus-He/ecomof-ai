@@ -18,7 +18,7 @@ function labelFor(key, fallback, lang) {
   return labels[key] || fallback
 }
 
-export function WhyMoWaterfall({ moRecommendation, lang, t, isMobile }) {
+export function WhyMoWaterfall({ moRecommendation, audit, lang, t, isMobile }) {
   const contributions = moRecommendation?.contributionBreakdown || []
   const maxAbs = Math.max(0.04, ...contributions.map(item => Math.abs(item.value || 0)), moRecommendation?.dmrs || 0)
   const positive = contributions.filter(item => item.value > 0).reduce((sum, item) => sum + item.value, 0)
@@ -91,6 +91,19 @@ export function WhyMoWaterfall({ moRecommendation, lang, t, isMobile }) {
           `Most likely form: ${displayValue(moRecommendation?.mostLikelyForm)}. Node substitution is not the primary explanation.`
         )} />
       </div>
+
+      {audit?.status === "audit_required" ? (
+        <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 10, color: t.muted, fontSize: 12.3, lineHeight: 1.55, padding: 11 }}>
+          <strong style={{ color: t.warn, display: "block", fontSize: 13, marginBottom: 4 }}>
+            {text(lang, "Waterfall audit note", "Waterfall audit note")}
+          </strong>
+          <ChemicalText value={text(
+            lang,
+            "瀑布图解释当前 demo descriptor 下 Mo 为什么排在第一；若所有扰动中排名不变，需要进一步审计 descriptor 饱和和证据偏倚，不能把该图解读为 Mo 最优性证明。",
+            "The waterfall explains why Mo ranks first under the current demo descriptors. If the rank is unchanged across all perturbations, descriptor saturation and evidence bias must be audited; this chart must not be read as proof of Mo optimality."
+          )} />
+        </div>
+      ) : null}
     </Panel>
   )
 }

@@ -10,11 +10,11 @@ const routes = [
   ["home", "#overview", [["Workflow Narrative", "流程叙事"], ["Evidence & Validation Loop", "证据与验证闭环"], ["What this workflow produces", "这套流程最终产出什么"], ["Structure & Source Intake", "结构与来源接入"]]],
   ["catalysis", "#catalysis", [["Section layout controls", "Section 布局控制"], ["Catalyst Cat Energy Playground", "催化小猫能量游乐场"], ["Reaction Pathway Evidence Map", "催化路径证据图"], ["Organic Acid Workspace", "有机酸路径工作台"], "Organic Acid Final Screening"]],
   ["organic-acid", "#catalysis-organic-acid", [["Access Gate / Frontend Passcode", "前端访问入口"], ["Section layout controls", "Section 布局控制"], ["Algorithm Trace Explorer", "算法追踪器"], ["Effect Decomposition Explorer", "效应拆解器"], ["Organic Acid Carbon-Flow Graph Workbench", "有机酸碳流图论路径工作台"], ["Interaction Effect Matrix", "交互效应矩阵"], ["Experimental Design Coverage Map", "实验设计覆盖图"]]],
-  ["organic-acid-final", "#catalysis-organic-acid-final-screening", ["Organic Acid Final Screening", ["Reaction Constraint Builder", "反应约束"], "Al-MOF Ranking Table", "Dopant Metal Recommendation Matrix", "Why Mo? Waterfall Chart", "Sensitivity Analysis Card", "Ru / Pd / Ag", "Predicted Mo K-edge EXAFS Signature", "Limitations & Reproducibility Statement"]],
+  ["organic-acid-final", "#catalysis-organic-acid-final-screening", ["Organic Acid Final Screening", ["演示级代理评分", "Demo Score Disclaimer"], "Data Status & Provenance Coverage", ["Reaction Constraint Builder", "反应约束"], "Al-MOF Ranking Table", "Dopant Metal Recommendation Matrix", "Why Mo? Waterfall Chart", "Sensitivity Analysis Card", "Full-Metal Sensitivity Distribution", "Mo vs W/V/Ti/Zr/Fe", "robust but audit required", "Ru / Pd / Ag", "Predicted Mo K-edge EXAFS Signature", "Limitations & Reproducibility Statement"]],
   ["library", "#library", [["Open MOF Seed Records", "Open MOF Seed 记录"], ["View database details", "查看数据库详情"]]],
   ["gassep", "#gassep", [["Gas Separation Scenario Builder", "气体分离场景构建器"], ["Interactive Performance Map", "性能图谱"], ["GasSep Interaction Diagnostics", "交互诊断"], ["Validation Roadmap", "验证路线"]]],
   ["ecoscreen", "#ecoscreen", ["EcoScreen", ["Candidate Scoring", "候选评分"]]],
-  ["methodology", "#methodology", [["Methods & Evidence", "方法与证据"], ["Structured Factor Effects", "结构化因素效应"], ["Catalysis Energy Playground Method", "催化能量游乐场方法说明"], ["Organic Acid Final Screening", "有机酸最终筛选"], ["Evidence Levels", "证据等级"], ["Validation Roadmap", "验证路线"]]],
+  ["methodology", "#methodology", [["Methods & Evidence", "方法与证据"], ["Structured Factor Effects", "结构化因素效应"], ["Catalysis Energy Playground Method", "催化能量游乐场方法说明"], ["Organic Acid Final Screening", "有机酸最终筛选"], "Algorithm Robustness Audit", "Full-Metal Sensitivity Distribution", "Competitive Metal Comparison", "Proxy Descriptor Provenance", "Demo Score Disclaimer", ["Evidence Levels", "证据等级"], ["Validation Roadmap", "验证路线"]]],
 ]
 const viewports = [
   ["desktop", 1440, 1100],
@@ -24,8 +24,8 @@ const viewports = [
 
 async function waitForApp(page) {
   await page.waitForSelector("#root", { state: "attached" })
-  await page.waitForLoadState("networkidle")
-  await page.waitForTimeout(500)
+  await page.waitForLoadState("load").catch(() => {})
+  await page.waitForTimeout(650)
 }
 
 async function setDarkMode(page, dark) {
@@ -63,6 +63,11 @@ async function horizontalOverflow(page) {
   })
 }
 
+function shouldIgnoreConsoleError(message) {
+  const text = String(message || "")
+  return text.includes("cloudflareinsights.com/cdn-cgi/rum") || text.includes("Access to XMLHttpRequest") && text.includes("/cdn-cgi/rum")
+}
+
 await fs.mkdir(outDir, { recursive: true })
 
 const browser = await chromium.launch({ headless: true })
@@ -76,7 +81,8 @@ for (const [viewportName, width, height] of viewports) {
       const errors = []
       page.on("pageerror", error => errors.push(error.message))
       page.on("console", message => {
-        if (message.type() === "error") errors.push(message.text())
+        const text = message.text()
+        if (message.type() === "error" && !shouldIgnoreConsoleError(text)) errors.push(text)
       })
       await page.goto(`${baseUrl}${hash}`, { waitUntil: "domcontentloaded" })
       await waitForApp(page)

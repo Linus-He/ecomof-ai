@@ -2,6 +2,10 @@
   "moduleName": "Organic Acid Final Screening",
   "screeningMode": "two-stage-target-conditioned",
   "dataStatus": "demonstration / seed / literature-derived proxies; not a validated catalyst prediction",
+  "scoreDisclaimer": {
+    "zh": "演示级代理评分 当前 OACS/DMRS 数值为演示级文献代理或专家先验评分，用于展示筛选流程和生成实验假设，不代表最终材料发现结论，也不等同于实际转化率预测。",
+    "en": "Demo-level proxy score: Current OACS/DMRS values are demo-level literature proxies or expert-prior scores used to demonstrate the screening workflow and generate experimental hypotheses; they do not represent final material-discovery conclusions and are not actual conversion-rate predictions."
+  },
   "designHypothesis": "Al-MOF stable scaffold plus defect-anchored Mo-oxo / pore-confined MoOx-like active-site hypothesis for 170C aqueous CO2 to formic acid / organic acids.",
   "forbiddenClaims": [
     "directly screening Al/Mo bimetallic MOFs",
@@ -20,6 +24,8 @@
     "Use CRITIC+AHP weighting rather than pure CRITIC.",
     "Keep chemically important descriptors at >=5% minimum weight.",
     "Run 1000 Monte Carlo sensitivity iterations with +/-20% weight perturbation.",
+    "After every sensitivity perturbation, normalize the perturbed weights, recalculate DMRS for all metals, and re-sort the full metal pool.",
+    "If Mo rank is unchanged across all perturbations, label the result robust but audit-required rather than proof of Mo optimality.",
     "Mark robust recommendation only when Mo Top 3 probability is >=85%.",
     "Include Ru, Pd, and Ag blind baselines.",
     "Explain Why Mo with a contribution waterfall.",
@@ -28,6 +34,7 @@
     "State metal-pool and missing-microkinetics limitations.",
     "Show EXAFS expected fingerprints and falsification criteria before validation claims.",
     "Mark blind-baseline negative evidence as evidence pending when no real DOI is available.",
+    "Use null for unavailable source DOI fields; no fake DOI is allowed.",
     "Provide a reproducibility statement covering descriptor dictionary, CRITIC+AHP config, metal matrix, and sensitivity scripts."
   ],
   "reactionConstraints": {
@@ -73,6 +80,36 @@
     "robustTop3Threshold": 0.85,
     "seed": 170
   },
+  "robustnessAudit": {
+    "rankLockedMoPolicy": "robust_but_audit_required",
+    "requiredAuditTargets": [
+      "descriptor saturation",
+      "competitor variance",
+      "source-basis imbalance",
+      "missing selected Al-MOF DFT",
+      "missing same-condition EXAFS / ICP-OES validation"
+    ]
+  },
+  "auditCompetitiveMetals": [
+    "W",
+    "V",
+    "Ti",
+    "Zr",
+    "Fe"
+  ],
+  "provenanceDescriptorKeys": [
+    "co2ActivationPotential",
+    "redoxAdaptability",
+    "lewisAcidContribution",
+    "oxoAffinity",
+    "formateAffinityProxy",
+    "hydrothermalRisk",
+    "leachingRisk",
+    "aggregationRisk",
+    "costPenalty",
+    "toxicityPenalty",
+    "nobleMetalPenalty"
+  ],
   "mechanismPaths": [
     "nodeSubstitution",
     "defectAnchoring",
@@ -124,6 +161,11 @@
     "stage2_dopant_recommendation",
     "critic_ahp_weighting",
     "sensitivity_analysis",
+    "algorithm_robustness_audit",
+    "full_metal_sensitivity_distribution",
+    "competitive_metal_comparison",
+    "proxy_descriptor_provenance",
+    "demo_score_disclaimer",
     "blind_baseline",
     "exafs_prediction",
     "experimental_controls",

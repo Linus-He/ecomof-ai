@@ -5,11 +5,15 @@ import { ModulePageHeader } from "../../module/ModuleTop"
 import { runOrganicAcidFinalScreening } from "../../../utils/organicAcidFinalScreening"
 import { AlMofFrameworkRanking } from "./AlMofFrameworkRanking"
 import { BlindBaselinePanel } from "./BlindBaselinePanel"
+import { CompetitiveMetalComparison } from "./CompetitiveMetalComparison"
+import { DataStatusAndProvenancePanel } from "./DataStatusAndProvenancePanel"
+import { DemoScoreDisclaimer } from "./DemoScoreDisclaimer"
 import { DopantMetalRecommendationMatrix } from "./DopantMetalRecommendationMatrix"
 import { ExafsPredictionPanel } from "./ExafsPredictionPanel"
 import { ExperimentalValidationRoadmap } from "./ExperimentalValidationRoadmap"
 import { LimitationsAndReproducibility } from "./LimitationsAndReproducibility"
 import { MethodologyLink, MiniMetric, text } from "./FinalScreeningShared"
+import { MetalSensitivityDistribution } from "./MetalSensitivityDistribution"
 import { ReactionConstraintBuilder } from "./ReactionConstraintBuilder"
 import { SensitivityAndBaselinePanel } from "./SensitivityAndBaselinePanel"
 import { WhyMoWaterfall } from "./WhyMoWaterfall"
@@ -108,22 +112,27 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
 
       {result ? (
         <>
+          <DemoScoreDisclaimer rules={rules} lang={lang} t={t} />
+
           <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))" }}>
             <MiniMetric label={text(lang, "Al-MOF candidates", "Al-MOF candidates")} value={frameworks.length} t={t} />
             <MiniMetric label={text(lang, "Metal pool", "Metal pool")} value={metals.length} t={t} />
             <MiniMetric label={text(lang, "Selected scaffold", "Selected scaffold")} value={result.selectedFramework?.displayName} t={t} />
-            <MiniMetric label="Mo Top 3" value={`${Math.round((result.sensitivity?.targetMetal?.top3Probability || 0) * 100)}%`} t={t} />
+            <MiniMetric label={result.moRobustnessAudit?.label || "Mo Top 3"} value={`${Math.round((result.sensitivity?.targetMetal?.top3Probability || 0) * 100)}%`} t={t} tone={result.moRobustnessAudit?.status === "audit_required" ? "warn" : "info"} />
           </div>
 
+          <DataStatusAndProvenancePanel coverage={result.provenanceCoverage} lang={lang} t={t} isMobile={isMobile} />
           <ReactionConstraintBuilder rules={rules} summary={result.hardGateSummary} lang={lang} t={t} isMobile={isMobile} />
           <AlMofFrameworkRanking frameworks={result.rankedFrameworks} selectedFramework={result.selectedFramework} lang={lang} t={t} isMobile={isMobile} />
           <DopantMetalRecommendationMatrix metals={result.rankedMetals} moRecommendation={result.moRecommendation} selectedFramework={result.selectedFramework} lang={lang} t={t} />
-          <WhyMoWaterfall moRecommendation={result.moRecommendation} lang={lang} t={t} isMobile={isMobile} />
-          <SensitivityAndBaselinePanel sensitivity={result.sensitivity} moRecommendation={result.moRecommendation} rules={rules} lang={lang} t={t} isMobile={isMobile} />
+          <WhyMoWaterfall moRecommendation={result.moRecommendation} audit={result.moRobustnessAudit} lang={lang} t={t} isMobile={isMobile} />
+          <SensitivityAndBaselinePanel sensitivity={result.sensitivity} moRecommendation={result.moRecommendation} audit={result.moRobustnessAudit} rules={rules} lang={lang} t={t} isMobile={isMobile} />
+          <MetalSensitivityDistribution distribution={result.fullMetalSensitivityDistribution} sensitivity={result.sensitivity} audit={result.moRobustnessAudit} lang={lang} t={t} isMobile={isMobile} />
+          <CompetitiveMetalComparison comparisons={result.competitiveMetalComparison} lang={lang} t={t} isMobile={isMobile} />
           <BlindBaselinePanel baselines={result.blindBaselineSummary} lang={lang} t={t} isMobile={isMobile} />
           <ExafsPredictionPanel signature={result.exafsSignature} lang={lang} t={t} isMobile={isMobile} />
           <ExperimentalValidationRoadmap rules={rules} lang={lang} t={t} isMobile={isMobile} />
-          <LimitationsAndReproducibility statement={result.reproducibilityStatement} lang={lang} t={t} />
+          <LimitationsAndReproducibility statement={result.reproducibilityStatement} audit={result.moRobustnessAudit} coverage={result.provenanceCoverage} lang={lang} t={t} />
         </>
       ) : null}
     </div>

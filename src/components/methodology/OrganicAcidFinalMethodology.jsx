@@ -15,6 +15,11 @@ export const ORGANIC_ACID_FINAL_DIRECTORY = {
     { id: "methodology-oafs-stage2", label: "Stage 2: Dopant Metal Recommendation", labelZh: "Stage 2：第二金属推荐" },
     { id: "methodology-oafs-critic-ahp", label: "CRITIC + AHP Weighting", labelZh: "CRITIC + AHP 赋权" },
     { id: "methodology-oafs-sensitivity", label: "Sensitivity Analysis", labelZh: "敏感性分析" },
+    { id: "methodology-oafs-algorithm-robustness", label: "Algorithm Robustness Audit", labelZh: "算法稳健性审计" },
+    { id: "methodology-oafs-full-metal-distribution", label: "Full-Metal Sensitivity Distribution", labelZh: "全金属敏感性分布" },
+    { id: "methodology-oafs-competitive-comparison", label: "Competitive Metal Comparison", labelZh: "竞品金属对比" },
+    { id: "methodology-oafs-proxy-provenance", label: "Proxy Descriptor Provenance", labelZh: "Proxy 描述符溯源" },
+    { id: "methodology-oafs-demo-disclaimer", label: "Demo Score Disclaimer", labelZh: "演示评分免责声明" },
     { id: "methodology-oafs-blind-baseline", label: "Blind Baseline", labelZh: "盲测基线" },
     { id: "methodology-oafs-exafs", label: "EXAFS Prediction and Falsification", labelZh: "EXAFS 预测与证伪" },
     { id: "methodology-oafs-controls", label: "Experimental Validation Controls", labelZh: "实验验证对照" },
@@ -61,8 +66,8 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
         <Paragraph t={t}>
           {text(
             lang,
-            "本章节说明 Organic Acid Final Screening V1 的两阶段目标定制筛选框架。它只支撑可解释实验设计假设，不宣称实际转化率、催化剂最优性或已验证性能。",
-            "This chapter describes the two-stage target-conditioned screening framework for Organic Acid Final Screening V1. It supports interpretable experimental design hypotheses, not absolute conversion rates, catalyst optimality, or validated performance."
+            "本章节说明 Organic Acid Final Screening V1.1 的两阶段目标定制筛选框架与稳健性审计。它只支撑可解释实验设计假设，不宣称实际转化率、催化剂最优性或已验证性能。",
+            "This chapter describes the two-stage target-conditioned screening framework and robustness audit for Organic Acid Final Screening V1.1. It supports interpretable experimental design hypotheses, not absolute conversion rates, catalyst optimality, or validated performance."
           )}
         </Paragraph>
 
@@ -138,9 +143,67 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
 
         <Section id="methodology-oafs-sensitivity" title="5. Sensitivity Analysis" t={t}>
           <Chips rows={["1000 Monte Carlo weight perturbations", "±20% perturbation range", "Mo Top 3 probability >85% required for robust recommendation", "Top 1 probability", "Top 3 probability", "Mean rank", "Rank standard deviation"]} t={t} />
+          <Paragraph t={t}>
+            {text(
+              lang,
+              "每一次敏感性迭代都会对 CRITIC+AHP 基准权重执行 ±20% 扰动、重新归一化、对全金属池重新计算 DMRS，并重新排序全金属池；结果不能使用静态 Top1/Top3 文案代替。",
+              "Every sensitivity iteration applies +/-20% perturbation to the CRITIC+AHP base weights, normalizes the perturbed weights, recalculates DMRS for the full metal pool, and re-sorts the full metal pool; static Top1/Top3 text cannot replace the recalculated results."
+            )}
+          </Paragraph>
         </Section>
 
-        <Section id="methodology-oafs-blind-baseline" title="6. Blind Baseline" t={t}>
+        <Section id="methodology-oafs-algorithm-robustness" title="6. Algorithm Robustness Audit" t={t}>
+          <Paragraph t={t}>
+            {text(
+              lang,
+              "V1.1 新增 Mo 稳健性审计：如果 Mo 在所有权重扰动中排名完全不变，系统必须标记为 robust but audit-required，而不是把它解释为 Mo 最优性的最终证明。",
+              "V1.1 adds a Mo robustness audit: if Mo rank is unchanged in all perturbations, the system must flag the result as robust but audit-required rather than interpreting it as definitive proof that Mo is optimal."
+            )}
+          </Paragraph>
+          <Chips rows={["descriptor saturation audit", "competitor variance audit", "source-basis bias audit", "selected Al-MOF DFT pending", "EXAFS / ICP-OES validation required"]} t={t} />
+        </Section>
+
+        <Section id="methodology-oafs-full-metal-distribution" title="7. Full-Metal Sensitivity Distribution" t={t}>
+          <Paragraph t={t}>
+            {text(
+              lang,
+              "敏感性输出必须覆盖完整金属池，而不仅是 Mo。每个金属都报告 Top1 probability、Top3 probability、mean rank、rank standard deviation 和 rank range，用于发现 W/V/Ti/Zr/Fe 等竞品是否在扰动下接近或超过 Mo。",
+              "Sensitivity output must cover the full metal pool, not only Mo. Each metal reports Top1 probability, Top3 probability, mean rank, rank standard deviation, and rank range so close competitors such as W/V/Ti/Zr/Fe remain visible under perturbation."
+            )}
+          </Paragraph>
+        </Section>
+
+        <Section id="methodology-oafs-competitive-comparison" title="8. Competitive Metal Comparison" t={t}>
+          <Paragraph t={t}>
+            {text(
+              lang,
+              "V1.1 将 W、V、Ti、Zr、Fe 作为 Mo 的显式竞品，而不是把它们隐藏在排序表中。比较项包括 DMRS gap、Mo wins、competitor wins、shared uncertainty 和 data status。",
+              "V1.1 keeps W, V, Ti, Zr, and Fe as explicit Mo competitors rather than hiding them inside the ranking table. The comparison includes DMRS gap, Mo wins, competitor wins, shared uncertainty, and data status."
+            )}
+          </Paragraph>
+        </Section>
+
+        <Section id="methodology-oafs-proxy-provenance" title="9. Proxy Descriptor Provenance" t={t}>
+          <Paragraph t={t}>
+            {text(
+              lang,
+              "所有金属 descriptor 必须保留结构化对象：value、sourceBasis、confidence、sourceDoi 和 note。没有真实 DOI 时 sourceDoi 必须为 null，并在前端显示为 evidence pending；禁止伪造 DOI。",
+              "Every metal descriptor must keep a structured object with value, sourceBasis, confidence, sourceDoi, and note. When no real DOI is available, sourceDoi must be null and shown as evidence pending in the UI; fabricated DOI values are forbidden."
+            )}
+          </Paragraph>
+        </Section>
+
+        <Section id="methodology-oafs-demo-disclaimer" title="10. Demo Score Disclaimer" t={t}>
+          <Paragraph t={t}>
+            {text(
+              lang,
+              "演示级代理评分 当前 OACS/DMRS 数值为演示级文献代理或专家先验评分，用于展示筛选流程和生成实验假设，不代表最终材料发现结论，也不等同于实际转化率预测。",
+              "Demo-level proxy score: Current OACS/DMRS values are demo-level literature proxies or expert-prior scores used to demonstrate the screening workflow and generate experimental hypotheses; they do not represent final material-discovery conclusions and are not actual conversion-rate predictions."
+            )}
+          </Paragraph>
+        </Section>
+
+        <Section id="methodology-oafs-blind-baseline" title="11. Blind Baseline" t={t}>
           <Paragraph t={t}>
             {text(
               lang,
@@ -157,7 +220,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           </Paragraph>
         </Section>
 
-        <Section id="methodology-oafs-exafs" title="7. EXAFS Prediction and Falsification" t={t}>
+        <Section id="methodology-oafs-exafs" title="12. EXAFS Prediction and Falsification" t={t}>
           <Paragraph t={t}>
             {text(
               lang,
@@ -168,7 +231,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           <Chips rows={["Strong Mo-Mo scattering -> MoOx aggregation", "High Mo concentration in filtrate -> leaching", "Loss of framework PXRD -> Al-MOF collapse"]} t={t} />
         </Section>
 
-        <Section id="methodology-oafs-controls" title="8. Experimental Validation Controls" t={t}>
+        <Section id="methodology-oafs-controls" title="13. Experimental Validation Controls" t={t}>
           <Chips rows={["Pure Al-MOF", "Mo-anchored Al-MOF", "Al-MOF + MoOx physical mixture", "MoOx alone", "Blank reaction"]} t={t} />
           <Paragraph t={t}>
             {text(
@@ -179,7 +242,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           </Paragraph>
         </Section>
 
-        <Section id="methodology-oafs-limitations" title="9. Limitations and Reproducibility" t={t}>
+        <Section id="methodology-oafs-limitations" title="14. Limitations and Reproducibility" t={t}>
           <Paragraph t={t}>
             {text(
               lang,
