@@ -24,7 +24,11 @@
       "post_treatment_PXRD_retained": true,
       "post_treatment_BET_retention_percent": 82,
       "source_doi": null,
-      "confidence_score": 0.75
+      "confidence_score": 0.75,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -45,13 +49,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {
       "sourceDatabase": {
@@ -66,6 +95,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -93,7 +159,11 @@
       "post_treatment_PXRD_retained": true,
       "post_treatment_BET_retention_percent": 78,
       "source_doi": null,
-      "confidence_score": 0.71
+      "confidence_score": 0.71,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -114,13 +184,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -128,6 +223,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -155,7 +287,11 @@
       "post_treatment_PXRD_retained": true,
       "post_treatment_BET_retention_percent": 80,
       "source_doi": null,
-      "confidence_score": 0.7
+      "confidence_score": 0.7,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -176,13 +312,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -190,6 +351,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -217,7 +415,11 @@
       "post_treatment_PXRD_retained": true,
       "post_treatment_BET_retention_percent": 76,
       "source_doi": null,
-      "confidence_score": 0.68
+      "confidence_score": 0.68,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -238,13 +440,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -252,6 +479,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -279,7 +543,11 @@
       "post_treatment_PXRD_retained": true,
       "post_treatment_BET_retention_percent": 70,
       "source_doi": null,
-      "confidence_score": 0.62
+      "confidence_score": 0.62,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -300,13 +568,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -314,6 +607,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -341,7 +671,11 @@
       "post_treatment_PXRD_retained": true,
       "post_treatment_BET_retention_percent": 66,
       "source_doi": null,
-      "confidence_score": 0.58
+      "confidence_score": 0.58,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -362,13 +696,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -376,6 +735,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -403,7 +799,11 @@
       "post_treatment_PXRD_retained": null,
       "post_treatment_BET_retention_percent": null,
       "source_doi": null,
-      "confidence_score": 0.42
+      "confidence_score": 0.42,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -424,13 +824,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -438,6 +863,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -465,7 +927,11 @@
       "post_treatment_PXRD_retained": null,
       "post_treatment_BET_retention_percent": null,
       "source_doi": null,
-      "confidence_score": 0.36
+      "confidence_score": 0.36,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -486,13 +952,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -500,6 +991,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -527,7 +1055,11 @@
       "post_treatment_PXRD_retained": true,
       "post_treatment_BET_retention_percent": 73,
       "source_doi": null,
-      "confidence_score": 0.55
+      "confidence_score": 0.55,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -548,13 +1080,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -562,6 +1119,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -589,7 +1183,11 @@
       "post_treatment_PXRD_retained": null,
       "post_treatment_BET_retention_percent": null,
       "source_doi": null,
-      "confidence_score": 0.18
+      "confidence_score": 0.18,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -610,13 +1208,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -624,6 +1247,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -651,7 +1311,11 @@
       "post_treatment_PXRD_retained": true,
       "post_treatment_BET_retention_percent": 69,
       "source_doi": null,
-      "confidence_score": 0.48
+      "confidence_score": 0.48,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -672,13 +1336,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -686,6 +1375,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -713,7 +1439,11 @@
       "post_treatment_PXRD_retained": true,
       "post_treatment_BET_retention_percent": 74,
       "source_doi": null,
-      "confidence_score": 0.5
+      "confidence_score": 0.5,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -734,13 +1464,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -748,6 +1503,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -775,7 +1567,11 @@
       "post_treatment_PXRD_retained": true,
       "post_treatment_BET_retention_percent": 71,
       "source_doi": null,
-      "confidence_score": 0.47
+      "confidence_score": 0.47,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -796,13 +1592,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -810,6 +1631,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -837,7 +1695,11 @@
       "post_treatment_PXRD_retained": true,
       "post_treatment_BET_retention_percent": 79,
       "source_doi": null,
-      "confidence_score": 0.52
+      "confidence_score": 0.52,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -858,13 +1720,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -872,6 +1759,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -899,7 +1823,11 @@
       "post_treatment_PXRD_retained": null,
       "post_treatment_BET_retention_percent": null,
       "source_doi": null,
-      "confidence_score": 0.12
+      "confidence_score": 0.12,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -920,13 +1848,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -934,6 +1887,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -961,7 +1951,11 @@
       "post_treatment_PXRD_retained": true,
       "post_treatment_BET_retention_percent": 58,
       "source_doi": null,
-      "confidence_score": 0.44
+      "confidence_score": 0.44,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -982,13 +1976,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -996,6 +2015,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -1023,7 +2079,11 @@
       "post_treatment_PXRD_retained": null,
       "post_treatment_BET_retention_percent": 61,
       "source_doi": null,
-      "confidence_score": 0.4
+      "confidence_score": 0.4,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -1044,13 +2104,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -1058,6 +2143,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -1085,7 +2207,11 @@
       "post_treatment_PXRD_retained": null,
       "post_treatment_BET_retention_percent": null,
       "source_doi": null,
-      "confidence_score": 0.37
+      "confidence_score": 0.37,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -1106,13 +2232,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -1120,6 +2271,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -1147,7 +2335,11 @@
       "post_treatment_PXRD_retained": true,
       "post_treatment_BET_retention_percent": 81,
       "source_doi": null,
-      "confidence_score": 0.72
+      "confidence_score": 0.72,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -1168,13 +2360,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -1182,6 +2399,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -1209,7 +2463,11 @@
       "post_treatment_PXRD_retained": true,
       "post_treatment_BET_retention_percent": 74,
       "source_doi": null,
-      "confidence_score": 0.64
+      "confidence_score": 0.64,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -1230,13 +2488,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -1244,6 +2527,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -1271,7 +2591,11 @@
       "post_treatment_PXRD_retained": null,
       "post_treatment_BET_retention_percent": null,
       "source_doi": null,
-      "confidence_score": 0.16
+      "confidence_score": 0.16,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -1292,13 +2616,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -1306,6 +2655,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -1333,7 +2719,11 @@
       "post_treatment_PXRD_retained": true,
       "post_treatment_BET_retention_percent": 65,
       "source_doi": null,
-      "confidence_score": 0.49
+      "confidence_score": 0.49,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -1354,13 +2744,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -1368,6 +2783,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -1395,7 +2847,11 @@
       "post_treatment_PXRD_retained": true,
       "post_treatment_BET_retention_percent": 77,
       "source_doi": null,
-      "confidence_score": 0.69
+      "confidence_score": 0.69,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -1416,13 +2872,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -1430,6 +2911,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   },
   {
@@ -1457,7 +2975,11 @@
       "post_treatment_PXRD_retained": null,
       "post_treatment_BET_retention_percent": 52,
       "source_doi": null,
-      "confidence_score": 0.35
+      "confidence_score": 0.35,
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "hydrophobicity": {
       "water_contact_angle_deg": null,
@@ -1478,13 +3000,38 @@
     },
     "hydrothermalGate": {
       "status": "pending",
-      "reason": "To be evaluated by hard-gate function."
+      "reason": "To be evaluated by hard-gate function.",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ]
     },
     "organicAcidScore": {
       "oacs": null,
       "collapseRisk": null,
       "evidenceLevel": "pending",
-      "weightingMethod": "CRITIC+AHP"
+      "weightingMethod": "CRITIC+AHP",
+      "evidenceIds": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "fieldEvidenceIds": {
+        "oacs": [
+          "EVID-OA-001",
+          "EVID-OA-003",
+          "EVID-OA-004",
+          "EVID-OA-005"
+        ],
+        "hydrothermalGate": [
+          "EVID-OA-001",
+          "EVID-OA-002"
+        ],
+        "collapseRisk": [
+          "EVID-OA-005"
+        ]
+      }
     },
     "fieldSources": {},
     "dataStatus": {
@@ -1492,6 +3039,43 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct validation is pending.",
       "verified": false
+    },
+    "evidenceIds": [
+      "EVID-OA-001",
+      "EVID-OA-002",
+      "EVID-OA-003",
+      "EVID-OA-004",
+      "EVID-OA-005"
+    ],
+    "descriptorScoresEvidenceIds": {
+      "hydrothermalEvidenceStrength": [
+        "EVID-OA-001"
+      ],
+      "thermalStability": [
+        "EVID-OA-001"
+      ],
+      "waterBlockingResistance": [
+        "EVID-OA-004"
+      ],
+      "poreAccessibility": [
+        "EVID-OA-004"
+      ],
+      "c1IntermediateAccessibility": [
+        "EVID-OA-004"
+      ],
+      "alOFrameworkRobustness": [
+        "EVID-OA-003"
+      ],
+      "linkerMicroenvironmentMatch": [
+        "EVID-OA-004"
+      ],
+      "evidenceConfidence": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "collapseRisk": [
+        "EVID-OA-005"
+      ]
     }
   }
 ]

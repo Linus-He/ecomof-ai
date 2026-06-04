@@ -14,7 +14,7 @@ import { DopantMetalRecommendationMatrix } from "./DopantMetalRecommendationMatr
 import { ExafsPredictionPanel } from "./ExafsPredictionPanel"
 import { ExperimentalValidationRoadmap } from "./ExperimentalValidationRoadmap"
 import { LimitationsAndReproducibility } from "./LimitationsAndReproducibility"
-import { MethodologyLink, MiniMetric, text } from "./FinalScreeningShared"
+import { EvidenceLayerLink, MethodologyLink, MiniMetric, text } from "./FinalScreeningShared"
 import { MechanismPathRadar } from "./MechanismPathRadar"
 import { MetalSensitivityDistribution } from "./MetalSensitivityDistribution"
 import { ReactionConstraintBuilder } from "./ReactionConstraintBuilder"
@@ -45,6 +45,7 @@ function ErrorPanel({ lang, t }) {
 export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
   const [frameworks, setFrameworks] = useState([])
   const [metals, setMetals] = useState([])
+  const [evidenceRecords, setEvidenceRecords] = useState([])
   const [rules, setRules] = useState(null)
   const [status, setStatus] = useState("loading")
   const [decisionCandidate, setDecisionCandidate] = useState(null)
@@ -56,12 +57,14 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
       fetchDataJson("organic_acid_final_screening/al_mof_framework_candidates.json", [], { throwOnError: true }),
       fetchDataJson("organic_acid_final_screening/dopant_metal_property_matrix.json", [], { throwOnError: true }),
       fetchDataJson("organic_acid_final_screening/organic_acid_screening_rules.json", {}, { throwOnError: true }),
+      fetchDataJson("organic_acid_final_screening/organic_acid_evidence_records.json", [], { throwOnError: true }),
     ])
-      .then(([frameworkRows, metalRows, ruleConfig]) => {
+      .then(([frameworkRows, metalRows, ruleConfig, evidenceRows]) => {
         if (!active) return
         setFrameworks(Array.isArray(frameworkRows) ? frameworkRows : [])
         setMetals(Array.isArray(metalRows) ? metalRows : [])
         setRules(ruleConfig || {})
+        setEvidenceRecords(Array.isArray(evidenceRows) ? evidenceRows : [])
         setStatus("loaded")
       })
       .catch(error => {
@@ -69,6 +72,7 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
         console.warn("Organic Acid Final Screening data could not be loaded.", error)
         setFrameworks([])
         setMetals([])
+        setEvidenceRecords([])
         setRules({})
         setStatus("error")
       })
@@ -77,8 +81,8 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
 
   const result = useMemo(() => {
     if (status !== "loaded") return null
-    return runOrganicAcidFinalScreening(frameworks, metals, rules || {})
-  }, [frameworks, metals, rules, status])
+    return runOrganicAcidFinalScreening(frameworks, metals, rules || {}, evidenceRecords)
+  }, [frameworks, metals, evidenceRecords, rules, status])
   const decisionTrace = useMemo(() => (
     decisionCandidate ? buildCandidateDecisionTrace(decisionCandidate) : null
   ), [decisionCandidate])
@@ -104,6 +108,7 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
           <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "flex-end" }}>
             <BasisBadge tone="proxy">demo / seed / literature-derived</BasisBadge>
             <MethodologyLink lang={lang} t={t} />
+            <EvidenceLayerLink lang={lang} t={t} />
             <CopyLinkButton hash="catalysis-organic-acid-final-screening" ariaLabel={text(lang, "复制最终筛选链接", "Copy final screening link")} />
             <button
               type="button"
@@ -122,8 +127,8 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
         </strong>
         <ChemicalText value={text(
           lang,
-          "页面展示反应约束 -> Al-MOF 骨架筛选 -> 第二金属推荐 -> Why Mo -> 稳健性 -> 盲测基线 -> EXAFS 可证伪预测 -> 实验验证路线。",
-          "The page shows reaction constraints -> Al-MOF framework mining -> dopant recommendation -> Why Mo -> robustness -> blind baselines -> EXAFS falsification -> experimental validation roadmap."
+          "页面展示反应约束 -> Al-MOF 骨架筛选 -> 第二金属推荐 -> Why Mo -> 稳健性 -> 盲测基线 -> EXAFS 可证伪预测 -> 实验验证路线。完整方法论与证据层已同步到 Methods & Evidence。",
+          "The page shows reaction constraints -> Al-MOF framework mining -> dopant recommendation -> Why Mo -> robustness -> blind baselines -> EXAFS falsification -> experimental validation roadmap. Methodology and evidence layer updated in Methods & Evidence."
         )} />
       </section>
 
@@ -136,11 +141,12 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
           <AlgorithmPipelineStepper steps={result.algorithmJourneySteps} lang={lang} t={t} isMobile={isMobile} />
           <StatusBadgeLegend lang={lang} t={t} isMobile={isMobile} />
 
-          <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))" }}>
+          <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(170px, 1fr))" }}>
             <MiniMetric label={text(lang, "Al-MOF candidates", "Al-MOF candidates")} value={frameworks.length} t={t} />
             <MiniMetric label={text(lang, "Metal pool", "Metal pool")} value={metals.length} t={t} />
             <MiniMetric label={text(lang, "Selected scaffold", "Selected scaffold")} value={result.selectedFramework?.displayName} t={t} />
             <MiniMetric label={result.moRobustnessAudit?.label || "Mo Top 3"} value={`${Math.round((result.sensitivity?.targetMetal?.top3Probability || 0) * 100)}%`} t={t} tone={result.moRobustnessAudit?.status === "audit_required" ? "warn" : "info"} />
+            <MiniMetric label={text(lang, "Evidence records", "Evidence records")} value={result.evidenceCoverage?.totalRecords || evidenceRecords.length} t={t} tone="warn" />
           </div>
 
           <ScreeningFunnelChart data={result.screeningFunnelData} lang={lang} t={t} isMobile={isMobile} onOpenSelectedScaffold={openSelectedScaffold} onJumpToMoW={jumpToMoW} />

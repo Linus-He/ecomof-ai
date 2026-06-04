@@ -163,6 +163,10 @@ export function methodologyHref() {
   return "#methodology-organic-acid-final-screening"
 }
 
+export function evidenceLayerHref() {
+  return "#methodology-oafs-evidence-matrix"
+}
+
 export function MethodologyLink({ lang, t }) {
   return (
     <a
@@ -170,6 +174,17 @@ export function MethodologyLink({ lang, t }) {
       style={{ alignItems: "center", background: t.accent, border: `1px solid ${t.accent}`, borderRadius: 8, color: t.buttonText || "#fff", display: "inline-flex", fontSize: 12, fontWeight: 900, justifyContent: "center", minHeight: 34, padding: "7px 11px", textDecoration: "none" }}
     >
       {text(lang, "查看完整方法论", "View full methodology")}
+    </a>
+  )
+}
+
+export function EvidenceLayerLink({ lang, t }) {
+  return (
+    <a
+      href={evidenceLayerHref()}
+      style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.accentText || t.accent}`, borderRadius: 8, color: t.accentText, display: "inline-flex", fontSize: 12, fontWeight: 900, justifyContent: "center", minHeight: 34, padding: "7px 11px", textDecoration: "none" }}
+    >
+      {text(lang, "查看证据层", "View evidence layer")}
     </a>
   )
 }

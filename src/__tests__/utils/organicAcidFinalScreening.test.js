@@ -2,12 +2,17 @@
 import { describe, expect, it } from "vitest"
 import frameworks from "../../../public/data/organic_acid_final_screening/al_mof_framework_candidates.json"
 import metals from "../../../public/data/organic_acid_final_screening/dopant_metal_property_matrix.json"
+import evidenceRecords from "../../../public/data/organic_acid_final_screening/organic_acid_evidence_records.json"
 import rules from "../../../public/data/organic_acid_final_screening/organic_acid_screening_rules.json"
 import {
   applyHydrothermalGate,
+  attachEvidenceToFrameworks,
+  attachEvidenceToMetals,
   buildCandidateDecisionTrace,
+  calculateEvidenceCoverage,
   calculateDMRS,
   calculateOACS,
+  loadEvidenceRecords,
   METAL_DESCRIPTOR_KEYS,
   runOrganicAcidFinalScreening,
   runFullMetalSensitivityDistribution,
@@ -99,6 +104,66 @@ describe("organic acid final screening", () => {
     expect(result.provenanceCoverage.doiCoverage).toBe(0)
     expect(result.provenanceCoverage.fakeDoiCount).toBe(0)
     expect(result.provenanceCoverage.noFakeDoiPolicyActive).toBe(true)
+  })
+
+  it("loads the V1.3 evidence data layer without fabricated DOI values", () => {
+    const loaded = loadEvidenceRecords(evidenceRecords)
+    const coverage = calculateEvidenceCoverage(loaded)
+    const frameworksWithEvidence = attachEvidenceToFrameworks(frameworks, loaded)
+    const metalsWithEvidence = attachEvidenceToMetals(metals, loaded)
+    const mo = metalsWithEvidence.find(row => row.metal === "Mo")
+
+    expect(loaded).toHaveLength(30)
+    expect(loaded.every(record => record.sourceDoi === null)).toBe(true)
+    expect(coverage).toEqual(expect.objectContaining({
+      totalRecords: 30,
+      verified: 0,
+      literatureSupported: 0,
+      literatureProxy: 12,
+      expertPrior: 8,
+      pendingVerification: 10,
+      statusPendingVerification: 30,
+      doiCoverage: 0,
+      fakeDoiCount: 0,
+      noFakeDoiPolicyActive: true,
+    }))
+    expect(coverage.warning).toMatch(/demo\/proxy/)
+    expect(frameworks[0].waterStability.evidenceIds).toContain("EVID-OA-001")
+    expect(frameworks[0].organicAcidScore.fieldEvidenceIds.oacs).toContain("EVID-OA-005")
+    expect(frameworksWithEvidence[0].waterStability.evidenceRecords.map(record => record.id)).toContain("EVID-OA-002")
+    expect(mo.formateAffinityProxy.evidenceIds).toContain("EVID-OA-008")
+    expect(mo.formateAffinityProxy.evidenceRecords[0].id).toBe("EVID-OA-008")
+    expect(rules.evidenceLayer.fieldEvidenceIds.DMRS).toContain("EVID-OA-015")
+  })
+
+  it("builds V1.3 methodology flow, formula, evidence matrix, and validation loop data", () => {
+    const result = runOrganicAcidFinalScreening(frameworks, metals, rules, evidenceRecords)
+
+    expect(result.evidenceCoverage.totalRecords).toBe(30)
+    expect(result.methodologyFlowData.map(row => row.id)).toEqual([
+      "reaction-constraint",
+      "hydrothermal-hard-gate",
+      "oacs-framework-ranking",
+      "dmrs-dopant-recommendation",
+      "robustness-audit",
+      "exafs-falsification",
+      "experimental-controls",
+    ])
+    expect(result.formulaCards.map(card => card.id)).toEqual(["oacs", "dmrs"])
+    expect(result.formulaCards.find(card => card.id === "oacs").thresholdFallback).toMatch(/OACS = 0/)
+    expect(result.formulaCards.find(card => card.id === "dmrs").interpretation).toMatch(/not assumed/)
+    expect(result.evidenceStrengthMatrix).toHaveLength(10)
+    expect(result.evidenceStrengthMatrix.find(row => row.descriptor === "Formate affinity proxy")).toEqual(expect.objectContaining({
+      doiStatus: "DOI pending",
+      confidence: "medium",
+    }))
+    expect(result.validationLoopData.controls.map(row => row.name)).toEqual([
+      "Pure Al-MOF",
+      "Mo-anchored Al-MOF",
+      "Al-MOF + MoOx physical mixture",
+      "MoOx alone",
+      "Blank reaction",
+    ])
   })
 
   it("builds the V1.2 algorithm journey UI data without changing conclusions", () => {

@@ -698,6 +698,54 @@ function describeUncertainty(record) {
   }
 }
 
+function normalizeEvidenceType(value) {
+  return String(value || "pending_verification").replace(/-/g, "_").toLowerCase()
+}
+
+function normalizeEvidenceStatus(value) {
+  return String(value || "pending_verification").replace(/-/g, "_").toLowerCase()
+}
+
+function evidenceRecordsForIds(ids, byId) {
+  return [...new Set(ids || [])].map(id => byId.get(id)).filter(Boolean)
+}
+
+function attachEvidenceObjects(value, byId) {
+  if (Array.isArray(value)) return value.map(item => attachEvidenceObjects(item, byId))
+  if (!value || typeof value !== "object") return value
+  const next = { ...value }
+  Object.entries(next).forEach(([key, fieldValue]) => {
+    if (key === "evidenceRecords") return
+    next[key] = attachEvidenceObjects(fieldValue, byId)
+  })
+  if (Array.isArray(next.evidenceIds)) next.evidenceRecords = evidenceRecordsForIds(next.evidenceIds, byId)
+  return next
+}
+
+export function loadEvidenceRecords(records = []) {
+  return (Array.isArray(records) ? records : [])
+    .filter(record => record && typeof record === "object" && record.id)
+    .map(record => ({
+      ...record,
+      evidenceType: normalizeEvidenceType(record.evidenceType),
+      status: normalizeEvidenceStatus(record.status),
+      sourceDoi: record.sourceDoi || null,
+      sourceTitle: record.sourceTitle || null,
+      confidence: record.confidence || "pending",
+      nextEvidenceNeeded: Array.isArray(record.nextEvidenceNeeded) ? record.nextEvidenceNeeded : [],
+    }))
+}
+
+export function attachEvidenceToFrameworks(frameworks = [], evidenceRecords = []) {
+  const byId = new Map(loadEvidenceRecords(evidenceRecords).map(record => [record.id, record]))
+  return (frameworks || []).map(row => attachEvidenceObjects(row, byId))
+}
+
+export function attachEvidenceToMetals(metals = [], evidenceRecords = []) {
+  const byId = new Map(loadEvidenceRecords(evidenceRecords).map(record => [record.id, record]))
+  return (metals || []).map(row => attachEvidenceObjects(row, byId))
+}
+
 export function compareCompetitiveMetals(rankedMetals, targetMetal = "Mo", competitors = COMPETITIVE_METALS) {
   const rows = rankedMetals || []
   const target = rows.find(row => row.metal === targetMetal)
@@ -874,6 +922,348 @@ export function generateReproducibilityStatement() {
   return {
     en: "To ensure full reproducibility, the descriptor dictionary, CRITIC+AHP weighting configuration files, hydrothermal hard-gate rules, dopant-metal property matrix, blind-baseline metal list, and Monte Carlo sensitivity analysis scripts will be made publicly available upon publication or project release. All candidate-level decisions retain field-level provenance, including source database, record ID, descriptor origin, curation status, and evidence confidence.",
     zh: "为确保本筛选流程可复现，项目将在发布时公开描述符字典、CRITIC+AHP 组合赋权配置文件、水热稳定性硬阈值规则、掺杂金属属性矩阵、盲测基线金属列表以及蒙特卡洛敏感性分析脚本。所有候选材料的筛选决策均保留字段级溯源信息，包括来源数据库、记录 ID、描述符来源、整理状态和证据可信度。",
+  }
+}
+
+export function calculateEvidenceCoverage(evidenceRecords = []) {
+  const records = loadEvidenceRecords(evidenceRecords)
+  const total = records.length
+  const byEvidenceType = {}
+  const byStatus = {}
+  const byConfidence = {}
+  const byTargetModule = {}
+  let doiPresent = 0
+  let fakeDoi = 0
+
+  records.forEach(record => {
+    const type = normalizeEvidenceType(record.evidenceType)
+    const status = normalizeEvidenceStatus(record.status)
+    byEvidenceType[type] = (byEvidenceType[type] || 0) + 1
+    byStatus[status] = (byStatus[status] || 0) + 1
+    byConfidence[record.confidence || "pending"] = (byConfidence[record.confidence || "pending"] || 0) + 1
+    byTargetModule[record.targetModule || "Unassigned"] = (byTargetModule[record.targetModule || "Unassigned"] || 0) + 1
+    if (record.sourceDoi) {
+      doiPresent += 1
+      if (!DOI_PATTERN.test(String(record.sourceDoi))) fakeDoi += 1
+    }
+  })
+
+  const doiCoverage = total ? roundMetric(doiPresent / total, 3) : 0
+  return {
+    totalRecords: total,
+    verified: byStatus.verified || 0,
+    literatureSupported: byEvidenceType.literature_supported || 0,
+    literatureProxy: byEvidenceType.literature_proxy || 0,
+    expertPrior: byEvidenceType.expert_prior || 0,
+    pendingVerification: byEvidenceType.pending_verification || 0,
+    statusPendingVerification: byStatus.pending_verification || 0,
+    doiCoverage,
+    doiCoveragePercent: `${Math.round(doiCoverage * 100)}%`,
+    doiPresent,
+    missingDoiCount: total - doiPresent,
+    fakeDoiCount: fakeDoi,
+    noFakeDoiPolicyActive: fakeDoi === 0,
+    byEvidenceType,
+    byStatus,
+    byConfidence,
+    byTargetModule,
+    warning: doiCoverage === 0
+      ? "Evidence layer is currently demo/proxy; no verified DOI-backed records yet."
+      : "Evidence layer contains DOI-backed records; verify each source before upgrading confidence.",
+  }
+}
+
+function evidenceSummaryFor(records, fallbackStatus = "pending") {
+  const rows = records || []
+  const confidenceScoreMap = { high: 3, verified: 3, "medium-high": 2.5, medium: 2, low: 1, pending: 0.5 }
+  const avgConfidence = avg(rows.map(record => confidenceScoreMap[String(record.confidence || "pending").toLowerCase()] ?? 0.5))
+  const confidence = avgConfidence >= 2.5 ? "high" : avgConfidence >= 1.8 ? "medium" : avgConfidence > 0 ? "low" : "pending"
+  const type = rows.find(record => record.evidenceType === "literature_proxy")?.evidenceType ||
+    rows.find(record => record.evidenceType === "expert_prior")?.evidenceType ||
+    rows[0]?.evidenceType ||
+    fallbackStatus
+  return {
+    evidenceType: type.replaceAll("_", " "),
+    confidence,
+    doiStatus: rows.some(record => record.sourceDoi) ? "DOI linked" : "DOI pending",
+    recordIds: rows.map(record => record.id),
+    nextEvidenceNeeded: [...new Set(rows.flatMap(record => record.nextEvidenceNeeded || []))].slice(0, 3),
+  }
+}
+
+export function buildEvidenceStrengthMatrix(evidenceRecords = [], screeningResult = {}) {
+  const records = loadEvidenceRecords(evidenceRecords)
+  const select = predicate => records.filter(predicate)
+  const mo = screeningResult?.moRecommendation || {}
+  const w = (screeningResult?.rankedMetals || []).find(row => row.metal === "W") || {}
+  const moWGap = mo.dmrs != null && w.dmrs != null ? roundMetric((mo.dmrs || 0) - (w.dmrs || 0)) : null
+  const rows = [
+    {
+      descriptor: "Hydrothermal stability",
+      descriptorZh: "水热稳定性",
+      currentStatus: "demo proxy hard gate",
+      currentStatusZh: "演示级硬阈值",
+      records: select(record => ["hydrothermalEvidenceStrength", "postTreatmentPxrd"].includes(record.targetDescriptor)),
+      nextEvidenceFallback: "150-170C water treatment + PXRD",
+    },
+    {
+      descriptor: "OACS descriptors",
+      descriptorZh: "OACS 描述符",
+      currentStatus: "demo proxy",
+      currentStatusZh: "演示级代理",
+      records: select(record => record.targetModule === "OACS"),
+      nextEvidenceFallback: "descriptor dictionary and scaffold evidence curation",
+    },
+    {
+      descriptor: "CO2 activation",
+      descriptorZh: "CO2 活化",
+      currentStatus: "literature proxy",
+      currentStatusZh: "文献代理",
+      records: select(record => record.targetDescriptor === "co2ActivationPotential"),
+      nextEvidenceFallback: "direct selected-framework DFT",
+    },
+    {
+      descriptor: "Redox adaptability",
+      descriptorZh: "氧化还原适应性",
+      currentStatus: "literature proxy",
+      currentStatusZh: "文献代理",
+      records: select(record => record.targetDescriptor === "redoxAdaptability"),
+      nextEvidenceFallback: "operando oxidation-state tracking",
+    },
+    {
+      descriptor: "Formate affinity proxy",
+      descriptorZh: "甲酸盐亲和力代理",
+      currentStatus: "pending",
+      currentStatusZh: "待验证",
+      records: select(record => record.targetDescriptor === "formateAffinityProxy"),
+      nextEvidenceFallback: "DFT adsorption energy",
+    },
+    {
+      descriptor: "Leaching risk",
+      descriptorZh: "浸出风险",
+      currentStatus: "demo proxy",
+      currentStatusZh: "演示级代理",
+      records: select(record => ["leachingRisk", "leachingFalsification"].includes(record.targetDescriptor)),
+      nextEvidenceFallback: "ICP-OES filtrate analysis",
+    },
+    {
+      descriptor: "Mechanism feasibility",
+      descriptorZh: "机制可行性",
+      currentStatus: "hypothesis",
+      currentStatusZh: "假设",
+      records: select(record => ["mechanismFeasibility", "anchoringPath", "aggregationFalsification"].includes(record.targetDescriptor)),
+      nextEvidenceFallback: "defect-site DFT + EXAFS path fitting",
+    },
+    {
+      descriptor: "Mo-W gap",
+      descriptorZh: "Mo-W 差距",
+      currentStatus: moWGap == null ? "demo proxy" : `demo proxy gap ${moWGap}`,
+      currentStatusZh: moWGap == null ? "演示级代理" : `演示级代理差距 ${moWGap}`,
+      records: select(record => ["moWGap", "moVsWContribution", "moVsWUncertainty"].includes(record.targetDescriptor)),
+      nextEvidenceFallback: "same-condition Mo/W comparison",
+    },
+    {
+      descriptor: "Sensitivity result",
+      descriptorZh: "敏感性结果",
+      currentStatus: "robust but audit-required",
+      currentStatusZh: "稳健但需审计",
+      records: select(record => record.targetModule === "Sensitivity"),
+      nextEvidenceFallback: "descriptor ablation and external calibration",
+    },
+    {
+      descriptor: "EXAFS prediction",
+      descriptorZh: "EXAFS 预测",
+      currentStatus: "hypothesis",
+      currentStatusZh: "结构假设",
+      records: select(record => record.targetModule === "EXAFS"),
+      nextEvidenceFallback: "Mo K-edge EXAFS",
+    },
+  ]
+
+  return rows.map(row => {
+    const summary = evidenceSummaryFor(row.records)
+    return {
+      descriptor: row.descriptor,
+      descriptorZh: row.descriptorZh,
+      currentStatus: row.currentStatus,
+      currentStatusZh: row.currentStatusZh,
+      evidenceType: summary.evidenceType,
+      confidence: summary.confidence,
+      doiStatus: summary.doiStatus,
+      recordIds: summary.recordIds,
+      nextEvidenceNeeded: summary.nextEvidenceNeeded.length ? summary.nextEvidenceNeeded : [row.nextEvidenceFallback],
+    }
+  })
+}
+
+export function buildMethodologyFlowData(rules = {}, screeningResult = {}) {
+  const selected = screeningResult?.selectedFramework || {}
+  const mo = screeningResult?.moRecommendation || {}
+  return [
+    {
+      id: "reaction-constraint",
+      title: "Reaction Constraint",
+      titleZh: "反应约束",
+      input: "CO2, aqueous phase, 170C, organic-acid target",
+      inputZh: "CO2、水相、170C、有机酸目标",
+      rule: "target-conditioned screening boundary",
+      ruleZh: "目标条件化筛选边界",
+      output: "Stage 1 candidate requirements",
+      outputZh: "Stage 1 候选要求",
+      evidenceStatus: "demo proxy",
+      sectionId: "methodology-oafs-overview",
+    },
+    {
+      id: "hydrothermal-hard-gate",
+      title: "Hydrothermal Hard Gate",
+      titleZh: "水热硬阈值",
+      input: "Al-MOF candidates",
+      inputZh: "Al-MOF 候选",
+      rule: `>=${rules?.hydrothermalHardGate?.minimumTempC || DEFAULT_MIN_TEMP_C}C water stability + post-treatment PXRD`,
+      ruleZh: `>=${rules?.hydrothermalHardGate?.minimumTempC || DEFAULT_MIN_TEMP_C}C 水热稳定性 + 处理后 PXRD`,
+      output: `${screeningResult?.hardGateSummary?.pass || 0} pass / ${screeningResult?.hardGateSummary?.needs_review || 0} review / ${screeningResult?.hardGateSummary?.fail || 0} fail`,
+      outputZh: `${screeningResult?.hardGateSummary?.pass || 0} 通过 / ${screeningResult?.hardGateSummary?.needs_review || 0} 复核 / ${screeningResult?.hardGateSummary?.fail || 0} 失败`,
+      evidenceStatus: "demo proxy / pending",
+      sectionId: "methodology-oafs-flow",
+    },
+    {
+      id: "oacs-framework-ranking",
+      title: "OACS Framework Ranking",
+      titleZh: "OACS 骨架排序",
+      input: "hard-gate pass scaffolds",
+      inputZh: "通过硬阈值的骨架",
+      rule: "weighted scaffold compatibility score",
+      ruleZh: "加权骨架兼容性评分",
+      output: selected.displayName || "selected scaffold pending",
+      outputZh: selected.displayName || "选定骨架待定",
+      evidenceStatus: "demo proxy",
+      sectionId: "methodology-oafs-oacs",
+    },
+    {
+      id: "dmrs-dopant-recommendation",
+      title: "DMRS Dopant Recommendation",
+      titleZh: "DMRS 第二金属推荐",
+      input: `${screeningResult?.rankedMetals?.length || 0} metal pool`,
+      inputZh: `${screeningResult?.rankedMetals?.length || 0} 个金属池`,
+      rule: "active-site value + mechanism + aqueous stability - risk",
+      ruleZh: "活性位价值 + 机制 + 水相稳定性 - 风险",
+      output: `Mo #${mo.rank || "-"} as primary hypothesis; W remains backup`,
+      outputZh: `Mo #${mo.rank || "-"} 为主要假设；W 保持备选`,
+      evidenceStatus: "demo proxy / literature proxy",
+      sectionId: "methodology-oafs-dmrs",
+    },
+    {
+      id: "robustness-audit",
+      title: "Robustness Audit",
+      titleZh: "稳健性审计",
+      input: "CRITIC+AHP weights",
+      inputZh: "CRITIC+AHP 权重",
+      rule: "+/-20%, 1000 iterations, full-metal reranking",
+      ruleZh: "+/-20%，1000 次，全金属重排序",
+      output: screeningResult?.moRobustnessAudit?.label || "audit pending",
+      outputZh: screeningResult?.moRobustnessAudit?.label || "审计待定",
+      evidenceStatus: "robust but audit-required",
+      sectionId: "methodology-oafs-robustness",
+    },
+    {
+      id: "exafs-falsification",
+      title: "EXAFS Falsification",
+      titleZh: "EXAFS 证伪",
+      input: "defect-anchored Mo-oxo hypothesis",
+      inputZh: "缺陷锚定 Mo-oxo 假设",
+      rule: "Mo-O, Mo-O-Al / Mo-O-C, Mo-Mo signatures",
+      ruleZh: "Mo-O、Mo-O-Al / Mo-O-C、Mo-Mo 信号",
+      output: "confirmed or falsified structural hypothesis",
+      outputZh: "确认或证伪结构假设",
+      evidenceStatus: "pending verification",
+      sectionId: "methodology-oafs-exafs",
+    },
+    {
+      id: "experimental-controls",
+      title: "Experimental Controls",
+      titleZh: "实验对照",
+      input: "five required control groups",
+      inputZh: "五组必需对照",
+      rule: "compare yield, carbon balance, framework retention, leaching",
+      ruleZh: "比较产率、碳平衡、骨架保持、浸出",
+      output: "same-condition validation loop",
+      outputZh: "同条件验证闭环",
+      evidenceStatus: "pending verification",
+      sectionId: "methodology-oafs-validation-loop",
+    },
+  ]
+}
+
+export function buildFormulaCards(rules = {}) {
+  return [
+    {
+      id: "oacs",
+      title: "Stage 1 · Organic Acid Compatibility Score, OACS",
+      titleZh: "Stage 1 · 有机酸兼容评分 OACS",
+      math: "\\text{OACS}=w_1H_{\\text{hydrothermal}}+w_2S_{\\text{thermal}}+w_3R_{\\text{water-blocking}}+w_4A_{\\text{pore}}+w_5A_{\\text{C1}}+w_6R_{\\text{Al-O}}+w_7M_{\\text{linker}}+w_8C_{\\text{evidence}}-w_9R_{\\text{collapse}}",
+      fallback: "OACS = w1 H_hydrothermal + w2 S_thermal + w3 R_water-blocking + w4 A_pore + w5 A_C1 + w6 R_Al-O + w7 M_linker + w8 C_evidence - w9 R_collapse",
+      thresholdMath: "\\text{If HydrothermalGate}=\\text{fail},\\quad \\text{OACS}=0,\\quad R_{\\text{collapse}}=1",
+      thresholdFallback: "If HydrothermalGate = fail, OACS = 0, R_collapse = 1",
+      variables: [
+        { symbol: "H_hydrothermal", meaning: ">=150C water stability evidence", meaningZh: ">=150C 水热稳定性证据", status: "demo proxy / pending" },
+        { symbol: "A_pore", meaning: "pore accessibility", meaningZh: "孔道可达性", status: "descriptor" },
+        { symbol: "A_C1", meaning: "C1 intermediate accessibility", meaningZh: "C1 中间体可达性", status: "descriptor" },
+        { symbol: "R_Al-O", meaning: "Al-O framework robustness", meaningZh: "Al-O 骨架稳健性", status: "expert prior" },
+        { symbol: "R_collapse", meaning: "collapse risk", meaningZh: "坍塌风险", status: "proxy" },
+      ],
+      interpretation: "High surface area cannot override a failed hydrothermal gate.",
+      interpretationZh: "高比表面积不能抵消水热硬阈值失败。",
+      weights: rules?.frameworkWeights || DEFAULT_FRAMEWORK_WEIGHTS,
+    },
+    {
+      id: "dmrs",
+      title: "Stage 2 · Dopant Metal Recommendation Score, DMRS",
+      titleZh: "Stage 2 · 第二金属推荐评分 DMRS",
+      math: "\\text{DMRS}=\\alpha V_{\\text{active-site}}+\\beta F_{\\text{mechanism}}+\\gamma S_{\\text{aqueous}}+\\delta E_{\\text{support}}-\\lambda R_{\\text{leaching/aggregation}}",
+      fallback: "DMRS = alpha V_active-site + beta F_mechanism + gamma S_aqueous + delta E_support - lambda R_leaching/aggregation",
+      thresholdMath: "F_{\\text{mechanism}}=\\max(F_{\\text{node-substitution}},F_{\\text{defect-anchoring}},F_{\\text{pore-confinement}})",
+      thresholdFallback: "F_mechanism = max(F_node-substitution, F_defect-anchoring, F_pore-confinement)",
+      variables: [
+        { symbol: "V_active-site", meaning: "CO2 activation, redox and formate proxy", meaningZh: "CO2 活化、氧化还原与甲酸盐代理", status: "literature proxy" },
+        { symbol: "F_mechanism", meaning: "best mechanism path score", meaningZh: "最佳机制路径评分", status: "hypothesis" },
+        { symbol: "S_aqueous", meaning: "aqueous stability support", meaningZh: "水相稳定性支持", status: "demo proxy" },
+        { symbol: "E_support", meaning: "descriptor evidence support", meaningZh: "描述符证据支持", status: "pending" },
+        { symbol: "R_leaching/aggregation", meaning: "leaching and aggregation risk", meaningZh: "浸出与团聚风险", status: "pending" },
+      ],
+      interpretation: "Mo is not assumed to directly replace Al3+ nodes.",
+      interpretationZh: "模型不默认假设 Mo 直接取代 Al3+ 节点。",
+      weights: rules?.dopantWeights || DEFAULT_DOPANT_WEIGHTS,
+    },
+  ]
+}
+
+export function buildValidationLoopData(rules = {}) {
+  const controls = rules?.requiredControls || [
+    "Pure Al-MOF",
+    "Mo-anchored Al-MOF",
+    "Al-MOF + MoOx physical mixture",
+    "MoOx alone",
+    "Blank reaction",
+  ]
+  const purpose = {
+    "Pure Al-MOF": ["baseline scaffold activity", "骨架本底活性"],
+    "Mo-anchored Al-MOF": ["target hypothesis", "目标假设"],
+    "Al-MOF + MoOx physical mixture": ["exclude free MoOx contribution", "排除游离 MoOx 贡献"],
+    "MoOx alone": ["measure independent MoOx activity", "测量 MoOx 单独活性"],
+    "Blank reaction": ["background reaction", "背景反应"],
+  }
+  return {
+    controls: controls.map((name, index) => ({
+      id: name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
+      name,
+      purpose: purpose[name]?.[0] || "control purpose pending",
+      purposeZh: purpose[name]?.[1] || "对照目的待补充",
+      step: index + 1,
+    })),
+    compare: ["formate yield", "carbon balance", "Mo leaching", "PXRD retention"],
+    compareZh: ["甲酸产率", "碳平衡", "Mo 浸出", "PXRD 保持"],
+    interpretation: "The loop separates anchored-site synergy, free MoOx contribution, scaffold-only activity, and background reaction.",
+    interpretationZh: "闭环用于区分锚定位点协同、游离 MoOx 贡献、骨架单独活性和背景反应。",
   }
 }
 
@@ -1276,10 +1666,17 @@ export function buildAlgorithmTrace(screeningResult) {
   ]
 }
 
-export function runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, rules = {}) {
+export function runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, rules = {}, evidenceRecords = []) {
+  const loadedEvidenceRecords = loadEvidenceRecords(evidenceRecords)
+  const frameworkRows = loadedEvidenceRecords.length
+    ? attachEvidenceToFrameworks(frameworkCandidates || [], loadedEvidenceRecords)
+    : (frameworkCandidates || [])
+  const metalRows = loadedEvidenceRecords.length
+    ? attachEvidenceToMetals(metalMatrix || [], loadedEvidenceRecords)
+    : (metalMatrix || [])
   const frameworkWeights = rules.frameworkWeights || DEFAULT_FRAMEWORK_WEIGHTS
   const dopantWeights = rules.dopantWeights || DEFAULT_DOPANT_WEIGHTS
-  const gatedFrameworks = (frameworkCandidates || []).map(candidate => calculateOACS(
+  const gatedFrameworks = (frameworkRows || []).map(candidate => calculateOACS(
     applyHydrothermalGate(candidate, rules),
     frameworkWeights,
   ))
@@ -1292,7 +1689,7 @@ export function runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, r
 
   const selectedFramework = rankedFrameworks.find(candidate => candidate.hydrothermalGate?.status === "pass") || rankedFrameworks[0] || null
   const sensitivity = runSensitivityAnalysis(
-    metalMatrix || [],
+    metalRows || [],
     selectedFramework,
     dopantWeights,
     rules.sensitivityAnalysis?.iterations || 1000,
@@ -1303,7 +1700,7 @@ export function runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, r
     },
   )
   const sensitivityByMetal = new Map((sensitivity.summaries || []).map(row => [row.metal, row]))
-  const rankedMetals = (metalMatrix || [])
+  const rankedMetals = (metalRows || [])
     .map(metal => calculateDMRS(metal, selectedFramework, dopantWeights))
     .sort((a, b) => b.dmrs - a.dmrs)
     .map((row, index) => ({
@@ -1326,7 +1723,7 @@ export function runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, r
     rules.auditCompetitiveMetals || COMPETITIVE_METALS,
   )
   const provenanceCoverage = calculateProvenanceCoverage(
-    metalMatrix || [],
+    metalRows || [],
     rules.provenanceDescriptorKeys || METAL_DESCRIPTOR_KEYS,
   )
   const hardGateSummary = rankedFrameworks.reduce((acc, row) => {
@@ -1347,6 +1744,8 @@ export function runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, r
     moRobustnessAudit,
     competitiveMetalComparison,
     provenanceCoverage,
+    evidenceRecords: loadedEvidenceRecords,
+    evidenceCoverage: calculateEvidenceCoverage(loadedEvidenceRecords),
     blindBaselineSummary: generateBlindBaselineSummary(rankedMetals),
     exafsSignature: generateExpectedEXAFSSignature("Mo", moRecommendation?.mostLikelyForm),
     reproducibilityStatement: generateReproducibilityStatement(),
@@ -1361,5 +1760,9 @@ export function runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, r
     mechanismRadarData: buildMechanismRadarData(rankedMetals),
     sensitivityRankBars: buildSensitivityRankBars(sensitivity.summaries || []),
     algorithmTrace: buildAlgorithmTrace(baseResult),
+    evidenceStrengthMatrix: buildEvidenceStrengthMatrix(loadedEvidenceRecords, baseResult),
+    methodologyFlowData: buildMethodologyFlowData(rules, baseResult),
+    formulaCards: buildFormulaCards(rules),
+    validationLoopData: buildValidationLoopData(rules),
   }
 }

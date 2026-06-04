@@ -8,28 +8,40 @@
       "sourceBasis": "literature_proxy",
       "confidence": "medium",
       "sourceDoi": null,
-      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending."
+      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending.",
+      "evidenceIds": [
+        "EVID-OA-006"
+      ]
     },
     "redoxAdaptability": {
       "value": 0.9,
       "sourceBasis": "literature_proxy",
       "confidence": "medium",
       "sourceDoi": null,
-      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses."
+      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses.",
+      "evidenceIds": [
+        "EVID-OA-007"
+      ]
     },
     "lewisAcidContribution": {
       "value": 0.8,
       "sourceBasis": "expert_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization."
+      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization.",
+      "evidenceIds": [
+        "EVID-OA-010"
+      ]
     },
     "oxoAffinity": {
       "value": 0.92,
       "sourceBasis": "descriptor_prior",
       "confidence": "medium",
       "sourceDoi": null,
-      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency."
+      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency.",
+      "evidenceIds": [
+        "EVID-OA-010"
+      ]
     },
     "formateAffinityProxy": {
       "value": 0.78,
@@ -40,49 +52,71 @@
       "notes": "Proxy based on Mo-oxo / Mo-based CO2 conversion analogues, not direct DFT on selected Al-MOF.",
       "sourceBasis": "literature-derived_proxy",
       "sourceDoi": null,
-      "note": "Proxy based on Mo-oxo / Mo-based CO2 conversion analogues, not direct DFT on selected Al-MOF."
+      "note": "Proxy based on Mo-oxo / Mo-based CO2 conversion analogues, not direct DFT on selected Al-MOF.",
+      "evidenceIds": [
+        "EVID-OA-008"
+      ]
     },
     "hydrothermalRisk": {
       "value": 0.42,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending."
+      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending.",
+      "evidenceIds": [
+        "EVID-OA-009"
+      ]
     },
     "leachingRisk": {
       "value": 0.45,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending."
+      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending.",
+      "evidenceIds": [
+        "EVID-OA-009"
+      ]
     },
     "aggregationRisk": {
       "value": 0.38,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending."
+      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending.",
+      "evidenceIds": [
+        "EVID-OA-009",
+        "EVID-OA-023"
+      ]
     },
     "costPenalty": {
       "value": 0.3,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy cost/accessibility penalty, not a procurement quote."
+      "note": "Demo proxy cost/accessibility penalty, not a procurement quote.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "toxicityPenalty": {
       "value": 0.2,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy toxicity/handling penalty for screening context."
+      "note": "Demo proxy toxicity/handling penalty for screening context.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "nobleMetalPenalty": {
       "value": 0,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Policy penalty for noble-metal-free route preference."
+      "note": "Policy penalty for noble-metal-free route preference.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "evidenceConfidence": "medium",
     "mechanismDescriptors": {
@@ -96,12 +130,16 @@
       "defectBindingEnergyProxy": 0.82,
       "postSyntheticModificationFeasibility": 0.76,
       "metalSpeciesSizeA": 4.6,
-      "confinementFitPrior": 0.74
+      "confinementFitPrior": 0.74,
+      "evidenceIds": [
+        "EVID-OA-010"
+      ]
     },
     "negativeEvidence": {
       "status": "not_applicable",
       "requiredEvidence": [],
-      "sourceDoi": null
+      "sourceDoi": null,
+      "evidenceIds": []
     },
     "fieldSources": {},
     "competitiveNote": "Descriptor competitiveness is demo/proxy-level and should be reviewed against direct DFT and experiment.",
@@ -110,7 +148,27 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct selected Al-MOF validation is pending.",
       "verified": false
-    }
+    },
+    "dmrsEvidenceIds": [
+      "EVID-OA-015",
+      "EVID-OA-006",
+      "EVID-OA-007",
+      "EVID-OA-008",
+      "EVID-OA-009",
+      "EVID-OA-010"
+    ],
+    "moWGapEvidenceIds": [
+      "EVID-OA-016",
+      "EVID-OA-017",
+      "EVID-OA-018"
+    ],
+    "exafsPredictionEvidenceIds": [
+      "EVID-OA-021",
+      "EVID-OA-022",
+      "EVID-OA-023",
+      "EVID-OA-024",
+      "EVID-OA-025"
+    ]
   },
   {
     "metal": "W",
@@ -121,28 +179,40 @@
       "sourceBasis": "literature_proxy",
       "confidence": "medium",
       "sourceDoi": null,
-      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending."
+      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending.",
+      "evidenceIds": [
+        "EVID-OA-011"
+      ]
     },
     "redoxAdaptability": {
       "value": 0.84,
       "sourceBasis": "literature_proxy",
       "confidence": "medium",
       "sourceDoi": null,
-      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses."
+      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses.",
+      "evidenceIds": [
+        "EVID-OA-011"
+      ]
     },
     "lewisAcidContribution": {
       "value": 0.8,
       "sourceBasis": "expert_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization."
+      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization.",
+      "evidenceIds": [
+        "EVID-OA-018"
+      ]
     },
     "oxoAffinity": {
       "value": 0.94,
       "sourceBasis": "descriptor_prior",
       "confidence": "medium",
       "sourceDoi": null,
-      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency."
+      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency.",
+      "evidenceIds": [
+        "EVID-OA-018"
+      ]
     },
     "formateAffinityProxy": {
       "value": 0.74,
@@ -151,49 +221,70 @@
       "sourceDoi": null,
       "note": "Proxy for formate intermediate stabilization; direct selected Al-MOF DFT is pending.",
       "direct_dft_available": false,
-      "evidence_count": 2
+      "evidence_count": 2,
+      "evidenceIds": [
+        "EVID-OA-011"
+      ]
     },
     "hydrothermalRisk": {
       "value": 0.34,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending."
+      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending.",
+      "evidenceIds": [
+        "EVID-OA-018"
+      ]
     },
     "leachingRisk": {
       "value": 0.42,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending."
+      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending.",
+      "evidenceIds": [
+        "EVID-OA-018"
+      ]
     },
     "aggregationRisk": {
       "value": 0.36,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending."
+      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending.",
+      "evidenceIds": [
+        "EVID-OA-018"
+      ]
     },
     "costPenalty": {
       "value": 0.42,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy cost/accessibility penalty, not a procurement quote."
+      "note": "Demo proxy cost/accessibility penalty, not a procurement quote.",
+      "evidenceIds": [
+        "EVID-OA-016"
+      ]
     },
     "toxicityPenalty": {
       "value": 0.2,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy toxicity/handling penalty for screening context."
+      "note": "Demo proxy toxicity/handling penalty for screening context.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "nobleMetalPenalty": {
       "value": 0,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Policy penalty for noble-metal-free route preference."
+      "note": "Policy penalty for noble-metal-free route preference.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "evidenceConfidence": "medium",
     "mechanismDescriptors": {
@@ -207,12 +298,17 @@
       "defectBindingEnergyProxy": 0.76,
       "postSyntheticModificationFeasibility": 0.68,
       "metalSpeciesSizeA": 4.8,
-      "confinementFitPrior": 0.7
+      "confinementFitPrior": 0.7,
+      "evidenceIds": [
+        "EVID-OA-011",
+        "EVID-OA-018"
+      ]
     },
     "negativeEvidence": {
       "status": "not_applicable",
       "requiredEvidence": [],
-      "sourceDoi": null
+      "sourceDoi": null,
+      "evidenceIds": []
     },
     "fieldSources": {},
     "competitiveNote": "W is a strong oxo-metal competitor but penalized by cost/accessibility and potentially slower redox cycling.",
@@ -221,7 +317,18 @@
       "label": "Literature-supported proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct selected Al-MOF validation is pending.",
       "verified": false
-    }
+    },
+    "dmrsEvidenceIds": [
+      "EVID-OA-015",
+      "EVID-OA-011",
+      "EVID-OA-016",
+      "EVID-OA-018"
+    ],
+    "moWGapEvidenceIds": [
+      "EVID-OA-016",
+      "EVID-OA-017",
+      "EVID-OA-018"
+    ]
   },
   {
     "metal": "V",
@@ -232,28 +339,40 @@
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending."
+      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending.",
+      "evidenceIds": [
+        "EVID-OA-012"
+      ]
     },
     "redoxAdaptability": {
       "value": 0.9,
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses."
+      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses.",
+      "evidenceIds": [
+        "EVID-OA-012"
+      ]
     },
     "lewisAcidContribution": {
       "value": 0.68,
       "sourceBasis": "expert_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization."
+      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization.",
+      "evidenceIds": [
+        "EVID-OA-012"
+      ]
     },
     "oxoAffinity": {
       "value": 0.84,
       "sourceBasis": "descriptor_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency."
+      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency.",
+      "evidenceIds": [
+        "EVID-OA-012"
+      ]
     },
     "formateAffinityProxy": {
       "value": 0.66,
@@ -262,49 +381,70 @@
       "sourceDoi": null,
       "note": "Proxy for formate intermediate stabilization; direct selected Al-MOF DFT is pending.",
       "direct_dft_available": false,
-      "evidence_count": 1
+      "evidence_count": 1,
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "hydrothermalRisk": {
       "value": 0.5,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending."
+      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending.",
+      "evidenceIds": [
+        "EVID-OA-012"
+      ]
     },
     "leachingRisk": {
       "value": 0.62,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending."
+      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending.",
+      "evidenceIds": [
+        "EVID-OA-012"
+      ]
     },
     "aggregationRisk": {
       "value": 0.44,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending."
+      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending.",
+      "evidenceIds": [
+        "EVID-OA-012"
+      ]
     },
     "costPenalty": {
       "value": 0.2,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy cost/accessibility penalty, not a procurement quote."
+      "note": "Demo proxy cost/accessibility penalty, not a procurement quote.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "toxicityPenalty": {
       "value": 0.36,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy toxicity/handling penalty for screening context."
+      "note": "Demo proxy toxicity/handling penalty for screening context.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "nobleMetalPenalty": {
       "value": 0,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Policy penalty for noble-metal-free route preference."
+      "note": "Policy penalty for noble-metal-free route preference.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "evidenceConfidence": "low",
     "mechanismDescriptors": {
@@ -318,14 +458,18 @@
       "defectBindingEnergyProxy": 0.66,
       "postSyntheticModificationFeasibility": 0.62,
       "metalSpeciesSizeA": 4.1,
-      "confinementFitPrior": 0.68
+      "confinementFitPrior": 0.68,
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "negativeEvidence": {
       "status": "pending",
       "requiredEvidence": [
         "V leaching under hydrothermal aqueous CO2 conversion"
       ],
-      "sourceDoi": null
+      "sourceDoi": null,
+      "evidenceIds": []
     },
     "fieldSources": {},
     "competitiveNote": "V remains competitive through redox adaptability and CO2 activation, but valence instability and leaching risk require audit.",
@@ -334,7 +478,10 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct selected Al-MOF validation is pending.",
       "verified": false
-    }
+    },
+    "dmrsEvidenceIds": [
+      "EVID-OA-015"
+    ]
   },
   {
     "metal": "Ti",
@@ -345,28 +492,40 @@
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending."
+      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending.",
+      "evidenceIds": [
+        "EVID-OA-013"
+      ]
     },
     "redoxAdaptability": {
       "value": 0.46,
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses."
+      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses.",
+      "evidenceIds": [
+        "EVID-OA-013"
+      ]
     },
     "lewisAcidContribution": {
       "value": 0.82,
       "sourceBasis": "expert_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization."
+      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization.",
+      "evidenceIds": [
+        "EVID-OA-013"
+      ]
     },
     "oxoAffinity": {
       "value": 0.88,
       "sourceBasis": "descriptor_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency."
+      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency.",
+      "evidenceIds": [
+        "EVID-OA-013"
+      ]
     },
     "formateAffinityProxy": {
       "value": 0.5,
@@ -375,49 +534,70 @@
       "sourceDoi": null,
       "note": "Proxy for formate intermediate stabilization; direct selected Al-MOF DFT is pending.",
       "direct_dft_available": false,
-      "evidence_count": 0
+      "evidence_count": 0,
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "hydrothermalRisk": {
       "value": 0.18,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending."
+      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending.",
+      "evidenceIds": [
+        "EVID-OA-013"
+      ]
     },
     "leachingRisk": {
       "value": 0.2,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending."
+      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending.",
+      "evidenceIds": [
+        "EVID-OA-013"
+      ]
     },
     "aggregationRisk": {
       "value": 0.3,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending."
+      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending.",
+      "evidenceIds": [
+        "EVID-OA-013"
+      ]
     },
     "costPenalty": {
       "value": 0.12,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy cost/accessibility penalty, not a procurement quote."
+      "note": "Demo proxy cost/accessibility penalty, not a procurement quote.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "toxicityPenalty": {
       "value": 0.1,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy toxicity/handling penalty for screening context."
+      "note": "Demo proxy toxicity/handling penalty for screening context.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "nobleMetalPenalty": {
       "value": 0,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Policy penalty for noble-metal-free route preference."
+      "note": "Policy penalty for noble-metal-free route preference.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "evidenceConfidence": "low",
     "mechanismDescriptors": {
@@ -431,14 +611,18 @@
       "defectBindingEnergyProxy": 0.6,
       "postSyntheticModificationFeasibility": 0.55,
       "metalSpeciesSizeA": 3.6,
-      "confinementFitPrior": 0.62
+      "confinementFitPrior": 0.62,
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "negativeEvidence": {
       "status": "pending",
       "requiredEvidence": [
         "direct formate intermediate stabilization in selected Al-MOF"
       ],
-      "sourceDoi": null
+      "sourceDoi": null,
+      "evidenceIds": []
     },
     "fieldSources": {},
     "competitiveNote": "Ti is competitive through oxide stability and hydrothermal persistence, but lower redox adaptability weakens the DMRS active-site term.",
@@ -447,7 +631,10 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct selected Al-MOF validation is pending.",
       "verified": false
-    }
+    },
+    "dmrsEvidenceIds": [
+      "EVID-OA-015"
+    ]
   },
   {
     "metal": "Zr",
@@ -458,28 +645,40 @@
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending."
+      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending.",
+      "evidenceIds": [
+        "EVID-OA-013"
+      ]
     },
     "redoxAdaptability": {
       "value": 0.36,
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses."
+      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses.",
+      "evidenceIds": [
+        "EVID-OA-013"
+      ]
     },
     "lewisAcidContribution": {
       "value": 0.84,
       "sourceBasis": "expert_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization."
+      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization.",
+      "evidenceIds": [
+        "EVID-OA-013"
+      ]
     },
     "oxoAffinity": {
       "value": 0.86,
       "sourceBasis": "descriptor_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency."
+      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency.",
+      "evidenceIds": [
+        "EVID-OA-013"
+      ]
     },
     "formateAffinityProxy": {
       "value": 0.45,
@@ -488,49 +687,70 @@
       "sourceDoi": null,
       "note": "Proxy for formate intermediate stabilization; direct selected Al-MOF DFT is pending.",
       "direct_dft_available": false,
-      "evidence_count": 0
+      "evidence_count": 0,
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "hydrothermalRisk": {
       "value": 0.12,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending."
+      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending.",
+      "evidenceIds": [
+        "EVID-OA-013"
+      ]
     },
     "leachingRisk": {
       "value": 0.16,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending."
+      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending.",
+      "evidenceIds": [
+        "EVID-OA-013"
+      ]
     },
     "aggregationRisk": {
       "value": 0.3,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending."
+      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending.",
+      "evidenceIds": [
+        "EVID-OA-013"
+      ]
     },
     "costPenalty": {
       "value": 0.18,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy cost/accessibility penalty, not a procurement quote."
+      "note": "Demo proxy cost/accessibility penalty, not a procurement quote.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "toxicityPenalty": {
       "value": 0.12,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy toxicity/handling penalty for screening context."
+      "note": "Demo proxy toxicity/handling penalty for screening context.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "nobleMetalPenalty": {
       "value": 0,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Policy penalty for noble-metal-free route preference."
+      "note": "Policy penalty for noble-metal-free route preference.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "evidenceConfidence": "low",
     "mechanismDescriptors": {
@@ -544,14 +764,18 @@
       "defectBindingEnergyProxy": 0.58,
       "postSyntheticModificationFeasibility": 0.52,
       "metalSpeciesSizeA": 4.2,
-      "confinementFitPrior": 0.56
+      "confinementFitPrior": 0.56,
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "negativeEvidence": {
       "status": "pending",
       "requiredEvidence": [
         "redox participation under 170C aqueous CO2 conditions"
       ],
-      "sourceDoi": null
+      "sourceDoi": null,
+      "evidenceIds": []
     },
     "fieldSources": {},
     "competitiveNote": "Zr is a strong stability competitor, but formate-affinity and redox proxies remain weaker than Mo/W.",
@@ -560,7 +784,10 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct selected Al-MOF validation is pending.",
       "verified": false
-    }
+    },
+    "dmrsEvidenceIds": [
+      "EVID-OA-015"
+    ]
   },
   {
     "metal": "Fe",
@@ -571,28 +798,40 @@
       "sourceBasis": "literature_proxy",
       "confidence": "medium",
       "sourceDoi": null,
-      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending."
+      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending.",
+      "evidenceIds": [
+        "EVID-OA-014"
+      ]
     },
     "redoxAdaptability": {
       "value": 0.78,
       "sourceBasis": "literature_proxy",
       "confidence": "medium",
       "sourceDoi": null,
-      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses."
+      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses.",
+      "evidenceIds": [
+        "EVID-OA-014"
+      ]
     },
     "lewisAcidContribution": {
       "value": 0.66,
       "sourceBasis": "expert_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization."
+      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization.",
+      "evidenceIds": [
+        "EVID-OA-014"
+      ]
     },
     "oxoAffinity": {
       "value": 0.68,
       "sourceBasis": "descriptor_prior",
       "confidence": "medium",
       "sourceDoi": null,
-      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency."
+      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency.",
+      "evidenceIds": [
+        "EVID-OA-014"
+      ]
     },
     "formateAffinityProxy": {
       "value": 0.6,
@@ -601,49 +840,70 @@
       "sourceDoi": null,
       "note": "Proxy for formate intermediate stabilization; direct selected Al-MOF DFT is pending.",
       "direct_dft_available": false,
-      "evidence_count": 2
+      "evidence_count": 2,
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "hydrothermalRisk": {
       "value": 0.48,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending."
+      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending.",
+      "evidenceIds": [
+        "EVID-OA-014"
+      ]
     },
     "leachingRisk": {
       "value": 0.56,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending."
+      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending.",
+      "evidenceIds": [
+        "EVID-OA-014"
+      ]
     },
     "aggregationRisk": {
       "value": 0.5,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending."
+      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending.",
+      "evidenceIds": [
+        "EVID-OA-014"
+      ]
     },
     "costPenalty": {
       "value": 0.06,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy cost/accessibility penalty, not a procurement quote."
+      "note": "Demo proxy cost/accessibility penalty, not a procurement quote.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "toxicityPenalty": {
       "value": 0.14,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy toxicity/handling penalty for screening context."
+      "note": "Demo proxy toxicity/handling penalty for screening context.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "nobleMetalPenalty": {
       "value": 0,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Policy penalty for noble-metal-free route preference."
+      "note": "Policy penalty for noble-metal-free route preference.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "evidenceConfidence": "medium",
     "mechanismDescriptors": {
@@ -657,14 +917,18 @@
       "defectBindingEnergyProxy": 0.52,
       "postSyntheticModificationFeasibility": 0.6,
       "metalSpeciesSizeA": 3.5,
-      "confinementFitPrior": 0.58
+      "confinementFitPrior": 0.58,
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "negativeEvidence": {
       "status": "pending",
       "requiredEvidence": [
         "Fe redox selectivity toward formate over side pathways"
       ],
-      "sourceDoi": null
+      "sourceDoi": null,
+      "evidenceIds": []
     },
     "fieldSources": {},
     "competitiveNote": "Fe is cost-effective and redox-active, but side-reaction and leaching risks require direct validation.",
@@ -673,7 +937,10 @@
       "label": "Literature-supported proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct selected Al-MOF validation is pending.",
       "verified": false
-    }
+    },
+    "dmrsEvidenceIds": [
+      "EVID-OA-015"
+    ]
   },
   {
     "metal": "Cu",
@@ -684,28 +951,40 @@
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending."
+      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "redoxAdaptability": {
       "value": 0.7,
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses."
+      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "lewisAcidContribution": {
       "value": 0.5,
       "sourceBasis": "expert_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization."
+      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "oxoAffinity": {
       "value": 0.44,
       "sourceBasis": "descriptor_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency."
+      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "formateAffinityProxy": {
       "value": 0.5,
@@ -715,49 +994,70 @@
       "confidence": "low",
       "sourceBasis": "literature-derived_proxy",
       "sourceDoi": null,
-      "note": "Evidence pending."
+      "note": "Evidence pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "hydrothermalRisk": {
       "value": 0.58,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending."
+      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "leachingRisk": {
       "value": 0.6,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending."
+      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "aggregationRisk": {
       "value": 0.55,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending."
+      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "costPenalty": {
       "value": 0.16,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy cost/accessibility penalty, not a procurement quote."
+      "note": "Demo proxy cost/accessibility penalty, not a procurement quote.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "toxicityPenalty": {
       "value": 0.22,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy toxicity/handling penalty for screening context."
+      "note": "Demo proxy toxicity/handling penalty for screening context.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "nobleMetalPenalty": {
       "value": 0,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Policy penalty for noble-metal-free route preference."
+      "note": "Policy penalty for noble-metal-free route preference.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "evidenceConfidence": "low",
     "mechanismDescriptors": {
@@ -771,14 +1071,18 @@
       "defectBindingEnergyProxy": 0.38,
       "postSyntheticModificationFeasibility": 0.56,
       "metalSpeciesSizeA": 3.4,
-      "confinementFitPrior": 0.5
+      "confinementFitPrior": 0.5,
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "negativeEvidence": {
       "status": "pending",
       "requiredEvidence": [
         "Cu aggregation/leaching under hydrothermal aqueous CO2 conversion"
       ],
-      "sourceDoi": null
+      "sourceDoi": null,
+      "evidenceIds": []
     },
     "fieldSources": {},
     "competitiveNote": "Descriptor competitiveness is demo/proxy-level and should be reviewed against direct DFT and experiment.",
@@ -787,7 +1091,10 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct selected Al-MOF validation is pending.",
       "verified": false
-    }
+    },
+    "dmrsEvidenceIds": [
+      "EVID-OA-015"
+    ]
   },
   {
     "metal": "Co",
@@ -798,28 +1105,40 @@
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending."
+      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "redoxAdaptability": {
       "value": 0.68,
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses."
+      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "lewisAcidContribution": {
       "value": 0.52,
       "sourceBasis": "expert_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization."
+      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "oxoAffinity": {
       "value": 0.54,
       "sourceBasis": "descriptor_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency."
+      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "formateAffinityProxy": {
       "value": 0.48,
@@ -829,49 +1148,70 @@
       "confidence": "low",
       "sourceBasis": "descriptor_prior_/_evidence_pending",
       "sourceDoi": null,
-      "note": "Evidence pending."
+      "note": "Evidence pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "hydrothermalRisk": {
       "value": 0.56,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending."
+      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "leachingRisk": {
       "value": 0.58,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending."
+      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "aggregationRisk": {
       "value": 0.52,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending."
+      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "costPenalty": {
       "value": 0.2,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy cost/accessibility penalty, not a procurement quote."
+      "note": "Demo proxy cost/accessibility penalty, not a procurement quote.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "toxicityPenalty": {
       "value": 0.32,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy toxicity/handling penalty for screening context."
+      "note": "Demo proxy toxicity/handling penalty for screening context.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "nobleMetalPenalty": {
       "value": 0,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Policy penalty for noble-metal-free route preference."
+      "note": "Policy penalty for noble-metal-free route preference.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "evidenceConfidence": "low",
     "mechanismDescriptors": {
@@ -885,14 +1225,18 @@
       "defectBindingEnergyProxy": 0.44,
       "postSyntheticModificationFeasibility": 0.54,
       "metalSpeciesSizeA": 3.4,
-      "confinementFitPrior": 0.5
+      "confinementFitPrior": 0.5,
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "negativeEvidence": {
       "status": "pending",
       "requiredEvidence": [
         "selectivity evidence for organic acid products"
       ],
-      "sourceDoi": null
+      "sourceDoi": null,
+      "evidenceIds": []
     },
     "fieldSources": {},
     "competitiveNote": "Descriptor competitiveness is demo/proxy-level and should be reviewed against direct DFT and experiment.",
@@ -901,7 +1245,10 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct selected Al-MOF validation is pending.",
       "verified": false
-    }
+    },
+    "dmrsEvidenceIds": [
+      "EVID-OA-015"
+    ]
   },
   {
     "metal": "Ni",
@@ -912,28 +1259,40 @@
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending."
+      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "redoxAdaptability": {
       "value": 0.6,
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses."
+      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "lewisAcidContribution": {
       "value": 0.48,
       "sourceBasis": "expert_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization."
+      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "oxoAffinity": {
       "value": 0.42,
       "sourceBasis": "descriptor_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency."
+      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "formateAffinityProxy": {
       "value": 0.46,
@@ -943,49 +1302,70 @@
       "confidence": "low",
       "sourceBasis": "descriptor_prior_/_evidence_pending",
       "sourceDoi": null,
-      "note": "Evidence pending."
+      "note": "Evidence pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "hydrothermalRisk": {
       "value": 0.54,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending."
+      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "leachingRisk": {
       "value": 0.54,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending."
+      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "aggregationRisk": {
       "value": 0.5,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending."
+      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "costPenalty": {
       "value": 0.18,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy cost/accessibility penalty, not a procurement quote."
+      "note": "Demo proxy cost/accessibility penalty, not a procurement quote.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "toxicityPenalty": {
       "value": 0.28,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy toxicity/handling penalty for screening context."
+      "note": "Demo proxy toxicity/handling penalty for screening context.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "nobleMetalPenalty": {
       "value": 0,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Policy penalty for noble-metal-free route preference."
+      "note": "Policy penalty for noble-metal-free route preference.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "evidenceConfidence": "low",
     "mechanismDescriptors": {
@@ -999,14 +1379,18 @@
       "defectBindingEnergyProxy": 0.4,
       "postSyntheticModificationFeasibility": 0.52,
       "metalSpeciesSizeA": 3.3,
-      "confinementFitPrior": 0.48
+      "confinementFitPrior": 0.48,
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "negativeEvidence": {
       "status": "pending",
       "requiredEvidence": [
         "Ni formate-path selectivity under aqueous CO2"
       ],
-      "sourceDoi": null
+      "sourceDoi": null,
+      "evidenceIds": []
     },
     "fieldSources": {},
     "competitiveNote": "Descriptor competitiveness is demo/proxy-level and should be reviewed against direct DFT and experiment.",
@@ -1015,7 +1399,10 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct selected Al-MOF validation is pending.",
       "verified": false
-    }
+    },
+    "dmrsEvidenceIds": [
+      "EVID-OA-015"
+    ]
   },
   {
     "metal": "Mn",
@@ -1026,28 +1413,40 @@
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending."
+      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "redoxAdaptability": {
       "value": 0.62,
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses."
+      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "lewisAcidContribution": {
       "value": 0.56,
       "sourceBasis": "expert_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization."
+      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "oxoAffinity": {
       "value": 0.62,
       "sourceBasis": "descriptor_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency."
+      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "formateAffinityProxy": {
       "value": 0.44,
@@ -1057,49 +1456,70 @@
       "confidence": "low",
       "sourceBasis": "descriptor_prior_/_evidence_pending",
       "sourceDoi": null,
-      "note": "Evidence pending."
+      "note": "Evidence pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "hydrothermalRisk": {
       "value": 0.6,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending."
+      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "leachingRisk": {
       "value": 0.62,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending."
+      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "aggregationRisk": {
       "value": 0.54,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending."
+      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "costPenalty": {
       "value": 0.1,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy cost/accessibility penalty, not a procurement quote."
+      "note": "Demo proxy cost/accessibility penalty, not a procurement quote.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "toxicityPenalty": {
       "value": 0.18,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy toxicity/handling penalty for screening context."
+      "note": "Demo proxy toxicity/handling penalty for screening context.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "nobleMetalPenalty": {
       "value": 0,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Policy penalty for noble-metal-free route preference."
+      "note": "Policy penalty for noble-metal-free route preference.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "evidenceConfidence": "low",
     "mechanismDescriptors": {
@@ -1113,14 +1533,18 @@
       "defectBindingEnergyProxy": 0.48,
       "postSyntheticModificationFeasibility": 0.5,
       "metalSpeciesSizeA": 3.6,
-      "confinementFitPrior": 0.52
+      "confinementFitPrior": 0.52,
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "negativeEvidence": {
       "status": "pending",
       "requiredEvidence": [
         "Mn leaching and over-oxidation risk under hydrothermal conditions"
       ],
-      "sourceDoi": null
+      "sourceDoi": null,
+      "evidenceIds": []
     },
     "fieldSources": {},
     "competitiveNote": "Descriptor competitiveness is demo/proxy-level and should be reviewed against direct DFT and experiment.",
@@ -1129,7 +1553,10 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct selected Al-MOF validation is pending.",
       "verified": false
-    }
+    },
+    "dmrsEvidenceIds": [
+      "EVID-OA-015"
+    ]
   },
   {
     "metal": "Ce",
@@ -1140,28 +1567,40 @@
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending."
+      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "redoxAdaptability": {
       "value": 0.76,
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses."
+      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "lewisAcidContribution": {
       "value": 0.72,
       "sourceBasis": "expert_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization."
+      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "oxoAffinity": {
       "value": 0.8,
       "sourceBasis": "descriptor_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency."
+      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "formateAffinityProxy": {
       "value": 0.56,
@@ -1171,49 +1610,70 @@
       "confidence": "low",
       "sourceBasis": "literature-derived_proxy",
       "sourceDoi": null,
-      "note": "Evidence pending."
+      "note": "Evidence pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "hydrothermalRisk": {
       "value": 0.38,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending."
+      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "leachingRisk": {
       "value": 0.44,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending."
+      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "aggregationRisk": {
       "value": 0.58,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending."
+      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "costPenalty": {
       "value": 0.28,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy cost/accessibility penalty, not a procurement quote."
+      "note": "Demo proxy cost/accessibility penalty, not a procurement quote.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "toxicityPenalty": {
       "value": 0.16,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy toxicity/handling penalty for screening context."
+      "note": "Demo proxy toxicity/handling penalty for screening context.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "nobleMetalPenalty": {
       "value": 0,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Policy penalty for noble-metal-free route preference."
+      "note": "Policy penalty for noble-metal-free route preference.",
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "evidenceConfidence": "low",
     "mechanismDescriptors": {
@@ -1227,14 +1687,18 @@
       "defectBindingEnergyProxy": 0.62,
       "postSyntheticModificationFeasibility": 0.5,
       "metalSpeciesSizeA": 5.2,
-      "confinementFitPrior": 0.42
+      "confinementFitPrior": 0.42,
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "negativeEvidence": {
       "status": "pending",
       "requiredEvidence": [
         "CeOx aggregation size control inside selected Al-MOF pores"
       ],
-      "sourceDoi": null
+      "sourceDoi": null,
+      "evidenceIds": []
     },
     "fieldSources": {},
     "competitiveNote": "Descriptor competitiveness is demo/proxy-level and should be reviewed against direct DFT and experiment.",
@@ -1243,7 +1707,10 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct selected Al-MOF validation is pending.",
       "verified": false
-    }
+    },
+    "dmrsEvidenceIds": [
+      "EVID-OA-015"
+    ]
   },
   {
     "metal": "Ru",
@@ -1254,28 +1721,48 @@
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending."
+      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending.",
+      "evidenceIds": [
+        "EVID-OA-026",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "redoxAdaptability": {
       "value": 0.82,
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses."
+      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses.",
+      "evidenceIds": [
+        "EVID-OA-026",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "lewisAcidContribution": {
       "value": 0.5,
       "sourceBasis": "expert_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization."
+      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization.",
+      "evidenceIds": [
+        "EVID-OA-026",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "oxoAffinity": {
       "value": 0.54,
       "sourceBasis": "descriptor_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency."
+      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency.",
+      "evidenceIds": [
+        "EVID-OA-026",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "formateAffinityProxy": {
       "value": 0.44,
@@ -1285,49 +1772,84 @@
       "confidence": "low",
       "sourceBasis": "descriptor_prior_/_evidence_pending",
       "sourceDoi": null,
-      "note": "Evidence pending."
+      "note": "Evidence pending.",
+      "evidenceIds": [
+        "EVID-OA-026",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "hydrothermalRisk": {
       "value": 0.48,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending."
+      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending.",
+      "evidenceIds": [
+        "EVID-OA-026",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "leachingRisk": {
       "value": 0.5,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending."
+      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending.",
+      "evidenceIds": [
+        "EVID-OA-026",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "aggregationRisk": {
       "value": 0.6,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending."
+      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending.",
+      "evidenceIds": [
+        "EVID-OA-026",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "costPenalty": {
       "value": 0.92,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy cost/accessibility penalty, not a procurement quote."
+      "note": "Demo proxy cost/accessibility penalty, not a procurement quote.",
+      "evidenceIds": [
+        "EVID-OA-026",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "toxicityPenalty": {
       "value": 0.3,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy toxicity/handling penalty for screening context."
+      "note": "Demo proxy toxicity/handling penalty for screening context.",
+      "evidenceIds": [
+        "EVID-OA-026",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "nobleMetalPenalty": {
       "value": 0.9,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Policy penalty for noble-metal-free route preference."
+      "note": "Policy penalty for noble-metal-free route preference.",
+      "evidenceIds": [
+        "EVID-OA-026",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "evidenceConfidence": "low",
     "mechanismDescriptors": {
@@ -1341,7 +1863,10 @@
       "defectBindingEnergyProxy": 0.42,
       "postSyntheticModificationFeasibility": 0.44,
       "metalSpeciesSizeA": 3.8,
-      "confinementFitPrior": 0.48
+      "confinementFitPrior": 0.48,
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "negativeEvidence": {
       "status": "pending",
@@ -1350,7 +1875,12 @@
         "Ru aggregation/leaching under hydrothermal Al-MOF conditions",
         "weak evidence for selective formate pathway in this scaffold context"
       ],
-      "sourceDoi": null
+      "sourceDoi": null,
+      "evidenceIds": [
+        "EVID-OA-026",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "fieldSources": {},
     "competitiveNote": "Descriptor competitiveness is demo/proxy-level and should be reviewed against direct DFT and experiment.",
@@ -1359,7 +1889,10 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct selected Al-MOF validation is pending.",
       "verified": false
-    }
+    },
+    "dmrsEvidenceIds": [
+      "EVID-OA-015"
+    ]
   },
   {
     "metal": "Pd",
@@ -1370,28 +1903,48 @@
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending."
+      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending.",
+      "evidenceIds": [
+        "EVID-OA-027",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "redoxAdaptability": {
       "value": 0.62,
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses."
+      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses.",
+      "evidenceIds": [
+        "EVID-OA-027",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "lewisAcidContribution": {
       "value": 0.42,
       "sourceBasis": "expert_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization."
+      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization.",
+      "evidenceIds": [
+        "EVID-OA-027",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "oxoAffinity": {
       "value": 0.32,
       "sourceBasis": "descriptor_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency."
+      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency.",
+      "evidenceIds": [
+        "EVID-OA-027",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "formateAffinityProxy": {
       "value": 0.34,
@@ -1401,49 +1954,84 @@
       "confidence": "low",
       "sourceBasis": "descriptor_prior_/_evidence_pending",
       "sourceDoi": null,
-      "note": "Evidence pending."
+      "note": "Evidence pending.",
+      "evidenceIds": [
+        "EVID-OA-027",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "hydrothermalRisk": {
       "value": 0.52,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending."
+      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending.",
+      "evidenceIds": [
+        "EVID-OA-027",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "leachingRisk": {
       "value": 0.56,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending."
+      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending.",
+      "evidenceIds": [
+        "EVID-OA-027",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "aggregationRisk": {
       "value": 0.66,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending."
+      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending.",
+      "evidenceIds": [
+        "EVID-OA-027",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "costPenalty": {
       "value": 0.95,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy cost/accessibility penalty, not a procurement quote."
+      "note": "Demo proxy cost/accessibility penalty, not a procurement quote.",
+      "evidenceIds": [
+        "EVID-OA-027",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "toxicityPenalty": {
       "value": 0.28,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy toxicity/handling penalty for screening context."
+      "note": "Demo proxy toxicity/handling penalty for screening context.",
+      "evidenceIds": [
+        "EVID-OA-027",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "nobleMetalPenalty": {
       "value": 0.9,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Policy penalty for noble-metal-free route preference."
+      "note": "Policy penalty for noble-metal-free route preference.",
+      "evidenceIds": [
+        "EVID-OA-027",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "evidenceConfidence": "low",
     "mechanismDescriptors": {
@@ -1457,7 +2045,10 @@
       "defectBindingEnergyProxy": 0.34,
       "postSyntheticModificationFeasibility": 0.42,
       "metalSpeciesSizeA": 3.7,
-      "confinementFitPrior": 0.46
+      "confinementFitPrior": 0.46,
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "negativeEvidence": {
       "status": "pending",
@@ -1466,7 +2057,12 @@
         "Pd particle formation under hydrothermal conditions",
         "weak compatibility with Al-O defect anchoring"
       ],
-      "sourceDoi": null
+      "sourceDoi": null,
+      "evidenceIds": [
+        "EVID-OA-027",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "fieldSources": {},
     "competitiveNote": "Descriptor competitiveness is demo/proxy-level and should be reviewed against direct DFT and experiment.",
@@ -1475,7 +2071,10 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct selected Al-MOF validation is pending.",
       "verified": false
-    }
+    },
+    "dmrsEvidenceIds": [
+      "EVID-OA-015"
+    ]
   },
   {
     "metal": "Ag",
@@ -1486,28 +2085,48 @@
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending."
+      "note": "Demo-level proxy for CO2 activation behavior; selected Al-MOF-specific DFT is pending.",
+      "evidenceIds": [
+        "EVID-OA-028",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "redoxAdaptability": {
       "value": 0.32,
       "sourceBasis": "literature_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses."
+      "note": "Demo-level proxy for redox flexibility under aqueous CO2 conversion hypotheses.",
+      "evidenceIds": [
+        "EVID-OA-028",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "lewisAcidContribution": {
       "value": 0.28,
       "sourceBasis": "expert_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization."
+      "note": "Expert-prior score for Lewis acid contribution to C1 intermediate stabilization.",
+      "evidenceIds": [
+        "EVID-OA-028",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "oxoAffinity": {
       "value": 0.22,
       "sourceBasis": "descriptor_prior",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency."
+      "note": "Descriptor proxy for metal-oxo species formation or anchoring tendency.",
+      "evidenceIds": [
+        "EVID-OA-028",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "formateAffinityProxy": {
       "value": 0.25,
@@ -1517,49 +2136,84 @@
       "confidence": "low",
       "sourceBasis": "descriptor_prior_/_evidence_pending",
       "sourceDoi": null,
-      "note": "Evidence pending."
+      "note": "Evidence pending.",
+      "evidenceIds": [
+        "EVID-OA-028",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "hydrothermalRisk": {
       "value": 0.66,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending."
+      "note": "Proxy risk under 170C aqueous conditions; same-condition evidence is pending.",
+      "evidenceIds": [
+        "EVID-OA-028",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "leachingRisk": {
       "value": 0.72,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending."
+      "note": "Proxy leaching risk under hydrothermal aqueous CO2 conversion; ICP-OES validation is pending.",
+      "evidenceIds": [
+        "EVID-OA-028",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "aggregationRisk": {
       "value": 0.58,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending."
+      "note": "Proxy aggregation risk for oxide-like species; post-reaction microscopy/EXAFS is pending.",
+      "evidenceIds": [
+        "EVID-OA-028",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "costPenalty": {
       "value": 0.45,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy cost/accessibility penalty, not a procurement quote."
+      "note": "Demo proxy cost/accessibility penalty, not a procurement quote.",
+      "evidenceIds": [
+        "EVID-OA-028",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "toxicityPenalty": {
       "value": 0.25,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Demo proxy toxicity/handling penalty for screening context."
+      "note": "Demo proxy toxicity/handling penalty for screening context.",
+      "evidenceIds": [
+        "EVID-OA-028",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "nobleMetalPenalty": {
       "value": 0,
       "sourceBasis": "demo_proxy",
       "confidence": "low",
       "sourceDoi": null,
-      "note": "Policy penalty for noble-metal-free route preference."
+      "note": "Policy penalty for noble-metal-free route preference.",
+      "evidenceIds": [
+        "EVID-OA-028",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "evidenceConfidence": "low",
     "mechanismDescriptors": {
@@ -1573,7 +2227,10 @@
       "defectBindingEnergyProxy": 0.26,
       "postSyntheticModificationFeasibility": 0.38,
       "metalSpeciesSizeA": 3.9,
-      "confinementFitPrior": 0.44
+      "confinementFitPrior": 0.44,
+      "evidenceIds": [
+        "EVID-OA-015"
+      ]
     },
     "negativeEvidence": {
       "status": "pending",
@@ -1582,7 +2239,12 @@
         "weak formate intermediate stabilization",
         "poor compatibility with Al-O defect anchoring"
       ],
-      "sourceDoi": null
+      "sourceDoi": null,
+      "evidenceIds": [
+        "EVID-OA-028",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
     },
     "fieldSources": {},
     "competitiveNote": "Descriptor competitiveness is demo/proxy-level and should be reviewed against direct DFT and experiment.",
@@ -1591,6 +2253,9 @@
       "label": "Demo proxy",
       "description": "This score is used for workflow demonstration and hypothesis generation; direct selected Al-MOF validation is pending.",
       "verified": false
-    }
+    },
+    "dmrsEvidenceIds": [
+      "EVID-OA-015"
+    ]
   }
 ]

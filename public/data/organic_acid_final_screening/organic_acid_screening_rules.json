@@ -47,7 +47,9 @@
   },
   "hydrothermalHardGate": {
     "minimumTempC": 150,
-    "requiredEvidence": ["post_treatment_PXRD"],
+    "requiredEvidence": [
+      "post_treatment_PXRD"
+    ],
     "failAction": "set_oacs_zero",
     "reviewAction": "needs_review"
   },
@@ -131,7 +133,11 @@
     "Pd",
     "Ag"
   ],
-  "blindBaselineMetals": ["Ru", "Pd", "Ag"],
+  "blindBaselineMetals": [
+    "Ru",
+    "Pd",
+    "Ag"
+  ],
   "requiredControls": [
     "Pure Al-MOF",
     "Mo-anchored Al-MOF",
@@ -171,5 +177,68 @@
     "experimental_controls",
     "limitations",
     "reproducibility_statement"
-  ]
+  ],
+  "evidenceLayer": {
+    "recordFile": "organic_acid_evidence_records.json",
+    "requiredRecordCount": 30,
+    "doiPolicy": "Use null for unavailable DOI fields; do not fabricate DOI values.",
+    "fieldEvidenceIds": {
+      "OACS": [
+        "EVID-OA-001",
+        "EVID-OA-003",
+        "EVID-OA-004",
+        "EVID-OA-005"
+      ],
+      "HydrothermalGate": [
+        "EVID-OA-001",
+        "EVID-OA-002"
+      ],
+      "CollapseRisk": [
+        "EVID-OA-005"
+      ],
+      "DMRS": [
+        "EVID-OA-006",
+        "EVID-OA-007",
+        "EVID-OA-008",
+        "EVID-OA-009",
+        "EVID-OA-010",
+        "EVID-OA-015"
+      ],
+      "CO2ActivationPotential": [
+        "EVID-OA-006",
+        "EVID-OA-011"
+      ],
+      "RedoxAdaptability": [
+        "EVID-OA-007",
+        "EVID-OA-012",
+        "EVID-OA-014"
+      ],
+      "FormateAffinityProxy": [
+        "EVID-OA-008"
+      ],
+      "LeachingRisk": [
+        "EVID-OA-009",
+        "EVID-OA-024"
+      ],
+      "MoWGap": [
+        "EVID-OA-016",
+        "EVID-OA-017",
+        "EVID-OA-018"
+      ],
+      "EXAFSPrediction": [
+        "EVID-OA-021",
+        "EVID-OA-022",
+        "EVID-OA-023",
+        "EVID-OA-024",
+        "EVID-OA-025"
+      ],
+      "BlindBaseline": [
+        "EVID-OA-026",
+        "EVID-OA-027",
+        "EVID-OA-028",
+        "EVID-OA-029",
+        "EVID-OA-030"
+      ]
+    }
+  }
 }
