@@ -35,16 +35,30 @@ export function DataStatusAndProvenancePanel({ coverage, lang, t, isMobile }) {
 
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))" }}>
         <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 11 }}>
-          <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "Source coverage", "Source coverage")}</strong>
+          <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "Descriptor provenance coverage", "Descriptor provenance coverage")}</strong>
           <CountChips counts={coverage?.bySourceBasis} t={t} />
         </article>
         <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 11 }}>
-          <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "Confidence coverage", "Confidence coverage")}</strong>
+          <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "DOI / evidence status", "DOI / evidence status")}</strong>
           <CountChips counts={coverage?.byConfidence} t={t} />
+          <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>
+            <ChemicalText value={text(
+              lang,
+              `DOI coverage ${Math.round((coverage?.doiCoverage || 0) * 100)}%；evidence pending ${coverage?.pendingDoiCount || 0}；fake DOI ${coverage?.fakeDoiCount || 0}。`,
+              `DOI coverage ${Math.round((coverage?.doiCoverage || 0) * 100)}%; evidence pending ${coverage?.pendingDoiCount || 0}; fake DOI ${coverage?.fakeDoiCount || 0}.`
+            )} />
+          </span>
         </article>
         <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 11 }}>
-          <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "Data status", "Data status")}</strong>
+          <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "Interpretation boundary", "Interpretation boundary")}</strong>
           <CountChips counts={coverage?.dataStatusCounts} t={t} />
+          <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>
+            <ChemicalText value={text(
+              lang,
+              "评分适合用于流程展示和假设生成，不代表最终材料发现结论。",
+              "Scores are suitable for workflow demonstration and hypothesis generation, not final material discovery."
+            )} />
+          </span>
         </article>
       </div>
 

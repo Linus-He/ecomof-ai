@@ -5,6 +5,7 @@ import metals from "../../../public/data/organic_acid_final_screening/dopant_met
 import rules from "../../../public/data/organic_acid_final_screening/organic_acid_screening_rules.json"
 import {
   applyHydrothermalGate,
+  buildCandidateDecisionTrace,
   calculateDMRS,
   calculateOACS,
   METAL_DESCRIPTOR_KEYS,
@@ -83,6 +84,7 @@ describe("organic acid final screening", () => {
     expect(distribution.summaries.find(row => row.metal === "Mo")).toEqual(expect.objectContaining({
       top1Probability: 1,
       rankRange: "1-1",
+      rankProbabilities: expect.objectContaining({ rank1: 1 }),
     }))
     expect(result.fullMetalSensitivityDistribution).toHaveLength(metals.length)
   })
@@ -97,5 +99,50 @@ describe("organic acid final screening", () => {
     expect(result.provenanceCoverage.doiCoverage).toBe(0)
     expect(result.provenanceCoverage.fakeDoiCount).toBe(0)
     expect(result.provenanceCoverage.noFakeDoiPolicyActive).toBe(true)
+  })
+
+  it("builds the V1.2 algorithm journey UI data without changing conclusions", () => {
+    const result = runOrganicAcidFinalScreening(frameworks, metals, rules)
+    expect(result.algorithmJourneySteps).toHaveLength(7)
+    expect(result.algorithmJourneySteps.map(row => row.id)).toEqual([
+      "reaction-constraints",
+      "hydrothermal-gate",
+      "oacs-framework-ranking",
+      "dmrs-dopant-recommendation",
+      "robustness-audit",
+      "exafs-falsification",
+      "experimental-controls",
+    ])
+    expect(result.algorithmJourneySteps.find(row => row.id === "robustness-audit").status).toBe("warning")
+    expect(result.screeningFunnelData.map(row => [row.label, row.count])).toEqual([
+      ["Raw demo framework pool", 24],
+      ["Al-MOF candidates", 24],
+      ["Hydrothermal gate pass", 9],
+      ["OACS-ranked candidates", 9],
+      ["Selected scaffold", 1],
+      ["Dopant metals evaluated", 14],
+      ["High-priority dopants", 2],
+      ["Experimental hypothesis", 1],
+    ])
+    expect(result.stageSummary.stage1.oacs).toBe(0.631)
+    expect(result.stageSummary.stage2.moWGap).toBe(0.027)
+    expect(result.mechanismRadarData.map(row => row.metal)).toEqual(["Mo", "W", "V", "Fe", "Ti", "Zr"])
+    expect(result.sensitivityRankBars.find(row => row.metal === "Mo").rankProbabilities.rank1).toBe(1)
+    expect(result.algorithmTrace).toHaveLength(9)
+    expect(result.algorithmTrace.map(row => row.id)).toContain("falsifiable-hypothesis")
+  })
+
+  it("builds candidate decision traces for pass, fail, and needs-review candidates", () => {
+    const result = runOrganicAcidFinalScreening(frameworks, metals, rules)
+    const passed = buildCandidateDecisionTrace(result.rankedFrameworks.find(row => row.hydrothermalGate.status === "pass"))
+    const failed = buildCandidateDecisionTrace(result.rankedFrameworks.find(row => row.hydrothermalGate.status === "fail"))
+    const review = buildCandidateDecisionTrace(result.rankedFrameworks.find(row => row.hydrothermalGate.status === "needs_review"))
+
+    expect(passed.decision).toBe("passed")
+    expect(failed.decision).toBe("failed")
+    expect(failed.reasons).toContain("OACS forced to 0")
+    expect(failed.reasonsZh).toContain("高比表面积不能抵消水热稳定性失败。")
+    expect(review.decision).toBe("needs_review")
+    expect(review.penalties).toContain("OACS forced to 0")
   })
 })

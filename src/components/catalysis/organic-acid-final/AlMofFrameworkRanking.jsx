@@ -24,7 +24,7 @@ function whyRecommended(row, lang) {
   return text(lang, "缺少 >=150C 水热稳定性证据；硬阈值优先于孔结构优势。", "No >=150C hydrothermal evidence; hard gate overrides favorable pore metrics.")
 }
 
-function DetailGrid({ candidate, lang, t, isMobile }) {
+function DetailGrid({ candidate, lang, t, isMobile, onInspectCandidate }) {
   if (!candidate) return null
   const rows = [
     ["sourceDatabase", text(lang, "来源数据库", "Source database"), candidate.sourceDatabase],
@@ -55,11 +55,20 @@ function DetailGrid({ candidate, lang, t, isMobile }) {
           </div>
         ))}
       </div>
+      {onInspectCandidate ? (
+        <button
+          type="button"
+          onClick={() => onInspectCandidate(candidate)}
+          style={{ background: t.badgeInfoBg, border: `1px solid ${t.accent}`, borderRadius: 8, color: t.accentText, cursor: "pointer", fontSize: 12, fontWeight: 900, minHeight: 34, padding: "7px 10px" }}
+        >
+          {text(lang, "查看候选决策", "View candidate decision")}
+        </button>
+      ) : null}
     </article>
   )
 }
 
-export function AlMofFrameworkRanking({ frameworks, selectedFramework, lang, t, isMobile }) {
+export function AlMofFrameworkRanking({ frameworks, selectedFramework, lang, t, isMobile, onInspectCandidate }) {
   const [selectedId, setSelectedId] = useState(selectedFramework?.id || frameworks?.[0]?.id)
   const selected = useMemo(() => (
     frameworks?.find(row => row.id === selectedId) || selectedFramework || frameworks?.[0]
@@ -86,10 +95,10 @@ export function AlMofFrameworkRanking({ frameworks, selectedFramework, lang, t, 
       </div>
 
       <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
-        <table style={{ borderCollapse: "separate", borderSpacing: 0, minWidth: 980, width: "100%" }}>
+        <table style={{ borderCollapse: "separate", borderSpacing: 0, minWidth: 1120, width: "100%" }}>
           <thead>
             <tr>
-              {[text(lang, "Rank", "Rank"), "MOF", text(lang, "Source", "Source"), text(lang, "Hydrothermal Gate", "Hydrothermal Gate"), "OACS", text(lang, "Collapse Risk", "Collapse Risk"), text(lang, "Pore Accessibility", "Pore Accessibility"), text(lang, "Evidence Level", "Evidence Level"), text(lang, "Why Recommended", "Why Recommended")].map(label => (
+              {[text(lang, "Rank", "Rank"), "MOF", text(lang, "Source", "Source"), text(lang, "Hydrothermal Gate", "Hydrothermal Gate"), "OACS", text(lang, "Collapse Risk", "Collapse Risk"), text(lang, "Pore Accessibility", "Pore Accessibility"), text(lang, "Evidence Level", "Evidence Level"), text(lang, "Why Recommended", "Why Recommended"), text(lang, "Decision", "Decision")].map(label => (
                 <th key={label} style={{ background: t.surface, borderBottom: `1px solid ${t.border}`, color: t.faint, fontSize: 10.5, fontWeight: 900, padding: "9px 8px", textAlign: "left", textTransform: "uppercase" }}>{label}</th>
               ))}
             </tr>
@@ -120,13 +129,25 @@ export function AlMofFrameworkRanking({ frameworks, selectedFramework, lang, t, 
                 <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11.6, lineHeight: 1.45, padding: "9px 8px" }}>
                   <ChemicalText value={whyRecommended(row, lang)} />
                 </td>
+                <td style={{ borderBottom: `1px solid ${t.divider}`, padding: "9px 8px" }}>
+                  <button
+                    type="button"
+                    onClick={event => {
+                      event.stopPropagation()
+                      onInspectCandidate?.(row)
+                    }}
+                    style={{ background: t.badgeInfoBg, border: `1px solid ${t.accent}`, borderRadius: 7, color: t.accentText, cursor: "pointer", fontSize: 11.5, fontWeight: 900, minHeight: 30, padding: "5px 8px" }}
+                  >
+                    {text(lang, "决策", "Decision")}
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      <DetailGrid candidate={selected} lang={lang} t={t} isMobile={isMobile} />
+      <DetailGrid candidate={selected} lang={lang} t={t} isMobile={isMobile} onInspectCandidate={onInspectCandidate} />
 
       {blockedHighPore.length ? (
         <article style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 10, display: "grid", gap: 7, padding: 12 }}>

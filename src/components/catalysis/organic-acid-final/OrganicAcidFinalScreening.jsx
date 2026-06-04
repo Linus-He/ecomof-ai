@@ -2,10 +2,12 @@
 import { useEffect, useMemo, useState } from "react"
 import { BasisBadge, ChemicalText, CopyLinkButton, fetchDataJson } from "../../../shared"
 import { ModulePageHeader } from "../../module/ModuleTop"
-import { runOrganicAcidFinalScreening } from "../../../utils/organicAcidFinalScreening"
+import { buildCandidateDecisionTrace, runOrganicAcidFinalScreening } from "../../../utils/organicAcidFinalScreening"
+import { AlgorithmPipelineStepper } from "./AlgorithmPipelineStepper"
 import { AlMofFrameworkRanking } from "./AlMofFrameworkRanking"
 import { BlindBaselinePanel } from "./BlindBaselinePanel"
 import { CompetitiveMetalComparison } from "./CompetitiveMetalComparison"
+import { CandidateDecisionDrawer } from "./CandidateDecisionDrawer"
 import { DataStatusAndProvenancePanel } from "./DataStatusAndProvenancePanel"
 import { DemoScoreDisclaimer } from "./DemoScoreDisclaimer"
 import { DopantMetalRecommendationMatrix } from "./DopantMetalRecommendationMatrix"
@@ -13,10 +15,16 @@ import { ExafsPredictionPanel } from "./ExafsPredictionPanel"
 import { ExperimentalValidationRoadmap } from "./ExperimentalValidationRoadmap"
 import { LimitationsAndReproducibility } from "./LimitationsAndReproducibility"
 import { MethodologyLink, MiniMetric, text } from "./FinalScreeningShared"
+import { MechanismPathRadar } from "./MechanismPathRadar"
 import { MetalSensitivityDistribution } from "./MetalSensitivityDistribution"
 import { ReactionConstraintBuilder } from "./ReactionConstraintBuilder"
+import { ScreeningFunnelChart } from "./ScreeningFunnelChart"
 import { SensitivityAndBaselinePanel } from "./SensitivityAndBaselinePanel"
+import { SensitivityRankDistribution } from "./SensitivityRankDistribution"
+import { StageSummaryCards } from "./StageSummaryCards"
+import { StatusBadgeLegend } from "./StatusBadgeLegend"
 import { WhyMoWaterfall } from "./WhyMoWaterfall"
+import { WhyMoVsWComparison } from "./WhyMoVsWComparison"
 
 function LoadingPanel({ lang, t }) {
   return (
@@ -39,6 +47,7 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
   const [metals, setMetals] = useState([])
   const [rules, setRules] = useState(null)
   const [status, setStatus] = useState("loading")
+  const [decisionCandidate, setDecisionCandidate] = useState(null)
 
   useEffect(() => {
     let active = true
@@ -70,6 +79,17 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
     if (status !== "loaded") return null
     return runOrganicAcidFinalScreening(frameworks, metals, rules || {})
   }, [frameworks, metals, rules, status])
+  const decisionTrace = useMemo(() => (
+    decisionCandidate ? buildCandidateDecisionTrace(decisionCandidate) : null
+  ), [decisionCandidate])
+
+  const openSelectedScaffold = () => {
+    if (result?.selectedFramework) setDecisionCandidate(result.selectedFramework)
+  }
+  const jumpToMoW = () => {
+    const node = document.getElementById("organic-acid-final-mo-vs-w")
+    if (node) node.scrollIntoView({ behavior: "smooth", block: "start" })
+  }
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16, margin: "0 auto", maxWidth: 1280, minWidth: 0, padding: isMobile ? "0 2px" : 0 }}>
@@ -113,6 +133,8 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
       {result ? (
         <>
           <DemoScoreDisclaimer rules={rules} lang={lang} t={t} />
+          <AlgorithmPipelineStepper steps={result.algorithmJourneySteps} lang={lang} t={t} isMobile={isMobile} />
+          <StatusBadgeLegend lang={lang} t={t} isMobile={isMobile} />
 
           <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))" }}>
             <MiniMetric label={text(lang, "Al-MOF candidates", "Al-MOF candidates")} value={frameworks.length} t={t} />
@@ -121,18 +143,26 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
             <MiniMetric label={result.moRobustnessAudit?.label || "Mo Top 3"} value={`${Math.round((result.sensitivity?.targetMetal?.top3Probability || 0) * 100)}%`} t={t} tone={result.moRobustnessAudit?.status === "audit_required" ? "warn" : "info"} />
           </div>
 
-          <DataStatusAndProvenancePanel coverage={result.provenanceCoverage} lang={lang} t={t} isMobile={isMobile} />
+          <ScreeningFunnelChart data={result.screeningFunnelData} lang={lang} t={t} isMobile={isMobile} onOpenSelectedScaffold={openSelectedScaffold} onJumpToMoW={jumpToMoW} />
+          <StageSummaryCards summary={result.stageSummary} trace={result.algorithmTrace} lang={lang} t={t} isMobile={isMobile} onOpenSelectedScaffold={openSelectedScaffold} />
           <ReactionConstraintBuilder rules={rules} summary={result.hardGateSummary} lang={lang} t={t} isMobile={isMobile} />
-          <AlMofFrameworkRanking frameworks={result.rankedFrameworks} selectedFramework={result.selectedFramework} lang={lang} t={t} isMobile={isMobile} />
-          <DopantMetalRecommendationMatrix metals={result.rankedMetals} moRecommendation={result.moRecommendation} selectedFramework={result.selectedFramework} lang={lang} t={t} />
-          <WhyMoWaterfall moRecommendation={result.moRecommendation} audit={result.moRobustnessAudit} lang={lang} t={t} isMobile={isMobile} />
-          <SensitivityAndBaselinePanel sensitivity={result.sensitivity} moRecommendation={result.moRecommendation} audit={result.moRobustnessAudit} rules={rules} lang={lang} t={t} isMobile={isMobile} />
-          <MetalSensitivityDistribution distribution={result.fullMetalSensitivityDistribution} sensitivity={result.sensitivity} audit={result.moRobustnessAudit} lang={lang} t={t} isMobile={isMobile} />
-          <CompetitiveMetalComparison comparisons={result.competitiveMetalComparison} lang={lang} t={t} isMobile={isMobile} />
-          <BlindBaselinePanel baselines={result.blindBaselineSummary} lang={lang} t={t} isMobile={isMobile} />
-          <ExafsPredictionPanel signature={result.exafsSignature} lang={lang} t={t} isMobile={isMobile} />
+          <AlMofFrameworkRanking frameworks={result.rankedFrameworks} selectedFramework={result.selectedFramework} lang={lang} t={t} isMobile={isMobile} onInspectCandidate={setDecisionCandidate} />
+          <DopantMetalRecommendationMatrix metals={result.rankedMetals} moRecommendation={result.moRecommendation} selectedFramework={result.selectedFramework} algorithmTrace={result.algorithmTrace} lang={lang} t={t} />
+          <MechanismPathRadar data={result.mechanismRadarData} lang={lang} t={t} isMobile={isMobile} />
+          <WhyMoWaterfall moRecommendation={result.moRecommendation} audit={result.moRobustnessAudit} comparisons={result.competitiveMetalComparison} onCompareMoW={jumpToMoW} lang={lang} t={t} isMobile={isMobile} />
+          <WhyMoVsWComparison comparisons={result.competitiveMetalComparison} metals={result.rankedMetals} trace={result.algorithmTrace} lang={lang} t={t} isMobile={isMobile} />
+          <div id="organic-acid-final-robustness-audit" style={{ display: "grid", gap: 16, scrollMarginTop: 118 }}>
+            <SensitivityAndBaselinePanel sensitivity={result.sensitivity} moRecommendation={result.moRecommendation} audit={result.moRobustnessAudit} rules={rules} lang={lang} t={t} isMobile={isMobile} />
+            <SensitivityRankDistribution bars={result.sensitivityRankBars} audit={result.moRobustnessAudit} lang={lang} t={t} />
+            <MetalSensitivityDistribution distribution={result.fullMetalSensitivityDistribution} sensitivity={result.sensitivity} audit={result.moRobustnessAudit} lang={lang} t={t} isMobile={isMobile} />
+            <BlindBaselinePanel baselines={result.blindBaselineSummary} lang={lang} t={t} isMobile={isMobile} />
+          </div>
+          <ExafsPredictionPanel signature={result.exafsSignature} trace={result.algorithmTrace} lang={lang} t={t} isMobile={isMobile} />
           <ExperimentalValidationRoadmap rules={rules} lang={lang} t={t} isMobile={isMobile} />
+          <DataStatusAndProvenancePanel coverage={result.provenanceCoverage} lang={lang} t={t} isMobile={isMobile} />
+          <CompetitiveMetalComparison comparisons={result.competitiveMetalComparison} lang={lang} t={t} isMobile={isMobile} />
           <LimitationsAndReproducibility statement={result.reproducibilityStatement} audit={result.moRobustnessAudit} coverage={result.provenanceCoverage} lang={lang} t={t} />
+          <CandidateDecisionDrawer candidateTrace={decisionTrace} open={Boolean(decisionCandidate)} onClose={() => setDecisionCandidate(null)} lang={lang} t={t} />
         </>
       ) : null}
     </div>

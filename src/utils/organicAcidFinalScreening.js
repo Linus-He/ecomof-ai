@@ -552,6 +552,18 @@ export function runFullMetalSensitivityDistribution(metals, framework, baseWeigh
     const variance = ranks.reduce((sum, rank) => sum + (rank - meanRank) ** 2, 0) / Math.max(1, ranks.length)
     const top1 = ranks.filter(rank => rank === 1).length / Math.max(1, ranks.length)
     const top3 = ranks.filter(rank => rank <= 3).length / Math.max(1, ranks.length)
+    const rankProbabilities = {
+      rank1: roundMetric(ranks.filter(rank => rank === 1).length / Math.max(1, ranks.length)),
+      rank2: roundMetric(ranks.filter(rank => rank === 2).length / Math.max(1, ranks.length)),
+      rank3: roundMetric(ranks.filter(rank => rank === 3).length / Math.max(1, ranks.length)),
+      rank4Plus: roundMetric(ranks.filter(rank => rank >= 4).length / Math.max(1, ranks.length)),
+    }
+    const rankCounts = {
+      rank1: ranks.filter(rank => rank === 1).length,
+      rank2: ranks.filter(rank => rank === 2).length,
+      rank3: ranks.filter(rank => rank === 3).length,
+      rank4Plus: ranks.filter(rank => rank >= 4).length,
+    }
     const dmrsMean = avg(stat.dmrsScores || [])
     return {
       metal,
@@ -564,6 +576,8 @@ export function runFullMetalSensitivityDistribution(metals, framework, baseWeigh
       minRank: Math.min(...ranks),
       maxRank: Math.max(...ranks),
       rankRange: `${Math.min(...ranks)}-${Math.max(...ranks)}`,
+      rankCounts,
+      rankProbabilities,
       meanDmrs: roundMetric(dmrsMean),
       robust: top3 >= (options.robustTop3Threshold ?? 0.85),
       status: top1 >= 0.95
@@ -863,6 +877,405 @@ export function generateReproducibilityStatement() {
   }
 }
 
+export function buildAlgorithmJourneySteps(screeningResult) {
+  const audit = screeningResult?.moRobustnessAudit || {}
+  const hasSelectedFramework = Boolean(screeningResult?.selectedFramework)
+  const hasMo = Boolean(screeningResult?.moRecommendation)
+  const hasExafs = Boolean(screeningResult?.exafsSignature?.expectedFeatures?.length)
+  const gateStatus = hasSelectedFramework && screeningResult?.selectedFramework?.hydrothermalGate?.status === "pass" ? "completed" : "blocked"
+  const auditStatus = audit.status === "audit_required" ? "warning" : audit.status ? "completed" : "pending"
+
+  return [
+    {
+      id: "reaction-constraints",
+      step: "01",
+      title: "Reaction Constraints",
+      titleZh: "反应约束",
+      status: "completed",
+      linkedSectionId: "organic-acid-final-constraints",
+      description: "170C aqueous CO2 to formic acid / organic acids constraint.",
+      descriptionZh: "170C 水相 CO2 到甲酸 / 有机酸约束。",
+    },
+    {
+      id: "hydrothermal-gate",
+      step: "02",
+      title: "Hydrothermal Gate",
+      titleZh: "水热硬阈值",
+      status: gateStatus,
+      linkedSectionId: "organic-acid-final-framework-ranking",
+      description: `${screeningResult?.hardGateSummary?.pass || 0} pass, ${screeningResult?.hardGateSummary?.needs_review || 0} needs review, ${screeningResult?.hardGateSummary?.fail || 0} rejected by hard gate.`,
+      descriptionZh: `${screeningResult?.hardGateSummary?.pass || 0} 通过，${screeningResult?.hardGateSummary?.needs_review || 0} 待复核，${screeningResult?.hardGateSummary?.fail || 0} 被硬阈值拦截。`,
+    },
+    {
+      id: "oacs-framework-ranking",
+      step: "03",
+      title: "OACS Framework Ranking",
+      titleZh: "OACS 骨架排序",
+      status: hasSelectedFramework ? "completed" : "pending",
+      linkedSectionId: "organic-acid-final-framework-ranking",
+      description: `${screeningResult?.selectedFramework?.displayName || "Selected scaffold pending"} selected among pass candidates.`,
+      descriptionZh: `${screeningResult?.selectedFramework?.displayName || "选定骨架待定"} 从通过候选中选出。`,
+    },
+    {
+      id: "dmrs-dopant-recommendation",
+      step: "04",
+      title: "DMRS Dopant Recommendation",
+      titleZh: "DMRS 第二金属推荐",
+      status: hasMo ? "completed" : "pending",
+      linkedSectionId: "organic-acid-final-dopant-matrix",
+      description: `${screeningResult?.rankedMetals?.length || 0} metals evaluated; Mo and W remain high-priority hypotheses.`,
+      descriptionZh: `评估 ${screeningResult?.rankedMetals?.length || 0} 个金属；Mo 与 W 保持高优先级假设。`,
+    },
+    {
+      id: "robustness-audit",
+      step: "05",
+      title: "Robustness Audit",
+      titleZh: "稳健性审计",
+      status: auditStatus,
+      linkedSectionId: "organic-acid-final-robustness-audit",
+      description: audit.label || "Sensitivity audit pending.",
+      descriptionZh: audit.label || "敏感性审计待定。",
+    },
+    {
+      id: "exafs-falsification",
+      step: "06",
+      title: "EXAFS Falsification",
+      titleZh: "EXAFS 可证伪预测",
+      status: hasExafs ? "warning" : "pending",
+      linkedSectionId: "organic-acid-final-exafs",
+      description: "Mo K-edge EXAFS is required to validate or falsify the structure hypothesis.",
+      descriptionZh: "必须用 Mo K-edge EXAFS 验证或证伪结构假设。",
+    },
+    {
+      id: "experimental-controls",
+      step: "07",
+      title: "Experimental Controls",
+      titleZh: "实验对照验证",
+      status: "pending",
+      linkedSectionId: "organic-acid-final-validation-roadmap",
+      description: "Pure Al-MOF, Mo-anchored Al-MOF, physical mixture, MoOx alone, and blank controls remain required.",
+      descriptionZh: "仍需纯 Al-MOF、Mo 锚定 Al-MOF、物理混合物、MoOx 单独和空白对照。",
+    },
+  ]
+}
+
+export function buildScreeningFunnelData(frameworks, rankedMetals, selectedScaffold) {
+  const rows = frameworks || []
+  const passCount = rows.filter(row => row?.hydrothermalGate?.status === "pass").length
+  const reviewCount = rows.filter(row => row?.hydrothermalGate?.status === "needs_review").length
+  const failCount = rows.filter(row => row?.hydrothermalGate?.status === "fail").length
+  return [
+    {
+      id: "raw-demo-framework-pool",
+      label: "Raw demo framework pool",
+      labelZh: "原始演示骨架池",
+      count: rows.length,
+      status: "completed",
+      description: "Demo Al-MOF framework pool before hard-gate filtering.",
+      descriptionZh: "进入硬阈值前的演示级 Al-MOF 骨架池。",
+    },
+    {
+      id: "al-mof-candidates",
+      label: "Al-MOF candidates",
+      labelZh: "Al-MOF 候选",
+      count: rows.length,
+      status: "completed",
+      description: "Stage 1 only screens Al-MOF stable scaffolds.",
+      descriptionZh: "Stage 1 只筛选 Al-MOF 稳定骨架。",
+    },
+    {
+      id: "hydrothermal-gate-pass",
+      label: "Hydrothermal gate pass",
+      labelZh: "水热硬阈值通过",
+      count: passCount,
+      status: "completed",
+      reviewCount,
+      failCount,
+      description: `${reviewCount} need review and ${failCount} are rejected by hard gate.`,
+      descriptionZh: `${reviewCount} 个待复核，${failCount} 个被硬阈值拦截。`,
+    },
+    {
+      id: "oacs-ranked-candidates",
+      label: "OACS-ranked candidates",
+      labelZh: "OACS 排序候选",
+      count: passCount,
+      status: "completed",
+      description: "Only hard-gate pass candidates enter OACS ranking.",
+      descriptionZh: "只有通过硬阈值的候选进入 OACS 排序。",
+    },
+    {
+      id: "selected-scaffold",
+      label: "Selected scaffold",
+      labelZh: "选定骨架",
+      count: selectedScaffold ? 1 : 0,
+      status: selectedScaffold ? "completed" : "pending",
+      action: "openCandidateDecisionDrawer",
+      candidateId: selectedScaffold?.id || null,
+      description: selectedScaffold?.displayName || "Selected scaffold pending.",
+      descriptionZh: selectedScaffold?.displayName || "选定骨架待定。",
+    },
+    {
+      id: "dopant-metals-evaluated",
+      label: "Dopant metals evaluated",
+      labelZh: "评估第二金属",
+      count: rankedMetals?.length || 0,
+      status: "completed",
+      description: "DMRS evaluates the configured second-metal pool.",
+      descriptionZh: "DMRS 评估配置的第二金属池。",
+    },
+    {
+      id: "high-priority-dopants",
+      label: "High-priority dopants",
+      labelZh: "高优先级第二金属",
+      count: 2,
+      status: "warning",
+      action: "jumpToMoW",
+      description: "Mo / W. W remains a strong alternative dopant rather than a rejected candidate.",
+      descriptionZh: "Mo / W。W 是强竞争备选金属，而不是被简单排除的候选。",
+    },
+    {
+      id: "experimental-hypothesis",
+      label: "Experimental hypothesis",
+      labelZh: "实验假设",
+      count: 1,
+      status: "pending",
+      description: "Mo-anchored Al-MOF remains a falsifiable hypothesis.",
+      descriptionZh: "Mo 锚定 Al-MOF 仍是可证伪假设。",
+    },
+  ]
+}
+
+export function buildStageSummary(screeningResult, frameworkRows = []) {
+  const frameworks = frameworkRows.length ? frameworkRows : screeningResult?.rankedFrameworks || []
+  const selected = screeningResult?.selectedFramework || {}
+  const mo = screeningResult?.moRecommendation || {}
+  const w = (screeningResult?.rankedMetals || []).find(row => row.metal === "W") || {}
+  const summary = screeningResult?.hardGateSummary || {}
+  return {
+    stage1: {
+      title: "Stage 1 · Stable Al-MOF Framework Mining",
+      titleZh: "第一阶段 · 稳定 Al-MOF 骨架筛选",
+      input: `${frameworks.length} Al-MOF candidates`,
+      inputZh: `${frameworks.length} 个 Al-MOF 候选`,
+      hardGate: ">=150C water stability + post-treatment PXRD",
+      hardGateZh: ">=150C 水热稳定性 + 处理后 PXRD",
+      passReviewFail: `${summary.pass || 0} / ${summary.needs_review || 0} / ${summary.fail || 0}`,
+      selectedScaffold: selected.displayName || "Pending",
+      oacs: selected.organicAcidScore?.oacs ?? null,
+      status: "Demo proxy",
+      statusZh: "演示级代理评分",
+    },
+    stage2: {
+      title: "Stage 2 · Dopant Metal Recommendation",
+      titleZh: "第二阶段 · 第二金属推荐",
+      input: `${screeningResult?.rankedMetals?.length || 0} candidate metals`,
+      inputZh: `${screeningResult?.rankedMetals?.length || 0} 个候选金属`,
+      mechanismPaths: "node substitution / defect anchoring / pore confinement",
+      mechanismPathsZh: "节点取代 / 缺陷锚定 / 孔道限域",
+      topDopants: `Mo #${mo.rank || "-"}, W #${w.rank || "-"}`,
+      moWGap: mo.dmrs != null && w.dmrs != null ? roundMetric((mo.dmrs || 0) - (w.dmrs || 0)) : null,
+      moForm: mo.mostLikelyForm || "defect-anchored Mo-oxo species",
+      status: screeningResult?.moRobustnessAudit?.label || "robust but audit-required",
+      statusZh: screeningResult?.moRobustnessAudit?.label || "robust but audit-required",
+    },
+  }
+}
+
+export function buildCandidateDecisionTrace(candidate) {
+  const status = candidate?.hydrothermalGate?.status || "pending"
+  const oacs = candidate?.organicAcidScore?.oacs ?? 0
+  const base = {
+    candidateId: candidate?.id || null,
+    candidateName: candidate?.displayName || "Pending candidate",
+    gateStatus: status,
+    decision: status === "pass" ? "passed" : status === "needs_review" ? "needs_review" : status === "fail" ? "failed" : "pending",
+    oacs,
+    oacsContribution: candidate?.organicAcidScore?.contributionBreakdown || {},
+    dataStatus: getDataStatusBadge(candidate),
+    fieldProvenance: {
+      sourceDatabase: candidate?.sourceDatabase || "Pending provenance",
+      sourceRecordId: candidate?.sourceRecordId || "Pending provenance",
+      waterStability: candidate?.waterStability || {},
+      fieldSources: candidate?.fieldSources || {},
+    },
+    reasons: [],
+    penalties: [],
+  }
+
+  if (status === "pass") {
+    base.reasons = [
+      ">=150C hydrothermal evidence",
+      "post-treatment PXRD retained",
+      "C1 intermediate accessibility acceptable",
+      "collapse risk below threshold",
+    ]
+    base.reasonsZh = [
+      "具备 >=150C 水热证据",
+      "处理后 PXRD 保持",
+      "C1 中间体可达性可接受",
+      "坍塌风险低于阈值",
+    ]
+  } else if (status === "needs_review") {
+    base.reasons = [
+      "High-temperature water stability is reported",
+      "post-treatment PXRD evidence is missing",
+      "OACS forced to 0 until evidence is reviewed",
+    ]
+    base.reasonsZh = [
+      "存在高温水相记录",
+      "缺少处理后 PXRD 证据",
+      "证据复核前 OACS 强制为 0",
+    ]
+    base.penalties = ["OACS forced to 0", "Missing PXRD blocks final recommendation"]
+    base.penaltiesZh = ["OACS forced to 0", "缺少 PXRD 会阻断最终推荐"]
+  } else if (status === "fail") {
+    base.reasons = [
+      "no >=150C water stability evidence",
+      "no post-treatment PXRD",
+      "OACS forced to 0",
+      "High surface area does not override hydrothermal failure.",
+    ]
+    base.reasonsZh = [
+      "缺少 >=150C 水稳定性证据",
+      "缺少处理后 PXRD",
+      "OACS forced to 0",
+      "高比表面积不能抵消水热稳定性失败。",
+    ]
+    base.penalties = ["Rejected by hard gate", "High surface area does not override hydrothermal failure."]
+    base.penaltiesZh = ["被硬阈值拦截", "高比表面积不能抵消水热稳定性失败。"]
+  }
+
+  return base
+}
+
+export function buildMechanismRadarData(rankedMetals) {
+  const keep = new Set(["Mo", "W", "V", "Fe", "Ti", "Zr"])
+  return (rankedMetals || [])
+    .filter(row => keep.has(row.metal))
+    .map(row => ({
+      metal: row.metal,
+      nodeSubstitution: row.mechanism?.nodeSubstitution?.score ?? 0,
+      defectAnchoring: row.mechanism?.defectAnchoring?.score ?? 0,
+      poreConfinement: row.mechanism?.poreConfinement?.score ?? 0,
+      activeSiteValue: row.activeSiteValue ?? 0,
+      aqueousStability: row.aqueousStability ?? 0,
+      riskControl: round3(1 - (row.riskPenalty ?? 0)),
+      rank: row.rank,
+      dmrs: row.dmrs,
+    }))
+}
+
+export function buildSensitivityRankBars(distribution) {
+  const rows = distribution?.summaries || distribution || []
+  return rows.map(item => {
+    const rankProbabilities = item.rankProbabilities || {
+      rank1: item.top1Probability || 0,
+      rank2: 0,
+      rank3: Math.max(0, (item.top3Probability || 0) - (item.top1Probability || 0)),
+      rank4Plus: Math.max(0, 1 - (item.top3Probability || 0)),
+    }
+    return {
+      metal: item.metal,
+      rankProbabilities,
+      top3Probability: item.top3Probability || 0,
+      meanRank: item.meanRank,
+      rankRange: item.rankRange || `${item.minRank}-${item.maxRank}`,
+      status: item.top3Probability >= 0.85
+        ? "Robust high-priority"
+        : item.top3Probability >= 0.5
+          ? "Competitive / sensitive"
+          : "Lower-priority under perturbation",
+      statusZh: item.top3Probability >= 0.85
+        ? "稳健高优先级"
+        : item.top3Probability >= 0.5
+          ? "竞争性 / 敏感"
+          : "扰动下低优先级",
+    }
+  })
+}
+
+export function buildAlgorithmTrace(screeningResult) {
+  const selected = screeningResult?.selectedFramework || {}
+  const mo = screeningResult?.moRecommendation || {}
+  const w = (screeningResult?.rankedMetals || []).find(row => row.metal === "W") || {}
+  const gap = mo.dmrs != null && w.dmrs != null ? roundMetric((mo.dmrs || 0) - (w.dmrs || 0)) : null
+  const signature = screeningResult?.exafsSignature || {}
+  const controls = screeningResult?.rules?.requiredControls || [
+    "Pure Al-MOF",
+    "Mo-anchored Al-MOF",
+    "Al-MOF + MoOx physical mixture",
+    "MoOx alone",
+    "Blank reaction",
+  ]
+
+  return [
+    {
+      id: "reaction-constraint",
+      title: "Reaction constraint",
+      titleZh: "反应约束",
+      detail: "170C aqueous CO2 to formic acid / organic acids",
+      detailZh: "170C 水相 CO2 到甲酸 / 有机酸",
+    },
+    {
+      id: "framework-gate",
+      title: "Framework gate",
+      titleZh: "骨架硬阈值",
+      detail: `${selected.displayName || "Selected Al-MOF"} passed >=150C hydrothermal gate and post-treatment PXRD requirement.`,
+      detailZh: `${selected.displayName || "选定 Al-MOF"} 通过 >=150C 水热硬阈值和处理后 PXRD 要求。`,
+    },
+    {
+      id: "oacs-result",
+      title: "OACS result",
+      titleZh: "OACS 结果",
+      detail: `OACS = ${selected.organicAcidScore?.oacs ?? "Pending"}, selected among pass candidates.`,
+      detailZh: `OACS = ${selected.organicAcidScore?.oacs ?? "Pending"}，从通过候选中选定。`,
+    },
+    {
+      id: "dopant-screening",
+      title: "Dopant screening",
+      titleZh: "第二金属筛选",
+      detail: `${screeningResult?.rankedMetals?.length || 0} metals evaluated through DMRS.`,
+      detailZh: `${screeningResult?.rankedMetals?.length || 0} 个金属通过 DMRS 评估。`,
+    },
+    {
+      id: "mo-vs-w",
+      title: "Mo vs W result",
+      titleZh: "Mo vs W 结果",
+      detail: `Mo = ${mo.dmrs ?? "Pending"}, W = ${w.dmrs ?? "Pending"}, gap = ${gap ?? "Pending"}.`,
+      detailZh: `Mo = ${mo.dmrs ?? "Pending"}，W = ${w.dmrs ?? "Pending"}，差距 = ${gap ?? "Pending"}。`,
+    },
+    {
+      id: "mechanism-inference",
+      title: "Mechanism inference",
+      titleZh: "机制推断",
+      detail: `Mo is not assumed to replace Al3+. Most likely form: ${mo.mostLikelyForm || "defect-anchored Mo-oxo species"}.`,
+      detailZh: `不假设 Mo 直接取代 Al3+。最可能形态：${mo.mostLikelyForm || "defect-anchored Mo-oxo species"}。`,
+    },
+    {
+      id: "robustness-audit",
+      title: "Robustness audit",
+      titleZh: "稳健性审计",
+      detail: `Mo Top1 ${Math.round((screeningResult?.sensitivity?.targetMetal?.top1Probability || 0) * 100)}%, Top3 ${Math.round((screeningResult?.sensitivity?.targetMetal?.top3Probability || 0) * 100)}%. Status: ${screeningResult?.moRobustnessAudit?.label || "pending"}.`,
+      detailZh: `Mo Top1 ${Math.round((screeningResult?.sensitivity?.targetMetal?.top1Probability || 0) * 100)}%，Top3 ${Math.round((screeningResult?.sensitivity?.targetMetal?.top3Probability || 0) * 100)}%。状态：${screeningResult?.moRobustnessAudit?.label || "pending"}。`,
+    },
+    {
+      id: "falsifiable-hypothesis",
+      title: "Falsifiable hypothesis",
+      titleZh: "可证伪假设",
+      detail: `Expected ${signature.technique || "Mo K-edge EXAFS"}: Mo-O 1.7-1.9 A, weak Mo-O-Al / Mo-O-C, weak or absent Mo-Mo.`,
+      detailZh: `预期 ${signature.technique || "Mo K-edge EXAFS"}：Mo-O 1.7-1.9 A，弱 Mo-O-Al / Mo-O-C，弱或无 Mo-Mo。`,
+    },
+    {
+      id: "required-controls",
+      title: "Required controls",
+      titleZh: "必需对照",
+      detail: controls.join(" / "),
+      detailZh: controls.join(" / "),
+      items: controls,
+    },
+  ]
+}
+
 export function runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, rules = {}) {
   const frameworkWeights = rules.frameworkWeights || DEFAULT_FRAMEWORK_WEIGHTS
   const dopantWeights = rules.dopantWeights || DEFAULT_DOPANT_WEIGHTS
@@ -922,7 +1335,7 @@ export function runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, r
     return acc
   }, {})
 
-  return {
+  const baseResult = {
     rules,
     rankedFrameworks,
     selectedFramework,
@@ -938,5 +1351,15 @@ export function runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, r
     exafsSignature: generateExpectedEXAFSSignature("Mo", moRecommendation?.mostLikelyForm),
     reproducibilityStatement: generateReproducibilityStatement(),
     hardGateSummary,
+  }
+
+  return {
+    ...baseResult,
+    algorithmJourneySteps: buildAlgorithmJourneySteps(baseResult),
+    screeningFunnelData: buildScreeningFunnelData(rankedFrameworks, rankedMetals, selectedFramework),
+    stageSummary: buildStageSummary(baseResult, rankedFrameworks),
+    mechanismRadarData: buildMechanismRadarData(rankedMetals),
+    sensitivityRankBars: buildSensitivityRankBars(sensitivity.summaries || []),
+    algorithmTrace: buildAlgorithmTrace(baseResult),
   }
 }

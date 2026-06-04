@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../shared"
 import { displayValue, formatScore, Panel, StatusPill, statusTone, text, ValueWithSource } from "./FinalScreeningShared"
+import { AlgorithmTraceDrawer } from "./AlgorithmTraceDrawer"
 
 const PROVENANCE_KEYS = [
   "co2ActivationPotential",
@@ -70,7 +71,21 @@ function metalRecord(row) {
   }
 }
 
-export function DopantMetalRecommendationMatrix({ metals, moRecommendation, selectedFramework, lang, t }) {
+function roleForMetal(row, lang) {
+  if (row?.metal === "Mo") return text(lang, "Primary hypothesis", "Primary hypothesis")
+  if (row?.metal === "W") return text(lang, "Backup hypothesis", "Backup hypothesis")
+  if (["Ru", "Pd", "Ag"].includes(row?.metal)) return text(lang, "Blind baseline", "Blind baseline")
+  return text(lang, "Competitor / context", "Competitor / context")
+}
+
+function roleTone(row) {
+  if (row?.metal === "Mo") return "pass"
+  if (row?.metal === "W") return "warn"
+  if (["Ru", "Pd", "Ag"].includes(row?.metal)) return "warn"
+  return "info"
+}
+
+export function DopantMetalRecommendationMatrix({ metals, moRecommendation, selectedFramework, algorithmTrace, lang, t }) {
   const rows = (metals || []).slice(0, 14)
   return (
     <Panel
@@ -113,10 +128,10 @@ export function DopantMetalRecommendationMatrix({ metals, moRecommendation, sele
       ) : null}
 
       <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
-        <table style={{ borderCollapse: "separate", borderSpacing: 0, minWidth: 1320, width: "100%" }}>
+        <table style={{ borderCollapse: "separate", borderSpacing: 0, minWidth: 1440, width: "100%" }}>
           <thead>
             <tr>
-              {[text(lang, "Rank", "Rank"), text(lang, "Metal", "Metal"), "DMRS", text(lang, "Data Status", "Data Status"), "Source Basis", "Confidence", "DOI / Pending", text(lang, "Most likely form", "Most likely form"), text(lang, "Main strength", "Main strength"), text(lang, "Main risk", "Main risk"), text(lang, "Sensitivity status", "Sensitivity status")].map(label => (
+              {[text(lang, "Rank", "Rank"), text(lang, "Metal", "Metal"), text(lang, "Role", "Role"), "DMRS", text(lang, "Data Status", "Data Status"), "Source Basis", "Confidence", "DOI / Pending", text(lang, "Most likely form", "Most likely form"), text(lang, "Main strength", "Main strength"), text(lang, "Main risk", "Main risk"), text(lang, "Sensitivity status", "Sensitivity status")].map(label => (
                 <th key={label} style={{ background: t.surface, borderBottom: `1px solid ${t.border}`, color: t.faint, fontSize: 10.5, fontWeight: 900, padding: "9px 8px", textAlign: "left", textTransform: "uppercase" }}>{label}</th>
               ))}
             </tr>
@@ -132,6 +147,10 @@ export function DopantMetalRecommendationMatrix({ metals, moRecommendation, sele
                   <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 12, fontWeight: 900, padding: "9px 8px" }}>
                     <ValueWithSource record={record} field="metal" label={text(lang, "金属", "Metal")} value={row.metal} lang={lang} t={t} />
                     {isBaseline ? <StatusPill tone="warn" t={t}>blind baseline</StatusPill> : null}
+                    {row.metal === "Mo" && algorithmTrace ? <div style={{ marginTop: 6 }}><AlgorithmTraceDrawer trace={algorithmTrace} lang={lang} t={t} compact /></div> : null}
+                  </td>
+                  <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11.8, lineHeight: 1.45, padding: "9px 8px" }}>
+                    <StatusPill tone={roleTone(row)} t={t}>{roleForMetal(row, lang)}</StatusPill>
                   </td>
                   <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 12, fontWeight: 900, padding: "9px 8px" }}>
                     <ValueWithSource record={record} field="DMRS" label="DMRS" value={formatScore(row.dmrs)} lang={lang} t={t} />

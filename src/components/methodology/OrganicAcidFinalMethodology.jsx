@@ -15,6 +15,7 @@ export const ORGANIC_ACID_FINAL_DIRECTORY = {
     { id: "methodology-oafs-stage2", label: "Stage 2: Dopant Metal Recommendation", labelZh: "Stage 2：第二金属推荐" },
     { id: "methodology-oafs-critic-ahp", label: "CRITIC + AHP Weighting", labelZh: "CRITIC + AHP 赋权" },
     { id: "methodology-oafs-sensitivity", label: "Sensitivity Analysis", labelZh: "敏感性分析" },
+    { id: "methodology-oafs-algorithm-journey", label: "Algorithm Journey Visualization", labelZh: "算法旅程可视化" },
     { id: "methodology-oafs-algorithm-robustness", label: "Algorithm Robustness Audit", labelZh: "算法稳健性审计" },
     { id: "methodology-oafs-full-metal-distribution", label: "Full-Metal Sensitivity Distribution", labelZh: "全金属敏感性分布" },
     { id: "methodology-oafs-competitive-comparison", label: "Competitive Metal Comparison", labelZh: "竞品金属对比" },
@@ -152,7 +153,25 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           </Paragraph>
         </Section>
 
-        <Section id="methodology-oafs-algorithm-robustness" title="6. Algorithm Robustness Audit" t={t}>
+        <Section id="methodology-oafs-algorithm-journey" title="6. Algorithm Journey Visualization" t={t}>
+          <Paragraph t={t}>
+            {text(
+              lang,
+              "界面被组织为算法推理旅程，而不是彼此孤立的结果卡片。流程进度条、筛选漏斗、阶段摘要卡、候选决策抽屉、机制雷达图、敏感性分布和算法追踪抽屉共同展示每个推荐结果如何产生，以及当前证据边界在哪里。",
+              "The interface is organized as an algorithm journey rather than a collection of independent result cards. The workflow stepper, screening funnel, stage summary cards, decision drawer, mechanism radar, sensitivity distribution, and trace drawer are designed to show how each recommendation is produced and where the current evidence boundaries are."
+            )}
+          </Paragraph>
+          <Paragraph t={t}>
+            {text(
+              lang,
+              "该 UI 不新增科学结论，只负责可视化已有 OACS/DMRS 工作流及其不确定性边界。",
+              "UI does not add new scientific claims. It only visualizes the existing OACS/DMRS workflow and its uncertainty boundaries."
+            )}
+          </Paragraph>
+          <Chips rows={["Algorithm Pipeline Stepper", "Screening Funnel", "Stage Summary Cards", "Candidate Decision Drawer", "Mechanism Radar", "Sensitivity Rank Distribution", "Algorithm Trace Drawer"]} t={t} />
+        </Section>
+
+        <Section id="methodology-oafs-algorithm-robustness" title="7. Algorithm Robustness Audit" t={t}>
           <Paragraph t={t}>
             {text(
               lang,
@@ -163,7 +182,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           <Chips rows={["descriptor saturation audit", "competitor variance audit", "source-basis bias audit", "selected Al-MOF DFT pending", "EXAFS / ICP-OES validation required"]} t={t} />
         </Section>
 
-        <Section id="methodology-oafs-full-metal-distribution" title="7. Full-Metal Sensitivity Distribution" t={t}>
+        <Section id="methodology-oafs-full-metal-distribution" title="8. Full-Metal Sensitivity Distribution" t={t}>
           <Paragraph t={t}>
             {text(
               lang,
@@ -173,7 +192,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           </Paragraph>
         </Section>
 
-        <Section id="methodology-oafs-competitive-comparison" title="8. Competitive Metal Comparison" t={t}>
+        <Section id="methodology-oafs-competitive-comparison" title="9. Competitive Metal Comparison" t={t}>
           <Paragraph t={t}>
             {text(
               lang,
@@ -183,7 +202,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           </Paragraph>
         </Section>
 
-        <Section id="methodology-oafs-proxy-provenance" title="9. Proxy Descriptor Provenance" t={t}>
+        <Section id="methodology-oafs-proxy-provenance" title="10. Proxy Descriptor Provenance" t={t}>
           <Paragraph t={t}>
             {text(
               lang,
@@ -193,7 +212,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           </Paragraph>
         </Section>
 
-        <Section id="methodology-oafs-demo-disclaimer" title="10. Demo Score Disclaimer" t={t}>
+        <Section id="methodology-oafs-demo-disclaimer" title="11. Demo Score Disclaimer" t={t}>
           <Paragraph t={t}>
             {text(
               lang,
@@ -203,7 +222,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           </Paragraph>
         </Section>
 
-        <Section id="methodology-oafs-blind-baseline" title="11. Blind Baseline" t={t}>
+        <Section id="methodology-oafs-blind-baseline" title="12. Blind Baseline" t={t}>
           <Paragraph t={t}>
             {text(
               lang,
@@ -220,7 +239,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           </Paragraph>
         </Section>
 
-        <Section id="methodology-oafs-exafs" title="12. EXAFS Prediction and Falsification" t={t}>
+        <Section id="methodology-oafs-exafs" title="13. EXAFS Prediction and Falsification" t={t}>
           <Paragraph t={t}>
             {text(
               lang,
@@ -231,7 +250,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           <Chips rows={["Strong Mo-Mo scattering -> MoOx aggregation", "High Mo concentration in filtrate -> leaching", "Loss of framework PXRD -> Al-MOF collapse"]} t={t} />
         </Section>
 
-        <Section id="methodology-oafs-controls" title="13. Experimental Validation Controls" t={t}>
+        <Section id="methodology-oafs-controls" title="14. Experimental Validation Controls" t={t}>
           <Chips rows={["Pure Al-MOF", "Mo-anchored Al-MOF", "Al-MOF + MoOx physical mixture", "MoOx alone", "Blank reaction"]} t={t} />
           <Paragraph t={t}>
             {text(
@@ -242,7 +261,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           </Paragraph>
         </Section>
 
-        <Section id="methodology-oafs-limitations" title="14. Limitations and Reproducibility" t={t}>
+        <Section id="methodology-oafs-limitations" title="15. Limitations and Reproducibility" t={t}>
           <Paragraph t={t}>
             {text(
               lang,

@@ -9,6 +9,7 @@ export function LimitationsAndReproducibility({ statement, audit, coverage, lang
     text(lang, "当前模型缺少微动力学、显式溶剂和反应路径 DFT，需要 EXAFS、DFT 和同条件实验验证。", "The model lacks microkinetics, explicit solvent, and reaction-pathway DFT; EXAFS, DFT, and same-condition experiments are required."),
     text(lang, "若 Mo 在 1000 次扰动中始终保持第一，只能标记为 robust but audit required；必须审计 descriptor 饱和、竞品方差和 source-basis 偏倚。", "If Mo stays first across 1000 perturbations, the result is only robust but audit required; descriptor saturation, competitor variance, and source-basis bias must be audited."),
     text(lang, "无真实 DOI 的 descriptor 字段必须显示为 evidence pending；当前模块启用 No fake DOI policy。", "Descriptor fields without real DOI must be shown as evidence pending; the module enforces a No fake DOI policy."),
+    text(lang, "Algorithm Journey UX 不新增科学结论，只把已有 OACS/DMRS 工作流、竞争关系和不确定性边界可视化。", "Algorithm Journey UX does not add new scientific claims; it only visualizes the existing OACS/DMRS workflow, competition, and uncertainty boundaries."),
   ]
   return (
     <Panel

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../shared"
-import { displayValue, formatScore, Panel, text } from "./FinalScreeningShared"
+import { displayValue, formatScore, Panel, StatusPill, text } from "./FinalScreeningShared"
 
 function labelFor(key, fallback, lang) {
   const labels = {
@@ -18,8 +18,9 @@ function labelFor(key, fallback, lang) {
   return labels[key] || fallback
 }
 
-export function WhyMoWaterfall({ moRecommendation, audit, lang, t, isMobile }) {
+export function WhyMoWaterfall({ moRecommendation, audit, comparisons, onCompareMoW, lang, t, isMobile }) {
   const contributions = moRecommendation?.contributionBreakdown || []
+  const wComparison = (comparisons || []).find(row => row.competitor === "W")
   const maxAbs = Math.max(0.04, ...contributions.map(item => Math.abs(item.value || 0)), moRecommendation?.dmrs || 0)
   const positive = contributions.filter(item => item.value > 0).reduce((sum, item) => sum + item.value, 0)
   const negative = contributions.filter(item => item.value < 0).reduce((sum, item) => sum + item.value, 0)
@@ -69,7 +70,7 @@ export function WhyMoWaterfall({ moRecommendation, audit, lang, t, isMobile }) {
         })}
       </div>
 
-      <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))" }}>
+      <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(5, minmax(0, 1fr))" }}>
         <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, padding: 10 }}>
           <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "Positive subtotal", "Positive subtotal")}</span>
           <strong style={{ color: t.textStrong, display: "block", fontSize: 18, marginTop: 4 }}>+{formatScore(positive)}</strong>
@@ -82,6 +83,14 @@ export function WhyMoWaterfall({ moRecommendation, audit, lang, t, isMobile }) {
           <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "Final DMRS", "Final DMRS")}</span>
           <strong style={{ color: t.textStrong, display: "block", fontSize: 18, marginTop: 4 }}>{formatScore(moRecommendation?.dmrs)}</strong>
         </article>
+        <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, padding: 10 }}>
+          <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "Closest competitor", "Closest competitor")}</span>
+          <strong style={{ color: t.textStrong, display: "block", fontSize: 18, marginTop: 4 }}>W</strong>
+        </article>
+        <article style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 9, padding: 10 }}>
+          <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>DMRS gap</span>
+          <strong style={{ color: t.warn, display: "block", fontSize: 18, marginTop: 4 }}>{formatScore(wComparison?.dmrsGap)}</strong>
+        </article>
       </div>
 
       <div style={{ color: t.muted, fontSize: 12.3, lineHeight: 1.55 }}>
@@ -90,6 +99,17 @@ export function WhyMoWaterfall({ moRecommendation, audit, lang, t, isMobile }) {
           `最可能形态：${displayValue(moRecommendation?.mostLikelyForm)}。节点取代路径不是主解释。`,
           `Most likely form: ${displayValue(moRecommendation?.mostLikelyForm)}. Node substitution is not the primary explanation.`
         )} />
+      </div>
+
+      <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
+        <StatusPill tone="warn" t={t}>W backup hypothesis</StatusPill>
+        <button
+          type="button"
+          onClick={onCompareMoW}
+          style={{ background: t.badgeInfoBg, border: `1px solid ${t.accent}`, borderRadius: 8, color: t.accentText, cursor: "pointer", fontSize: 12, fontWeight: 900, minHeight: 34, padding: "7px 10px" }}
+        >
+          {text(lang, "比较 Mo vs W", "Compare Mo vs W")}
+        </button>
       </div>
 
       {audit?.status === "audit_required" ? (
