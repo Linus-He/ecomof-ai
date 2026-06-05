@@ -1,5 +1,79 @@
 [
   {
+    "id": "LIT-CHE-2026-CBM-FINGERPRINT",
+    "title": "Data-Driven Design of Metal-Organic Frameworks for Efficient Coalbed Methane Purification: From Molecular Fingerprint Mining to Experimental Validation",
+    "authors": "Guoqiang Che; Pengtao Guo; Miao Chang; Qingyuan Yang; Dahuan Liu",
+    "year": 2026,
+    "journal": "Advanced Functional Materials",
+    "doi": "10.1002/adfm.75634",
+    "sourceType": "uploaded_paper",
+    "status": "verified_from_uploaded_file",
+    "uploadedFileRefs": [
+      "LIT-001"
+    ],
+    "duplicateFileRefs": [],
+    "coreIdea": "Data-driven MOF design that links molecular fingerprint mining, reverse design, and experimental validation.",
+    "coreIdeaZh": "将分子指纹挖掘、反向设计与实验验证串联起来的数据驱动 MOF 设计路线。",
+    "inspiredVersions": [
+      "V1.0",
+      "V1.4",
+      "V1.6"
+    ],
+    "inspiredModules": [
+      "Organic Acid Final Screening workflow",
+      "Descriptor-driven candidate interpretation",
+      "Validation Evidence Ladder",
+      "Future ligand / metal-center design strategy"
+    ],
+    "knowledgeTags": [
+      "target-specific-screening",
+      "descriptor-driven-design",
+      "validation-workflow"
+    ],
+    "adaptationBoundary": "Borrowed workflow-level inspiration only; EcoMOF-AI does not reproduce the CH4/N2 separation model or Ni-BIC result.",
+    "adaptationBoundaryZh": "仅借鉴工作流层面的设计思想；EcoMOF-AI 不复现 CH4/N2 分离模型或 Ni-BIC 结果。",
+    "evidenceRole": "design_inspiration",
+    "evidenceBoundary": "Design inspiration and validation-route reference; not evidence for organic-acid catalytic performance.",
+    "evidenceBoundaryZh": "作为设计灵感与验证路线参考；不是有机酸催化性能证据。"
+  },
+  {
+    "id": "LIT-GU-2025-BUTANE-AI-MOF",
+    "title": "AI-Powered Experimental Discovery of Metal-Organic Frameworks for n/i-Butane Separation",
+    "authors": null,
+    "year": null,
+    "journal": null,
+    "doi": null,
+    "sourceType": "uploaded_paper",
+    "status": "pending_metadata",
+    "uploadedFileRefs": [
+      "LIT-002"
+    ],
+    "duplicateFileRefs": [],
+    "coreIdea": "Integrated descriptors and similarity-based training-set optimization reduce screening cost while keeping descriptors experimentally accessible.",
+    "coreIdeaZh": "通过 integrated descriptors 与 similarity-based training-set optimization 降低筛选成本，同时保持描述符可由实验/模拟获得。",
+    "inspiredVersions": [
+      "V1.1",
+      "V1.5",
+      "V1.6"
+    ],
+    "inspiredModules": [
+      "Integrated descriptor system",
+      "Similarity-based sampling / small training subset idea",
+      "CoRE/QMOF mapper strategy",
+      "Small curated real dataset strategy"
+    ],
+    "knowledgeTags": [
+      "integrated-descriptor",
+      "small-real-dataset",
+      "data-mapper"
+    ],
+    "adaptationBoundary": "Target is n/i-butane separation, not organic-acid catalysis. EcoMOF-AI borrows descriptor-system and small-sample validation strategy only.",
+    "adaptationBoundaryZh": "该文目标是 n/i-butane 分离，不是有机酸催化；EcoMOF-AI 只借鉴描述符系统与小规模样例验证路线。",
+    "evidenceRole": "descriptor_inspiration",
+    "evidenceBoundary": "Pending bibliographic metadata; do not cite as verified DOI-backed evidence until metadata is checked.",
+    "evidenceBoundaryZh": "书目信息待核验；元数据核查前不得作为 DOI-backed 已验证证据引用。"
+  },
+  {
     "id": "LIT-HOTSPOT-2025-NATCOMM",
     "title": "The geometric-electronic coupled design of diatomic catalyst towards oxygen reduction reaction",
     "authors": "Yan Liu, Yan Yang, Xuanni Lin, Yutao Lin, Zhiwen Zhuo, Dong Liu, Junjie Mao, Jun Jiang",
@@ -8,88 +82,108 @@
     "doi": "10.1038/s41467-025-60170-0",
     "sourceType": "uploaded_paper",
     "status": "verified_from_uploaded_file",
+    "uploadedFileRefs": [
+      "LIT-003"
+    ],
+    "duplicateFileRefs": [],
     "coreIdea": "Constructs a catalytic hot spot map using geometric and electronic descriptors to guide diatomic catalyst design.",
     "coreIdeaZh": "使用几何描述符与电子描述符构建催化热区图，以指导双原子催化剂设计。",
-    "inspiredVersions": ["V1.4"],
+    "inspiredVersions": [
+      "V1.4"
+    ],
     "inspiredModules": [
       "Coupled Descriptor Hot Spot Map",
+      "Scaffold Map / Dopant Map / Synergy Map",
       "Descriptor Coupling Panel",
       "Validation Evidence Ladder"
     ],
+    "knowledgeTags": [
+      "hot-spot-map",
+      "descriptor-coupling",
+      "validation-ladder"
+    ],
     "adaptationBoundary": "EcoMOF-AI borrows the coupled-descriptor visualization philosophy, not the ORR model, DFT dataset, ML workflow, or experimental claim.",
     "adaptationBoundaryZh": "EcoMOF-AI 借鉴耦合描述符可视化思想，而不是复现 ORR 模型、DFT 数据集、ML 工作流或实验结论。",
-    "relatedQuotesOrNotes": [
-      "The article builds a catalytic hot spot map from geometric and electronic descriptors.",
-      "The workflow links feature engineering, DFT, ML, hot spot mapping, and experimental validation."
-    ]
+    "evidenceRole": "descriptor_inspiration",
+    "evidenceBoundary": "Conceptual visualization inspiration only; EcoMOF-AI hot spot map remains demo/proxy.",
+    "evidenceBoundaryZh": "仅作为概念可视化灵感；EcoMOF-AI 热区图仍为 demo/proxy。"
   },
   {
-    "id": "LIT-ML-MOF-DESIGN-PLACEHOLDER",
-    "title": "Pending metadata from previous uploaded MOF machine-learning paper",
+    "id": "LIT-KRIVOBOKOVA-2026-HTE-STRUCTURED-DATA",
+    "title": "Modelling and estimation of chemical reaction yields from high-throughput experiments",
     "authors": null,
     "year": null,
     "journal": null,
     "doi": null,
-    "sourceType": "previous_uploaded_reference",
+    "sourceType": "uploaded_paper",
     "status": "pending_metadata",
-    "coreIdea": "Inspired target-specific descriptor construction and interpretable screening workflow.",
-    "coreIdeaZh": "启发了面向目标任务的描述符构建与可解释筛选工作流。",
-    "inspiredVersions": ["V1.0", "V1.1"],
+    "uploadedFileRefs": [
+      "LIT-004"
+    ],
+    "duplicateFileRefs": [],
+    "coreIdea": "High-throughput experiment data has a data-generation structure; respecting that structure can prevent misleading black-box ML conclusions.",
+    "coreIdeaZh": "高通量实验数据具有特定的数据生成结构；尊重该结构可以避免误导性的黑箱 ML 结论。",
+    "inspiredVersions": [
+      "V1.1",
+      "V1.3",
+      "V1.5",
+      "V1.6"
+    ],
     "inspiredModules": [
-      "OACS / DMRS workflow",
       "Robustness audit",
-      "Evidence boundary design"
+      "Data quality gate",
+      "Evidence boundary",
+      "Structured factor effects method"
     ],
-    "adaptationBoundary": "Pending bibliographic verification; do not cite as verified source or proof of EcoMOF-AI ranking.",
-    "adaptationBoundaryZh": "书目信息待核验；不得作为已验证来源引用，也不得作为 EcoMOF-AI 排名证明。",
-    "relatedQuotesOrNotes": [
-      "Pending metadata. Preserve as design-history note only."
-    ]
+    "knowledgeTags": [
+      "robustness-audit",
+      "data-quality-gate",
+      "evidence-boundary"
+    ],
+    "adaptationBoundary": "The paper addresses HTE yield modelling, not MOF screening. EcoMOF-AI borrows the principle of respecting data structure and avoiding unsupported black-box claims.",
+    "adaptationBoundaryZh": "该文讨论 HTE 产率建模，不是 MOF 筛选；EcoMOF-AI 借鉴尊重数据结构、避免无支撑黑箱结论的方法论原则。",
+    "evidenceRole": "methodology_inspiration",
+    "evidenceBoundary": "Methodology principle only; pending bibliographic metadata.",
+    "evidenceBoundaryZh": "仅为方法论原则；书目信息待核验。"
   },
   {
-    "id": "LIT-EVIDENCE-PROVENANCE-PLACEHOLDER",
-    "title": "Pending metadata from evidence provenance and data-curation practice",
-    "authors": null,
-    "year": null,
-    "journal": null,
+    "id": "LIT-SU-2025-MOF-BORYLATION",
+    "title": "Machine Learning Reveals In-Cavity Versus Surface Activity for Selective C-H Borylation by Metal-Organic Framework Catalysts",
+    "authors": "Su et al. (full author list pending)",
+    "year": 2025,
+    "journal": "Angewandte Chemie (metadata pending)",
     "doi": null,
-    "sourceType": "previous_uploaded_reference",
+    "sourceType": "uploaded_paper",
     "status": "pending_metadata",
-    "coreIdea": "Inspired field-level provenance, evidence boundary notices, and version-to-source traceability.",
-    "coreIdeaZh": "启发了字段级来源、证据边界提示和版本-来源追踪。",
-    "inspiredVersions": ["V1.2", "V1.3", "V1.5"],
-    "inspiredModules": [
-      "Algorithm Trace Drawer",
-      "Evidence Strength Matrix",
-      "Version ↔ Literature Source Map"
+    "uploadedFileRefs": [
+      "LIT-005",
+      "LIT-006"
     ],
-    "adaptationBoundary": "Pending metadata; used only to preserve internal design rationale and not as a scientific validation source.",
-    "adaptationBoundaryZh": "元数据待补；仅用于保留内部设计依据，不作为科学验证来源。",
-    "relatedQuotesOrNotes": [
-      "Pending metadata. No DOI is displayed until verified."
-    ]
-  },
-  {
-    "id": "LIT-DATA-MAPPER-PENDING",
-    "title": "Pending metadata from previous uploaded data-mapping reference",
-    "authors": null,
-    "year": null,
-    "journal": null,
-    "doi": null,
-    "sourceType": "previous_uploaded_reference",
-    "status": "pending_metadata",
-    "coreIdea": "Inspired schema-first data intake, mapper preview, validation checks, and quality gates before scoring.",
-    "coreIdeaZh": "启发了评分前的 schema-first 数据接入、mapper preview、validation checks 和 quality gates。",
-    "inspiredVersions": ["V1.5", "V1.6"],
-    "inspiredModules": [
-      "Data Mapper Preview Panel",
-      "Schema Validation Panel",
-      "Data Quality Gate Panel"
+    "duplicateFileRefs": [
+      "LIT-006"
     ],
-    "adaptationBoundary": "Pending bibliographic verification; the mapper remains a small-fixture preview and does not integrate full CoRE/QMOF.",
-    "adaptationBoundaryZh": "书目信息待核验；mapper 仍是小型 fixture 预览，不接入完整 CoRE/QMOF。",
-    "relatedQuotesOrNotes": [
-      "Pending metadata. Treat as roadmap inspiration only."
-    ]
+    "coreIdea": "Interpretable MOF descriptor families help distinguish in-cavity activity from surface or defect-site activity on small experimental datasets.",
+    "coreIdeaZh": "可解释 MOF 描述符族用于在小实验数据集上区分腔内活性与表面 / 缺陷位点活性。",
+    "inspiredVersions": [
+      "V1.0",
+      "V1.2",
+      "V1.4"
+    ],
+    "inspiredModules": [
+      "In-cavity vs surface / defect-site distinction",
+      "Defect anchoring vs pore confinement mechanism paths",
+      "Interpretable MOF descriptor families",
+      "Mechanism Path Radar"
+    ],
+    "knowledgeTags": [
+      "mof-catalysis-mechanism",
+      "mechanism-radar",
+      "descriptor-family"
+    ],
+    "adaptationBoundary": "The paper studies Ni-MOF C-H borylation, not CO2-to-organic-acid catalysis. EcoMOF-AI borrows the in-cavity / surface / defect mechanism distinction only.",
+    "adaptationBoundaryZh": "该文研究 Ni-MOF C-H borylation，不是 CO2 到有机酸；EcoMOF-AI 只借鉴腔内 / 表面 / 缺陷位点机制区分。",
+    "evidenceRole": "methodology_inspiration",
+    "evidenceBoundary": "Duplicate upload deduplicated into one record. Pending DOI metadata; not proof of EcoMOF-AI selectivity or ranking.",
+    "evidenceBoundaryZh": "重复上传已去重为一条记录。DOI 元数据待核验；不是 EcoMOF-AI 选择性或排名证明。"
   }
 ]

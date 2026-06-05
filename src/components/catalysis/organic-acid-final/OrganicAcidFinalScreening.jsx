@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { BasisBadge, ChemicalText, CopyLinkButton, fetchDataJson } from "../../../shared"
 import { ModulePageHeader } from "../../module/ModuleTop"
-import { buildCandidateDecisionTrace, runOrganicAcidFinalScreening } from "../../../utils/organicAcidFinalScreening"
+import { buildCandidateDecisionTrace, buildCuratedRealScreeningResult, runOrganicAcidFinalScreening } from "../../../utils/organicAcidFinalScreening"
 import { AlgorithmPipelineStepper } from "./AlgorithmPipelineStepper"
 import { AlgorithmRunLauncher } from "./run-launcher/AlgorithmRunLauncher"
 import { AlMofFrameworkRanking } from "./AlMofFrameworkRanking"
@@ -48,6 +48,7 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
   const [frameworks, setFrameworks] = useState([])
   const [metals, setMetals] = useState([])
   const [evidenceRecords, setEvidenceRecords] = useState([])
+  const [curatedRealExamples, setCuratedRealExamples] = useState(null)
   const [rules, setRules] = useState(null)
   const [status, setStatus] = useState("loading")
   const [decisionCandidate, setDecisionCandidate] = useState(null)
@@ -60,13 +61,23 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
       fetchDataJson("organic_acid_final_screening/dopant_metal_property_matrix.json", [], { throwOnError: true }),
       fetchDataJson("organic_acid_final_screening/organic_acid_screening_rules.json", {}, { throwOnError: true }),
       fetchDataJson("organic_acid_final_screening/organic_acid_evidence_records.json", [], { throwOnError: true }),
+      fetchDataJson("organic_acid_final_screening/curated_real_examples/real_al_mof_framework_examples.json", [], { throwOnError: true }),
+      fetchDataJson("organic_acid_final_screening/curated_real_examples/real_qmof_descriptor_examples.json", [], { throwOnError: true }),
+      fetchDataJson("organic_acid_final_screening/curated_real_examples/real_literature_evidence_records.json", [], { throwOnError: true }),
+      fetchDataJson("organic_acid_final_screening/curated_real_examples/real_data_mapping_report.json", {}, { throwOnError: true }),
     ])
-      .then(([frameworkRows, metalRows, ruleConfig, evidenceRows]) => {
+      .then(([frameworkRows, metalRows, ruleConfig, evidenceRows, curatedFrameworkRows, curatedQmofRows, curatedEvidenceRows, curatedReport]) => {
         if (!active) return
         setFrameworks(Array.isArray(frameworkRows) ? frameworkRows : [])
         setMetals(Array.isArray(metalRows) ? metalRows : [])
         setRules(ruleConfig || {})
         setEvidenceRecords(Array.isArray(evidenceRows) ? evidenceRows : [])
+        setCuratedRealExamples({
+          frameworks: Array.isArray(curatedFrameworkRows) ? curatedFrameworkRows : [],
+          qmofDescriptors: Array.isArray(curatedQmofRows) ? curatedQmofRows : [],
+          evidenceRecords: Array.isArray(curatedEvidenceRows) ? curatedEvidenceRows : [],
+          mappingReport: curatedReport || {},
+        })
         setStatus("loaded")
       })
       .catch(error => {
@@ -75,6 +86,7 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
         setFrameworks([])
         setMetals([])
         setEvidenceRecords([])
+        setCuratedRealExamples(null)
         setRules({})
         setStatus("error")
       })
@@ -85,6 +97,10 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
     if (status !== "loaded") return null
     return runOrganicAcidFinalScreening(frameworks, metals, rules || {}, evidenceRecords)
   }, [frameworks, metals, evidenceRecords, rules, status])
+  const curatedRealResult = useMemo(() => {
+    if (status !== "loaded" || !curatedRealExamples) return null
+    return buildCuratedRealScreeningResult(curatedRealExamples, metals, rules || {})
+  }, [curatedRealExamples, metals, rules, status])
   const decisionTrace = useMemo(() => (
     decisionCandidate ? buildCandidateDecisionTrace(decisionCandidate) : null
   ), [decisionCandidate])
@@ -140,7 +156,9 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
       {result ? (
         <>
           <DemoScoreDisclaimer rules={rules} lang={lang} t={t} />
-          <AlgorithmRunLauncher frameworks={frameworks} metals={metals} rules={rules} evidenceRecords={evidenceRecords} result={result} lang={lang} t={t} isMobile={isMobile} />
+          <div data-cat-zone="run-launcher">
+            <AlgorithmRunLauncher frameworks={frameworks} metals={metals} rules={rules} evidenceRecords={evidenceRecords} result={result} curatedRealExamples={curatedRealExamples} curatedRealResult={curatedRealResult} lang={lang} t={t} isMobile={isMobile} />
+          </div>
           <AlgorithmPipelineStepper steps={result.algorithmJourneySteps} lang={lang} t={t} isMobile={isMobile} />
           <StatusBadgeLegend lang={lang} t={t} isMobile={isMobile} />
 
@@ -154,10 +172,18 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
 
           <ScreeningFunnelChart data={result.screeningFunnelData} lang={lang} t={t} isMobile={isMobile} onOpenSelectedScaffold={openSelectedScaffold} onJumpToMoW={jumpToMoW} />
           <StageSummaryCards summary={result.stageSummary} trace={result.algorithmTrace} lang={lang} t={t} isMobile={isMobile} onOpenSelectedScaffold={openSelectedScaffold} />
-          <CoupledDescriptorHotSpotMap result={result} lang={lang} t={t} isMobile={isMobile} />
-          <ReactionConstraintBuilder rules={rules} summary={result.hardGateSummary} lang={lang} t={t} isMobile={isMobile} />
-          <AlMofFrameworkRanking frameworks={result.rankedFrameworks} selectedFramework={result.selectedFramework} lang={lang} t={t} isMobile={isMobile} onInspectCandidate={setDecisionCandidate} />
-          <DopantMetalRecommendationMatrix metals={result.rankedMetals} moRecommendation={result.moRecommendation} selectedFramework={result.selectedFramework} algorithmTrace={result.algorithmTrace} lang={lang} t={t} />
+          <div data-cat-zone="hot-spot-map">
+            <CoupledDescriptorHotSpotMap result={result} curatedRealResult={curatedRealResult} lang={lang} t={t} isMobile={isMobile} />
+          </div>
+          <div data-cat-zone="hydrothermal-gate">
+            <ReactionConstraintBuilder rules={rules} summary={result.hardGateSummary} lang={lang} t={t} isMobile={isMobile} />
+          </div>
+          <div data-cat-zone="oacs-ranking">
+            <AlMofFrameworkRanking frameworks={result.rankedFrameworks} selectedFramework={result.selectedFramework} lang={lang} t={t} isMobile={isMobile} onInspectCandidate={setDecisionCandidate} />
+          </div>
+          <div data-cat-zone="dmrs-recommendation">
+            <DopantMetalRecommendationMatrix metals={result.rankedMetals} moRecommendation={result.moRecommendation} selectedFramework={result.selectedFramework} algorithmTrace={result.algorithmTrace} lang={lang} t={t} />
+          </div>
           <MechanismPathRadar data={result.mechanismRadarData} lang={lang} t={t} isMobile={isMobile} />
           <WhyMoWaterfall moRecommendation={result.moRecommendation} audit={result.moRobustnessAudit} comparisons={result.competitiveMetalComparison} onCompareMoW={jumpToMoW} lang={lang} t={t} isMobile={isMobile} />
           <WhyMoVsWComparison comparisons={result.competitiveMetalComparison} metals={result.rankedMetals} trace={result.algorithmTrace} lang={lang} t={t} isMobile={isMobile} />
@@ -167,9 +193,11 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
             <MetalSensitivityDistribution distribution={result.fullMetalSensitivityDistribution} sensitivity={result.sensitivity} audit={result.moRobustnessAudit} lang={lang} t={t} isMobile={isMobile} />
             <BlindBaselinePanel baselines={result.blindBaselineSummary} lang={lang} t={t} isMobile={isMobile} />
           </div>
-          <ExafsPredictionPanel signature={result.exafsSignature} trace={result.algorithmTrace} lang={lang} t={t} isMobile={isMobile} />
+          <div data-cat-zone="exafs">
+            <ExafsPredictionPanel signature={result.exafsSignature} trace={result.algorithmTrace} lang={lang} t={t} isMobile={isMobile} />
+          </div>
           <ExperimentalValidationRoadmap rules={rules} lang={lang} t={t} isMobile={isMobile} />
-          <DataStatusAndProvenancePanel coverage={result.provenanceCoverage} lang={lang} t={t} isMobile={isMobile} />
+          <DataStatusAndProvenancePanel coverage={result.provenanceCoverage} curatedRealResult={curatedRealResult} lang={lang} t={t} isMobile={isMobile} />
           <CompetitiveMetalComparison comparisons={result.competitiveMetalComparison} lang={lang} t={t} isMobile={isMobile} />
           <LimitationsAndReproducibility statement={result.reproducibilityStatement} audit={result.moRobustnessAudit} coverage={result.provenanceCoverage} lang={lang} t={t} />
           <CandidateDecisionDrawer candidateTrace={decisionTrace} open={Boolean(decisionCandidate)} onClose={() => setDecisionCandidate(null)} lang={lang} t={t} />

@@ -25,3 +25,51 @@ export function mapLiteratureEvidenceRecord(raw = {}) {
     evidenceBoundary: String(raw.evidenceBoundary || "Literature entry documents conceptual influence, not reproduction or validation."),
   }
 }
+
+export function attachRealEvidenceRecords(frameworks = [], evidenceRecords = []) {
+  const normalizedEvidence = (Array.isArray(evidenceRecords) ? evidenceRecords : []).map(raw => ({
+    id: String(raw.id || "REAL-EVID-PENDING"),
+    claim: String(raw.claim || raw.coreIdea || "Pending curated evidence claim."),
+    evidenceType: String(raw.evidenceType || "literature_proxy"),
+    targetModule: String(raw.targetModule || "provenance"),
+    targetDescriptor: String(raw.targetDescriptor || "fieldSources"),
+    targetMetal: raw.targetMetal || null,
+    targetFramework: raw.targetFramework || null,
+    sourceDoi: normalizeDoi(raw.sourceDoi),
+    sourceTitle: raw.sourceTitle || null,
+    confidence: String(raw.confidence || "pending"),
+    status: String(raw.status || "pending_verification"),
+    notes: String(raw.notes || "Pending verification."),
+    nextEvidenceNeeded: Array.isArray(raw.nextEvidenceNeeded) ? raw.nextEvidenceNeeded : [],
+  }))
+  const byFramework = normalizedEvidence.reduce((acc, row) => {
+    if (!row.targetFramework) return acc
+    if (!acc.has(row.targetFramework)) acc.set(row.targetFramework, [])
+    acc.get(row.targetFramework).push(row)
+    return acc
+  }, new Map())
+
+  const mappedFrameworks = (Array.isArray(frameworks) ? frameworks : []).map(framework => {
+    const linked = byFramework.get(framework.id) || []
+    const evidenceIds = Array.from(new Set([...(framework.evidenceIds || []), ...linked.map(row => row.id)]))
+    return {
+      ...framework,
+      evidenceIds,
+      evidenceRecords: linked,
+      realEvidenceAttachmentStatus: linked.length ? "attached" : "pending",
+      organicAcidScore: {
+        ...(framework.organicAcidScore || {}),
+        evidenceIds,
+      },
+    }
+  })
+
+  return {
+    frameworks: mappedFrameworks,
+    evidenceRecords: normalizedEvidence,
+    linkedEvidenceCount: normalizedEvidence.filter(row => row.targetFramework && byFramework.has(row.targetFramework)).length,
+    frameworkCoverage: mappedFrameworks.length
+      ? Number((mappedFrameworks.filter(row => (row.evidenceRecords || []).length > 0).length / mappedFrameworks.length).toFixed(3))
+      : 0,
+  }
+}

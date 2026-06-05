@@ -1,10 +1,10 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06",
-  "currentVersion": "V1.5",
-  "completedRange": "V1.0-V1.5",
-  "evidenceBoundary": "Version Docs records functional updates, evidence boundaries, and literature inspirations. Literature entries document conceptual influence and adaptation boundaries, not reproduction of computational or experimental results.",
-  "evidenceBoundaryZh": "版本文档记录功能更新、证据边界与文献灵感来源。文献条目用于说明概念影响和迁移边界，不表示 EcoMOF-AI 已复现原论文中的计算或实验结果。",
+  "currentVersion": "V1.6",
+  "completedRange": "V1.0-V1.6",
+  "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
+  "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
     {
       "version": "V1.0",
@@ -68,14 +68,43 @@
       ],
       "literatureInspirations": [
         {
-          "literatureId": "LIT-ML-MOF-DESIGN-PLACEHOLDER",
-          "inspiredFeatures": ["OACS / DMRS workflow", "target-conditioned screening workflow"],
-          "adaptationNote": "Inspired target-specific descriptor construction and interpretable screening flow, pending bibliographic verification.",
-          "adaptationNoteZh": "启发了面向目标任务的描述符构建与可解释筛选流程；书目信息待核验。",
-          "evidenceBoundary": "Pending metadata; do not cite as verified source."
+          "literatureId": "LIT-CHE-2026-CBM-FINGERPRINT",
+          "inspiredFeatures": [
+            "OACS / DMRS workflow",
+            "target-conditioned screening workflow",
+            "defect anchoring / pore confinement mechanism distinction"
+          ],
+          "adaptationNote": "Borrowed workflow-level inspiration only; EcoMOF-AI does not reproduce the CH4/N2 separation model or Ni-BIC result.",
+          "adaptationNoteZh": "仅借鉴工作流层面的设计思想；EcoMOF-AI 不复现 CH4/N2 分离模型或 Ni-BIC 结果。",
+          "evidenceBoundary": "Design inspiration and validation-route reference; not evidence for organic-acid catalytic performance.",
+          "evidenceRole": "design_inspiration"
+        },
+        {
+          "literatureId": "LIT-SU-2025-MOF-BORYLATION",
+          "inspiredFeatures": [
+            "OACS / DMRS workflow",
+            "target-conditioned screening workflow",
+            "defect anchoring / pore confinement mechanism distinction"
+          ],
+          "adaptationNote": "The paper studies Ni-MOF C-H borylation, not CO2-to-organic-acid catalysis. EcoMOF-AI borrows the in-cavity / surface / defect mechanism distinction only.",
+          "adaptationNoteZh": "该文研究 Ni-MOF C-H borylation，不是 CO2 到有机酸；EcoMOF-AI 只借鉴腔内 / 表面 / 缺陷位点机制区分。",
+          "evidenceBoundary": "Duplicate upload deduplicated into one record. Pending DOI metadata; not proof of EcoMOF-AI selectivity or ranking.",
+          "evidenceRole": "methodology_inspiration"
         }
       ],
-      "relatedSection": "#methodology-organic-acid-final-screening"
+      "relatedSection": "#methodology-organic-acid-final-screening",
+      "knowledgeBaseLinks": {
+        "literatureIds": [
+          "LIT-CHE-2026-CBM-FINGERPRINT",
+          "LIT-SU-2025-MOF-BORYLATION"
+        ],
+        "knowledgeTags": [
+          "target-specific-screening",
+          "mof-catalysis-mechanism"
+        ],
+        "adaptationBoundary": "Workflow and mechanism taxonomy inspiration only; no transferred gas-separation or borylation results.",
+        "adaptationBoundaryZh": "Workflow and mechanism taxonomy inspiration only; no transferred gas-separation or borylation results."
+      }
     },
     {
       "version": "V1.1",
@@ -137,14 +166,44 @@
       ],
       "literatureInspirations": [
         {
-          "literatureId": "LIT-ML-MOF-DESIGN-PLACEHOLDER",
-          "inspiredFeatures": ["Robustness audit", "descriptor provenance", "competitor diagnostics"],
-          "adaptationNote": "Inspired auditable screening and descriptor-source tracking; source metadata is pending.",
-          "adaptationNoteZh": "启发了可审计筛选与描述符来源追踪；来源元数据待补。",
-          "evidenceBoundary": "Pending metadata; not used as proof of Mo ranking."
+          "literatureId": "LIT-GU-2025-BUTANE-AI-MOF",
+          "inspiredFeatures": [
+            "Robustness audit",
+            "descriptor provenance",
+            "small training subset idea"
+          ],
+          "adaptationNote": "Target is n/i-butane separation, not organic-acid catalysis. EcoMOF-AI borrows descriptor-system and small-sample validation strategy only.",
+          "adaptationNoteZh": "该文目标是 n/i-butane 分离，不是有机酸催化；EcoMOF-AI 只借鉴描述符系统与小规模样例验证路线。",
+          "evidenceBoundary": "Pending bibliographic metadata; do not cite as verified DOI-backed evidence until metadata is checked.",
+          "evidenceRole": "descriptor_inspiration"
+        },
+        {
+          "literatureId": "LIT-KRIVOBOKOVA-2026-HTE-STRUCTURED-DATA",
+          "inspiredFeatures": [
+            "Robustness audit",
+            "descriptor provenance",
+            "small training subset idea"
+          ],
+          "adaptationNote": "The paper addresses HTE yield modelling, not MOF screening. EcoMOF-AI borrows the principle of respecting data structure and avoiding unsupported black-box claims.",
+          "adaptationNoteZh": "该文讨论 HTE 产率建模，不是 MOF 筛选；EcoMOF-AI 借鉴尊重数据结构、避免无支撑黑箱结论的方法论原则。",
+          "evidenceBoundary": "Methodology principle only; pending bibliographic metadata.",
+          "evidenceRole": "methodology_inspiration"
         }
       ],
-      "relatedSection": "#methodology-oafs-robustness"
+      "relatedSection": "#methodology-oafs-robustness",
+      "knowledgeBaseLinks": {
+        "literatureIds": [
+          "LIT-GU-2025-BUTANE-AI-MOF",
+          "LIT-KRIVOBOKOVA-2026-HTE-STRUCTURED-DATA"
+        ],
+        "knowledgeTags": [
+          "robustness-audit",
+          "integrated-descriptor",
+          "structured-data"
+        ],
+        "adaptationBoundary": "Borrowed audit and data-structure principles only; not reproduction of neural-network screening or HTE yield models.",
+        "adaptationBoundaryZh": "Borrowed audit and data-structure principles only; not reproduction of neural-network screening or HTE yield models."
+      }
     },
     {
       "version": "V1.2",
@@ -194,14 +253,30 @@
       ],
       "literatureInspirations": [
         {
-          "literatureId": "LIT-EVIDENCE-PROVENANCE-PLACEHOLDER",
-          "inspiredFeatures": ["Algorithm Journey UX", "Algorithm Trace Drawer", "decision trace"],
-          "adaptationNote": "Inspired traceable method communication and evidence-aware UI sequencing; exact source metadata is pending.",
-          "adaptationNoteZh": "启发了可追踪的方法表达与证据感知 UI 顺序；具体来源元数据待补。",
-          "evidenceBoundary": "Pending metadata; UX inspiration only."
+          "literatureId": "LIT-SU-2025-MOF-BORYLATION",
+          "inspiredFeatures": [
+            "Mechanism Path Radar",
+            "Algorithm Journey UX",
+            "decision trace"
+          ],
+          "adaptationNote": "The paper studies Ni-MOF C-H borylation, not CO2-to-organic-acid catalysis. EcoMOF-AI borrows the in-cavity / surface / defect mechanism distinction only.",
+          "adaptationNoteZh": "该文研究 Ni-MOF C-H borylation，不是 CO2 到有机酸；EcoMOF-AI 只借鉴腔内 / 表面 / 缺陷位点机制区分。",
+          "evidenceBoundary": "Duplicate upload deduplicated into one record. Pending DOI metadata; not proof of EcoMOF-AI selectivity or ranking.",
+          "evidenceRole": "methodology_inspiration"
         }
       ],
-      "relatedSection": "#methodology-oafs-flow"
+      "relatedSection": "#methodology-oafs-flow",
+      "knowledgeBaseLinks": {
+        "literatureIds": [
+          "LIT-SU-2025-MOF-BORYLATION"
+        ],
+        "knowledgeTags": [
+          "mechanism-radar",
+          "traceable-workflow"
+        ],
+        "adaptationBoundary": "Mechanism-communication inspiration only; not the borylation selectivity model.",
+        "adaptationBoundaryZh": "Mechanism-communication inspiration only; not the borylation selectivity model."
+      }
     },
     {
       "version": "V1.3",
@@ -253,14 +328,30 @@
       ],
       "literatureInspirations": [
         {
-          "literatureId": "LIT-EVIDENCE-PROVENANCE-PLACEHOLDER",
-          "inspiredFeatures": ["Evidence Strength Matrix", "field-level provenance", "Evidence Data Layer Status"],
-          "adaptationNote": "Inspired evidence-layer organization and field-level provenance; bibliographic metadata pending.",
-          "adaptationNoteZh": "启发了证据层组织与字段级来源表达；书目信息待补。",
-          "evidenceBoundary": "Pending metadata; does not validate any Organic Acid score."
+          "literatureId": "LIT-KRIVOBOKOVA-2026-HTE-STRUCTURED-DATA",
+          "inspiredFeatures": [
+            "Evidence Strength Matrix",
+            "field-level provenance",
+            "Evidence Data Layer Status"
+          ],
+          "adaptationNote": "The paper addresses HTE yield modelling, not MOF screening. EcoMOF-AI borrows the principle of respecting data structure and avoiding unsupported black-box claims.",
+          "adaptationNoteZh": "该文讨论 HTE 产率建模，不是 MOF 筛选；EcoMOF-AI 借鉴尊重数据结构、避免无支撑黑箱结论的方法论原则。",
+          "evidenceBoundary": "Methodology principle only; pending bibliographic metadata.",
+          "evidenceRole": "methodology_inspiration"
         }
       ],
-      "relatedSection": "#methodology-oafs-evidence-matrix"
+      "relatedSection": "#methodology-oafs-evidence-matrix",
+      "knowledgeBaseLinks": {
+        "literatureIds": [
+          "LIT-KRIVOBOKOVA-2026-HTE-STRUCTURED-DATA"
+        ],
+        "knowledgeTags": [
+          "evidence-boundary",
+          "data-quality-gate"
+        ],
+        "adaptationBoundary": "Methodology principle only; evidence records do not validate Organic Acid scores.",
+        "adaptationBoundaryZh": "Methodology principle only; evidence records do not validate Organic Acid scores."
+      }
     },
     {
       "version": "V1.4",
@@ -319,13 +410,60 @@
       "literatureInspirations": [
         {
           "literatureId": "LIT-HOTSPOT-2025-NATCOMM",
-          "inspiredFeatures": ["Coupled Descriptor Hot Spot Map", "Scaffold Map / Dopant Map / Synergy Map", "Descriptor Coupling Panel", "Validation Evidence Ladder"],
-          "adaptationNote": "Borrowed the design philosophy of low-dimensional coupled descriptor maps, not the ORR model or its DFT/experimental conclusions.",
-          "adaptationNoteZh": "借鉴低维耦合描述符热区图的设计思想，而不是复现 ORR 模型或其 DFT / 实验结论。",
-          "evidenceBoundary": "Conceptual inspiration only; EcoMOF-AI hot spot map remains demo/proxy."
+          "inspiredFeatures": [
+            "Coupled Descriptor Hot Spot Map",
+            "Scaffold Map / Dopant Map / Synergy Map",
+            "Validation Evidence Ladder",
+            "Mechanism Path Radar"
+          ],
+          "adaptationNote": "EcoMOF-AI borrows the coupled-descriptor visualization philosophy, not the ORR model, DFT dataset, ML workflow, or experimental claim.",
+          "adaptationNoteZh": "EcoMOF-AI 借鉴耦合描述符可视化思想，而不是复现 ORR 模型、DFT 数据集、ML 工作流或实验结论。",
+          "evidenceBoundary": "Conceptual visualization inspiration only; EcoMOF-AI hot spot map remains demo/proxy.",
+          "evidenceRole": "descriptor_inspiration"
+        },
+        {
+          "literatureId": "LIT-CHE-2026-CBM-FINGERPRINT",
+          "inspiredFeatures": [
+            "Coupled Descriptor Hot Spot Map",
+            "Scaffold Map / Dopant Map / Synergy Map",
+            "Validation Evidence Ladder",
+            "Mechanism Path Radar"
+          ],
+          "adaptationNote": "Borrowed workflow-level inspiration only; EcoMOF-AI does not reproduce the CH4/N2 separation model or Ni-BIC result.",
+          "adaptationNoteZh": "仅借鉴工作流层面的设计思想；EcoMOF-AI 不复现 CH4/N2 分离模型或 Ni-BIC 结果。",
+          "evidenceBoundary": "Design inspiration and validation-route reference; not evidence for organic-acid catalytic performance.",
+          "evidenceRole": "design_inspiration"
+        },
+        {
+          "literatureId": "LIT-SU-2025-MOF-BORYLATION",
+          "inspiredFeatures": [
+            "Coupled Descriptor Hot Spot Map",
+            "Scaffold Map / Dopant Map / Synergy Map",
+            "Validation Evidence Ladder",
+            "Mechanism Path Radar"
+          ],
+          "adaptationNote": "The paper studies Ni-MOF C-H borylation, not CO2-to-organic-acid catalysis. EcoMOF-AI borrows the in-cavity / surface / defect mechanism distinction only.",
+          "adaptationNoteZh": "该文研究 Ni-MOF C-H borylation，不是 CO2 到有机酸；EcoMOF-AI 只借鉴腔内 / 表面 / 缺陷位点机制区分。",
+          "evidenceBoundary": "Duplicate upload deduplicated into one record. Pending DOI metadata; not proof of EcoMOF-AI selectivity or ranking.",
+          "evidenceRole": "methodology_inspiration"
         }
       ],
-      "relatedSection": "#methodology-oafs-hot-spot"
+      "relatedSection": "#methodology-oafs-hot-spot",
+      "knowledgeBaseLinks": {
+        "literatureIds": [
+          "LIT-HOTSPOT-2025-NATCOMM",
+          "LIT-CHE-2026-CBM-FINGERPRINT",
+          "LIT-SU-2025-MOF-BORYLATION"
+        ],
+        "knowledgeTags": [
+          "hot-spot-map",
+          "descriptor-coupling",
+          "validation-ladder",
+          "mof-catalysis-mechanism"
+        ],
+        "adaptationBoundary": "Conceptual design-space and mechanism inspiration only; not ORR, gas-separation, or borylation reproduction.",
+        "adaptationBoundaryZh": "Conceptual design-space and mechanism inspiration only; not ORR, gas-separation, or borylation reproduction."
+      }
     },
     {
       "version": "V1.5",
@@ -342,7 +480,7 @@
         "Added CoRE-like, QMOF-like, and literature evidence mappers.",
         "Added schema validator and data quality gate.",
         "Added mapping fixtures and mapper preview UI.",
-        "Separated Version Docs as an independent Methods & Evidence entry.",
+        "Separated Knowledge Base as an independent Methods & Evidence entry.",
         "Added Literature Inspiration records and version-to-source map."
       ],
       "keyUpdatesZh": [
@@ -350,7 +488,7 @@
         "新增 CoRE-like、QMOF-like 与文献证据 mapper。",
         "新增 schema validator 与 data quality gate。",
         "新增 mapping fixtures 与 mapper preview UI。",
-        "将 Version Docs 作为 Methods & Evidence 独立入口。",
+        "将 Knowledge Base 作为 Methods & Evidence 独立入口。",
         "新增 Literature Inspiration records 与版本-来源映射。"
       ],
       "algorithmChanges": [
@@ -377,23 +515,23 @@
       ],
       "methodologyChanges": [
         "Added Data Mapping and Schema Validation section.",
-        "Added Version Docs and Literature Inspiration method note."
+        "Added Knowledge Base and Literature Inspiration method note."
       ],
       "methodologyChangesZh": [
         "新增 Data Mapping and Schema Validation 小节。",
-        "新增 Version Docs and Literature Inspiration 方法说明。"
+        "新增 Knowledge Base and Literature Inspiration 方法说明。"
       ],
       "maintenanceNotes": [
         "V1.5 Patch: Run Launcher Prep + Cat Drag Fix + Copy Cleanup.",
         "Algorithm Run Launcher prep UI runs the current demo workflow and mapped-fixture-ready mode only.",
-        "Curated real examples remain disabled until the planned V1.6 dataset work.",
+        "Curated real examples were deferred in V1.5 and are enabled in V1.6 small-sample mode.",
         "Catalysis cat drag is pointer-event based and exposes science-zone insights.",
         "Cleaned hard-joined bilingual heading copy without advancing V1.6."
       ],
       "maintenanceNotesZh": [
         "V1.5 Patch：Run Launcher Prep + Cat Drag Fix + Copy Cleanup。",
         "Algorithm Run Launcher 预备 UI 只运行当前 demo workflow 与 mapped-fixture-ready 模式。",
-        "人工整理真实样例继续禁用，等待规划中的 V1.6 数据集工作。",
+        "人工整理真实样例在 V1.5 暂缓，并已在 V1.6 小样例模式启用。",
         "催化小猫拖拽改为 pointer-event 机制，并显示 science-zone 洞察。",
         "清理中英硬拼接标题文案，不推进 V1.6。"
       ],
@@ -411,39 +549,186 @@
       ],
       "literatureInspirations": [
         {
-          "literatureId": "LIT-DATA-MAPPER-PENDING",
-          "inspiredFeatures": ["Data Mapper Preview Panel", "Schema Validation Panel", "Data Quality Gate Panel"],
-          "adaptationNote": "Inspired schema-first intake and field-level mapping before scoring; source metadata pending.",
-          "adaptationNoteZh": "启发了评分前的 schema-first 接入与字段级映射；来源元数据待补。",
-          "evidenceBoundary": "Pending metadata; design planning record only."
+          "literatureId": "LIT-GU-2025-BUTANE-AI-MOF",
+          "inspiredFeatures": [
+            "Data Mapper Preview Panel",
+            "Schema Validation Panel",
+            "Data Quality Gate Panel",
+            "Literature Inspiration Panel"
+          ],
+          "adaptationNote": "Target is n/i-butane separation, not organic-acid catalysis. EcoMOF-AI borrows descriptor-system and small-sample validation strategy only.",
+          "adaptationNoteZh": "该文目标是 n/i-butane 分离，不是有机酸催化；EcoMOF-AI 只借鉴描述符系统与小规模样例验证路线。",
+          "evidenceBoundary": "Pending bibliographic metadata; do not cite as verified DOI-backed evidence until metadata is checked.",
+          "evidenceRole": "descriptor_inspiration"
         },
         {
-          "literatureId": "LIT-EVIDENCE-PROVENANCE-PLACEHOLDER",
-          "inspiredFeatures": ["Literature Inspiration Panel", "Version ↔ Literature Source Map"],
-          "adaptationNote": "Reuses evidence-bound documentation practice to record conceptual influence without claiming validation.",
-          "adaptationNoteZh": "复用证据边界文档实践，记录概念影响而不声称验证。",
-          "evidenceBoundary": "Documentation inspiration only."
+          "literatureId": "LIT-KRIVOBOKOVA-2026-HTE-STRUCTURED-DATA",
+          "inspiredFeatures": [
+            "Data Mapper Preview Panel",
+            "Schema Validation Panel",
+            "Data Quality Gate Panel",
+            "Literature Inspiration Panel"
+          ],
+          "adaptationNote": "The paper addresses HTE yield modelling, not MOF screening. EcoMOF-AI borrows the principle of respecting data structure and avoiding unsupported black-box claims.",
+          "adaptationNoteZh": "该文讨论 HTE 产率建模，不是 MOF 筛选；EcoMOF-AI 借鉴尊重数据结构、避免无支撑黑箱结论的方法论原则。",
+          "evidenceBoundary": "Methodology principle only; pending bibliographic metadata.",
+          "evidenceRole": "methodology_inspiration"
         }
       ],
-      "relatedSection": "#methodology-oafs-data-mapping"
+      "relatedSection": "#methodology-oafs-data-mapping",
+      "knowledgeBaseLinks": {
+        "literatureIds": [
+          "LIT-GU-2025-BUTANE-AI-MOF",
+          "LIT-KRIVOBOKOVA-2026-HTE-STRUCTURED-DATA"
+        ],
+        "knowledgeTags": [
+          "data-mapper",
+          "schema-validation",
+          "data-quality-gate",
+          "evidence-boundary"
+        ],
+        "adaptationBoundary": "Schema-first intake and data-quality inspiration only; V1.5 did not integrate full CoRE/QMOF.",
+        "adaptationBoundaryZh": "Schema-first intake and data-quality inspiration only; V1.5 did not integrate full CoRE/QMOF."
+      }
+    },
+    {
+      "version": "V1.6",
+      "title": "Small Real Dataset Integration",
+      "titleZh": "小规模真实样例接入",
+      "date": "2026-06",
+      "status": "completed",
+      "theme": "Small real dataset + Knowledge Base",
+      "themeZh": "小规模真实样例 + 知识库",
+      "summary": "Integrated a small curated real-example sample to validate the mapper, quality gate, Run Launcher, Hot Spot Map projection, and Knowledge Base evidence boundaries.",
+      "summaryZh": "接入小规模人工整理真实样例，用于验证 mapper、quality gate、Run Launcher、Hot Spot Map 投影与 Knowledge Base 证据边界。",
+      "keyUpdates": [
+        "Added curated real Al-MOF examples, QMOF descriptor examples, literature evidence records, and a mapping report.",
+        "Enabled Curated real examples mode in the Run Launcher with a no-full-database boundary.",
+        "Projected curated records into the Scaffold Hot Spot Map with ready / needs-review / rejected roles.",
+        "Upgraded the former version documentation into Knowledge Base with Literature Library, Inspiration Map, and Version-Literature-Module matrix.",
+        "Fixed Catalysis cat workspace-level pointer drag zones."
+      ],
+      "keyUpdatesZh": [
+        "新增人工整理 Al-MOF 样例、QMOF 描述符样例、文献证据记录与 mapping report。",
+        "在 Run Launcher 中启用 Curated real examples 模式，并明确非全量数据库边界。",
+        "将 curated 记录以 ready / needs-review / rejected 角色投影到 Scaffold Hot Spot Map。",
+        "将原版本记录升级为 Knowledge Base，包含文献库、灵感映射和版本-文献-模块矩阵。",
+        "修复 Catalysis cat 的全工作区 pointer drag zones。"
+      ],
+      "algorithmChanges": [
+        "No OACS/DMRS core scoring logic change.",
+        "Added curated sample mapper, QMOF descriptor merge, evidence attachment, and quality-gated curated run summary.",
+        "Needs-review records remain auditable but cannot enter final recommendation."
+      ],
+      "algorithmChangesZh": [
+        "不改变 OACS/DMRS 核心评分逻辑。",
+        "新增 curated 样例 mapper、QMOF 描述符合并、证据挂接和带质量门的 curated run summary。",
+        "needs-review 记录保持可审计，但不能进入最终推荐。"
+      ],
+      "uiChanges": [
+        "Run Launcher curated mode, curated mapping summary, source-aware Hot Spot points, provenance report, Knowledge Base sections, and workspace-level cat drag overlay."
+      ],
+      "uiChangesZh": [
+        "新增 Run Launcher curated 模式、curated mapping 摘要、来源感知热区点、provenance report、Knowledge Base 分区和全工作区小猫拖拽 overlay。"
+      ],
+      "methodologyChanges": [
+        "Added Small Real Dataset Integration method note and upgraded the former version documentation / Literature Inspiration into Knowledge Base."
+      ],
+      "methodologyChangesZh": [
+        "新增 Small Real Dataset Integration 方法说明，并将原版本记录 / Literature Inspiration 升级为 Knowledge Base。"
+      ],
+      "evidenceBoundary": "Small curated sample only. Not full-scale CoRE/QMOF database screening and not validated catalytic performance.",
+      "evidenceBoundaryZh": "仅小规模人工整理样例；不是全量 CoRE/QMOF 数据库筛选，也不是已验证催化性能。",
+      "limitations": [
+        "DOI coverage may remain 0 for curated sample fields until metadata is verified.",
+        "Needs-review and rejected records do not enter final recommendation.",
+        "Mo remains a hypothesis, not proven optimal."
+      ],
+      "limitationsZh": [
+        "curated 样例字段在元数据核验前 DOI coverage 可保持 0。",
+        "needs-review 与 rejected 记录不进入最终推荐。",
+        "Mo 仍是假设，不是已证明最优。"
+      ],
+      "literatureInspirations": [
+        {
+          "literatureId": "LIT-GU-2025-BUTANE-AI-MOF",
+          "inspiredFeatures": [
+            "Small Real Dataset Integration",
+            "Curated real examples run mode",
+            "Knowledge Base upgrade",
+            "Version-Literature-Module matrix"
+          ],
+          "adaptationNote": "Target is n/i-butane separation, not organic-acid catalysis. EcoMOF-AI borrows descriptor-system and small-sample validation strategy only.",
+          "adaptationNoteZh": "该文目标是 n/i-butane 分离，不是有机酸催化；EcoMOF-AI 只借鉴描述符系统与小规模样例验证路线。",
+          "evidenceBoundary": "Pending bibliographic metadata; do not cite as verified DOI-backed evidence until metadata is checked.",
+          "evidenceRole": "descriptor_inspiration"
+        },
+        {
+          "literatureId": "LIT-CHE-2026-CBM-FINGERPRINT",
+          "inspiredFeatures": [
+            "Small Real Dataset Integration",
+            "Curated real examples run mode",
+            "Knowledge Base upgrade",
+            "Version-Literature-Module matrix"
+          ],
+          "adaptationNote": "Borrowed workflow-level inspiration only; EcoMOF-AI does not reproduce the CH4/N2 separation model or Ni-BIC result.",
+          "adaptationNoteZh": "仅借鉴工作流层面的设计思想；EcoMOF-AI 不复现 CH4/N2 分离模型或 Ni-BIC 结果。",
+          "evidenceBoundary": "Design inspiration and validation-route reference; not evidence for organic-acid catalytic performance.",
+          "evidenceRole": "design_inspiration"
+        },
+        {
+          "literatureId": "LIT-KRIVOBOKOVA-2026-HTE-STRUCTURED-DATA",
+          "inspiredFeatures": [
+            "Small Real Dataset Integration",
+            "Curated real examples run mode",
+            "Knowledge Base upgrade",
+            "Version-Literature-Module matrix"
+          ],
+          "adaptationNote": "The paper addresses HTE yield modelling, not MOF screening. EcoMOF-AI borrows the principle of respecting data structure and avoiding unsupported black-box claims.",
+          "adaptationNoteZh": "该文讨论 HTE 产率建模，不是 MOF 筛选；EcoMOF-AI 借鉴尊重数据结构、避免无支撑黑箱结论的方法论原则。",
+          "evidenceBoundary": "Methodology principle only; pending bibliographic metadata.",
+          "evidenceRole": "methodology_inspiration"
+        }
+      ],
+      "knowledgeBaseLinks": {
+        "literatureIds": [
+          "LIT-GU-2025-BUTANE-AI-MOF",
+          "LIT-CHE-2026-CBM-FINGERPRINT",
+          "LIT-KRIVOBOKOVA-2026-HTE-STRUCTURED-DATA"
+        ],
+        "knowledgeTags": [
+          "small-real-dataset",
+          "data-mapper",
+          "schema-validation",
+          "evidence-boundary",
+          "knowledge-base"
+        ],
+        "adaptationBoundary": "Small curated sample validates mapper and workflow surfaces only; not full database screening or catalytic validation.",
+        "adaptationBoundaryZh": "Small curated sample validates mapper and workflow surfaces only; not full database screening or catalytic validation."
+      },
+      "relatedSection": "#methodology-oafs-small-real-dataset"
     }
   ],
   "roadmap": [
-    {
-      "version": "V1.6",
-      "title": "Small Real Dataset",
-      "titleZh": "小型真实数据集",
-      "status": "planned",
-      "items": ["10-30 curated real examples", "DOI-backed evidence records", "Field-level provenance"],
-      "itemsZh": ["10-30 条整理后的真实样例", "DOI-backed evidence records", "字段级来源"]
-    },
     {
       "version": "V2.0",
       "title": "Large-scale Database Integration",
       "titleZh": "大规模数据库接入",
       "status": "planned",
-      "items": ["CoRE / QMOF index-level integration", "Top-N precomputed screening", "Virtualized result table", "Worker-based scoring"],
-      "itemsZh": ["CoRE / QMOF 索引级接入", "Top-N 预计算筛选", "虚拟化结果表", "Worker-based scoring"]
+      "items": [
+        "CoRE / QMOF index-level integration",
+        "Top-N precomputed screening",
+        "Virtualized result table",
+        "Worker-based scoring"
+      ],
+      "itemsZh": [
+        "CoRE / QMOF 索引级接入",
+        "Top-N 预计算筛选",
+        "虚拟化结果表",
+        "Worker-based scoring"
+      ]
     }
-  ]
+  ],
+  "knowledgeBaseLabel": "Knowledge Base",
+  "knowledgeBaseLabelZh": "知识库"
 }

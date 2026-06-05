@@ -23,9 +23,9 @@ const DATA_MODES = [
     id: "curated_real_examples",
     label: "Curated real examples",
     labelZh: "人工整理真实样例",
-    status: "coming soon",
-    note: "Disabled in V1.5 patch.",
-    noteZh: "V1.5 patch 中禁用。",
+    status: "enabled",
+    note: "Small curated sample only. Not full database screening.",
+    noteZh: "仅小规模人工整理样例；不是全量数据库筛选。",
   },
 ]
 

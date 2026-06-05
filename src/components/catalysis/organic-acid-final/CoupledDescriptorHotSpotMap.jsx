@@ -10,8 +10,12 @@ import { SynergyHotSpotMap } from "./SynergyHotSpotMap"
 import { ValidationEvidenceLadder } from "./ValidationEvidenceLadder"
 import { WhyHotSpotMattersCard } from "./WhyHotSpotMattersCard"
 
-export function CoupledDescriptorHotSpotMap({ result, lang, t, isMobile }) {
+export function CoupledDescriptorHotSpotMap({ result, curatedRealResult, lang, t, isMobile }) {
   const [activeView, setActiveView] = useState("synergy")
+  const scaffoldData = [
+    ...(result?.scaffoldHotSpotData || []),
+    ...(curatedRealResult?.scaffoldHotSpotData || []),
+  ]
   const views = [
     { id: "scaffold", label: text(lang, "骨架热区", "Scaffold Map") },
     { id: "dopant", label: text(lang, "金属热区", "Dopant Map") },
@@ -19,21 +23,30 @@ export function CoupledDescriptorHotSpotMap({ result, lang, t, isMobile }) {
   ]
 
   return (
-    <div id="organic-acid-final-hot-spot-map" style={{ display: "grid", gap: 14, scrollMarginTop: 118 }}>
+    <div id="organic-acid-final-hot-spot-map" data-cat-zone="hot-spot-map" style={{ display: "grid", gap: 14, scrollMarginTop: 118 }}>
       <Panel
         eyebrow={text(lang, "受耦合催化剂设计思想启发", "Inspired by coupled catalyst design")}
         title={text(lang, "耦合描述符热区图", "Coupled Descriptor Hot Spot Map")}
         t={t}
-        actions={<StatusPill tone="proxy" t={t}>demo/proxy OACS-DMRS</StatusPill>}
+        actions={<StatusPill tone="proxy" t={t}>demo/proxy + curated V1.6 sample</StatusPill>}
       >
         <div style={{ display: "grid", gap: 10 }}>
           <p style={{ color: t.muted, fontSize: 12.6, lineHeight: 1.58, margin: 0 }}>
             <ChemicalText value={text(
               lang,
-              "将 Al-MOF 骨架稳定性与第二金属活性位点价值耦合起来的低维设计空间。该热区图不证明实际催化性能，只可视化当前演示级代理 OACS-DMRS 设计假设。",
-              "A low-dimensional design space linking Al-MOF scaffold robustness with second-metal active-site value. This map does not prove catalytic performance. It visualizes the current demo/proxy OACS-DMRS design hypothesis."
+              "将 Al-MOF 骨架稳定性与第二金属活性位点价值耦合起来的低维设计空间。V1.6 会叠加小规模人工整理真实样例，用于验证 mapper 与质量门；该热区图不证明实际催化性能。",
+              "A low-dimensional design space linking Al-MOF scaffold robustness with second-metal active-site value. V1.6 overlays a small curated real-example sample to validate mapper and quality gates; this map does not prove catalytic performance."
             )} />
           </p>
+          {curatedRealResult?.mappingReport ? (
+            <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 9, color: t.muted, fontSize: 12.1, fontWeight: 820, lineHeight: 1.45, padding: 9 }}>
+              <ChemicalText value={text(
+                lang,
+                `Curated real examples：${curatedRealResult.mappingReport.readyForScoring} ready / ${curatedRealResult.mappingReport.needsReview} needs-review / ${curatedRealResult.mappingReport.rejected} rejected；不是全量 CoRE/QMOF 筛选。`,
+                `Curated real examples: ${curatedRealResult.mappingReport.readyForScoring} ready / ${curatedRealResult.mappingReport.needsReview} needs-review / ${curatedRealResult.mappingReport.rejected} rejected; not full CoRE/QMOF screening.`
+              )} />
+            </div>
+          ) : null}
           <HotSpotMapLegend lang={lang} t={t} />
           <div role="tablist" aria-label="Hot spot map views" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 5, gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", padding: 5 }}>
             {views.map(view => {
@@ -53,7 +66,7 @@ export function CoupledDescriptorHotSpotMap({ result, lang, t, isMobile }) {
             })}
           </div>
           {activeView === "scaffold" ? (
-            <ScaffoldHotSpotMap data={result.scaffoldHotSpotData} selectedScaffold={result.scaffoldHotSpotData?.find(point => point.isSelected)} lang={lang} t={t} />
+            <ScaffoldHotSpotMap data={scaffoldData} selectedScaffold={result.scaffoldHotSpotData?.find(point => point.isSelected)} lang={lang} t={t} />
           ) : null}
           {activeView === "dopant" ? (
             <DopantMetalHotSpotMap data={result.dopantHotSpotData} lang={lang} t={t} />

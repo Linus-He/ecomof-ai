@@ -10,6 +10,7 @@ import {
   applyHydrothermalGate,
   attachEvidenceToFrameworks,
   attachEvidenceToMetals,
+  buildCuratedRealScreeningResult,
   buildRunSteps,
   buildCandidateDecisionTrace,
   calculateEvidenceCoverage,
@@ -21,6 +22,7 @@ import {
   runOrganicAcidFinalScreening,
   runFullMetalSensitivityDistribution,
 } from "../../utils/organicAcidFinalScreening"
+import { loadCuratedRealExamples } from "../../utils/mofDataMappers/mapperPreviewFixtures"
 
 describe("organic acid final screening", () => {
   it("applies the hydrothermal hard gate before OACS ranking", () => {
@@ -204,9 +206,11 @@ describe("organic acid final screening", () => {
     expect(result.stageSummary.stage2.moWGap).toBe(0.027)
   })
 
-  it("records Organic Acid version docs and planned roadmap", () => {
-    expect(versionDocs.currentVersion).toBe("V1.5")
-    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5"])
+  it("records the Organic Acid Knowledge Base and planned roadmap", () => {
+    expect(versionDocs.knowledgeBaseLabel).toBe("Knowledge Base")
+    expect(versionDocs.currentVersion).toBe("V1.6")
+    expect(versionDocs.completedRange).toBe("V1.0-V1.6")
+    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6"])
     expect(versionDocs.versions.find(row => row.version === "V1.4")).toEqual(expect.objectContaining({
       status: "completed",
       title: "Coupled Descriptor Hot Spot Map",
@@ -217,6 +221,11 @@ describe("organic acid final screening", () => {
       title: "Data Mapper and Schema Validation",
       evidenceBoundary: "Mapper preview uses small fixtures only and does not load full CoRE/QMOF or claim real-data validation.",
     }))
+    expect(versionDocs.versions.find(row => row.version === "V1.6")).toEqual(expect.objectContaining({
+      status: "completed",
+      title: "Small Real Dataset Integration",
+      evidenceBoundary: "Small curated sample only. Not full-scale CoRE/QMOF database screening and not validated catalytic performance.",
+    }))
     versionDocs.versions.forEach(row => {
       expect(row.summary).toBeTruthy()
       expect(row.keyUpdates.length).toBeGreaterThan(0)
@@ -226,6 +235,8 @@ describe("organic acid final screening", () => {
       expect(row.evidenceBoundary).toBeTruthy()
       expect(row.limitations.length).toBeGreaterThan(0)
       expect(row.literatureInspirations.length).toBeGreaterThan(0)
+      expect(row.knowledgeBaseLinks.literatureIds.length).toBeGreaterThan(0)
+      expect(row.knowledgeBaseLinks.adaptationBoundary).toBeTruthy()
       row.literatureInspirations.forEach(link => {
         expect(link.literatureId).toBeTruthy()
         expect(link.inspiredFeatures.length).toBeGreaterThan(0)
@@ -233,35 +244,42 @@ describe("organic acid final screening", () => {
       })
     })
     expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
-      ["V1.6", "planned"],
       ["V2.0", "planned"],
     ])
+    expect(literatureInspirations).toHaveLength(5)
     const hotSpotPaper = literatureInspirations.find(row => row.id === "LIT-HOTSPOT-2025-NATCOMM")
     expect(hotSpotPaper).toEqual(expect.objectContaining({
       status: "verified_from_uploaded_file",
       doi: "10.1038/s41467-025-60170-0",
     }))
+    const suPaper = literatureInspirations.find(row => row.id === "LIT-SU-2025-MOF-BORYLATION")
+    expect(suPaper.uploadedFileRefs).toEqual(["LIT-005", "LIT-006"])
+    expect(suPaper.duplicateFileRefs).toEqual(["LIT-006"])
     expect(literatureInspirations.filter(row => row.status === "pending_metadata").every(row => row.doi === null)).toBe(true)
   })
 
-  it("records the V1.5 launcher patch without advancing the roadmap", () => {
+  it("records the V1.6 small real dataset and Knowledge Base upgrade", () => {
     const v15 = versionDocs.versions.find(row => row.version === "V1.5")
+    const v16 = versionDocs.versions.find(row => row.version === "V1.6")
     expect(v15.maintenanceNotes).toContain("V1.5 Patch: Run Launcher Prep + Cat Drag Fix + Copy Cleanup.")
     expect(v15.maintenanceNotes.join(" ")).toMatch(/current demo workflow/)
-    expect(v15.maintenanceNotes.join(" ")).toMatch(/Curated real examples remain disabled/)
-    expect(versionDocs.currentVersion).toBe("V1.5")
+    expect(v16.keyUpdates.join(" ")).toMatch(/curated real Al-MOF examples/)
+    expect(v16.keyUpdates.join(" ")).toMatch(/Knowledge Base/)
+    expect(v16.algorithmChanges.join(" ")).toMatch(/No OACS\/DMRS core scoring logic change/)
+    expect(versionDocs.currentVersion).toBe("V1.6")
     expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
-      ["V1.6", "planned"],
       ["V2.0", "planned"],
     ])
   })
 
-  it("runs the V1.5 launcher workflow on demo and mapped fixture modes only", () => {
+  it("runs the V1.6 launcher workflow on demo, mapped fixture, and curated sample modes", () => {
     const result = runOrganicAcidFinalScreening(frameworks, metals, rules, evidenceRecords)
+    const curatedRealExamples = loadCuratedRealExamples()
+    const curatedResult = buildCuratedRealScreeningResult(curatedRealExamples, metals, rules)
     const previewSteps = buildRunSteps(result, { dataMode: "mapped_fixtures" })
     const demoRun = runDemoScreeningWorkflow(frameworks, metals, rules, evidenceRecords, { dataMode: "demo_workflow" })
     const mappedRun = runDemoScreeningWorkflow(frameworks, metals, rules, evidenceRecords, { dataMode: "mapped_fixtures" })
-    const blockedRun = runDemoScreeningWorkflow(frameworks, metals, rules, evidenceRecords, { dataMode: "curated_real_examples" })
+    const curatedRun = runDemoScreeningWorkflow(frameworks, metals, rules, evidenceRecords, { dataMode: "curated_real_examples", curatedRealExamples, curatedRealResult: curatedResult })
 
     expect(previewSteps).toHaveLength(10)
     expect(previewSteps.map(row => row.linkedSectionId)).toContain("organic-acid-final-framework-ranking")
@@ -276,9 +294,31 @@ describe("organic acid final screening", () => {
     expect(demoRun.trace.map(row => row.id)).toContain("run-boundary")
     expect(mappedRun.status).toBe("completed")
     expect(mappedRun.summary.dataMode).toBe("mapped_fixtures")
-    expect(blockedRun.status).toBe("blocked")
-    expect(blockedRun.result).toBeNull()
-    expect(blockedRun.summary.evidenceBoundary).toMatch(/disabled in this V1.5 patch/)
+    expect(curatedRun.status).toBe("completed")
+    expect(curatedRun.steps).toHaveLength(9)
+    expect(curatedRun.steps.map(row => row.title)).toEqual([
+      "Load curated framework examples",
+      "Validate schema",
+      "Apply data quality gate",
+      "Attach QMOF descriptors",
+      "Attach literature evidence",
+      "Apply hydrothermal gate",
+      "Calculate OACS for eligible examples",
+      "Project points to hot spot map",
+      "Generate review summary",
+    ])
+    expect(curatedRun.summary).toEqual(expect.objectContaining({
+      dataMode: "curated_real_examples",
+      frameworkRecords: 12,
+      readyForScoring: 3,
+      needsReview: 7,
+      rejected: 2,
+      unmatchedQmofDescriptorRecords: 2,
+      doiCoverage: 0,
+    }))
+    expect(curatedRun.summary.evidenceBoundary).toMatch(/not full-scale CoRE\/QMOF database screening/i)
+    expect(curatedRun.result.curatedFrameworks.filter(row => row.finalRecommendationEligible)).toHaveLength(3)
+    expect(curatedRun.result.curatedFrameworks.filter(row => row.dataQualityGate.status === "needs_review").every(row => !row.finalRecommendationEligible)).toBe(true)
   })
 
   it("builds the V1.2 algorithm journey UI data without changing conclusions", () => {

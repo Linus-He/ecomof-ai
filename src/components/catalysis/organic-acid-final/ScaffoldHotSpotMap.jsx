@@ -9,10 +9,29 @@ const px = value => plot.left + Math.max(0, Math.min(1, Number(value) || 0)) * p
 const py = value => plot.top + (1 - Math.max(0, Math.min(1, Number(value) || 0))) * plot.height
 
 function pointRole(point) {
+  if (point.dataQualityGate === "rejected") return "rejected by hard gate"
+  if (point.dataQualityGate === "needs_review") return "needs review"
   if (point.isSelected) return "selected scaffold"
+  if (point.dataMode === "curated_real_examples") return "curated real example"
+  if (point.evidenceStatus === "mapped_fixture" || point.evidenceLabel === "Mapped fixture") return "mapped fixture"
+  if (point.evidenceStatus === "demo_proxy" || point.evidenceLabel === "Demo proxy") return "demo proxy"
   if (point.gateStatus === "fail") return "rejected by hard gate"
   if (point.gateStatus === "needs_review") return "needs review"
   return "competitive metal"
+}
+
+function pointTitle(point) {
+  return [
+    point.name,
+    `Data mode: ${point.dataModeLabel || point.evidenceLabel || "Demo proxy"}`,
+    `Source: ${point.sourceDatabase || "Pending provenance"}`,
+    `Record ID: ${point.sourceRecordId || "pending"}`,
+    `DOI: ${point.doiStatus || (point.sourceDoi ? "DOI verified" : "DOI pending")}`,
+    `Quality gate: ${point.dataQualityGateLabel || point.dataQualityGate || point.gateStatus || "pending"}`,
+    `Hydrothermal: ${point.hydrothermalEvidenceStatus || point.gateStatus || "pending"}`,
+    `Can enter scoring: ${point.canEnterScoring ? "yes" : point.dataMode === "curated_real_examples" ? "no" : "demo/proxy"}`,
+    `OACS: ${displayValue(point.oacs)}`,
+  ].join(" · ")
 }
 
 export function ScaffoldHotSpotMap({ data = [], selectedScaffold, lang, t }) {
@@ -53,15 +72,15 @@ export function ScaffoldHotSpotMap({ data = [], selectedScaffold, lang, t }) {
           const radius = point.isSelected ? 8 : 5 + Math.max(0, point.colorValue || 0) * 4
           return (
             <g key={point.id} onMouseEnter={() => setActive(point)} onFocus={() => setActive(point)} tabIndex={0} style={{ cursor: "pointer", outline: "none" }}>
-              <title>{`${point.name} · ${point.gateStatus} · OACS ${displayValue(point.oacs)}`}</title>
+              <title>{pointTitle(point)}</title>
               <circle
                 cx={px(point.x)}
                 cy={py(point.y)}
                 r={radius}
-                fill={point.gateStatus === "fail" ? "none" : roleColor(role, point.gateStatus, t)}
+                fill={role === "rejected by hard gate" ? "none" : roleColor(role, point.gateStatus, t)}
                 stroke={point.isSelected ? t.textStrong : roleColor(role, point.gateStatus, t)}
-                strokeWidth={point.isSelected ? 3 : point.gateStatus === "fail" ? 2 : 1}
-                opacity={point.gateStatus === "needs_review" ? 0.65 : 0.92}
+                strokeWidth={point.isSelected ? 3 : role === "rejected by hard gate" ? 2 : 1}
+                opacity={role === "needs review" ? 0.65 : 0.92}
               />
               {point.isSelected ? (
                 <text x={px(point.x) + 11} y={py(point.y) - 9} fill={t.textStrong} fontSize="11" fontWeight="900">
@@ -82,6 +101,12 @@ export function ScaffoldHotSpotMap({ data = [], selectedScaffold, lang, t }) {
           <span>OACS: <strong style={{ color: t.textStrong }}>{formatScore(active?.oacs)}</strong></span>
           <span>{text(lang, "坍塌风险", "Collapse risk")}: <strong style={{ color: t.textStrong }}>{formatScore(active?.collapseRisk)}</strong></span>
           <span>{text(lang, "证据状态", "Evidence status")}: <strong style={{ color: t.textStrong }}>{displayValue(active?.evidenceLabel || active?.evidenceStatus)}</strong></span>
+          <span>{text(lang, "数据模式", "Data mode")}: <strong style={{ color: t.textStrong }}>{displayValue(active?.dataModeLabel || active?.evidenceLabel)}</strong></span>
+          <span>{text(lang, "来源数据库", "Source database")}: <strong style={{ color: t.textStrong }}>{displayValue(active?.sourceDatabase || "Pending provenance")}</strong></span>
+          <span>{text(lang, "来源记录", "Source record")}: <strong style={{ color: t.textStrong }}>{displayValue(active?.sourceRecordId || "pending")}</strong></span>
+          <span>{text(lang, "DOI 状态", "DOI status")}: <strong style={{ color: t.textStrong }}>{displayValue(active?.doiStatus || (active?.sourceDoi ? "DOI verified" : "DOI pending"))}</strong></span>
+          <span>{text(lang, "质量门", "Quality gate")}: <strong style={{ color: t.textStrong }}>{displayValue(active?.dataQualityGateLabel || active?.dataQualityGate || active?.gateStatus)}</strong></span>
+          <span>{text(lang, "可评分", "Can enter scoring")}: <strong style={{ color: t.textStrong }}>{active?.canEnterScoring ? text(lang, "是", "yes") : active?.dataMode === "curated_real_examples" ? text(lang, "否", "no") : "demo/proxy"}</strong></span>
         </div>
         <p style={{ color: active?.gateStatus === "fail" ? t.warn : t.muted, fontSize: 12.2, fontWeight: active?.gateStatus === "fail" ? 900 : 700, lineHeight: 1.45, margin: 0 }}>
           <ChemicalText value={text(lang, active?.whyZh, active?.why)} />

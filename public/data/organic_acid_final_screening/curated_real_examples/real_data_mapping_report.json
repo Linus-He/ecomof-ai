@@ -1,0 +1,17 @@
+{
+  "datasetMode": "curated_real_examples",
+  "version": "V1.6",
+  "frameworkRecords": 12,
+  "qmofDescriptorRecords": 12,
+  "evidenceRecords": 48,
+  "readyForScoring": 3,
+  "needsReview": 7,
+  "rejected": 2,
+  "unmatchedQmofDescriptorRecords": 2,
+  "doiCoverage": 0,
+  "fieldProvenanceCoverage": 0.71,
+  "notes": "Small curated real examples for mapper validation, not full database screening.",
+  "notesZh": "小规模人工整理真实样例用于验证 mapper、schema、quality gate 与热区投影，不代表全量数据库筛选。",
+  "boundary": "V1.6 introduces curated real examples for validating the data mapping and screening workflow. It is not full-scale CoRE/QMOF database screening.",
+  "boundaryZh": "V1.6 引入小规模人工整理真实样例，用于验证数据映射与筛选流程；这不是全量 CoRE/QMOF 数据库筛选。"
+}

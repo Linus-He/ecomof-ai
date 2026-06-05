@@ -16,7 +16,8 @@ function CountChips({ counts, t }) {
   )
 }
 
-export function DataStatusAndProvenancePanel({ coverage, lang, t, isMobile }) {
+export function DataStatusAndProvenancePanel({ coverage, curatedRealResult, lang, t, isMobile }) {
+  const curatedReport = curatedRealResult?.mappingReport || null
   return (
     <Panel
       id="organic-acid-final-data-status-provenance"
@@ -69,6 +70,33 @@ export function DataStatusAndProvenancePanel({ coverage, lang, t, isMobile }) {
           `The current metal matrix keeps sourceBasis and confidence for ${coverage?.descriptorFieldCount || 0} descriptor fields. Fields without DOI are shown as evidence pending; DOI values are not fabricated.`
         )} />
       </div>
+
+      {curatedReport ? (
+        <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 11 }}>
+          <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
+            <strong style={{ color: t.textStrong, fontSize: 13.5 }}>{text(lang, "V1.6 Curated real examples mapping report", "V1.6 Curated real examples mapping report")}</strong>
+            <StatusPill tone="warn" t={t}>small sample only</StatusPill>
+          </div>
+          <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))" }}>
+            <MiniMetric label={text(lang, "样例数", "Framework records")} value={curatedReport.frameworkRecords} t={t} />
+            <MiniMetric label={text(lang, "可评分", "Ready")} value={curatedReport.readyForScoring} t={t} tone="info" />
+            <MiniMetric label={text(lang, "需复核", "Needs review")} value={curatedReport.needsReview} t={t} tone="warn" />
+            <MiniMetric label={text(lang, "拒绝", "Rejected")} value={curatedReport.rejected} t={t} tone="warn" />
+            <MiniMetric label="QMOF descriptors" value={curatedReport.qmofDescriptorRecords} t={t} />
+            <MiniMetric label={text(lang, "未匹配 QMOF", "Unmatched QMOF")} value={curatedReport.unmatchedQmofDescriptorRecords} t={t} tone="warn" />
+            <MiniMetric label="DOI coverage" value={formatPercent(curatedReport.doiCoverage)} t={t} tone="warn" />
+            <MiniMetric label={text(lang, "字段来源", "Field provenance")} value={formatPercent(curatedReport.fieldProvenanceCoverage)} t={t} />
+          </div>
+          <div style={{ color: t.muted, display: "grid", fontSize: 12.1, gap: 7, lineHeight: 1.5 }}>
+            <ChemicalText value={text(lang, curatedReport.boundaryZh, curatedReport.boundary)} />
+            <ChemicalText value={text(
+              lang,
+              "缺失来源字段在界面中显示为 Pending provenance；needs-review 与 rejected 记录保持可审计，但不会进入最终推荐。",
+              "Missing field sources are shown as Pending provenance. Needs-review and rejected records remain auditable but cannot enter final recommendation."
+            )} />
+          </div>
+        </section>
+      ) : null}
     </Panel>
   )
 }

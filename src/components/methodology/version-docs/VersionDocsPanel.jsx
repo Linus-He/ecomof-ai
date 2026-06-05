@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useMemo, useState } from "react"
+import knowledgeBaseIndex from "../../../../public/data/organic_acid_final_screening/knowledge_base_index.json"
 import literatureRecords from "../../../../public/data/organic_acid_final_screening/literature_inspiration_records.json"
 import versionDocs from "../../../../public/data/organic_acid_final_screening/version_docs.json"
 import { ChemicalText } from "../../../shared"
@@ -12,20 +13,132 @@ import { VersionTimeline } from "./VersionTimeline"
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
 export const VERSION_DOCS_DIRECTORY = {
-  id: "methodology-version-docs",
-  label: "Version Docs",
-  labelZh: "版本文档",
+  id: "methodology-knowledge-base",
+  label: "Knowledge Base",
+  labelZh: "知识库",
   level: 1,
-  display: "版本文档",
+  display: "知识库",
   children: [
-    { id: "methodology-version-hero", label: "Version Docs Hero", labelZh: "版本文档概览" },
-    { id: "methodology-version-timeline", label: "Version Timeline", labelZh: "版本时间轴" },
+    { id: "methodology-knowledge-hero", label: "Knowledge Base Hero", labelZh: "知识库概览" },
+    { id: "methodology-version-timeline", label: "Version History", labelZh: "版本历史" },
     { id: "methodology-version-detail", label: "Selected Version Detail", labelZh: "选中版本详情" },
-    { id: "methodology-version-literature", label: "Literature Inspiration", labelZh: "文献灵感来源" },
-    { id: "methodology-version-source-map", label: "Version ↔ Literature Source Map", labelZh: "版本与文献映射" },
-    { id: "methodology-version-roadmap", label: "Future Roadmap", labelZh: "未来路线图" },
-    { id: "methodology-version-boundary", label: "Evidence Boundary Notice", labelZh: "证据边界提示" },
+    { id: "methodology-literature-library", label: "Literature Library", labelZh: "文献库" },
+    { id: "methodology-inspiration-map", label: "Inspiration Map", labelZh: "灵感映射" },
+    { id: "methodology-version-source-map", label: "Version ↔ Literature ↔ Module Matrix", labelZh: "版本 ↔ 文献 ↔ 模块矩阵" },
+    { id: "methodology-evidence-boundary-legend", label: "Evidence Boundary Legend", labelZh: "证据边界图例" },
+    { id: "methodology-version-roadmap", label: "Future Knowledge Gaps", labelZh: "后续知识缺口" },
   ],
+}
+
+function LiteratureLibraryPanel({ records = [], lang, t, isMobile }) {
+  const [filter, setFilter] = useState("all")
+  const filters = [
+    ["all", "All", "全部"],
+    ["descriptor", "Descriptor design", "描述符设计"],
+    ["hot-spot-map", "Hot spot map", "热区图"],
+    ["evidence-boundary", "Evidence boundary", "证据边界"],
+    ["data-mapper", "Data mapper", "数据映射"],
+    ["validation", "Validation workflow", "验证路线"],
+    ["mof-catalysis", "MOF catalysis mechanism", "MOF 催化机制"],
+    ["gas-separation", "Gas separation screening", "气体分离筛选"],
+  ]
+  const visible = records.filter(record => {
+    if (filter === "all") return true
+    const haystack = [...(record.knowledgeTags || []), ...(record.inspiredModules || []), record.coreIdea, record.title].join(" ").toLowerCase()
+    return haystack.includes(filter) || (filter === "descriptor" && haystack.includes("descriptor")) || (filter === "validation" && haystack.includes("validation")) || (filter === "mof-catalysis" && haystack.includes("catalysis")) || (filter === "gas-separation" && haystack.includes("separation"))
+  })
+
+  return (
+    <section id="methodology-literature-library" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 14, scrollMarginTop: 118 }}>
+      <header style={{ display: "grid", gap: 5 }}>
+        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Literature Library</span>
+        <h3 style={{ color: t.textStrong, fontSize: 20, lineHeight: 1.15, margin: 0 }}>{text(lang, "文献库", "Literature Library")}</h3>
+        <p style={{ color: t.muted, fontSize: 12.4, lineHeight: 1.55, margin: 0 }}>
+          <ChemicalText value={text(
+            lang,
+            "文献库记录上传论文如何启发 EcoMOF-AI 的工作流、描述符、证据边界和验证路线；它不是证明 EcoMOF-AI 结果的参考文献列表。",
+            "The library records how uploaded papers inspire EcoMOF-AI workflow, descriptors, evidence boundaries, and validation strategy. It is not a reference list proving EcoMOF-AI results."
+          )} />
+        </p>
+      </header>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+        {filters.map(([id, en, zh]) => {
+          const active = filter === id
+          return (
+            <button key={id} type="button" onClick={() => setFilter(id)} style={{ background: active ? t.accent : t.surface, border: `1px solid ${active ? t.accent : t.border}`, borderRadius: 999, color: active ? t.buttonText || "#fff" : t.textStrong, cursor: "pointer", fontSize: 11.5, fontWeight: 900, padding: "6px 9px" }}>
+              {text(lang, zh, en)}
+            </button>
+          )
+        })}
+      </div>
+      <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(280px, 1fr))" }}>
+        {visible.map(record => (
+          <article key={record.id} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 11 }}>
+            <span style={{ color: record.status === "verified_from_uploaded_file" ? t.accentText : t.warn, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{record.status}</span>
+            <strong style={{ color: t.textStrong, fontSize: 13.2, lineHeight: 1.32 }}><ChemicalText value={record.title} /></strong>
+            <div style={{ color: t.muted, display: "grid", fontSize: 11.8, gap: 4, lineHeight: 1.42 }}>
+              <span>{text(lang, "作者", "Authors")}: <ChemicalText value={record.authors || "pending metadata"} /></span>
+              <span>{text(lang, "年份 / 期刊", "Year / Journal")}: <ChemicalText value={`${record.year || "pending"} / ${record.journal || "pending metadata"}`} /></span>
+              <span>DOI: <strong style={{ color: record.doi ? t.textStrong : t.warn }}>{record.doi || "pending metadata"}</strong></span>
+              <span>{text(lang, "启发版本", "Inspired versions")}: {(record.inspiredVersions || []).join(" / ")}</span>
+              <span>{text(lang, "证据角色", "Evidence role")}: {record.evidenceRole || "design_inspiration"}</span>
+              <span>{text(lang, "上传文件", "Uploaded files")}: {(record.uploadedFileRefs || []).join(" / ")}</span>
+              {(record.duplicateFileRefs || []).length ? <span>{text(lang, "重复文件", "Duplicate files")}: {record.duplicateFileRefs.join(" / ")}</span> : null}
+            </div>
+            <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.48, margin: 0 }}><ChemicalText value={text(lang, record.coreIdeaZh, record.coreIdea)} /></p>
+            <p style={{ color: t.warn, fontSize: 11.9, fontWeight: 850, lineHeight: 1.45, margin: 0 }}><ChemicalText value={text(lang, record.adaptationBoundaryZh, record.adaptationBoundary)} /></p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function InspirationMapPanel({ records = [], lang, t }) {
+  const rows = records.flatMap(record => (record.inspiredModules || []).slice(0, 4).map(module => ({
+    id: `${record.id}-${module}`,
+    source: record.journal ? `${record.journal} ${record.year || ""}`.trim() : record.title,
+    module,
+    versions: (record.inspiredVersions || []).join(" / "),
+    boundary: record.adaptationBoundary,
+    boundaryZh: record.adaptationBoundaryZh,
+  })))
+  return (
+    <section id="methodology-inspiration-map" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 14, scrollMarginTop: 118 }}>
+      <header style={{ display: "grid", gap: 5 }}>
+        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Inspiration Map</span>
+        <h3 style={{ color: t.textStrong, fontSize: 20, lineHeight: 1.15, margin: 0 }}>{text(lang, "灵感映射", "Inspiration Map")}</h3>
+      </header>
+      <div style={{ display: "grid", gap: 8 }}>
+        {rows.map(row => (
+          <article key={row.id} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 6, gridTemplateColumns: "minmax(0, 1fr)", padding: 10 }}>
+            <strong style={{ color: t.textStrong, fontSize: 12.7, lineHeight: 1.3 }}><ChemicalText value={`${row.source} -> ${row.module} -> ${row.versions}`} /></strong>
+            <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.45 }}><ChemicalText value={text(lang, row.boundaryZh, row.boundary)} /></span>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function EvidenceBoundaryLegend({ lang, t }) {
+  const rows = knowledgeBaseIndex.evidenceRoleLegend || []
+  return (
+    <section id="methodology-evidence-boundary-legend" style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 12, display: "grid", gap: 10, padding: 14, scrollMarginTop: 118 }}>
+      <strong style={{ color: t.warn, fontSize: 14 }}>{text(lang, "证据边界图例", "Evidence Boundary Legend")}</strong>
+      <p style={{ color: t.muted, fontSize: 12.3, lineHeight: 1.55, margin: 0 }}>
+        <ChemicalText value={text(lang, knowledgeBaseIndex.boundaryZh, knowledgeBaseIndex.boundary)} />
+      </p>
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))" }}>
+        {rows.map(row => (
+          <article key={row.role} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 5, padding: 9 }}>
+            <strong style={{ color: t.textStrong, fontSize: 12 }}>{row.role}</strong>
+            <span style={{ color: t.muted, fontSize: 11.7, lineHeight: 1.42 }}><ChemicalText value={row.meaning} /></span>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
 }
 
 export function VersionDocsPanel({ lang, t, isMobile }) {
@@ -37,24 +150,27 @@ export function VersionDocsPanel({ lang, t, isMobile }) {
     return [
       [text(lang, "当前版本", "Current version"), versionDocs.currentVersion || selected?.version || "V1.5"],
       [text(lang, "已完成版本", "Completed versions"), versionDocs.completedRange || "V1.0-V1.5"],
+      [text(lang, "文献记录", "Literature records"), `${knowledgeBaseIndex.uniqueLiteratureRecords} unique / ${knowledgeBaseIndex.uploadedFileCount} files`],
+      [text(lang, "已核验 DOI", "Verified DOI records"), `${verified}`],
+      [text(lang, "Pending metadata", "Pending metadata"), `${knowledgeBaseIndex.stats?.pendingMetadataRecords ?? 0}`],
       [text(lang, "计划版本", "Planned versions"), (versionDocs.roadmap || []).map(row => row.version).join(" / ")],
-      [text(lang, "已核验文献灵感", "Verified literature inspirations"), `${verified}+`],
     ]
   }, [lang, selected])
 
   return (
-    <section id="methodology-version-docs" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 14, padding: 14, scrollMarginTop: 118 }}>
-      <header id="methodology-version-hero" style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between", scrollMarginTop: 118 }}>
+    <section id="methodology-knowledge-base" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 14, padding: 14, scrollMarginTop: 118 }}>
+      <span id="methodology-version-docs" style={{ height: 0, overflow: "hidden", scrollMarginTop: 118 }} />
+      <header id="methodology-knowledge-hero" style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between", scrollMarginTop: 118 }}>
         <div style={{ display: "grid", gap: 5, maxWidth: 820 }}>
-          <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Version Docs</span>
+          <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Knowledge Base</span>
           <h2 style={{ color: t.textStrong, fontSize: 22, lineHeight: 1.15, margin: 0 }}>
-            {text(lang, "版本文档", "Version Docs")}
+            {text(lang, "知识库", "Knowledge Base")}
           </h2>
           <p style={{ color: t.muted, fontSize: 12.7, lineHeight: 1.58, margin: 0 }}>
             <ChemicalText value={text(
               lang,
-              "记录 EcoMOF-AI 有机酸最终筛选模块的版本演进、证据边界与文献灵感来源。",
-              "A structured record of EcoMOF-AI Organic Acid Final Screening iterations, evidence boundaries, and literature inspirations."
+              "记录版本演进、文献灵感、方法迁移边界与证据状态的结构化知识库。",
+              "A structured record of version history, literature inspirations, method adaptation boundaries, and evidence status."
             )} />
           </p>
         </div>
@@ -80,9 +196,15 @@ export function VersionDocsPanel({ lang, t, isMobile }) {
         <VersionDetailCard version={selected} lang={lang} t={t} />
       </section>
 
+      <LiteratureLibraryPanel records={literatureRecords} lang={lang} t={t} isMobile={isMobile} />
+
+      <InspirationMapPanel records={literatureRecords} lang={lang} t={t} />
+
       <LiteratureInspirationPanel version={selected} literatureRecords={literatureRecords} lang={lang} t={t} isMobile={isMobile} />
 
       <VersionSourceMap versions={versions} literatureRecords={literatureRecords} lang={lang} t={t} isMobile={isMobile} />
+
+      <EvidenceBoundaryLegend lang={lang} t={t} />
 
       <section id="methodology-version-roadmap" style={{ scrollMarginTop: 118 }}>
         <VersionRoadmapCard roadmap={versionDocs.roadmap || []} lang={lang} t={t} />

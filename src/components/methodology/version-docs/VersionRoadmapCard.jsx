@@ -8,9 +8,9 @@ export function VersionRoadmapCard({ roadmap = [], lang, t }) {
   return (
     <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 14 }}>
       <header style={{ display: "grid", gap: 4 }}>
-        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Future Roadmap</span>
+        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Future Knowledge Gaps</span>
         <h3 style={{ color: t.textStrong, fontSize: 20, lineHeight: 1.15, margin: 0 }}>
-          {text(lang, "下一步版本计划", "Next planned versions")}
+          {text(lang, "后续知识缺口", "Future Knowledge Gaps")}
         </h3>
       </header>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>

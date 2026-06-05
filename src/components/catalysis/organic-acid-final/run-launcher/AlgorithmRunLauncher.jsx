@@ -9,7 +9,7 @@ import { RunStepTimeline } from "./RunStepTimeline"
 import { RunTracePanel } from "./RunTracePanel"
 import { RUN_MODULES, WorkflowModuleSelector } from "./WorkflowModuleSelector"
 
-export function AlgorithmRunLauncher({ frameworks = [], metals = [], rules = {}, evidenceRecords = [], result, lang, t, isMobile }) {
+export function AlgorithmRunLauncher({ frameworks = [], metals = [], rules = {}, evidenceRecords = [], result, curatedRealExamples = null, curatedRealResult = null, lang, t, isMobile }) {
   const [dataMode, setDataMode] = useState("demo_workflow")
   const [selectedModules, setSelectedModules] = useState(RUN_MODULES.map(row => row[0]))
   const [runStatus, setRunStatus] = useState("idle")
@@ -18,7 +18,8 @@ export function AlgorithmRunLauncher({ frameworks = [], metals = [], rules = {},
   const [traceOpen, setTraceOpen] = useState(false)
   const timers = useRef([])
 
-  const baseSteps = useMemo(() => buildRunSteps(result || {}, { dataMode }), [result, dataMode])
+  const activeResult = dataMode === "curated_real_examples" ? curatedRealResult : result
+  const baseSteps = useMemo(() => buildRunSteps(activeResult || {}, { dataMode }), [activeResult, dataMode])
   const displayedSteps = workflow?.steps || baseSteps
 
   useEffect(() => () => timers.current.forEach(timer => window.clearTimeout(timer)), [])
@@ -36,7 +37,12 @@ export function AlgorithmRunLauncher({ frameworks = [], metals = [], rules = {},
       timers.current.push(window.setTimeout(() => setActiveIndex(index), 90 * index))
     }
     timers.current.push(window.setTimeout(() => {
-      const output = runDemoScreeningWorkflow(frameworks, metals, rules, evidenceRecords, { dataMode, selectedModules })
+      const output = runDemoScreeningWorkflow(frameworks, metals, rules, evidenceRecords, {
+        dataMode,
+        selectedModules,
+        curatedRealExamples,
+        curatedRealResult,
+      })
       setWorkflow(output)
       setRunStatus(output.status === "blocked" ? "blocked" : "completed")
       setActiveIndex(-1)
@@ -46,16 +52,16 @@ export function AlgorithmRunLauncher({ frameworks = [], metals = [], rules = {},
   return (
     <Panel
       id="organic-acid-final-run-launcher"
-      eyebrow={text(lang, "V1.5 补丁 · 运行启动器预备", "V1.5 patch · run launcher prep")}
+      eyebrow={text(lang, "V1.6 · 小规模真实样例运行", "V1.6 · small curated sample run")}
       title={text(lang, "算法运行启动器", "Algorithm Run Launcher")}
       t={t}
-      actions={<StatusPill tone="proxy" t={t}>demo workflow only</StatusPill>}
+      actions={<StatusPill tone="proxy" t={t}>demo / mapped / curated sample</StatusPill>}
     >
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.55, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "这里预演后续运行启动器的交互结构，只串联当前 demo / mapped fixture-ready 的 OACS-DMRS 流程，不做全量数据库计算。",
-          "This prepares the future run-launcher interaction pattern by chaining the current demo / mapped-fixture-ready OACS-DMRS workflow. It does not run full database screening."
+          "这里串联 demo、mapped fixture 与 V1.6 小规模人工整理真实样例。Curated 模式只用于验证 mapper、quality gate、fieldSources 与 hot spot 投影，不做全量数据库计算。",
+          "This chains demo, mapped fixtures, and the V1.6 small curated real-example sample. Curated mode validates mapper, quality gate, fieldSources, and hot spot projection; it does not run full database screening."
         )} />
       </p>
 
@@ -69,7 +75,9 @@ export function AlgorithmRunLauncher({ frameworks = [], metals = [], rules = {},
           disabled={runStatus === "running"}
           style={{ background: t.accent, border: `1px solid ${t.accent}`, borderRadius: 8, color: t.buttonText || "#fff", cursor: runStatus === "running" ? "wait" : "pointer", fontSize: 12.5, fontWeight: 930, minHeight: 38, padding: "8px 13px" }}
         >
-          {text(lang, "运行演示筛选", "Run demo screening")}
+          {dataMode === "curated_real_examples"
+            ? text(lang, "运行 Curated 小样例", "Run curated sample")
+            : text(lang, "运行演示筛选", "Run demo screening")}
         </button>
         <button
           type="button"

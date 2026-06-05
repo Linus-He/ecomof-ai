@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useMemo } from "react"
 import frameworks from "../../../public/data/organic_acid_final_screening/al_mof_framework_candidates.json"
+import curatedMappingReport from "../../../public/data/organic_acid_final_screening/curated_real_examples/real_data_mapping_report.json"
 import metals from "../../../public/data/organic_acid_final_screening/dopant_metal_property_matrix.json"
 import evidenceRecords from "../../../public/data/organic_acid_final_screening/organic_acid_evidence_records.json"
 import rules from "../../../public/data/organic_acid_final_screening/organic_acid_screening_rules.json"
@@ -28,10 +29,11 @@ export const ORGANIC_ACID_FINAL_DIRECTORY = {
     { id: "methodology-oafs-overview", label: "Method Overview", labelZh: "方法总览" },
     { id: "methodology-oafs-flow", label: "Two-Stage Algorithm Flow", labelZh: "两阶段算法流程" },
     { id: "methodology-oafs-data-mapping", label: "Data Mapping and Schema Validation", labelZh: "数据映射与 Schema Validation" },
+    { id: "methodology-oafs-small-real-dataset", label: "Small Real Dataset Integration", labelZh: "小规模真实样例接入" },
     { id: "methodology-oafs-oacs", label: "Stage 1: OACS Framework Mining", labelZh: "Stage 1：OACS 骨架筛选" },
     { id: "methodology-oafs-dmrs", label: "Stage 2: DMRS Dopant Recommendation", labelZh: "Stage 2：DMRS 第二金属推荐" },
     { id: "methodology-oafs-hot-spot", label: "Coupled Descriptor Hot Spot Map", labelZh: "耦合描述符热区图" },
-    { id: "methodology-oafs-version-docs-literature", label: "Version Docs and Literature Inspiration", labelZh: "版本文档与文献灵感" },
+    { id: "methodology-oafs-knowledge-base", label: "Knowledge Base Link", labelZh: "知识库跳转" },
     { id: "methodology-oafs-robustness", label: "Robustness Audit", labelZh: "稳健性审计" },
     { id: "methodology-oafs-evidence-matrix", label: "Evidence Strength Matrix", labelZh: "证据强度矩阵" },
     { id: "methodology-oafs-exafs", label: "EXAFS-Guided Falsification", labelZh: "EXAFS 引导证伪" },
@@ -102,6 +104,50 @@ function RobustnessAuditMethod({ result, lang, t }) {
   )
 }
 
+function SmallRealDatasetMethod({ lang, t }) {
+  const rows = [
+    [text(lang, "样例边界", "Sample boundary"), text(lang, "只接入小规模人工整理真实样例，不接入全量 CoRE/QMOF。", "Only a small curated real-example sample is integrated; full CoRE/QMOF is not loaded.")],
+    [text(lang, "数据质量门", "Data quality gate"), text(lang, "ready-for-scoring 才可计算 OACS；needs-review 与 rejected 保持可审计但不进入最终推荐。", "Only ready-for-scoring records can calculate OACS; needs-review and rejected records remain auditable but cannot enter final recommendation.")],
+    [text(lang, "字段来源", "Field provenance"), text(lang, "缺失来源显示 Pending provenance，不伪造 DOI、citation 或 license。", "Missing sources are shown as Pending provenance; DOI, citation, and license are not fabricated.")],
+    [text(lang, "热区投影", "Hot spot projection"), text(lang, "Curated 点用于验证 mapper、quality gate 和 hot spot role display，不证明催化性能。", "Curated points validate mapper, quality gate, and hot spot role display; they do not prove catalytic performance.")],
+  ]
+
+  return (
+    <section id="methodology-oafs-small-real-dataset" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 13, padding: 15, scrollMarginTop: 118 }}>
+      <header style={{ display: "grid", gap: 4 }}>
+        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Small Real Dataset Integration</span>
+        <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
+          {text(lang, "小规模真实样例接入", "Small Real Dataset Integration")}
+        </h3>
+      </header>
+      <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
+        <ChemicalText value={text(
+          lang,
+          "V1.6 引入小规模人工整理真实样例，用于验证数据映射、schema validation、quality gate、fieldSources、Run Launcher 与 Hot Spot Map 是否能承接真实数据形状；这不是全量数据库筛选。",
+          "V1.6 introduces curated real examples to validate whether data mapping, schema validation, quality gate, fieldSources, Run Launcher, and Hot Spot Map can carry real-data shapes. This is not full database screening."
+        )} />
+      </p>
+      <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))" }}>
+        <MetricCard label={text(lang, "骨架样例", "Framework records")} value={curatedMappingReport.frameworkRecords} t={t} />
+        <MetricCard label="QMOF descriptors" value={curatedMappingReport.qmofDescriptorRecords} t={t} />
+        <MetricCard label={text(lang, "证据记录", "Evidence records")} value={curatedMappingReport.evidenceRecords} t={t} />
+        <MetricCard label={text(lang, "可评分 / 需复核 / 拒绝", "Ready / review / rejected")} value={`${curatedMappingReport.readyForScoring} / ${curatedMappingReport.needsReview} / ${curatedMappingReport.rejected}`} t={t} tone="warn" />
+      </div>
+      <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+        {rows.map(([label, value]) => (
+          <article key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 7, padding: 11 }}>
+            <strong style={{ color: t.textStrong, fontSize: 12.7 }}>{label}</strong>
+            <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.48 }}><ChemicalText value={value} /></span>
+          </article>
+        ))}
+      </div>
+      <p style={{ color: t.warn, fontSize: 12.5, fontWeight: 900, lineHeight: 1.52, margin: 0 }}>
+        <ChemicalText value={text(lang, curatedMappingReport.boundaryZh, curatedMappingReport.boundary)} />
+      </p>
+    </section>
+  )
+}
+
 function CoupledHotSpotMethod({ result, lang, t }) {
   const mapRows = [
     {
@@ -133,8 +179,8 @@ function CoupledHotSpotMethod({ result, lang, t }) {
             {text(lang, "耦合描述符热区图", "Coupled Descriptor Hot Spot Map")}
           </h3>
         </div>
-        <a href="#methodology-version-docs" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.accentText, fontSize: 12, fontWeight: 900, padding: "7px 10px", textDecoration: "none" }}>
-          {text(lang, "查看版本文档", "View version docs")}
+        <a href="#methodology-knowledge-base" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.accentText, fontSize: 12, fontWeight: 900, padding: "7px 10px", textDecoration: "none" }}>
+          {text(lang, "打开知识库", "Open Knowledge Base")}
         </a>
       </header>
 
@@ -181,31 +227,31 @@ function CoupledHotSpotMethod({ result, lang, t }) {
   )
 }
 
-function VersionDocsLiteratureMethod({ lang, t }) {
+function KnowledgeBaseMethod({ lang, t }) {
   return (
-    <section id="methodology-oafs-version-docs-literature" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 11, padding: 15, scrollMarginTop: 118 }}>
+    <section id="methodology-oafs-knowledge-base" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 11, padding: 15, scrollMarginTop: 118 }}>
       <header style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
         <div style={{ display: "grid", gap: 4 }}>
-          <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Version Docs and Literature Inspiration</span>
+          <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Knowledge Base</span>
           <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
-            {text(lang, "版本文档与文献灵感来源", "Version Docs and Literature Inspiration")}
+            {text(lang, "知识库：版本、文献与证据边界", "Knowledge Base: Versions, Literature, and Evidence Boundaries")}
           </h3>
         </div>
-        <a href="#methodology-version-docs" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.accentText, fontSize: 12, fontWeight: 900, padding: "7px 10px", textDecoration: "none" }}>
-          {text(lang, "查看版本文档", "View version docs")}
+        <a href="#methodology-knowledge-base" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.accentText, fontSize: 12, fontWeight: 900, padding: "7px 10px", textDecoration: "none" }}>
+          {text(lang, "打开知识库", "Open Knowledge Base")}
         </a>
       </header>
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "版本文档不仅记录功能更新，也记录每一版设计背后的文献灵感来源。文献条目用于说明概念影响和迁移边界，不表示 EcoMOF-AI 已复现原论文中的计算或实验结果。",
-          "Version Docs records not only functional updates, but also the literature inspirations behind each design decision. Literature entries are used to document conceptual influence and adaptation boundaries, not to claim that EcoMOF-AI has reproduced the original paper's computational or experimental results."
+          "知识库记录每一项工作流设计背后的文献灵感来源，包括哪些思想被迁移、哪些结论没有被直接转用，以及哪些证据仍处于待核状态。",
+          "The Knowledge Base records the literature inspirations behind each workflow decision, including which ideas were adapted, which claims were not transferred, and which evidence remains pending."
         )} />
       </p>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
         {[
           [text(lang, "已核验来源", "Verified source"), "Nature Communications 2025 hot spot map paper"],
-          [text(lang, "待补元数据", "Pending metadata"), "Previous ML/MOF screening and provenance references"],
+          [text(lang, "文献库", "Literature Library"), "5 unique records from 6 uploaded files"],
           [text(lang, "迁移边界", "Adaptation boundary"), "Conceptual inspiration only; no DFT / ML / experimental reproduction claim"],
         ].map(([label, value]) => (
           <article key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 6, padding: 10 }}>
@@ -231,20 +277,21 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
       <div style={{ display: "grid", gap: 14, marginTop: 13 }}>
         <div style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 10, display: "flex", flexWrap: "wrap", gap: 9, justifyContent: "space-between", padding: 11 }}>
           <span style={{ color: t.muted, fontSize: 12.4, lineHeight: 1.45 }}>
-            {text(lang, "查看 V1.0–V1.5 的版本演进、文献灵感来源与后续 roadmap。", "Review the V1.0-V1.5 version history, literature inspirations, and future roadmap.")}
+            {text(lang, "打开知识库，查看 V1.0–V1.6 的版本演进、文献灵感来源、方法迁移边界与后续 roadmap。", "Open the Knowledge Base to review V1.0-V1.6 version history, literature inspirations, method adaptation boundaries, and future roadmap.")}
           </span>
-          <a href="#methodology-version-docs" style={{ background: t.surface, border: `1px solid ${t.accentText || t.accent}`, borderRadius: 8, color: t.accentText, fontSize: 12, fontWeight: 900, padding: "7px 10px", textDecoration: "none" }}>
-            {text(lang, "查看版本文档", "View version docs")}
+          <a href="#methodology-knowledge-base" style={{ background: t.surface, border: `1px solid ${t.accentText || t.accent}`, borderRadius: 8, color: t.accentText, fontSize: 12, fontWeight: 900, padding: "7px 10px", textDecoration: "none" }}>
+            {text(lang, "打开知识库", "Open Knowledge Base")}
           </a>
         </div>
         <OrganicAcidMethodologyOverview lang={lang} t={t} coverage={result.evidenceCoverage} />
         <MethodologyFlowDiagram flow={result.methodologyFlowData} lang={lang} t={t} />
         <DataMappingSchemaValidationPanel lang={lang} t={t} />
+        <SmallRealDatasetMethod lang={lang} t={t} />
         <FormulaExplainerCard card={oacsCard} lang={lang} t={t} />
         <FormulaExplainerCard card={dmrsCard} lang={lang} t={t} />
         <MechanismPathMethodCard lang={lang} t={t} />
         <CoupledHotSpotMethod result={result} lang={lang} t={t} />
-        <VersionDocsLiteratureMethod lang={lang} t={t} />
+        <KnowledgeBaseMethod lang={lang} t={t} />
         <RobustnessAuditMethod result={result} lang={lang} t={t} />
         <DescriptorEvidenceMatrix rows={result.evidenceStrengthMatrix} coverage={result.evidenceCoverage} lang={lang} t={t} />
         <ExafsFalsificationDiagram signature={result.exafsSignature} lang={lang} t={t} />

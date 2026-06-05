@@ -1,0 +1,92 @@
+{
+  "id": "organic-acid-final-knowledge-base",
+  "label": "Knowledge Base",
+  "labelZh": "知识库",
+  "version": "V1.6",
+  "updatedAt": "2026-06",
+  "uploadedFileCount": 6,
+  "uniqueLiteratureRecords": 5,
+  "duplicateGroups": [
+    {
+      "canonicalLiteratureId": "LIT-SU-2025-MOF-BORYLATION",
+      "uploadedFileRefs": [
+        "LIT-005",
+        "LIT-006"
+      ],
+      "rule": "Identical title / authors metadata should merge into one record while preserving duplicateFileRefs."
+    }
+  ],
+  "stats": {
+    "currentVersion": "V1.6",
+    "literatureRecords": 5,
+    "uploadedFiles": 6,
+    "verifiedDoiRecords": 2,
+    "pendingMetadataRecords": 3,
+    "plannedNextStage": "V2.0 Large-scale Database Integration"
+  },
+  "sections": [
+    {
+      "id": "methodology-knowledge-hero",
+      "label": "Knowledge Base Hero",
+      "labelZh": "知识库概览"
+    },
+    {
+      "id": "methodology-version-timeline",
+      "label": "Version History",
+      "labelZh": "版本历史"
+    },
+    {
+      "id": "methodology-literature-library",
+      "label": "Literature Library",
+      "labelZh": "文献库"
+    },
+    {
+      "id": "methodology-inspiration-map",
+      "label": "Inspiration Map",
+      "labelZh": "灵感映射"
+    },
+    {
+      "id": "methodology-version-source-map",
+      "label": "Version ↔ Literature ↔ Module Matrix",
+      "labelZh": "版本 ↔ 文献 ↔ 模块矩阵"
+    },
+    {
+      "id": "methodology-evidence-boundary-legend",
+      "label": "Evidence Boundary Legend",
+      "labelZh": "证据边界图例"
+    },
+    {
+      "id": "methodology-version-roadmap",
+      "label": "Future Knowledge Gaps",
+      "labelZh": "后续知识缺口"
+    }
+  ],
+  "evidenceRoleLegend": [
+    {
+      "role": "design_inspiration",
+      "meaning": "Workflow or product-design inspiration; not scientific validation."
+    },
+    {
+      "role": "methodology_inspiration",
+      "meaning": "Methodology principle or evidence-boundary inspiration."
+    },
+    {
+      "role": "descriptor_inspiration",
+      "meaning": "Descriptor choice or visualization inspiration."
+    },
+    {
+      "role": "validation_inspiration",
+      "meaning": "Validation strategy inspiration."
+    },
+    {
+      "role": "evidence_source",
+      "meaning": "Direct evidence source only when explicitly verified."
+    },
+    {
+      "role": "pending_metadata",
+      "meaning": "Metadata pending; do not cite as verified."
+    }
+  ],
+  "boundary": "Knowledge Base records how external papers inspire EcoMOF-AI workflow design, descriptor choices, evidence boundaries, and validation strategy. It does not claim EcoMOF-AI reproduces the original papers models or experimental results.",
+  "boundaryZh": "知识库记录外部文献如何启发 EcoMOF-AI 的工作流设计、描述符选择、证据边界和验证路线；不表示 EcoMOF-AI 已复现原论文模型或实验结果。"
+}

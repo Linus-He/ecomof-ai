@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import {
   BasisBadge,
   CopyLinkButton,
@@ -13,6 +13,7 @@ import { ModulePageHeader } from "../module/ModuleTop"
 import { CollapsibleResearchSection, SectionLayoutControls } from "../common/CollapsibleResearchSection"
 import { DataHarmonizationWorkflow } from "../catalysis/DataHarmonizationWorkflow"
 import { enrichCatalysisRecord } from "../catalysis/evidenceScoring"
+import { CatalysisCatOverlayLayer } from "../catalysis/CatalysisCatOverlayLayer"
 import { CatalysisEnergyBarrierDemo } from "../catalysis/CatalysisEnergyBarrierDemo"
 import { OrganicAcidEntryCard } from "../catalysis/OrganicAcidEntryCard"
 import { OrganicAcidFinalScreening } from "../catalysis/organic-acid-final/OrganicAcidFinalScreening"
@@ -79,6 +80,7 @@ export function CatalysisLabTab() {
   const [selectedPathwayId, setSelectedPathwayId] = useState(null)
   const [pendingOrganicScrollTarget, setPendingOrganicScrollTarget] = useState(null)
   const [layoutCommand, setLayoutCommand] = useState(null)
+  const workspaceRef = useRef(null)
 
   useEffect(() => {
     let active = true
@@ -214,20 +216,37 @@ export function CatalysisLabTab() {
     }
   }
 
+  const workspaceShellStyle = {
+    display: "flex",
+    flexDirection: "column",
+    gap: 16,
+    margin: "0 auto",
+    maxWidth: 1280,
+    overflow: "visible",
+    padding: isMobile ? "0 2px" : 0,
+    position: "relative",
+  }
+
   if (activeWorkspace === "organic-acid") {
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 16, margin: "0 auto", maxWidth: 1280, padding: isMobile ? "0 2px" : 0 }}>
+      <div ref={workspaceRef} style={workspaceShellStyle}>
         <OrganicAcidWorkspace lang={lang} t={t} isMobile={isMobile} onBack={backToOverview} />
+        <CatalysisCatOverlayLayer workspaceRef={workspaceRef} lang={lang} t={t} isMobile={isMobile} />
       </div>
     )
   }
 
   if (activeWorkspace === "organic-acid-final") {
-    return <OrganicAcidFinalScreening lang={lang} t={t} isMobile={isMobile} onBack={backToOverview} />
+    return (
+      <div ref={workspaceRef} style={workspaceShellStyle}>
+        <OrganicAcidFinalScreening lang={lang} t={t} isMobile={isMobile} onBack={backToOverview} />
+        <CatalysisCatOverlayLayer workspaceRef={workspaceRef} lang={lang} t={t} isMobile={isMobile} />
+      </div>
+    )
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16, margin: "0 auto", maxWidth: 1280, padding: isMobile ? "0 2px" : 0 }}>
+    <div ref={workspaceRef} style={workspaceShellStyle}>
       <ModulePageHeader
         title={zh ? "催化实验室" : "Catalysis Lab"}
         subtitle={zh
@@ -399,6 +418,7 @@ export function CatalysisLabTab() {
           </CollapsibleResearchSection>
         </>
       ) : null}
+      <CatalysisCatOverlayLayer workspaceRef={workspaceRef} lang={lang} t={t} isMobile={isMobile} />
     </div>
   )
 }

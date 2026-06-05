@@ -46,3 +46,97 @@ export function mapQmofRecord(raw = {}) {
     ],
   }
 }
+
+function finiteOrNull(value) {
+  const number = Number(value)
+  return Number.isFinite(number) ? number : null
+}
+
+function pendingDescriptorSource(raw = {}) {
+  return {
+    sourceType: "qmof_curated_example",
+    sourceDatabase: raw.sourceDatabase || "QMOF / curated descriptor note",
+    sourceRecordId: raw.sourceRecordId || raw.id || "pending",
+    sourceDoi: raw.sourceDoi || null,
+    confidence: raw.fieldSources?.bandGap?.confidence || "pending",
+    note: "Curated QMOF descriptor supplement; DOI/citation remain pending unless explicitly verified.",
+  }
+}
+
+export function mergeQmofDescriptorsIntoFrameworks(frameworks = [], qmofRecords = []) {
+  const frameworkById = new Map((Array.isArray(frameworks) ? frameworks : []).map(row => [row.id, row]))
+  const matchedDescriptorIds = new Set()
+  const descriptorByFramework = new Map()
+
+  for (const raw of Array.isArray(qmofRecords) ? qmofRecords : []) {
+    const frameworkId = raw?.matchedFrameworkId
+    if (frameworkId && frameworkById.has(frameworkId)) {
+      matchedDescriptorIds.add(raw.id)
+      descriptorByFramework.set(frameworkId, raw)
+    }
+  }
+
+  const mergedFrameworks = (Array.isArray(frameworks) ? frameworks : []).map(framework => {
+    const descriptor = descriptorByFramework.get(framework.id)
+    if (!descriptor) {
+      return {
+        ...framework,
+        qmofDescriptorStatus: "missing",
+        fieldSources: {
+          ...(framework.fieldSources || {}),
+          bandGap: framework.fieldSources?.bandGap || {
+            sourceType: "pending_provenance",
+            sourceDatabase: "Pending provenance",
+            sourceRecordId: "pending",
+            sourceDoi: null,
+            confidence: "pending",
+            note: "No curated QMOF descriptor matched this framework.",
+          },
+        },
+      }
+    }
+
+    const bandGap = finiteOrNull(descriptor.bandGap)
+    const source = descriptor.fieldSources?.bandGap || pendingDescriptorSource(descriptor)
+    return {
+      ...framework,
+      bandGap,
+      qmofDescriptorStatus: bandGap == null ? "needs_review" : "matched",
+      qmofDescriptorRecord: {
+        id: descriptor.id,
+        sourceDatabase: descriptor.sourceDatabase,
+        sourceRecordId: descriptor.sourceRecordId,
+        bandGap,
+        totalMagnetization: finiteOrNull(descriptor.totalMagnetization),
+        formationEnergy: finiteOrNull(descriptor.formationEnergy),
+        sourceDoi: descriptor.sourceDoi || null,
+        citation: descriptor.citation || null,
+      },
+      fieldSources: {
+        ...(framework.fieldSources || {}),
+        bandGap: {
+          ...pendingDescriptorSource(descriptor),
+          ...source,
+          sourceType: source.sourceType || "qmof_curated_example",
+          sourceDoi: source.sourceDoi || null,
+        },
+        qmofDescriptor: pendingDescriptorSource(descriptor),
+      },
+    }
+  })
+
+  const unmatchedRecords = (Array.isArray(qmofRecords) ? qmofRecords : [])
+    .filter(raw => !matchedDescriptorIds.has(raw.id))
+    .map(raw => ({
+      id: raw.id,
+      matchedFrameworkId: raw.matchedFrameworkId || null,
+      sourceRecordId: raw.sourceRecordId || null,
+      reason: raw.matchedFrameworkId ? "matched framework was not found in curated framework sample" : "missing matchedFrameworkId",
+    }))
+
+  return {
+    frameworks: mergedFrameworks,
+    matchedCount: matchedDescriptorIds.size,
+    unmatchedRecords,
+  }
+}

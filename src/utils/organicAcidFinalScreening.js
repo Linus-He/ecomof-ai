@@ -1,4 +1,8 @@
 // @ts-nocheck
+import { mapCuratedFrameworkExamples } from "./mofDataMappers/coreMofMapper"
+import { attachRealEvidenceRecords } from "./mofDataMappers/literatureEvidenceMapper"
+import { buildRealDataMappingReport, loadCuratedRealExamples } from "./mofDataMappers/mapperPreviewFixtures"
+import { mergeQmofDescriptorsIntoFrameworks } from "./mofDataMappers/qmofMapper"
 
 const DEFAULT_MIN_TEMP_C = 150
 const DEFAULT_FRAMEWORK_WEIGHTS = {
@@ -1921,8 +1925,276 @@ export function buildAlgorithmTrace(screeningResult) {
   ]
 }
 
+function curatedQualityRank(status) {
+  if (status === "ready_for_scoring") return 0
+  if (status === "needs_review") return 1
+  if (status === "rejected") return 2
+  return 3
+}
+
+function buildCuratedHotSpotPoints(frameworks = [], selectedId = null) {
+  return buildScaffoldHotSpotData(frameworks, selectedId).map(point => {
+    const source = frameworks.find(row => row.id === point.id) || {}
+    const quality = source.dataQualityGate || {}
+    const sourceDoi = source.sourceDoi || source.fieldSources?.sourceDatabase?.sourceDoi || null
+    return {
+      ...point,
+      dataMode: "curated_real_examples",
+      dataModeLabel: "Curated real example",
+      sourceDatabase: source.sourceDatabase || "curated source",
+      sourceRecordId: source.sourceRecordId || "pending",
+      sourceUrl: source.sourceUrl || null,
+      sourceDoi,
+      doiStatus: sourceDoi ? "DOI verified" : "DOI pending",
+      fieldSources: source.fieldSources || {},
+      dataQualityGate: quality.status || "needs_review",
+      dataQualityGateLabel: quality.label || "Needs review",
+      dataQualityReason: quality.reason || "Curated sample needs provenance review before scoring.",
+      canEnterScoring: Boolean(quality.canEnterScoring),
+      qmofDescriptorStatus: source.qmofDescriptorStatus || "pending",
+      hydrothermalEvidenceStatus: point.gateStatus || "pending",
+      status: quality.status === "ready_for_scoring"
+        ? (point.isSelected ? "selected curated example" : "curated real example")
+        : quality.status === "rejected"
+          ? "rejected by hard gate"
+          : "needs review",
+      why: quality.canEnterScoring
+        ? "Curated sample passed the V1.6 data quality gate and hydrothermal preview gate."
+        : quality.reason || point.why,
+      whyZh: quality.canEnterScoring
+        ? "该人工整理样例通过 V1.6 数据质量门与水热预览门槛。"
+        : quality.reasonZh || point.whyZh,
+    }
+  })
+}
+
+export function buildCuratedRealScreeningResult(curatedRealExamples = null, metalMatrix = [], rules = {}) {
+  const source = curatedRealExamples?.frameworks ? curatedRealExamples : loadCuratedRealExamples()
+  const mappedFrameworks = mapCuratedFrameworkExamples(source.frameworks || [])
+  const qmofMerge = mergeQmofDescriptorsIntoFrameworks(mappedFrameworks, source.qmofDescriptors || [])
+  const evidenceAttachment = attachRealEvidenceRecords(qmofMerge.frameworks, source.evidenceRecords || [])
+  const frameworkWeights = rules.frameworkWeights || DEFAULT_FRAMEWORK_WEIGHTS
+
+  const evaluatedFrameworks = evidenceAttachment.frameworks.map(framework => {
+    const gated = applyHydrothermalGate(framework, rules)
+    const gatePass = gated.hydrothermalGate?.status === "pass"
+    const canScore = Boolean(framework.dataQualityGate?.canEnterScoring && gatePass)
+    const scored = canScore ? calculateOACS(gated, frameworkWeights) : gated
+    return {
+      ...scored,
+      dataQualityGate: {
+        ...(framework.dataQualityGate || {}),
+        canEnterScoring: canScore,
+        hydrothermalGateStatus: gated.hydrothermalGate?.status || "pending",
+      },
+      organicAcidScore: canScore
+        ? scored.organicAcidScore
+        : {
+          ...(scored.organicAcidScore || {}),
+          oacs: null,
+          collapseRisk: roundMetric(framework.descriptorScores?.collapseRisk ?? 1),
+          evidenceLevel: framework.dataQualityGate?.status === "rejected" ? "rejected" : "needs_review",
+          weightingMethod: "CRITIC+AHP",
+        },
+      curatedRunStatus: canScore ? "scored_preview" : framework.dataQualityGate?.status || "needs_review",
+      finalRecommendationEligible: canScore,
+    }
+  })
+
+  const rankedFrameworks = [...evaluatedFrameworks]
+    .sort((a, b) => {
+      const qualityDiff = curatedQualityRank(a.dataQualityGate?.status) - curatedQualityRank(b.dataQualityGate?.status)
+      if (qualityDiff !== 0) return qualityDiff
+      return (b.organicAcidScore?.oacs || 0) - (a.organicAcidScore?.oacs || 0)
+    })
+    .map((row, index) => ({ ...row, rank: index + 1 }))
+
+  const selectedFramework = rankedFrameworks.find(row => row.finalRecommendationEligible) || null
+  const mappingReport = buildRealDataMappingReport(
+    rankedFrameworks,
+    source.qmofDescriptors || [],
+    evidenceAttachment.evidenceRecords,
+    source.mappingReport || {},
+    qmofMerge.unmatchedRecords,
+  )
+  const scaffoldHotSpotData = buildCuratedHotSpotPoints(rankedFrameworks, selectedFramework?.id || null)
+  const summary = {
+    dataMode: "curated_real_examples",
+    runType: "Small curated sample validation",
+    frameworkRecords: mappingReport.frameworkRecords,
+    qmofDescriptorRecords: mappingReport.qmofDescriptorRecords,
+    evidenceRecords: mappingReport.evidenceRecords,
+    readyForScoring: mappingReport.readyForScoring,
+    needsReview: mappingReport.needsReview,
+    rejected: mappingReport.rejected,
+    unmatchedQmofDescriptorRecords: mappingReport.unmatchedQmofDescriptorRecords,
+    doiCoverage: mappingReport.doiCoverage,
+    fieldProvenanceCoverage: mappingReport.fieldProvenanceCoverage,
+    hotSpotProjectionStatus: mappingReport.hotSpotProjectionStatus,
+    evidenceBoundary: mappingReport.boundary,
+    evidenceBoundaryZh: mappingReport.boundaryZh,
+    selectedScaffold: selectedFramework?.displayName || "No curated final recommendation",
+    oacs: selectedFramework?.organicAcidScore?.oacs ?? null,
+  }
+
+  return {
+    status: "completed",
+    datasetMode: "curated_real_examples",
+    dataMode: "curated_real_examples",
+    version: "V1.6",
+    rules,
+    metalMatrix,
+    curatedFrameworks: rankedFrameworks,
+    rankedFrameworks,
+    selectedFramework,
+    evidenceRecords: evidenceAttachment.evidenceRecords,
+    mappingReport,
+    summary,
+    provenanceCoverage: {
+      coverage: mappingReport.fieldProvenanceCoverage,
+      doiCoverage: mappingReport.doiCoverage,
+      verifiedCount: 0,
+      totalRecords: mappingReport.frameworkRecords,
+      status: "curated_sample_pending_verification",
+    },
+    scaffoldHotSpotData,
+    hotSpotProjectionData: scaffoldHotSpotData,
+    unmatchedQmofRecords: qmofMerge.unmatchedRecords,
+    evidenceCoverage: calculateEvidenceCoverage(evidenceAttachment.evidenceRecords),
+    hardGateSummary: rankedFrameworks.reduce((acc, row) => {
+      const status = row.hydrothermalGate?.status || "pending"
+      acc[status] = (acc[status] || 0) + 1
+      return acc
+    }, {}),
+  }
+}
+
+function buildCuratedRunSteps(screeningResult = {}) {
+  const report = screeningResult.mappingReport || screeningResult.summary || {}
+  const ready = report.readyForScoring || 0
+  const needsReview = report.needsReview || 0
+  const rejected = report.rejected || 0
+  const totalFrameworks = report.frameworkRecords || (screeningResult.curatedFrameworks || []).length || 0
+  const qmofRecords = report.qmofDescriptorRecords || 0
+  const evidenceRecords = report.evidenceRecords || 0
+
+  return [
+    {
+      id: "load-curated-framework-examples",
+      step: 1,
+      title: "Load curated framework examples",
+      titleZh: "加载人工整理骨架样例",
+      status: "completed",
+      inputCount: totalFrameworks,
+      outputCount: totalFrameworks,
+      decision: "Small curated sample loaded. Not full database screening.",
+      decisionZh: "已加载小规模人工整理样例；不是全量数据库筛选。",
+      linkedSectionId: "organic-acid-final-run-launcher",
+    },
+    {
+      id: "validate-curated-schema",
+      step: 2,
+      title: "Validate schema",
+      titleZh: "验证 schema",
+      status: "completed",
+      inputCount: totalFrameworks,
+      outputCount: totalFrameworks,
+      decision: "Curated records mapped into the Organic Acid screening shape.",
+      decisionZh: "人工整理记录已映射到有机酸筛选数据形状。",
+      linkedSectionId: "organic-acid-final-provenance",
+    },
+    {
+      id: "apply-data-quality-gate",
+      step: 3,
+      title: "Apply data quality gate",
+      titleZh: "应用数据质量门",
+      status: needsReview || rejected ? "warning" : "completed",
+      inputCount: totalFrameworks,
+      outputCount: ready,
+      decision: `${ready} ready, ${needsReview} needs review, ${rejected} rejected by hard gate.`,
+      decisionZh: `${ready} 个可评分，${needsReview} 个需复核，${rejected} 个被硬阈值拒绝。`,
+      linkedSectionId: "organic-acid-final-provenance",
+    },
+    {
+      id: "attach-qmof-descriptors",
+      step: 4,
+      title: "Attach QMOF descriptors",
+      titleZh: "挂接 QMOF 描述符",
+      status: report.unmatchedQmofDescriptorRecords ? "warning" : "completed",
+      inputCount: qmofRecords,
+      outputCount: qmofRecords - (report.unmatchedQmofDescriptorRecords || 0),
+      decision: `${report.unmatchedQmofDescriptorRecords || 0} descriptor records remain unmatched.`,
+      decisionZh: `${report.unmatchedQmofDescriptorRecords || 0} 条描述符记录未匹配。`,
+      linkedSectionId: "organic-acid-final-provenance",
+    },
+    {
+      id: "attach-literature-evidence",
+      step: 5,
+      title: "Attach literature evidence",
+      titleZh: "挂接文献证据",
+      status: "completed",
+      inputCount: evidenceRecords,
+      outputCount: evidenceRecords,
+      decision: "Evidence records remain pending verification unless DOI metadata is present.",
+      decisionZh: "证据记录在无 DOI 元数据时保持待核状态。",
+      linkedSectionId: "organic-acid-final-provenance",
+    },
+    {
+      id: "apply-hydrothermal-gate-curated",
+      step: 6,
+      title: "Apply hydrothermal gate",
+      titleZh: "应用水热门槛",
+      status: rejected ? "warning" : "completed",
+      inputCount: totalFrameworks,
+      outputCount: ready,
+      decision: "Needs-review records stay visible but cannot enter final recommendation.",
+      decisionZh: "需复核记录保持可见，但不能进入最终推荐。",
+      linkedSectionId: "organic-acid-final-framework-ranking",
+    },
+    {
+      id: "calculate-oacs-curated",
+      step: 7,
+      title: "Calculate OACS for eligible examples",
+      titleZh: "为合格样例计算 OACS",
+      status: "completed",
+      inputCount: ready,
+      outputCount: ready,
+      decision: "OACS is calculated only for records that pass the V1.6 data quality gate.",
+      decisionZh: "仅对通过 V1.6 数据质量门的记录计算 OACS。",
+      linkedSectionId: "organic-acid-final-framework-ranking",
+    },
+    {
+      id: "project-curated-hot-spot",
+      step: 8,
+      title: "Project points to hot spot map",
+      titleZh: "投影到热区图",
+      status: "completed",
+      inputCount: totalFrameworks,
+      outputCount: totalFrameworks,
+      decision: report.hotSpotProjectionStatus || "Curated points projected with source and quality roles.",
+      decisionZh: "人工整理样例已带来源和质量状态投影到热区图。",
+      linkedSectionId: "organic-acid-final-hot-spot-map",
+    },
+    {
+      id: "generate-curated-review-summary",
+      step: 9,
+      title: "Generate review summary",
+      titleZh: "生成复核摘要",
+      status: "completed",
+      inputCount: totalFrameworks,
+      outputCount: 1,
+      decision: "Run summary reports DOI coverage, field provenance, and no-full-database boundary.",
+      decisionZh: "运行摘要展示 DOI 覆盖率、字段来源和非全量数据库边界。",
+      linkedSectionId: "organic-acid-final-run-launcher",
+    },
+  ]
+}
+
 export function buildRunSteps(screeningResult = {}, options = {}) {
   const dataMode = options.dataMode || "demo_workflow"
+  if (dataMode === "curated_real_examples") {
+    return buildCuratedRunSteps(screeningResult)
+  }
   const selected = screeningResult?.selectedFramework || {}
   const mo = screeningResult?.moRecommendation || {}
   const w = (screeningResult?.rankedMetals || []).find(row => row.metal === "W") || {}
@@ -1930,7 +2202,7 @@ export function buildRunSteps(screeningResult = {}, options = {}) {
   const scaffoldCount = (screeningResult?.rankedFrameworks || []).length
   const passCount = (screeningResult?.rankedFrameworks || []).filter(row => row.hydrothermalGate?.status === "pass").length
   const metalCount = (screeningResult?.rankedMetals || []).length
-  const status = dataMode === "curated_real_examples" ? "blocked" : "completed"
+  const status = "completed"
 
   return [
     {
@@ -2057,6 +2329,27 @@ export function buildRunSteps(screeningResult = {}, options = {}) {
 }
 
 export function buildRunResultSummary(screeningResult = {}, dataMode = "demo_workflow") {
+  if (dataMode === "curated_real_examples") {
+    const report = screeningResult.mappingReport || screeningResult.summary || {}
+    return {
+      dataMode,
+      runType: "Small curated sample validation",
+      selectedScaffold: screeningResult.selectedFramework?.displayName || "No curated final recommendation",
+      oacs: screeningResult.selectedFramework?.organicAcidScore?.oacs ?? null,
+      frameworkRecords: report.frameworkRecords || 0,
+      readyForScoring: report.readyForScoring || 0,
+      needsReview: report.needsReview || 0,
+      rejected: report.rejected || 0,
+      qmofDescriptorRecords: report.qmofDescriptorRecords || 0,
+      evidenceRecords: report.evidenceRecords || 0,
+      unmatchedQmofDescriptorRecords: report.unmatchedQmofDescriptorRecords || 0,
+      doiCoverage: report.doiCoverage ?? 0,
+      fieldProvenanceCoverage: report.fieldProvenanceCoverage ?? 0,
+      hotSpotProjectionStatus: report.hotSpotProjectionStatus || "projected_with_quality_gate_roles",
+      evidenceBoundary: report.boundary || "Small curated sample only. Not full database screening.",
+      evidenceBoundaryZh: report.boundaryZh || "仅小规模人工整理样例；不是全量数据库筛选。",
+    }
+  }
   const selected = screeningResult?.selectedFramework || {}
   const mo = screeningResult?.moRecommendation || {}
   const w = (screeningResult?.rankedMetals || []).find(row => row.metal === "W") || {}
@@ -2080,13 +2373,18 @@ export function buildRunResultSummary(screeningResult = {}, dataMode = "demo_wor
 
 export function buildRunTraceFromResult(screeningResult = {}, runSteps = []) {
   const trace = Array.isArray(screeningResult?.algorithmTrace) ? screeningResult.algorithmTrace : []
+  const isCurated = screeningResult?.datasetMode === "curated_real_examples" || screeningResult?.dataMode === "curated_real_examples"
   return [
     {
       id: "run-boundary",
       title: "Run boundary",
       titleZh: "运行边界",
-      detail: "Run demo screening workflow uses current demo / mapped-fixture-ready data only.",
-      detailZh: "运行演示筛选流程只使用当前 demo / mapped-fixture-ready 数据。",
+      detail: isCurated
+        ? "Curated mode uses a small V1.6 sample to validate mapping, quality gates, and hot spot projection. It is not full database screening."
+        : "Run demo screening workflow uses current demo / mapped-fixture-ready data only.",
+      detailZh: isCurated
+        ? "Curated 模式使用 V1.6 小样例验证映射、质量门和热区投影；不是全量数据库筛选。"
+        : "运行演示筛选流程只使用当前 demo / mapped-fixture-ready 数据。",
     },
     ...runSteps.map(step => ({
       id: `run-${step.id}`,
@@ -2103,24 +2401,15 @@ export function buildRunTraceFromResult(screeningResult = {}, runSteps = []) {
 export function runDemoScreeningWorkflow(frameworkCandidates, metalMatrix, rules = {}, evidenceRecords = [], options = {}) {
   const dataMode = options.dataMode || "demo_workflow"
   if (dataMode === "curated_real_examples") {
-    const steps = buildRunSteps({}, { dataMode }).map(step => ({
-      ...step,
-      status: "blocked",
-      decision: "Curated real examples are coming soon and are not enabled in V1.5 patch.",
-      decisionZh: "人工整理真实样例即将开放，V1.5 patch 中未启用。",
-    }))
+    const result = options.curatedRealResult || buildCuratedRealScreeningResult(options.curatedRealExamples || null, metalMatrix, rules)
+    const steps = buildRunSteps(result, { dataMode })
     return {
-      status: "blocked",
+      status: "completed",
       dataMode,
       steps,
-      result: null,
-      summary: {
-        dataMode,
-        selectedScaffold: "Unavailable",
-        evidenceBoundary: "Curated real examples are disabled in this V1.5 patch.",
-        evidenceBoundaryZh: "人工整理真实样例在 V1.5 patch 中禁用。",
-      },
-      trace: buildRunTraceFromResult({}, steps),
+      result,
+      summary: buildRunResultSummary(result, dataMode),
+      trace: buildRunTraceFromResult(result, steps),
     }
   }
   const result = runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, rules, evidenceRecords)
