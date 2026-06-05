@@ -1,0 +1,22 @@
+[
+  {
+    "qmof_id": "QMOF-LIKE-MO-001",
+    "metal": "Mo",
+    "band_gap_eV": 1.45,
+    "partial_charge_metal": 1.86,
+    "oxo_affinity_proxy": 0.86,
+    "formate_affinity_proxy": 0.82,
+    "redox_window_proxy": 0.79,
+    "confidence": "medium"
+  },
+  {
+    "qmof_id": "QMOF-LIKE-W-002",
+    "metal": "W",
+    "band_gap_eV": 1.61,
+    "partial_charge_metal": 1.78,
+    "oxo_affinity_proxy": 0.81,
+    "formate_affinity_proxy": 0.78,
+    "redox_window_proxy": 0.76,
+    "confidence": "medium"
+  }
+]

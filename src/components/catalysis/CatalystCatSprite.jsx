@@ -12,6 +12,7 @@ export function CatalystCatSprite({ mood = "happy", x = 0, y = 0, dragging = fal
       aria-valuenow={Math.round(((x - 90) / 590) * 100)}
       transform={`translate(${x - 38} ${y - 76})`}
       className="energy-cat-mascot"
+      data-testid="catalyst-cat-drag-handle"
       data-dragging={dragging ? "true" : "false"}
       data-mood={mood}
       data-reduced-motion={reducedMotion ? "true" : "false"}
@@ -22,7 +23,7 @@ export function CatalystCatSprite({ mood = "happy", x = 0, y = 0, dragging = fal
       onDoubleClick={onDoubleClick}
       onClick={onClick}
       onKeyDown={onKeyDown}
-      style={{ cursor: dragging ? "grabbing" : "grab", outline: "none", touchAction: "none" }}
+      style={{ cursor: dragging ? "grabbing" : "grab", outline: "none", pointerEvents: "auto", touchAction: "none", userSelect: "none" }}
     >
       <path d="M-16 27 L-29 5 L-5 13 Z" fill="#F8B66B" stroke="#7C2D12" strokeLinejoin="round" strokeWidth="3" />
       <path d="M43 27 L60 6 L63 36 Z" fill="#F8B66B" stroke="#7C2D12" strokeLinejoin="round" strokeWidth="3" />

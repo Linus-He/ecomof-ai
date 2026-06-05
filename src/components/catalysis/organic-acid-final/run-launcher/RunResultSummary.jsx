@@ -1,0 +1,27 @@
+// @ts-nocheck
+import { ChemicalText } from "../../../../shared"
+import { MiniMetric, StatusPill, displayValue, formatScore, text } from "../FinalScreeningShared"
+
+export function RunResultSummary({ summary, lang, t, isMobile }) {
+  if (!summary) return null
+  return (
+    <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 10 }}>
+      <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
+        <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "运行结果摘要", "Run Result Summary")}</strong>
+        <StatusPill tone="warn" t={t}>demo / proxy run</StatusPill>
+      </div>
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(150px, 1fr))" }}>
+        <MiniMetric label={text(lang, "选定骨架", "Selected scaffold")} value={summary.selectedScaffold} t={t} />
+        <MiniMetric label="OACS" value={formatScore(summary.oacs)} t={t} />
+        <MiniMetric label={text(lang, "Top dopants", "Top dopants")} value={(summary.topDopants || []).join(" / ")} t={t} />
+        <MiniMetric label="Mo-W gap" value={formatScore(summary.moWGap)} t={t} />
+        <MiniMetric label={text(lang, "稳健性", "Robustness")} value={summary.robustnessStatus} t={t} tone="warn" />
+        <MiniMetric label={text(lang, "热区状态", "Hot spot status")} value={summary.hotSpotStatus} t={t} />
+        <MiniMetric label={text(lang, "EXAFS 状态", "EXAFS status")} value={summary.exafsHypothesisStatus} t={t} />
+      </div>
+      <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 8, color: t.muted, fontSize: 12.2, fontWeight: 850, lineHeight: 1.5, padding: 9 }}>
+        <ChemicalText value={displayValue(text(lang, summary.evidenceBoundaryZh, summary.evidenceBoundary))} />
+      </div>
+    </section>
+  )
+}

@@ -5,7 +5,7 @@ import { CatEffectContributionPanel } from "./CatEffectContributionPanel"
 import { CatEnergyCurve } from "./CatEnergyCurve"
 import { CatScienceMetricsPanel } from "./CatScienceMetricsPanel"
 import { DescriptorTreatChips } from "./DescriptorTreatChips"
-import { CAT_MOF_OPTIONS, clamp, computeCatEnergyState } from "./catEnergyModel"
+import { CAT_MOF_OPTIONS, catScienceZoneForPoint, clamp, computeCatEnergyState } from "./catEnergyModel"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -49,6 +49,8 @@ export function CatalysisEnergyBarrierDemo({ lang, t, isMobile, onNavigateToSect
   const [mofId, setMofId] = useState("uio66nh2")
   const [selectedDescriptorIds, setSelectedDescriptorIds] = useState(["pore-matching", "polar-functional-group"])
   const [catProgress, setCatProgress] = useState(52)
+  const [catSciencePoint, setCatSciencePoint] = useState(null)
+  const [catResetToken, setCatResetToken] = useState(0)
   const [showNote, setShowNote] = useState(true)
   const [reducedMotion, setReducedMotion] = useState(false)
 
@@ -74,7 +76,8 @@ export function CatalysisEnergyBarrierDemo({ lang, t, isMobile, onNavigateToSect
 
   const pathway = pathways.find(item => item.id === pathwayId) || pathways[0] || FALLBACK_PATHWAY
   const mof = CAT_MOF_OPTIONS.find(item => item.id === mofId) || CAT_MOF_OPTIONS[1]
-  const state = useMemo(() => computeCatEnergyState({ pathway, descriptors, selectedDescriptorIds, mof, catProgress }), [pathway, descriptors, selectedDescriptorIds, mof, catProgress])
+  const catScienceZone = useMemo(() => catSciencePoint ? catScienceZoneForPoint(catSciencePoint) : null, [catSciencePoint])
+  const state = useMemo(() => computeCatEnergyState({ pathway, descriptors, selectedDescriptorIds, mof, catProgress, catScienceZone }), [pathway, descriptors, selectedDescriptorIds, mof, catProgress, catScienceZone])
 
   const toggleDescriptor = (id) => {
     setShowNote(true)
@@ -84,6 +87,8 @@ export function CatalysisEnergyBarrierDemo({ lang, t, isMobile, onNavigateToSect
   const reset = () => {
     setSelectedDescriptorIds([])
     setCatProgress(52)
+    setCatSciencePoint(null)
+    setCatResetToken(current => current + 1)
     setMofId("uio66nh2")
     setPathwayId("formic-acid")
     setShowNote(true)
@@ -149,9 +154,12 @@ export function CatalysisEnergyBarrierDemo({ lang, t, isMobile, onNavigateToSect
             state={state}
             catProgress={catProgress}
             setCatProgress={setCatProgress}
+            onCatPointChange={setCatSciencePoint}
+            onNavigateZone={goToSection}
             showNote={showNote}
             setShowNote={setShowNote}
             reducedMotion={reducedMotion}
+            resetToken={catResetToken}
             resetCat={() => setCatProgress(52)}
           />
         </div>

@@ -1517,7 +1517,7 @@ details[open].motion-surface {
   position: relative;
 }
 
-.cat-note-bubble button {
+.cat-note-bubble .cat-note-close {
   background: transparent;
   border: 0;
   color: currentColor;
@@ -1527,6 +1527,44 @@ details[open].motion-surface {
   position: absolute;
   right: 6px;
   top: 3px;
+}
+
+.cat-note-bubble--expanded {
+  display: grid;
+  gap: 4px;
+  min-height: 146px;
+  padding: 9px 28px 10px 10px;
+}
+
+.cat-note-bubble--expanded strong,
+.cat-note-bubble--expanded span,
+.cat-note-bubble--expanded small {
+  display: block;
+}
+
+.cat-note-bubble--expanded strong {
+  font-size: 12px;
+}
+
+.cat-note-bubble--expanded small {
+  color: inherit;
+  font-size: 10.8px;
+  line-height: 1.35;
+  opacity: 0.86;
+}
+
+.cat-note-bubble .cat-note-action {
+  align-self: start;
+  background: #1A6DB5;
+  border: 1px solid #1A6DB5;
+  border-radius: 7px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 10.6px;
+  font-weight: 850;
+  min-height: 24px;
+  padding: 3px 7px;
+  position: static;
 }
 
 .cat-spark {

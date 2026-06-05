@@ -1,10 +1,16 @@
 // @ts-nocheck
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { CatalystCatSprite } from "./CatalystCatSprite"
-import { clamp } from "./catEnergyModel"
+import { catScienceZoneForPoint, clamp } from "./catEnergyModel"
+
+const CAT_POINT_STORAGE_KEY = "ecomof-cat-energy-point"
 
 function xScale(progress) {
   return 90 + (clamp(progress, 0, 100) / 100) * 590
+}
+
+function progressFromX(x) {
+  return Math.round(clamp(((Number(x) - 90) / 590) * 100, 0, 100))
 }
 
 function curveY(progress, peakY, productY = 292, width = 0.18) {
@@ -26,56 +32,191 @@ function pathFor(peakY, productY, width) {
   }).join(" ")
 }
 
-export function CatEnergyCurve({ lang, t, state, catProgress, setCatProgress, showNote, setShowNote, reducedMotion, resetCat }) {
+function clampPoint(point) {
+  return {
+    x: clamp(Number(point?.x) || 90, 90, 680),
+    y: clamp(Number(point?.y) || 260, 72, 318),
+  }
+}
+
+function loadStoredPoint(fallbackPoint) {
+  if (typeof window === "undefined") return fallbackPoint
+  try {
+    const parsed = JSON.parse(window.localStorage.getItem(CAT_POINT_STORAGE_KEY) || "null")
+    if (Number.isFinite(parsed?.x) && Number.isFinite(parsed?.y)) return clampPoint(parsed)
+  } catch {
+    return fallbackPoint
+  }
+  return fallbackPoint
+}
+
+function storePoint(point) {
+  if (typeof window === "undefined") return
+  try {
+    window.localStorage.setItem(CAT_POINT_STORAGE_KEY, JSON.stringify(clampPoint(point)))
+  } catch {
+    // Persistence is optional; drag interaction still works without localStorage.
+  }
+}
+
+function clearStoredPoint() {
+  if (typeof window === "undefined") return
+  try {
+    window.localStorage.removeItem(CAT_POINT_STORAGE_KEY)
+  } catch {
+    // Ignore storage failures in private or restricted browser contexts.
+  }
+}
+
+export function CatEnergyCurve({
+  lang,
+  t,
+  state,
+  catProgress,
+  setCatProgress,
+  onCatPointChange,
+  onNavigateZone,
+  showNote,
+  setShowNote,
+  reducedMotion,
+  resetCat,
+  resetToken,
+}) {
   const [dragging, setDragging] = useState(false)
   const svgRef = useRef(null)
+  const didHandleResetRef = useRef(false)
   const zh = lang === "zh"
   const baselinePeakY = 72
   const baselineProductY = 260 + Math.max(-45, Math.min(45, state.baselineDeltaE * 3))
   const mofPeakY = 260 - (state.mofEa / Math.max(1, state.baselineEa)) * (260 - baselinePeakY)
   const mofProductY = baselineProductY + state.reactionEnergyDelta * 3
-  const catX = xScale(catProgress)
-  const catY = curveY(catProgress, mofPeakY, mofProductY, 0.145) + 15
+  const fallbackPoint = clampPoint({
+    x: xScale(catProgress),
+    y: curveY(catProgress, mofPeakY, mofProductY, 0.145) + 15,
+  })
+  const [catPoint, setCatPoint] = useState(() => loadStoredPoint(fallbackPoint))
+  const catScienceZone = catScienceZoneForPoint(catPoint)
+  const catX = catPoint.x
+  const catY = catPoint.y
+  const bubbleX = Math.min(454, Math.max(92, catX - 120))
+  const bubbleY = Math.min(254, Math.max(12, catY - 166))
 
-  const updateFromPointer = (clientX) => {
+  useEffect(() => {
+    onCatPointChange?.(catPoint)
+  }, [catPoint, onCatPointChange])
+
+  useEffect(() => {
+    if (resetToken === undefined) return
+    if (!didHandleResetRef.current) {
+      didHandleResetRef.current = true
+      return
+    }
+    clearStoredPoint()
+    setCatPoint(fallbackPoint)
+    setCatProgress(progressFromX(fallbackPoint.x))
+    onCatPointChange?.(fallbackPoint)
+  }, [resetToken])
+
+  const pointFromPointer = (event) => {
     const rect = svgRef.current?.getBoundingClientRect()
-    if (!rect) return
-    const svgX = ((clientX - rect.left) / rect.width) * 760
-    setCatProgress(Math.round(clamp(((svgX - 90) / 590) * 100, 0, 100)))
+    if (!rect) return null
+    return clampPoint({
+      x: ((event.clientX - rect.left) / rect.width) * 760,
+      y: ((event.clientY - rect.top) / rect.height) * 430,
+    })
   }
+
+  const commitPoint = (point, persist = false) => {
+    const next = clampPoint(point)
+    setCatPoint(next)
+    setCatProgress(progressFromX(next.x))
+    onCatPointChange?.(next)
+    if (persist) storePoint(next)
+  }
+
+  const resetPoint = (event) => {
+    event?.preventDefault?.()
+    clearStoredPoint()
+    setDragging(false)
+    setShowNote(true)
+    commitPoint(fallbackPoint, false)
+    resetCat?.()
+  }
+
   const down = event => {
-    event.currentTarget.setPointerCapture?.(event.pointerId)
+    const next = pointFromPointer(event)
+    if (!next) return
+    event.preventDefault()
+    svgRef.current?.setPointerCapture?.(event.pointerId)
     setDragging(true)
     setShowNote(true)
-    updateFromPointer(event.clientX)
+    commitPoint(next)
   }
+
   const move = event => {
-    if (dragging) updateFromPointer(event.clientX)
+    if (!dragging) return
+    const next = pointFromPointer(event)
+    if (!next) return
+    event.preventDefault()
+    commitPoint(next)
   }
+
   const up = event => {
-    event.currentTarget.releasePointerCapture?.(event.pointerId)
+    if (!dragging) return
+    event.preventDefault()
+    svgRef.current?.releasePointerCapture?.(event.pointerId)
+    const next = pointFromPointer(event) || catPoint
+    commitPoint(next, true)
     setDragging(false)
   }
+
   const key = event => {
-    if (["ArrowLeft", "ArrowDown"].includes(event.key)) {
-      event.preventDefault()
-      setCatProgress(current => clamp(current - 5, 0, 100))
-    }
-    if (["ArrowRight", "ArrowUp"].includes(event.key)) {
-      event.preventDefault()
-      setCatProgress(current => clamp(current + 5, 0, 100))
-    }
-    if (event.key === "Home") setCatProgress(0)
-    if (event.key === "End") setCatProgress(100)
+    const stepX = event.shiftKey ? 48 : 24
+    const stepY = event.shiftKey ? 36 : 18
+    let next = null
+    if (event.key === "ArrowLeft") next = { x: catPoint.x - stepX, y: catPoint.y }
+    if (event.key === "ArrowRight") next = { x: catPoint.x + stepX, y: catPoint.y }
+    if (event.key === "ArrowUp") next = { x: catPoint.x, y: catPoint.y - stepY }
+    if (event.key === "ArrowDown") next = { x: catPoint.x, y: catPoint.y + stepY }
+    if (event.key === "Home") next = { x: 90, y: catPoint.y }
+    if (event.key === "End") next = { x: 680, y: catPoint.y }
+    if (!next) return
+    event.preventDefault()
+    setShowNote(true)
+    commitPoint(next, true)
+  }
+
+  const navigateToZone = event => {
+    event.stopPropagation()
+    if (catScienceZone.actionId) onNavigateZone?.(catScienceZone.actionId)
   }
 
   return (
     <div className="cat-energy-curve-card" style={{ background: t.panel, borderColor: t.border }}>
-      <svg ref={svgRef} viewBox="0 0 760 430" role="img" aria-label={zh ? "催化小猫能量游乐场" : "Catalyst Cat Energy Playground"} className="cat-energy-svg">
+      <svg
+        ref={svgRef}
+        viewBox="0 0 760 430"
+        role="img"
+        aria-label={zh ? "催化小猫能量游乐场" : "Catalyst Cat Energy Playground"}
+        className="cat-energy-svg"
+        onPointerMove={move}
+        onPointerUp={up}
+        onPointerCancel={up}
+        style={{ touchAction: "none" }}
+      >
         <rect x="0" y="0" width="760" height="430" rx="12" fill={t.panel} />
+        <rect x="90" y="76" width="130" height="242" rx="10" fill="#DBEAFE" opacity="0.18" />
+        <rect x="220" y="76" width="136" height="242" rx="10" fill="#DCFCE7" opacity="0.18" />
+        <rect x="356" y="76" width="144" height="242" rx="10" fill="#FEF3C7" opacity="0.2" />
+        <rect x="500" y="76" width="120" height="242" rx="10" fill="#FCE7F3" opacity="0.18" />
+        <rect x="90" y="76" width="590" height="58" rx="10" fill="#E0F2FE" opacity="0.2" />
         {[82, 160, 260, 292].map(y => <line key={y} x1="82" x2="696" y1={y} y2={y} stroke={t.divider} strokeDasharray="4 8" />)}
         <line x1="82" y1="346" x2="704" y2="346" stroke={t.textStrong} strokeWidth="3" strokeLinecap="round" />
         <line x1="82" y1="346" x2="82" y2="58" stroke={t.textStrong} strokeWidth="3" strokeLinecap="round" />
+        <text x="148" y="98" fill={t.muted} fontSize="10.5" fontWeight="900" textAnchor="middle">{zh ? "水热阈值" : "Hydrothermal"}</text>
+        <text x="288" y="98" fill={t.muted} fontSize="10.5" fontWeight="900" textAnchor="middle">{zh ? "OACS" : "OACS"}</text>
+        <text x="428" y="98" fill={t.muted} fontSize="10.5" fontWeight="900" textAnchor="middle">{zh ? "DMRS" : "DMRS"}</text>
+        <text x="560" y="98" fill={t.muted} fontSize="10.5" fontWeight="900" textAnchor="middle">{zh ? "EXAFS" : "EXAFS"}</text>
         <text x="358" y="390" fill={t.textStrong} fontSize="17" fontWeight="900" textAnchor="middle">{zh ? "反应坐标" : "Reaction coordinate"}</text>
         <text x="30" y="205" fill={t.textStrong} fontSize="17" fontWeight="900" textAnchor="middle" transform="rotate(-90 30 205)">{zh ? "能量" : "Energy"}</text>
         <path d={pathFor(baselinePeakY, baselineProductY, 0.18)} fill="none" stroke={t.faint} strokeWidth="6" strokeLinecap="round" opacity="0.75" />
@@ -95,13 +236,29 @@ export function CatEnergyCurve({ lang, t, state, catProgress, setCatProgress, sh
           <text x="24" y="76" fill="#1A6DB5" fontSize="12" fontWeight="900" textAnchor="middle">MOF</text>
         </g>
         <g>
-          <CatalystCatSprite mood={state.mood} x={catX} y={catY} dragging={dragging} reducedMotion={reducedMotion} onPointerDown={down} onPointerMove={move} onPointerUp={up} onDoubleClick={resetCat} onClick={() => setShowNote(true)} onKeyDown={key} />
+          <CatalystCatSprite
+            mood={state.mood}
+            x={catX}
+            y={catY}
+            dragging={dragging}
+            reducedMotion={reducedMotion}
+            onPointerDown={down}
+            onDoubleClick={resetPoint}
+            onClick={() => setShowNote(true)}
+            onKeyDown={key}
+          />
         </g>
         {showNote ? (
-          <foreignObject x={Math.min(506, Math.max(92, catX - 80))} y={Math.max(14, catY - 118)} width="230" height="88">
-            <div className="cat-note-bubble" style={{ background: state.riskPenalty > 22 ? t.badgeWarnBg : t.badgeInfoBg, borderColor: state.riskPenalty > 22 ? t.warn : t.accent, color: t.textStrong }}>
-              <button type="button" onClick={() => setShowNote(false)} aria-label={zh ? "关闭小猫提示" : "Close cat note"}>×</button>
-              {zh ? `小猫提示：当前位于${state.zone.labelZh}，ΔEa 变化 ${state.activationEnergyDelta} kJ/mol，证据等级 ${state.evidenceLevel}，需要进一步验证。` : `Cat note: In the ${state.zone.labelEn}, ΔEa changes by ${state.activationEnergyDelta} kJ/mol. Evidence ${state.evidenceLevel}; validation is still needed.`}
+          <foreignObject x={bubbleX} y={bubbleY} width="286" height="154">
+            <div className="cat-note-bubble cat-note-bubble--expanded" style={{ background: state.riskPenalty > 22 ? t.badgeWarnBg : t.badgeInfoBg, borderColor: state.riskPenalty > 22 ? t.warn : t.accent, color: t.textStrong }}>
+              <button type="button" className="cat-note-close" onClick={() => setShowNote(false)} aria-label={zh ? "关闭小猫提示" : "Close cat note"}>×</button>
+              <strong>{zh ? "小猫提示 / Cat insight" : "Cat insight"}</strong>
+              <span>{zh ? "当前区域 / Current zone" : "Current zone"}: {zh ? catScienceZone.labelZh : catScienceZone.labelEn}</span>
+              <span>{zh ? "相关指标 / Related metric" : "Related metric"}: {zh ? catScienceZone.metricZh : catScienceZone.metric}</span>
+              <small>{zh ? catScienceZone.insightZh : catScienceZone.insight}</small>
+              <button type="button" className="cat-note-action" onClick={navigateToZone}>
+                {zh ? catScienceZone.actionLabelZh : catScienceZone.actionLabel}
+              </button>
             </div>
           </foreignObject>
         ) : null}

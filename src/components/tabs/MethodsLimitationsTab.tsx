@@ -344,19 +344,22 @@ export function MethodsLimitationsTab() {
             </div>
           </section>
 
-          {orderedModules.map(item => (
-            item.id === "platform-overview" ? null : (
+          {orderedModules.map(item => {
+            if (item.id === "platform-overview") return null
+            const moduleBlock = (
               <div key={item.id} style={{ display: "grid", gap: 16 }}>
                 <MethodModuleSection item={item} lang={lang} t={t} />
-                {item.id === "organic-acid" ? (
-                  <>
-                    <OrganicAcidFinalMethodology lang={lang} t={t} />
-                    <VersionDocsPanel lang={lang} t={t} isMobile={isMobile || isNarrow} />
-                  </>
-                ) : null}
+                {item.id === "organic-acid" ? <OrganicAcidFinalMethodology lang={lang} t={t} /> : null}
               </div>
             )
-          ))}
+            if (item.id === "organic-acid") {
+              return [
+                moduleBlock,
+                <VersionDocsPanel key="methodology-version-docs-panel" lang={lang} t={t} isMobile={isMobile || isNarrow} />,
+              ]
+            }
+            return moduleBlock
+          })}
         </main>
       </div>
     </div>

@@ -1,0 +1,95 @@
+[
+  {
+    "id": "LIT-HOTSPOT-2025-NATCOMM",
+    "title": "The geometric-electronic coupled design of diatomic catalyst towards oxygen reduction reaction",
+    "authors": "Yan Liu, Yan Yang, Xuanni Lin, Yutao Lin, Zhiwen Zhuo, Dong Liu, Junjie Mao, Jun Jiang",
+    "year": 2025,
+    "journal": "Nature Communications",
+    "doi": "10.1038/s41467-025-60170-0",
+    "sourceType": "uploaded_paper",
+    "status": "verified_from_uploaded_file",
+    "coreIdea": "Constructs a catalytic hot spot map using geometric and electronic descriptors to guide diatomic catalyst design.",
+    "coreIdeaZh": "使用几何描述符与电子描述符构建催化热区图，以指导双原子催化剂设计。",
+    "inspiredVersions": ["V1.4"],
+    "inspiredModules": [
+      "Coupled Descriptor Hot Spot Map",
+      "Descriptor Coupling Panel",
+      "Validation Evidence Ladder"
+    ],
+    "adaptationBoundary": "EcoMOF-AI borrows the coupled-descriptor visualization philosophy, not the ORR model, DFT dataset, ML workflow, or experimental claim.",
+    "adaptationBoundaryZh": "EcoMOF-AI 借鉴耦合描述符可视化思想，而不是复现 ORR 模型、DFT 数据集、ML 工作流或实验结论。",
+    "relatedQuotesOrNotes": [
+      "The article builds a catalytic hot spot map from geometric and electronic descriptors.",
+      "The workflow links feature engineering, DFT, ML, hot spot mapping, and experimental validation."
+    ]
+  },
+  {
+    "id": "LIT-ML-MOF-DESIGN-PLACEHOLDER",
+    "title": "Pending metadata from previous uploaded MOF machine-learning paper",
+    "authors": null,
+    "year": null,
+    "journal": null,
+    "doi": null,
+    "sourceType": "previous_uploaded_reference",
+    "status": "pending_metadata",
+    "coreIdea": "Inspired target-specific descriptor construction and interpretable screening workflow.",
+    "coreIdeaZh": "启发了面向目标任务的描述符构建与可解释筛选工作流。",
+    "inspiredVersions": ["V1.0", "V1.1"],
+    "inspiredModules": [
+      "OACS / DMRS workflow",
+      "Robustness audit",
+      "Evidence boundary design"
+    ],
+    "adaptationBoundary": "Pending bibliographic verification; do not cite as verified source or proof of EcoMOF-AI ranking.",
+    "adaptationBoundaryZh": "书目信息待核验；不得作为已验证来源引用，也不得作为 EcoMOF-AI 排名证明。",
+    "relatedQuotesOrNotes": [
+      "Pending metadata. Preserve as design-history note only."
+    ]
+  },
+  {
+    "id": "LIT-EVIDENCE-PROVENANCE-PLACEHOLDER",
+    "title": "Pending metadata from evidence provenance and data-curation practice",
+    "authors": null,
+    "year": null,
+    "journal": null,
+    "doi": null,
+    "sourceType": "previous_uploaded_reference",
+    "status": "pending_metadata",
+    "coreIdea": "Inspired field-level provenance, evidence boundary notices, and version-to-source traceability.",
+    "coreIdeaZh": "启发了字段级来源、证据边界提示和版本-来源追踪。",
+    "inspiredVersions": ["V1.2", "V1.3", "V1.5"],
+    "inspiredModules": [
+      "Algorithm Trace Drawer",
+      "Evidence Strength Matrix",
+      "Version ↔ Literature Source Map"
+    ],
+    "adaptationBoundary": "Pending metadata; used only to preserve internal design rationale and not as a scientific validation source.",
+    "adaptationBoundaryZh": "元数据待补；仅用于保留内部设计依据，不作为科学验证来源。",
+    "relatedQuotesOrNotes": [
+      "Pending metadata. No DOI is displayed until verified."
+    ]
+  },
+  {
+    "id": "LIT-DATA-MAPPER-PENDING",
+    "title": "Pending metadata from previous uploaded data-mapping reference",
+    "authors": null,
+    "year": null,
+    "journal": null,
+    "doi": null,
+    "sourceType": "previous_uploaded_reference",
+    "status": "pending_metadata",
+    "coreIdea": "Inspired schema-first data intake, mapper preview, validation checks, and quality gates before scoring.",
+    "coreIdeaZh": "启发了评分前的 schema-first 数据接入、mapper preview、validation checks 和 quality gates。",
+    "inspiredVersions": ["V1.5", "V1.6"],
+    "inspiredModules": [
+      "Data Mapper Preview Panel",
+      "Schema Validation Panel",
+      "Data Quality Gate Panel"
+    ],
+    "adaptationBoundary": "Pending bibliographic verification; the mapper remains a small-fixture preview and does not integrate full CoRE/QMOF.",
+    "adaptationBoundaryZh": "书目信息待核验；mapper 仍是小型 fixture 预览，不接入完整 CoRE/QMOF。",
+    "relatedQuotesOrNotes": [
+      "Pending metadata. Treat as roadmap inspiration only."
+    ]
+  }
+]

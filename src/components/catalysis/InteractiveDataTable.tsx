@@ -67,7 +67,7 @@ export function getOrganicAcidStepHighlight(activeStep) {
       usedIn: ["A1", "A2", "A3", "A4", "B1"],
     },
     selectivity: {
-      label: "选择性因子 SelectivityFactor",
+      label: "选择性因子",
       keys: ["Y_FA", "S_FA_C", "Y_lactic", "Y_acetic", "Y_glycolic", "Y_pyruvic", "Y_solid"],
       usedIn: ["SelectivityFactor", "Ranking"],
     },

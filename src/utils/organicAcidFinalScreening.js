@@ -164,7 +164,7 @@ export function applyHydrothermalGate(candidate, rules) {
       ...candidate,
       hydrothermalGate: {
         status: "fail",
-        reason: `No hydrothermal stability evidence at >=${minTemp}C.`,
+        reason: `No hydrothermal stability evidence at >=${minTemp} C.`,
       },
       organicAcidScore: {
         ...(candidate?.organicAcidScore || {}),
@@ -193,10 +193,10 @@ export function applyHydrothermalGate(candidate, rules) {
 
   return {
     ...candidate,
-    hydrothermalGate: {
-      status: "pass",
-      reason: `Hydrothermal evidence meets >=${minTemp}C threshold with post-treatment PXRD.`,
-    },
+      hydrothermalGate: {
+        status: "pass",
+        reason: `Hydrothermal evidence meets >=${minTemp} C threshold with post-treatment PXRD.`,
+      },
   }
 }
 
@@ -1919,6 +1919,220 @@ export function buildAlgorithmTrace(screeningResult) {
       items: controls,
     },
   ]
+}
+
+export function buildRunSteps(screeningResult = {}, options = {}) {
+  const dataMode = options.dataMode || "demo_workflow"
+  const selected = screeningResult?.selectedFramework || {}
+  const mo = screeningResult?.moRecommendation || {}
+  const w = (screeningResult?.rankedMetals || []).find(row => row.metal === "W") || {}
+  const hotSpotMo = (screeningResult?.synergyHotSpotData || []).find(row => row.metal === "Mo") || {}
+  const scaffoldCount = (screeningResult?.rankedFrameworks || []).length
+  const passCount = (screeningResult?.rankedFrameworks || []).filter(row => row.hydrothermalGate?.status === "pass").length
+  const metalCount = (screeningResult?.rankedMetals || []).length
+  const status = dataMode === "curated_real_examples" ? "blocked" : "completed"
+
+  return [
+    {
+      id: "load-candidate-frameworks",
+      step: 1,
+      title: "Load candidate frameworks",
+      titleZh: "加载候选骨架",
+      status,
+      inputCount: scaffoldCount,
+      outputCount: scaffoldCount,
+      decision: dataMode === "mapped_fixtures" ? "Mapped fixtures use the V1.5 schema preview layer." : "Demo framework pool loaded.",
+      decisionZh: dataMode === "mapped_fixtures" ? "映射样例使用 V1.5 schema preview 层。" : "演示骨架池已加载。",
+      linkedSectionId: "organic-acid-final-framework-ranking",
+    },
+    {
+      id: "apply-hydrothermal-gate",
+      step: 2,
+      title: "Apply hydrothermal hard gate",
+      titleZh: "应用水热硬阈值",
+      status,
+      inputCount: scaffoldCount,
+      outputCount: passCount,
+      decision: `${passCount} candidates pass the >=150 C water-stability gate.`,
+      decisionZh: `${passCount} 个候选通过 >=150 C 水稳定性阈值。`,
+      linkedSectionId: "organic-acid-final-framework-ranking",
+    },
+    {
+      id: "calculate-oacs",
+      step: 3,
+      title: "Calculate OACS",
+      titleZh: "计算 OACS",
+      status,
+      inputCount: passCount,
+      outputCount: passCount,
+      decision: `Selected scaffold OACS ${selected?.organicAcidScore?.oacs ?? "Pending"}.`,
+      decisionZh: `选定骨架 OACS ${selected?.organicAcidScore?.oacs ?? "Pending"}。`,
+      linkedSectionId: "organic-acid-final-framework-ranking",
+    },
+    {
+      id: "select-scaffold",
+      step: 4,
+      title: "Select scaffold",
+      titleZh: "选择骨架候选",
+      status,
+      inputCount: passCount,
+      outputCount: selected?.id ? 1 : 0,
+      decision: selected?.displayName || "Selected scaffold pending.",
+      decisionZh: selected?.displayName || "选定骨架待定。",
+      linkedSectionId: "organic-acid-final-framework-ranking",
+    },
+    {
+      id: "evaluate-dopant-metals",
+      step: 5,
+      title: "Evaluate dopant metals",
+      titleZh: "评估第二金属",
+      status,
+      inputCount: metalCount,
+      outputCount: metalCount,
+      decision: "Mo, W, V, Fe, Ti, Zr remain visible with Ru/Pd/Ag blind baselines.",
+      decisionZh: "Mo、W、V、Fe、Ti、Zr 保持可见，并保留 Ru/Pd/Ag 盲测基线。",
+      linkedSectionId: "organic-acid-final-dopant-matrix",
+    },
+    {
+      id: "calculate-dmrs",
+      step: 6,
+      title: "Calculate DMRS",
+      titleZh: "计算 DMRS",
+      status,
+      inputCount: metalCount,
+      outputCount: metalCount,
+      decision: `Mo ${mo.dmrs ?? "Pending"}; W ${w.dmrs ?? "Pending"}.`,
+      decisionZh: `Mo ${mo.dmrs ?? "Pending"}；W ${w.dmrs ?? "Pending"}。`,
+      linkedSectionId: "organic-acid-final-dopant-matrix",
+    },
+    {
+      id: "run-sensitivity-audit",
+      step: 7,
+      title: "Run sensitivity audit",
+      titleZh: "运行稳健性审计",
+      status: status === "completed" && screeningResult?.moRobustnessAudit?.status === "audit_required" ? "warning" : status,
+      inputCount: metalCount,
+      outputCount: screeningResult?.fullMetalSensitivityDistribution?.length || metalCount,
+      decision: screeningResult?.moRobustnessAudit?.label || "Sensitivity audit pending.",
+      decisionZh: screeningResult?.moRobustnessAudit?.label || "敏感性审计待定。",
+      linkedSectionId: "organic-acid-final-robustness-audit",
+    },
+    {
+      id: "build-hot-spot-map",
+      step: 8,
+      title: "Build hot spot map",
+      titleZh: "构建热区图",
+      status,
+      inputCount: screeningResult?.synergyHotSpotData?.length || 0,
+      outputCount: screeningResult?.synergyHotSpotData?.length || 0,
+      decision: hotSpotMo?.hotSpotStatus || "Hot spot projection pending.",
+      decisionZh: hotSpotMo?.hotSpotStatus || "热区投影待定。",
+      linkedSectionId: "organic-acid-final-hot-spot-map",
+    },
+    {
+      id: "generate-exafs-hypothesis",
+      step: 9,
+      title: "Generate EXAFS hypothesis",
+      titleZh: "生成 EXAFS 假设",
+      status,
+      inputCount: mo?.metal ? 1 : 0,
+      outputCount: screeningResult?.exafsSignature?.expectedFeatures?.length || 0,
+      decision: "Mo K-edge EXAFS can falsify the isolated Mo-oxo anchoring hypothesis.",
+      decisionZh: "Mo K-edge EXAFS 可证伪孤立 Mo-oxo 锚定假设。",
+      linkedSectionId: "organic-acid-final-exafs",
+    },
+    {
+      id: "build-candidate-report-trace",
+      step: 10,
+      title: "Build candidate report trace",
+      titleZh: "构建候选报告追踪",
+      status,
+      inputCount: (screeningResult?.algorithmTrace || []).length,
+      outputCount: (screeningResult?.algorithmTrace || []).length,
+      decision: "Trace keeps demo/proxy evidence boundaries visible.",
+      decisionZh: "追踪记录保留 demo/proxy 证据边界。",
+      linkedSectionId: "organic-acid-final-validation-roadmap",
+    },
+  ]
+}
+
+export function buildRunResultSummary(screeningResult = {}, dataMode = "demo_workflow") {
+  const selected = screeningResult?.selectedFramework || {}
+  const mo = screeningResult?.moRecommendation || {}
+  const w = (screeningResult?.rankedMetals || []).find(row => row.metal === "W") || {}
+  const gap = mo.dmrs != null && w.dmrs != null ? roundMetric((mo.dmrs || 0) - (w.dmrs || 0)) : null
+  const hotSpotMo = (screeningResult?.synergyHotSpotData || []).find(row => row.metal === "Mo") || {}
+  return {
+    dataMode,
+    selectedScaffold: selected.displayName || "Pending scaffold",
+    oacs: selected?.organicAcidScore?.oacs ?? null,
+    topDopants: ["Mo", "W"],
+    moDmrs: mo.dmrs ?? null,
+    wDmrs: w.dmrs ?? null,
+    moWGap: gap,
+    robustnessStatus: screeningResult?.moRobustnessAudit?.label || "audit required",
+    evidenceBoundary: "This is a demo/proxy run. It does not represent full database screening or verified catalytic performance.",
+    evidenceBoundaryZh: "这是演示级代理运行结果，不代表全量数据库筛选或已验证催化性能。",
+    hotSpotStatus: hotSpotMo?.hotSpotStatus || "demo/proxy hot spot pending",
+    exafsHypothesisStatus: screeningResult?.exafsSignature?.technique ? "falsifiable hypothesis generated" : "pending",
+  }
+}
+
+export function buildRunTraceFromResult(screeningResult = {}, runSteps = []) {
+  const trace = Array.isArray(screeningResult?.algorithmTrace) ? screeningResult.algorithmTrace : []
+  return [
+    {
+      id: "run-boundary",
+      title: "Run boundary",
+      titleZh: "运行边界",
+      detail: "Run demo screening workflow uses current demo / mapped-fixture-ready data only.",
+      detailZh: "运行演示筛选流程只使用当前 demo / mapped-fixture-ready 数据。",
+    },
+    ...runSteps.map(step => ({
+      id: `run-${step.id}`,
+      title: step.title,
+      titleZh: step.titleZh,
+      detail: `${step.status}: ${step.decision}`,
+      detailZh: `${step.status}: ${step.decisionZh}`,
+      linkedSectionId: step.linkedSectionId,
+    })),
+    ...trace,
+  ]
+}
+
+export function runDemoScreeningWorkflow(frameworkCandidates, metalMatrix, rules = {}, evidenceRecords = [], options = {}) {
+  const dataMode = options.dataMode || "demo_workflow"
+  if (dataMode === "curated_real_examples") {
+    const steps = buildRunSteps({}, { dataMode }).map(step => ({
+      ...step,
+      status: "blocked",
+      decision: "Curated real examples are coming soon and are not enabled in V1.5 patch.",
+      decisionZh: "人工整理真实样例即将开放，V1.5 patch 中未启用。",
+    }))
+    return {
+      status: "blocked",
+      dataMode,
+      steps,
+      result: null,
+      summary: {
+        dataMode,
+        selectedScaffold: "Unavailable",
+        evidenceBoundary: "Curated real examples are disabled in this V1.5 patch.",
+        evidenceBoundaryZh: "人工整理真实样例在 V1.5 patch 中禁用。",
+      },
+      trace: buildRunTraceFromResult({}, steps),
+    }
+  }
+  const result = runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, rules, evidenceRecords)
+  const steps = buildRunSteps(result, { dataMode })
+  return {
+    status: "completed",
+    dataMode,
+    steps,
+    result,
+    summary: buildRunResultSummary(result, dataMode),
+    trace: buildRunTraceFromResult(result, steps),
+  }
 }
 
 export function runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, rules = {}, evidenceRecords = []) {

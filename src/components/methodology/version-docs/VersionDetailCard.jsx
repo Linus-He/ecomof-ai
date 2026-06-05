@@ -39,6 +39,8 @@ export function VersionDetailCard({ version, lang, t }) {
         <ListBlock title={text(lang, "关键更新", "Key updates")} rows={lang === "zh" ? version.keyUpdatesZh : version.keyUpdates} t={t} />
         <ListBlock title={text(lang, "算法变化", "Algorithm changes")} rows={lang === "zh" ? version.algorithmChangesZh : version.algorithmChanges} t={t} />
         <ListBlock title={text(lang, "UI / UX 变化", "UI / UX changes")} rows={lang === "zh" ? version.uiChangesZh : version.uiChanges} t={t} />
+        <ListBlock title={text(lang, "方法论变化", "Methodology changes")} rows={lang === "zh" ? version.methodologyChangesZh : version.methodologyChanges} t={t} />
+        <ListBlock title={text(lang, "文献灵感来源", "Literature inspirations")} rows={(version.literatureInspirations || []).map(row => `${row.literatureId}: ${(row.inspiredFeatures || []).join(" / ")}`)} t={t} />
         <ListBlock title={text(lang, "限制", "Limitations")} rows={lang === "zh" ? version.limitationsZh : version.limitations} t={t} />
       </div>
       <a href={version.relatedSection || "#methodology-organic-acid-final-screening"} style={{ color: t.accentText, fontSize: 12, fontWeight: 900, textDecoration: "none" }}>

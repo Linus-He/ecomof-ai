@@ -8,13 +8,13 @@ const outDir = path.join(process.cwd(), "test-results", "visual-checks")
 
 const routes = [
   ["home", "#overview", [["Workflow Narrative", "流程叙事"], ["Evidence & Validation Loop", "证据与验证闭环"], ["What this workflow produces", "这套流程最终产出什么"], ["Structure & Source Intake", "结构与来源接入"]]],
-  ["catalysis", "#catalysis", [["Section layout controls", "Section 布局控制"], ["Catalyst Cat Energy Playground", "催化小猫能量游乐场"], ["Reaction Pathway Evidence Map", "催化路径证据图"], ["Organic Acid Workspace", "有机酸路径工作台"], "Organic Acid Final Screening"]],
+  ["catalysis", "#catalysis", [["Section layout controls", "Section 布局控制"], ["Catalyst Cat Energy Playground", "催化小猫能量游乐场"], ["小猫提示 / Cat insight", "Cat insight"], ["当前区域 / Current zone", "Current zone"], ["相关指标 / Related metric", "Related metric"], ["Reaction Pathway Evidence Map", "催化路径证据图"], ["Organic Acid Workspace", "有机酸路径工作台"], "Organic Acid Final Screening"]],
   ["organic-acid", "#catalysis-organic-acid", [["Access Gate / Frontend Passcode", "前端访问入口"], ["Section layout controls", "Section 布局控制"], ["Algorithm Trace Explorer", "算法追踪器"], ["Effect Decomposition Explorer", "效应拆解器"], ["Organic Acid Carbon-Flow Graph Workbench", "有机酸碳流图论路径工作台"], ["Interaction Effect Matrix", "交互效应矩阵"], ["Experimental Design Coverage Map", "实验设计覆盖图"]]],
-  ["organic-acid-final", "#catalysis-organic-acid-final-screening", ["Organic Acid Final Screening", ["演示级代理评分", "Demo Score Disclaimer"], ["完整方法论与证据层已同步到 Methods & Evidence", "Methodology and evidence layer updated in Methods & Evidence"], ["查看证据层", "View evidence layer"], "Algorithm Pipeline Stepper", "Status Badge Legend", "Screening Funnel Chart", "Stage Summary Cards", ["耦合描述符热区图", "Coupled Descriptor Hot Spot Map"], ["受耦合催化剂设计思想启发", "Inspired by coupled catalyst design"], ["骨架热区", "Scaffold Map"], ["金属热区", "Dopant Map"], ["协同热区", "Synergy Map"], ["为什么需要热区图", "Why Hot Spot Matters"], ["描述符耦合面板", "Descriptor Coupling Panel"], ["验证证据阶梯", "Validation Evidence Ladder"], ["Reaction Constraint Builder", "反应约束"], "Al-MOF Ranking Table", "Dopant Metal Recommendation Matrix", "Mechanism Path Radar", "Why Mo? Waterfall Chart", "Why Mo vs W Comparison", "Sensitivity Rank Distribution", "Full-Metal Sensitivity Distribution", "Mo vs W/V/Ti/Zr/Fe", "robust but audit required", "Ru / Pd / Ag", "Prediction vs Falsification", "Data Status & Provenance Coverage", "Limitations & Reproducibility Statement"]],
+  ["organic-acid-final", "#catalysis-organic-acid-final-screening", ["Organic Acid Final Screening", ["演示级代理评分", "Demo Score Disclaimer"], ["完整方法论与证据层已同步到 Methods & Evidence", "Methodology and evidence layer updated in Methods & Evidence"], ["查看证据层", "View evidence layer"], ["算法运行启动器", "Algorithm Run Launcher"], ["运行演示筛选", "Run demo screening"], ["演示流程", "Demo workflow"], ["映射样例", "Mapped fixtures"], ["人工整理真实样例", "Curated real examples"], ["运行结果摘要", "Run Result Summary"], ["运行追踪", "Run trace"], "Algorithm Pipeline Stepper", "Status Badge Legend", "Screening Funnel Chart", "Stage Summary Cards", ["耦合描述符热区图", "Coupled Descriptor Hot Spot Map"], ["受耦合催化剂设计思想启发", "Inspired by coupled catalyst design"], ["骨架热区", "Scaffold Map"], ["金属热区", "Dopant Map"], ["协同热区", "Synergy Map"], ["为什么需要热区图", "Why Hot Spot Matters"], ["描述符耦合面板", "Descriptor Coupling Panel"], ["验证证据阶梯", "Validation Evidence Ladder"], ["Reaction Constraint Builder", "反应约束"], "Al-MOF Ranking Table", "Dopant Metal Recommendation Matrix", "Mechanism Path Radar", "Why Mo? Waterfall Chart", "Why Mo vs W Comparison", "Sensitivity Rank Distribution", "Full-Metal Sensitivity Distribution", "Mo vs W/V/Ti/Zr/Fe", "robust but audit required", "Ru / Pd / Ag", "Prediction vs Falsification", "Data Status & Provenance Coverage", "Limitations & Reproducibility Statement"]],
   ["library", "#library", [["Open MOF Seed Records", "Open MOF Seed 记录"], ["View database details", "查看数据库详情"]]],
   ["gassep", "#gassep", [["Gas Separation Scenario Builder", "气体分离场景构建器"], ["Interactive Performance Map", "性能图谱"], ["GasSep Interaction Diagnostics", "交互诊断"], ["Validation Roadmap", "验证路线"]]],
   ["ecoscreen", "#ecoscreen", ["EcoScreen", ["Candidate Scoring", "候选评分"]]],
-  ["methodology", "#methodology", [["Methods & Evidence", "方法与证据"], ["Structured Factor Effects", "结构化因素效应"], ["Catalysis Energy Playground Method", "催化能量游乐场方法说明"], ["Organic Acid Final Screening Methodology", "有机酸最终筛选方法论"], ["Method Overview", "方法总览"], ["Two-Stage Algorithm Flow", "两阶段算法流程图"], ["OACS Formula Explainer", "OACS 骨架筛选"], ["DMRS Formula Explainer", "DMRS 第二金属推荐"], ["Mechanism Path Cards", "三路径机制解释"], ["Coupled Descriptor Hot Spot Map", "耦合描述符热区图"], ["Robustness Audit", "稳健性审计"], ["Evidence Strength Matrix", "证据强度矩阵"], ["EXAFS-Guided Falsification", "EXAFS 引导的假设-证伪闭环"], ["Experimental Control Loop", "实验控制闭环"], ["Evidence Data Layer Status", "证据层状态"], ["Version Docs", "版本文档"], ["Version Timeline", "版本时间轴"], "V1.4", ["Next planned versions", "下一步版本计划"], ["Evidence Levels", "证据等级"], ["Validation Roadmap", "验证路线"]]],
+  ["methodology", "#methodology", [["Methods & Evidence", "方法与证据"], ["Structured Factor Effects", "结构化因素效应"], ["Catalysis Energy Playground Method", "催化能量游乐场方法说明"], ["Organic Acid Final Screening Methodology", "有机酸最终筛选方法论"], ["Method Overview", "方法总览"], ["Two-Stage Algorithm Flow", "两阶段算法流程图"], ["Data Mapping and Schema Validation", "数据映射层与 Schema Validation"], ["Data Mapper Preview Panel", "Data Mapper Preview Panel"], ["Schema Validation Panel", "Schema Validation Panel"], ["Data Quality Gate Panel", "Data Quality Gate Panel"], ["OACS Formula Explainer", "OACS 骨架筛选"], ["DMRS Formula Explainer", "DMRS 第二金属推荐"], ["Mechanism Path Cards", "三路径机制解释"], ["Coupled Descriptor Hot Spot Map", "耦合描述符热区图"], ["Version Docs and Literature Inspiration", "版本文档与文献灵感来源"], ["Robustness Audit", "稳健性审计"], ["Evidence Strength Matrix", "证据强度矩阵"], ["EXAFS-Guided Falsification", "EXAFS 引导的假设-证伪闭环"], ["Experimental Control Loop", "实验控制闭环"], ["Evidence Data Layer Status", "证据层状态"], ["Version Docs", "版本文档"], ["Version Timeline", "版本时间轴"], "V1.4", "V1.5", ["Literature Inspiration", "文献灵感来源"], ["Version ↔ Literature Source Map", "版本 ↔ 文献来源映射"], ["Next planned versions", "下一步版本计划"], ["Evidence Levels", "证据等级"], ["Validation Roadmap", "验证路线"]]],
 ]
 const viewports = [
   ["desktop", 1440, 1100],
@@ -105,6 +105,35 @@ for (const [viewportName, width, height] of viewports) {
           await passcode.fill("acid")
           await page.getByText(/进入项目|Enter project/).first().click()
           await waitForApp(page)
+        }
+      }
+
+      if (routeName === "catalysis") {
+        const catHandle = page.locator('[data-testid="catalyst-cat-drag-handle"]').first()
+        if (await catHandle.count()) {
+          await catHandle.scrollIntoViewIfNeeded()
+          const box = await catHandle.boundingBox()
+          if (box) {
+            const startX = box.x + box.width / 2
+            const startY = box.y + box.height / 2
+            await page.mouse.move(startX, startY)
+            await page.mouse.down()
+            await page.mouse.move(startX + 165, Math.max(80, startY - 95), { steps: 8 })
+            await page.mouse.up()
+            await page.waitForTimeout(300)
+          }
+        }
+      }
+
+      if (routeName === "organic-acid-final") {
+        const runButton = page.getByRole("button", { name: /Run demo screening|运行演示筛选/ }).first()
+        if (await runButton.count()) {
+          await runButton.scrollIntoViewIfNeeded()
+          await runButton.click()
+          await page.waitForTimeout(1400)
+          const traceButton = page.getByRole("button", { name: /View run trace|查看运行追踪/ }).first()
+          if (await traceButton.count()) await traceButton.click()
+          await page.waitForTimeout(300)
         }
       }
 

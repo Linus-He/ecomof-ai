@@ -1,0 +1,39 @@
+[
+  {
+    "id": "LIT-HOTSPOT-2025-NATCOMM",
+    "title": "The geometric-electronic coupled design of diatomic catalyst towards oxygen reduction reaction",
+    "sourceType": "uploaded_paper",
+    "status": "verified_from_uploaded_file",
+    "doi": "10.1038/s41467-025-60170-0",
+    "coreIdea": "Constructs a catalytic hot spot map using geometric and electronic descriptors.",
+    "inspiredModules": [
+      "Coupled Descriptor Hot Spot Map",
+      "Descriptor Coupling Panel",
+      "Validation Evidence Ladder"
+    ],
+    "fieldTargets": [
+      "version_docs.V1.4.literatureInspirations",
+      "methodology-oafs-hot-spot"
+    ],
+    "adaptationBoundary": "Conceptual inspiration only; EcoMOF-AI does not reproduce the ORR model, DFT dataset, ML model, or experimental result.",
+    "evidenceBoundary": "Design inspiration record, not performance evidence."
+  },
+  {
+    "id": "LIT-DATA-MAPPER-PENDING",
+    "title": "Pending metadata from previous uploaded data-mapping reference",
+    "sourceType": "previous_uploaded_reference",
+    "status": "pending_metadata",
+    "doi": null,
+    "coreIdea": "Inspired schema-first data intake and field-level mapping before scoring.",
+    "inspiredModules": [
+      "Data Mapper Preview Panel",
+      "Schema Validation Panel"
+    ],
+    "fieldTargets": [
+      "version_docs.V1.5.literatureInspirations",
+      "methodology-oafs-data-mapping"
+    ],
+    "adaptationBoundary": "Pending bibliographic verification; do not cite as verified source.",
+    "evidenceBoundary": "Conceptual planning note only."
+  }
+]

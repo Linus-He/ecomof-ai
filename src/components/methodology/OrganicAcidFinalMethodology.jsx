@@ -7,6 +7,7 @@ import rules from "../../../public/data/organic_acid_final_screening/organic_aci
 import { ChemicalText } from "../../shared"
 import { runOrganicAcidFinalScreening } from "../../utils/organicAcidFinalScreening"
 import { DescriptorEvidenceMatrix } from "./organic-acid-final/DescriptorEvidenceMatrix"
+import { DataMappingSchemaValidationPanel } from "./organic-acid-final/DataMappingSchemaValidationPanel"
 import { FormulaExplainerCard } from "./organic-acid-final/FormulaExplainerCard"
 import { MechanismPathMethodCard } from "./organic-acid-final/MechanismPathMethodCard"
 import { MethodologyCitationPanel } from "./organic-acid-final/MethodologyCitationPanel"
@@ -26,9 +27,11 @@ export const ORGANIC_ACID_FINAL_DIRECTORY = {
   children: [
     { id: "methodology-oafs-overview", label: "Method Overview", labelZh: "方法总览" },
     { id: "methodology-oafs-flow", label: "Two-Stage Algorithm Flow", labelZh: "两阶段算法流程" },
+    { id: "methodology-oafs-data-mapping", label: "Data Mapping and Schema Validation", labelZh: "数据映射与 Schema Validation" },
     { id: "methodology-oafs-oacs", label: "Stage 1: OACS Framework Mining", labelZh: "Stage 1：OACS 骨架筛选" },
     { id: "methodology-oafs-dmrs", label: "Stage 2: DMRS Dopant Recommendation", labelZh: "Stage 2：DMRS 第二金属推荐" },
     { id: "methodology-oafs-hot-spot", label: "Coupled Descriptor Hot Spot Map", labelZh: "耦合描述符热区图" },
+    { id: "methodology-oafs-version-docs-literature", label: "Version Docs and Literature Inspiration", labelZh: "版本文档与文献灵感" },
     { id: "methodology-oafs-robustness", label: "Robustness Audit", labelZh: "稳健性审计" },
     { id: "methodology-oafs-evidence-matrix", label: "Evidence Strength Matrix", labelZh: "证据强度矩阵" },
     { id: "methodology-oafs-exafs", label: "EXAFS-Guided Falsification", labelZh: "EXAFS 引导证伪" },
@@ -178,6 +181,43 @@ function CoupledHotSpotMethod({ result, lang, t }) {
   )
 }
 
+function VersionDocsLiteratureMethod({ lang, t }) {
+  return (
+    <section id="methodology-oafs-version-docs-literature" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 11, padding: 15, scrollMarginTop: 118 }}>
+      <header style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
+        <div style={{ display: "grid", gap: 4 }}>
+          <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Version Docs and Literature Inspiration</span>
+          <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
+            {text(lang, "版本文档与文献灵感来源", "Version Docs and Literature Inspiration")}
+          </h3>
+        </div>
+        <a href="#methodology-version-docs" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.accentText, fontSize: 12, fontWeight: 900, padding: "7px 10px", textDecoration: "none" }}>
+          {text(lang, "查看版本文档", "View version docs")}
+        </a>
+      </header>
+      <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
+        <ChemicalText value={text(
+          lang,
+          "版本文档不仅记录功能更新，也记录每一版设计背后的文献灵感来源。文献条目用于说明概念影响和迁移边界，不表示 EcoMOF-AI 已复现原论文中的计算或实验结果。",
+          "Version Docs records not only functional updates, but also the literature inspirations behind each design decision. Literature entries are used to document conceptual influence and adaptation boundaries, not to claim that EcoMOF-AI has reproduced the original paper's computational or experimental results."
+        )} />
+      </p>
+      <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+        {[
+          [text(lang, "已核验来源", "Verified source"), "Nature Communications 2025 hot spot map paper"],
+          [text(lang, "待补元数据", "Pending metadata"), "Previous ML/MOF screening and provenance references"],
+          [text(lang, "迁移边界", "Adaptation boundary"), "Conceptual inspiration only; no DFT / ML / experimental reproduction claim"],
+        ].map(([label, value]) => (
+          <article key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 6, padding: 10 }}>
+            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
+            <strong style={{ color: t.textStrong, fontSize: 12.8, lineHeight: 1.35 }}><ChemicalText value={value} /></strong>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 export function OrganicAcidFinalMethodology({ lang, t }) {
   const result = useMemo(() => runOrganicAcidFinalScreening(frameworks, metals, rules, evidenceRecords), [])
   const oacsCard = result.formulaCards.find(card => card.id === "oacs")
@@ -191,7 +231,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
       <div style={{ display: "grid", gap: 14, marginTop: 13 }}>
         <div style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 10, display: "flex", flexWrap: "wrap", gap: 9, justifyContent: "space-between", padding: 11 }}>
           <span style={{ color: t.muted, fontSize: 12.4, lineHeight: 1.45 }}>
-            {text(lang, "查看 V1.0–V1.4 的版本演进与后续 roadmap。", "Review the V1.0-V1.4 version history and future roadmap.")}
+            {text(lang, "查看 V1.0–V1.5 的版本演进、文献灵感来源与后续 roadmap。", "Review the V1.0-V1.5 version history, literature inspirations, and future roadmap.")}
           </span>
           <a href="#methodology-version-docs" style={{ background: t.surface, border: `1px solid ${t.accentText || t.accent}`, borderRadius: 8, color: t.accentText, fontSize: 12, fontWeight: 900, padding: "7px 10px", textDecoration: "none" }}>
             {text(lang, "查看版本文档", "View version docs")}
@@ -199,10 +239,12 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
         </div>
         <OrganicAcidMethodologyOverview lang={lang} t={t} coverage={result.evidenceCoverage} />
         <MethodologyFlowDiagram flow={result.methodologyFlowData} lang={lang} t={t} />
+        <DataMappingSchemaValidationPanel lang={lang} t={t} />
         <FormulaExplainerCard card={oacsCard} lang={lang} t={t} />
         <FormulaExplainerCard card={dmrsCard} lang={lang} t={t} />
         <MechanismPathMethodCard lang={lang} t={t} />
         <CoupledHotSpotMethod result={result} lang={lang} t={t} />
+        <VersionDocsLiteratureMethod lang={lang} t={t} />
         <RobustnessAuditMethod result={result} lang={lang} t={t} />
         <DescriptorEvidenceMatrix rows={result.evidenceStrengthMatrix} coverage={result.evidenceCoverage} lang={lang} t={t} />
         <ExafsFalsificationDiagram signature={result.exafsSignature} lang={lang} t={t} />

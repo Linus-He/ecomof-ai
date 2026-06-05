@@ -4,6 +4,7 @@ import { BasisBadge, ChemicalText, CopyLinkButton, fetchDataJson } from "../../.
 import { ModulePageHeader } from "../../module/ModuleTop"
 import { buildCandidateDecisionTrace, runOrganicAcidFinalScreening } from "../../../utils/organicAcidFinalScreening"
 import { AlgorithmPipelineStepper } from "./AlgorithmPipelineStepper"
+import { AlgorithmRunLauncher } from "./run-launcher/AlgorithmRunLauncher"
 import { AlMofFrameworkRanking } from "./AlMofFrameworkRanking"
 import { BlindBaselinePanel } from "./BlindBaselinePanel"
 import { CompetitiveMetalComparison } from "./CompetitiveMetalComparison"
@@ -139,6 +140,7 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
       {result ? (
         <>
           <DemoScoreDisclaimer rules={rules} lang={lang} t={t} />
+          <AlgorithmRunLauncher frameworks={frameworks} metals={metals} rules={rules} evidenceRecords={evidenceRecords} result={result} lang={lang} t={t} isMobile={isMobile} />
           <AlgorithmPipelineStepper steps={result.algorithmJourneySteps} lang={lang} t={t} isMobile={isMobile} />
           <StatusBadgeLegend lang={lang} t={t} isMobile={isMobile} />
 

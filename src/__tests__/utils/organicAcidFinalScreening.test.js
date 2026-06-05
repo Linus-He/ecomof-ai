@@ -5,16 +5,19 @@ import metals from "../../../public/data/organic_acid_final_screening/dopant_met
 import evidenceRecords from "../../../public/data/organic_acid_final_screening/organic_acid_evidence_records.json"
 import rules from "../../../public/data/organic_acid_final_screening/organic_acid_screening_rules.json"
 import versionDocs from "../../../public/data/organic_acid_final_screening/version_docs.json"
+import literatureInspirations from "../../../public/data/organic_acid_final_screening/literature_inspiration_records.json"
 import {
   applyHydrothermalGate,
   attachEvidenceToFrameworks,
   attachEvidenceToMetals,
+  buildRunSteps,
   buildCandidateDecisionTrace,
   calculateEvidenceCoverage,
   calculateDMRS,
   calculateOACS,
   loadEvidenceRecords,
   METAL_DESCRIPTOR_KEYS,
+  runDemoScreeningWorkflow,
   runOrganicAcidFinalScreening,
   runFullMetalSensitivityDistribution,
 } from "../../utils/organicAcidFinalScreening"
@@ -202,25 +205,80 @@ describe("organic acid final screening", () => {
   })
 
   it("records Organic Acid version docs and planned roadmap", () => {
-    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4"])
+    expect(versionDocs.currentVersion).toBe("V1.5")
+    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5"])
     expect(versionDocs.versions.find(row => row.version === "V1.4")).toEqual(expect.objectContaining({
-      status: "current",
+      status: "completed",
       title: "Coupled Descriptor Hot Spot Map",
       evidenceBoundary: "Hot spot map is a demo/proxy design-space visualization, not a DFT-trained performance predictor.",
+    }))
+    expect(versionDocs.versions.find(row => row.version === "V1.5")).toEqual(expect.objectContaining({
+      status: "completed",
+      title: "Data Mapper and Schema Validation",
+      evidenceBoundary: "Mapper preview uses small fixtures only and does not load full CoRE/QMOF or claim real-data validation.",
     }))
     versionDocs.versions.forEach(row => {
       expect(row.summary).toBeTruthy()
       expect(row.keyUpdates.length).toBeGreaterThan(0)
       expect(row.algorithmChanges.length).toBeGreaterThan(0)
       expect(row.uiChanges.length).toBeGreaterThan(0)
+      expect(row.methodologyChanges.length).toBeGreaterThan(0)
       expect(row.evidenceBoundary).toBeTruthy()
       expect(row.limitations.length).toBeGreaterThan(0)
+      expect(row.literatureInspirations.length).toBeGreaterThan(0)
+      row.literatureInspirations.forEach(link => {
+        expect(link.literatureId).toBeTruthy()
+        expect(link.inspiredFeatures.length).toBeGreaterThan(0)
+        expect(link.evidenceBoundary).toBeTruthy()
+      })
     })
     expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
-      ["V1.5", "planned"],
       ["V1.6", "planned"],
       ["V2.0", "planned"],
     ])
+    const hotSpotPaper = literatureInspirations.find(row => row.id === "LIT-HOTSPOT-2025-NATCOMM")
+    expect(hotSpotPaper).toEqual(expect.objectContaining({
+      status: "verified_from_uploaded_file",
+      doi: "10.1038/s41467-025-60170-0",
+    }))
+    expect(literatureInspirations.filter(row => row.status === "pending_metadata").every(row => row.doi === null)).toBe(true)
+  })
+
+  it("records the V1.5 launcher patch without advancing the roadmap", () => {
+    const v15 = versionDocs.versions.find(row => row.version === "V1.5")
+    expect(v15.maintenanceNotes).toContain("V1.5 Patch: Run Launcher Prep + Cat Drag Fix + Copy Cleanup.")
+    expect(v15.maintenanceNotes.join(" ")).toMatch(/current demo workflow/)
+    expect(v15.maintenanceNotes.join(" ")).toMatch(/Curated real examples remain disabled/)
+    expect(versionDocs.currentVersion).toBe("V1.5")
+    expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
+      ["V1.6", "planned"],
+      ["V2.0", "planned"],
+    ])
+  })
+
+  it("runs the V1.5 launcher workflow on demo and mapped fixture modes only", () => {
+    const result = runOrganicAcidFinalScreening(frameworks, metals, rules, evidenceRecords)
+    const previewSteps = buildRunSteps(result, { dataMode: "mapped_fixtures" })
+    const demoRun = runDemoScreeningWorkflow(frameworks, metals, rules, evidenceRecords, { dataMode: "demo_workflow" })
+    const mappedRun = runDemoScreeningWorkflow(frameworks, metals, rules, evidenceRecords, { dataMode: "mapped_fixtures" })
+    const blockedRun = runDemoScreeningWorkflow(frameworks, metals, rules, evidenceRecords, { dataMode: "curated_real_examples" })
+
+    expect(previewSteps).toHaveLength(10)
+    expect(previewSteps.map(row => row.linkedSectionId)).toContain("organic-acid-final-framework-ranking")
+    expect(demoRun.status).toBe("completed")
+    expect(demoRun.steps).toHaveLength(10)
+    expect(demoRun.summary).toEqual(expect.objectContaining({
+      dataMode: "demo_workflow",
+      topDopants: ["Mo", "W"],
+      moWGap: 0.027,
+    }))
+    expect(demoRun.summary.evidenceBoundary).toMatch(/does not represent full database screening/)
+    expect(demoRun.trace.map(row => row.id)).toContain("run-boundary")
+    expect(mappedRun.status).toBe("completed")
+    expect(mappedRun.summary.dataMode).toBe("mapped_fixtures")
+    expect(blockedRun.status).toBe("blocked")
+    expect(blockedRun.result).toBeNull()
+    expect(blockedRun.summary.evidenceBoundary).toMatch(/disabled in this V1.5 patch/)
   })
 
   it("builds the V1.2 algorithm journey UI data without changing conclusions", () => {

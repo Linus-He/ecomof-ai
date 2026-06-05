@@ -28,6 +28,7 @@ export function CatScienceMetricsPanel({ state, pathway, mof, lang, t }) {
         <Metric label={zh ? "产物释放风险" : "Product release risk"} value={state.productReleaseRisk} note={`risk ${state.riskPenalty}%`} tone={state.productReleaseRisk === "high" ? "warn" : undefined} t={t} />
         <Metric label={zh ? "路径优先级" : "Pathway priority"} value={`${state.priorityScore}/100`} note={state.priority} tone="accent" t={t} />
         <Metric label={zh ? "证据等级" : "Evidence level"} value={state.evidenceLevel} note={mof?.labelEn || "selected MOF"} t={t} />
+        <Metric label={zh ? "小猫区域指标" : "Cat zone metric"} value={zh ? state.zone.metricZh || state.zone.labelZh : state.zone.metric || state.zone.labelEn} note={zh ? state.zone.labelZh : state.zone.labelEn} tone="accent" t={t} />
         <Metric label={zh ? "验证需求" : "Validation need"} value={state.evidenceLevel === "D" || state.riskPenalty > 18 ? text(lang, "高", "high") : text(lang, "中", "medium")} note={zh ? "DFT / 同条件实验" : "DFT / same-condition tests"} tone="warn" t={t} />
       </div>
       <div className="energy-playground-note">

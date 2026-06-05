@@ -221,20 +221,20 @@ function PrototypeGate({ lang, t, onUnlock }) {
 function ProjectObjectiveSection({ topCandidate, rankedRows, isNarrow }) {
   return (
     <SectionShell
-      kicker="Project objective"
-      title="项目目标 Project Objective"
-      note="白底、紧凑、学术化的有机酸筛选工作台，用于展示从三路径机理到算法追踪、候选排序和描述符填表的完整界面。"
+      kicker="筛选目标"
+      title="有机酸筛选工作台目标"
+      note="从反应约束出发，展示 Al-MOF 骨架筛选、第二金属推荐、算法追踪与验证路线；当前不发布真实实验结论。"
     >
       <div style={{ display: "grid", gap: 14, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.1fr) minmax(280px, 0.9fr)" }}>
         <div style={{ display: "grid", gap: 12 }}>
           <div style={{ display: "grid", gap: 7 }}>
-            <h1 style={{ color: palette.text, fontSize: 24, lineHeight: 1.1, margin: 0 }}>有机酸项目 Organic Acid Project</h1>
+            <h1 style={{ color: palette.text, fontSize: 24, lineHeight: 1.1, margin: 0 }}>有机酸项目</h1>
             <p style={{ color: palette.muted, fontSize: 13.5, lineHeight: 1.6, margin: 0 }}>
               面向葡萄糖–<ChemFormula kind="sodiumBicarbonate" /> 协同转化为甲酸的机理导向 MOF 筛选平台。当前展示的是可追踪算法工作台，不发布真实实验结论。
             </p>
           </div>
 
-          <FormulaCard title="反应目标 Reaction objective">
+          <FormulaCard title="反应目标">
             <FormulaInline size={14} weight={600} gap="4px 8px">
               <span>Glucose</span><span>+</span><span><ChemFormula kind="sodiumBicarbonate" /></span><span>+</span><span><ChemFormula kind="water" /></span><span>+</span><span>MOF</span><span>→</span><span>formic acid / formate</span>
             </FormulaInline>
@@ -244,12 +244,12 @@ function ProjectObjectiveSection({ topCandidate, rankedRows, isNarrow }) {
           </FormulaCard>
 
           <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
-            <FormulaCard title="RGFA 公式 RGFA formula">
+            <FormulaCard title="RGFA 评分公式">
               <FormulaInline size={13.5} weight={600}>
                 <span>RGFA Score</span><span>=</span><span>Gate</span><span>×</span><span>StepScore</span><span>×</span><span>SelectivityFactor</span>
               </FormulaInline>
             </FormulaCard>
-            <FormulaCard title="选择性因子 SelectivityFactor">
+            <FormulaCard title="选择性因子">
               <FormulaInline size={13.5} weight={600}>
                 <span><VariableLabel name="Y_FA" /></span><span>×</span><span><VariableLabel name="S_FA_C" /></span><span>/</span><span>(1 + weighted penalties)</span>
               </FormulaInline>

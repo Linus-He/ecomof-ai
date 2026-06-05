@@ -1,0 +1,36 @@
+[
+  {
+    "core_id": "CORE-LIKE-AL-001",
+    "name": "Al-hydroxyterephthalate C1-accessible scaffold",
+    "formula": "Al2(OH)2(C8H4O4)2",
+    "metal_nodes": ["Al"],
+    "linkers": ["hydroxyterephthalate"],
+    "topology": "Al-O chain net",
+    "pld_A": 5.6,
+    "lcd_A": 8.7,
+    "surface_area_m2g": 1320,
+    "pore_volume_cm3g": 0.48,
+    "water_stability": {
+      "max_tested_temp_C": 170,
+      "post_treatment_PXRD_retained": true,
+      "evidence_status": "demo_proxy"
+    }
+  },
+  {
+    "core_id": "CORE-LIKE-AL-REVIEW-002",
+    "name": "Al-carboxylate high-surface-area review scaffold",
+    "formula": "AlO4C10H6",
+    "metal_nodes": ["Al"],
+    "linkers": ["carboxylate"],
+    "topology": "open Al node net",
+    "pld_A": 7.2,
+    "lcd_A": 12.1,
+    "surface_area_m2g": 2460,
+    "pore_volume_cm3g": 0.78,
+    "water_stability": {
+      "max_tested_temp_C": 95,
+      "post_treatment_PXRD_retained": false,
+      "evidence_status": "pending_metadata"
+    }
+  }
+]
