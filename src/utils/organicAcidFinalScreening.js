@@ -75,6 +75,13 @@ function avg(values) {
   return valid.reduce((sum, value) => sum + value, 0) / valid.length
 }
 
+function percentile(values, ratio) {
+  const valid = values.map(Number).filter(Number.isFinite).sort((a, b) => a - b)
+  if (!valid.length) return 0
+  const index = Math.min(valid.length - 1, Math.max(0, Math.ceil(valid.length * ratio) - 1))
+  return valid[index]
+}
+
 function levelFor(score) {
   const normalized = clamp01(score)
   return LEVELS.find(level => normalized < level.max)?.label || "high"
@@ -1267,6 +1274,254 @@ export function buildValidationLoopData(rules = {}) {
   }
 }
 
+export function inferMetalRole(metal) {
+  const symbol = typeof metal === "string" ? metal : metal?.metal
+  if (symbol === "Mo") return "primary hypothesis"
+  if (symbol === "W") return "backup hypothesis"
+  if (["Ru", "Pd", "Ag"].includes(symbol)) return "blind baseline"
+  return "competitive metal"
+}
+
+export function classifyHotSpotStatus(point = {}, region = {}) {
+  const x = clamp01(point.x ?? point.frameworkRobustness)
+  const y = clamp01(point.y ?? point.metalOxoActivity)
+  const synergy = clamp01(point.synergyScore ?? point.colorValue)
+  const inRegion = x >= (region.xMin ?? 0.65) && y >= (region.yMin ?? 0.65) && synergy >= (region.synergyMin ?? 0.6)
+  const role = point.role || inferMetalRole(point.metal)
+  if (point.gateStatus === "fail") return "rejected by hard gate"
+  if (point.gateStatus === "needs_review") return "needs review"
+  if (role === "primary hypothesis") return inRegion ? "primary hypothesis in hot spot" : "primary hypothesis near hot spot"
+  if (role === "backup hypothesis") return inRegion ? "backup hypothesis in hot spot" : "backup hypothesis near hot spot"
+  if (role === "blind baseline") return "blind baseline"
+  return inRegion ? "competitive metal in hot spot" : "competitive metal"
+}
+
+export function calculateHotSpotRegion(points = []) {
+  const rows = points || []
+  const canUsePercentiles = rows.length >= 8
+  const xMin = canUsePercentiles ? percentile(rows.map(point => point.x), 0.7) : 0.65
+  const yMin = canUsePercentiles ? percentile(rows.map(point => point.y), 0.7) : 0.65
+  const synergyMin = canUsePercentiles ? percentile(rows.map(point => point.synergyScore ?? point.colorValue), 0.75) : 0.6
+  return {
+    xMin: roundMetric(xMin),
+    yMin: roundMetric(yMin),
+    synergyMin: roundMetric(synergyMin),
+    method: canUsePercentiles ? "percentile" : "demo_threshold",
+    note: canUsePercentiles
+      ? "Percentile threshold from current demo/proxy descriptor distribution."
+      : "Demo/proxy threshold used until real descriptor calibration is available.",
+    noteZh: canUsePercentiles
+      ? "基于当前演示级代理描述符分布的百分位阈值。"
+      : "真实描述符校准前使用演示级代理阈值。",
+  }
+}
+
+export function buildScaffoldHotSpotData(frameworkCandidates = [], selectedScaffoldId = null) {
+  return (frameworkCandidates || []).map(candidate => {
+    const gateStatus = candidate?.hydrothermalGate?.status || "needs_review"
+    const oacs = candidate?.organicAcidScore?.oacs
+    const collapseRisk = candidate?.organicAcidScore?.collapseRisk ?? candidate?.descriptorScores?.collapseRisk
+    const isSelected = Boolean(selectedScaffoldId && candidate?.id === selectedScaffoldId)
+    return {
+      id: candidate?.id || "pending-candidate",
+      name: candidate?.displayName || "Pending candidate",
+      x: roundMetric(candidate?.descriptorScores?.hydrothermalEvidenceStrength ?? 0),
+      y: roundMetric(candidate?.descriptorScores?.c1IntermediateAccessibility ?? 0),
+      colorValue: roundMetric(oacs ?? 0),
+      oacs: Number.isFinite(Number(oacs)) ? roundMetric(oacs) : null,
+      gateStatus,
+      collapseRisk: Number.isFinite(Number(collapseRisk)) ? roundMetric(collapseRisk) : null,
+      evidenceStatus: candidate?.dataStatus?.level || "demo_proxy",
+      evidenceLabel: candidate?.dataStatus?.label || "Demo proxy",
+      isSelected,
+      status: isSelected ? "selected scaffold" : gateStatus,
+      why: gateStatus === "pass"
+        ? "Hydrothermal evidence and post-treatment PXRD pass the hard gate."
+        : gateStatus === "needs_review"
+          ? "High-temperature water stability is reported, but post-treatment PXRD evidence is missing."
+          : "High surface area does not override hydrothermal failure.",
+      whyZh: gateStatus === "pass"
+        ? "水热证据与处理后 PXRD 通过硬阈值。"
+        : gateStatus === "needs_review"
+          ? "存在高温水相记录，但缺少处理后 PXRD 证据。"
+          : "高比表面积不能抵消水热稳定性失败。",
+    }
+  })
+}
+
+export function buildDopantHotSpotData(rankedMetals = []) {
+  return (rankedMetals || []).map(metal => {
+    const role = inferMetalRole(metal)
+    const dataStatus = metal?.dataStatus || {}
+    return {
+      metal: metal?.metal || "Pending metal",
+      x: roundMetric(metal?.mechanism?.defectAnchoring?.score ?? 0),
+      y: roundMetric(metal?.activeSiteValue ?? 0),
+      colorValue: roundMetric(metal?.dmrs ?? 0),
+      dmrs: roundMetric(metal?.dmrs ?? 0),
+      rank: metal?.rank || 0,
+      role,
+      mostLikelyForm: metal?.mostLikelyForm || "mechanism pending review",
+      mainStrength: metal?.mainStrength || "pending",
+      mainRisk: metal?.mainRisk || "pending",
+      dataStatus: dataStatus.level || "demo_proxy",
+      evidenceStatus: dataStatus.label || "Demo proxy",
+      isPrimary: role === "primary hypothesis",
+      isBackup: role === "backup hypothesis",
+      isBlindBaseline: role === "blind baseline",
+    }
+  })
+}
+
+export function buildSynergyHotSpotData(selectedScaffold, rankedMetals = []) {
+  const frameworkRobustness = roundMetric(selectedScaffold?.descriptorScores?.hydrothermalEvidenceStrength ?? 0)
+  return (rankedMetals || [])
+    .filter(metal => ["Mo", "W", "V", "Fe", "Ti", "Zr"].includes(metal?.metal))
+    .map(metal => {
+      const metalOxoActivity = roundMetric(metal?.activeSiteValue ?? 0)
+      const synergyScore = roundMetric(frameworkRobustness * (metal?.dmrs ?? 0))
+      const role = inferMetalRole(metal)
+      return {
+        label: `Al-MOF@${metal?.metal || "Metal"}`,
+        metal: metal?.metal || "Metal",
+        x: frameworkRobustness,
+        y: metalOxoActivity,
+        frameworkRobustness,
+        metalOxoActivity,
+        synergyScore,
+        colorValue: synergyScore,
+        dmrs: roundMetric(metal?.dmrs ?? 0),
+        role,
+        hypothesis: metal?.metal === "Mo" ? "primary" : metal?.metal === "W" ? "backup" : "competitive",
+        status: metal?.metal === "Mo"
+          ? "Mo-anchored Al-MOF: primary hypothesis"
+          : metal?.metal === "W"
+            ? "W-anchored Al-MOF: backup hypothesis"
+            : `${metal?.metal || "Metal"}-anchored Al-MOF: competitive hypothesis`,
+        statusZh: metal?.metal === "Mo"
+          ? "Mo 锚定 Al-MOF：主要假设"
+          : metal?.metal === "W"
+            ? "W 锚定 Al-MOF：备选假设"
+            : `${metal?.metal || "Metal"} 锚定 Al-MOF：竞争假设`,
+      }
+    })
+}
+
+export function buildDescriptorCouplingData() {
+  return [
+    {
+      pair: "Hydrothermal stability × Active-site value",
+      pairZh: "水热稳定性 × 活性位点价值",
+      interpretation: "Stable scaffold and active dopant must be jointly satisfied.",
+      interpretationZh: "稳定骨架与活性第二金属必须同时满足。",
+      status: "demo_proxy",
+      statusZh: "演示级代理",
+      nextEvidence: "Hydrothermal PXRD + DFT adsorption validation",
+      nextEvidenceZh: "水热 PXRD + DFT 吸附能验证",
+    },
+    {
+      pair: "Defect anchoring × Leaching risk",
+      pairZh: "缺陷锚定 × 浸出风险",
+      interpretation: "A high anchoring hypothesis must remain compatible with low leaching risk.",
+      interpretationZh: "高锚定可行性必须同时满足低浸出风险。",
+      status: "demo_proxy",
+      statusZh: "演示级代理",
+      nextEvidence: "Mo anchoring energy + ICP-OES filtrate analysis",
+      nextEvidenceZh: "Mo 锚定能 + ICP-OES 滤液分析",
+    },
+    {
+      pair: "Pore confinement × Aggregation risk",
+      pairZh: "孔道限域 × 团聚风险",
+      interpretation: "Confinement should suppress oxide aggregation rather than hide it.",
+      interpretationZh: "孔道限域应抑制氧化物团聚，而不是掩盖团聚风险。",
+      status: "hypothesis",
+      statusZh: "假设",
+      nextEvidence: "Post-reaction EXAFS + microscopy",
+      nextEvidenceZh: "反应后 EXAFS + 显微表征",
+    },
+    {
+      pair: "Formate affinity × Redox adaptability",
+      pairZh: "甲酸盐亲和力 × 氧化还原适应性",
+      interpretation: "C1 intermediate stabilization and redox flexibility must be interpreted together.",
+      interpretationZh: "C1 中间体稳定与氧化还原灵活性需要共同解释。",
+      status: "literature_proxy",
+      statusZh: "文献代理",
+      nextEvidence: "Formate adsorption DFT + operando oxidation-state tracking",
+      nextEvidenceZh: "甲酸盐吸附 DFT + operando 氧化态追踪",
+    },
+    {
+      pair: "Framework robustness × Metal-oxo activity",
+      pairZh: "骨架稳健性 × 金属氧活性",
+      interpretation: "The design hot spot requires robust Al-MOF support and favorable metal-oxo active-site value.",
+      interpretationZh: "设计热区要求 Al-MOF 支撑稳健且金属氧活性位点价值较优。",
+      status: "demo_proxy",
+      statusZh: "演示级代理",
+      nextEvidence: "Same-condition synthesis + Mo/W structural validation",
+      nextEvidenceZh: "同条件合成 + Mo/W 结构验证",
+    },
+    {
+      pair: "Evidence confidence × Ranking robustness",
+      pairZh: "证据置信度 × 排名稳健性",
+      interpretation: "Stable ranking is useful only when descriptor evidence is auditable.",
+      interpretationZh: "只有描述符证据可审计时，稳定排名才具备解释价值。",
+      status: "audit_required",
+      statusZh: "需审计",
+      nextEvidence: "Evidence curation + descriptor ablation",
+      nextEvidenceZh: "证据整理 + 描述符消融",
+    },
+  ]
+}
+
+export function buildValidationEvidenceLadder() {
+  return [
+    {
+      level: 1,
+      title: "Demo proxy",
+      titleZh: "演示级代理",
+      status: "current",
+      statusZh: "当前阶段",
+      evidence: ["OACS ranking", "DMRS ranking"],
+      evidenceZh: ["OACS 排序", "DMRS 排序"],
+    },
+    {
+      level: 2,
+      title: "Literature proxy",
+      titleZh: "文献代理",
+      status: "partial / pending",
+      statusZh: "部分 / 待补",
+      evidence: ["Mo-oxo analogues", "W-oxo analogues"],
+      evidenceZh: ["Mo-oxo 类比", "W-oxo 类比"],
+    },
+    {
+      level: 3,
+      title: "DFT validation",
+      titleZh: "DFT 验证",
+      status: "pending",
+      statusZh: "待验证",
+      evidence: ["formate adsorption energy", "Al-O BDE", "Mo anchoring energy"],
+      evidenceZh: ["甲酸盐吸附能", "Al-O BDE", "Mo 锚定能"],
+    },
+    {
+      level: 4,
+      title: "Spectroscopy validation",
+      titleZh: "谱学验证",
+      status: "pending",
+      statusZh: "待验证",
+      evidence: ["Mo K-edge EXAFS", "ICP-OES", "PXRD after reaction"],
+      evidenceZh: ["Mo K-edge EXAFS", "ICP-OES", "反应后 PXRD"],
+    },
+    {
+      level: 5,
+      title: "Reaction performance",
+      titleZh: "反应性能",
+      status: "pending",
+      statusZh: "待验证",
+      evidence: ["170C aqueous CO2-to-formate test", "HPLC / IC quantification"],
+      evidenceZh: ["170C 水相 CO2 到甲酸测试", "HPLC / IC 定量"],
+    },
+  ]
+}
+
 export function buildAlgorithmJourneySteps(screeningResult) {
   const audit = screeningResult?.moRobustnessAudit || {}
   const hasSelectedFramework = Boolean(screeningResult?.selectedFramework)
@@ -1751,6 +2006,10 @@ export function runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, r
     reproducibilityStatement: generateReproducibilityStatement(),
     hardGateSummary,
   }
+  const scaffoldHotSpotData = buildScaffoldHotSpotData(rankedFrameworks, selectedFramework?.id || null)
+  const dopantHotSpotData = buildDopantHotSpotData(rankedMetals)
+  const synergyHotSpotData = buildSynergyHotSpotData(selectedFramework, rankedMetals)
+  const hotSpotRegion = calculateHotSpotRegion(synergyHotSpotData)
 
   return {
     ...baseResult,
@@ -1764,5 +2023,14 @@ export function runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, r
     methodologyFlowData: buildMethodologyFlowData(rules, baseResult),
     formulaCards: buildFormulaCards(rules),
     validationLoopData: buildValidationLoopData(rules),
+    scaffoldHotSpotData,
+    dopantHotSpotData,
+    synergyHotSpotData: synergyHotSpotData.map(point => ({
+      ...point,
+      hotSpotStatus: classifyHotSpotStatus(point, hotSpotRegion),
+    })),
+    hotSpotRegion,
+    descriptorCouplingData: buildDescriptorCouplingData(),
+    validationEvidenceLadder: buildValidationEvidenceLadder(),
   }
 }

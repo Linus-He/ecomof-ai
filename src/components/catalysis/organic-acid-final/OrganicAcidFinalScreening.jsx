@@ -8,6 +8,7 @@ import { AlMofFrameworkRanking } from "./AlMofFrameworkRanking"
 import { BlindBaselinePanel } from "./BlindBaselinePanel"
 import { CompetitiveMetalComparison } from "./CompetitiveMetalComparison"
 import { CandidateDecisionDrawer } from "./CandidateDecisionDrawer"
+import { CoupledDescriptorHotSpotMap } from "./CoupledDescriptorHotSpotMap"
 import { DataStatusAndProvenancePanel } from "./DataStatusAndProvenancePanel"
 import { DemoScoreDisclaimer } from "./DemoScoreDisclaimer"
 import { DopantMetalRecommendationMatrix } from "./DopantMetalRecommendationMatrix"
@@ -151,6 +152,7 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
 
           <ScreeningFunnelChart data={result.screeningFunnelData} lang={lang} t={t} isMobile={isMobile} onOpenSelectedScaffold={openSelectedScaffold} onJumpToMoW={jumpToMoW} />
           <StageSummaryCards summary={result.stageSummary} trace={result.algorithmTrace} lang={lang} t={t} isMobile={isMobile} onOpenSelectedScaffold={openSelectedScaffold} />
+          <CoupledDescriptorHotSpotMap result={result} lang={lang} t={t} isMobile={isMobile} />
           <ReactionConstraintBuilder rules={rules} summary={result.hardGateSummary} lang={lang} t={t} isMobile={isMobile} />
           <AlMofFrameworkRanking frameworks={result.rankedFrameworks} selectedFramework={result.selectedFramework} lang={lang} t={t} isMobile={isMobile} onInspectCandidate={setDecisionCandidate} />
           <DopantMetalRecommendationMatrix metals={result.rankedMetals} moRecommendation={result.moRecommendation} selectedFramework={result.selectedFramework} algorithmTrace={result.algorithmTrace} lang={lang} t={t} />

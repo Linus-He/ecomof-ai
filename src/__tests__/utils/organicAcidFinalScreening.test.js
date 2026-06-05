@@ -4,6 +4,7 @@ import frameworks from "../../../public/data/organic_acid_final_screening/al_mof
 import metals from "../../../public/data/organic_acid_final_screening/dopant_metal_property_matrix.json"
 import evidenceRecords from "../../../public/data/organic_acid_final_screening/organic_acid_evidence_records.json"
 import rules from "../../../public/data/organic_acid_final_screening/organic_acid_screening_rules.json"
+import versionDocs from "../../../public/data/organic_acid_final_screening/version_docs.json"
 import {
   applyHydrothermalGate,
   attachEvidenceToFrameworks,
@@ -163,6 +164,62 @@ describe("organic acid final screening", () => {
       "Al-MOF + MoOx physical mixture",
       "MoOx alone",
       "Blank reaction",
+    ])
+  })
+
+  it("builds V1.4 coupled descriptor hot spot data without changing scoring conclusions", () => {
+    const result = runOrganicAcidFinalScreening(frameworks, metals, rules, evidenceRecords)
+    const selected = result.scaffoldHotSpotData.find(row => row.isSelected)
+    const mo = result.dopantHotSpotData.find(row => row.metal === "Mo")
+    const w = result.dopantHotSpotData.find(row => row.metal === "W")
+    const synergyMo = result.synergyHotSpotData.find(row => row.metal === "Mo")
+    const synergyW = result.synergyHotSpotData.find(row => row.metal === "W")
+
+    expect(selected.name).toBe("Al-hydroxyterephthalate C1-accessible scaffold")
+    expect(selected.oacs).toBe(0.631)
+    expect(result.scaffoldHotSpotData.find(row => row.gateStatus === "fail").why).toMatch(/High surface area/)
+    expect(mo.role).toBe("primary hypothesis")
+    expect(w.role).toBe("backup hypothesis")
+    expect(result.dopantHotSpotData.filter(row => row.role === "blind baseline").map(row => row.metal).sort()).toEqual(["Ag", "Pd", "Ru"])
+    expect(synergyMo.label).toBe("Al-MOF@Mo")
+    expect(synergyMo.role).toBe("primary hypothesis")
+    expect(synergyW.role).toBe("backup hypothesis")
+    expect(result.hotSpotRegion).toEqual(expect.objectContaining({
+      xMin: expect.any(Number),
+      yMin: expect.any(Number),
+      synergyMin: expect.any(Number),
+    }))
+    expect(result.descriptorCouplingData).toHaveLength(6)
+    expect(result.validationEvidenceLadder.map(row => row.title)).toEqual([
+      "Demo proxy",
+      "Literature proxy",
+      "DFT validation",
+      "Spectroscopy validation",
+      "Reaction performance",
+    ])
+    expect(result.moRecommendation.dmrs).toBe(0.653)
+    expect(result.stageSummary.stage2.moWGap).toBe(0.027)
+  })
+
+  it("records Organic Acid version docs and planned roadmap", () => {
+    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4"])
+    expect(versionDocs.versions.find(row => row.version === "V1.4")).toEqual(expect.objectContaining({
+      status: "current",
+      title: "Coupled Descriptor Hot Spot Map",
+      evidenceBoundary: "Hot spot map is a demo/proxy design-space visualization, not a DFT-trained performance predictor.",
+    }))
+    versionDocs.versions.forEach(row => {
+      expect(row.summary).toBeTruthy()
+      expect(row.keyUpdates.length).toBeGreaterThan(0)
+      expect(row.algorithmChanges.length).toBeGreaterThan(0)
+      expect(row.uiChanges.length).toBeGreaterThan(0)
+      expect(row.evidenceBoundary).toBeTruthy()
+      expect(row.limitations.length).toBeGreaterThan(0)
+    })
+    expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
+      ["V1.5", "planned"],
+      ["V1.6", "planned"],
+      ["V2.0", "planned"],
     ])
   })
 

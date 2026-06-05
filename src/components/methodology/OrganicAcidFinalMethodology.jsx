@@ -28,6 +28,7 @@ export const ORGANIC_ACID_FINAL_DIRECTORY = {
     { id: "methodology-oafs-flow", label: "Two-Stage Algorithm Flow", labelZh: "两阶段算法流程" },
     { id: "methodology-oafs-oacs", label: "Stage 1: OACS Framework Mining", labelZh: "Stage 1：OACS 骨架筛选" },
     { id: "methodology-oafs-dmrs", label: "Stage 2: DMRS Dopant Recommendation", labelZh: "Stage 2：DMRS 第二金属推荐" },
+    { id: "methodology-oafs-hot-spot", label: "Coupled Descriptor Hot Spot Map", labelZh: "耦合描述符热区图" },
     { id: "methodology-oafs-robustness", label: "Robustness Audit", labelZh: "稳健性审计" },
     { id: "methodology-oafs-evidence-matrix", label: "Evidence Strength Matrix", labelZh: "证据强度矩阵" },
     { id: "methodology-oafs-exafs", label: "EXAFS-Guided Falsification", labelZh: "EXAFS 引导证伪" },
@@ -98,6 +99,85 @@ function RobustnessAuditMethod({ result, lang, t }) {
   )
 }
 
+function CoupledHotSpotMethod({ result, lang, t }) {
+  const mapRows = [
+    {
+      title: "Scaffold Map",
+      titleZh: "Scaffold Map / 骨架热区",
+      body: "Scaffold Map evaluates whether an Al-MOF candidate lies in the region where hydrothermal evidence and C1 intermediate accessibility are jointly favorable.",
+      bodyZh: "Scaffold Map 评估 Al-MOF 候选是否位于水热证据与 C1 中间体可及性同时较优的区域。",
+    },
+    {
+      title: "Dopant Map",
+      titleZh: "Dopant Map / 金属热区",
+      body: "Dopant Map evaluates whether a second metal lies in the region where defect anchoring feasibility and active-site value are jointly favorable.",
+      bodyZh: "Dopant Map 评估第二金属是否位于缺陷锚定可行性与活性位点价值同时较优的区域。",
+    },
+    {
+      title: "Synergy Map",
+      titleZh: "Synergy Map / 协同热区",
+      body: "Synergy Map combines the selected Al-MOF scaffold with candidate dopants to visualize the current Mo primary hypothesis and W backup hypothesis.",
+      bodyZh: "Synergy Map 将选定 Al-MOF 骨架与候选第二金属组合，可视化当前 Mo 主要假设与 W 备选假设。",
+    },
+  ]
+
+  return (
+    <section id="methodology-oafs-hot-spot" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 13, padding: 15, scrollMarginTop: 118 }}>
+      <header style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
+        <div style={{ display: "grid", gap: 4 }}>
+          <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Coupled Descriptor Hot Spot Map</span>
+          <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
+            {text(lang, "耦合描述符热区图", "Coupled Descriptor Hot Spot Map")}
+          </h3>
+        </div>
+        <a href="#methodology-version-docs" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.accentText, fontSize: 12, fontWeight: 900, padding: "7px 10px", textDecoration: "none" }}>
+          {text(lang, "查看版本文档", "View version docs")}
+        </a>
+      </header>
+
+      <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
+        <ChemicalText value={text(
+          lang,
+          "本节将 OACS/DMRS 排序工作流转化为耦合描述符设计空间。受几何-电子耦合催化剂设计思想启发，热区图不新增科学结论，而是可视化骨架稳健性与第二金属活性位点价值如何共同定义当前高优先级设计区域。",
+          "This section translates the OACS/DMRS ranking workflow into a coupled descriptor design space. Inspired by geometric-electronic coupled catalyst design, the hot spot map does not introduce new scientific claims; it visualizes how scaffold robustness and second-metal active-site value jointly define the current high-priority design region."
+        )} />
+      </p>
+
+      <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
+        <ChemicalText value={text(
+          lang,
+          "参考工作以几何描述符和电子描述符构建双原子 ORR 催化剂热区图。EcoMOF-AI 借鉴的是这种设计思想，而不是其 ORR 模型本身；在本项目中，耦合坐标轴被改写为骨架稳健性与第二金属活性位点价值。",
+          "The reference work constructs a catalytic hot spot map using a geometric descriptor and an electronic descriptor for diatomic ORR catalysts. EcoMOF-AI borrows this design philosophy, but adapts it to organic-acid-oriented MOF screening using scaffold robustness and dopant active-site value as the coupled axes."
+        )} />
+      </p>
+
+      <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}>
+        {mapRows.map(row => (
+          <article key={row.title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 7, padding: 11 }}>
+            <strong style={{ color: t.textStrong, fontSize: 13.5 }}><ChemicalText value={text(lang, row.titleZh, row.title)} /></strong>
+            <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.48 }}><ChemicalText value={text(lang, row.bodyZh, row.body)} /></span>
+          </article>
+        ))}
+      </div>
+
+      <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))" }}>
+        <MetricCard label="Selected scaffold OACS" value={result?.selectedFramework?.organicAcidScore?.oacs ?? "Pending"} t={t} />
+        <MetricCard label="Mo role" value="primary hypothesis" t={t} />
+        <MetricCard label="W role" value="backup hypothesis" t={t} />
+        <MetricCard label="Hot spot threshold" value={`${result?.hotSpotRegion?.xMin ?? 0.65} / ${result?.hotSpotRegion?.yMin ?? 0.65} / ${result?.hotSpotRegion?.synergyMin ?? 0.6}`} t={t} />
+      </div>
+
+      <p style={{ color: t.warn, fontSize: 12.5, fontWeight: 900, lineHeight: 1.52, margin: 0 }}>
+        <ChemicalText value={text(
+          lang,
+          "不同于参考工作，当前 EcoMOF-AI 热区图尚未基于 DFT 标注的反应性能数据训练，而是基于演示级 / 代理 OACS-DMRS 描述符。因此它应被理解为假设生成工具，而不是性能预测模型。",
+          "Unlike the reference work, the current EcoMOF-AI hot spot map is not trained on DFT-labeled reaction performance. It is based on demo/proxy OACS-DMRS descriptors and should be interpreted as a hypothesis-generation tool."
+        )} />
+      </p>
+    </section>
+  )
+}
+
 export function OrganicAcidFinalMethodology({ lang, t }) {
   const result = useMemo(() => runOrganicAcidFinalScreening(frameworks, metals, rules, evidenceRecords), [])
   const oacsCard = result.formulaCards.find(card => card.id === "oacs")
@@ -109,11 +189,20 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
         {text(lang, "有机酸最终筛选方法论", "Organic Acid Final Screening Methodology")}
       </summary>
       <div style={{ display: "grid", gap: 14, marginTop: 13 }}>
+        <div style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 10, display: "flex", flexWrap: "wrap", gap: 9, justifyContent: "space-between", padding: 11 }}>
+          <span style={{ color: t.muted, fontSize: 12.4, lineHeight: 1.45 }}>
+            {text(lang, "查看 V1.0–V1.4 的版本演进与后续 roadmap。", "Review the V1.0-V1.4 version history and future roadmap.")}
+          </span>
+          <a href="#methodology-version-docs" style={{ background: t.surface, border: `1px solid ${t.accentText || t.accent}`, borderRadius: 8, color: t.accentText, fontSize: 12, fontWeight: 900, padding: "7px 10px", textDecoration: "none" }}>
+            {text(lang, "查看版本文档", "View version docs")}
+          </a>
+        </div>
         <OrganicAcidMethodologyOverview lang={lang} t={t} coverage={result.evidenceCoverage} />
         <MethodologyFlowDiagram flow={result.methodologyFlowData} lang={lang} t={t} />
         <FormulaExplainerCard card={oacsCard} lang={lang} t={t} />
         <FormulaExplainerCard card={dmrsCard} lang={lang} t={t} />
         <MechanismPathMethodCard lang={lang} t={t} />
+        <CoupledHotSpotMethod result={result} lang={lang} t={t} />
         <RobustnessAuditMethod result={result} lang={lang} t={t} />
         <DescriptorEvidenceMatrix rows={result.evidenceStrengthMatrix} coverage={result.evidenceCoverage} lang={lang} t={t} />
         <ExafsFalsificationDiagram signature={result.exafsSignature} lang={lang} t={t} />

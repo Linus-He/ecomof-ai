@@ -1,0 +1,344 @@
+{
+  "scope": "Organic Acid Final Screening",
+  "updatedAt": "2026-06",
+  "versions": [
+    {
+      "version": "V1.0",
+      "title": "Organic Acid Final Screening Core Workflow",
+      "titleZh": "有机酸最终筛选基础闭环",
+      "date": "2026-06",
+      "status": "completed",
+      "theme": "Core workflow",
+      "themeZh": "基础闭环",
+      "summary": "Built the first complete two-stage screening workflow: Al-MOF scaffold mining followed by second-metal dopant recommendation.",
+      "summaryZh": "建立第一版两阶段筛选闭环：先筛选 Al-MOF 稳定骨架，再推荐第二金属。",
+      "keyUpdates": [
+        "Added Al-MOF stable scaffold screening.",
+        "Added OACS framework scoring.",
+        "Added DMRS second-metal recommendation.",
+        "Defined Mo as recommendation outcome, not direct Al/Mo-MOF retrieval.",
+        "Added EXAFS prediction.",
+        "Added experimental validation roadmap.",
+        "Added initial Methods & Evidence methodology section."
+      ],
+      "keyUpdatesZh": [
+        "新增 Al-MOF 稳定骨架筛选。",
+        "新增 OACS 骨架评分。",
+        "新增第二金属 DMRS 推荐。",
+        "明确 Mo 是推荐结果，不是直接筛选 Al/Mo-MOF。",
+        "新增 EXAFS 预测。",
+        "新增实验验证路线。",
+        "初步写入 Methods & Evidence 方法论。"
+      ],
+      "algorithmChanges": [
+        "Introduced two-stage target-conditioned workflow.",
+        "Implemented hydrothermal hard gate.",
+        "Implemented OACS and DMRS scoring."
+      ],
+      "algorithmChangesZh": [
+        "引入两阶段目标条件化工作流。",
+        "实现水热硬阈值。",
+        "实现 OACS 与 DMRS 评分。"
+      ],
+      "uiChanges": [
+        "Added Organic Acid Final Screening page.",
+        "Added Al-MOF ranking table.",
+        "Added dopant metal recommendation matrix.",
+        "Added Why Mo waterfall and validation roadmap."
+      ],
+      "uiChangesZh": [
+        "新增 Organic Acid Final Screening 页面。",
+        "新增 Al-MOF 排序表。",
+        "新增第二金属推荐矩阵。",
+        "新增 Why Mo 瀑布图与验证路线。"
+      ],
+      "evidenceBoundary": "Demo/proxy hypothesis generation.",
+      "evidenceBoundaryZh": "演示级代理评分 / 假设生成阶段。",
+      "limitations": [
+        "Scores are not calibrated by DFT or experiment.",
+        "Evidence records are preliminary.",
+        "No full CoRE/QMOF integration yet."
+      ],
+      "limitationsZh": [
+        "分数尚未由 DFT 或实验校准。",
+        "证据记录仍是初步版本。",
+        "尚未接入完整 CoRE/QMOF。"
+      ],
+      "relatedSection": "#methodology-organic-acid-final-screening"
+    },
+    {
+      "version": "V1.1",
+      "title": "Robustness Audit and Descriptor Provenance",
+      "titleZh": "稳健性审计与描述符溯源",
+      "date": "2026-06",
+      "status": "completed",
+      "theme": "Robustness audit",
+      "themeZh": "稳健性审计",
+      "summary": "Strengthened algorithm credibility through full-metal sensitivity reranking, Mo audit labels, competitor analysis, and structured descriptor provenance.",
+      "summaryZh": "通过全金属敏感性重排序、Mo 审计标签、竞品分析和结构化描述符溯源增强算法可信度。",
+      "keyUpdates": [
+        "Fixed sensitivity analysis to recalculate full-metal DMRS after +/-20% perturbation.",
+        "Added full-metal sensitivity rank distribution.",
+        "Added Mo robust but audit-required label.",
+        "Added Mo vs W/V/Ti/Zr/Fe competitive analysis.",
+        "Structured dopant metal property matrix.",
+        "Added sourceBasis / confidence / sourceDoi fields.",
+        "Kept Ru/Pd/Ag as blind baselines.",
+        "Clarified no fake DOI policy."
+      ],
+      "keyUpdatesZh": [
+        "修复敏感性分析，确保 +/-20% 权重扰动后重新计算全金属 DMRS。",
+        "新增全金属敏感性排名分布。",
+        "新增 Mo robust but audit-required 标记。",
+        "新增 Mo vs W/V/Ti/Zr/Fe 竞争分析。",
+        "结构化 dopant metal property matrix。",
+        "新增 sourceBasis / confidence / sourceDoi 字段。",
+        "保留 Ru/Pd/Ag 为 blind baseline。",
+        "明确 no fake DOI policy。"
+      ],
+      "algorithmChanges": [
+        "Reranked all metals after each perturbation.",
+        "Separated ranking robustness from proof of optimality.",
+        "Added competitor diagnostics."
+      ],
+      "algorithmChangesZh": [
+        "每次扰动后重排全金属池。",
+        "区分排名稳健性与最优性证明。",
+        "新增竞品诊断。"
+      ],
+      "uiChanges": [
+        "Added full-metal sensitivity distribution.",
+        "Added competitive metal comparison.",
+        "Added provenance-aware descriptor display."
+      ],
+      "uiChangesZh": [
+        "新增全金属敏感性分布。",
+        "新增竞品金属对比。",
+        "新增描述符来源展示。"
+      ],
+      "evidenceBoundary": "Structured proxy descriptors; DOI coverage may remain 0% if not verified.",
+      "evidenceBoundaryZh": "结构化代理描述符；未验证时 DOI coverage 可以保持 0%。",
+      "limitations": [
+        "Robust rank does not prove catalytic performance.",
+        "Direct selected Al-MOF DFT remains pending.",
+        "Same-condition EXAFS / ICP-OES remains pending."
+      ],
+      "limitationsZh": [
+        "稳健排名不证明催化性能。",
+        "选定 Al-MOF 的直接 DFT 仍待完成。",
+        "同条件 EXAFS / ICP-OES 仍待完成。"
+      ],
+      "relatedSection": "#methodology-oafs-robustness"
+    },
+    {
+      "version": "V1.2",
+      "title": "Algorithm Journey UX",
+      "titleZh": "算法推理路径可视化",
+      "date": "2026-06",
+      "status": "completed",
+      "theme": "Algorithm journey",
+      "themeZh": "算法旅程",
+      "summary": "Reorganized the final screening page as an algorithm journey rather than isolated result cards.",
+      "summaryZh": "将最终筛选页面重组为算法推理旅程，而不是彼此孤立的结果卡片。",
+      "keyUpdates": [
+        "Added 7-step Algorithm Pipeline Stepper.",
+        "Added Screening Funnel.",
+        "Added Stage Summary Cards.",
+        "Added Candidate Decision Drawer.",
+        "Added Mechanism Path Radar.",
+        "Added Why Mo vs W Comparison.",
+        "Added Sensitivity Rank Distribution.",
+        "Added Algorithm Trace Drawer.",
+        "Changed EXAFS to Prediction vs Falsification.",
+        "Added Algorithm Journey Visualization to Methods."
+      ],
+      "keyUpdatesZh": [
+        "新增 7-step Algorithm Pipeline Stepper。",
+        "新增 Screening Funnel。",
+        "新增 Stage Summary Cards。",
+        "新增 Candidate Decision Drawer。",
+        "新增 Mechanism Path Radar。",
+        "新增 Why Mo vs W Comparison。",
+        "新增 Sensitivity Rank Distribution。",
+        "新增 Algorithm Trace Drawer。",
+        "EXAFS 改为 Prediction vs Falsification。",
+        "Methods 新增 Algorithm Journey Visualization。"
+      ],
+      "algorithmChanges": [
+        "No scoring logic change.",
+        "Added trace and stage-level UI data builders."
+      ],
+      "algorithmChangesZh": [
+        "不改变评分逻辑。",
+        "新增 trace 与阶段级 UI 数据构建函数。"
+      ],
+      "uiChanges": [
+        "Journey stepper, funnel, decision drawer, radar, trace drawer, and rank distribution."
+      ],
+      "uiChangesZh": [
+        "新增进度条、漏斗、决策抽屉、雷达图、追踪抽屉和排名分布。"
+      ],
+      "evidenceBoundary": "UI visualizes existing OACS/DMRS workflow and does not add new scientific claims.",
+      "evidenceBoundaryZh": "UI 只可视化已有 OACS/DMRS 工作流，不新增科学结论。",
+      "limitations": [
+        "Journey visualization remains demo/proxy.",
+        "It explains algorithm behavior, not measured performance."
+      ],
+      "limitationsZh": [
+        "算法旅程可视化仍是演示级 / 代理。",
+        "它解释算法行为，不代表实测性能。"
+      ],
+      "relatedSection": "#methodology-oafs-flow"
+    },
+    {
+      "version": "V1.3",
+      "title": "Methodology Redesign and Evidence Data Layer",
+      "titleZh": "方法论页面重构与证据数据层",
+      "date": "2026-06",
+      "status": "completed",
+      "theme": "Evidence layer",
+      "themeZh": "证据层",
+      "summary": "Turned the Organic Acid methodology into a polished scientific method page and initialized the evidence record layer.",
+      "summaryZh": "将 Organic Acid 方法论重构为科研方法页，并初始化 evidence record layer。",
+      "keyUpdates": [
+        "Redesigned Organic Acid Final Screening methodology.",
+        "Added Method Overview Hero.",
+        "Added Two-stage Algorithm Flow Diagram.",
+        "Added OACS / DMRS Formula Explainer Cards.",
+        "Added Evidence Strength Matrix.",
+        "Added EXAFS-Guided Falsification.",
+        "Added Experimental Control Loop.",
+        "Added organic_acid_evidence_records.json.",
+        "Connected evidenceIds to key OACS / DMRS fields.",
+        "Added evidence coverage statistics."
+      ],
+      "keyUpdatesZh": [
+        "重构 Organic Acid Final Screening 方法论。",
+        "新增 Method Overview Hero。",
+        "新增 Two-stage Algorithm Flow Diagram。",
+        "新增 OACS / DMRS Formula Explainer Cards。",
+        "新增 Evidence Strength Matrix。",
+        "新增 EXAFS-Guided Falsification。",
+        "新增 Experimental Control Loop。",
+        "新增 organic_acid_evidence_records.json。",
+        "关键 OACS / DMRS 字段接入 evidenceIds。",
+        "新增 evidence coverage 统计。"
+      ],
+      "algorithmChanges": [
+        "Added evidence loading, attachment, and coverage builders.",
+        "No OACS/DMRS conclusion change."
+      ],
+      "algorithmChangesZh": [
+        "新增 evidence 加载、挂接和 coverage 构建。",
+        "不改变 OACS/DMRS 结论。"
+      ],
+      "uiChanges": [
+        "Scientific methodology hero, formula cards, evidence matrix, falsification loop, and control loop."
+      ],
+      "uiChangesZh": [
+        "新增科研方法 hero、公式卡、证据矩阵、证伪闭环和对照闭环。"
+      ],
+      "evidenceBoundary": "Evidence layer is initialized; most evidence remains demo/proxy or pending verification.",
+      "evidenceBoundaryZh": "证据层已初始化；大多数证据仍为 demo/proxy 或 pending verification。",
+      "limitations": [
+        "DOI coverage is intentionally explicit and may remain 0%.",
+        "Evidence records do not imply validation unless marked verified."
+      ],
+      "limitationsZh": [
+        "DOI coverage 被明确展示，可能保持 0%。",
+        "证据记录不等于验证，除非明确标记 verified。"
+      ],
+      "relatedSection": "#methodology-oafs-evidence-matrix"
+    },
+    {
+      "version": "V1.4",
+      "title": "Coupled Descriptor Hot Spot Map",
+      "titleZh": "耦合描述符热区图",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Design-space visualization",
+      "themeZh": "设计空间可视化",
+      "summary": "Projected OACS/DMRS into a low-dimensional coupled descriptor design space where Mo-anchored Al-MOF is a primary demo/proxy hypothesis and W remains a backup hypothesis.",
+      "summaryZh": "将 OACS/DMRS 投影到低维耦合描述符设计空间中；Mo 锚定 Al-MOF 是主要演示级代理假设，W 保留为备选假设。",
+      "keyUpdates": [
+        "Borrowed the geometric-electronic coupled design philosophy.",
+        "Added Scaffold Hot Spot Map.",
+        "Added Dopant Metal Hot Spot Map.",
+        "Added Synergy Hot Spot Map.",
+        "Added Descriptor Coupling Panel.",
+        "Added Validation Evidence Ladder.",
+        "Added Why Hot Spot Matters Card.",
+        "Added Coupled Descriptor Hot Spot Map to Methods.",
+        "Clarified this is not an ORR model reproduction and does not claim DFT/experimental validation.",
+        "Expressed Mo-anchored Al-MOF as primary hypothesis and W as backup hypothesis."
+      ],
+      "keyUpdatesZh": [
+        "借鉴 geometric-electronic coupled design 思想。",
+        "新增 Scaffold Hot Spot Map。",
+        "新增 Dopant Metal Hot Spot Map。",
+        "新增 Synergy Hot Spot Map。",
+        "新增 Descriptor Coupling Panel。",
+        "新增 Validation Evidence Ladder。",
+        "新增 Why Hot Spot Matters Card。",
+        "Methods 新增 Coupled Descriptor Hot Spot Map 小节。",
+        "明确不是复现 ORR 模型，也不声称完成 DFT/实验验证。",
+        "将 Mo 锚定 Al-MOF 表述为主要假设，W 为备选假设。"
+      ],
+      "algorithmChanges": [
+        "Added hot spot projection data builders.",
+        "Added demo/proxy hot spot thresholding.",
+        "No OACS/DMRS scoring logic change."
+      ],
+      "algorithmChangesZh": [
+        "新增热区投影数据构建函数。",
+        "新增演示级代理热区阈值。",
+        "不改变 OACS/DMRS 评分逻辑。"
+      ],
+      "uiChanges": [
+        "Scaffold, dopant, and synergy maps with legend, coupling panel, ladder, and explanation card."
+      ],
+      "uiChangesZh": [
+        "新增骨架、金属、协同三张 map，并配套图例、耦合面板、证据阶梯和说明卡。"
+      ],
+      "evidenceBoundary": "Hot spot map is a demo/proxy design-space visualization, not a DFT-trained performance predictor.",
+      "evidenceBoundaryZh": "热区图是演示级代理设计空间可视化，不是 DFT 训练的性能预测器。",
+      "limitations": [
+        "Not trained on DFT-labeled reaction performance.",
+        "Does not reproduce the reference ORR model.",
+        "Does not prove Mo-anchored Al-MOF optimality."
+      ],
+      "limitationsZh": [
+        "尚未基于 DFT 标注的反应性能数据训练。",
+        "不复现参考 ORR 模型。",
+        "不证明 Mo 锚定 Al-MOF 最优。"
+      ],
+      "relatedSection": "#methodology-oafs-hot-spot"
+    }
+  ],
+  "roadmap": [
+    {
+      "version": "V1.5",
+      "title": "Data Mapper",
+      "titleZh": "数据映射器",
+      "status": "planned",
+      "items": ["CoRE / QMOF / evidence mapper", "Schema validation", "No full database loading yet"],
+      "itemsZh": ["CoRE / QMOF / evidence mapper", "Schema validation", "尚不加载完整数据库"]
+    },
+    {
+      "version": "V1.6",
+      "title": "Small Real Dataset",
+      "titleZh": "小型真实数据集",
+      "status": "planned",
+      "items": ["10-30 curated real examples", "DOI-backed evidence records", "Field-level provenance"],
+      "itemsZh": ["10-30 条整理后的真实样例", "DOI-backed evidence records", "字段级来源"]
+    },
+    {
+      "version": "V2.0",
+      "title": "Large-scale Database Integration",
+      "titleZh": "大规模数据库接入",
+      "status": "planned",
+      "items": ["CoRE / QMOF index-level integration", "Top-N precomputed screening", "Virtualized result table", "Worker-based scoring"],
+      "itemsZh": ["CoRE / QMOF 索引级接入", "Top-N 预计算筛选", "虚拟化结果表", "Worker-based scoring"]
+    }
+  ]
+}

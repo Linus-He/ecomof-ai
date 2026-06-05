@@ -17,6 +17,7 @@ import { MethodologySidebar } from "../methodology/MethodologySidebar"
 import { MethodFormulaCard } from "../methodology/MethodFormulaCard"
 import { MethodModuleSection } from "../methodology/MethodModuleSection"
 import { ORGANIC_ACID_FINAL_DIRECTORY, OrganicAcidFinalMethodology } from "../methodology/OrganicAcidFinalMethodology"
+import { VERSION_DOCS_DIRECTORY, VersionDocsPanel } from "../methodology/version-docs/VersionDocsPanel"
 
 const MODULE_ORDER = [
   "platform-overview",
@@ -246,14 +247,23 @@ export function MethodsLimitationsTab() {
         display: text(lang, child.labelZh, child.label),
       })),
     }
+    const versionItem = {
+      ...VERSION_DOCS_DIRECTORY,
+      display: text(lang, VERSION_DOCS_DIRECTORY.labelZh, VERSION_DOCS_DIRECTORY.label),
+      children: (VERSION_DOCS_DIRECTORY.children || []).map(child => ({
+        ...child,
+        display: text(lang, child.labelZh, child.label),
+      })),
+    }
     if (insertIndex >= 0) {
       return [
         ...items.slice(0, insertIndex + 1),
         finalItem,
+        versionItem,
         ...items.slice(insertIndex + 1),
       ]
     }
-    return [...items, finalItem]
+    return [...items, finalItem, versionItem]
   }, [orderedModules, lang])
 
   useEffect(() => {
@@ -338,7 +348,12 @@ export function MethodsLimitationsTab() {
             item.id === "platform-overview" ? null : (
               <div key={item.id} style={{ display: "grid", gap: 16 }}>
                 <MethodModuleSection item={item} lang={lang} t={t} />
-                {item.id === "organic-acid" ? <OrganicAcidFinalMethodology lang={lang} t={t} /> : null}
+                {item.id === "organic-acid" ? (
+                  <>
+                    <OrganicAcidFinalMethodology lang={lang} t={t} />
+                    <VersionDocsPanel lang={lang} t={t} isMobile={isMobile || isNarrow} />
+                  </>
+                ) : null}
               </div>
             )
           ))}
