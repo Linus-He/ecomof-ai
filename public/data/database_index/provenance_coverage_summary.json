@@ -1,0 +1,12 @@
+{
+  "totalRecords": 500,
+  "withSourceDatabase": 500,
+  "withSourceRecordId": 500,
+  "withSourceDoi": 0,
+  "withCitation": 0,
+  "withLicense": 0,
+  "fieldSourceCoveragePercent": 42,
+  "doiCoveragePercent": 0,
+  "evidenceIdsCoveragePercent": 2.4,
+  "warning": "DOI coverage is low in index preview. Missing DOI is evidence pending, not schema failure."
+}

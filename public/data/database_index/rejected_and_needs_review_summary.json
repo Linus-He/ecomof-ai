@@ -1,0 +1,23 @@
+{
+  "datasetMode": "database_index_preview",
+  "totalRecords": 500,
+  "readyForScoring": 12,
+  "needsReview": 63,
+  "rejected": 0,
+  "finalRecommendationEligible": 0,
+  "blockedReasonSummary": [
+    {
+      "reason": "Missing hydrothermal stability evidence",
+      "count": 63
+    },
+    {
+      "reason": "Hydrothermal hard gate failed",
+      "count": 0
+    },
+    {
+      "reason": "Outside organic-acid Al-node preview subset",
+      "count": 380
+    }
+  ],
+  "warning": "Needs-review and rejected records remain visible in index preview but cannot enter final recommendation."
+}

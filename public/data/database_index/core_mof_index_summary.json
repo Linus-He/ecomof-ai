@@ -1,0 +1,16 @@
+{
+  "dataset": "CoRE MOF index preview",
+  "recordCount": 500,
+  "alContainingCount": 120,
+  "hasAlNodeCount": 75,
+  "readyForScoring": 12,
+  "needsReview": 63,
+  "rejected": 0,
+  "topMissingFields": [
+    "hydrothermal stability",
+    "sourceDoi",
+    "bandGap",
+    "post-treatment PXRD"
+  ],
+  "notes": "Preview summary for V2.0-A index architecture."
+}

@@ -1,0 +1,69 @@
+{
+  "id": "COREMOF_000006",
+  "displayName": "MOF-303(Al) curated example database index preview",
+  "sourceDatabase": "CoRE MOF",
+  "sourceRecordId": "COREMOF_000006",
+  "sourceUrl": null,
+  "citation": null,
+  "sourceDoi": null,
+  "license": null,
+  "retrievedAt": "2026-06-07",
+  "metals": [
+    "Al"
+  ],
+  "hasAlNode": true,
+  "frameworkType": "Al-node index preview",
+  "topology": "mof-303-like",
+  "descriptors": {
+    "pldA": 8.37,
+    "lcdA": 10.97,
+    "surfaceArea": 1964,
+    "poreVolume": 0.48,
+    "density": 1.02,
+    "voidFraction": 0.59,
+    "bandGap": 1.2
+  },
+  "waterStability": {
+    "max_tested_temp_C": 155,
+    "duration_hours": 24,
+    "solvent": "H2O",
+    "post_treatment_PXRD_retained": true,
+    "sourceDoi": null,
+    "confidence_score": 0.42
+  },
+  "dataQualityGate": {
+    "status": "ready_for_scoring",
+    "reasons": [
+      "Eligible for OACS preview only; not final recommendation"
+    ],
+    "allowedActions": [
+      "show_in_index",
+      "calculate_preview_oacs",
+      "exclude_from_final_recommendation"
+    ]
+  },
+  "fieldSources": {
+    "sourceDatabase": {
+      "sourceType": "database_index_preview",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000006",
+      "sourceDoi": null,
+      "confidence": "preview"
+    },
+    "waterStability": {
+      "sourceType": "database_index_preview",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000006",
+      "sourceDoi": null,
+      "confidence": "pending"
+    }
+  },
+  "evidenceIds": [
+    "EVID_DB_000006"
+  ],
+  "dataStatus": {
+    "level": "database_index_preview",
+    "label": "Database index preview",
+    "verified": false
+  }
+}

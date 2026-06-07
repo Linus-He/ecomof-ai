@@ -1,0 +1,12 @@
+{
+  "dataset": "QMOF index preview",
+  "recordCount": 200,
+  "matchedFrameworks": 45,
+  "unmatchedRecords": 155,
+  "availableDescriptors": {
+    "bandGap": 120,
+    "totalMagnetization": 80,
+    "formationEnergy": 60
+  },
+  "notes": "QMOF index preview only; matching requires verification."
+}

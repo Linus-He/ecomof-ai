@@ -1,0 +1,18 @@
+{
+  "version": "V2.0-A",
+  "datasetMode": "database_index_preview",
+  "dryRun": false,
+  "buildDate": "2026-06-07",
+  "sourceInputs": [
+    "organic_acid_final_screening/curated_real_examples/real_al_mof_framework_examples.json",
+    "organic_acid_final_screening/mapping_fixtures/core_mof_mapping_examples.json"
+  ],
+  "generatedRecordCounts": {
+    "coreMofIndexRecords": 500,
+    "qmofIndexRecords": 200,
+    "frameworkDetailRecords": 30,
+    "qmofDetailRecords": 20
+  },
+  "mapperBoundary": "Generated from V1.6 curated examples and mapper-compatible fixtures for architecture validation only.",
+  "warning": "V2.0-A does not perform full database screening and does not create verified final recommendations."
+}

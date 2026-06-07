@@ -1,0 +1,51 @@
+{
+  "id": "COREMOF_000020",
+  "displayName": "Al-MOF index preview 020",
+  "sourceDatabase": "CoRE MOF",
+  "sourceRecordId": "COREMOF_000020",
+  "sourceUrl": null,
+  "citation": null,
+  "sourceDoi": null,
+  "license": null,
+  "retrievedAt": "2026-06-07",
+  "metals": [
+    "Al"
+  ],
+  "hasAlNode": true,
+  "frameworkType": "Al-node index preview",
+  "topology": "mof-303-like",
+  "descriptors": {
+    "pldA": 5.28,
+    "lcdA": 10.72,
+    "surfaceArea": 2282,
+    "poreVolume": 0.57,
+    "density": 1.5,
+    "voidFraction": 0.32,
+    "bandGap": 4.56
+  },
+  "waterStability": {
+    "max_tested_temp_C": null,
+    "duration_hours": null,
+    "solvent": "H2O",
+    "post_treatment_PXRD_retained": null,
+    "sourceDoi": null,
+    "confidence_score": 0
+  },
+  "dataQualityGate": {
+    "status": "needs_review",
+    "reasons": [
+      "Missing hydrothermal stability evidence"
+    ],
+    "allowedActions": [
+      "show_in_index",
+      "exclude_from_final_recommendation"
+    ]
+  },
+  "fieldSources": {},
+  "evidenceIds": [],
+  "dataStatus": {
+    "level": "database_index_preview",
+    "label": "Database index preview",
+    "verified": false
+  }
+}

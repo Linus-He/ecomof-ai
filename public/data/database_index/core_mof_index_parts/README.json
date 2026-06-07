@@ -1,0 +1,26 @@
+{
+  "version": "V2.0-A",
+  "datasetMode": "database_index_preview",
+  "sourceDatabase": "CoRE MOF",
+  "partSize": 250,
+  "partCount": 2,
+  "recordCount": 500,
+  "note": "Lightweight index parts only. Detail records are loaded on demand through detailRef.",
+  "warning": "Do not interpret this preview index as full verified database screening.",
+  "parts": [
+    {
+      "partId": "core_mof_index_part_001",
+      "path": "core_mof_index_parts/core_mof_index_part_001.json",
+      "recordCount": 250,
+      "firstId": "COREMOF_000001",
+      "lastId": "COREMOF_000250"
+    },
+    {
+      "partId": "core_mof_index_part_002",
+      "path": "core_mof_index_parts/core_mof_index_part_002.json",
+      "recordCount": 250,
+      "firstId": "COREMOF_000251",
+      "lastId": "COREMOF_000500"
+    }
+  ]
+}

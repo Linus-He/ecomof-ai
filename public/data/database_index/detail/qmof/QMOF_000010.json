@@ -1,0 +1,34 @@
+{
+  "id": "QMOF_000010",
+  "displayName": "QMOF descriptor index preview 010",
+  "sourceDatabase": "QMOF",
+  "sourceRecordId": "QMOF_000010",
+  "sourceUrl": null,
+  "citation": null,
+  "sourceDoi": null,
+  "license": null,
+  "retrievedAt": "2026-06-07",
+  "matchedFrameworkId": "COREMOF_000010",
+  "descriptors": {
+    "bandGap": 1.31,
+    "totalMagnetization": 1.88,
+    "formationEnergy": -2.67
+  },
+  "dataQualityGate": {
+    "status": "descriptor_preview",
+    "reasons": [
+      "Descriptor row matched to preview framework id"
+    ],
+    "allowedActions": [
+      "show_in_index",
+      "exclude_from_final_recommendation"
+    ]
+  },
+  "fieldSources": {},
+  "evidenceIds": [],
+  "dataStatus": {
+    "level": "database_index_preview",
+    "label": "QMOF descriptor index preview",
+    "verified": false
+  }
+}

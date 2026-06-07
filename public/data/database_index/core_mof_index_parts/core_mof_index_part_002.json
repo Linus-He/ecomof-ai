@@ -1,0 +1,6759 @@
+{
+  "version": "V2.0-A",
+  "datasetMode": "database_index_preview",
+  "partId": "core_mof_index_part_002",
+  "sourceDatabase": "CoRE MOF",
+  "recordCount": 250,
+  "records": [
+    {
+      "id": "COREMOF_000251",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000251",
+      "displayName": "MOF index preview 251",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "Al-O chain net",
+      "pldA": 8.63,
+      "lcdA": 12.99,
+      "surfaceArea": 1240,
+      "poreVolume": 1.04,
+      "density": 1.21,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000252",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000252",
+      "displayName": "MOF index preview 252",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "open Al node net",
+      "pldA": 5.44,
+      "lcdA": 6.14,
+      "surfaceArea": 2024,
+      "poreVolume": 0.64,
+      "density": 1.23,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000253",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000253",
+      "displayName": "MOF index preview 253",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-53-like",
+      "pldA": 4.38,
+      "lcdA": 12.83,
+      "surfaceArea": 582,
+      "poreVolume": 0.2,
+      "density": 1.01,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000254",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000254",
+      "displayName": "MOF index preview 254",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "cau-10-like",
+      "pldA": 5.27,
+      "lcdA": 17.19,
+      "surfaceArea": 2819,
+      "poreVolume": 0.42,
+      "density": 0.86,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000255",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000255",
+      "displayName": "MOF index preview 255",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mtv-like",
+      "pldA": 7.07,
+      "lcdA": 16.56,
+      "surfaceArea": 2764,
+      "poreVolume": 0.76,
+      "density": 1.13,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000256",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000256",
+      "displayName": "MOF index preview 256",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-101-like",
+      "pldA": 3.39,
+      "lcdA": 11.52,
+      "surfaceArea": 2521,
+      "poreVolume": 0.77,
+      "density": 0.89,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000257",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000257",
+      "displayName": "MOF index preview 257",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "dut-4-like",
+      "pldA": 6.99,
+      "lcdA": 6.01,
+      "surfaceArea": 1323,
+      "poreVolume": 0.56,
+      "density": 1.11,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000258",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000258",
+      "displayName": "MOF index preview 258",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mof-303-like",
+      "pldA": 9.33,
+      "lcdA": 8.77,
+      "surfaceArea": 925,
+      "poreVolume": 0.42,
+      "density": 1.09,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000259",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000259",
+      "displayName": "MOF index preview 259",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "fumarate-like",
+      "pldA": 8.99,
+      "lcdA": 13.02,
+      "surfaceArea": 1259,
+      "poreVolume": 0.68,
+      "density": 1.05,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000260",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000260",
+      "displayName": "MOF index preview 260",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "functionalized-mil-53-like",
+      "pldA": 6.28,
+      "lcdA": 13.19,
+      "surfaceArea": 1937,
+      "poreVolume": 0.44,
+      "density": 1.4,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000261",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000261",
+      "displayName": "MOF index preview 261",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "btc-like",
+      "pldA": 3.32,
+      "lcdA": 10.5,
+      "surfaceArea": 550,
+      "poreVolume": 0.66,
+      "density": 1.03,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000262",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000262",
+      "displayName": "MOF index preview 262",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": null,
+      "pldA": 4.8,
+      "lcdA": 8.75,
+      "surfaceArea": 1905,
+      "poreVolume": 0.64,
+      "density": 0.86,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000263",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000263",
+      "displayName": "MOF index preview 263",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": 7.09,
+      "lcdA": 12.07,
+      "surfaceArea": 2787,
+      "poreVolume": 0.6,
+      "density": 0.99,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000264",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000264",
+      "displayName": "MOF index preview 264",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": 7.18,
+      "lcdA": 9.09,
+      "surfaceArea": 2660,
+      "poreVolume": 0.95,
+      "density": 0.73,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000265",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000265",
+      "displayName": "MOF index preview 265",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "Al-O chain net",
+      "pldA": 5.73,
+      "lcdA": 11.8,
+      "surfaceArea": 1638,
+      "poreVolume": 0.59,
+      "density": 0.96,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000266",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000266",
+      "displayName": "MOF index preview 266",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "open Al node net",
+      "pldA": 4.79,
+      "lcdA": 11.57,
+      "surfaceArea": 523,
+      "poreVolume": 0.42,
+      "density": 0.88,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000267",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000267",
+      "displayName": "MOF index preview 267",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-53-like",
+      "pldA": 6.58,
+      "lcdA": 11,
+      "surfaceArea": 1081,
+      "poreVolume": 0.54,
+      "density": 0.96,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000268",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000268",
+      "displayName": "MOF index preview 268",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "cau-10-like",
+      "pldA": 4.97,
+      "lcdA": 15.33,
+      "surfaceArea": 1942,
+      "poreVolume": 0.29,
+      "density": 1.46,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000269",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000269",
+      "displayName": "MOF index preview 269",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mtv-like",
+      "pldA": 6.43,
+      "lcdA": 10.86,
+      "surfaceArea": 1978,
+      "poreVolume": 0.51,
+      "density": 1.13,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000270",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000270",
+      "displayName": "MOF index preview 270",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-101-like",
+      "pldA": 6.31,
+      "lcdA": 8.75,
+      "surfaceArea": 1432,
+      "poreVolume": 0.44,
+      "density": 0.94,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000271",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000271",
+      "displayName": "MOF index preview 271",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "dut-4-like",
+      "pldA": 6,
+      "lcdA": 10.26,
+      "surfaceArea": 1078,
+      "poreVolume": 0.52,
+      "density": 0.84,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000272",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000272",
+      "displayName": "MOF index preview 272",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mof-303-like",
+      "pldA": 8.33,
+      "lcdA": 7.19,
+      "surfaceArea": 1750,
+      "poreVolume": 1,
+      "density": 0.97,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000273",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000273",
+      "displayName": "MOF index preview 273",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "fumarate-like",
+      "pldA": 5.92,
+      "lcdA": 9.88,
+      "surfaceArea": 1147,
+      "poreVolume": 0.68,
+      "density": 1.28,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000274",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000274",
+      "displayName": "MOF index preview 274",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "functionalized-mil-53-like",
+      "pldA": 4.79,
+      "lcdA": 9,
+      "surfaceArea": 1695,
+      "poreVolume": 0.5,
+      "density": 1.12,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000275",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000275",
+      "displayName": "MOF index preview 275",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "btc-like",
+      "pldA": 5.6,
+      "lcdA": 10,
+      "surfaceArea": 1649,
+      "poreVolume": 0.4,
+      "density": 1.48,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000276",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000276",
+      "displayName": "MOF index preview 276",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": null,
+      "pldA": 3.95,
+      "lcdA": 16,
+      "surfaceArea": 1534,
+      "poreVolume": 0.53,
+      "density": 1.32,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000277",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000277",
+      "displayName": "MOF index preview 277",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": 5.4,
+      "lcdA": 12.03,
+      "surfaceArea": 2410,
+      "poreVolume": 0.83,
+      "density": 1.16,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000278",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000278",
+      "displayName": "MOF index preview 278",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": 4.93,
+      "lcdA": 9.73,
+      "surfaceArea": 1505,
+      "poreVolume": 0.67,
+      "density": 0.92,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000279",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000279",
+      "displayName": "MOF index preview 279",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "Al-O chain net",
+      "pldA": 5.46,
+      "lcdA": 8.54,
+      "surfaceArea": 1077,
+      "poreVolume": 1.02,
+      "density": 1.57,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000280",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000280",
+      "displayName": "MOF index preview 280",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "open Al node net",
+      "pldA": 8.69,
+      "lcdA": 10.12,
+      "surfaceArea": 1382,
+      "poreVolume": 0.87,
+      "density": 0.65,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000281",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000281",
+      "displayName": "MOF index preview 281",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-53-like",
+      "pldA": 6.55,
+      "lcdA": 13.83,
+      "surfaceArea": 762,
+      "poreVolume": 0.71,
+      "density": 0.9,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000282",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000282",
+      "displayName": "MOF index preview 282",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "cau-10-like",
+      "pldA": 5.32,
+      "lcdA": 11.88,
+      "surfaceArea": 1307,
+      "poreVolume": 0.47,
+      "density": 1.46,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000283",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000283",
+      "displayName": "MOF index preview 283",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mtv-like",
+      "pldA": 4.68,
+      "lcdA": 16.29,
+      "surfaceArea": 1129,
+      "poreVolume": 1.11,
+      "density": 0.77,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000284",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000284",
+      "displayName": "MOF index preview 284",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-101-like",
+      "pldA": 5.53,
+      "lcdA": 14.33,
+      "surfaceArea": 1332,
+      "poreVolume": 0.21,
+      "density": 0.91,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000285",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000285",
+      "displayName": "MOF index preview 285",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "dut-4-like",
+      "pldA": 7.53,
+      "lcdA": 12.41,
+      "surfaceArea": 2546,
+      "poreVolume": 0.46,
+      "density": 1.48,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000286",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000286",
+      "displayName": "MOF index preview 286",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mof-303-like",
+      "pldA": 6.47,
+      "lcdA": 9.42,
+      "surfaceArea": 1741,
+      "poreVolume": 1.01,
+      "density": 1.06,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000287",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000287",
+      "displayName": "MOF index preview 287",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "fumarate-like",
+      "pldA": 8.85,
+      "lcdA": 17.36,
+      "surfaceArea": 1277,
+      "poreVolume": 0.33,
+      "density": 1.16,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000288",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000288",
+      "displayName": "MOF index preview 288",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "functionalized-mil-53-like",
+      "pldA": 7.8,
+      "lcdA": 6.17,
+      "surfaceArea": 1035,
+      "poreVolume": 0.46,
+      "density": 1.3,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000289",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000289",
+      "displayName": "MOF index preview 289",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "btc-like",
+      "pldA": 6.76,
+      "lcdA": 9.23,
+      "surfaceArea": 1355,
+      "poreVolume": 1.02,
+      "density": 0.84,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000290",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000290",
+      "displayName": "MOF index preview 290",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": null,
+      "pldA": 5.15,
+      "lcdA": 16.1,
+      "surfaceArea": 2107,
+      "poreVolume": 0.61,
+      "density": 0.95,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000291",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000291",
+      "displayName": "MOF index preview 291",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": 9.42,
+      "lcdA": 7.63,
+      "surfaceArea": 1711,
+      "poreVolume": 0.71,
+      "density": 1.32,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000292",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000292",
+      "displayName": "MOF index preview 292",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": 3.4,
+      "lcdA": 9.32,
+      "surfaceArea": 2606,
+      "poreVolume": 0.85,
+      "density": 1.53,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000293",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000293",
+      "displayName": "MOF index preview 293",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "Al-O chain net",
+      "pldA": 5.05,
+      "lcdA": 16.24,
+      "surfaceArea": 2209,
+      "poreVolume": 0.39,
+      "density": 1.05,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000294",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000294",
+      "displayName": "MOF index preview 294",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "open Al node net",
+      "pldA": 8.74,
+      "lcdA": 11.14,
+      "surfaceArea": 1818,
+      "poreVolume": 0.5,
+      "density": 1.22,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000295",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000295",
+      "displayName": "MOF index preview 295",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-53-like",
+      "pldA": 4.19,
+      "lcdA": 12.44,
+      "surfaceArea": 1213,
+      "poreVolume": 0.87,
+      "density": 1.02,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000296",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000296",
+      "displayName": "MOF index preview 296",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "cau-10-like",
+      "pldA": 5.09,
+      "lcdA": 14.08,
+      "surfaceArea": 2821,
+      "poreVolume": 1.07,
+      "density": 0.97,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000297",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000297",
+      "displayName": "MOF index preview 297",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mtv-like",
+      "pldA": 8.82,
+      "lcdA": 8.43,
+      "surfaceArea": 554,
+      "poreVolume": 0.6,
+      "density": 1.23,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000298",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000298",
+      "displayName": "MOF index preview 298",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-101-like",
+      "pldA": 6.08,
+      "lcdA": 9.78,
+      "surfaceArea": 1174,
+      "poreVolume": 0.77,
+      "density": 1.54,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000299",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000299",
+      "displayName": "MOF index preview 299",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "dut-4-like",
+      "pldA": 6.77,
+      "lcdA": 14.34,
+      "surfaceArea": 2565,
+      "poreVolume": 0.57,
+      "density": 0.71,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000300",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000300",
+      "displayName": "MOF index preview 300",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mof-303-like",
+      "pldA": 7.66,
+      "lcdA": 16.83,
+      "surfaceArea": 851,
+      "poreVolume": 0.52,
+      "density": 0.75,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000301",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000301",
+      "displayName": "MOF index preview 301",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "fumarate-like",
+      "pldA": 4.62,
+      "lcdA": 11.04,
+      "surfaceArea": 1193,
+      "poreVolume": 0.77,
+      "density": 1.46,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000302",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000302",
+      "displayName": "MOF index preview 302",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "functionalized-mil-53-like",
+      "pldA": 5.34,
+      "lcdA": 13.08,
+      "surfaceArea": 2595,
+      "poreVolume": 1.08,
+      "density": 1.5,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000303",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000303",
+      "displayName": "MOF index preview 303",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "btc-like",
+      "pldA": 7.8,
+      "lcdA": 10.71,
+      "surfaceArea": 1563,
+      "poreVolume": 0.27,
+      "density": 1.4,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000304",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000304",
+      "displayName": "MOF index preview 304",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": null,
+      "pldA": 9.14,
+      "lcdA": 10.08,
+      "surfaceArea": 1824,
+      "poreVolume": 0.31,
+      "density": 1.51,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000305",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000305",
+      "displayName": "MOF index preview 305",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": 6.02,
+      "lcdA": 13.19,
+      "surfaceArea": 2158,
+      "poreVolume": 1,
+      "density": 1.37,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000306",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000306",
+      "displayName": "MOF index preview 306",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": 7.12,
+      "lcdA": 16.96,
+      "surfaceArea": 1014,
+      "poreVolume": 1.04,
+      "density": 0.96,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000307",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000307",
+      "displayName": "MOF index preview 307",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "Al-O chain net",
+      "pldA": 5.84,
+      "lcdA": 6.94,
+      "surfaceArea": 1286,
+      "poreVolume": 0.95,
+      "density": 1.19,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000308",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000308",
+      "displayName": "MOF index preview 308",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "open Al node net",
+      "pldA": 5.5,
+      "lcdA": 7.41,
+      "surfaceArea": 2210,
+      "poreVolume": 1.05,
+      "density": 0.93,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000309",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000309",
+      "displayName": "MOF index preview 309",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-53-like",
+      "pldA": 7.18,
+      "lcdA": 16.03,
+      "surfaceArea": 2715,
+      "poreVolume": 0.91,
+      "density": 1.31,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000310",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000310",
+      "displayName": "MOF index preview 310",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "cau-10-like",
+      "pldA": 9.21,
+      "lcdA": 16.54,
+      "surfaceArea": 1542,
+      "poreVolume": 0.51,
+      "density": 1.31,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000311",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000311",
+      "displayName": "MOF index preview 311",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mtv-like",
+      "pldA": 3.81,
+      "lcdA": 15.35,
+      "surfaceArea": 1955,
+      "poreVolume": 0.74,
+      "density": 1.25,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000312",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000312",
+      "displayName": "MOF index preview 312",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-101-like",
+      "pldA": 4.07,
+      "lcdA": 16.63,
+      "surfaceArea": 1474,
+      "poreVolume": 0.48,
+      "density": 1.41,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000313",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000313",
+      "displayName": "MOF index preview 313",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "dut-4-like",
+      "pldA": 8.71,
+      "lcdA": 14.94,
+      "surfaceArea": 1346,
+      "poreVolume": 0.85,
+      "density": 1.47,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000314",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000314",
+      "displayName": "MOF index preview 314",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mof-303-like",
+      "pldA": 8.98,
+      "lcdA": 9.89,
+      "surfaceArea": 1977,
+      "poreVolume": 0.86,
+      "density": 0.99,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000315",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000315",
+      "displayName": "MOF index preview 315",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "fumarate-like",
+      "pldA": 8.34,
+      "lcdA": 12.78,
+      "surfaceArea": 2740,
+      "poreVolume": 0.79,
+      "density": 1.35,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000316",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000316",
+      "displayName": "MOF index preview 316",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "functionalized-mil-53-like",
+      "pldA": 9.03,
+      "lcdA": 9.58,
+      "surfaceArea": 711,
+      "poreVolume": 0.95,
+      "density": 1.46,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000317",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000317",
+      "displayName": "MOF index preview 317",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "btc-like",
+      "pldA": 8.12,
+      "lcdA": 14.17,
+      "surfaceArea": 806,
+      "poreVolume": 1.01,
+      "density": 0.92,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000318",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000318",
+      "displayName": "MOF index preview 318",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": null,
+      "pldA": 5.4,
+      "lcdA": 14.25,
+      "surfaceArea": 2552,
+      "poreVolume": 0.54,
+      "density": 1.53,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000319",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000319",
+      "displayName": "MOF index preview 319",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": 6.96,
+      "lcdA": 13.44,
+      "surfaceArea": 2655,
+      "poreVolume": 0.9,
+      "density": 0.93,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000320",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000320",
+      "displayName": "MOF index preview 320",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": 5.24,
+      "lcdA": 15.39,
+      "surfaceArea": 2415,
+      "poreVolume": 1,
+      "density": 1.56,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000321",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000321",
+      "displayName": "MOF index preview 321",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "Al-O chain net",
+      "pldA": 7.71,
+      "lcdA": 16.19,
+      "surfaceArea": 2673,
+      "poreVolume": 0.47,
+      "density": 1.15,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000322",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000322",
+      "displayName": "MOF index preview 322",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "open Al node net",
+      "pldA": 7.75,
+      "lcdA": 10.34,
+      "surfaceArea": 2331,
+      "poreVolume": 1.08,
+      "density": 1.47,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000323",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000323",
+      "displayName": "MOF index preview 323",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-53-like",
+      "pldA": 7.31,
+      "lcdA": 14.75,
+      "surfaceArea": 1308,
+      "poreVolume": 0.49,
+      "density": 1.45,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000324",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000324",
+      "displayName": "MOF index preview 324",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "cau-10-like",
+      "pldA": 8.37,
+      "lcdA": 16.01,
+      "surfaceArea": 1894,
+      "poreVolume": 1.1,
+      "density": 1.31,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000325",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000325",
+      "displayName": "MOF index preview 325",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mtv-like",
+      "pldA": 8.8,
+      "lcdA": 9.45,
+      "surfaceArea": 1246,
+      "poreVolume": 0.7,
+      "density": 0.91,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000326",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000326",
+      "displayName": "MOF index preview 326",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-101-like",
+      "pldA": 5.65,
+      "lcdA": 16.95,
+      "surfaceArea": 2176,
+      "poreVolume": 1.01,
+      "density": 1.43,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000327",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000327",
+      "displayName": "MOF index preview 327",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "dut-4-like",
+      "pldA": 8.02,
+      "lcdA": 9.62,
+      "surfaceArea": 2192,
+      "poreVolume": 0.99,
+      "density": 1.06,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000328",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000328",
+      "displayName": "MOF index preview 328",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mof-303-like",
+      "pldA": 8.7,
+      "lcdA": 17.24,
+      "surfaceArea": 2028,
+      "poreVolume": 0.85,
+      "density": 1.13,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000329",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000329",
+      "displayName": "MOF index preview 329",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "fumarate-like",
+      "pldA": 5.16,
+      "lcdA": 12.31,
+      "surfaceArea": 2423,
+      "poreVolume": 0.46,
+      "density": 1.15,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000330",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000330",
+      "displayName": "MOF index preview 330",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "functionalized-mil-53-like",
+      "pldA": 9.2,
+      "lcdA": 16.17,
+      "surfaceArea": 2585,
+      "poreVolume": 0.97,
+      "density": 0.8,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000331",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000331",
+      "displayName": "MOF index preview 331",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "btc-like",
+      "pldA": 5.26,
+      "lcdA": 15.86,
+      "surfaceArea": 1400,
+      "poreVolume": 0.61,
+      "density": 0.85,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000332",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000332",
+      "displayName": "MOF index preview 332",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": null,
+      "pldA": 9.36,
+      "lcdA": 14.16,
+      "surfaceArea": 2292,
+      "poreVolume": 0.68,
+      "density": 1.25,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000333",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000333",
+      "displayName": "MOF index preview 333",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": 6.71,
+      "lcdA": 9.34,
+      "surfaceArea": 2547,
+      "poreVolume": 0.7,
+      "density": 1.27,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000334",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000334",
+      "displayName": "MOF index preview 334",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": 8.78,
+      "lcdA": 15.66,
+      "surfaceArea": 1219,
+      "poreVolume": 0.36,
+      "density": 1.04,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000335",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000335",
+      "displayName": "MOF index preview 335",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "Al-O chain net",
+      "pldA": 8.62,
+      "lcdA": 11.11,
+      "surfaceArea": 2738,
+      "poreVolume": 0.4,
+      "density": 1.37,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 5,
+        "total": 12,
+        "percent": 41.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000336",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000336",
+      "displayName": "MOF index preview 336",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "open Al node net",
+      "pldA": 7.7,
+      "lcdA": 11.96,
+      "surfaceArea": 1254,
+      "poreVolume": null,
+      "density": 0.98,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000337",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000337",
+      "displayName": "MOF index preview 337",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-53-like",
+      "pldA": 5.11,
+      "lcdA": 12.23,
+      "surfaceArea": 2797,
+      "poreVolume": null,
+      "density": 0.96,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000338",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000338",
+      "displayName": "MOF index preview 338",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "cau-10-like",
+      "pldA": 8.51,
+      "lcdA": 8,
+      "surfaceArea": 1799,
+      "poreVolume": null,
+      "density": 1.04,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000339",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000339",
+      "displayName": "MOF index preview 339",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mtv-like",
+      "pldA": 6.06,
+      "lcdA": 8.6,
+      "surfaceArea": 2580,
+      "poreVolume": null,
+      "density": 1.47,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000340",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000340",
+      "displayName": "MOF index preview 340",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-101-like",
+      "pldA": 6.52,
+      "lcdA": 13.44,
+      "surfaceArea": 2519,
+      "poreVolume": null,
+      "density": 1.33,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000341",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000341",
+      "displayName": "MOF index preview 341",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "dut-4-like",
+      "pldA": 6.66,
+      "lcdA": 13.77,
+      "surfaceArea": 2174,
+      "poreVolume": null,
+      "density": 0.81,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000342",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000342",
+      "displayName": "MOF index preview 342",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mof-303-like",
+      "pldA": 4.38,
+      "lcdA": 10.87,
+      "surfaceArea": 1197,
+      "poreVolume": null,
+      "density": 0.98,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000343",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000343",
+      "displayName": "MOF index preview 343",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "fumarate-like",
+      "pldA": 4.71,
+      "lcdA": 14.99,
+      "surfaceArea": 2477,
+      "poreVolume": null,
+      "density": 0.99,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000344",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000344",
+      "displayName": "MOF index preview 344",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "functionalized-mil-53-like",
+      "pldA": 7.31,
+      "lcdA": 10.19,
+      "surfaceArea": 1555,
+      "poreVolume": null,
+      "density": 1.43,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000345",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000345",
+      "displayName": "MOF index preview 345",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "btc-like",
+      "pldA": 7.49,
+      "lcdA": 9.95,
+      "surfaceArea": 1728,
+      "poreVolume": null,
+      "density": 1.1,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000346",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000346",
+      "displayName": "MOF index preview 346",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": null,
+      "pldA": 5.93,
+      "lcdA": 10.92,
+      "surfaceArea": 1782,
+      "poreVolume": null,
+      "density": 0.72,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000347",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000347",
+      "displayName": "MOF index preview 347",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": 8.15,
+      "lcdA": 16.17,
+      "surfaceArea": 925,
+      "poreVolume": null,
+      "density": 1.38,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000348",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000348",
+      "displayName": "MOF index preview 348",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": 5.56,
+      "lcdA": 14.47,
+      "surfaceArea": 1046,
+      "poreVolume": null,
+      "density": 0.74,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000349",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000349",
+      "displayName": "MOF index preview 349",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "Al-O chain net",
+      "pldA": 5.43,
+      "lcdA": 8.12,
+      "surfaceArea": 2028,
+      "poreVolume": null,
+      "density": 1.11,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000350",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000350",
+      "displayName": "MOF index preview 350",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "open Al node net",
+      "pldA": 5.96,
+      "lcdA": 10.22,
+      "surfaceArea": 2094,
+      "poreVolume": null,
+      "density": 0.75,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000351",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000351",
+      "displayName": "MOF index preview 351",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-53-like",
+      "pldA": 8.78,
+      "lcdA": 10.27,
+      "surfaceArea": 1507,
+      "poreVolume": null,
+      "density": 1.48,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000352",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000352",
+      "displayName": "MOF index preview 352",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "cau-10-like",
+      "pldA": 7.87,
+      "lcdA": 15.71,
+      "surfaceArea": 2341,
+      "poreVolume": null,
+      "density": 1.35,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000353",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000353",
+      "displayName": "MOF index preview 353",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mtv-like",
+      "pldA": 4.45,
+      "lcdA": 11.61,
+      "surfaceArea": 1369,
+      "poreVolume": null,
+      "density": 1.52,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000354",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000354",
+      "displayName": "MOF index preview 354",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-101-like",
+      "pldA": 5.58,
+      "lcdA": 7.03,
+      "surfaceArea": 1320,
+      "poreVolume": null,
+      "density": 0.98,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000355",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000355",
+      "displayName": "MOF index preview 355",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "dut-4-like",
+      "pldA": 5.6,
+      "lcdA": 15.09,
+      "surfaceArea": 1518,
+      "poreVolume": null,
+      "density": 1.48,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000356",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000356",
+      "displayName": "MOF index preview 356",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mof-303-like",
+      "pldA": 8.53,
+      "lcdA": 7.31,
+      "surfaceArea": 2580,
+      "poreVolume": null,
+      "density": 1.21,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000357",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000357",
+      "displayName": "MOF index preview 357",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "fumarate-like",
+      "pldA": 6.33,
+      "lcdA": 11.73,
+      "surfaceArea": 2236,
+      "poreVolume": null,
+      "density": 0.91,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000358",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000358",
+      "displayName": "MOF index preview 358",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "functionalized-mil-53-like",
+      "pldA": 3.86,
+      "lcdA": 7.42,
+      "surfaceArea": 950,
+      "poreVolume": null,
+      "density": 1.5,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000359",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000359",
+      "displayName": "MOF index preview 359",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "btc-like",
+      "pldA": 8.2,
+      "lcdA": 16.28,
+      "surfaceArea": 1376,
+      "poreVolume": null,
+      "density": 1.02,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000360",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000360",
+      "displayName": "MOF index preview 360",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": null,
+      "pldA": 4.01,
+      "lcdA": 14.71,
+      "surfaceArea": 1385,
+      "poreVolume": null,
+      "density": 1.01,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 4,
+        "total": 12,
+        "percent": 33.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000361",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000361",
+      "displayName": "MOF index preview 361",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": 6.39,
+      "lcdA": null,
+      "surfaceArea": 2487,
+      "poreVolume": null,
+      "density": 1.47,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000362",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000362",
+      "displayName": "MOF index preview 362",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": 4.07,
+      "lcdA": null,
+      "surfaceArea": 1656,
+      "poreVolume": null,
+      "density": 1.07,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000363",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000363",
+      "displayName": "MOF index preview 363",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "Al-O chain net",
+      "pldA": 8.84,
+      "lcdA": null,
+      "surfaceArea": 730,
+      "poreVolume": null,
+      "density": 1.52,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000364",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000364",
+      "displayName": "MOF index preview 364",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "open Al node net",
+      "pldA": 8,
+      "lcdA": null,
+      "surfaceArea": 2362,
+      "poreVolume": null,
+      "density": 0.64,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000365",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000365",
+      "displayName": "MOF index preview 365",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-53-like",
+      "pldA": 9.13,
+      "lcdA": null,
+      "surfaceArea": 786,
+      "poreVolume": null,
+      "density": 0.66,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000366",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000366",
+      "displayName": "MOF index preview 366",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "cau-10-like",
+      "pldA": 5.59,
+      "lcdA": null,
+      "surfaceArea": 1681,
+      "poreVolume": null,
+      "density": 0.9,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000367",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000367",
+      "displayName": "MOF index preview 367",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mtv-like",
+      "pldA": 8.86,
+      "lcdA": null,
+      "surfaceArea": 807,
+      "poreVolume": null,
+      "density": 0.74,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000368",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000368",
+      "displayName": "MOF index preview 368",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-101-like",
+      "pldA": 7.07,
+      "lcdA": null,
+      "surfaceArea": 2603,
+      "poreVolume": null,
+      "density": 1.4,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000369",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000369",
+      "displayName": "MOF index preview 369",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "dut-4-like",
+      "pldA": 5.11,
+      "lcdA": null,
+      "surfaceArea": 2285,
+      "poreVolume": null,
+      "density": 0.9,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000370",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000370",
+      "displayName": "MOF index preview 370",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mof-303-like",
+      "pldA": 8.96,
+      "lcdA": null,
+      "surfaceArea": 2710,
+      "poreVolume": null,
+      "density": 1.56,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000371",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000371",
+      "displayName": "MOF index preview 371",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "fumarate-like",
+      "pldA": 5.8,
+      "lcdA": null,
+      "surfaceArea": 1379,
+      "poreVolume": null,
+      "density": 1.25,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000372",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000372",
+      "displayName": "MOF index preview 372",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "functionalized-mil-53-like",
+      "pldA": 5.78,
+      "lcdA": null,
+      "surfaceArea": 2609,
+      "poreVolume": null,
+      "density": 1.42,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000373",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000373",
+      "displayName": "MOF index preview 373",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "btc-like",
+      "pldA": 8.77,
+      "lcdA": null,
+      "surfaceArea": 1934,
+      "poreVolume": null,
+      "density": 1.13,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000374",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000374",
+      "displayName": "MOF index preview 374",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": null,
+      "pldA": 6.18,
+      "lcdA": null,
+      "surfaceArea": 1198,
+      "poreVolume": null,
+      "density": 0.83,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000375",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000375",
+      "displayName": "MOF index preview 375",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": 9.08,
+      "lcdA": null,
+      "surfaceArea": 2648,
+      "poreVolume": null,
+      "density": 0.84,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000376",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000376",
+      "displayName": "MOF index preview 376",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": 3.36,
+      "lcdA": null,
+      "surfaceArea": 1458,
+      "poreVolume": null,
+      "density": 0.82,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000377",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000377",
+      "displayName": "MOF index preview 377",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "Al-O chain net",
+      "pldA": 3.44,
+      "lcdA": null,
+      "surfaceArea": 1451,
+      "poreVolume": null,
+      "density": 0.86,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000378",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000378",
+      "displayName": "MOF index preview 378",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "open Al node net",
+      "pldA": 5.01,
+      "lcdA": null,
+      "surfaceArea": 2577,
+      "poreVolume": null,
+      "density": 0.8,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000379",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000379",
+      "displayName": "MOF index preview 379",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-53-like",
+      "pldA": 3.97,
+      "lcdA": null,
+      "surfaceArea": 1601,
+      "poreVolume": null,
+      "density": 1.25,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000380",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000380",
+      "displayName": "MOF index preview 380",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "cau-10-like",
+      "pldA": 8.34,
+      "lcdA": null,
+      "surfaceArea": 2692,
+      "poreVolume": null,
+      "density": 1.14,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000381",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000381",
+      "displayName": "MOF index preview 381",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mtv-like",
+      "pldA": 5.03,
+      "lcdA": null,
+      "surfaceArea": 541,
+      "poreVolume": null,
+      "density": 1.41,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000382",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000382",
+      "displayName": "MOF index preview 382",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-101-like",
+      "pldA": 9.35,
+      "lcdA": null,
+      "surfaceArea": 569,
+      "poreVolume": null,
+      "density": 1.34,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000383",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000383",
+      "displayName": "MOF index preview 383",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "dut-4-like",
+      "pldA": 7.33,
+      "lcdA": null,
+      "surfaceArea": 1162,
+      "poreVolume": null,
+      "density": 0.75,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000384",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000384",
+      "displayName": "MOF index preview 384",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mof-303-like",
+      "pldA": 8.42,
+      "lcdA": null,
+      "surfaceArea": 768,
+      "poreVolume": null,
+      "density": 1.32,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000385",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000385",
+      "displayName": "MOF index preview 385",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "fumarate-like",
+      "pldA": 6.57,
+      "lcdA": null,
+      "surfaceArea": 2413,
+      "poreVolume": null,
+      "density": 1.17,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000386",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000386",
+      "displayName": "MOF index preview 386",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "functionalized-mil-53-like",
+      "pldA": 4.56,
+      "lcdA": null,
+      "surfaceArea": 1169,
+      "poreVolume": null,
+      "density": 1.21,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000387",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000387",
+      "displayName": "MOF index preview 387",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "btc-like",
+      "pldA": 4.62,
+      "lcdA": null,
+      "surfaceArea": 2793,
+      "poreVolume": null,
+      "density": 1.06,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000388",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000388",
+      "displayName": "MOF index preview 388",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": null,
+      "pldA": 4.51,
+      "lcdA": null,
+      "surfaceArea": 2034,
+      "poreVolume": null,
+      "density": 1.19,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000389",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000389",
+      "displayName": "MOF index preview 389",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": 4.76,
+      "lcdA": null,
+      "surfaceArea": 2443,
+      "poreVolume": null,
+      "density": 0.65,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000390",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000390",
+      "displayName": "MOF index preview 390",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": 4.35,
+      "lcdA": null,
+      "surfaceArea": 1747,
+      "poreVolume": null,
+      "density": 1.36,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 3,
+        "total": 12,
+        "percent": 25
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000391",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000391",
+      "displayName": "MOF index preview 391",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "Al-O chain net",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 991,
+      "poreVolume": null,
+      "density": 1.45,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000392",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000392",
+      "displayName": "MOF index preview 392",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "open Al node net",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 1014,
+      "poreVolume": null,
+      "density": 1.04,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000393",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000393",
+      "displayName": "MOF index preview 393",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-53-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 974,
+      "poreVolume": null,
+      "density": 0.97,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000394",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000394",
+      "displayName": "MOF index preview 394",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "cau-10-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 1067,
+      "poreVolume": null,
+      "density": 0.81,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000395",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000395",
+      "displayName": "MOF index preview 395",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mtv-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 913,
+      "poreVolume": null,
+      "density": 1.35,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000396",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000396",
+      "displayName": "MOF index preview 396",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-101-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 2026,
+      "poreVolume": null,
+      "density": 1.46,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000397",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000397",
+      "displayName": "MOF index preview 397",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "dut-4-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 1761,
+      "poreVolume": null,
+      "density": 0.9,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000398",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000398",
+      "displayName": "MOF index preview 398",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mof-303-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 2419,
+      "poreVolume": null,
+      "density": 1.23,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000399",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000399",
+      "displayName": "MOF index preview 399",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "fumarate-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 2249,
+      "poreVolume": null,
+      "density": 1.46,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000400",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000400",
+      "displayName": "MOF index preview 400",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "functionalized-mil-53-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 790,
+      "poreVolume": null,
+      "density": 1.35,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000401",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000401",
+      "displayName": "MOF index preview 401",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "btc-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 2208,
+      "poreVolume": null,
+      "density": 1.12,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000402",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000402",
+      "displayName": "MOF index preview 402",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": null,
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 1846,
+      "poreVolume": null,
+      "density": 1.24,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000403",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000403",
+      "displayName": "MOF index preview 403",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 1928,
+      "poreVolume": null,
+      "density": 0.97,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000404",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000404",
+      "displayName": "MOF index preview 404",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 1577,
+      "poreVolume": null,
+      "density": 1,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000405",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000405",
+      "displayName": "MOF index preview 405",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "Al-O chain net",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 1879,
+      "poreVolume": null,
+      "density": 0.94,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000406",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000406",
+      "displayName": "MOF index preview 406",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "open Al node net",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 550,
+      "poreVolume": null,
+      "density": 1.32,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000407",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000407",
+      "displayName": "MOF index preview 407",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-53-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 2303,
+      "poreVolume": null,
+      "density": 0.66,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000408",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000408",
+      "displayName": "MOF index preview 408",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "cau-10-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 2529,
+      "poreVolume": null,
+      "density": 0.94,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000409",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000409",
+      "displayName": "MOF index preview 409",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mtv-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 1507,
+      "poreVolume": null,
+      "density": 1.2,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000410",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000410",
+      "displayName": "MOF index preview 410",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-101-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 1352,
+      "poreVolume": null,
+      "density": 1.43,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000411",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000411",
+      "displayName": "MOF index preview 411",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "dut-4-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 953,
+      "poreVolume": null,
+      "density": 1.56,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000412",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000412",
+      "displayName": "MOF index preview 412",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mof-303-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 2274,
+      "poreVolume": null,
+      "density": 1.39,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000413",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000413",
+      "displayName": "MOF index preview 413",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "fumarate-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 2547,
+      "poreVolume": null,
+      "density": 1.41,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000414",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000414",
+      "displayName": "MOF index preview 414",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "functionalized-mil-53-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 1168,
+      "poreVolume": null,
+      "density": 0.69,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000415",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000415",
+      "displayName": "MOF index preview 415",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "btc-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 1985,
+      "poreVolume": null,
+      "density": 0.72,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000416",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000416",
+      "displayName": "MOF index preview 416",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": null,
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 2564,
+      "poreVolume": null,
+      "density": 0.85,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000417",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000417",
+      "displayName": "MOF index preview 417",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 2285,
+      "poreVolume": null,
+      "density": 1.33,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000418",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000418",
+      "displayName": "MOF index preview 418",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 1727,
+      "poreVolume": null,
+      "density": 0.65,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000419",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000419",
+      "displayName": "MOF index preview 419",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "Al-O chain net",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 2004,
+      "poreVolume": null,
+      "density": 1.18,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000420",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000420",
+      "displayName": "MOF index preview 420",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "open Al node net",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": 1333,
+      "poreVolume": null,
+      "density": 1.24,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 2,
+        "total": 12,
+        "percent": 16.7
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000421",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000421",
+      "displayName": "MOF index preview 421",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-53-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.31,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000422",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000422",
+      "displayName": "MOF index preview 422",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "cau-10-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.31,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000423",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000423",
+      "displayName": "MOF index preview 423",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mtv-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 0.84,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000424",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000424",
+      "displayName": "MOF index preview 424",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-101-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.5,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000425",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000425",
+      "displayName": "MOF index preview 425",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "dut-4-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 0.65,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000426",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000426",
+      "displayName": "MOF index preview 426",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mof-303-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.44,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000427",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000427",
+      "displayName": "MOF index preview 427",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "fumarate-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.34,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000428",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000428",
+      "displayName": "MOF index preview 428",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "functionalized-mil-53-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.57,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000429",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000429",
+      "displayName": "MOF index preview 429",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "btc-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.41,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000430",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000430",
+      "displayName": "MOF index preview 430",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": null,
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.34,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000431",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000431",
+      "displayName": "MOF index preview 431",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.04,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000432",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000432",
+      "displayName": "MOF index preview 432",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 0.7,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000433",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000433",
+      "displayName": "MOF index preview 433",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "Al-O chain net",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.3,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000434",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000434",
+      "displayName": "MOF index preview 434",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "open Al node net",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.15,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000435",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000435",
+      "displayName": "MOF index preview 435",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-53-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.34,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000436",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000436",
+      "displayName": "MOF index preview 436",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "cau-10-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.29,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000437",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000437",
+      "displayName": "MOF index preview 437",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mtv-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.27,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000438",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000438",
+      "displayName": "MOF index preview 438",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-101-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.08,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000439",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000439",
+      "displayName": "MOF index preview 439",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "dut-4-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 0.85,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000440",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000440",
+      "displayName": "MOF index preview 440",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mof-303-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.18,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000441",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000441",
+      "displayName": "MOF index preview 441",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "fumarate-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.01,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000442",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000442",
+      "displayName": "MOF index preview 442",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "functionalized-mil-53-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 0.75,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000443",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000443",
+      "displayName": "MOF index preview 443",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "btc-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 0.91,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000444",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000444",
+      "displayName": "MOF index preview 444",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": null,
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.53,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000445",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000445",
+      "displayName": "MOF index preview 445",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.07,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000446",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000446",
+      "displayName": "MOF index preview 446",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.23,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000447",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000447",
+      "displayName": "MOF index preview 447",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "Al-O chain net",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.51,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000448",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000448",
+      "displayName": "MOF index preview 448",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "open Al node net",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 0.93,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000449",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000449",
+      "displayName": "MOF index preview 449",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-53-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.48,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000450",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000450",
+      "displayName": "MOF index preview 450",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "cau-10-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 0.63,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000451",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000451",
+      "displayName": "MOF index preview 451",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mtv-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.02,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000452",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000452",
+      "displayName": "MOF index preview 452",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-101-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.27,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000453",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000453",
+      "displayName": "MOF index preview 453",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "dut-4-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.3,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000454",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000454",
+      "displayName": "MOF index preview 454",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mof-303-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.38,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000455",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000455",
+      "displayName": "MOF index preview 455",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "fumarate-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.44,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000456",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000456",
+      "displayName": "MOF index preview 456",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "functionalized-mil-53-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.38,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000457",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000457",
+      "displayName": "MOF index preview 457",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "btc-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.08,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000458",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000458",
+      "displayName": "MOF index preview 458",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": null,
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.45,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000459",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000459",
+      "displayName": "MOF index preview 459",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.17,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000460",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000460",
+      "displayName": "MOF index preview 460",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.26,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000461",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000461",
+      "displayName": "MOF index preview 461",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "Al-O chain net",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 0.86,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000462",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000462",
+      "displayName": "MOF index preview 462",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "open Al node net",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.09,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000463",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000463",
+      "displayName": "MOF index preview 463",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-53-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.29,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000464",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000464",
+      "displayName": "MOF index preview 464",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "cau-10-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.38,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000465",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000465",
+      "displayName": "MOF index preview 465",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mtv-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 0.65,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000466",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000466",
+      "displayName": "MOF index preview 466",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-101-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.1,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000467",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000467",
+      "displayName": "MOF index preview 467",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "dut-4-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.49,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000468",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000468",
+      "displayName": "MOF index preview 468",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mof-303-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.35,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000469",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000469",
+      "displayName": "MOF index preview 469",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "fumarate-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.39,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000470",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000470",
+      "displayName": "MOF index preview 470",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "functionalized-mil-53-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 0.91,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000471",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000471",
+      "displayName": "MOF index preview 471",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "btc-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.07,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000472",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000472",
+      "displayName": "MOF index preview 472",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": null,
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.51,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000473",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000473",
+      "displayName": "MOF index preview 473",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.37,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000474",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000474",
+      "displayName": "MOF index preview 474",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 0.82,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000475",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000475",
+      "displayName": "MOF index preview 475",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "Al-O chain net",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.1,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000476",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000476",
+      "displayName": "MOF index preview 476",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "open Al node net",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.21,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000477",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000477",
+      "displayName": "MOF index preview 477",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-53-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.53,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000478",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000478",
+      "displayName": "MOF index preview 478",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "cau-10-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.04,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000479",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000479",
+      "displayName": "MOF index preview 479",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mtv-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.56,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000480",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000480",
+      "displayName": "MOF index preview 480",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-101-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.17,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000481",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000481",
+      "displayName": "MOF index preview 481",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "dut-4-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 0.91,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000482",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000482",
+      "displayName": "MOF index preview 482",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mof-303-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.56,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000483",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000483",
+      "displayName": "MOF index preview 483",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "fumarate-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.21,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000484",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000484",
+      "displayName": "MOF index preview 484",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "functionalized-mil-53-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.17,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000485",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000485",
+      "displayName": "MOF index preview 485",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "btc-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.09,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000486",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000486",
+      "displayName": "MOF index preview 486",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": null,
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 0.84,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000487",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000487",
+      "displayName": "MOF index preview 487",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 0.89,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000488",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000488",
+      "displayName": "MOF index preview 488",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "pending",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 0.83,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000489",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000489",
+      "displayName": "MOF index preview 489",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "Al-O chain net",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.41,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000490",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000490",
+      "displayName": "MOF index preview 490",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "open Al node net",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.43,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000491",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000491",
+      "displayName": "MOF index preview 491",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-53-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.56,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000492",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000492",
+      "displayName": "MOF index preview 492",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "cau-10-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 0.97,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000493",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000493",
+      "displayName": "MOF index preview 493",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mtv-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.51,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000494",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000494",
+      "displayName": "MOF index preview 494",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "mil-101-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.23,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000495",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000495",
+      "displayName": "MOF index preview 495",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "dut-4-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.09,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000496",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000496",
+      "displayName": "MOF index preview 496",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "mof-303-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.49,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000497",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000497",
+      "displayName": "MOF index preview 497",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": "fumarate-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.47,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000498",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000498",
+      "displayName": "MOF index preview 498",
+      "metals": [
+        "Zr"
+      ],
+      "hasAlNode": false,
+      "topology": "functionalized-mil-53-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000499",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000499",
+      "displayName": "MOF index preview 499",
+      "metals": [
+        "Zn"
+      ],
+      "hasAlNode": false,
+      "topology": "btc-like",
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 1.08,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    },
+    {
+      "id": "COREMOF_000500",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000500",
+      "displayName": "MOF index preview 500",
+      "metals": [
+        "Cu"
+      ],
+      "hasAlNode": false,
+      "topology": null,
+      "pldA": null,
+      "lcdA": null,
+      "surfaceArea": null,
+      "poreVolume": null,
+      "density": 0.73,
+      "bandGap": null,
+      "hydrothermalEvidenceStatus": "pending",
+      "dataQualityStatus": "index_only",
+      "descriptorCompleteness": {
+        "available": 1,
+        "total": 12,
+        "percent": 8.3
+      },
+      "provenanceStatus": "summary_only",
+      "detailAvailable": false,
+      "detailRef": null
+    }
+  ]
+}

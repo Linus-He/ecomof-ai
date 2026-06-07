@@ -1,0 +1,46 @@
+{
+  "totalRecords": 500,
+  "descriptorCoverage": [
+    {
+      "descriptor": "surfaceArea",
+      "available": 420,
+      "percent": 84
+    },
+    {
+      "descriptor": "pldA",
+      "available": 390,
+      "percent": 78
+    },
+    {
+      "descriptor": "lcdA",
+      "available": 360,
+      "percent": 72
+    },
+    {
+      "descriptor": "poreVolume",
+      "available": 335,
+      "percent": 67
+    },
+    {
+      "descriptor": "bandGap",
+      "available": 45,
+      "percent": 9
+    },
+    {
+      "descriptor": "hydrothermalStability",
+      "available": 12,
+      "percent": 2.4
+    },
+    {
+      "descriptor": "waterStability",
+      "available": 12,
+      "percent": 2.4
+    },
+    {
+      "descriptor": "sourceDoi",
+      "available": 0,
+      "percent": 0
+    }
+  ],
+  "interpretation": "Hydrothermal stability is expected to be sparse and should remain a hard gate / evidence boundary."
+}

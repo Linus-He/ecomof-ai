@@ -1,0 +1,19 @@
+{
+  "version": "V2.0-A",
+  "datasetMode": "database_index_preview",
+  "sourceDatabase": "QMOF",
+  "partSize": 200,
+  "partCount": 1,
+  "recordCount": 200,
+  "note": "Lightweight index parts only. Detail records are loaded on demand through detailRef.",
+  "warning": "Do not interpret this preview index as full verified database screening.",
+  "parts": [
+    {
+      "partId": "qmof_index_part_001",
+      "path": "qmof_index_parts/qmof_index_part_001.json",
+      "recordCount": 200,
+      "firstId": "QMOF_000001",
+      "lastId": "QMOF_000200"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "version": "V2.0-A",
+  "datasetMode": "database_index_preview",
+  "description": "Large-scale database index architecture preview. Not full verified database screening.",
+  "buildDate": "2026-06-07",
+  "sourceDatabases": [
+    {
+      "name": "CoRE MOF",
+      "status": "index_preview",
+      "recordCount": 500,
+      "detailCount": 30,
+      "license": null,
+      "citation": null,
+      "sourceUrl": null,
+      "notes": "Preview index generated for architecture validation."
+    },
+    {
+      "name": "QMOF",
+      "status": "index_preview",
+      "recordCount": 200,
+      "detailCount": 20,
+      "license": null,
+      "citation": null,
+      "sourceUrl": null,
+      "notes": "Preview descriptor index generated for architecture validation."
+    }
+  ],
+  "files": {
+    "coreSummary": "core_mof_index_summary.json",
+    "qmofSummary": "qmof_index_summary.json",
+    "descriptorAvailability": "organic_acid_descriptor_availability.json",
+    "provenanceCoverage": "provenance_coverage_summary.json",
+    "topCandidates": "organic_acid_precomputed_top_candidates.json",
+    "needsReviewSummary": "rejected_and_needs_review_summary.json",
+    "buildReport": "index_build_report.json"
+  },
+  "indexParts": {
+    "coreMof": [
+      "core_mof_index_parts/core_mof_index_part_001.json",
+      "core_mof_index_parts/core_mof_index_part_002.json"
+    ],
+    "qmof": [
+      "qmof_index_parts/qmof_index_part_001.json"
+    ]
+  },
+  "detailBasePaths": {
+    "framework": "detail/framework/",
+    "qmof": "detail/qmof/",
+    "evidence": "detail/evidence/"
+  },
+  "warnings": [
+    "This is an index architecture preview, not full database screening.",
+    "Do not interpret precomputed candidates as experimentally verified materials."
+  ]
+}
