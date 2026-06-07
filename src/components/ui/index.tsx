@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useState, useEffect, useRef, useMemo } from "react"
-import { InlineMath, BlockMath } from "react-katex"
+import katex from "katex"
 import { useT, useLang, useViewport } from "../../contexts"
 import { FONT_SANS, FONT_MONO } from "../../constants/theme"
 import { chemText, isScientificToken, SCIENTIFIC_TOKEN_FONT } from "../../utils/chemText"
@@ -31,11 +31,28 @@ function FormulaFallback({ children, block = false, t }) {
   )
 }
 
+function renderKatexHtml(math, displayMode) {
+  try {
+    return {
+      html: katex.renderToString(String(math ?? ""), {
+        displayMode,
+        throwOnError: true,
+      }),
+      error: null,
+    }
+  } catch (error) {
+    return { html: "", error }
+  }
+}
+
 export function InlineFormula({ math, fallback, style }) {
   const t = useT()
+  const { html, error } = renderKatexHtml(math, false)
   return (
     <span className="math-inline" style={{ maxWidth: "100%", overflowX: "auto", overflowY: "hidden", verticalAlign: "middle", ...style }}>
-      <InlineMath math={math} renderError={() => <FormulaFallback t={t}>{fallback || math}</FormulaFallback>} />
+      {error
+        ? <FormulaFallback t={t}>{fallback || math}</FormulaFallback>
+        : <span data-testid="katex-inline" dangerouslySetInnerHTML={{ __html: html }} />}
     </span>
   )
 }
@@ -59,6 +76,7 @@ export function ChemFormula({ children, value, style }) {
 export function BlockFormula({ math, fallback, t: tone, style }) {
   const theme = useT()
   const t = tone || theme
+  const { html, error } = renderKatexHtml(math, true)
   return (
     <div className="formula-scroll" style={{
       overflowX: "auto",
@@ -69,7 +87,9 @@ export function BlockFormula({ math, fallback, t: tone, style }) {
       padding: "10px 12px",
       ...style,
     }}>
-      <BlockMath math={math} renderError={() => <FormulaFallback block t={t}>{fallback || math}</FormulaFallback>} />
+      {error
+        ? <FormulaFallback block t={t}>{fallback || math}</FormulaFallback>
+        : <div data-testid="katex-block" dangerouslySetInnerHTML={{ __html: html }} />}
     </div>
   )
 }

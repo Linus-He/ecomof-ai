@@ -1,18 +1,4 @@
 // @ts-nocheck
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Cell,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Scatter,
-  ScatterChart,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts"
 import { ChemicalText } from "../common/ChemicalFormula"
 import { SCIENTIFIC_TOKEN_FONT } from "../../utils/chemText"
 
@@ -41,47 +27,71 @@ const scatterData = [
   { x: 0.86, y: 0.79, z: 210 },
 ]
 
+function AxisFrame({ t, children }) {
+  return (
+    <svg viewBox="0 0 320 150" role="img" style={{ display: "block", height: 150, width: "100%" }}>
+      <rect x="0" y="0" width="320" height="150" rx="8" fill={t.panel} />
+      {[0, 1, 2, 3].map(index => (
+        <line key={index} x1="34" x2="298" y1={24 + index * 30} y2={24 + index * 30} stroke={t.border} strokeDasharray="3 5" />
+      ))}
+      <line x1="34" x2="34" y1="18" y2="124" stroke={t.border} />
+      <line x1="34" x2="298" y1="124" y2="124" stroke={t.border} />
+      {children}
+    </svg>
+  )
+}
+
 function MiniChart({ type, t }) {
-  const commonAxis = { tick: { fill: t.faint, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 10 } }
   if (type === "line") {
+    const points = lineData.map((row, index) => {
+      const x = 44 + index * 58
+      const y = 124 - row.y * 96
+      return { ...row, x, y }
+    })
+    const path = points.map((point, index) => `${index ? "L" : "M"} ${point.x} ${point.y}`).join(" ")
     return (
-      <ResponsiveContainer width="100%" height={150}>
-        <LineChart data={lineData} margin={{ top: 10, right: 12, bottom: 8, left: -18 }}>
-          <CartesianGrid stroke={t.border} strokeDasharray="3 3" />
-          <XAxis dataKey="x" {...commonAxis} />
-          <YAxis domain={[0, 1]} {...commonAxis} />
-          <Tooltip wrapperStyle={{ zIndex: 30 }} />
-          <Line type="monotone" dataKey="y" stroke={t.accent} strokeWidth={2.4} dot={{ r: 3 }} />
-        </LineChart>
-      </ResponsiveContainer>
+      <AxisFrame t={t}>
+        <path d={path} fill="none" stroke={t.accent} strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" />
+        {points.map(point => <circle key={point.x} cx={point.x} cy={point.y} r="4" fill={t.surface} stroke={t.accent} strokeWidth="2" />)}
+        <text x="36" y="140" fill={t.faint} fontFamily={SCIENTIFIC_TOKEN_FONT} fontSize="10">-20</text>
+        <text x="268" y="140" fill={t.faint} fontFamily={SCIENTIFIC_TOKEN_FONT} fontSize="10">+20</text>
+      </AxisFrame>
     )
   }
   if (type === "scatter") {
     return (
-      <ResponsiveContainer width="100%" height={150}>
-        <ScatterChart margin={{ top: 10, right: 12, bottom: 8, left: -18 }}>
-          <CartesianGrid stroke={t.border} strokeDasharray="3 3" />
-          <XAxis type="number" dataKey="x" domain={[0, 1]} {...commonAxis} />
-          <YAxis type="number" dataKey="y" domain={[0, 1]} {...commonAxis} />
-          <Tooltip wrapperStyle={{ zIndex: 30 }} />
-          <Scatter data={scatterData} fill={t.accent}>
-            {scatterData.map((row, index) => <Cell key={index} fill={index % 2 ? t.success || t.accent : t.accent} />)}
-          </Scatter>
-        </ScatterChart>
-      </ResponsiveContainer>
+      <AxisFrame t={t}>
+        <rect x="190" y="22" width="84" height="44" rx="8" fill={t.badgeInfoBg} stroke={t.accent} opacity="0.72" />
+        {scatterData.map((row, index) => (
+          <circle
+            key={`${row.x}-${row.y}`}
+            cx={34 + row.x * 264}
+            cy={124 - row.y * 96}
+            r={5 + index}
+            fill={index % 2 ? t.success || t.accent : t.accent}
+            opacity="0.88"
+          />
+        ))}
+        <text x="38" y="140" fill={t.faint} fontFamily={SCIENTIFIC_TOKEN_FONT} fontSize="10">0</text>
+        <text x="288" y="140" fill={t.faint} fontFamily={SCIENTIFIC_TOKEN_FONT} fontSize="10">1</text>
+      </AxisFrame>
     )
   }
   if (type === "bar") {
+    const maxValue = Math.max(...barData.map(row => row.value), 1)
     return (
-      <ResponsiveContainer width="100%" height={150}>
-        <BarChart data={barData} margin={{ top: 10, right: 12, bottom: 8, left: -18 }}>
-          <CartesianGrid stroke={t.border} strokeDasharray="3 3" />
-          <XAxis dataKey="name" {...commonAxis} />
-          <YAxis {...commonAxis} />
-          <Tooltip wrapperStyle={{ zIndex: 30 }} />
-          <Bar dataKey="value" fill={t.accent} radius={[4, 4, 0, 0]} />
-        </BarChart>
-      </ResponsiveContainer>
+      <AxisFrame t={t}>
+        {barData.map((row, index) => {
+          const height = Math.max(8, (row.value / maxValue) * 92)
+          const x = 48 + index * 49
+          return (
+            <g key={row.name}>
+              <rect x={x} y={124 - height} width="28" height={height} rx="5" fill={t.accent} opacity={0.72 + index * 0.04} />
+              <text x={x + 14} y="140" fill={t.faint} fontFamily={SCIENTIFIC_TOKEN_FONT} fontSize="9" textAnchor="middle">{row.name.slice(0, 3)}</text>
+            </g>
+          )
+        })}
+      </AxisFrame>
     )
   }
   return (
