@@ -9,7 +9,6 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules/katex') || id.includes('react-katex')) return 'math-rendering'
-          if (id.includes('node_modules/recharts') || id.includes('node_modules/d3-') || id.includes('node_modules/victory-vendor')) return 'chart-vendor'
           if (id.includes('components/methodology/version-docs')) return 'knowledge-base'
           if (id.includes('components/methodology/organic-acid-final')) return 'organic-acid-methodology'
           if (id.includes('components/methodology')) return 'methodology'
