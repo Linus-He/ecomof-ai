@@ -1692,6 +1692,28 @@ details[open].motion-surface {
   animation: cat-gentle-hop 1.6s ease-in-out infinite;
 }
 
+.cat-probe-boundary {
+  position: relative;
+  overflow: hidden;
+}
+
+.catalysis-cat-probe {
+  position: absolute;
+  z-index: 30;
+  pointer-events: auto;
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+}
+
+.catalysis-cat-probe.is-dragging {
+  cursor: grabbing;
+}
+
+body.cat-dragging {
+  user-select: none;
+}
+
 .mof-cube-node {
   transform-box: fill-box;
   transform-origin: center center;

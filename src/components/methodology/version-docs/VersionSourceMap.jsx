@@ -1,5 +1,6 @@
 // @ts-nocheck
-import { ChemicalText } from "../../../shared"
+import { useState } from "react"
+import { ChemicalText } from "../../common/ChemicalFormula"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -10,6 +11,7 @@ function sourceLabel(record) {
 }
 
 export function VersionSourceMap({ versions = [], literatureRecords = [], lang, t, isMobile }) {
+  const [expanded, setExpanded] = useState(false)
   const byId = new Map(literatureRecords.map(record => [record.id, record]))
   const rows = versions.flatMap(version => (version.literatureInspirations || []).map(link => {
     const record = byId.get(link.literatureId)
@@ -32,8 +34,15 @@ export function VersionSourceMap({ versions = [], literatureRecords = [], lang, 
         <h3 style={{ color: t.textStrong, fontSize: 20, lineHeight: 1.15, margin: 0 }}>
           {text(lang, "版本 ↔ 文献 ↔ 模块矩阵", "Version ↔ Literature ↔ Module Matrix")}
         </h3>
+        <p style={{ color: t.muted, fontSize: 12.3, lineHeight: 1.5, margin: 0 }}>
+          {text(lang, `默认折叠完整矩阵，共 ${rows.length} 条映射。`, `Full matrix is collapsed by default; ${rows.length} mappings are available.`)}
+        </p>
       </header>
-      {isMobile ? (
+      {!expanded ? (
+        <button type="button" onClick={() => setExpanded(true)} style={{ background: t.surface, border: `1px solid ${t.accentText || t.accent}`, borderRadius: 8, color: t.accentText, cursor: "pointer", fontSize: 12, fontWeight: 900, justifySelf: "start", minHeight: 34, padding: "7px 10px" }}>
+          {text(lang, "展开完整映射矩阵", "Expand full mapping matrix")}
+        </button>
+      ) : isMobile ? (
         <div style={{ display: "grid", gap: 8 }}>
           {rows.map((row, index) => (
             <article key={`${row.version}-${row.title}-${index}`} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 6, padding: 10 }}>

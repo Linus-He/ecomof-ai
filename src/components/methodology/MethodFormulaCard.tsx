@@ -1,5 +1,7 @@
 // @ts-nocheck
-import { BlockFormula, ChemicalText, InlineFormula, SCIENTIFIC_TOKEN_FONT } from "../../shared"
+import { ChemicalText } from "../common/ChemicalFormula"
+import { BlockFormula, InlineFormula } from "../ui"
+import { SCIENTIFIC_TOKEN_FONT } from "../../utils/chemText"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 

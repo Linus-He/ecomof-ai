@@ -1,37 +1,20 @@
 // @ts-nocheck
-import { useMemo, useState } from "react"
-import knowledgeBaseIndex from "../../../../public/data/organic_acid_final_screening/knowledge_base_index.json"
-import literatureRecords from "../../../../public/data/organic_acid_final_screening/literature_inspiration_records.json"
-import versionDocs from "../../../../public/data/organic_acid_final_screening/version_docs.json"
-import { ChemicalText } from "../../../shared"
+import { useEffect, useState } from "react"
+import { ChemicalText } from "../../common/ChemicalFormula"
+import { fetchDataJson } from "../../../services/dataService"
+import { KnowledgeBaseSkeleton } from "../MethodologySkeleton"
 import { LiteratureInspirationPanel } from "./LiteratureInspirationPanel"
 import { VersionDetailCard } from "./VersionDetailCard"
 import { VersionRoadmapCard } from "./VersionRoadmapCard"
 import { VersionSourceMap } from "./VersionSourceMap"
 import { VersionTimeline } from "./VersionTimeline"
+import { VERSION_DOCS_DIRECTORY } from "./directory"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
-export const VERSION_DOCS_DIRECTORY = {
-  id: "methodology-knowledge-base",
-  label: "Knowledge Base",
-  labelZh: "知识库",
-  level: 1,
-  display: "知识库",
-  children: [
-    { id: "methodology-knowledge-hero", label: "Knowledge Base Hero", labelZh: "知识库概览" },
-    { id: "methodology-version-timeline", label: "Version History", labelZh: "版本历史" },
-    { id: "methodology-version-detail", label: "Selected Version Detail", labelZh: "选中版本详情" },
-    { id: "methodology-literature-library", label: "Literature Library", labelZh: "文献库" },
-    { id: "methodology-inspiration-map", label: "Inspiration Map", labelZh: "灵感映射" },
-    { id: "methodology-version-source-map", label: "Version ↔ Literature ↔ Module Matrix", labelZh: "版本 ↔ 文献 ↔ 模块矩阵" },
-    { id: "methodology-evidence-boundary-legend", label: "Evidence Boundary Legend", labelZh: "证据边界图例" },
-    { id: "methodology-version-roadmap", label: "Future Knowledge Gaps", labelZh: "后续知识缺口" },
-  ],
-}
-
 function LiteratureLibraryPanel({ records = [], lang, t, isMobile }) {
   const [filter, setFilter] = useState("all")
+  const [expanded, setExpanded] = useState(false)
   const filters = [
     ["all", "All", "全部"],
     ["descriptor", "Descriptor design", "描述符设计"],
@@ -42,11 +25,12 @@ function LiteratureLibraryPanel({ records = [], lang, t, isMobile }) {
     ["mof-catalysis", "MOF catalysis mechanism", "MOF 催化机制"],
     ["gas-separation", "Gas separation screening", "气体分离筛选"],
   ]
-  const visible = records.filter(record => {
+  const filtered = records.filter(record => {
     if (filter === "all") return true
     const haystack = [...(record.knowledgeTags || []), ...(record.inspiredModules || []), record.coreIdea, record.title].join(" ").toLowerCase()
     return haystack.includes(filter) || (filter === "descriptor" && haystack.includes("descriptor")) || (filter === "validation" && haystack.includes("validation")) || (filter === "mof-catalysis" && haystack.includes("catalysis")) || (filter === "gas-separation" && haystack.includes("separation"))
   })
+  const visible = expanded ? filtered : filtered.slice(0, 5)
 
   return (
     <section id="methodology-literature-library" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 14, scrollMarginTop: 118 }}>
@@ -70,6 +54,16 @@ function LiteratureLibraryPanel({ records = [], lang, t, isMobile }) {
             </button>
           )
         })}
+      </div>
+      <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
+        <span style={{ color: t.muted, fontSize: 12 }}>
+          {text(lang, `显示 ${visible.length} / ${filtered.length} 条文献记录`, `Showing ${visible.length} / ${filtered.length} literature records`)}
+        </span>
+        {filtered.length > 5 ? (
+          <button type="button" onClick={() => setExpanded(open => !open)} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.accentText, cursor: "pointer", fontSize: 12, fontWeight: 900, minHeight: 32, padding: "6px 9px" }}>
+            {expanded ? text(lang, "收起文献详情", "Collapse details") : text(lang, "展开完整文献库", "Expand full library")}
+          </button>
+        ) : null}
       </div>
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(280px, 1fr))" }}>
         {visible.map(record => (
@@ -121,7 +115,7 @@ function InspirationMapPanel({ records = [], lang, t }) {
   )
 }
 
-function EvidenceBoundaryLegend({ lang, t }) {
+function EvidenceBoundaryLegend({ knowledgeBaseIndex, lang, t }) {
   const rows = knowledgeBaseIndex.evidenceRoleLegend || []
   return (
     <section id="methodology-evidence-boundary-legend" style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 12, display: "grid", gap: 10, padding: 14, scrollMarginTop: 118 }}>
@@ -142,20 +136,58 @@ function EvidenceBoundaryLegend({ lang, t }) {
 }
 
 export function VersionDocsPanel({ lang, t, isMobile }) {
+  const [versionDocs, setVersionDocs] = useState(null)
+  const [literatureRecords, setLiteratureRecords] = useState([])
+  const [knowledgeBaseIndex, setKnowledgeBaseIndex] = useState(null)
+  const [status, setStatus] = useState("loading")
+  const [selectedVersion, setSelectedVersion] = useState("")
+
+  useEffect(() => {
+    let active = true
+    setStatus("loading")
+    Promise.all([
+      fetchDataJson("organic_acid_final_screening/version_docs.json", {}, { throwOnError: true }),
+      fetchDataJson("organic_acid_final_screening/literature_inspiration_records.json", [], { throwOnError: true }),
+      fetchDataJson("organic_acid_final_screening/knowledge_base_index.json", {}, { throwOnError: true }),
+    ]).then(([versionRows, literatureRows, indexRows]) => {
+      if (!active) return
+      setVersionDocs(versionRows || {})
+      setLiteratureRecords(Array.isArray(literatureRows) ? literatureRows : [])
+      setKnowledgeBaseIndex(indexRows || {})
+      setSelectedVersion(versionRows?.currentVersion || versionRows?.versions?.find(row => row.status === "current")?.version || versionRows?.versions?.[versionRows.versions.length - 1]?.version || "")
+      setStatus("loaded")
+    }).catch(error => {
+      if (!active) return
+      console.warn("Knowledge Base data could not be loaded.", error)
+      setVersionDocs({ versions: [], roadmap: [] })
+      setLiteratureRecords([])
+      setKnowledgeBaseIndex({ stats: {}, evidenceRoleLegend: [] })
+      setStatus("error")
+    })
+    return () => { active = false }
+  }, [])
+
+  if (status === "loading") return <KnowledgeBaseSkeleton lang={lang} t={t} />
+  if (status === "error") {
+    return (
+      <section id="methodology-knowledge-base" style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 12, color: t.muted, display: "grid", gap: 8, padding: 14, scrollMarginTop: 118 }}>
+        <strong style={{ color: t.warn }}>{text(lang, "知识库数据加载失败", "Knowledge Base data failed to load")}</strong>
+        <span>{text(lang, "请稍后重试；页面其他方法论内容不受影响。", "Please retry later; the rest of Methods & Evidence remains available.")}</span>
+      </section>
+    )
+  }
+
   const versions = versionDocs.versions || []
-  const [selectedVersion, setSelectedVersion] = useState(versionDocs.currentVersion || versions.find(row => row.status === "current")?.version || versions[versions.length - 1]?.version)
-  const selected = useMemo(() => versions.find(row => row.version === selectedVersion) || versions[0], [versions, selectedVersion])
-  const stats = useMemo(() => {
-    const verified = literatureRecords.filter(row => row.status === "verified_from_uploaded_file").length
-    return [
-      [text(lang, "当前版本", "Current version"), versionDocs.currentVersion || selected?.version || "V1.5"],
-      [text(lang, "已完成版本", "Completed versions"), versionDocs.completedRange || "V1.0-V1.5"],
-      [text(lang, "文献记录", "Literature records"), `${knowledgeBaseIndex.uniqueLiteratureRecords} unique / ${knowledgeBaseIndex.uploadedFileCount} files`],
-      [text(lang, "已核验 DOI", "Verified DOI records"), `${verified}`],
-      [text(lang, "Pending metadata", "Pending metadata"), `${knowledgeBaseIndex.stats?.pendingMetadataRecords ?? 0}`],
-      [text(lang, "计划版本", "Planned versions"), (versionDocs.roadmap || []).map(row => row.version).join(" / ")],
-    ]
-  }, [lang, selected])
+  const selected = versions.find(row => row.version === selectedVersion) || versions[0]
+  const verified = literatureRecords.filter(row => row.status === "verified_from_uploaded_file").length
+  const stats = [
+    [text(lang, "当前版本", "Current version"), versionDocs.currentVersion || selected?.version || "V1.5"],
+    [text(lang, "已完成版本", "Completed versions"), versionDocs.completedRange || "V1.0-V1.5"],
+    [text(lang, "文献记录", "Literature records"), `${knowledgeBaseIndex.uniqueLiteratureRecords || literatureRecords.length} unique / ${knowledgeBaseIndex.uploadedFileCount || literatureRecords.length} files`],
+    [text(lang, "已核验 DOI", "Verified DOI records"), `${verified}`],
+    [text(lang, "Pending metadata", "Pending metadata"), `${knowledgeBaseIndex.stats?.pendingMetadataRecords ?? 0}`],
+    [text(lang, "计划版本", "Planned versions"), (versionDocs.roadmap || []).map(row => row.version).join(" / ")],
+  ]
 
   return (
     <section id="methodology-knowledge-base" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 14, padding: 14, scrollMarginTop: 118 }}>
@@ -204,7 +236,7 @@ export function VersionDocsPanel({ lang, t, isMobile }) {
 
       <VersionSourceMap versions={versions} literatureRecords={literatureRecords} lang={lang} t={t} isMobile={isMobile} />
 
-      <EvidenceBoundaryLegend lang={lang} t={t} />
+      <EvidenceBoundaryLegend knowledgeBaseIndex={knowledgeBaseIndex} lang={lang} t={t} />
 
       <section id="methodology-version-roadmap" style={{ scrollMarginTop: 118 }}>
         <VersionRoadmapCard roadmap={versionDocs.roadmap || []} lang={lang} t={t} />

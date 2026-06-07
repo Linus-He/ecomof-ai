@@ -89,13 +89,15 @@
     "coreIdea": "Constructs a catalytic hot spot map using geometric and electronic descriptors to guide diatomic catalyst design.",
     "coreIdeaZh": "使用几何描述符与电子描述符构建催化热区图，以指导双原子催化剂设计。",
     "inspiredVersions": [
-      "V1.4"
+      "V1.4",
+      "V1.7"
     ],
     "inspiredModules": [
       "Coupled Descriptor Hot Spot Map",
       "Scaffold Map / Dopant Map / Synergy Map",
       "Descriptor Coupling Panel",
-      "Validation Evidence Ladder"
+      "Validation Evidence Ladder",
+      "Chart-scoped science probe"
     ],
     "knowledgeTags": [
       "hot-spot-map",
@@ -127,13 +129,15 @@
       "V1.1",
       "V1.3",
       "V1.5",
-      "V1.6"
+      "V1.6",
+      "V1.7"
     ],
     "inspiredModules": [
       "Robustness audit",
       "Data quality gate",
       "Evidence boundary",
-      "Structured factor effects method"
+      "Structured factor effects method",
+      "Algorithm Trace Workbench"
     ],
     "knowledgeTags": [
       "robustness-audit",

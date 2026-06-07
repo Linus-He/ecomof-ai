@@ -13,7 +13,6 @@ import { ModulePageHeader } from "../module/ModuleTop"
 import { CollapsibleResearchSection, SectionLayoutControls } from "../common/CollapsibleResearchSection"
 import { DataHarmonizationWorkflow } from "../catalysis/DataHarmonizationWorkflow"
 import { enrichCatalysisRecord } from "../catalysis/evidenceScoring"
-import { CatalysisCatOverlayLayer } from "../catalysis/CatalysisCatOverlayLayer"
 import { CatalysisEnergyBarrierDemo } from "../catalysis/CatalysisEnergyBarrierDemo"
 import { OrganicAcidEntryCard } from "../catalysis/OrganicAcidEntryCard"
 import { OrganicAcidFinalScreening } from "../catalysis/organic-acid-final/OrganicAcidFinalScreening"
@@ -231,7 +230,6 @@ export function CatalysisLabTab() {
     return (
       <div ref={workspaceRef} style={workspaceShellStyle}>
         <OrganicAcidWorkspace lang={lang} t={t} isMobile={isMobile} onBack={backToOverview} />
-        <CatalysisCatOverlayLayer workspaceRef={workspaceRef} lang={lang} t={t} isMobile={isMobile} />
       </div>
     )
   }
@@ -240,7 +238,6 @@ export function CatalysisLabTab() {
     return (
       <div ref={workspaceRef} style={workspaceShellStyle}>
         <OrganicAcidFinalScreening lang={lang} t={t} isMobile={isMobile} onBack={backToOverview} />
-        <CatalysisCatOverlayLayer workspaceRef={workspaceRef} lang={lang} t={t} isMobile={isMobile} />
       </div>
     )
   }
@@ -418,7 +415,6 @@ export function CatalysisLabTab() {
           </CollapsibleResearchSection>
         </>
       ) : null}
-      <CatalysisCatOverlayLayer workspaceRef={workspaceRef} lang={lang} t={t} isMobile={isMobile} />
     </div>
   )
 }

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useMemo, useState } from "react"
-import { ChemicalText } from "../../../shared"
+import { ChemicalText } from "../../common/ChemicalFormula"
 import { LiteratureInspirationCard } from "./LiteratureInspirationCard"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)

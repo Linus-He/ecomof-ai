@@ -1,5 +1,6 @@
 // @ts-nocheck
-import { BlockFormula, ChemicalText } from "../../../shared"
+import { ChemicalText } from "../../common/ChemicalFormula"
+import { BlockFormula } from "../../ui"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 

@@ -2,7 +2,7 @@
   "id": "organic-acid-final-knowledge-base",
   "label": "Knowledge Base",
   "labelZh": "知识库",
-  "version": "V1.6",
+  "version": "V1.7",
   "updatedAt": "2026-06",
   "uploadedFileCount": 6,
   "uniqueLiteratureRecords": 5,
@@ -17,7 +17,7 @@
     }
   ],
   "stats": {
-    "currentVersion": "V1.6",
+    "currentVersion": "V1.7",
     "literatureRecords": 5,
     "uploadedFiles": 6,
     "verifiedDoiRecords": 2,
@@ -49,6 +49,11 @@
       "id": "methodology-version-source-map",
       "label": "Version ↔ Literature ↔ Module Matrix",
       "labelZh": "版本 ↔ 文献 ↔ 模块矩阵"
+    },
+    {
+      "id": "methodology-oafs-trace-workbench",
+      "label": "Algorithm Trace Workbench",
+      "labelZh": "算法追踪工作台"
     },
     {
       "id": "methodology-evidence-boundary-legend",

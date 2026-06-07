@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { ChemicalText } from "../../../shared"
+import { ChemicalText } from "../../common/ChemicalFormula"
 import { VersionStatusBadge } from "./VersionStatusBadge"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)

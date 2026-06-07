@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { ChemicalText } from "../../../../shared"
+import { ChemicalText } from "../../../common/ChemicalFormula"
 import { text } from "../FinalScreeningShared"
 
 export const RUN_MODULES = [

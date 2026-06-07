@@ -1,8 +1,26 @@
 // @ts-nocheck
-import { ChemicalText } from "../../../../shared"
+import { ChemicalText } from "../../../common/ChemicalFormula"
 import { MiniMetric, StatusPill, displayValue, formatScore, text } from "../FinalScreeningShared"
 
-export function RunResultSummary({ summary, lang, t, isMobile }) {
+function openTraceWorkbench() {
+  if (typeof document === "undefined") return
+  document.getElementById("organic-acid-final-trace-workbench")?.scrollIntoView({ behavior: "smooth", block: "start" })
+}
+
+function TraceWorkbenchButton({ trace, lang, t }) {
+  if (!trace?.runId) return null
+  return (
+    <button
+      type="button"
+      onClick={openTraceWorkbench}
+      style={{ background: t.accent, border: `1px solid ${t.accent}`, borderRadius: 8, color: t.buttonText || "#fff", cursor: "pointer", fontSize: 12, fontWeight: 900, minHeight: 34, padding: "7px 10px" }}
+    >
+      {text(lang, "打开 Trace Workbench", "Open Trace Workbench")}
+    </button>
+  )
+}
+
+export function RunResultSummary({ summary, trace, lang, t, isMobile }) {
   if (!summary) return null
   const isCurated = summary.dataMode === "curated_real_examples"
   if (isCurated) {
@@ -10,7 +28,10 @@ export function RunResultSummary({ summary, lang, t, isMobile }) {
       <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 10 }}>
         <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
           <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "运行结果摘要", "Run Result Summary")}</strong>
-          <StatusPill tone="warn" t={t}>small curated sample only</StatusPill>
+          <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7 }}>
+            <StatusPill tone="warn" t={t}>small curated sample only</StatusPill>
+            <TraceWorkbenchButton trace={trace} lang={lang} t={t} />
+          </div>
         </div>
         <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(150px, 1fr))" }}>
           <MiniMetric label={text(lang, "骨架样例", "Framework records")} value={summary.frameworkRecords} t={t} />
@@ -32,7 +53,10 @@ export function RunResultSummary({ summary, lang, t, isMobile }) {
     <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 10 }}>
       <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
         <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "运行结果摘要", "Run Result Summary")}</strong>
-        <StatusPill tone="warn" t={t}>demo / proxy run</StatusPill>
+        <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7 }}>
+          <StatusPill tone="warn" t={t}>demo / proxy run</StatusPill>
+          <TraceWorkbenchButton trace={trace} lang={lang} t={t} />
+        </div>
       </div>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(150px, 1fr))" }}>
         <MiniMetric label={text(lang, "选定骨架", "Selected scaffold")} value={summary.selectedScaffold} t={t} />

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useEffect, useMemo, useRef, useState } from "react"
-import { ChemicalText } from "../../../../shared"
+import { ChemicalText } from "../../../common/ChemicalFormula"
 import { buildRunSteps, runDemoScreeningWorkflow } from "../../../../utils/organicAcidFinalScreening"
 import { Panel, StatusPill, text } from "../FinalScreeningShared"
 import { RunConfigurationPanel } from "./RunConfigurationPanel"
@@ -9,7 +9,7 @@ import { RunStepTimeline } from "./RunStepTimeline"
 import { RunTracePanel } from "./RunTracePanel"
 import { RUN_MODULES, WorkflowModuleSelector } from "./WorkflowModuleSelector"
 
-export function AlgorithmRunLauncher({ frameworks = [], metals = [], rules = {}, evidenceRecords = [], result, curatedRealExamples = null, curatedRealResult = null, lang, t, isMobile }) {
+export function AlgorithmRunLauncher({ frameworks = [], metals = [], rules = {}, evidenceRecords = [], result, curatedRealExamples = null, curatedRealResult = null, onTraceReady, lang, t, isMobile }) {
   const [dataMode, setDataMode] = useState("demo_workflow")
   const [selectedModules, setSelectedModules] = useState(RUN_MODULES.map(row => row[0]))
   const [runStatus, setRunStatus] = useState("idle")
@@ -44,6 +44,7 @@ export function AlgorithmRunLauncher({ frameworks = [], metals = [], rules = {},
         curatedRealResult,
       })
       setWorkflow(output)
+      onTraceReady?.(output.trace)
       setRunStatus(output.status === "blocked" ? "blocked" : "completed")
       setActiveIndex(-1)
     }, 90 * steps + 120))
@@ -90,8 +91,8 @@ export function AlgorithmRunLauncher({ frameworks = [], metals = [], rules = {},
       </div>
 
       <RunStepTimeline steps={displayedSteps} activeIndex={activeIndex} runStatus={runStatus} lang={lang} t={t} isMobile={isMobile} />
-      <RunResultSummary summary={workflow?.summary} lang={lang} t={t} isMobile={isMobile} />
-      <RunTracePanel open={traceOpen} trace={workflow?.trace || []} lang={lang} t={t} />
+      <RunResultSummary summary={workflow?.summary} trace={workflow?.trace} lang={lang} t={t} isMobile={isMobile} />
+      <RunTracePanel open={traceOpen} trace={workflow?.trace} lang={lang} t={t} />
     </Panel>
   )
 }

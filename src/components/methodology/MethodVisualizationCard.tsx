@@ -13,7 +13,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts"
-import { ChemicalText, SCIENTIFIC_TOKEN_FONT } from "../../shared"
+import { ChemicalText } from "../common/ChemicalFormula"
+import { SCIENTIFIC_TOKEN_FONT } from "../../utils/chemText"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 

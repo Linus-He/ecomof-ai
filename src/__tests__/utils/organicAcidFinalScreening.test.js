@@ -208,9 +208,9 @@ describe("organic acid final screening", () => {
 
   it("records the Organic Acid Knowledge Base and planned roadmap", () => {
     expect(versionDocs.knowledgeBaseLabel).toBe("Knowledge Base")
-    expect(versionDocs.currentVersion).toBe("V1.6")
-    expect(versionDocs.completedRange).toBe("V1.0-V1.6")
-    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6"])
+    expect(versionDocs.currentVersion).toBe("V1.7")
+    expect(versionDocs.completedRange).toBe("V1.0-V1.7")
+    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6", "V1.7"])
     expect(versionDocs.versions.find(row => row.version === "V1.4")).toEqual(expect.objectContaining({
       status: "completed",
       title: "Coupled Descriptor Hot Spot Map",
@@ -225,6 +225,11 @@ describe("organic acid final screening", () => {
       status: "completed",
       title: "Small Real Dataset Integration",
       evidenceBoundary: "Small curated sample only. Not full-scale CoRE/QMOF database screening and not validated catalytic performance.",
+    }))
+    expect(versionDocs.versions.find(row => row.version === "V1.7")).toEqual(expect.objectContaining({
+      status: "completed",
+      title: "Algorithm Trace Workbench and Performance Optimization",
+      evidenceBoundary: "Trace workbench provides auditability and transparency for demo / mapped / curated sample workflows. It does not prove catalytic performance.",
     }))
     versionDocs.versions.forEach(row => {
       expect(row.summary).toBeTruthy()
@@ -258,7 +263,7 @@ describe("organic acid final screening", () => {
     expect(literatureInspirations.filter(row => row.status === "pending_metadata").every(row => row.doi === null)).toBe(true)
   })
 
-  it("records the V1.6 small real dataset and Knowledge Base upgrade", () => {
+  it("records the V1.6 small real dataset, V1.7 trace workbench, and Knowledge Base upgrade", () => {
     const v15 = versionDocs.versions.find(row => row.version === "V1.5")
     const v16 = versionDocs.versions.find(row => row.version === "V1.6")
     expect(v15.maintenanceNotes).toContain("V1.5 Patch: Run Launcher Prep + Cat Drag Fix + Copy Cleanup.")
@@ -266,13 +271,18 @@ describe("organic acid final screening", () => {
     expect(v16.keyUpdates.join(" ")).toMatch(/curated real Al-MOF examples/)
     expect(v16.keyUpdates.join(" ")).toMatch(/Knowledge Base/)
     expect(v16.algorithmChanges.join(" ")).toMatch(/No OACS\/DMRS core scoring logic change/)
-    expect(versionDocs.currentVersion).toBe("V1.6")
+    const v17 = versionDocs.versions.find(row => row.version === "V1.7")
+    expect(v17.keyUpdates.join(" ")).toMatch(/Algorithm Trace Workbench/)
+    expect(v17.keyUpdates.join(" ")).toMatch(/chart-scoped science probe/)
+    expect(v17.keyUpdates.join(" ")).toMatch(/Methods & Evidence/)
+    expect(v17.algorithmChanges.join(" ")).toMatch(/No OACS\/DMRS core scoring logic change/)
+    expect(versionDocs.currentVersion).toBe("V1.7")
     expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
       ["V2.0", "planned"],
     ])
   })
 
-  it("runs the V1.6 launcher workflow on demo, mapped fixture, and curated sample modes", () => {
+  it("runs the V1.7 launcher workflow on demo, mapped fixture, and curated sample modes with exportable trace", () => {
     const result = runOrganicAcidFinalScreening(frameworks, metals, rules, evidenceRecords)
     const curatedRealExamples = loadCuratedRealExamples()
     const curatedResult = buildCuratedRealScreeningResult(curatedRealExamples, metals, rules)
@@ -291,9 +301,20 @@ describe("organic acid final screening", () => {
       moWGap: 0.027,
     }))
     expect(demoRun.summary.evidenceBoundary).toMatch(/does not represent full database screening/)
-    expect(demoRun.trace.map(row => row.id)).toContain("run-boundary")
+    expect(demoRun.trace).toEqual(expect.objectContaining({
+      workflowVersion: "V1.7",
+      exportable: true,
+      dataMode: "demo_workflow",
+    }))
+    expect(demoRun.trace.runId).toMatch(/OAFS-V1\.7-demo_workflow/)
+    expect(demoRun.trace.steps).toHaveLength(10)
+    expect(demoRun.trace.candidateDecisions.length).toBeGreaterThan(10)
+    expect(demoRun.trace.formulaTraces.map(row => row.formulaId)).toEqual(["oacs", "dmrs"])
+    expect(demoRun.trace.evidenceTraces.length).toBeGreaterThan(10)
+    expect(demoRun.trace.legacyRecords.map(row => row.id)).toContain("run-boundary")
     expect(mappedRun.status).toBe("completed")
     expect(mappedRun.summary.dataMode).toBe("mapped_fixtures")
+    expect(mappedRun.trace.dataMode).toBe("mapped_fixtures")
     expect(curatedRun.status).toBe("completed")
     expect(curatedRun.steps).toHaveLength(9)
     expect(curatedRun.steps.map(row => row.title)).toEqual([
@@ -319,6 +340,9 @@ describe("organic acid final screening", () => {
     expect(curatedRun.summary.evidenceBoundary).toMatch(/not full-scale CoRE\/QMOF database screening/i)
     expect(curatedRun.result.curatedFrameworks.filter(row => row.finalRecommendationEligible)).toHaveLength(3)
     expect(curatedRun.result.curatedFrameworks.filter(row => row.dataQualityGate.status === "needs_review").every(row => !row.finalRecommendationEligible)).toBe(true)
+    expect(curatedRun.trace.dataMode).toBe("curated_real_examples")
+    expect(curatedRun.trace.steps).toHaveLength(9)
+    expect(curatedRun.trace.warnings.join(" ")).toMatch(/small sample/i)
   })
 
   it("builds the V1.2 algorithm journey UI data without changing conclusions", () => {

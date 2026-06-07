@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useEffect, useMemo, useState } from "react"
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react"
 import {
   BasisBadge,
   BlockFormula,
@@ -14,10 +14,18 @@ import {
   useViewport,
 } from "../../shared"
 import { MethodologySidebar } from "../methodology/MethodologySidebar"
+import { KnowledgeBaseSkeleton, MethodologySectionSkeleton } from "../methodology/MethodologySkeleton"
 import { MethodFormulaCard } from "../methodology/MethodFormulaCard"
 import { MethodModuleSection } from "../methodology/MethodModuleSection"
-import { ORGANIC_ACID_FINAL_DIRECTORY, OrganicAcidFinalMethodology } from "../methodology/OrganicAcidFinalMethodology"
-import { VERSION_DOCS_DIRECTORY, VersionDocsPanel } from "../methodology/version-docs/VersionDocsPanel"
+import { ORGANIC_ACID_FINAL_DIRECTORY } from "../methodology/organic-acid-final/directory"
+import { VERSION_DOCS_DIRECTORY } from "../methodology/version-docs/directory"
+
+const OrganicAcidFinalMethodology = lazy(() =>
+  import("../methodology/OrganicAcidFinalMethodology").then(module => ({ default: module.OrganicAcidFinalMethodology })),
+)
+const VersionDocsPanel = lazy(() =>
+  import("../methodology/version-docs/VersionDocsPanel").then(module => ({ default: module.VersionDocsPanel })),
+)
 
 const MODULE_ORDER = [
   "platform-overview",
@@ -39,6 +47,7 @@ function scrollToSection(id) {
   if (target) target.scrollIntoView({ behavior: "smooth", block: "start" })
   if (typeof window !== "undefined") {
     window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}#${id}`)
+    window.dispatchEvent(new Event("hashchange"))
   }
 }
 
@@ -55,6 +64,52 @@ function buildDirectory(modules, lang) {
       })),
       display: text(lang, module.moduleZh, module.module),
     }))
+}
+
+function LazyMethodologyGate({ ids = [], fallback, children }) {
+  const ref = useRef(null)
+  const [loaded, setLoaded] = useState(() => {
+    if (typeof window === "undefined") return false
+    const hash = String(window.location.hash || "").replace(/^#/, "")
+    return ids.includes(hash)
+  })
+
+  useEffect(() => {
+    if (loaded) return undefined
+    const onHash = () => {
+      const hash = String(window.location.hash || "").replace(/^#/, "")
+      if (ids.includes(hash)) setLoaded(true)
+    }
+    onHash()
+    window.addEventListener("hashchange", onHash)
+    return () => window.removeEventListener("hashchange", onHash)
+  }, [ids, loaded])
+
+  useEffect(() => {
+    if (loaded || typeof IntersectionObserver === "undefined") return undefined
+    const node = ref.current
+    if (!node) return undefined
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) setLoaded(true)
+    }, { rootMargin: "560px 0px 560px 0px", threshold: 0.01 })
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [loaded])
+
+  useEffect(() => {
+    if (!loaded || typeof window === "undefined") return undefined
+    const hash = String(window.location.hash || "").replace(/^#/, "")
+    if (!ids.includes(hash)) return undefined
+    const timers = [80, 240, 520].map(delay => window.setTimeout(() => {
+      document.getElementById(hash)?.scrollIntoView({ behavior: delay === 80 ? "smooth" : "auto", block: "start" })
+    }, delay))
+    return () => timers.forEach(timer => window.clearTimeout(timer))
+  }, [ids, loaded])
+
+  if (!loaded) {
+    return <div ref={ref} id={ids[0]} style={{ scrollMarginTop: 118 }}>{fallback}</div>
+  }
+  return <Suspense fallback={fallback}>{children}</Suspense>
 }
 
 function PlatformFlowCard({ lang, t, isMobile }) {
@@ -349,13 +404,26 @@ export function MethodsLimitationsTab() {
             const moduleBlock = (
               <div key={item.id} style={{ display: "grid", gap: 16 }}>
                 <MethodModuleSection item={item} lang={lang} t={t} />
-                {item.id === "organic-acid" ? <OrganicAcidFinalMethodology lang={lang} t={t} /> : null}
+                {item.id === "organic-acid" ? (
+                  <LazyMethodologyGate
+                    ids={[ORGANIC_ACID_FINAL_DIRECTORY.id, ...ORGANIC_ACID_FINAL_DIRECTORY.children.map(child => child.id)]}
+                    fallback={<MethodologySectionSkeleton lang={lang} t={t} title="Organic Acid Final Screening Methodology" titleZh="有机酸最终筛选方法论" />}
+                  >
+                    <OrganicAcidFinalMethodology lang={lang} t={t} />
+                  </LazyMethodologyGate>
+                ) : null}
               </div>
             )
             if (item.id === "organic-acid") {
               return [
                 moduleBlock,
-                <VersionDocsPanel key="methodology-version-docs-panel" lang={lang} t={t} isMobile={isMobile || isNarrow} />,
+                <LazyMethodologyGate
+                  key="methodology-version-docs-panel"
+                  ids={[VERSION_DOCS_DIRECTORY.id, "methodology-version-docs", ...VERSION_DOCS_DIRECTORY.children.map(child => child.id)]}
+                  fallback={<KnowledgeBaseSkeleton lang={lang} t={t} />}
+                >
+                  <VersionDocsPanel lang={lang} t={t} isMobile={isMobile || isNarrow} />
+                </LazyMethodologyGate>,
               ]
             }
             return moduleBlock

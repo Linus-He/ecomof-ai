@@ -7,14 +7,123 @@ const baseUrl = process.env.VISUAL_CHECK_BASE_URL || "http://127.0.0.1:5173/ecom
 const outDir = path.join(process.cwd(), "test-results", "visual-checks")
 
 const routes = [
-  ["home", "#overview", [["Workflow Narrative", "流程叙事"], ["Evidence & Validation Loop", "证据与验证闭环"], ["What this workflow produces", "这套流程最终产出什么"], ["Structure & Source Intake", "结构与来源接入"]]],
-  ["catalysis", "#catalysis", [["Section layout controls", "Section 布局控制"], ["Catalyst Cat Energy Playground", "催化小猫能量游乐场"], ["小猫提示 / Cat insight", "Cat insight"], ["当前区域 / Current zone", "Current zone"], ["相关指标 / Related metric", "Related metric"], ["Reaction Pathway Evidence Map", "催化路径证据图"], ["Organic Acid Workspace", "有机酸路径工作台"], "Organic Acid Final Screening"]],
-  ["organic-acid", "#catalysis-organic-acid", [["Access Gate / Frontend Passcode", "前端访问入口"], ["Section layout controls", "Section 布局控制"], ["Algorithm Trace Explorer", "算法追踪器"], ["Effect Decomposition Explorer", "效应拆解器"], ["Organic Acid Carbon-Flow Graph Workbench", "有机酸碳流图论路径工作台"], ["Interaction Effect Matrix", "交互效应矩阵"], ["Experimental Design Coverage Map", "实验设计覆盖图"]]],
-  ["organic-acid-final", "#catalysis-organic-acid-final-screening", ["Organic Acid Final Screening", ["演示级代理评分", "Demo Score Disclaimer"], ["完整方法论与证据层已同步到 Methods & Evidence", "Methodology and evidence layer updated in Methods & Evidence"], ["查看证据层", "View evidence layer"], ["算法运行启动器", "Algorithm Run Launcher"], ["运行 Curated 小样例", "Run curated sample"], ["演示流程", "Demo workflow"], ["映射样例", "Mapped fixtures"], ["人工整理真实样例", "Curated real examples"], ["Small curated sample only", "small curated sample only", "仅小规模人工整理样例"], ["运行结果摘要", "Run Result Summary"], ["运行追踪", "Run trace"], "Algorithm Pipeline Stepper", "Status Badge Legend", "Screening Funnel Chart", "Stage Summary Cards", ["耦合描述符热区图", "Coupled Descriptor Hot Spot Map"], "Curated real examples", ["受耦合催化剂设计思想启发", "Inspired by coupled catalyst design"], ["骨架热区", "Scaffold Map"], ["金属热区", "Dopant Map"], ["协同热区", "Synergy Map"], ["为什么需要热区图", "Why Hot Spot Matters"], ["描述符耦合面板", "Descriptor Coupling Panel"], ["验证证据阶梯", "Validation Evidence Ladder"], ["Reaction Constraint Builder", "反应约束"], "Al-MOF Ranking Table", "Dopant Metal Recommendation Matrix", "Mechanism Path Radar", "Why Mo? Waterfall Chart", "Why Mo vs W Comparison", "Sensitivity Rank Distribution", "Full-Metal Sensitivity Distribution", "Mo vs W/V/Ti/Zr/Fe", "robust but audit required", "Ru / Pd / Ag", "Prediction vs Falsification", "Data Status & Provenance Coverage", "V1.6 Curated real examples mapping report", "Limitations & Reproducibility Statement"]],
-  ["library", "#library", [["Open MOF Seed Records", "Open MOF Seed 记录"], ["View database details", "查看数据库详情"]]],
-  ["gassep", "#gassep", [["Gas Separation Scenario Builder", "气体分离场景构建器"], ["Interactive Performance Map", "性能图谱"], ["GasSep Interaction Diagnostics", "交互诊断"], ["Validation Roadmap", "验证路线"]]],
-  ["ecoscreen", "#ecoscreen", ["EcoScreen", ["Candidate Scoring", "候选评分"]]],
-  ["methodology", "#methodology", [["Methods & Evidence", "方法与证据"], ["Structured Factor Effects", "结构化因素效应"], ["Catalysis Energy Playground Method", "催化能量游乐场方法说明"], ["Organic Acid Final Screening Methodology", "有机酸最终筛选方法论"], ["Method Overview", "方法总览"], ["Two-Stage Algorithm Flow", "两阶段算法流程图"], ["Data Mapping and Schema Validation", "数据映射层与 Schema Validation"], ["Small Real Dataset Integration", "小规模真实样例接入"], ["Data Mapper Preview Panel", "Data Mapper Preview Panel"], ["Schema Validation Panel", "Schema Validation Panel"], ["Data Quality Gate Panel", "Data Quality Gate Panel"], ["OACS Formula Explainer", "OACS 骨架筛选"], ["DMRS Formula Explainer", "DMRS 第二金属推荐"], ["Mechanism Path Cards", "三路径机制解释"], ["Coupled Descriptor Hot Spot Map", "耦合描述符热区图"], ["Knowledge Base", "知识库"], ["Robustness Audit", "稳健性审计"], ["Evidence Strength Matrix", "证据强度矩阵"], ["EXAFS-Guided Falsification", "EXAFS 引导的假设-证伪闭环"], ["Experimental Control Loop", "实验控制闭环"], ["Evidence Data Layer Status", "证据层状态"], ["Version History", "版本历史"], "V1.4", "V1.5", "V1.6", ["Literature Library", "文献库"], ["Inspiration Map", "灵感映射"], ["Version ↔ Literature ↔ Module Matrix", "版本 ↔ 文献 ↔ 模块矩阵"], ["Evidence Boundary Legend", "证据边界图例"], ["Evidence Levels", "证据等级"], ["Validation Roadmap", "验证路线"]]],
+  ["home", "#overview", [
+    ["Workflow Narrative", "流程叙事"],
+    ["Evidence & Validation Loop", "证据与验证闭环"],
+    ["What this workflow produces", "这套流程最终产出什么"],
+    ["Structure & Source Intake", "结构与来源接入"],
+  ]],
+  ["catalysis", "#catalysis", [
+    ["Section layout controls", "Section 布局控制"],
+    ["Reaction Pathway Evidence Map", "催化路径证据图"],
+    ["Organic Acid Workspace", "有机酸路径工作台"],
+    "Organic Acid Final Screening",
+  ]],
+  ["organic-acid", "#catalysis-organic-acid", [
+    ["Access Gate / Frontend Passcode", "前端访问入口"],
+    ["Section layout controls", "Section 布局控制"],
+    ["Algorithm Trace Explorer", "算法追踪器"],
+    ["Effect Decomposition Explorer", "效应拆解器"],
+    ["Organic Acid Carbon-Flow Graph Workbench", "有机酸碳流图论路径工作台"],
+    ["Interaction Effect Matrix", "交互效应矩阵"],
+    ["Experimental Design Coverage Map", "实验设计覆盖图"],
+  ]],
+  ["organic-acid-final", "#catalysis-organic-acid-final-screening", [
+    "Organic Acid Final Screening",
+    ["演示级代理评分", "Demo Score Disclaimer"],
+    ["完整方法论与证据层已同步到 Methods & Evidence", "Methodology and evidence layer updated in Methods & Evidence"],
+    ["查看证据层", "View evidence layer"],
+    ["算法运行启动器", "Algorithm Run Launcher"],
+    ["运行 Curated 小样例", "Run curated sample"],
+    ["演示流程", "Demo workflow"],
+    ["映射样例", "Mapped fixtures"],
+    ["人工整理真实样例", "Curated real examples"],
+    ["Small curated sample only", "small curated sample only", "仅小规模人工整理样例"],
+    ["运行结果摘要", "Run Result Summary"],
+    ["运行追踪", "Run trace"],
+    "Algorithm Pipeline Stepper",
+    "Status Badge Legend",
+    "Screening Funnel Chart",
+    "Stage Summary Cards",
+    ["耦合描述符热区图", "Coupled Descriptor Hot Spot Map"],
+    ["骨架热区", "Scaffold Map"],
+    ["金属热区", "Dopant Map"],
+    ["协同热区", "Synergy Map"],
+    ["为什么需要热区图", "Why Hot Spot Matters"],
+    ["描述符耦合面板", "Descriptor Coupling Panel"],
+    ["验证证据阶梯", "Validation Evidence Ladder"],
+    ["Reaction Constraint Builder", "反应约束"],
+    "Al-MOF Ranking Table",
+    "Dopant Metal Recommendation Matrix",
+    "Mechanism Path Radar",
+    "Why Mo? Waterfall Chart",
+    "Why Mo vs W Comparison",
+    "Sensitivity Rank Distribution",
+    "Full-Metal Sensitivity Distribution",
+    "Mo vs W/V/Ti/Zr/Fe",
+    "robust but audit required",
+    "Ru / Pd / Ag",
+    "Prediction vs Falsification",
+    "Data Status & Provenance Coverage",
+    "V1.6 Curated real examples mapping report",
+    "Limitations & Reproducibility Statement",
+    "V1.7 · ALGORITHM TRACE WORKBENCH",
+    "WARNING & BOUNDARY PANEL",
+    "CANDIDATE FLOW FUNNEL / SANKEY",
+    "FORMULA & WEIGHT INSPECTOR",
+    "CANDIDATE DECISION LOG",
+    "EVIDENCE TRACE PANEL",
+    "TRACE EXPORT PANEL",
+  ]],
+  ["library", "#library", [
+    ["Open MOF Seed Records", "Open MOF Seed 记录"],
+    ["View database details", "查看数据库详情"],
+  ]],
+  ["gassep", "#gassep", [
+    ["Gas Separation Scenario Builder", "气体分离场景构建器"],
+    ["Interactive Performance Map", "性能图谱"],
+    ["GasSep Interaction Diagnostics", "交互诊断"],
+    ["Validation Roadmap", "验证路线"],
+  ]],
+  ["ecoscreen", "#ecoscreen", [
+    "EcoScreen",
+    ["Candidate Scoring", "候选评分"],
+  ]],
+  ["methodology", "#methodology", [
+    ["Methods & Evidence", "方法与证据"],
+    ["Structured Factor Effects", "结构化因素效应"],
+    ["Catalysis Energy Playground Method", "催化能量游乐场方法说明"],
+    ["Organic Acid Final Screening Methodology", "有机酸最终筛选方法论"],
+    ["Method Overview", "方法总览"],
+    ["Two-Stage Algorithm Flow", "两阶段算法流程图"],
+    ["Data Mapping and Schema Validation", "数据映射与 Schema Validation"],
+    ["Small Real Dataset Integration", "小规模真实样例接入"],
+    ["Data Mapper Preview Panel", "Data Mapper Preview Panel"],
+    ["Schema Validation Panel", "Schema Validation Panel"],
+    ["Data Quality Gate Panel", "Data Quality Gate Panel"],
+    ["Algorithm Trace Workbench", "算法追踪工作台"],
+    ["OACS Formula Explainer", "OACS 骨架筛选"],
+    ["DMRS Formula Explainer", "DMRS 第二金属推荐"],
+    ["Mechanism Path Cards", "三路径机制解释"],
+    ["Coupled Descriptor Hot Spot Map", "耦合描述符热区图"],
+    ["Knowledge Base", "知识库"],
+    ["Robustness Audit", "稳健性审计"],
+    ["Evidence Strength Matrix", "证据强度矩阵"],
+    ["EXAFS-Guided Falsification", "EXAFS 引导的假设-证伪闭环"],
+    ["Experimental Control Loop", "实验控制闭环"],
+    ["Evidence Data Layer Status", "证据层状态"],
+    ["Version History", "版本历史"],
+    "V1.4",
+    "V1.5",
+    "V1.6",
+    "V1.7",
+    ["Literature Library", "文献库"],
+    ["Inspiration Map", "灵感映射"],
+    ["Version ↔ Literature ↔ Module Matrix", "版本 ↔ 文献 ↔ 模块矩阵"],
+    ["展开完整映射矩阵", "Expand full mapping matrix"],
+    ["Evidence Boundary Legend", "证据边界图例"],
+    ["Validation Roadmap", "验证路线"],
+  ]],
 ]
 const viewports = [
   ["desktop", 1440, 1100],
@@ -109,23 +218,6 @@ for (const [viewportName, width, height] of viewports) {
         }
       }
 
-      if (routeName === "catalysis") {
-        const catHandle = page.locator('[data-testid="catalysis-cat-overlay-handle"]').first()
-        if (await catHandle.count()) {
-          await catHandle.scrollIntoViewIfNeeded()
-          const box = await catHandle.boundingBox()
-          if (box) {
-            const startX = box.x + box.width / 2
-            const startY = box.y + box.height / 2
-            await page.mouse.move(startX, startY)
-            await page.mouse.down()
-            await page.mouse.move(startX + 165, Math.max(80, startY - 95), { steps: 8 })
-            await page.mouse.up()
-            await page.waitForTimeout(300)
-          }
-        }
-      }
-
       if (routeName === "organic-acid-final") {
         const curatedMode = page.getByRole("button", { name: /Curated real examples|人工整理真实样例/ }).first()
         if (await curatedMode.count()) {
@@ -142,26 +234,33 @@ for (const [viewportName, width, height] of viewports) {
           if (await traceButton.count()) await traceButton.click()
           await page.waitForTimeout(300)
         }
-        const catHandle = page.locator('[data-testid="catalysis-cat-overlay-handle"]').first()
-        const hotSpotZone = page.locator('[data-cat-zone="hot-spot-map"]').first()
-        if (await catHandle.count() && await hotSpotZone.count()) {
-          await hotSpotZone.scrollIntoViewIfNeeded()
+        const catBoundary = page.locator('[data-cat-boundary="hotspot-synergy"]').first()
+        const catHandle = catBoundary.locator('[data-testid="catalysis-cat-probe"]').first()
+        if (await catBoundary.count() && await catHandle.count()) {
+          await catBoundary.scrollIntoViewIfNeeded()
           const catBox = await catHandle.boundingBox()
-          const targetBox = await hotSpotZone.boundingBox()
+          const targetBox = await catBoundary.boundingBox()
           if (catBox && targetBox) {
             const startX = catBox.x + catBox.width / 2
             const startY = catBox.y + catBox.height / 2
-            const endX = targetBox.x + targetBox.width / 2
-            const endY = targetBox.y + Math.min(targetBox.height - 30, Math.max(36, targetBox.height * 0.35))
+            const endX = targetBox.x + targetBox.width * 0.82
+            const endY = targetBox.y + targetBox.height * 0.28
             await page.mouse.move(startX, startY)
             await page.mouse.down()
             await page.mouse.move(endX, endY, { steps: 12 })
             await page.mouse.up()
             await page.waitForTimeout(350)
             const activeZone = await catHandle.getAttribute("data-cat-zone-active")
-            if (activeZone !== "hot-spot-map") failures.push(`${routeName}/${viewportName}/${mode}: cat did not enter hot-spot-map zone, got ${activeZone}`)
+            if (!["mo-primary-hypothesis", "hot-spot-region"].includes(activeZone)) failures.push(`${routeName}/${viewportName}/${mode}: chart-scoped cat did not enter a hot zone, got ${activeZone}`)
           }
         }
+      }
+
+      if (routeName === "methodology") {
+        await page.locator("#methodology-organic-acid-final-screening").first().scrollIntoViewIfNeeded().catch(() => {})
+        await page.waitForTimeout(1800)
+        await page.locator("#methodology-knowledge-base").first().scrollIntoViewIfNeeded().catch(() => {})
+        await page.waitForTimeout(1800)
       }
 
       const bodyText = await page.locator("body").innerText()

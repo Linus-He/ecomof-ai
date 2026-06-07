@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06",
-  "currentVersion": "V1.6",
-  "completedRange": "V1.0-V1.6",
+  "currentVersion": "V1.7",
+  "completedRange": "V1.0-V1.7",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -707,6 +707,110 @@
         "adaptationBoundaryZh": "Small curated sample validates mapper and workflow surfaces only; not full database screening or catalytic validation."
       },
       "relatedSection": "#methodology-oafs-small-real-dataset"
+    },
+    {
+      "version": "V1.7",
+      "title": "Algorithm Trace Workbench and Performance Optimization",
+      "titleZh": "算法追踪工作台与方法论性能优化",
+      "date": "2026-06",
+      "status": "completed",
+      "theme": "Traceability + performance",
+      "themeZh": "可审计追踪 + 加载性能",
+      "summary": "Added an Algorithm Trace Workbench for run-level auditability, replaced the global Catalysis cat overlay with chart-scoped probes, and optimized Methods & Evidence loading without changing OACS/DMRS scientific logic.",
+      "summaryZh": "新增 Algorithm Trace Workbench 用于运行级可审计追踪，将全局 Catalysis 小猫 overlay 改为图表内探针，并优化 Methods & Evidence 加载；不改变 OACS/DMRS 科学逻辑。",
+      "keyUpdates": [
+        "Added Algorithm Trace Workbench with runId, step-level trace records, candidate decision log, formula / weight inspector, evidence trace, candidate flow funnel, warnings, boundaries, and Markdown / JSON export.",
+        "Replaced the workspace-level cat overlay with a chart-scoped science probe inside Scaffold, Dopant, and Synergy Hot Spot charts.",
+        "Optimized Methods & Evidence through lazy component loading, on-demand Knowledge Base fetches, collapsed heavy matrices, deferred methodology sections, skeleton states, and Vite manual chunks."
+      ],
+      "keyUpdatesZh": [
+        "新增 Algorithm Trace Workbench，包含 runId、step-level trace records、candidate decision log、formula / weight inspector、evidence trace、candidate flow funnel、warnings、boundaries 与 Markdown / JSON export。",
+        "将全工作区小猫 overlay 改为仅挂载在 Scaffold、Dopant、Synergy 热区图内的 chart-scoped science probe。",
+        "通过组件懒加载、Knowledge Base 按需 fetch、重型矩阵折叠、方法论分段延迟渲染、skeleton 状态和 Vite manual chunks 优化 Methods & Evidence。"
+      ],
+      "algorithmChanges": [
+        "No OACS/DMRS core scoring logic change.",
+        "Run Launcher now emits an exportable V1.7 trace object in addition to legacy trace records.",
+        "Trace records expose inputs, rules, formulas, outputs, warnings, and blocked states for demo / mapped fixture / curated real-example runs."
+      ],
+      "algorithmChangesZh": [
+        "不改变 OACS/DMRS 核心评分逻辑。",
+        "Run Launcher 在 legacy trace records 之外新增可导出的 V1.7 trace object。",
+        "trace records 对 demo / mapped fixture / curated real-example 运行暴露 input、rule、formula、output、warning 与 blocked 状态。"
+      ],
+      "uiChanges": [
+        "Added Trace Workbench cards for run overview, step timeline, step inspector, candidate decision log, formula / weight inspector, evidence trace panel, candidate flow funnel, warning boundary panel, and export panel.",
+        "Cat probe now uses pointer events, chart-relative coordinates, clamped movement, and independent storage keys for hotspot-scaffold, hotspot-dopant, and hotspot-synergy.",
+        "Methods & Evidence shows lightweight skeletons, summary-first literature lists, collapsed matrices, and nonblank lazy-loaded methodology sections."
+      ],
+      "uiChangesZh": [
+        "新增 run overview、step timeline、step inspector、candidate decision log、formula / weight inspector、evidence trace panel、candidate flow funnel、warning boundary panel 与 export panel。",
+        "小猫探针改用 pointer events、图表相对坐标、边界内 clamp，以及 hotspot-scaffold、hotspot-dopant、hotspot-synergy 独立 storage keys。",
+        "Methods & Evidence 使用轻量 skeleton、摘要优先文献列表、默认折叠矩阵，以及非空白懒加载方法论区块。"
+      ],
+      "methodologyChanges": [
+        "Added Algorithm Trace Workbench method note to Organic Acid Final Screening methodology.",
+        "Knowledge Base and Version History now document V1.7 traceability, chart-scoped probe boundaries, and performance optimization boundaries.",
+        "Large public JSON datasets are fetched on demand by methodology / Knowledge Base surfaces instead of being statically imported into the main bundle."
+      ],
+      "methodologyChangesZh": [
+        "在 Organic Acid Final Screening 方法论中新增 Algorithm Trace Workbench 方法说明。",
+        "Knowledge Base 与 Version History 记录 V1.7 可追踪性、chart-scoped probe 边界与性能优化边界。",
+        "大型 public JSON 数据由方法论 / Knowledge Base 页面按需 fetch，不再静态进入主 bundle。"
+      ],
+      "evidenceBoundary": "Trace workbench provides auditability and transparency for demo / mapped / curated sample workflows. It does not prove catalytic performance.",
+      "evidenceBoundaryZh": "Trace workbench 为 demo / mapped / curated sample 工作流提供可审计性与透明度；不证明催化性能。",
+      "limitations": [
+        "Trace records explain the current computation chain but do not validate catalytic outcomes.",
+        "Chart-scoped cat probe zones are interpretive overlays on demo/proxy hot spot maps.",
+        "Performance optimization changes loading behavior only; it does not advance full CoRE/QMOF database screening."
+      ],
+      "limitationsZh": [
+        "trace records 解释当前计算链，但不验证催化结果。",
+        "chart-scoped cat probe zones 是 demo/proxy 热区图上的解释性 overlay。",
+        "性能优化只改变加载行为；不推进全量 CoRE/QMOF 数据库筛选。"
+      ],
+      "literatureInspirations": [
+        {
+          "literatureId": "LIT-KRIVOBOKOVA-2026-HTE-STRUCTURED-DATA",
+          "inspiredFeatures": [
+            "Algorithm Trace Workbench",
+            "transparent step-level trace",
+            "data boundary warnings"
+          ],
+          "adaptationNote": "Borrowed structured-data and auditability principles only; EcoMOF-AI does not reproduce HTE yield modelling.",
+          "adaptationNoteZh": "仅借鉴结构化数据与可审计原则；EcoMOF-AI 不复现 HTE 产率建模。",
+          "evidenceBoundary": "Methodology principle only; not validation of trace-derived recommendations.",
+          "evidenceRole": "methodology_inspiration"
+        },
+        {
+          "literatureId": "LIT-HOTSPOT-2025-NATCOMM",
+          "inspiredFeatures": [
+            "chart-scoped science probe",
+            "hot spot interpretability",
+            "design-space boundary labels"
+          ],
+          "adaptationNote": "Borrowed chart-level interpretability inspiration only; EcoMOF-AI does not reproduce the paper's model or conclusions.",
+          "adaptationNoteZh": "仅借鉴图表级解释性呈现；EcoMOF-AI 不复现原论文模型或结论。",
+          "evidenceBoundary": "Visualization inspiration only; not evidence that the EcoMOF-AI hot spot predicts performance.",
+          "evidenceRole": "design_inspiration"
+        }
+      ],
+      "knowledgeBaseLinks": {
+        "literatureIds": [
+          "LIT-KRIVOBOKOVA-2026-HTE-STRUCTURED-DATA",
+          "LIT-HOTSPOT-2025-NATCOMM"
+        ],
+        "knowledgeTags": [
+          "algorithm-trace-workbench",
+          "chart-scoped-science-probe",
+          "methods-performance",
+          "evidence-boundary"
+        ],
+        "adaptationBoundary": "Traceability, chart interpretability, and loading-performance improvements only; no change to OACS/DMRS formulas and no catalytic validation claim.",
+        "adaptationBoundaryZh": "仅涉及可追踪性、图表解释性与加载性能优化；不改变 OACS/DMRS 公式，也不声明催化验证。"
+      },
+      "relatedSection": "#methodology-oafs-trace-workbench"
     }
   ],
   "roadmap": [

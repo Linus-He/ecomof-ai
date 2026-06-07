@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { ChemicalText } from "../../../shared"
+import { ChemicalText } from "../../common/ChemicalFormula"
 
 export function VersionStatusBadge({ status, t }) {
   const value = String(status || "planned").toLowerCase()

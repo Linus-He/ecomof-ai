@@ -1,14 +1,10 @@
 // @ts-nocheck
-import { useMemo } from "react"
-import frameworks from "../../../public/data/organic_acid_final_screening/al_mof_framework_candidates.json"
-import curatedMappingReport from "../../../public/data/organic_acid_final_screening/curated_real_examples/real_data_mapping_report.json"
-import metals from "../../../public/data/organic_acid_final_screening/dopant_metal_property_matrix.json"
-import evidenceRecords from "../../../public/data/organic_acid_final_screening/organic_acid_evidence_records.json"
-import rules from "../../../public/data/organic_acid_final_screening/organic_acid_screening_rules.json"
-import { ChemicalText } from "../../shared"
+import { Suspense, lazy, useEffect, useMemo, useState } from "react"
+import { ChemicalText } from "../common/ChemicalFormula"
+import { fetchDataJson } from "../../services/dataService"
+import { MethodologySectionSkeleton } from "./MethodologySkeleton"
 import { runOrganicAcidFinalScreening } from "../../utils/organicAcidFinalScreening"
 import { DescriptorEvidenceMatrix } from "./organic-acid-final/DescriptorEvidenceMatrix"
-import { DataMappingSchemaValidationPanel } from "./organic-acid-final/DataMappingSchemaValidationPanel"
 import { FormulaExplainerCard } from "./organic-acid-final/FormulaExplainerCard"
 import { MechanismPathMethodCard } from "./organic-acid-final/MechanismPathMethodCard"
 import { MethodologyCitationPanel } from "./organic-acid-final/MethodologyCitationPanel"
@@ -17,30 +13,11 @@ import { MethodologyLimitationsCard } from "./organic-acid-final/MethodologyLimi
 import { OrganicAcidMethodologyOverview } from "./organic-acid-final/OrganicAcidMethodologyOverview"
 import { ExafsFalsificationDiagram, ValidationLoopDiagram } from "./organic-acid-final/ValidationLoopDiagram"
 
-const text = (lang, zh, en) => (lang === "zh" ? zh : en)
+const DataMappingSchemaValidationPanel = lazy(() =>
+  import("./organic-acid-final/DataMappingSchemaValidationPanel").then(module => ({ default: module.DataMappingSchemaValidationPanel })),
+)
 
-export const ORGANIC_ACID_FINAL_DIRECTORY = {
-  id: "methodology-organic-acid-final-screening",
-  label: "Organic Acid Final Screening Methodology",
-  labelZh: "有机酸最终筛选方法论",
-  level: 1,
-  display: "有机酸最终筛选方法论",
-  children: [
-    { id: "methodology-oafs-overview", label: "Method Overview", labelZh: "方法总览" },
-    { id: "methodology-oafs-flow", label: "Two-Stage Algorithm Flow", labelZh: "两阶段算法流程" },
-    { id: "methodology-oafs-data-mapping", label: "Data Mapping and Schema Validation", labelZh: "数据映射与 Schema Validation" },
-    { id: "methodology-oafs-small-real-dataset", label: "Small Real Dataset Integration", labelZh: "小规模真实样例接入" },
-    { id: "methodology-oafs-oacs", label: "Stage 1: OACS Framework Mining", labelZh: "Stage 1：OACS 骨架筛选" },
-    { id: "methodology-oafs-dmrs", label: "Stage 2: DMRS Dopant Recommendation", labelZh: "Stage 2：DMRS 第二金属推荐" },
-    { id: "methodology-oafs-hot-spot", label: "Coupled Descriptor Hot Spot Map", labelZh: "耦合描述符热区图" },
-    { id: "methodology-oafs-knowledge-base", label: "Knowledge Base Link", labelZh: "知识库跳转" },
-    { id: "methodology-oafs-robustness", label: "Robustness Audit", labelZh: "稳健性审计" },
-    { id: "methodology-oafs-evidence-matrix", label: "Evidence Strength Matrix", labelZh: "证据强度矩阵" },
-    { id: "methodology-oafs-exafs", label: "EXAFS-Guided Falsification", labelZh: "EXAFS 引导证伪" },
-    { id: "methodology-oafs-validation-loop", label: "Experimental Control Loop", labelZh: "实验控制闭环" },
-    { id: "methodology-oafs-limitations", label: "Limitations & Reproducibility", labelZh: "限制与复现" },
-  ],
-}
+const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
 function MetricCard({ label, value, t, tone = "info" }) {
   return (
@@ -104,7 +81,8 @@ function RobustnessAuditMethod({ result, lang, t }) {
   )
 }
 
-function SmallRealDatasetMethod({ lang, t }) {
+function SmallRealDatasetMethod({ mappingReport, lang, t }) {
+  const report = mappingReport || {}
   const rows = [
     [text(lang, "样例边界", "Sample boundary"), text(lang, "只接入小规模人工整理真实样例，不接入全量 CoRE/QMOF。", "Only a small curated real-example sample is integrated; full CoRE/QMOF is not loaded.")],
     [text(lang, "数据质量门", "Data quality gate"), text(lang, "ready-for-scoring 才可计算 OACS；needs-review 与 rejected 保持可审计但不进入最终推荐。", "Only ready-for-scoring records can calculate OACS; needs-review and rejected records remain auditable but cannot enter final recommendation.")],
@@ -123,15 +101,15 @@ function SmallRealDatasetMethod({ lang, t }) {
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "V1.6 引入小规模人工整理真实样例，用于验证数据映射、schema validation、quality gate、fieldSources、Run Launcher 与 Hot Spot Map 是否能承接真实数据形状；这不是全量数据库筛选。",
-          "V1.6 introduces curated real examples to validate whether data mapping, schema validation, quality gate, fieldSources, Run Launcher, and Hot Spot Map can carry real-data shapes. This is not full database screening."
+          "V1.6 引入小规模人工整理真实样例，用于验证数据映射、schema validation、quality gate、fieldSources、Run Launcher 与 Hot Spot Map 是否能承接真实数据形状；V1.7 保持该边界并增加可审计 trace。",
+          "V1.6 introduced curated real examples to validate data mapping, schema validation, quality gate, fieldSources, Run Launcher, and Hot Spot Map real-data shapes. V1.7 preserves that boundary and adds auditable trace records."
         )} />
       </p>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))" }}>
-        <MetricCard label={text(lang, "骨架样例", "Framework records")} value={curatedMappingReport.frameworkRecords} t={t} />
-        <MetricCard label="QMOF descriptors" value={curatedMappingReport.qmofDescriptorRecords} t={t} />
-        <MetricCard label={text(lang, "证据记录", "Evidence records")} value={curatedMappingReport.evidenceRecords} t={t} />
-        <MetricCard label={text(lang, "可评分 / 需复核 / 拒绝", "Ready / review / rejected")} value={`${curatedMappingReport.readyForScoring} / ${curatedMappingReport.needsReview} / ${curatedMappingReport.rejected}`} t={t} tone="warn" />
+        <MetricCard label={text(lang, "骨架样例", "Framework records")} value={report.frameworkRecords ?? "Pending"} t={t} />
+        <MetricCard label="QMOF descriptors" value={report.qmofDescriptorRecords ?? "Pending"} t={t} />
+        <MetricCard label={text(lang, "证据记录", "Evidence records")} value={report.evidenceRecords ?? "Pending"} t={t} />
+        <MetricCard label={text(lang, "可评分 / 需复核 / 拒绝", "Ready / review / rejected")} value={`${report.readyForScoring ?? "?"} / ${report.needsReview ?? "?"} / ${report.rejected ?? "?"}`} t={t} tone="warn" />
       </div>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
         {rows.map(([label, value]) => (
@@ -142,9 +120,82 @@ function SmallRealDatasetMethod({ lang, t }) {
         ))}
       </div>
       <p style={{ color: t.warn, fontSize: 12.5, fontWeight: 900, lineHeight: 1.52, margin: 0 }}>
-        <ChemicalText value={text(lang, curatedMappingReport.boundaryZh, curatedMappingReport.boundary)} />
+        <ChemicalText value={text(lang, report.boundaryZh || "仅小规模人工整理样例；不是全量数据库筛选。", report.boundary || "Small curated sample only. Not full database screening.")} />
       </p>
     </section>
+  )
+}
+
+function TraceWorkbenchMethod({ lang, t }) {
+  return (
+    <section id="methodology-oafs-trace-workbench" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 15, scrollMarginTop: 118 }}>
+      <header style={{ display: "grid", gap: 4 }}>
+        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Algorithm Trace Workbench</span>
+        <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
+          {text(lang, "算法追踪工作台：可审计计算链", "Algorithm Trace Workbench: Auditable Computation Chain")}
+        </h3>
+      </header>
+      <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
+        <ChemicalText value={text(
+          lang,
+          "V1.7 将 Run Launcher 输出扩展为 runId、step-level trace、candidate decision log、formula weight inspector、evidence trace、candidate flow funnel 和 exportable Markdown / JSON report。它解释当前 demo / mapped fixture / curated sample 如何产生推荐，不证明催化性能。",
+          "V1.7 expands Run Launcher output into runId, step-level trace records, candidate decision logs, formula weight inspectors, evidence traces, a candidate flow funnel, and exportable Markdown / JSON reports. It explains how the current demo / mapped fixture / curated sample produces a recommendation; it does not prove catalytic performance."
+        )} />
+      </p>
+      <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))" }}>
+        {[
+          [text(lang, "Trace schema", "Trace schema"), "RunTrace / StepTrace / CandidateDecision / FormulaContribution / EvidenceTrace"],
+          [text(lang, "导出", "Export"), "Markdown / JSON"],
+          [text(lang, "边界", "Boundary"), "auditability and transparency, not proof"],
+        ].map(([label, value]) => (
+          <article key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 6, padding: 10 }}>
+            <strong style={{ color: t.textStrong, fontSize: 12.8 }}>{label}</strong>
+            <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}><ChemicalText value={value} /></span>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function LazyMethodologyDetails({ id, title, titleZh, summary, summaryZh, defaultOpen = false, lang, t, children }) {
+  const [open, setOpen] = useState(() => {
+    if (typeof window === "undefined") return defaultOpen
+    const hash = String(window.location.hash || "").replace(/^#/, "")
+    return defaultOpen || hash === id
+  })
+  const [loaded, setLoaded] = useState(open)
+  const handleToggle = event => {
+    const nextOpen = event.currentTarget.open
+    setOpen(nextOpen)
+    if (nextOpen) setLoaded(true)
+  }
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined
+    const onHash = () => {
+      const hash = String(window.location.hash || "").replace(/^#/, "")
+      if (hash === id) {
+        setOpen(true)
+        setLoaded(true)
+        window.setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" }), 80)
+      }
+    }
+    onHash()
+    window.addEventListener("hashchange", onHash)
+    return () => window.removeEventListener("hashchange", onHash)
+  }, [id])
+  return (
+    <details id={id} open={open} onToggle={handleToggle} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 12, scrollMarginTop: 118 }}>
+      <summary style={{ color: t.textStrong, cursor: "pointer", fontSize: 15, fontWeight: 940, lineHeight: 1.25 }}>
+        {text(lang, titleZh, title)}
+        <span style={{ color: t.muted, display: "block", fontSize: 12, fontWeight: 650, lineHeight: 1.45, marginTop: 4 }}>
+          <ChemicalText value={text(lang, summaryZh, summary)} />
+        </span>
+      </summary>
+      <div style={{ display: "grid", gap: 12, marginTop: 12 }}>
+        {loaded ? children : <MethodologySectionSkeleton lang={lang} t={t} title={title} titleZh={titleZh} />}
+      </div>
+    </details>
   )
 }
 
@@ -265,7 +316,52 @@ function KnowledgeBaseMethod({ lang, t }) {
 }
 
 export function OrganicAcidFinalMethodology({ lang, t }) {
-  const result = useMemo(() => runOrganicAcidFinalScreening(frameworks, metals, rules, evidenceRecords), [])
+  const [data, setData] = useState({ frameworks: [], metals: [], rules: {}, evidenceRecords: [], mappingReport: null })
+  const [status, setStatus] = useState("loading")
+
+  useEffect(() => {
+    let active = true
+    setStatus("loading")
+    Promise.all([
+      fetchDataJson("organic_acid_final_screening/al_mof_framework_candidates.json", [], { throwOnError: true }),
+      fetchDataJson("organic_acid_final_screening/dopant_metal_property_matrix.json", [], { throwOnError: true }),
+      fetchDataJson("organic_acid_final_screening/organic_acid_screening_rules.json", {}, { throwOnError: true }),
+      fetchDataJson("organic_acid_final_screening/organic_acid_evidence_records.json", [], { throwOnError: true }),
+      fetchDataJson("organic_acid_final_screening/curated_real_examples/real_data_mapping_report.json", {}, { throwOnError: true }),
+    ]).then(([frameworkRows, metalRows, ruleConfig, evidenceRows, mappingReport]) => {
+      if (!active) return
+      setData({
+        frameworks: Array.isArray(frameworkRows) ? frameworkRows : [],
+        metals: Array.isArray(metalRows) ? metalRows : [],
+        rules: ruleConfig || {},
+        evidenceRecords: Array.isArray(evidenceRows) ? evidenceRows : [],
+        mappingReport: mappingReport || {},
+      })
+      setStatus("loaded")
+    }).catch(error => {
+      if (!active) return
+      console.warn("Organic Acid methodology data could not be loaded.", error)
+      setData({ frameworks: [], metals: [], rules: {}, evidenceRecords: [], mappingReport: null })
+      setStatus("error")
+    })
+    return () => { active = false }
+  }, [])
+
+  const result = useMemo(() => {
+    if (status !== "loaded") return null
+    return runOrganicAcidFinalScreening(data.frameworks, data.metals, data.rules, data.evidenceRecords)
+  }, [data, status])
+
+  if (status === "loading") return <MethodologySectionSkeleton lang={lang} t={t} title="Organic Acid Final Screening Methodology" titleZh="有机酸最终筛选方法论" />
+  if (status === "error" || !result) {
+    return (
+      <section id="methodology-organic-acid-final-screening" style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 12, color: t.muted, display: "grid", gap: 8, padding: 14, scrollMarginTop: 118 }}>
+        <strong style={{ color: t.warn }}>{text(lang, "有机酸方法论数据加载失败", "Organic Acid methodology data failed to load")}</strong>
+        <span>{text(lang, "请稍后重试；Methods 其他章节不受影响。", "Please retry later; other Methods sections remain available.")}</span>
+      </section>
+    )
+  }
+
   const oacsCard = result.formulaCards.find(card => card.id === "oacs")
   const dmrsCard = result.formulaCards.find(card => card.id === "dmrs")
 
@@ -277,7 +373,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
       <div style={{ display: "grid", gap: 14, marginTop: 13 }}>
         <div style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 10, display: "flex", flexWrap: "wrap", gap: 9, justifyContent: "space-between", padding: 11 }}>
           <span style={{ color: t.muted, fontSize: 12.4, lineHeight: 1.45 }}>
-            {text(lang, "打开知识库，查看 V1.0–V1.6 的版本演进、文献灵感来源、方法迁移边界与后续 roadmap。", "Open the Knowledge Base to review V1.0-V1.6 version history, literature inspirations, method adaptation boundaries, and future roadmap.")}
+            {text(lang, "打开知识库，查看 V1.0–V1.7 的版本演进、文献灵感来源、方法迁移边界与后续 roadmap。", "Open the Knowledge Base to review V1.0-V1.7 version history, literature inspirations, method adaptation boundaries, and future roadmap.")}
           </span>
           <a href="#methodology-knowledge-base" style={{ background: t.surface, border: `1px solid ${t.accentText || t.accent}`, borderRadius: 8, color: t.accentText, fontSize: 12, fontWeight: 900, padding: "7px 10px", textDecoration: "none" }}>
             {text(lang, "打开知识库", "Open Knowledge Base")}
@@ -285,15 +381,32 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
         </div>
         <OrganicAcidMethodologyOverview lang={lang} t={t} coverage={result.evidenceCoverage} />
         <MethodologyFlowDiagram flow={result.methodologyFlowData} lang={lang} t={t} />
-        <DataMappingSchemaValidationPanel lang={lang} t={t} />
-        <SmallRealDatasetMethod lang={lang} t={t} />
-        <FormulaExplainerCard card={oacsCard} lang={lang} t={t} />
-        <FormulaExplainerCard card={dmrsCard} lang={lang} t={t} />
+        <LazyMethodologyDetails id="methodology-oafs-data-mapping" title="Data Mapping and Schema Validation" titleZh="数据映射与 Schema Validation" summary="Data Mapper Preview Panel / Schema Validation Panel / Data Quality Gate Panel" summaryZh="Data Mapper Preview Panel / Schema Validation Panel / Data Quality Gate Panel" lang={lang} t={t}>
+          <Suspense fallback={<MethodologySectionSkeleton lang={lang} t={t} title="Data Mapping and Schema Validation" titleZh="数据映射与 Schema Validation" />}>
+            <DataMappingSchemaValidationPanel lang={lang} t={t} />
+          </Suspense>
+        </LazyMethodologyDetails>
+        <LazyMethodologyDetails id="methodology-oafs-small-real-dataset" title="Small Real Dataset Integration" titleZh="小规模真实样例接入" summary="Small curated sample, quality gate, field provenance, and hot spot projection." summaryZh="小规模样例、质量门、字段来源与热区投影。" lang={lang} t={t}>
+          <SmallRealDatasetMethod mappingReport={data.mappingReport} lang={lang} t={t} />
+        </LazyMethodologyDetails>
+        <TraceWorkbenchMethod lang={lang} t={t} />
+        <LazyMethodologyDetails id="methodology-oafs-oacs" title="OACS Formula Explainer" titleZh="OACS 骨架筛选" summary="Formula card renders after expansion." summaryZh="公式卡片展开后渲染。" lang={lang} t={t}>
+          <FormulaExplainerCard card={oacsCard} lang={lang} t={t} />
+        </LazyMethodologyDetails>
+        <LazyMethodologyDetails id="methodology-oafs-dmrs" title="DMRS Formula Explainer" titleZh="DMRS 第二金属推荐" summary="Formula card renders after expansion." summaryZh="公式卡片展开后渲染。" lang={lang} t={t}>
+          <FormulaExplainerCard card={dmrsCard} lang={lang} t={t} />
+        </LazyMethodologyDetails>
         <MechanismPathMethodCard lang={lang} t={t} />
-        <CoupledHotSpotMethod result={result} lang={lang} t={t} />
+        <LazyMethodologyDetails id="methodology-oafs-hot-spot" title="Coupled Descriptor Hot Spot Map" titleZh="耦合描述符热区图" summary="Hot Spot Map method note renders when expanded." summaryZh="Hot Spot Map 方法说明展开后渲染。" lang={lang} t={t}>
+          <CoupledHotSpotMethod result={result} lang={lang} t={t} />
+        </LazyMethodologyDetails>
         <KnowledgeBaseMethod lang={lang} t={t} />
-        <RobustnessAuditMethod result={result} lang={lang} t={t} />
-        <DescriptorEvidenceMatrix rows={result.evidenceStrengthMatrix} coverage={result.evidenceCoverage} lang={lang} t={t} />
+        <LazyMethodologyDetails id="methodology-oafs-robustness" title="Robustness Audit" titleZh="稳健性审计" summary="Weight perturbation and Mo audit interpretation." summaryZh="权重扰动与 Mo 审计解释。" lang={lang} t={t}>
+          <RobustnessAuditMethod result={result} lang={lang} t={t} />
+        </LazyMethodologyDetails>
+        <LazyMethodologyDetails id="methodology-oafs-evidence-matrix" title="Evidence Strength Matrix" titleZh="证据强度矩阵" summary="Evidence matrix cards render on expansion." summaryZh="证据矩阵卡片展开后渲染。" lang={lang} t={t}>
+          <DescriptorEvidenceMatrix rows={result.evidenceStrengthMatrix} coverage={result.evidenceCoverage} lang={lang} t={t} />
+        </LazyMethodologyDetails>
         <ExafsFalsificationDiagram signature={result.exafsSignature} lang={lang} t={t} />
         <ValidationLoopDiagram validation={result.validationLoopData} lang={lang} t={t} />
         <MethodologyLimitationsCard lang={lang} t={t} />

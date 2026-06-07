@@ -1,5 +1,7 @@
 // @ts-nocheck
-import { BasisBadge, ChemicalText, SCIENTIFIC_TOKEN_FONT } from "../../shared"
+import { ChemicalText } from "../common/ChemicalFormula"
+import { BasisBadge } from "../ui"
+import { SCIENTIFIC_TOKEN_FONT } from "../../utils/chemText"
 import { MethodAlgorithmStepper } from "./MethodAlgorithmStepper"
 import { MethodEvidenceBoundary } from "./MethodEvidenceBoundary"
 import { MethodFormulaCard } from "./MethodFormulaCard"

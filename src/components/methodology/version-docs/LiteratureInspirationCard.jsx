@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { ChemicalText } from "../../../shared"
+import { ChemicalText } from "../../common/ChemicalFormula"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 const safe = value => value === null || value === undefined || value === "" ? "Pending metadata" : value

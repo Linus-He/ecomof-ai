@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useMemo, useState } from "react"
-import { ChemicalText } from "../../../shared"
+import { ChemicalText } from "../../common/ChemicalFormula"
 import { buildMapperPreviewRows } from "../../../utils/mofDataMappers/mapperPreviewFixtures"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)

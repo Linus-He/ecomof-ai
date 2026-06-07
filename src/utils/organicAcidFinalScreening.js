@@ -3,6 +3,7 @@ import { mapCuratedFrameworkExamples } from "./mofDataMappers/coreMofMapper"
 import { attachRealEvidenceRecords } from "./mofDataMappers/literatureEvidenceMapper"
 import { buildRealDataMappingReport, loadCuratedRealExamples } from "./mofDataMappers/mapperPreviewFixtures"
 import { mergeQmofDescriptorsIntoFrameworks } from "./mofDataMappers/qmofMapper"
+import { buildRunTrace } from "./organicAcidTrace/traceEngine"
 
 const DEFAULT_MIN_TEMP_C = 150
 const DEFAULT_FRAMEWORK_WEIGHTS = {
@@ -2403,24 +2404,44 @@ export function runDemoScreeningWorkflow(frameworkCandidates, metalMatrix, rules
   if (dataMode === "curated_real_examples") {
     const result = options.curatedRealResult || buildCuratedRealScreeningResult(options.curatedRealExamples || null, metalMatrix, rules)
     const steps = buildRunSteps(result, { dataMode })
+    const legacyTrace = buildRunTraceFromResult(result, steps)
+    const trace = buildRunTrace({
+      screeningResult: result,
+      runSteps: steps,
+      dataMode,
+      selectedModules: options.selectedModules || [],
+      legacyTrace,
+    })
     return {
-      status: "completed",
+      status: trace.status === "blocked" ? "blocked" : "completed",
       dataMode,
       steps,
       result,
+      runResult: result,
       summary: buildRunResultSummary(result, dataMode),
-      trace: buildRunTraceFromResult(result, steps),
+      trace,
+      legacyTrace,
     }
   }
   const result = runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, rules, evidenceRecords)
   const steps = buildRunSteps(result, { dataMode })
+  const legacyTrace = buildRunTraceFromResult(result, steps)
+  const trace = buildRunTrace({
+    screeningResult: result,
+    runSteps: steps,
+    dataMode,
+    selectedModules: options.selectedModules || [],
+    legacyTrace,
+  })
   return {
-    status: "completed",
+    status: trace.status === "blocked" ? "blocked" : "completed",
     dataMode,
     steps,
     result,
+    runResult: result,
     summary: buildRunResultSummary(result, dataMode),
-    trace: buildRunTraceFromResult(result, steps),
+    trace,
+    legacyTrace,
   }
 }
 
