@@ -2,7 +2,7 @@
   "id": "organic-acid-final-knowledge-base",
   "label": "Knowledge Base",
   "labelZh": "知识库",
-  "version": "V1.7",
+  "version": "V2.0-B",
   "updatedAt": "2026-06",
   "uploadedFileCount": 6,
   "uniqueLiteratureRecords": 5,
@@ -17,12 +17,12 @@
     }
   ],
   "stats": {
-    "currentVersion": "V1.7",
+    "currentVersion": "V2.0-B",
     "literatureRecords": 5,
     "uploadedFiles": 6,
     "verifiedDoiRecords": 2,
     "pendingMetadataRecords": 3,
-    "plannedNextStage": "V2.0 Large-scale Database Integration"
+    "plannedNextStage": "V2.0-C Expanded Database Screening UI"
   },
   "sections": [
     {
@@ -54,6 +54,11 @@
       "id": "methodology-oafs-trace-workbench",
       "label": "Algorithm Trace Workbench",
       "labelZh": "算法追踪工作台"
+    },
+    {
+      "id": "methodology-oafs-database-index-preview",
+      "label": "Database Index Preview",
+      "labelZh": "数据库索引预览"
     },
     {
       "id": "methodology-evidence-boundary-legend",

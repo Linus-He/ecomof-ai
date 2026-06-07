@@ -158,6 +158,55 @@ function TraceWorkbenchMethod({ lang, t }) {
   )
 }
 
+function DatabaseIndexPreviewMethod({ lang, t }) {
+  const rows = [
+    [
+      "Manifest + summaries",
+      text(lang, "浏览器加载 manifest 摘要、CoRE/QMOF summary、descriptor availability 与 provenance coverage。", "The browser loads the manifest, CoRE/QMOF summaries, descriptor availability, and provenance coverage."),
+    ],
+    [
+      "Top-N preview",
+      text(lang, "预计算候选只作为 Top-N preview 展示，不是最终验证推荐。", "Precomputed candidates are shown as Top-N preview only, not final verified recommendations."),
+    ],
+    [
+      "Index parts",
+      text(lang, "用户点击后才加载选定 index part；不会一次性加载全部分片。", "Only the selected index part loads after user action; all parts are not fetched at once."),
+    ],
+    [
+      "Detail on demand",
+      text(lang, "detailRef 在用户打开详情时才 fetch，缺失 DOI/citation/license 显示 evidence pending。", "detailRef is fetched only when detail is opened; missing DOI/citation/license is shown as evidence pending."),
+    ],
+  ]
+  return (
+    <section id="methodology-oafs-database-index-preview" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 13, padding: 15, scrollMarginTop: 118 }}>
+      <header style={{ display: "grid", gap: 4 }}>
+        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Database Index Preview</span>
+        <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
+          {text(lang, "数据库索引预览：V2.0-A 数据层接入前端工作台", "Database Index Preview: V2.0-A Data Layer Connected to the Front-End Workbench")}
+        </h3>
+      </header>
+      <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
+        <ChemicalText value={text(
+          lang,
+          "V2.0-B 将 V2.0-A 生成的数据库索引文件接入前端工作台。浏览器只加载 manifest 摘要、预计算候选预览、选定索引分片和按需详情记录。",
+          "V2.0-B connects the V2.0-A database index files to the front-end workbench. The browser loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand."
+        )} />
+      </p>
+      <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+        {rows.map(([label, value]) => (
+          <article key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 7, padding: 11 }}>
+            <strong style={{ color: t.textStrong, fontSize: 12.7 }}>{label}</strong>
+            <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.48 }}><ChemicalText value={value} /></span>
+          </article>
+        ))}
+      </div>
+      <p style={{ color: t.warn, fontSize: 12.5, fontWeight: 900, lineHeight: 1.52, margin: 0 }}>
+        <ChemicalText value={text(lang, "这仍然是索引预览，不是经过完整验证的全量筛选结论。", "This remains an index preview and is not full verified screening.")} />
+      </p>
+    </section>
+  )
+}
+
 function LazyMethodologyDetails({ id, title, titleZh, summary, summaryZh, defaultOpen = false, lang, t, children }) {
   const [open, setOpen] = useState(() => {
     if (typeof window === "undefined") return defaultOpen
@@ -373,7 +422,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
       <div style={{ display: "grid", gap: 14, marginTop: 13 }}>
         <div style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 10, display: "flex", flexWrap: "wrap", gap: 9, justifyContent: "space-between", padding: 11 }}>
           <span style={{ color: t.muted, fontSize: 12.4, lineHeight: 1.45 }}>
-            {text(lang, "打开知识库，查看 V1.0–V1.7 的版本演进、文献灵感来源、方法迁移边界与后续 roadmap。", "Open the Knowledge Base to review V1.0-V1.7 version history, literature inspirations, method adaptation boundaries, and future roadmap.")}
+            {text(lang, "打开知识库，查看 V1.0–V2.0-B 的版本演进、文献灵感来源、方法迁移边界与后续 roadmap。", "Open the Knowledge Base to review V1.0-V2.0-B version history, literature inspirations, method adaptation boundaries, and future roadmap.")}
           </span>
           <a href="#methodology-knowledge-base" style={{ background: t.surface, border: `1px solid ${t.accentText || t.accent}`, borderRadius: 8, color: t.accentText, fontSize: 12, fontWeight: 900, padding: "7px 10px", textDecoration: "none" }}>
             {text(lang, "打开知识库", "Open Knowledge Base")}
@@ -390,6 +439,9 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           <SmallRealDatasetMethod mappingReport={data.mappingReport} lang={lang} t={t} />
         </LazyMethodologyDetails>
         <TraceWorkbenchMethod lang={lang} t={t} />
+        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-B connects manifest summaries, Top-N preview, selected index parts, and detail-on-demand records." summaryZh="V2.0-B 接入 manifest 摘要、Top-N preview、选定 index parts 与按需详情。" lang={lang} t={t}>
+          <DatabaseIndexPreviewMethod lang={lang} t={t} />
+        </LazyMethodologyDetails>
         <LazyMethodologyDetails id="methodology-oafs-oacs" title="OACS Formula Explainer" titleZh="OACS 骨架筛选" summary="Formula card renders after expansion." summaryZh="公式卡片展开后渲染。" lang={lang} t={t}>
           <FormulaExplainerCard card={oacsCard} lang={lang} t={t} />
         </LazyMethodologyDetails>

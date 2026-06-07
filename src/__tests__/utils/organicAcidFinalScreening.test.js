@@ -208,9 +208,9 @@ describe("organic acid final screening", () => {
 
   it("records the Organic Acid Knowledge Base and planned roadmap", () => {
     expect(versionDocs.knowledgeBaseLabel).toBe("Knowledge Base")
-    expect(versionDocs.currentVersion).toBe("V1.7")
-    expect(versionDocs.completedRange).toBe("V1.0-V1.7")
-    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6", "V1.7"])
+    expect(versionDocs.currentVersion).toBe("V2.0-B")
+    expect(versionDocs.completedRange).toBe("V1.0-V2.0-B")
+    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6", "V1.7", "V2.0-A", "V2.0-B"])
     expect(versionDocs.versions.find(row => row.version === "V1.4")).toEqual(expect.objectContaining({
       status: "completed",
       title: "Coupled Descriptor Hot Spot Map",
@@ -231,6 +231,16 @@ describe("organic acid final screening", () => {
       title: "Algorithm Trace Workbench and Performance Optimization",
       evidenceBoundary: "Trace workbench provides auditability and transparency for demo / mapped / curated sample workflows. It does not prove catalytic performance.",
     }))
+    expect(versionDocs.versions.find(row => row.version === "V2.0-A")).toEqual(expect.objectContaining({
+      status: "completed",
+      title: "Large-scale Database Index Architecture",
+      evidenceBoundary: "Database index architecture preview only; not full verified database screening.",
+    }))
+    expect(versionDocs.versions.find(row => row.version === "V2.0-B")).toEqual(expect.objectContaining({
+      status: "current",
+      title: "Database Index Workbench UI",
+      evidenceBoundary: "Front-end index preview only; not full verified database screening.",
+    }))
     versionDocs.versions.forEach(row => {
       expect(row.summary).toBeTruthy()
       expect(row.keyUpdates.length).toBeGreaterThan(0)
@@ -239,17 +249,21 @@ describe("organic acid final screening", () => {
       expect(row.methodologyChanges.length).toBeGreaterThan(0)
       expect(row.evidenceBoundary).toBeTruthy()
       expect(row.limitations.length).toBeGreaterThan(0)
-      expect(row.literatureInspirations.length).toBeGreaterThan(0)
-      expect(row.knowledgeBaseLinks.literatureIds.length).toBeGreaterThan(0)
+      if (row.version.startsWith("V1.")) {
+        expect(row.literatureInspirations.length).toBeGreaterThan(0)
+        expect(row.knowledgeBaseLinks.literatureIds.length).toBeGreaterThan(0)
+      } else {
+        expect(row.knowledgeBaseLinks.knowledgeTags.length).toBeGreaterThan(0)
+      }
       expect(row.knowledgeBaseLinks.adaptationBoundary).toBeTruthy()
-      row.literatureInspirations.forEach(link => {
+      ;(row.literatureInspirations || []).forEach(link => {
         expect(link.literatureId).toBeTruthy()
         expect(link.inspiredFeatures.length).toBeGreaterThan(0)
         expect(link.evidenceBoundary).toBeTruthy()
       })
     })
     expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
-      ["V2.0", "planned"],
+      ["V2.0-C", "planned"],
     ])
     expect(literatureInspirations).toHaveLength(5)
     const hotSpotPaper = literatureInspirations.find(row => row.id === "LIT-HOTSPOT-2025-NATCOMM")
@@ -276,9 +290,13 @@ describe("organic acid final screening", () => {
     expect(v17.keyUpdates.join(" ")).toMatch(/chart-scoped science probe/)
     expect(v17.keyUpdates.join(" ")).toMatch(/Methods & Evidence/)
     expect(v17.algorithmChanges.join(" ")).toMatch(/No OACS\/DMRS core scoring logic change/)
-    expect(versionDocs.currentVersion).toBe("V1.7")
+    const v20b = versionDocs.versions.find(row => row.version === "V2.0-B")
+    expect(v20b.keyUpdates.join(" ")).toMatch(/Database Index Workbench UI/)
+    expect(v20b.algorithmChanges.join(" ")).toMatch(/index-level trace/)
+    expect(v20b.evidenceBoundary).toMatch(/not full verified database screening/)
+    expect(versionDocs.currentVersion).toBe("V2.0-B")
     expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
-      ["V2.0", "planned"],
+      ["V2.0-C", "planned"],
     ])
   })
 

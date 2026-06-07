@@ -27,6 +27,14 @@ const DATA_MODES = [
     note: "Small curated sample only. Not full database screening.",
     noteZh: "仅小规模人工整理样例；不是全量数据库筛选。",
   },
+  {
+    id: "database_index_preview",
+    label: "Database index preview",
+    labelZh: "数据库索引预览",
+    status: "enabled",
+    note: "Loads manifest and precomputed Top-N preview only. No full browser-side scoring.",
+    noteZh: "只加载 manifest 与预计算 Top-N 预览；不在浏览器中运行全量评分。",
+  },
 ]
 
 const PRESET_ROWS = [
@@ -39,7 +47,7 @@ const PRESET_ROWS = [
 export function RunConfigurationPanel({ dataMode, setDataMode, lang, t, isMobile }) {
   return (
     <section style={{ display: "grid", gap: 10 }}>
-      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))" }}>
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(180px, 1fr))" }}>
         {DATA_MODES.map(mode => {
           const disabled = mode.status !== "enabled"
           const active = mode.id === dataMode

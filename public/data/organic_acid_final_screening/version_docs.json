@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06",
-  "currentVersion": "V1.7",
-  "completedRange": "V1.0-V1.7",
+  "currentVersion": "V2.0-B",
+  "completedRange": "V1.0-V2.0-B",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -811,25 +811,176 @@
         "adaptationBoundaryZh": "仅涉及可追踪性、图表解释性与加载性能优化；不改变 OACS/DMRS 公式，也不声明催化验证。"
       },
       "relatedSection": "#methodology-oafs-trace-workbench"
+    },
+    {
+      "version": "V2.0-A",
+      "title": "Large-scale Database Index Architecture",
+      "titleZh": "大规模数据库索引架构",
+      "date": "2026-06",
+      "status": "completed",
+      "theme": "Database index architecture",
+      "themeZh": "数据库索引架构",
+      "summary": "Added the public database_index data layer and scripts for manifest generation, preview summaries, index parts, detail records, validation, and dry-run precompute.",
+      "summaryZh": "新增 public database_index 数据层与脚本链路，用于 manifest、preview summary、index parts、detail records、validator 与 dry-run precompute。",
+      "keyUpdates": [
+        "Added public/data/database_index/ with manifest, summaries, descriptor availability, provenance coverage, precomputed top candidates, index parts, detail records, build report, and validation report.",
+        "Added scripts/database-index/ build, precompute, split, validate, and shared utility scripts.",
+        "Added database_index_preview datasetMode and not full database screening boundary.",
+        "Fixed validator classification for metadata, statistics, percentages, array containers, and index part records."
+      ],
+      "keyUpdatesZh": [
+        "新增 public/data/database_index/，包含 manifest、summary、descriptor availability、provenance coverage、precomputed top candidates、index parts、detail records、build report 与 validation report。",
+        "新增 scripts/database-index/ build、precompute、split、validate 与 shared utility scripts。",
+        "新增 database_index_preview datasetMode 与 not full database screening 边界。",
+        "修复 validator 对 metadata、statistics、percent、array container 和 index part records 的分类。"
+      ],
+      "algorithmChanges": [
+        "No browser-side full database scoring.",
+        "Precomputed Top-N preview excludes needs-review and rejected records from final recommendation.",
+        "Detail records remain on-demand and separated from lightweight index parts."
+      ],
+      "algorithmChangesZh": [
+        "不在浏览器端执行全量数据库评分。",
+        "预计算 Top-N preview 将 needs-review 与 rejected 记录排除在最终推荐之外。",
+        "详情记录保持按需加载，并与轻量 index parts 分离。"
+      ],
+      "uiChanges": [
+        "No front-end workbench yet in V2.0-A; this release established the data and script architecture."
+      ],
+      "uiChangesZh": [
+        "V2.0-A 尚未接入前端工作台；本版本建立数据与脚本架构。"
+      ],
+      "methodologyChanges": [
+        "Documented database index preview as an architecture boundary, not full verified screening."
+      ],
+      "methodologyChangesZh": [
+        "将 database index preview 记录为架构边界，不是经过完整验证的全量筛选。"
+      ],
+      "evidenceBoundary": "Database index architecture preview only; not full verified database screening.",
+      "evidenceBoundaryZh": "仅为数据库索引架构预览；不是经过完整验证的全量数据库筛选。",
+      "limitations": [
+        "Preview records do not represent the complete raw CoRE/QMOF databases.",
+        "DOI, citation, and license fields remain pending when unverified.",
+        "Top candidates are preview candidates, not final verified recommendations."
+      ],
+      "limitationsZh": [
+        "预览记录不代表完整 CoRE/QMOF 原始数据库。",
+        "未经核验时 DOI、citation 与 license 保持 pending。",
+        "Top candidates 是预览候选，不是最终验证推荐。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "database-index-architecture",
+          "database-index-preview",
+          "validation-report",
+          "not-full-database-screening"
+        ],
+        "adaptationBoundary": "Architecture and validation scaffold only; no verified full database screening claim.",
+        "adaptationBoundaryZh": "仅为架构与校验脚手架；不声明已完成经验证的全量数据库筛选。"
+      },
+      "relatedSection": "#methodology-oafs-database-index-preview"
+    },
+    {
+      "version": "V2.0-B",
+      "title": "Database Index Workbench UI",
+      "titleZh": "数据库索引工作台 UI",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Workbench integration",
+      "themeZh": "工作台接入",
+      "summary": "Connects the V2.0-A database index architecture to the front-end workbench with manifest loading, summary panels, top candidate preview, index part browsing, and detail-on-demand drawers.",
+      "summaryZh": "将 V2.0-A 数据库索引架构接入前端工作台，包含 manifest 加载、summary panels、top candidate preview、index part browsing 与 detail-on-demand drawer。",
+      "keyUpdates": [
+        "Added Database Index Workbench UI.",
+        "Added manifest and summary fetch logic.",
+        "Added descriptor availability and provenance coverage panels.",
+        "Added precomputed top candidates preview.",
+        "Added index part browser.",
+        "Added detail-on-demand drawer.",
+        "Added Database index preview mode to Run Launcher.",
+        "Added index-level trace boundary to Algorithm Trace Workbench."
+      ],
+      "keyUpdatesZh": [
+        "新增 Database Index Workbench UI。",
+        "新增 manifest 与 summary fetch 逻辑。",
+        "新增 descriptor availability 与 provenance coverage panels。",
+        "新增 precomputed top candidates preview。",
+        "新增 index part browser。",
+        "新增 detail-on-demand drawer。",
+        "Run Launcher 新增 Database index preview 模式。",
+        "Algorithm Trace Workbench 新增 index-level trace boundary。"
+      ],
+      "algorithmChanges": [
+        "Database index preview mode loads manifest and precomputed Top-N preview only.",
+        "Run Launcher generates index-level trace instead of full database OACS/DMRS scoring.",
+        "Trace is limited to manifest, summaries, top candidates, selected part, and opened detail."
+      ],
+      "algorithmChangesZh": [
+        "Database index preview 模式只加载 manifest 与预计算 Top-N preview。",
+        "Run Launcher 生成索引层 trace，而不是执行全量数据库 OACS/DMRS 评分。",
+        "Trace 仅覆盖 manifest、summaries、top candidates、选定分片与已打开详情。"
+      ],
+      "uiChanges": [
+        "Added lazy Database Index Workbench to Organic Acid Final Screening.",
+        "Added selected index part browser with quality and Al-node filters.",
+        "Added detail drawer with evidence-pending fallbacks for missing DOI, citation, and license fields."
+      ],
+      "uiChangesZh": [
+        "在 Organic Acid Final Screening 中新增懒加载 Database Index Workbench。",
+        "新增选定 index part browser，支持质量状态与 Al-node 过滤。",
+        "新增 detail drawer，并对缺失 DOI、citation 与 license 显示 evidence pending fallback。"
+      ],
+      "methodologyChanges": [
+        "Added Database Index Preview method note to Methods & Evidence.",
+        "Knowledge Base and Version History now document V2.0-B workbench integration and trace boundary."
+      ],
+      "methodologyChangesZh": [
+        "在 Methods & Evidence 中新增 Database Index Preview 方法说明。",
+        "Knowledge Base 与 Version History 记录 V2.0-B 工作台接入与 trace 边界。"
+      ],
+      "evidenceBoundary": "Front-end index preview only; not full verified database screening.",
+      "evidenceBoundaryZh": "仅前端索引预览；不是经过完整验证的全量数据库筛选。",
+      "limitations": [
+        "Index parts are loaded only by user selection.",
+        "Detail records are loaded only on demand.",
+        "Top candidates remain preview candidates and are not final recommendations."
+      ],
+      "limitationsZh": [
+        "Index parts 仅在用户选择后加载。",
+        "Detail records 仅按需加载。",
+        "Top candidates 仍是预览候选，不是最终推荐。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "database-index-workbench",
+          "detail-on-demand",
+          "index-preview",
+          "provenance-coverage",
+          "top-n-preview"
+        ],
+        "adaptationBoundary": "Front-end index preview only; no browser-side full database screening or verified Al/Mo-MOF discovery claim.",
+        "adaptationBoundaryZh": "仅前端索引预览；不进行浏览器端全量数据库筛选，也不声明已发现经验证的 Al/Mo-MOF。"
+      },
+      "relatedSection": "#methodology-oafs-database-index-preview"
     }
   ],
   "roadmap": [
     {
-      "version": "V2.0",
-      "title": "Large-scale Database Integration",
-      "titleZh": "大规模数据库接入",
+      "version": "V2.0-C",
+      "title": "Expanded Database Screening UI",
+      "titleZh": "更完整的数据库筛选 UI",
       "status": "planned",
       "items": [
-        "CoRE / QMOF index-level integration",
-        "Top-N precomputed screening",
-        "Virtualized result table",
-        "Worker-based scoring"
+        "More complete database screening UI",
+        "Pagination and multi-condition filtering",
+        "Top-N explanation panels",
+        "Worker-based scoring boundary design"
       ],
       "itemsZh": [
-        "CoRE / QMOF 索引级接入",
-        "Top-N 预计算筛选",
-        "虚拟化结果表",
-        "Worker-based scoring"
+        "更完整的数据库筛选 UI",
+        "分页与多条件筛选",
+        "Top-N 解释面板",
+        "Worker-based scoring 边界设计"
       ]
     }
   ],

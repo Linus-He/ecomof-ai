@@ -1,8 +1,9 @@
 // @ts-nocheck
-import { useEffect, useMemo, useState } from "react"
+import { Suspense, lazy, useEffect, useMemo, useState } from "react"
 import { BasisBadge, ChemicalText, CopyLinkButton, fetchDataJson } from "../../../shared"
 import { ModulePageHeader } from "../../module/ModuleTop"
 import { buildCandidateDecisionTrace, buildCuratedRealScreeningResult, runOrganicAcidFinalScreening } from "../../../utils/organicAcidFinalScreening"
+import { DatabaseIndexSkeleton } from "../../database-index/DatabaseIndexSkeleton"
 import { AlgorithmPipelineStepper } from "./AlgorithmPipelineStepper"
 import { AlgorithmRunLauncher } from "./run-launcher/AlgorithmRunLauncher"
 import { AlgorithmTraceWorkbench } from "./trace-workbench/AlgorithmTraceWorkbench"
@@ -29,6 +30,10 @@ import { StatusBadgeLegend } from "./StatusBadgeLegend"
 import { WhyMoWaterfall } from "./WhyMoWaterfall"
 import { WhyMoVsWComparison } from "./WhyMoVsWComparison"
 
+const DatabaseIndexWorkbench = lazy(() =>
+  import("../../database-index/DatabaseIndexWorkbench").then(module => ({ default: module.DatabaseIndexWorkbench })),
+)
+
 function LoadingPanel({ lang, t }) {
   return (
     <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 13, lineHeight: 1.55, padding: 16 }}>
@@ -54,6 +59,7 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
   const [status, setStatus] = useState("loading")
   const [decisionCandidate, setDecisionCandidate] = useState(null)
   const [latestTrace, setLatestTrace] = useState(null)
+  const [databaseIndexOverview, setDatabaseIndexOverview] = useState(null)
 
   useEffect(() => {
     let active = true
@@ -159,8 +165,11 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
         <>
           <DemoScoreDisclaimer rules={rules} lang={lang} t={t} />
           <div data-cat-zone="run-launcher">
-            <AlgorithmRunLauncher frameworks={frameworks} metals={metals} rules={rules} evidenceRecords={evidenceRecords} result={result} curatedRealExamples={curatedRealExamples} curatedRealResult={curatedRealResult} onTraceReady={setLatestTrace} lang={lang} t={t} isMobile={isMobile} />
+            <AlgorithmRunLauncher frameworks={frameworks} metals={metals} rules={rules} evidenceRecords={evidenceRecords} result={result} curatedRealExamples={curatedRealExamples} curatedRealResult={curatedRealResult} databaseIndexOverview={databaseIndexOverview} onDatabaseIndexOverviewReady={setDatabaseIndexOverview} onTraceReady={setLatestTrace} lang={lang} t={t} isMobile={isMobile} />
           </div>
+          <Suspense fallback={<DatabaseIndexSkeleton lang={lang} t={t} />}>
+            <DatabaseIndexWorkbench lang={lang} t={t} isMobile={isMobile} onOverviewLoaded={setDatabaseIndexOverview} />
+          </Suspense>
           <AlgorithmTraceWorkbench trace={latestTrace} lang={lang} t={t} isMobile={isMobile} />
           <AlgorithmPipelineStepper steps={result.algorithmJourneySteps} lang={lang} t={t} isMobile={isMobile} />
           <StatusBadgeLegend lang={lang} t={t} isMobile={isMobile} />

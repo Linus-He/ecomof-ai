@@ -6,6 +6,7 @@ export const RUN_TRACE_DATA_MODES = [
   "demo_workflow",
   "mapped_fixtures",
   "curated_real_examples",
+  "database_index_preview",
 ]
 
 export const RUN_TRACE_STATUSES = [
@@ -19,7 +20,7 @@ export const runTraceSchema = {
   schemaVersion: "string",
   runId: "string",
   createdAt: "string",
-  dataMode: "demo_workflow|mapped_fixtures|curated_real_examples",
+  dataMode: "demo_workflow|mapped_fixtures|curated_real_examples|database_index_preview",
   workflowVersion: "string",
   status: "completed|completed_with_warnings|blocked|failed",
   inputSummary: "object",
@@ -110,4 +111,3 @@ export const traceReportSchema = {
 export function isRunTrace(value) {
   return Boolean(value && typeof value === "object" && Array.isArray(value.steps) && value.runId)
 }
-

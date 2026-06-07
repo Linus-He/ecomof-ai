@@ -3,6 +3,7 @@ import { mapCuratedFrameworkExamples } from "./mofDataMappers/coreMofMapper"
 import { attachRealEvidenceRecords } from "./mofDataMappers/literatureEvidenceMapper"
 import { buildRealDataMappingReport, loadCuratedRealExamples } from "./mofDataMappers/mapperPreviewFixtures"
 import { mergeQmofDescriptorsIntoFrameworks } from "./mofDataMappers/qmofMapper"
+import { buildDatabaseIndexRunResultSummary, buildDatabaseIndexRunSteps, buildDatabaseIndexTrace } from "./databaseIndex/databaseIndexTraceAdapter"
 import { buildRunTrace } from "./organicAcidTrace/traceEngine"
 
 const DEFAULT_MIN_TEMP_C = 150
@@ -2193,6 +2194,9 @@ function buildCuratedRunSteps(screeningResult = {}) {
 
 export function buildRunSteps(screeningResult = {}, options = {}) {
   const dataMode = options.dataMode || "demo_workflow"
+  if (dataMode === "database_index_preview") {
+    return buildDatabaseIndexRunSteps(screeningResult)
+  }
   if (dataMode === "curated_real_examples") {
     return buildCuratedRunSteps(screeningResult)
   }
@@ -2330,6 +2334,9 @@ export function buildRunSteps(screeningResult = {}, options = {}) {
 }
 
 export function buildRunResultSummary(screeningResult = {}, dataMode = "demo_workflow") {
+  if (dataMode === "database_index_preview") {
+    return buildDatabaseIndexRunResultSummary(screeningResult)
+  }
   if (dataMode === "curated_real_examples") {
     const report = screeningResult.mappingReport || screeningResult.summary || {}
     return {
@@ -2401,6 +2408,23 @@ export function buildRunTraceFromResult(screeningResult = {}, runSteps = []) {
 
 export function runDemoScreeningWorkflow(frameworkCandidates, metalMatrix, rules = {}, evidenceRecords = [], options = {}) {
   const dataMode = options.dataMode || "demo_workflow"
+  if (dataMode === "database_index_preview") {
+    const result = options.databaseIndexOverview || {}
+    const steps = buildRunSteps(result, { dataMode })
+    const trace = buildDatabaseIndexTrace(result, {
+      selectedModules: options.selectedModules || [],
+    })
+    return {
+      status: trace.status === "blocked" ? "blocked" : "completed",
+      dataMode,
+      steps,
+      result,
+      runResult: result,
+      summary: buildRunResultSummary(result, dataMode),
+      trace,
+      legacyTrace: [],
+    }
+  }
   if (dataMode === "curated_real_examples") {
     const result = options.curatedRealResult || buildCuratedRealScreeningResult(options.curatedRealExamples || null, metalMatrix, rules)
     const steps = buildRunSteps(result, { dataMode })
