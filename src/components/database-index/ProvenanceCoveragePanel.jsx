@@ -8,7 +8,7 @@ export function ProvenanceCoveragePanel({ coverage = {}, lang, t }) {
   return (
     <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 12 }}>
       <header style={{ display: "grid", gap: 4 }}>
-        <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "Provenance Coverage", "Provenance Coverage")}</strong>
+        <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "来源覆盖率", "Provenance Coverage")}</strong>
         <span style={{ color: t.warn, fontSize: 12, fontWeight: 850, lineHeight: 1.45 }}>
           <ChemicalText value={text(lang, "DOI 缺失表示证据待核，不是结构校验失败。", "Missing DOI is evidence pending, not schema failure.")} />
         </span>

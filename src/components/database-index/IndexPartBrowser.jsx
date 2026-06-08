@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
 import { StatusPill, displayValue, formatScore, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { fetchIndexPart } from "../../utils/databaseIndex/databaseIndexClient"
+import { dbFallback, dbStatusLabel, dbText } from "../../utils/databaseIndex/databaseIndexCopy"
 import {
   descriptorCompletenessPercent,
   extractMetals,
@@ -49,7 +50,7 @@ function Stat({ label, value, t }) {
   )
 }
 
-export function IndexPartBrowser({ manifest = {}, filters = {}, onOpenDetail, onAddCompare, compareCount = 0, lang, t, isMobile }) {
+export function IndexPartBrowser({ manifest = {}, filters = {}, onOpenDetail, onAddCompare, onSelectedPartRecordsChange, compareCount = 0, lang, t, isMobile }) {
   const parts = normalizeIndexParts(manifest)
   const [selectedPath, setSelectedPath] = useState("")
   const [partCache, setPartCache] = useState({})
@@ -82,18 +83,27 @@ export function IndexPartBrowser({ manifest = {}, filters = {}, onOpenDetail, on
   const pageCount = Math.max(1, Math.ceil(filteredRecords.length / PAGE_SIZE))
   const visible = filteredRecords.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE)
 
+  useEffect(() => {
+    onSelectedPartRecordsChange?.({
+      path: selectedPath,
+      records: selectedRecords,
+      filteredRecords,
+      recordCount: selectedRecords.length,
+    })
+  }, [filteredRecords, onSelectedPartRecordsChange, selectedPath, selectedRecords])
+
   return (
     <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 12 }}>
       <header style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
         <div style={{ display: "grid", gap: 4 }}>
-          <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "Index Part Browser", "Index Part Browser")}</strong>
+          <strong style={{ color: t.textStrong, fontSize: 14 }}>{dbText(lang, "indexPartBrowser")}</strong>
           <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>
             {text(lang, "索引分片只有在点击后才加载；每次只加载一个 part。", "Index parts load only after clicking; only one selected part is fetched at a time.")}
           </span>
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-          <StatusPill tone="proxy" t={t}>Selected index part only</StatusPill>
-          <StatusPill tone="warn" t={t}>Detail loaded on demand</StatusPill>
+          <StatusPill tone="proxy" t={t}>{dbText(lang, "selectedIndexPartOnly")}</StatusPill>
+          <StatusPill tone="warn" t={t}>{dbText(lang, "detailOnDemand")}</StatusPill>
         </div>
       </header>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
@@ -106,12 +116,12 @@ export function IndexPartBrowser({ manifest = {}, filters = {}, onOpenDetail, on
       {selectedPath ? (
         <div style={{ display: "grid", gap: 9 }}>
           <div style={{ display: "grid", gap: 7, gridTemplateColumns: "repeat(auto-fit, minmax(135px, 1fr))" }}>
-            <Stat label="record count" value={formatCount(stats.recordCount)} t={t} />
-            <Stat label="ready" value={formatCount(stats.ready)} t={t} />
-            <Stat label="needs-review" value={formatCount(stats.needsReview)} t={t} />
-            <Stat label="rejected" value={formatCount(stats.rejected)} t={t} />
-            <Stat label="descriptor coverage summary" value={formatPercentValue(stats.descriptorPercent)} t={t} />
-            <Stat label="provenance coverage summary" value={formatPercentValue(stats.provenancePercent)} t={t} />
+            <Stat label={text(lang, "记录数", "record count")} value={formatCount(stats.recordCount)} t={t} />
+            <Stat label={text(lang, "可评分", "ready")} value={formatCount(stats.ready)} t={t} />
+            <Stat label={text(lang, "需复核", "needs review")} value={formatCount(stats.needsReview)} t={t} />
+            <Stat label={text(lang, "已拒绝", "rejected")} value={formatCount(stats.rejected)} t={t} />
+            <Stat label={text(lang, "描述符覆盖摘要", "descriptor coverage summary")} value={formatPercentValue(stats.descriptorPercent)} t={t} />
+            <Stat label={text(lang, "来源覆盖摘要", "provenance coverage summary")} value={formatPercentValue(stats.provenancePercent)} t={t} />
           </div>
           <div style={{ alignItems: "end", display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) 190px auto" }}>
             <label style={{ display: "grid", gap: 4 }}>
@@ -137,10 +147,10 @@ export function IndexPartBrowser({ manifest = {}, filters = {}, onOpenDetail, on
             <article key={row.id} style={{ borderTop: `1px solid ${t.divider}`, display: "grid", gap: 7, gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1.1fr) 110px 130px 100px auto", paddingTop: 8 }}>
               <div style={{ display: "grid", gap: 3, minWidth: 0 }}>
                 <strong style={{ color: t.textStrong, fontSize: 12.8, lineHeight: 1.25 }}><ChemicalText value={displayValue(row.displayName || row.id)} /></strong>
-                <span style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.4 }}><ChemicalText value={`${displayValue(row.sourceDatabase)} · ${displayValue(row.sourceRecordId)} · ${displayValue(row.detailRef, "detail pending")}`} /></span>
+                <span style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.4 }}><ChemicalText value={`${displayValue(row.sourceDatabase)} · ${displayValue(row.sourceRecordId)} · ${displayValue(row.detailRef, dbFallback(lang))}`} /></span>
               </div>
-              <StatusPill tone={qualityTone(row.dataQualityStatus)} t={t}>{displayValue(row.dataQualityStatus)}</StatusPill>
-              <span style={{ color: row.hasAlNode || extractMetals(row).includes("Al") ? t.accentText : t.muted, fontSize: 12, fontWeight: 900 }}>{extractMetals(row).length ? extractMetals(row).join(", ") : "metal pending"}</span>
+              <StatusPill tone={qualityTone(row.dataQualityStatus)} t={t}>{dbStatusLabel(row.dataQualityStatus, lang)}</StatusPill>
+              <span style={{ color: row.hasAlNode || extractMetals(row).includes("Al") ? t.accentText : t.muted, fontSize: 12, fontWeight: 900 }}>{extractMetals(row).length ? extractMetals(row).join(", ") : text(lang, "金属待核验", "metal pending")}</span>
               <span style={{ color: t.muted, fontSize: 11.7, fontWeight: 850 }}>{`${formatScore(previewScore(row))} · D ${formatPercentValue(descriptorCompletenessPercent(row))} · P ${formatPercentValue(provenanceCompletenessPercent(row))}`}</span>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6, justifyContent: "flex-end" }}>
                 <button type="button" onClick={() => onAddCompare?.(row)} disabled={compareCount >= 3} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, color: compareCount >= 3 ? t.faint : t.accentText, cursor: compareCount >= 3 ? "not-allowed" : "pointer", fontSize: 12, fontWeight: 900, minHeight: 32, padding: "6px 9px" }}>
@@ -153,9 +163,9 @@ export function IndexPartBrowser({ manifest = {}, filters = {}, onOpenDetail, on
             </article>
           ))}
           <div style={{ alignItems: "center", display: "flex", gap: 8, justifyContent: "flex-end" }}>
-            <button type="button" disabled={page <= 0} onClick={() => setPage(value => Math.max(0, value - 1))} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, color: page <= 0 ? t.faint : t.accentText, cursor: page <= 0 ? "not-allowed" : "pointer", fontSize: 12, fontWeight: 900, minHeight: 32, padding: "6px 9px" }}>Prev</button>
+            <button type="button" disabled={page <= 0} onClick={() => setPage(value => Math.max(0, value - 1))} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, color: page <= 0 ? t.faint : t.accentText, cursor: page <= 0 ? "not-allowed" : "pointer", fontSize: 12, fontWeight: 900, minHeight: 32, padding: "6px 9px" }}>{text(lang, "上一页", "Prev")}</button>
             <span style={{ color: t.muted, fontSize: 12 }}>{page + 1} / {pageCount}</span>
-            <button type="button" disabled={page + 1 >= pageCount} onClick={() => setPage(value => Math.min(pageCount - 1, value + 1))} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, color: page + 1 >= pageCount ? t.faint : t.accentText, cursor: page + 1 >= pageCount ? "not-allowed" : "pointer", fontSize: 12, fontWeight: 900, minHeight: 32, padding: "6px 9px" }}>Next</button>
+            <button type="button" disabled={page + 1 >= pageCount} onClick={() => setPage(value => Math.min(pageCount - 1, value + 1))} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, color: page + 1 >= pageCount ? t.faint : t.accentText, cursor: page + 1 >= pageCount ? "not-allowed" : "pointer", fontSize: 12, fontWeight: 900, minHeight: 32, padding: "6px 9px" }}>{text(lang, "下一页", "Next")}</button>
           </div>
         </div>
       ) : selectedPath && !loadingPath ? <span style={{ color: t.muted, fontSize: 12 }}>{text(lang, "当前筛选下没有记录。", "No records in the current filter.")}</span> : null}

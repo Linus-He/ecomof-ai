@@ -161,8 +161,16 @@ function TraceWorkbenchMethod({ lang, t }) {
 function DatabaseIndexPreviewMethod({ lang, t }) {
   const rows = [
     [
-      "V2.0-C expanded screening UI",
-      text(lang, "在 V2.0-B 工作台架构上新增 Source database、Quality status、Metal node、Descriptor availability、Provenance coverage 筛选，以及 Top-N 解释、part 内搜索排序分页、detail checklist 与 Candidate Compare。", "V2.0-C adds Source database, Quality status, Metal node, Descriptor availability, Provenance coverage filters, Top-N explanations, selected-part search/sort/pagination, detail checklists, and Candidate Compare on top of the V2.0-B workbench architecture."),
+      text(lang, "V2.0-D Worker 评分边界", "V2.0-D Worker-Based Scoring Boundary Design"),
+      text(lang, "V2.0-D 在 V2.0-C 工作台上新增 Worker 评分边界预览。Worker 只处理已加载范围试算、当前选定索引分片或用户主动选择的小批量候选。", "V2.0-D adds the Worker-Based Scoring Boundary Design on top of the V2.0-C workbench. The worker handles loaded-scope dry runs, the selected index part, or user-selected small candidate batches only."),
+    ],
+    [
+      text(lang, "为什么不在主线程全量评分", "Why full scoring does not run on the main thread"),
+      text(lang, "CoRE/QMOF-like 数据库规模较大，全量数据库评分必须预计算，或在浏览器主线程之外执行；前端不自动加载全部索引分片或详情记录。", "CoRE/QMOF-like databases are large, so full database scoring must be precomputed or run outside the browser main thread; the front end does not automatically load all index parts or detail records."),
+    ],
+    [
+      text(lang, "已加载范围试算", "Loaded-scope dry run"),
+      text(lang, "已加载范围试算只使用界面中已经出现的 records，用于检查 request、skip reason 和 trace，不输出最终验证推荐。", "The loaded-scope dry run uses only records already present in the UI. It audits request shape, skip reasons, and trace output without producing a final verified recommendation."),
     ],
     [
       "Manifest + summaries",
@@ -170,27 +178,31 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
     ],
     [
       "Top-N preview",
-      text(lang, "预计算候选只作为 Top-N preview 展示，不是最终验证推荐。", "Precomputed candidates are shown as Top-N preview only, not final verified recommendations."),
+      text(lang, "预计算候选只作为 Top-N 预览展示，不是最终验证推荐。", "Precomputed candidates are shown as Top-N preview only, not final verified recommendations."),
     ],
     [
       "Index parts",
-      text(lang, "用户点击后才加载选定 index part；筛选、搜索、排序和分页只作用于当前已加载 part，不会一次性加载全部分片。", "Only the selected index part loads after user action; filters, search, sorting, and pagination apply only to the currently loaded part and do not fetch all parts at once."),
+      text(lang, "用户点击后才加载当前选定索引分片；筛选、搜索、排序、分页和 Worker 试算都只作用于当前已加载分片，不会一次性加载全部分片。", "Only the selected index part loads after user action; filters, search, sorting, pagination, and worker dry runs apply only to the currently loaded part and do not fetch all parts at once."),
     ],
     [
       "Detail on demand",
-      text(lang, "detailRef 在用户打开详情时才 fetch，并在 drawer 内呈现 descriptor checklist、provenance checklist、source boundary 与 missing evidence warning；缺失 DOI/citation/license 显示 evidence pending。", "detailRef is fetched only when detail is opened, then the drawer shows descriptor checklists, provenance checklists, source boundaries, and missing evidence warnings; missing DOI/citation/license is shown as evidence pending."),
+      text(lang, "detailRef 在用户打开详情时才 fetch，并在 drawer 内呈现 descriptor checklist、provenance checklist、source boundary 与 missing evidence warning；缺失 DOI/citation/license 显示证据待核验。", "detailRef is fetched only when detail is opened, then the drawer shows descriptor checklists, provenance checklists, source boundaries, and missing evidence warnings; missing DOI/citation/license is shown as evidence pending."),
     ],
     [
       "Why no full database load",
-      text(lang, "CoRE/QMOF-like 数据库规模较大，前端保持 manifest / summary / Top-N preview / selected part / detail-on-demand 边界，避免浏览器一次性加载全部 JSON 或执行全库评分。", "CoRE/QMOF-like databases are large, so the front end keeps manifest / summary / Top-N preview / selected part / detail-on-demand boundaries instead of loading all JSON files or running full database scoring in the browser."),
+      text(lang, "前端保持 manifest / summary / Top-N 预览 / 当前选定分片 / 详情按需加载边界，避免浏览器一次性加载全部 JSON 或执行全库评分。", "The front end keeps manifest / summary / Top-N preview / selected index part / detail-on-demand boundaries instead of loading all JSON files or running full database scoring in the browser."),
     ],
     [
       "Top-N preview vs full verified screening",
-      text(lang, "Top-N preview 是离线预计算索引预览，用于解释候选进入预览的原因；full verified screening 仍需要完整来源核验、描述符复算、OACS/DMRS 审计和实验/文献验证。", "Top-N preview is an offline precomputed index preview used to explain why a candidate appears in the preview; full verified screening still requires source verification, descriptor recomputation, OACS/DMRS audit, and experimental/literature validation."),
+      text(lang, "Top-N 预览是离线预计算索引预览，用于解释候选进入预览的原因；经完整验证的全量数据库筛选仍需要完整来源核验、描述符复算、OACS/DMRS 审计和实验/文献验证。", "Top-N preview is an offline precomputed index preview used to explain why a candidate appears in the preview; full verified database screening still requires source verification, descriptor recomputation, OACS/DMRS audit, and experimental/literature validation."),
     ],
     [
       "Candidate Compare boundary",
-      text(lang, "Candidate Compare 最多对比 3 个已加载候选，字段来自当前 preview/index 数据；comparison is based on currently loaded preview/index data only。", "Candidate Compare compares up to 3 loaded candidates, with fields from the current preview/index data; comparison is based on currently loaded preview/index data only."),
+      text(lang, "候选对比最多对比 3 个已加载候选，字段来自当前预览/索引数据；对比仅基于当前已加载的预览/索引数据。", "Candidate Compare compares up to 3 loaded candidates, with fields from the current preview/index data; comparison is based on currently loaded preview/index data only."),
+    ],
+    [
+      text(lang, "Worker trace 审计", "Worker trace audit"),
+      text(lang, "Worker trace 记录 runId、createdAt、scope、输入记录数、已评分数、跳过数、skip reason、formulaVersion、boundary 与 notFinalRecommendation，用于审计而不是最终推荐。", "Worker trace records runId, createdAt, scope, input count, scored count, skipped count, skip reasons, formulaVersion, boundary, and notFinalRecommendation for auditability, not final recommendation."),
     ],
   ]
   return (
@@ -198,14 +210,14 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
       <header style={{ display: "grid", gap: 4 }}>
         <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Database Index Preview</span>
         <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
-          {text(lang, "数据库索引预览：V2.0-C Expanded Database Screening UI", "Database Index Preview: V2.0-C Expanded Database Screening UI")}
+          {text(lang, "数据库索引预览：V2.0-D Worker 评分边界设计", "Database Index Preview: V2.0-D Worker-Based Scoring Boundary Design")}
         </h3>
       </header>
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "V2.0-C 在 V2.0-B Database Index Workbench 上扩展筛选、解释、对比和按需详情说明。浏览器只加载 manifest 摘要、预计算候选预览、选定索引分片和按需详情记录。",
-          "V2.0-C expands filtering, explanation, comparison, and on-demand detail evidence notes on top of the V2.0-B Database Index Workbench. The browser loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand."
+          "V2.0-D 在 V2.0-C Database Index Workbench 上建立 Worker 评分边界，并清理中文模式下的混排文案。浏览器只加载 manifest 摘要、预计算候选预览、选定索引分片和按需详情记录。",
+          "V2.0-D adds the Worker-Based Scoring Boundary Design on top of the V2.0-C Database Index Workbench and standardizes bilingual UI copy. The browser loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand."
         )} />
       </p>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
@@ -217,7 +229,7 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
         ))}
       </div>
       <p style={{ color: t.warn, fontSize: 12.5, fontWeight: 900, lineHeight: 1.52, margin: 0 }}>
-        <ChemicalText value={text(lang, "这仍然是索引预览，不是经过完整验证的全量筛选结论；OACS/DMRS 公式未在 V2.0-C 中修改。", "This remains an index preview and is not full verified screening; OACS/DMRS formulas are unchanged in V2.0-C.")} />
+        <ChemicalText value={text(lang, "V2.0-D 仍然不是经完整验证的全量数据库筛选；OACS/DMRS 公式未在 V2.0-D 中修改。", "V2.0-D remains an index preview, not full verified database screening; OACS/DMRS formulas are unchanged in V2.0-D.")} />
       </p>
     </section>
   )
@@ -455,7 +467,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           <SmallRealDatasetMethod mappingReport={data.mappingReport} lang={lang} t={t} />
         </LazyMethodologyDetails>
         <TraceWorkbenchMethod lang={lang} t={t} />
-        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-C adds expanded screening filters, Top-N explanation, selected-part search, detail checklists, and Candidate Compare while preserving lazy loading." summaryZh="V2.0-C 新增筛选、Top-N 解释、选定分片搜索、详情清单与 Candidate Compare，并保持懒加载边界。" lang={lang} t={t}>
+        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-D adds Worker scoring boundaries, loaded-scope dry-run trace, and bilingual copy cleanup while preserving lazy loading." summaryZh="V2.0-D 新增 Worker 评分边界、已加载范围试算追踪，并清理中英文混排，同时保持懒加载边界。" lang={lang} t={t}>
           <DatabaseIndexPreviewMethod lang={lang} t={t} />
         </LazyMethodologyDetails>
         <LazyMethodologyDetails id="methodology-oafs-oacs" title="OACS Formula Explainer" titleZh="OACS 骨架筛选" summary="Formula card renders after expansion." summaryZh="公式卡片展开后渲染。" lang={lang} t={t}>

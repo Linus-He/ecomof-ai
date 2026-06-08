@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { ChemicalText } from "../common/ChemicalFormula"
 import { StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { dbText } from "../../utils/databaseIndex/databaseIndexCopy"
 import { DATABASE_INDEX_DESCRIPTOR_FILTERS } from "../../utils/databaseIndex/databaseIndexFormatters"
 
 const SOURCE_OPTIONS = [
@@ -64,20 +65,20 @@ export function DatabaseIndexFilterToolbar({ filters, onChange, lang, t }) {
       <header style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
         <div style={{ display: "grid", gap: 4 }}>
           <strong style={{ color: t.textStrong, fontSize: 14 }}>
-            {text(lang, "Expanded Database Screening UI", "Expanded Database Screening UI")}
+            {dbText(lang, "expandedScreeningUi")}
           </strong>
           <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>
             <ChemicalText value={text(
               lang,
-              "筛选只作用于已加载 Top-N preview 或当前选定 index part，不会触发全量分片加载。",
-              "Filters apply only to the loaded Top-N preview or the currently selected index part; they do not fetch all index parts."
+              "筛选只作用于已加载的 Top-N 预览或当前选定索引分片，不会触发全量分片加载。",
+              "Filters apply only to the loaded Top-N preview or the selected index part; they do not fetch all index parts."
             )} />
           </span>
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-          <StatusPill tone="proxy" t={t}>Top-N preview only</StatusPill>
-          <StatusPill tone="proxy" t={t}>Selected index part only</StatusPill>
-          <StatusPill tone="warn" t={t}>Detail loaded on demand</StatusPill>
+          <StatusPill tone="proxy" t={t}>{dbText(lang, "topNPreviewOnly")}</StatusPill>
+          <StatusPill tone="proxy" t={t}>{dbText(lang, "selectedIndexPartOnly")}</StatusPill>
+          <StatusPill tone="warn" t={t}>{dbText(lang, "detailOnDemand")}</StatusPill>
         </div>
       </header>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))" }}>

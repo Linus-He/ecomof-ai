@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { ChemicalText } from "../common/ChemicalFormula"
 import { StatusPill, displayValue, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { dbFallback, dbRenderText, dbText } from "../../utils/databaseIndex/databaseIndexCopy"
 import { formatPercentValue } from "../../utils/databaseIndex/databaseIndexFormatters"
 
 const ROWS = [
@@ -18,9 +19,9 @@ const ROWS = [
   ["organicAcidRelevance", "organic acid relevance", "有机酸相关性"],
 ]
 
-function renderValue(row, field, mode) {
+function renderValue(row, field, mode, lang) {
   if (mode === "percent") return formatPercentValue(row[field])
-  return displayValue(row[field], "evidence pending")
+  return dbRenderText(displayValue(row[field], dbFallback(lang)), lang)
 }
 
 export function CandidateComparePanel({ candidates = [], onRemove, lang, t, isMobile }) {
@@ -28,12 +29,12 @@ export function CandidateComparePanel({ candidates = [], onRemove, lang, t, isMo
     <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 12 }}>
       <header style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
         <div style={{ display: "grid", gap: 4 }}>
-          <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "Candidate Compare", "Candidate Compare")}</strong>
+          <strong style={{ color: t.textStrong, fontSize: 14 }}>{dbText(lang, "candidateCompare")}</strong>
           <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>
             {text(
               lang,
-              "最多同时对比 3 个候选；comparison is based on currently loaded preview/index data only。",
-              "Compare up to 3 candidates; comparison is based on currently loaded preview/index data only."
+              `最多同时对比 3 个候选；${dbText(lang, "previewIndexDataOnly")}。`,
+              `Compare up to 3 candidates; ${dbText(lang, "previewIndexDataOnly")}.`
             )}
           </span>
         </div>
@@ -41,7 +42,7 @@ export function CandidateComparePanel({ candidates = [], onRemove, lang, t, isMo
       </header>
       {!candidates.length ? (
         <span style={{ color: t.muted, fontSize: 12 }}>
-          {text(lang, "从 Top Candidates 或 Index Part Browser 加入候选开始对比。", "Add candidates from Top Candidates or Index Part Browser to start comparison.")}
+          {text(lang, "从 Top-N 候选或索引分片浏览器加入候选开始对比。", "Add candidates from Top Candidates or Index Part Browser to start comparison.")}
         </span>
       ) : (
         <div style={{ overflowX: "auto" }}>
@@ -67,7 +68,7 @@ export function CandidateComparePanel({ candidates = [], onRemove, lang, t, isMo
                   <td style={{ borderTop: `1px solid ${t.divider}`, color: t.faint, fontSize: 11, fontWeight: 900, padding: "7px 6px", textTransform: "uppercase" }}>{text(lang, zh, en)}</td>
                   {candidates.map(candidate => (
                     <td key={`${candidate.id}-${field}`} style={{ borderTop: `1px solid ${t.divider}`, color: t.muted, fontSize: 11.6, lineHeight: 1.4, overflowWrap: "anywhere", padding: "7px 6px", verticalAlign: "top" }}>
-                      <ChemicalText value={renderValue(candidate, field, mode)} />
+                      <ChemicalText value={renderValue(candidate, field, mode, lang)} />
                     </td>
                   ))}
                 </tr>

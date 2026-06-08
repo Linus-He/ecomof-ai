@@ -2,7 +2,8 @@
 import { ChemicalText } from "../../../common/ChemicalFormula"
 import { StatusPill, displayValue, text } from "../FinalScreeningShared"
 
-export function TraceWarningBoundaryPanel({ warnings = [], boundaries = [], lang, t, isMobile }) {
+export function TraceWarningBoundaryPanel({ warnings = [], warningsZh = [], boundaries = [], lang, t, isMobile }) {
+  const displayWarnings = lang === "zh" && warningsZh?.length ? warningsZh : warnings
   return (
     <section style={{ display: "grid", gap: 9 }}>
       <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>
@@ -11,7 +12,7 @@ export function TraceWarningBoundaryPanel({ warnings = [], boundaries = [], lang
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 0.8fr) minmax(0, 1.2fr)" }}>
         <article style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 10, display: "grid", gap: 7, padding: 11 }}>
           <strong style={{ color: t.warn, fontSize: 13 }}>{text(lang, "Warnings", "Warnings")}</strong>
-          {(warnings || []).map(item => <span key={item} style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>• <ChemicalText value={displayValue(item)} /></span>)}
+          {(displayWarnings || []).map(item => <span key={item} style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>• <ChemicalText value={displayValue(item)} /></span>)}
         </article>
         <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 11 }}>
           <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "Evidence boundaries", "Evidence boundaries")}</strong>
@@ -26,4 +27,3 @@ export function TraceWarningBoundaryPanel({ warnings = [], boundaries = [], lang
     </section>
   )
 }
-

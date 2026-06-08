@@ -3,6 +3,7 @@ import { ChemicalText } from "../common/ChemicalFormula"
 import { MiniMetric, displayValue, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { formatCount, normalizeIndexParts } from "../../utils/databaseIndex/databaseIndexFormatters"
 import { getDatabaseIndexBasePath } from "../../utils/databaseIndex/databaseIndexClient"
+import { dbRenderText } from "../../utils/databaseIndex/databaseIndexCopy"
 import { DatabaseIndexStatusBadge } from "./DatabaseIndexStatusBadge"
 
 export function DatabaseManifestPanel({ manifest = {}, lang, t, isMobile }) {
@@ -35,7 +36,7 @@ export function DatabaseManifestPanel({ manifest = {}, lang, t, isMobile }) {
           {sourceDatabases.map(row => (
             <div key={row.name} style={{ borderTop: `1px solid ${t.divider}`, color: t.muted, display: "grid", fontSize: 12, gap: 3, paddingTop: 6 }}>
               <strong style={{ color: t.textStrong }}><ChemicalText value={displayValue(row.name)} /></strong>
-              <span>{formatCount(row.recordCount)} records · {formatCount(row.detailCount)} details · DOI/citation/license pending</span>
+              <span>{text(lang, `${formatCount(row.recordCount)} 条记录 · ${formatCount(row.detailCount)} 条详情 · DOI/citation/license 待核验`, `${formatCount(row.recordCount)} records · ${formatCount(row.detailCount)} details · DOI/citation/license pending`)}</span>
             </div>
           ))}
         </article>
@@ -49,7 +50,7 @@ export function DatabaseManifestPanel({ manifest = {}, lang, t, isMobile }) {
       </div>
       {(manifest.warnings || []).length ? (
         <div style={{ color: t.warn, display: "grid", fontSize: 12, fontWeight: 850, gap: 4, lineHeight: 1.45 }}>
-          {manifest.warnings.map(item => <span key={item}>• <ChemicalText value={item} /></span>)}
+          {manifest.warnings.map(item => <span key={item}>• <ChemicalText value={dbRenderText(item, lang, "fullVerifiedDatabaseScreening")} /></span>)}
         </div>
       ) : null}
     </section>

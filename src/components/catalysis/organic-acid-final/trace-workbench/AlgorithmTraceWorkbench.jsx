@@ -39,7 +39,7 @@ export function AlgorithmTraceWorkbench({ trace, lang, t, isMobile }) {
             </section>
           ) : null}
           <TraceRunOverview trace={trace} lang={lang} t={t} isMobile={isMobile} />
-          <TraceWarningBoundaryPanel warnings={trace.warnings} boundaries={trace.boundaries} lang={lang} t={t} isMobile={isMobile} />
+          <TraceWarningBoundaryPanel warnings={trace.warnings} warningsZh={trace.warningsZh} boundaries={trace.boundaries} lang={lang} t={t} isMobile={isMobile} />
           <CandidateFlowDiagram flow={trace.candidateFlow} lang={lang} t={t} />
           <TraceStepTimeline steps={trace.steps} activeStepId={activeStep?.id} setActiveStepId={setActiveStepId} lang={lang} t={t} isMobile={isMobile} />
           <TraceStepInspector step={activeStep} lang={lang} t={t} />

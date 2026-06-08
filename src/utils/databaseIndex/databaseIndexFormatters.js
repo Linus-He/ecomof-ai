@@ -216,13 +216,13 @@ export function normalizeComparableCandidate(row = {}) {
   }
 }
 
-export function organicAcidRelevanceSnapshot(row = {}) {
+export function organicAcidRelevanceSnapshot(row = {}, lang = "en") {
   const factors = []
-  if (extractMetals(row).includes("Al") || row.hasAlNode) factors.push("Al node candidate")
-  if (hasDescriptor(row, "poreSizeA")) factors.push("pore descriptor available")
-  if (hasDescriptor(row, "waterStability")) factors.push("water-stability proxy/evidence available")
-  if (normalizeQualityStatus(row.dataQualityStatus).includes("ready")) factors.push("ready for preview scoring")
-  return factors.length ? factors.join("; ") : "evidence pending"
+  if (extractMetals(row).includes("Al") || row.hasAlNode) factors.push(lang === "zh" ? "Al 节点候选" : "Al node candidate")
+  if (hasDescriptor(row, "poreSizeA")) factors.push(lang === "zh" ? "孔径描述符可用" : "pore descriptor available")
+  if (hasDescriptor(row, "waterStability")) factors.push(lang === "zh" ? "水稳定性代理/证据可用" : "water-stability proxy/evidence available")
+  if (normalizeQualityStatus(row.dataQualityStatus).includes("ready")) factors.push(lang === "zh" ? "可进入预览评分" : "ready for preview scoring")
+  return factors.length ? factors.join("; ") : (lang === "zh" ? "证据待核验" : "evidence pending")
 }
 
 export function buildCandidateExplanation(row = {}) {

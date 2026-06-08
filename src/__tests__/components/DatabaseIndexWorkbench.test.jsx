@@ -82,7 +82,7 @@ describe("DatabaseIndexWorkbench", () => {
 
     fireEvent.click(screen.getAllByRole("button", { name: /Detail/i })[0])
     await screen.findByRole("dialog", { name: /Database detail drawer/i })
-    await waitFor(() => expect(screen.getAllByText(/Evidence pending/).length).toBeGreaterThan(0))
+    await waitFor(() => expect(screen.getAllByText(/evidence pending/i).length).toBeGreaterThan(0))
     expect(screen.getByText(/Source Boundary Block/i)).toBeTruthy()
     expect(screen.getByText(/Missing Evidence Warning/i)).toBeTruthy()
 
@@ -131,6 +131,24 @@ describe("DatabaseIndexWorkbench", () => {
     expect(screen.getByText(/comparison is based on currently loaded preview\/index data only/i)).toBeTruthy()
   })
 
+  it("runs selected-part dry run without fetching all parts or details", async () => {
+    mockFetch()
+    render(<DatabaseIndexWorkbench lang="en" t={THEME_LIGHT} isMobile={false} />)
+
+    await screen.findByText(/MIL-53\(Al\) preview/)
+    fireEvent.click(screen.getByRole("button", { name: /CoRE part 1/i }))
+    await waitFor(() => expect(global.fetch.mock.calls.map(call => String(call[0])).some(url => url.includes("core_mof_index_parts/core_mof_index_part_001.json"))).toBe(true))
+
+    fireEvent.click(screen.getByRole("button", { name: /Run loaded-scope dry run/i }))
+    expect(await screen.findByText(/Dry-run result/i)).toBeTruthy()
+    expect(screen.getByText(/notFinalRecommendation=true/i)).toBeTruthy()
+
+    const fetchedUrls = global.fetch.mock.calls.map(call => String(call[0]))
+    expect(fetchedUrls.filter(url => url.includes("core_mof_index_parts")).length).toBe(1)
+    expect(fetchedUrls.some(url => url.includes("qmof_index_parts"))).toBe(false)
+    expect(fetchedUrls.some(url => url.includes("detail/framework"))).toBe(false)
+  })
+
   it("renders Chinese screening labels", async () => {
     mockFetch()
     render(<DatabaseIndexWorkbench lang="zh" t={THEME_LIGHT} isMobile={false} />)
@@ -139,5 +157,13 @@ describe("DatabaseIndexWorkbench", () => {
     expect(screen.getByText("来源数据库")).toBeTruthy()
     expect(screen.getByText("质量状态")).toBeTruthy()
     expect(screen.getAllByText(/数据库索引预览/).length).toBeGreaterThan(0)
+    expect(screen.getAllByText(/Worker 评分边界预览/).length).toBeGreaterThan(0)
+
+    const bodyText = document.body.textContent
+    expect(bodyText).not.toContain("comparison is based on currently loaded preview/index data only")
+    expect(bodyText).not.toContain("not final recommendation")
+    expect(bodyText).not.toContain("not final verified recommendation")
+    expect(bodyText).not.toContain("evidence pending")
+    expect(bodyText).not.toContain("full verified database screening")
   })
 })

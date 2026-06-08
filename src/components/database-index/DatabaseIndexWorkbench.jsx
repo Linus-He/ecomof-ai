@@ -1,9 +1,10 @@
 // @ts-nocheck
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
 import { Panel, StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { loadDatabaseIndexOverview } from "../../utils/databaseIndex/databaseIndexLoaders"
-import { normalizeComparableCandidate } from "../../utils/databaseIndex/databaseIndexFormatters"
+import { dbStatusLabel, dbText } from "../../utils/databaseIndex/databaseIndexCopy"
+import { normalizeComparableCandidate, normalizeTopCandidates } from "../../utils/databaseIndex/databaseIndexFormatters"
 import { CandidateComparePanel } from "./CandidateComparePanel"
 import { DatabaseIndexBoundaryNotice } from "./DatabaseIndexBoundaryNotice"
 import { DatabaseIndexFilterToolbar } from "./DatabaseIndexFilterToolbar"
@@ -15,6 +16,7 @@ import { DescriptorAvailabilityPanel } from "./DescriptorAvailabilityPanel"
 import { IndexPartBrowser } from "./IndexPartBrowser"
 import { PrecomputedTopCandidatesPanel } from "./PrecomputedTopCandidatesPanel"
 import { ProvenanceCoveragePanel } from "./ProvenanceCoveragePanel"
+import { WorkerScoringBoundaryPreview } from "./WorkerScoringBoundaryPreview"
 
 const DEFAULT_FILTERS = {
   sourceDatabase: "all",
@@ -30,6 +32,7 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
   const [detailRequest, setDetailRequest] = useState(null)
   const [filters, setFilters] = useState(DEFAULT_FILTERS)
   const [compareItems, setCompareItems] = useState([])
+  const [selectedPartSnapshot, setSelectedPartSnapshot] = useState({ records: [], filteredRecords: [], path: "" })
 
   useEffect(() => {
     let active = true
@@ -57,15 +60,19 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
     })
   }
 
+  const handleSelectedPartRecordsChange = useCallback(snapshot => {
+    setSelectedPartSnapshot(snapshot || { records: [], filteredRecords: [], path: "" })
+  }, [])
+
   if (status === "loading") return <DatabaseIndexSkeleton lang={lang} t={t} />
 
   return (
     <Panel
       id="organic-acid-database-index-workbench"
-      eyebrow="V2.0-C · Expanded Database Screening UI"
+      eyebrow={`V2.0-D · ${dbText(lang, "workerScoringBoundaryPreview")}`}
       title={text(lang, "Database Index Preview · 数据库索引预览", "Database Index Preview")}
       t={t}
-      actions={<StatusPill tone={status === "error" ? "warn" : "proxy"} t={t}>{status}</StatusPill>}
+      actions={<StatusPill tone={status === "error" ? "warn" : "proxy"} t={t}>{dbStatusLabel(status, lang)}</StatusPill>}
     >
       <p style={{ color: t.muted, fontSize: 12.6, lineHeight: 1.55, margin: 0 }}>
         <ChemicalText value={text(
@@ -91,7 +98,8 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
           <DatabaseIndexFilterToolbar filters={filters} onChange={setFilters} lang={lang} t={t} />
           <PrecomputedTopCandidatesPanel topCandidates={overview.topCandidates} filters={filters} onOpenDetail={setDetailRequest} onAddCompare={handleAddCompare} compareCount={compareItems.length} lang={lang} t={t} />
           <CandidateComparePanel candidates={compareItems} onRemove={id => setCompareItems(items => items.filter(item => item.id !== id))} lang={lang} t={t} isMobile={isMobile} />
-          <IndexPartBrowser manifest={overview.manifest} filters={filters} onOpenDetail={setDetailRequest} onAddCompare={handleAddCompare} compareCount={compareItems.length} lang={lang} t={t} isMobile={isMobile} />
+          <WorkerScoringBoundaryPreview topCandidates={normalizeTopCandidates(overview.topCandidates)} selectedPartRecords={selectedPartSnapshot.records} selectedCandidates={compareItems} lang={lang} t={t} isMobile={isMobile} />
+          <IndexPartBrowser manifest={overview.manifest} filters={filters} onOpenDetail={setDetailRequest} onAddCompare={handleAddCompare} onSelectedPartRecordsChange={handleSelectedPartRecordsChange} compareCount={compareItems.length} lang={lang} t={t} isMobile={isMobile} />
           <DatabaseDetailDrawer request={detailRequest} onClose={() => setDetailRequest(null)} lang={lang} t={t} />
         </>
       ) : (

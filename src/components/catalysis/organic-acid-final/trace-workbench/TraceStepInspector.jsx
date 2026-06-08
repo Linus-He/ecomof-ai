@@ -35,13 +35,12 @@ export function TraceStepInspector({ step, lang, t }) {
       ) : null}
       {step.warnings?.length ? (
         <div style={{ color: t.warn, display: "grid", fontSize: 12.2, fontWeight: 850, gap: 4, lineHeight: 1.45 }}>
-          {step.warnings.map(item => <span key={item}>• <ChemicalText value={item} /></span>)}
+          {(lang === "zh" && step.warningsZh?.length ? step.warningsZh : step.warnings).map(item => <span key={item}>• <ChemicalText value={item} /></span>)}
         </div>
       ) : null}
       <div style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.45 }}>
-        {text(lang, "Evidence IDs", "Evidence IDs")}: {step.evidenceIds?.length ? step.evidenceIds.join(" / ") : "Pending"}
+        {text(lang, "Evidence IDs", "Evidence IDs")}: {step.evidenceIds?.length ? step.evidenceIds.join(" / ") : text(lang, "待核验", "Pending")}
       </div>
     </section>
   )
 }
-

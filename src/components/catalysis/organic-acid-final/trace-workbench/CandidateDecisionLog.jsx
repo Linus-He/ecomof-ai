@@ -20,10 +20,10 @@ export function CandidateDecisionLog({ decisions = [], lang, t, isMobile }) {
               <span>{text(lang, "决策", "Decision")}: <strong style={{ color: t.textStrong }}><ChemicalText value={text(lang, row.decisionZh, row.decision)} /></strong></span>
               <span>{text(lang, "状态", "Status")}: {displayValue(row.status)}</span>
               <span>{text(lang, "分数", "Score")}: {formatScore(row.score)}</span>
-              <span>{text(lang, "证据", "Evidence")}: {row.evidenceIds?.slice(0, 4).join(" / ") || "Pending"}</span>
+              <span>{text(lang, "证据", "Evidence")}: {row.evidenceIds?.slice(0, 4).join(" / ") || text(lang, "待核验", "Pending")}</span>
             </div>
             {row.warnings?.length ? (
-              <span style={{ color: t.warn, fontSize: 11.6, fontWeight: 850, lineHeight: 1.4 }}><ChemicalText value={row.warnings[0]} /></span>
+              <span style={{ color: t.warn, fontSize: 11.6, fontWeight: 850, lineHeight: 1.4 }}><ChemicalText value={(lang === "zh" && row.warningsZh?.length ? row.warningsZh : row.warnings)[0]} /></span>
             ) : null}
           </article>
         ))}
@@ -31,4 +31,3 @@ export function CandidateDecisionLog({ decisions = [], lang, t, isMobile }) {
     </section>
   )
 }
-

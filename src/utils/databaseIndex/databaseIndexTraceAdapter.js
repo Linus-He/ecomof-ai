@@ -117,13 +117,16 @@ function buildStepTraceRecords(steps = []) {
       summary: "Index-level summary trace; no full OACS/DMRS database scoring in browser.",
       summaryZh: "索引层摘要追踪；浏览器不执行全量 OACS/DMRS 数据库评分。",
     },
-    output: {
+      output: {
       count: safeNumber(step.outputCount),
       decision: safeText(step.decision),
       decisionZh: safeText(step.decisionZh || step.decision),
     },
     warnings: step.id === "build-index-level-trace"
       ? ["Large-scale trace is summarized at index level to avoid browser-side trace explosion."]
+      : [],
+    warningsZh: step.id === "build-index-level-trace"
+      ? ["大规模数据追踪在索引层进行摘要，避免浏览器端 trace 爆炸。"]
       : [],
     blockedRecords: [],
     evidenceIds: [],
@@ -158,14 +161,14 @@ export function buildDatabaseIndexTrace(overview = {}, options = {}) {
   const steps = buildDatabaseIndexRunSteps(overview)
   const topCandidates = normalizeTopCandidates(overview.topCandidates)
   const createdAt = options.createdAt || new Date().toISOString()
-  const runId = options.runId || `OAFS-V2.0-C-database-index-preview-${createdAt.replace(/\D/g, "").slice(0, 14)}`
+  const runId = options.runId || `OAFS-V2.0-D-database-index-preview-${createdAt.replace(/\D/g, "").slice(0, 14)}`
 
   return {
     schemaVersion: RUN_TRACE_SCHEMA_VERSION,
     runId,
     createdAt,
     dataMode: "database_index_preview",
-    workflowVersion: "V2.0-C",
+    workflowVersion: "V2.0-D",
     status: "completed_with_warnings",
     inputSummary: {
       dataMode: "database_index_preview",
@@ -173,7 +176,7 @@ export function buildDatabaseIndexTrace(overview = {}, options = {}) {
       frameworkCandidates: summary.coreRecords,
       metalCandidates: summary.qmofRecords,
       evidenceRecords: overview.manifest?.sourceDatabases?.reduce((sum, row) => sum + safeNumber(row.detailCount), 0) || 0,
-      rulesVersion: "V2.0-C index preview",
+      rulesVersion: "V2.0-D index preview",
     },
     outputSummary: {
       dataMode: "database_index_preview",
@@ -206,6 +209,7 @@ export function buildDatabaseIndexTrace(overview = {}, options = {}) {
       keyInputs: ["precomputed_top_n", "database_index_preview"],
       ruleChecks: ["needs-review excluded", "detail-on-demand"],
       warnings: [candidate.evidenceBoundary],
+      warningsZh: ["水热稳定性证据已进入预览索引；不是完整验证。"],
       evidenceIds: [],
       blockedReason: "not_final_verified_recommendation",
     })),
@@ -224,6 +228,11 @@ export function buildDatabaseIndexTrace(overview = {}, options = {}) {
       "Database index preview is not full verified database screening.",
       "Top candidates are preview candidates, not final verified recommendations.",
       "Large-scale trace is summarized at index level to avoid browser-side trace explosion.",
+    ],
+    warningsZh: [
+      "数据库索引预览不是经完整验证的全量数据库筛选。",
+      "Top candidates 为预览候选，不是最终验证推荐。",
+      "大规模数据追踪在索引层进行摘要，避免浏览器端 trace 爆炸。",
     ],
     boundaries: [TRACE_BOUNDARY],
     legacyRecords: [],
