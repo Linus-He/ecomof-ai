@@ -209,9 +209,9 @@ describe("organic acid final screening", () => {
 
   it("records the Organic Acid Knowledge Base and planned roadmap", () => {
     expect(versionDocs.knowledgeBaseLabel).toBe("Knowledge Base")
-    expect(versionDocs.currentVersion).toBe("V2.0-B")
-    expect(versionDocs.completedRange).toBe("V1.0-V2.0-B")
-    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6", "V1.7", "V2.0-A", "V2.0-B"])
+    expect(versionDocs.currentVersion).toBe("V2.0-C")
+    expect(versionDocs.completedRange).toBe("V1.0-V2.0-C")
+    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6", "V1.7", "V2.0-A", "V2.0-B", "V2.0-C"])
     expect(versionDocs.versions.find(row => row.version === "V1.4")).toEqual(expect.objectContaining({
       status: "completed",
       title: "Coupled Descriptor Hot Spot Map",
@@ -238,9 +238,14 @@ describe("organic acid final screening", () => {
       evidenceBoundary: "Database index architecture preview only; not full verified database screening.",
     }))
     expect(versionDocs.versions.find(row => row.version === "V2.0-B")).toEqual(expect.objectContaining({
-      status: "current",
+      status: "completed",
       title: "Database Index Workbench UI",
       evidenceBoundary: "Front-end index preview only; not full verified database screening.",
+    }))
+    expect(versionDocs.versions.find(row => row.version === "V2.0-C")).toEqual(expect.objectContaining({
+      status: "current",
+      title: "Expanded Database Screening UI",
+      evidenceBoundary: "Expanded screening UI only; not full verified database screening and not a final recommendation system.",
     }))
     versionDocs.versions.forEach(row => {
       expect(row.summary).toBeTruthy()
@@ -264,7 +269,7 @@ describe("organic acid final screening", () => {
       })
     })
     expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
-      ["V2.0-C", "planned"],
+      ["V2.0-D", "planned"],
     ])
     expect(literatureInspirations).toHaveLength(5)
     const hotSpotPaper = literatureInspirations.find(row => row.id === "LIT-HOTSPOT-2025-NATCOMM")
@@ -295,13 +300,18 @@ describe("organic acid final screening", () => {
     expect(v20b.keyUpdates.join(" ")).toMatch(/Database Index Workbench UI/)
     expect(v20b.algorithmChanges.join(" ")).toMatch(/index-level trace/)
     expect(v20b.evidenceBoundary).toMatch(/not full verified database screening/)
-    expect(versionDocs.currentVersion).toBe("V2.0-B")
+    const v20c = versionDocs.versions.find(row => row.version === "V2.0-C")
+    expect(v20c.keyUpdates.join(" ")).toMatch(/Why in preview/)
+    expect(v20c.keyUpdates.join(" ")).toMatch(/Candidate Compare/)
+    expect(v20c.algorithmChanges.join(" ")).toMatch(/No OACS\/DMRS formula change/)
+    expect(v20c.evidenceBoundary).toMatch(/not full verified database screening/)
+    expect(versionDocs.currentVersion).toBe("V2.0-C")
     expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
-      ["V2.0-C", "planned"],
+      ["V2.0-D", "planned"],
     ])
   })
 
-  it("exposes the V2.0-B database index preview in the Organic Acid methodology directory", () => {
+  it("exposes the V2.0-C database index preview in the Organic Acid methodology directory", () => {
     const children = ORGANIC_ACID_FINAL_DIRECTORY.children
     const traceIndex = children.findIndex(row => row.id === "methodology-oafs-trace-workbench")
     const databaseIndex = children.findIndex(row => row.id === "methodology-oafs-database-index-preview")

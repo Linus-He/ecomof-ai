@@ -102,8 +102,8 @@ export function AlgorithmRunLauncher({ frameworks = [], metals = [], rules = {},
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.55, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "这里串联 demo、mapped fixture、V1.6 小规模人工整理真实样例与 V2.0-B database index preview。数据库索引模式只加载 manifest 与预计算 Top-N 预览，不在浏览器中运行全量数据库评分。",
-          "This chains demo, mapped fixtures, the V1.6 small curated real-example sample, and the V2.0-B database index preview. Database index mode loads manifest and precomputed Top-N preview only; it does not run full database scoring in the browser."
+          "这里串联 demo、mapped fixture、V1.6 小规模人工整理真实样例与 V2.0-C database index preview。数据库索引模式只加载 manifest 与预计算 Top-N 预览，不在浏览器中运行全量数据库评分。",
+          "This chains demo, mapped fixtures, the V1.6 small curated real-example sample, and the V2.0-C database index preview. Database index mode loads manifest and precomputed Top-N preview only; it does not run full database scoring in the browser."
         )} />
       </p>
 

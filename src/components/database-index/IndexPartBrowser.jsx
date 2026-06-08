@@ -1,26 +1,61 @@
 // @ts-nocheck
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
-import { StatusPill, displayValue, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusPill, displayValue, formatScore, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { fetchIndexPart } from "../../utils/databaseIndex/databaseIndexClient"
-import { formatCount, normalizeIndexParts } from "../../utils/databaseIndex/databaseIndexFormatters"
+import {
+  descriptorCompletenessPercent,
+  extractMetals,
+  formatCount,
+  formatPercentValue,
+  matchesDatabaseIndexFilters,
+  normalizeIndexParts,
+  previewScore,
+  provenanceCompletenessPercent,
+  qualityTone,
+  sortDatabaseIndexRecords,
+  summarizeIndexPartRecords,
+} from "../../utils/databaseIndex/databaseIndexFormatters"
 
-const PAGE_SIZE = 50
+const PAGE_SIZE = 20
 
-function qualityMatches(row, filter) {
-  if (filter === "all") return true
-  const status = String(row.dataQualityStatus || "").toLowerCase()
-  if (filter === "ready") return status.includes("ready")
-  return status.includes(filter)
+const SORT_OPTIONS = [
+  ["previewScore", "preview score", "preview score"],
+  ["descriptorCompleteness", "descriptor completeness", "descriptor completeness"],
+  ["provenanceCompleteness", "provenance completeness", "provenance completeness"],
+  ["qualityStatus", "quality status", "quality status"],
+]
+
+function searchMatches(row, searchText) {
+  const query = String(searchText || "").trim().toLowerCase()
+  if (!query) return true
+  const haystack = [
+    row.id,
+    row.frameworkId,
+    row.sourceDatabase,
+    row.sourceRecordId,
+    row.displayName,
+    ...(extractMetals(row) || []),
+  ].map(value => displayValue(value, "")).join(" ").toLowerCase()
+  return haystack.includes(query)
 }
 
-export function IndexPartBrowser({ manifest = {}, onOpenDetail, lang, t, isMobile }) {
+function Stat({ label, value, t }) {
+  return (
+    <article style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 4, padding: 9 }}>
+      <span style={{ color: t.faint, fontSize: 10.3, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
+      <strong style={{ color: t.textStrong, fontSize: 13.5 }}><ChemicalText value={displayValue(value)} /></strong>
+    </article>
+  )
+}
+
+export function IndexPartBrowser({ manifest = {}, filters = {}, onOpenDetail, onAddCompare, compareCount = 0, lang, t, isMobile }) {
   const parts = normalizeIndexParts(manifest)
   const [selectedPath, setSelectedPath] = useState("")
   const [partCache, setPartCache] = useState({})
   const [loadingPath, setLoadingPath] = useState("")
-  const [qualityFilter, setQualityFilter] = useState("all")
-  const [alOnly, setAlOnly] = useState(false)
+  const [searchText, setSearchText] = useState("")
+  const [sortKey, setSortKey] = useState("previewScore")
   const [page, setPage] = useState(0)
   const selectedPart = selectedPath ? partCache[selectedPath]?.data : null
   const selectedError = selectedPath ? partCache[selectedPath]?.error : null
@@ -35,20 +70,31 @@ export function IndexPartBrowser({ manifest = {}, onOpenDetail, lang, t, isMobil
     setLoadingPath("")
   }
 
+  useEffect(() => {
+    setPage(0)
+  }, [selectedPath, filters, searchText, sortKey])
+
+  const selectedRecords = useMemo(() => Array.isArray(selectedPart?.records) ? selectedPart.records : [], [selectedPart])
+  const stats = useMemo(() => summarizeIndexPartRecords(selectedRecords), [selectedRecords])
   const filteredRecords = useMemo(() => {
-    const records = Array.isArray(selectedPart?.records) ? selectedPart.records : []
-    return records.filter(row => qualityMatches(row, qualityFilter)).filter(row => !alOnly || row.hasAlNode || (row.metals || []).includes("Al"))
-  }, [selectedPart, qualityFilter, alOnly])
+    return sortDatabaseIndexRecords(selectedRecords.filter(row => matchesDatabaseIndexFilters(row, filters)).filter(row => searchMatches(row, searchText)), sortKey)
+  }, [selectedRecords, filters, searchText, sortKey])
   const pageCount = Math.max(1, Math.ceil(filteredRecords.length / PAGE_SIZE))
   const visible = filteredRecords.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE)
 
   return (
     <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 12 }}>
-      <header style={{ display: "grid", gap: 4 }}>
-        <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "Index Part Browser", "Index Part Browser")}</strong>
-        <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>
-          {text(lang, "索引分片只有在点击后才加载；每次只加载一个 part。", "Index parts load only after clicking; only one selected part is fetched at a time.")}
-        </span>
+      <header style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
+        <div style={{ display: "grid", gap: 4 }}>
+          <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "Index Part Browser", "Index Part Browser")}</strong>
+          <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>
+            {text(lang, "索引分片只有在点击后才加载；每次只加载一个 part。", "Index parts load only after clicking; only one selected part is fetched at a time.")}
+          </span>
+        </div>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+          <StatusPill tone="proxy" t={t}>Selected index part only</StatusPill>
+          <StatusPill tone="warn" t={t}>Detail loaded on demand</StatusPill>
+        </div>
       </header>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
         {parts.map(part => (
@@ -58,19 +104,28 @@ export function IndexPartBrowser({ manifest = {}, onOpenDetail, lang, t, isMobil
         ))}
       </div>
       {selectedPath ? (
-        <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-            {["all", "ready", "needs_review", "rejected"].map(filter => (
-              <button key={filter} type="button" onClick={() => { setQualityFilter(filter); setPage(0) }} style={{ background: qualityFilter === filter ? t.accent : t.panel, border: `1px solid ${qualityFilter === filter ? t.accent : t.border}`, borderRadius: 999, color: qualityFilter === filter ? t.buttonText || "#fff" : t.textStrong, cursor: "pointer", fontSize: 11.5, fontWeight: 900, padding: "6px 9px" }}>
-                {filter}
-              </button>
-            ))}
-            <label style={{ alignItems: "center", color: t.muted, display: "inline-flex", fontSize: 12, gap: 6 }}>
-              <input type="checkbox" checked={alOnly} onChange={event => { setAlOnly(event.target.checked); setPage(0) }} />
-              {text(lang, "只看 Al-containing / hasAlNode", "Al-containing / hasAlNode only")}
-            </label>
+        <div style={{ display: "grid", gap: 9 }}>
+          <div style={{ display: "grid", gap: 7, gridTemplateColumns: "repeat(auto-fit, minmax(135px, 1fr))" }}>
+            <Stat label="record count" value={formatCount(stats.recordCount)} t={t} />
+            <Stat label="ready" value={formatCount(stats.ready)} t={t} />
+            <Stat label="needs-review" value={formatCount(stats.needsReview)} t={t} />
+            <Stat label="rejected" value={formatCount(stats.rejected)} t={t} />
+            <Stat label="descriptor coverage summary" value={formatPercentValue(stats.descriptorPercent)} t={t} />
+            <Stat label="provenance coverage summary" value={formatPercentValue(stats.provenancePercent)} t={t} />
           </div>
-          <StatusPill tone="proxy" t={t}>{formatCount(filteredRecords.length)} / {formatCount(selectedPart?.recordCount || selectedPart?.records?.length || 0)}</StatusPill>
+          <div style={{ alignItems: "end", display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) 190px auto" }}>
+            <label style={{ display: "grid", gap: 4 }}>
+              <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "搜索", "Search")}</span>
+              <input aria-label="Search index part records" value={searchText} onChange={event => setSearchText(event.target.value)} placeholder={text(lang, "record id / display name / source database / metal node", "record id / display name / source database / metal node")} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, color: t.textStrong, fontSize: 12, minHeight: 34, padding: "6px 8px" }} />
+            </label>
+            <label style={{ display: "grid", gap: 4 }}>
+              <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "排序", "Sort")}</span>
+              <select aria-label="Sort index part records" value={sortKey} onChange={event => setSortKey(event.target.value)} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, color: t.textStrong, fontSize: 12, fontWeight: 850, minHeight: 34, padding: "6px 8px" }}>
+                {SORT_OPTIONS.map(([value, en, zh]) => <option key={value} value={value}>{text(lang, zh, en)}</option>)}
+              </select>
+            </label>
+            <StatusPill tone="proxy" t={t}>{`${formatCount(filteredRecords.length)} / ${formatCount(selectedPart?.recordCount || selectedPart?.records?.length || 0)}`}</StatusPill>
+          </div>
         </div>
       ) : null}
       {loadingPath ? <span style={{ color: t.muted, fontSize: 12 }}>{text(lang, "正在加载选定分片...", "Loading selected part...")}</span> : null}
@@ -79,16 +134,22 @@ export function IndexPartBrowser({ manifest = {}, onOpenDetail, lang, t, isMobil
       {visible.length ? (
         <div style={{ display: "grid", gap: 7 }}>
           {visible.map(row => (
-            <article key={row.id} style={{ borderTop: `1px solid ${t.divider}`, display: "grid", gap: 7, gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1.1fr) 110px 86px auto", paddingTop: 8 }}>
+            <article key={row.id} style={{ borderTop: `1px solid ${t.divider}`, display: "grid", gap: 7, gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1.1fr) 110px 130px 100px auto", paddingTop: 8 }}>
               <div style={{ display: "grid", gap: 3, minWidth: 0 }}>
                 <strong style={{ color: t.textStrong, fontSize: 12.8, lineHeight: 1.25 }}><ChemicalText value={displayValue(row.displayName || row.id)} /></strong>
                 <span style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.4 }}><ChemicalText value={`${displayValue(row.sourceDatabase)} · ${displayValue(row.sourceRecordId)} · ${displayValue(row.detailRef, "detail pending")}`} /></span>
               </div>
-              <StatusPill tone={String(row.dataQualityStatus).includes("ready") ? "pass" : String(row.dataQualityStatus).includes("reject") ? "fail" : "warn"} t={t}>{displayValue(row.dataQualityStatus)}</StatusPill>
-              <span style={{ color: row.hasAlNode ? t.accentText : t.muted, fontSize: 12, fontWeight: 900 }}>{row.hasAlNode ? "Al node" : "no Al node"}</span>
-              <button type="button" onClick={() => onOpenDetail?.(row)} disabled={!row.detailRef} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, color: row.detailRef ? t.accentText : t.faint, cursor: row.detailRef ? "pointer" : "not-allowed", fontSize: 12, fontWeight: 900, minHeight: 32, padding: "6px 9px" }}>
-                {text(lang, "详情", "Detail")}
-              </button>
+              <StatusPill tone={qualityTone(row.dataQualityStatus)} t={t}>{displayValue(row.dataQualityStatus)}</StatusPill>
+              <span style={{ color: row.hasAlNode || extractMetals(row).includes("Al") ? t.accentText : t.muted, fontSize: 12, fontWeight: 900 }}>{extractMetals(row).length ? extractMetals(row).join(", ") : "metal pending"}</span>
+              <span style={{ color: t.muted, fontSize: 11.7, fontWeight: 850 }}>{`${formatScore(previewScore(row))} · D ${formatPercentValue(descriptorCompletenessPercent(row))} · P ${formatPercentValue(provenanceCompletenessPercent(row))}`}</span>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 6, justifyContent: "flex-end" }}>
+                <button type="button" onClick={() => onAddCompare?.(row)} disabled={compareCount >= 3} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, color: compareCount >= 3 ? t.faint : t.accentText, cursor: compareCount >= 3 ? "not-allowed" : "pointer", fontSize: 12, fontWeight: 900, minHeight: 32, padding: "6px 9px" }}>
+                  {text(lang, "对比", "Compare")}
+                </button>
+                <button type="button" onClick={() => onOpenDetail?.(row)} disabled={!row.detailRef} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, color: row.detailRef ? t.accentText : t.faint, cursor: row.detailRef ? "pointer" : "not-allowed", fontSize: 12, fontWeight: 900, minHeight: 32, padding: "6px 9px" }}>
+                  {text(lang, "详情", "Detail")}
+                </button>
+              </div>
             </article>
           ))}
           <div style={{ alignItems: "center", display: "flex", gap: 8, justifyContent: "flex-end" }}>

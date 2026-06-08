@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06",
-  "currentVersion": "V2.0-B",
-  "completedRange": "V1.0-V2.0-B",
+  "currentVersion": "V2.0-C",
+  "completedRange": "V1.0-V2.0-C",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -885,7 +885,7 @@
       "title": "Database Index Workbench UI",
       "titleZh": "数据库索引工作台 UI",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Workbench integration",
       "themeZh": "工作台接入",
       "summary": "Connects the V2.0-A database index architecture to the front-end workbench with manifest loading, summary panels, top candidate preview, index part browsing, and detail-on-demand drawers.",
@@ -962,25 +962,104 @@
         "adaptationBoundaryZh": "仅前端索引预览；不进行浏览器端全量数据库筛选，也不声明已发现经验证的 Al/Mo-MOF。"
       },
       "relatedSection": "#methodology-oafs-database-index-preview"
-    }
-  ],
-  "roadmap": [
+    },
     {
       "version": "V2.0-C",
       "title": "Expanded Database Screening UI",
       "titleZh": "更完整的数据库筛选 UI",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Screening controls and evidence explanation",
+      "themeZh": "筛选控制与证据解释",
+      "summary": "Expanded the Database Index Workbench with loaded-scope filters, Top-N explanation panels, selected-part search/sort/pagination, detail evidence checklists, and Candidate Compare while preserving lazy loading boundaries.",
+      "summaryZh": "在 Database Index Workbench 中扩展已加载范围筛选、Top-N 解释面板、选定分片搜索/排序/分页、详情证据清单与 Candidate Compare，并保持懒加载边界。",
+      "keyUpdates": [
+        "Added Source database, Quality status, Metal node, Descriptor availability, and Provenance coverage filters.",
+        "Added Why in preview explanation panels for Top Candidates.",
+        "Added selected index part statistics, search, sorting, and 20-record pagination.",
+        "Added detail drawer descriptor/provenance checklists, source boundary block, missing evidence warning, and organic acid relevance snapshot.",
+        "Added Candidate Compare with a 3-candidate limit based on currently loaded preview/index data only."
+      ],
+      "keyUpdatesZh": [
+        "新增 Source database、Quality status、Metal node、Descriptor availability 与 Provenance coverage 筛选。",
+        "新增 Top Candidates 的 Why in preview 解释面板。",
+        "新增选定 index part 统计、搜索、排序与 20 条分页。",
+        "新增 detail drawer 的描述符/来源清单、来源边界、缺证据警告与有机酸相关性快照。",
+        "新增 Candidate Compare，最多 3 个候选，且仅基于当前已加载 preview/index 数据。"
+      ],
+      "algorithmChanges": [
+        "No OACS/DMRS formula change.",
+        "Filters operate only on loaded Top-N preview or the currently selected index part.",
+        "No browser-side all-part loading, all-detail loading, or full database scoring."
+      ],
+      "algorithmChangesZh": [
+        "不修改 OACS/DMRS 公式。",
+        "筛选仅作用于已加载 Top-N preview 或当前选定 index part。",
+        "不在浏览器端加载全部分片、全部详情或执行全量数据库评分。"
+      ],
+      "uiChanges": [
+        "Added the expanded screening toolbar.",
+        "Added Top-N candidate explanations.",
+        "Added selected-part sorting, search, pagination, and current-part statistics.",
+        "Added Candidate Compare and enriched detail drawer evidence sections."
+      ],
+      "uiChangesZh": [
+        "新增 expanded screening toolbar。",
+        "新增 Top-N 候选解释。",
+        "新增选定分片排序、搜索、分页与当前 part 统计。",
+        "新增 Candidate Compare 与增强 detail drawer 证据区块。"
+      ],
+      "methodologyChanges": [
+        "Updated Database Index Preview methodology with V2.0-C expanded screening UI boundaries.",
+        "Documented why the browser does not load the full database, the Top-N preview/full verified screening difference, detail-on-demand data flow, and Candidate Compare evidence boundary."
+      ],
+      "methodologyChangesZh": [
+        "更新 Database Index Preview 方法说明，加入 V2.0-C expanded screening UI 边界。",
+        "记录为什么浏览器不全量加载数据库、Top-N preview 与 full verified screening 的区别、detail-on-demand 数据流和 Candidate Compare 证据边界。"
+      ],
+      "evidenceBoundary": "Expanded screening UI only; not full verified database screening and not a final recommendation system.",
+      "evidenceBoundaryZh": "仅为扩展筛选 UI；不是经过完整验证的全量数据库筛选，也不是最终推荐系统。",
+      "limitations": [
+        "Descriptor filters can only evaluate fields present in the loaded preview record or selected part record.",
+        "Candidate Compare does not fetch missing detail records automatically.",
+        "Missing DOI, citation, or license remains evidence pending."
+      ],
+      "limitationsZh": [
+        "描述符筛选只能评估已加载 preview 记录或选定 part 记录中存在的字段。",
+        "Candidate Compare 不会自动 fetch 缺失详情记录。",
+        "缺失 DOI、citation 或 license 时保持 evidence pending。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "expanded-database-screening-ui",
+          "loaded-scope-filtering",
+          "candidate-compare",
+          "top-n-explanation",
+          "detail-on-demand"
+        ],
+        "adaptationBoundary": "UI screening and evidence explanation over loaded preview/index data only; no full verified screening claim.",
+        "adaptationBoundaryZh": "仅对已加载 preview/index 数据进行 UI 筛选与证据解释；不声明已完成经验证的全量筛选。"
+      },
+      "relatedSection": "#methodology-oafs-database-index-preview"
+    }
+  ],
+  "roadmap": [
+    {
+      "version": "V2.0-D",
+      "title": "Worker-Based Scoring Boundary Design",
+      "titleZh": "Worker 评分边界设计",
       "status": "planned",
       "items": [
-        "More complete database screening UI",
-        "Pagination and multi-condition filtering",
-        "Top-N explanation panels",
-        "Worker-based scoring boundary design"
+        "Worker-based scoring boundary design",
+        "Verified metadata enrichment workflow",
+        "Database index expansion readiness checks",
+        "Full screening audit plan"
       ],
       "itemsZh": [
-        "更完整的数据库筛选 UI",
-        "分页与多条件筛选",
-        "Top-N 解释面板",
-        "Worker-based scoring 边界设计"
+        "Worker-based scoring 边界设计",
+        "经核验 metadata 补全流程",
+        "数据库索引扩展准备度检查",
+        "全量筛选审计计划"
       ]
     }
   ],

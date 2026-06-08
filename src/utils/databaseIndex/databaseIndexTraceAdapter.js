@@ -158,14 +158,14 @@ export function buildDatabaseIndexTrace(overview = {}, options = {}) {
   const steps = buildDatabaseIndexRunSteps(overview)
   const topCandidates = normalizeTopCandidates(overview.topCandidates)
   const createdAt = options.createdAt || new Date().toISOString()
-  const runId = options.runId || `OAFS-V2.0-B-database-index-preview-${createdAt.replace(/\D/g, "").slice(0, 14)}`
+  const runId = options.runId || `OAFS-V2.0-C-database-index-preview-${createdAt.replace(/\D/g, "").slice(0, 14)}`
 
   return {
     schemaVersion: RUN_TRACE_SCHEMA_VERSION,
     runId,
     createdAt,
     dataMode: "database_index_preview",
-    workflowVersion: "V2.0-B",
+    workflowVersion: "V2.0-C",
     status: "completed_with_warnings",
     inputSummary: {
       dataMode: "database_index_preview",
@@ -173,7 +173,7 @@ export function buildDatabaseIndexTrace(overview = {}, options = {}) {
       frameworkCandidates: summary.coreRecords,
       metalCandidates: summary.qmofRecords,
       evidenceRecords: overview.manifest?.sourceDatabases?.reduce((sum, row) => sum + safeNumber(row.detailCount), 0) || 0,
-      rulesVersion: "V2.0-B index preview",
+      rulesVersion: "V2.0-C index preview",
     },
     outputSummary: {
       dataMode: "database_index_preview",

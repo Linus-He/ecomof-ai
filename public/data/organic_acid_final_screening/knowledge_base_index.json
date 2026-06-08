@@ -2,7 +2,7 @@
   "id": "organic-acid-final-knowledge-base",
   "label": "Knowledge Base",
   "labelZh": "知识库",
-  "version": "V2.0-B",
+  "version": "V2.0-C",
   "updatedAt": "2026-06",
   "uploadedFileCount": 6,
   "uniqueLiteratureRecords": 5,
@@ -17,12 +17,12 @@
     }
   ],
   "stats": {
-    "currentVersion": "V2.0-B",
+    "currentVersion": "V2.0-C",
     "literatureRecords": 5,
     "uploadedFiles": 6,
     "verifiedDoiRecords": 2,
     "pendingMetadataRecords": 3,
-    "plannedNextStage": "V2.0-C Expanded Database Screening UI"
+    "plannedNextStage": "V2.0-D Worker-Based Scoring Boundary Design"
   },
   "sections": [
     {
@@ -98,5 +98,7 @@
     }
   ],
   "boundary": "Knowledge Base records how external papers inspire EcoMOF-AI workflow design, descriptor choices, evidence boundaries, and validation strategy. It does not claim EcoMOF-AI reproduces the original papers models or experimental results.",
-  "boundaryZh": "知识库记录外部文献如何启发 EcoMOF-AI 的工作流设计、描述符选择、证据边界和验证路线；不表示 EcoMOF-AI 已复现原论文模型或实验结果。"
+  "boundaryZh": "知识库记录外部文献如何启发 EcoMOF-AI 的工作流设计、描述符选择、证据边界和验证路线；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
+  "databaseIndexPreviewBoundary": "V2.0-C expanded screening, Top-N explanation, detail checklists, and Candidate Compare operate only on currently loaded preview/index data. They are not full verified database screening.",
+  "databaseIndexPreviewBoundaryZh": "V2.0-C 的扩展筛选、Top-N 解释、详情清单与 Candidate Compare 只作用于当前已加载 preview/index 数据；不是经过完整验证的全量数据库筛选。"
 }

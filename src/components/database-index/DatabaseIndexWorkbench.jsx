@@ -3,7 +3,10 @@ import { useEffect, useState } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
 import { Panel, StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { loadDatabaseIndexOverview } from "../../utils/databaseIndex/databaseIndexLoaders"
+import { normalizeComparableCandidate } from "../../utils/databaseIndex/databaseIndexFormatters"
+import { CandidateComparePanel } from "./CandidateComparePanel"
 import { DatabaseIndexBoundaryNotice } from "./DatabaseIndexBoundaryNotice"
+import { DatabaseIndexFilterToolbar } from "./DatabaseIndexFilterToolbar"
 import { DatabaseIndexSkeleton } from "./DatabaseIndexSkeleton"
 import { DatabaseIndexSummaryCards } from "./DatabaseIndexSummaryCards"
 import { DatabaseManifestPanel } from "./DatabaseManifestPanel"
@@ -13,10 +16,20 @@ import { IndexPartBrowser } from "./IndexPartBrowser"
 import { PrecomputedTopCandidatesPanel } from "./PrecomputedTopCandidatesPanel"
 import { ProvenanceCoveragePanel } from "./ProvenanceCoveragePanel"
 
+const DEFAULT_FILTERS = {
+  sourceDatabase: "all",
+  qualityStatus: "all",
+  metal: "all",
+  descriptors: [],
+  provenanceCoverage: "all",
+}
+
 export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) {
   const [status, setStatus] = useState("loading")
   const [overview, setOverview] = useState(null)
   const [detailRequest, setDetailRequest] = useState(null)
+  const [filters, setFilters] = useState(DEFAULT_FILTERS)
+  const [compareItems, setCompareItems] = useState([])
 
   useEffect(() => {
     let active = true
@@ -35,12 +48,21 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
     return () => { active = false }
   }, [onOverviewLoaded])
 
+  const handleAddCompare = candidate => {
+    setCompareItems(items => {
+      const normalized = normalizeComparableCandidate(candidate)
+      if (items.some(item => item.id === normalized.id)) return items
+      if (items.length >= 3) return items
+      return [...items, normalized]
+    })
+  }
+
   if (status === "loading") return <DatabaseIndexSkeleton lang={lang} t={t} />
 
   return (
     <Panel
       id="organic-acid-database-index-workbench"
-      eyebrow="V2.0-B · Database Index Workbench"
+      eyebrow="V2.0-C · Expanded Database Screening UI"
       title={text(lang, "Database Index Preview · 数据库索引预览", "Database Index Preview")}
       t={t}
       actions={<StatusPill tone={status === "error" ? "warn" : "proxy"} t={t}>{status}</StatusPill>}
@@ -66,8 +88,10 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
             <DescriptorAvailabilityPanel availability={overview.descriptorAvailability} lang={lang} t={t} />
             <ProvenanceCoveragePanel coverage={overview.provenanceCoverage} lang={lang} t={t} />
           </div>
-          <PrecomputedTopCandidatesPanel topCandidates={overview.topCandidates} onOpenDetail={setDetailRequest} lang={lang} t={t} />
-          <IndexPartBrowser manifest={overview.manifest} onOpenDetail={setDetailRequest} lang={lang} t={t} isMobile={isMobile} />
+          <DatabaseIndexFilterToolbar filters={filters} onChange={setFilters} lang={lang} t={t} />
+          <PrecomputedTopCandidatesPanel topCandidates={overview.topCandidates} filters={filters} onOpenDetail={setDetailRequest} onAddCompare={handleAddCompare} compareCount={compareItems.length} lang={lang} t={t} />
+          <CandidateComparePanel candidates={compareItems} onRemove={id => setCompareItems(items => items.filter(item => item.id !== id))} lang={lang} t={t} isMobile={isMobile} />
+          <IndexPartBrowser manifest={overview.manifest} filters={filters} onOpenDetail={setDetailRequest} onAddCompare={handleAddCompare} compareCount={compareItems.length} lang={lang} t={t} isMobile={isMobile} />
           <DatabaseDetailDrawer request={detailRequest} onClose={() => setDetailRequest(null)} lang={lang} t={t} />
         </>
       ) : (
