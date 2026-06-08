@@ -6,6 +6,7 @@ import evidenceRecords from "../../../public/data/organic_acid_final_screening/o
 import rules from "../../../public/data/organic_acid_final_screening/organic_acid_screening_rules.json"
 import versionDocs from "../../../public/data/organic_acid_final_screening/version_docs.json"
 import literatureInspirations from "../../../public/data/organic_acid_final_screening/literature_inspiration_records.json"
+import { ORGANIC_ACID_FINAL_DIRECTORY } from "../../components/methodology/organic-acid-final/directory"
 import {
   applyHydrothermalGate,
   attachEvidenceToFrameworks,
@@ -298,6 +299,23 @@ describe("organic acid final screening", () => {
     expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
       ["V2.0-C", "planned"],
     ])
+  })
+
+  it("exposes the V2.0-B database index preview in the Organic Acid methodology directory", () => {
+    const children = ORGANIC_ACID_FINAL_DIRECTORY.children
+    const traceIndex = children.findIndex(row => row.id === "methodology-oafs-trace-workbench")
+    const databaseIndex = children.findIndex(row => row.id === "methodology-oafs-database-index-preview")
+    const oacsIndex = children.findIndex(row => row.id === "methodology-oafs-oacs")
+    const item = children[databaseIndex]
+
+    expect(traceIndex).toBeGreaterThanOrEqual(0)
+    expect(databaseIndex).toBe(traceIndex + 1)
+    expect(oacsIndex).toBe(databaseIndex + 1)
+    expect(item).toEqual({
+      id: "methodology-oafs-database-index-preview",
+      label: "Database Index Preview",
+      labelZh: "数据库索引预览",
+    })
   })
 
   it("runs the V1.7 launcher workflow on demo, mapped fixture, and curated sample modes with exportable trace", () => {

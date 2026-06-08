@@ -12,6 +12,7 @@ export const ORGANIC_ACID_FINAL_DIRECTORY = {
     { id: "methodology-oafs-data-mapping", label: "Data Mapping and Schema Validation", labelZh: "数据映射与 Schema Validation" },
     { id: "methodology-oafs-small-real-dataset", label: "Small Real Dataset Integration", labelZh: "小规模真实样例接入" },
     { id: "methodology-oafs-trace-workbench", label: "Algorithm Trace Workbench", labelZh: "算法追踪工作台" },
+    { id: "methodology-oafs-database-index-preview", label: "Database Index Preview", labelZh: "数据库索引预览" },
     { id: "methodology-oafs-oacs", label: "Stage 1: OACS Framework Mining", labelZh: "Stage 1：OACS 骨架筛选" },
     { id: "methodology-oafs-dmrs", label: "Stage 2: DMRS Dopant Recommendation", labelZh: "Stage 2：DMRS 第二金属推荐" },
     { id: "methodology-oafs-hot-spot", label: "Coupled Descriptor Hot Spot Map", labelZh: "耦合描述符热区图" },
@@ -23,4 +24,3 @@ export const ORGANIC_ACID_FINAL_DIRECTORY = {
     { id: "methodology-oafs-limitations", label: "Limitations & Reproducibility", labelZh: "限制与复现" },
   ],
 }
-
