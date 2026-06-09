@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { useState } from "react"
 import { ChemicalText } from "../../../shared"
-import { CatalysisCatProbe } from "../CatalysisCatProbe"
 import { displayValue, formatScore, StatusPill, text } from "./FinalScreeningShared"
 import { roleColor } from "./HotSpotMapLegend"
 
@@ -21,7 +20,7 @@ export function DopantMetalHotSpotMap({ data = [], lang, t }) {
 
   return (
     <div style={{ display: "grid", gap: 10 }}>
-      <CatalysisCatProbe boundaryId="hotspot-dopant" chartMode="dopant" lang={lang} t={t}>
+      <div style={{ borderRadius: 10, minWidth: 0, overflow: "hidden", position: "relative" }}>
         <svg viewBox="0 0 640 390" role="img" aria-label="Dopant Metal Hot Spot Map" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "block", height: "auto", maxWidth: "100%", width: "100%" }}>
           <defs>
             <linearGradient id="dopantHotSpotBg" x1="0" x2="1" y1="1" y2="0">
@@ -70,7 +69,7 @@ export function DopantMetalHotSpotMap({ data = [], lang, t }) {
             )
           })}
         </svg>
-      </CatalysisCatProbe>
+      </div>
 
       <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 11 }}>
         <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>

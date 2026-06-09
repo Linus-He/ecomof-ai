@@ -210,9 +210,9 @@ describe("organic acid final screening", () => {
 
   it("records the Organic Acid Knowledge Base and planned roadmap", () => {
     expect(versionDocs.knowledgeBaseLabel).toBe("Knowledge Base")
-    expect(versionDocs.currentVersion).toBe("V2.0-E")
-    expect(versionDocs.completedRange).toBe("V1.0-V2.0-E")
-    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6", "V1.7", "V2.0-A", "V2.0-B", "V2.0-C", "V2.0-D", "V2.0-E"])
+    expect(versionDocs.currentVersion).toBe("V2.0-F")
+    expect(versionDocs.completedRange).toBe("V1.0-V2.0-F")
+    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6", "V1.7", "V2.0-A", "V2.0-B", "V2.0-C", "V2.0-D", "V2.0-E", "V2.0-F"])
     expect(versionDocs.versions.find(row => row.version === "V1.4")).toEqual(expect.objectContaining({
       status: "completed",
       title: "Coupled Descriptor Hot Spot Map",
@@ -254,9 +254,14 @@ describe("organic acid final screening", () => {
       evidenceBoundary: "Worker scoring boundary and loaded-scope dry-run preview only; not full verified database screening and not a final verified recommendation.",
     }))
     expect(versionDocs.versions.find(row => row.version === "V2.0-E")).toEqual(expect.objectContaining({
-      status: "current",
+      status: "completed",
       title: "Verified Metadata Enrichment Workflow",
       evidenceBoundary: "Metadata verification gate and status modeling only; no live DOI/source verification, not full verified database screening, and not a final verified recommendation.",
+    }))
+    expect(versionDocs.versions.find(row => row.version === "V2.0-F")).toEqual(expect.objectContaining({
+      status: "current",
+      title: "Background Precompute Pipeline Planning",
+      evidenceBoundary: "Pipeline planning and offline dry-run only; not full database integration and not full verified database screening.",
     }))
     versionDocs.versions.forEach(row => {
       expect(row.summary).toBeTruthy()
@@ -280,7 +285,7 @@ describe("organic acid final screening", () => {
       })
     })
     expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
-      ["V2.0-F", "planned"],
+      ["V2.0-G", "planned"],
     ])
     expect(literatureInspirations).toHaveLength(5)
     const hotSpotPaper = literatureInspirations.find(row => row.id === "LIT-HOTSPOT-2025-NATCOMM")
@@ -328,9 +333,16 @@ describe("organic acid final screening", () => {
     expect(v20e.algorithmChanges).toContain("No full database scoring in browser.")
     expect(v20e.algorithmChanges.join(" ")).toMatch(/metadata verification gate/)
     expect(v20e.evidenceBoundary).toMatch(/not full verified database screening/)
-    expect(versionDocs.currentVersion).toBe("V2.0-E")
+    const v20f = versionDocs.versions.find(row => row.version === "V2.0-F")
+    expect(v20f.keyUpdates.join(" ")).toMatch(/precompute/i)
+    expect(v20f.keyUpdates.join(" ")).toMatch(/dry-run/i)
+    expect(v20f.algorithmChanges).toContain("No OACS/DMRS formula change.")
+    expect(v20f.algorithmChanges).toContain("No full database scoring in browser.")
+    expect(v20f.algorithmChanges.join(" ")).toMatch(/V2.0-D worker boundary and V2.0-E metadata gate are unchanged/)
+    expect(v20f.evidenceBoundary).toMatch(/not full verified database screening/)
+    expect(versionDocs.currentVersion).toBe("V2.0-F")
     expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
-      ["V2.0-F", "planned"],
+      ["V2.0-G", "planned"],
     ])
   })
 
@@ -362,6 +374,12 @@ describe("organic acid final screening", () => {
     expect(methodologySource).toMatch(/V2.0-E Verified Metadata Enrichment Workflow/)
     expect(methodologySource).toMatch(/Metadata verification gate/)
     expect(methodologySource).toMatch(/CI verification gate/)
+  })
+
+  it("documents the V2.0-F Background Precompute Pipeline Planning in methodology", () => {
+    const methodologySource = fs.readFileSync("src/components/methodology/OrganicAcidFinalMethodology.jsx", "utf8")
+    expect(methodologySource).toMatch(/V2.0-F Background Precompute Pipeline Planning/)
+    expect(methodologySource).toMatch(/Precompute dry-run \(offline\)/)
   })
 
   it("runs the V1.7 launcher workflow on demo, mapped fixture, and curated sample modes with exportable trace", () => {

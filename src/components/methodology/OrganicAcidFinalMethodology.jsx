@@ -161,6 +161,14 @@ function TraceWorkbenchMethod({ lang, t }) {
 function DatabaseIndexPreviewMethod({ lang, t }) {
   const rows = [
     [
+      text(lang, "V2.0-F 后台预计算管线规划", "V2.0-F Background Precompute Pipeline Planning"),
+      text(lang, "V2.0-F 规划后台预计算管线：原始记录 → 归一化 → metadata 门控 → 描述符检查 → OACS/DMRS 试算 → 预计算 Top-N → 浏览器预览边界。提供管线文档、离线 dry-run 脚本与预计算索引 schema。V2.0-F 不接入全量数据库，也不是经完整验证的筛选；全量评分仍在浏览器主线程之外进行。", "V2.0-F plans the background precompute pipeline: raw records → normalization → metadata gate → descriptor check → OACS/DMRS dry-run → precomputed Top-N → browser preview boundary. It ships a pipeline doc, an offline dry-run script, and a precomputed index schema. V2.0-F does not integrate the full database and is not full verified screening; full scoring stays outside the browser main thread."),
+    ],
+    [
+      text(lang, "预计算 dry-run（离线）", "Precompute dry-run (offline)"),
+      text(lang, "dry-run 脚本只读取本地预览样本（Top-N 与一个选定分片），统计 metadata 核验状态与描述符完整度，输出审计摘要；不联网、不加载全量数据库、不产生最终推荐。", "The dry-run script reads only local preview fixtures (Top-N and one selected part), counts metadata verification status and descriptor completeness, and emits an audit summary; no network, no full database load, no final recommendation."),
+    ],
+    [
       text(lang, "V2.0-E 经核验 metadata 补全流程", "V2.0-E Verified Metadata Enrichment Workflow"),
       text(lang, "V2.0-E 在 V2.0-D Worker 边界之上新增 metadata 核验门控：对 DOI、来源链接、license、引用与描述符溯源建模核验状态。缺关键 metadata 的候选只能停留在仅限预览，必须通过 metadata 门控才能进入经核验推荐。V2.0-E 不修改 OACS/DMRS 公式，也不在浏览器内执行全量数据库评分。", "V2.0-E adds a metadata verification gate on top of the V2.0-D worker boundary: it models verification status for DOI, source link, license, citation, and descriptor provenance. Candidates missing key metadata stay preview only and must pass the metadata gate before becoming eligible for verified recommendation. V2.0-E does not modify OACS/DMRS formulas and does not run full database scoring in the browser."),
     ],
@@ -222,14 +230,14 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
       <header style={{ display: "grid", gap: 4 }}>
         <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Database Index Preview</span>
         <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
-          {text(lang, "数据库索引预览：V2.0-E 经核验 metadata 补全流程", "Database Index Preview: V2.0-E Verified Metadata Enrichment Workflow")}
+          {text(lang, "数据库索引预览：V2.0-F 后台预计算管线规划", "Database Index Preview: V2.0-F Background Precompute Pipeline Planning")}
         </h3>
       </header>
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "V2.0-E 在 V2.0-D Worker 边界之上新增 metadata 核验门控，让候选从“可预览”推进到“可核验”，并补齐 GitHub Actions 远端验证。浏览器仍只加载 manifest 摘要、预计算候选预览、选定索引分片和按需详情记录。",
-          "V2.0-E adds a metadata verification gate on top of the V2.0-D worker boundary so candidates move from previewable to verifiable, and adds a remote GitHub Actions verification gate. The browser still loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand."
+          "V2.0-F 在 V2.0-E metadata 门控之上规划后台预计算管线，并提供离线 dry-run 脚本与预计算索引 schema。浏览器仍只加载 manifest 摘要、预计算候选预览、选定索引分片和按需详情记录；全量评分在浏览器主线程之外进行。数据库接入将从 50-200 条小规模样本开始。",
+          "V2.0-F plans the background precompute pipeline on top of the V2.0-E metadata gate and adds an offline dry-run script and a precomputed index schema. The browser still loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand; full scoring runs outside the browser main thread. Database integration will start from a 50-200 record small sample."
         )} />
       </p>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
@@ -241,7 +249,7 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
         ))}
       </div>
       <p style={{ color: t.warn, fontSize: 12.5, fontWeight: 900, lineHeight: 1.52, margin: 0 }}>
-        <ChemicalText value={text(lang, "V2.0-E 仍然不是经完整验证的全量数据库筛选；Top-N 预览只是预览，OACS/DMRS 公式未在 V2.0-E 中修改。经完整验证的全量筛选仍需描述符复算、来源核验、公式审计与实验/文献验证。", "V2.0-E remains an index preview, not full verified database screening; Top-N preview is still preview only and OACS/DMRS formulas are unchanged in V2.0-E. Full verified screening still requires descriptor recomputation, source verification, formula audit, and experimental/literature validation.")} />
+        <ChemicalText value={text(lang, "V2.0-F 仍然不是经完整验证的全量数据库筛选；它只是管线规划与离线试算，Top-N 预览只是预览，OACS/DMRS 公式未在 V2.0-F 中修改。经完整验证的全量筛选仍需描述符复算、来源核验、公式审计与实验/文献验证。", "V2.0-F remains pipeline planning and an offline dry-run, not full verified database screening; Top-N preview is still preview only and OACS/DMRS formulas are unchanged in V2.0-F. Full verified screening still requires descriptor recomputation, source verification, formula audit, and experimental/literature validation.")} />
       </p>
     </section>
   )
@@ -479,7 +487,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           <SmallRealDatasetMethod mappingReport={data.mappingReport} lang={lang} t={t} />
         </LazyMethodologyDetails>
         <TraceWorkbenchMethod lang={lang} t={t} />
-        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-E adds a metadata verification gate and CI verification on top of the V2.0-D worker boundary, while preserving lazy loading and the OACS/DMRS formulas." summaryZh="V2.0-E 在 V2.0-D Worker 边界之上新增 metadata 核验门控与 CI 验证，同时保持懒加载边界与 OACS/DMRS 公式不变。" lang={lang} t={t}>
+        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-F plans the background precompute pipeline (pipeline doc, dry-run script, index schema) on top of the V2.0-E metadata gate, while preserving lazy loading and the OACS/DMRS formulas." summaryZh="V2.0-F 在 V2.0-E metadata 门控之上规划后台预计算管线（管线文档、dry-run 脚本、索引 schema），同时保持懒加载边界与 OACS/DMRS 公式不变。" lang={lang} t={t}>
           <DatabaseIndexPreviewMethod lang={lang} t={t} />
         </LazyMethodologyDetails>
         <LazyMethodologyDetails id="methodology-oafs-oacs" title="OACS Formula Explainer" titleZh="OACS 骨架筛选" summary="Formula card renders after expansion." summaryZh="公式卡片展开后渲染。" lang={lang} t={t}>

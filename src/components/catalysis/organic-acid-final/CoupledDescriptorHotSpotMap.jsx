@@ -19,7 +19,7 @@ export function CoupledDescriptorHotSpotMap({ result, curatedRealResult, lang, t
   const views = [
     { id: "scaffold", label: text(lang, "骨架热区", "Scaffold Map") },
     { id: "dopant", label: text(lang, "金属热区", "Dopant Map") },
-    { id: "synergy", label: text(lang, "协同热区", "Synergy Map") },
+    { id: "synergy", label: text(lang, "优先级地图", "Priority Map") },
   ]
 
   return (
@@ -28,14 +28,14 @@ export function CoupledDescriptorHotSpotMap({ result, curatedRealResult, lang, t
         eyebrow={text(lang, "受耦合催化剂设计思想启发", "Inspired by coupled catalyst design")}
         title={text(lang, "耦合描述符热区图", "Coupled Descriptor Hot Spot Map")}
         t={t}
-        actions={<StatusPill tone="proxy" t={t}>demo/proxy + curated V1.6 sample</StatusPill>}
+        actions={<StatusPill tone="proxy" t={t}>{text(lang, "演示级代理 · 仅限预览", "demo/proxy · preview only")}</StatusPill>}
       >
         <div style={{ display: "grid", gap: 10 }}>
           <p style={{ color: t.muted, fontSize: 12.6, lineHeight: 1.58, margin: 0 }}>
             <ChemicalText value={text(
               lang,
-              "将 Al-MOF 骨架稳定性与第二金属活性位点价值耦合起来的低维设计空间。V1.6 会叠加小规模人工整理真实样例，用于验证 mapper 与质量门；该热区图不证明实际催化性能。",
-              "A low-dimensional design space linking Al-MOF scaffold robustness with second-metal active-site value. V1.6 overlays a small curated real-example sample to validate mapper and quality gates; this map does not prove catalytic performance."
+              "将 Al-MOF 骨架稳健性与第二金属活性位点价值耦合起来的低维设计空间，用于解释候选优先级；该图不证明实际催化性能，也不是经完整验证的全量数据库筛选。",
+              "A low-dimensional design space linking Al-MOF framework robustness with second-metal active-site value to explain candidate priority. This map does not prove catalytic performance and is not full verified database screening."
             )} />
           </p>
           {curatedRealResult?.mappingReport ? (

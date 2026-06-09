@@ -33,14 +33,18 @@ const routes = [
     ["演示级代理评分", "Demo Score Disclaimer"],
     ["完整方法论与证据层已同步到 Methods & Evidence", "Methodology and evidence layer updated in Methods & Evidence"],
     ["查看证据层", "View evidence layer"],
-    ["算法运行启动器", "Algorithm Run Launcher"],
-    ["运行 Curated 小样例", "Run curated sample"],
-    ["演示流程", "Demo workflow"],
-    ["映射样例", "Mapped fixtures"],
-    ["人工整理真实样例", "Curated real examples"],
-    ["Small curated sample only", "small curated sample only", "仅小规模人工整理样例"],
+    ["筛选运行范围", "Screening Run Scope"],
+    ["当前边界：V2.0-F 试算 / 仅限预览", "Current boundary: V2.0-F dry-run / preview only"],
+    ["当前演示流程", "Current demo workflow"],
+    ["映射样例", "Mapped sample records"],
+    ["人工整理样例", "Curated real samples"],
+    ["数据库索引预览", "Database index preview"],
+    ["仅限预览", "Preview only"],
+    ["不执行全量数据库评分", "does not run full database scoring"],
     ["运行结果摘要", "Run Result Summary"],
     ["运行追踪", "Run trace"],
+    ["OACS–DMRS 候选优先级地图", "OACS–DMRS Candidate Priority Map"],
+    ["优先验证区", "Priority validation"],
     ["Database Index Preview", "数据库索引预览"],
     ["Expanded Database Screening UI", "扩展数据库筛选界面"],
     ["Metadata Verification Gate", "metadata 核验门控"],
@@ -59,7 +63,7 @@ const routes = [
     ["耦合描述符热区图", "Coupled Descriptor Hot Spot Map"],
     ["骨架热区", "Scaffold Map"],
     ["金属热区", "Dopant Map"],
-    ["协同热区", "Synergy Map"],
+    ["优先级地图", "Priority Map"],
     ["为什么需要热区图", "Why Hot Spot Matters"],
     ["描述符耦合面板", "Descriptor Coupling Panel"],
     ["验证证据阶梯", "Validation Evidence Ladder"],
@@ -133,12 +137,12 @@ const routes = [
     "V2.0-C",
     "V2.0-D",
     "V2.0-E",
+    "V2.0-F",
     ["Database Index Preview", "数据库索引预览"],
+    ["Background Precompute Pipeline Planning", "后台预计算管线规划"],
     ["Verified Metadata Enrichment Workflow", "经核验 metadata 补全流程"],
-    ["metadata verification gate", "metadata 核验门控"],
-    ["verified recommendation", "经核验推荐"],
+    ["Small-Scale Verified Database Integration", "小规模经核验数据库接入"],
     ["Worker-Based Scoring Boundary Design", "Worker 评分边界设计"],
-    ["Candidate Compare", "候选对比"],
     ["Literature Library", "文献库"],
     ["Inspiration Map", "灵感映射"],
     ["Version ↔ Literature ↔ Module Matrix", "版本 ↔ 文献 ↔ 模块矩阵"],
@@ -241,7 +245,7 @@ for (const [viewportName, width, height] of viewports) {
       }
 
       if (routeName === "organic-acid-final") {
-        const curatedMode = page.getByRole("button", { name: /Curated real examples|人工整理真实样例/ }).first()
+        const curatedMode = page.getByRole("button", { name: /Curated real samples|人工整理样例/ }).first()
         if (await curatedMode.count()) {
           await curatedMode.scrollIntoViewIfNeeded()
           await curatedMode.click()
@@ -255,26 +259,6 @@ for (const [viewportName, width, height] of viewports) {
           const traceButton = page.getByRole("button", { name: /View run trace|查看运行追踪/ }).first()
           if (await traceButton.count()) await traceButton.click()
           await page.waitForTimeout(300)
-        }
-        const catBoundary = page.locator('[data-cat-boundary="hotspot-synergy"]').first()
-        const catHandle = catBoundary.locator('[data-testid="catalysis-cat-probe"]').first()
-        if (await catBoundary.count() && await catHandle.count()) {
-          await catBoundary.scrollIntoViewIfNeeded()
-          const catBox = await catHandle.boundingBox()
-          const targetBox = await catBoundary.boundingBox()
-          if (catBox && targetBox) {
-            const startX = catBox.x + catBox.width / 2
-            const startY = catBox.y + catBox.height / 2
-            const endX = targetBox.x + targetBox.width * 0.82
-            const endY = targetBox.y + targetBox.height * 0.28
-            await page.mouse.move(startX, startY)
-            await page.mouse.down()
-            await page.mouse.move(endX, endY, { steps: 12 })
-            await page.mouse.up()
-            await page.waitForTimeout(350)
-            const activeZone = await catHandle.getAttribute("data-cat-zone-active")
-            if (!["mo-primary-hypothesis", "hot-spot-region"].includes(activeZone)) failures.push(`${routeName}/${viewportName}/${mode}: chart-scoped cat did not enter a hot zone, got ${activeZone}`)
-          }
         }
       }
 

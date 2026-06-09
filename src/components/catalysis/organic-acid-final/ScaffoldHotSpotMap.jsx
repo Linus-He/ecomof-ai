@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { useState } from "react"
 import { ChemicalText } from "../../../shared"
-import { CatalysisCatProbe } from "../CatalysisCatProbe"
 import { displayValue, formatScore, StatusPill, text } from "./FinalScreeningShared"
 import { roleColor } from "./HotSpotMapLegend"
 
@@ -24,7 +23,7 @@ function pointRole(point) {
 function pointTitle(point) {
   return [
     point.name,
-    `Data mode: ${point.dataModeLabel || point.evidenceLabel || "Demo proxy"}`,
+    `Source mode: ${point.dataModeLabel || point.evidenceLabel || "Demo proxy"}`,
     `Source: ${point.sourceDatabase || "Pending provenance"}`,
     `Record ID: ${point.sourceRecordId || "pending"}`,
     `DOI: ${point.doiStatus || (point.sourceDoi ? "DOI verified" : "DOI pending")}`,
@@ -42,7 +41,7 @@ export function ScaffoldHotSpotMap({ data = [], selectedScaffold, lang, t }) {
 
   return (
     <div style={{ display: "grid", gap: 10 }}>
-      <CatalysisCatProbe boundaryId="hotspot-scaffold" chartMode="scaffold" lang={lang} t={t}>
+      <div style={{ borderRadius: 10, minWidth: 0, overflow: "hidden", position: "relative" }}>
         <svg viewBox="0 0 640 390" role="img" aria-label="Scaffold Hot Spot Map" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "block", height: "auto", maxWidth: "100%", width: "100%" }}>
           <defs>
             <linearGradient id="scaffoldHotSpotBg" x1="0" x2="1" y1="1" y2="0">
@@ -93,7 +92,7 @@ export function ScaffoldHotSpotMap({ data = [], selectedScaffold, lang, t }) {
             )
           })}
         </svg>
-      </CatalysisCatProbe>
+      </div>
 
       <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 11 }}>
         <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
@@ -104,7 +103,7 @@ export function ScaffoldHotSpotMap({ data = [], selectedScaffold, lang, t }) {
           <span>OACS: <strong style={{ color: t.textStrong }}>{formatScore(active?.oacs)}</strong></span>
           <span>{text(lang, "坍塌风险", "Collapse risk")}: <strong style={{ color: t.textStrong }}>{formatScore(active?.collapseRisk)}</strong></span>
           <span>{text(lang, "证据状态", "Evidence status")}: <strong style={{ color: t.textStrong }}>{displayValue(active?.evidenceLabel || active?.evidenceStatus)}</strong></span>
-          <span>{text(lang, "数据模式", "Data mode")}: <strong style={{ color: t.textStrong }}>{displayValue(active?.dataModeLabel || active?.evidenceLabel)}</strong></span>
+          <span>{text(lang, "数据来源", "Data source")}: <strong style={{ color: t.textStrong }}>{displayValue(active?.dataModeLabel || active?.evidenceLabel)}</strong></span>
           <span>{text(lang, "来源数据库", "Source database")}: <strong style={{ color: t.textStrong }}>{displayValue(active?.sourceDatabase || "Pending provenance")}</strong></span>
           <span>{text(lang, "来源记录", "Source record")}: <strong style={{ color: t.textStrong }}>{displayValue(active?.sourceRecordId || "pending")}</strong></span>
           <span>{text(lang, "DOI 状态", "DOI status")}: <strong style={{ color: t.textStrong }}>{displayValue(active?.doiStatus || (active?.sourceDoi ? "DOI verified" : "DOI pending"))}</strong></span>

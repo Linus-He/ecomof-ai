@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06",
-  "currentVersion": "V2.0-E",
-  "completedRange": "V1.0-V2.0-E",
+  "currentVersion": "V2.0-F",
+  "completedRange": "V1.0-V2.0-F",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -1126,7 +1126,7 @@
       "title": "Verified Metadata Enrichment Workflow",
       "titleZh": "经核验 metadata 补全流程",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Metadata gate and CI verification",
       "themeZh": "metadata 核验门控与 CI 验证",
       "summary": "Added a metadata verification gate that models DOI, source, license, citation, and descriptor provenance status for loaded candidates, so candidates move from previewable to verifiable. Added a remote GitHub Actions CI verification gate. Preserved the V2.0-D worker boundary and lazy-loading boundaries.",
@@ -1201,25 +1201,110 @@
         "adaptationBoundaryZh": "仅为 metadata 门控与 CI 验证；不声明联网来源核验、全量筛选或最终推荐。"
       },
       "relatedSection": "#methodology-oafs-database-index-preview"
-    }
-  ],
-  "roadmap": [
+    },
     {
       "version": "V2.0-F",
       "title": "Background Precompute Pipeline Planning",
       "titleZh": "后台预计算管线规划",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Precompute pipeline planning and final-screening UX cleanup",
+      "themeZh": "预计算管线规划与最终筛选前台清理",
+      "summary": "Planned the background precompute pipeline (pipeline doc, dry-run script, precomputed index schema) and cleaned up the Organic Acid Final Screening front end into a research workbench: removed the chart mascot, rebuilt the OACS-DMRS candidate priority map, and replaced the developer-style run launcher with a Screening Run Scope module. No full database integration and no full verified screening.",
+      "summaryZh": "完成后台预计算管线规划（管线文档、dry-run 脚本、预计算索引 schema），并把有机酸最终筛选前台重构为科研工作台：移除图表小猫、重做 OACS-DMRS 候选优先级地图，并把开发者风格的运行启动器替换为“筛选运行范围”模块。未接入全量数据库，也不是经完整验证的筛选。",
+      "keyUpdates": [
+        "Added docs/database-precompute-pipeline.md describing the raw -> normalization -> metadata gate -> descriptor check -> OACS/DMRS dry-run -> precomputed Top-N -> preview boundary stages.",
+        "Added scripts/precompute-database-score-dry-run.mjs: an offline dry-run over local preview fixtures that emits a metadata/descriptor audit summary, with no network and no full database load.",
+        "Added docs/precomputed-index-schema.md defining manifest/summary/top_candidates/parts/details and the audit section.",
+        "Cleaned the final-screening front end: removed the chart mascot, rebuilt the OACS-DMRS candidate priority map, and replaced the run launcher with a Screening Run Scope module.",
+        "Moved version history out of the front-end screening cards into Methods & Evidence / Knowledge Base / Version History."
+      ],
+      "keyUpdatesZh": [
+        "新增 docs/database-precompute-pipeline.md，描述 原始记录 -> 归一化 -> metadata 门控 -> 描述符检查 -> OACS/DMRS 试算 -> 预计算 Top-N -> 预览边界 各阶段。",
+        "新增 scripts/precompute-database-score-dry-run.mjs：对本地预览样本的离线试算，输出 metadata/描述符审计摘要，不联网、不加载全量数据库。",
+        "新增 docs/precomputed-index-schema.md，定义 manifest/summary/top_candidates/parts/details 与审计区。",
+        "清理最终筛选前台：移除图表小猫、重做 OACS-DMRS 候选优先级地图，并把运行启动器替换为“筛选运行范围”模块。",
+        "把版本历史从前台筛选卡片移入 Methods & Evidence / Knowledge Base / Version History。"
+      ],
+      "algorithmChanges": [
+        "No OACS/DMRS formula change.",
+        "No full database scoring in browser.",
+        "Precompute dry-run runs offline over local fixtures only and produces no final recommendation.",
+        "V2.0-D worker boundary and V2.0-E metadata gate are unchanged."
+      ],
+      "algorithmChangesZh": [
+        "不修改 OACS/DMRS 公式。",
+        "浏览器内不执行全量数据库评分。",
+        "预计算试算只在本地样本上离线运行，不产生最终推荐。",
+        "保持 V2.0-D Worker 边界与 V2.0-E metadata 门控不变。"
+      ],
+      "uiChanges": [
+        "Removed the draggable cat mascot from the scaffold / dopant / synergy hot spot charts.",
+        "Rebuilt the synergy map as the OACS-DMRS Candidate Priority Map: legend outside the plot, jittered points to avoid overlap, point size tied to score, quadrant guidance, scientific axis titles, and an evidence boundary line.",
+        "Replaced the Algorithm Run Launcher with a Screening Run Scope module: research-readable source names and status labels (available / preview only / needs verification / not final recommendation) instead of DATA MODE / ENABLED.",
+        "Front end now shows only the current boundary tag (V2.0-F dry-run / preview only) instead of stacked version history."
+      ],
+      "uiChangesZh": [
+        "从骨架 / 金属 / 协同热区图中移除可拖动小猫。",
+        "把协同图重做为 OACS-DMRS 候选优先级地图：图例移到绘图区外、点位 jitter 避免重叠、点大小与得分关联、加入象限指引、科研化坐标轴标题与证据边界说明。",
+        "把算法运行启动器替换为“筛选运行范围”模块：用科研可读的来源名称与状态标签（可运行 / 仅限预览 / 需核验 / 不参与最终推荐）替代 DATA MODE / ENABLED。",
+        "前台只保留当前边界标签（V2.0-F 试算 / 仅限预览），不再堆叠版本历史。"
+      ],
+      "methodologyChanges": [
+        "Documented the V2.0-F background precompute pipeline planning, dry-run script, and precomputed index schema in Methods & Evidence.",
+        "Documented that V2.0-F is pipeline planning + dry-run only, not full database integration and not full verified screening.",
+        "Documented that database integration will begin from a 50-200 record small sample (V2.0-G)."
+      ],
+      "methodologyChangesZh": [
+        "在 Methods & Evidence 中记录 V2.0-F 后台预计算管线规划、dry-run 脚本与预计算索引 schema。",
+        "说明 V2.0-F 只是管线规划 + 试算，不是全量数据库接入，也不是经完整验证的筛选。",
+        "说明数据库接入将从 50-200 条小规模样本开始（V2.0-G）。"
+      ],
+      "evidenceBoundary": "Pipeline planning and offline dry-run only; not full database integration and not full verified database screening.",
+      "evidenceBoundaryZh": "仅为管线规划与离线试算；不是全量数据库接入，也不是经完整验证的全量数据库筛选。",
+      "limitations": [
+        "V2.0-F does not integrate the full database; it plans the pipeline and runs a local dry-run.",
+        "The dry-run reads only local preview fixtures (Top-N + one selected part), never the full database, and never the network.",
+        "Full database scoring remains a background / precompute task outside the browser main thread.",
+        "Database integration will start from a 50-200 record small sample in V2.0-G."
+      ],
+      "limitationsZh": [
+        "V2.0-F 不接入全量数据库，只规划管线并运行本地试算。",
+        "试算只读取本地预览样本（Top-N + 一个选定分片），不读取全量数据库，也不联网。",
+        "全量数据库评分仍是浏览器主线程之外的后台 / 预计算任务。",
+        "数据库接入将在 V2.0-G 从 50-200 条小规模样本开始。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "background-precompute-pipeline",
+          "precompute-dry-run",
+          "precomputed-index-schema",
+          "final-screening-ux-cleanup",
+          "not-full-database-screening"
+        ],
+        "adaptationBoundary": "Pipeline planning, dry-run, and UX cleanup only; no full database integration or full verified screening claim.",
+        "adaptationBoundaryZh": "仅为管线规划、试算与前台清理；不声明全量数据库接入或经完整验证的筛选。"
+      },
+      "relatedSection": "#methodology-oafs-database-index-preview"
+    }
+  ],
+  "roadmap": [
+    {
+      "version": "V2.0-G",
+      "title": "Small-Scale Verified Database Integration",
+      "titleZh": "小规模经核验数据库接入",
       "status": "planned",
       "items": [
-        "Background precompute pipeline planning",
-        "Full database scoring outside the browser main thread",
-        "Source verification and descriptor recomputation pipeline",
-        "Full screening audit plan"
+        "Integrate a 50-200 record verified database sample",
+        "Run the precompute pipeline on the small verified sample",
+        "Surface verified-metadata candidates in the workbench",
+        "Source verification and descriptor recomputation"
       ],
       "itemsZh": [
-        "后台预计算管线规划",
-        "在浏览器主线程之外执行全量数据库评分",
-        "来源核验与描述符复算管线",
-        "全量筛选审计计划"
+        "接入 50-200 条经核验数据库样本",
+        "在小规模经核验样本上运行预计算管线",
+        "在工作台中呈现 metadata 已核验候选",
+        "来源核验与描述符复算"
       ]
     }
   ],

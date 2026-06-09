@@ -1,0 +1,35 @@
+{
+  "runId": "precompute-dry-run-20260609140737",
+  "createdAt": "2026-06-09T14:07:37.719Z",
+  "mode": "dry_run",
+  "notFinalRecommendation": true,
+  "formulaVersion": "OACS/DMRS unchanged (V2.0-F dry-run)",
+  "metadataGateVersion": "V2.0-E metadata gate",
+  "sourceDataset": "local preview fixtures",
+  "fixturesUsed": [
+    {
+      "file": "organic_acid_precomputed_top_candidates.json",
+      "recordCount": 12
+    },
+    {
+      "file": "core_mof_index_parts/core_mof_index_part_001.json",
+      "recordCount": 250
+    }
+  ],
+  "recordsScanned": 262,
+  "recordsEligible": 0,
+  "recordsBlocked": 12,
+  "metadata": {
+    "verified": 0,
+    "partial": 0,
+    "previewOnly": 250,
+    "blocked": 12
+  },
+  "descriptorCompleteness": {
+    "complete": 45,
+    "partial": 205,
+    "missingCritical": 12
+  },
+  "boundary": "Dry-run only. Not full verified database screening. No network, no full database load, no final recommendation.",
+  "boundaryZh": "仅本地试算；不是经完整验证的全量数据库筛选；不联网、不加载全量数据库、不产生最终推荐。"
+}

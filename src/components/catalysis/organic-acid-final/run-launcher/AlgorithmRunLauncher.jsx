@@ -94,16 +94,16 @@ export function AlgorithmRunLauncher({ frameworks = [], metals = [], rules = {},
   return (
     <Panel
       id="organic-acid-final-run-launcher"
-      eyebrow={text(lang, "V1.6 · 小规模真实样例运行", "V1.6 · small curated sample run")}
-      title={text(lang, "算法运行启动器", "Algorithm Run Launcher")}
+      eyebrow={text(lang, "筛选输入与运行范围", "Screening input and run scope")}
+      title={text(lang, "筛选运行范围", "Screening Run Scope")}
       t={t}
-      actions={<StatusPill tone="proxy" t={t}>demo / mapped / curated / index preview</StatusPill>}
+      actions={<StatusPill tone="proxy" t={t}>{text(lang, "当前边界：V2.0-F 试算 / 仅限预览", "Current boundary: V2.0-F dry-run / preview only")}</StatusPill>}
     >
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.55, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "这里串联 demo、mapped fixture、V1.6 小规模人工整理真实样例与 V2.0-C database index preview。数据库索引模式只加载 manifest 与预计算 Top-N 预览，不在浏览器中运行全量数据库评分。",
-          "This chains demo, mapped fixtures, the V1.6 small curated real-example sample, and the V2.0-C database index preview. Database index mode loads manifest and precomputed Top-N preview only; it does not run full database scoring in the browser."
+          "选择当前要审计的候选来源。浏览器只处理已加载数据，不执行全量数据库评分。当前运行只审计已加载候选，用于检查数据质量、metadata 核验状态、评分链路与证据边界。",
+          "Choose the candidate source to audit. The browser only processes loaded records and does not run full database scoring. The current run audits loaded candidates only, to check data quality, metadata verification status, the scoring chain, and evidence boundaries."
         )} />
       </p>
 
@@ -135,13 +135,13 @@ export function AlgorithmRunLauncher({ frameworks = [], metals = [], rules = {},
 
       {dataMode === "database_index_preview" ? (
         <section style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 10, color: t.muted, display: "grid", fontSize: 12.2, gap: 5, lineHeight: 1.48, padding: 10 }}>
-          <strong style={{ color: t.warn }}>{text(lang, "Database index preview boundary", "Database index preview boundary")}</strong>
+          <strong style={{ color: t.warn }}>{text(lang, "数据库索引预览边界", "Database index preview boundary")}</strong>
           <ChemicalText value={text(
             lang,
-            "该模式只加载 manifest 与预计算 Top-N 预览，不在浏览器中运行全量数据库评分。Trace 只覆盖当前预览子集，不覆盖全量数据库。",
-            "This mode loads manifest and precomputed Top-N preview only. It does not run full database scoring in the browser. Trace is limited to the current preview subset, not full database."
+            "数据库索引预览仅展示预计算候选与已选择分片，不在浏览器中执行全量数据库评分。追踪只覆盖当前预览子集，不覆盖全量数据库。",
+            "Database index preview shows precomputed candidates and the selected part only; it does not run full database scoring in the browser. Trace is limited to the current preview subset, not the full database."
           )} />
-          <StatusPill tone={databaseStatus === "loaded" ? "pass" : databaseStatus === "error" ? "warn" : "proxy"} t={t}>{databaseStatus}</StatusPill>
+          <StatusPill tone={databaseStatus === "loaded" ? "pass" : databaseStatus === "error" ? "warn" : "proxy"} t={t}>{text(lang, "仅限预览", "Preview only")}</StatusPill>
         </section>
       ) : null}
 

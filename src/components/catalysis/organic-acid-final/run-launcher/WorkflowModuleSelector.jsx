@@ -18,7 +18,7 @@ export function WorkflowModuleSelector({ selectedModules, setSelectedModules, la
   }
   return (
     <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 10 }}>
-      <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Workflow modules</span>
+      <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "运行模块", "Workflow modules")}</span>
       <div style={{ display: "grid", gap: 7, gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))" }}>
         {RUN_MODULES.map(([id, en, zh]) => {
           const checked = selectedModules.includes(id)

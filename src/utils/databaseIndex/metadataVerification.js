@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { provenanceCompletenessPercent, safeText } from "./databaseIndexFormatters"
+import { provenanceCompletenessPercent, safeText } from "./databaseIndexFormatters.js"
 
 // V2.0-E metadata verification gate.
 // This models metadata verification *status* and gates verified recommendation
