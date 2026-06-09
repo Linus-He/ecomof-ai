@@ -1,0 +1,89 @@
+# CI workflow template.
+# Copy this file to .github/workflows/ci.yml when a workflow-scoped token or the
+# GitHub Web UI is available. It lives here (outside .github/workflows) so it can
+# be committed with a token that lacks the GitHub `workflow` scope.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# This CI workflow is independent of the GitHub Pages deploy workflow
+# (.github/workflows/deploy.yml). Deploy still owns build + publish to Pages;
+# CI adds remote verification (test / typecheck / build / visual check) so
+# verification is not local-only.
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Test
+        run: npm test
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+  visual-check:
+    runs-on: ubuntu-latest
+    needs: verify
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      # visual:check drives a headless Chromium against the running dev server,
+      # so the browser and its OS dependencies must be installed in CI.
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Start dev server
+        run: npm run dev -- --host 127.0.0.1 --port 5173 &
+
+      - name: Wait for dev server
+        run: |
+          for i in $(seq 1 60); do
+            if curl -sSf http://127.0.0.1:5173/ecomof-ai/ > /dev/null; then
+              echo "Dev server is up."
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Dev server did not become ready in time." >&2
+          exit 1
+
+      - name: Visual check
+        run: npm run visual:check
+
+      - name: Upload visual-check screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-check-screenshots
+          path: test-results/visual-checks
+          if-no-files-found: ignore

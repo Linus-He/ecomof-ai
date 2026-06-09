@@ -55,8 +55,11 @@ Additional checks:
 
 ```bash
 npm run typecheck
+npm run visual:check
 npx depcheck
 ```
+
+A CI workflow template is provided at [`docs/ci-workflow-template.yml`](./docs/ci-workflow-template.yml). It can be copied to `.github/workflows/ci.yml` when a workflow-scoped token or the GitHub Web UI is available, and runs `npm test`, `npm run typecheck`, `npm run build`, and `npm run visual:check`.
 
 ## 6. Project Structure
 
