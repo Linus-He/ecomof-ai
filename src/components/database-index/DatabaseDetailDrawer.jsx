@@ -5,6 +5,7 @@ import { StatusPill, displayValue, text } from "../catalysis/organic-acid-final/
 import { fetchDetailRecord } from "../../utils/databaseIndex/databaseIndexClient"
 import { dbFallback, dbRenderText, dbStatusLabel, dbText } from "../../utils/databaseIndex/databaseIndexCopy"
 import { descriptorAvailabilityList, descriptorCompletenessPercent, formatPercentValue, organicAcidRelevanceSnapshot, provenanceCompletenessPercent, safeText } from "../../utils/databaseIndex/databaseIndexFormatters"
+import { buildMetadataVerificationSummary, metadataLevelLabel, metadataLevelTone, metadataStatusTone, metadataStatusValueLabel } from "../../utils/databaseIndex/metadataVerification"
 
 function Row({ label, value, lang, t, fallback = "Pending" }) {
   return (
@@ -12,6 +13,51 @@ function Row({ label, value, lang, t, fallback = "Pending" }) {
       <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
       <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.45, overflowWrap: "anywhere" }}><ChemicalText value={dbRenderText(displayValue(value, fallback), lang)} /></span>
     </div>
+  )
+}
+
+const METADATA_STATUS_ROWS = [
+  ["doiStatus", "DOI status", "DOI 状态"],
+  ["sourceUrlStatus", "source URL status", "来源链接状态"],
+  ["licenseStatus", "license status", "license 状态"],
+  ["citationStatus", "citation status", "引用状态"],
+  ["descriptorProvenanceStatus", "descriptor provenance status", "描述符溯源状态"],
+  ["retrievedAtStatus", "retrievedAt status", "抓取时间状态"],
+]
+
+function MetadataVerificationSection({ record, lang, t }) {
+  const summary = buildMetadataVerificationSummary(record, lang)
+  return (
+    <section style={{ background: t.surface, border: `1px solid ${summary.eligible ? t.border : t.warn}`, borderRadius: 9, display: "grid", gap: 8, padding: 10 }}>
+      <header style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
+        <strong style={{ color: t.textStrong, fontSize: 12.7 }}>{text(lang, "Metadata 核验", "Metadata Verification")}</strong>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+          <StatusPill tone={metadataLevelTone(summary.level)} t={t}>{metadataLevelLabel(summary.level, lang)}</StatusPill>
+          <StatusPill tone={summary.eligible ? "pass" : "warn"} t={t}>{summary.eligible ? dbText(lang, "eligibleForVerifiedRecommendation") : dbText(lang, "previewOnly")}</StatusPill>
+        </div>
+      </header>
+      <div style={{ display: "grid", gap: 5 }}>
+        {METADATA_STATUS_ROWS.map(([key, en, zh]) => (
+          <div key={key} style={{ alignItems: "center", display: "flex", gap: 7, justifyContent: "space-between" }}>
+            <span style={{ color: t.muted, fontSize: 11.6 }}>{text(lang, zh, en)}</span>
+            <StatusPill tone={metadataStatusTone(summary.status[key])} t={t}>{metadataStatusValueLabel(summary.status[key], lang)}</StatusPill>
+          </div>
+        ))}
+      </div>
+      {summary.blockingReasons.length ? (
+        <div style={{ display: "grid", gap: 4 }}>
+          <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{dbText(lang, "blockingReasons")}</span>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+            {summary.blockingReasons.map(reason => <StatusPill key={reason} tone="warn" t={t}>{reason}</StatusPill>)}
+          </div>
+        </div>
+      ) : null}
+      {!summary.eligible ? (
+        <span style={{ color: t.warn, fontSize: 11.8, fontWeight: 850, lineHeight: 1.42 }}>
+          <ChemicalText value={dbText(lang, "cannotSupportFinalRecommendation")} />
+        </span>
+      ) : null}
+    </section>
   )
 }
 
@@ -90,6 +136,7 @@ export function DatabaseDetailDrawer({ request, onClose, lang, t }) {
         <StatusPill tone="warn" t={t}>{dbText(lang, "notFinalRecommendation")}</StatusPill>
         {record.dataStatus?.level ? <StatusPill tone="proxy" t={t}>{dbStatusLabel(record.dataStatus.level, lang)}</StatusPill> : null}
       </div>
+      <MetadataVerificationSection record={record} lang={lang} t={t} />
       {state.status === "loading" ? <span style={{ color: t.muted, fontSize: 12 }}>{text(lang, "正在按需加载详情...", "Loading detail on demand...")}</span> : null}
       {state.error ? <span style={{ color: t.warn, fontSize: 12, fontWeight: 850 }}>{displayValue(state.error.message)}</span> : null}
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>

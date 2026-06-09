@@ -4,6 +4,26 @@ import { ChemicalText } from "../common/ChemicalFormula"
 import { StatusPill, displayValue, formatScore, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { dbRenderText, dbStatusLabel, dbText } from "../../utils/databaseIndex/databaseIndexCopy"
 import { buildCandidateExplanation, formatPercentValue, matchesDatabaseIndexFilters, normalizeTopCandidates, qualityTone } from "../../utils/databaseIndex/databaseIndexFormatters"
+import { buildMetadataVerificationSummary, getMetadataVerificationLevel, metadataLevelLabel, metadataLevelTone } from "../../utils/databaseIndex/metadataVerification"
+
+function MetadataGateRow({ row, lang, t }) {
+  const summary = buildMetadataVerificationSummary(row, lang)
+  return (
+    <div style={{ display: "grid", gap: 5 }}>
+      <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{dbText(lang, "metadataVerification")}</span>
+      <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 6 }}>
+        <StatusPill tone={metadataLevelTone(summary.level)} t={t}>{metadataLevelLabel(summary.level, lang)}</StatusPill>
+        <StatusPill tone={summary.eligible ? "pass" : "warn"} t={t}>{summary.eligible ? dbText(lang, "eligibleForVerifiedRecommendation") : dbText(lang, "previewOnly")}</StatusPill>
+        {summary.blockingReasons.map(reason => <StatusPill key={reason} tone="warn" t={t}>{reason}</StatusPill>)}
+      </div>
+      {!summary.eligible ? (
+        <span style={{ color: t.warn, fontSize: 11.7, fontWeight: 850, lineHeight: 1.42 }}>
+          <ChemicalText value={dbText(lang, "missingKeyMetadata")} />
+        </span>
+      ) : null}
+    </div>
+  )
+}
 
 function ExplanationPanel({ row, lang, t }) {
   const explanation = buildCandidateExplanation(row)
@@ -38,6 +58,7 @@ function ExplanationPanel({ row, lang, t }) {
         <StatusPill tone={qualityTone(explanation.qualityStatus)} t={t}>{dbStatusLabel(explanation.qualityStatus, lang)}</StatusPill>
         <StatusPill tone="warn" t={t}>{dbText(lang, "notFinalRecommendation")}</StatusPill>
       </div>
+      <MetadataGateRow row={row} lang={lang} t={t} />
       <p style={{ color: t.warn, fontSize: 12, fontWeight: 900, lineHeight: 1.45, margin: 0 }}>
         <ChemicalText value={text(
           lang,
@@ -79,7 +100,10 @@ export function PrecomputedTopCandidatesPanel({ topCandidates = {}, filters = {}
                 </div>
               </div>
               <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
-                <span style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{formatScore(row.oacsPreview)}</span>
+                <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7 }}>
+                  <span style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{formatScore(row.oacsPreview)}</span>
+                  <StatusPill tone={metadataLevelTone(getMetadataVerificationLevel(row))} t={t}>{metadataLevelLabel(getMetadataVerificationLevel(row), lang)}</StatusPill>
+                </div>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 6, justifyContent: "flex-end" }}>
                   <button type="button" onClick={() => setExpandedId(expandedId === row.frameworkId ? "" : row.frameworkId)} style={{ background: expandedId === row.frameworkId ? t.badgeInfoBg : t.surface, border: `1px solid ${expandedId === row.frameworkId ? t.accentText : t.border}`, borderRadius: 8, color: t.accentText, cursor: "pointer", fontSize: 12, fontWeight: 900, minHeight: 32, padding: "6px 9px" }}>
                     {dbText(lang, "whyInPreview")}

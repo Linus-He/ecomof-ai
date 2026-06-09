@@ -3,6 +3,7 @@ import { ChemicalText } from "../common/ChemicalFormula"
 import { StatusPill, displayValue, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { dbFallback, dbRenderText, dbText } from "../../utils/databaseIndex/databaseIndexCopy"
 import { formatPercentValue } from "../../utils/databaseIndex/databaseIndexFormatters"
+import { buildMetadataVerificationSummary, metadataLevelLabel, metadataLevelTone } from "../../utils/databaseIndex/metadataVerification"
 
 const ROWS = [
   ["name", "name", "名称"],
@@ -40,6 +41,11 @@ export function CandidateComparePanel({ candidates = [], onRemove, lang, t, isMo
         </div>
         <StatusPill tone={candidates.length >= 3 ? "warn" : "proxy"} t={t}>{`${candidates.length} / 3`}</StatusPill>
       </header>
+      {candidates.some(candidate => !buildMetadataVerificationSummary(candidate, lang).eligible) ? (
+        <p style={{ color: t.warn, fontSize: 12, fontWeight: 850, lineHeight: 1.45, margin: 0 }}>
+          <ChemicalText value={dbText(lang, "missingKeyMetadata")} />
+        </p>
+      ) : null}
       {!candidates.length ? (
         <span style={{ color: t.muted, fontSize: 12 }}>
           {text(lang, "从 Top-N 候选或索引分片浏览器加入候选开始对比。", "Add candidates from Top Candidates or Index Part Browser to start comparison.")}
@@ -63,6 +69,20 @@ export function CandidateComparePanel({ candidates = [], onRemove, lang, t, isMo
               </tr>
             </thead>
             <tbody>
+              <tr>
+                <td style={{ borderTop: `1px solid ${t.divider}`, color: t.faint, fontSize: 11, fontWeight: 900, padding: "7px 6px", textTransform: "uppercase" }}>{dbText(lang, "metadataVerification")}</td>
+                {candidates.map(candidate => {
+                  const summary = buildMetadataVerificationSummary(candidate, lang)
+                  return (
+                    <td key={`${candidate.id}-metadata`} style={{ borderTop: `1px solid ${t.divider}`, padding: "7px 6px", verticalAlign: "top" }}>
+                      <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+                        <StatusPill tone={metadataLevelTone(summary.level)} t={t}>{metadataLevelLabel(summary.level, lang)}</StatusPill>
+                        <StatusPill tone={summary.eligible ? "pass" : "warn"} t={t}>{summary.eligible ? dbText(lang, "eligibleForVerifiedRecommendation") : dbText(lang, "previewOnly")}</StatusPill>
+                      </div>
+                    </td>
+                  )
+                })}
+              </tr>
               {ROWS.map(([field, en, zh, mode]) => (
                 <tr key={field}>
                   <td style={{ borderTop: `1px solid ${t.divider}`, color: t.faint, fontSize: 11, fontWeight: 900, padding: "7px 6px", textTransform: "uppercase" }}>{text(lang, zh, en)}</td>

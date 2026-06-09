@@ -161,6 +161,18 @@ function TraceWorkbenchMethod({ lang, t }) {
 function DatabaseIndexPreviewMethod({ lang, t }) {
   const rows = [
     [
+      text(lang, "V2.0-E 经核验 metadata 补全流程", "V2.0-E Verified Metadata Enrichment Workflow"),
+      text(lang, "V2.0-E 在 V2.0-D Worker 边界之上新增 metadata 核验门控：对 DOI、来源链接、license、引用与描述符溯源建模核验状态。缺关键 metadata 的候选只能停留在仅限预览，必须通过 metadata 门控才能进入经核验推荐。V2.0-E 不修改 OACS/DMRS 公式，也不在浏览器内执行全量数据库评分。", "V2.0-E adds a metadata verification gate on top of the V2.0-D worker boundary: it models verification status for DOI, source link, license, citation, and descriptor provenance. Candidates missing key metadata stay preview only and must pass the metadata gate before becoming eligible for verified recommendation. V2.0-E does not modify OACS/DMRS formulas and does not run full database scoring in the browser."),
+    ],
+    [
+      text(lang, "Metadata 核验门控", "Metadata verification gate"),
+      text(lang, "门控将候选分为 metadata 已核验 / 部分完整 / 仅限预览 / 暂不可用，并给出阻断原因与提示；只有 metadata 已核验的候选 verifiedRecommendationEligible 为真。本轮只做状态建模与门控，不进行联网 DOI 核验。", "The gate classifies candidates as verified / partial / preview-only / blocked metadata with blocking reasons and warnings; only verified-metadata candidates are verifiedRecommendationEligible. This release models status and gating only and does not run live DOI verification."),
+    ],
+    [
+      text(lang, "CI 远端验证", "CI verification gate"),
+      text(lang, "新增独立于 GitHub Pages 部署的 GitHub Actions CI，运行 test、typecheck、build 与 visual check，避免只有本地验证报告。", "A GitHub Actions CI workflow, separate from the GitHub Pages deploy workflow, runs test, typecheck, build, and visual check so verification is not local-only."),
+    ],
+    [
       text(lang, "V2.0-D Worker 评分边界", "V2.0-D Worker-Based Scoring Boundary Design"),
       text(lang, "V2.0-D 在 V2.0-C 工作台上新增 Worker 评分边界预览。Worker 只处理已加载范围试算、当前选定索引分片或用户主动选择的小批量候选。", "V2.0-D adds the Worker-Based Scoring Boundary Design on top of the V2.0-C workbench. The worker handles loaded-scope dry runs, the selected index part, or user-selected small candidate batches only."),
     ],
@@ -210,14 +222,14 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
       <header style={{ display: "grid", gap: 4 }}>
         <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Database Index Preview</span>
         <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
-          {text(lang, "数据库索引预览：V2.0-D Worker 评分边界设计", "Database Index Preview: V2.0-D Worker-Based Scoring Boundary Design")}
+          {text(lang, "数据库索引预览：V2.0-E 经核验 metadata 补全流程", "Database Index Preview: V2.0-E Verified Metadata Enrichment Workflow")}
         </h3>
       </header>
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "V2.0-D 在 V2.0-C Database Index Workbench 上建立 Worker 评分边界，并清理中文模式下的混排文案。浏览器只加载 manifest 摘要、预计算候选预览、选定索引分片和按需详情记录。",
-          "V2.0-D adds the Worker-Based Scoring Boundary Design on top of the V2.0-C Database Index Workbench and standardizes bilingual UI copy. The browser loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand."
+          "V2.0-E 在 V2.0-D Worker 边界之上新增 metadata 核验门控，让候选从“可预览”推进到“可核验”，并补齐 GitHub Actions 远端验证。浏览器仍只加载 manifest 摘要、预计算候选预览、选定索引分片和按需详情记录。",
+          "V2.0-E adds a metadata verification gate on top of the V2.0-D worker boundary so candidates move from previewable to verifiable, and adds a remote GitHub Actions verification gate. The browser still loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand."
         )} />
       </p>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
@@ -229,7 +241,7 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
         ))}
       </div>
       <p style={{ color: t.warn, fontSize: 12.5, fontWeight: 900, lineHeight: 1.52, margin: 0 }}>
-        <ChemicalText value={text(lang, "V2.0-D 仍然不是经完整验证的全量数据库筛选；OACS/DMRS 公式未在 V2.0-D 中修改。", "V2.0-D remains an index preview, not full verified database screening; OACS/DMRS formulas are unchanged in V2.0-D.")} />
+        <ChemicalText value={text(lang, "V2.0-E 仍然不是经完整验证的全量数据库筛选；Top-N 预览只是预览，OACS/DMRS 公式未在 V2.0-E 中修改。经完整验证的全量筛选仍需描述符复算、来源核验、公式审计与实验/文献验证。", "V2.0-E remains an index preview, not full verified database screening; Top-N preview is still preview only and OACS/DMRS formulas are unchanged in V2.0-E. Full verified screening still requires descriptor recomputation, source verification, formula audit, and experimental/literature validation.")} />
       </p>
     </section>
   )
@@ -467,7 +479,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           <SmallRealDatasetMethod mappingReport={data.mappingReport} lang={lang} t={t} />
         </LazyMethodologyDetails>
         <TraceWorkbenchMethod lang={lang} t={t} />
-        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-D adds Worker scoring boundaries, loaded-scope dry-run trace, and bilingual copy cleanup while preserving lazy loading." summaryZh="V2.0-D 新增 Worker 评分边界、已加载范围试算追踪，并清理中英文混排，同时保持懒加载边界。" lang={lang} t={t}>
+        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-E adds a metadata verification gate and CI verification on top of the V2.0-D worker boundary, while preserving lazy loading and the OACS/DMRS formulas." summaryZh="V2.0-E 在 V2.0-D Worker 边界之上新增 metadata 核验门控与 CI 验证，同时保持懒加载边界与 OACS/DMRS 公式不变。" lang={lang} t={t}>
           <DatabaseIndexPreviewMethod lang={lang} t={t} />
         </LazyMethodologyDetails>
         <LazyMethodologyDetails id="methodology-oafs-oacs" title="OACS Formula Explainer" titleZh="OACS 骨架筛选" summary="Formula card renders after expansion." summaryZh="公式卡片展开后渲染。" lang={lang} t={t}>

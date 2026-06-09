@@ -1,4 +1,5 @@
 // @ts-nocheck
+import fs from "node:fs"
 import { describe, expect, it } from "vitest"
 import {
   buildScoringBoundaryNotice,
@@ -9,6 +10,31 @@ import {
 } from "../../utils/databaseIndex/databaseScoringBoundary"
 
 describe("database scoring boundary", () => {
+  it("keeps full database scoring blocked in the browser (V2.0-E regression)", () => {
+    const boundary = canRunBrowserScoring("full_database_precompute_required")
+    expect(boundary.browserAllowed).toBe(false)
+    expect(boundary.workerAllowed).toBe(false)
+    const request = buildWorkerScoringRequest([{ id: "X" }], { scope: "full_database_precompute_required" })
+    expect(request.browserAllowed).toBe(false)
+    expect(request.recordCount).toBe(0)
+    const result = runLoadedScopeDryRun(request)
+    expect(result.scoredRecordCount).toBe(0)
+    expect(result.notFinalRecommendation).toBe(true)
+  })
+
+  it("keeps loaded-scope dry runs flagged as not a final recommendation", () => {
+    const request = buildWorkerScoringRequest([{ id: "A", dataQualityStatus: "ready_for_scoring", descriptorCompleteness: { percent: 80 } }], { scope: "selected_index_part" })
+    const result = runLoadedScopeDryRun(request)
+    expect(result.notFinalRecommendation).toBe(true)
+    expect(buildWorkerScoringTrace(result).notFinalRecommendation).toBe(true)
+  })
+
+  it("ships a worker with no network or data-loading logic", () => {
+    const workerSource = fs.readFileSync("src/workers/databaseScoringWorker.js", "utf8")
+    expect(workerSource).not.toMatch(/\bfetch\b/)
+    expect(workerSource).not.toMatch(/importScripts|XMLHttpRequest|loadDatabaseIndexOverview|fetchIndexPart|fetchDetailRecord/)
+  })
+
   it("blocks full database scoring in the browser", () => {
     const boundary = canRunBrowserScoring("full_database_precompute_required")
     expect(boundary.browserAllowed).toBe(false)

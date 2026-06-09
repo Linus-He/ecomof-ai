@@ -210,9 +210,9 @@ describe("organic acid final screening", () => {
 
   it("records the Organic Acid Knowledge Base and planned roadmap", () => {
     expect(versionDocs.knowledgeBaseLabel).toBe("Knowledge Base")
-    expect(versionDocs.currentVersion).toBe("V2.0-D")
-    expect(versionDocs.completedRange).toBe("V1.0-V2.0-D")
-    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6", "V1.7", "V2.0-A", "V2.0-B", "V2.0-C", "V2.0-D"])
+    expect(versionDocs.currentVersion).toBe("V2.0-E")
+    expect(versionDocs.completedRange).toBe("V1.0-V2.0-E")
+    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6", "V1.7", "V2.0-A", "V2.0-B", "V2.0-C", "V2.0-D", "V2.0-E"])
     expect(versionDocs.versions.find(row => row.version === "V1.4")).toEqual(expect.objectContaining({
       status: "completed",
       title: "Coupled Descriptor Hot Spot Map",
@@ -249,9 +249,14 @@ describe("organic acid final screening", () => {
       evidenceBoundary: "Expanded screening UI only; not full verified database screening and not a final recommendation system.",
     }))
     expect(versionDocs.versions.find(row => row.version === "V2.0-D")).toEqual(expect.objectContaining({
-      status: "current",
+      status: "completed",
       title: "Worker-Based Scoring Boundary Design",
       evidenceBoundary: "Worker scoring boundary and loaded-scope dry-run preview only; not full verified database screening and not a final verified recommendation.",
+    }))
+    expect(versionDocs.versions.find(row => row.version === "V2.0-E")).toEqual(expect.objectContaining({
+      status: "current",
+      title: "Verified Metadata Enrichment Workflow",
+      evidenceBoundary: "Metadata verification gate and status modeling only; no live DOI/source verification, not full verified database screening, and not a final verified recommendation.",
     }))
     versionDocs.versions.forEach(row => {
       expect(row.summary).toBeTruthy()
@@ -275,7 +280,7 @@ describe("organic acid final screening", () => {
       })
     })
     expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
-      ["V2.0-E", "planned"],
+      ["V2.0-F", "planned"],
     ])
     expect(literatureInspirations).toHaveLength(5)
     const hotSpotPaper = literatureInspirations.find(row => row.id === "LIT-HOTSPOT-2025-NATCOMM")
@@ -316,9 +321,16 @@ describe("organic acid final screening", () => {
     expect(v20d.algorithmChanges.join(" ")).toMatch(/Full database scoring/)
     expect(v20d.algorithmChanges.join(" ")).toMatch(/No OACS\/DMRS formula change/)
     expect(v20d.evidenceBoundary).toMatch(/not full verified database screening/)
-    expect(versionDocs.currentVersion).toBe("V2.0-D")
+    const v20e = versionDocs.versions.find(row => row.version === "V2.0-E")
+    expect(v20e.keyUpdates.join(" ")).toMatch(/metadata/i)
+    expect(v20e.keyUpdates.join(" ")).toMatch(/GitHub Actions CI/)
+    expect(v20e.algorithmChanges).toContain("No OACS/DMRS formula change.")
+    expect(v20e.algorithmChanges).toContain("No full database scoring in browser.")
+    expect(v20e.algorithmChanges.join(" ")).toMatch(/metadata verification gate/)
+    expect(v20e.evidenceBoundary).toMatch(/not full verified database screening/)
+    expect(versionDocs.currentVersion).toBe("V2.0-E")
     expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
-      ["V2.0-E", "planned"],
+      ["V2.0-F", "planned"],
     ])
   })
 
@@ -343,6 +355,13 @@ describe("organic acid final screening", () => {
     const methodologySource = fs.readFileSync("src/components/methodology/OrganicAcidFinalMethodology.jsx", "utf8")
     expect(methodologySource).toMatch(/V2.0-D Worker-Based Scoring Boundary Design/)
     expect(methodologySource).toMatch(/Worker trace/)
+  })
+
+  it("documents the V2.0-E Verified Metadata Enrichment Workflow in methodology", () => {
+    const methodologySource = fs.readFileSync("src/components/methodology/OrganicAcidFinalMethodology.jsx", "utf8")
+    expect(methodologySource).toMatch(/V2.0-E Verified Metadata Enrichment Workflow/)
+    expect(methodologySource).toMatch(/Metadata verification gate/)
+    expect(methodologySource).toMatch(/CI verification gate/)
   })
 
   it("runs the V1.7 launcher workflow on demo, mapped fixture, and curated sample modes with exportable trace", () => {

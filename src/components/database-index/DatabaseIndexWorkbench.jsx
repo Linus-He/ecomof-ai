@@ -14,6 +14,7 @@ import { DatabaseManifestPanel } from "./DatabaseManifestPanel"
 import { DatabaseDetailDrawer } from "./DatabaseDetailDrawer"
 import { DescriptorAvailabilityPanel } from "./DescriptorAvailabilityPanel"
 import { IndexPartBrowser } from "./IndexPartBrowser"
+import { MetadataVerificationPanel } from "./MetadataVerificationPanel"
 import { PrecomputedTopCandidatesPanel } from "./PrecomputedTopCandidatesPanel"
 import { ProvenanceCoveragePanel } from "./ProvenanceCoveragePanel"
 import { WorkerScoringBoundaryPreview } from "./WorkerScoringBoundaryPreview"
@@ -69,7 +70,7 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
   return (
     <Panel
       id="organic-acid-database-index-workbench"
-      eyebrow={`V2.0-D · ${dbText(lang, "workerScoringBoundaryPreview")}`}
+      eyebrow={`V2.0-E · ${dbText(lang, "metadataVerificationGate")}`}
       title={text(lang, "Database Index Preview · 数据库索引预览", "Database Index Preview")}
       t={t}
       actions={<StatusPill tone={status === "error" ? "warn" : "proxy"} t={t}>{dbStatusLabel(status, lang)}</StatusPill>}
@@ -98,6 +99,7 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
           <DatabaseIndexFilterToolbar filters={filters} onChange={setFilters} lang={lang} t={t} />
           <PrecomputedTopCandidatesPanel topCandidates={overview.topCandidates} filters={filters} onOpenDetail={setDetailRequest} onAddCompare={handleAddCompare} compareCount={compareItems.length} lang={lang} t={t} />
           <CandidateComparePanel candidates={compareItems} onRemove={id => setCompareItems(items => items.filter(item => item.id !== id))} lang={lang} t={t} isMobile={isMobile} />
+          <MetadataVerificationPanel topCandidates={normalizeTopCandidates(overview.topCandidates)} selectedPartRecords={selectedPartSnapshot.records} selectedCandidate={detailRequest || compareItems[0] || normalizeTopCandidates(overview.topCandidates)[0] || null} lang={lang} t={t} isMobile={isMobile} />
           <WorkerScoringBoundaryPreview topCandidates={normalizeTopCandidates(overview.topCandidates)} selectedPartRecords={selectedPartSnapshot.records} selectedCandidates={compareItems} lang={lang} t={t} isMobile={isMobile} />
           <IndexPartBrowser manifest={overview.manifest} filters={filters} onOpenDetail={setDetailRequest} onAddCompare={handleAddCompare} onSelectedPartRecordsChange={handleSelectedPartRecordsChange} compareCount={compareItems.length} lang={lang} t={t} isMobile={isMobile} />
           <DatabaseDetailDrawer request={detailRequest} onClose={() => setDetailRequest(null)} lang={lang} t={t} />

@@ -70,7 +70,7 @@ describe("DatabaseIndexWorkbench", () => {
     const { container } = render(<DatabaseIndexWorkbench lang="en" t={THEME_LIGHT} isMobile={false} onOverviewLoaded={onOverviewLoaded} />)
 
     await screen.findAllByText(/Database Index Preview/)
-    await screen.findByText(/MIL-53\(Al\) preview/)
+    await screen.findAllByText(/MIL-53\(Al\) preview/)
 
     let fetchedUrls = global.fetch.mock.calls.map(call => String(call[0]))
     expect(fetchedUrls.some(url => url.includes("core_mof_index_parts"))).toBe(false)
@@ -109,7 +109,7 @@ describe("DatabaseIndexWorkbench", () => {
     mockFetch()
     render(<DatabaseIndexWorkbench lang="en" t={THEME_LIGHT} isMobile={false} />)
 
-    await screen.findByText(/MIL-53\(Al\) preview/)
+    await screen.findAllByText(/MIL-53\(Al\) preview/)
     fireEvent.click(screen.getAllByRole("button", { name: /Why in preview/i })[0])
 
     expect(await screen.findByText(/This is a precomputed index preview/i)).toBeTruthy()
@@ -121,7 +121,7 @@ describe("DatabaseIndexWorkbench", () => {
     mockFetch()
     render(<DatabaseIndexWorkbench lang="en" t={THEME_LIGHT} isMobile={false} />)
 
-    await screen.findByText(/MIL-53\(Al\) preview/)
+    await screen.findAllByText(/MIL-53\(Al\) preview/)
     fireEvent.click(screen.getAllByRole("button", { name: /^Compare$/i })[0])
     fireEvent.click(screen.getAllByRole("button", { name: /^Compare$/i })[1])
     fireEvent.click(screen.getAllByRole("button", { name: /^Compare$/i })[2])
@@ -135,7 +135,7 @@ describe("DatabaseIndexWorkbench", () => {
     mockFetch()
     render(<DatabaseIndexWorkbench lang="en" t={THEME_LIGHT} isMobile={false} />)
 
-    await screen.findByText(/MIL-53\(Al\) preview/)
+    await screen.findAllByText(/MIL-53\(Al\) preview/)
     fireEvent.click(screen.getByRole("button", { name: /CoRE part 1/i }))
     await waitFor(() => expect(global.fetch.mock.calls.map(call => String(call[0])).some(url => url.includes("core_mof_index_parts/core_mof_index_part_001.json"))).toBe(true))
 
@@ -147,6 +147,37 @@ describe("DatabaseIndexWorkbench", () => {
     expect(fetchedUrls.filter(url => url.includes("core_mof_index_parts")).length).toBe(1)
     expect(fetchedUrls.some(url => url.includes("qmof_index_parts"))).toBe(false)
     expect(fetchedUrls.some(url => url.includes("detail/framework"))).toBe(false)
+  })
+
+  it("renders the Metadata Verification Gate panel with preview-only gating", async () => {
+    mockFetch()
+    render(<DatabaseIndexWorkbench lang="en" t={THEME_LIGHT} isMobile={false} />)
+
+    await screen.findAllByText(/MIL-53\(Al\) preview/)
+    expect((await screen.findAllByText(/Metadata Verification Gate/i)).length).toBeGreaterThan(0)
+    // Top-N candidates here lack DOI/source/license, so they cannot be verified recommendations.
+    expect(screen.getAllByText(/Preview only/i).length).toBeGreaterThan(0)
+    expect(screen.getAllByText(/cannot yet support a final recommendation/i).length).toBeGreaterThan(0)
+  })
+
+  it("shows the metadata gate inside Candidate Compare", async () => {
+    mockFetch()
+    render(<DatabaseIndexWorkbench lang="en" t={THEME_LIGHT} isMobile={false} />)
+
+    await screen.findAllByText(/MIL-53\(Al\) preview/)
+    fireEvent.click(screen.getAllByRole("button", { name: /^Compare$/i })[0])
+    await waitFor(() => expect(screen.getAllByText(/missing key metadata and is available for index preview only/i).length).toBeGreaterThan(0))
+  })
+
+  it("renders Chinese metadata verification copy", async () => {
+    mockFetch()
+    render(<DatabaseIndexWorkbench lang="zh" t={THEME_LIGHT} isMobile={false} />)
+
+    await screen.findAllByText(/数据库索引预览/)
+    expect(screen.getAllByText(/metadata 核验门控/).length).toBeGreaterThan(0)
+    expect(screen.getAllByText(/仅限预览/).length).toBeGreaterThan(0)
+    expect(screen.getAllByText(/该候选目前不能作为最终推荐依据/).length).toBeGreaterThan(0)
+    expect(document.body.textContent).not.toMatch(/\bundefined\b|\bNaN\b/)
   })
 
   it("renders Chinese screening labels", async () => {

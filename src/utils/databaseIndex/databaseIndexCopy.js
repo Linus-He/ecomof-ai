@@ -65,6 +65,42 @@ export const DATABASE_INDEX_COPY = {
     en: "The worker request is built from records already loaded in the UI; it does not fetch additional index parts or detail records.",
     zh: "Worker 请求只使用界面中已经加载的记录，不会额外读取索引分片或详情记录。",
   },
+  metadataVerification: {
+    en: "Metadata verification",
+    zh: "metadata 核验",
+  },
+  metadataVerificationGate: {
+    en: "Metadata Verification Gate",
+    zh: "metadata 核验门控",
+  },
+  eligibleForVerifiedRecommendation: {
+    en: "Eligible for verified recommendation",
+    zh: "可进入经核验推荐",
+  },
+  previewOnly: {
+    en: "Preview only",
+    zh: "仅限预览",
+  },
+  cannotSupportFinalRecommendation: {
+    en: "This candidate cannot yet support a final recommendation",
+    zh: "该候选目前不能作为最终推荐依据",
+  },
+  missingKeyMetadata: {
+    en: "This candidate is missing key metadata and is available for index preview only, not verified recommendation.",
+    zh: "该候选仍缺少关键 metadata，仅可用于索引预览，不能作为经核验推荐。",
+  },
+  blockingReasons: {
+    en: "Blocking reasons",
+    zh: "阻断原因",
+  },
+  warnings: {
+    en: "Warnings",
+    zh: "提示",
+  },
+  currentCandidate: {
+    en: "Selected candidate",
+    zh: "当前选中候选",
+  },
 }
 
 export const SCORING_SCOPE_COPY = {

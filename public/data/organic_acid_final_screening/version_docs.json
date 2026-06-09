@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06",
-  "currentVersion": "V2.0-D",
-  "completedRange": "V1.0-V2.0-D",
+  "currentVersion": "V2.0-E",
+  "completedRange": "V1.0-V2.0-E",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -1047,7 +1047,7 @@
       "title": "Worker-Based Scoring Boundary Design",
       "titleZh": "Worker 评分边界设计",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Worker boundary and bilingual copy cleanup",
       "themeZh": "Worker 边界与中英文文案清理",
       "summary": "Added Worker scoring boundary utilities, a local loaded-scope dry-run preview, audit trace output, and unified bilingual Database Index copy while preserving the V2.0-C lazy-loading workbench.",
@@ -1120,25 +1120,106 @@
         "adaptationBoundaryZh": "仅为 Worker 边界设计与本地已加载范围审计；不声明经完整验证的全量筛选或最终推荐。"
       },
       "relatedSection": "#methodology-oafs-database-index-preview"
-    }
-  ],
-  "roadmap": [
+    },
     {
       "version": "V2.0-E",
       "title": "Verified Metadata Enrichment Workflow",
       "titleZh": "经核验 metadata 补全流程",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Metadata gate and CI verification",
+      "themeZh": "metadata 核验门控与 CI 验证",
+      "summary": "Added a metadata verification gate that models DOI, source, license, citation, and descriptor provenance status for loaded candidates, so candidates move from previewable to verifiable. Added a remote GitHub Actions CI verification gate. Preserved the V2.0-D worker boundary and lazy-loading boundaries.",
+      "summaryZh": "新增 metadata 核验门控，对已加载候选的 DOI、来源、license、引用与描述符溯源状态进行建模，让候选从“可预览”推进到“可核验”；新增 GitHub Actions 远端 CI 验证门控；保留 V2.0-D Worker 边界与懒加载边界。",
+      "keyUpdates": [
+        "Added metadataVerification utility for verification status modeling and the verified-recommendation gate.",
+        "Added a Metadata Verification Gate panel to the Database Index Workbench with Top-N and selected-part counts.",
+        "Added a Metadata Verification section to the Candidate Detail Drawer (DOI, source, license, citation, descriptor provenance, retrievedAt, level, eligibility).",
+        "Added metadata gate badges and preview-only warnings to Top-N preview and Candidate Compare.",
+        "Added a GitHub Actions CI workflow running test, typecheck, build, and visual check, separate from the Pages deploy workflow."
+      ],
+      "keyUpdatesZh": [
+        "新增 metadataVerification 工具，用于核验状态建模与经核验推荐门控。",
+        "在 Database Index Workbench 中新增 metadata 核验门控面板，展示 Top-N 与选定分片各状态数量。",
+        "在候选详情抽屉中新增 Metadata 核验区（DOI、来源、license、引用、描述符溯源、抓取时间、核验等级、推荐资格）。",
+        "在 Top-N 预览与候选对比中新增 metadata 门控徽标与仅限预览提示。",
+        "新增独立于 Pages 部署的 GitHub Actions CI 工作流，运行测试、类型检查、构建与视觉检查。"
+      ],
+      "algorithmChanges": [
+        "No OACS/DMRS formula change.",
+        "No full database scoring in browser.",
+        "Added metadata verification gate before verified recommendation eligibility.",
+        "Candidates missing DOI, source link, license, or descriptor provenance stay preview only and cannot become verified recommendations."
+      ],
+      "algorithmChangesZh": [
+        "不修改 OACS/DMRS 公式。",
+        "浏览器内不执行全量数据库评分。",
+        "在候选进入经核验推荐前新增 metadata 核验门控。",
+        "缺 DOI、缺来源链接、缺 license 或缺描述符溯源的候选只能停留在仅限预览，不能成为经核验推荐。"
+      ],
+      "uiChanges": [
+        "Added the Metadata Verification Gate panel with verified / partial / preview-only / blocked counts per scope and a selected-candidate detail.",
+        "Added metadata status pills and blocking-reason chips to the detail drawer, Top-N preview, and Candidate Compare.",
+        "Localized metadata copy for Chinese mode (metadata 核验, 可进入经核验推荐, 仅限预览, 来源待核验, etc.)."
+      ],
+      "uiChangesZh": [
+        "新增 metadata 核验门控面板，按范围展示 metadata 已核验 / 部分完整 / 仅限预览 / 暂不可用 数量与选中候选详情。",
+        "在详情抽屉、Top-N 预览与候选对比中新增 metadata 状态胶囊与阻断原因徽标。",
+        "为中文模式本地化 metadata 文案（metadata 核验、可进入经核验推荐、仅限预览、来源待核验等）。"
+      ],
+      "methodologyChanges": [
+        "Added the Verified Metadata Enrichment Workflow subsection to the Database Index Preview methodology.",
+        "Documented that V2.0-E does not modify OACS/DMRS formulas, does not run full database scoring, and adds a metadata verification gate before verified recommendation eligibility.",
+        "Documented that Top-N preview is still not full verified database screening; full screening still needs descriptor recomputation, source verification, formula audit, and experimental/literature validation."
+      ],
+      "methodologyChangesZh": [
+        "在 Database Index Preview 方法说明中新增“经核验 metadata 补全流程”小节。",
+        "说明 V2.0-E 不修改 OACS/DMRS 公式、不执行全量数据库评分，并在候选进入经核验推荐前新增 metadata 核验门控。",
+        "说明 Top-N 预览仍不是经完整验证的全量数据库筛选；全量筛选仍需描述符复算、来源核验、公式审计与实验/文献验证。"
+      ],
+      "evidenceBoundary": "Metadata verification gate and status modeling only; no live DOI/source verification, not full verified database screening, and not a final verified recommendation.",
+      "evidenceBoundaryZh": "仅为 metadata 核验门控与状态建模；不进行联网 DOI/来源核验，不是经完整验证的全量数据库筛选，也不是最终验证推荐。",
+      "limitations": [
+        "Verification status is modeled from available fields and explicit overrides; it does not confirm DOIs or licenses over the network.",
+        "Most current preview candidates remain preview only because source, DOI, license, and descriptor provenance are pending.",
+        "Full database scoring and full verified screening remain precompute or background tasks outside the browser main thread."
+      ],
+      "limitationsZh": [
+        "核验状态由现有字段与显式覆盖建模得出，不在网络上确认 DOI 或 license。",
+        "当前多数预览候选因来源、DOI、license 与描述符溯源待核验而停留在仅限预览。",
+        "全量数据库评分与经完整验证筛选仍属浏览器主线程之外的预计算或后台任务。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "metadata-verification-gate",
+          "verified-recommendation-eligibility",
+          "preview-only",
+          "ci-verification-gate",
+          "not-full-database-screening"
+        ],
+        "adaptationBoundary": "Metadata gate and CI verification only; no live source verification, full screening, or final recommendation claim.",
+        "adaptationBoundaryZh": "仅为 metadata 门控与 CI 验证；不声明联网来源核验、全量筛选或最终推荐。"
+      },
+      "relatedSection": "#methodology-oafs-database-index-preview"
+    }
+  ],
+  "roadmap": [
+    {
+      "version": "V2.0-F",
+      "title": "Background Precompute Pipeline Planning",
+      "titleZh": "后台预计算管线规划",
       "status": "planned",
       "items": [
-        "Verified metadata enrichment workflow",
-        "Database index expansion readiness checks",
-        "Full screening audit plan",
-        "Background precompute pipeline planning"
+        "Background precompute pipeline planning",
+        "Full database scoring outside the browser main thread",
+        "Source verification and descriptor recomputation pipeline",
+        "Full screening audit plan"
       ],
       "itemsZh": [
-        "经核验 metadata 补全流程",
-        "数据库索引扩展准备度检查",
-        "全量筛选审计计划",
-        "后台预计算管线规划"
+        "后台预计算管线规划",
+        "在浏览器主线程之外执行全量数据库评分",
+        "来源核验与描述符复算管线",
+        "全量筛选审计计划"
       ]
     }
   ],
