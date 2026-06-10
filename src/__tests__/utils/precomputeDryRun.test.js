@@ -82,4 +82,28 @@ describe("precompute database-score dry run", () => {
     expect(sensitivityStage.outputCount).toBeGreaterThan(0)
     expect(JSON.stringify(summary)).not.toMatch(/accuracy/i)
   })
+
+  it("emits V2.0-I manual curation and metadata transition summaries", () => {
+    const summary = runPrecomputeDryRun()
+
+    expect(summary.manualCurationSummary.queueSize).toBeGreaterThan(0)
+    expect(summary.manualCurationSummary.statusCounts).toBeTruthy()
+    expect(summary.metadataTransitionSummary).toEqual(expect.objectContaining({
+      nearVerifiedBeforeCuration: expect.any(Number),
+      verifiedAfterCuration: expect.any(Number),
+      sourceConfirmed: expect.any(Number),
+      citationReady: expect.any(Number),
+      licenseConfirmed: expect.any(Number),
+      curationBlocked: expect.any(Number),
+    }))
+    // No fabricated verified candidates from curation alone.
+    expect(summary.metadataTransitionSummary.verifiedAfterCuration).toBe(0)
+
+    const traceIds = summary.algorithmImprovementTrace.map(s => s.id)
+    expect(traceIds).toContain("manual_metadata_curation")
+    expect(traceIds).toContain("source_link_enrichment")
+    const enrichment = summary.algorithmImprovementTrace.find(s => s.id === "source_link_enrichment")
+    expect(enrichment.status).toBe("pending")
+    expect(summary.notFinalRecommendation).toBe(true)
+  })
 })

@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
 import { Panel, StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { loadDatabaseIndexOverview } from "../../utils/databaseIndex/databaseIndexLoaders"
+import { fetchJson } from "../../services/dataService"
 import { dbStatusLabel, dbText } from "../../utils/databaseIndex/databaseIndexCopy"
 import { normalizeComparableCandidate, normalizeTopCandidates } from "../../utils/databaseIndex/databaseIndexFormatters"
 import { CandidateComparePanel } from "./CandidateComparePanel"
@@ -18,6 +19,7 @@ import { DescriptorRedundancyPanel } from "./DescriptorRedundancyPanel"
 import { FeatureAblationAuditPanel } from "./FeatureAblationAuditPanel"
 import { IndexPartBrowser } from "./IndexPartBrowser"
 import { MetadataVerificationPanel } from "./MetadataVerificationPanel"
+import { ManualMetadataCurationPanel } from "./ManualMetadataCurationPanel"
 import { MetadataVerificationQueuePanel } from "./MetadataVerificationQueuePanel"
 import { PrecomputedTopCandidatesPanel } from "./PrecomputedTopCandidatesPanel"
 import { SensitivityAuditPanel } from "./SensitivityAuditPanel"
@@ -39,6 +41,16 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
   const [filters, setFilters] = useState(DEFAULT_FILTERS)
   const [compareItems, setCompareItems] = useState([])
   const [selectedPartSnapshot, setSelectedPartSnapshot] = useState({ records: [], filteredRecords: [], path: "" })
+  const [curationRecords, setCurationRecords] = useState(null)
+
+  useEffect(() => {
+    let active = true
+    // Lazy-load the small V2.0-I manual curation file (not the full database).
+    fetchJson("data/database_precompute/v2_0_i/manual_metadata_curation.json", null)
+      .then(payload => { if (active) setCurationRecords(Array.isArray(payload?.curation) ? payload.curation : []) })
+      .catch(() => { if (active) setCurationRecords([]) })
+    return () => { active = false }
+  }, [])
 
   useEffect(() => {
     let active = true
@@ -105,14 +117,15 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
           <PrecomputedTopCandidatesPanel topCandidates={overview.topCandidates} filters={filters} onOpenDetail={setDetailRequest} onAddCompare={handleAddCompare} compareCount={compareItems.length} lang={lang} t={t} />
           <CandidateComparePanel candidates={compareItems} onRemove={id => setCompareItems(items => items.filter(item => item.id !== id))} lang={lang} t={t} isMobile={isMobile} />
           <MetadataVerificationPanel topCandidates={normalizeTopCandidates(overview.topCandidates)} selectedPartRecords={selectedPartSnapshot.records} selectedCandidate={detailRequest || compareItems[0] || normalizeTopCandidates(overview.topCandidates)[0] || null} lang={lang} t={t} isMobile={isMobile} />
-          <MetadataVerificationQueuePanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} lang={lang} t={t} isMobile={isMobile} />
+          <MetadataVerificationQueuePanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} curationRecords={curationRecords} lang={lang} t={t} isMobile={isMobile} />
+          <ManualMetadataCurationPanel curationRecords={curationRecords} lang={lang} t={t} isMobile={isMobile} />
           <DescriptorRedundancyPanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} lang={lang} t={t} isMobile={isMobile} />
           <SensitivityAuditPanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} lang={lang} t={t} isMobile={isMobile} />
           <FeatureAblationAuditPanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} lang={lang} t={t} />
           <AlgorithmImprovementTracePanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} topNCount={normalizeTopCandidates(overview.topCandidates).length} lang={lang} t={t} />
           <WorkerScoringBoundaryPreview topCandidates={normalizeTopCandidates(overview.topCandidates)} selectedPartRecords={selectedPartSnapshot.records} selectedCandidates={compareItems} lang={lang} t={t} isMobile={isMobile} />
           <IndexPartBrowser manifest={overview.manifest} filters={filters} onOpenDetail={setDetailRequest} onAddCompare={handleAddCompare} onSelectedPartRecordsChange={handleSelectedPartRecordsChange} compareCount={compareItems.length} lang={lang} t={t} isMobile={isMobile} />
-          <DatabaseDetailDrawer request={detailRequest} onClose={() => setDetailRequest(null)} lang={lang} t={t} />
+          <DatabaseDetailDrawer request={detailRequest} curationRecords={curationRecords} onClose={() => setDetailRequest(null)} lang={lang} t={t} />
         </>
       ) : (
         <span style={{ color: t.warn, fontSize: 12, fontWeight: 850 }}>

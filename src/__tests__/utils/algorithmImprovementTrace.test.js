@@ -15,6 +15,8 @@ describe("algorithmImprovementTrace", () => {
       "raw_records",
       "metadata_gate",
       "verification_queue",
+      "manual_metadata_curation",
+      "source_link_enrichment",
       "descriptor_completeness",
       "redundancy_gate",
       "mechanism_proxy",
@@ -25,6 +27,15 @@ describe("algorithmImprovementTrace", () => {
       "preview_output",
     ])
     expect(trace.stages[0].inputCount).toBe(2)
+  })
+
+  it("shows source_link_enrichment as pending when nothing is confirmed yet", () => {
+    const trace = buildAlgorithmImprovementTrace(records, { curationSummary: { queueSize: 2, statusCounts: { needs_source_review: 2 } } })
+    const enrichment = trace.stages.find(s => s.id === "source_link_enrichment")
+    expect(enrichment.status).toBe("pending")
+    expect(enrichment.outputCount).toBe(0)
+    const curationStage = trace.stages.find(s => s.id === "manual_metadata_curation")
+    expect(curationStage.status).toBe("curation tracking")
   })
 
   it("never reports model accuracy metrics and stays not-final", () => {

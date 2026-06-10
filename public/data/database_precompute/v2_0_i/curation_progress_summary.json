@@ -1,0 +1,30 @@
+{
+  "version": "V2.0-I",
+  "sourceQueue": "v2_0_h/metadata_verification_queue.json",
+  "queueSize": 18,
+  "notFinalRecommendation": true,
+  "statusCounts": {
+    "needs_source_review": 18,
+    "source_confirmed": 0,
+    "citation_ready": 0,
+    "license_pending": 0,
+    "license_confirmed": 0,
+    "doi_pending": 0,
+    "verified_metadata": 0,
+    "curation_blocked": 0
+  },
+  "remainingBlockers": {
+    "sourceUrl pending": 18,
+    "DOI pending": 18,
+    "citation pending": 18,
+    "license pending": 18,
+    "descriptor provenance incomplete": 6
+  },
+  "upgradeReadiness": {
+    "canUpgradeToVerifiedMetadata": 0,
+    "needsManualReview": 18,
+    "blocked": 0
+  },
+  "boundary": "Manual metadata curation tracking only. Not full verified database screening and not final recommendation.",
+  "boundaryZh": "仅用于人工 metadata 整理追踪；不是经完整验证的全量数据库筛选，也不是最终推荐。"
+}

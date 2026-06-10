@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06",
-  "currentVersion": "V2.0-H",
-  "completedRange": "V1.0-V2.0-H",
+  "currentVersion": "V2.0-I",
+  "completedRange": "V1.0-V2.0-I",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -1401,7 +1401,7 @@
       "title": "Small-Sample Validation and Sensitivity Audit",
       "titleZh": "小样本验证与敏感性审计",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Verification queue, sensitivity and ablation audits, mechanism evidence, validation roadmap",
       "themeZh": "核验队列、敏感性与消融审计、机制证据与验证路线",
       "summary": "Pushed the V2.0-G 120-record sample from explainable preview toward an auditable validation plan: a manual metadata verification queue, a near_verified tier, a deterministic sensitivity audit, a feature ablation audit, mechanism evidence backfill, and a candidate validation roadmap. No database expansion, no model training, no OACS/DMRS change, and still not a final recommendation.",
@@ -1504,25 +1504,128 @@
         "adaptationBoundaryZh": "仅核验队列、确定性审计与验证方向；对 Han et al. 2024 筛选->解释->验证 闭环仅作方法类比，不复现模型，也不是经完整验证的筛选。"
       },
       "relatedSection": "#methodology-oafs-database-index-preview"
-    }
-  ],
-  "roadmap": [
+    },
     {
       "version": "V2.0-I",
       "title": "Manual Metadata Curation and Source-Link Enrichment",
       "titleZh": "人工 metadata 整理与来源链接补全",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Sustainable manual curation workflow for the verification queue",
+      "themeZh": "为核验队列建立可持续的人工整理流程",
+      "summary": "Turned the V2.0-H 18-item verification queue into a sustainable manual metadata curation workflow: a curation data structure, a curation status ladder, a curation progress summary, a Manual Metadata Curation panel, and detail-drawer / queue integration. No fabricated DOI/source/license/citation; verified_metadata stays 0 until real evidence is confirmed. No database expansion, no model, still not full verified screening and not a final recommendation.",
+      "summaryZh": "把 V2.0-H 的 18 条核验队列变成可持续的人工 metadata 整理流程：整理数据结构、curation 状态分层、整理进度汇总、人工 metadata 整理面板，以及详情抽屉/队列联动。不伪造 DOI/source/license/citation；在确认真实证据前 verified_metadata 保持为 0。不扩数据库、不训练模型，仍不是经完整验证的筛选，也不是最终推荐。",
+      "keyUpdates": [
+        "Added a manual metadata curation data structure under public/data/database_precompute/v2_0_i/ (manual_metadata_curation.json + curation_progress_summary.json) built from the V2.0-H queue.",
+        "Added a curation status ladder: needs_source_review, source_confirmed, citation_ready, license_pending, license_confirmed, doi_pending, verified_metadata, curation_blocked.",
+        "Added scripts/build-v2-0-i-curation.mjs with a merge strategy that preserves manually entered source/citation/license/DOI on re-run.",
+        "Added a Manual Metadata Curation panel and a detail-drawer curation section, and linked curation status into the verification queue panel.",
+        "Extended the dry-run summary with manualCurationSummary and metadataTransitionSummary, and added manual_metadata_curation + source_link_enrichment stages to the Algorithm Improvement Trace."
+      ],
+      "keyUpdatesZh": [
+        "在 public/data/database_precompute/v2_0_i/ 下新增人工 metadata 整理数据结构（manual_metadata_curation.json + curation_progress_summary.json），由 V2.0-H 队列生成。",
+        "新增 curation 状态分层：needs_source_review、source_confirmed、citation_ready、license_pending、license_confirmed、doi_pending、verified_metadata、curation_blocked。",
+        "新增 scripts/build-v2-0-i-curation.mjs，采用 merge 策略：重跑时保留人工已填写的 source/citation/license/DOI。",
+        "新增人工 metadata 整理面板与详情抽屉整理区，并把整理状态联动到核验队列面板。",
+        "在 dry-run 汇总中新增 manualCurationSummary 与 metadataTransitionSummary，并在算法改进追踪中新增 manual_metadata_curation 与 source_link_enrichment 阶段。"
+      ],
+      "algorithmChanges": [
+        "No OACS/DMRS formula change.",
+        "No full database scoring in browser.",
+        "No machine learning model is trained; no model-precision metrics are reported.",
+        "Curation status never auto-promotes to verified_metadata: source_confirmed / citation_ready / near_verified are not verified_metadata.",
+        "verified_metadata still requires the V2.0-E/V2.0-H gate to pass on real, confirmed fields.",
+        "V2.0-D worker boundary and V2.0-E metadata gate are unchanged."
+      ],
+      "algorithmChangesZh": [
+        "不修改 OACS/DMRS 公式。",
+        "浏览器内不执行全量数据库评分。",
+        "不训练机器学习模型；不报告模型精度指标。",
+        "curation 状态绝不自动升级为 verified_metadata：source_confirmed / citation_ready / near_verified 都不等于 verified_metadata。",
+        "verified_metadata 仍需在真实、已确认字段上通过 V2.0-E/V2.0-H 门控。",
+        "保持 V2.0-D Worker 边界与 V2.0-E metadata 门控不变。"
+      ],
+      "uiChanges": [
+        "Added a Manual Metadata Curation panel to the Database Index Workbench with status overview and a curation table (mobile falls back to cards).",
+        "Added a Manual Metadata Curation section to the Candidate Detail Drawer; candidates not in the queue show a clear not-yet-in-queue message.",
+        "Added curation status pills and a manual-curation-required label to the Metadata Verification Queue panel."
+      ],
+      "uiChangesZh": [
+        "在 Database Index Workbench 中新增人工 metadata 整理面板，含状态总览与整理表格（移动端改为卡片）。",
+        "在候选详情抽屉中新增人工 metadata 整理区；不在队列中的候选明确显示“暂未进入人工整理队列”。",
+        "在核验队列面板中新增 curation 状态徽标与“需人工整理”标签。"
+      ],
+      "methodologyChanges": [
+        "Documented the V2.0-I manual metadata curation workflow, curation status ladder, progress summary, and merge-preserving build script in Methods & Evidence.",
+        "Documented that source_confirmed / citation_ready / near_verified are not verified_metadata and that missing DOI/license/source stay pending.",
+        "Documented the boundary: no database expansion, no model training, no fabricated metadata, and still not full verified screening or final recommendation."
+      ],
+      "methodologyChangesZh": [
+        "在 Methods & Evidence 中记录 V2.0-I 人工 metadata 整理流程、curation 状态分层、进度汇总与保留人工字段的构建脚本。",
+        "记录 source_confirmed / citation_ready / near_verified 不等于 verified_metadata，缺失的 DOI/license/来源保持待补。",
+        "记录边界：不扩数据库、不训练模型、不伪造 metadata，仍不是经完整验证的筛选或最终推荐。"
+      ],
+      "evidenceBoundary": "Manual metadata curation tracking only; not full database integration, not a trained model, and not full verified database screening.",
+      "evidenceBoundaryZh": "仅人工 metadata 整理追踪；不是全量数据库接入、不是训练模型，也不是经完整验证的全量数据库筛选。",
+      "limitations": [
+        "verified_metadata is still 0; every queue item needs manual DOI/license/source confirmation.",
+        "literature_supported mechanism evidence is still 0 until real citations are confirmed.",
+        "Curation status reflects manual progress only and does not replace the metadata gate.",
+        "Still based on the V2.0-G 120-record sample and the V2.0-H 18-item queue; the database is not expanded."
+      ],
+      "limitationsZh": [
+        "verified_metadata 仍为 0；每条队列项都需人工确认 DOI/license/来源。",
+        "在确认真实引用前，literature_supported 机制证据仍为 0。",
+        "curation 状态仅反映人工进度，不替代 metadata 门控。",
+        "仍基于 V2.0-G 的 120 条样本与 V2.0-H 的 18 条队列；未扩展数据库。"
+      ],
+      "literatureInspirations": [
+        {
+          "literatureId": "HAN-2024-NATCOMMS",
+          "citation": "Han, Z. et al. Machine learning-based design of electrocatalytic materials towards high-energy lithium-sulfur batteries development. Nature Communications 2024, 15, 8433.",
+          "doi": "10.1038/s41467-024-52550-9",
+          "inspiredFeatures": [
+            "Evidence-grounded screening discipline",
+            "Transparent provenance and verification before claims"
+          ],
+          "evidenceBoundary": "Method analogy only. EcoMOF-AI does not reproduce the Li-S model, does not use Li-S target variables, does not train XGBoost, and does not report model-precision metrics."
+        }
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "manual-metadata-curation",
+          "curation-status-ladder",
+          "source-link-enrichment",
+          "merge-preserving-curation",
+          "verified-metadata-stays-zero-without-evidence",
+          "no-fabricated-metadata"
+        ],
+        "literatureIds": [
+          "HAN-2024-NATCOMMS"
+        ],
+        "adaptationBoundary": "Manual metadata curation tracking only; source_confirmed/citation_ready/near_verified are not verified_metadata, and verified_metadata stays 0 until real evidence is confirmed.",
+        "adaptationBoundaryZh": "仅人工 metadata 整理追踪；source_confirmed/citation_ready/near_verified 不等于 verified_metadata，确认真实证据前 verified_metadata 保持为 0。"
+      },
+      "relatedSection": "#methodology-oafs-database-index-preview"
+    }
+  ],
+  "roadmap": [
+    {
+      "version": "V2.0-J",
+      "title": "Evidence Backfill and Verified Candidate Report",
+      "titleZh": "证据回填与经核验候选报告",
       "status": "planned",
       "items": [
-        "Manually curate DOI / license / source URL for queue items",
-        "Promote near_verified candidates after manual review",
-        "Enrich source links and citations for the small sample",
-        "Strengthen weak mechanism proxies with literature evidence"
+        "Backfill confirmed source/DOI/license/citation for curated candidates",
+        "Promote candidates to verified_metadata once the gate passes on real evidence",
+        "Generate a verified candidate report for confirmed records",
+        "Strengthen literature_supported mechanism evidence"
       ],
       "itemsZh": [
-        "为队列项人工整理 DOI / license / 来源链接",
-        "人工核验后提升 near_verified 候选",
-        "为小样本补全来源链接与引用",
-        "用文献证据补强弱机制代理"
+        "为已整理候选回填确认的来源/DOI/license/引用",
+        "在真实证据通过门控后将候选提升为 verified_metadata",
+        "为已确认记录生成经核验候选报告",
+        "补强 literature_supported 机制证据"
       ]
     }
   ],

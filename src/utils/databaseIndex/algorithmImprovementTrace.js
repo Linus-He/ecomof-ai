@@ -39,6 +39,11 @@ export function buildAlgorithmImprovementTrace(records = [], options = {}) {
   const mechanism = summarizeMechanismProxyAvailability(rows)
   const mechanismEvidence = options.mechanismEvidence || summarizeMechanismEvidence(rows)
   const queue = options.verificationQueueSummary || { queueSize: metadata.nearVerified, manualReviewRequired: metadata.nearVerified }
+  const curation = options.curationSummary || null
+  const curationQueueSize = curation?.queueSize ?? (queue.queueSize ?? metadata.nearVerified)
+  const sourceConfirmedCount = curation
+    ? curationQueueSize - ((curation.statusCounts?.needs_source_review || 0) + (curation.statusCounts?.curation_blocked || 0))
+    : 0
   const sensitivity = rows.length ? (options.sensitivity || buildSensitivityAuditSummary(rows, options.sensitivityOptions)) : null
   const ablation = rows.length ? (options.ablation || buildFeatureAblationAudit(rows)) : null
   const roadmap = rows.length ? (options.validationRoadmap || buildValidationRoadmapForRecords(rows, { topN: options.roadmapTopN || 12 })) : null
@@ -76,6 +81,28 @@ export function buildAlgorithmImprovementTrace(records = [], options = {}) {
       metrics: { queueSize: queue.queueSize ?? metadata.nearVerified, manualReviewRequired: queue.manualReviewRequired ?? queue.queueSize ?? metadata.nearVerified },
       boundary: "Manual-review queue; no DOI/license is fabricated and no candidate is auto-verified.",
       boundaryZh: "人工核验队列；不伪造 DOI/license，也不自动核验任何候选。",
+    },
+    {
+      id: "manual_metadata_curation",
+      label: "Manual metadata curation",
+      labelZh: "人工 metadata 整理",
+      inputCount: curationQueueSize,
+      outputCount: curationQueueSize,
+      status: "curation tracking",
+      metrics: curation ? { statusCounts: curation.statusCounts, upgradeReadiness: curation.upgradeReadiness } : { status: "pending" },
+      boundary: "Curation progress tracking only; source_confirmed / citation_ready are not verified_metadata and nothing is fabricated.",
+      boundaryZh: "仅追踪整理进度；source_confirmed / citation_ready 不等于 verified_metadata，也不伪造任何字段。",
+    },
+    {
+      id: "source_link_enrichment",
+      label: "Source-link enrichment",
+      labelZh: "来源链接补全",
+      inputCount: curationQueueSize,
+      outputCount: sourceConfirmedCount,
+      status: sourceConfirmedCount > 0 ? "enriched" : "pending",
+      metrics: { sourceConfirmed: sourceConfirmedCount, pending: curationQueueSize - sourceConfirmedCount },
+      boundary: "Source links stay pending until manually confirmed; missing DOI/source is never fabricated.",
+      boundaryZh: "来源链接在人工确认前保持待补；缺失的 DOI/来源绝不伪造。",
     },
     {
       id: "descriptor_completeness",

@@ -6,6 +6,7 @@ import { fetchDetailRecord } from "../../utils/databaseIndex/databaseIndexClient
 import { dbFallback, dbRenderText, dbStatusLabel, dbText } from "../../utils/databaseIndex/databaseIndexCopy"
 import { descriptorAvailabilityList, descriptorCompletenessPercent, formatPercentValue, organicAcidRelevanceSnapshot, provenanceCompletenessPercent, safeText } from "../../utils/databaseIndex/databaseIndexFormatters"
 import { buildMetadataVerificationSummary, getMetadataVerificationTier, metadataLevelLabel, metadataLevelTone, metadataStatusTone, metadataStatusValueLabel, metadataTierLabel, metadataTierTone } from "../../utils/databaseIndex/metadataVerification"
+import { curationFieldStatusLabel, curationStatusLabel, curationStatusTone, normalizeMetadataCuration } from "../../utils/databaseIndex/metadataCuration"
 import { MechanismProxyPanel } from "./MechanismProxyPanel"
 import { CandidateValidationRoadmapPanel } from "./CandidateValidationRoadmapPanel"
 
@@ -79,7 +80,56 @@ function Checklist({ title, rows, lang, t }) {
   )
 }
 
-export function DatabaseDetailDrawer({ request, onClose, lang, t }) {
+function ManualCurationSection({ record, curationRecords, lang, t }) {
+  const recordId = record.recordId || record.frameworkId || record.id
+  const curationRow = (curationRecords || []).find(row => row.recordId === recordId)
+  if (!curationRow) {
+    return (
+      <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 6, padding: 11 }}>
+        <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "人工 metadata 整理", "Manual Metadata Curation")}</strong>
+        <span style={{ color: t.muted, fontSize: 12 }}>{text(lang, "该候选暂未进入人工整理队列。", "This candidate is not yet in the manual curation queue.")}</span>
+      </section>
+    )
+  }
+  const curation = normalizeMetadataCuration(curationRow)
+  const fields = [
+    [text(lang, "整理状态", "Curation status"), curationStatusLabel(curation.curationStatus, lang), curationStatusTone(curation.curationStatus)],
+    ["DOI", curationFieldStatusLabel(curation.doiStatus, lang), null],
+    [text(lang, "来源链接", "Source URL"), curationFieldStatusLabel(curation.sourceUrlStatus, lang), null],
+    [text(lang, "引用", "Citation"), curationFieldStatusLabel(curation.citationStatus, lang), null],
+    ["License", curationFieldStatusLabel(curation.licenseStatus, lang), null],
+  ]
+  return (
+    <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 11 }}>
+      <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
+        <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "人工 metadata 整理", "Manual Metadata Curation")}</strong>
+        <StatusPill tone={curationStatusTone(curation.curationStatus)} t={t}>{curationStatusLabel(curation.curationStatus, lang)}</StatusPill>
+      </div>
+      <div style={{ display: "grid", gap: 6, gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))" }}>
+        {fields.map(([label, value, tone]) => (
+          <div key={label} style={{ display: "grid", gap: 3 }}>
+            <span style={{ color: t.faint, fontSize: 10.3, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
+            {tone ? <StatusPill tone={tone} t={t}>{value}</StatusPill> : <span style={{ color: t.textStrong, fontSize: 12 }}>{value}</span>}
+          </div>
+        ))}
+      </div>
+      <div style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.45 }}>
+        {text(lang, "剩余 blocker", "Remaining blockers")}: {curation.remainingBlockers.join("、") || text(lang, "无", "none")}
+      </div>
+      <div style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.45 }}>
+        {text(lang, "下一步", "Next action")}: {curation.nextActions?.[1] || curation.nextActions?.[0] || text(lang, "待补", "pending")}
+      </div>
+      <span style={{ color: t.faint, fontSize: 11, lineHeight: 1.4 }}>
+        {text(lang, "可升级为 verified_metadata", "Can upgrade to verified_metadata")}: {curation.canUpgradeToVerifiedMetadata ? text(lang, "是", "yes") : text(lang, "否（source_confirmed / near_verified 不等于 verified）", "no (source_confirmed / near_verified is not verified)")}
+      </span>
+      <p style={{ color: t.muted, fontSize: 11, fontWeight: 700, lineHeight: 1.45, margin: 0 }}>
+        {text(lang, "仅整理进度追踪，不代表完整验证，也不是最终推荐。", "Curation progress tracking only; not full verification and not a final recommendation.")}
+      </p>
+    </section>
+  )
+}
+
+export function DatabaseDetailDrawer({ request, curationRecords = null, onClose, lang, t }) {
   const [state, setState] = useState({ status: "idle", detail: null, error: null })
   const detailRef = request?.detailRef
 
@@ -143,6 +193,7 @@ export function DatabaseDetailDrawer({ request, onClose, lang, t }) {
         <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "核验分层", "Verification tier")}</span>
         <StatusPill tone={metadataTierTone(getMetadataVerificationTier(record))} t={t}>{metadataTierLabel(getMetadataVerificationTier(record), lang)}</StatusPill>
       </div>
+      <ManualCurationSection record={record} curationRecords={curationRecords} lang={lang} t={t} />
       <MechanismProxyPanel record={record} lang={lang} t={t} />
       <CandidateValidationRoadmapPanel record={record} lang={lang} t={t} />
       <p style={{ color: t.faint, fontSize: 11.2, lineHeight: 1.4, margin: 0 }}>

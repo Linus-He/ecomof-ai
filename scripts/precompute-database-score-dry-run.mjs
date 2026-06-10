@@ -34,6 +34,7 @@ const repoRoot = path.resolve(__dirname, "..")
 const indexRoot = path.join(repoRoot, "public", "data", "database_index")
 const v2gRoot = path.join(repoRoot, "public", "data", "database_precompute", "v2_0_g")
 const v2hRoot = path.join(repoRoot, "public", "data", "database_precompute", "v2_0_h")
+const v2iRoot = path.join(repoRoot, "public", "data", "database_precompute", "v2_0_i")
 
 // V2.0-F fallback fixtures: Top-N preview + a single selected index part. Not the full DB.
 const V2F_FIXTURE_FILES = [
@@ -121,8 +122,13 @@ export function runPrecomputeDryRun() {
   // V2.0-H manual-verification queue summary (read if present; never fabricated here).
   const queueSummary = readJson(path.join(v2hRoot, "metadata_verification_summary.json")) || { queueSize: metadata.nearVerified, manualReviewRequired: metadata.nearVerified }
 
+  // V2.0-I manual metadata curation summary (read if present; fall back to V2.0-H).
+  const curationSummary = readJson(path.join(v2iRoot, "curation_progress_summary.json"))
+  const curationFallbackReason = curationSummary ? null : "V2.0-I curation summary not found; falling back to V2.0-H queue counts."
+
   const trace = buildAlgorithmImprovementTrace(records, {
     verificationQueueSummary: queueSummary,
+    curationSummary: curationSummary || undefined,
     mechanismEvidence,
     sensitivity,
     ablation,
@@ -177,10 +183,25 @@ export function runPrecomputeDryRun() {
     },
     featureAblationAudit: ablation.variants.map(v => ({ id: v.id, topNOverlapWithBaseline: v.topNOverlapWithBaseline, removedOrPenalized: v.removedOrPenalized })),
     candidateValidationRoadmapSummary: { candidateCount: roadmap.candidateCount, priorityCounts: roadmap.priorityCounts },
+    manualCurationSummary: {
+      queueSize: curationSummary?.queueSize ?? queueSummary.queueSize ?? metadata.nearVerified,
+      statusCounts: curationSummary?.statusCounts ?? {},
+      remainingBlockers: curationSummary?.remainingBlockers ?? {},
+      upgradeReadiness: curationSummary?.upgradeReadiness ?? {},
+      fallbackReason: curationFallbackReason,
+    },
+    metadataTransitionSummary: {
+      nearVerifiedBeforeCuration: metadata.nearVerified,
+      verifiedAfterCuration: curationSummary?.statusCounts?.verified_metadata ?? 0,
+      sourceConfirmed: curationSummary?.statusCounts?.source_confirmed ?? 0,
+      citationReady: curationSummary?.statusCounts?.citation_ready ?? 0,
+      licenseConfirmed: curationSummary?.statusCounts?.license_confirmed ?? 0,
+      curationBlocked: curationSummary?.statusCounts?.curation_blocked ?? 0,
+    },
     algorithmImprovementTrace: trace.stages.map(stage => ({ id: stage.id, label: stage.label, inputCount: stage.inputCount, outputCount: stage.outputCount, status: stage.status })),
     boundary: "Dry-run only. Not full verified database screening. No network, no full database load, no model training, no final recommendation.",
     boundaryZh: "仅本地试算；不是经完整验证的全量数据库筛选；不联网、不加载全量数据库、不训练模型、不产生最终推荐。",
-    outDir: v2hRoot,
+    outDir: v2iRoot,
   }
 }
 

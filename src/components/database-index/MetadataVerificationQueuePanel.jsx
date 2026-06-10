@@ -4,6 +4,7 @@ import { ChemicalText } from "../common/ChemicalFormula"
 import { StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { formatCount } from "../../utils/databaseIndex/databaseIndexFormatters"
 import { buildMetadataVerificationQueue, metadataTierLabel, metadataTierTone } from "../../utils/databaseIndex/metadataVerification"
+import { curationStatusLabel, curationStatusTone, getMetadataCurationStatus } from "../../utils/databaseIndex/metadataCuration"
 
 function priorityTone(priority) {
   if (priority === "high") return "warn"
@@ -17,8 +18,13 @@ function priorityLabel(priority, lang) {
   return text(lang, "低", "low")
 }
 
-export function MetadataVerificationQueuePanel({ records = [], lang, t, isMobile }) {
+export function MetadataVerificationQueuePanel({ records = [], curationRecords = null, lang, t, isMobile }) {
   const { queue, summary } = useMemo(() => buildMetadataVerificationQueue(records, { lang }), [records, lang])
+  const curationById = useMemo(() => {
+    const map = new Map()
+    for (const row of curationRecords || []) map.set(row.recordId, row)
+    return map
+  }, [curationRecords])
 
   return (
     <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 11, padding: 12 }}>
@@ -33,7 +39,10 @@ export function MetadataVerificationQueuePanel({ records = [], lang, t, isMobile
             )} />
           </span>
         </div>
-        <StatusPill tone="warn" t={t}>{text(lang, "优先人工核验", "priority manual review")}</StatusPill>
+        <span style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+          <StatusPill tone="warn" t={t}>{text(lang, "优先人工核验", "priority manual review")}</StatusPill>
+          {curationRecords ? <StatusPill tone="info" t={t}>{text(lang, "整理进度", "curation progress")}</StatusPill> : null}
+        </span>
       </header>
 
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(auto-fit, minmax(140px, 1fr))" }}>
@@ -52,20 +61,29 @@ export function MetadataVerificationQueuePanel({ records = [], lang, t, isMobile
 
       {queue.length ? (
         <div style={{ display: "grid", gap: 7 }}>
-          {queue.slice(0, 6).map(item => (
-            <article key={item.recordId} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 5, padding: 9 }}>
-              <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
-                <strong style={{ color: t.textStrong, fontSize: 12.4 }}><ChemicalText value={item.displayName} /></strong>
-                <span style={{ display: "flex", gap: 5 }}>
-                  <StatusPill tone={priorityTone(item.priority)} t={t}>{priorityLabel(item.priority, lang)}</StatusPill>
-                  <StatusPill tone={metadataTierTone(item.proposedVerificationTier)} t={t}>{metadataTierLabel(item.proposedVerificationTier, lang)}</StatusPill>
+          {queue.slice(0, 6).map(item => {
+            const curationRow = curationById.get(item.recordId)
+            const curationStatus = curationRow ? getMetadataCurationStatus(curationRow) : null
+            const showManualCuration = item.priority === "high" && item.proposedVerificationTier === "near_verified"
+            return (
+              <article key={item.recordId} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 5, padding: 9 }}>
+                <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
+                  <strong style={{ color: t.textStrong, fontSize: 12.4 }}><ChemicalText value={item.displayName} /></strong>
+                  <span style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+                    <StatusPill tone={priorityTone(item.priority)} t={t}>{priorityLabel(item.priority, lang)}</StatusPill>
+                    <StatusPill tone={metadataTierTone(item.proposedVerificationTier)} t={t}>{metadataTierLabel(item.proposedVerificationTier, lang)}</StatusPill>
+                    {curationStatus ? <StatusPill tone={curationStatusTone(curationStatus)} t={t}>{curationStatusLabel(curationStatus, lang)}</StatusPill> : null}
+                  </span>
+                </div>
+                <span style={{ color: t.muted, fontSize: 11, lineHeight: 1.4 }}>
+                  {text(lang, "待核验", "Pending")}: {item.blockingReasons.join("、") || text(lang, "无", "none")}
                 </span>
-              </div>
-              <span style={{ color: t.muted, fontSize: 11, lineHeight: 1.4 }}>
-                {text(lang, "待核验", "Pending")}: {item.blockingReasons.join("、") || text(lang, "无", "none")}
-              </span>
-            </article>
-          ))}
+                {showManualCuration ? (
+                  <span style={{ color: t.warn, fontSize: 10.6, fontWeight: 800 }}>{text(lang, "需人工整理", "manual curation required")}</span>
+                ) : null}
+              </article>
+            )
+          })}
         </div>
       ) : (
         <span style={{ color: t.muted, fontSize: 12 }}>{text(lang, "当前已加载候选中没有需要优先核验的项。", "No priority manual-review items in the currently loaded records.")}</span>

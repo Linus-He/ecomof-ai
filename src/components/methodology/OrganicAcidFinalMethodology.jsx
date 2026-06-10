@@ -161,6 +161,14 @@ function TraceWorkbenchMethod({ lang, t }) {
 function DatabaseIndexPreviewMethod({ lang, t }) {
   const rows = [
     [
+      text(lang, "V2.0-I 人工 metadata 整理与来源链接补全", "V2.0-I Manual Metadata Curation and Source-Link Enrichment"),
+      text(lang, "V2.0-I 把 V2.0-H 的 18 条核验队列变成可持续的人工 metadata 整理流程：curation 状态分层（needs_source_review → source_confirmed → citation_ready → license_pending/confirmed → doi_pending → verified_metadata，或 curation_blocked）、整理进度汇总、保留人工字段的构建脚本，以及人工整理面板与详情抽屉联动。找不到 DOI/license/来源时保持待补，绝不伪造；source_confirmed / citation_ready / near_verified 都不等于 verified_metadata。verified_metadata 仍需在真实已确认字段上通过 V2.0-E/V2.0-H 门控，因此当前仍为 0。不扩数据库、不训练模型，仍不是最终推荐。", "V2.0-I turns the V2.0-H 18-item verification queue into a sustainable manual metadata curation workflow: a curation status ladder (needs_source_review -> source_confirmed -> citation_ready -> license_pending/confirmed -> doi_pending -> verified_metadata, or curation_blocked), a progress summary, a merge-preserving build script, and a curation panel linked into the detail drawer. When DOI/license/source cannot be found they stay pending and are never fabricated; source_confirmed / citation_ready / near_verified are not verified_metadata. verified_metadata still requires the V2.0-E/V2.0-H gate to pass on real confirmed fields, so it is still 0. No database expansion, no model training, and still not a final recommendation."),
+    ],
+    [
+      text(lang, "来源链接补全边界", "Source-link enrichment boundary"),
+      text(lang, "人工整理只记录进度，不替代 metadata 门控；脚本重跑会保留人工已填写的 source/citation/license/DOI（existing manual value > 新生成的 pending 占位）。", "Manual curation records progress only and does not replace the metadata gate; re-running the build script preserves manually entered source/citation/license/DOI (existing manual value > newly generated pending placeholder)."),
+    ],
+    [
       text(lang, "V2.0-H 小样本验证与敏感性审计", "V2.0-H Small-Sample Validation and Sensitivity Audit"),
       text(lang, "V2.0-H 把 V2.0-G 的 120 条样本推进到可审计验证计划：人工 metadata 核验队列、near_verified 分层（仅优先核验，不等于已核验）、确定性敏感性审计、特征消融审计、机制证据回填（文献支持/描述符推断/弱代理/证据不足）与候选验证路线。受 Han et al. 2024 的 筛选→机制解释→验证 闭环启发，仅作方法类比：不复现 Li-S 模型、不训练 XGBoost、不报告模型精度。不扩数据库、不改 OACS/DMRS，仍不是最终推荐。", "V2.0-H pushes the V2.0-G 120-record sample toward an auditable validation plan: a manual metadata verification queue, a near_verified tier (priority review only, not verified), a deterministic sensitivity audit, a feature ablation audit, mechanism evidence backfill (literature_supported / descriptor_inferred / weak_proxy / insufficient_evidence), and a candidate validation roadmap. Inspired by the screen -> mechanism-explain -> validate loop in Han et al. 2024 as a method analogy only: no Li-S model reproduction, no XGBoost training, no model-precision metrics. No database expansion, no OACS/DMRS change, and still not a final recommendation."),
     ],
@@ -246,14 +254,14 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
       <header style={{ display: "grid", gap: 4 }}>
         <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Database Index Preview</span>
         <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
-          {text(lang, "数据库索引预览：V2.0-H 小样本验证与敏感性审计", "Database Index Preview: V2.0-H Small-Sample Validation and Sensitivity Audit")}
+          {text(lang, "数据库索引预览：V2.0-I 人工 metadata 整理与来源链接补全", "Database Index Preview: V2.0-I Manual Metadata Curation and Source-Link Enrichment")}
         </h3>
       </header>
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "V2.0-H 在 V2.0-G 之上把 120 条小样本推进到可审计验证计划：人工核验队列、near_verified 分层、敏感性审计、特征消融审计、机制证据回填与候选验证路线。浏览器仍只加载 manifest 摘要、预计算候选预览、选定索引分片和按需详情记录；全量评分在浏览器主线程之外进行。受 Han et al. 2024 的 筛选→机制解释→验证 闭环启发，仅作方法类比，不扩数据库、不训练模型。",
-          "V2.0-H pushes the 120-record small sample toward an auditable validation plan on top of V2.0-G: a manual verification queue, a near_verified tier, a sensitivity audit, a feature ablation audit, mechanism evidence backfill, and a candidate validation roadmap. The browser still loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand; full scoring runs outside the browser main thread. Inspired by the screen -> mechanism-explain -> validate loop in Han et al. 2024 as a method analogy only, with no database expansion and no model trained."
+          "V2.0-I 在 V2.0-H 之上把 18 条核验队列变成可持续的人工 metadata 整理流程：curation 状态分层、整理进度汇总、保留人工字段的构建脚本与人工整理面板。浏览器仍只加载 manifest 摘要、预计算候选预览、选定索引分片和按需详情记录；全量评分在浏览器主线程之外进行。不伪造 DOI/license/来源，verified_metadata 在确认真实证据前保持为 0；不扩数据库、不训练模型。",
+          "V2.0-I turns the 18-item verification queue into a sustainable manual metadata curation workflow on top of V2.0-H: a curation status ladder, a progress summary, a merge-preserving build script, and a curation panel. The browser still loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand; full scoring runs outside the browser main thread. No DOI/license/source is fabricated, verified_metadata stays 0 until real evidence is confirmed; no database expansion and no model trained."
         )} />
       </p>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
@@ -265,7 +273,7 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
         ))}
       </div>
       <p style={{ color: t.warn, fontSize: 12.5, fontWeight: 900, lineHeight: 1.52, margin: 0 }}>
-        <ChemicalText value={text(lang, "V2.0-H 仍然不是经完整验证的全量数据库筛选；它在 120 条小样本上建立核验队列与确定性审计，未训练任何模型，OACS/DMRS 公式未在 V2.0-H 中修改。经完整验证的全量筛选仍需人工 metadata 整理、描述符复算、来源核验、公式审计与实验/文献验证。", "V2.0-H remains a verification queue and deterministic audits over the 120-record small sample, not full verified database screening; no model is trained and OACS/DMRS formulas are unchanged in V2.0-H. Full verified screening still requires manual metadata curation, descriptor recomputation, source verification, formula audit, and experimental/literature validation.")} />
+        <ChemicalText value={text(lang, "V2.0-I 仍然不是经完整验证的全量数据库筛选；它建立人工 metadata 整理流程，但在确认真实证据前 verified_metadata 保持为 0，未训练任何模型，OACS/DMRS 公式未在 V2.0-I 中修改。经完整验证的全量筛选仍需来源/DOI/license/引用回填、描述符复算、公式审计与实验/文献验证。", "V2.0-I remains a manual metadata curation workflow, not full verified database screening; verified_metadata stays 0 until real evidence is confirmed, no model is trained, and OACS/DMRS formulas are unchanged in V2.0-I. Full verified screening still requires source/DOI/license/citation backfill, descriptor recomputation, formula audit, and experimental/literature validation.")} />
       </p>
     </section>
   )
@@ -503,7 +511,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           <SmallRealDatasetMethod mappingReport={data.mappingReport} lang={lang} t={t} />
         </LazyMethodologyDetails>
         <TraceWorkbenchMethod lang={lang} t={t} />
-        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-H adds a metadata verification queue, a near_verified tier, a sensitivity audit, a feature ablation audit, mechanism evidence backfill, and a candidate validation roadmap over the V2.0-G sample (method analogy to Han et al. 2024), while preserving lazy loading and the OACS/DMRS formulas." summaryZh="V2.0-H 在 V2.0-G 样本上新增 metadata 核验队列、near_verified 分层、敏感性审计、特征消融审计、机制证据回填与候选验证路线（对 Han et al. 2024 仅作方法类比），同时保持懒加载边界与 OACS/DMRS 公式不变。" lang={lang} t={t}>
+        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-I adds a manual metadata curation workflow (curation status ladder, progress summary, merge-preserving build script, curation panel) over the V2.0-H verification queue, with no fabricated metadata and verified_metadata staying 0 until real evidence is confirmed, while preserving lazy loading and the OACS/DMRS formulas." summaryZh="V2.0-I 在 V2.0-H 核验队列上新增人工 metadata 整理流程（curation 状态分层、进度汇总、保留人工字段的构建脚本、整理面板），不伪造 metadata，确认真实证据前 verified_metadata 保持为 0，同时保持懒加载边界与 OACS/DMRS 公式不变。" lang={lang} t={t}>
           <DatabaseIndexPreviewMethod lang={lang} t={t} />
         </LazyMethodologyDetails>
         <LazyMethodologyDetails id="methodology-oafs-oacs" title="OACS Formula Explainer" titleZh="OACS 骨架筛选" summary="Formula card renders after expansion." summaryZh="公式卡片展开后渲染。" lang={lang} t={t}>
