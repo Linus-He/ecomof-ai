@@ -81,13 +81,42 @@ export function normalizeMetadataVerification(row = {}) {
     ? provided.verificationLevel
     : computeVerificationLevel(status, blockingReasons)
   const eligible = level === "verified_metadata"
+  const tier = provided.verificationTier && VERIFICATION_TIERS.includes(provided.verificationTier)
+    ? provided.verificationTier
+    : computeVerificationTier(status, level)
   return {
     ...status,
     verificationLevel: level,
+    verificationTier: tier,
     verifiedRecommendationEligible: typeof provided.verifiedRecommendationEligible === "boolean" ? provided.verifiedRecommendationEligible : eligible,
     blockingReasons,
     warnings,
   }
+}
+
+export function getMetadataVerificationTier(row = {}) {
+  return normalizeMetadataVerification(row).verificationTier
+}
+
+const TIER_COPY = {
+  verified_metadata: { en: "Verified", zh: "已核验" },
+  near_verified: { en: "Near verified", zh: "接近完成核验" },
+  partial_metadata: { en: "Partial metadata", zh: "metadata 部分完整" },
+  preview_only: { en: "Preview only", zh: "仅限预览" },
+  blocked: { en: "Blocked", zh: "暂不可用" },
+}
+
+export function metadataTierLabel(tier, lang) {
+  const row = TIER_COPY[tier] || TIER_COPY.preview_only
+  return lang === "zh" ? row.zh : row.en
+}
+
+export function metadataTierTone(tier) {
+  if (tier === "verified_metadata") return "pass"
+  if (tier === "near_verified") return "info"
+  if (tier === "partial_metadata") return "proxy"
+  if (tier === "blocked") return "fail"
+  return "warn"
 }
 
 function resolveStatus(row, key, derive) {
@@ -120,6 +149,31 @@ export function buildMetadataWarnings(row = {}, status) {
   if (licenseStatus === "unknown" || licenseStatus === "missing") warnings.push("licensePending")
   if (retrievedAtStatus === "missing") warnings.push("retrievedAtMissing")
   return warnings
+}
+
+// V2.0-H verification tier: a finer classification that adds a near_verified
+// transition layer between partial_metadata and verified_metadata. near_verified
+// means a candidate is a strong manual-verification priority (traceable source +
+// complete descriptor provenance + a citation or source lead) but still has DOI or
+// license pending. near_verified is NOT verified_metadata and can NOT enter a final
+// recommendation.
+export const VERIFICATION_TIERS = ["verified_metadata", "near_verified", "partial_metadata", "preview_only", "blocked"]
+
+function computeVerificationTier(status, level) {
+  const { doiStatus, sourceUrlStatus, licenseStatus, citationStatus, descriptorProvenanceStatus, retrievedAtStatus } = status
+  if (level === "verified_metadata") return "verified_metadata"
+  if (level === "blocked") return "blocked"
+
+  const provenanceComplete = descriptorProvenanceStatus === "complete"
+  const sourceAvailable = sourceUrlStatus !== "missing"
+  const citationOrSource = citationStatus === "ready" || citationStatus === "partial" || sourceUrlStatus === "verified"
+  const somethingPending = doiStatus !== "verified" || licenseStatus !== "verified"
+
+  if (provenanceComplete && sourceAvailable && citationOrSource && retrievedAtStatus === "present" && somethingPending) {
+    return "near_verified"
+  }
+  if (provenanceComplete && sourceAvailable) return "partial_metadata"
+  return "preview_only"
 }
 
 function computeVerificationLevel(status, blockingReasons) {
@@ -229,14 +283,101 @@ export function buildMetadataVerificationSummary(row = {}, lang = "en") {
 export function summarizeMetadataVerification(records = []) {
   const rows = Array.isArray(records) ? records : []
   const counts = { verified_metadata: 0, partial_metadata: 0, preview_only: 0, blocked: 0 }
+  const tierCounts = { verified_metadata: 0, near_verified: 0, partial_metadata: 0, preview_only: 0, blocked: 0 }
   for (const row of rows) {
-    const level = getMetadataVerificationLevel(row)
-    counts[level] = (counts[level] || 0) + 1
+    const verification = normalizeMetadataVerification(row)
+    counts[verification.verificationLevel] = (counts[verification.verificationLevel] || 0) + 1
+    tierCounts[verification.verificationTier] = (tierCounts[verification.verificationTier] || 0) + 1
   }
   return {
     total: rows.length,
     ...counts,
     eligible: counts.verified_metadata,
+    nearVerified: tierCounts.near_verified,
+    tierCounts,
+  }
+}
+
+const QUEUE_REASON_TEXT = {
+  doiMissing: { en: "DOI pending", zh: "DOI 待核验" },
+  sourcePending: { en: "source URL pending", zh: "来源链接待核验" },
+  descriptorProvenanceIncomplete: { en: "descriptor provenance incomplete", zh: "描述符溯源不完整" },
+  descriptorProvenanceMissing: { en: "descriptor provenance missing", zh: "描述符溯源缺失" },
+  citationMissing: { en: "citation pending", zh: "引用待补全" },
+  licensePending: { en: "license pending", zh: "license 待核验" },
+  retrievedAtMissing: { en: "retrieval timestamp missing", zh: "抓取时间缺失" },
+}
+
+function queueNextActions(verification) {
+  const actions = ["Locate original CoRE/QMOF source record"]
+  if (verification.doiStatus !== "verified") actions.push("Attach source URL or DOI if available")
+  if (verification.licenseStatus !== "verified") actions.push("Confirm license and citation")
+  if (verification.descriptorProvenanceStatus !== "complete") actions.push("Document descriptor provenance")
+  return actions
+}
+
+// V2.0-H manual-verification queue. Selects priority candidates (near_verified first,
+// then preview-only records that are close to traceable) WITHOUT fabricating any
+// DOI/license/source. No candidate is auto-promoted to verified_metadata; every item
+// requires manual review.
+export function buildMetadataVerificationQueue(records = [], options = {}) {
+  const rows = Array.isArray(records) ? records : []
+  const lang = options.lang || "en"
+  const maxHigh = options.maxHigh ?? 12
+  const maxMedium = options.maxMedium ?? 6
+
+  const enriched = rows.map(record => ({ record, verification: normalizeMetadataVerification(record) }))
+  const nearVerified = enriched.filter(row => row.verification.verificationTier === "near_verified")
+  const previewClose = enriched.filter(row => row.verification.verificationTier === "preview_only" && row.verification.descriptorProvenanceStatus === "partial")
+
+  const selected = [
+    ...nearVerified.slice(0, maxHigh).map(row => ({ ...row, priority: "high", proposedVerificationTier: "near_verified" })),
+    ...previewClose.slice(0, maxMedium).map(row => ({ ...row, priority: "medium", proposedVerificationTier: "partial_metadata" })),
+  ]
+
+  const queue = selected.map(({ record, verification, priority, proposedVerificationTier }) => ({
+    recordId: safeText(record.recordId || record.frameworkId || record.id, "candidate"),
+    displayName: safeText(record.displayName || record.recordId, "Candidate"),
+    sourceDatabase: safeText(record.sourceDatabase, "Pending"),
+    sourceRecordId: safeText(record.sourceRecordId || record.frameworkId || record.id, "Pending"),
+    currentMetadataLevel: verification.verificationLevel,
+    currentVerificationTier: verification.verificationTier,
+    proposedVerificationTier,
+    doi: record.doi ?? null,
+    sourceUrl: record.sourceUrl ?? null,
+    license: record.license ?? null,
+    citation: record.citation ?? null,
+    descriptorProvenanceStatus: verification.descriptorProvenanceStatus,
+    verificationAction: "needs_manual_review",
+    priority,
+    blockingReasons: verification.blockingReasons.map(reason => (QUEUE_REASON_TEXT[reason] ? (lang === "zh" ? QUEUE_REASON_TEXT[reason].zh : QUEUE_REASON_TEXT[reason].en) : reason)),
+    nextActions: queueNextActions(verification),
+    notFinalRecommendation: true,
+  }))
+
+  const priorityCounts = { high: 0, medium: 0, low: 0 }
+  const proposedTierCounts = { verified_metadata: 0, near_verified: 0, partial_metadata: 0, preview_only: 0, blocked: 0 }
+  const blockingReasonCounts = {}
+  for (const item of queue) {
+    priorityCounts[item.priority] += 1
+    proposedTierCounts[item.proposedVerificationTier] += 1
+    for (const reason of item.blockingReasons) blockingReasonCounts[reason] = (blockingReasonCounts[reason] || 0) + 1
+  }
+  const mostCommonBlockingReasons = Object.entries(blockingReasonCounts)
+    .sort((a, b) => b[1] - a[1])
+    .map(([reason, count]) => ({ reason, count }))
+
+  return {
+    queue,
+    summary: {
+      queueSize: queue.length,
+      priorityCounts,
+      proposedTierCounts,
+      proposedVerifiedMetadataCount: proposedTierCounts.verified_metadata,
+      manualReviewRequired: queue.length,
+      mostCommonBlockingReasons,
+      notFinalRecommendation: true,
+    },
   }
 }
 

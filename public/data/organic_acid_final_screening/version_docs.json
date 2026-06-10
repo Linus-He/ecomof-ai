@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06",
-  "currentVersion": "V2.0-G",
-  "completedRange": "V1.0-V2.0-G",
+  "currentVersion": "V2.0-H",
+  "completedRange": "V1.0-V2.0-H",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -1292,7 +1292,7 @@
       "title": "Small-Scale Verified Database Integration + Multi-View Descriptor Gate",
       "titleZh": "小规模经核验数据库接入 + 多视角描述符门控",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Small verified sample, descriptor redundancy gate, and mechanism proxy layer",
       "themeZh": "小规模经核验样本、描述符冗余门控与机制代理层",
       "summary": "Integrated a bounded (<= 200 record) small verified database sample, advanced part of it from preview-only to partial_metadata, and added a Descriptor Redundancy Gate, a Mechanism Proxy Layer, and an Algorithm Improvement Trace. Method analogy only, inspired by Han et al. 2024 multi-view feature engineering; no model is trained and the result is not full verified screening.",
@@ -1395,25 +1395,134 @@
         "adaptationBoundaryZh": "仅小规模经核验样本、描述符冗余审计与规则型机制代理；对 Han et al. 2024 仅作方法类比，不复现模型，也不是经完整验证的筛选。"
       },
       "relatedSection": "#methodology-oafs-database-index-preview"
-    }
-  ],
-  "roadmap": [
+    },
     {
       "version": "V2.0-H",
       "title": "Small-Sample Validation and Sensitivity Audit",
       "titleZh": "小样本验证与敏感性审计",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Verification queue, sensitivity and ablation audits, mechanism evidence, validation roadmap",
+      "themeZh": "核验队列、敏感性与消融审计、机制证据与验证路线",
+      "summary": "Pushed the V2.0-G 120-record sample from explainable preview toward an auditable validation plan: a manual metadata verification queue, a near_verified tier, a deterministic sensitivity audit, a feature ablation audit, mechanism evidence backfill, and a candidate validation roadmap. No database expansion, no model training, no OACS/DMRS change, and still not a final recommendation.",
+      "summaryZh": "把 V2.0-G 的 120 条样本从可解释预览推进到可审计验证计划：人工 metadata 核验队列、near_verified 分层、确定性敏感性审计、特征消融审计、机制证据回填与候选验证路线。不扩数据库、不训练模型、不改 OACS/DMRS，仍不是最终推荐。",
+      "keyUpdates": [
+        "Added a manual metadata verification queue (18 priority items) under public/data/database_precompute/v2_0_h/, with no fabricated DOI/license/source and zero auto-verified candidates.",
+        "Added a near_verified verification tier between partial_metadata and verified_metadata; near_verified is a priority-review marker, not verified.",
+        "Added a deterministic sensitivity audit (weight perturbation, redundancy/proxy/metadata-gate toggles, Top-N stability) reporting stability, not accuracy.",
+        "Added a feature ablation audit (all descriptors / without redundant / without proxies / metadata gate only) reporting Top-N overlap without deleting descriptors.",
+        "Added mechanism evidence backfill: each proxy is labeled literature_supported / descriptor_inferred / weak_proxy / insufficient_evidence.",
+        "Added a candidate validation roadmap (metadata / descriptor / mechanism follow-ups and validation directions) and filled the sensitivity stage of the Algorithm Improvement Trace."
+      ],
+      "keyUpdatesZh": [
+        "在 public/data/database_precompute/v2_0_h/ 下新增人工 metadata 核验队列（18 条优先项），不伪造 DOI/license/来源，且没有任何候选被自动核验。",
+        "在 partial_metadata 与 verified_metadata 之间新增 near_verified 分层；near_verified 只是优先核验标记，不等于已核验。",
+        "新增确定性敏感性审计（权重扰动、冗余/代理/metadata 门控开关、Top-N 稳定性），报告稳定性而非精度。",
+        "新增特征消融审计（全描述符 / 去冗余 / 去机制代理 / 仅 metadata 门控），报告 Top-N 重叠且不删除描述符。",
+        "新增机制证据回填：每个代理标注 文献支持 / 描述符推断 / 弱代理 / 证据不足。",
+        "新增候选验证路线（metadata / 描述符 / 机制跟进与验证方向），并补齐算法改进追踪的敏感性阶段。"
+      ],
+      "algorithmChanges": [
+        "No OACS/DMRS formula change.",
+        "No full database scoring in browser.",
+        "No machine learning model is trained; no model-accuracy metrics are reported.",
+        "near_verified is a tier marker only and is never treated as verified_metadata or a final recommendation.",
+        "Sensitivity and ablation audits are deterministic and independent; they do not change scoring.",
+        "V2.0-D worker boundary and V2.0-E metadata gate are unchanged."
+      ],
+      "algorithmChangesZh": [
+        "不修改 OACS/DMRS 公式。",
+        "浏览器内不执行全量数据库评分。",
+        "不训练机器学习模型；不报告模型精度指标。",
+        "near_verified 只是分层标记，绝不等同于 verified_metadata 或最终推荐。",
+        "敏感性与消融审计为确定性且独立，不改变评分。",
+        "保持 V2.0-D Worker 边界与 V2.0-E metadata 门控不变。"
+      ],
+      "uiChanges": [
+        "Added a Metadata Verification Queue Panel, a Sensitivity Audit Panel, and a Feature Ablation Audit Panel to the Database Index Workbench.",
+        "Added a Candidate Validation Roadmap Panel, mechanism evidence status, and the near_verified tier to the Candidate Detail Drawer.",
+        "Added a sensitivity-risk / validation-priority pointer on the OACS-DMRS Candidate Priority Map active panel and updated the Algorithm Improvement Trace panel."
+      ],
+      "uiChangesZh": [
+        "在 Database Index Workbench 中新增人工核验队列面板、敏感性审计面板与特征消融审计面板。",
+        "在候选详情抽屉中新增候选验证路线面板、机制证据状态与 near_verified 分层。",
+        "在 OACS-DMRS 候选优先级地图活动面板中新增敏感性风险 / 验证优先级指引，并更新算法改进追踪面板。"
+      ],
+      "methodologyChanges": [
+        "Documented the V2.0-H verification queue, near_verified tier, sensitivity audit, feature ablation audit, mechanism evidence backfill, and candidate validation roadmap in Methods & Evidence.",
+        "Documented Han et al. 2024 (10.1038/s41467-024-52550-9) as a method analogy for the screen -> mechanism-explain -> validate loop only.",
+        "Documented the boundary: no database expansion, no model training, no model-accuracy metrics, and still not full verified screening."
+      ],
+      "methodologyChangesZh": [
+        "在 Methods & Evidence 中记录 V2.0-H 核验队列、near_verified 分层、敏感性审计、特征消融审计、机制证据回填与候选验证路线。",
+        "记录 Han et al. 2024（10.1038/s41467-024-52550-9）仅作为 筛选 -> 机制解释 -> 验证 闭环的方法类比。",
+        "记录边界：不扩数据库、不训练模型、不报告模型精度，也不是经完整验证的筛选。"
+      ],
+      "evidenceBoundary": "Verification queue, deterministic audits, and validation directions only; not database expansion, not a trained model, and not full verified database screening.",
+      "evidenceBoundaryZh": "仅核验队列、确定性审计与验证方向；不是数据库扩展、不是训练模型，也不是经完整验证的全量数据库筛选。",
+      "limitations": [
+        "Still based on the bounded V2.0-G 120-record sample; the database is not expanded.",
+        "Verified_metadata count is still 0; all queue items require manual DOI/license/source verification.",
+        "near_verified marks priority-review candidates only and cannot enter a final recommendation.",
+        "Sensitivity/ablation report ranking stability, not predictive accuracy.",
+        "Many mechanism proxies remain weak_proxy and need stronger evidence."
+      ],
+      "limitationsZh": [
+        "仍基于有界的 V2.0-G 120 条样本；未扩展数据库。",
+        "verified_metadata 数量仍为 0；所有队列项都需人工核验 DOI/license/来源。",
+        "near_verified 只标记优先核验候选，不能进入最终推荐。",
+        "敏感性/消融报告的是排序稳定性，不是预测精度。",
+        "许多机制代理仍是弱代理，需要更强证据。"
+      ],
+      "literatureInspirations": [
+        {
+          "literatureId": "HAN-2024-NATCOMMS",
+          "citation": "Han, Z. et al. Machine learning-based design of electrocatalytic materials towards high-energy lithium-sulfur batteries development. Nature Communications 2024, 15, 8433.",
+          "doi": "10.1038/s41467-024-52550-9",
+          "inspiredFeatures": [
+            "Screen -> mechanism-explain -> validate closed loop",
+            "Multi-stage feature engineering and selection idea",
+            "Sensitivity / robustness checking of feature importance"
+          ],
+          "evidenceBoundary": "Method analogy only. EcoMOF-AI does not reproduce the Li-S model, does not use Li-S target variables, does not train XGBoost, and does not report model-accuracy metrics."
+        }
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "metadata-verification-queue",
+          "near-verified-tier",
+          "sensitivity-audit",
+          "feature-ablation-audit",
+          "mechanism-evidence-backfill",
+          "candidate-validation-roadmap",
+          "no-model-training"
+        ],
+        "literatureIds": [
+          "HAN-2024-NATCOMMS"
+        ],
+        "adaptationBoundary": "Verification queue, deterministic audits, and validation directions only; method analogy to Han et al. 2024 screen->explain->validate loop, not a model reproduction and not full verified screening.",
+        "adaptationBoundaryZh": "仅核验队列、确定性审计与验证方向；对 Han et al. 2024 筛选->解释->验证 闭环仅作方法类比，不复现模型，也不是经完整验证的筛选。"
+      },
+      "relatedSection": "#methodology-oafs-database-index-preview"
+    }
+  ],
+  "roadmap": [
+    {
+      "version": "V2.0-I",
+      "title": "Manual Metadata Curation and Source-Link Enrichment",
+      "titleZh": "人工 metadata 整理与来源链接补全",
       "status": "planned",
       "items": [
-        "Validation of the small verified sample against literature",
-        "Sensitivity / stability audit of descriptor and proxy outputs",
-        "Manual verification of pending DOI / license / source",
-        "Strengthen evidence for low-confidence mechanism proxies"
+        "Manually curate DOI / license / source URL for queue items",
+        "Promote near_verified candidates after manual review",
+        "Enrich source links and citations for the small sample",
+        "Strengthen weak mechanism proxies with literature evidence"
       ],
       "itemsZh": [
-        "对小规模经核验样本进行文献验证",
-        "对描述符与代理输出做敏感性 / 稳定性审计",
-        "人工核验待定的 DOI / license / 来源",
-        "为低置信度机制代理补强证据"
+        "为队列项人工整理 DOI / license / 来源链接",
+        "人工核验后提升 near_verified 候选",
+        "为小样本补全来源链接与引用",
+        "用文献证据补强弱机制代理"
       ]
     }
   ],

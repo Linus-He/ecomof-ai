@@ -2,7 +2,7 @@
 import { useMemo } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
 import { StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
-import { buildMechanismProxies } from "../../utils/organicAcid/mechanismProxyMapping"
+import { buildMechanismProxies, mechanismEvidenceStatusLabel, mechanismEvidenceTone } from "../../utils/organicAcid/mechanismProxyMapping"
 
 const PROXY_LABELS = {
   co2ActivationProxy: ["CO₂ activation proxy", "CO₂ 活化代理"],
@@ -42,6 +42,7 @@ export function MechanismProxyPanel({ record = {}, lang, t, isMobile }) {
                 <StatusPill tone={proxyTone(key, value)} t={t}>{value === null ? text(lang, "证据不足", "insufficient evidence") : value.toFixed(2)}</StatusPill>
               </div>
               <span style={{ color: t.muted, fontSize: 11, lineHeight: 1.4 }}><ChemicalText value={explanations[key] || ""} /></span>
+              <StatusPill tone={mechanismEvidenceTone(result.evidence?.[key]?.evidenceStatus)} t={t}>{mechanismEvidenceStatusLabel(result.evidence?.[key]?.evidenceStatus, lang)}</StatusPill>
             </article>
           )
         })}

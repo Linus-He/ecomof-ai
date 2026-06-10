@@ -171,15 +171,103 @@ export function buildMechanismProxies(record = {}) {
 
   const availableCount = PROXY_KEYS.filter(key => proxies[key] !== null).length
 
+  // V2.0-H mechanism evidence backfill: classify the evidence behind each proxy.
+  const evidence = buildProxyEvidence(record, proxies)
+
   return {
     proxies,
     proxyKeys: PROXY_KEYS,
     availableCount,
     missingProxies: missing,
+    evidence,
     explanationsEn,
     explanationsZh,
     boundary: "Mechanism proxy only. Not DFT, not experimental proof, not a final recommendation. Rule-based mapping inspired by Han et al. 2024 multi-view feature engineering; not a reproduction of their Li-S model.",
     boundaryZh: "仅机制代理。不是 DFT、不是实验证据、也不是最终推荐。规则型映射受 Han et al. 2024 多视角特征工程启发，并非复现其 Li-S 模型。",
+    notFinalRecommendation: true,
+  }
+}
+
+// Each proxy's dominant input source. "descriptor" = measured/database descriptors;
+// "computed_proxy" = rule-derived proxy descriptors; "metadata" = verification status.
+const PROXY_PRIMARY_SOURCE = {
+  co2ActivationProxy: "computed_proxy",
+  formatePathwayProxy: "computed_proxy",
+  hydrothermalStabilityProxy: "computed_proxy",
+  poreTransportProxy: "descriptor",
+  metalSiteSynergyProxy: "computed_proxy",
+  competitionRiskProxy: "descriptor",
+  evidenceConfidenceProxy: "metadata",
+}
+
+const EVIDENCE_STATUS_COPY = {
+  literature_supported: { en: "Literature supported", zh: "文献支持" },
+  descriptor_inferred: { en: "Descriptor inferred", zh: "描述符推断" },
+  weak_proxy: { en: "Weak proxy", zh: "弱代理" },
+  insufficient_evidence: { en: "Insufficient evidence", zh: "证据不足" },
+}
+
+export function mechanismEvidenceStatusLabel(statusKey, lang) {
+  const row = EVIDENCE_STATUS_COPY[statusKey] || EVIDENCE_STATUS_COPY.insufficient_evidence
+  return lang === "zh" ? row.zh : row.en
+}
+
+export function mechanismEvidenceTone(statusKey) {
+  if (statusKey === "literature_supported") return "pass"
+  if (statusKey === "descriptor_inferred") return "proxy"
+  if (statusKey === "weak_proxy") return "warn"
+  return "warn"
+}
+
+function hasLiteratureSupport(record) {
+  return Boolean(record?.doi || record?.sourceDoi || record?.citation)
+}
+
+// Classify the evidence behind each proxy. Honest by construction: rule-derived
+// proxies are labeled weak_proxy, database-descriptor proxies are descriptor_inferred,
+// and only real DOI/citation support yields literature_supported.
+export function buildProxyEvidence(record = {}, proxies = {}) {
+  const literature = hasLiteratureSupport(record)
+  const evidence = {}
+  for (const key of PROXY_KEYS) {
+    const value = proxies[key]
+    if (value === null || value === undefined) {
+      evidence[key] = {
+        evidenceStatus: "insufficient_evidence",
+        evidenceSource: "missing",
+        confidence: "insufficient",
+        warnings: ["missing_input_descriptors"],
+      }
+      continue
+    }
+    const primary = PROXY_PRIMARY_SOURCE[key] || "computed_proxy"
+    if (literature) {
+      evidence[key] = { evidenceStatus: "literature_supported", evidenceSource: "literature", confidence: "high", warnings: [] }
+    } else if (primary === "descriptor") {
+      evidence[key] = { evidenceStatus: "descriptor_inferred", evidenceSource: "descriptor", confidence: "medium", warnings: [] }
+    } else if (primary === "metadata") {
+      evidence[key] = { evidenceStatus: "descriptor_inferred", evidenceSource: "descriptor", confidence: "medium", warnings: [] }
+    } else {
+      evidence[key] = { evidenceStatus: "weak_proxy", evidenceSource: "computed_proxy", confidence: "low", warnings: ["relies_on_computed_proxy"] }
+    }
+  }
+  return evidence
+}
+
+export function summarizeMechanismEvidence(records = []) {
+  const rows = Array.isArray(records) ? records : []
+  const statusCounts = { literature_supported: 0, descriptor_inferred: 0, weak_proxy: 0, insufficient_evidence: 0 }
+  for (const record of rows) {
+    const { evidence } = buildMechanismProxies(record)
+    for (const key of PROXY_KEYS) {
+      const status = evidence[key]?.evidenceStatus || "insufficient_evidence"
+      statusCounts[status] = (statusCounts[status] || 0) + 1
+    }
+  }
+  return {
+    recordCount: rows.length,
+    proxyKeys: PROXY_KEYS,
+    statusCounts,
     notFinalRecommendation: true,
   }
 }

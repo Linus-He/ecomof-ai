@@ -161,8 +161,16 @@ function TraceWorkbenchMethod({ lang, t }) {
 function DatabaseIndexPreviewMethod({ lang, t }) {
   const rows = [
     [
+      text(lang, "V2.0-H 小样本验证与敏感性审计", "V2.0-H Small-Sample Validation and Sensitivity Audit"),
+      text(lang, "V2.0-H 把 V2.0-G 的 120 条样本推进到可审计验证计划：人工 metadata 核验队列、near_verified 分层（仅优先核验，不等于已核验）、确定性敏感性审计、特征消融审计、机制证据回填（文献支持/描述符推断/弱代理/证据不足）与候选验证路线。受 Han et al. 2024 的 筛选→机制解释→验证 闭环启发，仅作方法类比：不复现 Li-S 模型、不训练 XGBoost、不报告模型精度。不扩数据库、不改 OACS/DMRS，仍不是最终推荐。", "V2.0-H pushes the V2.0-G 120-record sample toward an auditable validation plan: a manual metadata verification queue, a near_verified tier (priority review only, not verified), a deterministic sensitivity audit, a feature ablation audit, mechanism evidence backfill (literature_supported / descriptor_inferred / weak_proxy / insufficient_evidence), and a candidate validation roadmap. Inspired by the screen -> mechanism-explain -> validate loop in Han et al. 2024 as a method analogy only: no Li-S model reproduction, no XGBoost training, no model-precision metrics. No database expansion, no OACS/DMRS change, and still not a final recommendation."),
+    ],
+    [
+      text(lang, "near_verified 分层", "near_verified tier"),
+      text(lang, "near_verified 表示来源/描述符溯源基本完整、citation 或来源链接至少有一个可用，但 DOI 或 license 仍待核验的候选；它只能进入优先人工核验队列，仍不可作为最终推荐。", "near_verified marks candidates whose source/descriptor provenance is largely complete with at least a citation or source lead, but whose DOI or license is still pending; it only enters the priority manual-review queue and is still not a final recommendation."),
+    ],
+    [
       text(lang, "V2.0-G 小规模经核验数据库接入 + 多视角描述符门控", "V2.0-G Small-Scale Verified Database Integration + Multi-View Descriptor Gate"),
-      text(lang, "V2.0-G 接入一个有界（<= 200 条）小规模经核验样本，让部分候选从仅限预览推进到 partial_metadata（DOI/license 仍待核验，未伪造）。新增描述符冗余门控（方差/缺失率/Pearson 相关，标记但不删除）、机制代理层（描述符 → CO₂→有机酸机制代理，证据不足返回 null）与算法改进追踪。受 Han et al. 2024（10.1038/s41467-024-52550-9）多视角特征工程启发，仅作方法类比：不复现其 Li-S 模型、不使用 Li-S 目标变量、不训练 XGBoost、不报告模型精度指标。OACS/DMRS 公式未修改。", "V2.0-G integrates a bounded (<= 200 record) small verified sample and advances part of it from preview only to partial_metadata (DOI/license still pending, not fabricated). It adds a descriptor redundancy gate (variance/missingness/Pearson, flag-not-delete), a mechanism proxy layer (descriptors -> CO2->organic-acid proxies, null on insufficient evidence), and an algorithm improvement trace. Inspired by the multi-view feature engineering in Han et al. 2024 (10.1038/s41467-024-52550-9) as a method analogy only: no reproduction of their Li-S model, no Li-S target variables, no XGBoost training, and no model-accuracy metrics reported. OACS/DMRS formulas are unchanged."),
+      text(lang, "V2.0-G 接入一个有界（<= 200 条）小规模经核验样本，让部分候选从仅限预览推进到 partial_metadata（DOI/license 仍待核验，未伪造）。新增描述符冗余门控（方差/缺失率/Pearson 相关，标记但不删除）、机制代理层（描述符 → CO₂→有机酸机制代理，证据不足返回 null）与算法改进追踪。受 Han et al. 2024（10.1038/s41467-024-52550-9）多视角特征工程启发，仅作方法类比：不复现其 Li-S 模型、不使用 Li-S 目标变量、不训练 XGBoost、不报告模型精度指标。OACS/DMRS 公式未修改。", "V2.0-G integrates a bounded (<= 200 record) small verified sample and advances part of it from preview only to partial_metadata (DOI/license still pending, not fabricated). It adds a descriptor redundancy gate (variance/missingness/Pearson, flag-not-delete), a mechanism proxy layer (descriptors -> CO2->organic-acid proxies, null on insufficient evidence), and an algorithm improvement trace. Inspired by the multi-view feature engineering in Han et al. 2024 (10.1038/s41467-024-52550-9) as a method analogy only: no reproduction of their Li-S model, no Li-S target variables, no XGBoost training, and no model-precision metrics reported. OACS/DMRS formulas are unchanged."),
     ],
     [
       text(lang, "Han et al. 2024 借鉴边界", "Han et al. 2024 adaptation boundary"),
@@ -238,14 +246,14 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
       <header style={{ display: "grid", gap: 4 }}>
         <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Database Index Preview</span>
         <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
-          {text(lang, "数据库索引预览：V2.0-G 小规模经核验数据库接入 + 多视角描述符门控", "Database Index Preview: V2.0-G Small-Scale Verified Database Integration + Multi-View Descriptor Gate")}
+          {text(lang, "数据库索引预览：V2.0-H 小样本验证与敏感性审计", "Database Index Preview: V2.0-H Small-Sample Validation and Sensitivity Audit")}
         </h3>
       </header>
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "V2.0-G 在 V2.0-F 预计算管线之上接入一个有界（<= 200 条）小规模经核验样本，并新增描述符冗余门控、机制代理层与算法改进追踪。浏览器仍只加载 manifest 摘要、预计算候选预览、选定索引分片和按需详情记录；全量评分在浏览器主线程之外进行。受 Han et al. 2024 多视角特征工程启发，仅作方法类比，不训练任何黑盒模型。",
-          "V2.0-G integrates a bounded (<= 200 record) small verified sample on top of the V2.0-F precompute pipeline and adds a descriptor redundancy gate, a mechanism proxy layer, and an algorithm improvement trace. The browser still loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand; full scoring runs outside the browser main thread. Inspired by the multi-view feature engineering in Han et al. 2024 as a method analogy only, with no black-box model trained."
+          "V2.0-H 在 V2.0-G 之上把 120 条小样本推进到可审计验证计划：人工核验队列、near_verified 分层、敏感性审计、特征消融审计、机制证据回填与候选验证路线。浏览器仍只加载 manifest 摘要、预计算候选预览、选定索引分片和按需详情记录；全量评分在浏览器主线程之外进行。受 Han et al. 2024 的 筛选→机制解释→验证 闭环启发，仅作方法类比，不扩数据库、不训练模型。",
+          "V2.0-H pushes the 120-record small sample toward an auditable validation plan on top of V2.0-G: a manual verification queue, a near_verified tier, a sensitivity audit, a feature ablation audit, mechanism evidence backfill, and a candidate validation roadmap. The browser still loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand; full scoring runs outside the browser main thread. Inspired by the screen -> mechanism-explain -> validate loop in Han et al. 2024 as a method analogy only, with no database expansion and no model trained."
         )} />
       </p>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
@@ -257,7 +265,7 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
         ))}
       </div>
       <p style={{ color: t.warn, fontSize: 12.5, fontWeight: 900, lineHeight: 1.52, margin: 0 }}>
-        <ChemicalText value={text(lang, "V2.0-G 仍然不是经完整验证的全量数据库筛选；它只接入小规模经核验样本并做描述符冗余审计与规则型机制代理，未训练任何模型，OACS/DMRS 公式未在 V2.0-G 中修改。经完整验证的全量筛选仍需描述符复算、来源核验、公式审计与实验/文献验证。", "V2.0-G remains a small verified sample with descriptor redundancy audit and rule-based mechanism proxies, not full verified database screening; no model is trained and OACS/DMRS formulas are unchanged in V2.0-G. Full verified screening still requires descriptor recomputation, source verification, formula audit, and experimental/literature validation.")} />
+        <ChemicalText value={text(lang, "V2.0-H 仍然不是经完整验证的全量数据库筛选；它在 120 条小样本上建立核验队列与确定性审计，未训练任何模型，OACS/DMRS 公式未在 V2.0-H 中修改。经完整验证的全量筛选仍需人工 metadata 整理、描述符复算、来源核验、公式审计与实验/文献验证。", "V2.0-H remains a verification queue and deterministic audits over the 120-record small sample, not full verified database screening; no model is trained and OACS/DMRS formulas are unchanged in V2.0-H. Full verified screening still requires manual metadata curation, descriptor recomputation, source verification, formula audit, and experimental/literature validation.")} />
       </p>
     </section>
   )
@@ -495,7 +503,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           <SmallRealDatasetMethod mappingReport={data.mappingReport} lang={lang} t={t} />
         </LazyMethodologyDetails>
         <TraceWorkbenchMethod lang={lang} t={t} />
-        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-G integrates a small verified sample and adds a descriptor redundancy gate, mechanism proxy layer, and algorithm improvement trace (method analogy to Han et al. 2024), while preserving lazy loading and the OACS/DMRS formulas." summaryZh="V2.0-G 接入小规模经核验样本并新增描述符冗余门控、机制代理层与算法改进追踪（对 Han et al. 2024 仅作方法类比），同时保持懒加载边界与 OACS/DMRS 公式不变。" lang={lang} t={t}>
+        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-H adds a metadata verification queue, a near_verified tier, a sensitivity audit, a feature ablation audit, mechanism evidence backfill, and a candidate validation roadmap over the V2.0-G sample (method analogy to Han et al. 2024), while preserving lazy loading and the OACS/DMRS formulas." summaryZh="V2.0-H 在 V2.0-G 样本上新增 metadata 核验队列、near_verified 分层、敏感性审计、特征消融审计、机制证据回填与候选验证路线（对 Han et al. 2024 仅作方法类比），同时保持懒加载边界与 OACS/DMRS 公式不变。" lang={lang} t={t}>
           <DatabaseIndexPreviewMethod lang={lang} t={t} />
         </LazyMethodologyDetails>
         <LazyMethodologyDetails id="methodology-oafs-oacs" title="OACS Formula Explainer" titleZh="OACS 骨架筛选" summary="Formula card renders after expansion." summaryZh="公式卡片展开后渲染。" lang={lang} t={t}>

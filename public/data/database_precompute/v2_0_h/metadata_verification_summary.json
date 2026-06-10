@@ -1,0 +1,35 @@
+{
+  "version": "V2.0-H",
+  "queueSize": 18,
+  "priorityCounts": {
+    "high": 12,
+    "medium": 6,
+    "low": 0
+  },
+  "proposedTierCounts": {
+    "verified_metadata": 0,
+    "near_verified": 12,
+    "partial_metadata": 6,
+    "preview_only": 0,
+    "blocked": 0
+  },
+  "proposedVerifiedMetadataCount": 0,
+  "manualReviewRequired": 18,
+  "mostCommonBlockingReasons": [
+    {
+      "reason": "DOI pending",
+      "count": 18
+    },
+    {
+      "reason": "source URL pending",
+      "count": 18
+    },
+    {
+      "reason": "descriptor provenance incomplete",
+      "count": 6
+    }
+  ],
+  "notFinalRecommendation": true,
+  "boundary": "Manual-review queue only. No DOI/license/source is fabricated and no candidate is auto-verified.",
+  "boundaryZh": "仅人工核验队列。不伪造 DOI/license/来源，也不自动将任何候选标记为已核验。"
+}

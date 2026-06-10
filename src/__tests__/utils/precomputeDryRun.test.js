@@ -58,4 +58,28 @@ describe("precompute database-score dry run", () => {
     expect(traceIds).toContain("preview_output")
     expect(JSON.stringify(summary)).not.toMatch(/R\^2|R²|\bMAE\b|\bRMSE\b/i)
   })
+
+  it("emits V2.0-H verification queue, sensitivity, ablation, and mechanism-evidence summaries", () => {
+    const summary = runPrecomputeDryRun()
+
+    expect(summary.nearVerifiedCount).toBeGreaterThan(0)
+    expect(summary.verificationQueueSummary.queueSize).toBeGreaterThan(0)
+
+    expect(summary.sensitivityAudit.top5Stability).toBeGreaterThanOrEqual(0)
+    expect(summary.sensitivityAudit.top5Stability).toBeLessThanOrEqual(1)
+    expect(summary.sensitivityAudit.auditRuns).toBeGreaterThan(0)
+
+    expect(summary.featureAblationAudit.map(v => v.id)).toContain("without_mechanism_proxies")
+    expect(summary.mechanismEvidenceSummary).toEqual(expect.objectContaining({
+      literature_supported: expect.any(Number),
+      descriptor_inferred: expect.any(Number),
+      weak_proxy: expect.any(Number),
+      insufficient_evidence: expect.any(Number),
+    }))
+
+    // Sensitivity stage in the trace is no longer empty.
+    const sensitivityStage = summary.algorithmImprovementTrace.find(s => s.id === "sensitivity_audit")
+    expect(sensitivityStage.outputCount).toBeGreaterThan(0)
+    expect(JSON.stringify(summary)).not.toMatch(/accuracy/i)
+  })
 })

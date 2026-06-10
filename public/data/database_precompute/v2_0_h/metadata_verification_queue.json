@@ -1,0 +1,486 @@
+{
+  "version": "V2.0-H",
+  "queue": [
+    {
+      "recordId": "COREMOF_000001",
+      "displayName": "MIL-53(Al) curated example database index preview",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000001",
+      "currentMetadataLevel": "partial_metadata",
+      "currentVerificationTier": "near_verified",
+      "proposedVerificationTier": "near_verified",
+      "doi": null,
+      "sourceUrl": null,
+      "license": null,
+      "citation": null,
+      "descriptorProvenanceStatus": "complete",
+      "verificationAction": "needs_manual_review",
+      "priority": "high",
+      "blockingReasons": [
+        "DOI pending",
+        "source URL pending"
+      ],
+      "nextActions": [
+        "Locate original CoRE/QMOF source record",
+        "Attach source URL or DOI if available",
+        "Confirm license and citation"
+      ],
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000002",
+      "displayName": "CAU-10(Al) curated example database index preview",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000002",
+      "currentMetadataLevel": "partial_metadata",
+      "currentVerificationTier": "near_verified",
+      "proposedVerificationTier": "near_verified",
+      "doi": null,
+      "sourceUrl": null,
+      "license": null,
+      "citation": null,
+      "descriptorProvenanceStatus": "complete",
+      "verificationAction": "needs_manual_review",
+      "priority": "high",
+      "blockingReasons": [
+        "DOI pending",
+        "source URL pending"
+      ],
+      "nextActions": [
+        "Locate original CoRE/QMOF source record",
+        "Attach source URL or DOI if available",
+        "Confirm license and citation"
+      ],
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000003",
+      "displayName": "MIL-100(Al) curated example database index preview",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000003",
+      "currentMetadataLevel": "partial_metadata",
+      "currentVerificationTier": "near_verified",
+      "proposedVerificationTier": "near_verified",
+      "doi": null,
+      "sourceUrl": null,
+      "license": null,
+      "citation": null,
+      "descriptorProvenanceStatus": "complete",
+      "verificationAction": "needs_manual_review",
+      "priority": "high",
+      "blockingReasons": [
+        "DOI pending",
+        "source URL pending"
+      ],
+      "nextActions": [
+        "Locate original CoRE/QMOF source record",
+        "Attach source URL or DOI if available",
+        "Confirm license and citation"
+      ],
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000004",
+      "displayName": "MIL-101(Al) curated example database index preview",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000004",
+      "currentMetadataLevel": "partial_metadata",
+      "currentVerificationTier": "near_verified",
+      "proposedVerificationTier": "near_verified",
+      "doi": null,
+      "sourceUrl": null,
+      "license": null,
+      "citation": null,
+      "descriptorProvenanceStatus": "complete",
+      "verificationAction": "needs_manual_review",
+      "priority": "high",
+      "blockingReasons": [
+        "DOI pending",
+        "source URL pending"
+      ],
+      "nextActions": [
+        "Locate original CoRE/QMOF source record",
+        "Attach source URL or DOI if available",
+        "Confirm license and citation"
+      ],
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000005",
+      "displayName": "DUT-4(Al) curated example database index preview",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000005",
+      "currentMetadataLevel": "partial_metadata",
+      "currentVerificationTier": "near_verified",
+      "proposedVerificationTier": "near_verified",
+      "doi": null,
+      "sourceUrl": null,
+      "license": null,
+      "citation": null,
+      "descriptorProvenanceStatus": "complete",
+      "verificationAction": "needs_manual_review",
+      "priority": "high",
+      "blockingReasons": [
+        "DOI pending",
+        "source URL pending"
+      ],
+      "nextActions": [
+        "Locate original CoRE/QMOF source record",
+        "Attach source URL or DOI if available",
+        "Confirm license and citation"
+      ],
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000006",
+      "displayName": "MOF-303(Al) curated example database index preview",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000006",
+      "currentMetadataLevel": "partial_metadata",
+      "currentVerificationTier": "near_verified",
+      "proposedVerificationTier": "near_verified",
+      "doi": null,
+      "sourceUrl": null,
+      "license": null,
+      "citation": null,
+      "descriptorProvenanceStatus": "complete",
+      "verificationAction": "needs_manual_review",
+      "priority": "high",
+      "blockingReasons": [
+        "DOI pending",
+        "source URL pending"
+      ],
+      "nextActions": [
+        "Locate original CoRE/QMOF source record",
+        "Attach source URL or DOI if available",
+        "Confirm license and citation"
+      ],
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000007",
+      "displayName": "Al fumarate curated example database index preview",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000007",
+      "currentMetadataLevel": "partial_metadata",
+      "currentVerificationTier": "near_verified",
+      "proposedVerificationTier": "near_verified",
+      "doi": null,
+      "sourceUrl": null,
+      "license": null,
+      "citation": null,
+      "descriptorProvenanceStatus": "complete",
+      "verificationAction": "needs_manual_review",
+      "priority": "high",
+      "blockingReasons": [
+        "DOI pending",
+        "source URL pending"
+      ],
+      "nextActions": [
+        "Locate original CoRE/QMOF source record",
+        "Attach source URL or DOI if available",
+        "Confirm license and citation"
+      ],
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000008",
+      "displayName": "Al-terephthalate amino curated example database index preview",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000008",
+      "currentMetadataLevel": "partial_metadata",
+      "currentVerificationTier": "near_verified",
+      "proposedVerificationTier": "near_verified",
+      "doi": null,
+      "sourceUrl": null,
+      "license": null,
+      "citation": null,
+      "descriptorProvenanceStatus": "complete",
+      "verificationAction": "needs_manual_review",
+      "priority": "high",
+      "blockingReasons": [
+        "DOI pending",
+        "source URL pending"
+      ],
+      "nextActions": [
+        "Locate original CoRE/QMOF source record",
+        "Attach source URL or DOI if available",
+        "Confirm license and citation"
+      ],
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000009",
+      "displayName": "Al trimesate narrow-pore curated example database index preview",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000009",
+      "currentMetadataLevel": "partial_metadata",
+      "currentVerificationTier": "near_verified",
+      "proposedVerificationTier": "near_verified",
+      "doi": null,
+      "sourceUrl": null,
+      "license": null,
+      "citation": null,
+      "descriptorProvenanceStatus": "complete",
+      "verificationAction": "needs_manual_review",
+      "priority": "high",
+      "blockingReasons": [
+        "DOI pending",
+        "source URL pending"
+      ],
+      "nextActions": [
+        "Locate original CoRE/QMOF source record",
+        "Attach source URL or DOI if available",
+        "Confirm license and citation"
+      ],
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000010",
+      "displayName": "Al phosphonate curated example database index preview",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000010",
+      "currentMetadataLevel": "partial_metadata",
+      "currentVerificationTier": "near_verified",
+      "proposedVerificationTier": "near_verified",
+      "doi": null,
+      "sourceUrl": null,
+      "license": null,
+      "citation": null,
+      "descriptorProvenanceStatus": "complete",
+      "verificationAction": "needs_manual_review",
+      "priority": "high",
+      "blockingReasons": [
+        "DOI pending",
+        "source URL pending"
+      ],
+      "nextActions": [
+        "Locate original CoRE/QMOF source record",
+        "Attach source URL or DOI if available",
+        "Confirm license and citation"
+      ],
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000011",
+      "displayName": "Al hydroxynaphthalate curated example database index preview",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000011",
+      "currentMetadataLevel": "partial_metadata",
+      "currentVerificationTier": "near_verified",
+      "proposedVerificationTier": "near_verified",
+      "doi": null,
+      "sourceUrl": null,
+      "license": null,
+      "citation": null,
+      "descriptorProvenanceStatus": "complete",
+      "verificationAction": "needs_manual_review",
+      "priority": "high",
+      "blockingReasons": [
+        "DOI pending",
+        "source URL pending"
+      ],
+      "nextActions": [
+        "Locate original CoRE/QMOF source record",
+        "Attach source URL or DOI if available",
+        "Confirm license and citation"
+      ],
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000012",
+      "displayName": "Al mixed-linker curated example database index preview",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000012",
+      "currentMetadataLevel": "partial_metadata",
+      "currentVerificationTier": "near_verified",
+      "proposedVerificationTier": "near_verified",
+      "doi": null,
+      "sourceUrl": null,
+      "license": null,
+      "citation": null,
+      "descriptorProvenanceStatus": "complete",
+      "verificationAction": "needs_manual_review",
+      "priority": "high",
+      "blockingReasons": [
+        "DOI pending",
+        "source URL pending"
+      ],
+      "nextActions": [
+        "Locate original CoRE/QMOF source record",
+        "Attach source URL or DOI if available",
+        "Confirm license and citation"
+      ],
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000013",
+      "displayName": "Al-hydroxyterephthalate C1-accessible scaffold database index preview",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000013",
+      "currentMetadataLevel": "preview_only",
+      "currentVerificationTier": "preview_only",
+      "proposedVerificationTier": "partial_metadata",
+      "doi": null,
+      "sourceUrl": null,
+      "license": null,
+      "citation": null,
+      "descriptorProvenanceStatus": "partial",
+      "verificationAction": "needs_manual_review",
+      "priority": "medium",
+      "blockingReasons": [
+        "DOI pending",
+        "source URL pending",
+        "descriptor provenance incomplete"
+      ],
+      "nextActions": [
+        "Locate original CoRE/QMOF source record",
+        "Attach source URL or DOI if available",
+        "Confirm license and citation",
+        "Document descriptor provenance"
+      ],
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000014",
+      "displayName": "Al-carboxylate high-surface-area review scaffold database index preview",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000014",
+      "currentMetadataLevel": "preview_only",
+      "currentVerificationTier": "preview_only",
+      "proposedVerificationTier": "partial_metadata",
+      "doi": null,
+      "sourceUrl": null,
+      "license": null,
+      "citation": null,
+      "descriptorProvenanceStatus": "partial",
+      "verificationAction": "needs_manual_review",
+      "priority": "medium",
+      "blockingReasons": [
+        "DOI pending",
+        "source URL pending",
+        "descriptor provenance incomplete"
+      ],
+      "nextActions": [
+        "Locate original CoRE/QMOF source record",
+        "Attach source URL or DOI if available",
+        "Confirm license and citation",
+        "Document descriptor provenance"
+      ],
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000015",
+      "displayName": "Al-MOF index preview 015",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000015",
+      "currentMetadataLevel": "preview_only",
+      "currentVerificationTier": "preview_only",
+      "proposedVerificationTier": "partial_metadata",
+      "doi": null,
+      "sourceUrl": null,
+      "license": null,
+      "citation": null,
+      "descriptorProvenanceStatus": "partial",
+      "verificationAction": "needs_manual_review",
+      "priority": "medium",
+      "blockingReasons": [
+        "DOI pending",
+        "source URL pending",
+        "descriptor provenance incomplete"
+      ],
+      "nextActions": [
+        "Locate original CoRE/QMOF source record",
+        "Attach source URL or DOI if available",
+        "Confirm license and citation",
+        "Document descriptor provenance"
+      ],
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000016",
+      "displayName": "Al-MOF index preview 016",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000016",
+      "currentMetadataLevel": "preview_only",
+      "currentVerificationTier": "preview_only",
+      "proposedVerificationTier": "partial_metadata",
+      "doi": null,
+      "sourceUrl": null,
+      "license": null,
+      "citation": null,
+      "descriptorProvenanceStatus": "partial",
+      "verificationAction": "needs_manual_review",
+      "priority": "medium",
+      "blockingReasons": [
+        "DOI pending",
+        "source URL pending",
+        "descriptor provenance incomplete"
+      ],
+      "nextActions": [
+        "Locate original CoRE/QMOF source record",
+        "Attach source URL or DOI if available",
+        "Confirm license and citation",
+        "Document descriptor provenance"
+      ],
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000017",
+      "displayName": "Al-MOF index preview 017",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000017",
+      "currentMetadataLevel": "preview_only",
+      "currentVerificationTier": "preview_only",
+      "proposedVerificationTier": "partial_metadata",
+      "doi": null,
+      "sourceUrl": null,
+      "license": null,
+      "citation": null,
+      "descriptorProvenanceStatus": "partial",
+      "verificationAction": "needs_manual_review",
+      "priority": "medium",
+      "blockingReasons": [
+        "DOI pending",
+        "source URL pending",
+        "descriptor provenance incomplete"
+      ],
+      "nextActions": [
+        "Locate original CoRE/QMOF source record",
+        "Attach source URL or DOI if available",
+        "Confirm license and citation",
+        "Document descriptor provenance"
+      ],
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000018",
+      "displayName": "Al-MOF index preview 018",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000018",
+      "currentMetadataLevel": "preview_only",
+      "currentVerificationTier": "preview_only",
+      "proposedVerificationTier": "partial_metadata",
+      "doi": null,
+      "sourceUrl": null,
+      "license": null,
+      "citation": null,
+      "descriptorProvenanceStatus": "partial",
+      "verificationAction": "needs_manual_review",
+      "priority": "medium",
+      "blockingReasons": [
+        "DOI pending",
+        "source URL pending",
+        "descriptor provenance incomplete"
+      ],
+      "nextActions": [
+        "Locate original CoRE/QMOF source record",
+        "Attach source URL or DOI if available",
+        "Confirm license and citation",
+        "Document descriptor provenance"
+      ],
+      "notFinalRecommendation": true
+    }
+  ],
+  "notFinalRecommendation": true
+}

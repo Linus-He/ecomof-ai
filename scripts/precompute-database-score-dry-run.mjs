@@ -23,13 +23,17 @@ import {
 } from "../src/utils/databaseIndex/metadataVerification.js"
 import { descriptorCompletenessPercent } from "../src/utils/databaseIndex/databaseIndexFormatters.js"
 import { buildDescriptorRedundancySummary } from "../src/utils/databaseIndex/descriptorRedundancyGate.js"
-import { summarizeMechanismProxyAvailability } from "../src/utils/organicAcid/mechanismProxyMapping.js"
+import { summarizeMechanismProxyAvailability, summarizeMechanismEvidence } from "../src/utils/organicAcid/mechanismProxyMapping.js"
 import { buildAlgorithmImprovementTrace } from "../src/utils/databaseIndex/algorithmImprovementTrace.js"
+import { buildSensitivityAuditSummary } from "../src/utils/databaseIndex/sensitivityAudit.js"
+import { buildFeatureAblationAudit } from "../src/utils/databaseIndex/featureAblationAudit.js"
+import { buildValidationRoadmapForRecords } from "../src/utils/databaseIndex/candidateValidationRoadmap.js"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const repoRoot = path.resolve(__dirname, "..")
 const indexRoot = path.join(repoRoot, "public", "data", "database_index")
 const v2gRoot = path.join(repoRoot, "public", "data", "database_precompute", "v2_0_g")
+const v2hRoot = path.join(repoRoot, "public", "data", "database_precompute", "v2_0_h")
 
 // V2.0-F fallback fixtures: Top-N preview + a single selected index part. Not the full DB.
 const V2F_FIXTURE_FILES = [
@@ -109,7 +113,21 @@ export function runPrecomputeDryRun() {
 
   const redundancy = buildDescriptorRedundancySummary(records)
   const mechanism = summarizeMechanismProxyAvailability(records)
-  const trace = buildAlgorithmImprovementTrace(records)
+  const mechanismEvidence = summarizeMechanismEvidence(records)
+  const sensitivity = buildSensitivityAuditSummary(records)
+  const ablation = buildFeatureAblationAudit(records)
+  const roadmap = buildValidationRoadmapForRecords(records, { topN: 12 })
+
+  // V2.0-H manual-verification queue summary (read if present; never fabricated here).
+  const queueSummary = readJson(path.join(v2hRoot, "metadata_verification_summary.json")) || { queueSize: metadata.nearVerified, manualReviewRequired: metadata.nearVerified }
+
+  const trace = buildAlgorithmImprovementTrace(records, {
+    verificationQueueSummary: queueSummary,
+    mechanismEvidence,
+    sensitivity,
+    ablation,
+    validationRoadmap: roadmap,
+  })
 
   const createdAt = new Date().toISOString()
   return {
@@ -118,18 +136,20 @@ export function runPrecomputeDryRun() {
     mode: "dry_run",
     sampleSource,
     notFinalRecommendation: true,
-    formulaVersion: "OACS/DMRS unchanged (V2.0-G dry-run)",
-    metadataGateVersion: "V2.0-E metadata gate",
+    formulaVersion: "OACS/DMRS unchanged (V2.0-H dry-run)",
+    metadataGateVersion: "V2.0-E metadata gate + V2.0-H near_verified tier",
     fixturesUsed,
     recordsScanned: records.length,
     recordsEligible: records.filter(row => getMetadataVerificationLevel(row) === "verified_metadata").length,
     recordsBlocked: records.filter(row => getMetadataVerificationLevel(row) === "blocked").length,
+    nearVerifiedCount: metadata.nearVerified,
     metadata: {
       verified: metadata.verified_metadata,
       partial: metadata.partial_metadata,
       previewOnly: metadata.preview_only,
       blocked: metadata.blocked,
     },
+    metadataTierCounts: metadata.tierCounts,
     descriptorCompleteness,
     sourceDistribution,
     descriptorProvenanceDistribution,
@@ -141,10 +161,26 @@ export function runPrecomputeDryRun() {
       redundantPairs: redundancy.redundantPairs,
     },
     mechanismProxyAvailability: mechanism.availableByProxy,
-    algorithmImprovementTrace: trace.stages.map(stage => ({ id: stage.id, label: stage.label, inputCount: stage.inputCount, outputCount: stage.outputCount })),
+    mechanismEvidenceSummary: mechanismEvidence.statusCounts,
+    verificationQueueSummary: {
+      queueSize: queueSummary.queueSize,
+      priorityCounts: queueSummary.priorityCounts,
+      proposedTierCounts: queueSummary.proposedTierCounts,
+      manualReviewRequired: queueSummary.manualReviewRequired,
+    },
+    sensitivityAudit: {
+      top5Stability: sensitivity.top5Stability,
+      top10Stability: sensitivity.top10Stability,
+      unstableCandidateCount: sensitivity.unstableCandidateCount,
+      sensitiveDescriptors: sensitivity.sensitiveDescriptors,
+      auditRuns: sensitivity.auditRuns,
+    },
+    featureAblationAudit: ablation.variants.map(v => ({ id: v.id, topNOverlapWithBaseline: v.topNOverlapWithBaseline, removedOrPenalized: v.removedOrPenalized })),
+    candidateValidationRoadmapSummary: { candidateCount: roadmap.candidateCount, priorityCounts: roadmap.priorityCounts },
+    algorithmImprovementTrace: trace.stages.map(stage => ({ id: stage.id, label: stage.label, inputCount: stage.inputCount, outputCount: stage.outputCount, status: stage.status })),
     boundary: "Dry-run only. Not full verified database screening. No network, no full database load, no model training, no final recommendation.",
     boundaryZh: "仅本地试算；不是经完整验证的全量数据库筛选；不联网、不加载全量数据库、不训练模型、不产生最终推荐。",
-    outDir,
+    outDir: v2hRoot,
   }
 }
 

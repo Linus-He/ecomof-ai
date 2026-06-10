@@ -8,16 +8,20 @@ const records = [
 ]
 
 describe("algorithmImprovementTrace", () => {
-  it("includes all pipeline stages from raw records to preview output", () => {
+  it("includes all V2.0-H pipeline stages from raw records to preview output", () => {
     const trace = buildAlgorithmImprovementTrace(records)
     const ids = trace.stages.map(s => s.id)
     expect(ids).toEqual([
       "raw_records",
       "metadata_gate",
+      "verification_queue",
       "descriptor_completeness",
       "redundancy_gate",
       "mechanism_proxy",
+      "mechanism_evidence_backfill",
       "sensitivity_audit",
+      "feature_ablation_audit",
+      "candidate_validation_roadmap",
       "preview_output",
     ])
     expect(trace.stages[0].inputCount).toBe(2)
@@ -26,14 +30,19 @@ describe("algorithmImprovementTrace", () => {
   it("never reports model accuracy metrics and stays not-final", () => {
     const trace = buildAlgorithmImprovementTrace(records)
     const serialized = JSON.stringify(trace)
-    expect(serialized).not.toMatch(/\bR2\b|R\^2|R²|\bMAE\b|\bRMSE\b/i)
+    expect(serialized).not.toMatch(/\bR2\b|R\^2|R²|\bMAE\b|\bRMSE\b|accuracy/i)
     expect(trace.notFinalRecommendation).toBe(true)
     expect(trace.boundary).toMatch(/does not represent a trained predictive model/i)
   })
 
-  it("marks the sensitivity stage pending when no sensitivity data is given", () => {
+  it("fills the sensitivity stage (outputCount no longer 0)", () => {
     const trace = buildAlgorithmImprovementTrace(records)
     const sensitivity = trace.stages.find(s => s.id === "sensitivity_audit")
-    expect(sensitivity.metrics.status).toBe("pending")
+    expect(sensitivity.status).toBe("audited")
+    expect(sensitivity.outputCount).toBeGreaterThan(0)
+    const ablation = trace.stages.find(s => s.id === "feature_ablation_audit")
+    expect(ablation.outputCount).toBeGreaterThan(0)
+    const roadmap = trace.stages.find(s => s.id === "candidate_validation_roadmap")
+    expect(roadmap.outputCount).toBeGreaterThan(0)
   })
 })
