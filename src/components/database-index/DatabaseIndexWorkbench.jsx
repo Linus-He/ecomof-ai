@@ -15,6 +15,8 @@ import { DatabaseManifestPanel } from "./DatabaseManifestPanel"
 import { DatabaseDetailDrawer } from "./DatabaseDetailDrawer"
 import { DescriptorAvailabilityPanel } from "./DescriptorAvailabilityPanel"
 import { AlgorithmImprovementTracePanel } from "./AlgorithmImprovementTracePanel"
+import { CollapsibleSection } from "./CollapsibleSection"
+import { ScreeningRunConsole } from "./ScreeningRunConsole"
 import { DescriptorRedundancyPanel } from "./DescriptorRedundancyPanel"
 import { FeatureAblationAuditPanel } from "./FeatureAblationAuditPanel"
 import { IndexPartBrowser } from "./IndexPartBrowser"
@@ -99,6 +101,16 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
           "Lightweight index summaries and on-demand details for large-scale CoRE/QMOF-like database integration."
         )} />
       </p>
+      <ScreeningRunConsole
+        lang={lang}
+        t={t}
+        isMobile={isMobile}
+        onViewCurationQueue={() => {
+          if (typeof document !== "undefined") {
+            document.getElementById("db-evidence-curation")?.scrollIntoView({ behavior: "smooth", block: "start" })
+          }
+        }}
+      />
       <DatabaseIndexBoundaryNotice lang={lang} t={t} />
       {overview?.errors?.length ? (
         <section style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 10, color: t.muted, display: "grid", fontSize: 12, gap: 5, lineHeight: 1.45, padding: 10 }}>
@@ -116,15 +128,23 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
           <DatabaseIndexFilterToolbar filters={filters} onChange={setFilters} lang={lang} t={t} />
           <PrecomputedTopCandidatesPanel topCandidates={overview.topCandidates} filters={filters} onOpenDetail={setDetailRequest} onAddCompare={handleAddCompare} compareCount={compareItems.length} lang={lang} t={t} />
           <CandidateComparePanel candidates={compareItems} onRemove={id => setCompareItems(items => items.filter(item => item.id !== id))} lang={lang} t={t} isMobile={isMobile} />
-          <MetadataVerificationPanel topCandidates={normalizeTopCandidates(overview.topCandidates)} selectedPartRecords={selectedPartSnapshot.records} selectedCandidate={detailRequest || compareItems[0] || normalizeTopCandidates(overview.topCandidates)[0] || null} lang={lang} t={t} isMobile={isMobile} />
-          <MetadataVerificationQueuePanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} curationRecords={curationRecords} lang={lang} t={t} isMobile={isMobile} />
-          <ManualMetadataCurationPanel curationRecords={curationRecords} lang={lang} t={t} isMobile={isMobile} />
-          <DescriptorRedundancyPanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} lang={lang} t={t} isMobile={isMobile} />
-          <SensitivityAuditPanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} lang={lang} t={t} isMobile={isMobile} />
-          <FeatureAblationAuditPanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} lang={lang} t={t} />
-          <AlgorithmImprovementTracePanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} topNCount={normalizeTopCandidates(overview.topCandidates).length} lang={lang} t={t} />
-          <WorkerScoringBoundaryPreview topCandidates={normalizeTopCandidates(overview.topCandidates)} selectedPartRecords={selectedPartSnapshot.records} selectedCandidates={compareItems} lang={lang} t={t} isMobile={isMobile} />
           <IndexPartBrowser manifest={overview.manifest} filters={filters} onOpenDetail={setDetailRequest} onAddCompare={handleAddCompare} onSelectedPartRecordsChange={handleSelectedPartRecordsChange} compareCount={compareItems.length} lang={lang} t={t} isMobile={isMobile} />
+
+          <div id="db-evidence-curation" style={{ scrollMarginTop: 90 }}>
+            <CollapsibleSection title="Evidence and curation" titleZh="证据整理" subtitle="Metadata verification, queue, and manual curation" subtitleZh="metadata 核验、队列与人工整理" defaultOpen={false} lang={lang} t={t}>
+              <MetadataVerificationPanel topCandidates={normalizeTopCandidates(overview.topCandidates)} selectedPartRecords={selectedPartSnapshot.records} selectedCandidate={detailRequest || compareItems[0] || normalizeTopCandidates(overview.topCandidates)[0] || null} lang={lang} t={t} isMobile={isMobile} />
+              <MetadataVerificationQueuePanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} curationRecords={curationRecords} lang={lang} t={t} isMobile={isMobile} />
+              <ManualMetadataCurationPanel curationRecords={curationRecords} lang={lang} t={t} isMobile={isMobile} />
+            </CollapsibleSection>
+          </div>
+
+          <CollapsibleSection title="Advanced audits" titleZh="高级审计" subtitle="Redundancy, sensitivity, ablation, and the improvement trace" subtitleZh="冗余、敏感性、消融与算法改进追踪" defaultOpen={false} lang={lang} t={t}>
+            <DescriptorRedundancyPanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} lang={lang} t={t} isMobile={isMobile} />
+            <SensitivityAuditPanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} lang={lang} t={t} isMobile={isMobile} />
+            <FeatureAblationAuditPanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} lang={lang} t={t} />
+            <AlgorithmImprovementTracePanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} topNCount={normalizeTopCandidates(overview.topCandidates).length} lang={lang} t={t} />
+            <WorkerScoringBoundaryPreview topCandidates={normalizeTopCandidates(overview.topCandidates)} selectedPartRecords={selectedPartSnapshot.records} selectedCandidates={compareItems} lang={lang} t={t} isMobile={isMobile} />
+          </CollapsibleSection>
           <DatabaseDetailDrawer request={detailRequest} curationRecords={curationRecords} onClose={() => setDetailRequest(null)} lang={lang} t={t} />
         </>
       ) : (

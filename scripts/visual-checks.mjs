@@ -33,6 +33,9 @@ const routes = [
     ["演示级代理评分", "Demo Score Disclaimer"],
     ["完整方法论与证据层已同步到 Methods & Evidence", "Methodology and evidence layer updated in Methods & Evidence"],
     ["查看证据层", "View evidence layer"],
+    ["有机酸候选筛选运行台", "Organic Acid Screening Run Console"],
+    ["开始筛选审计", "Run screening audit"],
+    ["查看人工整理队列", "View curation queue"],
     ["筛选运行范围", "Screening Run Scope"],
     ["当前边界：V2.0-F 试算 / 仅限预览", "Current boundary: V2.0-F dry-run / preview only"],
     ["当前演示流程", "Current demo workflow"],
@@ -152,7 +155,9 @@ const routes = [
     "V2.0-G",
     "V2.0-H",
     "V2.0-I",
+    "V2.0-J",
     ["Database Index Preview", "数据库索引预览"],
+    ["Screening Run UX and Result Panel Refactor", "筛选运行体验与结果面板重构"],
     ["Manual Metadata Curation and Source-Link Enrichment", "人工 metadata 整理与来源链接补全"],
     ["Small-Sample Validation and Sensitivity Audit", "小样本验证与敏感性审计"],
     ["Multi-View Descriptor Gate", "多视角描述符门控"],
@@ -285,6 +290,11 @@ for (const [viewportName, width, height] of viewports) {
         await page.locator("#methodology-knowledge-base").first().scrollIntoViewIfNeeded().catch(() => {})
         await page.waitForTimeout(1800)
       }
+
+      // Expand collapsible <details> sections (some default collapsed, e.g. on mobile)
+      // so secondary-panel markers are verifiable regardless of collapse state.
+      await page.evaluate(() => { document.querySelectorAll("details").forEach(node => { node.open = true }) })
+      await page.waitForTimeout(150)
 
       const bodyText = await page.locator("body").innerText()
       for (const label of requiredText) {

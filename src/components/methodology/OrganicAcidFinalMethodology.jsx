@@ -161,6 +161,14 @@ function TraceWorkbenchMethod({ lang, t }) {
 function DatabaseIndexPreviewMethod({ lang, t }) {
   const rows = [
     [
+      text(lang, "V2.0-J 筛选运行体验与结果面板重构", "V2.0-J Screening Run UX and Result Panel Refactor"),
+      text(lang, "V2.0-J 不新增算法，而是把筛选器重构为可运行的科研工作台：新增筛选运行台与醒目的“开始筛选审计”按钮、12 步运行过程（含运行中/已完成/需注意/阻断状态）、筛选结果面板（5 组结果 + 通俗结论 + 结果解释）与由汇总驱动的下一步行动面板，并把证据整理与高级审计折叠到次级层级。运行状态机仅读取现有 V2.0-I 汇总，不重算 OACS/DMRS、不执行全量数据库评分、不训练模型；结果仍是仅限预览且不是最终推荐，verified_metadata 仍为 0。", "V2.0-J adds no new algorithm; it refactors the screener into a runnable research workbench: a Screening Run Console with a prominent Run-screening-audit button, a 12-step run progress (running/completed/warning/blocked), a Screening Result Panel (5 result groups + plain-language conclusion + result interpretation), and a summary-driven Next Action panel, with evidence curation and advanced audits collapsed into secondary layers. The run state machine only reads the existing V2.0-I summary; it does not recompute OACS/DMRS, run full database scoring, or train a model; the result stays preview only and not a final recommendation, with verified_metadata still 0."),
+    ],
+    [
+      text(lang, "运行体验边界", "Screening run boundary"),
+      text(lang, "运行台只是交互层：点击运行只是把已有审计汇总按步骤呈现，并给出结果解释与下一步行动；它不产生新证据，也不把 preview 结果说成最终推荐。", "The run console is an interaction layer only: clicking run replays the existing audit summary as steps and adds interpretation and next actions; it produces no new evidence and never presents the preview result as a final recommendation."),
+    ],
+    [
       text(lang, "V2.0-I 人工 metadata 整理与来源链接补全", "V2.0-I Manual Metadata Curation and Source-Link Enrichment"),
       text(lang, "V2.0-I 把 V2.0-H 的 18 条核验队列变成可持续的人工 metadata 整理流程：curation 状态分层（needs_source_review → source_confirmed → citation_ready → license_pending/confirmed → doi_pending → verified_metadata，或 curation_blocked）、整理进度汇总、保留人工字段的构建脚本，以及人工整理面板与详情抽屉联动。找不到 DOI/license/来源时保持待补，绝不伪造；source_confirmed / citation_ready / near_verified 都不等于 verified_metadata。verified_metadata 仍需在真实已确认字段上通过 V2.0-E/V2.0-H 门控，因此当前仍为 0。不扩数据库、不训练模型，仍不是最终推荐。", "V2.0-I turns the V2.0-H 18-item verification queue into a sustainable manual metadata curation workflow: a curation status ladder (needs_source_review -> source_confirmed -> citation_ready -> license_pending/confirmed -> doi_pending -> verified_metadata, or curation_blocked), a progress summary, a merge-preserving build script, and a curation panel linked into the detail drawer. When DOI/license/source cannot be found they stay pending and are never fabricated; source_confirmed / citation_ready / near_verified are not verified_metadata. verified_metadata still requires the V2.0-E/V2.0-H gate to pass on real confirmed fields, so it is still 0. No database expansion, no model training, and still not a final recommendation."),
     ],
@@ -254,14 +262,14 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
       <header style={{ display: "grid", gap: 4 }}>
         <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Database Index Preview</span>
         <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
-          {text(lang, "数据库索引预览：V2.0-I 人工 metadata 整理与来源链接补全", "Database Index Preview: V2.0-I Manual Metadata Curation and Source-Link Enrichment")}
+          {text(lang, "数据库索引预览：V2.0-J 筛选运行体验与结果面板重构", "Database Index Preview: V2.0-J Screening Run UX and Result Panel Refactor")}
         </h3>
       </header>
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "V2.0-I 在 V2.0-H 之上把 18 条核验队列变成可持续的人工 metadata 整理流程：curation 状态分层、整理进度汇总、保留人工字段的构建脚本与人工整理面板。浏览器仍只加载 manifest 摘要、预计算候选预览、选定索引分片和按需详情记录；全量评分在浏览器主线程之外进行。不伪造 DOI/license/来源，verified_metadata 在确认真实证据前保持为 0；不扩数据库、不训练模型。",
-          "V2.0-I turns the 18-item verification queue into a sustainable manual metadata curation workflow on top of V2.0-H: a curation status ladder, a progress summary, a merge-preserving build script, and a curation panel. The browser still loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand; full scoring runs outside the browser main thread. No DOI/license/source is fabricated, verified_metadata stays 0 until real evidence is confirmed; no database expansion and no model trained."
+          "V2.0-J 在 V2.0-I 之上重构筛选运行体验：筛选运行台、12 步运行过程、筛选结果面板、结果解释与下一步行动面板，并把高级审计折叠到次级层级。浏览器仍只加载 manifest 摘要、预计算候选预览、选定索引分片和按需详情记录；运行状态机只读取现有汇总，不重算 OACS/DMRS、不训练模型，结果仍是仅限预览且不是最终推荐。",
+          "V2.0-J refactors the screening run experience on top of V2.0-I: a run console, a 12-step run progress, a result panel, result interpretation, and a next-action panel, with advanced audits collapsed into secondary layers. The browser still loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand; the run state machine only reads the existing summary, does not recompute OACS/DMRS, does not train a model, and the result stays preview only and not a final recommendation."
         )} />
       </p>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
@@ -273,7 +281,7 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
         ))}
       </div>
       <p style={{ color: t.warn, fontSize: 12.5, fontWeight: 900, lineHeight: 1.52, margin: 0 }}>
-        <ChemicalText value={text(lang, "V2.0-I 仍然不是经完整验证的全量数据库筛选；它建立人工 metadata 整理流程，但在确认真实证据前 verified_metadata 保持为 0，未训练任何模型，OACS/DMRS 公式未在 V2.0-I 中修改。经完整验证的全量筛选仍需来源/DOI/license/引用回填、描述符复算、公式审计与实验/文献验证。", "V2.0-I remains a manual metadata curation workflow, not full verified database screening; verified_metadata stays 0 until real evidence is confirmed, no model is trained, and OACS/DMRS formulas are unchanged in V2.0-I. Full verified screening still requires source/DOI/license/citation backfill, descriptor recomputation, formula audit, and experimental/literature validation.")} />
+        <ChemicalText value={text(lang, "V2.0-J 仍然不是经完整验证的全量数据库筛选；它只重构运行体验，结果仅限预览且不是最终推荐，verified_metadata 仍为 0，未训练任何模型，OACS/DMRS 公式未在 V2.0-J 中修改。经完整验证的全量筛选仍需来源/DOI/license/引用回填、描述符复算、公式审计与实验/文献验证。", "V2.0-J remains a UX refactor of the screening run, not full verified database screening; the result is preview only and not a final recommendation, verified_metadata is still 0, no model is trained, and OACS/DMRS formulas are unchanged in V2.0-J. Full verified screening still requires source/DOI/license/citation backfill, descriptor recomputation, formula audit, and experimental/literature validation.")} />
       </p>
     </section>
   )
@@ -511,7 +519,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           <SmallRealDatasetMethod mappingReport={data.mappingReport} lang={lang} t={t} />
         </LazyMethodologyDetails>
         <TraceWorkbenchMethod lang={lang} t={t} />
-        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-I adds a manual metadata curation workflow (curation status ladder, progress summary, merge-preserving build script, curation panel) over the V2.0-H verification queue, with no fabricated metadata and verified_metadata staying 0 until real evidence is confirmed, while preserving lazy loading and the OACS/DMRS formulas." summaryZh="V2.0-I 在 V2.0-H 核验队列上新增人工 metadata 整理流程（curation 状态分层、进度汇总、保留人工字段的构建脚本、整理面板），不伪造 metadata，确认真实证据前 verified_metadata 保持为 0，同时保持懒加载边界与 OACS/DMRS 公式不变。" lang={lang} t={t}>
+        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-J refactors the screening run experience (run console, run stepper, result panel, result interpretation, next-action panel) over the V2.0-I curation workflow; the run state machine only reads the existing summary, the result is preview only, verified_metadata is still 0, and the OACS/DMRS formulas and lazy loading are unchanged." summaryZh="V2.0-J 在 V2.0-I 整理流程之上重构筛选运行体验（运行台、运行过程、结果面板、结果解释、下一步行动面板）；运行状态机只读取现有汇总，结果仅限预览，verified_metadata 仍为 0，OACS/DMRS 公式与懒加载边界保持不变。" lang={lang} t={t}>
           <DatabaseIndexPreviewMethod lang={lang} t={t} />
         </LazyMethodologyDetails>
         <LazyMethodologyDetails id="methodology-oafs-oacs" title="OACS Formula Explainer" titleZh="OACS 骨架筛选" summary="Formula card renders after expansion." summaryZh="公式卡片展开后渲染。" lang={lang} t={t}>
