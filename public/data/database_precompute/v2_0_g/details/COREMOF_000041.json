@@ -1,0 +1,34 @@
+{
+  "recordId": "COREMOF_000041",
+  "sourceDatabase": "CoRE MOF",
+  "sourceRecordId": "COREMOF_000041",
+  "sourceVersion": "local curated snapshot",
+  "retrievedAt": "2026-06",
+  "displayName": "Al-MOF index preview 041",
+  "metalNode": "Al",
+  "linker": null,
+  "topology": "Al-O chain net",
+  "descriptors": {
+    "surfaceArea": 2694,
+    "poreSizeA": 4.98,
+    "pldA": 4.98,
+    "lcdA": 9.34,
+    "poreVolume": 0.56,
+    "density": 0.92,
+    "bandGap": 4.12,
+    "voidFraction": 0.34,
+    "stabilityProxy": 0.35,
+    "hydrophilicityProxy": 0.55,
+    "openMetalSiteProxy": 0.35
+  },
+  "descriptorProvenance": {
+    "source": "computed",
+    "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+    "retrievedAt": "2026-06"
+  },
+  "metadataVerification": {
+    "descriptorProvenanceStatus": "partial"
+  },
+  "notFinalRecommendation": true,
+  "detailLevel": "on_demand"
+}

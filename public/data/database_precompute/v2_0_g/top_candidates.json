@@ -1,0 +1,150 @@
+{
+  "version": "V2.0-G",
+  "topCandidates": [
+    {
+      "rank": 1,
+      "recordId": "COREMOF_000013",
+      "frameworkId": "COREMOF_000013",
+      "displayName": "Al-hydroxyterephthalate C1-accessible scaffold database index preview",
+      "sourceDatabase": "CoRE MOF",
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "detailRef": "details/COREMOF_000013.json",
+      "notFinalRecommendation": true
+    },
+    {
+      "rank": 2,
+      "recordId": "COREMOF_000030",
+      "frameworkId": "COREMOF_000030",
+      "displayName": "Al-MOF index preview 030",
+      "sourceDatabase": "CoRE MOF",
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "detailRef": "details/COREMOF_000030.json",
+      "notFinalRecommendation": true
+    },
+    {
+      "rank": 3,
+      "recordId": "COREMOF_000036",
+      "frameworkId": "COREMOF_000036",
+      "displayName": "Al-MOF index preview 036",
+      "sourceDatabase": "CoRE MOF",
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "detailRef": "details/COREMOF_000036.json",
+      "notFinalRecommendation": true
+    },
+    {
+      "rank": 4,
+      "recordId": "COREMOF_000010",
+      "frameworkId": "COREMOF_000010",
+      "displayName": "Al phosphonate curated example database index preview",
+      "sourceDatabase": "CoRE MOF",
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "complete"
+      },
+      "detailRef": "details/COREMOF_000010.json",
+      "notFinalRecommendation": true
+    },
+    {
+      "rank": 5,
+      "recordId": "COREMOF_000041",
+      "frameworkId": "COREMOF_000041",
+      "displayName": "Al-MOF index preview 041",
+      "sourceDatabase": "CoRE MOF",
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "detailRef": "details/COREMOF_000041.json",
+      "notFinalRecommendation": true
+    },
+    {
+      "rank": 6,
+      "recordId": "COREMOF_000016",
+      "frameworkId": "COREMOF_000016",
+      "displayName": "Al-MOF index preview 016",
+      "sourceDatabase": "CoRE MOF",
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "detailRef": "details/COREMOF_000016.json",
+      "notFinalRecommendation": true
+    },
+    {
+      "rank": 7,
+      "recordId": "COREMOF_000001",
+      "frameworkId": "COREMOF_000001",
+      "displayName": "MIL-53(Al) curated example database index preview",
+      "sourceDatabase": "CoRE MOF",
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "complete"
+      },
+      "detailRef": "details/COREMOF_000001.json",
+      "notFinalRecommendation": true
+    },
+    {
+      "rank": 8,
+      "recordId": "COREMOF_000037",
+      "frameworkId": "COREMOF_000037",
+      "displayName": "Al-MOF index preview 037",
+      "sourceDatabase": "CoRE MOF",
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "detailRef": "details/COREMOF_000037.json",
+      "notFinalRecommendation": true
+    },
+    {
+      "rank": 9,
+      "recordId": "COREMOF_000011",
+      "frameworkId": "COREMOF_000011",
+      "displayName": "Al hydroxynaphthalate curated example database index preview",
+      "sourceDatabase": "CoRE MOF",
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "complete"
+      },
+      "detailRef": "details/COREMOF_000011.json",
+      "notFinalRecommendation": true
+    },
+    {
+      "rank": 10,
+      "recordId": "COREMOF_000014",
+      "frameworkId": "COREMOF_000014",
+      "displayName": "Al-carboxylate high-surface-area review scaffold database index preview",
+      "sourceDatabase": "CoRE MOF",
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "detailRef": "details/COREMOF_000014.json",
+      "notFinalRecommendation": true
+    },
+    {
+      "rank": 11,
+      "recordId": "COREMOF_000045",
+      "frameworkId": "COREMOF_000045",
+      "displayName": "Al-MOF index preview 045",
+      "sourceDatabase": "CoRE MOF",
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "detailRef": "details/COREMOF_000045.json",
+      "notFinalRecommendation": true
+    },
+    {
+      "rank": 12,
+      "recordId": "COREMOF_000039",
+      "frameworkId": "COREMOF_000039",
+      "displayName": "Al-MOF index preview 039",
+      "sourceDatabase": "CoRE MOF",
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "detailRef": "details/COREMOF_000039.json",
+      "notFinalRecommendation": true
+    }
+  ],
+  "notFinalRecommendation": true
+}

@@ -1,14 +1,18 @@
-// V2.0-F background precompute pipeline — local dry-run only.
+// V2.0-F / V2.0-G background precompute pipeline — local dry-run only.
 //
-// This script audits existing local preview fixtures (the precomputed Top-N preview
-// and a selected index part). It is a DRY RUN:
+// This script audits local preview fixtures. It is a DRY RUN:
 //   - it never connects to the network;
 //   - it never downloads CoRE/QMOF or loads the full database;
-//   - it never reads every index part (only the precomputed Top-N + one selected part);
+//   - it never reads every index part (only a bounded sample);
 //   - it never produces a final recommendation;
 //   - it does NOT modify any existing official data structure — it writes a separate
 //     dry-run report only;
-//   - it does NOT modify the OACS/DMRS formulas.
+//   - it does NOT modify the OACS/DMRS formulas, and it does NOT train any model.
+//
+// V2.0-G: when the small verified sample under public/data/database_precompute/v2_0_g/
+// exists, the dry run audits it and adds descriptor redundancy, mechanism proxy
+// availability, and an algorithm improvement trace. Otherwise it falls back to the
+// V2.0-F fixtures and never crashes.
 import fs from "node:fs"
 import path from "node:path"
 import process from "node:process"
@@ -18,24 +22,27 @@ import {
   summarizeMetadataVerification,
 } from "../src/utils/databaseIndex/metadataVerification.js"
 import { descriptorCompletenessPercent } from "../src/utils/databaseIndex/databaseIndexFormatters.js"
+import { buildDescriptorRedundancySummary } from "../src/utils/databaseIndex/descriptorRedundancyGate.js"
+import { summarizeMechanismProxyAvailability } from "../src/utils/organicAcid/mechanismProxyMapping.js"
+import { buildAlgorithmImprovementTrace } from "../src/utils/databaseIndex/algorithmImprovementTrace.js"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const repoRoot = path.resolve(__dirname, "..")
-const dataRoot = path.join(repoRoot, "public", "data", "database_index")
+const indexRoot = path.join(repoRoot, "public", "data", "database_index")
+const v2gRoot = path.join(repoRoot, "public", "data", "database_precompute", "v2_0_g")
 
-// Bounded fixture set: Top-N preview + a single selected index part. Not the full DB.
-const FIXTURE_FILES = [
+// V2.0-F fallback fixtures: Top-N preview + a single selected index part. Not the full DB.
+const V2F_FIXTURE_FILES = [
   "organic_acid_precomputed_top_candidates.json",
   "core_mof_index_parts/core_mof_index_part_001.json",
 ]
 
-function readJson(relativePath) {
-  const full = path.join(dataRoot, relativePath)
+function readJson(full) {
   if (!fs.existsSync(full)) return null
   try {
     return JSON.parse(fs.readFileSync(full, "utf8"))
   } catch (error) {
-    console.warn(`Could not parse fixture ${relativePath}: ${error.message}`)
+    console.warn(`Could not parse fixture ${full}: ${error.message}`)
     return null
   }
 }
@@ -53,33 +60,66 @@ function descriptorBucket(record) {
   return "missingCritical"
 }
 
-export function runPrecomputeDryRun() {
+// Loads the V2.0-G sample when present; otherwise the bounded V2.0-F fixtures.
+function loadSample() {
+  const manifest = readJson(path.join(v2gRoot, "manifest.json"))
+  if (manifest) {
+    const parts = Array.isArray(manifest.parts) ? manifest.parts : ["parts/verified_sample_part_001.json"]
+    const records = []
+    const fixturesUsed = []
+    for (const part of parts) {
+      const payload = readJson(path.join(v2gRoot, part))
+      const rows = extractRecords(payload)
+      if (rows.length) {
+        records.push(...rows)
+        fixturesUsed.push({ file: `v2_0_g/${part}`, recordCount: rows.length })
+      }
+    }
+    if (records.length) {
+      return { sampleSource: "v2_0_g_verified_sample", records, fixturesUsed, outDir: v2gRoot }
+    }
+  }
+  // Fallback: V2.0-F fixtures.
   const records = []
   const fixturesUsed = []
-  for (const file of FIXTURE_FILES) {
-    const payload = readJson(file)
-    const rows = extractRecords(payload)
+  for (const file of V2F_FIXTURE_FILES) {
+    const rows = extractRecords(readJson(path.join(indexRoot, file)))
     if (rows.length) {
       records.push(...rows)
       fixturesUsed.push({ file, recordCount: rows.length })
     }
   }
+  return { sampleSource: "v2_0_f_fixtures", records, fixturesUsed, outDir: path.join(repoRoot, "public", "data", "database_precompute") }
+}
+
+export function runPrecomputeDryRun() {
+  const { sampleSource, records, fixturesUsed, outDir } = loadSample()
 
   const metadata = summarizeMetadataVerification(records)
   const descriptorCompleteness = { complete: 0, partial: 0, missingCritical: 0 }
+  const sourceDistribution = {}
+  const descriptorProvenanceDistribution = {}
   for (const record of records) {
     descriptorCompleteness[descriptorBucket(record)] += 1
+    const source = record.sourceDatabase || "unknown"
+    sourceDistribution[source] = (sourceDistribution[source] || 0) + 1
+    const provenance = record.descriptorProvenance?.source || "unknown"
+    descriptorProvenanceDistribution[provenance] = (descriptorProvenanceDistribution[provenance] || 0) + 1
   }
+
+  const redundancy = buildDescriptorRedundancySummary(records)
+  const mechanism = summarizeMechanismProxyAvailability(records)
+  const trace = buildAlgorithmImprovementTrace(records)
 
   const createdAt = new Date().toISOString()
   return {
     runId: `precompute-dry-run-${createdAt.replace(/\D/g, "").slice(0, 14)}`,
     createdAt,
     mode: "dry_run",
+    sampleSource,
     notFinalRecommendation: true,
-    formulaVersion: "OACS/DMRS unchanged (V2.0-F dry-run)",
+    formulaVersion: "OACS/DMRS unchanged (V2.0-G dry-run)",
     metadataGateVersion: "V2.0-E metadata gate",
-    sourceDataset: "local preview fixtures",
     fixturesUsed,
     recordsScanned: records.length,
     recordsEligible: records.filter(row => getMetadataVerificationLevel(row) === "verified_metadata").length,
@@ -91,26 +131,40 @@ export function runPrecomputeDryRun() {
       blocked: metadata.blocked,
     },
     descriptorCompleteness,
-    boundary: "Dry-run only. Not full verified database screening. No network, no full database load, no final recommendation.",
-    boundaryZh: "仅本地试算；不是经完整验证的全量数据库筛选；不联网、不加载全量数据库、不产生最终推荐。",
+    sourceDistribution,
+    descriptorProvenanceDistribution,
+    redundancyGate: {
+      descriptorCount: redundancy.descriptorCount,
+      lowVarianceCount: redundancy.lowVarianceCount,
+      redundantPairCount: redundancy.redundantPairCount,
+      insufficientDataCount: redundancy.insufficientDataCount,
+      redundantPairs: redundancy.redundantPairs,
+    },
+    mechanismProxyAvailability: mechanism.availableByProxy,
+    algorithmImprovementTrace: trace.stages.map(stage => ({ id: stage.id, label: stage.label, inputCount: stage.inputCount, outputCount: stage.outputCount })),
+    boundary: "Dry-run only. Not full verified database screening. No network, no full database load, no model training, no final recommendation.",
+    boundaryZh: "仅本地试算；不是经完整验证的全量数据库筛选；不联网、不加载全量数据库、不训练模型、不产生最终推荐。",
+    outDir,
   }
 }
 
 export function writeDryRunSummary(summary, outFile) {
   const dir = path.dirname(outFile)
   fs.mkdirSync(dir, { recursive: true })
-  fs.writeFileSync(outFile, `${JSON.stringify(summary, null, 2)}\n`)
+  const { outDir, ...payload } = summary
+  fs.writeFileSync(outFile, `${JSON.stringify(payload, null, 2)}\n`)
   return outFile
 }
 
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)
 if (isMain) {
   const summary = runPrecomputeDryRun()
-  const outFile = path.join(repoRoot, "public", "data", "database_precompute", "precompute_dry_run_summary.json")
+  const outFile = path.join(summary.outDir, "precompute_dry_run_summary.json")
   writeDryRunSummary(summary, outFile)
-  console.log(`Precompute dry-run complete. ${summary.recordsScanned} records scanned (fixtures only, not full database).`)
+  console.log(`Precompute dry-run complete (${summary.sampleSource}). ${summary.recordsScanned} records scanned (sample only, not full database).`)
   console.log(`metadata: verified=${summary.metadata.verified} partial=${summary.metadata.partial} previewOnly=${summary.metadata.previewOnly} blocked=${summary.metadata.blocked}`)
   console.log(`descriptorCompleteness: complete=${summary.descriptorCompleteness.complete} partial=${summary.descriptorCompleteness.partial} missingCritical=${summary.descriptorCompleteness.missingCritical}`)
+  console.log(`redundancy: pairs=${summary.redundancyGate.redundantPairCount} lowVariance=${summary.redundancyGate.lowVarianceCount} insufficient=${summary.redundancyGate.insufficientDataCount}`)
   console.log(`notFinalRecommendation=${summary.notFinalRecommendation}`)
   console.log(`Summary written to ${path.relative(repoRoot, outFile)}`)
 }

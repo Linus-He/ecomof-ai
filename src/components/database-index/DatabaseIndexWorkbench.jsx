@@ -13,6 +13,8 @@ import { DatabaseIndexSummaryCards } from "./DatabaseIndexSummaryCards"
 import { DatabaseManifestPanel } from "./DatabaseManifestPanel"
 import { DatabaseDetailDrawer } from "./DatabaseDetailDrawer"
 import { DescriptorAvailabilityPanel } from "./DescriptorAvailabilityPanel"
+import { AlgorithmImprovementTracePanel } from "./AlgorithmImprovementTracePanel"
+import { DescriptorRedundancyPanel } from "./DescriptorRedundancyPanel"
 import { IndexPartBrowser } from "./IndexPartBrowser"
 import { MetadataVerificationPanel } from "./MetadataVerificationPanel"
 import { PrecomputedTopCandidatesPanel } from "./PrecomputedTopCandidatesPanel"
@@ -70,7 +72,7 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
   return (
     <Panel
       id="organic-acid-database-index-workbench"
-      eyebrow={`V2.0-E · ${dbText(lang, "metadataVerificationGate")}`}
+      eyebrow={text(lang, "V2.0-G · 多视角描述符门控", "V2.0-G · Multi-View Descriptor Gate")}
       title={text(lang, "Database Index Preview · 数据库索引预览", "Database Index Preview")}
       t={t}
       actions={<StatusPill tone={status === "error" ? "warn" : "proxy"} t={t}>{dbStatusLabel(status, lang)}</StatusPill>}
@@ -100,6 +102,8 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
           <PrecomputedTopCandidatesPanel topCandidates={overview.topCandidates} filters={filters} onOpenDetail={setDetailRequest} onAddCompare={handleAddCompare} compareCount={compareItems.length} lang={lang} t={t} />
           <CandidateComparePanel candidates={compareItems} onRemove={id => setCompareItems(items => items.filter(item => item.id !== id))} lang={lang} t={t} isMobile={isMobile} />
           <MetadataVerificationPanel topCandidates={normalizeTopCandidates(overview.topCandidates)} selectedPartRecords={selectedPartSnapshot.records} selectedCandidate={detailRequest || compareItems[0] || normalizeTopCandidates(overview.topCandidates)[0] || null} lang={lang} t={t} isMobile={isMobile} />
+          <DescriptorRedundancyPanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} lang={lang} t={t} isMobile={isMobile} />
+          <AlgorithmImprovementTracePanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} topNCount={normalizeTopCandidates(overview.topCandidates).length} lang={lang} t={t} />
           <WorkerScoringBoundaryPreview topCandidates={normalizeTopCandidates(overview.topCandidates)} selectedPartRecords={selectedPartSnapshot.records} selectedCandidates={compareItems} lang={lang} t={t} isMobile={isMobile} />
           <IndexPartBrowser manifest={overview.manifest} filters={filters} onOpenDetail={setDetailRequest} onAddCompare={handleAddCompare} onSelectedPartRecordsChange={handleSelectedPartRecordsChange} compareCount={compareItems.length} lang={lang} t={t} isMobile={isMobile} />
           <DatabaseDetailDrawer request={detailRequest} onClose={() => setDetailRequest(null)} lang={lang} t={t} />

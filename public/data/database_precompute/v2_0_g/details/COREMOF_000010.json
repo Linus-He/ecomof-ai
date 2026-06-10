@@ -1,0 +1,34 @@
+{
+  "recordId": "COREMOF_000010",
+  "sourceDatabase": "CoRE MOF",
+  "sourceRecordId": "COREMOF_000010",
+  "sourceVersion": "local curated snapshot",
+  "retrievedAt": "2026-06",
+  "displayName": "Al phosphonate curated example database index preview",
+  "metalNode": "Al",
+  "linker": null,
+  "topology": "Al-O index-preview net",
+  "descriptors": {
+    "surfaceArea": 2782,
+    "poreSizeA": 5.98,
+    "pldA": 5.98,
+    "lcdA": 9.57,
+    "poreVolume": 0.57,
+    "density": 0.62,
+    "bandGap": 3.8,
+    "voidFraction": 0.261,
+    "stabilityProxy": 0.6,
+    "hydrophilicityProxy": 0.55,
+    "openMetalSiteProxy": 0.35
+  },
+  "descriptorProvenance": {
+    "source": "computed",
+    "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+    "retrievedAt": "2026-06"
+  },
+  "metadataVerification": {
+    "descriptorProvenanceStatus": "complete"
+  },
+  "notFinalRecommendation": true,
+  "detailLevel": "on_demand"
+}

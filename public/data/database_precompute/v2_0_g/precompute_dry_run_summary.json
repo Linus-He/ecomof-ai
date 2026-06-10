@@ -1,0 +1,108 @@
+{
+  "runId": "precompute-dry-run-20260610032748",
+  "createdAt": "2026-06-10T03:27:48.969Z",
+  "mode": "dry_run",
+  "sampleSource": "v2_0_g_verified_sample",
+  "notFinalRecommendation": true,
+  "formulaVersion": "OACS/DMRS unchanged (V2.0-G dry-run)",
+  "metadataGateVersion": "V2.0-E metadata gate",
+  "fixturesUsed": [
+    {
+      "file": "v2_0_g/parts/verified_sample_part_001.json",
+      "recordCount": 120
+    }
+  ],
+  "recordsScanned": 120,
+  "recordsEligible": 0,
+  "recordsBlocked": 0,
+  "metadata": {
+    "verified": 0,
+    "partial": 12,
+    "previewOnly": 108,
+    "blocked": 0
+  },
+  "descriptorCompleteness": {
+    "complete": 0,
+    "partial": 120,
+    "missingCritical": 0
+  },
+  "sourceDistribution": {
+    "CoRE MOF": 120
+  },
+  "descriptorProvenanceDistribution": {
+    "computed": 120
+  },
+  "redundancyGate": {
+    "descriptorCount": 11,
+    "lowVarianceCount": 0,
+    "redundantPairCount": 2,
+    "insufficientDataCount": 0,
+    "redundantPairs": [
+      {
+        "descriptorA": "poreSizeA",
+        "descriptorB": "pldA",
+        "pearsonR": 1
+      },
+      {
+        "descriptorA": "poreVolume",
+        "descriptorB": "voidFraction",
+        "pearsonR": 0.873
+      }
+    ]
+  },
+  "mechanismProxyAvailability": {
+    "co2ActivationProxy": 120,
+    "formatePathwayProxy": 120,
+    "hydrothermalStabilityProxy": 120,
+    "poreTransportProxy": 120,
+    "metalSiteSynergyProxy": 120,
+    "competitionRiskProxy": 120,
+    "evidenceConfidenceProxy": 120
+  },
+  "algorithmImprovementTrace": [
+    {
+      "id": "raw_records",
+      "label": "Raw records",
+      "inputCount": 120,
+      "outputCount": 120
+    },
+    {
+      "id": "metadata_gate",
+      "label": "Metadata gate",
+      "inputCount": 120,
+      "outputCount": 12
+    },
+    {
+      "id": "descriptor_completeness",
+      "label": "Descriptor completeness",
+      "inputCount": 120,
+      "outputCount": 120
+    },
+    {
+      "id": "redundancy_gate",
+      "label": "Redundancy gate",
+      "inputCount": 11,
+      "outputCount": 9
+    },
+    {
+      "id": "mechanism_proxy",
+      "label": "Mechanism proxy mapping",
+      "inputCount": 120,
+      "outputCount": 120
+    },
+    {
+      "id": "sensitivity_audit",
+      "label": "Sensitivity / stability audit",
+      "inputCount": 120,
+      "outputCount": 0
+    },
+    {
+      "id": "preview_output",
+      "label": "Preview output",
+      "inputCount": 120,
+      "outputCount": 10
+    }
+  ],
+  "boundary": "Dry-run only. Not full verified database screening. No network, no full database load, no model training, no final recommendation.",
+  "boundaryZh": "仅本地试算；不是经完整验证的全量数据库筛选；不联网、不加载全量数据库、不训练模型、不产生最终推荐。"
+}

@@ -1,0 +1,34 @@
+{
+  "recordId": "COREMOF_000013",
+  "sourceDatabase": "CoRE MOF",
+  "sourceRecordId": "COREMOF_000013",
+  "sourceVersion": "local curated snapshot",
+  "retrievedAt": "2026-06",
+  "displayName": "Al-hydroxyterephthalate C1-accessible scaffold database index preview",
+  "metalNode": "Al",
+  "linker": null,
+  "topology": "Al-O chain net",
+  "descriptors": {
+    "surfaceArea": 2839,
+    "poreSizeA": 7.26,
+    "pldA": 7.26,
+    "lcdA": 13.53,
+    "poreVolume": 0.65,
+    "density": 1.57,
+    "bandGap": 1.92,
+    "voidFraction": 0.505,
+    "stabilityProxy": 0.35,
+    "hydrophilicityProxy": 0.55,
+    "openMetalSiteProxy": 0.35
+  },
+  "descriptorProvenance": {
+    "source": "computed",
+    "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+    "retrievedAt": "2026-06"
+  },
+  "metadataVerification": {
+    "descriptorProvenanceStatus": "partial"
+  },
+  "notFinalRecommendation": true,
+  "detailLevel": "on_demand"
+}

@@ -6,6 +6,7 @@ import { fetchDetailRecord } from "../../utils/databaseIndex/databaseIndexClient
 import { dbFallback, dbRenderText, dbStatusLabel, dbText } from "../../utils/databaseIndex/databaseIndexCopy"
 import { descriptorAvailabilityList, descriptorCompletenessPercent, formatPercentValue, organicAcidRelevanceSnapshot, provenanceCompletenessPercent, safeText } from "../../utils/databaseIndex/databaseIndexFormatters"
 import { buildMetadataVerificationSummary, metadataLevelLabel, metadataLevelTone, metadataStatusTone, metadataStatusValueLabel } from "../../utils/databaseIndex/metadataVerification"
+import { MechanismProxyPanel } from "./MechanismProxyPanel"
 
 function Row({ label, value, lang, t, fallback = "Pending" }) {
   return (
@@ -137,6 +138,10 @@ export function DatabaseDetailDrawer({ request, onClose, lang, t }) {
         {record.dataStatus?.level ? <StatusPill tone="proxy" t={t}>{dbStatusLabel(record.dataStatus.level, lang)}</StatusPill> : null}
       </div>
       <MetadataVerificationSection record={record} lang={lang} t={t} />
+      <MechanismProxyPanel record={record} lang={lang} t={t} />
+      <p style={{ color: t.faint, fontSize: 11.2, lineHeight: 1.4, margin: 0 }}>
+        <ChemicalText value={text(lang, "描述符冗余说明：高相关描述符（如孔径与 PLD）在冗余门控中会被标记并惩罚，不会删除，也不改变 OACS/DMRS 公式。", "Descriptor redundancy note: highly correlated descriptors (e.g. pore size and PLD) are flagged and penalized by the redundancy gate, not deleted, and do not change OACS/DMRS formulas.")} />
+      </p>
       {state.status === "loading" ? <span style={{ color: t.muted, fontSize: 12 }}>{text(lang, "正在按需加载详情...", "Loading detail on demand...")}</span> : null}
       {state.error ? <span style={{ color: t.warn, fontSize: 12, fontWeight: 850 }}>{displayValue(state.error.message)}</span> : null}
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>

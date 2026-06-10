@@ -133,6 +133,9 @@ export function SynergyHotSpotMap({ data = [], region = {}, lang, t }) {
           <span>{text(lang, "金属活性位点价值", "Metal active-site value")}: <strong style={{ color: t.textStrong }}>{formatScore(active?.metalOxoActivity)}</strong></span>
           <span>{text(lang, "协同得分", "Synergy score")}: <strong style={{ color: t.textStrong }}>{formatScore(active?.synergyScore)}</strong></span>
         </div>
+        <span style={{ color: t.faint, fontSize: 11, lineHeight: 1.4 }}>
+          <ChemicalText value={text(lang, "metadata 核验等级与机制代理指标详见候选详情面板。", "Metadata verification level and mechanism proxy indicators are shown in the candidate detail panel.")} />
+        </span>
       </article>
 
       <div style={{ display: "grid", gap: 6, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>

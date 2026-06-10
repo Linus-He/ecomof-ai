@@ -161,6 +161,14 @@ function TraceWorkbenchMethod({ lang, t }) {
 function DatabaseIndexPreviewMethod({ lang, t }) {
   const rows = [
     [
+      text(lang, "V2.0-G 小规模经核验数据库接入 + 多视角描述符门控", "V2.0-G Small-Scale Verified Database Integration + Multi-View Descriptor Gate"),
+      text(lang, "V2.0-G 接入一个有界（<= 200 条）小规模经核验样本，让部分候选从仅限预览推进到 partial_metadata（DOI/license 仍待核验，未伪造）。新增描述符冗余门控（方差/缺失率/Pearson 相关，标记但不删除）、机制代理层（描述符 → CO₂→有机酸机制代理，证据不足返回 null）与算法改进追踪。受 Han et al. 2024（10.1038/s41467-024-52550-9）多视角特征工程启发，仅作方法类比：不复现其 Li-S 模型、不使用 Li-S 目标变量、不训练 XGBoost、不报告模型精度指标。OACS/DMRS 公式未修改。", "V2.0-G integrates a bounded (<= 200 record) small verified sample and advances part of it from preview only to partial_metadata (DOI/license still pending, not fabricated). It adds a descriptor redundancy gate (variance/missingness/Pearson, flag-not-delete), a mechanism proxy layer (descriptors -> CO2->organic-acid proxies, null on insufficient evidence), and an algorithm improvement trace. Inspired by the multi-view feature engineering in Han et al. 2024 (10.1038/s41467-024-52550-9) as a method analogy only: no reproduction of their Li-S model, no Li-S target variables, no XGBoost training, and no model-accuracy metrics reported. OACS/DMRS formulas are unchanged."),
+    ],
+    [
+      text(lang, "Han et al. 2024 借鉴边界", "Han et al. 2024 adaptation boundary"),
+      text(lang, "仅借鉴 limited dataset 下的多视角特征工程、filter/wrapper/embedded 分层特征选择思想、Pearson 冗余过滤与集合/协同描述符思路；不复现 Li-S 电池模型，不使用其数据与目标变量，不训练黑盒 ML，不声称达到其预测性能。", "We borrow only the ideas of multi-view feature engineering under a limited dataset, layered filter/wrapper/embedded selection, Pearson redundancy filtering, and ensemble/synergy descriptors; we do not reproduce the Li-S battery model, do not use its data or target variables, do not train black-box ML, and do not claim its predictive performance."),
+    ],
+    [
       text(lang, "V2.0-F 后台预计算管线规划", "V2.0-F Background Precompute Pipeline Planning"),
       text(lang, "V2.0-F 规划后台预计算管线：原始记录 → 归一化 → metadata 门控 → 描述符检查 → OACS/DMRS 试算 → 预计算 Top-N → 浏览器预览边界。提供管线文档、离线 dry-run 脚本与预计算索引 schema。V2.0-F 不接入全量数据库，也不是经完整验证的筛选；全量评分仍在浏览器主线程之外进行。", "V2.0-F plans the background precompute pipeline: raw records → normalization → metadata gate → descriptor check → OACS/DMRS dry-run → precomputed Top-N → browser preview boundary. It ships a pipeline doc, an offline dry-run script, and a precomputed index schema. V2.0-F does not integrate the full database and is not full verified screening; full scoring stays outside the browser main thread."),
     ],
@@ -230,14 +238,14 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
       <header style={{ display: "grid", gap: 4 }}>
         <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Database Index Preview</span>
         <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
-          {text(lang, "数据库索引预览：V2.0-F 后台预计算管线规划", "Database Index Preview: V2.0-F Background Precompute Pipeline Planning")}
+          {text(lang, "数据库索引预览：V2.0-G 小规模经核验数据库接入 + 多视角描述符门控", "Database Index Preview: V2.0-G Small-Scale Verified Database Integration + Multi-View Descriptor Gate")}
         </h3>
       </header>
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "V2.0-F 在 V2.0-E metadata 门控之上规划后台预计算管线，并提供离线 dry-run 脚本与预计算索引 schema。浏览器仍只加载 manifest 摘要、预计算候选预览、选定索引分片和按需详情记录；全量评分在浏览器主线程之外进行。数据库接入将从 50-200 条小规模样本开始。",
-          "V2.0-F plans the background precompute pipeline on top of the V2.0-E metadata gate and adds an offline dry-run script and a precomputed index schema. The browser still loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand; full scoring runs outside the browser main thread. Database integration will start from a 50-200 record small sample."
+          "V2.0-G 在 V2.0-F 预计算管线之上接入一个有界（<= 200 条）小规模经核验样本，并新增描述符冗余门控、机制代理层与算法改进追踪。浏览器仍只加载 manifest 摘要、预计算候选预览、选定索引分片和按需详情记录；全量评分在浏览器主线程之外进行。受 Han et al. 2024 多视角特征工程启发，仅作方法类比，不训练任何黑盒模型。",
+          "V2.0-G integrates a bounded (<= 200 record) small verified sample on top of the V2.0-F precompute pipeline and adds a descriptor redundancy gate, a mechanism proxy layer, and an algorithm improvement trace. The browser still loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand; full scoring runs outside the browser main thread. Inspired by the multi-view feature engineering in Han et al. 2024 as a method analogy only, with no black-box model trained."
         )} />
       </p>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
@@ -249,7 +257,7 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
         ))}
       </div>
       <p style={{ color: t.warn, fontSize: 12.5, fontWeight: 900, lineHeight: 1.52, margin: 0 }}>
-        <ChemicalText value={text(lang, "V2.0-F 仍然不是经完整验证的全量数据库筛选；它只是管线规划与离线试算，Top-N 预览只是预览，OACS/DMRS 公式未在 V2.0-F 中修改。经完整验证的全量筛选仍需描述符复算、来源核验、公式审计与实验/文献验证。", "V2.0-F remains pipeline planning and an offline dry-run, not full verified database screening; Top-N preview is still preview only and OACS/DMRS formulas are unchanged in V2.0-F. Full verified screening still requires descriptor recomputation, source verification, formula audit, and experimental/literature validation.")} />
+        <ChemicalText value={text(lang, "V2.0-G 仍然不是经完整验证的全量数据库筛选；它只接入小规模经核验样本并做描述符冗余审计与规则型机制代理，未训练任何模型，OACS/DMRS 公式未在 V2.0-G 中修改。经完整验证的全量筛选仍需描述符复算、来源核验、公式审计与实验/文献验证。", "V2.0-G remains a small verified sample with descriptor redundancy audit and rule-based mechanism proxies, not full verified database screening; no model is trained and OACS/DMRS formulas are unchanged in V2.0-G. Full verified screening still requires descriptor recomputation, source verification, formula audit, and experimental/literature validation.")} />
       </p>
     </section>
   )
@@ -487,7 +495,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           <SmallRealDatasetMethod mappingReport={data.mappingReport} lang={lang} t={t} />
         </LazyMethodologyDetails>
         <TraceWorkbenchMethod lang={lang} t={t} />
-        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-F plans the background precompute pipeline (pipeline doc, dry-run script, index schema) on top of the V2.0-E metadata gate, while preserving lazy loading and the OACS/DMRS formulas." summaryZh="V2.0-F 在 V2.0-E metadata 门控之上规划后台预计算管线（管线文档、dry-run 脚本、索引 schema），同时保持懒加载边界与 OACS/DMRS 公式不变。" lang={lang} t={t}>
+        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-G integrates a small verified sample and adds a descriptor redundancy gate, mechanism proxy layer, and algorithm improvement trace (method analogy to Han et al. 2024), while preserving lazy loading and the OACS/DMRS formulas." summaryZh="V2.0-G 接入小规模经核验样本并新增描述符冗余门控、机制代理层与算法改进追踪（对 Han et al. 2024 仅作方法类比），同时保持懒加载边界与 OACS/DMRS 公式不变。" lang={lang} t={t}>
           <DatabaseIndexPreviewMethod lang={lang} t={t} />
         </LazyMethodologyDetails>
         <LazyMethodologyDetails id="methodology-oafs-oacs" title="OACS Formula Explainer" titleZh="OACS 骨架筛选" summary="Formula card renders after expansion." summaryZh="公式卡片展开后渲染。" lang={lang} t={t}>

@@ -1,0 +1,23 @@
+{
+  "version": "V2.0-G",
+  "datasetMode": "database_index_preview",
+  "scope": "Small-scale verified database sample (curated subset)",
+  "sourceDataset": "CoRE MOF (local curated snapshot)",
+  "sourceVersion": "local curated snapshot",
+  "formulaVersion": "OACS/DMRS unchanged",
+  "metadataGateVersion": "V2.0-E metadata gate",
+  "buildDate": "2026-06",
+  "recordsScanned": 120,
+  "recordsEligible": 0,
+  "recordsBlocked": 0,
+  "parts": [
+    "parts/verified_sample_part_001.json"
+  ],
+  "files": {
+    "summary": "summary.json",
+    "topCandidates": "top_candidates.json"
+  },
+  "notFinalRecommendation": true,
+  "boundary": "Small-scale curated sample (<= 200 records). Not full database integration and not full verified database screening.",
+  "boundaryZh": "小规模人工整理样本（<= 200 条）。不是全量数据库接入，也不是经完整验证的全量数据库筛选。"
+}

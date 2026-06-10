@@ -1,0 +1,3967 @@
+{
+  "partId": "verified_sample_part_001",
+  "recordCount": 120,
+  "records": [
+    {
+      "recordId": "COREMOF_000001",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000001",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "MIL-53(Al) curated example database index preview",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mil-53-like",
+      "descriptors": {
+        "surfaceArea": 2664,
+        "poreSizeA": 7.14,
+        "pldA": 7.14,
+        "lcdA": 17.17,
+        "poreVolume": 0.95,
+        "density": 1.24,
+        "bandGap": 3.58,
+        "voidFraction": 0.541,
+        "stabilityProxy": 0.6,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "complete"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000002",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000002",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "CAU-10(Al) curated example database index preview",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "cau-10-like",
+      "descriptors": {
+        "surfaceArea": 616,
+        "poreSizeA": 4.24,
+        "pldA": 4.24,
+        "lcdA": 15.41,
+        "poreVolume": 0.6,
+        "density": 0.93,
+        "bandGap": 2.71,
+        "voidFraction": 0.358,
+        "stabilityProxy": 0.6,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "complete"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000003",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000003",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "MIL-100(Al) curated example database index preview",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mtv-like",
+      "descriptors": {
+        "surfaceArea": 1803,
+        "poreSizeA": 5.27,
+        "pldA": 5.27,
+        "lcdA": 7.89,
+        "poreVolume": 1.05,
+        "density": 1.35,
+        "bandGap": 1.69,
+        "voidFraction": 0.586,
+        "stabilityProxy": 0.6,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "complete"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000004",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000004",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "MIL-101(Al) curated example database index preview",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mil-101-like",
+      "descriptors": {
+        "surfaceArea": 1366,
+        "poreSizeA": 6.6,
+        "pldA": 6.6,
+        "lcdA": 17.44,
+        "poreVolume": 0.59,
+        "density": 1.15,
+        "bandGap": 2.39,
+        "voidFraction": 0.404,
+        "stabilityProxy": 0.6,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.72
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "complete"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000005",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000005",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "DUT-4(Al) curated example database index preview",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "dut-4-like",
+      "descriptors": {
+        "surfaceArea": 1555,
+        "poreSizeA": 9.32,
+        "pldA": 9.32,
+        "lcdA": 15.35,
+        "poreVolume": 0.79,
+        "density": 1.25,
+        "bandGap": 2.98,
+        "voidFraction": 0.497,
+        "stabilityProxy": 0.6,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "complete"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000006",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000006",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "MOF-303(Al) curated example database index preview",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mof-303-like",
+      "descriptors": {
+        "surfaceArea": 1964,
+        "poreSizeA": 8.37,
+        "pldA": 8.37,
+        "lcdA": 10.97,
+        "poreVolume": 0.48,
+        "density": 1.02,
+        "bandGap": 1.2,
+        "voidFraction": 0.329,
+        "stabilityProxy": 0.6,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "complete"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000007",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000007",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al fumarate curated example database index preview",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "fumarate-like",
+      "descriptors": {
+        "surfaceArea": 872,
+        "poreSizeA": 4.33,
+        "pldA": 4.33,
+        "lcdA": 16.64,
+        "poreVolume": 0.89,
+        "density": 0.75,
+        "bandGap": 1.78,
+        "voidFraction": 0.4,
+        "stabilityProxy": 0.6,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "complete"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000008",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000008",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-terephthalate amino curated example database index preview",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "functionalized-mil-53-like",
+      "descriptors": {
+        "surfaceArea": 1260,
+        "poreSizeA": 9.47,
+        "pldA": 9.47,
+        "lcdA": 10.88,
+        "poreVolume": 0.7,
+        "density": 0.94,
+        "bandGap": 2.71,
+        "voidFraction": 0.397,
+        "stabilityProxy": 0.6,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "complete"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000009",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000009",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al trimesate narrow-pore curated example database index preview",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "btc-like",
+      "descriptors": {
+        "surfaceArea": 1759,
+        "poreSizeA": 8.34,
+        "pldA": 8.34,
+        "lcdA": 13.34,
+        "poreVolume": 0.8,
+        "density": 1.1,
+        "bandGap": 4.75,
+        "voidFraction": 0.468,
+        "stabilityProxy": 0.6,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "complete"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000010",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000010",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al phosphonate curated example database index preview",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "Al-O index-preview net",
+      "descriptors": {
+        "surfaceArea": 2782,
+        "poreSizeA": 5.98,
+        "pldA": 5.98,
+        "lcdA": 9.57,
+        "poreVolume": 0.57,
+        "density": 0.62,
+        "bandGap": 3.8,
+        "voidFraction": 0.261,
+        "stabilityProxy": 0.6,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "complete"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000011",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000011",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al hydroxynaphthalate curated example database index preview",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "pending",
+      "descriptors": {
+        "surfaceArea": 2426,
+        "poreSizeA": 9.04,
+        "pldA": 9.04,
+        "lcdA": 14.7,
+        "poreVolume": 0.31,
+        "density": 0.78,
+        "bandGap": 2.23,
+        "voidFraction": 0.195,
+        "stabilityProxy": 0.6,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "complete"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000012",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000012",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al mixed-linker curated example database index preview",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "pending",
+      "descriptors": {
+        "surfaceArea": 904,
+        "poreSizeA": 5.94,
+        "pldA": 5.94,
+        "lcdA": 12.31,
+        "poreVolume": 0.49,
+        "density": 1.02,
+        "bandGap": 2.7,
+        "voidFraction": 0.333,
+        "stabilityProxy": 0.6,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "complete"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000013",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000013",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-hydroxyterephthalate C1-accessible scaffold database index preview",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "Al-O chain net",
+      "descriptors": {
+        "surfaceArea": 2839,
+        "poreSizeA": 7.26,
+        "pldA": 7.26,
+        "lcdA": 13.53,
+        "poreVolume": 0.65,
+        "density": 1.57,
+        "bandGap": 1.92,
+        "voidFraction": 0.505,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000014",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000014",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-carboxylate high-surface-area review scaffold database index preview",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "open Al node net",
+      "descriptors": {
+        "surfaceArea": 2414,
+        "poreSizeA": 5.23,
+        "pldA": 5.23,
+        "lcdA": 10.71,
+        "poreVolume": 0.18,
+        "density": 1.31,
+        "bandGap": 3.27,
+        "voidFraction": 0.191,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000015",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000015",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 015",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mil-53-like",
+      "descriptors": {
+        "surfaceArea": 1527,
+        "poreSizeA": 7.99,
+        "pldA": 7.99,
+        "lcdA": 7.39,
+        "poreVolume": 0.33,
+        "density": 0.89,
+        "bandGap": 4.73,
+        "voidFraction": 0.227,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000016",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000016",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 016",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "cau-10-like",
+      "descriptors": {
+        "surfaceArea": 2677,
+        "poreSizeA": 6.7,
+        "pldA": 6.7,
+        "lcdA": 9.67,
+        "poreVolume": 0.57,
+        "density": 1.02,
+        "bandGap": 4.51,
+        "voidFraction": 0.368,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000017",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000017",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 017",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mtv-like",
+      "descriptors": {
+        "surfaceArea": 1509,
+        "poreSizeA": 7.36,
+        "pldA": 7.36,
+        "lcdA": 11.6,
+        "poreVolume": 1.11,
+        "density": 0.81,
+        "bandGap": 2.89,
+        "voidFraction": 0.473,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000018",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000018",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 018",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mil-101-like",
+      "descriptors": {
+        "surfaceArea": 2007,
+        "poreSizeA": 5.84,
+        "pldA": 5.84,
+        "lcdA": 5.8,
+        "poreVolume": 0.86,
+        "density": 1.17,
+        "bandGap": 3.97,
+        "voidFraction": 0.502,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.72
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000019",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000019",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 019",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "dut-4-like",
+      "descriptors": {
+        "surfaceArea": 1245,
+        "poreSizeA": 4.06,
+        "pldA": 4.06,
+        "lcdA": 7.69,
+        "poreVolume": 0.45,
+        "density": 1.56,
+        "bandGap": 3.35,
+        "voidFraction": 0.412,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000020",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000020",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 020",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mof-303-like",
+      "descriptors": {
+        "surfaceArea": 2282,
+        "poreSizeA": 5.28,
+        "pldA": 5.28,
+        "lcdA": 10.72,
+        "poreVolume": 0.57,
+        "density": 1.5,
+        "bandGap": 4.56,
+        "voidFraction": 0.461,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000021",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000021",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 021",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "fumarate-like",
+      "descriptors": {
+        "surfaceArea": 1798,
+        "poreSizeA": 6.32,
+        "pldA": 6.32,
+        "lcdA": 17.33,
+        "poreVolume": 0.37,
+        "density": 1.07,
+        "bandGap": 2.83,
+        "voidFraction": 0.284,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000022",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000022",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 022",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "functionalized-mil-53-like",
+      "descriptors": {
+        "surfaceArea": 2046,
+        "poreSizeA": 3.2,
+        "pldA": 3.2,
+        "lcdA": 14.26,
+        "poreVolume": 0.72,
+        "density": 1.36,
+        "bandGap": 1.98,
+        "voidFraction": 0.495,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000023",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000023",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 023",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "btc-like",
+      "descriptors": {
+        "surfaceArea": 1474,
+        "poreSizeA": 4.22,
+        "pldA": 4.22,
+        "lcdA": 9.14,
+        "poreVolume": 1.1,
+        "density": 1.19,
+        "bandGap": 3.7,
+        "voidFraction": 0.567,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000024",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000024",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 024",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "Al-O index-preview net",
+      "descriptors": {
+        "surfaceArea": 802,
+        "poreSizeA": 5.85,
+        "pldA": 5.85,
+        "lcdA": 10.69,
+        "poreVolume": 1.05,
+        "density": 1.52,
+        "bandGap": 4.07,
+        "voidFraction": 0.615,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000025",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000025",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 025",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "pending",
+      "descriptors": {
+        "surfaceArea": 1263,
+        "poreSizeA": 9.41,
+        "pldA": 9.41,
+        "lcdA": 8.15,
+        "poreVolume": 0.62,
+        "density": 1.05,
+        "bandGap": 2.22,
+        "voidFraction": 0.394,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000026",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000026",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 026",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "pending",
+      "descriptors": {
+        "surfaceArea": 1654,
+        "poreSizeA": 7.76,
+        "pldA": 7.76,
+        "lcdA": 12.54,
+        "poreVolume": 0.9,
+        "density": 0.83,
+        "bandGap": 3.05,
+        "voidFraction": 0.428,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000027",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000027",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 027",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "Al-O chain net",
+      "descriptors": {
+        "surfaceArea": 481,
+        "poreSizeA": 5,
+        "pldA": 5,
+        "lcdA": 17.28,
+        "poreVolume": 0.74,
+        "density": 1.29,
+        "bandGap": 1.71,
+        "voidFraction": 0.488,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000028",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000028",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 028",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "open Al node net",
+      "descriptors": {
+        "surfaceArea": 864,
+        "poreSizeA": 5.83,
+        "pldA": 5.83,
+        "lcdA": 16.57,
+        "poreVolume": 1.06,
+        "density": 1.38,
+        "bandGap": 1.61,
+        "voidFraction": 0.594,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000029",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000029",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 029",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mil-53-like",
+      "descriptors": {
+        "surfaceArea": 1476,
+        "poreSizeA": 4.46,
+        "pldA": 4.46,
+        "lcdA": 11.3,
+        "poreVolume": 0.61,
+        "density": 0.89,
+        "bandGap": 2.29,
+        "voidFraction": 0.352,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000030",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000030",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 030",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "cau-10-like",
+      "descriptors": {
+        "surfaceArea": 2815,
+        "poreSizeA": 6.83,
+        "pldA": 6.83,
+        "lcdA": 14.79,
+        "poreVolume": 0.38,
+        "density": 1.11,
+        "bandGap": 1.62,
+        "voidFraction": 0.297,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000031",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000031",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 031",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mtv-like",
+      "descriptors": {
+        "surfaceArea": 2194,
+        "poreSizeA": 9.38,
+        "pldA": 9.38,
+        "lcdA": 12.78,
+        "poreVolume": 0.83,
+        "density": 0.76,
+        "bandGap": 4.12,
+        "voidFraction": 0.387,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000032",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000032",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 032",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mil-101-like",
+      "descriptors": {
+        "surfaceArea": 1157,
+        "poreSizeA": 9,
+        "pldA": 9,
+        "lcdA": 16.73,
+        "poreVolume": 0.93,
+        "density": 0.73,
+        "bandGap": 3.19,
+        "voidFraction": 0.404,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.72
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000033",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000033",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 033",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "dut-4-like",
+      "descriptors": {
+        "surfaceArea": 1471,
+        "poreSizeA": 6.16,
+        "pldA": 6.16,
+        "lcdA": 11.1,
+        "poreVolume": 0.45,
+        "density": 0.91,
+        "bandGap": 2.66,
+        "voidFraction": 0.291,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000034",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000034",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 034",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mof-303-like",
+      "descriptors": {
+        "surfaceArea": 955,
+        "poreSizeA": 8.04,
+        "pldA": 8.04,
+        "lcdA": 8.32,
+        "poreVolume": 0.66,
+        "density": 0.73,
+        "bandGap": 4.34,
+        "voidFraction": 0.325,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000035",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000035",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 035",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "fumarate-like",
+      "descriptors": {
+        "surfaceArea": 1845,
+        "poreSizeA": 6.96,
+        "pldA": 6.96,
+        "lcdA": 13.93,
+        "poreVolume": 0.31,
+        "density": 1.4,
+        "bandGap": 2.91,
+        "voidFraction": 0.303,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000036",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000036",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 036",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "functionalized-mil-53-like",
+      "descriptors": {
+        "surfaceArea": 2806,
+        "poreSizeA": 9.09,
+        "pldA": 9.09,
+        "lcdA": 15.11,
+        "poreVolume": 0.29,
+        "density": 1.15,
+        "bandGap": 2.01,
+        "voidFraction": 0.25,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000037",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000037",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 037",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "btc-like",
+      "descriptors": {
+        "surfaceArea": 2662,
+        "poreSizeA": 6.05,
+        "pldA": 6.05,
+        "lcdA": 9.11,
+        "poreVolume": 0.46,
+        "density": 1.01,
+        "bandGap": 2.31,
+        "voidFraction": 0.317,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000038",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000038",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 038",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "Al-O index-preview net",
+      "descriptors": {
+        "surfaceArea": 1595,
+        "poreSizeA": 4.56,
+        "pldA": 4.56,
+        "lcdA": 11.81,
+        "poreVolume": 0.29,
+        "density": 1.46,
+        "bandGap": 1.83,
+        "voidFraction": 0.297,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000039",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000039",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 039",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "pending",
+      "descriptors": {
+        "surfaceArea": 2301,
+        "poreSizeA": 7.58,
+        "pldA": 7.58,
+        "lcdA": 7.47,
+        "poreVolume": 0.94,
+        "density": 1.08,
+        "bandGap": 1.81,
+        "voidFraction": 0.504,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000040",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000040",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 040",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "pending",
+      "descriptors": {
+        "surfaceArea": 1894,
+        "poreSizeA": 8.21,
+        "pldA": 8.21,
+        "lcdA": 7.14,
+        "poreVolume": 0.7,
+        "density": 0.84,
+        "bandGap": 1.5,
+        "voidFraction": 0.37,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000041",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000041",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 041",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "Al-O chain net",
+      "descriptors": {
+        "surfaceArea": 2694,
+        "poreSizeA": 4.98,
+        "pldA": 4.98,
+        "lcdA": 9.34,
+        "poreVolume": 0.56,
+        "density": 0.92,
+        "bandGap": 4.12,
+        "voidFraction": 0.34,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000042",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000042",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 042",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "open Al node net",
+      "descriptors": {
+        "surfaceArea": 1554,
+        "poreSizeA": 6.44,
+        "pldA": 6.44,
+        "lcdA": 7.16,
+        "poreVolume": 1,
+        "density": 0.79,
+        "bandGap": 1.26,
+        "voidFraction": 0.441,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000043",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000043",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 043",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mil-53-like",
+      "descriptors": {
+        "surfaceArea": 991,
+        "poreSizeA": 4.1,
+        "pldA": 4.1,
+        "lcdA": 15.3,
+        "poreVolume": 0.63,
+        "density": 0.78,
+        "bandGap": 1.52,
+        "voidFraction": 0.329,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000044",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000044",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 044",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "cau-10-like",
+      "descriptors": {
+        "surfaceArea": 2126,
+        "poreSizeA": 3.92,
+        "pldA": 3.92,
+        "lcdA": 12.28,
+        "poreVolume": 0.39,
+        "density": 0.7,
+        "bandGap": 1.48,
+        "voidFraction": 0.214,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000045",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000045",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 045",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mtv-like",
+      "descriptors": {
+        "surfaceArea": 2366,
+        "poreSizeA": 5.1,
+        "pldA": 5.1,
+        "lcdA": 10.53,
+        "poreVolume": 0.47,
+        "density": 1.4,
+        "bandGap": 3.35,
+        "voidFraction": 0.397,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000046",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000046",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 046",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mil-101-like",
+      "descriptors": {
+        "surfaceArea": 1151,
+        "poreSizeA": 3.93,
+        "pldA": 3.93,
+        "lcdA": 16.01,
+        "poreVolume": 0.34,
+        "density": 0.64,
+        "bandGap": null,
+        "voidFraction": 0.179,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.72
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000047",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000047",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 047",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "dut-4-like",
+      "descriptors": {
+        "surfaceArea": 1698,
+        "poreSizeA": 8.32,
+        "pldA": 8.32,
+        "lcdA": 11.35,
+        "poreVolume": 0.34,
+        "density": 0.7,
+        "bandGap": null,
+        "voidFraction": 0.192,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000048",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000048",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 048",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mof-303-like",
+      "descriptors": {
+        "surfaceArea": 818,
+        "poreSizeA": 6.69,
+        "pldA": 6.69,
+        "lcdA": 8.43,
+        "poreVolume": 0.26,
+        "density": 0.69,
+        "bandGap": null,
+        "voidFraction": 0.152,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000049",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000049",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 049",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "fumarate-like",
+      "descriptors": {
+        "surfaceArea": 751,
+        "poreSizeA": 5.75,
+        "pldA": 5.75,
+        "lcdA": 9.42,
+        "poreVolume": 0.94,
+        "density": 1.19,
+        "bandGap": null,
+        "voidFraction": 0.528,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000050",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000050",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 050",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "functionalized-mil-53-like",
+      "descriptors": {
+        "surfaceArea": 1196,
+        "poreSizeA": 8.7,
+        "pldA": 8.7,
+        "lcdA": 7.85,
+        "poreVolume": 0.2,
+        "density": 0.85,
+        "bandGap": null,
+        "voidFraction": 0.145,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000051",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000051",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 051",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "btc-like",
+      "descriptors": {
+        "surfaceArea": 755,
+        "poreSizeA": 6.19,
+        "pldA": 6.19,
+        "lcdA": 7.79,
+        "poreVolume": 0.26,
+        "density": 0.99,
+        "bandGap": null,
+        "voidFraction": 0.205,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000052",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000052",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 052",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "Al-O index-preview net",
+      "descriptors": {
+        "surfaceArea": 2404,
+        "poreSizeA": 4.62,
+        "pldA": 4.62,
+        "lcdA": 6.76,
+        "poreVolume": 0.25,
+        "density": 0.94,
+        "bandGap": null,
+        "voidFraction": 0.19,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000053",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000053",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 053",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "pending",
+      "descriptors": {
+        "surfaceArea": 1793,
+        "poreSizeA": 5.15,
+        "pldA": 5.15,
+        "lcdA": 15.29,
+        "poreVolume": 0.74,
+        "density": 0.97,
+        "bandGap": null,
+        "voidFraction": 0.418,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000054",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000054",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 054",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "pending",
+      "descriptors": {
+        "surfaceArea": 1439,
+        "poreSizeA": 4.3,
+        "pldA": 4.3,
+        "lcdA": 6,
+        "poreVolume": 0.41,
+        "density": 1.11,
+        "bandGap": null,
+        "voidFraction": 0.313,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000055",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000055",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 055",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "Al-O chain net",
+      "descriptors": {
+        "surfaceArea": 2549,
+        "poreSizeA": 4.27,
+        "pldA": 4.27,
+        "lcdA": 6.83,
+        "poreVolume": 0.54,
+        "density": 0.79,
+        "bandGap": null,
+        "voidFraction": 0.299,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000056",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000056",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 056",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "open Al node net",
+      "descriptors": {
+        "surfaceArea": 1605,
+        "poreSizeA": 3.72,
+        "pldA": 3.72,
+        "lcdA": 6.71,
+        "poreVolume": 0.49,
+        "density": 0.65,
+        "bandGap": null,
+        "voidFraction": 0.242,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000057",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000057",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 057",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mil-53-like",
+      "descriptors": {
+        "surfaceArea": 1013,
+        "poreSizeA": 8.31,
+        "pldA": 8.31,
+        "lcdA": 12.79,
+        "poreVolume": 0.53,
+        "density": 0.8,
+        "bandGap": null,
+        "voidFraction": 0.298,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000058",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000058",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 058",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "cau-10-like",
+      "descriptors": {
+        "surfaceArea": 1213,
+        "poreSizeA": 3.31,
+        "pldA": 3.31,
+        "lcdA": 8.63,
+        "poreVolume": 0.66,
+        "density": 1.19,
+        "bandGap": null,
+        "voidFraction": 0.44,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000059",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000059",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 059",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mtv-like",
+      "descriptors": {
+        "surfaceArea": 895,
+        "poreSizeA": 3.75,
+        "pldA": 3.75,
+        "lcdA": 10.34,
+        "poreVolume": 0.34,
+        "density": 0.77,
+        "bandGap": null,
+        "voidFraction": 0.207,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000060",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000060",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 060",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mil-101-like",
+      "descriptors": {
+        "surfaceArea": 882,
+        "poreSizeA": 3.69,
+        "pldA": 3.69,
+        "lcdA": 9.64,
+        "poreVolume": 0.21,
+        "density": 1.29,
+        "bandGap": null,
+        "voidFraction": 0.213,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.72
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000061",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000061",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 061",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "dut-4-like",
+      "descriptors": {
+        "surfaceArea": 675,
+        "poreSizeA": 6.96,
+        "pldA": 6.96,
+        "lcdA": 10.1,
+        "poreVolume": 0.36,
+        "density": 0.8,
+        "bandGap": null,
+        "voidFraction": 0.224,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000062",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000062",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 062",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mof-303-like",
+      "descriptors": {
+        "surfaceArea": 2402,
+        "poreSizeA": 4.72,
+        "pldA": 4.72,
+        "lcdA": 11.74,
+        "poreVolume": 0.74,
+        "density": 0.66,
+        "bandGap": null,
+        "voidFraction": 0.328,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000063",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000063",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 063",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "fumarate-like",
+      "descriptors": {
+        "surfaceArea": 520,
+        "poreSizeA": 5.64,
+        "pldA": 5.64,
+        "lcdA": 7.83,
+        "poreVolume": 0.32,
+        "density": 1.32,
+        "bandGap": null,
+        "voidFraction": 0.297,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000064",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000064",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 064",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "functionalized-mil-53-like",
+      "descriptors": {
+        "surfaceArea": 689,
+        "poreSizeA": 5.27,
+        "pldA": 5.27,
+        "lcdA": 6.14,
+        "poreVolume": 0.83,
+        "density": 1.03,
+        "bandGap": null,
+        "voidFraction": 0.461,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000065",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000065",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 065",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "btc-like",
+      "descriptors": {
+        "surfaceArea": 664,
+        "poreSizeA": 5.52,
+        "pldA": 5.52,
+        "lcdA": 8.03,
+        "poreVolume": 0.35,
+        "density": 0.71,
+        "bandGap": null,
+        "voidFraction": 0.199,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000066",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000066",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 066",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "Al-O index-preview net",
+      "descriptors": {
+        "surfaceArea": 1896,
+        "poreSizeA": 6.4,
+        "pldA": 6.4,
+        "lcdA": 12.76,
+        "poreVolume": 0.22,
+        "density": 0.89,
+        "bandGap": null,
+        "voidFraction": 0.164,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000067",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000067",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 067",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "pending",
+      "descriptors": {
+        "surfaceArea": 1052,
+        "poreSizeA": 4.29,
+        "pldA": 4.29,
+        "lcdA": 7.6,
+        "poreVolume": 0.87,
+        "density": 0.71,
+        "bandGap": null,
+        "voidFraction": 0.382,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000068",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000068",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 068",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "pending",
+      "descriptors": {
+        "surfaceArea": 1400,
+        "poreSizeA": 3.38,
+        "pldA": 3.38,
+        "lcdA": 13.91,
+        "poreVolume": 0.59,
+        "density": 0.98,
+        "bandGap": null,
+        "voidFraction": 0.366,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000069",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000069",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 069",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "Al-O chain net",
+      "descriptors": {
+        "surfaceArea": 1258,
+        "poreSizeA": 4.4,
+        "pldA": 4.4,
+        "lcdA": 7.95,
+        "poreVolume": 0.26,
+        "density": 1.09,
+        "bandGap": null,
+        "voidFraction": 0.221,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000070",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000070",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 070",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "open Al node net",
+      "descriptors": {
+        "surfaceArea": 1352,
+        "poreSizeA": 6.95,
+        "pldA": 6.95,
+        "lcdA": 6.32,
+        "poreVolume": 0.44,
+        "density": 0.96,
+        "bandGap": null,
+        "voidFraction": 0.297,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000071",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000071",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 071",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mil-53-like",
+      "descriptors": {
+        "surfaceArea": 1682,
+        "poreSizeA": 4.17,
+        "pldA": 4.17,
+        "lcdA": 14.39,
+        "poreVolume": 0.27,
+        "density": 1.05,
+        "bandGap": null,
+        "voidFraction": 0.221,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000072",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000072",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 072",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "cau-10-like",
+      "descriptors": {
+        "surfaceArea": 891,
+        "poreSizeA": 7.56,
+        "pldA": 7.56,
+        "lcdA": 10.85,
+        "poreVolume": 0.53,
+        "density": 1.51,
+        "bandGap": null,
+        "voidFraction": 0.445,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000073",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000073",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 073",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mtv-like",
+      "descriptors": {
+        "surfaceArea": 548,
+        "poreSizeA": 4.36,
+        "pldA": 4.36,
+        "lcdA": 6.85,
+        "poreVolume": 0.64,
+        "density": 1.4,
+        "bandGap": null,
+        "voidFraction": 0.473,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000074",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000074",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 074",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mil-101-like",
+      "descriptors": {
+        "surfaceArea": 931,
+        "poreSizeA": 3.48,
+        "pldA": 3.48,
+        "lcdA": 9.05,
+        "poreVolume": 0.52,
+        "density": 0.76,
+        "bandGap": null,
+        "voidFraction": 0.283,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.72
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000075",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000075",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 075",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "dut-4-like",
+      "descriptors": {
+        "surfaceArea": 1890,
+        "poreSizeA": 7.82,
+        "pldA": 7.82,
+        "lcdA": 6.9,
+        "poreVolume": 0.6,
+        "density": 1.13,
+        "bandGap": null,
+        "voidFraction": 0.404,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.55,
+        "openMetalSiteProxy": 0.35
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000076",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000076",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 076",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mof-303-like",
+      "descriptors": {
+        "surfaceArea": 845,
+        "poreSizeA": 5.92,
+        "pldA": 5.92,
+        "lcdA": 10.2,
+        "poreVolume": 1.05,
+        "density": 1.33,
+        "bandGap": null,
+        "voidFraction": 0.583,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000077",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000077",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 077",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "fumarate-like",
+      "descriptors": {
+        "surfaceArea": 2122,
+        "poreSizeA": 3.76,
+        "pldA": 3.76,
+        "lcdA": 11.47,
+        "poreVolume": 0.95,
+        "density": 1.37,
+        "bandGap": null,
+        "voidFraction": 0.566,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000078",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000078",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 078",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "functionalized-mil-53-like",
+      "descriptors": {
+        "surfaceArea": 916,
+        "poreSizeA": 4.95,
+        "pldA": 4.95,
+        "lcdA": 9.99,
+        "poreVolume": 0.31,
+        "density": 1.34,
+        "bandGap": null,
+        "voidFraction": 0.293,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000079",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000079",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 079",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "btc-like",
+      "descriptors": {
+        "surfaceArea": 585,
+        "poreSizeA": 3.79,
+        "pldA": 3.79,
+        "lcdA": 11,
+        "poreVolume": 0.68,
+        "density": 1.51,
+        "bandGap": null,
+        "voidFraction": 0.507,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000080",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000080",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 080",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": null,
+      "descriptors": {
+        "surfaceArea": 2219,
+        "poreSizeA": 5.57,
+        "pldA": 5.57,
+        "lcdA": 16.66,
+        "poreVolume": 0.87,
+        "density": 0.76,
+        "bandGap": null,
+        "voidFraction": 0.398,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000081",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000081",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 081",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "pending",
+      "descriptors": {
+        "surfaceArea": 1503,
+        "poreSizeA": 6.25,
+        "pldA": 6.25,
+        "lcdA": 15.34,
+        "poreVolume": 0.91,
+        "density": 0.67,
+        "bandGap": null,
+        "voidFraction": 0.379,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000082",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000082",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 082",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "pending",
+      "descriptors": {
+        "surfaceArea": 692,
+        "poreSizeA": 5.46,
+        "pldA": 5.46,
+        "lcdA": 7.46,
+        "poreVolume": 0.89,
+        "density": 1.09,
+        "bandGap": null,
+        "voidFraction": 0.492,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000083",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000083",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 083",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "Al-O chain net",
+      "descriptors": {
+        "surfaceArea": 1137,
+        "poreSizeA": 6,
+        "pldA": 6,
+        "lcdA": 12,
+        "poreVolume": 1.05,
+        "density": 0.87,
+        "bandGap": null,
+        "voidFraction": 0.477,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000084",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000084",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 084",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "open Al node net",
+      "descriptors": {
+        "surfaceArea": 703,
+        "poreSizeA": 9.05,
+        "pldA": 9.05,
+        "lcdA": 14.43,
+        "poreVolume": 0.32,
+        "density": 1.52,
+        "bandGap": null,
+        "voidFraction": 0.327,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000085",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000085",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 085",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mil-53-like",
+      "descriptors": {
+        "surfaceArea": 1372,
+        "poreSizeA": 8.34,
+        "pldA": 8.34,
+        "lcdA": 14.94,
+        "poreVolume": 0.23,
+        "density": 0.7,
+        "bandGap": null,
+        "voidFraction": 0.139,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000086",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000086",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 086",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "cau-10-like",
+      "descriptors": {
+        "surfaceArea": 1629,
+        "poreSizeA": 4.09,
+        "pldA": 4.09,
+        "lcdA": 14.59,
+        "poreVolume": 0.64,
+        "density": 0.78,
+        "bandGap": null,
+        "voidFraction": 0.333,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000087",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000087",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 087",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mtv-like",
+      "descriptors": {
+        "surfaceArea": 1328,
+        "poreSizeA": 6.54,
+        "pldA": 6.54,
+        "lcdA": 16.66,
+        "poreVolume": 0.43,
+        "density": 1.1,
+        "bandGap": null,
+        "voidFraction": 0.321,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000088",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000088",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 088",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mil-101-like",
+      "descriptors": {
+        "surfaceArea": 1533,
+        "poreSizeA": 7.85,
+        "pldA": 7.85,
+        "lcdA": 7.51,
+        "poreVolume": 1.06,
+        "density": 1.48,
+        "bandGap": null,
+        "voidFraction": 0.611,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.72
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000089",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000089",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 089",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "dut-4-like",
+      "descriptors": {
+        "surfaceArea": 2679,
+        "poreSizeA": 8.12,
+        "pldA": 8.12,
+        "lcdA": 6.45,
+        "poreVolume": 0.25,
+        "density": 0.95,
+        "bandGap": null,
+        "voidFraction": 0.192,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000090",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000090",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 090",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mof-303-like",
+      "descriptors": {
+        "surfaceArea": 2413,
+        "poreSizeA": 7.93,
+        "pldA": 7.93,
+        "lcdA": 11.53,
+        "poreVolume": 0.34,
+        "density": 1.17,
+        "bandGap": null,
+        "voidFraction": 0.285,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000091",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000091",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 091",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "fumarate-like",
+      "descriptors": {
+        "surfaceArea": 815,
+        "poreSizeA": 9.05,
+        "pldA": 9.05,
+        "lcdA": 8.89,
+        "poreVolume": 0.65,
+        "density": 1.31,
+        "bandGap": null,
+        "voidFraction": 0.46,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000092",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000092",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 092",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "functionalized-mil-53-like",
+      "descriptors": {
+        "surfaceArea": 1735,
+        "poreSizeA": 4.12,
+        "pldA": 4.12,
+        "lcdA": 16.72,
+        "poreVolume": 1.02,
+        "density": 1.53,
+        "bandGap": null,
+        "voidFraction": 0.609,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000093",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000093",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 093",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "btc-like",
+      "descriptors": {
+        "surfaceArea": 2228,
+        "poreSizeA": 3.55,
+        "pldA": 3.55,
+        "lcdA": 6.72,
+        "poreVolume": 0.5,
+        "density": 0.82,
+        "bandGap": null,
+        "voidFraction": 0.291,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000094",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000094",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 094",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": null,
+      "descriptors": {
+        "surfaceArea": 2331,
+        "poreSizeA": 6.29,
+        "pldA": 6.29,
+        "lcdA": 7.74,
+        "poreVolume": 0.72,
+        "density": 1.24,
+        "bandGap": null,
+        "voidFraction": 0.472,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000095",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000095",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 095",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "pending",
+      "descriptors": {
+        "surfaceArea": 2260,
+        "poreSizeA": 4.86,
+        "pldA": 4.86,
+        "lcdA": 11.62,
+        "poreVolume": 0.85,
+        "density": 0.67,
+        "bandGap": null,
+        "voidFraction": 0.363,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000096",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000096",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 096",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "pending",
+      "descriptors": {
+        "surfaceArea": 2679,
+        "poreSizeA": 9.08,
+        "pldA": 9.08,
+        "lcdA": 16.25,
+        "poreVolume": 1.07,
+        "density": 0.65,
+        "bandGap": null,
+        "voidFraction": 0.41,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000097",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000097",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 097",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "Al-O chain net",
+      "descriptors": {
+        "surfaceArea": 827,
+        "poreSizeA": 3.7,
+        "pldA": 3.7,
+        "lcdA": 9.82,
+        "poreVolume": 0.38,
+        "density": 1.1,
+        "bandGap": null,
+        "voidFraction": 0.295,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000098",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000098",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 098",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "open Al node net",
+      "descriptors": {
+        "surfaceArea": 612,
+        "poreSizeA": 4.24,
+        "pldA": 4.24,
+        "lcdA": 12.5,
+        "poreVolume": 0.78,
+        "density": 1.06,
+        "bandGap": null,
+        "voidFraction": 0.453,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000099",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000099",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 099",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mil-53-like",
+      "descriptors": {
+        "surfaceArea": 1641,
+        "poreSizeA": 6.33,
+        "pldA": 6.33,
+        "lcdA": 14.19,
+        "poreVolume": 0.22,
+        "density": 1.07,
+        "bandGap": null,
+        "voidFraction": 0.191,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000100",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000100",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 100",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "cau-10-like",
+      "descriptors": {
+        "surfaceArea": 1106,
+        "poreSizeA": 8.83,
+        "pldA": 8.83,
+        "lcdA": 16.86,
+        "poreVolume": 0.21,
+        "density": 1.5,
+        "bandGap": null,
+        "voidFraction": 0.24,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000101",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000101",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 101",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mtv-like",
+      "descriptors": {
+        "surfaceArea": 2691,
+        "poreSizeA": 5.37,
+        "pldA": 5.37,
+        "lcdA": 8.24,
+        "poreVolume": 0.65,
+        "density": 1.01,
+        "bandGap": null,
+        "voidFraction": 0.396,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000102",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000102",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 102",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mil-101-like",
+      "descriptors": {
+        "surfaceArea": 667,
+        "poreSizeA": 6.81,
+        "pldA": 6.81,
+        "lcdA": 13.3,
+        "poreVolume": 0.61,
+        "density": 1.58,
+        "bandGap": null,
+        "voidFraction": 0.491,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.72
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000103",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000103",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 103",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "dut-4-like",
+      "descriptors": {
+        "surfaceArea": 872,
+        "poreSizeA": 7.72,
+        "pldA": 7.72,
+        "lcdA": 6.35,
+        "poreVolume": 0.62,
+        "density": 0.88,
+        "bandGap": null,
+        "voidFraction": 0.353,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000104",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000104",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 104",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mof-303-like",
+      "descriptors": {
+        "surfaceArea": 1659,
+        "poreSizeA": 9.15,
+        "pldA": 9.15,
+        "lcdA": 6.17,
+        "poreVolume": 1.04,
+        "density": 1.35,
+        "bandGap": null,
+        "voidFraction": 0.584,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000105",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000105",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 105",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "fumarate-like",
+      "descriptors": {
+        "surfaceArea": 2597,
+        "poreSizeA": 4.51,
+        "pldA": 4.51,
+        "lcdA": 11.64,
+        "poreVolume": 0.56,
+        "density": 1.55,
+        "bandGap": null,
+        "voidFraction": 0.465,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000106",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000106",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 106",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "functionalized-mil-53-like",
+      "descriptors": {
+        "surfaceArea": 1295,
+        "poreSizeA": 7.24,
+        "pldA": 7.24,
+        "lcdA": 11.14,
+        "poreVolume": 1.12,
+        "density": 0.72,
+        "bandGap": null,
+        "voidFraction": 0.446,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000107",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000107",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 107",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "btc-like",
+      "descriptors": {
+        "surfaceArea": 1837,
+        "poreSizeA": 3.5,
+        "pldA": 3.5,
+        "lcdA": 11.27,
+        "poreVolume": 0.43,
+        "density": 0.62,
+        "bandGap": null,
+        "voidFraction": 0.21,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000108",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000108",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 108",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": null,
+      "descriptors": {
+        "surfaceArea": 2179,
+        "poreSizeA": 3.4,
+        "pldA": 3.4,
+        "lcdA": 16.52,
+        "poreVolume": 0.9,
+        "density": 1.32,
+        "bandGap": null,
+        "voidFraction": 0.543,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000109",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000109",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 109",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "pending",
+      "descriptors": {
+        "surfaceArea": 2720,
+        "poreSizeA": 6.35,
+        "pldA": 6.35,
+        "lcdA": 10.5,
+        "poreVolume": 1.1,
+        "density": 0.91,
+        "bandGap": null,
+        "voidFraction": 0.5,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000110",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000110",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 110",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "pending",
+      "descriptors": {
+        "surfaceArea": 973,
+        "poreSizeA": 6.08,
+        "pldA": 6.08,
+        "lcdA": 17.44,
+        "poreVolume": 0.28,
+        "density": 0.82,
+        "bandGap": null,
+        "voidFraction": 0.187,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000111",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000111",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 111",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "Al-O chain net",
+      "descriptors": {
+        "surfaceArea": 2000,
+        "poreSizeA": 6.15,
+        "pldA": 6.15,
+        "lcdA": 8.93,
+        "poreVolume": 0.18,
+        "density": 1.52,
+        "bandGap": null,
+        "voidFraction": 0.215,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000112",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000112",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 112",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "open Al node net",
+      "descriptors": {
+        "surfaceArea": 592,
+        "poreSizeA": 8.97,
+        "pldA": 8.97,
+        "lcdA": 14.72,
+        "poreVolume": 0.87,
+        "density": 0.88,
+        "bandGap": null,
+        "voidFraction": 0.434,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000113",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000113",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 113",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mil-53-like",
+      "descriptors": {
+        "surfaceArea": 555,
+        "poreSizeA": 5.73,
+        "pldA": 5.73,
+        "lcdA": 17.19,
+        "poreVolume": 0.47,
+        "density": 1.04,
+        "bandGap": null,
+        "voidFraction": 0.328,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000114",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000114",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 114",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "cau-10-like",
+      "descriptors": {
+        "surfaceArea": 1664,
+        "poreSizeA": 9.47,
+        "pldA": 9.47,
+        "lcdA": 7.05,
+        "poreVolume": 0.38,
+        "density": 1.4,
+        "bandGap": null,
+        "voidFraction": 0.347,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000115",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000115",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 115",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mtv-like",
+      "descriptors": {
+        "surfaceArea": 1563,
+        "poreSizeA": 4.89,
+        "pldA": 4.89,
+        "lcdA": 5.81,
+        "poreVolume": 1.06,
+        "density": 1.36,
+        "bandGap": null,
+        "voidFraction": 0.59,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000116",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000116",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 116",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mil-101-like",
+      "descriptors": {
+        "surfaceArea": 1588,
+        "poreSizeA": 8,
+        "pldA": 8,
+        "lcdA": 14.36,
+        "poreVolume": 0.43,
+        "density": 0.64,
+        "bandGap": null,
+        "voidFraction": 0.216,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.72
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000117",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000117",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 117",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "dut-4-like",
+      "descriptors": {
+        "surfaceArea": 2652,
+        "poreSizeA": 9.34,
+        "pldA": 9.34,
+        "lcdA": 9.38,
+        "poreVolume": 0.59,
+        "density": 1.17,
+        "bandGap": null,
+        "voidFraction": 0.408,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000118",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000118",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 118",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "mof-303-like",
+      "descriptors": {
+        "surfaceArea": 1432,
+        "poreSizeA": 3.87,
+        "pldA": 3.87,
+        "lcdA": 8.25,
+        "poreVolume": 0.95,
+        "density": 1.4,
+        "bandGap": null,
+        "voidFraction": 0.571,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000119",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000119",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 119",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "fumarate-like",
+      "descriptors": {
+        "surfaceArea": 2838,
+        "poreSizeA": 3.21,
+        "pldA": 3.21,
+        "lcdA": 16.73,
+        "poreVolume": 0.91,
+        "density": 0.76,
+        "bandGap": null,
+        "voidFraction": 0.409,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.45
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    },
+    {
+      "recordId": "COREMOF_000120",
+      "sourceDatabase": "CoRE MOF",
+      "sourceRecordId": "COREMOF_000120",
+      "sourceVersion": "local curated snapshot",
+      "retrievedAt": "2026-06",
+      "displayName": "Al-MOF index preview 120",
+      "metalNode": "Al",
+      "linker": null,
+      "topology": "functionalized-mil-53-like",
+      "descriptors": {
+        "surfaceArea": 1115,
+        "poreSizeA": 7.81,
+        "pldA": 7.81,
+        "lcdA": 8.96,
+        "poreVolume": 0.2,
+        "density": 1.4,
+        "bandGap": null,
+        "voidFraction": 0.219,
+        "stabilityProxy": 0.35,
+        "hydrophilicityProxy": 0.42,
+        "openMetalSiteProxy": 0.22
+      },
+      "descriptorProvenance": {
+        "source": "computed",
+        "method": "Reshaped from CoRE MOF local index snapshot; proxy descriptors derived by documented rules.",
+        "retrievedAt": "2026-06"
+      },
+      "metadataVerification": {
+        "descriptorProvenanceStatus": "partial"
+      },
+      "notFinalRecommendation": true
+    }
+  ],
+  "notFinalRecommendation": true
+}

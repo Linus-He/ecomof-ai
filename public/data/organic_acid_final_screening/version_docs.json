@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06",
-  "currentVersion": "V2.0-F",
-  "completedRange": "V1.0-V2.0-F",
+  "currentVersion": "V2.0-G",
+  "completedRange": "V1.0-V2.0-G",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -1207,7 +1207,7 @@
       "title": "Background Precompute Pipeline Planning",
       "titleZh": "后台预计算管线规划",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Precompute pipeline planning and final-screening UX cleanup",
       "themeZh": "预计算管线规划与最终筛选前台清理",
       "summary": "Planned the background precompute pipeline (pipeline doc, dry-run script, precomputed index schema) and cleaned up the Organic Acid Final Screening front end into a research workbench: removed the chart mascot, rebuilt the OACS-DMRS candidate priority map, and replaced the developer-style run launcher with a Screening Run Scope module. No full database integration and no full verified screening.",
@@ -1286,25 +1286,134 @@
         "adaptationBoundaryZh": "仅为管线规划、试算与前台清理；不声明全量数据库接入或经完整验证的筛选。"
       },
       "relatedSection": "#methodology-oafs-database-index-preview"
+    },
+    {
+      "version": "V2.0-G",
+      "title": "Small-Scale Verified Database Integration + Multi-View Descriptor Gate",
+      "titleZh": "小规模经核验数据库接入 + 多视角描述符门控",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Small verified sample, descriptor redundancy gate, and mechanism proxy layer",
+      "themeZh": "小规模经核验样本、描述符冗余门控与机制代理层",
+      "summary": "Integrated a bounded (<= 200 record) small verified database sample, advanced part of it from preview-only to partial_metadata, and added a Descriptor Redundancy Gate, a Mechanism Proxy Layer, and an Algorithm Improvement Trace. Method analogy only, inspired by Han et al. 2024 multi-view feature engineering; no model is trained and the result is not full verified screening.",
+      "summaryZh": "接入一个有界（<= 200 条）的小规模经核验数据库样本，让其中一部分从仅限预览推进到 partial_metadata，并新增描述符冗余门控、机制代理层与算法改进追踪。仅方法类比，受 Han et al. 2024 多视角特征工程启发；不训练模型，结果也不是经完整验证的筛选。",
+      "keyUpdates": [
+        "Added a small verified database sample (120 records) under public/data/database_precompute/v2_0_g/ with lazy manifest / summary / top_candidates / parts / details.",
+        "Advanced part of the sample to partial_metadata via documented descriptor provenance; DOI/license stay pending (not fabricated), so none are claimed verified.",
+        "Added a Descriptor Redundancy Gate (variance, missingness, Pearson correlation) that flags redundant descriptor pairs without deleting fields.",
+        "Added a Mechanism Proxy Layer mapping descriptors to CO2 -> organic acid mechanism proxies (null on insufficient evidence).",
+        "Added an Algorithm Improvement Trace from raw records to metadata gate, descriptor completeness, redundancy gate, mechanism proxy, and preview output.",
+        "Extended the offline precompute dry-run to read the V2.0-G sample and emit redundancy / mechanism / trace summaries."
+      ],
+      "keyUpdatesZh": [
+        "在 public/data/database_precompute/v2_0_g/ 下新增小规模经核验样本（120 条），保留 manifest / summary / top_candidates / parts / details 懒加载结构。",
+        "通过已记录的描述符溯源让部分样本推进到 partial_metadata；DOI/license 仍待核验（未伪造），因此不声称任何 verified。",
+        "新增描述符冗余门控（方差、缺失率、Pearson 相关），标记冗余描述符对但不删除字段。",
+        "新增机制代理层，把描述符映射为 CO2 -> 有机酸方向的机制代理（证据不足时返回 null）。",
+        "新增算法改进追踪：从原始记录到 metadata 门控、描述符完整度、冗余门控、机制代理、预览输出。",
+        "扩展离线预计算 dry-run 以读取 V2.0-G 样本并输出冗余 / 机制 / 追踪摘要。"
+      ],
+      "algorithmChanges": [
+        "No OACS/DMRS formula change.",
+        "No full database scoring in browser.",
+        "No black-box machine learning model is trained; no model-accuracy metrics are reported.",
+        "Descriptor Redundancy Gate is audit/preview-adjustment only and never deletes descriptors.",
+        "Mechanism Proxy Layer is rule-based and returns insufficient evidence when data is missing.",
+        "V2.0-D worker boundary and V2.0-E metadata gate are unchanged."
+      ],
+      "algorithmChangesZh": [
+        "不修改 OACS/DMRS 公式。",
+        "浏览器内不执行全量数据库评分。",
+        "不训练任何黑盒机器学习模型；不报告模型精度指标。",
+        "描述符冗余门控仅用于审计/预览调整，绝不删除描述符。",
+        "机制代理层为规则型，数据缺失时返回证据不足。",
+        "保持 V2.0-D Worker 边界与 V2.0-E metadata 门控不变。"
+      ],
+      "uiChanges": [
+        "Added a Descriptor Redundancy Panel and an Algorithm Improvement Trace Panel to the Database Index Workbench.",
+        "Added a Mechanism Proxy Panel and a descriptor redundancy note to the Candidate Detail Drawer.",
+        "Added a metadata level + mechanism proxy pointer on the OACS-DMRS Candidate Priority Map active panel."
+      ],
+      "uiChangesZh": [
+        "在 Database Index Workbench 中新增描述符冗余面板与算法改进追踪面板。",
+        "在候选详情抽屉中新增机制代理面板与描述符冗余说明。",
+        "在 OACS-DMRS 候选优先级地图的活动面板中新增 metadata 等级与机制代理指引。"
+      ],
+      "methodologyChanges": [
+        "Documented the V2.0-G small verified sample, descriptor redundancy gate, mechanism proxy layer, and algorithm improvement trace in Methods & Evidence.",
+        "Documented Han et al. 2024 (10.1038/s41467-024-52550-9) as a method analogy only: multi-view feature engineering, layered filter/wrapper/embedded selection, Pearson redundancy filtering, and ensemble/synergy descriptors.",
+        "Documented the adaptation boundary: no reproduction of the Li-S model, no Li-S target variables, no XGBoost training, no model-accuracy metric reporting, and not full verified screening."
+      ],
+      "methodologyChangesZh": [
+        "在 Methods & Evidence 中记录 V2.0-G 小规模经核验样本、描述符冗余门控、机制代理层与算法改进追踪。",
+        "记录 Han et al. 2024（10.1038/s41467-024-52550-9）仅作方法类比：多视角特征工程、分层 filter/wrapper/embedded 选择、Pearson 冗余过滤与集合/协同描述符。",
+        "记录借鉴边界：不复现 Li-S 模型、不使用 Li-S 目标变量、不训练 XGBoost、不报告模型精度指标，也不是经完整验证的筛选。"
+      ],
+      "evidenceBoundary": "Small-scale curated sample, descriptor redundancy audit, and rule-based mechanism proxies only; not full database integration, not a trained model, and not full verified database screening.",
+      "evidenceBoundaryZh": "仅小规模人工整理样本、描述符冗余审计与规则型机制代理；不是全量数据库接入、不是训练模型，也不是经完整验证的全量数据库筛选。",
+      "limitations": [
+        "The sample is bounded to <= 200 records and is not the full database.",
+        "DOI / license / source URL remain pending for the sample; no candidate is claimed verified_metadata.",
+        "Mechanism proxies are rule-based hypotheses, not DFT or experimental proof.",
+        "The redundancy gate is an audit; it does not change OACS/DMRS scoring.",
+        "Future V2.0-H / V2.1 will consider larger-scale data expansion."
+      ],
+      "limitationsZh": [
+        "样本被限制在 <= 200 条，不是全量数据库。",
+        "样本的 DOI / license / 来源链接仍待核验；不声称任何候选为 verified_metadata。",
+        "机制代理是规则型假设，不是 DFT 或实验证据。",
+        "冗余门控仅为审计，不改变 OACS/DMRS 评分。",
+        "未来 V2.0-H / V2.1 才考虑更大规模数据扩展。"
+      ],
+      "literatureInspirations": [
+        {
+          "literatureId": "HAN-2024-NATCOMMS",
+          "citation": "Han, Z. et al. Machine learning-based design of electrocatalytic materials towards high-energy lithium-sulfur batteries development. Nature Communications 2024, 15, 8433.",
+          "doi": "10.1038/s41467-024-52550-9",
+          "inspiredFeatures": [
+            "Multi-view feature engineering under a limited dataset",
+            "Layered filter / wrapper / embedded feature selection idea",
+            "Pearson correlation redundancy filtering",
+            "Ensemble-effect / synergy descriptor thinking"
+          ],
+          "evidenceBoundary": "Method analogy only. EcoMOF-AI does not reproduce the Li-S model, does not use Li-S target variables, does not train XGBoost, and does not report model-accuracy metrics."
+        }
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "small-scale-verified-sample",
+          "descriptor-redundancy-gate",
+          "mechanism-proxy-layer",
+          "algorithm-improvement-trace",
+          "multi-view-feature-engineering-analogy",
+          "no-black-box-ml"
+        ],
+        "literatureIds": [
+          "HAN-2024-NATCOMMS"
+        ],
+        "adaptationBoundary": "Small verified sample, descriptor redundancy audit, and rule-based mechanism proxies only; method analogy to Han et al. 2024, not a model reproduction and not full verified screening.",
+        "adaptationBoundaryZh": "仅小规模经核验样本、描述符冗余审计与规则型机制代理；对 Han et al. 2024 仅作方法类比，不复现模型，也不是经完整验证的筛选。"
+      },
+      "relatedSection": "#methodology-oafs-database-index-preview"
     }
   ],
   "roadmap": [
     {
-      "version": "V2.0-G",
-      "title": "Small-Scale Verified Database Integration",
-      "titleZh": "小规模经核验数据库接入",
+      "version": "V2.0-H",
+      "title": "Small-Sample Validation and Sensitivity Audit",
+      "titleZh": "小样本验证与敏感性审计",
       "status": "planned",
       "items": [
-        "Integrate a 50-200 record verified database sample",
-        "Run the precompute pipeline on the small verified sample",
-        "Surface verified-metadata candidates in the workbench",
-        "Source verification and descriptor recomputation"
+        "Validation of the small verified sample against literature",
+        "Sensitivity / stability audit of descriptor and proxy outputs",
+        "Manual verification of pending DOI / license / source",
+        "Strengthen evidence for low-confidence mechanism proxies"
       ],
       "itemsZh": [
-        "接入 50-200 条经核验数据库样本",
-        "在小规模经核验样本上运行预计算管线",
-        "在工作台中呈现 metadata 已核验候选",
-        "来源核验与描述符复算"
+        "对小规模经核验样本进行文献验证",
+        "对描述符与代理输出做敏感性 / 稳定性审计",
+        "人工核验待定的 DOI / license / 来源",
+        "为低置信度机制代理补强证据"
       ]
     }
   ],

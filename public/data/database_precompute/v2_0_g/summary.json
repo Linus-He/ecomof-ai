@@ -1,0 +1,26 @@
+{
+  "version": "V2.0-G",
+  "recordsScanned": 120,
+  "recordsEligible": 0,
+  "recordsBlocked": 0,
+  "metadata": {
+    "verified": 0,
+    "partial": 12,
+    "previewOnly": 108,
+    "blocked": 0
+  },
+  "descriptorCompleteness": {
+    "complete": 0,
+    "partial": 120,
+    "missingCritical": 0
+  },
+  "sourceDistribution": {
+    "CoRE MOF": 120
+  },
+  "descriptorProvenanceDistribution": {
+    "computed": 120
+  },
+  "notFinalRecommendation": true,
+  "boundary": "Small-scale curated sample (<= 200 records). Not full database integration and not full verified database screening.",
+  "boundaryZh": "小规模人工整理样本（<= 200 条）。不是全量数据库接入，也不是经完整验证的全量数据库筛选。"
+}

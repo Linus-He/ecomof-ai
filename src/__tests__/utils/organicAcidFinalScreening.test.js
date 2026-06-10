@@ -210,9 +210,9 @@ describe("organic acid final screening", () => {
 
   it("records the Organic Acid Knowledge Base and planned roadmap", () => {
     expect(versionDocs.knowledgeBaseLabel).toBe("Knowledge Base")
-    expect(versionDocs.currentVersion).toBe("V2.0-F")
-    expect(versionDocs.completedRange).toBe("V1.0-V2.0-F")
-    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6", "V1.7", "V2.0-A", "V2.0-B", "V2.0-C", "V2.0-D", "V2.0-E", "V2.0-F"])
+    expect(versionDocs.currentVersion).toBe("V2.0-G")
+    expect(versionDocs.completedRange).toBe("V1.0-V2.0-G")
+    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6", "V1.7", "V2.0-A", "V2.0-B", "V2.0-C", "V2.0-D", "V2.0-E", "V2.0-F", "V2.0-G"])
     expect(versionDocs.versions.find(row => row.version === "V1.4")).toEqual(expect.objectContaining({
       status: "completed",
       title: "Coupled Descriptor Hot Spot Map",
@@ -259,7 +259,7 @@ describe("organic acid final screening", () => {
       evidenceBoundary: "Metadata verification gate and status modeling only; no live DOI/source verification, not full verified database screening, and not a final verified recommendation.",
     }))
     expect(versionDocs.versions.find(row => row.version === "V2.0-F")).toEqual(expect.objectContaining({
-      status: "current",
+      status: "completed",
       title: "Background Precompute Pipeline Planning",
       evidenceBoundary: "Pipeline planning and offline dry-run only; not full database integration and not full verified database screening.",
     }))
@@ -285,7 +285,7 @@ describe("organic acid final screening", () => {
       })
     })
     expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
-      ["V2.0-G", "planned"],
+      ["V2.0-H", "planned"],
     ])
     expect(literatureInspirations).toHaveLength(5)
     const hotSpotPaper = literatureInspirations.find(row => row.id === "LIT-HOTSPOT-2025-NATCOMM")
@@ -340,10 +340,31 @@ describe("organic acid final screening", () => {
     expect(v20f.algorithmChanges).toContain("No full database scoring in browser.")
     expect(v20f.algorithmChanges.join(" ")).toMatch(/V2.0-D worker boundary and V2.0-E metadata gate are unchanged/)
     expect(v20f.evidenceBoundary).toMatch(/not full verified database screening/)
-    expect(versionDocs.currentVersion).toBe("V2.0-F")
+    const v20g = versionDocs.versions.find(row => row.version === "V2.0-G")
+    expect(v20g.status).toBe("current")
+    expect(v20g.title).toMatch(/Multi-View Descriptor Gate/)
+    expect(v20g.keyUpdates.join(" ")).toMatch(/Descriptor Redundancy Gate/)
+    expect(v20g.keyUpdates.join(" ")).toMatch(/Mechanism Proxy Layer/)
+    expect(v20g.algorithmChanges.join(" ")).toMatch(/No black-box machine learning model is trained/)
+    expect(v20g.algorithmChanges.join(" ")).toMatch(/No OACS\/DMRS formula change/)
+    expect(v20g.evidenceBoundary).toMatch(/not full verified database screening/)
+    // Han et al. 2024 recorded as a method analogy only.
+    const han = v20g.literatureInspirations.find(row => row.literatureId === "HAN-2024-NATCOMMS")
+    expect(han.doi).toBe("10.1038/s41467-024-52550-9")
+    expect(han.evidenceBoundary).toMatch(/does not reproduce the Li-S model/i)
+    expect(han.evidenceBoundary).toMatch(/does not train XGBoost/i)
+    expect(JSON.stringify(v20g)).not.toMatch(/R\^2|R²|\bMAE\b|\bRMSE\b/i)
+    expect(versionDocs.currentVersion).toBe("V2.0-G")
     expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
-      ["V2.0-G", "planned"],
+      ["V2.0-H", "planned"],
     ])
+  })
+
+  it("documents the V2.0-G small verified sample and Han et al. 2024 analogy in methodology", () => {
+    const methodologySource = fs.readFileSync("src/components/methodology/OrganicAcidFinalMethodology.jsx", "utf8")
+    expect(methodologySource).toMatch(/V2.0-G Small-Scale Verified Database Integration \+ Multi-View Descriptor Gate/)
+    expect(methodologySource).toMatch(/Han et al. 2024 adaptation boundary/)
+    expect(methodologySource).toMatch(/10.1038\/s41467-024-52550-9/)
   })
 
   it("exposes the V2.0-D database index preview in the Organic Acid methodology directory", () => {
