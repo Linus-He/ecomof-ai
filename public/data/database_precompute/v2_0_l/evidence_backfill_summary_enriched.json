@@ -1,0 +1,95 @@
+{
+  "version": "V2.0-L",
+  "recordCount": 18,
+  "sourceStatusCounts": {
+    "confirmed": 4,
+    "pending": 14,
+    "missing": 0
+  },
+  "citationStatusCounts": {
+    "ready": 4,
+    "partial": 1,
+    "pending": 13,
+    "missing": 0
+  },
+  "licenseStatusCounts": {
+    "confirmed": 0,
+    "pending": 18,
+    "unknown": 0
+  },
+  "doiStatusCounts": {
+    "confirmed": 0,
+    "pending": 18,
+    "not_available": 0
+  },
+  "descriptorProvenanceStatusCounts": {
+    "complete": 12,
+    "partial": 6,
+    "incomplete": 0
+  },
+  "mechanismEvidenceStatusCounts": {
+    "literature_supported": 0,
+    "descriptor_inferred": 0,
+    "weak_proxy": 18,
+    "insufficient_evidence": 0
+  },
+  "verifiedMetadataEligible": 0,
+  "verifiedMetadataCount": 0,
+  "nearestToVerified": [
+    {
+      "recordId": "COREMOF_000001",
+      "displayName": "MIL-53(Al) curated example database index preview",
+      "remainingBlockerCount": 2,
+      "remainingBlockers": [
+        "license pending",
+        "DOI pending"
+      ]
+    },
+    {
+      "recordId": "COREMOF_000002",
+      "displayName": "CAU-10(Al) curated example database index preview",
+      "remainingBlockerCount": 2,
+      "remainingBlockers": [
+        "license pending",
+        "DOI pending"
+      ]
+    },
+    {
+      "recordId": "COREMOF_000003",
+      "displayName": "MIL-100(Al) curated example database index preview",
+      "remainingBlockerCount": 2,
+      "remainingBlockers": [
+        "license pending",
+        "DOI pending"
+      ]
+    },
+    {
+      "recordId": "COREMOF_000005",
+      "displayName": "DUT-4(Al) curated example database index preview",
+      "remainingBlockerCount": 2,
+      "remainingBlockers": [
+        "license pending",
+        "DOI pending"
+      ]
+    },
+    {
+      "recordId": "COREMOF_000004",
+      "displayName": "MIL-101(Al) curated example database index preview",
+      "remainingBlockerCount": 4,
+      "remainingBlockers": [
+        "sourceUrl pending",
+        "citation pending",
+        "license pending",
+        "DOI pending"
+      ]
+    }
+  ],
+  "remainingBlockers": {
+    "license pending": 18,
+    "DOI pending": 18,
+    "sourceUrl pending": 14,
+    "citation pending": 14,
+    "descriptor provenance incomplete": 6
+  },
+  "notFinalRecommendation": true
+}

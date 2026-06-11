@@ -11,6 +11,8 @@ import {
   normalizeEvidenceBackfillRecord,
 } from "../../utils/databaseIndex/evidenceBackfill"
 
+// Prefer the V2.0-L enriched records (with manual source curation); fall back to V2.0-K.
+const ENRICHED_FILE = "data/database_precompute/v2_0_l/evidence_backfill_records_enriched.json"
 const RECORDS_FILE = "data/database_precompute/v2_0_k/evidence_backfill_records.json"
 
 export function EvidenceBackfillPanel({ records: recordsProp = null, lang, t, isMobile }) {
@@ -21,7 +23,8 @@ export function EvidenceBackfillPanel({ records: recordsProp = null, lang, t, is
     if (recordsProp) { setRecords(recordsProp); setStatus("loaded"); return undefined }
     let active = true
     setStatus("loading")
-    fetchJson(RECORDS_FILE, null)
+    fetchJson(ENRICHED_FILE, null)
+      .then(payload => (Array.isArray(payload?.records) && payload.records.length) ? payload : fetchJson(RECORDS_FILE, null))
       .then(payload => { if (active) { setRecords(Array.isArray(payload?.records) ? payload.records : []); setStatus("loaded") } })
       .catch(() => { if (active) { setRecords([]); setStatus("error") } })
     return () => { active = false }
@@ -29,6 +32,8 @@ export function EvidenceBackfillPanel({ records: recordsProp = null, lang, t, is
 
   const normalized = useMemo(() => (records || []).map(normalizeEvidenceBackfillRecord), [records])
   const summary = useMemo(() => buildEvidenceBackfillSummary(records || []), [records])
+  const ambiguityCount = useMemo(() => (records || []).filter(row => (row.ambiguityWarnings || []).length).length, [records])
+  const sourceConfirmed = summary.sourceStatusCounts.confirmed
 
   return (
     <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 11, padding: 12 }}>
@@ -61,10 +66,18 @@ export function EvidenceBackfillPanel({ records: recordsProp = null, lang, t, is
         ))}
       </div>
 
-      {summary.verifiedMetadataCount === 0 ? (
+      {summary.verifiedMetadataCount === 0 && sourceConfirmed > 0 ? (
+        <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 9, color: t.warn, fontSize: 11.8, fontWeight: 800, lineHeight: 1.45, padding: 9 }}>
+          {text(lang, "已有来源确认候选，但仍未达到 verified metadata。请继续补充 license / provenance / ambiguity resolution。", "Some candidates have confirmed sources, but none have reached verified metadata yet. Continue license / provenance / ambiguity resolution.")}
+        </div>
+      ) : summary.verifiedMetadataCount === 0 ? (
         <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 9, color: t.warn, fontSize: 11.8, fontWeight: 800, lineHeight: 1.45, padding: 9 }}>
           {text(lang, "暂无经核验候选：所有候选仍需补充 source / citation / license / DOI 或 descriptor provenance。", "No verified candidates yet: all candidates still need source / citation / license / DOI or descriptor provenance backfill.")}
         </div>
+      ) : null}
+
+      {ambiguityCount > 0 ? (
+        <span style={{ color: t.warn, fontSize: 11.4, fontWeight: 800 }}>{text(lang, `存在 ${ambiguityCount} 条 ambiguity warning（来源记录需进一步消歧）。`, `${ambiguityCount} ambiguity warning(s) present (source record needs disambiguation).`)}</span>
       ) : null}
 
       {status === "loading" ? (

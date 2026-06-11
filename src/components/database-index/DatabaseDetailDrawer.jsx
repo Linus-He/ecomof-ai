@@ -165,6 +165,11 @@ function EvidenceBackfillSection({ record, evidenceBackfillRecords, lang, t }) {
           </div>
         ))}
       </div>
+      {(raw.ambiguityWarnings || []).length ? (
+        <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 8, color: t.warn, fontSize: 10.8, fontWeight: 800, lineHeight: 1.4, padding: 7 }}>
+          {text(lang, "来源歧义警告", "Ambiguity warning")}: {raw.ambiguityWarnings[0]}
+        </div>
+      ) : null}
       <div style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.45 }}>
         {text(lang, "剩余 blocker", "Remaining blockers")}: {row.remainingBlockers.join("、") || text(lang, "无", "none")}
       </div>

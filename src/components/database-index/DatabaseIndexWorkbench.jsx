@@ -54,7 +54,9 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
     fetchJson("data/database_precompute/v2_0_i/manual_metadata_curation.json", null)
       .then(payload => { if (active) setCurationRecords(Array.isArray(payload?.curation) ? payload.curation : []) })
       .catch(() => { if (active) setCurationRecords([]) })
-    fetchJson("data/database_precompute/v2_0_k/evidence_backfill_records.json", null)
+    // Prefer the V2.0-L enriched records (manual source curation); fall back to V2.0-K.
+    fetchJson("data/database_precompute/v2_0_l/evidence_backfill_records_enriched.json", null)
+      .then(payload => (Array.isArray(payload?.records) && payload.records.length) ? payload : fetchJson("data/database_precompute/v2_0_k/evidence_backfill_records.json", null))
       .then(payload => { if (active) setEvidenceBackfillRecords(Array.isArray(payload?.records) ? payload.records : []) })
       .catch(() => { if (active) setEvidenceBackfillRecords([]) })
     return () => { active = false }

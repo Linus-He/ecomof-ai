@@ -161,6 +161,14 @@ function TraceWorkbenchMethod({ lang, t }) {
 function DatabaseIndexPreviewMethod({ lang, t }) {
   const rows = [
     [
+      text(lang, "V2.0-L 第一批候选的人工来源核验", "V2.0-L Manual Source Curation for First Verified Candidates"),
+      text(lang, "V2.0-L 对最接近 verified metadata 的 5 个候选（MIL-53(Al)、CAU-10(Al)、MIL-100(Al)、MIL-101(Al)、DUT-4(Al)）做人工来源核验，并合并回 V2.0-K 证据回填，输出 enriched 记录/汇总与第一批候选核验报告。离线核验，因此 DOI/license 保持待补，引用仅到材料层级；由于记录号是人工 fixture 标识，每条都保留 ambiguity 警告，verified_metadata 仍为 0。系统首次出现 source_confirmed / citation_ready 候选（4 个）。source_confirmed / citation_ready / license_confirmed 都不等于 verified_metadata，未消解的 ambiguity 警告始终阻断 verified。不伪造任何字段，不是最终推荐。", "V2.0-L performs manual source verification of the 5 candidates nearest to verified metadata (MIL-53(Al), CAU-10(Al), MIL-100(Al), MIL-101(Al), DUT-4(Al)) and merges them back into the V2.0-K evidence backfill as enriched records/summary and a first verified candidate report. Curated offline, so DOI/license stay pending and citations are material-level; because the record ids are curated fixtures, every record keeps an ambiguity warning and verified_metadata is still 0. The system now has its first source_confirmed / citation_ready candidates (4). source_confirmed / citation_ready / license_confirmed are not verified_metadata, and an unresolved ambiguity warning always blocks verified. Nothing is fabricated and it is not a final recommendation."),
+    ],
+    [
+      text(lang, "人工来源核验边界", "Manual source curation boundary"),
+      text(lang, "人工来源核验只记录离线判断，不替代 metadata 门控；找不到 DOI/license/来源时保持 pending/unknown/not_available，绝不伪造。verifiedMetadataEligible 只有在 source/citation/license/provenance 已确认（DOI 已核验或 not_available）且无 ambiguity 警告时才为 true。", "Manual source curation records offline judgement only and does not replace the metadata gate; when DOI/license/source cannot be found they stay pending/unknown/not_available and are never fabricated. verifiedMetadataEligible is true only when source/citation/license/provenance are confirmed (DOI verified or not_available) with no ambiguity warning."),
+    ],
+    [
       text(lang, "V2.0-K 证据回填与第一批 verified metadata 候选", "V2.0-K Evidence Backfill and First Verified Metadata Candidates"),
       text(lang, "V2.0-K 在 V2.0-I 的 18 条人工整理队列上建立证据回填流程：逐条记录 source/citation/license/DOI/descriptor 溯源状态，新增证据回填汇总、经核验候选报告、证据回填面板与详情抽屉证据区，并把下一步行动与筛选结果面板接入证据回填。不伪造任何字段；verifiedMetadataEligible 只有在 source/citation/license/descriptor 溯源已确认（DOI 已核验或不适用）且通过 metadata gate 时才为 true，因此 verified_metadata 仍为 0，报告诚实显示 no_verified_candidates_yet 并指出最接近经核验的候选。不扩数据库、不训练模型，仍不是最终推荐。", "V2.0-K builds an evidence backfill workflow over the V2.0-I 18-record curation queue: per-candidate source/citation/license/DOI/descriptor-provenance status, an evidence backfill summary, a verified candidate report, an evidence backfill panel, and a detail-drawer evidence section, with the Next Action and Screening Result panels wired to the backfill. Nothing is fabricated; verifiedMetadataEligible is true only when source/citation/license/descriptor provenance are confirmed (DOI verified or not_available) AND the metadata gate passes, so verified_metadata is still 0 and the report honestly shows no_verified_candidates_yet while pointing to the nearest-to-verified candidates. No database expansion, no model training, and still not a final recommendation."),
     ],
@@ -270,14 +278,14 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
       <header style={{ display: "grid", gap: 4 }}>
         <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Database Index Preview</span>
         <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
-          {text(lang, "数据库索引预览：V2.0-K 证据回填与第一批 verified metadata 候选", "Database Index Preview: V2.0-K Evidence Backfill and First Verified Metadata Candidates")}
+          {text(lang, "数据库索引预览：V2.0-L 第一批候选的人工来源核验", "Database Index Preview: V2.0-L Manual Source Curation for First Verified Candidates")}
         </h3>
       </header>
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "V2.0-K 在 V2.0-I/V2.0-J 之上建立证据回填流程：证据回填记录、证据回填汇总、经核验候选报告、证据回填面板与详情抽屉证据区，并把下一步行动与筛选结果接入证据回填。浏览器仍只加载 manifest 摘要、预计算候选预览、选定索引分片和按需详情记录；不伪造 DOI/license/来源，verified_metadata 在确认真实证据并通过门控前保持为 0；不扩数据库、不训练模型。",
-          "V2.0-K builds an evidence backfill workflow on top of V2.0-I/V2.0-J: backfill records, a backfill summary, a verified candidate report, an evidence backfill panel, and a detail-drawer evidence section, with the Next Action and Screening Result panels wired to it. The browser still loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand; no DOI/license/source is fabricated, verified_metadata stays 0 until real evidence is confirmed and the gate passes; no database expansion and no model trained."
+          "V2.0-L 在 V2.0-K 之上对最接近 verified metadata 的 5 个候选做人工来源核验，并合并回证据回填，输出 enriched 记录/汇总与第一批候选核验报告。浏览器仍只加载 manifest 摘要、预计算候选预览、选定索引分片和按需详情记录；离线核验使 DOI/license 保持待补，引用为材料层级，每条保留 ambiguity 警告，verified_metadata 仍为 0；系统首次出现 source_confirmed / citation_ready 候选；不扩数据库、不训练模型。",
+          "V2.0-L performs manual source verification of the 5 candidates nearest to verified metadata on top of V2.0-K and merges them into the evidence backfill as enriched records/summary and a first verified candidate report. The browser still loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand; offline curation keeps DOI/license pending, citations are material-level, every record keeps an ambiguity warning, and verified_metadata is still 0; the system now has its first source_confirmed / citation_ready candidates; no database expansion and no model trained."
         )} />
       </p>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
@@ -289,7 +297,7 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
         ))}
       </div>
       <p style={{ color: t.warn, fontSize: 12.5, fontWeight: 900, lineHeight: 1.52, margin: 0 }}>
-        <ChemicalText value={text(lang, "V2.0-K 仍然不是经完整验证的全量数据库筛选；它建立证据回填流程，但在确认真实证据并通过门控前 verified_metadata 保持为 0，报告诚实显示暂无经核验候选，未训练任何模型，OACS/DMRS 公式未在 V2.0-K 中修改。经完整验证的全量筛选仍需来源/DOI/license/引用回填、描述符复算、公式审计与实验/文献验证。", "V2.0-K remains an evidence backfill workflow, not full verified database screening; verified_metadata stays 0 until real evidence is confirmed and the gate passes, the report honestly shows no verified candidates yet, no model is trained, and OACS/DMRS formulas are unchanged in V2.0-K. Full verified screening still requires source/DOI/license/citation backfill, descriptor recomputation, formula audit, and experimental/literature validation.")} />
+        <ChemicalText value={text(lang, "V2.0-L 仍然不是经完整验证的全量数据库筛选；它做人工来源核验并产生第一批 source_confirmed / citation_ready 候选，但每条都保留 ambiguity 警告且 license/DOI 待补，因此 verified_metadata 仍为 0，未训练任何模型，OACS/DMRS 公式未在 V2.0-L 中修改。经完整验证的全量筛选仍需联网消歧、DOI/license 确认、描述符复算、公式审计与实验/文献验证。", "V2.0-L remains a manual source curation step, not full verified database screening; it yields the first source_confirmed / citation_ready candidates but every record keeps an ambiguity warning with license/DOI pending, so verified_metadata is still 0, no model is trained, and OACS/DMRS formulas are unchanged in V2.0-L. Full verified screening still requires online disambiguation, DOI/license confirmation, descriptor recomputation, formula audit, and experimental/literature validation.")} />
       </p>
     </section>
   )
@@ -527,7 +535,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           <SmallRealDatasetMethod mappingReport={data.mappingReport} lang={lang} t={t} />
         </LazyMethodologyDetails>
         <TraceWorkbenchMethod lang={lang} t={t} />
-        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-K builds an evidence backfill workflow (backfill records, backfill summary, verified candidate report, evidence panel, detail-drawer evidence section) over the V2.0-I curation queue; nothing is fabricated, verified_metadata stays 0 until real evidence is confirmed and the gate passes, and the OACS/DMRS formulas and lazy loading are unchanged." summaryZh="V2.0-K 在 V2.0-I 整理队列之上建立证据回填流程（回填记录、回填汇总、经核验候选报告、证据面板、详情抽屉证据区）；不伪造任何字段，确认真实证据并通过门控前 verified_metadata 保持为 0，OACS/DMRS 公式与懒加载边界保持不变。" lang={lang} t={t}>
+        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-L performs manual source curation of the 5 candidates nearest to verified metadata over the V2.0-K evidence backfill, yielding the first source_confirmed/citation_ready candidates; offline curation keeps DOI/license pending, ambiguity warnings block verified, verified_metadata is still 0, and the OACS/DMRS formulas and lazy loading are unchanged." summaryZh="V2.0-L 在 V2.0-K 证据回填之上对最接近 verified metadata 的 5 个候选做人工来源核验，首次产生 source_confirmed/citation_ready 候选；离线核验使 DOI/license 待补，ambiguity 警告阻断 verified，verified_metadata 仍为 0，OACS/DMRS 公式与懒加载边界保持不变。" lang={lang} t={t}>
           <DatabaseIndexPreviewMethod lang={lang} t={t} />
         </LazyMethodologyDetails>
         <LazyMethodologyDetails id="methodology-oafs-oacs" title="OACS Formula Explainer" titleZh="OACS 骨架筛选" summary="Formula card renders after expansion." summaryZh="公式卡片展开后渲染。" lang={lang} t={t}>

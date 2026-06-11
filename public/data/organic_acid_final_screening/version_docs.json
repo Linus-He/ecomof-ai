@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06",
-  "currentVersion": "V2.0-K",
-  "completedRange": "V1.0-V2.0-K",
+  "currentVersion": "V2.0-L",
+  "completedRange": "V1.0-V2.0-L",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -1718,7 +1718,7 @@
       "title": "Evidence Backfill and First Verified Metadata Candidates",
       "titleZh": "证据回填与第一批 verified metadata 候选",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Manual evidence backfill workflow toward the first verified candidates",
       "themeZh": "面向第一批经核验候选的人工证据回填流程",
       "summary": "Builds an evidence backfill workflow over the V2.0-I 18-record manual curation queue: per-candidate source/citation/license/DOI/descriptor-provenance status, an evidence backfill summary, and a verified candidate report. Nothing is fabricated; verified_metadata stays 0 until real evidence is confirmed and the metadata gate passes, so the report honestly shows no_verified_candidates_yet while pointing to the candidates nearest to verified. No database expansion, no model, still not full verified screening and not a final recommendation.",
@@ -1815,6 +1815,109 @@
         "adaptationBoundaryZh": "仅证据回填追踪；source_confirmed/citation_ready/license_confirmed 不等于 verified_metadata，确认真实证据并通过门控前 verified_metadata 保持为 0。"
       },
       "relatedSection": "#methodology-oafs-database-index-preview"
+    },
+    {
+      "version": "V2.0-L",
+      "title": "Manual Source Curation for First Verified Candidates",
+      "titleZh": "第一批候选的人工来源核验",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Manual source verification of the candidates nearest to verified metadata",
+      "themeZh": "对最接近 verified metadata 的候选做人工来源核验",
+      "summary": "Performs manual source verification of the 5 candidates nearest to verified metadata (MIL-53(Al), CAU-10(Al), MIL-100(Al), MIL-101(Al), DUT-4(Al)) and merges the results into the V2.0-K evidence backfill as enriched records, an enriched summary, and a first verified candidate report. Curated offline, so DOIs and license terms stay pending and citations are recorded at the material level only; every record keeps an ambiguity warning because the V2.0-G record ids are curated fixtures, so verified_metadata is still 0. The system now has its first source_confirmed / citation_ready candidates. Nothing is fabricated; not full verified screening and not a final recommendation.",
+      "summaryZh": "对最接近 verified metadata 的 5 个候选（MIL-53(Al)、CAU-10(Al)、MIL-100(Al)、MIL-101(Al)、DUT-4(Al)）做人工来源核验，并把结果合并回 V2.0-K 证据回填，输出 enriched 记录、enriched 汇总与第一批候选核验报告。离线核验，因此 DOI 与 license 保持待补，引用仅记录到材料（基础文献）层级；由于 V2.0-G 记录号是人工 fixture 标识，每条都保留 ambiguity 警告，verified_metadata 仍为 0。系统首次出现 source_confirmed / citation_ready 候选。不伪造任何字段；不是经完整验证的筛选，也不是最终推荐。",
+      "keyUpdates": [
+        "Added public/data/database_precompute/v2_0_l/manual_source_curation.json with manual source verification for 5 candidates (source/citation confirmed at material level; DOI/license pending; ambiguity warnings kept).",
+        "Added src/utils/databaseIndex/manualSourceCuration.js: normalize/validate, ambiguity warnings, verified-metadata readiness (ambiguity blocks verified), summary, and a merge into the evidence backfill.",
+        "Added scripts/build-v2-0-l-source-curation.mjs that emits enriched evidence backfill records/summary and a first verified candidate report without overwriting the V2.0-K files.",
+        "Updated the Evidence Backfill panel, Verified Candidate Report panel, and detail-drawer evidence section to show source-confirmed candidates and ambiguity warnings.",
+        "Wired the Screening Result and Next Action panels and the dry-run summary to the V2.0-L enriched counts (now 4 source_confirmed / 4 citation_ready, 0 verified)."
+      ],
+      "keyUpdatesZh": [
+        "新增 public/data/database_precompute/v2_0_l/manual_source_curation.json，对 5 个候选做人工来源核验（source/citation 在材料层级确认；DOI/license 待补；保留 ambiguity 警告）。",
+        "新增 src/utils/databaseIndex/manualSourceCuration.js：归一化/校验、ambiguity 警告、verified-metadata 资格（ambiguity 阻断 verified）、汇总，以及并入证据回填。",
+        "新增 scripts/build-v2-0-l-source-curation.mjs，输出 enriched 证据回填记录/汇总与第一批候选核验报告，且不覆盖 V2.0-K 文件。",
+        "更新证据回填面板、经核验候选报告面板与详情抽屉证据区，显示来源确认候选与 ambiguity 警告。",
+        "把筛选结果面板、下一步行动面板与 dry-run 汇总接入 V2.0-L enriched 计数（现为 4 个 source_confirmed / 4 个 citation_ready，0 个 verified）。"
+      ],
+      "algorithmChanges": [
+        "No OACS/DMRS formula change.",
+        "No full database scoring in browser.",
+        "No machine learning model is trained; no model-precision metrics are reported.",
+        "source_confirmed / citation_ready / license_confirmed are never verified_metadata; an unresolved ambiguity warning always blocks verified eligibility.",
+        "verifiedMetadataEligible is true only when source/citation/license/provenance are confirmed (DOI verified or not_available) AND there is no ambiguity warning.",
+        "V2.0-D worker boundary and V2.0-E metadata gate are unchanged."
+      ],
+      "algorithmChangesZh": [
+        "不修改 OACS/DMRS 公式。",
+        "浏览器内不执行全量数据库评分。",
+        "不训练机器学习模型；不报告模型精度指标。",
+        "source_confirmed / citation_ready / license_confirmed 都不等于 verified_metadata；未消解的 ambiguity 警告始终阻断 verified 资格。",
+        "verifiedMetadataEligible 只有在 source/citation/license/provenance 已确认（DOI 已核验或不适用）且无 ambiguity 警告时才为 true。",
+        "保持 V2.0-D Worker 边界与 V2.0-E metadata 门控不变。"
+      ],
+      "uiChanges": [
+        "Evidence Backfill panel now shows source-confirmed counts, an ambiguity-warning line, and a source-confirmed-but-not-verified message.",
+        "Verified Candidate Report panel now shows the source_confirmed_candidates_available state and the nearest-to-verified candidates.",
+        "Detail-drawer evidence section shows the manual source curation status and any ambiguity warning."
+      ],
+      "uiChangesZh": [
+        "证据回填面板新增来源确认计数、ambiguity 警告行，以及“已有来源确认但仍未 verified”的提示。",
+        "经核验候选报告面板新增 source_confirmed_candidates_available 状态与最接近经核验的候选。",
+        "详情抽屉证据区显示人工来源核验状态与任意 ambiguity 警告。"
+      ],
+      "methodologyChanges": [
+        "Documented the V2.0-L manual source curation workflow, ambiguity handling, and first verified candidate report in Methods & Evidence.",
+        "Documented that source_confirmed / citation_ready / license_confirmed are not verified_metadata and that an unresolved ambiguity warning blocks verified eligibility.",
+        "Documented the boundary: offline curation keeps DOI/license pending, citations are material-level, no metadata is fabricated, and verified_metadata is still 0."
+      ],
+      "methodologyChangesZh": [
+        "在 Methods & Evidence 中记录 V2.0-L 人工来源核验流程、ambiguity 处理与第一批候选核验报告。",
+        "记录 source_confirmed / citation_ready / license_confirmed 不等于 verified_metadata，未消解的 ambiguity 警告阻断 verified 资格。",
+        "记录边界：离线核验使 DOI/license 保持待补，引用为材料层级，不伪造任何 metadata，verified_metadata 仍为 0。"
+      ],
+      "evidenceBoundary": "Manual source curation tracking only; offline, so DOI/license stay pending and citations are material-level. Not full database integration, not a trained model, and not full verified database screening.",
+      "evidenceBoundaryZh": "仅人工来源核验追踪；离线进行，因此 DOI/license 保持待补、引用为材料层级。不是全量数据库接入、不是训练模型，也不是经完整验证的全量数据库筛选。",
+      "limitations": [
+        "verified_metadata is still 0; every checked candidate keeps an ambiguity warning and pending license/DOI.",
+        "Citations are recorded at the material (foundational publication) level only; exact source records and DOIs require online verification.",
+        "Manual source curation reflects offline judgement and does not replace the metadata gate.",
+        "Still based on the V2.0-G 120-record sample; the database is not expanded."
+      ],
+      "limitationsZh": [
+        "verified_metadata 仍为 0；每个已核验候选都保留 ambiguity 警告且 license/DOI 待补。",
+        "引用仅记录到材料（基础文献）层级；确切来源记录与 DOI 需联网核验。",
+        "人工来源核验反映离线判断，不替代 metadata 门控。",
+        "仍基于 V2.0-G 的 120 条样本；未扩展数据库。"
+      ],
+      "literatureInspirations": [
+        {
+          "literatureId": "HAN-2024-NATCOMMS",
+          "citation": "Han, Z. et al. Machine learning-based design of electrocatalytic materials towards high-energy lithium-sulfur batteries development. Nature Communications 2024, 15, 8433.",
+          "doi": "10.1038/s41467-024-52550-9",
+          "inspiredFeatures": [
+            "Evidence-grounded screening discipline before any claim",
+            "Transparent provenance and verification gating"
+          ],
+          "evidenceBoundary": "Method analogy only. EcoMOF-AI does not reproduce the Li-S model, does not use Li-S target variables, does not train XGBoost, and does not report model-precision metrics."
+        }
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "manual-source-curation",
+          "first-source-confirmed-candidates",
+          "ambiguity-warning-blocks-verified",
+          "material-level-citation",
+          "verified-metadata-stays-zero",
+          "no-fabricated-metadata"
+        ],
+        "literatureIds": [
+          "HAN-2024-NATCOMMS"
+        ],
+        "adaptationBoundary": "Manual source curation only; source_confirmed/citation_ready/license_confirmed are not verified_metadata, ambiguity warnings block verified, and verified_metadata stays 0 until evidence is confirmed without ambiguity.",
+        "adaptationBoundaryZh": "仅人工来源核验；source_confirmed/citation_ready/license_confirmed 不等于 verified_metadata，ambiguity 警告阻断 verified，确认证据且无歧义前 verified_metadata 保持为 0。"
+      },
+      "relatedSection": "#methodology-oafs-database-index-preview"
     }
   ],
   "roadmap": [
@@ -1823,16 +1926,16 @@
       "title": "Medium-Scale Database Preview",
       "titleZh": "中规模数据库预览",
       "status": "planned",
-      "precondition": "Only after V2.0-K shows the evidence backfill workflow can stably track source/citation/license/provenance do we move to a 500-2000 record medium-scale database preview.",
-      "preconditionZh": "只有当 V2.0-K 证明证据回填流程能稳定追踪 source/citation/license/provenance 后，才进入 500-2000 条中规模数据库预览。",
+      "precondition": "Several source_confirmed / citation_ready candidates now exist and the evidence backfill workflow tracks them stably; however verified_metadata is still 0, so V2.1 can only be a database preview, not verified screening, until at least one candidate reaches verified_metadata online.",
+      "preconditionZh": "现已有若干 source_confirmed / citation_ready 候选且证据回填流程能稳定追踪；但 verified_metadata 仍为 0，因此在至少一个候选联网达到 verified_metadata 之前，V2.1 只能叫数据库预览，不能叫经核验筛选。",
       "items": [
-        "Confirm the evidence backfill workflow stably tracks source/citation/license/provenance",
+        "Resolve ambiguity and confirm license/DOI online for the source-confirmed candidates",
         "Scale the sample to a 500-2000 record medium-scale preview",
         "Keep lazy manifest / summary / Top-N / selected part / detail-on-demand boundaries",
         "No full database load and no model training"
       ],
       "itemsZh": [
-        "确认证据回填流程能稳定追踪 source/citation/license/provenance",
+        "联网消解 ambiguity 并确认 source-confirmed 候选的 license/DOI",
         "把样本扩展到 500-2000 条的中规模预览",
         "保持 manifest / summary / Top-N / 选定分片 / 详情按需 懒加载边界",
         "不加载全量数据库、不训练模型"

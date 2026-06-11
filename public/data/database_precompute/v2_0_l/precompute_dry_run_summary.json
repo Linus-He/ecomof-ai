@@ -1,0 +1,424 @@
+{
+  "runId": "precompute-dry-run-20260611035819",
+  "createdAt": "2026-06-11T03:58:19.829Z",
+  "mode": "dry_run",
+  "sampleSource": "v2_0_g_verified_sample",
+  "notFinalRecommendation": true,
+  "formulaVersion": "OACS/DMRS unchanged (V2.0-H dry-run)",
+  "metadataGateVersion": "V2.0-E metadata gate + V2.0-H near_verified tier",
+  "fixturesUsed": [
+    {
+      "file": "v2_0_g/parts/verified_sample_part_001.json",
+      "recordCount": 120
+    }
+  ],
+  "recordsScanned": 120,
+  "recordsEligible": 0,
+  "recordsBlocked": 0,
+  "nearVerifiedCount": 12,
+  "metadata": {
+    "verified": 0,
+    "partial": 12,
+    "previewOnly": 108,
+    "blocked": 0
+  },
+  "metadataTierCounts": {
+    "verified_metadata": 0,
+    "near_verified": 12,
+    "partial_metadata": 0,
+    "preview_only": 108,
+    "blocked": 0
+  },
+  "descriptorCompleteness": {
+    "complete": 0,
+    "partial": 120,
+    "missingCritical": 0
+  },
+  "sourceDistribution": {
+    "CoRE MOF": 120
+  },
+  "descriptorProvenanceDistribution": {
+    "computed": 120
+  },
+  "redundancyGate": {
+    "descriptorCount": 11,
+    "lowVarianceCount": 0,
+    "redundantPairCount": 2,
+    "insufficientDataCount": 0,
+    "redundantPairs": [
+      {
+        "descriptorA": "poreSizeA",
+        "descriptorB": "pldA",
+        "pearsonR": 1
+      },
+      {
+        "descriptorA": "poreVolume",
+        "descriptorB": "voidFraction",
+        "pearsonR": 0.873
+      }
+    ]
+  },
+  "mechanismProxyAvailability": {
+    "co2ActivationProxy": 120,
+    "formatePathwayProxy": 120,
+    "hydrothermalStabilityProxy": 120,
+    "poreTransportProxy": 120,
+    "metalSiteSynergyProxy": 120,
+    "competitionRiskProxy": 120,
+    "evidenceConfidenceProxy": 120
+  },
+  "mechanismEvidenceSummary": {
+    "literature_supported": 0,
+    "descriptor_inferred": 360,
+    "weak_proxy": 480,
+    "insufficient_evidence": 0
+  },
+  "verificationQueueSummary": {
+    "queueSize": 18,
+    "priorityCounts": {
+      "high": 12,
+      "medium": 6,
+      "low": 0
+    },
+    "proposedTierCounts": {
+      "verified_metadata": 0,
+      "near_verified": 12,
+      "partial_metadata": 6,
+      "preview_only": 0,
+      "blocked": 0
+    },
+    "manualReviewRequired": 18
+  },
+  "sensitivityAudit": {
+    "top5Stability": 0.886,
+    "top10Stability": 0.908,
+    "unstableCandidateCount": 3,
+    "sensitiveDescriptors": [
+      "surfaceArea",
+      "poreVolume",
+      "voidFraction",
+      "pldA",
+      "metalSiteSynergyProxy",
+      "hydrothermalStabilityProxy",
+      "competitionRiskProxy"
+    ],
+    "auditRuns": 100
+  },
+  "featureAblationAudit": [
+    {
+      "id": "all_descriptors",
+      "topNOverlapWithBaseline": 1,
+      "removedOrPenalized": []
+    },
+    {
+      "id": "without_redundant_descriptors",
+      "topNOverlapWithBaseline": 0.7,
+      "removedOrPenalized": [
+        "pldA",
+        "voidFraction"
+      ]
+    },
+    {
+      "id": "without_mechanism_proxies",
+      "topNOverlapWithBaseline": 0.9,
+      "removedOrPenalized": [
+        "co2ActivationProxy",
+        "poreTransportProxy",
+        "metalSiteSynergyProxy",
+        "hydrothermalStabilityProxy",
+        "competitionRiskProxy"
+      ]
+    },
+    {
+      "id": "metadata_gate_only",
+      "topNOverlapWithBaseline": 0.2,
+      "removedOrPenalized": [
+        "surfaceArea",
+        "poreVolume",
+        "voidFraction",
+        "pldA",
+        "co2ActivationProxy",
+        "poreTransportProxy",
+        "metalSiteSynergyProxy",
+        "hydrothermalStabilityProxy",
+        "competitionRiskProxy"
+      ]
+    }
+  ],
+  "candidateValidationRoadmapSummary": {
+    "candidateCount": 12,
+    "priorityCounts": {
+      "high": 12,
+      "medium": 0,
+      "low": 0
+    }
+  },
+  "manualCurationSummary": {
+    "queueSize": 18,
+    "statusCounts": {
+      "needs_source_review": 18,
+      "source_confirmed": 0,
+      "citation_ready": 0,
+      "license_pending": 0,
+      "license_confirmed": 0,
+      "doi_pending": 0,
+      "verified_metadata": 0,
+      "curation_blocked": 0
+    },
+    "remainingBlockers": {
+      "sourceUrl pending": 18,
+      "DOI pending": 18,
+      "citation pending": 18,
+      "license pending": 18,
+      "descriptor provenance incomplete": 6
+    },
+    "upgradeReadiness": {
+      "canUpgradeToVerifiedMetadata": 0,
+      "needsManualReview": 18,
+      "blocked": 0
+    },
+    "fallbackReason": null
+  },
+  "metadataTransitionSummary": {
+    "nearVerifiedBeforeCuration": 12,
+    "verifiedAfterCuration": 0,
+    "sourceConfirmed": 0,
+    "citationReady": 0,
+    "licenseConfirmed": 0,
+    "curationBlocked": 0
+  },
+  "evidenceBackfillSummary": {
+    "recordCount": 18,
+    "sourceStatusCounts": {
+      "confirmed": 4,
+      "pending": 14,
+      "missing": 0
+    },
+    "citationStatusCounts": {
+      "ready": 4,
+      "partial": 1,
+      "pending": 13,
+      "missing": 0
+    },
+    "licenseStatusCounts": {
+      "confirmed": 0,
+      "pending": 18,
+      "unknown": 0
+    },
+    "doiStatusCounts": {
+      "confirmed": 0,
+      "pending": 18,
+      "not_available": 0
+    },
+    "descriptorProvenanceStatusCounts": {
+      "complete": 12,
+      "partial": 6,
+      "incomplete": 0
+    },
+    "mechanismEvidenceStatusCounts": {
+      "literature_supported": 0,
+      "descriptor_inferred": 0,
+      "weak_proxy": 18,
+      "insufficient_evidence": 0
+    },
+    "verifiedMetadataEligible": 0,
+    "verifiedMetadataCount": 0,
+    "remainingBlockers": {
+      "license pending": 18,
+      "DOI pending": 18,
+      "sourceUrl pending": 14,
+      "citation pending": 14,
+      "descriptor provenance incomplete": 6
+    },
+    "fallbackReason": null
+  },
+  "verifiedCandidateReportSummary": {
+    "reportStatus": "source_confirmed_candidates_available",
+    "verifiedMetadataCount": 0,
+    "sourceConfirmedCount": 4,
+    "citationReadyCount": 4,
+    "licenseConfirmedCount": 0,
+    "nearVerifiedCount": 5
+  },
+  "metadataBackfillTransitionSummary": {
+    "nearVerifiedBeforeBackfill": 12,
+    "sourceConfirmedAfterBackfill": 4,
+    "citationReadyAfterBackfill": 4,
+    "licenseConfirmedAfterBackfill": 0,
+    "verifiedAfterBackfill": 0
+  },
+  "nextActionSummary": {
+    "sourceConfirmed": 4,
+    "citationReady": 4,
+    "licenseConfirmed": 0,
+    "verifiedMetadataCount": 0,
+    "descriptorProvenanceIncomplete": 6,
+    "weakProxy": 18
+  },
+  "manualSourceCurationSummary": {
+    "checkedCandidates": 5,
+    "sourceConfirmedCount": 4,
+    "citationReadyCount": 4,
+    "licenseConfirmedCount": 0,
+    "doiConfirmedCount": 0,
+    "doiNotAvailableCount": 0,
+    "doiPendingCount": 5,
+    "ambiguityWarningCount": 5,
+    "verifiedMetadataEligibleCount": 0,
+    "verifiedMetadataCount": 0,
+    "fallbackReason": null
+  },
+  "evidenceBackfillEnrichedSummary": {
+    "recordCount": 18,
+    "sourceStatusCounts": {
+      "confirmed": 4,
+      "pending": 14,
+      "missing": 0
+    },
+    "citationStatusCounts": {
+      "ready": 4,
+      "partial": 1,
+      "pending": 13,
+      "missing": 0
+    },
+    "licenseStatusCounts": {
+      "confirmed": 0,
+      "pending": 18,
+      "unknown": 0
+    },
+    "doiStatusCounts": {
+      "confirmed": 0,
+      "pending": 18,
+      "not_available": 0
+    },
+    "verifiedMetadataCount": 0
+  },
+  "firstVerifiedCandidateReportSummary": {
+    "reportStatus": "source_confirmed_candidates_available",
+    "checkedCandidates": 5,
+    "sourceConfirmedCount": 4,
+    "citationReadyCount": 4,
+    "licenseConfirmedCount": 0,
+    "doiConfirmedCount": 0,
+    "doiNotAvailableCount": 0,
+    "doiPendingCount": 5,
+    "ambiguityWarningCount": 5,
+    "verifiedMetadataEligibleCount": 0,
+    "verifiedMetadataCount": 0
+  },
+  "metadataSourceCurationTransitionSummary": {
+    "sourceConfirmedAfterManualCuration": 4,
+    "citationReadyAfterManualCuration": 4,
+    "licenseConfirmedAfterManualCuration": 0,
+    "verifiedMetadataAfterManualCuration": 0
+  },
+  "algorithmImprovementTrace": [
+    {
+      "id": "raw_records",
+      "label": "Raw records",
+      "inputCount": 120,
+      "outputCount": 120,
+      "status": "loaded"
+    },
+    {
+      "id": "metadata_gate",
+      "label": "Metadata gate",
+      "inputCount": 120,
+      "outputCount": 12,
+      "status": "gated"
+    },
+    {
+      "id": "verification_queue",
+      "label": "Verification queue",
+      "inputCount": 24,
+      "outputCount": 18,
+      "status": "queued"
+    },
+    {
+      "id": "manual_metadata_curation",
+      "label": "Manual metadata curation",
+      "inputCount": 18,
+      "outputCount": 18,
+      "status": "curation tracking"
+    },
+    {
+      "id": "source_link_enrichment",
+      "label": "Source-link enrichment",
+      "inputCount": 18,
+      "outputCount": 0,
+      "status": "pending"
+    },
+    {
+      "id": "evidence_backfill",
+      "label": "Evidence backfill",
+      "inputCount": 18,
+      "outputCount": 4,
+      "status": "enriched"
+    },
+    {
+      "id": "verified_candidate_report",
+      "label": "Verified candidate report",
+      "inputCount": 18,
+      "outputCount": 0,
+      "status": "no_verified_candidates_yet"
+    },
+    {
+      "id": "descriptor_completeness",
+      "label": "Descriptor completeness",
+      "inputCount": 120,
+      "outputCount": 120,
+      "status": "checked"
+    },
+    {
+      "id": "redundancy_gate",
+      "label": "Redundancy gate",
+      "inputCount": 11,
+      "outputCount": 9,
+      "status": "audited"
+    },
+    {
+      "id": "mechanism_proxy",
+      "label": "Mechanism proxy mapping",
+      "inputCount": 120,
+      "outputCount": 120,
+      "status": "mapped"
+    },
+    {
+      "id": "mechanism_evidence_backfill",
+      "label": "Mechanism evidence backfill",
+      "inputCount": 120,
+      "outputCount": 120,
+      "status": "classified"
+    },
+    {
+      "id": "sensitivity_audit",
+      "label": "Sensitivity / stability audit",
+      "inputCount": 120,
+      "outputCount": 100,
+      "status": "audited"
+    },
+    {
+      "id": "feature_ablation_audit",
+      "label": "Feature ablation audit",
+      "inputCount": 11,
+      "outputCount": 4,
+      "status": "audited"
+    },
+    {
+      "id": "candidate_validation_roadmap",
+      "label": "Candidate validation roadmap",
+      "inputCount": 120,
+      "outputCount": 12,
+      "status": "planned"
+    },
+    {
+      "id": "preview_output",
+      "label": "Preview output",
+      "inputCount": 120,
+      "outputCount": 10,
+      "status": "preview"
+    }
+  ],
+  "boundary": "Dry-run only. Not full verified database screening. No network, no full database load, no model training, no final recommendation.",
+  "boundaryZh": "仅本地试算；不是经完整验证的全量数据库筛选；不联网、不加载全量数据库、不训练模型、不产生最终推荐。"
+}

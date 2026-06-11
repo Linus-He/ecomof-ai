@@ -36,6 +36,7 @@ const v2gRoot = path.join(repoRoot, "public", "data", "database_precompute", "v2
 const v2hRoot = path.join(repoRoot, "public", "data", "database_precompute", "v2_0_h")
 const v2iRoot = path.join(repoRoot, "public", "data", "database_precompute", "v2_0_i")
 const v2kRoot = path.join(repoRoot, "public", "data", "database_precompute", "v2_0_k")
+const v2lRoot = path.join(repoRoot, "public", "data", "database_precompute", "v2_0_l")
 
 // V2.0-F fallback fixtures: Top-N preview + a single selected index part. Not the full DB.
 const V2F_FIXTURE_FILES = [
@@ -128,9 +129,21 @@ export function runPrecomputeDryRun() {
   const curationFallbackReason = curationSummary ? null : "V2.0-I curation summary not found; falling back to V2.0-H queue counts."
 
   // V2.0-K evidence backfill summary + verified candidate report (read if present).
-  const evidenceBackfillSummary = readJson(path.join(v2kRoot, "evidence_backfill_summary.json"))
-  const verifiedCandidateReport = readJson(path.join(v2kRoot, "verified_candidate_report.json"))
-  const evidenceBackfillFallbackReason = evidenceBackfillSummary ? null : "V2.0-K evidence backfill summary not found; falling back to V2.0-I curation counts."
+  const baseBackfillSummary = readJson(path.join(v2kRoot, "evidence_backfill_summary.json"))
+  const baseVerifiedReport = readJson(path.join(v2kRoot, "verified_candidate_report.json"))
+
+  // V2.0-L manual source curation enrichment (preferred when present).
+  const manualSourceCurationSummary = readJson(path.join(v2lRoot, "manual_source_curation_summary.json"))
+  const enrichedBackfillSummary = readJson(path.join(v2lRoot, "evidence_backfill_summary_enriched.json"))
+  const firstVerifiedReport = readJson(path.join(v2lRoot, "first_verified_candidate_report.json"))
+  const sourceCurationFallbackReason = manualSourceCurationSummary ? null : "V2.0-L manual source curation not found; falling back to V2.0-K evidence backfill counts."
+
+  // Prefer the enriched backfill summary / report when V2.0-L is available.
+  const evidenceBackfillSummary = enrichedBackfillSummary || baseBackfillSummary
+  const verifiedCandidateReport = firstVerifiedReport
+    ? { verifiedMetadataCount: firstVerifiedReport.summary?.verifiedMetadataCount ?? 0, reportStatus: firstVerifiedReport.reportStatus, sourceConfirmedCount: firstVerifiedReport.summary?.sourceConfirmedCount ?? 0, citationReadyCount: firstVerifiedReport.summary?.citationReadyCount ?? 0, licenseConfirmedCount: firstVerifiedReport.summary?.licenseConfirmedCount ?? 0, nearVerifiedCandidates: firstVerifiedReport.checkedCandidates }
+    : baseVerifiedReport
+  const evidenceBackfillFallbackReason = baseBackfillSummary ? null : "V2.0-K evidence backfill summary not found; falling back to V2.0-I curation counts."
 
   const trace = buildAlgorithmImprovementTrace(records, {
     verificationQueueSummary: queueSummary,
@@ -247,10 +260,45 @@ export function runPrecomputeDryRun() {
       descriptorProvenanceIncomplete: (evidenceBackfillSummary?.descriptorProvenanceStatusCounts?.partial ?? 0) + (evidenceBackfillSummary?.descriptorProvenanceStatusCounts?.incomplete ?? 0),
       weakProxy: evidenceBackfillSummary?.mechanismEvidenceStatusCounts?.weak_proxy ?? 0,
     },
+    // V2.0-L manual source curation enrichment.
+    manualSourceCurationSummary: manualSourceCurationSummary
+      ? {
+          checkedCandidates: manualSourceCurationSummary.checkedCandidates,
+          sourceConfirmedCount: manualSourceCurationSummary.sourceConfirmedCount,
+          citationReadyCount: manualSourceCurationSummary.citationReadyCount,
+          licenseConfirmedCount: manualSourceCurationSummary.licenseConfirmedCount,
+          doiConfirmedCount: manualSourceCurationSummary.doiConfirmedCount,
+          doiNotAvailableCount: manualSourceCurationSummary.doiNotAvailableCount,
+          doiPendingCount: manualSourceCurationSummary.doiPendingCount,
+          ambiguityWarningCount: manualSourceCurationSummary.ambiguityWarningCount,
+          verifiedMetadataEligibleCount: manualSourceCurationSummary.verifiedMetadataEligibleCount,
+          verifiedMetadataCount: manualSourceCurationSummary.verifiedMetadataCount,
+          fallbackReason: sourceCurationFallbackReason,
+        }
+      : { fallbackReason: sourceCurationFallbackReason },
+    evidenceBackfillEnrichedSummary: enrichedBackfillSummary
+      ? {
+          recordCount: enrichedBackfillSummary.recordCount,
+          sourceStatusCounts: enrichedBackfillSummary.sourceStatusCounts,
+          citationStatusCounts: enrichedBackfillSummary.citationStatusCounts,
+          licenseStatusCounts: enrichedBackfillSummary.licenseStatusCounts,
+          doiStatusCounts: enrichedBackfillSummary.doiStatusCounts,
+          verifiedMetadataCount: enrichedBackfillSummary.verifiedMetadataCount,
+        }
+      : null,
+    firstVerifiedCandidateReportSummary: firstVerifiedReport
+      ? { reportStatus: firstVerifiedReport.reportStatus, ...firstVerifiedReport.summary }
+      : null,
+    metadataSourceCurationTransitionSummary: {
+      sourceConfirmedAfterManualCuration: manualSourceCurationSummary?.sourceConfirmedCount ?? 0,
+      citationReadyAfterManualCuration: manualSourceCurationSummary?.citationReadyCount ?? 0,
+      licenseConfirmedAfterManualCuration: manualSourceCurationSummary?.licenseConfirmedCount ?? 0,
+      verifiedMetadataAfterManualCuration: manualSourceCurationSummary?.verifiedMetadataCount ?? 0,
+    },
     algorithmImprovementTrace: trace.stages.map(stage => ({ id: stage.id, label: stage.label, inputCount: stage.inputCount, outputCount: stage.outputCount, status: stage.status })),
     boundary: "Dry-run only. Not full verified database screening. No network, no full database load, no model training, no final recommendation.",
     boundaryZh: "仅本地试算；不是经完整验证的全量数据库筛选；不联网、不加载全量数据库、不训练模型、不产生最终推荐。",
-    outDir: evidenceBackfillSummary || verifiedCandidateReport ? v2kRoot : v2iRoot,
+    outDir: manualSourceCurationSummary ? v2lRoot : (baseBackfillSummary || baseVerifiedReport ? v2kRoot : v2iRoot),
   }
 }
 

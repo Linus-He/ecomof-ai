@@ -210,9 +210,9 @@ describe("organic acid final screening", () => {
 
   it("records the Organic Acid Knowledge Base and planned roadmap", () => {
     expect(versionDocs.knowledgeBaseLabel).toBe("Knowledge Base")
-    expect(versionDocs.currentVersion).toBe("V2.0-K")
-    expect(versionDocs.completedRange).toBe("V1.0-V2.0-K")
-    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6", "V1.7", "V2.0-A", "V2.0-B", "V2.0-C", "V2.0-D", "V2.0-E", "V2.0-F", "V2.0-G", "V2.0-H", "V2.0-I", "V2.0-J", "V2.0-K"])
+    expect(versionDocs.currentVersion).toBe("V2.0-L")
+    expect(versionDocs.completedRange).toBe("V1.0-V2.0-L")
+    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6", "V1.7", "V2.0-A", "V2.0-B", "V2.0-C", "V2.0-D", "V2.0-E", "V2.0-F", "V2.0-G", "V2.0-H", "V2.0-I", "V2.0-J", "V2.0-K", "V2.0-L"])
     expect(versionDocs.versions.find(row => row.version === "V1.4")).toEqual(expect.objectContaining({
       status: "completed",
       title: "Coupled Descriptor Hot Spot Map",
@@ -361,30 +361,32 @@ describe("organic acid final screening", () => {
     expect(v20j.status).toBe("completed")
     expect(v20j.title).toMatch(/Screening Run UX and Result Panel Refactor/)
     const v20k = versionDocs.versions.find(row => row.version === "V2.0-K")
-    expect(v20k.status).toBe("current")
-    expect(v20k.title).toMatch(/Evidence Backfill and First Verified Metadata Candidates/)
-    expect(v20k.keyUpdates.join(" ")).toMatch(/evidence backfill/i)
-    expect(v20k.keyUpdates.join(" ")).toMatch(/verified candidate report/i)
-    expect(v20k.algorithmChanges.join(" ")).toMatch(/No machine learning model is trained/)
-    expect(v20k.algorithmChanges.join(" ")).toMatch(/No OACS\/DMRS formula change/)
-    expect(v20k.algorithmChanges.join(" ")).toMatch(/never auto-promotes to verified_metadata/)
-    expect(v20k.evidenceBoundary).toMatch(/not full verified database screening/)
-    expect(JSON.stringify(v20k)).not.toMatch(/R\^2|R²|\bMAE\b|\bRMSE\b|accuracy/i)
+    expect(v20k.status).toBe("completed")
+    const v20l = versionDocs.versions.find(row => row.version === "V2.0-L")
+    expect(v20l.status).toBe("current")
+    expect(v20l.title).toMatch(/Manual Source Curation for First Verified Candidates/)
+    expect(v20l.keyUpdates.join(" ")).toMatch(/manual source/i)
+    expect(v20l.keyUpdates.join(" ")).toMatch(/first verified candidate report/i)
+    expect(v20l.algorithmChanges.join(" ")).toMatch(/No machine learning model is trained/)
+    expect(v20l.algorithmChanges.join(" ")).toMatch(/No OACS\/DMRS formula change/)
+    expect(v20l.algorithmChanges.join(" ")).toMatch(/are never verified_metadata/)
+    expect(v20l.evidenceBoundary).toMatch(/not full verified database screening/)
+    expect(JSON.stringify(v20l)).not.toMatch(/R\^2|R²|\bMAE\b|\bRMSE\b|accuracy/i)
     // Han et al. 2024 recorded as a method analogy only.
-    const han = v20k.literatureInspirations.find(row => row.literatureId === "HAN-2024-NATCOMMS")
+    const han = v20l.literatureInspirations.find(row => row.literatureId === "HAN-2024-NATCOMMS")
     expect(han.doi).toBe("10.1038/s41467-024-52550-9")
     expect(han.evidenceBoundary).toMatch(/does not reproduce the Li-S model/i)
     expect(han.evidenceBoundary).toMatch(/does not train XGBoost/i)
-    expect(versionDocs.currentVersion).toBe("V2.0-K")
+    expect(versionDocs.currentVersion).toBe("V2.0-L")
     expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
       ["V2.1", "planned"],
     ])
   })
 
-  it("documents the V2.0-K evidence backfill workflow in methodology", () => {
+  it("documents the V2.0-L manual source curation workflow in methodology", () => {
     const methodologySource = fs.readFileSync("src/components/methodology/OrganicAcidFinalMethodology.jsx", "utf8")
-    expect(methodologySource).toMatch(/V2.0-K Evidence Backfill and First Verified Metadata Candidates/)
-    expect(methodologySource).toMatch(/Evidence backfill boundary/)
+    expect(methodologySource).toMatch(/V2.0-L Manual Source Curation for First Verified Candidates/)
+    expect(methodologySource).toMatch(/Manual source curation boundary/)
   })
 
   it("exposes the V2.0-D database index preview in the Organic Acid methodology directory", () => {

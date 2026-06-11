@@ -1,0 +1,109 @@
+{
+  "version": "V2.0-L",
+  "reportStatus": "source_confirmed_candidates_available",
+  "verifiedCandidates": [],
+  "nearVerifiedCandidates": [
+    {
+      "recordId": "COREMOF_000001",
+      "displayName": "MIL-53(Al) curated example database index preview",
+      "sourceStatus": "confirmed",
+      "citationStatus": "ready",
+      "licenseStatus": "pending",
+      "doiStatus": "pending",
+      "ambiguityWarning": "Record id is a curated fixture identifier; the material name matches a known MOF but the exact source record cannot be strictly confirmed offline.",
+      "verifiedMetadataEligible": false,
+      "remainingBlockers": [
+        "license pending",
+        "DOI pending",
+        "ambiguity unresolved"
+      ],
+      "nextActions": [
+        "Confirm the license terms",
+        "Verify whether a DOI exists"
+      ]
+    },
+    {
+      "recordId": "COREMOF_000002",
+      "displayName": "CAU-10(Al) curated example database index preview",
+      "sourceStatus": "confirmed",
+      "citationStatus": "ready",
+      "licenseStatus": "pending",
+      "doiStatus": "pending",
+      "ambiguityWarning": "Record id is a curated fixture identifier; the material name matches a known MOF but the exact source record cannot be strictly confirmed offline.",
+      "verifiedMetadataEligible": false,
+      "remainingBlockers": [
+        "license pending",
+        "DOI pending",
+        "ambiguity unresolved"
+      ],
+      "nextActions": [
+        "Confirm the license terms",
+        "Verify whether a DOI exists"
+      ]
+    },
+    {
+      "recordId": "COREMOF_000003",
+      "displayName": "MIL-100(Al) curated example database index preview",
+      "sourceStatus": "confirmed",
+      "citationStatus": "ready",
+      "licenseStatus": "pending",
+      "doiStatus": "pending",
+      "ambiguityWarning": "Record id is a curated fixture identifier; the material name matches a known MOF but the exact source record cannot be strictly confirmed offline.",
+      "verifiedMetadataEligible": false,
+      "remainingBlockers": [
+        "license pending",
+        "DOI pending",
+        "ambiguity unresolved"
+      ],
+      "nextActions": [
+        "Confirm the license terms",
+        "Verify whether a DOI exists"
+      ]
+    },
+    {
+      "recordId": "COREMOF_000004",
+      "displayName": "MIL-101(Al) curated example database index preview",
+      "sourceStatus": "pending",
+      "citationStatus": "partial",
+      "licenseStatus": "pending",
+      "doiStatus": "pending",
+      "ambiguityWarning": "MIL-101 was originally reported for Cr, not Al; the Al analogue is a distinct material and the exact source must not be assumed from the Cr framework.",
+      "verifiedMetadataEligible": false,
+      "remainingBlockers": [
+        "sourceUrl pending",
+        "citation pending",
+        "license pending",
+        "DOI pending",
+        "ambiguity unresolved"
+      ],
+      "nextActions": [
+        "Locate and confirm the original source URL",
+        "Confirm the citation",
+        "Confirm the license terms",
+        "Verify whether a DOI exists"
+      ]
+    },
+    {
+      "recordId": "COREMOF_000005",
+      "displayName": "DUT-4(Al) curated example database index preview",
+      "sourceStatus": "confirmed",
+      "citationStatus": "ready",
+      "licenseStatus": "pending",
+      "doiStatus": "pending",
+      "ambiguityWarning": "Record id is a curated fixture identifier; the material name matches a known MOF but the exact source record cannot be strictly confirmed offline.",
+      "verifiedMetadataEligible": false,
+      "remainingBlockers": [
+        "license pending",
+        "DOI pending",
+        "ambiguity unresolved"
+      ],
+      "nextActions": [
+        "Confirm the license terms",
+        "Verify whether a DOI exists"
+      ]
+    }
+  ],
+  "notFinalRecommendation": true,
+  "boundary": "First verified candidate report scaffold. Not a final recommendation, not experimental validation, and not full database screening.",
+  "boundaryZh": "第一批候选核验报告框架；不是最终推荐、不是实验验证，也不是全量数据库筛选。"
+}

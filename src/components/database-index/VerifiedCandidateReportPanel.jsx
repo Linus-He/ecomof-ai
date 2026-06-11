@@ -4,12 +4,16 @@ import { ChemicalText } from "../common/ChemicalFormula"
 import { StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { fetchJson } from "../../services/dataService"
 
+// Prefer the V2.0-L enriched report (with manual source curation); fall back to V2.0-K.
+const ENRICHED_REPORT_FILE = "data/database_precompute/v2_0_l/verified_candidate_report_enriched.json"
 const REPORT_FILE = "data/database_precompute/v2_0_k/verified_candidate_report.json"
 
 const REPORT_STATUS_COPY = {
   no_verified_candidates_yet: { en: "No verified candidates yet", zh: "暂无经核验候选" },
   partial_evidence_ready: { en: "Partial evidence ready", zh: "部分证据已就绪" },
+  source_confirmed_candidates_available: { en: "Source-confirmed candidates available", zh: "已有来源确认候选" },
   verified_candidates_available: { en: "Verified candidates available", zh: "已有经核验候选" },
+  verified_metadata_candidates_available: { en: "Verified metadata candidates available", zh: "已有第一批 verified metadata 候选" },
 }
 
 export function VerifiedCandidateReportPanel({ report: reportProp = null, lang, t, isMobile }) {
@@ -18,7 +22,8 @@ export function VerifiedCandidateReportPanel({ report: reportProp = null, lang, 
   useEffect(() => {
     if (reportProp) { setReport(reportProp); return undefined }
     let active = true
-    fetchJson(REPORT_FILE, null)
+    fetchJson(ENRICHED_REPORT_FILE, null)
+      .then(payload => payload || fetchJson(REPORT_FILE, null))
       .then(payload => { if (active && payload) setReport(payload) })
       .catch(() => {})
     return () => { active = false }
@@ -45,6 +50,13 @@ export function VerifiedCandidateReportPanel({ report: reportProp = null, lang, 
               <StatusPill tone="pass" t={t}>{text(lang, "metadata 已核验", "verified metadata")}</StatusPill>
             </article>
           ))}
+        </div>
+      ) : reportStatus === "source_confirmed_candidates_available" ? (
+        <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 9, color: t.textStrong, display: "grid", gap: 4, fontSize: 12, lineHeight: 1.5, padding: 10 }}>
+          <strong style={{ color: t.warn }}>{text(lang, "已有来源确认候选，但仍无经核验候选", "Source-confirmed candidates available, but none verified yet")}</strong>
+          <span style={{ color: t.muted }}>
+            {text(lang, "已有来源确认候选，但仍未达到 verified metadata。请继续补充 license / provenance / ambiguity resolution。", "Some candidates have confirmed sources, but none have reached verified metadata yet. Continue license / provenance / ambiguity resolution.")}
+          </span>
         </div>
       ) : (
         <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 9, color: t.textStrong, display: "grid", gap: 4, fontSize: 12, lineHeight: 1.5, padding: 10 }}>

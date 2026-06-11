@@ -1,0 +1,24 @@
+{
+  "version": "V2.0-L",
+  "checkedCandidates": 5,
+  "sourceConfirmedCount": 4,
+  "citationReadyCount": 4,
+  "licenseConfirmedCount": 0,
+  "licensePendingCount": 5,
+  "licenseUnknownCount": 0,
+  "doiConfirmedCount": 0,
+  "doiNotAvailableCount": 0,
+  "doiPendingCount": 5,
+  "descriptorProvenanceCompleteCount": 5,
+  "ambiguityWarningCount": 5,
+  "verifiedMetadataEligibleCount": 0,
+  "verifiedMetadataCount": 0,
+  "remainingBlockers": {
+    "license pending": 5,
+    "DOI pending": 5,
+    "ambiguity unresolved": 5,
+    "sourceUrl pending": 1,
+    "citation pending": 1
+  },
+  "notFinalRecommendation": true
+}

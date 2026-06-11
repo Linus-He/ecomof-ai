@@ -192,19 +192,22 @@ export function buildScreeningRunResult(summary = {}) {
     },
   ]
 
-  // V2.0-K evidence backfill result group (only when the backfill summary is present).
+  // V2.0-K/V2.0-L evidence backfill result group (only when the backfill summary is present).
   const backfill = summary.evidenceBackfillSummary || null
   const verifiedReport = summary.verifiedCandidateReportSummary || null
+  const sourceCuration = summary.manualSourceCurationSummary || summary.firstVerifiedCandidateReportSummary || null
+  const sourceConfirmed = num(backfill?.sourceStatusCounts?.confirmed)
   if (backfill) {
     groups.push({
       id: "evidenceBackfill", title: "Evidence backfill", titleZh: "证据回填",
       rows: [
-        { labelEn: "Source confirmed", labelZh: "source confirmed", value: num(backfill.sourceStatusCounts?.confirmed) },
+        { labelEn: "Source confirmed", labelZh: "source confirmed", value: sourceConfirmed },
         { labelEn: "Citation ready", labelZh: "citation ready", value: num(backfill.citationStatusCounts?.ready) },
         { labelEn: "License confirmed", labelZh: "license confirmed", value: num(backfill.licenseStatusCounts?.confirmed) },
         { labelEn: "DOI confirmed", labelZh: "DOI confirmed", value: num(backfill.doiStatusCounts?.confirmed) },
         { labelEn: "DOI not available", labelZh: "DOI 不适用", value: num(backfill.doiStatusCounts?.not_available) },
         { labelEn: "DOI pending", labelZh: "DOI 待补", value: num(backfill.doiStatusCounts?.pending) },
+        ...(sourceCuration ? [{ labelEn: "Ambiguity warnings", labelZh: "ambiguity warnings", value: num(sourceCuration.ambiguityWarningCount) }] : []),
         { labelEn: "verifiedMetadataEligible", labelZh: "verifiedMetadataEligible", value: num(backfill.verifiedMetadataEligible) },
         { labelEn: "verifiedMetadataCount", labelZh: "verifiedMetadataCount", value: num(verifiedReport?.verifiedMetadataCount ?? backfill.verifiedMetadataCount) },
         { labelEn: "Nearest to verified", labelZh: "nearest to verified", value: num(verifiedReport?.nearVerifiedCount) },
@@ -213,12 +216,21 @@ export function buildScreeningRunResult(summary = {}) {
   }
 
   const verifiedCount = num(meta.verified) + num(verifiedReport?.verifiedMetadataCount ?? backfill?.verifiedMetadataCount)
-  const conclusionEn = verifiedCount > 0 || !backfill
-    ? `This result means that ${nearVerified} candidates deserve priority manual review within the loaded ${recordsScanned}-record sample. However, verified metadata remains ${verifiedCount}, so this is not a final recommendation.`
-    : "No verified candidates yet. V2.0-K has created evidence backfill records, but source/citation/license/DOI still require manual curation. The result is still for prioritizing verification only."
-  const conclusionZh = verifiedCount > 0 || !backfill
-    ? `当前结果仅说明：在已加载的 ${recordsScanned} 条小规模样本中，有 ${nearVerified} 条候选值得优先人工核验；但 verified metadata 仍为 ${verifiedCount}，因此不能作为最终推荐。`
-    : "当前仍无经核验候选。V2.0-K 已建立证据回填记录，但 source/citation/license/DOI 仍需人工补全。筛选结果仍仅用于确定核验优先级。"
+  let conclusionEn
+  let conclusionZh
+  if (verifiedCount > 0) {
+    conclusionEn = "The first verified metadata candidates are available, but they are still not final recommendations. Mechanism evidence and literature/experimental validation are still required."
+    conclusionZh = "已有第一批 verified metadata 候选，但仍不是最终推荐。后续需要机制证据与实验/文献验证。"
+  } else if (sourceConfirmed > 0) {
+    conclusionEn = "Some candidates have confirmed sources, but none have reached verified metadata yet. Continue license / provenance / ambiguity resolution."
+    conclusionZh = "已有来源确认候选，但仍未达到 verified metadata。请继续补充 license / provenance / ambiguity resolution。"
+  } else if (backfill) {
+    conclusionEn = "No verified candidates yet. Evidence backfill records exist, but source/citation/license/DOI still require manual curation. The result is still for prioritizing verification only."
+    conclusionZh = "当前仍无经核验候选。证据回填记录已建立，但 source/citation/license/DOI 仍需人工补全。筛选结果仍仅用于确定核验优先级。"
+  } else {
+    conclusionEn = `This result means that ${nearVerified} candidates deserve priority manual review within the loaded ${recordsScanned}-record sample. However, verified metadata remains ${verifiedCount}, so this is not a final recommendation.`
+    conclusionZh = `当前结果仅说明：在已加载的 ${recordsScanned} 条小规模样本中，有 ${nearVerified} 条候选值得优先人工核验；但 verified metadata 仍为 ${verifiedCount}，因此不能作为最终推荐。`
+  }
 
   return {
     finalStatus: deriveRunStatus(buildScreeningRunSteps(summary), summary),
@@ -244,7 +256,24 @@ export function buildScreeningNextActions(summary = {}) {
   const licenseConfirmed = backfill ? num(backfill.licenseStatusCounts?.confirmed) : num(transition.licenseConfirmed)
   const verifiedCount = num(verifiedReport?.verifiedMetadataCount ?? backfill?.verifiedMetadataCount ?? meta.verified)
   const provenanceIncomplete = backfill ? num(backfill.descriptorProvenanceStatusCounts?.partial) + num(backfill.descriptorProvenanceStatusCounts?.incomplete) : 0
+  const sourceCuration = summary.manualSourceCurationSummary || summary.firstVerifiedCandidateReportSummary || null
+  const ambiguityWarnings = num(sourceCuration?.ambiguityWarningCount)
   const actions = []
+
+  if (sourceConfirmed > 0 && verifiedCount === 0) {
+    actions.push({
+      id: "resolve_source_confirmed", priority: "high", tone: "warn",
+      en: "Some candidates have confirmed sources but none are verified yet; continue license / provenance / ambiguity resolution.",
+      zh: "已有来源确认候选但仍未 verified；请继续补 license / provenance 并消解 ambiguity。",
+    })
+  }
+  if (ambiguityWarnings > 0) {
+    actions.push({
+      id: "resolve_ambiguity", priority: "high", tone: "warn",
+      en: `Resolve the ${ambiguityWarnings} ambiguity warnings by mapping each fixture record id to its exact source record.`,
+      zh: `消解 ${ambiguityWarnings} 条 ambiguity 警告：把每个 fixture 记录号对应到确切的来源记录。`,
+    })
+  }
 
   if (verifiedCount === 0) {
     actions.push({

@@ -133,4 +133,22 @@ describe("precompute database-score dry run", () => {
     expect(JSON.stringify(summary)).not.toMatch(/R\^2|R²|\bMAE\b|\bRMSE\b|accuracy/i)
     expect(summary.notFinalRecommendation).toBe(true)
   })
+
+  it("emits V2.0-L manual source curation, enriched backfill, and first verified report summaries", () => {
+    const summary = runPrecomputeDryRun()
+
+    expect(summary.manualSourceCurationSummary).toBeTruthy()
+    expect(summary.manualSourceCurationSummary.checkedCandidates).toBeGreaterThan(0)
+    expect(summary.manualSourceCurationSummary.sourceConfirmedCount).toBeGreaterThan(0)
+    expect(summary.evidenceBackfillEnrichedSummary).toBeTruthy()
+    expect(summary.firstVerifiedCandidateReportSummary).toEqual(expect.objectContaining({
+      reportStatus: expect.any(String),
+      verifiedMetadataCount: expect.any(Number),
+    }))
+    // Source confirmed exists, but verified stays gated at 0 (ambiguity + license pending).
+    expect(summary.manualSourceCurationSummary.verifiedMetadataCount).toBe(0)
+    expect(summary.metadataSourceCurationTransitionSummary.sourceConfirmedAfterManualCuration).toBeGreaterThan(0)
+    expect(summary.notFinalRecommendation).toBe(true)
+    expect(JSON.stringify(summary)).not.toMatch(/R\^2|R²|\bMAE\b|\bRMSE\b|accuracy/i)
+  })
 })

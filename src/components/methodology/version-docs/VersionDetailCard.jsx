@@ -8,8 +8,8 @@ function ListBlock({ title, rows = [], t }) {
   return (
     <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 6, minWidth: 0, padding: 10 }}>
       <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{title}</strong>
-      <div style={{ color: t.muted, display: "grid", fontSize: 11.8, gap: 4, lineHeight: 1.45 }}>
-        {rows.map(row => <span key={row}><ChemicalText value={row} /></span>)}
+      <div style={{ color: t.muted, display: "grid", fontSize: 11.8, gap: 4, lineHeight: 1.45, minWidth: 0, overflowWrap: "anywhere", wordBreak: "break-word" }}>
+        {rows.map(row => <span key={row} style={{ minWidth: 0, overflowWrap: "anywhere" }}><ChemicalText value={row} /></span>)}
       </div>
     </div>
   )
