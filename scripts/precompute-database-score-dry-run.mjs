@@ -35,6 +35,7 @@ const indexRoot = path.join(repoRoot, "public", "data", "database_index")
 const v2gRoot = path.join(repoRoot, "public", "data", "database_precompute", "v2_0_g")
 const v2hRoot = path.join(repoRoot, "public", "data", "database_precompute", "v2_0_h")
 const v2iRoot = path.join(repoRoot, "public", "data", "database_precompute", "v2_0_i")
+const v2kRoot = path.join(repoRoot, "public", "data", "database_precompute", "v2_0_k")
 
 // V2.0-F fallback fixtures: Top-N preview + a single selected index part. Not the full DB.
 const V2F_FIXTURE_FILES = [
@@ -126,9 +127,16 @@ export function runPrecomputeDryRun() {
   const curationSummary = readJson(path.join(v2iRoot, "curation_progress_summary.json"))
   const curationFallbackReason = curationSummary ? null : "V2.0-I curation summary not found; falling back to V2.0-H queue counts."
 
+  // V2.0-K evidence backfill summary + verified candidate report (read if present).
+  const evidenceBackfillSummary = readJson(path.join(v2kRoot, "evidence_backfill_summary.json"))
+  const verifiedCandidateReport = readJson(path.join(v2kRoot, "verified_candidate_report.json"))
+  const evidenceBackfillFallbackReason = evidenceBackfillSummary ? null : "V2.0-K evidence backfill summary not found; falling back to V2.0-I curation counts."
+
   const trace = buildAlgorithmImprovementTrace(records, {
     verificationQueueSummary: queueSummary,
     curationSummary: curationSummary || undefined,
+    evidenceBackfillSummary: evidenceBackfillSummary || undefined,
+    verifiedCandidateReport: verifiedCandidateReport || undefined,
     mechanismEvidence,
     sensitivity,
     ablation,
@@ -198,10 +206,51 @@ export function runPrecomputeDryRun() {
       licenseConfirmed: curationSummary?.statusCounts?.license_confirmed ?? 0,
       curationBlocked: curationSummary?.statusCounts?.curation_blocked ?? 0,
     },
+    // V2.0-K evidence backfill (read from disk; never fabricated here).
+    evidenceBackfillSummary: evidenceBackfillSummary
+      ? {
+          recordCount: evidenceBackfillSummary.recordCount,
+          sourceStatusCounts: evidenceBackfillSummary.sourceStatusCounts,
+          citationStatusCounts: evidenceBackfillSummary.citationStatusCounts,
+          licenseStatusCounts: evidenceBackfillSummary.licenseStatusCounts,
+          doiStatusCounts: evidenceBackfillSummary.doiStatusCounts,
+          descriptorProvenanceStatusCounts: evidenceBackfillSummary.descriptorProvenanceStatusCounts,
+          mechanismEvidenceStatusCounts: evidenceBackfillSummary.mechanismEvidenceStatusCounts,
+          verifiedMetadataEligible: evidenceBackfillSummary.verifiedMetadataEligible,
+          verifiedMetadataCount: evidenceBackfillSummary.verifiedMetadataCount,
+          remainingBlockers: evidenceBackfillSummary.remainingBlockers,
+          fallbackReason: evidenceBackfillFallbackReason,
+        }
+      : { fallbackReason: evidenceBackfillFallbackReason },
+    verifiedCandidateReportSummary: verifiedCandidateReport
+      ? {
+          reportStatus: verifiedCandidateReport.reportStatus,
+          verifiedMetadataCount: verifiedCandidateReport.verifiedMetadataCount,
+          sourceConfirmedCount: verifiedCandidateReport.sourceConfirmedCount,
+          citationReadyCount: verifiedCandidateReport.citationReadyCount,
+          licenseConfirmedCount: verifiedCandidateReport.licenseConfirmedCount,
+          nearVerifiedCount: (verifiedCandidateReport.nearVerifiedCandidates || []).length,
+        }
+      : { reportStatus: "no_verified_candidates_yet", verifiedMetadataCount: 0 },
+    metadataBackfillTransitionSummary: {
+      nearVerifiedBeforeBackfill: metadata.nearVerified,
+      sourceConfirmedAfterBackfill: evidenceBackfillSummary?.sourceStatusCounts?.confirmed ?? 0,
+      citationReadyAfterBackfill: evidenceBackfillSummary?.citationStatusCounts?.ready ?? 0,
+      licenseConfirmedAfterBackfill: evidenceBackfillSummary?.licenseStatusCounts?.confirmed ?? 0,
+      verifiedAfterBackfill: evidenceBackfillSummary?.verifiedMetadataCount ?? 0,
+    },
+    nextActionSummary: {
+      sourceConfirmed: evidenceBackfillSummary?.sourceStatusCounts?.confirmed ?? 0,
+      citationReady: evidenceBackfillSummary?.citationStatusCounts?.ready ?? 0,
+      licenseConfirmed: evidenceBackfillSummary?.licenseStatusCounts?.confirmed ?? 0,
+      verifiedMetadataCount: evidenceBackfillSummary?.verifiedMetadataCount ?? 0,
+      descriptorProvenanceIncomplete: (evidenceBackfillSummary?.descriptorProvenanceStatusCounts?.partial ?? 0) + (evidenceBackfillSummary?.descriptorProvenanceStatusCounts?.incomplete ?? 0),
+      weakProxy: evidenceBackfillSummary?.mechanismEvidenceStatusCounts?.weak_proxy ?? 0,
+    },
     algorithmImprovementTrace: trace.stages.map(stage => ({ id: stage.id, label: stage.label, inputCount: stage.inputCount, outputCount: stage.outputCount, status: stage.status })),
     boundary: "Dry-run only. Not full verified database screening. No network, no full database load, no model training, no final recommendation.",
     boundaryZh: "仅本地试算；不是经完整验证的全量数据库筛选；不联网、不加载全量数据库、不训练模型、不产生最终推荐。",
-    outDir: v2iRoot,
+    outDir: evidenceBackfillSummary || verifiedCandidateReport ? v2kRoot : v2iRoot,
   }
 }
 

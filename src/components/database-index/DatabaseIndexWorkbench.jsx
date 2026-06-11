@@ -22,6 +22,8 @@ import { FeatureAblationAuditPanel } from "./FeatureAblationAuditPanel"
 import { IndexPartBrowser } from "./IndexPartBrowser"
 import { MetadataVerificationPanel } from "./MetadataVerificationPanel"
 import { ManualMetadataCurationPanel } from "./ManualMetadataCurationPanel"
+import { EvidenceBackfillPanel } from "./EvidenceBackfillPanel"
+import { VerifiedCandidateReportPanel } from "./VerifiedCandidateReportPanel"
 import { MetadataVerificationQueuePanel } from "./MetadataVerificationQueuePanel"
 import { PrecomputedTopCandidatesPanel } from "./PrecomputedTopCandidatesPanel"
 import { SensitivityAuditPanel } from "./SensitivityAuditPanel"
@@ -44,13 +46,17 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
   const [compareItems, setCompareItems] = useState([])
   const [selectedPartSnapshot, setSelectedPartSnapshot] = useState({ records: [], filteredRecords: [], path: "" })
   const [curationRecords, setCurationRecords] = useState(null)
+  const [evidenceBackfillRecords, setEvidenceBackfillRecords] = useState(null)
 
   useEffect(() => {
     let active = true
-    // Lazy-load the small V2.0-I manual curation file (not the full database).
+    // Lazy-load the small V2.0-I curation + V2.0-K evidence backfill files (not the full database).
     fetchJson("data/database_precompute/v2_0_i/manual_metadata_curation.json", null)
       .then(payload => { if (active) setCurationRecords(Array.isArray(payload?.curation) ? payload.curation : []) })
       .catch(() => { if (active) setCurationRecords([]) })
+    fetchJson("data/database_precompute/v2_0_k/evidence_backfill_records.json", null)
+      .then(payload => { if (active) setEvidenceBackfillRecords(Array.isArray(payload?.records) ? payload.records : []) })
+      .catch(() => { if (active) setEvidenceBackfillRecords([]) })
     return () => { active = false }
   }, [])
 
@@ -135,6 +141,8 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
               <MetadataVerificationPanel topCandidates={normalizeTopCandidates(overview.topCandidates)} selectedPartRecords={selectedPartSnapshot.records} selectedCandidate={detailRequest || compareItems[0] || normalizeTopCandidates(overview.topCandidates)[0] || null} lang={lang} t={t} isMobile={isMobile} />
               <MetadataVerificationQueuePanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} curationRecords={curationRecords} lang={lang} t={t} isMobile={isMobile} />
               <ManualMetadataCurationPanel curationRecords={curationRecords} lang={lang} t={t} isMobile={isMobile} />
+          <EvidenceBackfillPanel records={evidenceBackfillRecords} lang={lang} t={t} isMobile={isMobile} />
+          <VerifiedCandidateReportPanel lang={lang} t={t} isMobile={isMobile} />
             </CollapsibleSection>
           </div>
 
@@ -145,7 +153,7 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
             <AlgorithmImprovementTracePanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} topNCount={normalizeTopCandidates(overview.topCandidates).length} lang={lang} t={t} />
             <WorkerScoringBoundaryPreview topCandidates={normalizeTopCandidates(overview.topCandidates)} selectedPartRecords={selectedPartSnapshot.records} selectedCandidates={compareItems} lang={lang} t={t} isMobile={isMobile} />
           </CollapsibleSection>
-          <DatabaseDetailDrawer request={detailRequest} curationRecords={curationRecords} onClose={() => setDetailRequest(null)} lang={lang} t={t} />
+          <DatabaseDetailDrawer request={detailRequest} curationRecords={curationRecords} evidenceBackfillRecords={evidenceBackfillRecords} onClose={() => setDetailRequest(null)} lang={lang} t={t} />
         </>
       ) : (
         <span style={{ color: t.warn, fontSize: 12, fontWeight: 850 }}>

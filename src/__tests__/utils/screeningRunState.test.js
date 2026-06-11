@@ -78,4 +78,33 @@ describe("screeningRunState", () => {
     // No dangerous experimental protocols.
     expect(JSON.stringify(actions).toLowerCase()).not.toMatch(/temperature|pressure|reagent|recipe|protocol/)
   })
+
+  it("adds an Evidence Backfill result group and a no-verified conclusion when the V2.0-K summary is present", () => {
+    const v2kSummary = {
+      ...summary,
+      evidenceBackfillSummary: {
+        recordCount: 18,
+        sourceStatusCounts: { confirmed: 0, pending: 18 },
+        citationStatusCounts: { ready: 0, pending: 18 },
+        licenseStatusCounts: { confirmed: 0, pending: 18 },
+        doiStatusCounts: { confirmed: 0, pending: 18, not_available: 0 },
+        descriptorProvenanceStatusCounts: { complete: 12, partial: 6, incomplete: 0 },
+        mechanismEvidenceStatusCounts: { weak_proxy: 18 },
+        verifiedMetadataEligible: 0,
+        verifiedMetadataCount: 0,
+      },
+      verifiedCandidateReportSummary: { reportStatus: "no_verified_candidates_yet", verifiedMetadataCount: 0, nearVerifiedCount: 8 },
+    }
+    const result = buildScreeningRunResult(v2kSummary)
+    expect(result.groups.some(g => g.id === "evidenceBackfill")).toBe(true)
+    expect(result.conclusionEn).toMatch(/No verified candidates yet/i)
+    expect(result.conclusionZh).toMatch(/暂无经核验候选|当前仍无经核验候选/)
+
+    const { actions } = buildScreeningNextActions(v2kSummary)
+    const ids = actions.map(a => a.id)
+    expect(ids).toContain("first_verified_loop")
+    expect(ids).toContain("confirm_citation")
+    expect(ids).toContain("confirm_license")
+    expect(ids).toContain("backfill_provenance")
+  })
 })

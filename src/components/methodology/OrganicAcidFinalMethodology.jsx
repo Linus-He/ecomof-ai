@@ -161,6 +161,14 @@ function TraceWorkbenchMethod({ lang, t }) {
 function DatabaseIndexPreviewMethod({ lang, t }) {
   const rows = [
     [
+      text(lang, "V2.0-K 证据回填与第一批 verified metadata 候选", "V2.0-K Evidence Backfill and First Verified Metadata Candidates"),
+      text(lang, "V2.0-K 在 V2.0-I 的 18 条人工整理队列上建立证据回填流程：逐条记录 source/citation/license/DOI/descriptor 溯源状态，新增证据回填汇总、经核验候选报告、证据回填面板与详情抽屉证据区，并把下一步行动与筛选结果面板接入证据回填。不伪造任何字段；verifiedMetadataEligible 只有在 source/citation/license/descriptor 溯源已确认（DOI 已核验或不适用）且通过 metadata gate 时才为 true，因此 verified_metadata 仍为 0，报告诚实显示 no_verified_candidates_yet 并指出最接近经核验的候选。不扩数据库、不训练模型，仍不是最终推荐。", "V2.0-K builds an evidence backfill workflow over the V2.0-I 18-record curation queue: per-candidate source/citation/license/DOI/descriptor-provenance status, an evidence backfill summary, a verified candidate report, an evidence backfill panel, and a detail-drawer evidence section, with the Next Action and Screening Result panels wired to the backfill. Nothing is fabricated; verifiedMetadataEligible is true only when source/citation/license/descriptor provenance are confirmed (DOI verified or not_available) AND the metadata gate passes, so verified_metadata is still 0 and the report honestly shows no_verified_candidates_yet while pointing to the nearest-to-verified candidates. No database expansion, no model training, and still not a final recommendation."),
+    ],
+    [
+      text(lang, "证据回填边界", "Evidence backfill boundary"),
+      text(lang, "证据回填只记录人工进度，不替代 metadata 门控；脚本重跑会保留人工已填写的 source/citation/license/DOI（existing confirmed/manual value > 新生成的 pending 占位）。source_confirmed / citation_ready / license_confirmed 都不等于 verified_metadata。", "Evidence backfill records manual progress only and does not replace the metadata gate; re-running the build script preserves manually entered source/citation/license/DOI (existing confirmed/manual value > newly generated pending placeholder). source_confirmed / citation_ready / license_confirmed are not verified_metadata."),
+    ],
+    [
       text(lang, "V2.0-J 筛选运行体验与结果面板重构", "V2.0-J Screening Run UX and Result Panel Refactor"),
       text(lang, "V2.0-J 不新增算法，而是把筛选器重构为可运行的科研工作台：新增筛选运行台与醒目的“开始筛选审计”按钮、12 步运行过程（含运行中/已完成/需注意/阻断状态）、筛选结果面板（5 组结果 + 通俗结论 + 结果解释）与由汇总驱动的下一步行动面板，并把证据整理与高级审计折叠到次级层级。运行状态机仅读取现有 V2.0-I 汇总，不重算 OACS/DMRS、不执行全量数据库评分、不训练模型；结果仍是仅限预览且不是最终推荐，verified_metadata 仍为 0。", "V2.0-J adds no new algorithm; it refactors the screener into a runnable research workbench: a Screening Run Console with a prominent Run-screening-audit button, a 12-step run progress (running/completed/warning/blocked), a Screening Result Panel (5 result groups + plain-language conclusion + result interpretation), and a summary-driven Next Action panel, with evidence curation and advanced audits collapsed into secondary layers. The run state machine only reads the existing V2.0-I summary; it does not recompute OACS/DMRS, run full database scoring, or train a model; the result stays preview only and not a final recommendation, with verified_metadata still 0."),
     ],
@@ -262,14 +270,14 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
       <header style={{ display: "grid", gap: 4 }}>
         <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Database Index Preview</span>
         <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
-          {text(lang, "数据库索引预览：V2.0-J 筛选运行体验与结果面板重构", "Database Index Preview: V2.0-J Screening Run UX and Result Panel Refactor")}
+          {text(lang, "数据库索引预览：V2.0-K 证据回填与第一批 verified metadata 候选", "Database Index Preview: V2.0-K Evidence Backfill and First Verified Metadata Candidates")}
         </h3>
       </header>
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "V2.0-J 在 V2.0-I 之上重构筛选运行体验：筛选运行台、12 步运行过程、筛选结果面板、结果解释与下一步行动面板，并把高级审计折叠到次级层级。浏览器仍只加载 manifest 摘要、预计算候选预览、选定索引分片和按需详情记录；运行状态机只读取现有汇总，不重算 OACS/DMRS、不训练模型，结果仍是仅限预览且不是最终推荐。",
-          "V2.0-J refactors the screening run experience on top of V2.0-I: a run console, a 12-step run progress, a result panel, result interpretation, and a next-action panel, with advanced audits collapsed into secondary layers. The browser still loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand; the run state machine only reads the existing summary, does not recompute OACS/DMRS, does not train a model, and the result stays preview only and not a final recommendation."
+          "V2.0-K 在 V2.0-I/V2.0-J 之上建立证据回填流程：证据回填记录、证据回填汇总、经核验候选报告、证据回填面板与详情抽屉证据区，并把下一步行动与筛选结果接入证据回填。浏览器仍只加载 manifest 摘要、预计算候选预览、选定索引分片和按需详情记录；不伪造 DOI/license/来源，verified_metadata 在确认真实证据并通过门控前保持为 0；不扩数据库、不训练模型。",
+          "V2.0-K builds an evidence backfill workflow on top of V2.0-I/V2.0-J: backfill records, a backfill summary, a verified candidate report, an evidence backfill panel, and a detail-drawer evidence section, with the Next Action and Screening Result panels wired to it. The browser still loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand; no DOI/license/source is fabricated, verified_metadata stays 0 until real evidence is confirmed and the gate passes; no database expansion and no model trained."
         )} />
       </p>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
@@ -281,7 +289,7 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
         ))}
       </div>
       <p style={{ color: t.warn, fontSize: 12.5, fontWeight: 900, lineHeight: 1.52, margin: 0 }}>
-        <ChemicalText value={text(lang, "V2.0-J 仍然不是经完整验证的全量数据库筛选；它只重构运行体验，结果仅限预览且不是最终推荐，verified_metadata 仍为 0，未训练任何模型，OACS/DMRS 公式未在 V2.0-J 中修改。经完整验证的全量筛选仍需来源/DOI/license/引用回填、描述符复算、公式审计与实验/文献验证。", "V2.0-J remains a UX refactor of the screening run, not full verified database screening; the result is preview only and not a final recommendation, verified_metadata is still 0, no model is trained, and OACS/DMRS formulas are unchanged in V2.0-J. Full verified screening still requires source/DOI/license/citation backfill, descriptor recomputation, formula audit, and experimental/literature validation.")} />
+        <ChemicalText value={text(lang, "V2.0-K 仍然不是经完整验证的全量数据库筛选；它建立证据回填流程，但在确认真实证据并通过门控前 verified_metadata 保持为 0，报告诚实显示暂无经核验候选，未训练任何模型，OACS/DMRS 公式未在 V2.0-K 中修改。经完整验证的全量筛选仍需来源/DOI/license/引用回填、描述符复算、公式审计与实验/文献验证。", "V2.0-K remains an evidence backfill workflow, not full verified database screening; verified_metadata stays 0 until real evidence is confirmed and the gate passes, the report honestly shows no verified candidates yet, no model is trained, and OACS/DMRS formulas are unchanged in V2.0-K. Full verified screening still requires source/DOI/license/citation backfill, descriptor recomputation, formula audit, and experimental/literature validation.")} />
       </p>
     </section>
   )
@@ -519,7 +527,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           <SmallRealDatasetMethod mappingReport={data.mappingReport} lang={lang} t={t} />
         </LazyMethodologyDetails>
         <TraceWorkbenchMethod lang={lang} t={t} />
-        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-J refactors the screening run experience (run console, run stepper, result panel, result interpretation, next-action panel) over the V2.0-I curation workflow; the run state machine only reads the existing summary, the result is preview only, verified_metadata is still 0, and the OACS/DMRS formulas and lazy loading are unchanged." summaryZh="V2.0-J 在 V2.0-I 整理流程之上重构筛选运行体验（运行台、运行过程、结果面板、结果解释、下一步行动面板）；运行状态机只读取现有汇总，结果仅限预览，verified_metadata 仍为 0，OACS/DMRS 公式与懒加载边界保持不变。" lang={lang} t={t}>
+        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-K builds an evidence backfill workflow (backfill records, backfill summary, verified candidate report, evidence panel, detail-drawer evidence section) over the V2.0-I curation queue; nothing is fabricated, verified_metadata stays 0 until real evidence is confirmed and the gate passes, and the OACS/DMRS formulas and lazy loading are unchanged." summaryZh="V2.0-K 在 V2.0-I 整理队列之上建立证据回填流程（回填记录、回填汇总、经核验候选报告、证据面板、详情抽屉证据区）；不伪造任何字段，确认真实证据并通过门控前 verified_metadata 保持为 0，OACS/DMRS 公式与懒加载边界保持不变。" lang={lang} t={t}>
           <DatabaseIndexPreviewMethod lang={lang} t={t} />
         </LazyMethodologyDetails>
         <LazyMethodologyDetails id="methodology-oafs-oacs" title="OACS Formula Explainer" titleZh="OACS 骨架筛选" summary="Formula card renders after expansion." summaryZh="公式卡片展开后渲染。" lang={lang} t={t}>

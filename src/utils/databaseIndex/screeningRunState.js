@@ -192,36 +192,98 @@ export function buildScreeningRunResult(summary = {}) {
     },
   ]
 
+  // V2.0-K evidence backfill result group (only when the backfill summary is present).
+  const backfill = summary.evidenceBackfillSummary || null
+  const verifiedReport = summary.verifiedCandidateReportSummary || null
+  if (backfill) {
+    groups.push({
+      id: "evidenceBackfill", title: "Evidence backfill", titleZh: "证据回填",
+      rows: [
+        { labelEn: "Source confirmed", labelZh: "source confirmed", value: num(backfill.sourceStatusCounts?.confirmed) },
+        { labelEn: "Citation ready", labelZh: "citation ready", value: num(backfill.citationStatusCounts?.ready) },
+        { labelEn: "License confirmed", labelZh: "license confirmed", value: num(backfill.licenseStatusCounts?.confirmed) },
+        { labelEn: "DOI confirmed", labelZh: "DOI confirmed", value: num(backfill.doiStatusCounts?.confirmed) },
+        { labelEn: "DOI not available", labelZh: "DOI 不适用", value: num(backfill.doiStatusCounts?.not_available) },
+        { labelEn: "DOI pending", labelZh: "DOI 待补", value: num(backfill.doiStatusCounts?.pending) },
+        { labelEn: "verifiedMetadataEligible", labelZh: "verifiedMetadataEligible", value: num(backfill.verifiedMetadataEligible) },
+        { labelEn: "verifiedMetadataCount", labelZh: "verifiedMetadataCount", value: num(verifiedReport?.verifiedMetadataCount ?? backfill.verifiedMetadataCount) },
+        { labelEn: "Nearest to verified", labelZh: "nearest to verified", value: num(verifiedReport?.nearVerifiedCount) },
+      ],
+    })
+  }
+
+  const verifiedCount = num(meta.verified) + num(verifiedReport?.verifiedMetadataCount ?? backfill?.verifiedMetadataCount)
+  const conclusionEn = verifiedCount > 0 || !backfill
+    ? `This result means that ${nearVerified} candidates deserve priority manual review within the loaded ${recordsScanned}-record sample. However, verified metadata remains ${verifiedCount}, so this is not a final recommendation.`
+    : "No verified candidates yet. V2.0-K has created evidence backfill records, but source/citation/license/DOI still require manual curation. The result is still for prioritizing verification only."
+  const conclusionZh = verifiedCount > 0 || !backfill
+    ? `当前结果仅说明：在已加载的 ${recordsScanned} 条小规模样本中，有 ${nearVerified} 条候选值得优先人工核验；但 verified metadata 仍为 ${verifiedCount}，因此不能作为最终推荐。`
+    : "当前仍无经核验候选。V2.0-K 已建立证据回填记录，但 source/citation/license/DOI 仍需人工补全。筛选结果仍仅用于确定核验优先级。"
+
   return {
     finalStatus: deriveRunStatus(buildScreeningRunSteps(summary), summary),
     groups,
-    conclusionEn: `This result means that ${nearVerified} candidates deserve priority manual review within the loaded ${recordsScanned}-record sample. However, verified metadata remains ${num(meta.verified)}, so this is not a final recommendation.`,
-    conclusionZh: `当前结果仅说明：在已加载的 ${recordsScanned} 条小规模样本中，有 ${nearVerified} 条候选值得优先人工核验；但 verified metadata 仍为 ${num(meta.verified)}，因此不能作为最终推荐。`,
+    conclusionEn,
+    conclusionZh,
     notFinalRecommendation: true,
   }
 }
 
-// Summary-driven next actions.
+// Summary-driven next actions. Prefers the V2.0-K evidence backfill summary when
+// present, otherwise falls back to the V2.0-I curation transition counts.
 export function buildScreeningNextActions(summary = {}) {
   const meta = summary.metadata || {}
   const evidence = summary.mechanismEvidenceSummary || {}
   const transition = summary.metadataTransitionSummary || {}
+  const backfill = summary.evidenceBackfillSummary || null
+  const verifiedReport = summary.verifiedCandidateReportSummary || null
   const nearVerified = num(summary.nearVerifiedCount ?? transition.nearVerifiedBeforeCuration)
   const metadataOnlyOverlap = ablationOverlap(summary, "metadata_gate_only")
+  const sourceConfirmed = backfill ? num(backfill.sourceStatusCounts?.confirmed) : num(transition.sourceConfirmed)
+  const citationReady = backfill ? num(backfill.citationStatusCounts?.ready) : num(transition.citationReady)
+  const licenseConfirmed = backfill ? num(backfill.licenseStatusCounts?.confirmed) : num(transition.licenseConfirmed)
+  const verifiedCount = num(verifiedReport?.verifiedMetadataCount ?? backfill?.verifiedMetadataCount ?? meta.verified)
+  const provenanceIncomplete = backfill ? num(backfill.descriptorProvenanceStatusCounts?.partial) + num(backfill.descriptorProvenanceStatusCounts?.incomplete) : 0
   const actions = []
 
-  if (num(meta.verified) === 0) {
+  if (verifiedCount === 0) {
     actions.push({
       id: "curate_near_verified", priority: "high", tone: "warn",
       en: `Prioritize source/citation/license curation for the ${nearVerified} near-verified candidates to produce the first verified_metadata.`,
       zh: `优先补充 ${nearVerified} 条 near_verified 候选的 source/citation/license，目标是生成第一批 verified_metadata。`,
     })
+    actions.push({
+      id: "first_verified_loop", priority: "high", tone: "warn",
+      en: "Complete a full evidence loop (source + citation + license + provenance) for 3-5 candidates to reach the first verified_metadata.",
+      zh: "先为 3-5 条候选完成完整证据闭环（source + citation + license + provenance），争取第一批 verified_metadata。",
+    })
   }
-  if (num(transition.sourceConfirmed) === 0) {
+  if (sourceConfirmed === 0) {
     actions.push({
       id: "confirm_source", priority: "high", tone: "warn",
       en: "Confirm source links for the high-priority queue first.",
       zh: "先确认 high priority 队列中的来源链接。",
+    })
+  }
+  if (citationReady === 0) {
+    actions.push({
+      id: "confirm_citation", priority: "medium", tone: "proxy",
+      en: "Attach citations for the high-priority candidates.",
+      zh: "为 high priority 候选补充 citation。",
+    })
+  }
+  if (licenseConfirmed === 0) {
+    actions.push({
+      id: "confirm_license", priority: "medium", tone: "proxy",
+      en: "Confirm license terms for the curated candidates.",
+      zh: "确认已整理候选的 license。",
+    })
+  }
+  if (provenanceIncomplete > 0) {
+    actions.push({
+      id: "backfill_provenance", priority: "medium", tone: "proxy",
+      en: `Backfill descriptor provenance for the ${provenanceIncomplete} records with incomplete provenance.`,
+      zh: `为 ${provenanceIncomplete} 条 descriptor provenance 不完整的记录补全溯源。`,
     })
   }
   if (num(evidence.literature_supported) === 0) {

@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06",
-  "currentVersion": "V2.0-J",
-  "completedRange": "V1.0-V2.0-J",
+  "currentVersion": "V2.0-K",
+  "completedRange": "V1.0-V2.0-K",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -1613,7 +1613,7 @@
       "title": "Screening Run UX and Result Panel Refactor",
       "titleZh": "筛选运行体验与结果面板重构",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Make the screener a runnable workbench, not a stack of audit tables",
       "themeZh": "把筛选器做成可运行的工作台，而不是一堆审计表格",
       "summary": "Refactored the Organic Acid Final Screening interaction (no new algorithm): a Screening Run Console with a prominent Run-screening-audit button, a 12-step run stepper with live status feedback, a Screening Result Panel with a plain-language conclusion and result interpretation, a summary-driven Next Action panel, and a re-layered workbench (run flow up top, advanced audits collapsed). Reads the existing V2.0-I summary; no OACS/DMRS change, no database expansion, no model, still preview only and not a final recommendation.",
@@ -1712,25 +1712,130 @@
         "adaptationBoundaryZh": "仅交互/体验重构；结果仅限预览且不是最终推荐，verified_metadata 仍为 0。"
       },
       "relatedSection": "#methodology-oafs-database-index-preview"
-    }
-  ],
-  "roadmap": [
+    },
     {
       "version": "V2.0-K",
       "title": "Evidence Backfill and First Verified Metadata Candidates",
       "titleZh": "证据回填与第一批 verified metadata 候选",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Manual evidence backfill workflow toward the first verified candidates",
+      "themeZh": "面向第一批经核验候选的人工证据回填流程",
+      "summary": "Builds an evidence backfill workflow over the V2.0-I 18-record manual curation queue: per-candidate source/citation/license/DOI/descriptor-provenance status, an evidence backfill summary, and a verified candidate report. Nothing is fabricated; verified_metadata stays 0 until real evidence is confirmed and the metadata gate passes, so the report honestly shows no_verified_candidates_yet while pointing to the candidates nearest to verified. No database expansion, no model, still not full verified screening and not a final recommendation.",
+      "summaryZh": "在 V2.0-I 的 18 条人工整理队列上建立证据回填流程：逐条记录 source/citation/license/DOI/descriptor 溯源状态、证据回填汇总与经核验候选报告。不伪造任何字段；在确认真实证据并通过 metadata gate 前 verified_metadata 保持为 0，因此报告诚实显示 no_verified_candidates_yet，同时指出最接近经核验的候选。不扩数据库、不训练模型，仍不是经完整验证的筛选，也不是最终推荐。",
+      "keyUpdates": [
+        "Added an evidence backfill data structure under public/data/database_precompute/v2_0_k/ (evidence_backfill_records.json + evidence_backfill_summary.json + verified_candidate_report.json) built from the V2.0-I curation records.",
+        "Added src/utils/databaseIndex/evidenceBackfill.js with status modeling, verified-metadata eligibility (gate cross-check), a backfill summary, a metadata transition summary, and a verified candidate report.",
+        "Added scripts/build-v2-0-k-evidence-backfill.mjs with a merge strategy that preserves manually entered source/citation/license/DOI on re-run.",
+        "Added an Evidence Backfill panel and a Verified Candidate Report panel, and a detail-drawer evidence backfill section.",
+        "Wired the Next Action panel and Screening Result panel to the evidence backfill summary, and added evidence_backfill + verified_candidate_report stages to the Algorithm Improvement Trace and dry-run summary."
+      ],
+      "keyUpdatesZh": [
+        "在 public/data/database_precompute/v2_0_k/ 下新增证据回填数据结构（evidence_backfill_records.json + evidence_backfill_summary.json + verified_candidate_report.json），由 V2.0-I 整理记录生成。",
+        "新增 src/utils/databaseIndex/evidenceBackfill.js：状态建模、verified-metadata 资格（门控交叉校验）、回填汇总、metadata 过渡汇总与经核验候选报告。",
+        "新增 scripts/build-v2-0-k-evidence-backfill.mjs，采用 merge 策略：重跑时保留人工已填写的 source/citation/license/DOI。",
+        "新增证据回填面板与经核验候选报告面板，以及详情抽屉证据回填区。",
+        "把下一步行动面板与筛选结果面板接入证据回填汇总，并在算法改进追踪与 dry-run 汇总中新增 evidence_backfill 与 verified_candidate_report 阶段。"
+      ],
+      "algorithmChanges": [
+        "No OACS/DMRS formula change.",
+        "No full database scoring in browser.",
+        "No machine learning model is trained; no model-precision metrics are reported.",
+        "Evidence backfill never auto-promotes to verified_metadata: source_confirmed / citation_ready / license_confirmed are not verified_metadata.",
+        "verifiedMetadataEligible is true only when source/citation/license/descriptor provenance are confirmed (DOI verified or not_available) AND the metadata gate passes.",
+        "V2.0-D worker boundary and V2.0-E metadata gate are unchanged."
+      ],
+      "algorithmChangesZh": [
+        "不修改 OACS/DMRS 公式。",
+        "浏览器内不执行全量数据库评分。",
+        "不训练机器学习模型；不报告模型精度指标。",
+        "证据回填绝不自动升级为 verified_metadata：source_confirmed / citation_ready / license_confirmed 都不等于 verified_metadata。",
+        "verifiedMetadataEligible 只有在 source/citation/license/descriptor 溯源已确认（DOI 已核验或不适用）且通过 metadata gate 时才为 true。",
+        "保持 V2.0-D Worker 边界与 V2.0-E metadata 门控不变。"
+      ],
+      "uiChanges": [
+        "Added an Evidence Backfill panel (status overview + per-candidate table, mobile cards) to the Database Index Workbench.",
+        "Added a Verified Candidate Report panel that honestly shows no_verified_candidates_yet and lists the nearest-to-verified candidates.",
+        "Added a detail-drawer Evidence Backfill section; the Next Action and Screening Result panels now reflect evidence backfill counts."
+      ],
+      "uiChangesZh": [
+        "在 Database Index Workbench 中新增证据回填面板（状态总览 + 逐条表格，移动端卡片）。",
+        "新增经核验候选报告面板，诚实显示 no_verified_candidates_yet 并列出最接近经核验的候选。",
+        "新增详情抽屉证据回填区；下一步行动面板与筛选结果面板现在反映证据回填计数。"
+      ],
+      "methodologyChanges": [
+        "Documented the V2.0-K evidence backfill workflow, verified candidate report, and merge-preserving build script in Methods & Evidence.",
+        "Documented that source_confirmed / citation_ready / license_confirmed are not verified_metadata and that missing DOI/source/license stay pending or not_available.",
+        "Documented the boundary: no database expansion, no model training, no fabricated metadata, and still not full verified screening or final recommendation."
+      ],
+      "methodologyChangesZh": [
+        "在 Methods & Evidence 中记录 V2.0-K 证据回填流程、经核验候选报告与保留人工字段的构建脚本。",
+        "记录 source_confirmed / citation_ready / license_confirmed 不等于 verified_metadata，缺失的 DOI/来源/license 保持待补或不适用。",
+        "记录边界：不扩数据库、不训练模型、不伪造 metadata，仍不是经完整验证的筛选或最终推荐。"
+      ],
+      "evidenceBoundary": "Evidence backfill tracking only; not full database integration, not a trained model, and not full verified database screening.",
+      "evidenceBoundaryZh": "仅证据回填追踪；不是全量数据库接入、不是训练模型，也不是经完整验证的全量数据库筛选。",
+      "limitations": [
+        "verified_metadata is still 0; every candidate needs manual source/citation/license/DOI or descriptor-provenance backfill.",
+        "literature_supported mechanism evidence is still 0 until real citations are confirmed.",
+        "Evidence backfill reflects manual progress only and does not replace the metadata gate.",
+        "Still based on the V2.0-G 120-record sample and the V2.0-I 18-record curation queue; the database is not expanded."
+      ],
+      "limitationsZh": [
+        "verified_metadata 仍为 0；每条候选都需人工补 source/citation/license/DOI 或 descriptor 溯源。",
+        "在确认真实引用前，literature_supported 机制证据仍为 0。",
+        "证据回填仅反映人工进度，不替代 metadata 门控。",
+        "仍基于 V2.0-G 的 120 条样本与 V2.0-I 的 18 条整理队列；未扩展数据库。"
+      ],
+      "literatureInspirations": [
+        {
+          "literatureId": "HAN-2024-NATCOMMS",
+          "citation": "Han, Z. et al. Machine learning-based design of electrocatalytic materials towards high-energy lithium-sulfur batteries development. Nature Communications 2024, 15, 8433.",
+          "doi": "10.1038/s41467-024-52550-9",
+          "inspiredFeatures": [
+            "Evidence-grounded screening discipline before any claim",
+            "Transparent provenance and verification gating"
+          ],
+          "evidenceBoundary": "Method analogy only. EcoMOF-AI does not reproduce the Li-S model, does not use Li-S target variables, does not train XGBoost, and does not report model-precision metrics."
+        }
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "evidence-backfill",
+          "verified-candidate-report",
+          "merge-preserving-backfill",
+          "verified-metadata-gate-crosscheck",
+          "verified-metadata-stays-zero-without-evidence",
+          "no-fabricated-metadata"
+        ],
+        "literatureIds": [
+          "HAN-2024-NATCOMMS"
+        ],
+        "adaptationBoundary": "Evidence backfill tracking only; source_confirmed/citation_ready/license_confirmed are not verified_metadata, and verified_metadata stays 0 until real evidence is confirmed and the gate passes.",
+        "adaptationBoundaryZh": "仅证据回填追踪；source_confirmed/citation_ready/license_confirmed 不等于 verified_metadata，确认真实证据并通过门控前 verified_metadata 保持为 0。"
+      },
+      "relatedSection": "#methodology-oafs-database-index-preview"
+    }
+  ],
+  "roadmap": [
+    {
+      "version": "V2.1",
+      "title": "Medium-Scale Database Preview",
+      "titleZh": "中规模数据库预览",
       "status": "planned",
+      "precondition": "Only after V2.0-K shows the evidence backfill workflow can stably track source/citation/license/provenance do we move to a 500-2000 record medium-scale database preview.",
+      "preconditionZh": "只有当 V2.0-K 证明证据回填流程能稳定追踪 source/citation/license/provenance 后，才进入 500-2000 条中规模数据库预览。",
       "items": [
-        "Backfill confirmed source/DOI/license/citation for high-priority candidates",
-        "Promote the first candidates to verified_metadata once the gate passes",
-        "Generate a verified candidate report",
-        "Strengthen literature-supported mechanism evidence"
+        "Confirm the evidence backfill workflow stably tracks source/citation/license/provenance",
+        "Scale the sample to a 500-2000 record medium-scale preview",
+        "Keep lazy manifest / summary / Top-N / selected part / detail-on-demand boundaries",
+        "No full database load and no model training"
       ],
       "itemsZh": [
-        "为 high priority 候选回填确认的来源/DOI/license/引用",
-        "在门控通过后将第一批候选提升为 verified_metadata",
-        "生成经核验候选报告",
-        "补强文献支持的机制证据"
+        "确认证据回填流程能稳定追踪 source/citation/license/provenance",
+        "把样本扩展到 500-2000 条的中规模预览",
+        "保持 manifest / summary / Top-N / 选定分片 / 详情按需 懒加载边界",
+        "不加载全量数据库、不训练模型"
       ]
     }
   ],

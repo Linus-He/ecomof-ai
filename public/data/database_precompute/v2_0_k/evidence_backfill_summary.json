@@ -1,0 +1,106 @@
+{
+  "version": "V2.0-K",
+  "sourceCuration": "v2_0_i/manual_metadata_curation.json",
+  "recordCount": 18,
+  "notFinalRecommendation": true,
+  "sourceStatusCounts": {
+    "confirmed": 0,
+    "pending": 18,
+    "missing": 0
+  },
+  "citationStatusCounts": {
+    "ready": 0,
+    "partial": 0,
+    "pending": 18,
+    "missing": 0
+  },
+  "licenseStatusCounts": {
+    "confirmed": 0,
+    "pending": 18,
+    "unknown": 0
+  },
+  "doiStatusCounts": {
+    "confirmed": 0,
+    "pending": 18,
+    "not_available": 0
+  },
+  "descriptorProvenanceStatusCounts": {
+    "complete": 12,
+    "partial": 6,
+    "incomplete": 0
+  },
+  "mechanismEvidenceStatusCounts": {
+    "literature_supported": 0,
+    "descriptor_inferred": 0,
+    "weak_proxy": 18,
+    "insufficient_evidence": 0
+  },
+  "verifiedMetadataEligible": 0,
+  "verifiedMetadataCount": 0,
+  "nearestToVerified": [
+    {
+      "recordId": "COREMOF_000001",
+      "displayName": "MIL-53(Al) curated example database index preview",
+      "remainingBlockerCount": 4,
+      "remainingBlockers": [
+        "sourceUrl pending",
+        "citation pending",
+        "license pending",
+        "DOI pending"
+      ]
+    },
+    {
+      "recordId": "COREMOF_000002",
+      "displayName": "CAU-10(Al) curated example database index preview",
+      "remainingBlockerCount": 4,
+      "remainingBlockers": [
+        "sourceUrl pending",
+        "citation pending",
+        "license pending",
+        "DOI pending"
+      ]
+    },
+    {
+      "recordId": "COREMOF_000003",
+      "displayName": "MIL-100(Al) curated example database index preview",
+      "remainingBlockerCount": 4,
+      "remainingBlockers": [
+        "sourceUrl pending",
+        "citation pending",
+        "license pending",
+        "DOI pending"
+      ]
+    },
+    {
+      "recordId": "COREMOF_000004",
+      "displayName": "MIL-101(Al) curated example database index preview",
+      "remainingBlockerCount": 4,
+      "remainingBlockers": [
+        "sourceUrl pending",
+        "citation pending",
+        "license pending",
+        "DOI pending"
+      ]
+    },
+    {
+      "recordId": "COREMOF_000005",
+      "displayName": "DUT-4(Al) curated example database index preview",
+      "remainingBlockerCount": 4,
+      "remainingBlockers": [
+        "sourceUrl pending",
+        "citation pending",
+        "license pending",
+        "DOI pending"
+      ]
+    }
+  ],
+  "remainingBlockers": {
+    "sourceUrl pending": 18,
+    "citation pending": 18,
+    "license pending": 18,
+    "DOI pending": 18,
+    "descriptor provenance incomplete": 6
+  },
+  "boundary": "Evidence backfill tracking only. Not full verified database screening and not final recommendation.",
+  "boundaryZh": "仅用于证据回填追踪；不是经完整验证的全量数据库筛选，也不是最终推荐。"
+}

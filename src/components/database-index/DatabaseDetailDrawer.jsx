@@ -7,6 +7,7 @@ import { dbFallback, dbRenderText, dbStatusLabel, dbText } from "../../utils/dat
 import { descriptorAvailabilityList, descriptorCompletenessPercent, formatPercentValue, organicAcidRelevanceSnapshot, provenanceCompletenessPercent, safeText } from "../../utils/databaseIndex/databaseIndexFormatters"
 import { buildMetadataVerificationSummary, getMetadataVerificationTier, metadataLevelLabel, metadataLevelTone, metadataStatusTone, metadataStatusValueLabel, metadataTierLabel, metadataTierTone } from "../../utils/databaseIndex/metadataVerification"
 import { curationFieldStatusLabel, curationStatusLabel, curationStatusTone, normalizeMetadataCuration } from "../../utils/databaseIndex/metadataCuration"
+import { evidenceStatusLabel, evidenceStatusTone, normalizeEvidenceBackfillRecord } from "../../utils/databaseIndex/evidenceBackfill"
 import { MechanismProxyPanel } from "./MechanismProxyPanel"
 import { CandidateValidationRoadmapPanel } from "./CandidateValidationRoadmapPanel"
 
@@ -129,7 +130,55 @@ function ManualCurationSection({ record, curationRecords, lang, t }) {
   )
 }
 
-export function DatabaseDetailDrawer({ request, curationRecords = null, onClose, lang, t }) {
+function EvidenceBackfillSection({ record, evidenceBackfillRecords, lang, t }) {
+  const recordId = record.recordId || record.frameworkId || record.id
+  const raw = (evidenceBackfillRecords || []).find(row => row.recordId === recordId)
+  if (!raw) {
+    return (
+      <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 6, padding: 11 }}>
+        <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "证据回填", "Evidence Backfill")}</strong>
+        <span style={{ color: t.muted, fontSize: 12 }}>{text(lang, "该候选暂未进入证据回填队列。", "This candidate is not yet in the evidence backfill queue.")}</span>
+      </section>
+    )
+  }
+  const row = normalizeEvidenceBackfillRecord(raw)
+  const fields = [
+    [text(lang, "来源链接", "Source URL"), row.sourceStatus, row.sourceUrl],
+    [text(lang, "引用", "Citation"), row.citationStatus, row.citation],
+    ["License", row.licenseStatus, row.license],
+    ["DOI", row.doiStatus, row.doi],
+    [text(lang, "描述符溯源", "Descriptor provenance"), row.descriptorProvenanceStatus, null],
+    [text(lang, "机制证据", "Mechanism evidence"), row.mechanismEvidenceStatus, null],
+  ]
+  return (
+    <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 11 }}>
+      <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
+        <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "证据回填", "Evidence Backfill")}</strong>
+        <StatusPill tone={row.verifiedMetadataEligible ? "pass" : "warn"} t={t}>{row.verifiedMetadataEligible ? text(lang, "可核验", "verified eligible") : text(lang, "待补", "pending")}</StatusPill>
+      </div>
+      <div style={{ display: "grid", gap: 6, gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))" }}>
+        {fields.map(([label, status, value]) => (
+          <div key={label} style={{ display: "grid", gap: 3 }}>
+            <span style={{ color: t.faint, fontSize: 10.2, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
+            <StatusPill tone={evidenceStatusTone(status)} t={t}>{evidenceStatusLabel(status, lang)}</StatusPill>
+            {value ? <a href={String(value).startsWith("http") ? value : undefined} style={{ color: t.accentText, fontSize: 10.6, overflowWrap: "anywhere" }}>{value}</a> : null}
+          </div>
+        ))}
+      </div>
+      <div style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.45 }}>
+        {text(lang, "剩余 blocker", "Remaining blockers")}: {row.remainingBlockers.join("、") || text(lang, "无", "none")}
+      </div>
+      <span style={{ color: t.faint, fontSize: 11, lineHeight: 1.4 }}>
+        {text(lang, "可升级为 verified_metadata", "verifiedMetadataEligible")}: {row.verifiedMetadataEligible ? text(lang, "是", "yes") : `${text(lang, "否", "no")} — ${row.verifiedMetadataReason}`}
+      </span>
+      <p style={{ color: t.muted, fontSize: 11, fontWeight: 700, lineHeight: 1.45, margin: 0 }}>
+        {text(lang, "仅证据回填追踪；source_confirmed / citation_ready 不等于 verified，也不是最终推荐。", "Evidence backfill tracking only; source_confirmed / citation_ready are not verified, and not a final recommendation.")}
+      </p>
+    </section>
+  )
+}
+
+export function DatabaseDetailDrawer({ request, curationRecords = null, evidenceBackfillRecords = null, onClose, lang, t }) {
   const [state, setState] = useState({ status: "idle", detail: null, error: null })
   const detailRef = request?.detailRef
 
@@ -194,6 +243,7 @@ export function DatabaseDetailDrawer({ request, curationRecords = null, onClose,
         <StatusPill tone={metadataTierTone(getMetadataVerificationTier(record))} t={t}>{metadataTierLabel(getMetadataVerificationTier(record), lang)}</StatusPill>
       </div>
       <ManualCurationSection record={record} curationRecords={curationRecords} lang={lang} t={t} />
+      <EvidenceBackfillSection record={record} evidenceBackfillRecords={evidenceBackfillRecords} lang={lang} t={t} />
       <MechanismProxyPanel record={record} lang={lang} t={t} />
       <CandidateValidationRoadmapPanel record={record} lang={lang} t={t} />
       <p style={{ color: t.faint, fontSize: 11.2, lineHeight: 1.4, margin: 0 }}>

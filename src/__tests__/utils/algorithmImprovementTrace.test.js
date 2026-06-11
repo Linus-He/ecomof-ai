@@ -17,6 +17,8 @@ describe("algorithmImprovementTrace", () => {
       "verification_queue",
       "manual_metadata_curation",
       "source_link_enrichment",
+      "evidence_backfill",
+      "verified_candidate_report",
       "descriptor_completeness",
       "redundancy_gate",
       "mechanism_proxy",
@@ -27,6 +29,19 @@ describe("algorithmImprovementTrace", () => {
       "preview_output",
     ])
     expect(trace.stages[0].inputCount).toBe(2)
+  })
+
+  it("adds V2.0-K evidence backfill and verified candidate report stages, honestly pending", () => {
+    const trace = buildAlgorithmImprovementTrace(records, {
+      evidenceBackfillSummary: { recordCount: 18, sourceStatusCounts: { confirmed: 0 }, citationStatusCounts: { ready: 0 }, licenseStatusCounts: { confirmed: 0 }, verifiedMetadataEligible: 0, verifiedMetadataCount: 0 },
+      verifiedCandidateReport: { verifiedMetadataCount: 0, reportStatus: "no_verified_candidates_yet" },
+    })
+    const backfill = trace.stages.find(s => s.id === "evidence_backfill")
+    expect(backfill.outputCount).toBe(0)
+    expect(backfill.status).toBe("tracking")
+    const report = trace.stages.find(s => s.id === "verified_candidate_report")
+    expect(report.status).toBe("no_verified_candidates_yet")
+    expect(report.outputCount).toBe(0)
   })
 
   it("shows source_link_enrichment as pending when nothing is confirmed yet", () => {

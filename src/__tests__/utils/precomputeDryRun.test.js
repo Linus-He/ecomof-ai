@@ -106,4 +106,31 @@ describe("precompute database-score dry run", () => {
     expect(enrichment.status).toBe("pending")
     expect(summary.notFinalRecommendation).toBe(true)
   })
+
+  it("emits V2.0-K evidence backfill, verified candidate report, and next-action summaries", () => {
+    const summary = runPrecomputeDryRun()
+
+    expect(summary.evidenceBackfillSummary).toBeTruthy()
+    expect(summary.evidenceBackfillSummary.recordCount).toBeGreaterThan(0)
+    expect(summary.verifiedCandidateReportSummary).toEqual(expect.objectContaining({
+      reportStatus: expect.any(String),
+      verifiedMetadataCount: expect.any(Number),
+    }))
+    // Verified stays 0 without confirmed evidence.
+    expect(summary.verifiedCandidateReportSummary.verifiedMetadataCount).toBe(0)
+    expect(summary.metadataBackfillTransitionSummary).toEqual(expect.objectContaining({
+      nearVerifiedBeforeBackfill: expect.any(Number),
+      sourceConfirmedAfterBackfill: expect.any(Number),
+      verifiedAfterBackfill: expect.any(Number),
+    }))
+    expect(summary.nextActionSummary).toBeTruthy()
+
+    const traceIds = summary.algorithmImprovementTrace.map(s => s.id)
+    expect(traceIds).toContain("evidence_backfill")
+    expect(traceIds).toContain("verified_candidate_report")
+    const report = summary.algorithmImprovementTrace.find(s => s.id === "verified_candidate_report")
+    expect(report.status).toBe("no_verified_candidates_yet")
+    expect(JSON.stringify(summary)).not.toMatch(/R\^2|R²|\bMAE\b|\bRMSE\b|accuracy/i)
+    expect(summary.notFinalRecommendation).toBe(true)
+  })
 })

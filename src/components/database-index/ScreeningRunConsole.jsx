@@ -15,7 +15,9 @@ import { ScreeningRunStepper } from "./ScreeningRunStepper"
 import { ScreeningResultPanel } from "./ScreeningResultPanel"
 import { ScreeningNextActionPanel } from "./ScreeningNextActionPanel"
 
-const SUMMARY_FILE = "data/database_precompute/v2_0_i/precompute_dry_run_summary.json"
+// Prefer the latest V2.0-K summary; fall back to V2.0-I when it is not present.
+const SUMMARY_FILE = "data/database_precompute/v2_0_k/precompute_dry_run_summary.json"
+const SUMMARY_FALLBACK_FILE = "data/database_precompute/v2_0_i/precompute_dry_run_summary.json"
 
 function num(value, fallback = 0) {
   const n = Number(value)
@@ -31,6 +33,7 @@ export function ScreeningRunConsole({ summary: summaryProp = null, stepDelayMs =
     if (summaryProp) return undefined
     let active = true
     fetchJson(SUMMARY_FILE, null)
+      .then(payload => payload || fetchJson(SUMMARY_FALLBACK_FILE, null))
       .then(payload => {
         if (!active || !payload) return
         setSummary(payload)

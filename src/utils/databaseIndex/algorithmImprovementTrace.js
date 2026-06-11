@@ -44,6 +44,11 @@ export function buildAlgorithmImprovementTrace(records = [], options = {}) {
   const sourceConfirmedCount = curation
     ? curationQueueSize - ((curation.statusCounts?.needs_source_review || 0) + (curation.statusCounts?.curation_blocked || 0))
     : 0
+  const backfill = options.evidenceBackfillSummary || null
+  const backfillRecordCount = backfill?.recordCount ?? curationQueueSize
+  const backfillSourceConfirmed = backfill?.sourceStatusCounts?.confirmed ?? 0
+  const verifiedReport = options.verifiedCandidateReport || null
+  const verifiedReportCount = verifiedReport?.verifiedMetadataCount ?? backfill?.verifiedMetadataCount ?? 0
   const sensitivity = rows.length ? (options.sensitivity || buildSensitivityAuditSummary(rows, options.sensitivityOptions)) : null
   const ablation = rows.length ? (options.ablation || buildFeatureAblationAudit(rows)) : null
   const roadmap = rows.length ? (options.validationRoadmap || buildValidationRoadmapForRecords(rows, { topN: options.roadmapTopN || 12 })) : null
@@ -103,6 +108,30 @@ export function buildAlgorithmImprovementTrace(records = [], options = {}) {
       metrics: { sourceConfirmed: sourceConfirmedCount, pending: curationQueueSize - sourceConfirmedCount },
       boundary: "Source links stay pending until manually confirmed; missing DOI/source is never fabricated.",
       boundaryZh: "来源链接在人工确认前保持待补；缺失的 DOI/来源绝不伪造。",
+    },
+    {
+      id: "evidence_backfill",
+      label: "Evidence backfill",
+      labelZh: "证据回填",
+      inputCount: backfillRecordCount,
+      outputCount: backfillSourceConfirmed,
+      status: backfillSourceConfirmed > 0 ? "enriched" : (backfill ? "tracking" : "pending"),
+      metrics: backfill
+        ? { sourceConfirmed: backfillSourceConfirmed, citationReady: backfill.citationStatusCounts?.ready ?? 0, licenseConfirmed: backfill.licenseStatusCounts?.confirmed ?? 0, verifiedMetadataEligible: backfill.verifiedMetadataEligible ?? 0 }
+        : { status: "pending" },
+      boundary: "Evidence backfill tracking only; source_confirmed / citation_ready are not verified_metadata and nothing is fabricated.",
+      boundaryZh: "仅证据回填追踪；source_confirmed / citation_ready 不等于 verified_metadata，也不伪造任何字段。",
+    },
+    {
+      id: "verified_candidate_report",
+      label: "Verified candidate report",
+      labelZh: "经核验候选报告",
+      inputCount: backfillRecordCount,
+      outputCount: verifiedReportCount,
+      status: verifiedReportCount > 0 ? "report_ready" : "no_verified_candidates_yet",
+      metrics: { verifiedMetadataCount: verifiedReportCount, reportStatus: verifiedReport?.reportStatus || "no_verified_candidates_yet" },
+      boundary: "Candidate verification report scaffold; not a final recommendation and not full verified screening.",
+      boundaryZh: "经核验候选报告框架；不是最终推荐，也不是经完整验证的筛选。",
     },
     {
       id: "descriptor_completeness",
