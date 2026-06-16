@@ -1,12 +1,17 @@
 // @ts-nocheck
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 import { text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { buildReadinessMatrix } from "../../utils/screeningTrace/buildReadinessMatrix"
+import { FieldProvenanceButton } from "../ui"
 
 const plot = { left: 44, top: 16, width: 320, height: 240 }
 
-export function CandidateReadinessMatrix({ candidates = [], onSelect, lang, t }) {
+export function CandidateReadinessMatrix({ candidates = [], onSelect, lang, t, isMobile }) {
+  const [selectedId, setSelectedId] = useState(null)
   const matrix = useMemo(() => buildReadinessMatrix(candidates), [candidates])
+  const visiblePoints = matrix.points.slice(0, isMobile ? 24 : 60)
+  const selectedPoint = matrix.points.find(p => p.candidateId === selectedId) || visiblePoints[0]
+  const selectedCandidate = candidates.find(c => (c.id || c.candidateId) === selectedPoint?.candidateId)
   const px = v => plot.left + Math.max(0, Math.min(1, v)) * plot.width
   const py = v => plot.top + (1 - Math.max(0, Math.min(1, v))) * plot.height
   const midX = px(matrix.evidenceThreshold)
@@ -27,15 +32,39 @@ export function CandidateReadinessMatrix({ candidates = [], onSelect, lang, t })
           <text x={plot.left + plot.width - 6} y={plot.top + plot.height - 6} fill={t.faint} fontSize="9.5" textAnchor="end">{text(lang, "参考保留", "Keep as reference")}</text>
           <text x={plot.left + plot.width / 2} y={296} fill={t.muted} fontSize="10" fontWeight="800" textAnchor="middle">{text(lang, "证据置信度", "Evidence Confidence")}</text>
           <text x="12" y={plot.top + plot.height / 2} fill={t.muted} fontSize="10" fontWeight="800" textAnchor="middle" transform={`rotate(-90 12 ${plot.top + plot.height / 2})`}>{text(lang, "筛选得分", "Screening Score")}</text>
-          {matrix.points.map(p => (
-            <g key={p.candidateId} onClick={() => onSelect?.(p.candidateId)} style={{ cursor: onSelect ? "pointer" : "default" }}>
+          {visiblePoints.map(p => (
+            <g key={p.candidateId} onClick={() => { setSelectedId(p.candidateId); onSelect?.(p.candidateId) }} style={{ cursor: "pointer" }}>
               <title>{`${p.displayName} · ${p.quadrantLabelEn}${p.tags.length ? ` · ${p.tags.join(", ")}` : ""}`}</title>
-              <circle cx={px(p.evidenceConfidence)} cy={py(p.score)} r="6" fill={t.accent} stroke={t.textStrong} strokeWidth="1" opacity="0.9" />
+              <circle cx={px(p.evidenceConfidence)} cy={py(p.score)} r={p.candidateId === selectedPoint?.candidateId ? "8" : "6"} fill={t.accent} stroke={t.textStrong} strokeWidth={p.candidateId === selectedPoint?.candidateId ? "2" : "1"} opacity="0.9" />
             </g>
           ))}
         </svg>
       </div>
+      {selectedCandidate ? (
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 7, padding: 10 }}>
+          <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 900 }}>{selectedCandidate.displayName || selectedCandidate.name || selectedCandidate.id}</div>
+          <div style={{ display: "grid", gap: 6, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
+            {[
+              ["surfaceArea", text(lang, "比表面积", "Surface area")],
+              ["poreSizeA", text(lang, "孔径", "Pore size")],
+              ["density", text(lang, "密度", "Density")],
+              ["bandGap", text(lang, "带隙", "Band gap")],
+            ].map(([fieldKey, label]) => {
+              const source = selectedCandidate.fieldSources?.[fieldKey]
+              const value = selectedCandidate[fieldKey] ?? source?.value ?? "missing"
+              return (
+                <span key={fieldKey} style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.muted, display: "inline-flex", fontSize: 10.8, gap: 2, minWidth: 0, padding: "6px 7px" }}>
+                  <span style={{ color: t.faint, fontWeight: 850 }}>{label}</span>
+                  <span style={{ color: t.textStrong, fontFamily: "monospace", marginLeft: 3, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{value === null || value === undefined || value === "" ? "missing" : String(value)}</span>
+                  <FieldProvenanceButton fieldKey={fieldKey} fieldLabel={label} source={source} lang={lang} />
+                </span>
+              )
+            })}
+          </div>
+        </div>
+      ) : null}
       <span style={{ color: t.faint, fontSize: 10.8 }}>{text(lang, "象限用于优先级判断，不是最终推荐；歧义/license 待补的候选会被标注。", "Quadrants guide prioritization, not final recommendation; ambiguity / license-pending candidates are tagged.")}</span>
+      <span style={{ color: t.faint, fontSize: 10.8 }}>{text(lang, `矩阵默认显示 ${visiblePoints.length}/${matrix.points.length} 个候选。`, `Matrix defaults to ${visiblePoints.length}/${matrix.points.length} candidates.`)}</span>
     </section>
   )
 }

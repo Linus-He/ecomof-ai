@@ -11,8 +11,9 @@ export function ScreeningFunnelPanel({ trace, lang, t }) {
   const funnel = trace?.funnel || []
   const max = Math.max(1, ...funnel.map(s => Number(s.inputCount) || 0))
   return (
-    <section id="screening-funnel" data-testid="screening-funnel-panel" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 12 }}>
+    <section id="screening-funnel-panel" data-testid="screening-funnel-panel" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 12 }}>
       <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "筛选漏斗", "Screening Funnel")}</strong>
+      {!funnel.length ? <span style={{ color: t.muted, fontSize: 12 }}>{text(lang, "漏斗 shell 已就绪，等待候选数据。", "Funnel shell is ready; waiting for candidate data.")}</span> : null}
       <div style={{ display: "grid", gap: 7 }}>
         {funnel.map(stage => {
           const fc = FILTER_COPY[stage.filterType] || FILTER_COPY.annotation_only

@@ -21,7 +21,11 @@ function completenessRatio(candidate) {
 }
 
 export function explainCandidateRanking(candidate = {}, model = {}) {
-  const weights = model.weights || model.weightRows || []
+  const weights = Array.isArray(model.weights)
+    ? model.weights
+    : Array.isArray(model.indicatorDiagnostics)
+      ? model.indicatorDiagnostics
+      : Object.entries(model.weights || {}).map(([key, weight]) => ({ key, weight, label: key, zhLabel: key }))
   const inputs = candidate.scoreInputs || {}
   // Raw descriptor contributions (normalized score x weight) when available.
   const drivers = (Array.isArray(weights) ? weights : []).map(w => {
@@ -58,6 +62,8 @@ export function explainCandidateRanking(candidate = {}, model = {}) {
   const mainUncertaintyZh = missingDrivers.length
     ? `主要不确定性：缺少 ${missingDrivers.map(d => d.labelZh).join("、")}。`
     : (negative.length ? `主要不确定性：${negative[0].labelZh} 较弱。` : "主要不确定性：证据有限。")
+  const scoredFields = drivers.filter(d => !d.missing).map(d => ({ key: d.key, label: d.label, labelZh: d.labelZh }))
+  const missingFields = drivers.filter(d => d.missing).map(d => ({ key: d.key, label: d.label, labelZh: d.labelZh }))
 
   return {
     candidateId: candidate.id || candidate.candidateId,
@@ -67,6 +73,8 @@ export function explainCandidateRanking(candidate = {}, model = {}) {
     topPositiveFactors: positive.map(d => ({ label: d.label, labelZh: d.labelZh, contribution: d.contribution })),
     topNegativeFactors: negative.map(d => ({ label: d.label, labelZh: d.labelZh, normalized: d.normalized })),
     missingDrivers: missingDrivers.map(d => ({ label: d.label, labelZh: d.labelZh })),
+    scoredFields,
+    missingFields,
     confidencePenalty,
     steps,
     mainReasonEn,

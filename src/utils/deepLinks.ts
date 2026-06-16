@@ -13,6 +13,14 @@ export const HASH_TO_TAB = {
   "organic-acid-graph-explorer": "catalysis",
   library: "library",
   methodology: "about",
+  "methodology-model-validation": "about",
+  "methodology-evolution-timeline": "about",
+  "methodology-model-feature-pipeline": "about",
+  "methodology-feature-selection-explorer": "about",
+  "methodology-model-comparison-dashboard": "about",
+  "methodology-explainability-trust-map": "about",
+  "methodology-validation-workflow": "about",
+  "methodology-confidence-analysis": "about",
   "methodology-gassep": "about",
   "methodology-organic-acid": "about",
   "graph-informed-descriptor-integration": "about",
@@ -79,6 +87,10 @@ export const HASH_META = {
   methodology: {
     title: "方法与证据 | EcoMOF-AI",
     description: "了解 EcoMOF-AI 的评分方法、证据等级、数据来源、基准语境、验证状态、引用边界和使用限制。",
+  },
+  "methodology-model-validation": {
+    title: "Model Validation Lab | EcoMOF-AI",
+    description: "查看 V2.1 模型验证实验室、方法论演化时间线、特征选择、模型比较、置信度与字段级溯源。当前为 Database Preview，不是 Verified Screening。",
   },
   "methodology-gassep": {
     title: "GasSep 方法 | EcoMOF-AI",

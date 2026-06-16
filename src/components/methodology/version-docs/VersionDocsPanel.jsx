@@ -221,6 +221,10 @@ export function VersionDocsPanel({ lang, t, isMobile }) {
       </div>
 
       <section id="methodology-version-timeline" style={{ display: "grid", gap: 10, scrollMarginTop: 118 }}>
+        <header style={{ display: "grid", gap: 4 }}>
+          <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Version History</span>
+          <h3 style={{ color: t.textStrong, fontSize: 20, lineHeight: 1.15, margin: 0 }}>{text(lang, "版本历史", "Version History")}</h3>
+        </header>
         <VersionTimeline versions={versions} selectedVersion={selectedVersion} onSelect={setSelectedVersion} lang={lang} t={t} isMobile={isMobile} />
       </section>
 

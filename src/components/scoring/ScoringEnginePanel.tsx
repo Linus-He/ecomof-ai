@@ -313,7 +313,9 @@ export function DescriptorWeightChart({ model, t, lang }) {
 
 export function CandidateRankingTable({ model, selectedId, onSelect, t, lang, isMobile }) {
   const [expanded, setExpanded] = useState(selectedId || null)
+  const [showAll, setShowAll] = useState(false)
   const rows = model.rankings || []
+  const visibleRows = showAll ? rows : rows.slice(0, 10)
   const expandedRow = rows.find(row => row.id === expanded)
   return (
     <Card t={t} style={{ display: "grid", gap: 10 }}>
@@ -326,7 +328,7 @@ export function CandidateRankingTable({ model, selectedId, onSelect, t, lang, is
             </tr>
           </thead>
           <tbody>
-            {rows.map(row => {
+            {visibleRows.map(row => {
               const open = expanded === row.id
               return (
                 <tr key={row.id} onClick={() => { setExpanded(open ? null : row.id); onSelect?.(row.id) }} style={{ cursor: "pointer", color: t.muted, fontSize: 12 }}>
@@ -346,6 +348,11 @@ export function CandidateRankingTable({ model, selectedId, onSelect, t, lang, is
           </tbody>
         </table>
       </div>
+      {rows.length > visibleRows.length ? (
+        <button type="button" onClick={() => setShowAll(true)} style={{ ...toolbarBtn(t), justifyContent: "center" }}>
+          {text(lang, `显示其余 ${rows.length - visibleRows.length} 个候选`, `Show remaining ${rows.length - visibleRows.length} candidates`)}
+        </button>
+      ) : null}
       {expandedRow && <ScoreBreakdownPanel row={expandedRow} t={t} lang={lang} />}
     </Card>
   )

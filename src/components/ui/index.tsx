@@ -730,10 +730,10 @@ export function StickySummaryBar({ inputs, results, stage, confidence, onAddComp
   )
 }
 
-export function ResultLayer({ number, title, subtitle, children }) {
+export function ResultLayer({ number, title, subtitle, children, id, testId }) {
   const t = useT()
   return (
-    <section className="result-layer" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+    <section id={id} data-testid={testId} className="result-layer" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
       <div style={{ display: "flex", gap: 10, alignItems: "baseline" }}>
         <span style={{ color: t.accentText, fontSize: 11, fontWeight: 900, fontFamily: FONT_MONO }}>{number}</span>
         <div>
@@ -1223,23 +1223,37 @@ export function DataModeToggle({ value, onChange, lang, options: customOptions }
 function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRef, isMobile, onClose }) {
   const panelRef = useRef(null)
 
-  const isPending = !source || ["pending", "missing", "pending_provenance"].includes(source.sourceType)
+  const fieldStatus = source?.status || source?.fieldStatus || source?.curationStatus || source?.sourceType
+  const isPending = !source || ["pending", "missing", "pending_provenance", "unknown"].includes(source.sourceType) || ["pending", "missing", "unknown"].includes(fieldStatus)
   const sourceDatabase = source?.sourceDatabase || source?.database || source?.sourceName
   const sourceRecordId = source?.sourceRecordId || source?.recordId
   const sourceVersion = source?.sourceVersion || source?.version
   const sourceUrl = source?.sourceUrl || source?.url
-  const rows = isPending ? [] : [
+  const rows = [
+    fieldStatus && ["fieldStatus", lang === "zh" ? "字段状态" : "Field status", fieldStatus],
+    source?.isOriginalField !== undefined && ["isOriginalField", lang === "zh" ? "原始字段" : "Original field", source.isOriginalField ? "yes" : "no"],
+    source?.isDerivedField !== undefined && ["isDerivedField", lang === "zh" ? "派生字段" : "Derived field", source.isDerivedField ? "yes" : "no"],
+    source?.isManualCuration !== undefined && ["isManualCuration", lang === "zh" ? "人工整理" : "Manual curation", source.isManualCuration ? "yes" : "no"],
+    source?.unitConverted !== undefined && ["unitConverted", lang === "zh" ? "单位换算" : "Unit converted", source.unitConverted ? "yes" : "no"],
+    source?.hasAmbiguity !== undefined && ["hasAmbiguity", lang === "zh" ? "字段歧义" : "Field ambiguity", source.hasAmbiguity ? "yes" : "no"],
+    source?.scoringEligible !== undefined && ["scoringEligible", lang === "zh" ? "可参与评分" : "Scoring eligible", source.scoringEligible ? "yes" : "no"],
+    source?.blocksVerifiedMetadata !== undefined && ["blocksVerifiedMetadata", lang === "zh" ? "阻断 verified metadata" : "Blocks verified metadata", source.blocksVerifiedMetadata ? "yes" : "no"],
     sourceDatabase       && ["sourceDatabase", lang === "zh" ? "来源数据库" : "Source database", sourceDatabase],
     sourceRecordId       && ["sourceRecordId", lang === "zh" ? "原始记录" : "Source record", sourceRecordId],
     sourceVersion        && ["sourceVersion", lang === "zh" ? "来源版本" : "Source version", sourceVersion],
     sourceUrl            && ["sourceUrl", lang === "zh" ? "来源链接" : "Source URL", sourceUrl],
-    source.citation      && ["citation", lang === "zh" ? "引用" : "Citation", source.citation],
-    source.license       && ["license", lang === "zh" ? "许可证" : "License", source.license],
-    source.condition     && ["condition",     lang === "zh" ? "测量条件"    : "Measurement condition",   source.condition],
-    source.evidenceLevel && ["evidenceLevel", lang === "zh" ? "证据等级"    : "Evidence level",          source.evidenceLevel],
-    source.curationStatus && ["curationStatus", lang === "zh" ? "整理状态" : "Curation status", source.curationStatus],
-    source.curationNote  && ["curationNote",  lang === "zh" ? "整理说明"    : "Curation note",           source.curationNote],
-    source.limitations && source.limitations !== "" && ["limitations", lang === "zh" ? "限制" : "Limitations", source.limitations],
+    source?.citation      && ["citation", lang === "zh" ? "引用" : "Citation", source.citation],
+    source?.license       && ["license", lang === "zh" ? "许可证" : "License", source.license],
+    source?.retrievedAt   && ["retrievedAt", lang === "zh" ? "获取时间" : "Retrieved at", source.retrievedAt],
+    source?.derivedFrom   && ["derivedFrom", lang === "zh" ? "派生自" : "Derived from", Array.isArray(source.derivedFrom) ? source.derivedFrom.join(", ") : source.derivedFrom],
+    source?.normalizationMethod && ["normalizationMethod", lang === "zh" ? "归一化方法" : "Normalization method", source.normalizationMethod],
+    source?.missingReason && ["missingReason", lang === "zh" ? "缺失原因" : "Missing reason", source.missingReason],
+    source?.condition     && ["condition",     lang === "zh" ? "测量条件"    : "Measurement condition",   source.condition],
+    source?.evidenceLevel && ["evidenceLevel", lang === "zh" ? "证据等级"    : "Evidence level",          source.evidenceLevel],
+    source?.curationStatus && ["curationStatus", lang === "zh" ? "整理状态" : "Curation status", source.curationStatus],
+    source?.curationNote  && ["curationNote",  lang === "zh" ? "整理说明"    : "Curation note",           source.curationNote],
+    source?.notes         && ["notes", lang === "zh" ? "说明" : "Notes", source.notes],
+    source?.limitations && source.limitations !== "" && ["limitations", lang === "zh" ? "限制" : "Limitations", source.limitations],
   ].filter(Boolean)
 
   return (
@@ -1281,10 +1295,11 @@ function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRef, isMobile, on
         {isPending ? (
           <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "11px 13px", color: t.muted, fontSize: 12, lineHeight: 1.65 }}>
             {lang === "zh"
-              ? "待整理。该字段尚未关联已核实的数据来源。"
-              : "Pending curation. This field does not have a verified source record yet."}
+              ? `待整理或缺失。状态：${fieldStatus || "pending"}；该字段不会计入 verified metadata。`
+              : `Pending or missing. Status: ${fieldStatus || "pending"}; this field does not count toward verified metadata.`}
           </div>
-        ) : (
+        ) : null}
+        {rows.length ? (
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             {rows.map(([key, label, value]) => (
               <div key={key} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "7px 10px" }}>
@@ -1299,7 +1314,7 @@ function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRef, isMobile, on
               </div>
             ))}
           </div>
-        )}
+        ) : null}
         <div style={{ marginTop: 12, color: t.faint, fontSize: 10, lineHeight: 1.5, borderTop: `1px solid ${t.divider || t.border}`, paddingTop: 10 }}>
           {source?.sourceType === "open-mof-seed"
             ? (lang === "zh"

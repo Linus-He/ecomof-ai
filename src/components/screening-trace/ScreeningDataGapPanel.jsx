@@ -23,6 +23,11 @@ export function ScreeningDataGapPanel({ trace, lang, t, isMobile }) {
             <span style={{ color: t.muted, fontSize: 10.8, lineHeight: 1.4, overflowWrap: "anywhere" }}>
               {text(lang, "缺口", "blockers")}: {(c.missingDescriptors || []).concat(c.blockers || []).join(", ") || text(lang, "无", "none")}
             </span>
+            {c.fieldSourceGaps?.length ? (
+              <span style={{ color: t.warn, fontSize: 10.6, lineHeight: 1.4, overflowWrap: "anywhere" }}>
+                {text(lang, "字段级缺口", "field-level gaps")}: {c.fieldSourceGaps.slice(0, 6).map(g => `${g.field}:${g.status}`).join(", ")}
+              </span>
+            ) : null}
           </div>
         ))}
       </div>

@@ -28,7 +28,7 @@ export function buildReadinessMatrix(candidates = [], options = {}) {
   const scoreThreshold = num(options.scoreThreshold, 0.5)
   const evidenceThreshold = num(options.evidenceThreshold, 0.55)
   const points = (Array.isArray(candidates) ? candidates : [])
-    .filter(c => Number(c.G) !== 0)
+    .filter(c => Number(c.G) !== 0 && !c.quarantined && !c.verification?.quarantined && !(c.ambiguityWarnings || c.verification?.ambiguityWarnings || []).length)
     .map(c => {
       const score = finalScore(c)
       const evidence = Math.round(evidenceConfidence(c) * 1000) / 1000

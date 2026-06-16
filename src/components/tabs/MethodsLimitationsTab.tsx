@@ -17,6 +17,7 @@ import { MethodologySidebar } from "../methodology/MethodologySidebar"
 import { KnowledgeBaseSkeleton, MethodologySectionSkeleton } from "../methodology/MethodologySkeleton"
 import { MethodFormulaCard } from "../methodology/MethodFormulaCard"
 import { MethodModuleSection } from "../methodology/MethodModuleSection"
+import { ModelValidationLab, MODEL_VALIDATION_DIRECTORY } from "../methodology/model-validation/ModelValidationLab"
 import { ORGANIC_ACID_FINAL_DIRECTORY } from "../methodology/organic-acid-final/directory"
 import { VERSION_DOCS_DIRECTORY } from "../methodology/version-docs/directory"
 
@@ -271,17 +272,29 @@ export function MethodsLimitationsTab() {
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
   const [modules, setModules] = useState([])
-  const [activeId, setActiveId] = useState("methodology-platform-overview")
+  const [modelValidationRecords, setModelValidationRecords] = useState([])
+  const [modelValidationSummary, setModelValidationSummary] = useState(null)
+  const [activeId, setActiveId] = useState("methodology-model-validation")
 
   useEffect(() => {
     let active = true
-    fetchDataJson("methodology_modules_demo.json", [])
-      .then(rows => {
+    Promise.all([
+      fetchDataJson("methodology_modules_demo.json", []),
+      fetchDataJson("database_precompute/v2_1/medium_database_preview_records.json", []),
+      fetchDataJson("database_precompute/v2_1/medium_database_preview_summary.json", null),
+    ])
+      .then(([rows, previewRecords, previewSummary]) => {
         if (!active) return
         setModules(Array.isArray(rows) ? rows : [])
+        setModelValidationRecords(Array.isArray(previewRecords) ? previewRecords : [])
+        setModelValidationSummary(previewSummary && typeof previewSummary === "object" ? previewSummary : null)
       })
       .catch(() => {
-        if (active) setModules([])
+        if (active) {
+          setModules([])
+          setModelValidationRecords([])
+          setModelValidationSummary(null)
+        }
       })
     return () => { active = false }
   }, [])
@@ -310,15 +323,25 @@ export function MethodsLimitationsTab() {
         display: text(lang, child.labelZh, child.label),
       })),
     }
+    const modelValidationItem = {
+      ...MODEL_VALIDATION_DIRECTORY,
+      display: text(lang, MODEL_VALIDATION_DIRECTORY.labelZh, MODEL_VALIDATION_DIRECTORY.label),
+      children: (MODEL_VALIDATION_DIRECTORY.children || []).map(child => ({
+        ...child,
+        display: text(lang, child.labelZh, child.label),
+      })),
+    }
+    const itemsWithModelValidation = [modelValidationItem, ...items]
+    const adjustedInsertIndex = itemsWithModelValidation.findIndex(item => item.id === "methodology-organic-acid")
     if (insertIndex >= 0) {
       return [
-        ...items.slice(0, insertIndex + 1),
+        ...itemsWithModelValidation.slice(0, adjustedInsertIndex + 1),
         finalItem,
         versionItem,
-        ...items.slice(insertIndex + 1),
+        ...itemsWithModelValidation.slice(adjustedInsertIndex + 1),
       ]
     }
-    return [...items, finalItem, versionItem]
+    return [...itemsWithModelValidation, finalItem, versionItem]
   }, [orderedModules, lang])
 
   useEffect(() => {
@@ -379,6 +402,14 @@ export function MethodsLimitationsTab() {
         />
 
         <main style={{ display: "grid", gap: 16, minWidth: 0 }}>
+          <ModelValidationLab
+            records={modelValidationRecords}
+            summary={modelValidationSummary}
+            lang={lang}
+            t={t}
+            isMobile={isMobile || isNarrow}
+          />
+
           <section id="methodology-platform-overview" style={{ display: "grid", gap: 16, scrollMarginTop: 118 }}>
             <PlatformFlowCard lang={lang} t={t} isMobile={isMobile} />
             <FormulaIndex lang={lang} t={t} />

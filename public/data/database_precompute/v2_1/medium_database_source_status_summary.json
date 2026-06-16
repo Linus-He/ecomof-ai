@@ -1,0 +1,10 @@
+{
+  "version": "V2.1-Medium-Database-Preview",
+  "sourceConfirmedCount": 250,
+  "citationReadyCount": 250,
+  "verifiedMetadataCount": 0,
+  "sourceDatabaseCounts": {
+    "CoRE MOF DB": 150,
+    "QMOF Database": 100
+  }
+}

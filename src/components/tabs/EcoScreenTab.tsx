@@ -344,10 +344,12 @@ function WeightDiagnostics({ model, lang, t, isMobile }) {
 }
 
 function CandidateRanking({ candidates, selectedId, onSelect, lang, t, isMobile }) {
+  const [showAll, setShowAll] = useState(false)
+  const visibleCandidates = showAll ? candidates : candidates.slice(0, 10)
   if (isMobile) {
     return (
       <div style={{ display: "grid", gap: 8 }}>
-        {candidates.map(candidate => {
+        {visibleCandidates.map(candidate => {
           const active = candidate.id === selectedId
           return (
             <button
@@ -389,6 +391,11 @@ function CandidateRanking({ candidates, selectedId, onSelect, lang, t, isMobile 
             </button>
           )
         })}
+        {candidates.length > visibleCandidates.length ? (
+          <button type="button" onClick={() => setShowAll(true)} style={{ ...toolbarBtn(t), justifyContent: "center" }}>
+            {text(lang, `显示其余 ${candidates.length - visibleCandidates.length} 个候选`, `Show remaining ${candidates.length - visibleCandidates.length} candidates`)}
+          </button>
+        ) : null}
       </div>
     )
   }
@@ -399,7 +406,7 @@ function CandidateRanking({ candidates, selectedId, onSelect, lang, t, isMobile 
         <div style={{ display: "grid", gridTemplateColumns: "46px minmax(150px,1.2fr) 92px 92px 104px 86px 130px 110px 120px", gap: 10, color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase", padding: "0 10px" }}>
           <span>{text(lang, "名次", "Rank")}</span><span>{text(lang, "候选材料", "Candidate")}</span><span>{text(lang, "综合分", "Overall")}</span><span>{text(lang, "性能", "Performance")}</span><span>{text(lang, "可持续性", "Sustainability")}</span><span>{text(lang, "证据", "Evidence")}</span><span>{text(lang, "完整度", "Completeness")}</span><span>{text(lang, "置信度", "Confidence")}</span><span>{text(lang, "状态", "Status")}</span>
         </div>
-        {candidates.map(candidate => {
+        {visibleCandidates.map(candidate => {
           const active = candidate.id === selectedId
           return (
             <button
@@ -438,6 +445,11 @@ function CandidateRanking({ candidates, selectedId, onSelect, lang, t, isMobile 
             </button>
           )
         })}
+        {candidates.length > visibleCandidates.length ? (
+          <button type="button" onClick={() => setShowAll(true)} style={{ ...toolbarBtn(t), justifyContent: "center", marginTop: 4 }}>
+            {text(lang, `显示其余 ${candidates.length - visibleCandidates.length} 个候选`, `Show remaining ${candidates.length - visibleCandidates.length} candidates`)}
+          </button>
+        ) : null}
       </div>
     </div>
   )
@@ -929,21 +941,26 @@ export function EcoScreenTab({ onNavigate }) {
       </Card>
 
       {scoringMode === "general" && (
-        <GlobalScoringWorkbench
-          candidates={generalRows}
-          dataMode={globalCandidateMode}
-          lang={lang}
-          t={t}
-          isMobile={isMobile}
-          status={generalStatus}
-          number="01"
-          title={text(lang, "General MOF Scoring Workbench / 通用 MOF 评分工作台", "General MOF Scoring Workbench")}
-          subtitle={text(
-            lang,
-            "EcoScreen 复用全局评分工作台；descriptor registry、权重方法、候选解释和诊断统一来自 createScoringModel。",
-            "EcoScreen reuses the global scoring workbench; descriptor registry, weighting methods, candidate explanations, and diagnostics all come from createScoringModel."
-          )}
-        />
+        <>
+          <GlobalScoringWorkbench
+            candidates={generalRows}
+            dataMode={globalCandidateMode}
+            lang={lang}
+            t={t}
+            isMobile={isMobile}
+            status={generalStatus}
+            number="01"
+            title={text(lang, "General MOF Scoring Workbench / 通用 MOF 评分工作台", "General MOF Scoring Workbench")}
+            subtitle={text(
+              lang,
+              "EcoScreen 复用全局评分工作台；descriptor registry、权重方法、候选解释和诊断统一来自 createScoringModel。",
+              "EcoScreen reuses the global scoring workbench; descriptor registry, weighting methods, candidate explanations, and diagnostics all come from createScoringModel."
+            )}
+          />
+          <ResultLayer id="ecoscreen-result-layer-05" testId="ecoscreen-result-layer-05" number="05" title={text(lang, "筛选过程追踪", "Screening Trace")} subtitle={lang === "zh" ? "Database Preview shell-first 渲染；候选数据和图表可稍后填充，但 marker 与容器会立即存在。" : "Database Preview renders shell-first; candidate data and charts can fill later, while markers and containers exist immediately."}>
+            <ScreeningTraceSection model={model} scenarioLabel={scoringMode} lang={lang} t={t} isMobile={isMobile} />
+          </ResultLayer>
+        </>
       )}
 
       {scoringMode === "formate" && (
@@ -1010,19 +1027,19 @@ export function EcoScreenTab({ onNavigate }) {
         </Card>
       </ResultLayer>
 
-      <ResultLayer number="05" title={text(lang, "筛选过程追踪", "Screening Trace")} subtitle={lang === "zh" ? "每一步发生了什么、为什么剩下这些候选、为什么排名如此、哪些数据缺口阻断了 verified。" : "What happened at each step, why these candidates remain, why they rank this way, and which data gaps block verified."}>
+      <ResultLayer id="ecoscreen-result-layer-05" testId="ecoscreen-result-layer-05" number="05" title={text(lang, "筛选过程追踪", "Screening Trace")} subtitle={lang === "zh" ? "每一步发生了什么、为什么剩下这些候选、为什么排名如此、哪些数据缺口阻断了 verified。" : "What happened at each step, why these candidates remain, why they rank this way, and which data gaps block verified."}>
         <ScreeningTraceSection model={model} scenarioLabel={scoringMode} lang={lang} t={t} isMobile={isMobile} />
       </ResultLayer>
 
-      <ResultLayer number="05" title={text(lang, "排名稳健性 / Ranking Robustness", "Ranking Robustness")} subtitle={lang === "zh" ? "CRITIC vs Equal Weight vs Expert Preset、Top-3 consistency、remove-one-candidate sensitivity test。" : "CRITIC vs Equal Weight vs Expert Preset, Top-3 consistency, and remove-one-candidate sensitivity."}>
+      <ResultLayer number="06" title={text(lang, "排名稳健性 / Ranking Robustness", "Ranking Robustness")} subtitle={lang === "zh" ? "CRITIC vs Equal Weight vs Expert Preset、Top-3 consistency、remove-one-candidate sensitivity test。" : "CRITIC vs Equal Weight vs Expert Preset, Top-3 consistency, and remove-one-candidate sensitivity."}>
         <RankingRobustness model={model} selectedId={selectedCandidate?.id} onSelect={setSelectedId} lang={lang} t={t} isMobile={isMobile} />
       </ResultLayer>
 
-      <ResultLayer number="06" title={text(lang, "证据与限制说明 / Evidence and Limitation Notes", "Evidence and Limitation Notes")}>
+      <ResultLayer number="07" title={text(lang, "证据与限制说明 / Evidence and Limitation Notes", "Evidence and Limitation Notes")}>
         <EvidenceNotes lang={lang} t={t} isMobile={isMobile} />
       </ResultLayer>
 
-      <ResultLayer number="07" title={text(lang, "方法论入口 / Methodology Link", "Methodology Link")}>
+      <ResultLayer number="08" title={text(lang, "方法论入口 / Methodology Link", "Methodology Link")}>
         <Card t={t} style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
           <div style={{ minWidth: 0 }}>
             <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 900 }}>{text(lang, "CRITIC-MCDA 决策支持方法论", "CRITIC-MCDA Decision Support Methodology")}</div>

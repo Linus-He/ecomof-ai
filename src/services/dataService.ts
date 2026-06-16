@@ -31,6 +31,7 @@ const DATA_PATHS = {
   gasAdsorptionFieldSourcesV1: "data/gas_adsorption_field_sources_v1.json",
   gasAdsorptionSchemaV1: "data/gas_adsorption_schema_v1.json",
   gasAdsorptionRecordsDemo: "data/gas_adsorption_records_demo.json",
+  mediumDatabasePreviewV21: "data/database_precompute/v2_1/medium_database_preview_records.json",
 }
 
 const QUALITY_FIELDS = CORE_MOF_DESCRIPTOR_KEYS
@@ -73,6 +74,8 @@ export async function getMofCandidates({ mode = DEFAULT_CANDIDATE_DATA_MODE, thr
   if (mode !== DEFAULT_CANDIDATE_DATA_MODE) {
     console.warn(`Ignoring legacy MOF candidate mode "${mode}"; using Open MOF Seed as the single candidate route.`)
   }
+  const mediumPreview = await fetchJson(DATA_PATHS.mediumDatabasePreviewV21, null, { throwOnError: false })
+  if (Array.isArray(mediumPreview) && mediumPreview.length) return mediumPreview
   return fetchJson(DATA_PATHS.openMofSeedCandidates, [], { throwOnError })
 }
 

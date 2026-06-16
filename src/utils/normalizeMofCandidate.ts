@@ -17,7 +17,7 @@ function firstText(...values) {
 function makeFieldSource(candidate, key, value, unit = "") {
   const status = candidate.descriptorCompleteness?.[key] || candidate.curationStatus || PENDING
   if (value === null || value === undefined || value === "" || status === "pending") {
-    return { sourceType: "pending", value, unit, curationStatus: status }
+    return { sourceType: "pending", value, unit, curationStatus: status, status: "missing", scoringEligible: false, blocksVerifiedMetadata: true }
   }
   return {
     sourceType: "open-mof-seed",
@@ -30,7 +30,16 @@ function makeFieldSource(candidate, key, value, unit = "") {
     url: candidate.sourceUrl,
     citation: candidate.citation,
     license: candidate.license,
+    retrievedAt: candidate.retrievedAt,
     curationStatus: status,
+    status: status === "curated" ? "confirmed" : status,
+    isOriginalField: true,
+    isDerivedField: false,
+    isManualCuration: false,
+    unitConverted: false,
+    hasAmbiguity: false,
+    scoringEligible: true,
+    blocksVerifiedMetadata: false,
     value,
     unit,
   }
@@ -151,8 +160,8 @@ export function normalizeMofCandidate(raw = {}, options = {}) {
     ...normalized,
     descriptorCompleteness: normalized.descriptorCompleteness || {},
   }
-  const fieldSources = {
-    ...(raw.fieldSources || {}),
+  const generatedFieldSources = {
+    displayName: makeFieldSource(fieldSourceCandidate, "displayName", normalized.displayName),
     surfaceArea: makeFieldSource(fieldSourceCandidate, "surfaceArea", normalized.surfaceArea, normalizeUnitLabel("m2/g")),
     poreSizeA: makeFieldSource(fieldSourceCandidate, "poreSizeA", normalized.poreSizeA, normalizeUnitLabel("A")),
     pldA: makeFieldSource(fieldSourceCandidate, "pldA", normalized.pldA, normalizeUnitLabel("A")),
@@ -162,6 +171,16 @@ export function normalizeMofCandidate(raw = {}, options = {}) {
     voidFraction: makeFieldSource(fieldSourceCandidate, "voidFraction", normalized.voidFraction),
     bandGap: makeFieldSource(fieldSourceCandidate, "bandGap", normalized.bandGap, "eV"),
     co2Uptake: makeFieldSource(fieldSourceCandidate, "co2Uptake", normalized.co2Uptake, "mmol/g"),
+    metalNode: makeFieldSource(fieldSourceCandidate, "metalNode", normalized.metalNode),
+    linker: makeFieldSource(fieldSourceCandidate, "linker", normalized.linker),
+    topology: makeFieldSource(fieldSourceCandidate, "topology", normalized.topology),
+    evidenceLevel: makeFieldSource(fieldSourceCandidate, "evidenceLevel", normalized.evidenceLevel || raw.evidenceLevel),
+    sourceStatus: makeFieldSource(fieldSourceCandidate, "sourceStatus", normalized.sourceStatus || raw.sourceStatus),
+    verifiedMetadataStatus: makeFieldSource(fieldSourceCandidate, "verifiedMetadataStatus", Boolean(raw.verifiedMetadata || raw.verification?.verifiedMetadata)),
+  }
+  const fieldSources = {
+    ...generatedFieldSources,
+    ...(raw.fieldSources || {}),
   }
   return {
     ...normalized,

@@ -1,0 +1,24 @@
+{
+  "version": "V2.1-Medium-Database-Preview",
+  "previewLabel": "Database Preview",
+  "notFinalRecommendation": true,
+  "totalCandidates": 250,
+  "rankedCandidates": 236,
+  "descriptorCompleteCandidates": 0,
+  "sourceConfirmedCandidates": 250,
+  "citationReadyCandidates": 250,
+  "verifiedMetadataCandidates": 0,
+  "verifiedMetadataCount": 0,
+  "quarantinedCandidates": 14,
+  "dataGapCount": 250,
+  "fieldStatusCounts": {
+    "derived": 1000,
+    "confirmed": 600,
+    "normalized": 1250,
+    "missing": 490,
+    "pending": 408,
+    "ambiguous": 2
+  },
+  "noFabricationPolicy": "No DOI/license/sourceUrl/citation values are invented. Unknown values remain pending/unknown.",
+  "zeroVerifiedNotice": "当前为 Database Preview，不是 Verified Screening。结果仅用于透明筛选流程展示和数据缺口识别。"
+}

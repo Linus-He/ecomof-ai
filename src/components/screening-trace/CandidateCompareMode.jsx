@@ -1,7 +1,8 @@
 // @ts-nocheck
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { buildCandidateComparison } from "../../utils/screeningTrace/buildCandidateComparison"
+import { FieldProvenanceButton } from "../ui"
 
 function renderValue(v, lang) {
   if (v === null || v === undefined || v === "") return text(lang, "待补", "—")
@@ -10,10 +11,18 @@ function renderValue(v, lang) {
 }
 
 export function CandidateCompareMode({ candidates = [], lang, t, isMobile }) {
-  const selectable = candidates.filter(c => Number(c.G) !== 0).slice(0, 6)
+  const selectable = candidates
+    .filter(c => Number(c.G) !== 0 && !c.quarantined && !c.verification?.quarantined && !(c.ambiguityWarnings || c.verification?.ambiguityWarnings || []).length)
+    .slice(0, 10)
   const [selected, setSelected] = useState(selectable.slice(0, 2).map(c => c.id || c.candidateId))
   const chosen = selectable.filter(c => selected.includes(c.id || c.candidateId)).slice(0, 3)
   const comparison = useMemo(() => buildCandidateComparison(chosen), [chosen])
+
+  useEffect(() => {
+    if (!selected.length && selectable.length >= 2) {
+      setSelected(selectable.slice(0, 2).map(c => c.id || c.candidateId))
+    }
+  }, [selectable, selected.length])
 
   const toggle = id => setSelected(cur => cur.includes(id) ? cur.filter(x => x !== id) : (cur.length >= 3 ? cur : [...cur, id]))
 
@@ -45,7 +54,17 @@ export function CandidateCompareMode({ candidates = [], lang, t, isMobile }) {
                 {comparison.dimensions.map(dim => (
                   <tr key={dim.key}>
                     <td style={{ borderTop: `1px solid ${t.divider}`, color: t.muted, fontSize: 11, padding: "5px 6px" }}>{text(lang, dim.labelZh, dim.labelEn)}</td>
-                    {dim.values.map((v, i) => <td key={i} style={{ borderTop: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 11, padding: "5px 6px" }}>{renderValue(v, lang)}</td>)}
+                    {dim.values.map((v, i) => {
+                      const fieldSource = chosen[i]?.fieldSources?.[dim.key]
+                      return (
+                        <td key={i} style={{ borderTop: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 11, padding: "5px 6px" }}>
+                          <span style={{ alignItems: "center", display: "inline-flex", maxWidth: "100%" }}>
+                            <span style={{ overflowWrap: "anywhere" }}>{renderValue(v, lang)}</span>
+                            <FieldProvenanceButton fieldKey={dim.key} fieldLabel={text(lang, dim.labelZh, dim.labelEn)} source={fieldSource} lang={lang} />
+                          </span>
+                        </td>
+                      )
+                    })}
                   </tr>
                 ))}
               </tbody>

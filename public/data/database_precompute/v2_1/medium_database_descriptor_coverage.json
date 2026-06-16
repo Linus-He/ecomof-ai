@@ -1,0 +1,171 @@
+{
+  "version": "V2.1-Medium-Database-Preview",
+  "totalCandidates": 250,
+  "fieldCoverage": {
+    "displayName": {
+      "confirmed": 0,
+      "pending": 0,
+      "ambiguous": 0,
+      "derived": 250,
+      "normalized": 0,
+      "missing": 0,
+      "not_applicable": 0,
+      "scoringEligible": 250,
+      "blocksVerifiedMetadata": 250
+    },
+    "surfaceArea": {
+      "confirmed": 50,
+      "pending": 0,
+      "ambiguous": 0,
+      "derived": 0,
+      "normalized": 200,
+      "missing": 0,
+      "not_applicable": 0,
+      "scoringEligible": 250,
+      "blocksVerifiedMetadata": 200
+    },
+    "poreSizeA": {
+      "confirmed": 50,
+      "pending": 0,
+      "ambiguous": 0,
+      "derived": 0,
+      "normalized": 200,
+      "missing": 0,
+      "not_applicable": 0,
+      "scoringEligible": 250,
+      "blocksVerifiedMetadata": 200
+    },
+    "pldA": {
+      "confirmed": 50,
+      "pending": 0,
+      "ambiguous": 0,
+      "derived": 0,
+      "normalized": 200,
+      "missing": 0,
+      "not_applicable": 0,
+      "scoringEligible": 250,
+      "blocksVerifiedMetadata": 200
+    },
+    "lcdA": {
+      "confirmed": 50,
+      "pending": 0,
+      "ambiguous": 0,
+      "derived": 0,
+      "normalized": 200,
+      "missing": 0,
+      "not_applicable": 0,
+      "scoringEligible": 250,
+      "blocksVerifiedMetadata": 200
+    },
+    "poreVolume": {
+      "confirmed": 50,
+      "pending": 0,
+      "ambiguous": 0,
+      "derived": 0,
+      "normalized": 200,
+      "missing": 0,
+      "not_applicable": 0,
+      "scoringEligible": 250,
+      "blocksVerifiedMetadata": 200
+    },
+    "density": {
+      "confirmed": 0,
+      "pending": 0,
+      "ambiguous": 0,
+      "derived": 250,
+      "normalized": 0,
+      "missing": 0,
+      "not_applicable": 0,
+      "scoringEligible": 250,
+      "blocksVerifiedMetadata": 250
+    },
+    "voidFraction": {
+      "confirmed": 0,
+      "pending": 0,
+      "ambiguous": 0,
+      "derived": 0,
+      "normalized": 250,
+      "missing": 0,
+      "not_applicable": 0,
+      "scoringEligible": 250,
+      "blocksVerifiedMetadata": 250
+    },
+    "bandGap": {
+      "confirmed": 100,
+      "pending": 0,
+      "ambiguous": 0,
+      "derived": 0,
+      "normalized": 0,
+      "missing": 150,
+      "not_applicable": 0,
+      "scoringEligible": 100,
+      "blocksVerifiedMetadata": 150
+    },
+    "metalNode": {
+      "confirmed": 0,
+      "pending": 0,
+      "ambiguous": 0,
+      "derived": 250,
+      "normalized": 0,
+      "missing": 0,
+      "not_applicable": 0,
+      "scoringEligible": 250,
+      "blocksVerifiedMetadata": 250
+    },
+    "linker": {
+      "confirmed": 0,
+      "pending": 95,
+      "ambiguous": 0,
+      "derived": 0,
+      "normalized": 0,
+      "missing": 155,
+      "not_applicable": 0,
+      "scoringEligible": 0,
+      "blocksVerifiedMetadata": 250
+    },
+    "topology": {
+      "confirmed": 0,
+      "pending": 63,
+      "ambiguous": 2,
+      "derived": 0,
+      "normalized": 0,
+      "missing": 185,
+      "not_applicable": 0,
+      "scoringEligible": 0,
+      "blocksVerifiedMetadata": 250
+    },
+    "evidenceLevel": {
+      "confirmed": 0,
+      "pending": 0,
+      "ambiguous": 0,
+      "derived": 250,
+      "normalized": 0,
+      "missing": 0,
+      "not_applicable": 0,
+      "scoringEligible": 250,
+      "blocksVerifiedMetadata": 250
+    },
+    "sourceStatus": {
+      "confirmed": 250,
+      "pending": 0,
+      "ambiguous": 0,
+      "derived": 0,
+      "normalized": 0,
+      "missing": 0,
+      "not_applicable": 0,
+      "scoringEligible": 250,
+      "blocksVerifiedMetadata": 0
+    },
+    "verifiedMetadataStatus": {
+      "confirmed": 0,
+      "pending": 250,
+      "ambiguous": 0,
+      "derived": 0,
+      "normalized": 0,
+      "missing": 0,
+      "not_applicable": 0,
+      "scoringEligible": 0,
+      "blocksVerifiedMetadata": 250
+    }
+  }
+}

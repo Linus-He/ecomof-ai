@@ -1,0 +1,25 @@
+import { describe, expect, it } from "vitest"
+import { HASH_TO_TAB, getHashMeta, normalizeHash } from "../../utils/deepLinks"
+
+describe("deep links", () => {
+  it("routes V2.1 Model Validation Lab anchors to Methods & Evidence", () => {
+    const modelValidationHashes = [
+      "methodology-model-validation",
+      "methodology-evolution-timeline",
+      "methodology-model-feature-pipeline",
+      "methodology-feature-selection-explorer",
+      "methodology-model-comparison-dashboard",
+      "methodology-explainability-trust-map",
+      "methodology-validation-workflow",
+      "methodology-confidence-analysis",
+    ] as const
+    for (const hash of modelValidationHashes) {
+      expect(HASH_TO_TAB[hash]).toBe("about")
+    }
+  })
+
+  it("has metadata for the Model Validation Lab deep link", () => {
+    expect(normalizeHash("#methodology-model-validation")).toBe("methodology-model-validation")
+    expect(getHashMeta("methodology-model-validation").title).toMatch(/Model Validation Lab/i)
+  })
+})

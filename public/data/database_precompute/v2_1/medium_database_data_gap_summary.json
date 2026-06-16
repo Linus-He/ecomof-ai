@@ -1,0 +1,69 @@
+{
+  "version": "V2.1-Medium-Database-Preview",
+  "totalCandidatesWithGaps": 250,
+  "byField": [
+    {
+      "field": "displayName",
+      "count": 250
+    },
+    {
+      "field": "density",
+      "count": 250
+    },
+    {
+      "field": "voidFraction",
+      "count": 250
+    },
+    {
+      "field": "metalNode",
+      "count": 250
+    },
+    {
+      "field": "linker",
+      "count": 250
+    },
+    {
+      "field": "topology",
+      "count": 250
+    },
+    {
+      "field": "evidenceLevel",
+      "count": 250
+    },
+    {
+      "field": "verifiedMetadataStatus",
+      "count": 250
+    },
+    {
+      "field": "surfaceArea",
+      "count": 200
+    },
+    {
+      "field": "poreSizeA",
+      "count": 200
+    },
+    {
+      "field": "pldA",
+      "count": 200
+    },
+    {
+      "field": "lcdA",
+      "count": 200
+    },
+    {
+      "field": "poreVolume",
+      "count": 200
+    },
+    {
+      "field": "bandGap",
+      "count": 150
+    }
+  ],
+  "verifiedMetadataBlockers": [
+    "synthetic fixture pending verification",
+    "missing bandGap",
+    "derived density",
+    "pending linker",
+    "pending/ambiguous topology"
+  ]
+}

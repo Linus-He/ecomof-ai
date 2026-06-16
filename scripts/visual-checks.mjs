@@ -134,6 +134,20 @@ const routes = [
   ]],
   ["methodology", "#methodology", [
     ["Methods & Evidence", "方法与证据"],
+    ["Model Validation Lab", "模型验证实验室"],
+    ["Methodology Evolution Timeline", "方法论版本演化"],
+    ["Feature Engineering Pipeline", "特征工程管线"],
+    ["Feature Selection Explorer", "特征选择探索器"],
+    ["Model Comparison Dashboard", "模型比较面板"],
+    ["Explainability & Trust Map", "可解释性与信任地图"],
+    ["Validation Workflow Workbench", "验证流程工作台"],
+    ["Confidence & Uncertainty Analysis", "置信度与不确定性"],
+    "Validation Pending",
+    "Demo Only",
+    "Framework Ready",
+    ["Database Preview", "数据库预览"],
+    ["Not Final Recommendation", "非最终推荐"],
+    "V2.1",
     ["Structured Factor Effects", "结构化因素效应"],
     ["Catalysis Energy Playground Method", "催化能量游乐场方法说明"],
     ["Organic Acid Final Screening Methodology", "有机酸最终筛选方法论"],
@@ -189,6 +203,22 @@ const routes = [
     ["展开完整映射矩阵", "Expand full mapping matrix"],
     ["Evidence Boundary Legend", "证据边界图例"],
     ["Validation Roadmap", "验证路线"],
+  ]],
+  ["methodology-model-validation", "#methodology-model-validation", [
+    ["Methods & Evidence", "方法与证据"],
+    ["Model Validation Lab", "模型验证实验室"],
+    ["Methodology Evolution Timeline", "方法论版本演化"],
+    ["Feature Engineering Pipeline", "特征工程管线"],
+    ["Feature Selection Explorer", "特征选择探索器"],
+    ["Model Comparison Dashboard", "模型比较面板"],
+    ["Explainability & Trust Map", "可解释性与信任地图"],
+    ["Validation Workflow Workbench", "验证流程工作台"],
+    ["Confidence & Uncertainty Analysis", "置信度与不确定性"],
+    "Validation Pending",
+    "Demo Only",
+    "Framework Ready",
+    ["Database Preview", "数据库预览"],
+    ["Not Final Recommendation", "非最终推荐"],
   ]],
 ]
 const viewports = [
@@ -302,6 +332,11 @@ for (const [viewportName, width, height] of viewports) {
         }
       }
 
+      if (routeName === "methodology" || routeName === "methodology-model-validation") {
+        await page.locator("#methodology-model-validation").first().scrollIntoViewIfNeeded().catch(() => {})
+        await page.waitForTimeout(900)
+      }
+
       if (routeName === "methodology") {
         await page.locator("#methodology-organic-acid-final-screening").first().scrollIntoViewIfNeeded().catch(() => {})
         await page.waitForTimeout(1800)
@@ -310,13 +345,16 @@ for (const [viewportName, width, height] of viewports) {
       }
 
       if (routeName === "ecoscreen") {
-        // The screening-trace section is far down a chart-heavy page and depends on the
-        // candidate data fetch; wait for the network + the section to mount before reading.
-        await page.waitForLoadState("networkidle").catch(() => {})
+        // EcoScreen renders a shell-first trace section before heavy candidate
+        // panels finish filling. Wait for stable shell markers instead of chart timing.
+        await page.waitForLoadState("load").catch(() => {})
+        await page.locator("#screening-trace").first().waitFor({ state: "attached", timeout: 20000 })
         await page.locator("#screening-trace").first().scrollIntoViewIfNeeded().catch(() => {})
-        await page.locator("#screening-trace-timeline").first().waitFor({ state: "attached", timeout: 20000 }).catch(() => {})
-        await page.getByText(/Screening Funnel|筛选漏斗/).first().waitFor({ state: "attached", timeout: 20000 }).catch(() => {})
-        await page.waitForTimeout(1200)
+        await page.locator("#screening-trace[data-shell-ready='true']").first().waitFor({ state: "attached", timeout: 20000 })
+        await page.locator("#screening-trace-timeline").first().waitFor({ state: "attached", timeout: 20000 })
+        await page.locator("#screening-funnel-panel").first().waitFor({ state: "attached", timeout: 20000 })
+        await page.locator("#candidate-decision-dashboard").first().waitFor({ state: "attached", timeout: 20000 })
+        await page.waitForTimeout(350)
       }
 
       // Expand collapsible <details> sections (some default collapsed, e.g. on mobile)
