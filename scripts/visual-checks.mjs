@@ -122,6 +122,15 @@ const routes = [
   ["ecoscreen", "#ecoscreen", [
     "EcoScreen",
     ["Candidate Scoring", "候选评分"],
+    ["Screening Trace", "筛选过程"],
+    ["Screening Funnel", "筛选漏斗"],
+    ["Candidate Dashboard", "候选决策面板"],
+    ["Candidate Compare", "候选比较"],
+    ["Data Gaps", "数据缺口"],
+    ["Next Action", "下一步建议"],
+    ["Database Preview", "数据库预览"],
+    ["Not Final Recommendation", "非最终推荐"],
+    ["Ranking Explanation", "排序解释"],
   ]],
   ["methodology", "#methodology", [
     ["Methods & Evidence", "方法与证据"],
@@ -298,6 +307,16 @@ for (const [viewportName, width, height] of viewports) {
         await page.waitForTimeout(1800)
         await page.locator("#methodology-knowledge-base").first().scrollIntoViewIfNeeded().catch(() => {})
         await page.waitForTimeout(1800)
+      }
+
+      if (routeName === "ecoscreen") {
+        // The screening-trace section is far down a chart-heavy page and depends on the
+        // candidate data fetch; wait for the network + the section to mount before reading.
+        await page.waitForLoadState("networkidle").catch(() => {})
+        await page.locator("#screening-trace").first().scrollIntoViewIfNeeded().catch(() => {})
+        await page.locator("#screening-trace-timeline").first().waitFor({ state: "attached", timeout: 20000 }).catch(() => {})
+        await page.getByText(/Screening Funnel|筛选漏斗/).first().waitFor({ state: "attached", timeout: 20000 }).catch(() => {})
+        await page.waitForTimeout(1200)
       }
 
       // Expand collapsible <details> sections (some default collapsed, e.g. on mobile)

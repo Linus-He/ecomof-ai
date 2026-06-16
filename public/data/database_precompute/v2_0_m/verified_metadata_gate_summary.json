@@ -1,0 +1,57 @@
+{
+  "version": "V2.0-M",
+  "checkedCandidates": 5,
+  "sourceConfirmedCount": 4,
+  "citationReadyCount": 0,
+  "verifiedMetadataCount": 0,
+  "quarantinedCount": 1,
+  "gateConditions": [
+    "sourceConfirmed",
+    "sourceUrlStatus=confirmed",
+    "licenseStatus=confirmed",
+    "citationStatus=confirmed",
+    "fixtureRecordMappingStatus=confirmed",
+    "ambiguityWarnings.length=0",
+    "verificationBlockers.length=0"
+  ],
+  "sourceUrlStatusCounts": {
+    "pending": 4,
+    "ambiguous": 1
+  },
+  "licenseStatusCounts": {
+    "pending": 5
+  },
+  "citationStatusCounts": {
+    "pending": 4,
+    "ambiguous": 1
+  },
+  "doiStatusCounts": {
+    "pending": 4,
+    "ambiguous": 1
+  },
+  "fixtureMappingStatusCounts": {
+    "ambiguous": 5
+  },
+  "blockerCounts": {
+    "sourceUrl pending": 4,
+    "license pending": 5,
+    "citation pending": 4,
+    "fixture record mapping ambiguous": 5,
+    "source not confirmed": 1,
+    "sourceUrl ambiguous": 1,
+    "citation ambiguous": 1
+  },
+  "blockingReasons": [
+    "license pending (5)",
+    "fixture record mapping ambiguous (5)",
+    "sourceUrl pending (4)",
+    "citation pending (4)",
+    "source not confirmed (1)",
+    "sourceUrl ambiguous (1)",
+    "citation ambiguous (1)"
+  ],
+  "verifiedMetadataReached": false,
+  "notFinalRecommendation": true,
+  "boundary": "Strict verified-metadata gate. source_confirmed / citation_ready / near_verified are not verified_metadata. Not full verified database screening and not a final recommendation.",
+  "boundaryZh": "严格 verified-metadata 门控。source_confirmed / citation_ready / near_verified 都不等于 verified_metadata。不是经完整验证的全量数据库筛选，也不是最终推荐。"
+}

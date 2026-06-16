@@ -1,6 +1,6 @@
 {
-  "runId": "precompute-dry-run-20260611035819",
-  "createdAt": "2026-06-11T03:58:19.829Z",
+  "runId": "precompute-dry-run-20260616134126",
+  "createdAt": "2026-06-16T13:41:26.762Z",
   "mode": "dry_run",
   "sampleSource": "v2_0_g_verified_sample",
   "notFinalRecommendation": true,
@@ -305,6 +305,22 @@
     "ambiguityWarningCount": 5,
     "verifiedMetadataEligibleCount": 0,
     "verifiedMetadataCount": 0
+  },
+  "verifiedMetadataGateSummary": {
+    "checkedCandidates": 5,
+    "sourceConfirmedCount": 4,
+    "verifiedMetadataCount": 0,
+    "quarantinedCount": 1,
+    "verifiedMetadataReached": false,
+    "blockingReasons": [
+      "license pending (5)",
+      "fixture record mapping ambiguous (5)",
+      "sourceUrl pending (4)",
+      "citation pending (4)",
+      "source not confirmed (1)",
+      "sourceUrl ambiguous (1)",
+      "citation ambiguous (1)"
+    ]
   },
   "metadataSourceCurationTransitionSummary": {
     "sourceConfirmedAfterManualCuration": 4,

@@ -37,6 +37,7 @@ const v2hRoot = path.join(repoRoot, "public", "data", "database_precompute", "v2
 const v2iRoot = path.join(repoRoot, "public", "data", "database_precompute", "v2_0_i")
 const v2kRoot = path.join(repoRoot, "public", "data", "database_precompute", "v2_0_k")
 const v2lRoot = path.join(repoRoot, "public", "data", "database_precompute", "v2_0_l")
+const v2mRoot = path.join(repoRoot, "public", "data", "database_precompute", "v2_0_m")
 
 // V2.0-F fallback fixtures: Top-N preview + a single selected index part. Not the full DB.
 const V2F_FIXTURE_FILES = [
@@ -289,6 +290,19 @@ export function runPrecomputeDryRun() {
     firstVerifiedCandidateReportSummary: firstVerifiedReport
       ? { reportStatus: firstVerifiedReport.reportStatus, ...firstVerifiedReport.summary }
       : null,
+    // V2.0-M strict verified metadata gate (read if present; verifiedMetadataCount honest).
+    verifiedMetadataGateSummary: (() => {
+      const g = readJson(path.join(v2mRoot, "verified_metadata_gate_summary.json"))
+      if (!g) return { fallbackReason: "V2.0-M gate summary not found; falling back to V2.0-L counts." }
+      return {
+        checkedCandidates: g.checkedCandidates,
+        sourceConfirmedCount: g.sourceConfirmedCount,
+        verifiedMetadataCount: g.verifiedMetadataCount,
+        quarantinedCount: g.quarantinedCount,
+        verifiedMetadataReached: g.verifiedMetadataReached,
+        blockingReasons: g.blockingReasons,
+      }
+    })(),
     metadataSourceCurationTransitionSummary: {
       sourceConfirmedAfterManualCuration: manualSourceCurationSummary?.sourceConfirmedCount ?? 0,
       citationReadyAfterManualCuration: manualSourceCurationSummary?.citationReadyCount ?? 0,

@@ -1,0 +1,69 @@
+{
+  "version": "V2.0-M",
+  "generatedAt": "2026-06",
+  "notFinalRecommendation": true,
+  "verifiedMetadataCount": 0,
+  "reportStatus": "no_verified_candidates_yet",
+  "verifiedCandidates": [],
+  "quarantinedCandidates": [
+    {
+      "candidateId": "COREMOF_000004",
+      "displayName": "MIL-101(Al) curated example database index preview",
+      "ambiguityWarnings": [
+        "MIL-101 was originally reported for Cr, not Al; the Al analogue is a distinct material and must not be assumed from the Cr framework.",
+        "Curated fixture record id cannot be mapped to an exact external source record offline."
+      ],
+      "verificationBlockers": [
+        "source not confirmed",
+        "sourceUrl ambiguous",
+        "license pending",
+        "citation ambiguous",
+        "fixture record mapping ambiguous"
+      ]
+    }
+  ],
+  "nearestToVerified": [
+    {
+      "candidateId": "COREMOF_000001",
+      "displayName": "MIL-53(Al) curated example database index preview",
+      "verificationBlockers": [
+        "sourceUrl pending",
+        "license pending",
+        "citation pending",
+        "fixture record mapping ambiguous"
+      ]
+    },
+    {
+      "candidateId": "COREMOF_000002",
+      "displayName": "CAU-10(Al) curated example database index preview",
+      "verificationBlockers": [
+        "sourceUrl pending",
+        "license pending",
+        "citation pending",
+        "fixture record mapping ambiguous"
+      ]
+    },
+    {
+      "candidateId": "COREMOF_000003",
+      "displayName": "MIL-100(Al) curated example database index preview",
+      "verificationBlockers": [
+        "sourceUrl pending",
+        "license pending",
+        "citation pending",
+        "fixture record mapping ambiguous"
+      ]
+    },
+    {
+      "candidateId": "COREMOF_000005",
+      "displayName": "DUT-4(Al) curated example database index preview",
+      "verificationBlockers": [
+        "sourceUrl pending",
+        "license pending",
+        "citation pending",
+        "fixture record mapping ambiguous"
+      ]
+    }
+  ],
+  "boundary": "Verified candidate report. Not a final recommendation and not full database screening.",
+  "boundaryZh": "经核验候选报告；不是最终推荐，也不是全量数据库筛选。"
+}

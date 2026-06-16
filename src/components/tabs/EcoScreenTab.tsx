@@ -18,6 +18,7 @@ import {
   GraphDescriptorPanel,
   OrganicAcidRelevancePanel,
 } from "../../shared"
+import { ScreeningTraceSection } from "../screening-trace/ScreeningTraceSection"
 import { MofRationaleCard } from "../catalysis/MofRationaleCard"
 import { ReactionFingerprintPanel } from "../catalysis/ReactionFingerprintPanel"
 import { useMofReactionProfile } from "../catalysis/reactionRationaleData"
@@ -507,7 +508,7 @@ function CandidateDetail({ candidate, lang, t, isMobile }) {
 
       <details open style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
         <summary style={{ color: t.textStrong, cursor: "pointer", fontSize: 12, fontWeight: 900 }}>
-          {text(lang, "该候选为何排序靠前？/ 排序解释", "Why this candidate ranks high?")}
+          {text(lang, "排序解释 / 决策追踪", "Ranking Explanation / Decision Trace")}
         </summary>
         <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, marginTop: 9 }}>
           {lang === "zh" ? candidate.whyHigh.zh : candidate.whyHigh.en}
@@ -1007,6 +1008,10 @@ export function EcoScreenTab({ onNavigate }) {
         <Card t={t}>
           <PerformanceSustainabilityQuadrant candidates={model.candidates} selectedId={selectedCandidate?.id} onSelect={setSelectedId} lang={lang} t={t} isMobile={isMobile} />
         </Card>
+      </ResultLayer>
+
+      <ResultLayer number="05" title={text(lang, "筛选过程追踪", "Screening Trace")} subtitle={lang === "zh" ? "每一步发生了什么、为什么剩下这些候选、为什么排名如此、哪些数据缺口阻断了 verified。" : "What happened at each step, why these candidates remain, why they rank this way, and which data gaps block verified."}>
+        <ScreeningTraceSection model={model} scenarioLabel={scoringMode} lang={lang} t={t} isMobile={isMobile} />
       </ResultLayer>
 
       <ResultLayer number="05" title={text(lang, "排名稳健性 / Ranking Robustness", "Ranking Robustness")} subtitle={lang === "zh" ? "CRITIC vs Equal Weight vs Expert Preset、Top-3 consistency、remove-one-candidate sensitivity test。" : "CRITIC vs Equal Weight vs Expert Preset, Top-3 consistency, and remove-one-candidate sensitivity."}>
