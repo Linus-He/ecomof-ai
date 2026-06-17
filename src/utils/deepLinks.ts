@@ -12,9 +12,21 @@ export const HASH_TO_TAB = {
   "catalysis-organic-acid-final-screening": "catalysis",
   "organic-acid-graph-explorer": "catalysis",
   library: "library",
+  "project-evolution": "projectEvolution",
+  "project-evolution-overview": "projectEvolution",
+  "project-evolution-version-timeline": "projectEvolution",
+  "project-evolution-release-notes": "projectEvolution",
+  "project-evolution-scientific": "projectEvolution",
+  "project-evolution-database": "projectEvolution",
+  "project-evolution-algorithm": "projectEvolution",
+  "project-evolution-validation": "projectEvolution",
+  "project-evolution-ui": "projectEvolution",
+  "project-evolution-milestones": "projectEvolution",
+  "project-evolution-roadmap": "projectEvolution",
   methodology: "about",
   "methodology-model-validation": "about",
   "methodology-evolution-timeline": "about",
+  "methodology-project-evolution-integration": "about",
   "methodology-model-feature-pipeline": "about",
   "methodology-feature-selection-explorer": "about",
   "methodology-model-comparison-dashboard": "about",
@@ -36,6 +48,7 @@ export const TAB_TO_HASH = {
   gassep: "gassep",
   catalysis: "catalysis",
   library: "library",
+  projectEvolution: "project-evolution",
   about: "methodology",
 }
 
@@ -84,13 +97,61 @@ export const HASH_META = {
     title: "MOF 候选库 | 描述符整理与来源追踪",
     description: "查看 MOF 描述符、整理状态、来源记录和数据质量与来源摘要。",
   },
+  "project-evolution": {
+    title: "Project Evolution | EcoMOF-AI",
+    description: "查看 EcoMOF-AI 的版本时间线、Release Notes、数据库成长、算法演化、验证体系、里程碑和路线图。",
+  },
+  "project-evolution-overview": {
+    title: "Project Evolution Overview | EcoMOF-AI",
+    description: "查看 EcoMOF-AI 当前版本、数据库规模、verified metadata、字段级溯源覆盖率和项目状态。",
+  },
+  "project-evolution-version-timeline": {
+    title: "Version Timeline | EcoMOF-AI",
+    description: "查看 EcoMOF-AI 的统一版本历史，这是版本时间线、Release Notes、Roadmap 和 Milestones 的唯一权威数据源。",
+  },
+  "project-evolution-release-notes": {
+    title: "Release Notes Center | EcoMOF-AI",
+    description: "按版本、模块、时间和分类查看 EcoMOF-AI 的更新记录。",
+  },
+  "project-evolution-scientific": {
+    title: "Scientific Evolution | EcoMOF-AI",
+    description: "查看 EcoMOF-AI 从 raw screening 到 verified metadata 和未来 experimental validation 的科学能力演化。",
+  },
+  "project-evolution-database": {
+    title: "Database Evolution | EcoMOF-AI",
+    description: "查看 EcoMOF-AI 数据库规模、verified metadata 和字段级溯源覆盖率的演化。",
+  },
+  "project-evolution-algorithm": {
+    title: "Algorithm Evolution | EcoMOF-AI",
+    description: "查看 EcoMOF-AI 从描述符评分、CRITIC、证据调整到模型验证框架的算法演化。",
+  },
+  "project-evolution-validation": {
+    title: "Validation Evolution | EcoMOF-AI",
+    description: "查看 source confirmed、citation ready、verified metadata、external validation 和 experimental validation 的边界。",
+  },
+  "project-evolution-ui": {
+    title: "UI Evolution | EcoMOF-AI",
+    description: "查看 EcoMOF-AI 主要工作区和导航结构的界面演化。",
+  },
+  "project-evolution-milestones": {
+    title: "Milestone Center | EcoMOF-AI",
+    description: "查看 EcoMOF-AI 的关键里程碑和对应版本。",
+  },
+  "project-evolution-roadmap": {
+    title: "Roadmap | EcoMOF-AI",
+    description: "查看 EcoMOF-AI V2.4 到 V3.0 的规划、目标和风险边界。",
+  },
   methodology: {
     title: "方法与证据 | EcoMOF-AI",
     description: "了解 EcoMOF-AI 的评分方法、证据等级、数据来源、基准语境、验证状态、引用边界和使用限制。",
   },
   "methodology-model-validation": {
     title: "Model Validation Lab | EcoMOF-AI",
-    description: "查看 V2.1 模型验证实验室、方法论演化时间线、特征选择、模型比较、置信度与字段级溯源。当前为 Database Preview，不是 Verified Screening。",
+    description: "查看模型验证实验室、Project Evolution 集成、特征选择、模型比较、置信度与字段级溯源。当前为 Database Preview，不是 Verified Screening。",
+  },
+  "methodology-project-evolution-integration": {
+    title: "Project Evolution Integration | EcoMOF-AI",
+    description: "查看 Model Validation Lab 中的 Project Evolution 集成卡片，以及当前版本、科学成熟度、数据库规模和 verified metadata 数量。",
   },
   "methodology-gassep": {
     title: "GasSep 方法 | EcoMOF-AI",

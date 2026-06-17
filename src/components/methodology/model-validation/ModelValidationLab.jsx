@@ -1,7 +1,8 @@
 // @ts-nocheck
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { BasisBadge, FieldProvenanceButton } from "../../ui"
 import { DataQualityAuditPanel } from "../../data-quality/DataQualityAuditPanel"
+import { fetchDataJson } from "../../../services/dataService"
 import { buildDataQualityAudit } from "../../../utils/dataQualityAudit"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
@@ -13,7 +14,7 @@ export const MODEL_VALIDATION_DIRECTORY = {
   level: 1,
   display: "Model Validation Lab",
   children: [
-    { id: "methodology-evolution-timeline", label: "Methodology Evolution Timeline", labelZh: "方法论版本演化" },
+    { id: "methodology-project-evolution-integration", label: "Project Evolution Integration", labelZh: "项目演化集成" },
     { id: "methodology-data-quality-model-readiness", label: "Data Quality -> Model Readiness", labelZh: "数据质量 -> 模型就绪度" },
     { id: "methodology-model-feature-pipeline", label: "Feature Engineering Pipeline", labelZh: "特征工程管线" },
     { id: "methodology-feature-selection-explorer", label: "Feature Selection Explorer", labelZh: "特征选择探索器" },
@@ -36,105 +37,6 @@ const FIELD_META = [
   { key: "evidenceLevel", label: "Evidence Level", labelZh: "证据等级", category: "Evidence" },
   { key: "sourceStatus", label: "Source Status", labelZh: "来源状态", category: "Metadata" },
   { key: "verifiedMetadataStatus", label: "Verified Metadata Status", labelZh: "已核验 metadata 状态", category: "Metadata" },
-]
-
-const VERSIONS = [
-  {
-    version: "V1.0",
-    date: "2026-04",
-    commit: "historical",
-    summary: "Initial transparent MOF screening prototype.",
-    summaryZh: "透明 MOF 筛选原型起点。",
-    scientificImpact: "Established descriptor-first decision support.",
-    uiImpact: "Module-level workflow pages.",
-    dataImpact: "Demo and seed records only.",
-    validationImpact: "Validation roadmap only.",
-    knownLimitations: "No verified metadata gate.",
-  },
-  {
-    version: "V1.5",
-    date: "2026-05",
-    commit: "historical",
-    summary: "Organic Acid methodology and evidence workbench matured.",
-    summaryZh: "有机酸方法论与证据工作台成型。",
-    scientificImpact: "Separated hypothesis, evidence, and validation needs.",
-    uiImpact: "Trace, evidence, and pathway panels.",
-    dataImpact: "Curated small real examples.",
-    validationImpact: "Manual validation roadmap.",
-    knownLimitations: "No medium database preview.",
-  },
-  {
-    version: "V2.0-K",
-    date: "2026-06-03",
-    commit: "v2_0_k",
-    summary: "Evidence Backfill and first verified candidate report framework.",
-    summaryZh: "证据回填与第一批 verified candidate report 框架。",
-    scientificImpact: "Made evidence gaps auditable.",
-    uiImpact: "Evidence backfill panel and report status.",
-    dataImpact: "Manual evidence records enriched.",
-    validationImpact: "verifiedMetadataCount stayed 0 under strict gate.",
-    knownLimitations: "No verified candidates yet.",
-  },
-  {
-    version: "V2.0-L",
-    date: "2026-06-04",
-    commit: "v2_0_l",
-    summary: "Manual Source Curation, Source Confirmed Workflow, Citation Ready Tracking.",
-    summaryZh: "人工来源核验、来源确认流程、Citation Ready 追踪。",
-    scientificImpact: "Separated source_confirmed and citation_ready from verified_metadata.",
-    uiImpact: "Manual curation progress and detail drawer evidence.",
-    dataImpact: "First source_confirmed / citation_ready candidates.",
-    validationImpact: "Ambiguity warnings still blocked verified metadata.",
-    knownLimitations: "Offline DOI/license remained pending.",
-  },
-  {
-    version: "V2.0-M",
-    date: "2026-06-16",
-    commit: "v2_0_m",
-    summary: "Metadata Verification Gate, Screening Trace, Candidate Dashboard, Readiness Matrix.",
-    summaryZh: "Metadata Verification Gate、筛选过程、候选决策面板、就绪度矩阵。",
-    scientificImpact: "Strictly separated preview from verified screening.",
-    uiImpact: "EcoScreen trace and dashboard added.",
-    dataImpact: "V2.0-M verification records stayed bounded.",
-    validationImpact: "source_confirmed / citation_ready / near_verified did not equal verified_metadata.",
-    knownLimitations: "Mobile-dark visual shell needed stabilization.",
-  },
-  {
-    version: "V2.1",
-    date: "2026-06-16",
-    commit: "cc02731",
-    summary: "Model Validation Lab, Feature Selection Explorer, Model Comparison Dashboard, Confidence Analysis.",
-    summaryZh: "模型验证实验室、特征选择探索器、模型比较面板、置信度分析。",
-    scientificImpact: "Introduces a validation framework before any real-label metric claims.",
-    uiImpact: "Independent Model Validation Lab workspace and methodology evolution timeline.",
-    dataImpact: "250-record Database Preview with field-level provenance.",
-    validationImpact: "Model comparison workflow is framework-ready; real-label metrics are withheld.",
-    knownLimitations: "No real experimental labels or external validation yet.",
-  },
-  {
-    version: "V2.2",
-    date: "2026-06-17",
-    commit: "pending-current",
-    summary: "Data Quality Audit, Verified Metadata Breakthrough, Scalable Database Preview.",
-    summaryZh: "数据质量审计、verified metadata 突破、可扩展 Database Preview。",
-    scientificImpact: "Adds field-level data quality gates before model claims.",
-    uiImpact: "Data Quality Audit panels and model readiness exports across EcoScreen, MOF Library, and Model Validation Lab.",
-    dataImpact: "1000-record scalable Database Preview with field-level provenance and synthetic fixture labeling.",
-    validationImpact: "verifiedMetadataCount can exceed zero only through strict source/license/citation/mapping and critical provenance gates; model metrics remain pending without labels.",
-    knownLimitations: "Priority Al candidates remain blocked offline; synthetic fixture rows are never verified metadata.",
-  },
-  {
-    version: "Future",
-    date: "planned",
-    commit: "planned",
-    summary: "External labels, external test set, and paper-grade validation.",
-    summaryZh: "真实标签、外部测试集与论文级验证。",
-    scientificImpact: "Can support real external validation once labels exist.",
-    uiImpact: "External validation report planned.",
-    dataImpact: "Full database requires source/license/DOI confirmation.",
-    validationImpact: "Real metrics only after verified labels.",
-    knownLimitations: "Not implemented.",
-  },
 ]
 
 const METHODS = [
@@ -186,46 +88,6 @@ function Card({ id, title, subtitle, children, t, actions }) {
       </header>
       {children}
     </section>
-  )
-}
-
-function MethodologyEvolutionTimeline({ lang, t }) {
-  const [active, setActive] = useState("V2.2")
-  const item = VERSIONS.find(row => row.version === active) || VERSIONS[0]
-  return (
-    <Card
-      id="methodology-evolution-timeline"
-      title={text(lang, "Methodology Evolution Timeline", "Methodology Evolution Timeline")}
-      subtitle={text(lang, "每一轮更新同步写入方法论演化：科学影响、UI 影响、数据影响、验证影响与已知限制。", "Every update is synchronized into methodology evolution: scientific, UI, data, validation impact, and known limitations.")}
-      t={t}
-    >
-      <div style={{ display: "flex", gap: 7, overflowX: "auto", paddingBottom: 2 }}>
-        {VERSIONS.map(row => (
-          <button key={row.version} type="button" onClick={() => setActive(row.version)} style={{ background: row.version === active ? t.badgeInfoBg : t.surface, border: `1px solid ${row.version === active ? t.accent : t.border}`, borderRadius: 8, color: row.version === active ? t.accentText : t.muted, cursor: "pointer", flex: "0 0 auto", fontSize: 11.5, fontWeight: 900, minHeight: 34, padding: "7px 10px" }}>
-            {row.version}
-          </button>
-        ))}
-      </div>
-      <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 8, padding: 11 }}>
-        <strong style={{ color: t.textStrong, fontSize: 15 }}>{item.version} · {item.date}</strong>
-        <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.5 }}>{text(lang, item.summaryZh, item.summary)}</span>
-        <div style={{ display: "grid", gap: 7, gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))" }}>
-          {[
-            ["Commit", item.commit],
-            ["Scientific Impact", item.scientificImpact],
-            ["UI Impact", item.uiImpact],
-            ["Data Impact", item.dataImpact],
-            ["Validation Impact", item.validationImpact],
-            ["Known Limitations", item.knownLimitations],
-          ].map(([label, value]) => (
-            <div key={label} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, minWidth: 0, padding: 8 }}>
-              <span style={{ color: t.faint, display: "block", fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
-              <span style={{ color: label === "Known Limitations" ? t.warn : t.textStrong, display: "block", fontSize: 11.4, lineHeight: 1.45, marginTop: 4 }}>{value}</span>
-            </div>
-          ))}
-        </div>
-      </article>
-    </Card>
   )
 }
 
@@ -408,6 +270,44 @@ function DataQualityModelReadiness({ records, audit, lang, t, isMobile }) {
   )
 }
 
+function ProjectEvolutionIntegrationCard({ evolution, summary, audit, lang, t, onNavigate, isMobile }) {
+  const overview = evolution?.overview || {}
+  const maturityRows = Array.isArray(evolution?.scientificEvolution) ? evolution.scientificEvolution : []
+  const maturity = maturityRows
+    .filter(row => row.version !== "Future")
+    .reduce((max, row) => Math.max(max, Number(row.maturity) || 0), 0)
+  const databaseSize = overview.databaseSize || summary?.totalCandidates || audit?.summary?.totalCandidates || 0
+  const verifiedMetadataCount = overview.verifiedMetadataCount ?? summary?.verifiedMetadataCount ?? audit?.summary?.verifiedMetadataCount ?? 0
+
+  return (
+    <Card
+      id="methodology-project-evolution-integration"
+      title={text(lang, "Project Evolution Integration", "Project Evolution Integration")}
+      subtitle={text(lang, "版本历史、Release Notes、Milestones 与 Roadmap 已从方法论中解耦，统一进入 Project Evolution Center。", "Version history, Release Notes, Milestones, and Roadmap are decoupled from methodology and centralized in Project Evolution Center.")}
+      t={t}
+      actions={
+        <button type="button" onClick={() => onNavigate?.("projectEvolution")} style={{ background: t.surface, border: `1px solid ${t.accent}`, borderRadius: 8, color: t.accentText, cursor: "pointer", fontSize: 12, fontWeight: 900, minHeight: 34, padding: "7px 10px" }}>
+          {text(lang, "View Evolution Center", "View Evolution Center")}
+        </button>
+      }
+    >
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
+        {[
+          ["Latest Version", evolution?.currentVersion || "V2.3"],
+          ["Scientific Maturity", `${maturity || "pending"}/100`],
+          ["Database Size", `${databaseSize} candidates`],
+          ["Verified Metadata Count", verifiedMetadataCount],
+        ].map(([label, value]) => (
+          <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 9 }}>
+            <span style={{ color: t.faint, display: "block", fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
+            <strong style={{ color: label === "Verified Metadata Count" ? t.warn : t.textStrong, display: "block", fontSize: 14, marginTop: 5 }}>{value}</strong>
+          </div>
+        ))}
+      </div>
+    </Card>
+  )
+}
+
 function ExplainabilityTrustMap({ records, lang, t }) {
   const [active, setActive] = useState("Evidence-CRITIC")
   const record = records[0] || {}
@@ -499,10 +399,19 @@ function ConfidenceAnalysisPanel({ records, lang, t }) {
   )
 }
 
-export function ModelValidationLab({ records = [], summary = null, lang, t, isMobile }) {
+export function ModelValidationLab({ records = [], summary = null, lang, t, isMobile, onNavigate }) {
   const rows = Array.isArray(records) && records.length ? records : []
   const audit = useMemo(() => buildDataQualityAudit(rows, { version: "V2.2-Scalable-Database-Preview" }), [rows])
+  const [evolution, setEvolution] = useState(null)
   const nav = MODEL_VALIDATION_DIRECTORY.children
+
+  useEffect(() => {
+    let active = true
+    fetchDataJson("version_evolution_records.json", null)
+      .then(payload => { if (active) setEvolution(payload) })
+      .catch(() => { if (active) setEvolution(null) })
+    return () => { active = false }
+  }, [])
   return (
     <section id="methodology-model-validation" data-testid="methodology-model-validation" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 14, minWidth: 0, padding: 15, scrollMarginTop: 118 }}>
       <header style={{ display: "grid", gap: 6 }}>
@@ -524,7 +433,7 @@ export function ModelValidationLab({ records = [], summary = null, lang, t, isMo
           {nav.map(item => <a key={item.id} href={`#${item.id}`} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.muted, flex: "0 0 auto", fontSize: 11.5, fontWeight: 850, padding: "8px 9px", textDecoration: "none" }}>{text(lang, item.labelZh, item.label)}</a>)}
         </nav>
         <div style={{ display: "grid", gap: 14, minWidth: 0 }}>
-          <MethodologyEvolutionTimeline lang={lang} t={t} />
+          <ProjectEvolutionIntegrationCard evolution={evolution} summary={summary} audit={audit} lang={lang} t={t} onNavigate={onNavigate} isMobile={isMobile} />
           <DataQualityModelReadiness records={rows} audit={audit} lang={lang} t={t} isMobile={isMobile} />
           <DataQualityAuditPanel records={rows} audit={audit} lang={lang} t={t} isMobile={isMobile} />
           <FeatureEngineeringPipeline records={rows} lang={lang} t={t} isMobile={isMobile} />

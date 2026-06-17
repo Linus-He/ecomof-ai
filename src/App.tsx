@@ -44,6 +44,7 @@ const ComparisonTab = lazyNamed(() => import("./components/tabs/ComparisonTab"),
 const ValidationTab = lazyNamed(() => import("./components/tabs/ValidationTab"), "ValidationTab")
 const ResourcesTab = lazyNamed(() => import("./components/tabs/ResourcesTab"), "ResourcesTab")
 const MethodsLimitationsTab = lazyNamed(() => import("./components/tabs/MethodsLimitationsTab"), "MethodsLimitationsTab")
+const ProjectEvolutionTab = lazyNamed(() => import("./components/tabs/ProjectEvolutionTab"), "ProjectEvolutionTab")
 
 function shouldPreloadRouteModules() {
   if (typeof navigator === "undefined") return true
@@ -69,6 +70,7 @@ function getInitialDeepLinkState() {
   const routeHash = hash === "default" ? "overview" : normalizeHash(hash)
   const pendingScrollTarget = (
     routeHash.startsWith("methodology-") ||
+    routeHash.startsWith("project-evolution-") ||
     ["data-quality-provenance", "validation-evidence", "benchmark-references", "graph-informed-descriptor-integration", "organic-acid-graph-explorer"].includes(routeHash)
   )
     ? routeHash
@@ -76,7 +78,7 @@ function getInitialDeepLinkState() {
 
   return {
     activeHash: hash,
-    activeTab: HASH_TO_TAB[routeHash] || (routeHash.startsWith("methodology-") ? "about" : "home"),
+    activeTab: HASH_TO_TAB[routeHash] || (routeHash.startsWith("methodology-") ? "about" : routeHash.startsWith("project-evolution-") ? "projectEvolution" : "home"),
     pendingScrollTarget,
   }
 }
@@ -435,6 +437,7 @@ function AppShell({
             )}
             {activeTab === "resources" && <ResourcesTab activeSub={resourcesTab} setActiveSub={setResourcesTab} results={results} inputs={inputs} />}
             {activeTab === "about" && <MethodsLimitationsTab onNavigate={navigateTab} />}
+            {activeTab === "projectEvolution" && <ProjectEvolutionTab onNavigate={navigateTab} />}
           </div>
         </Suspense>
       </main>
@@ -616,7 +619,7 @@ export default function App() {
     const explicitHash = String(rawHash || "").replace(/^#/, "").trim()
     const hash = explicitHash || "default"
     const routeHash = hash === "default" ? "overview" : normalizeHash(hash)
-    const tab = HASH_TO_TAB[routeHash] || (routeHash.startsWith("methodology-") ? "about" : null)
+    const tab = HASH_TO_TAB[routeHash] || (routeHash.startsWith("methodology-") ? "about" : routeHash.startsWith("project-evolution-") ? "projectEvolution" : null)
 
     setActiveHash(hash)
     setContactOpen(routeHash === "contact")
@@ -641,6 +644,9 @@ export default function App() {
         setPendingScrollTarget("organic-acid-graph-explorer")
       }
       if (routeHash.startsWith("methodology-")) {
+        setPendingScrollTarget(routeHash)
+      }
+      if (routeHash.startsWith("project-evolution-")) {
         setPendingScrollTarget(routeHash)
       }
     }
@@ -739,6 +745,19 @@ export default function App() {
 
   useEffect(() => {
     if (!pendingScrollTarget || activeTab !== "about") return
+    const scroll = () => {
+      const target = document.getElementById(pendingScrollTarget)
+      if (target) {
+        target.scrollIntoView({ block: "start", behavior: "smooth" })
+        setPendingScrollTarget(null)
+      }
+    }
+    const frame = window.requestAnimationFrame(() => window.setTimeout(scroll, 80))
+    return () => window.cancelAnimationFrame(frame)
+  }, [activeTab, pendingScrollTarget])
+
+  useEffect(() => {
+    if (!pendingScrollTarget || activeTab !== "projectEvolution") return
     const scroll = () => {
       const target = document.getElementById(pendingScrollTarget)
       if (target) {
@@ -881,6 +900,10 @@ export default function App() {
     }
     if (target === "methodology" || target === "about" || target === "validation") {
       go("methodology")
+      return
+    }
+    if (target === "projectEvolution" || target === "project-evolution") {
+      go("project-evolution")
       return
     }
     if (["feasibility", "lca", "sensitivity", "comparison"].includes(target)) {

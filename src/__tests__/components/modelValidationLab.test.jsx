@@ -29,7 +29,7 @@ describe("ModelValidationLab", () => {
 
     expect(screen.getByTestId("methodology-model-validation")).toHaveAttribute("id", "methodology-model-validation")
     for (const id of [
-      "methodology-evolution-timeline",
+      "methodology-project-evolution-integration",
       "methodology-data-quality-model-readiness",
       "data-quality-audit-panel",
       "methodology-model-feature-pipeline",
@@ -51,6 +51,9 @@ describe("ModelValidationLab", () => {
     expect(bodyText()).toMatch(/Validation Pending/i)
     expect(bodyText()).toMatch(/1000 candidates/i)
     expect(bodyText()).toMatch(/Verified Metadata Count 30/i)
+    expect(bodyText()).toMatch(/Project Evolution Integration/i)
+    expect(bodyText()).toMatch(/View Evolution Center/i)
+    expect(bodyText()).not.toMatch(/Methodology Evolution Timeline/i)
   })
 
   it("exposes only pending model metrics without real labels", () => {

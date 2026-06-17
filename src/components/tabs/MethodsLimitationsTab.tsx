@@ -9,23 +9,20 @@ import {
   SCIENTIFIC_TOKEN_FONT,
   chemText,
   fetchDataJson,
+  toolbarBtn,
   useLang,
   useT,
   useViewport,
 } from "../../shared"
 import { MethodologySidebar } from "../methodology/MethodologySidebar"
-import { KnowledgeBaseSkeleton, MethodologySectionSkeleton } from "../methodology/MethodologySkeleton"
+import { MethodologySectionSkeleton } from "../methodology/MethodologySkeleton"
 import { MethodFormulaCard } from "../methodology/MethodFormulaCard"
 import { MethodModuleSection } from "../methodology/MethodModuleSection"
 import { ModelValidationLab, MODEL_VALIDATION_DIRECTORY } from "../methodology/model-validation/ModelValidationLab"
 import { ORGANIC_ACID_FINAL_DIRECTORY } from "../methodology/organic-acid-final/directory"
-import { VERSION_DOCS_DIRECTORY } from "../methodology/version-docs/directory"
 
 const OrganicAcidFinalMethodology = lazy(() =>
   import("../methodology/OrganicAcidFinalMethodology").then(module => ({ default: module.OrganicAcidFinalMethodology })),
-)
-const VersionDocsPanel = lazy(() =>
-  import("../methodology/version-docs/VersionDocsPanel").then(module => ({ default: module.VersionDocsPanel })),
 )
 
 const MODULE_ORDER = [
@@ -267,7 +264,23 @@ function CatalysisEnergyPlaygroundMethod({ lang, t, isMobile }) {
   )
 }
 
-export function MethodsLimitationsTab() {
+function ProjectEvolutionShortcutCard({ lang, t, onNavigate }) {
+  return (
+    <section id="methodology-project-evolution-shortcut" data-testid="methodology-project-evolution-shortcut" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "space-between", padding: 12, scrollMarginTop: 118 }}>
+      <div style={{ display: "grid", gap: 5, minWidth: 0 }}>
+        <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "查看项目演化历史", "View project evolution history")}</strong>
+        <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.5 }}>
+          {text(lang, "版本时间线、Release Notes、Milestones 与 Roadmap 已移至独立一级入口 Project Evolution。", "Version timeline, Release Notes, Milestones, and Roadmap now live in the first-level Project Evolution entry.")}
+        </span>
+      </div>
+      <button type="button" onClick={() => onNavigate?.("projectEvolution")} style={{ ...toolbarBtn(t), color: t.accentText, borderColor: t.accent, justifyContent: "center" }}>
+        {text(lang, "进入 Project Evolution", "Enter Project Evolution")}
+      </button>
+    </section>
+  )
+}
+
+export function MethodsLimitationsTab({ onNavigate } = {}) {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
@@ -315,14 +328,6 @@ export function MethodsLimitationsTab() {
         display: text(lang, child.labelZh, child.label),
       })),
     }
-    const versionItem = {
-      ...VERSION_DOCS_DIRECTORY,
-      display: text(lang, VERSION_DOCS_DIRECTORY.labelZh, VERSION_DOCS_DIRECTORY.label),
-      children: (VERSION_DOCS_DIRECTORY.children || []).map(child => ({
-        ...child,
-        display: text(lang, child.labelZh, child.label),
-      })),
-    }
     const modelValidationItem = {
       ...MODEL_VALIDATION_DIRECTORY,
       display: text(lang, MODEL_VALIDATION_DIRECTORY.labelZh, MODEL_VALIDATION_DIRECTORY.label),
@@ -337,11 +342,10 @@ export function MethodsLimitationsTab() {
       return [
         ...itemsWithModelValidation.slice(0, adjustedInsertIndex + 1),
         finalItem,
-        versionItem,
         ...itemsWithModelValidation.slice(adjustedInsertIndex + 1),
       ]
     }
-    return [...itemsWithModelValidation, finalItem, versionItem]
+    return [...itemsWithModelValidation, finalItem]
   }, [orderedModules, lang])
 
   useEffect(() => {
@@ -402,9 +406,11 @@ export function MethodsLimitationsTab() {
         />
 
         <main style={{ display: "grid", gap: 16, minWidth: 0 }}>
+          <ProjectEvolutionShortcutCard lang={lang} t={t} onNavigate={onNavigate} />
           <ModelValidationLab
             records={modelValidationRecords}
             summary={modelValidationSummary}
+            onNavigate={onNavigate}
             lang={lang}
             t={t}
             isMobile={isMobile || isNarrow}
@@ -448,13 +454,6 @@ export function MethodsLimitationsTab() {
             if (item.id === "organic-acid") {
               return [
                 moduleBlock,
-                <LazyMethodologyGate
-                  key="methodology-version-docs-panel"
-                  ids={[VERSION_DOCS_DIRECTORY.id, "methodology-version-docs", ...VERSION_DOCS_DIRECTORY.children.map(child => child.id)]}
-                  fallback={<KnowledgeBaseSkeleton lang={lang} t={t} />}
-                >
-                  <VersionDocsPanel lang={lang} t={t} isMobile={isMobile || isNarrow} />
-                </LazyMethodologyGate>,
               ]
             }
             return moduleBlock
