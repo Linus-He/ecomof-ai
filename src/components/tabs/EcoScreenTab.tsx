@@ -22,6 +22,7 @@ import { ScreeningTraceSection } from "../screening-trace/ScreeningTraceSection"
 import { MofRationaleCard } from "../catalysis/MofRationaleCard"
 import { ReactionFingerprintPanel } from "../catalysis/ReactionFingerprintPanel"
 import { useMofReactionProfile } from "../catalysis/reactionRationaleData"
+import { DataQualityAuditPanel } from "../data-quality/DataQualityAuditPanel"
 
 const clamp01 = value => Math.max(0, Math.min(1, Number(value) || 0))
 const pct = value => `${Math.round(clamp01(value) * 100)}%`
@@ -881,6 +882,8 @@ export function EcoScreenTab({ onNavigate }) {
           ? `当前全局候选数据源：Open MOF Seed · 已加载记录：${generalRows.length} 条 · 已接入模块：MOF Library / EcoScreen / Organic Acid Project。`
           : `Current global candidate source: Open MOF Seed · Records loaded: ${generalRows.length} · Used by: MOF Library / EcoScreen / Organic Acid Project.`}
       </Callout>
+
+      <DataQualityAuditPanel records={generalRows} lang={lang} t={t} isMobile={isMobile} />
 
       <Card t={t} style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
         <div style={{ minWidth: 0 }}>

@@ -280,8 +280,8 @@ export function MethodsLimitationsTab() {
     let active = true
     Promise.all([
       fetchDataJson("methodology_modules_demo.json", []),
-      fetchDataJson("database_precompute/v2_1/medium_database_preview_records.json", []),
-      fetchDataJson("database_precompute/v2_1/medium_database_preview_summary.json", null),
+      fetchDataJson("database_precompute/v2_2/scalable_database_preview_records.json", []),
+      fetchDataJson("database_precompute/v2_2/scalable_database_preview_summary.json", null),
     ])
       .then(([rows, previewRecords, previewSummary]) => {
         if (!active) return

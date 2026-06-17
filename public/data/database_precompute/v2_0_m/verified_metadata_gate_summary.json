@@ -11,6 +11,8 @@
     "licenseStatus=confirmed",
     "citationStatus=confirmed",
     "fixtureRecordMappingStatus=confirmed",
+    "fieldLevelCriticalProvenanceComplete=true",
+    "syntheticFixture=false",
     "ambiguityWarnings.length=0",
     "verificationBlockers.length=0"
   ],
@@ -41,6 +43,8 @@
     "sourceUrl ambiguous": 1,
     "citation ambiguous": 1
   },
+  "fieldLevelCriticalProvenanceCondition": "fieldLevelCriticalProvenanceComplete=true",
+  "syntheticFixtureCondition": "synthetic fixtures cannot be verified metadata",
   "blockingReasons": [
     "license pending (5)",
     "fixture record mapping ambiguous (5)",

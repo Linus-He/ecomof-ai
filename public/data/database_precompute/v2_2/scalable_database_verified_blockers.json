@@ -1,0 +1,120 @@
+{
+  "version": "V2.2-Scalable-Database-Preview",
+  "totalCandidates": 1000,
+  "verifiedMetadataCount": 30,
+  "blockerCounts": {
+    "critical field provenance incomplete": 970,
+    "fixture record mapping synthetic_fixture": 950,
+    "synthetic fixture": 950,
+    "synthetic fixture topology must not enter ranking recommendation without manual review": 42,
+    "field topology ambiguous": 11
+  },
+  "priorityCandidateStatus": [
+    {
+      "displayName": "MIL-53(Al)",
+      "sourceConfirmed": true,
+      "verifiedMetadata": false,
+      "remainingBlockers": [
+        "sourceUrl pending",
+        "license pending",
+        "fixture record mapping ambiguous",
+        "fieldLevelCriticalProvenanceComplete false"
+      ],
+      "neededManualActions": [
+        "Attach exact source URL",
+        "Confirm license",
+        "Map fixture record to exact database row",
+        "Clear field-level ambiguity warnings"
+      ]
+    },
+    {
+      "displayName": "CAU-10(Al)",
+      "sourceConfirmed": true,
+      "verifiedMetadata": false,
+      "remainingBlockers": [
+        "sourceUrl pending",
+        "license pending",
+        "fixture record mapping ambiguous",
+        "fieldLevelCriticalProvenanceComplete false"
+      ],
+      "neededManualActions": [
+        "Attach exact source URL",
+        "Confirm license",
+        "Map fixture record to exact database row",
+        "Confirm critical descriptor provenance"
+      ]
+    },
+    {
+      "displayName": "MIL-100(Al)",
+      "sourceConfirmed": true,
+      "verifiedMetadata": false,
+      "remainingBlockers": [
+        "sourceUrl pending",
+        "license pending",
+        "fixture record mapping ambiguous",
+        "fieldLevelCriticalProvenanceComplete false"
+      ],
+      "neededManualActions": [
+        "Attach exact source URL",
+        "Confirm license",
+        "Map fixture record to exact database row",
+        "Confirm critical descriptor provenance"
+      ]
+    },
+    {
+      "displayName": "DUT-4(Al)",
+      "sourceConfirmed": true,
+      "verifiedMetadata": false,
+      "remainingBlockers": [
+        "sourceUrl pending",
+        "license pending",
+        "fixture record mapping ambiguous",
+        "fieldLevelCriticalProvenanceComplete false"
+      ],
+      "neededManualActions": [
+        "Attach exact source URL",
+        "Confirm license",
+        "Map fixture record to exact database row",
+        "Confirm critical descriptor provenance"
+      ]
+    },
+    {
+      "displayName": "MIL-101(Al)",
+      "sourceConfirmed": false,
+      "verifiedMetadata": false,
+      "quarantined": true,
+      "remainingBlockers": [
+        "fixture mapping ambiguous",
+        "name ambiguity warning",
+        "sourceUrl pending",
+        "license pending"
+      ],
+      "neededManualActions": [
+        "Resolve MIL-101 metal-node ambiguity",
+        "Attach exact source URL",
+        "Confirm license before re-entering ranking"
+      ]
+    }
+  ],
+  "priorityWhyStillZero": "MIL-53(Al), CAU-10(Al), MIL-100(Al), DUT-4(Al), and MIL-101(Al) still lack enough offline sourceUrl/license/exact mapping evidence in the repository; MIL-101(Al) remains ambiguity quarantine.",
+  "remainingBlockers": [
+    "sourceUrl pending",
+    "license pending",
+    "fixture record mapping ambiguous",
+    "fieldLevelCriticalProvenanceComplete false",
+    "fixture mapping ambiguous",
+    "name ambiguity warning"
+  ],
+  "neededManualActions": [
+    "Attach exact source URL",
+    "Confirm license",
+    "Map fixture record to exact database row",
+    "Clear field-level ambiguity warnings",
+    "Confirm critical descriptor provenance",
+    "Resolve MIL-101 metal-node ambiguity",
+    "Confirm license before re-entering ranking"
+  ],
+  "candidateClosestToVerified": "MIL-53(Al)",
+  "syntheticFixturePolicy": "Synthetic fixture rows are explicit and always blocked from verified metadata.",
+  "notFinalRecommendation": true
+}

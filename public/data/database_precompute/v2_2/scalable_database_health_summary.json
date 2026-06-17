@@ -1,0 +1,15 @@
+{
+  "databaseVersion": "V2.2-Scalable-Database-Preview",
+  "generatedAt": "2026-06-17T00:00:00.000Z",
+  "candidateCount": 1000,
+  "healthScore": 0.6622272727272767,
+  "healthStatus": "limited_preview",
+  "descriptorCoverage": 0.8129090909091071,
+  "provenanceCoverage": 1,
+  "verifiedMetadataCount": 30,
+  "sourceConfirmedCount": 1000,
+  "highRiskRecordCount": 970,
+  "notFinalRecommendation": true,
+  "previewLabel": "Database Preview",
+  "notFinalRecommendationLabel": "Not Final Recommendation"
+}

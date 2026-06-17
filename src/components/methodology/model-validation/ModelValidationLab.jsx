@@ -1,6 +1,8 @@
 // @ts-nocheck
 import { useMemo, useState } from "react"
 import { BasisBadge, FieldProvenanceButton } from "../../ui"
+import { DataQualityAuditPanel } from "../../data-quality/DataQualityAuditPanel"
+import { buildDataQualityAudit } from "../../../utils/dataQualityAudit"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -12,6 +14,7 @@ export const MODEL_VALIDATION_DIRECTORY = {
   display: "Model Validation Lab",
   children: [
     { id: "methodology-evolution-timeline", label: "Methodology Evolution Timeline", labelZh: "方法论版本演化" },
+    { id: "methodology-data-quality-model-readiness", label: "Data Quality -> Model Readiness", labelZh: "数据质量 -> 模型就绪度" },
     { id: "methodology-model-feature-pipeline", label: "Feature Engineering Pipeline", labelZh: "特征工程管线" },
     { id: "methodology-feature-selection-explorer", label: "Feature Selection Explorer", labelZh: "特征选择探索器" },
     { id: "methodology-model-comparison-dashboard", label: "Model Comparison Dashboard", labelZh: "模型比较面板" },
@@ -99,7 +102,7 @@ const VERSIONS = [
   {
     version: "V2.1",
     date: "2026-06-16",
-    commit: "pending-current",
+    commit: "cc02731",
     summary: "Model Validation Lab, Feature Selection Explorer, Model Comparison Dashboard, Confidence Analysis.",
     summaryZh: "模型验证实验室、特征选择探索器、模型比较面板、置信度分析。",
     scientificImpact: "Introduces a validation framework before any real-label metric claims.",
@@ -107,6 +110,18 @@ const VERSIONS = [
     dataImpact: "250-record Database Preview with field-level provenance.",
     validationImpact: "Model comparison workflow is framework-ready; real-label metrics are withheld.",
     knownLimitations: "No real experimental labels or external validation yet.",
+  },
+  {
+    version: "V2.2",
+    date: "2026-06-17",
+    commit: "pending-current",
+    summary: "Data Quality Audit, Verified Metadata Breakthrough, Scalable Database Preview.",
+    summaryZh: "数据质量审计、verified metadata 突破、可扩展 Database Preview。",
+    scientificImpact: "Adds field-level data quality gates before model claims.",
+    uiImpact: "Data Quality Audit panels and model readiness exports across EcoScreen, MOF Library, and Model Validation Lab.",
+    dataImpact: "1000-record scalable Database Preview with field-level provenance and synthetic fixture labeling.",
+    validationImpact: "verifiedMetadataCount can exceed zero only through strict source/license/citation/mapping and critical provenance gates; model metrics remain pending without labels.",
+    knownLimitations: "Priority Al candidates remain blocked offline; synthetic fixture rows are never verified metadata.",
   },
   {
     version: "Future",
@@ -175,7 +190,7 @@ function Card({ id, title, subtitle, children, t, actions }) {
 }
 
 function MethodologyEvolutionTimeline({ lang, t }) {
-  const [active, setActive] = useState("V2.1")
+  const [active, setActive] = useState("V2.2")
   const item = VERSIONS.find(row => row.version === active) || VERSIONS[0]
   return (
     <Card
@@ -324,6 +339,19 @@ function ModelComparisonDashboard({ lang, t }) {
         <BasisBadge tone="proxy">Demo Only</BasisBadge>
         <BasisBadge tone="info">Framework Ready</BasisBadge>
       </div>
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))" }}>
+        {[
+          ["Accuracy", "pending"],
+          ["ROC-AUC", "pending"],
+          ["F1", "pending"],
+          ["External Test", "pending"],
+        ].map(([label, value]) => (
+          <div key={label} style={{ background: t.badgeWarnBg || t.surface, border: `1px solid ${t.warn || t.border}`, borderRadius: 8, padding: 9 }}>
+            <span style={{ color: t.faint, display: "block", fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
+            <strong style={{ color: t.warn || t.textStrong, display: "block", fontSize: 14, marginTop: 5 }}>{label}: {value}</strong>
+          </div>
+        ))}
+      </div>
       <div style={{ overflowX: "auto" }}>
         <table style={{ borderCollapse: "separate", borderSpacing: "0 7px", minWidth: 860, width: "100%" }}>
           <thead><tr style={{ color: t.faint, fontSize: 10, textAlign: "left", textTransform: "uppercase" }}><th>Model</th><th>Status</th><th>Validation</th>{columns.map(col => <th key={col}>{col}</th>)}</tr></thead>
@@ -335,6 +363,46 @@ function ModelComparisonDashboard({ lang, t }) {
             ))}
           </tbody>
         </table>
+      </div>
+    </Card>
+  )
+}
+
+function DataQualityModelReadiness({ records, audit, lang, t, isMobile }) {
+  const summary = audit?.summary || {}
+  const rows = [
+    ["Data Quality -> Model Readiness", "Field quality scores and blocker counts decide whether a record can support model input claims.", "字段质量分和 blocker 决定记录是否能支撑模型输入声明。"],
+    ["Field Coverage -> Feature Reliability", `Feature coverage ${Math.round((summary.descriptorCoverage || 0) * 100)}%.`, `特征覆盖率 ${Math.round((summary.descriptorCoverage || 0) * 100)}%。`],
+    ["Provenance Completeness -> Confidence", `Provenance completeness ${Math.round((summary.provenanceCoverage || 0) * 100)}%.`, `来源完整度 ${Math.round((summary.provenanceCoverage || 0) * 100)}%。`],
+    ["Verified Blockers -> Validation Limitations", `${summary.highRiskRecordCount || 0} high-risk records and ${summary.missingFieldCount || 0} missing field cells remain visible.`, `${summary.highRiskRecordCount || 0} 条高风险记录与 ${summary.missingFieldCount || 0} 个缺失字段单元仍可见。`],
+  ]
+  return (
+    <Card
+      id="methodology-data-quality-model-readiness"
+      title={text(lang, "Data Quality -> Model Readiness", "Data Quality -> Model Readiness")}
+      subtitle={text(lang, "把 field coverage、provenance completeness 和 verified blockers 映射成模型输入可靠性；没有真实标签时，模型性能指标保持 pending。", "Maps field coverage, provenance completeness, and verified blockers into model input reliability; without real labels, model performance metrics stay pending.")}
+      t={t}
+    >
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))" }}>
+        {[
+          ["Feature coverage", `${Math.round((summary.descriptorCoverage || 0) * 100)}%`],
+          ["Data readiness", `${Math.round((summary.provenanceCoverage || 0) * 100)}%`],
+          ["Validation readiness", `${summary.verifiedMetadataCount || 0} verified metadata`],
+          ["Model input reliability", `${Math.round((summary.recordQualityScore || 0) * 100)}%`],
+        ].map(([label, value]) => (
+          <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 9 }}>
+            <span style={{ color: t.faint, display: "block", fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
+            <strong style={{ color: label === "Validation readiness" ? t.warn : t.textStrong, display: "block", fontSize: 14, marginTop: 5 }}>{value}</strong>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
+        {rows.map(([label, bodyEn, bodyZh]) => (
+          <article key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 5, padding: 9 }}>
+            <strong style={{ color: t.textStrong, fontSize: 12 }}>{label}</strong>
+            <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>{text(lang, bodyZh, bodyEn)}</span>
+          </article>
+        ))}
       </div>
     </Card>
   )
@@ -374,9 +442,9 @@ function ExplainabilityTrustMap({ records, lang, t }) {
   )
 }
 
-function ValidationWorkflowWorkbench({ lang, t }) {
+function ValidationWorkflowWorkbench({ records = [], lang, t }) {
   const rows = [
-    ["Raw Dataset", "Implemented", "250-record Database Preview loaded with field provenance."],
+    ["Raw Dataset", "Implemented", `${records.length || 1000}-record Database Preview loaded with field provenance.`],
     ["Feature Selection", "Implemented", "Frequency and confidence explorer is available."],
     ["Cross Validation", "Planned", "Requires stable target labels before execution."],
     ["Model Comparison", "Framework Ready", "Capability matrix is present without formal metrics."],
@@ -433,6 +501,7 @@ function ConfidenceAnalysisPanel({ records, lang, t }) {
 
 export function ModelValidationLab({ records = [], summary = null, lang, t, isMobile }) {
   const rows = Array.isArray(records) && records.length ? records : []
+  const audit = useMemo(() => buildDataQualityAudit(rows, { version: "V2.2-Scalable-Database-Preview" }), [rows])
   const nav = MODEL_VALIDATION_DIRECTORY.children
   return (
     <section id="methodology-model-validation" data-testid="methodology-model-validation" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 14, minWidth: 0, padding: 15, scrollMarginTop: 118 }}>
@@ -447,6 +516,7 @@ export function ModelValidationLab({ records = [], summary = null, lang, t, isMo
           <BasisBadge tone="warn">Not Final Recommendation</BasisBadge>
           <BasisBadge tone="warn">Validation Pending</BasisBadge>
           <BasisBadge tone="info">{rows.length || summary?.totalCandidates || 0} candidates</BasisBadge>
+          <BasisBadge tone="calc">Verified Metadata Count {summary?.verifiedMetadataCount ?? audit.summary?.verifiedMetadataCount ?? 0}</BasisBadge>
         </div>
       </header>
       <div style={{ display: "grid", gap: 14, gridTemplateColumns: isMobile ? "1fr" : "190px minmax(0, 1fr)", alignItems: "start" }}>
@@ -455,11 +525,13 @@ export function ModelValidationLab({ records = [], summary = null, lang, t, isMo
         </nav>
         <div style={{ display: "grid", gap: 14, minWidth: 0 }}>
           <MethodologyEvolutionTimeline lang={lang} t={t} />
+          <DataQualityModelReadiness records={rows} audit={audit} lang={lang} t={t} isMobile={isMobile} />
+          <DataQualityAuditPanel records={rows} audit={audit} lang={lang} t={t} isMobile={isMobile} />
           <FeatureEngineeringPipeline records={rows} lang={lang} t={t} isMobile={isMobile} />
           <FeatureSelectionExplorer records={rows} lang={lang} t={t} />
           <ModelComparisonDashboard lang={lang} t={t} />
           <ExplainabilityTrustMap records={rows} lang={lang} t={t} />
-          <ValidationWorkflowWorkbench lang={lang} t={t} />
+          <ValidationWorkflowWorkbench records={rows} lang={lang} t={t} />
           <ConfidenceAnalysisPanel records={rows} lang={lang} t={t} />
         </div>
       </div>

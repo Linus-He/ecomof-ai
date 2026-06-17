@@ -2,8 +2,8 @@
 import { describe, expect, it } from "vitest"
 import { fireEvent, render, screen } from "@testing-library/react"
 import { THEME_LIGHT } from "../../constants/theme"
-import records from "../../../public/data/database_precompute/v2_1/medium_database_preview_records.json"
-import summary from "../../../public/data/database_precompute/v2_1/medium_database_preview_summary.json"
+import records from "../../../public/data/database_precompute/v2_2/scalable_database_preview_records.json"
+import summary from "../../../public/data/database_precompute/v2_2/scalable_database_preview_summary.json"
 import { ModelValidationLab } from "../../components/methodology/model-validation/ModelValidationLab"
 
 function renderLab() {
@@ -19,11 +19,11 @@ describe("MethodologyEvolutionTimeline", () => {
     renderLab()
 
     expect(screen.getByTestId("methodology-evolution-timeline")).toBeInTheDocument()
-    for (const label of ["V1.0", "V1.5", "V2.0-K", "V2.0-L", "V2.0-M", "V2.1", "Future"]) {
+    for (const label of ["V1.0", "V1.5", "V2.0-K", "V2.0-L", "V2.0-M", "V2.1", "V2.2", "Future"]) {
       expect(screen.getByRole("button", { name: label })).toBeInTheDocument()
     }
-    expect(bodyText()).toMatch(/Model Validation Lab, Feature Selection Explorer, Model Comparison Dashboard, Confidence Analysis/i)
-    expect(bodyText()).toMatch(/250-record Database Preview with field-level provenance/i)
+    expect(bodyText()).toMatch(/Data Quality Audit, Verified Metadata Breakthrough, Scalable Database Preview/i)
+    expect(bodyText()).toMatch(/1000-record scalable Database Preview with field-level provenance/i)
   })
 
   it("updates detail content when another version is selected", () => {

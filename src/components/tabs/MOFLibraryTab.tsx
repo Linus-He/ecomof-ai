@@ -20,6 +20,7 @@ import { MofRationaleCard } from "../catalysis/MofRationaleCard"
 import { ReactionFingerprintPanel } from "../catalysis/ReactionFingerprintPanel"
 import { ReactionReadinessTags } from "../catalysis/ReactionReadinessTags"
 import { useMofReactionProfile } from "../catalysis/reactionRationaleData"
+import { DataQualityAuditPanel } from "../data-quality/DataQualityAuditPanel"
 
 const DATA_MODE = "open-mof-seed"
 const PAGE_SIZE = 24
@@ -230,7 +231,7 @@ function normalizeOpenMofRecord(item) {
       reason: "Name curation status pending.",
     },
     dataMode: DATA_MODE,
-    dataStatus: "open-mof-seed",
+    dataStatus: item.dataStatus || "open-mof-seed",
     sourceDatabase,
     sourceRecordId,
     sourceVersion,
@@ -270,7 +271,7 @@ function normalizeOpenMofRecord(item) {
     },
   }
 
-  normalized.fieldSources = {
+  const fallbackFieldSources = {
     surfaceArea: makeFieldSource(normalized, "surfaceArea", surfaceArea, normalizeUnitLabel("m2/g")),
     poreSizeA: makeFieldSource(normalized, "poreSizeA", poreSizeA, normalizeUnitLabel("A")),
     pldA: makeFieldSource(normalized, "pldA", pldA, normalizeUnitLabel("A")),
@@ -281,6 +282,7 @@ function normalizeOpenMofRecord(item) {
     bandGap: makeFieldSource(normalized, "bandGap", bandGap, "eV"),
     co2Uptake: makeFieldSource(normalized, "co2Uptake", co2Uptake, ""),
   }
+  normalized.fieldSources = { ...fallbackFieldSources, ...(item.fieldSources || {}) }
 
   return normalized
 }
@@ -861,6 +863,7 @@ export function MOFLibraryTab() {
       {status === "empty" && <Callout tone="warn">{text(lang, "当前 Open MOF Seed 文件暂无记录。", "The current Open MOF Seed file has no records.")}</Callout>}
 
       <OpenMofSeedQualitySummary records={rows} lang={lang} t={t} isMobile={isMobile} />
+      <DataQualityAuditPanel records={rows} lang={lang} t={t} isMobile={isMobile} />
       <NameCurationQueue records={rows} lang={lang} t={t} isMobile={isMobile} />
 
       <OpenMofSeedFilters

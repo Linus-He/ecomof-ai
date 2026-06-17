@@ -31,6 +31,7 @@ const DATA_PATHS = {
   gasAdsorptionFieldSourcesV1: "data/gas_adsorption_field_sources_v1.json",
   gasAdsorptionSchemaV1: "data/gas_adsorption_schema_v1.json",
   gasAdsorptionRecordsDemo: "data/gas_adsorption_records_demo.json",
+  scalableDatabasePreviewV22: "data/database_precompute/v2_2/scalable_database_preview_records.json",
   mediumDatabasePreviewV21: "data/database_precompute/v2_1/medium_database_preview_records.json",
 }
 
@@ -74,6 +75,8 @@ export async function getMofCandidates({ mode = DEFAULT_CANDIDATE_DATA_MODE, thr
   if (mode !== DEFAULT_CANDIDATE_DATA_MODE) {
     console.warn(`Ignoring legacy MOF candidate mode "${mode}"; using Open MOF Seed as the single candidate route.`)
   }
+  const scalablePreview = await fetchJson(DATA_PATHS.scalableDatabasePreviewV22, null, { throwOnError: false })
+  if (Array.isArray(scalablePreview) && scalablePreview.length) return scalablePreview
   const mediumPreview = await fetchJson(DATA_PATHS.mediumDatabasePreviewV21, null, { throwOnError: false })
   if (Array.isArray(mediumPreview) && mediumPreview.length) return mediumPreview
   return fetchJson(DATA_PATHS.openMofSeedCandidates, [], { throwOnError })

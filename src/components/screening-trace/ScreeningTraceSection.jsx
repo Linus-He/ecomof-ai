@@ -11,7 +11,8 @@ import { CandidateReadinessMatrix } from "./CandidateReadinessMatrix"
 import { ScreeningDataGapPanel } from "./ScreeningDataGapPanel"
 import { ScreeningNextActionPanel } from "./ScreeningNextActionPanel"
 
-const DATABASE_PREVIEW_SUMMARY_FILE = "data/database_precompute/v2_1/medium_database_preview_summary.json"
+const DATABASE_PREVIEW_SUMMARY_FILE = "data/database_precompute/v2_2/scalable_database_preview_summary.json"
+const DATABASE_PREVIEW_SUMMARY_FALLBACK_FILE = "data/database_precompute/v2_1/medium_database_preview_summary.json"
 
 function normalizeSummary(payload) {
   if (!payload) return null
@@ -20,6 +21,9 @@ function normalizeSummary(payload) {
     citationReadyCount: payload.citationReadyCandidates ?? payload.citationReadyCount,
     verifiedMetadataCount: payload.verifiedMetadataCount ?? payload.verifiedMetadataCandidates,
     quarantinedCount: payload.quarantinedCandidates ?? payload.quarantinedCount,
+    licenseConfirmedCount: payload.licenseConfirmedCandidates ?? payload.licenseConfirmedCount,
+    doiConfirmedCount: payload.doiConfirmedCandidates ?? payload.doiConfirmedCount,
+    sourceUrlConfirmedCount: payload.sourceUrlConfirmedCandidates ?? payload.sourceUrlConfirmedCount,
   }
 }
 
@@ -66,6 +70,7 @@ export function ScreeningTraceSection({ model, verification: verificationProp = 
     if (verificationProp) { setVerification(verificationProp); return undefined }
     let active = true
     fetchJson(DATABASE_PREVIEW_SUMMARY_FILE, null)
+      .then(payload => payload || fetchJson(DATABASE_PREVIEW_SUMMARY_FALLBACK_FILE, null))
       .then(payload => { if (active && payload) setVerification(normalizeSummary(payload)) })
       .catch(() => {})
     return () => { active = false }

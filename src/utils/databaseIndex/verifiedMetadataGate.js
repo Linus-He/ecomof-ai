@@ -13,6 +13,8 @@ export const GATE_CONDITIONS = [
   "licenseStatus=confirmed",
   "citationStatus=confirmed",
   "fixtureRecordMappingStatus=confirmed",
+  "fieldLevelCriticalProvenanceComplete=true",
+  "syntheticFixture=false",
   "ambiguityWarnings.length=0",
   "verificationBlockers.length=0",
 ]
@@ -29,6 +31,8 @@ export function buildVerificationBlockers(record = {}) {
   if (record.licenseStatus !== "confirmed") blockers.push(`license ${record.licenseStatus || "pending"}`)
   if (record.citationStatus !== "confirmed") blockers.push(`citation ${record.citationStatus || "pending"}`)
   if (record.fixtureRecordMappingStatus !== "confirmed") blockers.push(`fixture record mapping ${record.fixtureRecordMappingStatus || "pending"}`)
+  if (record.fieldLevelCriticalProvenanceComplete === false) blockers.push("critical field provenance incomplete")
+  if (record.isSyntheticFixture === true || record.syntheticFixture === true || String(record.curationStatus || "").includes("synthetic")) blockers.push("synthetic fixture")
   return blockers
 }
 
@@ -44,6 +48,10 @@ export function runVerifiedMetadataGate(record = {}) {
     record.licenseStatus === "confirmed" &&
     record.citationStatus === "confirmed" &&
     record.fixtureRecordMappingStatus === "confirmed" &&
+    record.fieldLevelCriticalProvenanceComplete !== false &&
+    record.isSyntheticFixture !== true &&
+    record.syntheticFixture !== true &&
+    !String(record.curationStatus || "").includes("synthetic") &&
     ambiguity.length === 0 &&
     verificationBlockers.length === 0
   return { verifiedMetadata: eligible, verifiedMetadataEligible: eligible, verificationBlockers, ambiguityWarnings: ambiguity }
@@ -64,6 +72,8 @@ export function normalizeVerificationRecord(record = {}) {
     exactCitation: record.exactCitation ?? null,
     citationStatus: record.citationStatus || "pending",
     fixtureRecordMappingStatus: record.fixtureRecordMappingStatus || "pending",
+    fieldLevelCriticalProvenanceComplete: record.fieldLevelCriticalProvenanceComplete !== false,
+    isSyntheticFixture: record.isSyntheticFixture === true || record.syntheticFixture === true,
     ambiguityWarnings: gate.ambiguityWarnings,
     verificationBlockers: gate.verificationBlockers,
     verifiedMetadataEligible: gate.verifiedMetadataEligible,
@@ -124,6 +134,8 @@ export function buildVerifiedMetadataGateSummary(records = []) {
     doiStatusCounts,
     fixtureMappingStatusCounts,
     blockerCounts,
+    fieldLevelCriticalProvenanceCondition: "fieldLevelCriticalProvenanceComplete=true",
+    syntheticFixtureCondition: "synthetic fixtures cannot be verified metadata",
     blockingReasons,
     verifiedMetadataReached: verifiedMetadataCount >= 1,
     notFinalRecommendation: true,

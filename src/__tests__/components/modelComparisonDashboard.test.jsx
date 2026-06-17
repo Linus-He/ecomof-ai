@@ -2,8 +2,8 @@
 import { describe, expect, it } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { THEME_LIGHT } from "../../constants/theme"
-import records from "../../../public/data/database_precompute/v2_1/medium_database_preview_records.json"
-import summary from "../../../public/data/database_precompute/v2_1/medium_database_preview_summary.json"
+import records from "../../../public/data/database_precompute/v2_2/scalable_database_preview_records.json"
+import summary from "../../../public/data/database_precompute/v2_2/scalable_database_preview_summary.json"
 import { ModelValidationLab } from "../../components/methodology/model-validation/ModelValidationLab"
 
 function bodyText() {
@@ -11,7 +11,7 @@ function bodyText() {
 }
 
 describe("ModelComparisonDashboard", () => {
-  it("lists baseline methods without presenting formal performance metrics", () => {
+  it("lists baseline methods while keeping formal performance metrics pending", () => {
     render(<ModelValidationLab records={records} summary={summary} lang="en" t={THEME_LIGHT} isMobile={false} />)
 
     expect(screen.getByTestId("methodology-model-comparison-dashboard")).toBeInTheDocument()
@@ -22,8 +22,12 @@ describe("ModelComparisonDashboard", () => {
     expect(bodyText()).toMatch(/Validation Pending/i)
     expect(bodyText()).toMatch(/Demo Only/i)
     expect(bodyText()).toMatch(/Framework Ready/i)
-    expect(bodyText()).not.toMatch(/\bAccuracy\b/i)
-    expect(bodyText()).not.toMatch(/\bROC\b/i)
+    expect(bodyText()).toMatch(/Accuracy: pending/i)
+    expect(bodyText()).toMatch(/ROC-AUC: pending/i)
+    expect(bodyText()).toMatch(/F1: pending/i)
+    expect(bodyText()).toMatch(/External Test: pending/i)
+    expect(bodyText()).not.toMatch(/Accuracy:\s*(0\.\d+|[1-9]\d?%?)/i)
+    expect(bodyText()).not.toMatch(/ROC-AUC:\s*(0\.\d+|[1-9]\d?%?)/i)
   })
 
   it("keeps model comparison separate from final recommendation language", () => {

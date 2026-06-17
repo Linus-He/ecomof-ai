@@ -1,0 +1,275 @@
+// @ts-nocheck
+import { useMemo } from "react"
+import {
+  buildAuditExportBundle,
+  buildDataQualityAudit,
+  buildDatabaseHealthSummary,
+} from "../../utils/dataQualityAudit"
+import { downloadTextFile } from "../../utils/report"
+
+const text = (lang, zh, en) => (lang === "zh" ? zh : en)
+const pct = value => `${Math.round(Math.max(0, Math.min(1, Number(value) || 0)) * 100)}%`
+
+const DEFAULT_THEME = {
+  panel: "#ffffff",
+  surface: "#f8fafc",
+  border: "#dbe4ef",
+  textStrong: "#0f172a",
+  muted: "#475569",
+  faint: "#64748b",
+  accentText: "#2563eb",
+  warn: "#b45309",
+  danger: "#b91c1c",
+  good: "#047857",
+  badgeWarnBg: "#fff7ed",
+  badgeInfoBg: "#eff6ff",
+}
+
+function theme(t) {
+  return { ...DEFAULT_THEME, ...(t || {}) }
+}
+
+function Card({ id, title, subtitle, children, t }) {
+  return (
+    <section id={id} data-testid={id} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 10, minWidth: 0, padding: 12, scrollMarginTop: 118 }}>
+      <div style={{ display: "grid", gap: 3 }}>
+        <h3 style={{ color: t.textStrong, fontSize: 14.5, lineHeight: 1.2, margin: 0 }}>{title}</h3>
+        {subtitle ? <p style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45, margin: 0 }}>{subtitle}</p> : null}
+      </div>
+      {children}
+    </section>
+  )
+}
+
+function Metric({ label, value, note, t, tone = "info" }) {
+  const color = tone === "warn" ? t.warn : tone === "danger" ? t.danger : tone === "pass" ? t.good : t.textStrong
+  return (
+    <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, minWidth: 0, padding: 9 }}>
+      <div style={{ color: t.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>{label}</div>
+      <div style={{ color, fontSize: 18, fontWeight: 920, lineHeight: 1.12, marginTop: 5, overflowWrap: "anywhere" }}>{value}</div>
+      {note ? <div style={{ color: t.muted, fontSize: 10.5, lineHeight: 1.35, marginTop: 4 }}>{note}</div> : null}
+    </div>
+  )
+}
+
+function ExportButton({ children, onClick, t }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      style={{
+        background: t.surface,
+        border: `1px solid ${t.border}`,
+        borderRadius: 7,
+        color: t.textStrong,
+        cursor: "pointer",
+        fontSize: 11,
+        fontWeight: 850,
+        minHeight: 32,
+        padding: "7px 9px",
+      }}
+    >
+      {children}
+    </button>
+  )
+}
+
+export function DatabaseHealthScoreCard({ audit, lang = "en", t: rawTheme, isMobile = false }) {
+  const t = theme(rawTheme)
+  const health = useMemo(() => buildDatabaseHealthSummary(audit), [audit])
+  return (
+    <Card
+      id="database-health-score-card"
+      title={text(lang, "Database Health Score", "Database Health Score")}
+      subtitle={text(lang, "综合 descriptor coverage、provenance completeness、source confirmation、verified metadata 与 high-risk records。", "Combines descriptor coverage, provenance completeness, source confirmation, verified metadata, and high-risk records.")}
+      t={t}
+    >
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
+        <Metric label="Health score" value={pct(health.healthScore)} note={health.healthStatus} t={t} tone={health.healthScore >= 0.75 ? "pass" : "warn"} />
+        <Metric label="Feature coverage" value={pct(health.descriptorCoverage)} t={t} />
+        <Metric label="Data readiness" value={pct(health.provenanceCoverage)} t={t} />
+        <Metric label="Validation readiness" value={health.verifiedMetadataCount} note="verified metadata count" t={t} tone={health.verifiedMetadataCount > 0 ? "pass" : "warn"} />
+      </div>
+    </Card>
+  )
+}
+
+export function FieldCoverageMatrix({ audit, lang = "en", t: rawTheme }) {
+  const t = theme(rawTheme)
+  const rows = audit?.fieldCoverage || []
+  return (
+    <Card
+      id="field-coverage-matrix"
+      title={text(lang, "Field Coverage Matrix", "Field Coverage Matrix")}
+      subtitle={text(lang, "字段级状态覆盖 confirmed / pending / ambiguous / missing / derived / normalized / synthetic。", "Field-level status coverage across confirmed, pending, ambiguous, missing, derived, normalized, and synthetic.")}
+      t={t}
+    >
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ borderCollapse: "collapse", minWidth: 760, width: "100%" }}>
+          <thead>
+            <tr>
+              {["Field", "Coverage", "Provenance", "Confirmed", "Pending", "Ambiguous", "Missing", "Derived", "Normalized", "Synthetic"].map(label => (
+                <th key={label} style={{ borderBottom: `1px solid ${t.border}`, color: t.faint, fontSize: 10, padding: "6px 5px", textAlign: label === "Field" ? "left" : "right", textTransform: "uppercase" }}>{label}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map(row => (
+              <tr key={row.field}>
+                <td style={{ borderBottom: `1px solid ${t.border}`, color: t.textStrong, fontSize: 11.5, fontWeight: 850, padding: "6px 5px" }}>{row.field}</td>
+                <td style={{ borderBottom: `1px solid ${t.border}`, color: t.textStrong, fontSize: 11.5, padding: "6px 5px", textAlign: "right" }}>{pct(row.coverageRatio)}</td>
+                <td style={{ borderBottom: `1px solid ${t.border}`, color: t.textStrong, fontSize: 11.5, padding: "6px 5px", textAlign: "right" }}>{pct(row.provenanceRatio)}</td>
+                {["confirmed", "pending", "ambiguous", "missing", "derived", "normalized", "synthetic"].map(key => (
+                  <td key={key} style={{ borderBottom: `1px solid ${t.border}`, color: ["pending", "ambiguous", "missing", "synthetic"].includes(key) ? t.warn : t.muted, fontSize: 11.5, padding: "6px 5px", textAlign: "right" }}>{row[key] || 0}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </Card>
+  )
+}
+
+export function ProvenanceCompletenessPanel({ audit, lang = "en", t: rawTheme, isMobile = false }) {
+  const t = theme(rawTheme)
+  const summary = audit?.summary || {}
+  return (
+    <Card
+      id="provenance-completeness-panel"
+      title={text(lang, "Provenance Completeness", "Provenance Completeness")}
+      subtitle={text(lang, "字段级来源覆盖 sourceDatabase、sourceRecordId、sourceUrl、citation、license、retrievedAt 与 curationStatus。", "Field-level provenance coverage for sourceDatabase, sourceRecordId, sourceUrl, citation, license, retrievedAt, and curationStatus.")}
+      t={t}
+    >
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
+        <Metric label="Provenance coverage" value={pct(summary.provenanceCoverage)} t={t} />
+        <Metric label="Source confirmed" value={summary.sourceConfirmedCount || 0} t={t} />
+        <Metric label="Citation ready" value={summary.citationReadyCount || 0} t={t} />
+        <Metric label="License confirmed" value={summary.licenseConfirmedCount || 0} t={t} />
+        <Metric label="DOI confirmed" value={summary.doiConfirmedCount || 0} t={t} />
+        <Metric label="Source URL confirmed" value={summary.sourceUrlConfirmedCount || 0} t={t} />
+        <Metric label="Verified metadata" value={summary.verifiedMetadataCount || 0} t={t} tone={(summary.verifiedMetadataCount || 0) > 0 ? "pass" : "warn"} />
+        <Metric label="Synthetic fixture" value={summary.syntheticFixtureCount || 0} t={t} tone={(summary.syntheticFixtureCount || 0) > 0 ? "warn" : "info"} />
+      </div>
+    </Card>
+  )
+}
+
+export function AmbiguityRiskPanel({ audit, lang = "en", t: rawTheme, isMobile = false }) {
+  const t = theme(rawTheme)
+  const summary = audit?.summary || {}
+  const topRisks = (audit?.highRiskRecords || []).slice(0, 5)
+  return (
+    <Card
+      id="ambiguity-risk-panel"
+      title={text(lang, "Ambiguity Risk", "Ambiguity Risk")}
+      subtitle={text(lang, "ambiguous / missing / pending 字段会降低 readiness；字段级 ambiguity 会阻断 verified_metadata。", "Ambiguous, missing, and pending fields reduce readiness; field-level ambiguity blocks verified_metadata.")}
+      t={t}
+    >
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
+        <Metric label="Ambiguity warnings" value={summary.ambiguityWarningCount || 0} t={t} tone={(summary.ambiguityWarningCount || 0) > 0 ? "warn" : "info"} />
+        <Metric label="Missing fields" value={summary.missingFieldCount || 0} t={t} tone={(summary.missingFieldCount || 0) > 0 ? "warn" : "info"} />
+        <Metric label="High-risk records" value={summary.highRiskRecordCount || 0} t={t} tone={(summary.highRiskRecordCount || 0) > 0 ? "warn" : "pass"} />
+        <Metric label="Record quality" value={pct(summary.recordQualityScore)} t={t} />
+      </div>
+      <div style={{ display: "grid", gap: 6 }}>
+        {topRisks.map(row => (
+          <div key={row.candidateId} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.muted, display: "grid", gap: 3, padding: 8 }}>
+            <strong style={{ color: t.textStrong, fontSize: 11.5 }}>{row.displayName || row.candidateId}</strong>
+            <span style={{ fontSize: 10.8, lineHeight: 1.4 }}>{(row.blockers || []).slice(0, 4).join("; ") || "pending"}</span>
+          </div>
+        ))}
+      </div>
+    </Card>
+  )
+}
+
+export function VerifiedBlockerSummary({ audit, lang = "en", t: rawTheme }) {
+  const t = theme(rawTheme)
+  const rows = Object.entries(audit?.blockerCounts || {}).sort((a, b) => b[1] - a[1]).slice(0, 10)
+  return (
+    <Card
+      id="verified-blocker-summary"
+      title={text(lang, "Verified Blocker Summary", "Verified Blocker Summary")}
+      subtitle={text(lang, "source_confirmed、citation_ready 与 near_verified 都不会自动等于 verified_metadata。", "source_confirmed, citation_ready, and near_verified do not automatically equal verified_metadata.")}
+      t={t}
+    >
+      <div style={{ display: "grid", gap: 6 }}>
+        {rows.map(([reason, count]) => (
+          <div key={reason} style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, display: "grid", gap: 8, gridTemplateColumns: "minmax(0, 1fr) auto", padding: 8 }}>
+            <span style={{ color: t.textStrong, fontSize: 11.5, fontWeight: 800, minWidth: 0, overflowWrap: "anywhere" }}>{reason}</span>
+            <strong style={{ color: t.warn, fontSize: 12 }}>{count}</strong>
+          </div>
+        ))}
+      </div>
+    </Card>
+  )
+}
+
+export function DataQualityAuditPanel({ records = [], audit: auditProp, lang = "en", t: rawTheme, isMobile = false, compact = false }) {
+  const t = theme(rawTheme)
+  const audit = useMemo(() => auditProp || buildDataQualityAudit(records, { version: "V2.2-Scalable-Database-Preview" }), [auditProp, records])
+  const summary = audit.summary || {}
+
+  const exportBundle = kind => {
+    const bundle = buildAuditExportBundle({ records, audit, kind, databaseVersion: audit.databaseVersion || summary.databaseVersion })
+    if (kind === "candidate-data-gap") {
+      bundle.candidateDataGaps = (audit.records || records).slice(0, 100).map(row => ({
+        candidateId: row.candidateId,
+        displayName: row.displayName,
+        dataGaps: row.dataGaps,
+        missingFields: row.missingFields,
+        pendingFields: row.pendingFields,
+        ambiguousFields: row.ambiguousFields,
+      }))
+      bundle.truncated = (audit.records || records).length > 100
+    }
+    downloadTextFile(`v2-2-${kind}.json`, `${JSON.stringify(bundle, null, 2)}\n`, "application/json")
+  }
+
+  return (
+    <section id="data-quality-audit-panel" data-testid="data-quality-audit-panel" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 12, minWidth: 0, padding: 12, scrollMarginTop: 118 }}>
+      <header style={{ alignItems: "flex-start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
+        <div style={{ display: "grid", gap: 4, minWidth: 0 }}>
+          <h2 style={{ color: t.textStrong, fontSize: compact ? 16 : 18, lineHeight: 1.18, margin: 0 }}>{text(lang, "Data Quality Audit", "Data Quality Audit")}</h2>
+          <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.5, margin: 0 }}>
+            {text(lang, "Database Preview / Not Final Recommendation。字段级 provenance、coverage、blockers 与 health score 贯穿 V2.2。", "Database Preview / Not Final Recommendation. Field-level provenance, coverage, blockers, and health score are carried through V2.2.")}
+          </p>
+        </div>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+          <ExportButton t={t} onClick={() => exportBundle("screening-audit")}>Export Screening Audit JSON</ExportButton>
+          <ExportButton t={t} onClick={() => exportBundle("candidate-data-gap")}>Export Candidate Data Gap JSON</ExportButton>
+          <ExportButton t={t} onClick={() => exportBundle("model-readiness-summary")}>Export Model Readiness Summary JSON</ExportButton>
+        </div>
+      </header>
+
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
+        <Metric label="Total candidates" value={summary.totalCandidates || records.length || 0} t={t} />
+        <Metric label="Descriptor coverage" value={pct(summary.descriptorCoverage)} t={t} />
+        <Metric label="Provenance coverage" value={pct(summary.provenanceCoverage)} t={t} />
+        <Metric label="Verified metadata count" value={summary.verifiedMetadataCount || 0} t={t} tone={(summary.verifiedMetadataCount || 0) > 0 ? "pass" : "warn"} />
+        <Metric label="Source confirmed count" value={summary.sourceConfirmedCount || 0} t={t} />
+        <Metric label="Citation ready count" value={summary.citationReadyCount || 0} t={t} />
+        <Metric label="License confirmed count" value={summary.licenseConfirmedCount || 0} t={t} />
+        <Metric label="DOI confirmed count" value={summary.doiConfirmedCount || 0} t={t} />
+        <Metric label="SourceURL confirmed count" value={summary.sourceUrlConfirmedCount || 0} t={t} />
+        <Metric label="Ambiguity warning count" value={summary.ambiguityWarningCount || 0} t={t} tone={(summary.ambiguityWarningCount || 0) > 0 ? "warn" : "info"} />
+        <Metric label="Synthetic fixture count" value={summary.syntheticFixtureCount || 0} t={t} tone={(summary.syntheticFixtureCount || 0) > 0 ? "warn" : "info"} />
+        <Metric label="Missing field count" value={summary.missingFieldCount || 0} t={t} tone={(summary.missingFieldCount || 0) > 0 ? "warn" : "info"} />
+        <Metric label="High-risk records" value={summary.highRiskRecordCount || 0} t={t} tone={(summary.highRiskRecordCount || 0) > 0 ? "warn" : "pass"} />
+      </div>
+
+      <DatabaseHealthScoreCard audit={audit} lang={lang} t={t} isMobile={isMobile} />
+      {!compact ? (
+        <>
+          <FieldCoverageMatrix audit={audit} lang={lang} t={t} />
+          <ProvenanceCompletenessPanel audit={audit} lang={lang} t={t} isMobile={isMobile} />
+          <AmbiguityRiskPanel audit={audit} lang={lang} t={t} isMobile={isMobile} />
+          <VerifiedBlockerSummary audit={audit} lang={lang} t={t} />
+        </>
+      ) : null}
+    </section>
+  )
+}
+
+export default DataQualityAuditPanel

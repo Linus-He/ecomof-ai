@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { describe, expect, it } from "vitest"
 import { render, screen } from "@testing-library/react"
-import { THEME_LIGHT } from "../../constants/theme"
+import { THEME_DARK, THEME_LIGHT } from "../../constants/theme"
 import { buildScreeningTrace } from "../../utils/screeningTrace/buildScreeningTrace"
 import { ScreeningTraceTimeline } from "../../components/screening-trace/ScreeningTraceTimeline"
 import { ScreeningFunnelPanel } from "../../components/screening-trace/ScreeningFunnelPanel"
@@ -51,6 +51,15 @@ describe("Screening trace components", () => {
     expect(document.querySelector("#screening-trace-timeline")).toBeTruthy()
     expect(document.querySelector("#screening-funnel-panel")).toBeTruthy()
     expect(document.querySelector("#candidate-decision-dashboard")).toBeTruthy()
+  })
+
+  it("keeps mobile-dark trace shell markers attached before chart timing", () => {
+    render(<ScreeningTraceSection model={{ candidates: [], weights: [] }} verification={{ verifiedMetadataCount: 0 }} scenarioLabel="general" lang="en" t={THEME_DARK} isMobile />)
+    expect(screen.getByTestId("screening-trace-section")).toHaveAttribute("data-shell-ready", "true")
+    expect(document.querySelector("#screening-trace-timeline")).toBeTruthy()
+    expect(document.querySelector("#screening-funnel-panel")).toBeTruthy()
+    expect(document.querySelector("#candidate-decision-dashboard")).toBeTruthy()
+    expect(bodyText()).toMatch(/Candidate dashboard shell is ready/i)
   })
 
   it("dashboard defaults to top 10 candidate cards", () => {

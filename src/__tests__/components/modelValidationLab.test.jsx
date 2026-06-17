@@ -2,8 +2,8 @@
 import { describe, expect, it } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { THEME_LIGHT } from "../../constants/theme"
-import records from "../../../public/data/database_precompute/v2_1/medium_database_preview_records.json"
-import summary from "../../../public/data/database_precompute/v2_1/medium_database_preview_summary.json"
+import records from "../../../public/data/database_precompute/v2_2/scalable_database_preview_records.json"
+import summary from "../../../public/data/database_precompute/v2_2/scalable_database_preview_summary.json"
 import { ModelValidationLab } from "../../components/methodology/model-validation/ModelValidationLab"
 
 function renderLab(props = {}) {
@@ -24,12 +24,14 @@ function bodyText() {
 }
 
 describe("ModelValidationLab", () => {
-  it("renders as an independent deep-link target with every V2.1 validation submodule", () => {
+  it("renders as an independent deep-link target with every V2.2 validation submodule", () => {
     renderLab()
 
     expect(screen.getByTestId("methodology-model-validation")).toHaveAttribute("id", "methodology-model-validation")
     for (const id of [
       "methodology-evolution-timeline",
+      "methodology-data-quality-model-readiness",
+      "data-quality-audit-panel",
       "methodology-model-feature-pipeline",
       "methodology-feature-selection-explorer",
       "methodology-model-comparison-dashboard",
@@ -47,14 +49,19 @@ describe("ModelValidationLab", () => {
     expect(bodyText()).toMatch(/Database Preview/i)
     expect(bodyText()).toMatch(/Not Final Recommendation/i)
     expect(bodyText()).toMatch(/Validation Pending/i)
-    expect(bodyText()).toMatch(/250 candidates/i)
+    expect(bodyText()).toMatch(/1000 candidates/i)
+    expect(bodyText()).toMatch(/Verified Metadata Count 30/i)
   })
 
-  it("does not expose formal Accuracy or ROC metrics without real labels", () => {
+  it("exposes only pending model metrics without real labels", () => {
     renderLab()
 
-    expect(bodyText()).not.toMatch(/\bAccuracy\b/i)
-    expect(bodyText()).not.toMatch(/\bROC\b/i)
+    expect(bodyText()).toMatch(/Accuracy: pending/i)
+    expect(bodyText()).toMatch(/ROC-AUC: pending/i)
+    expect(bodyText()).toMatch(/F1: pending/i)
+    expect(bodyText()).toMatch(/External Test: pending/i)
+    expect(bodyText()).not.toMatch(/Accuracy:\s*(0\.\d+|[1-9]\d?%?)/i)
+    expect(bodyText()).not.toMatch(/ROC-AUC:\s*(0\.\d+|[1-9]\d?%?)/i)
     expect(bodyText()).toMatch(/formal predictive metrics are withheld/i)
   })
 

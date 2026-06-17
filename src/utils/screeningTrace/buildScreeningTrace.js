@@ -124,7 +124,7 @@ export function buildScreeningTrace(options = {}) {
     funnelStage("source_confirmed", "Source confirmed", "来源已确认", sourceConfirmedCount, verifiedMetadataCount, "license/DOI/mapping pending", "annotation_only"),
   ]
 
-  const candidateTraces = ranked.slice(0, 10).map(c => explainCandidateRanking(c, model))
+  const candidateTraces = ranked.slice(0, Math.min(100, ranked.length)).map(c => explainCandidateRanking(c, model))
 
   const dataGaps = buildDataGaps(allCandidates, model)
 

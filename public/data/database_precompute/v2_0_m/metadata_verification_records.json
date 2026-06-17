@@ -14,6 +14,8 @@
       "exactCitation": null,
       "citationStatus": "pending",
       "fixtureRecordMappingStatus": "ambiguous",
+      "fieldLevelCriticalProvenanceComplete": true,
+      "isSyntheticFixture": false,
       "ambiguityWarnings": [],
       "verificationBlockers": [
         "sourceUrl pending",
@@ -41,6 +43,8 @@
       "exactCitation": null,
       "citationStatus": "pending",
       "fixtureRecordMappingStatus": "ambiguous",
+      "fieldLevelCriticalProvenanceComplete": true,
+      "isSyntheticFixture": false,
       "ambiguityWarnings": [],
       "verificationBlockers": [
         "sourceUrl pending",
@@ -68,6 +72,8 @@
       "exactCitation": null,
       "citationStatus": "pending",
       "fixtureRecordMappingStatus": "ambiguous",
+      "fieldLevelCriticalProvenanceComplete": true,
+      "isSyntheticFixture": false,
       "ambiguityWarnings": [],
       "verificationBlockers": [
         "sourceUrl pending",
@@ -95,6 +101,8 @@
       "exactCitation": null,
       "citationStatus": "pending",
       "fixtureRecordMappingStatus": "ambiguous",
+      "fieldLevelCriticalProvenanceComplete": true,
+      "isSyntheticFixture": false,
       "ambiguityWarnings": [],
       "verificationBlockers": [
         "sourceUrl pending",
@@ -122,6 +130,8 @@
       "exactCitation": null,
       "citationStatus": "ambiguous",
       "fixtureRecordMappingStatus": "ambiguous",
+      "fieldLevelCriticalProvenanceComplete": true,
+      "isSyntheticFixture": false,
       "ambiguityWarnings": [
         "MIL-101 was originally reported for Cr, not Al; the Al analogue is a distinct material and must not be assumed from the Cr framework.",
         "Curated fixture record id cannot be mapped to an exact external source record offline."
