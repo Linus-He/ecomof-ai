@@ -828,7 +828,10 @@ export default function App() {
   useEffect(() => {
     const normalizedTabs = {
       workflow: "home",
-      screening: "performance",
+      screening: "ecoscreen",
+      // V2.7: Performance Priority merged into EcoScreen; the standalone performance
+      // route now redirects to EcoScreen instead of being a separate top-level tab.
+      performance: "ecoscreen",
       comparison: "ecoscreen",
       validation: "about",
       resources: "about",

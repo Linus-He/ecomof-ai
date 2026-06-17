@@ -16,7 +16,7 @@ describe("organic acid methods and V2.6 evolution", () => {
     expect(source).toMatch(/ORGANIC_ACID_SCORE_EQUATION/)
     expect(source).toMatch(/白盒多指标决策/)
     expect(source).toMatch(/仍需实验验证/)
-    expect(versionData.currentVersion).toBe("V2.6")
+    expect(versionData.currentVersion).toBe("V2.7")
     expect(versionData.versions.find(row => row.version === "V2.6").algorithmImpact).toMatch(/风险惩罚/)
     expect(versionDocs.currentVersion).toBe("V2.6")
     expect(versionDocs.versions.find(row => row.version === "V2.6")).toEqual(expect.objectContaining({

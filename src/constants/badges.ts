@@ -23,5 +23,4 @@ export const TABS = [
   { id: "about",         copyKey: "methodology" },
   { id: "projectEvolution", copyKey: "projectEvolution" },
   { id: "researchReports", copyKey: "researchReports" },
-  { id: "performance",   copyKey: "performance" },
 ]

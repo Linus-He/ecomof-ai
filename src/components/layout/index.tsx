@@ -365,8 +365,8 @@ export function ContextualHeaderBar({
         <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
           {lang === "zh" ? "气体分离聚焦气体比例、温度、压力、方法、来源和等温线状态的条件语境记录。" : "GasSep focuses on records with condition context: gas ratio, temperature, pressure, method, source, and isotherm status."}
         </div>
-        <button type="button" onClick={() => setActiveTab("performance")} style={subnavChip()}>
-          {lang === "zh" ? "性能优先级" : "Performance"}
+        <button type="button" onClick={() => setActiveTab("ecoscreen")} style={subnavChip()}>
+          {lang === "zh" ? "EcoScreen 候选评分" : "EcoScreen"}
         </button>
         <button type="button" onClick={() => setActiveTab("library")} style={subnavChip()}>
           {lang === "zh" ? "MOF 候选库" : "MOF Library"}

@@ -22,7 +22,6 @@ describe("ResearchReportsTab", () => {
       "about",
       "projectEvolution",
       "researchReports",
-      "performance",
     ])
     expect(HASH_TO_TAB["research-reports"]).toBe("researchReports")
 
