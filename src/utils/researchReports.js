@@ -7,6 +7,7 @@ export const REPORT_TYPES = [
   { id: "comparison", zh: "对比报告", en: "Comparison Report" },
   { id: "screening", zh: "筛选报告", en: "Screening Report" },
   { id: "validation", zh: "验证报告", en: "Validation Report" },
+  { id: "organic_acid", zh: "有机酸筛选报告", en: "Organic Acid Screening Report" },
 ]
 
 export const CRITIC_WEIGHT_SUMMARY = [
@@ -200,6 +201,119 @@ function buildReportCharts({ records = [], summary = {}, priorityMode = "balance
   ]
 }
 
+function buildOrganicAcidReport({ organicAcidResult = null, versionData = {}, timestamp } = {}) {
+  const algorithm = organicAcidResult?.organicAcidAlgorithm || organicAcidResult || {}
+  const topCandidates = algorithm.topCandidates || algorithm.rankedCandidates?.slice(0, 5) || []
+  const top = topCandidates[0] || {}
+  const snapshot = buildRunSnapshot({
+    summary: {
+      version: "organic_acid_algorithm_closure_v2_6",
+      totalCandidates: algorithm.scoringSummary?.candidateCount || algorithm.rankedCandidates?.length || 0,
+      verifiedMetadataCount: 0,
+    },
+    versionData,
+    timestamp,
+    performancePriorityMode: "balanced",
+  })
+  snapshot.methodVersion = "V2.6 Organic Acid Algorithm Closure"
+  snapshot.validationVersion = "Sanity Check + Sensitivity Analysis; experimental validation pending"
+  const candidateNames = topCandidates.map(row => `${row.rank || "-"} ${row.candidateName} (${row.recommendationClass})`).join("；") || "候选待生成"
+  const executiveSummary = `Organic Acid Screening Report：当前任务为 CO2 转化为甲酸 / formic acid priority。V2.6 使用白盒多指标决策 + 证据修正 + 图论相关性 + 风险惩罚，对 ${snapshot.candidateCount} 个候选生成筛选优先级。Top candidates 为 ${candidateNames}。该报告只给出算法建议，仍需实验验证。`
+  const sections = [
+    { title: "研究目标", body: "Primary target：CO2 转化为甲酸 / formic acid priority；secondary goals 包括抑制竞争路径、提高证据可信度、优先可验证候选、降低结构坍塌风险并保留字段级溯源。" },
+    { title: "评分模式", body: `当前评分模式：${algorithm.scoringModeLabelZh || algorithm.scoringMode || "formic_acid_priority"}；目标函数为 pathwayFitScore、evidenceScore、graphRelevanceScore、structureSuitabilityScore、validationReadinessScore、dataQualityScore 减去 riskPenalty。` },
+    { title: "Top candidates", body: candidateNames },
+    { title: "Score breakdown", body: top.scoreBreakdown ? `Top candidate ${top.candidateName} finalScore=${top.finalScore}；pathwayFitScore=${top.pathwayFitScore}；evidenceScore=${top.evidenceScore}；graphRelevanceScore=${top.graphRelevanceScore}；structureSuitabilityScore=${top.structureSuitabilityScore}；validationReadinessScore=${top.validationReadinessScore}；dataQualityScore=${top.dataQualityScore}；riskPenalty=${top.riskPenalty}。` : "Score breakdown 待生成。" },
+    { title: "Decision trace", body: top.decisionTrace?.length ? top.decisionTrace.map(step => `${step.step}: ${step.output}`).join("；") : "Decision trace 待生成。" },
+    { title: "Sanity check", body: algorithm.sanityCheck?.summaryZh || "算法合理性检查待生成。" },
+    { title: "Sensitivity analysis", body: algorithm.sensitivitySummary?.explanationZh || "敏感性分析待生成。" },
+    { title: "Data gaps", body: algorithm.dataGapSummary?.explanationZh || "数据缺口摘要待生成。" },
+    { title: "Next experiments", body: topCandidates.map(row => `${row.candidateName}: ${row.nextExperiment}`).join("；") || "下一步实验待生成。" },
+    { title: "Known limitations", body: "当前不是黑盒 ML，也不是实验验证结论；它是 white-box MCDA + evidence adjustment + graph relevance + risk penalty。priority_validation 仅表示优先验证候选，仍需实验验证。" },
+  ]
+  const charts = [
+    {
+      id: "organic-acid-final-score-chart",
+      title: "有机酸候选排序图",
+      subtitle: "Organic Acid Candidate Ranking",
+      xAxis: "候选",
+      yAxis: "finalScore",
+      legend: "V2.6 finalScore",
+      rows: topCandidates.map(row => ({ label: row.candidateName, value: row.finalScore })),
+    },
+    {
+      id: "organic-acid-risk-penalty-chart",
+      title: "有机酸风险惩罚图",
+      subtitle: "Organic Acid Risk Penalty",
+      xAxis: "候选",
+      yAxis: "riskPenalty",
+      legend: "riskPenalty",
+      rows: topCandidates.map(row => ({ label: row.candidateName, value: row.riskPenalty })),
+    },
+  ]
+  const markdown = [
+    "# 有机酸筛选报告",
+    "",
+    executiveSummary,
+    "",
+    ...sections.flatMap(section => [`## ${section.title}`, section.body, ""]),
+  ].join("\n")
+
+  return {
+    type: "organic_acid",
+    title: "有机酸筛选报告",
+    subtitle: "Organic Acid Screening Report",
+    generatedAt: snapshot.timestamp,
+    snapshot,
+    candidate: {
+      candidateId: top.candidateId || "pending",
+      displayName: top.candidateName || "pending",
+      verifiedMetadata: false,
+      sourceConfirmed: false,
+      citationReady: false,
+    },
+    sections,
+    fieldSources: Object.entries(top.fieldSources || {}).slice(0, 12).map(([field, source]) => ({
+      field,
+      value: source.value ?? "pending",
+      status: source.status || "pending",
+      sourceDatabase: source.sourceDatabase || "Organic Acid Algorithm",
+      sourceRecordId: source.sourceRecordId || "pending",
+      sourceUrl: source.sourceUrl || "public/data/organic_acid_final_screening/al_mof_framework_candidates.json",
+      citation: source.citation || "pending",
+      license: source.license || "pending",
+      scoringEligible: Boolean(source.scoringEligible),
+      blocksVerifiedMetadata: source.status === "missing",
+      notes: source.missingReason || source.note || "",
+    })),
+    citationPackage: {
+      title: "引用包",
+      subtitle: "Citation Package",
+      citationReadyCount: 0,
+      sourceConfirmedCount: 0,
+      entries: [],
+      fieldSources: [],
+    },
+    charts,
+    executiveSummary,
+    priorityMode: null,
+    requiredSections: [
+      "研究目标",
+      "评分模式",
+      "Top candidates",
+      "Score breakdown",
+      "Decision trace",
+      "Sanity check",
+      "Sensitivity analysis",
+      "Data gaps",
+      "Next experiments",
+      "Known limitations",
+    ],
+    markdown,
+    organicAcidAlgorithm: algorithm,
+  }
+}
+
 export function generateResearchReport({
   type = "candidate",
   records = [],
@@ -208,7 +322,11 @@ export function generateResearchReport({
   timestamp,
   candidateId,
   performancePriorityMode = "balanced",
+  organicAcidResult = null,
 } = {}) {
+  if (type === "organic_acid") {
+    return buildOrganicAcidReport({ organicAcidResult, versionData, timestamp })
+  }
   const rows = normalizeRecords(records)
   const selected = rows.find(row => row.candidateId === candidateId) || rows.find(row => row.verifiedMetadata) || rows[0] || {}
   const label = reportTypeLabel(type)

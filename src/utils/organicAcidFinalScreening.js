@@ -4,6 +4,9 @@ import { attachRealEvidenceRecords } from "./mofDataMappers/literatureEvidenceMa
 import { buildRealDataMappingReport, loadCuratedRealExamples } from "./mofDataMappers/mapperPreviewFixtures"
 import { mergeQmofDescriptorsIntoFrameworks } from "./mofDataMappers/qmofMapper"
 import { buildDatabaseIndexRunResultSummary, buildDatabaseIndexRunSteps, buildDatabaseIndexTrace } from "./databaseIndex/databaseIndexTraceAdapter"
+import { ORGANIC_ACID_FEATURE_SCHEMA } from "./organicAcid/organicAcidFeatureSchema"
+import { rankOrganicAcidCandidates } from "./organicAcid/rankOrganicAcidCandidates"
+import { ORGANIC_ACID_TASK_DEFINITION } from "./organicAcid/organicAcidTaskDefinition"
 import { buildRunTrace } from "./organicAcidTrace/traceEngine"
 
 const DEFAULT_MIN_TEMP_C = 150
@@ -2489,6 +2492,13 @@ export function runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, r
     if (gateDiff !== 0) return gateDiff
     return (b.organicAcidScore?.oacs || 0) - (a.organicAcidScore?.oacs || 0)
   }).map((candidate, index) => ({ ...candidate, rank: index + 1 }))
+  const organicAcidAlgorithm = rankOrganicAcidCandidates({
+    candidates: rankedFrameworks,
+    taskDefinition: ORGANIC_ACID_TASK_DEFINITION,
+    scoringMode: rules?.organicAcidAlgorithm?.scoringMode || "formic_acid_priority",
+    featureSchema: ORGANIC_ACID_FEATURE_SCHEMA,
+    topN: 10,
+  })
 
   const selectedFramework = rankedFrameworks.find(candidate => candidate.hydrothermalGate?.status === "pass") || rankedFrameworks[0] || null
   const sensitivity = runSensitivityAnalysis(
@@ -2553,6 +2563,7 @@ export function runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, r
     exafsSignature: generateExpectedEXAFSSignature("Mo", moRecommendation?.mostLikelyForm),
     reproducibilityStatement: generateReproducibilityStatement(),
     hardGateSummary,
+    organicAcidAlgorithm,
   }
   const scaffoldHotSpotData = buildScaffoldHotSpotData(rankedFrameworks, selectedFramework?.id || null)
   const dopantHotSpotData = buildDopantHotSpotData(rankedMetals)

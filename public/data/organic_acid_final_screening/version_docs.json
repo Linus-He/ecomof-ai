@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06",
-  "currentVersion": "V2.0-L",
-  "completedRange": "V1.0-V2.0-L",
+  "currentVersion": "V2.6",
+  "completedRange": "V1.0-V2.6",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -1821,7 +1821,7 @@
       "title": "Manual Source Curation for First Verified Candidates",
       "titleZh": "第一批候选的人工来源核验",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Manual source verification of the candidates nearest to verified metadata",
       "themeZh": "对最接近 verified metadata 的候选做人工来源核验",
       "summary": "Performs manual source verification of the 5 candidates nearest to verified metadata (MIL-53(Al), CAU-10(Al), MIL-100(Al), MIL-101(Al), DUT-4(Al)) and merges the results into the V2.0-K evidence backfill as enriched records, an enriched summary, and a first verified candidate report. Curated offline, so DOIs and license terms stay pending and citations are recorded at the material level only; every record keeps an ambiguity warning because the V2.0-G record ids are curated fixtures, so verified_metadata is still 0. The system now has its first source_confirmed / citation_ready candidates. Nothing is fabricated; not full verified screening and not a final recommendation.",
@@ -1918,6 +1918,87 @@
         "adaptationBoundaryZh": "仅人工来源核验；source_confirmed/citation_ready/license_confirmed 不等于 verified_metadata，ambiguity 警告阻断 verified，确认证据且无歧义前 verified_metadata 保持为 0。"
       },
       "relatedSection": "#methodology-oafs-database-index-preview"
+    },
+    {
+      "version": "V2.6",
+      "title": "Organic Acid Algorithm Closure",
+      "titleZh": "有机酸算法闭环",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "White-box candidate screening closure",
+      "themeZh": "白盒候选筛选闭环",
+      "summary": "Upgraded Organic Acid from a display-oriented decision panel into a runnable candidate-screening loop with task definition, input feature schema, scoring equation, centralized weights, risk penalty, ranked candidates, decision trace, sanity check, sensitivity analysis, and Organic Acid Screening Report integration.",
+      "summaryZh": "把 Organic Acid 从展示型决策面板升级为可运行的候选筛选闭环：任务定义、输入特征 schema、评分公式、集中权重、风险惩罚、候选排序、决策追踪、算法合理性检查、敏感性分析与有机酸筛选报告接入。",
+      "keyUpdates": [
+        "Added organic_acid_formic_priority task definition.",
+        "Added six-group input feature schema with field-level provenance for every scoring field.",
+        "Added white-box MCDA scoring equation, centralized weights, risk penalty, ranked candidates, sanity check, and sensitivity analysis.",
+        "Connected Organic Acid Final Decision Board and Research Reports to rankOrganicAcidCandidates output."
+      ],
+      "keyUpdatesZh": [
+        "新增 organic_acid_formic_priority 任务定义。",
+        "新增 6 类输入特征 schema，并为每个评分字段保留字段级溯源。",
+        "新增白盒 MCDA 评分公式、集中权重、风险惩罚、候选排序、算法合理性检查与敏感性分析。",
+        "Organic Acid Final Decision Board 与 Research Reports 改为读取 rankOrganicAcidCandidates 输出。"
+      ],
+      "algorithmChanges": [
+        "Introduced white-box MCDA + evidence adjustment + graph relevance + risk penalty.",
+        "Added scoring modes: balanced, formic_acid_priority, evidence_first, validation_first, and low_risk_first.",
+        "Added algorithmic decision trace with 10 required steps.",
+        "Added sanity rules that prevent high collapse risk or synthetic fixtures from entering priority_validation."
+      ],
+      "algorithmChangesZh": [
+        "引入白盒多指标决策 + 证据修正 + 图论相关性 + 风险惩罚。",
+        "新增 balanced、formic_acid_priority、evidence_first、validation_first、low_risk_first 评分模式。",
+        "新增 10 步算法决策追踪。",
+        "新增 sanity rules，防止高坍塌风险或 synthetic fixtures 进入 priority_validation。"
+      ],
+      "uiChanges": [
+        "Organic Acid Final Decision Board now reads rankOrganicAcidCandidates output instead of display-only OACS rows.",
+        "Candidate cards expose recommendationClass, score breakdown, risk drivers, data gaps, sanity check, sensitivity analysis, and next experiments.",
+        "Research Reports adds an Organic Acid Screening Report generated from the same algorithm output."
+      ],
+      "uiChangesZh": [
+        "Organic Acid Final Decision Board 改为读取 rankOrganicAcidCandidates 输出，而不是展示型 OACS 行。",
+        "候选卡片显示 recommendationClass、评分拆解、风险来源、数据缺口、算法合理性检查、敏感性分析与下一步实验。",
+        "Research Reports 新增由同一算法输出生成的有机酸筛选报告。"
+      ],
+      "methodologyChanges": [
+        "Methods & Evidence documents task definition, feature schema, scoring equation, weights, risk penalty, decision trace, sanity check, sensitivity analysis, and limitations.",
+        "Project Evolution records V2.6 scientific, algorithm, validation, UI, and limitation impacts."
+      ],
+      "methodologyChangesZh": [
+        "Methods & Evidence 记录任务定义、特征 schema、评分公式、权重、风险惩罚、决策追踪、算法合理性检查、敏感性分析与限制。",
+        "Project Evolution 记录 V2.6 的科研、算法、验证、UI 与限制影响。"
+      ],
+      "evidenceBoundary": "Algorithmic suggestion only; priority_validation means priority validation candidate, not experimental validation and not a final recommendation.",
+      "evidenceBoundaryZh": "仅为算法建议；priority_validation 表示优先验证候选，不等于实验验证，也不是最终推荐。",
+      "limitations": [
+        "Explainable algorithm but not experimentally closed-loop validated.",
+        "Existing Organic Acid fixtures remain bounded and are not database expansion.",
+        "Synthetic fixtures cannot enter priority_validation.",
+        "Weights are transparent but still need calibration with experimental feedback."
+      ],
+      "limitationsZh": [
+        "算法可解释，但未被实验闭环验证。",
+        "现有 Organic Acid fixtures 仍是有界样本，不是数据库扩展。",
+        "Synthetic fixtures 不能进入 priority_validation。",
+        "权重透明，但仍需实验反馈校准。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "organic-acid-algorithm-closure",
+          "white-box-mcda",
+          "risk-penalty",
+          "sanity-check",
+          "sensitivity-analysis",
+          "requires-experimental-validation"
+        ],
+        "literatureIds": [],
+        "adaptationBoundary": "White-box algorithm closure only; no black-box ML, no predictive accuracy claim, no final recommendation.",
+        "adaptationBoundaryZh": "仅白盒算法闭环；不是黑盒 ML，不声明预测精度，也不是最终推荐。"
+      },
+      "relatedSection": "#methodology-oafs-algorithm-closure"
     }
   ],
   "roadmap": [

@@ -3,161 +3,79 @@ import { useMemo, useState } from "react"
 import { ChemicalText } from "../../../shared"
 import { displayValue, formatScore, Panel, StatusPill, statusTone, text, ValueWithSource } from "./FinalScreeningShared"
 
-function gateLabel(status, lang) {
-  const value = String(status || "pending")
-  if (lang === "zh") {
-    if (value === "pass") return "通过"
-    if (value === "needs_review") return "需复核"
-    if (value === "fail") return "拦截"
-  }
-  return value.replace("_", " ")
-}
-
-function graphCentralityProxy(candidate) {
-  const accessibility = Number(candidate?.descriptorScores?.poreAccessibility)
-  const oacs = Number(candidate?.organicAcidScore?.oacs)
-  if (Number.isFinite(accessibility)) return accessibility
-  if (Number.isFinite(oacs)) return oacs
-  return 0
-}
-
-function evidenceConfidence(candidate) {
-  const level = String(candidate?.organicAcidScore?.evidenceLevel || candidate?.evidenceLevel || "").toLowerCase()
-  if (level.includes("eligible") || level.includes("high")) return "high"
-  if (level.includes("review") || level.includes("medium")) return "medium"
-  return "pending"
-}
-
-function mainReason(candidate) {
-  const gate = candidate?.hydrothermalGate?.status
-  if (gate === "pass") return "通过水热硬阈值，孔道可达性与 OACS 支持进入最终候选排序。"
-  if (gate === "needs_review") return "存在水相稳定性记录，但 PXRD 或字段来源仍需复核。"
-  return "关键水热证据不足，硬阈值优先于孔结构优势。"
-}
-
-function mainRisk(candidate) {
-  const risks = [
-    candidate?.hydrothermalGate?.status !== "pass" ? "水热证据未闭合" : null,
-    candidate?.organicAcidScore?.collapseRisk > 0.4 ? "坍塌风险偏高" : null,
-    candidate?.dataStatus?.level?.includes?.("pending") ? "字段溯源待补" : null,
-  ].filter(Boolean)
-  return risks[0] || "仍需实验验证"
-}
-
-function nextExperiment(candidate) {
-  if (candidate?.hydrothermalGate?.status !== "pass") return "优先补齐 >=150C 水相稳定性与处理后 PXRD 证据。"
-  return "优先做 CO2 水相有机酸路径验证、产物分布检测与反应后 PXRD/ICP 复核。"
-}
-
 function buildDecisionRows(result = {}) {
-  const topMetal = result.moRecommendation || result.rankedMetals?.[0]
+  const algorithmRows = result.organicAcidAlgorithm?.rankedCandidates || []
+  if (algorithmRows.length) {
+    return algorithmRows.slice(0, 6).map(row => ({
+      ...row,
+      id: row.candidateId,
+      candidate: row.sourceCandidate || row,
+      candidateName: row.candidateName,
+      pathwayRole: row.features?.pathwayRole?.value || "formic-acid pathway scaffold",
+      evidenceLevel: row.features?.evidenceLevel?.value || "pending",
+      pathwayFit: row.pathwayFitScore,
+      graphCentrality: row.graphRelevanceScore,
+      validationReadiness: row.recommendationClass,
+      mainReason: row.mainReasons?.[0] || "算法建议，仍需实验验证。",
+      mainRisk: row.mainRisks?.[0] || "仍需实验验证",
+    }))
+  }
   return (result.rankedFrameworks || []).slice(0, 6).map(candidate => ({
     id: candidate.id,
     candidate,
     candidateName: candidate.displayName,
-    targetProduct: "甲酸 / 有机酸",
-    pathwayRole: candidate.hydrothermalGate?.status === "pass" ? "Al-MOF 稳定骨架 / scaffold" : "数据补齐候选 / review candidate",
+    targetProduct: "甲酸 / formic acid",
+    pathwayRole: candidate.hydrothermalGate?.status === "pass" ? "formic-acid pathway scaffold" : "data review / risk-gated scaffold",
     finalScore: candidate.organicAcidScore?.oacs ?? 0,
-    evidenceLevel: evidenceConfidence(candidate),
+    evidenceLevel: candidate.organicAcidScore?.evidenceLevel || "pending",
     pathwayFit: candidate.descriptorScores?.poreAccessibility ?? candidate.organicAcidScore?.oacs ?? 0,
-    graphCentrality: graphCentralityProxy(candidate),
-    validationReadiness: gateLabel(candidate.hydrothermalGate?.status, "zh"),
-    mainReason: mainReason(candidate),
-    mainRisk: mainRisk(candidate),
-    nextExperiment: nextExperiment(candidate),
-    metalHypothesis: topMetal?.metal ? `@${topMetal.metal}` : "metal pending",
+    graphCentrality: candidate.descriptorScores?.poreAccessibility ?? 0,
+    validationReadiness: "algorithmic suggestion",
+    mainReason: "兼容旧结果的展示行；V2.6 主路径应读取 organicAcidAlgorithm.rankedCandidates。",
+    mainRisk: "仍需实验验证",
+    nextExperiment: "补齐 V2.6 算法输入后再生成下一步实验。",
+    recommendationClass: "data_needed",
+    scoreBreakdown: null,
+    decisionTrace: [],
   }))
 }
 
+function recommendationTone(value) {
+  const textValue = String(value || "")
+  if (textValue === "priority_validation") return "pass"
+  if (textValue === "rejected" || textValue === "low_priority") return "fail"
+  if (textValue.includes("needed") || textValue.includes("check")) return "warn"
+  return statusTone(textValue)
+}
+
+function stepLabel(step, lang) {
+  const labels = {
+    "Candidate Loaded": ["候选加载", "Candidate Loaded"],
+    "Feature Availability Check": ["特征可用性检查", "Feature Availability Check"],
+    "Pathway Fit Calculation": ["路径适配计算", "Pathway Fit Calculation"],
+    "Evidence Adjustment": ["证据修正", "Evidence Adjustment"],
+    "Graph Relevance Calculation": ["图论相关性计算", "Graph Relevance Calculation"],
+    "Structure Suitability Calculation": ["结构适配计算", "Structure Suitability Calculation"],
+    "Risk Penalty Applied": ["风险惩罚应用", "Risk Penalty Applied"],
+    "Validation Readiness Check": ["验证就绪度检查", "Validation Readiness Check"],
+    "Final Ranking": ["最终排序", "Final Ranking"],
+    "Next Experiment Generated": ["下一步实验生成", "Next Experiment Generated"],
+  }
+  const pair = labels[step] || [step, step]
+  return text(lang, pair[0], pair[1])
+}
+
 function TraceGrid({ row, lang, t }) {
-  const trace = [
-    {
-      step: "Raw Candidate",
-      stepZh: "原始候选",
-      input: row.candidateName,
-      output: row.candidate?.sourceDatabase || "pending source",
-      impact: "candidate loaded",
-      impactZh: "候选进入筛选",
-      blocker: row.candidate?.sourceRecordId || "pending",
-      next: "检查字段来源",
-      nextEn: "Check field provenance",
-    },
-    {
-      step: "Pathway Mapping",
-      stepZh: "路径映射",
-      input: row.targetProduct,
-      output: row.pathwayRole,
-      impact: "pathway fit",
-      impactZh: "路径适配度",
-      blocker: row.mainRisk,
-      next: "查看路径依据",
-      nextEn: "Review pathway basis",
-    },
-    {
-      step: "Graph Metric Calculation",
-      stepZh: "图论指标计算",
-      input: "孔结构 / descriptor proxy",
-      output: formatScore(row.graphCentrality),
-      impact: "graph metric proxy",
-      impactZh: "图论/结构指标代理",
-      blocker: "真实图中心性待回填",
-      next: "查看图论指标",
-      nextEn: "Review graph metrics",
-    },
-    {
-      step: "Evidence Adjustment",
-      stepZh: "证据修正",
-      input: row.evidenceLevel,
-      output: row.validationReadiness,
-      impact: "evidence confidence",
-      impactZh: "证据置信度",
-      blocker: row.mainRisk,
-      next: "查看证据来源",
-      nextEn: "Review evidence sources",
-    },
-    {
-      step: "Priority Scoring",
-      stepZh: "优先级评分",
-      input: "OACS",
-      output: formatScore(row.finalScore),
-      impact: "final ranking",
-      impactZh: "最终排序",
-      blocker: row.finalScore > 0 ? "none" : "OACS forced to 0",
-      next: "查看排序解释",
-      nextEn: "Review ranking explanation",
-    },
-    {
-      step: "Risk Check",
-      stepZh: "风险检查",
-      input: row.mainRisk,
-      output: row.validationReadiness,
-      impact: "risk gate",
-      impactZh: "风险门控",
-      blocker: row.mainRisk,
-      next: "查看实验建议",
-      nextEn: "Review experiment plan",
-    },
-    {
-      step: "Final Candidate",
-      stepZh: "最终候选",
-      input: row.candidateName,
-      output: row.nextExperiment,
-      impact: "next action",
-      impactZh: "下一步行动",
-      blocker: "not final recommendation",
-      next: row.nextExperiment,
-      nextEn: row.nextExperiment,
-    },
-  ]
+  const trace = row.decisionTrace || []
   return (
     <div data-testid="organic-acid-decision-trace" style={{ display: "grid", gap: 7 }}>
       {trace.map(item => (
         <article key={item.step} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 5, padding: 9 }}>
-          <strong style={{ color: t.textStrong, fontSize: 12.2 }}>{text(lang, item.stepZh, item.step)}</strong>
+          <strong style={{ color: t.textStrong, fontSize: 12.2 }}>{stepLabel(item.step, lang)}</strong>
           <span style={{ color: t.muted, fontSize: 11.3, lineHeight: 1.45 }}>{text(lang, "输入", "Input")}: {displayValue(item.input)} · {text(lang, "输出", "Output")}: {displayValue(item.output)}</span>
-          <span style={{ color: t.accentText, fontSize: 11.2 }}>{text(lang, "影响指标", "Impact metric")}: {text(lang, item.impactZh, item.impact)}</span>
+          <span style={{ color: t.accentText, fontSize: 11.2 }}>{text(lang, "影响分数", "Affected score")}: {displayValue(item.affectedScore)}</span>
           <span style={{ color: t.warn, fontSize: 11.2 }}>{text(lang, "阻断因素", "Blocker")}: {displayValue(item.blocker)}</span>
-          <span style={{ color: t.faint, fontSize: 11.2 }}>{text(lang, "下一步建议", "Next action")}: {text(lang, item.next, item.nextEn)}</span>
+          <span style={{ color: t.faint, fontSize: 11.2 }}>{text(lang, "解释", "Explanation")}: {text(lang, item.explanationZh || item.explanation, item.explanation)}</span>
         </article>
       ))}
     </div>
@@ -165,6 +83,7 @@ function TraceGrid({ row, lang, t }) {
 }
 
 export function OrganicAcidFinalDecisionBoard({ result, lang, t, isMobile, onInspectCandidate }) {
+  const algorithm = result?.organicAcidAlgorithm || {}
   const rows = useMemo(() => buildDecisionRows(result), [result])
   const [activeId, setActiveId] = useState(rows[0]?.id)
   const active = rows.find(row => row.id === activeId) || rows[0]
@@ -182,9 +101,34 @@ export function OrganicAcidFinalDecisionBoard({ result, lang, t, isMobile, onIns
         <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12.5, lineHeight: 1.58, padding: 11 }}>
           <ChemicalText value={text(
             lang,
-            "当前用于什么判断：最终决策面板把候选排序、路径适配、证据置信度、图论/结构指标代理、验证就绪度、数据缺口与推荐下一步实验放在同一判断面。真实图中心性和实验结论仍需后续数据回填。",
-            "The decision board combines ranking, pathway fit, evidence confidence, graph/structure metric proxies, validation readiness, data gaps, and next experiment suggestions in one decision surface."
+            "当前用于什么判断：V2.6 决策面板读取 rankOrganicAcidCandidates 的真实算法输出，把目标函数、路径适配、证据修正、图论相关性、结构适配、风险惩罚、验证就绪度、数据缺口与下一步实验放在同一判断面。所有输出都是算法建议，仍需实验验证。",
+            "The V2.6 decision board reads rankOrganicAcidCandidates output and combines objective function, pathway fit, evidence adjustment, graph relevance, structure suitability, risk penalty, validation readiness, data gaps, and next experiments. Outputs are algorithmic suggestions and require experimental validation."
           )} />
+        </div>
+
+        <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr" }}>
+          <article style={{ background: algorithm.sanityCheck?.passed ? t.badgeGoodBg || t.badgeInfoBg : t.badgeWarnBg, border: `1px solid ${algorithm.sanityCheck?.passed ? t.accent : t.warn}`, borderRadius: 10, display: "grid", gap: 7, padding: 11 }}>
+            <strong style={{ color: t.textStrong, fontSize: 13.2 }}>{text(lang, "算法合理性检查", "Algorithm Sanity Check")}</strong>
+            <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.45 }}>
+              {text(lang, algorithm.sanityCheck?.summaryZh || "算法合理性检查待生成。", algorithm.sanityCheck?.summary || "Algorithm sanity check pending.")}
+            </span>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+              <StatusPill tone={algorithm.sanityCheck?.passed ? "pass" : "warn"} t={t}>{algorithm.sanityCheck?.passed ? text(lang, "通过", "passed") : text(lang, "需复核", "review")}</StatusPill>
+              <StatusPill tone="warn" t={t}>{text(lang, "失败规则", "failed rules")}: {algorithm.sanityCheck?.failedRules?.length || 0}</StatusPill>
+              <StatusPill tone="warn" t={t}>{text(lang, "警告", "warnings")}: {algorithm.sanityCheck?.warnings?.length || 0}</StatusPill>
+            </div>
+          </article>
+          <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 7, padding: 11 }}>
+            <strong style={{ color: t.textStrong, fontSize: 13.2 }}>{text(lang, "敏感性分析", "Sensitivity Analysis")}</strong>
+            <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.45 }}>
+              {text(lang, algorithm.sensitivitySummary?.explanationZh || "敏感性分析待生成。", algorithm.sensitivitySummary?.explanation || "Sensitivity analysis pending.")}
+            </span>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+              <StatusPill tone={algorithm.sensitivitySummary?.topCandidateStability ? "pass" : "warn"} t={t}>{algorithm.sensitivitySummary?.topCandidateStability ? text(lang, "Top 稳定", "Top stable") : text(lang, "Top 会变化", "Top changes")}</StatusPill>
+              <StatusPill tone="info" t={t}>{text(lang, "不稳定候选", "unstable")}: {algorithm.sensitivitySummary?.unstableCandidates?.length || 0}</StatusPill>
+              <StatusPill tone="proxy" t={t}>{algorithm.scoringModeLabelZh || algorithm.scoringModeLabel || "formic_acid_priority"}</StatusPill>
+            </div>
+          </article>
         </div>
 
         <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(260px, 1fr))" }}>
@@ -198,8 +142,8 @@ export function OrganicAcidFinalDecisionBoard({ result, lang, t, isMobile, onIns
                 style={{ background: activeCard ? t.badgeInfoBg : t.surface, border: `1px solid ${activeCard ? t.accent : t.border}`, borderRadius: 9, color: t.textStrong, cursor: "pointer", display: "grid", gap: 7, padding: 10, textAlign: "left" }}
               >
                 <div style={{ alignItems: "center", display: "flex", gap: 7, justifyContent: "space-between" }}>
-                  <strong style={{ fontSize: 13.2 }}><ChemicalText value={`#${row.candidate?.rank || "-"} ${row.candidateName}`} /></strong>
-                  <StatusPill tone={statusTone(row.candidate?.hydrothermalGate?.status)} t={t}>{row.validationReadiness}</StatusPill>
+                  <strong style={{ fontSize: 13.2 }}><ChemicalText value={`#${row.rank || row.candidate?.rank || "-"} ${row.candidateName}`} /></strong>
+                  <StatusPill tone={recommendationTone(row.recommendationClass)} t={t}>{row.recommendationClass || row.validationReadiness}</StatusPill>
                 </div>
                 <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>{row.targetProduct} · {row.pathwayRole}</span>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 6 }}>
@@ -207,7 +151,7 @@ export function OrganicAcidFinalDecisionBoard({ result, lang, t, isMobile, onIns
                     [text(lang, "最终分", "Final score"), formatScore(row.finalScore)],
                     [text(lang, "证据", "Evidence"), row.evidenceLevel],
                     [text(lang, "路径适配", "Pathway fit"), formatScore(row.pathwayFit)],
-                    [text(lang, "图论指标", "Graph metric"), formatScore(row.graphCentrality)],
+                    [text(lang, "风险惩罚", "Risk penalty"), formatScore(row.riskPenalty || 0)],
                   ].map(([label, value]) => (
                     <span key={label} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.muted, display: "grid", fontSize: 10.8, gap: 3, padding: 7 }}>
                       <span style={{ color: t.faint, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
@@ -247,10 +191,13 @@ export function OrganicAcidFinalDecisionBoard({ result, lang, t, isMobile, onIns
                 ["candidateName", "candidateName", active.candidateName],
                 ["targetProduct", "targetProduct", active.targetProduct],
                 ["pathwayRole", "pathwayRole", active.pathwayRole],
+                ["rank", "rank", active.rank],
+                ["recommendationClass", "recommendationClass", active.recommendationClass],
                 ["finalScore", "finalScore", formatScore(active.finalScore)],
                 ["evidenceLevel", "evidenceLevel", active.evidenceLevel],
                 ["pathwayFit", "pathwayFit", formatScore(active.pathwayFit)],
                 ["graphCentrality", "graphCentrality", formatScore(active.graphCentrality)],
+                ["riskPenalty", "riskPenalty", formatScore(active.riskPenalty || 0)],
                 ["validationReadiness", "validationReadiness", active.validationReadiness],
                 ["nextExperiment", "nextExperiment", active.nextExperiment],
               ].map(([field, label, value]) => (
@@ -262,6 +209,34 @@ export function OrganicAcidFinalDecisionBoard({ result, lang, t, isMobile, onIns
                 </div>
               ))}
             </div>
+            <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
+              <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 6, padding: 10 }}>
+                <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "为什么排在这里", "Why this rank")}</strong>
+                {(active.mainReasons || []).slice(0, 4).map(reason => (
+                  <span key={reason} style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}><ChemicalText value={reason} /></span>
+                ))}
+              </div>
+              <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 6, padding: 10 }}>
+                <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "哪些风险拉低评分", "Risk drivers")}</strong>
+                {(active.mainRisks || []).slice(0, 5).map(risk => (
+                  <span key={risk} style={{ color: t.warn, fontSize: 11.5, lineHeight: 1.45 }}><ChemicalText value={risk} /></span>
+                ))}
+              </div>
+            </div>
+            {active.scoreBreakdown ? (
+              <div data-testid="organic-acid-score-breakdown" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 8, padding: 10 }}>
+                <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "Score breakdown / 评分拆解", "Score breakdown")}</strong>
+                <span style={{ color: t.faint, fontSize: 10.8, lineHeight: 1.45 }}>{active.scoreBreakdown.equation}</span>
+                <div style={{ display: "grid", gap: 6, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))" }}>
+                  {Object.entries(active.scoreBreakdown.dimensions || {}).map(([key, value]) => (
+                    <span key={key} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, display: "grid", gap: 3, padding: 7 }}>
+                      <span style={{ color: t.faint, fontSize: 10, fontWeight: 900 }}>{key}</span>
+                      <strong style={{ color: t.textStrong, fontSize: 12 }}>{formatScore(value)}</strong>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ) : null}
             <TraceGrid row={active} lang={lang} t={t} />
           </article>
         ) : null}

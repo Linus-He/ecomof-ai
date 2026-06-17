@@ -9,6 +9,7 @@ export const ORGANIC_ACID_FINAL_DIRECTORY = {
   children: [
     { id: "methodology-oafs-overview", label: "Method Overview", labelZh: "方法总览" },
     { id: "methodology-oafs-flow", label: "Two-Stage Algorithm Flow", labelZh: "两阶段算法流程" },
+    { id: "methodology-oafs-algorithm-closure", label: "Organic Acid Algorithm Closure", labelZh: "有机酸算法闭环" },
     { id: "methodology-oafs-data-mapping", label: "Data Mapping and Schema Validation", labelZh: "数据映射与 Schema Validation" },
     { id: "methodology-oafs-small-real-dataset", label: "Small Real Dataset Integration", labelZh: "小规模真实样例接入" },
     { id: "methodology-oafs-trace-workbench", label: "Algorithm Trace Workbench", labelZh: "算法追踪工作台" },

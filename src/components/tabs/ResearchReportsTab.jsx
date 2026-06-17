@@ -14,6 +14,7 @@ import {
 } from "../../shared"
 import { generateResearchReport, REPORT_TYPES } from "../../utils/researchReports"
 import { runLocalizationAudit, terminologyPairs } from "../../utils/localizationAudit"
+import { runOrganicAcidFinalScreening } from "../../utils/organicAcidFinalScreening"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -104,7 +105,7 @@ function ReportGenerator({ report, records, type, setType, candidateId, setCandi
     <Card
       id="research-reports-generator"
       title={text(lang, "研究报告生成器", "Research Report Generator")}
-      subtitle={text(lang, "Generate Research Report：支持候选报告、对比报告、筛选报告和验证报告。", "Generate Research Report: candidate, comparison, screening, and validation reports.")}
+      subtitle={text(lang, "Generate Research Report：支持候选报告、对比报告、筛选报告、验证报告和有机酸筛选报告。", "Generate Research Report: candidate, comparison, screening, validation, and Organic Acid Screening reports.")}
       t={t}
       actions={
         <button type="button" onClick={() => downloadTextFile(`ecomof-${report.type}-research-report.md`, report.markdown)} style={{ ...toolbarBtn(t), color: t.accentText, borderColor: t.accent }}>
@@ -226,13 +227,14 @@ function LocalizationAuditPanel({ audit, t, lang, isMobile }) {
   )
 }
 
-export function ResearchReportsTab({ records: providedRecords = null, summary: providedSummary = null, versionData: providedVersionData = null } = {}) {
+export function ResearchReportsTab({ records: providedRecords = null, summary: providedSummary = null, versionData: providedVersionData = null, organicAcidResult: providedOrganicAcidResult = null } = {}) {
   const t = useT()
   const { lang } = useLang()
   const { isMobile } = useViewport()
   const [records, setRecords] = useState(() => Array.isArray(providedRecords) ? providedRecords : [])
   const [summary, setSummary] = useState(providedSummary)
   const [versionData, setVersionData] = useState(providedVersionData)
+  const [organicAcidResult, setOrganicAcidResult] = useState(providedOrganicAcidResult)
   const [type, setType] = useState("candidate")
   const [candidateId, setCandidateId] = useState("")
 
@@ -243,6 +245,7 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
       setRecords(rows)
       setSummary(providedSummary)
       setVersionData(providedVersionData)
+      setOrganicAcidResult(providedOrganicAcidResult)
       setCandidateId(current => current || rows[0]?.candidateId || "")
       return () => { active = false }
     }
@@ -250,16 +253,21 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
       fetchDataJson("database_precompute/v2_2/scalable_database_preview_records.json", []),
       fetchDataJson("database_precompute/v2_2/scalable_database_preview_summary.json", null),
       fetchDataJson("version_evolution_records.json", null),
-    ]).then(([nextRecords, nextSummary, nextVersionData]) => {
+      fetchDataJson("organic_acid_final_screening/al_mof_framework_candidates.json", []),
+      fetchDataJson("organic_acid_final_screening/dopant_metal_property_matrix.json", []),
+      fetchDataJson("organic_acid_final_screening/organic_acid_screening_rules.json", {}),
+      fetchDataJson("organic_acid_final_screening/organic_acid_evidence_records.json", []),
+    ]).then(([nextRecords, nextSummary, nextVersionData, organicFrameworks, organicMetals, organicRules, organicEvidence]) => {
       if (!active) return
       const rows = Array.isArray(nextRecords) ? nextRecords : []
       setRecords(rows)
       setSummary(nextSummary || {})
       setVersionData(nextVersionData || {})
+      setOrganicAcidResult(runOrganicAcidFinalScreening(organicFrameworks || [], organicMetals || [], organicRules || {}, organicEvidence || []))
       setCandidateId(current => current || rows[0]?.candidateId || "")
     })
     return () => { active = false }
-  }, [providedRecords, providedSummary, providedVersionData])
+  }, [providedRecords, providedSummary, providedVersionData, providedOrganicAcidResult])
 
   const report = useMemo(() => generateResearchReport({
     type,
@@ -267,7 +275,8 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
     summary: summary || {},
     versionData: versionData || {},
     candidateId,
-  }), [candidateId, records, summary, type, versionData])
+    organicAcidResult,
+  }), [candidateId, records, summary, type, versionData, organicAcidResult])
   const audit = useMemo(() => runLocalizationAudit({
     corpus: [
       report.markdown,

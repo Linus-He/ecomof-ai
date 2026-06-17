@@ -210,13 +210,17 @@ describe("organic acid final screening", () => {
 
   it("records the Organic Acid Knowledge Base and planned roadmap", () => {
     expect(versionDocs.knowledgeBaseLabel).toBe("Knowledge Base")
-    expect(versionDocs.currentVersion).toBe("V2.0-L")
-    expect(versionDocs.completedRange).toBe("V1.0-V2.0-L")
-    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6", "V1.7", "V2.0-A", "V2.0-B", "V2.0-C", "V2.0-D", "V2.0-E", "V2.0-F", "V2.0-G", "V2.0-H", "V2.0-I", "V2.0-J", "V2.0-K", "V2.0-L"])
+    expect(versionDocs.currentVersion).toBe("V2.6")
+    expect(versionDocs.completedRange).toBe("V1.0-V2.6")
+    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6", "V1.7", "V2.0-A", "V2.0-B", "V2.0-C", "V2.0-D", "V2.0-E", "V2.0-F", "V2.0-G", "V2.0-H", "V2.0-I", "V2.0-J", "V2.0-K", "V2.0-L", "V2.6"])
     expect(versionDocs.versions.find(row => row.version === "V1.4")).toEqual(expect.objectContaining({
       status: "completed",
       title: "Coupled Descriptor Hot Spot Map",
       evidenceBoundary: "Hot spot map is a demo/proxy design-space visualization, not a DFT-trained performance predictor.",
+    }))
+    expect(versionDocs.versions.find(row => row.version === "V2.6")).toEqual(expect.objectContaining({
+      title: "Organic Acid Algorithm Closure",
+      evidenceBoundary: expect.stringMatching(/Algorithmic suggestion/),
     }))
     expect(versionDocs.versions.find(row => row.version === "V1.5")).toEqual(expect.objectContaining({
       status: "completed",
@@ -363,7 +367,7 @@ describe("organic acid final screening", () => {
     const v20k = versionDocs.versions.find(row => row.version === "V2.0-K")
     expect(v20k.status).toBe("completed")
     const v20l = versionDocs.versions.find(row => row.version === "V2.0-L")
-    expect(v20l.status).toBe("current")
+    expect(v20l.status).toBe("completed")
     expect(v20l.title).toMatch(/Manual Source Curation for First Verified Candidates/)
     expect(v20l.keyUpdates.join(" ")).toMatch(/manual source/i)
     expect(v20l.keyUpdates.join(" ")).toMatch(/first verified candidate report/i)
@@ -377,7 +381,8 @@ describe("organic acid final screening", () => {
     expect(han.doi).toBe("10.1038/s41467-024-52550-9")
     expect(han.evidenceBoundary).toMatch(/does not reproduce the Li-S model/i)
     expect(han.evidenceBoundary).toMatch(/does not train XGBoost/i)
-    expect(versionDocs.currentVersion).toBe("V2.0-L")
+    expect(versionDocs.currentVersion).toBe("V2.6")
+    expect(versionDocs.versions.find(row => row.version === "V2.6").status).toBe("current")
     expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
       ["V2.1", "planned"],
     ])

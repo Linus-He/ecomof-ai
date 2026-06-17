@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V2.4",
+  "currentVersion": "V2.6",
   "generatedAt": "2026-06-17",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
-    "currentVersion": "V2.4",
+    "currentVersion": "V2.6",
     "databaseSize": 1000,
     "verifiedMetadataCount": 30,
     "sourceConfirmedCount": 1000,
@@ -13,12 +13,12 @@
     "modelValidationStatus": "Validation Pending",
     "projectAge": "2026-04 to 2026-06",
     "githubStars": "pending",
-    "milestoneCount": 9,
+    "milestoneCount": 10,
     "databasePreviewStatus": "Database Preview",
     "notFinalRecommendationStatus": "Not Final Recommendation",
     "sources": {
       "currentVersion": {
-        "value": "V2.4",
+        "value": "V2.6",
         "sourceDatabase": "EcoMOF-AI version_evolution_records.json",
         "sourceRecordId": "overview.currentVersion",
         "sourceUrl": "public/data/version_evolution_records.json",
@@ -27,9 +27,9 @@
         "retrievedAt": "2026-06-17",
         "curationStatus": "confirmed",
         "confidence": 1,
-        "databaseVersion": "version_evolution_records.json@V2.4",
-        "generatingScript": "manual V2.4 research outputs and localization refactor",
-        "notes": "Version label for the V2.4 research outputs framework and localization refactor."
+        "databaseVersion": "version_evolution_records.json@V2.6",
+        "generatingScript": "manual V2.6 organic acid algorithm closure",
+        "notes": "Version label for the V2.6 Organic Acid algorithm closure sprint."
       },
       "databaseSize": {
         "value": 1000,
@@ -252,9 +252,44 @@
       "breakingChanges": "Research-facing copy now follows the V2.4 terminology whitelist and scientific language guide.",
       "nextVersionGoal": "External dataset integration and experimental validation framework.",
       "categories": ["Methods", "UI", "Testing", "Infrastructure"]
+    },
+    {
+      "version": "V2.5",
+      "date": "2026-06-17",
+      "commit": "6675849",
+      "summary": "EcoScreen performance priority, research report readability, Organic Acid decision board, and version date display cleanup.",
+      "scientificImpact": "Made screening priority mode explicit while keeping recommendation boundaries cautious.",
+      "databaseImpact": "No database expansion; localization gap report was refreshed.",
+      "algorithmImpact": "Added performance priority mode and priority-impact summaries across scoring traces.",
+      "validationImpact": "Visual check remained environment-blocked; tests, typecheck, build, and live Pages asset verification passed.",
+      "uiImpact": "Research reports became easier to read and Organic Acid gained a unified decision board.",
+      "knownLimitations": "Organic Acid decision board still needed a true algorithmic closure layer.",
+      "breakingChanges": "Visible per-version launch dates were removed from version UI.",
+      "nextVersionGoal": "Close Organic Acid algorithm loop with explicit task, schema, scoring, risks, sanity, and sensitivity.",
+      "categories": ["Algorithm", "UI", "Testing"]
+    },
+    {
+      "version": "V2.6",
+      "date": "2026-06-17",
+      "commit": "pending-current",
+      "summary": "Organic Acid Algorithm Closure Sprint.",
+      "scientificImpact": "首次形成有机酸候选筛选算法闭环。",
+      "databaseImpact": "No database expansion; existing Organic Acid candidate fixtures and evidence records feed the white-box closure layer.",
+      "algorithmImpact": "建立目标函数、输入特征、权重、风险惩罚、合理性检查与敏感性分析。",
+      "validationImpact": "增加 sanity check 与 sensitivity analysis，但仍需实验反馈验证。",
+      "uiImpact": "Organic Acid Final Decision Board now reads ranked algorithm output and exposes score breakdown, risks, data gaps, trace, and next experiments.",
+      "knownLimitations": "算法可解释但未被实验闭环验证。",
+      "breakingChanges": "None.",
+      "nextVersionGoal": "Use real experimental feedback to calibrate or reject the current algorithmic suggestions.",
+      "categories": ["Algorithm", "Validation", "Methods", "UI", "Testing"]
     }
   ],
   "releaseNotes": [
+    { "version": "V2.6", "date": "2026-06-17", "module": "Organic Acid", "category": "Algorithm", "title": "Organic Acid Algorithm Closure", "body": "Added task definition, feature schema, scoring equation, mode weights, risk penalty, ranking, sanity check, and sensitivity analysis." },
+    { "version": "V2.6", "date": "2026-06-17", "module": "Organic Acid", "category": "Validation", "title": "Sanity and Sensitivity Checks", "body": "Top candidates now carry sanity-check flags, mode sensitivity context, data gaps, and next experiments." },
+    { "version": "V2.6", "date": "2026-06-17", "module": "Research Reports", "category": "Methods", "title": "Organic Acid Screening Report", "body": "Research Reports now includes a natural-language Organic Acid Screening Report from the same algorithm output." },
+    { "version": "V2.5", "date": "2026-06-17", "module": "EcoScreen", "category": "Algorithm", "title": "Performance Priority Modes", "body": "Added performance priority mode and priority-impact explanations across scoring and trace surfaces." },
+    { "version": "V2.5", "date": "2026-06-17", "module": "Research Reports", "category": "UI", "title": "Readable Research Reports", "body": "Added clearer executive summaries, sections, and chart packs." },
     { "version": "V2.4", "date": "2026-06-17", "module": "Research Reports", "category": "UI", "title": "Research Outputs Framework", "body": "Added first-level Research Reports tab with candidate, comparison, screening, and validation reports." },
     { "version": "V2.4", "date": "2026-06-17", "module": "Localization", "category": "Methods", "title": "Full Localization Refactor", "body": "Added terminology whitelist, scientific language guide, and localization audit outputs." },
     { "version": "V2.4", "date": "2026-06-17", "module": "Reproducibility", "category": "Infrastructure", "title": "Run Snapshot and Citation Package", "body": "Reports now include run snapshots, citation packages, data sources, field sources, source links, and citation status." },
@@ -278,6 +313,7 @@
     { "version": "V2.2", "stage": "Verified Metadata", "maturity": 72 },
     { "version": "V2.1", "stage": "Model Validation Lab", "maturity": 76 },
     { "version": "V2.4", "stage": "Research Outputs Framework", "maturity": 84 },
+    { "version": "V2.6", "stage": "Organic Acid Algorithm Closure", "maturity": 88 },
     { "version": "Future", "stage": "Future Experimental Validation", "maturity": 95 }
   ],
   "databaseEvolution": [
@@ -292,7 +328,8 @@
     { "stage": "Evidence Adjustment", "version": "V2.0-L", "newCapability": "Source and citation state influence confidence", "retiredCapability": "Implicit source quality", "limitation": "No verified metadata", "futurePlan": "Add strict gate." },
     { "stage": "Screening Trace", "version": "V2.0-M", "newCapability": "Trace timeline, funnel, dashboard, compare mode", "retiredCapability": "Opaque result list", "limitation": "Visual shell instability was later fixed", "futurePlan": "Scale to 1000 records." },
     { "stage": "Data Quality Audit", "version": "V2.2", "newCapability": "FieldQualityScore and blocker summaries", "retiredCapability": "Record-level-only quality state", "limitation": "Synthetic fixtures remain preview-only", "futurePlan": "External dataset validation." },
-    { "stage": "Model Validation Lab", "version": "V2.1", "newCapability": "Framework-ready model comparison", "retiredCapability": "No validation workspace", "limitation": "Accuracy / ROC-AUC / F1 remain pending", "futurePlan": "Future ML validation with real labels." }
+    { "stage": "Model Validation Lab", "version": "V2.1", "newCapability": "Framework-ready model comparison", "retiredCapability": "No validation workspace", "limitation": "Accuracy / ROC-AUC / F1 remain pending", "futurePlan": "Future ML validation with real labels." },
+    { "stage": "Organic Acid Algorithm Closure", "version": "V2.6", "newCapability": "Task definition, input schema, objective function, weights, risk penalty, ranking, sanity check, and sensitivity analysis", "retiredCapability": "Display-only Organic Acid decision panel", "limitation": "Algorithm is explainable but not experimentally closed-loop validated.", "futurePlan": "Calibrate with experimental feedback." }
   ],
   "validationEvolution": [
     { "stage": "Source Confirmed", "definition": "Source URL and source record id are present.", "passCondition": "sourceConfirmed=true", "blockingCondition": "sourceUrl pending or sourceRecordId pending", "currentCount": 1000, "nextGoal": "Manual external source audit." },
@@ -307,7 +344,8 @@
     { "version": "V2.1", "area": "Model Validation Lab", "before": "Methodology notes only", "after": "Independent validation workspace", "change": "Added feature selection, model comparison, explainability, confidence analysis." },
     { "version": "V2.2", "area": "Data Quality Audit", "before": "Scattered provenance indicators", "after": "Data Quality Audit panels across core modules", "change": "Centralized quality and blocker reporting." },
     { "version": "V2.3", "area": "Project Evolution", "before": "Version logs mixed into Methods & Evidence", "after": "First-level Project Evolution Center", "change": "Separated project history from scientific methods." },
-    { "version": "V2.4", "area": "Research Reports", "before": "Research outputs were scattered across panels", "after": "First-level Research Reports tab", "change": "Reports, snapshots, citation packages, and localization audit became a unified research output workflow." }
+    { "version": "V2.4", "area": "Research Reports", "before": "Research outputs were scattered across panels", "after": "First-level Research Reports tab", "change": "Reports, snapshots, citation packages, and localization audit became a unified research output workflow." },
+    { "version": "V2.6", "area": "Organic Acid Final Decision Board", "before": "Display-oriented decision cards", "after": "Algorithm-output decision board", "change": "Reads ranked algorithm output with score breakdown, risks, sanity check, sensitivity analysis, and next experiments." }
   ],
   "localizationEvolution": [
     { "version": "V2.4", "area": "Terminology", "date": "2026-06-17", "change": "Established terminology whitelist for Screening Trace, Ranking Explanation, Database Preview, Verified Metadata, Research Report, and Research Readiness." },
@@ -323,12 +361,13 @@
     { "id": "database-1000-preview", "title": "1000 Database Preview", "version": "V2.2", "date": "2026-06-17", "detail": "Scalable Database Preview reached 1000 candidates." },
     { "id": "model-validation-lab", "title": "Model Validation Lab", "version": "V2.1", "date": "2026-06-16", "detail": "Model readiness workspace added pending-only metrics." },
     { "id": "project-evolution-center", "title": "Project Evolution Center", "version": "V2.3", "date": "2026-06-17", "detail": "Project evolution became a first-level navigation center." },
-    { "id": "research-outputs-framework", "title": "Research Outputs Framework", "version": "V2.4", "date": "2026-06-17", "detail": "Research Reports, reproducibility snapshot, citation package, and localization audit became first-level research outputs." }
+    { "id": "research-outputs-framework", "title": "Research Outputs Framework", "version": "V2.4", "date": "2026-06-17", "detail": "Research Reports, reproducibility snapshot, citation package, and localization audit became first-level research outputs." },
+    { "id": "organic-acid-algorithm-closure", "title": "Organic Acid Algorithm Closure", "version": "V2.6", "date": "2026-06-17", "detail": "Organic Acid gained task definition, feature schema, scoring equation, risk penalty, sanity check, sensitivity analysis, and algorithm-output decision board." }
   ],
   "roadmap": [
     { "version": "V2.4", "plannedFeatures": ["Research Outputs Framework", "Full Localization Refactor"], "scientificGoal": "Turn transparent screening into research display and research output artifacts.", "databaseGoal": "Carry database version, field provenance, data gaps, and citation package into reports.", "validationGoal": "Keep verified metadata and not-final-recommendation boundaries visible in every report.", "knownRisks": ["Overclaiming if report copy ignores Database Preview boundary", "Terminology drift", "Localization regressions"] },
     { "version": "V2.5", "plannedFeatures": ["Experimental Validation Framework"], "scientificGoal": "Connect screening hypotheses to experimental validation design.", "databaseGoal": "Add label-ready experimental records where available.", "validationGoal": "Introduce experiment-backed validation stages.", "knownRisks": ["Sparse labels", "Non-comparable experimental conditions"] },
-    { "version": "V2.6", "plannedFeatures": ["Research Report Export"], "scientificGoal": "Package transparent evidence and limitations for reporting.", "databaseGoal": "Export field-level provenance and blockers.", "validationGoal": "Export validation readiness summaries.", "knownRisks": ["Overclaiming if report copy is not boundary-aware"] },
+    { "version": "V2.6", "plannedFeatures": ["Organic Acid Algorithm Closure", "Organic Acid Screening Report"], "scientificGoal": "Close the Organic Acid screening loop with white-box objective, schema, scoring, risks, sanity, and sensitivity.", "databaseGoal": "Use existing bounded Organic Acid records without database expansion.", "validationGoal": "Expose sanity and sensitivity while keeping experimental validation pending.", "knownRisks": ["Overclaiming algorithmic suggestions", "Synthetic fixtures entering validation priority", "Weight sensitivity without experimental feedback"] },
     { "version": "V3.0", "plannedFeatures": ["Research Decision Platform"], "scientificGoal": "Move from prototype decision support to research platform.", "databaseGoal": "Support larger validated database slices.", "validationGoal": "External and experimental validation workflows available.", "knownRisks": ["Data licensing", "Reproducibility debt", "Model-label mismatch"] }
   ]
 }

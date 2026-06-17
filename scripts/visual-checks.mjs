@@ -1,6 +1,7 @@
 import fs from "node:fs/promises"
 import path from "node:path"
 import process from "node:process"
+import { spawn } from "node:child_process"
 import { chromium } from "playwright"
 
 const baseUrl = process.env.VISUAL_CHECK_BASE_URL || "http://127.0.0.1:5173/ecomof-ai/"
@@ -267,6 +268,52 @@ const viewports = [
   ["mobile", 390, 1100],
 ]
 
+let devServer = null
+
+async function canReach(url) {
+  try {
+    const response = await fetch(url, { signal: AbortSignal.timeout(2500) })
+    return response.ok
+  } catch {
+    return false
+  }
+}
+
+async function waitForBaseUrl(url, timeoutMs = 45000) {
+  const startedAt = Date.now()
+  while (Date.now() - startedAt < timeoutMs) {
+    if (await canReach(url)) return true
+    await new Promise(resolve => setTimeout(resolve, 750))
+  }
+  return false
+}
+
+function stopDevServer() {
+  if (devServer && !devServer.killed) devServer.kill("SIGTERM")
+}
+
+async function ensureDevServer() {
+  if (process.env.VISUAL_CHECK_BASE_URL) return
+  if (await canReach(baseUrl)) return
+  const output = []
+  devServer = spawn("npm", ["run", "dev", "--", "--host", "127.0.0.1"], {
+    cwd: process.cwd(),
+    env: { ...process.env, BROWSER: "none" },
+    stdio: ["ignore", "pipe", "pipe"],
+  })
+  devServer.stdout.on("data", chunk => output.push(String(chunk)))
+  devServer.stderr.on("data", chunk => output.push(String(chunk)))
+  process.on("exit", stopDevServer)
+  process.on("SIGINT", () => { stopDevServer(); process.exit(130) })
+  process.on("SIGTERM", () => { stopDevServer(); process.exit(143) })
+  if (await waitForBaseUrl(baseUrl)) return
+  stopDevServer()
+  const message = `visual check dev server did not become reachable at ${baseUrl}\n${output.slice(-20).join("")}`
+  const error = new Error(message)
+  error.environmentBlocked = message.includes("listen EPERM") || message.includes("operation not permitted")
+  throw error
+}
+
 async function waitForApp(page) {
   await page.waitForSelector("#root", { state: "attached" })
   await page.waitForLoadState("load").catch(() => {})
@@ -318,7 +365,40 @@ function shouldIgnoreConsoleError(message) {
 
 await fs.mkdir(outDir, { recursive: true })
 
-const browser = await chromium.launch({ headless: true })
+try {
+  await ensureDevServer()
+} catch (error) {
+  const message = String(error?.message || error)
+  await fs.writeFile(path.join(outDir, "summary.json"), JSON.stringify({
+    baseUrl,
+    screenshots: [],
+    failures: [`environment-blocked: ${message}`],
+    status: "environment-blocked",
+  }, null, 2))
+  console.error(`VISUAL_CHECK_ENVIRONMENT_BLOCKED: ${message}`)
+  stopDevServer()
+  process.exit(error?.environmentBlocked ? 2 : 1)
+}
+
+let browser = null
+try {
+  browser = await chromium.launch({
+    headless: true,
+    chromiumSandbox: false,
+    args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"],
+  })
+} catch (error) {
+  const message = String(error?.message || error)
+  await fs.writeFile(path.join(outDir, "summary.json"), JSON.stringify({
+    baseUrl,
+    screenshots: [],
+    failures: [`environment-blocked: ${message}`],
+    status: "environment-blocked",
+  }, null, 2))
+  console.error(`VISUAL_CHECK_ENVIRONMENT_BLOCKED: ${message}`)
+  stopDevServer()
+  process.exit(2)
+}
 const failures = []
 const screenshots = []
 
@@ -446,6 +526,7 @@ for (const [viewportName, width, height] of viewports) {
 }
 
 await browser.close()
+stopDevServer()
 await fs.writeFile(path.join(outDir, "summary.json"), JSON.stringify({ baseUrl, screenshots, failures }, null, 2))
 
 if (failures.length) {

@@ -12,6 +12,9 @@ import { MethodologyFlowDiagram } from "./organic-acid-final/MethodologyFlowDiag
 import { MethodologyLimitationsCard } from "./organic-acid-final/MethodologyLimitationsCard"
 import { OrganicAcidMethodologyOverview } from "./organic-acid-final/OrganicAcidMethodologyOverview"
 import { ExafsFalsificationDiagram, ValidationLoopDiagram } from "./organic-acid-final/ValidationLoopDiagram"
+import { ORGANIC_ACID_FEATURE_GROUPS } from "../../utils/organicAcid/organicAcidFeatureSchema"
+import { ORGANIC_ACID_SCORING_WEIGHTS, ORGANIC_ACID_SCORE_EQUATION } from "../../utils/organicAcid/organicAcidScoringWeights"
+import { ORGANIC_ACID_TASK_DEFINITION } from "../../utils/organicAcid/organicAcidTaskDefinition"
 
 const DataMappingSchemaValidationPanel = lazy(() =>
   import("./organic-acid-final/DataMappingSchemaValidationPanel").then(module => ({ default: module.DataMappingSchemaValidationPanel })),
@@ -25,6 +28,64 @@ function MetricCard({ label, value, t, tone = "info" }) {
       <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
       <strong style={{ color: tone === "warn" ? t.warn : t.textStrong, fontSize: 18, lineHeight: 1.1 }}><ChemicalText value={value} /></strong>
     </article>
+  )
+}
+
+function AlgorithmClosureMethod({ result, lang, t }) {
+  const algorithm = result?.organicAcidAlgorithm || {}
+  const mode = ORGANIC_ACID_SCORING_WEIGHTS[algorithm.scoringMode] || ORGANIC_ACID_SCORING_WEIGHTS.formic_acid_priority
+  const featureGroups = Object.entries(ORGANIC_ACID_FEATURE_GROUPS)
+  const rows = [
+    [text(lang, "任务定义", "Task definition"), `${ORGANIC_ACID_TASK_DEFINITION.taskId} · ${ORGANIC_ACID_TASK_DEFINITION.targetProduct}`],
+    [text(lang, "目标函数", "Objective function"), ORGANIC_ACID_SCORE_EQUATION],
+    [text(lang, "权重来源", "Weight source"), text(lang, "V2.6 集中配置的白盒 MCDA 权重；不是黑盒 ML。", "V2.6 centralized white-box MCDA weights; not black-box ML.")],
+    [text(lang, "风险惩罚", "Risk penalty"), text(lang, "collapseRisk、competingPathwayRisk、ambiguityWarnings、missingCriticalFields、syntheticFixtureFlag、低证据、低溯源、条件不兼容与机制未闭合。", "collapseRisk, competingPathwayRisk, ambiguityWarnings, missingCriticalFields, syntheticFixtureFlag, low evidence, low provenance, low condition compatibility, and unverified mechanism support.")],
+    [text(lang, "决策追踪", "Decision trace"), "Candidate Loaded -> Feature Availability Check -> Pathway Fit Calculation -> Evidence Adjustment -> Graph Relevance Calculation -> Structure Suitability Calculation -> Risk Penalty Applied -> Validation Readiness Check -> Final Ranking -> Next Experiment Generated"],
+    [text(lang, "算法合理性检查", "Sanity check"), algorithm.sanityCheck?.summaryZh || algorithm.sanityCheck?.summary || "pending"],
+    [text(lang, "敏感性分析", "Sensitivity analysis"), algorithm.sensitivitySummary?.explanationZh || algorithm.sensitivitySummary?.explanation || "pending"],
+  ]
+
+  return (
+    <section id="methodology-oafs-algorithm-closure" data-testid="methodology-oafs-algorithm-closure" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 13, padding: 15, scrollMarginTop: 118 }}>
+      <header style={{ display: "grid", gap: 4 }}>
+        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Organic Acid Algorithm Closure</span>
+        <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
+          {text(lang, "有机酸算法闭环：白盒多指标决策 + 证据修正 + 图论相关性 + 风险惩罚", "Organic Acid Algorithm Closure: white-box MCDA + evidence adjustment + graph relevance + risk penalty")}
+        </h3>
+      </header>
+      <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
+        <ChemicalText value={text(
+          lang,
+          "V2.6 首次把有机酸模块从展示型面板推进为可运行的候选筛选算法闭环。当前不是黑盒 ML，不报告预测精度；输出是 screening priority / algorithmic suggestion / priority validation candidate，仍需实验验证。",
+          "V2.6 turns the Organic Acid module from a display panel into a runnable candidate-screening algorithm loop. It is not black-box ML and reports no prediction accuracy; outputs are screening priorities, algorithmic suggestions, and priority validation candidates that still require experimental validation."
+        )} />
+      </p>
+      <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+        <MetricCard label={text(lang, "当前模式", "Scoring mode")} value={mode?.labelZh || mode?.label || "formic_acid_priority"} t={t} />
+        <MetricCard label={text(lang, "候选数量", "Candidate count")} value={String(algorithm.scoringSummary?.candidateCount ?? 0)} t={t} />
+        <MetricCard label={text(lang, "Sanity", "Sanity")} value={algorithm.sanityCheck?.passed ? text(lang, "通过", "passed") : text(lang, "需复核", "review")} t={t} tone={algorithm.sanityCheck?.passed ? "info" : "warn"} />
+        <MetricCard label={text(lang, "Top 稳定性", "Top stability")} value={algorithm.sensitivitySummary?.topCandidateStability ? text(lang, "稳定", "stable") : text(lang, "会变化", "changes")} t={t} tone={algorithm.sensitivitySummary?.topCandidateStability ? "info" : "warn"} />
+      </div>
+      <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))" }}>
+        {rows.map(([label, value]) => (
+          <article key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 7, padding: 11 }}>
+            <strong style={{ color: t.textStrong, fontSize: 12.7 }}>{label}</strong>
+            <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.48, overflowWrap: "anywhere" }}><ChemicalText value={value} /></span>
+          </article>
+        ))}
+      </div>
+      <div style={{ display: "grid", gap: 8 }}>
+        <strong style={{ color: t.textStrong, fontSize: 12.7 }}>{text(lang, "输入特征 schema", "Input feature schema")}</strong>
+        <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))" }}>
+          {featureGroups.map(([group, fields]) => (
+            <article key={group} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 5, padding: 10 }}>
+              <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{group}</span>
+              <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.5 }}>{fields.join(", ")}</span>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -526,6 +587,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
         </div>
         <OrganicAcidMethodologyOverview lang={lang} t={t} coverage={result.evidenceCoverage} />
         <MethodologyFlowDiagram flow={result.methodologyFlowData} lang={lang} t={t} />
+        <AlgorithmClosureMethod result={result} lang={lang} t={t} />
         <LazyMethodologyDetails id="methodology-oafs-data-mapping" title="Data Mapping and Schema Validation" titleZh="数据映射与 Schema Validation" summary="Data Mapper Preview Panel / Schema Validation Panel / Data Quality Gate Panel" summaryZh="Data Mapper Preview Panel / Schema Validation Panel / Data Quality Gate Panel" lang={lang} t={t}>
           <Suspense fallback={<MethodologySectionSkeleton lang={lang} t={t} title="Data Mapping and Schema Validation" titleZh="数据映射与 Schema Validation" />}>
             <DataMappingSchemaValidationPanel lang={lang} t={t} />
