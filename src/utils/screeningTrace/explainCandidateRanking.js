@@ -40,10 +40,17 @@ export function explainCandidateRanking(candidate = {}, model = {}) {
   const missingDrivers = drivers.filter(d => d.missing)
   const ratio = completenessRatio(candidate)
   const confidencePenalty = Math.round((1 - ratio) * 0.3 * 1000) / 1000
+  const priorityImpact = candidate.priorityImpact || candidate.candidate?.priorityImpact || null
 
   const steps = [
     { id: "raw", labelEn: "Raw descriptor contribution", labelZh: "原始描述符贡献", value: positive.map(d => d.label).join(", ") || "n/a" },
     { id: "normalized", labelEn: "Normalized score", labelZh: "标准化得分", value: drivers.length ? Math.round(drivers.reduce((s, d) => s + d.normalized, 0) / drivers.length * 1000) / 1000 : null },
+    ...(priorityImpact ? [{
+      id: "priority",
+      labelEn: "Performance Priority Applied",
+      labelZh: "性能优先级已应用",
+      value: `${priorityImpact.modeLabel || "Balanced"} ${priorityImpact.delta > 0 ? "+" : ""}${priorityImpact.delta}`,
+    }] : []),
     { id: "critic", labelEn: "CRITIC weighted score", labelZh: "CRITIC 加权得分", value: Math.round(drivers.reduce((s, d) => s + d.contribution, 0) * 1000) / 1000 },
     { id: "evidence", labelEn: "Evidence adjusted score", labelZh: "证据修正得分", value: finalScore(candidate) },
     { id: "confidencePenalty", labelEn: "Confidence penalty (data gaps)", labelZh: "置信度惩罚（数据缺口）", value: confidencePenalty },
@@ -51,10 +58,10 @@ export function explainCandidateRanking(candidate = {}, model = {}) {
   ]
 
   const mainReasonEn = positive.length
-    ? `Ranks here mainly because of strong ${positive.map(d => d.label).join(" and ")} contribution.`
+    ? `${priorityImpact?.explanationEn ? `${priorityImpact.explanationEn} ` : ""}Ranks here mainly because of strong ${positive.map(d => d.label).join(" and ")} contribution.`
     : "Ranks here on limited descriptor evidence."
   const mainReasonZh = positive.length
-    ? `主要因为 ${positive.map(d => d.labelZh).join(" 与 ")} 的较强贡献。`
+    ? `${priorityImpact?.explanationZh ? `${priorityImpact.explanationZh} ` : ""}主要因为 ${positive.map(d => d.labelZh).join(" 与 ")} 的较强贡献。`
     : "在有限的描述符证据下给出当前名次。"
   const mainUncertaintyEn = missingDrivers.length
     ? `Main uncertainty: missing ${missingDrivers.map(d => d.label).join(", ")}.`
@@ -81,6 +88,7 @@ export function explainCandidateRanking(candidate = {}, model = {}) {
     mainReasonZh,
     mainUncertaintyEn,
     mainUncertaintyZh,
+    priorityImpact,
     notFinalRecommendation: true,
   }
 }

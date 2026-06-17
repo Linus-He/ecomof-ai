@@ -110,6 +110,7 @@ export function ScoringModelCard({ model, settings, onManageDescriptors, onApply
           [text(lang, "Dataset", "Dataset"), lang === "zh" ? model.preset?.datasetLabelZh : model.preset?.datasetLabel],
           [text(lang, "Preset", "Preset"), presetLabel],
           [text(lang, "Descriptor preset", "Descriptor preset"), descriptorPreset],
+          [text(lang, "筛选优先级", "Priority mode"), lang === "zh" ? model.metadata?.performancePriorityModeLabelZh : model.metadata?.performancePriorityModeLabel],
           [text(lang, "Algorithm", "Algorithm"), String(settings.algorithm || model.algorithm).toUpperCase()],
           [text(lang, "Missing strategy", "Missing strategy"), settings.missingValueStrategy || model.missingValueStrategy],
           [text(lang, "Hybrid alpha", "Hybrid alpha"), Number(settings.hybridAlpha ?? model.hybridAlpha ?? 0).toFixed(2)],
@@ -394,6 +395,13 @@ export function ScoreBreakdownPanel({ row, t, lang }) {
       <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55 }}>
         {row.methodNote} {row.evidenceWarning ? `${text(lang, "Warning", "Warning")}: ${row.evidenceWarning}` : ""}
       </div>
+      {row.priorityImpact ? (
+        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.muted, fontSize: 11.3, lineHeight: 1.45, padding: 9 }}>
+          <strong style={{ color: t.textStrong }}>{text(lang, "筛选优先级", "Priority mode")}: {text(lang, row.priorityImpact.modeLabelZh, row.priorityImpact.modeLabel)}</strong>
+          <br />
+          {text(lang, row.priorityImpact.explanationZh, row.priorityImpact.explanationEn)}
+        </div>
+      ) : null}
       <div style={{ color: t.faint, fontSize: 11 }}>
         {text(lang, "Top drivers", "Top drivers")}: {row.topDrivers.map(item => lang === "zh" ? item.labelZh : item.label).join(", ")} · {text(lang, "Main weakness", "Main weakness")}: {lang === "zh" ? row.mainWeakness?.labelZh : row.mainWeakness?.label}
       </div>

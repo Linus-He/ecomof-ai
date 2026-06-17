@@ -8,6 +8,7 @@ import { explainWeights } from "../explainers/explainWeights"
 import { buildScoringDiagnostics } from "../explainers/buildScoringDiagnostics"
 import { resolveScoringPreset } from "../presets/scoringPresets"
 import { DEFAULT_SCORING_OPTIONS, normalizeWeightMap } from "../types/scoringTypes"
+import { PERFORMANCE_PRIORITY_MODES, applyPerformancePriorityToWeights, buildPriorityImpactSummary, resolvePerformancePriorityMode } from "../../utils/performancePriority.js"
 import { rankCandidates } from "./rankCandidates"
 import { scoreCandidates } from "./scoreCandidates"
 
@@ -18,7 +19,7 @@ function methodLabel(id) {
   return "Hybrid"
 }
 
-function buildMethodComparison({ candidates, matrixResult, descriptors, manualWeights, hybridAlpha, missingValueStrategy, evidenceMode, options }) {
+function buildMethodComparison({ candidates, matrixResult, descriptors, manualWeights, hybridAlpha, missingValueStrategy, evidenceMode, options, performancePriorityMode }) {
   const algorithms = ["manual", "equal", "critic", "hybrid"]
   const rankingsByAlgorithm = {}
   const warnings = []
@@ -35,13 +36,15 @@ function buildMethodComparison({ candidates, matrixResult, descriptors, manualWe
         context: { comparison: true },
         options,
       })
+      const priorityWeights = applyPerformancePriorityToWeights(weighting.weights, descriptors, performancePriorityMode)
       const scored = scoreCandidates({
         candidates,
         matrix: matrixResult.matrix,
         descriptors,
-        weights: weighting.weights,
+        weights: priorityWeights,
         missingValueStrategy,
         evidenceMode,
+        performancePriorityMode,
       })
       rankingsByAlgorithm[algorithm] = rankCandidates(scored)
     } catch (error) {
@@ -73,6 +76,43 @@ function buildMethodComparison({ candidates, matrixResult, descriptors, manualWe
   }
 }
 
+function buildPriorityModeComparison({ candidates, matrixResult, descriptors, weights, missingValueStrategy, evidenceMode }) {
+  const rankingsByMode = {}
+  PERFORMANCE_PRIORITY_MODES.forEach(mode => {
+    const priorityWeights = applyPerformancePriorityToWeights(weights, descriptors, mode.id)
+    const scored = scoreCandidates({
+      candidates,
+      matrix: matrixResult.matrix,
+      descriptors,
+      weights: priorityWeights,
+      missingValueStrategy,
+      evidenceMode,
+      performancePriorityMode: mode.id,
+    })
+    rankingsByMode[mode.id] = rankCandidates(scored)
+  })
+  const ids = new Set()
+  Object.values(rankingsByMode).forEach(rows => rows.forEach(row => ids.add(row.id)))
+  const rows = Array.from(ids).map(id => {
+    const ranks = Object.fromEntries(PERFORMANCE_PRIORITY_MODES.map(mode => {
+      const row = rankingsByMode[mode.id].find(item => item.id === id)
+      return [mode.id, row?.rank || null]
+    }))
+    const base = rankingsByMode.balanced.find(item => item.id === id) || rankingsByMode.performance_first.find(item => item.id === id)
+    const numericRanks = Object.values(ranks).filter(Number.isFinite)
+    return {
+      id,
+      name: base?.name || id,
+      ranks,
+      maxPriorityShift: numericRanks.length ? Math.max(...numericRanks) - Math.min(...numericRanks) : 0,
+    }
+  }).sort((a, b) => (a.ranks.balanced || 999) - (b.ranks.balanced || 999))
+  return {
+    modes: PERFORMANCE_PRIORITY_MODES.map(({ id, label, labelZh }) => ({ id, label, labelZh })),
+    rows,
+  }
+}
+
 export function createScoringModel(config = {}) {
   const preset = resolveScoringPreset(config.preset)
   const presetKey = config.descriptorPreset || preset.descriptorPreset || (typeof config.preset === "string" ? config.preset : "coreMof8")
@@ -95,6 +135,7 @@ export function createScoringModel(config = {}) {
   const algorithm = config.algorithm || preset.defaultAlgorithm || DEFAULT_SCORING_OPTIONS.algorithm
   const missingValueStrategy = config.missingValueStrategy || preset.defaultMissingValueStrategy || DEFAULT_SCORING_OPTIONS.missingValueStrategy
   const evidenceMode = config.evidenceMode || preset.defaultEvidenceMode || DEFAULT_SCORING_OPTIONS.evidenceMode
+  const performancePriority = resolvePerformancePriorityMode(config.performancePriorityMode || config.priorityMode || "balanced")
   const hybridAlpha = Number.isFinite(Number(config.hybridAlpha)) ? Number(config.hybridAlpha) : (preset.hybridAlpha ?? DEFAULT_SCORING_OPTIONS.hybridAlpha)
   const candidates = Array.isArray(config.candidates) ? config.candidates : []
   const descriptorWarnings = []
@@ -137,13 +178,15 @@ export function createScoringModel(config = {}) {
       explanation: "Equal-weight fallback.",
     }
   }
+  const activeWeights = applyPerformancePriorityToWeights(weightingResult.weights, resolvedDescriptors, performancePriority.id)
   const scores = scoreCandidates({
     candidates,
     matrix: matrixResult.matrix,
     descriptors: resolvedDescriptors,
-    weights: weightingResult.weights,
+    weights: activeWeights,
     missingValueStrategy,
     evidenceMode,
+    performancePriorityMode: performancePriority.id,
   })
   const rankings = rankCandidates(scores)
   const methodComparison = buildMethodComparison({
@@ -155,6 +198,15 @@ export function createScoringModel(config = {}) {
     missingValueStrategy,
     evidenceMode,
     options,
+    performancePriorityMode: performancePriority.id,
+  })
+  const priorityModeComparison = buildPriorityModeComparison({
+    candidates,
+    matrixResult,
+    descriptors: resolvedDescriptors,
+    weights: weightingResult.weights,
+    missingValueStrategy,
+    evidenceMode,
   })
   const warnings = [...descriptorWarnings, ...(methodComparison.warnings || [])]
   const diagnostics = buildScoringDiagnostics({
@@ -167,12 +219,13 @@ export function createScoringModel(config = {}) {
   return {
     preset,
     algorithm,
-    weights: weightingResult.weights,
+    weights: activeWeights,
+    baseWeights: weightingResult.weights,
     normalizedMatrix: matrixResult.matrix,
     scores,
     rankings,
     explanations: {
-      weights: explainWeights({ weights: weightingResult.weights, descriptors: resolvedDescriptors, diagnostics: weightingResult.diagnostics }),
+      weights: explainWeights({ weights: activeWeights, descriptors: resolvedDescriptors, diagnostics: weightingResult.diagnostics }),
       candidates: rankings.map(row => explainCandidateScore(row)),
     },
     diagnostics,
@@ -187,6 +240,9 @@ export function createScoringModel(config = {}) {
       methodSummaryZh: preset.methodSummaryZh,
       descriptorPreset: presetKey,
       requestedDescriptorCount: requestedDescriptors.length,
+      performancePriorityMode: performancePriority.id,
+      performancePriorityModeLabel: performancePriority.label,
+      performancePriorityModeLabelZh: performancePriority.labelZh,
     },
     descriptors: resolvedDescriptors,
     descriptorDirections: matrixResult.directions,
@@ -196,6 +252,10 @@ export function createScoringModel(config = {}) {
     evidenceMode,
     weightingDiagnostics: weightingResult.diagnostics,
     weightingExplanation: weightingResult.explanation,
+    performancePriorityMode: performancePriority.id,
+    performancePriority,
+    priorityImpactSummary: buildPriorityImpactSummary(performancePriority.id),
+    priorityModeComparison,
     boundsByDescriptor: matrixResult.boundsByDescriptor,
     descriptorCoverage,
     requestedDescriptors,

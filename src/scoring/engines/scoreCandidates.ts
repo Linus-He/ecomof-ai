@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { calculateGraphAdjustedScore, getEvidenceConfidence } from "../../utils/scoring"
+import { buildPriorityCandidateAdjustment } from "../../utils/performancePriority.js"
 import { DEFAULT_MISSING_DESCRIPTOR_POLICY, clamp01, safeNumber } from "../types/scoringTypes"
 
 function candidateName(candidate, fallback) {
@@ -23,6 +24,7 @@ export function scoreCandidates({
   missingValueStrategy = "median",
   evidenceMode = "descriptor-evidence",
   missingDescriptorPolicy = DEFAULT_MISSING_DESCRIPTOR_POLICY,
+  performancePriorityMode = "balanced",
 } = {}) {
   const rowsById = new Map(matrix.map(row => [row.id, row]))
   return (Array.isArray(candidates) ? candidates : []).map((candidate, index) => {
@@ -60,7 +62,15 @@ export function scoreCandidates({
     const adjustedScore01 = evidenceMode === "quality-adjusted"
       ? weightedScore01 * completenessMultiplier * (0.72 + 0.28 * confidence)
       : weightedScore01 * completenessMultiplier
-    const descriptorScore = Number((adjustedScore01 * 100).toFixed(1))
+    const priorityImpact = buildPriorityCandidateAdjustment(candidate, {
+      modeId: performancePriorityMode,
+      completeness,
+      evidenceConfidence,
+      missingPenalty,
+      contributions,
+    })
+    const priorityAdjustedScore01 = clamp01(adjustedScore01 + (priorityImpact.delta || 0), 0)
+    const descriptorScore = Number((priorityAdjustedScore01 * 100).toFixed(1))
     const graphScore = calculateGraphAdjustedScore(candidate, descriptorScore)
     const sortedContributions = [...contributions].sort((a, b) => b.contribution - a.contribution)
     const nonMissing = contributions.filter(item => !item.missing)
@@ -74,6 +84,7 @@ export function scoreCandidates({
       descriptorScore,
       graphScore,
       score01: adjustedScore01,
+      priorityAdjustedScore01,
       descriptorCompleteness: completeness,
       missingCount,
       missingPenalty,
@@ -98,6 +109,8 @@ export function scoreCandidates({
         completenessMultiplier,
         explanation: "finalScore = weightedScore x (0.75 + 0.25 x completenessRatio)",
       },
+      performancePriorityMode,
+      priorityImpact,
     }
   }).filter(row => Number.isFinite(row.score))
 }

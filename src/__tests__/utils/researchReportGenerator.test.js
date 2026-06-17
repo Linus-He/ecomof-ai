@@ -12,12 +12,13 @@ describe("research report generator", () => {
       expect(report.title).toMatch(/报告/)
       expect(report.snapshot.databaseVersion).toBe(summary.version)
       expect(report.sections.map(section => section.title)).toEqual(expect.arrayContaining(report.requiredSections))
-      expect(report.markdown).toMatch(/研究目标/)
-      expect(report.markdown).toMatch(/数据库版本/)
-      expect(report.markdown).toMatch(/CRITIC权重/)
-      expect(report.markdown).toMatch(/字段来源/)
-      expect(report.markdown).toMatch(/局限性/)
+      expect(report.markdown).toMatch(/执行摘要/)
+      expect(report.markdown).toMatch(/数据库快照/)
+      expect(report.markdown).toMatch(/筛选优先级/)
+      expect(report.markdown).toMatch(/证据与溯源/)
+      expect(report.markdown).toMatch(/已知局限/)
       expect(report.markdown).toMatch(/不是 Verified Screening|不是最终推荐/)
+      expect(report.charts.map(chart => chart.title)).toEqual(expect.arrayContaining(["候选排序图", "数据质量摘要图", "优先级影响图", "溯源覆盖图", "验证就绪度图"]))
     }
   })
 

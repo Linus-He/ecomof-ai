@@ -63,7 +63,7 @@ function DatabasePreviewSummary({ trace, lang, t, isMobile }) {
   )
 }
 
-export function ScreeningTraceSection({ model, verification: verificationProp = null, scenarioLabel = "general", lang, t, isMobile }) {
+export function ScreeningTraceSection({ model, verification: verificationProp = null, scenarioLabel = "general", performancePriorityMode = null, lang, t, isMobile }) {
   const [verification, setVerification] = useState(verificationProp)
 
   useEffect(() => {
@@ -78,7 +78,7 @@ export function ScreeningTraceSection({ model, verification: verificationProp = 
 
   const candidates = model?.candidates || []
   const candidatesById = useMemo(() => Object.fromEntries(candidates.map(c => [c.id || c.candidateId, c])), [candidates])
-  const trace = useMemo(() => buildScreeningTrace({ model, verification: verification || {}, scenarioLabel }), [model, verification, scenarioLabel])
+  const trace = useMemo(() => buildScreeningTrace({ model, verification: verification || {}, scenarioLabel, performancePriorityMode }), [model, verification, scenarioLabel, performancePriorityMode])
   const dataReady = candidates.length > 0
 
   return (

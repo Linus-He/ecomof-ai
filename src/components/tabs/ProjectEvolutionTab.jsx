@@ -104,14 +104,14 @@ function VersionTimeline({ data, lang, t, isMobile }) {
         <div style={{ display: "grid", gap: 7 }}>
           {visible.map(row => (
             <button key={row.version} type="button" onClick={() => setActive(row.version)} style={{ background: row.version === selected?.version ? t.badgeInfoBg : t.surface, border: `1px solid ${row.version === selected?.version ? t.accent : t.border}`, borderRadius: 8, color: row.version === selected?.version ? t.accentText : t.textStrong, cursor: "pointer", display: "grid", gap: 3, minHeight: 58, padding: 9, textAlign: "left" }}>
-              <strong style={{ fontSize: 12.5 }}>{row.version} · {row.date}</strong>
+              <strong style={{ fontSize: 12.5 }}>{row.version}</strong>
               <span style={{ color: t.muted, fontSize: 11, lineHeight: 1.35 }}>{row.summary}</span>
             </button>
           ))}
         </div>
         {selected ? (
           <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 8, padding: 11 }}>
-            <strong style={{ color: t.textStrong, fontSize: 15 }}>{selected.version} · {selected.date}</strong>
+            <strong style={{ color: t.textStrong, fontSize: 15 }}>{selected.version}</strong>
             <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.5 }}>{selected.summary}</span>
             <div style={{ display: "grid", gap: 7, gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))" }}>
               {[
@@ -156,7 +156,7 @@ function ReleaseNotesCenter({ data, lang, t }) {
         {visible.map(row => (
           <article key={`${row.version}-${row.title}`} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 5, padding: 9 }}>
             <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{row.version} · {row.title}</strong>
-            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{row.date} · {row.module} · {row.category}</span>
+            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{row.module} · {row.category}</span>
             <span style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.45 }}>{row.body}</span>
           </article>
         ))}
@@ -292,7 +292,6 @@ function MilestoneCenter({ data, lang, t }) {
       {selected ? (
         <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 5, padding: 10 }}>
           <strong style={{ color: t.textStrong, fontSize: 13 }}>{selected.title} · {selected.version}</strong>
-          <span style={{ color: t.faint, fontSize: 11 }}>{selected.date}</span>
           <span style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.45 }}>{selected.detail}</span>
         </article>
       ) : null}
@@ -326,7 +325,6 @@ function LocalizationEvolution({ data, lang, t }) {
         {(data.localizationEvolution || []).map(row => (
           <article key={`${row.version}-${row.area}`} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 5, padding: 9 }}>
             <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{row.version} · {row.area}</strong>
-            <span style={{ color: t.faint, fontSize: 11 }}>{row.date}</span>
             <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>{row.change}</span>
           </article>
         ))}

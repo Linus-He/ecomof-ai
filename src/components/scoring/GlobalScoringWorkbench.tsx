@@ -51,6 +51,7 @@ export function GlobalScoringWorkbench({
   number = "GS",
   title,
   subtitle,
+  performancePriorityMode = "balanced",
 }) {
   const contextTheme = useT()
   const { lang: contextLang } = useLang()
@@ -74,7 +75,8 @@ export function GlobalScoringWorkbench({
     hybridAlpha: appliedScoring.hybridAlpha,
     missingValueStrategy: appliedScoring.missingValueStrategy,
     evidenceMode: "descriptor-evidence",
-  }), [candidateRows, appliedScoring])
+    performancePriorityMode,
+  }), [candidateRows, appliedScoring, performancePriorityMode])
 
   const scoringChanged = settingsKey(appliedScoring) !== settingsKey(draftScoring)
   const applyScoring = () => setAppliedScoring({ ...draftScoring, descriptorKeys: draftScoring.descriptorKeys ? [...draftScoring.descriptorKeys] : null })

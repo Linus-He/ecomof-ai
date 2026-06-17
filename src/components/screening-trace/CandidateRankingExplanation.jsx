@@ -24,6 +24,13 @@ export function CandidateRankingExplanation({ explanation, lang, t }) {
           <div style={{ color: (explanation.missingFields || []).length ? t.warn : t.textStrong, fontSize: 11.2, lineHeight: 1.45, marginTop: 4 }}>{(explanation.missingFields || []).map(f => text(lang, f.labelZh, f.label)).join(", ") || text(lang, "无", "none")}</div>
         </div>
       </div>
+      {explanation.priorityImpact ? (
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, color: t.muted, display: "grid", fontSize: 11.3, gap: 4, lineHeight: 1.45, padding: 8 }}>
+          <strong style={{ color: t.textStrong, fontSize: 11.8 }}>{text(lang, "当前筛选优先级", "Current priority mode")}: {text(lang, explanation.priorityImpact.modeLabelZh, explanation.priorityImpact.modeLabel)}</strong>
+          <span>{text(lang, explanation.priorityImpact.rankingImpactZh, explanation.priorityImpact.rankingImpact)}</span>
+          <span>{text(lang, "可能变化", "Possible switch impact")}: {text(lang, "切换优先级后，证据、溯源、验证就绪或低风险更强的候选可能上升。", "Switching priority can lift candidates with stronger evidence, provenance, validation readiness, or lower risk.")}</span>
+        </div>
+      ) : null}
       <p style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.45, margin: 0 }}>{text(lang, explanation.mainReasonZh, explanation.mainReasonEn)}</p>
       <p style={{ color: t.warn, fontSize: 11.4, fontWeight: 700, lineHeight: 1.45, margin: 0 }}>{text(lang, explanation.mainUncertaintyZh, explanation.mainUncertaintyEn)}</p>
       <span style={{ color: t.faint, fontSize: 10.8 }}>{text(lang, "该解释不代表最终推荐。", "This explanation is not a final recommendation.")}</span>

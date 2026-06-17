@@ -11,6 +11,8 @@ import {
   toolbarBtn, InlineFormula,
   CRITIC_INDICATORS,
   buildCriticScoringModel,
+  createScoringModel,
+  PERFORMANCE_PRIORITY_MODES,
   GlobalScoringWorkbench,
   getDataGapRecommendations,
   DEFAULT_CANDIDATE_DATA_MODE,
@@ -29,6 +31,37 @@ const pct = value => `${Math.round(clamp01(value) * 100)}%`
 const fmt = (value, digits = 3) => Number(value || 0).toFixed(digits)
 const fmtPct = value => `${Math.round(clamp01(value) * 100)}%`
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
+
+function buildTraceModelFromScoringModel(scoringModel) {
+  const descriptorsByKey = new Map((scoringModel.descriptors || []).map(descriptor => [descriptor.key, descriptor]))
+  const weights = Object.entries(scoringModel.weights || {}).map(([key, weight]) => {
+    const descriptor = descriptorsByKey.get(key)
+    return {
+      key,
+      weight,
+      label: descriptor?.label || key,
+      zhLabel: descriptor?.labelZh || descriptor?.label || key,
+    }
+  })
+  const candidates = (scoringModel.rankings || []).map(row => ({
+    ...(row.candidate || {}),
+    ...row,
+    displayName: row.candidate?.displayName || row.name,
+    D_expected: row.score,
+    finalScore: row.score,
+    G: 1,
+    fieldSources: row.candidate?.fieldSources || row.fieldSources || {},
+    scoreInputs: Object.fromEntries((row.contributions || []).map(item => [
+      item.key,
+      { normalized: item.normalizedValue, missing: item.missing },
+    ])),
+  }))
+  return {
+    ...scoringModel,
+    candidates,
+    weights,
+  }
+}
 
 function labelStatus(status, lang) {
   if (!status) return "—"
@@ -814,6 +847,7 @@ export function EcoScreenTab({ onNavigate }) {
   const { isNarrow, isMobile } = useViewport()
   const [scoringMode, setScoringMode] = useState("general")
   const [weightingMode, setWeightingMode] = useState("critic")
+  const [performancePriorityMode, setPerformancePriorityMode] = useState("balanced")
   const [selectedId, setSelectedId] = useState("MOF-B")
   const {
     candidates: generalRows,
@@ -824,6 +858,18 @@ export function EcoScreenTab({ onNavigate }) {
     () => buildCriticScoringModel(generalRows, weightingMode),
     [generalRows, weightingMode],
   )
+  const generalScoringModel = useMemo(() => createScoringModel({
+    candidates: generalRows,
+    preset: "generalMofScreening",
+    descriptorPreset: "coreMof8",
+    algorithm: "hybrid",
+    hybridAlpha: 0.65,
+    missingValueStrategy: "penalize",
+    evidenceMode: "descriptor-evidence",
+    performancePriorityMode,
+  }), [generalRows, performancePriorityMode])
+  const generalTraceModel = useMemo(() => buildTraceModelFromScoringModel(generalScoringModel), [generalScoringModel])
+  const activePriority = PERFORMANCE_PRIORITY_MODES.find(item => item.id === performancePriorityMode) || PERFORMANCE_PRIORITY_MODES[0]
   const selectedCandidate = useMemo(() => (
     model.candidates.find(candidate => candidate.id === selectedId) || model.candidates[0]
   ), [model, selectedId])
@@ -943,6 +989,36 @@ export function EcoScreenTab({ onNavigate }) {
         </div>
       </Card>
 
+      <Card t={t} style={{ display: "grid", gap: 10 }}>
+        <PanelTitle
+          t={t}
+          title={text(lang, "筛选优先级 / Performance Priority", "Performance Priority")}
+          subtitle={text(
+            lang,
+            "在 Run Setup 中选择本轮排序优先级；该设置会进入 scoring trace、ranking explanation 与 report snapshot。",
+            "Choose the ranking priority for this run; it is written into the scoring trace, ranking explanations, and report snapshot."
+          )}
+        />
+        <SegmentedControl
+          items={PERFORMANCE_PRIORITY_MODES.map(mode => ({
+            id: mode.id,
+            label: mode.label,
+            zhLabel: mode.labelZh,
+            description: mode.description,
+            zhDescription: mode.descriptionZh,
+          }))}
+          value={performancePriorityMode}
+          onChange={setPerformancePriorityMode}
+          lang={lang}
+          t={t}
+        />
+        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.muted, display: "grid", fontSize: 12, gap: 5, lineHeight: 1.55, padding: 10 }}>
+          <strong style={{ color: t.textStrong }}>{text(lang, "Priority Impact Summary", "Priority Impact Summary")}: {text(lang, activePriority.labelZh, activePriority.label)}</strong>
+          <span>{text(lang, activePriority.rankingImpactZh, activePriority.rankingImpact)}</span>
+          <span>{text(lang, "受影响字段", "Affected descriptors")}: {(activePriority.affectedDescriptors || []).join(", ") || text(lang, "综合指标", "balanced descriptors")}</span>
+        </div>
+      </Card>
+
       {scoringMode === "general" && (
         <>
           <GlobalScoringWorkbench
@@ -959,9 +1035,10 @@ export function EcoScreenTab({ onNavigate }) {
               "EcoScreen 复用全局评分工作台；descriptor registry、权重方法、候选解释和诊断统一来自 createScoringModel。",
               "EcoScreen reuses the global scoring workbench; descriptor registry, weighting methods, candidate explanations, and diagnostics all come from createScoringModel."
             )}
+            performancePriorityMode={performancePriorityMode}
           />
           <ResultLayer id="ecoscreen-result-layer-05" testId="ecoscreen-result-layer-05" number="05" title={text(lang, "筛选过程追踪", "Screening Trace")} subtitle={lang === "zh" ? "Database Preview shell-first 渲染；候选数据和图表可稍后填充，但 marker 与容器会立即存在。" : "Database Preview renders shell-first; candidate data and charts can fill later, while markers and containers exist immediately."}>
-            <ScreeningTraceSection model={model} scenarioLabel={scoringMode} lang={lang} t={t} isMobile={isMobile} />
+            <ScreeningTraceSection model={generalTraceModel} scenarioLabel={scoringMode} performancePriorityMode={performancePriorityMode} lang={lang} t={t} isMobile={isMobile} />
           </ResultLayer>
         </>
       )}

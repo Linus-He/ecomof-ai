@@ -21,6 +21,7 @@ import { LimitationsAndReproducibility } from "./LimitationsAndReproducibility"
 import { EvidenceLayerLink, MethodologyLink, MiniMetric, text } from "./FinalScreeningShared"
 import { MechanismPathRadar } from "./MechanismPathRadar"
 import { MetalSensitivityDistribution } from "./MetalSensitivityDistribution"
+import { OrganicAcidFinalDecisionBoard } from "./OrganicAcidFinalDecisionBoard"
 import { ReactionConstraintBuilder } from "./ReactionConstraintBuilder"
 import { ScreeningFunnelChart } from "./ScreeningFunnelChart"
 import { SensitivityAndBaselinePanel } from "./SensitivityAndBaselinePanel"
@@ -170,6 +171,7 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
           <Suspense fallback={<DatabaseIndexSkeleton lang={lang} t={t} />}>
             <DatabaseIndexWorkbench lang={lang} t={t} isMobile={isMobile} onOverviewLoaded={setDatabaseIndexOverview} />
           </Suspense>
+          <OrganicAcidFinalDecisionBoard result={result} lang={lang} t={t} isMobile={isMobile} onInspectCandidate={setDecisionCandidate} />
           <AlgorithmTraceWorkbench trace={latestTrace} lang={lang} t={t} isMobile={isMobile} />
           <AlgorithmPipelineStepper steps={result.algorithmJourneySteps} lang={lang} t={t} isMobile={isMobile} />
           <StatusBadgeLegend lang={lang} t={t} isMobile={isMobile} />

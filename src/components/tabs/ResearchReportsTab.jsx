@@ -17,9 +17,9 @@ import { runLocalizationAudit, terminologyPairs } from "../../utils/localization
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
-function Card({ id, title, subtitle, children, t, actions }) {
+function Card({ id, title, subtitle, children, t, actions, shellReady = false }) {
   return (
-    <section id={id} data-testid={id} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 12, minWidth: 0, padding: 14, scrollMarginTop: 118 }}>
+    <section id={id} data-testid={id} data-shell-ready={shellReady ? "true" : undefined} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 12, minWidth: 0, padding: 14, scrollMarginTop: 118 }}>
       <header style={{ alignItems: "flex-start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
         <div style={{ display: "grid", gap: 4, minWidth: 0 }}>
           <h2 style={{ color: t.textStrong, fontSize: 18, lineHeight: 1.18, margin: 0 }}>{title}</h2>
@@ -29,6 +29,42 @@ function Card({ id, title, subtitle, children, t, actions }) {
       </header>
       {children}
     </section>
+  )
+}
+
+function ReportCharts({ charts = [], t, lang }) {
+  return (
+    <div id="research-reports-chart-pack" data-testid="research-reports-chart-pack" style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}>
+      {charts.map(chart => {
+        const max = Math.max(1, ...chart.rows.map(row => Number(row.value) || 0))
+        return (
+          <article key={chart.id} id={`research-${chart.id}`} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 8, minWidth: 0, padding: 10 }}>
+            <div style={{ display: "grid", gap: 2 }}>
+              <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{chart.title}</strong>
+              <span style={{ color: t.faint, fontSize: 10.8 }}>{chart.subtitle} · {text(lang, chart.xAxis, chart.xAxis)} / {text(lang, chart.yAxis, chart.yAxis)}</span>
+            </div>
+            <div style={{ display: "grid", gap: 6 }}>
+              {chart.rows.map(row => {
+                const value = Number(row.value)
+                const width = Number.isFinite(value) ? `${Math.max(4, Math.round((value / max) * 100))}%` : "4%"
+                return (
+                  <div key={row.label} style={{ display: "grid", gap: 3, minWidth: 0 }}>
+                    <div style={{ alignItems: "baseline", display: "flex", gap: 8, justifyContent: "space-between", minWidth: 0 }}>
+                      <span style={{ color: t.muted, fontSize: 11, fontWeight: 850, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{row.label}</span>
+                      <strong style={{ color: t.textStrong, fontSize: 11.2 }}>{Number.isFinite(value) ? value : row.value}</strong>
+                    </div>
+                    <span style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, height: 8, overflow: "hidden" }}>
+                      <span style={{ background: t.accent, display: "block", height: "100%", width }} />
+                    </span>
+                  </div>
+                )
+              })}
+            </div>
+            <span style={{ color: t.faint, fontSize: 10.5 }}>{text(lang, "图例", "Legend")}: {chart.legend}</span>
+          </article>
+        )
+      })}
+    </div>
   )
 }
 
@@ -84,6 +120,7 @@ function ReportGenerator({ report, records, type, setType, candidateId, setCandi
           <BasisBadge tone="warn">数据库预览</BasisBadge>
           <BasisBadge tone="warn">Not Final Recommendation</BasisBadge>
         </div>
+        <p style={{ color: t.textStrong, fontSize: 13.2, fontWeight: 800, lineHeight: 1.6, margin: 0 }}>{report.executiveSummary}</p>
         <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))" }}>
           {report.sections.map(section => (
             <div key={section.title} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, minWidth: 0, padding: 9 }}>
@@ -92,6 +129,7 @@ function ReportGenerator({ report, records, type, setType, candidateId, setCandi
             </div>
           ))}
         </div>
+        <ReportCharts charts={report.charts} t={t} lang={lang} />
       </article>
     </Card>
   )
@@ -99,12 +137,13 @@ function ReportGenerator({ report, records, type, setType, candidateId, setCandi
 
 function RunSnapshot({ snapshot, t, lang, isMobile }) {
   return (
-    <Card id="research-reports-snapshot" title={text(lang, "运行快照", "Run Snapshot")} subtitle={text(lang, "复现报告生成时的数据库、方法、验证和候选数量。", "Reproducibility snapshot for database, method, validation, and candidate counts.")} t={t}>
+    <Card id="research-reports-snapshot" title={text(lang, "运行快照", "Run Snapshot")} subtitle={text(lang, "复现报告生成时的数据库、方法、验证和候选数量。", "Reproducibility snapshot for database, method, validation, and candidate counts.")} t={t} shellReady>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))" }}>
         <Metric label="Run ID" value={snapshot.runId} t={t} />
         <Metric label="Database Version" value={snapshot.databaseVersion} t={t} />
         <Metric label="Method Version" value={snapshot.methodVersion} t={t} />
         <Metric label="Validation Version" value={snapshot.validationVersion} t={t} />
+        <Metric label="Priority Mode" value={snapshot.performancePriorityModeLabel} t={t} />
         <Metric label="Timestamp" value={snapshot.timestamp} t={t} />
         <Metric label="Candidate Count" value={snapshot.candidateCount} t={t} />
         <Metric label="Verified Metadata Count" value={snapshot.verifiedMetadataCount} t={t} tone="pass" />
@@ -167,7 +206,7 @@ function CitationPackage({ packageData, t, lang }) {
 
 function LocalizationAuditPanel({ audit, t, lang, isMobile }) {
   return (
-    <Card id="research-reports-localization-audit" title={text(lang, "汉化质量审计", "Localization Audit")} subtitle={text(lang, "检查未翻译英文、混杂术语、重复翻译、旧文案和开发者文案。", "Checks untranslated English, mixed terminology, duplicate translations, legacy copy, and developer-oriented copy.")} t={t}>
+    <Card id="research-reports-localization-audit" title={text(lang, "汉化质量审计", "Localization Audit")} subtitle={text(lang, "检查未翻译英文、混杂术语、重复翻译、旧文案和开发者文案。", "Checks untranslated English, mixed terminology, duplicate translations, legacy copy, and developer-oriented copy.")} t={t} shellReady>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))" }}>
         <Metric label="Localization Coverage" value={`${Math.round(audit.localizationCoverage * 100)}%`} t={t} tone="pass" />
         <Metric label="Terminology Consistency" value={audit.terminologyConsistency ? "pass" : "review"} t={t} tone={audit.terminologyConsistency ? "pass" : "warn"} />
@@ -238,9 +277,17 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
 
   if (!summary || !versionData) {
     return (
-      <section id="research-reports" data-testid="research-reports-tab" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, color: t.muted, padding: 16 }}>
-        {text(lang, "正在加载研究报告框架…", "Loading research reports framework...")}
-      </section>
+      <div id="research-reports" data-testid="research-reports-tab" style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}>
+        <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, color: t.muted, padding: 16 }}>
+          {text(lang, "正在加载研究报告框架…", "Loading research reports framework...")}
+        </section>
+        <Card id="research-reports-snapshot" title={text(lang, "运行快照", "Run Snapshot")} subtitle={text(lang, "报告 shell 已就绪，等待数据库快照填充。", "Report shell is ready; waiting for database snapshot data.")} t={t} shellReady>
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, minHeight: 54 }} />
+        </Card>
+        <Card id="research-reports-localization-audit" title={text(lang, "汉化质量审计", "Localization Audit")} subtitle={text(lang, "审计 shell 已就绪，等待报告文本填充。", "Audit shell is ready; waiting for report text.")} t={t} shellReady>
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, minHeight: 54 }} />
+        </Card>
+      </div>
     )
   }
 

@@ -40,6 +40,7 @@ export function CandidateDecisionDashboard({ trace, candidatesById = {}, lang, t
     ["density", text(lang, "密度", "Density")],
     ["bandGap", text(lang, "带隙", "Band gap")],
   ]
+  const priority = trace?.priorityImpactSummary
   return (
     <section id="candidate-decision-dashboard" data-testid="candidate-decision-dashboard" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 12 }}>
       <div style={{ alignItems: "baseline", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
@@ -47,6 +48,13 @@ export function CandidateDecisionDashboard({ trace, candidatesById = {}, lang, t
         <span style={{ color: t.faint, fontSize: 10.8, fontWeight: 850 }}>{text(lang, `默认展示 Top ${visibleTraces.length}/${totalRanked}`, `showing top ${visibleTraces.length}/${totalRanked}`)}</span>
       </div>
       <span style={{ color: t.faint, fontSize: 10.8, fontWeight: 850 }}>{text(lang, "排序解释 / Ranking Explanation 可在每个候选中展开。", "Ranking Explanation is available inside each candidate card.")}</span>
+      {priority ? (
+        <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, color: t.muted, display: "grid", fontSize: 11.5, gap: 5, lineHeight: 1.5, padding: 10 }}>
+          <strong style={{ color: t.textStrong, fontSize: 12.4 }}>{text(lang, "当前筛选优先级", "Current performance priority")}: {text(lang, priority.modeLabelZh, priority.modeLabel)}</strong>
+          <span>{text(lang, priority.summaryZh, priority.summaryEn)}</span>
+          <span>{text(lang, "候选靠前原因会结合当前模式显示；切换优先级后，排序可能向证据、溯源、验证就绪或低风险候选倾斜。", "Candidate reasons reflect the active mode; switching priority can move evidence, provenance, validation-ready, or low-risk candidates upward.")}</span>
+        </div>
+      ) : null}
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
         <input
           value={query}

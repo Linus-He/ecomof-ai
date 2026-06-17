@@ -5,6 +5,7 @@
 // any score, does NOT run full database scoring, and never claims a final recommendation.
 // "Verified screening" is only true when verifiedMetadataCount >= 1.
 import { explainCandidateRanking } from "./explainCandidateRanking.js"
+import { buildPriorityImpactSummary, resolvePerformancePriorityMode } from "../performancePriority.js"
 
 export const FIELD_PROVENANCE_KEYS = [
   "displayName",
@@ -60,6 +61,8 @@ export function buildScreeningTrace(options = {}) {
   const allCandidates = Array.isArray(model.candidates) ? model.candidates : (options.candidates || [])
   const verification = options.verification || {}
   const scenarioLabel = options.scenarioLabel || "general"
+  const priorityMode = resolvePerformancePriorityMode(options.performancePriorityMode || model.performancePriorityMode || model.metadata?.performancePriorityMode || "balanced")
+  const priorityImpactSummary = buildPriorityImpactSummary(priorityMode.id)
   const ranked = allCandidates.filter(c => Number(c.G) !== 0 && !hasAmbiguity(c))
   const excluded = allCandidates.filter(c => Number(c.G) === 0)
   const totalCandidates = num(options.totalCandidates, allCandidates.length)
@@ -80,9 +83,9 @@ export function buildScreeningTrace(options = {}) {
       : Object.entries(model.weights || {}).map(([key, weight]) => ({ key, weight }))
   const topWeights = weightRows.slice().sort((a, b) => num(b.weight) - num(a.weight)).slice(0, 3)
 
-  const step = (stepId, title, titleZh, status, inputCount, outputCount, removedCount, keyMessage, keyMessageZh, details, detailsZh, linkedPanelId, blockers = []) => ({
+  const step = (stepId, title, titleZh, status, inputCount, outputCount, removedCount, keyMessage, keyMessageZh, details, detailsZh, linkedPanelId, blockers = [], extra = {}) => ({
     stepId, title, titleZh, status, inputCount: num(inputCount), outputCount: num(outputCount), removedCount: num(removedCount),
-    keyMessage, keyMessageZh, details, detailsZh, linkedPanelId, blockers,
+    keyMessage, keyMessageZh, details, detailsZh, linkedPanelId, blockers, ...extra,
   })
 
   const steps = [
@@ -98,6 +101,16 @@ export function buildScreeningTrace(options = {}) {
     step("normalization", "Normalization", "标准化", "completed", ranked.length, ranked.length, 0,
       "Benefit/cost indicators normalized to [0,1].", "收益型/成本型指标归一化到 [0,1]。",
       "Benefit-type higher-is-better; cost-type lower-is-better.", "收益型越大越好；成本型越小越好。", "candidate-decision-dashboard"),
+    step("performance_priority_applied", "Performance Priority Applied", "性能优先级已应用", "completed", ranked.length, ranked.length, 0,
+      `Priority mode: ${priorityMode.label}.`, `优先级模式：${priorityMode.labelZh}。`,
+      priorityImpactSummary.rankingImpact, priorityImpactSummary.rankingImpactZh, "candidate-decision-dashboard", [], {
+        priorityMode: priorityMode.id,
+        affectedDescriptors: priorityImpactSummary.affectedDescriptors,
+        boostedWeights: priorityImpactSummary.boostedWeights,
+        penalizedFactors: priorityImpactSummary.penalizedFactors,
+        rankingImpact: priorityImpactSummary.rankingImpact,
+        rankingImpactZh: priorityImpactSummary.rankingImpactZh,
+      }),
     step("critic_weighting", "CRITIC Weighting", "CRITIC 权重", topWeights.length ? "completed" : "warning", ranked.length, ranked.length, 0,
       topWeights.length ? `Top weights: ${topWeights.map(w => w.label || w.key).join(", ")}.` : "Weights generated.", topWeights.length ? `主要权重：${topWeights.map(w => w.zhLabel || w.label || w.key).join("、")}。` : "已生成权重。",
       "Weight expresses ranking influence in this candidate set, not chemical causality.", "权重表示在该候选集中的排序影响，而非化学因果。", "candidate-ranking-explanation"),
@@ -145,6 +158,8 @@ export function buildScreeningTrace(options = {}) {
     quarantinedCount,
     dataGapCount: dataGaps.candidateGaps.length,
     notFinalRecommendation: true,
+    performancePriorityMode: priorityMode.id,
+    priorityImpactSummary,
     steps,
     funnel,
     candidateTraces,

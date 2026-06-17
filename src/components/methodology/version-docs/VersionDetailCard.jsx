@@ -21,7 +21,7 @@ export function VersionDetailCard({ version, lang, t }) {
     <article style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 14 }}>
       <header style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
         <div style={{ display: "grid", gap: 4 }}>
-          <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{version.version} · {version.date}</span>
+          <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{version.version}</span>
           <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
             <ChemicalText value={text(lang, version.titleZh, version.title)} />
           </h3>

@@ -15,11 +15,12 @@
     "Release Notes",
     "Version Timeline"
   ],
-  "scannedItemCount": 1535,
+  "scannedItemCount": 1555,
   "untranslatedItems": [
     "Database Version",
     "Method Version",
     "Validation Version",
+    "Priority Mode",
     "Candidate Count",
     "Citation Ready Count",
     "Source Confirmed Count",

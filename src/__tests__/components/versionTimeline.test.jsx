@@ -17,6 +17,7 @@ describe("Version Timeline", () => {
     }
     expect(bodyText()).toMatch(/Breaking Changes/)
     expect(bodyText()).toMatch(/Next Version Goal/)
+    expect(bodyText()).not.toMatch(/2026-06-17|2026-06-16|2026-06-04|2026-06-03/)
   })
 
   it("supports timeline search", () => {

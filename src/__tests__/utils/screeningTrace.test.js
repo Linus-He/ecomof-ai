@@ -25,7 +25,8 @@ describe("screeningTrace", () => {
     expect(trace.sourceConfirmedCount).toBe(4)
     expect(trace.mode).toBe("database_preview")
     expect(trace.notFinalRecommendation).toBe(true)
-    expect(trace.steps.length).toBe(9)
+    expect(trace.steps.length).toBe(10)
+    expect(trace.steps.map(step => step.stepId)).toContain("performance_priority_applied")
   })
 
   it("keeps funnel counts non-increasing and consistent", () => {
