@@ -104,7 +104,7 @@ function FeatureEngineeringPipeline({ records, lang, t, isMobile }) {
   ]
   const step = steps.find(item => item.id === active) || steps[0]
   return (
-    <Card id="methodology-model-feature-pipeline" title={text(lang, "Feature Engineering Pipeline", "Feature Engineering Pipeline")} subtitle={text(lang, "Raw Database -> Descriptor Extraction -> Feature Reduction -> Candidate Factors -> Scoring -> Recommendation。", "Raw Database -> Descriptor Extraction -> Feature Reduction -> Candidate Factors -> Scoring -> Recommendation.")} t={t}>
+    <Card id="methodology-model-feature-pipeline" title={text(lang, "特征工程管线", "Feature Engineering Pipeline")} subtitle={text(lang, "原始数据库 -> 描述符抽取 -> 特征降维 -> 候选因素 -> 评分 -> 推荐边界。", "Raw Database -> Descriptor Extraction -> Feature Reduction -> Candidate Factors -> Scoring -> Recommendation.")} t={t}>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(6, minmax(0, 1fr))" }}>
         {steps.map((item, index) => (
           <button key={item.id} type="button" onClick={() => setActive(item.id)} style={{ background: active === item.id ? t.badgeInfoBg : t.surface, border: `1px solid ${active === item.id ? t.accent : t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", display: "grid", gap: 5, minHeight: 78, padding: 9, textAlign: "left" }}>
@@ -164,7 +164,7 @@ function FeatureSelectionExplorer({ records, lang, t }) {
     .sort((a, b) => sortKey === "importance" ? b.importance - a.importance : b.frequency - a.frequency)
   const categories = ["All", "Geometry", "Electronic", "Framework", "Metal", "Ligand", "Evidence", "Metadata"]
   return (
-    <Card id="methodology-feature-selection-explorer" title={text(lang, "Feature Selection Explorer", "Feature Selection Explorer")} subtitle={text(lang, "展示 selection frequency、importance、source、confidence，并支持搜索、排序和类别过滤。", "Shows selection frequency, importance, source, and confidence with search, sorting, and category filters.")} t={t}>
+    <Card id="methodology-feature-selection-explorer" title={text(lang, "特征选择探索器", "Feature Selection Explorer")} subtitle={text(lang, "展示选择频率、重要性、来源和置信度，并支持搜索、排序和类别过滤。", "Shows selection frequency, importance, source, and confidence with search, sorting, and category filters.")} t={t}>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         <input value={query} onChange={event => setQuery(event.target.value)} placeholder={text(lang, "搜索 descriptor", "Search descriptor")} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.textStrong, minHeight: 34, padding: "7px 9px" }} />
         <select value={category} onChange={event => setCategory(event.target.value)} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.textStrong, minHeight: 34, padding: "7px 9px" }}>{categories.map(item => <option key={item}>{item}</option>)}</select>
@@ -195,7 +195,7 @@ function FeatureSelectionExplorer({ records, lang, t }) {
 function ModelComparisonDashboard({ lang, t }) {
   const columns = ["Interpretability", "Data Requirement", "Robustness", "Scalability", "Transparency", "Scientific Defensibility"]
   return (
-    <Card id="methodology-model-comparison-dashboard" title={text(lang, "Model Comparison Dashboard", "Model Comparison Dashboard")} subtitle={text(lang, "没有真实标签时，不显示正式模型精度指标；所有监督模型保持 Validation Pending / Demo Only / Framework Ready。", "Without real labels, formal predictive metrics are withheld; supervised models stay Validation Pending / Demo Only / Framework Ready.")} t={t}>
+    <Card id="methodology-model-comparison-dashboard" title={text(lang, "模型比较面板", "Model Comparison Dashboard")} subtitle={text(lang, "没有真实标签时，不显示正式模型精度指标；所有监督模型保持待验证 / 演示 / 框架就绪状态。", "Without real labels, formal predictive metrics are withheld; supervised models stay Validation Pending / Demo Only / Framework Ready.")} t={t}>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         <BasisBadge tone="warn">Validation Pending</BasisBadge>
         <BasisBadge tone="proxy">Demo Only</BasisBadge>
@@ -241,7 +241,7 @@ function DataQualityModelReadiness({ records, audit, lang, t, isMobile }) {
   return (
     <Card
       id="methodology-data-quality-model-readiness"
-      title={text(lang, "Data Quality -> Model Readiness", "Data Quality -> Model Readiness")}
+      title={text(lang, "数据质量到模型就绪度", "Data Quality -> Model Readiness")}
       subtitle={text(lang, "把 field coverage、provenance completeness 和 verified blockers 映射成模型输入可靠性；没有真实标签时，模型性能指标保持 pending。", "Maps field coverage, provenance completeness, and verified blockers into model input reliability; without real labels, model performance metrics stay pending.")}
       t={t}
     >
@@ -282,21 +282,21 @@ function ProjectEvolutionIntegrationCard({ evolution, summary, audit, lang, t, o
   return (
     <Card
       id="methodology-project-evolution-integration"
-      title={text(lang, "Project Evolution Integration", "Project Evolution Integration")}
-      subtitle={text(lang, "版本历史、Release Notes、Milestones 与 Roadmap 已从方法论中解耦，统一进入 Project Evolution Center。", "Version history, Release Notes, Milestones, and Roadmap are decoupled from methodology and centralized in Project Evolution Center.")}
+      title={text(lang, "项目演化集成", "Project Evolution Integration")}
+      subtitle={text(lang, "版本历史、版本更新记录、关键里程碑与发展路线图已从方法论中解耦，统一进入项目演化。", "Version history, Release Notes, Milestones, and Roadmap are decoupled from methodology and centralized in Project Evolution Center.")}
       t={t}
       actions={
         <button type="button" onClick={() => onNavigate?.("projectEvolution")} style={{ background: t.surface, border: `1px solid ${t.accent}`, borderRadius: 8, color: t.accentText, cursor: "pointer", fontSize: 12, fontWeight: 900, minHeight: 34, padding: "7px 10px" }}>
-          {text(lang, "View Evolution Center", "View Evolution Center")}
+          {text(lang, "查看项目演化", "View Evolution Center")}
         </button>
       }
     >
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
         {[
-          ["Latest Version", evolution?.currentVersion || "V2.3"],
-          ["Scientific Maturity", `${maturity || "pending"}/100`],
-          ["Database Size", `${databaseSize} candidates`],
-          ["Verified Metadata Count", verifiedMetadataCount],
+          [text(lang, "最新版本", "Latest Version"), evolution?.currentVersion || "V2.4"],
+          [text(lang, "科研成熟度", "Scientific Maturity"), `${maturity || "pending"}/100`],
+          [text(lang, "数据库规模", "Database Size"), `${databaseSize} candidates`],
+          [text(lang, "已核验元数据数量", "Verified Metadata Count"), verifiedMetadataCount],
         ].map(([label, value]) => (
           <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 9 }}>
             <span style={{ color: t.faint, display: "block", fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
@@ -320,7 +320,7 @@ function ExplainabilityTrustMap({ records, lang, t }) {
   ]
   const selected = points.find(point => point.id === active) || points[0]
   return (
-    <Card id="methodology-explainability-trust-map" title={text(lang, "Explainability & Trust Map", "Explainability & Trust Map")} subtitle={text(lang, "X 轴为 interpretability，Y 轴为 predictive power readiness；当前仍是框架图，不是已验证性能图。", "X-axis is interpretability; Y-axis is predictive-power readiness. This is a framework map, not validated performance.")} t={t}>
+    <Card id="methodology-explainability-trust-map" title={text(lang, "可解释性与信任地图", "Explainability & Trust Map")} subtitle={text(lang, "X 轴为可解释性，Y 轴为预测能力就绪度；当前仍是框架图，不是已验证性能图。", "X-axis is interpretability; Y-axis is predictive-power readiness. This is a framework map, not validated performance.")} t={t}>
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, height: 260, position: "relative" }}>
         <span style={{ bottom: 8, color: t.faint, fontSize: 10.5, left: "50%", position: "absolute", transform: "translateX(-50%)" }}>Interpretability</span>
         <span style={{ color: t.faint, fontSize: 10.5, left: 8, position: "absolute", top: "50%", transform: "rotate(-90deg) translateX(-50%)", transformOrigin: "left top" }}>Predictive Power</span>
@@ -352,7 +352,7 @@ function ValidationWorkflowWorkbench({ records = [], lang, t }) {
     ["Final Recommendation", "Blocked", "Blocked until verified metadata and external validation exist."],
   ]
   return (
-    <Card id="methodology-validation-workflow" title={text(lang, "Validation Workflow Workbench", "Validation Workflow Workbench")} subtitle="Raw Dataset -> Feature Selection -> Cross Validation -> Model Comparison -> External Validation -> Final Recommendation." t={t}>
+    <Card id="methodology-validation-workflow" title={text(lang, "验证流程工作台", "Validation Workflow Workbench")} subtitle={text(lang, "原始数据集 -> 特征选择 -> 交叉验证 -> 模型比较 -> 外部验证 -> 最终推荐边界。", "Raw Dataset -> Feature Selection -> Cross Validation -> Model Comparison -> External Validation -> Final Recommendation.")} t={t}>
       <div style={{ display: "grid", gap: 8 }}>
         {rows.map(([step, status, detail], index) => (
           <details key={step} open={index < 2} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
@@ -381,7 +381,7 @@ function ConfidenceAnalysisPanel({ records, lang, t }) {
     ["Missing Field Impact", `${missingFields} field gaps`],
   ]
   return (
-    <Card id="methodology-confidence-analysis" title={text(lang, "Confidence & Uncertainty Analysis", "Confidence & Uncertainty Analysis")} subtitle={text(lang, "综合 Data Completeness、Evidence Confidence、Source Confidence、Verified Metadata、Ambiguity Risk 和 Missing Field Impact。", "Combines Data Completeness, Evidence Confidence, Source Confidence, Verified Metadata, Ambiguity Risk, and Missing Field Impact.")} t={t}>
+    <Card id="methodology-confidence-analysis" title={text(lang, "置信度与不确定性", "Confidence & Uncertainty Analysis")} subtitle={text(lang, "综合数据完整度、证据置信度、来源置信度、已核验元数据、歧义风险和缺失字段影响。", "Combines Data Completeness, Evidence Confidence, Source Confidence, Verified Metadata, Ambiguity Risk, and Missing Field Impact.")} t={t}>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))" }}>
         <div style={{ background: t.badgeInfoBg, border: `1px solid ${t.accent}`, borderRadius: 10, display: "grid", gap: 4, padding: 12 }}>
           <span style={{ color: t.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>Overall Confidence Score</span>

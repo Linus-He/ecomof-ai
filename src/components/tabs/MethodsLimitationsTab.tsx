@@ -270,11 +270,11 @@ function ProjectEvolutionShortcutCard({ lang, t, onNavigate }) {
       <div style={{ display: "grid", gap: 5, minWidth: 0 }}>
         <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "查看项目演化历史", "View project evolution history")}</strong>
         <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.5 }}>
-          {text(lang, "版本时间线、Release Notes、Milestones 与 Roadmap 已移至独立一级入口 Project Evolution。", "Version timeline, Release Notes, Milestones, and Roadmap now live in the first-level Project Evolution entry.")}
+          {text(lang, "版本演化时间线、版本更新记录、关键里程碑与发展路线图已移至独立一级入口：项目演化。", "Version timeline, Release Notes, Milestones, and Roadmap now live in the first-level Project Evolution entry.")}
         </span>
       </div>
       <button type="button" onClick={() => onNavigate?.("projectEvolution")} style={{ ...toolbarBtn(t), color: t.accentText, borderColor: t.accent, justifyContent: "center" }}>
-        {text(lang, "进入 Project Evolution", "Enter Project Evolution")}
+        {text(lang, "进入项目演化", "Enter Project Evolution")}
       </button>
     </section>
   )

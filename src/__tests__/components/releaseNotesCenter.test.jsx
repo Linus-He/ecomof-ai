@@ -12,8 +12,10 @@ describe("ReleaseNotesCenter", () => {
     render(<ProjectEvolutionTab data={data} />)
 
     expect(screen.getByTestId("project-evolution-release-notes")).toBeInTheDocument()
-    expect(bodyText()).toMatch(/Release Notes Center/)
+    expect(bodyText()).toMatch(/Release Notes/)
     expect(bodyText()).toMatch(/Project Evolution Center/)
+    expect(bodyText()).toMatch(/Research Outputs Framework/)
+    expect(bodyText()).toMatch(/Full Localization Refactor/)
     expect(bodyText()).toMatch(/Knowledge Architecture Refactor/)
     expect(bodyText()).toMatch(/First-Level Project Evolution Tab/)
     expect(bodyText()).toMatch(/Evolution Center Test Coverage/)

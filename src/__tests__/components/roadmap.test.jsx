@@ -15,7 +15,8 @@ describe("Roadmap", () => {
     for (const version of ["V2.4", "V2.5", "V2.6", "V3.0"]) {
       expect(bodyText()).toMatch(new RegExp(version.replace(".", "\\.")))
     }
-    expect(bodyText()).toMatch(/External Dataset Integration/)
+    expect(bodyText()).toMatch(/Research Outputs Framework/)
+    expect(bodyText()).toMatch(/Full Localization Refactor/)
     expect(bodyText()).toMatch(/Experimental Validation Framework/)
     expect(bodyText()).toMatch(/Research Report Export/)
     expect(bodyText()).toMatch(/Research Decision Platform/)

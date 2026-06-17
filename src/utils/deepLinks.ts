@@ -12,6 +12,11 @@ export const HASH_TO_TAB = {
   "catalysis-organic-acid-final-screening": "catalysis",
   "organic-acid-graph-explorer": "catalysis",
   library: "library",
+  "research-reports": "researchReports",
+  "research-reports-generator": "researchReports",
+  "research-reports-snapshot": "researchReports",
+  "research-reports-citation-package": "researchReports",
+  "research-reports-localization-audit": "researchReports",
   "project-evolution": "projectEvolution",
   "project-evolution-overview": "projectEvolution",
   "project-evolution-version-timeline": "projectEvolution",
@@ -49,6 +54,7 @@ export const TAB_TO_HASH = {
   catalysis: "catalysis",
   library: "library",
   projectEvolution: "project-evolution",
+  researchReports: "research-reports",
   about: "methodology",
 }
 
@@ -96,6 +102,26 @@ export const HASH_META = {
   library: {
     title: "MOF 候选库 | 描述符整理与来源追踪",
     description: "查看 MOF 描述符、整理状态、来源记录和数据质量与来源摘要。",
+  },
+  "research-reports": {
+    title: "研究报告 | EcoMOF-AI",
+    description: "生成候选报告、对比报告、筛选报告和验证报告，并导出运行快照、引用包和字段级溯源。",
+  },
+  "research-reports-generator": {
+    title: "研究报告生成器 | EcoMOF-AI",
+    description: "生成科研展示报告，包含研究目标、数据库版本、筛选条件、候选数量、筛选路径、CRITIC 权重、证据状态、数据缺口、字段来源、验证状态和局限性。",
+  },
+  "research-reports-snapshot": {
+    title: "运行快照 | EcoMOF-AI",
+    description: "查看 Run ID、数据库版本、方法版本、验证版本、时间戳、候选数量和已核验元数据数量。",
+  },
+  "research-reports-citation-package": {
+    title: "引用包 | EcoMOF-AI",
+    description: "查看引用来源、数据来源、字段来源、来源链接和引用状态。",
+  },
+  "research-reports-localization-audit": {
+    title: "汉化质量审计 | EcoMOF-AI",
+    description: "查看汉化覆盖率、术语一致性和科研表达一致性。",
   },
   "project-evolution": {
     title: "Project Evolution | EcoMOF-AI",

@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V2.3",
+  "currentVersion": "V2.4",
   "generatedAt": "2026-06-17",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
-    "currentVersion": "V2.3",
+    "currentVersion": "V2.4",
     "databaseSize": 1000,
     "verifiedMetadataCount": 30,
     "sourceConfirmedCount": 1000,
@@ -13,12 +13,12 @@
     "modelValidationStatus": "Validation Pending",
     "projectAge": "2026-04 to 2026-06",
     "githubStars": "pending",
-    "milestoneCount": 8,
+    "milestoneCount": 9,
     "databasePreviewStatus": "Database Preview",
     "notFinalRecommendationStatus": "Not Final Recommendation",
     "sources": {
       "currentVersion": {
-        "value": "V2.3",
+        "value": "V2.4",
         "sourceDatabase": "EcoMOF-AI version_evolution_records.json",
         "sourceRecordId": "overview.currentVersion",
         "sourceUrl": "public/data/version_evolution_records.json",
@@ -27,9 +27,9 @@
         "retrievedAt": "2026-06-17",
         "curationStatus": "confirmed",
         "confidence": 1,
-        "databaseVersion": "version_evolution_records.json@V2.3",
-        "generatingScript": "manual V2.3 knowledge architecture refactor",
-        "notes": "Version label for this V2.3 knowledge architecture refactor."
+        "databaseVersion": "version_evolution_records.json@V2.4",
+        "generatingScript": "manual V2.4 research outputs and localization refactor",
+        "notes": "Version label for the V2.4 research outputs framework and localization refactor."
       },
       "databaseSize": {
         "value": 1000,
@@ -237,9 +237,28 @@
       "breakingChanges": "Methods & Evidence no longer hosts full version logs or roadmap.",
       "nextVersionGoal": "External dataset integration.",
       "categories": ["Infrastructure", "Methods", "UI"]
+    },
+    {
+      "version": "V2.4",
+      "date": "2026-06-17",
+      "commit": "pending-current",
+      "summary": "Research Outputs Framework and full localization refactor.",
+      "scientificImpact": "Moved from research prototype to research display and research output platform.",
+      "databaseImpact": "Reports now carry database version, field provenance, citation package, data gaps, and run snapshot.",
+      "algorithmImpact": "Screening path and CRITIC weights became reportable research artifacts.",
+      "validationImpact": "Validation status, verified metadata count, and not-final-recommendation boundary are embedded in reports.",
+      "uiImpact": "Research Reports became a first-level tab and Project Evolution became Chinese-first.",
+      "knownLimitations": "Reports remain Database Preview outputs; external experimental labels are still pending.",
+      "breakingChanges": "Research-facing copy now follows the V2.4 terminology whitelist and scientific language guide.",
+      "nextVersionGoal": "External dataset integration and experimental validation framework.",
+      "categories": ["Methods", "UI", "Testing", "Infrastructure"]
     }
   ],
   "releaseNotes": [
+    { "version": "V2.4", "date": "2026-06-17", "module": "Research Reports", "category": "UI", "title": "Research Outputs Framework", "body": "Added first-level Research Reports tab with candidate, comparison, screening, and validation reports." },
+    { "version": "V2.4", "date": "2026-06-17", "module": "Localization", "category": "Methods", "title": "Full Localization Refactor", "body": "Added terminology whitelist, scientific language guide, and localization audit outputs." },
+    { "version": "V2.4", "date": "2026-06-17", "module": "Reproducibility", "category": "Infrastructure", "title": "Run Snapshot and Citation Package", "body": "Reports now include run snapshots, citation packages, data sources, field sources, source links, and citation status." },
+    { "version": "V2.4", "date": "2026-06-17", "module": "Testing", "category": "Testing", "title": "Research Output Tests", "body": "Added tests for localization audit, terminology consistency, report generation, reproducibility snapshots, and citation packages." },
     { "version": "V2.3", "date": "2026-06-17", "module": "Infrastructure", "category": "Infrastructure", "title": "Project Evolution Center", "body": "Added first-level Project Evolution tab with unified version timeline, release notes, roadmap, milestones, and evolution charts." },
     { "version": "V2.3", "date": "2026-06-17", "module": "Methods", "category": "Methods", "title": "Knowledge Architecture Refactor", "body": "Methods & Evidence now focuses on how EcoMOF-AI works and links to Project Evolution for project history." },
     { "version": "V2.3", "date": "2026-06-17", "module": "Navigation", "category": "UI", "title": "First-Level Project Evolution Tab", "body": "Promoted Project Evolution to the main navigation so version history no longer lives inside Methods & Evidence." },
@@ -258,6 +277,7 @@
     { "version": "V2.0-M", "stage": "Screening Trace", "maturity": 62 },
     { "version": "V2.2", "stage": "Verified Metadata", "maturity": 72 },
     { "version": "V2.1", "stage": "Model Validation Lab", "maturity": 76 },
+    { "version": "V2.4", "stage": "Research Outputs Framework", "maturity": 84 },
     { "version": "Future", "stage": "Future Experimental Validation", "maturity": 95 }
   ],
   "databaseEvolution": [
@@ -286,7 +306,13 @@
     { "version": "V2.0-M", "area": "EcoScreen", "before": "Ranking-oriented result panels", "after": "Screening Trace with funnel, dashboard, compare mode, readiness matrix", "change": "Made ranking path and blockers visible." },
     { "version": "V2.1", "area": "Model Validation Lab", "before": "Methodology notes only", "after": "Independent validation workspace", "change": "Added feature selection, model comparison, explainability, confidence analysis." },
     { "version": "V2.2", "area": "Data Quality Audit", "before": "Scattered provenance indicators", "after": "Data Quality Audit panels across core modules", "change": "Centralized quality and blocker reporting." },
-    { "version": "V2.3", "area": "Project Evolution", "before": "Version logs mixed into Methods & Evidence", "after": "First-level Project Evolution Center", "change": "Separated project history from scientific methods." }
+    { "version": "V2.3", "area": "Project Evolution", "before": "Version logs mixed into Methods & Evidence", "after": "First-level Project Evolution Center", "change": "Separated project history from scientific methods." },
+    { "version": "V2.4", "area": "Research Reports", "before": "Research outputs were scattered across panels", "after": "First-level Research Reports tab", "change": "Reports, snapshots, citation packages, and localization audit became a unified research output workflow." }
+  ],
+  "localizationEvolution": [
+    { "version": "V2.4", "area": "Terminology", "date": "2026-06-17", "change": "Established terminology whitelist for Screening Trace, Ranking Explanation, Database Preview, Verified Metadata, Research Report, and Research Readiness." },
+    { "version": "V2.4", "area": "Scientific Language", "date": "2026-06-17", "change": "Replaced product-style actions with research actions such as 查看筛选依据, 查看字段来源, 查看数据缺口, 查看验证状态, 查看排序解释, and 查看研究报告." },
+    { "version": "V2.4", "area": "Research Reports", "date": "2026-06-17", "change": "Added report generator, reproducibility snapshot, citation package, and localization audit outputs." }
   ],
   "milestones": [
     { "id": "first-openmof-seed", "title": "First OpenMOF Seed", "version": "V1.0", "date": "2026-04", "detail": "Initial source-aware seed dataset entered the app." },
@@ -296,10 +322,11 @@
     { "id": "database-250-preview", "title": "250 Database Preview", "version": "V2.1", "date": "2026-06-16", "detail": "Medium Database Preview introduced 250 candidates." },
     { "id": "database-1000-preview", "title": "1000 Database Preview", "version": "V2.2", "date": "2026-06-17", "detail": "Scalable Database Preview reached 1000 candidates." },
     { "id": "model-validation-lab", "title": "Model Validation Lab", "version": "V2.1", "date": "2026-06-16", "detail": "Model readiness workspace added pending-only metrics." },
-    { "id": "project-evolution-center", "title": "Project Evolution Center", "version": "V2.3", "date": "2026-06-17", "detail": "Project evolution became a first-level navigation center." }
+    { "id": "project-evolution-center", "title": "Project Evolution Center", "version": "V2.3", "date": "2026-06-17", "detail": "Project evolution became a first-level navigation center." },
+    { "id": "research-outputs-framework", "title": "Research Outputs Framework", "version": "V2.4", "date": "2026-06-17", "detail": "Research Reports, reproducibility snapshot, citation package, and localization audit became first-level research outputs." }
   ],
   "roadmap": [
-    { "version": "V2.4", "plannedFeatures": ["External Dataset Integration"], "scientificGoal": "Ground preview records in external datasets.", "databaseGoal": "Add source-reviewed external dataset layer.", "validationGoal": "Begin external validation readiness checks.", "knownRisks": ["License heterogeneity", "Schema mismatch", "Field-level provenance gaps"] },
+    { "version": "V2.4", "plannedFeatures": ["Research Outputs Framework", "Full Localization Refactor"], "scientificGoal": "Turn transparent screening into research display and research output artifacts.", "databaseGoal": "Carry database version, field provenance, data gaps, and citation package into reports.", "validationGoal": "Keep verified metadata and not-final-recommendation boundaries visible in every report.", "knownRisks": ["Overclaiming if report copy ignores Database Preview boundary", "Terminology drift", "Localization regressions"] },
     { "version": "V2.5", "plannedFeatures": ["Experimental Validation Framework"], "scientificGoal": "Connect screening hypotheses to experimental validation design.", "databaseGoal": "Add label-ready experimental records where available.", "validationGoal": "Introduce experiment-backed validation stages.", "knownRisks": ["Sparse labels", "Non-comparable experimental conditions"] },
     { "version": "V2.6", "plannedFeatures": ["Research Report Export"], "scientificGoal": "Package transparent evidence and limitations for reporting.", "databaseGoal": "Export field-level provenance and blockers.", "validationGoal": "Export validation readiness summaries.", "knownRisks": ["Overclaiming if report copy is not boundary-aware"] },
     { "version": "V3.0", "plannedFeatures": ["Research Decision Platform"], "scientificGoal": "Move from prototype decision support to research platform.", "databaseGoal": "Support larger validated database slices.", "validationGoal": "External and experimental validation workflows available.", "knownRisks": ["Data licensing", "Reproducibility debt", "Model-label mismatch"] }

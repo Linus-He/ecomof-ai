@@ -34,10 +34,12 @@ function readRepoFile(relativePath) {
 describe("version_evolution_records data source", () => {
   it("is the single authoritative source for timeline, release notes, milestones, and roadmap", () => {
     expect(data.authority).toMatch(/Single authoritative Project Evolution data source/)
-    expect(data.versions.length).toBeGreaterThanOrEqual(8)
+    expect(data.currentVersion).toBe("V2.4")
+    expect(data.versions.length).toBeGreaterThanOrEqual(9)
     expect(data.releaseNotes.length).toBeGreaterThanOrEqual(8)
     expect(data.milestones.length).toBe(data.overview.milestoneCount)
     expect(data.roadmap.map(row => row.version)).toEqual(["V2.4", "V2.5", "V2.6", "V3.0"])
+    expect(data.localizationEvolution.map(row => row.version)).toContain("V2.4")
 
     for (const version of data.versions) {
       for (const field of REQUIRED_VERSION_FIELDS) {

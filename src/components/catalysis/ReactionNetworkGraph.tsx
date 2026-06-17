@@ -222,7 +222,7 @@ export function ReactionNetworkGraph({
         <g transform="translate(40 520)">
           <rect width="884" height="28" rx="8" fill={palette.surface} stroke={palette.border} />
           <text x="14" y="19" fill={palette.muted} fontSize="11" fontWeight="800">
-            {text(lang, "图例：蓝色实线 = 候选反应步骤；红色虚线 = 竞争副路径；灰色虚线 = 环境/缓冲调控；点击节点、边或路径查看详情。", "Legend: blue solid = candidate transformation; red dashed = competing branch; gray dashed = environment/buffer control; click nodes, edges, or pathways for detail.")}
+            {text(lang, "图例：蓝色实线 = 候选反应步骤；红色虚线 = 竞争副路径；灰色虚线 = 环境/缓冲调控；选择节点、边或路径可查看筛选依据。", "Legend: blue solid = candidate transformation; red dashed = competing branch; gray dashed = environment/buffer control; select nodes, edges, or pathways to review the screening basis.")}
           </text>
         </g>
       </svg>

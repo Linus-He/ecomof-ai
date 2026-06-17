@@ -26,15 +26,15 @@ export function ExplanationLayerDiagram({ t, lang = "en" }) {
 
   const userSees = text(
     lang,
-    ["Why this result", "Main drivers", "Weaknesses", "Data limitations", "Method note"],
-    ["Why this result", "Main drivers", "Weaknesses", "Data limitations", "Method note"]
+    ["Ranking Explanation", "Main drivers", "Weaknesses", "Data limitations", "Method note"],
+    ["Ranking Explanation", "Main drivers", "Weaknesses", "Data limitations", "Method note"]
   )
 
   return (
     <MethodArchitectureDiagram
       t={t}
       eyebrow={text(lang, "解释层", "Explanation Layer")}
-      title={text(lang, "Explanation Layer / Why this result?", "Explanation Layer / Why this result?")}
+      title={text(lang, "解释层 / 排序解释", "Explanation Layer / Ranking Explanation")}
       subtitle={text(
         lang,
         "解释层把分数、贡献、缺失、证据警告和覆盖率汇总到用户可读的结果解释中。",
@@ -59,7 +59,7 @@ export function ExplanationLayerDiagram({ t, lang = "en" }) {
           t={t}
           eyebrow={text(lang, "UI drawer", "UI drawer")}
           title={text(lang, "Score explanation drawer", "Score explanation drawer")}
-          subtitle={text(lang, "用户入口可以保留“为什么是这个结果”，内部信息结构改用更专业标题。", "The user entry can remain “Why this result,” while internal sections use more professional headings.")}
+          subtitle={text(lang, "用户入口统一为“排序解释”，内部信息结构对应评分依据、数据缺口和证据状态。", "The user entry is normalized as Ranking Explanation, with internal sections for scoring basis, data gaps, and evidence status.")}
           items={text(
             lang,
             ["评分依据", "结果解释", "排序解释"],

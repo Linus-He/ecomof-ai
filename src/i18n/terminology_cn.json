@@ -1,0 +1,132 @@
+{
+  "screeningTrace": {
+    "en": "Screening Trace",
+    "zh": "筛选流程追踪",
+    "description": "记录候选从数据库预览到排序解释的筛选路径。"
+  },
+  "decisionTrace": {
+    "en": "Decision Trace",
+    "zh": "决策追踪",
+    "description": "记录候选判断依据、证据状态与限制条件。"
+  },
+  "rankingExplanation": {
+    "en": "Ranking Explanation",
+    "zh": "排序解释",
+    "description": "解释候选排序的描述符、权重、证据与数据缺口。"
+  },
+  "dataGap": {
+    "en": "Data Gap",
+    "zh": "数据缺口",
+    "description": "字段缺失、歧义、待核验或不可用于评分的状态。"
+  },
+  "fieldProvenance": {
+    "en": "Field Provenance",
+    "zh": "字段级溯源",
+    "description": "字段值、来源、整理状态、单位处理和评分资格。"
+  },
+  "evidenceFramework": {
+    "en": "Evidence Framework",
+    "zh": "证据框架",
+    "description": "连接来源、引用、字段状态与验证边界的证据层。"
+  },
+  "databasePreview": {
+    "en": "Database Preview",
+    "zh": "数据库预览",
+    "description": "可透明筛选但不能作为最终推荐的数据库状态。"
+  },
+  "verifiedMetadata": {
+    "en": "Verified Metadata",
+    "zh": "已核验元数据",
+    "description": "通过严格来源、许可、引用、映射和字段级溯源门控的元数据。"
+  },
+  "sourceConfirmed": {
+    "en": "Source Confirmed",
+    "zh": "来源已确认",
+    "description": "来源链接和来源记录已存在，但不等于已核验元数据。"
+  },
+  "citationReady": {
+    "en": "Citation Ready",
+    "zh": "引文已就绪",
+    "description": "引用文本已存在，但不等于已核验元数据。"
+  },
+  "modelValidationLab": {
+    "en": "Model Validation Lab",
+    "zh": "模型验证实验室",
+    "description": "展示模型验证框架、待验证指标和数据质量限制。"
+  },
+  "projectEvolution": {
+    "en": "Project Evolution",
+    "zh": "项目演化",
+    "description": "展示项目版本、能力演化、里程碑和发展路线图。"
+  },
+  "releaseNotes": {
+    "en": "Release Notes",
+    "zh": "版本更新记录",
+    "description": "按版本和模块记录项目更新。"
+  },
+  "milestone": {
+    "en": "Milestone",
+    "zh": "关键里程碑",
+    "description": "记录项目能力达到新阶段的节点。"
+  },
+  "roadmap": {
+    "en": "Roadmap",
+    "zh": "发展路线图",
+    "description": "记录未来计划、风险和验证边界。"
+  },
+  "researchReport": {
+    "en": "Research Report",
+    "zh": "研究报告",
+    "description": "面向科研展示的筛选、比较、候选和验证报告。"
+  },
+  "researchReadiness": {
+    "en": "Research Readiness",
+    "zh": "研究成熟度",
+    "description": "综合数据质量、证据状态、验证状态和复现信息的成熟度。"
+  },
+  "versionTimeline": {
+    "en": "Version Timeline",
+    "zh": "版本演化时间线",
+    "description": "项目版本的单一权威演化记录。"
+  },
+  "scientificEvolution": {
+    "en": "Scientific Evolution",
+    "zh": "科研能力演化",
+    "description": "科研能力从筛选原型到研究输出平台的演化。"
+  },
+  "databaseEvolution": {
+    "en": "Database Evolution",
+    "zh": "数据库演化",
+    "description": "候选规模、字段溯源和已核验元数据的演化。"
+  },
+  "algorithmEvolution": {
+    "en": "Algorithm Evolution",
+    "zh": "算法演化",
+    "description": "评分、权重、证据调整和验证框架的演化。"
+  },
+  "validationEvolution": {
+    "en": "Validation Evolution",
+    "zh": "验证体系演化",
+    "description": "来源确认、引文就绪、元数据核验和外部验证边界的演化。"
+  },
+  "localizationEvolution": {
+    "en": "Localization Evolution",
+    "zh": "汉化演化",
+    "description": "术语统一、科研表达规范和报告输出中文化的演化。"
+  },
+  "runSnapshot": {
+    "en": "Run Snapshot",
+    "zh": "运行快照",
+    "description": "记录报告生成时的数据库、方法、验证和候选数量。"
+  },
+  "citationPackage": {
+    "en": "Citation Package",
+    "zh": "引用包",
+    "description": "集中展示引用来源、数据来源、字段来源和引用状态。"
+  },
+  "localizationAudit": {
+    "en": "Localization Audit",
+    "zh": "汉化质量审计",
+    "description": "检查术语一致性、旧文案和科研表达规范。"
+  }
+}

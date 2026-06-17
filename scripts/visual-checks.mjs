@@ -143,37 +143,62 @@ const routes = [
     ["Ranking Explanation", "排序解释"],
   ]],
   ["project-evolution", "#project-evolution", [
-    ["Project Evolution Center", "项目演化中心"],
-    "What Changed In EcoMOF-AI",
-    ["Evolution Overview", "Evolution Overview"],
-    ["Version Timeline", "Version Timeline"],
-    ["Release Notes Center", "Release Notes Center"],
-    ["Scientific Evolution", "Scientific Evolution"],
-    ["Database Evolution", "Database Evolution"],
-    ["Algorithm Evolution", "Algorithm Evolution"],
-    ["Validation Evolution", "Validation Evolution"],
-    ["UI Evolution", "UI Evolution"],
-    ["Milestone Center", "Milestone Center"],
-    ["Roadmap", "Roadmap"],
-    ["Current Version", "CURRENT VERSION"],
-    "V2.3",
-    "Database Preview",
+    ["Project Evolution Center", "项目演化"],
+    ["What Changed In EcoMOF-AI", "EcoMOF-AI 项目变化记录"],
+    ["Evolution Overview", "项目状态总览"],
+    ["Version Timeline", "版本演化时间线"],
+    ["Release Notes", "版本更新记录"],
+    ["Scientific Evolution", "科研能力演化"],
+    ["Database Evolution", "数据库演化"],
+    ["Algorithm Evolution", "算法演化"],
+    ["Validation Evolution", "验证体系演化"],
+    ["UI Evolution", "界面演化"],
+    ["Localization Evolution", "汉化演化"],
+    ["Milestones", "关键里程碑"],
+    ["Roadmap", "发展路线图"],
+    ["Current Version", "当前版本"],
+    "V2.4",
+    ["Database Preview", "数据库预览"],
     "1000 Candidates",
-    "Verified Metadata",
+    ["Verified Metadata", "已核验元数据"],
     "30",
-    "Source Confirmed",
-    "Citation Ready",
-    "Field Provenance Coverage",
+    ["Source Confirmed", "来源已确认"],
+    ["Citation Ready", "引文已就绪"],
+    ["Field Provenance Coverage", "字段级溯源覆盖率"],
     "Not Final Recommendation",
-    "First-Level Project Evolution Tab",
-    "External Dataset Integration",
+    "Research Outputs Framework",
+    "Full Localization Refactor",
+  ]],
+  ["research-reports", "#research-reports", [
+    ["Research Reports", "研究报告"],
+    ["Research Report Generator", "研究报告生成器"],
+    "Generate Research Report",
+    ["Candidate Report", "候选报告"],
+    ["Comparison Report", "对比报告"],
+    ["Screening Report", "筛选报告"],
+    ["Validation Report", "验证报告"],
+    ["Run Snapshot", "运行快照"],
+    "Run ID",
+    "Database Version",
+    "Method Version",
+    "Validation Version",
+    "Candidate Count",
+    "Verified Metadata Count",
+    ["Citation Package", "引用包"],
+    ["Field Provenance", "字段级溯源"],
+    ["Localization Audit", "汉化质量审计"],
+    "Localization Coverage",
+    "Terminology Consistency",
+    "Scientific Language Consistency",
+    ["Database Preview", "数据库预览"],
+    "Not Final Recommendation",
   ]],
   ["methodology", "#methodology", [
     ["Methods & Evidence", "方法与证据"],
     ["Model Validation Lab", "模型验证实验室"],
     ["Project Evolution Integration", "项目演化集成"],
-    ["Enter Project Evolution", "进入 Project Evolution"],
-    ["View Evolution Center", "View Evolution Center"],
+    ["Enter Project Evolution", "进入项目演化"],
+    ["View Evolution Center", "查看项目演化"],
     ["Feature Engineering Pipeline", "特征工程管线"],
     ["Feature Selection Explorer", "特征选择探索器"],
     ["Model Comparison Dashboard", "模型比较面板"],
@@ -217,7 +242,7 @@ const routes = [
     ["Methods & Evidence", "方法与证据"],
     ["Model Validation Lab", "模型验证实验室"],
     ["Project Evolution Integration", "项目演化集成"],
-    ["View Evolution Center", "View Evolution Center"],
+    ["View Evolution Center", "查看项目演化"],
     ["Feature Engineering Pipeline", "特征工程管线"],
     ["Feature Selection Explorer", "特征选择探索器"],
     ["Model Comparison Dashboard", "模型比较面板"],
@@ -377,6 +402,24 @@ for (const [viewportName, width, height] of viewports) {
         await page.locator("#project-evolution-version-timeline").first().waitFor({ state: "attached", timeout: 20000 })
         await page.locator("#project-evolution-roadmap").first().waitFor({ state: "attached", timeout: 20000 })
         await page.waitForTimeout(350)
+      }
+
+      if (routeName === "research-reports") {
+        await page.waitForLoadState("networkidle").catch(() => {})
+        await page.locator("#research-reports").first().waitFor({ state: "attached", timeout: 20000 })
+        await page.locator("#research-reports-generator").first().waitFor({ state: "attached", timeout: 20000 })
+        await page.locator("#research-reports-snapshot").first().waitFor({ state: "attached", timeout: 20000 })
+        await page.locator("#research-reports-snapshot").first().scrollIntoViewIfNeeded().catch(() => {})
+        await page.locator("#research-reports-citation-package").first().waitFor({ state: "attached", timeout: 20000 })
+        await page.locator("#research-reports-localization-audit").first().waitFor({ state: "attached", timeout: 20000 })
+        // Wait deterministically for the async-derived snapshot + audit text to paint
+        // (the snapshot/audit derive from a 1000-record fetch; slower on small viewports).
+        await page.waitForLoadState("networkidle").catch(() => {})
+        await page.waitForFunction(() => {
+          const body = document.body.innerText || ""
+          return body.includes("Database Version") && body.includes("Localization Coverage") && body.includes("Terminology Consistency") && body.includes("Scientific Language Consistency")
+        }, null, { timeout: 45000 }).catch(() => {})
+        await page.waitForTimeout(500)
       }
 
       // Expand collapsible <details> sections (some default collapsed, e.g. on mobile)

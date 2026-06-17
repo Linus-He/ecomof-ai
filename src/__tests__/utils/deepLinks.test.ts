@@ -29,4 +29,11 @@ describe("deep links", () => {
     expect(normalizeHash("#project-evolution")).toBe("project-evolution")
     expect(getHashMeta("project-evolution").title).toMatch(/Project Evolution/i)
   })
+
+  it("routes Research Reports as a first-level tab", () => {
+    expect(HASH_TO_TAB["research-reports"]).toBe("researchReports")
+    expect(HASH_TO_TAB["research-reports-generator"]).toBe("researchReports")
+    expect(normalizeHash("#research-reports")).toBe("research-reports")
+    expect(getHashMeta("research-reports").title).toMatch(/研究报告|Research Reports/i)
+  })
 })

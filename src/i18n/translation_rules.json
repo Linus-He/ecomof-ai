@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "1.0",
+  "languagePriority": "zh-first-with-english-subtitle",
+  "scientificLanguageGuide": {
+    "style": "科研说明与审计表达优先，避免互联网产品促销语气。",
+    "preferredActions": [
+      "查看筛选依据",
+      "查看字段来源",
+      "查看数据缺口",
+      "查看验证状态",
+      "查看排序解释",
+      "查看研究报告"
+    ],
+    "forbiddenProductCopy": [
+      "点击这里",
+      "查看详情",
+      "开始使用",
+      "Get Started",
+      "Start using",
+      "View Details",
+      "Click here"
+    ]
+  },
+  "canonicalTranslations": {
+    "Overview": "总览",
+    "UI Evolution": "界面演化",
+    "Not Final Recommendation": "非最终推荐",
+    "Database Size": "数据库规模",
+    "Screening Trace": "筛选流程追踪",
+    "Decision Trace": "决策追踪",
+    "Ranking Explanation": "排序解释",
+    "Why This Result": "排序解释",
+    "Data Gap": "数据缺口",
+    "Field Provenance": "字段级溯源",
+    "Evidence Framework": "证据框架",
+    "Database Preview": "数据库预览",
+    "Verified Metadata": "已核验元数据",
+    "Source Confirmed": "来源已确认",
+    "Citation Ready": "引文已就绪",
+    "Model Validation Lab": "模型验证实验室",
+    "Project Evolution": "项目演化",
+    "Release Notes": "版本更新记录",
+    "Milestone": "关键里程碑",
+    "Roadmap": "发展路线图",
+    "Research Report": "研究报告",
+    "Research Readiness": "研究成熟度",
+    "Version Timeline": "版本演化时间线",
+    "Scientific Evolution": "科研能力演化",
+    "Database Evolution": "数据库演化",
+    "Algorithm Evolution": "算法演化",
+    "Validation Evolution": "验证体系演化",
+    "Localization Evolution": "汉化演化",
+    "Run Snapshot": "运行快照",
+    "Citation Package": "引用包",
+    "Localization Audit": "汉化质量审计"
+  },
+  "forbiddenTranslations": {
+    "Why This Result": [
+      "为什么是这个结果",
+      "为什么推荐",
+      "为什么排名高",
+      "为什么推荐该 MOF",
+      "为什么推荐这个 MOF"
+    ],
+    "Screening Trace": [
+      "筛选过程",
+      "运行追踪"
+    ],
+    "Release Notes": [
+      "Release Notes Center"
+    ],
+    "Milestone": [
+      "Milestone Center"
+    ],
+    "Roadmap": [
+      "路线图"
+    ]
+  },
+  "reportRequiredSections": [
+    "研究目标",
+    "数据库版本",
+    "筛选条件",
+    "候选数量",
+    "筛选路径",
+    "CRITIC权重",
+    "证据状态",
+    "数据缺口",
+    "字段来源",
+    "验证状态",
+    "局限性"
+  ]
+}

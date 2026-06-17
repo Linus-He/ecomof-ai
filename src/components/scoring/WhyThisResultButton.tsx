@@ -36,7 +36,7 @@ export function WhyThisResultButton({
           background: t.panel,
         }}
       >
-        {label || text(lang, "为什么是这个结果？", "Why this result?")}
+        {label || text(lang, "排序解释", "Ranking Explanation")}
       </button>
       <ScoreExplanationDrawer
         open={open}

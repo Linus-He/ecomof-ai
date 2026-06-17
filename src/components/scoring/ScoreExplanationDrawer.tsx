@@ -81,7 +81,7 @@ export function ScoreExplanationDrawer({ open, onClose, model, candidateId, cand
         <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start" }}>
           <div>
             <h3 style={{ margin: 0, color: t.textStrong, fontSize: 16, lineHeight: 1.25, fontWeight: 900 }}>
-              {text(lang, "为什么是这个结果？", "Why this result?")}
+              {text(lang, "排序解释", "Ranking Explanation")}
             </h3>
             <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 5 }}>
               {row?.name || row?.id || text(lang, "未选择候选", "No candidate selected")}

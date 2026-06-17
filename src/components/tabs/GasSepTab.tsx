@@ -707,7 +707,7 @@ function ExplanationPanel({ record, t, lang, onOpenMethod }) {
     <section style={cardStyle(t)}>
       <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
         <div>
-          <SectionTitle>{text(lang, "为什么推荐这个 MOF？", "Why this MOF?")}</SectionTitle>
+          <SectionTitle>{text(lang, "排序解释", "Ranking Explanation")}</SectionTitle>
           <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 930, lineHeight: 1.2, marginTop: 7 }}><ChemicalText value={record.displayName} /></div>
           <div style={{ alignItems: "center", color: t.subtle, display: "flex", flexWrap: "wrap", fontSize: 12, gap: 6, lineHeight: 1.5, marginTop: 5 }}>
             <span>{record.sourceRecordId}</span>

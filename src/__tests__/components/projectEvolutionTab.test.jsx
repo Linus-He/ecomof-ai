@@ -27,7 +27,7 @@ describe("ProjectEvolutionTab", () => {
 
     expect(screen.getByTestId("project-evolution-overview")).toBeInTheDocument()
     expect(bodyText()).toMatch(/Current Version/)
-    expect(bodyText()).toMatch(/V2.3/)
+    expect(bodyText()).toMatch(/V2.4/)
     expect(bodyText()).toMatch(/1000 Candidates/)
     expect(bodyText()).toMatch(/Verified Metadata/)
     expect(bodyText()).toMatch(/30/)
@@ -35,5 +35,8 @@ describe("ProjectEvolutionTab", () => {
     expect(bodyText()).toMatch(/Not Final Recommendation/)
     expect(bodyText()).toMatch(/GitHub Stars/)
     expect(bodyText()).toMatch(/pending/)
+    expect(screen.getByTestId("project-evolution-localization")).toBeInTheDocument()
+    expect(bodyText()).toMatch(/Localization Evolution/)
+    expect(bodyText()).toMatch(/Research Reports/)
   })
 })

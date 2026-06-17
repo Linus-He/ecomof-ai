@@ -36,7 +36,7 @@ export function RunStepTimeline({ steps = [], activeIndex = -1, runStatus = "idl
               <span><ChemicalText value={text(lang, step.decisionZh, step.decision)} /></span>
               {step.linkedSectionId ? (
                 <a href={`#${step.linkedSectionId}`} style={{ color: t.accentText, fontWeight: 900, textDecoration: "none" }}>
-                  {text(lang, "查看详情", "View details")}
+                  {text(lang, "查看筛选依据", "View screening basis")}
                 </a>
               ) : null}
             </div>

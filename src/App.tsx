@@ -45,6 +45,7 @@ const ValidationTab = lazyNamed(() => import("./components/tabs/ValidationTab"),
 const ResourcesTab = lazyNamed(() => import("./components/tabs/ResourcesTab"), "ResourcesTab")
 const MethodsLimitationsTab = lazyNamed(() => import("./components/tabs/MethodsLimitationsTab"), "MethodsLimitationsTab")
 const ProjectEvolutionTab = lazyNamed(() => import("./components/tabs/ProjectEvolutionTab"), "ProjectEvolutionTab")
+const ResearchReportsTab = lazyNamed(() => import("./components/tabs/ResearchReportsTab"), "ResearchReportsTab")
 
 function shouldPreloadRouteModules() {
   if (typeof navigator === "undefined") return true
@@ -71,6 +72,7 @@ function getInitialDeepLinkState() {
   const pendingScrollTarget = (
     routeHash.startsWith("methodology-") ||
     routeHash.startsWith("project-evolution-") ||
+    routeHash.startsWith("research-reports-") ||
     ["data-quality-provenance", "validation-evidence", "benchmark-references", "graph-informed-descriptor-integration", "organic-acid-graph-explorer"].includes(routeHash)
   )
     ? routeHash
@@ -438,6 +440,7 @@ function AppShell({
             {activeTab === "resources" && <ResourcesTab activeSub={resourcesTab} setActiveSub={setResourcesTab} results={results} inputs={inputs} />}
             {activeTab === "about" && <MethodsLimitationsTab onNavigate={navigateTab} />}
             {activeTab === "projectEvolution" && <ProjectEvolutionTab onNavigate={navigateTab} />}
+            {activeTab === "researchReports" && <ResearchReportsTab onNavigate={navigateTab} />}
           </div>
         </Suspense>
       </main>
@@ -649,6 +652,9 @@ export default function App() {
       if (routeHash.startsWith("project-evolution-")) {
         setPendingScrollTarget(routeHash)
       }
+      if (routeHash.startsWith("research-reports-")) {
+        setPendingScrollTarget(routeHash)
+      }
     }
   }, [])
 
@@ -758,6 +764,19 @@ export default function App() {
 
   useEffect(() => {
     if (!pendingScrollTarget || activeTab !== "projectEvolution") return
+    const scroll = () => {
+      const target = document.getElementById(pendingScrollTarget)
+      if (target) {
+        target.scrollIntoView({ block: "start", behavior: "smooth" })
+        setPendingScrollTarget(null)
+      }
+    }
+    const frame = window.requestAnimationFrame(() => window.setTimeout(scroll, 80))
+    return () => window.cancelAnimationFrame(frame)
+  }, [activeTab, pendingScrollTarget])
+
+  useEffect(() => {
+    if (!pendingScrollTarget || activeTab !== "researchReports") return
     const scroll = () => {
       const target = document.getElementById(pendingScrollTarget)
       if (target) {
@@ -904,6 +923,10 @@ export default function App() {
     }
     if (target === "projectEvolution" || target === "project-evolution") {
       go("project-evolution")
+      return
+    }
+    if (target === "researchReports" || target === "research-reports") {
+      go("research-reports")
       return
     }
     if (["feasibility", "lca", "sensitivity", "comparison"].includes(target)) {

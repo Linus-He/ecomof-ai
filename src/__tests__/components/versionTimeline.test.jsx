@@ -12,7 +12,7 @@ describe("Version Timeline", () => {
     render(<ProjectEvolutionTab data={data} />)
 
     expect(screen.getByTestId("project-evolution-version-timeline")).toBeInTheDocument()
-    for (const version of ["V1.0", "V1.5", "V2.0-K", "V2.0-L", "V2.0-M", "V2.1", "V2.2", "V2.3"]) {
+    for (const version of ["V1.0", "V1.5", "V2.0-K", "V2.0-L", "V2.0-M", "V2.1", "V2.2", "V2.3", "V2.4"]) {
       expect(bodyText()).toMatch(new RegExp(version.replace(".", "\\.")))
     }
     expect(bodyText()).toMatch(/Breaking Changes/)

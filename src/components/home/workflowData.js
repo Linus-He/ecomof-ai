@@ -187,11 +187,11 @@ export const workflowSteps = [
       en: "Translate scores into human-readable reasons, strengths, weaknesses, and uncertainty notes.",
     },
     output: {
-      zh: "生成“为什么是这个结果？”解释卡片。",
-      en: "A Why this result explanation card.",
+      zh: "生成排序解释卡片。",
+      en: "A ranking explanation card.",
     },
     visual: "explanation-card",
-    shortcut: { zh: "查看原因", en: "View reason", target: "ecoScreen" },
+    shortcut: { zh: "查看排序解释", en: "View ranking explanation", target: "ecoScreen" },
   },
   {
     id: "evidence-validation-loop",
@@ -221,7 +221,7 @@ export const workflowSteps = [
 export const workflowOutputs = [
   { zh: "候选排序", en: "Candidate ranking", target: "ecoScreen" },
   { zh: "描述符完整度", en: "Descriptor completeness", target: "data-quality-provenance" },
-  { zh: "推荐解释", en: "Why this result", target: "ecoScreen" },
+  { zh: "排序解释", en: "Ranking Explanation", target: "ecoScreen" },
   { zh: "证据等级", en: "Evidence level", target: "methodology" },
   { zh: "风险提示", en: "Risk notes", target: "performance" },
   { zh: "验证路线", en: "Validation roadmap", target: "validation-evidence" },
