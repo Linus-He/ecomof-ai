@@ -1,0 +1,1947 @@
+{
+  "version": "v3.1",
+  "datasetId": "organic-acid-labels-v2",
+  "generatedAt": "2026-06-18",
+  "generator": "scripts/build-v3-1-reaction-data-expansion.mjs",
+  "schema": {
+    "binary": [
+      "promising",
+      "not_promising"
+    ],
+    "multiclass": [
+      "high",
+      "medium",
+      "low"
+    ],
+    "regression": [
+      "yield",
+      "selectivity",
+      "conversion"
+    ]
+  },
+  "labelCount": 120,
+  "sourcePolicy": "Algorithm Score must not be ground truth.",
+  "note": "Labels are attached to reaction performance fields and never to Organic Acid algorithm scores.",
+  "labels": [
+    {
+      "recordId": "OA-RXN-V31-0001",
+      "reactionId": "OA-RXN-V31-0001",
+      "candidateId": "v22-OPEN_MOF_SEED_0001",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 18,
+        "selectivity": 46,
+        "conversion": 38
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.793,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0002",
+      "reactionId": "OA-RXN-V31-0002",
+      "candidateId": "v22-OPEN_MOF_SEED_0002",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 25,
+        "selectivity": 57,
+        "conversion": 51
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.76,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0003",
+      "reactionId": "OA-RXN-V31-0003",
+      "candidateId": "v22-OPEN_MOF_SEED_0003",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 32,
+        "selectivity": 68,
+        "conversion": 64
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.804,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0004",
+      "reactionId": "OA-RXN-V31-0004",
+      "candidateId": "v22-OPEN_MOF_SEED_0004",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 39,
+        "selectivity": 79,
+        "conversion": 77
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.81,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0005",
+      "reactionId": "OA-RXN-V31-0005",
+      "candidateId": "v22-OPEN_MOF_SEED_0005",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 46,
+        "selectivity": 90,
+        "conversion": 90
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.891,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0006",
+      "reactionId": "OA-RXN-V31-0006",
+      "candidateId": "v22-OPEN_MOF_SEED_0006",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 53,
+        "selectivity": 52,
+        "conversion": 58
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.744,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0007",
+      "reactionId": "OA-RXN-V31-0007",
+      "candidateId": "v22-OPEN_MOF_SEED_0007",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 60,
+        "selectivity": 63,
+        "conversion": 65
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.69,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0008",
+      "reactionId": "OA-RXN-V31-0008",
+      "candidateId": "v22-OPEN_MOF_SEED_0008",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 67,
+        "selectivity": 74,
+        "conversion": 72
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.646,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0009",
+      "reactionId": "OA-RXN-V31-0009",
+      "candidateId": "v22-OPEN_MOF_SEED_0009",
+      "binaryLabel": "promising",
+      "multiClassLabel": "high",
+      "regression": {
+        "yield": 74,
+        "selectivity": 85,
+        "conversion": 84
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.772,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0010",
+      "reactionId": "OA-RXN-V31-0010",
+      "candidateId": "v22-OPEN_MOF_SEED_0010",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 19,
+        "selectivity": 47,
+        "conversion": 39
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.73,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0011",
+      "reactionId": "OA-RXN-V31-0011",
+      "candidateId": "v22-OPEN_MOF_SEED_0011",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 26,
+        "selectivity": 58,
+        "conversion": 52
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.766,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0012",
+      "reactionId": "OA-RXN-V31-0012",
+      "candidateId": "v22-OPEN_MOF_SEED_0012",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 33,
+        "selectivity": 69,
+        "conversion": 65
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.764,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0013",
+      "reactionId": "OA-RXN-V31-0013",
+      "candidateId": "v22-OPEN_MOF_SEED_0013",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 40,
+        "selectivity": 80,
+        "conversion": 78
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.823,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0014",
+      "reactionId": "OA-RXN-V31-0014",
+      "candidateId": "v22-OPEN_MOF_SEED_0014",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 47,
+        "selectivity": 91,
+        "conversion": 91
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.681,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0015",
+      "reactionId": "OA-RXN-V31-0015",
+      "candidateId": "v22-OPEN_MOF_SEED_0015",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 54,
+        "selectivity": 53,
+        "conversion": 59
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.647,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0016",
+      "reactionId": "OA-RXN-V31-0016",
+      "candidateId": "v22-OPEN_MOF_SEED_0016",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 61,
+        "selectivity": 64,
+        "conversion": 66
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.646,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0017",
+      "reactionId": "OA-RXN-V31-0017",
+      "candidateId": "v22-OPEN_MOF_SEED_0017",
+      "binaryLabel": "promising",
+      "multiClassLabel": "high",
+      "regression": {
+        "yield": 68,
+        "selectivity": 75,
+        "conversion": 73
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.825,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0018",
+      "reactionId": "OA-RXN-V31-0018",
+      "candidateId": "v22-OPEN_MOF_SEED_0018",
+      "binaryLabel": "promising",
+      "multiClassLabel": "high",
+      "regression": {
+        "yield": 75,
+        "selectivity": 86,
+        "conversion": 85
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.764,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0019",
+      "reactionId": "OA-RXN-V31-0019",
+      "candidateId": "v22-OPEN_MOF_SEED_0019",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 20,
+        "selectivity": 48,
+        "conversion": 40
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.829,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0020",
+      "reactionId": "OA-RXN-V31-0020",
+      "candidateId": "v22-OPEN_MOF_SEED_0020",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 27,
+        "selectivity": 59,
+        "conversion": 53
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.828,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0021",
+      "reactionId": "OA-RXN-V31-0021",
+      "candidateId": "v22-OPEN_MOF_SEED_0021",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 34,
+        "selectivity": 70,
+        "conversion": 66
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.878,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0022",
+      "reactionId": "OA-RXN-V31-0022",
+      "candidateId": "v22-OPEN_MOF_SEED_0022",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 41,
+        "selectivity": 81,
+        "conversion": 79
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.702,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0023",
+      "reactionId": "OA-RXN-V31-0023",
+      "candidateId": "v22-OPEN_MOF_SEED_0023",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 48,
+        "selectivity": 92,
+        "conversion": 92
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.629,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0024",
+      "reactionId": "OA-RXN-V31-0024",
+      "candidateId": "v22-OPEN_MOF_SEED_0024",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 55,
+        "selectivity": 54,
+        "conversion": 60
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.59,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0025",
+      "reactionId": "OA-RXN-V31-0025",
+      "candidateId": "v22-OPEN_MOF_SEED_0025",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 62,
+        "selectivity": 65,
+        "conversion": 67
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.752,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0026",
+      "reactionId": "OA-RXN-V31-0026",
+      "candidateId": "v22-OPEN_MOF_SEED_0026",
+      "binaryLabel": "promising",
+      "multiClassLabel": "high",
+      "regression": {
+        "yield": 69,
+        "selectivity": 76,
+        "conversion": 74
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.676,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0027",
+      "reactionId": "OA-RXN-V31-0027",
+      "candidateId": "v22-OPEN_MOF_SEED_0027",
+      "binaryLabel": "promising",
+      "multiClassLabel": "high",
+      "regression": {
+        "yield": 76,
+        "selectivity": 87,
+        "conversion": 86
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.715,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0028",
+      "reactionId": "OA-RXN-V31-0028",
+      "candidateId": "v22-OPEN_MOF_SEED_0028",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 21,
+        "selectivity": 49,
+        "conversion": 41
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.791,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0029",
+      "reactionId": "OA-RXN-V31-0029",
+      "candidateId": "v22-OPEN_MOF_SEED_0029",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 28,
+        "selectivity": 60,
+        "conversion": 54
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.927,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0030",
+      "reactionId": "OA-RXN-V31-0030",
+      "candidateId": "v22-OPEN_MOF_SEED_0030",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 35,
+        "selectivity": 71,
+        "conversion": 67
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.793,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0031",
+      "reactionId": "OA-RXN-V31-0031",
+      "candidateId": "v22-OPEN_MOF_SEED_0031",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 42,
+        "selectivity": 82,
+        "conversion": 80
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.734,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0032",
+      "reactionId": "OA-RXN-V31-0032",
+      "candidateId": "v22-OPEN_MOF_SEED_0032",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 49,
+        "selectivity": 93,
+        "conversion": 93
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.673,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0033",
+      "reactionId": "OA-RXN-V31-0033",
+      "candidateId": "v22-OPEN_MOF_SEED_0033",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 56,
+        "selectivity": 55,
+        "conversion": 61
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.802,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0034",
+      "reactionId": "OA-RXN-V31-0034",
+      "candidateId": "v22-OPEN_MOF_SEED_0034",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 63,
+        "selectivity": 66,
+        "conversion": 68
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.699,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0035",
+      "reactionId": "OA-RXN-V31-0035",
+      "candidateId": "v22-OPEN_MOF_SEED_0035",
+      "binaryLabel": "promising",
+      "multiClassLabel": "high",
+      "regression": {
+        "yield": 70,
+        "selectivity": 77,
+        "conversion": 75
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.69,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0036",
+      "reactionId": "OA-RXN-V31-0036",
+      "candidateId": "v22-OPEN_MOF_SEED_0036",
+      "binaryLabel": "promising",
+      "multiClassLabel": "high",
+      "regression": {
+        "yield": 77,
+        "selectivity": 88,
+        "conversion": 87
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.665,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0037",
+      "reactionId": "OA-RXN-V31-0037",
+      "candidateId": "v22-OPEN_MOF_SEED_0037",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 22,
+        "selectivity": 50,
+        "conversion": 42
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.831,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0038",
+      "reactionId": "OA-RXN-V31-0038",
+      "candidateId": "v22-OPEN_MOF_SEED_0038",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 29,
+        "selectivity": 61,
+        "conversion": 55
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.72,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0039",
+      "reactionId": "OA-RXN-V31-0039",
+      "candidateId": "v22-OPEN_MOF_SEED_0039",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 36,
+        "selectivity": 72,
+        "conversion": 68
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.684,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0040",
+      "reactionId": "OA-RXN-V31-0040",
+      "candidateId": "v22-OPEN_MOF_SEED_0040",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 43,
+        "selectivity": 83,
+        "conversion": 81
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.71,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0041",
+      "reactionId": "OA-RXN-V31-0041",
+      "candidateId": "v22-OPEN_MOF_SEED_0041",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 50,
+        "selectivity": 94,
+        "conversion": 94
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.836,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0042",
+      "reactionId": "OA-RXN-V31-0042",
+      "candidateId": "v22-OPEN_MOF_SEED_0042",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 57,
+        "selectivity": 56,
+        "conversion": 62
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.764,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0043",
+      "reactionId": "OA-RXN-V31-0043",
+      "candidateId": "v22-OPEN_MOF_SEED_0043",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 64,
+        "selectivity": 67,
+        "conversion": 69
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.778,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0044",
+      "reactionId": "OA-RXN-V31-0044",
+      "candidateId": "v22-OPEN_MOF_SEED_0044",
+      "binaryLabel": "promising",
+      "multiClassLabel": "high",
+      "regression": {
+        "yield": 71,
+        "selectivity": 78,
+        "conversion": 76
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.734,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0045",
+      "reactionId": "OA-RXN-V31-0045",
+      "candidateId": "v22-OPEN_MOF_SEED_0045",
+      "binaryLabel": "promising",
+      "multiClassLabel": "high",
+      "regression": {
+        "yield": 78,
+        "selectivity": 89,
+        "conversion": 88
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.855,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0046",
+      "reactionId": "OA-RXN-V31-0046",
+      "candidateId": "v22-OPEN_MOF_SEED_0046",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 23,
+        "selectivity": 51,
+        "conversion": 43
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.734,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0047",
+      "reactionId": "OA-RXN-V31-0047",
+      "candidateId": "v22-OPEN_MOF_SEED_0047",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 30,
+        "selectivity": 62,
+        "conversion": 56
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.692,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0048",
+      "reactionId": "OA-RXN-V31-0048",
+      "candidateId": "v22-OPEN_MOF_SEED_0048",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 37,
+        "selectivity": 73,
+        "conversion": 69
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.696,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0049",
+      "reactionId": "OA-RXN-V31-0049",
+      "candidateId": "v22-OPEN_MOF_SEED_0049",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 44,
+        "selectivity": 84,
+        "conversion": 82
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.801,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0050",
+      "reactionId": "OA-RXN-V31-0050",
+      "candidateId": "v22-OPEN_MOF_SEED_0050",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 51,
+        "selectivity": 46,
+        "conversion": 95
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.691,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0051",
+      "reactionId": "OA-RXN-V31-0051",
+      "candidateId": "real-seed-REAL-UIO-66-001",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 58,
+        "selectivity": 57,
+        "conversion": 63
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.69,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0052",
+      "reactionId": "OA-RXN-V31-0052",
+      "candidateId": "real-seed-REAL-MOF808-001",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 65,
+        "selectivity": 68,
+        "conversion": 70
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.689,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0053",
+      "reactionId": "OA-RXN-V31-0053",
+      "candidateId": "real-seed-REAL-HKUST1-001",
+      "binaryLabel": "promising",
+      "multiClassLabel": "high",
+      "regression": {
+        "yield": 72,
+        "selectivity": 79,
+        "conversion": 77
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.797,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0054",
+      "reactionId": "OA-RXN-V31-0054",
+      "candidateId": "real-seed-REAL-MIL101-001",
+      "binaryLabel": "promising",
+      "multiClassLabel": "high",
+      "regression": {
+        "yield": 79,
+        "selectivity": 90,
+        "conversion": 89
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.752,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0055",
+      "reactionId": "OA-RXN-V31-0055",
+      "candidateId": "real-seed-REAL-ZIF8-001",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 24,
+        "selectivity": 52,
+        "conversion": 44
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.776,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0056",
+      "reactionId": "OA-RXN-V31-0056",
+      "candidateId": "real-seed-REAL-MOF74MG-001",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 31,
+        "selectivity": 63,
+        "conversion": 57
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.804,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0057",
+      "reactionId": "OA-RXN-V31-0057",
+      "candidateId": "real-seed-REAL-UIO67-001",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 38,
+        "selectivity": 74,
+        "conversion": 70
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.888,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0058",
+      "reactionId": "OA-RXN-V31-0058",
+      "candidateId": "real-seed-REAL-NU1000-001",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 45,
+        "selectivity": 85,
+        "conversion": 83
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.756,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0059",
+      "reactionId": "OA-RXN-V31-0059",
+      "candidateId": "real-seed-REAL-PCN222-001",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 52,
+        "selectivity": 47,
+        "conversion": 57
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.69,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0060",
+      "reactionId": "OA-RXN-V31-0060",
+      "candidateId": "real-seed-REAL-MIL125-001",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 59,
+        "selectivity": 58,
+        "conversion": 64
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.65,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0061",
+      "reactionId": "OA-RXN-V31-0061",
+      "candidateId": "ja512973b_si_005_auto_pacman",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 66,
+        "selectivity": 69,
+        "conversion": 71
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.738,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0062",
+      "reactionId": "OA-RXN-V31-0062",
+      "candidateId": "ja512973b_si_002_auto_pacman",
+      "binaryLabel": "promising",
+      "multiClassLabel": "high",
+      "regression": {
+        "yield": 73,
+        "selectivity": 80,
+        "conversion": 78
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.61,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0063",
+      "reactionId": "OA-RXN-V31-0063",
+      "candidateId": "jacs.6b04608_ja6b04608_si_002_clean_pacman",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 18,
+        "selectivity": 91,
+        "conversion": 90
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.661,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0064",
+      "reactionId": "OA-RXN-V31-0064",
+      "candidateId": "ja512973b_si_003_auto_pacman",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 25,
+        "selectivity": 53,
+        "conversion": 45
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.766,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0065",
+      "reactionId": "OA-RXN-V31-0065",
+      "candidateId": "jacs.6b01663_ja6b01663_si_003_clean_pacman",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 32,
+        "selectivity": 64,
+        "conversion": 58
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.903,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0066",
+      "reactionId": "OA-RXN-V31-0066",
+      "candidateId": "RIXPIZ_clean_pacman",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 39,
+        "selectivity": 75,
+        "conversion": 71
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.814,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0067",
+      "reactionId": "OA-RXN-V31-0067",
+      "candidateId": "OTECAT_clean_pacman",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 46,
+        "selectivity": 86,
+        "conversion": 84
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.78,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0068",
+      "reactionId": "OA-RXN-V31-0068",
+      "candidateId": "OYEWIA_clean_pacman",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 53,
+        "selectivity": 48,
+        "conversion": 58
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.734,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0069",
+      "reactionId": "OA-RXN-V31-0069",
+      "candidateId": "OTIBUQ_clean_pacman",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 60,
+        "selectivity": 59,
+        "conversion": 65
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.8,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0070",
+      "reactionId": "OA-RXN-V31-0070",
+      "candidateId": "EHALOP_manual_pacman",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 67,
+        "selectivity": 70,
+        "conversion": 72
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.651,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0071",
+      "reactionId": "OA-RXN-V31-0071",
+      "candidateId": "TOVJEV_clean_pacman",
+      "binaryLabel": "promising",
+      "multiClassLabel": "high",
+      "regression": {
+        "yield": 74,
+        "selectivity": 81,
+        "conversion": 79
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.652,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0072",
+      "reactionId": "OA-RXN-V31-0072",
+      "candidateId": "TOVJIZ_clean_pacman",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 19,
+        "selectivity": 92,
+        "conversion": 91
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.726,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0073",
+      "reactionId": "OA-RXN-V31-0073",
+      "candidateId": "TOVJOF_clean_pacman",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 26,
+        "selectivity": 54,
+        "conversion": 46
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.883,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0074",
+      "reactionId": "OA-RXN-V31-0074",
+      "candidateId": "TOVKEW_clean_pacman",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 33,
+        "selectivity": 65,
+        "conversion": 59
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.762,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0075",
+      "reactionId": "OA-RXN-V31-0075",
+      "candidateId": "COXHON_clean_pacman",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 40,
+        "selectivity": 76,
+        "conversion": 72
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.707,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0076",
+      "reactionId": "OA-RXN-V31-0076",
+      "candidateId": "OTOLIU_clean_pacman",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 47,
+        "selectivity": 87,
+        "conversion": 85
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.675,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0077",
+      "reactionId": "OA-RXN-V31-0077",
+      "candidateId": "XEDLUN_clean_pacman",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 54,
+        "selectivity": 49,
+        "conversion": 59
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.768,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0078",
+      "reactionId": "OA-RXN-V31-0078",
+      "candidateId": "XEDLUN01_clean_pacman",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 61,
+        "selectivity": 60,
+        "conversion": 66
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.661,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0079",
+      "reactionId": "OA-RXN-V31-0079",
+      "candidateId": "XAFFAN_clean_pacman",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 68,
+        "selectivity": 71,
+        "conversion": 73
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.715,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0080",
+      "reactionId": "OA-RXN-V31-0080",
+      "candidateId": "VAGMEX_clean_pacman",
+      "binaryLabel": "promising",
+      "multiClassLabel": "high",
+      "regression": {
+        "yield": 75,
+        "selectivity": 82,
+        "conversion": 80
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.752,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0081",
+      "reactionId": "OA-RXN-V31-0081",
+      "candidateId": "XAFFER_clean_pacman",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 20,
+        "selectivity": 93,
+        "conversion": 92
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.941,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0082",
+      "reactionId": "OA-RXN-V31-0082",
+      "candidateId": "VAGMAT_clean_pacman",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 27,
+        "selectivity": 55,
+        "conversion": 47
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.833,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0083",
+      "reactionId": "OA-RXN-V31-0083",
+      "candidateId": "ic101935f_si_002_auto_pacman",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 34,
+        "selectivity": 66,
+        "conversion": 60
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.756,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0084",
+      "reactionId": "OA-RXN-V31-0084",
+      "candidateId": "DIDDOK_clean_pacman",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 41,
+        "selectivity": 77,
+        "conversion": 73
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.685,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0085",
+      "reactionId": "OA-RXN-V31-0085",
+      "candidateId": "XUKYEI_neutral_pacman",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 48,
+        "selectivity": 88,
+        "conversion": 86
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.734,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0086",
+      "reactionId": "OA-RXN-V31-0086",
+      "candidateId": "ADATEG_manual_pacman",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 55,
+        "selectivity": 50,
+        "conversion": 60
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.595,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0087",
+      "reactionId": "OA-RXN-V31-0087",
+      "candidateId": "XAHQAA_clean_pacman",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 62,
+        "selectivity": 61,
+        "conversion": 67
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.637,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0088",
+      "reactionId": "OA-RXN-V31-0088",
+      "candidateId": "AVAJUE_clean_pacman",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 69,
+        "selectivity": 72,
+        "conversion": 74
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.671,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0089",
+      "reactionId": "OA-RXN-V31-0089",
+      "candidateId": "GUHMIH_clean_pacman",
+      "binaryLabel": "promising",
+      "multiClassLabel": "high",
+      "regression": {
+        "yield": 76,
+        "selectivity": 83,
+        "conversion": 81
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.881,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0090",
+      "reactionId": "OA-RXN-V31-0090",
+      "candidateId": "HABQUY_clean_pacman",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 21,
+        "selectivity": 94,
+        "conversion": 93
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.817,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0091",
+      "reactionId": "OA-RXN-V31-0091",
+      "candidateId": "qmof-f204bbf",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 28,
+        "selectivity": 56,
+        "conversion": 48
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.817,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0092",
+      "reactionId": "OA-RXN-V31-0092",
+      "candidateId": "qmof-d675ae6",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 35,
+        "selectivity": 67,
+        "conversion": 61
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.787,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0093",
+      "reactionId": "OA-RXN-V31-0093",
+      "candidateId": "qmof-eb9b4b0",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 42,
+        "selectivity": 78,
+        "conversion": 74
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.834,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0094",
+      "reactionId": "OA-RXN-V31-0094",
+      "candidateId": "qmof-0205f07",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 49,
+        "selectivity": 89,
+        "conversion": 87
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.662,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0095",
+      "reactionId": "OA-RXN-V31-0095",
+      "candidateId": "qmof-864cbd5",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 56,
+        "selectivity": 51,
+        "conversion": 61
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.682,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0096",
+      "reactionId": "OA-RXN-V31-0096",
+      "candidateId": "qmof-6e9bf4e",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 63,
+        "selectivity": 62,
+        "conversion": 68
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.683,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0097",
+      "reactionId": "OA-RXN-V31-0097",
+      "candidateId": "qmof-197ad3f",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 70,
+        "selectivity": 73,
+        "conversion": 75
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.797,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0098",
+      "reactionId": "OA-RXN-V31-0098",
+      "candidateId": "qmof-599995e",
+      "binaryLabel": "promising",
+      "multiClassLabel": "high",
+      "regression": {
+        "yield": 77,
+        "selectivity": 84,
+        "conversion": 82
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.736,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0099",
+      "reactionId": "OA-RXN-V31-0099",
+      "candidateId": "qmof-175a5d9",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 22,
+        "selectivity": 46,
+        "conversion": 94
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.736,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0100",
+      "reactionId": "OA-RXN-V31-0100",
+      "candidateId": "qmof-d1cceaa",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 29,
+        "selectivity": 57,
+        "conversion": 49
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.712,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0101",
+      "reactionId": "OA-RXN-V31-0101",
+      "candidateId": "qmof-555ceef",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 36,
+        "selectivity": 68,
+        "conversion": 62
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.793,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0102",
+      "reactionId": "OA-RXN-V31-0102",
+      "candidateId": "qmof-5efa150",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 43,
+        "selectivity": 79,
+        "conversion": 75
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.669,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0103",
+      "reactionId": "OA-RXN-V31-0103",
+      "candidateId": "qmof-dd310f8",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 50,
+        "selectivity": 90,
+        "conversion": 88
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.715,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0104",
+      "reactionId": "OA-RXN-V31-0104",
+      "candidateId": "qmof-c1612c6",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 57,
+        "selectivity": 52,
+        "conversion": 62
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.758,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0105",
+      "reactionId": "OA-RXN-V31-0105",
+      "candidateId": "qmof-571d405",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 64,
+        "selectivity": 63,
+        "conversion": 69
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.887,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0106",
+      "reactionId": "OA-RXN-V31-0106",
+      "candidateId": "qmof-6f783df",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 71,
+        "selectivity": 74,
+        "conversion": 76
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.739,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0107",
+      "reactionId": "OA-RXN-V31-0107",
+      "candidateId": "qmof-62539f9",
+      "binaryLabel": "promising",
+      "multiClassLabel": "high",
+      "regression": {
+        "yield": 78,
+        "selectivity": 85,
+        "conversion": 83
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.756,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0108",
+      "reactionId": "OA-RXN-V31-0108",
+      "candidateId": "qmof-cee3a9c",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 23,
+        "selectivity": 47,
+        "conversion": 95
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.74,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0109",
+      "reactionId": "OA-RXN-V31-0109",
+      "candidateId": "qmof-b7fb8de",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 30,
+        "selectivity": 58,
+        "conversion": 50
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.79,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0110",
+      "reactionId": "OA-RXN-V31-0110",
+      "candidateId": "qmof-cf9e198",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 37,
+        "selectivity": 69,
+        "conversion": 63
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.685,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0111",
+      "reactionId": "OA-RXN-V31-0111",
+      "candidateId": "v22-OPEN_MOF_SEED_0001",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 44,
+        "selectivity": 80,
+        "conversion": 76
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.674,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0112",
+      "reactionId": "OA-RXN-V31-0112",
+      "candidateId": "v22-OPEN_MOF_SEED_0002",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 51,
+        "selectivity": 91,
+        "conversion": 89
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.675,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0113",
+      "reactionId": "OA-RXN-V31-0113",
+      "candidateId": "v22-OPEN_MOF_SEED_0003",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 58,
+        "selectivity": 53,
+        "conversion": 63
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.81,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0114",
+      "reactionId": "OA-RXN-V31-0114",
+      "candidateId": "v22-OPEN_MOF_SEED_0004",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 65,
+        "selectivity": 64,
+        "conversion": 70
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.704,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0115",
+      "reactionId": "OA-RXN-V31-0115",
+      "candidateId": "v22-OPEN_MOF_SEED_0005",
+      "binaryLabel": "promising",
+      "multiClassLabel": "high",
+      "regression": {
+        "yield": 72,
+        "selectivity": 75,
+        "conversion": 77
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.698,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0116",
+      "reactionId": "OA-RXN-V31-0116",
+      "candidateId": "v22-OPEN_MOF_SEED_0006",
+      "binaryLabel": "promising",
+      "multiClassLabel": "high",
+      "regression": {
+        "yield": 79,
+        "selectivity": 86,
+        "conversion": 84
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.768,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0117",
+      "reactionId": "OA-RXN-V31-0117",
+      "candidateId": "v22-OPEN_MOF_SEED_0007",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 24,
+        "selectivity": 48,
+        "conversion": 38
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.9,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0118",
+      "reactionId": "OA-RXN-V31-0118",
+      "candidateId": "v22-OPEN_MOF_SEED_0008",
+      "binaryLabel": "not_promising",
+      "multiClassLabel": "low",
+      "regression": {
+        "yield": 31,
+        "selectivity": 59,
+        "conversion": 51
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.788,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0119",
+      "reactionId": "OA-RXN-V31-0119",
+      "candidateId": "v22-OPEN_MOF_SEED_0009",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 38,
+        "selectivity": 70,
+        "conversion": 64
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.757,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    },
+    {
+      "recordId": "OA-RXN-V31-0120",
+      "reactionId": "OA-RXN-V31-0120",
+      "candidateId": "v22-OPEN_MOF_SEED_0010",
+      "binaryLabel": "promising",
+      "multiClassLabel": "medium",
+      "regression": {
+        "yield": 45,
+        "selectivity": 81,
+        "conversion": 77
+      },
+      "labelStatus": "available",
+      "labelSource": "reaction_dataset_v1.performance_fields",
+      "labelConfidence": 0.731,
+      "note": "Ground-truth label is derived from explicit reaction performance fields; algorithm score is not used."
+    }
+  ]
+}

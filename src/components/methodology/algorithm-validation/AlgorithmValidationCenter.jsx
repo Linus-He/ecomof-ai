@@ -108,9 +108,11 @@ function DatabaseLayer({ summary, readiness, dataFoundation, lang, t, isMobile }
         <div data-testid="algval-data-foundation" style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))" }}>
           <Metric label="Gold Dataset" value={`${dataFoundation.goldCount}${dataFoundation.goldSufficient ? "" : " · insufficient"}`} t={t} tone={dataFoundation.goldSufficient ? "pass" : "warn"} />
           <Metric label="Literature Dataset" value={dataFoundation.literatureCount} t={t} />
+          <Metric label="Reaction Dataset Count" value={dataFoundation.reactionDatasetCount || 0} t={t} tone={dataFoundation.reactionDatasetCount >= dataFoundation.targets?.reactionDataset ? "pass" : "warn"} />
           <Metric label="Benchmark Dataset" value={dataFoundation.benchmarkCount} t={t} />
           <Metric label="Label Count" value={dataFoundation.labelCount} t={t} tone={dataFoundation.labelCount > 0 ? "pass" : "warn"} />
           <Metric label="Benchmark Eligible" value={dataFoundation.benchmarkEligibleCount} t={t} tone={dataFoundation.benchmarkEligibleCount > 0 ? "pass" : "warn"} />
+          <Metric label="Current / Target / Gap" value={`${dataFoundation.labelCount} / ${dataFoundation.targets?.labelCount || 30} / ${dataFoundation.gaps?.labelCount || 0}`} t={t} tone={dataFoundation.gaps?.labelCount ? "warn" : "pass"} />
         </div>
       ) : null}
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
@@ -340,7 +342,16 @@ function MlReadinessLayer({ readiness, dataFoundation, lang, t, isMobile }) {
           <Metric label="Benchmark Readiness" value={dataFoundation.readiness.benchmark} t={t} tone={dataFoundation.readiness.benchmark === "Ready" ? "pass" : "warn"} />
           <Metric label="Label Readiness" value={dataFoundation.readiness.label} t={t} tone={dataFoundation.readiness.label === "Ready" ? "pass" : "warn"} />
           <Metric label="Data Quality Readiness" value={dataFoundation.readiness.dataQuality} t={t} tone={dataFoundation.readiness.dataQuality === "Ready" ? "pass" : "warn"} />
-          <Metric label="Train / Test" value={`${dataFoundation.trainCount} / ${dataFoundation.testCount}`} t={t} tone="warn" />
+          <Metric label="Train / Test / External" value={`${dataFoundation.trainCount} / ${dataFoundation.testCount} / ${dataFoundation.externalTestCount || 0}`} t={t} tone={dataFoundation.externalTestCount >= dataFoundation.targets?.externalTest ? "pass" : "warn"} />
+          <Metric label="Label Current / Target / Gap" value={`${dataFoundation.current?.labelCount || 0} / ${dataFoundation.targets?.labelCount || 30} / ${dataFoundation.gaps?.labelCount || 0}`} t={t} tone={dataFoundation.gaps?.labelCount ? "warn" : "pass"} />
+          <Metric label="Benchmark Current / Target / Gap" value={`${dataFoundation.current?.benchmarkEligible || 0} / ${dataFoundation.targets?.benchmarkEligible || 30} / ${dataFoundation.gaps?.benchmarkEligible || 0}`} t={t} tone={dataFoundation.gaps?.benchmarkEligible ? "warn" : "pass"} />
+          <Metric label="External Current / Target / Gap" value={`${dataFoundation.current?.externalTest || 0} / ${dataFoundation.targets?.externalTest || 30} / ${dataFoundation.gaps?.externalTest || 0}`} t={t} tone={dataFoundation.gaps?.externalTest ? "warn" : "pass"} />
+          <Metric label="Accuracy / ROC-AUC" value={dataFoundation.futureMetrics?.accuracy || "Pending"} t={t} tone="warn" />
+        </div>
+      ) : null}
+      {dataFoundation?.futureMetrics ? (
+        <div data-testid="future-metric-pending-reason" style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 8, color: t.warn, fontSize: 12, fontWeight: 780, lineHeight: 1.5, padding: 10 }}>
+          {text(lang, dataFoundation.futureMetrics.reasonZh, dataFoundation.futureMetrics.reason)}
         </div>
       ) : null}
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))" }}>
@@ -407,8 +418,8 @@ export function AlgorithmValidationCenter({ summary = {}, organicAcidResult = nu
         <p style={{ color: t.muted, fontSize: 12.8, lineHeight: 1.6, margin: 0, maxWidth: 980 }}>
           {text(
             lang,
-            "V2.8 把原先分散的多个验证实验室与大量验证卡片整合为单一入口。方法论由模块驱动改为科研图驱动：进入后第一眼看到一张完整交互式科研主图。",
-            "V2.8 merges the previously scattered validation labs and validation cards into a single entry. Methodology shifts from module-driven to figure-driven: the first thing you see is one complete interactive scientific figure."
+            "V3.1 接入反应数据、Gold v2、Label v2 与 Benchmark v2；方法论主图继续保持交互式科研图，同时显示 Current / Target / Gap 和 Accuracy / ROC-AUC Pending 边界。",
+            "V3.1 connects reaction data, Gold v2, Label v2, and Benchmark v2; the methodology figure remains interactive while showing Current / Target / Gap and the Accuracy / ROC-AUC Pending boundary."
           )}
         </p>
       </header>

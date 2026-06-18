@@ -207,7 +207,7 @@ function buildReportCharts({ records = [], summary = {}, priorityMode = "balance
   ]
 }
 
-function buildOrganicAcidReport({ organicAcidResult = null, versionData = {}, timestamp } = {}) {
+function buildOrganicAcidReport({ organicAcidResult = null, versionData = {}, timestamp, dataFoundation = null } = {}) {
   const algorithm = organicAcidResult?.organicAcidAlgorithm || organicAcidResult || {}
   const topCandidates = algorithm.topCandidates || algorithm.rankedCandidates?.slice(0, 5) || []
   const top = topCandidates[0] || {}
@@ -241,11 +241,16 @@ function buildOrganicAcidReport({ organicAcidResult = null, versionData = {}, ti
   snapshot.methodVersion = "V2.7 Model Benchmark Lab + V2.6 Organic Acid Algorithm Closure"
   snapshot.validationVersion = "Benchmark Framework Ready; ML Accuracy / ROC-AUC pending until experimental labels exist"
   const candidateNames = topCandidates.map(row => `${row.rank || "-"} ${row.candidateName} (${row.recommendationClass})`).join("；") || "候选待生成"
-  const executiveSummary = `Organic Acid Screening Report：当前任务为 CO2 转化为甲酸 / formic acid priority。V2.7 在 V2.6 白盒多指标决策 + 证据修正 + 图论相关性 + 风险惩罚之上新增 Model Benchmark Readiness、Feature Importance Summary、Top Candidate Review、Candidate Stability 与 Benchmark Roadmap。当前 Label Count = 0，因此 Accuracy / ROC-AUC 均为 Pending，不能报告虚假 ML 指标。Top candidates 为 ${candidateNames}。该报告只给出算法建议，仍需实验验证。`
+  const labelCount = dataFoundation?.labelCount ?? 0
+  const executiveSummary = `Organic Acid Screening Report：当前任务为 CO2 转化为甲酸 / formic acid priority。V3.1 在 V2.6 白盒多指标决策 + 证据修正 + 图论相关性 + 风险惩罚之上接入 Reaction Dataset、Gold v2、Label v2 与 Benchmark v2。当前 Label Count = ${labelCount}，但 Accuracy / ROC-AUC 均为 Pending，不能报告虚假 ML 指标。Top candidates 为 ${candidateNames}。该报告只给出算法建议，仍需实验验证。`
   const sections = [
     { title: "研究目标", body: "Primary target：CO2 转化为甲酸 / formic acid priority；secondary goals 包括抑制竞争路径、提高证据可信度、优先可验证候选、降低结构坍塌风险并保留字段级溯源。" },
     { title: "评分模式", body: `当前评分模式：${algorithm.scoringModeLabelZh || algorithm.scoringMode || "formic_acid_priority"}；目标函数为 pathwayFitScore、evidenceScore、graphRelevanceScore、structureSuitabilityScore、validationReadinessScore、dataQualityScore 减去 riskPenalty。` },
-    { title: "Model Benchmark Readiness", body: `Benchmark Framework Ready；Machine Learning Ready = ${readiness.machineLearningReady}；Label Count = ${readiness.experimentalLabels}；Benchmark Status = ${readiness.benchmarkStatus}；Validation Status = ${readiness.validationStatus}；main blocker = ${readiness.mainBlocker}。Accuracy / ROC-AUC 必须保持 Pending，因为 Experimental labels required。` },
+    { title: "Model Benchmark Readiness", body: `Benchmark Framework Ready；Machine Learning Ready = ${dataFoundation?.readiness?.benchmark || readiness.machineLearningReady}；Label Count = ${labelCount}；Benchmark Eligible = ${dataFoundation?.benchmarkEligibleCount ?? 0}；Validation Status = ${readiness.validationStatus}；main blocker = ${dataFoundation?.futureMetrics?.reasonZh || readiness.mainBlocker}。Accuracy / ROC-AUC 必须保持 Pending，因为 Experimental labels required / external validation required。` },
+    ...(dataFoundation ? [
+      { title: "Reaction Dataset Summary", body: `Reaction Count ${dataFoundation.reactionDatasetCount || 0}；Yield Coverage ${dataFoundation.reactionCoverage?.yield || 0}；Selectivity Coverage ${dataFoundation.reactionCoverage?.selectivity || 0}；Conversion Coverage ${dataFoundation.reactionCoverage?.conversion || 0}。反应数据层用于 Reaction Evidence Weight、Reaction Quality Weight、Comparability Weight 与 Label Confidence Weight。` },
+      { title: "Benchmark Progress", body: `Label Count ${dataFoundation.labelCount} / Target ${dataFoundation.targets?.labelCount || 30} / Gap ${dataFoundation.gaps?.labelCount || 0}；Benchmark Eligible ${dataFoundation.benchmarkEligibleCount} / Target ${dataFoundation.targets?.benchmarkEligible || 30} / Gap ${dataFoundation.gaps?.benchmarkEligible || 0}；External Test ${dataFoundation.externalTestCount || 0} / Target ${dataFoundation.targets?.externalTest || 30} / Gap ${dataFoundation.gaps?.externalTest || 0}。` },
+    ] : []),
     { title: "Feature Importance Summary", body: `Descriptor ranking uses CRITIC importance, Evidence adjusted importance, Organic Acid relevance, and Data quality impact. Current high-relevance descriptors: ${descriptorSummary}。这些是解释性 descriptor importance，不是监督学习 feature importance。` },
     { title: "Top candidates", body: candidateNames },
     { title: "Top Candidate Review", body: topCandidates.map(row => `${row.candidateName}: finalScore=${row.finalScore}, recommendationClass=${row.recommendationClass}, why=${row.mainReasons?.[0] || "pending"}, risk=${row.mainRisks?.[0] || "pending"}, next=${row.nextExperiment}`).join("；") || "候选待生成。" },
@@ -377,7 +382,7 @@ export function generateResearchReport({
   dataFoundation = null,
 } = {}) {
   if (type === "organic_acid") {
-    return buildOrganicAcidReport({ organicAcidResult, versionData, timestamp })
+    return buildOrganicAcidReport({ organicAcidResult, versionData, timestamp, dataFoundation })
   }
   const rows = normalizeRecords(records)
   const selected = rows.find(row => row.candidateId === candidateId) || rows.find(row => row.verifiedMetadata) || rows[0] || {}
@@ -408,7 +413,15 @@ export function generateResearchReport({
     sections.splice(9, 0, {
       title: "数据来源与标准化",
       subtitle: "Data Source & Standardization",
-      body: `数据集版本 V3.0；数据来源登记 ${dataFoundation.sourceCount} 个；质量分层 Gold ${distribution.Gold || 0} / Silver ${distribution.Silver || 0} / Bronze ${distribution.Bronze || 0} / Rejected ${distribution.Rejected || 0}；字段级溯源覆盖率 ${Math.round((dataFoundation.provenanceCoverage || 0) * 100)}%；标准化规则统一温度 °C、压力 bar、比表面积 m²/g、孔体积 cm³/g、孔径 Å、产率 %、时间 h。Benchmark 就绪度 = ${dataFoundation.readiness?.benchmark}；Label 数量 = ${dataFoundation.labelCount}（真实实验标签仍不足，Accuracy / ROC-AUC 继续 Pending）。`,
+      body: `数据集版本 ${dataFoundation.version || "V3.1"}；数据来源登记 ${dataFoundation.sourceCount} 个；质量分层 Gold ${distribution.Gold || 0} / Silver ${distribution.Silver || 0} / Bronze ${distribution.Bronze || 0} / Rejected ${distribution.Rejected || 0}；字段级溯源覆盖率 ${Math.round((dataFoundation.provenanceCoverage || 0) * 100)}%；标准化规则统一温度 °C、压力 bar、比表面积 m²/g、孔体积 cm³/g、孔径 Å、产率 %、时间 h。Benchmark 就绪度 = ${dataFoundation.readiness?.benchmark}；Label 数量 = ${dataFoundation.labelCount}；Accuracy / ROC-AUC 继续 Pending。`,
+    }, {
+      title: "Reaction Dataset Summary",
+      subtitle: "反应数据摘要",
+      body: `Reaction Count ${dataFoundation.reactionDatasetCount || 0}；Yield Coverage ${dataFoundation.reactionCoverage?.yield || 0}；Selectivity Coverage ${dataFoundation.reactionCoverage?.selectivity || 0}；Conversion Coverage ${dataFoundation.reactionCoverage?.conversion || 0}；DOI Coverage ${dataFoundation.reactionCoverage?.doi || 0}。该层用于算法证据权重、可比性权重与研究报告，不把算法分数写入 ground truth。`,
+    }, {
+      title: "Benchmark Progress",
+      subtitle: "基准数据进展",
+      body: `Label Count ${dataFoundation.labelCount} / Target ${dataFoundation.targets?.labelCount || 30} / Gap ${dataFoundation.gaps?.labelCount || 0}；Benchmark Eligible ${dataFoundation.benchmarkEligibleCount} / Target ${dataFoundation.targets?.benchmarkEligible || 30} / Gap ${dataFoundation.gaps?.benchmarkEligible || 0}；External Test ${dataFoundation.externalTestCount || 0} / Target ${dataFoundation.targets?.externalTest || 30} / Gap ${dataFoundation.gaps?.externalTest || 0}。${dataFoundation.futureMetrics?.reasonZh || "Accuracy / ROC-AUC 仍需实验标签与外部验证后才能显示。"}`,
     })
   }
   const charts = buildReportCharts({ records: rows, summary, priorityMode: priority.modeId })

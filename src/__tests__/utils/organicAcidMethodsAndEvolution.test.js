@@ -22,11 +22,11 @@ describe("organic acid methods and V2.6 evolution", () => {
     expect(figureSource).toMatch(/No fake Accuracy/)
     expect(centerSource).toMatch(/Algorithm Validation Center/)
     expect(centerSource).toMatch(/Experimental Validation Layer/)
-    expect(versionData.currentVersion).toBe("V3.0")
+    expect(versionData.currentVersion).toBe("V3.1")
     expect(versionData.versions.find(row => row.version === "V2.6").algorithmImpact).toMatch(/风险惩罚/)
     expect(versionData.versions.find(row => row.version === "V2.8").summary).toMatch(/Interactive Scientific Figure/)
     expect(versionData.versions.find(row => row.version === "V3.0").summary).toMatch(/Data Foundation/)
-    expect(versionDocs.currentVersion).toBe("V3.0")
+    expect(versionDocs.currentVersion).toBe("V3.1")
     expect(versionDocs.versions.find(row => row.version === "V2.6").status).toBe("completed")
     expect(versionDocs.versions.find(row => row.version === "V2.6")).toEqual(expect.objectContaining({
       title: "Organic Acid Algorithm Closure",
@@ -36,6 +36,10 @@ describe("organic acid methods and V2.6 evolution", () => {
       title: "Interactive Scientific Figure Refactor",
       evidenceBoundary: expect.stringMatching(/Label Count = 0/),
       relatedSection: "#methodology-algorithm-validation",
+    }))
+    expect(versionDocs.versions.find(row => row.version === "V3.1")).toEqual(expect.objectContaining({
+      title: "Reaction Data Expansion and Benchmark Readiness",
+      evidenceBoundary: expect.stringMatching(/benchmark-ready data scaffolding/),
     }))
   })
 })

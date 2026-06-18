@@ -1,0 +1,48 @@
+{
+  "version": "v3.1",
+  "generatedAt": "2026-06-18",
+  "current": {
+    "literatureDataset": 320,
+    "goldDataset": 120,
+    "reactionDataset": 120,
+    "benchmarkDataset": 320,
+    "verifiedMetadata": 120,
+    "labelCount": 120,
+    "benchmarkEligible": 120
+  },
+  "previous": {
+    "literatureDataset": 122,
+    "goldDataset": 50,
+    "reactionDataset": 0,
+    "benchmarkDataset": 122,
+    "verifiedMetadata": 30,
+    "labelCount": 0,
+    "benchmarkEligible": 0
+  },
+  "targets": {
+    "literatureDataset": 300,
+    "goldDataset": 100,
+    "reactionDataset": 50,
+    "benchmarkDataset": 300,
+    "verifiedMetadata": 100,
+    "labelCount": 30,
+    "benchmarkEligible": 30
+  },
+  "gaps": {
+    "futureAccuracyLabels": 0,
+    "externalValidation": "external validation protocol pending"
+  },
+  "leakage": {
+    "ok": true,
+    "leaks": [],
+    "unsafeLabels": [],
+    "checkedRecordCount": 320,
+    "rules": [
+      "same DOI",
+      "same Reaction",
+      "same Catalyst",
+      "same Experiment",
+      "algorithm score labels"
+    ]
+  }
+}

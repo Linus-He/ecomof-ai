@@ -34,11 +34,11 @@ function readRepoFile(relativePath) {
 describe("version_evolution_records data source", () => {
   it("is the single authoritative source for timeline, release notes, milestones, and roadmap", () => {
     expect(data.authority).toMatch(/Single authoritative Project Evolution data source/)
-    expect(data.currentVersion).toBe("V3.0")
+    expect(data.currentVersion).toBe("V3.1")
     expect(data.versions.length).toBeGreaterThanOrEqual(9)
     expect(data.releaseNotes.length).toBeGreaterThanOrEqual(8)
     expect(data.milestones.length).toBe(data.overview.milestoneCount)
-    expect(data.roadmap.map(row => row.version)).toEqual(["V2.4", "V2.5", "V2.6", "V2.7", "V3.0"])
+    expect(data.roadmap.map(row => row.version)).toEqual(["V2.4", "V2.5", "V2.6", "V2.7", "V3.0", "V3.1"])
     expect(data.localizationEvolution.map(row => row.version)).toContain("V2.4")
     expect(data.versions.find(row => row.version === "V2.6")).toEqual(expect.objectContaining({
       scientificImpact: "首次形成有机酸候选筛选算法闭环。",

@@ -301,18 +301,21 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
       fetchDataJson("organic_acid_final_screening/dopant_metal_property_matrix.json", []),
       fetchDataJson("organic_acid_final_screening/organic_acid_screening_rules.json", {}),
       fetchDataJson("organic_acid_final_screening/organic_acid_evidence_records.json", []),
-      fetchDataJson("organic_acid_gold_dataset_v1.json", null),
-      fetchDataJson("organic_acid_literature_dataset_v1.json", null),
-      fetchDataJson("benchmark_dataset_v1.json", null),
-      fetchDataJson("organic_acid_labels_v1.json", null),
+      fetchDataJson("organic_acid_gold_dataset_v2.json", null),
+      fetchDataJson("organic_acid_literature_dataset_v2.json", null),
+      fetchDataJson("benchmark_dataset_v2.json", null),
+      fetchDataJson("organic_acid_labels_v2.json", null),
+      fetchDataJson("data_ingestion/organic_acid_reaction_dataset_v1.json", null),
+      fetchDataJson("data_ingestion/verified_metadata_expansion_report.json", null),
+      fetchDataJson("data_ingestion/reaction_data_expansion_summary_v3_1.json", null),
       fetchDataJson("data_ingestion/source_registry.json", null),
     ])
-      .then(([rows, previewSummary, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, sourceRegistry]) => {
+      .then(([rows, previewSummary, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry]) => {
         if (!active) return
         setModules(Array.isArray(rows) ? rows : [])
         setModelValidationSummary(previewSummary && typeof previewSummary === "object" ? previewSummary : null)
-        setOrganicAcidResult(runOrganicAcidFinalScreening(organicFrameworks || [], organicMetals || [], organicRules || {}, organicEvidence || []))
-        setDataFoundation(summarizeDataFoundation({ gold, literature, benchmark, labels, sourceRegistry }))
+        setOrganicAcidResult(runOrganicAcidFinalScreening(organicFrameworks || [], organicMetals || [], organicRules || {}, organicEvidence || [], { reactionDataset: reaction, goldDataset: gold, labelDataset: labels }))
+        setDataFoundation(summarizeDataFoundation({ gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry }))
       })
       .catch(() => {
         if (active) {

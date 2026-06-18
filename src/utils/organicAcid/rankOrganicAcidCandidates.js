@@ -4,6 +4,7 @@ import { ORGANIC_ACID_FEATURE_SCHEMA } from "./organicAcidFeatureSchema"
 import { runOrganicAcidSanityCheck } from "./organicAcidSanityCheck"
 import { runOrganicAcidSensitivityAnalysis } from "./organicAcidSensitivityAnalysis"
 import { ORGANIC_ACID_TASK_DEFINITION } from "./organicAcidTaskDefinition"
+import { applyReactionEvidenceToCandidate, buildReactionIntegrationContext } from "./reactionEvidenceIntegration"
 import { resolveOrganicAcidScoringMode } from "./organicAcidScoringWeights"
 import { scoreOrganicAcidCandidate } from "./scoreOrganicAcidCandidate"
 
@@ -42,21 +43,23 @@ export function rankOrganicAcidCandidates({
   scoringMode = "balanced",
   featureSchema = ORGANIC_ACID_FEATURE_SCHEMA,
   topN = 10,
+  reactionDataset = null,
+  goldDataset = null,
+  labelDataset = null,
+  reactionContext = null,
 } = {}) {
   const mode = resolveOrganicAcidScoringMode(scoringMode)
-  const prescored = (candidates || []).map(candidate => scoreOrganicAcidCandidate(candidate, {
+  const reactionLayerContext = reactionContext || buildReactionIntegrationContext({ reactionDataset, goldDataset, labelDataset })
+  const scoreWithReaction = (candidate, rank) => applyReactionEvidenceToCandidate(scoreOrganicAcidCandidate(candidate, {
     taskDefinition,
     scoringMode: mode.id,
     featureSchema,
-  }))
+    rank,
+  }), reactionLayerContext)
+  const prescored = (candidates || []).map(candidate => scoreWithReaction(candidate))
   const rankedCandidates = prescored
     .sort((a, b) => b.finalScore - a.finalScore || a.candidateName.localeCompare(b.candidateName))
-    .map((candidate, index) => scoreOrganicAcidCandidate(candidate.sourceCandidate || candidate, {
-      taskDefinition,
-      scoringMode: mode.id,
-      featureSchema,
-      rank: index + 1,
-    }))
+    .map((candidate, index) => scoreWithReaction(candidate.sourceCandidate || candidate, index + 1))
   const topCandidates = rankedCandidates.slice(0, topN)
   const rejectedCandidates = rankedCandidates.filter(row => row.recommendationClass === "rejected")
   const sanityCheck = runOrganicAcidSanityCheck(rankedCandidates, { scoringMode: mode.id })
@@ -81,6 +84,10 @@ export function rankOrganicAcidCandidates({
       topCandidate: topCandidates[0] || null,
       boundary: "Screening priority only; algorithmic suggestion requires experimental validation.",
       boundaryZh: "仅表示筛选优先级；算法建议仍需实验验证。",
+      reactionLayer: reactionLayerContext.summary,
+      reactionWeights: reactionLayerContext.enabled
+        ? ["Reaction Evidence Weight", "Reaction Quality Weight", "Comparability Weight", "Label Confidence Weight"]
+        : [],
     },
     sensitivitySummary,
     dataGapSummary,

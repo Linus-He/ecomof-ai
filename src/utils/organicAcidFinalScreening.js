@@ -2472,7 +2472,7 @@ export function runDemoScreeningWorkflow(frameworkCandidates, metalMatrix, rules
   }
 }
 
-export function runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, rules = {}, evidenceRecords = []) {
+export function runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, rules = {}, evidenceRecords = [], options = {}) {
   const loadedEvidenceRecords = loadEvidenceRecords(evidenceRecords)
   const frameworkRows = loadedEvidenceRecords.length
     ? attachEvidenceToFrameworks(frameworkCandidates || [], loadedEvidenceRecords)
@@ -2498,6 +2498,9 @@ export function runOrganicAcidFinalScreening(frameworkCandidates, metalMatrix, r
     scoringMode: rules?.organicAcidAlgorithm?.scoringMode || "formic_acid_priority",
     featureSchema: ORGANIC_ACID_FEATURE_SCHEMA,
     topN: 10,
+    reactionDataset: options.reactionDataset,
+    goldDataset: options.goldDataset,
+    labelDataset: options.labelDataset,
   })
 
   const selectedFramework = rankedFrameworks.find(candidate => candidate.hydrothermalGate?.status === "pass") || rankedFrameworks[0] || null

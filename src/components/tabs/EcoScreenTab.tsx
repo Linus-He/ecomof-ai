@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import {
   Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, ReferenceLine,
   ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis, ZAxis,
@@ -26,6 +26,7 @@ import { ReactionFingerprintPanel } from "../catalysis/ReactionFingerprintPanel"
 import { useMofReactionProfile } from "../catalysis/reactionRationaleData"
 import { DataQualityAuditPanel } from "../data-quality/DataQualityAuditPanel"
 import { DataQualitySummary } from "../data-quality/DataQualitySummary"
+import { fetchDataJson } from "../../services/dataService"
 
 const clamp01 = value => Math.max(0, Math.min(1, Number(value) || 0))
 const pct = value => `${Math.round(clamp01(value) * 100)}%`
@@ -81,9 +82,9 @@ function chartName(name, lang) {
   return labels[name] || name
 }
 
-function Card({ children, style, t, as: Tag = "section" }) {
+function Card({ children, style, t, as: Tag = "section", ...rest }) {
   return (
-    <Tag style={{
+    <Tag {...rest} style={{
       background: t.panel,
       border: `1px solid ${t.border}`,
       borderRadius: 8,
@@ -842,6 +843,71 @@ function EvidenceNotes({ lang, t, isMobile }) {
   )
 }
 
+const REACTION_FILTERS = [
+  { key: "hasYield", label: "Has Yield", labelZh: "有 Yield" },
+  { key: "hasSelectivity", label: "Has Selectivity", labelZh: "有 Selectivity" },
+  { key: "hasConversion", label: "Has Conversion", labelZh: "有 Conversion" },
+  { key: "hasDoi", label: "Has DOI", labelZh: "有 DOI" },
+  { key: "goldOnly", label: "Gold Only", labelZh: "仅 Gold" },
+  { key: "benchmarkEligibleOnly", label: "Benchmark Eligible Only", labelZh: "仅 Benchmark Eligible" },
+]
+
+function ReactionFilterPanel({ filters, onChange, count, total, lang, t, isMobile }) {
+  return (
+    <Card t={t} style={{ display: "grid", gap: 10 }} data-testid="ecoscreen-reaction-filter">
+      <PanelTitle
+        t={t}
+        title={text(lang, "Reaction Filter / 反应数据筛选", "Reaction Filter")}
+        subtitle={text(lang, "按 V3.1 反应数据、Gold v2 与 Benchmark v2 筛选 EcoScreen 候选；筛选只影响当前工作台视图。", "Filter EcoScreen candidates by V3.1 reaction data, Gold v2, and Benchmark v2. The filter only affects the current workbench view.")}
+      />
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        {REACTION_FILTERS.map(item => (
+          <label key={item.key} style={{ alignItems: "center", background: filters[item.key] ? t.badgeInfoBg : t.surface, border: `1px solid ${filters[item.key] ? t.accent : t.border}`, borderRadius: 7, color: filters[item.key] ? t.accentText : t.muted, cursor: "pointer", display: "inline-flex", fontSize: 11.5, fontWeight: 850, gap: 7, minHeight: 32, padding: "6px 9px" }}>
+            <input
+              type="checkbox"
+              data-testid={`reaction-filter-${item.key}`}
+              checked={Boolean(filters[item.key])}
+              onChange={event => onChange(item.key, event.target.checked)}
+              style={{ accentColor: t.accentText }}
+            />
+            {text(lang, item.labelZh, item.label)}
+          </label>
+        ))}
+      </div>
+      <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.5 }}>
+        {text(lang, `当前筛选候选 ${count} / ${total}`, `Candidates in view ${count} / ${total}`)}
+      </div>
+    </Card>
+  )
+}
+
+function matchCandidate(candidate = {}, record = {}) {
+  const tokens = [candidate.id, candidate.candidateId, candidate.name, candidate.displayName, candidate.rawName]
+    .filter(Boolean)
+    .map(value => String(value).toLowerCase())
+  const haystack = [record.sourceRecordId, record.mofName, record.candidateId, record.catalystId, record.mof?.mofId, record.mof?.displayName]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase()
+  return tokens.some(token => token && haystack.includes(token))
+}
+
+function applyReactionFilters(candidates = [], reactionRecords = [], benchmarkRecords = [], filters = {}) {
+  const active = Object.values(filters).some(Boolean)
+  if (!active) return candidates
+  return candidates.filter(candidate => {
+    const reactions = reactionRecords.filter(record => matchCandidate(candidate, record))
+    const benchmarks = benchmarkRecords.filter(record => matchCandidate(candidate, record))
+    if (filters.benchmarkEligibleOnly && !benchmarks.some(row => row.benchmarkEligible === "Ready")) return false
+    if (filters.hasYield && !reactions.some(row => row.yield != null)) return false
+    if (filters.hasSelectivity && !reactions.some(row => row.selectivity != null)) return false
+    if (filters.hasConversion && !reactions.some(row => row.conversion != null)) return false
+    if (filters.hasDoi && !reactions.some(row => row.doi && !/pending|missing|unknown/i.test(String(row.doi)))) return false
+    if (filters.goldOnly && !reactions.some(row => row.validationStatus === "Gold")) return false
+    return true
+  })
+}
+
 export function EcoScreenTab({ onNavigate }) {
   const t = useT()
   const { lang } = useLang()
@@ -850,17 +916,41 @@ export function EcoScreenTab({ onNavigate }) {
   const [weightingMode, setWeightingMode] = useState("critic")
   const [performancePriorityMode, setPerformancePriorityMode] = useState("balanced")
   const [selectedId, setSelectedId] = useState("MOF-B")
+  const [reactionFilters, setReactionFilters] = useState({})
+  const [reactionRows, setReactionRows] = useState([])
+  const [benchmarkRows, setBenchmarkRows] = useState([])
   const {
     candidates: generalRows,
     status: generalStatus,
     mode: globalCandidateMode,
   } = useMofCandidates(DEFAULT_CANDIDATE_DATA_MODE)
+  useEffect(() => {
+    let active = true
+    Promise.all([
+      fetchDataJson("data_ingestion/organic_acid_reaction_dataset_v1.json", null),
+      fetchDataJson("benchmark_dataset_v2.json", null),
+    ]).then(([reaction, benchmark]) => {
+      if (!active) return
+      setReactionRows(Array.isArray(reaction?.records) ? reaction.records : [])
+      setBenchmarkRows(Array.isArray(benchmark?.records) ? benchmark.records : [])
+    }).catch(() => {
+      if (active) {
+        setReactionRows([])
+        setBenchmarkRows([])
+      }
+    })
+    return () => { active = false }
+  }, [])
+  const filteredGeneralRows = useMemo(
+    () => applyReactionFilters(generalRows, reactionRows, benchmarkRows, reactionFilters),
+    [generalRows, reactionRows, benchmarkRows, reactionFilters],
+  )
   const model = useMemo(
-    () => buildCriticScoringModel(generalRows, weightingMode),
-    [generalRows, weightingMode],
+    () => buildCriticScoringModel(filteredGeneralRows, weightingMode),
+    [filteredGeneralRows, weightingMode],
   )
   const generalScoringModel = useMemo(() => createScoringModel({
-    candidates: generalRows,
+    candidates: filteredGeneralRows,
     preset: "generalMofScreening",
     descriptorPreset: "coreMof8",
     algorithm: "hybrid",
@@ -868,7 +958,7 @@ export function EcoScreenTab({ onNavigate }) {
     missingValueStrategy: "penalize",
     evidenceMode: "descriptor-evidence",
     performancePriorityMode,
-  }), [generalRows, performancePriorityMode])
+  }), [filteredGeneralRows, performancePriorityMode])
   const generalTraceModel = useMemo(() => buildTraceModelFromScoringModel(generalScoringModel), [generalScoringModel])
   const activePriority = PERFORMANCE_PRIORITY_MODES.find(item => item.id === performancePriorityMode) || PERFORMANCE_PRIORITY_MODES[0]
   const selectedCandidate = useMemo(() => (
@@ -926,13 +1016,23 @@ export function EcoScreenTab({ onNavigate }) {
       </Callout>
       <Callout tone="info">
         {lang === "zh"
-          ? `当前全局候选数据源：Open MOF Seed · 已加载记录：${generalRows.length} 条 · 已接入模块：MOF Library / EcoScreen / Organic Acid Project。`
-          : `Current global candidate source: Open MOF Seed · Records loaded: ${generalRows.length} · Used by: MOF Library / EcoScreen / Organic Acid Project.`}
+          ? `当前全局候选数据源：Open MOF Seed · 已加载记录：${generalRows.length} 条 · 当前筛选视图：${filteredGeneralRows.length} 条 · 已接入模块：MOF Library / EcoScreen / Organic Acid Project。`
+          : `Current global candidate source: Open MOF Seed · Records loaded: ${generalRows.length} · Filtered view: ${filteredGeneralRows.length} · Used by: MOF Library / EcoScreen / Organic Acid Project.`}
       </Callout>
 
       <DataQualityAuditPanel records={generalRows} lang={lang} t={t} isMobile={isMobile} />
 
       <DataQualitySummary lang={lang} t={t} isMobile={isMobile} />
+
+      <ReactionFilterPanel
+        filters={reactionFilters}
+        onChange={(key, checked) => setReactionFilters(current => ({ ...current, [key]: checked }))}
+        count={filteredGeneralRows.length}
+        total={generalRows.length}
+        lang={lang}
+        t={t}
+        isMobile={isMobile}
+      />
 
       <Card t={t} style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
         <div style={{ minWidth: 0 }}>

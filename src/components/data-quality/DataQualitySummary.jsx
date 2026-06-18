@@ -36,13 +36,16 @@ export function DataQualitySummary({ summary: injectedSummary, records: injected
     if (injectedSummary && injectedRecords) return undefined
     let active = true
     Promise.all([
-      fetchDataJson("organic_acid_gold_dataset_v1.json", null),
-      fetchDataJson("organic_acid_literature_dataset_v1.json", null),
-      fetchDataJson("benchmark_dataset_v1.json", null),
-      fetchDataJson("organic_acid_labels_v1.json", null),
-    ]).then(([gold, literature, benchmark, labels]) => {
+      fetchDataJson("organic_acid_gold_dataset_v2.json", null),
+      fetchDataJson("organic_acid_literature_dataset_v2.json", null),
+      fetchDataJson("benchmark_dataset_v2.json", null),
+      fetchDataJson("organic_acid_labels_v2.json", null),
+      fetchDataJson("data_ingestion/organic_acid_reaction_dataset_v1.json", null),
+      fetchDataJson("data_ingestion/verified_metadata_expansion_report.json", null),
+      fetchDataJson("data_ingestion/reaction_data_expansion_summary_v3_1.json", null),
+    ]).then(([gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary]) => {
       if (!active) return
-      setSummary(summarizeDataFoundation({ gold, literature, benchmark, labels }))
+      setSummary(summarizeDataFoundation({ gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary }))
       setRecords(Array.isArray(literature?.records) ? literature.records : [])
     }).catch(() => { if (active) { setSummary(null); setRecords([]) } })
     return () => { active = false }
@@ -61,7 +64,7 @@ export function DataQualitySummary({ summary: injectedSummary, records: injected
         <span style={{ color: t.accentText, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>Data Quality Summary</span>
         <h3 style={{ color: t.textStrong, fontSize: 16, lineHeight: 1.2, margin: 0 }}>{text(lang, "数据质量摘要", "Data Quality Summary")}</h3>
         <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.5, margin: 0 }}>
-          {text(lang, "V3.0 数据基础：Gold / Silver / Bronze / Rejected 分层、已核验 metadata 与字段级溯源覆盖率。", "V3.0 data foundation: Gold / Silver / Bronze / Rejected tiers, verified metadata, and field-level provenance coverage.")}
+          {text(lang, "V3.1 数据增长：Gold、Verified Metadata、Reaction、Label 与 Benchmark Eligible 同步显示，并保留 Accuracy / ROC-AUC Pending 边界。", "V3.1 data growth: Gold, verified metadata, reaction, label, and benchmark-eligible counts are shown while Accuracy / ROC-AUC remain Pending.")}
         </p>
       </header>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
@@ -71,9 +74,33 @@ export function DataQualitySummary({ summary: injectedSummary, records: injected
         <Metric label="Bronze" value={distribution.Bronze || 0} t={t} />
         <Metric label="Rejected" value={distribution.Rejected || 0} t={t} tone="warn" />
         <Metric label="Verified Metadata" value={summary.verifiedMetadataCount} t={t} tone="pass" />
+        <Metric label="Reaction Dataset" value={summary.reactionDatasetCount || 0} t={t} tone="pass" />
+        <Metric label="Label Count" value={summary.labelCount || 0} t={t} tone={summary.labelCount >= summary.targets?.labelCount ? "pass" : "warn"} />
+        <Metric label="Benchmark Eligible" value={summary.benchmarkEligibleCount || 0} t={t} tone={summary.benchmarkEligibleCount >= summary.targets?.benchmarkEligible ? "pass" : "warn"} />
         <Metric label="Provenance Coverage" value={pct(summary.provenanceCoverage)} t={t} tone="pass" />
         <Metric label="Gold Status" value={summary.goldSufficient ? "Sufficient" : "Insufficient"} t={t} tone={summary.goldSufficient ? "pass" : "warn"} />
       </div>
+      {summary.growth ? (
+        <div data-testid="data-growth-overview" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 8, padding: 10 }}>
+          <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "Data Growth Overview", "Data Growth Overview")}</strong>
+          <div style={{ display: "grid", gap: 7, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))" }}>
+            {[
+              ["Gold", "goldDataset"],
+              ["Verified", "verifiedMetadata"],
+              ["Reaction", "reactionDataset"],
+              ["Label", "labelCount"],
+              ["Benchmark", "benchmarkEligible"],
+            ].map(([label, key]) => {
+              const previous = summary.growth.previous?.[key] ?? 0
+              const current = summary.growth.current?.[key] ?? summary.current?.[key] ?? 0
+              return <Metric key={key} label={label} value={`${previous} -> ${current}`} t={t} tone={Number(current) >= Number(previous) ? "pass" : "warn"} />
+            })}
+          </div>
+          <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55 }}>
+            {text(lang, "Growth Trend / Quality Trend / Coverage Trend 均来自 V3.1 数据生成摘要；Accuracy 与 ROC-AUC 仍为 Pending。", "Growth Trend / Quality Trend / Coverage Trend come from the V3.1 generation summary; Accuracy and ROC-AUC remain Pending.")}
+          </div>
+        </div>
+      ) : null}
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
         {TIER_FILTERS.map(item => (
           <button

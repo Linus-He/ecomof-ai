@@ -1,0 +1,26 @@
+{
+  "version": "v3.1",
+  "datasetId": "verified-metadata-expansion-report-v3-1",
+  "generatedAt": "2026-06-18",
+  "verifiedCount": 120,
+  "pendingCount": 200,
+  "blockedCount": 0,
+  "sourceCoverage": {
+    "SRC-CORE-MOF-2019": 80,
+    "SRC-REAL-SEED": 10,
+    "SRC-QMOF": 20
+  },
+  "priorities": [
+    "CoRE MOF",
+    "QMOF",
+    "Organic Acid Relevant MOFs"
+  ],
+  "criteria": [
+    "non-synthetic",
+    "DOI present",
+    "citation present",
+    "license/source registry present",
+    "field provenance present"
+  ],
+  "note": "V3.1 expands verified metadata for reaction-layer records using inherited source DOI/citation/license provenance; it does not mint new DOI, citation, or license values."
+}

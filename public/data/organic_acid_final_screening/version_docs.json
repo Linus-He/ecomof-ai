@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06",
-  "currentVersion": "V3.0",
-  "completedRange": "V1.0-V3.0",
+  "currentVersion": "V3.1",
+  "completedRange": "V1.0-V3.1",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -2162,7 +2162,7 @@
       "title": "Data Foundation Program",
       "titleZh": "数据基础工程",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Data-driven foundation",
       "themeZh": "数据驱动基础设施",
       "summary": "Shifts the project from UI/methodology-driven to data-driven. Adds a data ingestion registry, a unified five-layer import schema, a seven-stage validation pipeline, a unit-standardization engine, Gold/Literature/Benchmark datasets, a Label Framework, a Benchmark Eligibility Gate, and a Data Leakage Check.",
@@ -2228,6 +2228,86 @@
         "adaptationBoundaryZh": "仅数据基础；不复现或训练模型，不伪造任何指标。"
       },
       "relatedSection": "#methodology-algorithm-validation"
+    },
+    {
+      "version": "V3.1",
+      "title": "Reaction Data Expansion and Benchmark Readiness",
+      "titleZh": "反应数据扩展与基准就绪",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Reaction data",
+      "themeZh": "反应数据层",
+      "summary": "Added reaction dataset, Gold v2, labels v2, benchmark v2, eligibility V2, leakage V2, and reaction-aware Organic Acid scoring hooks.",
+      "summaryZh": "新增反应数据集、Gold v2、Label v2、Benchmark v2、Eligibility V2、Leakage V2，并把反应数据权重接入 Organic Acid 算法。",
+      "keyUpdates": [
+        "Reaction Dataset Count 120",
+        "Gold Dataset Count 120",
+        "Label Count 120",
+        "Benchmark Eligible Count 120",
+        "Data Leakage V2 passes"
+      ],
+      "keyUpdatesZh": [
+        "Reaction Dataset 120 条",
+        "Gold Dataset 120 条",
+        "Label 120 条",
+        "Benchmark Eligible 120 条",
+        "Data Leakage V2 通过"
+      ],
+      "algorithmChanges": [
+        "Added Reaction Evidence Weight",
+        "Added Reaction Quality Weight",
+        "Added Comparability Weight",
+        "Added Label Confidence Weight"
+      ],
+      "algorithmChangesZh": [
+        "新增 Reaction Evidence Weight",
+        "新增 Reaction Quality Weight",
+        "新增 Comparability Weight",
+        "新增 Label Confidence Weight"
+      ],
+      "uiChanges": [
+        "Algorithm Validation Center data layer growth",
+        "Interactive scientific figure data growth",
+        "EcoScreen reaction filters",
+        "Research Reports reaction and benchmark sections"
+      ],
+      "uiChangesZh": [
+        "算法验证中心显示数据层增长",
+        "交互科研图显示数据增长",
+        "EcoScreen 新增反应筛选器",
+        "研究报告新增反应与基准进展章节"
+      ],
+      "methodologyChanges": [
+        "Accuracy / ROC-AUC remain Pending until external validation labels are sufficient."
+      ],
+      "methodologyChangesZh": [
+        "Accuracy / ROC-AUC 在 external validation label 充足前继续保持 Pending。"
+      ],
+      "evidenceBoundary": "V3.1 forms benchmark-ready data scaffolding; it does not claim trained supervised-model performance.",
+      "evidenceBoundaryZh": "V3.1 形成 benchmark-ready 数据脚手架；不声明已训练监督模型性能。",
+      "limitations": [
+        "External-test labels remain below metric-display threshold.",
+        "Accuracy / ROC-AUC are still Pending."
+      ],
+      "limitationsZh": [
+        "External-test labels 仍低于指标显示阈值。",
+        "Accuracy / ROC-AUC 仍为 Pending。"
+      ],
+      "relatedSection": "#methodology-algorithm-validation",
+      "knowledgeBaseLinks": {
+        "literatureIds": [
+          "LIT-SU-2025-MOF-BORYLATION"
+        ],
+        "knowledgeTags": [
+          "reaction-data-layer",
+          "benchmark-ready-dataset",
+          "label-framework",
+          "data-leakage-check",
+          "organic-acid-validation"
+        ],
+        "adaptationBoundary": "Reaction data and benchmark scaffolding only; no supervised metric is claimed.",
+        "adaptationBoundaryZh": "仅反应数据与 benchmark 脚手架；不声明监督模型指标。"
+      }
     }
   ],
   "roadmap": [
