@@ -1,0 +1,90 @@
+{
+  "schemaVersion": "v3.0",
+  "schemaId": "ecomof-ai-unified-import-schema-v3.0",
+  "generatedAt": "2026-06-18",
+  "description": "V3.0 unified five-layer import schema for MOF / Reaction / Performance / Evidence / Quality records. Every ingested record is normalized into these layers before validation and tiering.",
+  "qualityTiers": ["Gold", "Silver", "Bronze", "Rejected"],
+  "uncertaintyVocabulary": ["pending", "unknown", "ambiguous", "restricted"],
+  "layers": {
+    "mof": {
+      "layerName": "MOF Layer",
+      "fields": {
+        "mofId": { "type": "string", "required": true },
+        "displayName": { "type": "string", "required": true },
+        "metalNode": { "type": "string", "required": true },
+        "linker": { "type": "string", "required": false },
+        "topology": { "type": "string", "required": false },
+        "surfaceArea": { "type": "number", "unit": "m^2/g", "required": false },
+        "poreVolume": { "type": "number", "unit": "cm^3/g", "required": false },
+        "poreSizeA": { "type": "number", "unit": "angstrom", "required": false },
+        "density": { "type": "number", "unit": "g/cm^3", "required": false },
+        "voidFraction": { "type": "number", "unit": "fraction", "required": false },
+        "bandGap": { "type": "number", "unit": "eV", "required": false },
+        "stabilityProxy": { "type": "number", "unit": "fraction", "required": false }
+      }
+    },
+    "reaction": {
+      "layerName": "Reaction Layer",
+      "fields": {
+        "reactionId": { "type": "string", "required": true },
+        "targetProduct": { "type": "string", "required": true },
+        "temperature": { "type": "number", "unit": "degC", "required": false },
+        "pressure": { "type": "number", "unit": "bar", "required": false },
+        "solvent": { "type": "string", "required": false },
+        "reactionTime": { "type": "number", "unit": "h", "required": false },
+        "atmosphere": { "type": "string", "required": false },
+        "pH": { "type": "number", "unit": "pH", "required": false }
+      }
+    },
+    "performance": {
+      "layerName": "Performance Layer",
+      "fields": {
+        "yield": { "type": "number", "unit": "percent", "required": false },
+        "selectivity": { "type": "number", "unit": "percent", "required": false },
+        "conversion": { "type": "number", "unit": "percent", "required": false },
+        "rate": { "type": "number", "unit": "mmol/g/h", "required": false },
+        "TON": { "type": "number", "unit": "dimensionless", "required": false },
+        "TOF": { "type": "number", "unit": "1/h", "required": false }
+      }
+    },
+    "evidence": {
+      "layerName": "Evidence Layer",
+      "fields": {
+        "doi": { "type": "string", "required": false },
+        "sourceUrl": { "type": "string", "required": false },
+        "citation": { "type": "string", "required": false },
+        "evidenceLevel": { "type": "string", "enum": ["A", "B", "C", "D", "pending"], "required": false },
+        "sourceConfirmed": { "type": "boolean", "required": false },
+        "citationReady": { "type": "boolean", "required": false },
+        "verifiedMetadata": { "type": "boolean", "required": false }
+      }
+    },
+    "quality": {
+      "layerName": "Quality Layer",
+      "fields": {
+        "completenessScore": { "type": "number", "unit": "fraction", "required": false },
+        "provenanceCoverage": { "type": "number", "unit": "fraction", "required": false },
+        "validationStatus": { "type": "string", "enum": ["Gold", "Silver", "Bronze", "Rejected"], "required": false },
+        "warnings": { "type": "array", "required": false },
+        "blockers": { "type": "array", "required": false }
+      }
+    }
+  },
+  "fieldSourceShape": {
+    "value": "the normalized value",
+    "originalValue": "value as supplied by source",
+    "originalUnit": "unit as supplied by source",
+    "normalizedValue": "value after normalization",
+    "normalizedUnit": "canonical unit",
+    "normalizationMethod": "rule applied",
+    "sourceId": "registry sourceId",
+    "doi": "pending unless confirmed",
+    "status": "confirmed | pending | missing | ambiguous"
+  },
+  "goldCriteria": {
+    "description": "A record reaches Gold only if it carries a real DOI, real citation, complete critical MOF + reaction + performance fields, and is not a synthetic fixture.",
+    "requiredLayers": ["mof", "reaction", "performance", "evidence"],
+    "criticalFields": ["mofId", "metalNode", "reactionId", "targetProduct", "temperature", "doi", "citation"],
+    "forbid": ["syntheticFixture", "fabricatedDoi", "fabricatedCitation"]
+  }
+}

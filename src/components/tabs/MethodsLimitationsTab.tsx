@@ -21,6 +21,7 @@ import { MethodModuleSection } from "../methodology/MethodModuleSection"
 import { AlgorithmValidationCenter, ALGORITHM_VALIDATION_DIRECTORY } from "../methodology/algorithm-validation/AlgorithmValidationCenter"
 import { ORGANIC_ACID_FINAL_DIRECTORY } from "../methodology/organic-acid-final/directory"
 import { runOrganicAcidFinalScreening } from "../../utils/organicAcidFinalScreening"
+import { summarizeDataFoundation } from "../../utils/dataFoundation"
 
 const OrganicAcidFinalMethodology = lazy(() =>
   import("../methodology/OrganicAcidFinalMethodology").then(module => ({ default: module.OrganicAcidFinalMethodology })),
@@ -288,6 +289,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
   const [modules, setModules] = useState([])
   const [modelValidationSummary, setModelValidationSummary] = useState(null)
   const [organicAcidResult, setOrganicAcidResult] = useState(null)
+  const [dataFoundation, setDataFoundation] = useState(null)
   const [activeId, setActiveId] = useState("methodology-algorithm-validation")
 
   useEffect(() => {
@@ -299,18 +301,25 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
       fetchDataJson("organic_acid_final_screening/dopant_metal_property_matrix.json", []),
       fetchDataJson("organic_acid_final_screening/organic_acid_screening_rules.json", {}),
       fetchDataJson("organic_acid_final_screening/organic_acid_evidence_records.json", []),
+      fetchDataJson("organic_acid_gold_dataset_v1.json", null),
+      fetchDataJson("organic_acid_literature_dataset_v1.json", null),
+      fetchDataJson("benchmark_dataset_v1.json", null),
+      fetchDataJson("organic_acid_labels_v1.json", null),
+      fetchDataJson("data_ingestion/source_registry.json", null),
     ])
-      .then(([rows, previewSummary, organicFrameworks, organicMetals, organicRules, organicEvidence]) => {
+      .then(([rows, previewSummary, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, sourceRegistry]) => {
         if (!active) return
         setModules(Array.isArray(rows) ? rows : [])
         setModelValidationSummary(previewSummary && typeof previewSummary === "object" ? previewSummary : null)
         setOrganicAcidResult(runOrganicAcidFinalScreening(organicFrameworks || [], organicMetals || [], organicRules || {}, organicEvidence || []))
+        setDataFoundation(summarizeDataFoundation({ gold, literature, benchmark, labels, sourceRegistry }))
       })
       .catch(() => {
         if (active) {
           setModules([])
           setModelValidationSummary(null)
           setOrganicAcidResult(null)
+          setDataFoundation(null)
         }
       })
     return () => { active = false }
@@ -414,6 +423,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
           <AlgorithmValidationCenter
             summary={modelValidationSummary || {}}
             organicAcidResult={organicAcidResult}
+            dataFoundation={dataFoundation}
             lang={lang}
             t={t}
             isMobile={isMobile || isNarrow}

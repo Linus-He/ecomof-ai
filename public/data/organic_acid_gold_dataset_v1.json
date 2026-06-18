@@ -1,0 +1,2763 @@
+{
+  "version": "v3.0",
+  "datasetId": "organic-acid-gold-dataset-v1",
+  "generatedAt": "2026-06-18",
+  "generator": "scripts/build-v3-0-data-foundation.mjs",
+  "goldCriteria": "Real DOI + real citation + non-synthetic + source-link provenance >= 0.8.",
+  "goldThreshold": 20,
+  "goldCount": 50,
+  "sufficient": true,
+  "note": "Records reach Gold on confirmed source provenance (real DOI + citation, non-synthetic). Reaction performance (yield/selectivity) and experimental labels remain pending and are never fabricated.",
+  "records": [
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0001",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0001",
+        "displayName": "ja512973b_si_005_auto",
+        "metalNode": "Zr",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 5496.62,
+        "poreVolume": 2.98262,
+        "poreSizeA": 10.49588,
+        "density": 3.43466,
+        "voidFraction": 0.8684,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0001",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0002",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0002",
+        "displayName": "ja512973b_si_002_auto",
+        "metalNode": "Zr",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 4925.43,
+        "poreVolume": 1.71222,
+        "poreSizeA": 8.47189,
+        "density": 2.1806,
+        "voidFraction": 0.7852,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0002",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0003",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0003",
+        "displayName": "jacs.6b04608_ja6b04608_si_002",
+        "metalNode": "Zr",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 4826.98,
+        "poreVolume": 2.15079,
+        "poreSizeA": 11.02909,
+        "density": 2.56779,
+        "voidFraction": 0.8376,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0003",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0004",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0004",
+        "displayName": "ja512973b_si_003_auto",
+        "metalNode": "Zr",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 4665.31,
+        "poreVolume": 2.03227,
+        "poreSizeA": 8.58252,
+        "density": 2.47715,
+        "voidFraction": 0.8204,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0004",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0005",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0005",
+        "displayName": "jacs.6b01663_ja6b01663_si_003",
+        "metalNode": "Zr",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 4489.74,
+        "poreVolume": 2.73874,
+        "poreSizeA": 19.6462,
+        "density": 3.13362,
+        "voidFraction": 0.874,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0005",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0006",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0006",
+        "displayName": "RIXPIZ",
+        "metalNode": "Al",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 3665,
+        "poreVolume": 1.30327,
+        "poreSizeA": 8.42715,
+        "density": 1.75454,
+        "voidFraction": 0.7428,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0006",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0007",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0007",
+        "displayName": "OTECAT",
+        "metalNode": "Al",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 3480.57,
+        "poreVolume": 1.26913,
+        "poreSizeA": 8.01894,
+        "density": 1.70996,
+        "voidFraction": 0.7422,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0007",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0008",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0008",
+        "displayName": "OYEWIA",
+        "metalNode": "Al",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 3001.77,
+        "poreVolume": 1.0485,
+        "poreSizeA": 7.95909,
+        "density": 1.4751,
+        "voidFraction": 0.7108,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0008",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0009",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0009",
+        "displayName": "OTIBUQ",
+        "metalNode": "Al",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 2370.25,
+        "poreVolume": 0.77585,
+        "poreSizeA": 5.20769,
+        "density": 1.21874,
+        "voidFraction": 0.6366,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0009",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0010",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0010",
+        "displayName": "EHALOP_manual",
+        "metalNode": "Al",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 1816.86,
+        "poreVolume": 0.65814,
+        "poreSizeA": 7.11735,
+        "density": 1.06495,
+        "voidFraction": 0.618,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0010",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0011",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0011",
+        "displayName": "TOVJEV",
+        "metalNode": "Fe",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 4736.79,
+        "poreVolume": 2.09469,
+        "poreSizeA": 10.37066,
+        "density": 2.50263,
+        "voidFraction": 0.837,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0011",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0012",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0012",
+        "displayName": "TOVJIZ",
+        "metalNode": "Fe",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 4503.64,
+        "poreVolume": 1.77897,
+        "poreSizeA": 8.2906,
+        "density": 2.21651,
+        "voidFraction": 0.8026,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0012",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0013",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0013",
+        "displayName": "TOVJOF",
+        "metalNode": "Fe",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 4335.39,
+        "poreVolume": 1.71124,
+        "poreSizeA": 8.36781,
+        "density": 2.12522,
+        "voidFraction": 0.8052,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0013",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0014",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0014",
+        "displayName": "TOVKEW",
+        "metalNode": "Fe",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 3617.24,
+        "poreVolume": 1.29573,
+        "poreSizeA": 8.94797,
+        "density": 1.76482,
+        "voidFraction": 0.7342,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0014",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0015",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0015",
+        "displayName": "COXHON",
+        "metalNode": "Fe",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 3486.15,
+        "poreVolume": 1.21402,
+        "poreSizeA": 8.47314,
+        "density": 1.51715,
+        "voidFraction": 0.8002,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0015",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0016",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0016",
+        "displayName": "OTOLIU",
+        "metalNode": "Ti",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 4761.4,
+        "poreVolume": 0.98441,
+        "poreSizeA": 4.56727,
+        "density": 1.33535,
+        "voidFraction": 0.7372,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0016",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0017",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0017",
+        "displayName": "XEDLUN",
+        "metalNode": "Ti",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 1585.62,
+        "poreVolume": 0.6885,
+        "poreSizeA": 3.51292,
+        "density": 1.12868,
+        "voidFraction": 0.61,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0017",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0018",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0018",
+        "displayName": "XEDLUN01",
+        "metalNode": "Ti",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 1585.43,
+        "poreVolume": 0.68263,
+        "poreSizeA": 3.46915,
+        "density": 1.12868,
+        "voidFraction": 0.6048,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0018",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0019",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0019",
+        "displayName": "XAFFAN",
+        "metalNode": "Zn",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 5192.05,
+        "poreVolume": 2.33964,
+        "poreSizeA": 13.24304,
+        "density": 2.73838,
+        "voidFraction": 0.8544,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0019",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0020",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0020",
+        "displayName": "VAGMEX",
+        "metalNode": "Zn",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 5189.2,
+        "poreVolume": 2.45019,
+        "poreSizeA": 14.48863,
+        "density": 2.83913,
+        "voidFraction": 0.863,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0020",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0021",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0021",
+        "displayName": "XAFFER",
+        "metalNode": "Zn",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 5152.99,
+        "poreVolume": 2.36305,
+        "poreSizeA": 13.28886,
+        "density": 2.77878,
+        "voidFraction": 0.8504,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0021",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0022",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0022",
+        "displayName": "VAGMAT",
+        "metalNode": "Zn",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 5140.9,
+        "poreVolume": 2.3579,
+        "poreSizeA": 13.26042,
+        "density": 2.74175,
+        "voidFraction": 0.86,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0022",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0023",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0023",
+        "displayName": "ic101935f_si_002_auto",
+        "metalNode": "Zn",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 5095.35,
+        "poreVolume": 2.08269,
+        "poreSizeA": 8.78691,
+        "density": 2.4508,
+        "voidFraction": 0.8498,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0023",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0024",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0024",
+        "displayName": "DIDDOK",
+        "metalNode": "Zn",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 4944.37,
+        "poreVolume": 1.49817,
+        "poreSizeA": 8.17399,
+        "density": 1.90172,
+        "voidFraction": 0.7878,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0024",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0025",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0025",
+        "displayName": "XUKYEI_neutral",
+        "metalNode": "Cu",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 6285.97,
+        "poreVolume": 3.02289,
+        "poreSizeA": 10.75846,
+        "density": 3.48177,
+        "voidFraction": 0.8682,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0025",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0026",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0026",
+        "displayName": "ADATEG_manual",
+        "metalNode": "Cu",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 6170.7,
+        "poreVolume": 3.75246,
+        "poreSizeA": 13.33904,
+        "density": 4.18796,
+        "voidFraction": 0.896,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0026",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0027",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0027",
+        "displayName": "XAHQAA",
+        "metalNode": "Cu",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 6105.88,
+        "poreVolume": 5.45213,
+        "poreSizeA": 21.60719,
+        "density": 5.86751,
+        "voidFraction": 0.9292,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0027",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0028",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0028",
+        "displayName": "AVAJUE",
+        "metalNode": "Cu",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 6088.87,
+        "poreVolume": 5.66915,
+        "poreSizeA": 19.54108,
+        "density": 6.0931,
+        "voidFraction": 0.9304,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0028",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0029",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0029",
+        "displayName": "GUHMIH",
+        "metalNode": "Cu",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 5688.77,
+        "poreVolume": 1.5609,
+        "poreSizeA": 6.32995,
+        "density": 2.0063,
+        "voidFraction": 0.778,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0029",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0030",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0030",
+        "displayName": "HABQUY",
+        "metalNode": "Cu",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": 5688.62,
+        "poreVolume": 3.01881,
+        "poreSizeA": 12.0883,
+        "density": 3.45483,
+        "voidFraction": 0.8738,
+        "bandGap": null,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0030",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134",
+        "sourceUrl": "https://zenodo.org/records/14132134/files/ASR_20241113.csv?download=1",
+        "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2019 Dataset, Zenodo v2.0.0, DOI:10.5281/zenodo.14132134; associated article DOI:10.1021/acs.jced.9b00835.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": true
+      },
+      "quality": {
+        "completenessScore": 0.294,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0031",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0031",
+        "displayName": "pyrene_MUBZUG",
+        "metalNode": "Zr",
+        "linker": "['[O-]C(=O)c1ccc(cc1)C#Cc1cc(C#Cc2ccc(cc2)C(=O)[O-])c2c3c1ccc1c3c(cc2)c(cc1C#Cc1ccc(cc1)C(=O)[O-])C#Cc1ccc(cc1)C(=O)[O-]']",
+        "topology": "ftw",
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 7.33353,
+        "density": 0.46063,
+        "voidFraction": null,
+        "bandGap": 1.34652,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0031",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015",
+        "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+        "citation": "Rosen et al., Machine Learning the Quantum-Chemical Properties of Metal-Organic Frameworks for Accelerated Materials Discovery, Matter 4, 1578-1597 (2021), DOI:10.1016/j.matt.2021.02.015; QMOF Database Figshare DOI:10.6084/m9.figshare.13147324.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": false
+      },
+      "quality": {
+        "completenessScore": 0.176,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0032",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0032",
+        "displayName": "core_YEYCUC_SL",
+        "metalNode": "Zr",
+        "linker": "['[O-]C(=O)c1ccc(cc1)c1c(C)c(C)c(c(c1C)C)c1ccc(cc1)C(=O)[O-]']",
+        "topology": "fcu",
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 5.53402,
+        "density": 0.53618,
+        "voidFraction": null,
+        "bandGap": 2.85371,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0032",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015",
+        "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+        "citation": "Rosen et al., Machine Learning the Quantum-Chemical Properties of Metal-Organic Frameworks for Accelerated Materials Discovery, Matter 4, 1578-1597 (2021), DOI:10.1016/j.matt.2021.02.015; QMOF Database Figshare DOI:10.6084/m9.figshare.13147324.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": false
+      },
+      "quality": {
+        "completenessScore": 0.176,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0033",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0033",
+        "displayName": "UYUGEC_FSR",
+        "metalNode": "Cu; Zr",
+        "linker": "['[O-]C(=O)c1ccncc1']",
+        "topology": "flu",
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 6.11541,
+        "density": 1.02036,
+        "voidFraction": null,
+        "bandGap": 0.84088,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0033",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015",
+        "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+        "citation": "Rosen et al., Machine Learning the Quantum-Chemical Properties of Metal-Organic Frameworks for Accelerated Materials Discovery, Matter 4, 1578-1597 (2021), DOI:10.1016/j.matt.2021.02.015; QMOF Database Figshare DOI:10.6084/m9.figshare.13147324.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": false
+      },
+      "quality": {
+        "completenessScore": 0.176,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0034",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0034",
+        "displayName": "PITPEP_FSR",
+        "metalNode": "Al",
+        "linker": "['Cc1c(CP(=O)(O)[O])c(C)c(c(c1CP(=O)(O)[O])C)CP(=O)(O)[O]', 'Cc1c(CP(=O)(O)[O])c(C)c(c(c1CP(=O)(O)[O])C)CP(=O)([O])O', 'Cc1c(CP(=O)(O)[O])c(C)c(c(c1CP(=O)([O])O)C)CP(=O)([O])O']",
+        "topology": "ERROR,UNKNOWN",
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 9.75067,
+        "density": 1.00223,
+        "voidFraction": null,
+        "bandGap": 4.16617,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0034",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015",
+        "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+        "citation": "Rosen et al., Machine Learning the Quantum-Chemical Properties of Metal-Organic Frameworks for Accelerated Materials Discovery, Matter 4, 1578-1597 (2021), DOI:10.1016/j.matt.2021.02.015; QMOF Database Figshare DOI:10.6084/m9.figshare.13147324.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": false
+      },
+      "quality": {
+        "completenessScore": 0.176,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0035",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0035",
+        "displayName": "OTECEX_FSR",
+        "metalNode": "Al",
+        "linker": "['[O-]C(=O)c1ccc(cc1)c1cc(cc(c1)c1ccc(cc1)C(=O)[O-])c1ccc(cc1)C(=O)[O-]']",
+        "topology": "fon",
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 7.9923,
+        "density": 0.58399,
+        "voidFraction": null,
+        "bandGap": 3.12527,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0035",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015",
+        "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+        "citation": "Rosen et al., Machine Learning the Quantum-Chemical Properties of Metal-Organic Frameworks for Accelerated Materials Discovery, Matter 4, 1578-1597 (2021), DOI:10.1016/j.matt.2021.02.015; QMOF Database Figshare DOI:10.6084/m9.figshare.13147324.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": false
+      },
+      "quality": {
+        "completenessScore": 0.176,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0036",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0036",
+        "displayName": "pyrene_GAEOG",
+        "metalNode": "Al",
+        "linker": "['[O-]C(=O)c1ccc(cc1)c1cc(c2ccc(cc2)C(=O)[O-])c2c3c1ccc1c3c(cc2)c(cc1c1ccc(cc1)C(=O)[O-])c1ccc(cc1)C(=O)[O-]']",
+        "topology": "pending",
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 7.14633,
+        "density": 0.8097,
+        "voidFraction": null,
+        "bandGap": 2.20267,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0036",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015",
+        "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+        "citation": "Rosen et al., Machine Learning the Quantum-Chemical Properties of Metal-Organic Frameworks for Accelerated Materials Discovery, Matter 4, 1578-1597 (2021), DOI:10.1016/j.matt.2021.02.015; QMOF Database Figshare DOI:10.6084/m9.figshare.13147324.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": false
+      },
+      "quality": {
+        "completenessScore": 0.176,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0037",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0037",
+        "displayName": "HAYZAL_FSR",
+        "metalNode": "Fe",
+        "linker": "['N1=NC2=C[C]3C(=CC2=N1)Oc1c(O3)cc2=N[N]N=c2c1', 'N1=NC2=C[C]3C(=CC2=N1)Oc1c(O3)cc2c(c1)[N]N=N2', 'N1=N[C]2C(=N1)C=C1C(=C2)O[C]2C(=CC3=NN=NC3=C2)O1']",
+        "topology": "pending",
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 18.49358,
+        "density": 0.61507,
+        "voidFraction": null,
+        "bandGap": 0.15344,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0037",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015",
+        "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+        "citation": "Rosen et al., Machine Learning the Quantum-Chemical Properties of Metal-Organic Frameworks for Accelerated Materials Discovery, Matter 4, 1578-1597 (2021), DOI:10.1016/j.matt.2021.02.015; QMOF Database Figshare DOI:10.6084/m9.figshare.13147324.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": false
+      },
+      "quality": {
+        "completenessScore": 0.176,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0038",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0038",
+        "displayName": "MALSIE_FSR",
+        "metalNode": "Fe",
+        "linker": "pending",
+        "topology": "pending",
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 16.92486,
+        "density": 0.6801,
+        "voidFraction": null,
+        "bandGap": 0.58953,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0038",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015",
+        "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+        "citation": "Rosen et al., Machine Learning the Quantum-Chemical Properties of Metal-Organic Frameworks for Accelerated Materials Discovery, Matter 4, 1578-1597 (2021), DOI:10.1016/j.matt.2021.02.015; QMOF Database Figshare DOI:10.6084/m9.figshare.13147324.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": false
+      },
+      "quality": {
+        "completenessScore": 0.176,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0039",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0039",
+        "displayName": "HAYZEP_FSR",
+        "metalNode": "Fe",
+        "linker": "['N1=NC2=C[C]3C(=CC2=N1)Oc1c(O3)cc2c(c1)[N]N=N2']",
+        "topology": "pending",
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 14.11372,
+        "density": 0.75083,
+        "voidFraction": null,
+        "bandGap": 1.35755,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0039",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015",
+        "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+        "citation": "Rosen et al., Machine Learning the Quantum-Chemical Properties of Metal-Organic Frameworks for Accelerated Materials Discovery, Matter 4, 1578-1597 (2021), DOI:10.1016/j.matt.2021.02.015; QMOF Database Figshare DOI:10.6084/m9.figshare.13147324.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": false
+      },
+      "quality": {
+        "completenessScore": 0.176,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0040",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0040",
+        "displayName": "core_EDUVOO_freeONLY",
+        "metalNode": "Zn",
+        "linker": "['[O-]C(=O)c1cc2ccc3c4c2c(c1)ccc4cc(c3)C(=O)[O-]']",
+        "topology": "pcu",
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 10.46047,
+        "density": 0.36833,
+        "voidFraction": null,
+        "bandGap": 2.47267,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0040",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015",
+        "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+        "citation": "Rosen et al., Machine Learning the Quantum-Chemical Properties of Metal-Organic Frameworks for Accelerated Materials Discovery, Matter 4, 1578-1597 (2021), DOI:10.1016/j.matt.2021.02.015; QMOF Database Figshare DOI:10.6084/m9.figshare.13147324.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": false
+      },
+      "quality": {
+        "completenessScore": 0.176,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0041",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0041",
+        "displayName": "JOJKOK_FSR",
+        "metalNode": "Zn",
+        "linker": "['N1=NC2=CC3=C([CH]C2=N1)O[C]1C(=CC2=NN=NC2=C1)O3', 'N1=NC2=CC3=C([CH]C2=N1)Oc1c(O3)cc2c(c1)N=N[N]2', 'N1=NC2=C[C]3C(=CC2=N1)Oc1c(O3)cc2=N[N]N=c2c1', 'N1=NC2=C[C]3C(=CC2=N1)Oc1c(O3)cc2c(c1)N=N[N]2', 'N1=N[C]2C(=N1)C=C1C(=C2)OC2=CC3=NN=NC3=C[C]2O1']",
+        "topology": "pcu",
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 9.22565,
+        "density": 0.54958,
+        "voidFraction": null,
+        "bandGap": 2.51909,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0041",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015",
+        "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+        "citation": "Rosen et al., Machine Learning the Quantum-Chemical Properties of Metal-Organic Frameworks for Accelerated Materials Discovery, Matter 4, 1578-1597 (2021), DOI:10.1016/j.matt.2021.02.015; QMOF Database Figshare DOI:10.6084/m9.figshare.13147324.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": false
+      },
+      "quality": {
+        "completenessScore": 0.176,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0042",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0042",
+        "displayName": "core_XALTIP_freeONLY",
+        "metalNode": "Co; Zn",
+        "linker": "['N1=NC2=C[C]3C(=CC2=N1)Oc1c(O3)cc2=N[N]N=c2c1', 'N1=NC2=C[C]3C(=CC2=N1)Oc1c(O3)cc2c(c1)N=N[N]2', 'N1=NC2=C[C]3C(=CC2=N1)Oc1c(O3)cc2c(c1)[N]N=N2', 'N1=N[C]2C(=N1)C=C1C(=C2)OC2=CC3=NN=NC3=C[C]2O1', 'N1=N[C]2C(=N1)C=C1C(=C2)Oc2c(O1)cc1c(c2)[N]N=N1']",
+        "topology": "pcu",
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 9.41025,
+        "density": 0.53946,
+        "voidFraction": null,
+        "bandGap": 0.43726,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0042",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015",
+        "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+        "citation": "Rosen et al., Machine Learning the Quantum-Chemical Properties of Metal-Organic Frameworks for Accelerated Materials Discovery, Matter 4, 1578-1597 (2021), DOI:10.1016/j.matt.2021.02.015; QMOF Database Figshare DOI:10.6084/m9.figshare.13147324.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": false
+      },
+      "quality": {
+        "completenessScore": 0.176,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0043",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0043",
+        "displayName": "EHIJAH_FSR",
+        "metalNode": "Zn",
+        "linker": "['[O-]C(=O)c1ccc(cc1)N(c1ccc(cc1)C(=O)[O-])c1ccc(cc1)c1ccc(cc1)N(c1ccc(cc1)C(=O)[O-])c1ccc(cc1)C(=O)[O-]']",
+        "topology": "cor",
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 11.65939,
+        "density": 0.3786,
+        "voidFraction": null,
+        "bandGap": 2.13374,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0043",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015",
+        "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+        "citation": "Rosen et al., Machine Learning the Quantum-Chemical Properties of Metal-Organic Frameworks for Accelerated Materials Discovery, Matter 4, 1578-1597 (2021), DOI:10.1016/j.matt.2021.02.015; QMOF Database Figshare DOI:10.6084/m9.figshare.13147324.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": false
+      },
+      "quality": {
+        "completenessScore": 0.176,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0044",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0044",
+        "displayName": "core_QOWQUO_manual",
+        "metalNode": "Cu",
+        "linker": "['[O-]C(=O)c1ccc(cc1)c1cc(cc(c1)c1ccc(cc1)C(=O)[O-])c1ccc(cc1)C(=O)[O-]']",
+        "topology": "pto",
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 5.33038,
+        "density": 0.71206,
+        "voidFraction": null,
+        "bandGap": 0.54706,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0044",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015",
+        "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+        "citation": "Rosen et al., Machine Learning the Quantum-Chemical Properties of Metal-Organic Frameworks for Accelerated Materials Discovery, Matter 4, 1578-1597 (2021), DOI:10.1016/j.matt.2021.02.015; QMOF Database Figshare DOI:10.6084/m9.figshare.13147324.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": false
+      },
+      "quality": {
+        "completenessScore": 0.176,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0045",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0045",
+        "displayName": "core_KOJZEP_manual",
+        "metalNode": "Cu",
+        "linker": "['N#Cc1cc(ccc1c1ccc(cc1C#N)C(=O)[O-])C(=O)[O-]']",
+        "topology": "nbo",
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 14.14613,
+        "density": 0.50862,
+        "voidFraction": null,
+        "bandGap": 0.9654,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0045",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015",
+        "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+        "citation": "Rosen et al., Machine Learning the Quantum-Chemical Properties of Metal-Organic Frameworks for Accelerated Materials Discovery, Matter 4, 1578-1597 (2021), DOI:10.1016/j.matt.2021.02.015; QMOF Database Figshare DOI:10.6084/m9.figshare.13147324.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": false
+      },
+      "quality": {
+        "completenessScore": 0.176,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0046",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0046",
+        "displayName": "core_BOWNUY_freeONLY",
+        "metalNode": "Cu",
+        "linker": "['N1=NN=C([N]1)c1cc(cc(c1)C1=NN=N[N]1)C1=NN=N[N]1', '[N]1N=NC(=N1)c1cc(cc(c1)C1=N[N]N=N1)C1=N[N]N=N1']",
+        "topology": "the",
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 9.91773,
+        "density": 0.79052,
+        "voidFraction": null,
+        "bandGap": 0.82165,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0046",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015",
+        "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+        "citation": "Rosen et al., Machine Learning the Quantum-Chemical Properties of Metal-Organic Frameworks for Accelerated Materials Discovery, Matter 4, 1578-1597 (2021), DOI:10.1016/j.matt.2021.02.015; QMOF Database Figshare DOI:10.6084/m9.figshare.13147324.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": false
+      },
+      "quality": {
+        "completenessScore": 0.176,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0047",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0047",
+        "displayName": "DOKDEN_FSR",
+        "metalNode": "Cu",
+        "linker": "['[O-]C(=O)c1ccc(cc1)CNCc1ccc(cc1)C(=O)[O-]']",
+        "topology": "nbo",
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 13.3771,
+        "density": 0.70549,
+        "voidFraction": null,
+        "bandGap": 0.5859,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0047",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015",
+        "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+        "citation": "Rosen et al., Machine Learning the Quantum-Chemical Properties of Metal-Organic Frameworks for Accelerated Materials Discovery, Matter 4, 1578-1597 (2021), DOI:10.1016/j.matt.2021.02.015; QMOF Database Figshare DOI:10.6084/m9.figshare.13147324.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": false
+      },
+      "quality": {
+        "completenessScore": 0.176,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0048",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0048",
+        "displayName": "NOPCIH_FSR",
+        "metalNode": "Ti",
+        "linker": "['[O-]C(=O)c1cc(Cc2cc(cc(c2)C(=O)[O-])C(=O)[O-])cc(c1)C(=O)[O-]']",
+        "topology": "pending",
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 8.00903,
+        "density": 1.24705,
+        "voidFraction": null,
+        "bandGap": 2.80742,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0048",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015",
+        "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+        "citation": "Rosen et al., Machine Learning the Quantum-Chemical Properties of Metal-Organic Frameworks for Accelerated Materials Discovery, Matter 4, 1578-1597 (2021), DOI:10.1016/j.matt.2021.02.015; QMOF Database Figshare DOI:10.6084/m9.figshare.13147324.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": false
+      },
+      "quality": {
+        "completenessScore": 0.176,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0049",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0049",
+        "displayName": "TOYHOH_FSR",
+        "metalNode": "Ti",
+        "linker": "['[O-]C(=O)c1ccc(cc1)c1ccc(cc1)N(c1ccc(cc1)c1ccc(cc1)C(=O)[O-])c1ccc(cc1)c1ccc(cc1)C(=O)[O-]']",
+        "topology": "pending",
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 7.17263,
+        "density": 0.86838,
+        "voidFraction": null,
+        "bandGap": 1.60087,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0049",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015",
+        "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+        "citation": "Rosen et al., Machine Learning the Quantum-Chemical Properties of Metal-Organic Frameworks for Accelerated Materials Discovery, Matter 4, 1578-1597 (2021), DOI:10.1016/j.matt.2021.02.015; QMOF Database Figshare DOI:10.6084/m9.figshare.13147324.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": false
+      },
+      "quality": {
+        "completenessScore": 0.176,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0050",
+      "sourceId": "SRC-CORE-MOF-2019",
+      "syntheticFixture": false,
+      "qualityTier": "Gold",
+      "provenanceCoverage": 1,
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0050",
+        "displayName": "pyrene_NCVDL",
+        "metalNode": "Ti",
+        "linker": "['[O-]C(=O)c1ccc(cc1)c1cc(c2ccc(cc2)C(=O)[O-])c2c3c1ccc1c3c(cc2)c(cc1c1ccc(cc1)C(=O)[O-])c1ccc(cc1)C(=O)[O-]']",
+        "topology": "pending",
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 7.53609,
+        "density": 0.8191,
+        "voidFraction": null,
+        "bandGap": 1.37584,
+        "stabilityProxy": null
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0050",
+        "targetProduct": "formic acid",
+        "temperature": null,
+        "pressure": null,
+        "solvent": null,
+        "reactionTime": null,
+        "atmosphere": null,
+        "pH": null
+      },
+      "performance": {
+        "yield": null,
+        "selectivity": null,
+        "conversion": null,
+        "rate": null,
+        "TON": null,
+        "TOF": null
+      },
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015",
+        "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+        "citation": "Rosen et al., Machine Learning the Quantum-Chemical Properties of Metal-Organic Frameworks for Accelerated Materials Discovery, Matter 4, 1578-1597 (2021), DOI:10.1016/j.matt.2021.02.015; QMOF Database Figshare DOI:10.6084/m9.figshare.13147324.",
+        "evidenceLevel": "pending",
+        "sourceConfirmed": true,
+        "citationReady": true,
+        "verifiedMetadata": false
+      },
+      "quality": {
+        "completenessScore": 0.176,
+        "provenanceCoverage": 1,
+        "validationStatus": "Gold",
+        "warnings": [],
+        "blockers": []
+      }
+    }
+  ]
+}

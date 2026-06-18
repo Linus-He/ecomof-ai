@@ -86,7 +86,7 @@ function ProvenanceChip({ field, label, source, lang, t }) {
   )
 }
 
-function DatabaseLayer({ summary, readiness, lang, t, isMobile }) {
+function DatabaseLayer({ summary, readiness, dataFoundation, lang, t, isMobile }) {
   const provenance = Number(summary.fieldProvenanceCoverage ?? summary.provenanceCoverage ?? readiness.fieldProvenanceCoverage ?? 1)
   const fields = ["totalCandidates", "verifiedMetadataCount", "provenanceCoverage", "previewStatus"]
   return (
@@ -104,6 +104,15 @@ function DatabaseLayer({ summary, readiness, lang, t, isMobile }) {
         <Metric label="Provenance Coverage" value={pct(provenance)} t={t} tone="pass" />
         <Metric label="Preview Status" value="Database Preview" t={t} tone="warn" />
       </div>
+      {dataFoundation ? (
+        <div data-testid="algval-data-foundation" style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))" }}>
+          <Metric label="Gold Dataset" value={`${dataFoundation.goldCount}${dataFoundation.goldSufficient ? "" : " · insufficient"}`} t={t} tone={dataFoundation.goldSufficient ? "pass" : "warn"} />
+          <Metric label="Literature Dataset" value={dataFoundation.literatureCount} t={t} />
+          <Metric label="Benchmark Dataset" value={dataFoundation.benchmarkCount} t={t} />
+          <Metric label="Label Count" value={dataFoundation.labelCount} t={t} tone={dataFoundation.labelCount > 0 ? "pass" : "warn"} />
+          <Metric label="Benchmark Eligible" value={dataFoundation.benchmarkEligibleCount} t={t} tone={dataFoundation.benchmarkEligibleCount > 0 ? "pass" : "warn"} />
+        </div>
+      ) : null}
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
         {fields.map(field => <ProvenanceChip key={field} field={field} label={field} lang={lang} t={t} />)}
       </div>
@@ -304,8 +313,8 @@ function AlgorithmValidationLayer({ algorithm, lang, t, isMobile }) {
   )
 }
 
-function MlReadinessLayer({ readiness, lang, t, isMobile }) {
-  const labelCount = Number(readiness.experimentalLabels ?? 0) || 0
+function MlReadinessLayer({ readiness, dataFoundation, lang, t, isMobile }) {
+  const labelCount = Number(dataFoundation ? dataFoundation.labelCount : readiness.experimentalLabels ?? 0) || 0
   const rows = [
     ["Logistic Regression", "Pending", labelCount > 0 ? "Partially Ready" : "Not Ready"],
     ["Decision Tree", "Pending", labelCount > 0 ? "Partially Ready" : "Not Ready"],
@@ -326,6 +335,14 @@ function MlReadinessLayer({ readiness, lang, t, isMobile }) {
         <BasisBadge tone="warn">Experimental Labels Required</BasisBadge>
         <BasisBadge tone="warn">{`Label Count = ${labelCount}`}</BasisBadge>
       </div>
+      {dataFoundation ? (
+        <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))" }}>
+          <Metric label="Benchmark Readiness" value={dataFoundation.readiness.benchmark} t={t} tone={dataFoundation.readiness.benchmark === "Ready" ? "pass" : "warn"} />
+          <Metric label="Label Readiness" value={dataFoundation.readiness.label} t={t} tone={dataFoundation.readiness.label === "Ready" ? "pass" : "warn"} />
+          <Metric label="Data Quality Readiness" value={dataFoundation.readiness.dataQuality} t={t} tone={dataFoundation.readiness.dataQuality === "Ready" ? "pass" : "warn"} />
+          <Metric label="Train / Test" value={`${dataFoundation.trainCount} / ${dataFoundation.testCount}`} t={t} tone="warn" />
+        </div>
+      ) : null}
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))" }}>
         {rows.map(([label, metric, ready]) => (
           <article key={label} style={{ background: t.surface, border: `1px solid ${t.warn}`, borderRadius: 9, display: "grid", gap: 5, padding: 10 }}>
@@ -372,10 +389,11 @@ function ExperimentalValidationLayer({ lang, t, isMobile }) {
   )
 }
 
-export function AlgorithmValidationCenter({ summary = {}, organicAcidResult = null, lang, t, isMobile }) {
+export function AlgorithmValidationCenter({ summary = {}, organicAcidResult = null, dataFoundation = null, lang, t, isMobile }) {
   const algorithm = organicAcidResult?.organicAcidAlgorithm || organicAcidResult || {}
   const safeSummary = summary && typeof summary === "object" ? summary : {}
   const readiness = useMemo(() => buildBenchmarkReadiness({ summary: safeSummary, algorithm }), [safeSummary, algorithm])
+  const goldInsufficient = dataFoundation && !dataFoundation.goldSufficient
 
   return (
     <section
@@ -395,15 +413,21 @@ export function AlgorithmValidationCenter({ summary = {}, organicAcidResult = nu
         </p>
       </header>
 
-      <InteractiveScientificFigure summary={safeSummary} algorithm={algorithm} lang={lang} t={t} isMobile={isMobile} onJumpToSection={jumpToSection} />
+      {goldInsufficient ? (
+        <div data-testid="algval-gold-insufficient" style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 9, color: t.warn, fontSize: 12.3, fontWeight: 800, lineHeight: 1.5, padding: 11 }}>
+          {text(lang, `Gold Dataset Insufficient · 高质量数据不足（Gold ${dataFoundation.goldCount} / 阈值 ${dataFoundation.goldThreshold}）。Organic Acid 算法优先读取 Gold Dataset 做 Sanity Check / Weight Calibration / Candidate Review / Sensitivity Analysis。`, `Gold Dataset Insufficient (Gold ${dataFoundation.goldCount} / threshold ${dataFoundation.goldThreshold}). The Organic Acid algorithm prefers the Gold Dataset for sanity check, weight calibration, candidate review, and sensitivity analysis.`)}
+        </div>
+      ) : null}
 
-      <DatabaseLayer summary={safeSummary} readiness={readiness} lang={lang} t={t} isMobile={isMobile} />
+      <InteractiveScientificFigure summary={safeSummary} algorithm={algorithm} dataFoundation={dataFoundation} lang={lang} t={t} isMobile={isMobile} onJumpToSection={jumpToSection} />
+
+      <DatabaseLayer summary={safeSummary} readiness={readiness} dataFoundation={dataFoundation} lang={lang} t={t} isMobile={isMobile} />
       <DescriptorLayer lang={lang} t={t} isMobile={isMobile} />
       <FeatureSelectionExplorer lang={lang} t={t} isMobile={isMobile} />
       <EvidenceStatisticalLayer lang={lang} t={t} isMobile={isMobile} />
       <TopCandidateReview algorithm={algorithm} lang={lang} t={t} isMobile={isMobile} />
       <AlgorithmValidationLayer algorithm={algorithm} lang={lang} t={t} isMobile={isMobile} />
-      <MlReadinessLayer readiness={readiness} lang={lang} t={t} isMobile={isMobile} />
+      <MlReadinessLayer readiness={readiness} dataFoundation={dataFoundation} lang={lang} t={t} isMobile={isMobile} />
       <ExperimentalValidationLayer lang={lang} t={t} isMobile={isMobile} />
     </section>
   )

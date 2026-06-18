@@ -374,6 +374,7 @@ export function generateResearchReport({
   candidateId,
   performancePriorityMode = "balanced",
   organicAcidResult = null,
+  dataFoundation = null,
 } = {}) {
   if (type === "organic_acid") {
     return buildOrganicAcidReport({ organicAcidResult, versionData, timestamp })
@@ -402,6 +403,14 @@ export function generateResearchReport({
     { title: "已知局限", body: "本报告是研究展示与透明审计材料，不是 Verified Screening，不报告虚假模型精度，不构成最终实验推荐。" },
     { title: "下一步建议", body: "优先补齐 DOI、license、来源链接、关键字段溯源，并对优先候选进行目标场景验证。" },
   ]
+  if (dataFoundation) {
+    const distribution = dataFoundation.qualityDistribution || {}
+    sections.splice(9, 0, {
+      title: "数据来源与标准化",
+      subtitle: "Data Source & Standardization",
+      body: `数据集版本 V3.0；数据来源登记 ${dataFoundation.sourceCount} 个；质量分层 Gold ${distribution.Gold || 0} / Silver ${distribution.Silver || 0} / Bronze ${distribution.Bronze || 0} / Rejected ${distribution.Rejected || 0}；字段级溯源覆盖率 ${Math.round((dataFoundation.provenanceCoverage || 0) * 100)}%；标准化规则统一温度 °C、压力 bar、比表面积 m²/g、孔体积 cm³/g、孔径 Å、产率 %、时间 h。Benchmark 就绪度 = ${dataFoundation.readiness?.benchmark}；Label 数量 = ${dataFoundation.labelCount}（真实实验标签仍不足，Accuracy / ROC-AUC 继续 Pending）。`,
+    })
+  }
   const charts = buildReportCharts({ records: rows, summary, priorityMode: priority.modeId })
 
   const markdown = [

@@ -25,6 +25,7 @@ import { MofRationaleCard } from "../catalysis/MofRationaleCard"
 import { ReactionFingerprintPanel } from "../catalysis/ReactionFingerprintPanel"
 import { useMofReactionProfile } from "../catalysis/reactionRationaleData"
 import { DataQualityAuditPanel } from "../data-quality/DataQualityAuditPanel"
+import { DataQualitySummary } from "../data-quality/DataQualitySummary"
 
 const clamp01 = value => Math.max(0, Math.min(1, Number(value) || 0))
 const pct = value => `${Math.round(clamp01(value) * 100)}%`
@@ -930,6 +931,8 @@ export function EcoScreenTab({ onNavigate }) {
       </Callout>
 
       <DataQualityAuditPanel records={generalRows} lang={lang} t={t} isMobile={isMobile} />
+
+      <DataQualitySummary lang={lang} t={t} isMobile={isMobile} />
 
       <Card t={t} style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
         <div style={{ minWidth: 0 }}>

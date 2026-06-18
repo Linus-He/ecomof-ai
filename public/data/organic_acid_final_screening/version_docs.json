@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06",
-  "currentVersion": "V2.8",
-  "completedRange": "V1.0-V2.8",
+  "currentVersion": "V3.0",
+  "completedRange": "V1.0-V3.0",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -2088,7 +2088,7 @@
       "title": "Interactive Scientific Figure Refactor",
       "titleZh": "交互式科研主图重构",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Figure-driven algorithm validation",
       "themeZh": "科研图驱动的算法验证",
       "summary": "Retired the Model Validation Lab and Model Benchmark Lab and merged them into a single Algorithm Validation Center. Its core entry is an Interactive Scientific Figure adapted from Su et al. 2025 Figure 1 + Figure 3, connecting Database, Descriptor, Feature Selection, Evidence & Statistical, Candidate Ranking, Algorithm Validation, Future Machine Learning, and Experimental Validation into one clickable figure with a Figure Inspector and real SVG mini charts.",
@@ -2154,6 +2154,78 @@
         ],
         "adaptationBoundary": "Su et al. 2025 is used as workflow and visualization inspiration only; EcoMOF-AI does not reproduce its model, dataset, C-H borylation target, Accuracy, or ROC-AUC.",
         "adaptationBoundaryZh": "Su et al. 2025 仅作为流程与可视化灵感；EcoMOF-AI 不复现其模型、数据集、C-H borylation 目标、Accuracy 或 ROC-AUC。"
+      },
+      "relatedSection": "#methodology-algorithm-validation"
+    },
+    {
+      "version": "V3.0",
+      "title": "Data Foundation Program",
+      "titleZh": "数据基础工程",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Data-driven foundation",
+      "themeZh": "数据驱动基础设施",
+      "summary": "Shifts the project from UI/methodology-driven to data-driven. Adds a data ingestion registry, a unified five-layer import schema, a seven-stage validation pipeline, a unit-standardization engine, Gold/Literature/Benchmark datasets, a Label Framework, a Benchmark Eligibility Gate, and a Data Leakage Check.",
+      "summaryZh": "项目重心从 UI / 方法论驱动转向数据驱动。新增数据接入登记、统一五层导入 schema、七段验证管线、单位标准化引擎、Gold/Literature/Benchmark 数据集、Label Framework、Benchmark Eligibility Gate 与 Data Leakage Check。",
+      "keyUpdates": [
+        "Data Source Registry + Unified Import Schema (MOF/Reaction/Performance/Evidence/Quality).",
+        "Validation pipeline: schema, units, ranges, duplicates, provenance, evidence, comparability -> Gold/Silver/Bronze/Rejected.",
+        "Organic Acid Gold Dataset V1 (50 real-provenance records), Literature Dataset V1, Benchmark Dataset V1, Label Framework V1.",
+        "Benchmark Eligibility Gate and Data Leakage Check for future ML."
+      ],
+      "keyUpdatesZh": [
+        "数据来源登记 + 统一导入 schema（MOF/Reaction/Performance/Evidence/Quality）。",
+        "验证管线：schema、units、ranges、duplicates、provenance、evidence、comparability -> Gold/Silver/Bronze/Rejected。",
+        "有机酸 Gold Dataset V1（50 条真实溯源记录）、Literature Dataset V1、Benchmark Dataset V1、Label Framework V1。",
+        "Benchmark Eligibility Gate 与 Data Leakage Check，为未来 ML 准备。"
+      ],
+      "algorithmChanges": [
+        "No new large algorithm and no ML training; only data structures, validation, and benchmark scaffolding."
+      ],
+      "algorithmChangesZh": [
+        "未新增大型算法，未训练 ML；仅数据结构、验证与 benchmark 脚手架。"
+      ],
+      "uiChanges": [
+        "EcoScreen Data Quality Summary + tier filter; Algorithm Validation Center / Interactive Scientific Figure data layers; Research Reports Data Source & Standardization section."
+      ],
+      "uiChangesZh": [
+        "EcoScreen 数据质量摘要 + 分层筛选；算法验证中心 / 交互式科研主图数据层；研究报告数据来源与标准化章节。"
+      ],
+      "methodologyChanges": [
+        "Project moves from UI/methodology-driven to data-driven: Data -> Validation -> Standardization -> Gold Dataset -> Benchmark Dataset -> Future ML."
+      ],
+      "methodologyChangesZh": [
+        "项目从 UI/方法论驱动转向数据驱动：Data -> Validation -> Standardization -> Gold Dataset -> Benchmark Dataset -> Future ML。"
+      ],
+      "evidenceBoundary": "Data infrastructure only. No real experimental labels yet, so Label Count = 0 and Accuracy / ROC-AUC stay Pending; DOI/License/Citation are never fabricated.",
+      "evidenceBoundaryZh": "仅数据基础设施。尚无真实实验标签，Label Count = 0，Accuracy / ROC-AUC 继续 Pending；DOI/License/Citation 绝不伪造。",
+      "limitations": [
+        "No real experimental labels.",
+        "No trained ML model.",
+        "Gold records carry real provenance but reaction performance stays pending."
+      ],
+      "limitationsZh": [
+        "缺少真实实验标签。",
+        "未训练 ML 模型。",
+        "Gold 记录有真实溯源，但反应性能仍待补。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "data-foundation-program",
+          "source-registry",
+          "import-schema",
+          "data-validation-pipeline",
+          "gold-dataset",
+          "benchmark-dataset",
+          "label-framework",
+          "benchmark-eligibility",
+          "data-leakage-check"
+        ],
+        "literatureIds": [
+          "LIT-SU-2025-MOF-BORYLATION"
+        ],
+        "adaptationBoundary": "Data foundation only; no model is reproduced or trained and no metric is fabricated.",
+        "adaptationBoundaryZh": "仅数据基础；不复现或训练模型，不伪造任何指标。"
       },
       "relatedSection": "#methodology-algorithm-validation"
     }

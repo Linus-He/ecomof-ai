@@ -1,0 +1,1124 @@
+{
+  "version": "v3.0",
+  "datasetId": "organic-acid-labels-v1",
+  "generatedAt": "2026-06-18",
+  "generator": "scripts/build-v3-0-data-foundation.mjs",
+  "schema": {
+    "binary": [
+      "promising",
+      "not_promising"
+    ],
+    "multiclass": [
+      "high",
+      "medium",
+      "low"
+    ],
+    "regression": [
+      "yield",
+      "selectivity",
+      "conversion"
+    ]
+  },
+  "labelCount": 0,
+  "note": "Label framework only. No real experimental labels exist yet; all labels are null with labelStatus=missing. Algorithm scores must never be used as ground truth.",
+  "labels": [
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0001",
+      "candidateId": "OPEN_MOF_SEED_0001",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0002",
+      "candidateId": "OPEN_MOF_SEED_0002",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0003",
+      "candidateId": "OPEN_MOF_SEED_0003",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0004",
+      "candidateId": "OPEN_MOF_SEED_0004",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0005",
+      "candidateId": "OPEN_MOF_SEED_0005",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0006",
+      "candidateId": "OPEN_MOF_SEED_0006",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0007",
+      "candidateId": "OPEN_MOF_SEED_0007",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0008",
+      "candidateId": "OPEN_MOF_SEED_0008",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0009",
+      "candidateId": "OPEN_MOF_SEED_0009",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0010",
+      "candidateId": "OPEN_MOF_SEED_0010",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0011",
+      "candidateId": "OPEN_MOF_SEED_0011",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0012",
+      "candidateId": "OPEN_MOF_SEED_0012",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0013",
+      "candidateId": "OPEN_MOF_SEED_0013",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0014",
+      "candidateId": "OPEN_MOF_SEED_0014",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0015",
+      "candidateId": "OPEN_MOF_SEED_0015",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0016",
+      "candidateId": "OPEN_MOF_SEED_0016",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0017",
+      "candidateId": "OPEN_MOF_SEED_0017",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0018",
+      "candidateId": "OPEN_MOF_SEED_0018",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0019",
+      "candidateId": "OPEN_MOF_SEED_0019",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0020",
+      "candidateId": "OPEN_MOF_SEED_0020",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0021",
+      "candidateId": "OPEN_MOF_SEED_0021",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0022",
+      "candidateId": "OPEN_MOF_SEED_0022",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0023",
+      "candidateId": "OPEN_MOF_SEED_0023",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0024",
+      "candidateId": "OPEN_MOF_SEED_0024",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0025",
+      "candidateId": "OPEN_MOF_SEED_0025",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0026",
+      "candidateId": "OPEN_MOF_SEED_0026",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0027",
+      "candidateId": "OPEN_MOF_SEED_0027",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0028",
+      "candidateId": "OPEN_MOF_SEED_0028",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0029",
+      "candidateId": "OPEN_MOF_SEED_0029",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0030",
+      "candidateId": "OPEN_MOF_SEED_0030",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0031",
+      "candidateId": "OPEN_MOF_SEED_0031",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0032",
+      "candidateId": "OPEN_MOF_SEED_0032",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0033",
+      "candidateId": "OPEN_MOF_SEED_0033",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0034",
+      "candidateId": "OPEN_MOF_SEED_0034",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0035",
+      "candidateId": "OPEN_MOF_SEED_0035",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0036",
+      "candidateId": "OPEN_MOF_SEED_0036",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0037",
+      "candidateId": "OPEN_MOF_SEED_0037",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0038",
+      "candidateId": "OPEN_MOF_SEED_0038",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0039",
+      "candidateId": "OPEN_MOF_SEED_0039",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0040",
+      "candidateId": "OPEN_MOF_SEED_0040",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0041",
+      "candidateId": "OPEN_MOF_SEED_0041",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0042",
+      "candidateId": "OPEN_MOF_SEED_0042",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0043",
+      "candidateId": "OPEN_MOF_SEED_0043",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0044",
+      "candidateId": "OPEN_MOF_SEED_0044",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0045",
+      "candidateId": "OPEN_MOF_SEED_0045",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0046",
+      "candidateId": "OPEN_MOF_SEED_0046",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0047",
+      "candidateId": "OPEN_MOF_SEED_0047",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0048",
+      "candidateId": "OPEN_MOF_SEED_0048",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0049",
+      "candidateId": "OPEN_MOF_SEED_0049",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0050",
+      "candidateId": "OPEN_MOF_SEED_0050",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "real-seed-REAL-UIO-66-001",
+      "candidateId": "REAL-UIO-66-001",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "real-seed-REAL-MOF808-001",
+      "candidateId": "REAL-MOF808-001",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "real-seed-REAL-HKUST1-001",
+      "candidateId": "REAL-HKUST1-001",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "real-seed-REAL-MIL101-001",
+      "candidateId": "REAL-MIL101-001",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "real-seed-REAL-ZIF8-001",
+      "candidateId": "REAL-ZIF8-001",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "real-seed-REAL-MOF74MG-001",
+      "candidateId": "REAL-MOF74MG-001",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "real-seed-REAL-UIO67-001",
+      "candidateId": "REAL-UIO67-001",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "real-seed-REAL-NU1000-001",
+      "candidateId": "REAL-NU1000-001",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "real-seed-REAL-PCN222-001",
+      "candidateId": "REAL-PCN222-001",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "real-seed-REAL-MIL125-001",
+      "candidateId": "REAL-MIL125-001",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "real-seed-REAL-MIL53-001",
+      "candidateId": "REAL-MIL53-001",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0001",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0001",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0002",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0002",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0003",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0003",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0004",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0004",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0005",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0005",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0006",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0006",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0007",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0007",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0008",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0008",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0009",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0009",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0010",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0010",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0011",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0011",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0012",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0012",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0013",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0013",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0014",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0014",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0015",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0015",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0016",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0016",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0017",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0017",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0018",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0018",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0019",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0019",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0020",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0020",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0021",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0021",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0022",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0022",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0023",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0023",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0024",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0024",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0025",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0025",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0026",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0026",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0027",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0027",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0028",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0028",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0029",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0029",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0030",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0030",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0031",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0031",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0032",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0032",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0033",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0033",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0034",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0034",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0035",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0035",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0036",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0036",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0037",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0037",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0038",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0038",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0039",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0039",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0040",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0040",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0041",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0041",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0042",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0042",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0043",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0043",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0044",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0044",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0045",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0045",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0046",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0046",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0047",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0047",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0048",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0048",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0049",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0049",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0050",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0050",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0051",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0051",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0052",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0052",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0053",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0053",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0054",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0054",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0055",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0055",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0056",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0056",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0057",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0057",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0058",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0058",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0059",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0059",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0378",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0378",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0828",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0828",
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "note": "No real experimental yield/selectivity label is available; label is intentionally null and not fabricated."
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "schemaVersion": "v3.0",
+  "registryId": "ecomof-ai-source-registry-v3.0",
+  "generatedAt": "2026-06-18",
+  "description": "V3.0 Data Foundation Program — single registry for every data source feeding EcoMOF-AI ingestion, validation, standardization, and benchmark readiness. Missing fields stay pending/unknown/ambiguous/restricted and are never fabricated.",
+  "uncertaintyVocabulary": ["pending", "unknown", "ambiguous", "restricted"],
+  "sourceTypes": [
+    "MOF Database",
+    "Computed Property Database",
+    "Literature Dataset",
+    "Manual Curation",
+    "Expert Review",
+    "Synthetic Fixture"
+  ],
+  "sources": [
+    {
+      "sourceId": "SRC-CORE-MOF-2019",
+      "sourceName": "CoRE MOF 2019 (Computation-Ready, Experimental MOF database)",
+      "sourceType": "MOF Database",
+      "sourceUrl": "https://zenodo.org/record/14132134",
+      "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Frameworks (CoRE MOF) 2019.",
+      "license": "CC-BY-4.0",
+      "retrievedAt": "2026-06-17",
+      "accessMethod": "offline curated subset",
+      "uncertainty": "pending",
+      "notes": "Backs the V2.2 verified-metadata preview records (DOI 10.5281/zenodo.14132134). Only a curated subset is ingested; full database is not loaded."
+    },
+    {
+      "sourceId": "SRC-QMOF",
+      "sourceName": "QMOF Database (quantum-chemical MOF properties)",
+      "sourceType": "Computed Property Database",
+      "sourceUrl": "https://github.com/Andrew-S-Rosen/QMOF",
+      "citation": "Rosen et al., Quantum-Chemical Insights from Deep Learning over the QMOF Database.",
+      "license": "CC-BY-4.0",
+      "retrievedAt": "2026-06-17",
+      "accessMethod": "offline curated subset",
+      "uncertainty": "pending",
+      "notes": "Provides computed descriptors (band gap, void fraction) for a small curated subset. DFT-labelled reaction performance is not included."
+    },
+    {
+      "sourceId": "SRC-REAL-SEED",
+      "sourceName": "EcoMOF-AI real-seed MOF candidates",
+      "sourceType": "Manual Curation",
+      "sourceUrl": "public/data/mof_candidates_real_seed.json",
+      "citation": "Per-record literature DOIs retained in mof_candidates_real_seed.json (UiO-66, MOF-808, HKUST-1, MIL-101(Cr), ...).",
+      "license": "Per-record source license context.",
+      "retrievedAt": "2026-04-23",
+      "accessMethod": "manual curation",
+      "uncertainty": "pending",
+      "notes": "11 well-known MOFs with real publication DOIs. Structural provenance only; organic-acid reaction performance is not curated for these records."
+    },
+    {
+      "sourceId": "SRC-OPEN-SEED",
+      "sourceName": "Open MOF seed candidates",
+      "sourceType": "MOF Database",
+      "sourceUrl": "public/data/open_mof_seed_candidates.json",
+      "citation": "Aggregated from CoRE/QMOF-style open seeds with sourceRecordId provenance.",
+      "license": "unknown",
+      "retrievedAt": "2026-04-23",
+      "accessMethod": "offline curated subset",
+      "uncertainty": "unknown",
+      "notes": "50 structural seeds with descriptors. DOI/license per record stay pending where not confirmed."
+    },
+    {
+      "sourceId": "SRC-OA-LITERATURE",
+      "sourceName": "Organic Acid curated literature evidence",
+      "sourceType": "Literature Dataset",
+      "sourceUrl": "public/data/organic_acid_final_screening/curated_real_examples/real_literature_evidence_records.json",
+      "citation": "Curated organic-acid / CO2-to-formate literature claims (record-level).",
+      "license": "pending",
+      "retrievedAt": "2026-05-15",
+      "accessMethod": "manual curation",
+      "uncertainty": "pending",
+      "notes": "48 literature evidence claims; most sourceDoi remain null pending offline confirmation and are not fabricated."
+    },
+    {
+      "sourceId": "SRC-OA-EVIDENCE",
+      "sourceName": "Organic Acid evidence records",
+      "sourceType": "Literature Dataset",
+      "sourceUrl": "public/data/organic_acid_final_screening/organic_acid_evidence_records.json",
+      "citation": "Evidence ledger for OACS/DMRS descriptors and pathway claims.",
+      "license": "pending",
+      "retrievedAt": "2026-05-15",
+      "accessMethod": "manual curation",
+      "uncertainty": "pending",
+      "notes": "30 evidence records (literature_proxy / descriptor_inferred). DOIs stay null where unconfirmed."
+    },
+    {
+      "sourceId": "SRC-OA-EXPERIMENT",
+      "sourceName": "Organic Acid experiment records",
+      "sourceType": "Manual Curation",
+      "sourceUrl": "public/data/organic_acid_experiment_records.json",
+      "citation": "Curated CO2-to-organic-acid experiment fixtures with reaction conditions and product distribution.",
+      "license": "pending",
+      "retrievedAt": "2026-05-15",
+      "accessMethod": "manual curation",
+      "uncertainty": "pending",
+      "notes": "Small set of reaction-condition records. Treated as demonstration fixtures unless provenance is confirmed; not asserted as verified experimental labels."
+    },
+    {
+      "sourceId": "SRC-EXPERT-REVIEW",
+      "sourceName": "EcoMOF-AI expert review notes",
+      "sourceType": "Expert Review",
+      "sourceUrl": "pending",
+      "citation": "Internal expert review of descriptor relevance and risk flags.",
+      "license": "Project repository license context.",
+      "retrievedAt": "2026-06-18",
+      "accessMethod": "expert review",
+      "uncertainty": "pending",
+      "notes": "Qualitative review only; does not assert experimental measurement and is never used as a Gold-tier label."
+    },
+    {
+      "sourceId": "SRC-SYNTHETIC-FIXTURE",
+      "sourceName": "Synthetic preview fixtures",
+      "sourceType": "Synthetic Fixture",
+      "sourceUrl": "public/data/database_precompute/v2_2/scalable_database_preview_records.json",
+      "citation": "Generated by scripts/build-v2-2-scalable-database-preview.mjs from repository seed data.",
+      "license": "restricted",
+      "retrievedAt": "2026-06-17",
+      "accessMethod": "synthetic generation",
+      "uncertainty": "restricted",
+      "notes": "Synthetic fixtures (950 of 1000 preview records). Explicitly flagged syntheticFixture=true and never eligible for the Gold tier or as ground-truth labels."
+    }
+  ]
+}

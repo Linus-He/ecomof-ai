@@ -103,9 +103,10 @@ export const FIGURE_MINI_CHARTS = [
 
 // ---- Figure node model ----
 
-export function buildFigureModel({ summary = {}, algorithm = {} } = {}) {
+export function buildFigureModel({ summary = {}, algorithm = {}, dataFoundation = null } = {}) {
   const readiness = buildBenchmarkReadiness({ summary, algorithm })
-  const labelCount = Number(readiness.experimentalLabels ?? 0) || 0
+  const df = dataFoundation || null
+  const labelCount = Number(df ? df.labelCount : readiness.experimentalLabels ?? 0) || 0
   const sanityPassed = Boolean(algorithm?.sanityCheck?.passed)
   const topStable = Boolean(algorithm?.sensitivitySummary?.topCandidateStability)
   const verifiedMetadata = Number(summary.verifiedMetadataCount ?? readiness.verifiedMetadataCount ?? 0) || 0
@@ -126,6 +127,13 @@ export function buildFigureModel({ summary = {}, algorithm = {} } = {}) {
         { label: `${totalCandidates} candidates`, tone: "default" },
         { label: `${verifiedMetadata} verified metadata`, tone: verifiedMetadata > 0 ? "pass" : "warn" },
         { label: `provenance ${pct(provenance)}`, tone: "pass" },
+        ...(df ? [
+          { label: `Gold ${df.goldCount}`, tone: df.goldSufficient ? "pass" : "warn" },
+          { label: `Literature ${df.literatureCount}`, tone: "default" },
+          { label: `Benchmark ${df.benchmarkCount}`, tone: "default" },
+          { label: `Labels ${df.labelCount}`, tone: df.labelCount > 0 ? "pass" : "warn" },
+          { label: `Benchmark Eligible ${df.benchmarkEligibleCount}`, tone: df.benchmarkEligibleCount > 0 ? "pass" : "warn" },
+        ] : []),
         { label: "Database Preview", tone: "warn" },
       ],
       inspector: {
@@ -277,6 +285,11 @@ export function buildFigureModel({ summary = {}, algorithm = {} } = {}) {
         { label: "Logistic Regression · Pending", tone: "warn" },
         { label: "Decision Tree · Pending", tone: "warn" },
         { label: "Random Forest · Pending", tone: "warn" },
+        ...(df ? [
+          { label: `Benchmark Readiness · ${df.readiness.benchmark}`, tone: df.readiness.benchmark === "Ready" ? "pass" : "warn" },
+          { label: `Label Readiness · ${df.readiness.label}`, tone: df.readiness.label === "Ready" ? "pass" : "warn" },
+          { label: `Data Quality Readiness · ${df.readiness.dataQuality}`, tone: df.readiness.dataQuality === "Ready" ? "pass" : "warn" },
+        ] : []),
         { label: labelCount > 0 ? "Partially Ready" : "Not Ready · labels required", tone: "warn" },
       ],
       inspector: {

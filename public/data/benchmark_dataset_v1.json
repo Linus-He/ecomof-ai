@@ -1,0 +1,4839 @@
+{
+  "version": "v3.0",
+  "datasetId": "benchmark-dataset-v1",
+  "generatedAt": "2026-06-18",
+  "generator": "scripts/build-v3-0-data-foundation.mjs",
+  "taskType": "binary",
+  "summary": {
+    "total": 122,
+    "labelCount": 0,
+    "benchmarkEligibleCount": 0,
+    "trainCount": 0,
+    "testCount": 0,
+    "leakageOk": true,
+    "leaks": []
+  },
+  "note": "Benchmark-ready structure for future LR / DT / RF. Labels are null/missing until real experimental labels exist, so benchmarkEligible stays Not Ready and no Accuracy/ROC is produced.",
+  "records": [
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0001",
+      "candidateId": "OPEN_MOF_SEED_0001",
+      "featureVector": {
+        "surfaceArea": 5496.62,
+        "poreVolume": 2.98262,
+        "poreSizeA": 10.49588,
+        "density": 3.43466,
+        "voidFraction": 0.8684,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0001",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0001",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0002",
+      "candidateId": "OPEN_MOF_SEED_0002",
+      "featureVector": {
+        "surfaceArea": 4925.43,
+        "poreVolume": 1.71222,
+        "poreSizeA": 8.47189,
+        "density": 2.1806,
+        "voidFraction": 0.7852,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0002",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0002",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0003",
+      "candidateId": "OPEN_MOF_SEED_0003",
+      "featureVector": {
+        "surfaceArea": 4826.98,
+        "poreVolume": 2.15079,
+        "poreSizeA": 11.02909,
+        "density": 2.56779,
+        "voidFraction": 0.8376,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0003",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0003",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0004",
+      "candidateId": "OPEN_MOF_SEED_0004",
+      "featureVector": {
+        "surfaceArea": 4665.31,
+        "poreVolume": 2.03227,
+        "poreSizeA": 8.58252,
+        "density": 2.47715,
+        "voidFraction": 0.8204,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0004",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0004",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0005",
+      "candidateId": "OPEN_MOF_SEED_0005",
+      "featureVector": {
+        "surfaceArea": 4489.74,
+        "poreVolume": 2.73874,
+        "poreSizeA": 19.6462,
+        "density": 3.13362,
+        "voidFraction": 0.874,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0005",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0005",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0006",
+      "candidateId": "OPEN_MOF_SEED_0006",
+      "featureVector": {
+        "surfaceArea": 3665,
+        "poreVolume": 1.30327,
+        "poreSizeA": 8.42715,
+        "density": 1.75454,
+        "voidFraction": 0.7428,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0006",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0006",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0007",
+      "candidateId": "OPEN_MOF_SEED_0007",
+      "featureVector": {
+        "surfaceArea": 3480.57,
+        "poreVolume": 1.26913,
+        "poreSizeA": 8.01894,
+        "density": 1.70996,
+        "voidFraction": 0.7422,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0007",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0007",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0008",
+      "candidateId": "OPEN_MOF_SEED_0008",
+      "featureVector": {
+        "surfaceArea": 3001.77,
+        "poreVolume": 1.0485,
+        "poreSizeA": 7.95909,
+        "density": 1.4751,
+        "voidFraction": 0.7108,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0008",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0008",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0009",
+      "candidateId": "OPEN_MOF_SEED_0009",
+      "featureVector": {
+        "surfaceArea": 2370.25,
+        "poreVolume": 0.77585,
+        "poreSizeA": 5.20769,
+        "density": 1.21874,
+        "voidFraction": 0.6366,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0009",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0009",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0010",
+      "candidateId": "OPEN_MOF_SEED_0010",
+      "featureVector": {
+        "surfaceArea": 1816.86,
+        "poreVolume": 0.65814,
+        "poreSizeA": 7.11735,
+        "density": 1.06495,
+        "voidFraction": 0.618,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0010",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0010",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0011",
+      "candidateId": "OPEN_MOF_SEED_0011",
+      "featureVector": {
+        "surfaceArea": 4736.79,
+        "poreVolume": 2.09469,
+        "poreSizeA": 10.37066,
+        "density": 2.50263,
+        "voidFraction": 0.837,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0011",
+        "metalNode": "Fe"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0011",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0012",
+      "candidateId": "OPEN_MOF_SEED_0012",
+      "featureVector": {
+        "surfaceArea": 4503.64,
+        "poreVolume": 1.77897,
+        "poreSizeA": 8.2906,
+        "density": 2.21651,
+        "voidFraction": 0.8026,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0012",
+        "metalNode": "Fe"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0012",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0013",
+      "candidateId": "OPEN_MOF_SEED_0013",
+      "featureVector": {
+        "surfaceArea": 4335.39,
+        "poreVolume": 1.71124,
+        "poreSizeA": 8.36781,
+        "density": 2.12522,
+        "voidFraction": 0.8052,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0013",
+        "metalNode": "Fe"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0013",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0014",
+      "candidateId": "OPEN_MOF_SEED_0014",
+      "featureVector": {
+        "surfaceArea": 3617.24,
+        "poreVolume": 1.29573,
+        "poreSizeA": 8.94797,
+        "density": 1.76482,
+        "voidFraction": 0.7342,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0014",
+        "metalNode": "Fe"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0014",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0015",
+      "candidateId": "OPEN_MOF_SEED_0015",
+      "featureVector": {
+        "surfaceArea": 3486.15,
+        "poreVolume": 1.21402,
+        "poreSizeA": 8.47314,
+        "density": 1.51715,
+        "voidFraction": 0.8002,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0015",
+        "metalNode": "Fe"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0015",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0016",
+      "candidateId": "OPEN_MOF_SEED_0016",
+      "featureVector": {
+        "surfaceArea": 4761.4,
+        "poreVolume": 0.98441,
+        "poreSizeA": 4.56727,
+        "density": 1.33535,
+        "voidFraction": 0.7372,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0016",
+        "metalNode": "Ti"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0016",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0017",
+      "candidateId": "OPEN_MOF_SEED_0017",
+      "featureVector": {
+        "surfaceArea": 1585.62,
+        "poreVolume": 0.6885,
+        "poreSizeA": 3.51292,
+        "density": 1.12868,
+        "voidFraction": 0.61,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0017",
+        "metalNode": "Ti"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0017",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0018",
+      "candidateId": "OPEN_MOF_SEED_0018",
+      "featureVector": {
+        "surfaceArea": 1585.43,
+        "poreVolume": 0.68263,
+        "poreSizeA": 3.46915,
+        "density": 1.12868,
+        "voidFraction": 0.6048,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0018",
+        "metalNode": "Ti"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0018",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0019",
+      "candidateId": "OPEN_MOF_SEED_0019",
+      "featureVector": {
+        "surfaceArea": 5192.05,
+        "poreVolume": 2.33964,
+        "poreSizeA": 13.24304,
+        "density": 2.73838,
+        "voidFraction": 0.8544,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0019",
+        "metalNode": "Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0019",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0020",
+      "candidateId": "OPEN_MOF_SEED_0020",
+      "featureVector": {
+        "surfaceArea": 5189.2,
+        "poreVolume": 2.45019,
+        "poreSizeA": 14.48863,
+        "density": 2.83913,
+        "voidFraction": 0.863,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0020",
+        "metalNode": "Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0020",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0021",
+      "candidateId": "OPEN_MOF_SEED_0021",
+      "featureVector": {
+        "surfaceArea": 5152.99,
+        "poreVolume": 2.36305,
+        "poreSizeA": 13.28886,
+        "density": 2.77878,
+        "voidFraction": 0.8504,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0021",
+        "metalNode": "Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0021",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0022",
+      "candidateId": "OPEN_MOF_SEED_0022",
+      "featureVector": {
+        "surfaceArea": 5140.9,
+        "poreVolume": 2.3579,
+        "poreSizeA": 13.26042,
+        "density": 2.74175,
+        "voidFraction": 0.86,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0022",
+        "metalNode": "Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0022",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0023",
+      "candidateId": "OPEN_MOF_SEED_0023",
+      "featureVector": {
+        "surfaceArea": 5095.35,
+        "poreVolume": 2.08269,
+        "poreSizeA": 8.78691,
+        "density": 2.4508,
+        "voidFraction": 0.8498,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0023",
+        "metalNode": "Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0023",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0024",
+      "candidateId": "OPEN_MOF_SEED_0024",
+      "featureVector": {
+        "surfaceArea": 4944.37,
+        "poreVolume": 1.49817,
+        "poreSizeA": 8.17399,
+        "density": 1.90172,
+        "voidFraction": 0.7878,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0024",
+        "metalNode": "Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0024",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0025",
+      "candidateId": "OPEN_MOF_SEED_0025",
+      "featureVector": {
+        "surfaceArea": 6285.97,
+        "poreVolume": 3.02289,
+        "poreSizeA": 10.75846,
+        "density": 3.48177,
+        "voidFraction": 0.8682,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0025",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0025",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0026",
+      "candidateId": "OPEN_MOF_SEED_0026",
+      "featureVector": {
+        "surfaceArea": 6170.7,
+        "poreVolume": 3.75246,
+        "poreSizeA": 13.33904,
+        "density": 4.18796,
+        "voidFraction": 0.896,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0026",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0026",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0027",
+      "candidateId": "OPEN_MOF_SEED_0027",
+      "featureVector": {
+        "surfaceArea": 6105.88,
+        "poreVolume": 5.45213,
+        "poreSizeA": 21.60719,
+        "density": 5.86751,
+        "voidFraction": 0.9292,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0027",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0027",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0028",
+      "candidateId": "OPEN_MOF_SEED_0028",
+      "featureVector": {
+        "surfaceArea": 6088.87,
+        "poreVolume": 5.66915,
+        "poreSizeA": 19.54108,
+        "density": 6.0931,
+        "voidFraction": 0.9304,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0028",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0028",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0029",
+      "candidateId": "OPEN_MOF_SEED_0029",
+      "featureVector": {
+        "surfaceArea": 5688.77,
+        "poreVolume": 1.5609,
+        "poreSizeA": 6.32995,
+        "density": 2.0063,
+        "voidFraction": 0.778,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0029",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0029",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0030",
+      "candidateId": "OPEN_MOF_SEED_0030",
+      "featureVector": {
+        "surfaceArea": 5688.62,
+        "poreVolume": 3.01881,
+        "poreSizeA": 12.0883,
+        "density": 3.45483,
+        "voidFraction": 0.8738,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0030",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0030",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0031",
+      "candidateId": "OPEN_MOF_SEED_0031",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 7.33353,
+        "density": 0.46063,
+        "voidFraction": null,
+        "bandGap": 1.34652,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0031",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0031",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0032",
+      "candidateId": "OPEN_MOF_SEED_0032",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 5.53402,
+        "density": 0.53618,
+        "voidFraction": null,
+        "bandGap": 2.85371,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0032",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0032",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0033",
+      "candidateId": "OPEN_MOF_SEED_0033",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 6.11541,
+        "density": 1.02036,
+        "voidFraction": null,
+        "bandGap": 0.84088,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0033",
+        "metalNode": "Cu; Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0033",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0034",
+      "candidateId": "OPEN_MOF_SEED_0034",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 9.75067,
+        "density": 1.00223,
+        "voidFraction": null,
+        "bandGap": 4.16617,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0034",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0034",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0035",
+      "candidateId": "OPEN_MOF_SEED_0035",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 7.9923,
+        "density": 0.58399,
+        "voidFraction": null,
+        "bandGap": 3.12527,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0035",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0035",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0036",
+      "candidateId": "OPEN_MOF_SEED_0036",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 7.14633,
+        "density": 0.8097,
+        "voidFraction": null,
+        "bandGap": 2.20267,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0036",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0036",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0037",
+      "candidateId": "OPEN_MOF_SEED_0037",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 18.49358,
+        "density": 0.61507,
+        "voidFraction": null,
+        "bandGap": 0.15344,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0037",
+        "metalNode": "Fe"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0037",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0038",
+      "candidateId": "OPEN_MOF_SEED_0038",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 16.92486,
+        "density": 0.6801,
+        "voidFraction": null,
+        "bandGap": 0.58953,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0038",
+        "metalNode": "Fe"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0038",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0039",
+      "candidateId": "OPEN_MOF_SEED_0039",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 14.11372,
+        "density": 0.75083,
+        "voidFraction": null,
+        "bandGap": 1.35755,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0039",
+        "metalNode": "Fe"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0039",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0040",
+      "candidateId": "OPEN_MOF_SEED_0040",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 10.46047,
+        "density": 0.36833,
+        "voidFraction": null,
+        "bandGap": 2.47267,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0040",
+        "metalNode": "Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0040",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0041",
+      "candidateId": "OPEN_MOF_SEED_0041",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 9.22565,
+        "density": 0.54958,
+        "voidFraction": null,
+        "bandGap": 2.51909,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0041",
+        "metalNode": "Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0041",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0042",
+      "candidateId": "OPEN_MOF_SEED_0042",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 9.41025,
+        "density": 0.53946,
+        "voidFraction": null,
+        "bandGap": 0.43726,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0042",
+        "metalNode": "Co; Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0042",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0043",
+      "candidateId": "OPEN_MOF_SEED_0043",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 11.65939,
+        "density": 0.3786,
+        "voidFraction": null,
+        "bandGap": 2.13374,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0043",
+        "metalNode": "Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0043",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0044",
+      "candidateId": "OPEN_MOF_SEED_0044",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 5.33038,
+        "density": 0.71206,
+        "voidFraction": null,
+        "bandGap": 0.54706,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0044",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0044",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0045",
+      "candidateId": "OPEN_MOF_SEED_0045",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 14.14613,
+        "density": 0.50862,
+        "voidFraction": null,
+        "bandGap": 0.9654,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0045",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0045",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0046",
+      "candidateId": "OPEN_MOF_SEED_0046",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 9.91773,
+        "density": 0.79052,
+        "voidFraction": null,
+        "bandGap": 0.82165,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0046",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0046",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0047",
+      "candidateId": "OPEN_MOF_SEED_0047",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 13.3771,
+        "density": 0.70549,
+        "voidFraction": null,
+        "bandGap": 0.5859,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0047",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0047",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0048",
+      "candidateId": "OPEN_MOF_SEED_0048",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 8.00903,
+        "density": 1.24705,
+        "voidFraction": null,
+        "bandGap": 2.80742,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0048",
+        "metalNode": "Ti"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0048",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0049",
+      "candidateId": "OPEN_MOF_SEED_0049",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 7.17263,
+        "density": 0.86838,
+        "voidFraction": null,
+        "bandGap": 1.60087,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0049",
+        "metalNode": "Ti"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0049",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "v22-OPEN_MOF_SEED_0050",
+      "candidateId": "OPEN_MOF_SEED_0050",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": 7.53609,
+        "density": 0.8191,
+        "voidFraction": null,
+        "bandGap": 1.37584,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Gold",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "OPEN_MOF_SEED_0050",
+        "metalNode": "Ti"
+      },
+      "reaction": {
+        "reactionId": "oa-OPEN_MOF_SEED_0050",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "real-seed-REAL-UIO-66-001",
+      "candidateId": "REAL-UIO-66-001",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": null,
+        "density": null,
+        "voidFraction": null,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Silver",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1021/acs.chemmater.7b00141"
+      },
+      "mof": {
+        "mofId": "REAL-UIO-66-001",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-REAL-UIO-66-001",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 0.667,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "real-seed-REAL-MOF808-001",
+      "candidateId": "REAL-MOF808-001",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": null,
+        "density": null,
+        "voidFraction": null,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Silver",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1021/ja5062531"
+      },
+      "mof": {
+        "mofId": "REAL-MOF808-001",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-REAL-MOF808-001",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 0.667,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "real-seed-REAL-HKUST1-001",
+      "candidateId": "REAL-HKUST1-001",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": null,
+        "density": null,
+        "voidFraction": null,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Silver",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1126/science.283.5405.1148"
+      },
+      "mof": {
+        "mofId": "REAL-HKUST1-001",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-REAL-HKUST1-001",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 0.667,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "real-seed-REAL-MIL101-001",
+      "candidateId": "REAL-MIL101-001",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": null,
+        "density": null,
+        "voidFraction": null,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Silver",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1126/science.1116275"
+      },
+      "mof": {
+        "mofId": "REAL-MIL101-001",
+        "metalNode": "Cr"
+      },
+      "reaction": {
+        "reactionId": "oa-REAL-MIL101-001",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 0.667,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "real-seed-REAL-ZIF8-001",
+      "candidateId": "REAL-ZIF8-001",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": null,
+        "density": null,
+        "voidFraction": null,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Silver",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1073/pnas.0602439103"
+      },
+      "mof": {
+        "mofId": "REAL-ZIF8-001",
+        "metalNode": "Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-REAL-ZIF8-001",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 0.667,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "real-seed-REAL-MOF74MG-001",
+      "candidateId": "REAL-MOF74MG-001",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": null,
+        "density": null,
+        "voidFraction": null,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Silver",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1021/ja0509798"
+      },
+      "mof": {
+        "mofId": "REAL-MOF74MG-001",
+        "metalNode": "Mg"
+      },
+      "reaction": {
+        "reactionId": "oa-REAL-MOF74MG-001",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 0.667,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "real-seed-REAL-UIO67-001",
+      "candidateId": "REAL-UIO67-001",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": null,
+        "density": null,
+        "voidFraction": null,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Silver",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1021/ja8057953"
+      },
+      "mof": {
+        "mofId": "REAL-UIO67-001",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-REAL-UIO67-001",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 0.667,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "real-seed-REAL-NU1000-001",
+      "candidateId": "REAL-NU1000-001",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": null,
+        "density": null,
+        "voidFraction": null,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Silver",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1021/ja4050828"
+      },
+      "mof": {
+        "mofId": "REAL-NU1000-001",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-REAL-NU1000-001",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 0.667,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "real-seed-REAL-PCN222-001",
+      "candidateId": "REAL-PCN222-001",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": null,
+        "density": null,
+        "voidFraction": null,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Silver",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1002/anie.201204475"
+      },
+      "mof": {
+        "mofId": "REAL-PCN222-001",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-REAL-PCN222-001",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 0.667,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "real-seed-REAL-MIL125-001",
+      "candidateId": "REAL-MIL125-001",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": null,
+        "density": null,
+        "voidFraction": null,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Silver",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "10.1021/ja905087d"
+      },
+      "mof": {
+        "mofId": "REAL-MIL125-001",
+        "metalNode": "Ti"
+      },
+      "reaction": {
+        "reactionId": "oa-REAL-MIL125-001",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 0.667,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined"
+      ]
+    },
+    {
+      "recordId": "real-seed-REAL-MIL53-001",
+      "candidateId": "REAL-MIL53-001",
+      "featureVector": {
+        "surfaceArea": null,
+        "poreVolume": null,
+        "poreSizeA": null,
+        "density": null,
+        "voidFraction": null,
+        "bandGap": null,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": false,
+      "evidence": {
+        "doi": "pending"
+      },
+      "mof": {
+        "mofId": "REAL-MIL53-001",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-REAL-MIL53-001",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 0.333,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "fieldSourcesComplete"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0001",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0001",
+      "featureVector": {
+        "surfaceArea": 5249.2721,
+        "poreVolume": 2.8484,
+        "poreSizeA": 10.181,
+        "density": 3.33162,
+        "voidFraction": 0.85798,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0001",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0001",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0002",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0002",
+      "featureVector": {
+        "surfaceArea": 4703.78565,
+        "poreVolume": 1.63517,
+        "poreSizeA": 8.21773,
+        "density": 2.11518,
+        "voidFraction": 0.77578,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0002",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0002",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0003",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0003",
+      "featureVector": {
+        "surfaceArea": 4609.7659,
+        "poreVolume": 2.054,
+        "poreSizeA": 10.69822,
+        "density": 2.49076,
+        "voidFraction": 0.82755,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0003",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0003",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0004",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0004",
+      "featureVector": {
+        "surfaceArea": 4455.37105,
+        "poreVolume": 1.94082,
+        "poreSizeA": 8.32504,
+        "density": 2.40284,
+        "voidFraction": 0.81056,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0004",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0004",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0005",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0005",
+      "featureVector": {
+        "surfaceArea": 4287.7017,
+        "poreVolume": 2.6155,
+        "poreSizeA": 19.05681,
+        "density": 3.03961,
+        "voidFraction": 0.86351,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0005",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0005",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0006",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0006",
+      "featureVector": {
+        "surfaceArea": 3500.075,
+        "poreVolume": 1.24462,
+        "poreSizeA": 8.17434,
+        "density": 1.7019,
+        "voidFraction": 0.73389,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0006",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0006",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0007",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0007",
+      "featureVector": {
+        "surfaceArea": 3323.94435,
+        "poreVolume": 1.21202,
+        "poreSizeA": 7.77837,
+        "density": 1.65866,
+        "voidFraction": 0.73329,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0007",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0007",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0008",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0008",
+      "featureVector": {
+        "surfaceArea": 2866.69035,
+        "poreVolume": 1.00132,
+        "poreSizeA": 7.72032,
+        "density": 1.43085,
+        "voidFraction": 0.70227,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0008",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0008",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0009",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0009",
+      "featureVector": {
+        "surfaceArea": 2263.58875,
+        "poreVolume": 0.74094,
+        "poreSizeA": 5.05146,
+        "density": 1.18218,
+        "voidFraction": 0.62896,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0009",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0009",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0010",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0010",
+      "featureVector": {
+        "surfaceArea": 1735.1013,
+        "poreVolume": 0.62852,
+        "poreSizeA": 6.90383,
+        "density": 1.033,
+        "voidFraction": 0.61058,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0010",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0010",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0011",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0011",
+      "featureVector": {
+        "surfaceArea": 4523.63445,
+        "poreVolume": 2.00043,
+        "poreSizeA": 10.05954,
+        "density": 2.42755,
+        "voidFraction": 0.82696,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0011",
+        "metalNode": "Fe"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0011",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0012",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0012",
+      "featureVector": {
+        "surfaceArea": 4300.9762,
+        "poreVolume": 1.69892,
+        "poreSizeA": 8.04188,
+        "density": 2.15001,
+        "voidFraction": 0.79297,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0012",
+        "metalNode": "Fe"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0012",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0013",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0013",
+      "featureVector": {
+        "surfaceArea": 4140.29745,
+        "poreVolume": 1.63423,
+        "poreSizeA": 8.11678,
+        "density": 2.06146,
+        "voidFraction": 0.79554,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0013",
+        "metalNode": "Fe"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0013",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0014",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0014",
+      "featureVector": {
+        "surfaceArea": 3454.4642,
+        "poreVolume": 1.23742,
+        "poreSizeA": 8.67953,
+        "density": 1.71188,
+        "voidFraction": 0.72539,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0014",
+        "metalNode": "Fe"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0014",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0015",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0015",
+      "featureVector": {
+        "surfaceArea": 3329.27325,
+        "poreVolume": 1.15939,
+        "poreSizeA": 8.21895,
+        "density": 1.47164,
+        "voidFraction": 0.7906,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0015",
+        "metalNode": "Fe"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0015",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0016",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0016",
+      "featureVector": {
+        "surfaceArea": 4547.137,
+        "poreVolume": 0.94011,
+        "poreSizeA": 4.43025,
+        "density": 1.29529,
+        "voidFraction": 0.72835,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0016",
+        "metalNode": "Ti"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0016",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0017",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0017",
+      "featureVector": {
+        "surfaceArea": 1514.2671,
+        "poreVolume": 0.65752,
+        "poreSizeA": 3.40753,
+        "density": 1.09482,
+        "voidFraction": 0.60268,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0017",
+        "metalNode": "Ti"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0017",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0018",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0018",
+      "featureVector": {
+        "surfaceArea": 1514.08565,
+        "poreVolume": 0.65191,
+        "poreSizeA": 3.36508,
+        "density": 1.09482,
+        "voidFraction": 0.59754,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0018",
+        "metalNode": "Ti"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0018",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0019",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0019",
+      "featureVector": {
+        "surfaceArea": 4958.40775,
+        "poreVolume": 2.23436,
+        "poreSizeA": 12.84575,
+        "density": 2.65623,
+        "voidFraction": 0.84415,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0019",
+        "metalNode": "Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0019",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0020",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0020",
+      "featureVector": {
+        "surfaceArea": 4955.686,
+        "poreVolume": 2.33993,
+        "poreSizeA": 14.05397,
+        "density": 2.75396,
+        "voidFraction": 0.85264,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0020",
+        "metalNode": "Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0020",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0021",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0021",
+      "featureVector": {
+        "surfaceArea": 4921.10545,
+        "poreVolume": 2.25671,
+        "poreSizeA": 12.89019,
+        "density": 2.69542,
+        "voidFraction": 0.8402,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0021",
+        "metalNode": "Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0021",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0022",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0022",
+      "featureVector": {
+        "surfaceArea": 4909.5595,
+        "poreVolume": 2.25179,
+        "poreSizeA": 12.86261,
+        "density": 2.6595,
+        "voidFraction": 0.84968,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0022",
+        "metalNode": "Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0022",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0023",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0023",
+      "featureVector": {
+        "surfaceArea": 4866.05925,
+        "poreVolume": 1.98897,
+        "poreSizeA": 8.5233,
+        "density": 2.37728,
+        "voidFraction": 0.8396,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0023",
+        "metalNode": "Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0023",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0024",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0024",
+      "featureVector": {
+        "surfaceArea": 4721.87335,
+        "poreVolume": 1.43075,
+        "poreSizeA": 7.92877,
+        "density": 1.84467,
+        "voidFraction": 0.77835,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0024",
+        "metalNode": "Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0024",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0025",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0025",
+      "featureVector": {
+        "surfaceArea": 6003.10135,
+        "poreVolume": 2.88686,
+        "poreSizeA": 10.43571,
+        "density": 3.37732,
+        "voidFraction": 0.85778,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0025",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0025",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0026",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0026",
+      "featureVector": {
+        "surfaceArea": 5893.0185,
+        "poreVolume": 3.5836,
+        "poreSizeA": 12.93887,
+        "density": 4.06232,
+        "voidFraction": 0.88525,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0026",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0026",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0027",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0027",
+      "featureVector": {
+        "surfaceArea": 5831.1154,
+        "poreVolume": 5.20678,
+        "poreSizeA": 20.95897,
+        "density": 5.69148,
+        "voidFraction": 0.91805,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0027",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0027",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0028",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0028",
+      "featureVector": {
+        "surfaceArea": 5814.87085,
+        "poreVolume": 5.41404,
+        "poreSizeA": 18.95485,
+        "density": 5.91031,
+        "voidFraction": 0.91924,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0028",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0028",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0029",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0029",
+      "featureVector": {
+        "surfaceArea": 5432.77535,
+        "poreVolume": 1.49066,
+        "poreSizeA": 6.14005,
+        "density": 1.94611,
+        "voidFraction": 0.76866,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0029",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0029",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0030",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0030",
+      "featureVector": {
+        "surfaceArea": 5432.6321,
+        "poreVolume": 2.88296,
+        "poreSizeA": 11.72565,
+        "density": 3.35119,
+        "voidFraction": 0.86331,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0030",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0030",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0031",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0031",
+      "featureVector": {
+        "surfaceArea": 0,
+        "poreVolume": 0,
+        "poreSizeA": 7.11352,
+        "density": 0.44681,
+        "voidFraction": 0,
+        "bandGap": 1.30612,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0031",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0031",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0032",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0032",
+      "featureVector": {
+        "surfaceArea": 0,
+        "poreVolume": 0,
+        "poreSizeA": 5.368,
+        "density": 0.52009,
+        "voidFraction": 0,
+        "bandGap": 2.7681,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0032",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0032",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0033",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0033",
+      "featureVector": {
+        "surfaceArea": 0,
+        "poreVolume": 0,
+        "poreSizeA": 5.93195,
+        "density": 0.98975,
+        "voidFraction": 0,
+        "bandGap": 0.81565,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0033",
+        "metalNode": "Cu; Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0033",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0034",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0034",
+      "featureVector": {
+        "surfaceArea": 0,
+        "poreVolume": 0,
+        "poreSizeA": 9.45815,
+        "density": 0.97216,
+        "voidFraction": 0,
+        "bandGap": 4.04118,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0034",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0034",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0035",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0035",
+      "featureVector": {
+        "surfaceArea": 0,
+        "poreVolume": 0,
+        "poreSizeA": 7.75253,
+        "density": 0.56647,
+        "voidFraction": 0,
+        "bandGap": 3.03151,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0035",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0035",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0036",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0036",
+      "featureVector": {
+        "surfaceArea": 0,
+        "poreVolume": 0,
+        "poreSizeA": 6.93194,
+        "density": 0.78541,
+        "voidFraction": 0,
+        "bandGap": 2.13659,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0036",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0036",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0037",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0037",
+      "featureVector": {
+        "surfaceArea": 0,
+        "poreVolume": 0,
+        "poreSizeA": 17.93877,
+        "density": 0.59662,
+        "voidFraction": 0,
+        "bandGap": 0.14884,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0037",
+        "metalNode": "Fe"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0037",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0038",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0038",
+      "featureVector": {
+        "surfaceArea": 0,
+        "poreVolume": 0,
+        "poreSizeA": 16.41711,
+        "density": 0.6597,
+        "voidFraction": 0,
+        "bandGap": 0.57184,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0038",
+        "metalNode": "Fe"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0038",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0039",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0039",
+      "featureVector": {
+        "surfaceArea": 0,
+        "poreVolume": 0,
+        "poreSizeA": 13.69031,
+        "density": 0.72831,
+        "voidFraction": 0,
+        "bandGap": 1.31682,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0039",
+        "metalNode": "Fe"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0039",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0040",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0040",
+      "featureVector": {
+        "surfaceArea": 0,
+        "poreVolume": 0,
+        "poreSizeA": 10.14666,
+        "density": 0.35728,
+        "voidFraction": 0,
+        "bandGap": 2.39849,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0040",
+        "metalNode": "Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0040",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0041",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0041",
+      "featureVector": {
+        "surfaceArea": 0,
+        "poreVolume": 0,
+        "poreSizeA": 8.94888,
+        "density": 0.53309,
+        "voidFraction": 0,
+        "bandGap": 2.44352,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0041",
+        "metalNode": "Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0041",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0042",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0042",
+      "featureVector": {
+        "surfaceArea": 0,
+        "poreVolume": 0,
+        "poreSizeA": 9.12794,
+        "density": 0.52328,
+        "voidFraction": 0,
+        "bandGap": 0.42414,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0042",
+        "metalNode": "Co; Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0042",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0043",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0043",
+      "featureVector": {
+        "surfaceArea": 0,
+        "poreVolume": 0,
+        "poreSizeA": 11.30961,
+        "density": 0.36724,
+        "voidFraction": 0,
+        "bandGap": 2.06973,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0043",
+        "metalNode": "Zn"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0043",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0044",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0044",
+      "featureVector": {
+        "surfaceArea": 0,
+        "poreVolume": 0,
+        "poreSizeA": 5.17047,
+        "density": 0.6907,
+        "voidFraction": 0,
+        "bandGap": 0.53065,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0044",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0044",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0045",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0045",
+      "featureVector": {
+        "surfaceArea": 0,
+        "poreVolume": 0,
+        "poreSizeA": 13.72175,
+        "density": 0.49336,
+        "voidFraction": 0,
+        "bandGap": 0.93644,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0045",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0045",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0046",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0046",
+      "featureVector": {
+        "surfaceArea": 0,
+        "poreVolume": 0,
+        "poreSizeA": 9.6202,
+        "density": 0.7668,
+        "voidFraction": 0,
+        "bandGap": 0.797,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0046",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0046",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0047",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0047",
+      "featureVector": {
+        "surfaceArea": 0,
+        "poreVolume": 0,
+        "poreSizeA": 12.97579,
+        "density": 0.68433,
+        "voidFraction": 0,
+        "bandGap": 0.56832,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0047",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0047",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0048",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0048",
+      "featureVector": {
+        "surfaceArea": 0,
+        "poreVolume": 0,
+        "poreSizeA": 7.76876,
+        "density": 1.20964,
+        "voidFraction": 0,
+        "bandGap": 2.7232,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0048",
+        "metalNode": "Ti"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0048",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0049",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0049",
+      "featureVector": {
+        "surfaceArea": 0,
+        "poreVolume": 0,
+        "poreSizeA": 6.95745,
+        "density": 0.84233,
+        "voidFraction": 0,
+        "bandGap": 1.55284,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0049",
+        "metalNode": "Ti"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0049",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0050",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0050",
+      "featureVector": {
+        "surfaceArea": 0,
+        "poreVolume": 0,
+        "poreSizeA": 7.31001,
+        "density": 0.79453,
+        "voidFraction": 0,
+        "bandGap": 1.33456,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.1016/j.matt.2021.02.015"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0050",
+        "metalNode": "Ti"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0050",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0051",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0051",
+      "featureVector": {
+        "surfaceArea": 5331.7214,
+        "poreVolume": 2.89314,
+        "poreSizeA": 10.28596,
+        "density": 3.36597,
+        "voidFraction": 0.86145,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0051",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0051",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0052",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0052",
+      "featureVector": {
+        "surfaceArea": 4777.6671,
+        "poreVolume": 1.66085,
+        "poreSizeA": 8.30245,
+        "density": 2.13699,
+        "voidFraction": 0.77892,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0052",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0052",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0053",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0053",
+      "featureVector": {
+        "surfaceArea": 4682.1706,
+        "poreVolume": 2.08627,
+        "poreSizeA": 10.80851,
+        "density": 2.51643,
+        "voidFraction": 0.8309,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0053",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0053",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0054",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0054",
+      "featureVector": {
+        "surfaceArea": 4525.3507,
+        "poreVolume": 1.9713,
+        "poreSizeA": 8.41087,
+        "density": 2.42761,
+        "voidFraction": 0.81384,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0054",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0054",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0055",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0055",
+      "featureVector": {
+        "surfaceArea": 4355.0478,
+        "poreVolume": 2.65658,
+        "poreSizeA": 19.25328,
+        "density": 3.07095,
+        "voidFraction": 0.86701,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0055",
+        "metalNode": "Zr"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0055",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0056",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0056",
+      "featureVector": {
+        "surfaceArea": 3555.05,
+        "poreVolume": 1.26417,
+        "poreSizeA": 8.25861,
+        "density": 1.71945,
+        "voidFraction": 0.73686,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0056",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0056",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0057",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0057",
+      "featureVector": {
+        "surfaceArea": 3376.1529,
+        "poreVolume": 1.23106,
+        "poreSizeA": 7.85856,
+        "density": 1.67576,
+        "voidFraction": 0.73626,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0057",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0057",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0058",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0058",
+      "featureVector": {
+        "surfaceArea": 2911.7169,
+        "poreVolume": 1.01704,
+        "poreSizeA": 7.79991,
+        "density": 1.4456,
+        "voidFraction": 0.70511,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0058",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0058",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0059",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0059",
+      "featureVector": {
+        "surfaceArea": 2299.1425,
+        "poreVolume": 0.75257,
+        "poreSizeA": 5.10354,
+        "density": 1.19437,
+        "voidFraction": 0.63151,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Bronze",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0059",
+        "metalNode": "Al"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0059",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0378",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0378",
+      "featureVector": {
+        "surfaceArea": 6454.2022,
+        "poreVolume": 6.0093,
+        "poreSizeA": 20.32272,
+        "density": 6.33682,
+        "voidFraction": 0.94529,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Rejected",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0378",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0378",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    },
+    {
+      "recordId": "v22-SYNTHETIC_FIXTURE_SDBP_0828",
+      "candidateId": "SYNTHETIC_FIXTURE_SDBP_0828",
+      "featureVector": {
+        "surfaceArea": 6499.86873,
+        "poreVolume": 6.05182,
+        "poreSizeA": 20.42043,
+        "density": 6.36729,
+        "voidFraction": 0.94715,
+        "bandGap": 0,
+        "temperature": null,
+        "pressure": null,
+        "reactionTime": null
+      },
+      "label": null,
+      "labelStatus": "missing",
+      "labelSource": "missing",
+      "taskType": "binary",
+      "split": null,
+      "qualityTier": "Rejected",
+      "syntheticFixture": true,
+      "evidence": {
+        "doi": "10.5281/zenodo.14132134"
+      },
+      "mof": {
+        "mofId": "SYNTHETIC_FIXTURE_SDBP_0828",
+        "metalNode": "Cu"
+      },
+      "reaction": {
+        "reactionId": "oa-SYNTHETIC_FIXTURE_SDBP_0828",
+        "targetProduct": "formic acid"
+      },
+      "provenanceCoverage": 1,
+      "benchmarkEligible": "Not Ready",
+      "benchmarkEligibilityReasons": [
+        "groundTruthExists",
+        "trainTestSplitDefined",
+        "notSynthetic"
+      ]
+    }
+  ]
+}

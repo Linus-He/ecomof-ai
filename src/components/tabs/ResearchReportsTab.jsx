@@ -15,6 +15,7 @@ import {
 import { generateResearchReport, REPORT_TYPES } from "../../utils/researchReports"
 import { runLocalizationAudit, terminologyPairs } from "../../utils/localizationAudit"
 import { runOrganicAcidFinalScreening } from "../../utils/organicAcidFinalScreening"
+import { summarizeDataFoundation } from "../../utils/dataFoundation"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -235,6 +236,7 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
   const [summary, setSummary] = useState(providedSummary)
   const [versionData, setVersionData] = useState(providedVersionData)
   const [organicAcidResult, setOrganicAcidResult] = useState(providedOrganicAcidResult)
+  const [dataFoundation, setDataFoundation] = useState(null)
   const [type, setType] = useState("candidate")
   const [candidateId, setCandidateId] = useState("")
 
@@ -257,13 +259,19 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
       fetchDataJson("organic_acid_final_screening/dopant_metal_property_matrix.json", []),
       fetchDataJson("organic_acid_final_screening/organic_acid_screening_rules.json", {}),
       fetchDataJson("organic_acid_final_screening/organic_acid_evidence_records.json", []),
-    ]).then(([nextRecords, nextSummary, nextVersionData, organicFrameworks, organicMetals, organicRules, organicEvidence]) => {
+      fetchDataJson("organic_acid_gold_dataset_v1.json", null),
+      fetchDataJson("organic_acid_literature_dataset_v1.json", null),
+      fetchDataJson("benchmark_dataset_v1.json", null),
+      fetchDataJson("organic_acid_labels_v1.json", null),
+      fetchDataJson("data_ingestion/source_registry.json", null),
+    ]).then(([nextRecords, nextSummary, nextVersionData, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, sourceRegistry]) => {
       if (!active) return
       const rows = Array.isArray(nextRecords) ? nextRecords : []
       setRecords(rows)
       setSummary(nextSummary || {})
       setVersionData(nextVersionData || {})
       setOrganicAcidResult(runOrganicAcidFinalScreening(organicFrameworks || [], organicMetals || [], organicRules || {}, organicEvidence || []))
+      setDataFoundation(summarizeDataFoundation({ gold, literature, benchmark, labels, sourceRegistry }))
       setCandidateId(current => current || rows[0]?.candidateId || "")
     })
     return () => { active = false }
@@ -276,7 +284,8 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
     versionData: versionData || {},
     candidateId,
     organicAcidResult,
-  }), [candidateId, records, summary, type, versionData, organicAcidResult])
+    dataFoundation,
+  }), [candidateId, records, summary, type, versionData, organicAcidResult, dataFoundation])
   const audit = useMemo(() => runLocalizationAudit({
     corpus: [
       report.markdown,

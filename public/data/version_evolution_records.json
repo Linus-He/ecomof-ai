@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V2.8",
+  "currentVersion": "V3.0",
   "generatedAt": "2026-06-18",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
-    "currentVersion": "V2.8",
+    "currentVersion": "V3.0",
     "databaseSize": 1000,
     "verifiedMetadataCount": 30,
     "sourceConfirmedCount": 1000,
@@ -18,7 +18,7 @@
     "notFinalRecommendationStatus": "Not Final Recommendation",
     "sources": {
       "currentVersion": {
-        "value": "V2.8",
+        "value": "V3.0",
         "sourceDatabase": "EcoMOF-AI version_evolution_records.json",
         "sourceRecordId": "overview.currentVersion",
         "sourceUrl": "public/data/version_evolution_records.json",
@@ -27,9 +27,9 @@
         "retrievedAt": "2026-06-18",
         "curationStatus": "confirmed",
         "confidence": 1,
-        "databaseVersion": "version_evolution_records.json@V2.8",
-        "generatingScript": "manual V2.8 interactive scientific figure refactor",
-        "notes": "Version label for the V2.8 Interactive Scientific Figure Refactor sprint."
+        "databaseVersion": "version_evolution_records.json@V3.0",
+        "generatingScript": "manual V3.0 data foundation program",
+        "notes": "Version label for the V3.0 Data Foundation Program sprint."
       },
       "databaseSize": {
         "value": 1000,
@@ -371,9 +371,38 @@
         "UI",
         "Testing"
       ]
+    },
+    {
+      "version": "V3.0",
+      "date": "2026-06-18",
+      "commit": "pending-current",
+      "summary": "Data Foundation Program: ingestion, validation, standardization, and benchmark readiness.",
+      "scientificImpact": "建立数据接入、验证与标准化基础设施；项目重心从 UI / 方法论驱动转向数据驱动。",
+      "databaseImpact": "新增 Data Source Registry、Unified Import Schema、Organic Acid Gold Dataset V1（50 条真实溯源记录）、Literature Dataset V1（分层）与 Benchmark Dataset V1。",
+      "algorithmImpact": "新增数据验证管线（schema/units/ranges/duplicates/provenance/evidence/comparability）、标准化引擎、Benchmark Eligibility Gate、Data Leakage Check 与 Label Framework，为 Future ML 准备 Benchmark Dataset。",
+      "validationImpact": "建立 Gold / Silver / Bronze / Rejected 数据分层；真实实验标签仍不足，Label Count = 0，Accuracy / ROC-AUC 继续 Pending。",
+      "uiImpact": "EcoScreen 新增 Data Quality Summary 与分层筛选；Algorithm Validation Center 与 Interactive Scientific Figure 的 Database / Future ML 层显示数据集计数与就绪度；Research Reports 新增数据来源与标准化章节。",
+      "knownLimitations": "真实实验标签仍不足；未训练任何 ML 模型；未伪造 DOI / License / Citation / Accuracy / ROC-AUC / Experimental Label。",
+      "breakingChanges": "None.",
+      "nextVersionGoal": "采集可比实验标签，使 Benchmark Dataset 进入可训练状态并建立 LOO-CV 与 external test。",
+      "categories": [
+        "Data",
+        "Algorithm",
+        "Validation",
+        "UI",
+        "Testing"
+      ]
     }
   ],
   "releaseNotes": [
+    {
+      "version": "V3.0",
+      "date": "2026-06-18",
+      "module": "Data",
+      "category": "Data",
+      "title": "Data Foundation Program",
+      "body": "Added the V3.0 data ingestion, validation, and standardization infrastructure: Data Source Registry, Unified Import Schema, a seven-stage validation pipeline, a unit-standardization engine, Gold/Literature/Benchmark datasets, a Label Framework, a Benchmark Eligibility Gate, and a Data Leakage Check. No DOI, license, citation, accuracy, ROC-AUC, or experimental label is fabricated; labels stay null and ML metrics stay Pending."
+    },
     {
       "version": "V2.8",
       "date": "2026-06-18",
