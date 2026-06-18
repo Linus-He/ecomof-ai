@@ -1,0 +1,13 @@
+{
+  "version": "v3.2",
+  "generatedAt": "2026-06-18",
+  "generator": "scripts/build-v3-2-data-audit.mjs",
+  "auditId": "provenance-audit",
+  "total": 120,
+  "doiCoverage": 1,
+  "citationCoverage": 1,
+  "sourceCoverage": 1,
+  "fieldSourcesCoverage": 1,
+  "provenanceCoverageScore": 1,
+  "status": "Pass"
+}

@@ -210,9 +210,9 @@ describe("organic acid final screening", () => {
 
   it("records the Organic Acid Knowledge Base and planned roadmap", () => {
     expect(versionDocs.knowledgeBaseLabel).toBe("Knowledge Base")
-    expect(versionDocs.currentVersion).toBe("V3.1")
-    expect(versionDocs.completedRange).toBe("V1.0-V3.1")
-    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6", "V1.7", "V2.0-A", "V2.0-B", "V2.0-C", "V2.0-D", "V2.0-E", "V2.0-F", "V2.0-G", "V2.0-H", "V2.0-I", "V2.0-J", "V2.0-K", "V2.0-L", "V2.6", "V2.7", "V2.8", "V3.0", "V3.1"])
+    expect(versionDocs.currentVersion).toBe("V3.2")
+    expect(versionDocs.completedRange).toBe("V1.0-V3.2")
+    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6", "V1.7", "V2.0-A", "V2.0-B", "V2.0-C", "V2.0-D", "V2.0-E", "V2.0-F", "V2.0-G", "V2.0-H", "V2.0-I", "V2.0-J", "V2.0-K", "V2.0-L", "V2.6", "V2.7", "V2.8", "V3.0", "V3.1", "V3.2"])
     expect(versionDocs.versions.find(row => row.version === "V1.4")).toEqual(expect.objectContaining({
       status: "completed",
       title: "Coupled Descriptor Hot Spot Map",
@@ -240,6 +240,11 @@ describe("organic acid final screening", () => {
     }))
     expect(versionDocs.versions.find(row => row.version === "V3.1")).toEqual(expect.objectContaining({
       title: "Reaction Data Expansion and Benchmark Readiness",
+      relatedSection: "#methodology-algorithm-validation",
+      status: "completed",
+    }))
+    expect(versionDocs.versions.find(row => row.version === "V3.2")).toEqual(expect.objectContaining({
+      title: "Data Audit & First Real Benchmark",
       relatedSection: "#methodology-algorithm-validation",
       status: "current",
     }))
@@ -402,12 +407,13 @@ describe("organic acid final screening", () => {
     expect(han.doi).toBe("10.1038/s41467-024-52550-9")
     expect(han.evidenceBoundary).toMatch(/does not reproduce the Li-S model/i)
     expect(han.evidenceBoundary).toMatch(/does not train XGBoost/i)
-    expect(versionDocs.currentVersion).toBe("V3.1")
+    expect(versionDocs.currentVersion).toBe("V3.2")
     expect(versionDocs.versions.find(row => row.version === "V2.6").status).toBe("completed")
     expect(versionDocs.versions.find(row => row.version === "V2.7").status).toBe("completed")
     expect(versionDocs.versions.find(row => row.version === "V2.8").status).toBe("completed")
     expect(versionDocs.versions.find(row => row.version === "V3.0").status).toBe("completed")
-    expect(versionDocs.versions.find(row => row.version === "V3.1").status).toBe("current")
+    expect(versionDocs.versions.find(row => row.version === "V3.1").status).toBe("completed")
+    expect(versionDocs.versions.find(row => row.version === "V3.2").status).toBe("current")
     expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
       ["V2.1", "planned"],
     ])

@@ -31,6 +31,8 @@ export const HASH_TO_TAB = {
   methodology: "about",
   "methodology-algorithm-validation": "about",
   "algval-figure": "about",
+  "algval-data-audit": "about",
+  "algval-first-benchmark": "about",
   "algval-database": "about",
   "algval-descriptor": "about",
   "algval-feature-selection": "about",

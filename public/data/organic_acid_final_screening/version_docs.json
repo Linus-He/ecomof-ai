@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06",
-  "currentVersion": "V3.1",
-  "completedRange": "V1.0-V3.1",
+  "currentVersion": "V3.2",
+  "completedRange": "V1.0-V3.2",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -2234,7 +2234,7 @@
       "title": "Reaction Data Expansion and Benchmark Readiness",
       "titleZh": "反应数据扩展与基准就绪",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Reaction data",
       "themeZh": "反应数据层",
       "summary": "Added reaction dataset, Gold v2, labels v2, benchmark v2, eligibility V2, leakage V2, and reaction-aware Organic Acid scoring hooks.",
@@ -2308,6 +2308,78 @@
         "adaptationBoundary": "Reaction data and benchmark scaffolding only; no supervised metric is claimed.",
         "adaptationBoundaryZh": "仅反应数据与 benchmark 脚手架；不声明监督模型指标。"
       }
+    },
+    {
+      "version": "V3.2",
+      "title": "Data Audit & First Real Benchmark",
+      "titleZh": "数据审计与首个真实 Benchmark",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Audit data truthfulness before the first benchmark",
+      "themeZh": "在首个 benchmark 前审计数据真实性",
+      "summary": "Audits whether the V3.1 numbers (120 reaction / gold / verified metadata / labels / benchmark-eligible) are trustworthy and builds the first-real-benchmark framework. Gold Audit Pass Rate 100%, Leak Count 0, Invalid Ground Truth 0, 120 confirmed eligible; but labels are dataset-derived, so Accuracy / ROC-AUC stay Pending.",
+      "summaryZh": "审计 V3.1 的 120 条 reaction / gold / verified metadata / label / benchmark-eligible 是否可信，并建立首个真实 benchmark 框架。Gold 审计通过率 100%、泄漏 0、无效 ground truth 0、确认 eligible 120；但标签为 dataset-derived，因此 Accuracy / ROC-AUC 继续 Pending。",
+      "keyUpdates": [
+        "Data Audit Center: gold / label / benchmark-eligibility / reaction / provenance / leakage audits.",
+        "Train/Test split builder (70/15/15, catalyst-group-aware) and dataLeakageCheckV3.",
+        "Accuracy Gate + ROC Gate: metrics only with real experimental labels, real split, zero leakage.",
+        "First Real Benchmark Dashboard and benchmark_report_v1.json."
+      ],
+      "keyUpdatesZh": [
+        "数据审计中心：gold / label / benchmark-eligibility / reaction / provenance / leakage 审计。",
+        "训练/测试切分器（70/15/15，按催化剂分组）与 dataLeakageCheckV3。",
+        "Accuracy Gate + ROC Gate：仅在真实实验标签、真实切分、零泄漏时显示指标。",
+        "首个真实 Benchmark 仪表板与 benchmark_report_v1.json。"
+      ],
+      "algorithmChanges": [
+        "No ML training; hard gates keep Accuracy/ROC Pending unless real experimental labels exist."
+      ],
+      "algorithmChangesZh": [
+        "未训练 ML；硬门控保证在无真实实验标签时 Accuracy/ROC 保持 Pending。"
+      ],
+      "uiChanges": [
+        "Algorithm Validation Center adds Data Audit Center + First Real Benchmark Dashboard; figure Future ML audit items; EcoScreen audit filters; Research Reports Benchmark Audit Summary."
+      ],
+      "uiChangesZh": [
+        "算法验证中心新增数据审计中心与首个真实 Benchmark 仪表板；主图 Future ML 审计项；EcoScreen 审计筛选；研究报告基准审计摘要。"
+      ],
+      "methodologyChanges": [
+        "From Benchmark Ready to First Real Benchmark Ready: data truthfulness, label provenance, and leakage are audited before any metric is shown."
+      ],
+      "methodologyChangesZh": [
+        "从 Benchmark Ready 进入 First Real Benchmark Ready：在显示任何指标前审计数据真实性、标签溯源与泄漏。"
+      ],
+      "evidenceBoundary": "Audit-only. Labels are dataset-derived, not independently measured; Accuracy / ROC-AUC stay Pending and nothing is fabricated.",
+      "evidenceBoundaryZh": "仅审计。标签为 dataset-derived，非独立测量；Accuracy / ROC-AUC 继续 Pending，不伪造任何指标。",
+      "limitations": [
+        "Labels are dataset-derived, not experimental.",
+        "External test data may be insufficient.",
+        "No ML model trained."
+      ],
+      "limitationsZh": [
+        "标签为 dataset-derived，非实验测量。",
+        "external test 数据可能不足。",
+        "未训练 ML 模型。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "data-audit-center",
+          "gold-dataset-audit",
+          "label-audit",
+          "benchmark-eligibility-audit",
+          "data-leakage-v3",
+          "train-test-split",
+          "accuracy-gate",
+          "roc-gate",
+          "first-real-benchmark"
+        ],
+        "literatureIds": [
+          "LIT-SU-2025-MOF-BORYLATION"
+        ],
+        "adaptationBoundary": "Audit framework only; no model trained, no metric fabricated.",
+        "adaptationBoundaryZh": "仅审计框架；不训练模型，不伪造指标。"
+      },
+      "relatedSection": "#methodology-algorithm-validation"
     }
   ],
   "roadmap": [

@@ -165,8 +165,8 @@ function FigureInspector({ node, algorithm, readiness, lang, t, onJumpToSection 
   )
 }
 
-export function InteractiveScientificFigure({ summary = {}, algorithm = {}, dataFoundation = null, lang, t, isMobile, onJumpToSection }) {
-  const { nodes, readiness } = useMemo(() => buildFigureModel({ summary, algorithm, dataFoundation }), [summary, algorithm, dataFoundation])
+export function InteractiveScientificFigure({ summary = {}, algorithm = {}, dataFoundation = null, dataAudit = null, lang, t, isMobile, onJumpToSection }) {
+  const { nodes, readiness } = useMemo(() => buildFigureModel({ summary, algorithm, dataFoundation, dataAudit }), [summary, algorithm, dataFoundation, dataAudit])
   const [selectedId, setSelectedId] = useState(nodes[0]?.id || "database")
   const [statusFilter, setStatusFilter] = useState("all")
   const selected = nodes.find(node => node.id === selectedId) || nodes[0]

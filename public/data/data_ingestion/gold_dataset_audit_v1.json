@@ -1,0 +1,17 @@
+{
+  "version": "v3.2",
+  "generatedAt": "2026-06-18",
+  "generator": "scripts/build-v3-2-data-audit.mjs",
+  "auditId": "gold-dataset-audit",
+  "sampleSize": 100,
+  "populationSize": 120,
+  "passCount": 100,
+  "failCount": 0,
+  "auditPassRate": 1,
+  "auditFailRate": 0,
+  "missingFields": {
+    "sourceUrl": 8
+  },
+  "criticalIssues": [],
+  "status": "Pass"
+}

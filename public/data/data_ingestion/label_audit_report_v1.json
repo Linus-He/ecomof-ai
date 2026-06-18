@@ -1,0 +1,23 @@
+{
+  "version": "v3.2",
+  "generatedAt": "2026-06-18",
+  "generator": "scripts/build-v3-2-data-audit.mjs",
+  "auditId": "label-audit",
+  "total": 120,
+  "labelSourceDistribution": {
+    "experimental": 0,
+    "literature": 0,
+    "expert_review": 0,
+    "dataset_derived": 120,
+    "algorithm_generated": 0,
+    "other": 0
+  },
+  "realExperimentalLabelCount": 0,
+  "literatureLabelCount": 0,
+  "expertReviewLabelCount": 0,
+  "datasetDerivedCount": 120,
+  "algorithmGeneratedCount": 0,
+  "invalidGroundTruthCount": 0,
+  "status": "Warning",
+  "note": "Labels exist and are not algorithm-generated, but none are independently-measured experimental labels yet (dataset-derived). Accuracy / ROC stay Pending until real experimental labels are available."
+}

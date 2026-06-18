@@ -103,9 +103,10 @@ export const FIGURE_MINI_CHARTS = [
 
 // ---- Figure node model ----
 
-export function buildFigureModel({ summary = {}, algorithm = {}, dataFoundation = null } = {}) {
+export function buildFigureModel({ summary = {}, algorithm = {}, dataFoundation = null, dataAudit = null } = {}) {
   const readiness = buildBenchmarkReadiness({ summary, algorithm })
   const df = dataFoundation || null
+  const audit = dataAudit || null
   const labelCount = Number(df ? df.labelCount : readiness.experimentalLabels ?? 0) || 0
   const sanityPassed = Boolean(algorithm?.sanityCheck?.passed)
   const topStable = Boolean(algorithm?.sensitivitySummary?.topCandidateStability)
@@ -291,6 +292,11 @@ export function buildFigureModel({ summary = {}, algorithm = {}, dataFoundation 
           { label: `Label Readiness · ${df.readiness.label}`, tone: df.readiness.label === "Ready" ? "pass" : "warn" },
           { label: `Data Quality Readiness · ${df.readiness.dataQuality}`, tone: df.readiness.dataQuality === "Ready" ? "pass" : "warn" },
           { label: `External Gap · ${df.gaps?.externalTest ?? "pending"}`, tone: df.gaps?.externalTest ? "warn" : "pass" },
+        ] : []),
+        ...(audit ? [
+          { label: `Benchmark Audit · ${audit.audits.benchmarkEligibility.status}`, tone: audit.audits.benchmarkEligibility.status === "Pass" ? "pass" : "warn" },
+          { label: `Label Audit · ${audit.audits.label.status}`, tone: audit.audits.label.status === "Pass" ? "pass" : "warn" },
+          { label: `Leakage Audit · ${audit.audits.leakage.leakCount} leaks`, tone: audit.audits.leakage.leakCount === 0 ? "pass" : "warn" },
         ] : []),
         { label: labelCount > 0 ? "Partially Ready" : "Not Ready · labels required", tone: "warn" },
       ],

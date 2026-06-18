@@ -116,6 +116,28 @@ export function DataQualitySummary({ summary: injectedSummary, records: injected
         ))}
         <BasisBadge tone="info">{text(lang, `当前可用记录 ${visibleCount}`, `${visibleCount} records in view`)}</BasisBadge>
       </div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+        <button
+          type="button"
+          data-testid="data-quality-filter-benchmark_eligible_only"
+          aria-pressed={filter === "benchmark_eligible_only"}
+          onClick={() => setFilter("benchmark_eligible_only")}
+          style={{ background: filter === "benchmark_eligible_only" ? t.badgeInfoBg : t.surface, border: `1px solid ${filter === "benchmark_eligible_only" ? t.accent : t.border}`, borderRadius: 7, color: filter === "benchmark_eligible_only" ? t.accentText : t.muted, cursor: "pointer", fontSize: 11.5, fontWeight: 850, minHeight: 30, padding: "5px 10px" }}
+        >
+          {text(lang, "仅 Benchmark Eligible", "Benchmark Eligible Only")}
+        </button>
+        <button
+          type="button"
+          data-testid="data-quality-filter-audit_passed_only"
+          aria-pressed={filter === "audit_passed_only"}
+          onClick={() => setFilter("audit_passed_only")}
+          style={{ background: filter === "audit_passed_only" ? t.badgeInfoBg : t.surface, border: `1px solid ${filter === "audit_passed_only" ? t.accent : t.border}`, borderRadius: 7, color: filter === "audit_passed_only" ? t.accentText : t.muted, cursor: "pointer", fontSize: 11.5, fontWeight: 850, minHeight: 30, padding: "5px 10px" }}
+        >
+          {text(lang, "仅审计通过", "Audit Passed Only")}
+        </button>
+        {filter === "benchmark_eligible_only" ? <BasisBadge tone="calc">{`${summary.benchmarkEligibleCount || 0} benchmark eligible`}</BasisBadge> : null}
+        {filter === "audit_passed_only" ? <BasisBadge tone="calc">{`${distribution.Gold || 0} audit passed`}</BasisBadge> : null}
+      </div>
     </section>
   )
 }

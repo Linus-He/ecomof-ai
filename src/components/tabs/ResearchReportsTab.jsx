@@ -16,6 +16,7 @@ import { generateResearchReport, REPORT_TYPES } from "../../utils/researchReport
 import { runLocalizationAudit, terminologyPairs } from "../../utils/localizationAudit"
 import { runOrganicAcidFinalScreening } from "../../utils/organicAcidFinalScreening"
 import { summarizeDataFoundation } from "../../utils/dataFoundation"
+import { runDataAudit } from "../../utils/dataAudit/index.js"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -237,6 +238,7 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
   const [versionData, setVersionData] = useState(providedVersionData)
   const [organicAcidResult, setOrganicAcidResult] = useState(providedOrganicAcidResult)
   const [dataFoundation, setDataFoundation] = useState(null)
+  const [dataAudit, setDataAudit] = useState(null)
   const [type, setType] = useState("candidate")
   const [candidateId, setCandidateId] = useState("")
 
@@ -275,6 +277,7 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
       setVersionData(nextVersionData || {})
       setOrganicAcidResult(runOrganicAcidFinalScreening(organicFrameworks || [], organicMetals || [], organicRules || {}, organicEvidence || [], { reactionDataset: reaction, goldDataset: gold, labelDataset: labels }))
       setDataFoundation(summarizeDataFoundation({ gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry }))
+      setDataAudit(runDataAudit({ gold, labels, benchmark, reaction, sampleSize: 100 }))
       setCandidateId(current => current || rows[0]?.candidateId || "")
     })
     return () => { active = false }
@@ -288,7 +291,8 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
     candidateId,
     organicAcidResult,
     dataFoundation,
-  }), [candidateId, records, summary, type, versionData, organicAcidResult, dataFoundation])
+    dataAudit,
+  }), [candidateId, records, summary, type, versionData, organicAcidResult, dataFoundation, dataAudit])
   const audit = useMemo(() => runLocalizationAudit({
     corpus: [
       report.markdown,

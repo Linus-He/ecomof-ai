@@ -1,0 +1,12 @@
+{
+  "version": "v3.2",
+  "generatedAt": "2026-06-18",
+  "generator": "scripts/build-v3-2-data-audit.mjs",
+  "auditId": "benchmark-eligibility-audit",
+  "claimed": 120,
+  "eligibleConfirmed": 120,
+  "eligibleRejected": 0,
+  "eligibleWarnings": 0,
+  "rejections": [],
+  "status": "Pass"
+}

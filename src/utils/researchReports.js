@@ -380,6 +380,7 @@ export function generateResearchReport({
   performancePriorityMode = "balanced",
   organicAcidResult = null,
   dataFoundation = null,
+  dataAudit = null,
 } = {}) {
   if (type === "organic_acid") {
     return buildOrganicAcidReport({ organicAcidResult, versionData, timestamp, dataFoundation })
@@ -422,6 +423,15 @@ export function generateResearchReport({
       title: "Benchmark Progress",
       subtitle: "基准数据进展",
       body: `Label Count ${dataFoundation.labelCount} / Target ${dataFoundation.targets?.labelCount || 30} / Gap ${dataFoundation.gaps?.labelCount || 0}；Benchmark Eligible ${dataFoundation.benchmarkEligibleCount} / Target ${dataFoundation.targets?.benchmarkEligible || 30} / Gap ${dataFoundation.gaps?.benchmarkEligible || 0}；External Test ${dataFoundation.externalTestCount || 0} / Target ${dataFoundation.targets?.externalTest || 30} / Gap ${dataFoundation.gaps?.externalTest || 0}。${dataFoundation.futureMetrics?.reasonZh || "Accuracy / ROC-AUC 仍需实验标签与外部验证后才能显示。"}`,
+    })
+  }
+  if (dataAudit?.audits) {
+    const a = dataAudit.audits
+    const report = dataAudit.benchmarkReport || {}
+    sections.push({
+      title: "Benchmark Audit Summary",
+      subtitle: "基准审计摘要",
+      body: `Label Quality：experimental ${a.label.realExperimentalLabelCount} / dataset-derived ${a.label.datasetDerivedCount} / invalid ground truth ${a.label.invalidGroundTruthCount}。Benchmark Readiness：${report.overallStatus || "pending"}（confirmed eligible ${a.benchmarkEligibility.eligibleConfirmed}）。Leakage Status：${a.leakage.leakCount} leaks（severity ${a.leakage.leakSeverity}）。Gold Audit Pass Rate ${Math.round((a.gold.auditPassRate || 0) * 100)}%。Current Gap：${report.metricsAllowed ? "无，可合法显示 Accuracy / ROC-AUC" : "缺少真实实验标签，Accuracy / ROC-AUC 继续 Pending"}。`,
     })
   }
   const charts = buildReportCharts({ records: rows, summary, priorityMode: priority.modeId })

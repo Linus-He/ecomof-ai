@@ -40,9 +40,10 @@ describe("Validation center merge (V2.8)", () => {
   it("consolidates validation into one figure-driven center with a small set of layer sections", () => {
     renderCenter()
 
-    // Eight layer sections + the figure, instead of the ~17 cards across two labs.
+    // Figure-driven layer sections (incl. V3.2 Data Audit Center + First Real
+    // Benchmark), instead of the ~17 cards across the two retired labs.
     const layerIds = ALGORITHM_VALIDATION_DIRECTORY.children.filter(child => child.id.startsWith("algval-") && child.id !== "algval-figure")
-    expect(layerIds.length).toBe(8)
+    expect(layerIds.length).toBe(10)
     for (const child of layerIds) {
       expect(screen.getByTestId(child.id)).toBeInTheDocument()
     }

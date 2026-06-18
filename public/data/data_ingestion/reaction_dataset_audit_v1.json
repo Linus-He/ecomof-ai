@@ -1,0 +1,14 @@
+{
+  "version": "v3.2",
+  "generatedAt": "2026-06-18",
+  "generator": "scripts/build-v3-2-data-audit.mjs",
+  "auditId": "reaction-dataset-audit",
+  "total": 120,
+  "comparabilityDistribution": {
+    "Comparable": 120,
+    "PartiallyComparable": 0,
+    "NotComparable": 0
+  },
+  "comparableRate": 1,
+  "status": "Pass"
+}

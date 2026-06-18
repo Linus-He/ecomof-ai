@@ -22,6 +22,7 @@ import { AlgorithmValidationCenter, ALGORITHM_VALIDATION_DIRECTORY } from "../me
 import { ORGANIC_ACID_FINAL_DIRECTORY } from "../methodology/organic-acid-final/directory"
 import { runOrganicAcidFinalScreening } from "../../utils/organicAcidFinalScreening"
 import { summarizeDataFoundation } from "../../utils/dataFoundation"
+import { runDataAudit } from "../../utils/dataAudit/index.js"
 
 const OrganicAcidFinalMethodology = lazy(() =>
   import("../methodology/OrganicAcidFinalMethodology").then(module => ({ default: module.OrganicAcidFinalMethodology })),
@@ -290,6 +291,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
   const [modelValidationSummary, setModelValidationSummary] = useState(null)
   const [organicAcidResult, setOrganicAcidResult] = useState(null)
   const [dataFoundation, setDataFoundation] = useState(null)
+  const [dataAudit, setDataAudit] = useState(null)
   const [activeId, setActiveId] = useState("methodology-algorithm-validation")
 
   useEffect(() => {
@@ -316,6 +318,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
         setModelValidationSummary(previewSummary && typeof previewSummary === "object" ? previewSummary : null)
         setOrganicAcidResult(runOrganicAcidFinalScreening(organicFrameworks || [], organicMetals || [], organicRules || {}, organicEvidence || [], { reactionDataset: reaction, goldDataset: gold, labelDataset: labels }))
         setDataFoundation(summarizeDataFoundation({ gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry }))
+        setDataAudit(runDataAudit({ gold, labels, benchmark, reaction, sampleSize: 100 }))
       })
       .catch(() => {
         if (active) {
@@ -323,6 +326,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
           setModelValidationSummary(null)
           setOrganicAcidResult(null)
           setDataFoundation(null)
+          setDataAudit(null)
         }
       })
     return () => { active = false }
@@ -427,6 +431,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
             summary={modelValidationSummary || {}}
             organicAcidResult={organicAcidResult}
             dataFoundation={dataFoundation}
+            dataAudit={dataAudit}
             lang={lang}
             t={t}
             isMobile={isMobile || isNarrow}

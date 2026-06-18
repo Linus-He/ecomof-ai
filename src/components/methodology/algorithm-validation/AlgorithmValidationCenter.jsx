@@ -29,6 +29,8 @@ export const ALGORITHM_VALIDATION_DIRECTORY = {
   display: "算法验证中心",
   children: [
     { id: "algval-figure", label: "Interactive Scientific Figure", labelZh: "交互式科研主图" },
+    { id: "algval-data-audit", label: "Data Audit Center", labelZh: "数据审计中心" },
+    { id: "algval-first-benchmark", label: "First Real Benchmark", labelZh: "首个真实 Benchmark" },
     { id: "algval-database", label: "Database Layer", labelZh: "数据库层" },
     { id: "algval-descriptor", label: "Descriptor Layer", labelZh: "描述符层" },
     { id: "algval-feature-selection", label: "Feature Selection Explorer", labelZh: "特征选择探索器" },
@@ -400,7 +402,91 @@ function ExperimentalValidationLayer({ lang, t, isMobile }) {
   )
 }
 
-export function AlgorithmValidationCenter({ summary = {}, organicAcidResult = null, dataFoundation = null, lang, t, isMobile }) {
+const AUDIT_TONE = { Pass: "calc", Warning: "warn", Fail: "warn" }
+
+function AuditCard({ title, status, lines, t }) {
+  return (
+    <article style={{ background: t.surface, border: `1px solid ${status === "Fail" ? t.warn : t.border}`, borderRadius: 9, display: "grid", gap: 6, padding: 10 }}>
+      <div style={{ alignItems: "center", display: "flex", gap: 8, justifyContent: "space-between" }}>
+        <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{title}</strong>
+        <BasisBadge tone={AUDIT_TONE[status] || "warn"}>{status}</BasisBadge>
+      </div>
+      {lines.map(line => <span key={line} style={{ color: t.muted, fontSize: 11.3, lineHeight: 1.45 }}>{line}</span>)}
+    </article>
+  )
+}
+
+function DataAuditCenter({ dataAudit, lang, t, isMobile }) {
+  if (!dataAudit) return null
+  const a = dataAudit.audits
+  const cards = [
+    { title: text(lang, "Gold Dataset Audit", "Gold Dataset Audit"), status: a.gold.status, lines: [`Pass rate ${Math.round(a.gold.auditPassRate * 100)}% / ${a.gold.sampleSize} sampled`, `Fail ${a.gold.failCount}`] },
+    { title: text(lang, "Label Audit", "Label Audit"), status: a.label.status, lines: [`Experimental ${a.label.realExperimentalLabelCount} · Dataset-derived ${a.label.datasetDerivedCount}`, `Invalid ground truth ${a.label.invalidGroundTruthCount}`] },
+    { title: text(lang, "Benchmark Eligibility Audit", "Benchmark Eligibility Audit"), status: a.benchmarkEligibility.status, lines: [`Confirmed ${a.benchmarkEligibility.eligibleConfirmed}`, `Rejected ${a.benchmarkEligibility.eligibleRejected} · Warnings ${a.benchmarkEligibility.eligibleWarnings}`] },
+    { title: text(lang, "Reaction Audit", "Reaction Audit"), status: a.reaction.status, lines: [`Comparable ${a.reaction.comparabilityDistribution.Comparable}`, `Partial ${a.reaction.comparabilityDistribution.PartiallyComparable} · Not ${a.reaction.comparabilityDistribution.NotComparable}`] },
+    { title: text(lang, "Provenance Audit", "Provenance Audit"), status: a.provenance.status, lines: [`Coverage ${Math.round(a.provenance.provenanceCoverageScore * 100)}%`, `DOI ${Math.round(a.provenance.doiCoverage * 100)}% · Citation ${Math.round(a.provenance.citationCoverage * 100)}%`] },
+    { title: text(lang, "Data Leakage Audit", "Data Leakage Audit"), status: a.leakage.status, lines: [`Leak count ${a.leakage.leakCount} · severity ${a.leakage.leakSeverity}`, `Shared-DOI warnings ${a.leakage.sharedDoiWarnings?.length || 0}`] },
+  ]
+  return (
+    <LayerCard
+      id="algval-data-audit"
+      status={dataAudit.overallStatus}
+      eyebrow="Data Audit Center"
+      title={text(lang, "数据审计中心", "Data Audit Center")}
+      subtitle={text(lang, "审计 Gold / Label / Benchmark / Reaction / Provenance / Leakage，输出 Pass / Warning / Fail。", "Audits Gold / Label / Benchmark / Reaction / Provenance / Leakage and outputs Pass / Warning / Fail.")}
+      t={t}
+    >
+      <div data-testid="audit-dashboard" style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))" }}>
+        {cards.map(card => <AuditCard key={card.title} {...card} t={t} />)}
+      </div>
+    </LayerCard>
+  )
+}
+
+function FirstBenchmarkDashboard({ dataAudit, lang, t, isMobile }) {
+  if (!dataAudit?.benchmarkReport) return null
+  const report = dataAudit.benchmarkReport
+  const a = dataAudit.audits
+  const blocked = report.overallStatus === "Benchmark Blocked"
+  const reasons = report.accuracyGate?.reasons || []
+  return (
+    <LayerCard
+      id="algval-first-benchmark"
+      status={blocked ? "blocked" : report.metricsAllowed ? "passed" : "warning"}
+      eyebrow="First Real Benchmark Dashboard"
+      title={text(lang, "首个真实 Benchmark 仪表板", "First Real Benchmark Dashboard")}
+      subtitle={text(lang, "展示当前 Benchmark 状态、审计状态、泄漏状态与标签状态；Accuracy / ROC 仅在合法时显示，否则 Pending。", "Shows current benchmark status, audit status, leakage status, and label status; Accuracy / ROC display only when legitimate, otherwise Pending.")}
+      t={t}
+    >
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        <BasisBadge tone={blocked ? "warn" : report.metricsAllowed ? "calc" : "warn"}>{report.overallStatus}</BasisBadge>
+        <BasisBadge tone="warn">Accuracy: {report.models?.[0]?.accuracy ?? "Pending"}</BasisBadge>
+        <BasisBadge tone="warn">ROC-AUC: {report.models?.[0]?.rocAuc ?? "Pending"}</BasisBadge>
+      </div>
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
+        <Metric label="Current Benchmark Status" value={report.runnable ? "Runnable" : "Blocked"} t={t} tone={report.runnable ? "pass" : "warn"} />
+        <Metric label="Audit Status" value={dataAudit.overallStatus} t={t} tone={dataAudit.overallStatus === "Pass" ? "pass" : "warn"} />
+        <Metric label="Leakage Status" value={`${a.leakage.leakCount} leaks`} t={t} tone={a.leakage.leakCount === 0 ? "pass" : "warn"} />
+        <Metric label="Label Status" value={a.label.realExperimentalLabelCount > 0 ? "Experimental" : "Dataset-derived"} t={t} tone={a.label.realExperimentalLabelCount > 0 ? "pass" : "warn"} />
+      </div>
+      <div style={{ display: "grid", gap: 7 }}>
+        {(report.models || []).map(row => (
+          <div key={row.model} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 4, gridTemplateColumns: isMobile ? "1fr" : "minmax(150px, 0.4fr) minmax(0, 0.6fr)", padding: 9 }}>
+            <strong style={{ color: t.textStrong, fontSize: 12.3 }}>{row.model}</strong>
+            <span style={{ color: t.warn, fontSize: 11.4, lineHeight: 1.4 }}>{row.status} · Accuracy {row.accuracy ?? "Pending"} · ROC-AUC {row.rocAuc ?? "Pending"} · train {row.trainSize} / test {row.testSize}</span>
+          </div>
+        ))}
+      </div>
+      {reasons.length ? (
+        <div data-testid="benchmark-pending-reasons" style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 8, color: t.warn, fontSize: 11.6, fontWeight: 780, lineHeight: 1.5, padding: 10 }}>
+          {text(lang, "为什么不能合法展示 Accuracy / ROC：", "Why Accuracy / ROC cannot be shown yet: ")}{reasons.join(" ")}
+        </div>
+      ) : null}
+    </LayerCard>
+  )
+}
+
+export function AlgorithmValidationCenter({ summary = {}, organicAcidResult = null, dataFoundation = null, dataAudit = null, lang, t, isMobile }) {
   const algorithm = organicAcidResult?.organicAcidAlgorithm || organicAcidResult || {}
   const safeSummary = summary && typeof summary === "object" ? summary : {}
   const readiness = useMemo(() => buildBenchmarkReadiness({ summary: safeSummary, algorithm }), [safeSummary, algorithm])
@@ -430,7 +516,10 @@ export function AlgorithmValidationCenter({ summary = {}, organicAcidResult = nu
         </div>
       ) : null}
 
-      <InteractiveScientificFigure summary={safeSummary} algorithm={algorithm} dataFoundation={dataFoundation} lang={lang} t={t} isMobile={isMobile} onJumpToSection={jumpToSection} />
+      <InteractiveScientificFigure summary={safeSummary} algorithm={algorithm} dataFoundation={dataFoundation} dataAudit={dataAudit} lang={lang} t={t} isMobile={isMobile} onJumpToSection={jumpToSection} />
+
+      <DataAuditCenter dataAudit={dataAudit} lang={lang} t={t} isMobile={isMobile} />
+      <FirstBenchmarkDashboard dataAudit={dataAudit} lang={lang} t={t} isMobile={isMobile} />
 
       <DatabaseLayer summary={safeSummary} readiness={readiness} dataFoundation={dataFoundation} lang={lang} t={t} isMobile={isMobile} />
       <DescriptorLayer lang={lang} t={t} isMobile={isMobile} />
