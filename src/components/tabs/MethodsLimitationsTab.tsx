@@ -23,6 +23,7 @@ import { ORGANIC_ACID_FINAL_DIRECTORY } from "../methodology/organic-acid-final/
 import { runOrganicAcidFinalScreening } from "../../utils/organicAcidFinalScreening"
 import { summarizeDataFoundation } from "../../utils/dataFoundation"
 import { runDataAudit } from "../../utils/dataAudit/index.js"
+import { dataIngestionSummary } from "../../utils/dataIngestion/index.js"
 
 const OrganicAcidFinalMethodology = lazy(() =>
   import("../methodology/OrganicAcidFinalMethodology").then(module => ({ default: module.OrganicAcidFinalMethodology })),
@@ -292,6 +293,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
   const [organicAcidResult, setOrganicAcidResult] = useState(null)
   const [dataFoundation, setDataFoundation] = useState(null)
   const [dataAudit, setDataAudit] = useState(null)
+  const [dataIngestion, setDataIngestion] = useState(null)
   const [activeId, setActiveId] = useState("methodology-algorithm-validation")
 
   useEffect(() => {
@@ -311,14 +313,16 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
       fetchDataJson("data_ingestion/verified_metadata_expansion_report.json", null),
       fetchDataJson("data_ingestion/reaction_data_expansion_summary_v3_1.json", null),
       fetchDataJson("data_ingestion/source_registry.json", null),
+      fetchDataJson("data_ingestion/data_ingestion_summary_v3.json", null),
     ])
-      .then(([rows, previewSummary, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry]) => {
+      .then(([rows, previewSummary, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry, ingestionSummaryV3]) => {
         if (!active) return
         setModules(Array.isArray(rows) ? rows : [])
         setModelValidationSummary(previewSummary && typeof previewSummary === "object" ? previewSummary : null)
         setOrganicAcidResult(runOrganicAcidFinalScreening(organicFrameworks || [], organicMetals || [], organicRules || {}, organicEvidence || [], { reactionDataset: reaction, goldDataset: gold, labelDataset: labels }))
         setDataFoundation(summarizeDataFoundation({ gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry }))
         setDataAudit(runDataAudit({ gold, labels, benchmark, reaction, sampleSize: 100 }))
+        setDataIngestion(ingestionSummaryV3 && typeof ingestionSummaryV3 === "object" ? ingestionSummaryV3 : null)
       })
       .catch(() => {
         if (active) {
@@ -327,6 +331,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
           setOrganicAcidResult(null)
           setDataFoundation(null)
           setDataAudit(null)
+          setDataIngestion(null)
         }
       })
     return () => { active = false }
@@ -432,6 +437,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
             organicAcidResult={organicAcidResult}
             dataFoundation={dataFoundation}
             dataAudit={dataAudit}
+            dataIngestion={dataIngestion}
             lang={lang}
             t={t}
             isMobile={isMobile || isNarrow}

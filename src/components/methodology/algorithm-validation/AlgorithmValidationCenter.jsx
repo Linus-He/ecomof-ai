@@ -88,9 +88,15 @@ function ProvenanceChip({ field, label, source, lang, t }) {
   )
 }
 
-function DatabaseLayer({ summary, readiness, dataFoundation, lang, t, isMobile }) {
+function DatabaseLayer({ summary, readiness, dataFoundation, dataIngestion, lang, t, isMobile }) {
   const provenance = Number(summary.fieldProvenanceCoverage ?? summary.provenanceCoverage ?? readiness.fieldProvenanceCoverage ?? 1)
   const fields = ["totalCandidates", "verifiedMetadataCount", "provenanceCoverage", "previewStatus"]
+  const originCells = dataIngestion ? [
+    ["External Database", dataIngestion.externalDatabaseCount, dataIngestion.targets.coreMof + dataIngestion.targets.qmof],
+    ["Literature", dataIngestion.literatureCount, dataIngestion.targets.literature],
+    ["Experimental", dataIngestion.experimentalCount, 0],
+    ["Derived", dataIngestion.derivedCount, dataIngestion.targets.reactionDataset],
+  ] : []
   return (
     <LayerCard
       id="algval-database"
@@ -115,6 +121,19 @@ function DatabaseLayer({ summary, readiness, dataFoundation, lang, t, isMobile }
           <Metric label="Label Count" value={dataFoundation.labelCount} t={t} tone={dataFoundation.labelCount > 0 ? "pass" : "warn"} />
           <Metric label="Benchmark Eligible" value={dataFoundation.benchmarkEligibleCount} t={t} tone={dataFoundation.benchmarkEligibleCount > 0 ? "pass" : "warn"} />
           <Metric label="Current / Target / Gap" value={`${dataFoundation.labelCount} / ${dataFoundation.targets?.labelCount || 30} / ${dataFoundation.gaps?.labelCount || 0}`} t={t} tone={dataFoundation.gaps?.labelCount ? "warn" : "pass"} />
+        </div>
+      ) : null}
+      {dataIngestion ? (
+        <div data-testid="algval-data-source-stats" style={{ display: "grid", gap: 8 }}>
+          <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "数据来源（Current / Target / Gap）", "Data Source (Current / Target / Gap)")}</strong>
+          <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
+            {originCells.map(([label, current, target]) => (
+              <Metric key={label} label={label} value={`${current} / ${target} / ${Math.max(0, target - current)}`} t={t} tone={current >= target ? "pass" : "warn"} />
+            ))}
+          </div>
+          <span style={{ color: t.muted, fontSize: 11.3, lineHeight: 1.45 }}>
+            {text(lang, `总记录 ${dataIngestion.totalRecords}（外部数据库 + 文献，已排除 synthetic fixture）；Derived 与 Experimental 严格分离，Experimental Labels = ${dataIngestion.experimentalCount}。`, `Total ${dataIngestion.totalRecords} records (external database + literature; synthetic fixtures excluded). Derived and Experimental are strictly separated; Experimental Labels = ${dataIngestion.experimentalCount}.`)}
+          </span>
         </div>
       ) : null}
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
@@ -486,7 +505,7 @@ function FirstBenchmarkDashboard({ dataAudit, lang, t, isMobile }) {
   )
 }
 
-export function AlgorithmValidationCenter({ summary = {}, organicAcidResult = null, dataFoundation = null, dataAudit = null, lang, t, isMobile }) {
+export function AlgorithmValidationCenter({ summary = {}, organicAcidResult = null, dataFoundation = null, dataAudit = null, dataIngestion = null, lang, t, isMobile }) {
   const algorithm = organicAcidResult?.organicAcidAlgorithm || organicAcidResult || {}
   const safeSummary = summary && typeof summary === "object" ? summary : {}
   const readiness = useMemo(() => buildBenchmarkReadiness({ summary: safeSummary, algorithm }), [safeSummary, algorithm])
@@ -521,7 +540,7 @@ export function AlgorithmValidationCenter({ summary = {}, organicAcidResult = nu
       <DataAuditCenter dataAudit={dataAudit} lang={lang} t={t} isMobile={isMobile} />
       <FirstBenchmarkDashboard dataAudit={dataAudit} lang={lang} t={t} isMobile={isMobile} />
 
-      <DatabaseLayer summary={safeSummary} readiness={readiness} dataFoundation={dataFoundation} lang={lang} t={t} isMobile={isMobile} />
+      <DatabaseLayer summary={safeSummary} readiness={readiness} dataFoundation={dataFoundation} dataIngestion={dataIngestion} lang={lang} t={t} isMobile={isMobile} />
       <DescriptorLayer lang={lang} t={t} isMobile={isMobile} />
       <FeatureSelectionExplorer lang={lang} t={t} isMobile={isMobile} />
       <EvidenceStatisticalLayer lang={lang} t={t} isMobile={isMobile} />

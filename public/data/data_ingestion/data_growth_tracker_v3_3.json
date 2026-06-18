@@ -1,0 +1,41 @@
+{
+  "version": "v3.3",
+  "generatedAt": "2026-06-18",
+  "metrics": [
+    "records",
+    "gold",
+    "verified",
+    "reaction",
+    "labels"
+  ],
+  "series": {
+    "V3.0": {
+      "records": 122,
+      "gold": 50,
+      "verified": 30,
+      "reaction": 0,
+      "labels": 0
+    },
+    "V3.1": {
+      "records": 320,
+      "gold": 120,
+      "verified": 120,
+      "reaction": 120,
+      "labels": 120
+    },
+    "V3.2": {
+      "records": 320,
+      "gold": 120,
+      "verified": 120,
+      "reaction": 120,
+      "labels": 120
+    },
+    "V3.3": {
+      "records": 3020,
+      "gold": 320,
+      "verified": 2480,
+      "reaction": 520,
+      "labels": 1060
+    }
+  }
+}

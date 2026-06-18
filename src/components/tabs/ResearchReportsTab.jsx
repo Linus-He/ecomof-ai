@@ -17,6 +17,7 @@ import { runLocalizationAudit, terminologyPairs } from "../../utils/localization
 import { runOrganicAcidFinalScreening } from "../../utils/organicAcidFinalScreening"
 import { summarizeDataFoundation } from "../../utils/dataFoundation"
 import { runDataAudit } from "../../utils/dataAudit/index.js"
+import { dataIngestionSummary } from "../../utils/dataIngestion/index.js"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -239,6 +240,7 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
   const [organicAcidResult, setOrganicAcidResult] = useState(providedOrganicAcidResult)
   const [dataFoundation, setDataFoundation] = useState(null)
   const [dataAudit, setDataAudit] = useState(null)
+  const [dataIngestion, setDataIngestion] = useState(null)
   const [type, setType] = useState("candidate")
   const [candidateId, setCandidateId] = useState("")
 
@@ -269,7 +271,8 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
       fetchDataJson("data_ingestion/verified_metadata_expansion_report.json", null),
       fetchDataJson("data_ingestion/reaction_data_expansion_summary_v3_1.json", null),
       fetchDataJson("data_ingestion/source_registry.json", null),
-    ]).then(([nextRecords, nextSummary, nextVersionData, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry]) => {
+      fetchDataJson("data_ingestion/data_ingestion_summary_v3.json", null),
+    ]).then(([nextRecords, nextSummary, nextVersionData, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry, ingestionSummaryV3]) => {
       if (!active) return
       const rows = Array.isArray(nextRecords) ? nextRecords : []
       setRecords(rows)
@@ -278,6 +281,7 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
       setOrganicAcidResult(runOrganicAcidFinalScreening(organicFrameworks || [], organicMetals || [], organicRules || {}, organicEvidence || [], { reactionDataset: reaction, goldDataset: gold, labelDataset: labels }))
       setDataFoundation(summarizeDataFoundation({ gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry }))
       setDataAudit(runDataAudit({ gold, labels, benchmark, reaction, sampleSize: 100 }))
+      setDataIngestion(ingestionSummaryV3 && typeof ingestionSummaryV3 === "object" ? ingestionSummaryV3 : null)
       setCandidateId(current => current || rows[0]?.candidateId || "")
     })
     return () => { active = false }
@@ -292,7 +296,8 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
     organicAcidResult,
     dataFoundation,
     dataAudit,
-  }), [candidateId, records, summary, type, versionData, organicAcidResult, dataFoundation, dataAudit])
+    dataIngestion,
+  }), [candidateId, records, summary, type, versionData, organicAcidResult, dataFoundation, dataAudit, dataIngestion])
   const audit = useMemo(() => runLocalizationAudit({
     corpus: [
       report.markdown,

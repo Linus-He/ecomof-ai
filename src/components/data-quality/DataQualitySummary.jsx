@@ -6,6 +6,15 @@ import { useEffect, useMemo, useState } from "react"
 import { BasisBadge } from "../ui"
 import { fetchDataJson } from "../../services/dataService"
 import { summarizeDataFoundation } from "../../utils/dataFoundation"
+import { dataIngestionSummary } from "../../utils/dataIngestion/index.js"
+
+const ORIGIN_FILTERS = [
+  { id: "external_database", label: "External Database", labelZh: "外部数据库", key: "externalDatabaseCount" },
+  { id: "literature", label: "Literature", labelZh: "文献", key: "literatureCount" },
+  { id: "experimental", label: "Experimental", labelZh: "实验", key: "experimentalCount" },
+  { id: "derived", label: "Derived", labelZh: "派生", key: "derivedCount" },
+  { id: "verified_metadata_only", label: "Verified Metadata Only", labelZh: "仅 Verified Metadata", key: "verifiedMetadataCount" },
+]
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 const pct = value => (Number.isFinite(Number(value)) ? `${Math.round(Number(value) * 100)}%` : String(value ?? "pending"))
@@ -27,9 +36,10 @@ function Metric({ label, value, t, tone = "default" }) {
   )
 }
 
-export function DataQualitySummary({ summary: injectedSummary, records: injectedRecords, lang = "en", t, isMobile }) {
+export function DataQualitySummary({ summary: injectedSummary, records: injectedRecords, dataIngestion: injectedDataIngestion, lang = "en", t, isMobile }) {
   const [summary, setSummary] = useState(injectedSummary || null)
   const [records, setRecords] = useState(injectedRecords || null)
+  const [dataIngestion, setDataIngestion] = useState(injectedDataIngestion || null)
   const [filter, setFilter] = useState("exclude_rejected")
 
   useEffect(() => {
@@ -43,10 +53,12 @@ export function DataQualitySummary({ summary: injectedSummary, records: injected
       fetchDataJson("data_ingestion/organic_acid_reaction_dataset_v1.json", null),
       fetchDataJson("data_ingestion/verified_metadata_expansion_report.json", null),
       fetchDataJson("data_ingestion/reaction_data_expansion_summary_v3_1.json", null),
-    ]).then(([gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary]) => {
+      fetchDataJson("data_ingestion/data_ingestion_summary_v3.json", null),
+    ]).then(([gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, ingestionSummaryV3]) => {
       if (!active) return
       setSummary(summarizeDataFoundation({ gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary }))
       setRecords(Array.isArray(literature?.records) ? literature.records : [])
+      if (ingestionSummaryV3 && typeof ingestionSummaryV3 === "object") setDataIngestion(ingestionSummaryV3)
     }).catch(() => { if (active) { setSummary(null); setRecords([]) } })
     return () => { active = false }
   }, [injectedSummary, injectedRecords])
@@ -138,6 +150,39 @@ export function DataQualitySummary({ summary: injectedSummary, records: injected
         {filter === "benchmark_eligible_only" ? <BasisBadge tone="calc">{`${summary.benchmarkEligibleCount || 0} benchmark eligible`}</BasisBadge> : null}
         {filter === "audit_passed_only" ? <BasisBadge tone="calc">{`${distribution.Gold || 0} audit passed`}</BasisBadge> : null}
       </div>
+      {dataIngestion ? (
+        <div data-testid="data-source-breakdown" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 8, padding: 10 }}>
+          <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "数据来源筛选", "Data Source Filter")}</strong>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+            {ORIGIN_FILTERS.map(item => (
+              <button
+                key={item.id}
+                type="button"
+                data-testid={`data-source-filter-${item.id}`}
+                aria-pressed={filter === item.id}
+                onClick={() => setFilter(item.id)}
+                style={{ background: filter === item.id ? t.badgeInfoBg : t.panel, border: `1px solid ${filter === item.id ? t.accent : t.border}`, borderRadius: 7, color: filter === item.id ? t.accentText : t.muted, cursor: "pointer", fontSize: 11.3, fontWeight: 850, minHeight: 28, padding: "4px 9px" }}
+              >
+                {text(lang, item.labelZh, item.label)} {dataIngestion[item.key] ?? 0}
+              </button>
+            ))}
+          </div>
+          <span style={{ color: t.muted, fontSize: 11.3, lineHeight: 1.45 }}>
+            {text(lang, `Breakdown：External ${Math.round(dataIngestion.breakdown.externalDatabase * 100)}% · Literature ${Math.round(dataIngestion.breakdown.literature * 100)}% · Experimental ${Math.round(dataIngestion.breakdown.experimental * 100)}% · Derived ${Math.round(dataIngestion.breakdown.derived * 100)}%`, `Breakdown: External ${Math.round(dataIngestion.breakdown.externalDatabase * 100)}% · Literature ${Math.round(dataIngestion.breakdown.literature * 100)}% · Experimental ${Math.round(dataIngestion.breakdown.experimental * 100)}% · Derived ${Math.round(dataIngestion.breakdown.derived * 100)}%`)}
+          </span>
+        </div>
+      ) : null}
+      {dataIngestion?.growth?.series ? (
+        <div data-testid="data-growth-tracker" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 6, padding: 10 }}>
+          <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "数据增长追踪 V3.0 → V3.3", "Growth Tracker V3.0 → V3.3")}</strong>
+          <div style={{ display: "grid", gap: 6 }}>
+            {["V3.0", "V3.1", "V3.2", "V3.3"].map(v => {
+              const s = dataIngestion.growth.series[v] || {}
+              return <span key={v} style={{ color: t.muted, fontSize: 11.2, lineHeight: 1.4 }}>{`${v}: records ${s.records ?? 0} · gold ${s.gold ?? 0} · verified ${s.verified ?? 0} · reaction ${s.reaction ?? 0} · labels ${s.labels ?? 0}`}</span>
+            })}
+          </div>
+        </div>
+      ) : null}
     </section>
   )
 }

@@ -1,0 +1,12 @@
+{
+  "version": "v3.3",
+  "generatedAt": "2026-06-18",
+  "verifiedCount": 2480,
+  "target": 500,
+  "sufficient": true,
+  "sources": {
+    "coreMof": 1240,
+    "qmof": 1240
+  },
+  "note": "Verified metadata = external-database records with confirmed real DOI + citation; standard unchanged from V3.0."
+}

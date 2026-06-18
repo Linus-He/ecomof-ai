@@ -1,0 +1,145 @@
+{
+  "version": "V3.3",
+  "totalRecords": 3020,
+  "totalRealRecords": 3020,
+  "externalDatabaseCount": 2480,
+  "coreCount": 1240,
+  "qmofCount": 1240,
+  "literatureCount": 540,
+  "experimentalCount": 0,
+  "derivedCount": 520,
+  "verifiedMetadataCount": 2480,
+  "goldCount": 320,
+  "reactionCount": 520,
+  "benchmarkCount": 520,
+  "originAudit": {
+    "auditId": "dataset-origin-audit",
+    "total": 3540,
+    "counts": {
+      "external_database": 2480,
+      "literature_curated": 540,
+      "experimental": 0,
+      "expert_review": 0,
+      "derived_dataset": 520,
+      "synthetic_fixture": 0
+    },
+    "externalDatabase": 2480,
+    "literature": 540,
+    "experimental": 0,
+    "expert": 0,
+    "derived": 520,
+    "synthetic": 0,
+    "realData": 3020,
+    "realDataShare": 0.853,
+    "derivedShare": 0.147,
+    "experimentalShare": 0,
+    "missingOrigin": 0,
+    "derivedIsolated": true,
+    "status": "Pass"
+  },
+  "breakdown": {
+    "externalDatabase": 0.821,
+    "literature": 0.179,
+    "experimental": 0,
+    "derived": 0.172
+  },
+  "targets": {
+    "total": 3000,
+    "totalMin": 2000,
+    "coreMof": 1200,
+    "qmof": 1200,
+    "literature": 500,
+    "verifiedMetadata": 500,
+    "goldDataset": 300,
+    "reactionDataset": 500,
+    "benchmarkDataset": 500
+  },
+  "stats": {
+    "total": {
+      "current": 3020,
+      "target": 3000,
+      "gap": 0
+    },
+    "coreMof": {
+      "current": 1240,
+      "target": 1200,
+      "gap": 0
+    },
+    "qmof": {
+      "current": 1240,
+      "target": 1200,
+      "gap": 0
+    },
+    "literature": {
+      "current": 540,
+      "target": 500,
+      "gap": 0
+    },
+    "verifiedMetadata": {
+      "current": 2480,
+      "target": 500,
+      "gap": 0
+    },
+    "goldDataset": {
+      "current": 320,
+      "target": 300,
+      "gap": 0
+    },
+    "reactionDataset": {
+      "current": 520,
+      "target": 500,
+      "gap": 0
+    }
+  },
+  "acceptance": {
+    "totalMin": true,
+    "total": true,
+    "coreMof": true,
+    "qmof": true,
+    "literature": true,
+    "verifiedMetadata": true,
+    "goldDataset": true,
+    "reactionDataset": true
+  },
+  "growth": {
+    "version": "v3.3",
+    "generatedAt": "2026-06-18",
+    "metrics": [
+      "records",
+      "gold",
+      "verified",
+      "reaction",
+      "labels"
+    ],
+    "series": {
+      "V3.0": {
+        "records": 122,
+        "gold": 50,
+        "verified": 30,
+        "reaction": 0,
+        "labels": 0
+      },
+      "V3.1": {
+        "records": 320,
+        "gold": 120,
+        "verified": 120,
+        "reaction": 120,
+        "labels": 120
+      },
+      "V3.2": {
+        "records": 320,
+        "gold": 120,
+        "verified": 120,
+        "reaction": 120,
+        "labels": 120
+      },
+      "V3.3": {
+        "records": 3020,
+        "gold": 320,
+        "verified": 2480,
+        "reaction": 520,
+        "labels": 1060
+      }
+    }
+  }
+}

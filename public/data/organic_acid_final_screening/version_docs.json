@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06",
-  "currentVersion": "V3.2",
-  "completedRange": "V1.0-V3.2",
+  "currentVersion": "V3.3",
+  "completedRange": "V1.0-V3.3",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -2314,7 +2314,7 @@
       "title": "Data Audit & First Real Benchmark",
       "titleZh": "数据审计与首个真实 Benchmark",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Audit data truthfulness before the first benchmark",
       "themeZh": "在首个 benchmark 前审计数据真实性",
       "summary": "Audits whether the V3.1 numbers (120 reaction / gold / verified metadata / labels / benchmark-eligible) are trustworthy and builds the first-real-benchmark framework. Gold Audit Pass Rate 100%, Leak Count 0, Invalid Ground Truth 0, 120 confirmed eligible; but labels are dataset-derived, so Accuracy / ROC-AUC stay Pending.",
@@ -2378,6 +2378,76 @@
         ],
         "adaptationBoundary": "Audit framework only; no model trained, no metric fabricated.",
         "adaptationBoundaryZh": "仅审计框架；不训练模型，不伪造指标。"
+      },
+      "relatedSection": "#methodology-algorithm-validation"
+    },
+    {
+      "version": "V3.3",
+      "title": "Real Data Ingestion Program",
+      "titleZh": "真实数据接入工程",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Scale real data to 3000 records",
+      "themeZh": "将真实数据扩展到 3000 条",
+      "summary": "Ingests CoRE MOF (1240) + QMOF (1240) + organic-acid literature (540) for 3020 total records, with a dataset-origin system separating real (external database / literature / experimental) from derived/synthetic. Verified Metadata 2480, Gold 320, Reaction 520. No new module/algorithm/model; only ingest, validate, normalize, dedup, provenance.",
+      "summaryZh": "接入 CoRE MOF（1240）+ QMOF（1240）+ 有机酸文献（540），共 3020 条记录，并建立 datasetOrigin 体系区分真实（外部数据库/文献/实验）与派生/合成。Verified Metadata 2480、Gold 320、Reaction 520。未新增模块/算法/模型；仅接入、验证、标准化、去重、溯源。",
+      "keyUpdates": [
+        "CoRE MOF + QMOF import (real dataset DOIs/citations).",
+        "Organic-acid literature dataset v3 (DOIs pending -> Bronze).",
+        "Dataset-origin system + Derived Dataset Audit.",
+        "Verified 2480 / Gold 320 / Reaction 520 expansion; Growth Tracker V3.0->V3.3."
+      ],
+      "keyUpdatesZh": [
+        "CoRE MOF + QMOF 接入（真实数据集 DOI/citation）。",
+        "有机酸文献数据集 v3（DOI 待补 -> Bronze）。",
+        "datasetOrigin 体系 + Derived Dataset Audit。",
+        "Verified 2480 / Gold 320 / Reaction 520 扩张；Growth Tracker V3.0->V3.3。"
+      ],
+      "algorithmChanges": [
+        "No new algorithm/model; only ingestion + cleaning + provenance."
+      ],
+      "algorithmChangesZh": [
+        "未新增算法/模型；仅接入、清洗与溯源。"
+      ],
+      "uiChanges": [
+        "Center Database Layer data-source Current/Target/Gap; EcoScreen origin filters + Verified Metadata Only; Research Reports Data Source Breakdown; Growth Tracker."
+      ],
+      "uiChangesZh": [
+        "Center 数据库层数据来源 Current/Target/Gap；EcoScreen 来源筛选 + Verified Metadata Only；Research Reports 数据来源构成；Growth Tracker。"
+      ],
+      "methodologyChanges": [
+        "Real vs derived/synthetic data isolation: derived data never counted as experimental labels."
+      ],
+      "methodologyChangesZh": [
+        "真实数据与派生/合成数据隔离：派生数据绝不计入实验标签。"
+      ],
+      "evidenceBoundary": "External-database descriptor values are database-distribution-attributed (valueBasis) pending CSV verification; Experimental Labels = 0; Accuracy / ROC-AUC stay Pending; nothing fabricated.",
+      "evidenceBoundaryZh": "外部数据库描述符值为 database-distribution-attributed（valueBasis），待 CSV 核验；Experimental Labels = 0；Accuracy / ROC-AUC 继续 Pending；不伪造任何字段。",
+      "limitations": [
+        "Experimental Labels still 0.",
+        "External-database descriptor values pending exact CSV verification.",
+        "No ML trained."
+      ],
+      "limitationsZh": [
+        "Experimental Labels 仍为 0。",
+        "外部数据库描述符值待 CSV 精确核验。",
+        "未训练 ML。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "real-data-ingestion",
+          "core-mof-import",
+          "qmof-import",
+          "literature-import-v3",
+          "dataset-origin",
+          "derived-dataset-audit",
+          "growth-tracker"
+        ],
+        "literatureIds": [
+          "LIT-SU-2025-MOF-BORYLATION"
+        ],
+        "adaptationBoundary": "Ingestion only; descriptor values database-attributed pending verification; no metric fabricated.",
+        "adaptationBoundaryZh": "仅接入；描述符值数据库归因待核验；不伪造指标。"
       },
       "relatedSection": "#methodology-algorithm-validation"
     }

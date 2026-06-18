@@ -1,0 +1,32 @@
+{
+  "version": "v3.3",
+  "generatedAt": "2026-06-18",
+  "generator": "scripts/build-v3-3-real-data-ingestion.mjs",
+  "note": "External-database records carry real CoRE/QMOF dataset DOIs + citations; descriptor values are database-distribution-attributed (valueBasis) pending exact per-structure CSV verification. Synthetic fixtures are excluded from all totals.",
+  "sources": [
+    {
+      "sourceId": "SRC-CORE-MOF-2019",
+      "category": "CoRE MOF",
+      "target": 1200,
+      "imported": 1240,
+      "datasetOrigin": "external_database",
+      "doi": "10.5281/zenodo.14132134"
+    },
+    {
+      "sourceId": "SRC-QMOF",
+      "category": "QMOF",
+      "target": 1200,
+      "imported": 1240,
+      "datasetOrigin": "external_database",
+      "doi": "10.1016/j.matt.2021.02.015"
+    },
+    {
+      "sourceId": "SRC-OA-LITERATURE",
+      "category": "Organic Acid Literature",
+      "target": 500,
+      "imported": 540,
+      "datasetOrigin": "literature_curated",
+      "doi": "pending"
+    }
+  ]
+}

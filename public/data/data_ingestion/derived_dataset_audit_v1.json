@@ -1,0 +1,27 @@
+{
+  "version": "v3.3",
+  "generatedAt": "2026-06-18",
+  "auditId": "dataset-origin-audit",
+  "total": 3540,
+  "counts": {
+    "external_database": 2480,
+    "literature_curated": 540,
+    "experimental": 0,
+    "expert_review": 0,
+    "derived_dataset": 520,
+    "synthetic_fixture": 0
+  },
+  "externalDatabase": 2480,
+  "literature": 540,
+  "experimental": 0,
+  "expert": 0,
+  "derived": 520,
+  "synthetic": 0,
+  "realData": 3020,
+  "realDataShare": 0.853,
+  "derivedShare": 0.147,
+  "experimentalShare": 0,
+  "missingOrigin": 0,
+  "derivedIsolated": true,
+  "status": "Pass"
+}

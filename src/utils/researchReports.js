@@ -381,6 +381,7 @@ export function generateResearchReport({
   organicAcidResult = null,
   dataFoundation = null,
   dataAudit = null,
+  dataIngestion = null,
 } = {}) {
   if (type === "organic_acid") {
     return buildOrganicAcidReport({ organicAcidResult, versionData, timestamp, dataFoundation })
@@ -432,6 +433,14 @@ export function generateResearchReport({
       title: "Benchmark Audit Summary",
       subtitle: "基准审计摘要",
       body: `Label Quality：experimental ${a.label.realExperimentalLabelCount} / dataset-derived ${a.label.datasetDerivedCount} / invalid ground truth ${a.label.invalidGroundTruthCount}。Benchmark Readiness：${report.overallStatus || "pending"}（confirmed eligible ${a.benchmarkEligibility.eligibleConfirmed}）。Leakage Status：${a.leakage.leakCount} leaks（severity ${a.leakage.leakSeverity}）。Gold Audit Pass Rate ${Math.round((a.gold.auditPassRate || 0) * 100)}%。Current Gap：${report.metricsAllowed ? "无，可合法显示 Accuracy / ROC-AUC" : "缺少真实实验标签，Accuracy / ROC-AUC 继续 Pending"}。`,
+    })
+  }
+  if (dataIngestion?.breakdown) {
+    const b = dataIngestion.breakdown
+    sections.push({
+      title: "Data Source Breakdown",
+      subtitle: "数据来源构成",
+      body: `Total Records ${dataIngestion.totalRecords}（CoRE ${dataIngestion.coreCount} + QMOF ${dataIngestion.qmofCount} + Literature ${dataIngestion.literatureCount}）。External Database ${Math.round(b.externalDatabase * 100)}% · Literature ${Math.round(b.literature * 100)}% · Experimental ${Math.round(b.experimental * 100)}% · Derived ${Math.round(b.derived * 100)}%。Verified Metadata ${dataIngestion.verifiedMetadataCount}，Gold ${dataIngestion.goldCount}，Reaction ${dataIngestion.reactionCount}。Derived 与 Experimental 严格隔离：Derived Dataset 不计入 Experimental Labels（Experimental = ${dataIngestion.experimentalCount}）。`,
     })
   }
   const charts = buildReportCharts({ records: rows, summary, priorityMode: priority.modeId })

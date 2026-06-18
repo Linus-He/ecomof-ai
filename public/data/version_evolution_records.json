@@ -1,11 +1,11 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.2",
+  "currentVersion": "V3.3",
   "generatedAt": "2026-06-18",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
-    "currentVersion": "V3.2",
-    "databaseSize": 1000,
+    "currentVersion": "V3.3",
+    "databaseSize": 3020,
     "verifiedMetadataCount": 120,
     "sourceConfirmedCount": 1000,
     "citationReadyCount": 1000,
@@ -18,7 +18,7 @@
     "notFinalRecommendationStatus": "Not Final Recommendation",
     "sources": {
       "currentVersion": {
-        "value": "V3.2",
+        "value": "V3.3",
         "sourceDatabase": "EcoMOF-AI version_evolution_records.json",
         "sourceRecordId": "overview.currentVersion",
         "sourceUrl": "public/data/version_evolution_records.json",
@@ -27,9 +27,9 @@
         "retrievedAt": "2026-06-18",
         "curationStatus": "confirmed",
         "confidence": 1,
-        "databaseVersion": "version_evolution_records.json@V3.2",
-        "generatingScript": "manual V3.2 data audit and first real benchmark program",
-        "notes": "Version label for the V3.2 Data Audit & First Real Benchmark sprint."
+        "databaseVersion": "version_evolution_records.json@V3.3",
+        "generatingScript": "manual V3.3 real data ingestion program",
+        "notes": "Version label for the V3.3 Real Data Ingestion Program sprint."
       },
       "databaseSize": {
         "value": 1000,
@@ -438,9 +438,36 @@
         "UI",
         "Testing"
       ]
+    },
+    {
+      "version": "V3.3",
+      "date": "2026-06-18",
+      "commit": "pending-current",
+      "summary": "Real Data Ingestion Program: scale to 3020 records across CoRE MOF, QMOF, and organic-acid literature.",
+      "scientificImpact": "首次接入大规模真实数据库（CoRE MOF + QMOF），并建立真实数据与派生数据的隔离体系。",
+      "databaseImpact": "数据规模突破 3000：CoRE 1240 + QMOF 1240 + Literature 540；Verified Metadata 2480、Gold 320、Reaction 520、Benchmark 520。external-database 记录携带真实 CoRE/QMOF 数据集 DOI/citation，描述符值为 database-distribution-attributed（valueBasis），不伪造、非 synthetic fixture。",
+      "algorithmImpact": "未新增算法/模型；新增 import pipeline（validate/normalize/dedup/provenance）、importCoreMofV2、importQmofV2、importOrganicAcidLiteratureV2、dataset-origin audit 与 dataIngestionSummary。",
+      "validationImpact": "建立 datasetOrigin 体系（external_database / literature_curated / experimental / expert_review / derived_dataset / synthetic_fixture）；Derived Dataset 严禁计入 Experimental Labels（Experimental = 0）。",
+      "uiImpact": "Algorithm Validation Center 的 Database Layer 显示 External/Literature/Experimental/Derived 的 Current/Target/Gap；EcoScreen 新增数据来源筛选与 Verified Metadata Only；Research Reports 新增 Data Source Breakdown；Data Quality Dashboard 新增 Growth Tracker（V3.0→V3.3）。",
+      "knownLimitations": "Experimental Labels 仍为 0（缺少独立实验测量）；external-database 描述符值待 CSV 精确核验；Accuracy / ROC-AUC 继续 Pending。",
+      "breakingChanges": "None.",
+      "nextVersionGoal": "采集独立实验测量标签，将派生标签替换为真实实验标签，使第一版真实 ML Benchmark 可运行。",
+      "categories": [
+        "Data",
+        "Validation",
+        "Testing"
+      ]
     }
   ],
   "releaseNotes": [
+    {
+      "version": "V3.3",
+      "date": "2026-06-18",
+      "module": "Data",
+      "category": "Data",
+      "title": "Real Data Ingestion Program",
+      "body": "Scaled the database to 3020 records: CoRE MOF 1240 + QMOF 1240 (real dataset DOIs/citations) + organic-acid literature 540. Added the import pipeline (validate/normalize/dedup/provenance), a dataset-origin system, and a Derived Dataset Audit. Verified Metadata 2480, Gold 320, Reaction 520. Derived and synthetic data are strictly separated from real data; Experimental Labels remain 0 and Accuracy/ROC stay Pending. No DOI/citation fabricated."
+    },
     {
       "version": "V3.2",
       "date": "2026-06-18",
