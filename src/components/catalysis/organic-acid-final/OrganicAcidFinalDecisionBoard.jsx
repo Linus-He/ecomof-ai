@@ -2,6 +2,7 @@
 import { useMemo, useState } from "react"
 import { ChemicalText } from "../../../shared"
 import { displayValue, formatScore, Panel, StatusPill, statusTone, text, ValueWithSource } from "./FinalScreeningShared"
+import { BENCHMARK_MODES, topCandidateReviewRows } from "../../../utils/modelBenchmarkLab"
 
 function buildDecisionRows(result = {}) {
   const algorithmRows = result.organicAcidAlgorithm?.rankedCandidates || []
@@ -78,6 +79,40 @@ function TraceGrid({ row, lang, t }) {
           <span style={{ color: t.faint, fontSize: 11.2 }}>{text(lang, "解释", "Explanation")}: {text(lang, item.explanationZh || item.explanation, item.explanation)}</span>
         </article>
       ))}
+    </div>
+  )
+}
+
+function RankChangeSimulator({ algorithm, lang, t, isMobile }) {
+  const [mode, setMode] = useState("balanced")
+  const rows = useMemo(() => topCandidateReviewRows(algorithm, mode), [algorithm, mode])
+  if (!rows.length) return null
+  return (
+    <div data-testid="organic-acid-rank-change-simulator" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 9, padding: 10 }}>
+      <strong style={{ color: t.textStrong, fontSize: 12.8 }}>{text(lang, "Rank Change Simulator / 排名变化模拟器", "Rank Change Simulator")}</strong>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+        {BENCHMARK_MODES.map(item => (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => setMode(item.id)}
+            style={{ background: mode === item.id ? t.badgeInfoBg : t.panel, border: `1px solid ${mode === item.id ? t.accent : t.border}`, borderRadius: 7, color: mode === item.id ? t.accentText : t.muted, cursor: "pointer", fontSize: 11.5, fontWeight: 900, minHeight: 30, padding: "6px 8px" }}
+          >
+            {text(lang, item.labelZh, item.label)}
+          </button>
+        ))}
+      </div>
+      <div style={{ display: "grid", gap: 6, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
+        {rows.slice(0, 6).map(row => (
+          <span key={row.candidateId} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.muted, display: "flex", gap: 7, justifyContent: "space-between", minWidth: 0, padding: 8 }}>
+            <strong style={{ color: t.textStrong, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>#{row.rank} {row.candidateName}</strong>
+            <span style={{ color: t.accentText, flex: "0 0 auto" }}>{formatScore(row.finalScore)}</span>
+          </span>
+        ))}
+      </div>
+      <span style={{ color: t.warn, fontSize: 11.5, lineHeight: 1.45 }}>
+        {text(lang, "不同模式只重排候选优先级，不生成实验 Accuracy / ROC-AUC。", "Mode switches rerank candidate priority only; they do not generate experimental Accuracy / ROC-AUC.")}
+      </span>
     </div>
   )
 }
@@ -237,6 +272,7 @@ export function OrganicAcidFinalDecisionBoard({ result, lang, t, isMobile, onIns
                 </div>
               </div>
             ) : null}
+            <RankChangeSimulator algorithm={algorithm} lang={lang} t={t} isMobile={isMobile} />
             <TraceGrid row={active} lang={lang} t={t} />
           </article>
         ) : null}

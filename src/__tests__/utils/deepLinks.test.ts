@@ -5,6 +5,7 @@ describe("deep links", () => {
   it("routes V2.3 Model Validation Lab anchors to Methods & Evidence", () => {
     const modelValidationHashes = [
       "methodology-model-validation",
+      "methodology-model-benchmark",
       "methodology-project-evolution-integration",
       "methodology-model-feature-pipeline",
       "methodology-feature-selection-explorer",
@@ -21,6 +22,7 @@ describe("deep links", () => {
   it("has metadata for the Model Validation Lab deep link", () => {
     expect(normalizeHash("#methodology-model-validation")).toBe("methodology-model-validation")
     expect(getHashMeta("methodology-model-validation").title).toMatch(/Model Validation Lab/i)
+    expect(getHashMeta("methodology-model-benchmark").title).toMatch(/Model Benchmark Lab/i)
   })
 
   it("routes Project Evolution as a first-level tab", () => {

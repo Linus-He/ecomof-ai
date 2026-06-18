@@ -40,7 +40,7 @@ describe("localization audit", () => {
   it("covers all first-level modules for the V2.4 localization audit", () => {
     expect(LOCALIZATION_AUDIT_MODULES).toEqual(expect.arrayContaining([
       "Methods & Evidence", "Project Evolution", "Research Reports", "EcoScreen",
-      "MOF Library", "GasSep", "Catalysis Lab", "Model Validation Lab",
+      "MOF Library", "GasSep", "Catalysis Lab", "Model Benchmark Lab", "Model Validation Lab",
       "Data Quality Audit", "Roadmap", "Milestones", "Release Notes", "Version Timeline",
     ]))
   })

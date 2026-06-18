@@ -13,8 +13,10 @@ describe("organicAcidFinalDecisionBoardAlgorithm", () => {
 
     expect(screen.getByTestId("organic-acid-final-decision-board")).toBeInTheDocument()
     expect(screen.getByTestId("organic-acid-score-breakdown")).toBeInTheDocument()
+    expect(screen.getByTestId("organic-acid-rank-change-simulator")).toBeInTheDocument()
     expect(document.body.textContent).toMatch(/算法合理性检查/)
     expect(document.body.textContent).toMatch(/敏感性分析/)
+    expect(document.body.textContent).toMatch(/Rank Change Simulator/)
     expect(document.body.textContent).toMatch(/recommendationClass/)
     expect(document.body.textContent).toMatch(/riskPenalty/)
     expect(document.body.textContent).toMatch(/为什么排在这里/)

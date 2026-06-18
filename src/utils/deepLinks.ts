@@ -29,6 +29,16 @@ export const HASH_TO_TAB = {
   "project-evolution-milestones": "projectEvolution",
   "project-evolution-roadmap": "projectEvolution",
   methodology: "about",
+  "methodology-model-benchmark": "about",
+  "methodology-model-benchmark-overview": "about",
+  "methodology-model-benchmark-workflow": "about",
+  "methodology-model-benchmark-descriptors": "about",
+  "methodology-model-benchmark-readiness": "about",
+  "methodology-model-benchmark-comparison": "about",
+  "methodology-model-benchmark-future-accuracy": "about",
+  "methodology-model-benchmark-future-roc": "about",
+  "methodology-model-benchmark-roadmap": "about",
+  "methodology-model-benchmark-candidates": "about",
   "methodology-model-validation": "about",
   "methodology-evolution-timeline": "about",
   "methodology-project-evolution-integration": "about",
@@ -174,6 +184,10 @@ export const HASH_META = {
   "methodology-model-validation": {
     title: "Model Validation Lab | EcoMOF-AI",
     description: "查看模型验证实验室、Project Evolution 集成、特征选择、模型比较、置信度与字段级溯源。当前为 Database Preview，不是 Verified Screening。",
+  },
+  "methodology-model-benchmark": {
+    title: "Model Benchmark Lab | EcoMOF-AI",
+    description: "查看交互式模型基准工作台、特征筛选流程、描述符重要性、基准就绪度、模型比较、Future Accuracy/ROC-AUC pending 面板和候选排名模拟。",
   },
   "methodology-project-evolution-integration": {
     title: "Project Evolution Integration | EcoMOF-AI",

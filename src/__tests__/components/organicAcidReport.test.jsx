@@ -17,15 +17,22 @@ describe("organicAcidReport", () => {
     expect(report.title).toBe("有机酸筛选报告")
     expect(report.executiveSummary).toMatch(/Organic Acid Screening Report/)
     expect(report.executiveSummary).toMatch(/算法建议，仍需实验验证/)
+    expect(report.executiveSummary).toMatch(/Accuracy \/ ROC-AUC 均为 Pending/)
     expect(report.sections.map(section => section.title)).toEqual(expect.arrayContaining([
       "研究目标",
       "评分模式",
+      "Model Benchmark Readiness",
+      "Feature Importance Summary",
+      "Top Candidate Review",
+      "Candidate Stability",
       "Score breakdown",
       "Decision trace",
       "Sanity check",
       "Sensitivity analysis",
+      "Benchmark Roadmap",
       "Known limitations",
     ]))
+    expect(report.sections.find(section => section.title === "Model Benchmark Readiness").body).toMatch(/Experimental labels required/)
     expect(report.markdown).toMatch(/white-box MCDA|白盒/)
   })
 })

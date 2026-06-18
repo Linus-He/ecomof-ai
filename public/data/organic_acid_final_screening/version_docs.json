@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06",
-  "currentVersion": "V2.6",
-  "completedRange": "V1.0-V2.6",
+  "currentVersion": "V2.7",
+  "completedRange": "V1.0-V2.7",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -1924,7 +1924,7 @@
       "title": "Organic Acid Algorithm Closure",
       "titleZh": "有机酸算法闭环",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "White-box candidate screening closure",
       "themeZh": "白盒候选筛选闭环",
       "summary": "Upgraded Organic Acid from a display-oriented decision panel into a runnable candidate-screening loop with task definition, input feature schema, scoring equation, centralized weights, risk penalty, ranked candidates, decision trace, sanity check, sensitivity analysis, and Organic Acid Screening Report integration.",
@@ -1999,6 +1999,89 @@
         "adaptationBoundaryZh": "仅白盒算法闭环；不是黑盒 ML，不声明预测精度，也不是最终推荐。"
       },
       "relatedSection": "#methodology-oafs-algorithm-closure"
+    },
+    {
+      "version": "V2.7",
+      "title": "Model Benchmark Lab and Algorithm Credibility Framework",
+      "titleZh": "模型基准测试实验室与算法可信度框架",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Interactive benchmark readiness and candidate review",
+      "themeZh": "交互式基准就绪度与候选深度分析",
+      "summary": "Added an interactive Model Benchmark Lab inspired by Su et al. 2025 workflow and benchmark figures, while keeping all ML performance metrics pending until experimental labels exist. Organic Acid now exposes Top Candidate Review, Candidate Stability, and Rank Change Simulator without claiming trained-model accuracy.",
+      "summaryZh": "参考 Su et al. 2025 的流程与基准图思路，新增交互式 Model Benchmark Lab；在缺少实验标签前，所有 ML 性能指标保持 pending。有机酸模块新增 Top Candidate Review、Candidate Stability 与 Rank Change Simulator，但不声称已训练模型精度。",
+      "keyUpdates": [
+        "Added Interactive Model Benchmark Workbench with clickable feature-selection workflow nodes.",
+        "Added descriptor importance ranking with category filters, mode switching, and field-level provenance.",
+        "Added model comparison and Future Accuracy / Future ROC-AUC panels that show Pending when labels are missing.",
+        "Added Top Candidate Review, Candidate Stability, and Rank Change Simulator."
+      ],
+      "keyUpdatesZh": [
+        "新增交互式模型基准工作台，特征筛选流程节点可点击。",
+        "新增描述符重要性排序，支持类别过滤、模式切换与字段级溯源。",
+        "新增模型比较、未来精度与未来 ROC-AUC 面板；缺少标签时只显示 Pending。",
+        "新增候选深度分析、候选稳定性与排名变化模拟器。"
+      ],
+      "algorithmChanges": [
+        "Separated current white-box MCDA credibility from future supervised ML benchmark.",
+        "Added benchmark modes: balanced, evidence_first, validation_first, and low_risk_first for ranking simulation.",
+        "Added descriptor importance modes: CRITIC importance, evidence-adjusted importance, Organic Acid relevance, and data-quality impact."
+      ],
+      "algorithmChangesZh": [
+        "区分当前白盒 MCDA 可信度与未来监督学习基准测试。",
+        "新增 balanced、evidence_first、validation_first、low_risk_first 排名模拟模式。",
+        "新增 CRITIC importance、证据修正重要性、有机酸相关性与数据质量影响四类描述符模式。"
+      ],
+      "uiChanges": [
+        "Methods & Evidence adds Model Benchmark Lab under #methodology-model-benchmark.",
+        "Organic Acid Final Decision Board adds Rank Change Simulator.",
+        "Research Reports adds benchmark readiness, feature importance, candidate review, stability, and roadmap sections."
+      ],
+      "uiChangesZh": [
+        "Methods & Evidence 新增 #methodology-model-benchmark 模型基准测试实验室。",
+        "Organic Acid Final Decision Board 新增排名变化模拟器。",
+        "Research Reports 新增基准就绪度、特征重要性、候选深度分析、稳定性与路线图章节。"
+      ],
+      "methodologyChanges": [
+        "Documents Feature Selection, Descriptor Ranking, Readiness Assessment, Model Comparison, Future Accuracy, Future ROC, Candidate Review, and Benchmark Roadmap.",
+        "Explicitly states that current methods are White-box MCDA, Evidence Adjustment, Graph Relevance, and Risk Penalty, not a trained Machine Learning Benchmark."
+      ],
+      "methodologyChangesZh": [
+        "记录 Feature Selection、Descriptor Ranking、Readiness Assessment、Model Comparison、Future Accuracy、Future ROC、Candidate Review 与 Benchmark Roadmap。",
+        "明确当前是白盒 MCDA、证据修正、图论相关性与风险惩罚，不是已训练机器学习基准。"
+      ],
+      "evidenceBoundary": "Benchmark framework ready only. Label Count = 0, so Accuracy, ROC-AUC, LOO-CV, and external test are Pending and must not be fabricated.",
+      "evidenceBoundaryZh": "仅基准框架就绪。Label Count = 0，因此 Accuracy、ROC-AUC、LOO-CV 与 external test 均为 Pending，不得伪造。",
+      "limitations": [
+        "No real experimental labels.",
+        "No trained supervised ML benchmark.",
+        "Descriptor importance is interpretive and should not be presented as fitted ML feature importance.",
+        "Candidate rank simulation changes priority only, not experimental truth."
+      ],
+      "limitationsZh": [
+        "缺少真实实验标签。",
+        "尚未训练监督学习基准模型。",
+        "描述符重要性是解释性重要性，不应被呈现为已拟合 ML feature importance。",
+        "候选排名模拟只改变优先级，不代表实验真实结果。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "model-benchmark-lab",
+          "algorithm-credibility-framework",
+          "feature-selection-workflow",
+          "descriptor-importance-ranking",
+          "future-accuracy-pending",
+          "future-roc-pending",
+          "top-candidate-review",
+          "rank-change-simulator"
+        ],
+        "literatureIds": [
+          "LIT-SU-2025-MOF-BORYLATION"
+        ],
+        "adaptationBoundary": "Su et al. 2025 is used as workflow and visualization inspiration only; EcoMOF-AI does not reproduce its model, dataset, C-H borylation target, Accuracy, or ROC-AUC.",
+        "adaptationBoundaryZh": "Su et al. 2025 仅作为流程与可视化灵感；EcoMOF-AI 不复现其模型、数据集、C-H borylation 目标、Accuracy 或 ROC-AUC。"
+      },
+      "relatedSection": "#methodology-model-benchmark"
     }
   ],
   "roadmap": [

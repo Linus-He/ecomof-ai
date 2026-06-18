@@ -179,18 +179,18 @@ const routes = [
     ["Screening Report", "筛选报告"],
     ["Validation Report", "验证报告"],
     ["Run Snapshot", "运行快照"],
-    "Run ID",
-    "Database Version",
-    "Method Version",
-    "Validation Version",
-    "Candidate Count",
-    "Verified Metadata Count",
+    ["Run ID", "RUN ID"],
+    ["Database Version", "DATABASE VERSION"],
+    ["Method Version", "METHOD VERSION"],
+    ["Validation Version", "VALIDATION VERSION"],
+    ["Candidate Count", "CANDIDATE COUNT"],
+    ["Verified Metadata Count", "VERIFIED METADATA COUNT"],
     ["Citation Package", "引用包"],
     ["Field Provenance", "字段级溯源"],
     ["Localization Audit", "汉化质量审计"],
-    "Localization Coverage",
-    "Terminology Consistency",
-    "Scientific Language Consistency",
+    ["Localization Coverage", "LOCALIZATION COVERAGE"],
+    ["Terminology Consistency", "TERMINOLOGY CONSISTENCY"],
+    ["Scientific Language Consistency", "SCIENTIFIC LANGUAGE CONSISTENCY"],
     ["Database Preview", "数据库预览"],
     "Not Final Recommendation",
   ]],
@@ -218,7 +218,7 @@ const routes = [
     ["Structured Factor Effects", "结构化因素效应"],
     ["Catalysis Energy Playground Method", "催化能量游乐场方法说明"],
     ["Organic Acid Final Screening Methodology", "有机酸最终筛选方法论"],
-    ["Method Overview", "方法总览"],
+    ["Workflow type", "WORKFLOW TYPE", "工作流类型"],
     ["Two-Stage Algorithm Flow", "两阶段算法流程图"],
     ["Data Mapping and Schema Validation", "数据映射与 Schema Validation"],
     ["Small Real Dataset Integration", "小规模真实样例接入"],
@@ -260,6 +260,20 @@ const routes = [
     ["Not Final Recommendation", "非最终推荐"],
     "Accuracy: pending",
     "ROC-AUC: pending",
+  ]],
+  ["methodology-model-benchmark", "#methodology-model-benchmark", [
+    ["Interactive Model Benchmark Workbench", "交互式模型基准工作台"],
+    ["Descriptor Importance Ranking", "描述符重要性排序"],
+    ["Benchmark Readiness", "基准测试就绪度"],
+    ["Model Comparison", "模型比较"],
+    ["Future Accuracy", "未来精度验证"],
+    ["Future ROC-AUC", "未来 ROC-AUC"],
+    ["Rank Change Simulator", "排名变化模拟器"],
+    ["Field provenance", "字段级溯源"],
+    "Label Count = 0 -> Not Ready",
+    "Accuracy: Pending",
+    "ROC-AUC: Pending",
+    "Experimental labels required",
   ]],
 ]
 const viewports = [
@@ -454,6 +468,13 @@ for (const [viewportName, width, height] of viewports) {
 
       if (routeName === "methodology" || routeName === "methodology-model-validation") {
         await page.locator("#methodology-model-validation").first().scrollIntoViewIfNeeded().catch(() => {})
+        await page.waitForTimeout(900)
+      }
+
+      if (routeName === "methodology-model-benchmark") {
+        await page.locator("#methodology-model-benchmark").first().waitFor({ state: "attached", timeout: 20000 })
+        await page.locator("#methodology-model-benchmark").first().scrollIntoViewIfNeeded().catch(() => {})
+        await page.locator("#methodology-model-benchmark-candidates").first().waitFor({ state: "attached", timeout: 20000 })
         await page.waitForTimeout(900)
       }
 

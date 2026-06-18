@@ -304,9 +304,9 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
     <div id="research-reports" data-testid="research-reports-tab" style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}>
       <PageHeader
         title={text(lang, "研究报告", "Research Reports")}
-        subtitle={text(lang, "将数据库预览、筛选流程追踪、字段级溯源、验证状态和引用包组织为可复现的科研输出。", "Organizes database preview, screening trace, field provenance, validation status, and citation package into reproducible research outputs.")}
+        subtitle={text(lang, "将数据库预览、筛选流程追踪、字段级溯源、验证状态、模型基准就绪度和引用包组织为可复现的科研输出。", "Organizes database preview, screening trace, field provenance, validation status, model benchmark readiness, and citation package into reproducible research outputs.")}
         meta={text(lang, "科研展示与科研输出平台", "Research output framework")}
-        action={<><BasisBadge tone="info">V2.4</BasisBadge><CopyLinkButton hash="research-reports" ariaLabel="Copy Research Reports link" /></>}
+        action={<><BasisBadge tone="info">V2.7</BasisBadge><CopyLinkButton hash="research-reports" ariaLabel="Copy Research Reports link" /></>}
       />
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         <BasisBadge tone="proxy">数据库预览</BasisBadge>

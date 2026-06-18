@@ -5,6 +5,7 @@ import { THEME_LIGHT } from "../../constants/theme"
 import records from "../../../public/data/database_precompute/v2_1/medium_database_preview_records.json"
 import summary from "../../../public/data/database_precompute/v2_1/medium_database_preview_summary.json"
 import { ModelValidationLab } from "../../components/methodology/model-validation/ModelValidationLab"
+import { renderBenchmarkLab } from "./modelBenchmarkLabTestUtils"
 
 function renderLab() {
   return render(<ModelValidationLab records={records} summary={summary} lang="en" t={THEME_LIGHT} isMobile={false} />)
@@ -37,5 +38,14 @@ describe("FeatureSelectionExplorer", () => {
     expect(panel).toHaveTextContent(/Source database/i)
     expect(panel).toHaveTextContent(/Scoring eligible/i)
     expect(panel).toHaveTextContent(/Blocks verified metadata/i)
+  })
+
+  it("renders the V2.7 interactive feature selection workflow", () => {
+    renderBenchmarkLab()
+
+    expect(screen.getByTestId("interactive-benchmark-workflow")).toHaveTextContent(/Original Features/)
+    expect(screen.getByTestId("interactive-benchmark-workflow")).toHaveTextContent(/Feature Elimination/)
+    expect(screen.getByTestId("interactive-benchmark-workflow")).toHaveTextContent(/Machine Learning/)
+    expect(screen.getByTestId("benchmark-workflow-detail")).toHaveTextContent(/Field provenance/)
   })
 })

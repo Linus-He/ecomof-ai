@@ -1,6 +1,12 @@
 // @ts-nocheck
 import translationRules from "../i18n/translation_rules.json"
 import { buildPriorityImpactSummary, resolvePerformancePriorityMode } from "./performancePriority.js"
+import {
+  BENCHMARK_ROADMAP_STEPS,
+  DESCRIPTOR_IMPORTANCE_ROWS,
+  buildBenchmarkReadiness,
+  buildCandidateStabilityRows,
+} from "./modelBenchmarkLab.js"
 
 export const REPORT_TYPES = [
   { id: "candidate", zh: "候选报告", en: "Candidate Report" },
@@ -205,6 +211,23 @@ function buildOrganicAcidReport({ organicAcidResult = null, versionData = {}, ti
   const algorithm = organicAcidResult?.organicAcidAlgorithm || organicAcidResult || {}
   const topCandidates = algorithm.topCandidates || algorithm.rankedCandidates?.slice(0, 5) || []
   const top = topCandidates[0] || {}
+  const readiness = buildBenchmarkReadiness({
+    summary: {
+      totalCandidates: algorithm.scoringSummary?.candidateCount || algorithm.rankedCandidates?.length || 0,
+      verifiedMetadataCount: 0,
+      experimentalLabelCount: 0,
+      fieldProvenanceCoverage: 1,
+      dataQualityScore: 0.78,
+    },
+    algorithm,
+  })
+  const stabilityRows = buildCandidateStabilityRows(algorithm).slice(0, 5)
+  const descriptorSummary = DESCRIPTOR_IMPORTANCE_ROWS
+    .slice()
+    .sort((a, b) => b.organicAcidRelevance - a.organicAcidRelevance)
+    .slice(0, 6)
+    .map(row => `${row.label}: ${row.category}, organicAcidRelevance=${row.organicAcidRelevance}`)
+    .join("；")
   const snapshot = buildRunSnapshot({
     summary: {
       version: "organic_acid_algorithm_closure_v2_6",
@@ -215,20 +238,25 @@ function buildOrganicAcidReport({ organicAcidResult = null, versionData = {}, ti
     timestamp,
     performancePriorityMode: "balanced",
   })
-  snapshot.methodVersion = "V2.6 Organic Acid Algorithm Closure"
-  snapshot.validationVersion = "Sanity Check + Sensitivity Analysis; experimental validation pending"
+  snapshot.methodVersion = "V2.7 Model Benchmark Lab + V2.6 Organic Acid Algorithm Closure"
+  snapshot.validationVersion = "Benchmark Framework Ready; ML Accuracy / ROC-AUC pending until experimental labels exist"
   const candidateNames = topCandidates.map(row => `${row.rank || "-"} ${row.candidateName} (${row.recommendationClass})`).join("；") || "候选待生成"
-  const executiveSummary = `Organic Acid Screening Report：当前任务为 CO2 转化为甲酸 / formic acid priority。V2.6 使用白盒多指标决策 + 证据修正 + 图论相关性 + 风险惩罚，对 ${snapshot.candidateCount} 个候选生成筛选优先级。Top candidates 为 ${candidateNames}。该报告只给出算法建议，仍需实验验证。`
+  const executiveSummary = `Organic Acid Screening Report：当前任务为 CO2 转化为甲酸 / formic acid priority。V2.7 在 V2.6 白盒多指标决策 + 证据修正 + 图论相关性 + 风险惩罚之上新增 Model Benchmark Readiness、Feature Importance Summary、Top Candidate Review、Candidate Stability 与 Benchmark Roadmap。当前 Label Count = 0，因此 Accuracy / ROC-AUC 均为 Pending，不能报告虚假 ML 指标。Top candidates 为 ${candidateNames}。该报告只给出算法建议，仍需实验验证。`
   const sections = [
     { title: "研究目标", body: "Primary target：CO2 转化为甲酸 / formic acid priority；secondary goals 包括抑制竞争路径、提高证据可信度、优先可验证候选、降低结构坍塌风险并保留字段级溯源。" },
     { title: "评分模式", body: `当前评分模式：${algorithm.scoringModeLabelZh || algorithm.scoringMode || "formic_acid_priority"}；目标函数为 pathwayFitScore、evidenceScore、graphRelevanceScore、structureSuitabilityScore、validationReadinessScore、dataQualityScore 减去 riskPenalty。` },
+    { title: "Model Benchmark Readiness", body: `Benchmark Framework Ready；Machine Learning Ready = ${readiness.machineLearningReady}；Label Count = ${readiness.experimentalLabels}；Benchmark Status = ${readiness.benchmarkStatus}；Validation Status = ${readiness.validationStatus}；main blocker = ${readiness.mainBlocker}。Accuracy / ROC-AUC 必须保持 Pending，因为 Experimental labels required。` },
+    { title: "Feature Importance Summary", body: `Descriptor ranking uses CRITIC importance, Evidence adjusted importance, Organic Acid relevance, and Data quality impact. Current high-relevance descriptors: ${descriptorSummary}。这些是解释性 descriptor importance，不是监督学习 feature importance。` },
     { title: "Top candidates", body: candidateNames },
+    { title: "Top Candidate Review", body: topCandidates.map(row => `${row.candidateName}: finalScore=${row.finalScore}, recommendationClass=${row.recommendationClass}, why=${row.mainReasons?.[0] || "pending"}, risk=${row.mainRisks?.[0] || "pending"}, next=${row.nextExperiment}`).join("；") || "候选待生成。" },
+    { title: "Candidate Stability", body: stabilityRows.map(row => `${row.candidateName}: ${row.stability}, ranks=${Object.entries(row.ranks).map(([mode, rank]) => `${mode} #${rank}`).join("/")}`).join("；") || "Candidate stability 待生成。" },
     { title: "Score breakdown", body: top.scoreBreakdown ? `Top candidate ${top.candidateName} finalScore=${top.finalScore}；pathwayFitScore=${top.pathwayFitScore}；evidenceScore=${top.evidenceScore}；graphRelevanceScore=${top.graphRelevanceScore}；structureSuitabilityScore=${top.structureSuitabilityScore}；validationReadinessScore=${top.validationReadinessScore}；dataQualityScore=${top.dataQualityScore}；riskPenalty=${top.riskPenalty}。` : "Score breakdown 待生成。" },
     { title: "Decision trace", body: top.decisionTrace?.length ? top.decisionTrace.map(step => `${step.step}: ${step.output}`).join("；") : "Decision trace 待生成。" },
     { title: "Sanity check", body: algorithm.sanityCheck?.summaryZh || "算法合理性检查待生成。" },
     { title: "Sensitivity analysis", body: algorithm.sensitivitySummary?.explanationZh || "敏感性分析待生成。" },
     { title: "Data gaps", body: algorithm.dataGapSummary?.explanationZh || "数据缺口摘要待生成。" },
     { title: "Next experiments", body: topCandidates.map(row => `${row.candidateName}: ${row.nextExperiment}`).join("；") || "下一步实验待生成。" },
+    { title: "Benchmark Roadmap", body: BENCHMARK_ROADMAP_STEPS.map(step => `${step.title}: ${step.status} - ${step.detail}`).join("；") },
     { title: "Known limitations", body: "当前不是黑盒 ML，也不是实验验证结论；它是 white-box MCDA + evidence adjustment + graph relevance + risk penalty。priority_validation 仅表示优先验证候选，仍需实验验证。" },
   ]
   const charts = [
@@ -249,6 +277,24 @@ function buildOrganicAcidReport({ organicAcidResult = null, versionData = {}, ti
       yAxis: "riskPenalty",
       legend: "riskPenalty",
       rows: topCandidates.map(row => ({ label: row.candidateName, value: row.riskPenalty })),
+    },
+    {
+      id: "organic-acid-future-accuracy-chart",
+      title: "未来精度验证",
+      subtitle: "Future Accuracy",
+      xAxis: "模型",
+      yAxis: "Accuracy",
+      legend: "Pending because experimental labels required",
+      rows: ["LR", "DT", "RF", "Evidence-CRITIC"].map(label => ({ label, value: "Pending" })),
+    },
+    {
+      id: "organic-acid-future-roc-chart",
+      title: "未来 ROC-AUC 验证",
+      subtitle: "Future ROC-AUC",
+      xAxis: "模型",
+      yAxis: "ROC-AUC",
+      legend: "Pending because external validation required",
+      rows: ["LR", "DT", "RF", "Evidence-CRITIC"].map(label => ({ label, value: "Pending" })),
     },
   ]
   const markdown = [
@@ -300,13 +346,18 @@ function buildOrganicAcidReport({ organicAcidResult = null, versionData = {}, ti
     requiredSections: [
       "研究目标",
       "评分模式",
+      "Model Benchmark Readiness",
+      "Feature Importance Summary",
       "Top candidates",
+      "Top Candidate Review",
+      "Candidate Stability",
       "Score breakdown",
       "Decision trace",
       "Sanity check",
       "Sensitivity analysis",
       "Data gaps",
       "Next experiments",
+      "Benchmark Roadmap",
       "Known limitations",
     ],
     markdown,

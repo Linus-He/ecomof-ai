@@ -5,6 +5,7 @@ import { THEME_LIGHT } from "../../constants/theme"
 import records from "../../../public/data/database_precompute/v2_2/scalable_database_preview_records.json"
 import summary from "../../../public/data/database_precompute/v2_2/scalable_database_preview_summary.json"
 import { ModelValidationLab } from "../../components/methodology/model-validation/ModelValidationLab"
+import { renderBenchmarkLab } from "./modelBenchmarkLabTestUtils"
 
 function bodyText() {
   return document.body.textContent || ""
@@ -36,5 +37,14 @@ describe("ModelComparisonDashboard", () => {
     expect(bodyText()).toMatch(/Not Final Recommendation/i)
     expect(bodyText()).not.toMatch(/final recommended model/i)
     expect(bodyText()).not.toMatch(/validated best model/i)
+  })
+
+  it("renders the V2.7 interactive model comparison dashboard", () => {
+    renderBenchmarkLab()
+
+    expect(screen.getByTestId("model-comparison-dashboard-v27")).toHaveTextContent(/CRITIC/)
+    expect(screen.getByTestId("model-comparison-dashboard-v27")).toHaveTextContent(/Bayesian Regression/)
+    expect(screen.getByTestId("model-comparison-dashboard-v27")).toHaveTextContent(/Logistic Regression/)
+    expect(screen.getByTestId("model-comparison-dashboard-v27")).toHaveTextContent(/Accuracy \/ ROC-AUC: Pending/)
   })
 })

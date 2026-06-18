@@ -93,7 +93,7 @@ export function assertLocalizationAuditPass(audit) {
   )
 }
 
-// First-level modules the localization audit must cover (V2.4 release readiness).
+// First-level modules the localization audit must cover (V2.7 release readiness).
 export const LOCALIZATION_AUDIT_MODULES = [
   "Methods & Evidence",
   "Project Evolution",
@@ -102,6 +102,7 @@ export const LOCALIZATION_AUDIT_MODULES = [
   "MOF Library",
   "GasSep",
   "Catalysis Lab",
+  "Model Benchmark Lab",
   "Model Validation Lab",
   "Data Quality Audit",
   "Roadmap",

@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
   "currentVersion": "V2.7",
-  "generatedAt": "2026-06-17",
+  "generatedAt": "2026-06-18",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
     "currentVersion": "V2.7",
@@ -13,23 +13,23 @@
     "modelValidationStatus": "Validation Pending",
     "projectAge": "2026-04 to 2026-06",
     "githubStars": "pending",
-    "milestoneCount": 10,
+    "milestoneCount": 11,
     "databasePreviewStatus": "Database Preview",
     "notFinalRecommendationStatus": "Not Final Recommendation",
     "sources": {
       "currentVersion": {
-        "value": "V2.6",
+        "value": "V2.7",
         "sourceDatabase": "EcoMOF-AI version_evolution_records.json",
         "sourceRecordId": "overview.currentVersion",
         "sourceUrl": "public/data/version_evolution_records.json",
         "citation": "Internal project evolution record.",
         "license": "Project repository license context.",
-        "retrievedAt": "2026-06-17",
+        "retrievedAt": "2026-06-18",
         "curationStatus": "confirmed",
         "confidence": 1,
-        "databaseVersion": "version_evolution_records.json@V2.6",
-        "generatingScript": "manual V2.6 organic acid algorithm closure",
-        "notes": "Version label for the V2.6 Organic Acid algorithm closure sprint."
+        "databaseVersion": "version_evolution_records.json@V2.7",
+        "generatingScript": "manual V2.7 model benchmark lab and algorithm credibility framework",
+        "notes": "Version label for the V2.7 Model Benchmark Lab and Algorithm Credibility Framework sprint."
       },
       "databaseSize": {
         "value": 1000,
@@ -332,26 +332,59 @@
     },
     {
       "version": "V2.7",
-      "date": "2026-06-17",
+      "date": "2026-06-18",
       "commit": "pending-current",
-      "summary": "EcoScreen Priority Integration and Screening Flow Simplification.",
-      "scientificImpact": "筛选优先级从全局控件转为筛选运行参数，提升筛选过程可解释性。",
-      "databaseImpact": "No database expansion; the same candidate set is re-ranked under the selected run priority.",
-      "algorithmImpact": "priorityMode 进入 run state、screening trace、ranking explanation 与 report snapshot，并集中由 performancePriority 配置管理。",
-      "validationImpact": "优先级只影响排序解释与展示，不改变 verified metadata 门控；结果仍为 Database Preview，非最终推荐。",
-      "uiImpact": "移除 Tab 栏上方的全局优先级控件（独立 Performance 入口），将筛选优先级并入 EcoScreen Run Setup，减少导航区噪音。",
-      "knownLimitations": "visual check 可能仍受本地 sandbox 环境阻断。",
-      "breakingChanges": "Performance 不再是独立一级 Tab；旧的 #performance 路由重定向到 EcoScreen。",
-      "nextVersionGoal": "将筛选优先级与未来外部数据集和实验验证流程衔接。",
+      "summary": "Model Benchmark Lab and Algorithm Credibility Framework.",
+      "scientificImpact": "建立模型可信度框架与基准测试体系，解释为什么当前白盒筛选结果可信、为什么机器学习暂不可运行。",
+      "databaseImpact": "No database expansion; benchmark readiness reads the existing 1000-record preview and Organic Acid bounded fixtures.",
+      "algorithmImpact": "引入交互式 Feature Selection Workflow、Descriptor Importance Ranking、Benchmark Readiness、Model Comparison、Future Accuracy/ROC pending panels、Top Candidate Review 与 Rank Change Simulator。",
+      "validationImpact": "明确 Label Count = 0，Accuracy / ROC-AUC / external test 均为 Pending；缺少真实实验标签时不得显示虚假模型指标。",
+      "uiImpact": "Methods & Evidence 新增 Model Benchmark Lab，Organic Acid Decision Board 增加排名变化模拟器，Research Reports 增加基准就绪度与候选稳定性章节。",
+      "knownLimitations": "缺少真实实验标签；当前仍是 White-box MCDA / Evidence Adjustment / Graph Relevance / Risk Penalty 的可信度框架，不是已训练 ML benchmark。",
+      "breakingChanges": "None.",
+      "nextVersionGoal": "收集可比实验标签并建立 LOO-CV 与 external test 验证集。",
       "categories": [
-        "UI",
         "Algorithm",
         "Methods",
+        "Validation",
+        "UI",
         "Testing"
       ]
     }
   ],
   "releaseNotes": [
+    {
+      "version": "V2.7",
+      "date": "2026-06-18",
+      "module": "Methods",
+      "category": "Methods",
+      "title": "Model Benchmark Lab",
+      "body": "Added an interactive Model Benchmark Lab with benchmark overview, feature-selection workflow, descriptor ranking, readiness assessment, model comparison, future metric panels, roadmap, and Top Candidate Review."
+    },
+    {
+      "version": "V2.7",
+      "date": "2026-06-18",
+      "module": "Validation",
+      "category": "Validation",
+      "title": "Algorithm Credibility Framework",
+      "body": "Documented why current white-box ranking is credible, why machine learning remains unavailable, and why Accuracy / ROC-AUC must stay Pending until experimental labels exist."
+    },
+    {
+      "version": "V2.7",
+      "date": "2026-06-18",
+      "module": "Organic Acid",
+      "category": "Algorithm",
+      "title": "Top Candidate Review and Rank Simulator",
+      "body": "Added candidate-level score breakdown, sensitivity context, field provenance, next experiments, rank stability, and ranking simulation across benchmark modes."
+    },
+    {
+      "version": "V2.7",
+      "date": "2026-06-18",
+      "module": "Research Reports",
+      "category": "Methods",
+      "title": "Benchmark Readiness Report Sections",
+      "body": "Organic Acid reports now include Model Benchmark Readiness, Feature Importance Summary, Top Candidate Review, Candidate Stability, and Benchmark Roadmap sections."
+    },
     {
       "version": "V2.6",
       "date": "2026-06-17",
@@ -547,6 +580,11 @@
       "maturity": 88
     },
     {
+      "version": "V2.7",
+      "stage": "Model Benchmark Lab",
+      "maturity": 90
+    },
+    {
       "version": "Future",
       "stage": "Future Experimental Validation",
       "maturity": 95
@@ -634,6 +672,14 @@
       "retiredCapability": "Display-only Organic Acid decision panel",
       "limitation": "Algorithm is explainable but not experimentally closed-loop validated.",
       "futurePlan": "Calibrate with experimental feedback."
+    },
+    {
+      "stage": "Model Benchmark Lab",
+      "version": "V2.7",
+      "newCapability": "Interactive feature-selection workflow, descriptor importance ranking, benchmark readiness, model comparison, future Accuracy/ROC pending panels, Top Candidate Review, and rank simulation",
+      "retiredCapability": "Static or implied model benchmark visuals",
+      "limitation": "Experimental labels are missing, so Accuracy, ROC-AUC, LOO-CV, and external test remain pending.",
+      "futurePlan": "Collect comparable experimental labels and run LOO-CV plus external validation."
     }
   ],
   "validationEvolution": [
@@ -676,6 +722,14 @@
       "blockingCondition": "No validated experimental target labels yet",
       "currentCount": "pending",
       "nextGoal": "V2.5 experimental validation framework."
+    },
+    {
+      "stage": "Benchmark Readiness",
+      "definition": "Whether a model benchmark can report Accuracy / ROC-AUC without fabricating metrics.",
+      "passCondition": "Comparable experimental labels and external split exist.",
+      "blockingCondition": "Label Count = 0; Experimental labels required.",
+      "currentCount": "0 labels",
+      "nextGoal": "Collect label-ready Organic Acid experiments."
     }
   ],
   "uiEvolution": [
@@ -727,6 +781,13 @@
       "before": "Display-oriented decision cards",
       "after": "Algorithm-output decision board",
       "change": "Reads ranked algorithm output with score breakdown, risks, sanity check, sensitivity analysis, and next experiments."
+    },
+    {
+      "version": "V2.7",
+      "area": "Model Benchmark Lab",
+      "before": "Model validation notes and static benchmark intentions",
+      "after": "Interactive benchmark workbench",
+      "change": "Adds clickable workflow nodes, descriptor ranking, metric switching, future pending panels, candidate review, and rank simulation."
     }
   ],
   "localizationEvolution": [
@@ -819,6 +880,13 @@
       "version": "V2.6",
       "date": "2026-06-17",
       "detail": "Organic Acid gained task definition, feature schema, scoring equation, risk penalty, sanity check, sensitivity analysis, and algorithm-output decision board."
+    },
+    {
+      "id": "model-benchmark-lab",
+      "title": "Model Benchmark Lab",
+      "version": "V2.7",
+      "date": "2026-06-18",
+      "detail": "Methods & Evidence gained an interactive model benchmark workbench with feature workflow, descriptor ranking, benchmark readiness, pending future metrics, candidate review, and rank simulation."
     }
   ],
   "roadmap": [
@@ -863,6 +931,23 @@
         "Overclaiming algorithmic suggestions",
         "Synthetic fixtures entering validation priority",
         "Weight sensitivity without experimental feedback"
+      ]
+    },
+    {
+      "version": "V2.7",
+      "plannedFeatures": [
+        "Model Benchmark Lab",
+        "Algorithm Credibility Framework",
+        "Top Candidate Review",
+        "Rank Change Simulator"
+      ],
+      "scientificGoal": "Explain current algorithm credibility and benchmark readiness without claiming unavailable ML performance.",
+      "databaseGoal": "Reuse existing preview and Organic Acid fixtures with field-level provenance; no database expansion.",
+      "validationGoal": "Keep Accuracy, ROC-AUC, LOO-CV, and external test pending until comparable experimental labels exist.",
+      "knownRisks": [
+        "Accidental fake Accuracy / ROC-AUC display",
+        "Confusing descriptor importance with trained ML feature importance",
+        "Sparse experimental labels"
       ]
     },
     {
