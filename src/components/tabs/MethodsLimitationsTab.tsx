@@ -18,8 +18,7 @@ import { MethodologySidebar } from "../methodology/MethodologySidebar"
 import { MethodologySectionSkeleton } from "../methodology/MethodologySkeleton"
 import { MethodFormulaCard } from "../methodology/MethodFormulaCard"
 import { MethodModuleSection } from "../methodology/MethodModuleSection"
-import { ModelValidationLab, MODEL_VALIDATION_DIRECTORY } from "../methodology/model-validation/ModelValidationLab"
-import { ModelBenchmarkLab, MODEL_BENCHMARK_DIRECTORY } from "../methodology/model-benchmark/ModelBenchmarkLab"
+import { AlgorithmValidationCenter, ALGORITHM_VALIDATION_DIRECTORY } from "../methodology/algorithm-validation/AlgorithmValidationCenter"
 import { ORGANIC_ACID_FINAL_DIRECTORY } from "../methodology/organic-acid-final/directory"
 import { runOrganicAcidFinalScreening } from "../../utils/organicAcidFinalScreening"
 
@@ -287,33 +286,29 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
   const [modules, setModules] = useState([])
-  const [modelValidationRecords, setModelValidationRecords] = useState([])
   const [modelValidationSummary, setModelValidationSummary] = useState(null)
   const [organicAcidResult, setOrganicAcidResult] = useState(null)
-  const [activeId, setActiveId] = useState("methodology-model-benchmark")
+  const [activeId, setActiveId] = useState("methodology-algorithm-validation")
 
   useEffect(() => {
     let active = true
     Promise.all([
       fetchDataJson("methodology_modules_demo.json", []),
-      fetchDataJson("database_precompute/v2_2/scalable_database_preview_records.json", []),
       fetchDataJson("database_precompute/v2_2/scalable_database_preview_summary.json", null),
       fetchDataJson("organic_acid_final_screening/al_mof_framework_candidates.json", []),
       fetchDataJson("organic_acid_final_screening/dopant_metal_property_matrix.json", []),
       fetchDataJson("organic_acid_final_screening/organic_acid_screening_rules.json", {}),
       fetchDataJson("organic_acid_final_screening/organic_acid_evidence_records.json", []),
     ])
-      .then(([rows, previewRecords, previewSummary, organicFrameworks, organicMetals, organicRules, organicEvidence]) => {
+      .then(([rows, previewSummary, organicFrameworks, organicMetals, organicRules, organicEvidence]) => {
         if (!active) return
         setModules(Array.isArray(rows) ? rows : [])
-        setModelValidationRecords(Array.isArray(previewRecords) ? previewRecords : [])
         setModelValidationSummary(previewSummary && typeof previewSummary === "object" ? previewSummary : null)
         setOrganicAcidResult(runOrganicAcidFinalScreening(organicFrameworks || [], organicMetals || [], organicRules || {}, organicEvidence || []))
       })
       .catch(() => {
         if (active) {
           setModules([])
-          setModelValidationRecords([])
           setModelValidationSummary(null)
           setOrganicAcidResult(null)
         }
@@ -337,32 +332,24 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
         display: text(lang, child.labelZh, child.label),
       })),
     }
-    const modelValidationItem = {
-      ...MODEL_VALIDATION_DIRECTORY,
-      display: text(lang, MODEL_VALIDATION_DIRECTORY.labelZh, MODEL_VALIDATION_DIRECTORY.label),
-      children: (MODEL_VALIDATION_DIRECTORY.children || []).map(child => ({
+    const algorithmValidationItem = {
+      ...ALGORITHM_VALIDATION_DIRECTORY,
+      display: text(lang, ALGORITHM_VALIDATION_DIRECTORY.labelZh, ALGORITHM_VALIDATION_DIRECTORY.label),
+      children: (ALGORITHM_VALIDATION_DIRECTORY.children || []).map(child => ({
         ...child,
         display: text(lang, child.labelZh, child.label),
       })),
     }
-    const modelBenchmarkItem = {
-      ...MODEL_BENCHMARK_DIRECTORY,
-      display: text(lang, MODEL_BENCHMARK_DIRECTORY.labelZh, MODEL_BENCHMARK_DIRECTORY.label),
-      children: (MODEL_BENCHMARK_DIRECTORY.children || []).map(child => ({
-        ...child,
-        display: text(lang, child.labelZh, child.label),
-      })),
-    }
-    const itemsWithModelValidation = [modelBenchmarkItem, modelValidationItem, ...items]
-    const adjustedInsertIndex = itemsWithModelValidation.findIndex(item => item.id === "methodology-organic-acid")
+    const itemsWithValidation = [algorithmValidationItem, ...items]
+    const adjustedInsertIndex = itemsWithValidation.findIndex(item => item.id === "methodology-organic-acid")
     if (insertIndex >= 0) {
       return [
-        ...itemsWithModelValidation.slice(0, adjustedInsertIndex + 1),
+        ...itemsWithValidation.slice(0, adjustedInsertIndex + 1),
         finalItem,
-        ...itemsWithModelValidation.slice(adjustedInsertIndex + 1),
+        ...itemsWithValidation.slice(adjustedInsertIndex + 1),
       ]
     }
-    return [...itemsWithModelValidation, finalItem]
+    return [...itemsWithValidation, finalItem]
   }, [orderedModules, lang])
 
   useEffect(() => {
@@ -424,18 +411,9 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
 
         <main style={{ display: "grid", gap: 16, minWidth: 0 }}>
           <ProjectEvolutionShortcutCard lang={lang} t={t} onNavigate={onNavigate} />
-          <ModelBenchmarkLab
-            records={modelValidationRecords}
+          <AlgorithmValidationCenter
             summary={modelValidationSummary || {}}
             organicAcidResult={organicAcidResult}
-            lang={lang}
-            t={t}
-            isMobile={isMobile || isNarrow}
-          />
-          <ModelValidationLab
-            records={modelValidationRecords}
-            summary={modelValidationSummary}
-            onNavigate={onNavigate}
             lang={lang}
             t={t}
             isMobile={isMobile || isNarrow}

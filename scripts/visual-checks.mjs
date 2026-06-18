@@ -196,25 +196,15 @@ const routes = [
   ]],
   ["methodology", "#methodology", [
     ["Methods & Evidence", "方法与证据"],
-    ["Model Validation Lab", "模型验证实验室"],
-    ["Project Evolution Integration", "项目演化集成"],
+    ["Algorithm Validation Center", "算法验证中心"],
+    ["Interactive Scientific Figure", "交互式科研主图"],
     ["Enter Project Evolution", "进入项目演化"],
-    ["View Evolution Center", "查看项目演化"],
-    ["Feature Engineering Pipeline", "特征工程管线"],
     ["Feature Selection Explorer", "特征选择探索器"],
-    ["Model Comparison Dashboard", "模型比较面板"],
-    ["Explainability & Trust Map", "可解释性与信任地图"],
-    ["Validation Workflow Workbench", "验证流程工作台"],
-    ["Confidence & Uncertainty Analysis", "置信度与不确定性"],
-    "Validation Pending",
-    "Demo Only",
-    "Framework Ready",
-    ["Database Preview", "数据库预览"],
-    ["Not Final Recommendation", "非最终推荐"],
-    ["Data Quality -> Model Readiness", "数据质量 -> 模型就绪度"],
-    ["Data Quality Audit", "Data Quality Audit"],
-    "Accuracy: pending",
-    "ROC-AUC: pending",
+    ["Top Candidate Review", "候选深度分析"],
+    ["Future Machine Learning Readiness", "未来机器学习就绪度"],
+    ["Experimental Validation Layer", "实验验证层"],
+    "Accuracy: Pending",
+    "ROC-AUC: Pending",
     ["Structured Factor Effects", "结构化因素效应"],
     ["Catalysis Energy Playground Method", "催化能量游乐场方法说明"],
     ["Organic Acid Final Screening Methodology", "有机酸最终筛选方法论"],
@@ -239,41 +229,21 @@ const routes = [
     ["Literature Library", "文献库"],
     ["Validation Roadmap", "验证路线"],
   ]],
-  ["methodology-model-validation", "#methodology-model-validation", [
-    ["Methods & Evidence", "方法与证据"],
-    ["Model Validation Lab", "模型验证实验室"],
-    ["Project Evolution Integration", "项目演化集成"],
-    ["View Evolution Center", "查看项目演化"],
-    ["Feature Engineering Pipeline", "特征工程管线"],
+  ["methodology-algorithm-validation", "#methodology-algorithm-validation", [
+    ["Algorithm Validation Center", "算法验证中心"],
+    ["Interactive Scientific Figure", "交互式科研主图"],
+    ["Database Layer", "数据库层"],
+    ["Descriptor Layer", "描述符层"],
     ["Feature Selection Explorer", "特征选择探索器"],
-    ["Model Comparison Dashboard", "模型比较面板"],
-    ["Explainability & Trust Map", "可解释性与信任地图"],
-    ["Validation Workflow Workbench", "验证流程工作台"],
-    ["Confidence & Uncertainty Analysis", "置信度与不确定性"],
-    ["Data Quality -> Model Readiness", "数据质量 -> 模型就绪度"],
-    ["Data Quality Audit", "Data Quality Audit"],
-    ["Field Coverage Matrix", "Field Coverage Matrix"],
-    "Validation Pending",
-    "Demo Only",
-    "Framework Ready",
-    ["Database Preview", "数据库预览"],
-    ["Not Final Recommendation", "非最终推荐"],
-    "Accuracy: pending",
-    "ROC-AUC: pending",
-  ]],
-  ["methodology-model-benchmark", "#methodology-model-benchmark", [
-    ["Interactive Model Benchmark Workbench", "交互式模型基准工作台"],
-    ["Descriptor Importance Ranking", "描述符重要性排序"],
-    ["Benchmark Readiness", "基准测试就绪度"],
-    ["Model Comparison", "模型比较"],
-    ["Future Accuracy", "未来精度验证"],
-    ["Future ROC-AUC", "未来 ROC-AUC"],
-    ["Rank Change Simulator", "排名变化模拟器"],
-    ["Field provenance", "字段级溯源"],
-    "Label Count = 0 -> Not Ready",
+    ["Evidence & Statistical Interpretation", "证据与统计解释层"],
+    ["Top Candidate Review", "候选深度分析"],
+    ["Algorithm Validation Layer", "算法验证层"],
+    ["Future Machine Learning Readiness", "未来机器学习就绪度"],
+    ["Experimental Validation Layer", "实验验证层"],
+    ["Field-level provenance", "字段级溯源"],
     "Accuracy: Pending",
     "ROC-AUC: Pending",
-    "Experimental labels required",
+    "Experimental Labels Required",
   ]],
 ]
 const viewports = [
@@ -466,15 +436,10 @@ for (const [viewportName, width, height] of viewports) {
         }
       }
 
-      if (routeName === "methodology" || routeName === "methodology-model-validation") {
-        await page.locator("#methodology-model-validation").first().scrollIntoViewIfNeeded().catch(() => {})
-        await page.waitForTimeout(900)
-      }
-
-      if (routeName === "methodology-model-benchmark") {
-        await page.locator("#methodology-model-benchmark").first().waitFor({ state: "attached", timeout: 20000 })
-        await page.locator("#methodology-model-benchmark").first().scrollIntoViewIfNeeded().catch(() => {})
-        await page.locator("#methodology-model-benchmark-candidates").first().waitFor({ state: "attached", timeout: 20000 })
+      if (routeName === "methodology" || routeName === "methodology-algorithm-validation") {
+        await page.locator("#methodology-algorithm-validation").first().waitFor({ state: "attached", timeout: 20000 })
+        await page.locator("#methodology-algorithm-validation").first().scrollIntoViewIfNeeded().catch(() => {})
+        await page.locator("#algval-experimental").first().waitFor({ state: "attached", timeout: 20000 })
         await page.waitForTimeout(900)
       }
 

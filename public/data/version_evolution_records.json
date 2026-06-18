@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V2.7",
+  "currentVersion": "V2.8",
   "generatedAt": "2026-06-18",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
-    "currentVersion": "V2.7",
+    "currentVersion": "V2.8",
     "databaseSize": 1000,
     "verifiedMetadataCount": 30,
     "sourceConfirmedCount": 1000,
@@ -18,7 +18,7 @@
     "notFinalRecommendationStatus": "Not Final Recommendation",
     "sources": {
       "currentVersion": {
-        "value": "V2.7",
+        "value": "V2.8",
         "sourceDatabase": "EcoMOF-AI version_evolution_records.json",
         "sourceRecordId": "overview.currentVersion",
         "sourceUrl": "public/data/version_evolution_records.json",
@@ -27,9 +27,9 @@
         "retrievedAt": "2026-06-18",
         "curationStatus": "confirmed",
         "confidence": 1,
-        "databaseVersion": "version_evolution_records.json@V2.7",
-        "generatingScript": "manual V2.7 model benchmark lab and algorithm credibility framework",
-        "notes": "Version label for the V2.7 Model Benchmark Lab and Algorithm Credibility Framework sprint."
+        "databaseVersion": "version_evolution_records.json@V2.8",
+        "generatingScript": "manual V2.8 interactive scientific figure refactor",
+        "notes": "Version label for the V2.8 Interactive Scientific Figure Refactor sprint."
       },
       "databaseSize": {
         "value": 1000,
@@ -350,9 +350,38 @@
         "UI",
         "Testing"
       ]
+    },
+    {
+      "version": "V2.8",
+      "date": "2026-06-18",
+      "commit": "pending-current",
+      "summary": "Interactive Scientific Figure Refactor and Algorithm Validation Center.",
+      "scientificImpact": "首次将算法验证体系整合为单一交互式科研主图，串联数据库、描述符、特征选择、证据与统计、候选排序、算法验证、未来机器学习与实验验证。",
+      "databaseImpact": "No database expansion; the figure reads the existing 1000-record preview summary and Organic Acid bounded fixtures.",
+      "algorithmImpact": "废弃 Model Validation Lab 与 Model Benchmark Lab，整合为 Algorithm Validation Center；新增 InteractiveScientificFigure、Figure Inspector、字段级溯源与五张真实 SVG mini chart（Descriptor Importance、Feature Coverage、Model Readiness、Candidate Stability、Top Candidate Ranking）。",
+      "validationImpact": "未来机器学习只显示 Pending：Label Count = 0，LR / DT / RF 与 Accuracy / ROC-AUC 均为 Pending，不得伪造；Bayesian Regression 标记为 Planned。",
+      "uiImpact": "方法论由模块驱动改为科研图驱动：进入 Algorithm Validation Center 第一眼看到一张完整交互式科研主图；删除重复状态卡、重复 Roadmap、重复 Readiness 与重复 Validation 面板，验证相关组件显著减少。",
+      "knownLimitations": "缺少真实实验标签；Algorithm Validation Center 仍是白盒 MCDA / 证据修正 / 图论相关性 / 风险惩罚的可信度框架，不是已训练 ML benchmark。",
+      "breakingChanges": "Removed Model Validation Lab and Model Benchmark Lab; deep links now route to #methodology-algorithm-validation.",
+      "nextVersionGoal": "收集可比实验标签并建立 LOO-CV 与 external test 验证集。",
+      "categories": [
+        "Algorithm",
+        "Methods",
+        "Validation",
+        "UI",
+        "Testing"
+      ]
     }
   ],
   "releaseNotes": [
+    {
+      "version": "V2.8",
+      "date": "2026-06-18",
+      "module": "Methods",
+      "category": "Methods",
+      "title": "Interactive Scientific Figure Refactor",
+      "body": "Replaced the Model Validation Lab and Model Benchmark Lab with a single Algorithm Validation Center whose core entry is an Interactive Scientific Figure (Database -> Experimental Validation). Every node is clickable and opens a Figure Inspector with input, output, algorithm, weights, field source, data quality, and next step; embedded mini charts are real SVG and Future Machine Learning shows Pending only."
+    },
     {
       "version": "V2.7",
       "date": "2026-06-18",

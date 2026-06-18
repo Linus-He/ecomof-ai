@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06",
-  "currentVersion": "V2.7",
-  "completedRange": "V1.0-V2.7",
+  "currentVersion": "V2.8",
+  "completedRange": "V1.0-V2.8",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -2005,7 +2005,7 @@
       "title": "Model Benchmark Lab and Algorithm Credibility Framework",
       "titleZh": "模型基准测试实验室与算法可信度框架",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Interactive benchmark readiness and candidate review",
       "themeZh": "交互式基准就绪度与候选深度分析",
       "summary": "Added an interactive Model Benchmark Lab inspired by Su et al. 2025 workflow and benchmark figures, while keeping all ML performance metrics pending until experimental labels exist. Organic Acid now exposes Top Candidate Review, Candidate Stability, and Rank Change Simulator without claiming trained-model accuracy.",
@@ -2082,6 +2082,80 @@
         "adaptationBoundaryZh": "Su et al. 2025 仅作为流程与可视化灵感；EcoMOF-AI 不复现其模型、数据集、C-H borylation 目标、Accuracy 或 ROC-AUC。"
       },
       "relatedSection": "#methodology-model-benchmark"
+    },
+    {
+      "version": "V2.8",
+      "title": "Interactive Scientific Figure Refactor",
+      "titleZh": "交互式科研主图重构",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Figure-driven algorithm validation",
+      "themeZh": "科研图驱动的算法验证",
+      "summary": "Retired the Model Validation Lab and Model Benchmark Lab and merged them into a single Algorithm Validation Center. Its core entry is an Interactive Scientific Figure adapted from Su et al. 2025 Figure 1 + Figure 3, connecting Database, Descriptor, Feature Selection, Evidence & Statistical, Candidate Ranking, Algorithm Validation, Future Machine Learning, and Experimental Validation into one clickable figure with a Figure Inspector and real SVG mini charts.",
+      "summaryZh": "废弃 Model Validation Lab 与 Model Benchmark Lab，整合为单一 Algorithm Validation Center。其核心入口是参考 Su et al. 2025 Figure 1 + Figure 3 的交互式科研主图，把数据库、描述符、特征选择、证据与统计、候选排序、算法验证、未来机器学习与实验验证整合为一张可点击主图，配 Figure Inspector 与真实 SVG mini chart。",
+      "keyUpdates": [
+        "Replaced two separate validation labs with one figure-driven Algorithm Validation Center.",
+        "Added InteractiveScientificFigure with clickable, highlightable, filterable nodes and a Figure Inspector.",
+        "Embedded five real SVG mini charts: Descriptor Importance, Feature Coverage, Model Readiness, Candidate Stability, Top Candidate Ranking.",
+        "Removed duplicate status cards, readiness panels, roadmap cards, and accuracy/ROC panels."
+      ],
+      "keyUpdatesZh": [
+        "用单一科研图驱动的 Algorithm Validation Center 取代两个独立验证实验室。",
+        "新增 InteractiveScientificFigure，节点可点击、可高亮、可筛选，并配 Figure Inspector。",
+        "图内嵌入五张真实 SVG mini chart：描述符重要性、特征覆盖、模型就绪度、候选稳定性、候选排名。",
+        "删除重复状态卡、就绪度面板、Roadmap 卡片与 Accuracy/ROC 面板。"
+      ],
+      "algorithmChanges": [
+        "Consolidated white-box MCDA credibility into a single figure model (buildFigureModel).",
+        "Future Machine Learning nodes stay Pending; Bayesian Regression is marked Planned."
+      ],
+      "algorithmChangesZh": [
+        "将白盒 MCDA 可信度整合进单一图模型（buildFigureModel）。",
+        "未来机器学习节点保持 Pending；Bayesian Regression 标记为 Planned。"
+      ],
+      "uiChanges": [
+        "Methods & Evidence replaces #methodology-model-benchmark and #methodology-model-validation with #methodology-algorithm-validation.",
+        "Algorithm Validation Center opens with the Interactive Scientific Figure as the first-screen entry."
+      ],
+      "uiChangesZh": [
+        "Methods & Evidence 用 #methodology-algorithm-validation 取代 #methodology-model-benchmark 与 #methodology-model-validation。",
+        "Algorithm Validation Center 进入后第一眼即为交互式科研主图。"
+      ],
+      "methodologyChanges": [
+        "Methodology shifts from module-driven to figure-driven.",
+        "Final Methods structure: Data Sources, Descriptor Engineering, Evidence Framework, Screening Trace, Organic Acid Algorithm, Algorithm Validation Center."
+      ],
+      "methodologyChangesZh": [
+        "方法论由模块驱动改为科研图驱动。",
+        "最终 Methods 结构：Data Sources、Descriptor Engineering、Evidence Framework、Screening Trace、Organic Acid Algorithm、Algorithm Validation Center。"
+      ],
+      "evidenceBoundary": "Figure-driven credibility framework only. Label Count = 0, so Future Machine Learning Accuracy, ROC-AUC, LOO-CV, and external test stay Pending and must not be fabricated.",
+      "evidenceBoundaryZh": "仅科研图驱动的可信度框架。Label Count = 0，因此未来机器学习的 Accuracy、ROC-AUC、LOO-CV 与 external test 均为 Pending，不得伪造。",
+      "limitations": [
+        "No real experimental labels.",
+        "No trained supervised ML benchmark.",
+        "The figure explains and audits the white-box workflow; it is not experimental proof."
+      ],
+      "limitationsZh": [
+        "缺少真实实验标签。",
+        "尚未训练监督学习基准模型。",
+        "主图解释并审计白盒流程，不等于实验证明。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "algorithm-validation-center",
+          "interactive-scientific-figure",
+          "figure-inspector",
+          "figure-mini-charts",
+          "future-ml-pending"
+        ],
+        "literatureIds": [
+          "LIT-SU-2025-MOF-BORYLATION"
+        ],
+        "adaptationBoundary": "Su et al. 2025 is used as workflow and visualization inspiration only; EcoMOF-AI does not reproduce its model, dataset, C-H borylation target, Accuracy, or ROC-AUC.",
+        "adaptationBoundaryZh": "Su et al. 2025 仅作为流程与可视化灵感；EcoMOF-AI 不复现其模型、数据集、C-H borylation 目标、Accuracy 或 ROC-AUC。"
+      },
+      "relatedSection": "#methodology-algorithm-validation"
     }
   ],
   "roadmap": [

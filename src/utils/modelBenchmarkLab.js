@@ -446,7 +446,7 @@ export const BENCHMARK_ROADMAP_STEPS = [
 export function benchmarkSource(field, overrides = {}) {
   return {
     value: overrides.value ?? field,
-    sourceDatabase: overrides.sourceDatabase || "EcoMOF-AI V2.7 Model Benchmark Lab",
+    sourceDatabase: overrides.sourceDatabase || "EcoMOF-AI V2.8 Algorithm Validation Center",
     sourceRecordId: overrides.sourceRecordId || field,
     sourceUrl: overrides.sourceUrl || "src/utils/modelBenchmarkLab.js",
     citation: overrides.citation || "Su et al. 2025 inspired workflow analogy; EcoMOF-AI implementation data.",
