@@ -9,10 +9,16 @@ const outDir = path.join(process.cwd(), "test-results", "visual-checks")
 
 const routes = [
   ["home", "#overview", [
-    ["Workflow Narrative", "流程叙事"],
-    ["Evidence & Validation Loop", "证据与验证闭环"],
-    ["What this workflow produces", "这套流程最终产出什么"],
-    ["Structure & Source Intake", "结构与来源接入"],
+    ["数据驱动的 MOF 筛选与验证平台", "Data-driven MOF screening and validation platform"],
+    ["V3.3 数据状态同步到首页", "V3.3 data status on the homepage"],
+    "3020",
+    "2480",
+    "Experimental Labels = 0",
+    "Accuracy / ROC-AUC Pending",
+    "Database Preview · Not Final Recommendation",
+    ["当前能力", "Current Capabilities"],
+    ["当前限制", "Current Limitations"],
+    ["下一步", "Next Step"],
   ]],
   ["catalysis", "#catalysis", [
     ["Section layout controls", "Section 布局控制"],
