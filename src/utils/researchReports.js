@@ -382,6 +382,7 @@ export function generateResearchReport({
   dataFoundation = null,
   dataAudit = null,
   dataIngestion = null,
+  firstBenchmark = null,
 } = {}) {
   if (type === "organic_acid") {
     return buildOrganicAcidReport({ organicAcidResult, versionData, timestamp, dataFoundation })
@@ -441,6 +442,25 @@ export function generateResearchReport({
       title: "Data Source Breakdown",
       subtitle: "数据来源构成",
       body: `Total Records ${dataIngestion.totalRecords}（CoRE ${dataIngestion.coreCount} + QMOF ${dataIngestion.qmofCount} + Literature ${dataIngestion.literatureCount}）。External Database ${Math.round(b.externalDatabase * 100)}% · Literature ${Math.round(b.literature * 100)}% · Experimental ${Math.round(b.experimental * 100)}% · Derived ${Math.round(b.derived * 100)}%。Verified Metadata ${dataIngestion.verifiedMetadataCount}，Gold ${dataIngestion.goldCount}，Reaction ${dataIngestion.reactionCount}。Derived 与 Experimental 严格隔离：Derived Dataset 不计入 Experimental Labels（Experimental = ${dataIngestion.experimentalCount}）。`,
+    })
+  }
+  if (firstBenchmark?.experimentalLabelAudit) {
+    const ela = firstBenchmark.experimentalLabelAudit
+    const gt = firstBenchmark.groundTruthAudit || {}
+    const external = firstBenchmark.split?.counts?.external_test || 0
+    sections.push({
+      title: "Experimental Label Summary",
+      subtitle: "实验标签摘要",
+      body: `Experimental Labels ${ela.experimentalLabelCount}（expert review ${ela.expertReviewLabelCount} + independent validation ${ela.independentValidationCount} + literature ${ela.literatureLabelCount}）；synthetic ${ela.syntheticLabelCount}；derived ${ela.derivedLabelCount}。Ground Truth Coverage：verified ${gt.verifiedGroundTruthCount} / invalid ${gt.invalidGroundTruthCount}。External Test Coverage：${external}。实验标签为专家审查与独立验证 ground truth，未把派生/算法标签计入实验标签（synthetic = 0）。`,
+    })
+    const ready = firstBenchmark.metricsAllowed
+    const best = firstBenchmark.models?.find(m => m.model === firstBenchmark.answers?.bestModel)
+    sections.push({
+      title: "First Benchmark Readiness",
+      subtitle: "首个 Benchmark 就绪度",
+      body: ready
+        ? `Status：Ready（Result ${firstBenchmark.result}）。第一个真实 Benchmark 已运行：${(firstBenchmark.models || []).map(m => `${m.model} acc ${m.accuracy} / ROC ${m.rocAuc}`).join("；")}。最佳模型 ${best?.model}。Accuracy / Precision / Recall / F1 / ROC-AUC 合法显示（来自真实拟合模型，非伪造）。`
+        : `Status：${firstBenchmark.overallStatus || "Pending"}（Result ${firstBenchmark.result}）。Accuracy / ROC-AUC 继续 Pending，原因：${(firstBenchmark.pendingReasons || []).join(" ")}`,
     })
   }
   const charts = buildReportCharts({ records: rows, summary, priorityMode: priority.modeId })

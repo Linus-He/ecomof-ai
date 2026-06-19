@@ -7,8 +7,10 @@ import { auditProvenance } from "./provenanceAudit.js"
 import { dataLeakageCheckV3 } from "../benchmark/dataLeakageCheckV3.js"
 import { buildBenchmarkSplit } from "../benchmark/buildBenchmarkSplit.js"
 import { buildBenchmarkReport } from "../benchmark/benchmarkRunner.js"
+import { auditExperimentalLabels } from "./experimentalLabelAudit.js"
+import { auditGroundTruth } from "./groundTruthAudit.js"
 
-export { auditGoldDataset, auditLabels, auditBenchmarkEligibility, auditReactionDataset, auditProvenance }
+export { auditGoldDataset, auditLabels, auditBenchmarkEligibility, auditReactionDataset, auditProvenance, auditExperimentalLabels, auditGroundTruth }
 
 function asRecords(dataset) {
   if (!dataset) return []

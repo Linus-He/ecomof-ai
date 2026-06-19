@@ -103,10 +103,17 @@ export const FIGURE_MINI_CHARTS = [
 
 // ---- Figure node model ----
 
-export function buildFigureModel({ summary = {}, algorithm = {}, dataFoundation = null, dataAudit = null } = {}) {
+export function buildFigureModel({ summary = {}, algorithm = {}, dataFoundation = null, dataAudit = null, firstBenchmark = null } = {}) {
   const readiness = buildBenchmarkReadiness({ summary, algorithm })
   const df = dataFoundation || null
   const audit = dataAudit || null
+  // V3.4 First Real Benchmark report (experimental labels / ground truth /
+  // external test / benchmark status). Targets: 30 each.
+  const fb = firstBenchmark || null
+  const expLabels = Number(fb?.experimentalLabelAudit?.experimentalLabelCount || 0)
+  const verifiedGt = Number(fb?.groundTruthAudit?.verifiedGroundTruthCount || 0)
+  const externalCount = Number(fb?.split?.counts?.external_test || 0)
+  const gap = (target, value) => Math.max(0, target - value)
   const labelCount = Number(df ? df.labelCount : readiness.experimentalLabels ?? 0) || 0
   const sanityPassed = Boolean(algorithm?.sanityCheck?.passed)
   const topStable = Boolean(algorithm?.sensitivitySummary?.topCandidateStability)
@@ -279,14 +286,20 @@ export function buildFigureModel({ summary = {}, algorithm = {}, dataFoundation 
       shortZh: "未来机器学习",
       title: "Future Machine Learning",
       titleZh: "未来机器学习",
-      status: labelCount > 0 ? "warning" : "blocked",
+      status: fb?.metricsAllowed ? "passed" : labelCount > 0 ? "warning" : "blocked",
       miniChart: "modelReadiness",
       navLabel: "Open ML Readiness",
       navLabelZh: "打开 ML 就绪度",
       items: [
-        { label: "Logistic Regression · Pending", tone: "warn" },
-        { label: "Decision Tree · Pending", tone: "warn" },
-        { label: "Random Forest · Pending", tone: "warn" },
+        ...(fb ? [
+          { label: `Experimental Labels · ${expLabels}/30 (gap ${gap(30, expLabels)})`, tone: expLabels >= 30 ? "pass" : "warn" },
+          { label: `Ground Truth Verified · ${verifiedGt}/30 (gap ${gap(30, verifiedGt)})`, tone: verifiedGt >= 30 ? "pass" : "warn" },
+          { label: `External Test · ${externalCount}/30 (gap ${gap(30, externalCount)})`, tone: externalCount >= 30 ? "pass" : "warn" },
+          { label: `Benchmark Status · ${fb.overallStatus}`, tone: fb.metricsAllowed ? "pass" : "warn" },
+        ] : []),
+        { label: `Logistic Regression · ${fb?.metricsAllowed ? `ROC ${fb.models?.find(m => m.model === "Logistic Regression")?.rocAuc ?? "—"}` : "Pending"}`, tone: fb?.metricsAllowed ? "pass" : "warn" },
+        { label: `Decision Tree · ${fb?.metricsAllowed ? `ROC ${fb.models?.find(m => m.model === "Decision Tree")?.rocAuc ?? "—"}` : "Pending"}`, tone: fb?.metricsAllowed ? "pass" : "warn" },
+        { label: `Random Forest · ${fb?.metricsAllowed ? `ROC ${fb.models?.find(m => m.model === "Random Forest")?.rocAuc ?? "—"}` : "Pending"}`, tone: fb?.metricsAllowed ? "pass" : "warn" },
         ...(df ? [
           { label: `Benchmark Readiness · ${df.readiness.benchmark}`, tone: df.readiness.benchmark === "Ready" ? "pass" : "warn" },
           { label: `Label Readiness · ${df.readiness.label}`, tone: df.readiness.label === "Ready" ? "pass" : "warn" },
@@ -301,13 +314,16 @@ export function buildFigureModel({ summary = {}, algorithm = {}, dataFoundation 
         { label: labelCount > 0 ? "Partially Ready" : "Not Ready · labels required", tone: "warn" },
       ],
       inspector: {
-        input: df ? `Final descriptor set + ${df.labelCount} V3.1 labels + ${df.externalTestCount || 0} external-test labels.` : "Final descriptor set (ready) + experimental labels (missing).",
-        output: "Accuracy / ROC-AUC / F1 stay Pending; no metrics are fabricated.",
-        algorithm: "Planned LR / DT / RF classifiers with LOO-CV and external test (not yet runnable).",
-        weights: df ? `Current / Target / Gap: ${df.current?.labelCount || 0}/${df.targets?.labelCount || 30}/${df.gaps?.labelCount || 0}; external ${df.current?.externalTest || 0}/${df.targets?.externalTest || 30}/${df.gaps?.externalTest || 0}.` : "No coefficients fitted; label count = 0 blocks training.",
-        fieldSource: "benchmark_dataset_v2.json + organic_acid_labels_v2.json + FUTURE_METRIC_MODELS (modelBenchmarkLab.js).",
-        dataQuality: df?.futureMetrics?.reason || `Label count = ${labelCount}. Readiness = ${labelCount > 0 ? "Partially Ready" : "Not Ready"}.`,
-        nextStep: "Collect comparable reviewed external-test labels before training or displaying Accuracy / ROC-AUC.",
+        input: fb ? `${expLabels} experimental labels (expert review + independent validation) + ${externalCount} external-test labels.` : df ? `Final descriptor set + ${df.labelCount} V3.1 labels + ${df.externalTestCount || 0} external-test labels.` : "Final descriptor set (ready) + experimental labels (missing).",
+        output: fb?.metricsAllowed ? `First Real Benchmark complete. Best model: ${fb.answers?.bestModel}. Accuracy / ROC-AUC shown from fitted LR / DT / RF (no fabricated numbers).` : "Accuracy / ROC-AUC / F1 stay Pending; no metrics are fabricated.",
+        algorithm: "LR / DT / RF classifiers fitted on the experimental-label split and evaluated on the independent external test.",
+        weights: fb
+          ? `Current / Target / Gap — Experimental Labels ${expLabels}/30/${gap(30, expLabels)}; Ground Truth ${verifiedGt}/30/${gap(30, verifiedGt)}; External Test ${externalCount}/30/${gap(30, externalCount)}.`
+          : df ? `Current / Target / Gap: ${df.current?.labelCount || 0}/${df.targets?.labelCount || 30}/${df.gaps?.labelCount || 0}; external ${df.current?.externalTest || 0}/${df.targets?.externalTest || 30}/${df.gaps?.externalTest || 0}.` : "No coefficients fitted; label count = 0 blocks training.",
+        fieldSource: "experimental_labels/experimental_labels_v1.json + external_test_dataset_v1.json + first_real_benchmark_report_v1.json.",
+        dataQuality: fb ? `Experimental ${expLabels} · Verified GT ${verifiedGt} · External ${externalCount} · Leak ${fb.leakage?.leakCount ?? 0} · Result ${fb.result}.` : df?.futureMetrics?.reason || `Label count = ${labelCount}. Readiness = ${labelCount > 0 ? "Partially Ready" : "Not Ready"}.`,
+        nextStep: fb?.metricsAllowed ? "Expand the experimental-label corpus beyond the curated set to strengthen the benchmark." : "Collect comparable reviewed external-test labels before training or displaying Accuracy / ROC-AUC.",
+        blocker: fb && !fb.metricsAllowed ? (fb.pendingReasons || []).join(" ") : undefined,
       },
     },
     {

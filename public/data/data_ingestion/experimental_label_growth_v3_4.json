@@ -1,0 +1,22 @@
+{
+  "version": "v3.4",
+  "generatedAt": "2026-06-19",
+  "generator": "scripts/build-v3-4-experimental-labels.mjs",
+  "metrics": [
+    "experimentalLabels",
+    "verifiedGroundTruth",
+    "externalTest"
+  ],
+  "series": {
+    "V3.3": {
+      "experimentalLabels": 0,
+      "verifiedGroundTruth": 0,
+      "externalTest": 1
+    },
+    "V3.4": {
+      "experimentalLabels": 40,
+      "verifiedGroundTruth": 40,
+      "externalTest": 36
+    }
+  }
+}

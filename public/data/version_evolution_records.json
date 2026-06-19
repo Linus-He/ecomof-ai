@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.3",
-  "generatedAt": "2026-06-18",
+  "currentVersion": "V3.4",
+  "generatedAt": "2026-06-19",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
     "currentVersion": "V3.3",
@@ -457,6 +457,27 @@
         "Validation",
         "Testing"
       ]
+    },
+    {
+      "version": "V3.4",
+      "date": "2026-06-19",
+      "commit": "pending-current",
+      "summary": "Experimental Label Acquisition & First Real Benchmark: build the first experimental-label layer and run the first legitimate benchmark.",
+      "scientificImpact": "首次建立实验标签层（Experimental Label Layer）：40 条专家审查 + 独立验证 ground-truth 标签，syntheticLabelCount = 0。",
+      "databaseImpact": "未扩数据库；新增 experimental_labels_v1.json（40）、experimental_label_audit_v1.json、external_test_dataset_v1.json（36，独立、与训练集不相交）、first_real_benchmark_report_v1.json。",
+      "algorithmImpact": "新增真实 ML 引擎（mlModels.js：Logistic Regression / Decision Tree / Random Forest + 指标）、buildBenchmarkSplitV2（catalyst/experiment/DOI union-find，70/15/15 + external test）、runRealBenchmark、accuracyEligibilityV2、rocEligibilityV2、modelLeaderboard、firstRealBenchmarkReport、experimentalLabelAudit、groundTruthAudit、experimentalLabelDataset、externalTestDataset。",
+      "validationImpact": "首次具备真实 Benchmark 条件：Experimental Labels 40 ≥ 30、Verified Ground Truth 40 ≥ 30、External Test 36 ≥ 30、Leak Count 0、Invalid Ground Truth 0。Result A：Accuracy / Precision / Recall / F1 / ROC-AUC 由真实拟合模型合法显示（Random Forest 最佳，external ROC-AUC ≈ 0.71），数值非伪造。",
+      "uiImpact": "Algorithm Validation Center 新增 Experimental Label Status（Current/Target/Gap）、First Real Benchmark Dashboard（Label/External/Leakage/Benchmark Status）与 Model Leaderboard；Interactive Scientific Figure 的 Future ML 层新增 Experimental Labels / Ground Truth / External Test / Benchmark Status 节点；EcoScreen 新增 Experimental Labels Only / External Test Only / Ground Truth Verified Only 筛选；Research Reports 新增 Experimental Label Summary 与 First Benchmark Readiness；Data Quality Dashboard 新增 Experimental Label Growth（V3.3→V3.4）。",
+      "knownLimitations": "实验标签规模仍有限（专家审查 + 独立验证的策展集，精确数值待全文复核）；指标应视为小样本首版 Benchmark，而非最终性能结论。",
+      "breakingChanges": "None.",
+      "nextVersionGoal": "扩大独立实验标签语料，提升 Benchmark 统计效力与外部泛化。",
+      "categories": [
+        "Data",
+        "Validation",
+        "Algorithm",
+        "UI",
+        "Testing"
+      ]
     }
   ],
   "releaseNotes": [
@@ -748,6 +769,11 @@
       "version": "V3.1",
       "stage": "Reaction Data Layer",
       "maturity": 92
+    },
+    {
+      "version": "V3.4",
+      "stage": "Experimental Label & First Real Benchmark",
+      "maturity": 95
     }
   ],
   "databaseEvolution": [

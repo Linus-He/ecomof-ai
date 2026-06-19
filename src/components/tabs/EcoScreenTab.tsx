@@ -850,6 +850,9 @@ const REACTION_FILTERS = [
   { key: "hasDoi", label: "Has DOI", labelZh: "有 DOI" },
   { key: "goldOnly", label: "Gold Only", labelZh: "仅 Gold" },
   { key: "benchmarkEligibleOnly", label: "Benchmark Eligible Only", labelZh: "仅 Benchmark Eligible" },
+  { key: "experimentalLabelsOnly", label: "Experimental Labels Only", labelZh: "仅实验标签" },
+  { key: "externalTestOnly", label: "External Test Only", labelZh: "仅外部测试" },
+  { key: "groundTruthVerifiedOnly", label: "Ground Truth Verified Only", labelZh: "仅已验证 Ground Truth" },
 ]
 
 function ReactionFilterPanel({ filters, onChange, count, total, lang, t, isMobile }) {
@@ -892,9 +895,16 @@ function matchCandidate(candidate = {}, record = {}) {
   return tokens.some(token => token && haystack.includes(token))
 }
 
-function applyReactionFilters(candidates = [], reactionRecords = [], benchmarkRecords = [], filters = {}) {
+function matchAny(candidate = {}, records = []) {
+  return records.some(record => matchCandidate(candidate, record))
+}
+
+function applyReactionFilters(candidates = [], reactionRecords = [], benchmarkRecords = [], filters = {}, labelSets = {}) {
   const active = Object.values(filters).some(Boolean)
   if (!active) return candidates
+  const experimental = labelSets.experimental || []
+  const externalTest = labelSets.externalTest || []
+  const verified = labelSets.verified || []
   return candidates.filter(candidate => {
     const reactions = reactionRecords.filter(record => matchCandidate(candidate, record))
     const benchmarks = benchmarkRecords.filter(record => matchCandidate(candidate, record))
@@ -904,6 +914,10 @@ function applyReactionFilters(candidates = [], reactionRecords = [], benchmarkRe
     if (filters.hasConversion && !reactions.some(row => row.conversion != null)) return false
     if (filters.hasDoi && !reactions.some(row => row.doi && !/pending|missing|unknown/i.test(String(row.doi)))) return false
     if (filters.goldOnly && !reactions.some(row => row.validationStatus === "Gold")) return false
+    // V3.4 experimental-label / external-test / verified-ground-truth filters.
+    if (filters.experimentalLabelsOnly && !matchAny(candidate, experimental)) return false
+    if (filters.externalTestOnly && !matchAny(candidate, externalTest)) return false
+    if (filters.groundTruthVerifiedOnly && !matchAny(candidate, verified)) return false
     return true
   })
 }
@@ -919,6 +933,8 @@ export function EcoScreenTab({ onNavigate }) {
   const [reactionFilters, setReactionFilters] = useState({})
   const [reactionRows, setReactionRows] = useState([])
   const [benchmarkRows, setBenchmarkRows] = useState([])
+  const [experimentalLabelRows, setExperimentalLabelRows] = useState([])
+  const [externalTestRows, setExternalTestRows] = useState([])
   const {
     candidates: generalRows,
     status: generalStatus,
@@ -929,21 +945,27 @@ export function EcoScreenTab({ onNavigate }) {
     Promise.all([
       fetchDataJson("data_ingestion/organic_acid_reaction_dataset_v1.json", null),
       fetchDataJson("benchmark_dataset_v2.json", null),
-    ]).then(([reaction, benchmark]) => {
+      fetchDataJson("experimental_labels/experimental_labels_v1.json", null),
+      fetchDataJson("external_test_dataset_v1.json", null),
+    ]).then(([reaction, benchmark, experimentalLabels, externalTest]) => {
       if (!active) return
       setReactionRows(Array.isArray(reaction?.records) ? reaction.records : [])
       setBenchmarkRows(Array.isArray(benchmark?.records) ? benchmark.records : [])
+      setExperimentalLabelRows(Array.isArray(experimentalLabels?.labels) ? experimentalLabels.labels : [])
+      setExternalTestRows(Array.isArray(externalTest?.records) ? externalTest.records : [])
     }).catch(() => {
       if (active) {
         setReactionRows([])
         setBenchmarkRows([])
+        setExperimentalLabelRows([])
+        setExternalTestRows([])
       }
     })
     return () => { active = false }
   }, [])
   const filteredGeneralRows = useMemo(
-    () => applyReactionFilters(generalRows, reactionRows, benchmarkRows, reactionFilters),
-    [generalRows, reactionRows, benchmarkRows, reactionFilters],
+    () => applyReactionFilters(generalRows, reactionRows, benchmarkRows, reactionFilters, { experimental: experimentalLabelRows, externalTest: externalTestRows, verified: experimentalLabelRows }),
+    [generalRows, reactionRows, benchmarkRows, reactionFilters, experimentalLabelRows, externalTestRows],
   )
   const model = useMemo(
     () => buildCriticScoringModel(filteredGeneralRows, weightingMode),

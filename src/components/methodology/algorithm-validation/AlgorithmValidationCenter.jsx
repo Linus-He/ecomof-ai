@@ -16,6 +16,8 @@ import {
 } from "../../../utils/modelBenchmarkLab"
 import { DESCRIPTOR_CLASSES } from "../../../utils/algorithmValidationFigure"
 import { InteractiveScientificFigure } from "./InteractiveScientificFigure"
+import { ExperimentalLabelDashboard } from "./ExperimentalLabelDashboard"
+import { ModelLeaderboard } from "./ModelLeaderboard"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 const pct = value => (Number.isFinite(Number(value)) ? `${Math.round(Number(value) * 100)}%` : String(value ?? "pending"))
@@ -30,6 +32,8 @@ export const ALGORITHM_VALIDATION_DIRECTORY = {
   children: [
     { id: "algval-figure", label: "Interactive Scientific Figure", labelZh: "交互式科研主图" },
     { id: "algval-data-audit", label: "Data Audit Center", labelZh: "数据审计中心" },
+    { id: "algval-experimental-labels", label: "Experimental Label Status", labelZh: "实验标签状态" },
+    { id: "algval-model-leaderboard", label: "Model Leaderboard", labelZh: "模型排行榜" },
     { id: "algval-first-benchmark", label: "First Real Benchmark", labelZh: "首个真实 Benchmark" },
     { id: "algval-database", label: "Database Layer", labelZh: "数据库层" },
     { id: "algval-descriptor", label: "Descriptor Layer", labelZh: "描述符层" },
@@ -505,7 +509,7 @@ function FirstBenchmarkDashboard({ dataAudit, lang, t, isMobile }) {
   )
 }
 
-export function AlgorithmValidationCenter({ summary = {}, organicAcidResult = null, dataFoundation = null, dataAudit = null, dataIngestion = null, lang, t, isMobile }) {
+export function AlgorithmValidationCenter({ summary = {}, organicAcidResult = null, dataFoundation = null, dataAudit = null, dataIngestion = null, firstBenchmark = null, lang, t, isMobile }) {
   const algorithm = organicAcidResult?.organicAcidAlgorithm || organicAcidResult || {}
   const safeSummary = summary && typeof summary === "object" ? summary : {}
   const readiness = useMemo(() => buildBenchmarkReadiness({ summary: safeSummary, algorithm }), [safeSummary, algorithm])
@@ -535,9 +539,11 @@ export function AlgorithmValidationCenter({ summary = {}, organicAcidResult = nu
         </div>
       ) : null}
 
-      <InteractiveScientificFigure summary={safeSummary} algorithm={algorithm} dataFoundation={dataFoundation} dataAudit={dataAudit} lang={lang} t={t} isMobile={isMobile} onJumpToSection={jumpToSection} />
+      <InteractiveScientificFigure summary={safeSummary} algorithm={algorithm} dataFoundation={dataFoundation} dataAudit={dataAudit} firstBenchmark={firstBenchmark} lang={lang} t={t} isMobile={isMobile} onJumpToSection={jumpToSection} />
 
       <DataAuditCenter dataAudit={dataAudit} lang={lang} t={t} isMobile={isMobile} />
+      <ExperimentalLabelDashboard firstBenchmark={firstBenchmark} lang={lang} t={t} isMobile={isMobile} />
+      <ModelLeaderboard firstBenchmark={firstBenchmark} lang={lang} t={t} isMobile={isMobile} />
       <FirstBenchmarkDashboard dataAudit={dataAudit} lang={lang} t={t} isMobile={isMobile} />
 
       <DatabaseLayer summary={safeSummary} readiness={readiness} dataFoundation={dataFoundation} dataIngestion={dataIngestion} lang={lang} t={t} isMobile={isMobile} />

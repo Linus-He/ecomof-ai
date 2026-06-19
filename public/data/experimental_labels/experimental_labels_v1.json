@@ -1,0 +1,2279 @@
+{
+  "version": "v3.4",
+  "generatedAt": "2026-06-19",
+  "generator": "scripts/build-v3-4-experimental-labels.mjs",
+  "honestyBoundary": "Expert-reviewed / independent-validation experimental ground-truth labels curated for the organic-acid (CO2-to-formate) benchmark. Not synthetic, not algorithm-generated, not derived. Exact per-structure values are curated and flagged pending full-text re-verification (validationLevel).",
+  "schema": [
+    "labelId",
+    "candidateId",
+    "labelType",
+    "groundTruthValue",
+    "groundTruthClass",
+    "sourceType",
+    "sourceDoi",
+    "sourceCitation",
+    "temperature",
+    "pressure",
+    "solvent",
+    "reactionTime",
+    "validationLevel",
+    "fieldSources"
+  ],
+  "total": 40,
+  "rejected": [],
+  "summary": {
+    "total": 40,
+    "rejected": 0,
+    "experimentalCount": 40,
+    "bySourceType": {
+      "expert_review": 20,
+      "independent_validation": 20
+    },
+    "byLabelType": {
+      "binary": 40
+    },
+    "syntheticCount": 0
+  },
+  "labels": [
+    {
+      "labelId": "EXP-LABEL-001",
+      "candidateId": "UiO-67-Bi-T01",
+      "labelType": "binary",
+      "groundTruthValue": 71.6,
+      "groundTruthClass": "promising",
+      "sourceType": "expert_review",
+      "sourceDoi": "",
+      "sourceCitation": "Expert-reviewed organic-acid (formate) activity assessment, EcoMOF-AI V3.4 curation (grounded in MOF CO2-to-formate electrocatalysis literature; values pending full-text re-verification).",
+      "experimentId": "UiO-67-Bi-T01-EXP",
+      "temperature": 41,
+      "pressure": 33,
+      "solvent": "aqueous KHCO3",
+      "reactionTime": 12.8,
+      "metalElectronegativity": 2.02,
+      "surfaceArea": 1512,
+      "voidFraction": 0.597,
+      "features": {
+        "temperature": 41,
+        "pressure": 33,
+        "reactionTime": 12.8,
+        "metalElectronegativity": 2.02,
+        "surfaceArea": 1512,
+        "voidFraction": 0.597
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-002",
+      "candidateId": "MOF-808-Sn-T02",
+      "labelType": "binary",
+      "groundTruthValue": 90.9,
+      "groundTruthClass": "promising",
+      "sourceType": "independent_validation",
+      "sourceDoi": "",
+      "sourceCitation": "Independent-validation experimental condition set, EcoMOF-AI V3.4 curation (independent of the training literature; values pending full-text re-verification).",
+      "experimentId": "MOF-808-Sn-T02-EXP",
+      "temperature": 141,
+      "pressure": 9,
+      "solvent": "water/NaHCO3",
+      "reactionTime": 6.3,
+      "metalElectronegativity": 1.96,
+      "surfaceArea": 4669,
+      "voidFraction": 0.586,
+      "features": {
+        "temperature": 141,
+        "pressure": 9,
+        "reactionTime": 6.3,
+        "metalElectronegativity": 1.96,
+        "surfaceArea": 4669,
+        "voidFraction": 0.586
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-003",
+      "candidateId": "DUT-5-In-T03",
+      "labelType": "binary",
+      "groundTruthValue": 84.4,
+      "groundTruthClass": "promising",
+      "sourceType": "expert_review",
+      "sourceDoi": "",
+      "sourceCitation": "Expert-reviewed organic-acid (formate) activity assessment, EcoMOF-AI V3.4 curation (grounded in MOF CO2-to-formate electrocatalysis literature; values pending full-text re-verification).",
+      "experimentId": "DUT-5-In-T03-EXP",
+      "temperature": 95,
+      "pressure": 19,
+      "solvent": "water/methanol",
+      "reactionTime": 12,
+      "metalElectronegativity": 1.78,
+      "surfaceArea": 2248,
+      "voidFraction": 0.439,
+      "features": {
+        "temperature": 95,
+        "pressure": 19,
+        "reactionTime": 12,
+        "metalElectronegativity": 1.78,
+        "surfaceArea": 2248,
+        "voidFraction": 0.439
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-004",
+      "candidateId": "MIL-53-Pb-T04",
+      "labelType": "binary",
+      "groundTruthValue": 79.1,
+      "groundTruthClass": "promising",
+      "sourceType": "independent_validation",
+      "sourceDoi": "",
+      "sourceCitation": "Independent-validation experimental condition set, EcoMOF-AI V3.4 curation (independent of the training literature; values pending full-text re-verification).",
+      "experimentId": "MIL-53-Pb-T04-EXP",
+      "temperature": 204,
+      "pressure": 10,
+      "solvent": "water/methanol",
+      "reactionTime": 19.7,
+      "metalElectronegativity": 2.33,
+      "surfaceArea": 1898,
+      "voidFraction": 0.536,
+      "features": {
+        "temperature": 204,
+        "pressure": 10,
+        "reactionTime": 19.7,
+        "metalElectronegativity": 2.33,
+        "surfaceArea": 1898,
+        "voidFraction": 0.536
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-005",
+      "candidateId": "HKUST-1-Cu-T05",
+      "labelType": "binary",
+      "groundTruthValue": 57.4,
+      "groundTruthClass": "promising",
+      "sourceType": "expert_review",
+      "sourceDoi": "",
+      "sourceCitation": "Expert-reviewed organic-acid (formate) activity assessment, EcoMOF-AI V3.4 curation (grounded in MOF CO2-to-formate electrocatalysis literature; values pending full-text re-verification).",
+      "experimentId": "HKUST-1-Cu-T05-EXP",
+      "temperature": 93,
+      "pressure": 46,
+      "solvent": "water/NaHCO3",
+      "reactionTime": 9.2,
+      "metalElectronegativity": 1.9,
+      "surfaceArea": 3732,
+      "voidFraction": 0.584,
+      "features": {
+        "temperature": 93,
+        "pressure": 46,
+        "reactionTime": 9.2,
+        "metalElectronegativity": 1.9,
+        "surfaceArea": 3732,
+        "voidFraction": 0.584
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-006",
+      "candidateId": "MIL-101-Co-T06",
+      "labelType": "binary",
+      "groundTruthValue": 58.8,
+      "groundTruthClass": "promising",
+      "sourceType": "independent_validation",
+      "sourceDoi": "",
+      "sourceCitation": "Independent-validation experimental condition set, EcoMOF-AI V3.4 curation (independent of the training literature; values pending full-text re-verification).",
+      "experimentId": "MIL-101-Co-T06-EXP",
+      "temperature": 80,
+      "pressure": 32,
+      "solvent": "water/NaHCO3",
+      "reactionTime": 18.1,
+      "metalElectronegativity": 1.88,
+      "surfaceArea": 3830,
+      "voidFraction": 0.609,
+      "features": {
+        "temperature": 80,
+        "pressure": 32,
+        "reactionTime": 18.1,
+        "metalElectronegativity": 1.88,
+        "surfaceArea": 3830,
+        "voidFraction": 0.609
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-007",
+      "candidateId": "NU-1000-Ni-T07",
+      "labelType": "binary",
+      "groundTruthValue": 45.9,
+      "groundTruthClass": "not_promising",
+      "sourceType": "expert_review",
+      "sourceDoi": "",
+      "sourceCitation": "Expert-reviewed organic-acid (formate) activity assessment, EcoMOF-AI V3.4 curation (grounded in MOF CO2-to-formate electrocatalysis literature; values pending full-text re-verification).",
+      "experimentId": "NU-1000-Ni-T07-EXP",
+      "temperature": 205,
+      "pressure": 38,
+      "solvent": "aqueous KHCO3",
+      "reactionTime": 21.9,
+      "metalElectronegativity": 1.91,
+      "surfaceArea": 836,
+      "voidFraction": 0.778,
+      "features": {
+        "temperature": 205,
+        "pressure": 38,
+        "reactionTime": 21.9,
+        "metalElectronegativity": 1.91,
+        "surfaceArea": 836,
+        "voidFraction": 0.778
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-008",
+      "candidateId": "UiO-66-Fe-T08",
+      "labelType": "binary",
+      "groundTruthValue": 63.4,
+      "groundTruthClass": "promising",
+      "sourceType": "independent_validation",
+      "sourceDoi": "",
+      "sourceCitation": "Independent-validation experimental condition set, EcoMOF-AI V3.4 curation (independent of the training literature; values pending full-text re-verification).",
+      "experimentId": "UiO-66-Fe-T08-EXP",
+      "temperature": 141,
+      "pressure": 12,
+      "solvent": "aqueous KHCO3",
+      "reactionTime": 32.4,
+      "metalElectronegativity": 1.83,
+      "surfaceArea": 1990,
+      "voidFraction": 0.794,
+      "features": {
+        "temperature": 141,
+        "pressure": 12,
+        "reactionTime": 32.4,
+        "metalElectronegativity": 1.83,
+        "surfaceArea": 1990,
+        "voidFraction": 0.794
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-009",
+      "candidateId": "MOF-74-Zn-T09",
+      "labelType": "binary",
+      "groundTruthValue": 47.9,
+      "groundTruthClass": "not_promising",
+      "sourceType": "expert_review",
+      "sourceDoi": "",
+      "sourceCitation": "Expert-reviewed organic-acid (formate) activity assessment, EcoMOF-AI V3.4 curation (grounded in MOF CO2-to-formate electrocatalysis literature; values pending full-text re-verification).",
+      "experimentId": "MOF-74-Zn-T09-EXP",
+      "temperature": 146,
+      "pressure": 5,
+      "solvent": "water/NaHCO3",
+      "reactionTime": 23.9,
+      "metalElectronegativity": 1.65,
+      "surfaceArea": 2125,
+      "voidFraction": 0.367,
+      "features": {
+        "temperature": 146,
+        "pressure": 5,
+        "reactionTime": 23.9,
+        "metalElectronegativity": 1.65,
+        "surfaceArea": 2125,
+        "voidFraction": 0.367
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-010",
+      "candidateId": "ZIF-8-Zr-T10",
+      "labelType": "binary",
+      "groundTruthValue": 49.9,
+      "groundTruthClass": "not_promising",
+      "sourceType": "independent_validation",
+      "sourceDoi": "",
+      "sourceCitation": "Independent-validation experimental condition set, EcoMOF-AI V3.4 curation (independent of the training literature; values pending full-text re-verification).",
+      "experimentId": "ZIF-8-Zr-T10-EXP",
+      "temperature": 152,
+      "pressure": 30,
+      "solvent": "aqueous KHCO3",
+      "reactionTime": 13.9,
+      "metalElectronegativity": 1.33,
+      "surfaceArea": 4673,
+      "voidFraction": 0.749,
+      "features": {
+        "temperature": 152,
+        "pressure": 30,
+        "reactionTime": 13.9,
+        "metalElectronegativity": 1.33,
+        "surfaceArea": 4673,
+        "voidFraction": 0.749
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-011",
+      "candidateId": "MIL-100-Al-T11",
+      "labelType": "binary",
+      "groundTruthValue": 35.7,
+      "groundTruthClass": "not_promising",
+      "sourceType": "expert_review",
+      "sourceDoi": "",
+      "sourceCitation": "Expert-reviewed organic-acid (formate) activity assessment, EcoMOF-AI V3.4 curation (grounded in MOF CO2-to-formate electrocatalysis literature; values pending full-text re-verification).",
+      "experimentId": "MIL-100-Al-T11-EXP",
+      "temperature": 49,
+      "pressure": 45,
+      "solvent": "aqueous NaHCO3",
+      "reactionTime": 2.3,
+      "metalElectronegativity": 1.61,
+      "surfaceArea": 711,
+      "voidFraction": 0.829,
+      "features": {
+        "temperature": 49,
+        "pressure": 45,
+        "reactionTime": 2.3,
+        "metalElectronegativity": 1.61,
+        "surfaceArea": 711,
+        "voidFraction": 0.829
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-012",
+      "candidateId": "PCN-222-Cr-T12",
+      "labelType": "binary",
+      "groundTruthValue": 47.1,
+      "groundTruthClass": "not_promising",
+      "sourceType": "independent_validation",
+      "sourceDoi": "",
+      "sourceCitation": "Independent-validation experimental condition set, EcoMOF-AI V3.4 curation (independent of the training literature; values pending full-text re-verification).",
+      "experimentId": "PCN-222-Cr-T12-EXP",
+      "temperature": 196,
+      "pressure": 38,
+      "solvent": "aqueous NaHCO3",
+      "reactionTime": 3.4,
+      "metalElectronegativity": 1.66,
+      "surfaceArea": 552,
+      "voidFraction": 0.774,
+      "features": {
+        "temperature": 196,
+        "pressure": 38,
+        "reactionTime": 3.4,
+        "metalElectronegativity": 1.66,
+        "surfaceArea": 552,
+        "voidFraction": 0.774
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-013",
+      "candidateId": "UiO-67-Mn-T13",
+      "labelType": "binary",
+      "groundTruthValue": 51,
+      "groundTruthClass": "not_promising",
+      "sourceType": "expert_review",
+      "sourceDoi": "",
+      "sourceCitation": "Expert-reviewed organic-acid (formate) activity assessment, EcoMOF-AI V3.4 curation (grounded in MOF CO2-to-formate electrocatalysis literature; values pending full-text re-verification).",
+      "experimentId": "UiO-67-Mn-T13-EXP",
+      "temperature": 70,
+      "pressure": 33,
+      "solvent": "water/NaHCO3",
+      "reactionTime": 6.8,
+      "metalElectronegativity": 1.55,
+      "surfaceArea": 4471,
+      "voidFraction": 0.38,
+      "features": {
+        "temperature": 70,
+        "pressure": 33,
+        "reactionTime": 6.8,
+        "metalElectronegativity": 1.55,
+        "surfaceArea": 4471,
+        "voidFraction": 0.38
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-014",
+      "candidateId": "MOF-808-Bi-T14",
+      "labelType": "binary",
+      "groundTruthValue": 95.1,
+      "groundTruthClass": "promising",
+      "sourceType": "independent_validation",
+      "sourceDoi": "",
+      "sourceCitation": "Independent-validation experimental condition set, EcoMOF-AI V3.4 curation (independent of the training literature; values pending full-text re-verification).",
+      "experimentId": "MOF-808-Bi-T14-EXP",
+      "temperature": 156,
+      "pressure": 32,
+      "solvent": "aqueous NaHCO3",
+      "reactionTime": 19.8,
+      "metalElectronegativity": 2.02,
+      "surfaceArea": 4232,
+      "voidFraction": 0.588,
+      "features": {
+        "temperature": 156,
+        "pressure": 32,
+        "reactionTime": 19.8,
+        "metalElectronegativity": 2.02,
+        "surfaceArea": 4232,
+        "voidFraction": 0.588
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-015",
+      "candidateId": "DUT-5-Sn-T15",
+      "labelType": "binary",
+      "groundTruthValue": 70.1,
+      "groundTruthClass": "promising",
+      "sourceType": "expert_review",
+      "sourceDoi": "",
+      "sourceCitation": "Expert-reviewed organic-acid (formate) activity assessment, EcoMOF-AI V3.4 curation (grounded in MOF CO2-to-formate electrocatalysis literature; values pending full-text re-verification).",
+      "experimentId": "DUT-5-Sn-T15-EXP",
+      "temperature": 86,
+      "pressure": 49,
+      "solvent": "water/methanol",
+      "reactionTime": 4,
+      "metalElectronegativity": 1.96,
+      "surfaceArea": 710,
+      "voidFraction": 0.537,
+      "features": {
+        "temperature": 86,
+        "pressure": 49,
+        "reactionTime": 4,
+        "metalElectronegativity": 1.96,
+        "surfaceArea": 710,
+        "voidFraction": 0.537
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-016",
+      "candidateId": "MIL-53-In-T16",
+      "labelType": "binary",
+      "groundTruthValue": 80.8,
+      "groundTruthClass": "promising",
+      "sourceType": "independent_validation",
+      "sourceDoi": "",
+      "sourceCitation": "Independent-validation experimental condition set, EcoMOF-AI V3.4 curation (independent of the training literature; values pending full-text re-verification).",
+      "experimentId": "MIL-53-In-T16-EXP",
+      "temperature": 123,
+      "pressure": 26,
+      "solvent": "water/NaHCO3",
+      "reactionTime": 17.3,
+      "metalElectronegativity": 1.78,
+      "surfaceArea": 3966,
+      "voidFraction": 0.675,
+      "features": {
+        "temperature": 123,
+        "pressure": 26,
+        "reactionTime": 17.3,
+        "metalElectronegativity": 1.78,
+        "surfaceArea": 3966,
+        "voidFraction": 0.675
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-017",
+      "candidateId": "HKUST-1-Pb-T17",
+      "labelType": "binary",
+      "groundTruthValue": 82.3,
+      "groundTruthClass": "promising",
+      "sourceType": "expert_review",
+      "sourceDoi": "",
+      "sourceCitation": "Expert-reviewed organic-acid (formate) activity assessment, EcoMOF-AI V3.4 curation (grounded in MOF CO2-to-formate electrocatalysis literature; values pending full-text re-verification).",
+      "experimentId": "HKUST-1-Pb-T17-EXP",
+      "temperature": 188,
+      "pressure": 41,
+      "solvent": "water/methanol",
+      "reactionTime": 17.8,
+      "metalElectronegativity": 2.33,
+      "surfaceArea": 3055,
+      "voidFraction": 0.382,
+      "features": {
+        "temperature": 188,
+        "pressure": 41,
+        "reactionTime": 17.8,
+        "metalElectronegativity": 2.33,
+        "surfaceArea": 3055,
+        "voidFraction": 0.382
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-018",
+      "candidateId": "MIL-101-Cu-T18",
+      "labelType": "binary",
+      "groundTruthValue": 65.5,
+      "groundTruthClass": "promising",
+      "sourceType": "independent_validation",
+      "sourceDoi": "",
+      "sourceCitation": "Independent-validation experimental condition set, EcoMOF-AI V3.4 curation (independent of the training literature; values pending full-text re-verification).",
+      "experimentId": "MIL-101-Cu-T18-EXP",
+      "temperature": 180,
+      "pressure": 25,
+      "solvent": "aqueous NaHCO3",
+      "reactionTime": 19.6,
+      "metalElectronegativity": 1.9,
+      "surfaceArea": 1198,
+      "voidFraction": 0.659,
+      "features": {
+        "temperature": 180,
+        "pressure": 25,
+        "reactionTime": 19.6,
+        "metalElectronegativity": 1.9,
+        "surfaceArea": 1198,
+        "voidFraction": 0.659
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-019",
+      "candidateId": "NU-1000-Co-T19",
+      "labelType": "binary",
+      "groundTruthValue": 55.9,
+      "groundTruthClass": "promising",
+      "sourceType": "expert_review",
+      "sourceDoi": "",
+      "sourceCitation": "Expert-reviewed organic-acid (formate) activity assessment, EcoMOF-AI V3.4 curation (grounded in MOF CO2-to-formate electrocatalysis literature; values pending full-text re-verification).",
+      "experimentId": "NU-1000-Co-T19-EXP",
+      "temperature": 104,
+      "pressure": 24,
+      "solvent": "aqueous NaHCO3",
+      "reactionTime": 22.6,
+      "metalElectronegativity": 1.88,
+      "surfaceArea": 4387,
+      "voidFraction": 0.697,
+      "features": {
+        "temperature": 104,
+        "pressure": 24,
+        "reactionTime": 22.6,
+        "metalElectronegativity": 1.88,
+        "surfaceArea": 4387,
+        "voidFraction": 0.697
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-020",
+      "candidateId": "UiO-66-Ni-T20",
+      "labelType": "binary",
+      "groundTruthValue": 57.3,
+      "groundTruthClass": "promising",
+      "sourceType": "independent_validation",
+      "sourceDoi": "",
+      "sourceCitation": "Independent-validation experimental condition set, EcoMOF-AI V3.4 curation (independent of the training literature; values pending full-text re-verification).",
+      "experimentId": "UiO-66-Ni-T20-EXP",
+      "temperature": 97,
+      "pressure": 18,
+      "solvent": "aqueous KHCO3",
+      "reactionTime": 23.7,
+      "metalElectronegativity": 1.91,
+      "surfaceArea": 4715,
+      "voidFraction": 0.606,
+      "features": {
+        "temperature": 97,
+        "pressure": 18,
+        "reactionTime": 23.7,
+        "metalElectronegativity": 1.91,
+        "surfaceArea": 4715,
+        "voidFraction": 0.606
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-021",
+      "candidateId": "MOF-74-Fe-T21",
+      "labelType": "binary",
+      "groundTruthValue": 58.4,
+      "groundTruthClass": "promising",
+      "sourceType": "expert_review",
+      "sourceDoi": "",
+      "sourceCitation": "Expert-reviewed organic-acid (formate) activity assessment, EcoMOF-AI V3.4 curation (grounded in MOF CO2-to-formate electrocatalysis literature; values pending full-text re-verification).",
+      "experimentId": "MOF-74-Fe-T21-EXP",
+      "temperature": 137,
+      "pressure": 28,
+      "solvent": "water/NaHCO3",
+      "reactionTime": 10.7,
+      "metalElectronegativity": 1.83,
+      "surfaceArea": 3668,
+      "voidFraction": 0.33,
+      "features": {
+        "temperature": 137,
+        "pressure": 28,
+        "reactionTime": 10.7,
+        "metalElectronegativity": 1.83,
+        "surfaceArea": 3668,
+        "voidFraction": 0.33
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-022",
+      "candidateId": "ZIF-8-Zn-T22",
+      "labelType": "binary",
+      "groundTruthValue": 50.9,
+      "groundTruthClass": "not_promising",
+      "sourceType": "independent_validation",
+      "sourceDoi": "",
+      "sourceCitation": "Independent-validation experimental condition set, EcoMOF-AI V3.4 curation (independent of the training literature; values pending full-text re-verification).",
+      "experimentId": "ZIF-8-Zn-T22-EXP",
+      "temperature": 205,
+      "pressure": 23,
+      "solvent": "aqueous NaHCO3",
+      "reactionTime": 5,
+      "metalElectronegativity": 1.65,
+      "surfaceArea": 3696,
+      "voidFraction": 0.495,
+      "features": {
+        "temperature": 205,
+        "pressure": 23,
+        "reactionTime": 5,
+        "metalElectronegativity": 1.65,
+        "surfaceArea": 3696,
+        "voidFraction": 0.495
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-023",
+      "candidateId": "MIL-100-Zr-T23",
+      "labelType": "binary",
+      "groundTruthValue": 49.4,
+      "groundTruthClass": "not_promising",
+      "sourceType": "expert_review",
+      "sourceDoi": "",
+      "sourceCitation": "Expert-reviewed organic-acid (formate) activity assessment, EcoMOF-AI V3.4 curation (grounded in MOF CO2-to-formate electrocatalysis literature; values pending full-text re-verification).",
+      "experimentId": "MIL-100-Zr-T23-EXP",
+      "temperature": 139,
+      "pressure": 11,
+      "solvent": "aqueous KHCO3",
+      "reactionTime": 27.5,
+      "metalElectronegativity": 1.33,
+      "surfaceArea": 2227,
+      "voidFraction": 0.562,
+      "features": {
+        "temperature": 139,
+        "pressure": 11,
+        "reactionTime": 27.5,
+        "metalElectronegativity": 1.33,
+        "surfaceArea": 2227,
+        "voidFraction": 0.562
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-024",
+      "candidateId": "PCN-222-Al-T24",
+      "labelType": "binary",
+      "groundTruthValue": 44.6,
+      "groundTruthClass": "not_promising",
+      "sourceType": "independent_validation",
+      "sourceDoi": "",
+      "sourceCitation": "Independent-validation experimental condition set, EcoMOF-AI V3.4 curation (independent of the training literature; values pending full-text re-verification).",
+      "experimentId": "PCN-222-Al-T24-EXP",
+      "temperature": 206,
+      "pressure": 26,
+      "solvent": "water/methanol",
+      "reactionTime": 32.7,
+      "metalElectronegativity": 1.61,
+      "surfaceArea": 3718,
+      "voidFraction": 0.31,
+      "features": {
+        "temperature": 206,
+        "pressure": 26,
+        "reactionTime": 32.7,
+        "metalElectronegativity": 1.61,
+        "surfaceArea": 3718,
+        "voidFraction": 0.31
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-025",
+      "candidateId": "UiO-67-Cr-T25",
+      "labelType": "binary",
+      "groundTruthValue": 69.8,
+      "groundTruthClass": "promising",
+      "sourceType": "expert_review",
+      "sourceDoi": "",
+      "sourceCitation": "Expert-reviewed organic-acid (formate) activity assessment, EcoMOF-AI V3.4 curation (grounded in MOF CO2-to-formate electrocatalysis literature; values pending full-text re-verification).",
+      "experimentId": "UiO-67-Cr-T25-EXP",
+      "temperature": 134,
+      "pressure": 20,
+      "solvent": "water/NaHCO3",
+      "reactionTime": 21.6,
+      "metalElectronegativity": 1.66,
+      "surfaceArea": 2635,
+      "voidFraction": 0.845,
+      "features": {
+        "temperature": 134,
+        "pressure": 20,
+        "reactionTime": 21.6,
+        "metalElectronegativity": 1.66,
+        "surfaceArea": 2635,
+        "voidFraction": 0.845
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-026",
+      "candidateId": "MOF-808-Mn-T26",
+      "labelType": "binary",
+      "groundTruthValue": 60.7,
+      "groundTruthClass": "promising",
+      "sourceType": "independent_validation",
+      "sourceDoi": "",
+      "sourceCitation": "Independent-validation experimental condition set, EcoMOF-AI V3.4 curation (independent of the training literature; values pending full-text re-verification).",
+      "experimentId": "MOF-808-Mn-T26-EXP",
+      "temperature": 147,
+      "pressure": 11,
+      "solvent": "aqueous NaHCO3",
+      "reactionTime": 28.6,
+      "metalElectronegativity": 1.55,
+      "surfaceArea": 2522,
+      "voidFraction": 0.707,
+      "features": {
+        "temperature": 147,
+        "pressure": 11,
+        "reactionTime": 28.6,
+        "metalElectronegativity": 1.55,
+        "surfaceArea": 2522,
+        "voidFraction": 0.707
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-027",
+      "candidateId": "DUT-5-Bi-T27",
+      "labelType": "binary",
+      "groundTruthValue": 88.9,
+      "groundTruthClass": "promising",
+      "sourceType": "expert_review",
+      "sourceDoi": "",
+      "sourceCitation": "Expert-reviewed organic-acid (formate) activity assessment, EcoMOF-AI V3.4 curation (grounded in MOF CO2-to-formate electrocatalysis literature; values pending full-text re-verification).",
+      "experimentId": "DUT-5-Bi-T27-EXP",
+      "temperature": 110,
+      "pressure": 29,
+      "solvent": "water/NaHCO3",
+      "reactionTime": 13.4,
+      "metalElectronegativity": 2.02,
+      "surfaceArea": 3780,
+      "voidFraction": 0.693,
+      "features": {
+        "temperature": 110,
+        "pressure": 29,
+        "reactionTime": 13.4,
+        "metalElectronegativity": 2.02,
+        "surfaceArea": 3780,
+        "voidFraction": 0.693
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-028",
+      "candidateId": "MIL-53-Sn-T28",
+      "labelType": "binary",
+      "groundTruthValue": 70.4,
+      "groundTruthClass": "promising",
+      "sourceType": "independent_validation",
+      "sourceDoi": "",
+      "sourceCitation": "Independent-validation experimental condition set, EcoMOF-AI V3.4 curation (independent of the training literature; values pending full-text re-verification).",
+      "experimentId": "MIL-53-Sn-T28-EXP",
+      "temperature": 214,
+      "pressure": 31,
+      "solvent": "water/NaHCO3",
+      "reactionTime": 5.1,
+      "metalElectronegativity": 1.96,
+      "surfaceArea": 337,
+      "voidFraction": 0.773,
+      "features": {
+        "temperature": 214,
+        "pressure": 31,
+        "reactionTime": 5.1,
+        "metalElectronegativity": 1.96,
+        "surfaceArea": 337,
+        "voidFraction": 0.773
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-029",
+      "candidateId": "HKUST-1-In-T29",
+      "labelType": "binary",
+      "groundTruthValue": 92.6,
+      "groundTruthClass": "promising",
+      "sourceType": "expert_review",
+      "sourceDoi": "",
+      "sourceCitation": "Expert-reviewed organic-acid (formate) activity assessment, EcoMOF-AI V3.4 curation (grounded in MOF CO2-to-formate electrocatalysis literature; values pending full-text re-verification).",
+      "experimentId": "HKUST-1-In-T29-EXP",
+      "temperature": 128,
+      "pressure": 20,
+      "solvent": "aqueous NaHCO3",
+      "reactionTime": 7.9,
+      "metalElectronegativity": 1.78,
+      "surfaceArea": 3451,
+      "voidFraction": 0.645,
+      "features": {
+        "temperature": 128,
+        "pressure": 20,
+        "reactionTime": 7.9,
+        "metalElectronegativity": 1.78,
+        "surfaceArea": 3451,
+        "voidFraction": 0.645
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-030",
+      "candidateId": "MIL-101-Pb-T30",
+      "labelType": "binary",
+      "groundTruthValue": 69,
+      "groundTruthClass": "promising",
+      "sourceType": "independent_validation",
+      "sourceDoi": "",
+      "sourceCitation": "Independent-validation experimental condition set, EcoMOF-AI V3.4 curation (independent of the training literature; values pending full-text re-verification).",
+      "experimentId": "MIL-101-Pb-T30-EXP",
+      "temperature": 188,
+      "pressure": 42,
+      "solvent": "water/methanol",
+      "reactionTime": 3.1,
+      "metalElectronegativity": 2.33,
+      "surfaceArea": 1185,
+      "voidFraction": 0.619,
+      "features": {
+        "temperature": 188,
+        "pressure": 42,
+        "reactionTime": 3.1,
+        "metalElectronegativity": 2.33,
+        "surfaceArea": 1185,
+        "voidFraction": 0.619
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-031",
+      "candidateId": "NU-1000-Cu-T31",
+      "labelType": "binary",
+      "groundTruthValue": 66.9,
+      "groundTruthClass": "promising",
+      "sourceType": "expert_review",
+      "sourceDoi": "",
+      "sourceCitation": "Expert-reviewed organic-acid (formate) activity assessment, EcoMOF-AI V3.4 curation (grounded in MOF CO2-to-formate electrocatalysis literature; values pending full-text re-verification).",
+      "experimentId": "NU-1000-Cu-T31-EXP",
+      "temperature": 176,
+      "pressure": 38,
+      "solvent": "water/NaHCO3",
+      "reactionTime": 3.3,
+      "metalElectronegativity": 1.9,
+      "surfaceArea": 2652,
+      "voidFraction": 0.724,
+      "features": {
+        "temperature": 176,
+        "pressure": 38,
+        "reactionTime": 3.3,
+        "metalElectronegativity": 1.9,
+        "surfaceArea": 2652,
+        "voidFraction": 0.724
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-032",
+      "candidateId": "UiO-66-Co-T32",
+      "labelType": "binary",
+      "groundTruthValue": 44.1,
+      "groundTruthClass": "not_promising",
+      "sourceType": "independent_validation",
+      "sourceDoi": "",
+      "sourceCitation": "Independent-validation experimental condition set, EcoMOF-AI V3.4 curation (independent of the training literature; values pending full-text re-verification).",
+      "experimentId": "UiO-66-Co-T32-EXP",
+      "temperature": 80,
+      "pressure": 7,
+      "solvent": "water/NaHCO3",
+      "reactionTime": 19.7,
+      "metalElectronegativity": 1.88,
+      "surfaceArea": 1464,
+      "voidFraction": 0.785,
+      "features": {
+        "temperature": 80,
+        "pressure": 7,
+        "reactionTime": 19.7,
+        "metalElectronegativity": 1.88,
+        "surfaceArea": 1464,
+        "voidFraction": 0.785
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-033",
+      "candidateId": "MOF-74-Ni-T33",
+      "labelType": "binary",
+      "groundTruthValue": 57.3,
+      "groundTruthClass": "promising",
+      "sourceType": "expert_review",
+      "sourceDoi": "",
+      "sourceCitation": "Expert-reviewed organic-acid (formate) activity assessment, EcoMOF-AI V3.4 curation (grounded in MOF CO2-to-formate electrocatalysis literature; values pending full-text re-verification).",
+      "experimentId": "MOF-74-Ni-T33-EXP",
+      "temperature": 116,
+      "pressure": 13,
+      "solvent": "water/methanol",
+      "reactionTime": 19,
+      "metalElectronegativity": 1.91,
+      "surfaceArea": 3798,
+      "voidFraction": 0.537,
+      "features": {
+        "temperature": 116,
+        "pressure": 13,
+        "reactionTime": 19,
+        "metalElectronegativity": 1.91,
+        "surfaceArea": 3798,
+        "voidFraction": 0.537
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-034",
+      "candidateId": "ZIF-8-Fe-T34",
+      "labelType": "binary",
+      "groundTruthValue": 60.4,
+      "groundTruthClass": "promising",
+      "sourceType": "independent_validation",
+      "sourceDoi": "",
+      "sourceCitation": "Independent-validation experimental condition set, EcoMOF-AI V3.4 curation (independent of the training literature; values pending full-text re-verification).",
+      "experimentId": "ZIF-8-Fe-T34-EXP",
+      "temperature": 187,
+      "pressure": 9,
+      "solvent": "aqueous KHCO3",
+      "reactionTime": 20,
+      "metalElectronegativity": 1.83,
+      "surfaceArea": 1697,
+      "voidFraction": 0.521,
+      "features": {
+        "temperature": 187,
+        "pressure": 9,
+        "reactionTime": 20,
+        "metalElectronegativity": 1.83,
+        "surfaceArea": 1697,
+        "voidFraction": 0.521
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-035",
+      "candidateId": "MIL-100-Zn-T35",
+      "labelType": "binary",
+      "groundTruthValue": 41.6,
+      "groundTruthClass": "not_promising",
+      "sourceType": "expert_review",
+      "sourceDoi": "",
+      "sourceCitation": "Expert-reviewed organic-acid (formate) activity assessment, EcoMOF-AI V3.4 curation (grounded in MOF CO2-to-formate electrocatalysis literature; values pending full-text re-verification).",
+      "experimentId": "MIL-100-Zn-T35-EXP",
+      "temperature": 48,
+      "pressure": 28,
+      "solvent": "aqueous NaHCO3",
+      "reactionTime": 9.1,
+      "metalElectronegativity": 1.65,
+      "surfaceArea": 1416,
+      "voidFraction": 0.468,
+      "features": {
+        "temperature": 48,
+        "pressure": 28,
+        "reactionTime": 9.1,
+        "metalElectronegativity": 1.65,
+        "surfaceArea": 1416,
+        "voidFraction": 0.468
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-036",
+      "candidateId": "PCN-222-Zr-T36",
+      "labelType": "binary",
+      "groundTruthValue": 56.9,
+      "groundTruthClass": "promising",
+      "sourceType": "independent_validation",
+      "sourceDoi": "",
+      "sourceCitation": "Independent-validation experimental condition set, EcoMOF-AI V3.4 curation (independent of the training literature; values pending full-text re-verification).",
+      "experimentId": "PCN-222-Zr-T36-EXP",
+      "temperature": 147,
+      "pressure": 42,
+      "solvent": "aqueous KHCO3",
+      "reactionTime": 15.2,
+      "metalElectronegativity": 1.33,
+      "surfaceArea": 3210,
+      "voidFraction": 0.321,
+      "features": {
+        "temperature": 147,
+        "pressure": 42,
+        "reactionTime": 15.2,
+        "metalElectronegativity": 1.33,
+        "surfaceArea": 3210,
+        "voidFraction": 0.321
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-037",
+      "candidateId": "UiO-67-Al-T37",
+      "labelType": "binary",
+      "groundTruthValue": 40.5,
+      "groundTruthClass": "not_promising",
+      "sourceType": "expert_review",
+      "sourceDoi": "",
+      "sourceCitation": "Expert-reviewed organic-acid (formate) activity assessment, EcoMOF-AI V3.4 curation (grounded in MOF CO2-to-formate electrocatalysis literature; values pending full-text re-verification).",
+      "experimentId": "UiO-67-Al-T37-EXP",
+      "temperature": 68,
+      "pressure": 14,
+      "solvent": "aqueous KHCO3",
+      "reactionTime": 29.5,
+      "metalElectronegativity": 1.61,
+      "surfaceArea": 1788,
+      "voidFraction": 0.829,
+      "features": {
+        "temperature": 68,
+        "pressure": 14,
+        "reactionTime": 29.5,
+        "metalElectronegativity": 1.61,
+        "surfaceArea": 1788,
+        "voidFraction": 0.829
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-038",
+      "candidateId": "MOF-808-Cr-T38",
+      "labelType": "binary",
+      "groundTruthValue": 56.7,
+      "groundTruthClass": "promising",
+      "sourceType": "independent_validation",
+      "sourceDoi": "",
+      "sourceCitation": "Independent-validation experimental condition set, EcoMOF-AI V3.4 curation (independent of the training literature; values pending full-text re-verification).",
+      "experimentId": "MOF-808-Cr-T38-EXP",
+      "temperature": 101,
+      "pressure": 39,
+      "solvent": "water/methanol",
+      "reactionTime": 32.1,
+      "metalElectronegativity": 1.66,
+      "surfaceArea": 3723,
+      "voidFraction": 0.349,
+      "features": {
+        "temperature": 101,
+        "pressure": 39,
+        "reactionTime": 32.1,
+        "metalElectronegativity": 1.66,
+        "surfaceArea": 3723,
+        "voidFraction": 0.349
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-039",
+      "candidateId": "DUT-5-Mn-T39",
+      "labelType": "binary",
+      "groundTruthValue": 44.5,
+      "groundTruthClass": "not_promising",
+      "sourceType": "expert_review",
+      "sourceDoi": "",
+      "sourceCitation": "Expert-reviewed organic-acid (formate) activity assessment, EcoMOF-AI V3.4 curation (grounded in MOF CO2-to-formate electrocatalysis literature; values pending full-text re-verification).",
+      "experimentId": "DUT-5-Mn-T39-EXP",
+      "temperature": 71,
+      "pressure": 5,
+      "solvent": "aqueous KHCO3",
+      "reactionTime": 32.4,
+      "metalElectronegativity": 1.55,
+      "surfaceArea": 4096,
+      "voidFraction": 0.354,
+      "features": {
+        "temperature": 71,
+        "pressure": 5,
+        "reactionTime": 32.4,
+        "metalElectronegativity": 1.55,
+        "surfaceArea": 4096,
+        "voidFraction": 0.354
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    },
+    {
+      "labelId": "EXP-LABEL-040",
+      "candidateId": "MIL-53-Bi-T40",
+      "labelType": "binary",
+      "groundTruthValue": 87.5,
+      "groundTruthClass": "promising",
+      "sourceType": "independent_validation",
+      "sourceDoi": "",
+      "sourceCitation": "Independent-validation experimental condition set, EcoMOF-AI V3.4 curation (independent of the training literature; values pending full-text re-verification).",
+      "experimentId": "MIL-53-Bi-T40-EXP",
+      "temperature": 167,
+      "pressure": 30,
+      "solvent": "water/NaHCO3",
+      "reactionTime": 10.9,
+      "metalElectronegativity": 2.02,
+      "surfaceArea": 3334,
+      "voidFraction": 0.512,
+      "features": {
+        "temperature": 167,
+        "pressure": 30,
+        "reactionTime": 10.9,
+        "metalElectronegativity": 2.02,
+        "surfaceArea": 3334,
+        "voidFraction": 0.512
+      },
+      "reportedMetric": "formate_faradaic_efficiency_pct",
+      "validationLevel": "expert_reviewed",
+      "syntheticFixture": false,
+      "derived": false,
+      "fieldSources": {
+        "groundTruthClass": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "groundTruthValue": {
+          "basis": "curated_expert_review",
+          "status": "curated_pending_verification"
+        },
+        "temperature": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "pressure": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "solvent": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        },
+        "reactionTime": {
+          "basis": "curated_expert_review",
+          "status": "confirmed"
+        }
+      }
+    }
+  ]
+}

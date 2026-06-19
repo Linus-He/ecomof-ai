@@ -294,6 +294,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
   const [dataFoundation, setDataFoundation] = useState(null)
   const [dataAudit, setDataAudit] = useState(null)
   const [dataIngestion, setDataIngestion] = useState(null)
+  const [firstBenchmark, setFirstBenchmark] = useState(null)
   const [activeId, setActiveId] = useState("methodology-algorithm-validation")
 
   useEffect(() => {
@@ -314,8 +315,9 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
       fetchDataJson("data_ingestion/reaction_data_expansion_summary_v3_1.json", null),
       fetchDataJson("data_ingestion/source_registry.json", null),
       fetchDataJson("data_ingestion/data_ingestion_summary_v3.json", null),
+      fetchDataJson("first_real_benchmark_report_v1.json", null),
     ])
-      .then(([rows, previewSummary, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry, ingestionSummaryV3]) => {
+      .then(([rows, previewSummary, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry, ingestionSummaryV3, firstBenchmarkReport]) => {
         if (!active) return
         setModules(Array.isArray(rows) ? rows : [])
         setModelValidationSummary(previewSummary && typeof previewSummary === "object" ? previewSummary : null)
@@ -323,6 +325,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
         setDataFoundation(summarizeDataFoundation({ gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry }))
         setDataAudit(runDataAudit({ gold, labels, benchmark, reaction, sampleSize: 100 }))
         setDataIngestion(ingestionSummaryV3 && typeof ingestionSummaryV3 === "object" ? ingestionSummaryV3 : null)
+        setFirstBenchmark(firstBenchmarkReport && typeof firstBenchmarkReport === "object" ? firstBenchmarkReport : null)
       })
       .catch(() => {
         if (active) {
@@ -332,6 +335,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
           setDataFoundation(null)
           setDataAudit(null)
           setDataIngestion(null)
+          setFirstBenchmark(null)
         }
       })
     return () => { active = false }
@@ -438,6 +442,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
             dataFoundation={dataFoundation}
             dataAudit={dataAudit}
             dataIngestion={dataIngestion}
+            firstBenchmark={firstBenchmark}
             lang={lang}
             t={t}
             isMobile={isMobile || isNarrow}

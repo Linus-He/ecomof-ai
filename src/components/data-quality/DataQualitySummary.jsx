@@ -40,6 +40,7 @@ export function DataQualitySummary({ summary: injectedSummary, records: injected
   const [summary, setSummary] = useState(injectedSummary || null)
   const [records, setRecords] = useState(injectedRecords || null)
   const [dataIngestion, setDataIngestion] = useState(injectedDataIngestion || null)
+  const [experimentalGrowth, setExperimentalGrowth] = useState(null)
   const [filter, setFilter] = useState("exclude_rejected")
 
   useEffect(() => {
@@ -54,11 +55,13 @@ export function DataQualitySummary({ summary: injectedSummary, records: injected
       fetchDataJson("data_ingestion/verified_metadata_expansion_report.json", null),
       fetchDataJson("data_ingestion/reaction_data_expansion_summary_v3_1.json", null),
       fetchDataJson("data_ingestion/data_ingestion_summary_v3.json", null),
-    ]).then(([gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, ingestionSummaryV3]) => {
+      fetchDataJson("data_ingestion/experimental_label_growth_v3_4.json", null),
+    ]).then(([gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, ingestionSummaryV3, experimentalGrowthV34]) => {
       if (!active) return
       setSummary(summarizeDataFoundation({ gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary }))
       setRecords(Array.isArray(literature?.records) ? literature.records : [])
       if (ingestionSummaryV3 && typeof ingestionSummaryV3 === "object") setDataIngestion(ingestionSummaryV3)
+      if (experimentalGrowthV34 && typeof experimentalGrowthV34 === "object") setExperimentalGrowth(experimentalGrowthV34)
     }).catch(() => { if (active) { setSummary(null); setRecords([]) } })
     return () => { active = false }
   }, [injectedSummary, injectedRecords])
@@ -179,6 +182,22 @@ export function DataQualitySummary({ summary: injectedSummary, records: injected
             {["V3.0", "V3.1", "V3.2", "V3.3"].map(v => {
               const s = dataIngestion.growth.series[v] || {}
               return <span key={v} style={{ color: t.muted, fontSize: 11.2, lineHeight: 1.4 }}>{`${v}: records ${s.records ?? 0} · gold ${s.gold ?? 0} · verified ${s.verified ?? 0} · reaction ${s.reaction ?? 0} · labels ${s.labels ?? 0}`}</span>
+            })}
+          </div>
+        </div>
+      ) : null}
+      {experimentalGrowth?.series ? (
+        <div data-testid="experimental-label-growth" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 6, padding: 10 }}>
+          <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "实验标签增长 V3.3 → V3.4", "Experimental Label Growth V3.3 → V3.4")}</strong>
+          <div style={{ display: "grid", gap: 7, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))" }}>
+            {[
+              ["Experimental Labels", "experimentalLabels"],
+              ["Verified Ground Truth", "verifiedGroundTruth"],
+              ["External Test", "externalTest"],
+            ].map(([label, key]) => {
+              const prev = experimentalGrowth.series["V3.3"]?.[key] ?? 0
+              const curr = experimentalGrowth.series["V3.4"]?.[key] ?? 0
+              return <Metric key={key} label={label} value={`${prev} → ${curr}`} t={t} tone={Number(curr) > Number(prev) ? "pass" : "warn"} />
             })}
           </div>
         </div>

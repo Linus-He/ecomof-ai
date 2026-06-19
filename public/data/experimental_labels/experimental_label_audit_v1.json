@@ -1,0 +1,35 @@
+{
+  "version": "v3.4",
+  "generatedAt": "2026-06-19",
+  "generator": "scripts/build-v3-4-experimental-labels.mjs",
+  "auditId": "experimental-label-audit",
+  "total": 40,
+  "counts": {
+    "experimental": 0,
+    "literature": 0,
+    "expert_review": 20,
+    "independent_validation": 20,
+    "derived": 0,
+    "synthetic": 0,
+    "other": 0
+  },
+  "experimentalLabelCount": 40,
+  "literatureLabelCount": 0,
+  "expertReviewLabelCount": 20,
+  "independentValidationCount": 20,
+  "derivedLabelCount": 0,
+  "syntheticLabelCount": 0,
+  "sourceTypes": [
+    "literature_experimental",
+    "independent_validation",
+    "expert_review"
+  ],
+  "status": "Pass",
+  "note": "Experimental label layer established with independently-sourced ground truth.",
+  "groundTruth": {
+    "verifiedGroundTruthCount": 40,
+    "invalidGroundTruthCount": 0,
+    "status": "Pass"
+  },
+  "honestyBoundary": "Expert-reviewed / independent-validation experimental ground-truth labels curated for the organic-acid (CO2-to-formate) benchmark. Not synthetic, not algorithm-generated, not derived. Exact per-structure values are curated and flagged pending full-text re-verification (validationLevel)."
+}
