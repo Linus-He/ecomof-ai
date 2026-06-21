@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06-21",
-  "currentVersion": "V3.8",
-  "completedRange": "V1.0-V3.8",
+  "currentVersion": "V3.9",
+  "completedRange": "V1.0-V3.9",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -2632,7 +2632,7 @@
       "title": "Research Validation Loop Closure",
       "titleZh": "研究验证闭环",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Research Validation Loop",
       "themeZh": "研究验证闭环",
       "summary": "Connected Organic Acid Project, Research Validation Center, Confidence Matrix, Priority Queue, Knowledge Graph, and Candidate Explanation into a closed validation path.",
@@ -2691,6 +2691,69 @@
         "adaptationBoundaryZh": "仅导航、验证汇总和测试闭环；不隐藏实验结论声明。"
       },
       "relatedSection": "#organic-acid-research-validation"
+    },
+    {
+      "version": "V3.9",
+      "title": "Global Database-Driven Dashboard Refactor",
+      "titleZh": "全站数据库驱动重构",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Database-Driven Dashboards",
+      "themeZh": "数据库驱动仪表板",
+      "summary": "Unified data-source registry + global summary builders so database-scale cards derive from data; removed the Catalysis cat playground; cleaned the version-history IA.",
+      "summaryZh": "统一数据源 registry 与全局 summary builders，使数据库规模卡片由数据派生；删除催化小猫游乐场；清理版本记录信息架构。",
+      "keyUpdates": [
+        "Added src/data/registry data-source registry.",
+        "Added src/utils/summary global database / research reports / version history builders.",
+        "Added fallback + export utilities (no undefined/null/NaN/[object Object]).",
+        "Removed the Catalysis energy-barrier cat playground; Catalysis Lab returns to a research structure."
+      ],
+      "keyUpdatesZh": [
+        "新增 src/data/registry 数据源 registry。",
+        "新增 src/utils/summary 全局数据库/研究报告/版本历史 builders。",
+        "新增 fallback 与 export 工具（杜绝 undefined/null/NaN/[object Object]）。",
+        "删除催化能垒小猫游乐场；Catalysis Lab 回归科研结构。"
+      ],
+      "algorithmChanges": [
+        "Statistics logic moved out of components into builders/selectors; all derived numbers are traceable."
+      ],
+      "algorithmChangesZh": [
+        "统计逻辑从组件下沉到 builders/selectors；所有派生数字可追溯。"
+      ],
+      "uiChanges": [
+        "Catalysis Lab shows a Catalysis Research Overview instead of the cat playground.",
+        "Version history defaults to current-release-first with collapsed/archived older versions."
+      ],
+      "uiChangesZh": [
+        "Catalysis Lab 以催化研究总览替代小猫游乐场。",
+        "版本历史默认当前版本优先，旧版本折叠/归档。"
+      ],
+      "methodologyChanges": [
+        "demo/seed/curated/inferred data modes are explicitly labeled; no fake completeness."
+      ],
+      "methodologyChangesZh": [
+        "显式标注 demo/seed/curated/inferred 数据模式；不伪装完整性。"
+      ],
+      "evidenceBoundary": "Infrastructure refactor only; V3.6 robustness metrics remain the source for model performance and the V3.8 validation loop is preserved.",
+      "evidenceBoundaryZh": "仅基础架构重构；模型性能仍以 V3.6 稳健性指标为来源，保留 V3.8 验证闭环。",
+      "limitations": [
+        "Per-tab card wiring for GasSep and some Organic Acid stats is a follow-up.",
+        "Orphaned cat-playground CSS left in place to avoid risky range deletion."
+      ],
+      "limitationsZh": [
+        "GasSep 与部分有机酸卡片的逐卡接入为后续工作。",
+        "孤立的小猫游乐场 CSS 暂保留以避免高风险的大段删除。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "data-source-registry",
+          "global-summary-builders",
+          "cat-playground-removed"
+        ],
+        "adaptationBoundary": "Registry, summarization, fallback, and export only; no hidden experimental claim.",
+        "adaptationBoundaryZh": "仅 registry、汇总、fallback 与导出；不隐藏实验结论。"
+      },
+      "relatedSection": "#project-status"
     }
   ],
   "roadmap": [

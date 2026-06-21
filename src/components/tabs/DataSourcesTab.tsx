@@ -7,6 +7,7 @@ import {
   fetchDataJson,
   BasisBadge, SectionTitle,
 } from "../../shared"
+import { GlobalDatabaseSummarySection } from "../data/GlobalDatabaseSummarySection"
 
 export function DataSourcesTab() {
   const t = useT()
@@ -68,6 +69,7 @@ export function DataSourcesTab() {
           <BasisBadge tone={datasets.status === "loaded" ? "calc" : "proxy"}>{zhText(lang, datasets.status)}</BasisBadge>
         </div>
       </div>
+      <GlobalDatabaseSummarySection lang={lang} t={t} isMobile={isNarrow} />
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 12 }}>
         {datasetCards.map(([key, title, count, file, body, limit, stage, interpretation]) => (
           <div key={key} style={cardStyle}>

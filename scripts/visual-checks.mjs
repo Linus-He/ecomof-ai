@@ -22,7 +22,7 @@ const routes = [
     "EcoMOF-AI",
     "Current Capability",
     "Current Limitations",
-    "V3.8",
+    "V3.9",
     "Database Scale",
     "Experimental Labels",
     "Benchmark Ready",
@@ -32,7 +32,7 @@ const routes = [
   ["project-status-center", "#project-evolution", [
     "Project Evolution Center",
     "Current Version",
-    "V3.8",
+    "V3.9",
     "Database Scale",
     "Experimental Labels",
     "Credibility",

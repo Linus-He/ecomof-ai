@@ -11,7 +11,6 @@ import {
 import { ModulePageHeader } from "../module/ModuleTop"
 import { CollapsibleResearchSection } from "../common/CollapsibleResearchSection"
 import { enrichCatalysisRecord } from "../catalysis/evidenceScoring"
-import { CatalysisEnergyBarrierDemo } from "../catalysis/CatalysisEnergyBarrierDemo"
 import { OrganicAcidEntryCard } from "../catalysis/OrganicAcidEntryCard"
 import { OrganicAcidFinalScreening } from "../catalysis/organic-acid-final/OrganicAcidFinalScreening"
 import { OrganicAcidWorkspace } from "../catalysis/OrganicAcidWorkspace"
@@ -297,12 +296,24 @@ export function CatalysisLabTab() {
 
       <BoundaryStrip t={t} lang={lang} />
 
-      <CatalysisEnergyBarrierDemo
-        t={t}
-        lang={lang}
-        isMobile={isMobile}
-        onNavigateToSection={openOrganicAcidSection}
-      />
+      <section
+        id="catalysis-research-overview"
+        data-testid="catalysis-research-overview"
+        style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 8, padding: 16 }}
+      >
+        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Catalysis Research Overview</span>
+        <h3 style={{ color: t.textStrong, fontSize: 18, lineHeight: 1.2, margin: 0 }}>{zh ? "催化研究总览" : "Catalysis Research Overview"}</h3>
+        <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.6, margin: 0, maxWidth: 920 }}>
+          {zh
+            ? "催化实验室聚焦有机酸路径研究：从有机酸项目入口、反应路径证据网络、候选优先级，到研究验证中心、证据矩阵、知识图谱与验证路线图，并链接到 Methods & Evidence。所有统计均由底层数据派生。"
+            : "The Catalysis Lab focuses on organic-acid pathway research: organic-acid project entry, pathway evidence network, candidate prioritization, the research validation center, evidence matrix, knowledge graph, and validation roadmap, linked to Methods & Evidence. All statistics are derived from the underlying data."}
+        </p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+          {["Organic Acid Project Entry", "Pathway Evidence Network", "Candidate Prioritization", "Research Validation Center", "Evidence Matrix", "Knowledge Graph", "Validation Roadmap"].map(label => (
+            <span key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, color: t.muted, fontSize: 10.6, fontWeight: 700, padding: "3px 9px" }}>{label}</span>
+          ))}
+        </div>
+      </section>
 
       {status === "loading" ? <LoadingPanel t={t} lang={lang} /> : null}
       {status === "error" ? (

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.8",
+  "currentVersion": "V3.9",
   "generatedAt": "2026-06-21",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
@@ -546,6 +546,26 @@
         "Infrastructure",
         "Testing"
       ]
+    },
+    {
+      "version": "V3.9",
+      "date": "2026-06-21",
+      "commit": "pending-current",
+      "summary": "Global Database-Driven Dashboard Refactor: a unified data-source registry + global summary builders so database-scale cards derive from data, not hardcoded numbers.",
+      "scientificImpact": "全站数据库驱动化基础：统一 data source registry 与 summary builders，数据卡片随数据源派生。",
+      "databaseImpact": "未改动底层数据集（保留 V3.6/V3.8 产物）；新增 src/data/registry（dataSourceRegistry/datasetTypes）、src/utils/summary（global database / research reports / version history / current release / export 摘要）、src/utils/fallback（safeNumber/safePercent/normalizeMissingValue/formatDataCardValue）、src/utils/export（csv/json/fileName/sanitize）。",
+      "algorithmImpact": "未改动模型/Benchmark；统计逻辑从组件下沉到 builder/selector，所有派生数字可追溯，缺失字段统一 fallback（不出现 undefined/null/NaN/[object Object]）。",
+      "validationImpact": "保留 V3.8 Organic Acid Research Validation 闭环；Research Reports 的 Suggested Next Validation Steps 由低覆盖率/高风险阈值派生，不写死。",
+      "uiImpact": "删除 Catalysis 小猫游乐场（CatalysisEnergyBarrierDemo + CatalystCatSprite + cat energy 组件/数据/测试），Catalysis Lab 回归科研结构（Catalysis Research Overview + 有机酸研究链路）；版本记录信息架构清理（Current Release 优先，历史折叠/归档）。",
+      "knownLimitations": "本轮聚焦基础架构与离散任务；GasSep 与部分 Organic Acid 卡片的逐卡动态化作为后续；孤立的 cat-playground CSS 暂保留（删除大段交错 CSS 风险高）。",
+      "breakingChanges": "None.",
+      "nextVersionGoal": "将剩余每个 Tab 的数据卡片逐一接入 summary builders，完成全站动态化与导出闭环。",
+      "categories": [
+        "Data",
+        "UI",
+        "Infrastructure",
+        "Testing"
+      ]
     }
   ],
   "releaseNotes": [
@@ -872,6 +892,11 @@
     {
       "version": "V3.8",
       "stage": "Research Validation Loop Closure",
+      "maturity": 99
+    },
+    {
+      "version": "V3.9",
+      "stage": "Global Database-Driven Dashboard Refactor",
       "maturity": 99
     }
   ],
