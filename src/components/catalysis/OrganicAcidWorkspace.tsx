@@ -6,7 +6,7 @@ const navItems = [
   ["access", "访问入口", "Access"],
   ["algorithm", "算法追踪", "Algorithm"],
   ["pathway-map", "路径图", "Pathway map"],
-  ["organic-acid-graph-explorer", "图论网络", "Graph network"],
+  ["organic-acid-carbon-flow-graph", "图论网络", "Graph network"],
   ["organic-acid-reaction-rule-explorer", "规则与证据", "Rules & evidence"],
   ["priority", "优先级矩阵", "Priority"],
   ["candidates", "候选队列", "Candidates"],

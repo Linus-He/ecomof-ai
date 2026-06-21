@@ -34,7 +34,7 @@ function readRepoFile(relativePath) {
 describe("version_evolution_records data source", () => {
   it("is the single authoritative source for timeline, release notes, milestones, and roadmap", () => {
     expect(data.authority).toMatch(/Single authoritative Project Evolution data source/)
-    expect(data.currentVersion).toBe("V3.6")
+    expect(data.currentVersion).toBe("V3.8")
     expect(data.versions.length).toBeGreaterThanOrEqual(9)
     expect(data.releaseNotes.length).toBeGreaterThanOrEqual(8)
     expect(data.milestones.length).toBe(data.overview.milestoneCount)
@@ -45,6 +45,11 @@ describe("version_evolution_records data source", () => {
       algorithmImpact: expect.stringMatching(/目标函数/),
       validationImpact: expect.stringMatching(/sanity check/),
       knownLimitations: "算法可解释但未被实验闭环验证。",
+    }))
+    expect(data.versions.find(row => row.version === "V3.8")).toEqual(expect.objectContaining({
+      summary: expect.stringMatching(/Research Validation Loop Closure/),
+      validationImpact: expect.stringMatching(/schema|入口/),
+      uiImpact: expect.stringMatching(/visual:check|Organic Acid/),
     }))
 
     for (const version of data.versions) {

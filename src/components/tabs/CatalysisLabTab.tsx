@@ -26,6 +26,27 @@ const DEFAULT_FILTERS = {
   validationStatus: "all",
 }
 
+const ORGANIC_ACID_WORKSPACE_HASHES = new Set([
+  "catalysis-organic-acid",
+  "organic-acid-workbench",
+  "organic-acid-graph-explorer",
+  "organic-acid-carbon-flow-graph",
+  "algorithm-trace-explorer",
+  "priority",
+  "organic-acid-evidence-matrix",
+  "validation",
+])
+
+const ORGANIC_ACID_FINAL_HASHES = new Set([
+  "catalysis-organic-acid-final-screening",
+  "organic-acid-research-validation",
+  "organic-acid-evidence-coverage",
+  "organic-acid-confidence-matrix",
+  "organic-acid-priority-queue",
+  "organic-acid-knowledge-graph",
+  "organic-acid-final-decision-board",
+])
+
 function safeArray(value) {
   return Array.isArray(value) ? value : []
 }
@@ -57,8 +78,20 @@ function BoundaryStrip({ t, lang }) {
 function workspaceFromHash() {
   if (typeof window === "undefined") return "overview"
   const hash = String(window.location.hash || "").replace(/^#/, "").trim()
-  if (hash === "catalysis-organic-acid-final-screening") return "organic-acid-final"
-  return hash === "catalysis-organic-acid" || hash === "organic-acid-graph-explorer" ? "organic-acid" : "overview"
+  if (ORGANIC_ACID_FINAL_HASHES.has(hash)) return "organic-acid-final"
+  return ORGANIC_ACID_WORKSPACE_HASHES.has(hash) ? "organic-acid" : "overview"
+}
+
+function organicAcidScrollTargetFromHash() {
+  if (typeof window === "undefined") return null
+  const hash = String(window.location.hash || "").replace(/^#/, "").trim()
+  return ORGANIC_ACID_WORKSPACE_HASHES.has(hash) && hash !== "catalysis-organic-acid" ? hash : null
+}
+
+function organicAcidFinalScrollTargetFromHash() {
+  if (typeof window === "undefined") return null
+  const hash = String(window.location.hash || "").replace(/^#/, "").trim()
+  return ORGANIC_ACID_FINAL_HASHES.has(hash) && hash !== "catalysis-organic-acid-final-screening" ? hash : null
 }
 
 export function CatalysisLabTab() {
@@ -74,6 +107,7 @@ export function CatalysisLabTab() {
   const [selectedCandidateId, setSelectedCandidateId] = useState(null)
   const [selectedPathwayId, setSelectedPathwayId] = useState(null)
   const [pendingOrganicScrollTarget, setPendingOrganicScrollTarget] = useState(null)
+  const [pendingFinalScrollTarget, setPendingFinalScrollTarget] = useState(null)
   const workspaceRef = useRef(null)
 
   useEffect(() => {
@@ -96,7 +130,12 @@ export function CatalysisLabTab() {
   }, [])
 
   useEffect(() => {
-    const syncWorkspace = () => setActiveWorkspace(workspaceFromHash())
+    const syncWorkspace = () => {
+      const nextWorkspace = workspaceFromHash()
+      setActiveWorkspace(nextWorkspace)
+      if (nextWorkspace === "organic-acid") setPendingOrganicScrollTarget(organicAcidScrollTargetFromHash())
+      if (nextWorkspace === "organic-acid-final") setPendingFinalScrollTarget(organicAcidFinalScrollTargetFromHash())
+    }
     syncWorkspace()
     window.addEventListener("hashchange", syncWorkspace)
     window.addEventListener("popstate", syncWorkspace)
@@ -118,6 +157,19 @@ export function CatalysisLabTab() {
     }, delay))
     return () => timers.forEach(timer => window.clearTimeout(timer))
   }, [activeWorkspace, pendingOrganicScrollTarget])
+
+  useEffect(() => {
+    if (typeof window === "undefined" || activeWorkspace !== "organic-acid-final" || !pendingFinalScrollTarget) return undefined
+    const delays = [120, 360, 800, 1400, 2200]
+    const timers = delays.map((delay, index) => window.setTimeout(() => {
+      document.getElementById(pendingFinalScrollTarget)?.scrollIntoView({
+        behavior: index === 0 ? "smooth" : "auto",
+        block: "start",
+      })
+      if (index === delays.length - 1) setPendingFinalScrollTarget(null)
+    }, delay))
+    return () => timers.forEach(timer => window.clearTimeout(timer))
+  }, [activeWorkspace, pendingFinalScrollTarget])
 
   const catalysisRecords = useMemo(() => (
     rawRecords.map(record => enrichCatalysisRecord(record))

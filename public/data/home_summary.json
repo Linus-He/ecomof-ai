@@ -10,7 +10,7 @@
   "experimentalLabelCount": 150,
   "externalTestCount": 80,
   "benchmarkEligibleCount": 230,
-  "currentVersion": "V3.6",
+  "currentVersion": "V3.8",
   "bestModel": "Random Forest",
   "accuracy": 0.725,
   "rocAuc": 0.7558,
@@ -24,7 +24,7 @@
   "benchmarkBlocker": "independently_measured_experimental_labels_missing",
   "notFinalRecommendation": true,
   "databasePreview": true,
-  "lastUpdated": "2026-06-18",
+  "lastUpdated": "2026-06-21",
   "sourceFiles": [
     "public/data/data_ingestion/data_ingestion_summary_v3.json",
     "public/data/home_summary.json",
@@ -35,6 +35,7 @@
   "notes": [
     "Homepage summary is intentionally lightweight and excludes large record arrays.",
     "Experimental labels count expert-review and independent-validation ground-truth labels; derived labels are not counted.",
-    "Accuracy and ROC-AUC values are sourced from V3.6 robustness validation and displayed as capability status, not final recommendation."
+    "Accuracy and ROC-AUC values are sourced from V3.6 robustness validation and displayed as capability status, not final recommendation.",
+    "V3.8 closes the Organic Acid research validation loop without changing the V3.6 robustness metrics."
   ]
 }

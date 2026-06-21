@@ -37,8 +37,13 @@ describe("ValidationKnowledgeGraph", () => {
     expect(screen.getByText("supports")).toBeInTheDocument()
     expect(screen.getByText("contradicts")).toBeInTheDocument()
     expect(screen.getByText("pending")).toBeInTheDocument()
+    expect(screen.getByText("Candidate Explanation")).toBeInTheDocument()
 
     fireEvent.click(screen.getByRole("button", { name: "pending" }))
     expect(screen.getByTestId("path-analysis").textContent).toMatch(/filter "pending"/)
+    fireEvent.click(screen.getAllByTestId("knowledge-graph-edge")[0])
+    expect(screen.getByTestId("path-analysis").textContent).toMatch(/Edge Evidence|Evidence Tier|Source/)
+    fireEvent.click(screen.getAllByTestId("knowledge-graph-node")[0])
+    expect(screen.getByTestId("path-analysis").textContent).toMatch(/Confidence|Related candidates/)
   })
 })

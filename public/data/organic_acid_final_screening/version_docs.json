@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
-  "updatedAt": "2026-06",
-  "currentVersion": "V3.6",
-  "completedRange": "V1.0-V3.6",
+  "updatedAt": "2026-06-21",
+  "currentVersion": "V3.8",
+  "completedRange": "V1.0-V3.8",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -2567,7 +2567,7 @@
       "title": "Experimental Label Expansion and Robustness Validation",
       "titleZh": "实验标签扩展与稳健性验证",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Robustness Validation",
       "themeZh": "稳健性验证",
       "summary": "Expanded experimental labels to 150, external test to 80, benchmark eligible records to 230, and reported robustness-backed credibility.",
@@ -2626,6 +2626,71 @@
         "adaptationBoundaryZh": "仅表示稳健性支撑的科研验证；不是最终推荐。"
       },
       "relatedSection": "#methodology-algorithm-validation"
+    },
+    {
+      "version": "V3.8",
+      "title": "Research Validation Loop Closure",
+      "titleZh": "研究验证闭环",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Research Validation Loop",
+      "themeZh": "研究验证闭环",
+      "summary": "Connected Organic Acid Project, Research Validation Center, Confidence Matrix, Priority Queue, Knowledge Graph, and Candidate Explanation into a closed validation path.",
+      "summaryZh": "打通 Organic Acid Project、Research Validation Center、置信度矩阵、优先队列、知识图谱和候选解释，形成闭合验证路径。",
+      "keyUpdates": [
+        "Organic Acid Project gained direct validation-center entries.",
+        "Research Validation Center gained return links to pathway network, algorithm trace, candidate prioritization, and graph workbench.",
+        "Priority Queue became a research task queue.",
+        "Confidence Matrix and Knowledge Graph now share candidate highlight state.",
+        "visual:check gained preview fallback ports and explicit startup failure reporting."
+      ],
+      "keyUpdatesZh": [
+        "Organic Acid Project 新增研究验证中心直达入口。",
+        "Research Validation Center 新增返回路径网络、算法追踪器、候选排序工作台和图论工作台入口。",
+        "Priority Queue 升级为研究任务队列。",
+        "Confidence Matrix 与 Knowledge Graph 共享候选高亮状态。",
+        "visual:check 支持 preview fallback 端口与明确启动失败输出。"
+      ],
+      "algorithmChanges": [
+        "Validation priority score now exposes score explanation, confidence source, missing data, key risks, next experiment, why-now rationale, and source trace."
+      ],
+      "algorithmChangesZh": [
+        "验证优先级评分现在展示评分解释、置信来源、缺失数据、关键风险、下一步实验、当前验证原因和 source trace。"
+      ],
+      "uiChanges": [
+        "Confidence Matrix filters by target product, evidence type, and confidence level.",
+        "Knowledge Graph nodes and edges are clickable and linked to queue/matrix selection."
+      ],
+      "uiChangesZh": [
+        "Confidence Matrix 支持按目标产物、证据类型和置信等级筛选。",
+        "Knowledge Graph 节点和边可点击，并与队列/矩阵选择联动。"
+      ],
+      "methodologyChanges": [
+        "No provenance-free mock result is introduced; demo/proxy/inferred status remains visible."
+      ],
+      "methodologyChangesZh": [
+        "不引入无溯源 mock 结果；demo/proxy/inferred 状态保持可见。"
+      ],
+      "evidenceBoundary": "Loop closure and validation infrastructure; V3.6 robustness metrics remain the source for model performance.",
+      "evidenceBoundaryZh": "闭环与验证基础设施版本；模型性能仍以 V3.6 稳健性指标为来源。",
+      "limitations": [
+        "Same-condition experiments are still needed before final recommendation.",
+        "Low-confidence candidates remain blocked by missing data and proxy evidence."
+      ],
+      "limitationsZh": [
+        "仍需要同条件实验后才能形成最终推荐。",
+        "低置信候选仍受缺失数据和代理证据阻断。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "research-validation-loop",
+          "organic-acid-knowledge-graph",
+          "visual-check-fallback"
+        ],
+        "adaptationBoundary": "Navigation, validation summarization, and testing closure only; no hidden experimental claim.",
+        "adaptationBoundaryZh": "仅导航、验证汇总和测试闭环；不隐藏实验结论声明。"
+      },
+      "relatedSection": "#organic-acid-research-validation"
     }
   ],
   "roadmap": [

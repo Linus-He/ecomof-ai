@@ -32,7 +32,7 @@ export const DEFAULT_HOME_SUMMARY = Object.freeze({
   experimentalLabelCount: 150,
   externalTestCount: 80,
   benchmarkEligibleCount: 230,
-  currentVersion: "V3.6",
+  currentVersion: "V3.8",
   bestModel: "Random Forest",
   accuracy: 0.725,
   rocAuc: 0.7558,

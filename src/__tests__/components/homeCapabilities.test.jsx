@@ -46,7 +46,7 @@ describe("home capabilities", () => {
 
     const capabilities = screen.getByTestId("home-platform-capabilities")
     expect(within(capabilities).getByText("Current Version")).toBeInTheDocument()
-    expect(within(capabilities).getByText("V3.6")).toBeInTheDocument()
+    expect(within(capabilities).getByText("V3.8")).toBeInTheDocument()
     expect(within(capabilities).getByText("Database Scale")).toBeInTheDocument()
     expect(within(capabilities).getByText("3020+ Records")).toBeInTheDocument()
     expect(within(capabilities).getByText("2480 Verified Metadata")).toBeInTheDocument()

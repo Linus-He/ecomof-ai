@@ -446,6 +446,40 @@ function OrganicLimitationsSection() {
   )
 }
 
+function ResearchValidationEntryPanel({ lang }) {
+  const zh = lang === "zh"
+  const links = [
+    ["#organic-acid-research-validation", zh ? "进入研究验证中心" : "Enter Research Validation Center", zh ? "证据覆盖、矩阵、队列与图谱总入口。" : "Hub for coverage, matrix, queue, and graph."],
+    ["#organic-acid-evidence-coverage", zh ? "查看证据覆盖" : "View Evidence Coverage", zh ? "按文献、实验、专家审阅和派生来源审计覆盖。": "Audit literature, experimental, expert-review, and derived coverage."],
+    ["#organic-acid-confidence-matrix", zh ? "查看置信度矩阵" : "View Confidence Matrix", zh ? "按目标产物、证据类型和置信等级筛选。": "Filter by target product, evidence type, and confidence level."],
+    ["#organic-acid-priority-queue", zh ? "查看候选优先队列" : "View Priority Queue", zh ? "把候选转成下一步实验任务。": "Convert candidates into next-experiment tasks."],
+    ["#organic-acid-knowledge-graph", zh ? "查看知识图谱" : "View Knowledge Graph", zh ? "联动候选、证据、反应与实验节点。": "Link candidates, evidence, reaction, and experiment nodes."],
+  ]
+  return (
+    <section id="organic-acid-validation-loop-entry" style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 14, scrollMarginTop: 118 }}>
+      <div style={{ display: "grid", gap: 5 }}>
+        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Research validation loop</div>
+        <h2 style={{ color: palette.text, fontSize: 18, lineHeight: 1.2, margin: 0 }}>
+          {zh ? "有机酸研究验证闭环入口" : "Organic Acid Research Validation Loop Entry"}
+        </h2>
+        <p style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.55, margin: 0 }}>
+          {zh
+            ? "从路径网络、算法追踪和候选排序进入 V3.7/V3.8 研究验证中心；所有结果保持 demo / proxy / inferred 边界和字段级溯源。"
+            : "Move from pathway network, algorithm trace, and candidate prioritization into the V3.7/V3.8 validation center; all results keep demo / proxy / inferred boundaries and field-level provenance."}
+        </p>
+      </div>
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))" }}>
+        {links.map(([href, label, note]) => (
+          <a key={href} href={href} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.text, display: "grid", gap: 5, minHeight: 72, padding: 10, textDecoration: "none" }}>
+            <strong style={{ color: palette.accent, fontSize: 12.5, lineHeight: 1.35 }}>{label}</strong>
+            <span style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45 }}>{note}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 export function OrganicAcidProject({ lang = "zh", t }) {
   const { isNarrow } = useViewport()
   const [hasAccess, setHasAccess] = useState(false)
@@ -618,6 +652,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
             ? "有机酸转化是 Catalysis Lab 中优先展示的子工作台，但不是催化模块的全部范围。"
             : "Organic acid conversion is a prioritized sub-workspace within Catalysis Lab, not the full scope of catalysis."}
         </div>
+        <ResearchValidationEntryPanel lang={lang} />
         <SectionLayoutControls command={setLayoutCommand} t={t} lang={lang} />
         <CollapsibleResearchSection
           id="organic-acid-workbench"

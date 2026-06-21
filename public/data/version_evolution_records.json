@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.6",
-  "generatedAt": "2026-06-19",
+  "currentVersion": "V3.8",
+  "generatedAt": "2026-06-21",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
-    "currentVersion": "V3.6",
+    "currentVersion": "V3.8",
     "databaseSize": 3020,
     "verifiedMetadataCount": 2480,
     "sourceConfirmedCount": 2480,
@@ -13,23 +13,23 @@
     "modelValidationStatus": "Robustness Validation Complete",
     "projectAge": "2026-04 to 2026-06",
     "githubStars": "pending",
-    "milestoneCount": 12,
+    "milestoneCount": 13,
     "databasePreviewStatus": "Database Preview",
     "notFinalRecommendationStatus": "Not Final Recommendation",
     "sources": {
       "currentVersion": {
-        "value": "V3.6",
+        "value": "V3.8",
         "sourceDatabase": "EcoMOF-AI version_evolution_records.json",
         "sourceRecordId": "overview.currentVersion",
         "sourceUrl": "public/data/version_evolution_records.json",
         "citation": "Internal project evolution record.",
         "license": "Project repository license context.",
-        "retrievedAt": "2026-06-19",
+        "retrievedAt": "2026-06-21",
         "curationStatus": "confirmed",
         "confidence": 1,
-        "databaseVersion": "version_evolution_records.json@V3.6",
-        "generatingScript": "scripts/build-v3-6-label-expansion-robustness.mjs",
-        "notes": "Version label for the V3.6 Robustness Validation state."
+        "databaseVersion": "version_evolution_records.json@V3.8",
+        "generatingScript": "manual V3.8 research validation loop closure record",
+        "notes": "Version label for the V3.8 Research Validation Loop Closure UI/infrastructure state; validation metrics remain sourced from V3.6 robustness artifacts."
       },
       "databaseSize": {
         "value": 3020,
@@ -526,9 +526,45 @@
         "UI",
         "Testing"
       ]
+    },
+    {
+      "version": "V3.8",
+      "date": "2026-06-21",
+      "commit": "pending-current",
+      "summary": "Research Validation Loop Closure: closed the Organic Acid research loop and made visual regression checks repeatable.",
+      "scientificImpact": "将有机酸模块串成“路径网络—算法追踪—候选排序—证据覆盖—置信度矩阵—优先队列—知识图谱—候选解释”的研究验证闭环。",
+      "databaseImpact": "未新增无来源结果；继续复用 V3.6 experimental labels、benchmark dataset、Organic Acid evidence records 与 demo/proxy/inferred 边界。",
+      "algorithmImpact": "Priority Queue 升级为研究任务队列；Confidence Matrix 支持目标产物、证据类型、置信等级过滤；Knowledge Graph 支持候选/矩阵联动高亮。",
+      "validationImpact": "新增 Organic Acid validation schema 与交互测试，覆盖字段完整性、score explanation、confidence source、unknown/missing fallback 与新旧入口可达性。",
+      "uiImpact": "Organic Acid Project 与 Research Validation Center 增加双向入口；visual:check 覆盖 Home、Project Status、Research Reports、Organic Acid Research Validation、矩阵、队列、图谱和 Organic Acid Project 的桌面/移动、浅色/暗色模式。",
+      "knownLimitations": "V3.8 是闭环与验证基础设施版本；模型指标仍来自 V3.6 稳健性验证，候选仍不是最终实验推荐。",
+      "breakingChanges": "None.",
+      "nextVersionGoal": "继续扩大同条件实验标签并将真实实验反馈写回候选解释与知识图谱。",
+      "categories": [
+        "Validation",
+        "UI",
+        "Infrastructure",
+        "Testing"
+      ]
     }
   ],
   "releaseNotes": [
+    {
+      "version": "V3.8",
+      "date": "2026-06-21",
+      "module": "Organic Acid",
+      "category": "Validation",
+      "title": "Research Validation Loop Closure",
+      "body": "Linked the existing Organic Acid Project and the V3.7 Organic Acid Research Validation Center into a closed research loop. Priority Queue is now a research task queue, Confidence Matrix is filterable by target product/evidence type/confidence level, and Knowledge Graph nodes/edges expose source, confidence, relation type, and candidate linkage."
+    },
+    {
+      "version": "V3.8",
+      "date": "2026-06-21",
+      "module": "Visual Checks",
+      "category": "Infrastructure",
+      "title": "Repeatable Visual Regression Checks",
+      "body": "visual:check now starts a preview server with fallback ports, reports startup errors explicitly, and covers Home, Project Status Center, Research Reports, Organic Acid Research Validation Center, Confidence Matrix, Priority Queue, Knowledge Graph, and Organic Acid Project across desktop/mobile and light/dark modes."
+    },
     {
       "version": "V3.3",
       "date": "2026-06-18",
@@ -832,6 +868,11 @@
       "version": "V3.6",
       "stage": "Experimental Label Expansion & Model Robustness",
       "maturity": 98
+    },
+    {
+      "version": "V3.8",
+      "stage": "Research Validation Loop Closure",
+      "maturity": 99
     }
   ],
   "databaseEvolution": [
@@ -1007,6 +1048,14 @@
       "blockingCondition": "Missing label, missing reaction data, unsafe label source, or train/test leakage.",
       "currentCount": 120,
       "nextGoal": "Increase external-test labels before showing Accuracy / ROC-AUC."
+    },
+    {
+      "stage": "Research Validation Loop Closure",
+      "definition": "Organic Acid pathway, algorithm trace, prioritization, evidence coverage, confidence matrix, priority queue, knowledge graph, and candidate explanation are bidirectionally reachable.",
+      "passCondition": "Old Organic Acid Project anchors and V3.7 Research Validation modules can navigate to each other with field-level provenance intact.",
+      "blockingCondition": "Static demo-only graph, missing source trace, or visual regression check not repeatable.",
+      "currentCount": "closed loop",
+      "nextGoal": "Write same-condition experimental feedback back into confidence and graph edges."
     }
   ],
   "uiEvolution": [
@@ -1072,6 +1121,13 @@
       "before": "Data Foundation showed metadata and benchmark scaffolding without reaction performance filters.",
       "after": "Algorithm Validation, Research Reports, EcoScreen, Data Quality Summary, and the scientific figure show reaction, label, Gold, verified, and benchmark growth.",
       "change": "Added reaction filters and Current / Target / Gap visibility while keeping Accuracy / ROC-AUC Pending."
+    },
+    {
+      "version": "V3.8",
+      "area": "Organic Acid Research Validation",
+      "before": "Organic Acid Project and Research Validation Center were reachable as separate work areas.",
+      "after": "Project, validation center, confidence matrix, priority queue, knowledge graph, and candidate explanation are linked through explicit anchors.",
+      "change": "Closed the user path from pathway network to candidate explanation while preserving demo/proxy/inferred boundaries."
     }
   ],
   "localizationEvolution": [
@@ -1178,6 +1234,13 @@
       "version": "V3.1",
       "date": "2026-06",
       "detail": "First V3.1 reaction data, Gold v2, Label v2, Benchmark v2, eligibility, and leakage checks entered the app."
+    },
+    {
+      "id": "organic-acid-validation-loop-v38",
+      "title": "Organic Acid Research Validation Loop Closure",
+      "version": "V3.8",
+      "date": "2026-06-21",
+      "detail": "Organic Acid Project, Research Validation Center, Confidence Matrix, Priority Queue, Knowledge Graph, and Candidate Explanation became a closed research validation loop."
     }
   ],
   "roadmap": [
