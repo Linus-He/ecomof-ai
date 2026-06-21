@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06-21",
-  "currentVersion": "V3.9.1",
-  "completedRange": "V1.0-V3.9.1",
+  "currentVersion": "V3.9.2",
+  "completedRange": "V1.0-V3.9.2",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -2760,7 +2760,7 @@
       "title": "Full Per-Tab Database Card Wiring",
       "titleZh": "全站逐卡数据接入",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Per-Tab Database Cards",
       "themeZh": "逐卡数据接入",
       "summary": "GasSep + Organic Acid summary builders, cat-playground CSS cleanup, page-level CSV/JSON export.",
@@ -2811,6 +2811,75 @@
         "adaptationBoundaryZh": "仅汇总、fallback、导出。"
       },
       "relatedSection": "#gassep"
+    },
+    {
+      "version": "V3.9.2",
+      "title": "Organic Acid Host-Guest Algorithm Foundation and UI Refactor",
+      "titleZh": "有机酸主客体算法基础与界面重构",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Organic Acid Host-Guest Pathway Screening",
+      "themeZh": "有机酸主客体路径筛选",
+      "summary": "Data-backed host-guest pathway screening workbench for Al-MOF + Mo route prioritization.",
+      "summaryZh": "新增数据驱动的主客体路径筛选工作台，用于解释 Al-MOF + Mo 实验路线优先级。",
+      "keyUpdates": [
+        "Added organic_acid_host_guest seed datasets for pathway steps, descriptor maps, host MOFs, guest metals, routes, evidence risks, and validation experiments.",
+        "Added organicAcidHostGuest builders for host selection, guest selection, HGCPS scoring, route explanation, trace, graph, validation route, and exports.",
+        "Mounted the Organic Acid Host-Guest Pathway Screening Workbench in the gated Organic Acid workspace while preserving existing trace, graph, matrix, queue, and roadmap modules."
+      ],
+      "keyUpdatesZh": [
+        "新增 organic_acid_host_guest 种子数据，覆盖路径步骤、描述符映射、主体 MOF、客体金属、路线、证据风险与验证实验。",
+        "新增 organicAcidHostGuest builders，派生主体筛选、客体筛选、HGCPS、路线解释、算法追踪、知识图谱、验证路线与导出。",
+        "在有机酸密码工作台中接入主客体路径筛选工作台，同时保留既有追踪、图谱、矩阵、队列与路线图模块。"
+      ],
+      "algorithmChanges": [
+        "Host-Guest Complementary Pathway Screening Algorithm ranks routes with host stability, host pathway support, guest activity compensation, complementarity, evidence confidence, and risk penalty.",
+        "Al-MOF is selected as the stable host framework candidate; Mo is selected as the high-priority guest / dopant metal.",
+        "Random Forest remains a baseline / risk reference and is not used as the final route recommendation basis."
+      ],
+      "algorithmChangesZh": [
+        "主客体互补路径筛选算法按主体稳定性、主体路径支持、客体活性补偿、互补性、证据置信度和风险惩罚排序实验路线。",
+        "Al-MOF 被筛选为稳定主体骨架候选；Mo 被筛选为高优先级客体 / 掺杂金属。",
+        "Random Forest 仅作为 baseline / risk reference，不作为最终路线推荐依据。"
+      ],
+      "uiChanges": [
+        "Added Current Algorithm Recommendation card and 6-step pathway screening timeline.",
+        "Refactored Priority Queue into route-first Top Priority / Conditional / Pending sections.",
+        "Added route explanation panel, trace, graph summary, evidence matrix, confidence matrix, validation route, and export controls."
+      ],
+      "uiChangesZh": [
+        "新增当前算法建议卡与 6-step 路径筛选时间线。",
+        "将 Priority Queue 重构为实验路线优先级队列，分为 Top Priority / Conditional / Pending。",
+        "新增路线解释面板、算法追踪、知识图谱摘要、证据矩阵、置信矩阵、验证路线与导出控制。"
+      ],
+      "methodologyChanges": [
+        "All visible Al-MOF + Mo conclusions are derived from seed data and builders, not hardcoded UI claims.",
+        "The recommendation is framed as a high-priority experimental hypothesis, not final catalytic proof."
+      ],
+      "methodologyChangesZh": [
+        "所有可见 Al-MOF + Mo 结论均由数据与 builders 派生，不作为 UI 硬编码结论。",
+        "推荐结果被限定为高优先级实验假设，不代表最终催化性能证明。"
+      ],
+      "evidenceBoundary": "Data-backed route-priority hypothesis for early small-sample research; same-condition experiments and 170C aqueous stability validation remain required.",
+      "evidenceBoundaryZh": "面向早期小样本研究的数据驱动路线优先级假设；仍需同条件实验与 170°C 水相稳定性验证。",
+      "limitations": [
+        "Evidence is demo/proxy curated where exact same-condition studies are missing.",
+        "Mo introduction route and local coordination state require characterization before performance claims."
+      ],
+      "limitationsZh": [
+        "缺少精确同条件研究时，证据仍为 demo/proxy curated。",
+        "Mo 引入方式与局部配位状态需要表征后才能进入性能结论。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "organic-acid-host-guest",
+          "HGCPS",
+          "route-priority-queue"
+        ],
+        "adaptationBoundary": "Host-guest route prioritization and validation planning only; no final catalyst-performance proof.",
+        "adaptationBoundaryZh": "仅用于主客体路线优先级与验证计划；不提供最终催化性能证明。"
+      },
+      "relatedSection": "#organic-acid-host-guest-workbench"
     }
   ],
   "roadmap": [

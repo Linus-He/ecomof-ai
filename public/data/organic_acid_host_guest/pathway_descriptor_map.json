@@ -1,0 +1,93 @@
+[
+  {
+    "mappingId": "map-co2-enrichment",
+    "stepId": "step-co2-enrichment",
+    "descriptorGroup": "CO2 enrichment and pore access",
+    "descriptors": ["surface area", "pore volume", "CO2 affinity proxy", "aqueous pore accessibility"],
+    "descriptorDirection": "higher accessible area / pore volume and moderate CO2 affinity are preferred",
+    "whyTheseDescriptorsMatter": "The first bottleneck is local reactant availability; accessible pores and CO2 affinity proxies raise the chance that C1 species reach active pockets.",
+    "dataAvailability": "proxy available",
+    "missingDescriptors": ["same-condition aqueous CO2 uptake at 170C"],
+    "evidenceType": "literature / inferred",
+    "confidenceLevel": "medium",
+    "provenance": ["HGCPS-DESC-001", "HGCPS-EVID-001"]
+  },
+  {
+    "mappingId": "map-co2-activation",
+    "stepId": "step-co2-activation",
+    "descriptorGroup": "Lewis acidity and charge polarization",
+    "descriptors": ["Lewis acidity", "open metal site", "charge density", "metal-node polarity"],
+    "descriptorDirection": "moderate-high Lewis acidity and accessible polarized sites are preferred",
+    "whyTheseDescriptorsMatter": "CO2 activation requires local polarization; the host can provide stable Lewis-acid pockets while a guest metal can add electronic modulation.",
+    "dataAvailability": "partial proxy available",
+    "missingDescriptors": ["operando CO2 activation signature"],
+    "evidenceType": "simulation / DFT / expert prior",
+    "confidenceLevel": "medium",
+    "provenance": ["HGCPS-DESC-002", "HGCPS-EVID-002"]
+  },
+  {
+    "mappingId": "map-hcoo-stabilization",
+    "stepId": "step-hcoo-stabilization",
+    "descriptorGroup": "Formate intermediate binding window",
+    "descriptors": ["metal electronic structure", "coordination environment", "intermediate binding proxy", "oxo / hydroxo motif compatibility"],
+    "descriptorDirection": "balanced HCOO* stabilization without strong product trapping is preferred",
+    "whyTheseDescriptorsMatter": "HCOO* stabilization is the target C1 intermediate step; Mo-type guest motifs can compensate for Al-MOF host activity limitations.",
+    "dataAvailability": "proxy available",
+    "missingDescriptors": ["direct HCOO* adsorption energy on Al-MOF + Mo"],
+    "evidenceType": "simulation / DFT / inferred",
+    "confidenceLevel": "medium-high",
+    "provenance": ["HGCPS-DESC-003", "HGCPS-EVID-003"]
+  },
+  {
+    "mappingId": "map-proton-electron-transfer",
+    "stepId": "step-proton-electron-transfer",
+    "descriptorGroup": "Local proton and electron support",
+    "descriptors": ["hydrophilicity", "linker polarity", "local H-bond environment", "redox-compatible guest site"],
+    "descriptorDirection": "hydrated polar pockets and electronically active guest sites are preferred",
+    "whyTheseDescriptorsMatter": "The route needs local proton transfer and charge redistribution, which is expected to be stronger in a host-guest system than in pristine Al-MOF.",
+    "dataAvailability": "partial proxy available",
+    "missingDescriptors": ["measured proton mobility", "operando guest redox state"],
+    "evidenceType": "expert prior / inferred",
+    "confidenceLevel": "medium",
+    "provenance": ["HGCPS-DESC-004", "HGCPS-EVID-004"]
+  },
+  {
+    "mappingId": "map-formic-acid-desorption",
+    "stepId": "step-formic-acid-desorption",
+    "descriptorGroup": "Product release and diffusion",
+    "descriptors": ["pore size", "diffusion channel", "moderate binding strength", "water-compatible product release"],
+    "descriptorDirection": "moderate product binding and open diffusion paths are preferred",
+    "whyTheseDescriptorsMatter": "A route that binds HCOO* too strongly may fail at product release; host pore geometry is therefore part of the score.",
+    "dataAvailability": "limited proxy available",
+    "missingDescriptors": ["formic acid desorption barrier"],
+    "evidenceType": "inferred",
+    "confidenceLevel": "medium-low",
+    "provenance": ["HGCPS-DESC-005", "HGCPS-EVID-005"]
+  },
+  {
+    "mappingId": "map-competing-pathway",
+    "stepId": "step-competing-pathway",
+    "descriptorGroup": "Selectivity and side-reaction control",
+    "descriptors": ["balanced acidity", "limited non-selective redox activity", "C1 selectivity proxy", "side-product risk"],
+    "descriptorDirection": "higher C1 selectivity proxy and lower side-reaction risk are preferred",
+    "whyTheseDescriptorsMatter": "The target route must reduce leakage to C2 organic acids and solid byproducts, especially under hot aqueous conditions.",
+    "dataAvailability": "partial proxy available",
+    "missingDescriptors": ["same-condition product distribution for each host-guest route"],
+    "evidenceType": "related experiment / inferred",
+    "confidenceLevel": "medium",
+    "provenance": ["HGCPS-DESC-006", "HGCPS-EVID-006"]
+  },
+  {
+    "mappingId": "map-stability-risk",
+    "stepId": "step-170c-aqueous-stability",
+    "descriptorGroup": "Hydrothermal stability gate",
+    "descriptors": ["metal-ligand bond strength", "topology", "known water stability", "post-reaction PXRD retention", "metal leaching risk"],
+    "descriptorDirection": "strong hydrothermal scaffold and low leaching risk are required",
+    "whyTheseDescriptorsMatter": "No activity route is useful if the host collapses or the guest metal leaches before validation.",
+    "dataAvailability": "proxy available",
+    "missingDescriptors": ["post-reaction 170C PXRD / ICP for Al-MOF + Mo"],
+    "evidenceType": "literature / related experiment",
+    "confidenceLevel": "medium-high",
+    "provenance": ["HGCPS-DESC-007", "HGCPS-EVID-007"]
+  }
+]

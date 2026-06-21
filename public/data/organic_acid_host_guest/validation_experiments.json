@@ -1,0 +1,98 @@
+[
+  {
+    "experimentId": "val-almo-mo-001",
+    "routeId": "route-al-mof-mo",
+    "purpose": "Establish the host scaffold baseline.",
+    "recommendedExperiment": "Synthesize or select Al-MOF host with reproducible phase purity.",
+    "expectedObservation": "Al-MOF host shows stable pre-reaction PXRD and accessible pore signature.",
+    "requiredCharacterization": ["PXRD", "N2 sorption or pore-access proxy", "FTIR"],
+    "validationPriority": "P0",
+    "riskAddressed": "host identity and scaffold baseline",
+    "requiredData": ["phase purity", "pore-access indicator", "batch reproducibility"],
+    "successCriterion": "Host phase and baseline pore-access proxy are reproducible before Mo introduction."
+  },
+  {
+    "experimentId": "val-almo-mo-002",
+    "routeId": "route-al-mof-mo",
+    "purpose": "Introduce Mo as guest / dopant / electronic modulation site.",
+    "recommendedExperiment": "Introduce Mo by doping / post-synthetic modification / bimetallic node construction in parallel micro-batches.",
+    "expectedObservation": "Mo is incorporated or anchored without destroying the Al-MOF scaffold.",
+    "requiredCharacterization": ["ICP", "XPS", "XANES / EXAFS if available", "PXRD"],
+    "validationPriority": "P0",
+    "riskAddressed": "doping feasibility uncertain",
+    "requiredData": ["Mo loading", "Mo oxidation-state proxy", "framework retention"],
+    "successCriterion": "A Mo-containing Al-MOF route retains structure and shows measurable Mo incorporation."
+  },
+  {
+    "experimentId": "val-almo-mo-003",
+    "routeId": "route-al-mof-mo",
+    "purpose": "Verify structure before reaction.",
+    "recommendedExperiment": "Compare pristine Al-MOF and Al-MOF + Mo before reaction by PXRD, FTIR, ICP, and microscopy.",
+    "expectedObservation": "The host scaffold remains identifiable and Mo distribution is not a separate bulk oxide-only phase.",
+    "requiredCharacterization": ["PXRD", "FTIR", "ICP", "SEM / TEM"],
+    "validationPriority": "P0",
+    "riskAddressed": "local coordination uncertain",
+    "requiredData": ["pre-reaction structure", "Mo distribution", "bulk oxide control"],
+    "successCriterion": "Pre-reaction evidence supports a host-guest or doped route rather than simple physical contamination."
+  },
+  {
+    "experimentId": "val-almo-mo-004",
+    "routeId": "route-al-mof-mo",
+    "purpose": "Test stability under 170C aqueous condition.",
+    "recommendedExperiment": "Run 170C aqueous stability hold before catalytic testing.",
+    "expectedObservation": "Al-MOF + Mo retains framework signature and shows limited metal leaching.",
+    "requiredCharacterization": ["post-hold PXRD", "ICP leachate", "FTIR"],
+    "validationPriority": "P0",
+    "riskAddressed": "170C aqueous collapse risk",
+    "requiredData": ["post-hold PXRD retention", "Al leaching", "Mo leaching"],
+    "successCriterion": "Framework retention and leaching remain within predefined validation limits."
+  },
+  {
+    "experimentId": "val-almo-mo-005",
+    "routeId": "route-al-mof-mo",
+    "purpose": "Compare formic acid production with pristine Al-MOF.",
+    "recommendedExperiment": "Run paired formic-acid reaction tests for Al-MOF + Mo, pristine Al-MOF, MoOx alone, physical mixture, and blank.",
+    "expectedObservation": "Al-MOF + Mo improves formic-acid / formate signal relative to pristine Al-MOF without uncontrolled side-product growth.",
+    "requiredCharacterization": ["HPLC or IC", "TOC / carbon balance", "time-series product analysis"],
+    "validationPriority": "P1",
+    "riskAddressed": "high-priority hypothesis not final catalytic proof",
+    "requiredData": ["formic acid yield", "carbon selectivity", "side-product distribution", "replicates"],
+    "successCriterion": "Improvement over pristine Al-MOF is statistically visible in early validation data."
+  },
+  {
+    "experimentId": "val-almo-mo-006",
+    "routeId": "route-al-mof-mo",
+    "purpose": "Characterize Mo coordination state before and after reaction.",
+    "recommendedExperiment": "Track Mo coordination and oxidation-state proxies before and after aqueous reaction.",
+    "expectedObservation": "Mo remains associated with the host route and does not fully leach or collapse to an unrelated phase.",
+    "requiredCharacterization": ["XPS", "XANES / EXAFS if available", "ICP leachate", "post-reaction PXRD"],
+    "validationPriority": "P1",
+    "riskAddressed": "local coordination uncertain",
+    "requiredData": ["Mo state before reaction", "Mo state after reaction", "leachate Mo"],
+    "successCriterion": "Mo speciation is traceable enough to support or falsify the guest-metal mechanism."
+  },
+  {
+    "experimentId": "val-almo-mo-007",
+    "routeId": "route-al-mof-mo",
+    "purpose": "Evaluate whether Mo improves CO2 activation / HCOO* stabilization.",
+    "recommendedExperiment": "Run isotope or intermediate-trapping experiments and compare with pristine Al-MOF controls.",
+    "expectedObservation": "Mo route shows stronger C1 activation or formate-intermediate signal than host-only control.",
+    "requiredCharacterization": ["NaH13CO3 tracing", "in situ FTIR if available", "time-series product analysis"],
+    "validationPriority": "P1",
+    "riskAddressed": "missing direct mechanism evidence",
+    "requiredData": ["C1 source attribution", "formate-intermediate signal", "control comparison"],
+    "successCriterion": "Mechanistic evidence supports Mo as activity compensation rather than a passive additive."
+  },
+  {
+    "experimentId": "val-route-controls-008",
+    "routeId": "route-al-mof-fe",
+    "purpose": "Control comparison for conditional dopants.",
+    "recommendedExperiment": "Run Al-MOF + Fe as a lower-priority dopant control only after Mo feasibility is resolved.",
+    "expectedObservation": "Fe route clarifies whether redox dopants create side-product leakage.",
+    "requiredCharacterization": ["HPLC or IC", "ICP", "post-reaction PXRD"],
+    "validationPriority": "P2",
+    "riskAddressed": "competing pathway / side reaction",
+    "requiredData": ["side-product profile", "metal leaching", "framework retention"],
+    "successCriterion": "Control route quantifies whether redox dopants are beneficial or risky."
+  }
+]

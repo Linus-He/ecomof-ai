@@ -25,6 +25,7 @@ import {
 } from "./FormulaInline"
 import { OrganicAcidExperimentFeedbackPanel } from "./OrganicAcidExperimentFeedbackPanel"
 import { OrganicAcidGraphWorkbench } from "./OrganicAcidGraphWorkbench"
+import { OrganicAcidHostGuestWorkbench } from "./OrganicAcidHostGuestWorkbench"
 import { CandidatePrioritizationWorkspace } from "./CandidatePrioritizationWorkspace"
 import { OrganicAcidInteractionWorkbench } from "./OrganicAcidInteractionWorkbench"
 import { CollapsibleResearchSection, SectionLayoutControls } from "../common/CollapsibleResearchSection"
@@ -652,6 +653,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
             ? "有机酸转化是 Catalysis Lab 中优先展示的子工作台，但不是催化模块的全部范围。"
             : "Organic acid conversion is a prioritized sub-workspace within Catalysis Lab, not the full scope of catalysis."}
         </div>
+        <OrganicAcidHostGuestWorkbench lang={lang} isNarrow={isNarrow} />
         <ResearchValidationEntryPanel lang={lang} />
         <SectionLayoutControls command={setLayoutCommand} t={t} lang={lang} />
         <CollapsibleResearchSection

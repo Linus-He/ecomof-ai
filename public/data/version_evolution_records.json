@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.9.1",
+  "currentVersion": "V3.9.2",
   "generatedAt": "2026-06-21",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
-    "currentVersion": "V3.8",
+    "currentVersion": "V3.9.2",
     "databaseSize": 3020,
     "verifiedMetadataCount": 2480,
     "sourceConfirmedCount": 2480,
@@ -13,12 +13,12 @@
     "modelValidationStatus": "Robustness Validation Complete",
     "projectAge": "2026-04 to 2026-06",
     "githubStars": "pending",
-    "milestoneCount": 13,
+    "milestoneCount": 14,
     "databasePreviewStatus": "Database Preview",
     "notFinalRecommendationStatus": "Not Final Recommendation",
     "sources": {
       "currentVersion": {
-        "value": "V3.8",
+        "value": "V3.9.2",
         "sourceDatabase": "EcoMOF-AI version_evolution_records.json",
         "sourceRecordId": "overview.currentVersion",
         "sourceUrl": "public/data/version_evolution_records.json",
@@ -585,9 +585,38 @@
         "UI",
         "Testing"
       ]
+    },
+    {
+      "version": "V3.9.2",
+      "date": "2026-06-21",
+      "commit": "pending-current",
+      "summary": "Organic Acid Host-Guest Algorithm Foundation and UI Refactor: data-backed HGCPS builders, route-first priority queue, route explanation panel, trace, graph, validation route, and exports.",
+      "scientificImpact": "将 Organic Acid 从候选/矩阵展示推进到路径步骤描述符筛选与主客体互补实验路线筛选；Al-MOF + Mo 被限定为高优先级实验假设。",
+      "databaseImpact": "新增 public/data/organic_acid_host_guest 下 7 个 seed 数据文件，覆盖路径步骤、描述符映射、主体 MOF、客体金属、路线、证据风险与验证实验。",
+      "algorithmImpact": "新增 HGCPS builders：主体 MOF 选择、客体金属选择、主客体互补评分、路线解释、算法追踪、知识图谱与实验路线导出。",
+      "validationImpact": "Al-MOF + Mo 路线输出结构化验证计划，要求主体合成、Mo 引入、反应前结构、170C 水相稳定性、与 pristine Al-MOF 对照、Mo 配位态和 C1 机制验证。",
+      "uiImpact": "有机酸密码工作台新增顶部算法建议卡、6-step timeline、路线优先级队列、右侧解释面板、HGCPS 对比表、trace/graph/matrix/validation/export 区域；既有模块保留。",
+      "knownLimitations": "当前结果是数据驱动的实验路线优先级，不是最终催化性能证明；Mo 引入可行性和 170C 水相稳定性仍需实验验证。",
+      "breakingChanges": "None.",
+      "nextVersionGoal": "把主客体路线验证反馈写回 evidence/risk records，并接入真实同条件实验数据。",
+      "categories": [
+        "Organic Acid",
+        "Algorithm",
+        "UI",
+        "Validation",
+        "Testing"
+      ]
     }
   ],
   "releaseNotes": [
+    {
+      "version": "V3.9.2",
+      "date": "2026-06-21",
+      "module": "Organic Acid",
+      "category": "Algorithm",
+      "title": "Host-Guest Organic Acid Workbench",
+      "body": "Added a data-backed Host-Guest Complementary Pathway Screening Algorithm workbench that ranks Al-MOF + Mo as a high-priority experimental route while preserving the passcode-gated Organic Acid workspace and existing validation modules."
+    },
     {
       "version": "V3.8",
       "date": "2026-06-21",
@@ -922,6 +951,11 @@
       "version": "V3.9.1",
       "stage": "Full Per-Tab Database Card Wiring",
       "maturity": 99
+    },
+    {
+      "version": "V3.9.2",
+      "stage": "Organic Acid Host-Guest Pathway Screening",
+      "maturity": 99
     }
   ],
   "databaseEvolution": [
@@ -1031,6 +1065,14 @@
       "retiredCapability": "Metadata-only Organic Acid scoring for V3.1 datasets",
       "limitation": "Reaction labels still need independent external validation before supervised metrics are shown.",
       "futurePlan": "Calibrate LR / DT / RF only after external test labels are sufficient."
+    },
+    {
+      "stage": "Host-Guest Complementary Pathway Screening Algorithm",
+      "version": "V3.9.2",
+      "newCapability": "Pathway-step descriptor mapping, host MOF selection, guest metal selection, HGCPS route scoring, route explanation, trace, graph, validation route, and exports.",
+      "retiredCapability": "Route priority shown only as a candidate/MOF list.",
+      "limitation": "High-priority experimental hypothesis; not final catalytic proof.",
+      "futurePlan": "Calibrate with same-condition experiments and post-reaction characterization."
     }
   ],
   "validationEvolution": [
@@ -1105,6 +1147,14 @@
       "blockingCondition": "Static demo-only graph, missing source trace, or visual regression check not repeatable.",
       "currentCount": "closed loop",
       "nextGoal": "Write same-condition experimental feedback back into confidence and graph edges."
+    },
+    {
+      "stage": "Host-Guest Route Validation",
+      "definition": "Al-MOF + Mo route validation requires host synthesis, Mo introduction, pre-reaction structure, 170C aqueous stability, pristine-host comparison, Mo coordination tracking, and C1 mechanism evidence.",
+      "passCondition": "Route evidence links to pathway steps, descriptors, risks, provenance, and validation experiments.",
+      "blockingCondition": "Mo introduction not characterized, host collapses at 170C, missing same-condition product distribution, or provenance incomplete.",
+      "currentCount": "7 linked validation experiments for top route",
+      "nextGoal": "Write validation outcomes back into evidence_risk_records."
     }
   ],
   "uiEvolution": [
@@ -1177,6 +1227,13 @@
       "before": "Organic Acid Project and Research Validation Center were reachable as separate work areas.",
       "after": "Project, validation center, confidence matrix, priority queue, knowledge graph, and candidate explanation are linked through explicit anchors.",
       "change": "Closed the user path from pathway network to candidate explanation while preserving demo/proxy/inferred boundaries."
+    },
+    {
+      "version": "V3.9.2",
+      "area": "Organic Acid Host-Guest Workbench",
+      "before": "Organic Acid project exposed pathway map, matrices, queue, graph, and validation modules as separate views.",
+      "after": "A route-first 6-step workbench explains pathway descriptors, host selection, guest selection, HGCPS, priority queue, route explanation, graph, evidence matrix, and validation route.",
+      "change": "Makes Al-MOF + Mo visible as a scored experimental route while preserving the existing passcode shell and research modules."
     }
   ],
   "localizationEvolution": [
@@ -1290,6 +1347,13 @@
       "version": "V3.8",
       "date": "2026-06-21",
       "detail": "Organic Acid Project, Research Validation Center, Confidence Matrix, Priority Queue, Knowledge Graph, and Candidate Explanation became a closed research validation loop."
+    },
+    {
+      "id": "organic-acid-host-guest-v392",
+      "title": "Organic Acid Host-Guest Algorithm Foundation",
+      "version": "V3.9.2",
+      "date": "2026-06-21",
+      "detail": "Added data-backed HGCPS builders and a route-first Organic Acid workbench for Al-MOF + Mo experimental validation planning."
     }
   ],
   "roadmap": [

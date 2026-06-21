@@ -4,6 +4,7 @@ import { OrganicAcidProject } from "./OrganicAcidProject"
 
 const navItems = [
   ["access", "访问入口", "Access"],
+  ["organic-acid-host-guest-workbench", "主客体算法", "Host-Guest"],
   ["algorithm", "算法追踪", "Algorithm"],
   ["pathway-map", "路径图", "Pathway map"],
   ["organic-acid-carbon-flow-graph", "图论网络", "Graph network"],

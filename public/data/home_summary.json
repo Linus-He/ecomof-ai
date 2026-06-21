@@ -10,7 +10,7 @@
   "experimentalLabelCount": 150,
   "externalTestCount": 80,
   "benchmarkEligibleCount": 230,
-  "currentVersion": "V3.9.1",
+  "currentVersion": "V3.9.2",
   "bestModel": "Random Forest",
   "accuracy": 0.725,
   "rocAuc": 0.7558,
@@ -36,6 +36,7 @@
     "Homepage summary is intentionally lightweight and excludes large record arrays.",
     "Experimental labels count expert-review and independent-validation ground-truth labels; derived labels are not counted.",
     "Accuracy and ROC-AUC values are sourced from V3.6 robustness validation and displayed as capability status, not final recommendation.",
-    "V3.8 closes the Organic Acid research validation loop without changing the V3.6 robustness metrics."
+    "V3.8 closes the Organic Acid research validation loop without changing the V3.6 robustness metrics.",
+    "V3.9.2 adds the Organic Acid Host-Guest Pathway Screening Workbench and keeps Al-MOF + Mo framed as a high-priority experimental route, not final catalytic proof."
   ]
 }

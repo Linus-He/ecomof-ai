@@ -1,0 +1,86 @@
+[
+  {
+    "stepId": "step-co2-enrichment",
+    "stepName": "CO2 adsorption / enrichment",
+    "chemicalMeaning": "Concentrate CO2 or bicarbonate-derived C1 species near accessible pore and metal-node environments before activation.",
+    "pathwayRole": "reactant enrichment",
+    "bottleneckType": "low local CO2 availability",
+    "requiredMaterialCapability": "accessible micropore / mesopore volume, CO2 affinity proxy, water-compatible pore environment",
+    "relatedTargetProduct": "formic acid / organic acid",
+    "evidenceCount": 5,
+    "confidenceLevel": "medium",
+    "uncertainty": "CO2 uptake proxies are not same-condition aqueous 170C reaction data."
+  },
+  {
+    "stepId": "step-co2-activation",
+    "stepName": "CO2 activation",
+    "chemicalMeaning": "Polarize CO2 or bicarbonate-derived C1 species at Lewis-acidic or electronically active sites.",
+    "pathwayRole": "activation",
+    "bottleneckType": "weak CO2 polarization",
+    "requiredMaterialCapability": "Lewis acidity, open metal site accessibility, charge-density modulation",
+    "relatedTargetProduct": "formic acid / organic acid",
+    "evidenceCount": 6,
+    "confidenceLevel": "medium",
+    "uncertainty": "Direct in situ evidence for aqueous CO2 activation is pending."
+  },
+  {
+    "stepId": "step-hcoo-stabilization",
+    "stepName": "HCOO* intermediate stabilization",
+    "chemicalMeaning": "Stabilize formate-like HCOO* intermediates without over-binding the final product.",
+    "pathwayRole": "target intermediate stabilization",
+    "bottleneckType": "intermediate binding window",
+    "requiredMaterialCapability": "metal electronic structure, coordination environment, moderate formate binding proxy",
+    "relatedTargetProduct": "formic acid / organic acid",
+    "evidenceCount": 7,
+    "confidenceLevel": "medium-high",
+    "uncertainty": "Binding windows are inferred from related metal-oxo and formate chemistry."
+  },
+  {
+    "stepId": "step-proton-electron-transfer",
+    "stepName": "proton / electron transfer",
+    "chemicalMeaning": "Support local proton transfer and electron redistribution around C1 intermediates.",
+    "pathwayRole": "kinetic support",
+    "bottleneckType": "local charge / proton mobility",
+    "requiredMaterialCapability": "hydrophilic pore environment, linker polarity, hydrogen-bond network, redox-compatible guest site",
+    "relatedTargetProduct": "formic acid / organic acid",
+    "evidenceCount": 4,
+    "confidenceLevel": "medium",
+    "uncertainty": "Electron-transfer support is a mechanistic prior until operando spectroscopy is available."
+  },
+  {
+    "stepId": "step-formic-acid-desorption",
+    "stepName": "formic acid desorption",
+    "chemicalMeaning": "Release formic acid / formate from the active pocket without product trapping or pore blockage.",
+    "pathwayRole": "product release",
+    "bottleneckType": "over-binding and diffusion limitation",
+    "requiredMaterialCapability": "moderate binding strength, water-compatible channel, product diffusion path",
+    "relatedTargetProduct": "formic acid / organic acid",
+    "evidenceCount": 3,
+    "confidenceLevel": "medium-low",
+    "uncertainty": "Desorption is mostly descriptor-derived and needs reaction-condition validation."
+  },
+  {
+    "stepId": "step-competing-pathway",
+    "stepName": "competing pathway / side reaction",
+    "chemicalMeaning": "Suppress C2 side products, over-oxidation, humin formation, and non-selective metal-catalyzed branches.",
+    "pathwayRole": "selectivity control",
+    "bottleneckType": "side reaction leakage",
+    "requiredMaterialCapability": "selective C1 stabilization, limited non-selective redox activity, balanced acidity",
+    "relatedTargetProduct": "formic acid / organic acid",
+    "evidenceCount": 4,
+    "confidenceLevel": "medium",
+    "uncertainty": "Side-path penalties are inferred from related experiments and product-risk priors."
+  },
+  {
+    "stepId": "step-170c-aqueous-stability",
+    "stepName": "170C aqueous stability risk",
+    "chemicalMeaning": "Retain framework structure and guest-metal coordination under hot aqueous reaction conditions.",
+    "pathwayRole": "hard feasibility gate",
+    "bottleneckType": "hydrothermal collapse / leaching risk",
+    "requiredMaterialCapability": "strong metal-ligand bond, hydrothermal topology, post-reaction PXRD / ICP retention",
+    "relatedTargetProduct": "formic acid / organic acid",
+    "evidenceCount": 6,
+    "confidenceLevel": "medium-high",
+    "uncertainty": "Al-MOF stability is a host rationale, but 170C reaction-condition validation remains required."
+  }
+]
