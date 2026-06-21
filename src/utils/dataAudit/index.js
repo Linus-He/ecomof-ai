@@ -9,8 +9,9 @@ import { buildBenchmarkSplit } from "../benchmark/buildBenchmarkSplit.js"
 import { buildBenchmarkReport } from "../benchmark/benchmarkRunner.js"
 import { auditExperimentalLabels } from "./experimentalLabelAudit.js"
 import { auditGroundTruth } from "./groundTruthAudit.js"
+import { auditLabelProvenance } from "./labelProvenanceAudit.js"
 
-export { auditGoldDataset, auditLabels, auditBenchmarkEligibility, auditReactionDataset, auditProvenance, auditExperimentalLabels, auditGroundTruth }
+export { auditGoldDataset, auditLabels, auditBenchmarkEligibility, auditReactionDataset, auditProvenance, auditExperimentalLabels, auditGroundTruth, auditLabelProvenance }
 
 function asRecords(dataset) {
   if (!dataset) return []

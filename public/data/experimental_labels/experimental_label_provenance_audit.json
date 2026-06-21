@@ -1,0 +1,36 @@
+{
+  "version": "v3.6",
+  "generatedAt": "2026-06-19",
+  "generator": "scripts/build-v3-6-label-expansion-robustness.mjs",
+  "auditId": "experimental-label-provenance-audit",
+  "total": 150,
+  "literatureLabels": 0,
+  "independentLabels": 75,
+  "expertLabels": 75,
+  "derivedLabels": 0,
+  "syntheticLabels": 0,
+  "experimentalTotal": 150,
+  "counts": {
+    "literature": 0,
+    "independent": 75,
+    "expert": 75,
+    "derived": 0,
+    "synthetic": 0,
+    "other": 0
+  },
+  "priorityMix": {
+    "A_literature": 0,
+    "B_independent": 75,
+    "C_expert": 75
+  },
+  "status": "Pass",
+  "note": "All experimental labels are Literature / Independent / Expert provenance; Derived = 0, Synthetic = 0.",
+  "experimentalAudit": {
+    "experimentalLabelCount": 150,
+    "syntheticLabelCount": 0
+  },
+  "groundTruth": {
+    "verified": 150,
+    "invalid": 0
+  }
+}

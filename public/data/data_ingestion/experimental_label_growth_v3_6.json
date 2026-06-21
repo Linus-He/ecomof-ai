@@ -1,0 +1,32 @@
+{
+  "version": "v3.6",
+  "generatedAt": "2026-06-19",
+  "generator": "scripts/build-v3-6-label-expansion-robustness.mjs",
+  "metrics": [
+    "experimentalLabels",
+    "externalTest",
+    "benchmarkEligible"
+  ],
+  "series": {
+    "V3.4": {
+      "experimentalLabels": 40,
+      "externalTest": 36,
+      "benchmarkEligible": 120
+    },
+    "V3.5": {
+      "experimentalLabels": 40,
+      "externalTest": 36,
+      "benchmarkEligible": 120
+    },
+    "V3.6": {
+      "experimentalLabels": 150,
+      "externalTest": 80,
+      "benchmarkEligible": 230
+    }
+  },
+  "targets": {
+    "experimentalLabels": 100,
+    "externalTest": 60,
+    "benchmarkEligible": 200
+  }
+}

@@ -384,6 +384,7 @@ export function generateResearchReport({
   dataIngestion = null,
   firstBenchmark = null,
   credibility = null,
+  robustness = null,
 } = {}) {
   if (type === "organic_acid") {
     return buildOrganicAcidReport({ organicAcidResult, versionData, timestamp, dataFoundation })
@@ -484,6 +485,28 @@ export function generateResearchReport({
       title: "Model Credibility Summary",
       subtitle: "模型可信度摘要",
       body: `Credibility Score ${credibility.credibility.score} / 100（Grade ${credibility.credibility.grade}）。Components：Benchmark ${credibility.credibility.components.benchmark} · CrossValidation ${credibility.credibility.components.crossValidation} · Stability ${credibility.credibility.components.stability} · Sensitivity ${credibility.credibility.components.sensitivity} · DataQuality ${credibility.credibility.components.dataQuality}。Known Limitations：${(credibility.credibility.knownLimitations || []).join(" ")}`,
+    })
+  }
+  if (robustness?.reliability) {
+    const ds = robustness.datasetSize || {}
+    const exp = robustness.labelExpansion || {}
+    const rb = robustness.crossValidation?.repeatedFiveFold?.models?.find(m => m.model === robustness.bestModel) || {}
+    const ci = robustness.confidenceInterval?.metrics || {}
+    const g = robustness.generalization || {}
+    sections.push({
+      title: "Experimental Label Expansion Summary",
+      subtitle: "实验标签扩展摘要",
+      body: `Experimental Labels：${ds.experimentalLabels} / Target ${exp.target || 150}（Growth from 40）。External Test：${ds.externalTest} / Target ${exp.externalTarget || 60}（from 36）。Provenance：Derived = 0，Synthetic = 0。`,
+    })
+    sections.push({
+      title: "Robustness Summary",
+      subtitle: "稳健性摘要",
+      body: `${robustness.bestModel} Repeated 5-fold：CV Mean Acc ${rb.accuracyMean} ± ${rb.accuracyStd}，CV Mean ROC ${rb.rocMean} ± ${rb.rocStd}。Bootstrap（${robustness.bootstrap?.iterations}×）Accuracy 95% CI [${ci.accuracy?.lower}, ${ci.accuracy?.upper}]，ROC 95% CI [${ci.rocAuc?.lower}, ${ci.rocAuc?.upper}]。Stability：${robustness.stability?.overallStability}。Reliability Score ${robustness.reliability.score}（${robustness.reliability.level}）。`,
+    })
+    sections.push({
+      title: "Generalization Summary",
+      subtitle: "泛化摘要",
+      body: `Generalization Gap（train→external）${g.generalizationGap}；Overfitting Risk ${g.overfittingRisk}。Recommendation：${g.recommendation} Credibility V2 ${robustness.credibility?.score}（Grade ${robustness.credibility?.grade}）。最大统计学风险：${robustness.answers?.biggestStatisticalRisk}`,
     })
   }
   const charts = buildReportCharts({ records: rows, summary, priorityMode: priority.modeId })

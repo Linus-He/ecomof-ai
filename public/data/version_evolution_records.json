@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.5",
+  "currentVersion": "V3.6",
   "generatedAt": "2026-06-19",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
@@ -498,6 +498,27 @@
         "UI",
         "Testing"
       ]
+    },
+    {
+      "version": "V3.6",
+      "date": "2026-06-19",
+      "commit": "pending-current",
+      "summary": "Experimental Label Expansion & Model Robustness: scale labels 40->150, external 36->80, and prove the result is robust (not a fluke).",
+      "scientificImpact": "从小样本验证进入稳健验证：实验标签 40->150、外部测试 36->80、Benchmark Eligible 230。",
+      "databaseImpact": "新增 experimental_labels_v2.json（150，含 V3.4 的 40 作为子集）、experimental_label_provenance_audit.json（Derived=0 / Synthetic=0）、external_test_dataset_v2.json（80，独立不相交）、benchmark_dataset_v3_6.json（230 eligible，未改动 V3.3 的 benchmark_dataset_v3.json）、model_robustness_report_v1.json。",
+      "algorithmImpact": "验证模型稳定性：新增 crossValidationRunnerV2（5/10/repeated 5-fold）、bootstrapValidation（100/500/1000）、confidenceIntervalAnalysis（95% CI）、generalizationAudit、modelStabilityAuditV2、repeatedCvRanking（Win Rate / Average Rank / Variance）、calculateModelReliability、calculateModelCredibilityV2、evidenceStrengthScore、labelProvenanceAudit。",
+      "validationImpact": "引入 CI 与 Bootstrap：Random Forest 重复 5-fold acc 0.7813±0.0589；外部 benchmark acc 0.725 / ROC 0.7558；Bootstrap 1000× ROC 95% CI [0.6424, 0.8634]；Generalization Gap 0.2655（Overfit Risk High，诚实暴露）；Reliability 83.88（Reliable）；Credibility V2 78.87（Grade B）。Accuracy/ROC 全部来自真实训练，未伪造。",
+      "uiImpact": "Algorithm Validation Center 新增 Robustness Section（实验标签增长 / CV V2 / Bootstrap / 泛化 / CI / Stability V2 / Repeated-CV Ranking / Reliability / Credibility V2）；Interactive Scientific Figure 新增 Figure F（稳健性验证）/ G（置信区间）/ H（泛化审计）；Organic Acid 新增 Experimental Evidence Coverage 与 Evidence Strength Score；Research Reports 新增 Label Expansion / Robustness / Generalization 摘要。",
+      "knownLimitations": "标签规模仍低于工业级标准；外部测试 80 仍偏小，Bootstrap CI 较宽、fold 内方差较高；best model 在小样本上存在较高 train→external 泛化间隙（已诚实标注 Overfit Risk = High）。",
+      "breakingChanges": "None.",
+      "nextVersionGoal": "继续扩大真实实验标签与外部测试规模，缩小泛化间隙，迈向 research-grade benchmark。",
+      "categories": [
+        "Data",
+        "Validation",
+        "Algorithm",
+        "UI",
+        "Testing"
+      ]
     }
   ],
   "releaseNotes": [
@@ -799,6 +820,11 @@
       "version": "V3.5",
       "stage": "Model Credibility & Scientific Validation",
       "maturity": 97
+    },
+    {
+      "version": "V3.6",
+      "stage": "Experimental Label Expansion & Model Robustness",
+      "maturity": 98
     }
   ],
   "databaseEvolution": [

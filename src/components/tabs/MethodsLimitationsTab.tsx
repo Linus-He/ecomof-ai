@@ -298,6 +298,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
   const [firstBenchmark, setFirstBenchmark] = useState(null)
   const [credibility, setCredibility] = useState(null)
   const [reactionGraph, setReactionGraph] = useState(null)
+  const [robustness, setRobustness] = useState(null)
   const [activeId, setActiveId] = useState("methodology-algorithm-validation")
 
   useEffect(() => {
@@ -321,8 +322,9 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
       fetchDataJson("first_real_benchmark_report_v1.json", null),
       fetchDataJson("model_credibility_report_v1.json", null),
       fetchDataJson("reaction_evidence_graph_v1.json", null),
+      fetchDataJson("model_robustness_report_v1.json", null),
     ])
-      .then(([rows, previewSummary, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry, ingestionSummaryV3, firstBenchmarkReport, credibilityReport, reactionGraphData]) => {
+      .then(([rows, previewSummary, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry, ingestionSummaryV3, firstBenchmarkReport, credibilityReport, reactionGraphData, robustnessReport]) => {
         if (!active) return
         setModules(Array.isArray(rows) ? rows : [])
         setModelValidationSummary(previewSummary && typeof previewSummary === "object" ? previewSummary : null)
@@ -333,6 +335,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
         setFirstBenchmark(firstBenchmarkReport && typeof firstBenchmarkReport === "object" ? firstBenchmarkReport : null)
         setCredibility(credibilityReport && typeof credibilityReport === "object" ? credibilityReport : null)
         setReactionGraph(reactionGraphData && typeof reactionGraphData === "object" ? reactionGraphData : null)
+        setRobustness(robustnessReport && typeof robustnessReport === "object" ? robustnessReport : null)
       })
       .catch(() => {
         if (active) {
@@ -345,6 +348,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
           setFirstBenchmark(null)
           setCredibility(null)
           setReactionGraph(null)
+          setRobustness(null)
         }
       })
     return () => { active = false }
@@ -453,6 +457,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
             dataIngestion={dataIngestion}
             firstBenchmark={firstBenchmark}
             credibility={credibility}
+            robustness={robustness}
             lang={lang}
             t={t}
             isMobile={isMobile || isNarrow}

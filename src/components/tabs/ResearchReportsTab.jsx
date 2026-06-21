@@ -243,6 +243,7 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
   const [dataIngestion, setDataIngestion] = useState(null)
   const [firstBenchmark, setFirstBenchmark] = useState(null)
   const [credibility, setCredibility] = useState(null)
+  const [robustness, setRobustness] = useState(null)
   const [type, setType] = useState("candidate")
   const [candidateId, setCandidateId] = useState("")
 
@@ -276,7 +277,8 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
       fetchDataJson("data_ingestion/data_ingestion_summary_v3.json", null),
       fetchDataJson("first_real_benchmark_report_v1.json", null),
       fetchDataJson("model_credibility_report_v1.json", null),
-    ]).then(([nextRecords, nextSummary, nextVersionData, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry, ingestionSummaryV3, firstBenchmarkReport, credibilityReport]) => {
+      fetchDataJson("model_robustness_report_v1.json", null),
+    ]).then(([nextRecords, nextSummary, nextVersionData, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry, ingestionSummaryV3, firstBenchmarkReport, credibilityReport, robustnessReport]) => {
       if (!active) return
       const rows = Array.isArray(nextRecords) ? nextRecords : []
       setRecords(rows)
@@ -288,6 +290,7 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
       setDataIngestion(ingestionSummaryV3 && typeof ingestionSummaryV3 === "object" ? ingestionSummaryV3 : null)
       setFirstBenchmark(firstBenchmarkReport && typeof firstBenchmarkReport === "object" ? firstBenchmarkReport : null)
       setCredibility(credibilityReport && typeof credibilityReport === "object" ? credibilityReport : null)
+      setRobustness(robustnessReport && typeof robustnessReport === "object" ? robustnessReport : null)
       setCandidateId(current => current || rows[0]?.candidateId || "")
     })
     return () => { active = false }
@@ -305,7 +308,8 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
     dataIngestion,
     firstBenchmark,
     credibility,
-  }), [candidateId, records, summary, type, versionData, organicAcidResult, dataFoundation, dataAudit, dataIngestion, firstBenchmark, credibility])
+    robustness,
+  }), [candidateId, records, summary, type, versionData, organicAcidResult, dataFoundation, dataAudit, dataIngestion, firstBenchmark, credibility, robustness])
   const audit = useMemo(() => runLocalizationAudit({
     corpus: [
       report.markdown,
