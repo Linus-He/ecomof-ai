@@ -10,7 +10,7 @@
   "experimentalLabelCount": 150,
   "externalTestCount": 80,
   "benchmarkEligibleCount": 230,
-  "currentVersion": "V3.9.3",
+  "currentVersion": "V3.9.4",
   "bestModel": "Random Forest",
   "accuracy": 0.725,
   "rocAuc": 0.7558,
@@ -38,6 +38,8 @@
     "Accuracy and ROC-AUC values are sourced from V3.6 robustness validation and displayed as capability status, not final recommendation.",
     "V3.8 closes the Organic Acid research validation loop without changing the V3.6 robustness metrics.",
     "V3.9.2 adds the Organic Acid Host-Guest Pathway Screening Workbench and keeps Al-MOF + Mo framed as a high-priority experimental route, not final catalytic proof.",
-    "V3.9.3 completes Organic Acid evidence/risk coverage, sensitivity and ablation analysis, multiplicative HGCPS formula alignment, and route report exports while keeping Al-MOF + Mo as a high-priority experimental route, not final catalytic proof."
+    "V3.9.3 completes Organic Acid evidence/risk coverage, sensitivity and ablation analysis, multiplicative HGCPS formula alignment, and route report exports while keeping Al-MOF + Mo as a high-priority experimental route, not final catalytic proof.",
+    "V3.9.4 adds the Organic Acid Experimental Activation Center with specific Al-MOF hosts, Mo introduction strategies, minimum experiment matrix, same-condition data template, feedback rules, and planning-ready exports.",
+    "V3.9.4 also adds a Project Evolution Organic Acid Algorithm Methodology module with LaTeX formulas for pathway mapping, host selection, guest selection, HGCPS, sensitivity, ablation, and feedback update while keeping Al-MOF + Mo as a high-priority experimental hypothesis, not final catalytic proof."
   ]
 }

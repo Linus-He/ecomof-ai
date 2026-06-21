@@ -1,0 +1,51 @@
+{
+  "dataMode": "seed",
+  "evidenceMode": "seed / curated / proxy",
+  "generatedAt": "2026-06-22",
+  "updatedAt": "2026-06-22",
+  "provenance": [
+    "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+  ],
+  "curationStatus": "seed_curated_pending_experiment",
+  "limitation": "Planning data only; no same-condition experimental result has been completed or claimed.",
+  "schemaVersion": "V3.9.4-activation-readiness-summary",
+  "currentStage": "experimental planning ready",
+  "readinessLevel": "planning-ready / not performance-validated",
+  "canUseForInternalDiscussion": true,
+  "canUseForExperimentPlanning": true,
+  "canUseForPerformanceClaim": false,
+  "canUseForMachineLearning": false,
+  "remainingBlockers": [
+    "exact Al-MOF structure must be selected",
+    "Mo introduction strategy must be chosen",
+    "same-condition experiment must be executed",
+    "structural characterization must be completed",
+    "experimental results must be fed back"
+  ],
+  "minimumActivationChecklist": [
+    "choose primary Al-MOF host candidate and backup host",
+    "choose Mo post-synthetic modification as low-risk first strategy or document alternative",
+    "run blank, pristine host, Al-MOF + Mo, guest control, host control, and Mo-only controls",
+    "collect same-condition data template fields",
+    "apply feedback rules before any reranking claim"
+  ],
+  "requiredBeforeFirstExperiment": [
+    "lock exact host batch and synthesis protocol",
+    "lock Mo precursor and introduction route",
+    "lock same-condition reaction template",
+    "prepare calibration and carbon-balance workflow"
+  ],
+  "requiredBeforeAlgorithmValidation": [
+    "complete same-condition experiment matrix",
+    "confirm structure retention and Mo loading",
+    "close carbon balance",
+    "feed results into feedback rules"
+  ],
+  "requiredBeforeMachineLearning": [
+    "collect sufficient independent same-condition labels",
+    "separate training and external test sets",
+    "document label provenance and uncertainty",
+    "keep Random Forest baseline as risk reference until formal benchmark exists"
+  ],
+  "recommendedNextAction": "Execute the must-run minimum experimental matrix and feed pending results through the same-condition template before algorithm validation."
+}

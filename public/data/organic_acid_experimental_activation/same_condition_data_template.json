@@ -1,0 +1,1378 @@
+{
+  "dataMode": "seed",
+  "evidenceMode": "seed / curated / proxy",
+  "generatedAt": "2026-06-22",
+  "updatedAt": "2026-06-22",
+  "provenance": [
+    "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+  ],
+  "curationStatus": "seed_curated_pending_experiment",
+  "limitation": "Planning data only; no same-condition experimental result has been completed or claimed.",
+  "schemaVersion": "V3.9.4-same-condition-data-template",
+  "templateId": "same-condition-organic-acid-v394",
+  "status": "template only / no real results yet",
+  "categories": [
+    {
+      "category": "basic",
+      "displayName": "basic",
+      "fields": [
+        {
+          "category": "basic",
+          "fieldName": "experimentId",
+          "label": "Experiment ID",
+          "unit": "",
+          "required": true,
+          "dataType": "string",
+          "allowedValues": [
+            "free text id"
+          ],
+          "whyNeeded": "Links each result to a single run.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "basic",
+          "fieldName": "experimentGroupId",
+          "label": "Experiment group ID",
+          "unit": "",
+          "required": true,
+          "dataType": "enum",
+          "allowedValues": [
+            "exp-blank-no-catalyst",
+            "exp-pristine-al-mof",
+            "exp-al-mof-mo-top",
+            "exp-al-mof-w-guest-control",
+            "exp-zr-mof-mo-host-control",
+            "exp-moox-only",
+            "exp-al-mof-co-secondary",
+            "exp-al-mof-mo-repeat-stability"
+          ],
+          "whyNeeded": "Maps result to the minimum experiment matrix.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "basic",
+          "fieldName": "routeId",
+          "label": "Route ID",
+          "unit": "",
+          "required": true,
+          "dataType": "enum",
+          "allowedValues": [
+            "route-al-mof-mo",
+            "route-al-mof-pristine",
+            "route-al-mof-w",
+            "route-zr-mof-mo",
+            "route-mo-only"
+          ],
+          "whyNeeded": "Connects run to route ranking.",
+          "affectsAlgorithmFactor": "host-guest complementarity factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "basic",
+          "fieldName": "hostCandidateId",
+          "label": "Host candidate ID",
+          "unit": "",
+          "required": true,
+          "dataType": "enum",
+          "allowedValues": [
+            "al-mof-host-primary-mil53-like",
+            "al-mof-host-backup-cau10-like",
+            "al-mof-host-confinement-mil100-like",
+            "pending-zr-mof-control",
+            "pending"
+          ],
+          "whyNeeded": "Identifies exact host candidate.",
+          "affectsAlgorithmFactor": "host stability factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "basic",
+          "fieldName": "guestMetal",
+          "label": "Guest metal",
+          "unit": "",
+          "required": true,
+          "dataType": "enum",
+          "allowedValues": [
+            "Mo",
+            "W",
+            "Fe",
+            "Co",
+            "none"
+          ],
+          "whyNeeded": "Identifies activity compensation guest.",
+          "affectsAlgorithmFactor": "guest activity compensation factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "basic",
+          "fieldName": "moIntroductionStrategyId",
+          "label": "Mo introduction strategy ID",
+          "unit": "",
+          "required": true,
+          "dataType": "enum",
+          "allowedValues": [
+            "mo-post-synthetic-modification",
+            "mo-doping-during-synthesis",
+            "mo-pore-confinement-impregnation",
+            "al-mo-bimetallic-node-construction",
+            "pending"
+          ],
+          "whyNeeded": "Links preparation route to risk update.",
+          "affectsAlgorithmFactor": "risk retention factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "basic",
+          "fieldName": "operator",
+          "label": "Operator",
+          "unit": "",
+          "required": true,
+          "dataType": "string",
+          "allowedValues": [
+            "free text"
+          ],
+          "whyNeeded": "Supports traceability.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "basic",
+          "fieldName": "date",
+          "label": "Experiment date",
+          "unit": "YYYY-MM-DD",
+          "required": true,
+          "dataType": "date",
+          "allowedValues": [
+            "ISO date"
+          ],
+          "whyNeeded": "Supports same-condition traceability.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "basic",
+          "fieldName": "batchId",
+          "label": "Batch ID",
+          "unit": "",
+          "required": true,
+          "dataType": "string",
+          "allowedValues": [
+            "free text"
+          ],
+          "whyNeeded": "Links material batch and reaction run.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        }
+      ]
+    },
+    {
+      "category": "material",
+      "displayName": "material",
+      "fields": [
+        {
+          "category": "material",
+          "fieldName": "hostMass",
+          "label": "Host mass",
+          "unit": "mg",
+          "required": true,
+          "dataType": "number",
+          "allowedValues": [
+            "positive number"
+          ],
+          "whyNeeded": "Normalizes catalyst amount and activity.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "material",
+          "fieldName": "moPrecursor",
+          "label": "Mo precursor",
+          "unit": "",
+          "required": true,
+          "dataType": "string",
+          "allowedValues": [
+            "ammonium molybdate hydrate",
+            "molybdenyl acetylacetonate",
+            "sodium molybdate",
+            "pending"
+          ],
+          "whyNeeded": "Tests whether strategy was actually followed.",
+          "affectsAlgorithmFactor": "guest activity compensation factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "material",
+          "fieldName": "moLoadingTarget",
+          "label": "Mo loading target",
+          "unit": "wt%",
+          "required": true,
+          "dataType": "number",
+          "allowedValues": [
+            "0-20"
+          ],
+          "whyNeeded": "Required to compare Mo routes.",
+          "affectsAlgorithmFactor": "guest activity compensation factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "material",
+          "fieldName": "moLoadingMeasured",
+          "label": "Mo loading measured",
+          "unit": "wt%",
+          "required": true,
+          "dataType": "number",
+          "allowedValues": [
+            "measured by ICP"
+          ],
+          "whyNeeded": "Updates Mo introduction feasibility.",
+          "affectsAlgorithmFactor": "risk retention factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "material",
+          "fieldName": "synthesisMethod",
+          "label": "Synthesis method",
+          "unit": "",
+          "required": true,
+          "dataType": "string",
+          "allowedValues": [
+            "hydrothermal",
+            "solvothermal",
+            "post-synthetic modification",
+            "impregnation",
+            "pending"
+          ],
+          "whyNeeded": "Documents route reproducibility.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "material",
+          "fieldName": "activationCondition",
+          "label": "Activation condition",
+          "unit": "temperature/time",
+          "required": true,
+          "dataType": "string",
+          "allowedValues": [
+            "free text"
+          ],
+          "whyNeeded": "Affects pore accessibility and stability.",
+          "affectsAlgorithmFactor": "host pathway support factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "material",
+          "fieldName": "pretreatmentCondition",
+          "label": "Pretreatment condition",
+          "unit": "",
+          "required": false,
+          "dataType": "string",
+          "allowedValues": [
+            "free text",
+            "not applied"
+          ],
+          "whyNeeded": "Controls comparability.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        }
+      ]
+    },
+    {
+      "category": "reaction",
+      "displayName": "reaction",
+      "fields": [
+        {
+          "category": "reaction",
+          "fieldName": "temperatureC",
+          "label": "Temperature",
+          "unit": "C",
+          "required": true,
+          "dataType": "number",
+          "allowedValues": [
+            "170 target",
+            "other documented"
+          ],
+          "whyNeeded": "Defines same-condition reaction.",
+          "affectsAlgorithmFactor": "risk retention factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "reaction",
+          "fieldName": "pressure",
+          "label": "Pressure",
+          "unit": "bar or stated mode",
+          "required": true,
+          "dataType": "string",
+          "allowedValues": [
+            "free text"
+          ],
+          "whyNeeded": "Required for same-condition comparison.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "reaction",
+          "fieldName": "reactionTimeH",
+          "label": "Reaction time",
+          "unit": "h",
+          "required": true,
+          "dataType": "number",
+          "allowedValues": [
+            "positive number"
+          ],
+          "whyNeeded": "Normalizes yield and conversion.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "reaction",
+          "fieldName": "solvent",
+          "label": "Solvent",
+          "unit": "",
+          "required": true,
+          "dataType": "string",
+          "allowedValues": [
+            "water",
+            "aqueous mixture",
+            "other documented"
+          ],
+          "whyNeeded": "Defines hydrothermal environment.",
+          "affectsAlgorithmFactor": "risk retention factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "reaction",
+          "fieldName": "initialPH",
+          "label": "Initial pH",
+          "unit": "pH",
+          "required": false,
+          "dataType": "number",
+          "allowedValues": [
+            "0-14",
+            "pending"
+          ],
+          "whyNeeded": "Affects C1 pathways and stability.",
+          "affectsAlgorithmFactor": "host pathway support factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "reaction",
+          "fieldName": "finalPH",
+          "label": "Final pH",
+          "unit": "pH",
+          "required": false,
+          "dataType": "number",
+          "allowedValues": [
+            "0-14",
+            "pending"
+          ],
+          "whyNeeded": "Tracks reaction drift.",
+          "affectsAlgorithmFactor": "host pathway support factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "reaction",
+          "fieldName": "CO2Source",
+          "label": "CO2 source",
+          "unit": "",
+          "required": true,
+          "dataType": "string",
+          "allowedValues": [
+            "CO2 gas",
+            "bicarbonate",
+            "carbonate",
+            "documented source"
+          ],
+          "whyNeeded": "Defines carbon source.",
+          "affectsAlgorithmFactor": "host pathway support factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "reaction",
+          "fieldName": "reducingAgent",
+          "label": "Reducing agent",
+          "unit": "",
+          "required": true,
+          "dataType": "string",
+          "allowedValues": [
+            "H2",
+            "chemical reductant",
+            "electrochemical source",
+            "none",
+            "pending"
+          ],
+          "whyNeeded": "Defines reaction mechanism boundary.",
+          "affectsAlgorithmFactor": "guest activity compensation factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "reaction",
+          "fieldName": "reactorType",
+          "label": "Reactor type",
+          "unit": "",
+          "required": true,
+          "dataType": "string",
+          "allowedValues": [
+            "batch autoclave",
+            "sealed tube",
+            "flow cell",
+            "other documented"
+          ],
+          "whyNeeded": "Controls comparability.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "reaction",
+          "fieldName": "stirringRate",
+          "label": "Stirring rate",
+          "unit": "rpm",
+          "required": false,
+          "dataType": "number",
+          "allowedValues": [
+            "positive number",
+            "not recorded"
+          ],
+          "whyNeeded": "Mass-transfer context.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "reaction",
+          "fieldName": "catalystAmount",
+          "label": "Catalyst amount",
+          "unit": "mg",
+          "required": true,
+          "dataType": "number",
+          "allowedValues": [
+            "positive number"
+          ],
+          "whyNeeded": "Normalizes activity.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "reaction",
+          "fieldName": "liquidVolume",
+          "label": "Liquid volume",
+          "unit": "mL",
+          "required": true,
+          "dataType": "number",
+          "allowedValues": [
+            "positive number"
+          ],
+          "whyNeeded": "Normalizes concentration.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        }
+      ]
+    },
+    {
+      "category": "product",
+      "displayName": "product",
+      "fields": [
+        {
+          "category": "product",
+          "fieldName": "formicAcidYield",
+          "label": "Formic acid yield",
+          "unit": "reported unit",
+          "required": true,
+          "dataType": "number",
+          "allowedValues": [
+            "measured value"
+          ],
+          "whyNeeded": "Primary outcome for top route validation.",
+          "affectsAlgorithmFactor": "guest activity compensation factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "product",
+          "fieldName": "formicAcidSelectivity",
+          "label": "Formic acid selectivity",
+          "unit": "%",
+          "required": true,
+          "dataType": "number",
+          "allowedValues": [
+            "0-100"
+          ],
+          "whyNeeded": "Tests C1 selectivity.",
+          "affectsAlgorithmFactor": "host pathway support factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "product",
+          "fieldName": "totalOrganicAcidYield",
+          "label": "Total organic acid yield",
+          "unit": "reported unit",
+          "required": true,
+          "dataType": "number",
+          "allowedValues": [
+            "measured value"
+          ],
+          "whyNeeded": "Tracks competing organic acids.",
+          "affectsAlgorithmFactor": "host pathway support factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "product",
+          "fieldName": "conversion",
+          "label": "Conversion",
+          "unit": "%",
+          "required": true,
+          "dataType": "number",
+          "allowedValues": [
+            "0-100"
+          ],
+          "whyNeeded": "Context for yield.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "product",
+          "fieldName": "carbonBalance",
+          "label": "Carbon balance",
+          "unit": "%",
+          "required": true,
+          "dataType": "number",
+          "allowedValues": [
+            "0-120"
+          ],
+          "whyNeeded": "Determines whether update is valid or inconclusive.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "product",
+          "fieldName": "byproducts",
+          "label": "Byproducts",
+          "unit": "",
+          "required": false,
+          "dataType": "array",
+          "allowedValues": [
+            "formate",
+            "acetate",
+            "lactate",
+            "glycolate",
+            "humin",
+            "other"
+          ],
+          "whyNeeded": "Tracks side reactions.",
+          "affectsAlgorithmFactor": "host pathway support factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "product",
+          "fieldName": "analyticalMethod",
+          "label": "Analytical method",
+          "unit": "",
+          "required": true,
+          "dataType": "string",
+          "allowedValues": [
+            "HPLC",
+            "IC",
+            "GC",
+            "NMR",
+            "validated method"
+          ],
+          "whyNeeded": "Confirms product quantification.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "product",
+          "fieldName": "calibrationStatus",
+          "label": "Calibration status",
+          "unit": "",
+          "required": true,
+          "dataType": "enum",
+          "allowedValues": [
+            "validated",
+            "pending",
+            "failed"
+          ],
+          "whyNeeded": "Controls evidence update validity.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        }
+      ]
+    },
+    {
+      "category": "structure",
+      "displayName": "structure",
+      "fields": [
+        {
+          "category": "structure",
+          "fieldName": "PXRDBefore",
+          "label": "PXRD before reaction",
+          "unit": "status",
+          "required": true,
+          "dataType": "enum",
+          "allowedValues": [
+            "retained",
+            "changed",
+            "pending"
+          ],
+          "whyNeeded": "Confirms host phase before reaction.",
+          "affectsAlgorithmFactor": "host stability factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "structure",
+          "fieldName": "PXRDAfter",
+          "label": "PXRD after reaction",
+          "unit": "status",
+          "required": true,
+          "dataType": "enum",
+          "allowedValues": [
+            "retained",
+            "changed",
+            "collapsed",
+            "pending"
+          ],
+          "whyNeeded": "Updates 170C stability risk.",
+          "affectsAlgorithmFactor": "risk retention factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "structure",
+          "fieldName": "FTIRBefore",
+          "label": "FTIR before reaction",
+          "unit": "status",
+          "required": false,
+          "dataType": "enum",
+          "allowedValues": [
+            "available",
+            "pending",
+            "not collected"
+          ],
+          "whyNeeded": "Tracks linker / functional group state.",
+          "affectsAlgorithmFactor": "host pathway support factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "structure",
+          "fieldName": "FTIRAfter",
+          "label": "FTIR after reaction",
+          "unit": "status",
+          "required": false,
+          "dataType": "enum",
+          "allowedValues": [
+            "available",
+            "pending",
+            "not collected"
+          ],
+          "whyNeeded": "Tracks post-reaction changes.",
+          "affectsAlgorithmFactor": "risk retention factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "structure",
+          "fieldName": "XPSBefore",
+          "label": "XPS before reaction",
+          "unit": "status",
+          "required": true,
+          "dataType": "enum",
+          "allowedValues": [
+            "available",
+            "pending",
+            "not collected"
+          ],
+          "whyNeeded": "Tracks Mo oxidation state before run.",
+          "affectsAlgorithmFactor": "guest activity compensation factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "structure",
+          "fieldName": "XPSAfter",
+          "label": "XPS after reaction",
+          "unit": "status",
+          "required": true,
+          "dataType": "enum",
+          "allowedValues": [
+            "available",
+            "pending",
+            "not collected"
+          ],
+          "whyNeeded": "Tracks Mo state after run.",
+          "affectsAlgorithmFactor": "risk retention factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "structure",
+          "fieldName": "ICPMoLoading",
+          "label": "ICP Mo loading",
+          "unit": "wt%",
+          "required": true,
+          "dataType": "number",
+          "allowedValues": [
+            "measured value"
+          ],
+          "whyNeeded": "Confirms Mo introduction.",
+          "affectsAlgorithmFactor": "guest activity compensation factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "structure",
+          "fieldName": "ICPLeaching",
+          "label": "ICP leaching",
+          "unit": "% or concentration",
+          "required": true,
+          "dataType": "number",
+          "allowedValues": [
+            "measured value"
+          ],
+          "whyNeeded": "Updates leaching risk.",
+          "affectsAlgorithmFactor": "risk retention factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "structure",
+          "fieldName": "SEMTEMStatus",
+          "label": "SEM/TEM status",
+          "unit": "status",
+          "required": false,
+          "dataType": "enum",
+          "allowedValues": [
+            "available",
+            "pending",
+            "not collected"
+          ],
+          "whyNeeded": "Checks morphology and external Mo particles.",
+          "affectsAlgorithmFactor": "risk retention factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "structure",
+          "fieldName": "BETBefore",
+          "label": "BET before reaction",
+          "unit": "m2/g",
+          "required": false,
+          "dataType": "number",
+          "allowedValues": [
+            "measured value",
+            "pending"
+          ],
+          "whyNeeded": "Tracks pore accessibility.",
+          "affectsAlgorithmFactor": "host pathway support factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "structure",
+          "fieldName": "BETAfter",
+          "label": "BET after reaction",
+          "unit": "m2/g",
+          "required": false,
+          "dataType": "number",
+          "allowedValues": [
+            "measured value",
+            "pending"
+          ],
+          "whyNeeded": "Tracks pore retention.",
+          "affectsAlgorithmFactor": "risk retention factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "structure",
+          "fieldName": "XANES_EXAFS_Status",
+          "label": "XANES / EXAFS status",
+          "unit": "status",
+          "required": true,
+          "dataType": "enum",
+          "allowedValues": [
+            "coordination confirmed",
+            "coordination uncertain",
+            "pending",
+            "not collected"
+          ],
+          "whyNeeded": "Confirms local Mo coordination.",
+          "affectsAlgorithmFactor": "host-guest complementarity factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        }
+      ]
+    },
+    {
+      "category": "stability",
+      "displayName": "stability",
+      "fields": [
+        {
+          "category": "stability",
+          "fieldName": "structureRetained",
+          "label": "Structure retained",
+          "unit": "",
+          "required": true,
+          "dataType": "boolean",
+          "allowedValues": [
+            "true",
+            "false"
+          ],
+          "whyNeeded": "Required before performance support.",
+          "affectsAlgorithmFactor": "host stability factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "stability",
+          "fieldName": "mofCollapsed",
+          "label": "MOF collapsed",
+          "unit": "",
+          "required": true,
+          "dataType": "boolean",
+          "allowedValues": [
+            "true",
+            "false"
+          ],
+          "whyNeeded": "Directly updates risk retention.",
+          "affectsAlgorithmFactor": "risk retention factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "stability",
+          "fieldName": "metalLeachingDetected",
+          "label": "Metal leaching detected",
+          "unit": "",
+          "required": true,
+          "dataType": "boolean",
+          "allowedValues": [
+            "true",
+            "false"
+          ],
+          "whyNeeded": "Tracks Mo and framework retention.",
+          "affectsAlgorithmFactor": "risk retention factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "stability",
+          "fieldName": "morphologyChanged",
+          "label": "Morphology changed",
+          "unit": "",
+          "required": false,
+          "dataType": "boolean",
+          "allowedValues": [
+            "true",
+            "false",
+            "pending"
+          ],
+          "whyNeeded": "Tracks structural degradation.",
+          "affectsAlgorithmFactor": "risk retention factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "stability",
+          "fieldName": "reusabilityTested",
+          "label": "Reusability tested",
+          "unit": "",
+          "required": false,
+          "dataType": "boolean",
+          "allowedValues": [
+            "true",
+            "false"
+          ],
+          "whyNeeded": "Future validation depth.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "stability",
+          "fieldName": "repeatRunCount",
+          "label": "Repeat run count",
+          "unit": "count",
+          "required": true,
+          "dataType": "number",
+          "allowedValues": [
+            "0",
+            "1",
+            "2+"
+          ],
+          "whyNeeded": "Controls confidence update.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        }
+      ]
+    },
+    {
+      "category": "algorithm",
+      "displayName": "algorithm",
+      "fields": [
+        {
+          "category": "algorithm",
+          "fieldName": "validationOutcome",
+          "label": "Validation outcome",
+          "unit": "",
+          "required": true,
+          "dataType": "enum",
+          "allowedValues": [
+            "supported",
+            "contradicted",
+            "inconclusive",
+            "pending"
+          ],
+          "whyNeeded": "Maps result to feedback rule.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "algorithm",
+          "fieldName": "supportsPrediction",
+          "label": "Supports prediction",
+          "unit": "",
+          "required": true,
+          "dataType": "boolean",
+          "allowedValues": [
+            "true",
+            "false"
+          ],
+          "whyNeeded": "Route-level evidence direction.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "algorithm",
+          "fieldName": "contradictsPrediction",
+          "label": "Contradicts prediction",
+          "unit": "",
+          "required": true,
+          "dataType": "boolean",
+          "allowedValues": [
+            "true",
+            "false"
+          ],
+          "whyNeeded": "Route-level evidence direction.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "algorithm",
+          "fieldName": "inconclusiveReason",
+          "label": "Inconclusive reason",
+          "unit": "",
+          "required": false,
+          "dataType": "string",
+          "allowedValues": [
+            "carbon balance gap",
+            "repeatability gap",
+            "characterization missing",
+            "pending"
+          ],
+          "whyNeeded": "Explains no-update cases.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "algorithm",
+          "fieldName": "evidenceConfidenceUpdate",
+          "label": "Evidence confidence update",
+          "unit": "direction",
+          "required": true,
+          "dataType": "enum",
+          "allowedValues": [
+            "increase",
+            "decrease",
+            "hold",
+            "pending"
+          ],
+          "whyNeeded": "Controls evidence factor update.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "algorithm",
+          "fieldName": "riskRetentionUpdate",
+          "label": "Risk retention update",
+          "unit": "direction",
+          "required": true,
+          "dataType": "enum",
+          "allowedValues": [
+            "increase",
+            "decrease",
+            "hold",
+            "pending"
+          ],
+          "whyNeeded": "Controls risk factor update.",
+          "affectsAlgorithmFactor": "risk retention factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        },
+        {
+          "category": "algorithm",
+          "fieldName": "notesForAlgorithmUpdate",
+          "label": "Notes for algorithm update",
+          "unit": "",
+          "required": false,
+          "dataType": "string",
+          "allowedValues": [
+            "free text"
+          ],
+          "whyNeeded": "Captures curator decision.",
+          "affectsAlgorithmFactor": "evidence confidence factor",
+          "dataMode": "seed",
+          "evidenceMode": "seed / curated / proxy",
+          "provenance": [
+            "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+          ],
+          "curationStatus": "seed_curated_pending_experiment",
+          "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+        }
+      ]
+    }
+  ]
+}

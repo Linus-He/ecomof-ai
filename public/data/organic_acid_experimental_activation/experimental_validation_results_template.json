@@ -1,0 +1,310 @@
+{
+  "dataMode": "seed",
+  "evidenceMode": "seed / curated / proxy",
+  "generatedAt": "2026-06-22",
+  "updatedAt": "2026-06-22",
+  "provenance": [
+    "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+  ],
+  "curationStatus": "seed_curated_pending_experiment",
+  "limitation": "Planning data only; no same-condition experimental result has been completed or claimed.",
+  "schemaVersion": "V3.9.4-experimental-validation-results-template",
+  "status": "pending / no real results yet",
+  "schema": [
+    {
+      "fieldName": "resultId",
+      "label": "result Id",
+      "dataType": "string",
+      "required": true,
+      "allowedValues": [
+        "pending or measured value"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "route evidence record"
+    },
+    {
+      "fieldName": "experimentGroupId",
+      "label": "experiment Group Id",
+      "dataType": "string",
+      "required": true,
+      "allowedValues": [
+        "pending or measured value"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "route evidence record"
+    },
+    {
+      "fieldName": "routeId",
+      "label": "route Id",
+      "dataType": "string",
+      "required": true,
+      "allowedValues": [
+        "pending or measured value"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "route evidence record"
+    },
+    {
+      "fieldName": "hostCandidateId",
+      "label": "host Candidate Id",
+      "dataType": "string",
+      "required": true,
+      "allowedValues": [
+        "pending or measured value"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "route evidence record"
+    },
+    {
+      "fieldName": "guestMetal",
+      "label": "guest Metal",
+      "dataType": "string",
+      "required": true,
+      "allowedValues": [
+        "pending or measured value"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "route evidence record"
+    },
+    {
+      "fieldName": "moIntroductionStrategyId",
+      "label": "mo Introduction Strategy Id",
+      "dataType": "string",
+      "required": true,
+      "allowedValues": [
+        "pending or measured value"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "route evidence record"
+    },
+    {
+      "fieldName": "measuredFormicAcidYield",
+      "label": "measured Formic Acid Yield",
+      "dataType": "number",
+      "required": true,
+      "allowedValues": [
+        "pending or measured value"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "route evidence record"
+    },
+    {
+      "fieldName": "measuredSelectivity",
+      "label": "measured Selectivity",
+      "dataType": "number",
+      "required": true,
+      "allowedValues": [
+        "pending or measured value"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "route evidence record"
+    },
+    {
+      "fieldName": "measuredConversion",
+      "label": "measured Conversion",
+      "dataType": "number",
+      "required": true,
+      "allowedValues": [
+        "pending or measured value"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "route evidence record"
+    },
+    {
+      "fieldName": "carbonBalance",
+      "label": "carbon Balance",
+      "dataType": "number",
+      "required": true,
+      "allowedValues": [
+        "pending or measured value"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "route evidence record"
+    },
+    {
+      "fieldName": "structureRetained",
+      "label": "structure Retained",
+      "dataType": "boolean",
+      "required": true,
+      "allowedValues": [
+        "pending or measured value"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "route evidence record"
+    },
+    {
+      "fieldName": "mofCollapsed",
+      "label": "mof Collapsed",
+      "dataType": "boolean",
+      "required": true,
+      "allowedValues": [
+        "pending or measured value"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "risk retention factor"
+    },
+    {
+      "fieldName": "moLeachingDetected",
+      "label": "mo Leaching Detected",
+      "dataType": "boolean",
+      "required": true,
+      "allowedValues": [
+        "pending or measured value"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "risk retention factor"
+    },
+    {
+      "fieldName": "moLoadingMeasured",
+      "label": "mo Loading Measured",
+      "dataType": "number",
+      "required": true,
+      "allowedValues": [
+        "pending or measured value"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "route evidence record"
+    },
+    {
+      "fieldName": "moCoordinationConfirmed",
+      "label": "mo Coordination Confirmed",
+      "dataType": "boolean",
+      "required": true,
+      "allowedValues": [
+        "pending or measured value"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "route evidence record"
+    },
+    {
+      "fieldName": "sameConditionCompleted",
+      "label": "same Condition Completed",
+      "dataType": "boolean",
+      "required": true,
+      "allowedValues": [
+        "pending or measured value"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "route evidence record"
+    },
+    {
+      "fieldName": "repeatabilityStatus",
+      "label": "repeatability Status",
+      "dataType": "string",
+      "required": true,
+      "allowedValues": [
+        "single run",
+        "repeat supported",
+        "repeat contradicted",
+        "repeat pending"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "route evidence record"
+    },
+    {
+      "fieldName": "validationOutcome",
+      "label": "validation Outcome",
+      "dataType": "string",
+      "required": true,
+      "allowedValues": [
+        "supported",
+        "contradicted",
+        "inconclusive",
+        "pending"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "evidence confidence factor"
+    },
+    {
+      "fieldName": "confidenceUpdate",
+      "label": "confidence Update",
+      "dataType": "string",
+      "required": true,
+      "allowedValues": [
+        "pending or measured value"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "evidence confidence factor"
+    },
+    {
+      "fieldName": "riskRetentionUpdate",
+      "label": "risk Retention Update",
+      "dataType": "string",
+      "required": true,
+      "allowedValues": [
+        "pending or measured value"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "risk retention factor"
+    },
+    {
+      "fieldName": "algorithmUpdateAction",
+      "label": "algorithm Update Action",
+      "dataType": "string",
+      "required": true,
+      "allowedValues": [
+        "increaseEvidenceConfidence",
+        "decreaseEvidenceConfidence",
+        "increaseRiskRetention",
+        "decreaseRiskRetention",
+        "markRouteSupported",
+        "markRouteContradicted",
+        "requireRepeatExperiment",
+        "noUpdateYet"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "route evidence record"
+    },
+    {
+      "fieldName": "evidenceRefsGenerated",
+      "label": "evidence Refs Generated",
+      "dataType": "array",
+      "required": false,
+      "allowedValues": [
+        "pending or measured value"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "route evidence record"
+    },
+    {
+      "fieldName": "notes",
+      "label": "notes",
+      "dataType": "string",
+      "required": false,
+      "allowedValues": [
+        "pending or measured value"
+      ],
+      "whyNeeded": "Defines how future same-condition results can be fed back into HGCPS without treating placeholders as real data.",
+      "affectsAlgorithmFactor": "route evidence record"
+    }
+  ],
+  "examplePendingRecords": [
+    {
+      "resultId": "pending-result-al-mof-mo-001",
+      "experimentGroupId": "exp-al-mof-mo-top",
+      "routeId": "route-al-mof-mo",
+      "hostCandidateId": "al-mof-host-primary-mil53-like",
+      "guestMetal": "Mo",
+      "moIntroductionStrategyId": "mo-post-synthetic-modification",
+      "measuredFormicAcidYield": "pending",
+      "measuredSelectivity": "pending",
+      "measuredConversion": "pending",
+      "carbonBalance": "pending",
+      "structureRetained": "pending",
+      "mofCollapsed": "pending",
+      "moLeachingDetected": "pending",
+      "moLoadingMeasured": "pending",
+      "moCoordinationConfirmed": "pending",
+      "sameConditionCompleted": "pending",
+      "repeatabilityStatus": "repeat pending",
+      "validationOutcome": "pending",
+      "confidenceUpdate": "pending",
+      "riskRetentionUpdate": "pending",
+      "algorithmUpdateAction": "noUpdateYet",
+      "evidenceRefsGenerated": [
+        "pending evidence record id"
+      ],
+      "notes": "Template placeholder only; no real experiment has been completed."
+    }
+  ]
+}

@@ -29,7 +29,7 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     let bodyText = document.body.textContent
 
     expect(screen.getByTestId("organic-acid-host-guest-workbench")).toBeInTheDocument()
-    expect(bodyText).toMatch(/EcoMOF-AI V3.9.3/)
+    expect(bodyText).toMatch(/EcoMOF-AI V3.9.4/)
     expect(bodyText).toMatch(/Current algorithm recommendation:/)
     expect(bodyText).toMatch(/Host framework: Al-MOF/)
     expect(bodyText).toMatch(/Guest \/ dopant metal: Mo/)

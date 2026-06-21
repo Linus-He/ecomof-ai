@@ -12,6 +12,21 @@ import {
   useT,
   useViewport,
 } from "../../shared"
+import pathwayStepsData from "../../../public/data/organic_acid_host_guest/pathway_steps.json"
+import pathwayDescriptorMapData from "../../../public/data/organic_acid_host_guest/pathway_descriptor_map.json"
+import hostMofCandidatesData from "../../../public/data/organic_acid_host_guest/host_mof_candidates.json"
+import guestMetalCandidatesData from "../../../public/data/organic_acid_host_guest/guest_metal_candidates.json"
+import hostGuestRoutesData from "../../../public/data/organic_acid_host_guest/host_guest_routes.json"
+import evidenceRiskRecordsData from "../../../public/data/organic_acid_host_guest/evidence_risk_records.json"
+import validationExperimentsData from "../../../public/data/organic_acid_host_guest/validation_experiments.json"
+import activationReadinessSummaryData from "../../../public/data/organic_acid_experimental_activation/activation_readiness_summary.json"
+import { BlockFormula } from "../ui"
+import {
+  buildOrganicAcidAlgorithmFormulaJson,
+  buildOrganicAcidAlgorithmLatexSummary,
+  buildOrganicAcidAlgorithmMethodology,
+  buildOrganicAcidAlgorithmMethodologyMarkdown,
+} from "../../utils/organicAcidAlgorithmMethodology"
 import { buildProjectOverviewCards, buildProjectStatusSummary, loadProjectStatusSummary } from "../../utils/projectStatus"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
@@ -58,6 +73,22 @@ function SectionNav({ sections, t }) {
   )
 }
 
+function downloadText(fileName, content, type = "text/plain") {
+  if (typeof document === "undefined") return
+  const blob = new Blob([content], { type })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement("a")
+  link.href = url
+  link.download = fileName
+  link.click()
+  URL.revokeObjectURL(url)
+}
+
+function copyText(value) {
+  if (typeof navigator === "undefined" || !navigator.clipboard?.writeText) return
+  navigator.clipboard.writeText(value)
+}
+
 function EvolutionOverview({ data, projectStatus, lang, t, isMobile }) {
   const overview = data.overview || {}
   const resolvedStatus = projectStatus || buildProjectStatusSummary({ versionEvolution: data })
@@ -85,28 +116,25 @@ function EvolutionOverview({ data, projectStatus, lang, t, isMobile }) {
   )
 }
 
-// Current in-progress release. The shared version_evolution_records.json data source is
-// bumped by the release that finalizes V3.9.2; this curated entry lets the Project Evolution
-// timeline surface the work in progress without mutating the cross-module data file.
 const CURRENT_RELEASE = {
-  version: "V3.9.2",
-  title: { zh: "分模块数据库卡片接线", en: "Full Per-Tab Database Card Wiring" },
+  version: "V3.9.4",
+  title: { zh: "有机酸实验启用与算法方法论", en: "Organic Acid Experimental Activation and Algorithm Methodology" },
   summary: {
-    zh: "接入 GasSep 与 Organic Acid 摘要构建器，清理 Catalysis playground 样式，并补充页面级导出能力。",
-    en: "GasSep + Organic Acid summary builders, Catalysis playground CSS cleanup, page-level export.",
+    zh: "新增实验启用中心、具体 Al-MOF 主体、Mo 引入策略、最小实验矩阵、同条件模板、反馈规则和 LaTeX 算法方法论模块。",
+    en: "Experimental Activation Center, specific Al-MOF hosts, Mo strategies, minimum matrix, same-condition template, feedback rules, and LaTeX algorithm methodology.",
   },
   scientificImpact: {
-    zh: "各模块数据库卡片由摘要构建器派生，保持字段级可追溯。",
-    en: "Per-tab database cards derive from summary builders with field-level traceability.",
+    zh: "将 Al-MOF + Mo 明确为 planning-ready 高优先级实验假设，而不是最终催化证明。",
+    en: "Frames Al-MOF + Mo as a planning-ready high-priority experimental hypothesis, not final catalytic proof.",
   },
   validationImpact: {
-    zh: "保留 Organic Acid 研究验证闭环，统计可由构建器动态计算。",
-    en: "Keeps the Organic Acid research-validation loop; stats derive from builders.",
+    zh: "实验矩阵、同条件数据模板和反馈规则构成下一轮验证入口；尚不能用于性能声明或正式机器学习。",
+    en: "Experiment matrix, same-condition template, and feedback rules define the next validation entry; not for performance claims or formal ML.",
   },
   breakingChanges: { zh: "无", en: "None" },
   nextVersionGoal: {
-    zh: "将剩余 Organic Acid / MOF / Benchmark 卡片与导出按钮接入对应构建器。",
-    en: "Wire remaining Organic Acid / MOF / Benchmark cards and export buttons to their builders.",
+    zh: "执行最小同条件实验矩阵，并将结构、Mo 配位、碳平衡与产率/选择性结果回填 HGCPS。",
+    en: "Run the minimum same-condition matrix and feed structure, Mo coordination, carbon balance, yield/selectivity results back into HGCPS.",
   },
 }
 
@@ -114,34 +142,34 @@ const CURRENT_RELEASE = {
 const PROJECT_UPDATE_STREAMS = [
   {
     no: "01",
-    label: { zh: "数据接入", en: "Data wiring" },
+    label: { zh: "实验启用数据", en: "Activation data" },
     body: {
-      zh: "将 GasSep 与 Organic Acid 摘要构建器接入各模块数据库卡片，数字由数据源派生而非写死。",
-      en: "Wire GasSep + Organic Acid summary builders into per-tab database cards so numbers derive from data, not hardcoded values.",
+      zh: "新增具体 Al-MOF 主体、Mo 引入策略、最小实验矩阵、同条件模板、pending 结果模板、反馈规则和 readiness summary。",
+      en: "Added specific Al-MOF hosts, Mo strategies, minimum matrix, same-condition template, pending-result template, feedback rules, and readiness summary.",
     },
   },
   {
     no: "02",
-    label: { zh: "解释链路", en: "Explanation path" },
+    label: { zh: "启用中心", en: "Activation center" },
     body: {
-      zh: "保持字段级溯源与筛选追踪在接线后的卡片中可检查，缺失字段统一降级。",
-      en: "Keep field-level provenance and screening trace inspectable across the wired cards, with unified fallbacks for missing fields.",
+      zh: "在主客体工作台内新增实验启用中心，连接 top route、风险矩阵、验证路线、边界和导出。",
+      en: "Added the Activation Center inside the Host-Guest Workbench, linked from top route, risk matrix, validation route, boundary, and exports.",
     },
   },
   {
     no: "03",
-    label: { zh: "交互与样式", en: "Interaction cleanup" },
+    label: { zh: "算法方法论", en: "Algorithm methodology" },
     body: {
-      zh: "清理孤立的 Catalysis playground 样式，同时保留共享 .formula 与通用动效。",
-      en: "Remove orphaned Catalysis playground CSS while preserving the shared .formula and generic motion styles.",
+      zh: "Project Evolution 新增独立 Organic Acid Algorithm Methodology 模块，用 KaTeX 展示路径、主体、客体、HGCPS、敏感性、消融和反馈公式。",
+      en: "Project Evolution gained a standalone Organic Acid Algorithm Methodology module with KaTeX formulas for pathway, host, guest, HGCPS, sensitivity, ablation, and feedback.",
     },
   },
   {
     no: "04",
-    label: { zh: "页面级导出", en: "Page-level export" },
+    label: { zh: "导出与边界", en: "Exports and boundary" },
     body: {
-      zh: "提供可复用的页面级导出按钮，输出 CSV / JSON，并在测试环境中安全降级。",
-      en: "Provide a reusable page-level export button for CSV / JSON output, no-op-safe in tests.",
+      zh: "新增 CSV / JSON schema / Markdown / LaTeX summary 导出，并固定 not final catalytic proof 与 not ready for formal machine learning 边界。",
+      en: "Added CSV / JSON schema / Markdown / LaTeX summary exports while fixing not-final-proof and not-ready-for-formal-ML boundaries.",
     },
   },
 ]
@@ -269,7 +297,7 @@ function ProjectUpdates({ lang, t, isMobile }) {
     <Card
       id="project-evolution-release-notes"
       title={text(lang, "项目更新", "Project Updates")}
-      subtitle={text(lang, `当前版本 ${CURRENT_RELEASE.version} 的更新按数据接入、解释链路、交互与样式、页面级导出四条线索整理。`, `Updates in the current ${CURRENT_RELEASE.version} release, organized into data wiring, explanation path, interaction cleanup, and page-level export.`)}
+      subtitle={text(lang, `当前版本 ${CURRENT_RELEASE.version} 的更新按实验启用数据、启用中心、算法方法论、导出与边界四条线索整理。`, `Updates in the current ${CURRENT_RELEASE.version} release, organized into activation data, activation center, algorithm methodology, and exports / boundary.`)}
       t={t}
     >
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
@@ -363,6 +391,119 @@ function AlgorithmEvolution({ data, lang, t }) {
             <span style={{ color: t.warn, fontSize: 11.5, lineHeight: 1.45 }}>{text(lang, "局限", "Limitation")}: {row.limitation}</span>
             <span style={{ color: t.accentText, fontSize: 11.5, lineHeight: 1.45 }}>{text(lang, "未来", "Future")}: {row.futurePlan}</span>
           </article>
+        ))}
+      </div>
+    </Card>
+  )
+}
+
+function FormulaMethodCard({ formula, t, lang }) {
+  return (
+    <div data-testid={`organic-acid-formula-${formula.id}`} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 8, minWidth: 0, padding: 10 }}>
+      <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
+        <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{formula.title}</strong>
+        <button type="button" onClick={() => copyText(`\\[${formula.latex}\\]`)} style={{ ...toolbarBtn(t), minHeight: 28, padding: "5px 8px" }}>
+          {text(lang, "复制 LaTeX", "Copy LaTeX")}
+        </button>
+      </div>
+      <BlockFormula math={formula.latex} t={t} style={{ background: t.panel, maxWidth: "100%", minWidth: 0 }} />
+    </div>
+  )
+}
+
+function MethodologyPill({ children, tone, t }) {
+  const styles = tone === "risk"
+    ? { background: t.badgeWarnBg, border: t.warn, color: t.warn }
+    : { background: t.badgeInfoBg, border: t.accent, color: t.accentText }
+  return (
+    <span style={{ alignItems: "center", background: styles.background, border: `1px solid ${styles.border}`, borderRadius: 999, color: styles.color, display: "inline-flex", fontSize: 11, fontWeight: 900, lineHeight: 1.2, padding: "4px 8px" }}>
+      {children}
+    </span>
+  )
+}
+
+function OrganicAcidAlgorithmMethodology({ methodology, lang, t, isMobile }) {
+  const context = methodology.dynamicContext
+  const exportRows = [
+    {
+      label: "Organic Acid Algorithm Methodology Markdown",
+      action: () => downloadText(methodology.exportNames.markdown, buildOrganicAcidAlgorithmMethodologyMarkdown(methodology), "text/markdown"),
+    },
+    {
+      label: "Organic Acid Algorithm Formula JSON",
+      action: () => downloadText(methodology.exportNames.formulaJson, JSON.stringify(buildOrganicAcidAlgorithmFormulaJson(methodology), null, 2), "application/json"),
+    },
+    {
+      label: "Organic Acid Algorithm LaTeX Summary",
+      action: () => downloadText(methodology.exportNames.latexSummary, buildOrganicAcidAlgorithmLatexSummary(methodology), "text/plain"),
+    },
+  ]
+  return (
+    <Card
+      id={methodology.id}
+      title={text(lang, methodology.titleZh, methodology.title)}
+      subtitle={text(lang, "V3.9.4 独立算法方法论模块：用 LaTeX 公式解释路径步骤、主体筛选、客体筛选、HGCPS、敏感性、消融与实验反馈。", "A standalone V3.9.4 algorithm methodology module with LaTeX formulas for pathway steps, host selection, guest selection, HGCPS, sensitivity, ablation, and experimental feedback.")}
+      t={t}
+      actions={<CopyLinkButton hash={methodology.id} ariaLabel={text(lang, "复制算法方法论链接", "Copy algorithm methodology link")} />}
+    >
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+        <MethodologyPill t={t}>{context.currentTopRoute}</MethodologyPill>
+        <MethodologyPill t={t}>HGCPS {context.hgcps}</MethodologyPill>
+        <MethodologyPill t={t}>{context.readinessLevel}</MethodologyPill>
+        <MethodologyPill tone="risk" t={t}>High-priority experimental hypothesis</MethodologyPill>
+        <MethodologyPill tone="risk" t={t}>Not final catalytic proof</MethodologyPill>
+        <MethodologyPill tone="risk" t={t}>Not ready for formal machine learning</MethodologyPill>
+      </div>
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))" }}>
+        {[
+          [text(lang, "当前路线", "Current top route"), context.currentTopRoute],
+          [text(lang, "主体", "Selected host"), `${context.selectedHost} · ${context.selectedHostRole}`],
+          [text(lang, "客体", "Selected guest"), `${context.selectedGuest} · ${context.selectedGuestRole}`],
+          [text(lang, "边界", "Boundary"), `${context.performanceClaimStatus}; ${context.mlReadinessStatus}`],
+        ].map(([label, value]) => (
+          <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
+            <span style={{ color: t.faint, display: "block", fontSize: 10.5, fontWeight: 900 }}>{label}</span>
+            <strong style={{ color: t.textStrong, display: "block", fontSize: 12.2, lineHeight: 1.45, marginTop: 4 }}>{value}</strong>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: "grid", gap: 10 }}>
+        {methodology.sections.map((section, index) => (
+          <details key={section.id} open={index === 0 || section.id === "hgcps"} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, padding: 11 }}>
+            <summary style={{ color: t.textStrong, cursor: "pointer", fontSize: 13.5, fontWeight: 900 }}>
+              {index + 1}. {text(lang, section.titleZh, section.title)}
+            </summary>
+            <div style={{ display: "grid", gap: 10, marginTop: 11 }}>
+              <div style={{ color: t.muted, fontSize: 12.1, lineHeight: 1.55 }}>{text(lang, section.explanationZh, section.explanation)}</div>
+              <div style={{ display: "grid", gap: 8 }}>
+                {section.formulas.map(formula => <FormulaMethodCard key={formula.id} formula={formula} t={t} lang={lang} />)}
+              </div>
+              <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))" }}>
+                {[
+                  [text(lang, "输入", "Input"), section.input],
+                  [text(lang, "输出", "Output"), section.output],
+                  [text(lang, "当前边界", "Limitation"), section.limitation],
+                ].map(([label, value]) => (
+                  <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 9 }}>
+                    <span style={{ color: t.faint, display: "block", fontSize: 10.5, fontWeight: 900 }}>{label}</span>
+                    <span style={{ color: t.muted, display: "block", fontSize: 11.5, lineHeight: 1.45, marginTop: 4 }}>{value}</span>
+                  </div>
+                ))}
+              </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                {section.dataSource.map(source => (
+                  <MethodologyPill key={source} t={t}>{source}</MethodologyPill>
+                ))}
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        {exportRows.map(row => (
+          <button key={row.label} type="button" onClick={row.action} style={{ ...toolbarBtn(t), color: t.accentText, borderColor: t.accent }}>
+            {row.label}
+          </button>
         ))}
       </div>
     </Card>
@@ -473,6 +614,16 @@ export function ProjectEvolutionTab({ onNavigate, data: providedData = null }) {
   const { isMobile } = useViewport()
   const [data, setData] = useState(providedData)
   const [projectStatus, setProjectStatus] = useState(() => providedData ? buildProjectStatusSummary({ versionEvolution: providedData }) : null)
+  const organicAcidMethodology = useMemo(() => buildOrganicAcidAlgorithmMethodology({
+    pathwaySteps: pathwayStepsData,
+    pathwayDescriptorMap: pathwayDescriptorMapData,
+    hostMofCandidates: hostMofCandidatesData,
+    guestMetalCandidates: guestMetalCandidatesData,
+    hostGuestRoutes: hostGuestRoutesData,
+    evidenceRiskRecords: evidenceRiskRecordsData,
+    validationExperiments: validationExperimentsData,
+    activationReadinessSummary: activationReadinessSummaryData,
+  }), [])
 
   useEffect(() => {
     if (providedData) {
@@ -501,6 +652,7 @@ export function ProjectEvolutionTab({ onNavigate, data: providedData = null }) {
     { id: "project-evolution-scientific", label: text(lang, "科研能力演化", "Scientific Evolution") },
     { id: "project-evolution-database", label: text(lang, "数据库演化", "Database Evolution") },
     { id: "project-evolution-algorithm", label: text(lang, "算法演化", "Algorithm Evolution") },
+    { id: "project-evolution-organic-acid-algorithm-methodology", label: text(lang, "有机酸算法方法论", "Organic Acid Methodology") },
     { id: "project-evolution-validation", label: text(lang, "验证体系演化", "Validation Evolution") },
     { id: "project-evolution-ui", label: text(lang, "界面演化", "UI Evolution") },
     { id: "project-evolution-localization", label: text(lang, "汉化演化", "Localization Evolution") },
@@ -537,6 +689,7 @@ export function ProjectEvolutionTab({ onNavigate, data: providedData = null }) {
       <ScientificEvolution data={data} lang={lang} t={t} />
       <DatabaseEvolution data={data} lang={lang} t={t} />
       <AlgorithmEvolution data={data} lang={lang} t={t} />
+      <OrganicAcidAlgorithmMethodology methodology={organicAcidMethodology} lang={lang} t={t} isMobile={isMobile} />
       <ValidationEvolution data={data} lang={lang} t={t} />
       <UiEvolution data={data} lang={lang} t={t} />
       <LocalizationEvolution data={data} lang={lang} t={t} />

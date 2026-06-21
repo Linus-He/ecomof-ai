@@ -15,6 +15,7 @@ import {
   ORGANIC_ACID_HOST_GUEST_VERSION,
 } from "../../utils/organicAcidHostGuest"
 import { NumericText, organicAcidPalette as palette, ORGANIC_ACID_FONT, SCIENTIFIC_TOKEN_FONT } from "./FormulaInline"
+import { OrganicAcidExperimentalActivationCenter } from "./OrganicAcidExperimentalActivationCenter"
 
 const DATA_FILES = {
   pathwaySteps: "organic_acid_host_guest/pathway_steps.json",
@@ -85,6 +86,16 @@ function downloadText(fileName, content, type = "application/json") {
   URL.revokeObjectURL(url)
 }
 
+function scrollToActivationCenter() {
+  if (typeof document === "undefined") return
+  document.getElementById("organic-acid-experimental-activation-center")?.scrollIntoView({ behavior: "smooth", block: "start" })
+}
+
+function openAlgorithmMethodology() {
+  if (typeof window === "undefined") return
+  window.location.hash = "#project-evolution-organic-acid-algorithm-methodology"
+}
+
 function ScorePill({ label, value, tone = palette.accent }) {
   return (
     <div style={{ ...cardStyle({ padding: 10 }), gap: 7 }}>
@@ -109,7 +120,7 @@ function SectionTitle({ kicker, title, note }) {
   )
 }
 
-function RecommendationCard({ workbench, lang }) {
+function RecommendationCard({ workbench, lang, onOpenActivationCenter }) {
   const rec = workbench.recommendation
   return (
     <section style={{ background: palette.bg, border: `1px solid ${palette.accent}`, borderRadius: 10, display: "grid", gap: 13, padding: 14 }}>
@@ -146,6 +157,14 @@ function RecommendationCard({ workbench, lang }) {
           "结论边界：Al-MOF 是稳定主体 MOF / stable host framework；Mo 是客体 / 掺杂 / activity compensation metal。该路线来自路径步骤描述符筛选与主客体互补路径评分，不是黑盒机器学习预测，也不代表已经证明最终催化性能最优。",
           "Boundary: Al-MOF is the stable host framework; Mo is the guest / dopant / activity compensation metal. The route comes from pathway-step descriptor screening and host-guest complementarity scoring, not black-box machine learning, and it is not final proof of catalytic performance."
         )}
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        <button type="button" onClick={onOpenActivationCenter} style={{ ...buttonStyle(false), color: palette.accent, textAlign: "center" }}>
+          Open Experimental Activation Center
+        </button>
+        <button type="button" onClick={openAlgorithmMethodology} style={{ ...buttonStyle(false), color: palette.accent, textAlign: "center" }}>
+          Organic Acid Algorithm Methodology
+        </button>
       </div>
     </section>
   )
@@ -274,7 +293,7 @@ function SelectionSection({ workbench, lang, isNarrow }) {
   )
 }
 
-function PriorityQueueSection({ workbench, selectedRouteId, setSelectedRouteId, selectedExplanation, lang, isNarrow }) {
+function PriorityQueueSection({ workbench, selectedRouteId, setSelectedRouteId, selectedExplanation, lang, isNarrow, onOpenActivationCenter }) {
   const routeGroups = [
     [text(lang, "Top Priority Route", "Top Priority Route"), workbench.priorityQueue.topPriority],
     [text(lang, "Conditional Routes", "Conditional Routes"), workbench.priorityQueue.conditionalRoutes],
@@ -307,13 +326,13 @@ function PriorityQueueSection({ workbench, selectedRouteId, setSelectedRouteId, 
             </div>
           ))}
         </div>
-        <RouteExplanationPanel explanation={selectedExplanation} lang={lang} />
+        <RouteExplanationPanel explanation={selectedExplanation} lang={lang} onOpenActivationCenter={onOpenActivationCenter} />
       </div>
     </section>
   )
 }
 
-function RouteExplanationPanel({ explanation, lang }) {
+function RouteExplanationPanel({ explanation, lang, onOpenActivationCenter }) {
   return (
     <aside data-testid="host-guest-route-explanation" style={{ ...cardStyle({ alignSelf: "start", background: palette.surfaceStrong, position: "sticky", top: 96 }) }}>
       <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Route Explanation Panel</div>
@@ -345,6 +364,14 @@ function RouteExplanationPanel({ explanation, lang }) {
             {row.evidenceId}: {row.riskType} · reason weight {fmt(row.penalty, 2)} · {row.reason}
           </div>
         ))}
+      </div>
+      <div style={{ display: "grid", gap: 7 }}>
+        <button type="button" onClick={onOpenActivationCenter} style={{ ...buttonStyle(false), color: palette.accent, textAlign: "center" }}>
+          Plan first experiment
+        </button>
+        <button type="button" onClick={openAlgorithmMethodology} style={{ ...buttonStyle(false), color: palette.accent, textAlign: "center" }}>
+          View algorithm methodology
+        </button>
       </div>
     </aside>
   )
@@ -487,7 +514,7 @@ function EvidenceMatrixSection({ workbench, lang }) {
   )
 }
 
-function RiskMatrixSection({ workbench, lang }) {
+function RiskMatrixSection({ workbench, lang, onOpenActivationCenter }) {
   const topRisk = workbench.missingEvidenceRiskMatrix.find(row => row.routeId === "route-al-mof-mo") || workbench.missingEvidenceRiskMatrix[0]
   return (
     <section style={{ display: "grid", gap: 12 }}>
@@ -517,6 +544,9 @@ function RiskMatrixSection({ workbench, lang }) {
           <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.5 }}>
             Recommended data to collect: {topRisk.recommendedDataToCollect}
           </div>
+          <button type="button" onClick={onOpenActivationCenter} style={{ ...buttonStyle(false), color: palette.accent, justifySelf: "start", textAlign: "center" }}>
+            Generate required data template
+          </button>
         </article>
       ) : null}
       <div style={{ overflowX: "auto" }}>
@@ -635,7 +665,7 @@ function AblationAnalysisSection({ workbench, lang }) {
   )
 }
 
-function BoundaryPanel({ lang }) {
+function BoundaryPanel({ lang, onOpenActivationCenter }) {
   const boundaries = [
     ["Recommendation status", "Al-MOF + Mo is one high-priority experimental route, not final catalytic proof."],
     ["Data status", "Evidence remains seed / curated / proxy / inferred / mixed until direct same-condition validation is added."],
@@ -651,7 +681,7 @@ function BoundaryPanel({ lang }) {
       <SectionTitle
         kicker="Organic Acid Algorithm Boundary Panel"
         title={text(lang, "算法边界", "Algorithm Boundary")}
-        note={text(lang, "该面板固定列出 V3.9.3 不允许越界表达的结论边界。", "This panel fixes the conclusion boundaries that V3.9.3 must not overstate.")}
+        note={text(lang, "该面板固定列出 V3.9.4 不允许越界表达的结论边界。", "This panel fixes the conclusion boundaries that V3.9.4 must not overstate.")}
       />
       <div style={{ display: "grid", gap: 8 }}>
         {boundaries.map(([label, value]) => (
@@ -661,11 +691,19 @@ function BoundaryPanel({ lang }) {
           </div>
         ))}
       </div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        <button type="button" onClick={onOpenActivationCenter} style={{ ...buttonStyle(false), color: palette.accent, textAlign: "center" }}>
+          See activation readiness
+        </button>
+        <button type="button" onClick={openAlgorithmMethodology} style={{ ...buttonStyle(false), color: palette.accent, textAlign: "center" }}>
+          View Project Evolution methodology
+        </button>
+      </div>
     </section>
   )
 }
 
-function ReportExportSection({ workbench, selectedExplanation, lang }) {
+function ReportExportSection({ workbench, selectedExplanation, lang, onOpenActivationCenter }) {
   const exportRows = [
     {
       label: "Al-MOF + Mo Route Report JSON",
@@ -721,6 +759,12 @@ function ReportExportSection({ workbench, selectedExplanation, lang }) {
         ))}
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        <button type="button" onClick={onOpenActivationCenter} style={{ ...buttonStyle(false), color: palette.accent, textAlign: "center" }}>
+          Create minimum experiment matrix
+        </button>
+        <button type="button" onClick={openAlgorithmMethodology} style={{ ...buttonStyle(false), color: palette.accent, textAlign: "center" }}>
+          View algorithm methodology
+        </button>
         {exportRows.map(row => (
           <button key={row.label} type="button" onClick={row.action} style={{ ...buttonStyle(false), textAlign: "center" }}>
             {row.label}
@@ -731,7 +775,7 @@ function ReportExportSection({ workbench, selectedExplanation, lang }) {
   )
 }
 
-function AdvancedAnalysisTabs({ workbench, selectedExplanation, lang }) {
+function AdvancedAnalysisTabs({ workbench, selectedExplanation, lang, onOpenActivationCenter }) {
   const [activeTab, setActiveTab] = useState("risk")
   const tabs = [
     ["risk", "Missing Evidence & Risk Matrix"],
@@ -755,17 +799,17 @@ function AdvancedAnalysisTabs({ workbench, selectedExplanation, lang }) {
           </button>
         ))}
       </div>
-      {activeTab === "risk" ? <RiskMatrixSection workbench={workbench} lang={lang} /> : null}
+      {activeTab === "risk" ? <RiskMatrixSection workbench={workbench} lang={lang} onOpenActivationCenter={onOpenActivationCenter} /> : null}
       {activeTab === "evidence" ? <EvidenceMatrixSection workbench={workbench} lang={lang} /> : null}
       {activeTab === "sensitivity" ? <SensitivityAnalysisSection workbench={workbench} lang={lang} /> : null}
       {activeTab === "ablation" ? <AblationAnalysisSection workbench={workbench} lang={lang} /> : null}
-      {activeTab === "boundary" ? <BoundaryPanel lang={lang} /> : null}
-      {activeTab === "report" ? <ReportExportSection workbench={workbench} selectedExplanation={selectedExplanation} lang={lang} /> : null}
+      {activeTab === "boundary" ? <BoundaryPanel lang={lang} onOpenActivationCenter={onOpenActivationCenter} /> : null}
+      {activeTab === "report" ? <ReportExportSection workbench={workbench} selectedExplanation={selectedExplanation} lang={lang} onOpenActivationCenter={onOpenActivationCenter} /> : null}
     </section>
   )
 }
 
-export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, initialData = null, workbench: suppliedWorkbench = null }) {
+export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, initialData = null, workbench: suppliedWorkbench = null, activationWorkbench: suppliedActivationWorkbench = null }) {
   const [sourceData, setSourceData] = useState(initialData)
   const [status, setStatus] = useState(initialData || suppliedWorkbench ? "loaded" : "idle")
   const [activeStep, setActiveStep] = useState(0)
@@ -851,10 +895,21 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
           </p>
         </div>
       </section>
-      <RecommendationCard workbench={workbench} lang={lang} />
+      <RecommendationCard workbench={workbench} lang={lang} onOpenActivationCenter={scrollToActivationCenter} />
       <PipelineStepper workbench={workbench} activeStep={activeStep} setActiveStep={setActiveStep} lang={lang} isNarrow={isNarrow} />
-      <PriorityQueueSection workbench={workbench} selectedRouteId={selectedRoute.routeId} setSelectedRouteId={setSelectedRouteId} selectedExplanation={selectedExplanation} lang={lang} isNarrow={isNarrow} />
-      <AdvancedAnalysisTabs workbench={workbench} selectedExplanation={selectedExplanation} lang={lang} />
+      <PriorityQueueSection workbench={workbench} selectedRouteId={selectedRoute.routeId} setSelectedRouteId={setSelectedRouteId} selectedExplanation={selectedExplanation} lang={lang} isNarrow={isNarrow} onOpenActivationCenter={scrollToActivationCenter} />
+      <AdvancedAnalysisTabs workbench={workbench} selectedExplanation={selectedExplanation} lang={lang} onOpenActivationCenter={scrollToActivationCenter} />
+      <OrganicAcidExperimentalActivationCenter
+        lang={lang}
+        isNarrow={isNarrow}
+        routeContext={{
+          topRoute: workbench.complementarity.topRoute,
+          selectedHost: workbench.hostSelection.selectedHost,
+          selectedGuestMetal: workbench.guestSelection.selectedGuestMetal,
+          selectedRouteExplanation: selectedExplanation,
+        }}
+        activationWorkbench={suppliedActivationWorkbench}
+      />
       <PathwayDescriptorSection workbench={workbench} lang={lang} />
       <SelectionSection workbench={workbench} lang={lang} isNarrow={isNarrow} />
       <ComplementaryScoringSection workbench={workbench} lang={lang} />

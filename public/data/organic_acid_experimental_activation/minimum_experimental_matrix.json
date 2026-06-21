@@ -1,0 +1,336 @@
+{
+  "dataMode": "seed",
+  "evidenceMode": "seed / curated / proxy",
+  "generatedAt": "2026-06-22",
+  "updatedAt": "2026-06-22",
+  "provenance": [
+    "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+  ],
+  "curationStatus": "seed_curated_pending_experiment",
+  "limitation": "Planning data only; no same-condition experimental result has been completed or claimed.",
+  "schemaVersion": "V3.9.4-minimum-experimental-matrix",
+  "reactionConditionTemplates": [
+    {
+      "templateId": "same-condition-organic-acid-v394",
+      "description": "Same-condition 170C aqueous organic-acid screening template; exact pressure, CO2 source, and analytics must be locked before run.",
+      "limitation": "Condition template only; no result is recorded."
+    }
+  ],
+  "experimentGroups": [
+    {
+      "experimentGroupId": "exp-blank-no-catalyst",
+      "experimentName": "Blank control / no catalyst",
+      "routeId": "route-blank",
+      "hostCandidateId": "pending",
+      "guestMetal": "none",
+      "moIntroductionStrategyId": "pending",
+      "controlType": "blank background control",
+      "purpose": "Measure background conversion and analytical noise.",
+      "hypothesisTested": "No catalyst should produce low formic-acid signal; any high signal indicates background or contamination.",
+      "requiredMaterial": "reactor, solvent, CO2 source, reducing agent if used",
+      "requiredPretreatment": "same as all groups",
+      "reactionConditionTemplateId": "same-condition-organic-acid-v394",
+      "expectedOutcome": "background signal only",
+      "failureMeaning": "High product signal means contamination or non-catalytic background must be resolved.",
+      "requiredCharacterizationBeforeReaction": [
+        "reactor blank verification"
+      ],
+      "requiredCharacterizationAfterReaction": [
+        "product analysis blank check"
+      ],
+      "requiredProductAnalysis": [
+        "HPLC/IC/GC calibration"
+      ],
+      "priority": 1,
+      "mustRun": true,
+      "notes": "Must-run core experiments",
+      "dataMode": "seed",
+      "evidenceMode": "seed / curated / proxy",
+      "provenance": [
+        "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+      ],
+      "curationStatus": "seed_curated_pending_experiment",
+      "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+    },
+    {
+      "experimentGroupId": "exp-pristine-al-mof",
+      "experimentName": "Pristine Al-MOF primary host",
+      "routeId": "route-al-mof-pristine",
+      "hostCandidateId": "al-mof-host-primary-mil53-like",
+      "guestMetal": "none",
+      "moIntroductionStrategyId": "pending",
+      "controlType": "host scaffold control",
+      "purpose": "Quantify host-only activity and stability.",
+      "hypothesisTested": "Pristine Al-MOF should show stability but limited activity compensation.",
+      "requiredMaterial": "primary Al-MOF host batch",
+      "requiredPretreatment": "activation protocol without Mo",
+      "reactionConditionTemplateId": "same-condition-organic-acid-v394",
+      "expectedOutcome": "stable host with lower formic-acid output than Al-MOF + Mo",
+      "failureMeaning": "If pristine equals Mo route, Mo compensation is uncertain.",
+      "requiredCharacterizationBeforeReaction": [
+        "PXRD",
+        "BET",
+        "FTIR"
+      ],
+      "requiredCharacterizationAfterReaction": [
+        "PXRD",
+        "ICP leaching",
+        "BET optional"
+      ],
+      "requiredProductAnalysis": [
+        "formic acid yield",
+        "selectivity",
+        "carbon balance"
+      ],
+      "priority": 2,
+      "mustRun": true,
+      "notes": "Must-run core experiments",
+      "dataMode": "seed",
+      "evidenceMode": "seed / curated / proxy",
+      "provenance": [
+        "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+      ],
+      "curationStatus": "seed_curated_pending_experiment",
+      "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+    },
+    {
+      "experimentGroupId": "exp-al-mof-mo-top",
+      "experimentName": "Al-MOF + Mo top route validation",
+      "routeId": "route-al-mof-mo",
+      "hostCandidateId": "al-mof-host-primary-mil53-like",
+      "guestMetal": "Mo",
+      "moIntroductionStrategyId": "mo-post-synthetic-modification",
+      "controlType": "Top Route Validation",
+      "purpose": "Test the current top route under same-condition controls.",
+      "hypothesisTested": "Mo should improve activity over pristine host while preserving structure.",
+      "requiredMaterial": "primary Al-MOF + Mo batch",
+      "requiredPretreatment": "post-synthetic Mo modification",
+      "reactionConditionTemplateId": "same-condition-organic-acid-v394",
+      "expectedOutcome": "higher formic acid yield/selectivity with retained structure",
+      "failureMeaning": "No improvement means guest activity compensation must be reduced.",
+      "requiredCharacterizationBeforeReaction": [
+        "PXRD",
+        "ICP Mo loading",
+        "XPS",
+        "XANES/EXAFS target"
+      ],
+      "requiredCharacterizationAfterReaction": [
+        "PXRD",
+        "ICP leaching",
+        "XPS after reaction"
+      ],
+      "requiredProductAnalysis": [
+        "formic acid yield",
+        "selectivity",
+        "conversion",
+        "carbon balance"
+      ],
+      "priority": 3,
+      "mustRun": true,
+      "notes": "Must-run core experiments",
+      "dataMode": "seed",
+      "evidenceMode": "seed / curated / proxy",
+      "provenance": [
+        "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+      ],
+      "curationStatus": "seed_curated_pending_experiment",
+      "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+    },
+    {
+      "experimentGroupId": "exp-al-mof-w-guest-control",
+      "experimentName": "Al-MOF + W guest-metal control",
+      "routeId": "route-al-mof-w",
+      "hostCandidateId": "al-mof-host-primary-mil53-like",
+      "guestMetal": "W",
+      "moIntroductionStrategyId": "mo-post-synthetic-modification",
+      "controlType": "guest metal control",
+      "purpose": "Check whether oxo-metal effect is Mo-specific or generic.",
+      "hypothesisTested": "W route may support similar oxo chemistry but should not automatically replace Mo without evidence.",
+      "requiredMaterial": "Al-MOF + W comparison batch",
+      "requiredPretreatment": "analogous post-synthetic W introduction",
+      "reactionConditionTemplateId": "same-condition-organic-acid-v394",
+      "expectedOutcome": "conditional comparison signal",
+      "failureMeaning": "If W strongly outperforms Mo, reranking is required.",
+      "requiredCharacterizationBeforeReaction": [
+        "PXRD",
+        "ICP W loading",
+        "XPS"
+      ],
+      "requiredCharacterizationAfterReaction": [
+        "PXRD",
+        "ICP leaching"
+      ],
+      "requiredProductAnalysis": [
+        "yield",
+        "selectivity",
+        "carbon balance"
+      ],
+      "priority": 4,
+      "mustRun": true,
+      "notes": "Mechanism/control experiments",
+      "dataMode": "seed",
+      "evidenceMode": "seed / curated / proxy",
+      "provenance": [
+        "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+      ],
+      "curationStatus": "seed_curated_pending_experiment",
+      "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+    },
+    {
+      "experimentGroupId": "exp-zr-mof-mo-host-control",
+      "experimentName": "Zr-MOF + Mo host control",
+      "routeId": "route-zr-mof-mo",
+      "hostCandidateId": "pending-zr-mof-control",
+      "guestMetal": "Mo",
+      "moIntroductionStrategyId": "mo-post-synthetic-modification",
+      "controlType": "host framework control",
+      "purpose": "Check whether Mo route depends on Al-MOF host family.",
+      "hypothesisTested": "Alternative robust host may outperform; if so Al-MOF host priority should be reduced.",
+      "requiredMaterial": "Zr-MOF + Mo control batch",
+      "requiredPretreatment": "same Mo introduction strategy when feasible",
+      "reactionConditionTemplateId": "same-condition-organic-acid-v394",
+      "expectedOutcome": "host-family comparison",
+      "failureMeaning": "If Zr-MOF + Mo significantly outperforms Al-MOF + Mo, trigger reranking.",
+      "requiredCharacterizationBeforeReaction": [
+        "PXRD",
+        "ICP Mo loading"
+      ],
+      "requiredCharacterizationAfterReaction": [
+        "PXRD",
+        "ICP leaching"
+      ],
+      "requiredProductAnalysis": [
+        "yield",
+        "selectivity",
+        "carbon balance"
+      ],
+      "priority": 5,
+      "mustRun": true,
+      "notes": "Mechanism/control experiments",
+      "dataMode": "seed",
+      "evidenceMode": "seed / curated / proxy",
+      "provenance": [
+        "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+      ],
+      "curationStatus": "seed_curated_pending_experiment",
+      "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+    },
+    {
+      "experimentGroupId": "exp-moox-only",
+      "experimentName": "Mo precursor only / MoOx control",
+      "routeId": "route-mo-only",
+      "hostCandidateId": "pending",
+      "guestMetal": "Mo",
+      "moIntroductionStrategyId": "mo-pore-confinement-impregnation",
+      "controlType": "Mo-only contribution control",
+      "purpose": "Test whether Mo species alone explain activity.",
+      "hypothesisTested": "Mo-only should not be interpreted as host-guest synergy.",
+      "requiredMaterial": "Mo precursor or MoOx material",
+      "requiredPretreatment": "same thermal/wash history when possible",
+      "reactionConditionTemplateId": "same-condition-organic-acid-v394",
+      "expectedOutcome": "isolated Mo contribution baseline",
+      "failureMeaning": "If Mo-only equals host-guest route, confinement / synergy claim weakens.",
+      "requiredCharacterizationBeforeReaction": [
+        "Mo source identity",
+        "XPS if solid"
+      ],
+      "requiredCharacterizationAfterReaction": [
+        "ICP if liquid leaching relevant"
+      ],
+      "requiredProductAnalysis": [
+        "yield",
+        "selectivity",
+        "carbon balance"
+      ],
+      "priority": 6,
+      "mustRun": true,
+      "notes": "Mechanism/control experiments",
+      "dataMode": "seed",
+      "evidenceMode": "seed / curated / proxy",
+      "provenance": [
+        "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+      ],
+      "curationStatus": "seed_curated_pending_experiment",
+      "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+    },
+    {
+      "experimentGroupId": "exp-al-mof-co-secondary",
+      "experimentName": "Al-MOF + Co secondary guest control",
+      "routeId": "route-al-mof-co",
+      "hostCandidateId": "al-mof-host-primary-mil53-like",
+      "guestMetal": "Co",
+      "moIntroductionStrategyId": "mo-doping-during-synthesis",
+      "controlType": "secondary guest control",
+      "purpose": "Check non-Mo redox guest response.",
+      "hypothesisTested": "A secondary redox metal should not be overinterpreted without same-condition evidence.",
+      "requiredMaterial": "Al-MOF + Co or analogous batch",
+      "requiredPretreatment": "guest introduction matched as close as possible",
+      "reactionConditionTemplateId": "same-condition-organic-acid-v394",
+      "expectedOutcome": "secondary comparison only",
+      "failureMeaning": "Unexpected high performance requires new evidence review.",
+      "requiredCharacterizationBeforeReaction": [
+        "PXRD",
+        "ICP Co loading"
+      ],
+      "requiredCharacterizationAfterReaction": [
+        "PXRD",
+        "ICP leaching"
+      ],
+      "requiredProductAnalysis": [
+        "yield",
+        "selectivity",
+        "carbon balance"
+      ],
+      "priority": 7,
+      "mustRun": false,
+      "notes": "Optional backup experiments",
+      "dataMode": "seed",
+      "evidenceMode": "seed / curated / proxy",
+      "provenance": [
+        "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+      ],
+      "curationStatus": "seed_curated_pending_experiment",
+      "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+    },
+    {
+      "experimentGroupId": "exp-al-mof-mo-repeat-stability",
+      "experimentName": "Repeated Al-MOF + Mo stability test",
+      "routeId": "route-al-mof-mo",
+      "hostCandidateId": "al-mof-host-primary-mil53-like",
+      "guestMetal": "Mo",
+      "moIntroductionStrategyId": "mo-post-synthetic-modification",
+      "controlType": "repeatability / stability control",
+      "purpose": "Test repeatability and post-reaction stability of the top route.",
+      "hypothesisTested": "Supported route requires repeatable signal and retained structure.",
+      "requiredMaterial": "second Al-MOF + Mo batch or reuse test",
+      "requiredPretreatment": "same top-route preparation",
+      "reactionConditionTemplateId": "same-condition-organic-acid-v394",
+      "expectedOutcome": "repeatable trend with structure retained",
+      "failureMeaning": "Poor repeatability makes result inconclusive.",
+      "requiredCharacterizationBeforeReaction": [
+        "PXRD",
+        "ICP Mo loading"
+      ],
+      "requiredCharacterizationAfterReaction": [
+        "PXRD after repeat",
+        "ICP leaching",
+        "morphology optional"
+      ],
+      "requiredProductAnalysis": [
+        "yield",
+        "selectivity",
+        "repeat carbon balance"
+      ],
+      "priority": 8,
+      "mustRun": false,
+      "notes": "Optional backup experiments",
+      "dataMode": "seed",
+      "evidenceMode": "seed / curated / proxy",
+      "provenance": [
+        "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+      ],
+      "curationStatus": "seed_curated_pending_experiment",
+      "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+    }
+  ]
+}

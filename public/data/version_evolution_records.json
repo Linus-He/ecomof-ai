@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.9.3",
+  "currentVersion": "V3.9.4",
   "generatedAt": "2026-06-22",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
-    "currentVersion": "V3.9.3",
+    "currentVersion": "V3.9.4",
     "databaseSize": 3020,
     "verifiedMetadataCount": 2480,
     "sourceConfirmedCount": 2480,
@@ -13,23 +13,23 @@
     "modelValidationStatus": "Robustness Validation Complete",
     "projectAge": "2026-04 to 2026-06",
     "githubStars": "pending",
-    "milestoneCount": 15,
+    "milestoneCount": 16,
     "databasePreviewStatus": "Database Preview",
     "notFinalRecommendationStatus": "Not Final Recommendation",
     "sources": {
       "currentVersion": {
-        "value": "V3.9.3",
+        "value": "V3.9.4",
         "sourceDatabase": "EcoMOF-AI version_evolution_records.json",
         "sourceRecordId": "overview.currentVersion",
         "sourceUrl": "public/data/version_evolution_records.json",
         "citation": "Internal project evolution record.",
         "license": "Project repository license context.",
-        "retrievedAt": "2026-06-21",
+        "retrievedAt": "2026-06-22",
         "curationStatus": "confirmed",
         "confidence": 1,
-        "databaseVersion": "version_evolution_records.json@V3.8",
-        "generatingScript": "manual V3.8 research validation loop closure record",
-        "notes": "Version label for the V3.8 Research Validation Loop Closure UI/infrastructure state; validation metrics remain sourced from V3.6 robustness artifacts."
+        "databaseVersion": "version_evolution_records.json@V3.9.4",
+        "generatingScript": "manual V3.9.4 organic acid activation and methodology record",
+        "notes": "Version label for the V3.9.4 Organic Acid Experimental Activation Center and Project Evolution Algorithm Methodology module."
       },
       "databaseSize": {
         "value": 3020,
@@ -628,9 +628,48 @@
         "Validation",
         "Testing"
       ]
+    },
+    {
+      "version": "V3.9.4",
+      "date": "2026-06-22",
+      "commit": "pending-current",
+      "summary": "Organic Acid Experimental Activation Package and Algorithm Methodology: specific Al-MOF host candidates, Mo introduction strategies, minimum experiment matrix, same-condition data template, feedback rules, activation exports, and LaTeX Project Evolution methodology module.",
+      "scientificImpact": "将 Al-MOF + Mo 从高优先级算法路线推进到 planning-ready 实验启用包，并在 Project Evolution 中用 LaTeX 方法论解释路径步骤、主体筛选、客体筛选、HGCPS、敏感性、消融和反馈更新。",
+      "databaseImpact": "新增 public/data/organic_acid_experimental_activation 下 7 个 seed/curated/proxy 数据文件，覆盖具体 Al-MOF 主体、Mo 引入、最小实验矩阵、同条件记录模板、pending 结果模板、反馈规则和启用就绪摘要。",
+      "algorithmImpact": "新增实验反馈规则 builders、同条件模板 schema/CSV exports、post-experiment reranking preview、activation report exports，并新增 Project Evolution Organic Acid Host-Guest Algorithm Methodology LaTeX 公式模块。",
+      "validationImpact": "明确 planning-ready / not performance-validated：可用于内部讨论和实验规划，不可用于性能证明或正式机器学习；第一轮实验矩阵要求 blank、pristine Al-MOF、Al-MOF+Mo、guest/host/Mo-only controls 和重复稳定性。",
+      "uiImpact": "Organic Acid Host-Guest Workbench 接入 Experimental Activation Center，并从 top route、route explanation、risk matrix、boundary 和 export 面板跳转；Project Evolution 新增独立可折叠算法方法论 section 与 LaTeX/Markdown/JSON 导出。",
+      "knownLimitations": "所有 activation 数据仍为 seed/proxy/curated planning data；没有真实同条件实验结果、没有最终催化性能证明、没有正式机器学习标签。",
+      "breakingChanges": "None.",
+      "nextVersionGoal": "执行最小同条件实验矩阵，回填结构保持、Mo 负载/配位、碳平衡、产率/选择性和稳定性数据后再校准 HGCPS。",
+      "categories": [
+        "Organic Acid",
+        "Experimental Activation",
+        "Algorithm",
+        "Project Evolution",
+        "UI",
+        "Validation",
+        "Testing"
+      ]
     }
   ],
   "releaseNotes": [
+    {
+      "version": "V3.9.4",
+      "date": "2026-06-22",
+      "module": "Organic Acid",
+      "category": "Experimental Activation",
+      "title": "Experimental Activation Center",
+      "body": "Added specific Al-MOF host candidates, Mo introduction strategies, a minimum same-condition experimental matrix, data collection template, feedback rules, activation readiness summary, CSV/JSON/Markdown exports, and explicit planning-ready / not performance-validated boundaries."
+    },
+    {
+      "version": "V3.9.4",
+      "date": "2026-06-22",
+      "module": "Project Evolution",
+      "category": "Algorithm Methodology",
+      "title": "Organic Acid Host-Guest Algorithm Methodology",
+      "body": "Added a standalone Project Evolution methodology block with LaTeX formulas for pathway-step descriptor mapping, host selection, guest selection, route definition, HGCPS, route selection, sensitivity, ablation, and experimental feedback update."
+    },
     {
       "version": "V3.9.3",
       "date": "2026-06-22",
@@ -991,6 +1030,11 @@
       "version": "V3.9.3",
       "stage": "Organic Acid Evidence Completion and Robustness Analysis",
       "maturity": 99
+    },
+    {
+      "version": "V3.9.4",
+      "stage": "Organic Acid Experimental Activation and Methodology",
+      "maturity": 99
     }
   ],
   "databaseEvolution": [
@@ -1026,6 +1070,12 @@
       "reactionCount": 120,
       "labelCount": 120,
       "benchmarkEligibleCount": 120
+    },
+    {
+      "version": "V3.9.4",
+      "candidateCount": 3020,
+      "verifiedCount": 2480,
+      "fieldProvenanceCoverage": 1
     }
   ],
   "algorithmEvolution": [
@@ -1116,6 +1166,14 @@
       "retiredCapability": "Ambiguous risk-penalty wording in the current host-guest formula.",
       "limitation": "High-priority experimental hypothesis only; no final catalytic proof and no formal trained ML recommendation.",
       "futurePlan": "Calibrate factor weights and risk retention with same-condition experiments."
+    },
+    {
+      "stage": "Organic Acid Experimental Activation and Algorithm Methodology",
+      "version": "V3.9.4",
+      "newCapability": "Experimental activation builders, same-condition data template, feedback rules, route reranking preview, activation exports, and LaTeX Project Evolution methodology formulas.",
+      "retiredCapability": "Activation planning living only inside route report text.",
+      "limitation": "Planning-ready experimental hypothesis only; no final catalytic proof and not ready for formal machine learning.",
+      "futurePlan": "Run same-condition matrix and feed provenance-reviewed results into HGCPS factors."
     }
   ],
   "validationEvolution": [
@@ -1198,6 +1256,14 @@
       "blockingCondition": "Mo introduction not characterized, host collapses at 170C, missing same-condition product distribution, or provenance incomplete.",
       "currentCount": "7 linked validation experiments for top route",
       "nextGoal": "Write validation outcomes back into evidence_risk_records."
+    },
+    {
+      "stage": "Experimental Activation Planning",
+      "definition": "Planning-ready activation package exists with controls, same-condition fields, feedback rules, and explicit non-performance boundary.",
+      "passCondition": "Activation readiness allows internal discussion and experiment planning only.",
+      "blockingCondition": "No same-condition experimental result, structure retention proof, Mo coordination confirmation, carbon balance closure, or formal ML label set yet.",
+      "currentCount": "planning-ready / not performance-validated",
+      "nextGoal": "Execute minimum experimental matrix and feed results through feedback rules."
     }
   ],
   "uiEvolution": [
@@ -1284,6 +1350,13 @@
       "before": "Evidence, validation, and export content appeared as long stacked sections after the core workbench.",
       "after": "Recommendation, pipeline, top route queue, sticky route explanation, and advanced analysis tabs present risk, evidence, sensitivity, ablation, boundary, and exports in a route-first IA.",
       "change": "Keeps the full Organic Acid workbench while reducing overload and preserving Al-MOF + Mo boundary wording."
+    },
+    {
+      "version": "V3.9.4",
+      "area": "Organic Acid Experimental Activation and Project Evolution Methodology",
+      "before": "Activation planning was represented as route-report exports and validation-roadmap text.",
+      "after": "A dedicated Activation Center and a Project Evolution Organic Acid Algorithm Methodology section expose route context, readiness, formula cards, exports, and boundary badges.",
+      "change": "Makes experiment-planning and algorithm-methodology paths explicit without claiming final catalyst proof."
     }
   ],
   "localizationEvolution": [
@@ -1304,6 +1377,11 @@
       "area": "Research Reports",
       "date": "2026-06-17",
       "change": "Added report generator, reproducibility snapshot, citation package, and localization audit outputs."
+    },
+    {
+      "version": "V3.9.4",
+      "area": "Organic Acid Research Copy",
+      "change": "Added Chinese-first activation and methodology wording while preserving English scientific terms for HGCPS, stable host framework, guest / dopant, and feedback-rule boundaries."
     }
   ],
   "milestones": [
@@ -1411,6 +1489,13 @@
       "version": "V3.9.3",
       "date": "2026-06-22",
       "detail": "Expanded host-guest seed evidence, aligned HGCPS risk-retention formula semantics, and added risk matrix, sensitivity, ablation, boundary, and report export panels."
+    },
+    {
+      "id": "organic-acid-activation-methodology-v394",
+      "title": "Organic Acid Experimental Activation and Algorithm Methodology",
+      "version": "V3.9.4",
+      "date": "2026-06-22",
+      "detail": "Added a planning-ready activation package for Al-MOF + Mo and a LaTeX-based Project Evolution methodology module explaining the HGCPS algorithm boundary."
     }
   ],
   "roadmap": [

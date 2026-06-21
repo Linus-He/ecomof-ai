@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06-22",
-  "currentVersion": "V3.9.3",
-  "completedRange": "V1.0-V3.9.3",
+  "currentVersion": "V3.9.4",
+  "completedRange": "V1.0-V3.9.4",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -2886,7 +2886,7 @@
       "title": "Organic Acid Evidence Completion, Sensitivity/Ablation Analysis, and Formula Alignment",
       "titleZh": "有机酸证据补全、敏感性 / 消融分析与公式对齐",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Organic Acid HGCPS Robustness and Evidence Boundary",
       "themeZh": "有机酸 HGCPS 稳健性与证据边界",
       "summary": "Expanded the host-guest algorithm foundation with evidence/risk completion, multiplicative formula alignment, sensitivity analysis, ablation analysis, boundary wording, and route-report exports.",
@@ -2963,6 +2963,87 @@
         "adaptationBoundaryZh": "仅用于公式对齐后的路线优先级与验证计划；不提供最终催化性能证明。"
       },
       "relatedSection": "#organic-acid-host-guest-workbench"
+    },
+    {
+      "version": "V3.9.4",
+      "title": "Organic Acid Experimental Activation Package and Algorithm Methodology",
+      "titleZh": "有机酸实验启用包与算法方法论",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Organic Acid Experimental Activation and Project Evolution Methodology",
+      "themeZh": "有机酸实验启用与项目演化方法论",
+      "summary": "Added an Organic Acid Experimental Activation Center and a Project Evolution Organic Acid Algorithm Methodology module with LaTeX-based formulas and exports.",
+      "summaryZh": "新增有机酸实验启用中心，并在 Project Evolution 新增基于 LaTeX 公式的有机酸算法方法论模块与导出。",
+      "keyUpdates": [
+        "Added specific Al-MOF host candidates, Mo introduction strategies, minimum experimental matrix, same-condition data template, pending validation-result template, feedback rules, and activation readiness summary.",
+        "Added Organic Acid Algorithm Methodology module in Project Evolution.",
+        "Added LaTeX-based algorithm description for pathway-step descriptor mapping, host selection, guest selection, HGCPS, sensitivity, ablation, and feedback update.",
+        "Clarified Al-MOF + Mo as a high-priority experimental hypothesis, not final catalytic proof.",
+        "Added exportable LaTeX / Markdown algorithm methodology summary."
+      ],
+      "keyUpdatesZh": [
+        "新增具体 Al-MOF 主体候选、Mo 引入方案、最小实验矩阵、同条件数据模板、pending 验证结果模板、反馈规则和启用就绪摘要。",
+        "在 Project Evolution 中新增 Organic Acid Algorithm Methodology 模块。",
+        "新增基于 LaTeX 的算法说明，覆盖路径步骤—描述符映射、主体筛选、客体筛选、HGCPS、敏感性、消融和反馈更新。",
+        "明确 Al-MOF + Mo 是高优先级实验假设，不是最终催化证明。",
+        "新增可导出的 LaTeX / Markdown 算法方法论摘要。"
+      ],
+      "algorithmChanges": [
+        "Added activation builders for specific Al-MOF hosts, Mo strategy decision tree, minimum experimental matrix, same-condition template, feedback rules, update preview, reranking preview, readiness summary, and activation report exports.",
+        "Added Project Evolution methodology builder that reads host-guest workbench output and activation readiness output to display current top route, selected host, selected guest, HGCPS, readiness level, performance-claim status, and ML readiness status.",
+        "Kept Al-MOF as stable host framework candidate and Mo as selected guest / dopant / activity-compensation metal under Al-MOF host."
+      ],
+      "algorithmChangesZh": [
+        "新增实验启用 builders，覆盖具体 Al-MOF 主体、Mo 策略决策树、最小实验矩阵、同条件模板、反馈规则、更新预览、重排预览、就绪摘要与启用报告导出。",
+        "新增 Project Evolution 方法论 builder，读取主客体工作台与启用就绪输出，动态显示 current top route、selected host、selected guest、HGCPS、readiness level、performance-claim status 与 ML readiness status。",
+        "保持 Al-MOF 为 stable host framework candidate，Mo 为 Al-MOF 主体下的 selected guest / dopant / activity-compensation metal。"
+      ],
+      "uiChanges": [
+        "Added Organic Acid Experimental Activation Center inside the Host-Guest Workbench with tabs for Hosts, Mo Strategies, Experiment Matrix, Data Template, Feedback Rules, Update Preview, and Export.",
+        "Added jump links from the top route card, route explanation panel, risk matrix, boundary panel, route report export, and Activation Center to the relevant activation or methodology section.",
+        "Added Project Evolution formula cards with KaTeX-rendered LaTeX, copy controls, collapsible sections, route badges, and Markdown / Formula JSON / LaTeX Summary exports."
+      ],
+      "uiChangesZh": [
+        "在 Host-Guest Workbench 内新增 Organic Acid Experimental Activation Center，包含 Hosts、Mo Strategies、Experiment Matrix、Data Template、Feedback Rules、Update Preview 和 Export tabs。",
+        "从 top route 卡、路线解释面板、风险矩阵、边界面板、路线报告导出和 Activation Center 增加到实验启用或方法论模块的跳转。",
+        "Project Evolution 新增 KaTeX 渲染的 LaTeX 公式卡、复制控件、可折叠小节、路线 badges，以及 Markdown / Formula JSON / LaTeX Summary 导出。"
+      ],
+      "methodologyChanges": [
+        "Added LaTeX formulas for pathway flow, pathway step set, descriptor mapping, host selection, guest selection, route definition, HGCPS, route selection, sensitivity, ablation, and feedback update.",
+        "Explained why risk retention is a multiplicative retained-score factor rather than an additive penalty.",
+        "Linked sensitivity, ablation, risk matrix, and feedback rules as credibility support rather than final proof."
+      ],
+      "methodologyChangesZh": [
+        "新增路径流程、路径步骤集合、描述符映射、主体筛选、客体筛选、路线定义、HGCPS、路线选择、敏感性、消融和反馈更新的 LaTeX 公式。",
+        "说明 risk retention 是乘法保留分数因子，而不是加法惩罚。",
+        "将敏感性、消融、风险矩阵和反馈规则定位为可信度支撑，而不是最终证明。"
+      ],
+      "evidenceBoundary": "Planning-ready seed/proxy/curated activation package only. No same-condition result, performance claim, final catalytic proof, or formal machine-learning training label is introduced.",
+      "evidenceBoundaryZh": "仅为 planning-ready 的 seed/proxy/curated 实验启用包。没有引入同条件结果、性能声明、最终催化证明或正式机器学习训练标签。",
+      "limitations": [
+        "The top route remains a high-priority experimental hypothesis.",
+        "Specific host and Mo introduction records are planning candidates, not completed experiments.",
+        "Carbon balance, structure retention, Mo leaching, and Mo coordination must be measured before algorithm validation.",
+        "Not ready for formal machine learning."
+      ],
+      "limitationsZh": [
+        "Top route 仍是高优先级实验假设。",
+        "具体主体与 Mo 引入记录是实验规划候选，不是已完成实验。",
+        "碳平衡、结构保持、Mo 流失和 Mo 配位必须测量后才能进入算法验证。",
+        "尚不能用于正式机器学习。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "organic-acid-host-guest",
+          "experimental-activation",
+          "HGCPS",
+          "algorithm-methodology",
+          "LaTeX"
+        ],
+        "adaptationBoundary": "Activation planning and algorithm methodology only; no final catalyst-performance proof.",
+        "adaptationBoundaryZh": "仅用于实验启用规划与算法方法论展示；不提供最终催化性能证明。"
+      },
+      "relatedSection": "#organic-acid-experimental-activation-center"
     }
   ],
   "roadmap": [

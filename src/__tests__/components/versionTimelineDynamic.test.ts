@@ -15,13 +15,13 @@ describe("versionTimelineDynamic", () => {
 
     const projectUpdates = screen.getByTestId("project-evolution-release-notes")
     expect(projectUpdates.textContent).toMatch(/Project Updates/)
-    expect(projectUpdates.textContent).toMatch(/Data wiring/)
-    expect(projectUpdates.textContent).toMatch(/Page-level export/)
+    expect(projectUpdates.textContent).toMatch(/Activation data/)
+    expect(projectUpdates.textContent).toMatch(/Exports and boundary/)
 
     const roadmap = screen.getByTestId("project-evolution-roadmap")
     expect(roadmap.textContent).toMatch(/V3\.6/)
-    expect(roadmap.textContent).toMatch(/V3\.9\.3/)
-    expect(roadmap.textContent).toMatch(/research-grade benchmark/)
-    expect(roadmap.textContent).toMatch(/HGCPS factor weights/)
+    expect(roadmap.textContent).toMatch(/V3\.9\.4/)
+    expect(roadmap.textContent).toMatch(/organic_acid_experimental_activation/)
+    expect(roadmap.textContent).toMatch(/执行最小同条件实验矩阵/)
   })
 })

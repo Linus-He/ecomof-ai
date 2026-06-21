@@ -1,0 +1,214 @@
+{
+  "dataMode": "seed",
+  "evidenceMode": "seed / curated / proxy",
+  "generatedAt": "2026-06-22",
+  "updatedAt": "2026-06-22",
+  "provenance": [
+    "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+  ],
+  "curationStatus": "seed_curated_pending_experiment",
+  "limitation": "Planning data only; no same-condition experimental result has been completed or claimed.",
+  "schemaVersion": "V3.9.4-mo-introduction-strategies",
+  "strategies": [
+    {
+      "dataMode": "seed",
+      "evidenceMode": "seed / curated / proxy",
+      "provenance": [
+        "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+      ],
+      "curationStatus": "seed_curated_pending_experiment",
+      "limitation": "Planning data only; no same-condition experimental result has been completed or claimed.",
+      "strategyId": "mo-post-synthetic-modification",
+      "displayName": "Mo post-synthetic modification",
+      "routeType": "post-synthetic modification",
+      "compatibleHostCandidateIds": [
+        "al-mof-host-primary-mil53-like",
+        "al-mof-host-backup-cau10-like"
+      ],
+      "moPrecursorOptions": [
+        "ammonium molybdate hydrate",
+        "molybdenyl acetylacetonate",
+        "molybdate salt in controlled pH solution"
+      ],
+      "introductionMethod": "Activate host, contact with dilute Mo precursor under mild solvent / aqueous-alcohol condition, wash, dry, and re-check structure.",
+      "expectedMoState": "isolated Mo(VI)/MoOx-like surface or linker-adjacent species pending characterization",
+      "expectedCoordinationEnvironment": "Al-MOF anchored Mo-oxo / hydroxo environment; exact coordination pending XANES/EXAFS",
+      "expectedFunction": "Improve CO2 activation and HCOO* stabilization without replacing the Al-MOF host scaffold.",
+      "supportedPathwaySteps": [
+        "step-co2-activation",
+        "step-hcoo-stabilization",
+        "step-proton-electron-transfer"
+      ],
+      "synthesisComplexity": "medium",
+      "structureDamageRisk": "medium-low",
+      "leachingRisk": "medium",
+      "localCoordinationUncertainty": "high until XANES/EXAFS confirms Mo environment",
+      "requiredCharacterization": [
+        "PXRD before/after modification",
+        "ICP Mo loading",
+        "XPS Mo oxidation state",
+        "XANES/EXAFS local coordination",
+        "BET pore retention"
+      ],
+      "recommendedControl": "pristine host exposed to identical modification solvent without Mo precursor",
+      "successCriterion": "Structure retained, measurable Mo loading, no severe pore collapse, Mo coordination traceable, and reaction test improves over pristine host.",
+      "failureCriterion": "PXRD collapse, Mo mostly external/washed out, severe pore loss, or no route-level improvement versus pristine host.",
+      "reasonForPriority": "Lowest-risk route for first activation because host synthesis can be verified before Mo introduction.",
+      "evidenceType": "curated strategy proxy",
+      "confidenceLevel": "medium-high",
+      "sourceUrl": "local://ecomof-ai/activation-strategies/mo-post-synthetic-modification",
+      "citation": "V3.9.4 seed strategy record; no completed experiment assigned.",
+      "notes": "Decision tree low-risk recommendation."
+    },
+    {
+      "dataMode": "seed",
+      "evidenceMode": "seed / curated / proxy",
+      "provenance": [
+        "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+      ],
+      "curationStatus": "seed_curated_pending_experiment",
+      "limitation": "Planning data only; no same-condition experimental result has been completed or claimed.",
+      "strategyId": "mo-doping-during-synthesis",
+      "displayName": "Mo doping during Al-MOF synthesis",
+      "routeType": "doping during synthesis",
+      "compatibleHostCandidateIds": [
+        "al-mof-host-primary-mil53-like",
+        "al-mof-host-control-mil-type"
+      ],
+      "moPrecursorOptions": [
+        "ammonium molybdate hydrate",
+        "sodium molybdate",
+        "low-dose Mo precursor added during solvothermal synthesis"
+      ],
+      "introductionMethod": "Add low-dose Mo precursor during host crystallization and compare with a no-Mo synthesis batch.",
+      "expectedMoState": "framework-adjacent Mo species or defect-bound Mo; exact incorporation mechanism pending",
+      "expectedCoordinationEnvironment": "possible Al/Mo-adjacent oxo environment; high uncertainty before spectroscopy",
+      "expectedFunction": "Strengthen bimetallic synergy and intermediate stabilization if host crystallinity survives.",
+      "supportedPathwaySteps": [
+        "step-co2-activation",
+        "step-hcoo-stabilization"
+      ],
+      "synthesisComplexity": "high",
+      "structureDamageRisk": "high",
+      "leachingRisk": "medium-high",
+      "localCoordinationUncertainty": "high",
+      "requiredCharacterization": [
+        "PXRD phase check",
+        "ICP Al/Mo ratio",
+        "XPS",
+        "XANES/EXAFS",
+        "SEM/TEM morphology",
+        "leaching ICP after reaction"
+      ],
+      "recommendedControl": "parallel pristine Al-MOF synthesis with identical temperature, time, solvent, and pH",
+      "successCriterion": "Crystalline Al-MOF retained with reproducible Mo incorporation and improved same-condition formic acid output.",
+      "failureCriterion": "Failed crystallization, mixed phase, severe Mo leaching, or no reproducible Mo incorporation.",
+      "reasonForPriority": "Tests stronger bimetallic synergy but should follow lower-risk routes unless synergy is the main objective.",
+      "evidenceType": "seed synthesis-risk proxy",
+      "confidenceLevel": "medium-low",
+      "sourceUrl": "local://ecomof-ai/activation-strategies/mo-doping-during-synthesis",
+      "citation": "V3.9.4 seed strategy record; exact synthetic protocol pending.",
+      "notes": "Decision tree strong-synergy recommendation."
+    },
+    {
+      "dataMode": "seed",
+      "evidenceMode": "seed / curated / proxy",
+      "provenance": [
+        "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+      ],
+      "curationStatus": "seed_curated_pending_experiment",
+      "limitation": "Planning data only; no same-condition experimental result has been completed or claimed.",
+      "strategyId": "mo-pore-confinement-impregnation",
+      "displayName": "MoOx / Mo species pore confinement",
+      "routeType": "pore confinement / impregnation route",
+      "compatibleHostCandidateIds": [
+        "al-mof-host-confinement-mil100-like",
+        "al-mof-host-primary-mil53-like"
+      ],
+      "moPrecursorOptions": [
+        "ammonium molybdate solution",
+        "molybdenyl acetylacetonate impregnation",
+        "pre-formed low-loading MoOx species"
+      ],
+      "introductionMethod": "Impregnate activated host with dilute Mo precursor, remove external excess, apply mild activation, and verify pore-confined Mo signature.",
+      "expectedMoState": "confined MoOx-like species or weakly anchored Mo-oxo species",
+      "expectedCoordinationEnvironment": "pore-confined Mo species; external particle exclusion required",
+      "expectedFunction": "Fast validation of whether Mo species contribute to CO2 activation / HCOO* stabilization under identical host conditions.",
+      "supportedPathwaySteps": [
+        "step-co2-activation",
+        "step-hcoo-stabilization",
+        "step-formic-acid-desorption"
+      ],
+      "synthesisComplexity": "medium-low",
+      "structureDamageRisk": "medium",
+      "leachingRisk": "high",
+      "localCoordinationUncertainty": "medium-high",
+      "requiredCharacterization": [
+        "ICP Mo loading",
+        "PXRD after impregnation",
+        "BET before/after",
+        "TEM or elemental mapping",
+        "post-reaction leaching ICP"
+      ],
+      "recommendedControl": "Mo precursor only / MoOx control and physical mixture control",
+      "successCriterion": "Mo remains associated with host after wash/reaction and Al-MOF + Mo outperforms host-only and Mo-only controls.",
+      "failureCriterion": "Mo behaves like external MoOx, leaches severely, blocks pores, or does not improve over controls.",
+      "reasonForPriority": "Fastest route to test Mo contribution with minimal host resynthesis.",
+      "evidenceType": "curated fast-validation proxy",
+      "confidenceLevel": "medium",
+      "sourceUrl": "local://ecomof-ai/activation-strategies/mo-pore-confinement",
+      "citation": "V3.9.4 seed strategy record; no completed experiment assigned.",
+      "notes": "Decision tree fast-validation recommendation."
+    },
+    {
+      "dataMode": "seed",
+      "evidenceMode": "seed / curated / proxy",
+      "provenance": [
+        "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+      ],
+      "curationStatus": "seed_curated_pending_experiment",
+      "limitation": "Planning data only; no same-condition experimental result has been completed or claimed.",
+      "strategyId": "al-mo-bimetallic-node-construction",
+      "displayName": "Bimetallic Al-Mo node construction",
+      "routeType": "bimetallic construction",
+      "compatibleHostCandidateIds": [
+        "al-mof-host-primary-mil53-like",
+        "al-mof-host-backup-cau10-like"
+      ],
+      "moPrecursorOptions": [
+        "mixed Al/Mo precursor feed",
+        "stepwise node exchange attempt",
+        "low Mo fraction bimetallic synthesis feed"
+      ],
+      "introductionMethod": "Attempt low-fraction Mo incorporation in or near Al node construction with strict phase and leaching controls.",
+      "expectedMoState": "Al-Mo adjacent node or node-proximal Mo species pending proof",
+      "expectedCoordinationEnvironment": "bimetallic Al-Mo oxo environment if successful",
+      "expectedFunction": "Potentially stronger host-guest synergy for C1 activation and formate stabilization.",
+      "supportedPathwaySteps": [
+        "step-co2-activation",
+        "step-hcoo-stabilization",
+        "step-proton-electron-transfer"
+      ],
+      "synthesisComplexity": "very high",
+      "structureDamageRisk": "high",
+      "leachingRisk": "medium-high",
+      "localCoordinationUncertainty": "very high",
+      "requiredCharacterization": [
+        "PXRD",
+        "ICP",
+        "XANES/EXAFS",
+        "solid-state spectroscopy",
+        "post-reaction PXRD/ICP"
+      ],
+      "recommendedControl": "same synthesis without Mo plus post-synthetic Mo route benchmark",
+      "successCriterion": "Single dominant Al-MOF phase, reproducible Mo incorporation, confirmed local coordination, and improved same-condition reaction signal.",
+      "failureCriterion": "Mixed phase, amorphous product, unconfirmed Mo environment, or poor repeatability.",
+      "reasonForPriority": "Use after low-risk evidence if stronger bimetallic synergy is required.",
+      "evidenceType": "high-risk seed strategy proxy",
+      "confidenceLevel": "low-medium",
+      "sourceUrl": "local://ecomof-ai/activation-strategies/al-mo-bimetallic-node",
+      "citation": "V3.9.4 seed strategy record; no real synthesis claim.",
+      "notes": "Strong-synergy backup, not first experiment unless risk is accepted."
+    }
+  ]
+}

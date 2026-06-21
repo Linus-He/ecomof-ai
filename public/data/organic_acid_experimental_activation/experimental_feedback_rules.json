@@ -1,0 +1,173 @@
+{
+  "dataMode": "seed",
+  "evidenceMode": "seed / curated / proxy",
+  "generatedAt": "2026-06-22",
+  "updatedAt": "2026-06-22",
+  "provenance": [
+    "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+  ],
+  "curationStatus": "seed_curated_pending_experiment",
+  "limitation": "Planning data only; no same-condition experimental result has been completed or claimed.",
+  "schemaVersion": "V3.9.4-experimental-feedback-rules",
+  "rules": [
+    {
+      "ruleId": "feedback-rule-supported-yield-structure",
+      "triggerCondition": "Al-MOF + Mo yield/selectivity is higher than pristine Al-MOF and structure is retained.",
+      "requiredMeasurements": [
+        "formicAcidYield",
+        "formicAcidSelectivity",
+        "PXRDAfter",
+        "carbonBalance"
+      ],
+      "updateTarget": "route-al-mof-mo",
+      "updateAction": "increase evidence confidence and risk retention; mark route partially supported",
+      "factorAffected": [
+        "evidenceConfidenceScore",
+        "riskPenalty",
+        "recommendationTier"
+      ],
+      "scoreUpdateDirection": "increase",
+      "confidenceUpdate": "increase",
+      "recommendedNextStep": "Proceed to repeat experiment and Mo coordination confirmation.",
+      "explanation": "A supported same-condition result reduces missing-evidence risk but still does not prove final performance.",
+      "dataMode": "seed",
+      "evidenceMode": "seed / curated / proxy",
+      "provenance": [
+        "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+      ],
+      "curationStatus": "seed_curated_pending_experiment",
+      "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+    },
+    {
+      "ruleId": "feedback-rule-no-yield-gain-structure-retained",
+      "triggerCondition": "Al-MOF + Mo shows no improvement over pristine Al-MOF while structure is retained.",
+      "requiredMeasurements": [
+        "paired yield/selectivity",
+        "structureRetained",
+        "carbonBalance"
+      ],
+      "updateTarget": "guest activity compensation",
+      "updateAction": "hold host stability but reduce guest activity compensation; mark Mo compensation uncertain",
+      "factorAffected": [
+        "guestActivityCompensationScore",
+        "hostGuestComplementarityScore"
+      ],
+      "scoreUpdateDirection": "decrease",
+      "confidenceUpdate": "hold or slight decrease",
+      "recommendedNextStep": "Try alternative Mo introduction strategy or W/Fe guest control.",
+      "explanation": "Host may be stable, but Mo activity compensation is not supported.",
+      "dataMode": "seed",
+      "evidenceMode": "seed / curated / proxy",
+      "provenance": [
+        "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+      ],
+      "curationStatus": "seed_curated_pending_experiment",
+      "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+    },
+    {
+      "ruleId": "feedback-rule-framework-collapse",
+      "triggerCondition": "Al-MOF + Mo framework collapses under 170C aqueous condition.",
+      "requiredMeasurements": [
+        "PXRDAfter",
+        "BETAfter",
+        "ICPLeaching"
+      ],
+      "updateTarget": "risk retention",
+      "updateAction": "decrease risk retention; mark 170C aqueous stability risk high",
+      "factorAffected": [
+        "riskPenalty",
+        "hostStabilityScore"
+      ],
+      "scoreUpdateDirection": "decrease",
+      "confidenceUpdate": "decrease",
+      "recommendedNextStep": "Switch host candidate or lower reaction severity before route support.",
+      "explanation": "Route cannot be supported if scaffold retention fails.",
+      "dataMode": "seed",
+      "evidenceMode": "seed / curated / proxy",
+      "provenance": [
+        "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+      ],
+      "curationStatus": "seed_curated_pending_experiment",
+      "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+    },
+    {
+      "ruleId": "feedback-rule-mo-leaching",
+      "triggerCondition": "Mo leaching is severe or Mo coordination cannot be confirmed.",
+      "requiredMeasurements": [
+        "ICPLeaching",
+        "XANES_EXAFS_Status",
+        "XPSAfter"
+      ],
+      "updateTarget": "Mo introduction feasibility",
+      "updateAction": "decrease Mo introduction feasibility and local coordination confidence",
+      "factorAffected": [
+        "guestActivityCompensationScore",
+        "hostGuestComplementarityScore",
+        "riskPenalty"
+      ],
+      "scoreUpdateDirection": "decrease",
+      "confidenceUpdate": "decrease",
+      "recommendedNextStep": "Change Mo introduction strategy and repeat characterization.",
+      "explanation": "Mo contribution is not interpretable without retained Mo species.",
+      "dataMode": "seed",
+      "evidenceMode": "seed / curated / proxy",
+      "provenance": [
+        "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+      ],
+      "curationStatus": "seed_curated_pending_experiment",
+      "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+    },
+    {
+      "ruleId": "feedback-rule-carbon-balance-gap",
+      "triggerCondition": "Carbon balance is not closed or calibration fails.",
+      "requiredMeasurements": [
+        "carbonBalance",
+        "calibrationStatus",
+        "analyticalMethod"
+      ],
+      "updateTarget": "evidence confidence",
+      "updateAction": "mark result inconclusive and do not update route score",
+      "factorAffected": [
+        "evidenceConfidenceScore"
+      ],
+      "scoreUpdateDirection": "hold",
+      "confidenceUpdate": "hold",
+      "recommendedNextStep": "Repeat experiment with corrected calibration and mass balance.",
+      "explanation": "Poor mass balance blocks score updates even if apparent yield is high.",
+      "dataMode": "seed",
+      "evidenceMode": "seed / curated / proxy",
+      "provenance": [
+        "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+      ],
+      "curationStatus": "seed_curated_pending_experiment",
+      "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+    },
+    {
+      "ruleId": "feedback-rule-alternative-host-outperforms",
+      "triggerCondition": "Zr-MOF + Mo significantly outperforms Al-MOF + Mo under same condition.",
+      "requiredMeasurements": [
+        "paired route yields",
+        "structureRetained",
+        "carbonBalance"
+      ],
+      "updateTarget": "route ranking",
+      "updateAction": "lower Al-MOF host priority, raise alternative host confidence, and trigger reranking",
+      "factorAffected": [
+        "hostStabilityScore",
+        "hostPathwaySupportScore",
+        "evidenceConfidenceScore"
+      ],
+      "scoreUpdateDirection": "rerank",
+      "confidenceUpdate": "increase alternative route confidence",
+      "recommendedNextStep": "Run repeat and update host selection evidence before changing final route queue.",
+      "explanation": "Alternative-host superiority changes planning priority but still needs repeat validation.",
+      "dataMode": "seed",
+      "evidenceMode": "seed / curated / proxy",
+      "provenance": [
+        "local://ecomof-ai/organic-acid-experimental-activation/v3.9.4"
+      ],
+      "curationStatus": "seed_curated_pending_experiment",
+      "limitation": "Planning data only; no same-condition experimental result has been completed or claimed."
+    }
+  ]
+}
