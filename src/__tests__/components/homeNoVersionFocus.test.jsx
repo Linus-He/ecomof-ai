@@ -41,15 +41,16 @@ afterEach(() => {
 })
 
 describe("home no version focus", () => {
-  it("does not present the homepage as a release summary", () => {
+  it("shows dynamic current capability without becoming a release-summary page", () => {
     renderHome()
     const body = document.body.textContent || ""
 
-    expect(body).not.toMatch(/Current Version/i)
+    expect(body).toMatch(/Current Version/i)
+    expect(body).toMatch(/V3\.6/)
     expect(body).not.toMatch(/Release Notes/i)
     expect(body).not.toMatch(/Version Timeline/i)
     expect(body).not.toMatch(/Version Growth/i)
-    expect(body).not.toMatch(/V3\.[1-5]/)
+    expect(body).not.toMatch(/V3\.3/)
     expect(body).not.toMatch(/Accuracy\s*=\s*0\.667/i)
     expect(body).not.toMatch(/ROC\s*=\s*0\.706/i)
   })

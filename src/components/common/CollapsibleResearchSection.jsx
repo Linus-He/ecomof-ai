@@ -1,36 +1,10 @@
 // @ts-nocheck
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 import { BasisBadge, ChemicalText, useLang, useT, useViewport } from "../../shared"
 
-const STORAGE_KEY = "ecomof-catalysis-section-state"
 const STATES = ["expanded", "compact", "collapsed"]
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
-
-function readStore() {
-  if (typeof window === "undefined") return {}
-  try {
-    const parsed = JSON.parse(window.localStorage.getItem(STORAGE_KEY) || "{}")
-    return parsed && typeof parsed === "object" ? parsed : {}
-  } catch {
-    return {}
-  }
-}
-
-function writeStore(next) {
-  if (typeof window === "undefined") return
-  try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
-  } catch {
-    // localStorage can be unavailable in private browsing; layout still works in memory.
-  }
-}
-
-function persistSection(id, patch) {
-  const store = readStore()
-  const previous = store[id] || {}
-  writeStore({ ...store, [id]: { ...previous, ...patch } })
-}
 
 function stateLabel(state, lang) {
   if (state === "expanded") return text(lang, "完整展开", "Expanded")
@@ -96,50 +70,8 @@ function MiniSummary({ items = [], t, isMobile }) {
   )
 }
 
-export function resetCatalysisSectionLayout() {
-  if (typeof window === "undefined") return
-  window.localStorage.removeItem(STORAGE_KEY)
-  window.dispatchEvent(new CustomEvent("ecomof-catalysis-section-layout-reset"))
-}
-
-export function SectionLayoutControls({ command, t: providedT, lang: providedLang, compactOnly = false }) {
-  const fallbackT = useT()
-  const { lang: fallbackLang } = useLang()
-  const t = providedT || fallbackT
-  const lang = providedLang || fallbackLang
-  const controls = [
-    ["expanded", text(lang, "全部展开", "Expand all")],
-    ["compact", text(lang, "全部压缩", "Compact all")],
-    ["low-priority", text(lang, "收起低优先级模块", "Collapse low-priority")],
-    ["reset", text(lang, "重置布局", "Reset layout")],
-  ].filter(([key]) => !compactOnly || key !== "low-priority")
-
-  return (
-    <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between", padding: 11 }}>
-      <div style={{ color: t.muted, fontSize: 12.3, lineHeight: 1.45, minWidth: 180 }}>
-        <strong style={{ color: t.textStrong }}>{text(lang, "Section 布局控制", "Section layout controls")}</strong>
-        <span> · {text(lang, "状态会保存在本机浏览器。", "Layout state is saved in this browser.")}</span>
-      </div>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-        {controls.map(([key, label]) => (
-          <ControlButton
-            key={key}
-            t={t}
-            onClick={() => {
-              if (key === "reset") {
-                resetCatalysisSectionLayout()
-                command?.({ type: "reset", nonce: Date.now() })
-              } else {
-                command?.({ type: key, nonce: Date.now() })
-              }
-            }}
-          >
-            {label}
-          </ControlButton>
-        ))}
-      </div>
-    </section>
-  )
+export function SectionLayoutControls() {
+  return null
 }
 
 export function CollapsibleResearchSection({
@@ -154,47 +86,17 @@ export function CollapsibleResearchSection({
   summaryItems = [],
   miniPreview,
   actions,
-  layoutCommand,
   children,
 }) {
   const t = useT()
   const { lang } = useLang()
   const { isMobile } = useViewport()
-  const storage = useMemo(() => readStore()[id] || {}, [id])
-  const [state, setState] = useState(normalizeState(storage.state, defaultState))
-  const [pinned, setPinned] = useState(Boolean(storage.pinned))
+  const [state, setState] = useState(normalizeState(defaultState))
+  const [pinned, setPinned] = useState(false)
   const bodyId = `${id}-body`
   const expanded = pinned || state === "expanded"
   const effectiveState = pinned ? "expanded" : state
   const reducedMotion = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches
-
-  useEffect(() => {
-    const reset = () => {
-      setState(normalizeState(defaultState))
-      setPinned(false)
-    }
-    window.addEventListener("ecomof-catalysis-section-layout-reset", reset)
-    return () => window.removeEventListener("ecomof-catalysis-section-layout-reset", reset)
-  }, [defaultState])
-
-  useEffect(() => {
-    if (!layoutCommand?.nonce) return
-    if (layoutCommand.type === "reset") {
-      setState(normalizeState(defaultState))
-      setPinned(false)
-      return
-    }
-    if (pinned) return
-    if (layoutCommand.type === "low-priority") {
-      setState(lowPriority ? "collapsed" : "compact")
-      return
-    }
-    if (STATES.includes(layoutCommand.type)) setState(layoutCommand.type)
-  }, [layoutCommand, defaultState, lowPriority, pinned])
-
-  useEffect(() => {
-    persistSection(id, { state, pinned })
-  }, [id, state, pinned])
 
   useEffect(() => {
     if (!expanded || typeof window === "undefined") return undefined

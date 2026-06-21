@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { fireEvent, render, screen } from "@testing-library/react"
+import { fireEvent, render, screen, within } from "@testing-library/react"
 import data from "../../../public/data/version_evolution_records.json"
 import { ProjectEvolutionTab } from "../../components/tabs/ProjectEvolutionTab"
 
@@ -12,7 +12,7 @@ describe("Version Timeline", () => {
     render(<ProjectEvolutionTab data={data} />)
 
     expect(screen.getByTestId("project-evolution-version-timeline")).toBeInTheDocument()
-    for (const version of ["V1.0", "V1.5", "V2.0-K", "V2.0-L", "V2.0-M", "V2.1", "V2.2", "V2.3", "V2.4"]) {
+    for (const version of ["V1.0", "V1.5", "V2.0-K", "V2.0-L", "V2.0-M", "V2.1", "V2.2", "V2.3", "V2.4", "V3.4", "V3.5", "V3.6"]) {
       expect(bodyText()).toMatch(new RegExp(version.replace(".", "\\.")))
     }
     expect(bodyText()).toMatch(/Breaking Changes/)
@@ -23,8 +23,9 @@ describe("Version Timeline", () => {
   it("supports timeline search", () => {
     render(<ProjectEvolutionTab data={data} />)
 
-    fireEvent.change(screen.getByPlaceholderText("Search versions"), { target: { value: "Data Quality" } })
-    expect(bodyText()).toMatch(/Data Quality Audit, Verified Metadata Breakthrough, Scalable Database Preview/)
-    expect(bodyText()).not.toMatch(/Initial transparent MOF screening prototype/)
+    const timeline = screen.getByTestId("project-evolution-version-timeline")
+    fireEvent.change(within(timeline).getByPlaceholderText("Search versions"), { target: { value: "Data Quality" } })
+    expect(timeline.textContent).toMatch(/Data Quality Audit, Verified Metadata Breakthrough, Scalable Database Preview/)
+    expect(timeline.textContent).not.toMatch(/Initial transparent MOF screening prototype/)
   })
 })

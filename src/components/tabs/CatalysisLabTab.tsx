@@ -4,14 +4,12 @@ import {
   BasisBadge,
   CopyLinkButton,
   getCatalysisRecords,
-  getReactionFingerprints,
   useLang,
   useT,
   useViewport,
 } from "../../shared"
 import { ModulePageHeader } from "../module/ModuleTop"
-import { CollapsibleResearchSection, SectionLayoutControls } from "../common/CollapsibleResearchSection"
-import { DataHarmonizationWorkflow } from "../catalysis/DataHarmonizationWorkflow"
+import { CollapsibleResearchSection } from "../common/CollapsibleResearchSection"
 import { enrichCatalysisRecord } from "../catalysis/evidenceScoring"
 import { CatalysisEnergyBarrierDemo } from "../catalysis/CatalysisEnergyBarrierDemo"
 import { OrganicAcidEntryCard } from "../catalysis/OrganicAcidEntryCard"
@@ -19,7 +17,6 @@ import { OrganicAcidFinalScreening } from "../catalysis/organic-acid-final/Organ
 import { OrganicAcidWorkspace } from "../catalysis/OrganicAcidWorkspace"
 import { ReactionPathwayEvidenceMap } from "../catalysis/ReactionPathwayEvidenceMap"
 import { SelectedPathwayInspector } from "../catalysis/SelectedPathwayInspector"
-import { ValidationRoadmap } from "../catalysis/ValidationRoadmap"
 
 const DEFAULT_FILTERS = {
   pathwayCategory: "all",
@@ -70,7 +67,6 @@ export function CatalysisLabTab() {
   const { isMobile } = useViewport()
   const zh = lang === "zh"
   const [rawRecords, setRawRecords] = useState([])
-  const [fingerprints, setFingerprints] = useState([])
   const [status, setStatus] = useState("loading")
   const [activeWorkspace, setActiveWorkspace] = useState(workspaceFromHash)
   const [filters, setFilters] = useState(DEFAULT_FILTERS)
@@ -78,20 +74,15 @@ export function CatalysisLabTab() {
   const [selectedCandidateId, setSelectedCandidateId] = useState(null)
   const [selectedPathwayId, setSelectedPathwayId] = useState(null)
   const [pendingOrganicScrollTarget, setPendingOrganicScrollTarget] = useState(null)
-  const [layoutCommand, setLayoutCommand] = useState(null)
   const workspaceRef = useRef(null)
 
   useEffect(() => {
     let active = true
     setStatus("loading")
-    Promise.all([
-      getCatalysisRecords({ throwOnError: true }),
-      getReactionFingerprints({ throwOnError: true }),
-    ])
-      .then(([records, fingerprintRows]) => {
+    getCatalysisRecords({ throwOnError: true })
+      .then((records) => {
         if (!active) return
         setRawRecords(safeArray(records))
-        setFingerprints(safeArray(fingerprintRows))
         setStatus("loaded")
       })
       .catch(error => {
@@ -254,8 +245,6 @@ export function CatalysisLabTab() {
 
       <BoundaryStrip t={t} lang={lang} />
 
-      <SectionLayoutControls command={setLayoutCommand} t={t} lang={lang} />
-
       <CatalysisEnergyBarrierDemo
         t={t}
         lang={lang}
@@ -323,7 +312,6 @@ export function CatalysisLabTab() {
             description="Browse pathway evidence, comparability status, product direction, and validation gaps before entering detailed workspaces."
             descriptionZh="在进入详细工作台前，浏览路径证据、可比性状态、产物方向和验证缺口。"
             defaultState="expanded"
-            layoutCommand={layoutCommand}
             statusBadges={[
               { label: zh ? "需要实验验证" : "Needs validation", tone: "warn" },
               { label: zh ? "演示 / 文献整理" : "demo / literature-derived", tone: "proxy" },
@@ -360,59 +348,6 @@ export function CatalysisLabTab() {
           </CollapsibleResearchSection>
 
           <SelectedPathwayInspector record={selectedRecord} t={t} lang={lang} isMobile={isMobile} />
-
-          <CollapsibleResearchSection
-            id="catalysis-harmonization-section"
-            title="Mechanism / Descriptor Interpretation"
-            titleZh="机理 / 描述符解释"
-            description="Shows how reaction fingerprints, MOF modulation factors, evidence state, and comparability checks enter the decision workflow."
-            descriptionZh="展示反应指纹、MOF 调控因素、证据状态和可比性检查如何进入决策工作流。"
-            defaultState="compact"
-            lowPriority
-            layoutCommand={layoutCommand}
-            statusBadges={[
-              { label: zh ? "证据状态" : "Evidence status", tone: "info" },
-              { label: zh ? "推断数据" : "Inferred", tone: "proxy" },
-            ]}
-            summaryItems={[
-              { label: zh ? "反应指纹" : "Fingerprints", value: fingerprints.length },
-              { label: zh ? "候选记录" : "Records", value: catalysisRecords.length },
-              { label: zh ? "调控因素" : "MOF factors", value: "descriptor / condition / evidence" },
-            ]}
-            miniPreview={
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                {["fingerprint", "MOF factor", "evidence", "validation"].map(label => <BasisBadge key={label} tone="proxy">{label}</BasisBadge>)}
-              </div>
-            }
-          >
-            <DataHarmonizationWorkflow lang={lang} t={t} isMobile={isMobile} />
-          </CollapsibleResearchSection>
-
-          <CollapsibleResearchSection
-            id="catalysis-validation-roadmap-section"
-            title="Validation Roadmap"
-            titleZh="验证路线"
-            description="Keeps candidate claims tied to the next experiment, required data, and expected evidence upgrade."
-            descriptionZh="将候选结论绑定到下一步实验、所需数据和预期证据升级。"
-            defaultState="compact"
-            layoutCommand={layoutCommand}
-            statusBadges={[
-              { label: zh ? "验证优先级" : "Validation priority", tone: "warn" },
-              { label: zh ? "不是最终结论" : "not final conclusion", tone: "proxy" },
-            ]}
-            summaryItems={[
-              { label: zh ? "高优先级验证" : "High priority", value: highestRisk ? 1 : 0 },
-              { label: zh ? "下一步实验" : "Next experiment", value: zh ? "同条件验证" : "same-condition validation" },
-              { label: zh ? "预期影响" : "Expected impact", value: zh ? "升级证据等级" : "evidence upgrade" },
-            ]}
-            miniPreview={
-              <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 8, color: t.muted, fontSize: 12, lineHeight: 1.45, padding: 10 }}>
-                {zh ? "下一步：优先补齐同条件证据、碳平衡和稳定性验证。" : "Next: prioritize same-condition evidence, carbon balance, and stability validation."}
-              </div>
-            }
-          >
-            <ValidationRoadmap t={t} lang={lang} isMobile={isMobile} />
-          </CollapsibleResearchSection>
         </>
       ) : null}
     </div>

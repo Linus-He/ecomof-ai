@@ -11,6 +11,7 @@ import {
   useT,
   useViewport,
 } from "../../shared"
+import { buildProjectOverviewCards, buildProjectStatusSummary, loadProjectStatusSummary } from "../../utils/projectStatus"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 const pct = value => Number.isFinite(Number(value)) ? `${Math.round(Number(value) * 100)}%` : String(value ?? "pending")
@@ -56,27 +57,24 @@ function SectionNav({ sections, t }) {
   )
 }
 
-function EvolutionOverview({ data, lang, t, isMobile }) {
+function EvolutionOverview({ data, projectStatus, lang, t, isMobile }) {
   const overview = data.overview || {}
-  const sources = overview.sources || {}
+  const resolvedStatus = projectStatus || buildProjectStatusSummary({ versionEvolution: data })
+  const cards = buildProjectOverviewCards(resolvedStatus)
   return (
     <Card
       id="project-evolution-overview"
       title={text(lang, "项目状态总览", "Evolution Overview")}
-      subtitle={text(lang, "当前项目状态总览；所有关键数字都带来源按钮。", "Current project status; every key number has a provenance button.")}
+      subtitle={text(lang, "动态项目状态中心；所有关键数字都由项目数据源聚合并带来源按钮。", "Dynamic project status center; every key number is aggregated from project data sources with provenance.")}
       t={t}
     >
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))" }}>
-        <MetricCard fieldKey="currentVersion" label={text(lang, "当前版本", "Current Version")} value={overview.currentVersion} source={sources.currentVersion} t={t} lang={lang} tone="pass" />
-        <MetricCard fieldKey="databaseSize" label={text(lang, "数据库规模", "Database Size")} value={`${overview.databaseSize} Candidates`} source={sources.databaseSize} t={t} lang={lang} />
-        <MetricCard fieldKey="verifiedMetadataCount" label={text(lang, "已核验元数据", "Verified Metadata")} value={overview.verifiedMetadataCount} source={sources.verifiedMetadataCount} t={t} lang={lang} tone="pass" />
-        <MetricCard fieldKey="sourceConfirmedCount" label={text(lang, "来源已确认", "Source Confirmed")} value={overview.sourceConfirmedCount} source={sources.sourceConfirmedCount} t={t} lang={lang} />
-        <MetricCard fieldKey="citationReadyCount" label={text(lang, "引文已就绪", "Citation Ready")} value={overview.citationReadyCount} source={sources.citationReadyCount} t={t} lang={lang} />
-        <MetricCard fieldKey="fieldProvenanceCoverage" label={text(lang, "字段级溯源覆盖率", "Field Provenance Coverage")} value={pct(overview.fieldProvenanceCoverage)} source={sources.fieldProvenanceCoverage} t={t} lang={lang} />
-        <MetricCard fieldKey="modelValidationStatus" label={text(lang, "模型验证状态", "Model Validation Status")} value={overview.modelValidationStatus} source={sources.currentVersion} t={t} lang={lang} tone="warn" />
-        <MetricCard fieldKey="projectAge" label={text(lang, "项目时长", "Project Age")} value={overview.projectAge} source={sources.currentVersion} t={t} lang={lang} />
-        <MetricCard fieldKey="githubStars" label={text(lang, "GitHub Stars", "GitHub Stars")} value={overview.githubStars} source={sources.githubStars} t={t} lang={lang} tone="warn" />
-        <MetricCard fieldKey="milestoneCount" label={text(lang, "里程碑数量", "Milestone Count")} value={overview.milestoneCount} source={sources.currentVersion} t={t} lang={lang} />
+        {cards.map(card => (
+          <MetricCard key={card.id} fieldKey={card.id} label={card.label} value={card.value} source={card.source} t={t} lang={lang} tone={card.tone} />
+        ))}
+        <MetricCard fieldKey="verifiedMetadata" label={text(lang, "已核验元数据", "Verified Metadata")} value={resolvedStatus.verifiedMetadata} source={resolvedStatus.sources?.verifiedMetadata} t={t} lang={lang} tone="pass" />
+        <MetricCard fieldKey="goldDataset" label={text(lang, "Gold 数据集", "Gold Dataset")} value={resolvedStatus.goldDataset} source={resolvedStatus.sources?.goldDataset} t={t} lang={lang} />
+        <MetricCard fieldKey="externalTest" label={text(lang, "外部测试", "External Test")} value={resolvedStatus.externalTest} source={resolvedStatus.sources?.externalTest} t={t} lang={lang} />
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         <BasisBadge tone="proxy">{overview.databasePreviewStatus}</BasisBadge>
@@ -84,6 +82,20 @@ function EvolutionOverview({ data, lang, t, isMobile }) {
       </div>
     </Card>
   )
+}
+
+function dynamicReleaseNotes(data) {
+  return (data.versions || []).slice().reverse().flatMap(row => {
+    const categories = row.categories?.length ? row.categories : ["Project"]
+    return categories.map(category => ({
+      version: row.version,
+      date: row.date,
+      module: category,
+      category,
+      title: row.summary,
+      body: [row.scientificImpact, row.databaseImpact, row.algorithmImpact, row.validationImpact, row.uiImpact].filter(Boolean).join(" "),
+    }))
+  })
 }
 
 function VersionTimeline({ data, lang, t, isMobile }) {
@@ -141,7 +153,7 @@ function VersionTimeline({ data, lang, t, isMobile }) {
 function ReleaseNotesCenter({ data, lang, t }) {
   const [version, setVersion] = useState("All")
   const [category, setCategory] = useState("All")
-  const notes = data.releaseNotes || []
+  const notes = dynamicReleaseNotes(data)
   const allLabel = text(lang, "全部", "All")
   const versions = ["All", ...new Set(notes.map(row => row.version))]
   const categories = ["All", ...new Set(notes.map(row => row.category))]
@@ -154,7 +166,7 @@ function ReleaseNotesCenter({ data, lang, t }) {
       </div>
       <div style={{ display: "grid", gap: 8 }}>
         {visible.map(row => (
-          <article key={`${row.version}-${row.title}`} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 5, padding: 9 }}>
+          <article key={`${row.version}-${row.category}-${row.title}`} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 5, padding: 9 }}>
             <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{row.version} · {row.title}</strong>
             <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{row.module} · {row.category}</span>
             <span style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.45 }}>{row.body}</span>
@@ -199,6 +211,8 @@ function ScientificEvolution({ data, lang, t }) {
 
 function DatabaseEvolution({ data, lang, t }) {
   const rows = data.databaseEvolution || []
+  const databaseSize = data.overview?.databaseSize
+  const verifiedMetadataCount = data.overview?.verifiedMetadataCount
   return (
     <Card id="project-evolution-database" title={text(lang, "数据库演化", "Database Evolution")} subtitle={text(lang, "数据库成长、已核验元数据成长与字段级溯源覆盖率。", "Database growth, verified metadata growth, and field provenance coverage.")} t={t}>
       <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
@@ -216,10 +230,10 @@ function DatabaseEvolution({ data, lang, t }) {
         </div>
       </div>
       <div style={{ color: t.muted, fontSize: 11.7, lineHeight: 1.45 }}>
-        <span>1000 Candidates</span>
-        <FieldProvenanceButton fieldKey="databaseSize" fieldLabel="1000 Candidates" source={data.overview?.sources?.databaseSize} lang={lang} />
-        <span> · {text(lang, "30 条已核验元数据", "30 verified metadata")}</span>
-        <FieldProvenanceButton fieldKey="verifiedMetadataCount" fieldLabel="30 verified metadata" source={data.overview?.sources?.verifiedMetadataCount} lang={lang} />
+        <span>{databaseSize}+ Candidates</span>
+        <FieldProvenanceButton fieldKey="databaseSize" fieldLabel={`${databaseSize}+ Candidates`} source={data.overview?.sources?.databaseSize} lang={lang} />
+        <span> · {text(lang, `${verifiedMetadataCount} 条已核验元数据`, `${verifiedMetadataCount} verified metadata`)}</span>
+        <FieldProvenanceButton fieldKey="verifiedMetadataCount" fieldLabel={`${verifiedMetadataCount} verified metadata`} source={data.overview?.sources?.verifiedMetadataCount} lang={lang} />
       </div>
     </Card>
   )
@@ -300,10 +314,18 @@ function MilestoneCenter({ data, lang, t }) {
 }
 
 function Roadmap({ data, lang, t }) {
+  const rows = (data.versions || []).slice(-6).map(row => ({
+    version: row.version,
+    plannedFeatures: row.categories || [row.summary],
+    scientificGoal: row.nextVersionGoal || row.scientificImpact,
+    databaseGoal: row.databaseImpact,
+    validationGoal: row.validationImpact,
+    knownRisks: String(row.knownLimitations || "pending").split(/[;；。]/).map(item => item.trim()).filter(Boolean),
+  }))
   return (
-    <Card id="project-evolution-roadmap" title={text(lang, "发展路线图", "Roadmap")} subtitle={text(lang, "未来规划：V2.4 到 V3.0。", "Future plan: V2.4 through V3.0.")} t={t}>
+    <Card id="project-evolution-roadmap" title={text(lang, "发展路线图", "Roadmap")} subtitle={text(lang, "由版本演化记录动态读取最近阶段目标、数据目标和验证风险。", "Dynamically reads recent stage goals, data goals, and validation risks from version evolution records.")} t={t}>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
-        {(data.roadmap || []).map(row => (
+        {rows.map(row => (
           <article key={row.version} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 6, padding: 9 }}>
             <strong style={{ color: t.textStrong, fontSize: 13 }}>{row.version}</strong>
             <span style={{ color: t.accentText, fontSize: 11.5, fontWeight: 850 }}>{row.plannedFeatures.join(", ")}</span>
@@ -338,12 +360,24 @@ export function ProjectEvolutionTab({ onNavigate, data: providedData = null }) {
   const { lang } = useLang()
   const { isMobile } = useViewport()
   const [data, setData] = useState(providedData)
+  const [projectStatus, setProjectStatus] = useState(() => providedData ? buildProjectStatusSummary({ versionEvolution: providedData }) : null)
 
   useEffect(() => {
-    if (providedData) { setData(providedData); return undefined }
+    if (providedData) {
+      setData(providedData)
+      setProjectStatus(buildProjectStatusSummary({ versionEvolution: providedData }))
+      return undefined
+    }
     let active = true
-    fetchDataJson("version_evolution_records.json", null)
-      .then(payload => { if (active) setData(payload) })
+    Promise.all([
+      fetchDataJson("version_evolution_records.json", null),
+      loadProjectStatusSummary(),
+    ])
+      .then(([payload, status]) => {
+        if (!active) return
+        setData(payload)
+        setProjectStatus(status)
+      })
       .catch(() => { if (active) setData(null) })
     return () => { active = false }
   }, [providedData])
@@ -376,7 +410,7 @@ export function ProjectEvolutionTab({ onNavigate, data: providedData = null }) {
         title={text(lang, "项目演化", "Project Evolution Center")}
         subtitle={text(lang, "独立展示 EcoMOF-AI 的成长过程：版本更新记录、数据库、算法、验证、界面、汉化演化、关键里程碑与发展路线图。", "A standalone view of how EcoMOF-AI grew: versions, release notes, database, algorithms, validation, UI, localization evolution, milestones, and roadmap.")}
         meta={text(lang, "EcoMOF-AI 项目变化记录", "What Changed In EcoMOF-AI")}
-        action={<><BasisBadge tone="info">V2.4</BasisBadge><CopyLinkButton hash="project-evolution" ariaLabel={text(lang, "复制项目演化链接", "Copy Project Evolution link")} /></>}
+        action={<><BasisBadge tone="info">{projectStatus?.currentVersion || data.currentVersion}</BasisBadge><CopyLinkButton hash="project-evolution" ariaLabel={text(lang, "复制项目演化链接", "Copy Project Evolution link")} /></>}
       />
       <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 10, color: t.muted, display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between", padding: 11 }}>
         <span style={{ fontSize: 12.2, lineHeight: 1.5 }}>{text(lang, "项目演化解释项目成长历史；方法与证据只解释 EcoMOF-AI 如何工作。", "Project Evolution explains project history; Methods & Evidence explains how EcoMOF-AI works.")}</span>
@@ -385,7 +419,7 @@ export function ProjectEvolutionTab({ onNavigate, data: providedData = null }) {
         </button>
       </div>
       <SectionNav sections={sections} t={t} />
-      <EvolutionOverview data={data} lang={lang} t={t} isMobile={isMobile} />
+      <EvolutionOverview data={data} projectStatus={projectStatus} lang={lang} t={t} isMobile={isMobile} />
       <VersionTimeline data={data} lang={lang} t={t} isMobile={isMobile} />
       <ReleaseNotesCenter data={data} lang={lang} t={t} />
       <ScientificEvolution data={data} lang={lang} t={t} />

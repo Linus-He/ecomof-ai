@@ -7,6 +7,7 @@ import {
   isRestrictedHomeSummaryFetch,
   loadHomeSummary,
 } from "../../utils/homeSummary"
+import { PROJECT_STATUS_ENDPOINTS } from "../../utils/projectStatus"
 
 function response(data) {
   return {
@@ -16,7 +17,7 @@ function response(data) {
 }
 
 describe("homeNoHeavyFetch", () => {
-  it("loads only lightweight homepage summary endpoints", async () => {
+  it("loads only lightweight homepage summary and bounded project status endpoints", async () => {
     const fetcher = vi.fn(async (url) => {
       if (String(url).includes("home_summary.json")) return response(homeSummary)
       if (String(url).includes("data_ingestion_summary_v3.json")) return response(dataIngestionSummary)
@@ -27,9 +28,12 @@ describe("homeNoHeavyFetch", () => {
     const calls = fetcher.mock.calls.map(([url]) => String(url))
 
     expect(summary.totalRecords).toBe(3020)
-    expect(summary.experimentalLabelCount).toBe(0)
-    expect(calls).toHaveLength(HOME_SUMMARY_ENDPOINTS.length)
+    expect(summary.experimentalLabelCount).toBe(150)
+    expect(calls).toHaveLength(HOME_SUMMARY_ENDPOINTS.length + Object.keys(PROJECT_STATUS_ENDPOINTS).length)
     for (const endpoint of HOME_SUMMARY_ENDPOINTS) {
+      expect(calls.some(url => url.includes(endpoint))).toBe(true)
+    }
+    for (const endpoint of Object.values(PROJECT_STATUS_ENDPOINTS)) {
       expect(calls.some(url => url.includes(endpoint))).toBe(true)
     }
     for (const url of calls) {

@@ -370,6 +370,35 @@ function buildOrganicAcidReport({ organicAcidResult = null, versionData = {}, ti
   }
 }
 
+function buildResearchValidationSections(summary = null) {
+  if (!summary) return []
+  const label = summary.labelDiversity || {}
+  const coverage = summary.evidenceCoverage || {}
+  const queue = summary.validationQueue || []
+  return [
+    {
+      title: "Research Validation Summary",
+      subtitle: "科研验证摘要",
+      body: `Current validation summary combines Label Diversity, Evidence Coverage, Confidence Matrix, Validation Queue, and Validation Knowledge Graph. Label Diversity Score ${label.score ?? "pending"} (${label.grade || "pending"}); Evidence Records ${coverage.total ?? coverage.rows?.length ?? "pending"}; Validation Queue Top 10 generated from evidence strength, data quality, experimental coverage, and confidence.`,
+    },
+    {
+      title: "Evidence Coverage",
+      subtitle: "证据覆盖",
+      body: (coverage.buckets || []).map(row => `${row.type}: ${row.count} (${Math.round((row.percent || 0) * 100)}%)`).join("；") || "Evidence coverage pending.",
+    },
+    {
+      title: "Label Diversity",
+      subtitle: "标签多样性",
+      body: `Unique DOI ${label.uniqueDoi ?? "pending"}；Unique Papers ${label.uniquePapers ?? "pending"}；Unique Catalysts ${label.uniqueCatalysts ?? "pending"}；Unique Experiments ${label.uniqueExperiments ?? "pending"}；Score ${label.score ?? "pending"} (${label.grade || "pending"}).`,
+    },
+    {
+      title: "Validation Queue",
+      subtitle: "验证优先队列",
+      body: queue.slice(0, 10).map((row, index) => `#${index + 1} ${row.name}: Priority Score ${row.priorityScore}, Evidence ${row.evidenceStrength}, Data Quality ${row.dataQuality}, Experimental Coverage ${row.experimentalCoverage}`).join("；") || "Validation queue pending.",
+    },
+  ]
+}
+
 export function generateResearchReport({
   type = "candidate",
   records = [],
@@ -385,6 +414,7 @@ export function generateResearchReport({
   firstBenchmark = null,
   credibility = null,
   robustness = null,
+  researchValidationSummary = null,
 } = {}) {
   if (type === "organic_acid") {
     return buildOrganicAcidReport({ organicAcidResult, versionData, timestamp, dataFoundation })
@@ -509,7 +539,30 @@ export function generateResearchReport({
       body: `Generalization Gap（train→external）${g.generalizationGap}；Overfitting Risk ${g.overfittingRisk}。Recommendation：${g.recommendation} Credibility V2 ${robustness.credibility?.score}（Grade ${robustness.credibility?.grade}）。最大统计学风险：${robustness.answers?.biggestStatisticalRisk}`,
     })
   }
+  sections.push(...buildResearchValidationSections(researchValidationSummary))
   const charts = buildReportCharts({ records: rows, summary, priorityMode: priority.modeId })
+  if (researchValidationSummary?.evidenceCoverage?.buckets?.length) {
+    charts.push({
+      id: "research-validation-evidence-coverage",
+      title: "Research Validation Evidence Coverage",
+      subtitle: "Evidence Coverage",
+      xAxis: "Evidence Type",
+      yAxis: "Record Count",
+      legend: "Coverage count",
+      rows: researchValidationSummary.evidenceCoverage.buckets.map(row => ({ label: row.type, value: row.count })),
+    })
+  }
+  if (researchValidationSummary?.validationQueue?.length) {
+    charts.push({
+      id: "research-validation-queue",
+      title: "Validation Priority Queue",
+      subtitle: "Top validation priorities",
+      xAxis: "Candidate",
+      yAxis: "Priority Score",
+      legend: "Priority score",
+      rows: researchValidationSummary.validationQueue.slice(0, 8).map(row => ({ label: row.name, value: row.priorityScore })),
+    })
+  }
 
   const markdown = [
     `# ${label.zh}`,

@@ -30,6 +30,7 @@ import { StageSummaryCards } from "./StageSummaryCards"
 import { StatusBadgeLegend } from "./StatusBadgeLegend"
 import { WhyMoWaterfall } from "./WhyMoWaterfall"
 import { WhyMoVsWComparison } from "./WhyMoVsWComparison"
+import { OrganicAcidResearchValidationCenter } from "../researchValidation/OrganicAcidResearchValidationCenter"
 
 const DatabaseIndexWorkbench = lazy(() =>
   import("../../database-index/DatabaseIndexWorkbench").then(module => ({ default: module.DatabaseIndexWorkbench })),
@@ -61,6 +62,8 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
   const [decisionCandidate, setDecisionCandidate] = useState(null)
   const [latestTrace, setLatestTrace] = useState(null)
   const [databaseIndexOverview, setDatabaseIndexOverview] = useState(null)
+  const [experimentalLabels, setExperimentalLabels] = useState(null)
+  const [benchmarkDataset, setBenchmarkDataset] = useState(null)
 
   useEffect(() => {
     let active = true
@@ -74,8 +77,10 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
       fetchDataJson("organic_acid_final_screening/curated_real_examples/real_qmof_descriptor_examples.json", [], { throwOnError: true }),
       fetchDataJson("organic_acid_final_screening/curated_real_examples/real_literature_evidence_records.json", [], { throwOnError: true }),
       fetchDataJson("organic_acid_final_screening/curated_real_examples/real_data_mapping_report.json", {}, { throwOnError: true }),
+      fetchDataJson("experimental_labels/experimental_labels_v2.json", null, { throwOnError: false }),
+      fetchDataJson("benchmark_dataset_v3_6.json", null, { throwOnError: false }),
     ])
-      .then(([frameworkRows, metalRows, ruleConfig, evidenceRows, curatedFrameworkRows, curatedQmofRows, curatedEvidenceRows, curatedReport]) => {
+      .then(([frameworkRows, metalRows, ruleConfig, evidenceRows, curatedFrameworkRows, curatedQmofRows, curatedEvidenceRows, curatedReport, labelRows, benchmarkRows]) => {
         if (!active) return
         setFrameworks(Array.isArray(frameworkRows) ? frameworkRows : [])
         setMetals(Array.isArray(metalRows) ? metalRows : [])
@@ -87,6 +92,8 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
           evidenceRecords: Array.isArray(curatedEvidenceRows) ? curatedEvidenceRows : [],
           mappingReport: curatedReport || {},
         })
+        setExperimentalLabels(labelRows || null)
+        setBenchmarkDataset(benchmarkRows || null)
         setStatus("loaded")
       })
       .catch(error => {
@@ -96,6 +103,8 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
         setMetals([])
         setEvidenceRecords([])
         setCuratedRealExamples(null)
+        setExperimentalLabels(null)
+        setBenchmarkDataset(null)
         setRules({})
         setStatus("error")
       })
@@ -171,6 +180,7 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
           <Suspense fallback={<DatabaseIndexSkeleton lang={lang} t={t} />}>
             <DatabaseIndexWorkbench lang={lang} t={t} isMobile={isMobile} onOverviewLoaded={setDatabaseIndexOverview} />
           </Suspense>
+          <OrganicAcidResearchValidationCenter result={result} evidenceRecords={evidenceRecords} experimentalLabels={experimentalLabels} benchmarkDataset={benchmarkDataset} lang={lang} t={t} isMobile={isMobile} />
           <OrganicAcidFinalDecisionBoard result={result} lang={lang} t={t} isMobile={isMobile} onInspectCandidate={setDecisionCandidate} />
           <AlgorithmTraceWorkbench trace={latestTrace} lang={lang} t={t} isMobile={isMobile} />
           <AlgorithmPipelineStepper steps={result.algorithmJourneySteps} lang={lang} t={t} isMobile={isMobile} />

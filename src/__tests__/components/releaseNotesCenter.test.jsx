@@ -14,12 +14,11 @@ describe("ReleaseNotesCenter", () => {
     expect(screen.getByTestId("project-evolution-release-notes")).toBeInTheDocument()
     expect(bodyText()).toMatch(/Release Notes/)
     expect(bodyText()).toMatch(/Project Evolution Center/)
-    expect(bodyText()).toMatch(/Research Outputs Framework/)
-    expect(bodyText()).toMatch(/Full Localization Refactor/)
-    expect(bodyText()).toMatch(/Knowledge Architecture Refactor/)
-    expect(bodyText()).toMatch(/First-Level Project Evolution Tab/)
-    expect(bodyText()).toMatch(/Evolution Center Test Coverage/)
-    expect(bodyText()).toMatch(/1000 Candidate Database Preview/)
+    expect(bodyText()).toMatch(/Experimental Label Acquisition/)
+    expect(bodyText()).toMatch(/Model Credibility/)
+    expect(bodyText()).toMatch(/Experimental Label Expansion/)
+    expect(bodyText()).toMatch(/Robustness/)
+    expect(bodyText()).toMatch(/Random Forest/)
   })
 
   it("filters release notes by category", () => {
@@ -27,10 +26,11 @@ describe("ReleaseNotesCenter", () => {
 
     const selects = screen.getAllByRole("combobox")
     const categoryOptions = [...selects[1].querySelectorAll("option")].map(option => option.textContent)
-    expect(categoryOptions).toEqual(expect.arrayContaining(["Database", "Algorithm", "Validation", "UI", "Methods", "Infrastructure", "Testing"]))
+    expect(categoryOptions).toEqual(expect.arrayContaining(["Data", "Algorithm", "Validation", "UI", "Methods", "Infrastructure", "Testing"]))
 
     fireEvent.change(selects[1], { target: { value: "Validation" } })
-    expect(bodyText()).toMatch(/Verified Metadata Breakthrough/)
-    expect(bodyText()).toMatch(/Model Validation Lab/)
+    expect(bodyText()).toMatch(/Experimental Label Acquisition/)
+    expect(bodyText()).toMatch(/Model Credibility/)
+    expect(bodyText()).toMatch(/Experimental Label Expansion/)
   })
 })

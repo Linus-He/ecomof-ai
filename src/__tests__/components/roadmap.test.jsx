@@ -8,21 +8,18 @@ function bodyText() {
 }
 
 describe("Roadmap", () => {
-  it("renders V2.4 through V3.0 with goals and risk boundaries", () => {
+  it("renders the latest dynamic V3 roadmap stages with goals and risk boundaries", () => {
     render(<ProjectEvolutionTab data={data} />)
 
     expect(screen.getByTestId("project-evolution-roadmap")).toBeInTheDocument()
-    for (const version of ["V2.4", "V2.5", "V2.6", "V2.7", "V3.0"]) {
+    for (const version of ["V3.1", "V3.2", "V3.3", "V3.4", "V3.5", "V3.6"]) {
       expect(bodyText()).toMatch(new RegExp(version.replace(".", "\\.")))
     }
-    expect(bodyText()).toMatch(/Research Outputs Framework/)
-    expect(bodyText()).toMatch(/Full Localization Refactor/)
-    expect(bodyText()).toMatch(/Experimental Validation Framework/)
-    expect(bodyText()).toMatch(/Organic Acid Algorithm Closure/)
-    expect(bodyText()).toMatch(/Organic Acid Screening Report/)
-    expect(bodyText()).toMatch(/Model Benchmark Lab/)
-    expect(bodyText()).toMatch(/Algorithm Credibility Framework/)
-    expect(bodyText()).toMatch(/Research Decision Platform/)
+    expect(bodyText()).toMatch(/Reaction Data Expansion/)
+    expect(bodyText()).toMatch(/Real Data Ingestion/)
+    expect(bodyText()).toMatch(/Experimental Label Acquisition/)
+    expect(bodyText()).toMatch(/Model Credibility/)
+    expect(bodyText()).toMatch(/Model Robustness/)
     expect(bodyText()).toMatch(/Known Risks/)
   })
 })

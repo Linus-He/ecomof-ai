@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06",
-  "currentVersion": "V3.3",
-  "completedRange": "V1.0-V3.3",
+  "currentVersion": "V3.6",
+  "completedRange": "V1.0-V3.6",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -2386,7 +2386,7 @@
       "title": "Real Data Ingestion Program",
       "titleZh": "真实数据接入工程",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Scale real data to 3000 records",
       "themeZh": "将真实数据扩展到 3000 条",
       "summary": "Ingests CoRE MOF (1240) + QMOF (1240) + organic-acid literature (540) for 3020 total records, with a dataset-origin system separating real (external database / literature / experimental) from derived/synthetic. Verified Metadata 2480, Gold 320, Reaction 520. No new module/algorithm/model; only ingest, validate, normalize, dedup, provenance.",
@@ -2448,6 +2448,182 @@
         ],
         "adaptationBoundary": "Ingestion only; descriptor values database-attributed pending verification; no metric fabricated.",
         "adaptationBoundaryZh": "仅接入；描述符值数据库归因待核验；不伪造指标。"
+      },
+      "relatedSection": "#methodology-algorithm-validation"
+    },
+    {
+      "version": "V3.4",
+      "title": "Experimental Labels and First Real Benchmark",
+      "titleZh": "实验标签与首个真实 Benchmark",
+      "date": "2026-06",
+      "status": "completed",
+      "theme": "Experimental Label Layer",
+      "themeZh": "实验标签层",
+      "summary": "Established 40 expert-review and independent-validation labels plus an external test set for the first legitimate benchmark.",
+      "summaryZh": "建立 40 条专家审查与独立验证标签，并形成外部测试集，用于首个合法 Benchmark。",
+      "keyUpdates": [
+        "Experimental label layer created.",
+        "External test set added.",
+        "Random Forest became the first best benchmark model."
+      ],
+      "keyUpdatesZh": [
+        "建立实验标签层。",
+        "新增外部测试集。",
+        "Random Forest 成为首个最佳 Benchmark 模型。"
+      ],
+      "algorithmChanges": [
+        "Added real benchmark metrics under strict leakage and ground-truth gates."
+      ],
+      "algorithmChangesZh": [
+        "在严格泄漏与 ground-truth 门控下新增真实 Benchmark 指标。"
+      ],
+      "uiChanges": [
+        "Algorithm Validation Center and Research Reports show experimental label and benchmark readiness."
+      ],
+      "uiChangesZh": [
+        "Algorithm Validation Center 与 Research Reports 展示实验标签和 Benchmark 就绪度。"
+      ],
+      "methodologyChanges": [
+        "Separated experimental labels from derived labels."
+      ],
+      "methodologyChangesZh": [
+        "将实验标签与派生标签分离。"
+      ],
+      "evidenceBoundary": "Small curated experimental-label benchmark; not final model performance.",
+      "evidenceBoundaryZh": "小规模策展实验标签 Benchmark；不是最终模型性能。",
+      "limitations": [
+        "Label scale remains limited."
+      ],
+      "limitationsZh": [
+        "标签规模仍有限。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "experimental-label-layer",
+          "first-real-benchmark"
+        ],
+        "adaptationBoundary": "Benchmark readiness only; not final recommendation.",
+        "adaptationBoundaryZh": "仅表示 Benchmark 就绪；不是最终推荐。"
+      },
+      "relatedSection": "#methodology-algorithm-validation"
+    },
+    {
+      "version": "V3.5",
+      "title": "Model Credibility and Explainability",
+      "titleZh": "模型可信度与可解释性",
+      "date": "2026-06",
+      "status": "completed",
+      "theme": "Model Credibility",
+      "themeZh": "模型可信度",
+      "summary": "Explained the frozen V3.4 benchmark with cross validation, feature importance, sensitivity, and credibility scoring.",
+      "summaryZh": "通过交叉验证、特征重要性、敏感性与可信度评分解释冻结的 V3.4 Benchmark。",
+      "keyUpdates": [
+        "Model credibility score 77.45 Grade B.",
+        "Cross-validation and explainability dashboards added."
+      ],
+      "keyUpdatesZh": [
+        "模型可信度 77.45，等级 B。",
+        "新增交叉验证与可解释性仪表盘。"
+      ],
+      "algorithmChanges": [
+        "Added permutation importance, ablation, stability audit, and credibility score."
+      ],
+      "algorithmChangesZh": [
+        "新增 permutation importance、消融、稳定性审计与可信度评分。"
+      ],
+      "uiChanges": [
+        "Credibility Dashboard and Feature Importance Workbench became validation surfaces."
+      ],
+      "uiChangesZh": [
+        "Credibility Dashboard 与 Feature Importance Workbench 成为验证界面。"
+      ],
+      "methodologyChanges": [
+        "Credibility is reported separately from final recommendation."
+      ],
+      "methodologyChangesZh": [
+        "可信度与最终推荐分开报告。"
+      ],
+      "evidenceBoundary": "Diagnostics explain a small-label benchmark and do not expand labels.",
+      "evidenceBoundaryZh": "诊断解释小标签 Benchmark，不扩充标签。",
+      "limitations": [
+        "Cross-validation variance remains visible."
+      ],
+      "limitationsZh": [
+        "交叉验证方差保持可见。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "model-credibility",
+          "explainability",
+          "cross-validation"
+        ],
+        "adaptationBoundary": "Credibility diagnostics only; no hidden retraining.",
+        "adaptationBoundaryZh": "仅可信度诊断；不隐藏重训练。"
+      },
+      "relatedSection": "#methodology-algorithm-validation"
+    },
+    {
+      "version": "V3.6",
+      "title": "Experimental Label Expansion and Robustness Validation",
+      "titleZh": "实验标签扩展与稳健性验证",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Robustness Validation",
+      "themeZh": "稳健性验证",
+      "summary": "Expanded experimental labels to 150, external test to 80, benchmark eligible records to 230, and reported robustness-backed credibility.",
+      "summaryZh": "实验标签扩展到 150、外部测试扩展到 80、Benchmark Eligible 达到 230，并报告稳健性支撑的可信度。",
+      "keyUpdates": [
+        "Experimental Labels 150.",
+        "External Test 80.",
+        "Benchmark Eligible 230.",
+        "Credibility V2 78.87 Grade B.",
+        "High Overfitting Risk disclosed."
+      ],
+      "keyUpdatesZh": [
+        "实验标签 150。",
+        "外部测试 80。",
+        "Benchmark Eligible 230。",
+        "Credibility V2 78.87，等级 B。",
+        "明确披露 High Overfitting Risk。"
+      ],
+      "algorithmChanges": [
+        "Added repeated CV, bootstrap, confidence intervals, generalization audit, reliability, and credibility V2."
+      ],
+      "algorithmChangesZh": [
+        "新增 repeated CV、bootstrap、置信区间、泛化审计、可靠性与 Credibility V2。"
+      ],
+      "uiChanges": [
+        "Robustness validation and credibility surfaces are now the current status source."
+      ],
+      "uiChangesZh": [
+        "稳健性验证和可信度界面成为当前状态来源。"
+      ],
+      "methodologyChanges": [
+        "Risk disclosure is mandatory with benchmark metrics."
+      ],
+      "methodologyChangesZh": [
+        "Benchmark 指标必须同时披露风险。"
+      ],
+      "evidenceBoundary": "Research validation state with high overfitting risk; not final recommendation.",
+      "evidenceBoundaryZh": "科研验证状态且存在高过拟合风险；不是最终推荐。",
+      "limitations": [
+        "Label scale is still not industrial-grade.",
+        "External test remains modest.",
+        "Generalization gap remains high."
+      ],
+      "limitationsZh": [
+        "标签规模仍未达到工业级。",
+        "外部测试规模仍有限。",
+        "泛化间隙仍高。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "robustness-validation",
+          "credibility-v2",
+          "overfitting-risk"
+        ],
+        "adaptationBoundary": "Robustness-backed research validation only; not final recommendation.",
+        "adaptationBoundaryZh": "仅表示稳健性支撑的科研验证；不是最终推荐。"
       },
       "relatedSection": "#methodology-algorithm-validation"
     }

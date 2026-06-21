@@ -7,6 +7,7 @@ import {
   FONT_MONO,
   LogoMark,
   BrandMotif,
+  fetchDataJson,
 } from "../../shared"
 import { BrandMotionBackground } from "../home"
 import { toolbarBtn } from "../../utils/styles"
@@ -21,6 +22,12 @@ function numberText(value, suffix = "") {
   const number = Number(value)
   if (!Number.isFinite(number)) return "Not available"
   return `${number}${suffix}`
+}
+
+function metricText(value, digits = 2) {
+  const number = Number(value)
+  if (!Number.isFinite(number)) return String(value ?? "Not available")
+  return Number.isInteger(number) ? String(number) : number.toFixed(digits)
 }
 
 function usePrefersReducedMotion() {
@@ -283,10 +290,10 @@ function LimitationItem({ item, t }) {
 
 function HeroVisual({ t, lang, summary }) {
   const rows = [
-    { label: "MOF DB", value: numberText(summary.totalRecords, "+") },
-    { label: "Trace", value: "Field-level" },
-    { label: "Screen", value: "White-box" },
-    { label: "Validate", value: "Benchmark" },
+    { label: "Database", value: numberText(summary.totalRecords, "+") },
+    { label: "Labels", value: numberText(summary.experimentalLabelCount) },
+    { label: "Benchmark", value: numberText(summary.benchmarkEligibleCount) },
+    { label: "Model", value: summary.bestModel || "Pending" },
   ]
 
   return (
@@ -325,7 +332,7 @@ function HeroVisual({ t, lang, summary }) {
           fontSize: 10.5,
           fontWeight: 850,
         }}>
-          Benchmark Available
+          {summary.currentVersion || "V3.6"}
         </span>
       </div>
       <div style={{ position: "relative", zIndex: 1, display: "grid", gap: 9 }}>
@@ -368,6 +375,7 @@ export function HomeTab({ setActiveTab }) {
   const { isNarrow, isMobile } = useViewport()
   const reducedMotion = usePrefersReducedMotion()
   const [summary, setSummary] = useState(DEFAULT_HOME_SUMMARY)
+  const [versionData, setVersionData] = useState(null)
   const zh = lang === "zh"
 
   useEffect(() => {
@@ -375,6 +383,9 @@ export function HomeTab({ setActiveTab }) {
     loadHomeSummary().then(nextSummary => {
       if (!cancelled) setSummary(nextSummary)
     })
+    fetchDataJson("version_evolution_records.json", null)
+      .then(payload => { if (!cancelled) setVersionData(payload) })
+      .catch(() => { if (!cancelled) setVersionData(null) })
     return () => {
       cancelled = true
     }
@@ -403,39 +414,52 @@ export function HomeTab({ setActiveTab }) {
 
   const capabilities = useMemo(() => [
     {
-      mark: "DL",
-      title: zh ? "数据层" : "Data Layer",
-      subtitle: "Platform Capabilities",
+      mark: "CV",
+      title: "Current Version",
+      subtitle: zh ? "动态项目状态" : "Dynamic project status",
       tone: "info",
-      highlights: [
-        `${numberText(summary.totalRecords, "+")} Records`,
-        `${numberText(summary.verifiedMetadataCount)} Verified Metadata`,
-      ],
-      body: zh ? "统一数据库、文献整理与字段级溯源，为筛选结果提供可追踪依据。" : "Unifies database records, literature curation, and field-level provenance for traceable screening.",
+      highlights: [summary.currentVersion || "V3.6", "Research Validation Platform"],
+      body: zh ? "版本号来自项目演化数据源，不再读取旧的首页静态标签。" : "Version is read from the project evolution data source, not a stale homepage label.",
     },
     {
-      mark: "SC",
-      title: zh ? "筛选层" : "Screening Layer",
-      subtitle: "Platform Capabilities",
+      mark: "DB",
+      title: "Database Scale",
+      subtitle: zh ? "真实数据规模" : "Real data scale",
       tone: "success",
-      highlights: ["EcoScreen", "Performance Priority", "Ranking Explanation"],
-      body: zh ? "把候选筛选、性能优先级和排序解释放在同一套工作流中。" : "Connects candidate screening, performance priority, and ranking explanation in one workflow.",
+      highlights: [`${numberText(summary.totalRecords, "+")} Records`, `${numberText(summary.verifiedMetadataCount)} Verified Metadata`],
+      body: zh ? "数据库规模与已核验元数据来自 ingestion summary。" : "Database scale and verified metadata come from the ingestion summary.",
     },
     {
-      mark: "OA",
-      title: zh ? "有机酸层" : "Organic Acid Layer",
+      mark: "EL",
+      title: "Experimental Labels",
       subtitle: "Platform Capabilities",
       tone: "warn",
-      highlights: ["Reaction Dataset", "Evidence Graph", "Decision Board"],
-      body: zh ? "围绕有机酸路径组织反应数据、证据网络和候选决策面板。" : "Organizes reaction data, evidence graph context, and candidate decision boards for organic-acid screening.",
+      highlights: [numberText(summary.experimentalLabelCount), `${numberText(summary.externalTestCount)} External Test`],
+      body: zh ? "实验标签与外部测试来自 V3.6 稳健性验证数据。" : "Experimental labels and external tests come from the V3.6 robustness dataset.",
     },
     {
-      mark: "VL",
-      title: zh ? "验证层" : "Validation Layer",
+      mark: "BM",
+      title: "Benchmark Ready",
       subtitle: "Platform Capabilities",
       tone: "neutral",
-      highlights: ["Experimental Labels", "Benchmark", "Model Validation"],
-      body: zh ? "把实验标签、Benchmark 框架和模型验证入口作为可信度检查层。" : "Uses experimental labels, the benchmark framework, and model validation as credibility checks.",
+      highlights: [numberText(summary.benchmarkEligibleCount), summary.bestModel || "Random Forest"],
+      body: zh ? "Benchmark eligible 与最佳模型由验证数据动态给出。" : "Benchmark eligible count and best model are resolved from validation artifacts.",
+    },
+    {
+      mark: "CR",
+      title: "Credibility",
+      subtitle: zh ? "模型可信度" : "Model credibility",
+      tone: "success",
+      highlights: [`${metricText(summary.credibilityScore)} / Grade ${summary.credibilityGrade}`, `ROC-AUC ${metricText(summary.rocAuc, 4)}`],
+      body: zh ? "可信度分数来自 Robustness Validation 的 credibility v2。" : "Credibility score is read from robustness validation credibility v2.",
+    },
+    {
+      mark: "RK",
+      title: "Current Risk",
+      subtitle: zh ? "当前限制" : "Current limitation",
+      tone: "warn",
+      highlights: [summary.currentRisk || "High Overfitting Risk", "Not Final Recommendation"],
+      body: zh ? "风险作为首页状态展示，不隐藏在说明文字中。" : "Risk is surfaced on the homepage instead of being hidden in explanatory copy.",
     },
   ], [summary, zh])
 
@@ -524,11 +548,20 @@ export function HomeTab({ setActiveTab }) {
   ], [zh])
 
   const limitations = useMemo(() => [
-    { zh: "Results require experimental validation", en: "Screening outputs need laboratory confirmation before scientific claims." },
-    { zh: "Not final recommendation", en: "Candidate rankings support research decisions, not final experimental recommendation." },
-    { zh: "Some datasets remain literature-derived", en: "Literature-derived records keep source context and uncertainty visible." },
-    { zh: "Model validation is ongoing", en: "Benchmark and validation workflows are available, while model credibility continues to be reviewed." },
-  ], [])
+    { zh: summary.currentRisk || "High Overfitting Risk", en: "Train to external-test gap remains high and must stay visible." },
+    { zh: "Need More Experimental Labels", en: `${numberText(summary.experimentalLabelCount)} labels are useful but still below research-grade scale.` },
+    { zh: "Not Final Recommendation", en: "Candidate rankings support research decisions, not final experimental recommendation." },
+  ], [summary])
+
+  const recentProgress = useMemo(() => {
+    const rows = Array.isArray(versionData?.versions) ? versionData.versions : []
+    return rows
+      .filter(row => {
+        const numeric = Number(String(row.version || "").replace(/^V/i, ""))
+        return Number.isFinite(numeric) && numeric >= 3.4 && numeric <= 3.6
+      })
+      .slice(-3)
+  }, [versionData])
 
   const quickStart = [
     { label: zh ? "进入 EcoScreen" : "Enter EcoScreen", hash: "ecoscreen", target: "ecoscreen", primary: true },
@@ -596,16 +629,37 @@ export function HomeTab({ setActiveTab }) {
 
       <section data-testid="home-platform-capabilities" style={sectionStyle}>
         <SectionHeader
-          eyebrow={zh ? "平台能力" : "Capabilities"}
-          title={zh ? "从数据到验证的四层科研工作台" : "A four-layer research workspace from data to validation"}
-          subtitle={zh ? "首页优先说明能做什么，而不是展示版本更新记录。" : "The homepage now prioritizes what the platform does, not release-history reporting."}
+          eyebrow="Current Capability"
+          title={zh ? "当前能力状态" : "Current capability status"}
+          subtitle={zh ? "状态卡直接读取项目状态聚合器，展示数据库、标签、Benchmark、模型、可信度与风险。" : "Cards read the project status aggregator for database, labels, benchmark, model, credibility, and risk."}
           t={t}
           isMobile={isMobile}
         />
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 14 }}>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 14 }}>
           {capabilities.map(item => <PlatformCapabilityCard key={item.title} item={item} t={t} />)}
         </div>
       </section>
+
+      {recentProgress.length ? (
+        <section data-testid="home-validation-progress" style={sectionStyle}>
+          <SectionHeader
+            eyebrow={zh ? "近期进展" : "Recent Progress"}
+            title={zh ? "验证进展自动读取 V3.4-V3.6" : "Validation progress read from V3.4-V3.6"}
+            subtitle={zh ? "进展条目来自 version_evolution_records.json，并随项目状态记录更新。" : "Progress items come from version_evolution_records.json and update with project status records."}
+            t={t}
+            isMobile={isMobile}
+          />
+          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 12 }}>
+            {recentProgress.map(row => (
+              <article key={row.version} style={{ ...panelStyle, padding: 14, display: "grid", gap: 8 }}>
+                <strong style={{ color: t.textStrong, fontSize: 15 }}>{row.version}</strong>
+                <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.5 }}>{row.summary}</span>
+                <span style={{ color: t.accentText, fontSize: 11.5, lineHeight: 1.4 }}>{row.validationImpact}</span>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section data-testid="home-data-foundation" style={{ ...panelStyle, padding: isMobile ? "18px 16px" : "24px", background: t.badgeInfoBg }}>
         <SectionHeader
@@ -665,13 +719,13 @@ export function HomeTab({ setActiveTab }) {
 
       <section data-testid="home-current-limitations" style={{ ...panelStyle, padding: isMobile ? "18px 16px" : "24px", background: t.surface }}>
         <SectionHeader
-          eyebrow={zh ? "当前边界" : "Current Scope and Limitations"}
-          title={zh ? "当前边界直接显示" : "Current scope and limitations are visible"}
-          subtitle={zh ? "科研平台需要把验证状态、推荐边界与数据来源边界放在首页。" : "A research platform should surface validation state, recommendation boundary, and data-source boundary on the homepage."}
+          eyebrow="Current Limitations"
+          title={zh ? "当前限制" : "Current limitations"}
+          subtitle={zh ? "风险区直接显示当前统计学风险、标签规模需求和非最终推荐边界。" : "The risk area directly shows statistical risk, label-scale need, and not-final recommendation boundary."}
           t={t}
           isMobile={isMobile}
         />
-        <ul style={{ margin: 0, padding: 0, display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+        <ul style={{ margin: 0, padding: 0, display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
           {limitations.map(item => <LimitationItem key={item.zh} item={item} t={t} />)}
         </ul>
       </section>

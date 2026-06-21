@@ -28,8 +28,11 @@ describe("organic acid methods and V2.6 evolution", () => {
     expect(versionData.versions.find(row => row.version === "V3.0").summary).toMatch(/Data Foundation/)
     expect(versionData.versions.find(row => row.version === "V3.2").summary).toMatch(/Data Audit|First Real Benchmark/)
     expect(versionData.versions.find(row => row.version === "V3.3").summary).toMatch(/Real Data Ingestion/)
-    expect(versionDocs.currentVersion).toBe("V3.3")
+    expect(versionData.versions.find(row => row.version === "V3.6").summary).toMatch(/Robustness/)
+    expect(versionDocs.currentVersion).toBe("V3.6")
     expect(versionDocs.versions.find(row => row.version === "V2.6").status).toBe("completed")
+    expect(versionDocs.versions.find(row => row.version === "V3.3").status).toBe("completed")
+    expect(versionDocs.versions.find(row => row.version === "V3.6").status).toBe("current")
     expect(versionDocs.versions.find(row => row.version === "V2.6")).toEqual(expect.objectContaining({
       title: "Organic Acid Algorithm Closure",
       evidenceBoundary: expect.stringMatching(/Algorithmic suggestion/),

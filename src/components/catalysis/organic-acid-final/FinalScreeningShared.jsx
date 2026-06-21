@@ -149,12 +149,12 @@ export function ProvenanceButton({ record, field, label, value, lang = "en", t, 
   )
 }
 
-export function ValueWithSource({ record, field, label, value, lang, t, fallback = "Pending" }) {
+export function ValueWithSource({ record, field, label, value, lang, t, fallback = "Pending", source }) {
   const rendered = displayValue(value, fallback)
   return (
     <span style={{ alignItems: "center", display: "inline-flex", gap: 2, minWidth: 0 }}>
       <span style={{ minWidth: 0, overflowWrap: "anywhere" }}><ChemicalText value={rendered} /></span>
-      <ProvenanceButton record={record} field={field} label={label} value={rendered} lang={lang} t={t} />
+      <ProvenanceButton record={record} source={source} field={field} label={label} value={rendered} lang={lang} t={t} />
     </span>
   )
 }

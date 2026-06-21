@@ -18,6 +18,7 @@ import { runOrganicAcidFinalScreening } from "../../utils/organicAcidFinalScreen
 import { summarizeDataFoundation } from "../../utils/dataFoundation"
 import { runDataAudit } from "../../utils/dataAudit/index.js"
 import { dataIngestionSummary } from "../../utils/dataIngestion/index.js"
+import { buildResearchValidationSummary } from "../../utils/organicAcidResearchValidation"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -208,6 +209,40 @@ function CitationPackage({ packageData, t, lang }) {
   )
 }
 
+function ResearchValidationSummaryCard({ summary, t, lang, isMobile }) {
+  if (!summary) return null
+  const diversity = summary.labelDiversity || {}
+  const coverage = summary.evidenceCoverage || {}
+  const queue = summary.validationQueue || []
+  return (
+    <Card id="research-validation-summary" title={text(lang, "Research Validation Summary", "Research Validation Summary")} subtitle={text(lang, "自动生成证据覆盖、标签多样性和验证优先队列。", "Automatically generated evidence coverage, label diversity, and validation priority queue.")} t={t}>
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
+        <Metric label="Label Diversity Score" value={`${diversity.score ?? "pending"} · ${diversity.grade || "pending"}`} t={t} tone={diversity.grade === "Weak" ? "warn" : "pass"} />
+        <Metric label="Evidence Coverage" value={coverage.total ?? coverage.rows?.length ?? "pending"} t={t} />
+        <Metric label="Validation Queue" value={queue.length} t={t} />
+        <Metric label="Top Priority" value={queue[0]?.name || "pending"} t={t} tone="pass" />
+      </div>
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))" }}>
+        <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 5, padding: 9 }}>
+          <strong style={{ color: t.textStrong, fontSize: 12.4 }}>Evidence Coverage</strong>
+          {(coverage.buckets || []).map(row => <span key={row.type} style={{ color: t.muted, fontSize: 11.5 }}>{row.type}: {row.count}</span>)}
+        </article>
+        <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 5, padding: 9 }}>
+          <strong style={{ color: t.textStrong, fontSize: 12.4 }}>Label Diversity</strong>
+          <span style={{ color: t.muted, fontSize: 11.5 }}>Unique DOI {diversity.uniqueDoi}</span>
+          <span style={{ color: t.muted, fontSize: 11.5 }}>Unique Papers {diversity.uniquePapers}</span>
+          <span style={{ color: t.muted, fontSize: 11.5 }}>Unique Catalysts {diversity.uniqueCatalysts}</span>
+          <span style={{ color: t.muted, fontSize: 11.5 }}>Unique Experiments {diversity.uniqueExperiments}</span>
+        </article>
+        <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 5, padding: 9 }}>
+          <strong style={{ color: t.textStrong, fontSize: 12.4 }}>Validation Queue</strong>
+          {queue.slice(0, 5).map((row, index) => <span key={row.id} style={{ color: t.muted, fontSize: 11.5 }}>#{index + 1} {row.name}: {row.priorityScore}</span>)}
+        </article>
+      </div>
+    </Card>
+  )
+}
+
 function LocalizationAuditPanel({ audit, t, lang, isMobile }) {
   return (
     <Card id="research-reports-localization-audit" title={text(lang, "汉化质量审计", "Localization Audit")} subtitle={text(lang, "检查未翻译英文、混杂术语、重复翻译、旧文案和开发者文案。", "Checks untranslated English, mixed terminology, duplicate translations, legacy copy, and developer-oriented copy.")} t={t} shellReady>
@@ -244,6 +279,9 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
   const [firstBenchmark, setFirstBenchmark] = useState(null)
   const [credibility, setCredibility] = useState(null)
   const [robustness, setRobustness] = useState(null)
+  const [organicEvidenceRecords, setOrganicEvidenceRecords] = useState([])
+  const [experimentalLabels, setExperimentalLabels] = useState(null)
+  const [benchmarkDatasetV36, setBenchmarkDatasetV36] = useState(null)
   const [type, setType] = useState("candidate")
   const [candidateId, setCandidateId] = useState("")
 
@@ -278,7 +316,9 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
       fetchDataJson("first_real_benchmark_report_v1.json", null),
       fetchDataJson("model_credibility_report_v1.json", null),
       fetchDataJson("model_robustness_report_v1.json", null),
-    ]).then(([nextRecords, nextSummary, nextVersionData, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry, ingestionSummaryV3, firstBenchmarkReport, credibilityReport, robustnessReport]) => {
+      fetchDataJson("experimental_labels/experimental_labels_v2.json", null),
+      fetchDataJson("benchmark_dataset_v3_6.json", null),
+    ]).then(([nextRecords, nextSummary, nextVersionData, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry, ingestionSummaryV3, firstBenchmarkReport, credibilityReport, robustnessReport, experimentalLabelRows, benchmarkV36]) => {
       if (!active) return
       const rows = Array.isArray(nextRecords) ? nextRecords : []
       setRecords(rows)
@@ -291,11 +331,20 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
       setFirstBenchmark(firstBenchmarkReport && typeof firstBenchmarkReport === "object" ? firstBenchmarkReport : null)
       setCredibility(credibilityReport && typeof credibilityReport === "object" ? credibilityReport : null)
       setRobustness(robustnessReport && typeof robustnessReport === "object" ? robustnessReport : null)
+      setOrganicEvidenceRecords(Array.isArray(organicEvidence) ? organicEvidence : [])
+      setExperimentalLabels(experimentalLabelRows && typeof experimentalLabelRows === "object" ? experimentalLabelRows : null)
+      setBenchmarkDatasetV36(benchmarkV36 && typeof benchmarkV36 === "object" ? benchmarkV36 : null)
       setCandidateId(current => current || rows[0]?.candidateId || "")
     })
     return () => { active = false }
   }, [providedRecords, providedSummary, providedVersionData, providedOrganicAcidResult])
 
+  const researchValidationSummary = useMemo(() => buildResearchValidationSummary({
+    result: organicAcidResult,
+    evidenceRecords: organicEvidenceRecords,
+    labels: experimentalLabels,
+    benchmarkDataset: benchmarkDatasetV36,
+  }), [organicAcidResult, organicEvidenceRecords, experimentalLabels, benchmarkDatasetV36])
   const report = useMemo(() => generateResearchReport({
     type,
     records,
@@ -309,7 +358,8 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
     firstBenchmark,
     credibility,
     robustness,
-  }), [candidateId, records, summary, type, versionData, organicAcidResult, dataFoundation, dataAudit, dataIngestion, firstBenchmark, credibility, robustness])
+    researchValidationSummary,
+  }), [candidateId, records, summary, type, versionData, organicAcidResult, dataFoundation, dataAudit, dataIngestion, firstBenchmark, credibility, robustness, researchValidationSummary])
   const audit = useMemo(() => runLocalizationAudit({
     corpus: [
       report.markdown,
@@ -339,7 +389,7 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
         title={text(lang, "研究报告", "Research Reports")}
         subtitle={text(lang, "将数据库预览、筛选流程追踪、字段级溯源、验证状态、模型基准就绪度和引用包组织为可复现的科研输出。", "Organizes database preview, screening trace, field provenance, validation status, model benchmark readiness, and citation package into reproducible research outputs.")}
         meta={text(lang, "科研展示与科研输出平台", "Research output framework")}
-        action={<><BasisBadge tone="info">V2.7</BasisBadge><CopyLinkButton hash="research-reports" ariaLabel="Copy Research Reports link" /></>}
+        action={<><BasisBadge tone="info">{versionData?.currentVersion || "V3.6"}</BasisBadge><CopyLinkButton hash="research-reports" ariaLabel="Copy Research Reports link" /></>}
       />
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         <BasisBadge tone="proxy">数据库预览</BasisBadge>
@@ -349,6 +399,7 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
         <BasisBadge tone="info">引文已就绪 {summary.citationReadyCandidates}</BasisBadge>
       </div>
       <ReportGenerator report={report} records={records} type={type} setType={setType} candidateId={candidateId} setCandidateId={setCandidateId} t={t} lang={lang} />
+      <ResearchValidationSummaryCard summary={researchValidationSummary} t={t} lang={lang} isMobile={isMobile} />
       <RunSnapshot snapshot={report.snapshot} t={t} lang={lang} isMobile={isMobile} />
       <FieldSourceTable report={report} t={t} lang={lang} />
       <CitationPackage packageData={report.citationPackage} t={t} lang={lang} />

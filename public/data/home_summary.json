@@ -7,7 +7,16 @@
   "verifiedMetadataCount": 2480,
   "goldDatasetCount": 320,
   "reactionDatasetCount": 520,
-  "experimentalLabelCount": 0,
+  "experimentalLabelCount": 150,
+  "externalTestCount": 80,
+  "benchmarkEligibleCount": 230,
+  "currentVersion": "V3.6",
+  "bestModel": "Random Forest",
+  "accuracy": 0.725,
+  "rocAuc": 0.7558,
+  "credibilityScore": 78.87,
+  "credibilityGrade": "B",
+  "currentRisk": "High Overfitting Risk",
   "benchmarkStatus": "available",
   "modelValidationStatus": "ongoing",
   "accuracyStatus": "held_in_validation_center",
@@ -18,11 +27,14 @@
   "lastUpdated": "2026-06-18",
   "sourceFiles": [
     "public/data/data_ingestion/data_ingestion_summary_v3.json",
-    "public/data/home_summary.json"
+    "public/data/home_summary.json",
+    "public/data/model_robustness_report_v1.json",
+    "public/data/benchmark_dataset_v3_6.json",
+    "public/data/experimental_labels/experimental_labels_v2.json"
   ],
   "notes": [
     "Homepage summary is intentionally lightweight and excludes large record arrays.",
-    "Experimental labels count only independently measured experimental labels; derived labels are not counted.",
-    "Accuracy and ROC-AUC values are intentionally held in Algorithm Validation Center, not shown on the homepage."
+    "Experimental labels count expert-review and independent-validation ground-truth labels; derived labels are not counted.",
+    "Accuracy and ROC-AUC values are sourced from V3.6 robustness validation and displayed as capability status, not final recommendation."
   ]
 }

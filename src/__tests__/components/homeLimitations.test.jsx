@@ -45,10 +45,9 @@ describe("home limitations", () => {
     renderHome()
     const limitations = screen.getByTestId("home-current-limitations")
 
-    expect(within(limitations).getByText("Results require experimental validation")).toBeInTheDocument()
-    expect(within(limitations).getByText("Not final recommendation")).toBeInTheDocument()
-    expect(within(limitations).getByText("Some datasets remain literature-derived")).toBeInTheDocument()
-    expect(within(limitations).getByText("Model validation is ongoing")).toBeInTheDocument()
+    expect(within(limitations).getByText("High Overfitting Risk")).toBeInTheDocument()
+    expect(within(limitations).getByText("Need More Experimental Labels")).toBeInTheDocument()
+    expect(within(limitations).getByText("Not Final Recommendation")).toBeInTheDocument()
     expect(within(limitations).queryByText("?")).not.toBeInTheDocument()
   })
 })
