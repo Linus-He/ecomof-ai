@@ -1,0 +1,98 @@
+{
+  "version": "v3.5",
+  "generatedAt": "2026-06-19",
+  "generator": "scripts/build-v3-5-model-credibility.mjs",
+  "graphId": "reaction-evidence-graph-v1",
+  "title": "CO₂ → intermediate → formic acid",
+  "status": "decision-support / evidence layer (experimental + literature + derived counts; hypothesis edges flagged)",
+  "nodes": [
+    {
+      "id": "co2",
+      "label": "CO₂",
+      "type": "reactant"
+    },
+    {
+      "id": "hco3",
+      "label": "HCO₃⁻",
+      "type": "co-reactant"
+    },
+    {
+      "id": "c1_intermediate",
+      "label": "C1 intermediate",
+      "type": "intermediate"
+    },
+    {
+      "id": "hcoo",
+      "label": "HCOO⁻ (formate)",
+      "type": "intermediate"
+    },
+    {
+      "id": "formic_acid",
+      "label": "Formic Acid",
+      "type": "product"
+    }
+  ],
+  "edges": [
+    {
+      "source": "co2",
+      "target": "hco3",
+      "label": "CO₂ hydration / bicarbonate equilibrium",
+      "evidenceCount": 2,
+      "experimentalCount": 0,
+      "literatureCount": 2,
+      "derivedCount": 0,
+      "confidence": "Medium",
+      "confidenceScore": 1
+    },
+    {
+      "source": "hco3",
+      "target": "c1_intermediate",
+      "label": "bicarbonate activation",
+      "evidenceCount": 1,
+      "experimentalCount": 0,
+      "literatureCount": 1,
+      "derivedCount": 0,
+      "confidence": "Low",
+      "confidenceScore": 0.5
+    },
+    {
+      "source": "co2",
+      "target": "hcoo",
+      "label": "CO₂ reduction to formate",
+      "evidenceCount": 715,
+      "experimentalCount": 40,
+      "literatureCount": 155,
+      "derivedCount": 520,
+      "confidence": "High",
+      "confidenceScore": 221.5
+    },
+    {
+      "source": "c1_intermediate",
+      "target": "hcoo",
+      "label": "C1 stabilization to formate",
+      "evidenceCount": 1,
+      "experimentalCount": 0,
+      "literatureCount": 1,
+      "derivedCount": 0,
+      "confidence": "Low",
+      "confidenceScore": 0.5
+    },
+    {
+      "source": "hcoo",
+      "target": "formic_acid",
+      "label": "protonation to formic acid",
+      "evidenceCount": 714,
+      "experimentalCount": 40,
+      "literatureCount": 154,
+      "derivedCount": 520,
+      "confidence": "High",
+      "confidenceScore": 221
+    }
+  ],
+  "summary": {
+    "experimentalEvidence": 40,
+    "literatureEvidence": 152,
+    "derivedEvidence": 520,
+    "highConfidenceEdges": 2
+  }
+}

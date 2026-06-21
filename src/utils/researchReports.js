@@ -383,6 +383,7 @@ export function generateResearchReport({
   dataAudit = null,
   dataIngestion = null,
   firstBenchmark = null,
+  credibility = null,
 } = {}) {
   if (type === "organic_acid") {
     return buildOrganicAcidReport({ organicAcidResult, versionData, timestamp, dataFoundation })
@@ -461,6 +462,28 @@ export function generateResearchReport({
       body: ready
         ? `Status：Ready（Result ${firstBenchmark.result}）。第一个真实 Benchmark 已运行：${(firstBenchmark.models || []).map(m => `${m.model} acc ${m.accuracy} / ROC ${m.rocAuc}`).join("；")}。最佳模型 ${best?.model}。Accuracy / Precision / Recall / F1 / ROC-AUC 合法显示（来自真实拟合模型，非伪造）。`
         : `Status：${firstBenchmark.overallStatus || "Pending"}（Result ${firstBenchmark.result}）。Accuracy / ROC-AUC 继续 Pending，原因：${(firstBenchmark.pendingReasons || []).join(" ")}`,
+    })
+  }
+  if (credibility?.credibility) {
+    const best = credibility.bestModel
+    const fi = (credibility.featureImportance?.find(f => f.model === best)?.rows || []).slice(0, 5)
+    sections.push({
+      title: "Model Explainability Summary",
+      subtitle: "模型可解释性摘要",
+      body: `Best model: ${best}。Top Features（permutation importance）：${fi.map(r => `${r.label} ${r.importance}（贡献 ${Math.round(r.contribution * 100)}%）`).join("；") || "pending"}。Importance Ranking 来自 V3.4 真实模型在外部测试集上的表现，未伪造。${credibility.explainability?.whyRandomForestFirst || ""}`,
+    })
+    const cv5 = credibility.crossValidation?.fiveFold?.models?.find(m => m.model === best) || {}
+    const cv10 = credibility.crossValidation?.tenFold?.models?.find(m => m.model === best) || {}
+    const stab = credibility.stability?.fiveFold?.rows?.find(r => r.model === best) || {}
+    sections.push({
+      title: "Cross Validation Summary",
+      subtitle: "交叉验证摘要",
+      body: `${best} 5-fold：Mean Accuracy ${cv5.accuracyMean} ± ${cv5.accuracyStd}，Mean ROC ${cv5.rocMean} ± ${cv5.rocStd}。10-fold：Mean Accuracy ${cv10.accuracyMean} ± ${cv10.accuracyStd}，Mean ROC ${cv10.rocMean} ± ${cv10.rocStd}。Stability：${stab.stability}（CV ${stab.coefficientOfVariation}）。交叉验证为并行稳定性诊断，V3.4 Benchmark 的 Accuracy/ROC 保持不变。`,
+    })
+    sections.push({
+      title: "Model Credibility Summary",
+      subtitle: "模型可信度摘要",
+      body: `Credibility Score ${credibility.credibility.score} / 100（Grade ${credibility.credibility.grade}）。Components：Benchmark ${credibility.credibility.components.benchmark} · CrossValidation ${credibility.credibility.components.crossValidation} · Stability ${credibility.credibility.components.stability} · Sensitivity ${credibility.credibility.components.sensitivity} · DataQuality ${credibility.credibility.components.dataQuality}。Known Limitations：${(credibility.credibility.knownLimitations || []).join(" ")}`,
     })
   }
   const charts = buildReportCharts({ records: rows, summary, priorityMode: priority.modeId })

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.4",
+  "currentVersion": "V3.5",
   "generatedAt": "2026-06-19",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
@@ -478,6 +478,26 @@
         "UI",
         "Testing"
       ]
+    },
+    {
+      "version": "V3.5",
+      "date": "2026-06-19",
+      "commit": "pending-current",
+      "summary": "Model Credibility, Explainability & Scientific Validation: explain and validate the frozen V3.4 benchmark without changing it.",
+      "scientificImpact": "首次建立模型可信度体系：从“能运行”进入“为什么可信”。",
+      "databaseImpact": "未扩数据库、未新增标签、未修改 V3.4 Benchmark/Ground Truth/Split。新增 model_credibility_report_v1.json、reaction_evidence_graph_v1.json。",
+      "algorithmImpact": "新增真实分析引擎：permutation feature importance、模型可解释性（LR 系数 / DT 决策路径与分裂重要性 / RF 重要性与树共识）、5-/10-fold 交叉验证、稳定性审计、敏感性分析、特征消融、模型可信度评分（0–100，A/B/C/D）、证据置信度、反应证据图、Benchmark Credibility Audit。从“能运行”到“能解释”。",
+      "validationImpact": "引入交叉验证与敏感性分析：RF 5-fold Accuracy 0.75±0.08 / ROC 0.885±0.08（Moderately Stable）；敏感性 baseline 精确复现 V3.4 外部测试 0.667/0.706；关键特征 Metal Node（electronegativity）；Credibility Score 77.45（Grade B）。Accuracy/ROC 全部来自 V3.4 Benchmark，未伪造。",
+      "uiImpact": "Algorithm Validation Center 新增 Model Explainability Center、Feature Importance Workbench、Cross Validation Dashboard、Model Credibility Score；Interactive Scientific Figure 新增 Figure C（模型对比）/ D（特征重要性）/ E（验证与局限）；Organic Acid 新增 Reaction Evidence Graph（CO₂→甲酸，交互式 SVG）；EcoScreen 新增 Show Feature Importance / Show Evidence Confidence 与“为什么推荐”；Research Reports 新增 Explainability / Cross Validation / Credibility 摘要。",
+      "knownLimitations": "实验标签规模仍较小（40 条），交叉验证方差较大、可信度受数据规模限制；10-fold 折内样本少，单折指标波动属正常。",
+      "breakingChanges": "None.",
+      "nextVersionGoal": "扩大实验标签语料，提升交叉验证统计效力与可信度评分。",
+      "categories": [
+        "Validation",
+        "Algorithm",
+        "UI",
+        "Testing"
+      ]
     }
   ],
   "releaseNotes": [
@@ -774,6 +794,11 @@
       "version": "V3.4",
       "stage": "Experimental Label & First Real Benchmark",
       "maturity": 95
+    },
+    {
+      "version": "V3.5",
+      "stage": "Model Credibility & Scientific Validation",
+      "maturity": 97
     }
   ],
   "databaseEvolution": [

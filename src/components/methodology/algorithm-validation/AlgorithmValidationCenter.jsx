@@ -18,6 +18,7 @@ import { DESCRIPTOR_CLASSES } from "../../../utils/algorithmValidationFigure"
 import { InteractiveScientificFigure } from "./InteractiveScientificFigure"
 import { ExperimentalLabelDashboard } from "./ExperimentalLabelDashboard"
 import { ModelLeaderboard } from "./ModelLeaderboard"
+import { ModelCredibilityCenter } from "../model-credibility/ModelCredibilityCenter"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 const pct = value => (Number.isFinite(Number(value)) ? `${Math.round(Number(value) * 100)}%` : String(value ?? "pending"))
@@ -35,6 +36,10 @@ export const ALGORITHM_VALIDATION_DIRECTORY = {
     { id: "algval-experimental-labels", label: "Experimental Label Status", labelZh: "实验标签状态" },
     { id: "algval-model-leaderboard", label: "Model Leaderboard", labelZh: "模型排行榜" },
     { id: "algval-first-benchmark", label: "First Real Benchmark", labelZh: "首个真实 Benchmark" },
+    { id: "algval-explainability", label: "Model Explainability Center", labelZh: "模型可解释性中心" },
+    { id: "algval-feature-importance", label: "Feature Importance Workbench", labelZh: "特征重要性工作台" },
+    { id: "algval-cross-validation", label: "Cross Validation Dashboard", labelZh: "交叉验证仪表板" },
+    { id: "algval-credibility", label: "Model Credibility Score", labelZh: "模型可信度评分" },
     { id: "algval-database", label: "Database Layer", labelZh: "数据库层" },
     { id: "algval-descriptor", label: "Descriptor Layer", labelZh: "描述符层" },
     { id: "algval-feature-selection", label: "Feature Selection Explorer", labelZh: "特征选择探索器" },
@@ -509,7 +514,7 @@ function FirstBenchmarkDashboard({ dataAudit, lang, t, isMobile }) {
   )
 }
 
-export function AlgorithmValidationCenter({ summary = {}, organicAcidResult = null, dataFoundation = null, dataAudit = null, dataIngestion = null, firstBenchmark = null, lang, t, isMobile }) {
+export function AlgorithmValidationCenter({ summary = {}, organicAcidResult = null, dataFoundation = null, dataAudit = null, dataIngestion = null, firstBenchmark = null, credibility = null, lang, t, isMobile }) {
   const algorithm = organicAcidResult?.organicAcidAlgorithm || organicAcidResult || {}
   const safeSummary = summary && typeof summary === "object" ? summary : {}
   const readiness = useMemo(() => buildBenchmarkReadiness({ summary: safeSummary, algorithm }), [safeSummary, algorithm])
@@ -544,6 +549,7 @@ export function AlgorithmValidationCenter({ summary = {}, organicAcidResult = nu
       <DataAuditCenter dataAudit={dataAudit} lang={lang} t={t} isMobile={isMobile} />
       <ExperimentalLabelDashboard firstBenchmark={firstBenchmark} lang={lang} t={t} isMobile={isMobile} />
       <ModelLeaderboard firstBenchmark={firstBenchmark} lang={lang} t={t} isMobile={isMobile} />
+      <ModelCredibilityCenter credibility={credibility} firstBenchmark={firstBenchmark} lang={lang} t={t} isMobile={isMobile} />
       <FirstBenchmarkDashboard dataAudit={dataAudit} lang={lang} t={t} isMobile={isMobile} />
 
       <DatabaseLayer summary={safeSummary} readiness={readiness} dataFoundation={dataFoundation} dataIngestion={dataIngestion} lang={lang} t={t} isMobile={isMobile} />

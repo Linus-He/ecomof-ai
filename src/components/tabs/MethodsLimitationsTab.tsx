@@ -19,6 +19,7 @@ import { MethodologySectionSkeleton } from "../methodology/MethodologySkeleton"
 import { MethodFormulaCard } from "../methodology/MethodFormulaCard"
 import { MethodModuleSection } from "../methodology/MethodModuleSection"
 import { AlgorithmValidationCenter, ALGORITHM_VALIDATION_DIRECTORY } from "../methodology/algorithm-validation/AlgorithmValidationCenter"
+import { ReactionEvidenceGraph } from "../methodology/model-credibility/ReactionEvidenceGraph"
 import { ORGANIC_ACID_FINAL_DIRECTORY } from "../methodology/organic-acid-final/directory"
 import { runOrganicAcidFinalScreening } from "../../utils/organicAcidFinalScreening"
 import { summarizeDataFoundation } from "../../utils/dataFoundation"
@@ -295,6 +296,8 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
   const [dataAudit, setDataAudit] = useState(null)
   const [dataIngestion, setDataIngestion] = useState(null)
   const [firstBenchmark, setFirstBenchmark] = useState(null)
+  const [credibility, setCredibility] = useState(null)
+  const [reactionGraph, setReactionGraph] = useState(null)
   const [activeId, setActiveId] = useState("methodology-algorithm-validation")
 
   useEffect(() => {
@@ -316,8 +319,10 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
       fetchDataJson("data_ingestion/source_registry.json", null),
       fetchDataJson("data_ingestion/data_ingestion_summary_v3.json", null),
       fetchDataJson("first_real_benchmark_report_v1.json", null),
+      fetchDataJson("model_credibility_report_v1.json", null),
+      fetchDataJson("reaction_evidence_graph_v1.json", null),
     ])
-      .then(([rows, previewSummary, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry, ingestionSummaryV3, firstBenchmarkReport]) => {
+      .then(([rows, previewSummary, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry, ingestionSummaryV3, firstBenchmarkReport, credibilityReport, reactionGraphData]) => {
         if (!active) return
         setModules(Array.isArray(rows) ? rows : [])
         setModelValidationSummary(previewSummary && typeof previewSummary === "object" ? previewSummary : null)
@@ -326,6 +331,8 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
         setDataAudit(runDataAudit({ gold, labels, benchmark, reaction, sampleSize: 100 }))
         setDataIngestion(ingestionSummaryV3 && typeof ingestionSummaryV3 === "object" ? ingestionSummaryV3 : null)
         setFirstBenchmark(firstBenchmarkReport && typeof firstBenchmarkReport === "object" ? firstBenchmarkReport : null)
+        setCredibility(credibilityReport && typeof credibilityReport === "object" ? credibilityReport : null)
+        setReactionGraph(reactionGraphData && typeof reactionGraphData === "object" ? reactionGraphData : null)
       })
       .catch(() => {
         if (active) {
@@ -336,6 +343,8 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
           setDataAudit(null)
           setDataIngestion(null)
           setFirstBenchmark(null)
+          setCredibility(null)
+          setReactionGraph(null)
         }
       })
     return () => { active = false }
@@ -443,10 +452,12 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
             dataAudit={dataAudit}
             dataIngestion={dataIngestion}
             firstBenchmark={firstBenchmark}
+            credibility={credibility}
             lang={lang}
             t={t}
             isMobile={isMobile || isNarrow}
           />
+          {reactionGraph ? <ReactionEvidenceGraph graph={reactionGraph} lang={lang} t={t} isMobile={isMobile || isNarrow} /> : null}
 
           <section id="methodology-platform-overview" style={{ display: "grid", gap: 16, scrollMarginTop: 118 }}>
             <PlatformFlowCard lang={lang} t={t} isMobile={isMobile} />

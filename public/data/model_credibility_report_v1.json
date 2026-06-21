@@ -1,0 +1,998 @@
+{
+  "version": "v3.5",
+  "generatedAt": "2026-06-19",
+  "generator": "scripts/build-v3-5-model-credibility.mjs",
+  "honestyBoundary": "V3.5 explains and validates the frozen V3.4 models — no new labels, no retrained benchmark, no modified Accuracy/ROC. Cross validation / sensitivity / ablation are parallel diagnostics; the headline Accuracy/ROC come from first_real_benchmark_report_v1.json.",
+  "reportId": "model-credibility-report-v1",
+  "bestModel": "Random Forest",
+  "benchmarkSource": "first_real_benchmark_report_v1.json (V3.4, frozen)",
+  "featureImportance": [
+    {
+      "model": "Logistic Regression",
+      "method": "permutation_importance",
+      "evalSize": 36,
+      "rows": [
+        {
+          "feature": "surfaceArea",
+          "label": "Surface Area",
+          "importance": 0.0509,
+          "importanceStd": 0.0518,
+          "contribution": 1,
+          "rank": 1
+        },
+        {
+          "feature": "temperature",
+          "label": "Temperature",
+          "importance": 0,
+          "importanceStd": 0.0666,
+          "contribution": 0,
+          "rank": 2
+        },
+        {
+          "feature": "pressure",
+          "label": "Pressure",
+          "importance": 0,
+          "importanceStd": 0.0356,
+          "contribution": 0,
+          "rank": 3
+        },
+        {
+          "feature": "reactionTime",
+          "label": "Reaction Time",
+          "importance": 0,
+          "importanceStd": 0.0349,
+          "contribution": 0,
+          "rank": 4
+        },
+        {
+          "feature": "metalElectronegativity",
+          "label": "Metal Node (electronegativity)",
+          "importance": 0,
+          "importanceStd": 0.0635,
+          "contribution": 0,
+          "rank": 5
+        },
+        {
+          "feature": "voidFraction",
+          "label": "Void Fraction",
+          "importance": 0,
+          "importanceStd": 0.0212,
+          "contribution": 0,
+          "rank": 6
+        }
+      ],
+      "source": "first_real_benchmark_report_v1 (V3.4 models, frozen)"
+    },
+    {
+      "model": "Decision Tree",
+      "method": "permutation_importance",
+      "evalSize": 36,
+      "rows": [
+        {
+          "feature": "metalElectronegativity",
+          "label": "Metal Node (electronegativity)",
+          "importance": 0.0579,
+          "importanceStd": 0.0666,
+          "contribution": 0.5437,
+          "rank": 1
+        },
+        {
+          "feature": "temperature",
+          "label": "Temperature",
+          "importance": 0.0278,
+          "importanceStd": 0.034,
+          "contribution": 0.261,
+          "rank": 2
+        },
+        {
+          "feature": "surfaceArea",
+          "label": "Surface Area",
+          "importance": 0.0208,
+          "importanceStd": 0.0426,
+          "contribution": 0.1953,
+          "rank": 3
+        },
+        {
+          "feature": "pressure",
+          "label": "Pressure",
+          "importance": 0,
+          "importanceStd": 0.0288,
+          "contribution": 0,
+          "rank": 4
+        },
+        {
+          "feature": "reactionTime",
+          "label": "Reaction Time",
+          "importance": 0,
+          "importanceStd": 0,
+          "contribution": 0,
+          "rank": 5
+        },
+        {
+          "feature": "voidFraction",
+          "label": "Void Fraction",
+          "importance": 0,
+          "importanceStd": 0,
+          "contribution": 0,
+          "rank": 6
+        }
+      ],
+      "source": "first_real_benchmark_report_v1 (V3.4 models, frozen)"
+    },
+    {
+      "model": "Random Forest",
+      "method": "permutation_importance",
+      "evalSize": 36,
+      "rows": [
+        {
+          "feature": "temperature",
+          "label": "Temperature",
+          "importance": 0.0324,
+          "importanceStd": 0.0465,
+          "contribution": 0.4992,
+          "rank": 1
+        },
+        {
+          "feature": "metalElectronegativity",
+          "label": "Metal Node (electronegativity)",
+          "importance": 0.0301,
+          "importanceStd": 0.0572,
+          "contribution": 0.4638,
+          "rank": 2
+        },
+        {
+          "feature": "surfaceArea",
+          "label": "Surface Area",
+          "importance": 0.0024,
+          "importanceStd": 0.0349,
+          "contribution": 0.037,
+          "rank": 3
+        },
+        {
+          "feature": "pressure",
+          "label": "Pressure",
+          "importance": 0,
+          "importanceStd": 0.023,
+          "contribution": 0,
+          "rank": 4
+        },
+        {
+          "feature": "reactionTime",
+          "label": "Reaction Time",
+          "importance": 0,
+          "importanceStd": 0.0211,
+          "contribution": 0,
+          "rank": 5
+        },
+        {
+          "feature": "voidFraction",
+          "label": "Void Fraction",
+          "importance": 0,
+          "importanceStd": 0.0265,
+          "contribution": 0,
+          "rank": 6
+        }
+      ],
+      "source": "first_real_benchmark_report_v1 (V3.4 models, frozen)"
+    }
+  ],
+  "explainability": {
+    "explainabilityId": "model-explainability-v1",
+    "logisticRegression": {
+      "model": "Logistic Regression",
+      "bias": 1.2888,
+      "coefficients": [
+        {
+          "feature": "metalElectronegativity",
+          "label": "Metal Node (electronegativity)",
+          "coefficient": 1.6444,
+          "absCoefficient": 1.6444,
+          "direction": "positive"
+        },
+        {
+          "feature": "surfaceArea",
+          "label": "Surface Area",
+          "coefficient": 0.8511,
+          "absCoefficient": 0.8511,
+          "direction": "positive"
+        },
+        {
+          "feature": "temperature",
+          "label": "Temperature",
+          "coefficient": 0.6579,
+          "absCoefficient": 0.6579,
+          "direction": "positive"
+        },
+        {
+          "feature": "pressure",
+          "label": "Pressure",
+          "coefficient": 0.5977,
+          "absCoefficient": 0.5977,
+          "direction": "positive"
+        },
+        {
+          "feature": "voidFraction",
+          "label": "Void Fraction",
+          "coefficient": 0.2266,
+          "absCoefficient": 0.2266,
+          "direction": "positive"
+        },
+        {
+          "feature": "reactionTime",
+          "label": "Reaction Time",
+          "coefficient": 0.1606,
+          "absCoefficient": 0.1606,
+          "direction": "positive"
+        }
+      ],
+      "positiveContributions": [
+        {
+          "feature": "metalElectronegativity",
+          "label": "Metal Node (electronegativity)",
+          "coefficient": 1.6444,
+          "absCoefficient": 1.6444,
+          "direction": "positive"
+        },
+        {
+          "feature": "surfaceArea",
+          "label": "Surface Area",
+          "coefficient": 0.8511,
+          "absCoefficient": 0.8511,
+          "direction": "positive"
+        },
+        {
+          "feature": "temperature",
+          "label": "Temperature",
+          "coefficient": 0.6579,
+          "absCoefficient": 0.6579,
+          "direction": "positive"
+        },
+        {
+          "feature": "pressure",
+          "label": "Pressure",
+          "coefficient": 0.5977,
+          "absCoefficient": 0.5977,
+          "direction": "positive"
+        },
+        {
+          "feature": "voidFraction",
+          "label": "Void Fraction",
+          "coefficient": 0.2266,
+          "absCoefficient": 0.2266,
+          "direction": "positive"
+        },
+        {
+          "feature": "reactionTime",
+          "label": "Reaction Time",
+          "coefficient": 0.1606,
+          "absCoefficient": 0.1606,
+          "direction": "positive"
+        }
+      ],
+      "negativeContributions": [],
+      "note": "Coefficients are on standardized features, so their magnitudes are directly comparable as feature weights."
+    },
+    "decisionTree": {
+      "model": "Decision Tree",
+      "totalSplits": 5,
+      "splitImportance": [
+        {
+          "feature": "temperature",
+          "label": "Temperature",
+          "splits": 2,
+          "importance": 0.4
+        },
+        {
+          "feature": "pressure",
+          "label": "Pressure",
+          "splits": 1,
+          "importance": 0.2
+        },
+        {
+          "feature": "metalElectronegativity",
+          "label": "Metal Node (electronegativity)",
+          "splits": 1,
+          "importance": 0.2
+        },
+        {
+          "feature": "surfaceArea",
+          "label": "Surface Area",
+          "splits": 1,
+          "importance": 0.2
+        },
+        {
+          "feature": "reactionTime",
+          "label": "Reaction Time",
+          "splits": 0,
+          "importance": 0
+        },
+        {
+          "feature": "voidFraction",
+          "label": "Void Fraction",
+          "splits": 0,
+          "importance": 0
+        }
+      ],
+      "decisionPath": [
+        {
+          "feature": "metalElectronegativity",
+          "label": "Metal Node (electronegativity)",
+          "threshold": 1.72,
+          "value": 2.33,
+          "direction": ">"
+        },
+        {
+          "feature": "pressure",
+          "label": "Pressure",
+          "threshold": 8,
+          "value": 3,
+          "direction": "<="
+        },
+        {
+          "leaf": true,
+          "proba": 0
+        }
+      ]
+    },
+    "randomForest": {
+      "model": "Random Forest",
+      "trees": 40,
+      "featureImportance": [
+        {
+          "feature": "temperature",
+          "label": "Temperature",
+          "importance": 0.0324,
+          "importanceStd": 0.0465,
+          "contribution": 0.4992,
+          "rank": 1
+        },
+        {
+          "feature": "metalElectronegativity",
+          "label": "Metal Node (electronegativity)",
+          "importance": 0.0301,
+          "importanceStd": 0.0572,
+          "contribution": 0.4638,
+          "rank": 2
+        },
+        {
+          "feature": "surfaceArea",
+          "label": "Surface Area",
+          "importance": 0.0024,
+          "importanceStd": 0.0349,
+          "contribution": 0.037,
+          "rank": 3
+        },
+        {
+          "feature": "pressure",
+          "label": "Pressure",
+          "importance": 0,
+          "importanceStd": 0.023,
+          "contribution": 0,
+          "rank": 4
+        },
+        {
+          "feature": "reactionTime",
+          "label": "Reaction Time",
+          "importance": 0,
+          "importanceStd": 0.0211,
+          "contribution": 0,
+          "rank": 5
+        },
+        {
+          "feature": "voidFraction",
+          "label": "Void Fraction",
+          "importance": 0,
+          "importanceStd": 0.0265,
+          "contribution": 0,
+          "rank": 6
+        }
+      ],
+      "treeConsensus": 0.4444,
+      "consensusLevel": "Moderate"
+    },
+    "whyRandomForestFirst": "Random Forest tops the V3.4 external-test ROC-AUC by averaging many decorrelated trees (bagging + feature subsampling), which lowers variance versus a single Decision Tree and captures non-linear feature interactions a single Logistic Regression cannot."
+  },
+  "crossValidation": {
+    "fiveFold": {
+      "runId": "cross-validation-5fold",
+      "k": 5,
+      "datasetSize": 40,
+      "models": [
+        {
+          "model": "Logistic Regression",
+          "folds": [
+            {
+              "fold": 1,
+              "accuracy": 0.875,
+              "roc": 0.8333,
+              "f1": 0.9091
+            },
+            {
+              "fold": 2,
+              "accuracy": 0.75,
+              "roc": 0.8333,
+              "f1": 0.8333
+            },
+            {
+              "fold": 3,
+              "accuracy": 1,
+              "roc": 1,
+              "f1": 1
+            },
+            {
+              "fold": 4,
+              "accuracy": 0.625,
+              "roc": 0.6,
+              "f1": 0.7273
+            },
+            {
+              "fold": 5,
+              "accuracy": 0.625,
+              "roc": 0.5333,
+              "f1": 0.7692
+            }
+          ],
+          "accuracyMean": 0.775,
+          "accuracyStd": 0.1458,
+          "rocMean": 0.76,
+          "rocStd": 0.1705,
+          "f1Mean": 0.8478,
+          "f1Std": 0.0978,
+          "stabilityScore": 0.8119
+        },
+        {
+          "model": "Decision Tree",
+          "folds": [
+            {
+              "fold": 1,
+              "accuracy": 0.75,
+              "roc": 0.8333,
+              "f1": 0.8
+            },
+            {
+              "fold": 2,
+              "accuracy": 0.625,
+              "roc": 0.5833,
+              "f1": 0.7273
+            },
+            {
+              "fold": 3,
+              "accuracy": 0.625,
+              "roc": 0.5,
+              "f1": 0.7692
+            },
+            {
+              "fold": 4,
+              "accuracy": 0.75,
+              "roc": 0.7333,
+              "f1": 0.8
+            },
+            {
+              "fold": 5,
+              "accuracy": 0.5,
+              "roc": 0.4,
+              "f1": 0.6667
+            }
+          ],
+          "accuracyMean": 0.65,
+          "accuracyStd": 0.0935,
+          "rocMean": 0.61,
+          "rocStd": 0.1562,
+          "f1Mean": 0.7526,
+          "f1Std": 0.0506,
+          "stabilityScore": 0.8561
+        },
+        {
+          "model": "Random Forest",
+          "folds": [
+            {
+              "fold": 1,
+              "accuracy": 0.75,
+              "roc": 0.9167,
+              "f1": 0.8333
+            },
+            {
+              "fold": 2,
+              "accuracy": 0.875,
+              "roc": 0.875,
+              "f1": 0.9091
+            },
+            {
+              "fold": 3,
+              "accuracy": 0.75,
+              "roc": 0.8667,
+              "f1": 0.8333
+            },
+            {
+              "fold": 4,
+              "accuracy": 0.625,
+              "roc": 0.7667,
+              "f1": 0.6667
+            },
+            {
+              "fold": 5,
+              "accuracy": 0.75,
+              "roc": 1,
+              "f1": 0.8333
+            }
+          ],
+          "accuracyMean": 0.75,
+          "accuracyStd": 0.0791,
+          "rocMean": 0.885,
+          "rocStd": 0.0757,
+          "f1Mean": 0.8151,
+          "f1Std": 0.0798,
+          "stabilityScore": 0.8946
+        }
+      ]
+    },
+    "tenFold": {
+      "runId": "cross-validation-10fold",
+      "k": 10,
+      "datasetSize": 40,
+      "models": [
+        {
+          "model": "Logistic Regression",
+          "folds": [
+            {
+              "fold": 1,
+              "accuracy": 0.75,
+              "roc": 0.6667,
+              "f1": 0.8
+            },
+            {
+              "fold": 2,
+              "accuracy": 1,
+              "roc": null,
+              "f1": 1
+            },
+            {
+              "fold": 3,
+              "accuracy": 1,
+              "roc": null,
+              "f1": 1
+            },
+            {
+              "fold": 4,
+              "accuracy": 0.25,
+              "roc": 0.5,
+              "f1": 0.4
+            },
+            {
+              "fold": 5,
+              "accuracy": 0.5,
+              "roc": 0.75,
+              "f1": 0.6667
+            },
+            {
+              "fold": 6,
+              "accuracy": 1,
+              "roc": 1,
+              "f1": 1
+            },
+            {
+              "fold": 7,
+              "accuracy": 0.5,
+              "roc": 0.5,
+              "f1": 0.5
+            },
+            {
+              "fold": 8,
+              "accuracy": 1,
+              "roc": 1,
+              "f1": 1
+            },
+            {
+              "fold": 9,
+              "accuracy": 1,
+              "roc": 1,
+              "f1": 1
+            },
+            {
+              "fold": 10,
+              "accuracy": 0.75,
+              "roc": 0.3333,
+              "f1": 0.8571
+            }
+          ],
+          "accuracyMean": 0.775,
+          "accuracyStd": 0.261,
+          "rocMean": 0.7188,
+          "rocStd": 0.2463,
+          "f1Mean": 0.8224,
+          "f1Std": 0.2159,
+          "stabilityScore": 0.6632
+        },
+        {
+          "model": "Decision Tree",
+          "folds": [
+            {
+              "fold": 1,
+              "accuracy": 0.75,
+              "roc": 0.8333,
+              "f1": 0.8
+            },
+            {
+              "fold": 2,
+              "accuracy": 0.5,
+              "roc": null,
+              "f1": 0.6667
+            },
+            {
+              "fold": 3,
+              "accuracy": 0.75,
+              "roc": null,
+              "f1": 0.8571
+            },
+            {
+              "fold": 4,
+              "accuracy": 1,
+              "roc": 1,
+              "f1": 1
+            },
+            {
+              "fold": 5,
+              "accuracy": 0.25,
+              "roc": 0.25,
+              "f1": 0.4
+            },
+            {
+              "fold": 6,
+              "accuracy": 0.75,
+              "roc": 0.8333,
+              "f1": 0.8
+            },
+            {
+              "fold": 7,
+              "accuracy": 0.5,
+              "roc": 0.5,
+              "f1": 0.5
+            },
+            {
+              "fold": 8,
+              "accuracy": 0.25,
+              "roc": 0.5,
+              "f1": 0.4
+            },
+            {
+              "fold": 9,
+              "accuracy": 0.5,
+              "roc": 0.3333,
+              "f1": 0.6667
+            },
+            {
+              "fold": 10,
+              "accuracy": 0.75,
+              "roc": 0.5,
+              "f1": 0.8571
+            }
+          ],
+          "accuracyMean": 0.6,
+          "accuracyStd": 0.2291,
+          "rocMean": 0.5937,
+          "rocStd": 0.248,
+          "f1Mean": 0.6948,
+          "f1Std": 0.1953,
+          "stabilityScore": 0.6181
+        },
+        {
+          "model": "Random Forest",
+          "folds": [
+            {
+              "fold": 1,
+              "accuracy": 0.5,
+              "roc": 0.6667,
+              "f1": 0.6667
+            },
+            {
+              "fold": 2,
+              "accuracy": 0.5,
+              "roc": null,
+              "f1": 0.6667
+            },
+            {
+              "fold": 3,
+              "accuracy": 1,
+              "roc": null,
+              "f1": 1
+            },
+            {
+              "fold": 4,
+              "accuracy": 0.75,
+              "roc": 0.75,
+              "f1": 0.6667
+            },
+            {
+              "fold": 5,
+              "accuracy": 0.5,
+              "roc": 1,
+              "f1": 0.6667
+            },
+            {
+              "fold": 6,
+              "accuracy": 1,
+              "roc": 1,
+              "f1": 1
+            },
+            {
+              "fold": 7,
+              "accuracy": 0.75,
+              "roc": 0.875,
+              "f1": 0.6667
+            },
+            {
+              "fold": 8,
+              "accuracy": 0.5,
+              "roc": 1,
+              "f1": 0.5
+            },
+            {
+              "fold": 9,
+              "accuracy": 0.75,
+              "roc": 0.8333,
+              "f1": 0.8571
+            },
+            {
+              "fold": 10,
+              "accuracy": 1,
+              "roc": 1,
+              "f1": 1
+            }
+          ],
+          "accuracyMean": 0.725,
+          "accuracyStd": 0.2077,
+          "rocMean": 0.8906,
+          "rocStd": 0.1231,
+          "f1Mean": 0.7691,
+          "f1Std": 0.171,
+          "stabilityScore": 0.7136
+        }
+      ]
+    }
+  },
+  "stability": {
+    "fiveFold": {
+      "auditId": "model-stability-audit",
+      "k": 5,
+      "rows": [
+        {
+          "model": "Logistic Regression",
+          "meanAccuracy": 0.775,
+          "variance": 0.0212,
+          "std": 0.1458,
+          "coefficientOfVariation": 0.1881,
+          "stability": "Moderately Stable",
+          "stabilityScore": 0.8119
+        },
+        {
+          "model": "Decision Tree",
+          "meanAccuracy": 0.65,
+          "variance": 0.0087,
+          "std": 0.0935,
+          "coefficientOfVariation": 0.1439,
+          "stability": "Moderately Stable",
+          "stabilityScore": 0.8561
+        },
+        {
+          "model": "Random Forest",
+          "meanAccuracy": 0.75,
+          "variance": 0.0063,
+          "std": 0.0791,
+          "coefficientOfVariation": 0.1054,
+          "stability": "Moderately Stable",
+          "stabilityScore": 0.8946
+        }
+      ],
+      "overallStability": "Moderately Stable",
+      "note": "Stability is judged from the coefficient of variation of cross-validation fold accuracy. Small experimental-label sets naturally show higher variance."
+    },
+    "tenFold": {
+      "auditId": "model-stability-audit",
+      "k": 10,
+      "rows": [
+        {
+          "model": "Logistic Regression",
+          "meanAccuracy": 0.775,
+          "variance": 0.0681,
+          "std": 0.261,
+          "coefficientOfVariation": 0.3368,
+          "stability": "Unstable",
+          "stabilityScore": 0.6632
+        },
+        {
+          "model": "Decision Tree",
+          "meanAccuracy": 0.6,
+          "variance": 0.0525,
+          "std": 0.2291,
+          "coefficientOfVariation": 0.3819,
+          "stability": "Unstable",
+          "stabilityScore": 0.6181
+        },
+        {
+          "model": "Random Forest",
+          "meanAccuracy": 0.725,
+          "variance": 0.0431,
+          "std": 0.2077,
+          "coefficientOfVariation": 0.2864,
+          "stability": "Unstable",
+          "stabilityScore": 0.7136
+        }
+      ],
+      "overallStability": "Unstable",
+      "note": "Stability is judged from the coefficient of variation of cross-validation fold accuracy. Small experimental-label sets naturally show higher variance."
+    }
+  },
+  "sensitivity": {
+    "analysisId": "sensitivity-analysis-v1",
+    "model": "Random Forest",
+    "evalSize": 36,
+    "baseline": {
+      "accuracy": 0.6667,
+      "rocAuc": 0.7062
+    },
+    "features": [
+      {
+        "feature": "metalElectronegativity",
+        "label": "Metal Node (electronegativity)",
+        "accuracyWithout": 0.5833,
+        "rocWithout": 0.513,
+        "accuracyDrop": 0.0834,
+        "rocDrop": 0.1932
+      },
+      {
+        "feature": "temperature",
+        "label": "Temperature",
+        "accuracyWithout": 0.6389,
+        "rocWithout": 0.6916,
+        "accuracyDrop": 0.0278,
+        "rocDrop": 0.0146
+      },
+      {
+        "feature": "reactionTime",
+        "label": "Reaction Time",
+        "accuracyWithout": 0.6389,
+        "rocWithout": 0.6964,
+        "accuracyDrop": 0.0278,
+        "rocDrop": 0.0098
+      },
+      {
+        "feature": "surfaceArea",
+        "label": "Surface Area",
+        "accuracyWithout": 0.6667,
+        "rocWithout": 0.6851,
+        "accuracyDrop": 0,
+        "rocDrop": 0.0211
+      },
+      {
+        "feature": "pressure",
+        "label": "Pressure",
+        "accuracyWithout": 0.6944,
+        "rocWithout": 0.6721,
+        "accuracyDrop": -0.0277,
+        "rocDrop": 0.0341
+      },
+      {
+        "feature": "voidFraction",
+        "label": "Void Fraction",
+        "accuracyWithout": 0.6944,
+        "rocWithout": 0.7013,
+        "accuracyDrop": -0.0277,
+        "rocDrop": 0.0049
+      }
+    ],
+    "note": "Each feature is removed, the model retrained, and the drop in held-out accuracy / ROC measured. Larger drop = more important."
+  },
+  "ablation": {
+    "studyId": "feature-ablation-study-v1",
+    "model": "Random Forest",
+    "baseline": {
+      "accuracy": 0.6667,
+      "rocAuc": 0.7062
+    },
+    "rows": [
+      {
+        "feature": "metalElectronegativity",
+        "label": "Metal Node (electronegativity)",
+        "accuracyChange": 0.0834,
+        "rocChange": 0.1932,
+        "classification": "Critical"
+      },
+      {
+        "feature": "temperature",
+        "label": "Temperature",
+        "accuracyChange": 0.0278,
+        "rocChange": 0.0146,
+        "classification": "Useful"
+      },
+      {
+        "feature": "reactionTime",
+        "label": "Reaction Time",
+        "accuracyChange": 0.0278,
+        "rocChange": 0.0098,
+        "classification": "Useful"
+      },
+      {
+        "feature": "surfaceArea",
+        "label": "Surface Area",
+        "accuracyChange": 0,
+        "rocChange": 0.0211,
+        "classification": "Useful"
+      },
+      {
+        "feature": "pressure",
+        "label": "Pressure",
+        "accuracyChange": -0.0277,
+        "rocChange": 0.0341,
+        "classification": "Useful"
+      },
+      {
+        "feature": "voidFraction",
+        "label": "Void Fraction",
+        "accuracyChange": -0.0277,
+        "rocChange": 0.0049,
+        "classification": "Marginal"
+      }
+    ],
+    "tally": {
+      "Critical": 1,
+      "Useful": 4,
+      "Marginal": 1
+    },
+    "criticalFeatures": [
+      "Metal Node (electronegativity)"
+    ],
+    "note": "Removing a Critical feature drops held-out accuracy/ROC by ≥0.05; Useful ≥0.01; Marginal below that."
+  },
+  "benchmarkCredibilityAudit": {
+    "auditId": "benchmark-credibility-audit",
+    "groundTruthQuality": "High",
+    "externalTestQuality": "High",
+    "leakageStatus": "Clean",
+    "splitQuality": "Complete 70/15/15 + external",
+    "crossValidationStatus": "Done (5-fold)",
+    "syntheticLabelCount": 0,
+    "passed": 5,
+    "total": 5,
+    "status": "Pass"
+  },
+  "credibility": {
+    "credibilityId": "model-credibility-v1",
+    "components": {
+      "benchmark": 41.24,
+      "crossValidation": 77,
+      "stability": 89.46,
+      "sensitivity": 100,
+      "dataQuality": 100
+    },
+    "weights": {
+      "benchmark": 0.25,
+      "crossValidation": 0.25,
+      "stability": 0.2,
+      "sensitivity": 0.1,
+      "dataQuality": 0.2
+    },
+    "score": 77.45,
+    "grade": "B",
+    "knownLimitations": [
+      "Experimental-label corpus is small (V3.4: 40 labels), so absolute scores and cross-validation variance are limited.",
+      "Benchmark and cross-validation metrics are read from the frozen V3.4 models — never rescaled or fabricated."
+    ],
+    "interpretation": "Good credibility, limited by data scale."
+  },
+  "answers": {
+    "whyRandomForestFirst": "Random Forest tops the V3.4 external-test ROC-AUC by averaging many decorrelated trees (bagging + feature subsampling), which lowers variance versus a single Decision Tree and captures non-linear feature interactions a single Logistic Regression cannot.",
+    "mostImportantFeatures": [
+      "Temperature",
+      "Metal Node (electronegativity)",
+      "Surface Area"
+    ],
+    "stable": "Moderately Stable",
+    "overfittingRisk": "Moderate (small dataset; gap between CV and external test monitored)",
+    "drivingFeatures": [
+      "Metal Node (electronegativity)"
+    ],
+    "credibilityScore": 77.45,
+    "credibilityGrade": "B",
+    "biggestLimitation": "Experimental-label corpus is small (40 labels); credibility is data-limited, not model-limited."
+  }
+}

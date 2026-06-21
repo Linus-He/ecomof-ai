@@ -922,6 +922,65 @@ function applyReactionFilters(candidates = [], reactionRecords = [], benchmarkRe
   })
 }
 
+// V3.5 EcoScreen explainability — surfaces "why recommended" using the model
+// feature contribution (from the credibility report) + evidence confidence (from
+// the reaction evidence graph). Read-only; no benchmark value is changed.
+function EcoScreenExplainabilityPanel({ credibility, reactionGraph, selectedCandidate, lang, t, isMobile }) {
+  const [showImportance, setShowImportance] = useState(false)
+  const [showEvidence, setShowEvidence] = useState(false)
+  const best = credibility?.bestModel
+  const rows = (credibility?.featureImportance?.find(f => f.model === best)?.rows || []).slice(0, 5)
+  const evidenceLevel = reactionGraph?.edges?.length ? (reactionGraph.summary?.highConfidenceEdges > 0 ? "High" : "Medium") : null
+  if (!credibility && !reactionGraph) return null
+  const txt = (zh, en) => (lang === "zh" ? zh : en)
+  return (
+    <Card t={t} style={{ display: "grid", gap: 10 }} data-testid="ecoscreen-explainability">
+      <div style={{ display: "grid", gap: 3 }}>
+        <strong style={{ color: t.textStrong, fontSize: 13.5 }}>{txt("可解释性与证据", "Explainability & Evidence")}</strong>
+        <span style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.5 }}>{txt("基于 V3.4 模型的特征贡献与 CO₂→甲酸路径证据置信度，解释“为什么推荐”。", "Explains “why recommended” from the V3.4 model feature contribution and CO₂→formic-acid evidence confidence.")}</span>
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+        <button type="button" data-testid="ecoscreen-show-feature-importance" aria-pressed={showImportance} onClick={() => setShowImportance(v => !v)}
+          style={{ background: showImportance ? t.badgeInfoBg : t.surface, border: `1px solid ${showImportance ? t.accent : t.border}`, borderRadius: 7, color: showImportance ? t.accentText : t.muted, cursor: "pointer", fontSize: 11.4, fontWeight: 850, minHeight: 30, padding: "5px 10px" }}>
+          {txt("显示特征重要性", "Show Feature Importance")}
+        </button>
+        <button type="button" data-testid="ecoscreen-show-evidence-confidence" aria-pressed={showEvidence} onClick={() => setShowEvidence(v => !v)}
+          style={{ background: showEvidence ? t.badgeInfoBg : t.surface, border: `1px solid ${showEvidence ? t.accent : t.border}`, borderRadius: 7, color: showEvidence ? t.accentText : t.muted, cursor: "pointer", fontSize: 11.4, fontWeight: 850, minHeight: 30, padding: "5px 10px" }}>
+          {txt("显示证据置信度", "Show Evidence Confidence")}
+        </button>
+      </div>
+      {showImportance && rows.length ? (
+        <div data-testid="ecoscreen-feature-importance" style={{ display: "grid", gap: 5 }}>
+          {rows.map(r => (
+            <div key={r.feature} style={{ alignItems: "center", display: "grid", gap: 8, gridTemplateColumns: isMobile ? "130px 1fr 44px" : "190px 1fr 52px" }}>
+              <span style={{ color: t.text, fontSize: 11.2 }}>#{r.rank} {r.label}</span>
+              <span style={{ background: t.surface, borderRadius: 4, display: "block", height: 12 }}><span style={{ background: t.accent, borderRadius: 4, display: "block", height: "100%", width: `${Math.round(r.contribution * 100)}%` }} /></span>
+              <span style={{ color: t.muted, fontSize: 10.6, textAlign: "right" }}>{Math.round(r.contribution * 100)}%</span>
+            </div>
+          ))}
+        </div>
+      ) : null}
+      {showEvidence && reactionGraph ? (
+        <div data-testid="ecoscreen-evidence-confidence" style={{ color: t.muted, fontSize: 11.3, lineHeight: 1.5 }}>
+          {txt(
+            `CO₂→甲酸路径证据：实验 ${reactionGraph.summary.experimentalEvidence} · 文献 ${reactionGraph.summary.literatureEvidence} · 派生 ${reactionGraph.summary.derivedEvidence}；高置信度边 ${reactionGraph.summary.highConfidenceEdges} 条。`,
+            `CO₂→formic-acid evidence: experimental ${reactionGraph.summary.experimentalEvidence} · literature ${reactionGraph.summary.literatureEvidence} · derived ${reactionGraph.summary.derivedEvidence}; ${reactionGraph.summary.highConfidenceEdges} high-confidence edges.`,
+          )}
+        </div>
+      ) : null}
+      <div data-testid="ecoscreen-why-recommended" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.muted, fontSize: 11.4, lineHeight: 1.55, padding: 10 }}>
+        <strong style={{ color: t.textStrong }}>{txt("为什么推荐", "Why Recommended")}{selectedCandidate?.name ? ` · ${selectedCandidate.name}` : ""}：</strong>{" "}
+        {rows.length
+          ? txt(
+              `主要由 ${rows.slice(0, 2).map(r => r.label).join(" 与 ")} 驱动（${best} 特征贡献）；路径证据置信度 ${evidenceLevel || "—"}。指标来自 V3.4 Benchmark，未伪造。`,
+              `Driven mainly by ${rows.slice(0, 2).map(r => r.label).join(" and ")} (${best} feature contribution); pathway evidence confidence ${evidenceLevel || "—"}. Metrics come from the V3.4 benchmark, not fabricated.`,
+            )
+          : txt("可解释性数据加载中。", "Explainability data loading.")}
+      </div>
+    </Card>
+  )
+}
+
 export function EcoScreenTab({ onNavigate }) {
   const t = useT()
   const { lang } = useLang()
@@ -931,6 +990,8 @@ export function EcoScreenTab({ onNavigate }) {
   const [performancePriorityMode, setPerformancePriorityMode] = useState("balanced")
   const [selectedId, setSelectedId] = useState("MOF-B")
   const [reactionFilters, setReactionFilters] = useState({})
+  const [credibilityReport, setCredibilityReport] = useState(null)
+  const [reactionGraphData, setReactionGraphData] = useState(null)
   const [reactionRows, setReactionRows] = useState([])
   const [benchmarkRows, setBenchmarkRows] = useState([])
   const [experimentalLabelRows, setExperimentalLabelRows] = useState([])
@@ -947,18 +1008,24 @@ export function EcoScreenTab({ onNavigate }) {
       fetchDataJson("benchmark_dataset_v2.json", null),
       fetchDataJson("experimental_labels/experimental_labels_v1.json", null),
       fetchDataJson("external_test_dataset_v1.json", null),
-    ]).then(([reaction, benchmark, experimentalLabels, externalTest]) => {
+      fetchDataJson("model_credibility_report_v1.json", null),
+      fetchDataJson("reaction_evidence_graph_v1.json", null),
+    ]).then(([reaction, benchmark, experimentalLabels, externalTest, credibility, reactionGraph]) => {
       if (!active) return
       setReactionRows(Array.isArray(reaction?.records) ? reaction.records : [])
       setBenchmarkRows(Array.isArray(benchmark?.records) ? benchmark.records : [])
       setExperimentalLabelRows(Array.isArray(experimentalLabels?.labels) ? experimentalLabels.labels : [])
       setExternalTestRows(Array.isArray(externalTest?.records) ? externalTest.records : [])
+      setCredibilityReport(credibility && typeof credibility === "object" ? credibility : null)
+      setReactionGraphData(reactionGraph && typeof reactionGraph === "object" ? reactionGraph : null)
     }).catch(() => {
       if (active) {
         setReactionRows([])
         setBenchmarkRows([])
         setExperimentalLabelRows([])
         setExternalTestRows([])
+        setCredibilityReport(null)
+        setReactionGraphData(null)
       }
     })
     return () => { active = false }
@@ -1055,6 +1122,8 @@ export function EcoScreenTab({ onNavigate }) {
         t={t}
         isMobile={isMobile}
       />
+
+      <EcoScreenExplainabilityPanel credibility={credibilityReport} reactionGraph={reactionGraphData} selectedCandidate={selectedCandidate} lang={lang} t={t} isMobile={isMobile} />
 
       <Card t={t} style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
         <div style={{ minWidth: 0 }}>

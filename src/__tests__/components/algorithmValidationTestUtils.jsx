@@ -7,6 +7,7 @@ import labels from "../../../public/data/organic_acid_labels_v2.json"
 import benchmark from "../../../public/data/benchmark_dataset_v2.json"
 import reaction from "../../../public/data/data_ingestion/organic_acid_reaction_dataset_v1.json"
 import firstBenchmarkReport from "../../../public/data/first_real_benchmark_report_v1.json"
+import credibilityReport from "../../../public/data/model_credibility_report_v1.json"
 import { rankOrganicAcidCandidates } from "../../utils/organicAcid/rankOrganicAcidCandidates"
 import { organicAcidFixtureCandidates } from "../utils/organicAcidFixtures"
 import { runDataAudit } from "../../utils/dataAudit/index"
@@ -30,6 +31,7 @@ export function renderCenter({ lang = "en", t = THEME_LIGHT, isMobile = false } 
       organicAcidResult={buildOrganicAcidResult()}
       dataAudit={buildDataAudit()}
       firstBenchmark={firstBenchmarkReport}
+      credibility={credibilityReport}
       lang={lang}
       t={t}
       isMobile={isMobile}

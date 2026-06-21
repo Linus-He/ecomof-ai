@@ -1,0 +1,25 @@
+{
+  "version": "v3.5",
+  "generatedAt": "2026-06-19",
+  "generator": "scripts/build-v3-5-model-credibility.mjs",
+  "metrics": [
+    "crossValidation",
+    "credibilityScore",
+    "explainability"
+  ],
+  "series": {
+    "V3.4": {
+      "crossValidation": "none",
+      "credibilityScore": null,
+      "explainability": "none",
+      "sensitivity": "none"
+    },
+    "V3.5": {
+      "crossValidation": "5-fold + 10-fold",
+      "credibilityScore": 77.45,
+      "credibilityGrade": "B",
+      "explainability": "LR coefficients + DT path/splits + RF importance/consensus",
+      "sensitivity": "per-feature ablation"
+    }
+  }
+}

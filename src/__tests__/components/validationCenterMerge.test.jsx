@@ -43,7 +43,7 @@ describe("Validation center merge (V2.8)", () => {
     // Figure-driven layer sections (incl. V3.2 Data Audit Center + First Real
     // Benchmark), instead of the ~17 cards across the two retired labs.
     const layerIds = ALGORITHM_VALIDATION_DIRECTORY.children.filter(child => child.id.startsWith("algval-") && child.id !== "algval-figure")
-    expect(layerIds.length).toBe(12)
+    expect(layerIds.length).toBe(16)
     for (const child of layerIds) {
       expect(screen.getByTestId(child.id)).toBeInTheDocument()
     }
