@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
-  "updatedAt": "2026-06-21",
-  "currentVersion": "V3.9.2",
-  "completedRange": "V1.0-V3.9.2",
+  "updatedAt": "2026-06-22",
+  "currentVersion": "V3.9.3",
+  "completedRange": "V1.0-V3.9.3",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -2817,7 +2817,7 @@
       "title": "Organic Acid Host-Guest Algorithm Foundation and UI Refactor",
       "titleZh": "有机酸主客体算法基础与界面重构",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Organic Acid Host-Guest Pathway Screening",
       "themeZh": "有机酸主客体路径筛选",
       "summary": "Data-backed host-guest pathway screening workbench for Al-MOF + Mo route prioritization.",
@@ -2833,12 +2833,12 @@
         "在有机酸密码工作台中接入主客体路径筛选工作台，同时保留既有追踪、图谱、矩阵、队列与路线图模块。"
       ],
       "algorithmChanges": [
-        "Host-Guest Complementary Pathway Screening Algorithm ranks routes with host stability, host pathway support, guest activity compensation, complementarity, evidence confidence, and risk penalty.",
+        "Host-Guest Complementary Pathway Screening Algorithm ranks routes with host stability, host pathway support, guest activity compensation, complementarity, evidence confidence, and risk retention factor.",
         "Al-MOF is selected as the stable host framework candidate; Mo is selected as the high-priority guest / dopant metal.",
         "Random Forest remains a baseline / risk reference and is not used as the final route recommendation basis."
       ],
       "algorithmChangesZh": [
-        "主客体互补路径筛选算法按主体稳定性、主体路径支持、客体活性补偿、互补性、证据置信度和风险惩罚排序实验路线。",
+        "主客体互补路径筛选算法按主体稳定性、主体路径支持、客体活性补偿、互补性、证据置信度和风险保留因子排序实验路线。",
         "Al-MOF 被筛选为稳定主体骨架候选；Mo 被筛选为高优先级客体 / 掺杂金属。",
         "Random Forest 仅作为 baseline / risk reference，不作为最终路线推荐依据。"
       ],
@@ -2878,6 +2878,89 @@
         ],
         "adaptationBoundary": "Host-guest route prioritization and validation planning only; no final catalyst-performance proof.",
         "adaptationBoundaryZh": "仅用于主客体路线优先级与验证计划；不提供最终催化性能证明。"
+      },
+      "relatedSection": "#organic-acid-host-guest-workbench"
+    },
+    {
+      "version": "V3.9.3",
+      "title": "Organic Acid Evidence Completion, Sensitivity/Ablation Analysis, and Formula Alignment",
+      "titleZh": "有机酸证据补全、敏感性 / 消融分析与公式对齐",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Organic Acid HGCPS Robustness and Evidence Boundary",
+      "themeZh": "有机酸 HGCPS 稳健性与证据边界",
+      "summary": "Expanded the host-guest algorithm foundation with evidence/risk completion, multiplicative formula alignment, sensitivity analysis, ablation analysis, boundary wording, and route-report exports.",
+      "summaryZh": "在主客体算法基础上补全证据/风险、统一乘法公式、加入敏感性分析、消融分析、边界表达和路线报告导出。",
+      "keyUpdates": [
+        "Expanded organic_acid_host_guest seed coverage to 10 host candidates, 12 guest metals, 25 host-guest routes, and 58 evidence/risk records.",
+        "Added Missing Evidence & Risk Matrix for Mo introduction feasibility, local Mo coordination uncertainty, 170C aqueous stability, same-condition experiments, and missing descriptors.",
+        "Added Sensitivity Analysis Panel, Ablation Analysis Panel, Algorithm Boundary Panel, and Route Report Export tab.",
+        "Added route report JSON, queue CSV, evidence CSV, risk CSV, sensitivity JSON, ablation JSON, validation roadmap JSON, and Markdown summary exports."
+      ],
+      "keyUpdatesZh": [
+        "将 organic_acid_host_guest 种子覆盖扩展到 10 个主体候选、12 个客体金属、25 条主客体路线和 58 条证据/风险记录。",
+        "新增缺失证据与风险矩阵，覆盖 Mo 引入可行性、局域 Mo 配位不确定性、170C 水相稳定性、同条件实验和缺失描述符。",
+        "新增敏感性分析、消融分析、算法边界与路线报告导出 tab。",
+        "新增路线报告 JSON、队列 CSV、证据 CSV、风险 CSV、敏感性 JSON、消融 JSON、验证路线 JSON 与 Markdown 摘要导出。"
+      ],
+      "algorithmChanges": [
+        "Unified HGCPS as Host Stability Factor * Host Pathway Support Factor * Guest Activity Compensation Factor * Host-Guest Complementarity Factor * Evidence Confidence Factor * Risk Retention Factor.",
+        "Risk retention factor is a 0-1 retained-score factor inside the multiplicative product, not an additive penalty term.",
+        "Added ±20% factor perturbation sensitivity analysis and route-rank stability summary.",
+        "Added ablation scenarios for guest activity compensation, host stability, host-guest complementarity, evidence confidence, risk retention, pristine Al-MOF only, and Mo contribution removed.",
+        "Random Forest remains a baseline / risk reference and is not used as the final route recommendation basis."
+      ],
+      "algorithmChangesZh": [
+        "将 HGCPS 统一为主体稳定性因子 * 主体路径支持因子 * 客体活性补偿因子 * 主客体互补因子 * 证据置信因子 * 风险保留因子。",
+        "风险保留因子是乘法公式中的 0-1 保留分数，不是加法惩罚项。",
+        "新增 ±20% 因子扰动敏感性分析与路线排名稳定性摘要。",
+        "新增客体活性补偿、主体稳定性、主客体互补、证据置信、风险保留、pristine Al-MOF only 和 Mo contribution removed 消融场景。",
+        "Random Forest 仍仅作为 baseline / risk reference，不作为最终路线推荐依据。"
+      ],
+      "uiChanges": [
+        "Reordered the workbench around a single recommendation card, 6-step pipeline, route-first queue, sticky route explanation, and advanced analysis tabs.",
+        "Moved Evidence Matrix, Missing Evidence & Risk Matrix, Sensitivity Analysis, Ablation Analysis, Algorithm Boundary, and Route Report Export into tabbed advanced analysis.",
+        "Made mobile/narrow reading order Recommendation -> Pipeline -> Top Route -> Explanation -> Advanced Analysis."
+      ],
+      "uiChangesZh": [
+        "按单一建议卡、6-step pipeline、route-first queue、固定解释面板和高级分析 tabs 重排工作台。",
+        "将证据矩阵、缺失证据与风险矩阵、敏感性分析、消融分析、算法边界和路线报告导出集中到高级分析 tabs。",
+        "窄屏阅读顺序调整为建议 -> 流程 -> Top Route -> 解释 -> 高级分析。"
+      ],
+      "methodologyChanges": [
+        "All HGCPS formula text now uses multiplicative risk-retention wording and avoids additive formula language.",
+        "The visible boundary states that Al-MOF + Mo is a high-priority experimental route, not final catalytic proof.",
+        "The report exports include evidence/risk status and validation requirements for yield, selectivity, structure retention, Mo loading, Mo coordination, and carbon balance."
+      ],
+      "methodologyChangesZh": [
+        "所有 HGCPS 公式文本统一为乘法风险保留表达，避免加法公式语言。",
+        "可见边界明确 Al-MOF + Mo 是高优先级实验路线，不是最终催化证明。",
+        "报告导出包含证据/风险状态，以及产率、选择性、结构保持、Mo 负载、Mo 配位和碳平衡验证要求。"
+      ],
+      "evidenceBoundary": "Seed/proxy/curated/inferred/mixed evidence for route prioritization only. Same-condition experiments, Mo introduction characterization, local Mo coordination, and 170C aqueous stability remain required before performance claims.",
+      "evidenceBoundaryZh": "仅用于路线优先级的 seed/proxy/curated/inferred/mixed 证据。同条件实验、Mo 引入表征、局域 Mo 配位和 170C 水相稳定性仍需验证后才能进入性能结论。",
+      "limitations": [
+        "The top route is not final catalytic proof.",
+        "Cross-literature reaction conditions are not directly comparable.",
+        "Mo doping/post-modification feasibility and local coordination remain experimental questions.",
+        "No formal trained machine-learning recommendation is introduced."
+      ],
+      "limitationsZh": [
+        "Top route 不是最终催化证明。",
+        "跨文献反应条件不能直接比较。",
+        "Mo 掺杂/后修饰可行性与局域配位仍是实验问题。",
+        "没有引入正式训练的机器学习推荐模型。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "organic-acid-host-guest",
+          "HGCPS",
+          "risk-retention-factor",
+          "sensitivity-analysis",
+          "ablation-analysis"
+        ],
+        "adaptationBoundary": "Formula-aligned route prioritization and validation planning only; no final catalyst-performance proof.",
+        "adaptationBoundaryZh": "仅用于公式对齐后的路线优先级与验证计划；不提供最终催化性能证明。"
       },
       "relatedSection": "#organic-acid-host-guest-workbench"
     }

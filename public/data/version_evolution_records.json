@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.9.2",
-  "generatedAt": "2026-06-21",
+  "currentVersion": "V3.9.3",
+  "generatedAt": "2026-06-22",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
-    "currentVersion": "V3.9.2",
+    "currentVersion": "V3.9.3",
     "databaseSize": 3020,
     "verifiedMetadataCount": 2480,
     "sourceConfirmedCount": 2480,
@@ -13,12 +13,12 @@
     "modelValidationStatus": "Robustness Validation Complete",
     "projectAge": "2026-04 to 2026-06",
     "githubStars": "pending",
-    "milestoneCount": 14,
+    "milestoneCount": 15,
     "databasePreviewStatus": "Database Preview",
     "notFinalRecommendationStatus": "Not Final Recommendation",
     "sources": {
       "currentVersion": {
-        "value": "V3.9.2",
+        "value": "V3.9.3",
         "sourceDatabase": "EcoMOF-AI version_evolution_records.json",
         "sourceRecordId": "overview.currentVersion",
         "sourceUrl": "public/data/version_evolution_records.json",
@@ -606,9 +606,39 @@
         "Validation",
         "Testing"
       ]
+    },
+    {
+      "version": "V3.9.3",
+      "date": "2026-06-22",
+      "commit": "pending-current",
+      "summary": "Organic Acid Evidence Completion, Sensitivity/Ablation Analysis, and Formula Alignment: expanded host/guest/route/evidence seed data, aligned multiplicative HGCPS risk-retention semantics, and added risk, sensitivity, ablation, boundary, and route-report surfaces.",
+      "scientificImpact": "将 Al-MOF + Mo 从路线基础解释推进到证据缺口、风险矩阵、敏感性与消融可审计阶段；仍限定为高优先级实验假设。",
+      "databaseImpact": "organic_acid_host_guest seed 数据扩展到 10 个 host、12 个 guest、25 条 route、58 条 evidence/risk records，并派生 evidence matrix 与 risk matrix。",
+      "algorithmImpact": "HGCPS 统一为 Host Stability * Host Pathway Support * Guest Activity Compensation * Host-Guest Complementarity * Evidence Confidence * Risk Retention Factor；新增 ±20% 敏感性与消融 builders。",
+      "validationImpact": "导出 Al-MOF + Mo route report、route queue、evidence matrix、risk matrix、sensitivity、ablation、validation roadmap 与 Markdown summary，明确同条件实验、Mo 配位和 170C 水相稳定性验证。",
+      "uiImpact": "Organic Acid Host-Guest Workbench 重构为建议卡、6-step pipeline、route-first queue、解释面板与高级分析 tabs；风险、证据、敏感性、消融、边界和导出分层显示。",
+      "knownLimitations": "当前仍是 seed/proxy/curated/inferred/mixed evidence 的实验路线优先级，不是最终催化性能证明；Random Forest 只作为 baseline / risk reference。",
+      "breakingChanges": "None.",
+      "nextVersionGoal": "接入同条件实验反馈，回写 route-level evidence/risk records，并校准 HGCPS factor weights。",
+      "categories": [
+        "Organic Acid",
+        "Evidence",
+        "Algorithm",
+        "UI",
+        "Validation",
+        "Testing"
+      ]
     }
   ],
   "releaseNotes": [
+    {
+      "version": "V3.9.3",
+      "date": "2026-06-22",
+      "module": "Organic Acid",
+      "category": "Algorithm",
+      "title": "Evidence, Sensitivity, Ablation, and Formula Alignment",
+      "body": "Expanded Organic Acid host-guest data coverage, aligned HGCPS as a fully multiplicative risk-retention formula, added Missing Evidence & Risk Matrix, sensitivity/ablation analysis, algorithm boundary panel, and route-report exports for Al-MOF + Mo."
+    },
     {
       "version": "V3.9.2",
       "date": "2026-06-21",
@@ -956,6 +986,11 @@
       "version": "V3.9.2",
       "stage": "Organic Acid Host-Guest Pathway Screening",
       "maturity": 99
+    },
+    {
+      "version": "V3.9.3",
+      "stage": "Organic Acid Evidence Completion and Robustness Analysis",
+      "maturity": 99
     }
   ],
   "databaseEvolution": [
@@ -1073,6 +1108,14 @@
       "retiredCapability": "Route priority shown only as a candidate/MOF list.",
       "limitation": "High-priority experimental hypothesis; not final catalytic proof.",
       "futurePlan": "Calibrate with same-condition experiments and post-reaction characterization."
+    },
+    {
+      "stage": "HGCPS Formula Alignment and Robustness Diagnostics",
+      "version": "V3.9.3",
+      "newCapability": "Multiplicative risk-retention HGCPS formula, Missing Evidence & Risk Matrix, ±20% sensitivity scenarios, route-factor ablation analysis, and route report export builders.",
+      "retiredCapability": "Ambiguous risk-penalty wording in the current host-guest formula.",
+      "limitation": "High-priority experimental hypothesis only; no final catalytic proof and no formal trained ML recommendation.",
+      "futurePlan": "Calibrate factor weights and risk retention with same-condition experiments."
     }
   ],
   "validationEvolution": [
@@ -1234,6 +1277,13 @@
       "before": "Organic Acid project exposed pathway map, matrices, queue, graph, and validation modules as separate views.",
       "after": "A route-first 6-step workbench explains pathway descriptors, host selection, guest selection, HGCPS, priority queue, route explanation, graph, evidence matrix, and validation route.",
       "change": "Makes Al-MOF + Mo visible as a scored experimental route while preserving the existing passcode shell and research modules."
+    },
+    {
+      "version": "V3.9.3",
+      "area": "Organic Acid Host-Guest Workbench",
+      "before": "Evidence, validation, and export content appeared as long stacked sections after the core workbench.",
+      "after": "Recommendation, pipeline, top route queue, sticky route explanation, and advanced analysis tabs present risk, evidence, sensitivity, ablation, boundary, and exports in a route-first IA.",
+      "change": "Keeps the full Organic Acid workbench while reducing overload and preserving Al-MOF + Mo boundary wording."
     }
   ],
   "localizationEvolution": [
@@ -1354,6 +1404,13 @@
       "version": "V3.9.2",
       "date": "2026-06-21",
       "detail": "Added data-backed HGCPS builders and a route-first Organic Acid workbench for Al-MOF + Mo experimental validation planning."
+    },
+    {
+      "id": "organic-acid-evidence-robustness-v393",
+      "title": "Organic Acid Evidence Completion and Robustness Analysis",
+      "version": "V3.9.3",
+      "date": "2026-06-22",
+      "detail": "Expanded host-guest seed evidence, aligned HGCPS risk-retention formula semantics, and added risk matrix, sensitivity, ablation, boundary, and report export panels."
     }
   ],
   "roadmap": [

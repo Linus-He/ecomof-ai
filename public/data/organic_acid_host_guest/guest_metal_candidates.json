@@ -2,40 +2,64 @@
   {
     "guestMetal": "Mo",
     "role": "guest / dopant / activity compensation metal",
-    "supportsPathwaySteps": ["step-co2-activation", "step-hcoo-stabilization", "step-proton-electron-transfer"],
-    "co2ActivationScore": 0.90,
+    "supportsPathwaySteps": [
+      "step-co2-activation",
+      "step-hcoo-stabilization",
+      "step-proton-electron-transfer"
+    ],
+    "co2ActivationScore": 0.9,
     "formateStabilizationScore": 0.94,
     "electronTransferSupport": 0.86,
     "compatibilityWithAlMof": 0.88,
     "dopingFeasibility": 0.78,
     "postModificationFeasibility": 0.83,
-    "bimetallicConstructionFeasibility": 0.80,
-    "guestScore": 0.873,
+    "bimetallicConstructionFeasibility": 0.8,
+    "guestScore": 0.876,
     "mainRisk": "Mo introduction feasibility and local coordination state remain uncertain.",
-    "evidenceRefs": ["HGCPS-EVID-002", "HGCPS-EVID-003", "HGCPS-EVID-008"],
-    "provenance": ["metal-oxo formate proxy", "expert prior", "needs operando validation"]
+    "evidenceRefs": [
+      "HGCPS-EVID-GUEST-01",
+      "HGCPS-EVID-METAL-CORE"
+    ],
+    "provenance": [
+      "metal descriptor proxy",
+      "expert prior",
+      "needs operando validation"
+    ]
   },
   {
     "guestMetal": "W",
     "role": "backup oxo-metal activity compensation metal",
-    "supportsPathwaySteps": ["step-co2-activation", "step-hcoo-stabilization"],
+    "supportsPathwaySteps": [
+      "step-co2-activation",
+      "step-hcoo-stabilization"
+    ],
     "co2ActivationScore": 0.84,
     "formateStabilizationScore": 0.86,
     "electronTransferSupport": 0.78,
     "compatibilityWithAlMof": 0.76,
     "dopingFeasibility": 0.66,
-    "postModificationFeasibility": 0.70,
+    "postModificationFeasibility": 0.7,
     "bimetallicConstructionFeasibility": 0.68,
-    "guestScore": 0.775,
+    "guestScore": 0.784,
     "mainRisk": "Heavier oxo-metal chemistry has higher synthesis and speciation uncertainty.",
-    "evidenceRefs": ["HGCPS-EVID-003", "HGCPS-EVID-009"],
-    "provenance": ["related metal-oxo proxy", "inferred"]
+    "evidenceRefs": [
+      "HGCPS-EVID-GUEST-02",
+      "HGCPS-EVID-METAL-CORE"
+    ],
+    "provenance": [
+      "metal descriptor proxy",
+      "expert prior",
+      "needs operando validation"
+    ]
   },
   {
     "guestMetal": "Fe",
     "role": "redox-active comparison dopant",
-    "supportsPathwaySteps": ["step-proton-electron-transfer", "step-competing-pathway"],
-    "co2ActivationScore": 0.70,
+    "supportsPathwaySteps": [
+      "step-proton-electron-transfer",
+      "step-competing-pathway"
+    ],
+    "co2ActivationScore": 0.7,
     "formateStabilizationScore": 0.67,
     "electronTransferSupport": 0.82,
     "compatibilityWithAlMof": 0.72,
@@ -44,55 +68,246 @@
     "bimetallicConstructionFeasibility": 0.72,
     "guestScore": 0.727,
     "mainRisk": "Non-selective redox branches may increase side products.",
-    "evidenceRefs": ["HGCPS-EVID-006", "HGCPS-EVID-011"],
-    "provenance": ["related experiment proxy", "risk-prior curation"]
+    "evidenceRefs": [
+      "HGCPS-EVID-GUEST-03",
+      "HGCPS-EVID-METAL-CORE"
+    ],
+    "provenance": [
+      "metal descriptor proxy",
+      "expert prior",
+      "needs operando validation"
+    ]
   },
   {
     "guestMetal": "Co",
     "role": "conditional redox dopant",
-    "supportsPathwaySteps": ["step-proton-electron-transfer", "step-competing-pathway"],
+    "supportsPathwaySteps": [
+      "step-proton-electron-transfer",
+      "step-competing-pathway"
+    ],
     "co2ActivationScore": 0.66,
     "formateStabilizationScore": 0.63,
     "electronTransferSupport": 0.78,
     "compatibilityWithAlMof": 0.68,
     "dopingFeasibility": 0.74,
-    "postModificationFeasibility": 0.70,
-    "bimetallicConstructionFeasibility": 0.70,
-    "guestScore": 0.688,
+    "postModificationFeasibility": 0.7,
+    "bimetallicConstructionFeasibility": 0.7,
+    "guestScore": 0.689,
     "mainRisk": "Competing redox chemistry and aqueous leaching need controls.",
-    "evidenceRefs": ["HGCPS-EVID-006", "HGCPS-EVID-012"],
-    "provenance": ["expert prior", "missing same-condition experiment"]
+    "evidenceRefs": [
+      "HGCPS-EVID-GUEST-04",
+      "HGCPS-EVID-METAL-CORE"
+    ],
+    "provenance": [
+      "metal descriptor proxy",
+      "expert prior",
+      "needs operando validation"
+    ]
+  },
+  {
+    "guestMetal": "Ni",
+    "role": "conditional hydrogen-transfer dopant",
+    "supportsPathwaySteps": [
+      "step-proton-electron-transfer",
+      "step-competing-pathway"
+    ],
+    "co2ActivationScore": 0.64,
+    "formateStabilizationScore": 0.62,
+    "electronTransferSupport": 0.76,
+    "compatibilityWithAlMof": 0.66,
+    "dopingFeasibility": 0.72,
+    "postModificationFeasibility": 0.68,
+    "bimetallicConstructionFeasibility": 0.66,
+    "guestScore": 0.669,
+    "mainRisk": "Hydrogen-transfer activity may raise side-reaction uncertainty.",
+    "evidenceRefs": [
+      "HGCPS-EVID-GUEST-05",
+      "HGCPS-EVID-METAL-CORE"
+    ],
+    "provenance": [
+      "metal descriptor proxy",
+      "expert prior",
+      "needs operando validation"
+    ]
   },
   {
     "guestMetal": "Cu",
     "role": "activity-risk comparison dopant",
-    "supportsPathwaySteps": ["step-co2-activation", "step-competing-pathway"],
+    "supportsPathwaySteps": [
+      "step-co2-activation",
+      "step-competing-pathway"
+    ],
     "co2ActivationScore": 0.72,
     "formateStabilizationScore": 0.58,
     "electronTransferSupport": 0.76,
     "compatibilityWithAlMof": 0.62,
-    "dopingFeasibility": 0.70,
+    "dopingFeasibility": 0.7,
     "postModificationFeasibility": 0.66,
     "bimetallicConstructionFeasibility": 0.62,
-    "guestScore": 0.661,
+    "guestScore": 0.665,
     "mainRisk": "Potential side reactions and metal leaching reduce first-priority suitability.",
-    "evidenceRefs": ["HGCPS-EVID-006", "HGCPS-EVID-012"],
-    "provenance": ["risk-prior curation", "inferred"]
+    "evidenceRefs": [
+      "HGCPS-EVID-GUEST-06",
+      "HGCPS-EVID-METAL-CORE"
+    ],
+    "provenance": [
+      "metal descriptor proxy",
+      "expert prior",
+      "needs operando validation"
+    ]
+  },
+  {
+    "guestMetal": "Zn",
+    "role": "Lewis-acid comparison dopant",
+    "supportsPathwaySteps": [
+      "step-co2-activation"
+    ],
+    "co2ActivationScore": 0.58,
+    "formateStabilizationScore": 0.55,
+    "electronTransferSupport": 0.52,
+    "compatibilityWithAlMof": 0.66,
+    "dopingFeasibility": 0.72,
+    "postModificationFeasibility": 0.7,
+    "bimetallicConstructionFeasibility": 0.64,
+    "guestScore": 0.602,
+    "mainRisk": "Weak redox/electron support limits compensation for Al-MOF activity.",
+    "evidenceRefs": [
+      "HGCPS-EVID-GUEST-07",
+      "HGCPS-EVID-METAL-CORE"
+    ],
+    "provenance": [
+      "metal descriptor proxy",
+      "expert prior",
+      "needs operando validation"
+    ]
+  },
+  {
+    "guestMetal": "Ti",
+    "role": "oxo-metal comparison dopant",
+    "supportsPathwaySteps": [
+      "step-co2-activation",
+      "step-hcoo-stabilization"
+    ],
+    "co2ActivationScore": 0.74,
+    "formateStabilizationScore": 0.7,
+    "electronTransferSupport": 0.68,
+    "compatibilityWithAlMof": 0.7,
+    "dopingFeasibility": 0.62,
+    "postModificationFeasibility": 0.66,
+    "bimetallicConstructionFeasibility": 0.64,
+    "guestScore": 0.691,
+    "mainRisk": "Hydrolysis and local Ti speciation need direct characterization.",
+    "evidenceRefs": [
+      "HGCPS-EVID-GUEST-08",
+      "HGCPS-EVID-METAL-CORE"
+    ],
+    "provenance": [
+      "metal descriptor proxy",
+      "expert prior",
+      "needs operando validation"
+    ]
+  },
+  {
+    "guestMetal": "Zr",
+    "role": "stability-oriented guest/control metal",
+    "supportsPathwaySteps": [
+      "step-170c-aqueous-stability"
+    ],
+    "co2ActivationScore": 0.54,
+    "formateStabilizationScore": 0.56,
+    "electronTransferSupport": 0.48,
+    "compatibilityWithAlMof": 0.72,
+    "dopingFeasibility": 0.64,
+    "postModificationFeasibility": 0.66,
+    "bimetallicConstructionFeasibility": 0.62,
+    "guestScore": 0.588,
+    "mainRisk": "Stability-oriented but weak activity compensation for C1 activation.",
+    "evidenceRefs": [
+      "HGCPS-EVID-GUEST-09",
+      "HGCPS-EVID-METAL-CORE"
+    ],
+    "provenance": [
+      "metal descriptor proxy",
+      "expert prior",
+      "needs operando validation"
+    ]
   },
   {
     "guestMetal": "V",
     "role": "exploratory oxo-metal dopant",
-    "supportsPathwaySteps": ["step-co2-activation", "step-proton-electron-transfer"],
+    "supportsPathwaySteps": [
+      "step-co2-activation",
+      "step-proton-electron-transfer"
+    ],
     "co2ActivationScore": 0.76,
     "formateStabilizationScore": 0.72,
-    "electronTransferSupport": 0.80,
+    "electronTransferSupport": 0.8,
     "compatibilityWithAlMof": 0.64,
     "dopingFeasibility": 0.62,
     "postModificationFeasibility": 0.64,
     "bimetallicConstructionFeasibility": 0.62,
-    "guestScore": 0.704,
+    "guestScore": 0.706,
     "mainRisk": "Speciation and oxidation-state control are uncertain in hot aqueous media.",
-    "evidenceRefs": ["HGCPS-EVID-004", "HGCPS-EVID-009"],
-    "provenance": ["expert prior", "inferred"]
+    "evidenceRefs": [
+      "HGCPS-EVID-GUEST-10",
+      "HGCPS-EVID-METAL-CORE"
+    ],
+    "provenance": [
+      "metal descriptor proxy",
+      "expert prior",
+      "needs operando validation"
+    ]
+  },
+  {
+    "guestMetal": "Mn",
+    "role": "low-priority redox dopant",
+    "supportsPathwaySteps": [
+      "step-proton-electron-transfer",
+      "step-competing-pathway"
+    ],
+    "co2ActivationScore": 0.62,
+    "formateStabilizationScore": 0.6,
+    "electronTransferSupport": 0.74,
+    "compatibilityWithAlMof": 0.6,
+    "dopingFeasibility": 0.68,
+    "postModificationFeasibility": 0.64,
+    "bimetallicConstructionFeasibility": 0.6,
+    "guestScore": 0.636,
+    "mainRisk": "Side-product and leaching risk are not yet constrained.",
+    "evidenceRefs": [
+      "HGCPS-EVID-GUEST-11",
+      "HGCPS-EVID-METAL-CORE"
+    ],
+    "provenance": [
+      "metal descriptor proxy",
+      "expert prior",
+      "needs operando validation"
+    ]
+  },
+  {
+    "guestMetal": "Ce",
+    "role": "oxygen-storage comparison dopant",
+    "supportsPathwaySteps": [
+      "step-co2-activation",
+      "step-proton-electron-transfer"
+    ],
+    "co2ActivationScore": 0.68,
+    "formateStabilizationScore": 0.66,
+    "electronTransferSupport": 0.7,
+    "compatibilityWithAlMof": 0.62,
+    "dopingFeasibility": 0.56,
+    "postModificationFeasibility": 0.58,
+    "bimetallicConstructionFeasibility": 0.56,
+    "guestScore": 0.642,
+    "mainRisk": "Large-ion incorporation and phase segregation risk are high.",
+    "evidenceRefs": [
+      "HGCPS-EVID-GUEST-12",
+      "HGCPS-EVID-METAL-CORE"
+    ],
+    "provenance": [
+      "metal descriptor proxy",
+      "expert prior",
+      "needs operando validation"
+    ]
   }
 ]

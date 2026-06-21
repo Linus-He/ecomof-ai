@@ -19,9 +19,9 @@ describe("versionTimelineDynamic", () => {
     expect(projectUpdates.textContent).toMatch(/Page-level export/)
 
     const roadmap = screen.getByTestId("project-evolution-roadmap")
-    expect(roadmap.textContent).toMatch(/V3\.4/)
-    expect(roadmap.textContent).toMatch(/V3\.5/)
     expect(roadmap.textContent).toMatch(/V3\.6/)
+    expect(roadmap.textContent).toMatch(/V3\.9\.3/)
     expect(roadmap.textContent).toMatch(/research-grade benchmark/)
+    expect(roadmap.textContent).toMatch(/HGCPS factor weights/)
   })
 })

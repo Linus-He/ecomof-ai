@@ -12,11 +12,18 @@
     "postModificationFeasibility": 0.84,
     "guestHostingFeasibility": 0.86,
     "provenanceQuality": 0.78,
-    "hostScore": 0.870,
+    "hostScore": 0.867,
     "hostRole": "stable host framework / stable scaffold",
-    "limitation": "Pristine Al-MOF is not treated as the most active catalyst; activity compensation from a guest metal is required.",
-    "evidenceRefs": ["HGCPS-EVID-001", "HGCPS-EVID-007", "HGCPS-EVID-010"],
-    "provenance": ["local curated proxy", "literature-derived stability prior", "needs same-condition validation"]
+    "limitation": "Pristine Al-MOF is not treated as the most active catalyst; guest-metal activity compensation is required.",
+    "evidenceRefs": [
+      "HGCPS-EVID-HOST-01",
+      "HGCPS-EVID-STABILITY-CORE"
+    ],
+    "provenance": [
+      "local curated proxy",
+      "literature-derived stability prior",
+      "needs same-condition validation"
+    ]
   },
   {
     "hostMofId": "host-zr-mof",
@@ -33,28 +40,42 @@
     "provenanceQuality": 0.76,
     "hostScore": 0.821,
     "hostRole": "robust control host",
-    "limitation": "Robust scaffold but lower host-guest complementarity for the current Al-MOF + Mo hypothesis.",
-    "evidenceRefs": ["HGCPS-EVID-001", "HGCPS-EVID-007"],
-    "provenance": ["local curated proxy", "literature-derived stability prior"]
+    "limitation": "Robust scaffold but lower route-specific complementarity for the current Al-MOF + Mo hypothesis.",
+    "evidenceRefs": [
+      "HGCPS-EVID-HOST-02",
+      "HGCPS-EVID-STABILITY-CORE"
+    ],
+    "provenance": [
+      "local curated proxy",
+      "literature-derived stability prior",
+      "needs same-condition validation"
+    ]
   },
   {
     "hostMofId": "host-ti-mof",
     "displayName": "Ti-MOF",
     "metalNode": "Ti-oxo node",
-    "topology": "photoactive / redox-adjacent titanium scaffold proxy",
+    "topology": "redox-adjacent titanium scaffold proxy",
     "stabilityProxy": 0.78,
-    "aqueousStabilityEvidence": 0.70,
+    "aqueousStabilityEvidence": 0.7,
     "thermalStabilityEvidence": 0.78,
     "poreEnvironmentScore": 0.75,
-    "co2EnrichmentSupport": 0.70,
-    "postModificationFeasibility": 0.70,
+    "co2EnrichmentSupport": 0.7,
+    "postModificationFeasibility": 0.7,
     "guestHostingFeasibility": 0.68,
     "provenanceQuality": 0.66,
-    "hostScore": 0.730,
+    "hostScore": 0.726,
     "hostRole": "conditional active host",
     "limitation": "Potential electronic contribution is offset by higher aqueous-stability uncertainty.",
-    "evidenceRefs": ["HGCPS-EVID-004", "HGCPS-EVID-011"],
-    "provenance": ["expert prior", "inferred route control"]
+    "evidenceRefs": [
+      "HGCPS-EVID-HOST-03",
+      "HGCPS-EVID-STABILITY-CORE"
+    ],
+    "provenance": [
+      "local curated proxy",
+      "literature-derived stability prior",
+      "needs same-condition validation"
+    ]
   },
   {
     "hostMofId": "host-fe-mof",
@@ -64,16 +85,23 @@
     "stabilityProxy": 0.68,
     "aqueousStabilityEvidence": 0.62,
     "thermalStabilityEvidence": 0.72,
-    "poreEnvironmentScore": 0.70,
-    "co2EnrichmentSupport": 0.70,
+    "poreEnvironmentScore": 0.7,
+    "co2EnrichmentSupport": 0.7,
     "postModificationFeasibility": 0.66,
     "guestHostingFeasibility": 0.62,
     "provenanceQuality": 0.62,
-    "hostScore": 0.664,
+    "hostScore": 0.665,
     "hostRole": "redox-active comparison host",
     "limitation": "Redox activity may increase competing pathways and leaching risk under aqueous 170C conditions.",
-    "evidenceRefs": ["HGCPS-EVID-006", "HGCPS-EVID-011"],
-    "provenance": ["related experiment proxy", "risk-prior curation"]
+    "evidenceRefs": [
+      "HGCPS-EVID-HOST-04",
+      "HGCPS-EVID-STABILITY-CORE"
+    ],
+    "provenance": [
+      "local curated proxy",
+      "literature-derived stability prior",
+      "needs same-condition validation"
+    ]
   },
   {
     "hostMofId": "host-cu-mof",
@@ -88,10 +116,147 @@
     "postModificationFeasibility": 0.58,
     "guestHostingFeasibility": 0.56,
     "provenanceQuality": 0.58,
-    "hostScore": 0.592,
+    "hostScore": 0.59,
     "hostRole": "activity-risk comparison host",
     "limitation": "Hydrothermal collapse and side-reaction risk are too high for first-priority validation.",
-    "evidenceRefs": ["HGCPS-EVID-006", "HGCPS-EVID-012"],
-    "provenance": ["risk-prior curation", "missing same-condition validation"]
+    "evidenceRefs": [
+      "HGCPS-EVID-HOST-05",
+      "HGCPS-EVID-STABILITY-CORE"
+    ],
+    "provenance": [
+      "local curated proxy",
+      "literature-derived stability prior",
+      "needs same-condition validation"
+    ]
+  },
+  {
+    "hostMofId": "host-zn-mof",
+    "displayName": "Zn-MOF",
+    "metalNode": "Zn-carboxylate node",
+    "topology": "moderately stable zinc scaffold proxy",
+    "stabilityProxy": 0.64,
+    "aqueousStabilityEvidence": 0.58,
+    "thermalStabilityEvidence": 0.7,
+    "poreEnvironmentScore": 0.76,
+    "co2EnrichmentSupport": 0.72,
+    "postModificationFeasibility": 0.68,
+    "guestHostingFeasibility": 0.62,
+    "provenanceQuality": 0.62,
+    "hostScore": 0.658,
+    "hostRole": "neutral comparison host",
+    "limitation": "Zn-MOF may provide pore access but lacks strong C1 activation rationale and water stability evidence.",
+    "evidenceRefs": [
+      "HGCPS-EVID-HOST-06",
+      "HGCPS-EVID-STABILITY-CORE"
+    ],
+    "provenance": [
+      "local curated proxy",
+      "literature-derived stability prior",
+      "needs same-condition validation"
+    ]
+  },
+  {
+    "hostMofId": "host-cr-mof",
+    "displayName": "Cr-MOF",
+    "metalNode": "Cr-oxo node",
+    "topology": "chromium carboxylate scaffold proxy",
+    "stabilityProxy": 0.82,
+    "aqueousStabilityEvidence": 0.74,
+    "thermalStabilityEvidence": 0.82,
+    "poreEnvironmentScore": 0.72,
+    "co2EnrichmentSupport": 0.7,
+    "postModificationFeasibility": 0.62,
+    "guestHostingFeasibility": 0.6,
+    "provenanceQuality": 0.6,
+    "hostScore": 0.722,
+    "hostRole": "stability-risk comparison host",
+    "limitation": "Cr frameworks can be robust but introduce synthesis, toxicity, and provenance constraints.",
+    "evidenceRefs": [
+      "HGCPS-EVID-HOST-07",
+      "HGCPS-EVID-STABILITY-CORE"
+    ],
+    "provenance": [
+      "local curated proxy",
+      "literature-derived stability prior",
+      "needs same-condition validation"
+    ]
+  },
+  {
+    "hostMofId": "host-uio-type",
+    "displayName": "UiO-type host",
+    "metalNode": "Zr6-oxo UiO-like cluster",
+    "topology": "UiO-family robust pore scaffold proxy",
+    "stabilityProxy": 0.9,
+    "aqueousStabilityEvidence": 0.86,
+    "thermalStabilityEvidence": 0.86,
+    "poreEnvironmentScore": 0.74,
+    "co2EnrichmentSupport": 0.73,
+    "postModificationFeasibility": 0.76,
+    "guestHostingFeasibility": 0.74,
+    "provenanceQuality": 0.74,
+    "hostScore": 0.81,
+    "hostRole": "robust UiO-type control host",
+    "limitation": "Strong stability but less aligned with the Al-MOF host-guest route being tested.",
+    "evidenceRefs": [
+      "HGCPS-EVID-HOST-08",
+      "HGCPS-EVID-STABILITY-CORE"
+    ],
+    "provenance": [
+      "local curated proxy",
+      "literature-derived stability prior",
+      "needs same-condition validation"
+    ]
+  },
+  {
+    "hostMofId": "host-mil-type",
+    "displayName": "MIL-type host",
+    "metalNode": "Al / Fe / Cr MIL-like node",
+    "topology": "MIL-family hydrothermal scaffold proxy",
+    "stabilityProxy": 0.84,
+    "aqueousStabilityEvidence": 0.78,
+    "thermalStabilityEvidence": 0.84,
+    "poreEnvironmentScore": 0.78,
+    "co2EnrichmentSupport": 0.76,
+    "postModificationFeasibility": 0.72,
+    "guestHostingFeasibility": 0.72,
+    "provenanceQuality": 0.72,
+    "hostScore": 0.78,
+    "hostRole": "MIL-type control host",
+    "limitation": "MIL-type hosts are useful controls but require route-specific metal-node verification.",
+    "evidenceRefs": [
+      "HGCPS-EVID-HOST-09",
+      "HGCPS-EVID-STABILITY-CORE"
+    ],
+    "provenance": [
+      "local curated proxy",
+      "literature-derived stability prior",
+      "needs same-condition validation"
+    ]
+  },
+  {
+    "hostMofId": "host-mof-808-like",
+    "displayName": "MOF-808-like host",
+    "metalNode": "Zr-oxo MOF-808-like cluster",
+    "topology": "MOF-808-like mesoporous robust scaffold proxy",
+    "stabilityProxy": 0.88,
+    "aqueousStabilityEvidence": 0.84,
+    "thermalStabilityEvidence": 0.84,
+    "poreEnvironmentScore": 0.84,
+    "co2EnrichmentSupport": 0.8,
+    "postModificationFeasibility": 0.78,
+    "guestHostingFeasibility": 0.76,
+    "provenanceQuality": 0.74,
+    "hostScore": 0.823,
+    "hostRole": "MOF-808-like control host",
+    "limitation": "High pore accessibility but route-specific Al-MOF + Mo complementarity is lower.",
+    "evidenceRefs": [
+      "HGCPS-EVID-HOST-10",
+      "HGCPS-EVID-STABILITY-CORE"
+    ],
+    "provenance": [
+      "local curated proxy",
+      "literature-derived stability prior",
+      "needs same-condition validation"
+    ]
   }
 ]

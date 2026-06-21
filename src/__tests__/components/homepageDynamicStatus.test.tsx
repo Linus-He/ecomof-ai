@@ -60,7 +60,7 @@ describe("homepage dynamic status", () => {
 
     const capabilities = screen.getByTestId("home-platform-capabilities")
     expect(within(capabilities).getByText("Current Version")).toBeInTheDocument()
-    expect(within(capabilities).getByText("V3.9.2")).toBeInTheDocument()
+    expect(within(capabilities).getByText("V3.9.3")).toBeInTheDocument()
     expect(within(capabilities).getByText("3020+ Records")).toBeInTheDocument()
     expect(within(capabilities).getByText("Experimental Labels")).toBeInTheDocument()
     expect(within(capabilities).getByText("150")).toBeInTheDocument()

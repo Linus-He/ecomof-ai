@@ -1,14 +1,17 @@
-// @ts-nocheck
 import { useEffect, useMemo, useState } from "react"
 import { fetchDataJson } from "../../shared"
 import {
-  buildAlgorithmTraceJson,
+  buildEvidenceMatrixCsv,
+  buildAblationAnalysisJson,
   buildHostGuestRouteExplanation,
-  buildHostGuestRouteExplanationJson,
   buildHostGuestRoutePriorityQueueCsv,
+  buildMarkdownResearchSummary,
+  buildMissingEvidenceRiskMatrixCsv,
   buildOrganicAcidExperimentalRouteJson,
   buildOrganicAcidHostGuestWorkbench,
-  buildPathwayDescriptorMapCsv,
+  buildOrganicAcidRouteReportJson,
+  buildSensitivityAnalysisJson,
+  HGCPS_FORMULA_TEXT,
   ORGANIC_ACID_HOST_GUEST_VERSION,
 } from "../../utils/organicAcidHostGuest"
 import { NumericText, organicAcidPalette as palette, ORGANIC_ACID_FONT, SCIENTIFIC_TOKEN_FONT } from "./FormulaInline"
@@ -333,13 +336,13 @@ function RouteExplanationPanel({ explanation, lang }) {
       </div>
       <div style={{ display: "grid", gap: 7, gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}>
         <ScorePill label="Complementarity" value={explanation.complementarityScore} />
-        <ScorePill label="Risk penalty" value={explanation.riskPenalty} tone={palette.risk} />
+        <ScorePill label="Risk retention factor" value={explanation.riskPenalty} tone={palette.risk} />
       </div>
       <div style={{ display: "grid", gap: 6 }}>
         <strong style={{ color: palette.text, fontSize: 12.5 }}>{text(lang, "证据来源与风险原因", "Evidence sources and risk reasons")}</strong>
         {explanation.riskPenaltyBreakdown.slice(0, 4).map(row => (
           <div key={row.evidenceId} style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45 }}>
-            {row.evidenceId}: {row.riskType} · penalty {fmt(row.penalty, 2)} · {row.reason}
+            {row.evidenceId}: {row.riskType} · reason weight {fmt(row.penalty, 2)} · {row.reason}
           </div>
         ))}
       </div>
@@ -353,13 +356,13 @@ function ComplementaryScoringSection({ workbench, lang }) {
       <SectionTitle
         kicker="Complementary Scoring"
         title={text(lang, "HGCPS 主客体互补路径评分", "HGCPS Host-Guest Complementarity Scoring")}
-        note="HGCPS = Host Stability Score * Host Pathway Support Score * Guest Activity Compensation Score * Host-Guest Complementarity Score * Evidence Confidence Score * Risk Penalty."
+        note={`${HGCPS_FORMULA_TEXT}. Multiplication expresses the pathway bottleneck effect; the 0-1 risk retention factor keeps unresolved risk inside the product.`}
       />
       <div style={{ overflowX: "auto" }}>
         <table style={{ borderCollapse: "collapse", minWidth: 850, width: "100%" }}>
           <thead>
             <tr>
-              {["Rank", "Route", "Host", "Guest", "Complementarity", "Evidence", "Risk penalty", "Final HGCPS", "Main reason"].map(head => (
+              {["Rank", "Route", "Host", "Guest", "Complementarity", "Evidence", "Risk retention", "Final HGCPS", "Main reason"].map(head => (
                 <th key={head} style={{ borderBottom: `1px solid ${palette.borderStrong}`, color: palette.faint, fontSize: 11, fontWeight: 900, padding: "8px 9px", textAlign: "left" }}>{head}</th>
               ))}
             </tr>
@@ -373,7 +376,7 @@ function ComplementaryScoringSection({ workbench, lang }) {
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "9px" }}>{fmt(route.scoreBreakdown.guestActivityCompensation, 2)}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "9px" }}>{fmt(route.scoreBreakdown.complementarity, 2)}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "9px" }}>{fmt(route.scoreBreakdown.evidence, 2)}</td>
-                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.risk, fontSize: 12, padding: "9px" }}>{fmt(route.scoreBreakdown.riskPenalty, 2)}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.risk, fontSize: 12, padding: "9px" }}>{fmt(route.scoreBreakdown.riskRetentionFactor, 2)}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.accent, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 12, fontWeight: 950, padding: "9px" }}>{fmt(route.finalHGCPS, 3)}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 11.5, lineHeight: 1.45, padding: "9px" }}>{route.mainReason}</td>
               </tr>
@@ -440,7 +443,7 @@ function TraceAndGraphSection({ workbench, lang, isNarrow }) {
 
 function EvidenceMatrixSection({ workbench, lang }) {
   return (
-    <section style={{ ...cardStyle({ background: palette.bg, padding: 14 }) }}>
+    <section style={{ display: "grid", gap: 12 }}>
       <SectionTitle
         kicker="Evidence and Confidence Matrix"
         title={text(lang, "证据矩阵 / 置信矩阵", "Evidence Matrix / Confidence Matrix")}
@@ -484,36 +487,226 @@ function EvidenceMatrixSection({ workbench, lang }) {
   )
 }
 
-function ValidationAndExportSection({ workbench, selectedExplanation, lang }) {
+function RiskMatrixSection({ workbench, lang }) {
+  const topRisk = workbench.missingEvidenceRiskMatrix.find(row => row.routeId === "route-al-mof-mo") || workbench.missingEvidenceRiskMatrix[0]
+  return (
+    <section style={{ display: "grid", gap: 12 }}>
+      <SectionTitle
+        kicker="Missing Evidence & Risk Matrix"
+        title={text(lang, "缺失证据与风险矩阵", "Missing Evidence & Risk Matrix")}
+        note={text(lang, "把缺失描述符、同条件实验、170C 水相稳定性、Mo 引入和局域配位不确定性作为可验证风险列出。", "Missing descriptors, same-condition experiments, 170C aqueous stability, Mo introduction, and local coordination uncertainty are listed as testable risks.")}
+      />
+      {topRisk ? (
+        <article style={{ ...cardStyle({ background: palette.riskSoft }) }}>
+          <strong style={{ color: palette.text, fontSize: 13.5 }}>{topRisk.routeName}</strong>
+          <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))" }}>
+            {[
+              ["Mo introduction feasibility", topRisk.moIntroductionFeasibilityRisk],
+              ["Local coordination", topRisk.localCoordinationUncertainty],
+              ["170C aqueous stability", topRisk.hydrothermalStabilityRisk],
+              ["Same-condition evidence", topRisk.missingSameConditionExperiment],
+              ["Missing descriptor", topRisk.missingDescriptor],
+              ["Risk retention factor", fmt(topRisk.riskRetentionFactor, 2)],
+            ].map(([label, value]) => (
+              <div key={label} style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 8, padding: 10 }}>
+                <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 850 }}>{label}</div>
+                <div style={{ color: palette.text, fontSize: 12.2, fontWeight: 760, lineHeight: 1.45, marginTop: 4 }}>{value}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.5 }}>
+            Recommended data to collect: {topRisk.recommendedDataToCollect}
+          </div>
+        </article>
+      ) : null}
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ borderCollapse: "collapse", minWidth: 940, width: "100%" }}>
+          <thead>
+            <tr>
+              {["Route", "Missing descriptor", "Same-condition experiment", "Hydrothermal stability", "Mo / guest introduction", "Local coordination", "Risk retention"].map(head => (
+                <th key={head} style={{ borderBottom: `1px solid ${palette.borderStrong}`, color: palette.faint, fontSize: 11, fontWeight: 900, padding: "8px 9px", textAlign: "left" }}>{head}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {workbench.missingEvidenceRiskMatrix.slice(0, 10).map(row => (
+              <tr key={row.routeId} style={{ background: row.routeId === "route-al-mof-mo" ? palette.accentSoft : "transparent" }}>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 11.7, fontWeight: 820, padding: "8px 9px" }}>{row.routeName}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 11.7, padding: "8px 9px" }}>{row.missingDescriptor}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 11.7, padding: "8px 9px" }}>{row.missingSameConditionExperiment}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.risk, fontSize: 11.7, padding: "8px 9px" }}>{row.hydrothermalStabilityRisk}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.risk, fontSize: 11.7, padding: "8px 9px" }}>{row.moIntroductionFeasibilityRisk}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 11.7, padding: "8px 9px" }}>{row.localCoordinationUncertainty}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.accent, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11.7, fontWeight: 900, padding: "8px 9px" }}>{fmt(row.riskRetentionFactor, 2)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  )
+}
+
+function SensitivityAnalysisSection({ workbench, lang }) {
+  const summary = workbench.sensitivityAnalysis.summary
+  return (
+    <section style={{ display: "grid", gap: 12 }}>
+      <SectionTitle
+        kicker="Sensitivity Analysis Panel"
+        title={text(lang, "敏感性分析", "Sensitivity Analysis")}
+        note={text(lang, "对每个 HGCPS 因子做 ±20% 扰动，观察基准排序、调整后排序和 Al-MOF + Mo 是否仍保持第一。", "Each HGCPS factor is perturbed by +/-20% to compare the baseline ranking, adjusted ranking, and Al-MOF + Mo rank stability.")}
+      />
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
+        {[
+          ["Rank stability", pct(summary.rankStability)],
+          ["Al-MOF + Mo remains top", summary.alMofMoRemainsTop ? "yes" : "no"],
+          ["Most sensitive factor", summary.mostSensitiveFactor],
+          ["Max score change", fmt(summary.maxScoreChange, 3)],
+        ].map(([label, value]) => (
+          <div key={label} style={cardStyle({ background: palette.surfaceStrong })}>
+            <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 850 }}>{label}</div>
+            <div style={{ color: palette.text, fontSize: 13.5, fontWeight: 920 }}>{value}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ borderCollapse: "collapse", minWidth: 820, width: "100%" }}>
+          <thead>
+            <tr>
+              {["Factor", "Perturbation", "Baseline ranking", "Adjusted ranking", "Original top rank", "Score change", "Warning"].map(head => (
+                <th key={head} style={{ borderBottom: `1px solid ${palette.borderStrong}`, color: palette.faint, fontSize: 11, fontWeight: 900, padding: "8px 9px", textAlign: "left" }}>{head}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {workbench.sensitivityAnalysis.scenarios.map(row => (
+              <tr key={row.scenarioId}>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 11.7, padding: "8px 9px" }}>{row.factorLabel}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 11.7, padding: "8px 9px" }}>{row.perturbation}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 11.7, padding: "8px 9px" }}>{row.baselineTopRoute}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: row.topRouteRemainsTop ? palette.accent : palette.risk, fontSize: 11.7, padding: "8px 9px" }}>{row.adjustedTopRoute}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 11.7, fontWeight: 850, padding: "8px 9px" }}>#{row.adjustedOriginalTopRank}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11.7, padding: "8px 9px" }}>{fmt(row.scoreChange, 3)}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: row.warning ? palette.risk : palette.faint, fontSize: 11.7, padding: "8px 9px" }}>{row.warning || "rank stable"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  )
+}
+
+function AblationAnalysisSection({ workbench, lang }) {
+  const ablation = workbench.ablationAnalysis
+  return (
+    <section style={{ display: "grid", gap: 12 }}>
+      <SectionTitle
+        kicker="Ablation Analysis Panel"
+        title={text(lang, "消融分析", "Ablation Analysis")}
+        note={text(lang, "逐项移除 Mo 活性补偿、Al-MOF 主体稳定性、主客体互补、证据置信度与风险保留，检验 Al-MOF + Mo 排名依赖。", "Each scenario removes Mo compensation, Al-MOF host stability, complementarity, evidence confidence, or risk retention to test the top-route dependency.")}
+      />
+      <div style={{ background: palette.accentSoft, border: `1px solid ${palette.border}`, borderRadius: 8, color: palette.muted, fontSize: 12, lineHeight: 1.5, padding: 10 }}>
+        {ablation.summary}
+      </div>
+      <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+        {ablation.scenarios.map(row => (
+          <article key={row.scenarioId} style={cardStyle({ background: row.adjustedTopRoute === "route-al-mof-mo" ? palette.surface : palette.riskSoft })}>
+            <strong style={{ color: palette.text, fontSize: 12.5 }}>{row.label}</strong>
+            <NumericText style={{ color: palette.accent, fontSize: 18, fontWeight: 950 }}>HGCPS {fmt(row.scoreAfterAblation, 3)}</NumericText>
+            <span style={{ color: palette.muted, fontSize: 11.7, lineHeight: 1.45 }}>Adjusted top route: {row.adjustedTopRoute}; route rank after ablation #{row.rankingAfterAblation}</span>
+            <span style={{ color: palette.faint, fontSize: 11.5, lineHeight: 1.45 }}>{row.contributionInterpretation}</span>
+          </article>
+        ))}
+      </div>
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}>
+        <div style={cardStyle({ background: palette.surfaceStrong })}>
+          <strong style={{ color: palette.text, fontSize: 12.5 }}>Mo compensation contribution</strong>
+          <span style={{ color: palette.muted, fontSize: 11.7, lineHeight: 1.45 }}>{ablation.moContribution.interpretation}</span>
+          <NumericText style={{ color: palette.accent, fontSize: 14, fontWeight: 950 }}>contribution {fmt(ablation.moContribution.contribution, 3)}</NumericText>
+        </div>
+        <div style={cardStyle({ background: palette.surfaceStrong })}>
+          <strong style={{ color: palette.text, fontSize: 12.5 }}>Al-MOF host stability contribution</strong>
+          <span style={{ color: palette.muted, fontSize: 11.7, lineHeight: 1.45 }}>{ablation.hostStabilityContribution.interpretation}</span>
+          <NumericText style={{ color: palette.accent, fontSize: 14, fontWeight: 950 }}>contribution {fmt(ablation.hostStabilityContribution.contribution, 3)}</NumericText>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function BoundaryPanel({ lang }) {
+  const boundaries = [
+    ["Recommendation status", "Al-MOF + Mo is one high-priority experimental route, not final catalytic proof."],
+    ["Data status", "Evidence remains seed / curated / proxy / inferred / mixed until direct same-condition validation is added."],
+    ["Comparability", "Cross-literature reaction conditions are not directly comparable."],
+    ["Experimental gap", "Same-condition experiments are still insufficient."],
+    ["Mo feasibility", "Mo doping or post-modification feasibility needs validation."],
+    ["Host stability", "Al-MOF 170C aqueous stability must be validated under the reaction protocol."],
+    ["Model boundary", "Random Forest is a baseline / risk reference only and is not the final recommendation basis."],
+    ["Validation roadmap", "Validate yield, selectivity, structure retention, Mo loading, Mo coordination, and carbon balance."],
+  ]
+  return (
+    <section style={{ display: "grid", gap: 12 }}>
+      <SectionTitle
+        kicker="Organic Acid Algorithm Boundary Panel"
+        title={text(lang, "算法边界", "Algorithm Boundary")}
+        note={text(lang, "该面板固定列出 V3.9.3 不允许越界表达的结论边界。", "This panel fixes the conclusion boundaries that V3.9.3 must not overstate.")}
+      />
+      <div style={{ display: "grid", gap: 8 }}>
+        {boundaries.map(([label, value]) => (
+          <div key={label} style={{ ...cardStyle({ background: palette.surfaceStrong, gridTemplateColumns: "180px minmax(0, 1fr)" }) }}>
+            <strong style={{ color: palette.text, fontSize: 12.3 }}>{label}</strong>
+            <span style={{ color: palette.muted, fontSize: 12, lineHeight: 1.5 }}>{value}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function ReportExportSection({ workbench, selectedExplanation, lang }) {
   const exportRows = [
+    {
+      label: "Al-MOF + Mo Route Report JSON",
+      action: () => downloadText("al-mof-mo-route-report.json", JSON.stringify(buildOrganicAcidRouteReportJson(workbench, selectedExplanation), null, 2)),
+    },
     {
       label: "Host-Guest Route Priority Queue CSV",
       action: () => downloadText("host-guest-route-priority-queue.csv", buildHostGuestRoutePriorityQueueCsv(workbench.priorityQueue), "text/csv"),
     },
     {
-      label: "Al-MOF + Mo Route Explanation JSON",
-      action: () => downloadText("al-mof-mo-route-explanation.json", JSON.stringify(buildHostGuestRouteExplanationJson(selectedExplanation), null, 2)),
+      label: "Evidence Matrix CSV",
+      action: () => downloadText("organic-acid-evidence-matrix.csv", buildEvidenceMatrixCsv(workbench.evidenceMatrix), "text/csv"),
     },
     {
-      label: "Algorithm Trace JSON",
-      action: () => downloadText("organic-acid-host-guest-algorithm-trace.json", JSON.stringify(buildAlgorithmTraceJson(workbench.algorithmTrace), null, 2)),
+      label: "Missing Evidence & Risk Matrix CSV",
+      action: () => downloadText("organic-acid-missing-evidence-risk-matrix.csv", buildMissingEvidenceRiskMatrixCsv(workbench.missingEvidenceRiskMatrix), "text/csv"),
     },
     {
-      label: "Pathway Descriptor Map CSV",
-      action: () => downloadText("pathway-descriptor-map.csv", buildPathwayDescriptorMapCsv(workbench.descriptorMap), "text/csv"),
+      label: "Sensitivity Analysis JSON",
+      action: () => downloadText("organic-acid-sensitivity-analysis.json", JSON.stringify(buildSensitivityAnalysisJson(workbench.sensitivityAnalysis), null, 2)),
     },
     {
-      label: "Experimental Route JSON",
+      label: "Ablation Analysis JSON",
+      action: () => downloadText("organic-acid-ablation-analysis.json", JSON.stringify(buildAblationAnalysisJson(workbench.ablationAnalysis), null, 2)),
+    },
+    {
+      label: "Validation Roadmap JSON",
       action: () => downloadText("organic-acid-experimental-route.json", JSON.stringify(buildOrganicAcidExperimentalRouteJson(workbench.experimentalRoute), null, 2)),
+    },
+    {
+      label: "Markdown Research Summary",
+      action: () => downloadText("organic-acid-host-guest-summary.md", buildMarkdownResearchSummary(workbench, selectedExplanation), "text/markdown"),
     },
   ]
 
   return (
-    <section style={{ ...cardStyle({ background: palette.bg, padding: 14 }) }}>
+    <section style={{ display: "grid", gap: 12 }}>
       <SectionTitle
-        kicker="Experimental Route and Exports"
-        title={text(lang, "实验验证路线与导出", "Experimental Route and Exports")}
-        note={text(lang, "导出包含版本、生成时间、目标产物、主体 MOF、客体金属、路线类型、评分拆解、证据、风险、溯源与下一步实验。", "Exports include version, generated time, target product, host, guest, route type, score breakdown, evidence, risk, provenance, and next experiment.")}
+        kicker="Route Report Export"
+        title={text(lang, "路线报告与验证路线导出", "Route Report and Validation Exports")}
+        note={text(lang, "导出包含 Al-MOF + Mo 路线报告、队列、证据矩阵、风险矩阵、敏感性、消融、验证路线与 Markdown 摘要。", "Exports include the Al-MOF + Mo route report, route queue, evidence matrix, risk matrix, sensitivity, ablation, validation roadmap, and Markdown summary.")}
       />
       <div style={{ display: "grid", gap: 10 }}>
         {workbench.experimentalRoute.experiments.map((experiment, index) => (
@@ -534,6 +727,40 @@ function ValidationAndExportSection({ workbench, selectedExplanation, lang }) {
           </button>
         ))}
       </div>
+    </section>
+  )
+}
+
+function AdvancedAnalysisTabs({ workbench, selectedExplanation, lang }) {
+  const [activeTab, setActiveTab] = useState("risk")
+  const tabs = [
+    ["risk", "Missing Evidence & Risk Matrix"],
+    ["evidence", "Evidence Matrix"],
+    ["sensitivity", "Sensitivity Analysis"],
+    ["ablation", "Ablation Analysis"],
+    ["boundary", "Algorithm Boundary"],
+    ["report", "Route Report Export"],
+  ]
+  return (
+    <section style={{ ...cardStyle({ background: palette.bg, padding: 14 }) }}>
+      <SectionTitle
+        kicker="Advanced route analysis"
+        title={text(lang, "高级证据、风险与稳健性分析", "Advanced Evidence, Risk, and Robustness Analysis")}
+        note={text(lang, "默认显示缺失证据与风险矩阵；其余分析通过 tabs 展开，避免压缩主流程。", "The default tab shows missing evidence and risk; other analyses open through tabs so the main workflow remains clear.")}
+      />
+      <div role="tablist" aria-label="Organic Acid advanced analysis" style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        {tabs.map(([id, label]) => (
+          <button key={id} type="button" role="tab" aria-selected={activeTab === id} onClick={() => setActiveTab(id)} style={{ ...buttonStyle(activeTab === id), textAlign: "center" }}>
+            {label}
+          </button>
+        ))}
+      </div>
+      {activeTab === "risk" ? <RiskMatrixSection workbench={workbench} lang={lang} /> : null}
+      {activeTab === "evidence" ? <EvidenceMatrixSection workbench={workbench} lang={lang} /> : null}
+      {activeTab === "sensitivity" ? <SensitivityAnalysisSection workbench={workbench} lang={lang} /> : null}
+      {activeTab === "ablation" ? <AblationAnalysisSection workbench={workbench} lang={lang} /> : null}
+      {activeTab === "boundary" ? <BoundaryPanel lang={lang} /> : null}
+      {activeTab === "report" ? <ReportExportSection workbench={workbench} selectedExplanation={selectedExplanation} lang={lang} /> : null}
     </section>
   )
 }
@@ -590,7 +817,7 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
   if (status === "loading" || !workbench || !selectedExplanation) {
     return (
       <section id="organic-acid-host-guest-workbench" style={{ ...cardStyle({ background: palette.bg, padding: 14, scrollMarginTop: 118 }) }}>
-        <SectionTitle kicker="V3.9.2" title="Organic Acid Host-Guest Pathway Screening Workbench" note="Loading host-guest algorithm data..." />
+        <SectionTitle kicker={ORGANIC_ACID_HOST_GUEST_VERSION} title="Organic Acid Host-Guest Pathway Screening Workbench" note="Loading host-guest algorithm data..." />
       </section>
     )
   }
@@ -598,7 +825,7 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
   if (status === "error") {
     return (
       <section id="organic-acid-host-guest-workbench" style={{ ...cardStyle({ background: palette.riskSoft, padding: 14, scrollMarginTop: 118 }) }}>
-        <SectionTitle kicker="V3.9.2" title="Organic Acid Host-Guest Pathway Screening Workbench" note="Host-guest data could not be loaded." />
+        <SectionTitle kicker={ORGANIC_ACID_HOST_GUEST_VERSION} title="Organic Acid Host-Guest Pathway Screening Workbench" note="Host-guest data could not be loaded." />
       </section>
     )
   }
@@ -626,13 +853,12 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
       </section>
       <RecommendationCard workbench={workbench} lang={lang} />
       <PipelineStepper workbench={workbench} activeStep={activeStep} setActiveStep={setActiveStep} lang={lang} isNarrow={isNarrow} />
+      <PriorityQueueSection workbench={workbench} selectedRouteId={selectedRoute.routeId} setSelectedRouteId={setSelectedRouteId} selectedExplanation={selectedExplanation} lang={lang} isNarrow={isNarrow} />
+      <AdvancedAnalysisTabs workbench={workbench} selectedExplanation={selectedExplanation} lang={lang} />
       <PathwayDescriptorSection workbench={workbench} lang={lang} />
       <SelectionSection workbench={workbench} lang={lang} isNarrow={isNarrow} />
       <ComplementaryScoringSection workbench={workbench} lang={lang} />
-      <PriorityQueueSection workbench={workbench} selectedRouteId={selectedRoute.routeId} setSelectedRouteId={setSelectedRouteId} selectedExplanation={selectedExplanation} lang={lang} isNarrow={isNarrow} />
       <TraceAndGraphSection workbench={workbench} lang={lang} isNarrow={isNarrow} />
-      <EvidenceMatrixSection workbench={workbench} lang={lang} />
-      <ValidationAndExportSection workbench={workbench} selectedExplanation={selectedExplanation} lang={lang} />
     </section>
   )
 }
