@@ -1,36 +1,28 @@
 import { describe, expect, it } from "vitest"
-import { fireEvent, render, screen } from "@testing-library/react"
+import { render, screen, within } from "@testing-library/react"
 import data from "../../../public/data/version_evolution_records.json"
 import { ProjectEvolutionTab } from "../../components/tabs/ProjectEvolutionTab"
 
-function bodyText() {
-  return document.body.textContent || ""
-}
-
-describe("ReleaseNotesCenter", () => {
-  it("renders release notes by version, module, and category", () => {
+describe("Project Updates", () => {
+  it("renders the four numbered project-update streams for the current release", () => {
     render(<ProjectEvolutionTab data={data} />)
 
-    expect(screen.getByTestId("project-evolution-release-notes")).toBeInTheDocument()
-    expect(bodyText()).toMatch(/Release Notes/)
-    expect(bodyText()).toMatch(/Project Evolution Center/)
-    expect(bodyText()).toMatch(/Experimental Label Acquisition/)
-    expect(bodyText()).toMatch(/Model Credibility/)
-    expect(bodyText()).toMatch(/Experimental Label Expansion/)
-    expect(bodyText()).toMatch(/Robustness/)
-    expect(bodyText()).toMatch(/Random Forest/)
+    const updates = screen.getByTestId("project-evolution-release-notes")
+    expect(updates).toBeInTheDocument()
+    expect(updates.textContent).toMatch(/Project Updates/)
+    expect(updates.textContent).toMatch(/V3\.9\.2/)
+    for (const number of ["01", "02", "03", "04"]) {
+      expect(within(updates).getByText(number)).toBeInTheDocument()
+    }
   })
 
-  it("filters release notes by category", () => {
+  it("labels each stream with its work area", () => {
     render(<ProjectEvolutionTab data={data} />)
 
-    const selects = screen.getAllByRole("combobox")
-    const categoryOptions = [...selects[1].querySelectorAll("option")].map(option => option.textContent)
-    expect(categoryOptions).toEqual(expect.arrayContaining(["Data", "Algorithm", "Validation", "UI", "Methods", "Infrastructure", "Testing"]))
-
-    fireEvent.change(selects[1], { target: { value: "Validation" } })
-    expect(bodyText()).toMatch(/Experimental Label Acquisition/)
-    expect(bodyText()).toMatch(/Model Credibility/)
-    expect(bodyText()).toMatch(/Experimental Label Expansion/)
+    const updates = screen.getByTestId("project-evolution-release-notes")
+    expect(updates.textContent).toMatch(/Data wiring/)
+    expect(updates.textContent).toMatch(/Explanation path/)
+    expect(updates.textContent).toMatch(/Interaction cleanup/)
+    expect(updates.textContent).toMatch(/Page-level export/)
   })
 })

@@ -139,8 +139,8 @@ export const HASH_META = {
     description: "查看 EcoMOF-AI 的统一版本历史，这是版本时间线、Release Notes、Roadmap 和 Milestones 的唯一权威数据源。",
   },
   "project-evolution-release-notes": {
-    title: "Release Notes Center | EcoMOF-AI",
-    description: "按版本、模块、时间和分类查看 EcoMOF-AI 的更新记录。",
+    title: "Project Updates | EcoMOF-AI",
+    description: "按数据接入、解释链路、交互与样式、页面级导出查看 EcoMOF-AI 当前版本的更新。",
   },
   "project-evolution-scientific": {
     title: "Scientific Evolution | EcoMOF-AI",

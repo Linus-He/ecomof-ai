@@ -4,6 +4,7 @@ import {
   BasisBadge,
   CopyLinkButton,
   FieldProvenanceButton,
+  FONT_MONO,
   PageHeader,
   fetchDataJson,
   toolbarBtn,
@@ -84,92 +85,203 @@ function EvolutionOverview({ data, projectStatus, lang, t, isMobile }) {
   )
 }
 
-function dynamicReleaseNotes(data) {
-  return (data.versions || []).slice().reverse().flatMap(row => {
-    const categories = row.categories?.length ? row.categories : ["Project"]
-    return categories.map(category => ({
-      version: row.version,
-      date: row.date,
-      module: category,
-      category,
-      title: row.summary,
-      body: [row.scientificImpact, row.databaseImpact, row.algorithmImpact, row.validationImpact, row.uiImpact].filter(Boolean).join(" "),
-    }))
-  })
+// Current in-progress release. The shared version_evolution_records.json data source is
+// bumped by the release that finalizes V3.9.2; this curated entry lets the Project Evolution
+// timeline surface the work in progress without mutating the cross-module data file.
+const CURRENT_RELEASE = {
+  version: "V3.9.2",
+  title: { zh: "分模块数据库卡片接线", en: "Full Per-Tab Database Card Wiring" },
+  summary: {
+    zh: "接入 GasSep 与 Organic Acid 摘要构建器，清理 Catalysis playground 样式，并补充页面级导出能力。",
+    en: "GasSep + Organic Acid summary builders, Catalysis playground CSS cleanup, page-level export.",
+  },
+  scientificImpact: {
+    zh: "各模块数据库卡片由摘要构建器派生，保持字段级可追溯。",
+    en: "Per-tab database cards derive from summary builders with field-level traceability.",
+  },
+  validationImpact: {
+    zh: "保留 Organic Acid 研究验证闭环，统计可由构建器动态计算。",
+    en: "Keeps the Organic Acid research-validation loop; stats derive from builders.",
+  },
+  breakingChanges: { zh: "无", en: "None" },
+  nextVersionGoal: {
+    zh: "将剩余 Organic Acid / MOF / Benchmark 卡片与导出按钮接入对应构建器。",
+    en: "Wire remaining Organic Acid / MOF / Benchmark cards and export buttons to their builders.",
+  },
+}
+
+// Project Updates, grouped into four numbered work streams for the current release.
+const PROJECT_UPDATE_STREAMS = [
+  {
+    no: "01",
+    label: { zh: "数据接入", en: "Data wiring" },
+    body: {
+      zh: "将 GasSep 与 Organic Acid 摘要构建器接入各模块数据库卡片，数字由数据源派生而非写死。",
+      en: "Wire GasSep + Organic Acid summary builders into per-tab database cards so numbers derive from data, not hardcoded values.",
+    },
+  },
+  {
+    no: "02",
+    label: { zh: "解释链路", en: "Explanation path" },
+    body: {
+      zh: "保持字段级溯源与筛选追踪在接线后的卡片中可检查，缺失字段统一降级。",
+      en: "Keep field-level provenance and screening trace inspectable across the wired cards, with unified fallbacks for missing fields.",
+    },
+  },
+  {
+    no: "03",
+    label: { zh: "交互与样式", en: "Interaction cleanup" },
+    body: {
+      zh: "清理孤立的 Catalysis playground 样式，同时保留共享 .formula 与通用动效。",
+      en: "Remove orphaned Catalysis playground CSS while preserving the shared .formula and generic motion styles.",
+    },
+  },
+  {
+    no: "04",
+    label: { zh: "页面级导出", en: "Page-level export" },
+    body: {
+      zh: "提供可复用的页面级导出按钮，输出 CSV / JSON，并在测试环境中安全降级。",
+      en: "Provide a reusable page-level export button for CSV / JSON output, no-op-safe in tests.",
+    },
+  },
+]
+
+function localize(value, lang) {
+  return value && typeof value === "object" ? value[lang === "zh" ? "zh" : "en"] : value
+}
+
+function StatusBadge({ tone, children, t }) {
+  const palette = tone === "warn"
+    ? { background: t.badgeWarnBg, color: t.warn, border: t.warn }
+    : { background: t.badgeInfoBg, color: t.accentText, border: t.accent }
+  return (
+    <span style={{ alignItems: "center", background: palette.background, border: `1px solid ${palette.border}`, borderRadius: 999, color: palette.color, display: "inline-flex", fontSize: 10, fontWeight: 900, letterSpacing: 0.2, padding: "3px 8px", textTransform: "uppercase" }}>
+      {children}
+    </span>
+  )
+}
+
+function TimelineEntry({ versionLabel, title, summary, badges, fields, t, isMobile, highlight, isLast }) {
+  return (
+    <div style={{ display: "grid", gap: isMobile ? 9 : 12, gridTemplateColumns: "auto minmax(0, 1fr)", minWidth: 0 }}>
+      <div style={{ alignItems: "center", display: "flex", flexDirection: "column" }}>
+        <span style={{ background: highlight ? t.accent : t.panel, border: `2px solid ${highlight ? t.accent : t.border}`, borderRadius: 999, flexShrink: 0, height: 12, marginTop: 5, width: 12 }} />
+        {!isLast ? <span style={{ background: t.border, flex: 1, minHeight: 18, width: 2 }} /> : null}
+      </div>
+      <article style={{ background: highlight ? t.badgeInfoBg : t.surface, border: `1px solid ${highlight ? t.accent : t.border}`, borderRadius: 9, display: "grid", gap: fields?.length ? 8 : 5, marginBottom: 12, minWidth: 0, padding: isMobile ? 11 : 13 }}>
+        <header style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, minWidth: 0 }}>
+          <strong style={{ color: t.textStrong, fontSize: 13.5 }}>{versionLabel}</strong>
+          {title ? <span style={{ color: t.muted, fontSize: 12.5 }}>· {title}</span> : null}
+          {badges}
+        </header>
+        {summary ? <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.5 }}>{summary}</span> : null}
+        {fields?.length ? (
+          <div style={{ display: "grid", gap: 7, gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(160px, 1fr))" }}>
+            {fields.filter(([, , value]) => value).map(([key, label, value, warn]) => (
+              <div key={key} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, minWidth: 0, padding: 8 }}>
+                <span style={{ color: t.faint, display: "block", fontSize: 9.5, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
+                <span style={{ color: warn ? t.warn : t.textStrong, display: "block", fontSize: 11.2, lineHeight: 1.4, marginTop: 3 }}>{value}</span>
+              </div>
+            ))}
+          </div>
+        ) : null}
+      </article>
+    </div>
+  )
+}
+
+function impactFields(row, lang) {
+  return [
+    ["scientificImpact", text(lang, "科研影响", "Scientific Impact"), localize(row.scientificImpact, lang), false],
+    ["validationImpact", text(lang, "验证影响", "Validation Impact"), localize(row.validationImpact, lang), false],
+    ["breakingChanges", text(lang, "破坏性变更", "Breaking Changes"), localize(row.breakingChanges, lang), true],
+    ["nextVersionGoal", text(lang, "下一版本目标", "Next Version Goal"), localize(row.nextVersionGoal, lang), false],
+  ]
 }
 
 function VersionTimeline({ data, lang, t, isMobile }) {
   const [query, setQuery] = useState("")
-  const [active, setActive] = useState(data.currentVersion || "V2.3")
   const versions = data.versions || []
-  const visible = versions.filter(row => `${row.version} ${row.summary} ${row.categories?.join(" ")}`.toLowerCase().includes(query.toLowerCase()))
-  const selected = versions.find(row => row.version === active) || visible[0] || versions[0]
+  const ordered = [...versions].reverse()
+  const recent = ordered.slice(0, 2)
+  const earlier = ordered.slice(2)
+  const q = query.trim().toLowerCase()
+  const searchPool = [
+    { version: CURRENT_RELEASE.version, summary: localize(CURRENT_RELEASE.summary, lang), categories: [] },
+    ...ordered,
+  ]
+  const matches = q
+    ? searchPool.filter(row => `${row.version} ${row.summary} ${(row.categories || []).join(" ")}`.toLowerCase().includes(q))
+    : null
+
   return (
     <Card
       id="project-evolution-version-timeline"
       title={text(lang, "版本演化时间线", "Version Timeline")}
-      subtitle={text(lang, "统一版本历史；这是版本演化时间线、版本更新记录、发展路线图与关键里程碑的唯一权威数据源。", "Unified version history; this is the only authoritative source for Version Timeline, Release Notes, Roadmap, and Milestones.")}
+      subtitle={text(lang, "紧凑型版本时间轴；这是版本演化、版本更新、发展路线图与关键里程碑的唯一权威数据源。", "Compact version timeline; the only authoritative source for evolution, updates, roadmap, and milestones.")}
       t={t}
       actions={<input value={query} onChange={event => setQuery(event.target.value)} placeholder={text(lang, "搜索版本", "Search versions")} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.textStrong, fontSize: 12, minHeight: 34, padding: "7px 9px" }} />}
     >
-      <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "minmax(220px, 0.42fr) minmax(0, 0.58fr)" }}>
-        <div style={{ display: "grid", gap: 7 }}>
-          {visible.map(row => (
-            <button key={row.version} type="button" onClick={() => setActive(row.version)} style={{ background: row.version === selected?.version ? t.badgeInfoBg : t.surface, border: `1px solid ${row.version === selected?.version ? t.accent : t.border}`, borderRadius: 8, color: row.version === selected?.version ? t.accentText : t.textStrong, cursor: "pointer", display: "grid", gap: 3, minHeight: 58, padding: 9, textAlign: "left" }}>
-              <strong style={{ fontSize: 12.5 }}>{row.version}</strong>
-              <span style={{ color: t.muted, fontSize: 11, lineHeight: 1.35 }}>{row.summary}</span>
-            </button>
-          ))}
+      {matches ? (
+        <div style={{ display: "grid" }}>
+          {matches.length ? matches.map((row, index) => (
+            <TimelineEntry key={row.version} versionLabel={row.version} summary={row.summary} t={t} isMobile={isMobile} isLast={index === matches.length - 1} />
+          )) : (
+            <span style={{ color: t.muted, fontSize: 12 }}>{text(lang, "没有匹配的版本。", "No matching versions.")}</span>
+          )}
         </div>
-        {selected ? (
-          <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 8, padding: 11 }}>
-            <strong style={{ color: t.textStrong, fontSize: 15 }}>{selected.version}</strong>
-            <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.5 }}>{selected.summary}</span>
-            <div style={{ display: "grid", gap: 7, gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))" }}>
-              {[
-                ["commit", text(lang, "提交", "Commit"), selected.commit, false],
-                ["scientificImpact", text(lang, "科研影响", "Scientific Impact"), selected.scientificImpact, false],
-                ["databaseImpact", text(lang, "数据库影响", "Database Impact"), selected.databaseImpact, false],
-                ["algorithmImpact", text(lang, "算法影响", "Algorithm Impact"), selected.algorithmImpact, false],
-                ["validationImpact", text(lang, "验证影响", "Validation Impact"), selected.validationImpact, false],
-                ["uiImpact", text(lang, "界面影响", "UI Impact"), selected.uiImpact, false],
-                ["knownLimitations", text(lang, "已知局限", "Known Limitations"), selected.knownLimitations, true],
-                ["breakingChanges", text(lang, "破坏性变更", "Breaking Changes"), selected.breakingChanges, true],
-                ["nextVersionGoal", text(lang, "下一版本目标", "Next Version Goal"), selected.nextVersionGoal, false],
-              ].map(([key, label, value, warn]) => (
-                <div key={key} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, minWidth: 0, padding: 8 }}>
-                  <span style={{ color: t.faint, display: "block", fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
-                  <span style={{ color: warn ? t.warn : t.textStrong, display: "block", fontSize: 11.4, lineHeight: 1.45, marginTop: 4 }}>{value}</span>
-                </div>
-              ))}
-            </div>
-          </article>
-        ) : null}
-      </div>
+      ) : (
+        <div style={{ display: "grid" }}>
+          <TimelineEntry
+            versionLabel={CURRENT_RELEASE.version}
+            title={localize(CURRENT_RELEASE.title, lang)}
+            summary={localize(CURRENT_RELEASE.summary, lang)}
+            badges={<><StatusBadge tone="info" t={t}>{text(lang, "当前", "Current")}</StatusBadge><StatusBadge tone="warn" t={t}>{text(lang, "进行中", "In progress")}</StatusBadge></>}
+            fields={impactFields(CURRENT_RELEASE, lang)}
+            t={t}
+            isMobile={isMobile}
+            highlight
+            isLast={false}
+          />
+          {recent.map(row => (
+            <TimelineEntry key={row.version} versionLabel={row.version} summary={row.summary} fields={impactFields(row, lang)} t={t} isMobile={isMobile} isLast={false} />
+          ))}
+          {earlier.length ? (
+            <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, padding: "9px 11px" }}>
+              <summary style={{ color: t.accentText, cursor: "pointer", fontSize: 12, fontWeight: 850 }}>
+                {text(lang, "查看早期版本", "View earlier milestones")}
+              </summary>
+              <div style={{ display: "grid", marginTop: 11 }}>
+                {earlier.map((row, index) => (
+                  <TimelineEntry key={row.version} versionLabel={row.version} summary={row.summary} t={t} isMobile={isMobile} isLast={index === earlier.length - 1} />
+                ))}
+              </div>
+            </details>
+          ) : null}
+        </div>
+      )}
     </Card>
   )
 }
 
-function ReleaseNotesCenter({ data, lang, t }) {
-  const [version, setVersion] = useState("All")
-  const [category, setCategory] = useState("All")
-  const notes = dynamicReleaseNotes(data)
-  const allLabel = text(lang, "全部", "All")
-  const versions = ["All", ...new Set(notes.map(row => row.version))]
-  const categories = ["All", ...new Set(notes.map(row => row.category))]
-  const visible = notes.filter(row => (version === "All" || row.version === version) && (category === "All" || row.category === category))
+function ProjectUpdates({ lang, t, isMobile }) {
   return (
-    <Card id="project-evolution-release-notes" title={text(lang, "版本更新记录", "Release Notes")} subtitle={text(lang, "按版本、模块和分类查看所有更新。", "Browse all updates by version, module, and category.")} t={t}>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-        <select value={version} onChange={event => setVersion(event.target.value)} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.textStrong, minHeight: 34, padding: "7px 9px" }}>{versions.map(item => <option key={item} value={item}>{item === "All" ? allLabel : item}</option>)}</select>
-        <select value={category} onChange={event => setCategory(event.target.value)} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.textStrong, minHeight: 34, padding: "7px 9px" }}>{categories.map(item => <option key={item} value={item}>{item === "All" ? allLabel : item}</option>)}</select>
-      </div>
-      <div style={{ display: "grid", gap: 8 }}>
-        {visible.map(row => (
-          <article key={`${row.version}-${row.category}-${row.title}`} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 5, padding: 9 }}>
-            <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{row.version} · {row.title}</strong>
-            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{row.module} · {row.category}</span>
-            <span style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.45 }}>{row.body}</span>
+    <Card
+      id="project-evolution-release-notes"
+      title={text(lang, "项目更新", "Project Updates")}
+      subtitle={text(lang, `当前版本 ${CURRENT_RELEASE.version} 的更新按数据接入、解释链路、交互与样式、页面级导出四条线索整理。`, `Updates in the current ${CURRENT_RELEASE.version} release, organized into data wiring, explanation path, interaction cleanup, and page-level export.`)}
+      t={t}
+    >
+      <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
+        {PROJECT_UPDATE_STREAMS.map(stream => (
+          <article key={stream.no} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 11, gridTemplateColumns: "auto minmax(0, 1fr)", minWidth: 0, padding: isMobile ? 11 : 13 }}>
+            <span style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 8, color: t.accentText, display: "inline-flex", fontFamily: FONT_MONO, fontSize: 13, fontWeight: 950, height: 34, justifyContent: "center", width: 34 }}>
+              {stream.no}
+            </span>
+            <div style={{ display: "grid", gap: 4, minWidth: 0 }}>
+              <strong style={{ color: t.textStrong, fontSize: 13 }}>{localize(stream.label, lang)}</strong>
+              <span style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.5 }}>{localize(stream.body, lang)}</span>
+            </div>
           </article>
         ))}
       </div>
@@ -385,7 +497,7 @@ export function ProjectEvolutionTab({ onNavigate, data: providedData = null }) {
   const sections = useMemo(() => [
     { id: "project-evolution-overview", label: text(lang, "总览", "Overview") },
     { id: "project-evolution-version-timeline", label: text(lang, "版本演化时间线", "Version Timeline") },
-    { id: "project-evolution-release-notes", label: text(lang, "版本更新记录", "Release Notes") },
+    { id: "project-evolution-release-notes", label: text(lang, "项目更新", "Project Updates") },
     { id: "project-evolution-scientific", label: text(lang, "科研能力演化", "Scientific Evolution") },
     { id: "project-evolution-database", label: text(lang, "数据库演化", "Database Evolution") },
     { id: "project-evolution-algorithm", label: text(lang, "算法演化", "Algorithm Evolution") },
@@ -421,7 +533,7 @@ export function ProjectEvolutionTab({ onNavigate, data: providedData = null }) {
       <SectionNav sections={sections} t={t} />
       <EvolutionOverview data={data} projectStatus={projectStatus} lang={lang} t={t} isMobile={isMobile} />
       <VersionTimeline data={data} lang={lang} t={t} isMobile={isMobile} />
-      <ReleaseNotesCenter data={data} lang={lang} t={t} />
+      <ProjectUpdates lang={lang} t={t} isMobile={isMobile} />
       <ScientificEvolution data={data} lang={lang} t={t} />
       <DatabaseEvolution data={data} lang={lang} t={t} />
       <AlgorithmEvolution data={data} lang={lang} t={t} />

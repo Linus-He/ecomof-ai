@@ -13,9 +13,10 @@ describe("versionTimelineDynamic", () => {
     expect(within(timeline).getAllByText("V3.6").length).toBeGreaterThan(0)
     expect(within(timeline).getAllByText(/Experimental Label Expansion & Model Robustness/).length).toBeGreaterThan(0)
 
-    const releaseNotes = screen.getByTestId("project-evolution-release-notes")
-    expect(releaseNotes.textContent).toMatch(/V3\.6/)
-    expect(releaseNotes.textContent).toMatch(/Experimental Label Expansion/)
+    const projectUpdates = screen.getByTestId("project-evolution-release-notes")
+    expect(projectUpdates.textContent).toMatch(/Project Updates/)
+    expect(projectUpdates.textContent).toMatch(/Data wiring/)
+    expect(projectUpdates.textContent).toMatch(/Page-level export/)
 
     const roadmap = screen.getByTestId("project-evolution-roadmap")
     expect(roadmap.textContent).toMatch(/V3\.4/)
