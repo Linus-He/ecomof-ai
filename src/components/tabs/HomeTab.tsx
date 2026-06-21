@@ -12,16 +12,15 @@ import { BrandMotionBackground } from "../home"
 import { toolbarBtn } from "../../utils/styles"
 import {
   DEFAULT_HOME_SUMMARY,
-  formatStatus,
   loadHomeSummary,
 } from "../../utils/homeSummary"
 
 const text = (zh, en, lang) => (lang === "zh" ? zh : en)
 
-function numberText(value) {
+function numberText(value, suffix = "") {
   const number = Number(value)
   if (!Number.isFinite(number)) return "Not available"
-  return String(number)
+  return `${number}${suffix}`
 }
 
 function usePrefersReducedMotion() {
@@ -39,50 +38,40 @@ function usePrefersReducedMotion() {
   return reduced
 }
 
-function SectionHeader({ eyebrow, title, subtitle, t, isMobile, action }) {
+function SectionHeader({ eyebrow, title, subtitle, t, isMobile }) {
   return (
-    <div style={{
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "flex-end",
-      gap: 16,
-      marginBottom: isMobile ? 14 : 18,
-      flexWrap: "wrap",
-    }}>
-      <div style={{ minWidth: 0, maxWidth: 860 }}>
-        <div style={{
-          color: t.accentText,
-          fontSize: 11,
-          fontWeight: 850,
-          textTransform: "uppercase",
-          letterSpacing: 0,
-          marginBottom: 7,
-        }}>
-          {eyebrow}
-        </div>
-        <h2 style={{
-          margin: 0,
-          color: t.textStrong,
-          fontSize: isMobile ? 22 : 30,
-          lineHeight: 1.15,
-          fontWeight: 900,
-          letterSpacing: 0,
-        }}>
-          {title}
-        </h2>
-        {subtitle && (
-          <p style={{
-            margin: "8px 0 0",
-            color: t.muted,
-            fontSize: isMobile ? 13 : 14,
-            lineHeight: 1.65,
-            maxWidth: 780,
-          }}>
-            {subtitle}
-          </p>
-        )}
+    <div style={{ marginBottom: isMobile ? 14 : 18, maxWidth: 880 }}>
+      <div style={{
+        color: t.accentText,
+        fontSize: 11,
+        fontWeight: 850,
+        textTransform: "uppercase",
+        letterSpacing: 0,
+        marginBottom: 7,
+      }}>
+        {eyebrow}
       </div>
-      {action}
+      <h2 style={{
+        margin: 0,
+        color: t.textStrong,
+        fontSize: isMobile ? 22 : 30,
+        lineHeight: 1.15,
+        fontWeight: 900,
+        letterSpacing: 0,
+      }}>
+        {title}
+      </h2>
+      {subtitle && (
+        <p style={{
+          margin: "8px 0 0",
+          color: t.muted,
+          fontSize: isMobile ? 13 : 14,
+          lineHeight: 1.65,
+          maxWidth: 780,
+        }}>
+          {subtitle}
+        </p>
+      )}
     </div>
   )
 }
@@ -114,44 +103,36 @@ function ActionButton({ children, onClick, t, primary = false, wide = false, has
   )
 }
 
-function MetricCard({ metric, t }) {
+function IconBadge({ children, t, tone = "info" }) {
+  const toneMap = {
+    info: [t.badgeInfoBg, t.accentText],
+    success: [t.badgeCalcBg, t.success || t.accentText],
+    warn: [t.badgeWarnBg, t.warn],
+    neutral: [t.surface, t.subtle],
+  }
+  const [background, color] = toneMap[tone] || toneMap.info
   return (
-    <article
-      data-testid={`home-metric-${metric.id}`}
-      className="content-card home-current-metric-card"
-      style={{
-        background: t.panel,
-        border: `1px solid ${metric.emphasis ? t.accent : t.border}`,
-        borderRadius: 10,
-        padding: 16,
-        boxShadow: metric.emphasis ? t.shadowSm : "none",
-        minWidth: 0,
-        display: "grid",
-        gap: 9,
-      }}
-    >
-      <div style={{
-        color: metric.tone === "pending" ? t.warn : metric.tone === "status" ? t.accentText : t.textStrong,
-        fontSize: metric.compact ? 18 : 25,
-        fontWeight: 950,
-        lineHeight: 1.08,
-        fontFamily: metric.mono === false ? "inherit" : FONT_MONO,
-        wordBreak: "break-word",
-      }}>
-        {metric.value}
-      </div>
-      <div>
-        <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900, lineHeight: 1.35 }}>{metric.zhTitle}</div>
-        <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, marginTop: 2, textTransform: "uppercase", letterSpacing: 0 }}>
-          {metric.enTitle}
-        </div>
-      </div>
-      <p style={{ margin: 0, color: t.muted, fontSize: 11.5, lineHeight: 1.6 }}>{metric.body}</p>
-    </article>
+    <span style={{
+      width: 38,
+      height: 38,
+      borderRadius: 9,
+      border: `1px solid ${t.borderStrong}`,
+      background,
+      color,
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: 12,
+      fontWeight: 950,
+      fontFamily: FONT_MONO,
+      flexShrink: 0,
+    }}>
+      {children}
+    </span>
   )
 }
 
-function CapabilityCard({ item, t }) {
+function PlatformCapabilityCard({ item, t }) {
   return (
     <article className="content-card" style={{
       background: t.panel,
@@ -161,28 +142,12 @@ function CapabilityCard({ item, t }) {
       padding: 16,
       minWidth: 0,
       display: "grid",
-      gap: 12,
+      gap: 13,
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
-        <div style={{
-          width: 34,
-          height: 34,
-          borderRadius: 8,
-          border: `1px solid ${t.borderStrong}`,
-          background: item.tint,
-          color: item.color,
-          display: "inline-flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: 13,
-          fontWeight: 950,
-          fontFamily: FONT_MONO,
-          flexShrink: 0,
-        }}>
-          {item.mark}
-        </div>
+        <IconBadge t={t} tone={item.tone}>{item.mark}</IconBadge>
         <div style={{ minWidth: 0 }}>
-          <h3 style={{ margin: 0, color: t.textStrong, fontSize: 16, lineHeight: 1.25, fontWeight: 900 }}>
+          <h3 style={{ margin: 0, color: t.textStrong, fontSize: 17, lineHeight: 1.25, fontWeight: 900 }}>
             {item.title}
           </h3>
           <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, marginTop: 3, textTransform: "uppercase", letterSpacing: 0 }}>
@@ -190,9 +155,109 @@ function CapabilityCard({ item, t }) {
           </div>
         </div>
       </div>
-      <ul style={{ margin: 0, padding: "0 0 0 17px", color: t.muted, fontSize: 12, lineHeight: 1.75 }}>
-        {item.points.map(point => <li key={point}>{point}</li>)}
-      </ul>
+      <div style={{
+        background: t.surface,
+        border: `1px solid ${t.border}`,
+        borderRadius: 9,
+        padding: "10px 11px",
+        display: "grid",
+        gap: 5,
+      }}>
+        {item.highlights.map(highlight => (
+          <strong key={highlight} style={{ color: t.textStrong, fontSize: 13, lineHeight: 1.35, fontWeight: 900 }}>
+            {highlight}
+          </strong>
+        ))}
+      </div>
+      <p style={{ margin: 0, color: t.muted, fontSize: 12, lineHeight: 1.6 }}>{item.body}</p>
+    </article>
+  )
+}
+
+function DataCard({ item, t }) {
+  return (
+    <article style={{
+      background: t.panel,
+      border: `1px solid ${t.border}`,
+      borderRadius: 9,
+      padding: "13px 14px",
+      display: "grid",
+      gap: 6,
+      minWidth: 0,
+    }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10 }}>
+        <strong style={{ color: t.textStrong, fontSize: 13.5, lineHeight: 1.3 }}>{item.name}</strong>
+        <span style={{ color: t.accentText, fontFamily: FONT_MONO, fontSize: 13, fontWeight: 950 }}>{item.value}</span>
+      </div>
+      <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>{item.body}</span>
+    </article>
+  )
+}
+
+function MiniBarChart({ title, rows, t }) {
+  return (
+    <article className="content-card" style={{
+      background: t.panel,
+      border: `1px solid ${t.border}`,
+      borderRadius: 10,
+      padding: 15,
+      display: "grid",
+      gap: 12,
+      minWidth: 0,
+    }}>
+      <h3 style={{ margin: 0, color: t.textStrong, fontSize: 14.5, lineHeight: 1.3, fontWeight: 900 }}>{title}</h3>
+      <div style={{ display: "grid", gap: 10 }}>
+        {rows.map(row => (
+          <div key={row.label} style={{ display: "grid", gap: 5 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center" }}>
+              <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.35, fontWeight: 780 }}>{row.label}</span>
+              <span style={{ color: t.textStrong, fontSize: 11.5, lineHeight: 1.35, fontWeight: 900, fontFamily: FONT_MONO }}>{row.value}</span>
+            </div>
+            <div style={{ height: 8, borderRadius: 999, background: t.surface, border: `1px solid ${t.border}`, overflow: "hidden" }}>
+              <div style={{ width: `${Math.max(5, Math.min(100, row.percent))}%`, height: "100%", background: row.color || t.accent }} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </article>
+  )
+}
+
+function FlowStep({ item, t, index, isLast }) {
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "auto minmax(0, 1fr)", gap: 11, position: "relative", minWidth: 0 }}>
+      <div style={{ display: "grid", justifyItems: "center", alignContent: "start", gap: 7 }}>
+        <IconBadge t={t} tone={item.tone}>{String(index + 1).padStart(2, "0")}</IconBadge>
+        {!isLast && <span style={{ width: 1, height: 34, background: t.borderStrong }} />}
+      </div>
+      <div style={{ paddingBottom: isLast ? 0 : 10 }}>
+        <strong style={{ color: t.textStrong, fontSize: 14, lineHeight: 1.35 }}>{item.title}</strong>
+        <p style={{ margin: "4px 0 0", color: t.muted, fontSize: 12, lineHeight: 1.55 }}>{item.body}</p>
+      </div>
+    </div>
+  )
+}
+
+function ScenarioCard({ scenario, t, isMobile, onNavigate }) {
+  return (
+    <article className="content-card" style={{
+      background: t.panel,
+      border: `1px solid ${t.border}`,
+      borderRadius: 10,
+      boxShadow: t.shadowSm,
+      padding: 17,
+      display: "grid",
+      gap: 13,
+      minWidth: 0,
+    }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <IconBadge t={t} tone={scenario.tone}>{scenario.mark}</IconBadge>
+        <h3 style={{ margin: 0, color: t.textStrong, fontSize: 18, lineHeight: 1.25, fontWeight: 950 }}>{scenario.title}</h3>
+      </div>
+      <p style={{ margin: 0, color: t.muted, fontSize: 12.5, lineHeight: 1.65 }}>{scenario.body}</p>
+      <ActionButton t={t} wide={isMobile} hash={`#${scenario.hash}`} onClick={() => onNavigate(scenario.hash, scenario.target)}>
+        {scenario.button}
+      </ActionButton>
     </article>
   )
 }
@@ -201,51 +266,39 @@ function LimitationItem({ item, t }) {
   return (
     <li style={{
       listStyle: "none",
-      background: item.critical ? t.badgeDangerBg : t.panel,
-      border: `1px solid ${item.critical ? t.danger : t.border}`,
+      background: t.panel,
+      border: `1px solid ${t.border}`,
       borderRadius: 9,
-      padding: "11px 12px",
-      color: item.critical ? t.danger : t.textStrong,
+      padding: "12px 13px",
+      color: t.textStrong,
       display: "grid",
       gap: 3,
       minWidth: 0,
     }}>
       <strong style={{ fontSize: 13, lineHeight: 1.35 }}>{item.zh}</strong>
-      <span style={{ color: item.critical ? t.danger : t.muted, fontSize: 11.5, lineHeight: 1.45 }}>{item.en}</span>
+      <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>{item.en}</span>
     </li>
   )
 }
 
-function StatusPanel({ summary, t, lang, isMobile }) {
-  const statusRows = [
-    {
-      label: text("当前版本", "Current Version", lang),
-      value: summary.currentVersion,
-    },
-    {
-      label: text("数据总量", "Total Records", lang),
-      value: numberText(summary.totalRecords),
-    },
-    {
-      label: text("实验标签", "Experimental Labels", lang),
-      value: `${numberText(summary.experimentalLabelCount)} / ${formatStatus(summary.accuracyStatus)}`,
-    },
-    {
-      label: text("验证状态", "Validation Status", lang),
-      value: "Accuracy / ROC-AUC Pending",
-    },
+function HeroVisual({ t, lang, summary }) {
+  const rows = [
+    { label: "MOF DB", value: numberText(summary.totalRecords, "+") },
+    { label: "Trace", value: "Field-level" },
+    { label: "Screen", value: "White-box" },
+    { label: "Validate", value: "Benchmark" },
   ]
 
   return (
-    <aside className="content-card home-status-panel" style={{
+    <aside className="content-card home-platform-visual" style={{
       background: t.panel,
       border: `1px solid ${t.border}`,
       borderRadius: 12,
       boxShadow: t.shadowSm,
-      padding: isMobile ? 16 : 18,
-      minWidth: 0,
+      padding: 18,
       display: "grid",
       gap: 15,
+      minWidth: 0,
       position: "relative",
       overflow: "hidden",
     }}>
@@ -259,79 +312,53 @@ function StatusPanel({ summary, t, lang, isMobile }) {
       <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 8, minWidth: 0 }}>
           <LogoMark size={24} radius={7} />
-          <span style={{ color: t.textStrong, fontSize: 12, fontWeight: 900, lineHeight: 1.2 }}>
-            {text("首页数据摘要", "Homepage Data Summary", lang)}
-          </span>
+          <strong style={{ color: t.textStrong, fontSize: 12.5, lineHeight: 1.2 }}>
+            {text("平台工作流", "Platform Workflow", lang)}
+          </strong>
         </div>
         <span style={{
-          border: `1px solid ${t.border}`,
-          borderRadius: 8,
-          background: t.badgeInfoBg,
           color: t.accentText,
-          padding: "7px 9px",
-          fontSize: 11,
+          background: t.badgeInfoBg,
+          border: `1px solid ${t.border}`,
+          borderRadius: 999,
+          padding: "6px 9px",
+          fontSize: 10.5,
           fontWeight: 850,
-          lineHeight: 1.2,
-          whiteSpace: "nowrap",
         }}>
-          {summary.currentVersion}
+          Benchmark Available
         </span>
       </div>
-
       <div style={{ position: "relative", zIndex: 1, display: "grid", gap: 9 }}>
-        {statusRows.map(row => (
+        {rows.map((row, index) => (
           <div key={row.label} style={{
             display: "grid",
-            gridTemplateColumns: "minmax(0, 0.95fr) minmax(0, 1.05fr)",
+            gridTemplateColumns: "auto minmax(0, 1fr)",
             gap: 10,
             alignItems: "center",
-            background: t.surface,
-            border: `1px solid ${t.border}`,
-            borderRadius: 9,
-            padding: "10px 11px",
           }}>
-            <span style={{ color: t.faint, fontSize: 11, fontWeight: 850, lineHeight: 1.35 }}>{row.label}</span>
-            <strong style={{ color: t.textStrong, fontSize: 12.5, lineHeight: 1.35, fontWeight: 900, textAlign: "right" }}>{row.value}</strong>
+            <IconBadge t={t} tone={index === 0 ? "info" : index === 1 ? "success" : index === 2 ? "warn" : "neutral"}>
+              {String(index + 1).padStart(2, "0")}
+            </IconBadge>
+            <div style={{
+              background: t.surface,
+              border: `1px solid ${t.border}`,
+              borderRadius: 9,
+              padding: "10px 11px",
+              display: "flex",
+              justifyContent: "space-between",
+              gap: 10,
+              alignItems: "center",
+            }}>
+              <span style={{ color: t.muted, fontSize: 12, fontWeight: 820 }}>{row.label}</span>
+              <strong style={{ color: t.textStrong, fontSize: 12.5, fontFamily: FONT_MONO, lineHeight: 1.3 }}>{row.value}</strong>
+            </div>
           </div>
         ))}
       </div>
-
-      <div style={{
-        position: "relative",
-        zIndex: 1,
-        color: t.subtle,
-        fontSize: 11.5,
-        lineHeight: 1.55,
-        fontWeight: 780,
-        borderTop: `1px solid ${t.divider || t.border}`,
-        paddingTop: 10,
-      }}>
-        {text(
-          "Database Preview · Not Final Recommendation。结果用于早期筛选、候选解释与实验验证准备。",
-          "Database Preview · Not Final Recommendation. Outputs support early screening, candidate explanation, and validation preparation.",
-          lang,
-        )}
-      </div>
+      <p style={{ position: "relative", zIndex: 1, margin: 0, color: t.subtle, fontSize: 11.5, lineHeight: 1.55, borderTop: `1px solid ${t.divider || t.border}`, paddingTop: 10 }}>
+        {text("从数据库到筛选解释，再到验证准备。", "From database to screening explanation, then validation preparation.", lang)}
+      </p>
     </aside>
-  )
-}
-
-function HomeDataSourceNote({ summary, t, lang }) {
-  return (
-    <div data-testid="home-data-sources" style={{
-      background: t.surface,
-      border: `1px solid ${t.border}`,
-      borderRadius: 9,
-      padding: "11px 12px",
-      color: t.muted,
-      fontSize: 11.5,
-      lineHeight: 1.65,
-    }}>
-      <strong style={{ color: t.textStrong }}>{text("轻量首页数据源", "Lightweight homepage sources", lang)}</strong>
-      <span> · home_summary.json · data_ingestion_summary_v3.json · version_evolution_records.json</span>
-      <span> · {text("未读取多 MB 记录数组", "No multi-MB record arrays are read", lang)}</span>
-      <span> · {text("更新日期", "Last updated", lang)}: {summary.lastUpdated || "not available"}</span>
-    </div>
   )
 }
 
@@ -357,10 +384,6 @@ export function HomeTab({ setActiveTab }) {
     setActiveTab?.(fallbackTarget)
     if (typeof window === "undefined") return
     const normalized = String(hash || "").replace(/^#/, "")
-    if (normalized === "mof-library") {
-      window.history.pushState(null, "", `${window.location.pathname}${window.location.search}#${normalized}`)
-      return
-    }
     window.location.hash = normalized
     try {
       window.dispatchEvent(new HashChangeEvent("hashchange"))
@@ -370,11 +393,7 @@ export function HomeTab({ setActiveTab }) {
   }
 
   const pageGap = isMobile ? 34 : 52
-  const sectionStyle = {
-    background: "transparent",
-    border: "none",
-    borderRadius: 0,
-  }
+  const sectionStyle = { background: "transparent", border: "none", borderRadius: 0 }
   const panelStyle = {
     background: t.panel,
     border: `1px solid ${t.border}`,
@@ -382,192 +401,149 @@ export function HomeTab({ setActiveTab }) {
     boxShadow: t.shadowSm,
   }
 
-  const metricCards = useMemo(() => [
+  const capabilities = useMemo(() => [
     {
-      id: "total-records",
-      zhTitle: "数据总量",
-      enTitle: "Total Records",
-      value: numberText(summary.totalRecords),
-      body: `${numberText(summary.coreMofRecords)} CoRE MOF + ${numberText(summary.qmofRecords)} QMOF + ${numberText(summary.organicAcidLiteratureRecords)} literature records.`,
-      emphasis: true,
+      mark: "DL",
+      title: zh ? "数据层" : "Data Layer",
+      subtitle: "Platform Capabilities",
+      tone: "info",
+      highlights: [
+        `${numberText(summary.totalRecords, "+")} Records`,
+        `${numberText(summary.verifiedMetadataCount)} Verified Metadata`,
+      ],
+      body: zh ? "统一数据库、文献整理与字段级溯源，为筛选结果提供可追踪依据。" : "Unifies database records, literature curation, and field-level provenance for traceable screening.",
     },
     {
-      id: "verified-metadata",
-      zhTitle: "已核验元数据",
-      enTitle: "Verified Metadata",
-      value: numberText(summary.verifiedMetadataCount),
-      body: zh ? "已通过来源字段、引用和结构化元数据核验的外部数据库记录。" : "External database records with source fields, citation context, and structured metadata verified.",
+      mark: "SC",
+      title: zh ? "筛选层" : "Screening Layer",
+      subtitle: "Platform Capabilities",
+      tone: "success",
+      highlights: ["EcoScreen", "Performance Priority", "Ranking Explanation"],
+      body: zh ? "把候选筛选、性能优先级和排序解释放在同一套工作流中。" : "Connects candidate screening, performance priority, and ranking explanation in one workflow.",
     },
     {
-      id: "gold-dataset",
-      zhTitle: "Gold 数据集",
-      enTitle: "Gold Dataset",
-      value: numberText(summary.goldDatasetCount),
-      body: zh ? "用于数据审计与方法边界说明的高质量整理层。" : "High-quality curation layer for data audit and method-boundary statements.",
+      mark: "OA",
+      title: zh ? "有机酸层" : "Organic Acid Layer",
+      subtitle: "Platform Capabilities",
+      tone: "warn",
+      highlights: ["Reaction Dataset", "Evidence Graph", "Decision Board"],
+      body: zh ? "围绕有机酸路径组织反应数据、证据网络和候选决策面板。" : "Organizes reaction data, evidence graph context, and candidate decision boards for organic-acid screening.",
     },
     {
-      id: "reaction-dataset",
-      zhTitle: "反应数据",
-      enTitle: "Reaction Dataset",
-      value: numberText(summary.reactionDatasetCount),
-      body: zh ? "面向反应证据、可比性和有机酸闭环的派生数据层。" : "Derived reaction layer for evidence, comparability, and Organic-acid closure.",
-    },
-    {
-      id: "organic-acid-literature",
-      zhTitle: "有机酸文献数据",
-      enTitle: "Organic-acid Literature",
-      value: numberText(summary.organicAcidLiteratureRecords),
-      body: zh ? "来自有机酸路径与催化语境的 literature-curated records。" : "Literature-curated records from organic-acid pathway and catalysis context.",
-    },
-    {
-      id: "experimental-labels",
-      zhTitle: "实验标签",
-      enTitle: "Experimental Labels",
-      value: `${numberText(summary.experimentalLabelCount)} / Pending`,
-      body: zh ? "仅统计独立实验测量标签；派生标签不计入实验标签。" : "Only independently measured labels count; derived labels are excluded.",
-      tone: "pending",
-    },
-    {
-      id: "accuracy-roc",
-      zhTitle: "模型精度",
-      enTitle: "Accuracy / ROC-AUC",
-      value: "Pending",
-      body: zh ? "真实 Accuracy / ROC-AUC 在独立实验标签层建立前保持 Pending。" : "Real Accuracy / ROC-AUC stay Pending until independent experimental labels exist.",
-      tone: "pending",
-    },
-    {
-      id: "current-status",
-      zhTitle: "当前状态",
-      enTitle: "Current Status",
-      value: "Database Preview · Not Final Recommendation",
-      body: zh ? "数据驱动研究原型；结果不构成最终实验推荐。" : "Data-driven research prototype; outputs are not final experimental recommendations.",
-      compact: true,
-      mono: false,
-      tone: "status",
-      emphasis: true,
+      mark: "VL",
+      title: zh ? "验证层" : "Validation Layer",
+      subtitle: "Platform Capabilities",
+      tone: "neutral",
+      highlights: ["Experimental Labels", "Benchmark", "Model Validation"],
+      body: zh ? "把实验标签、Benchmark 框架和模型验证入口作为可信度检查层。" : "Uses experimental labels, the benchmark framework, and model validation as credibility checks.",
     },
   ], [summary, zh])
 
-  const capabilities = useMemo(() => [
-    {
-      mark: "01",
-      title: zh ? "数据接入与标准化" : "Data Intake & Standardization",
-      subtitle: "Current Capabilities",
-      color: t.accentText,
-      tint: t.badgeInfoBg,
-      points: [
-        "CoRE MOF / QMOF / literature ingestion",
-        "Unit normalization",
-        zh ? "Data provenance / 字段级溯源" : "Data provenance / field-level provenance",
-      ],
-    },
-    {
-      mark: "02",
-      title: zh ? "筛选与解释" : "Screening & Explanation",
-      subtitle: "Current Capabilities",
-      color: t.success || t.accentText,
-      tint: t.badgeCalcBg,
-      points: [
-        "EcoScreen",
-        "performance priority",
-        zh ? "ranking explanation / 排序解释" : "ranking explanation",
-      ],
-    },
-    {
-      mark: "03",
-      title: zh ? "有机酸算法闭环" : "Organic-acid Algorithm Loop",
-      subtitle: "Current Capabilities",
-      color: t.warn,
-      tint: t.badgeWarnBg,
-      points: [
-        "white-box MCDA",
-        "evidence adjustment",
-        "risk penalty",
-        "sensitivity analysis",
-      ],
-    },
-    {
-      mark: "04",
-      title: zh ? "验证与报告" : "Validation & Reports",
-      subtitle: "Current Capabilities",
-      color: t.violet || t.accentText,
-      tint: t.surface,
-      points: [
-        "Algorithm Validation Center",
-        "Interactive Scientific Figure",
-        "Research Reports",
-        "Benchmark pending until real labels",
-      ],
-    },
-  ], [t, zh])
+  const dataCards = useMemo(() => [
+    { name: "CoRE MOF", value: numberText(summary.coreMofRecords), body: zh ? "外部数据库来源材料记录。" : "External database material records." },
+    { name: "QMOF", value: numberText(summary.qmofRecords), body: zh ? "量子化学数据来源材料记录。" : "Quantum chemistry source records." },
+    { name: "Organic Acid Literature", value: numberText(summary.organicAcidLiteratureRecords), body: zh ? "有机酸路径文献整理记录。" : "Literature-curated organic-acid pathway records." },
+    { name: "Reaction Dataset", value: numberText(summary.reactionDatasetCount), body: zh ? "反应证据与可比性数据层。" : "Reaction evidence and comparability layer." },
+    { name: "Gold Dataset", value: numberText(summary.goldDatasetCount), body: zh ? "用于质量审计的高质量整理集合。" : "High-quality curation set for quality audit." },
+  ], [summary, zh])
 
-  const limitations = useMemo(() => [
-    {
-      zh: "Experimental Labels = 0",
-      en: "No independently measured experimental labels are available yet.",
-      critical: true,
-    },
-    {
-      zh: "Accuracy / ROC-AUC Pending",
-      en: "Model accuracy and ROC-AUC are not shown until a valid label layer exists.",
-      critical: true,
-    },
-    {
-      zh: "Final Recommendation Disabled",
-      en: "Candidate rankings remain research preparation, not final experimental recommendation.",
-    },
-    {
-      zh: "Results require experimental validation",
-      en: "Screening outputs require laboratory confirmation before scientific claims.",
-    },
-    {
-      zh: "CoRE / QMOF values require exact record-level confirmation where marked pending",
-      en: "Database-derived values keep pending markers when exact record-level confirmation is still needed.",
-    },
-  ], [])
+  const chartRows = useMemo(() => ({
+    coverage: [
+      { label: "CoRE MOF", value: numberText(summary.coreMofRecords), percent: 100 },
+      { label: "QMOF", value: numberText(summary.qmofRecords), percent: 100 },
+      { label: "Organic Acid Literature", value: numberText(summary.organicAcidLiteratureRecords), percent: 44 },
+    ],
+    quality: [
+      { label: "Verified Metadata", value: numberText(summary.verifiedMetadataCount), percent: Math.round((summary.verifiedMetadataCount / Math.max(1, summary.totalRecords)) * 100) },
+      { label: "Gold Dataset", value: numberText(summary.goldDatasetCount), percent: 62 },
+      { label: "Reaction Dataset", value: numberText(summary.reactionDatasetCount), percent: 100 },
+    ],
+    source: [
+      { label: "Database", value: numberText(summary.coreMofRecords + summary.qmofRecords), percent: 82 },
+      { label: "Literature", value: numberText(summary.organicAcidLiteratureRecords), percent: 18 },
+      { label: "Derived Research Layer", value: numberText(summary.reactionDatasetCount), percent: 35 },
+    ],
+  }), [summary])
 
-  const ctas = [
+  const validationFlow = useMemo(() => [
     {
-      label: zh ? "进入 EcoScreen" : "Enter EcoScreen",
+      title: "White-box Screening",
+      body: zh ? "透明规则与权重让筛选路径可检查。" : "Transparent rules and weights keep the screening path inspectable.",
+      tone: "info",
+    },
+    {
+      title: "Evidence Adjustment",
+      body: zh ? "证据等级、来源状态和风险提示影响解释语境。" : "Evidence level, source status, and risk notes shape the explanation context.",
+      tone: "success",
+    },
+    {
+      title: "Sensitivity Analysis",
+      body: zh ? "候选稳定性通过参数扰动与排序变化检查。" : "Candidate stability is checked through parameter changes and ranking movement.",
+      tone: "warn",
+    },
+    {
+      title: "Experimental Labels",
+      body: zh ? "实验标签用于连接候选解释与模型验证。" : "Experimental labels connect candidate explanation to model validation.",
+      tone: "neutral",
+    },
+    {
+      title: "Benchmark Framework",
+      body: "Benchmark Available",
+      tone: "info",
+    },
+  ], [zh])
+
+  const scenarios = useMemo(() => [
+    {
+      mark: "MD",
+      title: "MOF Discovery",
+      body: zh ? "面向早期材料筛选，快速查看候选、来源字段和排序解释。" : "For early material screening: inspect candidates, source fields, and ranking explanations.",
+      button: zh ? "进入 EcoScreen" : "Enter EcoScreen",
       hash: "ecoscreen",
       target: "ecoscreen",
-      primary: true,
+      tone: "info",
     },
     {
-      label: zh ? "查看算法验证中心" : "View Algorithm Validation Center",
+      mark: "OA",
+      title: "Organic Acid Screening",
+      body: zh ? "围绕有机酸路径，查看反应数据、证据语境和候选决策面板。" : "For organic-acid pathways: review reaction data, evidence context, and candidate decision boards.",
+      button: zh ? "进入 Organic Acid" : "Enter Organic Acid",
+      hash: "catalysis-organic-acid",
+      target: "catalysisLab",
+      tone: "warn",
+    },
+    {
+      mark: "BV",
+      title: "Benchmark Validation",
+      body: zh ? "查看验证中心的 Benchmark 框架、实验标签层和模型验证状态。" : "Use the validation center for benchmark framework, labels, and model-validation state.",
+      button: zh ? "进入 Validation Center" : "Enter Validation Center",
       hash: "methodology-algorithm-validation",
       target: "about",
+      tone: "success",
     },
-    {
-      label: zh ? "查看研究报告" : "View Research Reports",
-      hash: "research-reports",
-      target: "researchReports",
-    },
-    {
-      label: zh ? "查看项目演化" : "View Project Evolution",
-      hash: "project-evolution",
-      target: "projectEvolution",
-    },
-    {
-      label: zh ? "查看 MOF 数据库" : "View MOF Database",
-      hash: "mof-library",
-      target: "mofLibrary",
-    },
+  ], [zh])
+
+  const limitations = useMemo(() => [
+    { zh: "Results require experimental validation", en: "Screening outputs need laboratory confirmation before scientific claims." },
+    { zh: "Not final recommendation", en: "Candidate rankings support research decisions, not final experimental recommendation." },
+    { zh: "Some datasets remain literature-derived", en: "Literature-derived records keep source context and uncertainty visible." },
+    { zh: "Model validation is ongoing", en: "Benchmark and validation workflows are available, while model credibility continues to be reviewed." },
+  ], [])
+
+  const quickStart = [
+    { label: zh ? "进入 EcoScreen" : "Enter EcoScreen", hash: "ecoscreen", target: "ecoscreen", primary: true },
+    { label: zh ? "进入 MOF Library" : "Enter MOF Library", hash: "library", target: "mofLibrary" },
+    { label: zh ? "进入 Organic Acid" : "Enter Organic Acid", hash: "catalysis-organic-acid", target: "catalysisLab" },
+    { label: zh ? "进入 Validation Center" : "Enter Validation Center", hash: "methodology-algorithm-validation", target: "about" },
+    { label: zh ? "进入 Research Reports" : "Enter Research Reports", hash: "research-reports", target: "researchReports" },
   ]
 
   return (
     <div className="home-story-shell" style={{ display: "flex", flexDirection: "column", gap: pageGap, overflow: "hidden", position: "relative" }}>
       <BrandMotionBackground t={t} isMobile={isNarrow} reducedMotion={reducedMotion} />
-      <section id="overview" className="home-hero-section" style={{ ...sectionStyle, paddingTop: isMobile ? 12 : 30, position: "relative", overflow: "hidden" }}>
-        <div
-          className="home-hero-bg-layer"
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            inset: 0,
-            pointerEvents: "none",
-          }}
-        >
+
+      <section id="overview" data-testid="home-hero" className="home-hero-section" style={{ ...sectionStyle, paddingTop: isMobile ? 12 : 30, position: "relative", overflow: "hidden" }}>
+        <div className="home-hero-bg-layer" aria-hidden="true" style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
           {!isMobile && (
             <BrandMotif
               size={300}
@@ -592,182 +568,129 @@ export function HomeTab({ setActiveTab }) {
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
               <LogoMark size={isMobile ? 48 : 58} radius={14} style={{ boxShadow: t.shadowSm }} />
               <div style={{ color: t.accentText, fontSize: 12, fontWeight: 900, letterSpacing: 0 }}>
-                {zh ? "数据库预览 / 算法验证 / 字段级溯源" : "Database Preview / Algorithm Validation / Field-level Provenance"}
+                {zh ? "材料筛选 / 字段级溯源 / 验证准备" : "Material screening / field-level provenance / validation readiness"}
               </div>
             </div>
-            <h1 style={{
-              margin: 0,
-              color: t.textStrong,
-              fontSize: isMobile ? 42 : 64,
-              lineHeight: 0.98,
-              fontWeight: 950,
-              letterSpacing: 0,
-            }}>
+            <h1 style={{ margin: 0, color: t.textStrong, fontSize: isMobile ? 42 : 64, lineHeight: 0.98, fontWeight: 950, letterSpacing: 0 }}>
               EcoMOF-AI
             </h1>
-            <p style={{
-              margin: isMobile ? "14px 0 0" : "18px 0 0",
-              color: t.textStrong,
-              fontSize: isMobile ? 20 : 27,
-              lineHeight: 1.18,
-              fontWeight: 900,
-              maxWidth: 860,
-            }}>
-              数据驱动的 MOF 筛选与验证平台
+            <p style={{ margin: isMobile ? "14px 0 0" : "18px 0 0", color: t.textStrong, fontSize: isMobile ? 20 : 28, lineHeight: 1.18, fontWeight: 900, maxWidth: 860 }}>
+              Data-driven MOF Screening and Validation Platform
             </p>
-            <p style={{
-              margin: "7px 0 0",
-              color: t.accentText,
-              fontSize: isMobile ? 14 : 16,
-              lineHeight: 1.45,
-              fontWeight: 850,
-              maxWidth: 760,
-            }}>
-              Data-driven MOF screening and validation platform
-            </p>
-            <p style={{
-              margin: "13px 0 0",
-              color: t.muted,
-              fontSize: isMobile ? 14 : 16,
-              lineHeight: 1.7,
-              maxWidth: 780,
-            }}>
+            <p style={{ margin: "13px 0 0", color: t.muted, fontSize: isMobile ? 14 : 16, lineHeight: 1.7, maxWidth: 780 }}>
               {zh
-                ? "EcoMOF-AI 将 MOF 数据库、字段级溯源、白盒筛选算法、数据审计与模型基准框架整合在一起，用于支持早期材料筛选、候选解释与实验验证准备。"
-                : "EcoMOF-AI integrates MOF databases, field-level provenance, white-box screening algorithms, data audits, and a benchmark framework for early material screening, candidate explanation, and experimental validation preparation."}
+                ? "整合 MOF 数据库、字段级溯源、白盒筛选算法、实验标签与模型验证框架，用于支持材料筛选与研究决策。"
+                : "Integrates MOF databases, field-level provenance, white-box screening algorithms, experimental labels, and model-validation frameworks for material screening and research decisions."}
             </p>
-            <div style={{
-              marginTop: 14,
-              background: t.badgeWarnBg,
-              border: `1px solid ${t.warn}`,
-              borderRadius: 9,
-              color: t.warn,
-              padding: "10px 12px",
-              fontSize: 12.5,
-              lineHeight: 1.55,
-              fontWeight: 820,
-              maxWidth: 820,
-            }}>
-              {zh
-                ? "当前仍为数据库预览与算法验证阶段，不构成最终实验推荐。"
-                : "Current status remains Database Preview and algorithm validation; it is not a final experimental recommendation."}
-            </div>
-            <div style={{
-              display: "flex",
-              gap: 10,
-              flexWrap: "wrap",
-              marginTop: 22,
-            }} className="home-hero-cta">
-              {ctas.slice(0, 3).map(cta => (
-                <ActionButton
-                  key={cta.hash}
-                  t={t}
-                  primary={cta.primary}
-                  wide={isMobile}
-                  hash={`#${cta.hash}`}
-                  onClick={() => navigateHash(cta.hash, cta.target)}
-                >
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 22 }} className="home-hero-cta">
+              {quickStart.slice(0, 3).map(cta => (
+                <ActionButton key={cta.hash} t={t} primary={cta.primary} wide={isMobile} hash={`#${cta.hash}`} onClick={() => navigateHash(cta.hash, cta.target)}>
                   {cta.label}
                 </ActionButton>
               ))}
             </div>
           </div>
-          <StatusPanel summary={summary} t={t} lang={lang} isMobile={isMobile} />
+          <HeroVisual t={t} lang={lang} summary={summary} />
         </div>
       </section>
 
-      <section style={{ ...panelStyle, padding: isMobile ? "18px 16px" : "24px", background: t.badgeInfoBg }}>
+      <section data-testid="home-platform-capabilities" style={sectionStyle}>
         <SectionHeader
-          eyebrow={zh ? "当前首页数据摘要" : "Current Homepage Data Summary"}
-          title={zh ? "V3.3 数据状态同步到首页" : "V3.3 data status on the homepage"}
-          subtitle={zh ? "首页只展示轻量 summary 中的项目状态，不读取大型记录数组，也不声明 V3.4 真实 Benchmark 已完成。" : "The homepage reads lightweight summary state only, avoids large record arrays, and does not claim V3.4 real benchmark completion."}
+          eyebrow={zh ? "平台能力" : "Capabilities"}
+          title={zh ? "从数据到验证的四层科研工作台" : "A four-layer research workspace from data to validation"}
+          subtitle={zh ? "首页优先说明能做什么，而不是展示版本更新记录。" : "The homepage now prioritizes what the platform does, not release-history reporting."}
           t={t}
           isMobile={isMobile}
         />
-        <div data-testid="home-current-metrics" style={{
-          display: "grid",
-          gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))",
-          gap: 12,
-        }}>
-          {metricCards.map(metric => <MetricCard key={metric.id} metric={metric} t={t} />)}
-        </div>
-        <div style={{ marginTop: 12 }}>
-          <HomeDataSourceNote summary={summary} t={t} lang={lang} />
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 14 }}>
+          {capabilities.map(item => <PlatformCapabilityCard key={item.title} item={item} t={t} />)}
         </div>
       </section>
 
-      <section style={sectionStyle}>
+      <section data-testid="home-data-foundation" style={{ ...panelStyle, padding: isMobile ? "18px 16px" : "24px", background: t.badgeInfoBg }}>
         <SectionHeader
-          eyebrow={zh ? "当前能力" : "Current Capabilities"}
-          title={zh ? "数据驱动筛选、解释、审计与报告入口" : "Data-driven screening, explanation, audit, and reporting entry"}
-          subtitle={zh ? "首页改为呈现平台当前可用能力，而不是早期演示指标。" : "The homepage now describes current platform capabilities instead of early demo indicators."}
+          eyebrow={zh ? "数据基础" : "Data Foundation"}
+          title={zh ? "可追踪的数据来源与质量概览" : "Traceable source and data-quality overview"}
+          subtitle={zh ? "展示数据库、文献、反应与 Gold 数据集，不展示版本增长曲线。" : "Shows database, literature, reaction, and Gold datasets without a version-growth chart."}
           t={t}
           isMobile={isMobile}
         />
-        <div data-testid="home-current-capabilities" style={{
-          display: "grid",
-          gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))",
-          gap: 14,
-        }}>
-          {capabilities.map(item => <CapabilityCard key={item.title} item={item} t={t} />)}
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(5, minmax(0, 1fr))", gap: 10, marginBottom: 14 }}>
+          {dataCards.map(item => <DataCard key={item.name} item={item} t={t} />)}
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 12 }}>
+          <MiniBarChart title="Data Coverage" rows={chartRows.coverage} t={t} />
+          <MiniBarChart title="Data Quality" rows={chartRows.quality} t={t} />
+          <MiniBarChart title="Source Distribution" rows={chartRows.source} t={t} />
         </div>
       </section>
 
-      <section data-testid="home-current-limitations" style={{
-        ...panelStyle,
-        padding: isMobile ? "18px 16px" : "24px",
-        background: t.surface,
-      }}>
+      <section data-testid="home-algorithm-validation" style={sectionStyle}>
         <SectionHeader
-          eyebrow={zh ? "当前限制" : "Current Limitations"}
-          title={zh ? "验证边界必须在首页可见" : "Validation boundaries stay visible on the homepage"}
-          subtitle={zh ? "以下限制直接显示，不隐藏在 tooltip 中。" : "These limitations are shown directly, not hidden inside tooltips."}
+          eyebrow={zh ? "算法与验证" : "Validation"}
+          title={zh ? "白盒筛选与 Benchmark 验证框架" : "White-box screening with benchmark validation framework"}
+          subtitle={zh ? "首页只展示验证能力与 Benchmark 可用状态，具体模型指标留在算法验证中心。" : "The homepage shows validation capabilities and Benchmark Available; detailed model metrics stay in the validation center."}
           t={t}
           isMobile={isMobile}
         />
-        <ul style={{
-          margin: 0,
-          padding: 0,
-          display: "grid",
-          gridTemplateColumns: isNarrow ? "1fr" : "repeat(5, minmax(0, 1fr))",
-          gap: 10,
-        }}>
+        <div style={{ ...panelStyle, padding: isMobile ? "16px" : "22px", display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) 220px", gap: 18 }}>
+          <div style={{ display: "grid", gap: 2 }}>
+            {validationFlow.map((item, index) => (
+              <FlowStep key={item.title} item={item} t={t} index={index} isLast={index === validationFlow.length - 1} />
+            ))}
+          </div>
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 15, alignSelf: "start", display: "grid", gap: 9 }}>
+            <strong style={{ color: t.textStrong, fontSize: 16, lineHeight: 1.3 }}>Benchmark Available</strong>
+            <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.6 }}>
+              {zh ? "Benchmark 框架已作为验证入口呈现，模型指标详情由验证中心承载。" : "The benchmark framework is available as the validation entry; model metric details stay in the validation center."}
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section data-testid="home-research-scenarios" style={sectionStyle}>
+        <SectionHeader
+          eyebrow={zh ? "研究场景" : "Research Scenarios"}
+          title={zh ? "三类常见研究入口" : "Three common research entry points"}
+          subtitle={zh ? "用户可以从材料发现、有机酸筛选或 Benchmark 验证直接进入对应工作区。" : "Users can enter the right workspace through discovery, organic-acid screening, or benchmark validation."}
+          t={t}
+          isMobile={isMobile}
+        />
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 14 }}>
+          {scenarios.map(scenario => (
+            <ScenarioCard key={scenario.title} scenario={scenario} t={t} isMobile={isMobile} onNavigate={navigateHash} />
+          ))}
+        </div>
+      </section>
+
+      <section data-testid="home-current-limitations" style={{ ...panelStyle, padding: isMobile ? "18px 16px" : "24px", background: t.surface }}>
+        <SectionHeader
+          eyebrow={zh ? "当前边界" : "Current Scope and Limitations"}
+          title={zh ? "当前边界直接显示" : "Current scope and limitations are visible"}
+          subtitle={zh ? "科研平台需要把验证状态、推荐边界与数据来源边界放在首页。" : "A research platform should surface validation state, recommendation boundary, and data-source boundary on the homepage."}
+          t={t}
+          isMobile={isMobile}
+        />
+        <ul style={{ margin: 0, padding: 0, display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
           {limitations.map(item => <LimitationItem key={item.zh} item={item} t={t} />)}
         </ul>
       </section>
 
-      <section id="home-next-step" data-testid="home-next-step" style={{
-        ...panelStyle,
-        padding: isMobile ? "22px 18px" : "30px 34px",
-        display: "grid",
-        gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) auto",
-        gap: 18,
-        alignItems: "center",
-        marginBottom: isMobile ? 4 : 10,
-      }}>
+      <section data-testid="home-quick-start" style={{ ...panelStyle, padding: isMobile ? "22px 18px" : "30px 34px", display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) auto", gap: 18, alignItems: "center", marginBottom: isMobile ? 4 : 10 }}>
         <div style={{ minWidth: 0 }}>
           <div style={{ color: t.accentText, fontSize: 11, fontWeight: 850, textTransform: "uppercase", letterSpacing: 0, marginBottom: 8 }}>
-            {zh ? "下一步" : "Next Step"}
+            {zh ? "快速开始" : "Quick Start"}
           </div>
           <h2 style={{ margin: 0, color: t.textStrong, fontSize: isMobile ? 24 : 32, lineHeight: 1.15, fontWeight: 950, letterSpacing: 0 }}>
-            {zh ? "V3.4 建立真实实验标签层" : "V3.4 builds the real experimental label layer"}
+            {zh ? "选择研究入口" : "Choose a research entry point"}
           </h2>
           <p style={{ margin: "9px 0 0", color: t.muted, fontSize: 13.5, lineHeight: 1.65, maxWidth: 760 }}>
-            {zh
-              ? "V3.4 将重点建立真实实验标签层，用于支持第一版合法的模型精度比较。当前首页保持 Accuracy / ROC-AUC Pending。"
-              : "V3.4 will focus on real experimental labels for the first legitimate model-accuracy comparison. This homepage keeps Accuracy / ROC-AUC Pending."}
+            {zh ? "从筛选、数据库、有机酸、验证中心或研究报告进入完整工作流。" : "Start from screening, the MOF library, organic acid, the validation center, or research reports."}
           </p>
         </div>
-        <div data-testid="home-navigation-ctas" style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: isNarrow ? "flex-start" : "flex-end" }}>
-          {ctas.map(cta => (
-            <ActionButton
-              key={cta.hash}
-              t={t}
-              primary={cta.primary}
-              wide={isMobile}
-              hash={`#${cta.hash}`}
-              onClick={() => navigateHash(cta.hash, cta.target)}
-            >
+        <div data-testid="home-quick-start-buttons" style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: isNarrow ? "flex-start" : "flex-end" }}>
+          {quickStart.map(cta => (
+            <ActionButton key={cta.hash} t={t} primary={cta.primary} wide={isMobile} hash={`#${cta.hash}`} onClick={() => navigateHash(cta.hash, cta.target)}>
               {cta.label}
             </ActionButton>
           ))}

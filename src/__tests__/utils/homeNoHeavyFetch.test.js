@@ -1,7 +1,6 @@
 import { describe, expect, it, vi } from "vitest"
 import homeSummary from "../../../public/data/home_summary.json"
 import dataIngestionSummary from "../../../public/data/data_ingestion/data_ingestion_summary_v3.json"
-import versionEvolution from "../../../public/data/version_evolution_records.json"
 import {
   HOME_SUMMARY_ENDPOINTS,
   HOME_SUMMARY_RESTRICTED_PATHS,
@@ -21,7 +20,6 @@ describe("homeNoHeavyFetch", () => {
     const fetcher = vi.fn(async (url) => {
       if (String(url).includes("home_summary.json")) return response(homeSummary)
       if (String(url).includes("data_ingestion_summary_v3.json")) return response(dataIngestionSummary)
-      if (String(url).includes("version_evolution_records.json")) return response(versionEvolution)
       return { ok: false, json: async () => null }
     })
 

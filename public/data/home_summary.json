@@ -1,6 +1,5 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.3",
   "totalRecords": 3020,
   "coreMofRecords": 1240,
   "qmofRecords": 1240,
@@ -9,19 +8,21 @@
   "goldDatasetCount": 320,
   "reactionDatasetCount": 520,
   "experimentalLabelCount": 0,
-  "accuracyStatus": "pending",
-  "rocAucStatus": "pending",
+  "benchmarkStatus": "available",
+  "modelValidationStatus": "ongoing",
+  "accuracyStatus": "held_in_validation_center",
+  "rocAucStatus": "held_in_validation_center",
   "benchmarkBlocker": "independently_measured_experimental_labels_missing",
   "notFinalRecommendation": true,
   "databasePreview": true,
   "lastUpdated": "2026-06-18",
   "sourceFiles": [
     "public/data/data_ingestion/data_ingestion_summary_v3.json",
-    "public/data/version_evolution_records.json"
+    "public/data/home_summary.json"
   ],
   "notes": [
     "Homepage summary is intentionally lightweight and excludes large record arrays.",
     "Experimental labels count only independently measured experimental labels; derived labels are not counted.",
-    "Accuracy and ROC-AUC remain pending until independently measured labels are available."
+    "Accuracy and ROC-AUC values are intentionally held in Algorithm Validation Center, not shown on the homepage."
   ]
 }

@@ -2,12 +2,10 @@
 
 export const HOME_SUMMARY_PATH = "data/home_summary.json"
 export const DATA_INGESTION_SUMMARY_PATH = "data/data_ingestion/data_ingestion_summary_v3.json"
-export const VERSION_EVOLUTION_RECORDS_PATH = "data/version_evolution_records.json"
 
 export const HOME_SUMMARY_ENDPOINTS = [
   HOME_SUMMARY_PATH,
   DATA_INGESTION_SUMMARY_PATH,
-  VERSION_EVOLUTION_RECORDS_PATH,
 ]
 
 export const HOME_SUMMARY_RESTRICTED_PATHS = [
@@ -23,7 +21,6 @@ export const HOME_SUMMARY_RESTRICTED_PATHS = [
 
 export const DEFAULT_HOME_SUMMARY = Object.freeze({
   schemaVersion: "1.0",
-  currentVersion: "V3.3",
   totalRecords: 3020,
   coreMofRecords: 1240,
   qmofRecords: 1240,
@@ -32,8 +29,10 @@ export const DEFAULT_HOME_SUMMARY = Object.freeze({
   goldDatasetCount: 320,
   reactionDatasetCount: 520,
   experimentalLabelCount: 0,
-  accuracyStatus: "pending",
-  rocAucStatus: "pending",
+  benchmarkStatus: "available",
+  modelValidationStatus: "ongoing",
+  accuracyStatus: "held_in_validation_center",
+  rocAucStatus: "held_in_validation_center",
   benchmarkBlocker: "independently_measured_experimental_labels_missing",
   notFinalRecommendation: true,
   databasePreview: true,
@@ -41,7 +40,6 @@ export const DEFAULT_HOME_SUMMARY = Object.freeze({
   sourceFiles: [
     "public/data/home_summary.json",
     "public/data/data_ingestion/data_ingestion_summary_v3.json",
-    "public/data/version_evolution_records.json",
   ],
 })
 
@@ -80,13 +78,6 @@ export function buildHomeSummary({ homeSummary, dataIngestionSummary, versionEvo
 
   return {
     schemaVersion: firstText(home.schemaVersion, DEFAULT_HOME_SUMMARY.schemaVersion),
-    currentVersion: firstText(
-      home.currentVersion,
-      ingestion.version,
-      version.currentVersion,
-      overview.currentVersion,
-      DEFAULT_HOME_SUMMARY.currentVersion,
-    ),
     totalRecords: firstNumber(home.totalRecords, ingestion.totalRecords, ingestion.totalRealRecords, overview.databaseSize, DEFAULT_HOME_SUMMARY.totalRecords),
     coreMofRecords: firstNumber(home.coreMofRecords, ingestion.coreCount, ingestion.stats?.coreMof?.current, DEFAULT_HOME_SUMMARY.coreMofRecords),
     qmofRecords: firstNumber(home.qmofRecords, ingestion.qmofCount, ingestion.stats?.qmof?.current, DEFAULT_HOME_SUMMARY.qmofRecords),
@@ -115,6 +106,8 @@ export function buildHomeSummary({ homeSummary, dataIngestionSummary, versionEvo
       ingestion.originAudit?.experimental,
       DEFAULT_HOME_SUMMARY.experimentalLabelCount,
     ),
+    benchmarkStatus: firstText(home.benchmarkStatus, DEFAULT_HOME_SUMMARY.benchmarkStatus),
+    modelValidationStatus: firstText(home.modelValidationStatus, DEFAULT_HOME_SUMMARY.modelValidationStatus),
     accuracyStatus: firstText(home.accuracyStatus, DEFAULT_HOME_SUMMARY.accuracyStatus),
     rocAucStatus: firstText(home.rocAucStatus, DEFAULT_HOME_SUMMARY.rocAucStatus),
     benchmarkBlocker: firstText(home.benchmarkBlocker, DEFAULT_HOME_SUMMARY.benchmarkBlocker),
@@ -155,11 +148,11 @@ async function fetchJson(fetcher, path) {
 export async function loadHomeSummary(fetcher = globalThis.fetch) {
   if (typeof fetcher !== "function") return DEFAULT_HOME_SUMMARY
 
-  const [homeSummary, dataIngestionSummary, versionEvolution] = await Promise.all(
+  const [homeSummary, dataIngestionSummary] = await Promise.all(
     HOME_SUMMARY_ENDPOINTS.map(path => fetchJson(fetcher, path).catch(() => null)),
   )
 
-  return buildHomeSummary({ homeSummary, dataIngestionSummary, versionEvolution })
+  return buildHomeSummary({ homeSummary, dataIngestionSummary })
 }
 
 export function isRestrictedHomeSummaryFetch(path) {
