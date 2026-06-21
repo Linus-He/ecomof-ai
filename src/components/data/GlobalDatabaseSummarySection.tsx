@@ -21,7 +21,7 @@ const FETCH_MAP: Array<[string, string]> = [
   ["gas-sources", "gas_adsorption_sources_v1.json"],
 ]
 
-export function GlobalDatabaseSummarySection({ lang = "en", t, isMobile = false, dataVersion = "V3.9" }: any) {
+export function GlobalDatabaseSummarySection({ lang = "en", t, isMobile = false, dataVersion = "V3.9.1" }: any) {
   const [summary, setSummary] = useState(() => buildGlobalDatabaseSummary({ loaded: {}, dataVersion }))
 
   useEffect(() => {

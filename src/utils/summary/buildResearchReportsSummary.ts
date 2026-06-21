@@ -22,7 +22,7 @@ export function buildResearchReportsSummary(input: any = {}) {
     organicAcidEvidenceCoverage = null,
     mofCandidateCount = null,
     gasSepRecordCount = null,
-    dataVersion = "V3.9",
+    dataVersion = "V3.9.1",
     generatedAt = "",
   } = input
 

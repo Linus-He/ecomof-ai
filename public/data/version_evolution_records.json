@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.9",
+  "currentVersion": "V3.9.1",
   "generatedAt": "2026-06-21",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
@@ -566,6 +566,25 @@
         "Infrastructure",
         "Testing"
       ]
+    },
+    {
+      "version": "V3.9.1",
+      "date": "2026-06-21",
+      "commit": "pending-current",
+      "summary": "Full Per-Tab Database Card Wiring: GasSep + Organic Acid summary builders, cat-playground CSS cleanup, page-level export.",
+      "scientificImpact": "延续数据库驱动化：GasSep 与 Organic Acid 统计卡片接入 summary builders。",
+      "databaseImpact": "未改动数据集；新增 buildGasSepSummary（含 filter/coverage/distribution/benchmark/export 子构建器）与 buildOrganicAcidSummary（evidence/confidence/matrix/queue/graph/benchmark/export）。",
+      "algorithmImpact": "统计逻辑继续下沉到 builders；GasSep 摘要由当前 records 派生，缺失字段统一 fallback。",
+      "validationImpact": "保留 V3.8 Organic Acid 闭环；Organic Acid 统计（pathway/evidence/confidence/matrix/queue/graph）可由 builder 动态计算。",
+      "uiImpact": "GasSep 新增数据摘要卡片与 provenance CSV 导出；彻底清理孤立的 cat-playground / energy-playground CSS（保留共享 .formula 与通用 keyframes）。",
+      "knownLimitations": "Organic Acid / MOF / Benchmark 的部分逐卡 UI 接入与页面级导出仍为后续；builders 已就绪并测试。",
+      "breakingChanges": "None.",
+      "nextVersionGoal": "将剩余 Organic Acid / MOF / Benchmark 卡片与导出按钮接入对应 builders。",
+      "categories": [
+        "Data",
+        "UI",
+        "Testing"
+      ]
     }
   ],
   "releaseNotes": [
@@ -897,6 +916,11 @@
     {
       "version": "V3.9",
       "stage": "Global Database-Driven Dashboard Refactor",
+      "maturity": 99
+    },
+    {
+      "version": "V3.9.1",
+      "stage": "Full Per-Tab Database Card Wiring",
       "maturity": 99
     }
   ],

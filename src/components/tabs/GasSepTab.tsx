@@ -28,6 +28,8 @@ import {
   getStabilityScore,
   rankGasCandidates,
 } from "../../utils/gasScoring"
+import { buildGasSepSummary, buildGasSepExportRows } from "../../utils/summary/buildGasSepSummary"
+import { GasSepDatabaseSummaryCard } from "../data/GasSepDatabaseSummaryCard"
 import { GasMetricHeatmap } from "../gas/GasMetricHeatmap"
 import { GasMetricInspector } from "../gas/GasMetricInspector"
 import { GasRadarComparison } from "../gas/GasRadarComparison"
@@ -895,6 +897,8 @@ export function GasSepTab({ onNavigate }) {
   }, [])
 
   const ranked = useMemo(() => rankGasCandidates(records, scenario), [records, scenario])
+  const gasSepSummary = useMemo(() => buildGasSepSummary({ records }), [records])
+  const gasSepExportRows = useMemo(() => buildGasSepExportRows(records), [records])
   const selected = useMemo(() => ranked.find(row => row.id === selectedMofId) || ranked[0] || null, [ranked, selectedMofId])
   const compareRows = useMemo(() => compareMofIds.map(id => ranked.find(row => row.id === id)).filter(Boolean), [compareMofIds, ranked])
 
@@ -955,6 +959,7 @@ export function GasSepTab({ onNavigate }) {
       {status === "fallback" ? <Callout tone="warn">{text(lang, "Gas Adsorption v1 数据不可用，已回退到 Demo｜仅用于界面验证。", "Gas Adsorption v1 data is unavailable; falling back to Demo | interface validation only.")}</Callout> : null}
 
       <Overview ranked={ranked} scenario={scenario} t={t} lang={lang} isMobile={isMobile} />
+      <GasSepDatabaseSummaryCard summary={gasSepSummary} exportRows={gasSepExportRows} lang={lang} t={t} isMobile={isMobile} />
       <ScenarioBuilder scenario={scenario} setScenario={setScenario} t={t} lang={lang} isMobile={isMobile} isNarrow={isNarrow} />
       <ConditionSummary ranked={ranked} scenario={scenario} t={t} lang={lang} isMobile={isMobile} />
       <PerformanceMap ranked={ranked} selectedId={selected?.id} onSelect={setSelectedMofId} chartConfig={chartConfig} setChartConfig={setChartConfig} t={t} lang={lang} isMobile={isMobile} isNarrow={isNarrow} />

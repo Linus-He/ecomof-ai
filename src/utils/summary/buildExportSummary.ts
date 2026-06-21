@@ -16,7 +16,7 @@ export const EXPORT_TARGETS = [
   { id: "benchmark-eligibility-json", label: "Benchmark Eligibility Summary CSV/JSON", format: "json", sourceId: "benchmark-eligible" },
 ]
 
-export function buildExportSummary({ globalSummary = null, generatedAt = "", dataVersion = "V3.9" } = {}) {
+export function buildExportSummary({ globalSummary = null, generatedAt = "", dataVersion = "V3.9.1" } = {}) {
   const ts = generatedAt || new Date().toISOString()
   const sourceById = new Map((globalSummary?.sources || []).map((s: any) => [s.id, s]))
 

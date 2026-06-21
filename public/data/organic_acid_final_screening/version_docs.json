@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06-21",
-  "currentVersion": "V3.9",
-  "completedRange": "V1.0-V3.9",
+  "currentVersion": "V3.9.1",
+  "completedRange": "V1.0-V3.9.1",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -2697,7 +2697,7 @@
       "title": "Global Database-Driven Dashboard Refactor",
       "titleZh": "全站数据库驱动重构",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Database-Driven Dashboards",
       "themeZh": "数据库驱动仪表板",
       "summary": "Unified data-source registry + global summary builders so database-scale cards derive from data; removed the Catalysis cat playground; cleaned the version-history IA.",
@@ -2754,6 +2754,63 @@
         "adaptationBoundaryZh": "仅 registry、汇总、fallback 与导出；不隐藏实验结论。"
       },
       "relatedSection": "#project-status"
+    },
+    {
+      "version": "V3.9.1",
+      "title": "Full Per-Tab Database Card Wiring",
+      "titleZh": "全站逐卡数据接入",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Per-Tab Database Cards",
+      "themeZh": "逐卡数据接入",
+      "summary": "GasSep + Organic Acid summary builders, cat-playground CSS cleanup, page-level CSV/JSON export.",
+      "summaryZh": "GasSep 与 Organic Acid 摘要 builders、小猫游乐场 CSS 清理、页面级 CSV/JSON 导出。",
+      "keyUpdates": [
+        "buildGasSepSummary + buildOrganicAcidSummary builders.",
+        "GasSep data summary card with provenance CSV export.",
+        "Removed all orphaned cat-playground CSS selectors and keyframes."
+      ],
+      "keyUpdatesZh": [
+        "新增 GasSep 与 Organic Acid 摘要 builders。",
+        "GasSep 数据摘要卡片与 provenance CSV 导出。",
+        "清理所有孤立的小猫游乐场 CSS 选择器与关键帧。"
+      ],
+      "algorithmChanges": [
+        "GasSep/Organic Acid statistics derived from records via builders."
+      ],
+      "algorithmChangesZh": [
+        "GasSep/Organic Acid 统计经 builders 由 records 派生。"
+      ],
+      "uiChanges": [
+        "GasSep gains a database summary card + export."
+      ],
+      "uiChangesZh": [
+        "GasSep 新增数据摘要卡片与导出。"
+      ],
+      "methodologyChanges": [
+        "No new sourceless static numbers; fallbacks everywhere."
+      ],
+      "methodologyChangesZh": [
+        "不新增无来源静态数字；处处 fallback。"
+      ],
+      "evidenceBoundary": "Per-tab wiring + CSS cleanup; V3.6 robustness metrics and V3.8 validation loop preserved.",
+      "evidenceBoundaryZh": "逐卡接入与 CSS 清理；保留 V3.6 稳健性指标与 V3.8 验证闭环。",
+      "limitations": [
+        "Some Organic Acid / MOF / Benchmark per-card UI wiring is a follow-up."
+      ],
+      "limitationsZh": [
+        "部分有机酸/MOF/Benchmark 逐卡 UI 接入为后续。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "gassep-summary",
+          "organic-acid-summary",
+          "cat-css-removed"
+        ],
+        "adaptationBoundary": "Summarization, fallback, export only.",
+        "adaptationBoundaryZh": "仅汇总、fallback、导出。"
+      },
+      "relatedSection": "#gassep"
     }
   ],
   "roadmap": [

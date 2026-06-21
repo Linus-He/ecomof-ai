@@ -7,7 +7,7 @@
 import { summarizeRegistry } from "../../data/registry/dataSourceRegistry"
 import { safeNumber } from "../fallback/safeNumber"
 
-export function buildGlobalDatabaseSummary({ loaded = {}, dataVersion = "V3.9", generatedAt = "" } = {}) {
+export function buildGlobalDatabaseSummary({ loaded = {}, dataVersion = "V3.9.1", generatedAt = "" } = {}) {
   const registry = summarizeRegistry(loaded)
   const ts = generatedAt || new Date().toISOString()
 

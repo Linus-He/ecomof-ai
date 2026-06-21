@@ -10,7 +10,7 @@
   "experimentalLabelCount": 150,
   "externalTestCount": 80,
   "benchmarkEligibleCount": 230,
-  "currentVersion": "V3.9",
+  "currentVersion": "V3.9.1",
   "bestModel": "Random Forest",
   "accuracy": 0.725,
   "rocAuc": 0.7558,
