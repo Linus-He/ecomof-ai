@@ -1,11 +1,15 @@
 import { useEffect, useMemo, useState } from "react"
 import { NumericText, organicAcidPalette as palette, ORGANIC_ACID_FONT, SCIENTIFIC_TOKEN_FONT } from "../FormulaInline"
 import {
+  DescriptorMappingExplanationPanel,
   FactorCompressionWaterfall,
   GuestScoreBreakdownChart,
   HostScoreBreakdownChart,
+  PathwayEvidenceHeatmap,
   RouteFactorComparisonChart,
   ScoreProvenanceTrace,
+  TerminologyCrosswalkPanel,
+  ValidationCoverageMatrix,
 } from "../scoreProvenance"
 
 const GRADE_TONE = { seed: "info", proxy: "risk", curated: "good", inferred: "muted" }
@@ -444,7 +448,7 @@ function WhyPanelGradeBadge({ grade, labelZh, labelEn, lang }) {
   return <Pill tone={tone === "risk" ? "risk" : tone === "good" ? "good" : tone === "muted" ? "muted" : "info"}>{text(lang, labelZh, labelEn)}</Pill>
 }
 
-function WhyPanelMainChart({ stepId, step, enhanced, lang, onSelectComparison }) {
+function WhyPanelMainChart({ stepId, step, enhanced, lang, onSelectComparison, onOpenActivationCenter }) {
   if (stepId === "step-3" && enhanced?.provenance) {
     return <HostScoreBreakdownChart model={enhanced.provenance} lang={lang} />
   }
@@ -453,6 +457,18 @@ function WhyPanelMainChart({ stepId, step, enhanced, lang, onSelectComparison })
   }
   if (stepId === "step-5" && enhanced?.factorCompressionTrace) {
     return <FactorCompressionWaterfall model={enhanced.factorCompressionTrace} lang={lang} />
+  }
+  if (stepId === "step-6" && enhanced?.validationCoverageMatrix) {
+    return (
+      <ValidationCoverageMatrix
+        model={enhanced.validationCoverageMatrix}
+        summary={enhanced.closureSummary}
+        lang={lang}
+        onOpenActivationCenter={onOpenActivationCenter}
+        onDownloadTemplate={onOpenActivationCenter}
+        onViewFeedbackRules={onOpenActivationCenter}
+      />
+    )
   }
   return (
     <OrganicAcidStepComparisonChart
@@ -482,14 +498,31 @@ export function StepWhyPanel({ panel, step, enhanced, lang = "zh", onOpenMethodo
         {boundaries.map(boundary => <Pill key={boundary.id || boundary.zh} tone="risk">{text(lang, boundary.zh, boundary.en)}</Pill>)}
       </div>
 
-      <WhyPanelMainChart stepId={stepId} step={step} enhanced={model} lang={lang} onSelectComparison={onSelectComparison} />
+      <WhyPanelMainChart stepId={stepId} step={step} enhanced={model} lang={lang} onSelectComparison={onSelectComparison} onOpenActivationCenter={onOpenActivationCenter} />
 
       {stepId === "step-5" && model.routeFactorComparison ? (
         <RouteFactorComparisonChart model={model.routeFactorComparison} lang={lang} />
       ) : null}
 
+      {stepId === "step-2" && model.descriptorMappingExplanation ? (
+        <DescriptorMappingExplanationPanel model={model.descriptorMappingExplanation} summary={model.closureSummary} lang={lang} />
+      ) : null}
+
+      {stepId === "step-1" && model.pathwayEvidenceHeatmap ? (
+        <details style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, padding: "9px 11px" }}>
+          <summary style={{ color: palette.accent, cursor: "pointer", fontSize: 12, fontWeight: 850 }}>{text(lang, "路径证据热图", "Pathway evidence heatmap")}</summary>
+          <div style={{ marginTop: 9 }}>
+            <PathwayEvidenceHeatmap model={model.pathwayEvidenceHeatmap} lang={lang} />
+          </div>
+        </details>
+      ) : null}
+
       {model.provenance ? (
         <ScoreProvenanceTrace provenance={model.provenance} scoreSourceTable={model.scoreSourceTable} lang={lang} />
+      ) : null}
+
+      {stepId === "step-5" && model.terminologyCrosswalk ? (
+        <TerminologyCrosswalkPanel model={model.terminologyCrosswalk} lang={lang} />
       ) : null}
 
       {why ? (

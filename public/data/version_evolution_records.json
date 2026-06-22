@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.9.5.2",
+  "currentVersion": "V3.9.5.3",
   "generatedAt": "2026-06-22",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
@@ -713,6 +713,27 @@
         "Organic Acid",
         "Score Provenance",
         "Algorithm",
+        "UI",
+        "Testing"
+      ]
+    },
+    {
+      "version": "V3.9.5.3",
+      "date": "2026-06-22",
+      "commit": "pending-current",
+      "summary": "Organic Acid Explanation Closure & Visual QA: completed P1/P2 explanation closure after the V3.9.5.2 P0 work. Added a Pathway Evidence Heatmap (Step 1), improved the descriptor mapping explanation (Step 2), and added a Validation Coverage Matrix (Step 6). Added a terminology crosswalk for HGCPS / OACS / DMRS, improved Step Why Panel visual polish, and added a real-browser live click-through verification checklist. Kept V3.9.5.2 score provenance, HGCPS waterfall, route factor comparison, and dynamic whyNotOther, plus not-final-proof and not-formal-ML boundaries.",
+      "scientificImpact": "Al-MOF + Mo remains a builder-derived high-priority experimental validation route; Step 1/2/6 now expose pathway evidence, descriptor mapping, and validation coverage explanations from the same data.",
+      "databaseImpact": "No new experimental result or database expansion; reuses pathwaySteps / descriptorMap / evidenceRiskRecords / validationExperiments / activation data and exposes them through explanation-closure builders.",
+      "algorithmImpact": "Added src/utils/organicAcidExplanationClosure builders: buildPathwayEvidenceHeatmapModel, buildDescriptorMappingExplanationModel, buildValidationCoverageMatrixModel, buildPathwayEvidenceSummary, buildDescriptorMappingSummary, buildValidationCoverageSummary, buildTerminologyCrosswalk, buildExplanationClosureExportJson, buildOrganicAcidVisualQaChecklist.",
+      "validationImpact": "Validation Coverage Matrix derives covered/partial/pending/missing from the minimum experiment matrix without hardcoding the Mo-only control or experiment count; keeps planning-ready / not performance-validated boundary.",
+      "uiImpact": "Step 1 gains a pathway evidence heatmap, Step 2 a descriptor mapping explanation with missing-descriptor warnings, Step 6 a validation coverage matrix with activation actions, and Step 5 a HGCPS/OACS/DMRS terminology crosswalk; Step Why Panel stays four-block with collapsibles.",
+      "knownLimitations": "Explanation closure and visual QA only; activation data remain seed/proxy/curated planning data and same-condition validation plus formal ML labels are still pending.",
+      "breakingChanges": "None.",
+      "nextVersionGoal": "Run the minimum same-condition experiment matrix and feed validated results into feedback rules before any HGCPS recalibration or ML-ready claim.",
+      "categories": [
+        "Organic Acid",
+        "Explanation Closure",
+        "Visual QA",
         "UI",
         "Testing"
       ]

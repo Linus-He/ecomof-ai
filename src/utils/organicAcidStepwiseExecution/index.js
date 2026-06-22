@@ -12,6 +12,15 @@ import {
   buildRouteCompetitionModel,
 } from "../organicAcidAlgorithmFlow/index.js"
 import { buildStepWhyPanelEnhancedModel } from "../organicAcidScoreProvenance/index.js"
+import {
+  buildDescriptorMappingExplanationModel,
+  buildDescriptorMappingSummary,
+  buildPathwayEvidenceHeatmapModel,
+  buildPathwayEvidenceSummary,
+  buildTerminologyCrosswalk,
+  buildValidationCoverageMatrixModel,
+  buildValidationCoverageSummary,
+} from "../organicAcidExplanationClosure/index.js"
 
 export const ORGANIC_ACID_STEPWISE_EXECUTION_VERSION = "V3.9.5.2"
 export const ORGANIC_ACID_STEPWISE_EXECUTION_NAME = "Organic Acid Stepwise Algorithm Execution Chain"
@@ -593,6 +602,23 @@ export function buildExecutionStepModel(stepId, workbenchInput = null, sourceDat
     ],
   }
   stepModel.whyPanelEnhanced = buildStepWhyPanelEnhancedModel(stepModel, workbench, { lang })
+  const enhanced = stepModel.whyPanelEnhanced
+  if (stepModel.id === "step-1") {
+    enhanced.pathwayEvidenceHeatmap = buildPathwayEvidenceHeatmapModel(workbench, sourceData)
+    enhanced.closureSummary = buildPathwayEvidenceSummary(workbench, sourceData)
+  } else if (stepModel.id === "step-2") {
+    enhanced.descriptorMappingExplanation = buildDescriptorMappingExplanationModel(workbench, sourceData)
+    enhanced.closureSummary = buildDescriptorMappingSummary(workbench, sourceData)
+  } else if (stepModel.id === "step-5") {
+    enhanced.terminologyCrosswalk = buildTerminologyCrosswalk()
+  } else if (stepModel.id === "step-6") {
+    enhanced.validationCoverageMatrix = buildValidationCoverageMatrixModel(workbench, sourceData, activationWorkbench)
+    enhanced.closureSummary = buildValidationCoverageSummary(workbench, sourceData, activationWorkbench)
+  }
+  if (enhanced.closureSummary) {
+    enhanced.conclusionZh = enhanced.closureSummary.oneLineConclusionZh
+    enhanced.conclusionEn = enhanced.closureSummary.oneLineConclusionEn
+  }
   return stepModel
 }
 

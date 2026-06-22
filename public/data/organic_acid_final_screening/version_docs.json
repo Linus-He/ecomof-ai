@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06-22",
-  "currentVersion": "V3.9.5.2",
-  "completedRange": "V1.0-V3.9.5.2",
+  "currentVersion": "V3.9.5.3",
+  "completedRange": "V1.0-V3.9.5.3",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -3218,7 +3218,7 @@
       "title": "Step Why Panel Score Provenance & Visual Explanation Refinement",
       "titleZh": "Step Why Panel 得分来源与可视化解释精修",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Score Provenance",
       "themeZh": "得分来源解释",
       "summary": "Step Why Panel Score Provenance & Visual Explanation Refinement: enhanced the Step Why Panel into a score explainer with score provenance traces, added an HGCPS factor compression waterfall, added route factor comparison for top / runner-up / third routes, added dynamic why-not-other explanation derived from score factor differences, added host and guest score breakdown charts and score source tables, clarified the raw / normalized / factor / contribution / score / rank chain, reworded Prediction Objective to Screening Objective, kept Al-MOF + Mo as builder-derived route output (not a preset answer), and kept the not-final-proof and not-formal-ML boundaries.",
@@ -3300,6 +3300,94 @@
         ],
         "adaptationBoundary": "Score-provenance explanation and chart convergence only; no final catalyst-performance proof and no formal machine-learning prediction.",
         "adaptationBoundaryZh": "仅用于得分来源解释与图表收敛；不提供最终催化性能证明，也不是正式机器学习预测。"
+      },
+      "relatedSection": "project-evolution-organic-acid-algorithm-methodology"
+    },
+    {
+      "version": "V3.9.5.3",
+      "title": "Organic Acid Explanation Closure & Visual QA",
+      "titleZh": "有机酸解释闭环与视觉验收",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Explanation Closure",
+      "themeZh": "解释闭环",
+      "summary": "Organic Acid Explanation Closure & Visual QA: completed P1/P2 explanation closure after the V3.9.5.2 P0 work. Added a Pathway Evidence Heatmap (Step 1), improved the descriptor mapping explanation (Step 2), and added a Validation Coverage Matrix (Step 6). Added a terminology crosswalk for HGCPS / OACS / DMRS, improved Step Why Panel visual polish, and added a real-browser live click-through verification checklist. Kept V3.9.5.2 score provenance, HGCPS waterfall, route factor comparison, and dynamic whyNotOther, plus not-final-proof and not-formal-ML boundaries.",
+      "summaryZh": "在 V3.9.5.2 P0 基础上补齐 P1/P2 解释闭环：新增路径证据热图（Step 1）、完善路径与描述符对应关系（Step 2）、新增验证覆盖矩阵（Step 6），新增 HGCPS / OACS / DMRS 术语对照，优化 Step Why Panel 视觉，并新增真实浏览器点击验收清单；保留 V3.9.5.2 全部成果与非性能 / 非 ML 边界。",
+      "keyUpdates": [
+        "Completed P1/P2 explanation closure after V3.9.5.2 P0.",
+        "Added Pathway Evidence Heatmap.",
+        "Added Validation Coverage Matrix.",
+        "Improved descriptor mapping explanation.",
+        "Added terminology crosswalk for HGCPS / OACS / DMRS.",
+        "Improved Step Why Panel visual polish.",
+        "Added real-browser live click-through verification checklist.",
+        "Kept V3.9.5.2 score provenance, HGCPS waterfall, route factor comparison, and dynamic whyNotOther.",
+        "Kept not-final-proof and not-formal-ML boundaries."
+      ],
+      "keyUpdatesZh": [
+        "在 V3.9.5.2 P0 基础上补齐 P1/P2 解释闭环。",
+        "新增路径证据热图（Step 1）。",
+        "新增验证覆盖矩阵（Step 6）。",
+        "完善路径与描述符对应关系解释（Step 2）。",
+        "新增 HGCPS / OACS / DMRS 术语对照。",
+        "优化 Step Why Panel 视觉可读性。",
+        "新增真实浏览器 live 点击验收清单。",
+        "保留 V3.9.5.2 得分来源、HGCPS 瀑布图、路线因子对比与动态 whyNotOther。",
+        "保留非催化性能结论与非机器学习预测边界。"
+      ],
+      "algorithmChanges": [
+        "Added src/utils/organicAcidExplanationClosure builders for pathway evidence heatmap, descriptor mapping explanation, validation coverage matrix, step summaries, terminology crosswalk, export bundle, and a visual QA checklist.",
+        "Validation coverage states (covered/partial/pending/missing) are derived from the minimum experiment matrix and feedback rules, not hardcoded.",
+        "Pathway and descriptor explanations derive evidence/confidence/descriptor/risk status and missing-descriptor counts from pathway and descriptor data."
+      ],
+      "algorithmChangesZh": [
+        "新增 src/utils/organicAcidExplanationClosure 构建器：路径证据热图、描述符映射解释、验证覆盖矩阵、步骤摘要、术语对照、导出包与视觉验收清单。",
+        "验证覆盖状态（覆盖/部分/待补/缺失）由最小实验矩阵与反馈规则派生，不写死。",
+        "路径与描述符解释从数据派生证据/置信/描述符/风险状态与缺失描述符数。"
+      ],
+      "uiChanges": [
+        "Step 1 Why Panel adds a collapsible pathway evidence heatmap; Step 2 adds a descriptor mapping explanation with missing-descriptor warnings and a dynamic one-line summary.",
+        "Step 6 Why Panel main chart is the validation coverage matrix with Open Activation Center / Download same-condition template / View feedback rules actions.",
+        "Step 5 Why Panel adds a HGCPS / OACS / DMRS terminology crosswalk; Step Why Panel stays four-block with collapsible score source table and why-not-other."
+      ],
+      "uiChangesZh": [
+        "Step 1 Why Panel 新增可折叠路径证据热图；Step 2 新增描述符映射解释、缺失描述符警示与动态一句话摘要。",
+        "Step 6 Why Panel 主图为验证覆盖矩阵，并提供打开实验启用中心 / 下载同条件数据模板 / 查看反馈规则按钮。",
+        "Step 5 Why Panel 新增 HGCPS / OACS / DMRS 术语对照；Step Why Panel 保持四块结构与折叠区。"
+      ],
+      "methodologyChanges": [
+        "Added a terminology crosswalk keeping HGCPS primary while marking OACS as legacy and DMRS as auxiliary, mapping Host Score / Guest Score / Risk Retention / Evidence Confidence factors.",
+        "Kept the Project Evolution Organic Acid Algorithm Methodology LaTeX module and HGCPS multiplicative formula; kept not-final-proof and not-formal-ML boundaries.",
+        "Added Step 1/2 boundary copy (pathways/descriptors are seed/proxy/curated evidence, not a complete mechanistic proof) and Step 6 boundary copy (the matrix shows risk coverage, not completed experiments)."
+      ],
+      "methodologyChangesZh": [
+        "新增术语对照：HGCPS 为主评分，OACS 标注历史、DMRS 标注辅助，并映射 Host Score / Guest Score / 风险保留 / 证据置信因子。",
+        "保留 Project Evolution 有机酸算法方法论 LaTeX 模块与 HGCPS 乘法公式；保留非最终证明与非正式机器学习边界。",
+        "新增 Step 1/2 边界文案（路径与描述符为 seed/proxy/curated 证据，非完整机理证明）与 Step 6 边界文案（矩阵说明风险覆盖，不代表实验已完成）。"
+      ],
+      "evidenceBoundary": "Explanation closure and visual QA only. Pathways, descriptors, and validation coverage come from seed / proxy / curated planning data; the matrix shows how next experiments cover risk and does not mean experiments are complete, nor a catalytic-performance conclusion or formal ML prediction.",
+      "evidenceBoundaryZh": "仅为解释闭环与视觉验收。路径、描述符与验证覆盖来自 seed / proxy / curated 规划数据；矩阵说明下一步实验如何覆盖风险，不代表实验已完成，也不是催化性能结论或正式机器学习预测。",
+      "limitations": [
+        "Validation coverage is planning-ready, not performance-validated.",
+        "Heatmap and descriptor statuses describe evidence coverage, not experimental confirmation.",
+        "Same-condition performance data and formal ML labels remain pending."
+      ],
+      "limitationsZh": [
+        "验证覆盖为 planning-ready，非性能验证。",
+        "热图与描述符状态描述证据覆盖，不代表实验已确认。",
+        "同条件性能数据与正式机器学习标签仍待完成。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "organic-acid-host-guest",
+          "pathway-evidence-heatmap",
+          "descriptor-mapping",
+          "validation-coverage-matrix",
+          "terminology-crosswalk",
+          "HGCPS"
+        ],
+        "adaptationBoundary": "Explanation closure and visual QA only; no final catalyst-performance proof and no formal machine-learning prediction.",
+        "adaptationBoundaryZh": "仅用于解释闭环与视觉验收；不提供最终催化性能证明，也不是正式机器学习预测。"
       },
       "relatedSection": "project-evolution-organic-acid-algorithm-methodology"
     }

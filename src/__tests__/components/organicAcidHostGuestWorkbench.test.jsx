@@ -140,6 +140,39 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     expect(within(routeWhyPanel).getByTestId("factor-compression-waterfall")).toBeInTheDocument()
     expect(within(routeWhyPanel).getByTestId("route-factor-comparison-chart")).toBeInTheDocument()
     expect(within(routeWhyPanel).getByTestId("score-source-table")).toBeInTheDocument()
+    // Step 5 surfaces the HGCPS / OACS / DMRS terminology crosswalk.
+    expect(within(routeWhyPanel).getByTestId("terminology-crosswalk")).toBeInTheDocument()
+    expect(routeWhyPanel.textContent).toMatch(/HGCPS \/ OACS \/ DMRS/)
+  })
+
+  function gotoStep(label) {
+    const navigator = screen.getByTestId("organic-acid-step-navigator")
+    const button = within(navigator).getAllByRole("button").find(b => b.textContent?.includes(label))
+    expect(button).toBeTruthy()
+    fireEvent.click(button)
+    return screen.getByTestId("organic-acid-step-why-panel")
+  }
+
+  it("completes the Step 1 / Step 2 / Step 6 explanation closure", () => {
+    renderWorkbench()
+
+    const step1 = gotoStep("Step 1")
+    expect(within(step1).getByTestId("pathway-evidence-heatmap")).toBeInTheDocument()
+    expect(step1.textContent).toMatch(/CO₂→有机酸路径被分解为 \d+ 个步骤/)
+
+    const step2 = gotoStep("Step 2")
+    expect(within(step2).getByTestId("descriptor-mapping-explanation")).toBeInTheDocument()
+    expect(step2.textContent).toMatch(/个路径步骤映射到 \d+ 个描述符组/)
+    expect(step2.textContent).toMatch(/缺 \d+ 项描述符/)
+
+    const step6 = gotoStep("Step 6")
+    expect(within(step6).getByTestId("validation-coverage-matrix")).toBeInTheDocument()
+    expect(step6.textContent).toMatch(/不代表实验已完成/)
+    expect(step6.textContent).toMatch(/打开实验启用中心/)
+    expect(step6.textContent).toMatch(/下载同条件数据模板/)
+
+    expect(bodyText()).not.toMatch(/undefined|null|NaN/)
+    expect(bodyText()).not.toMatch(/Cat Playground/)
   })
 
   it("keeps candidate competition embedded in Steps 3-5 and opens folded advanced or activation sections from step controls", () => {

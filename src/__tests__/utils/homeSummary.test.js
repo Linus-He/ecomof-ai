@@ -21,7 +21,7 @@ describe("homeSummary", () => {
     expect(summary.experimentalLabelCount).toBe(150)
     expect(summary.externalTestCount).toBe(80)
     expect(summary.benchmarkEligibleCount).toBe(230)
-    expect(summary.currentVersion).toBe("V3.9.5.2")
+    expect(summary.currentVersion).toBe("V3.9.5.3")
     expect(summary.bestModel).toBe("Random Forest")
     expect(summary.credibilityScore).toBe(78.87)
     expect(summary.credibilityGrade).toBe("B")
