@@ -56,7 +56,7 @@ function renderWorkbench() {
 }
 
 describe("OrganicAcidHostGuestWorkbench", () => {
-  it("renders the V3.9.5.1 stepwise execution chain from Step 0 before any route-output emphasis", () => {
+  it("renders the V3.9.5.2 stepwise execution chain from Step 0 before any route-output emphasis", () => {
     renderWorkbench()
     const text = bodyText()
 
@@ -66,23 +66,23 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     expect(screen.getByTestId("organic-acid-step-mini-map")).toBeInTheDocument()
     expect(screen.getByTestId("organic-acid-step-why-panel")).toBeInTheDocument()
 
-    expect(text).toMatch(/EcoMOF-AI V3\.9\.5\.1/)
+    expect(text).toMatch(/EcoMOF-AI V3\.9\.5\.2/)
     expect(text).toMatch(/筛选目标设定/)
-    expect(text).toMatch(/Prediction Objective \/ Screening Target/)
+    expect(text).toMatch(/Screening Objective \/ 筛选目标/)
     expect(text).toMatch(/有机酸分步算法执行链/)
     for (const label of ["Step 0", "Step 1", "Step 2", "Step 3", "Step 4", "Step 5", "Step 6"]) {
       expect(text).toMatch(new RegExp(label))
     }
-    expect(text).toMatch(/路径步骤识别/)
-    expect(text).toMatch(/路径步骤—描述符映射/)
+    expect(text).toMatch(/反应路径分解/)
+    expect(text).toMatch(/路径与描述符对应关系/)
     expect(text).toMatch(/主体 MOF 筛选/)
-    expect(text).toMatch(/客体 \/ 掺杂金属筛选/)
+    expect(text).toMatch(/客体（掺杂金属）筛选/)
     expect(text).toMatch(/主客体路线评分/)
-    expect(text).toMatch(/实验验证输出/)
+    expect(text).toMatch(/实验验证路线输出/)
     expect(text).toMatch(/为什么是这个结果？/)
-    expect(text).toMatch(/该解释由当前数据与 builder 输出生成，不是静态文案/)
-    expect(text).toMatch(/非最终催化性能证明/)
-    expect(text).toMatch(/非正式机器学习推荐/)
+    expect(text).toMatch(/算法输出的是实验验证优先级，不是催化性能结论/)
+    expect(text).toMatch(/非催化性能结论/)
+    expect(text).toMatch(/非机器学习预测/)
     expect(text).toMatch(/实验规划可启用/)
     expect(text).toMatch(/尚未完成性能验证/)
     expect(text.indexOf("筛选目标设定")).toBeLessThan(text.indexOf("Al-MOF + Mo 是当前最高优先级验证路线"))
@@ -118,7 +118,7 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     expect(text).toMatch(/验证矩阵覆盖图/)
   })
 
-  it("syncs the Step Why Panel with Step Navigator and clicked chart candidates", () => {
+  it("syncs the Step Why Panel score explainer with the Step Navigator", () => {
     renderWorkbench()
 
     const navigator = screen.getByTestId("organic-acid-step-navigator")
@@ -126,15 +126,20 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     expect(guestStepButton).toBeTruthy()
     fireEvent.click(guestStepButton)
 
+    // Step 4 main chart is the guest score breakdown explainer with a score source table.
     const whyPanel = screen.getByTestId("organic-acid-step-why-panel")
-    expect(whyPanel.textContent).toMatch(/客体 \/ 掺杂金属筛选/)
-    expect(whyPanel.textContent).toMatch(/Mo 同时支持 CO₂ 活化、HCOO\* 稳定和 PCET/)
+    expect(within(whyPanel).getByTestId("guest-score-breakdown-chart")).toBeInTheDocument()
+    expect(within(whyPanel).getByTestId("score-source-table")).toBeInTheDocument()
+    expect(whyPanel.textContent).toMatch(/这个分数怎么算出来的？/)
+    expect(whyPanel.textContent).toMatch(/为什么不是其他候选/)
 
-    const guestChart = screen.getByTestId("guest-ranking-chart")
-    const wButton = within(guestChart).getAllByRole("button").find(button => button.textContent?.includes("W"))
-    expect(wButton).toBeTruthy()
-    fireEvent.click(wButton)
-    expect(screen.getByTestId("organic-acid-step-why-panel").textContent).toMatch(/W 是 oxo-metal backup/)
+    // Step 5 shows the HGCPS factor compression waterfall on the first screen.
+    const routeStepButton = within(navigator).getAllByRole("button").find(button => button.textContent?.includes("Step 5"))
+    fireEvent.click(routeStepButton)
+    const routeWhyPanel = screen.getByTestId("organic-acid-step-why-panel")
+    expect(within(routeWhyPanel).getByTestId("factor-compression-waterfall")).toBeInTheDocument()
+    expect(within(routeWhyPanel).getByTestId("route-factor-comparison-chart")).toBeInTheDocument()
+    expect(within(routeWhyPanel).getByTestId("score-source-table")).toBeInTheDocument()
   })
 
   it("keeps candidate competition embedded in Steps 3-5 and opens folded advanced or activation sections from step controls", () => {

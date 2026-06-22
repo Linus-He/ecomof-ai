@@ -4,11 +4,11 @@
  * @typedef {{ routeScores?: HostGuestRoute[], topRoute?: HostGuestRoute }} ComplementarityResult
  */
 
-export const ORGANIC_ACID_HOST_GUEST_VERSION = "V3.9.5.1"
+export const ORGANIC_ACID_HOST_GUEST_VERSION = "V3.9.5.2"
 export const HOST_GUEST_ALGORITHM_NAME = "Host-Guest Complementary Pathway Screening Algorithm"
 export const HGCPS_FORMULA_TEXT = "HGCPS = Host Stability Factor * Host Pathway Support Factor * Guest Activity Compensation Factor * Host-Guest Complementarity Factor * Evidence Confidence Factor * Risk Retention Factor"
 
-const HOST_SCORE_WEIGHTS = [
+export const HOST_SCORE_WEIGHTS = [
   ["stabilityProxy", 0.22],
   ["aqueousStabilityEvidence", 0.18],
   ["thermalStabilityEvidence", 0.10],
@@ -19,7 +19,7 @@ const HOST_SCORE_WEIGHTS = [
   ["provenanceQuality", 0.08],
 ]
 
-const GUEST_SCORE_WEIGHTS = [
+export const GUEST_SCORE_WEIGHTS = [
   ["co2ActivationScore", 0.22],
   ["formateStabilizationScore", 0.22],
   ["electronTransferSupport", 0.16],
@@ -38,7 +38,7 @@ const ROUTE_SCORE_KEYS = [
   "riskPenalty",
 ]
 
-const ROUTE_FACTOR_DEFINITIONS = [
+export const ROUTE_FACTOR_DEFINITIONS = [
   { key: "hostStabilityScore", breakdownKey: "hostStability", label: "host stability factor" },
   { key: "hostPathwaySupportScore", breakdownKey: "hostPathwaySupport", label: "host pathway support factor" },
   { key: "guestActivityCompensationScore", breakdownKey: "guestActivityCompensation", label: "guest activity compensation factor" },

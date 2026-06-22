@@ -59,16 +59,16 @@ describe("organic acid stepwise execution builders", () => {
     const activationWorkbench = activationFixture(workbench)
     const chain = buildStepwiseExecutionChain(workbench, source, { lang: "zh", activationWorkbench })
 
-    expect(chain.version).toBe("V3.9.5.1")
+    expect(chain.version).toBe("V3.9.5.2")
     expect(chain.steps.map(step => step.id)).toEqual(["step-0", "step-1", "step-2", "step-3", "step-4", "step-5", "step-6"])
     expect(chain.steps.map(step => step.nameZh)).toEqual([
       "筛选目标设定",
-      "路径步骤识别",
-      "路径步骤—描述符映射",
+      "反应路径分解",
+      "路径与描述符对应关系",
       "主体 MOF 筛选",
-      "客体 / 掺杂金属筛选",
+      "客体（掺杂金属）筛选",
       "主客体路线评分",
-      "实验验证输出",
+      "实验验证路线输出",
     ])
     expect(chain.selectedStepId).toBe("step-0")
     expect(chain.currentStepWhyPanel.titleZh).toBe("为什么是这个结果？")
@@ -87,8 +87,9 @@ describe("organic acid stepwise execution builders", () => {
 
     const serialized = JSON.stringify(chain)
     expect(serialized).not.toMatch(/undefined|null|NaN/)
-    expect(serialized).toMatch(/非最终催化性能证明/)
-    expect(serialized).toMatch(/非正式机器学习推荐/)
+    expect(serialized).toMatch(/非催化性能结论/)
+    expect(serialized).toMatch(/非机器学习预测/)
+    expect(serialized).toMatch(/算法输出的是实验验证优先级，不是催化性能结论/)
     expect(serialized).not.toMatch(/Cat Playground/)
   })
 
@@ -100,10 +101,10 @@ describe("organic acid stepwise execution builders", () => {
     const chart = buildObjectiveInputOutputChartModel(workbench, source, activationWorkbench, "zh")
 
     expect(step0.nameZh).toBe("筛选目标设定")
-    expect(step0.eyebrowZh).toBe("Prediction Objective / Screening Target")
+    expect(step0.eyebrowZh).toBe("Screening Objective / 筛选目标")
     expect(step0.result).toMatch(new RegExp(`${workbench.complementarity.topRoute.hostMof} \\+ ${workbench.complementarity.topRoute.guestMetal}`))
-    expect(step0.risk).toMatch(/非最终催化性能证明/)
-    expect(step0.risk).toMatch(/非正式机器学习推荐/)
+    expect(step0.risk).toMatch(/非催化性能结论/)
+    expect(step0.risk).toMatch(/非机器学习预测/)
     expect(chart.rows.find(row => row.id === "host").value).toBe(hostMofCandidates.length)
     expect(chart.rows.find(row => row.id === "guest").value).toBe(guestMetalCandidates.length)
     expect(chart.rows.find(row => row.id === "route").value).toBe(hostGuestRoutes.length)

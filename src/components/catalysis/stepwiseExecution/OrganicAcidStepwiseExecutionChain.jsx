@@ -1,5 +1,14 @@
 import { useEffect, useMemo, useState } from "react"
 import { NumericText, organicAcidPalette as palette, ORGANIC_ACID_FONT, SCIENTIFIC_TOKEN_FONT } from "../FormulaInline"
+import {
+  FactorCompressionWaterfall,
+  GuestScoreBreakdownChart,
+  HostScoreBreakdownChart,
+  RouteFactorComparisonChart,
+  ScoreProvenanceTrace,
+} from "../scoreProvenance"
+
+const GRADE_TONE = { seed: "info", proxy: "risk", curated: "good", inferred: "muted" }
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -384,7 +393,7 @@ export function ExecutionStepCard({ step, lang = "zh", selected, onSelectStep, o
       <button type="button" onClick={() => onSelectStep?.(step.id, step.anchorId)} style={{ ...buttonStyle(selected), display: "grid", gap: 6 }}>
         <span style={{ color: selected ? palette.accent : palette.faint, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 12, fontWeight: 950 }}>STEP {step.stepNumber}</span>
         <strong style={{ color: palette.text, fontSize: 18, lineHeight: 1.2 }}>{step.nameZh}</strong>
-        {step.stepNumber === 0 ? <span style={{ color: palette.muted, fontSize: 11.5 }}>Prediction Objective / Screening Target</span> : null}
+        {step.stepNumber === 0 ? <span style={{ color: palette.muted, fontSize: 11.5 }}>{step.eyebrowZh || "Screening Objective / 筛选目标"}</span> : null}
       </button>
       {step.stepNumber === 0 ? (
         <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))" }}>
@@ -430,51 +439,91 @@ export function ExecutionStepCard({ step, lang = "zh", selected, onSelectStep, o
   )
 }
 
-export function StepWhyPanel({ panel, lang = "zh", selectedComparison, onOpenMethodology, onOpenActivationCenter, onOpenAdvancedTab, onSelectComparison }) {
-  const detail = selectedComparison?.stepId === panel.stepId ? selectedComparison.row : null
+function WhyPanelGradeBadge({ grade, labelZh, labelEn, lang }) {
+  const tone = GRADE_TONE[grade] || "info"
+  return <Pill tone={tone === "risk" ? "risk" : tone === "good" ? "good" : tone === "muted" ? "muted" : "info"}>{text(lang, labelZh, labelEn)}</Pill>
+}
+
+function WhyPanelMainChart({ stepId, step, enhanced, lang, onSelectComparison }) {
+  if (stepId === "step-3" && enhanced?.provenance) {
+    return <HostScoreBreakdownChart model={enhanced.provenance} lang={lang} />
+  }
+  if (stepId === "step-4" && enhanced?.provenance) {
+    return <GuestScoreBreakdownChart models={enhanced.comparisonProvenances} model={enhanced.provenance} summary={enhanced.whyNotOther} lang={lang} />
+  }
+  if (stepId === "step-5" && enhanced?.factorCompressionTrace) {
+    return <FactorCompressionWaterfall model={enhanced.factorCompressionTrace} lang={lang} />
+  }
+  return (
+    <OrganicAcidStepComparisonChart
+      model={step?.dynamicChartModel}
+      lang={lang}
+      withTestId={false}
+      onSelectRow={row => onSelectComparison?.({ stepId, chartType: step?.dynamicChartModel?.type, row })}
+    />
+  )
+}
+
+export function StepWhyPanel({ panel, step, enhanced, lang = "zh", onOpenMethodology, onOpenActivationCenter, onOpenAdvancedTab, onSelectComparison }) {
+  const model = enhanced || {}
+  const stepId = model.stepId || step?.id || panel?.stepId || "step-0"
+  const badges = asArray(model.dataGradeBadges)
+  const boundaries = asArray(model.boundaries).length ? model.boundaries : asArray(panel?.boundaries).map(item => ({ id: item, zh: item, en: item }))
+  const why = model.whyNotOther
   return (
     <aside data-testid="organic-acid-step-why-panel" style={{ ...cardStyle({ alignSelf: "start", background: palette.surfaceStrong, position: "sticky", top: 88 }) }}>
       <SectionTitle
         kicker="Step Why Panel"
-        title={text(lang, panel.titleZh, panel.titleEn)}
-        note={text(lang, panel.subtitleZh, panel.subtitleEn)}
+        title={text(lang, model.titleZh || panel?.titleZh, model.titleEn || panel?.titleEn)}
+        note={text(lang, model.conclusionZh, model.conclusionEn)}
       />
       <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-        {panel.boundaries.map(boundary => <Pill key={boundary} tone="risk">{boundary}</Pill>)}
+        {badges.map(badge => <WhyPanelGradeBadge key={badge.grade} grade={badge.grade} labelZh={badge.labelZh} labelEn={badge.labelEn} lang={lang} />)}
+        {boundaries.map(boundary => <Pill key={boundary.id || boundary.zh} tone="risk">{text(lang, boundary.zh, boundary.en)}</Pill>)}
       </div>
-      <div style={{ display: "grid", gap: 8 }}>
-        {[
-          [text(lang, "当前步骤解决什么问题", "Problem"), text(lang, panel.stepProblemZh, panel.stepProblemEn)],
-          [text(lang, "使用了哪些输入数据", "Inputs"), panel.inputs.join("; ")],
-          [text(lang, "使用了什么计算逻辑", "Logic"), panel.logic],
-          [text(lang, "得到了什么结果", "Result"), panel.result],
-          [text(lang, "为什么得到这个结果", "Why"), panel.why],
-          [text(lang, "为什么不是其他结果", "Why not others"), panel.whyNotOther],
-          [text(lang, "当前结果有什么风险", "Risk"), panel.risk],
-          [text(lang, "下一步如何使用这个结果", "Next"), panel.next],
-        ].map(([label, value]) => (
-          <FieldBlock key={label} label={label}>{value}</FieldBlock>
-        ))}
-      </div>
-      {detail ? (
-        <div style={cardStyle({ background: palette.accentSoft })}>
-          <strong style={{ color: palette.text, fontSize: 12.5 }}>{text(lang, "当前点击候选解释", "Selected candidate explanation")}</strong>
-          <span style={{ color: palette.accent, fontSize: 13.5, fontWeight: 950 }}>{detail.host || detail.metal || detail.route || detail.labelZh}</span>
-          <span style={{ color: palette.muted, fontSize: 11.8, lineHeight: 1.5 }}>{detail.whySelectedZh || detail.whyRankedHereZh || detail.advantageZh || detail.mainReason}</span>
-          <span style={{ color: palette.risk, fontSize: 11.5, lineHeight: 1.45 }}>{detail.whyNotSelectedZh || detail.whyNotHigherZh || detail.riskStatus || detail.mainRisk}</span>
-        </div>
+
+      <WhyPanelMainChart stepId={stepId} step={step} enhanced={model} lang={lang} onSelectComparison={onSelectComparison} />
+
+      {stepId === "step-5" && model.routeFactorComparison ? (
+        <RouteFactorComparisonChart model={model.routeFactorComparison} lang={lang} />
       ) : null}
-      <OrganicAcidStepComparisonChart
-        model={panel.chart}
-        lang={lang}
-        withTestId={false}
-        onSelectRow={row => onSelectComparison?.({ stepId: panel.stepId, chartType: panel.chart?.type, row })}
-      />
+
+      {model.provenance ? (
+        <ScoreProvenanceTrace provenance={model.provenance} scoreSourceTable={model.scoreSourceTable} lang={lang} />
+      ) : null}
+
+      {why ? (
+        <details style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, padding: "9px 11px" }}>
+          <summary style={{ color: palette.accent, cursor: "pointer", fontSize: 12, fontWeight: 850 }}>{text(lang, "为什么不是其他候选", "Why not the other candidates")}</summary>
+          <div style={{ color: palette.muted, display: "grid", fontSize: 11.5, gap: 6, lineHeight: 1.5, marginTop: 8 }}>
+            <span>{text(lang, why.whyWinnerLeadsZh, why.whyWinnerLeadsEn)}</span>
+            <span style={{ color: palette.risk }}>{text(lang, why.whyRunnerUpNotSelectedZh, why.whyRunnerUpNotSelectedEn)}</span>
+            <span style={{ color: palette.faint }}>{why.limitation}</span>
+          </div>
+        </details>
+      ) : null}
+
+      <details style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, padding: "9px 11px" }}>
+        <summary style={{ color: palette.accent, cursor: "pointer", fontSize: 12, fontWeight: 850 }}>{text(lang, "原始字段与证据 / 风险", "Raw fields and evidence / risk")}</summary>
+        <div style={{ display: "grid", gap: 8, marginTop: 8 }}>
+          {[
+            [text(lang, "使用了哪些输入数据", "Inputs"), asArray(step?.input).join("; ") || asArray(panel?.inputs).join("; ")],
+            [text(lang, "使用了什么计算逻辑", "Logic"), step?.logic || panel?.logic],
+            [text(lang, "公式 / 规则", "Formula or rule"), step?.formula],
+            [text(lang, "得到了什么结果", "Result"), step?.result || panel?.result],
+            [text(lang, "当前结果有什么风险", "Risk"), step?.risk || panel?.risk],
+            [text(lang, "下一步如何使用", "Next"), step?.next || panel?.next],
+          ].map(([label, value]) => (
+            <FieldBlock key={label} label={label}>{value || text(lang, "待补充", "pending")}</FieldBlock>
+          ))}
+        </div>
+      </details>
+
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-        <button type="button" onClick={() => onOpenMethodology?.(panel.methodologyAnchor)} style={{ ...buttonStyle(false), color: palette.accent, textAlign: "center" }}>
+        <button type="button" onClick={() => onOpenMethodology?.(model.methodologyAnchor || step?.methodologyAnchor)} style={{ ...buttonStyle(false), color: palette.accent, textAlign: "center" }}>
           {text(lang, "查看对应公式", "View formula")}
         </button>
-        <button type="button" onClick={() => onOpenAdvancedTab?.(panel.stepId === "step-5" ? "sensitivity" : "risk")} style={{ ...buttonStyle(false), color: palette.accent, textAlign: "center" }}>
+        <button type="button" onClick={() => onOpenAdvancedTab?.(stepId === "step-5" ? "sensitivity" : "risk")} style={{ ...buttonStyle(false), color: palette.accent, textAlign: "center" }}>
           {text(lang, "打开高级分析", "Open advanced analysis")}
         </button>
         <button type="button" onClick={onOpenActivationCenter} style={{ ...buttonStyle(false), color: palette.accent, textAlign: "center" }}>
@@ -543,8 +592,9 @@ export function OrganicAcidStepwiseExecutionChain({
         </div>
         <StepWhyPanel
           panel={whyPanel}
+          step={selectedStep}
+          enhanced={selectedStep?.whyPanelEnhanced}
           lang={lang}
-          selectedComparison={selectedComparison}
           onOpenMethodology={onOpenMethodology}
           onOpenActivationCenter={onOpenActivationCenter}
           onOpenAdvancedTab={onOpenAdvancedTab}

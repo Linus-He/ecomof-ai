@@ -11,8 +11,9 @@ import {
   buildOrganicAcidAlgorithmFlowNetwork,
   buildRouteCompetitionModel,
 } from "../organicAcidAlgorithmFlow/index.js"
+import { buildStepWhyPanelEnhancedModel } from "../organicAcidScoreProvenance/index.js"
 
-export const ORGANIC_ACID_STEPWISE_EXECUTION_VERSION = "V3.9.5.1"
+export const ORGANIC_ACID_STEPWISE_EXECUTION_VERSION = "V3.9.5.2"
 export const ORGANIC_ACID_STEPWISE_EXECUTION_NAME = "Organic Acid Stepwise Algorithm Execution Chain"
 
 const METHODOLOGY_BASE = "project-evolution-organic-acid-algorithm-methodology"
@@ -27,14 +28,17 @@ const CONFIDENCE_VALUE = {
 }
 
 const STEP_LABELS = [
-  ["筛选目标设定", "Prediction Objective / Screening Target"],
-  ["路径步骤识别", "Pathway Step Identification"],
-  ["路径步骤—描述符映射", "Pathway-Descriptor Mapping"],
+  ["筛选目标设定", "Screening Objective"],
+  ["反应路径分解", "Reaction Pathway Decomposition"],
+  ["路径与描述符对应关系", "Pathway-Descriptor Mapping"],
   ["主体 MOF 筛选", "Host MOF Screening"],
-  ["客体 / 掺杂金属筛选", "Guest / Dopant Metal Screening"],
+  ["客体（掺杂金属）筛选", "Guest (Dopant Metal) Screening"],
   ["主客体路线评分", "Host-Guest Route Scoring"],
-  ["实验验证输出", "Experimental Validation Output"],
+  ["实验验证路线输出", "Experimental Validation Route Output"],
 ]
+
+const STEP_ZERO_EYEBROW = "Screening Objective / 筛选目标"
+const COMMON_BOUNDARIES = ["非催化性能结论", "非机器学习预测", "尚未完成性能验证"]
 
 function asArray(value) {
   return Array.isArray(value) ? value : []
@@ -212,7 +216,7 @@ export function buildObjectiveInputOutputChartModel(workbenchInput = null, sourc
       outputRoute: routeLabel(topRoute),
       outputRouteType: safeText(topRoute.routeType, "doping / post-modification / bimetallic construction"),
       readinessLevel: safeText(readiness.readinessLevel, "planning-ready / not performance-validated"),
-      boundariesZh: ["非最终催化性能证明", "非正式机器学习推荐", "尚未完成性能验证"],
+      boundariesZh: COMMON_BOUNDARIES,
       boundariesEn: ["Not final catalytic proof", "Not formal machine learning recommendation", "Not performance-validated"],
     }
   )
@@ -457,7 +461,7 @@ function buildStepFields(stepId, context) {
   })
   const matrix = activationWorkbench?.minimumExperimentalMatrix || {}
   const readiness = activationWorkbench?.readiness || {}
-  const commonBoundaries = ["非最终催化性能证明", "非正式机器学习推荐", "尚未完成性能验证"]
+  const commonBoundaries = COMMON_BOUNDARIES
   const fields = {
     "step-0": {
       input: ["pathway steps", "descriptor mappings", "host MOF candidates", "guest metal candidates", "host–guest route candidates", "evidence / risk records", "validation experiment templates", "activation readiness data"],
@@ -562,14 +566,14 @@ export function buildExecutionStepModel(stepId, workbenchInput = null, sourceDat
   const [nameZh, nameEn] = STEP_LABELS[stepIndex] || STEP_LABELS[0]
   const fields = buildStepFields(STEP_IDS[stepIndex] || "step-0", { workbench, sourceData, activationWorkbench, lang })
   const dynamicChartModel = buildStepDynamicChartModel(STEP_IDS[stepIndex] || "step-0", workbench, sourceData, activationWorkbench, lang)
-  return {
+  const stepModel = {
     id: STEP_IDS[stepIndex] || "step-0",
     stepNumber: stepIndex,
     nameZh,
     nameEn,
     label: textFor(lang, nameZh, nameEn),
-    eyebrowZh: stepIndex === 0 ? "Prediction Objective / Screening Target" : `Step ${stepIndex}`,
-    eyebrowEn: stepIndex === 0 ? "Prediction Objective / Screening Target" : `Step ${stepIndex}`,
+    eyebrowZh: stepIndex === 0 ? STEP_ZERO_EYEBROW : `Step ${stepIndex}`,
+    eyebrowEn: stepIndex === 0 ? STEP_ZERO_EYEBROW : `Step ${stepIndex}`,
     anchorId: `organic-acid-execution-${STEP_IDS[stepIndex] || "step-0"}`,
     input: Array.isArray(fields.input) ? fields.input.map(item => safeText(item)) : [safeText(fields.input)],
     logic: safeText(fields.logic),
@@ -588,6 +592,8 @@ export function buildExecutionStepModel(stepId, workbenchInput = null, sourceDat
       { id: "detail", labelZh: stepIndex === 6 ? "打开实验启用中心" : "查看筛选依据", labelEn: stepIndex === 6 ? "Open Activation Center" : "View screening basis", target: safeText(fields.detailTarget) },
     ],
   }
+  stepModel.whyPanelEnhanced = buildStepWhyPanelEnhancedModel(stepModel, workbench, { lang })
+  return stepModel
 }
 
 export function buildStepNavigatorModel(steps = [], selectedStepId = "step-0", lang = "zh") {
@@ -620,7 +626,7 @@ export function buildStepWhyPanelModel(step, chainContext = {}, lang = "zh") {
     subtitleZh: "该解释由当前数据与 builder 输出生成，不是静态文案。",
     subtitleEn: "This explanation is generated from current data and builder output, not static copy.",
     stepProblemZh: safeText(step?.nameZh, "筛选目标设定"),
-    stepProblemEn: safeText(step?.nameEn, "Prediction Objective / Screening Target"),
+    stepProblemEn: safeText(step?.nameEn, "Screening Objective"),
     inputs: safeList(step?.input),
     logic: safeText(step?.logic),
     result: safeText(step?.result),
@@ -632,7 +638,7 @@ export function buildStepWhyPanelModel(step, chainContext = {}, lang = "zh") {
     chart,
     comparisonHintZh: chart.rows?.length ? "点击图表候选可查看该候选解释。" : "本步骤使用目标输入输出图解释算法起点。",
     comparisonHintEn: chart.rows?.length ? "Click a chart candidate to inspect its explanation." : "This step uses the objective input-output diagram.",
-    boundaries: ["非最终催化性能证明", "非正式机器学习推荐", "尚未完成性能验证"],
+    boundaries: COMMON_BOUNDARIES,
     selectedStepLabel: textFor(lang, safeText(step?.nameZh), safeText(step?.nameEn)),
     chainVersion: safeText(chainContext.version, ORGANIC_ACID_STEPWISE_EXECUTION_VERSION),
   }
@@ -698,7 +704,7 @@ export function buildStepwiseExecutionChain(workbenchInput = null, sourceData = 
     dynamicChartModel: selectedStep.dynamicChartModel,
     miniMap: buildExecutionMiniMapModel(flowNetwork, selectedStepId, lang),
     flowNetworkMiniMapSource: buildFlowNetworkExportJson(flowNetwork),
-    boundaries: ["非最终催化性能证明", "非正式机器学习推荐", "尚未完成性能验证"],
+    boundaries: COMMON_BOUNDARIES,
   }
   return chain
 }

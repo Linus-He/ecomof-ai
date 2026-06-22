@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.9.5.1",
+  "currentVersion": "V3.9.5.2",
   "generatedAt": "2026-06-22",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
@@ -693,6 +693,27 @@
         "Algorithm",
         "UI",
         "Validation",
+        "Testing"
+      ]
+    },
+    {
+      "version": "V3.9.5.2",
+      "date": "2026-06-22",
+      "commit": "pending-current",
+      "summary": "Step Why Panel Score Provenance & Visual Explanation Refinement: enhanced the Step Why Panel into a score explainer with score provenance traces, added an HGCPS factor compression waterfall, added route factor comparison for top / runner-up / third routes, added dynamic why-not-other explanation derived from score factor differences, added host and guest score breakdown charts and score source tables, clarified the raw / normalized / factor / contribution / score / rank chain, reworded Prediction Objective to Screening Objective, kept Al-MOF + Mo as builder-derived route output (not a preset answer), and kept the not-final-proof and not-formal-ML boundaries.",
+      "scientificImpact": "Al-MOF + Mo stays a builder-derived high-priority experimental validation route; HGCPS, host score, and guest score are now fully traceable from raw / proxy fields without preset answers.",
+      "databaseImpact": "No new experimental result or database expansion; reuses existing host / guest / route / scoreBreakdown / provenance data and exposes it through score provenance builders.",
+      "algorithmImpact": "Added organicAcidScoreProvenance builders: buildHostScoreProvenance, buildGuestScoreProvenance, buildRouteHgcpsScoreProvenance, buildFactorCompressionTrace, buildRouteFactorComparisonModel, buildDynamicWhyNotOtherExplanation, buildScoreSourceTableModel, buildStepWhyPanelEnhancedModel, buildScoreDataGradeBadges, buildTerminologyAlignmentModel.",
+      "validationImpact": "Preserves HGCPS multiplicative formula, Experimental Activation Center, not-final-proof and not-formal-ML boundaries; risk retention factor is explained as a 0-1 retention coefficient, not falsification.",
+      "uiImpact": "Step Why Panel converged from an eight-block text wall to four blocks (conclusion, main chart, data-grade badges, actions) with collapsible score source table, formula, raw fields, why-not-other, and evidence/risk.",
+      "knownLimitations": "Explanation transparency and chart convergence only; activation data remain seed/proxy/curated planning data and same-condition validation plus formal ML labels are still pending.",
+      "breakingChanges": "None.",
+      "nextVersionGoal": "Run the minimum same-condition experiment matrix and feed validated results into feedback rules before any HGCPS recalibration or ML-ready claim.",
+      "categories": [
+        "Organic Acid",
+        "Score Provenance",
+        "Algorithm",
+        "UI",
         "Testing"
       ]
     }

@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06-22",
-  "currentVersion": "V3.9.5.1",
-  "completedRange": "V1.0-V3.9.5.1",
+  "currentVersion": "V3.9.5.2",
+  "completedRange": "V1.0-V3.9.5.2",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -3131,7 +3131,7 @@
       "title": "Organic Acid Stepwise Algorithm Execution Chain UX Fix",
       "titleZh": "有机酸分步算法执行链 UX 修复",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Organic Acid Stepwise Algorithm Execution Chain",
       "themeZh": "有机酸分步算法执行链",
       "summary": "Added Step 0 prediction / screening target setup, replaced static flow-network-first UX with a vertical Step 0-Step 6 execution chain, added Step Why Panel with dynamic comparison charts, and repositioned Flow Network as Mini Map.",
@@ -3212,6 +3212,96 @@
         "adaptationBoundaryZh": "仅用于分步执行 UX 与 builder 派生图表重构；不提供最终催化性能证明。"
       },
       "relatedSection": "#organic-acid-host-guest-workbench"
+    },
+    {
+      "version": "V3.9.5.2",
+      "title": "Step Why Panel Score Provenance & Visual Explanation Refinement",
+      "titleZh": "Step Why Panel 得分来源与可视化解释精修",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Score Provenance",
+      "themeZh": "得分来源解释",
+      "summary": "Step Why Panel Score Provenance & Visual Explanation Refinement: enhanced the Step Why Panel into a score explainer with score provenance traces, added an HGCPS factor compression waterfall, added route factor comparison for top / runner-up / third routes, added dynamic why-not-other explanation derived from score factor differences, added host and guest score breakdown charts and score source tables, clarified the raw / normalized / factor / contribution / score / rank chain, reworded Prediction Objective to Screening Objective, kept Al-MOF + Mo as builder-derived route output (not a preset answer), and kept the not-final-proof and not-formal-ML boundaries.",
+      "summaryZh": "把 Step Why Panel 改造成真正的得分解释器：新增得分来源追踪链、HGCPS 因子压缩图、路线因子对比图、动态 why-not-other 解释、主体与客体得分拆解图与得分来源表，明确原始字段到总分排名链路，Prediction Objective 改为 Screening Objective，并保持 Al-MOF + Mo 为 builder 派生结果与非性能/非 ML 边界。",
+      "keyUpdates": [
+        "Enhanced Step Why Panel with score provenance traces.",
+        "Added HGCPS factor compression waterfall.",
+        "Added route factor comparison for top / runner-up / third routes.",
+        "Added dynamic why-not-other explanation derived from score factor differences.",
+        "Added host and guest score breakdown charts.",
+        "Added score source tables.",
+        "Clarified raw / normalized / factor / contribution / score / rank chain.",
+        "Reworded Prediction Objective to Screening Objective.",
+        "Kept Al-MOF + Mo as builder-derived route output, not preset answer.",
+        "Kept not-final-proof and not-formal-ML boundaries."
+      ],
+      "keyUpdatesZh": [
+        "把 Step Why Panel 升级为得分解释器，新增得分来源追踪链。",
+        "新增 HGCPS 因子压缩图（六因子从 1.0 连乘到最终值）。",
+        "新增路线因子对比图，对比 #1 / #2 / #3 路线。",
+        "whyNotOther 改为由 top route 与 runner-up 的真实因子差异动态生成。",
+        "新增主体得分拆解图与客体得分拆解图。",
+        "新增统一得分来源表。",
+        "明确原始字段 / 归一化 / 因子 / 子贡献 / 总分 / 排名链路。",
+        "Prediction Objective 改为 Screening Objective / 筛选目标。",
+        "保持 Al-MOF + Mo 为 builder 派生路线输出，不是开屏预设答案。",
+        "保留非催化性能结论与非机器学习预测边界。"
+      ],
+      "algorithmChanges": [
+        "Added src/utils/organicAcidScoreProvenance builders: buildHostScoreProvenance, buildGuestScoreProvenance, buildRouteHgcpsScoreProvenance, buildFactorCompressionTrace, buildRouteFactorComparisonModel, buildDynamicWhyNotOtherExplanation, buildScoreSourceTableModel, buildStepWhyPanelEnhancedModel, buildScoreDataGradeBadges, and buildTerminologyAlignmentModel.",
+        "Host and guest scores are traced as weighted-sum contributions; route HGCPS is traced as a six-factor multiplicative compression from 1.0 to the final value.",
+        "whyNotOther is now derived from the real factor differences between the top route/candidate and its runner-up, not static copy."
+      ],
+      "algorithmChangesZh": [
+        "新增 src/utils/organicAcidScoreProvenance 构建器：主体 / 客体 / 路线 HGCPS 得分来源、因子压缩链、路线因子对比、动态 why-not-other、得分来源表、Step Why Panel 增强模型、数据等级 badge 与术语对照。",
+        "主体与客体得分按加权求和拆解贡献；路线 HGCPS 按六因子从 1.0 连乘压缩到最终值。",
+        "whyNotOther 由 top 与 runner-up 的真实因子差异动态生成，不再是写死文案。"
+      ],
+      "uiChanges": [
+        "Step Why Panel converged from an eight-block text wall into four blocks: one-line conclusion, main chart, data-grade badges, and action buttons.",
+        "Step 5 first screen shows the HGCPS factor compression waterfall plus route factor comparison and a score source table entry; Step 3 shows the host score breakdown and Step 4 the guest score breakdown.",
+        "Score source table, formula, raw fields, why-not-other, and evidence/risk are moved into collapsible sections; mobile keeps the why panel below the current step."
+      ],
+      "uiChangesZh": [
+        "Step Why Panel 从八格文字墙收敛为四块：一句话结论、主图、数据等级 badge、操作按钮。",
+        "Step 5 首屏显示 HGCPS 因子压缩图、路线因子对比图与得分来源表入口；Step 3 显示主体得分拆解图，Step 4 显示客体得分拆解图。",
+        "得分来源表、公式、原始字段、为什么不是其他候选、证据/风险移入折叠区；移动端 Why Panel 置于当前 Step 下方。"
+      ],
+      "methodologyChanges": [
+        "Preserved the Project Evolution Organic Acid Algorithm Methodology LaTeX module and the HGCPS multiplicative formula anchors.",
+        "Reworded Prediction Objective to Screening Objective and added a terminology alignment so HGCPS stays the primary score while OACS and DMRS are mapped, not shown as three competing systems.",
+        "Kept Al-MOF as the builder-derived stable host framework candidate and Mo as the guest / dopant / activity compensation metal; kept not-final-proof and not-formal-ML boundaries."
+      ],
+      "methodologyChangesZh": [
+        "保留 Project Evolution 有机酸算法方法论 LaTeX 模块与 HGCPS 乘法公式锚点。",
+        "Prediction Objective 改为 Screening Objective，并加入术语对照：HGCPS 为主评分，OACS/DMRS 映射收敛，不再呈现三套割裂体系。",
+        "保持 Al-MOF 为 builder 派生稳定主体骨架、Mo 为客体 / 掺杂 / 活性补偿金属；保留非最终证明与非正式机器学习边界。"
+      ],
+      "evidenceBoundary": "Explanation transparency and chart convergence only. Scores are derived from seed / proxy / curated data, not real experimental measurement; the algorithm outputs experimental-validation priority, not a catalytic-performance conclusion, and is not a formal machine-learning prediction.",
+      "evidenceBoundaryZh": "仅为解释透明化与图表收敛。得分来自 seed / proxy / curated 数据，非真实实验测量；算法输出的是实验验证优先级，不是催化性能结论，也不是正式机器学习预测。",
+      "limitations": [
+        "Scores remain seed / proxy / curated; same-condition performance validation is still pending.",
+        "Data-grade badges describe source quality, not experimental confirmation.",
+        "Risk Retention Factor lowers route scores when evidence is insufficient; it does not mean the experiment has been falsified."
+      ],
+      "limitationsZh": [
+        "得分仍为 seed / proxy / curated；同条件性能验证仍待完成。",
+        "数据等级 badge 描述来源质量，不代表实验已确认。",
+        "Risk Retention Factor 在证据不足时压低路线评分，不等于实验已被证伪。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "organic-acid-host-guest",
+          "step-why-panel",
+          "score-provenance",
+          "factor-compression-waterfall",
+          "route-factor-comparison",
+          "HGCPS"
+        ],
+        "adaptationBoundary": "Score-provenance explanation and chart convergence only; no final catalyst-performance proof and no formal machine-learning prediction.",
+        "adaptationBoundaryZh": "仅用于得分来源解释与图表收敛；不提供最终催化性能证明，也不是正式机器学习预测。"
+      },
+      "relatedSection": "project-evolution-organic-acid-algorithm-methodology"
     }
   ],
   "roadmap": [
