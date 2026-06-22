@@ -10,7 +10,7 @@
   "experimentalLabelCount": 150,
   "externalTestCount": 80,
   "benchmarkEligibleCount": 230,
-  "currentVersion": "V3.9.5",
+  "currentVersion": "V3.9.5.1",
   "bestModel": "Random Forest",
   "accuracy": 0.725,
   "rocAuc": 0.7558,
@@ -41,6 +41,7 @@
     "V3.9.3 completes Organic Acid evidence/risk coverage, sensitivity and ablation analysis, multiplicative HGCPS formula alignment, and route report exports while keeping Al-MOF + Mo as a high-priority experimental route, not final catalytic proof.",
     "V3.9.4 adds the Organic Acid Experimental Activation Center with specific Al-MOF hosts, Mo introduction strategies, minimum experiment matrix, same-condition data template, feedback rules, and planning-ready exports.",
     "V3.9.4 also adds a Project Evolution Organic Acid Algorithm Methodology module with LaTeX formulas for pathway mapping, host selection, guest selection, HGCPS, sensitivity, ablation, and feedback update while keeping Al-MOF + Mo as a high-priority experimental hypothesis, not final catalytic proof.",
-    "V3.9.5 refactors the Organic Acid Host-Guest Workbench into a Chinese-first Algorithm Flow Network with status bar, node inspector, candidate competition, route output, folded activation entry, advanced robustness tabs, and flow-network exports while preserving not-final-proof and not-formal-ML boundaries."
+    "V3.9.5 refactors the Organic Acid Host-Guest Workbench into a Chinese-first Algorithm Flow Network with status bar, node inspector, candidate competition, route output, folded activation entry, advanced robustness tabs, and flow-network exports while preserving not-final-proof and not-formal-ML boundaries.",
+    "V3.9.5.1 adds Step 0 prediction / screening target setup, replaces the static flow-network-first layout with a vertical stepwise execution chain, adds Step Why Panel dynamic comparison charts, and keeps Al-MOF + Mo as a derived route output rather than a preset answer while preserving not-final-proof and not-formal-ML boundaries."
   ]
 }

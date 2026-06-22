@@ -27,7 +27,7 @@ describe("ProjectEvolutionTab", () => {
 
     expect(screen.getByTestId("project-evolution-overview")).toBeInTheDocument()
     expect(bodyText()).toMatch(/Current Version/)
-    expect(bodyText()).toMatch(/V3.9.5/)
+    expect(bodyText()).toMatch(/V3.9.5.1/)
     expect(bodyText()).toMatch(/3020\+/)
     expect(bodyText()).toMatch(/Verified Metadata/)
     expect(bodyText()).toMatch(/2480/)

@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06-22",
-  "currentVersion": "V3.9.5",
-  "completedRange": "V1.0-V3.9.5",
+  "currentVersion": "V3.9.5.1",
+  "completedRange": "V1.0-V3.9.5.1",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -3050,7 +3050,7 @@
       "title": "Organic Acid Algorithm Flow Network UX Refactor",
       "titleZh": "有机酸算法链式网络 UX 重构",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Organic Acid Algorithm Flow Network",
       "themeZh": "有机酸算法链式网络",
       "summary": "Refactored the Organic Acid Host-Guest Workbench into a chain-like algorithm flow with status bar, network, node inspector, candidate competition, route output, folded activation entry, advanced robustness tabs, and builder-derived exports.",
@@ -3123,6 +3123,93 @@
         ],
         "adaptationBoundary": "Algorithm-flow UX and export refactor only; no final catalyst-performance proof.",
         "adaptationBoundaryZh": "仅用于算法链路 UX 与导出重构；不提供最终催化性能证明。"
+      },
+      "relatedSection": "#organic-acid-host-guest-workbench"
+    },
+    {
+      "version": "V3.9.5.1",
+      "title": "Organic Acid Stepwise Algorithm Execution Chain UX Fix",
+      "titleZh": "有机酸分步算法执行链 UX 修复",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Organic Acid Stepwise Algorithm Execution Chain",
+      "themeZh": "有机酸分步算法执行链",
+      "summary": "Added Step 0 prediction / screening target setup, replaced static flow-network-first UX with a vertical Step 0-Step 6 execution chain, added Step Why Panel with dynamic comparison charts, and repositioned Flow Network as Mini Map.",
+      "summaryZh": "新增 Step 0 预测 / 筛选目标设定，将静态 flow-network-first UX 改为 Step 0-Step 6 竖向执行链，新增 Step Why Panel 动态对比图，并将 Flow Network 降级为 Mini Map。",
+      "keyUpdates": [
+        "Added Step 0 prediction / screening target setup.",
+        "Replaced static flow-network-first layout with vertical stepwise execution chain.",
+        "Added Step Why Panel with dynamic comparison charts.",
+        "Added dynamic host ranking, guest ranking, route HGCPS breakdown, pathway coverage, descriptor mapping, and validation coverage charts.",
+        "Repositioned Flow Network as Mini Map.",
+        "Kept Al-MOF + Mo as derived route output, not preset answer.",
+        "Kept not-final-proof and not-formal-ML boundaries."
+      ],
+      "keyUpdatesZh": [
+        "新增 Step 0 预测 / 筛选目标设定。",
+        "将静态 flow-network-first 布局替换为竖向分步算法执行链。",
+        "新增 Step Why Panel 与动态对比图。",
+        "新增动态主体排名、客体排名、路线 HGCPS 分解、路径覆盖、描述符映射和验证覆盖图。",
+        "将 Flow Network 调整为 Mini Map。",
+        "保持 Al-MOF + Mo 为路线 builder 派生输出，而不是预设答案。",
+        "保留非最终性能证明与非正式机器学习边界。"
+      ],
+      "algorithmChanges": [
+        "Added src/utils/organicAcidStepwiseExecution builders for Step 0-Step 6, navigator, why panel, dynamic chart models, mini map, and export.",
+        "Each execution step includes input, logic, formula/rule, competition, result, why, next action, methodology anchor, and dynamic chart model.",
+        "Dynamic charts are generated from current host, guest, route, pathway, descriptor, evidence-risk, validation, and activation builder outputs."
+      ],
+      "algorithmChangesZh": [
+        "新增 src/utils/organicAcidStepwiseExecution builders，覆盖 Step 0-Step 6、navigator、why panel、动态图、mini map 与导出。",
+        "每个执行步骤包含 input、logic、formula/rule、competition、result、why、next、方法论锚点和动态图模型。",
+        "动态图从当前主体、客体、路线、路径、描述符、证据风险、验证与 activation builder 输出生成。"
+      ],
+      "uiChanges": [
+        "Desktop layout: Step Navigator on the left, vertical Stepwise Algorithm Execution Chain in the center, Step Why Panel plus Dynamic Comparison Charts on the right.",
+        "Mobile layout stacks navigator, current step, why panel, dynamic chart, and next-step controls.",
+        "Candidate Competition is embedded into Step 3, Step 4, and Step 5 instead of being a standalone large module.",
+        "Experimental Activation remains folded and is opened from Step 6."
+      ],
+      "uiChangesZh": [
+        "桌面布局：左侧 Step Navigator，中间竖向 Stepwise Algorithm Execution Chain，右侧 Step Why Panel 与动态图。",
+        "移动端按 navigator、当前 step、why panel、动态图与下一步控件顺序堆叠。",
+        "Candidate Competition 嵌入 Step 3、Step 4、Step 5，不再作为孤立大模块。",
+        "Experimental Activation 继续默认折叠，并从 Step 6 打开。"
+      ],
+      "methodologyChanges": [
+        "Preserved Project Evolution Organic Acid Algorithm Methodology LaTeX formulas and HGCPS multiplicative formula anchors.",
+        "Kept not final catalytic proof, not completed validation, and not ready for formal machine learning boundaries.",
+        "Al-MOF remains the stable host framework candidate and Mo remains the guest / dopant / activity compensation metal by builder-derived ranking."
+      ],
+      "methodologyChangesZh": [
+        "保留 Project Evolution Organic Acid Algorithm Methodology LaTeX 公式与 HGCPS 乘法公式锚点。",
+        "保留非最终催化性能证明、尚未完成实验验证、尚不能用于正式机器学习的边界。",
+        "Al-MOF 仍由 builder 排名定位为 stable host framework candidate，Mo 仍定位为 guest / dopant / activity compensation metal。"
+      ],
+      "evidenceBoundary": "UX and builder-view fix only. Al-MOF + Mo remains a high-priority experimental validation route, not final catalytic proof, not a completed same-condition experiment, and not a formal machine-learning recommendation.",
+      "evidenceBoundaryZh": "仅为 UX 与 builder 视图修复。Al-MOF + Mo 仍是最高优先级实验验证路线；未引入已完成同条件实验、最终催化证明或正式机器学习推荐。",
+      "limitations": [
+        "No new performance proof.",
+        "No formal machine-learning recommendation.",
+        "No completed same-condition validation result.",
+        "Dynamic charts reflect seed/proxy/curated data until experiments are completed."
+      ],
+      "limitationsZh": [
+        "没有新增性能证明。",
+        "没有正式机器学习推荐。",
+        "没有已完成同条件验证结果。",
+        "动态图在实验完成前仍反映 seed/proxy/curated 数据。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "organic-acid-host-guest",
+          "stepwise-execution-chain",
+          "step-why-panel",
+          "dynamic-comparison-charts",
+          "HGCPS"
+        ],
+        "adaptationBoundary": "Stepwise execution UX and builder-derived chart refactor only; no final catalyst-performance proof.",
+        "adaptationBoundaryZh": "仅用于分步执行 UX 与 builder 派生图表重构；不提供最终催化性能证明。"
       },
       "relatedSection": "#organic-acid-host-guest-workbench"
     }

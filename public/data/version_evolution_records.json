@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.9.5",
+  "currentVersion": "V3.9.5.1",
   "generatedAt": "2026-06-22",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
-    "currentVersion": "V3.9.5",
+    "currentVersion": "V3.9.5.1",
     "databaseSize": 3020,
     "verifiedMetadataCount": 2480,
     "sourceConfirmedCount": 2480,
@@ -13,12 +13,12 @@
     "modelValidationStatus": "Robustness Validation Complete",
     "projectAge": "2026-04 to 2026-06",
     "githubStars": "pending",
-    "milestoneCount": 17,
+    "milestoneCount": 18,
     "databasePreviewStatus": "Database Preview",
     "notFinalRecommendationStatus": "Not Final Recommendation",
     "sources": {
       "currentVersion": {
-        "value": "V3.9.5",
+        "value": "V3.9.5.1",
         "sourceDatabase": "EcoMOF-AI version_evolution_records.json",
         "sourceRecordId": "overview.currentVersion",
         "sourceUrl": "public/data/version_evolution_records.json",
@@ -27,9 +27,9 @@
         "retrievedAt": "2026-06-22",
         "curationStatus": "confirmed",
         "confidence": 1,
-        "databaseVersion": "version_evolution_records.json@V3.9.5",
-        "generatingScript": "manual V3.9.5 organic acid algorithm flow UX record",
-        "notes": "Version label for the V3.9.5 Organic Acid Algorithm Flow Network UX refactor."
+        "databaseVersion": "version_evolution_records.json@V3.9.5.1",
+        "generatingScript": "manual V3.9.5.1 organic acid stepwise execution UX record",
+        "notes": "Version label for the V3.9.5.1 Organic Acid Stepwise Algorithm Execution Chain UX fix."
       },
       "databaseSize": {
         "value": 3020,
@@ -673,9 +673,47 @@
         "Validation",
         "Testing"
       ]
+    },
+    {
+      "version": "V3.9.5.1",
+      "date": "2026-06-22",
+      "commit": "pending-current",
+      "summary": "Organic Acid Stepwise Algorithm Execution Chain UX Fix: added Step 0 screening-target setup, replaced the static flow-network-first layout with a vertical Step 0-Step 6 execution chain, added Step Why Panel dynamic comparison charts, and repositioned Flow Network as Mini Map.",
+      "scientificImpact": "Al-MOF + Mo remains a builder-derived high-priority experimental validation route, not a preset answer, final catalytic proof, completed experiment, or formal machine-learning recommendation.",
+      "databaseImpact": "No new experimental result or database expansion; the release reuses existing Organic Acid pathway, descriptor, host, guest, route, evidence-risk, validation, activation, and methodology data while exposing them through stepwise builder outputs.",
+      "algorithmImpact": "Added organic-acid stepwise-execution builders for prediction objective, Step 0-Step 6 execution models, navigator, Step Why Panel, dynamic chart models, objective input-output, pathway coverage, descriptor mapping, host ranking, guest ranking, route HGCPS breakdown, validation coverage, mini map, and JSON export.",
+      "validationImpact": "Preserves Missing Evidence & Risk Matrix, Sensitivity Analysis, Ablation Analysis, Algorithm Boundary Panel, Experimental Activation Center, HGCPS multiplicative formula, not-final-proof boundary, and not-formal-ML boundary.",
+      "uiImpact": "Organic Acid Host-Guest Workbench now opens with a Chinese-first vertical Stepwise Algorithm Execution Chain: Step Navigator on the left, Step 0-Step 6 chain in the center, and Step Why Panel with dynamic comparison charts on the right.",
+      "knownLimitations": "UX fix only: activation data remain seed/proxy/curated planning data; same-condition validation and formal ML labels are still pending.",
+      "breakingChanges": "The full Algorithm Flow Network is no longer the main visual; it is downgraded to a Mini Map while exports remain available.",
+      "nextVersionGoal": "Run the minimum same-condition experiment matrix and feed validated results into feedback rules before any HGCPS recalibration or ML-ready claim.",
+      "categories": [
+        "Organic Acid",
+        "Stepwise Execution",
+        "Algorithm",
+        "UI",
+        "Validation",
+        "Testing"
+      ]
     }
   ],
   "releaseNotes": [
+    {
+      "version": "V3.9.5.1",
+      "date": "2026-06-22",
+      "module": "Organic Acid",
+      "category": "UI",
+      "title": "Stepwise Algorithm Execution Chain",
+      "body": "Added Step 0 prediction / screening target setup and replaced the static flow-network-first layout with a vertical Step 0-Step 6 execution chain with Step Navigator, Step Why Panel, dynamic comparison charts, and Flow Network Mini Map."
+    },
+    {
+      "version": "V3.9.5.1",
+      "date": "2026-06-22",
+      "module": "Organic Acid",
+      "category": "Algorithm",
+      "title": "Dynamic Stepwise Execution Builders",
+      "body": "Added builders for prediction objective, step models, navigator, why panel, objective input-output chart, pathway coverage chart, descriptor mapping graph, host ranking chart, guest ranking chart, route HGCPS breakdown chart, validation matrix coverage chart, mini map, and stepwise export while keeping Al-MOF + Mo derived from route scores."
+    },
     {
       "version": "V3.9.5",
       "date": "2026-06-22",
@@ -1554,6 +1592,15 @@
       "version": "V3.9.5",
       "date": "2026-06-22",
       "detail": "Refactored the Organic Acid Host-Guest Workbench into a Chinese-first algorithm flow network with node inspector, candidate competition, route output, folded activation entry, and builder-derived exports."
+    },
+    {
+      "id": "organic-acid-stepwise-execution-v3-9-5-1",
+      "version": "V3.9.5.1",
+      "stage": "Organic Acid Stepwise Algorithm Execution Chain",
+      "date": "2026-06-22",
+      "title": "Organic Acid Stepwise Algorithm Execution Chain UX Fix",
+      "description": "Adds Step 0 screening-target setup, vertical Step 0-Step 6 execution chain, Step Why Panel dynamic charts, and Flow Network Mini Map for the Organic Acid Host-Guest Workbench.",
+      "status": "completed"
     }
   ],
   "roadmap": [

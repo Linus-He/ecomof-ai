@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { fetchDataJson } from "../../shared"
 import {
   buildEvidenceMatrixCsv,
@@ -15,16 +15,14 @@ import {
   ORGANIC_ACID_HOST_GUEST_VERSION,
 } from "../../utils/organicAcidHostGuest"
 import { buildOrganicAcidAlgorithmFlowNetwork } from "../../utils/organicAcidAlgorithmFlow"
+import { buildStepwiseExecutionChain } from "../../utils/organicAcidStepwiseExecution"
+import { buildExperimentalActivationWorkbench } from "../../utils/organicAcidExperimentalActivation"
 import { NumericText, organicAcidPalette as palette, ORGANIC_ACID_FONT, SCIENTIFIC_TOKEN_FONT } from "./FormulaInline"
 import {
   OrganicAcidAlgorithmFlowExportLinks,
-  OrganicAcidAlgorithmFlowNetwork,
-  OrganicAcidAlgorithmStatusBar,
-  OrganicAcidCandidateCompetitionView,
-  OrganicAcidNodeInspector,
-  OrganicAcidRouteOutputPanel,
 } from "./OrganicAcidAlgorithmFlowNetwork"
 import { OrganicAcidExperimentalActivationCenter } from "./OrganicAcidExperimentalActivationCenter"
+import { OrganicAcidStepwiseExecutionChain } from "./stepwiseExecution"
 
 const DATA_FILES = {
   pathwaySteps: "organic_acid_host_guest/pathway_steps.json",
@@ -34,6 +32,13 @@ const DATA_FILES = {
   hostGuestRoutes: "organic_acid_host_guest/host_guest_routes.json",
   evidenceRiskRecords: "organic_acid_host_guest/evidence_risk_records.json",
   validationExperiments: "organic_acid_host_guest/validation_experiments.json",
+  specificAlMofHosts: "organic_acid_experimental_activation/specific_al_mof_hosts.json",
+  moIntroductionStrategies: "organic_acid_experimental_activation/mo_introduction_strategies.json",
+  minimumExperimentalMatrix: "organic_acid_experimental_activation/minimum_experimental_matrix.json",
+  sameConditionDataTemplate: "organic_acid_experimental_activation/same_condition_data_template.json",
+  experimentalValidationResultsTemplate: "organic_acid_experimental_activation/experimental_validation_results_template.json",
+  experimentalFeedbackRules: "organic_acid_experimental_activation/experimental_feedback_rules.json",
+  activationReadinessSummary: "organic_acid_experimental_activation/activation_readiness_summary.json",
 }
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
@@ -829,10 +834,11 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
   const [sourceData, setSourceData] = useState(initialData)
   const [status, setStatus] = useState(initialData || suppliedWorkbench ? "loaded" : "idle")
   const [selectedRouteId, setSelectedRouteId] = useState("route-al-mof-mo")
-  const [selectedFlowNodeId, setSelectedFlowNodeId] = useState(null)
+  const [selectedStepId, setSelectedStepId] = useState("step-0")
   const [activationOpen, setActivationOpen] = useState(false)
   const [advancedOpen, setAdvancedOpen] = useState(false)
   const [advancedTab, setAdvancedTab] = useState("risk")
+  const traceTimersRef = useRef([])
 
   useEffect(() => {
     if (initialData || suppliedWorkbench) return
@@ -846,9 +852,46 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
       fetchDataJson(DATA_FILES.hostGuestRoutes, []),
       fetchDataJson(DATA_FILES.evidenceRiskRecords, []),
       fetchDataJson(DATA_FILES.validationExperiments, []),
-    ]).then(([pathwaySteps, pathwayDescriptorMap, hostMofCandidates, guestMetalCandidates, hostGuestRoutes, evidenceRiskRecords, validationExperiments]) => {
+      fetchDataJson(DATA_FILES.specificAlMofHosts, {}),
+      fetchDataJson(DATA_FILES.moIntroductionStrategies, {}),
+      fetchDataJson(DATA_FILES.minimumExperimentalMatrix, {}),
+      fetchDataJson(DATA_FILES.sameConditionDataTemplate, {}),
+      fetchDataJson(DATA_FILES.experimentalValidationResultsTemplate, {}),
+      fetchDataJson(DATA_FILES.experimentalFeedbackRules, {}),
+      fetchDataJson(DATA_FILES.activationReadinessSummary, {}),
+    ]).then(([
+      pathwaySteps,
+      pathwayDescriptorMap,
+      hostMofCandidates,
+      guestMetalCandidates,
+      hostGuestRoutes,
+      evidenceRiskRecords,
+      validationExperiments,
+      specificAlMofHosts,
+      moIntroductionStrategies,
+      minimumExperimentalMatrix,
+      sameConditionDataTemplate,
+      experimentalValidationResultsTemplate,
+      experimentalFeedbackRules,
+      activationReadinessSummary,
+    ]) => {
       if (!live) return
-      setSourceData({ pathwaySteps, pathwayDescriptorMap, hostMofCandidates, guestMetalCandidates, hostGuestRoutes, evidenceRiskRecords, validationExperiments })
+      setSourceData({
+        pathwaySteps,
+        pathwayDescriptorMap,
+        hostMofCandidates,
+        guestMetalCandidates,
+        hostGuestRoutes,
+        evidenceRiskRecords,
+        validationExperiments,
+        specificAlMofHosts,
+        moIntroductionStrategies,
+        minimumExperimentalMatrix,
+        sameConditionDataTemplate,
+        experimentalValidationResultsTemplate,
+        experimentalFeedbackRules,
+        activationReadinessSummary,
+      })
       setStatus("loaded")
     }).catch(() => {
       if (!live) return
@@ -859,6 +902,11 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
       live = false
     }
   }, [initialData, suppliedWorkbench])
+
+  useEffect(() => () => {
+    traceTimersRef.current.forEach(timer => window.clearTimeout(timer))
+    traceTimersRef.current = []
+  }, [])
 
   const workbench = useMemo(() => suppliedWorkbench || (sourceData ? buildOrganicAcidHostGuestWorkbench(sourceData) : null), [sourceData, suppliedWorkbench])
   const selectedRoute = useMemo(() => (
@@ -876,14 +924,40 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
         validationExperiments: sourceData?.validationExperiments || [],
       })
   }, [workbench, selectedRoute, sourceData])
+  const activationWorkbench = useMemo(() => {
+    if (suppliedActivationWorkbench) return suppliedActivationWorkbench
+    if (!workbench || !sourceData?.minimumExperimentalMatrix) return null
+    return buildExperimentalActivationWorkbench({
+      specificAlMofHosts: sourceData.specificAlMofHosts,
+      moIntroductionStrategies: sourceData.moIntroductionStrategies,
+      minimumExperimentalMatrix: sourceData.minimumExperimentalMatrix,
+      sameConditionDataTemplate: sourceData.sameConditionDataTemplate,
+      experimentalValidationResultsTemplate: sourceData.experimentalValidationResultsTemplate,
+      experimentalFeedbackRules: sourceData.experimentalFeedbackRules,
+      activationReadinessSummary: sourceData.activationReadinessSummary,
+    }, {
+      topRoute: workbench.complementarity.topRoute,
+      selectedHost: workbench.hostSelection.selectedHost,
+      selectedGuestMetal: workbench.guestSelection.selectedGuestMetal,
+      selectedRouteExplanation: selectedExplanation,
+    })
+  }, [workbench, sourceData, suppliedActivationWorkbench, selectedExplanation])
   const flowNetwork = useMemo(() => {
     if (!workbench) return null
     return buildOrganicAcidAlgorithmFlowNetwork(workbench, sourceData || {}, {
       lang,
-      selectedNodeId: selectedFlowNodeId || undefined,
-      activationWorkbench: suppliedActivationWorkbench,
+      activationWorkbench,
     })
-  }, [workbench, sourceData, lang, selectedFlowNodeId, suppliedActivationWorkbench])
+  }, [workbench, sourceData, lang, activationWorkbench])
+  const stepwiseChain = useMemo(() => {
+    if (!workbench || !flowNetwork) return null
+    return buildStepwiseExecutionChain(workbench, sourceData || {}, {
+      lang,
+      selectedStepId,
+      flowNetwork,
+      activationWorkbench,
+    })
+  }, [workbench, sourceData, lang, selectedStepId, flowNetwork, activationWorkbench])
 
   const openActivationEntry = () => {
     setActivationOpen(true)
@@ -902,12 +976,28 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
     }, 0)
   }
 
-  const openCandidateCompetition = () => {
-    if (typeof document === "undefined") return
-    document.getElementById("organic-acid-candidate-competition")?.scrollIntoView({ behavior: "smooth", block: "start" })
+  const selectExecutionStep = (stepId, anchorId = "") => {
+    setSelectedStepId(stepId)
+    if (typeof window === "undefined") return
+    window.setTimeout(() => {
+      document.getElementById(anchorId || `organic-acid-execution-${stepId}`)?.scrollIntoView({ behavior: "smooth", block: "center" })
+    }, 0)
   }
 
-  if (status === "loading" || !workbench || !selectedExplanation) {
+  const traceStepwiseChain = () => {
+    if (typeof window === "undefined") {
+      setSelectedStepId("step-6")
+      return
+    }
+    traceTimersRef.current.forEach(timer => window.clearTimeout(timer))
+    const ids = ["step-0", "step-1", "step-2", "step-3", "step-4", "step-5", "step-6"]
+    traceTimersRef.current = ids.map((stepId, index) => window.setTimeout(() => {
+      setSelectedStepId(stepId)
+      document.getElementById(`organic-acid-execution-${stepId}`)?.scrollIntoView({ behavior: "smooth", block: "center" })
+    }, index * 320))
+  }
+
+  if (status === "loading" || !workbench || !selectedExplanation || !stepwiseChain) {
     return (
       <section id="organic-acid-host-guest-workbench" style={{ ...cardStyle({ background: palette.bg, padding: 14, scrollMarginTop: 118 }) }}>
         <SectionTitle kicker={ORGANIC_ACID_HOST_GUEST_VERSION} title="Organic Acid Host-Guest Pathway Screening Workbench" note="Loading host-guest algorithm data..." />
@@ -944,34 +1034,16 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
           </p>
         </div>
       </section>
-      <OrganicAcidAlgorithmStatusBar
-        network={flowNetwork}
+      <OrganicAcidStepwiseExecutionChain
+        chain={stepwiseChain}
         lang={lang}
-        onStartPath={() => setSelectedFlowNodeId(flowNetwork.highlightedPaths.defaultSelectedNodeId)}
-      />
-      <div style={{ display: "grid", gap: 14, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.4fr) minmax(320px, 0.6fr)" }}>
-        <OrganicAcidAlgorithmFlowNetwork
-          network={flowNetwork}
-          selectedNodeId={flowNetwork.selectedNodeId}
-          onSelectNode={setSelectedFlowNodeId}
-          lang={lang}
-          isNarrow={isNarrow}
-        />
-        <OrganicAcidNodeInspector
-          inspector={flowNetwork.nodeInspector}
-          lang={lang}
-          onOpenActivationCenter={openActivationEntry}
-          onOpenAdvancedTab={openAdvancedTab}
-          onOpenMethodology={openAlgorithmMethodology}
-        />
-      </div>
-      <OrganicAcidCandidateCompetitionView network={flowNetwork} lang={lang} />
-      <OrganicAcidRouteOutputPanel
-        network={flowNetwork}
-        lang={lang}
+        isNarrow={isNarrow}
+        selectedStepId={selectedStepId}
+        onSelectStep={selectExecutionStep}
+        onTrace={traceStepwiseChain}
         onOpenActivationCenter={openActivationEntry}
         onOpenMethodology={openAlgorithmMethodology}
-        onOpenAlternatives={openCandidateCompetition}
+        onOpenAdvancedTab={openAdvancedTab}
       />
       <details
         id="organic-acid-experimental-activation-entry"
@@ -995,7 +1067,7 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
               selectedGuestMetal: workbench.guestSelection.selectedGuestMetal,
               selectedRouteExplanation: selectedExplanation,
             }}
-            activationWorkbench={suppliedActivationWorkbench}
+            activationWorkbench={activationWorkbench || suppliedActivationWorkbench}
           />
         </div>
       </details>
