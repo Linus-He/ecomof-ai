@@ -399,7 +399,7 @@ function AlgorithmEvolution({ data, lang, t }) {
 
 function FormulaMethodCard({ formula, t, lang }) {
   return (
-    <div data-testid={`organic-acid-formula-${formula.id}`} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 8, minWidth: 0, padding: 10 }}>
+    <div id={`project-evolution-organic-acid-algorithm-methodology-formula-${formula.id}`} data-testid={`organic-acid-formula-${formula.id}`} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 8, minWidth: 0, padding: 10, scrollMarginTop: 118 }}>
       <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
         <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{formula.title}</strong>
         <button type="button" onClick={() => copyText(`\\[${formula.latex}\\]`)} style={{ ...toolbarBtn(t), minHeight: 28, padding: "5px 8px" }}>
@@ -469,7 +469,7 @@ function OrganicAcidAlgorithmMethodology({ methodology, lang, t, isMobile }) {
       </div>
       <div style={{ display: "grid", gap: 10 }}>
         {methodology.sections.map((section, index) => (
-          <details key={section.id} open={index === 0 || section.id === "hgcps"} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, padding: 11 }}>
+          <details id={`project-evolution-organic-acid-algorithm-methodology-${section.id}`} key={section.id} open={index === 0 || section.id === "hgcps"} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, padding: 11, scrollMarginTop: 118 }}>
             <summary style={{ color: t.textStrong, cursor: "pointer", fontSize: 13.5, fontWeight: 900 }}>
               {index + 1}. {text(lang, section.titleZh, section.title)}
             </summary>

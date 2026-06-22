@@ -111,7 +111,7 @@ function ActivationReadinessCard({ workbench, lang }) {
           <SectionTitle
             kicker="Activation readiness"
             title="Organic Acid Experimental Activation Center / 有机酸实验启用中心"
-            note={text(lang, "把 Al-MOF + Mo 从算法路线转成可执行的第一轮实验计划，但不声明性能已被验证。", "Turns the Al-MOF + Mo algorithmic route into a first experiment plan without claiming validated performance.")}
+            note={text(lang, "现在可以用于实验规划，但还不能用于性能证明。把 Al-MOF + Mo 从算法路线转成可执行的第一轮实验计划，但不声明性能已被验证。", "Ready for experiment planning, but not performance proof. Turns the Al-MOF + Mo algorithmic route into a first experiment plan without claiming validated performance.")}
           />
           <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
             <RouteBadge>{workbench.routeContext.topRouteName}</RouteBadge>
@@ -470,6 +470,15 @@ export function OrganicAcidExperimentalActivationCenter({
     ["update", "Update Preview"],
     ["export", "Export"],
   ]
+  const tabProblemNotes = {
+    hosts: text(lang, "这个 tab 解决什么问题？把 Al-MOF 这个主体骨架落到具体可采购、可合成、可对照的 host family。", "What does this tab solve? It turns the Al-MOF host framework into concrete host families for synthesis and controls."),
+    mo: text(lang, "这个 tab 解决什么问题？选择 Mo 如何进入 Al-MOF，并把配位、浸出和结构损伤风险显式化。", "What does this tab solve? It chooses how Mo enters Al-MOF while making coordination, leaching, and structure-damage risks explicit."),
+    matrix: text(lang, "这个 tab 解决什么问题？把 Al-MOF + Mo 路线转成 blank、pristine、guest、host 和 Mo-only 对照矩阵。", "What does this tab solve? It turns Al-MOF + Mo into blank, pristine, guest, host, and Mo-only controls."),
+    template: text(lang, "这个 tab 解决什么问题？统一同条件数据字段，避免把 pending 计划误读成实验结果。", "What does this tab solve? It standardizes same-condition fields and keeps pending plans separate from experimental results."),
+    feedback: text(lang, "这个 tab 解决什么问题？规定 supported、contradicted 和 inconclusive 结果如何影响 HGCPS 因子。", "What does this tab solve? It defines how supported, contradicted, and inconclusive results affect HGCPS factors."),
+    update: text(lang, "这个 tab 解决什么问题？只展示算法更新预览，不进行正式重排或机器学习更新。", "What does this tab solve? It previews algorithm updates without formal reranking or machine learning updates."),
+    export: text(lang, "这个 tab 解决什么问题？导出实验启用 CSV、JSON、schema 和 Markdown，用于内部规划。", "What does this tab solve? It exports activation CSV, JSON, schema, and Markdown for internal planning."),
+  }
 
   return (
     <section
@@ -484,6 +493,10 @@ export function OrganicAcidExperimentalActivationCenter({
             {label}
           </button>
         ))}
+      </div>
+      <div style={{ background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 8, color: palette.muted, fontSize: 12.2, lineHeight: 1.5, padding: 10 }}>
+        <strong style={{ color: palette.text }}>{text(lang, "这个 tab 解决什么问题？", "What does this tab solve?")}</strong>{" "}
+        {tabProblemNotes[activeTab]}
       </div>
       {activeTab === "hosts" ? <SpecificAlMofHostCandidatesPanel workbench={workbench} lang={lang} /> : null}
       {activeTab === "mo" ? <MoIntroductionStrategiesPanel workbench={workbench} lang={lang} /> : null}

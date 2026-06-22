@@ -14,7 +14,16 @@ import {
   HGCPS_FORMULA_TEXT,
   ORGANIC_ACID_HOST_GUEST_VERSION,
 } from "../../utils/organicAcidHostGuest"
+import { buildOrganicAcidAlgorithmFlowNetwork } from "../../utils/organicAcidAlgorithmFlow"
 import { NumericText, organicAcidPalette as palette, ORGANIC_ACID_FONT, SCIENTIFIC_TOKEN_FONT } from "./FormulaInline"
+import {
+  OrganicAcidAlgorithmFlowExportLinks,
+  OrganicAcidAlgorithmFlowNetwork,
+  OrganicAcidAlgorithmStatusBar,
+  OrganicAcidCandidateCompetitionView,
+  OrganicAcidNodeInspector,
+  OrganicAcidRouteOutputPanel,
+} from "./OrganicAcidAlgorithmFlowNetwork"
 import { OrganicAcidExperimentalActivationCenter } from "./OrganicAcidExperimentalActivationCenter"
 
 const DATA_FILES = {
@@ -88,12 +97,14 @@ function downloadText(fileName, content, type = "application/json") {
 
 function scrollToActivationCenter() {
   if (typeof document === "undefined") return
-  document.getElementById("organic-acid-experimental-activation-center")?.scrollIntoView({ behavior: "smooth", block: "start" })
+  const details = document.getElementById("organic-acid-experimental-activation-entry")
+  if (details?.tagName === "DETAILS") details.open = true
+  document.getElementById("organic-acid-experimental-activation-entry")?.scrollIntoView({ behavior: "smooth", block: "start" })
 }
 
-function openAlgorithmMethodology() {
+function openAlgorithmMethodology(anchor = "#project-evolution-organic-acid-algorithm-methodology") {
   if (typeof window === "undefined") return
-  window.location.hash = "#project-evolution-organic-acid-algorithm-methodology"
+  window.location.hash = anchor
 }
 
 function ScorePill({ label, value, tone = palette.accent }) {
@@ -775,15 +786,20 @@ function ReportExportSection({ workbench, selectedExplanation, lang, onOpenActiv
   )
 }
 
-function AdvancedAnalysisTabs({ workbench, selectedExplanation, lang, onOpenActivationCenter }) {
-  const [activeTab, setActiveTab] = useState("risk")
+function AdvancedAnalysisTabs({ workbench, selectedExplanation, lang, onOpenActivationCenter, activeTab: controlledActiveTab = null, onTabChange = null }) {
+  const [internalActiveTab, setInternalActiveTab] = useState("risk")
+  const activeTab = controlledActiveTab || internalActiveTab
+  const setActiveTab = tabId => {
+    setInternalActiveTab(tabId)
+    onTabChange?.(tabId)
+  }
   const tabs = [
-    ["risk", "Missing Evidence & Risk Matrix"],
-    ["evidence", "Evidence Matrix"],
-    ["sensitivity", "Sensitivity Analysis"],
-    ["ablation", "Ablation Analysis"],
-    ["boundary", "Algorithm Boundary"],
-    ["report", "Route Report Export"],
+    ["risk", text(lang, "缺失证据与风险矩阵", "Missing Evidence & Risk Matrix")],
+    ["evidence", text(lang, "证据矩阵", "Evidence Matrix")],
+    ["sensitivity", text(lang, "敏感性分析", "Sensitivity Analysis")],
+    ["ablation", text(lang, "消融分析", "Ablation Analysis")],
+    ["boundary", text(lang, "算法边界", "Algorithm Boundary")],
+    ["report", text(lang, "路线报告导出", "Route Report Export")],
   ]
   return (
     <section style={{ ...cardStyle({ background: palette.bg, padding: 14 }) }}>
@@ -812,8 +828,11 @@ function AdvancedAnalysisTabs({ workbench, selectedExplanation, lang, onOpenActi
 export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, initialData = null, workbench: suppliedWorkbench = null, activationWorkbench: suppliedActivationWorkbench = null }) {
   const [sourceData, setSourceData] = useState(initialData)
   const [status, setStatus] = useState(initialData || suppliedWorkbench ? "loaded" : "idle")
-  const [activeStep, setActiveStep] = useState(0)
   const [selectedRouteId, setSelectedRouteId] = useState("route-al-mof-mo")
+  const [selectedFlowNodeId, setSelectedFlowNodeId] = useState(null)
+  const [activationOpen, setActivationOpen] = useState(false)
+  const [advancedOpen, setAdvancedOpen] = useState(false)
+  const [advancedTab, setAdvancedTab] = useState("risk")
 
   useEffect(() => {
     if (initialData || suppliedWorkbench) return
@@ -857,6 +876,36 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
         validationExperiments: sourceData?.validationExperiments || [],
       })
   }, [workbench, selectedRoute, sourceData])
+  const flowNetwork = useMemo(() => {
+    if (!workbench) return null
+    return buildOrganicAcidAlgorithmFlowNetwork(workbench, sourceData || {}, {
+      lang,
+      selectedNodeId: selectedFlowNodeId || undefined,
+      activationWorkbench: suppliedActivationWorkbench,
+    })
+  }, [workbench, sourceData, lang, selectedFlowNodeId, suppliedActivationWorkbench])
+
+  const openActivationEntry = () => {
+    setActivationOpen(true)
+    if (typeof window === "undefined") return
+    window.setTimeout(() => {
+      document.getElementById("organic-acid-experimental-activation-entry")?.scrollIntoView({ behavior: "smooth", block: "start" })
+    }, 0)
+  }
+
+  const openAdvancedTab = (tabId = "risk") => {
+    setAdvancedTab(tabId)
+    setAdvancedOpen(true)
+    if (typeof window === "undefined") return
+    window.setTimeout(() => {
+      document.getElementById("organic-acid-advanced-robustness-evidence")?.scrollIntoView({ behavior: "smooth", block: "start" })
+    }, 0)
+  }
+
+  const openCandidateCompetition = () => {
+    if (typeof document === "undefined") return
+    document.getElementById("organic-acid-candidate-competition")?.scrollIntoView({ behavior: "smooth", block: "start" })
+  }
 
   if (status === "loading" || !workbench || !selectedExplanation) {
     return (
@@ -895,25 +944,82 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
           </p>
         </div>
       </section>
-      <RecommendationCard workbench={workbench} lang={lang} onOpenActivationCenter={scrollToActivationCenter} />
-      <PipelineStepper workbench={workbench} activeStep={activeStep} setActiveStep={setActiveStep} lang={lang} isNarrow={isNarrow} />
-      <PriorityQueueSection workbench={workbench} selectedRouteId={selectedRoute.routeId} setSelectedRouteId={setSelectedRouteId} selectedExplanation={selectedExplanation} lang={lang} isNarrow={isNarrow} onOpenActivationCenter={scrollToActivationCenter} />
-      <AdvancedAnalysisTabs workbench={workbench} selectedExplanation={selectedExplanation} lang={lang} onOpenActivationCenter={scrollToActivationCenter} />
-      <OrganicAcidExperimentalActivationCenter
+      <OrganicAcidAlgorithmStatusBar
+        network={flowNetwork}
         lang={lang}
-        isNarrow={isNarrow}
-        routeContext={{
-          topRoute: workbench.complementarity.topRoute,
-          selectedHost: workbench.hostSelection.selectedHost,
-          selectedGuestMetal: workbench.guestSelection.selectedGuestMetal,
-          selectedRouteExplanation: selectedExplanation,
-        }}
-        activationWorkbench={suppliedActivationWorkbench}
+        onStartPath={() => setSelectedFlowNodeId(flowNetwork.highlightedPaths.defaultSelectedNodeId)}
       />
-      <PathwayDescriptorSection workbench={workbench} lang={lang} />
-      <SelectionSection workbench={workbench} lang={lang} isNarrow={isNarrow} />
-      <ComplementaryScoringSection workbench={workbench} lang={lang} />
-      <TraceAndGraphSection workbench={workbench} lang={lang} isNarrow={isNarrow} />
+      <div style={{ display: "grid", gap: 14, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.4fr) minmax(320px, 0.6fr)" }}>
+        <OrganicAcidAlgorithmFlowNetwork
+          network={flowNetwork}
+          selectedNodeId={flowNetwork.selectedNodeId}
+          onSelectNode={setSelectedFlowNodeId}
+          lang={lang}
+          isNarrow={isNarrow}
+        />
+        <OrganicAcidNodeInspector
+          inspector={flowNetwork.nodeInspector}
+          lang={lang}
+          onOpenActivationCenter={openActivationEntry}
+          onOpenAdvancedTab={openAdvancedTab}
+          onOpenMethodology={openAlgorithmMethodology}
+        />
+      </div>
+      <OrganicAcidCandidateCompetitionView network={flowNetwork} lang={lang} />
+      <OrganicAcidRouteOutputPanel
+        network={flowNetwork}
+        lang={lang}
+        onOpenActivationCenter={openActivationEntry}
+        onOpenMethodology={openAlgorithmMethodology}
+        onOpenAlternatives={openCandidateCompetition}
+      />
+      <details
+        id="organic-acid-experimental-activation-entry"
+        open={activationOpen}
+        onToggle={event => setActivationOpen(event.currentTarget.open)}
+        style={{ ...cardStyle({ background: palette.bg, padding: 14, scrollMarginTop: 118 }) }}
+      >
+        <summary style={{ color: palette.text, cursor: "pointer", fontSize: 14, fontWeight: 950 }}>
+          {text(lang, "实验启用 / Experimental Activation Entry", "Experimental Activation Entry / 实验启用")}
+        </summary>
+        <div style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.55, marginTop: 10 }}>
+          {text(lang, "现在可以用于实验规划，但还不能用于性能证明。", "Ready for experiment planning, but not performance proof.")}
+        </div>
+        <div style={{ marginTop: 12 }}>
+          <OrganicAcidExperimentalActivationCenter
+            lang={lang}
+            isNarrow={isNarrow}
+            routeContext={{
+              topRoute: workbench.complementarity.topRoute,
+              selectedHost: workbench.hostSelection.selectedHost,
+              selectedGuestMetal: workbench.guestSelection.selectedGuestMetal,
+              selectedRouteExplanation: selectedExplanation,
+            }}
+            activationWorkbench={suppliedActivationWorkbench}
+          />
+        </div>
+      </details>
+      <details
+        id="organic-acid-advanced-robustness-evidence"
+        open={advancedOpen}
+        onToggle={event => setAdvancedOpen(event.currentTarget.open)}
+        style={{ ...cardStyle({ background: palette.bg, padding: 14, scrollMarginTop: 118 }) }}
+      >
+        <summary style={{ color: palette.text, cursor: "pointer", fontSize: 14, fontWeight: 950 }}>
+          {text(lang, "高级稳健性与证据 / Advanced Robustness and Evidence", "Advanced Robustness and Evidence / 高级稳健性与证据")}
+        </summary>
+        <div style={{ marginTop: 12 }}>
+          <AdvancedAnalysisTabs
+            workbench={workbench}
+            selectedExplanation={selectedExplanation}
+            lang={lang}
+            onOpenActivationCenter={openActivationEntry}
+            activeTab={advancedTab}
+            onTabChange={setAdvancedTab}
+          />
+        </div>
+      </details>
+      <OrganicAcidAlgorithmFlowExportLinks network={flowNetwork} lang={lang} onOpenMethodology={openAlgorithmMethodology} />
     </section>
   )
 }

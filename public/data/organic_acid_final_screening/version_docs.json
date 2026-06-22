@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06-22",
-  "currentVersion": "V3.9.4",
-  "completedRange": "V1.0-V3.9.4",
+  "currentVersion": "V3.9.5",
+  "completedRange": "V1.0-V3.9.5",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -2969,7 +2969,7 @@
       "title": "Organic Acid Experimental Activation Package and Algorithm Methodology",
       "titleZh": "有机酸实验启用包与算法方法论",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Organic Acid Experimental Activation and Project Evolution Methodology",
       "themeZh": "有机酸实验启用与项目演化方法论",
       "summary": "Added an Organic Acid Experimental Activation Center and a Project Evolution Organic Acid Algorithm Methodology module with LaTeX-based formulas and exports.",
@@ -3044,6 +3044,87 @@
         "adaptationBoundaryZh": "仅用于实验启用规划与算法方法论展示；不提供最终催化性能证明。"
       },
       "relatedSection": "#organic-acid-experimental-activation-center"
+    },
+    {
+      "version": "V3.9.5",
+      "title": "Organic Acid Algorithm Flow Network UX Refactor",
+      "titleZh": "有机酸算法链式网络 UX 重构",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Organic Acid Algorithm Flow Network",
+      "themeZh": "有机酸算法链式网络",
+      "summary": "Refactored the Organic Acid Host-Guest Workbench into a chain-like algorithm flow with status bar, network, node inspector, candidate competition, route output, folded activation entry, advanced robustness tabs, and builder-derived exports.",
+      "summaryZh": "将 Organic Acid Host-Guest Workbench 重构为链式算法流程：状态条、算法网络、节点解释器、候选竞争、路线输出、折叠实验启用入口、高级稳健性 tabs 与 builder 派生导出。",
+      "keyUpdates": [
+        "Added OrganicAcidAlgorithmFlowNetwork, OrganicAcidNodeInspector, OrganicAcidCandidateCompetitionView, OrganicAcidAlgorithmStatusBar, OrganicAcidRouteOutputPanel, and export/methodology links.",
+        "Added flow builders for algorithm nodes, edges, highlighted top/backup/control paths, node inspector summaries, host/guest/route competition tables, run trace summary, localized terminology, and advanced navigation.",
+        "Moved Al-MOF + Mo from opening recommendation card to route-output node and route output panel.",
+        "Kept Experimental Activation Center folded under Experimental Activation Entry and kept advanced evidence/robustness folded by default.",
+        "Added Algorithm Flow Network JSON, Node Inspector Summary JSON, Candidate Competition CSV, Route Competition CSV, and Algorithm Flow Markdown Summary exports."
+      ],
+      "keyUpdatesZh": [
+        "新增 OrganicAcidAlgorithmFlowNetwork、OrganicAcidNodeInspector、OrganicAcidCandidateCompetitionView、OrganicAcidAlgorithmStatusBar、OrganicAcidRouteOutputPanel 与导出 / 方法论链接。",
+        "新增 flow builders，覆盖算法节点、边、top/backup/control 高亮路径、节点解释摘要、主体/客体/路线竞争表、运行追踪摘要、本地化术语和高级分析导航。",
+        "把 Al-MOF + Mo 从开屏推荐卡改为路线输出节点与路线输出面板。",
+        "Experimental Activation Center 默认折叠到 Experimental Activation Entry，高级证据/稳健性默认折叠。",
+        "新增 Algorithm Flow Network JSON、Node Inspector Summary JSON、Candidate Competition CSV、Route Competition CSV 和 Algorithm Flow Markdown Summary 导出。"
+      ],
+      "algorithmChanges": [
+        "Flow network includes pathway step, descriptor group, host candidate, guest metal, route candidate, evidence, risk, validation experiment, feedback rule, and HGCPS update preview nodes.",
+        "Flow edges include pathway step to descriptor, descriptor to host, descriptor to guest, host selection, guest selection, host plus guest to route, evidence to route score, risk to risk retention factor, route to validation, validation result to feedback rule, and feedback rule to HGCPS update preview.",
+        "Candidate competition explains why Al-MOF wins host selection, why Zr-MOF remains backup/control, why Ti/Fe/Cu are not primary, why Mo wins guest selection, and why W/Fe/Co/Ni remain backup/control/conditional."
+      ],
+      "algorithmChangesZh": [
+        "网络包含路径步骤、描述符组、主体 MOF 候选、客体金属、路线候选、证据、风险、验证实验、反馈规则和 HGCPS 更新预览节点。",
+        "网络边覆盖路径步骤到描述符、描述符到主体、描述符到客体、主体筛选、客体筛选、主体加客体到路线、证据到路线得分、风险到风险保留因子、路线到验证、验证结果到反馈规则、反馈规则到 HGCPS 更新预览。",
+        "候选竞争解释 Al-MOF 为什么赢得主体筛选、Zr-MOF 为什么作为 backup/control、Ti/Fe/Cu 为什么不是 primary、Mo 为什么赢得客体筛选，以及 W/Fe/Co/Ni 为什么保持 backup/control/conditional。"
+      ],
+      "uiChanges": [
+        "Main Organic Acid Host-Guest page order is now Algorithm Status Bar, Algorithm Flow Network, Node Inspector, Candidate Competition, Route Output, Experimental Activation Entry, Advanced Robustness and Evidence, and Export / Methodology Links.",
+        "Project Evolution methodology formula cards and sections now expose stable anchors for flow-node inspector links.",
+        "Chinese-first terminology is used for core algorithm states while retaining English labels as secondary context."
+      ],
+      "uiChangesZh": [
+        "Organic Acid Host-Guest 主页面顺序改为 Algorithm Status Bar、Algorithm Flow Network、Node Inspector、Candidate Competition、Route Output、Experimental Activation Entry、Advanced Robustness and Evidence、Export / Methodology Links。",
+        "Project Evolution 方法论公式卡与小节新增稳定锚点，供 flow-node inspector 跳转。",
+        "核心算法状态采用中文优先术语，并保留英文辅助标签。"
+      ],
+      "methodologyChanges": [
+        "Preserved V3.9.4 Organic Acid Algorithm Methodology formulas and added anchor-level navigation from the flow network.",
+        "Kept HGCPS as multiplicative host stability, host pathway support, guest activity compensation, complementarity, evidence confidence, and risk retention factors.",
+        "Preserved not final catalytic proof and not ready for formal machine learning boundaries."
+      ],
+      "methodologyChangesZh": [
+        "保留 V3.9.4 Organic Acid Algorithm Methodology 公式，并从 flow network 增加锚点级跳转。",
+        "保持 HGCPS 为主体稳定、主体路径支持、客体活性补偿、主客体互补、证据置信和风险保留因子的乘法结构。",
+        "保留非最终催化性能证明与尚不能正式机器学习的边界。"
+      ],
+      "evidenceBoundary": "UX and builder refactor only. Al-MOF + Mo remains a high-priority experimental validation route; no completed same-condition experiment, final catalyst proof, or formal machine-learning recommendation is introduced.",
+      "evidenceBoundaryZh": "仅为 UX 与 builder 重构。Al-MOF + Mo 仍是最高优先级实验验证路线；未引入已完成同条件实验、最终催化证明或正式机器学习推荐。",
+      "limitations": [
+        "No new algorithmic proof or performance proof.",
+        "No formal ML model or trained ML recommendation.",
+        "Activation package remains planning-ready seed/proxy/curated data.",
+        "Same-condition validation and experimental feedback are still pending."
+      ],
+      "limitationsZh": [
+        "没有新增算法证明或性能证明。",
+        "没有正式 ML 模型或训练后的 ML 推荐。",
+        "实验启用包仍是 planning-ready seed/proxy/curated 数据。",
+        "同条件验证与实验反馈仍待完成。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "organic-acid-host-guest",
+          "algorithm-flow-network",
+          "node-inspector",
+          "candidate-competition",
+          "HGCPS"
+        ],
+        "adaptationBoundary": "Algorithm-flow UX and export refactor only; no final catalyst-performance proof.",
+        "adaptationBoundaryZh": "仅用于算法链路 UX 与导出重构；不提供最终催化性能证明。"
+      },
+      "relatedSection": "#organic-acid-host-guest-workbench"
     }
   ],
   "roadmap": [

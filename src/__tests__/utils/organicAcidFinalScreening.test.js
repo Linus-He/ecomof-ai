@@ -210,9 +210,9 @@ describe("organic acid final screening", () => {
 
   it("records the Organic Acid Knowledge Base and planned roadmap", () => {
     expect(versionDocs.knowledgeBaseLabel).toBe("Knowledge Base")
-    expect(versionDocs.currentVersion).toBe("V3.9.4")
-    expect(versionDocs.completedRange).toBe("V1.0-V3.9.4")
-    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6", "V1.7", "V2.0-A", "V2.0-B", "V2.0-C", "V2.0-D", "V2.0-E", "V2.0-F", "V2.0-G", "V2.0-H", "V2.0-I", "V2.0-J", "V2.0-K", "V2.0-L", "V2.6", "V2.7", "V2.8", "V3.0", "V3.1", "V3.2", "V3.3", "V3.4", "V3.5", "V3.6", "V3.8", "V3.9", "V3.9.1", "V3.9.2", "V3.9.3", "V3.9.4"])
+    expect(versionDocs.currentVersion).toBe("V3.9.5")
+    expect(versionDocs.completedRange).toBe("V1.0-V3.9.5")
+    expect(versionDocs.versions.map(row => row.version)).toEqual(["V1.0", "V1.1", "V1.2", "V1.3", "V1.4", "V1.5", "V1.6", "V1.7", "V2.0-A", "V2.0-B", "V2.0-C", "V2.0-D", "V2.0-E", "V2.0-F", "V2.0-G", "V2.0-H", "V2.0-I", "V2.0-J", "V2.0-K", "V2.0-L", "V2.6", "V2.7", "V2.8", "V3.0", "V3.1", "V3.2", "V3.3", "V3.4", "V3.5", "V3.6", "V3.8", "V3.9", "V3.9.1", "V3.9.2", "V3.9.3", "V3.9.4", "V3.9.5"])
     expect(versionDocs.versions.find(row => row.version === "V1.4")).toEqual(expect.objectContaining({
       status: "completed",
       title: "Coupled Descriptor Hot Spot Map",
@@ -282,8 +282,13 @@ describe("organic acid final screening", () => {
     }))
     expect(versionDocs.versions.find(row => row.version === "V3.9.4")).toEqual(expect.objectContaining({
       title: "Organic Acid Experimental Activation Package and Algorithm Methodology",
-      status: "current",
+      status: "completed",
       evidenceBoundary: expect.stringMatching(/Planning-ready seed\/proxy\/curated/),
+    }))
+    expect(versionDocs.versions.find(row => row.version === "V3.9.5")).toEqual(expect.objectContaining({
+      title: "Organic Acid Algorithm Flow Network UX Refactor",
+      status: "current",
+      evidenceBoundary: expect.stringMatching(/UX and builder refactor only/),
     }))
     expect(versionDocs.versions.find(row => row.version === "V1.5")).toEqual(expect.objectContaining({
       status: "completed",
@@ -444,7 +449,7 @@ describe("organic acid final screening", () => {
     expect(han.doi).toBe("10.1038/s41467-024-52550-9")
     expect(han.evidenceBoundary).toMatch(/does not reproduce the Li-S model/i)
     expect(han.evidenceBoundary).toMatch(/does not train XGBoost/i)
-    expect(versionDocs.currentVersion).toBe("V3.9.4")
+    expect(versionDocs.currentVersion).toBe("V3.9.5")
     expect(versionDocs.versions.find(row => row.version === "V2.6").status).toBe("completed")
     expect(versionDocs.versions.find(row => row.version === "V2.7").status).toBe("completed")
     expect(versionDocs.versions.find(row => row.version === "V2.8").status).toBe("completed")
@@ -459,7 +464,8 @@ describe("organic acid final screening", () => {
     expect(versionDocs.versions.find(row => row.version === "V3.9.1").status).toBe("completed")
     expect(versionDocs.versions.find(row => row.version === "V3.9.2").status).toBe("completed")
     expect(versionDocs.versions.find(row => row.version === "V3.9.3").status).toBe("completed")
-    expect(versionDocs.versions.find(row => row.version === "V3.9.4").status).toBe("current")
+    expect(versionDocs.versions.find(row => row.version === "V3.9.4").status).toBe("completed")
+    expect(versionDocs.versions.find(row => row.version === "V3.9.5").status).toBe("current")
     expect(versionDocs.roadmap.map(row => [row.version, row.status])).toEqual([
       ["V2.1", "planned"],
     ])

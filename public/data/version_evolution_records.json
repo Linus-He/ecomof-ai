@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.9.4",
+  "currentVersion": "V3.9.5",
   "generatedAt": "2026-06-22",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
-    "currentVersion": "V3.9.4",
+    "currentVersion": "V3.9.5",
     "databaseSize": 3020,
     "verifiedMetadataCount": 2480,
     "sourceConfirmedCount": 2480,
@@ -13,12 +13,12 @@
     "modelValidationStatus": "Robustness Validation Complete",
     "projectAge": "2026-04 to 2026-06",
     "githubStars": "pending",
-    "milestoneCount": 16,
+    "milestoneCount": 17,
     "databasePreviewStatus": "Database Preview",
     "notFinalRecommendationStatus": "Not Final Recommendation",
     "sources": {
       "currentVersion": {
-        "value": "V3.9.4",
+        "value": "V3.9.5",
         "sourceDatabase": "EcoMOF-AI version_evolution_records.json",
         "sourceRecordId": "overview.currentVersion",
         "sourceUrl": "public/data/version_evolution_records.json",
@@ -27,9 +27,9 @@
         "retrievedAt": "2026-06-22",
         "curationStatus": "confirmed",
         "confidence": 1,
-        "databaseVersion": "version_evolution_records.json@V3.9.4",
-        "generatingScript": "manual V3.9.4 organic acid activation and methodology record",
-        "notes": "Version label for the V3.9.4 Organic Acid Experimental Activation Center and Project Evolution Algorithm Methodology module."
+        "databaseVersion": "version_evolution_records.json@V3.9.5",
+        "generatingScript": "manual V3.9.5 organic acid algorithm flow UX record",
+        "notes": "Version label for the V3.9.5 Organic Acid Algorithm Flow Network UX refactor."
       },
       "databaseSize": {
         "value": 3020,
@@ -651,9 +651,47 @@
         "Validation",
         "Testing"
       ]
+    },
+    {
+      "version": "V3.9.5",
+      "date": "2026-06-22",
+      "commit": "pending-current",
+      "summary": "Organic Acid Algorithm Flow Network UX Refactor: replaced the recommendation-first dashboard with a Chinese-first chain-like algorithm flow, node inspector, candidate competition views, route output, folded activation entry, advanced robustness tabs, and flow-network exports.",
+      "scientificImpact": "Al-MOF + Mo is now presented as the final output of a pathway-to-descriptor-to-host-to-guest-to-route-to-validation chain, not as a preset answer or final catalyst proof.",
+      "databaseImpact": "No new experimental result or database expansion; the refactor reuses existing V3.9.2-V3.9.4 Organic Acid host, guest, route, evidence-risk, validation, activation, and methodology data.",
+      "algorithmImpact": "Added organic-acid algorithm-flow builders for nodes, edges, highlighted top/backup/control paths, node inspector models, host/guest/route competition tables, status bar metrics, advanced navigation, and JSON/CSV/Markdown exports.",
+      "validationImpact": "Preserves planning-ready / not performance-validated boundaries, keeps Missing Evidence & Risk Matrix, Sensitivity Analysis, Ablation Analysis, Boundary Panel, Route Report Export, and Activation Center available without claiming formal ML or completed experiments.",
+      "uiImpact": "Organic Acid Host-Guest Workbench now opens with Algorithm Status Bar, Algorithm Flow Network, Node Inspector, Candidate Competition, Route Output, Experimental Activation Entry, Advanced Robustness and Evidence, and Export / Methodology Links.",
+      "knownLimitations": "UX refactor only: Al-MOF + Mo remains a high-priority experimental validation route, not final catalytic proof, not a formal machine-learning recommendation, and not a completed same-condition experiment.",
+      "breakingChanges": "Organic Acid Host-Guest Workbench no longer opens with the old large recommendation card or dashboard-style card stack.",
+      "nextVersionGoal": "Use same-condition activation results to test the flow-network feedback rules and preview HGCPS factor updates without overclaiming performance proof.",
+      "categories": [
+        "Organic Acid",
+        "Algorithm Flow",
+        "UI",
+        "Project Evolution",
+        "Validation",
+        "Testing"
+      ]
     }
   ],
   "releaseNotes": [
+    {
+      "version": "V3.9.5",
+      "date": "2026-06-22",
+      "module": "Organic Acid",
+      "category": "UI",
+      "title": "Algorithm Flow Network UX",
+      "body": "Refactored the Organic Acid Host-Guest Workbench from recommendation-first dashboard layout into Algorithm Status Bar, Flow Network, Node Inspector, Candidate Competition, Route Output, folded Experimental Activation Entry, Advanced Robustness and Evidence, and Export / Methodology Links."
+    },
+    {
+      "version": "V3.9.5",
+      "date": "2026-06-22",
+      "module": "Organic Acid",
+      "category": "Algorithm",
+      "title": "Organic Acid Algorithm Flow Builders",
+      "body": "Added data-derived flow nodes, required edge types, highlighted top/backup/control paths, host/guest/route competition models, node-inspector summaries, and Algorithm Flow Network JSON, Candidate Competition CSV, Route Competition CSV, Node Inspector JSON, and Markdown exports while preserving not-final-proof and not-formal-ML boundaries."
+    },
     {
       "version": "V3.9.4",
       "date": "2026-06-22",
@@ -1035,6 +1073,11 @@
       "version": "V3.9.4",
       "stage": "Organic Acid Experimental Activation and Methodology",
       "maturity": 99
+    },
+    {
+      "version": "V3.9.5",
+      "stage": "Organic Acid Algorithm Flow Network UX",
+      "maturity": 99
     }
   ],
   "databaseEvolution": [
@@ -1174,6 +1217,14 @@
       "retiredCapability": "Activation planning living only inside route report text.",
       "limitation": "Planning-ready experimental hypothesis only; no final catalytic proof and not ready for formal machine learning.",
       "futurePlan": "Run same-condition matrix and feed provenance-reviewed results into HGCPS factors."
+    },
+    {
+      "stage": "Organic Acid Algorithm Flow Network UX",
+      "version": "V3.9.5",
+      "newCapability": "Algorithm-flow nodes, edge types, top/backup/control path highlighting, node inspector, candidate competition, route output, folded activation entry, advanced robustness navigation, and flow-network exports.",
+      "retiredCapability": "Recommendation-first Organic Acid dashboard layout that could make Al-MOF + Mo look preset.",
+      "limitation": "UX refactor only; no completed same-condition experiment, no final catalyst proof, and no formal machine-learning recommendation.",
+      "futurePlan": "Feed real activation results into feedback rules and HGCPS update previews after provenance review."
     }
   ],
   "validationEvolution": [
@@ -1496,6 +1547,13 @@
       "version": "V3.9.4",
       "date": "2026-06-22",
       "detail": "Added a planning-ready activation package for Al-MOF + Mo and a LaTeX-based Project Evolution methodology module explaining the HGCPS algorithm boundary."
+    },
+    {
+      "id": "organic-acid-algorithm-flow-network-v395",
+      "title": "Organic Acid Algorithm Flow Network UX",
+      "version": "V3.9.5",
+      "date": "2026-06-22",
+      "detail": "Refactored the Organic Acid Host-Guest Workbench into a Chinese-first algorithm flow network with node inspector, candidate competition, route output, folded activation entry, and builder-derived exports."
     }
   ],
   "roadmap": [

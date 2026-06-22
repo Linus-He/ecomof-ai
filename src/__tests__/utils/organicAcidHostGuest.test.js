@@ -35,10 +35,10 @@ const input = {
 }
 
 describe("organic acid host-guest pathway screening", () => {
-  it("builds the V3.9.4 pathway pipeline from expanded seed data", () => {
+  it("builds the V3.9.5 pathway pipeline from expanded seed data", () => {
     const workbench = buildOrganicAcidHostGuestWorkbench(input)
 
-    expect(workbench.version).toBe("V3.9.4")
+    expect(workbench.version).toBe("V3.9.5")
     expect(workbench.pipelineSteps).toHaveLength(6)
     expect(hostMofCandidates.length).toBeGreaterThanOrEqual(8)
     expect(guestMetalCandidates.length).toBeGreaterThanOrEqual(8)
@@ -150,13 +150,13 @@ describe("organic acid host-guest pathway screening", () => {
     expect(buildMissingEvidenceRiskMatrixCsv(workbench.missingEvidenceRiskMatrix)).toMatch(/Mo introduction feasibility needs validation/)
     expect(buildPathwayDescriptorMapCsv(workbench.descriptorMap)).toMatch(/CO2 activation/)
     expect(buildHostGuestRouteExplanationJson(workbench.selectedRouteExplanation)).toEqual(expect.objectContaining({
-      version: "V3.9.4",
+      version: "V3.9.5",
       targetProduct: "formic acid / organic acid",
       hostMof: "Al-MOF",
       guestMetal: "Mo",
     }))
     expect(buildOrganicAcidRouteReportJson(workbench, workbench.selectedRouteExplanation)).toEqual(expect.objectContaining({
-      version: "V3.9.4",
+      version: "V3.9.5",
       hgcpsFormula: HGCPS_FORMULA_TEXT,
       limitationStatement: "This is a high-priority experimental route, not final catalytic performance proof.",
     }))
