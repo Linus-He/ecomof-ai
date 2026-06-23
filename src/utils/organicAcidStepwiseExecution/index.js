@@ -11,7 +11,7 @@ import {
   buildOrganicAcidAlgorithmFlowNetwork,
   buildRouteCompetitionModel,
 } from "../organicAcidAlgorithmFlow/index.js"
-import { buildStepWhyPanelEnhancedModel } from "../organicAcidScoreProvenance/index.js"
+import { buildFinalResultSummaryModel, buildStepWhyPanelEnhancedModel } from "../organicAcidScoreProvenance/index.js"
 import {
   buildDescriptorMappingExplanationModel,
   buildDescriptorMappingSummary,
@@ -22,7 +22,7 @@ import {
   buildValidationCoverageSummary,
 } from "../organicAcidExplanationClosure/index.js"
 
-export const ORGANIC_ACID_STEPWISE_EXECUTION_VERSION = "V3.9.5.2"
+export const ORGANIC_ACID_STEPWISE_EXECUTION_VERSION = "V3.9.5.4"
 export const ORGANIC_ACID_STEPWISE_EXECUTION_NAME = "Organic Acid Stepwise Algorithm Execution Chain"
 
 const METHODOLOGY_BASE = "project-evolution-organic-acid-algorithm-methodology"
@@ -61,6 +61,10 @@ function safeText(value, fallback = "pending") {
   if (value === undefined || value === null) return fallback
   const next = String(value).trim()
   return next || fallback
+}
+
+function escapeRegExp(value) {
+  return String(value || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
 }
 
 function safeBoolean(value, fallback = false) {
@@ -391,6 +395,8 @@ export function buildRouteHgcpsBreakdownChartModel(workbenchInput = null, source
 export function buildValidationMatrixCoverageChartModel(workbenchInput = null, sourceData = {}, activationWorkbench = null, lang = "zh") {
   const workbench = resolveWorkbench(workbenchInput, sourceData)
   const arrays = sourceArrays(workbench, sourceData)
+  const selectedGuest = safeText(workbench?.guestSelection?.selectedGuestMetal?.guestMetal, "guest")
+  const guestOnlyPattern = new RegExp(`${escapeRegExp(selectedGuest)}-only|${escapeRegExp(selectedGuest)}ox|${escapeRegExp(selectedGuest)}O`, "i")
   const matrix = activationWorkbench?.minimumExperimentalMatrix || {}
   const template = activationWorkbench?.sameConditionDataTemplate || {}
   const readiness = activationWorkbench?.readiness || {}
@@ -411,7 +417,7 @@ export function buildValidationMatrixCoverageChartModel(workbenchInput = null, s
     ["top-route", "最高路线验证", "top route validation", row => /route-al-mof-mo|top/i.test(`${row.routeId} ${row.experimentName}`)],
     ["guest-control", "客体金属对照", "guest metal control", row => /guest|W|Fe|Co|Ni/i.test(`${row.controlType} ${row.guestMetal} ${row.experimentName}`) && !/route-al-mof-mo/i.test(row.routeId)],
     ["host-control", "主体对照", "host control", row => /host|zr/i.test(`${row.controlType} ${row.routeId} ${row.experimentName}`)],
-    ["mo-only", "Mo-only 对照", "Mo-only control", row => /mo-only|moox|MoO/i.test(`${row.routeId} ${row.experimentName} ${row.controlType}`)],
+    ["guest-only", `${selectedGuest}-only 对照`, `${selectedGuest}-only control`, row => guestOnlyPattern.test(`${row.routeId} ${row.experimentName} ${row.controlType}`)],
     ["structure", "结构表征", "structure characterization", row => safeList(row.requiredCharacterizationBeforeReaction, "").join(" ").match(/PXRD|FTIR|XPS|ICP|sorption|structure/i)],
     ["product", "产物分析", "product analysis", row => safeList(row.requiredProductAnalysis, "").join(" ").match(/HPLC|IC|GC|formic|product|calibration/i)],
     ["carbon", "碳平衡", "carbon balance", row => `${row.purpose} ${row.notes} ${safeList(row.requiredProductAnalysis, "").join(" ")}`.match(/carbon/i)],
@@ -479,7 +485,6 @@ function buildStepFields(stepId, context) {
       competition: "本步骤不进行候选胜负判断，只定义本轮算法要解决的筛选问题。",
       result: `${topRouteLabel} ${safeText(topRoute.routeType, "route")} 作为高优先级实验验证路线输出。`,
       why: "需要先给出筛选目标，避免用户把后续路线排序误读成正式机器学习预测或最终性能证明。",
-      whyNotOther: "没有起点时，网络会像静态结果展示；有 Step 0 后，用户能看到输入、输出和边界。",
       risk: commonBoundaries.join("；"),
       next: "进入路径步骤识别，确认 CO₂ -> 有机酸路径由哪些反应瓶颈驱动。",
       detailTarget: "start-chain",
@@ -492,7 +497,6 @@ function buildStepFields(stepId, context) {
       competition: "路径步骤不是互相淘汰，而是决定后续描述符必须覆盖哪些反应瓶颈。",
       result: `识别 ${arrays.pathwaySteps.length} 个 CO₂ -> 有机酸路径步骤。`,
       why: "算法从路径步骤开始，是因为主体和客体候选必须服务于 CO₂ 富集、活化、HCOO* 稳定、PCET、脱附与稳定性风险。",
-      whyNotOther: "不直接从材料名称开始，避免把材料 popularity 当作筛选依据。",
       risk: "同条件水相 170°C 证据仍不足，风险保留到验证矩阵。",
       next: "把每个路径步骤映射为可比较描述符组。",
       detailTarget: "evidence",
@@ -505,7 +509,6 @@ function buildStepFields(stepId, context) {
       competition: "描述符按路径分组，不把孔结构、Lewis 酸性、HCOO* proxy、PCET 和稳定性混成单一总分。",
       result: `生成 ${arrays.descriptorMap.length} 组路径—描述符映射。`,
       why: "路径步骤不同，对主体骨架与客体金属的要求也不同，因此必须先分组再评分。",
-      whyNotOther: "如果所有描述符混排，无法解释为什么稳定性、活性补偿和风险各自影响不同后续步骤。",
       risk: "部分描述符仍是 proxy / inferred，需要后续实验补证。",
       next: "用描述符驱动主体 MOF 筛选。",
       detailTarget: "evidence",
@@ -517,8 +520,7 @@ function buildStepFields(stepId, context) {
       formula: "Host Score = weighted(stability, aqueous stability, pore environment, modification feasibility, guest hosting, provenance)",
       competition: buildCandidateRowsFromHosts(workbench),
       result: `${safeText(selectedHost.displayName)} 作为 stable host framework candidate 进入后续客体筛选。`,
-      why: `${safeText(selectedHost.displayName)} 在主体骨架候选中综合稳定性、孔环境和 Mo 承载可行性更强。`,
-      whyNotOther: "其他主体保留为 backup / control，用于检验主体现象是否稳健。",
+      why: `${safeText(selectedHost.displayName)} 在主体骨架候选中综合稳定性、孔环境和 ${safeText(selectedGuest.guestMetal, "guest")} 承载可行性更强。`,
       risk: safeText(selectedHost.limitation, "主体局限待验证。"),
       next: "在选中主体边界下筛选客体 / 掺杂金属。",
       detailTarget: "competition-host",
@@ -531,7 +533,6 @@ function buildStepFields(stepId, context) {
       competition: buildCandidateRowsFromGuests(workbench),
       result: `${safeText(selectedGuest.guestMetal)} 作为 guest / dopant / activity compensation metal 进入路线组合。`,
       why: `${safeText(selectedGuest.guestMetal)} 同时支持 CO₂ 活化、HCOO* 稳定和 PCET，可补偿主体活性不足。`,
-      whyNotOther: "W、Fe、Co、Ni 等候选保留为 backup / conditional / control，用于排除非目标客体泛化效应。",
       risk: safeText(selectedGuest.mainRisk, "客体金属风险待验证。"),
       next: "组合主体与客体，并用 HGCPS 评分路线。",
       detailTarget: "competition-guest",
@@ -544,7 +545,6 @@ function buildStepFields(stepId, context) {
       competition: buildCandidateRowsFromRoutes(workbench),
       result: `${topRouteLabel} 是当前最高优先级验证路线。`,
       why: safeText(routeExplanation.exportPayload?.rankRationale || workbench?.complementarity?.whyTopRanked, `${topRouteLabel} 由 HGCPS builder 输出为当前 top route。`),
-      whyNotOther: "非 top route 的短板来自主体替代、客体补偿不足、证据置信不足或风险保留压缩。",
       risk: safeText(topRoute.mainRisk, "路线风险待验证。"),
       next: "把 top route 转换为最小实验验证矩阵。",
       detailTarget: "competition-route",
@@ -552,12 +552,11 @@ function buildStepFields(stepId, context) {
     },
     "step-6": {
       input: [`${asArray(matrix.all).length || arrays.validations.length} 个实验验证项`, `${asArray(activationWorkbench?.sameConditionDataTemplate?.requiredFields).length || 0} 个 required same-condition fields`, safeText(readiness.readinessLevel, "planning-ready / not performance-validated")],
-      logic: "将 route output 转成 blank、pristine host、top route、guest control、host control、Mo-only、结构表征、产物分析和碳平衡覆盖项。",
+      logic: `将 route output 转成 blank、pristine host、top route、guest control、host control、${safeText(selectedGuest.guestMetal, "guest")}-only、结构表征、产物分析和碳平衡覆盖项。`,
       formula: "Validation readiness = minimum matrix coverage + same-condition data template + feedback rules",
       competition: "实验输出不是新的排名竞赛，而是把路线假设转成可执行验证计划。",
       result: "实验规划可启用；尚未完成性能验证。",
       why: "只有同条件实验矩阵、结构表征、产物分析和碳平衡回填后，才能更新 evidence confidence / risk retention。",
-      whyNotOther: "不直接声明性能证明，也不把 feedback preview 当作正式机器学习更新。",
       risk: commonBoundaries.join("；"),
       next: "打开实验启用中心，执行最小实验矩阵并回填反馈规则。",
       detailTarget: "activation",
@@ -590,7 +589,6 @@ export function buildExecutionStepModel(stepId, workbenchInput = null, sourceDat
     competition: Array.isArray(fields.competition) ? fields.competition : safeText(fields.competition),
     result: safeText(fields.result),
     why: safeText(fields.why),
-    whyNotOther: safeText(fields.whyNotOther),
     risk: safeText(fields.risk),
     next: safeText(fields.next),
     detailTarget: safeText(fields.detailTarget),
@@ -601,7 +599,7 @@ export function buildExecutionStepModel(stepId, workbenchInput = null, sourceDat
       { id: "detail", labelZh: stepIndex === 6 ? "打开实验启用中心" : "查看筛选依据", labelEn: stepIndex === 6 ? "Open Activation Center" : "View screening basis", target: safeText(fields.detailTarget) },
     ],
   }
-  stepModel.whyPanelEnhanced = buildStepWhyPanelEnhancedModel(stepModel, workbench, { lang })
+  stepModel.whyPanelEnhanced = buildStepWhyPanelEnhancedModel(stepModel, workbench, { lang, sourceData })
   const enhanced = stepModel.whyPanelEnhanced
   if (stepModel.id === "step-1") {
     enhanced.pathwayEvidenceHeatmap = buildPathwayEvidenceHeatmapModel(workbench, sourceData)
@@ -657,7 +655,6 @@ export function buildStepWhyPanelModel(step, chainContext = {}, lang = "zh") {
     logic: safeText(step?.logic),
     result: safeText(step?.result),
     why: safeText(step?.why),
-    whyNotOther: safeText(step?.whyNotOther),
     risk: safeText(step?.risk),
     next: safeText(step?.next),
     methodologyAnchor: safeText(step?.methodologyAnchor, `#${METHODOLOGY_BASE}`),
@@ -727,6 +724,7 @@ export function buildStepwiseExecutionChain(workbenchInput = null, sourceData = 
     steps,
     navigator: buildStepNavigatorModel(steps, selectedStepId, lang),
     currentStepWhyPanel: buildStepWhyPanelModel(selectedStep, { version: ORGANIC_ACID_STEPWISE_EXECUTION_VERSION }, lang),
+    finalResultSummary: buildFinalResultSummaryModel(workbench, { sourceData, activationWorkbench: options.activationWorkbench }),
     dynamicChartModel: selectedStep.dynamicChartModel,
     miniMap: buildExecutionMiniMapModel(flowNetwork, selectedStepId, lang),
     flowNetworkMiniMapSource: buildFlowNetworkExportJson(flowNetwork),

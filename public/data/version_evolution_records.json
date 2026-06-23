@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.9.5.3",
-  "generatedAt": "2026-06-22",
+  "currentVersion": "V3.9.5.4",
+  "generatedAt": "2026-06-23",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
-    "currentVersion": "V3.9.5.1",
+    "currentVersion": "V3.9.5.4",
     "databaseSize": 3020,
     "verifiedMetadataCount": 2480,
     "sourceConfirmedCount": 2480,
@@ -18,7 +18,7 @@
     "notFinalRecommendationStatus": "Not Final Recommendation",
     "sources": {
       "currentVersion": {
-        "value": "V3.9.5.1",
+        "value": "V3.9.5.4",
         "sourceDatabase": "EcoMOF-AI version_evolution_records.json",
         "sourceRecordId": "overview.currentVersion",
         "sourceUrl": "public/data/version_evolution_records.json",
@@ -737,9 +737,46 @@
         "UI",
         "Testing"
       ]
+    },
+    {
+      "version": "V3.9.5.4",
+      "date": "2026-06-23",
+      "commit": "pending-current",
+      "summary": "Organic Acid Tabbed Why Panel, Paper-Style Charts & Final Result Summary: upgraded the Step Why Panel into tabbed conclusion, per-factor, comparison, evidence/literature, and risk/counterfactual sections with independent scrolling. Added per-factor interpretation, factor delta tables, factor evidence mapping, risk decomposition, white-box HGCPS counterfactuals, model-driven paper-style charts, mobile inline Why Panel placement, and a final result summary after Step 6.",
+      "scientificImpact": "Al-MOF + Mo remains a builder-derived highest-priority experimental-validation route / research hypothesis; all new charts and explanations remain route-priority evidence/provenance surfaces, not catalytic-performance proof.",
+      "databaseImpact": "No new experimental result or database expansion; reuses existing pathwaySteps, descriptorMap, host/guest/route candidates, evidenceRiskRecords, validationExperiments, and activation data.",
+      "algorithmImpact": "Added organicAcidScoreProvenance builders: buildPerFactorInterpretation, buildFactorDeltaTable, buildFactorEvidence, buildRiskDecomposition, buildCounterfactual, and buildFinalResultSummaryModel; counterfactuals use one-factor-at-a-time white-box HGCPS recomputation, not ML training or inference.",
+      "validationImpact": "Preserves planning-ready / not performance-validated boundary. Factor evidence maps through linkedDescriptor / linkedStepId and falls back to route-level evidence when factor-level mapping is not available.",
+      "uiImpact": "Step Why Panel and Step Navigator now scroll independently; Step Why Panel uses tabs; Step 5 pairs HGCPS factor rose with the existing compression waterfall; Step 6 is followed by a final result summary and activation-center action card; narrow screens inline the Why Panel under the selected Step.",
+      "knownLimitations": "Scores remain seed/proxy/curated route-priority scores; factor-level evidence mapping is limited by current evidence granularity; same-condition performance validation and formal ML labels remain pending.",
+      "breakingChanges": "None.",
+      "nextVersionGoal": "Run the minimum same-condition experiment matrix, collect performance/structure evidence, and only then consider HGCPS recalibration or ML-ready labeling.",
+      "categories": [
+        "Organic Acid",
+        "Score Provenance",
+        "Counterfactuals",
+        "UI",
+        "Testing"
+      ]
     }
   ],
   "releaseNotes": [
+    {
+      "version": "V3.9.5.4",
+      "date": "2026-06-23",
+      "module": "Organic Acid",
+      "category": "UI",
+      "title": "Tabbed Step Why Panel and Final Result Summary",
+      "body": "Reworked the Organic Acid Step Why Panel into conclusion, per-factor, comparison, evidence/literature, and risk/counterfactual tabs with independent scrolling, mobile inline placement, and a Step 6 final result summary."
+    },
+    {
+      "version": "V3.9.5.4",
+      "date": "2026-06-23",
+      "module": "Organic Acid",
+      "category": "Algorithm",
+      "title": "Detailed Provenance Builders and White-Box Counterfactuals",
+      "body": "Added per-factor interpretation, factor delta tables, factor evidence mapping, risk decomposition, and one-factor-at-a-time HGCPS counterfactual builders without introducing ML training or inference."
+    },
     {
       "version": "V3.9.5.1",
       "date": "2026-06-22",

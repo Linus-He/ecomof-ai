@@ -1,5 +1,5 @@
 /**
- * Organic Acid Score Provenance builders (V3.9.5.2).
+ * Organic Acid Score Provenance builders (V3.9.5.4).
  *
  * Turns the Step Why Panel into a real score explainer: raw / proxy fields ->
  * normalized value -> weight or factor -> sub-contribution -> weighted-sum or
@@ -17,7 +17,7 @@ import {
   safeNumber,
 } from "../organicAcidHostGuest/index.js"
 
-export const ORGANIC_ACID_SCORE_PROVENANCE_VERSION = "V3.9.5.2"
+export const ORGANIC_ACID_SCORE_PROVENANCE_VERSION = "V3.9.5.4"
 
 const HOST_DATA_FILE = "organic_acid_host_guest/host_mof_candidates.json"
 const GUEST_DATA_FILE = "organic_acid_host_guest/guest_metal_candidates.json"
@@ -70,6 +70,36 @@ const GRADE_META = {
   proxy: { labelZh: "代理数据", labelEn: "Proxy", tone: "warn" },
   curated: { labelZh: "人工整理", labelEn: "Curated", tone: "good" },
   inferred: { labelZh: "推断数据", labelEn: "Inferred", tone: "muted" },
+}
+
+const LEVEL_THRESHOLDS = {
+  high: 0.85,
+  medium: 0.65,
+}
+
+const COUNTERFACTUAL_VALUES = [0.5, 0.7, 0.9, 1.0]
+
+const FACTOR_EVIDENCE_KEYWORDS = {
+  stabilityProxy: ["stability", "stable", "aqueous", "water", "hydrothermal", "170c", "pxrd", "leaching", "bond"],
+  aqueousStabilityEvidence: ["aqueous", "water", "hydrothermal", "170c", "pxrd", "leaching", "stability"],
+  thermalStabilityEvidence: ["thermal", "hydrothermal", "170c", "stability"],
+  poreEnvironmentScore: ["pore", "surface area", "pore volume", "co2 enrichment", "diffusion", "access"],
+  co2EnrichmentSupport: ["co2", "enrichment", "adsorption", "affinity", "uptake"],
+  postModificationFeasibility: ["post-modification", "modification", "doping", "introduction", "feasibility"],
+  guestHostingFeasibility: ["guest", "hosting", "compatibility", "coordination", "bimetallic"],
+  provenanceQuality: ["provenance", "curation", "field-level", "evidence"],
+  co2ActivationScore: ["co2 activation", "lewis", "open metal", "charge", "activation"],
+  formateStabilizationScore: ["hcoo", "formate", "intermediate", "binding", "stabilization"],
+  electronTransferSupport: ["electron", "redox", "pcet", "proton", "transfer"],
+  compatibilityWithAlMof: ["compatibility", "host", "coordination", "guest", "bimetallic"],
+  dopingFeasibility: ["doping", "introduction", "feasibility", "post-modification"],
+  bimetallicConstructionFeasibility: ["bimetallic", "construction", "coordination", "guest"],
+  hostStability: ["stability", "aqueous", "hydrothermal", "170c", "pxrd", "leaching", "bond"],
+  hostPathwaySupport: ["pathway", "co2 enrichment", "pore", "lewis", "descriptor", "diffusion"],
+  guestActivityCompensation: ["guest", "co2 activation", "hcoo", "formate", "electron", "redox", "doping", "bimetallic"],
+  complementarity: ["complementarity", "compatibility", "host-guest", "coordination", "post-modification", "bimetallic"],
+  evidence: ["evidence", "confidence", "same-condition", "curation", "provenance"],
+  riskRetentionFactor: ["risk", "missing", "penalty", "limitation", "same-condition", "leaching", "170c", "uncertain"],
 }
 
 function asArray(value) {
@@ -530,12 +560,319 @@ export function buildTerminologyAlignmentModel() {
   }
 }
 
+function levelFor(value) {
+  const normalized = clamp01(value)
+  if (normalized >= LEVEL_THRESHOLDS.high) return { zh: "高", en: "High", key: "high" }
+  if (normalized >= LEVEL_THRESHOLDS.medium) return { zh: "中", en: "Medium", key: "medium" }
+  return { zh: "低", en: "Low", key: "low" }
+}
+
+function sourceFieldSentence(row, provenance) {
+  const fields = asArray(provenance?.sourceFields).filter(Boolean)
+  const peers = fields.filter(field => field !== row.fieldKey).slice(0, 2)
+  const peerText = peers.length ? ` / ${peers.join(" / ")}` : ""
+  return `${row.fieldKey}${peerText}`
+}
+
+function interpretationForRow(row, provenance) {
+  const level = levelFor(row.normalizedValue)
+  const sourceFields = sourceFieldSentence(row, provenance)
+  const limitation = safeText(row.limitation, "same-condition validation pending")
+  const valueText = round(row.normalizedValue, 3)
+  if (level.key === "high") {
+    return {
+      zh: `${row.labelZh}处于高区间，归一化值 ${valueText}；解释直接读取 ${sourceFields} 字段，并受限于「${limitation}」。`,
+      en: `${row.labelEn} is in the high band with normalized value ${valueText}; the explanation reads the real ${sourceFields} field(s) and remains bounded by "${limitation}".`,
+    }
+  }
+  if (level.key === "medium") {
+    return {
+      zh: `${row.labelZh}处于中区间，说明该字段能支撑当前排序但不是单独决定因素；引用字段为 ${sourceFields}，需结合数据等级 ${row.dataGrade} 解读。`,
+      en: `${row.labelEn} is in the medium band, so it supports the ranking but does not decide it alone; source field(s): ${sourceFields}, interpreted with ${row.dataGrade} data grade.`,
+    }
+  }
+  return {
+    zh: `${row.labelZh}处于低区间，是当前路线的压缩项；引用字段为 ${sourceFields}，局限性为「${limitation}」。`,
+    en: `${row.labelEn} is in the low band and compresses the current route; source field(s): ${sourceFields}, limitation: "${limitation}".`,
+  }
+}
+
+export function buildPerFactorInterpretation(provenance) {
+  return asArray(provenance?.rows).map(row => {
+    const level = levelFor(row.normalizedValue)
+    const interpretation = interpretationForRow(row, provenance)
+    return {
+      factorKey: safeText(row.fieldKey, "factor-pending"),
+      labelZh: safeText(row.labelZh, row.fieldKey),
+      labelEn: safeText(row.labelEn, row.fieldKey),
+      rawValue: round(row.rawValue, 3),
+      normalizedValue: round(row.normalizedValue, 3),
+      contribution: round(row.contribution, 4),
+      dataGrade: safeText(row.dataGrade, "proxy"),
+      levelTag: level.zh,
+      levelTagEn: level.en,
+      levelKey: level.key,
+      interpretationZh: interpretation.zh,
+      interpretationEn: interpretation.en,
+      sourceField: safeText(row.fieldKey),
+      sourceFields: [safeText(row.fieldKey)],
+      limitation: safeText(row.limitation, "pending"),
+    }
+  })
+}
+
+function valueByFactor(provenance, factorKey) {
+  const row = asArray(provenance?.rows).find(item => item.fieldKey === factorKey) || {}
+  return round(row.normalizedValue, 3)
+}
+
+export function buildFactorDeltaTable(top, runnerUp, third) {
+  const rows = asArray(top?.rows).map(row => {
+    const topValue = valueByFactor(top, row.fieldKey)
+    const secondValue = runnerUp ? valueByFactor(runnerUp, row.fieldKey) : 0
+    const thirdValue = third ? valueByFactor(third, row.fieldKey) : 0
+    return {
+      factorKey: safeText(row.fieldKey),
+      labelZh: safeText(row.labelZh, row.fieldKey),
+      labelEn: safeText(row.labelEn, row.fieldKey),
+      topValue,
+      secondValue,
+      thirdValue,
+      deltaSecond: round(topValue - secondValue, 3),
+      deltaThird: round(topValue - thirdValue, 3),
+      isDominantGap: false,
+    }
+  })
+  const dominant = rows
+    .slice()
+    .sort((a, b) => Math.abs(b.deltaSecond) - Math.abs(a.deltaSecond))[0]
+  return rows.map(row => ({ ...row, isDominantGap: Boolean(dominant && row.factorKey === dominant.factorKey) }))
+}
+
+function searchableEvidenceText(record) {
+  return [
+    record?.linkedDescriptor,
+    record?.linkedStepId,
+    record?.supports,
+    record?.evidenceType,
+    record?.riskType,
+    record?.limitation,
+  ].map(value => safeText(value, "").toLowerCase()).join(" ")
+}
+
+function evidenceMatchesFactor(record, factorKey, labelZh = "", labelEn = "") {
+  const text = searchableEvidenceText(record)
+  const keyTokens = safeText(factorKey, "")
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .toLowerCase()
+    .split(/[^a-z0-9]+/)
+    .filter(token => token.length > 2)
+  const labelTokens = `${labelZh} ${labelEn}`.toLowerCase().split(/[^a-z0-9]+/).filter(token => token.length > 2)
+  const keywords = [...(FACTOR_EVIDENCE_KEYWORDS[factorKey] || []), ...keyTokens, ...labelTokens]
+  return keywords.some(keyword => keyword && text.includes(keyword.toLowerCase()))
+}
+
+export function buildFactorEvidence(provenance, evidenceRecords = [], options = {}) {
+  const routeId = safeText(options.routeId || provenance?.routeId, "")
+  const linkedStepId = safeText(options.linkedStepId, "")
+  const candidateRecords = asArray(evidenceRecords).filter(record => {
+    const routeOk = !routeId || record.linkedRouteId === routeId || asArray(options.evidenceRefs).includes(record.evidenceId)
+    const stepOk = !linkedStepId || record.linkedStepId === linkedStepId
+    return routeOk && stepOk
+  })
+  const factorRows = asArray(provenance?.rows)
+  const evidenceRows = candidateRecords.map(record => {
+    const matchedFactor = factorRows.find(row => evidenceMatchesFactor(record, row.fieldKey, row.labelZh, row.labelEn))
+    return {
+      factorKey: matchedFactor?.fieldKey || "route-level",
+      factorLabelZh: matchedFactor?.labelZh || "路线级证据",
+      factorLabelEn: matchedFactor?.labelEn || "Route-level evidence",
+      evidenceId: safeText(record.evidenceId, "pending"),
+      supports: safeText(record.supports, "pending"),
+      citation: safeText(record.citation, "pending"),
+      sourceUrl: safeText(record.sourceUrl, "pending"),
+      directness: safeText(record.directness, "pending"),
+      sameCondition: record.sameCondition === true,
+      confidenceLevel: safeText(record.confidenceLevel, "pending"),
+      limitation: safeText(record.limitation, "pending"),
+      curationStatus: safeText(record.curationStatus, "pending"),
+      linkedDescriptor: safeText(record.linkedDescriptor, "pending"),
+      linkedStepId: safeText(record.linkedStepId, "pending"),
+      noteZh: matchedFactor ? "证据由 linkedDescriptor / linkedStepId 映射到该因子。" : "路线级证据，未细分到该因子。",
+      noteEn: matchedFactor ? "Mapped to this factor through linkedDescriptor / linkedStepId." : "Route-level evidence; not resolved to a single factor.",
+    }
+  })
+  if (evidenceRows.length) return evidenceRows
+  return [{
+    factorKey: "route-level",
+    factorLabelZh: "路线级证据",
+    factorLabelEn: "Route-level evidence",
+    evidenceId: "pending",
+    supports: "pending",
+    citation: "pending",
+    sourceUrl: "pending",
+    directness: "pending",
+    sameCondition: false,
+    confidenceLevel: "pending",
+    limitation: "待补证据 / pending",
+    curationStatus: "pending",
+    linkedDescriptor: "pending",
+    linkedStepId: "pending",
+    noteZh: "待补证据 / pending",
+    noteEn: "Evidence pending.",
+  }]
+}
+
+function routeFactorValue(route, definition) {
+  if (!route) return definition.key === "riskPenalty" ? 1 : 0
+  if (route[definition.key] !== undefined) return clamp01(route[definition.key])
+  if (route.scoreBreakdown?.[definition.breakdownKey] !== undefined) return clamp01(route.scoreBreakdown[definition.breakdownKey])
+  if (route.breakdown?.[definition.breakdownKey] !== undefined) return clamp01(route.breakdown[definition.breakdownKey])
+  return definition.key === "riskPenalty" ? 1 : 0
+}
+
+function calculateRouteHgcps(route) {
+  return round(ROUTE_FACTOR_DEFINITIONS.reduce((product, definition) => product * routeFactorValue(route, definition), 1), 3)
+}
+
+export function buildRiskDecomposition(route, evidenceRecords = []) {
+  const selectedRoute = route || {}
+  const riskRetention = round(routeFactorValue(selectedRoute, ROUTE_FACTOR_DEFINITIONS.find(row => row.key === "riskPenalty")), 3)
+  const scoreBeforeRisk = round(ROUTE_FACTOR_DEFINITIONS
+    .filter(definition => definition.key !== "riskPenalty")
+    .reduce((product, definition) => product * routeFactorValue(selectedRoute, definition), 1), 3)
+  const finalHGCPS = round(scoreBeforeRisk * riskRetention, 3)
+  const evidenceRisks = asArray(selectedRoute.riskPenaltyBreakdown).length
+    ? asArray(selectedRoute.riskPenaltyBreakdown)
+    : asArray(evidenceRecords)
+      .filter(record => record.linkedRouteId === selectedRoute.routeId && (record.riskType || safeNumber(record.penalty, 0) > 0))
+  const rows = evidenceRisks.length ? evidenceRisks : [{
+    riskType: "route-level risk",
+    penalty: round(1 - riskRetention, 3),
+    reason: safeText(selectedRoute.mainRisk, "risk pending"),
+    confidenceLevel: safeText(selectedRoute.confidenceLevel, "pending"),
+  }]
+  return {
+    routeId: safeText(selectedRoute.routeId, "route-pending"),
+    routeLabel: defaultGetName(selectedRoute),
+    riskRetention,
+    scoreBeforeRisk,
+    finalHGCPS,
+    rows: rows.map((row, index) => ({
+      riskType: safeText(row.riskType, `risk-${index + 1}`),
+      penalty: round(row.penalty, 3),
+      reason: safeText(row.reason || row.limitation || row.supports, "risk reason pending"),
+      confidenceLevel: safeText(row.confidenceLevel, "pending"),
+      explanationZh: `Risk Retention = ${riskRetention}，把总分从 ${scoreBeforeRisk} 压到 ${finalHGCPS}；表示证据不足或风险待验证，非实验证伪。`,
+      explanationEn: `Risk Retention = ${riskRetention}, compressing the score from ${scoreBeforeRisk} to ${finalHGCPS}; this means evidence is insufficient or risk remains unverified, not experimentally falsified.`,
+    })),
+  }
+}
+
+export function buildCounterfactual(route, allRoutes = []) {
+  const selectedRoute = route || asArray(allRoutes)[0] || {}
+  const baselineRank = Math.round(safeNumber(selectedRoute.ranking, 1))
+  const otherRoutes = asArray(allRoutes).filter(row => row.routeId !== selectedRoute.routeId)
+  return ROUTE_FACTOR_DEFINITIONS.map(definition => {
+    const [labelZh, labelEn] = ROUTE_FACTOR_LABELS[definition.breakdownKey] || [definition.label, definition.label]
+    const currentValue = round(routeFactorValue(selectedRoute, definition), 3)
+    const scenarios = COUNTERFACTUAL_VALUES.map(setValue => {
+      const adjustedRoute = { ...selectedRoute, [definition.key]: setValue, scoreBreakdown: { ...(selectedRoute.scoreBreakdown || {}), [definition.breakdownKey]: setValue } }
+      const newHGCPS = calculateRouteHgcps(adjustedRoute)
+      const newRank = 1 + otherRoutes.filter(row => safeNumber(row.finalHGCPS, calculateRouteHgcps(row)) > newHGCPS).length
+      const rankDelta = newRank - baselineRank
+      return {
+        setValue,
+        newHGCPS,
+        newRank,
+        rankDelta,
+        sentenceZh: `若 ${labelZh} 由 ${currentValue} 调整到 ${setValue}，HGCPS→${newHGCPS}，排名${newRank === baselineRank ? "仍为" : "变为"} #${newRank}。`,
+        sentenceEn: `If ${labelEn} changes from ${currentValue} to ${setValue}, HGCPS becomes ${newHGCPS} and rank ${newRank === baselineRank ? "remains" : "moves to"} #${newRank}.`,
+      }
+    })
+    return {
+      factorKey: definition.breakdownKey,
+      rawField: definition.key,
+      labelZh,
+      labelEn,
+      currentValue,
+      baselineRank,
+      scenarios,
+    }
+  })
+}
+
+function dynamicConclusion(stepId, provenance, factorDeltaTable, fallbackZh, fallbackEn) {
+  if (!["step-3", "step-4", "step-5"].includes(stepId) || !provenance) {
+    return { zh: fallbackZh, en: fallbackEn }
+  }
+  const dominant = asArray(factorDeltaTable).find(row => row.isDominantGap) || {}
+  const scoreLabelZh = stepId === "step-5" ? "HGCPS" : provenance.displayNameZh
+  const scoreLabelEn = stepId === "step-5" ? "HGCPS" : provenance.displayNameEn
+  const gapZh = dominant.factorKey
+    ? ` · 主要差异：${dominant.labelZh}（较 #2 ${dominant.deltaSecond >= 0 ? "+" : ""}${round(dominant.deltaSecond, 3)}）`
+    : ""
+  const gapEn = dominant.factorKey
+    ? ` · dominant gap: ${dominant.labelEn} (${dominant.deltaSecond >= 0 ? "+" : ""}${round(dominant.deltaSecond, 3)} vs #2)`
+    : ""
+  return {
+    zh: `${provenance.candidateLabel} · ${scoreLabelZh} ${round(provenance.finalValue, 3).toFixed(3)} · 排名 #${provenance.rank}${gapZh}`,
+    en: `${provenance.candidateLabel} · ${scoreLabelEn} ${round(provenance.finalValue, 3).toFixed(3)} · rank #${provenance.rank}${gapEn}`,
+  }
+}
+
+function validationSummaryCounts(workbench, sourceData = {}, activationWorkbench = {}) {
+  const topRouteId = safeText(workbench?.complementarity?.topRoute?.routeId, "")
+  const activationRows = asArray(activationWorkbench?.minimumExperimentalMatrix?.all)
+  const validationRows = activationRows.length ? activationRows : asArray(sourceData.validationExperiments)
+  const topRows = validationRows.filter(row => !topRouteId || row.routeId === topRouteId || row.routeId === undefined)
+  const coveredCount = topRows.length || validationRows.length
+  return {
+    coveredCount,
+    pendingCount: Math.max(0, validationRows.length - coveredCount),
+    totalCount: validationRows.length,
+  }
+}
+
+export function buildFinalResultSummaryModel(workbench, options = {}) {
+  const routes = asArray(workbench?.complementarity?.routeScores)
+  const topRoute = workbench?.complementarity?.topRoute || routes[0] || {}
+  const runnerUp = routes[1] || null
+  const provenance = buildRouteHgcpsScoreProvenance(workbench, { route: topRoute })
+  const comparisonProvenances = routes.slice(0, 3).map(route => buildRouteHgcpsScoreProvenance(workbench, { route }))
+  const deltaTable = buildFactorDeltaTable(comparisonProvenances[0], comparisonProvenances[1], comparisonProvenances[2])
+  const validationCounts = validationSummaryCounts(workbench, options.sourceData, options.activationWorkbench)
+  const secondDelta = runnerUp ? round(safeNumber(topRoute.finalHGCPS, provenance.finalValue) - safeNumber(runnerUp.finalHGCPS, 0), 3) : 0
+  return {
+    titleZh: "最终结果总结",
+    titleEn: "Final Result Summary",
+    routeId: safeText(topRoute.routeId, "route-pending"),
+    routeLabel: defaultGetName(topRoute),
+    recommendationTier: safeText(topRoute.recommendationTier, "research hypothesis"),
+    finalHGCPS: round(safeNumber(topRoute.finalHGCPS, provenance.finalValue), 3),
+    ranking: Math.round(safeNumber(topRoute.ranking, provenance.rank)),
+    deltaToSecond: secondDelta,
+    factorRoseModel: provenance,
+    factorDeltaTable: deltaTable,
+    boundaries: SCORE_BOUNDARY_STATEMENTS.slice(0, 3),
+    validationCounts,
+    nextExperiment: safeText(topRoute.nextExperiment || workbench?.experimentalRoute?.nextExperiment, "validation experiment pending"),
+    actionZh: "我现在应该做什么",
+    actionEn: "What should I do now?",
+    actionButtonZh: "打开实验启用中心",
+    actionButtonEn: "Open Activation Center",
+    noteZh: "这是最高优先级实验验证路线 / research hypothesis，不是最终最优催化剂结论。",
+    noteEn: "This is the highest-priority experimental-validation route / research hypothesis, not a final best-catalyst conclusion.",
+  }
+}
+
 export function buildStepWhyPanelEnhancedModel(step, workbench, options = {}) {
   const stepId = safeText(step?.id, "step-0")
   const lang = options.lang || "zh"
-  const isZh = lang === "zh"
   const conclusionZh = safeText(step?.result, "本步骤结论待补充。")
   const conclusionEn = safeText(step?.resultEn || step?.result, "Step conclusion pending.")
+  const sourceData = options.sourceData || {}
+  const evidenceRecords = asArray(options.evidenceRecords).length ? asArray(options.evidenceRecords) : asArray(sourceData.evidenceRiskRecords)
   const model = {
     stepId,
     titleZh: "为什么是这个结果？",
@@ -555,26 +892,47 @@ export function buildStepWhyPanelEnhancedModel(step, workbench, options = {}) {
     const provenance = buildHostScoreProvenance(workbench, options)
     model.provenance = provenance
     model.comparisonProvenances = hosts.slice(0, 3).map(host => buildHostScoreProvenance(workbench, { host }))
+    model.perFactorInterpretation = buildPerFactorInterpretation(provenance)
+    model.factorDeltaTable = buildFactorDeltaTable(model.comparisonProvenances[0], model.comparisonProvenances[1], model.comparisonProvenances[2])
+    model.factorEvidence = buildFactorEvidence(provenance, evidenceRecords, { stepId })
     model.scoreSourceTable = buildScoreSourceTableModel(provenance)
     model.dataGradeBadges = buildScoreDataGradeBadges(provenance)
     model.whyNotOther = buildDynamicWhyNotOtherExplanation(hosts[0], hosts[1], { kind: "host", dataGrade: provenance.dataGrade, rank: provenance.rank })
+    const dynamic = dynamicConclusion(stepId, provenance, model.factorDeltaTable, conclusionZh, conclusionEn)
+    model.conclusionZh = dynamic.zh
+    model.conclusionEn = dynamic.en
   } else if (stepId === "step-4") {
     const guests = asArray(workbench?.guestSelection?.rankedGuestMetals)
     const provenance = buildGuestScoreProvenance(workbench, options)
     model.provenance = provenance
     model.comparisonProvenances = guests.slice(0, 3).map(guest => buildGuestScoreProvenance(workbench, { guest }))
+    model.perFactorInterpretation = buildPerFactorInterpretation(provenance)
+    model.factorDeltaTable = buildFactorDeltaTable(model.comparisonProvenances[0], model.comparisonProvenances[1], model.comparisonProvenances[2])
+    model.factorEvidence = buildFactorEvidence(provenance, evidenceRecords, { stepId })
     model.scoreSourceTable = buildScoreSourceTableModel(provenance)
     model.dataGradeBadges = buildScoreDataGradeBadges(provenance)
     model.whyNotOther = buildDynamicWhyNotOtherExplanation(guests[0], guests[1], { kind: "guest", dataGrade: provenance.dataGrade, rank: provenance.rank })
+    const dynamic = dynamicConclusion(stepId, provenance, model.factorDeltaTable, conclusionZh, conclusionEn)
+    model.conclusionZh = dynamic.zh
+    model.conclusionEn = dynamic.en
   } else if (stepId === "step-5") {
     const provenance = buildRouteHgcpsScoreProvenance(workbench, options)
     model.provenance = provenance
+    const routes = asArray(workbench?.complementarity?.routeScores)
+    model.comparisonProvenances = routes.slice(0, 3).map(route => buildRouteHgcpsScoreProvenance(workbench, { route }))
+    model.perFactorInterpretation = buildPerFactorInterpretation(provenance)
+    model.factorDeltaTable = buildFactorDeltaTable(model.comparisonProvenances[0], model.comparisonProvenances[1], model.comparisonProvenances[2])
+    model.factorEvidence = buildFactorEvidence(provenance, evidenceRecords, { stepId, routeId: provenance.routeId, evidenceRefs: routes[0]?.evidenceRefs })
+    model.riskDecomposition = buildRiskDecomposition(routes[0] || workbench?.complementarity?.topRoute, evidenceRecords)
+    model.counterfactual = buildCounterfactual(routes[0] || workbench?.complementarity?.topRoute, routes)
     model.scoreSourceTable = buildScoreSourceTableModel(provenance)
     model.factorCompressionTrace = buildFactorCompressionTrace(workbench, options)
     model.routeFactorComparison = buildRouteFactorComparisonModel(workbench, options)
     model.dataGradeBadges = buildScoreDataGradeBadges(provenance)
-    const routes = asArray(workbench?.complementarity?.routeScores)
     model.whyNotOther = buildDynamicWhyNotOtherExplanation(routes[0], routes[1], { kind: "route", dataGrade: provenance.dataGrade, rank: provenance.rank })
+    const dynamic = dynamicConclusion(stepId, provenance, model.factorDeltaTable, conclusionZh, conclusionEn)
+    model.conclusionZh = dynamic.zh
+    model.conclusionEn = dynamic.en
   } else {
     model.dataGradeBadges = buildScoreDataGradeBadges("curated")
   }

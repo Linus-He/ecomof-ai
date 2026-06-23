@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
-  "updatedAt": "2026-06-22",
-  "currentVersion": "V3.9.5.3",
-  "completedRange": "V1.0-V3.9.5.3",
+  "updatedAt": "2026-06-23",
+  "currentVersion": "V3.9.5.4",
+  "completedRange": "V1.0-V3.9.5.4",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -3308,7 +3308,7 @@
       "title": "Organic Acid Explanation Closure & Visual QA",
       "titleZh": "有机酸解释闭环与视觉验收",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Explanation Closure",
       "themeZh": "解释闭环",
       "summary": "Organic Acid Explanation Closure & Visual QA: completed P1/P2 explanation closure after the V3.9.5.2 P0 work. Added a Pathway Evidence Heatmap (Step 1), improved the descriptor mapping explanation (Step 2), and added a Validation Coverage Matrix (Step 6). Added a terminology crosswalk for HGCPS / OACS / DMRS, improved Step Why Panel visual polish, and added a real-browser live click-through verification checklist. Kept V3.9.5.2 score provenance, HGCPS waterfall, route factor comparison, and dynamic whyNotOther, plus not-final-proof and not-formal-ML boundaries.",
@@ -3388,6 +3388,86 @@
         ],
         "adaptationBoundary": "Explanation closure and visual QA only; no final catalyst-performance proof and no formal machine-learning prediction.",
         "adaptationBoundaryZh": "仅用于解释闭环与视觉验收；不提供最终催化性能证明，也不是正式机器学习预测。"
+      },
+      "relatedSection": "project-evolution-organic-acid-algorithm-methodology"
+    },
+    {
+      "version": "V3.9.5.4",
+      "title": "Organic Acid Tabbed Why Panel, Paper-Style Charts & Final Result Summary",
+      "titleZh": "有机酸 Tab 化 Why Panel、论文级图表与最终结果总结",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Detailed explanation UX",
+      "themeZh": "详细解释体验",
+      "summary": "Upgraded the Organic Acid Step Why Panel into a tabbed, independently scrollable evidence/provenance surface. Added per-factor interpretation, factor delta tables, factor evidence mapping, risk decomposition, white-box counterfactual scenarios, paper-style step charts, mobile inline Why Panel placement, and a final result summary after Step 6.",
+      "summaryZh": "将 Organic Acid Step Why Panel 升级为 Tab 化、可独立滚动的证据/溯源界面。新增逐因子解释、因子差值表、因子证据映射、风险分解、白盒反事实情景、每步论文级图表、移动端内联 Why Panel，以及 Step 6 后的最终结果总结。",
+      "keyUpdates": [
+        "Step Why Panel now uses Conclusion / Per factor / Compare #2/#3 / Evidence literature / Risk counterfactual tabs.",
+        "Added HGCPS factor rose, host factor rose, guest dumbbell chart, pathway flow diagram, validation readiness donut, and final result summary components.",
+        "Step 3/4/5 one-line conclusions now derive live score, rank, and dominant factor gap from current builder outputs.",
+        "Final result summary appears after Step 6 and keeps the selected route framed as a research hypothesis and highest-priority experimental-validation route.",
+        "Narrow screens render the Why Panel directly under the selected Step instead of after the whole chain."
+      ],
+      "keyUpdatesZh": [
+        "Step Why Panel 改为结论 / 逐因子 / 对比 #2/#3 / 证据文献 / 风险反事实 Tab。",
+        "新增 HGCPS 因子玫瑰、主体因子玫瑰、客体哑铃图、路径流图、验证覆盖环图与最终结果总结组件。",
+        "Step 3/4/5 一句话结论改为由当前 builder 的分数、排名与主导因子差值实时派生。",
+        "最终结果总结放在 Step 6 之后，并继续把路线表述为 research hypothesis / 最高优先级实验验证路线。",
+        "窄屏下 Why Panel 紧跟当前选中 Step，而不是落在全部步骤之后。"
+      ],
+      "algorithmChanges": [
+        "Added organicAcidScoreProvenance builders: buildPerFactorInterpretation, buildFactorDeltaTable, buildFactorEvidence, buildRiskDecomposition, buildCounterfactual, and buildFinalResultSummaryModel.",
+        "Counterfactual scenarios use one-factor-at-a-time HGCPS recomputation over fixed values [0.5, 0.7, 0.9, 1.0]; no machine learning model, training, or inference is introduced.",
+        "Factor evidence mapping uses linkedDescriptor / linkedStepId and falls back to route-level evidence when no factor-level mapping is available."
+      ],
+      "algorithmChangesZh": [
+        "新增 organicAcidScoreProvenance 构建器：逐因子解释、因子差值表、因子证据映射、风险分解、反事实与最终总结模型。",
+        "反事实情景使用单因子 HGCPS 白盒重算，扰动值为 [0.5, 0.7, 0.9, 1.0]；未引入机器学习模型、训练或推理。",
+        "因子证据映射使用 linkedDescriptor / linkedStepId；无法细分时退化为路线级证据并显式标注。"
+      ],
+      "uiChanges": [
+        "Right-side Why Panel and Step Navigator have max-height and independent vertical scrolling on desktop.",
+        "Middle Step cards were slimmed to step title, dynamic one-line result, competition preview, and the current step chart; raw fields and risk detail moved to the Why Panel tabs.",
+        "The Step 5 panel now pairs a HGCPS factor rose hero with the existing factor-compression waterfall companion."
+      ],
+      "uiChangesZh": [
+        "桌面端右侧 Why Panel 与左侧 Step Navigator 增加最大高度与独立纵向滚动。",
+        "中间 Step 卡瘦身为步骤标题、动态一句话结果、竞争预览与当前步骤图；原始字段和风险详情转入 Why Panel Tabs。",
+        "Step 5 同时展示 HGCPS 因子玫瑰主图与既有因子压缩瀑布 companion。"
+      ],
+      "methodologyChanges": [
+        "Retains HGCPS as a multiplicative white-box priority score and keeps Risk Retention as evidence-risk compression, not experimental falsification.",
+        "Keeps seed / proxy / curated / inferred data-grade badges visible beside explanations.",
+        "Maintains the non-final-catalyst-proof and non-formal-ML boundaries across all new charts and summary surfaces."
+      ],
+      "methodologyChangesZh": [
+        "保留 HGCPS 作为白盒乘法路线优先级评分，Risk Retention 仍解释为证据风险压缩而非实验证伪。",
+        "在解释旁继续显示 seed / proxy / curated / inferred 数据等级标记。",
+        "所有新增图表与总结界面均保留非最终催化性能证明与非正式机器学习边界。"
+      ],
+      "evidenceBoundary": "V3.9.5.4 is an explanation, provenance, and visualization upgrade. It does not add experimental performance results, does not train or run an ML model, and does not claim Al-MOF + Mo is the final best catalyst.",
+      "evidenceBoundaryZh": "V3.9.5.4 是解释、溯源与可视化升级；不新增实验性能结果，不训练或运行机器学习模型，也不声明 Al-MOF + Mo 是最终最优催化剂。",
+      "limitations": [
+        "All scores remain route-priority scores derived from current seed / proxy / curated data.",
+        "Factor-level evidence mapping is limited by linkedDescriptor / linkedStepId granularity and can fall back to route-level evidence.",
+        "Same-condition performance validation and formal ML labels remain pending."
+      ],
+      "limitationsZh": [
+        "所有分数仍是由当前 seed / proxy / curated 数据派生的路线优先级分数。",
+        "因子级证据映射受 linkedDescriptor / linkedStepId 粒度限制，必要时退化为路线级证据。",
+        "同条件性能验证与正式机器学习标签仍待完成。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "organic-acid-host-guest",
+          "step-why-panel-tabs",
+          "score-provenance",
+          "counterfactual-hgcps",
+          "final-result-summary",
+          "paper-style-charts"
+        ],
+        "adaptationBoundary": "Explanation and visualization only; no final catalyst-performance proof and no formal machine-learning prediction.",
+        "adaptationBoundaryZh": "仅用于解释与可视化；不提供最终催化性能证明，也不是正式机器学习预测。"
       },
       "relatedSection": "project-evolution-organic-acid-algorithm-methodology"
     }

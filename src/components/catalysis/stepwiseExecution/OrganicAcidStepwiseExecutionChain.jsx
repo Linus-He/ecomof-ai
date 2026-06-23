@@ -3,13 +3,19 @@ import { NumericText, organicAcidPalette as palette, ORGANIC_ACID_FONT, SCIENTIF
 import {
   DescriptorMappingExplanationPanel,
   FactorCompressionWaterfall,
+  FinalResultSummary,
+  GuestDumbbellChart,
   GuestScoreBreakdownChart,
+  HgcpsFactorRose,
+  HostFactorRose,
   HostScoreBreakdownChart,
+  PathwayFlowDiagram,
   PathwayEvidenceHeatmap,
   RouteFactorComparisonChart,
   ScoreProvenanceTrace,
   TerminologyCrosswalkPanel,
   ValidationCoverageMatrix,
+  ValidationReadinessDonut,
 } from "../scoreProvenance"
 
 const GRADE_TONE = { seed: "info", proxy: "risk", curated: "good", inferred: "muted" }
@@ -181,7 +187,8 @@ export function DescriptorMappingGraph({ model, lang = "zh", withTestId = true }
           const source = stepById.get(edge.source)
           const target = descriptorById.get(edge.target)
           if (!source || !target) return null
-          return <path key={edge.id} d={`M 220 ${source.y} C 320 ${source.y}, 390 ${target.y}, 500 ${target.y}`} fill="none" stroke={edge.evidenceType?.includes("missing") ? palette.risk : palette.borderStrong} strokeWidth="1.6" />
+          const edgeWeight = 1.4 + Math.min(4, Math.max(0, Number(target.descriptorCount) || 0) * 0.45)
+          return <path key={edge.id} d={`M 220 ${source.y} C 320 ${source.y}, 390 ${target.y}, 500 ${target.y}`} fill="none" stroke={edge.evidenceType?.includes("missing") || target.missingCount ? palette.risk : palette.borderStrong} strokeWidth={edgeWeight} strokeOpacity={target.missingCount ? 0.75 : 0.9} />
         })}
         {steps.map((step, index) => (
           <g key={step.id} transform={`translate(24 ${stepY(index) - 18})`}>
@@ -322,7 +329,7 @@ export function StepMiniMap({ miniMap, lang = "zh", onSelectStep }) {
 
 export function StepNavigator({ navigator, miniMap, lang = "zh", onSelectStep, onTrace }) {
   return (
-    <aside data-testid="organic-acid-step-navigator" style={{ display: "grid", gap: 12, alignSelf: "start", position: "sticky", top: 88 }}>
+    <aside data-testid="organic-acid-step-navigator" style={{ display: "grid", gap: 12, alignSelf: "start", maxHeight: "calc(100vh - 104px)", overflowX: "hidden", overflowY: "auto", paddingRight: 4, position: "sticky", scrollbarColor: `${palette.borderStrong} ${palette.surface}`, scrollbarWidth: "thin", top: 88 }}>
       <section style={cardStyle({ background: palette.bg })}>
         <SectionTitle kicker="Step Navigator" title="Step Navigator" note={text(lang, "点击 Step 同步右侧解释区。", "Click a step to sync the explanation panel.")} />
         <button type="button" onClick={onTrace} style={{ ...buttonStyle(false), color: palette.accent, textAlign: "center" }}>
@@ -410,16 +417,10 @@ export function ExecutionStepCard({ step, lang = "zh", selected, onSelectStep, o
           ))}
         </div>
       ) : null}
-      <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))" }}>
-        <FieldBlock label={text(lang, "输入 Input", "Input")}>{step.input.join("; ")}</FieldBlock>
-        <FieldBlock label={text(lang, "计算逻辑 Logic", "Logic")}>{step.logic}</FieldBlock>
-        <FieldBlock label={text(lang, "公式 / 规则 Formula or Rule", "Formula or Rule")}>{step.formula}</FieldBlock>
-        <FieldBlock label={text(lang, "输出 Result", "Result")}>{step.result}</FieldBlock>
-      </div>
+      {/* Middle cards answer what happened; the right Why Panel owns source, formula, risk, and rationale detail. */}
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+        <FieldBlock label={text(lang, "一句话结果 Result", "One-line result")}>{step.whyPanelEnhanced?.conclusionZh || step.result}</FieldBlock>
         <FieldBlock label={text(lang, "候选竞争 Competition", "Competition")}><CompetitionPreview rows={step.competition} lang={lang} /></FieldBlock>
-        <FieldBlock label={text(lang, "为什么 Why", "Why")}>{step.why}</FieldBlock>
-        <FieldBlock label={text(lang, "下一步 Next", "Next")}>{step.next}</FieldBlock>
       </div>
       <OrganicAcidStepComparisonChart
         model={step.dynamicChartModel}
@@ -449,25 +450,46 @@ function WhyPanelGradeBadge({ grade, labelZh, labelEn, lang }) {
 }
 
 function WhyPanelMainChart({ stepId, step, enhanced, lang, onSelectComparison, onOpenActivationCenter }) {
+  if (stepId === "step-1") {
+    return <PathwayFlowDiagram model={step?.dynamicChartModel} lang={lang} />
+  }
+  if (stepId === "step-2") {
+    return (
+      <OrganicAcidStepComparisonChart
+        model={step?.dynamicChartModel}
+        lang={lang}
+        withTestId={false}
+        onSelectRow={row => onSelectComparison?.({ stepId, chartType: step?.dynamicChartModel?.type, row })}
+      />
+    )
+  }
   if (stepId === "step-3" && enhanced?.provenance) {
-    return <HostScoreBreakdownChart model={enhanced.provenance} lang={lang} />
+    return <HostFactorRose model={enhanced.provenance} comparisonModels={enhanced.comparisonProvenances} lang={lang} />
   }
   if (stepId === "step-4" && enhanced?.provenance) {
-    return <GuestScoreBreakdownChart models={enhanced.comparisonProvenances} model={enhanced.provenance} summary={enhanced.whyNotOther} lang={lang} />
+    return <GuestDumbbellChart models={enhanced.comparisonProvenances} model={enhanced.provenance} lang={lang} />
   }
   if (stepId === "step-5" && enhanced?.factorCompressionTrace) {
-    return <FactorCompressionWaterfall model={enhanced.factorCompressionTrace} lang={lang} />
+    return (
+      <div style={{ display: "grid", gap: 9 }}>
+        <HgcpsFactorRose model={enhanced.provenance} overlayRoute={enhanced.comparisonProvenances?.[1]} lang={lang} />
+        <FactorCompressionWaterfall model={enhanced.factorCompressionTrace} lang={lang} />
+      </div>
+    )
   }
   if (stepId === "step-6" && enhanced?.validationCoverageMatrix) {
     return (
-      <ValidationCoverageMatrix
-        model={enhanced.validationCoverageMatrix}
-        summary={enhanced.closureSummary}
-        lang={lang}
-        onOpenActivationCenter={onOpenActivationCenter}
-        onDownloadTemplate={onOpenActivationCenter}
-        onViewFeedbackRules={onOpenActivationCenter}
-      />
+      <div style={{ display: "grid", gap: 9 }}>
+        <ValidationReadinessDonut model={enhanced.validationCoverageMatrix} lang={lang} />
+        <ValidationCoverageMatrix
+          model={enhanced.validationCoverageMatrix}
+          summary={enhanced.closureSummary}
+          lang={lang}
+          onOpenActivationCenter={onOpenActivationCenter}
+          onDownloadTemplate={onOpenActivationCenter}
+          onViewFeedbackRules={onOpenActivationCenter}
+        />
+      </div>
     )
   }
   return (
@@ -480,14 +502,164 @@ function WhyPanelMainChart({ stepId, step, enhanced, lang, onSelectComparison, o
   )
 }
 
-export function StepWhyPanel({ panel, step, enhanced, lang = "zh", onOpenMethodology, onOpenActivationCenter, onOpenAdvancedTab, onSelectComparison }) {
+function CompactInfoGrid({ step, panel, lang }) {
+  const rows = [
+    [text(lang, "输入 Input", "Input"), asArray(step?.input).join("; ") || asArray(panel?.inputs).join("; ")],
+    [text(lang, "计算逻辑 Logic", "Logic"), step?.logic || panel?.logic],
+    [text(lang, "公式 / 规则", "Formula or rule"), step?.formula],
+    [text(lang, "结果 Result", "Result"), step?.result || panel?.result],
+    [text(lang, "风险 Risk", "Risk"), step?.risk || panel?.risk],
+    [text(lang, "下一步 Next", "Next"), step?.next || panel?.next],
+  ]
+  return (
+    <div style={{ display: "grid", gap: 8 }}>
+      {rows.map(([label, value]) => (
+        <FieldBlock key={label} label={label}>{value || text(lang, "待补充", "pending")}</FieldBlock>
+      ))}
+    </div>
+  )
+}
+
+function PerFactorInterpretationTable({ rows, lang }) {
+  const items = asArray(rows)
+  if (!items.length) return <span style={{ color: palette.faint, fontSize: 12 }}>{text(lang, "暂无逐因子解释。", "No per-factor interpretation.")}</span>
+  return (
+    <div data-testid="per-factor-interpretation-table" data-row-count={items.length} style={{ display: "grid", gap: 7 }}>
+      {items.map(row => (
+        <div key={row.factorKey} style={cardStyle({ background: palette.surface, padding: 10 })}>
+          <div style={{ alignItems: "baseline", display: "grid", gap: 8, gridTemplateColumns: "minmax(0,1fr) auto auto" }}>
+            <strong style={{ color: palette.text, fontSize: 11.8 }}>{text(lang, row.labelZh, row.labelEn)}</strong>
+            <NumericText style={{ color: palette.accent, fontSize: 11.8, fontWeight: 950 }}>{fmt(row.normalizedValue, 3)}</NumericText>
+            <Pill tone={row.levelKey === "low" ? "risk" : row.levelKey === "high" ? "good" : "info"}>{text(lang, row.levelTag, row.levelTagEn)}</Pill>
+          </div>
+          <span style={{ color: palette.muted, fontSize: 11.3, lineHeight: 1.5 }}>{text(lang, row.interpretationZh, row.interpretationEn)}</span>
+          <span style={{ color: palette.faint, fontSize: 10.8 }}>{row.sourceField} · {row.dataGrade} · contribution {fmt(row.contribution, 4)}</span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function FactorDeltaTableView({ rows, lang }) {
+  const items = asArray(rows)
+  if (!items.length) return <span style={{ color: palette.faint, fontSize: 12 }}>{text(lang, "暂无 #2/#3 对比。", "No #2/#3 comparison.")}</span>
+  return (
+    <div data-testid="factor-delta-table" data-row-count={items.length} style={cardStyle({ background: palette.bg, overflowX: "auto" })}>
+      {items.map(row => (
+        <div key={row.factorKey} style={{ alignItems: "center", display: "grid", gap: 8, gridTemplateColumns: "minmax(120px,1fr) repeat(5, minmax(46px, auto))" }}>
+          <strong style={{ color: row.isDominantGap ? palette.accent : palette.text, fontSize: 11.5 }}>{text(lang, row.labelZh, row.labelEn)}</strong>
+          <span style={{ color: palette.muted, fontSize: 10.8 }}>#1 {fmt(row.topValue, 2)}</span>
+          <span style={{ color: palette.muted, fontSize: 10.8 }}>#2 {fmt(row.secondValue, 2)}</span>
+          <span style={{ color: palette.muted, fontSize: 10.8 }}>#3 {fmt(row.thirdValue, 2)}</span>
+          <span style={{ color: row.deltaSecond >= 0 ? palette.positive : palette.risk, fontSize: 10.8, fontWeight: 900 }}>Δ2 {row.deltaSecond >= 0 ? "+" : ""}{fmt(row.deltaSecond, 2)}</span>
+          <span style={{ color: row.isDominantGap ? palette.accent : palette.faint, fontSize: 10.5 }}>{row.isDominantGap ? text(lang, "主差异", "dominant") : ""}</span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function FactorEvidenceList({ rows, lang }) {
+  const items = asArray(rows)
+  if (!items.length) return <span style={{ color: palette.faint, fontSize: 12 }}>{text(lang, "暂无证据映射。", "No evidence mapping.")}</span>
+  return (
+    <div data-testid="factor-evidence-list" data-row-count={items.length} style={{ display: "grid", gap: 7 }}>
+      {items.slice(0, 12).map(row => (
+        <div key={`${row.factorKey}-${row.evidenceId}`} style={cardStyle({ background: palette.surface, padding: 10 })}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            <Pill tone={row.factorKey === "route-level" ? "muted" : "info"}>{text(lang, row.factorLabelZh, row.factorLabelEn)}</Pill>
+            <Pill tone={row.sameCondition ? "good" : "risk"}>{row.sameCondition ? text(lang, "同条件", "same condition") : text(lang, "非同条件", "not same condition")}</Pill>
+            <Pill tone="muted">{row.directness}</Pill>
+          </div>
+          <strong style={{ color: palette.text, fontSize: 11.6 }}>{row.evidenceId}</strong>
+          <span style={{ color: palette.muted, fontSize: 11.2, lineHeight: 1.45 }}>{row.supports}</span>
+          <span style={{ color: palette.faint, fontSize: 10.8 }}>{row.citation} · {row.sourceUrl}</span>
+          <span style={{ color: palette.risk, fontSize: 10.8 }}>{text(lang, row.noteZh, row.noteEn)} · {row.limitation}</span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function RiskCounterfactualPanel({ risk, counterfactual, why, lang }) {
+  const counterRows = asArray(counterfactual)
+  return (
+    <div data-testid="risk-counterfactual-panel" style={{ display: "grid", gap: 8 }}>
+      {risk ? (
+        <div style={cardStyle({ background: palette.bg })}>
+          <strong style={{ color: palette.text, fontSize: 12 }}>{text(lang, "风险保留分解", "Risk retention decomposition")}</strong>
+          <span style={{ color: palette.muted, fontSize: 11.5 }}>Risk Retention {fmt(risk.riskRetention, 3)} · {fmt(risk.scoreBeforeRisk, 3)} → {fmt(risk.finalHGCPS, 3)}</span>
+          {asArray(risk.rows).slice(0, 5).map(row => (
+            <div key={`${row.riskType}-${row.reason}`} style={{ color: palette.muted, display: "grid", fontSize: 11.2, gap: 3, lineHeight: 1.45 }}>
+              <strong style={{ color: palette.risk }}>{row.riskType} · penalty {fmt(row.penalty, 3)}</strong>
+              <span>{row.reason}</span>
+              <span style={{ color: palette.faint }}>{text(lang, row.explanationZh, row.explanationEn)}</span>
+            </div>
+          ))}
+        </div>
+      ) : null}
+      {counterRows.length ? (
+        <div style={cardStyle({ background: palette.bg })}>
+          <strong style={{ color: palette.text, fontSize: 12 }}>{text(lang, "单因子反事实", "One-factor counterfactuals")}</strong>
+          {counterRows.map(row => (
+            <div key={row.factorKey} style={{ display: "grid", gap: 5 }}>
+              <span style={{ color: palette.text, fontSize: 11.4, fontWeight: 850 }}>{text(lang, row.labelZh, row.labelEn)} · current {fmt(row.currentValue, 2)}</span>
+              <div style={{ display: "grid", gap: 5, gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))" }}>
+                {asArray(row.scenarios).map(scenario => (
+                  <span key={`${row.factorKey}-${scenario.setValue}`} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, color: palette.muted, fontSize: 10.8, lineHeight: 1.35, padding: 7 }}>
+                    {text(lang, scenario.sentenceZh, scenario.sentenceEn)}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : null}
+      {why ? (
+        <div style={cardStyle({ background: palette.accentSoft })}>
+          <strong style={{ color: palette.accent, fontSize: 12 }}>{text(lang, "为什么不是其他候选", "Why not the other candidates")}</strong>
+          <span style={{ color: palette.text, fontSize: 11.5, lineHeight: 1.5 }}>{text(lang, why.whyWinnerLeadsZh, why.whyWinnerLeadsEn)}</span>
+          <span style={{ color: palette.risk, fontSize: 11.2, lineHeight: 1.45 }}>{text(lang, why.whyRunnerUpNotSelectedZh, why.whyRunnerUpNotSelectedEn)}</span>
+          <span style={{ color: palette.faint, fontSize: 10.8 }}>{why.limitation}</span>
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
+export function StepWhyPanel({ panel, step, enhanced, lang = "zh", embedded = false, onOpenMethodology, onOpenActivationCenter, onOpenAdvancedTab, onSelectComparison }) {
   const model = enhanced || {}
   const stepId = model.stepId || step?.id || panel?.stepId || "step-0"
   const badges = asArray(model.dataGradeBadges)
   const boundaries = asArray(model.boundaries).length ? model.boundaries : asArray(panel?.boundaries).map(item => ({ id: item, zh: item, en: item }))
   const why = model.whyNotOther
+  const tabs = [
+    { id: "conclusion", labelZh: "结论", labelEn: "Conclusion", show: true },
+    { id: "factors", labelZh: "逐因子", labelEn: "Per factor", show: asArray(model.perFactorInterpretation).length > 0 },
+    { id: "comparison", labelZh: "对比 #2/#3", labelEn: "Compare #2/#3", show: asArray(model.factorDeltaTable).length > 0 || Boolean(model.routeFactorComparison) },
+    { id: "evidence", labelZh: "证据 / 文献", labelEn: "Evidence / literature", show: asArray(model.factorEvidence).length > 0 || Boolean(model.provenance) || Boolean(model.pathwayEvidenceHeatmap) || Boolean(model.descriptorMappingExplanation) || Boolean(model.validationCoverageMatrix) },
+    { id: "risk", labelZh: "风险 / 反事实", labelEn: "Risk / counterfactual", show: Boolean(model.riskDecomposition) || asArray(model.counterfactual).length > 0 || Boolean(why) },
+  ].filter(tab => tab.show)
+  const [activeTab, setActiveTab] = useState("conclusion")
+  useEffect(() => {
+    if (!tabs.some(tab => tab.id === activeTab)) setActiveTab(tabs[0]?.id || "conclusion")
+  }, [activeTab, tabs])
+  const asideStyle = {
+    ...cardStyle({
+      alignSelf: "start",
+      background: palette.surfaceStrong,
+      maxHeight: embedded ? "none" : "calc(100vh - 104px)",
+      overflowX: "hidden",
+      overflowY: embedded ? "visible" : "auto",
+      paddingRight: embedded ? 12 : 4,
+      position: embedded ? "relative" : "sticky",
+      scrollbarColor: `${palette.borderStrong} ${palette.surface}`,
+      scrollbarWidth: "thin",
+      top: 88,
+    }),
+  }
   return (
-    <aside data-testid="organic-acid-step-why-panel" style={{ ...cardStyle({ alignSelf: "start", background: palette.surfaceStrong, position: "sticky", top: 88 }) }}>
+    <aside data-testid="organic-acid-step-why-panel" style={asideStyle}>
       <SectionTitle
         kicker="Step Why Panel"
         title={text(lang, model.titleZh || panel?.titleZh, model.titleEn || panel?.titleEn)}
@@ -500,57 +672,47 @@ export function StepWhyPanel({ panel, step, enhanced, lang = "zh", onOpenMethodo
 
       <WhyPanelMainChart stepId={stepId} step={step} enhanced={model} lang={lang} onSelectComparison={onSelectComparison} onOpenActivationCenter={onOpenActivationCenter} />
 
-      {stepId === "step-5" && model.routeFactorComparison ? (
-        <RouteFactorComparisonChart model={model.routeFactorComparison} lang={lang} />
-      ) : null}
+      <div role="tablist" aria-label={text(lang, "为什么面板分层", "Why panel sections")} style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+        {tabs.map(tab => (
+          <button key={tab.id} type="button" role="tab" aria-selected={activeTab === tab.id} onClick={() => setActiveTab(tab.id)} style={{ ...buttonStyle(activeTab === tab.id), minHeight: 30, padding: "6px 9px", textAlign: "center" }}>
+            {text(lang, tab.labelZh, tab.labelEn)}
+          </button>
+        ))}
+      </div>
 
-      {stepId === "step-2" && model.descriptorMappingExplanation ? (
-        <DescriptorMappingExplanationPanel model={model.descriptorMappingExplanation} summary={model.closureSummary} lang={lang} />
-      ) : null}
-
-      {stepId === "step-1" && model.pathwayEvidenceHeatmap ? (
-        <details style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, padding: "9px 11px" }}>
-          <summary style={{ color: palette.accent, cursor: "pointer", fontSize: 12, fontWeight: 850 }}>{text(lang, "路径证据热图", "Pathway evidence heatmap")}</summary>
-          <div style={{ marginTop: 9 }}>
-            <PathwayEvidenceHeatmap model={model.pathwayEvidenceHeatmap} lang={lang} />
+      <div role="tabpanel" data-testid="why-panel-tab-conclusion" style={{ display: activeTab === "conclusion" ? "grid" : "none", gap: 8 }}>
+        <div style={cardStyle({ background: palette.bg })}>
+          <strong style={{ color: palette.text, fontSize: 12 }}>{text(lang, "一句话结论", "One-line conclusion")}</strong>
+          <span style={{ color: palette.muted, fontSize: 11.8, lineHeight: 1.5 }}>{text(lang, model.conclusionZh, model.conclusionEn)}</span>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {boundaries.map(boundary => <Pill key={boundary.id || boundary.zh} tone="risk">{text(lang, boundary.zh, boundary.en)}</Pill>)}
           </div>
-        </details>
-      ) : null}
-
-      {model.provenance ? (
-        <ScoreProvenanceTrace provenance={model.provenance} scoreSourceTable={model.scoreSourceTable} lang={lang} />
-      ) : null}
-
-      {stepId === "step-5" && model.terminologyCrosswalk ? (
-        <TerminologyCrosswalkPanel model={model.terminologyCrosswalk} lang={lang} />
-      ) : null}
-
-      {why ? (
-        <details style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, padding: "9px 11px" }}>
-          <summary style={{ color: palette.accent, cursor: "pointer", fontSize: 12, fontWeight: 850 }}>{text(lang, "为什么不是其他候选", "Why not the other candidates")}</summary>
-          <div style={{ color: palette.muted, display: "grid", fontSize: 11.5, gap: 6, lineHeight: 1.5, marginTop: 8 }}>
-            <span>{text(lang, why.whyWinnerLeadsZh, why.whyWinnerLeadsEn)}</span>
-            <span style={{ color: palette.risk }}>{text(lang, why.whyRunnerUpNotSelectedZh, why.whyRunnerUpNotSelectedEn)}</span>
-            <span style={{ color: palette.faint }}>{why.limitation}</span>
-          </div>
-        </details>
-      ) : null}
-
-      <details style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, padding: "9px 11px" }}>
-        <summary style={{ color: palette.accent, cursor: "pointer", fontSize: 12, fontWeight: 850 }}>{text(lang, "原始字段与证据 / 风险", "Raw fields and evidence / risk")}</summary>
-        <div style={{ display: "grid", gap: 8, marginTop: 8 }}>
-          {[
-            [text(lang, "使用了哪些输入数据", "Inputs"), asArray(step?.input).join("; ") || asArray(panel?.inputs).join("; ")],
-            [text(lang, "使用了什么计算逻辑", "Logic"), step?.logic || panel?.logic],
-            [text(lang, "公式 / 规则", "Formula or rule"), step?.formula],
-            [text(lang, "得到了什么结果", "Result"), step?.result || panel?.result],
-            [text(lang, "当前结果有什么风险", "Risk"), step?.risk || panel?.risk],
-            [text(lang, "下一步如何使用", "Next"), step?.next || panel?.next],
-          ].map(([label, value]) => (
-            <FieldBlock key={label} label={label}>{value || text(lang, "待补充", "pending")}</FieldBlock>
-          ))}
         </div>
-      </details>
+        <CompactInfoGrid step={step} panel={panel} lang={lang} />
+      </div>
+
+      <div role="tabpanel" data-testid="why-panel-tab-factors" style={{ display: activeTab === "factors" ? "grid" : "none", gap: 8 }}>
+        <PerFactorInterpretationTable rows={model.perFactorInterpretation} lang={lang} />
+      </div>
+
+      <div role="tabpanel" data-testid="why-panel-tab-comparison" style={{ display: activeTab === "comparison" ? "grid" : "none", gap: 8 }}>
+        <FactorDeltaTableView rows={model.factorDeltaTable} lang={lang} />
+        {stepId === "step-5" && model.routeFactorComparison ? <RouteFactorComparisonChart model={model.routeFactorComparison} lang={lang} /> : null}
+        {stepId === "step-4" && model.comparisonProvenances ? <GuestScoreBreakdownChart models={model.comparisonProvenances} model={model.provenance} summary={model.whyNotOther} lang={lang} /> : null}
+        {stepId === "step-3" && model.provenance ? <HostScoreBreakdownChart model={model.provenance} lang={lang} /> : null}
+      </div>
+
+      <div role="tabpanel" data-testid="why-panel-tab-evidence" style={{ display: activeTab === "evidence" ? "grid" : "none", gap: 8 }}>
+        <FactorEvidenceList rows={model.factorEvidence} lang={lang} />
+        {stepId === "step-1" && model.pathwayEvidenceHeatmap ? <PathwayEvidenceHeatmap model={model.pathwayEvidenceHeatmap} lang={lang} /> : null}
+        {stepId === "step-2" && model.descriptorMappingExplanation ? <DescriptorMappingExplanationPanel model={model.descriptorMappingExplanation} summary={model.closureSummary} lang={lang} /> : null}
+        {model.provenance ? <ScoreProvenanceTrace provenance={model.provenance} scoreSourceTable={model.scoreSourceTable} lang={lang} /> : null}
+        {stepId === "step-5" && model.terminologyCrosswalk ? <TerminologyCrosswalkPanel model={model.terminologyCrosswalk} lang={lang} /> : null}
+      </div>
+
+      <div role="tabpanel" data-testid="why-panel-tab-risk" style={{ display: activeTab === "risk" ? "grid" : "none", gap: 8 }}>
+        <RiskCounterfactualPanel risk={model.riskDecomposition} counterfactual={model.counterfactual} why={why} lang={lang} />
+      </div>
 
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         <button type="button" onClick={() => onOpenMethodology?.(model.methodologyAnchor || step?.methodologyAnchor)} style={{ ...buttonStyle(false), color: palette.accent, textAlign: "center" }}>
@@ -609,30 +771,47 @@ export function OrganicAcidStepwiseExecutionChain({
         />
         <div style={{ display: "grid", gap: 12 }}>
           {chain.steps.map(step => (
-            <ExecutionStepCard
-              key={step.id}
-              step={step}
-              lang={lang}
-              selected={step.id === selectedStepId}
-              onSelectStep={onSelectStep}
-              onTrace={onTrace}
-              onOpenMethodology={onOpenMethodology}
-              onOpenActivationCenter={onOpenActivationCenter}
-              onOpenAdvancedTab={onOpenAdvancedTab}
-              onSelectComparison={setSelectedComparison}
-            />
+            <div key={step.id} style={{ display: "grid", gap: 10 }}>
+              <ExecutionStepCard
+                step={step}
+                lang={lang}
+                selected={step.id === selectedStepId}
+                onSelectStep={onSelectStep}
+                onTrace={onTrace}
+                onOpenMethodology={onOpenMethodology}
+                onOpenActivationCenter={onOpenActivationCenter}
+                onOpenAdvancedTab={onOpenAdvancedTab}
+                onSelectComparison={setSelectedComparison}
+              />
+              {isNarrow && step.id === selectedStep?.id ? (
+                <StepWhyPanel
+                  panel={whyPanel}
+                  step={selectedStep}
+                  enhanced={selectedStep?.whyPanelEnhanced}
+                  lang={lang}
+                  embedded
+                  onOpenMethodology={onOpenMethodology}
+                  onOpenActivationCenter={onOpenActivationCenter}
+                  onOpenAdvancedTab={onOpenAdvancedTab}
+                  onSelectComparison={setSelectedComparison}
+                />
+              ) : null}
+            </div>
           ))}
+          <FinalResultSummary model={chain.finalResultSummary} lang={lang} onOpenActivationCenter={onOpenActivationCenter} />
         </div>
-        <StepWhyPanel
-          panel={whyPanel}
-          step={selectedStep}
-          enhanced={selectedStep?.whyPanelEnhanced}
-          lang={lang}
-          onOpenMethodology={onOpenMethodology}
-          onOpenActivationCenter={onOpenActivationCenter}
-          onOpenAdvancedTab={onOpenAdvancedTab}
-          onSelectComparison={setSelectedComparison}
-        />
+        {!isNarrow ? (
+          <StepWhyPanel
+            panel={whyPanel}
+            step={selectedStep}
+            enhanced={selectedStep?.whyPanelEnhanced}
+            lang={lang}
+            onOpenMethodology={onOpenMethodology}
+            onOpenActivationCenter={onOpenActivationCenter}
+            onOpenAdvancedTab={onOpenAdvancedTab}
+            onSelectComparison={setSelectedComparison}
+          />
+        ) : null}
       </div>
     </section>
   )

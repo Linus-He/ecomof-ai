@@ -2,6 +2,11 @@
 import { ChemicalText } from "../../../shared"
 import { displayValue, formatScore, Panel, StatusPill, text } from "./FinalScreeningShared"
 
+/**
+ * @deprecated Legacy DMRS additive contribution view. The current Organic Acid
+ * host-guest HGCPS route waterfall is centralized in
+ * scoreProvenance/FactorCompressionWaterfall and used by the Step Why Panel.
+ */
 function labelFor(key, fallback, lang) {
   const labels = {
     co2ActivationPotential: text(lang, "CO2 活化", "CO2 activation"),

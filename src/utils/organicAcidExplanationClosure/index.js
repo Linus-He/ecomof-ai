@@ -1,5 +1,5 @@
 /**
- * Organic Acid Explanation Closure builders (V3.9.5.3).
+ * Organic Acid Explanation Closure builders (V3.9.5.4).
  *
  * Extends the V3.9.5.2 score-provenance explainer to Step 1 (pathway evidence),
  * Step 2 (descriptor mapping), and Step 6 (validation coverage), plus a
@@ -12,7 +12,7 @@
 import { buildOrganicAcidHostGuestWorkbench, safeNumber } from "../organicAcidHostGuest/index.js"
 import { deriveDataGrade } from "../organicAcidScoreProvenance/index.js"
 
-export const ORGANIC_ACID_EXPLANATION_CLOSURE_VERSION = "V3.9.5.3"
+export const ORGANIC_ACID_EXPLANATION_CLOSURE_VERSION = "V3.9.5.4"
 
 export const PATHWAY_BOUNDARY_ZH = "路径与描述符来自 seed / proxy / curated 证据，不等于完整机理证明。"
 export const PATHWAY_BOUNDARY_EN = "Pathways and descriptors come from seed / proxy / curated evidence, not a complete mechanistic proof."

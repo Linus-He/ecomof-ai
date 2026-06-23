@@ -59,7 +59,7 @@ describe("organic acid stepwise execution builders", () => {
     const activationWorkbench = activationFixture(workbench)
     const chain = buildStepwiseExecutionChain(workbench, source, { lang: "zh", activationWorkbench })
 
-    expect(chain.version).toBe("V3.9.5.2")
+    expect(chain.version).toBe("V3.9.5.4")
     expect(chain.steps.map(step => step.id)).toEqual(["step-0", "step-1", "step-2", "step-3", "step-4", "step-5", "step-6"])
     expect(chain.steps.map(step => step.nameZh)).toEqual([
       "筛选目标设定",
@@ -72,6 +72,8 @@ describe("organic acid stepwise execution builders", () => {
     ])
     expect(chain.selectedStepId).toBe("step-0")
     expect(chain.currentStepWhyPanel.titleZh).toBe("为什么是这个结果？")
+    expect(chain.finalResultSummary.finalHGCPS).toBe(workbench.complementarity.topRoute.finalHGCPS)
+    expect(chain.finalResultSummary.nextExperiment).toBeTruthy()
     expect(chain.dynamicChartModel.type).toBe("objective-input-output")
     expect(chain.miniMap.nodes.map(node => node.labelZh)).toEqual(["目标", "路径", "描述符", "主体", "客体", "路线", "验证"])
 

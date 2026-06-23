@@ -34,7 +34,7 @@ describe("V3.9 global summary builders", () => {
 
   it("buildVersionHistorySummary expands current, collapses recent, archives V3.5-and-earlier", () => {
     const summary = buildVersionHistorySummary({ versionEvolution })
-    expect(summary.currentVersion).toBe("V3.9.5.3")
+    expect(summary.currentVersion).toBe("V3.9.5.4")
     expect(summary.groups.expanded.map(v => v.version)).toContain("V3.9.5.1")
     // V3.6 < key < V3.9 collapse (V3.7 has no entry in this repo's history).
     expect(summary.groups.collapsed.map(v => v.version)).toEqual(expect.arrayContaining(["V3.8", "V3.6"]))
@@ -45,7 +45,7 @@ describe("V3.9 global summary builders", () => {
 
   it("buildCurrentReleaseSummary returns only the current entry", () => {
     const cr = buildCurrentReleaseSummary({ versionEvolution })
-    expect(cr.version).toBe("V3.9.5.3")
+    expect(cr.version).toBe("V3.9.5.4")
     expect(cr.summary).not.toMatch(/undefined|null|\[object Object\]/)
   })
 

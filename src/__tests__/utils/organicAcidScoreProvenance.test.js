@@ -9,9 +9,15 @@ import validationExperiments from "../../../public/data/organic_acid_host_guest/
 import { buildOrganicAcidHostGuestWorkbench } from "../../utils/organicAcidHostGuest"
 import {
   buildDynamicWhyNotOtherExplanation,
+  buildCounterfactual,
   buildFactorCompressionTrace,
+  buildFactorDeltaTable,
+  buildFactorEvidence,
+  buildFinalResultSummaryModel,
   buildGuestScoreProvenance,
   buildHostScoreProvenance,
+  buildPerFactorInterpretation,
+  buildRiskDecomposition,
   buildRouteFactorComparisonModel,
   buildRouteHgcpsScoreProvenance,
   buildScoreDataGradeBadges,
@@ -135,6 +141,73 @@ describe("organic acid score provenance builders", () => {
     noBadValues(model)
   })
 
+  it("builds per-factor interpretations and changes them when source factor data changes", () => {
+    const base = buildHostScoreProvenance(workbenchFromSource())
+    const alteredWorkbench = workbenchFromSource({
+      hostMofCandidates: hostMofCandidates.map((host, index) => index === 0 ? { ...host, poreEnvironmentScore: 0.4 } : host),
+    })
+    const altered = buildHostScoreProvenance(alteredWorkbench)
+    const baseRows = buildPerFactorInterpretation(base)
+    const alteredRows = buildPerFactorInterpretation(altered)
+
+    expect(baseRows).toHaveLength(base.rows.length)
+    expect(baseRows[0]).toEqual(expect.objectContaining({ factorKey: expect.any(String), levelTag: expect.any(String), interpretationZh: expect.any(String) }))
+    expect(alteredRows.find(row => row.factorKey === "poreEnvironmentScore").normalizedValue).not.toBe(baseRows.find(row => row.factorKey === "poreEnvironmentScore").normalizedValue)
+    noBadValues(baseRows)
+  })
+
+  it("builds factor delta rows for #1 / #2 / #3 and marks the dominant gap from data", () => {
+    const workbench = workbenchFromSource()
+    const routes = workbench.complementarity.routeScores
+    const table = buildFactorDeltaTable(
+      buildRouteHgcpsScoreProvenance(workbench, { route: routes[0] }),
+      buildRouteHgcpsScoreProvenance(workbench, { route: routes[1] }),
+      buildRouteHgcpsScoreProvenance(workbench, { route: routes[2] }),
+    )
+    const alteredWorkbench = workbenchFromSource({
+      hostGuestRoutes: hostGuestRoutes.map((route, index) => index === 1 ? { ...route, hostGuestComplementarityScore: 0.45 } : route),
+    })
+    const alteredRoutes = alteredWorkbench.complementarity.routeScores
+    const altered = buildFactorDeltaTable(
+      buildRouteHgcpsScoreProvenance(alteredWorkbench, { route: alteredRoutes[0] }),
+      buildRouteHgcpsScoreProvenance(alteredWorkbench, { route: alteredRoutes[1] }),
+      buildRouteHgcpsScoreProvenance(alteredWorkbench, { route: alteredRoutes[2] }),
+    )
+
+    expect(table).toHaveLength(6)
+    expect(table.filter(row => row.isDominantGap)).toHaveLength(1)
+    expect(altered.find(row => row.factorKey === "complementarity").deltaSecond).not.toBe(table.find(row => row.factorKey === "complementarity").deltaSecond)
+  })
+
+  it("maps evidence records to factors without inventing citation or URLs", () => {
+    const workbench = workbenchFromSource()
+    const provenance = buildRouteHgcpsScoreProvenance(workbench)
+    const evidence = buildFactorEvidence(provenance, evidenceRiskRecords, { routeId: provenance.routeId })
+
+    expect(evidence.length).toBeGreaterThan(0)
+    expect(evidence.some(row => row.factorKey !== "route-level")).toBe(true)
+    expect(evidence[0]).toEqual(expect.objectContaining({ citation: expect.any(String), sourceUrl: expect.any(String), directness: expect.any(String), sameCondition: expect.any(Boolean) }))
+
+    const pending = buildFactorEvidence(provenance, [], { routeId: provenance.routeId })
+    expect(pending[0].citation).toBe("pending")
+    expect(pending[0].limitation).toMatch(/pending/)
+  })
+
+  it("builds risk decomposition and one-factor counterfactual scenarios from white-box route factors", () => {
+    const workbench = workbenchFromSource()
+    const route = workbench.complementarity.topRoute
+    const risk = buildRiskDecomposition(route, evidenceRiskRecords)
+    const counterfactual = buildCounterfactual(route, workbench.complementarity.routeScores)
+
+    expect(risk.riskRetention).toBe(route.scoreBreakdown.riskRetentionFactor)
+    expect(risk.rows[0].explanationZh).toMatch(/Risk Retention/)
+    expect(counterfactual).toHaveLength(6)
+    const lowered = counterfactual[0].scenarios.find(row => row.setValue === 0.5)
+    expect(lowered.newHGCPS).toBeLessThan(route.finalHGCPS)
+    expect(lowered.newRank).toBeGreaterThanOrEqual(route.ranking)
+    noBadValues({ risk, counterfactual })
+  })
+
   it("derives dynamic why-not-other copy from real top vs runner-up factor differences", () => {
     const workbench = workbenchFromSource()
     const routes = workbench.complementarity.routeScores
@@ -206,15 +279,44 @@ describe("organic acid score provenance builders", () => {
   it("assembles the enhanced step why panel model for step 5 with provenance, trace, comparison, and why-not", () => {
     const workbench = workbenchFromSource()
     const step5 = { id: "step-5", result: "Al-MOF + Mo 路线评分结论", dynamicChartModel: { type: "route-hgcps-breakdown" } }
-    const model = buildStepWhyPanelEnhancedModel(step5, workbench, { lang: "zh" })
+    const model = buildStepWhyPanelEnhancedModel(step5, workbench, { lang: "zh", sourceData: source() })
     expect(model.titleZh).toBe("为什么是这个结果？")
     expect(model.scoreQuestionZh).toBe("这个分数怎么算出来的？")
     expect(model.provenance.scoreName).toBe("routeHGCPS")
     expect(model.factorCompressionTrace.steps).toHaveLength(6)
     expect(model.routeFactorComparison.routes.length).toBeGreaterThanOrEqual(3)
+    expect(model.perFactorInterpretation).toHaveLength(6)
+    expect(model.factorDeltaTable).toHaveLength(6)
+    expect(model.factorEvidence.length).toBeGreaterThan(0)
+    expect(model.counterfactual).toHaveLength(6)
     expect(model.whyNotOther.whyWinnerLeadsZh).toBeTruthy()
+    expect(model.conclusionZh).toContain(String(model.provenance.rank))
     expect(model.boundaries.some(row => row.zh.includes("实验验证优先级"))).toBe(true)
     noBadValues(model)
+  })
+
+  it("updates the dynamic step-5 conclusion and final summary when route scores change", () => {
+    const baseWorkbench = workbenchFromSource()
+    const baseStep = buildStepWhyPanelEnhancedModel({ id: "step-5", result: "baseline", dynamicChartModel: { type: "route-hgcps-breakdown" } }, baseWorkbench, { lang: "zh", sourceData: source() })
+    const alteredRoutes = hostGuestRoutes.map((route, index) => index === 1
+      ? {
+        ...route,
+        hostStabilityScore: 0.99,
+        hostPathwaySupportScore: 0.99,
+        guestActivityCompensationScore: 0.99,
+        hostGuestComplementarityScore: 0.99,
+        evidenceConfidenceScore: 0.99,
+        riskPenalty: 0.99,
+      }
+      : route)
+    const alteredWorkbench = workbenchFromSource({ hostGuestRoutes: alteredRoutes })
+    const alteredStep = buildStepWhyPanelEnhancedModel({ id: "step-5", result: "altered", dynamicChartModel: { type: "route-hgcps-breakdown" } }, alteredWorkbench, { lang: "zh", sourceData: source({ hostGuestRoutes: alteredRoutes }) })
+    const summary = buildFinalResultSummaryModel(alteredWorkbench, { sourceData: source({ hostGuestRoutes: alteredRoutes }) })
+
+    expect(alteredStep.conclusionZh).not.toBe(baseStep.conclusionZh)
+    expect(alteredStep.conclusionZh).toContain(alteredWorkbench.complementarity.topRoute.hostMof)
+    expect(summary.routeId).toBe(alteredWorkbench.complementarity.topRoute.routeId)
+    expect(summary.finalHGCPS).toBe(alteredWorkbench.complementarity.topRoute.finalHGCPS)
   })
 
   it("provides a terminology alignment model that keeps HGCPS primary", () => {

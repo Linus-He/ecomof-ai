@@ -56,7 +56,7 @@ function renderWorkbench() {
 }
 
 describe("OrganicAcidHostGuestWorkbench", () => {
-  it("renders the V3.9.5.2 stepwise execution chain from Step 0 before any route-output emphasis", () => {
+  it("renders the V3.9.5.4 stepwise execution chain from Step 0 before any route-output emphasis", () => {
     renderWorkbench()
     const text = bodyText()
 
@@ -66,7 +66,7 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     expect(screen.getByTestId("organic-acid-step-mini-map")).toBeInTheDocument()
     expect(screen.getByTestId("organic-acid-step-why-panel")).toBeInTheDocument()
 
-    expect(text).toMatch(/EcoMOF-AI V3\.9\.5\.2/)
+    expect(text).toMatch(/EcoMOF-AI V3\.9\.5\.4/)
     expect(text).toMatch(/筛选目标设定/)
     expect(text).toMatch(/Screening Objective \/ 筛选目标/)
     expect(text).toMatch(/有机酸分步算法执行链/)
@@ -85,7 +85,7 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     expect(text).toMatch(/非机器学习预测/)
     expect(text).toMatch(/实验规划可启用/)
     expect(text).toMatch(/尚未完成性能验证/)
-    expect(text.indexOf("筛选目标设定")).toBeLessThan(text.indexOf("Al-MOF + Mo 是当前最高优先级验证路线"))
+    expect(text.indexOf("筛选目标设定")).toBeLessThan(text.indexOf("最终结果总结"))
     expect(text).not.toMatch(/Current algorithm recommendation:/)
     expect(text).not.toMatch(/Cat Playground/)
     expect(text).not.toMatch(/undefined|null|NaN/)
@@ -126,9 +126,9 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     expect(guestStepButton).toBeTruthy()
     fireEvent.click(guestStepButton)
 
-    // Step 4 main chart is the guest score breakdown explainer with a score source table.
+    // Step 4 main chart is the guest dumbbell explainer with a score source table in the evidence tab.
     const whyPanel = screen.getByTestId("organic-acid-step-why-panel")
-    expect(within(whyPanel).getByTestId("guest-score-breakdown-chart")).toBeInTheDocument()
+    expect(within(whyPanel).getByTestId("guest-dumbbell-chart")).toBeInTheDocument()
     expect(within(whyPanel).getByTestId("score-source-table")).toBeInTheDocument()
     expect(whyPanel.textContent).toMatch(/这个分数怎么算出来的？/)
     expect(whyPanel.textContent).toMatch(/为什么不是其他候选/)
@@ -137,12 +137,25 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     const routeStepButton = within(navigator).getAllByRole("button").find(button => button.textContent?.includes("Step 5"))
     fireEvent.click(routeStepButton)
     const routeWhyPanel = screen.getByTestId("organic-acid-step-why-panel")
+    for (const label of ["结论", "逐因子", "对比 #2/#3", "证据 / 文献", "风险 / 反事实"]) {
+      expect(within(routeWhyPanel).getByRole("tab", { name: label })).toBeInTheDocument()
+    }
+    expect(within(routeWhyPanel).getByRole("tab", { name: "结论" })).toHaveAttribute("aria-selected", "true")
+    expect(within(routeWhyPanel).getByTestId("hgcps-factor-rose")).toHaveAttribute("data-row-count", "6")
     expect(within(routeWhyPanel).getByTestId("factor-compression-waterfall")).toBeInTheDocument()
     expect(within(routeWhyPanel).getByTestId("route-factor-comparison-chart")).toBeInTheDocument()
     expect(within(routeWhyPanel).getByTestId("score-source-table")).toBeInTheDocument()
     // Step 5 surfaces the HGCPS / OACS / DMRS terminology crosswalk.
     expect(within(routeWhyPanel).getByTestId("terminology-crosswalk")).toBeInTheDocument()
     expect(routeWhyPanel.textContent).toMatch(/HGCPS \/ OACS \/ DMRS/)
+  })
+
+  it("inlines the Step Why Panel directly under the selected step on narrow screens", () => {
+    render(<OrganicAcidHostGuestWorkbench lang="zh" isNarrow initialData={sourceFixture()} workbench={workbenchFixture()} activationWorkbench={activationFixture()} />)
+    const panels = screen.getAllByTestId("organic-acid-step-why-panel")
+    expect(panels).toHaveLength(1)
+    const selectedCard = screen.getByTestId("organic-acid-execution-step-0")
+    expect(selectedCard.nextElementSibling).toBe(panels[0])
   })
 
   function gotoStep(label) {
@@ -185,7 +198,8 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     expect(text).toMatch(/W 是 oxo-metal backup/)
     expect(text).toMatch(/Al-MOF \+ Mo 在 route competition 中排第一/)
     expect(text).toMatch(/Al-MOF \+ none \/ pristine 是 host-only control/)
-    expect(text).toMatch(/HGCPS = Host Stability Factor/)
+    expect(text).toMatch(/最终结果总结/)
+    expect(text).toMatch(/HGCPS 六因子玫瑰/)
 
     fireEvent.click(screen.getAllByRole("button", { name: /打开高级分析/ })[0])
     expect(document.getElementById("organic-acid-advanced-robustness-evidence")?.open).toBe(true)
