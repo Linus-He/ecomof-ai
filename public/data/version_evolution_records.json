@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.9.5.4",
+  "currentVersion": "V3.9.5.5",
   "generatedAt": "2026-06-23",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
-    "currentVersion": "V3.9.5.4",
+    "currentVersion": "V3.9.5.5",
     "databaseSize": 3020,
     "verifiedMetadataCount": 2480,
     "sourceConfirmedCount": 2480,
@@ -18,18 +18,18 @@
     "notFinalRecommendationStatus": "Not Final Recommendation",
     "sources": {
       "currentVersion": {
-        "value": "V3.9.5.4",
+        "value": "V3.9.5.5",
         "sourceDatabase": "EcoMOF-AI version_evolution_records.json",
         "sourceRecordId": "overview.currentVersion",
         "sourceUrl": "public/data/version_evolution_records.json",
         "citation": "Internal project evolution record.",
         "license": "Project repository license context.",
-        "retrievedAt": "2026-06-22",
+        "retrievedAt": "2026-06-23",
         "curationStatus": "confirmed",
         "confidence": 1,
         "databaseVersion": "version_evolution_records.json@V3.9.5.1",
-        "generatingScript": "manual V3.9.5.1 organic acid stepwise execution UX record",
-        "notes": "Version label for the V3.9.5.1 Organic Acid Stepwise Algorithm Execution Chain UX fix."
+        "generatingScript": "manual V3.9.5.5 organic acid interactive explanation record",
+        "notes": "Version label for the V3.9.5.5 Organic Acid interactive Why Panel, Run control, and final-result comparison release."
       },
       "databaseSize": {
         "value": 3020,
@@ -758,9 +758,54 @@
         "UI",
         "Testing"
       ]
+    },
+    {
+      "version": "V3.9.5.5",
+      "date": "2026-06-23",
+      "commit": "pending-current",
+      "summary": "Organic Acid Interactive Why Panel, Run Control & Final Comparison Figures: fixed the guest dumbbell clipping bug, upgraded factor rose charts with academic rings and clickable factor details, added Run / Stop progression through Step 0-Step 6-Final Result, expanded scored-step conclusions into structured segments, and added final-result comparison figures with derived captions.",
+      "scientificImpact": "The selected route remains a highest-priority experimental-validation route / research hypothesis. The release improves explanation readability and comparison evidence without turning route-priority scores into catalytic-performance proof.",
+      "databaseImpact": "No database expansion and no new experimental result. Reuses existing host/guest/route, evidence-risk, validation, and activation data through score-provenance builders, including organic_acid_experimental_activation planning sources.",
+      "algorithmImpact": "Added buildStructuredConclusion and expanded buildFinalResultSummaryModel with routeComparisonModel, factorOverlayModel, validationDonutModel, chartCaptions, interpretationParagraphs, per-factor details, and evidence mapping. No ML training or inference was introduced.",
+      "validationImpact": "Preserves seed / proxy / curated / inferred data-grade labels, planning-ready status, and not-performance-validated boundary while making factor details and final comparison figures explicit.",
+      "uiImpact": "Guest dumbbell tracks are fluid in narrow panels; rose charts include rings, spokes, labels, keyboard/click details, and Why Panel factor-tab synchronization; Step Navigator includes Final Result and Run / Stop; Final Result Summary gains Top-3 HGCPS comparison, factor overlay, validation donut, captions, and interpretation paragraphs.",
+      "knownLimitations": "All scores remain route-priority scores. Factor details depend on current provenance/evidence granularity. Same-condition performance validation and formal ML labels remain pending.",
+      "breakingChanges": "None.",
+      "nextVersionGoal": "执行最小同条件实验矩阵 / use the minimum validation matrix to collect same-condition evidence and feed results back into evidence confidence and risk-retention updates.",
+      "categories": [
+        "Organic Acid",
+        "Interactive Explanation",
+        "Score Provenance",
+        "UI",
+        "Testing"
+      ]
     }
   ],
   "releaseNotes": [
+    {
+      "version": "V3.9.5.5",
+      "date": "2026-06-23",
+      "module": "Organic Acid",
+      "category": "UI",
+      "title": "Run Control, Final Result Step, and Responsive Guest Dumbbell",
+      "body": "Added a Run / Stop control that advances through Step 0-Step 6-Final Result, exposed Final Result in the Step Navigator, and rebuilt the guest dumbbell chart so top-3 guest points remain visible in narrow panels."
+    },
+    {
+      "version": "V3.9.5.5",
+      "date": "2026-06-23",
+      "module": "Organic Acid",
+      "category": "Algorithm",
+      "title": "Structured Conclusions and Final Comparison Models",
+      "body": "Added structured scored-step conclusions and final-result comparison models for Top-3 HGCPS, factor overlay, validation coverage, figure captions, and derived interpretation paragraphs without introducing ML training or inference."
+    },
+    {
+      "version": "V3.9.5.5",
+      "date": "2026-06-23",
+      "module": "Organic Acid",
+      "category": "Visualization",
+      "title": "Interactive Academic Factor Rose Charts",
+      "body": "Upgraded HGCPS and host factor rose charts with rings, spokes, bilingual labels, overlays, click/keyboard factor details, and Step Why Panel per-factor synchronization."
+    },
     {
       "version": "V3.9.5.4",
       "date": "2026-06-23",

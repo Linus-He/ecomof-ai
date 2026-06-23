@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06-23",
-  "currentVersion": "V3.9.5.4",
-  "completedRange": "V1.0-V3.9.5.4",
+  "currentVersion": "V3.9.5.5",
+  "completedRange": "V1.0-V3.9.5.5",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -3396,7 +3396,7 @@
       "title": "Organic Acid Tabbed Why Panel, Paper-Style Charts & Final Result Summary",
       "titleZh": "有机酸 Tab 化 Why Panel、论文级图表与最终结果总结",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Detailed explanation UX",
       "themeZh": "详细解释体验",
       "summary": "Upgraded the Organic Acid Step Why Panel into a tabbed, independently scrollable evidence/provenance surface. Added per-factor interpretation, factor delta tables, factor evidence mapping, risk decomposition, white-box counterfactual scenarios, paper-style step charts, mobile inline Why Panel placement, and a final result summary after Step 6.",
@@ -3468,6 +3468,86 @@
         ],
         "adaptationBoundary": "Explanation and visualization only; no final catalyst-performance proof and no formal machine-learning prediction.",
         "adaptationBoundaryZh": "仅用于解释与可视化；不提供最终催化性能证明，也不是正式机器学习预测。"
+      },
+      "relatedSection": "project-evolution-organic-acid-algorithm-methodology"
+    },
+    {
+      "version": "V3.9.5.5",
+      "title": "Organic Acid Interactive Why Panel, Run Control & Final Comparison Figures",
+      "titleZh": "有机酸交互式 Why Panel、运行控件与最终对比图",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Interactive explanation and final-result comparison",
+      "themeZh": "交互式解释与最终结果对比",
+      "summary": "Fixed the guest dumbbell chart clipping bug, upgraded HGCPS and host rose charts with academic rings, spokes, labels, and clickable factor detail cards, added a Run control that advances Step 0 through Step 6 into Final Result, expanded scored-step conclusions into four structured segments, and added paper-style final comparison figures.",
+      "summaryZh": "修复客体哑铃图数据点被裁切问题；将 HGCPS 与主体玫瑰图升级为带同心刻度环、辐条、因子标签与可点击因子详情卡的学术化图表；新增运行控件，可自动推进 Step 0 到 Step 6 并进入最终结果；将评分步骤结论扩展为四段结构化说明；在最终结果区新增论文式对比图。",
+      "keyUpdates": [
+        "Guest dumbbell chart now uses a narrow fluid SVG layout with each factor label above a full-width 0-1 track so top-3 guest points, connecting lines, and value chips remain visible in narrow panels.",
+        "HGCPS and host factor rose charts now include 0.2-1.0 rings, spokes, bilingual factor labels, overlay support, clickable/keyboard factor selection, and factor detail cards driven by per-factor interpretation and evidence rows.",
+        "Step Navigator now includes Final Result and a Run / Stop control that advances Step 0 -> Step 6 -> Final Result with a fixed pause and cleanup-safe timer handling.",
+        "Step 3/4/5 conclusions now render structured Conclusion / Basis / Key factor / Limitation segments derived from score provenance, contribution sorting, dominant factor gaps, risk, and boundary statements.",
+        "Final Result Summary now adds Top-3 HGCPS comparison, top-vs-runner-up factor overlay, validation donut, captions, and three derived interpretation paragraphs."
+      ],
+      "keyUpdatesZh": [
+        "客体哑铃图改为窄栏友好的流式 SVG：每个因子标签在轨道上方，0-1 轨道占满可用宽度，top-3 客体圆点、连线和值标签在右栏/移动端均完整可见。",
+        "HGCPS 与主体因子玫瑰图新增 0.2-1.0 同心刻度环、辐条、双语因子名、对照轮廓、鼠标/键盘可选因子，以及由逐因子解释和证据行驱动的因子详情卡。",
+        "Step Navigator 新增最终结果项，并加入运行 / 停止控件，可按固定停顿自动推进 Step 0 -> Step 6 -> 最终结果，并清理定时器。",
+        "Step 3/4/5 结论改为结论 / 依据 / 关键因子 / 局限四段结构化说明，内容来自 score provenance、贡献排序、主导差异因子、风险与边界声明。",
+        "最终结果总结新增 Top-3 HGCPS 对比、top-vs-runner-up 因子叠加、验证覆盖环图、图注和三段派生解读。"
+      ],
+      "algorithmChanges": [
+        "Added buildStructuredConclusion and expanded buildFinalResultSummaryModel with routeComparisonModel, factorOverlayModel, validationDonutModel, chartCaptions, interpretationParagraphs, per-factor details, and factor evidence.",
+        "Run progression remains UI state only and does not invoke ML training, inference, or hidden scoring changes.",
+        "All new conclusions and captions are derived from existing workbench, provenance, factor delta, risk, and validation models."
+      ],
+      "algorithmChangesZh": [
+        "新增 buildStructuredConclusion，并扩展 buildFinalResultSummaryModel，输出路线对比模型、因子叠加模型、验证环图模型、图注、结构化解读段落、逐因子详情与因子证据。",
+        "运行推进仅是 UI 状态，不触发机器学习训练、推理或隐藏评分变更。",
+        "所有新增结论和图注均由既有 workbench、provenance、factor delta、risk 与 validation 模型派生。"
+      ],
+      "uiChanges": [
+        "Navigator exposes Final Result as a selectable pseudo-step and stops the run sequence there.",
+        "Rose chart factor selection synchronizes the Step Why Panel to the Per factor tab and highlights the selected factor row.",
+        "Final result comparison section uses figure-first presentation with compact caption-style interpretation."
+      ],
+      "uiChangesZh": [
+        "Navigator 将最终结果作为可选择的伪 step，并在运行序列中停在该项。",
+        "玫瑰图因子选择会同步右侧 Step Why Panel 到逐因子 Tab，并高亮对应因子行。",
+        "最终结果对比区使用图为主、图注式解读的展示方式。"
+      ],
+      "methodologyChanges": [
+        "Preserves HGCPS as a white-box multiplicative route-priority score and keeps all boundaries as planning-only, not performance proof.",
+        "Maintains seed / proxy / curated / inferred data-grade visibility and evidence directness labels in factor details.",
+        "No machine learning, model training, or model inference is introduced."
+      ],
+      "methodologyChangesZh": [
+        "保留 HGCPS 作为白盒乘法路线优先级评分，所有边界仍是实验规划而非性能证明。",
+        "在因子详情中继续保留 seed / proxy / curated / inferred 数据等级与证据 directness 标记。",
+        "未引入机器学习、模型训练或模型推理。"
+      ],
+      "evidenceBoundary": "V3.9.5.5 is an interaction, explanation, and visualization refinement. It does not add experimental performance results, does not train or run an ML model, and does not claim Al-MOF + Mo is the final best catalyst.",
+      "evidenceBoundaryZh": "V3.9.5.5 是交互、解释与可视化精修；不新增实验性能结果，不训练或运行机器学习模型，也不声明 Al-MOF + Mo 是最终最优催化剂。",
+      "limitations": [
+        "Final comparison figures remain derived from seed / proxy / curated route-priority scores.",
+        "Factor details depend on the current granularity of provenance rows and evidence linkedDescriptor / linkedStepId records.",
+        "Same-condition validation and formal ML labels remain pending."
+      ],
+      "limitationsZh": [
+        "最终对比图仍由 seed / proxy / curated 路线优先级分数派生。",
+        "因子详情依赖当前 provenance 行与 evidence linkedDescriptor / linkedStepId 的粒度。",
+        "同条件验证与正式机器学习标签仍待完成。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "organic-acid-host-guest",
+          "step-run-control",
+          "interactive-factor-rose",
+          "guest-dumbbell",
+          "structured-conclusion",
+          "final-result-comparison"
+        ],
+        "adaptationBoundary": "Interactive explanation and visualization only; no final catalyst-performance proof and no formal machine-learning prediction.",
+        "adaptationBoundaryZh": "仅用于交互式解释与可视化；不提供最终催化性能证明，也不是正式机器学习预测。"
       },
       "relatedSection": "project-evolution-organic-acid-algorithm-methodology"
     }

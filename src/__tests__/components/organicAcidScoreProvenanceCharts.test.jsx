@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { describe, expect, it } from "vitest"
-import { render, screen, within } from "@testing-library/react"
+import { fireEvent, render, screen, within } from "@testing-library/react"
 import pathwaySteps from "../../../public/data/organic_acid_host_guest/pathway_steps.json"
 import pathwayDescriptorMap from "../../../public/data/organic_acid_host_guest/pathway_descriptor_map.json"
 import hostMofCandidates from "../../../public/data/organic_acid_host_guest/host_mof_candidates.json"
@@ -11,8 +11,10 @@ import validationExperiments from "../../../public/data/organic_acid_host_guest/
 import { buildOrganicAcidHostGuestWorkbench } from "../../utils/organicAcidHostGuest"
 import {
   buildFactorCompressionTrace,
+  buildFactorEvidence,
   buildGuestScoreProvenance,
   buildHostScoreProvenance,
+  buildPerFactorInterpretation,
   buildRouteFactorComparisonModel,
   buildRouteHgcpsScoreProvenance,
   buildScoreSourceTableModel,
@@ -59,7 +61,7 @@ describe("organic acid score provenance charts", () => {
     render(<RouteFactorComparisonChart model={buildRouteFactorComparisonModel(workbench)} lang="zh" />)
     const chart = screen.getByTestId("route-factor-comparison-chart")
     expect(Number(chart.getAttribute("data-route-count"))).toBeGreaterThanOrEqual(3)
-    expect(chart.textContent).toMatch(/当前 #1 相比 #2 主要优势来自/)
+    expect(chart.textContent).toMatch(/当前 top route 相比 runner-up 主要优势来自/)
     expect(chart.textContent).toMatch(/路线因子对比图/)
   })
 
@@ -95,11 +97,12 @@ describe("organic acid score provenance charts", () => {
     const { rerender } = render(<HgcpsFactorRose model={routeModel} lang="zh" />)
     const routeRose = screen.getByTestId("hgcps-factor-rose")
     expect(routeRose).toHaveAttribute("data-row-count", "6")
-    expect(routeRose.querySelectorAll('[data-testid="factor-rose-wedge"]')).toHaveLength(6)
-    expect(routeRose.textContent).toContain("0.416")
+    expect(routeRose.querySelectorAll('[data-testid="factor-rose-node"]')).toHaveLength(6)
+    expect(routeRose.querySelector('[data-testid="factor-rose-polygon"]')).toBeInTheDocument()
+    expect(routeRose.textContent).toContain(routeModel.finalValue.toFixed(3))
 
     rerender(<HgcpsFactorRose model={buildRouteHgcpsScoreProvenance(alteredWorkbench)} lang="zh" />)
-    expect(screen.getByTestId("hgcps-factor-rose").textContent).not.toContain("0.416")
+    expect(screen.getByTestId("hgcps-factor-rose").textContent).not.toContain(routeModel.finalValue.toFixed(3))
 
     rerender(<HostFactorRose model={hostModel} comparisonModels={[hostModel]} lang="zh" />)
     expect(screen.getByTestId("host-factor-rose")).toHaveAttribute("data-row-count", "5")
@@ -118,6 +121,41 @@ describe("organic acid score provenance charts", () => {
     rerender(<GuestDumbbellChart models={models.slice(0, 2)} lang="zh" />)
     expect(screen.getByTestId("guest-dumbbell-chart")).toHaveAttribute("data-series-count", "2")
     expect(screen.getByTestId("guest-dumbbell-chart").textContent).toMatch(/前 1 个竞争客体/)
+  })
+
+  it("keeps guest dumbbell points inside a narrow fluid viewBox and moves them when guest data changes", () => {
+    const models = workbench.guestSelection.rankedGuestMetals.slice(0, 3).map(guest => buildGuestScoreProvenance(workbench, { guest }))
+    const alteredWorkbench = buildOrganicAcidHostGuestWorkbench({
+      pathwaySteps,
+      pathwayDescriptorMap,
+      hostMofCandidates,
+      guestMetalCandidates: guestMetalCandidates.map((guest, index) => index === 0 ? { ...guest, co2ActivationScore: 0.52 } : guest),
+      hostGuestRoutes,
+      evidenceRiskRecords,
+      validationExperiments,
+    })
+    const { rerender } = render(<div style={{ width: 340 }}><GuestDumbbellChart models={models} lang="zh" /></div>)
+    const baselineCx = Array.from(screen.getAllByTestId("guest-dumbbell-point")).map(node => Number(node.getAttribute("data-cx")))
+    expect(baselineCx.length).toBe(21)
+    expect(Math.max(...baselineCx)).toBeLessThanOrEqual(292)
+    expect(Math.min(...baselineCx)).toBeGreaterThanOrEqual(28)
+
+    const alteredModels = alteredWorkbench.guestSelection.rankedGuestMetals.slice(0, 3).map(guest => buildGuestScoreProvenance(alteredWorkbench, { guest }))
+    rerender(<div style={{ width: 340 }}><GuestDumbbellChart models={alteredModels} lang="zh" /></div>)
+    const alteredCx = Array.from(screen.getAllByTestId("guest-dumbbell-point")).map(node => Number(node.getAttribute("data-cx")))
+    expect(alteredCx).not.toEqual(baselineCx)
+  })
+
+  it("opens rose factor detail from per-factor interpretation and evidence", () => {
+    const routeModel = buildRouteHgcpsScoreProvenance(workbench)
+    const details = buildPerFactorInterpretation(routeModel)
+    const evidence = buildFactorEvidence(routeModel, evidenceRiskRecords, { routeId: routeModel.routeId })
+    render(<HgcpsFactorRose model={routeModel} factorDetails={details} factorEvidence={evidence} lang="zh" />)
+
+    const target = screen.getAllByTestId("factor-rose-node").find(node => node.getAttribute("data-factor-key") === details[0].factorKey)
+    expect(target).toBeTruthy()
+    fireEvent.click(target)
+    expect(screen.getByTestId("factor-rose-detail-card").textContent).toContain(details[0].interpretationZh)
   })
 
   it("renders pathway flow and validation readiness donut with data-driven row counts", () => {
@@ -142,6 +180,9 @@ describe("organic acid score provenance charts", () => {
     expect(summary.textContent).toContain(String(model.nextExperiment))
     expect(summary.textContent).toContain(model.finalHGCPS.toFixed(3))
     expect(summary.textContent).toMatch(/最高优先级实验验证路线/)
+    expect(within(summary).getByTestId("final-paper-comparison-section")).toBeInTheDocument()
+    expect(within(summary).getByTestId("final-route-comparison-chart")).toHaveAttribute("data-row-count", String(model.routeComparisonModel.rows.length))
+    expect(summary.textContent).toMatch(/论文级对比与解读/)
   })
 
   it("renders a collapsible score source table that can expand", () => {

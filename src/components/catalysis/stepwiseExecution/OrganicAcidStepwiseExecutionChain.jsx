@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { NumericText, organicAcidPalette as palette, ORGANIC_ACID_FONT, SCIENTIFIC_TOKEN_FONT } from "../FormulaInline"
 import {
   DescriptorMappingExplanationPanel,
@@ -327,18 +327,18 @@ export function StepMiniMap({ miniMap, lang = "zh", onSelectStep }) {
   )
 }
 
-export function StepNavigator({ navigator, miniMap, lang = "zh", onSelectStep, onTrace }) {
+export function StepNavigator({ navigator, miniMap, lang = "zh", onSelectStep, onRunToggle, isRunning = false }) {
   return (
     <aside data-testid="organic-acid-step-navigator" style={{ display: "grid", gap: 12, alignSelf: "start", maxHeight: "calc(100vh - 104px)", overflowX: "hidden", overflowY: "auto", paddingRight: 4, position: "sticky", scrollbarColor: `${palette.borderStrong} ${palette.surface}`, scrollbarWidth: "thin", top: 88 }}>
       <section style={cardStyle({ background: palette.bg })}>
         <SectionTitle kicker="Step Navigator" title="Step Navigator" note={text(lang, "点击 Step 同步右侧解释区。", "Click a step to sync the explanation panel.")} />
-        <button type="button" onClick={onTrace} style={{ ...buttonStyle(false), color: palette.accent, textAlign: "center" }}>
-          {text(lang, navigator.startTraceLabelZh, navigator.startTraceLabelEn)}
+        <button type="button" data-testid="organic-acid-run-control" aria-pressed={isRunning} onClick={onRunToggle} style={{ ...buttonStyle(isRunning), color: isRunning ? palette.risk : palette.accent, textAlign: "center" }}>
+          {isRunning ? text(lang, navigator.stopTraceLabelZh, navigator.stopTraceLabelEn) : text(lang, navigator.startTraceLabelZh, navigator.startTraceLabelEn)}
         </button>
         <div style={{ display: "grid", gap: 7 }}>
           {asArray(navigator.items).map(item => (
-            <button key={item.id} type="button" onClick={() => onSelectStep?.(item.id, item.anchorId)} style={buttonStyle(item.active)}>
-              <span style={{ color: item.active ? palette.accent : palette.faint, display: "block", fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11, fontWeight: 950 }}>Step {item.stepNumber}</span>
+            <button key={item.id} type="button" data-step-id={item.id} data-selected={item.active ? "true" : "false"} onClick={() => onSelectStep?.(item.id, item.anchorId)} style={buttonStyle(item.active)}>
+              <span style={{ color: item.active ? palette.accent : palette.faint, display: "block", fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11, fontWeight: 950 }}>{item.isFinal ? "Final" : `Step ${item.stepNumber}`}</span>
               <span>{item.label}</span>
             </button>
           ))}
@@ -354,6 +354,21 @@ function FieldBlock({ label, children }) {
     <div style={cardStyle({ background: palette.bg, padding: 10 })}>
       <span style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900 }}>{label}</span>
       <div style={{ color: palette.muted, fontSize: 11.8, lineHeight: 1.5 }}>{children}</div>
+    </div>
+  )
+}
+
+function StructuredConclusionCards({ model, lang, compact = false }) {
+  const segments = asArray(model?.segments)
+  if (!segments.length) return null
+  return (
+    <div data-testid="structured-conclusion" data-row-count={segments.length} style={{ display: "grid", gap: compact ? 6 : 8, gridTemplateColumns: compact ? "repeat(auto-fit, minmax(170px, 1fr))" : "1fr" }}>
+      {segments.map(segment => (
+        <div key={segment.id} style={cardStyle({ background: palette.bg, padding: compact ? 9 : 10 })}>
+          <strong style={{ color: palette.text, fontSize: compact ? 11.2 : 12 }}>{text(lang, segment.labelZh, segment.labelEn)}</strong>
+          <span style={{ color: palette.muted, fontSize: compact ? 10.8 : 11.6, lineHeight: 1.5 }}>{text(lang, segment.bodyZh, segment.bodyEn)}</span>
+        </div>
+      ))}
     </div>
   )
 }
@@ -419,7 +434,13 @@ export function ExecutionStepCard({ step, lang = "zh", selected, onSelectStep, o
       ) : null}
       {/* Middle cards answer what happened; the right Why Panel owns source, formula, risk, and rationale detail. */}
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
-        <FieldBlock label={text(lang, "一句话结果 Result", "One-line result")}>{step.whyPanelEnhanced?.conclusionZh || step.result}</FieldBlock>
+        {step.whyPanelEnhanced?.structuredConclusion ? (
+          <div style={{ gridColumn: "1 / -1" }}>
+            <StructuredConclusionCards model={step.whyPanelEnhanced.structuredConclusion} lang={lang} compact />
+          </div>
+        ) : (
+          <FieldBlock label={text(lang, "一句话结果 Result", "One-line result")}>{step.whyPanelEnhanced?.conclusionZh || step.result}</FieldBlock>
+        )}
         <FieldBlock label={text(lang, "候选竞争 Competition", "Competition")}><CompetitionPreview rows={step.competition} lang={lang} /></FieldBlock>
       </div>
       <OrganicAcidStepComparisonChart
@@ -449,7 +470,7 @@ function WhyPanelGradeBadge({ grade, labelZh, labelEn, lang }) {
   return <Pill tone={tone === "risk" ? "risk" : tone === "good" ? "good" : tone === "muted" ? "muted" : "info"}>{text(lang, labelZh, labelEn)}</Pill>
 }
 
-function WhyPanelMainChart({ stepId, step, enhanced, lang, onSelectComparison, onOpenActivationCenter }) {
+function WhyPanelMainChart({ stepId, step, enhanced, lang, onSelectComparison, onOpenActivationCenter, selectedFactorKey, onSelectFactor }) {
   if (stepId === "step-1") {
     return <PathwayFlowDiagram model={step?.dynamicChartModel} lang={lang} />
   }
@@ -464,7 +485,7 @@ function WhyPanelMainChart({ stepId, step, enhanced, lang, onSelectComparison, o
     )
   }
   if (stepId === "step-3" && enhanced?.provenance) {
-    return <HostFactorRose model={enhanced.provenance} comparisonModels={enhanced.comparisonProvenances} lang={lang} />
+    return <HostFactorRose model={enhanced.provenance} comparisonModels={enhanced.comparisonProvenances} lang={lang} factorDetails={enhanced.perFactorInterpretation} factorEvidence={enhanced.factorEvidence} selectedFactorKey={selectedFactorKey} onSelectFactor={onSelectFactor} />
   }
   if (stepId === "step-4" && enhanced?.provenance) {
     return <GuestDumbbellChart models={enhanced.comparisonProvenances} model={enhanced.provenance} lang={lang} />
@@ -472,7 +493,7 @@ function WhyPanelMainChart({ stepId, step, enhanced, lang, onSelectComparison, o
   if (stepId === "step-5" && enhanced?.factorCompressionTrace) {
     return (
       <div style={{ display: "grid", gap: 9 }}>
-        <HgcpsFactorRose model={enhanced.provenance} overlayRoute={enhanced.comparisonProvenances?.[1]} lang={lang} />
+        <HgcpsFactorRose model={enhanced.provenance} overlayRoute={enhanced.comparisonProvenances?.[1]} lang={lang} factorDetails={enhanced.perFactorInterpretation} factorEvidence={enhanced.factorEvidence} selectedFactorKey={selectedFactorKey} onSelectFactor={onSelectFactor} />
         <FactorCompressionWaterfall model={enhanced.factorCompressionTrace} lang={lang} />
       </div>
     )
@@ -520,13 +541,15 @@ function CompactInfoGrid({ step, panel, lang }) {
   )
 }
 
-function PerFactorInterpretationTable({ rows, lang }) {
+function PerFactorInterpretationTable({ rows, lang, selectedFactorKey = "", onSelectFactor }) {
   const items = asArray(rows)
   if (!items.length) return <span style={{ color: palette.faint, fontSize: 12 }}>{text(lang, "暂无逐因子解释。", "No per-factor interpretation.")}</span>
   return (
     <div data-testid="per-factor-interpretation-table" data-row-count={items.length} style={{ display: "grid", gap: 7 }}>
-      {items.map(row => (
-        <div key={row.factorKey} style={cardStyle({ background: palette.surface, padding: 10 })}>
+      {items.map(row => {
+        const selected = row.factorKey === selectedFactorKey
+        return (
+        <button type="button" key={row.factorKey} onClick={() => onSelectFactor?.(selected ? "" : row.factorKey)} style={{ ...cardStyle({ background: selected ? palette.accentSoft : palette.surface, border: `1px solid ${selected ? palette.accent : palette.border}`, padding: 10 }), cursor: "pointer", textAlign: "left" }}>
           <div style={{ alignItems: "baseline", display: "grid", gap: 8, gridTemplateColumns: "minmax(0,1fr) auto auto" }}>
             <strong style={{ color: palette.text, fontSize: 11.8 }}>{text(lang, row.labelZh, row.labelEn)}</strong>
             <NumericText style={{ color: palette.accent, fontSize: 11.8, fontWeight: 950 }}>{fmt(row.normalizedValue, 3)}</NumericText>
@@ -534,24 +557,25 @@ function PerFactorInterpretationTable({ rows, lang }) {
           </div>
           <span style={{ color: palette.muted, fontSize: 11.3, lineHeight: 1.5 }}>{text(lang, row.interpretationZh, row.interpretationEn)}</span>
           <span style={{ color: palette.faint, fontSize: 10.8 }}>{row.sourceField} · {row.dataGrade} · contribution {fmt(row.contribution, 4)}</span>
-        </div>
-      ))}
+        </button>
+        )
+      })}
     </div>
   )
 }
 
 function FactorDeltaTableView({ rows, lang }) {
   const items = asArray(rows)
-  if (!items.length) return <span style={{ color: palette.faint, fontSize: 12 }}>{text(lang, "暂无 #2/#3 对比。", "No #2/#3 comparison.")}</span>
+  if (!items.length) return <span style={{ color: palette.faint, fontSize: 12 }}>{text(lang, "暂无对照路线对比。", "No runner-up / third comparison.")}</span>
   return (
     <div data-testid="factor-delta-table" data-row-count={items.length} style={cardStyle({ background: palette.bg, overflowX: "auto" })}>
       {items.map(row => (
         <div key={row.factorKey} style={{ alignItems: "center", display: "grid", gap: 8, gridTemplateColumns: "minmax(120px,1fr) repeat(5, minmax(46px, auto))" }}>
           <strong style={{ color: row.isDominantGap ? palette.accent : palette.text, fontSize: 11.5 }}>{text(lang, row.labelZh, row.labelEn)}</strong>
-          <span style={{ color: palette.muted, fontSize: 10.8 }}>#1 {fmt(row.topValue, 2)}</span>
-          <span style={{ color: palette.muted, fontSize: 10.8 }}>#2 {fmt(row.secondValue, 2)}</span>
-          <span style={{ color: palette.muted, fontSize: 10.8 }}>#3 {fmt(row.thirdValue, 2)}</span>
-          <span style={{ color: row.deltaSecond >= 0 ? palette.positive : palette.risk, fontSize: 10.8, fontWeight: 900 }}>Δ2 {row.deltaSecond >= 0 ? "+" : ""}{fmt(row.deltaSecond, 2)}</span>
+          <span style={{ color: palette.muted, fontSize: 10.8 }}>Top {fmt(row.topValue, 2)}</span>
+          <span style={{ color: palette.muted, fontSize: 10.8 }}>Runner {fmt(row.secondValue, 2)}</span>
+          <span style={{ color: palette.muted, fontSize: 10.8 }}>Third {fmt(row.thirdValue, 2)}</span>
+          <span style={{ color: row.deltaSecond >= 0 ? palette.positive : palette.risk, fontSize: 10.8, fontWeight: 900 }}>Δ runner {row.deltaSecond >= 0 ? "+" : ""}{fmt(row.deltaSecond, 2)}</span>
           <span style={{ color: row.isDominantGap ? palette.accent : palette.faint, fontSize: 10.5 }}>{row.isDominantGap ? text(lang, "主差异", "dominant") : ""}</span>
         </div>
       ))}
@@ -636,14 +660,22 @@ export function StepWhyPanel({ panel, step, enhanced, lang = "zh", embedded = fa
   const tabs = [
     { id: "conclusion", labelZh: "结论", labelEn: "Conclusion", show: true },
     { id: "factors", labelZh: "逐因子", labelEn: "Per factor", show: asArray(model.perFactorInterpretation).length > 0 },
-    { id: "comparison", labelZh: "对比 #2/#3", labelEn: "Compare #2/#3", show: asArray(model.factorDeltaTable).length > 0 || Boolean(model.routeFactorComparison) },
+    { id: "comparison", labelZh: "对比路线", labelEn: "Compare routes", show: asArray(model.factorDeltaTable).length > 0 || Boolean(model.routeFactorComparison) },
     { id: "evidence", labelZh: "证据 / 文献", labelEn: "Evidence / literature", show: asArray(model.factorEvidence).length > 0 || Boolean(model.provenance) || Boolean(model.pathwayEvidenceHeatmap) || Boolean(model.descriptorMappingExplanation) || Boolean(model.validationCoverageMatrix) },
     { id: "risk", labelZh: "风险 / 反事实", labelEn: "Risk / counterfactual", show: Boolean(model.riskDecomposition) || asArray(model.counterfactual).length > 0 || Boolean(why) },
   ].filter(tab => tab.show)
   const [activeTab, setActiveTab] = useState("conclusion")
+  const [selectedFactorKey, setSelectedFactorKey] = useState("")
   useEffect(() => {
     if (!tabs.some(tab => tab.id === activeTab)) setActiveTab(tabs[0]?.id || "conclusion")
   }, [activeTab, tabs])
+  useEffect(() => {
+    setSelectedFactorKey("")
+  }, [stepId])
+  const selectFactor = factorKey => {
+    setSelectedFactorKey(factorKey || "")
+    if (factorKey && tabs.some(tab => tab.id === "factors")) setActiveTab("factors")
+  }
   const asideStyle = {
     ...cardStyle({
       alignSelf: "start",
@@ -670,7 +702,7 @@ export function StepWhyPanel({ panel, step, enhanced, lang = "zh", embedded = fa
         {boundaries.map(boundary => <Pill key={boundary.id || boundary.zh} tone="risk">{text(lang, boundary.zh, boundary.en)}</Pill>)}
       </div>
 
-      <WhyPanelMainChart stepId={stepId} step={step} enhanced={model} lang={lang} onSelectComparison={onSelectComparison} onOpenActivationCenter={onOpenActivationCenter} />
+      <WhyPanelMainChart stepId={stepId} step={step} enhanced={model} lang={lang} onSelectComparison={onSelectComparison} onOpenActivationCenter={onOpenActivationCenter} selectedFactorKey={selectedFactorKey} onSelectFactor={selectFactor} />
 
       <div role="tablist" aria-label={text(lang, "为什么面板分层", "Why panel sections")} style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
         {tabs.map(tab => (
@@ -681,18 +713,22 @@ export function StepWhyPanel({ panel, step, enhanced, lang = "zh", embedded = fa
       </div>
 
       <div role="tabpanel" data-testid="why-panel-tab-conclusion" style={{ display: activeTab === "conclusion" ? "grid" : "none", gap: 8 }}>
-        <div style={cardStyle({ background: palette.bg })}>
+        {model.structuredConclusion ? (
+          <StructuredConclusionCards model={model.structuredConclusion} lang={lang} />
+        ) : (
+          <div style={cardStyle({ background: palette.bg })}>
           <strong style={{ color: palette.text, fontSize: 12 }}>{text(lang, "一句话结论", "One-line conclusion")}</strong>
           <span style={{ color: palette.muted, fontSize: 11.8, lineHeight: 1.5 }}>{text(lang, model.conclusionZh, model.conclusionEn)}</span>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
             {boundaries.map(boundary => <Pill key={boundary.id || boundary.zh} tone="risk">{text(lang, boundary.zh, boundary.en)}</Pill>)}
           </div>
         </div>
+        )}
         <CompactInfoGrid step={step} panel={panel} lang={lang} />
       </div>
 
       <div role="tabpanel" data-testid="why-panel-tab-factors" style={{ display: activeTab === "factors" ? "grid" : "none", gap: 8 }}>
-        <PerFactorInterpretationTable rows={model.perFactorInterpretation} lang={lang} />
+        <PerFactorInterpretationTable rows={model.perFactorInterpretation} lang={lang} selectedFactorKey={selectedFactorKey} onSelectFactor={selectFactor} />
       </div>
 
       <div role="tabpanel" data-testid="why-panel-tab-comparison" style={{ display: activeTab === "comparison" ? "grid" : "none", gap: 8 }}>
@@ -741,10 +777,53 @@ export function OrganicAcidStepwiseExecutionChain({
   onOpenAdvancedTab,
 }) {
   const [selectedComparison, setSelectedComparison] = useState(null)
+  const [isRunning, setIsRunning] = useState(false)
+  const runTimerRef = useRef(null)
   useEffect(() => {
     setSelectedComparison(null)
   }, [selectedStepId])
-  const selectedStep = useMemo(() => chain.steps.find(step => step.id === selectedStepId) || chain.steps[0], [chain.steps, selectedStepId])
+  useEffect(() => () => {
+    if (runTimerRef.current) window.clearTimeout(runTimerRef.current)
+  }, [])
+  const selectedStep = useMemo(() => chain.steps.find(step => step.id === selectedStepId) || chain.steps[chain.steps.length - 1] || chain.steps[0], [chain.steps, selectedStepId])
+  const runItems = useMemo(() => [
+    ...chain.steps.map(step => ({ id: step.id, anchorId: step.anchorId })),
+    { id: "final-result", anchorId: "organic-acid-final-result-summary" },
+  ], [chain.steps])
+  const stopRun = () => {
+    if (runTimerRef.current) window.clearTimeout(runTimerRef.current)
+    runTimerRef.current = null
+    setIsRunning(false)
+  }
+  const selectStepManually = (stepId, anchorId) => {
+    stopRun()
+    onSelectStep?.(stepId, anchorId)
+  }
+  const runStepwise = () => {
+    if (isRunning) {
+      stopRun()
+      return
+    }
+    if (runTimerRef.current) window.clearTimeout(runTimerRef.current)
+    const intervalMs = Number(chain.navigator?.runIntervalMs) || 900
+    setIsRunning(true)
+    const advance = index => {
+      const item = runItems[index]
+      if (!item) {
+        setIsRunning(false)
+        runTimerRef.current = null
+        return
+      }
+      onSelectStep?.(item.id, item.anchorId)
+      if (index >= runItems.length - 1) {
+        setIsRunning(false)
+        runTimerRef.current = null
+        return
+      }
+      runTimerRef.current = window.setTimeout(() => advance(index + 1), intervalMs)
+    }
+    advance(0)
+  }
   const whyPanel = selectedStep?.id === chain.currentStepWhyPanel?.stepId ? chain.currentStepWhyPanel : {
     ...chain.currentStepWhyPanel,
     stepId: selectedStep.id,
@@ -766,8 +845,9 @@ export function OrganicAcidStepwiseExecutionChain({
           navigator={chain.navigator}
           miniMap={chain.miniMap}
           lang={lang}
-          onSelectStep={onSelectStep}
-          onTrace={onTrace}
+          onSelectStep={selectStepManually}
+          onRunToggle={runStepwise}
+          isRunning={isRunning}
         />
         <div style={{ display: "grid", gap: 12 }}>
           {chain.steps.map(step => (
@@ -776,8 +856,8 @@ export function OrganicAcidStepwiseExecutionChain({
                 step={step}
                 lang={lang}
                 selected={step.id === selectedStepId}
-                onSelectStep={onSelectStep}
-                onTrace={onTrace}
+                onSelectStep={selectStepManually}
+                onTrace={runStepwise}
                 onOpenMethodology={onOpenMethodology}
                 onOpenActivationCenter={onOpenActivationCenter}
                 onOpenAdvancedTab={onOpenAdvancedTab}
@@ -798,9 +878,11 @@ export function OrganicAcidStepwiseExecutionChain({
               ) : null}
             </div>
           ))}
-          <FinalResultSummary model={chain.finalResultSummary} lang={lang} onOpenActivationCenter={onOpenActivationCenter} />
+          <div id="organic-acid-final-result-summary" style={{ scrollMarginTop: 118 }}>
+            <FinalResultSummary model={chain.finalResultSummary} lang={lang} onOpenActivationCenter={onOpenActivationCenter} />
+          </div>
         </div>
-        {!isNarrow ? (
+        {!isNarrow && selectedStepId !== "final-result" ? (
           <StepWhyPanel
             panel={whyPanel}
             step={selectedStep}
@@ -811,6 +893,8 @@ export function OrganicAcidStepwiseExecutionChain({
             onOpenAdvancedTab={onOpenAdvancedTab}
             onSelectComparison={setSelectedComparison}
           />
+        ) : !isNarrow ? (
+          <FinalResultSummary model={chain.finalResultSummary} lang={lang} onOpenActivationCenter={onOpenActivationCenter} withTestId={false} />
         ) : null}
       </div>
     </section>

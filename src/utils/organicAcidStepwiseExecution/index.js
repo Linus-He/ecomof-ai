@@ -22,11 +22,12 @@ import {
   buildValidationCoverageSummary,
 } from "../organicAcidExplanationClosure/index.js"
 
-export const ORGANIC_ACID_STEPWISE_EXECUTION_VERSION = "V3.9.5.4"
+export const ORGANIC_ACID_STEPWISE_EXECUTION_VERSION = "V3.9.5.5"
 export const ORGANIC_ACID_STEPWISE_EXECUTION_NAME = "Organic Acid Stepwise Algorithm Execution Chain"
 
 const METHODOLOGY_BASE = "project-evolution-organic-acid-algorithm-methodology"
 const STEP_IDS = ["step-0", "step-1", "step-2", "step-3", "step-4", "step-5", "step-6"]
+export const FINAL_RESULT_STEP_ID = "final-result"
 
 const CONFIDENCE_VALUE = {
   high: 0.86,
@@ -621,15 +622,28 @@ export function buildExecutionStepModel(stepId, workbenchInput = null, sourceDat
 }
 
 export function buildStepNavigatorModel(steps = [], selectedStepId = "step-0", lang = "zh") {
-  const selectedId = STEP_IDS.includes(selectedStepId) ? selectedStepId : "step-0"
+  const selectedId = [...STEP_IDS, FINAL_RESULT_STEP_ID].includes(selectedStepId) ? selectedStepId : "step-0"
+  const finalItem = {
+    id: FINAL_RESULT_STEP_ID,
+    stepNumber: "Final",
+    labelZh: "最终结果",
+    labelEn: "Final Result",
+    label: textFor(lang, "最终结果 / Final Result", "Final Result / 最终结果"),
+    anchorId: "organic-acid-final-result-summary",
+    active: selectedId === FINAL_RESULT_STEP_ID,
+    isFinal: true,
+  }
   return {
     selectedStepId: selectedId,
     selectedStepNumber: steps.find(step => step.id === selectedId)?.stepNumber || 0,
     titleZh: "Step Navigator",
     titleEn: "Step Navigator",
-    startTraceLabelZh: "从路径开始追踪",
-    startTraceLabelEn: "Trace from pathway",
-    items: steps.map(step => ({
+    startTraceLabelZh: "运行算法",
+    startTraceLabelEn: "Run",
+    stopTraceLabelZh: "停止",
+    stopTraceLabelEn: "Stop",
+    runIntervalMs: 900,
+    items: [...steps.map(step => ({
       id: step.id,
       stepNumber: step.stepNumber,
       labelZh: step.nameZh,
@@ -637,7 +651,7 @@ export function buildStepNavigatorModel(steps = [], selectedStepId = "step-0", l
       label: textFor(lang, step.nameZh, step.nameEn),
       anchorId: step.anchorId,
       active: step.id === selectedId,
-    })),
+    })), finalItem],
   }
 }
 
@@ -676,6 +690,7 @@ export function buildExecutionMiniMapModel(flowNetwork = {}, selectedStepId = "s
     ["step-4", "Guest", "客体"],
     ["step-5", "Route", "路线"],
     ["step-6", "Validation", "验证"],
+    [FINAL_RESULT_STEP_ID, "Final", "结果"],
   ]
   const topPath = new Set(asArray(flowNetwork?.highlightedPaths?.topPath))
   return {
@@ -706,12 +721,12 @@ export function buildStepwiseExecutionChain(workbenchInput = null, sourceData = 
     lang,
     activationWorkbench: options.activationWorkbench,
   })
-  const selectedStepId = STEP_IDS.includes(options.selectedStepId) ? options.selectedStepId : "step-0"
+  const selectedStepId = [...STEP_IDS, FINAL_RESULT_STEP_ID].includes(options.selectedStepId) ? options.selectedStepId : "step-0"
   const steps = STEP_IDS.map(stepId => buildExecutionStepModel(stepId, workbench, sourceData, {
     lang,
     activationWorkbench: options.activationWorkbench,
   }))
-  const selectedStep = steps.find(step => step.id === selectedStepId) || steps[0]
+  const selectedStep = steps.find(step => step.id === selectedStepId) || steps[steps.length - 1] || steps[0]
   const chain = {
     version: ORGANIC_ACID_STEPWISE_EXECUTION_VERSION,
     name: ORGANIC_ACID_STEPWISE_EXECUTION_NAME,

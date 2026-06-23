@@ -23,6 +23,7 @@ import {
   buildScoreDataGradeBadges,
   buildScoreSourceTableModel,
   buildStepWhyPanelEnhancedModel,
+  buildStructuredConclusion,
   buildTerminologyAlignmentModel,
   deriveDataGrade,
 } from "../../utils/organicAcidScoreProvenance"
@@ -136,7 +137,7 @@ describe("organic acid score provenance builders", () => {
     expect(model.routes[0].rank).toBe(1)
     expect(model.factorRows).toHaveLength(6)
     expect(model.factorRows[0].values.length).toBe(model.routes.length)
-    expect(model.autoSentenceZh).toMatch(/当前 #1 相比 #2 主要优势来自/)
+    expect(model.autoSentenceZh).toMatch(/当前 top route 相比 runner-up 主要优势来自/)
     expect(model.topRouteId).toBe(workbench.complementarity.topRoute.routeId)
     noBadValues(model)
   })
@@ -156,7 +157,7 @@ describe("organic acid score provenance builders", () => {
     noBadValues(baseRows)
   })
 
-  it("builds factor delta rows for #1 / #2 / #3 and marks the dominant gap from data", () => {
+  it("builds factor delta rows for top / runner-up / third routes and marks the dominant gap from data", () => {
     const workbench = workbenchFromSource()
     const routes = workbench.complementarity.routeScores
     const table = buildFactorDeltaTable(
@@ -290,9 +291,29 @@ describe("organic acid score provenance builders", () => {
     expect(model.factorEvidence.length).toBeGreaterThan(0)
     expect(model.counterfactual).toHaveLength(6)
     expect(model.whyNotOther.whyWinnerLeadsZh).toBeTruthy()
+    expect(model.structuredConclusion.segments.map(row => row.labelZh)).toEqual(["结论", "依据", "关键因子", "局限"])
     expect(model.conclusionZh).toContain(String(model.provenance.rank))
     expect(model.boundaries.some(row => row.zh.includes("实验验证优先级"))).toBe(true)
     noBadValues(model)
+  })
+
+  it("builds structured conclusion segments and changes basis/key factor when data changes", () => {
+    const baseWorkbench = workbenchFromSource()
+    const baseModel = buildStepWhyPanelEnhancedModel({ id: "step-5", result: "baseline", dynamicChartModel: { type: "route-hgcps-breakdown" } }, baseWorkbench, { lang: "zh", sourceData: source() })
+    const baseStructured = buildStructuredConclusion("step-5", baseModel.provenance, baseModel.factorDeltaTable, baseModel.riskDecomposition, baseModel.boundaries)
+    const alteredRoutes = hostGuestRoutes.map((route, index) => index === 1
+      ? {
+        ...route,
+        hostGuestComplementarityScore: 0.45,
+        evidenceConfidenceScore: 0.42,
+      }
+      : route)
+    const alteredWorkbench = workbenchFromSource({ hostGuestRoutes: alteredRoutes })
+    const alteredModel = buildStepWhyPanelEnhancedModel({ id: "step-5", result: "altered", dynamicChartModel: { type: "route-hgcps-breakdown" } }, alteredWorkbench, { lang: "zh", sourceData: source({ hostGuestRoutes: alteredRoutes }) })
+
+    expect(baseStructured.segments).toHaveLength(4)
+    expect(baseStructured.segments.find(row => row.id === "basis").bodyZh).toMatch(/主要贡献来自/)
+    expect(alteredModel.structuredConclusion.segments.find(row => row.id === "dominant-factor").bodyZh).not.toBe(baseModel.structuredConclusion.segments.find(row => row.id === "dominant-factor").bodyZh)
   })
 
   it("updates the dynamic step-5 conclusion and final summary when route scores change", () => {
@@ -317,6 +338,10 @@ describe("organic acid score provenance builders", () => {
     expect(alteredStep.conclusionZh).toContain(alteredWorkbench.complementarity.topRoute.hostMof)
     expect(summary.routeId).toBe(alteredWorkbench.complementarity.topRoute.routeId)
     expect(summary.finalHGCPS).toBe(alteredWorkbench.complementarity.topRoute.finalHGCPS)
+    expect(summary.routeComparisonModel.rows.length).toBeGreaterThanOrEqual(3)
+    expect(summary.factorOverlayModel.top.routeId).toBe(summary.routeId)
+    expect(summary.validationDonutModel.items.length).toBeGreaterThan(0)
+    expect(summary.interpretationParagraphs.map(row => row.id)).toEqual(["why-leading", "risk-boundary", "next-experiment"])
   })
 
   it("provides a terminology alignment model that keeps HGCPS primary", () => {

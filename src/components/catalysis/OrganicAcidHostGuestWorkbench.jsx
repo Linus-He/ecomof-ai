@@ -104,7 +104,7 @@ function scrollToActivationCenter() {
   if (typeof document === "undefined") return
   const details = document.getElementById("organic-acid-experimental-activation-entry")
   if (details?.tagName === "DETAILS") details.open = true
-  document.getElementById("organic-acid-experimental-activation-entry")?.scrollIntoView({ behavior: "smooth", block: "start" })
+  document.getElementById("organic-acid-experimental-activation-entry")?.scrollIntoView?.({ behavior: "smooth", block: "start" })
 }
 
 function openAlgorithmMethodology(anchor = "#project-evolution-organic-acid-algorithm-methodology") {
@@ -833,7 +833,7 @@ function AdvancedAnalysisTabs({ workbench, selectedExplanation, lang, onOpenActi
 export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, initialData = null, workbench: suppliedWorkbench = null, activationWorkbench: suppliedActivationWorkbench = null }) {
   const [sourceData, setSourceData] = useState(initialData)
   const [status, setStatus] = useState(initialData || suppliedWorkbench ? "loaded" : "idle")
-  const [selectedRouteId, setSelectedRouteId] = useState("route-al-mof-mo")
+  const [selectedRouteId, setSelectedRouteId] = useState("")
   const [selectedStepId, setSelectedStepId] = useState("step-0")
   const [activationOpen, setActivationOpen] = useState(false)
   const [advancedOpen, setAdvancedOpen] = useState(false)
@@ -963,7 +963,7 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
     setActivationOpen(true)
     if (typeof window === "undefined") return
     window.setTimeout(() => {
-      document.getElementById("organic-acid-experimental-activation-entry")?.scrollIntoView({ behavior: "smooth", block: "start" })
+      document.getElementById("organic-acid-experimental-activation-entry")?.scrollIntoView?.({ behavior: "smooth", block: "start" })
     }, 0)
   }
 
@@ -972,7 +972,7 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
     setAdvancedOpen(true)
     if (typeof window === "undefined") return
     window.setTimeout(() => {
-      document.getElementById("organic-acid-advanced-robustness-evidence")?.scrollIntoView({ behavior: "smooth", block: "start" })
+      document.getElementById("organic-acid-advanced-robustness-evidence")?.scrollIntoView?.({ behavior: "smooth", block: "start" })
     }, 0)
   }
 
@@ -980,7 +980,7 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
     setSelectedStepId(stepId)
     if (typeof window === "undefined") return
     window.setTimeout(() => {
-      document.getElementById(anchorId || `organic-acid-execution-${stepId}`)?.scrollIntoView({ behavior: "smooth", block: "center" })
+      document.getElementById(anchorId || `organic-acid-execution-${stepId}`)?.scrollIntoView?.({ behavior: "smooth", block: "center" })
     }, 0)
   }
 
@@ -990,11 +990,11 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
       return
     }
     traceTimersRef.current.forEach(timer => window.clearTimeout(timer))
-    const ids = ["step-0", "step-1", "step-2", "step-3", "step-4", "step-5", "step-6"]
+    const ids = ["step-0", "step-1", "step-2", "step-3", "step-4", "step-5", "step-6", "final-result"]
     traceTimersRef.current = ids.map((stepId, index) => window.setTimeout(() => {
       setSelectedStepId(stepId)
-      document.getElementById(`organic-acid-execution-${stepId}`)?.scrollIntoView({ behavior: "smooth", block: "center" })
-    }, index * 320))
+      document.getElementById(stepId === "final-result" ? "organic-acid-final-result-summary" : `organic-acid-execution-${stepId}`)?.scrollIntoView?.({ behavior: "smooth", block: "center" })
+    }, index * 900))
   }
 
   if (status === "loading" || !workbench || !selectedExplanation || !stepwiseChain) {

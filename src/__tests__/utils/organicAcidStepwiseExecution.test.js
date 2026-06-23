@@ -59,7 +59,7 @@ describe("organic acid stepwise execution builders", () => {
     const activationWorkbench = activationFixture(workbench)
     const chain = buildStepwiseExecutionChain(workbench, source, { lang: "zh", activationWorkbench })
 
-    expect(chain.version).toBe("V3.9.5.4")
+    expect(chain.version).toBe("V3.9.5.5")
     expect(chain.steps.map(step => step.id)).toEqual(["step-0", "step-1", "step-2", "step-3", "step-4", "step-5", "step-6"])
     expect(chain.steps.map(step => step.nameZh)).toEqual([
       "筛选目标设定",
@@ -75,7 +75,9 @@ describe("organic acid stepwise execution builders", () => {
     expect(chain.finalResultSummary.finalHGCPS).toBe(workbench.complementarity.topRoute.finalHGCPS)
     expect(chain.finalResultSummary.nextExperiment).toBeTruthy()
     expect(chain.dynamicChartModel.type).toBe("objective-input-output")
-    expect(chain.miniMap.nodes.map(node => node.labelZh)).toEqual(["目标", "路径", "描述符", "主体", "客体", "路线", "验证"])
+    expect(chain.navigator.items.at(-1)).toEqual(expect.objectContaining({ id: "final-result", labelZh: "最终结果", active: false }))
+    expect(chain.navigator.runIntervalMs).toBe(900)
+    expect(chain.miniMap.nodes.map(node => node.labelZh)).toEqual(["目标", "路径", "描述符", "主体", "客体", "路线", "验证", "结果"])
 
     for (const step of chain.steps) {
       expect(step.input.length, `${step.id} input`).toBeGreaterThan(0)
@@ -126,10 +128,8 @@ describe("organic acid stepwise execution builders", () => {
 
     expect(hostChart.rows).toHaveLength(hostMofCandidates.length)
     expect(hostChart.rows[0].host).toBe(workbench.hostSelection.selectedHost.displayName)
-    expect(hostChart.rows[0].host).toBe("Al-MOF")
     expect(guestChart.rows).toHaveLength(guestMetalCandidates.length)
     expect(guestChart.rows[0].metal).toBe(workbench.guestSelection.selectedGuestMetal.guestMetal)
-    expect(guestChart.rows[0].metal).toBe("Mo")
     expect(routeChart.rows).toHaveLength(hostGuestRoutes.length)
     expect(routeChart.selectedRoute).toBe(`${workbench.complementarity.topRoute.hostMof} + ${workbench.complementarity.topRoute.guestMetal}`)
     expect(routeChart.factorRows.map(row => row.id)).toEqual(["hostStability", "hostPathwaySupport", "guestActivityCompensation", "complementarity", "evidenceConfidence", "riskRetention"])
@@ -158,6 +158,6 @@ describe("organic acid stepwise execution builders", () => {
     expect(workbench.complementarity.topRoute.routeId).toBe(alteredRoutes[1].routeId)
     expect(routeChart.rows[0].routeId).toBe(alteredRoutes[1].routeId)
     expect(routeChart.selectedRoute).toBe(`${alteredRoutes[1].hostMof} + ${alteredRoutes[1].guestMetal}`)
-    expect(routeChart.selectedRoute).not.toBe("Al-MOF + Mo")
+    expect(routeChart.selectedRoute).not.toBe(`${hostGuestRoutes[0].hostMof} + ${hostGuestRoutes[0].guestMetal}`)
   })
 })

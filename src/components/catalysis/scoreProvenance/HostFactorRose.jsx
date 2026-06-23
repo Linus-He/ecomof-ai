@@ -20,7 +20,7 @@ function rowsFromProvenance(model) {
     }))
 }
 
-export function HostFactorRose({ model, comparisonModels, lang = "zh", withTestId = true }) {
+export function HostFactorRose({ model, comparisonModels, lang = "zh", withTestId = true, factorDetails = [], factorEvidence = [], selectedFactorKey = "", onSelectFactor }) {
   const overlay = asArray(comparisonModels)[1]
   return (
     <FactorRoseChart
@@ -30,11 +30,18 @@ export function HostFactorRose({ model, comparisonModels, lang = "zh", withTestI
       titleEn="Host Sub-Factor Rose"
       subtitleZh="半径按主体数值子因子缩放；淡色轮廓用于对照当前竞争主体。"
       subtitleEn="Radius follows host numeric sub-factors; the outline compares the current runner-up host."
+      captionZh="该图只展示主体筛选中的五个数值因子，便于读取主体稳定性、孔环境与承载可行性的相对支撑。"
+      captionEn="This chart shows the five numeric host-selection factors for reading relative support from stability, pore environment, and hosting feasibility."
       centerLabel="Host"
       centerValue={fmt(model?.finalValue, 3)}
       lang={lang}
       testId={withTestId ? "host-factor-rose" : undefined}
       colorFor={(row, index) => index % 2 === 0 ? palette.positive : palette.accent}
+      outlineLabel={overlay?.candidateLabel || ""}
+      factorDetails={factorDetails}
+      factorEvidence={factorEvidence}
+      selectedFactorKey={selectedFactorKey}
+      onSelectFactor={onSelectFactor}
     />
   )
 }

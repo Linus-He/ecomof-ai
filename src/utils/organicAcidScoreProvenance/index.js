@@ -1,5 +1,5 @@
 /**
- * Organic Acid Score Provenance builders (V3.9.5.4).
+ * Organic Acid Score Provenance builders (V3.9.5.5).
  *
  * Turns the Step Why Panel into a real score explainer: raw / proxy fields ->
  * normalized value -> weight or factor -> sub-contribution -> weighted-sum or
@@ -17,7 +17,7 @@ import {
   safeNumber,
 } from "../organicAcidHostGuest/index.js"
 
-export const ORGANIC_ACID_SCORE_PROVENANCE_VERSION = "V3.9.5.4"
+export const ORGANIC_ACID_SCORE_PROVENANCE_VERSION = "V3.9.5.5"
 
 const HOST_DATA_FILE = "organic_acid_host_guest/host_mof_candidates.json"
 const GUEST_DATA_FILE = "organic_acid_host_guest/guest_metal_candidates.json"
@@ -363,10 +363,10 @@ export function buildRouteFactorComparisonModel(workbench, options = {}) {
   const main = diffs[0] || { labelZh: "综合因子", labelEn: "combined factors", delta: 0 }
   const second = diffs[1] || { labelZh: "证据置信", labelEn: "evidence confidence", delta: 0 }
   const autoSentenceZh = runnerUp
-    ? `当前 #1 相比 #2 主要优势来自${main.labelZh}（+${main.delta}），其次来自${second.labelZh}（+${second.delta}）。`
+    ? `当前 top route 相比 runner-up 主要优势来自${main.labelZh}（+${main.delta}），其次来自${second.labelZh}（+${second.delta}）。`
     : "当前仅有一条路线，缺少可比较的次优路线。"
   const autoSentenceEn = runnerUp
-    ? `Compared with #2, #1 leads mainly on ${main.labelEn} (+${main.delta}), then on ${second.labelEn} (+${second.delta}).`
+    ? `Compared with the runner-up, the top route leads mainly on ${main.labelEn} (+${main.delta}), then on ${second.labelEn} (+${second.delta}).`
     : "Only one route is available; no runner-up route to compare."
   return {
     titleZh: "路线因子对比图",
@@ -810,14 +810,73 @@ function dynamicConclusion(stepId, provenance, factorDeltaTable, fallbackZh, fal
   const scoreLabelZh = stepId === "step-5" ? "HGCPS" : provenance.displayNameZh
   const scoreLabelEn = stepId === "step-5" ? "HGCPS" : provenance.displayNameEn
   const gapZh = dominant.factorKey
-    ? ` · 主要差异：${dominant.labelZh}（较 #2 ${dominant.deltaSecond >= 0 ? "+" : ""}${round(dominant.deltaSecond, 3)}）`
+    ? ` · 主要差异：${dominant.labelZh}（较 runner-up ${dominant.deltaSecond >= 0 ? "+" : ""}${round(dominant.deltaSecond, 3)}）`
     : ""
   const gapEn = dominant.factorKey
-    ? ` · dominant gap: ${dominant.labelEn} (${dominant.deltaSecond >= 0 ? "+" : ""}${round(dominant.deltaSecond, 3)} vs #2)`
+    ? ` · dominant gap: ${dominant.labelEn} (${dominant.deltaSecond >= 0 ? "+" : ""}${round(dominant.deltaSecond, 3)} vs runner-up)`
     : ""
   return {
     zh: `${provenance.candidateLabel} · ${scoreLabelZh} ${round(provenance.finalValue, 3).toFixed(3)} · 排名 #${provenance.rank}${gapZh}`,
     en: `${provenance.candidateLabel} · ${scoreLabelEn} ${round(provenance.finalValue, 3).toFixed(3)} · rank #${provenance.rank}${gapEn}`,
+  }
+}
+
+export function buildStructuredConclusion(stepId, provenance, factorDeltaTable = [], riskDecomposition = null, boundaries = SCORE_BOUNDARY_STATEMENTS) {
+  if (!["step-3", "step-4", "step-5"].includes(stepId) || !provenance) return null
+  const oneLine = dynamicConclusion(stepId, provenance, factorDeltaTable, "", "")
+  const topFactors = asArray(provenance.rows)
+    .slice()
+    .sort((a, b) => Math.abs(safeNumber(b.contribution, 0)) - Math.abs(safeNumber(a.contribution, 0)))
+    .slice(0, 2)
+  const dominant = asArray(factorDeltaTable).find(row => row.isDominantGap) || asArray(factorDeltaTable)[0] || {}
+  const mainRisk = safeText(riskDecomposition?.rows?.[0]?.reason || provenance.limitation, "同条件实验验证仍待补。")
+  const grade = safeText(provenance.dataGrade || provenance.curationStatus, "seed / proxy / curated")
+  const boundary = asArray(boundaries).find(row => row.id === "priority") || asArray(boundaries)[0] || {}
+  const supportZh = topFactors.length
+    ? topFactors.map(row => `${row.labelZh} ${round(row.contribution, 4)}`).join("；")
+    : "贡献因子待补。"
+  const supportEn = topFactors.length
+    ? topFactors.map(row => `${row.labelEn} ${round(row.contribution, 4)}`).join("; ")
+    : "contribution factors pending."
+  const dominantZh = dominant.factorKey
+    ? `${dominant.labelZh}与对照路线差值 ${dominant.deltaSecond >= 0 ? "+" : ""}${round(dominant.deltaSecond, 3)}，是当前排序差异的主导项。`
+    : "当前缺少可比较的主导差异因子。"
+  const dominantEn = dominant.factorKey
+    ? `${dominant.labelEn} differs from the runner-up by ${dominant.deltaSecond >= 0 ? "+" : ""}${round(dominant.deltaSecond, 3)} and is the dominant ranking gap.`
+    : "No comparable dominant gap factor is available."
+  return {
+    titleZh: "结构化结论",
+    titleEn: "Structured conclusion",
+    segments: [
+      {
+        id: "conclusion",
+        labelZh: "结论",
+        labelEn: "Conclusion",
+        bodyZh: oneLine.zh,
+        bodyEn: oneLine.en,
+      },
+      {
+        id: "basis",
+        labelZh: "依据",
+        labelEn: "Basis",
+        bodyZh: `主要贡献来自：${supportZh}。`,
+        bodyEn: `The main contributions come from: ${supportEn}.`,
+      },
+      {
+        id: "dominant-factor",
+        labelZh: "关键因子",
+        labelEn: "Key factor",
+        bodyZh: dominantZh,
+        bodyEn: dominantEn,
+      },
+      {
+        id: "limitation",
+        labelZh: "局限",
+        labelEn: "Limitation",
+        bodyZh: `${mainRisk} 数据等级：${grade}；${safeText(boundary.zh, SCORE_HEADER_NOTE_ZH)}`,
+        bodyEn: `${mainRisk} Data grade: ${grade}; ${safeText(boundary.en, SCORE_HEADER_NOTE_EN)}`,
+      },
+    ],
   }
 }
 
@@ -843,6 +902,31 @@ export function buildFinalResultSummaryModel(workbench, options = {}) {
   const deltaTable = buildFactorDeltaTable(comparisonProvenances[0], comparisonProvenances[1], comparisonProvenances[2])
   const validationCounts = validationSummaryCounts(workbench, options.sourceData, options.activationWorkbench)
   const secondDelta = runnerUp ? round(safeNumber(topRoute.finalHGCPS, provenance.finalValue) - safeNumber(runnerUp.finalHGCPS, 0), 3) : 0
+  const dominant = deltaTable.find(row => row.isDominantGap) || deltaTable[0] || {}
+  const runnerLabel = runnerUp ? defaultGetName(runnerUp) : "runner-up pending"
+  const evidenceRecords = asArray(options.sourceData?.evidenceRiskRecords)
+  const riskDecomposition = buildRiskDecomposition(topRoute, evidenceRecords)
+  const validationTotal = validationCounts.coveredCount + validationCounts.pendingCount
+  const validationItems = Array.from({ length: validationTotal }, (_, index) => ({
+    id: `validation-${index + 1}`,
+    status: index < validationCounts.coveredCount ? "covered" : "pending",
+  }))
+  const routeComparisonRows = comparisonProvenances.map(routeModel => ({
+    routeId: routeModel.routeId,
+    label: routeModel.candidateLabel,
+    rank: routeModel.rank,
+    finalHGCPS: routeModel.finalValue,
+    factors: routeModel.rows.map(row => ({
+      factorKey: row.fieldKey,
+      labelZh: row.labelZh,
+      labelEn: row.labelEn,
+      value: row.normalizedValue,
+    })),
+  }))
+  const factorAdvantages = deltaTable
+    .filter(row => row.deltaSecond > 0)
+    .sort((a, b) => b.deltaSecond - a.deltaSecond)
+    .slice(0, 2)
   return {
     titleZh: "最终结果总结",
     titleEn: "Final Result Summary",
@@ -853,7 +937,76 @@ export function buildFinalResultSummaryModel(workbench, options = {}) {
     ranking: Math.round(safeNumber(topRoute.ranking, provenance.rank)),
     deltaToSecond: secondDelta,
     factorRoseModel: provenance,
+    factorOverlayModel: {
+      top: provenance,
+      runnerUp: comparisonProvenances[1] || null,
+    },
+    comparisonProvenances,
+    perFactorInterpretation: buildPerFactorInterpretation(provenance),
+    factorEvidence: buildFactorEvidence(provenance, evidenceRecords, { routeId: provenance.routeId, evidenceRefs: topRoute.evidenceRefs }),
     factorDeltaTable: deltaTable,
+    routeComparisonModel: {
+      titleZh: "Top-3 路线 HGCPS 对比图",
+      titleEn: "Top-3 Route HGCPS Comparison",
+      rows: routeComparisonRows,
+      maxValue: Math.max(0.01, ...routeComparisonRows.map(row => safeNumber(row.finalHGCPS, 0))),
+      dominantFactorZh: safeText(dominant.labelZh, "综合因子"),
+      dominantFactorEn: safeText(dominant.labelEn, "combined factors"),
+      deltaToSecond: secondDelta,
+      captionZh: runnerUp
+        ? `${defaultGetName(topRoute)} 较 ${runnerLabel} 领先 ${secondDelta >= 0 ? "+" : ""}${secondDelta}，主要来自${safeText(dominant.labelZh, "综合因子")}。`
+        : `${defaultGetName(topRoute)} 暂无可比较的次优路线。`,
+      captionEn: runnerUp
+        ? `${defaultGetName(topRoute)} leads ${runnerLabel} by ${secondDelta >= 0 ? "+" : ""}${secondDelta}, mainly from ${safeText(dominant.labelEn, "combined factors")}.`
+        : `${defaultGetName(topRoute)} has no comparable runner-up route yet.`,
+    },
+    validationDonutModel: {
+      items: validationItems,
+      readinessLevel: safeText(options.activationWorkbench?.readiness?.readinessLevel, "planning-ready / not performance-validated"),
+      captionZh: `${validationCounts.totalCount || validationTotal} 项最小实验中 ${validationCounts.coveredCount} 项已有覆盖，${validationCounts.pendingCount} 项待补。`,
+      captionEn: `${validationCounts.coveredCount} of ${validationCounts.totalCount || validationTotal} minimum experiments are covered; ${validationCounts.pendingCount} remain pending.`,
+    },
+    chartCaptions: [
+      {
+        id: "route-comparison",
+        zh: runnerUp ? `${defaultGetName(topRoute)} 较 ${runnerLabel} 领先 ${secondDelta >= 0 ? "+" : ""}${secondDelta}，主要差异因子为${safeText(dominant.labelZh, "综合因子")}。` : "当前缺少 runner-up 路线。",
+        en: runnerUp ? `${defaultGetName(topRoute)} leads ${runnerLabel} by ${secondDelta >= 0 ? "+" : ""}${secondDelta}; the dominant gap is ${safeText(dominant.labelEn, "combined factors")}.` : "No runner-up route is available.",
+      },
+      {
+        id: "factor-overlay",
+        zh: factorAdvantages.length ? `${factorAdvantages.map(row => row.labelZh).join("、")}是当前路线的主要优势维度。` : "当前路线优势分布较均衡。",
+        en: factorAdvantages.length ? `${factorAdvantages.map(row => row.labelEn).join(", ")} are the leading advantage dimensions.` : "The current route advantage is balanced across factors.",
+      },
+      {
+        id: "validation-donut",
+        zh: `${validationCounts.coveredCount} 项已覆盖，${validationCounts.pendingCount} 项待补；该结果仍是实验验证假设。`,
+        en: `${validationCounts.coveredCount} covered and ${validationCounts.pendingCount} pending; this remains an experimental-validation hypothesis.`,
+      },
+    ],
+    interpretationParagraphs: [
+      {
+        id: "why-leading",
+        labelZh: "为何领先",
+        labelEn: "Why it leads",
+        bodyZh: runnerUp ? `领先主要来自${safeText(dominant.labelZh, "综合因子")}，与对照路线差值为 ${dominant.deltaSecond >= 0 ? "+" : ""}${round(dominant.deltaSecond, 3)}。` : "当前只有一条可排序路线，无法形成 runner-up 差异解释。",
+        bodyEn: runnerUp ? `The lead mainly comes from ${safeText(dominant.labelEn, "combined factors")}, with a gap of ${dominant.deltaSecond >= 0 ? "+" : ""}${round(dominant.deltaSecond, 3)} versus the comparison route.` : "Only one sortable route is available, so no runner-up gap explanation is available.",
+      },
+      {
+        id: "risk-boundary",
+        labelZh: "风险 / 边界",
+        labelEn: "Risk / boundary",
+        bodyZh: `${safeText(riskDecomposition.rows?.[0]?.reason || topRoute.mainRisk, "风险待验证")}；本输出是实验验证优先级，不是性能结论。`,
+        bodyEn: `${safeText(riskDecomposition.rows?.[0]?.reason || topRoute.mainRisk, "risk pending")}; this output is experimental-validation priority, not a performance conclusion.`,
+      },
+      {
+        id: "next-experiment",
+        labelZh: "验证实验",
+        labelEn: "Validation experiment",
+        bodyZh: `下一步实验：${safeText(topRoute.nextExperiment || workbench?.experimentalRoute?.nextExperiment, "validation experiment pending")}。`,
+        bodyEn: `Next experiment: ${safeText(topRoute.nextExperiment || workbench?.experimentalRoute?.nextExperiment, "validation experiment pending")}.`,
+      },
+    ],
+    riskDecomposition,
     boundaries: SCORE_BOUNDARY_STATEMENTS.slice(0, 3),
     validationCounts,
     nextExperiment: safeText(topRoute.nextExperiment || workbench?.experimentalRoute?.nextExperiment, "validation experiment pending"),
@@ -901,6 +1054,7 @@ export function buildStepWhyPanelEnhancedModel(step, workbench, options = {}) {
     const dynamic = dynamicConclusion(stepId, provenance, model.factorDeltaTable, conclusionZh, conclusionEn)
     model.conclusionZh = dynamic.zh
     model.conclusionEn = dynamic.en
+    model.structuredConclusion = buildStructuredConclusion(stepId, provenance, model.factorDeltaTable, null, model.boundaries)
   } else if (stepId === "step-4") {
     const guests = asArray(workbench?.guestSelection?.rankedGuestMetals)
     const provenance = buildGuestScoreProvenance(workbench, options)
@@ -915,6 +1069,7 @@ export function buildStepWhyPanelEnhancedModel(step, workbench, options = {}) {
     const dynamic = dynamicConclusion(stepId, provenance, model.factorDeltaTable, conclusionZh, conclusionEn)
     model.conclusionZh = dynamic.zh
     model.conclusionEn = dynamic.en
+    model.structuredConclusion = buildStructuredConclusion(stepId, provenance, model.factorDeltaTable, null, model.boundaries)
   } else if (stepId === "step-5") {
     const provenance = buildRouteHgcpsScoreProvenance(workbench, options)
     model.provenance = provenance
@@ -933,6 +1088,7 @@ export function buildStepWhyPanelEnhancedModel(step, workbench, options = {}) {
     const dynamic = dynamicConclusion(stepId, provenance, model.factorDeltaTable, conclusionZh, conclusionEn)
     model.conclusionZh = dynamic.zh
     model.conclusionEn = dynamic.en
+    model.structuredConclusion = buildStructuredConclusion(stepId, provenance, model.factorDeltaTable, model.riskDecomposition, model.boundaries)
   } else {
     model.dataGradeBadges = buildScoreDataGradeBadges("curated")
   }

@@ -1,5 +1,6 @@
 // @ts-nocheck
-import { describe, expect, it } from "vitest"
+import { act } from "react"
+import { afterEach, describe, expect, it, vi } from "vitest"
 import { fireEvent, render, screen, within } from "@testing-library/react"
 import pathwaySteps from "../../../public/data/organic_acid_host_guest/pathway_steps.json"
 import pathwayDescriptorMap from "../../../public/data/organic_acid_host_guest/pathway_descriptor_map.json"
@@ -56,7 +57,11 @@ function renderWorkbench() {
 }
 
 describe("OrganicAcidHostGuestWorkbench", () => {
-  it("renders the V3.9.5.4 stepwise execution chain from Step 0 before any route-output emphasis", () => {
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
+  it("renders the V3.9.5.5 stepwise execution chain from Step 0 before any route-output emphasis", () => {
     renderWorkbench()
     const text = bodyText()
 
@@ -66,13 +71,15 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     expect(screen.getByTestId("organic-acid-step-mini-map")).toBeInTheDocument()
     expect(screen.getByTestId("organic-acid-step-why-panel")).toBeInTheDocument()
 
-    expect(text).toMatch(/EcoMOF-AI V3\.9\.5\.4/)
+    expect(text).toMatch(/EcoMOF-AI V3\.9\.5\.5/)
     expect(text).toMatch(/筛选目标设定/)
     expect(text).toMatch(/Screening Objective \/ 筛选目标/)
     expect(text).toMatch(/有机酸分步算法执行链/)
     for (const label of ["Step 0", "Step 1", "Step 2", "Step 3", "Step 4", "Step 5", "Step 6"]) {
       expect(text).toMatch(new RegExp(label))
     }
+    expect(text).toMatch(/最终结果/)
+    expect(text).toMatch(/Final Result/)
     expect(text).toMatch(/反应路径分解/)
     expect(text).toMatch(/路径与描述符对应关系/)
     expect(text).toMatch(/主体 MOF 筛选/)
@@ -137,7 +144,7 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     const routeStepButton = within(navigator).getAllByRole("button").find(button => button.textContent?.includes("Step 5"))
     fireEvent.click(routeStepButton)
     const routeWhyPanel = screen.getByTestId("organic-acid-step-why-panel")
-    for (const label of ["结论", "逐因子", "对比 #2/#3", "证据 / 文献", "风险 / 反事实"]) {
+    for (const label of ["结论", "逐因子", "对比路线", "证据 / 文献", "风险 / 反事实"]) {
       expect(within(routeWhyPanel).getByRole("tab", { name: label })).toBeInTheDocument()
     }
     expect(within(routeWhyPanel).getByRole("tab", { name: "结论" })).toHaveAttribute("aria-selected", "true")
@@ -148,6 +155,28 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     // Step 5 surfaces the HGCPS / OACS / DMRS terminology crosswalk.
     expect(within(routeWhyPanel).getByTestId("terminology-crosswalk")).toBeInTheDocument()
     expect(routeWhyPanel.textContent).toMatch(/HGCPS \/ OACS \/ DMRS/)
+  })
+
+  it("runs the stepwise chain through Step 0-Step 6 and stops at the final result item", () => {
+    vi.useFakeTimers()
+    renderWorkbench()
+    const navigator = screen.getByTestId("organic-acid-step-navigator")
+    const runButton = within(navigator).getByTestId("organic-acid-run-control")
+
+    fireEvent.click(runButton)
+    expect(within(navigator).getByText("停止")).toBeInTheDocument()
+    expect(within(navigator).getByRole("button", { name: /Step 0/ })).toHaveAttribute("data-selected", "true")
+
+    act(() => {
+      vi.advanceTimersByTime(900)
+    })
+    expect(within(navigator).getByRole("button", { name: /Step 1/ })).toHaveAttribute("data-selected", "true")
+
+    act(() => {
+      vi.advanceTimersByTime(900 * 6)
+    })
+    expect(within(navigator).getByRole("button", { name: /Final/ })).toHaveAttribute("data-selected", "true")
+    expect(within(navigator).getByText("运行算法")).toBeInTheDocument()
   })
 
   it("inlines the Step Why Panel directly under the selected step on narrow screens", () => {
@@ -192,12 +221,14 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     renderWorkbench()
     const text = bodyText()
 
-    expect(text).toMatch(/Al-MOF 在主体竞争中胜出/)
-    expect(text).toMatch(/Zr-MOF 保留为 backup \/ control/)
-    expect(text).toMatch(/Mo 在客体竞争中胜出/)
-    expect(text).toMatch(/W 是 oxo-metal backup/)
-    expect(text).toMatch(/Al-MOF \+ Mo 在 route competition 中排第一/)
-    expect(text).toMatch(/Al-MOF \+ none \/ pristine 是 host-only control/)
+    const workbench = workbenchFixture()
+    expect(text).toMatch(new RegExp(`${workbench.hostSelection.selectedHost.displayName} 在主体竞争中胜出`))
+    expect(text).toMatch(new RegExp(`${workbench.hostSelection.rankedHosts[1].displayName} 保留为 backup / control`))
+    expect(text).toMatch(new RegExp(`${workbench.guestSelection.selectedGuestMetal.guestMetal} 在客体竞争中胜出`))
+    expect(text).toMatch(new RegExp(`${workbench.guestSelection.rankedGuestMetals[1].guestMetal} 是 oxo-metal backup`))
+    expect(text).toMatch(new RegExp(`${workbench.complementarity.topRoute.hostMof} \\+ ${workbench.complementarity.topRoute.guestMetal} 在 route competition 中排第一`))
+    const hostOnlyControl = workbench.complementarity.routeScores.find(route => /host-only|pristine/i.test(`${route.routeType} ${route.guestMetal}`))
+    expect(text).toMatch(new RegExp(`${hostOnlyControl.hostMof} \\+ ${hostOnlyControl.guestMetal} 是 host-only control`))
     expect(text).toMatch(/最终结果总结/)
     expect(text).toMatch(/HGCPS 六因子玫瑰/)
 

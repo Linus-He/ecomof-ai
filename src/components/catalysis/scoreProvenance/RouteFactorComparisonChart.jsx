@@ -16,7 +16,7 @@ export function RouteFactorComparisonChart({ model, lang = "zh", withTestId = tr
     <div data-testid={withTestId ? "route-factor-comparison-chart" : undefined} data-route-count={routes.length} style={cardStyle({ background: palette.bg, overflowX: "auto" })}>
       <div style={{ display: "grid", gap: 4 }}>
         <strong style={{ color: palette.text, fontSize: 13 }}>{text(lang, model.titleZh, model.titleEn)}</strong>
-        <span style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45 }}>{text(lang, "比较 #1 / #2 / #3 的六个 HGCPS 因子；高亮当前 top route。", "Compare the six HGCPS factors across #1 / #2 / #3; the top route is highlighted.")}</span>
+        <span style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45 }}>{text(lang, "比较 Top / Runner-up / Third 三条路线的六个 HGCPS 因子；高亮当前 top route。", "Compare the six HGCPS factors across Top / Runner-up / Third; the top route is highlighted.")}</span>
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         {routes.map((route, index) => (
@@ -36,7 +36,7 @@ export function RouteFactorComparisonChart({ model, lang = "zh", withTestId = tr
           <div key={row.factorKey} style={{ display: "grid", gap: 5 }}>
             <div style={{ alignItems: "baseline", display: "flex", gap: 8, justifyContent: "space-between" }}>
               <span style={{ color: palette.text, fontSize: 11.5, fontWeight: 800 }}>{text(lang, row.labelZh, row.labelEn)}</span>
-              <span style={{ color: row.topVsSecondDelta > 0 ? palette.positive : palette.faint, fontSize: 10.5, fontWeight: 850 }}>#1−#2 {row.topVsSecondDelta >= 0 ? "+" : ""}{fmt(row.topVsSecondDelta, 2)}</span>
+              <span style={{ color: row.topVsSecondDelta > 0 ? palette.positive : palette.faint, fontSize: 10.5, fontWeight: 850 }}>Top−runner {row.topVsSecondDelta >= 0 ? "+" : ""}{fmt(row.topVsSecondDelta, 2)}</span>
             </div>
             <div style={{ display: "grid", gap: 4 }}>
               {asArray(row.values).map((cell, index) => (
