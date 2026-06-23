@@ -1,0 +1,285 @@
+{
+  "specId": "organic-acid-host-guest-scoring-spec-v1",
+  "version": "V3.9.6",
+  "lockedAt": "2026-06-23T14:09:51Z",
+  "policy": "rules fixed before ranking computed",
+  "algorithm": {
+    "name": "Host-Guest Complementary Pathway Screening Algorithm",
+    "mode": "white-box deterministic scoring",
+    "mlPolicy": "No training or inference is used. Dataset fields are aggregated by fixed rules.",
+    "fallbackThreshold": {
+      "minimumRecords": 5,
+      "label": "curated-fallback"
+    }
+  },
+  "datasets": {
+    "coreMof": {
+      "path": "data_ingestion/core_mof_import_v2.json",
+      "recordPath": "records",
+      "fields": ["metalNode", "linker", "topology", "surfaceArea", "poreVolume", "density", "voidFraction", "doi", "citation"]
+    },
+    "qmof": {
+      "path": "data_ingestion/qmof_import_v2.json",
+      "recordPath": "records",
+      "fields": ["metalNode", "topology", "surfaceArea", "voidFraction", "density", "bandGap"]
+    },
+    "gasAdsorption": {
+      "path": "gas_adsorption_records_v1.json",
+      "recordPath": "root",
+      "fields": ["mofId", "gasPair", "primaryGas", "metrics", "descriptors", "score"]
+    },
+    "reaction": {
+      "path": "data_ingestion/organic_acid_reaction_dataset_v1.json",
+      "recordPath": "records",
+      "fields": ["product", "metalNode", "linker", "topology", "temperature", "pressure", "solvent", "reactionTime", "yield", "selectivity", "conversion", "validationStatus"]
+    },
+    "literature": {
+      "path": "organic_acid_literature_dataset_v2.json",
+      "recordPath": "records",
+      "fields": ["mof", "reaction", "performance", "evidence", "quality"]
+    },
+    "gold": {
+      "path": "organic_acid_gold_dataset_v2.json",
+      "recordPath": "records",
+      "fields": ["mof", "reaction", "performance", "evidence", "quality", "reactionValidation", "comparability", "goldCriteria"]
+    }
+  },
+  "targetFamilies": [
+    "Al-MOF",
+    "Zr-MOF",
+    "Ti-MOF",
+    "Fe-MOF",
+    "Cr-MOF",
+    "UiO-type host",
+    "MIL-type host",
+    "MOF-808-like host"
+  ],
+  "familyAssignment": {
+    "precedence": [
+      "nameOrTopologyContainsMIL",
+      "zirconiumTopologyOrNameSpecialization",
+      "singleMetalNode"
+    ],
+    "rules": [
+      {
+        "id": "nameOrTopologyContainsMIL",
+        "family": "MIL-type host",
+        "match": {
+          "fields": ["displayName", "mofName", "linker", "topology"],
+          "containsAnyCaseInsensitive": ["MIL"]
+        }
+      },
+      {
+        "id": "zrMof808",
+        "family": "MOF-808-like host",
+        "match": {
+          "metalNode": "Zr",
+          "fields": ["displayName", "mofName", "linker", "topology"],
+          "containsAnyCaseInsensitive": ["808", "spn"]
+        }
+      },
+      {
+        "id": "zrUio",
+        "family": "UiO-type host",
+        "match": {
+          "metalNode": "Zr",
+          "fields": ["displayName", "mofName", "linker", "topology"],
+          "containsAnyCaseInsensitive": ["UiO", "fcu"]
+        }
+      },
+      {
+        "id": "zrGeneric",
+        "family": "Zr-MOF",
+        "match": {
+          "metalNode": "Zr"
+        }
+      },
+      {
+        "id": "singleMetalAl",
+        "family": "Al-MOF",
+        "match": {
+          "metalNode": "Al"
+        }
+      },
+      {
+        "id": "singleMetalFe",
+        "family": "Fe-MOF",
+        "match": {
+          "metalNode": "Fe"
+        }
+      },
+      {
+        "id": "singleMetalCr",
+        "family": "Cr-MOF",
+        "match": {
+          "metalNode": "Cr"
+        }
+      },
+      {
+        "id": "singleMetalTi",
+        "family": "Ti-MOF",
+        "match": {
+          "metalNode": "Ti"
+        }
+      }
+    ],
+    "multiMetalPolicy": "Use the first listed metal when a record has multiple metal nodes separated by ';', '/', ',', or '+'. If the first metal cannot be mapped, mark ambiguous and exclude from family aggregation.",
+    "unclassifiedPolicy": "Records not mapped to a target family are counted as unclassified and excluded from family aggregates.",
+    "todo": "Topology strings may not align with UiO/MOF-808/MIL hints in all imported records; report unmatched Zr topology counts for review."
+  },
+  "normalization": {
+    "default": "cross-family min-max after aggregation",
+    "zeroVariance": 0.5,
+    "clamp": [0, 1],
+    "roundDigits": 3
+  },
+  "hostScoreWeights": [
+    ["stabilityProxy", 0.22],
+    ["aqueousStabilityEvidence", 0.18],
+    ["thermalStabilityEvidence", 0.1],
+    ["poreEnvironmentScore", 0.12],
+    ["co2EnrichmentSupport", 0.1],
+    ["postModificationFeasibility", 0.1],
+    ["guestHostingFeasibility", 0.1],
+    ["provenanceQuality", 0.08]
+  ],
+  "guestScoreWeights": [
+    ["co2ActivationScore", 0.22],
+    ["formateStabilizationScore", 0.22],
+    ["electronTransferSupport", 0.16],
+    ["compatibilityWithAlMof", 0.16],
+    ["dopingFeasibility", 0.08],
+    ["postModificationFeasibility", 0.08],
+    ["bimetallicConstructionFeasibility", 0.08]
+  ],
+  "routeScoreKeys": [
+    "hostStabilityScore",
+    "hostPathwaySupportScore",
+    "guestActivityCompensationScore",
+    "hostGuestComplementarityScore",
+    "evidenceConfidenceScore",
+    "riskPenalty"
+  ],
+  "hgcpsFormula": "finalHGCPS = product(hostStabilityScore, hostPathwaySupportScore, guestActivityCompensationScore, hostGuestComplementarityScore, evidenceConfidenceScore, riskPenalty)",
+  "hostFactorMappings": {
+    "poreEnvironmentScore": {
+      "descriptor": "surface area, pore volume, and void fraction structural support",
+      "datasets": ["coreMof", "qmof"],
+      "fields": ["surfaceArea", "poreVolume", "voidFraction"],
+      "aggregate": "family median for each numeric field; combined as mean of normalized field medians",
+      "normalization": "cross-family min-max",
+      "derivationLevel": "data-derived"
+    },
+    "co2EnrichmentSupport": {
+      "descriptor": "CO2 adsorption support; fallback to structural void-fraction proxy when direct gas adsorption rows are sparse",
+      "datasets": ["gasAdsorption", "coreMof", "qmof"],
+      "fields": ["primaryGas", "gasPair", "metrics", "descriptors", "score", "voidFraction"],
+      "aggregate": "mean CO2 gas-adsorption score for mapped family when nRecords >= threshold; otherwise family voidFraction median proxy",
+      "normalization": "cross-family min-max",
+      "derivationLevel": "data-derived or proxy-flagged"
+    },
+    "stabilityProxy": {
+      "descriptor": "indirect aqueous survival proxy from water/aqueous reaction presence plus CoRE representation",
+      "datasets": ["reaction", "coreMof"],
+      "fields": ["solvent", "yield", "validationStatus", "metalNode"],
+      "aggregate": "0.7 * valid aqueous reaction share + 0.3 * normalized CoRE family record count",
+      "normalization": "cross-family min-max",
+      "derivationLevel": "data-derived indirect-proxy"
+    },
+    "aqueousStabilityEvidence": {
+      "descriptor": "aqueous organic-acid reaction support",
+      "datasets": ["reaction"],
+      "fields": ["solvent", "yield", "validationStatus"],
+      "aggregate": "share of family reaction rows with water or aqueous solvent, yield > 0, and accepted validation status",
+      "normalization": "cross-family min-max",
+      "derivationLevel": "data-derived indirect-proxy"
+    },
+    "thermalStabilityEvidence": {
+      "descriptor": "reaction-temperature survival support",
+      "datasets": ["reaction"],
+      "fields": ["temperature", "yield", "validationStatus"],
+      "aggregate": "median family reaction temperature among positive-yield accepted rows",
+      "normalization": "cross-family min-max",
+      "derivationLevel": "data-derived indirect-proxy"
+    },
+    "postModificationFeasibility": {
+      "descriptor": "post-modification feasibility",
+      "datasets": ["host_mof_candidates"],
+      "fields": ["postModificationFeasibility"],
+      "aggregate": "curated fallback only because no imported dataset field represents this descriptor",
+      "normalization": "none",
+      "derivationLevel": "curated-fallback"
+    },
+    "guestHostingFeasibility": {
+      "descriptor": "guest metal hosting feasibility",
+      "datasets": ["host_mof_candidates"],
+      "fields": ["guestHostingFeasibility"],
+      "aggregate": "curated fallback only because no imported dataset field represents this descriptor",
+      "normalization": "none",
+      "derivationLevel": "curated-fallback"
+    },
+    "provenanceQuality": {
+      "descriptor": "record-level provenance coverage",
+      "datasets": ["coreMof", "qmof", "reaction", "literature", "gold"],
+      "fields": ["doi", "citation", "quality.provenanceCoverage"],
+      "aggregate": "mean available provenance coverage for mapped records, falling back to DOI/citation coverage",
+      "normalization": "cross-family min-max",
+      "derivationLevel": "data-derived"
+    }
+  },
+  "guestFactorMappings": {
+    "dataDerivedPolicy": "Only derive a guest factor from reaction/literature/gold records when the guest metal appears as a primary metalNode with nRecords >= threshold. Otherwise use the existing literature prior and mark curated-literature-prior.",
+    "performanceAggregate": "mean of normalized yield, selectivity, and conversion across eligible records",
+    "fallbackLabel": "curated-literature-prior",
+    "fallbackReason": "No dedicated dopant or guest-metal dataset field is present in the imported data."
+  },
+  "routeFactorMappings": {
+    "hostStabilityScore": {
+      "source": "derived host stabilityProxy",
+      "derivationLevel": "data-derived"
+    },
+    "hostPathwaySupportScore": {
+      "source": "mean of derived host poreEnvironmentScore and co2EnrichmentSupport",
+      "derivationLevel": "data-derived or proxy-flagged"
+    },
+    "guestActivityCompensationScore": {
+      "source": "derived or curated-literature-prior guest activity score",
+      "derivationLevel": "data-derived or curated-literature-prior"
+    },
+    "hostGuestComplementarityScore": {
+      "source": "deterministic complementarity between host weak dimensions and guest strong dimensions",
+      "aggregate": "0.5 * guestActivityCompensationScore + 0.25 * hostPathwaySupportScore + 0.25 * (1 - abs(hostStabilityScore - guestActivityCompensationScore))",
+      "normalization": "clamped 0-1",
+      "derivationLevel": "rule-derived"
+    },
+    "evidenceConfidenceScore": {
+      "source": "literature and gold records for mapped host family and target product",
+      "aggregate": "weighted evidence count using quality tier and provenance coverage; Gold > Silver > Bronze",
+      "normalization": "cross-route min-max with floor for sparse evidence",
+      "derivationLevel": "data-derived"
+    },
+    "riskPenalty": {
+      "source": "evidence sparsity and same-condition coverage",
+      "aggregate": "risk retention rises with evidence count and same-condition/comparability coverage; sparse evidence lowers the multiplicative factor",
+      "normalization": "clamped 0-1",
+      "derivationLevel": "data-derived"
+    }
+  },
+  "provenanceTuple": {
+    "requiredKeys": ["sourceDataset", "nRecords", "rawAggregate", "normalization"],
+    "valueKey": "value",
+    "recordRefs": "Include real source ids or citations when available.",
+    "fallbackPolicy": "Every fallback value must include curated-fallback or curated-literature-prior, nRecords, rawAggregate, and fallback reason."
+  },
+  "sensitivity": {
+    "routeFactorMultipliers": [0.8, 1.2],
+    "weightPerturbation": 0.1,
+    "reportedMetric": "top route rank stability and top-k membership under reasonable weight and normalization perturbations"
+  },
+  "forbidden": [
+    "Hard-code final ranking or finalHGCPS values",
+    "Treat curated fallback values as data-derived",
+    "Use ML training or inference",
+    "Use guest or dopant metals as retrieval filters for host-family evidence"
+  ]
+}
