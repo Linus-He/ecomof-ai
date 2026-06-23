@@ -11,8 +11,6 @@
     "hostGuestComplementarityScore": 0.92,
     "evidenceConfidenceScore": 0.82,
     "riskPenalty": 0.84,
-    "finalHGCPS": 0.416,
-    "ranking": 1,
     "recommendationTier": "Top Priority Route",
     "mainReason": "Al-MOF supplies the stable host scaffold while Mo compensates activity for CO2 activation and HCOO* stabilization.",
     "mainRisk": "Mo introduction feasibility, local Mo coordination, same-condition reaction data, and 170C aqueous stability validation remain open.",
@@ -22,8 +20,8 @@
       "HGCPS-EVID-001-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
       "not black-box ML"
     ]
   },
@@ -39,20 +37,18 @@
     "hostGuestComplementarityScore": 0.8,
     "evidenceConfidenceScore": 0.78,
     "riskPenalty": 0.83,
-    "finalHGCPS": 0.314,
-    "ranking": 2,
     "recommendationTier": "Conditional Routes",
     "mainReason": "MOF-808-like host + Mo is retained as a comparison route for host-guest complementarity and risk calibration.",
     "mainRisk": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
-    "nextExperiment": "Keep as conditional comparison after Al-MOF + Mo feasibility and stability are checked.",
+    "nextExperiment": "Keep as conditional comparison after the current top-ranked route's feasibility and stability are checked.",
     "evidenceRefs": [
       "HGCPS-EVID-021-A",
       "HGCPS-EVID-021-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -67,20 +63,18 @@
     "hostGuestComplementarityScore": 0.79,
     "evidenceConfidenceScore": 0.79,
     "riskPenalty": 0.84,
-    "finalHGCPS": 0.304,
-    "ranking": 3,
     "recommendationTier": "Conditional Routes",
     "mainReason": "Zr-MOF + Mo is retained as a comparison route for host-guest complementarity and risk calibration.",
     "mainRisk": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
-    "nextExperiment": "Keep as conditional comparison after Al-MOF + Mo feasibility and stability are checked.",
+    "nextExperiment": "Keep as conditional comparison after the current top-ranked route's feasibility and stability are checked.",
     "evidenceRefs": [
       "HGCPS-EVID-011-A",
       "HGCPS-EVID-011-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -95,20 +89,18 @@
     "hostGuestComplementarityScore": 0.78,
     "evidenceConfidenceScore": 0.78,
     "riskPenalty": 0.84,
-    "finalHGCPS": 0.297,
-    "ranking": 4,
     "recommendationTier": "Conditional Routes",
     "mainReason": "Al-MOF + W is retained as a comparison route for host-guest complementarity and risk calibration.",
     "mainRisk": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
-    "nextExperiment": "Keep as conditional comparison after Al-MOF + Mo feasibility and stability are checked.",
+    "nextExperiment": "Keep as conditional comparison after the current top-ranked route's feasibility and stability are checked.",
     "evidenceRefs": [
       "HGCPS-EVID-002-A",
       "HGCPS-EVID-002-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -123,20 +115,18 @@
     "hostGuestComplementarityScore": 0.79,
     "evidenceConfidenceScore": 0.78,
     "riskPenalty": 0.84,
-    "finalHGCPS": 0.293,
-    "ranking": 5,
     "recommendationTier": "Conditional Routes",
     "mainReason": "UiO-type host + Mo is retained as a comparison route for host-guest complementarity and risk calibration.",
     "mainRisk": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
-    "nextExperiment": "Keep as conditional comparison after Al-MOF + Mo feasibility and stability are checked.",
+    "nextExperiment": "Keep as conditional comparison after the current top-ranked route's feasibility and stability are checked.",
     "evidenceRefs": [
       "HGCPS-EVID-019-A",
       "HGCPS-EVID-019-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -151,20 +141,18 @@
     "hostGuestComplementarityScore": 0.74,
     "evidenceConfidenceScore": 0.76,
     "riskPenalty": 0.85,
-    "finalHGCPS": 0.26,
-    "ranking": 6,
     "recommendationTier": "Conditional Routes",
     "mainReason": "Al-MOF + Fe is retained as a comparison route for host-guest complementarity and risk calibration.",
     "mainRisk": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
-    "nextExperiment": "Keep as conditional comparison after Al-MOF + Mo feasibility and stability are checked.",
+    "nextExperiment": "Keep as conditional comparison after the current top-ranked route's feasibility and stability are checked.",
     "evidenceRefs": [
       "HGCPS-EVID-003-A",
       "HGCPS-EVID-003-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -179,20 +167,18 @@
     "hostGuestComplementarityScore": 0.74,
     "evidenceConfidenceScore": 0.77,
     "riskPenalty": 0.82,
-    "finalHGCPS": 0.256,
-    "ranking": 7,
     "recommendationTier": "Conditional Routes",
     "mainReason": "MIL-type host + Mo is retained as a comparison route for host-guest complementarity and risk calibration.",
     "mainRisk": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
-    "nextExperiment": "Keep as conditional comparison after Al-MOF + Mo feasibility and stability are checked.",
+    "nextExperiment": "Keep as conditional comparison after the current top-ranked route's feasibility and stability are checked.",
     "evidenceRefs": [
       "HGCPS-EVID-020-A",
       "HGCPS-EVID-020-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -207,20 +193,18 @@
     "hostGuestComplementarityScore": 0.72,
     "evidenceConfidenceScore": 0.76,
     "riskPenalty": 0.84,
-    "finalHGCPS": 0.237,
-    "ranking": 8,
     "recommendationTier": "Conditional Routes",
     "mainReason": "Al-MOF + Ti is retained as a comparison route for host-guest complementarity and risk calibration.",
     "mainRisk": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
-    "nextExperiment": "Keep as conditional comparison after Al-MOF + Mo feasibility and stability are checked.",
+    "nextExperiment": "Keep as conditional comparison after the current top-ranked route's feasibility and stability are checked.",
     "evidenceRefs": [
       "HGCPS-EVID-010-A",
       "HGCPS-EVID-010-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -235,20 +219,18 @@
     "hostGuestComplementarityScore": 0.71,
     "evidenceConfidenceScore": 0.76,
     "riskPenalty": 0.85,
-    "finalHGCPS": 0.236,
-    "ranking": 9,
     "recommendationTier": "Conditional Routes",
     "mainReason": "Al-MOF + Co is retained as a comparison route for host-guest complementarity and risk calibration.",
     "mainRisk": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
-    "nextExperiment": "Keep as conditional comparison after Al-MOF + Mo feasibility and stability are checked.",
+    "nextExperiment": "Keep as conditional comparison after the current top-ranked route's feasibility and stability are checked.",
     "evidenceRefs": [
       "HGCPS-EVID-004-A",
       "HGCPS-EVID-004-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -263,20 +245,18 @@
     "hostGuestComplementarityScore": 0.69,
     "evidenceConfidenceScore": 0.76,
     "riskPenalty": 0.84,
-    "finalHGCPS": 0.233,
-    "ranking": 10,
     "recommendationTier": "Conditional Routes",
     "mainReason": "Al-MOF + V is retained as a comparison route for host-guest complementarity and risk calibration.",
     "mainRisk": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
-    "nextExperiment": "Keep as conditional comparison after Al-MOF + Mo feasibility and stability are checked.",
+    "nextExperiment": "Keep as conditional comparison after the current top-ranked route's feasibility and stability are checked.",
     "evidenceRefs": [
       "HGCPS-EVID-007-A",
       "HGCPS-EVID-007-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -291,20 +271,18 @@
     "hostGuestComplementarityScore": 0.71,
     "evidenceConfidenceScore": 0.77,
     "riskPenalty": 0.83,
-    "finalHGCPS": 0.233,
-    "ranking": 11,
     "recommendationTier": "Pending / Insufficient Evidence Routes",
     "mainReason": "Zr-MOF + W is retained as a comparison route for host-guest complementarity and risk calibration.",
     "mainRisk": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
-    "nextExperiment": "Keep as conditional comparison after Al-MOF + Mo feasibility and stability are checked.",
+    "nextExperiment": "Keep as conditional comparison after the current top-ranked route's feasibility and stability are checked.",
     "evidenceRefs": [
       "HGCPS-EVID-012-A",
       "HGCPS-EVID-012-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -319,20 +297,18 @@
     "hostGuestComplementarityScore": 0.69,
     "evidenceConfidenceScore": 0.75,
     "riskPenalty": 0.85,
-    "finalHGCPS": 0.22,
-    "ranking": 12,
     "recommendationTier": "Pending / Insufficient Evidence Routes",
     "mainReason": "Al-MOF + Ni is retained as a comparison route for host-guest complementarity and risk calibration.",
     "mainRisk": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
-    "nextExperiment": "Keep as conditional comparison after Al-MOF + Mo feasibility and stability are checked.",
+    "nextExperiment": "Keep as conditional comparison after the current top-ranked route's feasibility and stability are checked.",
     "evidenceRefs": [
       "HGCPS-EVID-005-A",
       "HGCPS-EVID-005-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -347,20 +323,18 @@
     "hostGuestComplementarityScore": 0.67,
     "evidenceConfidenceScore": 0.75,
     "riskPenalty": 0.84,
-    "finalHGCPS": 0.211,
-    "ranking": 13,
     "recommendationTier": "Pending / Insufficient Evidence Routes",
     "mainReason": "Al-MOF + Cu is retained as a comparison route for host-guest complementarity and risk calibration.",
     "mainRisk": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
-    "nextExperiment": "Keep as conditional comparison after Al-MOF + Mo feasibility and stability are checked.",
+    "nextExperiment": "Keep as conditional comparison after the current top-ranked route's feasibility and stability are checked.",
     "evidenceRefs": [
       "HGCPS-EVID-006-A",
       "HGCPS-EVID-006-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -375,20 +349,18 @@
     "hostGuestComplementarityScore": 0.76,
     "evidenceConfidenceScore": 0.74,
     "riskPenalty": 0.79,
-    "finalHGCPS": 0.211,
-    "ranking": 14,
     "recommendationTier": "Pending / Insufficient Evidence Routes",
     "mainReason": "Ti-MOF + Mo is retained as a comparison route for host-guest complementarity and risk calibration.",
     "mainRisk": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
-    "nextExperiment": "Keep as conditional comparison after Al-MOF + Mo feasibility and stability are checked.",
+    "nextExperiment": "Keep as conditional comparison after the current top-ranked route's feasibility and stability are checked.",
     "evidenceRefs": [
       "HGCPS-EVID-014-A",
       "HGCPS-EVID-014-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -403,20 +375,18 @@
     "hostGuestComplementarityScore": 0.68,
     "evidenceConfidenceScore": 0.75,
     "riskPenalty": 0.84,
-    "finalHGCPS": 0.206,
-    "ranking": 15,
     "recommendationTier": "Pending / Insufficient Evidence Routes",
     "mainReason": "Zr-MOF + Fe is retained as a comparison route for host-guest complementarity and risk calibration.",
     "mainRisk": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
-    "nextExperiment": "Keep as conditional comparison after Al-MOF + Mo feasibility and stability are checked.",
+    "nextExperiment": "Keep as conditional comparison after the current top-ranked route's feasibility and stability are checked.",
     "evidenceRefs": [
       "HGCPS-EVID-013-A",
       "HGCPS-EVID-013-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -431,20 +401,18 @@
     "hostGuestComplementarityScore": 0.73,
     "evidenceConfidenceScore": 0.71,
     "riskPenalty": 0.79,
-    "finalHGCPS": 0.194,
-    "ranking": 16,
     "recommendationTier": "Pending / Insufficient Evidence Routes",
     "mainReason": "Cr-MOF + Mo is retained as a comparison route for host-guest complementarity and risk calibration.",
     "mainRisk": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
-    "nextExperiment": "Keep as conditional comparison after Al-MOF + Mo feasibility and stability are checked.",
+    "nextExperiment": "Keep as conditional comparison after the current top-ranked route's feasibility and stability are checked.",
     "evidenceRefs": [
       "HGCPS-EVID-018-A",
       "HGCPS-EVID-018-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -459,20 +427,18 @@
     "hostGuestComplementarityScore": 0.65,
     "evidenceConfidenceScore": 0.74,
     "riskPenalty": 0.84,
-    "finalHGCPS": 0.193,
-    "ranking": 17,
     "recommendationTier": "Pending / Insufficient Evidence Routes",
     "mainReason": "Al-MOF + Mn is retained as a comparison route for host-guest complementarity and risk calibration.",
     "mainRisk": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
-    "nextExperiment": "Keep as conditional comparison after Al-MOF + Mo feasibility and stability are checked.",
+    "nextExperiment": "Keep as conditional comparison after the current top-ranked route's feasibility and stability are checked.",
     "evidenceRefs": [
       "HGCPS-EVID-008-A",
       "HGCPS-EVID-008-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -487,20 +453,18 @@
     "hostGuestComplementarityScore": 0.68,
     "evidenceConfidenceScore": 0.74,
     "riskPenalty": 0.85,
-    "finalHGCPS": 0.191,
-    "ranking": 18,
     "recommendationTier": "Pending / Insufficient Evidence Routes",
     "mainReason": "Al-MOF + Zn is retained as a comparison route for host-guest complementarity and risk calibration.",
     "mainRisk": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
-    "nextExperiment": "Keep as conditional comparison after Al-MOF + Mo feasibility and stability are checked.",
+    "nextExperiment": "Keep as conditional comparison after the current top-ranked route's feasibility and stability are checked.",
     "evidenceRefs": [
       "HGCPS-EVID-009-A",
       "HGCPS-EVID-009-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -515,20 +479,18 @@
     "hostGuestComplementarityScore": 0.73,
     "evidenceConfidenceScore": 0.72,
     "riskPenalty": 0.77,
-    "finalHGCPS": 0.162,
-    "ranking": 19,
     "recommendationTier": "Pending / Insufficient Evidence Routes",
     "mainReason": "Fe-MOF + Mo is retained as a comparison route for host-guest complementarity and risk calibration.",
     "mainRisk": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
-    "nextExperiment": "Keep as conditional comparison after Al-MOF + Mo feasibility and stability are checked.",
+    "nextExperiment": "Keep as conditional comparison after the current top-ranked route's feasibility and stability are checked.",
     "evidenceRefs": [
       "HGCPS-EVID-015-A",
       "HGCPS-EVID-015-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -543,20 +505,18 @@
     "hostGuestComplementarityScore": 0.73,
     "evidenceConfidenceScore": 0.72,
     "riskPenalty": 0.76,
-    "finalHGCPS": 0.16,
-    "ranking": 20,
     "recommendationTier": "Pending / Insufficient Evidence Routes",
     "mainReason": "Zn-MOF + Mo is retained as a comparison route for host-guest complementarity and risk calibration.",
     "mainRisk": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
-    "nextExperiment": "Keep as conditional comparison after Al-MOF + Mo feasibility and stability are checked.",
+    "nextExperiment": "Keep as conditional comparison after the current top-ranked route's feasibility and stability are checked.",
     "evidenceRefs": [
       "HGCPS-EVID-017-A",
       "HGCPS-EVID-017-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -571,20 +531,18 @@
     "hostGuestComplementarityScore": 0.73,
     "evidenceConfidenceScore": 0.7,
     "riskPenalty": 0.73,
-    "finalHGCPS": 0.123,
-    "ranking": 21,
     "recommendationTier": "Pending / Insufficient Evidence Routes",
     "mainReason": "Cu-MOF + Mo is retained as a comparison route for host-guest complementarity and risk calibration.",
     "mainRisk": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
-    "nextExperiment": "Keep as conditional comparison after Al-MOF + Mo feasibility and stability are checked.",
+    "nextExperiment": "Keep as conditional comparison after the current top-ranked route's feasibility and stability are checked.",
     "evidenceRefs": [
       "HGCPS-EVID-016-A",
       "HGCPS-EVID-016-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -599,20 +557,18 @@
     "hostGuestComplementarityScore": 0.54,
     "evidenceConfidenceScore": 0.73,
     "riskPenalty": 0.85,
-    "finalHGCPS": 0.12,
-    "ranking": 22,
     "recommendationTier": "Pending / Insufficient Evidence Routes",
     "mainReason": "Al-MOF is retained as a host-only control without guest-metal activity compensation.",
     "mainRisk": "Activity compensation is missing, so this is a baseline control rather than a priority route.",
-    "nextExperiment": "Run as baseline control against Al-MOF + Mo under the same analytical method.",
+    "nextExperiment": "Run as baseline control against the current top-ranked host-guest route under the same analytical method.",
     "evidenceRefs": [
       "HGCPS-EVID-022-A",
       "HGCPS-EVID-022-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -627,20 +583,18 @@
     "hostGuestComplementarityScore": 0.51,
     "evidenceConfidenceScore": 0.72,
     "riskPenalty": 0.84,
-    "finalHGCPS": 0.085,
-    "ranking": 23,
     "recommendationTier": "Pending / Insufficient Evidence Routes",
     "mainReason": "Zr-MOF is retained as a host-only control without guest-metal activity compensation.",
     "mainRisk": "Activity compensation is missing, so this is a baseline control rather than a priority route.",
-    "nextExperiment": "Run as baseline control against Al-MOF + Mo under the same analytical method.",
+    "nextExperiment": "Run as baseline control against the current top-ranked host-guest route under the same analytical method.",
     "evidenceRefs": [
       "HGCPS-EVID-023-A",
       "HGCPS-EVID-023-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -655,20 +609,18 @@
     "hostGuestComplementarityScore": 0.51,
     "evidenceConfidenceScore": 0.71,
     "riskPenalty": 0.84,
-    "finalHGCPS": 0.082,
-    "ranking": 24,
     "recommendationTier": "Pending / Insufficient Evidence Routes",
     "mainReason": "UiO-type host is retained as a host-only control without guest-metal activity compensation.",
     "mainRisk": "Activity compensation is missing, so this is a baseline control rather than a priority route.",
-    "nextExperiment": "Run as baseline control against Al-MOF + Mo under the same analytical method.",
+    "nextExperiment": "Run as baseline control against the current top-ranked host-guest route under the same analytical method.",
     "evidenceRefs": [
       "HGCPS-EVID-025-A",
       "HGCPS-EVID-025-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   },
   {
@@ -683,20 +635,18 @@
     "hostGuestComplementarityScore": 0.5,
     "evidenceConfidenceScore": 0.67,
     "riskPenalty": 0.79,
-    "finalHGCPS": 0.06,
-    "ranking": 25,
     "recommendationTier": "Pending / Insufficient Evidence Routes",
     "mainReason": "Ti-MOF is retained as a host-only control without guest-metal activity compensation.",
     "mainRisk": "Activity compensation is missing, so this is a baseline control rather than a priority route.",
-    "nextExperiment": "Run as baseline control against Al-MOF + Mo under the same analytical method.",
+    "nextExperiment": "Run as baseline control against the current top-ranked host-guest route under the same analytical method.",
     "evidenceRefs": [
       "HGCPS-EVID-024-A",
       "HGCPS-EVID-024-B"
     ],
     "provenance": [
-      "data-backed seed route",
-      "host-guest complementary scoring",
-      "comparison route"
+      "curated route seed (factors recomputed at runtime when real data are present)",
+      "not a final ranking source",
+      "not black-box ML"
     ]
   }
 ]

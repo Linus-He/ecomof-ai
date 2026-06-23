@@ -10,7 +10,7 @@
   "experimentalLabelCount": 150,
   "externalTestCount": 80,
   "benchmarkEligibleCount": 230,
-  "currentVersion": "V3.9.5.5",
+  "currentVersion": "V3.9.6",
   "bestModel": "Random Forest",
   "accuracy": 0.725,
   "rocAuc": 0.7558,
@@ -30,7 +30,13 @@
     "public/data/home_summary.json",
     "public/data/model_robustness_report_v1.json",
     "public/data/benchmark_dataset_v3_6.json",
-    "public/data/experimental_labels/experimental_labels_v2.json"
+    "public/data/experimental_labels/experimental_labels_v2.json",
+    "public/data/organic_acid_scoring_spec_v1.json",
+    "public/data/data_ingestion/core_mof_import_v2.json",
+    "public/data/data_ingestion/qmof_import_v2.json",
+    "public/data/data_ingestion/organic_acid_reaction_dataset_v1.json",
+    "public/data/organic_acid_literature_dataset_v2.json",
+    "public/data/organic_acid_gold_dataset_v2.json"
   ],
   "notes": [
     "Homepage summary is intentionally lightweight and excludes large record arrays.",
@@ -44,6 +50,7 @@
     "V3.9.5 refactors the Organic Acid Host-Guest Workbench into a Chinese-first Algorithm Flow Network with status bar, node inspector, candidate competition, route output, folded activation entry, advanced robustness tabs, and flow-network exports while preserving not-final-proof and not-formal-ML boundaries.",
     "V3.9.5.1 adds Step 0 prediction / screening target setup, replaces the static flow-network-first layout with a vertical stepwise execution chain, adds Step Why Panel dynamic comparison charts, and keeps Al-MOF + Mo as a derived route output rather than a preset answer while preserving not-final-proof and not-formal-ML boundaries.",
     "V3.9.5.4 upgrades the Organic Acid Step Why Panel into a tabbed evidence/provenance surface with independent scrolling, per-factor interpretation, route counterfactuals, model-driven paper-style charts, mobile inline behavior, and a final result summary while preserving planning-only and non-ML boundaries.",
-    "V3.9.5.5 fixes the guest-factor dumbbell clipping bug, upgrades HGCPS/host rose charts with academic rings and factor-detail interaction, adds a Run control through Step 0-Step 6-final result, expands structured conclusions, and adds final-result comparison figures while preserving white-box and planning-only boundaries."
+    "V3.9.5.5 fixes the guest-factor dumbbell clipping bug, upgrades HGCPS/host rose charts with academic rings and factor-detail interaction, adds a Run control through Step 0-Step 6-final result, expands structured conclusions, and adds final-result comparison figures while preserving white-box and planning-only boundaries.",
+    "V3.9.6 preregisters the Organic Acid scoring spec, derives host/guest/route factors from existing real datasets where fields exist, labels sparse descriptors as curated fallback or literature prior, and recomputes HGCPS at runtime while preserving white-box and planning-only boundaries."
   ]
 }

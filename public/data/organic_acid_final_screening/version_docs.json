@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06-23",
-  "currentVersion": "V3.9.5.5",
-  "completedRange": "V1.0-V3.9.5.5",
+  "currentVersion": "V3.9.6",
+  "completedRange": "V1.0-V3.9.6",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -3476,7 +3476,7 @@
       "title": "Organic Acid Interactive Why Panel, Run Control & Final Comparison Figures",
       "titleZh": "有机酸交互式 Why Panel、运行控件与最终对比图",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Interactive explanation and final-result comparison",
       "themeZh": "交互式解释与最终结果对比",
       "summary": "Fixed the guest dumbbell chart clipping bug, upgraded HGCPS and host rose charts with academic rings, spokes, labels, and clickable factor detail cards, added a Run control that advances Step 0 through Step 6 into Final Result, expanded scored-step conclusions into four structured segments, and added paper-style final comparison figures.",
@@ -3548,6 +3548,87 @@
         ],
         "adaptationBoundary": "Interactive explanation and visualization only; no final catalyst-performance proof and no formal machine-learning prediction.",
         "adaptationBoundaryZh": "仅用于交互式解释与可视化；不提供最终催化性能证明，也不是正式机器学习预测。"
+      },
+      "relatedSection": "project-evolution-organic-acid-algorithm-methodology"
+    },
+    {
+      "version": "V3.9.6",
+      "title": "Organic Acid Real Data Binding and Preregistered Scoring",
+      "titleZh": "有机酸真实数据接入与预注册评分",
+      "date": "2026-06-23",
+      "status": "current",
+      "theme": "Real data binding with explicit fallback provenance",
+      "themeZh": "真实数据接入与显式 fallback 溯源",
+      "summary": "Preregistered the Organic Acid scoring spec before data-derived ranking, moved host/guest/route scoring to deterministic builders that aggregate existing CoRE, QMOF, gas adsorption, reaction, literature, and gold datasets where fields exist, and exposed sourceDataset/nRecords/rawAggregate/normalization/value provenance for each factor.",
+      "summaryZh": "在数据派生排名前预注册有机酸评分规约；将主体、客体与路线评分迁移到确定性 builder，在字段存在处聚合 CoRE、QMOF、气体吸附、反应、文献与金牌库，并为每个因子展示 sourceDataset / nRecords / rawAggregate / normalization / value 溯源。",
+      "keyUpdates": [
+        "Added public/data/organic_acid_scoring_spec_v1.json and Markdown companion as the locked V3.9.6 rule source.",
+        "Added host, guest, and route data-derivation builders with family assignment, normalization, sparse-data fallback, and route HGCPS recomputation.",
+        "Removed precomputed hostScore / guestScore / finalHGCPS / ranking fields as ranking sources from seed JSON files.",
+        "Added factor source labels and expandable route factor provenance rows in the Host-Guest workbench.",
+        "Updated Project Evolution methodology formulas so argmax outputs are not hard-coded to any route."
+      ],
+      "keyUpdatesZh": [
+        "新增 public/data/organic_acid_scoring_spec_v1.json 与 Markdown 人读版，作为 V3.9.6 锁定规则来源。",
+        "新增主体、客体与路线数据派生 builder，覆盖 family assignment、归一化、稀疏数据 fallback 与路线 HGCPS 现算。",
+        "从种子 JSON 中移除预存 hostScore / guestScore / finalHGCPS / ranking 作为排名来源。",
+        "在 Host-Guest 工作台中新增因子来源标签与可展开的路线因子溯源行。",
+        "更新 Project Evolution 方法论公式，使 argmax 输出不硬编码到任何路线。"
+      ],
+      "algorithmChanges": [
+        "Host factors now derive pore environment, CO2 support proxy, aqueous/thermal stability, provenance quality, and explicit curated fallback from preregistered mappings.",
+        "Guest factors derive from primary-metal records only when the threshold is met; otherwise they are labeled curated-literature-prior with nRecords.",
+        "Route factors derive host stability, host pathway support, guest compensation, deterministic complementarity, evidence confidence, and risk retention before multiplying final HGCPS.",
+        "No ML training, inference, or hidden ranking override is introduced."
+      ],
+      "algorithmChangesZh": [
+        "主体因子按预注册映射派生孔环境、CO2 支持代理、水相/热稳定、溯源质量，并显式处理 curated fallback。",
+        "客体因子仅在主金属记录达到阈值时数据派生；否则标注 curated-literature-prior 并显示 nRecords。",
+        "路线因子先派生主体稳定、主体路径支持、客体补偿、确定性互补、证据置信与风险保留，再相乘得到 final HGCPS。",
+        "未引入机器学习训练、推理或隐藏排名覆盖。"
+      ],
+      "uiChanges": [
+        "Route explanation panel shows how many route factors are data/rule-derived versus literature-prior fallback.",
+        "Each factor can expand rawAggregate -> normalization -> value plus record refs and fallback reason.",
+        "Selection, sensitivity, boundary, ablation, and export labels now refer to the current computed top route instead of a preset route."
+      ],
+      "uiChangesZh": [
+        "路线解释面板显示路线因子中数据/规则派生与文献先验 fallback 的数量。",
+        "每个因子可展开查看 rawAggregate -> normalization -> value，以及记录引用和 fallback 原因。",
+        "筛选、敏感性、边界、消融与导出文案改为引用当前计算 top route，而不是预设路线。"
+      ],
+      "methodologyChanges": [
+        "Spec is read as the source of weights and route score keys.",
+        "Family assignment counts unclassified and ambiguous records for review.",
+        "Evidence boundary states that sparse dopant fields remain literature priors until dedicated data are collected."
+      ],
+      "methodologyChangesZh": [
+        "权重与路线评分键从规约读取。",
+        "Family assignment 会统计未分类与 ambiguous 记录供复核。",
+        "证据边界明确：稀疏客体/掺杂字段在专门数据补齐前仍为 literature prior。"
+      ],
+      "evidenceBoundary": "V3.9.6 changes the scoring input source from hand-entered seed values to preregistered data derivation where possible. Sparse descriptors are explicit curated fallback or literature prior. It does not add experimental performance proof, does not train or run ML, and does not hard-code a final winner.",
+      "evidenceBoundaryZh": "V3.9.6 将评分输入来源从手填种子值改为可行处的预注册数据派生；稀疏描述符显式标为 curated fallback 或 literature prior。不新增实验性能证明，不训练或运行机器学习，也不硬编码最终赢家。",
+      "limitations": [
+        "Dedicated dopant records remain sparse, so several guest factors are literature priors.",
+        "Zr subfamily topology matching needs review against imported topology strings.",
+        "Same-condition validation and carbon-balance experiments remain pending."
+      ],
+      "limitationsZh": [
+        "专门掺杂/客体记录仍稀疏，因此若干客体因子仍为文献先验。",
+        "Zr 子家族 topology 匹配需要结合导入字符串复核。",
+        "同条件验证与碳平衡实验仍待完成。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "organic-acid-host-guest",
+          "real-data-binding",
+          "pre-registration",
+          "factor-provenance",
+          "curated-fallback"
+        ],
+        "adaptationBoundary": "White-box data derivation for route-priority hypotheses only; no final catalyst-performance proof and no formal ML prediction.",
+        "adaptationBoundaryZh": "仅用于路线优先级假设的白盒数据派生；不提供最终催化性能证明，也不是正式机器学习预测。"
       },
       "relatedSection": "project-evolution-organic-acid-algorithm-methodology"
     }

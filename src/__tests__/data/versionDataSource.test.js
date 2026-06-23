@@ -34,7 +34,7 @@ function readRepoFile(relativePath) {
 describe("version_evolution_records data source", () => {
   it("is the single authoritative source for timeline, release notes, milestones, and roadmap", () => {
     expect(data.authority).toMatch(/Single authoritative Project Evolution data source/)
-    expect(data.currentVersion).toBe("V3.9.5.5")
+    expect(data.currentVersion).toBe("V3.9.6")
     expect(data.versions.length).toBeGreaterThanOrEqual(9)
     expect(data.releaseNotes.length).toBeGreaterThanOrEqual(8)
     expect(data.milestones.length).toBe(data.overview.milestoneCount)
@@ -50,6 +50,11 @@ describe("version_evolution_records data source", () => {
       summary: expect.stringMatching(/Research Validation Loop Closure/),
       validationImpact: expect.stringMatching(/schema|入口/),
       uiImpact: expect.stringMatching(/visual:check|Organic Acid/),
+    }))
+    expect(data.versions.find(row => row.version === "V3.9.6")).toEqual(expect.objectContaining({
+      summary: expect.stringMatching(/Real Data Binding/),
+      databaseImpact: expect.stringMatching(/CoRE|QMOF|gas adsorption/),
+      validationImpact: expect.stringMatching(/preregistration|provenance/i),
     }))
 
     for (const version of data.versions) {

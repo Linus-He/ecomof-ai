@@ -20,6 +20,12 @@ import hostGuestRoutesData from "../../../public/data/organic_acid_host_guest/ho
 import evidenceRiskRecordsData from "../../../public/data/organic_acid_host_guest/evidence_risk_records.json"
 import validationExperimentsData from "../../../public/data/organic_acid_host_guest/validation_experiments.json"
 import activationReadinessSummaryData from "../../../public/data/organic_acid_experimental_activation/activation_readiness_summary.json"
+import coreMofImportData from "../../../public/data/data_ingestion/core_mof_import_v2.json"
+import qmofImportData from "../../../public/data/data_ingestion/qmof_import_v2.json"
+import reactionDatasetData from "../../../public/data/data_ingestion/organic_acid_reaction_dataset_v1.json"
+import gasAdsorptionRecordsData from "../../../public/data/gas_adsorption_records_v1.json"
+import literatureDatasetData from "../../../public/data/organic_acid_literature_dataset_v2.json"
+import goldDatasetData from "../../../public/data/organic_acid_gold_dataset_v2.json"
 import { BlockFormula } from "../ui"
 import {
   buildOrganicAcidAlgorithmFormulaJson,
@@ -117,15 +123,15 @@ function EvolutionOverview({ data, projectStatus, lang, t, isMobile }) {
 }
 
 const CURRENT_RELEASE = {
-  version: "V3.9.4",
-  title: { zh: "有机酸实验启用与算法方法论", en: "Organic Acid Experimental Activation and Algorithm Methodology" },
+  version: "V3.9.6",
+  title: { zh: "有机酸真实数据接入与预注册评分", en: "Organic Acid Real Data Binding and Preregistered Scoring" },
   summary: {
-    zh: "新增实验启用中心、具体 Al-MOF 主体、Mo 引入策略、最小实验矩阵、同条件模板、反馈规则和 LaTeX 算法方法论模块。",
-    en: "Experimental Activation Center, specific Al-MOF hosts, Mo strategies, minimum matrix, same-condition template, feedback rules, and LaTeX algorithm methodology.",
+    zh: "新增预注册评分规约，将主体、客体与路线 HGCPS 子因子从 CoRE/QMOF/反应/文献/金牌库派生；缺数据处显式标为 curated fallback 或 literature prior。",
+    en: "Adds a preregistered scoring spec and derives host, guest, and route HGCPS factors from CoRE/QMOF/reaction/literature/gold datasets; sparse fields are explicitly labeled curated fallback or literature prior.",
   },
   scientificImpact: {
-    zh: "将 Al-MOF + Mo 明确为 planning-ready 高优先级实验假设，而不是最终催化证明。",
-    en: "Frames Al-MOF + Mo as a planning-ready high-priority experimental hypothesis, not final catalytic proof.",
+    zh: "排名由锁定规则和真实数据派生结果决定；当前 top route 是高优先级实验假设，不是最终催化证明。",
+    en: "Ranking is determined by locked rules and data-derived factors; the current top route is a high-priority experimental hypothesis, not final catalytic proof.",
   },
   validationImpact: {
     zh: "实验矩阵、同条件数据模板和反馈规则构成下一轮验证入口；尚不能用于性能声明或正式机器学习。",
@@ -133,8 +139,8 @@ const CURRENT_RELEASE = {
   },
   breakingChanges: { zh: "无", en: "None" },
   nextVersionGoal: {
-    zh: "执行最小同条件实验矩阵，并将结构、Mo 配位、碳平衡与产率/选择性结果回填 HGCPS。",
-    en: "Run the minimum same-condition matrix and feed structure, Mo coordination, carbon balance, yield/selectivity results back into HGCPS.",
+    zh: "补齐同条件实验与客体掺杂专门数据，将客体 literature prior 推进为 data-derived。",
+    en: "Add same-condition experiments and dedicated dopant data so guest literature priors can move toward data-derived factors.",
   },
 }
 
@@ -144,8 +150,8 @@ const PROJECT_UPDATE_STREAMS = [
     no: "01",
     label: { zh: "实验启用数据", en: "Activation data" },
     body: {
-      zh: "新增具体 Al-MOF 主体、Mo 引入策略、最小实验矩阵、同条件模板、pending 结果模板、反馈规则和 readiness summary。",
-      en: "Added specific Al-MOF hosts, Mo strategies, minimum matrix, same-condition template, pending-result template, feedback rules, and readiness summary.",
+      zh: "接入 CoRE、QMOF、反应、气体吸附、文献与金牌库，用同一套 family assignment 生成因子级来源。",
+      en: "Binds CoRE, QMOF, reaction, gas adsorption, literature, and gold datasets with shared family assignment for factor-level sources.",
     },
   },
   {
@@ -442,7 +448,7 @@ function OrganicAcidAlgorithmMethodology({ methodology, lang, t, isMobile }) {
     <Card
       id={methodology.id}
       title={text(lang, methodology.titleZh, methodology.title)}
-      subtitle={text(lang, "V3.9.4 独立算法方法论模块：用 LaTeX 公式解释路径步骤、主体筛选、客体筛选、HGCPS、敏感性、消融与实验反馈。", "A standalone V3.9.4 algorithm methodology module with LaTeX formulas for pathway steps, host selection, guest selection, HGCPS, sensitivity, ablation, and experimental feedback.")}
+      subtitle={text(lang, "V3.9.6 独立算法方法论模块：用 LaTeX 公式解释路径步骤、主体筛选、客体筛选、HGCPS、敏感性、消融与实验反馈；不预设最终赢家。", "A standalone V3.9.6 algorithm methodology module with LaTeX formulas for pathway steps, host selection, guest selection, HGCPS, sensitivity, ablation, and experimental feedback; no final winner is preset.")}
       t={t}
       actions={<CopyLinkButton hash={methodology.id} ariaLabel={text(lang, "复制算法方法论链接", "Copy algorithm methodology link")} />}
     >
@@ -622,6 +628,12 @@ export function ProjectEvolutionTab({ onNavigate, data: providedData = null }) {
     hostGuestRoutes: hostGuestRoutesData,
     evidenceRiskRecords: evidenceRiskRecordsData,
     validationExperiments: validationExperimentsData,
+    coreMofImport: coreMofImportData,
+    qmofImport: qmofImportData,
+    reactionDataset: reactionDatasetData,
+    gasAdsorptionRecords: gasAdsorptionRecordsData,
+    literatureDataset: literatureDatasetData,
+    goldDataset: goldDatasetData,
     activationReadinessSummary: activationReadinessSummaryData,
   }), [])
 

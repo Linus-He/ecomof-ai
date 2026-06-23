@@ -10,7 +10,7 @@ describe("Project Updates", () => {
     const updates = screen.getByTestId("project-evolution-release-notes")
     expect(updates).toBeInTheDocument()
     expect(updates.textContent).toMatch(/Project Updates/)
-    expect(updates.textContent).toMatch(/V3\.9\.4/)
+    expect(updates.textContent).toMatch(/V3\.9\.6/)
     for (const number of ["01", "02", "03", "04"]) {
       expect(within(updates).getByText(number)).toBeInTheDocument()
     }

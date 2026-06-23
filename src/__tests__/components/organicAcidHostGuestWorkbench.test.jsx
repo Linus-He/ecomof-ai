@@ -9,6 +9,12 @@ import guestMetalCandidates from "../../../public/data/organic_acid_host_guest/g
 import hostGuestRoutes from "../../../public/data/organic_acid_host_guest/host_guest_routes.json"
 import evidenceRiskRecords from "../../../public/data/organic_acid_host_guest/evidence_risk_records.json"
 import validationExperiments from "../../../public/data/organic_acid_host_guest/validation_experiments.json"
+import coreMofImport from "../../../public/data/data_ingestion/core_mof_import_v2.json"
+import qmofImport from "../../../public/data/data_ingestion/qmof_import_v2.json"
+import reactionDataset from "../../../public/data/data_ingestion/organic_acid_reaction_dataset_v1.json"
+import gasAdsorptionRecords from "../../../public/data/gas_adsorption_records_v1.json"
+import literatureDataset from "../../../public/data/organic_acid_literature_dataset_v2.json"
+import goldDataset from "../../../public/data/organic_acid_gold_dataset_v2.json"
 import specificAlMofHosts from "../../../public/data/organic_acid_experimental_activation/specific_al_mof_hosts.json"
 import moIntroductionStrategies from "../../../public/data/organic_acid_experimental_activation/mo_introduction_strategies.json"
 import minimumExperimentalMatrix from "../../../public/data/organic_acid_experimental_activation/minimum_experimental_matrix.json"
@@ -29,6 +35,12 @@ function sourceFixture() {
     hostGuestRoutes,
     evidenceRiskRecords,
     validationExperiments,
+    coreMofImport,
+    qmofImport,
+    reactionDataset,
+    gasAdsorptionRecords,
+    literatureDataset,
+    goldDataset,
   }
 }
 
@@ -36,7 +48,7 @@ function workbenchFixture() {
   return buildOrganicAcidHostGuestWorkbench(sourceFixture())
 }
 
-function activationFixture() {
+function activationFixture(workbench = workbenchFixture()) {
   return buildExperimentalActivationWorkbench({
     specificAlMofHosts,
     moIntroductionStrategies,
@@ -45,7 +57,7 @@ function activationFixture() {
     experimentalValidationResultsTemplate,
     experimentalFeedbackRules,
     activationReadinessSummary,
-  }, { topRoute: hostGuestRoutes[0] })
+  }, { topRoute: workbench.complementarity.topRoute })
 }
 
 function bodyText() {
@@ -53,7 +65,8 @@ function bodyText() {
 }
 
 function renderWorkbench() {
-  return render(<OrganicAcidHostGuestWorkbench lang="zh" isNarrow={false} initialData={sourceFixture()} workbench={workbenchFixture()} activationWorkbench={activationFixture()} />)
+  const workbench = workbenchFixture()
+  return render(<OrganicAcidHostGuestWorkbench lang="zh" isNarrow={false} initialData={sourceFixture()} workbench={workbench} activationWorkbench={activationFixture(workbench)} />)
 }
 
 describe("OrganicAcidHostGuestWorkbench", () => {
@@ -61,7 +74,7 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     vi.useRealTimers()
   })
 
-  it("renders the V3.9.5.5 stepwise execution chain from Step 0 before any route-output emphasis", () => {
+  it("renders the V3.9.6 stepwise execution chain from Step 0 before any route-output emphasis", () => {
     renderWorkbench()
     const text = bodyText()
 
@@ -71,7 +84,7 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     expect(screen.getByTestId("organic-acid-step-mini-map")).toBeInTheDocument()
     expect(screen.getByTestId("organic-acid-step-why-panel")).toBeInTheDocument()
 
-    expect(text).toMatch(/EcoMOF-AI V3\.9\.5\.5/)
+    expect(text).toMatch(/EcoMOF-AI V3\.9\.6/)
     expect(text).toMatch(/筛选目标设定/)
     expect(text).toMatch(/Screening Objective \/ 筛选目标/)
     expect(text).toMatch(/有机酸分步算法执行链/)
@@ -222,11 +235,11 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     const text = bodyText()
 
     const workbench = workbenchFixture()
-    expect(text).toMatch(new RegExp(`${workbench.hostSelection.selectedHost.displayName} 在主体竞争中胜出`))
-    expect(text).toMatch(new RegExp(`${workbench.hostSelection.rankedHosts[1].displayName} 保留为 backup / control`))
+    expect(text).toMatch(new RegExp(`${workbench.hostSelection.selectedHost.displayName} · 主体得分`))
+    expect(text).toMatch(new RegExp(`#1${workbench.hostSelection.selectedHost.displayName}`))
     expect(text).toMatch(new RegExp(`${workbench.guestSelection.selectedGuestMetal.guestMetal} 在客体竞争中胜出`))
-    expect(text).toMatch(new RegExp(`${workbench.guestSelection.rankedGuestMetals[1].guestMetal} 是 oxo-metal backup`))
-    expect(text).toMatch(new RegExp(`${workbench.complementarity.topRoute.hostMof} \\+ ${workbench.complementarity.topRoute.guestMetal} 在 route competition 中排第一`))
+    expect(text).toMatch(new RegExp(`#1${workbench.guestSelection.selectedGuestMetal.guestMetal}`))
+    expect(text).toMatch(new RegExp(`${workbench.complementarity.topRoute.hostMof} \\+ ${workbench.complementarity.topRoute.guestMetal} .*HGCPS`))
     const hostOnlyControl = workbench.complementarity.routeScores.find(route => /host-only|pristine/i.test(`${route.routeType} ${route.guestMetal}`))
     expect(text).toMatch(new RegExp(`${hostOnlyControl.hostMof} \\+ ${hostOnlyControl.guestMetal} 是 host-only control`))
     expect(text).toMatch(/最终结果总结/)

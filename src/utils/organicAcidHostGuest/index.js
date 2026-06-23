@@ -1,42 +1,21 @@
+import { deriveGuestFactors } from "../organicAcidDataDerivation/guestFactors.js"
+import { deriveHostFactors } from "../organicAcidDataDerivation/hostFactors.js"
+import { deriveRouteFactors } from "../organicAcidDataDerivation/routeFactors.js"
+import { ORGANIC_ACID_SCORING_SPEC } from "../organicAcidDataDerivation/shared.js"
+
 /**
  * @typedef {Record<string, any>} OrganicAcidRecord
  * @typedef {OrganicAcidRecord & { routeId: string, hostMof: string, guestMetal: string, finalHGCPS: number, ranking?: number }} HostGuestRoute
  * @typedef {{ routeScores?: HostGuestRoute[], topRoute?: HostGuestRoute }} ComplementarityResult
  */
 
-export const ORGANIC_ACID_HOST_GUEST_VERSION = "V3.9.5.5"
+export const ORGANIC_ACID_HOST_GUEST_VERSION = "V3.9.6"
 export const HOST_GUEST_ALGORITHM_NAME = "Host-Guest Complementary Pathway Screening Algorithm"
 export const HGCPS_FORMULA_TEXT = "HGCPS = Host Stability Factor * Host Pathway Support Factor * Guest Activity Compensation Factor * Host-Guest Complementarity Factor * Evidence Confidence Factor * Risk Retention Factor"
 
-export const HOST_SCORE_WEIGHTS = [
-  ["stabilityProxy", 0.22],
-  ["aqueousStabilityEvidence", 0.18],
-  ["thermalStabilityEvidence", 0.10],
-  ["poreEnvironmentScore", 0.12],
-  ["co2EnrichmentSupport", 0.10],
-  ["postModificationFeasibility", 0.10],
-  ["guestHostingFeasibility", 0.10],
-  ["provenanceQuality", 0.08],
-]
-
-export const GUEST_SCORE_WEIGHTS = [
-  ["co2ActivationScore", 0.22],
-  ["formateStabilizationScore", 0.22],
-  ["electronTransferSupport", 0.16],
-  ["compatibilityWithAlMof", 0.16],
-  ["dopingFeasibility", 0.08],
-  ["postModificationFeasibility", 0.08],
-  ["bimetallicConstructionFeasibility", 0.08],
-]
-
-const ROUTE_SCORE_KEYS = [
-  "hostStabilityScore",
-  "hostPathwaySupportScore",
-  "guestActivityCompensationScore",
-  "hostGuestComplementarityScore",
-  "evidenceConfidenceScore",
-  "riskPenalty",
-]
+export const HOST_SCORE_WEIGHTS = ORGANIC_ACID_SCORING_SPEC.hostScoreWeights
+export const GUEST_SCORE_WEIGHTS = ORGANIC_ACID_SCORING_SPEC.guestScoreWeights
+const ROUTE_SCORE_KEYS = ORGANIC_ACID_SCORING_SPEC.routeScoreKeys
 
 export const ROUTE_FACTOR_DEFINITIONS = [
   { key: "hostStabilityScore", breakdownKey: "hostStability", label: "host stability factor" },
@@ -88,6 +67,28 @@ function weightedScore(row, weights) {
   return roundScore(total / totalWeight, 3)
 }
 
+function hasDerivationDatasets(input = {}) {
+  return [
+    input.coreMofImport,
+    input.qmofImport,
+    input.reactionDataset,
+    input.gasAdsorptionRecords,
+    input.literatureDataset,
+    input.goldDataset,
+  ].some(dataset => Array.isArray(dataset) ? dataset.length : Array.isArray(dataset?.records) && dataset.records.length)
+}
+
+function derivationDatasets(input = {}) {
+  return {
+    coreMofImport: input.coreMofImport,
+    qmofImport: input.qmofImport,
+    reactionDataset: input.reactionDataset,
+    gasAdsorptionRecords: input.gasAdsorptionRecords,
+    literatureDataset: input.literatureDataset,
+    goldDataset: input.goldDataset,
+  }
+}
+
 function descriptorText(mapping) {
   return asArray(mapping?.descriptors).join(", ")
 }
@@ -103,9 +104,23 @@ function sanitizeId(value) {
     .replace(/^-|-$/g, "")
 }
 
+function evidenceNodeId(record = {}) {
+  return record.evidenceId || record.recordId || record.reactionId || record.mofId || record.sourceRecordId || `evidence-${sanitizeId(record.supports || record.citation || "record")}`
+}
+
 function evidenceForRoute(route, evidenceRecords) {
   const refs = new Set(asArray(route?.evidenceRefs))
   return asArray(evidenceRecords).filter(record => record.linkedRouteId === route?.routeId || refs.has(record.evidenceId))
+}
+
+function combinedEvidenceForRoute(route, evidenceRecords) {
+  const seen = new Set()
+  return [...asArray(route?.evidenceSources), ...evidenceForRoute(route, evidenceRecords)].filter(record => {
+    const id = record.evidenceId || record.recordId || record.reactionId || record.mofId || record.sourceRecordId || JSON.stringify(record).slice(0, 80)
+    if (seen.has(id)) return false
+    seen.add(id)
+    return true
+  })
 }
 
 function riskBreakdown(route, evidenceRecords) {
@@ -147,7 +162,7 @@ function routeScore(route, evidenceRecords = []) {
     riskRetentionFactor: safeNumber(route?.riskPenalty, 0),
     evidenceConfidence: safeNumber(route?.evidenceConfidenceScore, 0),
     confidenceLevel: scoreLabel(route?.evidenceConfidenceScore),
-    evidenceSources: evidenceForRoute(route, evidenceRecords),
+    evidenceSources: combinedEvidenceForRoute(route, evidenceRecords),
     provenanceStatus: asArray(route?.provenance).join(" / ") || "provenance pending",
   }
 }
@@ -180,7 +195,27 @@ export function buildPathwayDescriptorMap(pathwaySteps = [], descriptorMap = [])
   }))
 }
 
-export function buildHostMofSelection(hostCandidates = []) {
+export function buildHostMofSelection(hostCandidates = [], datasets = {}) {
+  if (hasDerivationDatasets(datasets)) {
+    const derived = deriveHostFactors(hostCandidates, datasets)
+    const selectedHost = derived.selectedHost
+    return {
+      rankedHosts: derived.rankedHosts,
+      selectedHost,
+      hostScoreBreakdown: selectedHost?.hostScoreBreakdown || {},
+      hostRoleExplanation: selectedHost
+        ? `${selectedHost.displayName} is selected as the current stable host framework / stable scaffold by the preregistered V3.9.6 data-derived score. It is not treated as a standalone best catalyst.`
+        : "No host selected.",
+      hostLimitation: selectedHost?.limitation || "Host limitation pending.",
+      evidenceRefs: asArray(selectedHost?.evidenceRefs),
+      provenance: asArray(selectedHost?.provenance),
+      factorProvenance: selectedHost?.factorProvenance || {},
+      derivationSummary: selectedHost?.derivationSummary || {},
+      familyAssignmentSummary: derived.familyAssignmentSummary,
+      scoringSpec: derived.scoringSpec,
+    }
+  }
+
   const rankedHosts = asArray(hostCandidates)
     .map(host => {
       const calculatedHostScore = weightedScore(host, HOST_SCORE_WEIGHTS)
@@ -217,7 +252,26 @@ export function buildHostMofSelection(hostCandidates = []) {
   }
 }
 
-export function buildGuestMetalSelection(guestMetalCandidates = [], selectedHost = null) {
+export function buildGuestMetalSelection(guestMetalCandidates = [], selectedHost = null, datasets = {}) {
+  if (hasDerivationDatasets(datasets)) {
+    const derived = deriveGuestFactors(guestMetalCandidates, datasets, selectedHost)
+    const selectedGuestMetal = derived.selectedGuestMetal
+    return {
+      rankedGuestMetals: derived.rankedGuestMetals,
+      selectedGuestMetal,
+      guestScoreBreakdown: selectedGuestMetal?.guestScoreBreakdown || {},
+      guestRoleExplanation: selectedGuestMetal
+        ? `${selectedGuestMetal.guestMetal} is selected as the current guest / dopant / activity compensation metal for ${selectedHost?.displayName || "the selected host"} by the preregistered V3.9.6 data-derived or literature-prior score. It complements the host instead of replacing it.`
+        : "No guest metal selected.",
+      compatibilityWithSelectedHost: selectedGuestMetal?.guestScoreBreakdown?.compatibilityWithSelectedHost || 0,
+      mainRisk: selectedGuestMetal?.mainRisk || "Guest-metal risk pending.",
+      evidenceRefs: asArray(selectedGuestMetal?.evidenceRefs),
+      provenance: asArray(selectedGuestMetal?.provenance),
+      factorProvenance: selectedGuestMetal?.factorProvenance || {},
+      derivationSummary: selectedGuestMetal?.derivationSummary || {},
+    }
+  }
+
   const rankedGuestMetals = asArray(guestMetalCandidates)
     .map(guest => {
       const calculatedGuestScore = weightedScore(guest, GUEST_SCORE_WEIGHTS)
@@ -229,7 +283,7 @@ export function buildGuestMetalSelection(guestMetalCandidates = [], selectedHost
           co2Activation: safeNumber(guest.co2ActivationScore, 0),
           formateStabilization: safeNumber(guest.formateStabilizationScore, 0),
           electronTransferSupport: safeNumber(guest.electronTransferSupport, 0),
-          compatibilityWithSelectedHost: selectedHost?.displayName === "Al-MOF" ? safeNumber(guest.compatibilityWithAlMof, 0) : safeNumber(guest.compatibilityWithAlMof, 0) * 0.95,
+          compatibilityWithSelectedHost: safeNumber(guest.compatibilityWithAlMof, 0),
           dopingFeasibility: safeNumber(guest.dopingFeasibility, 0),
           postModificationFeasibility: safeNumber(guest.postModificationFeasibility, 0),
           bimetallicConstructionFeasibility: safeNumber(guest.bimetallicConstructionFeasibility, 0),
@@ -254,8 +308,11 @@ export function buildGuestMetalSelection(guestMetalCandidates = [], selectedHost
   }
 }
 
-export function buildHostGuestComplementarityScore(hostGuestRoutes = [], evidenceRiskRecords = []) {
-  const routeScores = asArray(hostGuestRoutes)
+export function buildHostGuestComplementarityScore(hostGuestRoutes = [], evidenceRiskRecords = [], context = {}) {
+  const derivedRoutes = hasDerivationDatasets(context.datasets || {}) && context.hostSelection && context.guestSelection
+    ? deriveRouteFactors(hostGuestRoutes, context.datasets, context.hostSelection, context.guestSelection).routeScores
+    : asArray(hostGuestRoutes)
+  const routeScores = asArray(derivedRoutes)
     .map(route => routeScore(route, evidenceRiskRecords))
     .sort((a, b) => b.finalHGCPS - a.finalHGCPS)
     .map((route, index) => ({ ...route, ranking: index + 1 }))
@@ -267,7 +324,7 @@ export function buildHostGuestComplementarityScore(hostGuestRoutes = [], evidenc
     riskPenaltyBreakdown: topRoute?.riskPenaltyBreakdown || [],
     evidenceConfidence: topRoute?.evidenceConfidence || 0,
     whyTopRanked: topRoute
-      ? `${routeName(topRoute)} ranks first because the multiplicative HGCPS factors remain jointly strongest: host stability, pathway support, Mo activity compensation, host-guest complementarity, evidence confidence, and risk retention factor.`
+      ? `${routeName(topRoute)} ranks first because the preregistered multiplicative HGCPS factors remain jointly strongest for the current data: host stability, pathway support, guest activity compensation, host-guest complementarity, evidence confidence, and risk retention factor.`
       : "No top route.",
     uncertainty: topRoute?.mainRisk || "Route uncertainty pending.",
     provenance: asArray(topRoute?.provenance),
@@ -291,9 +348,9 @@ export function buildHostGuestRouteExplanation(route, context = {}) {
   const selectedRoute = route || context?.topRoute || null
   const descriptorRows = asArray(context.descriptorMap).filter(mapping => {
     const evidenceRefs = new Set(asArray(selectedRoute?.evidenceRefs))
-    return asArray(mapping.provenance).some(ref => evidenceRefs.has(ref)) || selectedRoute?.routeId === "route-al-mof-mo"
+    return asArray(mapping.provenance).some(ref => evidenceRefs.has(ref)) || selectedRoute?.ranking === 1
   })
-  const evidenceSources = evidenceForRoute(selectedRoute, context.evidenceRecords)
+  const evidenceSources = combinedEvidenceForRoute(selectedRoute, context.evidenceRecords)
   const validationExperiments = asArray(context.validationExperiments).filter(experiment => experiment.routeId === selectedRoute?.routeId)
   const host = asArray(context.hostSelection?.rankedHosts).find(row => row.displayName === selectedRoute?.hostMof) || context.hostSelection?.selectedHost
   const guest = asArray(context.guestSelection?.rankedGuestMetals).find(row => row.guestMetal === selectedRoute?.guestMetal) || context.guestSelection?.selectedGuestMetal
@@ -319,6 +376,8 @@ export function buildHostGuestRouteExplanation(route, context = {}) {
     riskPenaltyBreakdown: selectedRoute?.riskPenaltyBreakdown || riskBreakdown(selectedRoute, context.evidenceRecords),
     evidenceSources,
     provenanceTrace: asArray(selectedRoute?.provenance),
+    routeFactorProvenance: selectedRoute?.routeFactorProvenance || {},
+    derivationSummary: selectedRoute?.derivationSummary || {},
     missingEvidence: evidenceSources.filter(record => record.evidenceType === "missing" || record.curationStatus === "missing").map(record => record.limitation),
     nextValidationExperiment: validationExperiments[0]?.recommendedExperiment || selectedRoute?.nextExperiment || "validation experiment pending",
     validationExperiments,
@@ -340,9 +399,14 @@ export function buildHostGuestRouteExplanation(route, context = {}) {
 }
 
 export function buildOrganicAcidAlgorithmTrace(input = {}) {
-  const hostSelection = input.hostSelection || buildHostMofSelection(input.hostMofCandidates)
-  const guestSelection = input.guestSelection || buildGuestMetalSelection(input.guestMetalCandidates, hostSelection.selectedHost)
-  const complementarity = input.complementarity || buildHostGuestComplementarityScore(input.hostGuestRoutes, input.evidenceRiskRecords)
+  const datasets = derivationDatasets(input)
+  const hostSelection = input.hostSelection || buildHostMofSelection(input.hostMofCandidates, datasets)
+  const guestSelection = input.guestSelection || buildGuestMetalSelection(input.guestMetalCandidates, hostSelection.selectedHost, datasets)
+  const complementarity = input.complementarity || buildHostGuestComplementarityScore(input.hostGuestRoutes, input.evidenceRiskRecords, {
+    datasets,
+    hostSelection,
+    guestSelection,
+  })
   const selectedHost = hostSelection.selectedHost
   const selectedGuest = guestSelection.selectedGuestMetal
   const topRoute = complementarity.topRoute
@@ -378,8 +442,8 @@ export function buildOrganicAcidAlgorithmTrace(input = {}) {
       uncertainty: "host activity alone may be insufficient",
     },
     {
-      id: "select-al-mof-host",
-      title: "Select Al-MOF as host framework",
+      id: `select-${sanitizeId(selectedHost?.displayName || "host")}-host`,
+      title: `Select ${selectedHost?.displayName || "host"} as host framework`,
       input: "ranked host table",
       method: "Choose the highest host score as the stable framework candidate.",
       output: `${selectedHost?.displayName || "Host pending"} selected as ${selectedHost?.hostRole || "stable host framework"}`,
@@ -390,14 +454,14 @@ export function buildOrganicAcidAlgorithmTrace(input = {}) {
       id: "screen-guest-metals",
       title: "Screen guest / dopant metals",
       input: "guest_metal_candidates.json + selected host",
-      method: "Weighted guest score from CO2 activation, formate stabilization, electron support, Al-MOF compatibility, and synthesis feasibility.",
+      method: "Weighted guest score from CO2 activation, formate stabilization, electron support, host compatibility, and synthesis feasibility.",
       output: `${guestSelection.rankedGuestMetals.length} guest metals ranked`,
       evidence: asArray(selectedGuest?.evidenceRefs).join(", "),
       uncertainty: "guest speciation must be verified experimentally",
     },
     {
-      id: "select-mo-guest",
-      title: "Select Mo as high-priority guest metal",
+      id: `select-${sanitizeId(selectedGuest?.guestMetal || "guest")}-guest`,
+      title: `Select ${selectedGuest?.guestMetal || "guest"} as high-priority guest metal`,
       input: "ranked guest-metal table",
       method: "Choose the highest guest score as the activity compensation metal.",
       output: `${selectedGuest?.guestMetal || "Guest pending"} selected as ${selectedGuest?.role || "guest / dopant"}`,
@@ -415,7 +479,7 @@ export function buildOrganicAcidAlgorithmTrace(input = {}) {
     },
     {
       id: "generate-experimental-route",
-      title: "Generate Al-MOF + Mo experimental route",
+      title: `Generate ${routeName(topRoute)} experimental route`,
       input: "validation_experiments.json",
       method: "Convert top route into validation experiments, controls, characterization, success criteria, and falsification checks.",
       output: `${experimentalRoute.experiments.length} validation experiments linked`,
@@ -426,13 +490,18 @@ export function buildOrganicAcidAlgorithmTrace(input = {}) {
 }
 
 export function buildHostGuestKnowledgeGraph(input = {}) {
+  const datasets = derivationDatasets(input)
   const pathwaySteps = buildOrganicAcidPathwaySteps(input.pathwaySteps, input.pathwayDescriptorMap)
   const descriptorRows = buildPathwayDescriptorMap(input.pathwaySteps, input.pathwayDescriptorMap)
-  const hostSelection = input.hostSelection || buildHostMofSelection(input.hostMofCandidates)
-  const guestSelection = input.guestSelection || buildGuestMetalSelection(input.guestMetalCandidates, hostSelection.selectedHost)
-  const complementarity = input.complementarity || buildHostGuestComplementarityScore(input.hostGuestRoutes, input.evidenceRiskRecords)
+  const hostSelection = input.hostSelection || buildHostMofSelection(input.hostMofCandidates, datasets)
+  const guestSelection = input.guestSelection || buildGuestMetalSelection(input.guestMetalCandidates, hostSelection.selectedHost, datasets)
+  const complementarity = input.complementarity || buildHostGuestComplementarityScore(input.hostGuestRoutes, input.evidenceRiskRecords, {
+    datasets,
+    hostSelection,
+    guestSelection,
+  })
   const topRoute = complementarity.topRoute
-  const routeEvidence = evidenceForRoute(topRoute, input.evidenceRiskRecords)
+  const routeEvidence = combinedEvidenceForRoute(topRoute, input.evidenceRiskRecords)
   const risks = routeEvidence.filter(record => record.riskType).map(record => record.riskType)
   const uniqueRisks = Array.from(new Set(risks))
   const validations = asArray(input.validationExperiments).filter(experiment => experiment.routeId === topRoute?.routeId)
@@ -449,7 +518,7 @@ export function buildHostGuestKnowledgeGraph(input = {}) {
     ...hostSelection.rankedHosts.map(host => ({ id: `host-${sanitizeId(host.displayName)}`, type: "host MOF", label: host.displayName, score: host.hostScore })),
     ...guestSelection.rankedGuestMetals.map(guest => ({ id: `guest-${sanitizeId(guest.guestMetal)}`, type: "guest metal", label: guest.guestMetal, score: guest.guestScore })),
     ...complementarity.routeScores.map(route => ({ id: route.routeId, type: "host-guest route", label: routeName(route), score: route.finalHGCPS })),
-    ...routeEvidence.map(record => ({ id: record.evidenceId, type: "evidence", label: record.supports, confidence: record.confidenceLevel })),
+    ...routeEvidence.map(record => ({ id: evidenceNodeId(record), type: "evidence", label: record.supports || record.recordId || record.sourceRecordId || "evidence record", confidence: record.confidenceLevel || record.qualityTier || record.validationStatus })),
     ...uniqueRisks.map(risk => ({ id: `risk-${sanitizeId(risk)}`, type: "risk", label: risk })),
     ...validations.map(experiment => ({ id: experiment.experimentId, type: "validation experiment", label: experiment.recommendedExperiment, priority: experiment.validationPriority })),
   ]
@@ -470,10 +539,10 @@ export function buildHostGuestKnowledgeGraph(input = {}) {
       target: `guest-${sanitizeId(guestSelection.selectedGuestMetal?.guestMetal)}`,
       relation: "descriptor -> guest metal selection",
     })),
-    { source: `host-${sanitizeId(hostSelection.selectedHost?.displayName)}`, target: topRoute?.routeId, relation: "host MOF -> Al-MOF route" },
-    { source: `guest-${sanitizeId(guestSelection.selectedGuestMetal?.guestMetal)}`, target: topRoute?.routeId, relation: "guest metal -> Mo route" },
-    ...pathwaySteps.map(step => ({ source: topRoute?.routeId, target: step.stepId, relation: "Al-MOF + Mo route -> pathway support" })),
-    ...routeEvidence.map(record => ({ source: record.evidenceId, target: topRoute?.routeId, relation: "evidence -> score contribution" })),
+    { source: `host-${sanitizeId(hostSelection.selectedHost?.displayName)}`, target: topRoute?.routeId, relation: "host MOF -> current top route" },
+    { source: `guest-${sanitizeId(guestSelection.selectedGuestMetal?.guestMetal)}`, target: topRoute?.routeId, relation: "guest metal -> current top route" },
+    ...pathwaySteps.map(step => ({ source: topRoute?.routeId, target: step.stepId, relation: "current top route -> pathway support" })),
+    ...routeEvidence.map(record => ({ source: evidenceNodeId(record), target: topRoute?.routeId, relation: "evidence -> score contribution" })),
     ...routeEvidence.filter(record => record.riskType).map(record => ({ source: `risk-${sanitizeId(record.riskType)}`, target: topRoute?.routeId, relation: "risk -> penalty" })),
     ...validations.map(experiment => ({ source: topRoute?.routeId, target: experiment.experimentId, relation: "route -> validation experiment" })),
   ].filter(edge => edge.source && edge.target)
@@ -488,7 +557,7 @@ export function buildHostGuestKnowledgeGraph(input = {}) {
       `host-${sanitizeId(hostSelection.selectedHost?.displayName)}`,
       `guest-${sanitizeId(guestSelection.selectedGuestMetal?.guestMetal)}`,
       topRoute?.routeId,
-      ...routeEvidence.map(record => record.evidenceId),
+      ...routeEvidence.map(record => evidenceNodeId(record)),
       ...uniqueRisks.map(risk => `risk-${sanitizeId(risk)}`),
       ...validations.map(experiment => experiment.experimentId),
     ].filter(Boolean),
@@ -496,7 +565,7 @@ export function buildHostGuestKnowledgeGraph(input = {}) {
 }
 
 export function buildOrganicAcidExperimentalRoute(validationExperiments = [], topRoute = null) {
-  const routeId = topRoute?.routeId || "route-al-mof-mo"
+  const routeId = topRoute?.routeId || "route-pending"
   const experiments = asArray(validationExperiments).filter(experiment => experiment.routeId === routeId)
   return {
     routeId,
@@ -504,7 +573,7 @@ export function buildOrganicAcidExperimentalRoute(validationExperiments = [], to
     targetProduct: topRoute?.targetProduct || "formic acid / organic acid",
     experiments,
     summary: experiments.length
-      ? `${experiments.length} experiments cover host synthesis, Mo introduction, structure verification, 170C stability, reaction comparison, Mo coordination, and C1 mechanism checks.`
+      ? `${experiments.length} experiments cover host synthesis, guest introduction, structure verification, 170C stability, reaction comparison, local coordination, and C1 mechanism checks.`
       : "No experiments linked yet.",
     nextExperiment: experiments[0]?.recommendedExperiment || topRoute?.nextExperiment || "validation experiment pending",
   }
@@ -545,24 +614,26 @@ function buildConfidenceMatrix(routeScores) {
 }
 
 export function buildMissingEvidenceRiskMatrix(routeScores = [], evidenceRiskRecords = []) {
+  const topRouteId = asArray(routeScores)[0]?.routeId
   return asArray(routeScores).map(route => {
     const records = evidenceForRoute(route, evidenceRiskRecords)
     const riskText = records.map(record => `${record.riskType || ""} ${record.supports || ""} ${record.limitation || ""}`.toLowerCase()).join(" | ")
     const missingRecords = records.filter(record => record.evidenceType === "missing" || record.curationStatus === "missing" || record.sameCondition === false)
-    const isTopRoute = route.routeId === "route-al-mof-mo"
+    const isTopRoute = route.routeId === topRouteId
     const missingDescriptor = missingRecords.find(record => record.linkedDescriptor)?.linkedDescriptor || "same-condition descriptor validation"
+    const guestLabel = route.guestMetal || "guest metal"
     return {
       routeId: route.routeId,
       routeName: route.routeName || routeName(route),
-      missingDescriptor: isTopRoute ? "direct Al-MOF + Mo HCOO* binding, Mo coordination, and same-condition carbon-balance descriptors" : missingDescriptor,
+      missingDescriptor: isTopRoute ? `direct ${route.hostMof} + ${guestLabel} binding, local coordination, and same-condition carbon-balance descriptors` : missingDescriptor,
       missingSameConditionExperiment: isTopRoute ? "same-condition experiment is still needed" : (riskText.includes("same-condition") ? "same-condition experiment missing" : "same-condition comparison pending"),
       hydrothermalStabilityRisk: isTopRoute ? "170C aqueous stability must be tested" : (riskText.includes("170c") || riskText.includes("hydrothermal") ? "hydrothermal stability risk present" : "hydrothermal validation pending"),
-      moIntroductionFeasibilityRisk: isTopRoute ? "Mo introduction feasibility needs validation" : (route.guestMetal === "Mo" ? "Mo introduction feasibility pending" : "guest-metal introduction feasibility pending"),
-      localCoordinationUncertainty: isTopRoute ? "local Mo coordination environment uncertain" : (riskText.includes("coordination") ? "local coordination uncertain" : "local coordination validation pending"),
+      moIntroductionFeasibilityRisk: isTopRoute ? `${guestLabel} introduction feasibility needs validation` : (route.guestMetal === "Mo" ? "Mo introduction feasibility pending" : "guest-metal introduction feasibility pending"),
+      localCoordinationUncertainty: isTopRoute ? `local ${guestLabel} coordination environment uncertain` : (riskText.includes("coordination") ? "local coordination uncertain" : "local coordination validation pending"),
       provenanceGap: riskText.includes("provenance") ? "provenance gap present" : "proxy / curated provenance only",
       riskRetentionFactor: safeNumber(route.riskRetentionFactor ?? route.riskPenalty, 0),
       recommendedDataToCollect: isTopRoute
-        ? "Mo loading, XPS/XANES/EXAFS coordination, post-reaction PXRD/ICP, paired Al-MOF + Mo vs pristine Al-MOF reaction data, carbon balance"
+        ? `${guestLabel} loading, XPS/XANES/EXAFS coordination, post-reaction PXRD/ICP, paired ${route.hostMof} + ${guestLabel} vs pristine host reaction data, carbon balance`
         : "same-condition product distribution, post-reaction structure, metal leaching, field-level provenance",
     }
   })
@@ -614,6 +685,7 @@ export function buildRouteRankStabilitySummary(scenarios = []) {
     scenarioCount: rows.length,
     stableCount,
     rankStability: rows.length ? roundScore(stableCount / rows.length, 3) : 0,
+    topRouteRemainsTop: stableCount === rows.length,
     alMofMoRemainsTop: stableCount === rows.length,
     mostSensitiveFactor: mostSensitive.factorLabel,
     mostSensitiveScenarioId: mostSensitive.scenarioId,
@@ -659,8 +731,8 @@ export function buildRouteContributionBreakdown(route) {
 }
 
 export function buildMoCompensationContribution(routeScores = []) {
-  const topRoute = asArray(routeScores).find(route => route.routeId === "route-al-mof-mo") || asArray(routeScores)[0]
-  const pristine = asArray(routeScores).find(route => route.routeId === "route-al-mof-pristine")
+  const topRoute = asArray(routeScores)[0]
+  const pristine = asArray(routeScores).find(route => route.hostMof === topRoute?.hostMof && /pristine/i.test(route.routeId))
   const removed = scoreRouteWithOverrides(topRoute, {
     guestActivityCompensationScore: safeNumber(pristine?.guestActivityCompensationScore, 0.48),
     hostGuestComplementarityScore: Math.min(safeNumber(topRoute?.hostGuestComplementarityScore, 0), 0.50),
@@ -670,33 +742,33 @@ export function buildMoCompensationContribution(routeScores = []) {
     pristineAlMofScore: safeNumber(pristine?.finalHGCPS, 0),
     scoreAfterMoRemoved: removed.finalHGCPS,
     contribution: roundScore(safeNumber(topRoute?.finalHGCPS, 0) - removed.finalHGCPS, 3),
-    interpretation: "Mo compensation is necessary for the top route because removing guest activity and host-guest complementarity compresses the multiplicative HGCPS score.",
+    interpretation: `${topRoute?.guestMetal || "Guest"} compensation is necessary for the current top route because removing guest activity and host-guest complementarity compresses the multiplicative HGCPS score.`,
   }
 }
 
 export function buildHostStabilityContribution(routeScores = []) {
-  const topRoute = asArray(routeScores).find(route => route.routeId === "route-al-mof-mo") || asArray(routeScores)[0]
+  const topRoute = asArray(routeScores)[0]
   const removed = scoreRouteWithOverrides(topRoute, { hostStabilityScore: 0.55 })
   return {
     baselineScore: safeNumber(topRoute?.finalHGCPS, 0),
     scoreAfterHostStabilityAblation: removed.finalHGCPS,
     contribution: roundScore(safeNumber(topRoute?.finalHGCPS, 0) - removed.finalHGCPS, 3),
-    interpretation: "Al-MOF host stability is necessary because the multiplicative formula strongly penalizes weak scaffold retention.",
+    interpretation: `${topRoute?.hostMof || "Host"} stability is necessary because the multiplicative formula strongly penalizes weak scaffold retention.`,
   }
 }
 
 export function buildHostGuestAblationAnalysis(routeScores = []) {
   const rows = asArray(routeScores)
-  const topRoute = rows.find(route => route.routeId === "route-al-mof-mo") || rows[0]
-  const pristine = rows.find(route => route.routeId === "route-al-mof-pristine")
+  const topRoute = rows[0]
+  const pristine = rows.find(route => route.hostMof === topRoute?.hostMof && /pristine/i.test(route.routeId))
   const scenarios = [
-    { scenarioId: "without-guest-activity-compensation", label: "without guest activity compensation", overrides: { guestActivityCompensationScore: 0.42 }, interpretation: "Mo-like activity compensation removed; C1 activation support drops." },
-    { scenarioId: "without-host-stability", label: "without host stability", overrides: { hostStabilityScore: 0.55 }, interpretation: "Stable Al-MOF scaffold contribution removed; route becomes stability limited." },
+    { scenarioId: "without-guest-activity-compensation", label: "without guest activity compensation", overrides: { guestActivityCompensationScore: 0.42 }, interpretation: "Guest-like activity compensation removed; C1 activation support drops." },
+    { scenarioId: "without-host-stability", label: "without host stability", overrides: { hostStabilityScore: 0.55 }, interpretation: "Stable host scaffold contribution removed; route becomes stability limited." },
     { scenarioId: "without-host-guest-complementarity", label: "without host-guest complementarity", overrides: { hostGuestComplementarityScore: 0.48 }, interpretation: "Host and guest no longer act as complementary functions." },
     { scenarioId: "without-evidence-confidence", label: "without evidence confidence", overrides: { evidenceConfidenceScore: 0.50 }, interpretation: "Evidence coverage no longer supports high route priority." },
     { scenarioId: "without-risk-retention", label: "without risk retention", overrides: { riskPenalty: 0.55 }, interpretation: "Risk retention factor is lowered by unresolved route risks." },
-    { scenarioId: "pristine-al-mof-only", label: "pristine Al-MOF only", replacement: pristine, interpretation: "Host-only baseline lacks guest-metal activity compensation." },
-    { scenarioId: "mo-contribution-removed", label: "Mo contribution removed", overrides: { guestActivityCompensationScore: 0.48, hostGuestComplementarityScore: 0.50 }, interpretation: "Mo contribution removed; route explanation shifts from active compensation to host-only control." },
+    { scenarioId: "pristine-host-only", label: `pristine ${topRoute?.hostMof || "host"} only`, replacement: pristine, interpretation: "Host-only baseline lacks guest-metal activity compensation." },
+    { scenarioId: "guest-contribution-removed", label: `${topRoute?.guestMetal || "Guest"} contribution removed`, overrides: { guestActivityCompensationScore: 0.48, hostGuestComplementarityScore: 0.50 }, interpretation: "Guest contribution removed; route explanation shifts from active compensation to host-only control." },
   ].map(scenario => {
     const adjustedTop = scenario.replacement || scoreRouteWithOverrides(topRoute, scenario.overrides)
     const adjustedRoutes = rankingAfterReplacingTop(rows, topRoute?.routeId, adjustedTop)
@@ -707,8 +779,8 @@ export function buildHostGuestAblationAnalysis(routeScores = []) {
       scoreAfterAblation: safeNumber(adjustedTop.finalHGCPS, 0),
       rankingAfterAblation: safeNumber(adjustedTopRoute?.ranking, 0),
       contributionInterpretation: scenario.interpretation,
-      moCompensationNecessary: ["without-guest-activity-compensation", "pristine-al-mof-only", "mo-contribution-removed"].includes(scenario.scenarioId),
-      alMofHostStabilityNecessary: ["without-host-stability", "pristine-al-mof-only"].includes(scenario.scenarioId),
+      moCompensationNecessary: ["without-guest-activity-compensation", "pristine-host-only", "guest-contribution-removed"].includes(scenario.scenarioId),
+      alMofHostStabilityNecessary: ["without-host-stability", "pristine-host-only"].includes(scenario.scenarioId),
       adjustedTopRoute: adjustedRoutes[0]?.routeId || "route pending",
     }
   })
@@ -719,16 +791,21 @@ export function buildHostGuestAblationAnalysis(routeScores = []) {
     contributionBreakdown: buildRouteContributionBreakdown(topRoute),
     moContribution: buildMoCompensationContribution(rows),
     hostStabilityContribution: buildHostStabilityContribution(rows),
-    summary: "Ablation confirms that Mo compensation, Al-MOF host stability, host-guest complementarity, evidence confidence, and risk retention each support the top route under the multiplicative HGCPS model.",
+    summary: "Ablation confirms that guest compensation, host stability, host-guest complementarity, evidence confidence, and risk retention each support the current top route under the multiplicative HGCPS model.",
   }
 }
 
 export function buildOrganicAcidHostGuestWorkbench(input = {}) {
+  const datasets = derivationDatasets(input)
   const pathwaySteps = buildOrganicAcidPathwaySteps(input.pathwaySteps, input.pathwayDescriptorMap)
   const descriptorMap = buildPathwayDescriptorMap(input.pathwaySteps, input.pathwayDescriptorMap)
-  const hostSelection = buildHostMofSelection(input.hostMofCandidates)
-  const guestSelection = buildGuestMetalSelection(input.guestMetalCandidates, hostSelection.selectedHost)
-  const complementarity = buildHostGuestComplementarityScore(input.hostGuestRoutes, input.evidenceRiskRecords)
+  const hostSelection = buildHostMofSelection(input.hostMofCandidates, datasets)
+  const guestSelection = buildGuestMetalSelection(input.guestMetalCandidates, hostSelection.selectedHost, datasets)
+  const complementarity = buildHostGuestComplementarityScore(input.hostGuestRoutes, input.evidenceRiskRecords, {
+    datasets,
+    hostSelection,
+    guestSelection,
+  })
   const priorityQueue = buildOrganicAcidRoutePriorityQueue(complementarity.routeScores)
   const routeExplanation = buildHostGuestRouteExplanation(complementarity.topRoute, {
     hostSelection,
@@ -742,6 +819,8 @@ export function buildOrganicAcidHostGuestWorkbench(input = {}) {
     hostSelection,
     guestSelection,
     complementarity,
+    scoringSpec: ORGANIC_ACID_SCORING_SPEC,
+    familyAssignmentSummary: hostSelection.familyAssignmentSummary,
   })
   const knowledgeGraph = buildHostGuestKnowledgeGraph({
     ...input,
@@ -773,7 +852,7 @@ export function buildOrganicAcidHostGuestWorkbench(input = {}) {
       suggestedRoute: routeName(topRoute),
       algorithmBasis: "pathway-step descriptor screening + multiplicative host-guest complementarity scoring",
       confidence: `derived from evidence coverage and provenance (${scoreLabel(topRoute?.evidenceConfidence)})`,
-      mainUncertainty: topRoute?.mainRisk || "Mo introduction feasibility and 170C aqueous stability validation",
+      mainUncertainty: topRoute?.mainRisk || "guest introduction feasibility and 170C aqueous stability validation",
       note: "high-priority experimental route, not final proof of catalytic performance",
     },
     pathwaySteps,
@@ -781,6 +860,8 @@ export function buildOrganicAcidHostGuestWorkbench(input = {}) {
     hostSelection,
     guestSelection,
     complementarity,
+    scoringSpec: ORGANIC_ACID_SCORING_SPEC,
+    familyAssignmentSummary: hostSelection.familyAssignmentSummary,
     priorityQueue,
     selectedRouteExplanation: routeExplanation,
     algorithmTrace,
@@ -825,7 +906,7 @@ export function buildOrganicAcidHostGuestWorkbench(input = {}) {
           "Identify bottlenecks from CO2 adsorption through 170C aqueous stability.",
           "Map each bottleneck to descriptor groups instead of a single mixed descriptor table.",
           "Rank hosts by scaffold stability, pore environment, modification feasibility, guest hosting, and provenance.",
-          "Rank guest metals by CO2 activation, HCOO* stabilization, electron support, Al-MOF compatibility, and synthesis feasibility.",
+          "Rank guest metals by CO2 activation, HCOO* stabilization, electron support, host compatibility, and synthesis feasibility.",
           "Compute multiplicative HGCPS from host stability, host pathway support, guest compensation, complementarity, evidence confidence, and risk retention factor.",
           "Translate the top route into experiments, controls, characterization, and success criteria.",
         ][index],
@@ -892,7 +973,7 @@ export function buildMissingEvidenceRiskMatrixCsv(riskMatrix) {
     { key: "missingDescriptor", label: "missing descriptor" },
     { key: "missingSameConditionExperiment", label: "missing same-condition experiment" },
     { key: "hydrothermalStabilityRisk", label: "hydrothermal stability risk" },
-    { key: "moIntroductionFeasibilityRisk", label: "Mo introduction feasibility risk" },
+    { key: "moIntroductionFeasibilityRisk", label: "guest introduction feasibility risk" },
     { key: "localCoordinationUncertainty", label: "local coordination uncertainty" },
     { key: "provenanceGap", label: "provenance gap" },
     { key: "riskRetentionFactor", label: "risk retention factor" },
@@ -929,12 +1010,13 @@ export function buildHostGuestRouteExplanationJson(routeExplanation) {
 }
 
 export function buildOrganicAcidRouteReportJson(workbench, routeExplanation) {
+  const topRoute = workbench?.complementarity?.topRoute || {}
   return {
     version: ORGANIC_ACID_HOST_GUEST_VERSION,
     generatedAt: new Date().toISOString(),
     algorithmName: HOST_GUEST_ALGORITHM_NAME,
     targetProduct: routeExplanation?.targetProduct || "formic acid / organic acid",
-    topRoute: workbench?.complementarity?.topRoute || {},
+    topRoute,
     hostMofExplanation: workbench?.hostSelection?.hostRoleExplanation || "host explanation pending",
     guestMetalExplanation: workbench?.guestSelection?.guestRoleExplanation || "guest explanation pending",
     hgcpsFormula: HGCPS_FORMULA_TEXT,
@@ -943,7 +1025,7 @@ export function buildOrganicAcidRouteReportJson(workbench, routeExplanation) {
       evidenceRows: asArray(workbench?.evidenceMatrix).length,
       confidenceRows: asArray(workbench?.confidenceMatrix).length,
     },
-    riskSummary: asArray(workbench?.missingEvidenceRiskMatrix).find(row => row.routeId === "route-al-mof-mo") || {},
+    riskSummary: asArray(workbench?.missingEvidenceRiskMatrix).find(row => row.routeId === topRoute.routeId) || {},
     sensitivityResult: workbench?.sensitivityAnalysis?.summary || {},
     ablationResult: workbench?.ablationAnalysis?.summary || "",
     nextValidationExperiments: asArray(workbench?.experimentalRoute?.experiments),
@@ -952,13 +1034,13 @@ export function buildOrganicAcidRouteReportJson(workbench, routeExplanation) {
 }
 
 export function buildSensitivityAnalysisJson(sensitivityAnalysis) {
+  const topRoute = asArray(sensitivityAnalysis?.baselineRanking)[0] || {}
   return {
     version: ORGANIC_ACID_HOST_GUEST_VERSION,
     generatedAt: new Date().toISOString(),
     targetProduct: "formic acid / organic acid",
-    hostMof: "Al-MOF",
-    guestMetal: "Mo",
-    routeType: "doping / post-modification / bimetallic construction",
+    topRoute: topRoute.routeName || topRoute.routeId || "route pending",
+    routeType: "current top route",
     sensitivityAnalysis,
   }
 }
@@ -968,33 +1050,33 @@ export function buildAblationAnalysisJson(ablationAnalysis) {
     version: ORGANIC_ACID_HOST_GUEST_VERSION,
     generatedAt: new Date().toISOString(),
     targetProduct: "formic acid / organic acid",
-    hostMof: "Al-MOF",
-    guestMetal: "Mo",
-    routeType: "doping / post-modification / bimetallic construction",
+    topRouteId: ablationAnalysis?.baselineRouteId || "route pending",
+    routeType: "current top route",
     ablationAnalysis,
   }
 }
 
 export function buildAlgorithmTraceJson(algorithmTrace) {
+  const finalStep = asArray(algorithmTrace).find(step => step.id === "generate-experimental-route") || {}
   return {
     version: ORGANIC_ACID_HOST_GUEST_VERSION,
     generatedAt: new Date().toISOString(),
     targetProduct: "formic acid / organic acid",
-    hostMof: "Al-MOF",
-    guestMetal: "Mo",
-    routeType: "doping / post-modification / bimetallic construction",
+    topRoute: finalStep.title || "current top route",
+    routeType: "current top route",
     trace: asArray(algorithmTrace),
   }
 }
 
 export function buildOrganicAcidExperimentalRouteJson(experimentalRoute) {
+  const parts = String(experimentalRoute?.routeName || "").split(" + ")
   return {
     version: ORGANIC_ACID_HOST_GUEST_VERSION,
     generatedAt: new Date().toISOString(),
     targetProduct: experimentalRoute?.targetProduct || "formic acid / organic acid",
-    hostMof: "Al-MOF",
-    guestMetal: "Mo",
-    routeType: "doping / post-modification / bimetallic construction",
+    hostMof: parts[0] || "host pending",
+    guestMetal: parts[1]?.split(" ")[0] || "guest pending",
+    routeType: "current top route",
     nextValidationExperiment: experimentalRoute?.nextExperiment || "validation experiment pending",
     validationExperiments: asArray(experimentalRoute?.experiments),
   }
@@ -1015,10 +1097,10 @@ export function buildMarkdownResearchSummary(workbench, routeExplanation) {
     `Top route: ${topRoute.routeName || routeName(topRoute)}`,
     ``,
     `## Host MOF Explanation`,
-    workbench?.hostSelection?.hostRoleExplanation || "Al-MOF host explanation pending.",
+    workbench?.hostSelection?.hostRoleExplanation || "host explanation pending.",
     ``,
     `## Guest Metal Explanation`,
-    workbench?.guestSelection?.guestRoleExplanation || "Mo guest explanation pending.",
+    workbench?.guestSelection?.guestRoleExplanation || "guest explanation pending.",
     ``,
     `## Multiplicative HGCPS Formula`,
     HGCPS_FORMULA_TEXT,
@@ -1030,10 +1112,10 @@ export function buildMarkdownResearchSummary(workbench, routeExplanation) {
     `${asArray(workbench?.evidenceMatrix).length} route-evidence rows and ${asArray(workbench?.confidenceMatrix).length} confidence rows are available. Evidence remains seed / curated / proxy / inferred / mixed until same-condition validation is completed.`,
     ``,
     `## Risk Summary`,
-    `Risk retention factor: ${riskRow.riskRetentionFactor || topRoute.riskRetentionFactor || topRoute.riskPenalty || 0}. Main missing items: ${riskRow.moIntroductionFeasibilityRisk || "Mo introduction feasibility"}, ${riskRow.localCoordinationUncertainty || "local coordination"}, ${riskRow.hydrothermalStabilityRisk || "170C aqueous stability"}.`,
+    `Risk retention factor: ${riskRow.riskRetentionFactor || topRoute.riskRetentionFactor || topRoute.riskPenalty || 0}. Main missing items: ${riskRow.moIntroductionFeasibilityRisk || "guest introduction feasibility"}, ${riskRow.localCoordinationUncertainty || "local coordination"}, ${riskRow.hydrothermalStabilityRisk || "170C aqueous stability"}.`,
     ``,
     `## Sensitivity Result`,
-    `Rank stability: ${sensitivity.rankStability || 0}; most sensitive factor: ${sensitivity.mostSensitiveFactor || "pending"}; top route remains top: ${sensitivity.alMofMoRemainsTop === false ? "no" : "yes"}.`,
+    `Rank stability: ${sensitivity.rankStability || 0}; most sensitive factor: ${sensitivity.mostSensitiveFactor || "pending"}; top route remains top: ${sensitivity.topRouteRemainsTop === false ? "no" : "yes"}.`,
     ``,
     `## Ablation Result`,
     ablation.summary || "Ablation analysis pending.",

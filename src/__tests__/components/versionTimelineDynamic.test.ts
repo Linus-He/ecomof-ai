@@ -20,7 +20,8 @@ describe("versionTimelineDynamic", () => {
 
     const roadmap = screen.getByTestId("project-evolution-roadmap")
     expect(roadmap.textContent).toMatch(/V3\.9\.5\.1/)
-    expect(roadmap.textContent).toMatch(/V3\.9\.4/)
+    expect(roadmap.textContent).toMatch(/V3\.9\.6/)
+    expect(roadmap.textContent).toMatch(/Real Data Binding/)
     expect(roadmap.textContent).toMatch(/stepwise builder outputs/)
     expect(roadmap.textContent).toMatch(/organic_acid_experimental_activation/)
     expect(roadmap.textContent).toMatch(/执行最小同条件实验矩阵/)

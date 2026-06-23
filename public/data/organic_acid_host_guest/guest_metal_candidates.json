@@ -14,15 +14,14 @@
     "dopingFeasibility": 0.78,
     "postModificationFeasibility": 0.83,
     "bimetallicConstructionFeasibility": 0.8,
-    "guestScore": 0.876,
     "mainRisk": "Mo introduction feasibility and local coordination state remain uncertain.",
     "evidenceRefs": [
       "HGCPS-EVID-GUEST-01",
       "HGCPS-EVID-METAL-CORE"
     ],
     "provenance": [
-      "metal descriptor proxy",
-      "expert prior",
+      "curated-literature-prior (used when dopant data are sparse)",
+      "not a final ranking source",
       "needs operando validation"
     ]
   },
@@ -40,15 +39,14 @@
     "dopingFeasibility": 0.66,
     "postModificationFeasibility": 0.7,
     "bimetallicConstructionFeasibility": 0.68,
-    "guestScore": 0.784,
     "mainRisk": "Heavier oxo-metal chemistry has higher synthesis and speciation uncertainty.",
     "evidenceRefs": [
       "HGCPS-EVID-GUEST-02",
       "HGCPS-EVID-METAL-CORE"
     ],
     "provenance": [
-      "metal descriptor proxy",
-      "expert prior",
+      "curated-literature-prior (used when dopant data are sparse)",
+      "not a final ranking source",
       "needs operando validation"
     ]
   },
@@ -66,15 +64,14 @@
     "dopingFeasibility": 0.78,
     "postModificationFeasibility": 0.74,
     "bimetallicConstructionFeasibility": 0.72,
-    "guestScore": 0.727,
     "mainRisk": "Non-selective redox branches may increase side products.",
     "evidenceRefs": [
       "HGCPS-EVID-GUEST-03",
       "HGCPS-EVID-METAL-CORE"
     ],
     "provenance": [
-      "metal descriptor proxy",
-      "expert prior",
+      "curated-literature-prior (used when dopant data are sparse)",
+      "not a final ranking source",
       "needs operando validation"
     ]
   },
@@ -92,15 +89,14 @@
     "dopingFeasibility": 0.74,
     "postModificationFeasibility": 0.7,
     "bimetallicConstructionFeasibility": 0.7,
-    "guestScore": 0.689,
     "mainRisk": "Competing redox chemistry and aqueous leaching need controls.",
     "evidenceRefs": [
       "HGCPS-EVID-GUEST-04",
       "HGCPS-EVID-METAL-CORE"
     ],
     "provenance": [
-      "metal descriptor proxy",
-      "expert prior",
+      "curated-literature-prior (used when dopant data are sparse)",
+      "not a final ranking source",
       "needs operando validation"
     ]
   },
@@ -118,15 +114,14 @@
     "dopingFeasibility": 0.72,
     "postModificationFeasibility": 0.68,
     "bimetallicConstructionFeasibility": 0.66,
-    "guestScore": 0.669,
     "mainRisk": "Hydrogen-transfer activity may raise side-reaction uncertainty.",
     "evidenceRefs": [
       "HGCPS-EVID-GUEST-05",
       "HGCPS-EVID-METAL-CORE"
     ],
     "provenance": [
-      "metal descriptor proxy",
-      "expert prior",
+      "curated-literature-prior (used when dopant data are sparse)",
+      "not a final ranking source",
       "needs operando validation"
     ]
   },
@@ -144,15 +139,14 @@
     "dopingFeasibility": 0.7,
     "postModificationFeasibility": 0.66,
     "bimetallicConstructionFeasibility": 0.62,
-    "guestScore": 0.665,
     "mainRisk": "Potential side reactions and metal leaching reduce first-priority suitability.",
     "evidenceRefs": [
       "HGCPS-EVID-GUEST-06",
       "HGCPS-EVID-METAL-CORE"
     ],
     "provenance": [
-      "metal descriptor proxy",
-      "expert prior",
+      "curated-literature-prior (used when dopant data are sparse)",
+      "not a final ranking source",
       "needs operando validation"
     ]
   },
@@ -169,15 +163,14 @@
     "dopingFeasibility": 0.72,
     "postModificationFeasibility": 0.7,
     "bimetallicConstructionFeasibility": 0.64,
-    "guestScore": 0.602,
     "mainRisk": "Weak redox/electron support limits compensation for Al-MOF activity.",
     "evidenceRefs": [
       "HGCPS-EVID-GUEST-07",
       "HGCPS-EVID-METAL-CORE"
     ],
     "provenance": [
-      "metal descriptor proxy",
-      "expert prior",
+      "curated-literature-prior (used when dopant data are sparse)",
+      "not a final ranking source",
       "needs operando validation"
     ]
   },
@@ -195,15 +188,14 @@
     "dopingFeasibility": 0.62,
     "postModificationFeasibility": 0.66,
     "bimetallicConstructionFeasibility": 0.64,
-    "guestScore": 0.691,
     "mainRisk": "Hydrolysis and local Ti speciation need direct characterization.",
     "evidenceRefs": [
       "HGCPS-EVID-GUEST-08",
       "HGCPS-EVID-METAL-CORE"
     ],
     "provenance": [
-      "metal descriptor proxy",
-      "expert prior",
+      "curated-literature-prior (used when dopant data are sparse)",
+      "not a final ranking source",
       "needs operando validation"
     ]
   },
@@ -220,15 +212,14 @@
     "dopingFeasibility": 0.64,
     "postModificationFeasibility": 0.66,
     "bimetallicConstructionFeasibility": 0.62,
-    "guestScore": 0.588,
     "mainRisk": "Stability-oriented but weak activity compensation for C1 activation.",
     "evidenceRefs": [
       "HGCPS-EVID-GUEST-09",
       "HGCPS-EVID-METAL-CORE"
     ],
     "provenance": [
-      "metal descriptor proxy",
-      "expert prior",
+      "curated-literature-prior (used when dopant data are sparse)",
+      "not a final ranking source",
       "needs operando validation"
     ]
   },
@@ -246,15 +237,14 @@
     "dopingFeasibility": 0.62,
     "postModificationFeasibility": 0.64,
     "bimetallicConstructionFeasibility": 0.62,
-    "guestScore": 0.706,
     "mainRisk": "Speciation and oxidation-state control are uncertain in hot aqueous media.",
     "evidenceRefs": [
       "HGCPS-EVID-GUEST-10",
       "HGCPS-EVID-METAL-CORE"
     ],
     "provenance": [
-      "metal descriptor proxy",
-      "expert prior",
+      "curated-literature-prior (used when dopant data are sparse)",
+      "not a final ranking source",
       "needs operando validation"
     ]
   },
@@ -272,15 +262,14 @@
     "dopingFeasibility": 0.68,
     "postModificationFeasibility": 0.64,
     "bimetallicConstructionFeasibility": 0.6,
-    "guestScore": 0.636,
     "mainRisk": "Side-product and leaching risk are not yet constrained.",
     "evidenceRefs": [
       "HGCPS-EVID-GUEST-11",
       "HGCPS-EVID-METAL-CORE"
     ],
     "provenance": [
-      "metal descriptor proxy",
-      "expert prior",
+      "curated-literature-prior (used when dopant data are sparse)",
+      "not a final ranking source",
       "needs operando validation"
     ]
   },
@@ -298,15 +287,14 @@
     "dopingFeasibility": 0.56,
     "postModificationFeasibility": 0.58,
     "bimetallicConstructionFeasibility": 0.56,
-    "guestScore": 0.642,
     "mainRisk": "Large-ion incorporation and phase segregation risk are high.",
     "evidenceRefs": [
       "HGCPS-EVID-GUEST-12",
       "HGCPS-EVID-METAL-CORE"
     ],
     "provenance": [
-      "metal descriptor proxy",
-      "expert prior",
+      "curated-literature-prior (used when dopant data are sparse)",
+      "not a final ranking source",
       "needs operando validation"
     ]
   }

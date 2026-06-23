@@ -8,6 +8,12 @@ import hostGuestRoutes from "../../../public/data/organic_acid_host_guest/host_g
 import evidenceRiskRecords from "../../../public/data/organic_acid_host_guest/evidence_risk_records.json"
 import validationExperiments from "../../../public/data/organic_acid_host_guest/validation_experiments.json"
 import activationReadinessSummary from "../../../public/data/organic_acid_experimental_activation/activation_readiness_summary.json"
+import coreMofImport from "../../../public/data/data_ingestion/core_mof_import_v2.json"
+import qmofImport from "../../../public/data/data_ingestion/qmof_import_v2.json"
+import reactionDataset from "../../../public/data/data_ingestion/organic_acid_reaction_dataset_v1.json"
+import gasAdsorptionRecords from "../../../public/data/gas_adsorption_records_v1.json"
+import literatureDataset from "../../../public/data/organic_acid_literature_dataset_v2.json"
+import goldDataset from "../../../public/data/organic_acid_gold_dataset_v2.json"
 import {
   buildOrganicAcidAlgorithmFormulaJson,
   buildOrganicAcidAlgorithmLatexSummary,
@@ -24,17 +30,23 @@ const methodologyInput = {
   evidenceRiskRecords,
   validationExperiments,
   activationReadinessSummary,
+  coreMofImport,
+  qmofImport,
+  reactionDataset,
+  gasAdsorptionRecords,
+  literatureDataset,
+  goldDataset,
 }
 
 describe("organic acid algorithm methodology", () => {
   it("builds dynamic Project Evolution methodology sections with required LaTeX formulas and boundaries", () => {
     const methodology = buildOrganicAcidAlgorithmMethodology(methodologyInput)
 
-    expect(methodology.version).toBe("V3.9.4")
+    expect(methodology.version).toBe("V3.9.6")
     expect(methodology.sections).toHaveLength(7)
-    expect(methodology.dynamicContext.currentTopRoute).toMatch(/Al-MOF \+ Mo/)
-    expect(methodology.dynamicContext.selectedHost).toBe("Al-MOF")
-    expect(methodology.dynamicContext.selectedGuest).toBe("Mo")
+    expect(methodology.dynamicContext.currentTopRoute).toMatch(/\+/)
+    expect(methodology.dynamicContext.selectedHost).toBeTruthy()
+    expect(methodology.dynamicContext.selectedGuest).toBeTruthy()
     expect(methodology.dynamicContext.hgcps).toBeGreaterThan(0)
     expect(methodology.dynamicContext.performanceClaimStatus).toBe("not final catalytic proof")
     expect(methodology.dynamicContext.mlReadinessStatus).toBe("not ready for formal machine learning")
@@ -44,6 +56,8 @@ describe("organic acid algorithm methodology", () => {
     expect(latex).toContain("S_{\\mathrm{host}}")
     expect(latex).toContain("S_{\\mathrm{guest}}")
     expect(latex).toContain("r^{*}=\\arg\\max")
+    expect(latex).not.toContain("h^{*}=\\mathrm{Al")
+    expect(latex).not.toContain("g^{*}=\\mathrm{Mo")
     expect(latex).toContain("\\pm20")
     expect(latex).toContain("\\Delta_i")
     expect(latex).toContain("F_{\\mathrm{evidence}}^{\\mathrm{new}}")

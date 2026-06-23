@@ -12,7 +12,6 @@
     "postModificationFeasibility": 0.84,
     "guestHostingFeasibility": 0.86,
     "provenanceQuality": 0.78,
-    "hostScore": 0.867,
     "hostRole": "stable host framework / stable scaffold",
     "limitation": "Pristine Al-MOF is not treated as the most active catalyst; guest-metal activity compensation is required.",
     "evidenceRefs": [
@@ -20,8 +19,8 @@
       "HGCPS-EVID-STABILITY-CORE"
     ],
     "provenance": [
-      "local curated proxy",
-      "literature-derived stability prior",
+      "curated-fallback (used only when data sparse)",
+      "not a final ranking source",
       "needs same-condition validation"
     ]
   },
@@ -38,16 +37,15 @@
     "postModificationFeasibility": 0.74,
     "guestHostingFeasibility": 0.72,
     "provenanceQuality": 0.76,
-    "hostScore": 0.821,
     "hostRole": "robust control host",
-    "limitation": "Robust scaffold but lower route-specific complementarity for the current Al-MOF + Mo hypothesis.",
+    "limitation": "Robust scaffold, but route-specific complementarity must be recomputed against the current top-ranked route.",
     "evidenceRefs": [
       "HGCPS-EVID-HOST-02",
       "HGCPS-EVID-STABILITY-CORE"
     ],
     "provenance": [
-      "local curated proxy",
-      "literature-derived stability prior",
+      "curated-fallback (used only when data sparse)",
+      "not a final ranking source",
       "needs same-condition validation"
     ]
   },
@@ -64,7 +62,6 @@
     "postModificationFeasibility": 0.7,
     "guestHostingFeasibility": 0.68,
     "provenanceQuality": 0.66,
-    "hostScore": 0.726,
     "hostRole": "conditional active host",
     "limitation": "Potential electronic contribution is offset by higher aqueous-stability uncertainty.",
     "evidenceRefs": [
@@ -72,8 +69,8 @@
       "HGCPS-EVID-STABILITY-CORE"
     ],
     "provenance": [
-      "local curated proxy",
-      "literature-derived stability prior",
+      "curated-fallback (used only when data sparse)",
+      "not a final ranking source",
       "needs same-condition validation"
     ]
   },
@@ -90,7 +87,6 @@
     "postModificationFeasibility": 0.66,
     "guestHostingFeasibility": 0.62,
     "provenanceQuality": 0.62,
-    "hostScore": 0.665,
     "hostRole": "redox-active comparison host",
     "limitation": "Redox activity may increase competing pathways and leaching risk under aqueous 170C conditions.",
     "evidenceRefs": [
@@ -98,8 +94,8 @@
       "HGCPS-EVID-STABILITY-CORE"
     ],
     "provenance": [
-      "local curated proxy",
-      "literature-derived stability prior",
+      "curated-fallback (used only when data sparse)",
+      "not a final ranking source",
       "needs same-condition validation"
     ]
   },
@@ -116,7 +112,6 @@
     "postModificationFeasibility": 0.58,
     "guestHostingFeasibility": 0.56,
     "provenanceQuality": 0.58,
-    "hostScore": 0.59,
     "hostRole": "activity-risk comparison host",
     "limitation": "Hydrothermal collapse and side-reaction risk are too high for first-priority validation.",
     "evidenceRefs": [
@@ -124,8 +119,8 @@
       "HGCPS-EVID-STABILITY-CORE"
     ],
     "provenance": [
-      "local curated proxy",
-      "literature-derived stability prior",
+      "curated-fallback (used only when data sparse)",
+      "not a final ranking source",
       "needs same-condition validation"
     ]
   },
@@ -142,7 +137,6 @@
     "postModificationFeasibility": 0.68,
     "guestHostingFeasibility": 0.62,
     "provenanceQuality": 0.62,
-    "hostScore": 0.658,
     "hostRole": "neutral comparison host",
     "limitation": "Zn-MOF may provide pore access but lacks strong C1 activation rationale and water stability evidence.",
     "evidenceRefs": [
@@ -150,8 +144,8 @@
       "HGCPS-EVID-STABILITY-CORE"
     ],
     "provenance": [
-      "local curated proxy",
-      "literature-derived stability prior",
+      "curated-fallback (used only when data sparse)",
+      "not a final ranking source",
       "needs same-condition validation"
     ]
   },
@@ -168,7 +162,6 @@
     "postModificationFeasibility": 0.62,
     "guestHostingFeasibility": 0.6,
     "provenanceQuality": 0.6,
-    "hostScore": 0.722,
     "hostRole": "stability-risk comparison host",
     "limitation": "Cr frameworks can be robust but introduce synthesis, toxicity, and provenance constraints.",
     "evidenceRefs": [
@@ -176,8 +169,8 @@
       "HGCPS-EVID-STABILITY-CORE"
     ],
     "provenance": [
-      "local curated proxy",
-      "literature-derived stability prior",
+      "curated-fallback (used only when data sparse)",
+      "not a final ranking source",
       "needs same-condition validation"
     ]
   },
@@ -194,7 +187,6 @@
     "postModificationFeasibility": 0.76,
     "guestHostingFeasibility": 0.74,
     "provenanceQuality": 0.74,
-    "hostScore": 0.81,
     "hostRole": "robust UiO-type control host",
     "limitation": "Strong stability but less aligned with the Al-MOF host-guest route being tested.",
     "evidenceRefs": [
@@ -202,8 +194,8 @@
       "HGCPS-EVID-STABILITY-CORE"
     ],
     "provenance": [
-      "local curated proxy",
-      "literature-derived stability prior",
+      "curated-fallback (used only when data sparse)",
+      "not a final ranking source",
       "needs same-condition validation"
     ]
   },
@@ -220,7 +212,6 @@
     "postModificationFeasibility": 0.72,
     "guestHostingFeasibility": 0.72,
     "provenanceQuality": 0.72,
-    "hostScore": 0.78,
     "hostRole": "MIL-type control host",
     "limitation": "MIL-type hosts are useful controls but require route-specific metal-node verification.",
     "evidenceRefs": [
@@ -228,8 +219,8 @@
       "HGCPS-EVID-STABILITY-CORE"
     ],
     "provenance": [
-      "local curated proxy",
-      "literature-derived stability prior",
+      "curated-fallback (used only when data sparse)",
+      "not a final ranking source",
       "needs same-condition validation"
     ]
   },
@@ -246,16 +237,15 @@
     "postModificationFeasibility": 0.78,
     "guestHostingFeasibility": 0.76,
     "provenanceQuality": 0.74,
-    "hostScore": 0.823,
     "hostRole": "MOF-808-like control host",
-    "limitation": "High pore accessibility but route-specific Al-MOF + Mo complementarity is lower.",
+    "limitation": "High pore accessibility, but route-specific complementarity must be recomputed against the current top-ranked route.",
     "evidenceRefs": [
       "HGCPS-EVID-HOST-10",
       "HGCPS-EVID-STABILITY-CORE"
     ],
     "provenance": [
-      "local curated proxy",
-      "literature-derived stability prior",
+      "curated-fallback (used only when data sparse)",
+      "not a final ranking source",
       "needs same-condition validation"
     ]
   }

@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.9.5.5",
-  "generatedAt": "2026-06-23",
+  "currentVersion": "V3.9.6",
+  "generatedAt": "2026-06-23T00:00:00Z",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
-    "currentVersion": "V3.9.5.5",
+    "currentVersion": "V3.9.6",
     "databaseSize": 3020,
     "verifiedMetadataCount": 2480,
     "sourceConfirmedCount": 2480,
@@ -18,7 +18,7 @@
     "notFinalRecommendationStatus": "Not Final Recommendation",
     "sources": {
       "currentVersion": {
-        "value": "V3.9.5.5",
+        "value": "V3.9.6",
         "sourceDatabase": "EcoMOF-AI version_evolution_records.json",
         "sourceRecordId": "overview.currentVersion",
         "sourceUrl": "public/data/version_evolution_records.json",
@@ -27,9 +27,9 @@
         "retrievedAt": "2026-06-23",
         "curationStatus": "confirmed",
         "confidence": 1,
-        "databaseVersion": "version_evolution_records.json@V3.9.5.1",
-        "generatingScript": "manual V3.9.5.5 organic acid interactive explanation record",
-        "notes": "Version label for the V3.9.5.5 Organic Acid interactive Why Panel, Run control, and final-result comparison release."
+        "databaseVersion": "version_evolution_records.json@V3.9.6",
+        "generatingScript": "manual V3.9.6 organic acid real data binding record",
+        "notes": "Version label for the V3.9.6 Organic Acid preregistered real-data binding release."
       },
       "databaseSize": {
         "value": 3020,
@@ -777,6 +777,27 @@
         "Interactive Explanation",
         "Score Provenance",
         "UI",
+        "Testing"
+      ]
+    },
+    {
+      "version": "V3.9.6",
+      "date": "2026-06-23",
+      "commit": "pending-current",
+      "summary": "Organic Acid Real Data Binding: preregistered the V3.9.6 scoring spec, derived host factors from CoRE/QMOF/reaction/gas/literature/gold datasets where fields exist, labeled sparse descriptors as curated fallback or literature prior, recomputed route HGCPS at runtime from locked rules, and exposed factor-level provenance tuples in the Host-Guest workbench.",
+      "scientificImpact": "Turns the Organic Acid host-guest ranking from seed-score presentation into a preregistered, white-box data-derivation workflow. The current top route remains an experimental hypothesis rather than catalytic-performance proof.",
+      "databaseImpact": "Reuses existing CoRE, QMOF, gas adsorption, organic-acid reaction, literature, and gold datasets. No new external records are fabricated; sparse dopant descriptors are explicitly marked as literature priors.",
+      "algorithmImpact": "Adds organicAcidDataDerivation host/guest/route builders, family assignment, min-max normalization, fallback threshold handling, route-factor provenance, and runtime HGCPS recomputation from spec-defined keys.",
+      "validationImpact": "Adds tests for preregistration, family assignment, data sensitivity, formula consistency, and provenance completeness. Maintains no-ML and not-final-proof boundaries.",
+      "uiImpact": "Adds source labels and expandable factor source rows showing sourceDataset, nRecords, rawAggregate, normalization, value, and fallback reason in the Organic Acid Host-Guest route explanation panel.",
+      "knownLimitations": "Guest/dopant metals without dedicated records remain curated-literature-prior; UiO/MOF-808/MIL topology matching should be reviewed against real imported topology strings; same-condition experiments remain pending.",
+      "breakingChanges": "Precomputed hostScore, guestScore, finalHGCPS, and ranking fields are no longer treated as data sources; builders recompute them from V3.9.6 rules.",
+      "nextVersionGoal": "补齐同条件实验与客体掺杂专门数据，将 guest literature prior 推进为 data-derived factors。",
+      "categories": [
+        "Organic Acid",
+        "Real Data Binding",
+        "Pre-registration",
+        "Score Provenance",
         "Testing"
       ]
     }

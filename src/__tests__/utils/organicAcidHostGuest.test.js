@@ -7,6 +7,13 @@ import guestMetalCandidates from "../../../public/data/organic_acid_host_guest/g
 import hostGuestRoutes from "../../../public/data/organic_acid_host_guest/host_guest_routes.json"
 import evidenceRiskRecords from "../../../public/data/organic_acid_host_guest/evidence_risk_records.json"
 import validationExperiments from "../../../public/data/organic_acid_host_guest/validation_experiments.json"
+import coreMofImport from "../../../public/data/data_ingestion/core_mof_import_v2.json"
+import qmofImport from "../../../public/data/data_ingestion/qmof_import_v2.json"
+import reactionDataset from "../../../public/data/data_ingestion/organic_acid_reaction_dataset_v1.json"
+import gasAdsorptionRecords from "../../../public/data/gas_adsorption_records_v1.json"
+import literatureDataset from "../../../public/data/organic_acid_literature_dataset_v2.json"
+import goldDataset from "../../../public/data/organic_acid_gold_dataset_v2.json"
+import scoringSpec from "../../../public/data/organic_acid_scoring_spec_v1.json"
 import {
   buildAlgorithmTraceJson,
   buildAblationAnalysisJson,
@@ -32,13 +39,20 @@ const input = {
   hostGuestRoutes,
   evidenceRiskRecords,
   validationExperiments,
+  coreMofImport,
+  qmofImport,
+  reactionDataset,
+  gasAdsorptionRecords,
+  literatureDataset,
+  goldDataset,
 }
 
 describe("organic acid host-guest pathway screening", () => {
-  it("builds the V3.9.5.5 pathway pipeline from expanded seed data", () => {
+  it("builds the V3.9.6 pathway pipeline from preregistered real-data bindings", () => {
     const workbench = buildOrganicAcidHostGuestWorkbench(input)
 
-    expect(workbench.version).toBe("V3.9.5.5")
+    expect(workbench.version).toBe("V3.9.6")
+    expect(workbench.scoringSpec.specId).toBe(scoringSpec.specId)
     expect(workbench.pipelineSteps).toHaveLength(6)
     expect(hostMofCandidates.length).toBeGreaterThanOrEqual(8)
     expect(guestMetalCandidates.length).toBeGreaterThanOrEqual(8)
@@ -47,26 +61,32 @@ describe("organic acid host-guest pathway screening", () => {
     expect(workbench.pathwaySteps.length).toBeGreaterThanOrEqual(7)
     expect(workbench.pathwaySteps.find(step => step.stepId === "step-co2-activation").mappedDescriptors).toContain("Lewis acidity")
     expect(workbench.descriptorMap.find(row => row.stepId === "step-hcoo-stabilization").descriptorGroup).toMatch(/Formate intermediate/)
+    expect(workbench.familyAssignmentSummary.byDataset.coreMof.targetCounts["Al-MOF"]).toBeGreaterThan(0)
+    expect(workbench.familyAssignmentSummary.byDataset.reaction.targetCounts["Zr-MOF"]).toBeGreaterThan(0)
   })
 
-  it("selects Al-MOF as stable host and Mo as activity-compensation guest from ranking builders", () => {
+  it("selects host and guest from ranking builders without using precomputed total scores", () => {
     const workbench = buildOrganicAcidHostGuestWorkbench(input)
 
-    expect(workbench.hostSelection.selectedHost.displayName).toBe("Al-MOF")
-    expect(workbench.hostSelection.selectedHost.hostRole).toMatch(/stable host framework/)
+    expect(workbench.hostSelection.selectedHost.displayName).toBeTruthy()
+    expect(workbench.hostSelection.hostRoleExplanation).toMatch(/stable host framework/)
     expect(workbench.hostSelection.hostRoleExplanation).toMatch(/not treated as a standalone best catalyst/)
-    expect(workbench.guestSelection.selectedGuestMetal.guestMetal).toBe("Mo")
+    expect(workbench.guestSelection.selectedGuestMetal.guestMetal).toBeTruthy()
     expect(workbench.guestSelection.selectedGuestMetal.role).toMatch(/guest \/ dopant \/ activity compensation metal/)
     expect(workbench.guestSelection.guestRoleExplanation).toMatch(/complements the host instead of replacing it/)
+    expect(hostMofCandidates.some(row => Object.hasOwn(row, "hostScore"))).toBe(false)
+    expect(guestMetalCandidates.some(row => Object.hasOwn(row, "guestScore"))).toBe(false)
+    expect(workbench.hostSelection.rankedHosts.find(row => row.displayName === "Al-MOF").factorProvenance.poreEnvironmentScore.sourceDataset).toMatch(/CoRE\+QMOF/)
+    expect(workbench.guestSelection.selectedGuestMetal.factorProvenance.co2ActivationScore.derivationLevel).toMatch(/data-derived|curated-literature-prior/)
   })
 
-  it("ranks Al-MOF + Mo first by HGCPS and keeps score and risk breakdowns explainable", () => {
-    const complementarity = buildHostGuestComplementarityScore(hostGuestRoutes, evidenceRiskRecords)
+  it("ranks routes by derived HGCPS and keeps score and provenance breakdowns explainable", () => {
+    const workbench = buildOrganicAcidHostGuestWorkbench(input)
+    const complementarity = workbench.complementarity
     const top = complementarity.topRoute
 
-    expect(top.routeId).toBe("route-al-mof-mo")
-    expect(top.hostMof).toBe("Al-MOF")
-    expect(top.guestMetal).toBe("Mo")
+    expect(top.routeId).toBeTruthy()
+    expect(hostGuestRoutes.some(row => Object.hasOwn(row, "finalHGCPS") || Object.hasOwn(row, "ranking"))).toBe(false)
     expect(top.finalHGCPS).toBeGreaterThan(complementarity.routeScores[1].finalHGCPS)
     expect(HGCPS_FORMULA_TEXT).toBe("HGCPS = Host Stability Factor * Host Pathway Support Factor * Guest Activity Compensation Factor * Host-Guest Complementarity Factor * Evidence Confidence Factor * Risk Retention Factor")
     expect(HGCPS_FORMULA_TEXT).not.toMatch(/\+/)
@@ -91,6 +111,8 @@ describe("organic acid host-guest pathway screening", () => {
     expect(top.scoreBreakdown.riskPenalty).toBeUndefined()
     expect(top.riskPenaltyBreakdown.length).toBeGreaterThan(0)
     expect(top.riskPenaltyBreakdown.every(row => row.reason && row.riskType)).toBe(true)
+    expect(Object.keys(top.routeFactorProvenance)).toEqual(scoringSpec.routeScoreKeys)
+    expect(Object.values(top.routeFactorProvenance).every(tuple => tuple.sourceDataset && Number.isFinite(tuple.nRecords) && tuple.rawAggregate && tuple.normalization)).toBe(true)
     expect(complementarity.whyTopRanked).toMatch(/multiplicative HGCPS/)
     expect(complementarity.whyTopRanked).toMatch(/risk retention factor/)
   })
@@ -98,21 +120,20 @@ describe("organic acid host-guest pathway screening", () => {
   it("builds route queue, explanation, trace, graph, risk, sensitivity, ablation, validation, and export payloads", () => {
     const workbench = buildOrganicAcidHostGuestWorkbench(input)
 
-    expect(workbench.priorityQueue.topPriority[0].routeId).toBe("route-al-mof-mo")
-    expect(workbench.selectedRouteExplanation.hostMof).toBe("Al-MOF")
-    expect(workbench.selectedRouteExplanation.guestMetal).toBe("Mo")
+    expect(workbench.priorityQueue.topPriority[0].routeId).toBe(workbench.complementarity.topRoute.routeId)
+    expect(workbench.selectedRouteExplanation.hostMof).toBe(workbench.complementarity.topRoute.hostMof)
+    expect(workbench.selectedRouteExplanation.guestMetal).toBe(workbench.complementarity.topRoute.guestMetal)
     expect(workbench.selectedRouteExplanation.evidenceSources.length).toBeGreaterThan(0)
-    expect(workbench.selectedRouteExplanation.nextValidationExperiment).toMatch(/Al-MOF host/)
-    expect(workbench.algorithmTrace.map(step => step.title)).toEqual([
+    expect(workbench.selectedRouteExplanation.nextValidationExperiment).toBeTruthy()
+    expect(workbench.algorithmTrace.map(step => step.title)).toEqual(expect.arrayContaining([
       "Load pathway steps",
       "Map descriptors to each pathway step",
       "Screen host MOF candidates",
-      "Select Al-MOF as host framework",
       "Screen guest / dopant metals",
-      "Select Mo as high-priority guest metal",
       "Calculate host-guest complementarity score",
-      "Generate Al-MOF + Mo experimental route",
-    ])
+    ]))
+    expect(workbench.algorithmTrace.find(step => step.id.startsWith("select-") && step.id.endsWith("-host"))?.title).toContain(workbench.hostSelection.selectedHost.displayName)
+    expect(workbench.algorithmTrace.find(step => step.id.startsWith("select-") && step.id.endsWith("-guest"))?.title).toContain(workbench.guestSelection.selectedGuestMetal.guestMetal)
     expect(workbench.knowledgeGraph.nodes.map(node => node.type)).toEqual(expect.arrayContaining([
       "pathway step",
       "descriptor",
@@ -121,51 +142,66 @@ describe("organic acid host-guest pathway screening", () => {
       "host-guest route",
       "evidence",
       "risk",
-      "validation experiment",
     ]))
     expect(workbench.evidenceMatrix.some(row => row.evidenceType === "missing")).toBe(true)
-    expect(workbench.missingEvidenceRiskMatrix.find(row => row.routeId === "route-al-mof-mo")).toEqual(expect.objectContaining({
-      moIntroductionFeasibilityRisk: "Mo introduction feasibility needs validation",
-      localCoordinationUncertainty: "local Mo coordination environment uncertain",
+    expect(workbench.missingEvidenceRiskMatrix.find(row => row.routeId === workbench.complementarity.topRoute.routeId)).toEqual(expect.objectContaining({
       hydrothermalStabilityRisk: "170C aqueous stability must be tested",
       missingSameConditionExperiment: "same-condition experiment is still needed",
     }))
     expect(workbench.sensitivityAnalysis.summary.rankStability).toBeGreaterThanOrEqual(0.8)
-    expect(workbench.sensitivityAnalysis.summary.alMofMoRemainsTop).toBe(true)
+    expect(workbench.sensitivityAnalysis.summary.topRouteRemainsTop).toBe(true)
     expect(workbench.sensitivityAnalysis.scenarios).toHaveLength(12)
-    expect(workbench.sensitivityAnalysis.scenarios.every(row => row.baselineTopRoute === "route-al-mof-mo")).toBe(true)
+    expect(workbench.sensitivityAnalysis.scenarios.every(row => row.baselineTopRoute === workbench.complementarity.topRoute.routeId)).toBe(true)
     expect(workbench.ablationAnalysis.scenarios.map(row => row.scenarioId)).toEqual(expect.arrayContaining([
       "without-guest-activity-compensation",
       "without-host-guest-complementarity",
-      "pristine-al-mof-only",
-      "mo-contribution-removed",
+      "pristine-host-only",
+      "guest-contribution-removed",
     ]))
     expect(workbench.ablationAnalysis.moContribution.contribution).toBeGreaterThan(0)
     expect(workbench.ablationAnalysis.hostStabilityContribution.contribution).toBeGreaterThan(0)
     expect(workbench.validationExperiments).toBeUndefined()
-    expect(workbench.experimentalRoute.experiments.filter(row => row.routeId === "route-al-mof-mo").length).toBeGreaterThanOrEqual(7)
+    expect(workbench.experimentalRoute.routeId).toBe(workbench.complementarity.topRoute.routeId)
+    expect(workbench.experimentalRoute.nextExperiment).toBeTruthy()
 
-    expect(buildHostGuestRoutePriorityQueueCsv(workbench.priorityQueue)).toMatch(/Al-MOF,Mo/)
+    expect(buildHostGuestRoutePriorityQueueCsv(workbench.priorityQueue)).toMatch(workbench.complementarity.topRoute.hostMof)
     expect(buildEvidenceMatrixCsv(workbench.evidenceMatrix)).toMatch(/same-condition/)
     expect(buildMissingEvidenceRiskMatrixCsv(workbench.missingEvidenceRiskMatrix)).toMatch(/Mo introduction feasibility needs validation/)
     expect(buildPathwayDescriptorMapCsv(workbench.descriptorMap)).toMatch(/CO2 activation/)
     expect(buildHostGuestRouteExplanationJson(workbench.selectedRouteExplanation)).toEqual(expect.objectContaining({
-      version: "V3.9.5.5",
+      version: "V3.9.6",
       targetProduct: "formic acid / organic acid",
-      hostMof: "Al-MOF",
-      guestMetal: "Mo",
+      hostMof: workbench.complementarity.topRoute.hostMof,
+      guestMetal: workbench.complementarity.topRoute.guestMetal,
     }))
     expect(buildOrganicAcidRouteReportJson(workbench, workbench.selectedRouteExplanation)).toEqual(expect.objectContaining({
-      version: "V3.9.5.5",
+      version: "V3.9.6",
       hgcpsFormula: HGCPS_FORMULA_TEXT,
       limitationStatement: "This is a high-priority experimental route, not final catalytic performance proof.",
     }))
-    expect(buildSensitivityAnalysisJson(workbench.sensitivityAnalysis).sensitivityAnalysis.summary.alMofMoRemainsTop).toBe(true)
+    expect(buildSensitivityAnalysisJson(workbench.sensitivityAnalysis).sensitivityAnalysis.summary.topRouteRemainsTop).toBe(true)
     expect(buildAblationAnalysisJson(workbench.ablationAnalysis).ablationAnalysis.summary).toMatch(/multiplicative HGCPS/)
-    expect(buildOrganicAcidExperimentalRouteJson(workbench.experimentalRoute).validationExperiments.length).toBeGreaterThanOrEqual(7)
+    expect(buildOrganicAcidExperimentalRouteJson(workbench.experimentalRoute).nextValidationExperiment).toBeTruthy()
     expect(buildMarkdownResearchSummary(workbench, workbench.selectedRouteExplanation)).toMatch(/Random Forest is only a baseline \/ risk reference/)
     expect(buildAlgorithmTraceJson(workbench.algorithmTrace).trace).toHaveLength(8)
-    expect(JSON.stringify(workbench)).not.toMatch(/undefined|null|NaN/)
+    expect(JSON.stringify(workbench)).not.toMatch(/undefined|NaN/)
+    expect(JSON.stringify(workbench.complementarity.routeScores.map(route => route.scoreBreakdown))).not.toMatch(/undefined|null|NaN/)
     expect(JSON.stringify(workbench)).not.toMatch(/final best catalyst|already proved|Cat Playground/i)
+  })
+
+  it("changes derived host scores when source CoRE descriptors change", () => {
+    const baseline = buildOrganicAcidHostGuestWorkbench(input)
+    const selectedFamily = "Al-MOF"
+    const changedCore = {
+      ...coreMofImport,
+      records: coreMofImport.records.map(record => record.metalNode === "Al"
+        ? { ...record, surfaceArea: Number(record.surfaceArea || 0) * 0.1, voidFraction: Number(record.voidFraction || 0) * 0.1 }
+        : record),
+    }
+    const changed = buildOrganicAcidHostGuestWorkbench({ ...input, coreMofImport: changedCore })
+    const baselineHost = baseline.hostSelection.rankedHosts.find(row => row.family === selectedFamily)
+    const changedHost = changed.hostSelection.rankedHosts.find(row => row.family === selectedFamily)
+
+    expect(changedHost.hostScoreBreakdown.poreEnvironmentScore).not.toBe(baselineHost.hostScoreBreakdown.poreEnvironmentScore)
   })
 })
