@@ -6,13 +6,13 @@ export { buildProxyValidityAudit, spearmanCorrelation } from "./proxyValidity.js
 
 export function buildOrganicAcidAudit(datasets = {}) {
   return {
-    version: "V3.9.7",
+    version: "V3.9.8",
     generatedAt: "runtime",
     proxyValidity: buildProxyValidityAudit(datasets),
     familyFairness: buildFamilyFairnessAudit(datasets),
     scoringMutation: {
       applied: false,
-      note: "Stage A audit does not change V3.9.6 scoring weights.",
+      note: "Audit conclusions do not silently change the locked spec-v2 weights.",
     },
   }
 }

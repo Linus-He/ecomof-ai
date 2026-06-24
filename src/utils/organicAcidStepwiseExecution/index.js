@@ -22,7 +22,7 @@ import {
   buildValidationCoverageSummary,
 } from "../organicAcidExplanationClosure/index.js"
 
-export const ORGANIC_ACID_STEPWISE_EXECUTION_VERSION = "V3.9.7"
+export const ORGANIC_ACID_STEPWISE_EXECUTION_VERSION = "V3.9.8"
 export const ORGANIC_ACID_STEPWISE_EXECUTION_NAME = "Organic Acid Stepwise Algorithm Execution Chain"
 
 const METHODOLOGY_BASE = "project-evolution-organic-acid-algorithm-methodology"

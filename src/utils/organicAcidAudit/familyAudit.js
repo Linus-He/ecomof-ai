@@ -110,7 +110,7 @@ export function buildFamilyFairnessAudit(datasets = {}, options = {}) {
   })
 
   return {
-    auditId: "organic-acid-family-fairness-v3.9.7",
+    auditId: "organic-acid-family-fairness-v3.9.8",
     method: "family record counts, median/IQR fences, outlier share, and high-influence structural records",
     minimumRecords: threshold,
     familyReports,

@@ -15,6 +15,8 @@ import { ExafsFalsificationDiagram, ValidationLoopDiagram } from "./organic-acid
 import { ORGANIC_ACID_FEATURE_GROUPS } from "../../utils/organicAcid/organicAcidFeatureSchema"
 import { ORGANIC_ACID_SCORING_WEIGHTS, ORGANIC_ACID_SCORE_EQUATION } from "../../utils/organicAcid/organicAcidScoringWeights"
 import { ORGANIC_ACID_TASK_DEFINITION } from "../../utils/organicAcid/organicAcidTaskDefinition"
+import { buildAlgorithmShowcaseModel } from "../../utils/organicAcidAlgorithmMethodology"
+import { AlgorithmShowcaseSection } from "./organic-acid-final/AlgorithmShowcaseSection"
 
 const DataMappingSchemaValidationPanel = lazy(() =>
   import("./organic-acid-final/DataMappingSchemaValidationPanel").then(module => ({ default: module.DataMappingSchemaValidationPanel })),
@@ -522,7 +524,17 @@ function KnowledgeBaseMethod({ lang, t }) {
 }
 
 export function OrganicAcidFinalMethodology({ lang, t }) {
-  const [data, setData] = useState({ frameworks: [], metals: [], rules: {}, evidenceRecords: [], mappingReport: null })
+  const [data, setData] = useState({
+    frameworks: [],
+    metals: [],
+    rules: {},
+    evidenceRecords: [],
+    mappingReport: null,
+    scoringSpecV1: {},
+    scoringSpecV2: {},
+    methodologyShowcase: {},
+    priceTable: {},
+  })
   const [status, setStatus] = useState("loading")
 
   useEffect(() => {
@@ -534,7 +546,11 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
       fetchDataJson("organic_acid_final_screening/organic_acid_screening_rules.json", {}, { throwOnError: true }),
       fetchDataJson("organic_acid_final_screening/organic_acid_evidence_records.json", [], { throwOnError: true }),
       fetchDataJson("organic_acid_final_screening/curated_real_examples/real_data_mapping_report.json", {}, { throwOnError: true }),
-    ]).then(([frameworkRows, metalRows, ruleConfig, evidenceRows, mappingReport]) => {
+      fetchDataJson("organic_acid_scoring_spec_v1.json", {}, { throwOnError: true }),
+      fetchDataJson("organic_acid_scoring_spec_v2.json", {}, { throwOnError: true }),
+      fetchDataJson("organic_acid_methodology_showcase_v3_9_8.json", {}, { throwOnError: true }),
+      fetchDataJson("metal_precursor_cost_table.json", {}, { throwOnError: true }),
+    ]).then(([frameworkRows, metalRows, ruleConfig, evidenceRows, mappingReport, scoringSpecV1, scoringSpecV2, methodologyShowcase, priceTable]) => {
       if (!active) return
       setData({
         frameworks: Array.isArray(frameworkRows) ? frameworkRows : [],
@@ -542,12 +558,16 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
         rules: ruleConfig || {},
         evidenceRecords: Array.isArray(evidenceRows) ? evidenceRows : [],
         mappingReport: mappingReport || {},
+        scoringSpecV1: scoringSpecV1 || {},
+        scoringSpecV2: scoringSpecV2 || {},
+        methodologyShowcase: methodologyShowcase || {},
+        priceTable: priceTable || {},
       })
       setStatus("loaded")
     }).catch(error => {
       if (!active) return
       console.warn("Organic Acid methodology data could not be loaded.", error)
-      setData({ frameworks: [], metals: [], rules: {}, evidenceRecords: [], mappingReport: null })
+      setData({ frameworks: [], metals: [], rules: {}, evidenceRecords: [], mappingReport: null, scoringSpecV1: {}, scoringSpecV2: {}, methodologyShowcase: {}, priceTable: {} })
       setStatus("error")
     })
     return () => { active = false }
@@ -557,6 +577,12 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
     if (status !== "loaded") return null
     return runOrganicAcidFinalScreening(data.frameworks, data.metals, data.rules, data.evidenceRecords)
   }, [data, status])
+  const algorithmShowcase = useMemo(() => buildAlgorithmShowcaseModel({
+    scoringSpecV1: data.scoringSpecV1,
+    scoringSpecV2: data.scoringSpecV2,
+    showcaseArtifact: data.methodologyShowcase,
+    priceTable: data.priceTable,
+  }), [data.methodologyShowcase, data.priceTable, data.scoringSpecV1, data.scoringSpecV2])
 
   if (status === "loading") return <MethodologySectionSkeleton lang={lang} t={t} title="Organic Acid Final Screening Methodology" titleZh="有机酸最终筛选方法论" />
   if (status === "error" || !result) {
@@ -587,6 +613,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
         </div>
         <OrganicAcidMethodologyOverview lang={lang} t={t} coverage={result.evidenceCoverage} />
         <MethodologyFlowDiagram flow={result.methodologyFlowData} lang={lang} t={t} />
+        <AlgorithmShowcaseSection model={algorithmShowcase} lang={lang} t={t} />
         <AlgorithmClosureMethod result={result} lang={lang} t={t} />
         <LazyMethodologyDetails id="methodology-oafs-data-mapping" title="Data Mapping and Schema Validation" titleZh="数据映射与 Schema Validation" summary="Data Mapper Preview Panel / Schema Validation Panel / Data Quality Gate Panel" summaryZh="Data Mapper Preview Panel / Schema Validation Panel / Data Quality Gate Panel" lang={lang} t={t}>
           <Suspense fallback={<MethodologySectionSkeleton lang={lang} t={t} title="Data Mapping and Schema Validation" titleZh="数据映射与 Schema Validation" />}>

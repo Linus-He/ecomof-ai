@@ -19,6 +19,8 @@ import { summarizeDataFoundation } from "../../utils/dataFoundation"
 import { runDataAudit } from "../../utils/dataAudit/index.js"
 import { dataIngestionSummary } from "../../utils/dataIngestion/index.js"
 import { buildResearchValidationSummary } from "../../utils/organicAcidResearchValidation"
+import { buildDescriptorEvolutionReport } from "../../utils/organicAcidRankingEvolution"
+import { organicAcidPalette as oaPalette, SCIENTIFIC_TOKEN_FONT } from "../catalysis/FormulaInline"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -265,7 +267,140 @@ function LocalizationAuditPanel({ audit, t, lang, isMobile }) {
   )
 }
 
-export function ResearchReportsTab({ records: providedRecords = null, summary: providedSummary = null, versionData: providedVersionData = null, organicAcidResult: providedOrganicAcidResult = null } = {}) {
+const EVOLUTION_COLORS = [oaPalette.accent, oaPalette.positive, oaPalette.mixed, oaPalette.risk, "#6D5CA8", "#0F766E", "#9A3412", "#475569"]
+
+function DescriptorEvolutionLineChart({ model, lang }) {
+  const stages = model.stages || []
+  const series = model.routeSeries || []
+  const width = 760
+  const height = 360
+  const left = 58
+  const right = 30
+  const top = 28
+  const bottom = 74
+  const maxRank = Math.max(1, ...stages.map(stage => stage.routeRankings?.length || 1))
+  const xFor = index => left + (width - left - right) * index / Math.max(1, stages.length - 1)
+  const yFor = rank => top + (Math.max(1, rank) - 1) / Math.max(1, maxRank - 1) * (height - top - bottom)
+  const ticks = Array.from(new Set([1, 5, 10, 15, 20, maxRank].filter(value => value <= maxRank)))
+  return (
+    <div data-testid="descriptor-evolution-line-chart" data-series-count={series.length} style={{ background: oaPalette.bg, border: `1px solid ${oaPalette.border}`, borderRadius: 10, overflowX: "auto", padding: 10 }}>
+      <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label={text(lang, "历次描述符添加的路线排名演化", "Route rank evolution across descriptor additions")} style={{ display: "block", minWidth: 680, width: "100%" }}>
+        {ticks.map(rank => (
+          <g key={rank}>
+            <line x1={left} x2={width - right} y1={yFor(rank)} y2={yFor(rank)} stroke={oaPalette.border} strokeDasharray="4 5" />
+            <text x={left - 10} y={yFor(rank) + 4} fill={oaPalette.faint} fontSize="10" textAnchor="end">#{rank}</text>
+          </g>
+        ))}
+        {stages.map((stage, index) => (
+          <g key={stage.stage}>
+            <line x1={xFor(index)} x2={xFor(index)} y1={top} y2={height - bottom} stroke={oaPalette.borderStrong} />
+            <text x={xFor(index)} y={height - 46} fill={oaPalette.text} fontSize="10.5" fontWeight="800" textAnchor="middle">{stage.version}</text>
+            <text x={xFor(index)} y={height - 28} fill={oaPalette.muted} fontSize="9.5" textAnchor="middle">{stage.stage.slice(0, 24)}</text>
+          </g>
+        ))}
+        {series.map((row, index) => {
+          const color = EVOLUTION_COLORS[index % EVOLUTION_COLORS.length]
+          const points = row.points.map((point, pointIndex) => `${xFor(pointIndex)},${yFor(point.rank)}`).join(" ")
+          return (
+            <g key={row.routeId}>
+              <polyline data-testid="descriptor-evolution-series" data-route-id={row.routeId} points={points} fill="none" stroke={color} strokeOpacity="0.82" strokeWidth="2.2" />
+              {row.points.map((point, pointIndex) => <circle key={`${row.routeId}-${point.version}`} cx={xFor(pointIndex)} cy={yFor(point.rank)} r="3" fill={color} />)}
+            </g>
+          )
+        })}
+      </svg>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+        {series.map((row, index) => (
+          <span key={row.routeId} style={{ alignItems: "center", color: oaPalette.muted, display: "inline-flex", fontSize: 10.5, gap: 5 }}>
+            <span style={{ background: EVOLUTION_COLORS[index % EVOLUTION_COLORS.length], borderRadius: 999, height: 7, width: 7 }} />
+            {row.routeName}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function DescriptorEvolutionReportSection({ model, t, lang }) {
+  if (!model) return null
+  return (
+    <Card
+      id="descriptor-evolution-report-section"
+      title={text(lang, "描述符添加与排名演化报告", "Descriptor Addition and Ranking Evolution Report")}
+      subtitle={text(lang, "按历史阶段记录 top-route 快照、真实价格重跑、描述符消融与审计结论；新增阶段只追加，不覆盖旧记录。", "Records historical top-route snapshots, the real-price rerun, descriptor ablation, and audit conclusions; new stages append without overwriting history.")}
+      t={t}
+    >
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
+        <Metric label={text(lang, "阶段数", "Stages")} value={model.stages.length} t={t} />
+        <Metric label={text(lang, "当前阶段", "Current stage")} value={model.currentStage.stage} t={t} tone="pass" />
+        <Metric label="Composite Spearman ρ" value={model.audit.compositeSpearman ?? "n/a"} t={t} />
+        <Metric label={text(lang, "榜首翻转率", "Top-route flip rate")} value={model.audit.topRouteFlipFrequency} t={t} tone={model.audit.topRouteFlipFrequency > 0 ? "warn" : "pass"} />
+      </div>
+
+      <div data-testid="descriptor-evolution-table" style={{ overflowX: "auto" }}>
+        <table style={{ borderCollapse: "collapse", minWidth: 1120, width: "100%" }}>
+          <thead>
+            <tr style={{ color: oaPalette.faint, fontSize: 10.5, textAlign: "left", textTransform: "uppercase" }}>
+              <th style={{ padding: 8 }}>{text(lang, "阶段", "Stage")}</th>
+              <th style={{ padding: 8 }}>Model</th>
+              {[1, 2, 3, 4, 5].map(rank => <th key={rank} style={{ padding: 8 }}>#{rank}</th>)}
+              <th style={{ padding: 8 }}>Al-MOF</th>
+              <th style={{ padding: 8 }}>{text(lang, "价格状态", "Price status")}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {model.stages.map(stage => (
+              <tr key={stage.stage} style={{ color: oaPalette.muted, fontSize: 11.3, verticalAlign: "top" }}>
+                <td style={{ borderTop: `1px solid ${oaPalette.border}`, color: oaPalette.text, fontWeight: 900, padding: 8 }}>{stage.stage}<br /><span style={{ color: oaPalette.faint }}>{stage.version}</span></td>
+                <td style={{ borderTop: `1px solid ${oaPalette.border}`, padding: 8 }}>{stage.model}</td>
+                {stage.top5Routes.map(row => (
+                  <td key={row.rank} style={{ borderTop: `1px solid ${oaPalette.border}`, minWidth: 135, padding: 8 }}>
+                    <strong style={{ color: oaPalette.text }}>{row.route}</strong><br />
+                    <span style={{ color: oaPalette.accent, fontFamily: SCIENTIFIC_TOKEN_FONT }}>{row.score}</span>
+                  </td>
+                ))}
+                <td style={{ borderTop: `1px solid ${oaPalette.border}`, color: oaPalette.accent, fontWeight: 900, padding: 8 }}>#{stage.alMofRank}</td>
+                <td style={{ borderTop: `1px solid ${oaPalette.border}`, padding: 8 }}>{stage.priceStatus}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <DescriptorEvolutionLineChart model={model} lang={lang} />
+
+      <div data-testid="descriptor-evolution-analysis" style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}>
+        {model.analyses.map(row => (
+          <article key={row.id} style={{ background: oaPalette.bg, border: `1px solid ${oaPalette.border}`, borderRadius: 9, display: "grid", gap: 6, padding: 10 }}>
+            <strong style={{ color: row.id === "limitation" ? oaPalette.risk : oaPalette.text, fontSize: 12.5 }}>{text(lang, row.titleZh, row.titleEn)}</strong>
+            <span style={{ color: oaPalette.muted, fontSize: 11.7, lineHeight: 1.55 }}>{text(lang, row.bodyZh, row.bodyEn)}</span>
+          </article>
+        ))}
+      </div>
+
+      <div data-testid="descriptor-evolution-audit" style={{ background: oaPalette.surface, border: `1px solid ${oaPalette.border}`, borderRadius: 9, display: "grid", gap: 7, padding: 10 }}>
+        <strong style={{ color: oaPalette.text, fontSize: 12.5 }}>{text(lang, "审计结论上墙", "Published audit conclusions")}</strong>
+        <span style={{ color: oaPalette.muted, fontSize: 11.7, lineHeight: 1.5 }}>
+          Composite Spearman ρ={model.audit.compositeSpearman ?? "n/a"} · {model.audit.compositeValidity} ·
+          {text(lang, "低有效性单项", " low-validity standalone descriptors")}: {model.audit.lowValidityDescriptors.join(", ") || "none"} ·
+          {text(lang, "低置信家族", " low-confidence families")}: {model.audit.lowConfidenceFamilies.join(", ") || "none"} ·
+          {text(lang, "敏感性", " sensitivity")}: {model.audit.sensitivityScenarioCount} scenarios / {model.audit.fragility} / {model.audit.mostSensitiveFactor}
+        </span>
+        <span style={{ color: oaPalette.risk, fontSize: 11.5, fontWeight: 850 }}>{model.boundary}</span>
+      </div>
+    </Card>
+  )
+}
+
+export function ResearchReportsTab({
+  records: providedRecords = null,
+  summary: providedSummary = null,
+  versionData: providedVersionData = null,
+  organicAcidResult: providedOrganicAcidResult = null,
+  rankingEvolutionLog: providedRankingEvolutionLog = null,
+  organicAcidAudit: providedOrganicAcidAudit = null,
+  metalPriceTable: providedMetalPriceTable = null,
+} = {}) {
   const t = useT()
   const { lang } = useLang()
   const { isMobile } = useViewport()
@@ -282,6 +417,9 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
   const [organicEvidenceRecords, setOrganicEvidenceRecords] = useState([])
   const [experimentalLabels, setExperimentalLabels] = useState(null)
   const [benchmarkDatasetV36, setBenchmarkDatasetV36] = useState(null)
+  const [rankingEvolutionLog, setRankingEvolutionLog] = useState(providedRankingEvolutionLog)
+  const [organicAcidAudit, setOrganicAcidAudit] = useState(providedOrganicAcidAudit)
+  const [metalPriceTable, setMetalPriceTable] = useState(providedMetalPriceTable)
   const [type, setType] = useState("candidate")
   const [candidateId, setCandidateId] = useState("")
 
@@ -293,6 +431,9 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
       setSummary(providedSummary)
       setVersionData(providedVersionData)
       setOrganicAcidResult(providedOrganicAcidResult)
+      setRankingEvolutionLog(providedRankingEvolutionLog)
+      setOrganicAcidAudit(providedOrganicAcidAudit)
+      setMetalPriceTable(providedMetalPriceTable)
       setCandidateId(current => current || rows[0]?.candidateId || "")
       return () => { active = false }
     }
@@ -318,7 +459,10 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
       fetchDataJson("model_robustness_report_v1.json", null),
       fetchDataJson("experimental_labels/experimental_labels_v2.json", null),
       fetchDataJson("benchmark_dataset_v3_6.json", null),
-    ]).then(([nextRecords, nextSummary, nextVersionData, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry, ingestionSummaryV3, firstBenchmarkReport, credibilityReport, robustnessReport, experimentalLabelRows, benchmarkV36]) => {
+      fetchDataJson("organic_acid_ranking_evolution_log.json", null),
+      fetchDataJson("organic_acid_audit_v3_9_8.json", null),
+      fetchDataJson("metal_precursor_cost_table.json", null),
+    ]).then(([nextRecords, nextSummary, nextVersionData, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry, ingestionSummaryV3, firstBenchmarkReport, credibilityReport, robustnessReport, experimentalLabelRows, benchmarkV36, evolutionLog, scoringAudit, priceTable]) => {
       if (!active) return
       const rows = Array.isArray(nextRecords) ? nextRecords : []
       setRecords(rows)
@@ -334,10 +478,13 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
       setOrganicEvidenceRecords(Array.isArray(organicEvidence) ? organicEvidence : [])
       setExperimentalLabels(experimentalLabelRows && typeof experimentalLabelRows === "object" ? experimentalLabelRows : null)
       setBenchmarkDatasetV36(benchmarkV36 && typeof benchmarkV36 === "object" ? benchmarkV36 : null)
+      setRankingEvolutionLog(evolutionLog && typeof evolutionLog === "object" ? evolutionLog : null)
+      setOrganicAcidAudit(scoringAudit && typeof scoringAudit === "object" ? scoringAudit : null)
+      setMetalPriceTable(priceTable && typeof priceTable === "object" ? priceTable : null)
       setCandidateId(current => current || rows[0]?.candidateId || "")
     })
     return () => { active = false }
-  }, [providedRecords, providedSummary, providedVersionData, providedOrganicAcidResult])
+  }, [providedRecords, providedSummary, providedVersionData, providedOrganicAcidResult, providedRankingEvolutionLog, providedOrganicAcidAudit, providedMetalPriceTable])
 
   const researchValidationSummary = useMemo(() => buildResearchValidationSummary({
     result: organicAcidResult,
@@ -360,6 +507,11 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
     robustness,
     researchValidationSummary,
   }), [candidateId, records, summary, type, versionData, organicAcidResult, dataFoundation, dataAudit, dataIngestion, firstBenchmark, credibility, robustness, researchValidationSummary])
+  const descriptorEvolutionReport = useMemo(() => buildDescriptorEvolutionReport(
+    rankingEvolutionLog || {},
+    organicAcidAudit || {},
+    metalPriceTable || {},
+  ), [metalPriceTable, organicAcidAudit, rankingEvolutionLog])
   const audit = useMemo(() => runLocalizationAudit({
     corpus: [
       report.markdown,
@@ -399,6 +551,7 @@ export function ResearchReportsTab({ records: providedRecords = null, summary: p
         <BasisBadge tone="info">引文已就绪 {summary.citationReadyCandidates}</BasisBadge>
       </div>
       <ReportGenerator report={report} records={records} type={type} setType={setType} candidateId={candidateId} setCandidateId={setCandidateId} t={t} lang={lang} />
+      <DescriptorEvolutionReportSection model={descriptorEvolutionReport} t={t} lang={lang} />
       <ResearchValidationSummaryCard summary={researchValidationSummary} t={t} lang={lang} isMobile={isMobile} />
       <RunSnapshot snapshot={report.snapshot} t={t} lang={lang} isMobile={isMobile} />
       <FieldSourceTable report={report} t={t} lang={lang} />

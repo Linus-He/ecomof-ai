@@ -123,15 +123,15 @@ function EvolutionOverview({ data, projectStatus, lang, t, isMobile }) {
 }
 
 const CURRENT_RELEASE = {
-  version: "V3.9.7",
-  title: { zh: "有机酸评分审计与描述符扩展", en: "Organic Acid Scoring Audit and Descriptor Expansion" },
+  version: "V3.9.8",
+  title: { zh: "描述符影响、真实价格与方法学报告", en: "Descriptor Impact, Real Prices, and Methodology Reporting" },
   summary: {
-    zh: "先审计孔代理、家族公平性与排名稳健性，再预注册配体、可合成性和经济性 LCC 描述符；锁定重跑不做事后调权。",
-    en: "Audits pore proxies, family fairness, and rank robustness before preregistering ligand, synthesizability, and economic LCC descriptors; the locked rerun has no post-hoc tuning.",
+    zh: "新增 L0–L3 描述符消融、Methods 级算法展示与排名演化报告；替换十项指定真实价格后按锁定 spec v2 如实重跑，不做事后调权。",
+    en: "Adds L0-L3 descriptor ablation, a Methods-grade algorithm showcase, and ranking-evolution reporting; reruns the locked spec v2 after replacing ten specified prices without post-hoc tuning.",
   },
   scientificImpact: {
-    zh: "锁定规则给出 Cu-MOF + Mo #1、Zn-MOF + Mo #2、Al-MOF + Mo #3；均为实验优先级假设，不是最终催化证明。",
-    en: "The locked rules rank Cu-MOF + Mo #1, Zn-MOF + Mo #2, and Al-MOF + Mo #3; all remain experimental-priority hypotheses, not final catalytic proof.",
+    zh: "把历次翻盘、描述符方向性影响、价格修订和审计边界作为方法学结果公开；当前排名仍只代表实验验证优先级。",
+    en: "Publishes ranking reversals, directional descriptor effects, price revisions, and audit boundaries as methodological results; rankings remain experimental-validation priorities.",
   },
   validationImpact: {
     zh: "实验矩阵、同条件数据模板和反馈规则构成下一轮验证入口；尚不能用于性能声明或正式机器学习。",
@@ -139,8 +139,8 @@ const CURRENT_RELEASE = {
   },
   breakingChanges: { zh: "无", en: "None" },
   nextVersionGoal: {
-    zh: "补齐同条件实验与客体掺杂专门数据，将客体 literature prior 推进为 data-derived。",
-    en: "Add same-condition experiments and dedicated dopant data so guest literature priors can move toward data-derived factors.",
+    zh: "用 Fastmarkets / USGS / SMM 复核中低置信价格，并补齐同条件实验与客体掺杂专门数据。",
+    en: "Verify medium/low-confidence prices with Fastmarkets/USGS/SMM and add same-condition and dedicated dopant data.",
   },
 }
 
@@ -148,34 +148,34 @@ const CURRENT_RELEASE = {
 const PROJECT_UPDATE_STREAMS = [
   {
     no: "01",
-    label: { zh: "评分审计", en: "Scoring audit" },
+    label: { zh: "描述符消融", en: "Descriptor ablation" },
     body: {
-      zh: "审计孔代理与真实反应表现的 Spearman 关系、家族 IQR / 异常值和排名敏感性，不静默改权重。",
-      en: "Audits pore-proxy Spearman validity, family IQR/outliers, and ranking sensitivity without silent weight changes.",
+      zh: "在固定 spec v2 权重下重算 L0 仅结构、L1 配体、L2 可合成性与 L3 经济性，展示逐层排名变化与对数贡献。",
+      en: "Recomputes L0 structure-only, L1 ligand, L2 synthesizability, and L3 economics under fixed spec-v2 weights, including rank deltas and log contributions.",
     },
   },
   {
     no: "02",
-    label: { zh: "描述符扩展", en: "Descriptor expansion" },
+    label: { zh: "Methods 展示", en: "Methods showcase" },
     body: {
-      zh: "新增透明配体对照表、家族频次可合成性代理和带 TODO 来源核验的金属前驱体 LCC 表。",
-      en: "Adds a transparent linker table, family-frequency synthesizability proxy, and metal-precursor LCC table with TODO source verification.",
+      zh: "正式展示八因子加权几何 HGCPS、因子来源 / 归一化 / 权重 / 等级、预注册时间戳与审计结论。",
+      en: "Formally presents the eight-factor weighted-geometric HGCPS, factor sources/normalization/weights/grades, preregistration timestamps, and audit conclusions.",
     },
   },
   {
     no: "03",
-    label: { zh: "锁定重跑", en: "Locked rerun" },
+    label: { zh: "真实价格重跑", en: "Real-price rerun" },
     body: {
-      zh: "spec v2 在重跑前单独提交；八因子加权几何 HGCPS 如实输出 Cu-MOF + Mo #1、Al-MOF + Mo #3、Ti-MOF + Mo #6。",
-      en: "Spec v2 was committed before rerun; the eight-factor weighted-geometric HGCPS reports Cu-MOF + Mo #1, Al-MOF + Mo #3, and Ti-MOF + Mo #6.",
+      zh: "替换十项指定的 2026-06 价格并保留逐行置信度；未提供的金属继续标为 fallback，重跑结果不做人工修正。",
+      en: "Replaces ten specified June 2026 prices with row-level confidence; unprovided metals remain fallback and rerun results are not manually adjusted.",
     },
   },
   {
     no: "04",
-    label: { zh: "溯源与边界", en: "Provenance and boundary" },
+    label: { zh: "演化报告与审计", en: "Evolution report and audit" },
     body: {
-      zh: "新因子逐项展示 data/rule-derived、curated、fallback；旧 Al 实验矩阵明确标为非当前 Cu 路线专用。",
-      en: "New factors expose data/rule-derived, curated, and fallback grades; legacy Al experiment fixtures are marked as not route-specific for the current Cu route.",
+      zh: "研究报告追加四阶段排名日志、书面分析、孔代理 Spearman、家族置信与敏感性结论，并保留非性能证明边界。",
+      en: "The research report adds a four-stage ranking log, written analysis, pore-proxy Spearman, family confidence, and sensitivity conclusions while preserving the non-performance-proof boundary.",
     },
   },
 ]
@@ -303,7 +303,7 @@ function ProjectUpdates({ lang, t, isMobile }) {
     <Card
       id="project-evolution-release-notes"
       title={text(lang, "项目更新", "Project Updates")}
-      subtitle={text(lang, `当前版本 ${CURRENT_RELEASE.version} 的更新按实验启用数据、启用中心、算法方法论、导出与边界四条线索整理。`, `Updates in the current ${CURRENT_RELEASE.version} release, organized into activation data, activation center, algorithm methodology, and exports / boundary.`)}
+      subtitle={text(lang, `当前版本 ${CURRENT_RELEASE.version} 的更新按描述符消融、Methods 展示、真实价格重跑、演化报告与审计四条线索整理。`, `Updates in the current ${CURRENT_RELEASE.version} release are organized into descriptor ablation, Methods showcase, real-price rerun, and evolution-report/audit streams.`)}
       t={t}
     >
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
@@ -448,7 +448,7 @@ function OrganicAcidAlgorithmMethodology({ methodology, lang, t, isMobile }) {
     <Card
       id={methodology.id}
       title={text(lang, methodology.titleZh, methodology.title)}
-      subtitle={text(lang, "V3.9.7 独立算法方法论模块：解释审计、配体 / 可合成性 / LCC 描述符、八因子加权几何 HGCPS、敏感性与实验反馈；不预设最终赢家。", "A standalone V3.9.7 methodology module covering audit results, ligand/synthesizability/LCC descriptors, eight-factor weighted-geometric HGCPS, sensitivity, and experimental feedback; no final winner is preset.")}
+      subtitle={text(lang, "V3.9.8 独立算法方法论模块：展示八因子加权几何 HGCPS、描述符消融、真实价格、预注册纪律与审计结论；不预设最终赢家。", "A standalone V3.9.8 methodology module covering the eight-factor weighted-geometric HGCPS, descriptor ablation, real prices, preregistration discipline, and audit conclusions; no final winner is preset.")}
       t={t}
       actions={<CopyLinkButton hash={methodology.id} ariaLabel={text(lang, "复制算法方法论链接", "Copy algorithm methodology link")} />}
     >

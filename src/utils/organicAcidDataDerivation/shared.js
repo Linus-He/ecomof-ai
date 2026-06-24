@@ -89,16 +89,31 @@ export function objectIdentity(value) {
   return OBJECT_IDS.get(value)
 }
 
+function hashText(value = "") {
+  let hash = 2166136261
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index)
+    hash = Math.imul(hash, 16777619)
+  }
+  return (hash >>> 0).toString(36)
+}
+
+export function contentSignature(value) {
+  if ((typeof value !== "object" && typeof value !== "function") || value === null) return String(value)
+  return hashText(JSON.stringify(value))
+}
+
 export function datasetIdentity(dataset) {
   if (!dataset) return "missing"
   const records = datasetRecords(dataset)
   const version = dataset?.version || dataset?.datasetVersion || dataset?.generatedAt || "unversioned"
-  return `${objectIdentity(dataset)}:${objectIdentity(records)}:${version}:${records.length}`
+  return `${version}:${records.length}:${contentSignature(dataset)}`
 }
 
 export function derivationCacheKey(values = []) {
   return asArray(values).map(value => {
     if (Array.isArray(value) || value?.records) return datasetIdentity(value)
+    if (value && typeof value === "object") return contentSignature(value)
     return objectIdentity(value)
   }).join("|")
 }

@@ -12,7 +12,7 @@
 import { buildOrganicAcidHostGuestWorkbench, safeNumber } from "../organicAcidHostGuest/index.js"
 import { deriveDataGrade } from "../organicAcidScoreProvenance/index.js"
 
-export const ORGANIC_ACID_EXPLANATION_CLOSURE_VERSION = "V3.9.7"
+export const ORGANIC_ACID_EXPLANATION_CLOSURE_VERSION = "V3.9.8"
 
 export const PATHWAY_BOUNDARY_ZH = "路径与描述符来自 seed / proxy / curated 证据，不等于完整机理证明。"
 export const PATHWAY_BOUNDARY_EN = "Pathways and descriptors come from seed / proxy / curated evidence, not a complete mechanistic proof."

@@ -21,7 +21,7 @@ function records(metalNode, linker, count) {
   }))
 }
 
-describe("organic acid V3.9.7 descriptor expansion", () => {
+describe("organic acid V3.9.8 descriptor expansion and real prices", () => {
   it("covers every linker label present in CoRE and changes ligand support when linker data change", () => {
     expect(linkerDescriptorTable.derivationLevel).toBe("curated-ligand-descriptor")
     expect(linkerDescriptorTable.records).toHaveLength(10)
@@ -76,7 +76,21 @@ describe("organic acid V3.9.7 descriptor expansion", () => {
   })
 
   it("computes transparent route economics from curated precursor costs", () => {
-    expect(metalPrecursorCostTable.records.every(row => row.status === "TODO: verify price + source")).toBe(true)
+    expect(metalPrecursorCostTable.version).toBe("V3.9.8")
+    expect(Object.fromEntries(metalPrecursorCostTable.records.map(row => [row.metal, row.usdPerKg]))).toEqual(expect.objectContaining({
+      Fe: 0.5,
+      Al: 3.3,
+      Zn: 3.4,
+      Cr: 9,
+      Ti: 10,
+      Cu: 13.5,
+      Zr: 35,
+      W: 50,
+      Co: 56,
+      Mo: 65,
+    }))
+    expect(metalPrecursorCostTable.records.filter(row => ["Al", "Cu", "Zn", "Co"].includes(row.metal)).every(row => row.confidence === "high")).toBe(true)
+    expect(metalPrecursorCostTable.records.filter(row => ["Ni", "V", "Mn", "Ce"].includes(row.metal)).every(row => row.dataGrade === "fallback")).toBe(true)
     const routeFactors = deriveEconomicFactors([
       { routeId: "al-mo", hostMof: "Al-MOF", guestMetal: "Mo" },
       { routeId: "al-fe", hostMof: "Al-MOF", guestMetal: "Fe" },
@@ -94,6 +108,6 @@ describe("organic acid V3.9.7 descriptor expansion", () => {
     expect(routeFactors["al-fe"].estimatedCost).toBeLessThan(routeFactors["al-mo"].estimatedCost)
     expect(routeFactors["al-fe"].value).toBeGreaterThan(routeFactors["al-mo"].value)
     expect(routeFactors["al-mo"].tuple.derivationLevel).toBe("curated-economic")
-    expect(routeFactors["al-mo"].tuple.citations.join(" ")).toMatch(/TODO: verify price \+ source/)
+    expect(routeFactors["al-mo"].tuple.citations.join(" ")).toMatch(/Fastmarkets\/USGS\/SMM/)
   })
 })

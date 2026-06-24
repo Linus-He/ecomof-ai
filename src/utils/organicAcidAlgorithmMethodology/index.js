@@ -9,7 +9,7 @@ import {
 } from "../organicAcidExperimentalActivation/index.js"
 
 export const ORGANIC_ACID_ALGORITHM_METHODOLOGY_ID = "project-evolution-organic-acid-algorithm-methodology"
-export const ORGANIC_ACID_ALGORITHM_METHODOLOGY_VERSION = "V3.9.7"
+export const ORGANIC_ACID_ALGORITHM_METHODOLOGY_VERSION = "V3.9.8"
 
 const SOURCE_LABELS = {
   hostGuestRoutes: "public/data/organic_acid_host_guest/host_guest_routes.json",
@@ -49,6 +49,108 @@ function routeName(route = {}) {
 
 function boolStatus(value, positive, negative) {
   return value ? positive : negative
+}
+
+const ROUTE_FACTOR_META = {
+  hostStabilityScore: { symbol: "F_{\\mathrm{host\\ stability}}", labelZh: "主体稳定性", labelEn: "Host stability" },
+  hostPathwaySupportScore: { symbol: "F_{\\mathrm{host\\ pathway}}", labelZh: "主体路径支持", labelEn: "Host pathway support" },
+  guestActivityCompensationScore: { symbol: "F_{\\mathrm{guest\\ activity}}", labelZh: "客体活性补偿", labelEn: "Guest activity compensation" },
+  hostGuestComplementarityScore: { symbol: "F_{\\mathrm{complementarity}}", labelZh: "主客体互补", labelEn: "Host-guest complementarity" },
+  evidenceConfidenceScore: { symbol: "F_{\\mathrm{evidence}}", labelZh: "证据置信", labelEn: "Evidence confidence" },
+  riskPenalty: { symbol: "F_{\\mathrm{risk\\ retention}}", labelZh: "风险保留", labelEn: "Risk retention" },
+  synthesizabilityScore: { symbol: "F_{\\mathrm{synthesizability}}", labelZh: "可合成性", labelEn: "Synthesizability" },
+  economicScore: { symbol: "F_{\\mathrm{economics}}", labelZh: "经济性", labelEn: "Economics" },
+}
+
+function simplifiedGrade(value = "") {
+  const level = String(value).toLowerCase()
+  if (level.includes("fallback")) return "fallback"
+  if (level.includes("curated")) return "curated"
+  return "data-derived"
+}
+
+export function buildAlgorithmShowcaseModel({
+  scoringSpecV1 = {},
+  scoringSpecV2 = {},
+  showcaseArtifact = {},
+  priceTable = {},
+} = {}) {
+  const topRoute = showcaseArtifact.currentTopRoute || {}
+  const provenance = topRoute.provenance || {}
+  const factors = asArray(scoringSpecV2.routeScoreWeights).map(([key, weight]) => {
+    const meta = ROUTE_FACTOR_META[key] || { symbol: key, labelZh: key, labelEn: key }
+    const mapping = scoringSpecV2.routeFactorMappings?.[key] || {}
+    const tuple = provenance[key] || {}
+    return {
+      key,
+      ...meta,
+      source: tuple.sourceDataset || mapping.source || "pending",
+      normalization: tuple.normalization || mapping.normalization || mapping.aggregate || "none",
+      weight: safeNumber(weight, 0),
+      derivationLevel: tuple.derivationLevel || mapping.derivationLevel || "pending",
+      dataGrade: simplifiedGrade(tuple.derivationLevel || mapping.derivationLevel),
+      nRecords: safeNumber(tuple.nRecords, 0),
+      fallbackReason: safeText(tuple.fallbackReason, ""),
+    }
+  })
+  const proxy = showcaseArtifact.audit?.proxyValidity || {}
+  const family = showcaseArtifact.audit?.familyFairness || {}
+  const sensitivity = showcaseArtifact.audit?.rankingSensitivity?.summary || showcaseArtifact.audit?.rankingSensitivity || {}
+  return {
+    version: "V3.9.8",
+    titleZh: "算法展示：八因子 HGCPS",
+    titleEn: "Algorithm Showcase: Eight-factor HGCPS",
+    formula: {
+      latex: String.raw`\mathrm{HGCPS}(r)=\prod_{i=1}^{8}\max(F_i(r),0.001)^{w_i},\quad \sum_{i=1}^{8}w_i=1,\quad F_i\in[0,1]`,
+      factorSetLatex: String.raw`\mathbf{F}=\{F_{\mathrm{host\ stability}},F_{\mathrm{host\ pathway}},F_{\mathrm{guest\ activity}},F_{\mathrm{complementarity}},F_{\mathrm{evidence}},F_{\mathrm{risk\ retention}},F_{\mathrm{synthesizability}},F_{\mathrm{economics}}\}`,
+    },
+    factors,
+    modelChange: {
+      from: scoringSpecV1.hgcpsFormula || "unweighted six-factor product",
+      to: scoringSpecV2.algorithm?.routeAggregation || "weighted geometric mean",
+      reasonZh: "模型由六因子纯乘法改为八因子加权几何平均：在因子数增加时避免分值整体塌缩，同时保留瓶颈效应，并降低单一弱因子对最终分值的过度支配。",
+      reasonEn: "The model moved from a six-factor pure product to an eight-factor weighted geometric mean to avoid score collapse as factors are added, preserve the bottleneck effect, and reduce excessive domination by one weak factor.",
+    },
+    preregistration: [
+      {
+        specId: scoringSpecV1.specId || "organic-acid-host-guest-scoring-spec-v1",
+        version: scoringSpecV1.version || "V3.9.6",
+        lockedAt: scoringSpecV1.lockedAt || "pending",
+        commit: "6ccbbfa",
+        policy: scoringSpecV1.policy || "rules fixed before ranking computed",
+      },
+      {
+        specId: scoringSpecV2.specId || "organic-acid-host-guest-scoring-spec-v2",
+        version: scoringSpecV2.version || "V3.9.7",
+        lockedAt: scoringSpecV2.lockedAt || "pending",
+        commit: "339041e",
+        policy: scoringSpecV2.policy || "new descriptors fixed before re-run",
+      },
+    ],
+    currentRun: {
+      routeName: safeText(topRoute.routeName, "pending"),
+      finalHGCPS: safeNumber(topRoute.finalHGCPS, 0),
+      priceVersion: priceTable.version || showcaseArtifact.priceTable?.version || "pending",
+      priceBoundary: priceTable.boundary || showcaseArtifact.priceTable?.boundary || "pending",
+    },
+    audit: {
+      proxyDescriptors: asArray(proxy.descriptors),
+      composite: proxy.composite || {},
+      lowValidityDescriptors: asArray(proxy.lowValidityDescriptors),
+      lowConfidenceFamilies: asArray(family.lowConfidenceFamilies),
+      sensitivity: {
+        scenarioCount: safeNumber(sensitivity.scenarioCount, 0),
+        topRouteFlipFrequency: safeNumber(sensitivity.topRouteFlipFrequency, 0),
+        fragility: safeText(sensitivity.fragility, "pending"),
+        mostSensitiveFactor: safeText(sensitivity.mostSensitiveFactor, "pending"),
+      },
+      scoringMutation: showcaseArtifact.audit?.scoringMutation || { applied: false },
+      conclusionZh: `复合孔代理 Spearman ρ=${safeNumber(proxy.composite?.spearmanRho, 0)}，单项低有效性描述符为 ${asArray(proxy.lowValidityDescriptors).join("、") || "无"}；低置信家族为 ${asArray(family.lowConfidenceFamilies).join("、") || "无"}。审计不静默改权重。`,
+      conclusionEn: `Composite pore-proxy Spearman rho is ${safeNumber(proxy.composite?.spearmanRho, 0)}; low-validity standalone descriptors are ${asArray(proxy.lowValidityDescriptors).join(", ") || "none"}; low-confidence families are ${asArray(family.lowConfidenceFamilies).join(", ") || "none"}. The audit does not silently change weights.`,
+    },
+    disciplineZh: "规则先于排名：spec v1 / v2 的锁定时间与提交记录先于对应重跑。V3.9.8 只更新价格数据，未改变权重、描述符定义或归一化规则。",
+    disciplineEn: "Rules precede rankings: spec v1/v2 lock timestamps and commits precede their reruns. V3.9.8 updates price data only; weights, descriptor definitions, and normalization rules are unchanged.",
+  }
 }
 
 export const ORGANIC_ACID_ALGORITHM_FORMULAS = [

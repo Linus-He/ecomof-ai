@@ -314,7 +314,7 @@ function SelectionSection({ workbench, lang, isNarrow }) {
       <SectionTitle
         kicker="Host and guest selection"
         title={text(lang, "主体 MOF 与客体金属筛选", "Host MOF and Guest Metal Selection")}
-        note={text(lang, "主体与客体均由 V3.9.7 预注册规则计算；配体、可合成性与经济性按 data-derived / curated / fallback 分级。", "Host and guest are computed by the V3.9.7 preregistered rules; ligand, synthesizability, and economics are graded as data-derived, curated, or fallback.")}
+        note={text(lang, "主体与客体均由 V3.9.8 使用的锁定 spec v2 规则计算；配体、可合成性与经济性按 data-derived / curated / fallback 分级。", "Host and guest are computed with the locked spec-v2 rules used in V3.9.8; ligand, synthesizability, and economics are graded as data-derived, curated, or fallback.")}
       />
       <div style={{ display: "grid", gap: 12, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) minmax(0, 1fr)" }}>
         <div style={cardStyle()}>
@@ -726,7 +726,7 @@ function ScoringAuditSection({ workbench, lang }) {
   return (
     <section style={{ display: "grid", gap: 12 }}>
       <SectionTitle
-        kicker="V3.9.7 Scoring Audit"
+        kicker="V3.9.8 Scoring Audit"
         title={text(lang, "评分审计", "Scoring Audit")}
         note={text(lang, "审计只报告代理有效性、家族公平性与排名稳健性；不静默改权重。", "The audit reports proxy validity, family fairness, and ranking robustness; it does not silently change weights.")}
       />
@@ -826,7 +826,7 @@ function BoundaryPanel({ workbench, lang, onOpenActivationCenter }) {
       <SectionTitle
         kicker="Organic Acid Algorithm Boundary Panel"
         title={text(lang, "算法边界", "Algorithm Boundary")}
-        note={text(lang, "该面板固定列出 V3.9.7 不允许越界表达的结论边界。", "This panel fixes the conclusion boundaries that V3.9.7 must not overstate.")}
+        note={text(lang, "该面板固定列出 V3.9.8 不允许越界表达的结论边界。", "This panel fixes the conclusion boundaries that V3.9.8 must not overstate.")}
       />
       <div style={{ display: "grid", gap: 8 }}>
         {boundaries.map(([label, value]) => (

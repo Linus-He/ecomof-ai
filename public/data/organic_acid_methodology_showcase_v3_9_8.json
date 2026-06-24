@@ -1,0 +1,1360 @@
+{
+  "artifactId": "organic-acid-methodology-showcase-v3.9.8",
+  "version": "V3.9.8",
+  "generatedAt": "2026-06-24T12:10:15.198Z",
+  "scoringSpec": {
+    "specId": "organic-acid-host-guest-scoring-spec-v2",
+    "lockedAt": "2026-06-24T05:38:47Z",
+    "policy": "new descriptors fixed before re-run; chosen on scientific merit, not to favor any candidate",
+    "formula": "finalHGCPS = product(max(factor, 0.001) ^ routeWeight); route weights sum to 1",
+    "dataRevision": "V3.9.8 replaces ten placeholder metal-price inputs; weights and descriptor definitions are unchanged."
+  },
+  "priceTable": {
+    "tableId": "organic-acid-metal-precursor-cost-table-v2",
+    "version": "V3.9.8",
+    "priceDate": "2026-06",
+    "priceBasis": "Claude-provided June 2026 metal-equivalent screening inputs; mixed-confidence values, not supplier quotations",
+    "boundary": "The ten named V3.9.8 metals use supplied June 2026 screening values. Confidence is row-specific; formal publication still requires Fastmarkets/USGS/SMM source and price-date verification. Other metals remain explicit fallback placeholders."
+  },
+  "currentTopRoute": {
+    "routeId": "route-cu-mof-mo",
+    "routeName": "Cu-MOF + Mo post-modification",
+    "finalHGCPS": 0.797,
+    "ranking": 1,
+    "factors": {
+      "hostStability": 0.923,
+      "hostPathwaySupport": 0.526,
+      "guestActivityCompensation": 0.9,
+      "complementarity": 0.826,
+      "evidence": 1,
+      "riskRetentionFactor": 0.839,
+      "synthesizability": 0.988,
+      "economics": 0.479
+    },
+    "provenance": {
+      "hostStabilityScore": {
+        "sourceDataset": "organic_acid_reaction_dataset_v1+CoRE",
+        "nRecords": 111,
+        "rawAggregate": {
+          "aqueousShare": 1,
+          "coreCount": 88,
+          "normalizedCoreRepresentation": 0.7928,
+          "indirectStabilityRaw": 0.9378
+        },
+        "normalization": "cross-family min-max indirect aqueous survival proxy",
+        "derivationLevel": "data-derived indirect-proxy",
+        "fallbackReason": ""
+      },
+      "hostPathwaySupportScore": {
+        "sourceDataset": "derived host poreEnvironmentScore+co2EnrichmentSupport+ligandPathwaySupport",
+        "nRecords": 524,
+        "rawAggregate": {
+          "poreEnvironmentScore": 0.527,
+          "co2EnrichmentSupport": 0.526,
+          "ligandPathwaySupport": 0.525,
+          "directOrStructuralCo2Support": 0.527,
+          "weights": {
+            "poreEnvironmentScore": 0.35,
+            "co2EnrichmentSupport": 0.3,
+            "ligandPathwaySupport": 0.35
+          }
+        },
+        "normalization": "preregistered weighted sum of derived host pathway factors",
+        "derivationLevel": "data-derived + curated-ligand-descriptor",
+        "fallbackReason": ""
+      },
+      "guestActivityCompensationScore": {
+        "sourceDataset": "derived guest activity factors",
+        "nRecords": 0,
+        "rawAggregate": {
+          "co2ActivationScore": 0.9,
+          "formateStabilizationScore": 0.94,
+          "electronTransferSupport": 0.86
+        },
+        "normalization": "mean of guest activity factors",
+        "derivationLevel": "fallback",
+        "fallbackReason": "No dedicated dopant or guest-metal records meet the preregistered threshold."
+      },
+      "hostGuestComplementarityScore": {
+        "sourceDataset": "organic_acid_scoring_spec_v2",
+        "nRecords": 0,
+        "rawAggregate": {
+          "hostStabilityScore": 0.923,
+          "hostPathwaySupportScore": 0.526,
+          "guestActivityCompensationScore": 0.9,
+          "formula": "0.50 * guestActivityCompensationScore + 0.25 * hostPathwaySupportScore + 0.25 * (1 - abs(hostStabilityScore - guestActivityCompensationScore))"
+        },
+        "normalization": "clamped 0-1 deterministic combination",
+        "derivationLevel": "rule-derived",
+        "fallbackReason": ""
+      },
+      "evidenceConfidenceScore": {
+        "sourceDataset": "organic_acid_literature_dataset_v2+organic_acid_gold_dataset_v2",
+        "nRecords": 88,
+        "rawAggregate": {
+          "weightedEvidenceCount": 84.76,
+          "normalizedEvidence": 1
+        },
+        "normalization": "cross-route min-max weighted evidence count with sparse floor",
+        "derivationLevel": "data-derived",
+        "fallbackReason": ""
+      },
+      "riskPenalty": {
+        "sourceDataset": "organic_acid_literature_dataset_v2+organic_acid_gold_dataset_v2",
+        "nRecords": 88,
+        "rawAggregate": {
+          "weightedEvidenceCount": 84.76,
+          "normalizedEvidence": 1,
+          "sameConditionShare": 0.1955
+        },
+        "normalization": "risk retention from evidence density and same-condition coverage",
+        "derivationLevel": "data-derived",
+        "fallbackReason": ""
+      },
+      "synthesizabilityScore": {
+        "sourceDataset": "data_ingestion/core_mof_import_v2.json+organic_acid_literature_dataset_v2.json",
+        "nRecords": 153,
+        "rawAggregate": {
+          "coreRecords": 88,
+          "literatureRecords": 65,
+          "totalFrequency": 153,
+          "log1pFrequency": 5.037,
+          "normalizedFrequency": 0.9878,
+          "difficultyMultiplier": 1,
+          "difficultyBasis": "",
+          "todo": ""
+        },
+        "normalization": "cross-family min-max after log1p frequency; clamp 0-1",
+        "derivationLevel": "data-derived (frequency proxy)",
+        "fallbackReason": ""
+      },
+      "economicScore": {
+        "sourceDataset": "organic-acid-metal-precursor-cost-table-v2+linker_descriptor_table.json+derived synthesizability",
+        "nRecords": 2,
+        "rawAggregate": {
+          "hostMetals": [
+            "Cu"
+          ],
+          "guestMetals": [
+            "Mo"
+          ],
+          "hostMetalUsdKg": 13.5,
+          "guestMetalUsdKg": 65,
+          "ligandCostTierUsdKg": 41.44,
+          "synthesisEnergyIndexUsdKg": 5.24,
+          "estimatedCostUsdKg": 26.181,
+          "costWeights": {
+            "hostMetalPrecursor": 0.65,
+            "guestMetalPrecursor": 0.2,
+            "ligandCostTier": 0.1,
+            "synthesisEnergyIndex": 0.05
+          }
+        },
+        "normalization": "inverse cross-route min-max estimated cost",
+        "derivationLevel": "curated-economic",
+        "fallbackReason": ""
+      }
+    }
+  },
+  "audit": {
+    "proxyValidity": {
+      "auditId": "organic-acid-proxy-validity-v3.9.8",
+      "method": "family-level Spearman rank correlation between CoRE/QMOF structural medians and reaction-dataset median yield/selectivity",
+      "descriptors": [
+        {
+          "descriptor": "surfaceArea",
+          "sampleSize": 9,
+          "spearmanRho": 0.3,
+          "validity": "positive-tracking-signal",
+          "interpretation": "The family-level structural proxy shows a positive rank relationship with median reaction yield/selectivity."
+        },
+        {
+          "descriptor": "poreVolume",
+          "sampleSize": 9,
+          "spearmanRho": 0.4,
+          "validity": "positive-tracking-signal",
+          "interpretation": "The family-level structural proxy shows a positive rank relationship with median reaction yield/selectivity."
+        },
+        {
+          "descriptor": "voidFraction",
+          "sampleSize": 9,
+          "spearmanRho": -0.4167,
+          "validity": "low-validity-for-this-reaction",
+          "interpretation": "The family-level structural proxy does not show a reliable positive rank relationship with median reaction yield/selectivity."
+        }
+      ],
+      "composite": {
+        "descriptor": "median(surfaceArea, poreVolume, voidFraction family medians)",
+        "sampleSize": 9,
+        "spearmanRho": 0.4,
+        "validity": "positive-tracking-signal"
+      },
+      "familyRows": [
+        {
+          "family": "Al-MOF",
+          "structuralRecords": 198,
+          "reactionRecords": 21,
+          "descriptorMedians": {
+            "surfaceArea": 2719.55,
+            "poreVolume": 2.033,
+            "voidFraction": 0.5155000000000001
+          },
+          "reactionPerformanceMedian": 62.5,
+          "medianYield": 56,
+          "medianSelectivity": 70
+        },
+        {
+          "family": "Zr-MOF",
+          "structuralRecords": 121,
+          "reactionRecords": 19,
+          "descriptorMedians": {
+            "surfaceArea": 2932.5,
+            "poreVolume": 1.874,
+            "voidFraction": 0.537
+          },
+          "reactionPerformanceMedian": 59,
+          "medianYield": 44,
+          "medianSelectivity": 69
+        },
+        {
+          "family": "Ti-MOF",
+          "structuralRecords": 171,
+          "reactionRecords": 12,
+          "descriptorMedians": {
+            "surfaceArea": 3218.1,
+            "poreVolume": 1.972,
+            "voidFraction": 0.576
+          },
+          "reactionPerformanceMedian": 57.75,
+          "medianYield": 49,
+          "medianSelectivity": 66.5
+        },
+        {
+          "family": "Fe-MOF",
+          "structuralRecords": 166,
+          "reactionRecords": 16,
+          "descriptorMedians": {
+            "surfaceArea": 3013.2,
+            "poreVolume": 1.956,
+            "voidFraction": 0.5075000000000001
+          },
+          "reactionPerformanceMedian": 53.75,
+          "medianYield": 34.5,
+          "medianSelectivity": 70.5
+        },
+        {
+          "family": "Cr-MOF",
+          "structuralRecords": 159,
+          "reactionRecords": 0,
+          "descriptorMedians": {
+            "surfaceArea": 3005,
+            "poreVolume": 1.551,
+            "voidFraction": 0.566
+          },
+          "reactionPerformanceMedian": 0,
+          "medianYield": 0,
+          "medianSelectivity": 0
+        },
+        {
+          "family": "Cu-MOF",
+          "structuralRecords": 174,
+          "reactionRecords": 23,
+          "descriptorMedians": {
+            "surfaceArea": 3187.05,
+            "poreVolume": 1.775,
+            "voidFraction": 0.5535000000000001
+          },
+          "reactionPerformanceMedian": 63.5,
+          "medianYield": 62,
+          "medianSelectivity": 72
+        },
+        {
+          "family": "Zn-MOF",
+          "structuralRecords": 156,
+          "reactionRecords": 19,
+          "descriptorMedians": {
+            "surfaceArea": 3055.25,
+            "poreVolume": 1.923,
+            "voidFraction": 0.5555000000000001
+          },
+          "reactionPerformanceMedian": 56.5,
+          "medianYield": 41,
+          "medianSelectivity": 70
+        },
+        {
+          "family": "UiO-type host",
+          "structuralRecords": 14,
+          "reactionRecords": 4,
+          "descriptorMedians": {
+            "surfaceArea": 3011.8,
+            "poreVolume": 2.072,
+            "voidFraction": 0.5675
+          },
+          "reactionPerformanceMedian": 56.75,
+          "medianYield": 43.5,
+          "medianSelectivity": 70.5
+        },
+        {
+          "family": "MIL-type host",
+          "structuralRecords": 0,
+          "reactionRecords": 2,
+          "descriptorMedians": {
+            "surfaceArea": null,
+            "poreVolume": null,
+            "voidFraction": null
+          },
+          "reactionPerformanceMedian": 71.5,
+          "medianYield": 69,
+          "medianSelectivity": 74
+        },
+        {
+          "family": "MOF-808-like host",
+          "structuralRecords": 21,
+          "reactionRecords": 1,
+          "descriptorMedians": {
+            "surfaceArea": 3538.3,
+            "poreVolume": 2.347,
+            "voidFraction": 0.493
+          },
+          "reactionPerformanceMedian": 66.5,
+          "medianYield": 65,
+          "medianSelectivity": 68
+        }
+      ],
+      "lowValidityDescriptors": [
+        "voidFraction"
+      ],
+      "weightChangeApplied": false,
+      "policy": "Audit only. No scoring weight is changed silently."
+    },
+    "familyFairness": {
+      "auditId": "organic-acid-family-fairness-v3.9.8",
+      "method": "family record counts, median/IQR fences, outlier share, and high-influence structural records",
+      "lowConfidenceFamilies": [
+        "MIL-type host"
+      ],
+      "familyReports": [
+        {
+          "family": "Al-MOF",
+          "structuralRecordCount": 198,
+          "outlierShare": 0,
+          "confidence": "adequate-family-support",
+          "confidenceReasons": []
+        },
+        {
+          "family": "Zr-MOF",
+          "structuralRecordCount": 121,
+          "outlierShare": 0,
+          "confidence": "adequate-family-support",
+          "confidenceReasons": []
+        },
+        {
+          "family": "Ti-MOF",
+          "structuralRecordCount": 171,
+          "outlierShare": 0,
+          "confidence": "adequate-family-support",
+          "confidenceReasons": []
+        },
+        {
+          "family": "Fe-MOF",
+          "structuralRecordCount": 166,
+          "outlierShare": 0,
+          "confidence": "adequate-family-support",
+          "confidenceReasons": []
+        },
+        {
+          "family": "Cr-MOF",
+          "structuralRecordCount": 159,
+          "outlierShare": 0,
+          "confidence": "adequate-family-support",
+          "confidenceReasons": []
+        },
+        {
+          "family": "Cu-MOF",
+          "structuralRecordCount": 174,
+          "outlierShare": 0,
+          "confidence": "adequate-family-support",
+          "confidenceReasons": []
+        },
+        {
+          "family": "Zn-MOF",
+          "structuralRecordCount": 156,
+          "outlierShare": 0,
+          "confidence": "adequate-family-support",
+          "confidenceReasons": []
+        },
+        {
+          "family": "UiO-type host",
+          "structuralRecordCount": 14,
+          "outlierShare": 0,
+          "confidence": "adequate-family-support",
+          "confidenceReasons": []
+        },
+        {
+          "family": "MIL-type host",
+          "structuralRecordCount": 0,
+          "outlierShare": 0,
+          "confidence": "low-confidence-family",
+          "confidenceReasons": [
+            "structural records below threshold 5"
+          ]
+        },
+        {
+          "family": "MOF-808-like host",
+          "structuralRecordCount": 21,
+          "outlierShare": 0,
+          "confidence": "adequate-family-support",
+          "confidenceReasons": []
+        }
+      ]
+    },
+    "rankingSensitivity": {
+      "baselineRanking": [
+        {
+          "routeId": "route-cu-mof-mo",
+          "routeName": "Cu-MOF + Mo post-modification",
+          "ranking": 1,
+          "finalHGCPS": 0.797
+        },
+        {
+          "routeId": "route-zn-mof-mo",
+          "routeName": "Zn-MOF + Mo doping",
+          "ranking": 2,
+          "finalHGCPS": 0.785
+        },
+        {
+          "routeId": "route-al-mof-mo",
+          "routeName": "Al-MOF + Mo doping / post-modification / bimetallic construction",
+          "ranking": 3,
+          "finalHGCPS": 0.758
+        },
+        {
+          "routeId": "route-fe-mof-mo",
+          "routeName": "Fe-MOF + Mo bimetallic construction",
+          "ranking": 4,
+          "finalHGCPS": 0.755
+        },
+        {
+          "routeId": "route-al-mof-w",
+          "routeName": "Al-MOF + W post-modification / bimetallic construction",
+          "ranking": 5,
+          "finalHGCPS": 0.746
+        },
+        {
+          "routeId": "route-ti-mof-mo",
+          "routeName": "Ti-MOF + Mo bimetallic construction",
+          "ranking": 6,
+          "finalHGCPS": 0.746
+        },
+        {
+          "routeId": "route-al-mof-v",
+          "routeName": "Al-MOF + V doping / post-modification",
+          "ranking": 7,
+          "finalHGCPS": 0.741
+        },
+        {
+          "routeId": "route-al-mof-cu",
+          "routeName": "Al-MOF + Cu doping",
+          "ranking": 8,
+          "finalHGCPS": 0.718
+        },
+        {
+          "routeId": "route-al-mof-ni",
+          "routeName": "Al-MOF + Ni doping",
+          "ranking": 9,
+          "finalHGCPS": 0.717
+        },
+        {
+          "routeId": "route-al-mof-ti",
+          "routeName": "Al-MOF + Ti post-modification",
+          "ranking": 10,
+          "finalHGCPS": 0.714
+        },
+        {
+          "routeId": "route-al-mof-mn",
+          "routeName": "Al-MOF + Mn doping",
+          "ranking": 11,
+          "finalHGCPS": 0.712
+        },
+        {
+          "routeId": "route-al-mof-zn",
+          "routeName": "Al-MOF + Zn doping",
+          "ranking": 12,
+          "finalHGCPS": 0.708
+        },
+        {
+          "routeId": "route-al-mof-fe",
+          "routeName": "Al-MOF + Fe doping",
+          "ranking": 13,
+          "finalHGCPS": 0.703
+        },
+        {
+          "routeId": "route-al-mof-co",
+          "routeName": "Al-MOF + Co doping",
+          "ranking": 14,
+          "finalHGCPS": 0.697
+        },
+        {
+          "routeId": "route-zr-mof-w",
+          "routeName": "Zr-MOF + W post-modification",
+          "ranking": 15,
+          "finalHGCPS": 0.671
+        },
+        {
+          "routeId": "route-zr-mof-fe",
+          "routeName": "Zr-MOF + Fe doping",
+          "ranking": 16,
+          "finalHGCPS": 0.659
+        },
+        {
+          "routeId": "route-zr-mof-mo",
+          "routeName": "Zr-MOF + Mo post-modification",
+          "ranking": 17,
+          "finalHGCPS": 0.657
+        },
+        {
+          "routeId": "route-al-mof-pristine",
+          "routeName": "Al-MOF + none / pristine pristine host",
+          "ranking": 18,
+          "finalHGCPS": 0.653
+        },
+        {
+          "routeId": "route-ti-mof-pristine",
+          "routeName": "Ti-MOF + none / pristine pristine host",
+          "ranking": 19,
+          "finalHGCPS": 0.631
+        },
+        {
+          "routeId": "route-uio-type-host-mo",
+          "routeName": "UiO-type host + Mo post-modification",
+          "ranking": 20,
+          "finalHGCPS": 0.595
+        },
+        {
+          "routeId": "route-zr-mof-pristine",
+          "routeName": "Zr-MOF + none / pristine pristine host",
+          "ranking": 21,
+          "finalHGCPS": 0.59
+        },
+        {
+          "routeId": "route-uio-type-host-pristine",
+          "routeName": "UiO-type host + none / pristine pristine host",
+          "ranking": 22,
+          "finalHGCPS": 0.518
+        },
+        {
+          "routeId": "route-mil-type-host-mo",
+          "routeName": "MIL-type host + Mo doping / post-modification",
+          "ranking": 23,
+          "finalHGCPS": 0.408
+        },
+        {
+          "routeId": "route-mof-808-like-host-mo",
+          "routeName": "MOF-808-like host + Mo post-modification",
+          "ranking": 24,
+          "finalHGCPS": 0.358
+        },
+        {
+          "routeId": "route-cr-mof-mo",
+          "routeName": "Cr-MOF + Mo post-modification",
+          "ranking": 25,
+          "finalHGCPS": 0.201
+        }
+      ],
+      "scenarios": [
+        {
+          "scenarioId": "hostStabilityScore-down",
+          "scenarioType": "weight-exponent",
+          "factorKey": "hostStabilityScore",
+          "factorLabel": "host stability factor",
+          "perturbation": "weight exponent -20%",
+          "baselineTopRoute": "route-cu-mof-mo",
+          "baselineScore": 0.797,
+          "adjustedTopRoute": "route-cu-mof-mo",
+          "adjustedTopScore": 0.793,
+          "adjustedOriginalTopRank": 1,
+          "adjustedOriginalTopScore": 0.793,
+          "topRouteRemainsTop": true,
+          "scoreChange": -0.004,
+          "warning": ""
+        },
+        {
+          "scenarioId": "hostStabilityScore-up",
+          "scenarioType": "weight-exponent",
+          "factorKey": "hostStabilityScore",
+          "factorLabel": "host stability factor",
+          "perturbation": "weight exponent +20%",
+          "baselineTopRoute": "route-cu-mof-mo",
+          "baselineScore": 0.797,
+          "adjustedTopRoute": "route-cu-mof-mo",
+          "adjustedTopScore": 0.8,
+          "adjustedOriginalTopRank": 1,
+          "adjustedOriginalTopScore": 0.8,
+          "topRouteRemainsTop": true,
+          "scoreChange": 0.003,
+          "warning": ""
+        },
+        {
+          "scenarioId": "hostPathwaySupportScore-down",
+          "scenarioType": "weight-exponent",
+          "factorKey": "hostPathwaySupportScore",
+          "factorLabel": "host pathway support factor",
+          "perturbation": "weight exponent -20%",
+          "baselineTopRoute": "route-cu-mof-mo",
+          "baselineScore": 0.797,
+          "adjustedTopRoute": "route-cu-mof-mo",
+          "adjustedTopScore": 0.807,
+          "adjustedOriginalTopRank": 1,
+          "adjustedOriginalTopScore": 0.807,
+          "topRouteRemainsTop": true,
+          "scoreChange": 0.01,
+          "warning": ""
+        },
+        {
+          "scenarioId": "hostPathwaySupportScore-up",
+          "scenarioType": "weight-exponent",
+          "factorKey": "hostPathwaySupportScore",
+          "factorLabel": "host pathway support factor",
+          "perturbation": "weight exponent +20%",
+          "baselineTopRoute": "route-cu-mof-mo",
+          "baselineScore": 0.797,
+          "adjustedTopRoute": "route-cu-mof-mo",
+          "adjustedTopScore": 0.787,
+          "adjustedOriginalTopRank": 1,
+          "adjustedOriginalTopScore": 0.787,
+          "topRouteRemainsTop": true,
+          "scoreChange": -0.01,
+          "warning": ""
+        },
+        {
+          "scenarioId": "guestActivityCompensationScore-down",
+          "scenarioType": "weight-exponent",
+          "factorKey": "guestActivityCompensationScore",
+          "factorLabel": "guest activity compensation factor",
+          "perturbation": "weight exponent -20%",
+          "baselineTopRoute": "route-cu-mof-mo",
+          "baselineScore": 0.797,
+          "adjustedTopRoute": "route-cu-mof-mo",
+          "adjustedTopScore": 0.794,
+          "adjustedOriginalTopRank": 1,
+          "adjustedOriginalTopScore": 0.794,
+          "topRouteRemainsTop": true,
+          "scoreChange": -0.003,
+          "warning": ""
+        },
+        {
+          "scenarioId": "guestActivityCompensationScore-up",
+          "scenarioType": "weight-exponent",
+          "factorKey": "guestActivityCompensationScore",
+          "factorLabel": "guest activity compensation factor",
+          "perturbation": "weight exponent +20%",
+          "baselineTopRoute": "route-cu-mof-mo",
+          "baselineScore": 0.797,
+          "adjustedTopRoute": "route-cu-mof-mo",
+          "adjustedTopScore": 0.8,
+          "adjustedOriginalTopRank": 1,
+          "adjustedOriginalTopScore": 0.8,
+          "topRouteRemainsTop": true,
+          "scoreChange": 0.003,
+          "warning": ""
+        },
+        {
+          "scenarioId": "hostGuestComplementarityScore-down",
+          "scenarioType": "weight-exponent",
+          "factorKey": "hostGuestComplementarityScore",
+          "factorLabel": "host-guest complementarity factor",
+          "perturbation": "weight exponent -20%",
+          "baselineTopRoute": "route-cu-mof-mo",
+          "baselineScore": 0.797,
+          "adjustedTopRoute": "route-cu-mof-mo",
+          "adjustedTopScore": 0.796,
+          "adjustedOriginalTopRank": 1,
+          "adjustedOriginalTopScore": 0.796,
+          "topRouteRemainsTop": true,
+          "scoreChange": -0.001,
+          "warning": ""
+        },
+        {
+          "scenarioId": "hostGuestComplementarityScore-up",
+          "scenarioType": "weight-exponent",
+          "factorKey": "hostGuestComplementarityScore",
+          "factorLabel": "host-guest complementarity factor",
+          "perturbation": "weight exponent +20%",
+          "baselineTopRoute": "route-cu-mof-mo",
+          "baselineScore": 0.797,
+          "adjustedTopRoute": "route-cu-mof-mo",
+          "adjustedTopScore": 0.798,
+          "adjustedOriginalTopRank": 1,
+          "adjustedOriginalTopScore": 0.798,
+          "topRouteRemainsTop": true,
+          "scoreChange": 0.001,
+          "warning": ""
+        },
+        {
+          "scenarioId": "evidenceConfidenceScore-down",
+          "scenarioType": "weight-exponent",
+          "factorKey": "evidenceConfidenceScore",
+          "factorLabel": "evidence confidence factor",
+          "perturbation": "weight exponent -20%",
+          "baselineTopRoute": "route-cu-mof-mo",
+          "baselineScore": 0.797,
+          "adjustedTopRoute": "route-cu-mof-mo",
+          "adjustedTopScore": 0.792,
+          "adjustedOriginalTopRank": 1,
+          "adjustedOriginalTopScore": 0.792,
+          "topRouteRemainsTop": true,
+          "scoreChange": -0.005,
+          "warning": ""
+        },
+        {
+          "scenarioId": "evidenceConfidenceScore-up",
+          "scenarioType": "weight-exponent",
+          "factorKey": "evidenceConfidenceScore",
+          "factorLabel": "evidence confidence factor",
+          "perturbation": "weight exponent +20%",
+          "baselineTopRoute": "route-cu-mof-mo",
+          "baselineScore": 0.797,
+          "adjustedTopRoute": "route-cu-mof-mo",
+          "adjustedTopScore": 0.801,
+          "adjustedOriginalTopRank": 1,
+          "adjustedOriginalTopScore": 0.801,
+          "topRouteRemainsTop": true,
+          "scoreChange": 0.004,
+          "warning": ""
+        },
+        {
+          "scenarioId": "riskPenalty-down",
+          "scenarioType": "weight-exponent",
+          "factorKey": "riskPenalty",
+          "factorLabel": "risk retention factor",
+          "perturbation": "weight exponent -20%",
+          "baselineTopRoute": "route-cu-mof-mo",
+          "baselineScore": 0.797,
+          "adjustedTopRoute": "route-cu-mof-mo",
+          "adjustedTopScore": 0.796,
+          "adjustedOriginalTopRank": 1,
+          "adjustedOriginalTopScore": 0.796,
+          "topRouteRemainsTop": true,
+          "scoreChange": -0.001,
+          "warning": ""
+        },
+        {
+          "scenarioId": "riskPenalty-up",
+          "scenarioType": "weight-exponent",
+          "factorKey": "riskPenalty",
+          "factorLabel": "risk retention factor",
+          "perturbation": "weight exponent +20%",
+          "baselineTopRoute": "route-cu-mof-mo",
+          "baselineScore": 0.797,
+          "adjustedTopRoute": "route-cu-mof-mo",
+          "adjustedTopScore": 0.798,
+          "adjustedOriginalTopRank": 1,
+          "adjustedOriginalTopScore": 0.798,
+          "topRouteRemainsTop": true,
+          "scoreChange": 0.001,
+          "warning": ""
+        },
+        {
+          "scenarioId": "synthesizabilityScore-down",
+          "scenarioType": "weight-exponent",
+          "factorKey": "synthesizabilityScore",
+          "factorLabel": "synthesizability factor",
+          "perturbation": "weight exponent -20%",
+          "baselineTopRoute": "route-cu-mof-mo",
+          "baselineScore": 0.797,
+          "adjustedTopRoute": "route-cu-mof-mo",
+          "adjustedTopScore": 0.794,
+          "adjustedOriginalTopRank": 1,
+          "adjustedOriginalTopScore": 0.794,
+          "topRouteRemainsTop": true,
+          "scoreChange": -0.003,
+          "warning": ""
+        },
+        {
+          "scenarioId": "synthesizabilityScore-up",
+          "scenarioType": "weight-exponent",
+          "factorKey": "synthesizabilityScore",
+          "factorLabel": "synthesizability factor",
+          "perturbation": "weight exponent +20%",
+          "baselineTopRoute": "route-cu-mof-mo",
+          "baselineScore": 0.797,
+          "adjustedTopRoute": "route-cu-mof-mo",
+          "adjustedTopScore": 0.799,
+          "adjustedOriginalTopRank": 1,
+          "adjustedOriginalTopScore": 0.799,
+          "topRouteRemainsTop": true,
+          "scoreChange": 0.002,
+          "warning": ""
+        },
+        {
+          "scenarioId": "economicScore-down",
+          "scenarioType": "weight-exponent",
+          "factorKey": "economicScore",
+          "factorLabel": "economic LCC factor",
+          "perturbation": "weight exponent -20%",
+          "baselineTopRoute": "route-cu-mof-mo",
+          "baselineScore": 0.797,
+          "adjustedTopRoute": "route-cu-mof-mo",
+          "adjustedTopScore": 0.803,
+          "adjustedOriginalTopRank": 1,
+          "adjustedOriginalTopScore": 0.803,
+          "topRouteRemainsTop": true,
+          "scoreChange": 0.006,
+          "warning": ""
+        },
+        {
+          "scenarioId": "economicScore-up",
+          "scenarioType": "weight-exponent",
+          "factorKey": "economicScore",
+          "factorLabel": "economic LCC factor",
+          "perturbation": "weight exponent +20%",
+          "baselineTopRoute": "route-cu-mof-mo",
+          "baselineScore": 0.797,
+          "adjustedTopRoute": "route-cu-mof-mo",
+          "adjustedTopScore": 0.791,
+          "adjustedOriginalTopRank": 1,
+          "adjustedOriginalTopScore": 0.791,
+          "topRouteRemainsTop": true,
+          "scoreChange": -0.006,
+          "warning": ""
+        },
+        {
+          "scenarioId": "normalization-compressed",
+          "scenarioType": "normalization-power",
+          "factorKey": "all-route-factors",
+          "factorLabel": "normalization curvature",
+          "perturbation": "power 0.75 (compressed)",
+          "baselineTopRoute": "route-cu-mof-mo",
+          "baselineScore": 0.797,
+          "adjustedTopRoute": "route-cu-mof-mo",
+          "adjustedTopScore": 0.843,
+          "adjustedOriginalTopRank": 1,
+          "adjustedOriginalTopScore": 0.843,
+          "topRouteRemainsTop": true,
+          "scoreChange": 0.046,
+          "warning": ""
+        },
+        {
+          "scenarioId": "normalization-expanded",
+          "scenarioType": "normalization-power",
+          "factorKey": "all-route-factors",
+          "factorLabel": "normalization curvature",
+          "perturbation": "power 1.25 (expanded)",
+          "baselineTopRoute": "route-cu-mof-mo",
+          "baselineScore": 0.797,
+          "adjustedTopRoute": "route-cu-mof-mo",
+          "adjustedTopScore": 0.753,
+          "adjustedOriginalTopRank": 1,
+          "adjustedOriginalTopScore": 0.753,
+          "topRouteRemainsTop": true,
+          "scoreChange": -0.044,
+          "warning": ""
+        }
+      ],
+      "summary": {
+        "scenarioCount": 18,
+        "stableCount": 18,
+        "rankStability": 1,
+        "topRouteFlipFrequency": 0,
+        "topRouteRemainsTop": true,
+        "mostSensitiveFactor": "normalization curvature",
+        "mostSensitiveScenarioId": "normalization-compressed",
+        "maxScoreChange": 0.046,
+        "fragility": "robust-within-audited-perturbations",
+        "warning": ""
+      },
+      "candidateRankDistributions": [
+        {
+          "hostMof": "Al-MOF",
+          "minRank": 3,
+          "medianRank": 3,
+          "maxRank": 3,
+          "topRankFrequency": 0,
+          "ranks": [
+            {
+              "scenarioId": "baseline",
+              "routeId": "route-al-mof-mo",
+              "rank": 3
+            },
+            {
+              "scenarioId": "hostStabilityScore-down",
+              "routeId": "route-al-mof-mo",
+              "rank": 3
+            },
+            {
+              "scenarioId": "hostStabilityScore-up",
+              "routeId": "route-al-mof-mo",
+              "rank": 3
+            },
+            {
+              "scenarioId": "hostPathwaySupportScore-down",
+              "routeId": "route-al-mof-mo",
+              "rank": 3
+            },
+            {
+              "scenarioId": "hostPathwaySupportScore-up",
+              "routeId": "route-al-mof-mo",
+              "rank": 3
+            },
+            {
+              "scenarioId": "guestActivityCompensationScore-down",
+              "routeId": "route-al-mof-mo",
+              "rank": 3
+            },
+            {
+              "scenarioId": "guestActivityCompensationScore-up",
+              "routeId": "route-al-mof-mo",
+              "rank": 3
+            },
+            {
+              "scenarioId": "hostGuestComplementarityScore-down",
+              "routeId": "route-al-mof-mo",
+              "rank": 3
+            },
+            {
+              "scenarioId": "hostGuestComplementarityScore-up",
+              "routeId": "route-al-mof-mo",
+              "rank": 3
+            },
+            {
+              "scenarioId": "evidenceConfidenceScore-down",
+              "routeId": "route-al-mof-mo",
+              "rank": 3
+            },
+            {
+              "scenarioId": "evidenceConfidenceScore-up",
+              "routeId": "route-al-mof-mo",
+              "rank": 3
+            },
+            {
+              "scenarioId": "riskPenalty-down",
+              "routeId": "route-al-mof-mo",
+              "rank": 3
+            },
+            {
+              "scenarioId": "riskPenalty-up",
+              "routeId": "route-al-mof-mo",
+              "rank": 3
+            },
+            {
+              "scenarioId": "synthesizabilityScore-down",
+              "routeId": "route-al-mof-mo",
+              "rank": 3
+            },
+            {
+              "scenarioId": "synthesizabilityScore-up",
+              "routeId": "route-al-mof-mo",
+              "rank": 3
+            },
+            {
+              "scenarioId": "economicScore-down",
+              "routeId": "route-al-mof-mo",
+              "rank": 3
+            },
+            {
+              "scenarioId": "economicScore-up",
+              "routeId": "route-al-mof-mo",
+              "rank": 3
+            },
+            {
+              "scenarioId": "normalization-compressed",
+              "routeId": "route-al-mof-mo",
+              "rank": 3
+            },
+            {
+              "scenarioId": "normalization-expanded",
+              "routeId": "route-al-mof-mo",
+              "rank": 3
+            }
+          ]
+        },
+        {
+          "hostMof": "Ti-MOF",
+          "minRank": 5,
+          "medianRank": 6,
+          "maxRank": 7,
+          "topRankFrequency": 0,
+          "ranks": [
+            {
+              "scenarioId": "baseline",
+              "routeId": "route-ti-mof-mo",
+              "rank": 6
+            },
+            {
+              "scenarioId": "hostStabilityScore-down",
+              "routeId": "route-ti-mof-mo",
+              "rank": 5
+            },
+            {
+              "scenarioId": "hostStabilityScore-up",
+              "routeId": "route-ti-mof-mo",
+              "rank": 6
+            },
+            {
+              "scenarioId": "hostPathwaySupportScore-down",
+              "routeId": "route-ti-mof-mo",
+              "rank": 7
+            },
+            {
+              "scenarioId": "hostPathwaySupportScore-up",
+              "routeId": "route-ti-mof-mo",
+              "rank": 5
+            },
+            {
+              "scenarioId": "guestActivityCompensationScore-down",
+              "routeId": "route-ti-mof-mo",
+              "rank": 6
+            },
+            {
+              "scenarioId": "guestActivityCompensationScore-up",
+              "routeId": "route-ti-mof-mo",
+              "rank": 5
+            },
+            {
+              "scenarioId": "hostGuestComplementarityScore-down",
+              "routeId": "route-ti-mof-mo",
+              "rank": 6
+            },
+            {
+              "scenarioId": "hostGuestComplementarityScore-up",
+              "routeId": "route-ti-mof-mo",
+              "rank": 5
+            },
+            {
+              "scenarioId": "evidenceConfidenceScore-down",
+              "routeId": "route-ti-mof-mo",
+              "rank": 5
+            },
+            {
+              "scenarioId": "evidenceConfidenceScore-up",
+              "routeId": "route-ti-mof-mo",
+              "rank": 6
+            },
+            {
+              "scenarioId": "riskPenalty-down",
+              "routeId": "route-ti-mof-mo",
+              "rank": 5
+            },
+            {
+              "scenarioId": "riskPenalty-up",
+              "routeId": "route-ti-mof-mo",
+              "rank": 6
+            },
+            {
+              "scenarioId": "synthesizabilityScore-down",
+              "routeId": "route-ti-mof-mo",
+              "rank": 5
+            },
+            {
+              "scenarioId": "synthesizabilityScore-up",
+              "routeId": "route-ti-mof-mo",
+              "rank": 6
+            },
+            {
+              "scenarioId": "economicScore-down",
+              "routeId": "route-ti-mof-mo",
+              "rank": 5
+            },
+            {
+              "scenarioId": "economicScore-up",
+              "routeId": "route-ti-mof-mo",
+              "rank": 6
+            },
+            {
+              "scenarioId": "normalization-compressed",
+              "routeId": "route-ti-mof-mo",
+              "rank": 6
+            },
+            {
+              "scenarioId": "normalization-expanded",
+              "routeId": "route-ti-mof-mo",
+              "rank": 5
+            }
+          ]
+        },
+        {
+          "hostMof": "MIL-type host",
+          "minRank": 23,
+          "medianRank": 23,
+          "maxRank": 23,
+          "topRankFrequency": 0,
+          "ranks": [
+            {
+              "scenarioId": "baseline",
+              "routeId": "route-mil-type-host-mo",
+              "rank": 23
+            },
+            {
+              "scenarioId": "hostStabilityScore-down",
+              "routeId": "route-mil-type-host-mo",
+              "rank": 23
+            },
+            {
+              "scenarioId": "hostStabilityScore-up",
+              "routeId": "route-mil-type-host-mo",
+              "rank": 23
+            },
+            {
+              "scenarioId": "hostPathwaySupportScore-down",
+              "routeId": "route-mil-type-host-mo",
+              "rank": 23
+            },
+            {
+              "scenarioId": "hostPathwaySupportScore-up",
+              "routeId": "route-mil-type-host-mo",
+              "rank": 23
+            },
+            {
+              "scenarioId": "guestActivityCompensationScore-down",
+              "routeId": "route-mil-type-host-mo",
+              "rank": 23
+            },
+            {
+              "scenarioId": "guestActivityCompensationScore-up",
+              "routeId": "route-mil-type-host-mo",
+              "rank": 23
+            },
+            {
+              "scenarioId": "hostGuestComplementarityScore-down",
+              "routeId": "route-mil-type-host-mo",
+              "rank": 23
+            },
+            {
+              "scenarioId": "hostGuestComplementarityScore-up",
+              "routeId": "route-mil-type-host-mo",
+              "rank": 23
+            },
+            {
+              "scenarioId": "evidenceConfidenceScore-down",
+              "routeId": "route-mil-type-host-mo",
+              "rank": 23
+            },
+            {
+              "scenarioId": "evidenceConfidenceScore-up",
+              "routeId": "route-mil-type-host-mo",
+              "rank": 23
+            },
+            {
+              "scenarioId": "riskPenalty-down",
+              "routeId": "route-mil-type-host-mo",
+              "rank": 23
+            },
+            {
+              "scenarioId": "riskPenalty-up",
+              "routeId": "route-mil-type-host-mo",
+              "rank": 23
+            },
+            {
+              "scenarioId": "synthesizabilityScore-down",
+              "routeId": "route-mil-type-host-mo",
+              "rank": 23
+            },
+            {
+              "scenarioId": "synthesizabilityScore-up",
+              "routeId": "route-mil-type-host-mo",
+              "rank": 23
+            },
+            {
+              "scenarioId": "economicScore-down",
+              "routeId": "route-mil-type-host-mo",
+              "rank": 23
+            },
+            {
+              "scenarioId": "economicScore-up",
+              "routeId": "route-mil-type-host-mo",
+              "rank": 23
+            },
+            {
+              "scenarioId": "normalization-compressed",
+              "routeId": "route-mil-type-host-mo",
+              "rank": 23
+            },
+            {
+              "scenarioId": "normalization-expanded",
+              "routeId": "route-mil-type-host-mo",
+              "rank": 23
+            }
+          ]
+        }
+      ]
+    },
+    "scoringMutation": {
+      "applied": false,
+      "note": "V3.9.8 updates price data only. Spec-v2 weights and descriptor definitions remain locked."
+    }
+  },
+  "descriptorAblation": {
+    "impactSummary": {
+      "cheapMetalThresholdUsdKg": 10,
+      "cheapMetals": [
+        "Fe",
+        "Al",
+        "Zn",
+        "Cr",
+        "Ti"
+      ],
+      "averageCheapMetalRankMove": -0.2,
+      "largestSynthesisDrop": {
+        "hostMof": "Ti-MOF",
+        "rankDelta": -1
+      },
+      "largestEconomicDrop": {
+        "hostMof": "Zr-MOF",
+        "rankDelta": -9
+      },
+      "summaryZh": "计入经济性后，低于当前价格中位数的金属主体平均下移 0.2 位，Zr-MOF 的经济性层间变化为 下降 9 位；加入可合成性后，Ti-MOF 下降 1 位。",
+      "summaryEn": "After economics is included, host metals below the current price median move down by 0.2 ranks on average, while Zr-MOF moves down by 9 ranks; after synthesizability is added, Ti-MOF moves down by 1 ranks."
+    },
+    "layers": [
+      {
+        "id": "L0",
+        "labelZh": "仅结构",
+        "labelEn": "Structure only",
+        "top5": [
+          {
+            "routeId": "route-cu-mof-mo",
+            "routeName": "Cu-MOF + Mo post-modification",
+            "rank": 1,
+            "score": 0.84
+          },
+          {
+            "routeId": "route-zn-mof-mo",
+            "routeName": "Zn-MOF + Mo doping",
+            "rank": 2,
+            "score": 0.819
+          },
+          {
+            "routeId": "route-ti-mof-mo",
+            "routeName": "Ti-MOF + Mo bimetallic construction",
+            "rank": 3,
+            "score": 0.815
+          },
+          {
+            "routeId": "route-fe-mof-mo",
+            "routeName": "Fe-MOF + Mo bimetallic construction",
+            "rank": 4,
+            "score": 0.755
+          },
+          {
+            "routeId": "route-zr-mof-mo",
+            "routeName": "Zr-MOF + Mo post-modification",
+            "rank": 5,
+            "score": 0.755
+          }
+        ]
+      },
+      {
+        "id": "L1",
+        "labelZh": "+ 配体",
+        "labelEn": "+ Ligand",
+        "top5": [
+          {
+            "routeId": "route-cu-mof-mo",
+            "routeName": "Cu-MOF + Mo post-modification",
+            "rank": 1,
+            "score": 0.84
+          },
+          {
+            "routeId": "route-zn-mof-mo",
+            "routeName": "Zn-MOF + Mo doping",
+            "rank": 2,
+            "score": 0.814
+          },
+          {
+            "routeId": "route-ti-mof-mo",
+            "routeName": "Ti-MOF + Mo bimetallic construction",
+            "rank": 3,
+            "score": 0.797
+          },
+          {
+            "routeId": "route-al-mof-mo",
+            "routeName": "Al-MOF + Mo doping / post-modification / bimetallic construction",
+            "rank": 4,
+            "score": 0.78
+          },
+          {
+            "routeId": "route-fe-mof-mo",
+            "routeName": "Fe-MOF + Mo bimetallic construction",
+            "rank": 5,
+            "score": 0.779
+          }
+        ]
+      },
+      {
+        "id": "L2",
+        "labelZh": "+ 可合成性",
+        "labelEn": "+ Synthesizability",
+        "top5": [
+          {
+            "routeId": "route-cu-mof-mo",
+            "routeName": "Cu-MOF + Mo post-modification",
+            "rank": 1,
+            "score": 0.839
+          },
+          {
+            "routeId": "route-zn-mof-mo",
+            "routeName": "Zn-MOF + Mo doping",
+            "rank": 2,
+            "score": 0.81
+          },
+          {
+            "routeId": "route-al-mof-mo",
+            "routeName": "Al-MOF + Mo doping / post-modification / bimetallic construction",
+            "rank": 3,
+            "score": 0.78
+          },
+          {
+            "routeId": "route-ti-mof-mo",
+            "routeName": "Ti-MOF + Mo bimetallic construction",
+            "rank": 4,
+            "score": 0.777
+          },
+          {
+            "routeId": "route-fe-mof-mo",
+            "routeName": "Fe-MOF + Mo bimetallic construction",
+            "rank": 5,
+            "score": 0.775
+          }
+        ]
+      },
+      {
+        "id": "L3",
+        "labelZh": "+ 经济性",
+        "labelEn": "+ Economics",
+        "top5": [
+          {
+            "routeId": "route-cu-mof-mo",
+            "routeName": "Cu-MOF + Mo post-modification",
+            "rank": 1,
+            "score": 0.797
+          },
+          {
+            "routeId": "route-zn-mof-mo",
+            "routeName": "Zn-MOF + Mo doping",
+            "rank": 2,
+            "score": 0.785
+          },
+          {
+            "routeId": "route-al-mof-mo",
+            "routeName": "Al-MOF + Mo doping / post-modification / bimetallic construction",
+            "rank": 3,
+            "score": 0.758
+          },
+          {
+            "routeId": "route-fe-mof-mo",
+            "routeName": "Fe-MOF + Mo bimetallic construction",
+            "rank": 4,
+            "score": 0.755
+          },
+          {
+            "routeId": "route-al-mof-w",
+            "routeName": "Al-MOF + W post-modification / bimetallic construction",
+            "rank": 5,
+            "score": 0.746
+          }
+        ]
+      }
+    ]
+  },
+  "boundary": "This is a locked-spec route-priority rerun with updated mixed-confidence price inputs, not experimental proof of catalytic performance. No post-hoc weight change was applied."
+}

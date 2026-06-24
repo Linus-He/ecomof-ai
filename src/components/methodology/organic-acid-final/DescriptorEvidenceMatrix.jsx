@@ -20,7 +20,41 @@ function Badge({ value, t }) {
   )
 }
 
-export function DescriptorEvidenceMatrix({ rows = [], coverage, lang, t }) {
+export function DescriptorEvidenceMatrix({ rows = [], coverage, algorithmRows = [], lang, t }) {
+  if (algorithmRows.length) {
+    return (
+      <section id="methodology-oafs-algorithm-descriptor-matrix" data-testid="descriptor-evidence-matrix-algorithm" style={{ background: t?.panel || "#F8FAFC", border: `1px solid ${t?.border || "#D9E2EC"}`, borderRadius: 12, display: "grid", gap: 12, padding: 13, scrollMarginTop: 118 }}>
+        <header style={{ display: "grid", gap: 4 }}>
+          <span style={{ color: t?.accentText || "#1A6DB5", fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Eight-factor Descriptor Matrix</span>
+          <h4 style={{ color: t?.textStrong || "#0F172A", fontSize: 18, lineHeight: 1.2, margin: 0 }}>{text(lang, "八因子来源、归一化、权重与数据等级", "Eight-factor sources, normalization, weights, and data grades")}</h4>
+        </header>
+        <div style={{ overflowX: "auto" }}>
+          <table style={{ borderCollapse: "collapse", minWidth: 900, width: "100%" }}>
+            <thead>
+              <tr style={{ color: t?.faint || "#64748B", fontSize: 10.5, textAlign: "left", textTransform: "uppercase" }}>
+                <th style={{ padding: 8 }}>{text(lang, "因子", "Factor")}</th>
+                <th style={{ padding: 8 }}>{text(lang, "数据来源", "Source")}</th>
+                <th style={{ padding: 8 }}>{text(lang, "归一化", "Normalization")}</th>
+                <th style={{ padding: 8 }}>{text(lang, "权重", "Weight")}</th>
+                <th style={{ padding: 8 }}>{text(lang, "数据等级", "Data grade")}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {algorithmRows.map(row => (
+                <tr key={row.key} data-testid="algorithm-descriptor-row" style={{ color: t?.muted || "#475569", fontSize: 11.5, verticalAlign: "top" }}>
+                  <td style={{ borderTop: `1px solid ${t?.border || "#D9E2EC"}`, color: t?.textStrong || "#0F172A", fontWeight: 900, padding: 8 }}>{text(lang, row.labelZh, row.labelEn)}</td>
+                  <td style={{ borderTop: `1px solid ${t?.border || "#D9E2EC"}`, padding: 8 }}>{row.source}<br /><span style={{ color: t?.faint || "#64748B" }}>n={row.nRecords}</span></td>
+                  <td style={{ borderTop: `1px solid ${t?.border || "#D9E2EC"}`, lineHeight: 1.45, padding: 8 }}>{row.normalization}</td>
+                  <td style={{ borderTop: `1px solid ${t?.border || "#D9E2EC"}`, fontWeight: 900, padding: 8 }}>{row.weight}</td>
+                  <td style={{ borderTop: `1px solid ${t?.border || "#D9E2EC"}`, padding: 8 }}><Badge value={row.dataGrade} t={t} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    )
+  }
   return (
     <section id="methodology-oafs-evidence-matrix" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 13, padding: 15, scrollMarginTop: 118 }}>
       <header style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>

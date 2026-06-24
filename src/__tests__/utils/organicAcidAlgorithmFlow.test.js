@@ -41,7 +41,7 @@ describe("organicAcidAlgorithmFlow builders", () => {
     const nodeTypes = new Set(network.nodes.map(node => node.type))
     const edgeTypes = new Set(network.edges.map(edge => edge.type))
 
-    expect(network.version).toBe("V3.9.7")
+    expect(network.version).toBe("V3.9.8")
     expect(network.statusBar.inputScale).toEqual({
       hostCandidates: 10,
       guestMetals: 12,

@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.9.7",
+  "currentVersion": "V3.9.8",
   "generatedAt": "2026-06-24T00:00:00Z",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
-    "currentVersion": "V3.9.7",
+    "currentVersion": "V3.9.8",
     "databaseSize": 3020,
     "verifiedMetadataCount": 2480,
     "sourceConfirmedCount": 2480,
@@ -13,12 +13,12 @@
     "modelValidationStatus": "Robustness Validation Complete",
     "projectAge": "2026-04 to 2026-06",
     "githubStars": "pending",
-    "milestoneCount": 19,
+    "milestoneCount": 20,
     "databasePreviewStatus": "Database Preview",
     "notFinalRecommendationStatus": "Not Final Recommendation",
     "sources": {
       "currentVersion": {
-        "value": "V3.9.7",
+        "value": "V3.9.8",
         "sourceDatabase": "EcoMOF-AI version_evolution_records.json",
         "sourceRecordId": "overview.currentVersion",
         "sourceUrl": "public/data/version_evolution_records.json",
@@ -27,9 +27,9 @@
         "retrievedAt": "2026-06-24",
         "curationStatus": "confirmed",
         "confidence": 1,
-        "databaseVersion": "version_evolution_records.json@V3.9.7",
-        "generatingScript": "scripts/build-organic-acid-rerun-v3-9-7.mjs",
-        "notes": "Version label for the V3.9.7 Organic Acid audit, descriptor expansion, and preregistered rerun release."
+        "databaseVersion": "version_evolution_records.json@V3.9.8",
+        "generatingScript": "scripts/build-organic-acid-rerun-v3-9-8.mjs",
+        "notes": "Version label for the V3.9.8 descriptor-impact, real-price rerun, methodology, and research-report release."
       },
       "databaseSize": {
         "value": 3020,
@@ -822,9 +822,57 @@
         "Pre-registration",
         "Testing"
       ]
+    },
+    {
+      "version": "V3.9.8",
+      "date": "2026-06-24",
+      "commit": "pending-current",
+      "summary": "Organic Acid Descriptor Impact, Methods, and Research Reporting: added fixed-weight L0-L3 descriptor ablation, per-factor logarithmic contribution decomposition, a formal eight-factor Methods showcase, a four-stage ranking-evolution report, visible audit conclusions, updated June 2026 price inputs, and content-addressed derivation memoization.",
+      "scientificImpact": "Treats ranking reversals and descriptor sensitivity as methodological results instead of hiding them. The real-price rerun is reported as produced by the locked spec-v2 model; route ranks remain experimental-priority hypotheses rather than catalytic-performance proof.",
+      "databaseImpact": "Replaces ten specified placeholder price inputs with supplied June 2026 mixed-confidence values, preserves explicit fallback rows for unprovided metals, and adds V3.9.8 rerun, audit, ranking-evolution, methodology-showcase, and derived-cache artifacts.",
+      "algorithmImpact": "Keeps spec-v2 weights and descriptor definitions unchanged. Adds L0 structure-only, L1 ligand, L2 synthesizability, and L3 economics recomputation plus weight*ln(factor) contribution decomposition. Content-addressed memoization reuses derivations across equivalent cloned datasets while changed inputs still recompute.",
+      "validationImpact": "Adds two-dataset ablation sensitivity tests, ranking-log consistency checks, real-price rerun assertions, Methods copy/formula tests, component data-testid coverage, and a stable sub-two-second focused performance guard.",
+      "uiImpact": "Adds a Step 5 Descriptor Impact tab with rank-evolution and contribution charts, an Algorithm Showcase section in Methods, and a Descriptor Evolution Report section with a version-by-rank table, line chart, five written analyses, and published audit conclusions.",
+      "knownLimitations": "The supplied prices are screening inputs, not supplier quotations; medium/low-confidence rows require Fastmarkets/USGS/SMM verification. Unprovided Ni/V/Mn/Ce prices remain fallback. Guest/dopant data and same-condition catalytic experiments remain incomplete.",
+      "breakingChanges": "None. Spec v2 remains the locked scoring rule source; V3.9.8 is a data, explanation, reporting, and performance-hardening release.",
+      "nextVersionGoal": "Verify medium/low-confidence prices and collect dedicated guest/dopant plus same-condition experimental data before considering any new descriptor set under a separately preregistered spec.",
+      "categories": [
+        "Organic Acid",
+        "Descriptor Ablation",
+        "Methodology",
+        "Research Reports",
+        "Real Prices",
+        "Audit",
+        "Performance",
+        "Testing"
+      ]
     }
   ],
   "releaseNotes": [
+    {
+      "version": "V3.9.8",
+      "date": "2026-06-24",
+      "module": "Organic Acid",
+      "category": "Algorithm",
+      "title": "Fixed-Weight Descriptor Ablation and Log Contributions",
+      "body": "Added L0 structure-only, L1 ligand, L2 synthesizability, and L3 economics recomputation under the locked spec-v2 weights, with route rank deltas and weight*ln(factor) contribution decomposition."
+    },
+    {
+      "version": "V3.9.8",
+      "date": "2026-06-24",
+      "module": "Organic Acid",
+      "category": "Methods",
+      "title": "Eight-Factor Algorithm Showcase and Published Audits",
+      "body": "Added a Methods-grade HGCPS formula block, factor source/normalization/weight/data-grade matrix, preregistration timestamps and commits, plus visible proxy-validity, family-confidence, and sensitivity conclusions."
+    },
+    {
+      "version": "V3.9.8",
+      "date": "2026-06-24",
+      "module": "Organic Acid",
+      "category": "Research Report",
+      "title": "Four-Stage Ranking Evolution and Real-Price Rerun",
+      "body": "Added an append-only ranking-evolution log and report covering the hand-authored proxy, V3.9.6 real-data structural, V3.9.7 descriptor expansion, and V3.9.8 real-price stages, with five written methodological analyses."
+    },
     {
       "version": "V3.9.7",
       "date": "2026-06-24",
@@ -1799,6 +1847,13 @@
       "version": "V3.9.7",
       "date": "2026-06-24",
       "detail": "Audited structural proxies and family outliers, locked scoring spec v2 before rerun, added ligand/synthesizability/economic factors, and published the no-post-hoc-tuning route ranking."
+    },
+    {
+      "id": "organic-acid-descriptor-impact-methods-report-v3-9-8",
+      "title": "Organic Acid Descriptor Impact, Methods, and Ranking Evolution",
+      "version": "V3.9.8",
+      "date": "2026-06-24",
+      "detail": "Added L0-L3 descriptor ablation, logarithmic contribution charts, a formal algorithm showcase, append-only ranking evolution, real-price rerun artifacts, published audit conclusions, and stronger derivation memoization."
     }
   ],
   "roadmap": [

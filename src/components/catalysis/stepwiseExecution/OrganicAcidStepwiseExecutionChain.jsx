@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { NumericText, organicAcidPalette as palette, ORGANIC_ACID_FONT, SCIENTIFIC_TOKEN_FONT } from "../FormulaInline"
 import {
   DescriptorMappingExplanationPanel,
+  DescriptorAblationChart,
+  DescriptorContributionBar,
   FactorCompressionWaterfall,
   FinalResultSummary,
   GuestDumbbellChart,
@@ -661,16 +663,19 @@ export function StepWhyPanel({ panel, step, enhanced, lang = "zh", embedded = fa
     { id: "conclusion", labelZh: "结论", labelEn: "Conclusion", show: true },
     { id: "factors", labelZh: "逐因子", labelEn: "Per factor", show: asArray(model.perFactorInterpretation).length > 0 },
     { id: "comparison", labelZh: "对比路线", labelEn: "Compare routes", show: asArray(model.factorDeltaTable).length > 0 || Boolean(model.routeFactorComparison) },
+    { id: "descriptor-ablation", labelZh: "描述符影响", labelEn: "Descriptor impact", show: stepId === "step-5" && Boolean(model.descriptorAblation) },
     { id: "evidence", labelZh: "证据 / 文献", labelEn: "Evidence / literature", show: asArray(model.factorEvidence).length > 0 || Boolean(model.provenance) || Boolean(model.pathwayEvidenceHeatmap) || Boolean(model.descriptorMappingExplanation) || Boolean(model.validationCoverageMatrix) },
     { id: "risk", labelZh: "风险 / 反事实", labelEn: "Risk / counterfactual", show: Boolean(model.riskDecomposition) || asArray(model.counterfactual).length > 0 || Boolean(why) },
   ].filter(tab => tab.show)
   const [activeTab, setActiveTab] = useState("conclusion")
   const [selectedFactorKey, setSelectedFactorKey] = useState("")
+  const [selectedAblationRouteId, setSelectedAblationRouteId] = useState("")
   useEffect(() => {
     if (!tabs.some(tab => tab.id === activeTab)) setActiveTab(tabs[0]?.id || "conclusion")
   }, [activeTab, tabs])
   useEffect(() => {
     setSelectedFactorKey("")
+    setSelectedAblationRouteId("")
   }, [stepId])
   const selectFactor = factorKey => {
     setSelectedFactorKey(factorKey || "")
@@ -736,6 +741,20 @@ export function StepWhyPanel({ panel, step, enhanced, lang = "zh", embedded = fa
         {stepId === "step-5" && model.routeFactorComparison ? <RouteFactorComparisonChart model={model.routeFactorComparison} lang={lang} /> : null}
         {stepId === "step-4" && model.comparisonProvenances ? <GuestScoreBreakdownChart models={model.comparisonProvenances} model={model.provenance} summary={model.whyNotOther} lang={lang} /> : null}
         {stepId === "step-3" && model.provenance ? <HostScoreBreakdownChart model={model.provenance} lang={lang} /> : null}
+      </div>
+
+      <div role="tabpanel" data-testid="why-panel-tab-descriptor-ablation" style={{ display: activeTab === "descriptor-ablation" ? "grid" : "none", gap: 8 }}>
+        <DescriptorAblationChart
+          model={model.descriptorAblation}
+          lang={lang}
+          selectedRouteId={selectedAblationRouteId}
+          onSelectRoute={setSelectedAblationRouteId}
+        />
+        <DescriptorContributionBar
+          model={model.descriptorAblation}
+          lang={lang}
+          routeId={selectedAblationRouteId || model.descriptorAblation?.layers?.at(-1)?.candidates?.[0]?.routeId}
+        />
       </div>
 
       <div role="tabpanel" data-testid="why-panel-tab-evidence" style={{ display: activeTab === "evidence" ? "grid" : "none", gap: 8 }}>

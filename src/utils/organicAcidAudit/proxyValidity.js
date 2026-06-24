@@ -102,7 +102,7 @@ export function buildProxyValidityAudit(datasets = {}, options = {}) {
     : "positive-tracking-signal"
 
   return {
-    auditId: "organic-acid-proxy-validity-v3.9.7",
+    auditId: "organic-acid-proxy-validity-v3.9.8",
     method: "family-level Spearman rank correlation between CoRE/QMOF structural medians and reaction-dataset median yield/selectivity",
     descriptors,
     composite: {

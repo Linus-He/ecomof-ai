@@ -1,0 +1,1914 @@
+{
+  "logId": "organic-acid-ranking-evolution-v3.9.8",
+  "version": "V3.9.8",
+  "generatedAt": "2026-06-24T12:10:15.198Z",
+  "appendPolicy": "Add a new stage record; never overwrite historical ranking snapshots.",
+  "stages": [
+    {
+      "stage": "hand-authored proxy",
+      "version": "pre-V3.9.6",
+      "descriptorSet": [
+        "hand-authored six route factors"
+      ],
+      "model": "unweighted six-factor product",
+      "priceStatus": "not included",
+      "top5Routes": [
+        {
+          "routeId": "route-al-mof-mo",
+          "route": "Al-MOF + Mo doping / post-modification / bimetallic construction",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Mo",
+          "score": 0.416,
+          "rank": 1
+        },
+        {
+          "routeId": "route-mof-808-like-host-mo",
+          "route": "MOF-808-like host + Mo post-modification",
+          "hostMof": "MOF-808-like host",
+          "guestMetal": "Mo",
+          "score": 0.314,
+          "rank": 2
+        },
+        {
+          "routeId": "route-zr-mof-mo",
+          "route": "Zr-MOF + Mo post-modification",
+          "hostMof": "Zr-MOF",
+          "guestMetal": "Mo",
+          "score": 0.304,
+          "rank": 3
+        },
+        {
+          "routeId": "route-al-mof-w",
+          "route": "Al-MOF + W post-modification / bimetallic construction",
+          "hostMof": "Al-MOF",
+          "guestMetal": "W",
+          "score": 0.297,
+          "rank": 4
+        },
+        {
+          "routeId": "route-uio-type-host-mo",
+          "route": "UiO-type host + Mo post-modification",
+          "hostMof": "UiO-type host",
+          "guestMetal": "Mo",
+          "score": 0.293,
+          "rank": 5
+        }
+      ],
+      "alMofRank": 1,
+      "routeRankings": [
+        {
+          "routeId": "route-al-mof-mo",
+          "route": "Al-MOF + Mo doping / post-modification / bimetallic construction",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Mo",
+          "score": 0.416,
+          "rank": 1
+        },
+        {
+          "routeId": "route-mof-808-like-host-mo",
+          "route": "MOF-808-like host + Mo post-modification",
+          "hostMof": "MOF-808-like host",
+          "guestMetal": "Mo",
+          "score": 0.314,
+          "rank": 2
+        },
+        {
+          "routeId": "route-zr-mof-mo",
+          "route": "Zr-MOF + Mo post-modification",
+          "hostMof": "Zr-MOF",
+          "guestMetal": "Mo",
+          "score": 0.304,
+          "rank": 3
+        },
+        {
+          "routeId": "route-al-mof-w",
+          "route": "Al-MOF + W post-modification / bimetallic construction",
+          "hostMof": "Al-MOF",
+          "guestMetal": "W",
+          "score": 0.297,
+          "rank": 4
+        },
+        {
+          "routeId": "route-uio-type-host-mo",
+          "route": "UiO-type host + Mo post-modification",
+          "hostMof": "UiO-type host",
+          "guestMetal": "Mo",
+          "score": 0.293,
+          "rank": 5
+        },
+        {
+          "routeId": "route-al-mof-fe",
+          "route": "Al-MOF + Fe doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Fe",
+          "score": 0.26,
+          "rank": 6
+        },
+        {
+          "routeId": "route-mil-type-host-mo",
+          "route": "MIL-type host + Mo doping / post-modification",
+          "hostMof": "MIL-type host",
+          "guestMetal": "Mo",
+          "score": 0.256,
+          "rank": 7
+        },
+        {
+          "routeId": "route-al-mof-ti",
+          "route": "Al-MOF + Ti post-modification",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Ti",
+          "score": 0.237,
+          "rank": 8
+        },
+        {
+          "routeId": "route-al-mof-co",
+          "route": "Al-MOF + Co doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Co",
+          "score": 0.236,
+          "rank": 9
+        },
+        {
+          "routeId": "route-al-mof-v",
+          "route": "Al-MOF + V doping / post-modification",
+          "hostMof": "Al-MOF",
+          "guestMetal": "V",
+          "score": 0.233,
+          "rank": 10
+        },
+        {
+          "routeId": "route-zr-mof-w",
+          "route": "Zr-MOF + W post-modification",
+          "hostMof": "Zr-MOF",
+          "guestMetal": "W",
+          "score": 0.233,
+          "rank": 11
+        },
+        {
+          "routeId": "route-al-mof-ni",
+          "route": "Al-MOF + Ni doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Ni",
+          "score": 0.22,
+          "rank": 12
+        },
+        {
+          "routeId": "route-al-mof-cu",
+          "route": "Al-MOF + Cu doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Cu",
+          "score": 0.211,
+          "rank": 13
+        },
+        {
+          "routeId": "route-ti-mof-mo",
+          "route": "Ti-MOF + Mo bimetallic construction",
+          "hostMof": "Ti-MOF",
+          "guestMetal": "Mo",
+          "score": 0.211,
+          "rank": 14
+        },
+        {
+          "routeId": "route-zr-mof-fe",
+          "route": "Zr-MOF + Fe doping",
+          "hostMof": "Zr-MOF",
+          "guestMetal": "Fe",
+          "score": 0.206,
+          "rank": 15
+        },
+        {
+          "routeId": "route-cr-mof-mo",
+          "route": "Cr-MOF + Mo post-modification",
+          "hostMof": "Cr-MOF",
+          "guestMetal": "Mo",
+          "score": 0.194,
+          "rank": 16
+        },
+        {
+          "routeId": "route-al-mof-mn",
+          "route": "Al-MOF + Mn doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Mn",
+          "score": 0.193,
+          "rank": 17
+        },
+        {
+          "routeId": "route-al-mof-zn",
+          "route": "Al-MOF + Zn doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Zn",
+          "score": 0.191,
+          "rank": 18
+        },
+        {
+          "routeId": "route-fe-mof-mo",
+          "route": "Fe-MOF + Mo bimetallic construction",
+          "hostMof": "Fe-MOF",
+          "guestMetal": "Mo",
+          "score": 0.162,
+          "rank": 19
+        },
+        {
+          "routeId": "route-zn-mof-mo",
+          "route": "Zn-MOF + Mo doping",
+          "hostMof": "Zn-MOF",
+          "guestMetal": "Mo",
+          "score": 0.16,
+          "rank": 20
+        },
+        {
+          "routeId": "route-cu-mof-mo",
+          "route": "Cu-MOF + Mo post-modification",
+          "hostMof": "Cu-MOF",
+          "guestMetal": "Mo",
+          "score": 0.123,
+          "rank": 21
+        },
+        {
+          "routeId": "route-al-mof-pristine",
+          "route": "Al-MOF + none / pristine pristine host",
+          "hostMof": "Al-MOF",
+          "guestMetal": "none / pristine",
+          "score": 0.12,
+          "rank": 22
+        },
+        {
+          "routeId": "route-zr-mof-pristine",
+          "route": "Zr-MOF + none / pristine pristine host",
+          "hostMof": "Zr-MOF",
+          "guestMetal": "none / pristine",
+          "score": 0.085,
+          "rank": 23
+        },
+        {
+          "routeId": "route-uio-type-host-pristine",
+          "route": "UiO-type host + none / pristine pristine host",
+          "hostMof": "UiO-type host",
+          "guestMetal": "none / pristine",
+          "score": 0.082,
+          "rank": 24
+        },
+        {
+          "routeId": "route-ti-mof-pristine",
+          "route": "Ti-MOF + none / pristine pristine host",
+          "hostMof": "Ti-MOF",
+          "guestMetal": "none / pristine",
+          "score": 0.06,
+          "rank": 25
+        }
+      ],
+      "notes": "Historical seed/proxy stage. Factors were hand-authored planning inputs and were not treated as real measurements.",
+      "source": "organic_acid_host_guest/host_guest_routes.json historical seed factors"
+    },
+    {
+      "stage": "real-data structural (V3.9.6)",
+      "version": "V3.9.6",
+      "descriptorSet": [
+        "real-data structural host factors",
+        "guest activity",
+        "evidence",
+        "risk retention"
+      ],
+      "model": "unweighted six-factor product",
+      "priceStatus": "not included",
+      "top5Routes": [
+        {
+          "routeId": "route-ti-mof-mo",
+          "route": "Ti-MOF + Mo bimetallic construction",
+          "hostMof": "Ti-MOF",
+          "guestMetal": "Mo",
+          "score": 0.281,
+          "rank": 1
+        },
+        {
+          "routeId": "route-zr-mof-mo",
+          "route": "Zr-MOF + Mo post-modification",
+          "hostMof": "Zr-MOF",
+          "guestMetal": "Mo",
+          "score": 0.181,
+          "rank": 2
+        },
+        {
+          "routeId": "route-fe-mof-mo",
+          "route": "Fe-MOF + Mo bimetallic construction",
+          "hostMof": "Fe-MOF",
+          "guestMetal": "Mo",
+          "score": 0.175,
+          "rank": 3
+        },
+        {
+          "routeId": "route-al-mof-mo",
+          "route": "Al-MOF + Mo doping / post-modification / bimetallic construction",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Mo",
+          "score": 0.165,
+          "rank": 4
+        },
+        {
+          "routeId": "route-zr-mof-w",
+          "route": "Zr-MOF + W post-modification",
+          "hostMof": "Zr-MOF",
+          "guestMetal": "W",
+          "score": 0.159,
+          "rank": 5
+        }
+      ],
+      "alMofRank": 4,
+      "routeRankings": [
+        {
+          "routeId": "route-ti-mof-mo",
+          "route": "Ti-MOF + Mo bimetallic construction",
+          "hostMof": "Ti-MOF",
+          "guestMetal": "Mo",
+          "score": 0.281,
+          "rank": 1
+        },
+        {
+          "routeId": "route-zr-mof-mo",
+          "route": "Zr-MOF + Mo post-modification",
+          "hostMof": "Zr-MOF",
+          "guestMetal": "Mo",
+          "score": 0.181,
+          "rank": 2
+        },
+        {
+          "routeId": "route-fe-mof-mo",
+          "route": "Fe-MOF + Mo bimetallic construction",
+          "hostMof": "Fe-MOF",
+          "guestMetal": "Mo",
+          "score": 0.175,
+          "rank": 3
+        },
+        {
+          "routeId": "route-al-mof-mo",
+          "route": "Al-MOF + Mo doping / post-modification / bimetallic construction",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Mo",
+          "score": 0.165,
+          "rank": 4
+        },
+        {
+          "routeId": "route-zr-mof-w",
+          "route": "Zr-MOF + W post-modification",
+          "hostMof": "Zr-MOF",
+          "guestMetal": "W",
+          "score": 0.159,
+          "rank": 5
+        },
+        {
+          "routeId": "route-al-mof-w",
+          "route": "Al-MOF + W post-modification / bimetallic construction",
+          "hostMof": "Al-MOF",
+          "guestMetal": "W",
+          "score": 0.14,
+          "rank": 6
+        },
+        {
+          "routeId": "route-al-mof-v",
+          "route": "Al-MOF + V doping / post-modification",
+          "hostMof": "Al-MOF",
+          "guestMetal": "V",
+          "score": 0.119,
+          "rank": 7
+        },
+        {
+          "routeId": "route-mil-type-host-mo",
+          "route": "MIL-type host + Mo doping / post-modification",
+          "hostMof": "MIL-type host",
+          "guestMetal": "Mo",
+          "score": 0.111,
+          "rank": 8
+        },
+        {
+          "routeId": "route-al-mof-cu",
+          "route": "Al-MOF + Cu doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Cu",
+          "score": 0.097,
+          "rank": 9
+        },
+        {
+          "routeId": "route-al-mof-ni",
+          "route": "Al-MOF + Ni doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Ni",
+          "score": 0.095,
+          "rank": 10
+        },
+        {
+          "routeId": "route-zr-mof-fe",
+          "route": "Zr-MOF + Fe doping",
+          "hostMof": "Zr-MOF",
+          "guestMetal": "Fe",
+          "score": 0.094,
+          "rank": 11
+        },
+        {
+          "routeId": "route-uio-type-host-mo",
+          "route": "UiO-type host + Mo post-modification",
+          "hostMof": "UiO-type host",
+          "guestMetal": "Mo",
+          "score": 0.093,
+          "rank": 12
+        },
+        {
+          "routeId": "route-al-mof-ti",
+          "route": "Al-MOF + Ti post-modification",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Ti",
+          "score": 0.093,
+          "rank": 13
+        },
+        {
+          "routeId": "route-al-mof-co",
+          "route": "Al-MOF + Co doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Co",
+          "score": 0.09,
+          "rank": 14
+        },
+        {
+          "routeId": "route-al-mof-mn",
+          "route": "Al-MOF + Mn doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Mn",
+          "score": 0.09,
+          "rank": 15
+        },
+        {
+          "routeId": "route-al-mof-zn",
+          "route": "Al-MOF + Zn doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Zn",
+          "score": 0.086,
+          "rank": 16
+        },
+        {
+          "routeId": "route-al-mof-fe",
+          "route": "Al-MOF + Fe doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Fe",
+          "score": 0.081,
+          "rank": 17
+        },
+        {
+          "routeId": "route-ti-mof-pristine",
+          "route": "Ti-MOF + none / pristine pristine host",
+          "hostMof": "Ti-MOF",
+          "guestMetal": "none / pristine",
+          "score": 0.077,
+          "rank": 18
+        },
+        {
+          "routeId": "route-mof-808-like-host-mo",
+          "route": "MOF-808-like host + Mo post-modification",
+          "hostMof": "MOF-808-like host",
+          "guestMetal": "Mo",
+          "score": 0.068,
+          "rank": 19
+        },
+        {
+          "routeId": "route-zn-mof-mo",
+          "route": "Zn-MOF + Mo doping",
+          "hostMof": "Zn-MOF",
+          "guestMetal": "Mo",
+          "score": 0.055,
+          "rank": 20
+        },
+        {
+          "routeId": "route-al-mof-pristine",
+          "route": "Al-MOF + none / pristine pristine host",
+          "hostMof": "Al-MOF",
+          "guestMetal": "none / pristine",
+          "score": 0.051,
+          "rank": 21
+        },
+        {
+          "routeId": "route-zr-mof-pristine",
+          "route": "Zr-MOF + none / pristine pristine host",
+          "hostMof": "Zr-MOF",
+          "guestMetal": "none / pristine",
+          "score": 0.048,
+          "rank": 22
+        },
+        {
+          "routeId": "route-cu-mof-mo",
+          "route": "Cu-MOF + Mo post-modification",
+          "hostMof": "Cu-MOF",
+          "guestMetal": "Mo",
+          "score": 0.045,
+          "rank": 23
+        },
+        {
+          "routeId": "route-uio-type-host-pristine",
+          "route": "UiO-type host + none / pristine pristine host",
+          "hostMof": "UiO-type host",
+          "guestMetal": "none / pristine",
+          "score": 0.029,
+          "rank": 24
+        },
+        {
+          "routeId": "route-cr-mof-mo",
+          "route": "Cr-MOF + Mo post-modification",
+          "hostMof": "Cr-MOF",
+          "guestMetal": "Mo",
+          "score": 0.007,
+          "rank": 25
+        }
+      ],
+      "notes": "Preregistered real-data structural rerun. Sparse guest descriptors remain explicit fallback.",
+      "source": "organic_acid_audit_v3_9_7.json rankingSensitivity.baselineRanking"
+    },
+    {
+      "stage": "+ligand/synthesizability/economics (V3.9.7)",
+      "version": "V3.9.7",
+      "descriptorSet": [
+        "structure",
+        "ligand",
+        "synthesizability",
+        "placeholder economics",
+        "guest activity",
+        "evidence",
+        "risk retention"
+      ],
+      "model": "eight-factor weighted geometric mean",
+      "priceStatus": "transparent placeholders",
+      "top5Routes": [
+        {
+          "routeId": "route-cu-mof-mo",
+          "route": "Cu-MOF + Mo post-modification",
+          "hostMof": "Cu-MOF",
+          "guestMetal": "Mo",
+          "score": 0.819,
+          "rank": 1
+        },
+        {
+          "routeId": "route-zn-mof-mo",
+          "route": "Zn-MOF + Mo doping",
+          "hostMof": "Zn-MOF",
+          "guestMetal": "Mo",
+          "score": 0.797,
+          "rank": 2
+        },
+        {
+          "routeId": "route-al-mof-mo",
+          "route": "Al-MOF + Mo doping / post-modification / bimetallic construction",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Mo",
+          "score": 0.766,
+          "rank": 3
+        },
+        {
+          "routeId": "route-fe-mof-mo",
+          "route": "Fe-MOF + Mo bimetallic construction",
+          "hostMof": "Fe-MOF",
+          "guestMetal": "Mo",
+          "score": 0.765,
+          "rank": 4
+        },
+        {
+          "routeId": "route-al-mof-w",
+          "route": "Al-MOF + W post-modification / bimetallic construction",
+          "hostMof": "Al-MOF",
+          "guestMetal": "W",
+          "score": 0.751,
+          "rank": 5
+        }
+      ],
+      "alMofRank": 3,
+      "routeRankings": [
+        {
+          "routeId": "route-cu-mof-mo",
+          "route": "Cu-MOF + Mo post-modification",
+          "hostMof": "Cu-MOF",
+          "guestMetal": "Mo",
+          "score": 0.819,
+          "rank": 1
+        },
+        {
+          "routeId": "route-zn-mof-mo",
+          "route": "Zn-MOF + Mo doping",
+          "hostMof": "Zn-MOF",
+          "guestMetal": "Mo",
+          "score": 0.797,
+          "rank": 2
+        },
+        {
+          "routeId": "route-al-mof-mo",
+          "route": "Al-MOF + Mo doping / post-modification / bimetallic construction",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Mo",
+          "score": 0.766,
+          "rank": 3
+        },
+        {
+          "routeId": "route-fe-mof-mo",
+          "route": "Fe-MOF + Mo bimetallic construction",
+          "hostMof": "Fe-MOF",
+          "guestMetal": "Mo",
+          "score": 0.765,
+          "rank": 4
+        },
+        {
+          "routeId": "route-al-mof-w",
+          "route": "Al-MOF + W post-modification / bimetallic construction",
+          "hostMof": "Al-MOF",
+          "guestMetal": "W",
+          "score": 0.751,
+          "rank": 5
+        },
+        {
+          "routeId": "route-ti-mof-mo",
+          "route": "Ti-MOF + Mo bimetallic construction",
+          "hostMof": "Ti-MOF",
+          "guestMetal": "Mo",
+          "score": 0.739,
+          "rank": 6
+        },
+        {
+          "routeId": "route-al-mof-v",
+          "route": "Al-MOF + V doping / post-modification",
+          "hostMof": "Al-MOF",
+          "guestMetal": "V",
+          "score": 0.738,
+          "rank": 7
+        },
+        {
+          "routeId": "route-al-mof-cu",
+          "route": "Al-MOF + Cu doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Cu",
+          "score": 0.719,
+          "rank": 8
+        },
+        {
+          "routeId": "route-al-mof-ni",
+          "route": "Al-MOF + Ni doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Ni",
+          "score": 0.715,
+          "rank": 9
+        },
+        {
+          "routeId": "route-al-mof-mn",
+          "route": "Al-MOF + Mn doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Mn",
+          "score": 0.713,
+          "rank": 10
+        },
+        {
+          "routeId": "route-al-mof-ti",
+          "route": "Al-MOF + Ti post-modification",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Ti",
+          "score": 0.71,
+          "rank": 11
+        },
+        {
+          "routeId": "route-al-mof-zn",
+          "route": "Al-MOF + Zn doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Zn",
+          "score": 0.708,
+          "rank": 12
+        },
+        {
+          "routeId": "route-al-mof-co",
+          "route": "Al-MOF + Co doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Co",
+          "score": 0.707,
+          "rank": 13
+        },
+        {
+          "routeId": "route-al-mof-fe",
+          "route": "Al-MOF + Fe doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Fe",
+          "score": 0.703,
+          "rank": 14
+        },
+        {
+          "routeId": "route-zr-mof-mo",
+          "route": "Zr-MOF + Mo post-modification",
+          "hostMof": "Zr-MOF",
+          "guestMetal": "Mo",
+          "score": 0.698,
+          "rank": 15
+        },
+        {
+          "routeId": "route-zr-mof-w",
+          "route": "Zr-MOF + W post-modification",
+          "hostMof": "Zr-MOF",
+          "guestMetal": "W",
+          "score": 0.693,
+          "rank": 16
+        },
+        {
+          "routeId": "route-zr-mof-fe",
+          "route": "Zr-MOF + Fe doping",
+          "hostMof": "Zr-MOF",
+          "guestMetal": "Fe",
+          "score": 0.663,
+          "rank": 17
+        },
+        {
+          "routeId": "route-al-mof-pristine",
+          "route": "Al-MOF + none / pristine pristine host",
+          "hostMof": "Al-MOF",
+          "guestMetal": "none / pristine",
+          "score": 0.649,
+          "rank": 18
+        },
+        {
+          "routeId": "route-ti-mof-pristine",
+          "route": "Ti-MOF + none / pristine pristine host",
+          "hostMof": "Ti-MOF",
+          "guestMetal": "none / pristine",
+          "score": 0.615,
+          "rank": 19
+        },
+        {
+          "routeId": "route-uio-type-host-mo",
+          "route": "UiO-type host + Mo post-modification",
+          "hostMof": "UiO-type host",
+          "guestMetal": "Mo",
+          "score": 0.593,
+          "rank": 20
+        },
+        {
+          "routeId": "route-zr-mof-pristine",
+          "route": "Zr-MOF + none / pristine pristine host",
+          "hostMof": "Zr-MOF",
+          "guestMetal": "none / pristine",
+          "score": 0.587,
+          "rank": 21
+        },
+        {
+          "routeId": "route-uio-type-host-pristine",
+          "route": "UiO-type host + none / pristine pristine host",
+          "hostMof": "UiO-type host",
+          "guestMetal": "none / pristine",
+          "score": 0.507,
+          "rank": 22
+        },
+        {
+          "routeId": "route-mil-type-host-mo",
+          "route": "MIL-type host + Mo doping / post-modification",
+          "hostMof": "MIL-type host",
+          "guestMetal": "Mo",
+          "score": 0.413,
+          "rank": 23
+        },
+        {
+          "routeId": "route-mof-808-like-host-mo",
+          "route": "MOF-808-like host + Mo post-modification",
+          "hostMof": "MOF-808-like host",
+          "guestMetal": "Mo",
+          "score": 0.358,
+          "rank": 24
+        },
+        {
+          "routeId": "route-cr-mof-mo",
+          "route": "Cr-MOF + Mo post-modification",
+          "hostMof": "Cr-MOF",
+          "guestMetal": "Mo",
+          "score": 0.204,
+          "rank": 25
+        }
+      ],
+      "notes": "Locked spec-v2 rerun before real-price replacement. Price rows were explicitly labeled TODO placeholders.",
+      "source": "organic_acid_rerun_v3_9_7.json"
+    },
+    {
+      "stage": "real prices (V3.9.8)",
+      "version": "V3.9.8",
+      "descriptorSet": [
+        "structure",
+        "ligand",
+        "synthesizability",
+        "real-price economics",
+        "guest activity",
+        "evidence",
+        "risk retention"
+      ],
+      "model": "eight-factor weighted geometric mean",
+      "priceStatus": "June 2026 mixed-confidence screening values",
+      "top5Routes": [
+        {
+          "routeId": "route-cu-mof-mo",
+          "route": "Cu-MOF + Mo post-modification",
+          "hostMof": "Cu-MOF",
+          "guestMetal": "Mo",
+          "score": 0.797,
+          "rank": 1
+        },
+        {
+          "routeId": "route-zn-mof-mo",
+          "route": "Zn-MOF + Mo doping",
+          "hostMof": "Zn-MOF",
+          "guestMetal": "Mo",
+          "score": 0.785,
+          "rank": 2
+        },
+        {
+          "routeId": "route-al-mof-mo",
+          "route": "Al-MOF + Mo doping / post-modification / bimetallic construction",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Mo",
+          "score": 0.758,
+          "rank": 3
+        },
+        {
+          "routeId": "route-fe-mof-mo",
+          "route": "Fe-MOF + Mo bimetallic construction",
+          "hostMof": "Fe-MOF",
+          "guestMetal": "Mo",
+          "score": 0.755,
+          "rank": 4
+        },
+        {
+          "routeId": "route-al-mof-w",
+          "route": "Al-MOF + W post-modification / bimetallic construction",
+          "hostMof": "Al-MOF",
+          "guestMetal": "W",
+          "score": 0.746,
+          "rank": 5
+        }
+      ],
+      "alMofRank": 3,
+      "routeRankings": [
+        {
+          "routeId": "route-cu-mof-mo",
+          "route": "Cu-MOF + Mo post-modification",
+          "hostMof": "Cu-MOF",
+          "guestMetal": "Mo",
+          "score": 0.797,
+          "rank": 1
+        },
+        {
+          "routeId": "route-zn-mof-mo",
+          "route": "Zn-MOF + Mo doping",
+          "hostMof": "Zn-MOF",
+          "guestMetal": "Mo",
+          "score": 0.785,
+          "rank": 2
+        },
+        {
+          "routeId": "route-al-mof-mo",
+          "route": "Al-MOF + Mo doping / post-modification / bimetallic construction",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Mo",
+          "score": 0.758,
+          "rank": 3
+        },
+        {
+          "routeId": "route-fe-mof-mo",
+          "route": "Fe-MOF + Mo bimetallic construction",
+          "hostMof": "Fe-MOF",
+          "guestMetal": "Mo",
+          "score": 0.755,
+          "rank": 4
+        },
+        {
+          "routeId": "route-al-mof-w",
+          "route": "Al-MOF + W post-modification / bimetallic construction",
+          "hostMof": "Al-MOF",
+          "guestMetal": "W",
+          "score": 0.746,
+          "rank": 5
+        },
+        {
+          "routeId": "route-ti-mof-mo",
+          "route": "Ti-MOF + Mo bimetallic construction",
+          "hostMof": "Ti-MOF",
+          "guestMetal": "Mo",
+          "score": 0.746,
+          "rank": 6
+        },
+        {
+          "routeId": "route-al-mof-v",
+          "route": "Al-MOF + V doping / post-modification",
+          "hostMof": "Al-MOF",
+          "guestMetal": "V",
+          "score": 0.741,
+          "rank": 7
+        },
+        {
+          "routeId": "route-al-mof-cu",
+          "route": "Al-MOF + Cu doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Cu",
+          "score": 0.718,
+          "rank": 8
+        },
+        {
+          "routeId": "route-al-mof-ni",
+          "route": "Al-MOF + Ni doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Ni",
+          "score": 0.717,
+          "rank": 9
+        },
+        {
+          "routeId": "route-al-mof-ti",
+          "route": "Al-MOF + Ti post-modification",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Ti",
+          "score": 0.714,
+          "rank": 10
+        },
+        {
+          "routeId": "route-al-mof-mn",
+          "route": "Al-MOF + Mn doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Mn",
+          "score": 0.712,
+          "rank": 11
+        },
+        {
+          "routeId": "route-al-mof-zn",
+          "route": "Al-MOF + Zn doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Zn",
+          "score": 0.708,
+          "rank": 12
+        },
+        {
+          "routeId": "route-al-mof-fe",
+          "route": "Al-MOF + Fe doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Fe",
+          "score": 0.703,
+          "rank": 13
+        },
+        {
+          "routeId": "route-al-mof-co",
+          "route": "Al-MOF + Co doping",
+          "hostMof": "Al-MOF",
+          "guestMetal": "Co",
+          "score": 0.697,
+          "rank": 14
+        },
+        {
+          "routeId": "route-zr-mof-w",
+          "route": "Zr-MOF + W post-modification",
+          "hostMof": "Zr-MOF",
+          "guestMetal": "W",
+          "score": 0.671,
+          "rank": 15
+        },
+        {
+          "routeId": "route-zr-mof-fe",
+          "route": "Zr-MOF + Fe doping",
+          "hostMof": "Zr-MOF",
+          "guestMetal": "Fe",
+          "score": 0.659,
+          "rank": 16
+        },
+        {
+          "routeId": "route-zr-mof-mo",
+          "route": "Zr-MOF + Mo post-modification",
+          "hostMof": "Zr-MOF",
+          "guestMetal": "Mo",
+          "score": 0.657,
+          "rank": 17
+        },
+        {
+          "routeId": "route-al-mof-pristine",
+          "route": "Al-MOF + none / pristine pristine host",
+          "hostMof": "Al-MOF",
+          "guestMetal": "none / pristine",
+          "score": 0.653,
+          "rank": 18
+        },
+        {
+          "routeId": "route-ti-mof-pristine",
+          "route": "Ti-MOF + none / pristine pristine host",
+          "hostMof": "Ti-MOF",
+          "guestMetal": "none / pristine",
+          "score": 0.631,
+          "rank": 19
+        },
+        {
+          "routeId": "route-uio-type-host-mo",
+          "route": "UiO-type host + Mo post-modification",
+          "hostMof": "UiO-type host",
+          "guestMetal": "Mo",
+          "score": 0.595,
+          "rank": 20
+        },
+        {
+          "routeId": "route-zr-mof-pristine",
+          "route": "Zr-MOF + none / pristine pristine host",
+          "hostMof": "Zr-MOF",
+          "guestMetal": "none / pristine",
+          "score": 0.59,
+          "rank": 21
+        },
+        {
+          "routeId": "route-uio-type-host-pristine",
+          "route": "UiO-type host + none / pristine pristine host",
+          "hostMof": "UiO-type host",
+          "guestMetal": "none / pristine",
+          "score": 0.518,
+          "rank": 22
+        },
+        {
+          "routeId": "route-mil-type-host-mo",
+          "route": "MIL-type host + Mo doping / post-modification",
+          "hostMof": "MIL-type host",
+          "guestMetal": "Mo",
+          "score": 0.408,
+          "rank": 23
+        },
+        {
+          "routeId": "route-mof-808-like-host-mo",
+          "route": "MOF-808-like host + Mo post-modification",
+          "hostMof": "MOF-808-like host",
+          "guestMetal": "Mo",
+          "score": 0.358,
+          "rank": 24
+        },
+        {
+          "routeId": "route-cr-mof-mo",
+          "route": "Cr-MOF + Mo post-modification",
+          "hostMof": "Cr-MOF",
+          "guestMetal": "Mo",
+          "score": 0.201,
+          "rank": 25
+        }
+      ],
+      "notes": "Ten named metal prices use the supplied June 2026 values. No weight or descriptor was changed after observing the rerun.",
+      "source": "organic_acid_rerun_v3_9_8.json + metal_precursor_cost_table.json"
+    }
+  ],
+  "descriptorAblation": {
+    "version": "V3.9.8",
+    "scoringSpecId": "organic-acid-host-guest-scoring-spec-v2",
+    "fixedWeights": {
+      "hostStabilityScore": 0.16,
+      "hostPathwaySupportScore": 0.15,
+      "guestActivityCompensationScore": 0.15,
+      "hostGuestComplementarityScore": 0.15,
+      "evidenceConfidenceScore": 0.12,
+      "riskPenalty": 0.12,
+      "synthesizabilityScore": 0.08,
+      "economicScore": 0.07
+    },
+    "impactSummary": {
+      "cheapMetalThresholdUsdKg": 10,
+      "cheapMetals": [
+        "Fe",
+        "Al",
+        "Zn",
+        "Cr",
+        "Ti"
+      ],
+      "averageCheapMetalRankMove": -0.2,
+      "largestSynthesisDrop": {
+        "hostMof": "Ti-MOF",
+        "rankDelta": -1
+      },
+      "largestEconomicDrop": {
+        "hostMof": "Zr-MOF",
+        "rankDelta": -9
+      },
+      "summaryZh": "计入经济性后，低于当前价格中位数的金属主体平均下移 0.2 位，Zr-MOF 的经济性层间变化为 下降 9 位；加入可合成性后，Ti-MOF 下降 1 位。",
+      "summaryEn": "After economics is included, host metals below the current price median move down by 0.2 ranks on average, while Zr-MOF moves down by 9 ranks; after synthesizability is added, Ti-MOF moves down by 1 ranks."
+    },
+    "layers": [
+      {
+        "id": "L0",
+        "labelZh": "仅结构",
+        "labelEn": "Structure only",
+        "candidates": [
+          {
+            "routeId": "route-cu-mof-mo",
+            "routeName": "Cu-MOF + Mo post-modification",
+            "hostMof": "Cu-MOF",
+            "guestMetal": "Mo",
+            "score": 0.84,
+            "rank": 1
+          },
+          {
+            "routeId": "route-zn-mof-mo",
+            "routeName": "Zn-MOF + Mo doping",
+            "hostMof": "Zn-MOF",
+            "guestMetal": "Mo",
+            "score": 0.819,
+            "rank": 2
+          },
+          {
+            "routeId": "route-ti-mof-mo",
+            "routeName": "Ti-MOF + Mo bimetallic construction",
+            "hostMof": "Ti-MOF",
+            "guestMetal": "Mo",
+            "score": 0.815,
+            "rank": 3
+          },
+          {
+            "routeId": "route-fe-mof-mo",
+            "routeName": "Fe-MOF + Mo bimetallic construction",
+            "hostMof": "Fe-MOF",
+            "guestMetal": "Mo",
+            "score": 0.755,
+            "rank": 4
+          },
+          {
+            "routeId": "route-zr-mof-mo",
+            "routeName": "Zr-MOF + Mo post-modification",
+            "hostMof": "Zr-MOF",
+            "guestMetal": "Mo",
+            "score": 0.755,
+            "rank": 5
+          },
+          {
+            "routeId": "route-al-mof-mo",
+            "routeName": "Al-MOF + Mo doping / post-modification / bimetallic construction",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Mo",
+            "score": 0.749,
+            "rank": 6
+          },
+          {
+            "routeId": "route-mil-type-host-mo",
+            "routeName": "MIL-type host + Mo doping / post-modification",
+            "hostMof": "MIL-type host",
+            "guestMetal": "Mo",
+            "score": 0.744,
+            "rank": 7
+          },
+          {
+            "routeId": "route-zr-mof-w",
+            "routeName": "Zr-MOF + W post-modification",
+            "hostMof": "Zr-MOF",
+            "guestMetal": "W",
+            "score": 0.743,
+            "rank": 8
+          },
+          {
+            "routeId": "route-al-mof-w",
+            "routeName": "Al-MOF + W post-modification / bimetallic construction",
+            "hostMof": "Al-MOF",
+            "guestMetal": "W",
+            "score": 0.731,
+            "rank": 9
+          },
+          {
+            "routeId": "route-al-mof-v",
+            "routeName": "Al-MOF + V doping / post-modification",
+            "hostMof": "Al-MOF",
+            "guestMetal": "V",
+            "score": 0.714,
+            "rank": 10
+          },
+          {
+            "routeId": "route-uio-type-host-mo",
+            "routeName": "UiO-type host + Mo post-modification",
+            "hostMof": "UiO-type host",
+            "guestMetal": "Mo",
+            "score": 0.701,
+            "rank": 11
+          },
+          {
+            "routeId": "route-al-mof-cu",
+            "routeName": "Al-MOF + Cu doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Cu",
+            "score": 0.692,
+            "rank": 12
+          },
+          {
+            "routeId": "route-al-mof-ni",
+            "routeName": "Al-MOF + Ni doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Ni",
+            "score": 0.69,
+            "rank": 13
+          },
+          {
+            "routeId": "route-al-mof-ti",
+            "routeName": "Al-MOF + Ti post-modification",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Ti",
+            "score": 0.688,
+            "rank": 14
+          },
+          {
+            "routeId": "route-zr-mof-fe",
+            "routeName": "Zr-MOF + Fe doping",
+            "hostMof": "Zr-MOF",
+            "guestMetal": "Fe",
+            "score": 0.688,
+            "rank": 15
+          },
+          {
+            "routeId": "route-al-mof-co",
+            "routeName": "Al-MOF + Co doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Co",
+            "score": 0.685,
+            "rank": 16
+          },
+          {
+            "routeId": "route-al-mof-mn",
+            "routeName": "Al-MOF + Mn doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Mn",
+            "score": 0.685,
+            "rank": 17
+          },
+          {
+            "routeId": "route-mof-808-like-host-mo",
+            "routeName": "MOF-808-like host + Mo post-modification",
+            "hostMof": "MOF-808-like host",
+            "guestMetal": "Mo",
+            "score": 0.683,
+            "rank": 18
+          },
+          {
+            "routeId": "route-al-mof-zn",
+            "routeName": "Al-MOF + Zn doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Zn",
+            "score": 0.68,
+            "rank": 19
+          },
+          {
+            "routeId": "route-al-mof-fe",
+            "routeName": "Al-MOF + Fe doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Fe",
+            "score": 0.674,
+            "rank": 20
+          },
+          {
+            "routeId": "route-ti-mof-pristine",
+            "routeName": "Ti-MOF + none / pristine pristine host",
+            "hostMof": "Ti-MOF",
+            "guestMetal": "none / pristine",
+            "score": 0.671,
+            "rank": 21
+          },
+          {
+            "routeId": "route-al-mof-pristine",
+            "routeName": "Al-MOF + none / pristine pristine host",
+            "hostMof": "Al-MOF",
+            "guestMetal": "none / pristine",
+            "score": 0.63,
+            "rank": 22
+          },
+          {
+            "routeId": "route-zr-mof-pristine",
+            "routeName": "Zr-MOF + none / pristine pristine host",
+            "hostMof": "Zr-MOF",
+            "guestMetal": "none / pristine",
+            "score": 0.623,
+            "rank": 23
+          },
+          {
+            "routeId": "route-uio-type-host-pristine",
+            "routeName": "UiO-type host + none / pristine pristine host",
+            "hostMof": "UiO-type host",
+            "guestMetal": "none / pristine",
+            "score": 0.592,
+            "rank": 24
+          },
+          {
+            "routeId": "route-cr-mof-mo",
+            "routeName": "Cr-MOF + Mo post-modification",
+            "hostMof": "Cr-MOF",
+            "guestMetal": "Mo",
+            "score": 0.211,
+            "rank": 25
+          }
+        ]
+      },
+      {
+        "id": "L1",
+        "labelZh": "+ 配体",
+        "labelEn": "+ Ligand",
+        "candidates": [
+          {
+            "routeId": "route-cu-mof-mo",
+            "routeName": "Cu-MOF + Mo post-modification",
+            "hostMof": "Cu-MOF",
+            "guestMetal": "Mo",
+            "score": 0.84,
+            "rank": 1
+          },
+          {
+            "routeId": "route-zn-mof-mo",
+            "routeName": "Zn-MOF + Mo doping",
+            "hostMof": "Zn-MOF",
+            "guestMetal": "Mo",
+            "score": 0.814,
+            "rank": 2
+          },
+          {
+            "routeId": "route-ti-mof-mo",
+            "routeName": "Ti-MOF + Mo bimetallic construction",
+            "hostMof": "Ti-MOF",
+            "guestMetal": "Mo",
+            "score": 0.797,
+            "rank": 3
+          },
+          {
+            "routeId": "route-al-mof-mo",
+            "routeName": "Al-MOF + Mo doping / post-modification / bimetallic construction",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Mo",
+            "score": 0.78,
+            "rank": 4
+          },
+          {
+            "routeId": "route-fe-mof-mo",
+            "routeName": "Fe-MOF + Mo bimetallic construction",
+            "hostMof": "Fe-MOF",
+            "guestMetal": "Mo",
+            "score": 0.779,
+            "rank": 5
+          },
+          {
+            "routeId": "route-zr-mof-mo",
+            "routeName": "Zr-MOF + Mo post-modification",
+            "hostMof": "Zr-MOF",
+            "guestMetal": "Mo",
+            "score": 0.774,
+            "rank": 6
+          },
+          {
+            "routeId": "route-al-mof-w",
+            "routeName": "Al-MOF + W post-modification / bimetallic construction",
+            "hostMof": "Al-MOF",
+            "guestMetal": "W",
+            "score": 0.762,
+            "rank": 7
+          },
+          {
+            "routeId": "route-zr-mof-w",
+            "routeName": "Zr-MOF + W post-modification",
+            "hostMof": "Zr-MOF",
+            "guestMetal": "W",
+            "score": 0.762,
+            "rank": 8
+          },
+          {
+            "routeId": "route-al-mof-v",
+            "routeName": "Al-MOF + V doping / post-modification",
+            "hostMof": "Al-MOF",
+            "guestMetal": "V",
+            "score": 0.744,
+            "rank": 9
+          },
+          {
+            "routeId": "route-mil-type-host-mo",
+            "routeName": "MIL-type host + Mo doping / post-modification",
+            "hostMof": "MIL-type host",
+            "guestMetal": "Mo",
+            "score": 0.73,
+            "rank": 10
+          },
+          {
+            "routeId": "route-al-mof-cu",
+            "routeName": "Al-MOF + Cu doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Cu",
+            "score": 0.721,
+            "rank": 11
+          },
+          {
+            "routeId": "route-al-mof-ni",
+            "routeName": "Al-MOF + Ni doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Ni",
+            "score": 0.72,
+            "rank": 12
+          },
+          {
+            "routeId": "route-al-mof-ti",
+            "routeName": "Al-MOF + Ti post-modification",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Ti",
+            "score": 0.717,
+            "rank": 13
+          },
+          {
+            "routeId": "route-al-mof-co",
+            "routeName": "Al-MOF + Co doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Co",
+            "score": 0.714,
+            "rank": 14
+          },
+          {
+            "routeId": "route-al-mof-mn",
+            "routeName": "Al-MOF + Mn doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Mn",
+            "score": 0.714,
+            "rank": 15
+          },
+          {
+            "routeId": "route-al-mof-zn",
+            "routeName": "Al-MOF + Zn doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Zn",
+            "score": 0.709,
+            "rank": 16
+          },
+          {
+            "routeId": "route-zr-mof-fe",
+            "routeName": "Zr-MOF + Fe doping",
+            "hostMof": "Zr-MOF",
+            "guestMetal": "Fe",
+            "score": 0.706,
+            "rank": 17
+          },
+          {
+            "routeId": "route-al-mof-fe",
+            "routeName": "Al-MOF + Fe doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Fe",
+            "score": 0.703,
+            "rank": 18
+          },
+          {
+            "routeId": "route-uio-type-host-mo",
+            "routeName": "UiO-type host + Mo post-modification",
+            "hostMof": "UiO-type host",
+            "guestMetal": "Mo",
+            "score": 0.684,
+            "rank": 19
+          },
+          {
+            "routeId": "route-mof-808-like-host-mo",
+            "routeName": "MOF-808-like host + Mo post-modification",
+            "hostMof": "MOF-808-like host",
+            "guestMetal": "Mo",
+            "score": 0.678,
+            "rank": 20
+          },
+          {
+            "routeId": "route-al-mof-pristine",
+            "routeName": "Al-MOF + none / pristine pristine host",
+            "hostMof": "Al-MOF",
+            "guestMetal": "none / pristine",
+            "score": 0.656,
+            "rank": 21
+          },
+          {
+            "routeId": "route-ti-mof-pristine",
+            "routeName": "Ti-MOF + none / pristine pristine host",
+            "hostMof": "Ti-MOF",
+            "guestMetal": "none / pristine",
+            "score": 0.656,
+            "rank": 22
+          },
+          {
+            "routeId": "route-zr-mof-pristine",
+            "routeName": "Zr-MOF + none / pristine pristine host",
+            "hostMof": "Zr-MOF",
+            "guestMetal": "none / pristine",
+            "score": 0.64,
+            "rank": 23
+          },
+          {
+            "routeId": "route-uio-type-host-pristine",
+            "routeName": "UiO-type host + none / pristine pristine host",
+            "hostMof": "UiO-type host",
+            "guestMetal": "none / pristine",
+            "score": 0.577,
+            "rank": 24
+          },
+          {
+            "routeId": "route-cr-mof-mo",
+            "routeName": "Cr-MOF + Mo post-modification",
+            "hostMof": "Cr-MOF",
+            "guestMetal": "Mo",
+            "score": 0.214,
+            "rank": 25
+          }
+        ]
+      },
+      {
+        "id": "L2",
+        "labelZh": "+ 可合成性",
+        "labelEn": "+ Synthesizability",
+        "candidates": [
+          {
+            "routeId": "route-cu-mof-mo",
+            "routeName": "Cu-MOF + Mo post-modification",
+            "hostMof": "Cu-MOF",
+            "guestMetal": "Mo",
+            "score": 0.839,
+            "rank": 1
+          },
+          {
+            "routeId": "route-zn-mof-mo",
+            "routeName": "Zn-MOF + Mo doping",
+            "hostMof": "Zn-MOF",
+            "guestMetal": "Mo",
+            "score": 0.81,
+            "rank": 2
+          },
+          {
+            "routeId": "route-al-mof-mo",
+            "routeName": "Al-MOF + Mo doping / post-modification / bimetallic construction",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Mo",
+            "score": 0.78,
+            "rank": 3
+          },
+          {
+            "routeId": "route-ti-mof-mo",
+            "routeName": "Ti-MOF + Mo bimetallic construction",
+            "hostMof": "Ti-MOF",
+            "guestMetal": "Mo",
+            "score": 0.777,
+            "rank": 4
+          },
+          {
+            "routeId": "route-fe-mof-mo",
+            "routeName": "Fe-MOF + Mo bimetallic construction",
+            "hostMof": "Fe-MOF",
+            "guestMetal": "Mo",
+            "score": 0.775,
+            "rank": 5
+          },
+          {
+            "routeId": "route-zr-mof-mo",
+            "routeName": "Zr-MOF + Mo post-modification",
+            "hostMof": "Zr-MOF",
+            "guestMetal": "Mo",
+            "score": 0.765,
+            "rank": 6
+          },
+          {
+            "routeId": "route-al-mof-w",
+            "routeName": "Al-MOF + W post-modification / bimetallic construction",
+            "hostMof": "Al-MOF",
+            "guestMetal": "W",
+            "score": 0.762,
+            "rank": 7
+          },
+          {
+            "routeId": "route-zr-mof-w",
+            "routeName": "Zr-MOF + W post-modification",
+            "hostMof": "Zr-MOF",
+            "guestMetal": "W",
+            "score": 0.752,
+            "rank": 8
+          },
+          {
+            "routeId": "route-al-mof-v",
+            "routeName": "Al-MOF + V doping / post-modification",
+            "hostMof": "Al-MOF",
+            "guestMetal": "V",
+            "score": 0.744,
+            "rank": 9
+          },
+          {
+            "routeId": "route-al-mof-cu",
+            "routeName": "Al-MOF + Cu doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Cu",
+            "score": 0.721,
+            "rank": 10
+          },
+          {
+            "routeId": "route-al-mof-ni",
+            "routeName": "Al-MOF + Ni doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Ni",
+            "score": 0.72,
+            "rank": 11
+          },
+          {
+            "routeId": "route-al-mof-ti",
+            "routeName": "Al-MOF + Ti post-modification",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Ti",
+            "score": 0.717,
+            "rank": 12
+          },
+          {
+            "routeId": "route-al-mof-co",
+            "routeName": "Al-MOF + Co doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Co",
+            "score": 0.714,
+            "rank": 13
+          },
+          {
+            "routeId": "route-al-mof-mn",
+            "routeName": "Al-MOF + Mn doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Mn",
+            "score": 0.714,
+            "rank": 14
+          },
+          {
+            "routeId": "route-al-mof-zn",
+            "routeName": "Al-MOF + Zn doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Zn",
+            "score": 0.709,
+            "rank": 15
+          },
+          {
+            "routeId": "route-al-mof-fe",
+            "routeName": "Al-MOF + Fe doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Fe",
+            "score": 0.703,
+            "rank": 16
+          },
+          {
+            "routeId": "route-zr-mof-fe",
+            "routeName": "Zr-MOF + Fe doping",
+            "hostMof": "Zr-MOF",
+            "guestMetal": "Fe",
+            "score": 0.697,
+            "rank": 17
+          },
+          {
+            "routeId": "route-al-mof-pristine",
+            "routeName": "Al-MOF + none / pristine pristine host",
+            "hostMof": "Al-MOF",
+            "guestMetal": "none / pristine",
+            "score": 0.656,
+            "rank": 18
+          },
+          {
+            "routeId": "route-ti-mof-pristine",
+            "routeName": "Ti-MOF + none / pristine pristine host",
+            "hostMof": "Ti-MOF",
+            "guestMetal": "none / pristine",
+            "score": 0.64,
+            "rank": 19
+          },
+          {
+            "routeId": "route-zr-mof-pristine",
+            "routeName": "Zr-MOF + none / pristine pristine host",
+            "hostMof": "Zr-MOF",
+            "guestMetal": "none / pristine",
+            "score": 0.631,
+            "rank": 20
+          },
+          {
+            "routeId": "route-uio-type-host-mo",
+            "routeName": "UiO-type host + Mo post-modification",
+            "hostMof": "UiO-type host",
+            "guestMetal": "Mo",
+            "score": 0.626,
+            "rank": 21
+          },
+          {
+            "routeId": "route-mof-808-like-host-mo",
+            "routeName": "MOF-808-like host + Mo post-modification",
+            "hostMof": "MOF-808-like host",
+            "guestMetal": "Mo",
+            "score": 0.581,
+            "rank": 22
+          },
+          {
+            "routeId": "route-uio-type-host-pristine",
+            "routeName": "UiO-type host + none / pristine pristine host",
+            "hostMof": "UiO-type host",
+            "guestMetal": "none / pristine",
+            "score": 0.529,
+            "rank": 23
+          },
+          {
+            "routeId": "route-mil-type-host-mo",
+            "routeName": "MIL-type host + Mo doping / post-modification",
+            "hostMof": "MIL-type host",
+            "guestMetal": "Mo",
+            "score": 0.42,
+            "rank": 24
+          },
+          {
+            "routeId": "route-cr-mof-mo",
+            "routeName": "Cr-MOF + Mo post-modification",
+            "hostMof": "Cr-MOF",
+            "guestMetal": "Mo",
+            "score": 0.209,
+            "rank": 25
+          }
+        ]
+      },
+      {
+        "id": "L3",
+        "labelZh": "+ 经济性",
+        "labelEn": "+ Economics",
+        "candidates": [
+          {
+            "routeId": "route-cu-mof-mo",
+            "routeName": "Cu-MOF + Mo post-modification",
+            "hostMof": "Cu-MOF",
+            "guestMetal": "Mo",
+            "score": 0.797,
+            "rank": 1
+          },
+          {
+            "routeId": "route-zn-mof-mo",
+            "routeName": "Zn-MOF + Mo doping",
+            "hostMof": "Zn-MOF",
+            "guestMetal": "Mo",
+            "score": 0.785,
+            "rank": 2
+          },
+          {
+            "routeId": "route-al-mof-mo",
+            "routeName": "Al-MOF + Mo doping / post-modification / bimetallic construction",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Mo",
+            "score": 0.758,
+            "rank": 3
+          },
+          {
+            "routeId": "route-fe-mof-mo",
+            "routeName": "Fe-MOF + Mo bimetallic construction",
+            "hostMof": "Fe-MOF",
+            "guestMetal": "Mo",
+            "score": 0.755,
+            "rank": 4
+          },
+          {
+            "routeId": "route-al-mof-w",
+            "routeName": "Al-MOF + W post-modification / bimetallic construction",
+            "hostMof": "Al-MOF",
+            "guestMetal": "W",
+            "score": 0.746,
+            "rank": 5
+          },
+          {
+            "routeId": "route-ti-mof-mo",
+            "routeName": "Ti-MOF + Mo bimetallic construction",
+            "hostMof": "Ti-MOF",
+            "guestMetal": "Mo",
+            "score": 0.746,
+            "rank": 6
+          },
+          {
+            "routeId": "route-al-mof-v",
+            "routeName": "Al-MOF + V doping / post-modification",
+            "hostMof": "Al-MOF",
+            "guestMetal": "V",
+            "score": 0.741,
+            "rank": 7
+          },
+          {
+            "routeId": "route-al-mof-cu",
+            "routeName": "Al-MOF + Cu doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Cu",
+            "score": 0.718,
+            "rank": 8
+          },
+          {
+            "routeId": "route-al-mof-ni",
+            "routeName": "Al-MOF + Ni doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Ni",
+            "score": 0.717,
+            "rank": 9
+          },
+          {
+            "routeId": "route-al-mof-ti",
+            "routeName": "Al-MOF + Ti post-modification",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Ti",
+            "score": 0.714,
+            "rank": 10
+          },
+          {
+            "routeId": "route-al-mof-mn",
+            "routeName": "Al-MOF + Mn doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Mn",
+            "score": 0.712,
+            "rank": 11
+          },
+          {
+            "routeId": "route-al-mof-zn",
+            "routeName": "Al-MOF + Zn doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Zn",
+            "score": 0.708,
+            "rank": 12
+          },
+          {
+            "routeId": "route-al-mof-fe",
+            "routeName": "Al-MOF + Fe doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Fe",
+            "score": 0.703,
+            "rank": 13
+          },
+          {
+            "routeId": "route-al-mof-co",
+            "routeName": "Al-MOF + Co doping",
+            "hostMof": "Al-MOF",
+            "guestMetal": "Co",
+            "score": 0.697,
+            "rank": 14
+          },
+          {
+            "routeId": "route-zr-mof-w",
+            "routeName": "Zr-MOF + W post-modification",
+            "hostMof": "Zr-MOF",
+            "guestMetal": "W",
+            "score": 0.671,
+            "rank": 15
+          },
+          {
+            "routeId": "route-zr-mof-fe",
+            "routeName": "Zr-MOF + Fe doping",
+            "hostMof": "Zr-MOF",
+            "guestMetal": "Fe",
+            "score": 0.659,
+            "rank": 16
+          },
+          {
+            "routeId": "route-zr-mof-mo",
+            "routeName": "Zr-MOF + Mo post-modification",
+            "hostMof": "Zr-MOF",
+            "guestMetal": "Mo",
+            "score": 0.657,
+            "rank": 17
+          },
+          {
+            "routeId": "route-al-mof-pristine",
+            "routeName": "Al-MOF + none / pristine pristine host",
+            "hostMof": "Al-MOF",
+            "guestMetal": "none / pristine",
+            "score": 0.653,
+            "rank": 18
+          },
+          {
+            "routeId": "route-ti-mof-pristine",
+            "routeName": "Ti-MOF + none / pristine pristine host",
+            "hostMof": "Ti-MOF",
+            "guestMetal": "none / pristine",
+            "score": 0.631,
+            "rank": 19
+          },
+          {
+            "routeId": "route-uio-type-host-mo",
+            "routeName": "UiO-type host + Mo post-modification",
+            "hostMof": "UiO-type host",
+            "guestMetal": "Mo",
+            "score": 0.595,
+            "rank": 20
+          },
+          {
+            "routeId": "route-zr-mof-pristine",
+            "routeName": "Zr-MOF + none / pristine pristine host",
+            "hostMof": "Zr-MOF",
+            "guestMetal": "none / pristine",
+            "score": 0.59,
+            "rank": 21
+          },
+          {
+            "routeId": "route-uio-type-host-pristine",
+            "routeName": "UiO-type host + none / pristine pristine host",
+            "hostMof": "UiO-type host",
+            "guestMetal": "none / pristine",
+            "score": 0.518,
+            "rank": 22
+          },
+          {
+            "routeId": "route-mil-type-host-mo",
+            "routeName": "MIL-type host + Mo doping / post-modification",
+            "hostMof": "MIL-type host",
+            "guestMetal": "Mo",
+            "score": 0.408,
+            "rank": 23
+          },
+          {
+            "routeId": "route-mof-808-like-host-mo",
+            "routeName": "MOF-808-like host + Mo post-modification",
+            "hostMof": "MOF-808-like host",
+            "guestMetal": "Mo",
+            "score": 0.358,
+            "rank": 24
+          },
+          {
+            "routeId": "route-cr-mof-mo",
+            "routeName": "Cr-MOF + Mo post-modification",
+            "hostMof": "Cr-MOF",
+            "guestMetal": "Mo",
+            "score": 0.201,
+            "rank": 25
+          }
+        ]
+      }
+    ],
+    "boundary": "Descriptor ablation uses the locked spec-v2 weights. Inactive descriptor groups are neutral factors; no rank or score is hardcoded."
+  },
+  "boundary": "Ranking changes are methodological results. They are not experimental catalytic-performance proof."
+}

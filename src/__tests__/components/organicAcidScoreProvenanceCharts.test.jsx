@@ -22,6 +22,8 @@ import {
 import {
   FactorCompressionWaterfall,
   FinalResultSummary,
+  DescriptorAblationChart,
+  DescriptorContributionBar,
   GuestDumbbellChart,
   GuestScoreBreakdownChart,
   HgcpsFactorRose,
@@ -63,6 +65,24 @@ describe("organic acid score provenance charts", () => {
     expect(Number(chart.getAttribute("data-route-count"))).toBeGreaterThanOrEqual(3)
     expect(chart.textContent).toMatch(/当前 top route 相比 runner-up 主要优势来自/)
     expect(chart.textContent).toMatch(/路线因子对比图/)
+  })
+
+  it("renders four-layer descriptor ablation and eight per-factor contribution rows", () => {
+    const model = workbench.descriptorAblation
+    const routeId = model.layers[3].candidates[0].routeId
+    render(
+      <>
+        <DescriptorAblationChart model={model} lang="zh" selectedRouteId={routeId} />
+        <DescriptorContributionBar model={model} lang="zh" routeId={routeId} />
+      </>
+    )
+
+    expect(screen.getByTestId("descriptor-ablation-chart")).toHaveAttribute("data-row-count", String(model.candidates.length))
+    expect(screen.getAllByTestId("descriptor-ablation-line")).toHaveLength(model.candidates.length)
+    expect(screen.getByTestId("descriptor-ablation-chart").textContent).toMatch(/描述符影响/)
+    expect(screen.getByTestId("descriptor-contribution-bar")).toHaveAttribute("data-row-count", "8")
+    expect(screen.getAllByTestId("descriptor-contribution-row")).toHaveLength(8)
+    expect(screen.getByTestId("descriptor-contribution-bar").textContent).toMatch(/weight × ln\(factor\)/)
   })
 
   it("renders the host score breakdown with the selected host contributions", () => {

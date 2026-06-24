@@ -10,7 +10,7 @@ import modelRobustness from "../../../public/data/model_robustness_report_v1.jso
 import { buildProjectOverviewCards, buildProjectStatusSummary } from "../../utils/projectStatus"
 
 describe("projectStatusSummary", () => {
-  it("builds the V3.7 dynamic project status summary from research artifacts", () => {
+  it("builds the current dynamic project status summary from research artifacts", () => {
     const summary = buildProjectStatusSummary({
       versionEvolution,
       versionDocs,
@@ -22,7 +22,7 @@ describe("projectStatusSummary", () => {
     })
 
     expect(summary).toMatchObject({
-      currentVersion: "V3.9.7",
+      currentVersion: "V3.9.8",
       databaseScale: 3020,
       verifiedMetadata: 2480,
       goldDataset: 320,
@@ -49,7 +49,7 @@ describe("projectStatusSummary", () => {
     const cards = buildProjectOverviewCards(buildProjectStatusSummary({ versionEvolution, dataIngestionSummary, benchmarkDatasetV36, experimentalLabelsV2, modelRobustness }))
     const text = cards.map(card => `${card.label}:${card.value}`).join(" | ")
 
-    expect(text).toContain("Current Version:V3.9.7")
+    expect(text).toContain("Current Version:V3.9.8")
     expect(text).toContain("Database Scale:3020+")
     expect(text).toContain("Experimental Labels:150")
     expect(text).toContain("Benchmark Ready:230")

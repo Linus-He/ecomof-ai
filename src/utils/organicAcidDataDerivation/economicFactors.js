@@ -25,8 +25,8 @@ function averageCost(metals = [], lookup) {
   }
 }
 
-export function deriveEconomicFactors(routes = [], hostSelection = {}, guestSelection = {}) {
-  const lookup = new Map(asArray(metalPrecursorCostTable.records).map(row => [row.metal, row]))
+export function deriveEconomicFactors(routes = [], hostSelection = {}, guestSelection = {}, costTable = metalPrecursorCostTable) {
+  const lookup = new Map(asArray(costTable?.records).map(row => [row.metal, row]))
   const hosts = new Map(asArray(hostSelection.rankedHosts).map(row => [row.displayName, row]))
   const guests = new Map(asArray(guestSelection.rankedGuestMetals).map(row => [row.guestMetal, row]))
   const costRows = asArray(routes).map(route => {
@@ -64,7 +64,7 @@ export function deriveEconomicFactors(routes = [], hostSelection = {}, guestSele
       value: roundScore(value),
       estimatedCost: roundScore(row.estimatedCost, 3),
       tuple: provenanceTuple({
-        sourceDataset: "metal_precursor_cost_table.json+linker_descriptor_table.json+derived synthesizability",
+        sourceDataset: `${costTable?.tableId || "metal_precursor_cost_table.json"}+linker_descriptor_table.json+derived synthesizability`,
         nRecords: sourceRows.length,
         rawAggregate: {
           hostMetals: row.hostCost.rows.map(item => item.metal),
@@ -78,10 +78,12 @@ export function deriveEconomicFactors(routes = [], hostSelection = {}, guestSele
         },
         normalization: ORGANIC_ACID_SCORING_SPEC.economics.normalization,
         value,
-        derivationLevel: "curated-economic",
+        derivationLevel: sourceRows.some(item => item.dataGrade === "fallback") ? "curated-economic + fallback" : "curated-economic",
         recordRefs: sourceRows.map(item => `${item.metal}:${item.precursor}`),
         citations: sourceRows.map(item => `${item.source}; ${item.status}`),
-        fallbackReason: sourceRows.length ? "" : "No mapped metal precursor row; placeholder default cost used.",
+        fallbackReason: sourceRows.length
+          ? sourceRows.filter(item => item.dataGrade === "fallback").map(item => `${item.metal} price remains fallback`).join("; ")
+          : "No mapped metal precursor row; default cost used.",
       }),
     }]
   }))

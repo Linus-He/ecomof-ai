@@ -14,7 +14,12 @@ import reactionDataset from "../../../public/data/data_ingestion/organic_acid_re
 import gasAdsorptionRecords from "../../../public/data/gas_adsorption_records_v1.json"
 import literatureDataset from "../../../public/data/organic_acid_literature_dataset_v2.json"
 import goldDataset from "../../../public/data/organic_acid_gold_dataset_v2.json"
+import scoringSpecV1 from "../../../public/data/organic_acid_scoring_spec_v1.json"
+import scoringSpecV2 from "../../../public/data/organic_acid_scoring_spec_v2.json"
+import methodologyShowcase from "../../../public/data/organic_acid_methodology_showcase_v3_9_8.json"
+import metalPriceTable from "../../../public/data/metal_precursor_cost_table.json"
 import {
+  buildAlgorithmShowcaseModel,
   buildOrganicAcidAlgorithmFormulaJson,
   buildOrganicAcidAlgorithmLatexSummary,
   buildOrganicAcidAlgorithmMethodology,
@@ -42,7 +47,7 @@ describe("organic acid algorithm methodology", () => {
   it("builds dynamic Project Evolution methodology sections with required LaTeX formulas and boundaries", () => {
     const methodology = buildOrganicAcidAlgorithmMethodology(methodologyInput)
 
-    expect(methodology.version).toBe("V3.9.7")
+    expect(methodology.version).toBe("V3.9.8")
     expect(methodology.sections).toHaveLength(7)
     expect(methodology.dynamicContext.currentTopRoute).toMatch(/\+/)
     expect(methodology.dynamicContext.selectedHost).toBeTruthy()
@@ -81,5 +86,26 @@ describe("organic acid algorithm methodology", () => {
     expect(latexSummary).toContain("\\[\\mathrm{HGCPS}")
     expect(latexSummary).toContain("\\Delta_i")
     expect(latexSummary).toMatch(/not ready for formal machine learning/)
+  })
+
+  it("builds the formal eight-factor showcase with preregistration and audit conclusions", () => {
+    const showcase = buildAlgorithmShowcaseModel({
+      scoringSpecV1,
+      scoringSpecV2,
+      showcaseArtifact: methodologyShowcase,
+      priceTable: metalPriceTable,
+    })
+
+    expect(showcase.version).toBe("V3.9.8")
+    expect(showcase.factors).toHaveLength(8)
+    expect(showcase.factors.map(row => row.dataGrade)).toEqual(expect.arrayContaining(["data-derived", "curated", "fallback"]))
+    expect(showcase.formula.latex).toContain("\\prod_{i=1}^{8}")
+    expect(showcase.formula.factorSetLatex).toContain("F_{\\mathrm{economics}}")
+    expect(showcase.modelChange.reasonZh).toMatch(/分值整体塌缩/)
+    expect(showcase.preregistration.map(row => row.commit)).toEqual(["6ccbbfa", "339041e"])
+    expect(showcase.audit.composite.spearmanRho).toBe(methodologyShowcase.audit.proxyValidity.composite.spearmanRho)
+    expect(showcase.audit.lowValidityDescriptors).toEqual(methodologyShowcase.audit.proxyValidity.lowValidityDescriptors)
+    expect(showcase.audit.lowConfidenceFamilies).toContain("MIL-type host")
+    expect(showcase.disciplineZh).toMatch(/规则先于排名/)
   })
 })

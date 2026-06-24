@@ -14,6 +14,7 @@ import {
   ORGANIC_ACID_SCORING_SPEC,
 } from "../organicAcidDataDerivation/shared.js"
 import { buildOrganicAcidAudit } from "../organicAcidAudit/index.js"
+import { buildDescriptorAblation } from "../organicAcidDataDerivation/descriptorAblation.js"
 
 /**
  * @typedef {Record<string, any>} OrganicAcidRecord
@@ -21,7 +22,7 @@ import { buildOrganicAcidAudit } from "../organicAcidAudit/index.js"
  * @typedef {{ routeScores?: HostGuestRoute[], topRoute?: HostGuestRoute }} ComplementarityResult
  */
 
-export const ORGANIC_ACID_HOST_GUEST_VERSION = "V3.9.7"
+export const ORGANIC_ACID_HOST_GUEST_VERSION = "V3.9.8"
 export const HOST_GUEST_ALGORITHM_NAME = "Host-Guest Complementary Pathway Screening Algorithm"
 export const HGCPS_FORMULA_TEXT = "HGCPS = weighted geometric mean(Host Stability, Host Pathway Support, Guest Activity Compensation, Host-Guest Complementarity, Evidence Confidence, Risk Retention, Synthesizability, Economics)"
 
@@ -236,7 +237,7 @@ export function buildHostMofSelection(hostCandidates = [], datasets = {}) {
       selectedHost,
       hostScoreBreakdown: selectedHost?.hostScoreBreakdown || {},
       hostRoleExplanation: selectedHost
-        ? `${selectedHost.displayName} is selected as the current host-only structural leader by the preregistered V3.9.7 descriptor score. It is not automatically the final route recommendation.`
+        ? `${selectedHost.displayName} is selected as the current host-only structural leader by the locked spec-v2 descriptor score used in V3.9.8. It is not automatically the final route recommendation.`
         : "No host selected.",
       hostLimitation: selectedHost?.limitation || "Host limitation pending.",
       evidenceRefs: asArray(selectedHost?.evidenceRefs),
@@ -293,7 +294,7 @@ export function buildGuestMetalSelection(guestMetalCandidates = [], selectedHost
       selectedGuestMetal,
       guestScoreBreakdown: selectedGuestMetal?.guestScoreBreakdown || {},
       guestRoleExplanation: selectedGuestMetal
-        ? `${selectedGuestMetal.guestMetal} is selected as the current guest / dopant / activity compensation metal for ${selectedHost?.displayName || "the selected host"} by the preregistered V3.9.7 data-derived or fallback score. It complements the host instead of replacing it.`
+        ? `${selectedGuestMetal.guestMetal} is selected as the current guest / dopant / activity compensation metal for ${selectedHost?.displayName || "the selected host"} by the locked spec-v2 data-derived or fallback score used in V3.9.8. It complements the host instead of replacing it.`
         : "No guest metal selected.",
       compatibilityWithSelectedHost: selectedGuestMetal?.guestScoreBreakdown?.compatibilityWithSelectedHost || 0,
       mainRisk: selectedGuestMetal?.mainRisk || "Guest-metal risk pending.",
@@ -973,6 +974,7 @@ function buildOrganicAcidHostGuestWorkbenchUncached(input = {}) {
   const missingEvidenceRiskMatrix = buildMissingEvidenceRiskMatrix(complementarity.routeScores, input.evidenceRiskRecords)
   const sensitivityAnalysis = buildHostGuestSensitivityAnalysis(complementarity.routeScores)
   const ablationAnalysis = buildHostGuestAblationAnalysis(complementarity.routeScores)
+  const descriptorAblation = buildDescriptorAblation(complementarity.routeScores)
   const audit = {
     ...buildOrganicAcidAudit(datasets),
     rankingSensitivity: buildRankingSensitivityAudit(sensitivityAnalysis),
@@ -1021,6 +1023,7 @@ function buildOrganicAcidHostGuestWorkbenchUncached(input = {}) {
     sensitivityAnalysis,
     audit,
     ablationAnalysis,
+    descriptorAblation,
     experimentalRoute,
     pipelineSteps: PIPELINE_STEP_LABELS.map((label, index) => {
       const commonEvidence = index < 2

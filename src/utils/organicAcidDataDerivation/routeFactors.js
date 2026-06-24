@@ -141,6 +141,9 @@ function routeTuple(route, key, derived, context) {
         poreEnvironmentScore: derived.host?.hostScoreBreakdown?.poreEnvironmentScore,
         co2EnrichmentSupport: derived.host?.hostScoreBreakdown?.co2EnrichmentSupport,
         ligandPathwaySupport: derived.host?.hostScoreBreakdown?.ligandPathwaySupport,
+        directOrStructuralCo2Support: hostTuple.co2EnrichmentSupport?.rawAggregate?.directOrStructuralCo2Support
+          ?? hostTuple.co2EnrichmentSupport?.rawAggregate?.structuralPoreEnvironmentScore
+          ?? derived.host?.hostScoreBreakdown?.co2EnrichmentSupport,
         weights: ORGANIC_ACID_SCORING_SPEC.hostPathwaySupportFormula,
       },
       normalization: "preregistered weighted sum of derived host pathway factors",
@@ -281,7 +284,7 @@ export function deriveRouteFactors(hostGuestRoutes = [], datasets = {}, hostSele
         summaryLabel: `${dataDerivedCount} route factors data/rule-derived; ${curatedCount} curated; ${fallbackCount} fallback`,
       },
       routeName: routeName(route),
-      mainReason: `${route.hostMof} + ${route.guestMetal} is ranked by V3.9.7 preregistered weighted-geometric HGCPS factors, including ligand chemistry, synthesizability, and economic screening.`,
+      mainReason: `${route.hostMof} + ${route.guestMetal} is ranked by V3.9.8 using the locked spec-v2 weighted-geometric HGCPS factors, including ligand chemistry, synthesizability, and updated economic screening.`,
       provenanceStatus: Object.entries(routeFactorProvenance).map(([key, tuple]) => `${key}: ${derivationLabel(tuple)}`).join(" / "),
       provenance: Object.entries(routeFactorProvenance).map(([key, tuple]) => `${key}: ${derivationLabel(tuple)}`),
       evidenceSources: derived.stats.records,

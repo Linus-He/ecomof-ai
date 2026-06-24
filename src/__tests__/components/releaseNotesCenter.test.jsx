@@ -10,7 +10,7 @@ describe("Project Updates", () => {
     const updates = screen.getByTestId("project-evolution-release-notes")
     expect(updates).toBeInTheDocument()
     expect(updates.textContent).toMatch(/Project Updates/)
-    expect(updates.textContent).toMatch(/V3\.9\.7/)
+    expect(updates.textContent).toMatch(/V3\.9\.8/)
     for (const number of ["01", "02", "03", "04"]) {
       expect(within(updates).getByText(number)).toBeInTheDocument()
     }
@@ -20,9 +20,9 @@ describe("Project Updates", () => {
     render(<ProjectEvolutionTab data={data} />)
 
     const updates = screen.getByTestId("project-evolution-release-notes")
-    expect(updates.textContent).toMatch(/Scoring audit/)
-    expect(updates.textContent).toMatch(/Descriptor expansion/)
-    expect(updates.textContent).toMatch(/Locked rerun/)
-    expect(updates.textContent).toMatch(/Provenance and boundary/)
+    expect(updates.textContent).toMatch(/Descriptor ablation/)
+    expect(updates.textContent).toMatch(/Methods showcase/)
+    expect(updates.textContent).toMatch(/Real-price rerun/)
+    expect(updates.textContent).toMatch(/Evolution report and audit/)
   })
 })

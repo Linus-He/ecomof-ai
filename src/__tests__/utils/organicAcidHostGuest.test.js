@@ -50,10 +50,10 @@ const input = {
 }
 
 describe("organic acid host-guest pathway screening", () => {
-  it("builds the V3.9.7 pathway pipeline from the preregistered descriptor expansion", () => {
+  it("builds the V3.9.8 pathway pipeline from the locked descriptor expansion", () => {
     const workbench = buildOrganicAcidHostGuestWorkbench(input)
 
-    expect(workbench.version).toBe("V3.9.7")
+    expect(workbench.version).toBe("V3.9.8")
     expect(workbench.scoringSpec.specId).toBe(scoringSpec.specId)
     expect(workbench.pipelineSteps).toHaveLength(6)
     expect(hostMofCandidates.length).toBeGreaterThanOrEqual(8)
@@ -177,13 +177,13 @@ describe("organic acid host-guest pathway screening", () => {
     expect(buildMissingEvidenceRiskMatrixCsv(workbench.missingEvidenceRiskMatrix)).toMatch(/Mo introduction feasibility needs validation/)
     expect(buildPathwayDescriptorMapCsv(workbench.descriptorMap)).toMatch(/CO2 activation/)
     expect(buildHostGuestRouteExplanationJson(workbench.selectedRouteExplanation)).toEqual(expect.objectContaining({
-      version: "V3.9.7",
+      version: "V3.9.8",
       targetProduct: "formic acid / organic acid",
       hostMof: workbench.complementarity.topRoute.hostMof,
       guestMetal: workbench.complementarity.topRoute.guestMetal,
     }))
     expect(buildOrganicAcidRouteReportJson(workbench, workbench.selectedRouteExplanation)).toEqual(expect.objectContaining({
-      version: "V3.9.7",
+      version: "V3.9.8",
       hgcpsFormula: HGCPS_FORMULA_TEXT,
       limitationStatement: "This is a high-priority experimental route, not final catalytic performance proof.",
     }))
@@ -232,13 +232,18 @@ describe("organic acid host-guest pathway screening", () => {
     const secondStartedAt = performance.now()
     const second = buildOrganicAcidHostGuestWorkbench(input)
     const secondDuration = performance.now() - secondStartedAt
+    const cloneStartedAt = performance.now()
+    const cloned = buildOrganicAcidHostGuestWorkbench(structuredClone(input))
+    const cloneDuration = performance.now() - cloneStartedAt
     const stats = getOrganicAcidDerivationCacheStats()
 
     expect(firstDuration).toBeLessThan(2000)
     expect(secondDuration).toBeLessThan(50)
+    expect(cloneDuration).toBeLessThan(500)
     expect(second).toBe(first)
+    expect(cloned).toBe(first)
     expect(stats.workbench.computations).toBe(1)
-    expect(stats.workbench.hits).toBe(1)
+    expect(stats.workbench.hits).toBe(2)
     expect(stats.hostFactors.computations).toBe(1)
     expect(stats.routeFactors.computations).toBe(1)
   })

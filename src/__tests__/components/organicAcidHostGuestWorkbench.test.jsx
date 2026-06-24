@@ -74,7 +74,7 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     vi.useRealTimers()
   })
 
-  it("renders the V3.9.7 stepwise execution chain from Step 0 before any route-output emphasis", () => {
+  it("renders the V3.9.8 stepwise execution chain from Step 0 before any route-output emphasis", () => {
     renderWorkbench()
     const text = bodyText()
 
@@ -84,7 +84,7 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     expect(screen.getByTestId("organic-acid-step-mini-map")).toBeInTheDocument()
     expect(screen.getByTestId("organic-acid-step-why-panel")).toBeInTheDocument()
 
-    expect(text).toMatch(/EcoMOF-AI V3\.9\.7/)
+    expect(text).toMatch(/EcoMOF-AI V3\.9\.8/)
     expect(text).toMatch(/筛选目标设定/)
     expect(text).toMatch(/Screening Objective \/ 筛选目标/)
     expect(text).toMatch(/有机酸分步算法执行链/)

@@ -1,5 +1,5 @@
 /**
- * Organic Acid Score Provenance builders (V3.9.7).
+ * Organic Acid Score Provenance builders (V3.9.8).
  *
  * Turns the Step Why Panel into a real score explainer: raw / proxy fields ->
  * normalized value -> weight or factor -> sub-contribution -> weighted-sum or
@@ -18,7 +18,7 @@ import {
   safeNumber,
 } from "../organicAcidHostGuest/index.js"
 
-export const ORGANIC_ACID_SCORE_PROVENANCE_VERSION = "V3.9.7"
+export const ORGANIC_ACID_SCORE_PROVENANCE_VERSION = "V3.9.8"
 
 const HOST_DATA_FILE = "organic_acid_host_guest/host_mof_candidates.json"
 const GUEST_DATA_FILE = "organic_acid_host_guest/guest_metal_candidates.json"
@@ -1101,6 +1101,7 @@ export function buildStepWhyPanelEnhancedModel(step, workbench, options = {}) {
     model.scoreSourceTable = buildScoreSourceTableModel(provenance)
     model.factorCompressionTrace = buildFactorCompressionTrace(workbench, options)
     model.routeFactorComparison = buildRouteFactorComparisonModel(workbench, options)
+    model.descriptorAblation = workbench?.descriptorAblation || null
     model.dataGradeBadges = buildScoreDataGradeBadges(provenance)
     model.whyNotOther = buildDynamicWhyNotOtherExplanation(routes[0], routes[1], { kind: "route", dataGrade: provenance.dataGrade, rank: provenance.rank })
     const dynamic = dynamicConclusion(stepId, provenance, model.factorDeltaTable, conclusionZh, conclusionEn)

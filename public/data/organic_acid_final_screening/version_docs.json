@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06-24",
-  "currentVersion": "V3.9.7",
-  "completedRange": "V1.0-V3.9.7",
+  "currentVersion": "V3.9.8",
+  "completedRange": "V1.0-V3.9.8",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -3637,7 +3637,7 @@
       "title": "Organic Acid Scoring Audit and Descriptor Expansion",
       "titleZh": "有机酸评分审计、修复与描述符扩展",
       "date": "2026-06-24",
-      "status": "current",
+      "status": "completed",
       "theme": "Audit-first preregistered ligand, synthesis, and LCC rerun",
       "themeZh": "审计优先的配体、可合成性与 LCC 预注册重跑",
       "summary": "Fixed repeated derivation and recommendation inconsistency, audited pore-proxy validity, family fairness, and ranking sensitivity, then locked scoring spec v2 before adding ligand chemistry, synthesizability, and economic LCC descriptors. The rerun is reported without post-hoc tuning.",
@@ -3715,6 +3715,92 @@
         "adaptationBoundaryZh": "仅用于白盒路线优先级审计与筛选；不提供最终催化性能证明，也不是正式机器学习预测。"
       },
       "relatedSection": "project-evolution-organic-acid-algorithm-methodology"
+    },
+    {
+      "version": "V3.9.8",
+      "title": "Organic Acid Descriptor Impact, Methods, and Research Reporting",
+      "titleZh": "有机酸描述符影响、方法论与研究报告",
+      "date": "2026-06-24",
+      "status": "current",
+      "theme": "Fixed-weight descriptor ablation, real-price rerun, and published audit conclusions",
+      "themeZh": "固定权重描述符消融、真实价格重跑与审计结论上墙",
+      "summary": "Added L0-L3 descriptor ablation and logarithmic factor contributions, a formal eight-factor HGCPS Methods showcase, an append-only four-stage ranking-evolution report, updated June 2026 mixed-confidence prices, visible audit conclusions, and stronger derivation memoization.",
+      "summaryZh": "新增 L0-L3 描述符消融与对数贡献分解、正式八因子 HGCPS Methods 展示、可追加四阶段排名演化报告、2026-06 混合置信价格更新、审计结论上墙与更强派生缓存。",
+      "keyUpdates": [
+        "Added descriptorAblation.js with L0 structure-only, L1 ligand, L2 synthesizability, and L3 economics layers under fixed spec-v2 weights.",
+        "Added DescriptorAblationChart and DescriptorContributionBar to the Step 5 score-provenance surface.",
+        "Added a Methods-grade AlgorithmShowcaseSection with KaTeX formula, eight-factor source matrix, preregistration history, and audit conclusions.",
+        "Added organic_acid_ranking_evolution_log.json plus a research-report table, line chart, and five written analyses.",
+        "Replaced ten specified placeholder prices and reran the locked model without changing weights or descriptors.",
+        "Added content-addressed derivation memoization and a build-time derived-factor cache artifact."
+      ],
+      "keyUpdatesZh": [
+        "新增 descriptorAblation.js，在固定 spec v2 权重下计算 L0 仅结构、L1 配体、L2 可合成性与 L3 经济性。",
+        "在 Step 5 得分溯源区新增 DescriptorAblationChart 与 DescriptorContributionBar。",
+        "新增 Methods 级 AlgorithmShowcaseSection，展示 KaTeX 公式、八因子来源矩阵、预注册历史与审计结论。",
+        "新增 organic_acid_ranking_evolution_log.json，以及研究报告排名表、折线与五点书面分析。",
+        "替换十项指定占位价格，并在不改权重 / 描述符的前提下按锁定模型重跑。",
+        "新增基于内容签名的派生 memo 与构建期派生因子缓存工件。"
+      ],
+      "algorithmChanges": [
+        "Descriptor ablation neutralizes inactive new descriptor groups while preserving the locked spec-v2 weights.",
+        "Per-factor contribution uses weight * ln(factor), with relative-to-route-mean values used only for positive/negative display color.",
+        "The V3.9.8 rerun changes data inputs only; scoring weights, descriptor definitions, and normalization rules remain locked.",
+        "Equivalent cloned datasets now share memoized derivations, while changed data produce different cache keys and outputs."
+      ],
+      "algorithmChangesZh": [
+        "描述符消融把未启用的新描述符组设为中性因子，同时保持 spec v2 锁定权重。",
+        "逐因子贡献采用 weight * ln(factor)；正负配色仅使用相对路线平均贡献。",
+        "V3.9.8 重跑只更新数据输入；评分权重、描述符定义与归一化规则保持锁定。",
+        "内容相同但引用不同的数据可复用 memo；数据改变会生成不同缓存键与输出。"
+      ],
+      "uiChanges": [
+        "Step 5 adds a Descriptor Impact tab with four-layer rank evolution and selectable route contributions.",
+        "Methods adds a standalone Algorithm Showcase block with complete factor provenance and audit conclusions.",
+        "Research Reports adds the version-by-rank evolution table, route line chart, real-price comparison, five written analyses, and audit summary."
+      ],
+      "uiChangesZh": [
+        "Step 5 新增描述符影响 tab，展示四层排名演化与可选路线贡献。",
+        "方法论新增独立 Algorithm Showcase，完整展示因子溯源与审计结论。",
+        "研究报告新增版本 × 排名演化表、路线折线、真实价格对比、五点书面分析与审计摘要。"
+      ],
+      "methodologyChanges": [
+        "Documents the transition from a pure product to an eight-factor weighted geometric mean and the reason for the change.",
+        "Publishes spec-v1/spec-v2 lock timestamps and commit references under the rules-before-rankings policy.",
+        "Publishes pore-proxy Spearman validity, family confidence, and current sensitivity conclusions without silently changing weights."
+      ],
+      "methodologyChangesZh": [
+        "记录模型由纯乘法改为八因子加权几何平均及其理由。",
+        "按规则先于排名政策展示 spec v1 / spec v2 锁定时间与提交记录。",
+        "展示孔代理 Spearman、家族置信与当前敏感性结论，不静默改权重。"
+      ],
+      "evidenceBoundary": "V3.9.8 is a white-box descriptor-impact, data-revision, reporting, and performance-hardening release. Prices remain screening inputs with mixed confidence; unprovided metal prices remain fallback. Results are route-priority hypotheses, not experimental catalytic-performance proof.",
+      "evidenceBoundaryZh": "V3.9.8 是白盒描述符影响、数据修订、报告与性能加固版本。价格仍是混合置信的筛选级输入；未提供金属价格继续标为 fallback。结果是路线优先级假设，不是实验催化性能证明。",
+      "limitations": [
+        "Medium/low-confidence Fe/Cr/Ti/Zr/W/Mo screening prices require Fastmarkets/USGS/SMM verification.",
+        "Ni/V/Mn/Ce prices remain explicit fallback placeholders because no replacement values were supplied.",
+        "Guest/dopant activity remains fallback where dedicated guest records are unavailable.",
+        "Same-condition catalytic validation remains pending."
+      ],
+      "limitationsZh": [
+        "Fe / Cr / Ti / Zr / W / Mo 的中低置信筛选价格仍需 Fastmarkets / USGS / SMM 复核。",
+        "Ni / V / Mn / Ce 因未提供替换值而继续保留显式 fallback 占位价格。",
+        "缺少专门客体记录时，客体 / 掺杂活性仍走 fallback。",
+        "同条件催化验证仍待完成。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "descriptor-ablation",
+          "ranking-evolution",
+          "real-price-rerun",
+          "algorithm-showcase",
+          "audit-publication",
+          "content-addressed-cache"
+        ],
+        "adaptationBoundary": "White-box route-priority analysis and reporting only; no final catalyst-performance proof and no formal ML prediction.",
+        "adaptationBoundaryZh": "仅用于白盒路线优先级分析与报告；不提供最终催化性能证明，也不是正式机器学习预测。"
+      },
+      "relatedSection": "#methodology-oafs-algorithm-showcase"
     }
   ],
   "roadmap": [

@@ -7,6 +7,8 @@ import literatureDataset from "../../../public/data/organic_acid_literature_data
 import goldDataset from "../../../public/data/organic_acid_gold_dataset_v2.json"
 import auditArtifact from "../../../public/data/organic_acid_audit_v3_9_7.json"
 import rerunArtifact from "../../../public/data/organic_acid_rerun_v3_9_7.json"
+import currentAuditArtifact from "../../../public/data/organic_acid_audit_v3_9_8.json"
+import currentRerunArtifact from "../../../public/data/organic_acid_rerun_v3_9_8.json"
 import {
   buildFamilyFairnessAudit,
   buildOrganicAcidAudit,
@@ -102,7 +104,7 @@ describe("organic acid V3.9.7 audits", () => {
       goldDataset,
     })
 
-    expect(audit.version).toBe("V3.9.7")
+    expect(audit.version).toBe("V3.9.8")
     expect(audit.proxyValidity.descriptors).toHaveLength(3)
     expect(audit.proxyValidity.familyRows.find(row => row.family === "Al-MOF").reactionRecords).toBeGreaterThan(0)
     expect(audit.familyFairness.familyReports.find(row => row.family === "MIL-type host").nRecords).toEqual(expect.objectContaining({
@@ -130,5 +132,20 @@ describe("organic acid V3.9.7 audits", () => {
     expect(rerunArtifact.routeRanking.find(row => row.routeId === "route-al-mof-mo").ranking).toBe(3)
     expect(rerunArtifact.routeRanking.find(row => row.routeId === "route-ti-mof-mo").ranking).toBe(6)
     expect(rerunArtifact.boundary).toMatch(/No post-hoc weight change/)
+  })
+
+  it("persists V3.9.8 audit conclusions and the locked-spec real-price rerun", () => {
+    expect(currentAuditArtifact.version).toBe("V3.9.8")
+    expect(currentAuditArtifact.proxyValidity.composite.spearmanRho).toBeGreaterThan(0.1)
+    expect(currentAuditArtifact.proxyValidity.lowValidityDescriptors).toContain("voidFraction")
+    expect(currentAuditArtifact.familyFairness.lowConfidenceFamilies).toContain("MIL-type host")
+    expect(currentAuditArtifact.scoringMutation).toEqual(expect.objectContaining({
+      applied: false,
+      note: expect.stringMatching(/price data only|weights/i),
+    }))
+    expect(currentRerunArtifact.scoringSpec.specId).toBe("organic-acid-host-guest-scoring-spec-v2")
+    expect(currentRerunArtifact.priceTable.version).toBe("V3.9.8")
+    expect(currentRerunArtifact.descriptorAblation.layers).toHaveLength(4)
+    expect(currentRerunArtifact.boundary).toMatch(/No post-hoc weight change/)
   })
 })

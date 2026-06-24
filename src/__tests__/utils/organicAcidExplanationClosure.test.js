@@ -118,7 +118,7 @@ describe("organic acid explanation closure builders", () => {
 
   it("exports the closure bundle and a visual QA checklist without bad values", () => {
     const bundle = buildExplanationClosureExportJson(workbench(), source(), activation())
-    expect(bundle.version).toBe("V3.9.7")
+    expect(bundle.version).toBe("V3.9.8")
     noBad(bundle)
     const qa = buildOrganicAcidVisualQaChecklist()
     expect(qa.items.length).toBeGreaterThanOrEqual(10)
