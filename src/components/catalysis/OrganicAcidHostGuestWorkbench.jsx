@@ -84,7 +84,7 @@ function FactorSourceRows({ provenance = {}, lang, maxRows = 8 }) {
       <strong style={{ color: palette.text, fontSize: 12.5 }}>{text(lang, "逐因子来源", "Factor sources")}</strong>
       {rows.map(([factor, tuple]) => (
         <details key={factor} style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 8, padding: 8 }}>
-          <summary style={{ color: /curated/.test(tuple?.derivationLevel || "") ? palette.risk : palette.accent, cursor: "pointer", fontSize: 11.7, fontWeight: 850 }}>
+          <summary style={{ color: /fallback/.test(tuple?.derivationLevel || "") ? palette.risk : /curated/.test(tuple?.derivationLevel || "") ? palette.mixed : palette.accent, cursor: "pointer", fontSize: 11.7, fontWeight: 850 }}>
             {factor}: {sourceLabel(tuple)}
           </summary>
           <div style={{ color: palette.muted, display: "grid", fontSize: 11.3, gap: 4, lineHeight: 1.45, marginTop: 7 }}>
@@ -178,9 +178,10 @@ function SectionTitle({ kicker, title, note }) {
 
 function RecommendationCard({ workbench, lang, onOpenActivationCenter }) {
   const rec = workbench.recommendation
-  const host = workbench.hostSelection.selectedHost
-  const guest = workbench.guestSelection.selectedGuestMetal
   const topRoute = workbench.complementarity.topRoute
+  const structuralHost = workbench.hostSelection.selectedHost
+  const routeHost = workbench.hostSelection.rankedHosts.find(row => row.displayName === topRoute?.hostMof)
+  const routeGuest = workbench.guestSelection.rankedGuestMetals.find(row => row.guestMetal === topRoute?.guestMetal)
   return (
     <section style={{ background: palette.bg, border: `1px solid ${palette.accent}`, borderRadius: 10, display: "grid", gap: 13, padding: 14 }}>
       <div style={{ display: "grid", gap: 5 }}>
@@ -192,12 +193,15 @@ function RecommendationCard({ workbench, lang, onOpenActivationCenter }) {
         </h2>
       </div>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
-        <ScorePill label={`Host framework: ${host?.displayName || "pending"}`} value={host?.hostScore} tone={palette.positive} />
-        <ScorePill label={`Guest / dopant metal: ${guest?.guestMetal || "pending"}`} value={guest?.guestScore} />
+        <ScorePill label={`${text(lang, "路线最优主体", "Top route host")}: ${routeHost?.displayName || "pending"}`} value={routeHost?.hostScore} tone={palette.positive} />
+        <ScorePill label={`${text(lang, "路线客体 / 掺杂金属", "Route guest / dopant")}: ${routeGuest?.guestMetal || "pending"}`} value={routeGuest?.guestScore} />
         <ScorePill label="Final HGCPS" value={topRoute?.finalHGCPS} tone={palette.mixed} />
       </div>
       <div style={{ display: "grid", gap: 7, gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }}>
         {[
+          [text(lang, "结构 / 稳定性最优主体", "Top structural host"), rec.topStructuralHost],
+          [text(lang, "综合路线最优主体", "Top route host"), rec.topRouteHost],
+          [text(lang, "主体分歧解释", "Host divergence explanation"), rec.hostSelectionExplanation],
           ["Suggested route", rec.suggestedRoute],
           ["Algorithm basis", rec.algorithmBasis],
           ["Confidence", rec.confidence],
@@ -213,8 +217,8 @@ function RecommendationCard({ workbench, lang, onOpenActivationCenter }) {
       <div style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.55 }}>
         {text(
           lang,
-          `结论边界：${host?.displayName || "当前主体"} 是稳定主体 MOF / stable host framework；${guest?.guestMetal || "当前客体"} 是客体 / 掺杂 / activity compensation metal。该路线来自预注册规则、真实数据派生与显式文献先验，不是黑盒机器学习预测，也不代表已经证明最终催化性能最优。`,
-          `Boundary: ${host?.displayName || "the current host"} is the stable host framework; ${guest?.guestMetal || "the current guest"} is the guest / dopant / activity compensation metal. The route comes from preregistered rules, data-derived factors, and explicit literature priors, not black-box machine learning, and it is not final proof of catalytic performance.`
+          `结论边界：最终推荐对象取路线榜 HGCPS 第一，即 ${routeHost?.displayName || "当前路线主体"} + ${routeGuest?.guestMetal || "当前路线客体"}。结构 / 稳定性单项最优主体为 ${structuralHost?.displayName || "待定"}；两者不一致时会明确并列展示。该路线不是黑盒机器学习预测，也不代表已经证明最终催化性能最优。`,
+          `Boundary: the final recommendation follows the top HGCPS route, ${routeHost?.displayName || "the route host"} + ${routeGuest?.guestMetal || "the route guest"}. The host-only structural leader is ${structuralHost?.displayName || "pending"}; any divergence is shown explicitly. This is not black-box ML or final proof of catalytic performance.`
         )}
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
@@ -310,7 +314,7 @@ function SelectionSection({ workbench, lang, isNarrow }) {
       <SectionTitle
         kicker="Host and guest selection"
         title={text(lang, "主体 MOF 与客体金属筛选", "Host MOF and Guest Metal Selection")}
-        note={text(lang, "主体与客体均由 V3.9.6 预注册规则计算；数据不足的子因子会标为 curated fallback 或 literature prior。", "Host and guest are computed by the V3.9.6 preregistered rules; sparse factors are labeled curated fallback or literature prior.")}
+        note={text(lang, "主体与客体均由 V3.9.7 预注册规则计算；配体、可合成性与经济性按 data-derived / curated / fallback 分级。", "Host and guest are computed by the V3.9.7 preregistered rules; ligand, synthesizability, and economics are graded as data-derived, curated, or fallback.")}
       />
       <div style={{ display: "grid", gap: 12, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) minmax(0, 1fr)" }}>
         <div style={cardStyle()}>
@@ -324,6 +328,9 @@ function SelectionSection({ workbench, lang, isNarrow }) {
                   <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 900 }}>{host.displayName}</div>
                   <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.4 }}>{host.hostRole}</div>
                   <div style={{ color: palette.faint, fontSize: 10.8, lineHeight: 1.35 }}>{sourceLabel(host.factorProvenance?.poreEnvironmentScore || host.factorProvenance?.stabilityProxy)}</div>
+                  <div style={{ color: palette.faint, fontSize: 10.8, lineHeight: 1.35 }}>
+                    ligand {fmt(host.ligandPathwaySupport, 2)} · synthesis {fmt(host.synthesizabilityScore, 2)}
+                  </div>
                 </div>
                 <NumericText style={{ color: palette.accent, fontSize: 12, fontWeight: 900, textAlign: "right" }}>{fmt(host.hostScore, 3)}</NumericText>
               </div>
@@ -421,11 +428,11 @@ function RouteExplanationPanel({ explanation, lang, onOpenActivationCenter }) {
       <div style={{ background: palette.accentSoft, border: `1px solid ${palette.border}`, borderRadius: 8, color: palette.muted, fontSize: 11.8, lineHeight: 1.45, padding: 9 }}>
         {text(
           lang,
-          `来源总览：${explanation.derivationSummary?.dataDerivedCount ?? 0} 个路线因子来自数据派生/规则派生，${explanation.derivationSummary?.fallbackCount ?? 0} 个因子为文献先验或缺数据退化；累计记录 n=${explanation.derivationSummary?.totalRecords ?? 0}。`,
-          `Source overview: ${explanation.derivationSummary?.dataDerivedCount ?? 0} route factors are data/rule-derived, ${explanation.derivationSummary?.fallbackCount ?? 0} are literature priors or sparse-data fallback; total records n=${explanation.derivationSummary?.totalRecords ?? 0}.`
+          `来源总览：${explanation.derivationSummary?.dataDerivedCount ?? 0} 个 data/rule-derived，${explanation.derivationSummary?.curatedCount ?? 0} 个 curated，${explanation.derivationSummary?.fallbackCount ?? 0} 个 fallback；累计记录 n=${explanation.derivationSummary?.totalRecords ?? 0}。`,
+          `Source overview: ${explanation.derivationSummary?.dataDerivedCount ?? 0} data/rule-derived, ${explanation.derivationSummary?.curatedCount ?? 0} curated, ${explanation.derivationSummary?.fallbackCount ?? 0} fallback; total records n=${explanation.derivationSummary?.totalRecords ?? 0}.`
         )}
       </div>
-      <FactorSourceRows provenance={explanation.routeFactorProvenance} lang={lang} maxRows={6} />
+      <FactorSourceRows provenance={explanation.routeFactorProvenance} lang={lang} maxRows={8} />
       <div style={{ display: "grid", gap: 6 }}>
         <strong style={{ color: palette.text, fontSize: 12.5 }}>{text(lang, "证据来源与风险原因", "Evidence sources and risk reasons")}</strong>
         {explanation.riskPenaltyBreakdown.slice(0, 4).map(row => (
@@ -452,13 +459,13 @@ function ComplementaryScoringSection({ workbench, lang }) {
       <SectionTitle
         kicker="Complementary Scoring"
         title={text(lang, "HGCPS 主客体互补路径评分", "HGCPS Host-Guest Complementarity Scoring")}
-        note={`${HGCPS_FORMULA_TEXT}. Multiplication expresses the pathway bottleneck effect; the 0-1 risk retention factor keeps unresolved risk inside the product.`}
+        note={`${HGCPS_FORMULA_TEXT}. The preregistered weighted geometric mean preserves the bottleneck effect while adding ligand chemistry, synthesizability, and economics.`}
       />
       <div style={{ overflowX: "auto" }}>
-        <table style={{ borderCollapse: "collapse", minWidth: 850, width: "100%" }}>
+        <table style={{ borderCollapse: "collapse", minWidth: 1080, width: "100%" }}>
           <thead>
             <tr>
-              {["Rank", "Route", "Host", "Guest", "Complementarity", "Evidence", "Risk retention", "Final HGCPS", "Main reason"].map(head => (
+              {["Rank", "Route", "Host stability", "Pathway", "Guest", "Complementarity", "Evidence", "Risk", "Synthesis", "Economics", "Final HGCPS", "Main reason"].map(head => (
                 <th key={head} style={{ borderBottom: `1px solid ${palette.borderStrong}`, color: palette.faint, fontSize: 11, fontWeight: 900, padding: "8px 9px", textAlign: "left" }}>{head}</th>
               ))}
             </tr>
@@ -469,10 +476,13 @@ function ComplementaryScoringSection({ workbench, lang }) {
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.accent, fontSize: 12, fontWeight: 900, padding: "9px" }}>#{route.ranking}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.text, fontSize: 12, fontWeight: 850, padding: "9px" }}>{route.routeName}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "9px" }}>{fmt(route.scoreBreakdown.hostStability, 2)}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "9px" }}>{fmt(route.scoreBreakdown.hostPathwaySupport, 2)}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "9px" }}>{fmt(route.scoreBreakdown.guestActivityCompensation, 2)}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "9px" }}>{fmt(route.scoreBreakdown.complementarity, 2)}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "9px" }}>{fmt(route.scoreBreakdown.evidence, 2)}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.risk, fontSize: 12, padding: "9px" }}>{fmt(route.scoreBreakdown.riskRetentionFactor, 2)}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 12, padding: "9px" }}>{fmt(route.scoreBreakdown.synthesizability, 2)}</td>
+                <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.mixed, fontSize: 12, padding: "9px" }}>{fmt(route.scoreBreakdown.economics, 2)}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.accent, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 12, fontWeight: 950, padding: "9px" }}>{fmt(route.finalHGCPS, 3)}</td>
                 <td style={{ borderBottom: `1px solid ${palette.border}`, color: palette.muted, fontSize: 11.5, lineHeight: 1.45, padding: "9px" }}>{route.mainReason}</td>
               </tr>
@@ -654,11 +664,13 @@ function SensitivityAnalysisSection({ workbench, lang }) {
       <SectionTitle
         kicker="Sensitivity Analysis Panel"
         title={text(lang, "敏感性分析", "Sensitivity Analysis")}
-        note={text(lang, "对每个 HGCPS 因子做 ±20% 扰动，观察基准排序、调整后排序和当前 top route 是否仍保持第一。", "Each HGCPS factor is perturbed by +/-20% to compare the baseline ranking, adjusted ranking, and current top-route stability.")}
+        note={text(lang, "对每个 HGCPS 因子做权重指数 ±20% 扰动，并加入归一化曲率扰动；报告路线翻转率与 Al-MOF / Ti-MOF / MIL-type 的排名分布。", "Each HGCPS factor receives a +/-20% weight-exponent perturbation plus normalization-curvature scenarios; route flip frequency and Al-MOF / Ti-MOF / MIL-type rank distributions are reported.")}
       />
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
         {[
           ["Rank stability", pct(summary.rankStability)],
+          ["Top-route flip frequency", pct(summary.topRouteFlipFrequency)],
+          ["Fragility", summary.fragility],
           ["Current top route remains top", summary.topRouteRemainsTop ? "yes" : "no"],
           ["Most sensitive factor", summary.mostSensitiveFactor],
           ["Max score change", fmt(summary.maxScoreChange, 3)],
@@ -666,6 +678,16 @@ function SensitivityAnalysisSection({ workbench, lang }) {
           <div key={label} style={cardStyle({ background: palette.surfaceStrong })}>
             <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 850 }}>{label}</div>
             <div style={{ color: palette.text, fontSize: 13.5, fontWeight: 920 }}>{value}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+        {workbench.sensitivityAnalysis.candidateRankDistributions.map(row => (
+          <div key={row.hostMof} style={cardStyle({ background: palette.surfaceStrong })}>
+            <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 900 }}>{row.hostMof}</div>
+            <div style={{ color: palette.muted, fontSize: 11.7 }}>
+              {text(lang, "排名范围", "Rank range")}: #{row.minRank}-#{row.maxRank} · {text(lang, "中位", "median")} #{row.medianRank} · #1 {pct(row.topRankFrequency)}
+            </div>
           </div>
         ))}
       </div>
@@ -692,6 +714,55 @@ function SensitivityAnalysisSection({ workbench, lang }) {
             ))}
           </tbody>
         </table>
+      </div>
+    </section>
+  )
+}
+
+function ScoringAuditSection({ workbench, lang }) {
+  const audit = workbench.audit || {}
+  const proxy = audit.proxyValidity || {}
+  const family = audit.familyFairness || {}
+  return (
+    <section style={{ display: "grid", gap: 12 }}>
+      <SectionTitle
+        kicker="V3.9.7 Scoring Audit"
+        title={text(lang, "评分审计", "Scoring Audit")}
+        note={text(lang, "审计只报告代理有效性、家族公平性与排名稳健性；不静默改权重。", "The audit reports proxy validity, family fairness, and ranking robustness; it does not silently change weights.")}
+      />
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))" }}>
+        {(proxy.descriptors || []).map(row => (
+          <div key={row.descriptor} style={cardStyle({ background: row.validity === "low-validity-for-this-reaction" ? palette.riskSoft : palette.positiveSoft })}>
+            <strong style={{ color: palette.text, fontSize: 12.5 }}>{row.descriptor}</strong>
+            <NumericText style={{ color: row.validity === "low-validity-for-this-reaction" ? palette.risk : palette.positive, fontSize: 15, fontWeight: 950 }}>
+              Spearman {row.spearmanRho ?? "n/a"}
+            </NumericText>
+            <span style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45 }}>{row.validity}</span>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}>
+        <div style={cardStyle({ background: palette.surfaceStrong })}>
+          <strong style={{ color: palette.text, fontSize: 12.5 }}>{text(lang, "复合孔代理", "Composite pore proxy")}</strong>
+          <span style={{ color: palette.muted, fontSize: 11.7 }}>
+            rho {proxy.composite?.spearmanRho ?? "n/a"} · {proxy.composite?.validity || "pending"}
+          </span>
+        </div>
+        <div style={cardStyle({ background: palette.surfaceStrong })}>
+          <strong style={{ color: palette.text, fontSize: 12.5 }}>{text(lang, "低置信家族", "Low-confidence families")}</strong>
+          <span style={{ color: palette.risk, fontSize: 11.7 }}>{(family.lowConfidenceFamilies || []).join(", ") || "none"}</span>
+        </div>
+        <div style={cardStyle({ background: palette.surfaceStrong })}>
+          <strong style={{ color: palette.text, fontSize: 12.5 }}>{text(lang, "权重变更", "Weight mutation")}</strong>
+          <span style={{ color: palette.positive, fontSize: 11.7 }}>{audit.scoringMutation?.applied ? "applied" : "none during audit"}</span>
+        </div>
+      </div>
+      <div style={{ color: palette.muted, fontSize: 11.8, lineHeight: 1.5 }}>
+        {text(
+          lang,
+          `家族审计输出 nRecords、median / IQR、异常值与主导记录。当前敏感性：top route 翻转率 ${pct(audit.rankingSensitivity?.summary?.topRouteFlipFrequency || 0)}。`,
+          `Family audit includes nRecords, median/IQR, outliers, and dominant records. Current top-route flip frequency: ${pct(audit.rankingSensitivity?.summary?.topRouteFlipFrequency || 0)}.`
+        )}
       </div>
     </section>
   )
@@ -755,7 +826,7 @@ function BoundaryPanel({ workbench, lang, onOpenActivationCenter }) {
       <SectionTitle
         kicker="Organic Acid Algorithm Boundary Panel"
         title={text(lang, "算法边界", "Algorithm Boundary")}
-        note={text(lang, "该面板固定列出 V3.9.6 不允许越界表达的结论边界。", "This panel fixes the conclusion boundaries that V3.9.6 must not overstate.")}
+        note={text(lang, "该面板固定列出 V3.9.7 不允许越界表达的结论边界。", "This panel fixes the conclusion boundaries that V3.9.7 must not overstate.")}
       />
       <div style={{ display: "grid", gap: 8 }}>
         {boundaries.map(([label, value]) => (
@@ -799,6 +870,10 @@ function ReportExportSection({ workbench, selectedExplanation, lang, onOpenActiv
     {
       label: "Sensitivity Analysis JSON",
       action: () => downloadText("organic-acid-sensitivity-analysis.json", JSON.stringify(buildSensitivityAnalysisJson(workbench.sensitivityAnalysis), null, 2)),
+    },
+    {
+      label: "Scoring Audit JSON",
+      action: () => downloadText("organic-acid-scoring-audit.json", JSON.stringify(workbench.audit, null, 2)),
     },
     {
       label: "Ablation Analysis JSON",
@@ -860,6 +935,7 @@ function AdvancedAnalysisTabs({ workbench, selectedExplanation, lang, onOpenActi
   const tabs = [
     ["risk", text(lang, "缺失证据与风险矩阵", "Missing Evidence & Risk Matrix")],
     ["evidence", text(lang, "证据矩阵", "Evidence Matrix")],
+    ["audit", text(lang, "评分审计", "Scoring Audit")],
     ["sensitivity", text(lang, "敏感性分析", "Sensitivity Analysis")],
     ["ablation", text(lang, "消融分析", "Ablation Analysis")],
     ["boundary", text(lang, "算法边界", "Algorithm Boundary")],
@@ -881,6 +957,7 @@ function AdvancedAnalysisTabs({ workbench, selectedExplanation, lang, onOpenActi
       </div>
       {activeTab === "risk" ? <RiskMatrixSection workbench={workbench} lang={lang} onOpenActivationCenter={onOpenActivationCenter} /> : null}
       {activeTab === "evidence" ? <EvidenceMatrixSection workbench={workbench} lang={lang} /> : null}
+      {activeTab === "audit" ? <ScoringAuditSection workbench={workbench} lang={lang} /> : null}
       {activeTab === "sensitivity" ? <SensitivityAnalysisSection workbench={workbench} lang={lang} /> : null}
       {activeTab === "ablation" ? <AblationAnalysisSection workbench={workbench} lang={lang} /> : null}
       {activeTab === "boundary" ? <BoundaryPanel workbench={workbench} lang={lang} onOpenActivationCenter={onOpenActivationCenter} /> : null}

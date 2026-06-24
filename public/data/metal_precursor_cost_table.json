@@ -1,0 +1,26 @@
+{
+  "tableId": "organic-acid-metal-precursor-cost-table-v1",
+  "version": "V3.9.7",
+  "currency": "USD/kg",
+  "priceBasis": "placeholder bulk precursor-equivalent screening inputs",
+  "priceDate": "2026-06-24",
+  "derivationLevel": "curated-economic",
+  "boundary": "Values are transparent placeholders for relative LCC screening, not supplier quotations or measured process costs. Every row remains TODO: verify price + source.",
+  "publicSourceLandingPage": "https://www.usgs.gov/centers/national-minerals-information-center/commodity-statistics-and-information",
+  "records": [
+    {"metal": "Al", "precursor": "aluminum nitrate equivalent", "usdPerKg": 6, "source": "USGS commodity statistics landing page plus placeholder precursor conversion", "priceDate": "2026-06-24", "status": "TODO: verify price + source"},
+    {"metal": "Zr", "precursor": "zirconyl chloride equivalent", "usdPerKg": 18, "source": "USGS zirconium commodity context plus placeholder precursor conversion", "priceDate": "2026-06-24", "status": "TODO: verify price + source"},
+    {"metal": "Ti", "precursor": "titanium alkoxide equivalent", "usdPerKg": 14, "source": "USGS titanium commodity context plus placeholder precursor conversion", "priceDate": "2026-06-24", "status": "TODO: verify price + source"},
+    {"metal": "Fe", "precursor": "iron nitrate equivalent", "usdPerKg": 3.5, "source": "USGS iron commodity context plus placeholder precursor conversion", "priceDate": "2026-06-24", "status": "TODO: verify price + source"},
+    {"metal": "Cr", "precursor": "chromium nitrate equivalent", "usdPerKg": 8, "source": "USGS chromium commodity context plus placeholder precursor conversion", "priceDate": "2026-06-24", "status": "TODO: verify price + source"},
+    {"metal": "Cu", "precursor": "copper nitrate equivalent", "usdPerKg": 7, "source": "USGS copper commodity context plus placeholder precursor conversion", "priceDate": "2026-06-24", "status": "TODO: verify price + source"},
+    {"metal": "Zn", "precursor": "zinc nitrate equivalent", "usdPerKg": 4, "source": "USGS zinc commodity context plus placeholder precursor conversion", "priceDate": "2026-06-24", "status": "TODO: verify price + source"},
+    {"metal": "Mo", "precursor": "ammonium molybdate equivalent", "usdPerKg": 22, "source": "USGS molybdenum commodity context plus placeholder precursor conversion", "priceDate": "2026-06-24", "status": "TODO: verify price + source"},
+    {"metal": "W", "precursor": "sodium tungstate equivalent", "usdPerKg": 19, "source": "USGS tungsten commodity context plus placeholder precursor conversion", "priceDate": "2026-06-24", "status": "TODO: verify price + source"},
+    {"metal": "Co", "precursor": "cobalt nitrate equivalent", "usdPerKg": 14, "source": "USGS cobalt commodity context plus placeholder precursor conversion", "priceDate": "2026-06-24", "status": "TODO: verify price + source"},
+    {"metal": "Ni", "precursor": "nickel nitrate equivalent", "usdPerKg": 11, "source": "USGS nickel commodity context plus placeholder precursor conversion", "priceDate": "2026-06-24", "status": "TODO: verify price + source"},
+    {"metal": "V", "precursor": "vanadyl salt equivalent", "usdPerKg": 12, "source": "USGS vanadium commodity context plus placeholder precursor conversion", "priceDate": "2026-06-24", "status": "TODO: verify price + source"},
+    {"metal": "Mn", "precursor": "manganese nitrate equivalent", "usdPerKg": 5, "source": "USGS manganese commodity context plus placeholder precursor conversion", "priceDate": "2026-06-24", "status": "TODO: verify price + source"},
+    {"metal": "Ce", "precursor": "cerium nitrate equivalent", "usdPerKg": 9, "source": "USGS rare-earth commodity context plus placeholder precursor conversion", "priceDate": "2026-06-24", "status": "TODO: verify price + source"}
+  ]
+}

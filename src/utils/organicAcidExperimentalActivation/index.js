@@ -402,6 +402,10 @@ export function buildExperimentalActivationWorkbench(input = {}, routeContext = 
   const readiness = buildActivationReadinessSummary(input.activationReadinessSummary)
   const decisionTree = buildMoStrategyDecisionTree(moStrategies.all)
   const topRoute = routeContext.topRoute || {}
+  const topHost = safeText(topRoute.hostMof || routeContext.selectedHost?.displayName, "host pending")
+  const topGuest = safeText(topRoute.guestMetal || routeContext.selectedGuestMetal?.guestMetal, "guest pending")
+  const usesLegacyAlFixtures = /Al-MOF/i.test(topHost)
+  const usesMoStrategies = topGuest === "Mo"
   const selectedMoStrategy = moStrategies.postModification || moStrategies.all[0] || null
   return {
     version: ORGANIC_ACID_EXPERIMENTAL_ACTIVATION_VERSION,
@@ -410,11 +414,20 @@ export function buildExperimentalActivationWorkbench(input = {}, routeContext = 
     routeContext: {
       routeId: safeText(topRoute.routeId, "route-al-mof-mo"),
       topRouteName: safeText(topRoute.routeName || `${topRoute.hostMof || "Al-MOF"} + ${topRoute.guestMetal || "Mo"}`, "Al-MOF + Mo"),
-      selectedHostFamily: safeText(hosts.primary?.hostFamily || routeContext.selectedHost?.hostFamily, "Al-MOF stable host framework candidate"),
-      selectedHost: safeText(hosts.primary?.displayName || routeContext.selectedHost?.displayName, "Al-MOF"),
-      selectedGuest: safeText(topRoute.guestMetal || routeContext.selectedGuestMetal?.guestMetal, "Mo"),
-      selectedMoStrategy: safeText(selectedMoStrategy?.displayName, "Mo post-synthetic modification"),
-      firstRecommendedExperiment: safeText(matrix.topRouteExperiment?.experimentName || topRoute.nextExperiment, "Al-MOF + Mo same-condition validation"),
+      selectedHostFamily: usesLegacyAlFixtures
+        ? safeText(hosts.primary?.hostFamily || routeContext.selectedHost?.hostFamily, "Al-MOF stable host framework candidate")
+        : `${topHost} route host; dedicated activation fixture pending`,
+      selectedHost: topHost,
+      selectedGuest: topGuest,
+      selectedMoStrategy: usesMoStrategies ? safeText(selectedMoStrategy?.displayName, "Mo post-synthetic modification") : `${topGuest} strategy pending`,
+      firstRecommendedExperiment: safeText(
+        usesLegacyAlFixtures ? matrix.topRouteExperiment?.experimentName || topRoute.nextExperiment : topRoute.nextExperiment,
+        `${topHost} + ${topGuest} same-condition validation`,
+      ),
+      routeSpecificMatrixAvailable: usesLegacyAlFixtures,
+      activationScope: usesLegacyAlFixtures
+        ? "route-specific Al-MOF activation fixtures available"
+        : `legacy Al-MOF fixtures are reference-only; build a dedicated ${topHost} matrix before execution`,
       readinessLevel: readiness.readinessLevel,
       hgcps: Number.isFinite(Number(topRoute.finalHGCPS)) ? Number(topRoute.finalHGCPS) : PENDING,
     },

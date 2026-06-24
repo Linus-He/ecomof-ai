@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
-  "updatedAt": "2026-06-23",
-  "currentVersion": "V3.9.6",
-  "completedRange": "V1.0-V3.9.6",
+  "updatedAt": "2026-06-24",
+  "currentVersion": "V3.9.7",
+  "completedRange": "V1.0-V3.9.7",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -3556,7 +3556,7 @@
       "title": "Organic Acid Real Data Binding and Preregistered Scoring",
       "titleZh": "有机酸真实数据接入与预注册评分",
       "date": "2026-06-23",
-      "status": "current",
+      "status": "completed",
       "theme": "Real data binding with explicit fallback provenance",
       "themeZh": "真实数据接入与显式 fallback 溯源",
       "summary": "Preregistered the Organic Acid scoring spec before data-derived ranking, moved host/guest/route scoring to deterministic builders that aggregate existing CoRE, QMOF, gas adsorption, reaction, literature, and gold datasets where fields exist, and exposed sourceDataset/nRecords/rawAggregate/normalization/value provenance for each factor.",
@@ -3629,6 +3629,90 @@
         ],
         "adaptationBoundary": "White-box data derivation for route-priority hypotheses only; no final catalyst-performance proof and no formal ML prediction.",
         "adaptationBoundaryZh": "仅用于路线优先级假设的白盒数据派生；不提供最终催化性能证明，也不是正式机器学习预测。"
+      },
+      "relatedSection": "project-evolution-organic-acid-algorithm-methodology"
+    },
+    {
+      "version": "V3.9.7",
+      "title": "Organic Acid Scoring Audit and Descriptor Expansion",
+      "titleZh": "有机酸评分审计、修复与描述符扩展",
+      "date": "2026-06-24",
+      "status": "current",
+      "theme": "Audit-first preregistered ligand, synthesis, and LCC rerun",
+      "themeZh": "审计优先的配体、可合成性与 LCC 预注册重跑",
+      "summary": "Fixed repeated derivation and recommendation inconsistency, audited pore-proxy validity, family fairness, and ranking sensitivity, then locked scoring spec v2 before adding ligand chemistry, synthesizability, and economic LCC descriptors. The rerun is reported without post-hoc tuning.",
+      "summaryZh": "修复重复派生与推荐对象矛盾，完成孔代理有效性、家族公平性和排名敏感性审计；随后在加入配体化学、可合成性与经济性 LCC 描述符前锁定 spec v2，并按锁定规则如实重跑。",
+      "keyUpdates": [
+        "Added module-level derivation caching and a performance guard; repeated workbench builds reuse the same result for identical dataset references.",
+        "Changed the final recommendation host to the host of the top HGCPS route and exposed topStructuralHost versus topRouteHost when they diverge.",
+        "Added public/data/organic_acid_audit_v3_9_7.json with proxy-validity, family-IQR/outlier, dominant-record, and sensitivity results.",
+        "Added public/data/organic_acid_scoring_spec_v2.json and Markdown companion in a separate pre-rerun commit.",
+        "Added linker_descriptor_table.json, metal_precursor_cost_table.json, three descriptor builders, and organic_acid_rerun_v3_9_7.json."
+      ],
+      "keyUpdatesZh": [
+        "新增模块级派生缓存与性能护栏；相同数据集引用的重复 workbench build 直接复用结果。",
+        "最终推荐主体改为 HGCPS 路线榜首主体；当结构单项最优与路线综合最优不一致时，并列展示 topStructuralHost 与 topRouteHost。",
+        "新增 public/data/organic_acid_audit_v3_9_7.json，记录代理有效性、家族 IQR / 异常值、主导记录与敏感性。",
+        "在重跑前以独立提交新增 public/data/organic_acid_scoring_spec_v2.json 及 Markdown 人读版。",
+        "新增 linker_descriptor_table.json、metal_precursor_cost_table.json、三个描述符 builder 与 organic_acid_rerun_v3_9_7.json。"
+      ],
+      "algorithmChanges": [
+        "The composite pore signal remains at reduced influence because its family-level Spearman rho is positive, while surface area and void fraction alone are low-validity signals.",
+        "Host scoring adds ligandPathwaySupport and synthesizabilityScore.",
+        "Route scoring adds synthesizabilityScore and economicScore and changes to the spec-v2 weighted geometric mean.",
+        "The locked rerun ranks Cu-MOF + Mo #1, Zn-MOF + Mo #2, Al-MOF + Mo #3, Fe-MOF + Mo #4, and Ti-MOF + Mo #6."
+      ],
+      "algorithmChangesZh": [
+        "复合孔代理因家族级 Spearman 为正而保留但降低影响；surface area 与 void fraction 单项被标为低有效性。",
+        "主体评分新增 ligandPathwaySupport 与 synthesizabilityScore。",
+        "路线评分新增 synthesizabilityScore 与 economicScore，并改为 spec v2 预注册加权几何平均。",
+        "锁定重跑结果为 Cu-MOF + Mo 第 1、Zn-MOF + Mo 第 2、Al-MOF + Mo 第 3、Fe-MOF + Mo 第 4、Ti-MOF + Mo 第 6。"
+      ],
+      "uiChanges": [
+        "Recommendation and route panels show the route-level host instead of the host-only structural leader.",
+        "Factor provenance includes ligand chemistry, synthesis frequency/difficulty, and economic LCC inputs.",
+        "The advanced analysis area includes a scoring-audit tab and separate data/rule-derived, curated, and fallback counts."
+      ],
+      "uiChangesZh": [
+        "推荐与路线面板展示路线综合主体，不再把主体单项结构榜首误当最终推荐主体。",
+        "因子溯源新增配体化学、合成频次 / 难度与经济性 LCC 输入。",
+        "高级分析新增评分审计 tab，并分别统计 data/rule-derived、curated 与 fallback。"
+      ],
+      "methodologyChanges": [
+        "Spec v2 is the sole runtime source for host weights, route keys, route weights, ligand mapping, synthesis proxy, and LCC formula.",
+        "All new descriptors expose derivation level, source, record count, raw aggregate, normalization, citations, and fallback reason.",
+        "No ML training or inference and no post-hoc ranking adjustment are introduced."
+      ],
+      "methodologyChangesZh": [
+        "spec v2 是主体权重、路线键、路线权重、配体映射、合成代理与 LCC 公式的唯一运行时规则源。",
+        "所有新描述符均展示 derivation level、来源、记录数、原始聚合、归一化、引用与 fallback 原因。",
+        "未引入机器学习训练 / 推理，也未做事后排名调整。"
+      ],
+      "evidenceBoundary": "V3.9.7 is an audit and preregistered route-priority rerun. Curated ligand properties, the Ti synthesis-difficulty multiplier, and precursor prices require review; prices are explicitly TODO placeholders. Results are not experimental proof.",
+      "evidenceBoundaryZh": "V3.9.7 是审计与预注册路线优先级重跑。配体属性、Ti 合成难度乘数与前驱体价格仍需复核；价格明确标为 TODO 占位值。结果不是实验证明。",
+      "limitations": [
+        "Guest/dopant activity is fallback where dedicated guest records are unavailable.",
+        "MIL-type host remains a low-confidence family because of sparse/outlier-dominated structural support.",
+        "Precursor prices and ligand chemistry assignments require domain review.",
+        "Same-condition catalytic validation remains pending."
+      ],
+      "limitationsZh": [
+        "缺少专门客体记录时，客体 / 掺杂活性仍走 fallback。",
+        "MIL-type host 因结构记录稀疏 / 异常值主导仍为低置信家族。",
+        "前驱体价格与配体化学赋值仍需领域复核。",
+        "同条件催化验证仍待完成。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "organic-acid-audit",
+          "ligand-descriptor",
+          "synthesizability",
+          "economic-lcc",
+          "pre-registration",
+          "weighted-geometric-hgcps"
+        ],
+        "adaptationBoundary": "White-box route-priority audit and screening only; no final catalyst-performance proof and no formal ML prediction.",
+        "adaptationBoundaryZh": "仅用于白盒路线优先级审计与筛选；不提供最终催化性能证明，也不是正式机器学习预测。"
       },
       "relatedSection": "project-evolution-organic-acid-algorithm-methodology"
     }

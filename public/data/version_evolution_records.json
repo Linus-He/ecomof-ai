@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.9.6",
-  "generatedAt": "2026-06-23T00:00:00Z",
+  "currentVersion": "V3.9.7",
+  "generatedAt": "2026-06-24T00:00:00Z",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
-    "currentVersion": "V3.9.6",
+    "currentVersion": "V3.9.7",
     "databaseSize": 3020,
     "verifiedMetadataCount": 2480,
     "sourceConfirmedCount": 2480,
@@ -13,23 +13,23 @@
     "modelValidationStatus": "Robustness Validation Complete",
     "projectAge": "2026-04 to 2026-06",
     "githubStars": "pending",
-    "milestoneCount": 18,
+    "milestoneCount": 19,
     "databasePreviewStatus": "Database Preview",
     "notFinalRecommendationStatus": "Not Final Recommendation",
     "sources": {
       "currentVersion": {
-        "value": "V3.9.6",
+        "value": "V3.9.7",
         "sourceDatabase": "EcoMOF-AI version_evolution_records.json",
         "sourceRecordId": "overview.currentVersion",
         "sourceUrl": "public/data/version_evolution_records.json",
         "citation": "Internal project evolution record.",
         "license": "Project repository license context.",
-        "retrievedAt": "2026-06-23",
+        "retrievedAt": "2026-06-24",
         "curationStatus": "confirmed",
         "confidence": 1,
-        "databaseVersion": "version_evolution_records.json@V3.9.6",
-        "generatingScript": "manual V3.9.6 organic acid real data binding record",
-        "notes": "Version label for the V3.9.6 Organic Acid preregistered real-data binding release."
+        "databaseVersion": "version_evolution_records.json@V3.9.7",
+        "generatingScript": "scripts/build-organic-acid-rerun-v3-9-7.mjs",
+        "notes": "Version label for the V3.9.7 Organic Acid audit, descriptor expansion, and preregistered rerun release."
       },
       "databaseSize": {
         "value": 3020,
@@ -800,9 +800,55 @@
         "Score Provenance",
         "Testing"
       ]
+    },
+    {
+      "version": "V3.9.7",
+      "date": "2026-06-24",
+      "commit": "pending-current",
+      "summary": "Organic Acid Scoring Audit and Descriptor Expansion: fixed repeated runtime derivation and route/host recommendation inconsistency, audited pore-proxy validity and family outliers, expanded sensitivity analysis, preregistered scoring spec v2 before rerun, added ligand chemistry, synthesizability, and economic LCC factors, and published the locked rerun without post-hoc tuning.",
+      "scientificImpact": "Tests whether structural pore proxies track reaction performance before expanding the white-box model. The locked rerun ranks Cu-MOF + Mo first, Zn-MOF + Mo second, Al-MOF + Mo third, and Ti-MOF + Mo sixth; these positions are reported as route-priority hypotheses, not adjusted to favor a candidate.",
+      "databaseImpact": "Adds a curated linker descriptor table covering all ten linker labels present in the current CoRE import, a transparent placeholder metal-precursor cost table with per-row TODO verification labels, an audit artifact, and a reproducible V3.9.7 rerun artifact.",
+      "algorithmImpact": "Uses spec v2 as the sole scoring rule source. Host scoring adds ligandPathwaySupport and synthesizabilityScore; route scoring adds independent synthesizability and economic factors and uses a preregistered weighted geometric mean. The composite pore proxy remains at reduced influence because surface area and void fraction alone showed low reaction validity.",
+      "validationImpact": "Adds proxy-validity Spearman audit, family count/IQR/outlier audit, weight and normalization sensitivity distributions, cache performance guards, descriptor data-change tests, formula consistency checks, and factor-level provenance requirements.",
+      "uiImpact": "Shows top structural host versus top route host explicitly, exposes ligand/synthesis/economic factor provenance, adds a scoring-audit tab, and reports data/rule-derived, curated, and fallback counts separately.",
+      "knownLimitations": "Guest/dopant activity remains fallback for metals without dedicated guest records. Metal precursor prices are transparent placeholders marked TODO verify price + source. Ligand descriptors and the Ti synthesis-difficulty multiplier require chemistry review. Same-condition experiments remain pending.",
+      "breakingChanges": "HGCPS changes from an unweighted six-factor product to the preregistered eight-factor weighted geometric mean in spec v2. Route scores are therefore not numerically comparable with V3.9.6 values.",
+      "nextVersionGoal": "Verify precursor prices and ligand chemistry assignments, collect dedicated guest/dopant and same-condition experimental records, then rerun only through a newly preregistered spec.",
+      "categories": [
+        "Organic Acid",
+        "Scoring Audit",
+        "Descriptor Expansion",
+        "LCC",
+        "Pre-registration",
+        "Testing"
+      ]
     }
   ],
   "releaseNotes": [
+    {
+      "version": "V3.9.7",
+      "date": "2026-06-24",
+      "module": "Organic Acid",
+      "category": "Algorithm",
+      "title": "Preregistered Ligand, Synthesizability, and Economic Factors",
+      "body": "Locked scoring spec v2 before rerun, added ligand chemistry and family-frequency synthesizability to host scoring, added synthesizability and economic LCC to route scoring, and changed HGCPS to an eight-factor weighted geometric mean."
+    },
+    {
+      "version": "V3.9.7",
+      "date": "2026-06-24",
+      "module": "Organic Acid",
+      "category": "Audit",
+      "title": "Proxy Validity, Family Fairness, and Ranking Sensitivity",
+      "body": "Added family-level Spearman proxy validity, median/IQR outlier and dominant-record reporting, and weight plus normalization sensitivity distributions without applying silent weight changes."
+    },
+    {
+      "version": "V3.9.7",
+      "date": "2026-06-24",
+      "module": "Organic Acid",
+      "category": "Data",
+      "title": "Locked Rerun and Provenance Expansion",
+      "body": "Published the no-post-hoc-tuning rerun with Cu-MOF + Mo #1, Zn-MOF + Mo #2, Al-MOF + Mo #3, and Ti-MOF + Mo #6; new factors retain data-derived, curated, or fallback provenance."
+    },
     {
       "version": "V3.9.5.5",
       "date": "2026-06-23",
@@ -1746,6 +1792,13 @@
       "title": "Organic Acid Stepwise Algorithm Execution Chain UX Fix",
       "description": "Adds Step 0 screening-target setup, vertical Step 0-Step 6 execution chain, Step Why Panel dynamic charts, and Flow Network Mini Map for the Organic Acid Host-Guest Workbench.",
       "status": "completed"
+    },
+    {
+      "id": "organic-acid-audit-descriptor-expansion-v3-9-7",
+      "title": "Organic Acid Audit and Descriptor Expansion",
+      "version": "V3.9.7",
+      "date": "2026-06-24",
+      "detail": "Audited structural proxies and family outliers, locked scoring spec v2 before rerun, added ligand/synthesizability/economic factors, and published the no-post-hoc-tuning route ranking."
     }
   ],
   "roadmap": [

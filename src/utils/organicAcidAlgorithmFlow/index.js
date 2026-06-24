@@ -6,7 +6,7 @@ import {
   safeNumber,
 } from "../organicAcidHostGuest/index.js"
 
-export const ORGANIC_ACID_ALGORITHM_FLOW_VERSION = "V3.9.5.1"
+export const ORGANIC_ACID_ALGORITHM_FLOW_VERSION = "V3.9.7"
 export const ORGANIC_ACID_ALGORITHM_FLOW_NAME = "Organic Acid Algorithm Flow Network"
 
 const METHODOLOGY_BASE = "project-evolution-organic-acid-algorithm-methodology"
@@ -284,35 +284,19 @@ function createEdge({ source, target, type, labelZh, labelEn, pathRole = "suppor
 
 function hostSelectionWhy(host) {
   const name = safeText(host?.displayName)
-  if (name === "Al-MOF") {
+  if (safeNumber(host?.ranking, 0) === 1) {
     return {
-      whySelectedZh: "Al-MOF 在主体竞争中胜出，因为稳定性 proxy、170°C 水相稳定性先验、孔环境和 Mo 承载可行性同时较高。",
-      whySelectedEn: "Al-MOF wins host competition because stability proxy, 170C aqueous-stability prior, pore environment, and Mo-hosting feasibility are jointly strong.",
-      whyNotSelectedZh: "不是最终催化剂证明；pristine Al-MOF 活性不足，需要 Mo 做客体补偿。",
-      whyNotSelectedEn: "Not final catalyst proof; pristine Al-MOF activity is insufficient and needs Mo guest compensation.",
-    }
-  }
-  if (name === "Zr-MOF" || name.includes("UiO") || name.includes("MOF-808")) {
-    return {
-      whySelectedZh: `${name} 保留为 backup / control，用于测试 Mo 路线是否依赖 Al-MOF 主体骨架。`,
-      whySelectedEn: `${name} remains backup / control to test whether the Mo route depends on the Al-MOF host framework.`,
-      whyNotSelectedZh: "稳定性强但与当前 Al-MOF + Mo 路线的主客体互补和改性优先级略低。",
-      whyNotSelectedEn: "Stable, but current host-guest complementarity and modification priority are lower than Al-MOF + Mo.",
-    }
-  }
-  if (["Ti-MOF", "Fe-MOF", "Cu-MOF"].includes(name)) {
-    return {
-      whySelectedZh: `${name} 保留为 control / conditional，不作为 primary 主体。`,
-      whySelectedEn: `${name} remains control / conditional and is not primary host.`,
-      whyNotSelectedZh: "水热稳定性、客体承载、或证据置信度不足，不能替代 Al-MOF top host。",
-      whyNotSelectedEn: "Hydrothermal stability, guest hosting, or evidence confidence is insufficient to replace Al-MOF.",
+      whySelectedZh: `${name} 在主体单项评分中排名第一；该结论与路线综合最优主体分开报告。`,
+      whySelectedEn: `${name} ranks first in the host-only score; this is reported separately from the top route host.`,
+      whyNotSelectedZh: "主体单项第一不是最终路线推荐，也不是催化性能证明。",
+      whyNotSelectedEn: "Host-only rank 1 is neither the final route recommendation nor catalytic-performance proof.",
     }
   }
   return {
     whySelectedZh: `${name} 作为条件候选保留，用于后续对照。`,
     whySelectedEn: `${name} is retained as a conditional candidate for later comparison.`,
-    whyNotSelectedZh: "当前综合主体评分低于 Al-MOF。",
-    whyNotSelectedEn: "Current aggregate host score is below Al-MOF.",
+    whyNotSelectedZh: "当前主体单项得分低于结构榜首，但仍可在路线综合评分中上升。",
+    whyNotSelectedEn: "The host-only score is below the structural leader, but route-level factors can still raise its route rank.",
   }
 }
 
@@ -320,8 +304,8 @@ function guestSelectionWhy(guest) {
   const metal = safeText(guest?.guestMetal)
   if (metal === "Mo") {
     return {
-      whySelectedZh: "Mo 在客体竞争中胜出，因为它同时支持 CO2 活化、HCOO* 稳定和 PCET，并能补偿 Al-MOF 主体活性不足。",
-      whySelectedEn: "Mo wins guest competition because it supports CO2 activation, HCOO* stabilization, and PCET while compensating Al-MOF activity.",
+      whySelectedZh: "Mo 在客体竞争中胜出，因为它同时支持 CO2 活化、HCOO* 稳定和 PCET，并为当前主体提供活性补偿。",
+      whySelectedEn: "Mo wins guest competition because it supports CO2 activation, HCOO* stabilization, and PCET while compensating the current host.",
       whyNotSelectedZh: "仍需验证 Mo 引入可行性、氧化态、局部配位和浸出风险。",
       whyNotSelectedEn: "Mo introduction feasibility, oxidation state, local coordination, and leaching risk still require validation.",
     }
@@ -354,8 +338,8 @@ function routeSelectionWhy(route) {
   const name = routeName(route)
   if (isTopRoute(route)) {
     return {
-      whyRankedHereZh: "Al-MOF + Mo 在 route competition 中排第一，因为主体稳定、Mo 活性补偿、主客体互补、证据置信和风险保留因子共同保持最高乘积分。",
-      whyRankedHereEn: "Al-MOF + Mo ranks first because host stability, Mo activity compensation, complementarity, evidence confidence, and risk retention jointly keep the strongest product score.",
+      whyRankedHereZh: `${name} 按预注册八因子加权几何 HGCPS 排名第一；主体、配体路径、客体、证据、风险、可合成性与经济性共同决定结果。`,
+      whyRankedHereEn: `${name} ranks first under the preregistered eight-factor weighted-geometric HGCPS across host, ligand-aware pathway, guest, evidence, risk, synthesizability, and economics.`,
       whyNotHigherZh: "已经是当前最高优先级验证路线，但不是最终催化性能证明。",
       whyNotHigherEn: "It is already the current top-priority validation route, but not final catalytic proof.",
     }
@@ -370,10 +354,10 @@ function routeSelectionWhy(route) {
   }
   if (safeText(route?.hostMof).includes("Zr")) {
     return {
-      whyRankedHereZh: `${name} 是 host-framework control，检验 Al-MOF 主体选择是否稳健。`,
-      whyRankedHereEn: `${name} is a host-framework control to test robustness of Al-MOF host selection.`,
-      whyNotHigherZh: "主客体互补和 Al-MOF 路线相关证据弱于 top route。",
-      whyNotHigherEn: "Complementarity and route-specific evidence are weaker than the top route.",
+      whyRankedHereZh: `${name} 是 host-framework control，用于检验 top route 是否依赖特定主体家族。`,
+      whyRankedHereEn: `${name} is a host-framework control for testing whether the top route depends on a specific host family.`,
+      whyNotHigherZh: "主客体互补和路线相关证据弱于当前 top route。",
+      whyNotHigherEn: "Complementarity and route-specific evidence are weaker than the current top route.",
     }
   }
   if (safeText(route?.guestMetal) === "W" || safeText(route?.guestMetal) === "Fe") {
@@ -557,8 +541,8 @@ export function buildAlgorithmFlowNodes(workbenchInput = null, sourceData = {}, 
       summaryEn: `${routeName(route)}: ${why.whyRankedHereEn}`,
       roleInAlgorithmZh: "主体骨架与客体金属组合后的实验路线候选。",
       roleInAlgorithmEn: "Experimental route candidate after host and guest combination.",
-      inputZh: "host + guest + HGCPS 六因子乘法评分。",
-      inputEn: "Host + guest + six-factor multiplicative HGCPS.",
+      inputZh: "host + guest + HGCPS 八因子加权几何评分。",
+      inputEn: "Host + guest + eight-factor weighted-geometric HGCPS.",
       outputZh: isTopRoute(route) ? "输出最小实验验证路线。" : "进入候选竞争解释和对照实验设计。",
       outputEn: isTopRoute(route) ? "Outputs the minimum experimental validation route." : "Feeds candidate explanation and control design.",
       evidenceStatus: `Evidence confidence ${roundScore(route.evidenceConfidence ?? route.evidenceConfidenceScore, 2)}`,
@@ -987,6 +971,8 @@ export function buildRouteCompetitionModel(workbenchInput = null, lang = "zh") {
         complementarity: roundScore(breakdown.complementarity ?? route.hostGuestComplementarityScore, 2),
         evidenceConfidence: roundScore(breakdown.evidence ?? route.evidenceConfidenceScore, 2),
         riskRetention: roundScore(breakdown.riskRetentionFactor ?? route.riskPenalty, 2),
+        synthesizability: roundScore(breakdown.synthesizability ?? route.synthesizabilityScore, 2),
+        economics: roundScore(breakdown.economics ?? route.economicScore, 2),
       },
       evidenceConfidence: roundScore(route.evidenceConfidence ?? route.evidenceConfidenceScore, 2),
       riskRetention: roundScore(route.riskRetentionFactor ?? route.riskPenalty, 2),
@@ -1194,13 +1180,13 @@ export function buildOrganicAcidAlgorithmFlowNetwork(workbenchInput = null, sour
         "尚未完成性能验证 / Not performance-validated",
       ],
       nextActionsZh: [
-        "进入实验启用中心选择具体 Al-MOF 主体。",
-        "选择低风险 Mo 引入策略并运行最小实验矩阵。",
+        `为 ${safeText(workbench?.complementarity?.topRoute?.hostMof, "top route host")} 建立路线专用主体与对照矩阵。`,
+        `选择 ${safeText(workbench?.complementarity?.topRoute?.guestMetal, "guest")} 引入策略并运行最小实验矩阵。`,
         "回填同条件数据模板后再预览 HGCPS 更新。",
       ],
       nextActionsEn: [
-        "Open Activation Center and select a specific Al-MOF host.",
-        "Choose a low-risk Mo introduction strategy and run the minimum matrix.",
+        `Build a route-specific host and control matrix for ${safeText(workbench?.complementarity?.topRoute?.hostMof, "the top route host")}.`,
+        `Choose a ${safeText(workbench?.complementarity?.topRoute?.guestMetal, "guest")} introduction strategy and run the minimum matrix.`,
         "Fill same-condition template before previewing HGCPS updates.",
       ],
       hgcpsFormula: HGCPS_FORMULA_TEXT,
@@ -1331,9 +1317,9 @@ export function buildAlgorithmFlowMarkdownSummary(network) {
     "",
     "## Top Route",
     "",
-    `Route: ${safeText(top.route, "Al-MOF + Mo")}`,
+    `Route: ${safeText(top.route, "route pending")}`,
     `HGCPS: ${safeText(top.hgcps, "pending")}`,
-    `Why ranked here: ${safeText(top.whyRankedHereZh, "Al-MOF + Mo ranks first in route competition.")}`,
+    `Why ranked here: ${safeText(top.whyRankedHereZh, "The current route ranks first in route competition.")}`,
     `Why not final proof: ${safeText(top.whyNotHigherZh, "Not final catalytic proof.")}`,
     "",
     "## Network Nodes",

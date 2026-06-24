@@ -22,7 +22,7 @@ describe("projectStatusSummary", () => {
     })
 
     expect(summary).toMatchObject({
-      currentVersion: "V3.9.6",
+      currentVersion: "V3.9.7",
       databaseScale: 3020,
       verifiedMetadata: 2480,
       goldDataset: 320,
@@ -49,7 +49,7 @@ describe("projectStatusSummary", () => {
     const cards = buildProjectOverviewCards(buildProjectStatusSummary({ versionEvolution, dataIngestionSummary, benchmarkDatasetV36, experimentalLabelsV2, modelRobustness }))
     const text = cards.map(card => `${card.label}:${card.value}`).join(" | ")
 
-    expect(text).toContain("Current Version:V3.9.6")
+    expect(text).toContain("Current Version:V3.9.7")
     expect(text).toContain("Database Scale:3020+")
     expect(text).toContain("Experimental Labels:150")
     expect(text).toContain("Benchmark Ready:230")

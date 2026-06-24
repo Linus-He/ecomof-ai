@@ -5,6 +5,7 @@ import {
   citationRefs,
   clampScore,
   datasetRecords,
+  derivationCacheKey,
   derivationLabel,
   familyForHostName,
   groupByFamily,
@@ -21,9 +22,13 @@ import {
   sampleRefs,
   weightedScore,
 } from "./shared.js"
+import { deriveLigandFactors } from "./ligandFactors.js"
+import { deriveSynthesizabilityFactors } from "./synthesizabilityFactors.js"
 
 const HOST_FACTOR_KEYS = ORGANIC_ACID_SCORING_SPEC.hostScoreWeights.map(([key]) => key)
 const FALLBACK_THRESHOLD = ORGANIC_ACID_SCORING_SPEC.algorithm?.fallbackThreshold?.minimumRecords ?? 5
+const HOST_FACTOR_CACHE = new Map()
+const HOST_FACTOR_CACHE_STATS = { computations: 0, hits: 0 }
 
 function normalizeFamilyRows(rows, rawKey) {
   const values = rows.map(row => row[rawKey])
@@ -125,6 +130,38 @@ function buildCo2Scores(families, rows, poreScores) {
         derivationLevel: directUsable ? "data-derived" : proxyRecords >= FALLBACK_THRESHOLD ? "proxy-flagged" : "curated-fallback",
         recordRefs: directUsable ? sampleRefs(directRecords) : asArray(proxy?.tuple?.recordRefs),
         citations: directUsable ? citationRefs(directRecords) : asArray(proxy?.tuple?.citations),
+      }),
+    }]
+  }))
+}
+
+function combineCo2AndLigandScores(families, baseCo2Scores, ligandScores) {
+  return Object.fromEntries(families.map(family => {
+    const base = baseCo2Scores[family]
+    const ligand = ligandScores[family]
+    const value = (
+      0.65 * safeNumber(base?.value, 0)
+      + 0.35 * safeNumber(ligand?.value, 0.5)
+    )
+    const derivationLevels = [base?.tuple?.derivationLevel, ligand?.tuple?.derivationLevel].filter(Boolean)
+    return [family, {
+      value: roundScore(value),
+      tuple: provenanceTuple({
+        sourceDataset: "derived CO2 support+linker_descriptor_table.json",
+        nRecords: safeNumber(base?.tuple?.nRecords, 0) + safeNumber(ligand?.tuple?.nRecords, 0),
+        rawAggregate: {
+          directOrStructuralCo2Support: safeNumber(base?.value, 0),
+          ligandPathwaySupport: safeNumber(ligand?.value, 0.5),
+          weights: { directOrStructural: 0.65, ligand: 0.35 },
+        },
+        normalization: ORGANIC_ACID_SCORING_SPEC.hostFactorMappings.co2EnrichmentSupport.normalization,
+        value,
+        derivationLevel: derivationLevels.some(level => /fallback/.test(level))
+          ? "fallback"
+          : "data-derived + curated-ligand-descriptor",
+        recordRefs: asArray(base?.tuple?.recordRefs).concat(asArray(ligand?.tuple?.recordRefs)).slice(0, 8),
+        citations: asArray(base?.tuple?.citations).concat(asArray(ligand?.tuple?.citations)).slice(0, 5),
+        fallbackReason: [base?.tuple?.fallbackReason, ligand?.tuple?.fallbackReason].filter(Boolean).join(" "),
       }),
     }]
   }))
@@ -302,7 +339,7 @@ function fallbackTuple(host, key, sparseTuple = null) {
       },
       normalization: "none; descriptor absent from imported datasets",
       value,
-      derivationLevel: "curated-fallback",
+      derivationLevel: "fallback",
       recordRefs: asArray(host?.evidenceRefs).concat(asArray(sparseTuple?.recordRefs)).slice(0, 8),
       citations: asArray(sparseTuple?.citations),
       fallbackReason: sparseTuple?.fallbackReason || "No imported dataset field represents this descriptor.",
@@ -311,15 +348,32 @@ function fallbackTuple(host, key, sparseTuple = null) {
 }
 
 function useSparseFallback(host, key, row) {
-  if (!row?.tuple || !/curated-fallback/.test(row.tuple.derivationLevel)) return row
+  if (!row?.tuple || !/fallback/.test(row.tuple.derivationLevel)) return row
   return fallbackTuple(host, key, row.tuple)
 }
 
 export function deriveHostFactors(hostCandidates = [], datasets = {}) {
+  const cacheKey = derivationCacheKey([
+    hostCandidates,
+    datasets.coreMofImport,
+    datasets.qmofImport,
+    datasets.reactionDataset,
+    datasets.gasAdsorptionRecords,
+    datasets.literatureDataset,
+    datasets.goldDataset,
+  ])
+  if (HOST_FACTOR_CACHE.has(cacheKey)) {
+    HOST_FACTOR_CACHE_STATS.hits += 1
+    return HOST_FACTOR_CACHE.get(cacheKey)
+  }
+  HOST_FACTOR_CACHE_STATS.computations += 1
   const rows = sourceRows(datasets)
   const families = Array.from(new Set(asArray(hostCandidates).map(host => familyForHostName(host.displayName))))
   const poreScores = buildPoreScores(families, rows)
-  const co2Scores = buildCo2Scores(families, rows, poreScores)
+  const ligandScores = deriveLigandFactors(hostCandidates, datasets)
+  const baseCo2Scores = buildCo2Scores(families, rows, poreScores)
+  const co2Scores = combineCo2AndLigandScores(families, baseCo2Scores, ligandScores)
+  const synthesizabilityScores = deriveSynthesizabilityFactors(hostCandidates, datasets)
   const aqueousScores = buildAqueousScores(families, rows)
   const thermalScores = buildThermalScores(families, rows)
   const stabilityScores = buildStabilityScores(families, rows, aqueousScores)
@@ -333,15 +387,19 @@ export function deriveHostFactors(hostCandidates = [], datasets = {}) {
       thermalStabilityEvidence: useSparseFallback(host, "thermalStabilityEvidence", thermalScores[family]) || fallbackTuple(host, "thermalStabilityEvidence"),
       poreEnvironmentScore: useSparseFallback(host, "poreEnvironmentScore", poreScores[family]) || fallbackTuple(host, "poreEnvironmentScore"),
       co2EnrichmentSupport: useSparseFallback(host, "co2EnrichmentSupport", co2Scores[family]) || fallbackTuple(host, "co2EnrichmentSupport"),
+      ligandPathwaySupport: ligandScores[family] || fallbackTuple(host, "ligandPathwaySupport"),
       postModificationFeasibility: fallbackTuple(host, "postModificationFeasibility"),
       guestHostingFeasibility: fallbackTuple(host, "guestHostingFeasibility"),
+      synthesizabilityScore: synthesizabilityScores[family] || fallbackTuple(host, "synthesizabilityScore"),
       provenanceQuality: useSparseFallback(host, "provenanceQuality", provenanceScores[family]) || fallbackTuple(host, "provenanceQuality"),
     }
     const factorValues = Object.fromEntries(HOST_FACTOR_KEYS.map(key => [key, roundScore(factorRows[key]?.value)]))
     const factorProvenance = Object.fromEntries(HOST_FACTOR_KEYS.map(key => [key, factorRows[key]?.tuple]))
     const hostScore = weightedScore(factorValues, ORGANIC_ACID_SCORING_SPEC.hostScoreWeights)
-    const dataDerivedCount = Object.values(factorProvenance).filter(tuple => /data-derived|proxy-flagged/.test(tuple.derivationLevel)).length
-    const fallbackCount = Object.values(factorProvenance).length - dataDerivedCount
+    const provenanceRows = Object.values(factorProvenance)
+    const fallbackCount = provenanceRows.filter(tuple => /fallback/.test(tuple.derivationLevel)).length
+    const curatedCount = provenanceRows.filter(tuple => !/fallback/.test(tuple.derivationLevel) && /curated/.test(tuple.derivationLevel)).length
+    const dataDerivedCount = provenanceRows.length - curatedCount - fallbackCount
     return {
       ...host,
       ...factorValues,
@@ -350,11 +408,16 @@ export function deriveHostFactors(hostCandidates = [], datasets = {}) {
       hostScore,
       hostScoreBreakdown: factorValues,
       factorProvenance,
+      ligandDescriptorSummary: {
+        meanLigandCostUsdKg: ligandScores[family]?.meanLigandCostUsdKg,
+        linkerRows: ligandScores[family]?.linkerRows || [],
+      },
       derivationSummary: {
         dataDerivedCount,
+        curatedCount,
         fallbackCount,
         totalRecords: Object.values(factorProvenance).reduce((sum, tuple) => sum + safeNumber(tuple.nRecords, 0), 0),
-        summaryLabel: `${dataDerivedCount} host factors data/proxy-derived; ${fallbackCount} curated fallback`,
+        summaryLabel: `${dataDerivedCount} host factors data/proxy-derived; ${curatedCount} curated; ${fallbackCount} fallback`,
       },
       provenance: Object.entries(factorProvenance).map(([key, tuple]) => `${key}: ${derivationLabel(tuple)}`),
     }
@@ -362,10 +425,22 @@ export function deriveHostFactors(hostCandidates = [], datasets = {}) {
     .sort((a, b) => b.hostScore - a.hostScore)
     .map((host, index) => ({ ...host, ranking: index + 1 }))
 
-  return {
+  const result = {
     rankedHosts,
     selectedHost: rankedHosts[0] || null,
     familyAssignmentSummary: buildFamilyAssignmentSummary(datasets),
     scoringSpec: ORGANIC_ACID_SCORING_SPEC,
   }
+  HOST_FACTOR_CACHE.set(cacheKey, result)
+  return result
+}
+
+export function getHostFactorCacheStats() {
+  return { ...HOST_FACTOR_CACHE_STATS, size: HOST_FACTOR_CACHE.size }
+}
+
+export function clearHostFactorCache() {
+  HOST_FACTOR_CACHE.clear()
+  HOST_FACTOR_CACHE_STATS.computations = 0
+  HOST_FACTOR_CACHE_STATS.hits = 0
 }

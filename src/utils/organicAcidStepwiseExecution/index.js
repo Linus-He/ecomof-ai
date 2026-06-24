@@ -22,7 +22,7 @@ import {
   buildValidationCoverageSummary,
 } from "../organicAcidExplanationClosure/index.js"
 
-export const ORGANIC_ACID_STEPWISE_EXECUTION_VERSION = "V3.9.5.5"
+export const ORGANIC_ACID_STEPWISE_EXECUTION_VERSION = "V3.9.7"
 export const ORGANIC_ACID_STEPWISE_EXECUTION_NAME = "Organic Acid Stepwise Algorithm Execution Chain"
 
 const METHODOLOGY_BASE = "project-evolution-organic-acid-algorithm-methodology"
@@ -368,6 +368,8 @@ export function buildRouteHgcpsBreakdownChartModel(workbenchInput = null, source
     ["complementarity", "主客体互补", "host-guest complementarity"],
     ["evidenceConfidence", "证据置信", "evidence confidence"],
     ["riskRetention", "风险保留", "risk retention"],
+    ["synthesizability", "可合成性", "synthesizability"],
+    ["economics", "经济性 LCC", "economic LCC"],
   ]
   const factorRows = factorLabels.map(([key, zh, en]) => ({
     id: key,
@@ -379,8 +381,8 @@ export function buildRouteHgcpsBreakdownChartModel(workbenchInput = null, source
     "route-hgcps-breakdown",
     "路线评分分解图",
     "Route HGCPS Breakdown Chart",
-    "展示路线排名与选中路线的 HGCPS 六因子乘法压缩。",
-    "Shows route ranking and six-factor HGCPS compression for the selected route.",
+    "展示路线排名与选中路线的 HGCPS 八因子加权几何压缩。",
+    "Shows route ranking and eight-factor weighted-geometric HGCPS compression for the selected route.",
     rows,
     {
       selectedRouteId: safeText(selected.routeId || selected.id, ""),
@@ -396,6 +398,9 @@ export function buildRouteHgcpsBreakdownChartModel(workbenchInput = null, source
 export function buildValidationMatrixCoverageChartModel(workbenchInput = null, sourceData = {}, activationWorkbench = null, lang = "zh") {
   const workbench = resolveWorkbench(workbenchInput, sourceData)
   const arrays = sourceArrays(workbench, sourceData)
+  const topRoute = workbench?.complementarity?.topRoute || {}
+  const topRouteId = safeText(topRoute.routeId, "")
+  const topRouteLabel = `${safeText(topRoute.hostMof, "")} ${safeText(topRoute.guestMetal, "")}`.trim()
   const selectedGuest = safeText(workbench?.guestSelection?.selectedGuestMetal?.guestMetal, "guest")
   const guestOnlyPattern = new RegExp(`${escapeRegExp(selectedGuest)}-only|${escapeRegExp(selectedGuest)}ox|${escapeRegExp(selectedGuest)}O`, "i")
   const matrix = activationWorkbench?.minimumExperimentalMatrix || {}
@@ -415,8 +420,8 @@ export function buildValidationMatrixCoverageChartModel(workbenchInput = null, s
   const coverageChecks = [
     ["blank", "空白对照", "blank control", row => /blank|no catalyst/i.test(`${row.controlType} ${row.experimentName}`)],
     ["pristine-host", "pristine 主体对照", "pristine host control", row => /pristine|host scaffold|baseline/i.test(`${row.controlType} ${row.experimentName} ${row.purpose}`)],
-    ["top-route", "最高路线验证", "top route validation", row => /route-al-mof-mo|top/i.test(`${row.routeId} ${row.experimentName}`)],
-    ["guest-control", "客体金属对照", "guest metal control", row => /guest|W|Fe|Co|Ni/i.test(`${row.controlType} ${row.guestMetal} ${row.experimentName}`) && !/route-al-mof-mo/i.test(row.routeId)],
+    ["top-route", "最高路线验证", "top route validation", row => row.routeId === topRouteId || (topRouteLabel && `${row.experimentName}`.includes(topRouteLabel))],
+    ["guest-control", "客体金属对照", "guest metal control", row => /guest|W|Fe|Co|Ni/i.test(`${row.controlType} ${row.guestMetal} ${row.experimentName}`) && row.routeId !== topRouteId],
     ["host-control", "主体对照", "host control", row => /host|zr/i.test(`${row.controlType} ${row.routeId} ${row.experimentName}`)],
     ["guest-only", `${selectedGuest}-only 对照`, `${selectedGuest}-only control`, row => guestOnlyPattern.test(`${row.routeId} ${row.experimentName} ${row.controlType}`)],
     ["structure", "结构表征", "structure characterization", row => safeList(row.requiredCharacterizationBeforeReaction, "").join(" ").match(/PXRD|FTIR|XPS|ICP|sorption|structure/i)],
@@ -540,8 +545,8 @@ function buildStepFields(stepId, context) {
       methodologyAnchor: methodAnchor("guest-selection", "guest-selection"),
     },
     "step-5": {
-      input: [`${arrays.routes.length} 条主客体路线`, "host stability、pathway support、guest compensation、complementarity、evidence confidence、risk retention"],
-      logic: "使用 HGCPS 六因子乘法评分，风险保留因子继续压缩路线分数。",
+      input: [`${arrays.routes.length} 条主客体路线`, "host stability、ligand-aware pathway、guest compensation、complementarity、evidence、risk、synthesizability、economics"],
+      logic: "使用 HGCPS 八因子加权几何评分，权重与因子键只从 spec v2 读取。",
       formula: HGCPS_FORMULA_TEXT,
       competition: buildCandidateRowsFromRoutes(workbench),
       result: `${topRouteLabel} 是当前最高优先级验证路线。`,

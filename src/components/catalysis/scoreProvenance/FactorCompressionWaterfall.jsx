@@ -21,7 +21,7 @@ export function FactorCompressionWaterfall({ model, lang = "zh", withTestId = tr
       <div style={{ display: "grid", gap: 4 }}>
         <strong style={{ color: palette.text, fontSize: 13 }}>{text(lang, model.titleZh, model.titleEn)}</strong>
         <span style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45 }}>
-          {text(lang, `${model.routeLabel} · 从 1.0 起逐个因子相乘压缩到 HGCPS ${fmt(model.finalHGCPS, 3)}`, `${model.routeLabel} · multiply from 1.0 down to HGCPS ${fmt(model.finalHGCPS, 3)}`)}
+          {text(lang, `${model.routeLabel} · 从 1.0 起逐个乘以 factor^weight，得到 HGCPS ${fmt(model.finalHGCPS, 3)}`, `${model.routeLabel} · multiply factor^weight terms from 1.0 to HGCPS ${fmt(model.finalHGCPS, 3)}`)}
         </span>
       </div>
       <svg viewBox={`0 0 ${width} ${chartHeight + 46}`} role="img" aria-label={text(lang, model.titleZh, model.titleEn)} style={{ minWidth: width, width: "100%", height: "auto" }}>
@@ -54,7 +54,7 @@ export function FactorCompressionWaterfall({ model, lang = "zh", withTestId = tr
                 style={{ alignItems: "center", background: "transparent", border: "none", cursor: "pointer", display: "grid", gap: 8, gridTemplateColumns: "minmax(0,1fr) auto auto", padding: 9, textAlign: "left", width: "100%" }}
               >
                 <span style={{ color: palette.text, fontSize: 11.8, fontWeight: 850 }}>{text(lang, step.labelZh, step.labelEn)}</span>
-                <span style={{ color: palette.muted, fontSize: 11.5 }}>×{fmt(step.factorValue, 2)} → {fmt(step.cumulativeValue, 3)}</span>
+                <span style={{ color: palette.muted, fontSize: 11.5 }}>×{fmt(step.factorValue, 3)} (w={fmt(step.factorWeight, 2)}) → {fmt(step.cumulativeValue, 3)}</span>
                 <GradeBadge grade={step.dataGrade} labelZh={step.dataGrade} labelEn={step.dataGrade} tone={GRADE_TONE[step.dataGrade] || "info"} lang={lang} />
               </button>
               {open ? (

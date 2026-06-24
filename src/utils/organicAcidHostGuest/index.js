@@ -1,7 +1,19 @@
 import { deriveGuestFactors } from "../organicAcidDataDerivation/guestFactors.js"
-import { deriveHostFactors } from "../organicAcidDataDerivation/hostFactors.js"
-import { deriveRouteFactors } from "../organicAcidDataDerivation/routeFactors.js"
-import { ORGANIC_ACID_SCORING_SPEC } from "../organicAcidDataDerivation/shared.js"
+import {
+  clearHostFactorCache,
+  deriveHostFactors,
+  getHostFactorCacheStats,
+} from "../organicAcidDataDerivation/hostFactors.js"
+import {
+  clearRouteFactorCache,
+  deriveRouteFactors,
+  getRouteFactorCacheStats,
+} from "../organicAcidDataDerivation/routeFactors.js"
+import {
+  derivationCacheKey,
+  ORGANIC_ACID_SCORING_SPEC,
+} from "../organicAcidDataDerivation/shared.js"
+import { buildOrganicAcidAudit } from "../organicAcidAudit/index.js"
 
 /**
  * @typedef {Record<string, any>} OrganicAcidRecord
@@ -9,13 +21,16 @@ import { ORGANIC_ACID_SCORING_SPEC } from "../organicAcidDataDerivation/shared.j
  * @typedef {{ routeScores?: HostGuestRoute[], topRoute?: HostGuestRoute }} ComplementarityResult
  */
 
-export const ORGANIC_ACID_HOST_GUEST_VERSION = "V3.9.6"
+export const ORGANIC_ACID_HOST_GUEST_VERSION = "V3.9.7"
 export const HOST_GUEST_ALGORITHM_NAME = "Host-Guest Complementary Pathway Screening Algorithm"
-export const HGCPS_FORMULA_TEXT = "HGCPS = Host Stability Factor * Host Pathway Support Factor * Guest Activity Compensation Factor * Host-Guest Complementarity Factor * Evidence Confidence Factor * Risk Retention Factor"
+export const HGCPS_FORMULA_TEXT = "HGCPS = weighted geometric mean(Host Stability, Host Pathway Support, Guest Activity Compensation, Host-Guest Complementarity, Evidence Confidence, Risk Retention, Synthesizability, Economics)"
 
 export const HOST_SCORE_WEIGHTS = ORGANIC_ACID_SCORING_SPEC.hostScoreWeights
 export const GUEST_SCORE_WEIGHTS = ORGANIC_ACID_SCORING_SPEC.guestScoreWeights
 const ROUTE_SCORE_KEYS = ORGANIC_ACID_SCORING_SPEC.routeScoreKeys
+export const ROUTE_SCORE_WEIGHTS = ORGANIC_ACID_SCORING_SPEC.routeScoreWeights
+let WORKBENCH_CACHE = new Map()
+const WORKBENCH_CACHE_STATS = { computations: 0, hits: 0 }
 
 export const ROUTE_FACTOR_DEFINITIONS = [
   { key: "hostStabilityScore", breakdownKey: "hostStability", label: "host stability factor" },
@@ -24,6 +39,8 @@ export const ROUTE_FACTOR_DEFINITIONS = [
   { key: "hostGuestComplementarityScore", breakdownKey: "complementarity", label: "host-guest complementarity factor" },
   { key: "evidenceConfidenceScore", breakdownKey: "evidence", label: "evidence confidence factor" },
   { key: "riskPenalty", breakdownKey: "riskRetentionFactor", label: "risk retention factor" },
+  { key: "synthesizabilityScore", breakdownKey: "synthesizability", label: "synthesizability factor" },
+  { key: "economicScore", breakdownKey: "economics", label: "economic LCC factor" },
 ]
 
 const PIPELINE_STEP_LABELS = [
@@ -65,6 +82,20 @@ function weightedScore(row, weights) {
   const totalWeight = weights.reduce((sum, [, weight]) => sum + weight, 0)
   const total = weights.reduce((sum, [key, weight]) => sum + safeNumber(row?.[key], 0) * weight, 0)
   return roundScore(total / totalWeight, 3)
+}
+
+function weightedGeometricRouteScore(row, weightMultipliers = {}) {
+  const weightedRows = ROUTE_SCORE_WEIGHTS.map(([key, weight]) => [
+    key,
+    safeNumber(weight, 0) * safeNumber(weightMultipliers[key], 1),
+  ])
+  const totalWeight = weightedRows.reduce((sum, [, weight]) => sum + weight, 0) || 1
+  const zeroFloor = safeNumber(ORGANIC_ACID_SCORING_SPEC.algorithm?.zeroFloor, 0.001)
+  const logScore = weightedRows.reduce((sum, [key, weight]) => {
+    const value = Math.max(zeroFloor, clampScore(safeNumber(row?.[key], key === "riskPenalty" ? 1 : 0)))
+    return sum + (weight / totalWeight) * Math.log(value)
+  }, 0)
+  return roundScore(Math.exp(logScore), 3)
 }
 
 function hasDerivationDatasets(input = {}) {
@@ -144,8 +175,7 @@ function riskBreakdown(route, evidenceRecords) {
 }
 
 function routeScore(route, evidenceRecords = []) {
-  const product = ROUTE_SCORE_KEYS.reduce((total, key) => total * safeNumber(route?.[key], key === "riskPenalty" ? 1 : 0), 1)
-  const finalHGCPS = roundScore(product, 3)
+  const finalHGCPS = weightedGeometricRouteScore(route)
   return {
     ...route,
     routeName: routeName(route),
@@ -157,6 +187,8 @@ function routeScore(route, evidenceRecords = []) {
       complementarity: safeNumber(route?.hostGuestComplementarityScore, 0),
       evidence: safeNumber(route?.evidenceConfidenceScore, 0),
       riskRetentionFactor: safeNumber(route?.riskPenalty, 0),
+      synthesizability: safeNumber(route?.synthesizabilityScore, 0),
+      economics: safeNumber(route?.economicScore, 0),
     },
     riskPenaltyBreakdown: riskBreakdown(route, evidenceRecords),
     riskRetentionFactor: safeNumber(route?.riskPenalty, 0),
@@ -204,7 +236,7 @@ export function buildHostMofSelection(hostCandidates = [], datasets = {}) {
       selectedHost,
       hostScoreBreakdown: selectedHost?.hostScoreBreakdown || {},
       hostRoleExplanation: selectedHost
-        ? `${selectedHost.displayName} is selected as the current stable host framework / stable scaffold by the preregistered V3.9.6 data-derived score. It is not treated as a standalone best catalyst.`
+        ? `${selectedHost.displayName} is selected as the current host-only structural leader by the preregistered V3.9.7 descriptor score. It is not automatically the final route recommendation.`
         : "No host selected.",
       hostLimitation: selectedHost?.limitation || "Host limitation pending.",
       evidenceRefs: asArray(selectedHost?.evidenceRefs),
@@ -261,7 +293,7 @@ export function buildGuestMetalSelection(guestMetalCandidates = [], selectedHost
       selectedGuestMetal,
       guestScoreBreakdown: selectedGuestMetal?.guestScoreBreakdown || {},
       guestRoleExplanation: selectedGuestMetal
-        ? `${selectedGuestMetal.guestMetal} is selected as the current guest / dopant / activity compensation metal for ${selectedHost?.displayName || "the selected host"} by the preregistered V3.9.6 data-derived or literature-prior score. It complements the host instead of replacing it.`
+        ? `${selectedGuestMetal.guestMetal} is selected as the current guest / dopant / activity compensation metal for ${selectedHost?.displayName || "the selected host"} by the preregistered V3.9.7 data-derived or fallback score. It complements the host instead of replacing it.`
         : "No guest metal selected.",
       compatibilityWithSelectedHost: selectedGuestMetal?.guestScoreBreakdown?.compatibilityWithSelectedHost || 0,
       mainRisk: selectedGuestMetal?.mainRisk || "Guest-metal risk pending.",
@@ -324,7 +356,7 @@ export function buildHostGuestComplementarityScore(hostGuestRoutes = [], evidenc
     riskPenaltyBreakdown: topRoute?.riskPenaltyBreakdown || [],
     evidenceConfidence: topRoute?.evidenceConfidence || 0,
     whyTopRanked: topRoute
-      ? `${routeName(topRoute)} ranks first because the preregistered multiplicative HGCPS factors remain jointly strongest for the current data: host stability, pathway support, guest activity compensation, host-guest complementarity, evidence confidence, and risk retention factor.`
+      ? `${routeName(topRoute)} ranks first because the preregistered weighted-geometric HGCPS factors remain jointly strongest for the current data, including host stability, ligand-aware pathway support, guest compensation, evidence confidence, risk retention factor, synthesizability, and economic screening.`
       : "No top route.",
     uncertainty: topRoute?.mainRisk || "Route uncertainty pending.",
     provenance: asArray(topRoute?.provenance),
@@ -472,7 +504,7 @@ export function buildOrganicAcidAlgorithmTrace(input = {}) {
       id: "calculate-complementarity",
       title: "Calculate host-guest complementarity score",
       input: "host_guest_routes.json + evidence_risk_records.json",
-      method: `${HGCPS_FORMULA_TEXT}. The multiplicative model captures pathway bottlenecks; any weak factor compresses the route score. The route-level risk field is interpreted as the 0-1 risk retention factor.`,
+      method: `${HGCPS_FORMULA_TEXT}. The weighted-geometric model preserves pathway bottlenecks while using preregistered factor weights. The route-level risk field is interpreted as the 0-1 risk retention factor.`,
       output: `${routeName(topRoute)} ranked #${topRoute?.ranking || "pending"} with HGCPS ${topRoute?.finalHGCPS || 0}`,
       evidence: complementarity.whyTopRanked,
       uncertainty: complementarity.uncertainty,
@@ -646,22 +678,42 @@ function rankAdjustedRoutes(routeScores, adjustRoute) {
     .map((route, index) => ({ ...route, ranking: index + 1 }))
 }
 
+function routeScoreWithExponents(route, weightMultipliers = {}, transforms = {}) {
+  const factorValues = Object.fromEntries(ROUTE_SCORE_KEYS.map(key => {
+    const fallback = key === "riskPenalty" ? 1 : 0
+    const rawValue = clampScore(safeNumber(route?.[key], fallback))
+    const transformed = transforms[key] ? clampScore(transforms[key](rawValue)) : rawValue
+    return [key, transformed]
+  }))
+  const finalHGCPS = weightedGeometricRouteScore(factorValues, weightMultipliers)
+  return {
+    ...route,
+    sensitivityFactorValues: factorValues,
+    finalHGCPS,
+  }
+}
+
+function rankSensitivityRoutes(routeScores, weightMultipliers = {}, transforms = {}) {
+  return asArray(routeScores)
+    .map(route => routeScoreWithExponents(route, weightMultipliers, transforms))
+    .sort((a, b) => b.finalHGCPS - a.finalHGCPS)
+    .map((route, index) => ({ ...route, ranking: index + 1 }))
+}
+
 export function buildRouteFactorPerturbationScenario(routeScores = [], factorKey = "hostStabilityScore", multiplier = 1) {
   const baselineRows = asArray(routeScores)
   const baselineTop = baselineRows[0] || null
-  const adjustedRoutes = rankAdjustedRoutes(baselineRows, route => ({
-    ...route,
-    [factorKey]: roundScore(clampScore(safeNumber(route?.[factorKey], factorKey === "riskPenalty" ? 1 : 0) * multiplier), 3),
-  }))
+  const adjustedRoutes = rankSensitivityRoutes(baselineRows, { [factorKey]: multiplier })
   const adjustedTop = adjustedRoutes[0] || null
   const adjustedOriginalTop = adjustedRoutes.find(route => route.routeId === baselineTop?.routeId) || adjustedTop
   const factorMeta = ROUTE_FACTOR_DEFINITIONS.find(row => row.key === factorKey) || { key: factorKey, label: factorKey }
   const scoreChange = roundScore(safeNumber(adjustedOriginalTop?.finalHGCPS, 0) - safeNumber(baselineTop?.finalHGCPS, 0), 3)
   return {
     scenarioId: `${factorKey}-${multiplier >= 1 ? "up" : "down"}`,
+    scenarioType: "weight-exponent",
     factorKey,
     factorLabel: factorMeta.label,
-    perturbation: multiplier >= 1 ? "+20%" : "-20%",
+    perturbation: multiplier >= 1 ? "weight exponent +20%" : "weight exponent -20%",
     baselineTopRoute: baselineTop?.routeId || "route pending",
     baselineScore: safeNumber(baselineTop?.finalHGCPS, 0),
     adjustedTopRoute: adjustedTop?.routeId || "route pending",
@@ -675,6 +727,80 @@ export function buildRouteFactorPerturbationScenario(routeScores = [], factorKey
   }
 }
 
+export function buildNormalizationPerturbationScenario(routeScores = [], mode = "compressed") {
+  const baselineRows = asArray(routeScores)
+  const baselineTop = baselineRows[0] || null
+  const power = mode === "compressed" ? 0.75 : 1.25
+  const transform = value => value ** power
+  const transforms = Object.fromEntries(ROUTE_SCORE_KEYS.map(key => [key, transform]))
+  const adjustedRoutes = rankSensitivityRoutes(baselineRows, {}, transforms)
+  const adjustedTop = adjustedRoutes[0] || null
+  const adjustedOriginalTop = adjustedRoutes.find(route => route.routeId === baselineTop?.routeId) || adjustedTop
+  return {
+    scenarioId: `normalization-${mode}`,
+    scenarioType: "normalization-power",
+    factorKey: "all-route-factors",
+    factorLabel: "normalization curvature",
+    perturbation: mode === "compressed" ? "power 0.75 (compressed)" : "power 1.25 (expanded)",
+    baselineTopRoute: baselineTop?.routeId || "route pending",
+    baselineScore: safeNumber(baselineTop?.finalHGCPS, 0),
+    adjustedTopRoute: adjustedTop?.routeId || "route pending",
+    adjustedTopScore: safeNumber(adjustedTop?.finalHGCPS, 0),
+    adjustedOriginalTopRank: safeNumber(adjustedOriginalTop?.ranking, 0),
+    adjustedOriginalTopScore: safeNumber(adjustedOriginalTop?.finalHGCPS, 0),
+    topRouteRemainsTop: adjustedTop?.routeId === baselineTop?.routeId,
+    scoreChange: roundScore(safeNumber(adjustedOriginalTop?.finalHGCPS, 0) - safeNumber(baselineTop?.finalHGCPS, 0), 3),
+    warning: adjustedTop?.routeId === baselineTop?.routeId ? "" : `Top route changed to ${adjustedTop?.routeName || adjustedTop?.routeId}`,
+    adjustedRoutes,
+  }
+}
+
+function medianRank(values = []) {
+  const rows = values.slice().sort((a, b) => a - b)
+  if (!rows.length) return 0
+  const middle = Math.floor(rows.length / 2)
+  return rows.length % 2 ? rows[middle] : (rows[middle - 1] + rows[middle]) / 2
+}
+
+function buildRankingSensitivityAudit(sensitivityAnalysis = {}) {
+  return {
+    baselineRanking: asArray(sensitivityAnalysis.baselineRanking),
+    scenarios: asArray(sensitivityAnalysis.scenarios).map(({
+      adjustedRoutes,
+      ...scenario
+    }) => scenario),
+    summary: sensitivityAnalysis.summary || {},
+    candidateRankDistributions: asArray(sensitivityAnalysis.candidateRankDistributions),
+  }
+}
+
+export function buildCandidateRankDistributions(routeScores = [], scenarios = [], hostFamilies = ["Al-MOF", "Ti-MOF", "MIL-type host"]) {
+  const rankings = [
+    { scenarioId: "baseline", routes: asArray(routeScores) },
+    ...asArray(scenarios).map(row => ({ scenarioId: row.scenarioId, routes: row.adjustedRoutes })),
+  ]
+  return asArray(hostFamilies).map(hostMof => {
+    const ranks = rankings.map(scenario => {
+      const hostRoutes = asArray(scenario.routes).filter(route => route.hostMof === hostMof)
+      const bestRoute = hostRoutes.sort((a, b) => safeNumber(a.ranking, 999) - safeNumber(b.ranking, 999))[0]
+      return {
+        scenarioId: scenario.scenarioId,
+        routeId: bestRoute?.routeId || "missing",
+        rank: safeNumber(bestRoute?.ranking, asArray(routeScores).length + 1),
+      }
+    })
+    const rankValues = ranks.map(row => row.rank)
+    return {
+      hostMof,
+      minRank: Math.min(...rankValues),
+      medianRank: roundScore(medianRank(rankValues), 2),
+      maxRank: Math.max(...rankValues),
+      topRankFrequency: roundScore(rankValues.filter(rank => rank === 1).length / rankValues.length, 3),
+      ranks,
+    }
+  })
+}
+
 export function buildRouteRankStabilitySummary(scenarios = []) {
   const rows = asArray(scenarios)
   const stableCount = rows.filter(row => row.topRouteRemainsTop).length
@@ -685,25 +811,38 @@ export function buildRouteRankStabilitySummary(scenarios = []) {
     scenarioCount: rows.length,
     stableCount,
     rankStability: rows.length ? roundScore(stableCount / rows.length, 3) : 0,
+    topRouteFlipFrequency: rows.length ? roundScore((rows.length - stableCount) / rows.length, 3) : 0,
     topRouteRemainsTop: stableCount === rows.length,
-    alMofMoRemainsTop: stableCount === rows.length,
     mostSensitiveFactor: mostSensitive.factorLabel,
     mostSensitiveScenarioId: mostSensitive.scenarioId,
     maxScoreChange: roundScore(mostSensitive.scoreChangeAbs, 3),
+    fragility: rows.length === 0
+      ? "not-assessed"
+      : (rows.length - stableCount) / rows.length > 0.3
+        ? "fragile"
+        : (rows.length - stableCount) / rows.length > 0.1
+          ? "moderately-sensitive"
+          : "robust-within-audited-perturbations",
     warning: stableCount === rows.length ? "" : "At least one perturbation changes the top-ranked route.",
   }
 }
 
 export function buildHostGuestSensitivityAnalysis(routeScores = []) {
-  const scenarios = ROUTE_FACTOR_DEFINITIONS.flatMap(factor => ([
+  const weightScenarios = ROUTE_FACTOR_DEFINITIONS.flatMap(factor => ([
     buildRouteFactorPerturbationScenario(routeScores, factor.key, 0.8),
     buildRouteFactorPerturbationScenario(routeScores, factor.key, 1.2),
   ]))
+  const normalizationScenarios = [
+    buildNormalizationPerturbationScenario(routeScores, "compressed"),
+    buildNormalizationPerturbationScenario(routeScores, "expanded"),
+  ]
+  const scenarios = [...weightScenarios, ...normalizationScenarios]
   const summary = buildRouteRankStabilitySummary(scenarios)
   return {
     baselineRanking: asArray(routeScores).map(route => ({ routeId: route.routeId, routeName: route.routeName, ranking: route.ranking, finalHGCPS: route.finalHGCPS })),
     scenarios,
     summary,
+    candidateRankDistributions: buildCandidateRankDistributions(routeScores, scenarios),
   }
 }
 
@@ -742,7 +881,7 @@ export function buildMoCompensationContribution(routeScores = []) {
     pristineAlMofScore: safeNumber(pristine?.finalHGCPS, 0),
     scoreAfterMoRemoved: removed.finalHGCPS,
     contribution: roundScore(safeNumber(topRoute?.finalHGCPS, 0) - removed.finalHGCPS, 3),
-    interpretation: `${topRoute?.guestMetal || "Guest"} compensation is necessary for the current top route because removing guest activity and host-guest complementarity compresses the multiplicative HGCPS score.`,
+    interpretation: `${topRoute?.guestMetal || "Guest"} compensation is necessary for the current top route because removing guest activity and host-guest complementarity compresses the weighted-geometric HGCPS score.`,
   }
 }
 
@@ -791,11 +930,11 @@ export function buildHostGuestAblationAnalysis(routeScores = []) {
     contributionBreakdown: buildRouteContributionBreakdown(topRoute),
     moContribution: buildMoCompensationContribution(rows),
     hostStabilityContribution: buildHostStabilityContribution(rows),
-    summary: "Ablation confirms that guest compensation, host stability, host-guest complementarity, evidence confidence, and risk retention each support the current top route under the multiplicative HGCPS model.",
+    summary: "Ablation confirms that guest compensation, host stability, host-guest complementarity, evidence confidence, risk retention, synthesizability, and economics each support the current top route under the weighted-geometric HGCPS model.",
   }
 }
 
-export function buildOrganicAcidHostGuestWorkbench(input = {}) {
+function buildOrganicAcidHostGuestWorkbenchUncached(input = {}) {
   const datasets = derivationDatasets(input)
   const pathwaySteps = buildOrganicAcidPathwaySteps(input.pathwaySteps, input.pathwayDescriptorMap)
   const descriptorMap = buildPathwayDescriptorMap(input.pathwaySteps, input.pathwayDescriptorMap)
@@ -834,6 +973,10 @@ export function buildOrganicAcidHostGuestWorkbench(input = {}) {
   const missingEvidenceRiskMatrix = buildMissingEvidenceRiskMatrix(complementarity.routeScores, input.evidenceRiskRecords)
   const sensitivityAnalysis = buildHostGuestSensitivityAnalysis(complementarity.routeScores)
   const ablationAnalysis = buildHostGuestAblationAnalysis(complementarity.routeScores)
+  const audit = {
+    ...buildOrganicAcidAudit(datasets),
+    rankingSensitivity: buildRankingSensitivityAudit(sensitivityAnalysis),
+  }
 
   const selectedHost = hostSelection.selectedHost
   const selectedGuestMetal = guestSelection.selectedGuestMetal
@@ -847,10 +990,16 @@ export function buildOrganicAcidHostGuestWorkbench(input = {}) {
     workbenchName: "Organic Acid Host-Guest Pathway Screening Workbench",
     workbenchNameZh: "有机酸主客体路径筛选工作台",
     recommendation: {
-      hostFramework: selectedHost?.displayName || "Host pending",
-      guestDopantMetal: selectedGuestMetal?.guestMetal || "Guest pending",
+      hostFramework: topRoute?.hostMof || "Host pending",
+      guestDopantMetal: topRoute?.guestMetal || "Guest pending",
+      topStructuralHost: selectedHost?.displayName || "Host pending",
+      topRouteHost: topRoute?.hostMof || "Host pending",
+      hostSelectionDivergence: selectedHost?.displayName && topRoute?.hostMof && selectedHost.displayName !== topRoute.hostMof,
+      hostSelectionExplanation: selectedHost?.displayName && topRoute?.hostMof && selectedHost.displayName !== topRoute.hostMof
+        ? `${selectedHost.displayName} has the highest host-only structural score, while ${topRoute.hostMof} leads the route-level HGCPS decision after guest, evidence, and risk factors are included.`
+        : "The host-only structural leader and route-level HGCPS leader are aligned.",
       suggestedRoute: routeName(topRoute),
-      algorithmBasis: "pathway-step descriptor screening + multiplicative host-guest complementarity scoring",
+      algorithmBasis: "pathway-step descriptor screening + preregistered weighted-geometric host-guest scoring",
       confidence: `derived from evidence coverage and provenance (${scoreLabel(topRoute?.evidenceConfidence)})`,
       mainUncertainty: topRoute?.mainRisk || "guest introduction feasibility and 170C aqueous stability validation",
       note: "high-priority experimental route, not final proof of catalytic performance",
@@ -870,6 +1019,7 @@ export function buildOrganicAcidHostGuestWorkbench(input = {}) {
     confidenceMatrix,
     missingEvidenceRiskMatrix,
     sensitivityAnalysis,
+    audit,
     ablationAnalysis,
     experimentalRoute,
     pipelineSteps: PIPELINE_STEP_LABELS.map((label, index) => {
@@ -907,7 +1057,7 @@ export function buildOrganicAcidHostGuestWorkbench(input = {}) {
           "Map each bottleneck to descriptor groups instead of a single mixed descriptor table.",
           "Rank hosts by scaffold stability, pore environment, modification feasibility, guest hosting, and provenance.",
           "Rank guest metals by CO2 activation, HCOO* stabilization, electron support, host compatibility, and synthesis feasibility.",
-          "Compute multiplicative HGCPS from host stability, host pathway support, guest compensation, complementarity, evidence confidence, and risk retention factor.",
+          "Compute weighted-geometric HGCPS from host stability, ligand-aware pathway support, guest compensation, complementarity, evidence confidence, risk retention, synthesizability, and economics.",
           "Translate the top route into experiments, controls, characterization, and success criteria.",
         ][index],
         output: [
@@ -923,6 +1073,52 @@ export function buildOrganicAcidHostGuestWorkbench(input = {}) {
       }
     }),
   }
+}
+
+function workbenchCacheKey(input = {}) {
+  return derivationCacheKey([
+    input.pathwaySteps,
+    input.pathwayDescriptorMap,
+    input.hostMofCandidates,
+    input.guestMetalCandidates,
+    input.hostGuestRoutes,
+    input.evidenceRiskRecords,
+    input.validationExperiments,
+    input.coreMofImport,
+    input.qmofImport,
+    input.reactionDataset,
+    input.gasAdsorptionRecords,
+    input.literatureDataset,
+    input.goldDataset,
+  ])
+}
+
+export function buildOrganicAcidHostGuestWorkbench(input = {}) {
+  const cacheKey = workbenchCacheKey(input)
+  if (WORKBENCH_CACHE.has(cacheKey)) {
+    WORKBENCH_CACHE_STATS.hits += 1
+    return WORKBENCH_CACHE.get(cacheKey)
+  }
+  WORKBENCH_CACHE_STATS.computations += 1
+  const result = buildOrganicAcidHostGuestWorkbenchUncached(input)
+  WORKBENCH_CACHE.set(cacheKey, result)
+  return result
+}
+
+export function getOrganicAcidDerivationCacheStats() {
+  return {
+    workbench: { ...WORKBENCH_CACHE_STATS, size: WORKBENCH_CACHE.size },
+    hostFactors: getHostFactorCacheStats(),
+    routeFactors: getRouteFactorCacheStats(),
+  }
+}
+
+export function clearOrganicAcidDerivationCaches() {
+  WORKBENCH_CACHE = new Map()
+  WORKBENCH_CACHE_STATS.computations = 0
+  WORKBENCH_CACHE_STATS.hits = 0
+  clearHostFactorCache()
+  clearRouteFactorCache()
 }
 
 function csvEscape(value) {

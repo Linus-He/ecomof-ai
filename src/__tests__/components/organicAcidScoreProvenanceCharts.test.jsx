@@ -49,10 +49,10 @@ const workbench = buildOrganicAcidHostGuestWorkbench({
 })
 
 describe("organic acid score provenance charts", () => {
-  it("renders the HGCPS factor compression waterfall with six factor segments and Chinese labels", () => {
+  it("renders the HGCPS factor compression waterfall with eight factor segments and Chinese labels", () => {
     render(<FactorCompressionWaterfall model={buildFactorCompressionTrace(workbench)} lang="zh" />)
     const chart = screen.getByTestId("factor-compression-waterfall")
-    expect(chart).toHaveAttribute("data-factor-count", "6")
+    expect(chart).toHaveAttribute("data-factor-count", "8")
     expect(chart.textContent).toMatch(/HGCPS 因子压缩图/)
     expect(chart.textContent).toMatch(/风险保留系数/)
   })
@@ -68,7 +68,7 @@ describe("organic acid score provenance charts", () => {
   it("renders the host score breakdown with the selected host contributions", () => {
     render(<HostScoreBreakdownChart model={buildHostScoreProvenance(workbench)} lang="zh" />)
     const chart = screen.getByTestId("host-score-breakdown-chart")
-    expect(chart).toHaveAttribute("data-row-count", "8")
+    expect(chart).toHaveAttribute("data-row-count", "10")
     expect(chart.textContent).toMatch(/主体得分/)
     expect(chart.textContent).toContain(workbench.hostSelection.selectedHost.displayName)
   })
@@ -96,8 +96,8 @@ describe("organic acid score provenance charts", () => {
     })
     const { rerender } = render(<HgcpsFactorRose model={routeModel} lang="zh" />)
     const routeRose = screen.getByTestId("hgcps-factor-rose")
-    expect(routeRose).toHaveAttribute("data-row-count", "6")
-    expect(routeRose.querySelectorAll('[data-testid="factor-rose-node"]')).toHaveLength(6)
+    expect(routeRose).toHaveAttribute("data-row-count", "8")
+    expect(routeRose.querySelectorAll('[data-testid="factor-rose-node"]')).toHaveLength(8)
     expect(routeRose.querySelector('[data-testid="factor-rose-polygon"]')).toBeInTheDocument()
     expect(routeRose.textContent).toContain(routeModel.finalValue.toFixed(3))
 

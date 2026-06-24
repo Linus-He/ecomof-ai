@@ -123,15 +123,15 @@ function EvolutionOverview({ data, projectStatus, lang, t, isMobile }) {
 }
 
 const CURRENT_RELEASE = {
-  version: "V3.9.6",
-  title: { zh: "有机酸真实数据接入与预注册评分", en: "Organic Acid Real Data Binding and Preregistered Scoring" },
+  version: "V3.9.7",
+  title: { zh: "有机酸评分审计与描述符扩展", en: "Organic Acid Scoring Audit and Descriptor Expansion" },
   summary: {
-    zh: "新增预注册评分规约，将主体、客体与路线 HGCPS 子因子从 CoRE/QMOF/反应/文献/金牌库派生；缺数据处显式标为 curated fallback 或 literature prior。",
-    en: "Adds a preregistered scoring spec and derives host, guest, and route HGCPS factors from CoRE/QMOF/reaction/literature/gold datasets; sparse fields are explicitly labeled curated fallback or literature prior.",
+    zh: "先审计孔代理、家族公平性与排名稳健性，再预注册配体、可合成性和经济性 LCC 描述符；锁定重跑不做事后调权。",
+    en: "Audits pore proxies, family fairness, and rank robustness before preregistering ligand, synthesizability, and economic LCC descriptors; the locked rerun has no post-hoc tuning.",
   },
   scientificImpact: {
-    zh: "排名由锁定规则和真实数据派生结果决定；当前 top route 是高优先级实验假设，不是最终催化证明。",
-    en: "Ranking is determined by locked rules and data-derived factors; the current top route is a high-priority experimental hypothesis, not final catalytic proof.",
+    zh: "锁定规则给出 Cu-MOF + Mo #1、Zn-MOF + Mo #2、Al-MOF + Mo #3；均为实验优先级假设，不是最终催化证明。",
+    en: "The locked rules rank Cu-MOF + Mo #1, Zn-MOF + Mo #2, and Al-MOF + Mo #3; all remain experimental-priority hypotheses, not final catalytic proof.",
   },
   validationImpact: {
     zh: "实验矩阵、同条件数据模板和反馈规则构成下一轮验证入口；尚不能用于性能声明或正式机器学习。",
@@ -148,34 +148,34 @@ const CURRENT_RELEASE = {
 const PROJECT_UPDATE_STREAMS = [
   {
     no: "01",
-    label: { zh: "实验启用数据", en: "Activation data" },
+    label: { zh: "评分审计", en: "Scoring audit" },
     body: {
-      zh: "接入 CoRE、QMOF、反应、气体吸附、文献与金牌库，用同一套 family assignment 生成因子级来源。",
-      en: "Binds CoRE, QMOF, reaction, gas adsorption, literature, and gold datasets with shared family assignment for factor-level sources.",
+      zh: "审计孔代理与真实反应表现的 Spearman 关系、家族 IQR / 异常值和排名敏感性，不静默改权重。",
+      en: "Audits pore-proxy Spearman validity, family IQR/outliers, and ranking sensitivity without silent weight changes.",
     },
   },
   {
     no: "02",
-    label: { zh: "启用中心", en: "Activation center" },
+    label: { zh: "描述符扩展", en: "Descriptor expansion" },
     body: {
-      zh: "在主客体工作台内新增实验启用中心，连接 top route、风险矩阵、验证路线、边界和导出。",
-      en: "Added the Activation Center inside the Host-Guest Workbench, linked from top route, risk matrix, validation route, boundary, and exports.",
+      zh: "新增透明配体对照表、家族频次可合成性代理和带 TODO 来源核验的金属前驱体 LCC 表。",
+      en: "Adds a transparent linker table, family-frequency synthesizability proxy, and metal-precursor LCC table with TODO source verification.",
     },
   },
   {
     no: "03",
-    label: { zh: "算法方法论", en: "Algorithm methodology" },
+    label: { zh: "锁定重跑", en: "Locked rerun" },
     body: {
-      zh: "Project Evolution 新增独立 Organic Acid Algorithm Methodology 模块，用 KaTeX 展示路径、主体、客体、HGCPS、敏感性、消融和反馈公式。",
-      en: "Project Evolution gained a standalone Organic Acid Algorithm Methodology module with KaTeX formulas for pathway, host, guest, HGCPS, sensitivity, ablation, and feedback.",
+      zh: "spec v2 在重跑前单独提交；八因子加权几何 HGCPS 如实输出 Cu-MOF + Mo #1、Al-MOF + Mo #3、Ti-MOF + Mo #6。",
+      en: "Spec v2 was committed before rerun; the eight-factor weighted-geometric HGCPS reports Cu-MOF + Mo #1, Al-MOF + Mo #3, and Ti-MOF + Mo #6.",
     },
   },
   {
     no: "04",
-    label: { zh: "导出与边界", en: "Exports and boundary" },
+    label: { zh: "溯源与边界", en: "Provenance and boundary" },
     body: {
-      zh: "新增 CSV / JSON schema / Markdown / LaTeX summary 导出，并固定 not final catalytic proof 与 not ready for formal machine learning 边界。",
-      en: "Added CSV / JSON schema / Markdown / LaTeX summary exports while fixing not-final-proof and not-ready-for-formal-ML boundaries.",
+      zh: "新因子逐项展示 data/rule-derived、curated、fallback；旧 Al 实验矩阵明确标为非当前 Cu 路线专用。",
+      en: "New factors expose data/rule-derived, curated, and fallback grades; legacy Al experiment fixtures are marked as not route-specific for the current Cu route.",
     },
   },
 ]
@@ -448,7 +448,7 @@ function OrganicAcidAlgorithmMethodology({ methodology, lang, t, isMobile }) {
     <Card
       id={methodology.id}
       title={text(lang, methodology.titleZh, methodology.title)}
-      subtitle={text(lang, "V3.9.6 独立算法方法论模块：用 LaTeX 公式解释路径步骤、主体筛选、客体筛选、HGCPS、敏感性、消融与实验反馈；不预设最终赢家。", "A standalone V3.9.6 algorithm methodology module with LaTeX formulas for pathway steps, host selection, guest selection, HGCPS, sensitivity, ablation, and experimental feedback; no final winner is preset.")}
+      subtitle={text(lang, "V3.9.7 独立算法方法论模块：解释审计、配体 / 可合成性 / LCC 描述符、八因子加权几何 HGCPS、敏感性与实验反馈；不预设最终赢家。", "A standalone V3.9.7 methodology module covering audit results, ligand/synthesizability/LCC descriptors, eight-factor weighted-geometric HGCPS, sensitivity, and experimental feedback; no final winner is preset.")}
       t={t}
       actions={<CopyLinkButton hash={methodology.id} ariaLabel={text(lang, "复制算法方法论链接", "Copy algorithm methodology link")} />}
     >

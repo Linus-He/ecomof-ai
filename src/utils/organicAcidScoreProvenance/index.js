@@ -1,9 +1,9 @@
 /**
- * Organic Acid Score Provenance builders (V3.9.5.5).
+ * Organic Acid Score Provenance builders (V3.9.7).
  *
  * Turns the Step Why Panel into a real score explainer: raw / proxy fields ->
  * normalized value -> weight or factor -> sub-contribution -> weighted-sum or
- * multiplicative compression -> final score -> rank -> why it leads runner-ups.
+ * weighted-geometric compression -> final score -> rank -> why it leads runner-ups.
  *
  * Everything is derived from the host-guest workbench (hostSelection /
  * guestSelection / complementarity scoreBreakdown / provenance). No candidate
@@ -14,10 +14,11 @@ import {
   HGCPS_FORMULA_TEXT,
   HOST_SCORE_WEIGHTS,
   ROUTE_FACTOR_DEFINITIONS,
+  ROUTE_SCORE_WEIGHTS,
   safeNumber,
 } from "../organicAcidHostGuest/index.js"
 
-export const ORGANIC_ACID_SCORE_PROVENANCE_VERSION = "V3.9.5.5"
+export const ORGANIC_ACID_SCORE_PROVENANCE_VERSION = "V3.9.7"
 
 const HOST_DATA_FILE = "organic_acid_host_guest/host_mof_candidates.json"
 const GUEST_DATA_FILE = "organic_acid_host_guest/guest_metal_candidates.json"
@@ -41,8 +42,10 @@ const HOST_FACTOR_LABELS = {
   thermalStabilityEvidence: ["热稳定性证据", "Thermal stability evidence"],
   poreEnvironmentScore: ["孔环境", "Pore environment"],
   co2EnrichmentSupport: ["CO₂ 富集支持", "CO2 enrichment support"],
+  ligandPathwaySupport: ["配体路径支持", "Ligand pathway support"],
   postModificationFeasibility: ["后修饰可行性", "Post-modification feasibility"],
   guestHostingFeasibility: ["客体承载可行性", "Guest hosting feasibility"],
+  synthesizabilityScore: ["可合成性", "Synthesizability"],
   provenanceQuality: ["溯源质量", "Provenance quality"],
 }
 
@@ -63,6 +66,8 @@ const ROUTE_FACTOR_LABELS = {
   complementarity: ["主客体互补", "Host-guest complementarity"],
   evidence: ["证据置信", "Evidence confidence"],
   riskRetentionFactor: ["风险保留", "Risk retention"],
+  synthesizability: ["可合成性", "Synthesizability"],
+  economics: ["经济性 LCC", "Economic LCC"],
 }
 
 const GRADE_META = {
@@ -96,6 +101,8 @@ const FACTOR_EVIDENCE_KEYWORDS = {
   bimetallicConstructionFeasibility: ["bimetallic", "construction", "coordination", "guest"],
   hostStability: ["stability", "aqueous", "hydrothermal", "170c", "pxrd", "leaching", "bond"],
   hostPathwaySupport: ["pathway", "co2 enrichment", "pore", "lewis", "descriptor", "diffusion"],
+  synthesizability: ["synthesis", "frequency", "maturity", "difficulty", "feasibility"],
+  economics: ["economic", "cost", "price", "precursor", "lcc"],
   guestActivityCompensation: ["guest", "co2 activation", "hcoo", "formate", "electron", "redox", "doping", "bimetallic"],
   complementarity: ["complementarity", "compatibility", "host-guest", "coordination", "post-modification", "bimetallic"],
   evidence: ["evidence", "confidence", "same-condition", "curation", "provenance"],
@@ -235,11 +242,14 @@ export function buildRouteHgcpsScoreProvenance(workbench, options = {}) {
   const breakdown = route.scoreBreakdown || {}
   const baseGrade = deriveDataGrade(route.provenance)
   const routeName = safeText(route.routeName || `${safeText(route.hostMof, "host")} + ${safeText(route.guestMetal, "guest")}`)
+  const weightMap = Object.fromEntries(ROUTE_SCORE_WEIGHTS)
   let product = 1
   const rows = ROUTE_FACTOR_DEFINITIONS.map(({ breakdownKey }) => {
     const factor = clamp01(breakdown[breakdownKey])
     const before = product
-    product = product * factor
+    const weight = safeNumber(weightMap[ROUTE_FACTOR_DEFINITIONS.find(row => row.breakdownKey === breakdownKey)?.key], 0)
+    const effectiveFactor = Math.max(0.001, factor) ** weight
+    product = product * effectiveFactor
     const [labelZh, labelEn] = ROUTE_FACTOR_LABELS[breakdownKey] || [breakdownKey, breakdownKey]
     const isRisk = breakdownKey === "riskRetentionFactor"
     return {
@@ -248,13 +258,14 @@ export function buildRouteHgcpsScoreProvenance(workbench, options = {}) {
       labelEn,
       rawValue: round(safeNumber(breakdown[breakdownKey]), 3),
       normalizedValue: round(factor, 3),
-      weightOrFactor: round(factor, 3),
+      weightOrFactor: round(weight, 3),
+      effectiveFactor: round(effectiveFactor, 4),
       contribution: round(product - before, 4),
       cumulativeValue: round(product, 4),
       dataGrade: factorDataGrade(breakdownKey, baseGrade),
       dataSourceFile: ROUTE_DATA_FILE,
       builderFunction: "buildHostGuestComplementarityScore",
-      evidenceMode: "multiplicative-factor",
+      evidenceMode: "weighted-geometric-factor",
       curationStatus: baseGrade,
       limitation: isRisk ? RISK_RETENTION_NOTE_EN : safeText(route.mainRisk, "Route factor needs same-condition validation."),
     }
@@ -269,7 +280,7 @@ export function buildRouteHgcpsScoreProvenance(workbench, options = {}) {
     finalValue,
     rank: Math.round(safeNumber(route.ranking, 1)),
     formula: HGCPS_FORMULA_TEXT,
-    formulaType: "multiplicative-factor",
+    formulaType: "weighted-geometric-factor",
     startValue: 1,
     headerNoteZh: SCORE_HEADER_NOTE_ZH,
     headerNoteEn: SCORE_HEADER_NOTE_EN,
@@ -280,7 +291,7 @@ export function buildRouteHgcpsScoreProvenance(workbench, options = {}) {
     dataGrade: baseGrade,
     dataSourceFile: ROUTE_DATA_FILE,
     builderFunction: "buildHostGuestComplementarityScore",
-    evidenceMode: "multiplicative-factor",
+    evidenceMode: "weighted-geometric-factor",
     curationStatus: curationFromProvenance(route.provenance, "seed / proxy / curated"),
     limitation: safeText(route.mainRisk, "Route still needs same-condition validation."),
   }
@@ -292,7 +303,8 @@ export function buildFactorCompressionTrace(workbench, options = {}) {
     factorKey: row.fieldKey,
     labelZh: row.labelZh,
     labelEn: row.labelEn,
-    factorValue: row.weightOrFactor,
+    factorValue: row.effectiveFactor,
+    factorWeight: row.weightOrFactor,
     cumulativeValue: row.cumulativeValue,
     contribution: row.contribution,
     dataGrade: row.dataGrade,
@@ -532,8 +544,8 @@ export function buildTerminologyAlignmentModel() {
         nameEn: "Host-Guest Complementary Pathway Score",
         scopeZh: "有机酸主客体主链条的统一路线评分。",
         scopeEn: "Primary route score for the organic-acid host-guest chain.",
-        noteZh: "六因子乘法压缩，表示路线优先级，不是催化性能预测值。",
-        noteEn: "Six-factor multiplicative compression; route priority, not catalytic-performance prediction.",
+        noteZh: "八因子加权几何压缩，表示路线优先级，不是催化性能预测值。",
+        noteEn: "Eight-factor weighted-geometric compression; route priority, not catalytic-performance prediction.",
         primary: true,
       },
       {
@@ -732,16 +744,22 @@ function routeFactorValue(route, definition) {
 }
 
 function calculateRouteHgcps(route) {
-  return round(ROUTE_FACTOR_DEFINITIONS.reduce((product, definition) => product * routeFactorValue(route, definition), 1), 3)
+  const weights = Object.fromEntries(ROUTE_SCORE_WEIGHTS)
+  return round(ROUTE_FACTOR_DEFINITIONS.reduce((product, definition) => {
+    const factor = Math.max(0.001, routeFactorValue(route, definition))
+    return product * factor ** safeNumber(weights[definition.key], 0)
+  }, 1), 3)
 }
 
 export function buildRiskDecomposition(route, evidenceRecords = []) {
   const selectedRoute = route || {}
   const riskRetention = round(routeFactorValue(selectedRoute, ROUTE_FACTOR_DEFINITIONS.find(row => row.key === "riskPenalty")), 3)
+  const weights = Object.fromEntries(ROUTE_SCORE_WEIGHTS)
+  const riskWeight = safeNumber(weights.riskPenalty, 0)
   const scoreBeforeRisk = round(ROUTE_FACTOR_DEFINITIONS
     .filter(definition => definition.key !== "riskPenalty")
-    .reduce((product, definition) => product * routeFactorValue(selectedRoute, definition), 1), 3)
-  const finalHGCPS = round(scoreBeforeRisk * riskRetention, 3)
+    .reduce((product, definition) => product * Math.max(0.001, routeFactorValue(selectedRoute, definition)) ** safeNumber(weights[definition.key], 0), 1), 3)
+  const finalHGCPS = round(scoreBeforeRisk * Math.max(0.001, riskRetention) ** riskWeight, 3)
   const evidenceRisks = asArray(selectedRoute.riskPenaltyBreakdown).length
     ? asArray(selectedRoute.riskPenaltyBreakdown)
     : asArray(evidenceRecords)

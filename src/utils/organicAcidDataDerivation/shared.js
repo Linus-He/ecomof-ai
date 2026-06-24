@@ -1,6 +1,9 @@
-import scoringSpec from "../../../public/data/organic_acid_scoring_spec_v1.json"
+import scoringSpec from "../../../public/data/organic_acid_scoring_spec_v2.json"
 
 export const ORGANIC_ACID_SCORING_SPEC = scoringSpec
+
+const OBJECT_IDS = new WeakMap()
+let nextObjectId = 1
 
 export function asArray(value) {
   return Array.isArray(value) ? value : []
@@ -60,9 +63,44 @@ export function weightedScore(row, weights) {
   return roundScore(total / totalWeight)
 }
 
+export function weightedGeometricScore(row, weights) {
+  const pairs = asArray(weights)
+  const totalWeight = pairs.reduce((sum, [, weight]) => sum + safeNumber(weight, 0), 0) || 1
+  const zeroFloor = safeNumber(ORGANIC_ACID_SCORING_SPEC.algorithm?.zeroFloor, 0.001)
+  const logScore = pairs.reduce((sum, [key, weight]) => {
+    const normalizedWeight = safeNumber(weight, 0) / totalWeight
+    const value = Math.max(zeroFloor, clampScore(row?.[key]))
+    return sum + normalizedWeight * Math.log(value)
+  }, 0)
+  return roundScore(Math.exp(logScore))
+}
+
 export function datasetRecords(dataset) {
   if (Array.isArray(dataset)) return dataset
   return asArray(dataset?.records)
+}
+
+export function objectIdentity(value) {
+  if ((typeof value !== "object" && typeof value !== "function") || value === null) return String(value)
+  if (!OBJECT_IDS.has(value)) {
+    OBJECT_IDS.set(value, nextObjectId)
+    nextObjectId += 1
+  }
+  return OBJECT_IDS.get(value)
+}
+
+export function datasetIdentity(dataset) {
+  if (!dataset) return "missing"
+  const records = datasetRecords(dataset)
+  const version = dataset?.version || dataset?.datasetVersion || dataset?.generatedAt || "unversioned"
+  return `${objectIdentity(dataset)}:${objectIdentity(records)}:${version}:${records.length}`
+}
+
+export function derivationCacheKey(values = []) {
+  return asArray(values).map(value => {
+    if (Array.isArray(value) || value?.records) return datasetIdentity(value)
+    return objectIdentity(value)
+  }).join("|")
 }
 
 function recordText(record = {}) {
@@ -106,6 +144,8 @@ export function assignFamily(record = {}) {
   if (metalKey === "fe") return "Fe-MOF"
   if (metalKey === "cr") return "Cr-MOF"
   if (metalKey === "ti") return "Ti-MOF"
+  if (metalKey === "cu") return "Cu-MOF"
+  if (metalKey === "zn") return "Zn-MOF"
   if (String(record.metalNode || "").match(/[;/,+|]/)) return "ambiguous"
   if (text.includes("mof-808")) return "MOF-808-like host"
   return "unclassified"
@@ -122,6 +162,8 @@ export function familyForHostName(name = "") {
     "Ti-MOF": "Ti-MOF",
     "Fe-MOF": "Fe-MOF",
     "Cr-MOF": "Cr-MOF",
+    "Cu-MOF": "Cu-MOF",
+    "Zn-MOF": "Zn-MOF",
   }
   return aliases[value] || value
 }

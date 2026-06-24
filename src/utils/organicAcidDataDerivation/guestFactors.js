@@ -84,7 +84,7 @@ function fallbackFactor(guest, key, nRecords, matchingRecords) {
     },
     normalization: "none; no dedicated dopant/guest-metal dataset field",
     value,
-    derivationLevel: "curated-literature-prior",
+    derivationLevel: "fallback",
     recordRefs: asArray(guest?.evidenceRefs).concat(asArray(matchingRecords).map(recordRef).slice(0, 3)),
     citations: citationRefs(matchingRecords),
     fallbackReason: "No dedicated dopant or guest-metal records meet the preregistered threshold.",
@@ -125,8 +125,10 @@ export function deriveGuestFactors(guestMetalCandidates = [], datasets = {}, sel
       roundScore(canDerive ? derivedValues[key] : safeNumber(guest?.[key], 0)),
     ]))
     const guestScore = weightedScore(factorValues, ORGANIC_ACID_SCORING_SPEC.guestScoreWeights)
-    const dataDerivedCount = Object.values(factorProvenance).filter(tuple => tuple.derivationLevel === "data-derived").length
-    const fallbackCount = Object.values(factorProvenance).length - dataDerivedCount
+    const provenanceRows = Object.values(factorProvenance)
+    const fallbackCount = provenanceRows.filter(tuple => /fallback/.test(tuple.derivationLevel)).length
+    const curatedCount = provenanceRows.filter(tuple => !/fallback/.test(tuple.derivationLevel) && /curated/.test(tuple.derivationLevel)).length
+    const dataDerivedCount = provenanceRows.length - curatedCount - fallbackCount
     return {
       ...guest,
       ...factorValues,
@@ -144,9 +146,10 @@ export function deriveGuestFactors(guestMetalCandidates = [], datasets = {}, sel
       factorProvenance,
       derivationSummary: {
         dataDerivedCount,
+        curatedCount,
         fallbackCount,
         totalRecords: Object.values(factorProvenance).reduce((sum, tuple) => sum + safeNumber(tuple.nRecords, 0), 0),
-        summaryLabel: `${dataDerivedCount} guest factors data-derived; ${fallbackCount} literature priors`,
+        summaryLabel: `${dataDerivedCount} guest factors data-derived; ${curatedCount} curated; ${fallbackCount} fallback`,
       },
       provenance: Object.entries(factorProvenance).map(([key, tuple]) => `${key}: ${derivationLabel(tuple)}`),
     }

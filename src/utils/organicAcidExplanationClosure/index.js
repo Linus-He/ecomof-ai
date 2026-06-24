@@ -12,7 +12,7 @@
 import { buildOrganicAcidHostGuestWorkbench, safeNumber } from "../organicAcidHostGuest/index.js"
 import { deriveDataGrade } from "../organicAcidScoreProvenance/index.js"
 
-export const ORGANIC_ACID_EXPLANATION_CLOSURE_VERSION = "V3.9.5.5"
+export const ORGANIC_ACID_EXPLANATION_CLOSURE_VERSION = "V3.9.7"
 
 export const PATHWAY_BOUNDARY_ZH = "路径与描述符来自 seed / proxy / curated 证据，不等于完整机理证明。"
 export const PATHWAY_BOUNDARY_EN = "Pathways and descriptors come from seed / proxy / curated evidence, not a complete mechanistic proof."
@@ -301,7 +301,7 @@ export function buildTerminologyCrosswalk() {
     firstMentionNoteZh: "HGCPS：主客体互补路径评分，表示实验路线优先级，不是性能预测值。",
     firstMentionNoteEn: "HGCPS: Host-Guest Complementary Pathway Score; it expresses experimental route priority, not a performance prediction.",
     terms: [
-      { acronym: "HGCPS", role: "primary", nameZh: "主客体互补路径评分", nameEn: "Host-Guest Complementary Pathway Score", noteZh: "主链条唯一主评分，六因子乘法压缩，表示路线优先级。", noteEn: "The single primary score of the main chain; six-factor multiplicative compression for route priority." },
+      { acronym: "HGCPS", role: "primary", nameZh: "主客体互补路径评分", nameEn: "Host-Guest Complementary Pathway Score", noteZh: "主链条唯一主评分，八因子加权几何压缩，表示路线优先级。", noteEn: "The single primary score of the main chain; eight-factor weighted-geometric compression for route priority." },
       { acronym: "OACS", role: "legacy", nameZh: "有机酸候选评分", nameEn: "Organic Acid Candidate Score", noteZh: "历史 / 辅助指标，早期单材料候选评分，已收敛到 HGCPS。", noteEn: "Legacy / auxiliary metric; early single-candidate score now converged into HGCPS." },
       { acronym: "DMRS", role: "auxiliary", nameZh: "掺杂金属推荐评分", nameEn: "Dopant Metal Recommendation Score", noteZh: "辅助指标，对应 Guest Score，并入 HGCPS 的客体活性补偿因子。", noteEn: "Auxiliary metric; maps to Guest Score and feeds the HGCPS guest-activity-compensation factor." },
       { acronym: "Host Score", role: "factor", nameZh: "主体得分", nameEn: "Host Score", noteZh: "加权求和，进入 HGCPS 的主体稳定性与路径支持因子。", noteEn: "Weighted sum; feeds the HGCPS host-stability and pathway-support factors." },

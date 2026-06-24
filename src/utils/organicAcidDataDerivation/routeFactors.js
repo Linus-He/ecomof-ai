@@ -5,6 +5,7 @@ import {
   citationRefs,
   clampScore,
   datasetRecords,
+  derivationCacheKey,
   derivationLabel,
   familyForHostName,
   mean,
@@ -14,9 +15,13 @@ import {
   roundScore,
   safeNumber,
   sampleRefs,
+  weightedGeometricScore,
 } from "./shared.js"
+import { deriveEconomicFactors } from "./economicFactors.js"
 
 const ROUTE_KEYS = ORGANIC_ACID_SCORING_SPEC.routeScoreKeys
+const ROUTE_FACTOR_CACHE = new Map()
+const ROUTE_FACTOR_CACHE_STATS = { computations: 0, hits: 0 }
 
 function recordsWithFamily(dataset = []) {
   return datasetRecords(dataset).map(record => ({ ...record, ...(record.mof || {}) }))
@@ -50,14 +55,16 @@ function routeName(route) {
   return `${route?.hostMof || "Host"} + ${route?.guestMetal || "guest"} ${route?.routeType || "route"}`
 }
 
-function scoreRouteFactors(route, context, evidenceStats) {
+function scoreRouteFactors(route, context, evidenceStats, economicScores) {
   const host = context.hostsByName.get(route.hostMof)
   const guest = context.guestsByMetal.get(route.guestMetal)
   const hostStabilityScore = safeNumber(host?.hostScoreBreakdown?.stabilityProxy, safeNumber(route.hostStabilityScore, 0))
-  const hostPathwaySupportScore = roundScore(mean([
-    host?.hostScoreBreakdown?.poreEnvironmentScore,
-    host?.hostScoreBreakdown?.co2EnrichmentSupport,
-  ]) ?? safeNumber(route.hostPathwaySupportScore, 0))
+  const pathwayWeights = ORGANIC_ACID_SCORING_SPEC.hostPathwaySupportFormula
+  const hostPathwaySupportScore = roundScore(
+    safeNumber(pathwayWeights.poreEnvironmentScore, 0) * safeNumber(host?.hostScoreBreakdown?.poreEnvironmentScore, 0)
+    + safeNumber(pathwayWeights.co2EnrichmentSupport, 0) * safeNumber(host?.hostScoreBreakdown?.co2EnrichmentSupport, 0)
+    + safeNumber(pathwayWeights.ligandPathwaySupport, 0) * safeNumber(host?.hostScoreBreakdown?.ligandPathwaySupport, 0.5)
+  )
   const guestActivityCompensationScore = roundScore(mean([
     guest?.co2ActivationScore,
     guest?.formateStabilizationScore,
@@ -84,7 +91,10 @@ function scoreRouteFactors(route, context, evidenceStats) {
       hostGuestComplementarityScore,
       evidenceConfidenceScore,
       riskPenalty,
+      synthesizabilityScore: roundScore(safeNumber(host?.hostScoreBreakdown?.synthesizabilityScore, 0.25)),
+      economicScore: roundScore(safeNumber(economicScores[route.routeId]?.value, 0.5)),
     },
+    economic: economicScores[route.routeId],
   }
 }
 
@@ -123,18 +133,25 @@ function routeTuple(route, key, derived, context) {
   }
   if (key === "hostPathwaySupportScore") {
     return provenanceTuple({
-      sourceDataset: "derived host poreEnvironmentScore+co2EnrichmentSupport",
-      nRecords: safeNumber(hostTuple.poreEnvironmentScore?.nRecords, 0) + safeNumber(hostTuple.co2EnrichmentSupport?.nRecords, 0),
+      sourceDataset: "derived host poreEnvironmentScore+co2EnrichmentSupport+ligandPathwaySupport",
+      nRecords: safeNumber(hostTuple.poreEnvironmentScore?.nRecords, 0)
+        + safeNumber(hostTuple.co2EnrichmentSupport?.nRecords, 0)
+        + safeNumber(hostTuple.ligandPathwaySupport?.nRecords, 0),
       rawAggregate: {
         poreEnvironmentScore: derived.host?.hostScoreBreakdown?.poreEnvironmentScore,
         co2EnrichmentSupport: derived.host?.hostScoreBreakdown?.co2EnrichmentSupport,
+        ligandPathwaySupport: derived.host?.hostScoreBreakdown?.ligandPathwaySupport,
+        weights: ORGANIC_ACID_SCORING_SPEC.hostPathwaySupportFormula,
       },
-      normalization: "mean of derived host pathway factors",
+      normalization: "preregistered weighted sum of derived host pathway factors",
       value: derived.factors[key],
-      derivationLevel: [hostTuple.poreEnvironmentScore?.derivationLevel, hostTuple.co2EnrichmentSupport?.derivationLevel].some(level => /curated/.test(level || ""))
-        ? "proxy-flagged"
-        : "data-derived",
-      recordRefs: asArray(hostTuple.poreEnvironmentScore?.recordRefs).concat(asArray(hostTuple.co2EnrichmentSupport?.recordRefs)).slice(0, 8),
+      derivationLevel: "data-derived + curated-ligand-descriptor",
+      recordRefs: asArray(hostTuple.poreEnvironmentScore?.recordRefs)
+        .concat(asArray(hostTuple.co2EnrichmentSupport?.recordRefs))
+        .concat(asArray(hostTuple.ligandPathwaySupport?.recordRefs))
+        .slice(0, 8),
+      citations: asArray(hostTuple.ligandPathwaySupport?.citations).slice(0, 3),
+      fallbackReason: hostTuple.ligandPathwaySupport?.fallbackReason || "",
     })
   }
   if (key === "guestActivityCompensationScore") {
@@ -148,7 +165,7 @@ function routeTuple(route, key, derived, context) {
       },
       normalization: "mean of guest activity factors",
       value: derived.factors[key],
-      derivationLevel: guestTuple.co2ActivationScore?.derivationLevel || "curated-literature-prior",
+      derivationLevel: guestTuple.co2ActivationScore?.derivationLevel || "fallback",
       recordRefs: asArray(guestTuple.co2ActivationScore?.recordRefs),
       citations: asArray(guestTuple.co2ActivationScore?.citations),
       fallbackReason: guestTuple.co2ActivationScore?.fallbackReason || "",
@@ -156,7 +173,7 @@ function routeTuple(route, key, derived, context) {
   }
   if (key === "hostGuestComplementarityScore") {
     return provenanceTuple({
-      sourceDataset: "organic_acid_scoring_spec_v1",
+      sourceDataset: "organic_acid_scoring_spec_v2",
       nRecords: 0,
       rawAggregate: {
         hostStabilityScore: derived.factors.hostStabilityScore,
@@ -167,6 +184,21 @@ function routeTuple(route, key, derived, context) {
       normalization: "clamped 0-1 deterministic combination",
       value: derived.factors[key],
       derivationLevel: "rule-derived",
+    })
+  }
+  if (key === "synthesizabilityScore") {
+    return provenanceTuple({
+      ...hostTuple.synthesizabilityScore,
+      sourceDataset: hostTuple.synthesizabilityScore?.sourceDataset || "derived host synthesizabilityScore",
+      value: derived.factors[key],
+    })
+  }
+  if (key === "economicScore") {
+    return provenanceTuple({
+      ...derived.economic?.tuple,
+      sourceDataset: derived.economic?.tuple?.sourceDataset || "metal_precursor_cost_table.json",
+      value: derived.factors[key],
+      derivationLevel: "curated-economic",
     })
   }
   if (key === "evidenceConfidenceScore") {
@@ -201,16 +233,31 @@ function routeTuple(route, key, derived, context) {
 }
 
 export function deriveRouteFactors(hostGuestRoutes = [], datasets = {}, hostSelection = {}, guestSelection = {}) {
+  const cacheKey = derivationCacheKey([
+    hostGuestRoutes,
+    datasets.literatureDataset,
+    datasets.goldDataset,
+    hostSelection.rankedHosts,
+    guestSelection.rankedGuestMetals,
+  ])
+  if (ROUTE_FACTOR_CACHE.has(cacheKey)) {
+    ROUTE_FACTOR_CACHE_STATS.hits += 1
+    return ROUTE_FACTOR_CACHE.get(cacheKey)
+  }
+  ROUTE_FACTOR_CACHE_STATS.computations += 1
   const hostsByName = new Map(asArray(hostSelection.rankedHosts).map(host => [host.displayName, host]))
   const guestsByMetal = new Map(asArray(guestSelection.rankedGuestMetals).map(guest => [guest.guestMetal, guest]))
   const context = { hostsByName, guestsByMetal }
   const evidenceStats = buildEvidenceStats(hostGuestRoutes, datasets)
+  const economicScores = deriveEconomicFactors(hostGuestRoutes, hostSelection, guestSelection)
   const routeScores = asArray(hostGuestRoutes).map(route => {
-    const derived = scoreRouteFactors(route, context, evidenceStats)
+    const derived = scoreRouteFactors(route, context, evidenceStats, economicScores)
     const routeFactorProvenance = Object.fromEntries(ROUTE_KEYS.map(key => [key, routeTuple(route, key, derived, context)]))
-    const finalHGCPS = roundScore(ROUTE_KEYS.reduce((product, key) => product * safeNumber(derived.factors[key], key === "riskPenalty" ? 1 : 0), 1))
-    const dataDerivedCount = Object.values(routeFactorProvenance).filter(tuple => /data-derived|proxy-flagged|rule-derived/.test(tuple.derivationLevel)).length
-    const fallbackCount = Object.values(routeFactorProvenance).filter(tuple => /curated/.test(tuple.derivationLevel)).length
+    const finalHGCPS = weightedGeometricScore(derived.factors, ORGANIC_ACID_SCORING_SPEC.routeScoreWeights)
+    const provenanceRows = Object.values(routeFactorProvenance)
+    const fallbackCount = provenanceRows.filter(tuple => /fallback/.test(tuple.derivationLevel)).length
+    const curatedCount = provenanceRows.filter(tuple => !/fallback/.test(tuple.derivationLevel) && /curated/.test(tuple.derivationLevel)).length
+    const dataDerivedCount = provenanceRows.length - curatedCount - fallbackCount
     return {
       ...route,
       ...derived.factors,
@@ -222,16 +269,19 @@ export function deriveRouteFactors(hostGuestRoutes = [], datasets = {}, hostSele
         complementarity: derived.factors.hostGuestComplementarityScore,
         evidence: derived.factors.evidenceConfidenceScore,
         riskRetentionFactor: derived.factors.riskPenalty,
+        synthesizability: derived.factors.synthesizabilityScore,
+        economics: derived.factors.economicScore,
       },
       routeFactorProvenance,
       derivationSummary: {
         dataDerivedCount,
+        curatedCount,
         fallbackCount,
         totalRecords: Object.values(routeFactorProvenance).reduce((sum, tuple) => sum + safeNumber(tuple.nRecords, 0), 0),
-        summaryLabel: `${dataDerivedCount} route factors data/rule-derived; ${fallbackCount} curated priors`,
+        summaryLabel: `${dataDerivedCount} route factors data/rule-derived; ${curatedCount} curated; ${fallbackCount} fallback`,
       },
       routeName: routeName(route),
-      mainReason: `${route.hostMof} + ${route.guestMetal} is ranked by V3.9.6 preregistered data-derived HGCPS factors: host stability, host pathway support, guest activity compensation, complementarity, evidence confidence, and risk retention.`,
+      mainReason: `${route.hostMof} + ${route.guestMetal} is ranked by V3.9.7 preregistered weighted-geometric HGCPS factors, including ligand chemistry, synthesizability, and economic screening.`,
       provenanceStatus: Object.entries(routeFactorProvenance).map(([key, tuple]) => `${key}: ${derivationLabel(tuple)}`).join(" / "),
       provenance: Object.entries(routeFactorProvenance).map(([key, tuple]) => `${key}: ${derivationLabel(tuple)}`),
       evidenceSources: derived.stats.records,
@@ -253,8 +303,20 @@ export function deriveRouteFactors(hostGuestRoutes = [], datasets = {}, hostSele
         : route.nextExperiment,
     }))
 
-  return {
+  const result = {
     routeScores,
     topRoute: routeScores[0] || null,
   }
+  ROUTE_FACTOR_CACHE.set(cacheKey, result)
+  return result
+}
+
+export function getRouteFactorCacheStats() {
+  return { ...ROUTE_FACTOR_CACHE_STATS, size: ROUTE_FACTOR_CACHE.size }
+}
+
+export function clearRouteFactorCache() {
+  ROUTE_FACTOR_CACHE.clear()
+  ROUTE_FACTOR_CACHE_STATS.computations = 0
+  ROUTE_FACTOR_CACHE_STATS.hits = 0
 }

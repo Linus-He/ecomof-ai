@@ -1,0 +1,1057 @@
+{
+  "artifactId": "organic-acid-v3.9.7-preregistered-rerun",
+  "version": "V3.9.7",
+  "generatedAt": "2026-06-24T06:04:30.380Z",
+  "scoringSpec": {
+    "specId": "organic-acid-host-guest-scoring-spec-v2",
+    "lockedAt": "2026-06-24T05:38:47Z",
+    "policy": "new descriptors fixed before re-run; chosen on scientific merit, not to favor any candidate",
+    "formula": "finalHGCPS = product(max(factor, 0.001) ^ routeWeight); route weights sum to 1"
+  },
+  "auditReference": "organic_acid_audit_v3_9_7.json",
+  "recommendation": {
+    "hostFramework": "Cu-MOF",
+    "guestDopantMetal": "Mo",
+    "topStructuralHost": "MIL-type host",
+    "topRouteHost": "Cu-MOF",
+    "hostSelectionDivergence": true,
+    "hostSelectionExplanation": "MIL-type host has the highest host-only structural score, while Cu-MOF leads the route-level HGCPS decision after guest, evidence, and risk factors are included.",
+    "suggestedRoute": "Cu-MOF + Mo post-modification",
+    "algorithmBasis": "pathway-step descriptor screening + preregistered weighted-geometric host-guest scoring",
+    "confidence": "derived from evidence coverage and provenance (medium-high)",
+    "mainUncertainty": "Route-specific same-condition evidence, local coordination, and hydrothermal retention remain uncertain.",
+    "note": "high-priority experimental route, not final proof of catalytic performance"
+  },
+  "hostRanking": [
+    {
+      "ranking": 1,
+      "hostMof": "MIL-type host",
+      "hostScore": 0.691,
+      "ligandPathwaySupport": 0.5,
+      "synthesizabilityScore": 0,
+      "derivationSummary": {
+        "dataDerivedCount": 2,
+        "curatedCount": 1,
+        "fallbackCount": 7,
+        "totalRecords": 22,
+        "summaryLabel": "2 host factors data/proxy-derived; 1 curated; 7 fallback"
+      }
+    },
+    {
+      "ranking": 2,
+      "hostMof": "Al-MOF",
+      "hostScore": 0.669,
+      "ligandPathwaySupport": 0.497,
+      "synthesizabilityScore": 1,
+      "derivationSummary": {
+        "dataDerivedCount": 6,
+        "curatedCount": 2,
+        "fallbackCount": 2,
+        "totalRecords": 1239,
+        "summaryLabel": "6 host factors data/proxy-derived; 2 curated; 2 fallback"
+      }
+    },
+    {
+      "ranking": 3,
+      "hostMof": "Fe-MOF",
+      "hostScore": 0.657,
+      "ligandPathwaySupport": 0.522,
+      "synthesizabilityScore": 0.943,
+      "derivationSummary": {
+        "dataDerivedCount": 6,
+        "curatedCount": 2,
+        "fallbackCount": 2,
+        "totalRecords": 1014,
+        "summaryLabel": "6 host factors data/proxy-derived; 2 curated; 2 fallback"
+      }
+    },
+    {
+      "ranking": 4,
+      "hostMof": "UiO-type host",
+      "hostScore": 0.644,
+      "ligandPathwaySupport": 0.423,
+      "synthesizabilityScore": 0.335,
+      "derivationSummary": {
+        "dataDerivedCount": 4,
+        "curatedCount": 2,
+        "fallbackCount": 4,
+        "totalRecords": 114,
+        "summaryLabel": "4 host factors data/proxy-derived; 2 curated; 4 fallback"
+      }
+    },
+    {
+      "ranking": 5,
+      "hostMof": "Cu-MOF",
+      "hostScore": 0.633,
+      "ligandPathwaySupport": 0.525,
+      "synthesizabilityScore": 0.988,
+      "derivationSummary": {
+        "dataDerivedCount": 6,
+        "curatedCount": 2,
+        "fallbackCount": 2,
+        "totalRecords": 1119,
+        "summaryLabel": "6 host factors data/proxy-derived; 2 curated; 2 fallback"
+      }
+    },
+    {
+      "ranking": 6,
+      "hostMof": "Ti-MOF",
+      "hostScore": 0.631,
+      "ligandPathwaySupport": 0.503,
+      "synthesizabilityScore": 0.724,
+      "derivationSummary": {
+        "dataDerivedCount": 5,
+        "curatedCount": 3,
+        "fallbackCount": 2,
+        "totalRecords": 947,
+        "summaryLabel": "5 host factors data/proxy-derived; 3 curated; 2 fallback"
+      }
+    },
+    {
+      "ranking": 7,
+      "hostMof": "Zn-MOF",
+      "hostScore": 0.628,
+      "ligandPathwaySupport": 0.496,
+      "synthesizabilityScore": 0.931,
+      "derivationSummary": {
+        "dataDerivedCount": 6,
+        "curatedCount": 2,
+        "fallbackCount": 2,
+        "totalRecords": 965,
+        "summaryLabel": "6 host factors data/proxy-derived; 2 curated; 2 fallback"
+      }
+    },
+    {
+      "ranking": 8,
+      "hostMof": "MOF-808-like host",
+      "hostScore": 0.62,
+      "ligandPathwaySupport": 0.595,
+      "synthesizabilityScore": 0.144,
+      "derivationSummary": {
+        "dataDerivedCount": 4,
+        "curatedCount": 2,
+        "fallbackCount": 4,
+        "totalRecords": 102,
+        "summaryLabel": "4 host factors data/proxy-derived; 2 curated; 4 fallback"
+      }
+    },
+    {
+      "ranking": 9,
+      "hostMof": "Zr-MOF",
+      "hostScore": 0.597,
+      "ligandPathwaySupport": 0.563,
+      "synthesizabilityScore": 0.853,
+      "derivationSummary": {
+        "dataDerivedCount": 6,
+        "curatedCount": 2,
+        "fallbackCount": 2,
+        "totalRecords": 774,
+        "summaryLabel": "6 host factors data/proxy-derived; 2 curated; 2 fallback"
+      }
+    },
+    {
+      "ranking": 10,
+      "hostMof": "Cr-MOF",
+      "hostScore": 0.464,
+      "ligandPathwaySupport": 0.494,
+      "synthesizabilityScore": 0.754,
+      "derivationSummary": {
+        "dataDerivedCount": 4,
+        "curatedCount": 2,
+        "fallbackCount": 4,
+        "totalRecords": 769,
+        "summaryLabel": "4 host factors data/proxy-derived; 2 curated; 4 fallback"
+      }
+    }
+  ],
+  "routeRanking": [
+    {
+      "ranking": 1,
+      "routeId": "route-cu-mof-mo",
+      "routeName": "Cu-MOF + Mo post-modification",
+      "hostMof": "Cu-MOF",
+      "guestMetal": "Mo",
+      "finalHGCPS": 0.819,
+      "scoreBreakdown": {
+        "hostStability": 0.923,
+        "hostPathwaySupport": 0.526,
+        "guestActivityCompensation": 0.9,
+        "complementarity": 0.826,
+        "evidence": 1,
+        "riskRetentionFactor": 0.839,
+        "synthesizability": 0.988,
+        "economics": 0.706
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 5,
+        "curatedCount": 2,
+        "fallbackCount": 1,
+        "totalRecords": 966,
+        "summaryLabel": "5 route factors data/rule-derived; 2 curated; 1 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "fallback",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 2,
+      "routeId": "route-zn-mof-mo",
+      "routeName": "Zn-MOF + Mo doping",
+      "hostMof": "Zn-MOF",
+      "guestMetal": "Mo",
+      "finalHGCPS": 0.797,
+      "scoreBreakdown": {
+        "hostStability": 0.872,
+        "hostPathwaySupport": 0.522,
+        "guestActivityCompensation": 0.9,
+        "complementarity": 0.824,
+        "evidence": 0.901,
+        "riskRetentionFactor": 0.787,
+        "synthesizability": 0.931,
+        "economics": 0.799
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 5,
+        "curatedCount": 2,
+        "fallbackCount": 1,
+        "totalRecords": 828,
+        "summaryLabel": "5 route factors data/rule-derived; 2 curated; 1 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "fallback",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 3,
+      "routeId": "route-al-mof-mo",
+      "routeName": "Al-MOF + Mo doping / post-modification / bimetallic construction",
+      "hostMof": "Al-MOF",
+      "guestMetal": "Mo",
+      "finalHGCPS": 0.766,
+      "scoreBreakdown": {
+        "hostStability": 1,
+        "hostPathwaySupport": 0.385,
+        "guestActivityCompensation": 0.9,
+        "complementarity": 0.771,
+        "evidence": 0.863,
+        "riskRetentionFactor": 0.763,
+        "synthesizability": 1,
+        "economics": 0.774
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 5,
+        "curatedCount": 2,
+        "fallbackCount": 1,
+        "totalRecords": 1049,
+        "summaryLabel": "5 route factors data/rule-derived; 2 curated; 1 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "fallback",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 4,
+      "routeId": "route-fe-mof-mo",
+      "routeName": "Fe-MOF + Mo bimetallic construction",
+      "hostMof": "Fe-MOF",
+      "guestMetal": "Mo",
+      "finalHGCPS": 0.765,
+      "scoreBreakdown": {
+        "hostStability": 0.912,
+        "hostPathwaySupport": 0.427,
+        "guestActivityCompensation": 0.9,
+        "complementarity": 0.804,
+        "evidence": 0.824,
+        "riskRetentionFactor": 0.74,
+        "synthesizability": 0.943,
+        "economics": 0.83
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 5,
+        "curatedCount": 2,
+        "fallbackCount": 1,
+        "totalRecords": 866,
+        "summaryLabel": "5 route factors data/rule-derived; 2 curated; 1 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "fallback",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 5,
+      "routeId": "route-al-mof-w",
+      "routeName": "Al-MOF + W post-modification / bimetallic construction",
+      "hostMof": "Al-MOF",
+      "guestMetal": "W",
+      "finalHGCPS": 0.751,
+      "scoreBreakdown": {
+        "hostStability": 1,
+        "hostPathwaySupport": 0.385,
+        "guestActivityCompensation": 0.827,
+        "complementarity": 0.716,
+        "evidence": 0.863,
+        "riskRetentionFactor": 0.763,
+        "synthesizability": 1,
+        "economics": 0.81
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 5,
+        "curatedCount": 2,
+        "fallbackCount": 1,
+        "totalRecords": 1049,
+        "summaryLabel": "5 route factors data/rule-derived; 2 curated; 1 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "fallback",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 6,
+      "routeId": "route-ti-mof-mo",
+      "routeName": "Ti-MOF + Mo bimetallic construction",
+      "hostMof": "Ti-MOF",
+      "guestMetal": "Mo",
+      "finalHGCPS": 0.739,
+      "scoreBreakdown": {
+        "hostStability": 0.886,
+        "hostPathwaySupport": 0.618,
+        "guestActivityCompensation": 0.9,
+        "complementarity": 0.851,
+        "evidence": 0.683,
+        "riskRetentionFactor": 0.664,
+        "synthesizability": 0.724,
+        "economics": 0.484
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 4,
+        "curatedCount": 3,
+        "fallbackCount": 1,
+        "totalRecords": 787,
+        "summaryLabel": "4 route factors data/rule-derived; 3 curated; 1 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "fallback",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy) + curated-synthesis-difficulty",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 7,
+      "routeId": "route-al-mof-v",
+      "routeName": "Al-MOF + V doping / post-modification",
+      "hostMof": "Al-MOF",
+      "guestMetal": "V",
+      "finalHGCPS": 0.738,
+      "scoreBreakdown": {
+        "hostStability": 1,
+        "hostPathwaySupport": 0.385,
+        "guestActivityCompensation": 0.76,
+        "complementarity": 0.666,
+        "evidence": 0.863,
+        "riskRetentionFactor": 0.763,
+        "synthesizability": 1,
+        "economics": 0.896
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 5,
+        "curatedCount": 2,
+        "fallbackCount": 1,
+        "totalRecords": 1049,
+        "summaryLabel": "5 route factors data/rule-derived; 2 curated; 1 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "fallback",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 8,
+      "routeId": "route-al-mof-cu",
+      "routeName": "Al-MOF + Cu doping",
+      "hostMof": "Al-MOF",
+      "guestMetal": "Cu",
+      "finalHGCPS": 0.719,
+      "scoreBreakdown": {
+        "hostStability": 1,
+        "hostPathwaySupport": 0.385,
+        "guestActivityCompensation": 0.679,
+        "complementarity": 0.606,
+        "evidence": 0.863,
+        "riskRetentionFactor": 0.763,
+        "synthesizability": 1,
+        "economics": 0.957
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 6,
+        "curatedCount": 2,
+        "fallbackCount": 0,
+        "totalRecords": 1160,
+        "summaryLabel": "6 route factors data/rule-derived; 2 curated; 0 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "data-derived",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 9,
+      "routeId": "route-al-mof-ni",
+      "routeName": "Al-MOF + Ni doping",
+      "hostMof": "Al-MOF",
+      "guestMetal": "Ni",
+      "finalHGCPS": 0.715,
+      "scoreBreakdown": {
+        "hostStability": 1,
+        "hostPathwaySupport": 0.385,
+        "guestActivityCompensation": 0.673,
+        "complementarity": 0.601,
+        "evidence": 0.863,
+        "riskRetentionFactor": 0.763,
+        "synthesizability": 1,
+        "economics": 0.908
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 5,
+        "curatedCount": 2,
+        "fallbackCount": 1,
+        "totalRecords": 1049,
+        "summaryLabel": "5 route factors data/rule-derived; 2 curated; 1 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "fallback",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 10,
+      "routeId": "route-al-mof-mn",
+      "routeName": "Al-MOF + Mn doping",
+      "hostMof": "Al-MOF",
+      "guestMetal": "Mn",
+      "finalHGCPS": 0.713,
+      "scoreBreakdown": {
+        "hostStability": 1,
+        "hostPathwaySupport": 0.385,
+        "guestActivityCompensation": 0.653,
+        "complementarity": 0.586,
+        "evidence": 0.863,
+        "riskRetentionFactor": 0.763,
+        "synthesizability": 1,
+        "economics": 0.982
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 5,
+        "curatedCount": 2,
+        "fallbackCount": 1,
+        "totalRecords": 1049,
+        "summaryLabel": "5 route factors data/rule-derived; 2 curated; 1 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "fallback",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 11,
+      "routeId": "route-al-mof-ti",
+      "routeName": "Al-MOF + Ti post-modification",
+      "hostMof": "Al-MOF",
+      "guestMetal": "Ti",
+      "finalHGCPS": 0.71,
+      "scoreBreakdown": {
+        "hostStability": 1,
+        "hostPathwaySupport": 0.385,
+        "guestActivityCompensation": 0.664,
+        "complementarity": 0.594,
+        "evidence": 0.863,
+        "riskRetentionFactor": 0.763,
+        "synthesizability": 1,
+        "economics": 0.872
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 6,
+        "curatedCount": 2,
+        "fallbackCount": 0,
+        "totalRecords": 1111,
+        "summaryLabel": "6 route factors data/rule-derived; 2 curated; 0 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "data-derived",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 12,
+      "routeId": "route-al-mof-zn",
+      "routeName": "Al-MOF + Zn doping",
+      "hostMof": "Al-MOF",
+      "guestMetal": "Zn",
+      "finalHGCPS": 0.708,
+      "scoreBreakdown": {
+        "hostStability": 1,
+        "hostPathwaySupport": 0.385,
+        "guestActivityCompensation": 0.637,
+        "complementarity": 0.574,
+        "evidence": 0.863,
+        "riskRetentionFactor": 0.763,
+        "synthesizability": 1,
+        "economics": 0.994
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 6,
+        "curatedCount": 2,
+        "fallbackCount": 0,
+        "totalRecords": 1142,
+        "summaryLabel": "6 route factors data/rule-derived; 2 curated; 0 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "data-derived",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 13,
+      "routeId": "route-al-mof-co",
+      "routeName": "Al-MOF + Co doping",
+      "hostMof": "Al-MOF",
+      "guestMetal": "Co",
+      "finalHGCPS": 0.707,
+      "scoreBreakdown": {
+        "hostStability": 1,
+        "hostPathwaySupport": 0.385,
+        "guestActivityCompensation": 0.653,
+        "complementarity": 0.586,
+        "evidence": 0.863,
+        "riskRetentionFactor": 0.763,
+        "synthesizability": 1,
+        "economics": 0.872
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 6,
+        "curatedCount": 2,
+        "fallbackCount": 0,
+        "totalRecords": 1058,
+        "summaryLabel": "6 route factors data/rule-derived; 2 curated; 0 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "data-derived",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 14,
+      "routeId": "route-al-mof-fe",
+      "routeName": "Al-MOF + Fe doping",
+      "hostMof": "Al-MOF",
+      "guestMetal": "Fe",
+      "finalHGCPS": 0.703,
+      "scoreBreakdown": {
+        "hostStability": 1,
+        "hostPathwaySupport": 0.385,
+        "guestActivityCompensation": 0.618,
+        "complementarity": 0.56,
+        "evidence": 0.863,
+        "riskRetentionFactor": 0.763,
+        "synthesizability": 1,
+        "economics": 1
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 6,
+        "curatedCount": 2,
+        "fallbackCount": 0,
+        "totalRecords": 1129,
+        "summaryLabel": "6 route factors data/rule-derived; 2 curated; 0 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "data-derived",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 15,
+      "routeId": "route-zr-mof-mo",
+      "routeName": "Zr-MOF + Mo post-modification",
+      "hostMof": "Zr-MOF",
+      "guestMetal": "Mo",
+      "finalHGCPS": 0.698,
+      "scoreBreakdown": {
+        "hostStability": 0.822,
+        "hostPathwaySupport": 0.473,
+        "guestActivityCompensation": 0.9,
+        "complementarity": 0.799,
+        "evidence": 0.807,
+        "riskRetentionFactor": 0.736,
+        "synthesizability": 0.853,
+        "economics": 0.27
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 5,
+        "curatedCount": 2,
+        "fallbackCount": 1,
+        "totalRecords": 659,
+        "summaryLabel": "5 route factors data/rule-derived; 2 curated; 1 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "fallback",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 16,
+      "routeId": "route-zr-mof-w",
+      "routeName": "Zr-MOF + W post-modification",
+      "hostMof": "Zr-MOF",
+      "guestMetal": "W",
+      "finalHGCPS": 0.693,
+      "scoreBreakdown": {
+        "hostStability": 0.822,
+        "hostPathwaySupport": 0.473,
+        "guestActivityCompensation": 0.827,
+        "complementarity": 0.781,
+        "evidence": 0.807,
+        "riskRetentionFactor": 0.736,
+        "synthesizability": 0.853,
+        "economics": 0.306
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 5,
+        "curatedCount": 2,
+        "fallbackCount": 1,
+        "totalRecords": 659,
+        "summaryLabel": "5 route factors data/rule-derived; 2 curated; 1 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "fallback",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 17,
+      "routeId": "route-zr-mof-fe",
+      "routeName": "Zr-MOF + Fe doping",
+      "hostMof": "Zr-MOF",
+      "guestMetal": "Fe",
+      "finalHGCPS": 0.663,
+      "scoreBreakdown": {
+        "hostStability": 0.822,
+        "hostPathwaySupport": 0.473,
+        "guestActivityCompensation": 0.618,
+        "complementarity": 0.626,
+        "evidence": 0.807,
+        "riskRetentionFactor": 0.736,
+        "synthesizability": 0.853,
+        "economics": 0.496
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 6,
+        "curatedCount": 2,
+        "fallbackCount": 0,
+        "totalRecords": 739,
+        "summaryLabel": "6 route factors data/rule-derived; 2 curated; 0 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "data-derived",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 18,
+      "routeId": "route-al-mof-pristine",
+      "routeName": "Al-MOF + none / pristine pristine host",
+      "hostMof": "Al-MOF",
+      "guestMetal": "none / pristine",
+      "finalHGCPS": 0.649,
+      "scoreBreakdown": {
+        "hostStability": 1,
+        "hostPathwaySupport": 0.385,
+        "guestActivityCompensation": 0.48,
+        "complementarity": 0.456,
+        "evidence": 0.863,
+        "riskRetentionFactor": 0.763,
+        "synthesizability": 1,
+        "economics": 0.859
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 5,
+        "curatedCount": 2,
+        "fallbackCount": 1,
+        "totalRecords": 1048,
+        "summaryLabel": "5 route factors data/rule-derived; 2 curated; 1 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "fallback",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 19,
+      "routeId": "route-ti-mof-pristine",
+      "routeName": "Ti-MOF + none / pristine pristine host",
+      "hostMof": "Ti-MOF",
+      "guestMetal": "none / pristine",
+      "finalHGCPS": 0.615,
+      "scoreBreakdown": {
+        "hostStability": 0.886,
+        "hostPathwaySupport": 0.618,
+        "guestActivityCompensation": 0.42,
+        "complementarity": 0.498,
+        "evidence": 0.683,
+        "riskRetentionFactor": 0.664,
+        "synthesizability": 0.724,
+        "economics": 0.569
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 4,
+        "curatedCount": 3,
+        "fallbackCount": 1,
+        "totalRecords": 786,
+        "summaryLabel": "4 route factors data/rule-derived; 3 curated; 1 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "fallback",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy) + curated-synthesis-difficulty",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 20,
+      "routeId": "route-uio-type-host-mo",
+      "routeName": "UiO-type host + Mo post-modification",
+      "hostMof": "UiO-type host",
+      "guestMetal": "Mo",
+      "finalHGCPS": 0.593,
+      "scoreBreakdown": {
+        "hostStability": 0.65,
+        "hostPathwaySupport": 0.54,
+        "guestActivityCompensation": 0.9,
+        "complementarity": 0.773,
+        "evidence": 0.462,
+        "riskRetentionFactor": 0.549,
+        "synthesizability": 0.335,
+        "economics": 0.458
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 5,
+        "curatedCount": 2,
+        "fallbackCount": 1,
+        "totalRecords": 105,
+        "summaryLabel": "5 route factors data/rule-derived; 2 curated; 1 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "fallback",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 21,
+      "routeId": "route-zr-mof-pristine",
+      "routeName": "Zr-MOF + none / pristine pristine host",
+      "hostMof": "Zr-MOF",
+      "guestMetal": "none / pristine",
+      "finalHGCPS": 0.587,
+      "scoreBreakdown": {
+        "hostStability": 0.822,
+        "hostPathwaySupport": 0.473,
+        "guestActivityCompensation": 0.42,
+        "complementarity": 0.478,
+        "evidence": 0.807,
+        "riskRetentionFactor": 0.736,
+        "synthesizability": 0.853,
+        "economics": 0.355
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 5,
+        "curatedCount": 2,
+        "fallbackCount": 1,
+        "totalRecords": 658,
+        "summaryLabel": "5 route factors data/rule-derived; 2 curated; 1 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "fallback",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 22,
+      "routeId": "route-uio-type-host-pristine",
+      "routeName": "UiO-type host + none / pristine pristine host",
+      "hostMof": "UiO-type host",
+      "guestMetal": "none / pristine",
+      "finalHGCPS": 0.507,
+      "scoreBreakdown": {
+        "hostStability": 0.65,
+        "hostPathwaySupport": 0.54,
+        "guestActivityCompensation": 0.42,
+        "complementarity": 0.538,
+        "evidence": 0.462,
+        "riskRetentionFactor": 0.549,
+        "synthesizability": 0.335,
+        "economics": 0.544
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 5,
+        "curatedCount": 2,
+        "fallbackCount": 1,
+        "totalRecords": 104,
+        "summaryLabel": "5 route factors data/rule-derived; 2 curated; 1 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "fallback",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 23,
+      "routeId": "route-mil-type-host-mo",
+      "routeName": "MIL-type host + Mo doping / post-modification",
+      "hostMof": "MIL-type host",
+      "guestMetal": "Mo",
+      "finalHGCPS": 0.413,
+      "scoreBreakdown": {
+        "hostStability": 0.84,
+        "hostPathwaySupport": 0.676,
+        "guestActivityCompensation": 0.9,
+        "complementarity": 0.854,
+        "evidence": 0.406,
+        "riskRetentionFactor": 0.51,
+        "synthesizability": 0,
+        "economics": 0.793
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 4,
+        "curatedCount": 2,
+        "fallbackCount": 2,
+        "totalRecords": 28,
+        "summaryLabel": "4 route factors data/rule-derived; 2 curated; 2 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "fallback",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "fallback",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 24,
+      "routeId": "route-mof-808-like-host-mo",
+      "routeName": "MOF-808-like host + Mo post-modification",
+      "hostMof": "MOF-808-like host",
+      "guestMetal": "Mo",
+      "finalHGCPS": 0.358,
+      "scoreBreakdown": {
+        "hostStability": 0.65,
+        "hostPathwaySupport": 0.634,
+        "guestActivityCompensation": 0.9,
+        "complementarity": 0.796,
+        "evidence": 0.378,
+        "riskRetentionFactor": 0.495,
+        "synthesizability": 0.144,
+        "economics": 0
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 5,
+        "curatedCount": 2,
+        "fallbackCount": 1,
+        "totalRecords": 84,
+        "summaryLabel": "5 route factors data/rule-derived; 2 curated; 1 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "fallback",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    },
+    {
+      "ranking": 25,
+      "routeId": "route-cr-mof-mo",
+      "routeName": "Cr-MOF + Mo post-modification",
+      "hostMof": "Cr-MOF",
+      "guestMetal": "Mo",
+      "finalHGCPS": 0.204,
+      "scoreBreakdown": {
+        "hostStability": 0,
+        "hostPathwaySupport": 0.448,
+        "guestActivityCompensation": 0.9,
+        "complementarity": 0.587,
+        "evidence": 0.35,
+        "riskRetentionFactor": 0.45,
+        "synthesizability": 0.754,
+        "economics": 0.704
+      },
+      "derivationSummary": {
+        "dataDerivedCount": 5,
+        "curatedCount": 2,
+        "fallbackCount": 1,
+        "totalRecords": 612,
+        "summaryLabel": "5 route factors data/rule-derived; 2 curated; 1 fallback"
+      },
+      "factorDerivationLevels": {
+        "hostStabilityScore": "data-derived indirect-proxy",
+        "hostPathwaySupportScore": "data-derived + curated-ligand-descriptor",
+        "guestActivityCompensationScore": "fallback",
+        "hostGuestComplementarityScore": "rule-derived",
+        "evidenceConfidenceScore": "data-derived",
+        "riskPenalty": "data-derived",
+        "synthesizabilityScore": "data-derived (frequency proxy)",
+        "economicScore": "curated-economic"
+      }
+    }
+  ],
+  "sensitivity": {
+    "scenarioCount": 18,
+    "stableCount": 18,
+    "rankStability": 1,
+    "topRouteFlipFrequency": 0,
+    "topRouteRemainsTop": true,
+    "mostSensitiveFactor": "normalization curvature",
+    "mostSensitiveScenarioId": "normalization-compressed",
+    "maxScoreChange": 0.042,
+    "fragility": "robust-within-audited-perturbations",
+    "warning": ""
+  },
+  "boundary": "This is a preregistered route-priority rerun, not experimental proof of catalytic performance. No post-hoc weight change was applied."
+}

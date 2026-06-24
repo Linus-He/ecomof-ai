@@ -59,7 +59,7 @@ describe("organic acid score provenance builders", () => {
     expect(provenance.scoreName).toBe("hostScore")
     expect(provenance.formulaType).toBe("weighted-sum")
     expect(provenance.headerNoteZh).toMatch(/不是催化性能预测值/)
-    expect(provenance.sourceFields.length).toBe(8)
+    expect(provenance.sourceFields.length).toBe(10)
     expect(provenance.candidateLabel).toBe(workbench.hostSelection.selectedHost.displayName)
     for (const row of provenance.rows) {
       expect(typeof row.rawValue).toBe("number")
@@ -88,20 +88,20 @@ describe("organic acid score provenance builders", () => {
     noBadValues(provenance)
   })
 
-  it("builds route HGCPS provenance with six multiplicative factors, final value, and rank", () => {
+  it("builds route HGCPS provenance with eight weighted-geometric factors, final value, and rank", () => {
     const workbench = workbenchFromSource()
     const provenance = buildRouteHgcpsScoreProvenance(workbench)
     const topRoute = workbench.complementarity.topRoute
 
-    expect(provenance.formulaType).toBe("multiplicative-factor")
-    expect(provenance.rows).toHaveLength(6)
+    expect(provenance.formulaType).toBe("weighted-geometric-factor")
+    expect(provenance.rows).toHaveLength(8)
     expect(provenance.rows.map(row => row.fieldKey)).toEqual([
-      "hostStability", "hostPathwaySupport", "guestActivityCompensation", "complementarity", "evidence", "riskRetentionFactor",
+      "hostStability", "hostPathwaySupport", "guestActivityCompensation", "complementarity", "evidence", "riskRetentionFactor", "synthesizability", "economics",
     ])
     expect(provenance.rank).toBe(topRoute.ranking)
 
-    // finalValue equals the product of the six factors
-    const product = provenance.rows.reduce((acc, row) => acc * row.weightOrFactor, 1)
+    // finalValue equals the product of factor^weight terms
+    const product = provenance.rows.reduce((acc, row) => acc * row.effectiveFactor, 1)
     expect(Math.abs(provenance.finalValue - product)).toBeLessThan(0.005)
     expect(provenance.finalValue).toBeCloseTo(topRoute.finalHGCPS, 2)
 
@@ -117,7 +117,7 @@ describe("organic acid score provenance builders", () => {
     const trace = buildFactorCompressionTrace(workbench)
 
     expect(trace.startValue).toBe(1)
-    expect(trace.steps).toHaveLength(6)
+    expect(trace.steps).toHaveLength(8)
     // cumulative is strictly non-increasing because every factor is <= 1
     let previous = trace.startValue
     for (const step of trace.steps) {
@@ -135,7 +135,7 @@ describe("organic acid score provenance builders", () => {
 
     expect(model.routes.length).toBeGreaterThanOrEqual(3)
     expect(model.routes[0].rank).toBe(1)
-    expect(model.factorRows).toHaveLength(6)
+    expect(model.factorRows).toHaveLength(8)
     expect(model.factorRows[0].values.length).toBe(model.routes.length)
     expect(model.autoSentenceZh).toMatch(/当前 top route 相比 runner-up 主要优势来自/)
     expect(model.topRouteId).toBe(workbench.complementarity.topRoute.routeId)
@@ -175,7 +175,7 @@ describe("organic acid score provenance builders", () => {
       buildRouteHgcpsScoreProvenance(alteredWorkbench, { route: alteredRoutes[2] }),
     )
 
-    expect(table).toHaveLength(6)
+    expect(table).toHaveLength(8)
     expect(table.filter(row => row.isDominantGap)).toHaveLength(1)
     expect(altered.find(row => row.factorKey === "complementarity").deltaSecond).not.toBe(table.find(row => row.factorKey === "complementarity").deltaSecond)
   })
@@ -202,7 +202,7 @@ describe("organic acid score provenance builders", () => {
 
     expect(risk.riskRetention).toBe(route.scoreBreakdown.riskRetentionFactor)
     expect(risk.rows[0].explanationZh).toMatch(/Risk Retention/)
-    expect(counterfactual).toHaveLength(6)
+    expect(counterfactual).toHaveLength(8)
     const lowered = counterfactual[0].scenarios.find(row => row.setValue === 0.5)
     expect(lowered.newHGCPS).toBeLessThan(route.finalHGCPS)
     expect(lowered.newRank).toBeGreaterThanOrEqual(route.ranking)
@@ -264,7 +264,7 @@ describe("organic acid score provenance builders", () => {
     expect(table.columns.map(col => col.key)).toEqual([
       "label", "rawValue", "normalizedValue", "weightOrFactor", "contribution", "cumulativeValue", "dataGrade", "dataSourceFile", "builderFunction", "limitation",
     ])
-    expect(table.rows).toHaveLength(6)
+    expect(table.rows).toHaveLength(8)
     noBadValues(table)
   })
 
@@ -284,12 +284,12 @@ describe("organic acid score provenance builders", () => {
     expect(model.titleZh).toBe("为什么是这个结果？")
     expect(model.scoreQuestionZh).toBe("这个分数怎么算出来的？")
     expect(model.provenance.scoreName).toBe("routeHGCPS")
-    expect(model.factorCompressionTrace.steps).toHaveLength(6)
+    expect(model.factorCompressionTrace.steps).toHaveLength(8)
     expect(model.routeFactorComparison.routes.length).toBeGreaterThanOrEqual(3)
-    expect(model.perFactorInterpretation).toHaveLength(6)
-    expect(model.factorDeltaTable).toHaveLength(6)
+    expect(model.perFactorInterpretation).toHaveLength(8)
+    expect(model.factorDeltaTable).toHaveLength(8)
     expect(model.factorEvidence.length).toBeGreaterThan(0)
-    expect(model.counterfactual).toHaveLength(6)
+    expect(model.counterfactual).toHaveLength(8)
     expect(model.whyNotOther.whyWinnerLeadsZh).toBeTruthy()
     expect(model.structuredConclusion.segments.map(row => row.labelZh)).toEqual(["结论", "依据", "关键因子", "局限"])
     expect(model.conclusionZh).toContain(String(model.provenance.rank))

@@ -41,7 +41,7 @@ describe("organicAcidAlgorithmFlow builders", () => {
     const nodeTypes = new Set(network.nodes.map(node => node.type))
     const edgeTypes = new Set(network.edges.map(edge => edge.type))
 
-    expect(network.version).toBe("V3.9.5.1")
+    expect(network.version).toBe("V3.9.7")
     expect(network.statusBar.inputScale).toEqual({
       hostCandidates: 10,
       guestMetals: 12,
@@ -84,13 +84,13 @@ describe("organicAcidAlgorithmFlow builders", () => {
 
     expect(hosts[0]).toEqual(expect.objectContaining({
       host: "Al-MOF",
-      whySelectedZh: expect.stringMatching(/Al-MOF 在主体竞争中胜出/),
-      whyNotSelectedZh: expect.stringMatching(/不是最终催化剂证明/),
+      whySelectedZh: expect.stringMatching(/主体单项评分中排名第一/),
+      whyNotSelectedZh: expect.stringMatching(/不是最终路线推荐/),
     }))
-    expect(hosts.find(row => row.host === "Zr-MOF")?.whySelectedZh).toMatch(/backup \/ control/)
-    expect(hosts.find(row => row.host === "Ti-MOF")?.whyNotSelectedZh).toMatch(/不能替代 Al-MOF/)
-    expect(hosts.find(row => row.host === "Fe-MOF")?.whyNotSelectedZh).toMatch(/不能替代 Al-MOF/)
-    expect(hosts.find(row => row.host === "Cu-MOF")?.whyNotSelectedZh).toMatch(/不能替代 Al-MOF/)
+    expect(hosts.find(row => row.host === "Zr-MOF")?.whySelectedZh).toMatch(/条件候选/)
+    expect(hosts.find(row => row.host === "Ti-MOF")?.whyNotSelectedZh).toMatch(/结构榜首/)
+    expect(hosts.find(row => row.host === "Fe-MOF")?.whyNotSelectedZh).toMatch(/结构榜首/)
+    expect(hosts.find(row => row.host === "Cu-MOF")?.whyNotSelectedZh).toMatch(/结构榜首/)
 
     expect(guests[0]).toEqual(expect.objectContaining({
       metal: "Mo",
@@ -104,7 +104,7 @@ describe("organicAcidAlgorithmFlow builders", () => {
 
     expect(routes[0]).toEqual(expect.objectContaining({
       route: "Al-MOF + Mo",
-      whyRankedHereZh: expect.stringMatching(/route competition 中排第一/),
+      whyRankedHereZh: expect.stringMatching(/加权几何 HGCPS 排名第一/),
       whyNotHigherZh: expect.stringMatching(/不是最终催化性能证明/),
     }))
     expect(routes.find(row => row.route === "Al-MOF + none / pristine")?.whyRankedHereZh).toMatch(/host-only control/)

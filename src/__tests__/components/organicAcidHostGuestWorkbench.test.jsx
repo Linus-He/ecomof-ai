@@ -74,7 +74,7 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     vi.useRealTimers()
   })
 
-  it("renders the V3.9.6 stepwise execution chain from Step 0 before any route-output emphasis", () => {
+  it("renders the V3.9.7 stepwise execution chain from Step 0 before any route-output emphasis", () => {
     renderWorkbench()
     const text = bodyText()
 
@@ -84,7 +84,7 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     expect(screen.getByTestId("organic-acid-step-mini-map")).toBeInTheDocument()
     expect(screen.getByTestId("organic-acid-step-why-panel")).toBeInTheDocument()
 
-    expect(text).toMatch(/EcoMOF-AI V3\.9\.6/)
+    expect(text).toMatch(/EcoMOF-AI V3\.9\.7/)
     expect(text).toMatch(/筛选目标设定/)
     expect(text).toMatch(/Screening Objective \/ 筛选目标/)
     expect(text).toMatch(/有机酸分步算法执行链/)
@@ -161,7 +161,7 @@ describe("OrganicAcidHostGuestWorkbench", () => {
       expect(within(routeWhyPanel).getByRole("tab", { name: label })).toBeInTheDocument()
     }
     expect(within(routeWhyPanel).getByRole("tab", { name: "结论" })).toHaveAttribute("aria-selected", "true")
-    expect(within(routeWhyPanel).getByTestId("hgcps-factor-rose")).toHaveAttribute("data-row-count", "6")
+    expect(within(routeWhyPanel).getByTestId("hgcps-factor-rose")).toHaveAttribute("data-row-count", "8")
     expect(within(routeWhyPanel).getByTestId("factor-compression-waterfall")).toBeInTheDocument()
     expect(within(routeWhyPanel).getByTestId("route-factor-comparison-chart")).toBeInTheDocument()
     expect(within(routeWhyPanel).getByTestId("score-source-table")).toBeInTheDocument()
@@ -243,7 +243,7 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     const hostOnlyControl = workbench.complementarity.routeScores.find(route => /host-only|pristine/i.test(`${route.routeType} ${route.guestMetal}`))
     expect(text).toMatch(new RegExp(`${hostOnlyControl.hostMof} \\+ ${hostOnlyControl.guestMetal} 是 host-only control`))
     expect(text).toMatch(/最终结果总结/)
-    expect(text).toMatch(/HGCPS 六因子玫瑰/)
+    expect(text).toMatch(/HGCPS 八因子玫瑰/)
 
     fireEvent.click(screen.getAllByRole("button", { name: /打开高级分析/ })[0])
     expect(document.getElementById("organic-acid-advanced-robustness-evidence")?.open).toBe(true)

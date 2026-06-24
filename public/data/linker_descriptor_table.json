@@ -1,0 +1,134 @@
+{
+  "tableId": "organic-acid-linker-descriptor-table-v1",
+  "version": "V3.9.7",
+  "updatedAt": "2026-06-24",
+  "derivationLevel": "curated-ligand-descriptor",
+  "boundary": "CoRE provides linker names but no quantitative ligand-property fields. Values below are transparent categorical chemistry priors for white-box screening and require user chemistry review.",
+  "tierScale": {
+    "low": 0.25,
+    "medium": 0.6,
+    "high": 0.9
+  },
+  "records": [
+    {
+      "linker": "NDC",
+      "aliases": ["naphthalene dicarboxylate", "2,6-NDC"],
+      "carboxylateCount": 2,
+      "nDonorOrAmine": false,
+      "aromaticRings": 2,
+      "openMetalSitePropensity": "medium",
+      "lewisBasicityTier": "low",
+      "costTierUsdKg": 28,
+      "basis": "Extended aromatic dicarboxylate; no N-donor group in the base linker.",
+      "source": "Curated from linker identity and MOF reticular-chemistry conventions; TODO user chemistry review."
+    },
+    {
+      "linker": "BTC",
+      "aliases": ["benzene tricarboxylate", "1,3,5-BTC"],
+      "carboxylateCount": 3,
+      "nDonorOrAmine": false,
+      "aromaticRings": 1,
+      "openMetalSitePropensity": "high",
+      "lewisBasicityTier": "medium",
+      "costTierUsdKg": 18,
+      "basis": "Tricarboxylate connectivity supports highly connected metal-node environments.",
+      "source": "Curated from linker identity and HKUST/MOF-808 family chemistry; TODO user chemistry review."
+    },
+    {
+      "linker": "BDC",
+      "aliases": ["benzene dicarboxylate", "terephthalate", "1,4-BDC"],
+      "carboxylateCount": 2,
+      "nDonorOrAmine": false,
+      "aromaticRings": 1,
+      "openMetalSitePropensity": "medium",
+      "lewisBasicityTier": "low",
+      "costTierUsdKg": 8,
+      "basis": "Baseline aromatic dicarboxylate without an additional Lewis-basic functional group.",
+      "source": "Curated from linker identity and UiO/MIL family chemistry; TODO user chemistry review."
+    },
+    {
+      "linker": "ABDC",
+      "aliases": ["amino benzene dicarboxylate", "amino-BDC", "NH2-BDC"],
+      "carboxylateCount": 2,
+      "nDonorOrAmine": true,
+      "aromaticRings": 1,
+      "openMetalSitePropensity": "medium",
+      "lewisBasicityTier": "high",
+      "costTierUsdKg": 24,
+      "basis": "Amino-functionalized aromatic dicarboxylate adds an explicit Lewis-basic N site.",
+      "source": "Curated from amino-BDC functional-group identity; TODO confirm ABDC naming in source records."
+    },
+    {
+      "linker": "PyDC",
+      "aliases": ["pyridine dicarboxylate", "pyridinedicarboxylate"],
+      "carboxylateCount": 2,
+      "nDonorOrAmine": true,
+      "aromaticRings": 1,
+      "openMetalSitePropensity": "high",
+      "lewisBasicityTier": "high",
+      "costTierUsdKg": 35,
+      "basis": "Pyridyl N donor plus two carboxylates can contribute Lewis-basic and coordination functionality.",
+      "source": "Curated from pyridinedicarboxylate identity; TODO user chemistry review."
+    },
+    {
+      "linker": "DOBDC",
+      "aliases": ["dihydroxy benzene dicarboxylate", "2,5-DOBDC", "dioxidobenzenedicarboxylate"],
+      "carboxylateCount": 2,
+      "nDonorOrAmine": false,
+      "aromaticRings": 1,
+      "openMetalSitePropensity": "high",
+      "lewisBasicityTier": "high",
+      "costTierUsdKg": 42,
+      "basis": "Additional oxygen donor functionality and MOF-74-like coordination environments support strong adsorbate interactions.",
+      "source": "Curated from DOBDC/MOF-74 linker chemistry; TODO user chemistry review."
+    },
+    {
+      "linker": "BTB",
+      "aliases": ["benzene tribenzoate", "1,3,5-benzenetribenzoate"],
+      "carboxylateCount": 3,
+      "nDonorOrAmine": false,
+      "aromaticRings": 4,
+      "openMetalSitePropensity": "medium",
+      "lewisBasicityTier": "low",
+      "costTierUsdKg": 55,
+      "basis": "Large rigid aromatic tricarboxylate; no explicit N-donor or amine group.",
+      "source": "Curated from BTB linker identity; TODO user chemistry review."
+    },
+    {
+      "linker": "fumarate",
+      "aliases": ["fumaric acid dianion", "fumaric linker"],
+      "carboxylateCount": 2,
+      "nDonorOrAmine": false,
+      "aromaticRings": 0,
+      "openMetalSitePropensity": "medium",
+      "lewisBasicityTier": "medium",
+      "costTierUsdKg": 4,
+      "basis": "Small unsaturated dicarboxylate with low ligand complexity and no aromatic or N-donor group.",
+      "source": "Curated from fumarate identity; TODO user chemistry review."
+    },
+    {
+      "linker": "TCPP",
+      "aliases": ["tetrakis(4-carboxyphenyl)porphyrin", "porphyrin tetracarboxylate"],
+      "carboxylateCount": 4,
+      "nDonorOrAmine": true,
+      "aromaticRings": 8,
+      "openMetalSitePropensity": "high",
+      "lewisBasicityTier": "high",
+      "costTierUsdKg": 180,
+      "basis": "Porphyrinic N4 donor core plus four carboxylates provides explicit coordination and electronic functionality.",
+      "source": "Curated from TCPP porphyrin identity; TODO user chemistry review."
+    },
+    {
+      "linker": "BPDC",
+      "aliases": ["biphenyl dicarboxylate", "4,4-BPDC"],
+      "carboxylateCount": 2,
+      "nDonorOrAmine": false,
+      "aromaticRings": 2,
+      "openMetalSitePropensity": "medium",
+      "lewisBasicityTier": "low",
+      "costTierUsdKg": 22,
+      "basis": "Extended biphenyl dicarboxylate without an additional Lewis-basic functional group.",
+      "source": "Curated from BPDC linker identity; TODO user chemistry review."
+    }
+  ]
+}

@@ -42,7 +42,7 @@ describe("organic acid algorithm methodology", () => {
   it("builds dynamic Project Evolution methodology sections with required LaTeX formulas and boundaries", () => {
     const methodology = buildOrganicAcidAlgorithmMethodology(methodologyInput)
 
-    expect(methodology.version).toBe("V3.9.6")
+    expect(methodology.version).toBe("V3.9.7")
     expect(methodology.sections).toHaveLength(7)
     expect(methodology.dynamicContext.currentTopRoute).toMatch(/\+/)
     expect(methodology.dynamicContext.selectedHost).toBeTruthy()
@@ -75,7 +75,7 @@ describe("organic acid algorithm methodology", () => {
     expect(markdown).toMatch(/# Organic Acid Host-Guest Algorithm Methodology/)
     expect(markdown).toContain("\\[\\mathrm{HGCPS}")
     expect(markdown).toMatch(/not final catalytic proof/)
-    expect(formulaJson.formulas.find(row => row.id === "hgcps").latex).toContain("F_{\\mathrm{risk\\ retention}}")
+    expect(formulaJson.formulas.find(row => row.id === "hgcps").latex).toContain("\\prod_{i=1}^{8}")
     expect(formulaJson.boundary).toMatch(/high-priority experimental hypothesis/)
     expect(latexSummary).toContain("\\[\\mathrm{Pathway}")
     expect(latexSummary).toContain("\\[\\mathrm{HGCPS}")

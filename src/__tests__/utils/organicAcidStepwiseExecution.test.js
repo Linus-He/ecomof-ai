@@ -59,7 +59,7 @@ describe("organic acid stepwise execution builders", () => {
     const activationWorkbench = activationFixture(workbench)
     const chain = buildStepwiseExecutionChain(workbench, source, { lang: "zh", activationWorkbench })
 
-    expect(chain.version).toBe("V3.9.5.5")
+    expect(chain.version).toBe("V3.9.7")
     expect(chain.steps.map(step => step.id)).toEqual(["step-0", "step-1", "step-2", "step-3", "step-4", "step-5", "step-6"])
     expect(chain.steps.map(step => step.nameZh)).toEqual([
       "筛选目标设定",
@@ -132,7 +132,7 @@ describe("organic acid stepwise execution builders", () => {
     expect(guestChart.rows[0].metal).toBe(workbench.guestSelection.selectedGuestMetal.guestMetal)
     expect(routeChart.rows).toHaveLength(hostGuestRoutes.length)
     expect(routeChart.selectedRoute).toBe(`${workbench.complementarity.topRoute.hostMof} + ${workbench.complementarity.topRoute.guestMetal}`)
-    expect(routeChart.factorRows.map(row => row.id)).toEqual(["hostStability", "hostPathwaySupport", "guestActivityCompensation", "complementarity", "evidenceConfidence", "riskRetention"])
+    expect(routeChart.factorRows.map(row => row.id)).toEqual(["hostStability", "hostPathwaySupport", "guestActivityCompensation", "complementarity", "evidenceConfidence", "riskRetention", "synthesizability", "economics"])
     expect(pathwayChart.rows).toHaveLength(pathwaySteps.length)
     expect(descriptorChart.edges).toHaveLength(pathwayDescriptorMap.length)
     expect(validationChart.experimentCount).toBe(minimumExperimentalMatrix.experimentGroups.length)

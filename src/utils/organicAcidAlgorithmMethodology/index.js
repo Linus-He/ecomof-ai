@@ -9,7 +9,7 @@ import {
 } from "../organicAcidExperimentalActivation/index.js"
 
 export const ORGANIC_ACID_ALGORITHM_METHODOLOGY_ID = "project-evolution-organic-acid-algorithm-methodology"
-export const ORGANIC_ACID_ALGORITHM_METHODOLOGY_VERSION = "V3.9.6"
+export const ORGANIC_ACID_ALGORITHM_METHODOLOGY_VERSION = "V3.9.7"
 
 const SOURCE_LABELS = {
   hostGuestRoutes: "public/data/organic_acid_host_guest/host_guest_routes.json",
@@ -19,6 +19,11 @@ const SOURCE_LABELS = {
   activationReadiness: "public/data/organic_acid_experimental_activation/activation_readiness_summary.json",
   hostGuestBuilder: "buildOrganicAcidHostGuestWorkbench",
   activationReadinessBuilder: "buildActivationReadinessSummary",
+  scoringSpec: "public/data/organic_acid_scoring_spec_v2.json",
+  linkerDescriptors: "public/data/linker_descriptor_table.json",
+  precursorCosts: "public/data/metal_precursor_cost_table.json",
+  scoringAudit: "public/data/organic_acid_audit_v3_9_7.json",
+  rerunArtifact: "public/data/organic_acid_rerun_v3_9_7.json",
 }
 
 function asArray(value) {
@@ -80,7 +85,7 @@ export const ORGANIC_ACID_ALGORITHM_FORMULAS = [
   {
     id: "hgcps",
     title: "Host-Guest Complementary Pathway Score",
-    latex: String.raw`\mathrm{HGCPS}(r)=F_{\mathrm{host\ stability}}(r)\cdot F_{\mathrm{host\ pathway}}(r)\cdot F_{\mathrm{guest\ compensation}}(r)\cdot F_{\mathrm{complementarity}}(r)\cdot F_{\mathrm{evidence}}(r)\cdot F_{\mathrm{risk\ retention}}(r),\quad F_i\in[0,1]`,
+    latex: String.raw`\mathrm{HGCPS}(r)=\prod_{i=1}^{8}\max(F_i(r),0.001)^{w_i},\quad \sum_{i=1}^{8}w_i=1,\quad F_i\in[0,1]`,
   },
   {
     id: "route-selection",
@@ -95,7 +100,7 @@ export const ORGANIC_ACID_ALGORITHM_FORMULAS = [
   {
     id: "sensitivity",
     title: "Sensitivity Analysis",
-    latex: String.raw`\mathrm{HGCPS}_{i}^{(\pm20\%)}=\mathrm{HGCPS}\left(F_i\cdot(1\pm0.2)\right)`,
+    latex: String.raw`\mathrm{HGCPS}_{i}^{(\pm20\%)}=\prod_j\max(F_j,0.001)^{\tilde{w}_j},\quad \tilde{w}_i\propto w_i(1\pm0.2)`,
   },
   {
     id: "ablation",
@@ -146,7 +151,8 @@ export function buildOrganicAcidAlgorithmMethodology(input = {}) {
     activationVersion: ORGANIC_ACID_EXPERIMENTAL_ACTIVATION_VERSION,
     currentTopRoute: routeName(topRoute),
     routeId: safeText(topRoute.routeId, "route pending"),
-    selectedHost: safeText(selectedHost.displayName || topRoute.hostMof, "host pending"),
+    selectedHost: safeText(topRoute.hostMof || selectedHost.displayName, "host pending"),
+    topStructuralHost: safeText(selectedHost.displayName, "host pending"),
     selectedGuest: safeText(selectedGuest.guestMetal || topRoute.guestMetal, "guest pending"),
     selectedHostRole: safeText(selectedHost.hostRole, "stable host framework candidate"),
     selectedGuestRole: safeText(selectedGuest.role, "guest / dopant / activity-compensation metal"),
@@ -188,12 +194,12 @@ export function buildOrganicAcidAlgorithmMethodology(input = {}) {
       title: "Host MOF Selection",
       titleZh: "主体 MOF 筛选",
       formulas: ["host-selection"],
-      explanation: `${dynamicContext.selectedHost} is selected as a stable host framework candidate before guest metal selection.`,
-      explanationZh: `${dynamicContext.selectedHost} 被作为 stable host framework candidate 先行筛出，再进入客体金属筛选。`,
-      input: "host_mof_candidates records and host score weights.",
-      output: `${dynamicContext.selectedHost} as ${dynamicContext.selectedHostRole}.`,
-      dataSource: [SOURCE_LABELS.hostMofCandidates, SOURCE_LABELS.hostGuestBuilder],
-      limitation: "Selected host is not final best catalyst proof; pristine host activity remains a control.",
+      explanation: `${dynamicContext.topStructuralHost} is the host-only structural leader; ${dynamicContext.selectedHost} is the host of the top route after ligand, synthesizability, economics, guest, evidence, and risk factors are included.`,
+      explanationZh: `${dynamicContext.topStructuralHost} 是主体单项结构得分第一；纳入配体、可合成性、经济性、客体、证据与风险后，top route 主体为 ${dynamicContext.selectedHost}。`,
+      input: "host candidates, real datasets, linker descriptor table, and host score weights.",
+      output: `${dynamicContext.topStructuralHost} as top structural host and ${dynamicContext.selectedHost} as top route host.`,
+      dataSource: [SOURCE_LABELS.hostMofCandidates, SOURCE_LABELS.linkerDescriptors, SOURCE_LABELS.scoringSpec, SOURCE_LABELS.hostGuestBuilder],
+      limitation: "Neither host-only rank nor route rank is final catalyst-performance proof.",
     },
     {
       id: "guest-selection",
@@ -212,11 +218,11 @@ export function buildOrganicAcidAlgorithmMethodology(input = {}) {
       title: "Host-Guest Complementary Pathway Score",
       titleZh: "主客体互补路径评分",
       formulas: ["hgcps", "route-selection", "route-hypothesis"],
-      explanation: `Current ${dynamicContext.currentTopRoute} HGCPS is ${dynamicContext.hgcps}. The multiplicative form expresses the bottleneck effect; risk retention is a 0-1 factor, not an additive penalty.`,
-      explanationZh: `当前 ${dynamicContext.currentTopRoute} 的 HGCPS 为 ${dynamicContext.hgcps}。乘法结构表达路径短板效应；风险保留是 0-1 因子，不是加法扣分。`,
-      input: "host_guest_routes and evidence_risk_records records.",
+      explanation: `Current ${dynamicContext.currentTopRoute} HGCPS is ${dynamicContext.hgcps}. The preregistered weighted geometric mean combines eight factors, including synthesizability and economic LCC; risk retention remains a 0-1 factor.`,
+      explanationZh: `当前 ${dynamicContext.currentTopRoute} 的 HGCPS 为 ${dynamicContext.hgcps}。预注册加权几何平均合并 8 个因子，其中包括可合成性与经济性 LCC；风险保留仍是 0-1 因子。`,
+      input: "host_guest_routes, evidence records, linker descriptors, synthesizability frequency, and precursor-cost LCC inputs.",
       output: `${dynamicContext.currentTopRoute} as a high-priority experimental hypothesis.`,
-      dataSource: [SOURCE_LABELS.hostGuestRoutes, SOURCE_LABELS.evidenceRiskRecords, SOURCE_LABELS.hostGuestBuilder],
+      dataSource: [SOURCE_LABELS.hostGuestRoutes, SOURCE_LABELS.evidenceRiskRecords, SOURCE_LABELS.scoringSpec, SOURCE_LABELS.precursorCosts, SOURCE_LABELS.rerunArtifact, SOURCE_LABELS.hostGuestBuilder],
       limitation: "Top route is not final catalytic proof.",
     },
     {
@@ -224,11 +230,11 @@ export function buildOrganicAcidAlgorithmMethodology(input = {}) {
       title: "Sensitivity, Ablation and Risk Boundary",
       titleZh: "敏感性、消融与风险边界",
       formulas: ["sensitivity", "ablation"],
-      explanation: "Sensitivity checks +/-20% single-factor perturbation; ablation removes guest compensation, host stability, complementarity, evidence confidence, risk retention, pristine host only, and guest contribution.",
-      explanationZh: "敏感性分析检查单因子 ±20% 扰动；消融项覆盖去除客体补偿、主体稳定性、主客体互补、证据置信、风险保留、仅 pristine host、移除客体贡献。",
+      explanation: "Sensitivity perturbs each route-factor weight by +/-20% and adds normalization-curvature scenarios; the audit also reports proxy validity and family outliers.",
+      explanationZh: "敏感性分析对各路线因子权重做 ±20% 扰动，并加入归一化曲率场景；审计同时报告代理有效性与家族异常值。",
       input: "HGCPS factor table, sensitivity builder output, ablation builder output, risk matrix.",
       output: "Rank-stability interpretation and unresolved-risk boundary.",
-      dataSource: [SOURCE_LABELS.hostGuestRoutes, SOURCE_LABELS.evidenceRiskRecords, SOURCE_LABELS.hostGuestBuilder],
+      dataSource: [SOURCE_LABELS.hostGuestRoutes, SOURCE_LABELS.evidenceRiskRecords, SOURCE_LABELS.scoringAudit, SOURCE_LABELS.hostGuestBuilder],
       limitation: "Risk matrix is evidence-guided planning support and does not replace experimental validation.",
     },
     {

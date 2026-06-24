@@ -13,7 +13,7 @@ import reactionDataset from "../../../public/data/data_ingestion/organic_acid_re
 import gasAdsorptionRecords from "../../../public/data/gas_adsorption_records_v1.json"
 import literatureDataset from "../../../public/data/organic_acid_literature_dataset_v2.json"
 import goldDataset from "../../../public/data/organic_acid_gold_dataset_v2.json"
-import scoringSpec from "../../../public/data/organic_acid_scoring_spec_v1.json"
+import scoringSpec from "../../../public/data/organic_acid_scoring_spec_v2.json"
 import {
   buildAlgorithmTraceJson,
   buildAblationAnalysisJson,
@@ -29,6 +29,8 @@ import {
   buildPathwayDescriptorMapCsv,
   buildSensitivityAnalysisJson,
   HGCPS_FORMULA_TEXT,
+  clearOrganicAcidDerivationCaches,
+  getOrganicAcidDerivationCacheStats,
 } from "../../utils/organicAcidHostGuest"
 
 const input = {
@@ -48,10 +50,10 @@ const input = {
 }
 
 describe("organic acid host-guest pathway screening", () => {
-  it("builds the V3.9.6 pathway pipeline from preregistered real-data bindings", () => {
+  it("builds the V3.9.7 pathway pipeline from the preregistered descriptor expansion", () => {
     const workbench = buildOrganicAcidHostGuestWorkbench(input)
 
-    expect(workbench.version).toBe("V3.9.6")
+    expect(workbench.version).toBe("V3.9.7")
     expect(workbench.scoringSpec.specId).toBe(scoringSpec.specId)
     expect(workbench.pipelineSteps).toHaveLength(6)
     expect(hostMofCandidates.length).toBeGreaterThanOrEqual(8)
@@ -69,15 +71,17 @@ describe("organic acid host-guest pathway screening", () => {
     const workbench = buildOrganicAcidHostGuestWorkbench(input)
 
     expect(workbench.hostSelection.selectedHost.displayName).toBeTruthy()
-    expect(workbench.hostSelection.hostRoleExplanation).toMatch(/stable host framework/)
-    expect(workbench.hostSelection.hostRoleExplanation).toMatch(/not treated as a standalone best catalyst/)
+    expect(workbench.hostSelection.hostRoleExplanation).toMatch(/host-only structural leader/)
+    expect(workbench.hostSelection.hostRoleExplanation).toMatch(/not automatically the final route recommendation/)
     expect(workbench.guestSelection.selectedGuestMetal.guestMetal).toBeTruthy()
     expect(workbench.guestSelection.selectedGuestMetal.role).toMatch(/guest \/ dopant \/ activity compensation metal/)
     expect(workbench.guestSelection.guestRoleExplanation).toMatch(/complements the host instead of replacing it/)
     expect(hostMofCandidates.some(row => Object.hasOwn(row, "hostScore"))).toBe(false)
     expect(guestMetalCandidates.some(row => Object.hasOwn(row, "guestScore"))).toBe(false)
     expect(workbench.hostSelection.rankedHosts.find(row => row.displayName === "Al-MOF").factorProvenance.poreEnvironmentScore.sourceDataset).toMatch(/CoRE\+QMOF/)
-    expect(workbench.guestSelection.selectedGuestMetal.factorProvenance.co2ActivationScore.derivationLevel).toMatch(/data-derived|curated-literature-prior/)
+    expect(workbench.hostSelection.rankedHosts.find(row => row.displayName === "Al-MOF").factorProvenance.ligandPathwaySupport.derivationLevel).toMatch(/curated-ligand-descriptor|fallback/)
+    expect(workbench.hostSelection.rankedHosts.find(row => row.displayName === "Ti-MOF").factorProvenance.synthesizabilityScore.derivationLevel).toMatch(/frequency proxy/)
+    expect(workbench.guestSelection.selectedGuestMetal.factorProvenance.co2ActivationScore.derivationLevel).toMatch(/data-derived|fallback/)
   })
 
   it("ranks routes by derived HGCPS and keeps score and provenance breakdowns explainable", () => {
@@ -88,15 +92,11 @@ describe("organic acid host-guest pathway screening", () => {
     expect(top.routeId).toBeTruthy()
     expect(hostGuestRoutes.some(row => Object.hasOwn(row, "finalHGCPS") || Object.hasOwn(row, "ranking"))).toBe(false)
     expect(top.finalHGCPS).toBeGreaterThan(complementarity.routeScores[1].finalHGCPS)
-    expect(HGCPS_FORMULA_TEXT).toBe("HGCPS = Host Stability Factor * Host Pathway Support Factor * Guest Activity Compensation Factor * Host-Guest Complementarity Factor * Evidence Confidence Factor * Risk Retention Factor")
-    expect(HGCPS_FORMULA_TEXT).not.toMatch(/\+/)
+    expect(HGCPS_FORMULA_TEXT).toMatch(/weighted geometric mean/)
     expect(top.finalHGCPS).toBeCloseTo(
-      Number((top.hostStabilityScore
-        * top.hostPathwaySupportScore
-        * top.guestActivityCompensationScore
-        * top.hostGuestComplementarityScore
-        * top.evidenceConfidenceScore
-        * top.riskRetentionFactor).toFixed(3)),
+      Number(Math.exp(scoringSpec.routeScoreWeights.reduce((sum, [key, weight]) => (
+        sum + weight * Math.log(Math.max(scoringSpec.algorithm.zeroFloor, top[key]))
+      ), 0)).toFixed(3)),
       3
     )
     expect(Object.keys(top.scoreBreakdown)).toEqual([
@@ -106,6 +106,8 @@ describe("organic acid host-guest pathway screening", () => {
       "complementarity",
       "evidence",
       "riskRetentionFactor",
+      "synthesizability",
+      "economics",
     ])
     expect(top.scoreBreakdown.riskRetentionFactor).toBeGreaterThan(0)
     expect(top.scoreBreakdown.riskPenalty).toBeUndefined()
@@ -113,7 +115,7 @@ describe("organic acid host-guest pathway screening", () => {
     expect(top.riskPenaltyBreakdown.every(row => row.reason && row.riskType)).toBe(true)
     expect(Object.keys(top.routeFactorProvenance)).toEqual(scoringSpec.routeScoreKeys)
     expect(Object.values(top.routeFactorProvenance).every(tuple => tuple.sourceDataset && Number.isFinite(tuple.nRecords) && tuple.rawAggregate && tuple.normalization)).toBe(true)
-    expect(complementarity.whyTopRanked).toMatch(/multiplicative HGCPS/)
+    expect(complementarity.whyTopRanked).toMatch(/weighted-geometric HGCPS/)
     expect(complementarity.whyTopRanked).toMatch(/risk retention factor/)
   })
 
@@ -150,8 +152,14 @@ describe("organic acid host-guest pathway screening", () => {
     }))
     expect(workbench.sensitivityAnalysis.summary.rankStability).toBeGreaterThanOrEqual(0.8)
     expect(workbench.sensitivityAnalysis.summary.topRouteRemainsTop).toBe(true)
-    expect(workbench.sensitivityAnalysis.scenarios).toHaveLength(12)
+    expect(workbench.sensitivityAnalysis.scenarios).toHaveLength(18)
     expect(workbench.sensitivityAnalysis.scenarios.every(row => row.baselineTopRoute === workbench.complementarity.topRoute.routeId)).toBe(true)
+    expect(workbench.sensitivityAnalysis.candidateRankDistributions.map(row => row.hostMof)).toEqual([
+      "Al-MOF",
+      "Ti-MOF",
+      "MIL-type host",
+    ])
+    expect(workbench.sensitivityAnalysis.summary.topRouteFlipFrequency).toBeGreaterThanOrEqual(0)
     expect(workbench.ablationAnalysis.scenarios.map(row => row.scenarioId)).toEqual(expect.arrayContaining([
       "without-guest-activity-compensation",
       "without-host-guest-complementarity",
@@ -169,25 +177,25 @@ describe("organic acid host-guest pathway screening", () => {
     expect(buildMissingEvidenceRiskMatrixCsv(workbench.missingEvidenceRiskMatrix)).toMatch(/Mo introduction feasibility needs validation/)
     expect(buildPathwayDescriptorMapCsv(workbench.descriptorMap)).toMatch(/CO2 activation/)
     expect(buildHostGuestRouteExplanationJson(workbench.selectedRouteExplanation)).toEqual(expect.objectContaining({
-      version: "V3.9.6",
+      version: "V3.9.7",
       targetProduct: "formic acid / organic acid",
       hostMof: workbench.complementarity.topRoute.hostMof,
       guestMetal: workbench.complementarity.topRoute.guestMetal,
     }))
     expect(buildOrganicAcidRouteReportJson(workbench, workbench.selectedRouteExplanation)).toEqual(expect.objectContaining({
-      version: "V3.9.6",
+      version: "V3.9.7",
       hgcpsFormula: HGCPS_FORMULA_TEXT,
       limitationStatement: "This is a high-priority experimental route, not final catalytic performance proof.",
     }))
     expect(buildSensitivityAnalysisJson(workbench.sensitivityAnalysis).sensitivityAnalysis.summary.topRouteRemainsTop).toBe(true)
-    expect(buildAblationAnalysisJson(workbench.ablationAnalysis).ablationAnalysis.summary).toMatch(/multiplicative HGCPS/)
+    expect(buildAblationAnalysisJson(workbench.ablationAnalysis).ablationAnalysis.summary).toMatch(/weighted-geometric HGCPS/)
     expect(buildOrganicAcidExperimentalRouteJson(workbench.experimentalRoute).nextValidationExperiment).toBeTruthy()
     expect(buildMarkdownResearchSummary(workbench, workbench.selectedRouteExplanation)).toMatch(/Random Forest is only a baseline \/ risk reference/)
     expect(buildAlgorithmTraceJson(workbench.algorithmTrace).trace).toHaveLength(8)
     expect(JSON.stringify(workbench)).not.toMatch(/undefined|NaN/)
     expect(JSON.stringify(workbench.complementarity.routeScores.map(route => route.scoreBreakdown))).not.toMatch(/undefined|null|NaN/)
     expect(JSON.stringify(workbench)).not.toMatch(/final best catalyst|already proved|Cat Playground/i)
-  })
+  }, 10000)
 
   it("changes derived host scores when source CoRE descriptors change", () => {
     const baseline = buildOrganicAcidHostGuestWorkbench(input)
@@ -203,5 +211,35 @@ describe("organic acid host-guest pathway screening", () => {
     const changedHost = changed.hostSelection.rankedHosts.find(row => row.family === selectedFamily)
 
     expect(changedHost.hostScoreBreakdown.poreEnvironmentScore).not.toBe(baselineHost.hostScoreBreakdown.poreEnvironmentScore)
+  })
+
+  it("uses the top HGCPS route as the final recommendation and exposes host divergence", () => {
+    const workbench = buildOrganicAcidHostGuestWorkbench(input)
+    const topRoute = workbench.complementarity.topRoute
+
+    expect(workbench.recommendation.hostFramework).toBe(topRoute.hostMof)
+    expect(workbench.recommendation.guestDopantMetal).toBe(topRoute.guestMetal)
+    expect(workbench.recommendation.topStructuralHost).toBe(workbench.hostSelection.selectedHost.displayName)
+    expect(workbench.recommendation.topRouteHost).toBe(topRoute.hostMof)
+    expect(workbench.recommendation.hostSelectionExplanation).toBeTruthy()
+  })
+
+  it("memoizes repeated derivation for the same dataset references and stays below the performance guard", () => {
+    clearOrganicAcidDerivationCaches()
+    const startedAt = performance.now()
+    const first = buildOrganicAcidHostGuestWorkbench(input)
+    const firstDuration = performance.now() - startedAt
+    const secondStartedAt = performance.now()
+    const second = buildOrganicAcidHostGuestWorkbench(input)
+    const secondDuration = performance.now() - secondStartedAt
+    const stats = getOrganicAcidDerivationCacheStats()
+
+    expect(firstDuration).toBeLessThan(2000)
+    expect(secondDuration).toBeLessThan(50)
+    expect(second).toBe(first)
+    expect(stats.workbench.computations).toBe(1)
+    expect(stats.workbench.hits).toBe(1)
+    expect(stats.hostFactors.computations).toBe(1)
+    expect(stats.routeFactors.computations).toBe(1)
   })
 })

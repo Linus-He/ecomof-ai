@@ -111,7 +111,11 @@ function ActivationReadinessCard({ workbench, lang }) {
           <SectionTitle
             kicker="Activation readiness"
             title="Organic Acid Experimental Activation Center / 有机酸实验启用中心"
-            note={text(lang, "现在可以用于实验规划，但还不能用于性能证明。把 Al-MOF + Mo 从算法路线转成可执行的第一轮实验计划，但不声明性能已被验证。", "Ready for experiment planning, but not performance proof. Turns the Al-MOF + Mo algorithmic route into a first experiment plan without claiming validated performance.")}
+            note={text(
+              lang,
+              `现在可以用于实验规划，但还不能用于性能证明。当前路线为 ${workbench.routeContext.topRouteName}；${workbench.routeContext.activationScope}。`,
+              `Ready for experiment planning, but not performance proof. Current route: ${workbench.routeContext.topRouteName}; ${workbench.routeContext.activationScope}.`
+            )}
           />
           <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
             <RouteBadge>{workbench.routeContext.topRouteName}</RouteBadge>
@@ -137,7 +141,8 @@ function ActivationReadinessCard({ workbench, lang }) {
         {[
           ["Route", workbench.routeContext.routeId],
           ["Host family", workbench.routeContext.selectedHostFamily],
-          ["Mo strategy", workbench.routeContext.selectedMoStrategy],
+          ["Guest strategy", workbench.routeContext.selectedMoStrategy],
+          ["Fixture scope", workbench.routeContext.activationScope],
           ["First experiment", workbench.routeContext.firstRecommendedExperiment],
           ["HGCPS", fmt(workbench.routeContext.hgcps)],
         ].map(([label, value]) => (
@@ -162,7 +167,7 @@ function SpecificAlMofHostCandidatesPanel({ workbench, lang }) {
     <section style={{ display: "grid", gap: 12 }}>
       <SectionTitle
         kicker="Specific Al-MOF hosts"
-        title={text(lang, "具体 Al-MOF 主体候选", "Specific Al-MOF Host Candidates")}
+        title={text(lang, workbench.routeContext.routeSpecificMatrixAvailable ? "具体 Al-MOF 主体候选" : "旧版 Al-MOF 参考主体（非当前路线专用）", workbench.routeContext.routeSpecificMatrixAvailable ? "Specific Al-MOF Host Candidates" : "Legacy Al-MOF Reference Hosts (not route-specific)")}
         note={text(lang, "Primary / backup / control 主体均保留 provenance 和 limitation；primary 不是最优催化剂证明。", "Primary, backup, and control hosts retain provenance and limitation; primary is not proof of optimal catalysis.")}
       />
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }}>
@@ -473,7 +478,7 @@ export function OrganicAcidExperimentalActivationCenter({
   const tabProblemNotes = {
     hosts: text(lang, "这个 tab 解决什么问题？把 Al-MOF 这个主体骨架落到具体可采购、可合成、可对照的 host family。", "What does this tab solve? It turns the Al-MOF host framework into concrete host families for synthesis and controls."),
     mo: text(lang, "这个 tab 解决什么问题？选择 Mo 如何进入 Al-MOF，并把配位、浸出和结构损伤风险显式化。", "What does this tab solve? It chooses how Mo enters Al-MOF while making coordination, leaching, and structure-damage risks explicit."),
-    matrix: text(lang, "这个 tab 解决什么问题？把 Al-MOF + Mo 路线转成 blank、pristine、guest、host 和 Mo-only 对照矩阵。", "What does this tab solve? It turns Al-MOF + Mo into blank, pristine, guest, host, and Mo-only controls."),
+    matrix: text(lang, `这个 tab 解决什么问题？${workbench.routeContext.activationScope}。`, `What does this tab solve? ${workbench.routeContext.activationScope}.`),
     template: text(lang, "这个 tab 解决什么问题？统一同条件数据字段，避免把 pending 计划误读成实验结果。", "What does this tab solve? It standardizes same-condition fields and keeps pending plans separate from experimental results."),
     feedback: text(lang, "这个 tab 解决什么问题？规定 supported、contradicted 和 inconclusive 结果如何影响 HGCPS 因子。", "What does this tab solve? It defines how supported, contradicted, and inconclusive results affect HGCPS factors."),
     update: text(lang, "这个 tab 解决什么问题？只展示算法更新预览，不进行正式重排或机器学习更新。", "What does this tab solve? It previews algorithm updates without formal reranking or machine learning updates."),

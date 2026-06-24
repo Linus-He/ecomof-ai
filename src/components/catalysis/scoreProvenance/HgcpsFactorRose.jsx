@@ -18,12 +18,12 @@ export function HgcpsFactorRose({ model, overlayRoute, lang = "zh", mini = false
     <FactorRoseChart
       rows={rows}
       outlineRows={outlineRows}
-      titleZh={mini ? "HGCPS 六因子玫瑰" : "HGCPS 六因子风玫瑰图"}
-      titleEn={mini ? "HGCPS Factor Rose" : "HGCPS Six-Factor Rose"}
-      subtitleZh="半径按六个 HGCPS 因子值缩放；风险保留因子使用风险色，表示压缩而非实验否定。"
-      subtitleEn="Radius is scaled by the six HGCPS factors; risk retention uses the risk tone and means compression, not experimental rejection."
-      captionZh="互补性、主体稳定性、客体补偿、证据置信与风险保留共同决定当前路线 HGCPS；虚线轮廓为对照路线。"
-      captionEn="Complementarity, host stability, guest compensation, evidence confidence, and risk retention jointly shape the current route HGCPS; the dashed outline is the comparison route."
+      titleZh={mini ? "HGCPS 八因子玫瑰" : "HGCPS 八因子风玫瑰图"}
+      titleEn={mini ? "HGCPS Factor Rose" : "HGCPS Eight-Factor Rose"}
+      subtitleZh="半径按八个 HGCPS 因子值缩放；风险保留因子使用风险色，表示压缩而非实验否定。"
+      subtitleEn="Radius is scaled by the eight HGCPS factors; risk retention uses the risk tone and means compression, not experimental rejection."
+      captionZh="主体、路径、客体、证据、风险、可合成性与经济性共同决定当前路线 HGCPS；虚线轮廓为对照路线。"
+      captionEn="Host, pathway, guest, evidence, risk, synthesizability, and economics jointly shape the current route HGCPS; the dashed outline is the comparison route."
       centerLabel="HGCPS"
       centerValue={fmt(model?.finalValue ?? model?.finalHGCPS, 3)}
       lang={lang}
