@@ -1,0 +1,292 @@
+{
+  "specId": "organic-acid-host-guest-scoring-spec-v2",
+  "version": "V3.9.7",
+  "lockedAt": "2026-06-24T05:38:47Z",
+  "policy": "new descriptors fixed before re-run; chosen on scientific merit, not to favor any candidate",
+  "basedOn": "V3.9.6 audit T3-T5",
+  "extends": "organic-acid-host-guest-scoring-spec-v1",
+  "algorithm": {
+    "name": "Host-Guest Complementary Pathway Screening Algorithm",
+    "mode": "white-box deterministic scoring",
+    "mlPolicy": "No training or inference is used. Dataset fields and curated tables are aggregated by fixed rules.",
+    "fallbackThreshold": {
+      "minimumRecords": 5,
+      "label": "fallback"
+    },
+    "routeAggregation": "weighted geometric mean",
+    "zeroFloor": 0.001
+  },
+  "auditBasis": {
+    "artifact": "organic_acid_audit_v3_9_7.json",
+    "proxyValidity": {
+      "surfaceAreaSpearman": 0.0714,
+      "poreVolumeSpearman": 0.6429,
+      "voidFractionSpearman": -0.4286,
+      "compositeSpearman": 0.6429,
+      "decision": "Retain the composite pore signal at reduced influence. Do not treat surface area or void fraction as sufficient standalone reaction proxies."
+    },
+    "familyFairness": {
+      "lowConfidenceFamilies": ["MIL-type host"],
+      "decision": "Keep family-level scoring but expose sample size, IQR outliers, and dominant records. Low confidence does not silently change a score."
+    },
+    "rankingSensitivity": {
+      "scenarioCount": 14,
+      "baselineTopRoute": "route-ti-mof-mo",
+      "topRouteFlipFrequency": 0,
+      "alMofBestRouteRange": [4, 5],
+      "decision": "Descriptor expansion is not calibrated to restore Al-MOF to rank 1."
+    }
+  },
+  "dataReality": {
+    "linker": "CoRE linker labels are populated, but no quantitative ligand-property fields exist. Ligand chemistry uses a transparent curated table.",
+    "synthesizability": "No direct synthesis-difficulty field exists. Family frequency in CoRE plus literature is a data-derived maturity proxy, with explicit curated difficulty multipliers only where documented.",
+    "economics": "No price field exists. Economics uses a curated precursor-price table and a transparent life-cycle-cost proxy with TODO verification labels."
+  },
+  "targetFamilies": [
+    "Al-MOF",
+    "Zr-MOF",
+    "Ti-MOF",
+    "Fe-MOF",
+    "Cr-MOF",
+    "Cu-MOF",
+    "Zn-MOF",
+    "UiO-type host",
+    "MIL-type host",
+    "MOF-808-like host"
+  ],
+  "normalization": {
+    "default": "cross-family min-max after aggregation",
+    "zeroVariance": 0.5,
+    "clamp": [0, 1],
+    "roundDigits": 3,
+    "curatedTierValues": {
+      "low": 0.25,
+      "medium": 0.6,
+      "high": 0.9
+    }
+  },
+  "hostScoreWeights": [
+    ["stabilityProxy", 0.18],
+    ["aqueousStabilityEvidence", 0.15],
+    ["thermalStabilityEvidence", 0.08],
+    ["poreEnvironmentScore", 0.06],
+    ["co2EnrichmentSupport", 0.07],
+    ["ligandPathwaySupport", 0.12],
+    ["postModificationFeasibility", 0.08],
+    ["guestHostingFeasibility", 0.08],
+    ["synthesizabilityScore", 0.1],
+    ["provenanceQuality", 0.08]
+  ],
+  "guestScoreWeights": [
+    ["co2ActivationScore", 0.22],
+    ["formateStabilizationScore", 0.22],
+    ["electronTransferSupport", 0.16],
+    ["compatibilityWithAlMof", 0.16],
+    ["dopingFeasibility", 0.08],
+    ["postModificationFeasibility", 0.08],
+    ["bimetallicConstructionFeasibility", 0.08]
+  ],
+  "routeScoreKeys": [
+    "hostStabilityScore",
+    "hostPathwaySupportScore",
+    "guestActivityCompensationScore",
+    "hostGuestComplementarityScore",
+    "evidenceConfidenceScore",
+    "riskPenalty",
+    "synthesizabilityScore",
+    "economicScore"
+  ],
+  "routeScoreWeights": [
+    ["hostStabilityScore", 0.16],
+    ["hostPathwaySupportScore", 0.15],
+    ["guestActivityCompensationScore", 0.15],
+    ["hostGuestComplementarityScore", 0.15],
+    ["evidenceConfidenceScore", 0.12],
+    ["riskPenalty", 0.12],
+    ["synthesizabilityScore", 0.08],
+    ["economicScore", 0.07]
+  ],
+  "hgcpsFormula": "finalHGCPS = product(max(factor, 0.001) ^ routeWeight); route weights sum to 1",
+  "hostPathwaySupportFormula": {
+    "poreEnvironmentScore": 0.35,
+    "co2EnrichmentSupport": 0.3,
+    "ligandPathwaySupport": 0.35
+  },
+  "hostFactorMappings": {
+    "poreEnvironmentScore": {
+      "descriptor": "surface area, pore volume, and void fraction structural support",
+      "datasets": ["coreMof", "qmof"],
+      "fields": ["surfaceArea", "poreVolume", "voidFraction"],
+      "aggregate": "family median for each numeric field; combined as mean of normalized field medians",
+      "normalization": "cross-family min-max",
+      "derivationLevel": "data-derived",
+      "auditNote": "Retained at reduced host weight because the composite tracks reaction performance, while surface area and void fraction alone have low validity."
+    },
+    "co2EnrichmentSupport": {
+      "descriptor": "CO2 adsorption support combined with ligand chemistry",
+      "datasets": ["gasAdsorption", "coreMof", "qmof", "linkerDescriptorTable"],
+      "fields": ["primaryGas", "gasPair", "metrics", "voidFraction", "linker"],
+      "aggregate": "0.65 * direct-or-structural CO2 support + 0.35 * ligandPathwaySupport",
+      "normalization": "cross-family min-max before fixed combination",
+      "derivationLevel": "data-derived + curated-ligand-descriptor"
+    },
+    "ligandPathwaySupport": {
+      "descriptor": "frequency-weighted ligand chemistry support for CO2 affinity, Lewis basicity, and active-site environment",
+      "datasets": ["coreMof", "linkerDescriptorTable"],
+      "fields": ["linker", "carboxylateCount", "nDonorOrAmine", "aromaticRings", "openMetalSitePropensity", "lewisBasicityTier"],
+      "aggregate": "0.20 * normalized carboxylateCount + 0.25 * nDonorOrAmine + 0.15 * normalized aromaticRings + 0.15 * openMetalSitePropensity tier + 0.25 * Lewis basicity tier; family value is linker-frequency weighted",
+      "normalization": "descriptor bounds and preregistered tier values",
+      "derivationLevel": "curated-ligand-descriptor",
+      "fallback": "Unmapped or pending linker labels use 0.5 and are labeled fallback with the missing linker names."
+    },
+    "stabilityProxy": {
+      "descriptor": "indirect aqueous survival proxy from water/aqueous reaction presence plus CoRE representation",
+      "datasets": ["reaction", "coreMof"],
+      "fields": ["solvent", "yield", "validationStatus", "metalNode"],
+      "aggregate": "0.7 * valid aqueous reaction share + 0.3 * normalized CoRE family record count",
+      "normalization": "cross-family min-max",
+      "derivationLevel": "data-derived indirect-proxy"
+    },
+    "aqueousStabilityEvidence": {
+      "descriptor": "aqueous organic-acid reaction support",
+      "datasets": ["reaction"],
+      "fields": ["solvent", "yield", "validationStatus"],
+      "aggregate": "share of family reaction rows with water or aqueous solvent, yield > 0, and accepted validation status",
+      "normalization": "cross-family min-max",
+      "derivationLevel": "data-derived indirect-proxy"
+    },
+    "thermalStabilityEvidence": {
+      "descriptor": "reaction-temperature survival support",
+      "datasets": ["reaction"],
+      "fields": ["temperature", "yield", "validationStatus"],
+      "aggregate": "median family reaction temperature among positive-yield accepted rows",
+      "normalization": "cross-family min-max",
+      "derivationLevel": "data-derived indirect-proxy"
+    },
+    "postModificationFeasibility": {
+      "descriptor": "post-modification feasibility",
+      "datasets": ["host_mof_candidates"],
+      "fields": ["postModificationFeasibility"],
+      "aggregate": "curated fallback because no imported dataset field represents this descriptor",
+      "normalization": "none",
+      "derivationLevel": "fallback"
+    },
+    "guestHostingFeasibility": {
+      "descriptor": "guest metal hosting feasibility",
+      "datasets": ["host_mof_candidates"],
+      "fields": ["guestHostingFeasibility"],
+      "aggregate": "curated fallback because no imported dataset field represents this descriptor",
+      "normalization": "none",
+      "derivationLevel": "fallback"
+    },
+    "synthesizabilityScore": {
+      "descriptor": "family maturity and synthesis feasibility",
+      "datasets": ["coreMof", "literature", "synthesisDifficultyOverrides"],
+      "fields": ["family record frequency", "difficultyMultiplier"],
+      "aggregate": "min-max normalize log1p(CoRE family records + literature family records), then multiply by an explicit curated difficulty multiplier when present",
+      "normalization": "cross-family min-max after log1p frequency; clamp 0-1",
+      "derivationLevel": "data-derived (frequency proxy) or data-derived + curated-synthesis-difficulty",
+      "fallback": "If both source counts are zero, use 0.25 and label fallback."
+    },
+    "provenanceQuality": {
+      "descriptor": "record-level provenance coverage",
+      "datasets": ["coreMof", "qmof", "reaction", "literature", "gold"],
+      "fields": ["doi", "citation", "quality.provenanceCoverage"],
+      "aggregate": "mean available provenance coverage for mapped records, falling back to DOI/citation coverage",
+      "normalization": "cross-family min-max",
+      "derivationLevel": "data-derived"
+    }
+  },
+  "guestFactorMappings": {
+    "dataDerivedPolicy": "Only derive a guest factor from reaction/literature/gold records when the guest metal appears as a primary metalNode with nRecords >= threshold. Otherwise use the existing literature prior and label fallback.",
+    "performanceAggregate": "mean of normalized yield, selectivity, and conversion across eligible records",
+    "fallbackLabel": "fallback",
+    "fallbackReason": "No dedicated dopant or guest-metal dataset field is present in the imported data."
+  },
+  "routeFactorMappings": {
+    "hostStabilityScore": {
+      "source": "derived host stabilityProxy",
+      "derivationLevel": "data-derived indirect-proxy"
+    },
+    "hostPathwaySupportScore": {
+      "source": "derived host poreEnvironmentScore + co2EnrichmentSupport + ligandPathwaySupport",
+      "aggregate": "0.35 * poreEnvironmentScore + 0.30 * co2EnrichmentSupport + 0.35 * ligandPathwaySupport",
+      "derivationLevel": "mixed data-derived and curated-ligand-descriptor"
+    },
+    "guestActivityCompensationScore": {
+      "source": "derived guest activity factors",
+      "aggregate": "mean(co2ActivationScore, formateStabilizationScore, electronTransferSupport)",
+      "derivationLevel": "data-derived or fallback"
+    },
+    "hostGuestComplementarityScore": {
+      "source": "rule-derived from host stability, host pathway support, and guest activity",
+      "aggregate": "0.50 * guestActivityCompensationScore + 0.25 * hostPathwaySupportScore + 0.25 * (1 - abs(hostStabilityScore - guestActivityCompensationScore))",
+      "derivationLevel": "rule-derived"
+    },
+    "evidenceConfidenceScore": {
+      "source": "literature and gold evidence density",
+      "derivationLevel": "data-derived"
+    },
+    "riskPenalty": {
+      "source": "evidence density and same-condition coverage",
+      "derivationLevel": "data-derived"
+    },
+    "synthesizabilityScore": {
+      "source": "host family synthesizability factor",
+      "derivationLevel": "data-derived (frequency proxy) or curated-synthesis-difficulty"
+    },
+    "economicScore": {
+      "source": "curated metal precursor price table + LCC proxy",
+      "aggregate": "estimatedCost = 0.65 * hostMetalUSDkg + 0.20 * guestMetalUSDkg + 0.10 * ligandCostTierUSDkg + 0.05 * synthesisEnergyIndexUSDkg; economicScore = inverse min-max estimatedCost across routes",
+      "derivationLevel": "curated-economic",
+      "boundary": "Placeholder prices remain TODO verify price + source and are not measured process costs."
+    }
+  },
+  "synthesizability": {
+    "frequencySources": ["coreMof", "literature"],
+    "frequencyTransform": "log1p",
+    "difficultyOverrides": {
+      "Ti-MOF": {
+        "multiplier": 0.82,
+        "derivationLevel": "curated-synthesis-difficulty",
+        "basis": "Preregistered penalty for narrower precursor/reactivity windows and hydrolysis control reported for titanium-carboxylate MOF synthesis.",
+        "todo": "TODO: user chemistry review of multiplier and supporting source."
+      }
+    }
+  },
+  "economics": {
+    "method": "screening-level life-cycle-cost proxy",
+    "currency": "USD/kg precursor-equivalent",
+    "costWeights": {
+      "hostMetalPrecursor": 0.65,
+      "guestMetalPrecursor": 0.2,
+      "ligandCostTier": 0.1,
+      "synthesisEnergyIndex": 0.05
+    },
+    "normalization": "inverse cross-route min-max estimated cost",
+    "boundary": "Curated placeholder inputs support transparent relative screening only; they are not supplier quotations or a full process LCC."
+  },
+  "provenanceRequirements": {
+    "requiredFields": [
+      "sourceDataset",
+      "nRecords",
+      "rawAggregate",
+      "normalization",
+      "value",
+      "derivationLevel",
+      "recordRefs",
+      "citations",
+      "fallbackReason"
+    ],
+    "allowedDerivationLevels": [
+      "data-derived",
+      "data-derived indirect-proxy",
+      "data-derived (frequency proxy)",
+      "curated-ligand-descriptor",
+      "curated-synthesis-difficulty",
+      "curated-economic",
+      "rule-derived",
+      "fallback"
+    ]
+  }
+}
