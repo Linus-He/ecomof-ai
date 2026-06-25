@@ -105,8 +105,8 @@ export function DataMappingSchemaValidationPanel({ lang, t }) {
       <p style={{ color: t.warn, fontSize: 12.3, fontWeight: 900, lineHeight: 1.5, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "边界：该 mapper 只验证 schema readiness 和数据接入形状；quality gate 不代表科学有效性，也不改变 OACS / DMRS 核心结论。",
-          "Boundary: this mapper validates schema readiness and intake shape only. The quality gate does not establish scientific validity and does not change OACS / DMRS conclusions."
+          "边界：该 mapper 只验证 schema readiness 和数据接入形状；quality gate 不代表科学有效性，也不改变 HGCPS 核心结论。",
+          "Boundary: this mapper validates schema readiness and intake shape only. The quality gate does not establish scientific validity and does not change HGCPS conclusions."
         )} />
       </p>
     </section>

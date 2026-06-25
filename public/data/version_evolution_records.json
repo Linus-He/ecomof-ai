@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
-  "currentVersion": "V3.9.8",
-  "generatedAt": "2026-06-24T00:00:00Z",
+  "currentVersion": "V3.9.9",
+  "generatedAt": "2026-06-25",
   "authority": "Single authoritative Project Evolution data source for Version Timeline, Release Notes, Roadmap, and Milestones.",
   "overview": {
     "currentVersion": "V3.9.8",
@@ -845,6 +845,27 @@
         "Audit",
         "Performance",
         "Testing"
+      ]
+    },
+    {
+      "version": "V3.9.9",
+      "date": "2026-06-25",
+      "commit": "pending-current",
+      "summary": "Organic Acid methodology unification, de-whitespace, de-static (presentation/copy/layout only; no algorithm or score change). Unified the methodology to the current HGCPS weighted-geometric-mean 8-descriptor data-derived algorithm and retired the contradictory OACS/DMRS two-stage / multiplicative / demo-proxy / Al-centric cards; fixed large-whitespace layouts in the algorithm chain and research reports; surfaced a prominent Run control and a current-algorithm-status card so the chain reads as computing on real data; kept the ranking-evolution bump chart driven by the evolution log.",
+      "scientificImpact": "No algorithm, score, or ranking change. The methodology now describes the real HGCPS algorithm instead of the retired OACS/DMRS two-stage multiplicative demo-proxy story; Al-MOF remains a builder-derived candidate (currently #3), not a preset winner.",
+      "databaseImpact": "No data or schema change; presentation, terminology, and layout only.",
+      "algorithmImpact": "No algorithm change in V3.9.9. Algorithm/closure module versions stay V3.9.8; only methodology UI copy, terminology (OACS/DMRS/OAFS -> HGCPS), layout density, and run/status visibility changed.",
+      "validationImpact": "No validation logic change; boundaries (not-final-proof, not-formal-ML, seed/proxy/curated) preserved and now consistently worded.",
+      "uiImpact": "Retired OACS/DMRS formula cards from the methodology render; unified copy to HGCPS / weighted geometric mean / 8 data-derived factors; down-sank the V2.0 changelog into a collapsed historical block; replaced whitespace-stretching auto-fit grids (stepwise Step 0 fixed 3-column, research reports auto-fill); added a prominent Run control + current-algorithm-status card on the chain first screen.",
+      "knownLimitations": "Presentation pass only; legacy catalysis decision-board components and internal methodology-oafs section slugs still carry historical naming and are tracked as follow-ups.",
+      "breakingChanges": "None.",
+      "nextVersionGoal": "Continue converging legacy catalysis decision-board terminology and wire the real metal-precursor prices once provided.",
+      "categories": [
+        "Organic Acid",
+        "Methodology",
+        "UI",
+        "Layout",
+        "Terminology"
       ]
     }
   ],

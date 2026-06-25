@@ -34,8 +34,8 @@ export function MethodologyCitationPanel({ coverage, lang, t }) {
       <p style={{ color: t.muted, fontSize: 12.2, lineHeight: 1.52, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "Evidence layer is currently demo/proxy; no verified DOI-backed records yet. 这表示当前证据层仍处于演示与待验证阶段，而不是数据错误。",
-          coverage?.warning || "Evidence layer is currently demo/proxy; no verified DOI-backed records yet."
+          "Evidence layer is data-derived / curated and labeled by data grade; verified DOI-backed records are still pending. 这表示当前证据层按数据等级标注、DOI 核验仍在进行，而不是数据错误。",
+          "Evidence layer is data-derived / curated and labeled by data grade; verified DOI-backed records are still pending."
         )} />
       </p>
     </section>

@@ -45,6 +45,12 @@ export function MechanismPathMethodCard({ lang, t }) {
         <h3 style={{ color: t.textStrong, fontSize: 20, lineHeight: 1.15, margin: 0 }}>
           {text(lang, "三路径机制解释", "Three Mechanism Path Interpretation")}
         </h3>
+        <span style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 999, color: t.warn, fontSize: 10.5, fontWeight: 900, justifySelf: "start", padding: "4px 8px", textTransform: "uppercase" }}>
+          {text(lang, "Curated 专家判断", "Curated expert judgment")}
+        </span>
+        <p style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.45, margin: 0 }}>
+          {text(lang, "Mo 预期可行性为 curated 专家判断（非数据派生），与当前结论（Mo 跨版本稳健）一致。", "Mo expected feasibility is curated expert judgment (not data-derived), consistent with the current conclusion that Mo is robust across versions.")}
+        </p>
       </header>
 
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))" }}>

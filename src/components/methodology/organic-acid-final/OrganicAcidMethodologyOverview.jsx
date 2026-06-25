@@ -19,20 +19,20 @@ function Badge({ children, t, tone = "info" }) {
 export function OrganicAcidMethodologyOverview({ lang, t, coverage }) {
   const cards = [
     {
-      label: text(lang, "工作流类型", "Workflow type"),
-      value: text(lang, "两阶段目标条件化筛选", "Two-stage target-conditioned screening"),
+      label: text(lang, "算法", "Algorithm"),
+      value: text(lang, "HGCPS · 加权几何均值", "HGCPS · weighted geometric mean"),
     },
     {
-      label: text(lang, "第一阶段", "Stage 1"),
-      value: text(lang, "Al-MOF 稳定骨架筛选", "Al-MOF scaffold mining"),
+      label: text(lang, "描述符", "Descriptors"),
+      value: text(lang, "8 个数据派生因子", "8 data-derived factors"),
     },
     {
-      label: text(lang, "第二阶段", "Stage 2"),
-      value: text(lang, "第二金属推荐", "Dopant metal recommendation"),
+      label: text(lang, "评分对象", "Scoring target"),
+      value: text(lang, "主体-客体路线优先级（不预设赢家）", "Host-guest route priority (no preset winner)"),
     },
     {
       label: text(lang, "证据边界", "Boundary"),
-      value: text(lang, "演示级代理评分 / 假设生成", "Demo/proxy hypothesis generation"),
+      value: text(lang, "数据驱动白盒 · 按数据等级标注", "Data-driven white-box · labeled by data grade"),
     },
   ]
 
@@ -42,8 +42,8 @@ export function OrganicAcidMethodologyOverview({ lang, t, coverage }) {
         <div style={{ display: "grid", gap: 7, maxWidth: 760 }}>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
             <Badge t={t}>{text(lang, "方法论页", "Methodology")}</Badge>
-            <Badge t={t} tone="warn">Demo proxy</Badge>
-            <Badge t={t} tone="warn">Evidence pending</Badge>
+            <Badge t={t} tone="good">{text(lang, "数据驱动白盒", "Data-driven white-box")}</Badge>
+            <Badge t={t} tone="warn">{text(lang, "按数据等级标注", "Data-grade labeled")}</Badge>
           </div>
           <h2 style={{ color: t.textStrong, fontSize: 26, lineHeight: 1.08, margin: 0 }}>
             {text(lang, "有机酸最终筛选方法论", "Organic Acid Final Screening Methodology")}
@@ -51,8 +51,8 @@ export function OrganicAcidMethodologyOverview({ lang, t, coverage }) {
           <p style={{ color: t.muted, fontSize: 13.5, lineHeight: 1.55, margin: 0 }}>
             <ChemicalText value={text(
               lang,
-              "面向 Al-MOF 稳定骨架筛选与第二金属推荐的两阶段目标条件化工作流。",
-              "A two-stage, target-conditioned workflow for Al-MOF scaffold mining and second-metal dopant recommendation."
+              "以 HGCPS（加权几何均值）在 8 个数据派生描述符上对主体-客体路线做优先级评分的数据驱动白盒工作流，不预设赢家。",
+              "A data-driven white-box workflow that ranks host-guest route priority with HGCPS (a weighted geometric mean over eight data-derived descriptors), with no preset winner."
             )} />
           </p>
         </div>

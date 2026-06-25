@@ -5,7 +5,6 @@ import { fetchDataJson } from "../../services/dataService"
 import { MethodologySectionSkeleton } from "./MethodologySkeleton"
 import { runOrganicAcidFinalScreening } from "../../utils/organicAcidFinalScreening"
 import { DescriptorEvidenceMatrix } from "./organic-acid-final/DescriptorEvidenceMatrix"
-import { FormulaExplainerCard } from "./organic-acid-final/FormulaExplainerCard"
 import { MechanismPathMethodCard } from "./organic-acid-final/MechanismPathMethodCard"
 import { MethodologyCitationPanel } from "./organic-acid-final/MethodologyCitationPanel"
 import { MethodologyFlowDiagram } from "./organic-acid-final/MethodologyFlowDiagram"
@@ -148,7 +147,7 @@ function SmallRealDatasetMethod({ mappingReport, lang, t }) {
   const report = mappingReport || {}
   const rows = [
     [text(lang, "样例边界", "Sample boundary"), text(lang, "只接入小规模人工整理真实样例，不接入全量 CoRE/QMOF。", "Only a small curated real-example sample is integrated; full CoRE/QMOF is not loaded.")],
-    [text(lang, "数据质量门", "Data quality gate"), text(lang, "ready-for-scoring 才可计算 OACS；needs-review 与 rejected 保持可审计但不进入最终推荐。", "Only ready-for-scoring records can calculate OACS; needs-review and rejected records remain auditable but cannot enter final recommendation.")],
+    [text(lang, "数据质量门", "Data quality gate"), text(lang, "ready-for-scoring 才可计算 HGCPS；needs-review 与 rejected 保持可审计但不进入最终推荐。", "Only ready-for-scoring records can calculate HGCPS; needs-review and rejected records remain auditable but cannot enter final recommendation.")],
     [text(lang, "字段来源", "Field provenance"), text(lang, "缺失来源显示 Pending provenance，不伪造 DOI、citation 或 license。", "Missing sources are shown as Pending provenance; DOI, citation, and license are not fabricated.")],
     [text(lang, "热区投影", "Hot spot projection"), text(lang, "Curated 点用于验证 mapper、quality gate 和 hot spot role display，不证明催化性能。", "Curated points validate mapper, quality gate, and hot spot role display; they do not prove catalytic performance.")],
   ]
@@ -325,7 +324,7 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
     ],
     [
       "Top-N preview vs full verified screening",
-      text(lang, "Top-N 预览是离线预计算索引预览，用于解释候选进入预览的原因；经完整验证的全量数据库筛选仍需要完整来源核验、描述符复算、OACS/DMRS 审计和实验/文献验证。", "Top-N preview is an offline precomputed index preview used to explain why a candidate appears in the preview; full verified database screening still requires source verification, descriptor recomputation, OACS/DMRS audit, and experimental/literature validation."),
+      text(lang, "Top-N 预览是离线预计算索引预览，用于解释候选进入预览的原因；经完整验证的全量数据库筛选仍需要完整来源核验、描述符复算、HGCPS 公式审计和实验/文献验证。", "Top-N preview is an offline precomputed index preview used to explain why a candidate appears in the preview; full verified database screening still requires source verification, descriptor recomputation, HGCPS formula audit, and experimental/literature validation."),
     ],
     [
       "Candidate Compare boundary",
@@ -351,14 +350,19 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
           "V2.0-L performs manual source verification of the 5 candidates nearest to verified metadata on top of V2.0-K and merges them into the evidence backfill as enriched records/summary and a first verified candidate report. The browser still loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand; offline curation keeps DOI/license pending, citations are material-level, every record keeps an ambiguity warning, and verified_metadata is still 0; the system now has its first source_confirmed / citation_ready candidates; no database expansion and no model trained."
         )} />
       </p>
-      <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
-        {rows.map(([label, value]) => (
-          <article key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 7, padding: 11 }}>
-            <strong style={{ color: t.textStrong, fontSize: 12.7 }}>{label}</strong>
-            <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.48 }}><ChemicalText value={value} /></span>
-          </article>
-        ))}
-      </div>
+      <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: "10px 12px" }}>
+        <summary style={{ color: t.accentText, cursor: "pointer", fontSize: 12.5, fontWeight: 900 }}>
+          {text(lang, `历史变更记录（${rows.length} 条，V2.0 阶段；默认折叠）`, `Historical change log (${rows.length} entries, V2.0 stage; collapsed by default)`)}
+        </summary>
+        <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", marginTop: 10 }}>
+          {rows.map(([label, value]) => (
+            <article key={label} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 7, padding: 11 }}>
+              <strong style={{ color: t.textStrong, fontSize: 12.7 }}>{label}</strong>
+              <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.48 }}><ChemicalText value={value} /></span>
+            </article>
+          ))}
+        </div>
+      </details>
       <p style={{ color: t.warn, fontSize: 12.5, fontWeight: 900, lineHeight: 1.52, margin: 0 }}>
         <ChemicalText value={text(lang, "V2.0-L 仍然不是经完整验证的全量数据库筛选；它做人工来源核验并产生第一批 source_confirmed / citation_ready 候选，但每条都保留 ambiguity 警告且 license/DOI 待补，因此 verified_metadata 仍为 0，未训练任何模型，OACS/DMRS 公式未在 V2.0-L 中修改。经完整验证的全量筛选仍需联网消歧、DOI/license 确认、描述符复算、公式审计与实验/文献验证。", "V2.0-L remains a manual source curation step, not full verified database screening; it yields the first source_confirmed / citation_ready candidates but every record keeps an ambiguity warning with license/DOI pending, so verified_metadata is still 0, no model is trained, and OACS/DMRS formulas are unchanged in V2.0-L. Full verified screening still requires online disambiguation, DOI/license confirmation, descriptor recomputation, formula audit, and experimental/literature validation.")} />
       </p>
@@ -424,8 +428,8 @@ function CoupledHotSpotMethod({ result, lang, t }) {
     {
       title: "Synergy Map",
       titleZh: "Synergy Map / 协同热区",
-      body: "Synergy Map combines the selected Al-MOF scaffold with candidate dopants to visualize the current Mo primary hypothesis and W backup hypothesis.",
-      bodyZh: "Synergy Map 将选定 Al-MOF 骨架与候选第二金属组合，可视化当前 Mo 主要假设与 W 备选假设。",
+      body: "Synergy Map combines the current top-route host with candidate guest metals to visualize the data-derived Mo primary hypothesis and W backup hypothesis (no preset winner).",
+      bodyZh: "Synergy Map 将当前 top route 的主体与候选客体金属组合，可视化由数据派生的 Mo 主要假设与 W 备选假设（不预设赢家）。",
     },
   ]
 
@@ -446,8 +450,8 @@ function CoupledHotSpotMethod({ result, lang, t }) {
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "本节将 OACS/DMRS 排序工作流转化为耦合描述符设计空间。受几何-电子耦合催化剂设计思想启发，热区图不新增科学结论，而是可视化骨架稳健性与第二金属活性位点价值如何共同定义当前高优先级设计区域。",
-          "This section translates the OACS/DMRS ranking workflow into a coupled descriptor design space. Inspired by geometric-electronic coupled catalyst design, the hot spot map does not introduce new scientific claims; it visualizes how scaffold robustness and second-metal active-site value jointly define the current high-priority design region."
+          "本节将 HGCPS 主客体路线评分工作流转化为耦合描述符设计空间。受几何-电子耦合催化剂设计思想启发，热区图不新增科学结论，而是可视化主体稳健性与客体金属活性位点价值如何共同定义当前高优先级设计区域。",
+          "This section translates the HGCPS host-guest route-scoring workflow into a coupled descriptor design space. Inspired by geometric-electronic coupled catalyst design, the hot spot map does not introduce new scientific claims; it visualizes how host robustness and guest-metal active-site value jointly define the current high-priority design region."
         )} />
       </p>
 
@@ -469,7 +473,7 @@ function CoupledHotSpotMethod({ result, lang, t }) {
       </div>
 
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))" }}>
-        <MetricCard label="Selected scaffold OACS" value={result?.selectedFramework?.organicAcidScore?.oacs ?? "Pending"} t={t} />
+        <MetricCard label="Host structural proxy (legacy)" value={result?.selectedFramework?.organicAcidScore?.oacs ?? "Pending"} t={t} />
         <MetricCard label="Mo role" value="primary hypothesis" t={t} />
         <MetricCard label="W role" value="backup hypothesis" t={t} />
         <MetricCard label="Hot spot threshold" value={`${result?.hotSpotRegion?.xMin ?? 0.65} / ${result?.hotSpotRegion?.yMin ?? 0.65} / ${result?.hotSpotRegion?.synergyMin ?? 0.6}`} t={t} />
@@ -478,8 +482,8 @@ function CoupledHotSpotMethod({ result, lang, t }) {
       <p style={{ color: t.warn, fontSize: 12.5, fontWeight: 900, lineHeight: 1.52, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "不同于参考工作，当前 EcoMOF-AI 热区图尚未基于 DFT 标注的反应性能数据训练，而是基于演示级 / 代理 OACS-DMRS 描述符。因此它应被理解为假设生成工具，而不是性能预测模型。",
-          "Unlike the reference work, the current EcoMOF-AI hot spot map is not trained on DFT-labeled reaction performance. It is based on demo/proxy OACS-DMRS descriptors and should be interpreted as a hypothesis-generation tool."
+          "本热区图是一个假设生成视图，使用历史结构代理描述符（已被数据驱动的 HGCPS 路线评分取代，见“算法”一节），尚未基于 DFT 标注的反应性能数据训练。因此它应被理解为假设生成工具，而不是性能预测模型。",
+          "This hot spot map is a hypothesis-generation view built on legacy structural proxy descriptors (superseded by the data-derived HGCPS route scoring in the Algorithm section) and is not trained on DFT-labeled reaction performance. It should be read as a hypothesis-generation tool, not a performance-prediction model."
         )} />
       </p>
     </section>
@@ -594,9 +598,6 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
     )
   }
 
-  const oacsCard = result.formulaCards.find(card => card.id === "oacs")
-  const dmrsCard = result.formulaCards.find(card => card.id === "dmrs")
-
   return (
     <details id="methodology-organic-acid-final-screening" open style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 13, padding: 14, scrollMarginTop: 118 }}>
       <summary style={{ color: t.textStrong, cursor: "pointer", fontSize: 22, fontWeight: 940, lineHeight: 1.15 }}>
@@ -626,12 +627,6 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
         <TraceWorkbenchMethod lang={lang} t={t} />
         <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-L performs manual source curation of the 5 candidates nearest to verified metadata over the V2.0-K evidence backfill, yielding the first source_confirmed/citation_ready candidates; offline curation keeps DOI/license pending, ambiguity warnings block verified, verified_metadata is still 0, and the OACS/DMRS formulas and lazy loading are unchanged." summaryZh="V2.0-L 在 V2.0-K 证据回填之上对最接近 verified metadata 的 5 个候选做人工来源核验，首次产生 source_confirmed/citation_ready 候选；离线核验使 DOI/license 待补，ambiguity 警告阻断 verified，verified_metadata 仍为 0，OACS/DMRS 公式与懒加载边界保持不变。" lang={lang} t={t}>
           <DatabaseIndexPreviewMethod lang={lang} t={t} />
-        </LazyMethodologyDetails>
-        <LazyMethodologyDetails id="methodology-oafs-oacs" title="OACS Formula Explainer" titleZh="OACS 骨架筛选" summary="Formula card renders after expansion." summaryZh="公式卡片展开后渲染。" lang={lang} t={t}>
-          <FormulaExplainerCard card={oacsCard} lang={lang} t={t} />
-        </LazyMethodologyDetails>
-        <LazyMethodologyDetails id="methodology-oafs-dmrs" title="DMRS Formula Explainer" titleZh="DMRS 第二金属推荐" summary="Formula card renders after expansion." summaryZh="公式卡片展开后渲染。" lang={lang} t={t}>
-          <FormulaExplainerCard card={dmrsCard} lang={lang} t={t} />
         </LazyMethodologyDetails>
         <MechanismPathMethodCard lang={lang} t={t} />
         <LazyMethodologyDetails id="methodology-oafs-hot-spot" title="Coupled Descriptor Hot Spot Map" titleZh="耦合描述符热区图" summary="Hot Spot Map method note renders when expanded." summaryZh="Hot Spot Map 方法说明展开后渲染。" lang={lang} t={t}>

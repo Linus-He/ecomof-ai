@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
-  "updatedAt": "2026-06-24",
-  "currentVersion": "V3.9.8",
-  "completedRange": "V1.0-V3.9.8",
+  "updatedAt": "2026-06-25",
+  "currentVersion": "V3.9.9",
+  "completedRange": "V1.0-V3.9.9",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -3721,7 +3721,7 @@
       "title": "Organic Acid Descriptor Impact, Methods, and Research Reporting",
       "titleZh": "有机酸描述符影响、方法论与研究报告",
       "date": "2026-06-24",
-      "status": "current",
+      "status": "completed",
       "theme": "Fixed-weight descriptor ablation, real-price rerun, and published audit conclusions",
       "themeZh": "固定权重描述符消融、真实价格重跑与审计结论上墙",
       "summary": "Added L0-L3 descriptor ablation and logarithmic factor contributions, a formal eight-factor HGCPS Methods showcase, an append-only four-stage ranking-evolution report, updated June 2026 mixed-confidence prices, visible audit conclusions, and stronger derivation memoization.",
@@ -3801,6 +3801,81 @@
         "adaptationBoundaryZh": "仅用于白盒路线优先级分析与报告；不提供最终催化性能证明，也不是正式机器学习预测。"
       },
       "relatedSection": "#methodology-oafs-algorithm-showcase"
+    },
+    {
+      "version": "V3.9.9",
+      "title": "Methodology Unification, De-Whitespace, De-Static",
+      "titleZh": "方法论统一、去空白、去静态",
+      "date": "2026-06",
+      "status": "current",
+      "theme": "Methodology unification",
+      "themeZh": "方法论统一",
+      "summary": "Organic Acid methodology unification, de-whitespace, de-static (presentation/copy/layout only; no algorithm or score change). Unified the methodology to the current HGCPS weighted-geometric-mean 8-descriptor data-derived algorithm and retired the contradictory OACS/DMRS two-stage / multiplicative / demo-proxy / Al-centric cards; fixed large-whitespace layouts in the algorithm chain and research reports; surfaced a prominent Run control and a current-algorithm-status card so the chain reads as computing on real data; kept the ranking-evolution bump chart driven by the evolution log.",
+      "summaryZh": "纯呈现/文案/布局层（不改算法逻辑、不改分数）：方法论统一到当前 HGCPS 加权几何均值 + 8 描述符 + 数据派生算法，退役矛盾的 OACS/DMRS 两阶段/乘法/演示代理/Al-中心旧卡；修复算法链与研究报告的大面积空白；提升“运行”控件与当前算法状态卡的可见性；保留由演化日志驱动的排名演化坡度图。",
+      "keyUpdates": [
+        "Unified methodology to the current HGCPS algorithm; retired OACS/DMRS formula cards.",
+        "Removed OACS/DMRS/OAFS, multiplicative, two-stage, demo/proxy, and Al-centric wording from the methodology UI.",
+        "Down-sank the V2.0 changelog into a collapsed historical block.",
+        "Fixed large-whitespace layouts in the algorithm chain (Step 0 fixed 3-column) and research reports (auto-fill).",
+        "Surfaced a prominent Run control and a current-algorithm-status card on the chain first screen.",
+        "Kept the ranking-evolution bump chart driven by the evolution log; no algorithm or score change."
+      ],
+      "keyUpdatesZh": [
+        "方法论统一到当前 HGCPS 算法；退役 OACS/DMRS 公式卡。",
+        "从方法论 UI 移除 OACS/DMRS/OAFS、乘法、两阶段、演示/代理与 Al-中心表述。",
+        "把 V2.0 变更日志下沉为默认折叠的历史区。",
+        "修复算法链（Step 0 固定三列）与研究报告（auto-fill）的大面积空白。",
+        "在算法链首屏提升“运行”控件与当前算法状态卡的可见性。",
+        "保留由演化日志驱动的排名演化坡度图；不改算法或分数。"
+      ],
+      "algorithmChanges": [
+        "No algorithm or score change in V3.9.9; this is a presentation/terminology/layout release. The methodology now points to the existing HGCPS weighted-geometric-mean 8-factor algorithm as the single formula source."
+      ],
+      "algorithmChangesZh": [
+        "V3.9.9 不改算法或分数，为纯呈现/术语/布局发布；方法论改为以现有 HGCPS 加权几何均值八因子算法作为唯一公式源。"
+      ],
+      "uiChanges": [
+        "Retired the OACS/DMRS formula-explainer cards and removed contradictory two-stage / multiplicative / demo-proxy / Al-centric copy from the methodology.",
+        "Down-sank the V2.0 historical changelog into a collapsed block; tightened whitespace by replacing auto-fit grids with fixed/auto-fill columns.",
+        "Added a prominent Run control and a current-algorithm-status card (target product, input pool sizes) on the algorithm chain first screen."
+      ],
+      "uiChangesZh": [
+        "退役 OACS/DMRS 公式解释卡，移除方法论中矛盾的两阶段/乘法/演示代理/Al-中心文案。",
+        "把 V2.0 历史变更日志下沉为折叠块；用固定/auto-fill 列替换 auto-fit 网格以收紧空白。",
+        "在算法链首屏新增显眼的“运行”控件与当前算法状态卡（目标产物、输入池规模）。"
+      ],
+      "methodologyChanges": [
+        "Unified terminology to HGCPS (retired OACS/DMRS/OAFS); marked the legacy hot-spot view and Mo feasibility as curated/legacy, superseded by the data-derived HGCPS route scoring.",
+        "Kept the Project Evolution Algorithm Methodology LaTeX module and HGCPS multiplicative-free weighted-geometric-mean formula; preserved not-final-proof and not-formal-ML boundaries."
+      ],
+      "methodologyChangesZh": [
+        "术语统一为 HGCPS（退役 OACS/DMRS/OAFS）；将历史热区视图与 Mo 可行性标注为 curated/历史，已被数据派生的 HGCPS 路线评分取代。",
+        "保留 Project Evolution 算法方法论 LaTeX 模块与 HGCPS 加权几何均值公式；保留非最终证明与非正式机器学习边界。"
+      ],
+      "evidenceBoundary": "Presentation, terminology, and layout only. No algorithm, score, ranking, data, or schema change; HGCPS remains the single route-priority score, not a catalytic-performance conclusion or formal ML prediction.",
+      "evidenceBoundaryZh": "仅呈现、术语与布局。不改算法、分数、排名、数据或 schema；HGCPS 仍为唯一路线优先级评分，不是催化性能结论或正式机器学习预测。",
+      "limitations": [
+        "Presentation pass only; scores and rankings are unchanged from V3.9.8.",
+        "Legacy catalysis decision-board components still carry historical OACS/DMRS naming (tracked as follow-up).",
+        "Same-condition performance data and formal ML labels remain pending."
+      ],
+      "limitationsZh": [
+        "仅呈现层；分数与排名相对 V3.9.8 未变。",
+        "历史 catalysis 决策板组件仍保留 OACS/DMRS 旧命名（列为后续）。",
+        "同条件性能数据与正式机器学习标签仍待完成。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "organic-acid-host-guest",
+          "methodology-unification",
+          "HGCPS",
+          "presentation-layer",
+          "layout"
+        ],
+        "adaptationBoundary": "Presentation/terminology/layout unification only; no algorithm, score, or final catalyst-performance claim.",
+        "adaptationBoundaryZh": "仅呈现/术语/布局统一；无算法、分数或最终催化性能主张。"
+      },
+      "relatedSection": "methodology-oafs-algorithm-showcase"
     }
   ],
   "roadmap": [

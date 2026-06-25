@@ -11,9 +11,9 @@ export function MethodologyFlowDiagram({ flow = [], lang, t }) {
   return (
     <section id="methodology-oafs-flow" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 13, padding: 15, scrollMarginTop: 118 }}>
       <header style={{ display: "grid", gap: 4 }}>
-        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Two-Stage Algorithm Flow</span>
+        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>HGCPS Algorithm Flow</span>
         <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
-          {text(lang, "两阶段算法流程图", "Two-Stage Algorithm Flow Diagram")}
+          {text(lang, "HGCPS 算法流程图", "HGCPS Algorithm Flow Diagram")}
         </h3>
       </header>
 

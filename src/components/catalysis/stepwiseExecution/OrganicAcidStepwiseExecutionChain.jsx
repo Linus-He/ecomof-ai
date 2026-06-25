@@ -123,7 +123,7 @@ export function StepObjectiveInputOutputChart({ model, lang = "zh", withTestId =
   return (
     <div data-testid={withTestId ? "objective-input-output-chart" : undefined} style={cardStyle({ background: palette.bg })}>
       <ChartTitle model={model} lang={lang} />
-      <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))" }}>
+      <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }}>
         <div style={cardStyle({ background: palette.surfaceStrong })}>
           <strong style={{ color: palette.text, fontSize: 12.5 }}>{text(lang, "输入数据", "Inputs")}</strong>
           {rows.map(row => (
@@ -133,7 +133,7 @@ export function StepObjectiveInputOutputChart({ model, lang = "zh", withTestId =
             </div>
           ))}
         </div>
-        <div style={cardStyle({ alignContent: "center", background: palette.accentSoft, minHeight: 120, textAlign: "center" })}>
+        <div style={cardStyle({ alignContent: "center", background: palette.accentSoft, textAlign: "center" })}>
           <strong style={{ color: palette.accent, fontSize: 13.5 }}>{text(lang, model.algorithmLabelZh, model.algorithmLabelEn)}</strong>
           <span style={{ color: palette.muted, fontSize: 11.5 }}>{text(lang, "目标产物", "Target product")}: {model.targetProduct}</span>
           <Pill tone="muted">{model.readinessLevel}</Pill>
@@ -859,6 +859,35 @@ export function OrganicAcidStepwiseExecutionChain({
         {chain.boundaries.map(boundary => <Pill key={boundary} tone="risk">{boundary}</Pill>)}
         <Pill tone="good">{text(lang, "实验规划可启用", "Planning-ready")}</Pill>
       </div>
+      {(() => {
+        const objective = chain.steps.find(step => step.id === "step-0")?.dynamicChartModel || {}
+        const objRows = asArray(objective.rows)
+        const cnt = id => objRows.find(row => row.id === id)?.value ?? "—"
+        return (
+          <section data-testid="organic-acid-algorithm-status" style={{ alignItems: "center", background: palette.accentSoft, border: `1px solid ${palette.accent}`, borderRadius: 10, display: "grid", gap: 10, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) auto", padding: 12 }}>
+            <div style={{ display: "grid", gap: 5, minWidth: 0 }}>
+              <span style={{ color: palette.accent, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "当前算法状态", "Current algorithm status")}</span>
+              <strong style={{ color: palette.text, fontSize: 13.5, lineHeight: 1.3 }}>
+                {text(lang, "HGCPS · 加权几何均值 · 8 个数据派生因子", "HGCPS · weighted geometric mean · 8 data-derived factors")}
+              </strong>
+              <span style={{ color: palette.muted, fontSize: 11.6, lineHeight: 1.45 }}>
+                {text(lang, "目标产物", "Target product")}: {objective.targetProduct || "formic acid / organic acid"} · {text(lang, "在真实数据上计算", "computed on real data")}: pathway {cnt("pathway")} · host {cnt("host")} · guest {cnt("guest")} · route {cnt("route")} · evidence {cnt("evidence")}
+              </span>
+            </div>
+            <button
+              type="button"
+              data-testid="organic-acid-run-control-primary"
+              aria-pressed={isRunning}
+              onClick={runStepwise}
+              style={{ background: isRunning ? palette.risk : palette.accent, border: "none", borderRadius: 9, color: "#fff", cursor: "pointer", fontFamily: ORGANIC_ACID_FONT, fontSize: 13, fontWeight: 900, justifySelf: isNarrow ? "start" : "end", minHeight: 42, padding: "10px 18px" }}
+            >
+              {isRunning
+                ? text(lang, "⏹ 停止运行", "⏹ Stop run")
+                : text(lang, "▶ 运行算法（Step 0 → 6）", "▶ Run algorithm (Step 0 → 6)")}
+            </button>
+          </section>
+        )
+      })()}
       <div style={{ display: "grid", gap: 14, gridTemplateColumns: isNarrow ? "1fr" : "250px minmax(0, 1fr) 350px" }}>
         <StepNavigator
           navigator={chain.navigator}

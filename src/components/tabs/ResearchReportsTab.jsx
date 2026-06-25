@@ -41,7 +41,7 @@ function Card({ id, title, subtitle, children, t, actions, shellReady = false })
 
 function ReportCharts({ charts = [], t, lang }) {
   return (
-    <div id="research-reports-chart-pack" data-testid="research-reports-chart-pack" style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}>
+    <div id="research-reports-chart-pack" data-testid="research-reports-chart-pack" style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))" }}>
       {charts.map(chart => {
         const max = Math.max(1, ...chart.rows.map(row => Number(row.value) || 0))
         return (
@@ -128,7 +128,7 @@ function ReportGenerator({ report, records, type, setType, candidateId, setCandi
           <BasisBadge tone="warn">Not Final Recommendation</BasisBadge>
         </div>
         <p style={{ color: t.textStrong, fontSize: 13.2, fontWeight: 800, lineHeight: 1.6, margin: 0 }}>{report.executiveSummary}</p>
-        <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))" }}>
+        <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))" }}>
           {report.sections.map(section => (
             <div key={section.title} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, minWidth: 0, padding: 9 }}>
               <strong style={{ color: t.textStrong, display: "block", fontSize: 12.3 }}>{section.title}</strong>
@@ -193,7 +193,7 @@ function FieldSourceTable({ report, t, lang }) {
 function CitationPackage({ packageData, t, lang }) {
   return (
     <Card id="research-reports-citation-package" title={text(lang, "引用包", "Citation Package")} subtitle={text(lang, "集中展示引用来源、数据来源、字段来源、来源链接和引用状态。", "Citation sources, data sources, field sources, source links, and citation status.")} t={t}>
-      <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))" }}>
         <Metric label="Citation Ready Count" value={packageData.citationReadyCount} t={t} tone="pass" />
         <Metric label="Source Confirmed Count" value={packageData.sourceConfirmedCount} t={t} tone="pass" />
         <Metric label="Field Source Rows" value={packageData.fieldSources.length} t={t} />
@@ -330,7 +330,7 @@ function DescriptorEvolutionReportSection({ model, t, lang }) {
       subtitle={text(lang, "按历史阶段记录 top-route 快照、真实价格重跑、描述符消融与审计结论；新增阶段只追加，不覆盖旧记录。", "Records historical top-route snapshots, the real-price rerun, descriptor ablation, and audit conclusions; new stages append without overwriting history.")}
       t={t}
     >
-      <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))" }}>
         <Metric label={text(lang, "阶段数", "Stages")} value={model.stages.length} t={t} />
         <Metric label={text(lang, "当前阶段", "Current stage")} value={model.currentStage.stage} t={t} tone="pass" />
         <Metric label="Composite Spearman ρ" value={model.audit.compositeSpearman ?? "n/a"} t={t} />
@@ -369,7 +369,7 @@ function DescriptorEvolutionReportSection({ model, t, lang }) {
 
       <DescriptorEvolutionLineChart model={model} lang={lang} />
 
-      <div data-testid="descriptor-evolution-analysis" style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}>
+      <div data-testid="descriptor-evolution-analysis" style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))" }}>
         {model.analyses.map(row => (
           <article key={row.id} style={{ background: oaPalette.bg, border: `1px solid ${oaPalette.border}`, borderRadius: 9, display: "grid", gap: 6, padding: 10 }}>
             <strong style={{ color: row.id === "limitation" ? oaPalette.risk : oaPalette.text, fontSize: 12.5 }}>{text(lang, row.titleZh, row.titleEn)}</strong>
