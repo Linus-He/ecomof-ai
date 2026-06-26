@@ -105,7 +105,15 @@ describe("organic acid V3.9.7 audits", () => {
     })
 
     expect(audit.version).toBe("V3.9.8")
-    expect(audit.proxyValidity.descriptors).toHaveLength(3)
+    // B1 (V3.10.0): validity extended to 8 descriptors (5 structural + 3 route-level), each with n + indicative caveat.
+    expect(audit.proxyValidity.descriptors).toHaveLength(8)
+    for (const descriptor of audit.proxyValidity.descriptors) {
+      expect(typeof descriptor.n).toBe("number")
+      expect(descriptor.indicative).toBe(true)
+      expect(descriptor.powerCaveat).toMatch(/indicative, not confirmatory/)
+    }
+    expect(audit.proxyValidity.statisticalPowerNote).toMatch(/indicative, not confirmatory/)
+    expect(audit.proxyValidity.insufficientNDescriptors.length).toBeGreaterThan(0)
     expect(audit.proxyValidity.familyRows.find(row => row.family === "Al-MOF").reactionRecords).toBeGreaterThan(0)
     expect(audit.familyFairness.familyReports.find(row => row.family === "MIL-type host").nRecords).toEqual(expect.objectContaining({
       core: expect.any(Number),
