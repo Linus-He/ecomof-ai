@@ -352,8 +352,11 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
       </p>
       <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: "10px 12px" }}>
         <summary style={{ color: t.accentText, cursor: "pointer", fontSize: 12.5, fontWeight: 900 }}>
-          {text(lang, `历史变更记录（${rows.length} 条，V2.0 阶段；默认折叠）`, `Historical change log (${rows.length} entries, V2.0 stage; collapsed by default)`)}
+          {text(lang, `历史变更沿革（${rows.length} 条，V2.0 阶段；默认折叠）`, `Historical change log (${rows.length} entries, V2.0 stage; collapsed by default)`)}
         </summary>
+        <p style={{ background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 8, color: t.muted, fontSize: 11.8, lineHeight: 1.5, margin: "10px 0 0", padding: "8px 10px" }}>
+          {text(lang, "以下为历史沿革，保留当年原文（部分版本使用 OACS/DMRS 等旧术语）；当前算法为 HGCPS 加权几何均值（8 因子），见上方算法展示。", "The entries below are historical and keep their original wording (some versions used legacy terms such as OACS/DMRS); the current algorithm is HGCPS — a weighted geometric mean over 8 factors (see the Algorithm Showcase above).")}
+        </p>
         <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", marginTop: 10 }}>
           {rows.map(([label, value]) => (
             <article key={label} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 7, padding: 11 }}>
