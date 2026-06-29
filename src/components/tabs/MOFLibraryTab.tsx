@@ -5,6 +5,9 @@ import {
   FONT_MONO,
   buildCandidateSearchText,
   getGlobalMofCandidates,
+  getGasAdsorptionRecordsV2,
+  getGasAdsorptionV2CollectionReport,
+  getMofIdentityRegistry,
   toolbarBtn,
   PageHeader,
   ResultLayer,
@@ -16,6 +19,8 @@ import {
   getCoreDescriptorCompleteness,
   normalizeUnitLabel,
 } from "../../shared"
+import { buildUnifiedMofRows } from "../../utils/unifiedMofDatabase"
+import { validateStructureProxy } from "../../utils/gasStructureProxyValidation"
 import { MofRationaleCard } from "../catalysis/MofRationaleCard"
 import { ReactionFingerprintPanel } from "../catalysis/ReactionFingerprintPanel"
 import { ReactionReadinessTags } from "../catalysis/ReactionReadinessTags"
@@ -790,11 +795,199 @@ function NameCurationQueue({ records, lang, t, isMobile }) {
   )
 }
 
+function UnifiedMofDatabasePanel({ rows, collectionReport, lang, t, isMobile }) {
+  const [filters, setFilters] = useState({ query: "", metal: "all", gasMode: "all", gasPair: "all", dataGrade: "all", catalysis: "all" })
+  const [sort, setSort] = useState({ key: "gasRecords", dir: "desc" })
+  const [selectedId, setSelectedId] = useState(null)
+  const metals = useMemo(() => mergeOptions(rows.map(row => row.metalNode)), [rows])
+  const gasPairs = useMemo(() => mergeOptions(rows.flatMap(row => row.gasSummary?.gasPairs || [])), [rows])
+  const dataGrades = useMemo(() => mergeOptions(rows.flatMap(row => row.gasSummary?.dataGrades || [])), [rows])
+  const filtered = useMemo(() => {
+    const query = filters.query.trim().toLowerCase()
+    const candidates = rows.filter(row => {
+      if (query && ![row.displayName, row.primaryName, row.sourceRecordId, row.sourceDatabase, row.metalNode, row.topology].join(" ").toLowerCase().includes(query)) return false
+      if (filters.metal !== "all" && String(row.metalNode || "").toLowerCase() !== filters.metal.toLowerCase()) return false
+      if (filters.gasMode === "with" && !row.completeness?.gas) return false
+      if (filters.gasMode === "without" && row.completeness?.gas) return false
+      if (filters.gasPair !== "all" && !(row.gasSummary?.gasPairs || []).includes(filters.gasPair)) return false
+      if (filters.dataGrade !== "all" && !(row.gasSummary?.dataGrades || []).includes(filters.dataGrade)) return false
+      if (filters.catalysis === "with" && !row.completeness?.catalysis) return false
+      if (filters.catalysis === "without" && row.completeness?.catalysis) return false
+      return true
+    })
+    const dir = sort.dir === "asc" ? 1 : -1
+    return candidates.sort((a, b) => {
+      const av = sortValue(a, sort.key)
+      const bv = sortValue(b, sort.key)
+      if (Number.isFinite(av) && Number.isFinite(bv)) return (av - bv) * dir
+      return String(av || "").localeCompare(String(bv || "")) * dir
+    })
+  }, [rows, filters, sort])
+  const selected = filtered.find(row => row.id === selectedId) || filtered[0] || null
+  const proxyValidation = useMemo(() => validateStructureProxy(filtered), [filtered])
+  const summary = useMemo(() => ({
+    total: rows.length,
+    withStructure: rows.filter(row => row.completeness?.structure).length,
+    withGas: rows.filter(row => row.completeness?.gas).length,
+    withCatalysis: rows.filter(row => row.completeness?.catalysis).length,
+    filtered: filtered.length,
+  }), [rows, filtered])
+  const controlStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.text, fontSize: 12, height: 36, minWidth: 0, padding: "0 9px", width: "100%" }
+  const labelStyle = { color: t.faint, display: "grid", fontSize: 11, fontWeight: 760, gap: 5, minWidth: 0 }
+  const updateSort = key => setSort(prev => ({ key, dir: prev.key === key && prev.dir === "desc" ? "asc" : "desc" }))
+
+  return (
+    <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 12, padding: isMobile ? 12 : 14 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
+        <div>
+          <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 920 }}>{text(lang, "统一 MOF 数据库浏览器", "Unified MOF Database Browser")}</div>
+          <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 4 }}>
+            {text(lang, "通过 identity registry 聚合结构、气体吸附和有机酸关联；无法确认的名称保持 gas-only 或 structure-only，不强行匹配。", "Aggregates structure, gas adsorption, and organic-acid links through the identity registry. Unconfirmed names remain gas-only or structure-only instead of being forced together.")}
+          </div>
+        </div>
+        <StatusPill t={t} tone="source">{summary.filtered} / {summary.total}</StatusPill>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
+        <MetricMini label={text(lang, "结构", "Structure")} value={summary.withStructure} note="CoRE/QMOF" t={t} />
+        <MetricMini label={text(lang, "气体数据", "Gas data")} value={summary.withGas} note={`${collectionReport?.summary?.nistRecordCount || 0} NIST`} t={t} />
+        <MetricMini label={text(lang, "催化关联", "Catalysis links")} value={summary.withCatalysis} note="Organic Acid" t={t} />
+        <MetricMini label="Spearman" value={proxyValidation.rho === null ? "n/a" : proxyValidation.rho.toFixed(2)} note={`${proxyValidation.status} · n=${proxyValidation.n}`} t={t} />
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1.2fr repeat(5, minmax(0, 1fr))", gap: 8, alignItems: "end" }}>
+        <label style={labelStyle}>{text(lang, "搜索", "Search")}<input value={filters.query} onChange={event => setFilters(prev => ({ ...prev, query: event.target.value }))} style={controlStyle} /></label>
+        <label style={labelStyle}>{text(lang, "金属节点", "Metal")}<select value={filters.metal} onChange={event => setFilters(prev => ({ ...prev, metal: event.target.value }))} style={controlStyle}><option value="all">All</option>{metals.map(item => <option key={item} value={item}>{item}</option>)}</select></label>
+        <label style={labelStyle}>{text(lang, "气体数据", "Gas data")}<select value={filters.gasMode} onChange={event => setFilters(prev => ({ ...prev, gasMode: event.target.value }))} style={controlStyle}><option value="all">All</option><option value="with">{text(lang, "有", "With")}</option><option value="without">{text(lang, "无", "Without")}</option></select></label>
+        <label style={labelStyle}>{text(lang, "气体对", "Gas pair")}<select value={filters.gasPair} onChange={event => setFilters(prev => ({ ...prev, gasPair: event.target.value }))} style={controlStyle}><option value="all">All</option>{gasPairs.map(item => <option key={item} value={item}>{item}</option>)}</select></label>
+        <label style={labelStyle}>{text(lang, "数据等级", "Grade")}<select value={filters.dataGrade} onChange={event => setFilters(prev => ({ ...prev, dataGrade: event.target.value }))} style={controlStyle}><option value="all">All</option>{dataGrades.map(item => <option key={item} value={item}>{item}</option>)}</select></label>
+        <label style={labelStyle}>{text(lang, "催化关联", "Catalysis")}<select value={filters.catalysis} onChange={event => setFilters(prev => ({ ...prev, catalysis: event.target.value }))} style={controlStyle}><option value="all">All</option><option value="with">{text(lang, "有", "With")}</option><option value="without">{text(lang, "无", "Without")}</option></select></label>
+      </div>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", minWidth: 980, borderCollapse: "collapse", fontSize: 12 }}>
+          <thead>
+            <tr style={{ background: t.surface }}>
+              {[
+                ["displayName", "MOF"],
+                ["metalNode", text(lang, "金属", "Metal")],
+                ["surfaceArea", text(lang, "比表面积", "Surface area")],
+                ["gasRecords", text(lang, "气体", "Gas")],
+                ["gasPairs", text(lang, "气体对", "Gas pairs")],
+                ["dataGrades", text(lang, "等级", "Grades")],
+                ["catalysis", text(lang, "催化", "Catalysis")],
+              ].map(([key, label]) => (
+                <th key={key} style={{ borderBottom: `1px solid ${t.border}`, color: t.subtle, padding: "8px 9px", textAlign: "left" }}>
+                  <button type="button" onClick={() => updateSort(key)} style={{ background: "transparent", border: 0, color: t.textStrong, cursor: "pointer", fontSize: 11, fontWeight: 900, padding: 0 }}>
+                    {label} {sort.key === key ? (sort.dir === "desc" ? "↓" : "↑") : ""}
+                  </button>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.slice(0, 80).map(row => (
+              <tr key={row.id} onClick={() => setSelectedId(row.id)} style={{ background: selected?.id === row.id ? t.badgeInfoBg : t.panel, borderBottom: `1px solid ${t.divider}`, cursor: "pointer" }}>
+                <td style={unifiedCell(t)}>{row.displayName}</td>
+                <td style={unifiedCell(t)}>{row.metalNode || "pending"}</td>
+                <td style={unifiedCell(t)}>{formatValue(row.surfaceArea, ` ${normalizeUnitLabel("m2/g")}`, lang)}</td>
+                <td style={unifiedCell(t)}>{row.completeness?.gas ? `${row.gasRecords.length}` : text(lang, "无", "none")}</td>
+                <td style={unifiedCell(t)}>{row.gasSummary?.gasPairs?.join(", ") || text(lang, "无", "none")}</td>
+                <td style={unifiedCell(t)}>{row.gasSummary?.dataGrades?.join(", ") || text(lang, "无", "none")}</td>
+                <td style={unifiedCell(t)}>{row.completeness?.catalysis ? text(lang, "有", "linked") : text(lang, "无", "none")}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <UnifiedDetail row={selected} lang={lang} t={t} isMobile={isMobile} />
+    </section>
+  )
+}
+
+function mergeOptions(values = []) {
+  return [...new Set(values.filter(hasValue).map(String))].sort()
+}
+
+function sortValue(row, key) {
+  if (key === "gasRecords") return row.gasRecords?.length || 0
+  if (key === "gasPairs") return row.gasSummary?.gasPairs?.length || 0
+  if (key === "dataGrades") return row.gasSummary?.dataGrades?.join(",") || ""
+  if (key === "catalysis") return row.catalysisLinks?.length || 0
+  return row[key]
+}
+
+function unifiedCell(t) {
+  return { color: t.muted, lineHeight: 1.45, padding: "8px 9px", verticalAlign: "top", overflowWrap: "anywhere" }
+}
+
+function MetricMini({ label, value, note, t }) {
+  return (
+    <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
+      <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase" }}>{label}</div>
+      <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 920, marginTop: 4 }}>{value}</div>
+      <div style={{ color: t.subtle, fontSize: 11, marginTop: 3 }}>{note}</div>
+    </div>
+  )
+}
+
+function UnifiedDetail({ row, lang, t, isMobile }) {
+  if (!row) return <Callout tone="warn">{text(lang, "当前筛选无记录。", "No rows match the current filters.")}</Callout>
+  const gasRows = row.gasRecords || []
+  return (
+    <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 10, padding: 12 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 10, flexWrap: "wrap" }}>
+        <div>
+          <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 900 }}>{row.displayName}</div>
+          <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.5, marginTop: 3 }}>{row.canonicalId}</div>
+        </div>
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+          <StatusPill t={t} tone={row.completeness?.structure ? "good" : "neutral"}>{text(lang, "结构", "structure")} {row.completeness?.structure ? "✓" : text(lang, "无", "none")}</StatusPill>
+          <StatusPill t={t} tone={row.completeness?.gas ? "good" : "neutral"}>{text(lang, "气体", "gas")} {row.completeness?.gas ? "✓" : text(lang, "无", "none")}</StatusPill>
+          <StatusPill t={t} tone={row.completeness?.catalysis ? "good" : "neutral"}>{text(lang, "催化", "catalysis")} {row.completeness?.catalysis ? "✓" : text(lang, "无", "none")}</StatusPill>
+        </div>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
+        <DescriptorLine label={text(lang, "来源", "Source")} value={row.sourceDatabase} lang={lang} t={t} compact />
+        <DescriptorLine label={text(lang, "金属节点", "Metal node")} value={row.metalNode} lang={lang} t={t} compact />
+        <DescriptorLine label={text(lang, "拓扑", "Topology")} value={row.topology} lang={lang} t={t} compact />
+        <DescriptorLine label={text(lang, "孔径", "Pore size")} value={formatValue(row.poreSizeA, ` ${normalizeUnitLabel("A")}`, lang)} lang={lang} t={t} compact />
+      </div>
+      <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{text(lang, "气体吸附记录", "Gas Adsorption Records")}</div>
+      {gasRows.length ? (
+        <div style={{ overflowX: "auto" }}>
+          <table style={{ width: "100%", minWidth: 760, borderCollapse: "collapse", fontSize: 11.5 }}>
+            <thead><tr>{["MOF", "Gas pair", "Grade", "Uptake", "Capacity", "Source"].map(head => <th key={head} style={{ borderBottom: `1px solid ${t.border}`, color: t.subtle, padding: 7, textAlign: "left" }}>{head}</th>)}</tr></thead>
+            <tbody>
+              {gasRows.slice(0, 8).map(record => (
+                <tr key={record.id} style={{ borderBottom: `1px solid ${t.divider}` }}>
+                  <td style={unifiedCell(t)}>{record.rawName || record.displayName}</td>
+                  <td style={unifiedCell(t)}>{record.gasPair}</td>
+                  <td style={unifiedCell(t)}>{record.dataGrade || record.evidence?.dataGrade}</td>
+                  <td style={unifiedCell(t)}>{formatValue(record.metrics?.primaryUptake, " mmol/g", lang)}</td>
+                  <td style={unifiedCell(t)}>{formatValue(record.metrics?.workingCapacity, " mmol/g", lang)}</td>
+                  <td style={unifiedCell(t)}>{record.recordProvenance?.doi || record.recordProvenance?.sourceUrl || "pending"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div style={{ color: t.faint, fontSize: 12, lineHeight: 1.6 }}>{text(lang, "无气体数据。", "No gas adsorption data.")}</div>
+      )}
+      <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{text(lang, "有机酸催化关联", "Organic Acid Catalysis Links")}</div>
+      <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.6 }}>
+        {row.catalysisLinks?.length ? row.catalysisLinks.map(link => `${link.id} · ${link.role || "linked"}`).join("; ") : text(lang, "无催化关联。", "No catalysis links.")}
+      </div>
+    </div>
+  )
+}
+
 export function MOFLibraryTab() {
   const t = useT()
   const { lang } = useLang()
   const { isMobile } = useViewport()
   const [rows, setRows] = useState([])
+  const [gasRows, setGasRows] = useState([])
+  const [identityRegistry, setIdentityRegistry] = useState({ records: [], summary: {} })
+  const [collectionReport, setCollectionReport] = useState(null)
   const [status, setStatus] = useState("loading")
   const [filters, setFilters] = useState({ query: "", source: "all", metal: "all", organicStatus: "all", availability: {} })
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
@@ -803,11 +996,19 @@ export function MOFLibraryTab() {
   useEffect(() => {
     let active = true
     setStatus("loading")
-    getGlobalMofCandidates({ mode: DATA_MODE, throwOnError: true })
-      .then(data => {
+    Promise.all([
+      getGlobalMofCandidates({ mode: DATA_MODE, throwOnError: true }),
+      getGasAdsorptionRecordsV2({ throwOnError: false }),
+      getMofIdentityRegistry({ throwOnError: false }),
+      getGasAdsorptionV2CollectionReport({ throwOnError: false }),
+    ])
+      .then(([data, gasData, registry, report]) => {
         if (!active) return
         const normalized = Array.isArray(data) ? data.map(normalizeOpenMofRecord) : []
         setRows(normalized)
+        setGasRows(Array.isArray(gasData) ? gasData : [])
+        setIdentityRegistry(registry || { records: [], summary: {} })
+        setCollectionReport(report || null)
         setStatus(normalized.length ? "loaded" : "empty")
       })
       .catch(error => {
@@ -834,6 +1035,7 @@ export function MOFLibraryTab() {
   const filteredRecords = useMemo(() => rows.filter(item => passesFilters(item, filters)), [rows, filters])
   const visibleRecords = useMemo(() => filteredRecords.slice(0, visibleCount), [filteredRecords, visibleCount])
   const stats = useMemo(() => summarizeRecords(rows), [rows])
+  const unifiedRows = useMemo(() => buildUnifiedMofRows({ structures: rows, gasRecords: gasRows, registry: identityRegistry }), [rows, gasRows, identityRegistry])
 
   const statusLine = text(
     lang,
@@ -865,6 +1067,7 @@ export function MOFLibraryTab() {
       <OpenMofSeedQualitySummary records={rows} lang={lang} t={t} isMobile={isMobile} />
       <DataQualityAuditPanel records={rows} lang={lang} t={t} isMobile={isMobile} />
       <NameCurationQueue records={rows} lang={lang} t={t} isMobile={isMobile} />
+      <UnifiedMofDatabasePanel rows={unifiedRows} collectionReport={collectionReport} lang={lang} t={t} isMobile={isMobile} />
 
       <OpenMofSeedFilters
         filters={filters}

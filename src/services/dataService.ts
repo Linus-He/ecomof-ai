@@ -27,6 +27,9 @@ const DATA_PATHS = {
   gasSystemsDemo: "data/gas_systems_demo.json",
   gasSourcesDemo: "data/gas_sources_demo.json",
   gasAdsorptionRecordsV1: "data/gas_adsorption_records_v1.json",
+  gasAdsorptionRecordsV2: "data/gas_adsorption_records_v2.json",
+  gasAdsorptionV2CollectionReport: "data/gas_adsorption_v2_collection_report.json",
+  mofIdentityRegistry: "data/mof_identity_registry.json",
   gasAdsorptionSourcesV1: "data/gas_adsorption_sources_v1.json",
   gasAdsorptionFieldSourcesV1: "data/gas_adsorption_field_sources_v1.json",
   gasAdsorptionSchemaV1: "data/gas_adsorption_schema_v1.json",
@@ -166,6 +169,18 @@ export function getGasSourcesDemo({ throwOnError = false } = {}) {
 
 export function getGasAdsorptionRecordsV1({ throwOnError = false } = {}) {
   return fetchJson(DATA_PATHS.gasAdsorptionRecordsV1, [], { throwOnError })
+}
+
+export function getGasAdsorptionRecordsV2({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.gasAdsorptionRecordsV2, [], { throwOnError })
+}
+
+export function getGasAdsorptionV2CollectionReport({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.gasAdsorptionV2CollectionReport, {}, { throwOnError })
+}
+
+export function getMofIdentityRegistry({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.mofIdentityRegistry, { records: [], unresolved: [], summary: {} }, { throwOnError })
 }
 
 export function getGasAdsorptionSourcesV1({ throwOnError = false } = {}) {

@@ -13,7 +13,7 @@ export function DataSourcesTab() {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow } = useViewport()
-  const [datasets, setDatasets] = useState({ structures: [], labels: [], inventory: [], isotherms: [], manifest: null, status: "loading" })
+  const [datasets, setDatasets] = useState({ structures: [], labels: [], inventory: [], isotherms: [], gasV2: [], gasV2Report: null, manifest: null, status: "loading" })
   useEffect(() => {
     let active = true
     Promise.all([
@@ -21,9 +21,11 @@ export function DataSourcesTab() {
       fetchDataJson("adsorption_labels.json"),
       fetchDataJson("lca_inventory.json"),
       fetchDataJson("isotherms.json"),
+      fetchDataJson("gas_adsorption_records_v2.json"),
+      fetchDataJson("gas_adsorption_v2_collection_report.json", {}),
       fetchDataJson("training_manifest.json"),
-    ]).then(([structures, labels, inventory, isotherms, manifest]) => {
-      if (active) setDatasets({ structures, labels, inventory, isotherms, manifest, status: "loaded" })
+    ]).then(([structures, labels, inventory, isotherms, gasV2, gasV2Report, manifest]) => {
+      if (active) setDatasets({ structures, labels, inventory, isotherms, gasV2, gasV2Report, manifest, status: "loaded" })
     }).catch(() => { if (active) setDatasets(prev => ({ ...prev, status: "fallback" })) })
     return () => { active = false }
   }, [])
@@ -48,6 +50,7 @@ export function DataSourcesTab() {
     ["Linker cost band / availability", "连接体成本带 / 可得性", datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length, "price_usd_per_unit + price_source", "价格以 USD seed values 存储，界面可切换主流货币作静态显示换算。", "不是实时市场报价，也不是供应商询价。", "Stage 2 feasibility", "exploratory"],
     ["Proxy LCA inventory", "代理 LCA 清单", datasets.inventory.length, "public/data/lca_inventory.json", "材料、溶剂、能耗、水、废弃物、价格、单位、不确定性与替换路线。", "当前是入围候选比较代理层，不能替代完整 ecoinvent/openLCA 工业清单。", "Stage 3 shortlist comparison", "assumption-dependent"],
     ["Isotherm points", "等温线点", datasets.isotherms.length, "public/data/isotherms.json", "多温 pressure-loading 点，用于 Langmuir 拟合、Henry、IAST/Qst 工作流打底。", "科研级 Qst 仍需要真实实验或 GCMC 多温纯组分等温线。", "Stage 1 interpretation", "comparative"],
+    ["Gas adsorption v2", "气体吸附 v2", datasets.gasV2.length, "public/data/gas_adsorption_records_v2.json", "NIST/ARPA-E ISODB 等温线 JSON 采集，保留 experimental/computed/seed dataGrade、isotherm、字段级 provenance。", `采集报告：NIST ${datasets.gasV2Report?.summary?.nistRecordCount ?? 0} 条；CoRE/hMOF 直接批量源本轮未落库，缺失项不补数。`, "Stage 1 screening", "source-backed"],
     ["Detailed engineering inventory", "详细工程清单", datasets.manifest?.rows ?? "—", "future openLCA / ecoinvent mapping", "正式工艺路线、供应商价格、区域电网和放大经济性。", "当前尚未实现。", "Future Stage 4", "future engineering-grade"],
   ] : [
     ["MOF structures", "MOF structures", datasets.structures.length, "public/data/mof_structures.json", "Identity, topology, PLD/LCD, BET, pore volume, density, OMS, CIF/source metadata.", "Structure libraries provide descriptors; they are not adsorption labels.", "Stage 1 screening", "benchmark-backed"],
@@ -55,6 +58,7 @@ export function DataSourcesTab() {
     ["Linker cost band / availability", "Linker cost band / availability", datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length, "price_usd_per_unit + price_source", "Prices are stored as USD seed values; the UI supports static display conversion across major currencies.", "Not live market pricing and not supplier quotations.", "Stage 2 feasibility", "exploratory"],
     ["Proxy LCA inventory", "Proxy LCA inventory", datasets.inventory.length, "public/data/lca_inventory.json", "Material, solvent, energy, water, waste, price, unit, uncertainty, and replacement pathway.", "Current values are shortlist-comparison proxies, not a full ecoinvent/openLCA industrial inventory.", "Stage 3 shortlist comparison", "assumption-dependent"],
     ["Isotherm points", "Isotherm points", datasets.isotherms.length, "public/data/isotherms.json", "Multi-temperature pressure-loading points for Langmuir fitting, Henry, IAST/Qst workflow scaffolding.", "Research-grade Qst still requires real experimental or GCMC multi-temperature pure-component isotherms.", "Stage 1 interpretation", "comparative"],
+    ["Gas adsorption v2", "Gas adsorption v2", datasets.gasV2.length, "public/data/gas_adsorption_records_v2.json", "NIST/ARPA-E ISODB isotherm JSON ingestion with experimental/computed/seed dataGrade, isotherm arrays, and field-level provenance.", `Collection report: ${datasets.gasV2Report?.summary?.nistRecordCount ?? 0} NIST records; direct CoRE/hMOF bulk sources were not ingested in this run, and missing fields remain blank.`, "Stage 1 screening", "source-backed"],
     ["Detailed engineering inventory", "Detailed engineering inventory", datasets.manifest?.rows ?? "—", "future openLCA / ecoinvent mapping", "Formal process routes, supplier prices, regional grids, and scale-up economics.", "Not implemented in the current prototype.", "Future Stage 4", "future engineering-grade"],
   ]
 

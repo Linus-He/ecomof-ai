@@ -12,6 +12,8 @@ import {
   SectionTitle,
   getGasAdsorptionRecordsDemo,
   getGasAdsorptionRecordsV1,
+  getGasAdsorptionRecordsV2,
+  getGasAdsorptionV2CollectionReport,
   formatDemoLabel,
   formatGasPairLabel,
   formatPending,
@@ -26,8 +28,8 @@ import {
   getEvidenceScore,
   getScenarioWeights,
   getStabilityScore,
-  rankGasCandidates,
 } from "../../utils/gasScoring"
+import { buildGasSeparationScreening } from "../../utils/gasSeparationScreening"
 import { buildGasSepSummary, buildGasSepExportRows } from "../../utils/summary/buildGasSepSummary"
 import { GasSepDatabaseSummaryCard } from "../data/GasSepDatabaseSummaryCard"
 import { GasMetricHeatmap } from "../gas/GasMetricHeatmap"
@@ -138,6 +140,7 @@ const TABLE_COLUMNS = [
   ["rank", "Rank", "名次"],
   ["displayName", "MOF", "MOF"],
   ["sourceDatabase", "Source", "来源"],
+  ["dataGrade", "Grade", "数据等级"],
   ["gasPair", "Gas pair", "气体对"],
   ["primaryUptake", "Uptake", "吸附量"],
   ["selectivity", "Selectivity", "选择性"],
@@ -403,8 +406,11 @@ function ScenarioBuilder({ scenario, setScenario, t, lang, isMobile, isNarrow })
         <FormField label={text(lang, "温度 K", "Temperature K")} t={t}>
           <NumberControl value={scenario.temperatureK} min={273} max={373} step={1} onChange={value => setScenario(prev => ({ ...prev, temperatureK: value }))} t={t} suffix="K" />
         </FormField>
-        <FormField label={text(lang, "压力 bar", "Pressure bar")} t={t}>
-          <NumberControl value={scenario.pressureBar} min={0.1} max={20} step={0.1} onChange={value => setScenario(prev => ({ ...prev, pressureBar: value }))} t={t} suffix="bar" />
+        <FormField label={text(lang, "吸附压 bar", "Adsorption pressure bar")} t={t}>
+          <NumberControl value={scenario.adsorptionPressureBar ?? scenario.pressureBar} min={0.1} max={20} step={0.1} onChange={value => setScenario(prev => ({ ...prev, pressureBar: value, adsorptionPressureBar: value }))} t={t} suffix="bar" />
+        </FormField>
+        <FormField label={text(lang, "脱附压 bar", "Desorption pressure bar")} t={t}>
+          <NumberControl value={scenario.desorptionPressureBar ?? 0.15} min={0.01} max={5} step={0.01} onChange={value => setScenario(prev => ({ ...prev, desorptionPressureBar: value }))} t={t} suffix="bar" />
         </FormField>
         <FormField label={text(lang, "混合比例", "Mixture ratio")} t={t}>
           <input
@@ -428,12 +434,52 @@ function ConditionSummary({ ranked, scenario, t, lang, isMobile }) {
     <section style={cardStyle(t)}>
       <SectionTitle>{text(lang, "Condition Summary + Key Metrics", "Condition Summary + Key Metrics")}</SectionTitle>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
-        <MetricTile label={text(lang, "工况", "Condition")} value={`${scenario.temperatureK} K`} note={`${scenario.pressureBar} bar · ${scenario.mixtureRatio}`} t={t} />
+        <MetricTile label={text(lang, "工况", "Condition")} value={`${scenario.temperatureK} K`} note={`${scenario.adsorptionPressureBar ?? scenario.pressureBar}/${scenario.desorptionPressureBar ?? 0.15} bar · ${scenario.mixtureRatio}`} t={t} />
         <MetricTile label={text(lang, "平均吸附量", "Avg uptake")} value={avg("primaryUptake") == null ? formatPending(lang) : `${formatNumber(avg("primaryUptake"))} mmol/g`} note={formatGasPairLabel(scenario.gasPair)} t={t} />
         <MetricTile label={text(lang, "平均选择性", "Avg selectivity")} value={avg("selectivity") == null ? formatPending(lang) : formatNumber(avg("selectivity"))} note={text(lang, "当前场景", "scenario")} t={t} />
         <MetricTile label={text(lang, "平均工作容量", "Avg capacity")} value={avg("workingCapacity") == null ? formatPending(lang) : `${formatNumber(avg("workingCapacity"))} mmol/g`} note={text(lang, "工作容量", "working capacity")} t={t} />
         <MetricTile label={text(lang, "推荐候选", "Recommended")} value={top?.displayName || formatPending(lang)} note={top ? formatScore100(top.score, lang) : formatPending(lang)} t={t} />
       </div>
+    </section>
+  )
+}
+
+function GasCoverageNotice({ coverage, collectionReport, t, lang }) {
+  if (!coverage) return null
+  const gradeLine = [
+    `experimental ${coverage.experimental || 0}`,
+    `computed ${coverage.computed || 0}`,
+    `seed ${coverage.seed || 0}`,
+  ].join(" · ")
+  return (
+    <section style={cardStyle(t, { borderLeft: `4px solid ${coverage.thin ? t.warn : t.accent}` })}>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
+        <div>
+          <SectionTitle>{text(lang, "数据覆盖与薄数据状态", "Data Coverage and Thin-State")}</SectionTitle>
+          <div style={{ color: t.muted, fontSize: 12.2, lineHeight: 1.6, marginTop: 7 }}>
+            {text(
+              lang,
+              `该气对当前有 ${coverage.total} 个 MOF 记录；其中实验 ${coverage.experimental}、计算 ${coverage.computed}、seed ${coverage.seed}。有等温线 ${coverage.withIsotherm} 条，选择性字段 ${coverage.withSelectivity} 条，工作容量字段 ${coverage.withWorkingCapacity} 条。`,
+              `This gas pair has ${coverage.total} MOF records: ${coverage.experimental} experimental, ${coverage.computed} computed, ${coverage.seed} seed. Isotherm records: ${coverage.withIsotherm}; selectivity fields: ${coverage.withSelectivity}; working-capacity fields: ${coverage.withWorkingCapacity}.`
+            )}
+          </div>
+          {coverage.thin ? (
+            <div style={{ color: t.warn, fontSize: 11.8, lineHeight: 1.55, marginTop: 7 }}>
+              {text(lang, "薄数据提示：选择性或目标气对覆盖不足，排序只能作为可追溯筛选线索。", "Thin-data note: selectivity or gas-pair coverage is limited; ranking is only a traceable screening signal.")}
+            </div>
+          ) : null}
+        </div>
+        <BasisBadge tone={coverage.thin ? "warn" : "calc"}>{gradeLine}</BasisBadge>
+      </div>
+      {collectionReport?.summary ? (
+        <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 8 }}>
+          {text(
+            lang,
+            `v2 采集批次：${collectionReport.summary.nistRecordCount || 0} 条 NIST 等温线记录，provenance 完整：${collectionReport.summary.provenanceComplete ? "是" : "否"}。`,
+            `v2 collection batch: ${collectionReport.summary.nistRecordCount || 0} NIST isotherm records; provenance complete: ${collectionReport.summary.provenanceComplete ? "yes" : "no"}.`
+          )}
+        </div>
+      ) : null}
     </section>
   )
 }
@@ -646,6 +692,7 @@ function CandidateRankingTable({ ranked, selectedId, onSelect, compareIds, setCo
                   <td style={tableCellStyle(t)}>{ranked.findIndex(item => item.id === row.id) + 1}</td>
                   <td style={{ ...tableCellStyle(t), color: t.textStrong, fontWeight: 900 }}><ChemicalText value={row.displayName} /></td>
                   <td style={tableCellStyle(t)}><ChemicalText value={row.sourceDatabase} /></td>
+                  <td style={tableCellStyle(t)}><BasisBadge tone={row.dataGrade === "experimental" ? "calc" : row.dataGrade === "computed" ? "info" : "proxy"}>{row.dataGrade || "pending"}</BasisBadge></td>
                   <td style={tableCellStyle(t)}><ChemicalFormula value={row.gasPair} /></td>
                   <td style={tableCellStyle(t)}><MetricWithSource record={row} metric="primaryUptake" value={formatMetricValue(row, "primaryUptake", lang)} unit="mmol/g" t={t} lang={lang} /></td>
                   <td style={tableCellStyle(t)}><MetricWithSource record={row} metric="selectivity" value={formatMetricValue(row, "selectivity", lang)} unit="dimensionless" t={t} lang={lang} /></td>
@@ -713,6 +760,7 @@ function ExplanationPanel({ record, t, lang, onOpenMethod }) {
           <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 930, lineHeight: 1.2, marginTop: 7 }}><ChemicalText value={record.displayName} /></div>
           <div style={{ alignItems: "center", color: t.subtle, display: "flex", flexWrap: "wrap", fontSize: 12, gap: 6, lineHeight: 1.5, marginTop: 5 }}>
             <span>{record.sourceRecordId}</span>
+            <BasisBadge tone={record.dataGrade === "experimental" ? "calc" : record.dataGrade === "computed" ? "info" : "proxy"}>{record.dataGrade || "pending"}</BasisBadge>
             <GasDataStatusBadge type="dataType" value={record.dataType} lang={lang} />
             <GasDataStatusBadge type="evidence" value={record.evidenceLevel} lang={lang} />
           </div>
@@ -852,6 +900,7 @@ export function GasSepTab({ onNavigate }) {
   const { isNarrow, isMobile } = useViewport()
   const [records, setRecords] = useState([])
   const [status, setStatus] = useState("loading")
+  const [collectionReport, setCollectionReport] = useState(null)
   const [selectedMofId, setSelectedMofId] = useState(null)
   const [selectedMetric, setSelectedMetric] = useState("primaryUptake")
   const [rankingMode, setRankingMode] = useState("overall")
@@ -865,6 +914,8 @@ export function GasSepTab({ onNavigate }) {
     applicationScenario: "flue gas carbon capture",
     temperatureK: 298,
     pressureBar: 1,
+    adsorptionPressureBar: 1,
+    desorptionPressureBar: 0.15,
     mixtureRatio: "15/85",
     targetPriority: "Balanced",
   })
@@ -879,15 +930,18 @@ export function GasSepTab({ onNavigate }) {
     let active = true
     setStatus("loading")
     Promise.all([
+      getGasAdsorptionRecordsV2({ throwOnError: false }),
       getGasAdsorptionRecordsV1({ throwOnError: false }),
       getGasAdsorptionRecordsDemo({ throwOnError: false }),
+      getGasAdsorptionV2CollectionReport({ throwOnError: false }),
     ])
-      .then(([v1Rows, demoRows]) => {
+      .then(([v2Rows, v1Rows, demoRows, report]) => {
         if (!active) return
-        const sourceRows = Array.isArray(v1Rows) && v1Rows.length ? v1Rows : demoRows
+        const sourceRows = Array.isArray(v2Rows) && v2Rows.length ? v2Rows : Array.isArray(v1Rows) && v1Rows.length ? v1Rows : demoRows
         const safeRows = normalizeGasRecords(sourceRows)
         setRecords(safeRows)
-        setStatus(safeRows.length ? (Array.isArray(v1Rows) && v1Rows.length ? "loaded" : "fallback") : "empty")
+        setCollectionReport(report || null)
+        setStatus(safeRows.length ? (Array.isArray(v2Rows) && v2Rows.length ? "loaded-v2" : Array.isArray(v1Rows) && v1Rows.length ? "loaded" : "fallback") : "empty")
       })
       .catch(error => {
         console.warn("GasSep data load failed.", error)
@@ -896,7 +950,8 @@ export function GasSepTab({ onNavigate }) {
     return () => { active = false }
   }, [])
 
-  const ranked = useMemo(() => rankGasCandidates(records, scenario), [records, scenario])
+  const screening = useMemo(() => buildGasSeparationScreening(records, scenario), [records, scenario])
+  const ranked = screening.rankedRecords
   const gasSepSummary = useMemo(() => buildGasSepSummary({ records }), [records])
   const gasSepExportRows = useMemo(() => buildGasSepExportRows(records), [records])
   const selected = useMemo(() => ranked.find(row => row.id === selectedMofId) || ranked[0] || null, [ranked, selectedMofId])
@@ -962,6 +1017,7 @@ export function GasSepTab({ onNavigate }) {
       <GasSepDatabaseSummaryCard summary={gasSepSummary} exportRows={gasSepExportRows} lang={lang} t={t} isMobile={isMobile} />
       <ScenarioBuilder scenario={scenario} setScenario={setScenario} t={t} lang={lang} isMobile={isMobile} isNarrow={isNarrow} />
       <ConditionSummary ranked={ranked} scenario={scenario} t={t} lang={lang} isMobile={isMobile} />
+      <GasCoverageNotice coverage={screening.coverage} collectionReport={collectionReport} t={t} lang={lang} />
       <PerformanceMap ranked={ranked} selectedId={selected?.id} onSelect={setSelectedMofId} chartConfig={chartConfig} setChartConfig={setChartConfig} t={t} lang={lang} isMobile={isMobile} isNarrow={isNarrow} />
       <CandidateRankingTable ranked={ranked} selectedId={selected?.id} onSelect={setSelectedMofId} compareIds={compareMofIds} setCompareIds={setCompareMofIds} t={t} lang={lang} isMobile={isMobile} />
       <GasTopRankingChart

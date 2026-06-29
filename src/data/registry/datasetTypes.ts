@@ -12,6 +12,7 @@ export const DATASET_TYPES = [
   "version_records",
   "research_report_records",
   "provenance_records",
+  "identity_registry",
 ] as const
 
 // Honesty label: how "real" the data is. NEVER let demo/seed masquerade as a
