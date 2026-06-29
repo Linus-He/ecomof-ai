@@ -11,6 +11,7 @@ describe("Unified Release Center", () => {
     expect(within(center).getAllByText(/App v1\.0\.1/).length).toBeGreaterThan(0)
     expect(within(center).getAllByText(/App v1\.0\.0/).length).toBeGreaterThan(0)
     expect(center.textContent).toMatch(/Unified Release Center/)
+    expect(center.textContent).not.toMatch(/App v1\.0\.2\s*·\s*2026-06-29/)
     expect(within(center).getByLabelText("Select App version")).toBeInTheDocument()
   })
 

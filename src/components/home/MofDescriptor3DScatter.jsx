@@ -118,6 +118,31 @@ function rotate(p, yaw, pitch) {
   return { x: x1, y: y2, depth: z2 }
 }
 
+const CUBE_CORNERS = [
+  { x: -0.5, y: -0.5, z: -0.5 },
+  { x: 0.5, y: -0.5, z: -0.5 },
+  { x: -0.5, y: 0.5, z: -0.5 },
+  { x: 0.5, y: 0.5, z: -0.5 },
+  { x: -0.5, y: -0.5, z: 0.5 },
+  { x: 0.5, y: -0.5, z: 0.5 },
+  { x: -0.5, y: 0.5, z: 0.5 },
+  { x: 0.5, y: 0.5, z: 0.5 },
+]
+
+const CUBE_EDGES = [
+  [0, 1], [0, 2], [1, 3], [2, 3],
+  [4, 5], [4, 6], [5, 7], [6, 7],
+  [0, 4], [1, 5], [2, 6], [3, 7],
+]
+
+function lerpCoord(from, to, ratio) {
+  return {
+    x: from.x + (to.x - from.x) * ratio,
+    y: from.y + (to.y - from.y) * ratio,
+    z: from.z + (to.z - from.z) * ratio,
+  }
+}
+
 function AxisRangeLegend({ extents, t, lang, isMobile }) {
   const zh = lang === "zh"
   const rows = [
@@ -151,9 +176,9 @@ function Scatter3D({ points, t, lang, colorMode, setColorMode }) {
   const [zoom, setZoom] = useState(1)
   const [hover, setHover] = useState(null)
   const drag = useRef(null)
-  const W = 680
-  const H = 470
-  const MARGIN = 68
+  const W = 720
+  const H = 500
+  const MARGIN = 86
   const zh = lang === "zh"
 
   const extents = useMemo(() => ({
@@ -163,49 +188,70 @@ function Scatter3D({ points, t, lang, colorMode, setColorMode }) {
     density: axisExtent(points.map(p => p.density).filter(value => value !== null)),
   }), [points])
 
-  const rotatedPoints = useMemo(() => points.map((p, index) => ({
-    ...p,
-    index,
-    size: 3.7 + (p.density == null ? 0.45 : (1 - norm01(p.density, extents.density)) * 3.4),
-    ...rotate({
+  const cx = W / 2
+  const cy = H / 2
+  const projection = useMemo(() => {
+    const rotated = CUBE_CORNERS.map(corner => rotate(corner, yaw, pitch))
+    const minX = Math.min(...rotated.map(p => p.x))
+    const maxX = Math.max(...rotated.map(p => p.x))
+    const minY = Math.min(...rotated.map(p => p.y))
+    const maxY = Math.max(...rotated.map(p => p.y))
+    const scale = Math.min((W - 2 * MARGIN) / (maxX - minX || 1), (H - 2 * MARGIN) / (maxY - minY || 1)) * zoom
+    return {
+      corners: rotated.map(p => ({ ...p, sx: cx + p.x * scale, sy: cy - p.y * scale })),
+      project: (coord) => {
+        const r = rotate(coord, yaw, pitch)
+        return { ...r, sx: cx + r.x * scale, sy: cy - r.y * scale }
+      },
+    }
+  }, [yaw, pitch, zoom])
+
+  const projected = useMemo(() => points.map((p, index) => {
+    const coord = {
       x: norm(p.surfaceArea, extents.surfaceArea) + jitter(index, "x"),
       y: norm(p.poreVolume, extents.poreVolume) + jitter(index, "y"),
       z: norm(p.voidFraction, extents.voidFraction) + jitter(index, "z"),
-    }, yaw, pitch),
-  })), [points, extents, yaw, pitch])
-
-  const fit = useMemo(() => {
-    const xs = rotatedPoints.map(p => p.x)
-    const ys = rotatedPoints.map(p => p.y)
-    const minX = Math.min(...xs)
-    const minY = Math.min(...ys)
-    return { minX, minY, spanX: (Math.max(...xs) - minX) || 1, spanY: (Math.max(...ys) - minY) || 1 }
-  }, [rotatedPoints])
-
-  const cx = W / 2
-  const cy = H / 2
-  const innerW = (W - 2 * MARGIN) * zoom
-  const innerH = (H - 2 * MARGIN) * zoom
-  const toScreen = (r) => ({
-    sx: cx + (((r.x - fit.minX) / fit.spanX) - 0.5) * innerW,
-    sy: cy - (((r.y - fit.minY) / fit.spanY) - 0.5) * innerH,
-    depth: r.depth,
-  })
-
-  const projected = useMemo(() => rotatedPoints
-    .map(p => ({ ...p, ...toScreen(p) }))
-    .sort((a, b) => a.depth - b.depth), [rotatedPoints, fit, zoom])
-
-  const gizmo = useMemo(() => {
-    const L = 38
-    const gx = 46
-    const gy = H - 40
-    const dir = (vec) => {
-      const r = rotate(vec, yaw, pitch)
-      return { x: gx + r.x * L, y: gy - r.y * L }
     }
-    return { gx, gy, sa: dir({ x: 1, y: 0, z: 0 }), pv: dir({ x: 0, y: 1, z: 0 }), vf: dir({ x: 0, y: 0, z: 1 }) }
-  }, [yaw, pitch])
+    return {
+      ...p,
+      index,
+      size: 3.5 + (p.density == null ? 0.45 : (1 - norm01(p.density, extents.density)) * 3.2),
+      ...projection.project(coord),
+    }
+  }).sort((a, b) => a.depth - b.depth), [points, extents, projection])
+
+  const axes = useMemo(() => ([
+    {
+      key: "surfaceArea",
+      label: zh ? "比表面积" : "Surface area",
+      unit: "m²/g",
+      color: t.accentText,
+      from: { x: -0.5, y: -0.5, z: -0.5 },
+      to: { x: 0.5, y: -0.5, z: -0.5 },
+      labelOffset: { x: 22, y: 28 },
+      tickOffset: { x: 0, y: 17 },
+    },
+    {
+      key: "poreVolume",
+      label: zh ? "孔体积" : "Pore volume",
+      unit: "cm³/g",
+      color: t.warn,
+      from: { x: -0.5, y: -0.5, z: -0.5 },
+      to: { x: -0.5, y: 0.5, z: -0.5 },
+      labelOffset: { x: -56, y: -16 },
+      tickOffset: { x: -34, y: 3 },
+    },
+    {
+      key: "voidFraction",
+      label: zh ? "孔隙率" : "Porosity",
+      unit: "",
+      color: t.success || t.accentText,
+      from: { x: -0.5, y: -0.5, z: -0.5 },
+      to: { x: -0.5, y: -0.5, z: 0.5 },
+      labelOffset: { x: 22, y: -28 },
+      tickOffset: { x: 18, y: -8 },
+    },
+  ]), [zh, t])
 
   const onPointerDown = event => {
     drag.current = { x: event.clientX, y: event.clientY, yaw, pitch }
@@ -261,17 +307,45 @@ function Scatter3D({ points, t, lang, colorMode, setColorMode }) {
         onPointerLeave={onPointerUp}
         onWheel={onWheel}
       >
-        <rect x={MARGIN - 18} y={MARGIN - 24} width={W - 2 * MARGIN + 36} height={H - 2 * MARGIN + 36} rx="10" fill={t.chartBg || t.surface} stroke={t.border} opacity="0.58" />
-        {[0.25, 0.5, 0.75].map(level => (
-          <line key={level} x1={MARGIN} x2={W - MARGIN} y1={MARGIN + level * (H - 2 * MARGIN)} y2={MARGIN + level * (H - 2 * MARGIN)} stroke={t.divider || t.border} strokeDasharray="3 8" />
+        <rect x={42} y={22} width={W - 84} height={H - 60} rx="12" fill={t.chartBg || t.surface} stroke={t.border} opacity="0.42" />
+        {CUBE_EDGES.map(([a, b]) => (
+          <line
+            key={`${a}-${b}`}
+            x1={projection.corners[a].sx}
+            y1={projection.corners[a].sy}
+            x2={projection.corners[b].sx}
+            y2={projection.corners[b].sy}
+            stroke={t.border}
+            strokeWidth="1.2"
+            strokeDasharray={a < 4 && b < 4 ? "none" : "4 7"}
+          />
         ))}
 
-        <line x1={gizmo.gx} y1={gizmo.gy} x2={gizmo.sa.x} y2={gizmo.sa.y} stroke={t.subtle} strokeWidth={1.7} />
-        <line x1={gizmo.gx} y1={gizmo.gy} x2={gizmo.pv.x} y2={gizmo.pv.y} stroke={t.subtle} strokeWidth={1.7} />
-        <line x1={gizmo.gx} y1={gizmo.gy} x2={gizmo.vf.x} y2={gizmo.vf.y} stroke={t.subtle} strokeWidth={1.7} />
-        <text x={gizmo.sa.x} y={gizmo.sa.y - 5} textAnchor="middle" fill={t.faint} fontSize={9.5} fontWeight={850}>{zh ? "比表面" : "SA"}</text>
-        <text x={gizmo.pv.x} y={gizmo.pv.y - 5} textAnchor="middle" fill={t.faint} fontSize={9.5} fontWeight={850}>{zh ? "孔体积" : "PV"}</text>
-        <text x={gizmo.vf.x} y={gizmo.vf.y - 5} textAnchor="middle" fill={t.faint} fontSize={9.5} fontWeight={850}>{zh ? "孔隙率" : "ε"}</text>
+        {axes.map(axis => {
+          const start = projection.project(axis.from)
+          const end = projection.project(axis.to)
+          const extent = extents[axis.key]
+          return (
+            <g key={axis.key}>
+              <line x1={start.sx} y1={start.sy} x2={end.sx} y2={end.sy} stroke={axis.color} strokeWidth="2.2" strokeLinecap="round" />
+              {[0, 0.5, 1].map(ratio => {
+                const tick = projection.project(lerpCoord(axis.from, axis.to, ratio))
+                const value = extent.min + extent.span * ratio
+                return (
+                  <g key={`${axis.key}-${ratio}`}>
+                    <circle cx={tick.sx} cy={tick.sy} r="2.2" fill={axis.color} />
+                    <text className="num" x={tick.sx + axis.tickOffset.x} y={tick.sy + axis.tickOffset.y} textAnchor={axis.tickOffset.x < 0 ? "end" : "middle"} fill={t.subtle} fontSize="9.8" fontWeight="760">
+                      {formatCompact(value, axis.key === "voidFraction" ? 2 : axis.key === "poreVolume" ? 2 : 0)}
+                    </text>
+                  </g>
+                )
+              })}
+              <text x={end.sx + axis.labelOffset.x} y={end.sy + axis.labelOffset.y} textAnchor={axis.labelOffset.x < 0 ? "end" : "start"} fill={axis.color} fontSize="11.2" fontWeight="900">
+                {axis.label}{axis.unit ? ` (${axis.unit})` : ""}
+              </text>
+            </g>
+          )
+        })}
 
         {projected.map(p => {
           const active = hover?.index === p.index

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 import { buildDescriptorScatterPoints } from "../../components/home/MofDescriptor3DScatter"
-import { buildGasParetoRows, buildParetoFrontier, summarizeGasParetoRows } from "../../components/home/GasParetoChart"
+import { buildGasParetoRows, buildLogSelectivityScale, buildParetoFrontier, summarizeGasParetoRows } from "../../components/home/GasParetoChart"
 
 describe("homepage research visualizations", () => {
   it("samples a larger real descriptor cloud without fabricating missing axes", () => {
@@ -40,5 +40,12 @@ describe("homepage research visualizations", () => {
       expect(dominated).toBe(false)
     }
   })
-})
 
+  it("uses a log selectivity scale so outliers do not flatten Pareto charts", () => {
+    const rows = buildGasParetoRows().filter(row => row.gasPair === "CO2/N2")
+    const scale = buildLogSelectivityScale(rows)
+    expect(scale.ticks).toContain(10)
+    expect(scale.ticks).toContain(10000)
+    expect(scale.logMax - scale.logMin).toBeGreaterThanOrEqual(4)
+  })
+})

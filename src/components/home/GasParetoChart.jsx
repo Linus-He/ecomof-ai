@@ -105,9 +105,46 @@ export function summarizeGasParetoRows(rows = []) {
   return byPair
 }
 
+function formatCompact(value, digits = 1) {
+  const number = Number(value)
+  if (!Number.isFinite(number)) return "pending"
+  if (Math.abs(number) >= 1000) return number.toLocaleString(undefined, { maximumFractionDigits: 0 })
+  return number.toLocaleString(undefined, { maximumFractionDigits: digits })
+}
+
 function niceMax(values, pad = 1.08) {
   const max = Math.max(1, ...values.map(Number).filter(Number.isFinite))
   return max * pad
+}
+
+function log10(value) {
+  return Math.log10(Math.max(Number(value) || 1, 1))
+}
+
+export function buildLogSelectivityScale(rows = []) {
+  const values = rows.map(row => Number(row.selectivity)).filter(value => Number.isFinite(value) && value > 0)
+  const min = Math.max(1, Math.min(...values))
+  const max = Math.max(1, Math.max(...values))
+  const minPow = Math.floor(log10(min))
+  const maxPow = Math.ceil(log10(max))
+  const ticks = []
+  for (let pow = minPow; pow <= maxPow; pow += 1) {
+    ticks.push(10 ** pow)
+  }
+  if (!ticks.includes(1)) ticks.unshift(1)
+  return {
+    min: 10 ** minPow,
+    max: 10 ** maxPow,
+    logMin: minPow,
+    logMax: Math.max(maxPow, minPow + 1),
+    ticks: ticks.filter(value => value >= 10 ** minPow && value <= 10 ** maxPow),
+  }
+}
+
+function formatSelectivityTick(value) {
+  if (value >= 1000000) return `${formatCompact(value / 1000000, 1)}M`
+  if (value >= 1000) return `${formatCompact(value / 1000, value >= 10000 ? 0 : 1)}k`
+  return formatCompact(value, 0)
 }
 
 function Shape({ point, active, style }) {
@@ -140,9 +177,9 @@ export function GasParetoChart({ t, lang, isMobile }) {
   const H = isMobile ? 320 : 420
   const m = { left: 58, right: 22, top: 26, bottom: 52 }
   const maxX = niceMax(pairRows.map(row => row.workingCapacity))
-  const maxY = niceMax(pairRows.map(row => row.selectivity))
+  const yScale = buildLogSelectivityScale(pairRows)
   const xFor = value => m.left + (Number(value) / maxX) * (W - m.left - m.right)
-  const yFor = value => H - m.bottom - (Number(value) / maxY) * (H - m.top - m.bottom)
+  const yFor = value => H - m.bottom - ((log10(value) - yScale.logMin) / (yScale.logMax - yScale.logMin)) * (H - m.top - m.bottom)
   const projected = pairRows.map((row, index) => ({ ...row, x: xFor(row.workingCapacity), y: yFor(row.selectivity), index }))
   const frontierPath = frontier.map(row => `${xFor(row.workingCapacity)},${yFor(row.selectivity)}`).join(" ")
   const tickFractions = [0, 0.25, 0.5, 0.75, 1]
@@ -166,8 +203,8 @@ export function GasParetoChart({ t, lang, isMobile }) {
         </div>
         <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.6, margin: 0, maxWidth: 760 }}>
           {zh
-            ? `仅使用 gas_adsorption_records_v2 中同时具备选择性与工作容量的 ${rows.length} 个真实点；右上角为更优权衡，折线为非支配帕累托前沿。`
-            : `Uses only the ${rows.length} real gas_adsorption_records_v2 points that have both selectivity and working capacity; upper-right is better and the line marks the non-dominated Pareto frontier.`}
+            ? `仅使用 gas_adsorption_records_v2 中同时具备选择性与工作容量的 ${rows.length} 个真实点；选择性轴用 log 刻度，避免极端选择性点压扁其它材料。`
+            : `Uses only the ${rows.length} real gas_adsorption_records_v2 points that have both selectivity and working capacity; selectivity uses a log scale so extreme points do not flatten the rest.`}
         </p>
       </header>
 
@@ -197,14 +234,14 @@ export function GasParetoChart({ t, lang, isMobile }) {
               <text className="num" x={xFor(maxX * f)} y={H - m.bottom + 18} textAnchor="middle" fill={t.subtle} fontSize="10.5">{(maxX * f).toFixed(1)}</text>
             </g>
           ))}
-          {tickFractions.map(f => (
-            <g key={`y-${f}`}>
-              <line x1={m.left} x2={W - m.right} y1={yFor(maxY * f)} y2={yFor(maxY * f)} stroke={t.divider || t.border} strokeDasharray={f === 0 ? "none" : "3 7"} />
-              <text className="num" x={m.left - 9} y={yFor(maxY * f) + 4} textAnchor="end" fill={t.subtle} fontSize="10.5">{(maxY * f).toFixed(0)}</text>
+          {yScale.ticks.map(value => (
+            <g key={`y-${value}`}>
+              <line x1={m.left} x2={W - m.right} y1={yFor(value)} y2={yFor(value)} stroke={t.divider || t.border} strokeDasharray={value === yScale.min ? "none" : "3 7"} />
+              <text className="num" x={m.left - 9} y={yFor(value) + 4} textAnchor="end" fill={t.subtle} fontSize="10.5">{formatSelectivityTick(value)}</text>
             </g>
           ))}
           <text x={(W + m.left - m.right) / 2} y={H - 14} textAnchor="middle" fill={t.muted} fontSize="11.2" fontWeight="850">{zh ? "工作容量 (mmol/g)" : "Working capacity (mmol/g)"}</text>
-          <text transform={`translate(16 ${(H - m.bottom + m.top) / 2}) rotate(-90)`} textAnchor="middle" fill={t.muted} fontSize="11.2" fontWeight="850">{zh ? "选择性" : "Selectivity"}</text>
+          <text transform={`translate(16 ${(H - m.bottom + m.top) / 2}) rotate(-90)`} textAnchor="middle" fill={t.muted} fontSize="11.2" fontWeight="850">{zh ? "选择性（log）" : "Selectivity (log)"}</text>
           <text x={W - m.right - 6} y={m.top + 17} textAnchor="end" fill={t.accentText} fontSize="11" fontWeight="900">{zh ? "右上为优" : "Upper-right is better"}</text>
 
           {frontier.length > 1 ? <polyline points={frontierPath} fill="none" stroke={t.accentText} strokeWidth="2.4" strokeLinejoin="round" strokeLinecap="round" /> : null}
@@ -243,4 +280,3 @@ export function GasParetoChart({ t, lang, isMobile }) {
 }
 
 export default GasParetoChart
-

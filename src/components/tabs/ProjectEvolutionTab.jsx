@@ -273,7 +273,6 @@ function UnifiedReleaseCenter({ log, lang, t, isMobile }) {
       <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 10 }}>
         <span style={{ alignItems: "baseline", background: t.badgeInfoBg, border: `1px solid ${t.accent}`, borderRadius: 10, color: t.accentText, display: "inline-flex", fontFamily: FONT_SANS, fontSize: 19, fontWeight: 950, gap: 6, padding: "6px 12px" }}>
           App {release.appVersion}
-          <span style={{ color: t.muted, fontSize: 11, fontWeight: 800 }}>· {release.date}</span>
         </span>
         <StatusBadge tone="info" t={t}>{text(lang, "当前", "Current")}</StatusBadge>
       </div>
