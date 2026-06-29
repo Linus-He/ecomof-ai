@@ -1,0 +1,891 @@
+{
+  "schemaVersion": "1.0",
+  "currentAppVersion": "v1.0.0",
+  "generatedAt": "2026-06-29",
+  "authority": "Single unified EcoMOF-AI App release log. One App version manages the whole platform; each release lists only the modules it changed. Historical module version numbers are preserved verbatim in history (pre-1.0 modular-development era).",
+  "provenance": {
+    "derivedFrom": "public/data/version_evolution_records.json",
+    "generatingScript": "scripts/build-app-release-log.mjs",
+    "note": "v1.0.0 module changes are authored from the integration work in this release; history is regrouped by module from existing per-module impact fields without altering any original version number."
+  },
+  "moduleCatalog": {
+    "organicAcid": {
+      "label": {
+        "zh": "有机酸",
+        "en": "Organic Acid"
+      },
+      "blurb": {
+        "zh": "数据驱动白盒主客体催化路线筛选（HGCPS + 不确定度）。",
+        "en": "Data-driven white-box host-guest catalytic route screening (HGCPS + uncertainty)."
+      },
+      "target": "catalysisLab",
+      "hash": "catalysis-organic-acid"
+    },
+    "gasSep": {
+      "label": {
+        "zh": "气体分离",
+        "en": "GasSep"
+      },
+      "blurb": {
+        "zh": "气体分离 / 容量筛选（ISODB 真实等温线 + IAST 选择性）。",
+        "en": "Gas separation / capacity screening (real ISODB isotherms + IAST selectivity)."
+      },
+      "target": "gassep",
+      "hash": "gassep"
+    },
+    "database": {
+      "label": {
+        "zh": "数据库",
+        "en": "Database"
+      },
+      "blurb": {
+        "zh": "统一 MOF 身份层与跨模块结构 / 气体 / 催化数据打通。",
+        "en": "Unified MOF identity layer linking structure / gas / catalysis records."
+      },
+      "target": "mofLibrary",
+      "hash": "library"
+    },
+    "validation": {
+      "label": {
+        "zh": "验证",
+        "en": "Validation"
+      },
+      "blurb": {
+        "zh": "白盒可解释、稳健性验证与字段级溯源。",
+        "en": "White-box explainability, robustness validation, and field-level provenance."
+      },
+      "target": "about",
+      "hash": "methodology-algorithm-validation"
+    },
+    "ui": {
+      "label": {
+        "zh": "界面与体验",
+        "en": "UI & Experience"
+      },
+      "blurb": {
+        "zh": "统一版本、按模块讲能力、收敛的研究报告与交互可视化。",
+        "en": "Unified versioning, module-first capabilities, focused reports, interactive visuals."
+      },
+      "target": "home",
+      "hash": "overview"
+    }
+  },
+  "releases": [
+    {
+      "appVersion": "v1.0.0",
+      "date": "2026-06-29",
+      "stage": "unified-platform",
+      "headline": {
+        "zh": "首个统一平台版本：把有机酸、气体分离、数据库与验证整合到单一 App 版本号下。",
+        "en": "First unified platform release: organic-acid, gas separation, database, and validation now ship under one App version."
+      },
+      "summary": {
+        "zh": "整合此前各模块为成熟 App 的统一版本；此前为模块化开发期，原始版本号（有机酸 V3.9.x / 数据库 V2.2 / 气体 v2.1 等）见下方历史沿革，一律未改。自 v1.0.0 起，每次发布只列出本次有更新的模块。",
+        "en": "Integrates the previously separate modules into one mature App version. Earlier work was the modular-development era; original module version numbers (Organic Acid V3.9.x, Database V2.2, Gas v2.1, ...) are preserved unchanged in the history below. From v1.0.0, each release lists only the modules it changed."
+      },
+      "modules": {
+        "organicAcid": {
+          "summary": {
+            "zh": "白盒主客体催化路线筛选，八因子加权几何 HGCPS 加不确定度。",
+            "en": "White-box host-guest route screening with eight-factor weighted-geometric HGCPS plus uncertainty."
+          },
+          "changes": [
+            {
+              "zh": "HGCPS 八因子加权几何评分方法论作为独立模块呈现。",
+              "en": "Eight-factor weighted-geometric HGCPS methodology surfaced as a standalone module."
+            },
+            {
+              "zh": "描述符消融与敏感度分析，标注高优先级实验假设而非最终结论。",
+              "en": "Descriptor ablation and sensitivity analysis, marked as a high-priority hypothesis, not a final conclusion."
+            },
+            {
+              "zh": "B2 分数引入 Monte-Carlo 不确定度误差条。",
+              "en": "B2 scores now carry Monte-Carlo uncertainty error bars."
+            }
+          ]
+        },
+        "gasSep": {
+          "summary": {
+            "zh": "气体分离与容量筛选，基于真实单组分等温线计算 IAST 选择性。",
+            "en": "Gas separation and capacity screening with IAST selectivity computed from real pure-component isotherms."
+          },
+          "changes": [
+            {
+              "zh": "Gas Adsorption v2.1：对成对真实等温线计算 69 个 computed-IAST 选择性值。",
+              "en": "Gas Adsorption v2.1: 69 computed-IAST selectivity values from paired real isotherms."
+            },
+            {
+              "zh": "把 79 条气体记录保守链接到 CoRE/QMOF 结构候选。",
+              "en": "Linked 79 gas records to CoRE/QMOF structure candidates under explicit confidence labels."
+            },
+            {
+              "zh": "首页新增「进入 GasSep」入口，与其它模块同级。",
+              "en": "Added a peer-level 'Enter GasSep' entry on the homepage."
+            },
+            {
+              "zh": "GasSep、MOF Library、Data Sources 同步展示真实覆盖度。",
+              "en": "Coverage surfaced consistently across GasSep, MOF Library, and Data Sources."
+            }
+          ]
+        },
+        "database": {
+          "summary": {
+            "zh": "统一 MOF 身份层，把结构、气体与催化记录打通为可浏览的全貌。",
+            "en": "Unified MOF identity layer linking structure, gas, and catalysis records into one browsable view."
+          },
+          "changes": [
+            {
+              "zh": "MOF Library 重做为统一 MOF 浏览器：分面检索 + 结构/气体/催化三类完整度 + 详情聚合。",
+              "en": "MOF Library rebuilt as a unified browser: faceted search + structure/gas/catalysis completeness + aggregated detail panel."
+            },
+            {
+              "zh": "经 mofIdentity 聚合各来源 provenance，给出覆盖度统计。",
+              "en": "Provenance aggregated via mofIdentity with coverage statistics."
+            },
+            {
+              "zh": "保留 CoRE/QMOF 结构导入与 gas 吸附 v2.1 记录层。",
+              "en": "Preserves CoRE/QMOF structural imports and the gas-adsorption v2.1 record layer."
+            }
+          ]
+        },
+        "validation": {
+          "summary": {
+            "zh": "白盒可解释加稳健性验证，所有派生量都标注边界。",
+            "en": "White-box explainability plus robustness validation, with every derived value bounded."
+          },
+          "changes": [
+            {
+              "zh": "结构代理与真实 uptake 做 Spearman 指示性审计，低相关标 low-validity-indicative。",
+              "en": "Structure proxies audited against real uptake via Spearman, low correlations flagged low-validity-indicative."
+            },
+            {
+              "zh": "新增 provenance 与反防伪测试。",
+              "en": "Added provenance and anti-fabrication tests."
+            },
+            {
+              "zh": "保留模型可信度 v2（78.87 / Grade B）与高过拟合风险的诚实披露。",
+              "en": "Keeps credibility v2 (78.87 / Grade B) and the honest High Overfitting Risk disclosure."
+            }
+          ]
+        },
+        "ui": {
+          "summary": {
+            "zh": "成熟 App 体验：统一版本、按模块讲能力、收敛的研究报告与交互可视化。",
+            "en": "Mature App experience: unified versioning, module-first capabilities, focused reports, interactive visuals."
+          },
+          "changes": [
+            {
+              "zh": "统一 App 版本号 + 二级（分模块）更新日志，历史散版收进折叠区。",
+              "en": "Single App version + secondary per-module changelog; legacy versions folded into a collapsed history."
+            },
+            {
+              "zh": "首页能力区改为按模块讲能力（EcoScreen / MOF Library / Organic Acid / GasSep）。",
+              "en": "Homepage capabilities restated module-by-module (EcoScreen / MOF Library / Organic Acid / GasSep)."
+            },
+            {
+              "zh": "研究报告收敛为候选/筛选子 tab + 四块紧凑叙事。",
+              "en": "Research reports converged into candidate/round sub-tabs with a four-block compact narrative."
+            },
+            {
+              "zh": "首页新增可交互 3D MOF 描述符散点图（移动端降级为 2D）。",
+              "en": "Added an interactive 3D MOF descriptor scatter on the homepage (2D fallback on mobile)."
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "history": {
+    "label": {
+      "zh": "历史沿革（pre-1.0 模块化开发期）",
+      "en": "History (pre-1.0 modular-development era)"
+    },
+    "note": {
+      "zh": "v1.0.0 之前 EcoMOF-AI 按模块分别迭代，原始版本号与真实 commit 绑定，全部原样保留并按模块归类展示。",
+      "en": "Before v1.0.0, EcoMOF-AI iterated module by module. Original version numbers are bound to real commits and are kept verbatim, regrouped here by module."
+    },
+    "versionCount": 37,
+    "byModule": {
+      "organicAcid": [
+        {
+          "version": "V1.5",
+          "date": "2026-05",
+          "note": "Added evidence-aware organic-acid workflow scaffolding."
+        },
+        {
+          "version": "V2.5",
+          "date": "2026-06-17",
+          "note": "Added performance priority mode and priority-impact summaries across scoring traces."
+        },
+        {
+          "version": "V2.6",
+          "date": "2026-06-17",
+          "note": "建立目标函数、输入特征、权重、风险惩罚、合理性检查与敏感性分析。"
+        },
+        {
+          "version": "V2.7",
+          "date": "2026-06-18",
+          "note": "引入交互式 Feature Selection Workflow、Descriptor Importance Ranking、Benchmark Readiness、Model Comparison、Future Accuracy/ROC pending panels、Top Candidate Review 与 Rank Change Simulator。"
+        },
+        {
+          "version": "V2.8",
+          "date": "2026-06-18",
+          "note": "废弃 Model Validation Lab 与 Model Benchmark Lab，整合为 Algorithm Validation Center；新增 InteractiveScientificFigure、Figure Inspector、字段级溯源与五张真实 SVG mini chart（Descriptor Importance、Feature Coverage、Model Readiness、Candidate Stability、Top Candidate Ranking）。"
+        },
+        {
+          "version": "V3.0",
+          "date": "2026-06-18",
+          "note": "新增数据验证管线（schema/units/ranges/duplicates/provenance/evidence/comparability）、标准化引擎、Benchmark Eligibility Gate、Data Leakage Check 与 Label Framework，为 Future ML 准备 Benchmark Dataset。"
+        },
+        {
+          "version": "V3.1",
+          "date": "2026-06",
+          "note": "Organic Acid scoring can read reaction performance data through reaction evidence, reaction quality, comparability, and label-confidence weights."
+        },
+        {
+          "version": "V3.2",
+          "date": "2026-06-18",
+          "note": "新增 dataLeakageCheckV3、buildBenchmarkSplit（70/15/15 catalyst-group-aware）、accuracyEligibility、rocEligibility、benchmark runner 与 report；硬门控保证 Accuracy / ROC 只在真实标签下显示。"
+        },
+        {
+          "version": "V3.3",
+          "date": "2026-06-18",
+          "note": "未新增算法/模型；新增 import pipeline（validate/normalize/dedup/provenance）、importCoreMofV2、importQmofV2、importOrganicAcidLiteratureV2、dataset-origin audit 与 dataIngestionSummary。"
+        },
+        {
+          "version": "V3.4",
+          "date": "2026-06-19",
+          "note": "新增真实 ML 引擎（mlModels.js：Logistic Regression / Decision Tree / Random Forest + 指标）、buildBenchmarkSplitV2（catalyst/experiment/DOI union-find，70/15/15 + external test）、runRealBenchmark、accuracyEligibilityV2、rocEligibilityV2、modelLeaderboard、firstRealBenchmarkReport、experimentalLabelAudit、groundTruthAudit、experimentalLabelDataset、externalTestDataset。"
+        },
+        {
+          "version": "V3.5",
+          "date": "2026-06-19",
+          "note": "新增真实分析引擎：permutation feature importance、模型可解释性（LR 系数 / DT 决策路径与分裂重要性 / RF 重要性与树共识）、5-/10-fold 交叉验证、稳定性审计、敏感性分析、特征消融、模型可信度评分（0–100，A/B/C/D）、证据置信度、反应证据图、Benchmark Credibility Audit。从“能运行”到“能解释”。"
+        },
+        {
+          "version": "V3.6",
+          "date": "2026-06-19",
+          "note": "验证模型稳定性：新增 crossValidationRunnerV2（5/10/repeated 5-fold）、bootstrapValidation（100/500/1000）、confidenceIntervalAnalysis（95% CI）、generalizationAudit、modelStabilityAuditV2、repeatedCvRanking（Win Rate / Average Rank / Variance）、calculateModelReliability、calculateModelCredibilityV2、evidenceStrengthScore、labelProvenanceAudit。"
+        },
+        {
+          "version": "V3.8",
+          "date": "2026-06-21",
+          "note": "Priority Queue 升级为研究任务队列；Confidence Matrix 支持目标产物、证据类型、置信等级过滤；Knowledge Graph 支持候选/矩阵联动高亮。"
+        },
+        {
+          "version": "V3.9",
+          "date": "2026-06-21",
+          "note": "未改动模型/Benchmark；统计逻辑从组件下沉到 builder/selector，所有派生数字可追溯，缺失字段统一 fallback（不出现 undefined/null/NaN/[object Object]）。"
+        },
+        {
+          "version": "V3.9.1",
+          "date": "2026-06-21",
+          "note": "统计逻辑继续下沉到 builders；GasSep 摘要由当前 records 派生，缺失字段统一 fallback。"
+        },
+        {
+          "version": "V3.9.2",
+          "date": "2026-06-21",
+          "note": "新增 HGCPS builders：主体 MOF 选择、客体金属选择、主客体互补评分、路线解释、算法追踪、知识图谱与实验路线导出。"
+        },
+        {
+          "version": "V3.9.3",
+          "date": "2026-06-22",
+          "note": "HGCPS 统一为 Host Stability * Host Pathway Support * Guest Activity Compensation * Host-Guest Complementarity * Evidence Confidence * Risk Retention Factor；新增 ±20% 敏感性与消融 builders。"
+        },
+        {
+          "version": "V3.9.4",
+          "date": "2026-06-22",
+          "note": "新增实验反馈规则 builders、同条件模板 schema/CSV exports、post-experiment reranking preview、activation report exports，并新增 Project Evolution Organic Acid Host-Guest Algorithm Methodology LaTeX 公式模块。"
+        },
+        {
+          "version": "V3.9.5",
+          "date": "2026-06-22",
+          "note": "Added organic-acid algorithm-flow builders for nodes, edges, highlighted top/backup/control paths, node inspector models, host/guest/route competition tables, status bar metrics, advanced navigation, and JSON/CSV/Markdown exports."
+        },
+        {
+          "version": "V3.9.5.1",
+          "date": "2026-06-22",
+          "note": "Added organic-acid stepwise-execution builders for prediction objective, Step 0-Step 6 execution models, navigator, Step Why Panel, dynamic chart models, objective input-output, pathway coverage, descriptor mapping, host ranking, guest ranking, route HGCPS breakdown, validation coverage, mini map, and JSON export."
+        },
+        {
+          "version": "V3.9.5.2",
+          "date": "2026-06-22",
+          "note": "Added organicAcidScoreProvenance builders: buildHostScoreProvenance, buildGuestScoreProvenance, buildRouteHgcpsScoreProvenance, buildFactorCompressionTrace, buildRouteFactorComparisonModel, buildDynamicWhyNotOtherExplanation, buildScoreSourceTableModel, buildStepWhyPanelEnhancedModel, buildScoreDataGradeBadges, buildTerminologyAlignmentModel."
+        },
+        {
+          "version": "V3.9.5.3",
+          "date": "2026-06-22",
+          "note": "Added src/utils/organicAcidExplanationClosure builders: buildPathwayEvidenceHeatmapModel, buildDescriptorMappingExplanationModel, buildValidationCoverageMatrixModel, buildPathwayEvidenceSummary, buildDescriptorMappingSummary, buildValidationCoverageSummary, buildTerminologyCrosswalk, buildExplanationClosureExportJson, buildOrganicAcidVisualQaChecklist."
+        },
+        {
+          "version": "V3.9.5.4",
+          "date": "2026-06-23",
+          "note": "Added organicAcidScoreProvenance builders: buildPerFactorInterpretation, buildFactorDeltaTable, buildFactorEvidence, buildRiskDecomposition, buildCounterfactual, and buildFinalResultSummaryModel; counterfactuals use one-factor-at-a-time white-box HGCPS recomputation, not ML training or inference."
+        },
+        {
+          "version": "V3.9.5.5",
+          "date": "2026-06-23",
+          "note": "Added buildStructuredConclusion and expanded buildFinalResultSummaryModel with routeComparisonModel, factorOverlayModel, validationDonutModel, chartCaptions, interpretationParagraphs, per-factor details, and evidence mapping. No ML training or inference was introduced."
+        },
+        {
+          "version": "V3.9.6",
+          "date": "2026-06-23",
+          "note": "Adds organicAcidDataDerivation host/guest/route builders, family assignment, min-max normalization, fallback threshold handling, route-factor provenance, and runtime HGCPS recomputation from spec-defined keys."
+        },
+        {
+          "version": "V3.9.7",
+          "date": "2026-06-24",
+          "note": "Uses spec v2 as the sole scoring rule source. Host scoring adds ligandPathwaySupport and synthesizabilityScore; route scoring adds independent synthesizability and economic factors and uses a preregistered weighted geometric mean. The composite pore proxy remains at reduced influence because surface area and void fraction alone showed low reaction validity."
+        },
+        {
+          "version": "V3.9.8",
+          "date": "2026-06-24",
+          "note": "Keeps spec-v2 weights and descriptor definitions unchanged. Adds L0 structure-only, L1 ligand, L2 synthesizability, and L3 economics recomputation plus weight*ln(factor) contribution decomposition. Content-addressed memoization reuses derivations across equivalent cloned datasets while changed inputs still recompute."
+        },
+        {
+          "version": "V3.9.9",
+          "date": "2026-06-25",
+          "note": "No algorithm change in V3.9.9. Algorithm/closure module versions stay V3.9.8; only methodology UI copy, terminology (OACS/DMRS/OAFS -> HGCPS), layout density, and run/status visibility changed."
+        },
+        {
+          "version": "V3.10.1",
+          "date": "2026-06-29",
+          "note": "Adds white-box Langmuir / dual-site Langmuir / Freundlich fitting and binary IAST solving; no ML is introduced and missing pair isotherms remain unavailable."
+        }
+      ],
+      "gasSep": [
+        {
+          "version": "V3.9.6",
+          "date": "2026-06-23",
+          "note": "Reuses existing CoRE, QMOF, gas adsorption, organic-acid reaction, literature, and gold datasets. No new external records are fabricated; sparse dopant descriptors are explicitly marked as literature priors."
+        },
+        {
+          "version": "V3.10.1",
+          "date": "2026-06-29",
+          "note": "Gas v2.1 keeps 442 gas records, computes 69 IAST selectivity values, and links 79 gas records to structural candidates under explicit confidence labels."
+        }
+      ],
+      "database": [
+        {
+          "version": "V2.0-K",
+          "date": "2026-06-03",
+          "note": "Manual evidence records enriched."
+        },
+        {
+          "version": "V2.0-L",
+          "date": "2026-06-04",
+          "note": "First source_confirmed / citation_ready candidates."
+        },
+        {
+          "version": "V2.0-M",
+          "date": "2026-06-16",
+          "note": "V2.0-M verification records stayed bounded."
+        },
+        {
+          "version": "V2.1",
+          "date": "2026-06-16",
+          "note": "250-record Database Preview with field-level provenance."
+        },
+        {
+          "version": "V2.2",
+          "date": "2026-06-17",
+          "note": "Expanded preview from 250 to 1000 candidates."
+        },
+        {
+          "version": "V2.3",
+          "date": "2026-06-17",
+          "note": "Centralized database growth history and provenance-backed metrics."
+        },
+        {
+          "version": "V2.4",
+          "date": "2026-06-17",
+          "note": "Reports now carry database version, field provenance, citation package, data gaps, and run snapshot."
+        },
+        {
+          "version": "V2.5",
+          "date": "2026-06-17",
+          "note": "No database expansion; localization gap report was refreshed."
+        },
+        {
+          "version": "V2.6",
+          "date": "2026-06-17",
+          "note": "No database expansion; existing Organic Acid candidate fixtures and evidence records feed the white-box closure layer."
+        },
+        {
+          "version": "V2.7",
+          "date": "2026-06-18",
+          "note": "No database expansion; benchmark readiness reads the existing 1000-record preview and Organic Acid bounded fixtures."
+        },
+        {
+          "version": "V2.8",
+          "date": "2026-06-18",
+          "note": "No database expansion; the figure reads the existing 1000-record preview summary and Organic Acid bounded fixtures."
+        },
+        {
+          "version": "V3.0",
+          "date": "2026-06-18",
+          "note": "新增 Data Source Registry、Unified Import Schema、Organic Acid Gold Dataset V1（50 条真实溯源记录）、Literature Dataset V1（分层）与 Benchmark Dataset V1。"
+        },
+        {
+          "version": "V3.1",
+          "date": "2026-06",
+          "note": "Expanded literature, Gold, reaction, label, verified metadata, and benchmark-ready datasets."
+        },
+        {
+          "version": "V3.3",
+          "date": "2026-06-18",
+          "note": "数据规模突破 3000：CoRE 1240 + QMOF 1240 + Literature 540；Verified Metadata 2480、Gold 320、Reaction 520、Benchmark 520。external-database 记录携带真实 CoRE/QMOF 数据集 DOI/citation，描述符值为 database-distribution-attributed（valueBasis），不伪造、非 synthetic fixture。"
+        },
+        {
+          "version": "V3.4",
+          "date": "2026-06-19",
+          "note": "未扩数据库；新增 experimental_labels_v1.json（40）、experimental_label_audit_v1.json、external_test_dataset_v1.json（36，独立、与训练集不相交）、first_real_benchmark_report_v1.json。"
+        },
+        {
+          "version": "V3.5",
+          "date": "2026-06-19",
+          "note": "未扩数据库、未新增标签、未修改 V3.4 Benchmark/Ground Truth/Split。新增 model_credibility_report_v1.json、reaction_evidence_graph_v1.json。"
+        },
+        {
+          "version": "V3.6",
+          "date": "2026-06-19",
+          "note": "新增 experimental_labels_v2.json（150，含 V3.4 的 40 作为子集）、experimental_label_provenance_audit.json（Derived=0 / Synthetic=0）、external_test_dataset_v2.json（80，独立不相交）、benchmark_dataset_v3_6.json（230 eligible，未改动 V3.3 的 benchmark_dataset_v3.json）、model_robustness_report_v1.json。"
+        },
+        {
+          "version": "V3.8",
+          "date": "2026-06-21",
+          "note": "未新增无来源结果；继续复用 V3.6 experimental labels、benchmark dataset、Organic Acid evidence records 与 demo/proxy/inferred 边界。"
+        },
+        {
+          "version": "V3.9",
+          "date": "2026-06-21",
+          "note": "未改动底层数据集（保留 V3.6/V3.8 产物）；新增 src/data/registry（dataSourceRegistry/datasetTypes）、src/utils/summary（global database / research reports / version history / current release / export 摘要）、src/utils/fallback（safeNumber/safePercent/normalizeMissingValue/formatDataCardValue）、src/utils/export（csv/json/fileName/sanitize）。"
+        },
+        {
+          "version": "V3.9.1",
+          "date": "2026-06-21",
+          "note": "未改动数据集；新增 buildGasSepSummary（含 filter/coverage/distribution/benchmark/export 子构建器）与 buildOrganicAcidSummary（evidence/confidence/matrix/queue/graph/benchmark/export）。"
+        },
+        {
+          "version": "V3.9.3",
+          "date": "2026-06-22",
+          "note": "organic_acid_host_guest seed 数据扩展到 10 个 host、12 个 guest、25 条 route、58 条 evidence/risk records，并派生 evidence matrix 与 risk matrix。"
+        },
+        {
+          "version": "V3.9.4",
+          "date": "2026-06-22",
+          "note": "新增 public/data/organic_acid_experimental_activation 下 7 个 seed/curated/proxy 数据文件，覆盖具体 Al-MOF 主体、Mo 引入、最小实验矩阵、同条件记录模板、pending 结果模板、反馈规则和启用就绪摘要。"
+        },
+        {
+          "version": "V3.9.5",
+          "date": "2026-06-22",
+          "note": "No new experimental result or database expansion; the refactor reuses existing V3.9.2-V3.9.4 Organic Acid host, guest, route, evidence-risk, validation, activation, and methodology data."
+        },
+        {
+          "version": "V3.9.5.1",
+          "date": "2026-06-22",
+          "note": "No new experimental result or database expansion; the release reuses existing Organic Acid pathway, descriptor, host, guest, route, evidence-risk, validation, activation, and methodology data while exposing them through stepwise builder outputs."
+        },
+        {
+          "version": "V3.9.5.2",
+          "date": "2026-06-22",
+          "note": "No new experimental result or database expansion; reuses existing host / guest / route / scoreBreakdown / provenance data and exposes it through score provenance builders."
+        },
+        {
+          "version": "V3.9.5.3",
+          "date": "2026-06-22",
+          "note": "No new experimental result or database expansion; reuses pathwaySteps / descriptorMap / evidenceRiskRecords / validationExperiments / activation data and exposes them through explanation-closure builders."
+        },
+        {
+          "version": "V3.9.5.4",
+          "date": "2026-06-23",
+          "note": "No new experimental result or database expansion; reuses existing pathwaySteps, descriptorMap, host/guest/route candidates, evidenceRiskRecords, validationExperiments, and activation data."
+        },
+        {
+          "version": "V3.9.5.5",
+          "date": "2026-06-23",
+          "note": "No database expansion and no new experimental result. Reuses existing host/guest/route, evidence-risk, validation, and activation data through score-provenance builders, including organic_acid_experimental_activation planning sources."
+        },
+        {
+          "version": "V3.9.6",
+          "date": "2026-06-23",
+          "note": "Reuses existing CoRE, QMOF, gas adsorption, organic-acid reaction, literature, and gold datasets. No new external records are fabricated; sparse dopant descriptors are explicitly marked as literature priors."
+        },
+        {
+          "version": "V3.9.7",
+          "date": "2026-06-24",
+          "note": "Adds a curated linker descriptor table covering all ten linker labels present in the current CoRE import, a transparent placeholder metal-precursor cost table with per-row TODO verification labels, an audit artifact, and a reproducible V3.9.7 rerun artifact."
+        },
+        {
+          "version": "V3.9.9",
+          "date": "2026-06-25",
+          "note": "No data or schema change; presentation, terminology, and layout only."
+        },
+        {
+          "version": "V3.10.1",
+          "date": "2026-06-29",
+          "note": "Gas v2.1 keeps 442 gas records, computes 69 IAST selectivity values, and links 79 gas records to structural candidates under explicit confidence labels."
+        }
+      ],
+      "validation": [
+        {
+          "version": "V2.0-K",
+          "date": "2026-06-03",
+          "note": "verifiedMetadataCount stayed 0 under strict gate."
+        },
+        {
+          "version": "V2.0-L",
+          "date": "2026-06-04",
+          "note": "Ambiguity warnings still blocked verified metadata."
+        },
+        {
+          "version": "V2.0-M",
+          "date": "2026-06-16",
+          "note": "source_confirmed / citation_ready / near_verified did not equal verified_metadata."
+        },
+        {
+          "version": "V2.1",
+          "date": "2026-06-16",
+          "note": "Real-label metrics were withheld."
+        },
+        {
+          "version": "V2.2",
+          "date": "2026-06-17",
+          "note": "Verified metadata increased from 0 to 30."
+        },
+        {
+          "version": "V2.3",
+          "date": "2026-06-17",
+          "note": "Project validation history moved to a dedicated evolution workspace."
+        },
+        {
+          "version": "V2.4",
+          "date": "2026-06-17",
+          "note": "Validation status, verified metadata count, and not-final-recommendation boundary are embedded in reports."
+        },
+        {
+          "version": "V2.6",
+          "date": "2026-06-17",
+          "note": "增加 sanity check 与 sensitivity analysis，但仍需实验反馈验证。"
+        },
+        {
+          "version": "V2.7",
+          "date": "2026-06-18",
+          "note": "明确 Label Count = 0，Accuracy / ROC-AUC / external test 均为 Pending；缺少真实实验标签时不得显示虚假模型指标。"
+        },
+        {
+          "version": "V2.8",
+          "date": "2026-06-18",
+          "note": "未来机器学习只显示 Pending：Label Count = 0，LR / DT / RF 与 Accuracy / ROC-AUC 均为 Pending，不得伪造；Bayesian Regression 标记为 Planned。"
+        },
+        {
+          "version": "V3.0",
+          "date": "2026-06-18",
+          "note": "建立 Gold / Silver / Bronze / Rejected 数据分层；真实实验标签仍不足，Label Count = 0，Accuracy / ROC-AUC 继续 Pending。"
+        },
+        {
+          "version": "V3.1",
+          "date": "2026-06",
+          "note": "Benchmark-usable labels and eligibility gates are formed, while Accuracy / ROC-AUC remain Pending until external validation is sufficient."
+        },
+        {
+          "version": "V3.2",
+          "date": "2026-06-18",
+          "note": "首次验证 Benchmark Dataset 真实性：Gold Audit Pass Rate 100%、Leak Count 0、Invalid Ground Truth 0、Benchmark Eligible Confirmed 120；但 120 个标签为 dataset-derived（非实验测量），因此 Accuracy / ROC 继续 Pending。"
+        },
+        {
+          "version": "V3.3",
+          "date": "2026-06-18",
+          "note": "建立 datasetOrigin 体系（external_database / literature_curated / experimental / expert_review / derived_dataset / synthetic_fixture）；Derived Dataset 严禁计入 Experimental Labels（Experimental = 0）。"
+        },
+        {
+          "version": "V3.4",
+          "date": "2026-06-19",
+          "note": "首次具备真实 Benchmark 条件：Experimental Labels 40 ≥ 30、Verified Ground Truth 40 ≥ 30、External Test 36 ≥ 30、Leak Count 0、Invalid Ground Truth 0。Result A：Accuracy / Precision / Recall / F1 / ROC-AUC 由真实拟合模型合法显示（Random Forest 最佳，external ROC-AUC ≈ 0.71），数值非伪造。"
+        },
+        {
+          "version": "V3.5",
+          "date": "2026-06-19",
+          "note": "引入交叉验证与敏感性分析：RF 5-fold Accuracy 0.75±0.08 / ROC 0.885±0.08（Moderately Stable）；敏感性 baseline 精确复现 V3.4 外部测试 0.667/0.706；关键特征 Metal Node（electronegativity）；Credibility Score 77.45（Grade B）。Accuracy/ROC 全部来自 V3.4 Benchmark，未伪造。"
+        },
+        {
+          "version": "V3.6",
+          "date": "2026-06-19",
+          "note": "引入 CI 与 Bootstrap：Random Forest 重复 5-fold acc 0.7813±0.0589；外部 benchmark acc 0.725 / ROC 0.7558；Bootstrap 1000× ROC 95% CI [0.6424, 0.8634]；Generalization Gap 0.2655（Overfit Risk High，诚实暴露）；Reliability 83.88（Reliable）；Credibility V2 78.87（Grade B）。Accuracy/ROC 全部来自真实训练，未伪造。"
+        },
+        {
+          "version": "V3.8",
+          "date": "2026-06-21",
+          "note": "新增 Organic Acid validation schema 与交互测试，覆盖字段完整性、score explanation、confidence source、unknown/missing fallback 与新旧入口可达性。"
+        },
+        {
+          "version": "V3.9",
+          "date": "2026-06-21",
+          "note": "保留 V3.8 Organic Acid Research Validation 闭环；Research Reports 的 Suggested Next Validation Steps 由低覆盖率/高风险阈值派生，不写死。"
+        },
+        {
+          "version": "V3.9.1",
+          "date": "2026-06-21",
+          "note": "保留 V3.8 Organic Acid 闭环；Organic Acid 统计（pathway/evidence/confidence/matrix/queue/graph）可由 builder 动态计算。"
+        },
+        {
+          "version": "V3.9.2",
+          "date": "2026-06-21",
+          "note": "Al-MOF + Mo 路线输出结构化验证计划，要求主体合成、Mo 引入、反应前结构、170C 水相稳定性、与 pristine Al-MOF 对照、Mo 配位态和 C1 机制验证。"
+        },
+        {
+          "version": "V3.9.3",
+          "date": "2026-06-22",
+          "note": "导出 Al-MOF + Mo route report、route queue、evidence matrix、risk matrix、sensitivity、ablation、validation roadmap 与 Markdown summary，明确同条件实验、Mo 配位和 170C 水相稳定性验证。"
+        },
+        {
+          "version": "V3.9.4",
+          "date": "2026-06-22",
+          "note": "明确 planning-ready / not performance-validated：可用于内部讨论和实验规划，不可用于性能证明或正式机器学习；第一轮实验矩阵要求 blank、pristine Al-MOF、Al-MOF+Mo、guest/host/Mo-only controls 和重复稳定性。"
+        },
+        {
+          "version": "V3.9.5",
+          "date": "2026-06-22",
+          "note": "Preserves planning-ready / not performance-validated boundaries, keeps Missing Evidence & Risk Matrix, Sensitivity Analysis, Ablation Analysis, Boundary Panel, Route Report Export, and Activation Center available without claiming formal ML or completed experiments."
+        },
+        {
+          "version": "V3.9.5.1",
+          "date": "2026-06-22",
+          "note": "Preserves Missing Evidence & Risk Matrix, Sensitivity Analysis, Ablation Analysis, Algorithm Boundary Panel, Experimental Activation Center, HGCPS multiplicative formula, not-final-proof boundary, and not-formal-ML boundary."
+        },
+        {
+          "version": "V3.9.5.2",
+          "date": "2026-06-22",
+          "note": "Preserves HGCPS multiplicative formula, Experimental Activation Center, not-final-proof and not-formal-ML boundaries; risk retention factor is explained as a 0-1 retention coefficient, not falsification."
+        },
+        {
+          "version": "V3.9.5.3",
+          "date": "2026-06-22",
+          "note": "Validation Coverage Matrix derives covered/partial/pending/missing from the minimum experiment matrix without hardcoding the Mo-only control or experiment count; keeps planning-ready / not performance-validated boundary."
+        },
+        {
+          "version": "V3.9.5.4",
+          "date": "2026-06-23",
+          "note": "Preserves planning-ready / not performance-validated boundary. Factor evidence maps through linkedDescriptor / linkedStepId and falls back to route-level evidence when factor-level mapping is not available."
+        },
+        {
+          "version": "V3.9.5.5",
+          "date": "2026-06-23",
+          "note": "Preserves seed / proxy / curated / inferred data-grade labels, planning-ready status, and not-performance-validated boundary while making factor details and final comparison figures explicit."
+        },
+        {
+          "version": "V3.9.6",
+          "date": "2026-06-23",
+          "note": "Adds tests for preregistration, family assignment, data sensitivity, formula consistency, and provenance completeness. Maintains no-ML and not-final-proof boundaries."
+        },
+        {
+          "version": "V3.9.7",
+          "date": "2026-06-24",
+          "note": "Adds proxy-validity Spearman audit, family count/IQR/outlier audit, weight and normalization sensitivity distributions, cache performance guards, descriptor data-change tests, formula consistency checks, and factor-level provenance requirements."
+        },
+        {
+          "version": "V3.9.8",
+          "date": "2026-06-24",
+          "note": "Adds two-dataset ablation sensitivity tests, ranking-log consistency checks, real-price rerun assertions, Methods copy/formula tests, component data-testid coverage, and a stable sub-two-second focused performance guard."
+        },
+        {
+          "version": "V3.9.9",
+          "date": "2026-06-25",
+          "note": "No validation logic change; boundaries (not-final-proof, not-formal-ML, seed/proxy/curated) preserved and now consistently worded."
+        },
+        {
+          "version": "V3.10.1",
+          "date": "2026-06-29",
+          "note": "Adds provenance and anti-fabrication tests plus a structure-proxy Spearman report marked low-validity-indicative."
+        }
+      ],
+      "ui": [
+        {
+          "version": "V1.0",
+          "date": "2026-04",
+          "note": "Module-level workflow pages."
+        },
+        {
+          "version": "V1.5",
+          "date": "2026-05",
+          "note": "Trace, evidence, and pathway panels."
+        },
+        {
+          "version": "V2.0-K",
+          "date": "2026-06-03",
+          "note": "Evidence backfill panel and report status."
+        },
+        {
+          "version": "V2.0-L",
+          "date": "2026-06-04",
+          "note": "Manual curation progress and detail drawer evidence."
+        },
+        {
+          "version": "V2.0-M",
+          "date": "2026-06-16",
+          "note": "EcoScreen trace and dashboard added."
+        },
+        {
+          "version": "V2.1",
+          "date": "2026-06-16",
+          "note": "Independent Model Validation Lab workspace and methodology evolution timeline."
+        },
+        {
+          "version": "V2.2",
+          "date": "2026-06-17",
+          "note": "Data Quality Audit panels added across EcoScreen, MOF Library, and Model Validation Lab."
+        },
+        {
+          "version": "V2.3",
+          "date": "2026-06-17",
+          "note": "Project Evolution became a first-level navigation tab."
+        },
+        {
+          "version": "V2.4",
+          "date": "2026-06-17",
+          "note": "Research Reports became a first-level tab and Project Evolution became Chinese-first."
+        },
+        {
+          "version": "V2.5",
+          "date": "2026-06-17",
+          "note": "Research reports became easier to read and Organic Acid gained a unified decision board."
+        },
+        {
+          "version": "V2.6",
+          "date": "2026-06-17",
+          "note": "Organic Acid Final Decision Board now reads ranked algorithm output and exposes score breakdown, risks, data gaps, trace, and next experiments."
+        },
+        {
+          "version": "V2.7",
+          "date": "2026-06-18",
+          "note": "Methods & Evidence 新增 Model Benchmark Lab，Organic Acid Decision Board 增加排名变化模拟器，Research Reports 增加基准就绪度与候选稳定性章节。"
+        },
+        {
+          "version": "V2.8",
+          "date": "2026-06-18",
+          "note": "方法论由模块驱动改为科研图驱动：进入 Algorithm Validation Center 第一眼看到一张完整交互式科研主图；删除重复状态卡、重复 Roadmap、重复 Readiness 与重复 Validation 面板，验证相关组件显著减少。"
+        },
+        {
+          "version": "V3.0",
+          "date": "2026-06-18",
+          "note": "EcoScreen 新增 Data Quality Summary 与分层筛选；Algorithm Validation Center 与 Interactive Scientific Figure 的 Database / Future ML 层显示数据集计数与就绪度；Research Reports 新增数据来源与标准化章节。"
+        },
+        {
+          "version": "V3.1",
+          "date": "2026-06",
+          "note": "Algorithm Validation Center, Research Reports, EcoScreen filters, Data Quality Summary, and interactive scientific figure expose V3.1 data growth."
+        },
+        {
+          "version": "V3.2",
+          "date": "2026-06-18",
+          "note": "Algorithm Validation Center 新增 Data Audit Center 与 First Real Benchmark Dashboard；Interactive Scientific Figure 的 Future ML 层新增 Benchmark / Label / Leakage Audit；EcoScreen 新增 Benchmark Eligible Only / Audit Passed Only 筛选；Research Reports 新增 Benchmark Audit Summary。"
+        },
+        {
+          "version": "V3.3",
+          "date": "2026-06-18",
+          "note": "Algorithm Validation Center 的 Database Layer 显示 External/Literature/Experimental/Derived 的 Current/Target/Gap；EcoScreen 新增数据来源筛选与 Verified Metadata Only；Research Reports 新增 Data Source Breakdown；Data Quality Dashboard 新增 Growth Tracker（V3.0→V3.3）。"
+        },
+        {
+          "version": "V3.4",
+          "date": "2026-06-19",
+          "note": "Algorithm Validation Center 新增 Experimental Label Status（Current/Target/Gap）、First Real Benchmark Dashboard（Label/External/Leakage/Benchmark Status）与 Model Leaderboard；Interactive Scientific Figure 的 Future ML 层新增 Experimental Labels / Ground Truth / External Test / Benchmark Status 节点；EcoScreen 新增 Experimental Labels Only / External Test Only / Ground Truth Verified Only 筛选；Research Reports 新增 Experimental Label Summary 与 First Benchmark Readiness；Data Quality Dashboard 新增 Experimental Label Growth（V3.3→V3.4）。"
+        },
+        {
+          "version": "V3.5",
+          "date": "2026-06-19",
+          "note": "Algorithm Validation Center 新增 Model Explainability Center、Feature Importance Workbench、Cross Validation Dashboard、Model Credibility Score；Interactive Scientific Figure 新增 Figure C（模型对比）/ D（特征重要性）/ E（验证与局限）；Organic Acid 新增 Reaction Evidence Graph（CO₂→甲酸，交互式 SVG）；EcoScreen 新增 Show Feature Importance / Show Evidence Confidence 与“为什么推荐”；Research Reports 新增 Explainability / Cross Validation / Credibility 摘要。"
+        },
+        {
+          "version": "V3.6",
+          "date": "2026-06-19",
+          "note": "Algorithm Validation Center 新增 Robustness Section（实验标签增长 / CV V2 / Bootstrap / 泛化 / CI / Stability V2 / Repeated-CV Ranking / Reliability / Credibility V2）；Interactive Scientific Figure 新增 Figure F（稳健性验证）/ G（置信区间）/ H（泛化审计）；Organic Acid 新增 Experimental Evidence Coverage 与 Evidence Strength Score；Research Reports 新增 Label Expansion / Robustness / Generalization 摘要。"
+        },
+        {
+          "version": "V3.8",
+          "date": "2026-06-21",
+          "note": "Organic Acid Project 与 Research Validation Center 增加双向入口；visual:check 覆盖 Home、Project Status、Research Reports、Organic Acid Research Validation、矩阵、队列、图谱和 Organic Acid Project 的桌面/移动、浅色/暗色模式。"
+        },
+        {
+          "version": "V3.9",
+          "date": "2026-06-21",
+          "note": "删除 Catalysis 小猫游乐场（CatalysisEnergyBarrierDemo + CatalystCatSprite + cat energy 组件/数据/测试），Catalysis Lab 回归科研结构（Catalysis Research Overview + 有机酸研究链路）；版本记录信息架构清理（Current Release 优先，历史折叠/归档）。"
+        },
+        {
+          "version": "V3.9.1",
+          "date": "2026-06-21",
+          "note": "GasSep 新增数据摘要卡片与 provenance CSV 导出；彻底清理孤立的 cat-playground / energy-playground CSS（保留共享 .formula 与通用 keyframes）。"
+        },
+        {
+          "version": "V3.9.2",
+          "date": "2026-06-21",
+          "note": "有机酸密码工作台新增顶部算法建议卡、6-step timeline、路线优先级队列、右侧解释面板、HGCPS 对比表、trace/graph/matrix/validation/export 区域；既有模块保留。"
+        },
+        {
+          "version": "V3.9.3",
+          "date": "2026-06-22",
+          "note": "Organic Acid Host-Guest Workbench 重构为建议卡、6-step pipeline、route-first queue、解释面板与高级分析 tabs；风险、证据、敏感性、消融、边界和导出分层显示。"
+        },
+        {
+          "version": "V3.9.4",
+          "date": "2026-06-22",
+          "note": "Organic Acid Host-Guest Workbench 接入 Experimental Activation Center，并从 top route、route explanation、risk matrix、boundary 和 export 面板跳转；Project Evolution 新增独立可折叠算法方法论 section 与 LaTeX/Markdown/JSON 导出。"
+        },
+        {
+          "version": "V3.9.5",
+          "date": "2026-06-22",
+          "note": "Organic Acid Host-Guest Workbench now opens with Algorithm Status Bar, Algorithm Flow Network, Node Inspector, Candidate Competition, Route Output, Experimental Activation Entry, Advanced Robustness and Evidence, and Export / Methodology Links."
+        },
+        {
+          "version": "V3.9.5.1",
+          "date": "2026-06-22",
+          "note": "Organic Acid Host-Guest Workbench now opens with a Chinese-first vertical Stepwise Algorithm Execution Chain: Step Navigator on the left, Step 0-Step 6 chain in the center, and Step Why Panel with dynamic comparison charts on the right."
+        },
+        {
+          "version": "V3.9.5.2",
+          "date": "2026-06-22",
+          "note": "Step Why Panel converged from an eight-block text wall to four blocks (conclusion, main chart, data-grade badges, actions) with collapsible score source table, formula, raw fields, why-not-other, and evidence/risk."
+        },
+        {
+          "version": "V3.9.5.3",
+          "date": "2026-06-22",
+          "note": "Step 1 gains a pathway evidence heatmap, Step 2 a descriptor mapping explanation with missing-descriptor warnings, Step 6 a validation coverage matrix with activation actions, and Step 5 a HGCPS/OACS/DMRS terminology crosswalk; Step Why Panel stays four-block with collapsibles."
+        },
+        {
+          "version": "V3.9.5.4",
+          "date": "2026-06-23",
+          "note": "Step Why Panel and Step Navigator now scroll independently; Step Why Panel uses tabs; Step 5 pairs HGCPS factor rose with the existing compression waterfall; Step 6 is followed by a final result summary and activation-center action card; narrow screens inline the Why Panel under the selected Step."
+        },
+        {
+          "version": "V3.9.5.5",
+          "date": "2026-06-23",
+          "note": "Guest dumbbell tracks are fluid in narrow panels; rose charts include rings, spokes, labels, keyboard/click details, and Why Panel factor-tab synchronization; Step Navigator includes Final Result and Run / Stop; Final Result Summary gains Top-3 HGCPS comparison, factor overlay, validation donut, captions, and interpretation paragraphs."
+        },
+        {
+          "version": "V3.9.6",
+          "date": "2026-06-23",
+          "note": "Adds source labels and expandable factor source rows showing sourceDataset, nRecords, rawAggregate, normalization, value, and fallback reason in the Organic Acid Host-Guest route explanation panel."
+        },
+        {
+          "version": "V3.9.7",
+          "date": "2026-06-24",
+          "note": "Shows top structural host versus top route host explicitly, exposes ligand/synthesis/economic factor provenance, adds a scoring-audit tab, and reports data/rule-derived, curated, and fallback counts separately."
+        },
+        {
+          "version": "V3.9.8",
+          "date": "2026-06-24",
+          "note": "Adds a Step 5 Descriptor Impact tab with rank-evolution and contribution charts, an Algorithm Showcase section in Methods, and a Descriptor Evolution Report section with a version-by-rank table, line chart, five written analyses, and published audit conclusions."
+        },
+        {
+          "version": "V3.9.9",
+          "date": "2026-06-25",
+          "note": "Retired OACS/DMRS formula cards from the methodology render; unified copy to HGCPS / weighted geometric mean / 8 data-derived factors; down-sank the V2.0 changelog into a collapsed historical block; replaced whitespace-stretching auto-fit grids (stepwise Step 0 fixed 3-column, research reports auto-fill); added a prominent Run control + current-algorithm-status card on the chain first screen."
+        },
+        {
+          "version": "V3.10.1",
+          "date": "2026-06-29",
+          "note": "GasSep now surfaces IAST/experimental/seed coverage and a clearer selected-vs-compare panel; MOF Library shows gas/structure/catalysis completeness with updated identity coverage."
+        }
+      ]
+    }
+  }
+}

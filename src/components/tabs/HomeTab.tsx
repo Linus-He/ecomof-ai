@@ -9,7 +9,7 @@ import {
   BrandMotif,
   fetchDataJson,
 } from "../../shared"
-import { BrandMotionBackground } from "../home"
+import { BrandMotionBackground, MofDescriptor3DScatter } from "../home"
 import { toolbarBtn } from "../../utils/styles"
 import {
   DEFAULT_HOME_SUMMARY,
@@ -242,6 +242,39 @@ function FlowStep({ item, t, index, isLast }) {
         <p style={{ margin: "4px 0 0", color: t.muted, fontSize: 12, lineHeight: 1.55 }}>{item.body}</p>
       </div>
     </div>
+  )
+}
+
+function ModuleCapabilityCard({ module, t, isMobile, onNavigate }) {
+  return (
+    <article className="content-card" style={{
+      background: t.panel,
+      border: `1px solid ${t.border}`,
+      borderRadius: 10,
+      boxShadow: t.shadowSm,
+      padding: 16,
+      display: "grid",
+      gap: 11,
+      minWidth: 0,
+      alignContent: "start",
+    }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
+        <IconBadge t={t} tone={module.tone}>{module.mark}</IconBadge>
+        <div style={{ minWidth: 0 }}>
+          <h3 style={{ margin: 0, color: t.textStrong, fontSize: 16.5, lineHeight: 1.25, fontWeight: 900 }}>{module.title}</h3>
+          <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, marginTop: 3, textTransform: "uppercase", letterSpacing: 0 }}>{module.tag}</div>
+        </div>
+      </div>
+      <p style={{ margin: 0, color: t.muted, fontSize: 12.3, lineHeight: 1.6 }}>{module.body}</p>
+      <div style={{ display: "grid", gap: 4 }}>
+        {module.io.map(line => (
+          <span key={line} style={{ color: t.textStrong, fontSize: 11.5, lineHeight: 1.45, fontWeight: 700 }}>{line}</span>
+        ))}
+      </div>
+      <ActionButton t={t} wide hash={`#${module.hash}`} onClick={() => onNavigate(module.hash, module.target)}>
+        {module.button}
+      </ActionButton>
+    </article>
   )
 }
 
@@ -563,10 +596,78 @@ export function HomeTab({ setActiveTab }) {
       .slice(-3)
   }, [versionData])
 
+  const moduleCapabilities = useMemo(() => [
+    {
+      mark: "ES",
+      title: "EcoScreen",
+      tag: zh ? "可持续性筛选" : "Sustainability screening",
+      tone: "info",
+      body: zh
+        ? "做什么：对候选 MOF 做 LCA / LCC 可持续性筛选与白盒排序。"
+        : "What it does: LCA / LCC sustainability screening with white-box ranking for candidate MOFs.",
+      io: [
+        zh ? "输入：MOF 结构 + 反应/工艺条件" : "Input: MOF structure + reaction/process conditions",
+        zh ? "输出：环境与成本评分 + 可检查的排序解释" : "Output: environment & cost scores + inspectable ranking",
+      ],
+      button: zh ? "进入 EcoScreen" : "Enter EcoScreen",
+      hash: "ecoscreen",
+      target: "ecoscreen",
+    },
+    {
+      mark: "ML",
+      title: "MOF Library",
+      tag: zh ? "统一 MOF 浏览器" : "Unified MOF browser",
+      tone: "neutral",
+      body: zh
+        ? "做什么：查任意 MOF 的结构 + 气体 + 催化全貌，含字段级溯源。"
+        : "What it does: browse any MOF's structure + gas + catalysis profile with field-level provenance.",
+      io: [
+        zh ? "输入：金属节点 / 拓扑 / 比表面 等分面检索" : "Input: faceted search by metal node / topology / surface area",
+        zh ? "输出：聚合详情面板 + 数据完整度三色点" : "Output: aggregated detail panel + tri-color completeness dots",
+      ],
+      button: zh ? "进入 MOF Library" : "Enter MOF Library",
+      hash: "library",
+      target: "mofLibrary",
+    },
+    {
+      mark: "OA",
+      title: "Organic Acid",
+      tag: zh ? "白盒催化路线筛选" : "White-box route screening",
+      tone: "warn",
+      body: zh
+        ? "做什么：数据驱动的白盒主客体催化路线筛选（HGCPS + 不确定度）。"
+        : "What it does: data-driven white-box host-guest catalytic route screening (HGCPS + uncertainty).",
+      io: [
+        zh ? "输入：反应数据 + 主体 MOF / 客体金属候选" : "Input: reaction data + host-MOF / guest-metal candidates",
+        zh ? "输出：带误差条的 HGCPS 排序 + 证据语境" : "Output: HGCPS ranking with error bars + evidence context",
+      ],
+      button: zh ? "进入 Organic Acid" : "Enter Organic Acid",
+      hash: "catalysis-organic-acid",
+      target: "catalysisLab",
+    },
+    {
+      mark: "GS",
+      title: "GasSep",
+      tag: zh ? "气体分离 / 容量筛选" : "Gas separation / capacity",
+      tone: "success",
+      body: zh
+        ? "做什么：基于 ISODB 真实等温线与 IAST 选择性比较气体分离候选。"
+        : "What it does: compare gas-separation candidates using real ISODB isotherms and IAST selectivity.",
+      io: [
+        zh ? "输入：气对（如 CO₂/N₂）+ 温度条件" : "Input: gas pair (e.g. CO₂/N₂) + temperature",
+        zh ? "输出：computed-IAST 选择性 + 工作容量排序" : "Output: computed-IAST selectivity + working-capacity ranking",
+      ],
+      button: zh ? "进入 GasSep" : "Enter GasSep",
+      hash: "gassep",
+      target: "gassep",
+    },
+  ], [zh])
+
   const quickStart = [
     { label: zh ? "进入 EcoScreen" : "Enter EcoScreen", hash: "ecoscreen", target: "ecoscreen", primary: true },
     { label: zh ? "进入 MOF Library" : "Enter MOF Library", hash: "library", target: "mofLibrary" },
     { label: zh ? "进入 Organic Acid" : "Enter Organic Acid", hash: "catalysis-organic-acid", target: "catalysisLab" },
+    { label: zh ? "进入 GasSep" : "Enter GasSep", hash: "gassep", target: "gassep" },
     { label: zh ? "进入 Validation Center" : "Enter Validation Center", hash: "methodology-algorithm-validation", target: "about" },
     { label: zh ? "进入 Research Reports" : "Enter Research Reports", hash: "research-reports", target: "researchReports" },
   ]
@@ -612,8 +713,8 @@ export function HomeTab({ setActiveTab }) {
             </p>
             <p style={{ margin: "13px 0 0", color: t.muted, fontSize: isMobile ? 14 : 16, lineHeight: 1.7, maxWidth: 780 }}>
               {zh
-                ? "整合 MOF 数据库、字段级溯源、白盒筛选算法、实验标签与模型验证框架，用于支持材料筛选与研究决策。"
-                : "Integrates MOF databases, field-level provenance, white-box screening algorithms, experimental labels, and model-validation frameworks for material screening and research decisions."}
+                ? "一个平台，四个模块：EcoScreen 做可持续性筛选，MOF Library 浏览结构/气体/催化全貌，Organic Acid 做白盒催化路线筛选，GasSep 做气体分离筛选。"
+                : "One platform, four modules: EcoScreen for sustainability screening, MOF Library to browse structure/gas/catalysis, Organic Acid for white-box route screening, and GasSep for gas separation."}
             </p>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 22 }} className="home-hero-cta">
               {quickStart.slice(0, 3).map(cta => (
@@ -624,6 +725,21 @@ export function HomeTab({ setActiveTab }) {
             </div>
           </div>
           <HeroVisual t={t} lang={lang} summary={summary} />
+        </div>
+      </section>
+
+      <section data-testid="home-module-capabilities" style={sectionStyle}>
+        <SectionHeader
+          eyebrow={zh ? "平台模块" : "Platform Modules"}
+          title={zh ? "按模块看能力" : "Capabilities by module"}
+          subtitle={zh ? "每个模块解决一类问题：做什么、输入什么、输出什么，点击直达对应工作区。" : "Each module solves one kind of problem — what it does, what it takes in, what it returns. Click to enter."}
+          t={t}
+          isMobile={isMobile}
+        />
+        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 14 }}>
+          {moduleCapabilities.map(module => (
+            <ModuleCapabilityCard key={module.title} module={module} t={t} isMobile={isMobile} onNavigate={navigateHash} />
+          ))}
         </div>
       </section>
 
@@ -677,6 +793,17 @@ export function HomeTab({ setActiveTab }) {
           <MiniBarChart title="Data Quality" rows={chartRows.quality} t={t} />
           <MiniBarChart title="Source Distribution" rows={chartRows.source} t={t} />
         </div>
+      </section>
+
+      <section data-testid="home-descriptor-3d" style={sectionStyle}>
+        <SectionHeader
+          eyebrow={zh ? "交互可视化" : "Interactive Visual"}
+          title={zh ? "数据库描述符空间" : "Descriptor space explorer"}
+          subtitle={zh ? "用真实 CoRE/QMOF 数据展示 MOF 描述符的三维分布，可旋转、缩放与悬停查看。" : "Explore the 3D distribution of MOF descriptors on real CoRE/QMOF data — rotate, zoom, and hover."}
+          t={t}
+          isMobile={isMobile}
+        />
+        <MofDescriptor3DScatter t={t} lang={lang} isMobile={isMobile} />
       </section>
 
       <section data-testid="home-algorithm-validation" style={sectionStyle}>

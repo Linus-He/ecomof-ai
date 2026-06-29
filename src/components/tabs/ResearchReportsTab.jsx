@@ -85,33 +85,147 @@ function Metric({ label, value, t, tone = "default" }) {
   )
 }
 
-function ReportTypeControls({ type, setType, candidateId, setCandidateId, candidates, t, lang }) {
+// A/B positioning: A = candidate-facing reports, B = round/screening-facing reports.
+// Every report type still renders as the same four-block compact narrative.
+const REPORT_GROUPS = [
+  { id: "candidate", zh: "候选报告", en: "Candidate report", scope: { zh: "面向候选", en: "Per candidate" }, types: ["candidate", "comparison", "organic_acid"] },
+  { id: "round", zh: "筛选报告", en: "Screening report", scope: { zh: "面向轮次", en: "Per round" }, types: ["screening", "validation"] },
+]
+
+function groupForType(type) {
+  return REPORT_GROUPS.find(group => group.types.includes(type)) || REPORT_GROUPS[0]
+}
+
+// Maps the report's fine-grained sections into four compact narrative blocks.
+// "执行摘要" is intentionally dropped here because the conclusion block already
+// shows report.executiveSummary verbatim (de-duplication).
+const NARRATIVE_BLOCKS = [
+  {
+    id: "conclusion",
+    zh: "结论（带不确定度 · 非最终推荐）",
+    en: "Conclusion (with uncertainty · not final)",
+    titles: ["研究问题", "筛选设置", "筛选优先级", "研究目标", "评分模式"],
+  },
+  {
+    id: "evidence",
+    zh: "证据与溯源",
+    en: "Evidence & Provenance",
+    titles: ["证据与溯源", "排序解释", "数据库快照", "优先候选摘要", "Top Candidate Review", "Score breakdown", "Decision trace", "Feature Importance Summary"],
+  },
+  {
+    id: "limits",
+    zh: "已知局限 / 数据缺口",
+    en: "Limitations / Data gaps",
+    titles: ["已知局限", "数据缺口", "Known limitations", "Candidate Stability", "Sanity check", "Sensitivity analysis"],
+  },
+  {
+    id: "next",
+    zh: "下一步建议",
+    en: "Next steps",
+    titles: ["下一步建议", "验证就绪度", "Model Benchmark Readiness", "Benchmark Roadmap"],
+  },
+]
+
+function hasBody(section) {
+  return section && String(section.body || "").trim().length > 0
+}
+
+function buildNarrativeBlocks(sections = []) {
+  const remaining = sections.filter(section => hasBody(section) && section.title !== "执行摘要")
+  const used = new Set()
+  const blocks = NARRATIVE_BLOCKS.map(block => {
+    const members = remaining.filter(section => block.titles.includes(section.title))
+    members.forEach(section => used.add(section.title))
+    return { ...block, members }
+  })
+  // Any section we did not explicitly route lands in the evidence block so nothing is lost.
+  const leftovers = remaining.filter(section => !used.has(section.title))
+  if (leftovers.length) {
+    const evidence = blocks.find(block => block.id === "evidence")
+    evidence.members = [...evidence.members, ...leftovers]
+  }
+  return blocks
+}
+
+function ReportScopeTabs({ type, setType, t, lang }) {
+  const activeGroup = groupForType(type)
   return (
-    <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-      {REPORT_TYPES.map(item => (
-        <button
-          key={item.id}
-          type="button"
-          onClick={() => setType(item.id)}
-          style={{ ...toolbarBtn(t), background: type === item.id ? t.badgeInfoBg : t.surface, borderColor: type === item.id ? t.accent : t.border, color: type === item.id ? t.accentText : t.muted }}
-        >
-          {text(lang, item.zh, item.en)}
-        </button>
+    <div style={{ display: "grid", gap: 8 }}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        {REPORT_GROUPS.map(group => {
+          const active = group.id === activeGroup.id
+          return (
+            <button
+              key={group.id}
+              type="button"
+              data-testid={`research-report-group-${group.id}`}
+              onClick={() => { if (!active) setType(group.types[0]) }}
+              style={{ ...toolbarBtn(t), background: active ? t.accent : t.surface, borderColor: active ? t.accent : t.border, color: active ? "#FFFFFF" : t.muted, fontWeight: 850 }}
+            >
+              {text(lang, group.zh, group.en)} · {text(lang, group.scope.zh, group.scope.en)}
+            </button>
+          )
+        })}
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        {activeGroup.types.map(typeId => {
+          const item = REPORT_TYPES.find(row => row.id === typeId)
+          if (!item) return null
+          return (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => setType(item.id)}
+              style={{ ...toolbarBtn(t), background: type === item.id ? t.badgeInfoBg : t.surface, borderColor: type === item.id ? t.accent : t.border, color: type === item.id ? t.accentText : t.muted }}
+            >
+              {text(lang, item.zh, item.en)}
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+function FourBlockNarrative({ report, t, lang }) {
+  const blocks = useMemo(() => buildNarrativeBlocks(report.sections), [report.sections])
+  return (
+    <div data-testid="research-report-narrative" style={{ display: "grid", gap: 10 }}>
+      {blocks.map((block, index) => (
+        <article key={block.id} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 8, minWidth: 0, padding: 12 }}>
+          <div style={{ alignItems: "center", display: "flex", gap: 8 }}>
+            <span style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 7, color: t.accentText, display: "inline-flex", fontSize: 11.5, fontWeight: 950, height: 24, justifyContent: "center", width: 24 }}>{index + 1}</span>
+            <strong style={{ color: t.textStrong, fontSize: 13.5 }}>{text(lang, block.zh, block.en)}</strong>
+          </div>
+          {block.id === "conclusion" ? (
+            <p style={{ color: t.textStrong, fontSize: 12.8, fontWeight: 760, lineHeight: 1.6, margin: 0 }}>{report.executiveSummary}</p>
+          ) : null}
+          {block.members.length ? (
+            <div style={{ display: "grid", gap: 7 }}>
+              {block.members.map(section => (
+                <div key={section.title} style={{ minWidth: 0 }}>
+                  <strong style={{ color: t.subtle, display: "block", fontSize: 11.5 }}>{section.title}</strong>
+                  <span style={{ color: t.muted, display: "block", fontSize: 11.6, lineHeight: 1.5, marginTop: 2 }}>{section.body}</span>
+                </div>
+              ))}
+            </div>
+          ) : (block.id === "conclusion" ? null : (
+            <span style={{ color: t.faint, fontSize: 11.4 }}>{text(lang, "本轮无该类内容。", "Nothing for this block in this run.")}</span>
+          ))}
+        </article>
       ))}
-      <select value={candidateId} onChange={event => setCandidateId(event.target.value)} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.textStrong, minHeight: 36, padding: "7px 9px" }}>
-        {candidates.map(row => <option key={row.candidateId} value={row.candidateId}>{row.displayName || row.candidateId}</option>)}
-      </select>
     </div>
   )
 }
 
 function ReportGenerator({ report, records, type, setType, candidateId, setCandidateId, t, lang }) {
   const candidates = records.slice(0, 10)
+  const isCandidateScope = groupForType(type).id === "candidate"
   return (
     <Card
       id="research-reports-generator"
-      title={text(lang, "研究报告生成器", "Research Report Generator")}
-      subtitle={text(lang, "Generate Research Report：支持候选报告、对比报告、筛选报告、验证报告和有机酸筛选报告。", "Generate Research Report: candidate, comparison, screening, validation, and Organic Acid Screening reports.")}
+      title={text(lang, "研究报告", "Research Report")}
+      subtitle={text(lang, "候选报告（面向候选）与筛选报告（面向轮次）分子 tab；每份报告都收敛为结论→证据→局限→下一步四块紧凑叙事。", "Candidate reports (per candidate) and screening reports (per round) split by sub-tab; each report converges into a conclusion → evidence → limitations → next-steps narrative.")}
       t={t}
       actions={
         <button type="button" onClick={() => downloadTextFile(`ecomof-${report.type}-research-report.md`, report.markdown)} style={{ ...toolbarBtn(t), color: t.accentText, borderColor: t.accent }}>
@@ -119,7 +233,15 @@ function ReportGenerator({ report, records, type, setType, candidateId, setCandi
         </button>
       }
     >
-      <ReportTypeControls type={type} setType={setType} candidateId={candidateId} setCandidateId={setCandidateId} candidates={candidates} t={t} lang={lang} />
+      <ReportScopeTabs type={type} setType={setType} t={t} lang={lang} />
+      {isCandidateScope ? (
+        <label style={{ alignItems: "center", color: t.faint, display: "inline-flex", fontSize: 11, fontWeight: 800, gap: 7 }}>
+          {text(lang, "选择候选", "Candidate")}
+          <select value={candidateId} onChange={event => setCandidateId(event.target.value)} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.textStrong, minHeight: 34, padding: "6px 9px" }}>
+            {candidates.map(row => <option key={row.candidateId} value={row.candidateId}>{row.displayName || row.candidateId}</option>)}
+          </select>
+        </label>
+      ) : null}
       <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 10, padding: 12 }}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
           <BasisBadge tone="info">{report.title}</BasisBadge>
@@ -127,15 +249,7 @@ function ReportGenerator({ report, records, type, setType, candidateId, setCandi
           <BasisBadge tone="warn">数据库预览</BasisBadge>
           <BasisBadge tone="warn">Not Final Recommendation</BasisBadge>
         </div>
-        <p style={{ color: t.textStrong, fontSize: 13.2, fontWeight: 800, lineHeight: 1.6, margin: 0 }}>{report.executiveSummary}</p>
-        <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))" }}>
-          {report.sections.map(section => (
-            <div key={section.title} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, minWidth: 0, padding: 9 }}>
-              <strong style={{ color: t.textStrong, display: "block", fontSize: 12.3 }}>{section.title}</strong>
-              <span style={{ color: t.muted, display: "block", fontSize: 11.5, lineHeight: 1.45, marginTop: 5 }}>{section.body}</span>
-            </div>
-          ))}
-        </div>
+        <FourBlockNarrative report={report} t={t} lang={lang} />
         <ReportCharts charts={report.charts} t={t} lang={lang} />
       </article>
     </Card>
@@ -551,12 +665,19 @@ export function ResearchReportsTab({
         <BasisBadge tone="info">引文已就绪 {summary.citationReadyCandidates}</BasisBadge>
       </div>
       <ReportGenerator report={report} records={records} type={type} setType={setType} candidateId={candidateId} setCandidateId={setCandidateId} t={t} lang={lang} />
-      <DescriptorEvolutionReportSection model={descriptorEvolutionReport} t={t} lang={lang} />
       <ResearchValidationSummaryCard summary={researchValidationSummary} t={t} lang={lang} isMobile={isMobile} />
       <RunSnapshot snapshot={report.snapshot} t={t} lang={lang} isMobile={isMobile} />
-      <FieldSourceTable report={report} t={t} lang={lang} />
       <CitationPackage packageData={report.citationPackage} t={t} lang={lang} />
-      <LocalizationAuditPanel audit={audit} t={t} lang={lang} isMobile={isMobile} />
+      <details style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: "11px 13px" }}>
+        <summary style={{ color: t.accentText, cursor: "pointer", fontSize: 12.5, fontWeight: 850 }}>
+          {text(lang, "开发者与方法学细节（供复现：字段溯源、描述符演化、汉化审计）", "Developer & methodology details (for reproducibility: field provenance, descriptor evolution, localization audit)")}
+        </summary>
+        <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 14 }}>
+          <FieldSourceTable report={report} t={t} lang={lang} />
+          <DescriptorEvolutionReportSection model={descriptorEvolutionReport} t={t} lang={lang} />
+          <LocalizationAuditPanel audit={audit} t={t} lang={lang} isMobile={isMobile} />
+        </div>
+      </details>
     </div>
   )
 }

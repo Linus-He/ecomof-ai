@@ -59,6 +59,9 @@ describe("home information architecture", () => {
 
     expect(screen.getByRole("heading", { name: "EcoMOF-AI" })).toBeInTheDocument()
     expect(screen.getByText("Data-driven MOF Screening and Validation Platform")).toBeInTheDocument()
-    expect(screen.getByText("整合 MOF 数据库、字段级溯源、白盒筛选算法、实验标签与模型验证框架，用于支持材料筛选与研究决策。")).toBeInTheDocument()
+    expect(screen.getByText("一个平台，四个模块：EcoScreen 做可持续性筛选，MOF Library 浏览结构/气体/催化全貌，Organic Acid 做白盒催化路线筛选，GasSep 做气体分离筛选。")).toBeInTheDocument()
+    // module-first capability section and the interactive 3D descriptor visual are part of the home IA
+    expect(screen.getByTestId("home-module-capabilities")).toBeInTheDocument()
+    expect(screen.getByTestId("home-descriptor-3d")).toBeInTheDocument()
   })
 })

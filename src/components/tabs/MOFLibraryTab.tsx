@@ -800,10 +800,11 @@ function NameCurationQueue({ records, lang, t, isMobile }) {
 }
 
 function UnifiedMofDatabasePanel({ rows, collectionReport, identityReport, proxyReport, lang, t, isMobile }) {
-  const [filters, setFilters] = useState({ query: "", metal: "all", gasMode: "all", gasPair: "all", dataGrade: "all", catalysis: "all" })
+  const [filters, setFilters] = useState({ query: "", metal: "all", topology: "all", saRange: "all", gasMode: "all", gasPair: "all", dataGrade: "all", catalysis: "all" })
   const [sort, setSort] = useState({ key: "gasRecords", dir: "desc" })
   const [selectedId, setSelectedId] = useState(null)
   const metals = useMemo(() => mergeOptions(rows.map(row => row.metalNode)), [rows])
+  const topologies = useMemo(() => mergeOptions(rows.map(row => row.topology)), [rows])
   const gasPairs = useMemo(() => mergeOptions(rows.flatMap(row => row.gasSummary?.gasPairs || [])), [rows])
   const dataGrades = useMemo(() => mergeOptions(rows.flatMap(row => row.gasSummary?.dataGrades || [])), [rows])
   const filtered = useMemo(() => {
@@ -811,6 +812,8 @@ function UnifiedMofDatabasePanel({ rows, collectionReport, identityReport, proxy
     const candidates = rows.filter(row => {
       if (query && ![row.displayName, row.primaryName, row.sourceRecordId, row.sourceDatabase, row.metalNode, row.topology].join(" ").toLowerCase().includes(query)) return false
       if (filters.metal !== "all" && String(row.metalNode || "").toLowerCase() !== filters.metal.toLowerCase()) return false
+      if (filters.topology !== "all" && String(row.topology || "").toLowerCase() !== filters.topology.toLowerCase()) return false
+      if (!matchesSaRange(row.surfaceArea, filters.saRange)) return false
       if (filters.gasMode === "with" && !row.completeness?.gas) return false
       if (filters.gasMode === "without" && row.completeness?.gas) return false
       if (filters.gasPair !== "all" && !(row.gasSummary?.gasPairs || []).includes(filters.gasPair)) return false
@@ -846,12 +849,19 @@ function UnifiedMofDatabasePanel({ rows, collectionReport, identityReport, proxy
     <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 12, padding: isMobile ? 12 : 14 }}>
       <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
         <div>
-          <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 920 }}>{text(lang, "统一 MOF 数据库浏览器", "Unified MOF Database Browser")}</div>
+          <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 920 }}>{text(lang, "统一 MOF 浏览器", "Unified MOF Browser")}</div>
           <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 4 }}>
-            {text(lang, "通过 identity registry 聚合结构、气体吸附和有机酸关联；无法确认的名称保持 gas-only 或 structure-only，不强行匹配。", "Aggregates structure, gas adsorption, and organic-acid links through the identity registry. Unconfirmed names remain gas-only or structure-only instead of being forced together.")}
+            {text(lang, "基于身份层浏览/检索任意 MOF 的打通全貌：结构 + 气体 + 催化。无法确认的名称保持 gas-only 或 structure-only，不强行匹配。", "Browse and search any MOF's connected profile — structure + gas + catalysis — through the identity layer. Unconfirmed names stay gas-only or structure-only instead of being forced together.")}
           </div>
         </div>
         <StatusPill t={t} tone="source">{summary.filtered} / {summary.total}</StatusPill>
+      </div>
+      <div data-testid="unified-mof-coverage" style={{ background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 8, color: t.textStrong, fontSize: 12, fontWeight: 760, lineHeight: 1.6, padding: "9px 11px" }}>
+        {text(
+          lang,
+          `可浏览 ${summary.total} 个 MOF，其中 ${summary.withStructure} 有结构数据、${summary.withGas} 有气体数据、${summary.withCatalysis} 有催化关联；每行用三色点（结构/气体/催化）表示数据完整度。`,
+          `Browsing ${summary.total} MOFs — ${summary.withStructure} with structure, ${summary.withGas} with gas data, ${summary.withCatalysis} with catalysis links. Each row uses tri-color dots (structure/gas/catalysis) for data completeness.`
+        )}
       </div>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))", gap: 8 }}>
         <MetricMini label={text(lang, "结构", "Structure")} value={summary.withStructure} note="CoRE/QMOF" t={t} />
@@ -867,18 +877,21 @@ function UnifiedMofDatabasePanel({ rows, collectionReport, identityReport, proxy
           `v2.1 identity report: ${reportedIdentity.linkedGasRecordCount ?? 0} gas records are linked to structural candidates; composition matched ${reportedIdentity.compositionMatchedCanonicalCount ?? 0} canonical records. Structure-proxy validation is indicative only, not adsorption prediction.`
         )}
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1.2fr repeat(5, minmax(0, 1fr))", gap: 8, alignItems: "end" }}>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1.2fr repeat(4, minmax(0, 1fr))", gap: 8, alignItems: "end" }}>
         <label style={labelStyle}>{text(lang, "搜索", "Search")}<input value={filters.query} onChange={event => setFilters(prev => ({ ...prev, query: event.target.value }))} style={controlStyle} /></label>
         <label style={labelStyle}>{text(lang, "金属节点", "Metal")}<select value={filters.metal} onChange={event => setFilters(prev => ({ ...prev, metal: event.target.value }))} style={controlStyle}><option value="all">All</option>{metals.map(item => <option key={item} value={item}>{item}</option>)}</select></label>
+        <label style={labelStyle}>{text(lang, "拓扑", "Topology")}<select value={filters.topology} onChange={event => setFilters(prev => ({ ...prev, topology: event.target.value }))} style={controlStyle}><option value="all">All</option>{topologies.map(item => <option key={item} value={item}>{item}</option>)}</select></label>
+        <label style={labelStyle}>{text(lang, "比表面积", "Surface area")}<select value={filters.saRange} onChange={event => setFilters(prev => ({ ...prev, saRange: event.target.value }))} style={controlStyle}><option value="all">All</option>{SA_RANGES.map(item => <option key={item.key} value={item.key}>{text(lang, item.zh, item.en)}</option>)}</select></label>
         <label style={labelStyle}>{text(lang, "气体数据", "Gas data")}<select value={filters.gasMode} onChange={event => setFilters(prev => ({ ...prev, gasMode: event.target.value }))} style={controlStyle}><option value="all">All</option><option value="with">{text(lang, "有", "With")}</option><option value="without">{text(lang, "无", "Without")}</option></select></label>
         <label style={labelStyle}>{text(lang, "气体对", "Gas pair")}<select value={filters.gasPair} onChange={event => setFilters(prev => ({ ...prev, gasPair: event.target.value }))} style={controlStyle}><option value="all">All</option>{gasPairs.map(item => <option key={item} value={item}>{item}</option>)}</select></label>
         <label style={labelStyle}>{text(lang, "数据等级", "Grade")}<select value={filters.dataGrade} onChange={event => setFilters(prev => ({ ...prev, dataGrade: event.target.value }))} style={controlStyle}><option value="all">All</option>{dataGrades.map(item => <option key={item} value={item}>{item}</option>)}</select></label>
         <label style={labelStyle}>{text(lang, "催化关联", "Catalysis")}<select value={filters.catalysis} onChange={event => setFilters(prev => ({ ...prev, catalysis: event.target.value }))} style={controlStyle}><option value="all">All</option><option value="with">{text(lang, "有", "With")}</option><option value="without">{text(lang, "无", "Without")}</option></select></label>
       </div>
       <div style={{ overflowX: "auto" }}>
-        <table style={{ width: "100%", minWidth: 980, borderCollapse: "collapse", fontSize: 12 }}>
+        <table style={{ width: "100%", minWidth: 1060, borderCollapse: "collapse", fontSize: 12 }}>
           <thead>
             <tr style={{ background: t.surface }}>
+              <th style={{ borderBottom: `1px solid ${t.border}`, color: t.subtle, fontSize: 11, fontWeight: 900, padding: "8px 9px", textAlign: "left" }}>{text(lang, "完整度", "Data")}</th>
               {[
                 ["displayName", "MOF"],
                 ["metalNode", text(lang, "金属", "Metal")],
@@ -899,6 +912,7 @@ function UnifiedMofDatabasePanel({ rows, collectionReport, identityReport, proxy
           <tbody>
             {filtered.slice(0, 80).map(row => (
               <tr key={row.id} onClick={() => setSelectedId(row.id)} style={{ background: selected?.id === row.id ? t.badgeInfoBg : t.panel, borderBottom: `1px solid ${t.divider}`, cursor: "pointer" }}>
+                <td style={unifiedCell(t)}><CompletenessDots completeness={row.completeness} lang={lang} t={t} /></td>
                 <td style={unifiedCell(t)}>{row.displayName}</td>
                 <td style={unifiedCell(t)}>{row.metalNode || "pending"}</td>
                 <td style={unifiedCell(t)}>{formatValue(row.surfaceArea, ` ${normalizeUnitLabel("m2/g")}`, lang)}</td>
@@ -930,6 +944,42 @@ function sortValue(row, key) {
 
 function unifiedCell(t) {
   return { color: t.muted, lineHeight: 1.45, padding: "8px 9px", verticalAlign: "top", overflowWrap: "anywhere" }
+}
+
+const SA_RANGES = [
+  { key: "lt1000", zh: "< 1000", en: "< 1000", min: 0, max: 1000 },
+  { key: "1000to3000", zh: "1000–3000", en: "1000–3000", min: 1000, max: 3000 },
+  { key: "3000to5000", zh: "3000–5000", en: "3000–5000", min: 3000, max: 5000 },
+  { key: "gt5000", zh: "> 5000", en: "> 5000", min: 5000, max: Infinity },
+]
+
+function matchesSaRange(value, rangeKey) {
+  if (rangeKey === "all") return true
+  const range = SA_RANGES.find(item => item.key === rangeKey)
+  if (!range) return true
+  if (!hasValue(value)) return false
+  const numeric = Number(value)
+  if (!Number.isFinite(numeric)) return false
+  return numeric >= range.min && numeric < range.max
+}
+
+function CompletenessDots({ completeness, lang, t }) {
+  const dots = [
+    { key: "structure", on: Boolean(completeness?.structure), zh: "结构", en: "structure" },
+    { key: "gas", on: Boolean(completeness?.gas), zh: "气体", en: "gas" },
+    { key: "catalysis", on: Boolean(completeness?.catalysis), zh: "催化", en: "catalysis" },
+  ]
+  return (
+    <span style={{ display: "inline-flex", gap: 5 }} aria-label={dots.map(d => `${text(lang, d.zh, d.en)}:${d.on ? "✓" : "—"}`).join(" ")}>
+      {dots.map(dot => (
+        <span
+          key={dot.key}
+          title={`${text(lang, dot.zh, dot.en)} ${dot.on ? "✓" : "—"}`}
+          style={{ background: dot.on ? (t.success || t.accent) : t.border, borderRadius: 999, display: "inline-block", height: 9, width: 9 }}
+        />
+      ))}
+    </span>
+  )
 }
 
 function MetricMini({ label, value, note, t }) {
@@ -1075,17 +1125,17 @@ export function MOFLibraryTab() {
   return (
     <div id="library" style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}>
       <PageHeader
-        title={text(lang, "多源开源 MOF 种子库", "Open MOF Seed Library")}
+        title={text(lang, "统一 MOF 浏览器", "Unified MOF Browser")}
         subtitle={text(
           lang,
-          "Open MOF Seed Library · 一个带有来源追踪的轻量级多源 MOF 种子数据层，整合来自公开数据库的结构、几何与电子描述符。",
-          "Multi-source open MOF seed database · A lightweight, provenance-aware seed layer integrating open MOF records from multiple public sources."
+          "基于身份层浏览/检索任意 MOF 的打通全貌：结构属性 + 气体吸附（含等温线）+ 有机酸催化关联，附统一来源溯源。",
+          "Browse and search any MOF's connected profile through the identity layer: structure properties + gas adsorption (incl. isotherms) + organic-acid catalysis links, with unified provenance."
         )}
         action={<CopyLinkButton hash="library" ariaLabel={text(lang, "复制 MOF Library 链接", "Copy MOF Library link")} />}
       />
 
       <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderLeft: `4px solid ${t.accent}`, borderRadius: 8, color: t.subtle, fontSize: 12.5, lineHeight: 1.65, padding: "11px 13px" }}>
-        <strong style={{ color: t.textStrong }}>{text(lang, "当前数据层：Open MOF Seed。", "Current data layer: Open MOF Seed. ")}</strong>
+        <strong style={{ color: t.textStrong }}>{text(lang, "数据底座：Open MOF Seed（CoRE / QMOF）。", "Data base: Open MOF Seed (CoRE / QMOF). ")}</strong>
         {statusLine}
       </div>
 
@@ -1093,57 +1143,65 @@ export function MOFLibraryTab() {
       {status === "fallback" && <Callout tone="warn">{text(lang, "Open MOF Seed 数据加载失败。请刷新页面或检查 GitHub Pages 数据路径。", "Open MOF Seed data could not be loaded. Please refresh or check the GitHub Pages data path.")}</Callout>}
       {status === "empty" && <Callout tone="warn">{text(lang, "当前 Open MOF Seed 文件暂无记录。", "The current Open MOF Seed file has no records.")}</Callout>}
 
-      <OpenMofSeedQualitySummary records={rows} lang={lang} t={t} isMobile={isMobile} />
-      <DataQualityAuditPanel records={rows} lang={lang} t={t} isMobile={isMobile} />
-      <NameCurationQueue records={rows} lang={lang} t={t} isMobile={isMobile} />
       <UnifiedMofDatabasePanel rows={unifiedRows} collectionReport={collectionReport} identityReport={identityReport} proxyReport={proxyReport} lang={lang} t={t} isMobile={isMobile} />
 
-      <OpenMofSeedFilters
-        filters={filters}
-        setFilters={setFilters}
-        sources={sources}
-        metals={metals}
-        organicStatuses={organicStatuses}
-        lang={lang}
-        t={t}
-        isMobile={isMobile}
-      />
+      <details style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: "11px 13px" }}>
+        <summary style={{ color: t.accentText, cursor: "pointer", fontSize: 12.5, fontWeight: 850 }}>
+          {text(lang, "进阶：数据质量、名称整理与逐卡浏览", "Advanced: data quality, name curation, and per-card browsing")}
+        </summary>
+        <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 14 }}>
+          <OpenMofSeedQualitySummary records={rows} lang={lang} t={t} isMobile={isMobile} />
+          <DataQualityAuditPanel records={rows} lang={lang} t={t} isMobile={isMobile} />
+          <NameCurationQueue records={rows} lang={lang} t={t} isMobile={isMobile} />
 
-      <ResultLayer
-        number="01"
-        title={text(lang, "Open MOF Seed 记录", "Open MOF Seed Records")}
-        subtitle={text(
-          lang,
-          `${filteredRecords.length} / ${rows.length} 条记录匹配当前筛选。默认显示 ${PAGE_SIZE} 条，点击加载更多继续浏览。`,
-          `${filteredRecords.length} / ${rows.length} records match the current filters. The page renders ${PAGE_SIZE} records first; use Load more to continue.`
-        )}
-      >
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 12, minWidth: 0 }}>
-          {visibleRecords.map(item => (
-            <OpenMofSeedCard
-              key={item.id}
-              item={item}
-              expanded={expandedId === item.id}
-              onToggle={() => setExpandedId(prev => prev === item.id ? null : item.id)}
-              lang={lang}
-              t={t}
-              isMobile={isMobile}
-            />
-          ))}
+          <OpenMofSeedFilters
+            filters={filters}
+            setFilters={setFilters}
+            sources={sources}
+            metals={metals}
+            organicStatuses={organicStatuses}
+            lang={lang}
+            t={t}
+            isMobile={isMobile}
+          />
+
+          <ResultLayer
+            number="01"
+            title={text(lang, "Open MOF Seed 记录", "Open MOF Seed Records")}
+            subtitle={text(
+              lang,
+              `${filteredRecords.length} / ${rows.length} 条记录匹配当前筛选。默认显示 ${PAGE_SIZE} 条，点击加载更多继续浏览。`,
+              `${filteredRecords.length} / ${rows.length} records match the current filters. The page renders ${PAGE_SIZE} records first; use Load more to continue.`
+            )}
+          >
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 12, minWidth: 0 }}>
+              {visibleRecords.map(item => (
+                <OpenMofSeedCard
+                  key={item.id}
+                  item={item}
+                  expanded={expandedId === item.id}
+                  onToggle={() => setExpandedId(prev => prev === item.id ? null : item.id)}
+                  lang={lang}
+                  t={t}
+                  isMobile={isMobile}
+                />
+              ))}
+            </div>
+            {!visibleRecords.length && (
+              <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.faint, fontSize: 12, marginTop: 12, padding: 14 }}>
+                {text(lang, "当前筛选条件下没有记录。", "No records match the current filters.")}
+              </div>
+            )}
+            {visibleRecords.length < filteredRecords.length && (
+              <div style={{ display: "flex", justifyContent: "center", marginTop: 14 }}>
+                <button type="button" onClick={() => setVisibleCount(count => count + PAGE_SIZE)} style={{ ...toolbarBtn(t), color: t.accentText, border: `1px solid ${t.accent}`, justifyContent: "center", minWidth: 160 }}>
+                  {text(lang, "加载更多", "Load more")}
+                </button>
+              </div>
+            )}
+          </ResultLayer>
         </div>
-        {!visibleRecords.length && (
-          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.faint, fontSize: 12, marginTop: 12, padding: 14 }}>
-            {text(lang, "当前筛选条件下没有记录。", "No records match the current filters.")}
-          </div>
-        )}
-        {visibleRecords.length < filteredRecords.length && (
-          <div style={{ display: "flex", justifyContent: "center", marginTop: 14 }}>
-            <button type="button" onClick={() => setVisibleCount(count => count + PAGE_SIZE)} style={{ ...toolbarBtn(t), color: t.accentText, border: `1px solid ${t.accent}`, justifyContent: "center", minWidth: 160 }}>
-              {text(lang, "加载更多", "Load more")}
-            </button>
-          </div>
-        )}
-      </ResultLayer>
+      </details>
     </div>
   )
 }

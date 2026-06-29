@@ -26,6 +26,7 @@ import reactionDatasetData from "../../../public/data/data_ingestion/organic_aci
 import gasAdsorptionRecordsData from "../../../public/data/gas_adsorption_records_v1.json"
 import literatureDatasetData from "../../../public/data/organic_acid_literature_dataset_v2.json"
 import goldDatasetData from "../../../public/data/organic_acid_gold_dataset_v2.json"
+import appReleaseLog from "../../../public/data/app_release_log.json"
 import { BlockFormula } from "../ui"
 import {
   buildOrganicAcidAlgorithmFormulaJson,
@@ -231,6 +232,106 @@ function impactFields(row, lang) {
     ["breakingChanges", text(lang, "破坏性变更", "Breaking Changes"), localize(row.breakingChanges, lang), true],
     ["nextVersionGoal", text(lang, "下一版本目标", "Next Version Goal"), localize(row.nextVersionGoal, lang), false],
   ]
+}
+
+function UnifiedReleaseCenter({ log, lang, t, isMobile }) {
+  const releases = log?.releases || []
+  const catalog = log?.moduleCatalog || {}
+  const [activeVersion, setActiveVersion] = useState(releases[0]?.appVersion || "")
+  const release = releases.find(row => row.appVersion === activeVersion) || releases[0]
+  const moduleKeys = release ? Object.keys(release.modules || {}) : []
+  const [activeModule, setActiveModule] = useState(moduleKeys[0] || "")
+  const activeModuleKey = moduleKeys.includes(activeModule) ? activeModule : moduleKeys[0]
+  const activeModuleData = activeModuleKey ? release.modules[activeModuleKey] : null
+  const historyByModule = log?.history?.byModule || {}
+
+  if (!release) return null
+
+  return (
+    <Card
+      id="project-evolution-app-release"
+      title={text(lang, "统一版本中心", "Unified Release Center")}
+      subtitle={text(lang, "一个 App 版本号管全局；每次发布只列出本次有更新的模块，点模块看二级更新要点。", "One App version governs the whole platform; each release lists only the modules it changed — open a module for its detailed updates.")}
+      t={t}
+      actions={
+        <label style={{ alignItems: "center", display: "inline-flex", gap: 7 }}>
+          <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "版本", "Version")}</span>
+          <select
+            value={activeVersion}
+            onChange={event => setActiveVersion(event.target.value)}
+            aria-label={text(lang, "选择 App 版本", "Select App version")}
+            style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.textStrong, fontSize: 12, fontWeight: 850, minHeight: 34, padding: "6px 9px" }}
+          >
+            {releases.map(row => (
+              <option key={row.appVersion} value={row.appVersion}>{`App ${row.appVersion}`}</option>
+            ))}
+          </select>
+        </label>
+      }
+    >
+      <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 10 }}>
+        <span style={{ alignItems: "baseline", background: t.badgeInfoBg, border: `1px solid ${t.accent}`, borderRadius: 10, color: t.accentText, display: "inline-flex", fontFamily: FONT_MONO, fontSize: 19, fontWeight: 950, gap: 6, padding: "6px 12px" }}>
+          App {release.appVersion}
+          <span style={{ color: t.muted, fontSize: 11, fontWeight: 800 }}>· {release.date}</span>
+        </span>
+        <StatusBadge tone="info" t={t}>{text(lang, "当前", "Current")}</StatusBadge>
+      </div>
+      <p style={{ color: t.textStrong, fontSize: 13.5, fontWeight: 850, lineHeight: 1.5, margin: 0 }}>{localize(release.headline, lang)}</p>
+      <p style={{ color: t.muted, fontSize: 12.2, lineHeight: 1.55, margin: 0 }}>{localize(release.summary, lang)}</p>
+
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+        {moduleKeys.map(key => {
+          const isActive = key === activeModuleKey
+          const label = localize(catalog[key]?.label, lang) || key
+          return (
+            <button
+              key={key}
+              type="button"
+              onClick={() => setActiveModule(key)}
+              data-testid={`app-release-module-tab-${key}`}
+              style={{ background: isActive ? t.badgeInfoBg : t.surface, border: `1px solid ${isActive ? t.accent : t.border}`, borderRadius: 999, color: isActive ? t.accentText : t.muted, cursor: "pointer", fontSize: 11.5, fontWeight: 850, minHeight: 32, padding: "6px 12px" }}
+            >
+              {label}
+            </button>
+          )
+        })}
+      </div>
+
+      {activeModuleData ? (
+        <article data-testid={`app-release-module-panel-${activeModuleKey}`} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 8, padding: isMobile ? 11 : 13 }}>
+          <strong style={{ color: t.textStrong, fontSize: 13 }}>{localize(catalog[activeModuleKey]?.label, lang) || activeModuleKey}</strong>
+          <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.5 }}>{localize(activeModuleData.summary, lang)}</span>
+          <ul style={{ display: "grid", gap: 6, margin: 0, paddingLeft: 18 }}>
+            {(activeModuleData.changes || []).map((change, index) => (
+              <li key={index} style={{ color: t.textStrong, fontSize: 11.8, lineHeight: 1.5 }}>{localize(change, lang)}</li>
+            ))}
+          </ul>
+        </article>
+      ) : null}
+
+      <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, padding: "9px 11px" }}>
+        <summary style={{ color: t.accentText, cursor: "pointer", fontSize: 12, fontWeight: 850 }}>
+          {localize(log?.history?.label, lang) || text(lang, "历史沿革（pre-1.0）", "History (pre-1.0)")}
+        </summary>
+        <p style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.5, margin: "9px 0 0" }}>{localize(log?.history?.note, lang)}</p>
+        <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", marginTop: 10 }}>
+          {Object.entries(historyByModule).map(([key, rows]) => (
+            <div key={key} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 6, minWidth: 0, padding: 10 }}>
+              <strong style={{ color: t.textStrong, fontSize: 12 }}>{localize(catalog[key]?.label, lang) || key} · {rows.length}</strong>
+              <div style={{ display: "grid", gap: 4 }}>
+                {rows.slice(-6).reverse().map(row => (
+                  <div key={`${key}-${row.version}`} style={{ color: t.muted, fontSize: 10.8, lineHeight: 1.4 }}>
+                    <span style={{ color: t.accentText, fontFamily: FONT_MONO, fontWeight: 850 }}>{row.version}</span>
+                    <span> · {row.note}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </details>
+    </Card>
+  )
 }
 
 function VersionTimeline({ data, lang, t, isMobile }) {
@@ -658,6 +759,7 @@ export function ProjectEvolutionTab({ onNavigate, data: providedData = null }) {
   }, [providedData])
 
   const sections = useMemo(() => [
+    { id: "project-evolution-app-release", label: text(lang, "统一版本中心", "Unified Release") },
     { id: "project-evolution-overview", label: text(lang, "总览", "Overview") },
     { id: "project-evolution-version-timeline", label: text(lang, "版本演化时间线", "Version Timeline") },
     { id: "project-evolution-release-notes", label: text(lang, "项目更新", "Project Updates") },
@@ -686,7 +788,7 @@ export function ProjectEvolutionTab({ onNavigate, data: providedData = null }) {
         title={text(lang, "项目演化", "Project Evolution Center")}
         subtitle={text(lang, "独立展示 EcoMOF-AI 的成长过程：版本更新记录、数据库、算法、验证、界面、汉化演化、关键里程碑与发展路线图。", "A standalone view of how EcoMOF-AI grew: versions, release notes, database, algorithms, validation, UI, localization evolution, milestones, and roadmap.")}
         meta={text(lang, "EcoMOF-AI 项目变化记录", "What Changed In EcoMOF-AI")}
-        action={<><BasisBadge tone="info">{projectStatus?.currentVersion || data.currentVersion}</BasisBadge><CopyLinkButton hash="project-evolution" ariaLabel={text(lang, "复制项目演化链接", "Copy Project Evolution link")} /></>}
+        action={<><BasisBadge tone="info">{`App ${appReleaseLog.currentAppVersion}`}</BasisBadge><CopyLinkButton hash="project-evolution" ariaLabel={text(lang, "复制项目演化链接", "Copy Project Evolution link")} /></>}
       />
       <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 10, color: t.muted, display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between", padding: 11 }}>
         <span style={{ fontSize: 12.2, lineHeight: 1.5 }}>{text(lang, "项目演化解释项目成长历史；方法与证据只解释 EcoMOF-AI 如何工作。", "Project Evolution explains project history; Methods & Evidence explains how EcoMOF-AI works.")}</span>
@@ -695,6 +797,7 @@ export function ProjectEvolutionTab({ onNavigate, data: providedData = null }) {
         </button>
       </div>
       <SectionNav sections={sections} t={t} />
+      <UnifiedReleaseCenter log={appReleaseLog} lang={lang} t={t} isMobile={isMobile} />
       <EvolutionOverview data={data} projectStatus={projectStatus} lang={lang} t={t} isMobile={isMobile} />
       <VersionTimeline data={data} lang={lang} t={t} isMobile={isMobile} />
       <ProjectUpdates lang={lang} t={t} isMobile={isMobile} />
