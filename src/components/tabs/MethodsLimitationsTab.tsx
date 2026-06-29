@@ -210,7 +210,7 @@ function StructuredFactorEffectsMethod({ lang, t, isMobile }) {
         <div style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>
           {text(lang, "稀疏化学数据的结构化因素效应分析", "Structured Factor Effects for Sparse Chemical Data")}
         </div>
-        <h2 style={{ color: t.textStrong, fontFamily: lang === "zh" ? '"Songti SC", "Noto Serif SC", serif' : '"Times New Roman", Times, serif', fontSize: 21, lineHeight: 1.16, margin: 0 }}>
+        <h2 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.16, margin: 0 }}>
           {text(lang, "Structured Factor Effects for Sparse Chemical Data / 稀疏化学数据的结构化因素效应分析", "Structured Factor Effects for Sparse Chemical Data")}
         </h2>
         <p style={{ color: t.muted, fontSize: 12.8, lineHeight: 1.62, margin: 0, maxWidth: 980 }}>

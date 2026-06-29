@@ -53,10 +53,14 @@ afterEach(() => {
 })
 
 describe("homepage dynamic status", () => {
-  it("renders Current Capability, Current Limitations, and V3.4-V3.6 progress from dynamic data", async () => {
+  it("renders Current Capability and Current Limitations from dynamic data (no parallel V3.x progress block)", async () => {
     renderHome()
 
-    await waitFor(() => expect(screen.getByTestId("home-validation-progress")).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByTestId("home-platform-capabilities")).toBeInTheDocument())
+
+    // The legacy "Recent Progress V3.4-V3.6" block was folded into the App v1.0.0
+    // Unified Release Center (pre-1.0 history); the homepage no longer shows it.
+    expect(screen.queryByTestId("home-validation-progress")).not.toBeInTheDocument()
 
     const capabilities = screen.getByTestId("home-platform-capabilities")
     expect(within(capabilities).getByText("Current Version")).toBeInTheDocument()
@@ -72,11 +76,5 @@ describe("homepage dynamic status", () => {
     expect(within(limitations).getByText("High Overfitting Risk")).toBeInTheDocument()
     expect(within(limitations).getByText("Need More Experimental Labels")).toBeInTheDocument()
     expect(within(limitations).getByText("Not Final Recommendation")).toBeInTheDocument()
-
-    const progress = screen.getByTestId("home-validation-progress")
-    expect(within(progress).getByText("V3.4")).toBeInTheDocument()
-    expect(within(progress).getByText("V3.5")).toBeInTheDocument()
-    expect(within(progress).getByText("V3.6")).toBeInTheDocument()
-    expect(progress.textContent).not.toMatch(/V3\.3/)
   })
 })

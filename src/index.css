@@ -16,8 +16,18 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Unified font tokens (v1.0.1). One sans family for ALL text including numbers,
+   version labels, metric values, and dates; serif is reserved for chemistry /
+   math formulas only. Numbers align via tabular-nums within the body family,
+   so no monospace is used for decorative numerals. */
+:root {
+  --font-body: Inter, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-formula: "Times New Roman", "STIX Two Text", Times, serif;
+}
+
 body {
-  font-family: Inter, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-body);
+  font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -29,7 +39,7 @@ img, svg, canvas, video {
 }
 
 .chemical-formula {
-  font-family: "Times New Roman", "STIX Two Text", Times, serif;
+  font-family: var(--font-formula);
   font-variant-numeric: lining-nums;
   letter-spacing: 0.005em;
   white-space: nowrap;
@@ -1423,7 +1433,7 @@ details[open].motion-surface {
   }}
 
 .formula {
-  font-family: "Times New Roman", Times, serif;
+  font-family: var(--font-formula);
   font-style: italic;
   font-weight: 400;
   letter-spacing: 0;
@@ -1892,7 +1902,7 @@ body.cat-dragging {
 
 .scientific-token,
 .chem-formula {
-  font-family: "Times New Roman", Times, serif;
+  font-family: var(--font-formula);
 }
 
 @media (max-width: 640px) {

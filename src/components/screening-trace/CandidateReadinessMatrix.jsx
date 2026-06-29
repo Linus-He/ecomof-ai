@@ -55,7 +55,7 @@ export function CandidateReadinessMatrix({ candidates = [], onSelect, lang, t, i
               return (
                 <span key={fieldKey} style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.muted, display: "inline-flex", fontSize: 10.8, gap: 2, minWidth: 0, padding: "6px 7px" }}>
                   <span style={{ color: t.faint, fontWeight: 850 }}>{label}</span>
-                  <span style={{ color: t.textStrong, fontFamily: "monospace", marginLeft: 3, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{value === null || value === undefined || value === "" ? "missing" : String(value)}</span>
+                  <span style={{ color: t.textStrong, marginLeft: 3, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{value === null || value === undefined || value === "" ? "missing" : String(value)}</span>
                   <FieldProvenanceButton fieldKey={fieldKey} fieldLabel={label} source={source} lang={lang} />
                 </span>
               )

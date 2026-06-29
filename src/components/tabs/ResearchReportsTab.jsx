@@ -470,7 +470,7 @@ function DescriptorEvolutionReportSection({ model, t, lang }) {
                 {stage.top5Routes.map(row => (
                   <td key={row.rank} style={{ borderTop: `1px solid ${oaPalette.border}`, minWidth: 135, padding: 8 }}>
                     <strong style={{ color: oaPalette.text }}>{row.route}</strong><br />
-                    <span style={{ color: oaPalette.accent, fontFamily: SCIENTIFIC_TOKEN_FONT }}>{row.score}</span>
+                    <span style={{ color: oaPalette.accent }}>{row.score}</span>
                   </td>
                 ))}
                 <td style={{ borderTop: `1px solid ${oaPalette.border}`, color: oaPalette.accent, fontWeight: 900, padding: 8 }}>#{stage.alMofRank}</td>

@@ -94,7 +94,7 @@ export function CandidateDecisionDashboard({ trace, candidatesById = {}, lang, t
                   return (
                     <div key={fieldKey} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, minWidth: 0, padding: "6px 7px" }}>
                       <span style={{ color: t.faint, display: "block", fontSize: 9.8, fontWeight: 850, textTransform: "uppercase" }}>{label}</span>
-                      <span style={{ alignItems: "center", color: t.textStrong, display: "inline-flex", fontFamily: "monospace", fontSize: 10.8, fontWeight: 850, marginTop: 3, maxWidth: "100%" }}>
+                      <span style={{ alignItems: "center", color: t.textStrong, display: "inline-flex", fontSize: 10.8, fontWeight: 850, marginTop: 3, maxWidth: "100%" }}>
                         <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{value === null || value === undefined || value === "" ? "missing" : String(value)}</span>
                         <FieldProvenanceButton fieldKey={fieldKey} fieldLabel={label} source={source} lang={lang} />
                       </span>

@@ -330,7 +330,7 @@ export function OrganicAcidInteractionWorkbench({ lang = "en", selectedCandidate
         <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
           <div>
             <MiniLabel color={palette.accent}>{pick(lang, "structured factor effects", "structured factor effects")}</MiniLabel>
-            <h2 style={{ color: palette.text, fontFamily: lang === "zh" ? '"Songti SC", "Noto Serif SC", serif' : '"Times New Roman", Times, serif', fontSize: isNarrow ? 20 : 23, lineHeight: 1.15, margin: "5px 0 0" }}>
+            <h2 style={{ color: palette.text, fontSize: isNarrow ? 20 : 23, lineHeight: 1.15, margin: "5px 0 0" }}>
               {pick(lang, "Organic Acid Interaction Workbench / 有机酸交互效应工作台", "Organic Acid Interaction Workbench")}
             </h2>
           </div>

@@ -558,13 +558,13 @@ function PerformanceMap({ ranked, selectedId, onSelect, chartConfig, setChartCon
               {ticks(xDomain).map(value => (
                 <g key={`x-${value}`}>
                   <line x1={xScale(value)} x2={xScale(value)} y1={margin.top} y2={margin.top + plotH} stroke={t.divider} strokeDasharray="3 4" />
-                  <text x={xScale(value)} y={margin.top + plotH + 22} textAnchor="middle" fill={t.subtle} fontSize="11" fontFamily={SCIENTIFIC_TOKEN_FONT}>{formatNumber(value)}</text>
+                  <text x={xScale(value)} y={margin.top + plotH + 22} textAnchor="middle" fill={t.subtle} fontSize="11" fontFamily={FONT_MONO}>{formatNumber(value)}</text>
                 </g>
               ))}
               {ticks(yDomain).map(value => (
                 <g key={`y-${value}`}>
                   <line x1={margin.left} x2={margin.left + plotW} y1={yScale(value)} y2={yScale(value)} stroke={t.divider} strokeDasharray="3 4" />
-                  <text x={margin.left - 10} y={yScale(value) + 4} textAnchor="end" fill={t.subtle} fontSize="11" fontFamily={SCIENTIFIC_TOKEN_FONT}>{formatNumber(value)}</text>
+                  <text x={margin.left - 10} y={yScale(value) + 4} textAnchor="end" fill={t.subtle} fontSize="11" fontFamily={FONT_MONO}>{formatNumber(value)}</text>
                 </g>
               ))}
               <text x={margin.left + plotW / 2} y={height - 13} textAnchor="middle" fill={t.subtle} fontSize="12" fontFamily={SCIENTIFIC_TOKEN_FONT}>{metricLabel(xMetric, lang)}</text>

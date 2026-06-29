@@ -64,7 +64,7 @@ export function ModuleRail({ modules, t, isMobile, onNavigate, onOpenComparisonB
             <BrandNode active t={t} style={{ width: 38, height: 38, flexShrink: 0 }}>
               {module.mark}
             </BrandNode>
-            <span style={{ color: t.faint, fontSize: 10, fontWeight: 900, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}>
+            <span style={{ color: t.faint, fontSize: 10, fontWeight: 900 }}>
               {String(index + 1).padStart(2, "0")}
             </span>
           </div>

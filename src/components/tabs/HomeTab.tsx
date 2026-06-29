@@ -7,7 +7,6 @@ import {
   FONT_MONO,
   LogoMark,
   BrandMotif,
-  fetchDataJson,
 } from "../../shared"
 import { BrandMotionBackground, MofDescriptor3DScatter } from "../home"
 import { toolbarBtn } from "../../utils/styles"
@@ -408,7 +407,6 @@ export function HomeTab({ setActiveTab }) {
   const { isNarrow, isMobile } = useViewport()
   const reducedMotion = usePrefersReducedMotion()
   const [summary, setSummary] = useState(DEFAULT_HOME_SUMMARY)
-  const [versionData, setVersionData] = useState(null)
   const zh = lang === "zh"
 
   useEffect(() => {
@@ -416,9 +414,6 @@ export function HomeTab({ setActiveTab }) {
     loadHomeSummary().then(nextSummary => {
       if (!cancelled) setSummary(nextSummary)
     })
-    fetchDataJson("version_evolution_records.json", null)
-      .then(payload => { if (!cancelled) setVersionData(payload) })
-      .catch(() => { if (!cancelled) setVersionData(null) })
     return () => {
       cancelled = true
     }
@@ -586,15 +581,6 @@ export function HomeTab({ setActiveTab }) {
     { zh: "Not Final Recommendation", en: "Candidate rankings support research decisions, not final experimental recommendation." },
   ], [summary])
 
-  const recentProgress = useMemo(() => {
-    const rows = Array.isArray(versionData?.versions) ? versionData.versions : []
-    return rows
-      .filter(row => {
-        const numeric = Number(String(row.version || "").replace(/^V/i, ""))
-        return Number.isFinite(numeric) && numeric >= 3.4 && numeric <= 3.6
-      })
-      .slice(-3)
-  }, [versionData])
 
   const moduleCapabilities = useMemo(() => [
     {
@@ -755,27 +741,6 @@ export function HomeTab({ setActiveTab }) {
           {capabilities.map(item => <PlatformCapabilityCard key={item.title} item={item} t={t} />)}
         </div>
       </section>
-
-      {recentProgress.length ? (
-        <section data-testid="home-validation-progress" style={sectionStyle}>
-          <SectionHeader
-            eyebrow={zh ? "近期进展" : "Recent Progress"}
-            title={zh ? "验证进展自动读取 V3.4-V3.6" : "Validation progress read from V3.4-V3.6"}
-            subtitle={zh ? "进展条目来自 version_evolution_records.json，并随项目状态记录更新。" : "Progress items come from version_evolution_records.json and update with project status records."}
-            t={t}
-            isMobile={isMobile}
-          />
-          <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 12 }}>
-            {recentProgress.map(row => (
-              <article key={row.version} style={{ ...panelStyle, padding: 14, display: "grid", gap: 8 }}>
-                <strong style={{ color: t.textStrong, fontSize: 15 }}>{row.version}</strong>
-                <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.5 }}>{row.summary}</span>
-                <span style={{ color: t.accentText, fontSize: 11.5, lineHeight: 1.4 }}>{row.validationImpact}</span>
-              </article>
-            ))}
-          </div>
-        </section>
-      ) : null}
 
       <section data-testid="home-data-foundation" style={{ ...panelStyle, padding: isMobile ? "18px 16px" : "24px", background: t.badgeInfoBg }}>
         <SectionHeader

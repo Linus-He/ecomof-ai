@@ -183,6 +183,35 @@ const V1_RELEASE = {
   },
 }
 
+// v1.0.1: presentation-layer cleanup release.
+const V1_0_1_RELEASE = {
+  appVersion: "v1.0.1",
+  date: GENERATED_AT,
+  stage: "unified-platform",
+  headline: {
+    zh: "体验打磨：全站字体统一、修掉旧版本区块、修复首页 3D 散点。",
+    en: "Experience polish: site-wide font unification, legacy version block removed, homepage 3D scatter fixed.",
+  },
+  summary: {
+    zh: "纯呈现层维护，不改算法/分数/数据：统一字体 token，数字归一为同一 sans 字族并 tabular-nums 对齐；衬线仅保留给化学式；移除与 App v1.0.0 矛盾的旧版本区块；修复 3D 描述符散点的切顶、挤团与空白。",
+    en: "Presentation-only maintenance with no algorithm/score/data changes: unified font tokens with numbers on one sans family (tabular-nums), serif reserved for chemistry formulas, removal of the legacy version block that conflicted with App v1.0.0, and fixes to the 3D descriptor scatter (clipping, clustering, empty space).",
+  },
+  modules: {
+    ui: {
+      summary: {
+        zh: "字体统一 + 版本区块修复 + 3D 散点修复。",
+        en: "Font unification + version-block fix + 3D scatter fix.",
+      },
+      changes: [
+        { zh: "建立字体 token（--font-body / --font-formula）：所有文本与数字用同一 sans 字族，数字以 tabular-nums 对齐，不再用 monospace。", en: "Added font tokens (--font-body / --font-formula): all text and numbers share one sans family with tabular-nums; decorative monospace removed." },
+        { zh: "衬线仅保留给化学式 / 数学公式；清除散落的 helvetica 与 ad-hoc monospace。", en: "Serif reserved for chemistry / math formulas only; scattered helvetica and ad-hoc monospace removed." },
+        { zh: "移除首页与 App v1.0.0 矛盾的「近期进展 V3.4–V3.6」区块，旧版只在折叠的 pre-1.0 历史中出现。", en: "Removed the homepage 'Recent Progress V3.4–V3.6' block that conflicted with App v1.0.0; legacy versions stay in the collapsed pre-1.0 history." },
+        { zh: "修复 3D 描述符散点：标题不再切顶，按数据自适应填满视图（不再挤团/留白），新增方向指示器。", en: "Fixed the 3D descriptor scatter: title no longer clipped, data auto-fits to fill the view (no clustering/empty space), added an orientation gizmo." },
+      ],
+    },
+  },
+}
+
 async function main() {
   const versionRecords = JSON.parse(
     await fs.readFile(path.join(DATA_DIR, "version_evolution_records.json"), "utf8"),
@@ -201,9 +230,10 @@ async function main() {
     }
   }
 
+  const releases = [V1_0_1_RELEASE, V1_RELEASE]
   const payload = {
     schemaVersion: "1.0",
-    currentAppVersion: V1_RELEASE.appVersion,
+    currentAppVersion: releases[0].appVersion,
     generatedAt: GENERATED_AT,
     authority:
       "Single unified EcoMOF-AI App release log. One App version manages the whole platform; each release lists only the modules it changed. Historical module version numbers are preserved verbatim in history (pre-1.0 modular-development era).",
@@ -214,7 +244,7 @@ async function main() {
         "v1.0.0 module changes are authored from the integration work in this release; history is regrouped by module from existing per-module impact fields without altering any original version number.",
     },
     moduleCatalog: MODULE_CATALOG,
-    releases: [V1_RELEASE],
+    releases,
     history: {
       label: {
         zh: "历史沿革（pre-1.0 模块化开发期）",

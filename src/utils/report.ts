@@ -421,7 +421,7 @@ export function buildReportHtml(results, inputs, decision, c, lcaParams = {}) {
     th { background: #f1f5f9; }
     .note { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; padding: 12px; font-size: 12px; color: #7c2d12; }
     .small { color: #64748b; font-size: 11px; }
-    .formula { display: inline-block; font-family: "SFMono-Regular", Consolas, monospace; color: #0f172a; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 6px; padding: 2px 6px; margin: 0 2px; white-space: nowrap; }
+    .formula { display: inline-block; font-family: "Times New Roman", "STIX Two Text", Times, serif; color: #0f172a; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 6px; padding: 2px 6px; margin: 0 2px; white-space: nowrap; }
     @media print { body { margin: 18mm; } .card, table, .note { break-inside: avoid; } .cover { min-height: 230px; } }
   </style>
 </head>

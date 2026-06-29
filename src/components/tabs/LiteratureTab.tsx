@@ -163,13 +163,13 @@ export function LiteratureTab({ results, inputs }) {
               {filtered.map((m, i) => (
                 <tr key={m.name} style={{ background: i % 2 === 0 ? "transparent" : t.surface, borderBottom: `1px solid ${t.divider}` }}>
                   <td style={{ padding: "10px 14px", color: t.accentText, fontSize: 13, fontWeight: 600 }}>{m.name}</td>
-                  <td style={{ padding: "10px 14px", color: t.muted, fontSize: 12, fontFamily: "monospace" }}>{m.metal}</td>
+                  <td style={{ padding: "10px 14px", color: t.muted, fontSize: 12, fontFamily: FONT_MONO }}>{m.metal}</td>
                   <td style={{ padding: "10px 14px", color: t.muted, fontSize: 12 }}>{m.linker}</td>
                   <td style={{ padding: "10px 14px", color: t.muted, fontSize: 12 }}>{m.topology || "—"}{m.oms ? ` · OMS` : ""}</td>
-                  <td style={{ padding: "10px 14px", color: t.text, fontSize: 12, fontFamily: "monospace" }}>{m.pd}/{m.lcd || "—"}</td>
-                  <td style={{ padding: "10px 14px", color: t.text, fontSize: 12, fontFamily: "monospace" }}>{Number(m.bet || 0).toLocaleString()} / {m.pv}</td>
-                  <td style={{ padding: "10px 14px", fontFamily: "monospace", fontSize: 12, fontWeight: 700, color: m.co2 >= 6 ? t.success : m.co2 >= 3 ? t.accent : t.muted }}>{m.co2}</td>
-                  <td style={{ padding: "10px 14px", fontFamily: "monospace", fontSize: 12, color: m.selectivity >= 100 ? t.success : m.selectivity >= 30 ? t.accent : t.muted }}>{m.selectivity}</td>
+                  <td style={{ padding: "10px 14px", color: t.text, fontSize: 12, fontFamily: FONT_MONO }}>{m.pd}/{m.lcd || "—"}</td>
+                  <td style={{ padding: "10px 14px", color: t.text, fontSize: 12, fontFamily: FONT_MONO }}>{Number(m.bet || 0).toLocaleString()} / {m.pv}</td>
+                  <td style={{ padding: "10px 14px", fontFamily: FONT_MONO, fontSize: 12, fontWeight: 700, color: m.co2 >= 6 ? t.success : m.co2 >= 3 ? t.accent : t.muted }}>{m.co2}</td>
+                  <td style={{ padding: "10px 14px", fontFamily: FONT_MONO, fontSize: 12, color: m.selectivity >= 100 ? t.success : m.selectivity >= 30 ? t.accent : t.muted }}>{m.selectivity}</td>
                   <td style={{ padding: "10px 14px", color: t.subtle, fontSize: 11 }}><strong style={{ color: t.text }}>{zhText(lang, m.sourceDatabase || "local seed")}</strong><br />{zhText(lang, m.descriptorMethod || m.sourceType)}</td>
                   <td style={{ padding: "10px 14px", color: t.subtle, fontSize: 11 }}><strong style={{ color: t.text }}>{zhText(lang, m.sourceType)}</strong><br />{m.doi}</td>
                   <td style={{ padding: "10px 14px", color: t.warn, fontSize: 11 }}>{zhText(lang, m.qualityFlag || "screening_seed")}</td>

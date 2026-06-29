@@ -270,7 +270,7 @@ export function NumericField({ label, unit, min, max, step, value, onChange, hel
   return (
     <div style={{ marginBottom: 16 }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-        <span style={{ color: t.muted, fontSize: 12, fontFamily: "monospace" }}>{label}</span>
+        <span style={{ color: t.muted, fontSize: 12, fontFamily: FONT_MONO }}>{label}</span>
         <input
           type="number" value={draft} min={min} max={max} step={step}
           onChange={e => setDraft(e.target.value)}
@@ -406,7 +406,7 @@ function DescriptorCurationChecklist({ fieldSources, lang, t }) {
               <span style={{ color: t.subtle, fontSize: 10, fontWeight: 700 }}>
                 {zh ? f.zh : f.en}
               </span>
-              <span style={{ color: t.textStrong, fontSize: 10, fontFamily: "monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              <span style={{ color: t.textStrong, fontSize: 10, fontFamily: FONT_MONO, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {displayVal}
               </span>
               <BasisBadge tone={tone}>{statusLabel}</BasisBadge>

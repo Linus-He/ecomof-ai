@@ -279,11 +279,11 @@ export function BatchModePanel({ inputs, onClose, onApplyToForm }) {
                       {GAS_SYSTEMS.map(g => <option key={g.id} value={g.id} disabled={g.priority === "unavailable"}>{gasLabel(g.label, lang)}</option>)}
                     </select>
                   </td>
-                  <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.success }}>{r.result?.primaryUptake ?? "—"}</td>
-                  <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.muted }}>{r.result?.secondaryUptake ?? "—"}</td>
-                  <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.text }}>{r.result?.selectivity ?? "—"}</td>
-                  <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.accentText }}>{r.result?.thermo?.qst0 ?? "—"}</td>
-                  <td style={{ padding: "6px 10px", fontFamily: "monospace", color: t.success }}>{Number.isFinite(decisionScore(r)) ? decisionScore(r) : "—"}</td>
+                  <td style={{ padding: "6px 10px", fontFamily: FONT_MONO, color: t.success }}>{r.result?.primaryUptake ?? "—"}</td>
+                  <td style={{ padding: "6px 10px", fontFamily: FONT_MONO, color: t.muted }}>{r.result?.secondaryUptake ?? "—"}</td>
+                  <td style={{ padding: "6px 10px", fontFamily: FONT_MONO, color: t.text }}>{r.result?.selectivity ?? "—"}</td>
+                  <td style={{ padding: "6px 10px", fontFamily: FONT_MONO, color: t.accentText }}>{r.result?.thermo?.qst0 ?? "—"}</td>
+                  <td style={{ padding: "6px 10px", fontFamily: FONT_MONO, color: t.success }}>{Number.isFinite(decisionScore(r)) ? decisionScore(r) : "—"}</td>
                   <td style={{ padding: "6px 10px", color: t.warn, fontSize: 11 }}>{r.result?.anomaly ? "⚠ inverse" : ""}</td>
                   <td style={{ padding: "6px 10px" }}>
                     <button onClick={() => onApplyToForm(r)}

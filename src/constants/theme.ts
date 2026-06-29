@@ -46,4 +46,8 @@ export const THEME_LIGHT = {
 }
 
 export const FONT_SANS = 'Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif'
-export const FONT_MONO = '"SFMono-Regular", "Roboto Mono", "Noto Sans Mono", ui-monospace, Menlo, Consolas, monospace'
+// v1.0.1 font unification: one sans family for all text including numbers, version
+// labels, metric values, and dates. Numbers align via tabular-nums (set globally in
+// index.css), so decorative numerals no longer use a monospace face. FONT_MONO is kept
+// as a deprecated alias of FONT_SANS so existing call sites stay on the body family.
+export const FONT_MONO = FONT_SANS

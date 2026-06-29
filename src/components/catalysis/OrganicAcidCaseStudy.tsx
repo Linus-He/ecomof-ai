@@ -406,7 +406,7 @@ function ReadinessClasses({ lang, readinessClasses, readinessTrace, t }) {
       <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", marginTop: 14 }}>
         {readinessClasses.map(item => (
           <article key={item.className} style={{ border: `1px solid ${t.border}`, borderRadius: 12, padding: 12 }}>
-            <div style={{ color: t.textStrong, fontFamily: "monospace", fontSize: 13, fontWeight: 950 }}>{formatClassLabel(item.className, lang)}</div>
+            <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 950 }}>{formatClassLabel(item.className, lang)}</div>
             <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55, marginTop: 7 }}>{lang === "zh" ? item.meaningZh : item.meaningEn}</div>
             <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850, lineHeight: 1.5, marginTop: 10 }}>{lang === "zh" ? item.allowedUseZh : item.allowedUseEn}</div>
             <div style={{ borderTop: `1px solid ${t.divider}`, color: t.faint, fontSize: 11, lineHeight: 1.45, marginTop: 10, paddingTop: 8 }}>

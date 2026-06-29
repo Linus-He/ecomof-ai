@@ -51,54 +51,76 @@ function axisExtent(values) {
 }
 
 function norm(value, extent) {
-  return ((value - extent.min) / extent.span) * 2 - 1 // -> [-1, 1]
+  return (value - extent.min) / extent.span - 0.5 // min-max per axis -> centered [-0.5, 0.5]
 }
 
-function project(p, yaw, pitch, scale, cx, cy) {
+// Rotate a centered unit point around the vertical (y) then horizontal (x) axis.
+function rotate(p, yaw, pitch) {
   const cosY = Math.cos(yaw)
   const sinY = Math.sin(yaw)
   const cosP = Math.cos(pitch)
   const sinP = Math.sin(pitch)
-  // rotate around vertical (y) axis, then around x axis
   const x1 = p.x * cosY + p.z * sinY
   const z1 = -p.x * sinY + p.z * cosY
   const y2 = p.y * cosP - z1 * sinP
   const z2 = p.y * sinP + z1 * cosP
-  return { sx: cx + x1 * scale, sy: cy - y2 * scale, depth: z2 }
+  return { x: x1, y: y2, depth: z2 }
 }
 
 function Scatter3D({ points, t, lang }) {
-  const [yaw, setYaw] = useState(-0.7)
-  const [pitch, setPitch] = useState(0.35)
+  const [yaw, setYaw] = useState(-0.6)
+  const [pitch, setPitch] = useState(0.42)
   const [zoom, setZoom] = useState(1)
   const [hover, setHover] = useState(null)
   const drag = useRef(null)
   const W = 640
-  const H = 420
-  const cx = W / 2
-  const cy = H / 2
-  const scale = 120 * zoom
+  const H = 460
+  const MARGIN = 64 // room for axis labels so nothing clips
 
   const saE = useMemo(() => axisExtent(points.map(p => p.sa)), [points])
   const pvE = useMemo(() => axisExtent(points.map(p => p.pv)), [points])
   const vfE = useMemo(() => axisExtent(points.map(p => p.vf)), [points])
 
-  const projected = useMemo(() => points
-    .map((p, index) => {
-      const node = { x: norm(p.sa, saE), y: norm(p.pv, pvE), z: norm(p.vf, vfE) }
-      const pr = project(node, yaw, pitch, scale, cx, cy)
-      return { ...p, ...pr, index }
-    })
-    .sort((a, b) => a.depth - b.depth), [points, saE, pvE, vfE, yaw, pitch, scale])
+  const rotatedPoints = useMemo(() => points.map((p, index) => ({
+    ...p,
+    index,
+    ...rotate({ x: norm(p.sa, saE), y: norm(p.pv, pvE), z: norm(p.vf, vfE) }, yaw, pitch),
+  })), [points, saE, pvE, vfE, yaw, pitch])
 
-  // axis endpoints (origin + 3 axes)
-  const axisEnds = useMemo(() => {
-    const origin = project({ x: -1, y: -1, z: -1 }, yaw, pitch, scale, cx, cy)
-    const xEnd = project({ x: 1, y: -1, z: -1 }, yaw, pitch, scale, cx, cy)
-    const yEnd = project({ x: -1, y: 1, z: -1 }, yaw, pitch, scale, cx, cy)
-    const zEnd = project({ x: -1, y: -1, z: 1 }, yaw, pitch, scale, cx, cy)
-    return { origin, xEnd, yEnd, zEnd }
-  }, [yaw, pitch, scale])
+  // Independent x/y auto-fit to the DATA points so they fill the plot at any
+  // rotation. Cube/extent fitting is avoided because the three descriptors are
+  // correlated and project into a thin slab, which would leave empty quadrants.
+  const fit = useMemo(() => {
+    const xs = rotatedPoints.map(p => p.x)
+    const ys = rotatedPoints.map(p => p.y)
+    const minX = Math.min(...xs)
+    const minY = Math.min(...ys)
+    return { minX, minY, spanX: (Math.max(...xs) - minX) || 1, spanY: (Math.max(...ys) - minY) || 1 }
+  }, [rotatedPoints])
+
+  const cx = W / 2
+  const cy = H / 2
+  const innerW = (W - 2 * MARGIN) * zoom
+  const innerH = (H - 2 * MARGIN) * zoom
+  const toScreen = (r) => ({
+    sx: cx + (((r.x - fit.minX) / fit.spanX) - 0.5) * innerW,
+    sy: cy - (((r.y - fit.minY) / fit.spanY) - 0.5) * innerH,
+    depth: r.depth,
+  })
+
+  const projected = useMemo(() => rotatedPoints
+    .map(p => ({ ...p, ...toScreen(p) }))
+    .sort((a, b) => a.depth - b.depth), [rotatedPoints, fit, zoom])
+
+  // Orientation gizmo: rotated unit directions of the three descriptor axes,
+  // drawn in the corner so the viewer keeps their bearings while rotating.
+  const gizmo = useMemo(() => {
+    const L = 32
+    const gx = 40
+    const gy = H - 34
+    const dir = (vec) => { const r = rotate(vec, yaw, pitch); return { x: gx + r.x * L, y: gy - r.y * L } }
+    return { gx, gy, sa: dir({ x: 1, y: 0, z: 0 }), pv: dir({ x: 0, y: 1, z: 0 }), vf: dir({ x: 0, y: 0, z: 1 }) }
+  }, [yaw, pitch])
 
   const onPointerDown = event => {
     drag.current = { x: event.clientX, y: event.clientY, yaw, pitch }
@@ -114,7 +136,7 @@ function Scatter3D({ points, t, lang }) {
   const onPointerUp = () => { drag.current = null }
   const onWheel = event => {
     event.preventDefault()
-    setZoom(z => Math.max(0.5, Math.min(2.4, z - event.deltaY * 0.0012)))
+    setZoom(z => Math.max(0.6, Math.min(2.2, z - event.deltaY * 0.0012)))
   }
 
   const metals = useMemo(() => [...new Set(points.map(p => p.metal))], [points])
@@ -125,21 +147,21 @@ function Scatter3D({ points, t, lang }) {
         viewBox={`0 0 ${W} ${H}`}
         role="img"
         aria-label={lang === "zh" ? "MOF 描述符 3D 散点图" : "MOF descriptor 3D scatter"}
-        style={{ width: "100%", height: "auto", touchAction: "none", cursor: drag.current ? "grabbing" : "grab", userSelect: "none" }}
+        style={{ width: "100%", height: "auto", overflow: "visible", touchAction: "none", cursor: drag.current ? "grabbing" : "grab", userSelect: "none" }}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerLeave={onPointerUp}
         onWheel={onWheel}
       >
-        <line x1={axisEnds.origin.sx} y1={axisEnds.origin.sy} x2={axisEnds.xEnd.sx} y2={axisEnds.xEnd.sy} stroke={t.border} strokeWidth={1.5} />
-        <line x1={axisEnds.origin.sx} y1={axisEnds.origin.sy} x2={axisEnds.yEnd.sx} y2={axisEnds.yEnd.sy} stroke={t.border} strokeWidth={1.5} />
-        <line x1={axisEnds.origin.sx} y1={axisEnds.origin.sy} x2={axisEnds.zEnd.sx} y2={axisEnds.zEnd.sy} stroke={t.border} strokeWidth={1.5} />
-        <text x={axisEnds.xEnd.sx} y={axisEnds.xEnd.sy} fill={t.subtle} fontSize={11} fontWeight={800}>{lang === "zh" ? "比表面积" : "Surface area"}</text>
-        <text x={axisEnds.yEnd.sx} y={axisEnds.yEnd.sy - 6} fill={t.subtle} fontSize={11} fontWeight={800}>{lang === "zh" ? "孔体积" : "Pore volume"}</text>
-        <text x={axisEnds.zEnd.sx} y={axisEnds.zEnd.sy} fill={t.subtle} fontSize={11} fontWeight={800}>{lang === "zh" ? "孔隙率" : "Porosity"}</text>
+        <line x1={gizmo.gx} y1={gizmo.gy} x2={gizmo.sa.x} y2={gizmo.sa.y} stroke={t.subtle} strokeWidth={1.6} />
+        <line x1={gizmo.gx} y1={gizmo.gy} x2={gizmo.pv.x} y2={gizmo.pv.y} stroke={t.subtle} strokeWidth={1.6} />
+        <line x1={gizmo.gx} y1={gizmo.gy} x2={gizmo.vf.x} y2={gizmo.vf.y} stroke={t.subtle} strokeWidth={1.6} />
+        <text x={gizmo.sa.x} y={gizmo.sa.y - 4} textAnchor="middle" fill={t.faint} fontSize={9.5} fontWeight={850}>{lang === "zh" ? "比表面" : "SA"}</text>
+        <text x={gizmo.pv.x} y={gizmo.pv.y - 4} textAnchor="middle" fill={t.faint} fontSize={9.5} fontWeight={850}>{lang === "zh" ? "孔体积" : "PV"}</text>
+        <text x={gizmo.vf.x} y={gizmo.vf.y - 4} textAnchor="middle" fill={t.faint} fontSize={9.5} fontWeight={850}>{lang === "zh" ? "孔隙率" : "ε"}</text>
         {projected.map(p => {
-          const r = 4.5 + (p.depth + 1) * 2.4
+          const r = 4.5 + (p.depth + 0.5) * 3.2
           const active = hover?.index === p.index
           return (
             <circle
