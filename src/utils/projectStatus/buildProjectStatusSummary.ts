@@ -130,11 +130,24 @@ export function buildProjectStatusSummary(input: any = {}) {
   const riskLevel = firstText(robustness.generalization?.overfittingRisk, robustness.answers?.biggestStatisticalRisk, DEFAULT_PROJECT_STATUS_SUMMARY.riskLevel)
 
   const databaseScale = firstNumber(
+    versionEvolution.overview?.databaseSize,
     ingestion.totalRecords,
     ingestion.totalRealRecords,
-    versionEvolution.overview?.databaseSize,
     DEFAULT_PROJECT_STATUS_SUMMARY.databaseScale,
   )
+  const databaseScaleSource = firstNumber(versionEvolution.overview?.databaseSize) != null
+    ? {
+      sourceDatabase: "version_evolution_records.json",
+      sourceRecordId: "overview.databaseSize",
+      sourceUrl: "public/data/version_evolution_records.json",
+      notes: "Database scale includes gas adsorption v2.1 records in addition to the structural and organic-acid data foundation.",
+    }
+    : {
+      sourceDatabase: "data_ingestion_summary_v3.json",
+      sourceRecordId: "totalRecords",
+      sourceUrl: "public/data/data_ingestion/data_ingestion_summary_v3.json",
+      notes: "",
+    }
   const verifiedMetadata = firstNumber(
     ingestion.verifiedMetadataCount,
     versionEvolution.overview?.verifiedMetadataCount,
@@ -203,9 +216,7 @@ export function buildProjectStatusSummary(input: any = {}) {
       }),
       databaseScale: sourceFor({
         value: databaseScale,
-        sourceDatabase: "data_ingestion_summary_v3.json",
-        sourceRecordId: "totalRecords",
-        sourceUrl: "public/data/data_ingestion/data_ingestion_summary_v3.json",
+        ...databaseScaleSource,
       }),
       verifiedMetadata: sourceFor({
         value: verifiedMetadata,

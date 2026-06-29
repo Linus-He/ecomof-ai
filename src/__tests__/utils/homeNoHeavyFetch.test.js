@@ -27,7 +27,7 @@ describe("homeNoHeavyFetch", () => {
     const summary = await loadHomeSummary(fetcher)
     const calls = fetcher.mock.calls.map(([url]) => String(url))
 
-    expect(summary.totalRecords).toBe(3020)
+    expect(summary.totalRecords).toBe(3462)
     expect(summary.experimentalLabelCount).toBe(150)
     expect(calls).toHaveLength(HOME_SUMMARY_ENDPOINTS.length + Object.keys(PROJECT_STATUS_ENDPOINTS).length)
     for (const endpoint of HOME_SUMMARY_ENDPOINTS) {

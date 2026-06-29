@@ -1,5 +1,5 @@
 // @ts-nocheck
-// V3.9 data registry — the single catalog of every data source that drives the
+// V3.10.1 data registry — the single catalog of every data source that drives the
 // dashboards. It answers: which sources exist, their type, their honesty mode
 // (demo/seed/curated/inferred/experimental/literature/simulation), whether they
 // carry provenance, and which surfaces they feed. Live record counts are layered
@@ -20,6 +20,10 @@ export const DATA_SOURCE_REGISTRY: DataSourceEntry[] = [
   { id: "gas-adsorption-v2", name: "Gas adsorption records v2", category: "GasSep", datasetType: "gas_separation_records", dataMode: "mixed", path: "data/gas_adsorption_records_v2.json", recordKey: "records", hasProvenance: true, participatesIn: ["projectStatus", "researchReports", "gasSep", "mofLibrary", "export"], updatedAt: "2026-06-29" },
   { id: "mof-identity-registry", name: "MOF identity registry", category: "Database", datasetType: "identity_registry", dataMode: "mixed", path: "data/mof_identity_registry.json", recordKey: "records", hasProvenance: true, participatesIn: ["gasSep", "mofLibrary", "researchReports"], updatedAt: "2026-06-29" },
   { id: "gas-adsorption-v2-report", name: "Gas adsorption v2 collection report", category: "GasSep", datasetType: "provenance_records", dataMode: "mixed", path: "data/gas_adsorption_v2_collection_report.json", recordKey: "summary", hasProvenance: true, participatesIn: ["gasSep", "mofLibrary", "projectStatus"], updatedAt: "2026-06-29" },
+  { id: "gas-adsorption-v2-1-iast-report", name: "Gas adsorption v2.1 IAST report", category: "GasSep", datasetType: "provenance_records", dataMode: "simulation", path: "data/gas_adsorption_v2_1_iast_report.json", recordKey: "computed", hasProvenance: true, participatesIn: ["gasSep", "mofLibrary", "projectStatus", "researchReports", "export"], updatedAt: "2026-06-29" },
+  { id: "mof-identity-resolution-report", name: "MOF identity resolution report", category: "Database", datasetType: "provenance_records", dataMode: "mixed", path: "data/mof_identity_resolution_report.json", recordKey: "unresolved", hasProvenance: true, participatesIn: ["gasSep", "mofLibrary", "projectStatus", "researchReports", "export"], updatedAt: "2026-06-29" },
+  { id: "gas-structure-proxy-validation-report", name: "Gas structure proxy validation", category: "GasSep", datasetType: "research_report_records", dataMode: "inferred", path: "data/gas_structure_proxy_validation_report.json", recordKey: "reviewedPairs", hasProvenance: true, participatesIn: ["gasSep", "mofLibrary", "projectStatus", "researchReports", "export"], updatedAt: "2026-06-29" },
+  { id: "gas-adsorption-duplicate-report-v2-1", name: "Gas adsorption v2.1 duplicate audit", category: "GasSep", datasetType: "provenance_records", dataMode: "mixed", path: "data/gas_adsorption_duplicate_report_v2_1.json", recordKey: "conditionRepeatGroups", hasProvenance: true, participatesIn: ["gasSep", "mofLibrary", "projectStatus", "researchReports"], updatedAt: "2026-06-29" },
   { id: "gas-field-sources", name: "Gas adsorption field provenance", category: "GasSep", datasetType: "provenance_records", dataMode: "curated", path: "data/gas_adsorption_field_sources_v1.json", recordKey: "records", hasProvenance: true, participatesIn: ["gasSep", "researchReports"], updatedAt: "2026-06-01" },
   { id: "gas-sources", name: "Gas adsorption sources", category: "GasSep", datasetType: "gas_separation_records", dataMode: "literature", path: "data/gas_adsorption_sources_v1.json", recordKey: "sources", hasProvenance: true, participatesIn: ["gasSep"], updatedAt: "2026-06-01" },
 
@@ -35,9 +39,9 @@ export const DATA_SOURCE_REGISTRY: DataSourceEntry[] = [
   { id: "benchmark-eligible", name: "Benchmark-eligible dataset", category: "Benchmark", datasetType: "benchmark_records", dataMode: "curated", path: "data/benchmark_dataset_v3_6.json", recordKey: "records", hasProvenance: true, participatesIn: ["projectStatus", "researchReports", "benchmark", "export"], updatedAt: "2026-06-19" },
 
   // --- Version records ---
-  { id: "version-evolution", name: "Version evolution records", category: "Version", datasetType: "version_records", dataMode: "curated", path: "data/version_evolution_records.json", recordKey: "versions", hasProvenance: false, participatesIn: ["home", "projectStatus"], updatedAt: "2026-06-21" },
+  { id: "version-evolution", name: "Version evolution records", category: "Version", datasetType: "version_records", dataMode: "curated", path: "data/version_evolution_records.json", recordKey: "versions", hasProvenance: false, participatesIn: ["home", "projectStatus"], updatedAt: "2026-06-29" },
   { id: "version-docs", name: "Version docs", category: "Version", datasetType: "version_records", dataMode: "curated", path: "data/organic_acid_final_screening/version_docs.json", recordKey: "versions", hasProvenance: false, participatesIn: ["projectStatus"], updatedAt: "2026-06-21" },
-  { id: "home-summary", name: "Home summary", category: "Version", datasetType: "version_records", dataMode: "curated", path: "data/home_summary.json", recordKey: "", hasProvenance: false, participatesIn: ["home"], updatedAt: "2026-06-21" },
+  { id: "home-summary", name: "Home summary", category: "Version", datasetType: "version_records", dataMode: "curated", path: "data/home_summary.json", recordKey: "", hasProvenance: false, participatesIn: ["home"], updatedAt: "2026-06-29" },
 
   // --- Research report records ---
   { id: "ingestion-summary", name: "Data ingestion summary", category: "Research", datasetType: "research_report_records", dataMode: "mixed", path: "data/data_ingestion/data_ingestion_summary_v3.json", recordKey: "", hasProvenance: false, participatesIn: ["home", "projectStatus", "researchReports"], updatedAt: "2026-06-18" },

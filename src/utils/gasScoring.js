@@ -24,6 +24,7 @@ const HIGHER_IS_BETTER = new Set([
 ])
 
 function finite(value) {
+  if (value === null || value === undefined || value === "" || typeof value === "boolean") return null
   const number = Number(value)
   return Number.isFinite(number) ? number : null
 }
@@ -72,10 +73,11 @@ export function getScenarioWeights(gasPair = "CO2/N2", targetPriority = "Balance
 
 export function getGasMetricValue(record = {}, metric = "") {
   record = record || {}
-  if (metric === "uptake") return finite(record.primaryUptake)
+  if (metric === "uptake") return finite(record.primaryUptake ?? record.metrics?.primaryUptake)
+  if (metric === "selectivity") return finite(record.selectivity ?? record.metrics?.selectivity ?? record.iaSTSelectivity ?? record.metrics?.iaSTSelectivity)
   if (metric === "stability") return getStabilityScore(record)
   if (metric === "evidence") return getEvidenceScore(record)
-  return finite(record[metric])
+  return finite(record[metric] ?? record.metrics?.[metric])
 }
 
 export function normalizeGasMetric(value, metric, records = []) {
@@ -183,10 +185,10 @@ export function scoreGasCandidate(record = {}, scenarioConfig = {}, peerRecords 
   const peers = peerRecords.length ? peerRecords : [record]
   const weights = getScenarioWeights(scenarioConfig.gasPair || record.gasPair, scenarioConfig.targetPriority)
   const normalized = {
-    uptake: normalizeGasMetric(record.primaryUptake, "primaryUptake", peers),
-    selectivity: normalizeGasMetric(record.selectivity, "selectivity", peers),
-    workingCapacity: normalizeGasMetric(record.workingCapacity, "workingCapacity", peers),
-    regenerability: normalizeGasMetric(record.regenerability, "regenerability", peers),
+    uptake: normalizeGasMetric(record.primaryUptake ?? record.metrics?.primaryUptake, "primaryUptake", peers),
+    selectivity: normalizeGasMetric(record.selectivity ?? record.metrics?.selectivity ?? record.iaSTSelectivity ?? record.metrics?.iaSTSelectivity, "selectivity", peers),
+    workingCapacity: normalizeGasMetric(record.workingCapacity ?? record.metrics?.workingCapacity, "workingCapacity", peers),
+    regenerability: normalizeGasMetric(record.regenerability ?? record.metrics?.regenerability, "regenerability", peers),
     stability: getStabilityScore(record, scenarioConfig),
     evidence: getEvidenceScore(record),
   }

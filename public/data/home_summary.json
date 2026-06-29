@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "totalRecords": 3020,
+  "totalRecords": 3462,
   "coreMofRecords": 1240,
   "qmofRecords": 1240,
   "organicAcidLiteratureRecords": 540,
@@ -10,7 +10,7 @@
   "experimentalLabelCount": 150,
   "externalTestCount": 80,
   "benchmarkEligibleCount": 230,
-  "currentVersion": "V3.9.9",
+  "currentVersion": "V3.10.1",
   "bestModel": "Random Forest",
   "accuracy": 0.725,
   "rocAuc": 0.7558,
@@ -24,7 +24,7 @@
   "benchmarkBlocker": "independently_measured_experimental_labels_missing",
   "notFinalRecommendation": true,
   "databasePreview": true,
-  "lastUpdated": "2026-06-24",
+  "lastUpdated": "2026-06-29",
   "sourceFiles": [
     "public/data/data_ingestion/data_ingestion_summary_v3.json",
     "public/data/home_summary.json",
@@ -43,7 +43,11 @@
     "public/data/data_ingestion/qmof_import_v2.json",
     "public/data/data_ingestion/organic_acid_reaction_dataset_v1.json",
     "public/data/organic_acid_literature_dataset_v2.json",
-    "public/data/organic_acid_gold_dataset_v2.json"
+    "public/data/organic_acid_gold_dataset_v2.json",
+    "public/data/gas_adsorption_records_v2.json",
+    "public/data/gas_adsorption_v2_1_iast_report.json",
+    "public/data/mof_identity_resolution_report.json",
+    "public/data/gas_structure_proxy_validation_report.json"
   ],
   "notes": [
     "Homepage summary is intentionally lightweight and excludes large record arrays.",
@@ -60,6 +64,21 @@
     "V3.9.5.5 fixes the guest-factor dumbbell clipping bug, upgrades HGCPS/host rose charts with academic rings and factor-detail interaction, adds a Run control through Step 0-Step 6-final result, expands structured conclusions, and adds final-result comparison figures while preserving white-box and planning-only boundaries.",
     "V3.9.6 preregisters the Organic Acid scoring spec, derives host/guest/route factors from existing real datasets where fields exist, labels sparse descriptors as curated fallback or literature prior, and recomputes HGCPS at runtime while preserving white-box and planning-only boundaries.",
     "V3.9.7 audits pore-proxy validity, family fairness, and rank sensitivity; fixes repeated derivation and recommendation inconsistency; preregisters ligand, synthesizability, and economic LCC descriptors; and reruns the locked weighted-geometric model without post-hoc tuning.",
-    "V3.9.8 adds fixed-weight L0-L3 descriptor ablation and log-contribution views, a Methods-grade eight-factor algorithm showcase, a four-stage ranking-evolution research report, visible proxy/family/sensitivity audit conclusions, stronger content-addressed memoization, and a locked-spec rerun using the supplied June 2026 mixed-confidence prices."
-  ]
+    "V3.9.8 adds fixed-weight L0-L3 descriptor ablation and log-contribution views, a Methods-grade eight-factor algorithm showcase, a four-stage ranking-evolution research report, visible proxy/family/sensitivity audit conclusions, stronger content-addressed memoization, and a locked-spec rerun using the supplied June 2026 mixed-confidence prices.",
+    "Gas Adsorption v2.1 computes 69 IAST selectivity values from paired real isotherms, links 79 gas records to structural candidates, and keeps missing selectivity/identity gaps explicit."
+  ],
+  "gasAdsorptionV21": {
+    "recordCount": 442,
+    "computedIastSelectivityCount": 69,
+    "recordsWithIastSelectivity": 112,
+    "gasRecordsWithStructuralLinks": 79,
+    "gasStructureResolutionRate": 0.1787,
+    "proxyValidationStatus": "low-validity-indicative",
+    "sourceFiles": [
+      "public/data/gas_adsorption_records_v2.json",
+      "public/data/gas_adsorption_v2_1_iast_report.json",
+      "public/data/mof_identity_resolution_report.json",
+      "public/data/gas_structure_proxy_validation_report.json"
+    ]
+  }
 }

@@ -24,7 +24,7 @@ describe("organic acid methods and V2.6 evolution", () => {
     expect(figureSource).toMatch(/No fake Accuracy/)
     expect(centerSource).toMatch(/Algorithm Validation Center/)
     expect(centerSource).toMatch(/Experimental Validation Layer/)
-    expect(versionData.currentVersion).toBe("V3.9.9")
+    expect(versionData.currentVersion).toBe("V3.10.1")
     expect(versionData.versions.find(row => row.version === "V2.6").algorithmImpact).toMatch(/风险惩罚/)
     expect(versionData.versions.find(row => row.version === "V2.8").summary).toMatch(/Interactive Scientific Figure/)
     expect(versionData.versions.find(row => row.version === "V3.0").summary).toMatch(/Data Foundation/)

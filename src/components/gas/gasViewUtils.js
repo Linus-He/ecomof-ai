@@ -36,6 +36,7 @@ export function metricLabel(metric, lang) {
 }
 
 export function finite(value) {
+  if (value === null || value === undefined || value === "" || typeof value === "boolean") return null
   const number = Number(value)
   return Number.isFinite(number) ? number : null
 }
@@ -55,7 +56,8 @@ export function metricRawValue(record, metric) {
   if (!record) return null
   if (metric === "stability") return getStabilityScore(record)
   if (metric === "evidence") return getEvidenceScore(record)
-  return finite(record[metric])
+  if (metric === "selectivity") return finite(record.selectivity ?? record.metrics?.selectivity ?? record.iaSTSelectivity ?? record.metrics?.iaSTSelectivity)
+  return finite(record[metric] ?? record.metrics?.[metric])
 }
 
 export function metricNormalizedValue(record, metric, peers = []) {

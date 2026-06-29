@@ -123,24 +123,24 @@ function EvolutionOverview({ data, projectStatus, lang, t, isMobile }) {
 }
 
 const CURRENT_RELEASE = {
-  version: "V3.9.8",
-  title: { zh: "描述符影响、真实价格与方法学报告", en: "Descriptor Impact, Real Prices, and Methodology Reporting" },
+  version: "V3.10.1",
+  title: { zh: "气体数据库 v2.1：IAST 选择性与实体打通", en: "Gas Database v2.1: IAST Selectivity and Identity Linking" },
   summary: {
-    zh: "新增 L0–L3 描述符消融、Methods 级算法展示与排名演化报告；替换十项指定真实价格后按锁定 spec v2 如实重跑，不做事后调权。",
-    en: "Adds L0-L3 descriptor ablation, a Methods-grade algorithm showcase, and ranking-evolution reporting; reruns the locked spec v2 after replacing ten specified prices without post-hoc tuning.",
+    zh: "用真实单组分等温线派生 IAST 选择性，补强气体 MOF 到 CoRE/QMOF 结构库的保守实体解析，并把覆盖度、重复审计和结构代理 Spearman 报告纳入 UI。",
+    en: "Derives IAST selectivity from real pure-component isotherms, strengthens conservative gas-to-structure identity links, and surfaces coverage, duplicate auditing, and structure-proxy Spearman reports.",
   },
   scientificImpact: {
-    zh: "把历次翻盘、描述符方向性影响、价格修订和审计边界作为方法学结果公开；当前排名仍只代表实验验证优先级。",
-    en: "Publishes ranking reversals, directional descriptor effects, price revisions, and audit boundaries as methodological results; rankings remain experimental-validation priorities.",
+    zh: "选择性不再依赖少量 seed 字段；每条 IAST 都标为 computed-IAST，并保留两条源等温线、拟合 R² 和非突破实验 caveat。",
+    en: "Selectivity no longer depends on sparse seed fields; each IAST value is labeled computed-IAST with source isotherm IDs, fit R2, and a non-breakthrough caveat.",
   },
   validationImpact: {
-    zh: "实验矩阵、同条件数据模板和反馈规则构成下一轮验证入口；尚不能用于性能声明或正式机器学习。",
-    en: "Experiment matrix, same-condition template, and feedback rules define the next validation entry; not for performance claims or formal ML.",
+    zh: "结构代理只作为与真实 uptake 的 Spearman 指示性审计；低相关时标 low-validity-indicative，不冒充吸附预测。",
+    en: "Structure proxies are only Spearman-indicative audits against real uptake; low correlations are labeled low-validity-indicative rather than predictions.",
   },
   breakingChanges: { zh: "无", en: "None" },
   nextVersionGoal: {
-    zh: "用 Fastmarkets / USGS / SMM 复核中低置信价格，并补齐同条件实验与客体掺杂专门数据。",
-    en: "Verify medium/low-confidence prices with Fastmarkets/USGS/SMM and add same-condition and dedicated dopant data.",
+    zh: "人工复核 matched-by-composition 候选，补直接 CoRE/QMOF ID，并为 IAST 高排名材料收集真实混合/突破曲线验证。",
+    en: "Manually review matched-by-composition candidates, add direct CoRE/QMOF IDs, and collect real mixture/breakthrough validation for top IAST-ranked materials.",
   },
 }
 
@@ -148,34 +148,34 @@ const CURRENT_RELEASE = {
 const PROJECT_UPDATE_STREAMS = [
   {
     no: "01",
-    label: { zh: "描述符消融", en: "Descriptor ablation" },
+    label: { zh: "IAST 选择性", en: "IAST selectivity" },
     body: {
-      zh: "在固定 spec v2 权重下重算 L0 仅结构、L1 配体、L2 可合成性与 L3 经济性，展示逐层排名变化与对数贡献。",
-      en: "Recomputes L0 structure-only, L1 ligand, L2 synthesizability, and L3 economics under fixed spec-v2 weights, including rank deltas and log contributions.",
+      zh: "对同一 MOF、同温度且两种纯组分等温线都存在的 CO₂/N₂、CO₂/CH₄、H₂/CO₂ 记录拟合 Langmuir / 双位 Langmuir / Freundlich，并用二元 IAST 计算选择性。",
+      en: "Fits Langmuir, dual-site Langmuir, and Freundlich models for same-MOF, same-temperature paired pure-component CO2/N2, CO2/CH4, and H2/CO2 records, then solves binary IAST.",
     },
   },
   {
     no: "02",
-    label: { zh: "Methods 展示", en: "Methods showcase" },
+    label: { zh: "实体解析", en: "Identity resolution" },
     body: {
-      zh: "正式展示八因子加权几何 HGCPS、因子来源 / 归一化 / 权重 / 等级、预注册时间戳与审计结论。",
-      en: "Formally presents the eight-factor weighted-geometric HGCPS, factor sources/normalization/weights/grades, preregistration timestamps, and audit conclusions.",
+      zh: "扩展 HKUST-1/Cu-BTC、IRMOF-1/MOF-5、MOF-74/CPO-27、UiO、MIL、ZIF 等别名，并用金属+linker 保守候选匹配结构库，未匹配项继续 unresolved。",
+      en: "Expands HKUST-1/Cu-BTC, IRMOF-1/MOF-5, MOF-74/CPO-27, UiO, MIL, and ZIF aliases, plus conservative metal+linker candidate matching while preserving unresolved records.",
     },
   },
   {
     no: "03",
-    label: { zh: "真实价格重跑", en: "Real-price rerun" },
+    label: { zh: "覆盖度上墙", en: "Coverage surfaced" },
     body: {
-      zh: "替换十项指定的 2026-06 价格并保留逐行置信度；未提供的金属继续标为 fallback，重跑结果不做人工修正。",
-      en: "Replaces ten specified June 2026 prices with row-level confidence; unprovided metals remain fallback and rerun results are not manually adjusted.",
+      zh: "GasSep、MOF Library 与 Data Sources 同步展示可用于选择性、等温线、结构链接和 IAST 的真实覆盖，薄气对继续提示。",
+      en: "GasSep, MOF Library, and Data Sources now show true coverage for selectivity, isotherms, structural links, and IAST, with thin-pair warnings preserved.",
     },
   },
   {
     no: "04",
-    label: { zh: "演化报告与审计", en: "Evolution report and audit" },
+    label: { zh: "代理验证与对比", en: "Proxy validation and comparison" },
     body: {
-      zh: "研究报告追加四阶段排名日志、书面分析、孔代理 Spearman、家族置信与敏感性结论，并保留非性能证明边界。",
-      en: "The research report adds a four-stage ranking log, written analysis, pore-proxy Spearman, family confidence, and sensitivity conclusions while preserving the non-performance-proof boundary.",
+      zh: "结构描述符与真实 uptake 做 Spearman 指示性审计；GasSep 对比面板改为选中材料与对照材料的关键指标并排展示。",
+      en: "Structure descriptors are audited against real uptake with indicative Spearman results; GasSep comparison now presents selected and comparison materials side by side.",
     },
   },
 ]
@@ -303,7 +303,7 @@ function ProjectUpdates({ lang, t, isMobile }) {
     <Card
       id="project-evolution-release-notes"
       title={text(lang, "项目更新", "Project Updates")}
-      subtitle={text(lang, `当前版本 ${CURRENT_RELEASE.version} 的更新按描述符消融、Methods 展示、真实价格重跑、演化报告与审计四条线索整理。`, `Updates in the current ${CURRENT_RELEASE.version} release are organized into descriptor ablation, Methods showcase, real-price rerun, and evolution-report/audit streams.`)}
+      subtitle={text(lang, `当前版本 ${CURRENT_RELEASE.version} 的更新按 IAST 选择性、实体解析、覆盖度上墙、代理验证与对比四条线索整理。`, `Updates in the current ${CURRENT_RELEASE.version} release are organized into IAST selectivity, identity resolution, coverage surfacing, and proxy-validation/comparison streams.`)}
       t={t}
     >
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>

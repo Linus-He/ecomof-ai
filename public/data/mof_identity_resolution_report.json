@@ -1,0 +1,2268 @@
+{
+  "schemaVersion": "mof-identity-resolution-report-v2.1",
+  "generatedAt": "2026-06-29",
+  "summary": {
+    "gasRecordCount": 442,
+    "linkedGasRecordCount": 79,
+    "unresolvedGasRecordCount": 363,
+    "gasStructureResolutionRate": 0.1787,
+    "compositionMatchedCanonicalCount": 5,
+    "structuralInputCount": 3530
+  },
+  "compositionMatches": [
+    {
+      "canonicalId": "mof-uio-66",
+      "primaryName": "UiO-66",
+      "matchCount": 5,
+      "rule": {
+        "metal": [
+          "Zr"
+        ],
+        "linker": [
+          "BDC"
+        ],
+        "confidence": 0.48
+      }
+    },
+    {
+      "canonicalId": "mof-hkust-1",
+      "primaryName": "HKUST-1",
+      "matchCount": 4,
+      "rule": {
+        "metal": [
+          "Cu"
+        ],
+        "linker": [
+          "BTC"
+        ],
+        "confidence": 0.58
+      }
+    },
+    {
+      "canonicalId": "mof-mof-74",
+      "primaryName": "MOF-74",
+      "matchCount": 6,
+      "rule": {
+        "metal": [
+          "Mg",
+          "Ni",
+          "Co",
+          "Zn"
+        ],
+        "linker": [
+          "DOBDC"
+        ],
+        "confidence": 0.5
+      }
+    },
+    {
+      "canonicalId": "mof-mil-101",
+      "primaryName": "MIL-101",
+      "matchCount": 5,
+      "rule": {
+        "metal": [
+          "Cr"
+        ],
+        "linker": [
+          "BDC"
+        ],
+        "confidence": 0.46
+      }
+    },
+    {
+      "canonicalId": "mof-irmof-1",
+      "primaryName": "IRMOF-1",
+      "matchCount": 4,
+      "rule": {
+        "metal": [
+          "Zn"
+        ],
+        "linker": [
+          "BDC"
+        ],
+        "confidence": 0.52
+      }
+    }
+  ],
+  "unresolved": [
+    {
+      "gasRecordId": "gassep-v2-co2-n2-soc-mof-10-1002aic-11865-isotherm3-0001",
+      "rawName": "Soc-MOF",
+      "canonicalId": "mof-soc-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-soc-mof-10-1002aic-11865-isotherm3-0002",
+      "rawName": "Soc-MOF",
+      "canonicalId": "mof-soc-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-h2-co2-soc-mof-10-1002aic-11865-isotherm4-0003",
+      "rawName": "Soc-MOF",
+      "canonicalId": "mof-soc-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-bio-mof-11-10-1002cssc-201000080-isotherm1-0008",
+      "rawName": "Bio-MOF-11",
+      "canonicalId": "mof-bio-mof-11",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-bio-mof-11-10-1002cssc-201000080-isotherm1-0009",
+      "rawName": "Bio-MOF-11",
+      "canonicalId": "mof-bio-mof-11",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-h2-co2-bio-mof-11-10-1002cssc-201000080-isotherm10-0010",
+      "rawName": "Bio-MOF-11",
+      "canonicalId": "mof-bio-mof-11",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-h2-co2-bio-mof-11-10-1002cssc-201000080-isotherm3-0011",
+      "rawName": "Bio-MOF-11",
+      "canonicalId": "mof-bio-mof-11",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-cof-102-10-1007s10450-010-9305-3-isotherm1-0016",
+      "rawName": "COF-102",
+      "canonicalId": "mof-cof-102",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-cof-102-10-1007s10450-010-9305-3-isotherm1-0017",
+      "rawName": "COF-102",
+      "canonicalId": "mof-cof-102",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-177-10-1007s10450-010-9305-3-isotherm2-0018",
+      "rawName": "MOF-177",
+      "canonicalId": "mof-mof-177",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-177-10-1007s10450-010-9305-3-isotherm2-0019",
+      "rawName": "MOF-177",
+      "canonicalId": "mof-mof-177",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zn4o-ch4-10-1007s10909-013-0864-z-isotherm10-0022",
+      "rawName": "Zn4O-CH4",
+      "canonicalId": "mof-zn4o-ch4",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zn4o-ch4-10-1007s10909-013-0864-z-isotherm10-0023",
+      "rawName": "Zn4O-CH4",
+      "canonicalId": "mof-zn4o-ch4",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zn4o-ch4-10-1007s10909-013-0864-z-isotherm11-0024",
+      "rawName": "Zn4O-CH4",
+      "canonicalId": "mof-zn4o-ch4",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zn4o-ch4-10-1007s10909-013-0864-z-isotherm11-0025",
+      "rawName": "Zn4O-CH4",
+      "canonicalId": "mof-zn4o-ch4",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-lj-p-mof-10-1007s10909-013-0864-z-isotherm12-0026",
+      "rawName": "LJ+P-MOF",
+      "canonicalId": "mof-lj-p-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-lj-p-mof-10-1007s10909-013-0864-z-isotherm12-0027",
+      "rawName": "LJ+P-MOF",
+      "canonicalId": "mof-lj-p-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-lj-mof-10-1007s10909-013-0864-z-isotherm13-0028",
+      "rawName": "LJ-MOF",
+      "canonicalId": "mof-lj-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-lj-mof-10-1007s10909-013-0864-z-isotherm13-0029",
+      "rawName": "LJ-MOF",
+      "canonicalId": "mof-lj-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-lj-p-mof-10-1007s10909-013-0864-z-isotherm14-0030",
+      "rawName": "LJ+P-MOF",
+      "canonicalId": "mof-lj-p-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-lj-p-mof-10-1007s10909-013-0864-z-isotherm14-0031",
+      "rawName": "LJ+P-MOF",
+      "canonicalId": "mof-lj-p-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-lj-mof-10-1007s10909-013-0864-z-isotherm15-0032",
+      "rawName": "LJ-MOF",
+      "canonicalId": "mof-lj-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-lj-mof-10-1007s10909-013-0864-z-isotherm15-0033",
+      "rawName": "LJ-MOF",
+      "canonicalId": "mof-lj-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-h2-co2-lj-mof-10-1007s10909-013-0864-z-isotherm17-0034",
+      "rawName": "LJ-MOF",
+      "canonicalId": "mof-lj-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-lj-mof-10-1007s10909-013-0864-z-isotherm18-0035",
+      "rawName": "LJ-MOF",
+      "canonicalId": "mof-lj-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-lj-mof-10-1007s10909-013-0864-z-isotherm18-0036",
+      "rawName": "LJ-MOF",
+      "canonicalId": "mof-lj-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-h2-co2-lj-mof-10-1007s10909-013-0864-z-isotherm20-0037",
+      "rawName": "LJ-MOF",
+      "canonicalId": "mof-lj-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zn4o-ch4-10-1007s10909-013-0864-z-isotherm7-0038",
+      "rawName": "Zn4O-CH4",
+      "canonicalId": "mof-zn4o-ch4",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zn4o-ch4-10-1007s10909-013-0864-z-isotherm7-0039",
+      "rawName": "Zn4O-CH4",
+      "canonicalId": "mof-zn4o-ch4",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zn4o-ch4-10-1007s10909-013-0864-z-isotherm9-0040",
+      "rawName": "Zn4O-CH4",
+      "canonicalId": "mof-zn4o-ch4",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zn4o-ch4-10-1007s10909-013-0864-z-isotherm9-0041",
+      "rawName": "Zn4O-CH4",
+      "canonicalId": "mof-zn4o-ch4",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zn4o-ch4-10-1007s10909-013-0864-z-isotherm8-0042",
+      "rawName": "Zn4O-CH4",
+      "canonicalId": "mof-zn4o-ch4",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zn4o-ch4-10-1007s10909-013-0864-z-isotherm8-0043",
+      "rawName": "Zn4O-CH4",
+      "canonicalId": "mof-zn4o-ch4",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-bio-mof-11-10-1016j-ces-2015-03-016-isotherm1-0044",
+      "rawName": "Bio-MOF-11",
+      "canonicalId": "mof-bio-mof-11",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-bio-mof-11-10-1016j-ces-2015-03-016-isotherm1-0045",
+      "rawName": "Bio-MOF-11",
+      "canonicalId": "mof-bio-mof-11",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-bio-mof-13-configuration-i-10-1016j-ces-2015-03-016-isotherm4-0046",
+      "rawName": "bio-MOF-13 (Configuration I)",
+      "canonicalId": "mof-bio-mof-13-configuration-i",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-bio-mof-13-configuration-i-10-1016j-ces-2015-03-016-isotherm4-0047",
+      "rawName": "bio-MOF-13 (Configuration I)",
+      "canonicalId": "mof-bio-mof-13-configuration-i",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-bio-mof-13-configuration-ii-10-1016j-ces-2015-03-016-isotherm5-0048",
+      "rawName": "bio-MOF-13 (Configuration II)",
+      "canonicalId": "mof-bio-mof-13-configuration-ii",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-bio-mof-13-configuration-ii-10-1016j-ces-2015-03-016-isotherm5-0049",
+      "rawName": "bio-MOF-13 (Configuration II)",
+      "canonicalId": "mof-bio-mof-13-configuration-ii",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-bio-mof-12-10-1016j-ces-2015-03-016-isotherm3-0050",
+      "rawName": "Bio-MOF-12",
+      "canonicalId": "mof-bio-mof-12",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-bio-mof-12-10-1016j-ces-2015-03-016-isotherm3-0051",
+      "rawName": "Bio-MOF-12",
+      "canonicalId": "mof-bio-mof-12",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-bio-mof-14-configuration-i-10-1016j-ces-2015-03-016-isotherm6-0052",
+      "rawName": "bio-MOF-14 (Configuration I)",
+      "canonicalId": "mof-bio-mof-14-configuration-i",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-bio-mof-14-configuration-i-10-1016j-ces-2015-03-016-isotherm6-0053",
+      "rawName": "bio-MOF-14 (Configuration I)",
+      "canonicalId": "mof-bio-mof-14-configuration-i",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-bio-mof-14-configuration-iii-10-1016j-ces-2015-03-016-isotherm7-0054",
+      "rawName": "bio-MOF-14 (Configuration III)",
+      "canonicalId": "mof-bio-mof-14-configuration-iii",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-bio-mof-14-configuration-iii-10-1016j-ces-2015-03-016-isotherm7-0055",
+      "rawName": "bio-MOF-14 (Configuration III)",
+      "canonicalId": "mof-bio-mof-14-configuration-iii",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-li-hkust-1-10-1021acs-jpcc-6b01119-isotherm3-0074",
+      "rawName": "Li-HKUST-1",
+      "canonicalId": "mof-li-hkust-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-li-hkust-1-10-1021acs-jpcc-6b01119-isotherm3-0075",
+      "rawName": "Li-HKUST-1",
+      "canonicalId": "mof-li-hkust-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-143-10-1021acs-jpcc-6b01119-isotherm4-0076",
+      "rawName": "MOF-143",
+      "canonicalId": "mof-mof-143",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-143-10-1021acs-jpcc-6b01119-isotherm4-0077",
+      "rawName": "MOF-143",
+      "canonicalId": "mof-mof-143",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-li-mof-143-10-1021acs-jpcc-6b01119-isotherm5-0078",
+      "rawName": "Li-MOF-143",
+      "canonicalId": "mof-li-mof-143",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-li-mof-143-10-1021acs-jpcc-6b01119-isotherm5-0079",
+      "rawName": "Li-MOF-143",
+      "canonicalId": "mof-li-mof-143",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-399-10-1021acs-jpcc-6b01119-isotherm6-0080",
+      "rawName": "MOF-399",
+      "canonicalId": "mof-mof-399",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-399-10-1021acs-jpcc-6b01119-isotherm6-0081",
+      "rawName": "MOF-399",
+      "canonicalId": "mof-mof-399",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-li-mof-399-10-1021acs-jpcc-6b01119-isotherm7-0082",
+      "rawName": "Li-MOF-399",
+      "canonicalId": "mof-li-mof-399",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-li-mof-399-10-1021acs-jpcc-6b01119-isotherm7-0083",
+      "rawName": "Li-MOF-399",
+      "canonicalId": "mof-li-mof-399",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-cu-mof-sif6-10-1039c1jm10394f-isotherm4-0084",
+      "rawName": "Cu-MOF-SiF6",
+      "canonicalId": "mof-cu-mof-sif6",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-cu-mof-sif6-10-1039c1jm10394f-isotherm4-0085",
+      "rawName": "Cu-MOF-SiF6",
+      "canonicalId": "mof-cu-mof-sif6",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-h2-co2-gamof-1-10-1021ic101789u-isotherm1-0086",
+      "rawName": "GaMOF-1",
+      "canonicalId": "mof-gamof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-h2-co2-gamof-1-10-1021ic101789u-isotherm2-0087",
+      "rawName": "GaMOF-1",
+      "canonicalId": "mof-gamof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-446-mof-ni-10-1002chem-201500457-isotherm10-0088",
+      "rawName": "446-MOF-Ni",
+      "canonicalId": "mof-446-mof-ni",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-446-mof-ni-10-1002chem-201500457-isotherm10-0089",
+      "rawName": "446-MOF-Ni",
+      "canonicalId": "mof-446-mof-ni",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-446-mof-10-1002chem-201500457-isotherm11-0090",
+      "rawName": "446-MOF",
+      "canonicalId": "mof-446-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-446-mof-10-1002chem-201500457-isotherm11-0091",
+      "rawName": "446-MOF",
+      "canonicalId": "mof-446-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-446-mof-co-10-1002chem-201500457-isotherm13-0092",
+      "rawName": "446-MOF-Co",
+      "canonicalId": "mof-446-mof-co",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-446-mof-co-10-1002chem-201500457-isotherm13-0093",
+      "rawName": "446-MOF-Co",
+      "canonicalId": "mof-446-mof-co",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-amgnd-bio-mof-1-10-1039c3cc47031h-isotherm10-0094",
+      "rawName": "AmGND-bio-MOF-1",
+      "canonicalId": "mof-amgnd-bio-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-amgnd-bio-mof-1-10-1039c3cc47031h-isotherm10-0095",
+      "rawName": "AmGND-bio-MOF-1",
+      "canonicalId": "mof-amgnd-bio-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-gnd-bio-mof-1-10-1039c3cc47031h-isotherm11-0096",
+      "rawName": "GND-bio-MOF-1",
+      "canonicalId": "mof-gnd-bio-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-gnd-bio-mof-1-10-1039c3cc47031h-isotherm11-0097",
+      "rawName": "GND-bio-MOF-1",
+      "canonicalId": "mof-gnd-bio-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-bio-mof-1-10-1039c3cc47031h-isotherm12-0098",
+      "rawName": "Bio-MOF-1",
+      "canonicalId": "mof-bio-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-bio-mof-1-10-1039c3cc47031h-isotherm12-0099",
+      "rawName": "Bio-MOF-1",
+      "canonicalId": "mof-bio-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-diamgnd-bio-mof-1-10-1039c3cc47031h-isotherm5-0100",
+      "rawName": "DiAmGND-bio-MOF-1",
+      "canonicalId": "mof-diamgnd-bio-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-diamgnd-bio-mof-1-10-1039c3cc47031h-isotherm5-0101",
+      "rawName": "DiAmGND-bio-MOF-1",
+      "canonicalId": "mof-diamgnd-bio-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-amgnd-bio-mof-1-10-1039c3cc47031h-isotherm6-0102",
+      "rawName": "AmGND-bio-MOF-1",
+      "canonicalId": "mof-amgnd-bio-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-amgnd-bio-mof-1-10-1039c3cc47031h-isotherm6-0103",
+      "rawName": "AmGND-bio-MOF-1",
+      "canonicalId": "mof-amgnd-bio-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-gnd-bio-mof-1-10-1039c3cc47031h-isotherm7-0104",
+      "rawName": "GND-bio-MOF-1",
+      "canonicalId": "mof-gnd-bio-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-gnd-bio-mof-1-10-1039c3cc47031h-isotherm7-0105",
+      "rawName": "GND-bio-MOF-1",
+      "canonicalId": "mof-gnd-bio-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-bio-mof-1-10-1039c3cc47031h-isotherm8-0106",
+      "rawName": "Bio-MOF-1",
+      "canonicalId": "mof-bio-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-bio-mof-1-10-1039c3cc47031h-isotherm8-0107",
+      "rawName": "Bio-MOF-1",
+      "canonicalId": "mof-bio-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-diamgnd-bio-mof-1-10-1039c3cc47031h-isotherm9-0108",
+      "rawName": "DiAmGND-bio-MOF-1",
+      "canonicalId": "mof-diamgnd-bio-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-diamgnd-bio-mof-1-10-1039c3cc47031h-isotherm9-0109",
+      "rawName": "DiAmGND-bio-MOF-1",
+      "canonicalId": "mof-diamgnd-bio-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-vacuuated-cumof-with-silica-filler-10-1016j-jssc-2014-09-022-isotherm1-0110",
+      "rawName": "Vacuuated CuMOF with silica filler",
+      "canonicalId": "mof-vacuuated-cumof-with-silica-filler",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-vacuuated-cumof-with-silica-filler-10-1016j-jssc-2014-09-022-isotherm1-0111",
+      "rawName": "Vacuuated CuMOF with silica filler",
+      "canonicalId": "mof-vacuuated-cumof-with-silica-filler",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-vacuuated-cumof-10-1016j-jssc-2014-09-022-isotherm2-0112",
+      "rawName": "Vacuuated CuMOF",
+      "canonicalId": "mof-vacuuated-cumof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-vacuuated-cumof-10-1016j-jssc-2014-09-022-isotherm2-0113",
+      "rawName": "Vacuuated CuMOF",
+      "canonicalId": "mof-vacuuated-cumof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-1c-li-10-1016j-micromeso-2010-10-048-isotherm1-0114",
+      "rawName": "MOF-1C'-Li",
+      "canonicalId": "mof-mof-1c-li",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-1c-li-10-1016j-micromeso-2010-10-048-isotherm1-0115",
+      "rawName": "MOF-1C'-Li",
+      "canonicalId": "mof-mof-1c-li",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-2-10-1016j-micromeso-2010-10-048-isotherm10-0116",
+      "rawName": "MOF-2'",
+      "canonicalId": "mof-mof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-2-10-1016j-micromeso-2010-10-048-isotherm10-0117",
+      "rawName": "MOF-2'",
+      "canonicalId": "mof-mof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-2-li-10-1016j-micromeso-2010-10-048-isotherm9-0118",
+      "rawName": "MOF-2'-Li",
+      "canonicalId": "mof-mof-2-li",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-2-li-10-1016j-micromeso-2010-10-048-isotherm9-0119",
+      "rawName": "MOF-2'-Li",
+      "canonicalId": "mof-mof-2-li",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-1c-10-1016j-micromeso-2010-10-048-isotherm2-0120",
+      "rawName": "MOF-1C'",
+      "canonicalId": "mof-mof-1c",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-1c-10-1016j-micromeso-2010-10-048-isotherm2-0121",
+      "rawName": "MOF-1C'",
+      "canonicalId": "mof-mof-1c",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-1m-10-1016j-micromeso-2010-10-048-isotherm5-0122",
+      "rawName": "MOF-1M'",
+      "canonicalId": "mof-mof-1m",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-1m-10-1016j-micromeso-2010-10-048-isotherm5-0123",
+      "rawName": "MOF-1M'",
+      "canonicalId": "mof-mof-1m",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-1m-li-10-1016j-micromeso-2010-10-048-isotherm6-0124",
+      "rawName": "MOF-1M'-Li",
+      "canonicalId": "mof-mof-1m-li",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-1m-li-10-1016j-micromeso-2010-10-048-isotherm6-0125",
+      "rawName": "MOF-1M'-Li",
+      "canonicalId": "mof-mof-1m-li",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-ca-5tia-gel-10-1039c2jm30866e-isotherm1-0126",
+      "rawName": "Ca-5TIA-Gel",
+      "canonicalId": "mof-ca-5tia-gel",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-ca-5tia-gel-10-1039c2jm30866e-isotherm1-0127",
+      "rawName": "Ca-5TIA-Gel",
+      "canonicalId": "mof-ca-5tia-gel",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-ca-5tia-mof-10-1039c2jm30866e-isotherm2-0128",
+      "rawName": "Ca-5TIA-MOF",
+      "canonicalId": "mof-ca-5tia-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-ca-5tia-mof-10-1039c2jm30866e-isotherm2-0129",
+      "rawName": "Ca-5TIA-MOF",
+      "canonicalId": "mof-ca-5tia-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zn-ii-mof-3-10-1021acssuschemeng-7b02087-isotherm10-0130",
+      "rawName": "Zn(II) MOF 3'",
+      "canonicalId": "mof-znii-mof-3",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zn-ii-mof-3-10-1021acssuschemeng-7b02087-isotherm10-0131",
+      "rawName": "Zn(II) MOF 3'",
+      "canonicalId": "mof-znii-mof-3",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zn-ii-mof-1-after-2-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm11-0132",
+      "rawName": "Zn(II) MOF 1' after 2 days exposure to water vapor",
+      "canonicalId": "mof-znii-mof-1-after-2-days-exposure-to-water-vapor",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zn-ii-mof-1-after-2-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm11-0133",
+      "rawName": "Zn(II) MOF 1' after 2 days exposure to water vapor",
+      "canonicalId": "mof-znii-mof-1-after-2-days-exposure-to-water-vapor",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zn-ii-mof-1-after-4-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm12-0134",
+      "rawName": "Zn(II) MOF 1' after 4 days exposure to water vapor",
+      "canonicalId": "mof-znii-mof-1-after-4-days-exposure-to-water-vapor",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zn-ii-mof-1-after-4-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm12-0135",
+      "rawName": "Zn(II) MOF 1' after 4 days exposure to water vapor",
+      "canonicalId": "mof-znii-mof-1-after-4-days-exposure-to-water-vapor",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zn-ii-mof-1-after-8-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm13-0136",
+      "rawName": "Zn(II) MOF 1' after 8 days exposure to water vapor",
+      "canonicalId": "mof-znii-mof-1-after-8-days-exposure-to-water-vapor",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zn-ii-mof-1-after-8-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm13-0137",
+      "rawName": "Zn(II) MOF 1' after 8 days exposure to water vapor",
+      "canonicalId": "mof-znii-mof-1-after-8-days-exposure-to-water-vapor",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zn-ii-mof-1-after-10-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm14-0138",
+      "rawName": "Zn(II) MOF 1' after 10 days exposure to water vapor",
+      "canonicalId": "mof-znii-mof-1-after-10-days-exposure-to-water-vapor",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zn-ii-mof-1-after-10-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm14-0139",
+      "rawName": "Zn(II) MOF 1' after 10 days exposure to water vapor",
+      "canonicalId": "mof-znii-mof-1-after-10-days-exposure-to-water-vapor",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zn-ii-mof-2-after-2-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm15-0140",
+      "rawName": "Zn(II) MOF 2' after 2 days exposure to water vapor",
+      "canonicalId": "mof-znii-mof-2-after-2-days-exposure-to-water-vapor",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zn-ii-mof-2-after-2-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm15-0141",
+      "rawName": "Zn(II) MOF 2' after 2 days exposure to water vapor",
+      "canonicalId": "mof-znii-mof-2-after-2-days-exposure-to-water-vapor",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zn-ii-mof-2-after-4-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm16-0142",
+      "rawName": "Zn(II) MOF 2' after 4 days exposure to water vapor",
+      "canonicalId": "mof-znii-mof-2-after-4-days-exposure-to-water-vapor",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zn-ii-mof-2-after-4-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm16-0143",
+      "rawName": "Zn(II) MOF 2' after 4 days exposure to water vapor",
+      "canonicalId": "mof-znii-mof-2-after-4-days-exposure-to-water-vapor",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zn-ii-mof-2-after-6-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm17-0144",
+      "rawName": "Zn(II) MOF 2' after 6 days exposure to water vapor",
+      "canonicalId": "mof-znii-mof-2-after-6-days-exposure-to-water-vapor",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zn-ii-mof-2-after-6-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm17-0145",
+      "rawName": "Zn(II) MOF 2' after 6 days exposure to water vapor",
+      "canonicalId": "mof-znii-mof-2-after-6-days-exposure-to-water-vapor",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zn-ii-mof-2-after-8-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm18-0146",
+      "rawName": "Zn(II) MOF 2' after 8 days exposure to water vapor",
+      "canonicalId": "mof-znii-mof-2-after-8-days-exposure-to-water-vapor",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zn-ii-mof-2-after-8-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm18-0147",
+      "rawName": "Zn(II) MOF 2' after 8 days exposure to water vapor",
+      "canonicalId": "mof-znii-mof-2-after-8-days-exposure-to-water-vapor",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zn-ii-mof-2-after-10-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm19-0148",
+      "rawName": "Zn(II) MOF 2' after 10 days exposure to water vapor",
+      "canonicalId": "mof-znii-mof-2-after-10-days-exposure-to-water-vapor",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zn-ii-mof-2-after-10-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm19-0149",
+      "rawName": "Zn(II) MOF 2' after 10 days exposure to water vapor",
+      "canonicalId": "mof-znii-mof-2-after-10-days-exposure-to-water-vapor",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zn-ii-mof-1-10-1021acssuschemeng-7b02087-isotherm22-0150",
+      "rawName": "Zn(II) MOF 1'",
+      "canonicalId": "mof-znii-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zn-ii-mof-1-10-1021acssuschemeng-7b02087-isotherm22-0151",
+      "rawName": "Zn(II) MOF 1'",
+      "canonicalId": "mof-znii-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zn-ii-mof-2-10-1021acssuschemeng-7b02087-isotherm23-0152",
+      "rawName": "Zn(II) MOF 2'",
+      "canonicalId": "mof-znii-mof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zn-ii-mof-2-10-1021acssuschemeng-7b02087-isotherm23-0153",
+      "rawName": "Zn(II) MOF 2'",
+      "canonicalId": "mof-znii-mof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zn-ii-mof-3-10-1021acssuschemeng-7b02087-isotherm9-0154",
+      "rawName": "Zn(II) MOF 3'",
+      "canonicalId": "mof-znii-mof-3",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zn-ii-mof-3-10-1021acssuschemeng-7b02087-isotherm9-0155",
+      "rawName": "Zn(II) MOF 3'",
+      "canonicalId": "mof-znii-mof-3",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mg-mof-74-mr-photoswitchg-1-hour-10-1021acs-chemmater-5b02211-isotherm1-0156",
+      "rawName": "Mg-MOF-74@MR(Photoswitchg 1 hour)",
+      "canonicalId": "mof-mg-mof-74-mrphotoswitchg-1-hour",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mg-mof-74-mr-photoswitchg-1-hour-10-1021acs-chemmater-5b02211-isotherm1-0157",
+      "rawName": "Mg-MOF-74@MR(Photoswitchg 1 hour)",
+      "canonicalId": "mof-mg-mof-74-mrphotoswitchg-1-hour",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mil-53-al-mr-50wt-irradiated-10-1021acs-chemmater-5b02211-isotherm10-0158",
+      "rawName": "MIL-53(Al)@MR 50wt%(Irradiated)",
+      "canonicalId": "mof-mil-53al-mr-50wt-irradiated",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mil-53-al-mr-50wt-irradiated-10-1021acs-chemmater-5b02211-isotherm10-0159",
+      "rawName": "MIL-53(Al)@MR 50wt%(Irradiated)",
+      "canonicalId": "mof-mil-53al-mr-50wt-irradiated",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mil-53-al-mr-50wt-10-1021acs-chemmater-5b02211-isotherm11-0160",
+      "rawName": "MIL-53(Al)@MR 50wt%",
+      "canonicalId": "mof-mil-53al-mr-50wt",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mil-53-al-mr-50wt-10-1021acs-chemmater-5b02211-isotherm11-0161",
+      "rawName": "MIL-53(Al)@MR 50wt%",
+      "canonicalId": "mof-mil-53al-mr-50wt",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mil-53-al-mr-50wt-photoswitched-10-1021acs-chemmater-5b02211-isotherm12-0162",
+      "rawName": "MIL-53(Al)@MR 50wt%(Photoswitched)",
+      "canonicalId": "mof-mil-53al-mr-50wt-photoswitched",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mil-53-al-mr-50wt-photoswitched-10-1021acs-chemmater-5b02211-isotherm12-0163",
+      "rawName": "MIL-53(Al)@MR 50wt%(Photoswitched)",
+      "canonicalId": "mof-mil-53al-mr-50wt-photoswitched",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mg-mof-74-mr-1-day-after-relaxation-10-1021acs-chemmater-5b02211-isotherm13-0164",
+      "rawName": "Mg-MOF-74@MR(1 day after relaxation)",
+      "canonicalId": "mof-mg-mof-74-mr1-day-after-relaxation",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mg-mof-74-mr-1-day-after-relaxation-10-1021acs-chemmater-5b02211-isotherm13-0165",
+      "rawName": "Mg-MOF-74@MR(1 day after relaxation)",
+      "canonicalId": "mof-mg-mof-74-mr1-day-after-relaxation",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mg-mof-74-mr-2-days-after-relaxation-10-1021acs-chemmater-5b02211-isotherm14-0166",
+      "rawName": "Mg-MOF-74@MR(2 days after relaxation)",
+      "canonicalId": "mof-mg-mof-74-mr2-days-after-relaxation",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mg-mof-74-mr-2-days-after-relaxation-10-1021acs-chemmater-5b02211-isotherm14-0167",
+      "rawName": "Mg-MOF-74@MR(2 days after relaxation)",
+      "canonicalId": "mof-mg-mof-74-mr2-days-after-relaxation",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mg-mof-74-mr-3-days-after-relaxation-10-1021acs-chemmater-5b02211-isotherm15-0168",
+      "rawName": "Mg-MOF-74@MR(3 days after relaxation)",
+      "canonicalId": "mof-mg-mof-74-mr3-days-after-relaxation",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mg-mof-74-mr-3-days-after-relaxation-10-1021acs-chemmater-5b02211-isotherm15-0169",
+      "rawName": "Mg-MOF-74@MR(3 days after relaxation)",
+      "canonicalId": "mof-mg-mof-74-mr3-days-after-relaxation",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mg-mof-74-mr-10-1021acs-chemmater-5b02211-isotherm2-0170",
+      "rawName": "Mg-MOF-74@MR",
+      "canonicalId": "mof-mg-mof-74-mr",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mg-mof-74-mr-10-1021acs-chemmater-5b02211-isotherm2-0171",
+      "rawName": "Mg-MOF-74@MR",
+      "canonicalId": "mof-mg-mof-74-mr",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mg-mof-74-mr-photoswitching-for-30-min-10-1021acs-chemmater-5b02211-isotherm3-0172",
+      "rawName": "Mg-MOF-74@MR(Photoswitching for 30 min",
+      "canonicalId": "mof-mg-mof-74-mrphotoswitching-for-30-min",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mg-mof-74-mr-photoswitching-for-30-min-10-1021acs-chemmater-5b02211-isotherm3-0173",
+      "rawName": "Mg-MOF-74@MR(Photoswitching for 30 min",
+      "canonicalId": "mof-mg-mof-74-mrphotoswitching-for-30-min",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mg-mof-74-mr-irradiated-for-2-hours-10-1021acs-chemmater-5b02211-isotherm4-0174",
+      "rawName": "Mg-MOF-74@MR(Irradiated for 2 hours)",
+      "canonicalId": "mof-mg-mof-74-mrirradiated-for-2-hours",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mg-mof-74-mr-irradiated-for-2-hours-10-1021acs-chemmater-5b02211-isotherm4-0175",
+      "rawName": "Mg-MOF-74@MR(Irradiated for 2 hours)",
+      "canonicalId": "mof-mg-mof-74-mrirradiated-for-2-hours",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mg-mof-74-mr-irradiated-1-hour-10-1021acs-chemmater-5b02211-isotherm5-0176",
+      "rawName": "Mg-MOF-74@MR(Irradiated 1 hour)",
+      "canonicalId": "mof-mg-mof-74-mrirradiated-1-hour",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mg-mof-74-mr-irradiated-1-hour-10-1021acs-chemmater-5b02211-isotherm5-0177",
+      "rawName": "Mg-MOF-74@MR(Irradiated 1 hour)",
+      "canonicalId": "mof-mg-mof-74-mrirradiated-1-hour",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mg-mof-74-mr-irradiated-30-minutes-10-1021acs-chemmater-5b02211-isotherm6-0178",
+      "rawName": "Mg-MOF-74@MR(Irradiated 30 minutes)",
+      "canonicalId": "mof-mg-mof-74-mrirradiated-30-minutes",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mg-mof-74-mr-irradiated-30-minutes-10-1021acs-chemmater-5b02211-isotherm6-0179",
+      "rawName": "Mg-MOF-74@MR(Irradiated 30 minutes)",
+      "canonicalId": "mof-mg-mof-74-mrirradiated-30-minutes",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mil-53-al-mr-15wt-irradiated-10-1021acs-chemmater-5b02211-isotherm7-0180",
+      "rawName": "MIL-53(Al)@MR 15wt%(Irradiated)",
+      "canonicalId": "mof-mil-53al-mr-15wt-irradiated",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mil-53-al-mr-15wt-irradiated-10-1021acs-chemmater-5b02211-isotherm7-0181",
+      "rawName": "MIL-53(Al)@MR 15wt%(Irradiated)",
+      "canonicalId": "mof-mil-53al-mr-15wt-irradiated",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mil-53-al-mr-15wt-10-1021acs-chemmater-5b02211-isotherm8-0182",
+      "rawName": "MIL-53(Al)@MR 15wt%",
+      "canonicalId": "mof-mil-53al-mr-15wt",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mil-53-al-mr-15wt-10-1021acs-chemmater-5b02211-isotherm8-0183",
+      "rawName": "MIL-53(Al)@MR 15wt%",
+      "canonicalId": "mof-mil-53al-mr-15wt",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mil-53-al-mr-15wt-relaxed-10-1021acs-chemmater-5b02211-isotherm9-0184",
+      "rawName": "MIL-53(Al)@MR 15wt%(Relaxed)",
+      "canonicalId": "mof-mil-53al-mr-15wt-relaxed",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mil-53-al-mr-15wt-relaxed-10-1021acs-chemmater-5b02211-isotherm9-0185",
+      "rawName": "MIL-53(Al)@MR 15wt%(Relaxed)",
+      "canonicalId": "mof-mil-53al-mr-15wt-relaxed",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-235-10-1016j-jiec-2012-01-014-isotherm1c-0186",
+      "rawName": "MOF-235",
+      "canonicalId": "mof-mof-235",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-235-10-1016j-jiec-2012-01-014-isotherm1c-0187",
+      "rawName": "MOF-235",
+      "canonicalId": "mof-mof-235",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-h2-co2-mof-235-10-1016j-jiec-2012-01-014-isotherm1b-0188",
+      "rawName": "MOF-235",
+      "canonicalId": "mof-mof-235",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-y-ftw-mof-2-10-1039c5sc00614g-isotherm5-0189",
+      "rawName": "Y-ftw-MOF-2",
+      "canonicalId": "mof-y-ftw-mof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-y-ftw-mof-2-10-1039c5sc00614g-isotherm5-0190",
+      "rawName": "Y-ftw-MOF-2",
+      "canonicalId": "mof-y-ftw-mof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-h2-co2-mof-602-10-1021ja803783c-isotherm6-0191",
+      "rawName": "MOF-602",
+      "canonicalId": "mof-mof-602",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-601-10-1021ja803783c-isotherm10-0192",
+      "rawName": "MOF-601",
+      "canonicalId": "mof-mof-601",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-601-10-1021ja803783c-isotherm10-0193",
+      "rawName": "MOF-601",
+      "canonicalId": "mof-mof-601",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-603-10-1021ja803783c-isotherm11-0194",
+      "rawName": "MOF-603",
+      "canonicalId": "mof-mof-603",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-603-10-1021ja803783c-isotherm11-0195",
+      "rawName": "MOF-603",
+      "canonicalId": "mof-mof-603",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-602-10-1021ja803783c-isotherm12-0196",
+      "rawName": "MOF-602",
+      "canonicalId": "mof-mof-602",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-602-10-1021ja803783c-isotherm12-0197",
+      "rawName": "MOF-602",
+      "canonicalId": "mof-mof-602",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-h2-co2-mof-601-10-1021ja803783c-isotherm7-0198",
+      "rawName": "MOF-601",
+      "canonicalId": "mof-mof-601",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-h2-co2-mop-23-10-1021ja803783c-isotherm5-0199",
+      "rawName": "MOP-23",
+      "canonicalId": "mof-mop-23",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-h2-co2-mof-603-10-1021ja803783c-isotherm8-0200",
+      "rawName": "MOF-603",
+      "canonicalId": "mof-mof-603",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mop-23-10-1021ja803783c-isotherm9-0201",
+      "rawName": "MOP-23",
+      "canonicalId": "mof-mop-23",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mop-23-10-1021ja803783c-isotherm9-0202",
+      "rawName": "MOP-23",
+      "canonicalId": "mof-mop-23",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-fmof-2-10-1002cphc-201200243-isotherm1a-0203",
+      "rawName": "FMOF-2",
+      "canonicalId": "mof-fmof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-fmof-2-10-1002cphc-201200243-isotherm1a-0204",
+      "rawName": "FMOF-2",
+      "canonicalId": "mof-fmof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-fmof-2-10-1002cphc-201200243-isotherm1b-0205",
+      "rawName": "FMOF-2",
+      "canonicalId": "mof-fmof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-fmof-2-10-1002cphc-201200243-isotherm1b-0206",
+      "rawName": "FMOF-2",
+      "canonicalId": "mof-fmof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-fmof-2-10-1002cphc-201200243-isotherm1c-0207",
+      "rawName": "FMOF-2",
+      "canonicalId": "mof-fmof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-fmof-2-10-1002cphc-201200243-isotherm1c-0208",
+      "rawName": "FMOF-2",
+      "canonicalId": "mof-fmof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-fmof-2-10-1002cphc-201200243-isotherm1d-0209",
+      "rawName": "FMOF-2",
+      "canonicalId": "mof-fmof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-fmof-2-10-1002cphc-201200243-isotherm1d-0210",
+      "rawName": "FMOF-2",
+      "canonicalId": "mof-fmof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-fmof-2-10-1021cg9014948-isotherm2-0211",
+      "rawName": "FMOF-2",
+      "canonicalId": "mof-fmof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-fmof-2-10-1021cg9014948-isotherm2-0212",
+      "rawName": "FMOF-2",
+      "canonicalId": "mof-fmof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-200-10-1039c1cc11618e-isotherm1-0213",
+      "rawName": "MOF-200",
+      "canonicalId": "mof-mof-200",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-200-10-1039c1cc11618e-isotherm1-0214",
+      "rawName": "MOF-200",
+      "canonicalId": "mof-mof-200",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-177-10-1039c1cc11618e-isotherm10-0215",
+      "rawName": "MOF-177",
+      "canonicalId": "mof-mof-177",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-177-10-1039c1cc11618e-isotherm10-0216",
+      "rawName": "MOF-177",
+      "canonicalId": "mof-mof-177",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-vr-93-10-1039c1cc11618e-isotherm11-0217",
+      "rawName": "VR-93",
+      "canonicalId": "mof-vr-93",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-vr-93-10-1039c1cc11618e-isotherm11-0218",
+      "rawName": "VR-93",
+      "canonicalId": "mof-vr-93",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-vr-5-10-1039c1cc11618e-isotherm12-0219",
+      "rawName": "VR-5",
+      "canonicalId": "mof-vr-5",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-vr-5-10-1039c1cc11618e-isotherm12-0220",
+      "rawName": "VR-5",
+      "canonicalId": "mof-vr-5",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-maxsorb-10-1039c1cc11618e-isotherm15-0221",
+      "rawName": "MAXSORB",
+      "canonicalId": "mof-maxsorb",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-maxsorb-10-1039c1cc11618e-isotherm15-0222",
+      "rawName": "MAXSORB",
+      "canonicalId": "mof-maxsorb",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-h2-co2-zr-mof-10-1016j-cej-2012-01-104-isotherm2a-0223",
+      "rawName": "Zr-MOF",
+      "canonicalId": "mof-zr-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-h2-co2-zr-mof-10-1016j-cej-2012-01-104-isotherm2b-0224",
+      "rawName": "Zr-MOF",
+      "canonicalId": "mof-zr-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zr-mof-10-1016j-cej-2012-01-104-isotherm3a-0225",
+      "rawName": "Zr-MOF",
+      "canonicalId": "mof-zr-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zr-mof-10-1016j-cej-2012-01-104-isotherm3a-0226",
+      "rawName": "Zr-MOF",
+      "canonicalId": "mof-zr-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zr-mof-10-1016j-cej-2012-01-104-isotherm3b-0227",
+      "rawName": "Zr-MOF",
+      "canonicalId": "mof-zr-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zr-mof-10-1016j-cej-2012-01-104-isotherm3b-0228",
+      "rawName": "Zr-MOF",
+      "canonicalId": "mof-zr-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zr-mof-10-1016j-cej-2012-01-104-isotherm3c-0229",
+      "rawName": "Zr-MOF",
+      "canonicalId": "mof-zr-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zr-mof-10-1016j-cej-2012-01-104-isotherm3c-0230",
+      "rawName": "Zr-MOF",
+      "canonicalId": "mof-zr-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-tbo-mof-2-10-1039c4ra12432d-isotherm20-0231",
+      "rawName": "tbo-MOF-2",
+      "canonicalId": "mof-tbo-mof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-tbo-mof-2-10-1039c4ra12432d-isotherm20-0232",
+      "rawName": "tbo-MOF-2",
+      "canonicalId": "mof-tbo-mof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-tbo-mof-3-10-1039c4ra12432d-isotherm26-0233",
+      "rawName": "tbo-MOF-3",
+      "canonicalId": "mof-tbo-mof-3",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-tbo-mof-3-10-1039c4ra12432d-isotherm26-0234",
+      "rawName": "tbo-MOF-3",
+      "canonicalId": "mof-tbo-mof-3",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-1-10-1021cg900797y-isotherm2-0235",
+      "rawName": "MOF-1",
+      "canonicalId": "mof-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-1-10-1021cg900797y-isotherm2-0236",
+      "rawName": "MOF-1",
+      "canonicalId": "mof-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-2-10-1021cg900797y-isotherm5-0237",
+      "rawName": "MOF-2",
+      "canonicalId": "mof-mof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-2-10-1021cg900797y-isotherm5-0238",
+      "rawName": "MOF-2",
+      "canonicalId": "mof-mof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-1-10-5012bkcs-2011-32-8-2705-isotherm21-0239",
+      "rawName": "MOF-1",
+      "canonicalId": "mof-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-1-10-5012bkcs-2011-32-8-2705-isotherm21-0240",
+      "rawName": "MOF-1",
+      "canonicalId": "mof-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-1-10-5012bkcs-2011-32-8-2705-isotherm26-0241",
+      "rawName": "MOF-1",
+      "canonicalId": "mof-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-1-10-5012bkcs-2011-32-8-2705-isotherm26-0242",
+      "rawName": "MOF-1",
+      "canonicalId": "mof-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-1-10-5012bkcs-2011-32-8-2705-isotherm31-0243",
+      "rawName": "MOF-1",
+      "canonicalId": "mof-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-1-10-5012bkcs-2011-32-8-2705-isotherm31-0244",
+      "rawName": "MOF-1",
+      "canonicalId": "mof-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-soc-mof-10-1016j-micromeso-2009-06-014-isotherm10-0245",
+      "rawName": "Soc-MOF",
+      "canonicalId": "mof-soc-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-soc-mof-10-1016j-micromeso-2009-06-014-isotherm10-0246",
+      "rawName": "Soc-MOF",
+      "canonicalId": "mof-soc-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-soc-mof-10-1016j-micromeso-2009-06-014-isotherm14-0247",
+      "rawName": "Soc-MOF",
+      "canonicalId": "mof-soc-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-soc-mof-10-1016j-micromeso-2009-06-014-isotherm14-0248",
+      "rawName": "Soc-MOF",
+      "canonicalId": "mof-soc-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-soc-mof-10-1016j-micromeso-2009-06-014-isotherm16-0249",
+      "rawName": "Soc-MOF",
+      "canonicalId": "mof-soc-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-soc-mof-10-1016j-micromeso-2009-06-014-isotherm16-0250",
+      "rawName": "Soc-MOF",
+      "canonicalId": "mof-soc-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-h2-co2-soc-mof-10-1016j-micromeso-2009-06-014-isotherm5-0251",
+      "rawName": "Soc-MOF",
+      "canonicalId": "mof-soc-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mg-mof-74-s-10-1039c1ee02234b-isotherm8-0252",
+      "rawName": "Mg-MOF-74(S)",
+      "canonicalId": "mof-mg-mof-74s",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mg-mof-74-s-10-1039c1ee02234b-isotherm8-0253",
+      "rawName": "Mg-MOF-74(S)",
+      "canonicalId": "mof-mg-mof-74s",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mg-mof-74-s-10-1039c1ee02234b-isotherm9-0254",
+      "rawName": "Mg-MOF-74(S)",
+      "canonicalId": "mof-mg-mof-74s",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mg-mof-74-s-10-1039c1ee02234b-isotherm9-0255",
+      "rawName": "Mg-MOF-74(S)",
+      "canonicalId": "mof-mg-mof-74s",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mg-mof-1-10-1039c0jm01125h-isotherm1-0256",
+      "rawName": "Mg-MOF-1",
+      "canonicalId": "mof-mg-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mg-mof-1-10-1039c0jm01125h-isotherm1-0257",
+      "rawName": "Mg-MOF-1",
+      "canonicalId": "mof-mg-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-h2-co2-mg-mof-1-10-1039c0jm01125h-isotherm3-0258",
+      "rawName": "Mg-MOF-1",
+      "canonicalId": "mof-mg-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-o2-n2-al-soc-mof-1-10-1021jacs-5b07053-isotherm10-0259",
+      "rawName": "Al-soc-MOF-1",
+      "canonicalId": "mof-al-soc-mof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-arg-asp-36-bcd-10-1021jp4053538-isotherm10-0262",
+      "rawName": "Arg-Asp-36-BCD",
+      "canonicalId": "mof-arg-asp-36-bcd",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-arg-asp-36-bcd-10-1021jp4053538-isotherm10-0263",
+      "rawName": "Arg-Asp-36-BCD",
+      "canonicalId": "mof-arg-asp-36-bcd",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-arg-asp-24-cd-10-1021jp4053538-isotherm11-0264",
+      "rawName": "Arg-Asp-24-CD",
+      "canonicalId": "mof-arg-asp-24-cd",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-arg-asp-24-cd-10-1021jp4053538-isotherm11-0265",
+      "rawName": "Arg-Asp-24-CD",
+      "canonicalId": "mof-arg-asp-24-cd",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-arg-asp-36-abf-10-1021jp4053538-isotherm12-0266",
+      "rawName": "Arg-Asp-36-ABF",
+      "canonicalId": "mof-arg-asp-36-abf",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-arg-asp-36-abf-10-1021jp4053538-isotherm12-0267",
+      "rawName": "Arg-Asp-36-ABF",
+      "canonicalId": "mof-arg-asp-36-abf",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-arg-asp-36-acf-10-1021jp4053538-isotherm13-0268",
+      "rawName": "Arg-Asp-36-ACF",
+      "canonicalId": "mof-arg-asp-36-acf",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-arg-asp-36-acf-10-1021jp4053538-isotherm13-0269",
+      "rawName": "Arg-Asp-36-ACF",
+      "canonicalId": "mof-arg-asp-36-acf",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-arg-asp-24-af-10-1021jp4053538-isotherm14-0270",
+      "rawName": "Arg-Asp-24-AF",
+      "canonicalId": "mof-arg-asp-24-af",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-arg-asp-24-af-10-1021jp4053538-isotherm14-0271",
+      "rawName": "Arg-Asp-24-AF",
+      "canonicalId": "mof-arg-asp-24-af",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-arg-asp-mtv-mof-10-1021jp4053538-isotherm2-0272",
+      "rawName": "Arg-Asp-MTV-MOF",
+      "canonicalId": "mof-arg-asp-mtv-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-arg-asp-mtv-mof-10-1021jp4053538-isotherm2-0273",
+      "rawName": "Arg-Asp-MTV-MOF",
+      "canonicalId": "mof-arg-asp-mtv-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-ala-mtv-mof-10-1021jp4053538-isotherm3-0274",
+      "rawName": "Ala-MTV-MOF",
+      "canonicalId": "mof-ala-mtv-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-ala-mtv-mof-10-1021jp4053538-isotherm3-0275",
+      "rawName": "Ala-MTV-MOF",
+      "canonicalId": "mof-ala-mtv-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-phe-mtv-mof-10-1021jp4053538-isotherm4-0276",
+      "rawName": "Phe-MTV-MOF",
+      "canonicalId": "mof-phe-mtv-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-phe-mtv-mof-10-1021jp4053538-isotherm4-0277",
+      "rawName": "Phe-MTV-MOF",
+      "canonicalId": "mof-phe-mtv-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-cys-mtv-mof-10-1021jp4053538-isotherm5-0278",
+      "rawName": "Cys-MTV-MOF",
+      "canonicalId": "mof-cys-mtv-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-cys-mtv-mof-10-1021jp4053538-isotherm5-0279",
+      "rawName": "Cys-MTV-MOF",
+      "canonicalId": "mof-cys-mtv-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-thr-mtv-mof-10-1021jp4053538-isotherm6-0280",
+      "rawName": "Thr-MTV-MOF",
+      "canonicalId": "mof-thr-mtv-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-thr-mtv-mof-10-1021jp4053538-isotherm6-0281",
+      "rawName": "Thr-MTV-MOF",
+      "canonicalId": "mof-thr-mtv-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-ser-mtv-mof-10-1021jp4053538-isotherm7-0282",
+      "rawName": "Ser-MTV-MOF",
+      "canonicalId": "mof-ser-mtv-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-ser-mtv-mof-10-1021jp4053538-isotherm7-0283",
+      "rawName": "Ser-MTV-MOF",
+      "canonicalId": "mof-ser-mtv-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-his-mtv-mof-10-1021jp4053538-isotherm8-0284",
+      "rawName": "His-MTV-MOF",
+      "canonicalId": "mof-his-mtv-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-his-mtv-mof-10-1021jp4053538-isotherm8-0285",
+      "rawName": "His-MTV-MOF",
+      "canonicalId": "mof-his-mtv-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-tyr-mtv-mof-10-1021jp4053538-isotherm9-0286",
+      "rawName": "Tyr-MTV-MOF",
+      "canonicalId": "mof-tyr-mtv-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-tyr-mtv-mof-10-1021jp4053538-isotherm9-0287",
+      "rawName": "Tyr-MTV-MOF",
+      "canonicalId": "mof-tyr-mtv-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-c48h27n2o8zn2-10-1021ja200553m-isotherm1-0288",
+      "rawName": "C48H27N2O8Zn2",
+      "canonicalId": "mof-c48h27n2o8zn2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-c48h27n2o8zn2-10-1021ja200553m-isotherm1-0289",
+      "rawName": "C48H27N2O8Zn2",
+      "canonicalId": "mof-c48h27n2o8zn2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-to-mof-10-1021ja200553m-isotherm2-0290",
+      "rawName": "TO-MOF",
+      "canonicalId": "mof-to-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-to-mof-10-1021ja200553m-isotherm2-0291",
+      "rawName": "TO-MOF",
+      "canonicalId": "mof-to-mof",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-c33h11br1n4o7zn1-10-1021ja200553m-isotherm3-0292",
+      "rawName": "C33H11Br1N4O7Zn1",
+      "canonicalId": "mof-c33h11br1n4o7zn1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-c33h11br1n4o7zn1-10-1021ja200553m-isotherm3-0293",
+      "rawName": "C33H11Br1N4O7Zn1",
+      "canonicalId": "mof-c33h11br1n4o7zn1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-c51h34br2n2o8sizn2-10-1021ja200553m-isotherm4-0294",
+      "rawName": "C51H34Br2N2O8SiZn2",
+      "canonicalId": "mof-c51h34br2n2o8sizn2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-c51h34br2n2o8sizn2-10-1021ja200553m-isotherm4-0295",
+      "rawName": "C51H34Br2N2O8SiZn2",
+      "canonicalId": "mof-c51h34br2n2o8sizn2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-f-mof-4-10-1021cg101414x-isotherm4-0296",
+      "rawName": "F-MOF-4",
+      "canonicalId": "mof-f-mof-4",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-f-mof-4-10-1021cg101414x-isotherm4-0297",
+      "rawName": "F-MOF-4",
+      "canonicalId": "mof-f-mof-4",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-cu-f-mof-4b-10-1021cg101414x-isotherm5-0298",
+      "rawName": "Cu-F-MOF-4B",
+      "canonicalId": "mof-cu-f-mof-4b",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-cu-f-mof-4b-10-1021cg101414x-isotherm5-0299",
+      "rawName": "Cu-F-MOF-4B",
+      "canonicalId": "mof-cu-f-mof-4b",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zn-f-mof-4b-10-1021cg101414x-isotherm6-0300",
+      "rawName": "Zn-F-MOF-4B",
+      "canonicalId": "mof-zn-f-mof-4b",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zn-f-mof-4b-10-1021cg101414x-isotherm6-0301",
+      "rawName": "Zn-F-MOF-4B",
+      "canonicalId": "mof-zn-f-mof-4b",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-74-ni-10-1021acs-jpcc-5b03700-isotherm10-0302",
+      "rawName": "MOF-74-Ni",
+      "canonicalId": "mof-mof-74-ni",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-74-ni-10-1021acs-jpcc-5b03700-isotherm10-0303",
+      "rawName": "MOF-74-Ni",
+      "canonicalId": "mof-mof-74-ni",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-cu-mof-74-10-1021acs-jpcc-5b03700-isotherm12-0304",
+      "rawName": "Cu-MOF-74",
+      "canonicalId": "mof-cu-mof-74",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-cu-mof-74-10-1021acs-jpcc-5b03700-isotherm12-0305",
+      "rawName": "Cu-MOF-74",
+      "canonicalId": "mof-cu-mof-74",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mn-mof-74-10-1021acs-jpcc-5b03700-isotherm14-0306",
+      "rawName": "Mn-MOF-74",
+      "canonicalId": "mof-mn-mof-74",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mn-mof-74-10-1021acs-jpcc-5b03700-isotherm14-0307",
+      "rawName": "Mn-MOF-74",
+      "canonicalId": "mof-mn-mof-74",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-74-co-10-1021acs-jpcc-5b03700-isotherm18-0308",
+      "rawName": "MOF-74-Co",
+      "canonicalId": "mof-mof-74-co",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-74-co-10-1021acs-jpcc-5b03700-isotherm18-0309",
+      "rawName": "MOF-74-Co",
+      "canonicalId": "mof-mof-74-co",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-pmg-irmof-1-10-1021ja204818q-isotherm4-0310",
+      "rawName": "Pmg-IRMOF-1",
+      "canonicalId": "mof-pmg-irmof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-pmg-irmof-1-10-1021ja204818q-isotherm4-0311",
+      "rawName": "Pmg-IRMOF-1",
+      "canonicalId": "mof-pmg-irmof-1",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-177-10-1021ja0570032-isotherm1-0314",
+      "rawName": "MOF-177",
+      "canonicalId": "mof-mof-177",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-177-10-1021ja0570032-isotherm1-0315",
+      "rawName": "MOF-177",
+      "canonicalId": "mof-mof-177",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-2-10-1021ja0570032-isotherm10-0316",
+      "rawName": "MOF-2",
+      "canonicalId": "mof-mof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-2-10-1021ja0570032-isotherm10-0317",
+      "rawName": "MOF-2",
+      "canonicalId": "mof-mof-2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-irmof-6-10-1021ja0570032-isotherm3-0320",
+      "rawName": "IRMOF-6",
+      "canonicalId": "mof-irmof-6",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-irmof-6-10-1021ja0570032-isotherm3-0321",
+      "rawName": "IRMOF-6",
+      "canonicalId": "mof-irmof-6",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-irmof-3-10-1021ja0570032-isotherm4-0322",
+      "rawName": "IRMOF-3",
+      "canonicalId": "mof-irmof-3",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-irmof-3-10-1021ja0570032-isotherm4-0323",
+      "rawName": "IRMOF-3",
+      "canonicalId": "mof-irmof-3",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-irmof-11-10-1021ja0570032-isotherm5-0324",
+      "rawName": "IRMOF-11",
+      "canonicalId": "mof-irmof-11",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-irmof-11-10-1021ja0570032-isotherm5-0325",
+      "rawName": "IRMOF-11",
+      "canonicalId": "mof-irmof-11",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-505-10-1021ja0570032-isotherm8-0330",
+      "rawName": "MOF-505",
+      "canonicalId": "mof-mof-505",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-505-10-1021ja0570032-isotherm8-0331",
+      "rawName": "MOF-505",
+      "canonicalId": "mof-mof-505",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-norit-rb2-10-1021ja0570032-isotherm9-0332",
+      "rawName": "Norit RB2",
+      "canonicalId": "mof-norit-rb2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-norit-rb2-10-1021ja0570032-isotherm9-0333",
+      "rawName": "Norit RB2",
+      "canonicalId": "mof-norit-rb2",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-ddr-10-1002aic-14467-isotherm1-0334",
+      "rawName": "DDR",
+      "canonicalId": "mof-ddr",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-ddr-10-1002aic-14467-isotherm1-0335",
+      "rawName": "DDR",
+      "canonicalId": "mof-ddr",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mil-47-10-1002aic-14467-isotherm10-0336",
+      "rawName": "MIL-47",
+      "canonicalId": "mof-mil-47",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mil-47-10-1002aic-14467-isotherm10-0337",
+      "rawName": "MIL-47",
+      "canonicalId": "mof-mil-47",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-177-10-1002aic-14467-isotherm12-0338",
+      "rawName": "MOF-177",
+      "canonicalId": "mof-mof-177",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-177-10-1002aic-14467-isotherm12-0339",
+      "rawName": "MOF-177",
+      "canonicalId": "mof-mof-177",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zif-8-10-1002aic-14467-isotherm17-0342",
+      "rawName": "ZIF-8",
+      "canonicalId": "mof-zif-8",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zif-8-10-1002aic-14467-isotherm17-0343",
+      "rawName": "ZIF-8",
+      "canonicalId": "mof-zif-8",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zeolite-fau-10-1002aic-14467-isotherm19-0344",
+      "rawName": "Zeolite FAU",
+      "canonicalId": "mof-zeolite-fau",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zeolite-fau-10-1002aic-14467-isotherm19-0345",
+      "rawName": "Zeolite FAU",
+      "canonicalId": "mof-zeolite-fau",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-ddr-10-1002aic-14467-isotherm20-0346",
+      "rawName": "DDR",
+      "canonicalId": "mof-ddr",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-ddr-10-1002aic-14467-isotherm20-0347",
+      "rawName": "DDR",
+      "canonicalId": "mof-ddr",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zif-10-10-1002aic-14467-isotherm21-0348",
+      "rawName": "ZIF-10",
+      "canonicalId": "mof-zif-10",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zif-10-10-1002aic-14467-isotherm21-0349",
+      "rawName": "ZIF-10",
+      "canonicalId": "mof-zif-10",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zif-8-10-1002aic-14467-isotherm22-0350",
+      "rawName": "ZIF-8",
+      "canonicalId": "mof-zif-8",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zif-8-10-1002aic-14467-isotherm22-0351",
+      "rawName": "ZIF-8",
+      "canonicalId": "mof-zif-8",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mil-47-10-1002aic-14467-isotherm23-0352",
+      "rawName": "MIL-47",
+      "canonicalId": "mof-mil-47",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mil-47-10-1002aic-14467-isotherm23-0353",
+      "rawName": "MIL-47",
+      "canonicalId": "mof-mil-47",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mfi-10-1002aic-14467-isotherm3-0360",
+      "rawName": "MFI",
+      "canonicalId": "mof-mfi",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mfi-10-1002aic-14467-isotherm3-0361",
+      "rawName": "MFI",
+      "canonicalId": "mof-mfi",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-cu-tdpat-10-1002anie-201105966-isotherm15-0362",
+      "rawName": "Cu-TDPAT",
+      "canonicalId": "mof-cu-tdpat",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-cu-tdpat-10-1002anie-201105966-isotherm15-0363",
+      "rawName": "Cu-TDPAT",
+      "canonicalId": "mof-cu-tdpat",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-h2-co2-cu-tdpat-10-1002anie-201105966-isotherm14-0364",
+      "rawName": "Cu-TDPAT",
+      "canonicalId": "mof-cu-tdpat",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-o2-n2-cu-tdpat-10-1002anie-201105966-isotherm13-0365",
+      "rawName": "Cu-TDPAT",
+      "canonicalId": "mof-cu-tdpat",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-cu-tdpat-10-1002anie-201105966-isotherm2-0366",
+      "rawName": "Cu-TDPAT",
+      "canonicalId": "mof-cu-tdpat",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-cu-tdpat-10-1002anie-201105966-isotherm2-0367",
+      "rawName": "Cu-TDPAT",
+      "canonicalId": "mof-cu-tdpat",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-cu-tdpat-10-1002anie-201105966-isotherm3-0368",
+      "rawName": "Cu-TDPAT",
+      "canonicalId": "mof-cu-tdpat",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-cu-tdpat-10-1002anie-201105966-isotherm3-0369",
+      "rawName": "Cu-TDPAT",
+      "canonicalId": "mof-cu-tdpat",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-cu-tpbtm-10-1002anie-201105966-isotherm5-0370",
+      "rawName": "Cu-TPBTM",
+      "canonicalId": "mof-cu-tpbtm",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-cu-tpbtm-10-1002anie-201105966-isotherm5-0371",
+      "rawName": "Cu-TPBTM",
+      "canonicalId": "mof-cu-tpbtm",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-pcn-61-10-1002anie-201105966-isotherm6-0372",
+      "rawName": "PCN-61",
+      "canonicalId": "mof-pcn-61",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-pcn-61-10-1002anie-201105966-isotherm6-0373",
+      "rawName": "PCN-61",
+      "canonicalId": "mof-pcn-61",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-nu-100-10-1002anie-201105966-isotherm7-0374",
+      "rawName": "NU-100",
+      "canonicalId": "mof-nu-100",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-nu-100-10-1002anie-201105966-isotherm7-0375",
+      "rawName": "NU-100",
+      "canonicalId": "mof-nu-100",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-pcn-66-10-1002anie-201105966-isotherm8-0376",
+      "rawName": "PCN-66",
+      "canonicalId": "mof-pcn-66",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-pcn-66-10-1002anie-201105966-isotherm8-0377",
+      "rawName": "PCN-66",
+      "canonicalId": "mof-pcn-66",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-pcn-68-10-1002anie-201105966-isotherm9-0378",
+      "rawName": "PCN-68",
+      "canonicalId": "mof-pcn-68",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-pcn-68-10-1002anie-201105966-isotherm9-0379",
+      "rawName": "PCN-68",
+      "canonicalId": "mof-pcn-68",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-zeolite-13x-10-1016j-micromeso-2008-04-033-isotherm5-0388",
+      "rawName": "Zeolite 13X",
+      "canonicalId": "mof-zeolite-13x",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-zeolite-13x-10-1016j-micromeso-2008-04-033-isotherm5-0389",
+      "rawName": "Zeolite 13X",
+      "canonicalId": "mof-zeolite-13x",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-508b-10-1016j-seppur-2014-08-021-isotherm26-0390",
+      "rawName": "MOF-508b",
+      "canonicalId": "mof-mof-508b",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-508b-10-1016j-seppur-2014-08-021-isotherm26-0391",
+      "rawName": "MOF-508b",
+      "canonicalId": "mof-mof-508b",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-508b-10-1016j-seppur-2014-08-021-isotherm27-0392",
+      "rawName": "MOF-508b",
+      "canonicalId": "mof-mof-508b",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-508b-10-1016j-seppur-2014-08-021-isotherm27-0393",
+      "rawName": "MOF-508b",
+      "canonicalId": "mof-mof-508b",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-n2-mof-508b-10-1016j-seppur-2014-08-021-isotherm31-0394",
+      "rawName": "MOF-508b",
+      "canonicalId": "mof-mof-508b",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v2-co2-ch4-mof-508b-10-1016j-seppur-2014-08-021-isotherm31-0395",
+      "rawName": "MOF-508b",
+      "canonicalId": "mof-mof-508b",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-co2-n2-calf-20-001",
+      "rawName": "CALF-20",
+      "canonicalId": "mof-calf-20",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-co2-n2-zif-8-005",
+      "rawName": "ZIF-8",
+      "canonicalId": "mof-zif-8",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-co2-n2-sifsix-3-ni-007",
+      "rawName": "SIFSIX-3-Ni",
+      "canonicalId": "mof-sifsix-3-ni",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-co2-n2-mfm-300-al-008",
+      "rawName": "MFM-300(Al)",
+      "canonicalId": "mof-mfm-300al",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-co2-n2-mof-801-009",
+      "rawName": "MOF-801",
+      "canonicalId": "mof-mof-801",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-co2-n2-utsa-16-010",
+      "rawName": "UTSA-16",
+      "canonicalId": "mof-utsa-16",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-co2-ch4-mof-177-014",
+      "rawName": "MOF-177",
+      "canonicalId": "mof-mof-177",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-co2-ch4-dut-49-015",
+      "rawName": "DUT-49",
+      "canonicalId": "mof-dut-49",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-co2-ch4-calf-20-016",
+      "rawName": "CALF-20",
+      "canonicalId": "mof-calf-20",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-co2-ch4-zif-8-020",
+      "rawName": "ZIF-8",
+      "canonicalId": "mof-zif-8",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-h2-co2-sifsix-3-ni-022",
+      "rawName": "SIFSIX-3-Ni",
+      "canonicalId": "mof-sifsix-3-ni",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-h2-co2-mfm-300-al-023",
+      "rawName": "MFM-300(Al)",
+      "canonicalId": "mof-mfm-300al",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-h2-co2-mof-801-024",
+      "rawName": "MOF-801",
+      "canonicalId": "mof-mof-801",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-h2-co2-utsa-16-025",
+      "rawName": "UTSA-16",
+      "canonicalId": "mof-utsa-16",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-o2-n2-mof-177-029",
+      "rawName": "MOF-177",
+      "canonicalId": "mof-mof-177",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-o2-n2-dut-49-030",
+      "rawName": "DUT-49",
+      "canonicalId": "mof-dut-49",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-voc-n2-calf-20-031",
+      "rawName": "CALF-20",
+      "canonicalId": "mof-calf-20",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-voc-n2-zif-8-035",
+      "rawName": "ZIF-8",
+      "canonicalId": "mof-zif-8",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-ch4-n2-sifsix-3-ni-037",
+      "rawName": "SIFSIX-3-Ni",
+      "canonicalId": "mof-sifsix-3-ni",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-c2h2-co2-mfm-300-al-038",
+      "rawName": "MFM-300(Al)",
+      "canonicalId": "mof-mfm-300al",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-c2h2-co2-mof-801-039",
+      "rawName": "MOF-801",
+      "canonicalId": "mof-mof-801",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    },
+    {
+      "gasRecordId": "gassep-v1-c2h2-c2h4-utsa-16-040",
+      "rawName": "UTSA-16",
+      "canonicalId": "mof-utsa-16",
+      "reason": "No structural CoRE/QMOF record matched by alias or conservative composition rule."
+    }
+  ],
+  "caveat": "Composition matches are candidate links only. They require metal+linker agreement and are labeled matched-by-composition; unresolved names are not forced onto structure IDs."
+}

@@ -34,11 +34,11 @@ function readRepoFile(relativePath) {
 describe("version_evolution_records data source", () => {
   it("is the single authoritative source for timeline, release notes, milestones, and roadmap", () => {
     expect(data.authority).toMatch(/Single authoritative Project Evolution data source/)
-    expect(data.currentVersion).toBe("V3.9.9")
+    expect(data.currentVersion).toBe("V3.10.1")
     expect(data.versions.length).toBeGreaterThanOrEqual(9)
     expect(data.releaseNotes.length).toBeGreaterThanOrEqual(8)
     expect(data.milestones.length).toBe(data.overview.milestoneCount)
-    expect(data.roadmap.map(row => row.version)).toEqual(["V2.4", "V2.5", "V2.6", "V2.7", "V3.0", "V3.1"])
+    expect(data.roadmap.map(row => row.version)).toEqual(["V2.4", "V2.5", "V2.6", "V2.7", "V3.0", "V3.1", "V3.10.1"])
     expect(data.localizationEvolution.map(row => row.version)).toContain("V2.4")
     expect(data.versions.find(row => row.version === "V2.6")).toEqual(expect.objectContaining({
       scientificImpact: "首次形成有机酸候选筛选算法闭环。",
@@ -65,6 +65,11 @@ describe("version_evolution_records data source", () => {
       summary: expect.stringMatching(/Descriptor Impact/),
       algorithmImpact: expect.stringMatching(/L0 structure-only|content-addressed/i),
       validationImpact: expect.stringMatching(/ablation|performance guard/i),
+    }))
+    expect(data.versions.find(row => row.version === "V3.10.1")).toEqual(expect.objectContaining({
+      summary: expect.stringMatching(/Gas Adsorption Database v2\.1/),
+      databaseImpact: expect.stringMatching(/69 IAST|79 gas records/),
+      validationImpact: expect.stringMatching(/low-validity-indicative/),
     }))
 
     for (const version of data.versions) {

@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { BasisBadge, ChemicalText, SectionTitle, formatGasPairLabel, formatScore100 } from "../../shared"
 import { getParetoFrontier } from "../../utils/gasSeparationScreening"
-import { metricNormalizedValue, text } from "./gasViewUtils"
+import { finite, metricNormalizedValue, text } from "./gasViewUtils"
 
 function pickMax(rows, metric) {
   return [...rows].sort((a, b) => (metricNormalizedValue(b, metric, rows) || 0) - (metricNormalizedValue(a, metric, rows) || 0))[0]
@@ -19,7 +19,7 @@ export function GasTradeoffSummary({ ranked = [], scenario = {}, lang, t }) {
   const balanced = ranked[0]
   const selectivity = pickMax(ranked, "selectivity")
   const capacity = pickMax(ranked, "workingCapacity")
-  const plottable = ranked.filter(row => Number.isFinite(Number(row.workingCapacity)) && Number.isFinite(Number(row.selectivity))).slice(0, 160)
+  const plottable = ranked.filter(row => finite(row.workingCapacity ?? row.metrics?.workingCapacity) !== null && finite(row.selectivity ?? row.metrics?.selectivity ?? row.iaSTSelectivity ?? row.metrics?.iaSTSelectivity) !== null).slice(0, 160)
   const pareto = getParetoFrontier(plottable)
   const paretoIds = new Set(pareto.map(row => row.id))
   const width = 640
@@ -27,14 +27,14 @@ export function GasTradeoffSummary({ ranked = [], scenario = {}, lang, t }) {
   const margin = { top: 18, right: 20, bottom: 44, left: 58 }
   const plotW = width - margin.left - margin.right
   const plotH = height - margin.top - margin.bottom
-  const xValues = plottable.map(row => Number(row.workingCapacity))
-  const yValues = plottable.map(row => Number(row.selectivity))
+  const xValues = plottable.map(row => finite(row.workingCapacity ?? row.metrics?.workingCapacity)).filter(value => value !== null)
+  const yValues = plottable.map(row => finite(row.selectivity ?? row.metrics?.selectivity ?? row.iaSTSelectivity ?? row.metrics?.iaSTSelectivity)).filter(value => value !== null)
   const maxX = Math.max(1, ...xValues)
   const maxY = Math.max(1, ...yValues)
   const x = value => margin.left + (Number(value) / maxX) * plotW
   const y = value => margin.top + plotH - (Number(value) / maxY) * plotH
-  const colorFor = row => row.dataGrade === "experimental" ? "#2F7D7B" : row.dataGrade === "computed" ? "#4E72B8" : "#7B61A9"
-  const paretoPath = pareto.map(row => `${x(row.workingCapacity)},${y(row.selectivity)}`).join(" ")
+  const colorFor = row => row.dataGrade === "experimental" ? "#2F7D7B" : row.dataGrade === "computed" || row.dataGrade === "computed-IAST" ? "#4E72B8" : "#7B61A9"
+  const paretoPath = pareto.map(row => `${x(row.workingCapacity ?? row.metrics?.workingCapacity)},${y(row.selectivity ?? row.metrics?.selectivity ?? row.iaSTSelectivity ?? row.metrics?.iaSTSelectivity)}`).join(" ")
   const regenGap = Math.abs((metricNormalizedValue(selectivity, "selectivity", ranked) || 0) - (metricNormalizedValue(selectivity, "regenerability", ranked) || 0))
   const mainTradeoff = regenGap > 0.34
     ? text(lang, "选择性与可再生性之间存在明显权衡。", "There is a clear trade-off between selectivity and regenerability.")
@@ -88,10 +88,10 @@ export function GasTradeoffSummary({ ranked = [], scenario = {}, lang, t }) {
             ))}
             {paretoPath ? <polyline points={paretoPath} fill="none" stroke={t.accent} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /> : null}
             {plottable.map(row => {
-              const px = x(row.workingCapacity)
-              const py = y(row.selectivity)
+              const px = x(row.workingCapacity ?? row.metrics?.workingCapacity)
+              const py = y(row.selectivity ?? row.metrics?.selectivity ?? row.iaSTSelectivity ?? row.metrics?.iaSTSelectivity)
               const frontier = paretoIds.has(row.id)
-              return row.dataGrade === "computed" ? (
+              return row.dataGrade === "computed" || row.dataGrade === "computed-IAST" ? (
                 <rect key={row.id} x={px - (frontier ? 5 : 3.5)} y={py - (frontier ? 5 : 3.5)} width={frontier ? 10 : 7} height={frontier ? 10 : 7} fill={colorFor(row)} fillOpacity={frontier ? 0.95 : 0.68} stroke={frontier ? t.textStrong : t.panel} />
               ) : (
                 <circle key={row.id} cx={px} cy={py} r={frontier ? 5 : 3.6} fill={colorFor(row)} fillOpacity={frontier ? 0.95 : 0.68} stroke={frontier ? t.textStrong : t.panel} />
@@ -105,7 +105,7 @@ export function GasTradeoffSummary({ ranked = [], scenario = {}, lang, t }) {
         )}
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 8 }}>
           <BasisBadge tone="calc">{text(lang, "圆点：实验", "circle: experimental")}</BasisBadge>
-          <BasisBadge tone="info">{text(lang, "方点：计算", "square: computed")}</BasisBadge>
+          <BasisBadge tone="info">{text(lang, "方点：计算 / IAST", "square: computed / IAST")}</BasisBadge>
           <BasisBadge tone="proxy">{text(lang, "紫色：seed", "purple: seed")}</BasisBadge>
         </div>
       </div>

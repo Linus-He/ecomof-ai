@@ -13,7 +13,20 @@ export function DataSourcesTab() {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow } = useViewport()
-  const [datasets, setDatasets] = useState({ structures: [], labels: [], inventory: [], isotherms: [], gasV2: [], gasV2Report: null, manifest: null, status: "loading" })
+  const [datasets, setDatasets] = useState({
+    structures: [],
+    labels: [],
+    inventory: [],
+    isotherms: [],
+    gasV2: [],
+    gasV2Report: null,
+    gasV21IastReport: null,
+    identityResolutionReport: null,
+    proxyValidationReport: null,
+    duplicateReport: null,
+    manifest: null,
+    status: "loading",
+  })
   useEffect(() => {
     let active = true
     Promise.all([
@@ -23,14 +36,26 @@ export function DataSourcesTab() {
       fetchDataJson("isotherms.json"),
       fetchDataJson("gas_adsorption_records_v2.json"),
       fetchDataJson("gas_adsorption_v2_collection_report.json", {}),
+      fetchDataJson("gas_adsorption_v2_1_iast_report.json", {}),
+      fetchDataJson("mof_identity_resolution_report.json", {}),
+      fetchDataJson("gas_structure_proxy_validation_report.json", {}),
+      fetchDataJson("gas_adsorption_duplicate_report_v2_1.json", {}),
       fetchDataJson("training_manifest.json"),
-    ]).then(([structures, labels, inventory, isotherms, gasV2, gasV2Report, manifest]) => {
-      if (active) setDatasets({ structures, labels, inventory, isotherms, gasV2, gasV2Report, manifest, status: "loaded" })
+    ]).then(([structures, labels, inventory, isotherms, gasV2, gasV2Report, gasV21IastReport, identityResolutionReport, proxyValidationReport, duplicateReport, manifest]) => {
+      if (active) setDatasets({ structures, labels, inventory, isotherms, gasV2, gasV2Report, gasV21IastReport, identityResolutionReport, proxyValidationReport, duplicateReport, manifest, status: "loaded" })
     }).catch(() => { if (active) setDatasets(prev => ({ ...prev, status: "fallback" })) })
     return () => { active = false }
   }, [])
 
   const cardStyle = { background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }
+  const v21IastCount = datasets.gasV21IastReport?.summary?.computedIastCount ?? 0
+  const v21IdentityLinkedCount = datasets.identityResolutionReport?.summary?.linkedGasRecordCount ?? 0
+  const v21IdentityTotalCount = datasets.identityResolutionReport?.summary?.gasRecordCount ?? datasets.gasV2.length
+  const v21ProxyPairCount = datasets.proxyValidationReport?.summary?.candidatePairCount ?? 0
+  const v21ProxyStatus = datasets.proxyValidationReport?.summary?.status || "pending"
+  const v21DerivedReportCount = [v21IastCount, v21IdentityLinkedCount, v21ProxyPairCount]
+    .filter(value => Number.isFinite(Number(value)))
+    .reduce((sum, value) => sum + Number(value), 0)
   const connectorRows = lang === "zh" ? [
     ["LCI 后端", "public/data/lca_inventory.json 种子 schema", "带版本活动 ID 的 openLCA / ecoinvent 过程映射", "代理 schema"],
     ["价格后端", "USD 种子值 + 静态货币换算", "供应商报价、带日期试剂价格、区域电价", "筛选级"],
@@ -50,7 +75,8 @@ export function DataSourcesTab() {
     ["Linker cost band / availability", "连接体成本带 / 可得性", datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length, "price_usd_per_unit + price_source", "价格以 USD seed values 存储，界面可切换主流货币作静态显示换算。", "不是实时市场报价，也不是供应商询价。", "Stage 2 feasibility", "exploratory"],
     ["Proxy LCA inventory", "代理 LCA 清单", datasets.inventory.length, "public/data/lca_inventory.json", "材料、溶剂、能耗、水、废弃物、价格、单位、不确定性与替换路线。", "当前是入围候选比较代理层，不能替代完整 ecoinvent/openLCA 工业清单。", "Stage 3 shortlist comparison", "assumption-dependent"],
     ["Isotherm points", "等温线点", datasets.isotherms.length, "public/data/isotherms.json", "多温 pressure-loading 点，用于 Langmuir 拟合、Henry、IAST/Qst 工作流打底。", "科研级 Qst 仍需要真实实验或 GCMC 多温纯组分等温线。", "Stage 1 interpretation", "comparative"],
-    ["Gas adsorption v2", "气体吸附 v2", datasets.gasV2.length, "public/data/gas_adsorption_records_v2.json", "NIST/ARPA-E ISODB 等温线 JSON 采集，保留 experimental/computed/seed dataGrade、isotherm、字段级 provenance。", `采集报告：NIST ${datasets.gasV2Report?.summary?.nistRecordCount ?? 0} 条；CoRE/hMOF 直接批量源本轮未落库，缺失项不补数。`, "Stage 1 screening", "source-backed"],
+    ["Gas adsorption v2", "气体吸附 v2.1", datasets.gasV2.length, "public/data/gas_adsorption_records_v2.json", "NIST/ARPA-E ISODB 等温线 JSON 采集，保留 experimental/computed/seed/computed-IAST dataGrade、isotherm、字段级 provenance。", `v2.1：IAST ${v21IastCount} 条；结构链接 ${v21IdentityLinkedCount} 条；代理验证 ${v21ProxyStatus}。`, "Stage 1 screening", "source-backed"],
+    ["Gas v2.1 reports", "气体 v2.1 派生报告", v21DerivedReportCount, "public/data/gas_adsorption_v2_1_iast_report.json + identity/proxy reports", "IAST 选择性、实体解析、结构代理 Spearman 和重复记录审计均为可追溯派生结果。", `重复审计：精确重复 ${datasets.duplicateReport?.exactDuplicateCount ?? 0} 条；同 MOF/温度重复多因气对/条件/来源不同而保留。`, "Stage 1 validation", "computed / audit"],
     ["Detailed engineering inventory", "详细工程清单", datasets.manifest?.rows ?? "—", "future openLCA / ecoinvent mapping", "正式工艺路线、供应商价格、区域电网和放大经济性。", "当前尚未实现。", "Future Stage 4", "future engineering-grade"],
   ] : [
     ["MOF structures", "MOF structures", datasets.structures.length, "public/data/mof_structures.json", "Identity, topology, PLD/LCD, BET, pore volume, density, OMS, CIF/source metadata.", "Structure libraries provide descriptors; they are not adsorption labels.", "Stage 1 screening", "benchmark-backed"],
@@ -58,7 +84,8 @@ export function DataSourcesTab() {
     ["Linker cost band / availability", "Linker cost band / availability", datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length, "price_usd_per_unit + price_source", "Prices are stored as USD seed values; the UI supports static display conversion across major currencies.", "Not live market pricing and not supplier quotations.", "Stage 2 feasibility", "exploratory"],
     ["Proxy LCA inventory", "Proxy LCA inventory", datasets.inventory.length, "public/data/lca_inventory.json", "Material, solvent, energy, water, waste, price, unit, uncertainty, and replacement pathway.", "Current values are shortlist-comparison proxies, not a full ecoinvent/openLCA industrial inventory.", "Stage 3 shortlist comparison", "assumption-dependent"],
     ["Isotherm points", "Isotherm points", datasets.isotherms.length, "public/data/isotherms.json", "Multi-temperature pressure-loading points for Langmuir fitting, Henry, IAST/Qst workflow scaffolding.", "Research-grade Qst still requires real experimental or GCMC multi-temperature pure-component isotherms.", "Stage 1 interpretation", "comparative"],
-    ["Gas adsorption v2", "Gas adsorption v2", datasets.gasV2.length, "public/data/gas_adsorption_records_v2.json", "NIST/ARPA-E ISODB isotherm JSON ingestion with experimental/computed/seed dataGrade, isotherm arrays, and field-level provenance.", `Collection report: ${datasets.gasV2Report?.summary?.nistRecordCount ?? 0} NIST records; direct CoRE/hMOF bulk sources were not ingested in this run, and missing fields remain blank.`, "Stage 1 screening", "source-backed"],
+    ["Gas adsorption v2", "Gas adsorption v2.1", datasets.gasV2.length, "public/data/gas_adsorption_records_v2.json", "NIST/ARPA-E ISODB isotherm ingestion with experimental/computed/seed/computed-IAST dataGrade, isotherm arrays, and field-level provenance.", `v2.1: ${v21IastCount} IAST values; ${v21IdentityLinkedCount} gas records linked to structures; proxy validation ${v21ProxyStatus}.`, "Stage 1 screening", "source-backed"],
+    ["Gas v2.1 reports", "Gas v2.1 derived reports", v21DerivedReportCount, "public/data/gas_adsorption_v2_1_iast_report.json + identity/proxy reports", "Traceable derived outputs for IAST selectivity, identity resolution, structure-proxy Spearman, and duplicate auditing.", `Duplicate audit: ${datasets.duplicateReport?.exactDuplicateCount ?? 0} exact duplicates; same-MOF/temperature repeats are retained when gas pair, condition, or source differs.`, "Stage 1 validation", "computed / audit"],
     ["Detailed engineering inventory", "Detailed engineering inventory", datasets.manifest?.rows ?? "—", "future openLCA / ecoinvent mapping", "Formal process routes, supplier prices, regional grids, and scale-up economics.", "Not implemented in the current prototype.", "Future Stage 4", "future engineering-grade"],
   ]
 
@@ -121,12 +148,18 @@ export function DataSourcesTab() {
                 {(lang === "zh" ? [
                   ["结构", `${datasets.structures.length || "种子"} 条`, "0-1 级", "导入 CoRE 2019/2024 CIF，统一 Zeo++ 描述符。"],
                   ["吸附标签", `${datasets.labels.length || "种子"} 条`, "0-1 级", "收集 NIST/文献/GCMC 等温线、Henry 和 IAST 标签。"],
+                  ["IAST 选择性", `${v21IastCount} 条`, "2 级", "继续补真实混合/突破曲线验证，避免把 IAST 当实验选择性。"],
+                  ["实体解析", `${v21IdentityLinkedCount}/${v21IdentityTotalCount || "种子"} 条`, "1-2 级", "人工复核 matched-by-composition 候选，补 CoRE/QMOF 原始 ID。"],
+                  ["结构代理验证", `${v21ProxyPairCount} 对`, v21ProxyStatus, "仅作为 Spearman 指示性审计，不作为吸附预测。"],
                   ["LCA 清单", `${datasets.inventory.length || "种子"} 条`, "0 级", "替换为 ecoinvent/openLCA 或论文可追溯清单。"],
                   ["LCC 价格", `${datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length || "种子"} 条`, "0 级", "替换为供应商报价、价格数据库或明确日期的市场价。"],
                   ["验证", `${datasets.manifest?.rows ?? "种子"} 行`, "0-1 级", "建立冻结外部测试集和版本化指标。"],
                 ] : [
                   ["Structures", `${datasets.structures.length || "seed"} records`, "Level 0-1", "Import CoRE 2019/2024 CIFs and unified Zeo++ descriptors."],
                   ["Adsorption labels", `${datasets.labels.length || "seed"} records`, "Level 0-1", "Collect NIST/literature/GCMC isotherms, Henry constants, and IAST labels."],
+                  ["IAST selectivity", `${v21IastCount} records`, "Level 2", "Add real mixture/breakthrough validation and keep IAST separate from experimental selectivity."],
+                  ["Identity resolution", `${v21IdentityLinkedCount}/${v21IdentityTotalCount || "seed"} records`, "Level 1-2", "Manually review matched-by-composition candidates and add original CoRE/QMOF IDs."],
+                  ["Structure proxy validation", `${v21ProxyPairCount} pairs`, v21ProxyStatus, "Spearman audit only; not an adsorption prediction layer."],
                   ["LCA inventory", `${datasets.inventory.length || "seed"} records`, "Level 0", "Replace with ecoinvent/openLCA or literature-traceable LCI."],
                   ["LCC prices", `${datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length || "seed"} records`, "Level 0", "Replace with supplier quotations, price databases, or date-stamped market prices."],
                   ["Validation", `${datasets.manifest?.rows ?? "seed"} rows`, "Level 0-1", "Build a frozen external test set and versioned metrics."],

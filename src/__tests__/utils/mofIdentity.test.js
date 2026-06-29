@@ -7,6 +7,9 @@ describe("mof identity registry", () => {
     expect(normalizeMofName("Cu3(BTC)2")).toContain("cu-btc")
     expect(resolveMof("HKUST-1", registry)).toBe(resolveMof("Cu-BTC", registry))
     expect(resolveMof("MOF-199", registry)).toBe(resolveMof("HKUST1", registry))
+    expect(resolveMof("IRMOF1", registry)).toBe(resolveMof("MOF-5", registry))
+    expect(resolveMof("UiO66", registry)).toBe(resolveMof("UiO-66", registry))
+    expect(resolveMof("MIL101Cr", registry)).toBe(resolveMof("MIL-101(Cr)", registry))
   })
 
   it("returns linked buckets without forcing unresolved names", () => {

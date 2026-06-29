@@ -14,6 +14,9 @@ import {
   getGasAdsorptionRecordsV1,
   getGasAdsorptionRecordsV2,
   getGasAdsorptionV2CollectionReport,
+  getGasAdsorptionV21IastReport,
+  getMofIdentityResolutionReport,
+  getGasStructureProxyValidationReport,
   formatDemoLabel,
   formatGasPairLabel,
   formatPending,
@@ -202,7 +205,11 @@ function valueForMetric(record, metric) {
   if (!record) return null
   if (metric === "stability") return getStabilityScore(record)
   if (metric === "evidence") return getEvidenceScore(record)
-  return Number.isFinite(Number(record[metric])) ? Number(record[metric]) : null
+  const value = metric === "selectivity"
+    ? (record.selectivity ?? record.metrics?.selectivity ?? record.iaSTSelectivity ?? record.metrics?.iaSTSelectivity)
+    : (record[metric] ?? record.metrics?.[metric])
+  if (value === null || value === undefined || value === "" || typeof value === "boolean") return null
+  return Number.isFinite(Number(value)) ? Number(value) : null
 }
 
 function formatMetricValue(record, metric, lang) {
@@ -444,11 +451,12 @@ function ConditionSummary({ ranked, scenario, t, lang, isMobile }) {
   )
 }
 
-function GasCoverageNotice({ coverage, collectionReport, t, lang }) {
+function GasCoverageNotice({ coverage, collectionReport, iastReport, identityReport, proxyReport, t, lang }) {
   if (!coverage) return null
   const gradeLine = [
     `experimental ${coverage.experimental || 0}`,
     `computed ${coverage.computed || 0}`,
+    `IAST ${coverage.computedIast || 0}`,
     `seed ${coverage.seed || 0}`,
   ].join(" · ")
   return (
@@ -459,8 +467,8 @@ function GasCoverageNotice({ coverage, collectionReport, t, lang }) {
           <div style={{ color: t.muted, fontSize: 12.2, lineHeight: 1.6, marginTop: 7 }}>
             {text(
               lang,
-              `该气对当前有 ${coverage.total} 个 MOF 记录；其中实验 ${coverage.experimental}、计算 ${coverage.computed}、seed ${coverage.seed}。有等温线 ${coverage.withIsotherm} 条，选择性字段 ${coverage.withSelectivity} 条，工作容量字段 ${coverage.withWorkingCapacity} 条。`,
-              `This gas pair has ${coverage.total} MOF records: ${coverage.experimental} experimental, ${coverage.computed} computed, ${coverage.seed} seed. Isotherm records: ${coverage.withIsotherm}; selectivity fields: ${coverage.withSelectivity}; working-capacity fields: ${coverage.withWorkingCapacity}.`
+              `该气对当前有 ${coverage.total} 个 MOF 记录；可用于选择性排序 ${coverage.withSelectivity} 条，其中 IAST 计算 ${coverage.withIastSelectivity} 条、实验/来源选择性 ${coverage.withExperimentalSelectivity} 条。等温线 ${coverage.withIsotherm} 条，工作容量 ${coverage.withWorkingCapacity} 条，已链到结构库 ${coverage.linkedToStructure} 条。`,
+              `This gas pair has ${coverage.total} MOF records; ${coverage.withSelectivity} can be ranked by selectivity, including ${coverage.withIastSelectivity} IAST-computed values and ${coverage.withExperimentalSelectivity} source/experimental selectivity values. Isotherm records: ${coverage.withIsotherm}; working-capacity fields: ${coverage.withWorkingCapacity}; structure-linked records: ${coverage.linkedToStructure}.`
             )}
           </div>
           {coverage.thin ? (
@@ -475,8 +483,8 @@ function GasCoverageNotice({ coverage, collectionReport, t, lang }) {
         <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 8 }}>
           {text(
             lang,
-            `v2 采集批次：${collectionReport.summary.nistRecordCount || 0} 条 NIST 等温线记录，provenance 完整：${collectionReport.summary.provenanceComplete ? "是" : "否"}。`,
-            `v2 collection batch: ${collectionReport.summary.nistRecordCount || 0} NIST isotherm records; provenance complete: ${collectionReport.summary.provenanceComplete ? "yes" : "no"}.`
+            `v2.1 批次：${collectionReport.summary.nistRecordCount || 0} 条 NIST 等温线记录；IAST ${iastReport?.summary?.computedIastCount ?? collectionReport.summary.computedIastSelectivityCount ?? 0} 条；实体解析率 ${Math.round((identityReport?.summary?.gasStructureResolutionRate ?? collectionReport.summary.gasStructureResolutionRate ?? 0) * 100)}%；结构代理状态 ${proxyReport?.summary?.status || collectionReport.summary.proxyValidationStatus || "pending"}。`,
+            `v2.1 batch: ${collectionReport.summary.nistRecordCount || 0} NIST isotherm records; IAST ${iastReport?.summary?.computedIastCount ?? collectionReport.summary.computedIastSelectivityCount ?? 0}; identity resolution ${Math.round((identityReport?.summary?.gasStructureResolutionRate ?? collectionReport.summary.gasStructureResolutionRate ?? 0) * 100)}%; structure-proxy status ${proxyReport?.summary?.status || collectionReport.summary.proxyValidationStatus || "pending"}.`
           )}
         </div>
       ) : null}
@@ -630,7 +638,10 @@ function CandidateRankingTable({ ranked, selectedId, onSelect, compareIds, setCo
     return [...rows].sort((a, b) => {
       const av = sort.key === "rank" ? ranked.findIndex(row => row.id === a.id) + 1 : a[sort.key]
       const bv = sort.key === "rank" ? ranked.findIndex(row => row.id === b.id) + 1 : b[sort.key]
-      if (Number.isFinite(Number(av)) && Number.isFinite(Number(bv))) return (Number(av) - Number(bv)) * dir
+      const an = valueForMetric(a, sort.key)
+      const bn = valueForMetric(b, sort.key)
+      if (an !== null && bn !== null) return (an - bn) * dir
+      if (Number.isFinite(Number(av)) && av !== null && av !== "" && Number.isFinite(Number(bv)) && bv !== null && bv !== "") return (Number(av) - Number(bv)) * dir
       return String(av || "").localeCompare(String(bv || "")) * dir
     })
   }, [ranked, filters, sort])
@@ -692,7 +703,7 @@ function CandidateRankingTable({ ranked, selectedId, onSelect, compareIds, setCo
                   <td style={tableCellStyle(t)}>{ranked.findIndex(item => item.id === row.id) + 1}</td>
                   <td style={{ ...tableCellStyle(t), color: t.textStrong, fontWeight: 900 }}><ChemicalText value={row.displayName} /></td>
                   <td style={tableCellStyle(t)}><ChemicalText value={row.sourceDatabase} /></td>
-                  <td style={tableCellStyle(t)}><BasisBadge tone={row.dataGrade === "experimental" ? "calc" : row.dataGrade === "computed" ? "info" : "proxy"}>{row.dataGrade || "pending"}</BasisBadge></td>
+                  <td style={tableCellStyle(t)}><BasisBadge tone={row.dataGrade === "experimental" ? "calc" : row.dataGrade === "computed" || row.dataGrade === "computed-IAST" ? "info" : "proxy"}>{row.dataGrade || "pending"}</BasisBadge></td>
                   <td style={tableCellStyle(t)}><ChemicalFormula value={row.gasPair} /></td>
                   <td style={tableCellStyle(t)}><MetricWithSource record={row} metric="primaryUptake" value={formatMetricValue(row, "primaryUptake", lang)} unit="mmol/g" t={t} lang={lang} /></td>
                   <td style={tableCellStyle(t)}><MetricWithSource record={row} metric="selectivity" value={formatMetricValue(row, "selectivity", lang)} unit="dimensionless" t={t} lang={lang} /></td>
@@ -714,6 +725,56 @@ function CandidateRankingTable({ ranked, selectedId, onSelect, compareIds, setCo
         </table>
       </div>
       {!filtered.length ? <Callout tone="warn">{text(lang, "筛选后无候选。", "No candidates after filtering.")}</Callout> : null}
+    </section>
+  )
+}
+
+function CompareInsightPanel({ selected, compareRows, t, lang, isMobile }) {
+  const rows = compareRows.length ? compareRows : selected ? [selected] : []
+  const metrics = ["selectivity", "workingCapacity", "primaryUptake", "regenerability", "score"]
+  const bestFor = key => rows
+    .map(row => ({ row, value: valueForMetric(row, key) }))
+    .filter(item => item.value != null)
+    .sort((a, b) => b.value - a.value)[0]?.row?.id
+  const best = Object.fromEntries(metrics.map(key => [key, bestFor(key)]))
+  if (!selected) return null
+  return (
+    <section style={cardStyle(t)}>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
+        <div>
+          <SectionTitle>{text(lang, "候选对比摘要", "Candidate Compare Snapshot")}</SectionTitle>
+          <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 5 }}>
+            {text(lang, "左侧为当前选中候选；勾选 Compare 后会在同一指标行内直接显示强弱项与数据等级。", "The selected candidate stays in view; checked Compare rows show strengths and data grades on the same metric rows.")}
+          </div>
+        </div>
+        <BasisBadge tone={compareRows.length ? "info" : "warn"}>{compareRows.length ? `${compareRows.length} compare` : text(lang, "未勾选对比", "no compare selected")}</BasisBadge>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : `repeat(${Math.min(4, rows.length)}, minmax(0, 1fr))`, gap: 10, marginTop: 12 }}>
+        {rows.map(row => (
+          <article key={row.id} style={{ ...surfaceStyle(t), borderColor: row.id === selected.id ? t.accent : t.border }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "flex-start" }}>
+              <strong style={{ color: t.textStrong, fontSize: 13, lineHeight: 1.25, overflowWrap: "anywhere" }}><ChemicalText value={row.displayName} /></strong>
+              <BasisBadge tone={row.dataGrade === "computed-IAST" ? "info" : row.dataGrade === "experimental" ? "calc" : "proxy"}>{row.dataGrade || "pending"}</BasisBadge>
+            </div>
+            <div style={{ display: "grid", gap: 6, marginTop: 9 }}>
+              {metrics.map(metric => {
+                const isBest = best[metric] === row.id
+                return (
+                  <div key={metric} style={{ alignItems: "center", display: "grid", gap: 6, gridTemplateColumns: "minmax(88px, 0.7fr) minmax(0, 1fr)" }}>
+                    <span style={{ color: t.faint, fontSize: 11 }}>{metricLabel(metric, lang)}</span>
+                    <span style={{ color: isBest ? t.accentText : t.textStrong, fontFamily: metric === "score" ? FONT_MONO : undefined, fontSize: 12, fontWeight: isBest ? 930 : 780 }}>
+                      {metric === "score" ? formatScore100(row.score, lang) : formatMetricValue(row, metric, lang)} {isBest ? "↑" : ""}
+                    </span>
+                  </div>
+                )
+              })}
+            </div>
+            <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.45, marginTop: 8 }}>
+              {text(lang, "来源", "Source")}: <ChemicalText value={row.sourceDatabase || "pending"} /> · {row.fieldSources?.selectivity?.sourceType || "selectivity pending"}
+            </div>
+          </article>
+        ))}
+      </div>
     </section>
   )
 }
@@ -760,7 +821,7 @@ function ExplanationPanel({ record, t, lang, onOpenMethod }) {
           <div style={{ color: t.textStrong, fontSize: 18, fontWeight: 930, lineHeight: 1.2, marginTop: 7 }}><ChemicalText value={record.displayName} /></div>
           <div style={{ alignItems: "center", color: t.subtle, display: "flex", flexWrap: "wrap", fontSize: 12, gap: 6, lineHeight: 1.5, marginTop: 5 }}>
             <span>{record.sourceRecordId}</span>
-            <BasisBadge tone={record.dataGrade === "experimental" ? "calc" : record.dataGrade === "computed" ? "info" : "proxy"}>{record.dataGrade || "pending"}</BasisBadge>
+            <BasisBadge tone={record.dataGrade === "experimental" ? "calc" : record.dataGrade === "computed" || record.dataGrade === "computed-IAST" ? "info" : "proxy"}>{record.dataGrade || "pending"}</BasisBadge>
             <GasDataStatusBadge type="dataType" value={record.dataType} lang={lang} />
             <GasDataStatusBadge type="evidence" value={record.evidenceLevel} lang={lang} />
           </div>
@@ -901,6 +962,9 @@ export function GasSepTab({ onNavigate }) {
   const [records, setRecords] = useState([])
   const [status, setStatus] = useState("loading")
   const [collectionReport, setCollectionReport] = useState(null)
+  const [iastReport, setIastReport] = useState(null)
+  const [identityReport, setIdentityReport] = useState(null)
+  const [proxyReport, setProxyReport] = useState(null)
   const [selectedMofId, setSelectedMofId] = useState(null)
   const [selectedMetric, setSelectedMetric] = useState("primaryUptake")
   const [rankingMode, setRankingMode] = useState("overall")
@@ -934,13 +998,19 @@ export function GasSepTab({ onNavigate }) {
       getGasAdsorptionRecordsV1({ throwOnError: false }),
       getGasAdsorptionRecordsDemo({ throwOnError: false }),
       getGasAdsorptionV2CollectionReport({ throwOnError: false }),
+      getGasAdsorptionV21IastReport({ throwOnError: false }),
+      getMofIdentityResolutionReport({ throwOnError: false }),
+      getGasStructureProxyValidationReport({ throwOnError: false }),
     ])
-      .then(([v2Rows, v1Rows, demoRows, report]) => {
+      .then(([v2Rows, v1Rows, demoRows, report, iast, identity, proxy]) => {
         if (!active) return
         const sourceRows = Array.isArray(v2Rows) && v2Rows.length ? v2Rows : Array.isArray(v1Rows) && v1Rows.length ? v1Rows : demoRows
         const safeRows = normalizeGasRecords(sourceRows)
         setRecords(safeRows)
         setCollectionReport(report || null)
+        setIastReport(iast || null)
+        setIdentityReport(identity || null)
+        setProxyReport(proxy || null)
         setStatus(safeRows.length ? (Array.isArray(v2Rows) && v2Rows.length ? "loaded-v2" : Array.isArray(v1Rows) && v1Rows.length ? "loaded" : "fallback") : "empty")
       })
       .catch(error => {
@@ -1017,9 +1087,10 @@ export function GasSepTab({ onNavigate }) {
       <GasSepDatabaseSummaryCard summary={gasSepSummary} exportRows={gasSepExportRows} lang={lang} t={t} isMobile={isMobile} />
       <ScenarioBuilder scenario={scenario} setScenario={setScenario} t={t} lang={lang} isMobile={isMobile} isNarrow={isNarrow} />
       <ConditionSummary ranked={ranked} scenario={scenario} t={t} lang={lang} isMobile={isMobile} />
-      <GasCoverageNotice coverage={screening.coverage} collectionReport={collectionReport} t={t} lang={lang} />
+      <GasCoverageNotice coverage={screening.coverage} collectionReport={collectionReport} iastReport={iastReport} identityReport={identityReport} proxyReport={proxyReport} t={t} lang={lang} />
       <PerformanceMap ranked={ranked} selectedId={selected?.id} onSelect={setSelectedMofId} chartConfig={chartConfig} setChartConfig={setChartConfig} t={t} lang={lang} isMobile={isMobile} isNarrow={isNarrow} />
       <CandidateRankingTable ranked={ranked} selectedId={selected?.id} onSelect={setSelectedMofId} compareIds={compareMofIds} setCompareIds={setCompareMofIds} t={t} lang={lang} isMobile={isMobile} />
+      <CompareInsightPanel selected={selected} compareRows={compareRows} t={t} lang={lang} isMobile={isMobile} />
       <GasTopRankingChart
         ranked={ranked}
         selectedId={selected?.id}

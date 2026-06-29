@@ -18,7 +18,7 @@ describe("Database Evolution", () => {
     expect(bodyText()).toMatch(/50 Candidates/)
     expect(bodyText()).toMatch(/250 Candidates/)
     expect(bodyText()).toMatch(/1000 Candidates/)
-    expect(bodyText()).toMatch(/3020\+ Candidates/)
+    expect(bodyText()).toMatch(/3462\+ Candidates/)
     expect(bodyText()).toMatch(/2480 verified metadata/)
     expect(bodyText()).toMatch(/pending/)
   })

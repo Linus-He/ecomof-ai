@@ -11,7 +11,7 @@ describe("homeSummary", () => {
   it("builds the homepage product overview data from lightweight summaries", () => {
     const summary = buildHomeSummary({ homeSummary, dataIngestionSummary })
 
-    expect(summary.totalRecords).toBe(3020)
+    expect(summary.totalRecords).toBe(3462)
     expect(summary.coreMofRecords).toBe(1240)
     expect(summary.qmofRecords).toBe(1240)
     expect(summary.organicAcidLiteratureRecords).toBe(540)
@@ -21,7 +21,7 @@ describe("homeSummary", () => {
     expect(summary.experimentalLabelCount).toBe(150)
     expect(summary.externalTestCount).toBe(80)
     expect(summary.benchmarkEligibleCount).toBe(230)
-    expect(summary.currentVersion).toBe("V3.9.9")
+    expect(summary.currentVersion).toBe("V3.10.1")
     expect(summary.bestModel).toBe("Random Forest")
     expect(summary.credibilityScore).toBe(78.87)
     expect(summary.credibilityGrade).toBe("B")

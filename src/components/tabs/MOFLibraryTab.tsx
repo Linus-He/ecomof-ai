@@ -7,7 +7,11 @@ import {
   getGlobalMofCandidates,
   getGasAdsorptionRecordsV2,
   getGasAdsorptionV2CollectionReport,
+  getMofIdentityResolutionReport,
+  getGasStructureProxyValidationReport,
   getMofIdentityRegistry,
+  getCoreMofImportV2,
+  getQmofImportV2,
   toolbarBtn,
   PageHeader,
   ResultLayer,
@@ -795,7 +799,7 @@ function NameCurationQueue({ records, lang, t, isMobile }) {
   )
 }
 
-function UnifiedMofDatabasePanel({ rows, collectionReport, lang, t, isMobile }) {
+function UnifiedMofDatabasePanel({ rows, collectionReport, identityReport, proxyReport, lang, t, isMobile }) {
   const [filters, setFilters] = useState({ query: "", metal: "all", gasMode: "all", gasPair: "all", dataGrade: "all", catalysis: "all" })
   const [sort, setSort] = useState({ key: "gasRecords", dir: "desc" })
   const [selectedId, setSelectedId] = useState(null)
@@ -825,6 +829,8 @@ function UnifiedMofDatabasePanel({ rows, collectionReport, lang, t, isMobile }) 
   }, [rows, filters, sort])
   const selected = filtered.find(row => row.id === selectedId) || filtered[0] || null
   const proxyValidation = useMemo(() => validateStructureProxy(filtered), [filtered])
+  const reportedProxy = proxyReport?.summary || {}
+  const reportedIdentity = identityReport?.summary || {}
   const summary = useMemo(() => ({
     total: rows.length,
     withStructure: rows.filter(row => row.completeness?.structure).length,
@@ -847,11 +853,19 @@ function UnifiedMofDatabasePanel({ rows, collectionReport, lang, t, isMobile }) 
         </div>
         <StatusPill t={t} tone="source">{summary.filtered} / {summary.total}</StatusPill>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))", gap: 8 }}>
         <MetricMini label={text(lang, "结构", "Structure")} value={summary.withStructure} note="CoRE/QMOF" t={t} />
-        <MetricMini label={text(lang, "气体数据", "Gas data")} value={summary.withGas} note={`${collectionReport?.summary?.nistRecordCount || 0} NIST`} t={t} />
+        <MetricMini label={text(lang, "气体数据", "Gas data")} value={summary.withGas} note={`${collectionReport?.summary?.computedIastSelectivityCount || 0} IAST`} t={t} />
         <MetricMini label={text(lang, "催化关联", "Catalysis links")} value={summary.withCatalysis} note="Organic Acid" t={t} />
-        <MetricMini label="Spearman" value={proxyValidation.rho === null ? "n/a" : proxyValidation.rho.toFixed(2)} note={`${proxyValidation.status} · n=${proxyValidation.n}`} t={t} />
+        <MetricMini label={text(lang, "实体解析", "Identity links")} value={reportedIdentity.linkedGasRecordCount ?? collectionReport?.summary?.gasRecordsWithStructuralLinks ?? "n/a"} note={`${Math.round((reportedIdentity.gasStructureResolutionRate ?? collectionReport?.summary?.gasStructureResolutionRate ?? 0) * 100)}%`} t={t} />
+        <MetricMini label="Spearman" value={reportedProxy.status || (proxyValidation.rho === null ? "n/a" : proxyValidation.rho.toFixed(2))} note={`report n=${reportedProxy.candidatePairCount ?? proxyValidation.n}`} t={t} />
+      </div>
+      <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.muted, fontSize: 11.8, lineHeight: 1.6, padding: "8px 10px" }}>
+        {text(
+          lang,
+          `v2.1 解析报告：${reportedIdentity.linkedGasRecordCount ?? 0} 条气体记录已链到结构候选；composition 匹配 ${reportedIdentity.compositionMatchedCanonicalCount ?? 0} 个 canonical。结构代理验证仅为指示性，不作为吸附预测。`,
+          `v2.1 identity report: ${reportedIdentity.linkedGasRecordCount ?? 0} gas records are linked to structural candidates; composition matched ${reportedIdentity.compositionMatchedCanonicalCount ?? 0} canonical records. Structure-proxy validation is indicative only, not adsorption prediction.`
+        )}
       </div>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1.2fr repeat(5, minmax(0, 1fr))", gap: 8, alignItems: "end" }}>
         <label style={labelStyle}>{text(lang, "搜索", "Search")}<input value={filters.query} onChange={event => setFilters(prev => ({ ...prev, query: event.target.value }))} style={controlStyle} /></label>
@@ -953,8 +967,8 @@ function UnifiedDetail({ row, lang, t, isMobile }) {
       <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{text(lang, "气体吸附记录", "Gas Adsorption Records")}</div>
       {gasRows.length ? (
         <div style={{ overflowX: "auto" }}>
-          <table style={{ width: "100%", minWidth: 760, borderCollapse: "collapse", fontSize: 11.5 }}>
-            <thead><tr>{["MOF", "Gas pair", "Grade", "Uptake", "Capacity", "Source"].map(head => <th key={head} style={{ borderBottom: `1px solid ${t.border}`, color: t.subtle, padding: 7, textAlign: "left" }}>{head}</th>)}</tr></thead>
+          <table style={{ width: "100%", minWidth: 860, borderCollapse: "collapse", fontSize: 11.5 }}>
+            <thead><tr>{["MOF", "Gas pair", "Grade", "Uptake", "Selectivity", "Capacity", "Source"].map(head => <th key={head} style={{ borderBottom: `1px solid ${t.border}`, color: t.subtle, padding: 7, textAlign: "left" }}>{head}</th>)}</tr></thead>
             <tbody>
               {gasRows.slice(0, 8).map(record => (
                 <tr key={record.id} style={{ borderBottom: `1px solid ${t.divider}` }}>
@@ -962,6 +976,7 @@ function UnifiedDetail({ row, lang, t, isMobile }) {
                   <td style={unifiedCell(t)}>{record.gasPair}</td>
                   <td style={unifiedCell(t)}>{record.dataGrade || record.evidence?.dataGrade}</td>
                   <td style={unifiedCell(t)}>{formatValue(record.metrics?.primaryUptake, " mmol/g", lang)}</td>
+                  <td style={unifiedCell(t)}>{formatValue(record.metrics?.iaSTSelectivity ?? record.metrics?.selectivity, "", lang)}<br /><span style={{ color: t.faint, fontSize: 10.5 }}>{record.fieldSources?.iaSTSelectivity?.sourceType || record.fieldSources?.selectivity?.sourceType || "pending"}</span></td>
                   <td style={unifiedCell(t)}>{formatValue(record.metrics?.workingCapacity, " mmol/g", lang)}</td>
                   <td style={unifiedCell(t)}>{record.recordProvenance?.doi || record.recordProvenance?.sourceUrl || "pending"}</td>
                 </tr>
@@ -985,9 +1000,12 @@ export function MOFLibraryTab() {
   const { lang } = useLang()
   const { isMobile } = useViewport()
   const [rows, setRows] = useState([])
+  const [structuralRows, setStructuralRows] = useState([])
   const [gasRows, setGasRows] = useState([])
   const [identityRegistry, setIdentityRegistry] = useState({ records: [], summary: {} })
   const [collectionReport, setCollectionReport] = useState(null)
+  const [identityReport, setIdentityReport] = useState(null)
+  const [proxyReport, setProxyReport] = useState(null)
   const [status, setStatus] = useState("loading")
   const [filters, setFilters] = useState({ query: "", source: "all", metal: "all", organicStatus: "all", availability: {} })
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
@@ -1001,14 +1019,25 @@ export function MOFLibraryTab() {
       getGasAdsorptionRecordsV2({ throwOnError: false }),
       getMofIdentityRegistry({ throwOnError: false }),
       getGasAdsorptionV2CollectionReport({ throwOnError: false }),
+      getMofIdentityResolutionReport({ throwOnError: false }),
+      getGasStructureProxyValidationReport({ throwOnError: false }),
+      getCoreMofImportV2({ throwOnError: false }),
+      getQmofImportV2({ throwOnError: false }),
     ])
-      .then(([data, gasData, registry, report]) => {
+      .then(([data, gasData, registry, report, identityResolution, proxyValidation, coreImport, qmofImport]) => {
         if (!active) return
         const normalized = Array.isArray(data) ? data.map(normalizeOpenMofRecord) : []
+        const imports = [
+          ...((coreImport?.records || []).map(row => ({ ...row, sourceDatabase: row.sourceDatabase || "CoRE MOF" }))),
+          ...((qmofImport?.records || []).map(row => ({ ...row, sourceDatabase: row.sourceDatabase || "QMOF" }))),
+        ]
         setRows(normalized)
+        setStructuralRows(imports.length ? imports : normalized)
         setGasRows(Array.isArray(gasData) ? gasData : [])
         setIdentityRegistry(registry || { records: [], summary: {} })
         setCollectionReport(report || null)
+        setIdentityReport(identityResolution || null)
+        setProxyReport(proxyValidation || null)
         setStatus(normalized.length ? "loaded" : "empty")
       })
       .catch(error => {
@@ -1035,7 +1064,7 @@ export function MOFLibraryTab() {
   const filteredRecords = useMemo(() => rows.filter(item => passesFilters(item, filters)), [rows, filters])
   const visibleRecords = useMemo(() => filteredRecords.slice(0, visibleCount), [filteredRecords, visibleCount])
   const stats = useMemo(() => summarizeRecords(rows), [rows])
-  const unifiedRows = useMemo(() => buildUnifiedMofRows({ structures: rows, gasRecords: gasRows, registry: identityRegistry }), [rows, gasRows, identityRegistry])
+  const unifiedRows = useMemo(() => buildUnifiedMofRows({ structures: structuralRows.length ? structuralRows : rows, gasRecords: gasRows, registry: identityRegistry }), [structuralRows, rows, gasRows, identityRegistry])
 
   const statusLine = text(
     lang,
@@ -1067,7 +1096,7 @@ export function MOFLibraryTab() {
       <OpenMofSeedQualitySummary records={rows} lang={lang} t={t} isMobile={isMobile} />
       <DataQualityAuditPanel records={rows} lang={lang} t={t} isMobile={isMobile} />
       <NameCurationQueue records={rows} lang={lang} t={t} isMobile={isMobile} />
-      <UnifiedMofDatabasePanel rows={unifiedRows} collectionReport={collectionReport} lang={lang} t={t} isMobile={isMobile} />
+      <UnifiedMofDatabasePanel rows={unifiedRows} collectionReport={collectionReport} identityReport={identityReport} proxyReport={proxyReport} lang={lang} t={t} isMobile={isMobile} />
 
       <OpenMofSeedFilters
         filters={filters}

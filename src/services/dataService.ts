@@ -29,7 +29,13 @@ const DATA_PATHS = {
   gasAdsorptionRecordsV1: "data/gas_adsorption_records_v1.json",
   gasAdsorptionRecordsV2: "data/gas_adsorption_records_v2.json",
   gasAdsorptionV2CollectionReport: "data/gas_adsorption_v2_collection_report.json",
+  gasAdsorptionV21IastReport: "data/gas_adsorption_v2_1_iast_report.json",
+  mofIdentityResolutionReport: "data/mof_identity_resolution_report.json",
+  gasStructureProxyValidationReport: "data/gas_structure_proxy_validation_report.json",
+  gasAdsorptionDuplicateReportV21: "data/gas_adsorption_duplicate_report_v2_1.json",
   mofIdentityRegistry: "data/mof_identity_registry.json",
+  coreMofImportV2: "data/data_ingestion/core_mof_import_v2.json",
+  qmofImportV2: "data/data_ingestion/qmof_import_v2.json",
   gasAdsorptionSourcesV1: "data/gas_adsorption_sources_v1.json",
   gasAdsorptionFieldSourcesV1: "data/gas_adsorption_field_sources_v1.json",
   gasAdsorptionSchemaV1: "data/gas_adsorption_schema_v1.json",
@@ -179,8 +185,32 @@ export function getGasAdsorptionV2CollectionReport({ throwOnError = false } = {}
   return fetchJson(DATA_PATHS.gasAdsorptionV2CollectionReport, {}, { throwOnError })
 }
 
+export function getGasAdsorptionV21IastReport({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.gasAdsorptionV21IastReport, {}, { throwOnError })
+}
+
+export function getMofIdentityResolutionReport({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.mofIdentityResolutionReport, {}, { throwOnError })
+}
+
+export function getGasStructureProxyValidationReport({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.gasStructureProxyValidationReport, {}, { throwOnError })
+}
+
+export function getGasAdsorptionDuplicateReportV21({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.gasAdsorptionDuplicateReportV21, {}, { throwOnError })
+}
+
 export function getMofIdentityRegistry({ throwOnError = false } = {}) {
   return fetchJson(DATA_PATHS.mofIdentityRegistry, { records: [], unresolved: [], summary: {} }, { throwOnError })
+}
+
+export function getCoreMofImportV2({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.coreMofImportV2, { records: [] }, { throwOnError })
+}
+
+export function getQmofImportV2({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.qmofImportV2, { records: [] }, { throwOnError })
 }
 
 export function getGasAdsorptionSourcesV1({ throwOnError = false } = {}) {

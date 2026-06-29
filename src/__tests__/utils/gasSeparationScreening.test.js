@@ -30,4 +30,38 @@ describe("gas separation screening", () => {
     expect(low.rankedRecords[0].workingCapacity).not.toBe(high.rankedRecords[0].workingCapacity)
     expect(high.coverage.total).toBe(1)
   })
+
+  it("counts computed IAST selectivity and structural identity coverage honestly", () => {
+    const records = [
+      {
+        id: "iast",
+        displayName: "IAST MOF",
+        gasPair: "CO2/N2",
+        dataGrade: "computed-IAST",
+        baseDataGrade: "experimental",
+        identityStatus: "matched-by-composition",
+        structuralLinkCount: 2,
+        evidence: { evidenceLevel: "B", confidence: 0.82, dataType: "simulated_iast" },
+        fieldSources: { selectivity: { sourceType: "iast_from_pure_component_isotherms" } },
+        descriptors: {},
+        metrics: { primaryUptake: 2, iaSTSelectivity: 18, workingCapacity: 0.9, regenerability: 45 },
+      },
+      {
+        id: "thin",
+        displayName: "Thin MOF",
+        gasPair: "CO2/N2",
+        dataGrade: "experimental",
+        evidence: { evidenceLevel: "A", confidence: 0.94, dataType: "experimental_literature" },
+        fieldSources: { selectivity: { sourceType: "selectivity-unavailable" } },
+        descriptors: {},
+        metrics: { primaryUptake: 1.4, workingCapacity: 0.7, regenerability: 50 },
+      },
+    ]
+    const result = buildGasSeparationScreening(records, { gasPair: "CO2/N2" })
+    expect(result.coverage.computedIast).toBe(1)
+    expect(result.coverage.withIastSelectivity).toBe(1)
+    expect(result.coverage.withSelectivity).toBe(1)
+    expect(result.coverage.linkedToStructure).toBe(1)
+    expect(result.rankedRecords[0].id).toBe("iast")
+  })
 })

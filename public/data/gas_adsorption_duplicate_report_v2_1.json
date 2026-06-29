@@ -1,0 +1,1487 @@
+{
+  "exactDuplicateGroups": [],
+  "conditionRepeatGroups": [
+    {
+      "key": "Soc-MOF|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-soc-mof-10-1002aic-11865-isotherm3-0001",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1002Aic.11865.isotherm3"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-soc-mof-10-1002aic-11865-isotherm3-0002",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1002Aic.11865.isotherm3"
+        },
+        {
+          "id": "gassep-v2-h2-co2-soc-mof-10-1002aic-11865-isotherm4-0003",
+          "gasPair": "H2/CO2",
+          "sourceRecordId": "10.1002Aic.11865.isotherm4"
+        },
+        {
+          "id": "gassep-v2-co2-n2-soc-mof-10-1016j-micromeso-2009-06-014-isotherm14-0247",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.micromeso.2009.06.014.Isotherm14"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-soc-mof-10-1016j-micromeso-2009-06-014-isotherm14-0248",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.micromeso.2009.06.014.Isotherm14"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "IRMOF-1|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-irmof-1-10-1002anie-200700218-isotherm1-0004",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1002anie.200700218.isotherm1"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-irmof-1-10-1002anie-200700218-isotherm1-0005",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1002anie.200700218.isotherm1"
+        },
+        {
+          "id": "gassep-v2-co2-n2-irmof-1-10-1002cjce-20700-isotherm1-0006",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1002Cjce.20700.Isotherm1"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-irmof-1-10-1002cjce-20700-isotherm1-0007",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1002Cjce.20700.Isotherm1"
+        },
+        {
+          "id": "gassep-v2-co2-n2-irmof-1-10-1007s00894-010-0720-x-isotherm3-0014",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1007s00894-010-0720-x.Isotherm3"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-irmof-1-10-1007s00894-010-0720-x-isotherm3-0015",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1007s00894-010-0720-x.Isotherm3"
+        },
+        {
+          "id": "gassep-v2-co2-n2-irmof-1-10-1007s10450-010-9305-3-isotherm3-0020",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1007s10450-010-9305-3.Isotherm3"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-irmof-1-10-1007s10450-010-9305-3-isotherm3-0021",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1007s10450-010-9305-3.Isotherm3"
+        },
+        {
+          "id": "gassep-v2-co2-n2-irmof-1-10-1021ja0570032-isotherm2-0318",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021Ja0570032.Isotherm2"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-irmof-1-10-1021ja0570032-isotherm2-0319",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021Ja0570032.Isotherm2"
+        },
+        {
+          "id": "gassep-v2-co2-n2-irmof-1-10-1016j-micromeso-2008-04-033-isotherm2-0386",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.micromeso.2008.04.033.isotherm2"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-irmof-1-10-1016j-micromeso-2008-04-033-isotherm2-0387",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.micromeso.2008.04.033.isotherm2"
+        },
+        {
+          "id": "gassep-v2-co2-n2-irmof-1-10-1016j-seppur-2014-08-021-isotherm42-0396",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.seppur.2014.08.021.Isotherm42"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-irmof-1-10-1016j-seppur-2014-08-021-isotherm42-0397",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.seppur.2014.08.021.Isotherm42"
+        },
+        {
+          "id": "gassep-v1-co2-ch4-irmof-1-013",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "gas-v1-013"
+        },
+        {
+          "id": "gassep-v1-o2-n2-irmof-1-028",
+          "gasPair": "O2/N2",
+          "sourceRecordId": "gas-v1-028"
+        },
+        {
+          "id": "gassep-v1-h2-ch4-irmof-1-043",
+          "gasPair": "H2/CH4",
+          "sourceRecordId": "gas-v1-043"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Bio-MOF-11|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-bio-mof-11-10-1002cssc-201000080-isotherm1-0008",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1002cssc.201000080.isotherm1"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-bio-mof-11-10-1002cssc-201000080-isotherm1-0009",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1002cssc.201000080.isotherm1"
+        },
+        {
+          "id": "gassep-v2-h2-co2-bio-mof-11-10-1002cssc-201000080-isotherm10-0010",
+          "gasPair": "H2/CO2",
+          "sourceRecordId": "10.1002cssc.201000080.isotherm10"
+        },
+        {
+          "id": "gassep-v2-co2-n2-bio-mof-11-10-1016j-ces-2015-03-016-isotherm1-0044",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.ces.2015.03.016.Isotherm1"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-bio-mof-11-10-1016j-ces-2015-03-016-isotherm1-0045",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.ces.2015.03.016.Isotherm1"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "CuBTC|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-cubtc-10-1007s00894-010-0720-x-isotherm1-0012",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1007s00894-010-0720-x.Isotherm1"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-cubtc-10-1007s00894-010-0720-x-isotherm1-0013",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1007s00894-010-0720-x.Isotherm1"
+        },
+        {
+          "id": "gassep-v2-co2-n2-cubtc-10-1021acs-jpcc-6b01119-isotherm2-0072",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acs.jpcc.6b01119.Isotherm2"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-cubtc-10-1021acs-jpcc-6b01119-isotherm2-0073",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acs.jpcc.6b01119.Isotherm2"
+        },
+        {
+          "id": "gassep-v2-co2-n2-cubtc-10-1021ja0570032-isotherm6-0326",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021Ja0570032.Isotherm6"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-cubtc-10-1021ja0570032-isotherm6-0327",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021Ja0570032.Isotherm6"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "COF-102|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-cof-102-10-1007s10450-010-9305-3-isotherm1-0016",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1007s10450-010-9305-3.Isotherm1"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-cof-102-10-1007s10450-010-9305-3-isotherm1-0017",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1007s10450-010-9305-3.Isotherm1"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "MOF-177|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mof-177-10-1007s10450-010-9305-3-isotherm2-0018",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1007s10450-010-9305-3.Isotherm2"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mof-177-10-1007s10450-010-9305-3-isotherm2-0019",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1007s10450-010-9305-3.Isotherm2"
+        },
+        {
+          "id": "gassep-v2-co2-n2-mof-177-10-1039c1cc11618e-isotherm10-0215",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1039C1cc11618e.Isotherm10"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mof-177-10-1039c1cc11618e-isotherm10-0216",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1039C1cc11618e.Isotherm10"
+        },
+        {
+          "id": "gassep-v2-co2-n2-mof-177-10-1021ja0570032-isotherm1-0314",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021Ja0570032.Isotherm1"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mof-177-10-1021ja0570032-isotherm1-0315",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021Ja0570032.Isotherm1"
+        },
+        {
+          "id": "gassep-v2-co2-n2-mof-177-10-1002aic-14467-isotherm12-0338",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1002Aic.14467.Isotherm12"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mof-177-10-1002aic-14467-isotherm12-0339",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1002Aic.14467.Isotherm12"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Zn4O-CH4|200",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-zn4o-ch4-10-1007s10909-013-0864-z-isotherm10-0022",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm10"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-zn4o-ch4-10-1007s10909-013-0864-z-isotherm10-0023",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm10"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Zn4O-CH4|240",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-zn4o-ch4-10-1007s10909-013-0864-z-isotherm11-0024",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm11"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-zn4o-ch4-10-1007s10909-013-0864-z-isotherm11-0025",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm11"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "LJ+P-MOF|140",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-lj-p-mof-10-1007s10909-013-0864-z-isotherm12-0026",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm12"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-lj-p-mof-10-1007s10909-013-0864-z-isotherm12-0027",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm12"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "LJ-MOF|140",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-lj-mof-10-1007s10909-013-0864-z-isotherm13-0028",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm13"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-lj-mof-10-1007s10909-013-0864-z-isotherm13-0029",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm13"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "LJ+P-MOF|300",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-lj-p-mof-10-1007s10909-013-0864-z-isotherm14-0030",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm14"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-lj-p-mof-10-1007s10909-013-0864-z-isotherm14-0031",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm14"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "LJ-MOF|120",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-lj-mof-10-1007s10909-013-0864-z-isotherm15-0032",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm15"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-lj-mof-10-1007s10909-013-0864-z-isotherm15-0033",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm15"
+        },
+        {
+          "id": "gassep-v2-h2-co2-lj-mof-10-1007s10909-013-0864-z-isotherm17-0034",
+          "gasPair": "H2/CO2",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm17"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "LJ-MOF|300",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-lj-mof-10-1007s10909-013-0864-z-isotherm18-0035",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm18"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-lj-mof-10-1007s10909-013-0864-z-isotherm18-0036",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm18"
+        },
+        {
+          "id": "gassep-v2-h2-co2-lj-mof-10-1007s10909-013-0864-z-isotherm20-0037",
+          "gasPair": "H2/CO2",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm20"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Zn4O-CH4|140",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-zn4o-ch4-10-1007s10909-013-0864-z-isotherm7-0038",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm7"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-zn4o-ch4-10-1007s10909-013-0864-z-isotherm7-0039",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm7"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Zn4O-CH4|180",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-zn4o-ch4-10-1007s10909-013-0864-z-isotherm9-0040",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm9"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-zn4o-ch4-10-1007s10909-013-0864-z-isotherm9-0041",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm9"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Zn4O-CH4|160",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-zn4o-ch4-10-1007s10909-013-0864-z-isotherm8-0042",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm8"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-zn4o-ch4-10-1007s10909-013-0864-z-isotherm8-0043",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1007s10909-013-0864-z.Isotherm8"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "bio-MOF-13 (Configuration I)|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-bio-mof-13-configuration-i-10-1016j-ces-2015-03-016-isotherm4-0046",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.ces.2015.03.016.Isotherm4"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-bio-mof-13-configuration-i-10-1016j-ces-2015-03-016-isotherm4-0047",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.ces.2015.03.016.Isotherm4"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "bio-MOF-13 (Configuration II)|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-bio-mof-13-configuration-ii-10-1016j-ces-2015-03-016-isotherm5-0048",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.ces.2015.03.016.Isotherm5"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-bio-mof-13-configuration-ii-10-1016j-ces-2015-03-016-isotherm5-0049",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.ces.2015.03.016.Isotherm5"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Bio-MOF-12|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-bio-mof-12-10-1016j-ces-2015-03-016-isotherm3-0050",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.ces.2015.03.016.Isotherm3"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-bio-mof-12-10-1016j-ces-2015-03-016-isotherm3-0051",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.ces.2015.03.016.Isotherm3"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "bio-MOF-14 (Configuration I)|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-bio-mof-14-configuration-i-10-1016j-ces-2015-03-016-isotherm6-0052",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.ces.2015.03.016.Isotherm6"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-bio-mof-14-configuration-i-10-1016j-ces-2015-03-016-isotherm6-0053",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.ces.2015.03.016.Isotherm6"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "bio-MOF-14 (Configuration III)|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-bio-mof-14-configuration-iii-10-1016j-ces-2015-03-016-isotherm7-0054",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.ces.2015.03.016.Isotherm7"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-bio-mof-14-configuration-iii-10-1016j-ces-2015-03-016-isotherm7-0055",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.ces.2015.03.016.Isotherm7"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Mg-MOF-74|300",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mg-mof-74-10-1016j-memsci-2011-05-001-isotherm17-0056",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.memsci.2011.05.001.Isotherm17"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mg-mof-74-10-1016j-memsci-2011-05-001-isotherm17-0057",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.memsci.2011.05.001.Isotherm17"
+        },
+        {
+          "id": "gassep-v2-co2-n2-mg-mof-74-10-1016j-seppur-2011-11-031-isotherm1-0068",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.seppur.2011.11.031.isotherm1"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mg-mof-74-10-1016j-seppur-2011-11-031-isotherm1-0069",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.seppur.2011.11.031.isotherm1"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Mg-MOF-74|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mg-mof-74-10-1016j-memsci-2011-05-001-isotherm20-0058",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.memsci.2011.05.001.Isotherm20"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mg-mof-74-10-1016j-memsci-2011-05-001-isotherm20-0059",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.memsci.2011.05.001.Isotherm20"
+        },
+        {
+          "id": "gassep-v2-co2-n2-mg-mof-74-10-1002aic-14467-isotherm15-0340",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1002Aic.14467.Isotherm15"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mg-mof-74-10-1002aic-14467-isotherm15-0341",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1002Aic.14467.Isotherm15"
+        },
+        {
+          "id": "gassep-v1-co2-ch4-mg-mof-74-017",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "gas-v1-017"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Mg-MOF-74|313",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mg-mof-74-10-1016j-memsci-2011-05-001-isotherm21-0060",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.memsci.2011.05.001.Isotherm21"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mg-mof-74-10-1016j-memsci-2011-05-001-isotherm21-0061",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.memsci.2011.05.001.Isotherm21"
+        },
+        {
+          "id": "gassep-v2-co2-n2-mg-mof-74-10-1002aic-14467-isotherm26-0358",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1002Aic.14467.Isotherm26"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mg-mof-74-10-1002aic-14467-isotherm26-0359",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1002Aic.14467.Isotherm26"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "MIL-101|295",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mil-101-10-1016j-micromeso-2012-02-034-isotherm23-0062",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.micromeso.2012.02.034.Isotherm23"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mil-101-10-1016j-micromeso-2012-02-034-isotherm23-0063",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.micromeso.2012.02.034.Isotherm23"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "MIL-101|318",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mil-101-10-1016j-micromeso-2012-02-034-isotherm24-0064",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.micromeso.2012.02.034.Isotherm24"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mil-101-10-1016j-micromeso-2012-02-034-isotherm24-0065",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.micromeso.2012.02.034.Isotherm24"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "MIL-101|353",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mil-101-10-1016j-micromeso-2012-02-034-isotherm25-0066",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.micromeso.2012.02.034.Isotherm25"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mil-101-10-1016j-micromeso-2012-02-034-isotherm25-0067",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.micromeso.2012.02.034.Isotherm25"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "CuBTC|295",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-cubtc-10-1021acs-jpcc-6b01119-isotherm1-0070",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acs.jpcc.6b01119.Isotherm1"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-cubtc-10-1021acs-jpcc-6b01119-isotherm1-0071",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acs.jpcc.6b01119.Isotherm1"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Li-HKUST-1|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-li-hkust-1-10-1021acs-jpcc-6b01119-isotherm3-0074",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acs.jpcc.6b01119.Isotherm3"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-li-hkust-1-10-1021acs-jpcc-6b01119-isotherm3-0075",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acs.jpcc.6b01119.Isotherm3"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "MOF-143|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mof-143-10-1021acs-jpcc-6b01119-isotherm4-0076",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acs.jpcc.6b01119.Isotherm4"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mof-143-10-1021acs-jpcc-6b01119-isotherm4-0077",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acs.jpcc.6b01119.Isotherm4"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Li-MOF-143|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-li-mof-143-10-1021acs-jpcc-6b01119-isotherm5-0078",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acs.jpcc.6b01119.Isotherm5"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-li-mof-143-10-1021acs-jpcc-6b01119-isotherm5-0079",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acs.jpcc.6b01119.Isotherm5"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "MOF-399|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mof-399-10-1021acs-jpcc-6b01119-isotherm6-0080",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acs.jpcc.6b01119.Isotherm6"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mof-399-10-1021acs-jpcc-6b01119-isotherm6-0081",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acs.jpcc.6b01119.Isotherm6"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Li-MOF-399|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-li-mof-399-10-1021acs-jpcc-6b01119-isotherm7-0082",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acs.jpcc.6b01119.Isotherm7"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-li-mof-399-10-1021acs-jpcc-6b01119-isotherm7-0083",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acs.jpcc.6b01119.Isotherm7"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Cu-MOF-SiF6|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-cu-mof-sif6-10-1039c1jm10394f-isotherm4-0084",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1039C1jm10394f.Isotherm4"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-cu-mof-sif6-10-1039c1jm10394f-isotherm4-0085",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1039C1jm10394f.Isotherm4"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "446-MOF-Ni|195",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-446-mof-ni-10-1002chem-201500457-isotherm10-0088",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1002chem.201500457.Isotherm10"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-446-mof-ni-10-1002chem-201500457-isotherm10-0089",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1002chem.201500457.Isotherm10"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "446-MOF|195",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-446-mof-10-1002chem-201500457-isotherm11-0090",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1002chem.201500457.Isotherm11"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-446-mof-10-1002chem-201500457-isotherm11-0091",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1002chem.201500457.Isotherm11"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "446-MOF-Co|195",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-446-mof-co-10-1002chem-201500457-isotherm13-0092",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1002chem.201500457.Isotherm13"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-446-mof-co-10-1002chem-201500457-isotherm13-0093",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1002chem.201500457.Isotherm13"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "AmGND-bio-MOF-1|313",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-amgnd-bio-mof-1-10-1039c3cc47031h-isotherm10-0094",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1039C3cc47031h.isotherm10"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-amgnd-bio-mof-1-10-1039c3cc47031h-isotherm10-0095",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1039C3cc47031h.isotherm10"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "GND-bio-MOF-1|313",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-gnd-bio-mof-1-10-1039c3cc47031h-isotherm11-0096",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1039C3cc47031h.isotherm11"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-gnd-bio-mof-1-10-1039c3cc47031h-isotherm11-0097",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1039C3cc47031h.isotherm11"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Bio-MOF-1|313",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-bio-mof-1-10-1039c3cc47031h-isotherm12-0098",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1039C3cc47031h.isotherm12"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-bio-mof-1-10-1039c3cc47031h-isotherm12-0099",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1039C3cc47031h.isotherm12"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "DiAmGND-bio-MOF-1|273",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-diamgnd-bio-mof-1-10-1039c3cc47031h-isotherm5-0100",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1039C3cc47031h.isotherm5"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-diamgnd-bio-mof-1-10-1039c3cc47031h-isotherm5-0101",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1039C3cc47031h.isotherm5"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "AmGND-bio-MOF-1|273",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-amgnd-bio-mof-1-10-1039c3cc47031h-isotherm6-0102",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1039C3cc47031h.isotherm6"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-amgnd-bio-mof-1-10-1039c3cc47031h-isotherm6-0103",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1039C3cc47031h.isotherm6"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "GND-bio-MOF-1|273",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-gnd-bio-mof-1-10-1039c3cc47031h-isotherm7-0104",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1039C3cc47031h.isotherm7"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-gnd-bio-mof-1-10-1039c3cc47031h-isotherm7-0105",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1039C3cc47031h.isotherm7"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Bio-MOF-1|273",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-bio-mof-1-10-1039c3cc47031h-isotherm8-0106",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1039C3cc47031h.isotherm8"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-bio-mof-1-10-1039c3cc47031h-isotherm8-0107",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1039C3cc47031h.isotherm8"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "DiAmGND-bio-MOF-1|313",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-diamgnd-bio-mof-1-10-1039c3cc47031h-isotherm9-0108",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1039C3cc47031h.isotherm9"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-diamgnd-bio-mof-1-10-1039c3cc47031h-isotherm9-0109",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1039C3cc47031h.isotherm9"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Vacuuated CuMOF with silica filler|273",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-vacuuated-cumof-with-silica-filler-10-1016j-jssc-2014-09-022-isotherm1-0110",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.jssc.2014.09.022.Isotherm1"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-vacuuated-cumof-with-silica-filler-10-1016j-jssc-2014-09-022-isotherm1-0111",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.jssc.2014.09.022.Isotherm1"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Vacuuated CuMOF|273",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-vacuuated-cumof-10-1016j-jssc-2014-09-022-isotherm2-0112",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.jssc.2014.09.022.Isotherm2"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-vacuuated-cumof-10-1016j-jssc-2014-09-022-isotherm2-0113",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.jssc.2014.09.022.Isotherm2"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "MOF-1C'-Li|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mof-1c-li-10-1016j-micromeso-2010-10-048-isotherm1-0114",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.micromeso.2010.10.048.isotherm1"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mof-1c-li-10-1016j-micromeso-2010-10-048-isotherm1-0115",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.micromeso.2010.10.048.isotherm1"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "MOF-2'|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mof-2-10-1016j-micromeso-2010-10-048-isotherm10-0116",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.micromeso.2010.10.048.isotherm10"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mof-2-10-1016j-micromeso-2010-10-048-isotherm10-0117",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.micromeso.2010.10.048.isotherm10"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "MOF-2'-Li|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mof-2-li-10-1016j-micromeso-2010-10-048-isotherm9-0118",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.micromeso.2010.10.048.isotherm9"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mof-2-li-10-1016j-micromeso-2010-10-048-isotherm9-0119",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.micromeso.2010.10.048.isotherm9"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "MOF-1C'|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mof-1c-10-1016j-micromeso-2010-10-048-isotherm2-0120",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.micromeso.2010.10.048.isotherm2"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mof-1c-10-1016j-micromeso-2010-10-048-isotherm2-0121",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.micromeso.2010.10.048.isotherm2"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "MOF-1M'|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mof-1m-10-1016j-micromeso-2010-10-048-isotherm5-0122",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.micromeso.2010.10.048.isotherm5"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mof-1m-10-1016j-micromeso-2010-10-048-isotherm5-0123",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.micromeso.2010.10.048.isotherm5"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "MOF-1M'-Li|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mof-1m-li-10-1016j-micromeso-2010-10-048-isotherm6-0124",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1016j.micromeso.2010.10.048.isotherm6"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mof-1m-li-10-1016j-micromeso-2010-10-048-isotherm6-0125",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1016j.micromeso.2010.10.048.isotherm6"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Ca-5TIA-Gel|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-ca-5tia-gel-10-1039c2jm30866e-isotherm1-0126",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1039C2jm30866e.isotherm1"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-ca-5tia-gel-10-1039c2jm30866e-isotherm1-0127",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1039C2jm30866e.isotherm1"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Ca-5TIA-MOF|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-ca-5tia-mof-10-1039c2jm30866e-isotherm2-0128",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1039C2jm30866e.isotherm2"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-ca-5tia-mof-10-1039c2jm30866e-isotherm2-0129",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1039C2jm30866e.isotherm2"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Zn(II) MOF 3'|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-zn-ii-mof-3-10-1021acssuschemeng-7b02087-isotherm10-0130",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm10"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-zn-ii-mof-3-10-1021acssuschemeng-7b02087-isotherm10-0131",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm10"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Zn(II) MOF 1' after 2 days exposure to water vapor|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-zn-ii-mof-1-after-2-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm11-0132",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm11"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-zn-ii-mof-1-after-2-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm11-0133",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm11"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Zn(II) MOF 1' after 4 days exposure to water vapor|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-zn-ii-mof-1-after-4-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm12-0134",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm12"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-zn-ii-mof-1-after-4-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm12-0135",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm12"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Zn(II) MOF 1' after 8 days exposure to water vapor|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-zn-ii-mof-1-after-8-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm13-0136",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm13"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-zn-ii-mof-1-after-8-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm13-0137",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm13"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Zn(II) MOF 1' after 10 days exposure to water vapor|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-zn-ii-mof-1-after-10-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm14-0138",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm14"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-zn-ii-mof-1-after-10-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm14-0139",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm14"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Zn(II) MOF 2' after 2 days exposure to water vapor|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-zn-ii-mof-2-after-2-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm15-0140",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm15"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-zn-ii-mof-2-after-2-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm15-0141",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm15"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Zn(II) MOF 2' after 4 days exposure to water vapor|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-zn-ii-mof-2-after-4-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm16-0142",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm16"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-zn-ii-mof-2-after-4-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm16-0143",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm16"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Zn(II) MOF 2' after 6 days exposure to water vapor|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-zn-ii-mof-2-after-6-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm17-0144",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm17"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-zn-ii-mof-2-after-6-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm17-0145",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm17"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Zn(II) MOF 2' after 8 days exposure to water vapor|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-zn-ii-mof-2-after-8-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm18-0146",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm18"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-zn-ii-mof-2-after-8-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm18-0147",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm18"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Zn(II) MOF 2' after 10 days exposure to water vapor|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-zn-ii-mof-2-after-10-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm19-0148",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm19"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-zn-ii-mof-2-after-10-days-exposure-to-water-vapor-10-1021acssuschemeng-7b02087-isotherm19-0149",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm19"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Zn(II) MOF 1'|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-zn-ii-mof-1-10-1021acssuschemeng-7b02087-isotherm22-0150",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm22"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-zn-ii-mof-1-10-1021acssuschemeng-7b02087-isotherm22-0151",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm22"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Zn(II) MOF 2'|298",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-zn-ii-mof-2-10-1021acssuschemeng-7b02087-isotherm23-0152",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm23"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-zn-ii-mof-2-10-1021acssuschemeng-7b02087-isotherm23-0153",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm23"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Zn(II) MOF 3'|273",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-zn-ii-mof-3-10-1021acssuschemeng-7b02087-isotherm9-0154",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm9"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-zn-ii-mof-3-10-1021acssuschemeng-7b02087-isotherm9-0155",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acssuschemeng.7b02087.Isotherm9"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Mg-MOF-74@MR(Photoswitchg 1 hour)|303",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mg-mof-74-mr-photoswitchg-1-hour-10-1021acs-chemmater-5b02211-isotherm1-0156",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm1"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mg-mof-74-mr-photoswitchg-1-hour-10-1021acs-chemmater-5b02211-isotherm1-0157",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm1"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "MIL-53(Al)@MR 50wt%(Irradiated)|303",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mil-53-al-mr-50wt-irradiated-10-1021acs-chemmater-5b02211-isotherm10-0158",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm10"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mil-53-al-mr-50wt-irradiated-10-1021acs-chemmater-5b02211-isotherm10-0159",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm10"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "MIL-53(Al)@MR 50wt%|303",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mil-53-al-mr-50wt-10-1021acs-chemmater-5b02211-isotherm11-0160",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm11"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mil-53-al-mr-50wt-10-1021acs-chemmater-5b02211-isotherm11-0161",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm11"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "MIL-53(Al)@MR 50wt%(Photoswitched)|303",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mil-53-al-mr-50wt-photoswitched-10-1021acs-chemmater-5b02211-isotherm12-0162",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm12"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mil-53-al-mr-50wt-photoswitched-10-1021acs-chemmater-5b02211-isotherm12-0163",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm12"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Mg-MOF-74@MR(1 day after relaxation)|303",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mg-mof-74-mr-1-day-after-relaxation-10-1021acs-chemmater-5b02211-isotherm13-0164",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm13"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mg-mof-74-mr-1-day-after-relaxation-10-1021acs-chemmater-5b02211-isotherm13-0165",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm13"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Mg-MOF-74@MR(2 days after relaxation)|303",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mg-mof-74-mr-2-days-after-relaxation-10-1021acs-chemmater-5b02211-isotherm14-0166",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm14"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mg-mof-74-mr-2-days-after-relaxation-10-1021acs-chemmater-5b02211-isotherm14-0167",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm14"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Mg-MOF-74@MR(3 days after relaxation)|303",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mg-mof-74-mr-3-days-after-relaxation-10-1021acs-chemmater-5b02211-isotherm15-0168",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm15"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mg-mof-74-mr-3-days-after-relaxation-10-1021acs-chemmater-5b02211-isotherm15-0169",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm15"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Mg-MOF-74@MR|303",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mg-mof-74-mr-10-1021acs-chemmater-5b02211-isotherm2-0170",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm2"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mg-mof-74-mr-10-1021acs-chemmater-5b02211-isotherm2-0171",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm2"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Mg-MOF-74@MR(Photoswitching for 30 min|303",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mg-mof-74-mr-photoswitching-for-30-min-10-1021acs-chemmater-5b02211-isotherm3-0172",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm3"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mg-mof-74-mr-photoswitching-for-30-min-10-1021acs-chemmater-5b02211-isotherm3-0173",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm3"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Mg-MOF-74@MR(Irradiated for 2 hours)|303",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mg-mof-74-mr-irradiated-for-2-hours-10-1021acs-chemmater-5b02211-isotherm4-0174",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm4"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mg-mof-74-mr-irradiated-for-2-hours-10-1021acs-chemmater-5b02211-isotherm4-0175",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm4"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Mg-MOF-74@MR(Irradiated 1 hour)|303",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mg-mof-74-mr-irradiated-1-hour-10-1021acs-chemmater-5b02211-isotherm5-0176",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm5"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mg-mof-74-mr-irradiated-1-hour-10-1021acs-chemmater-5b02211-isotherm5-0177",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm5"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    },
+    {
+      "key": "Mg-MOF-74@MR(Irradiated 30 minutes)|303",
+      "rows": [
+        {
+          "id": "gassep-v2-co2-n2-mg-mof-74-mr-irradiated-30-minutes-10-1021acs-chemmater-5b02211-isotherm6-0178",
+          "gasPair": "CO2/N2",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm6"
+        },
+        {
+          "id": "gassep-v2-co2-ch4-mg-mof-74-mr-irradiated-30-minutes-10-1021acs-chemmater-5b02211-isotherm6-0179",
+          "gasPair": "CO2/CH4",
+          "sourceRecordId": "10.1021acs.chemmater.5b02211.Isotherm6"
+        }
+      ],
+      "reason": "same MOF/temperature appears across different gas pairs, source isotherms, or conditions; retained as distinct provenance-backed records."
+    }
+  ],
+  "exactDuplicateCount": 0,
+  "conditionRepeatGroupCount": 187
+}

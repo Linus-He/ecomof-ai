@@ -2,6 +2,7 @@
 import { createMissingFieldSource, GAS_FIELD_SOURCE_KEYS, GAS_SCHEMA_VERSION, validateGasAdsorptionRecord } from "./gasDataSchema"
 
 function finite(value) {
+  if (value === null || value === undefined || value === "" || typeof value === "boolean") return null
   const number = Number(value)
   return Number.isFinite(number) ? number : null
 }
@@ -139,7 +140,7 @@ export function normalizeGasRecord(record = {}) {
     cycleType: condition.cycleType || "not specified",
     primaryUptake: finite(valueFrom(metrics, "primaryUptake")),
     secondaryUptake: finite(valueFrom(metrics, "secondaryUptake")),
-    selectivity: finite(valueFrom(metrics, "selectivity")),
+    selectivity: finite(valueFrom(metrics, "selectivity") ?? valueFrom(metrics, "iaSTSelectivity")),
     workingCapacity: finite(valueFrom(metrics, "workingCapacity")),
     regenerability: finite(valueFrom(metrics, "regenerability")),
     heatOfAdsorption: finite(valueFrom(metrics, "heatOfAdsorption")),

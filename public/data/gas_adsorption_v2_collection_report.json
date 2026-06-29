@@ -241,13 +241,112 @@
       "H2/CH4": 1
     },
     "dataGradeCounts": {
-      "computed": 83,
-      "experimental": 316,
+      "computed": 57,
+      "computed-IAST": 69,
+      "experimental": 273,
       "seed": 43
     },
     "recordsWithIsotherm": 399,
-    "recordsWithSelectivity": 44,
+    "recordsWithSelectivity": 112,
     "recordsWithWorkingCapacity": 229,
-    "provenanceComplete": true
+    "provenanceComplete": true,
+    "recordsWithIastSelectivity": 112,
+    "computedIastSelectivityCount": 69,
+    "gasStructureResolutionRate": 0.1787,
+    "gasRecordsWithStructuralLinks": 79,
+    "proxyValidationStatus": "low-validity-indicative",
+    "exactDuplicateCount": 0
+  },
+  "version": "gas-adsorption-v2.1",
+  "v2_1": {
+    "iast": {
+      "recordCount": 442,
+      "targetPairRecords": 422,
+      "computedIastCount": 69,
+      "retainedSeedIastCount": 43,
+      "unavailableCount": 328,
+      "fetchedSecondaryIsotherms": 66,
+      "secondaryFetchFailureCount": 0,
+      "computedByPair": {
+        "H2/CO2": 4,
+        "CO2/CH4": 43,
+        "CO2/N2": 22
+      }
+    },
+    "identityResolution": {
+      "gasRecordCount": 442,
+      "linkedGasRecordCount": 79,
+      "unresolvedGasRecordCount": 363,
+      "gasStructureResolutionRate": 0.1787,
+      "compositionMatchedCanonicalCount": 5,
+      "structuralInputCount": 3530
+    },
+    "structureProxyValidation": {
+      "candidatePairCount": 49,
+      "realUptakeCount": 246,
+      "status": "low-validity-indicative",
+      "caveat": "Indicative only: structural descriptors are not adsorption predictions and require same-condition uptake validation. Candidate composition links are not treated as exact structural identity."
+    },
+    "duplicates": {
+      "exactDuplicateCount": 0,
+      "conditionRepeatGroupCount": 187
+    },
+    "selectivityCoverageByPair": {
+      "CO2/N2": {
+        "total": 200,
+        "withSelectivity": 32,
+        "computedIast": 22
+      },
+      "CO2/CH4": {
+        "total": 200,
+        "withSelectivity": 53,
+        "computedIast": 43
+      },
+      "H2/CO2": {
+        "total": 22,
+        "withSelectivity": 9,
+        "computedIast": 4
+      },
+      "O2/N2": {
+        "total": 7,
+        "withSelectivity": 5,
+        "computedIast": 0
+      },
+      "VOC/N2": {
+        "total": 5,
+        "withSelectivity": 5,
+        "computedIast": 0
+      },
+      "CH4/N2": {
+        "total": 2,
+        "withSelectivity": 2,
+        "computedIast": 0
+      },
+      "C2H2/CO2": {
+        "total": 2,
+        "withSelectivity": 2,
+        "computedIast": 0
+      },
+      "C2H2/C2H4": {
+        "total": 1,
+        "withSelectivity": 1,
+        "computedIast": 0
+      },
+      "Xe/Kr": {
+        "total": 1,
+        "withSelectivity": 1,
+        "computedIast": 0
+      },
+      "C3H6/C3H8": {
+        "total": 1,
+        "withSelectivity": 1,
+        "computedIast": 0
+      },
+      "H2/CH4": {
+        "total": 1,
+        "withSelectivity": 1,
+        "computedIast": 0
+      }
+    }
   }
 }
