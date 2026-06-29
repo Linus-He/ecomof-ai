@@ -4,16 +4,17 @@ import {
   useT,
   useLang,
   useViewport,
-  FONT_MONO,
+  FONT_SANS,
   LogoMark,
   BrandMotif,
 } from "../../shared"
-import { BrandMotionBackground, MofDescriptor3DScatter } from "../home"
+import { BrandMotionBackground, GasParetoChart, MofDescriptor3DScatter } from "../home"
 import { toolbarBtn } from "../../utils/styles"
 import {
   DEFAULT_HOME_SUMMARY,
   loadHomeSummary,
 } from "../../utils/homeSummary"
+import { APP_VERSION_LABEL } from "../../constants/appVersion"
 
 const text = (zh, en, lang) => (lang === "zh" ? zh : en)
 
@@ -130,7 +131,7 @@ function IconBadge({ children, t, tone = "info" }) {
       justifyContent: "center",
       fontSize: 12,
       fontWeight: 950,
-      fontFamily: FONT_MONO,
+      fontFamily: FONT_SANS,
       flexShrink: 0,
     }}>
       {children}
@@ -193,7 +194,7 @@ function DataCard({ item, t }) {
     }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10 }}>
         <strong style={{ color: t.textStrong, fontSize: 13.5, lineHeight: 1.3 }}>{item.name}</strong>
-        <span style={{ color: t.accentText, fontFamily: FONT_MONO, fontSize: 13, fontWeight: 950 }}>{item.value}</span>
+        <span style={{ color: t.accentText, fontFamily: FONT_SANS, fontSize: 13, fontWeight: 950 }}>{item.value}</span>
       </div>
       <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>{item.body}</span>
     </article>
@@ -217,7 +218,7 @@ function MiniBarChart({ title, rows, t }) {
           <div key={row.label} style={{ display: "grid", gap: 5 }}>
             <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center" }}>
               <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.35, fontWeight: 780 }}>{row.label}</span>
-              <span style={{ color: t.textStrong, fontSize: 11.5, lineHeight: 1.35, fontWeight: 900, fontFamily: FONT_MONO }}>{row.value}</span>
+              <span style={{ color: t.textStrong, fontSize: 11.5, lineHeight: 1.35, fontWeight: 900, fontFamily: FONT_SANS }}>{row.value}</span>
             </div>
             <div style={{ height: 8, borderRadius: 999, background: t.surface, border: `1px solid ${t.border}`, overflow: "hidden" }}>
               <div style={{ width: `${Math.max(5, Math.min(100, row.percent))}%`, height: "100%", background: row.color || t.accent }} />
@@ -364,7 +365,7 @@ function HeroVisual({ t, lang, summary }) {
           fontSize: 10.5,
           fontWeight: 850,
         }}>
-          {summary.currentVersion || "V3.6"}
+          {APP_VERSION_LABEL}
         </span>
       </div>
       <div style={{ position: "relative", zIndex: 1, display: "grid", gap: 9 }}>
@@ -389,7 +390,7 @@ function HeroVisual({ t, lang, summary }) {
               alignItems: "center",
             }}>
               <span style={{ color: t.muted, fontSize: 12, fontWeight: 820 }}>{row.label}</span>
-              <strong style={{ color: t.textStrong, fontSize: 12.5, fontFamily: FONT_MONO, lineHeight: 1.3 }}>{row.value}</strong>
+              <strong style={{ color: t.textStrong, fontSize: 12.5, fontFamily: FONT_SANS, lineHeight: 1.3 }}>{row.value}</strong>
             </div>
           </div>
         ))}
@@ -446,8 +447,8 @@ export function HomeTab({ setActiveTab }) {
       title: "Current Version",
       subtitle: zh ? "动态项目状态" : "Dynamic project status",
       tone: "info",
-      highlights: [summary.currentVersion || "V3.6", "Research Validation Platform"],
-      body: zh ? "版本号来自项目演化数据源，不再读取旧的首页静态标签。" : "Version is read from the project evolution data source, not a stale homepage label.",
+      highlights: [APP_VERSION_LABEL, `${zh ? "数据状态" : "Data state"} ${summary.currentVersion || "V3.6"}`],
+      body: zh ? "当前 App 版本来自 app_release_log；项目演化 V3.x 作为历史/数据状态保留。" : "The current App version comes from app_release_log; project-evolution V3.x remains as history/data state.",
     },
     {
       mark: "DB",
@@ -769,6 +770,8 @@ export function HomeTab({ setActiveTab }) {
           isMobile={isMobile}
         />
         <MofDescriptor3DScatter t={t} lang={lang} isMobile={isMobile} />
+        <div style={{ height: isMobile ? 14 : 18 }} />
+        <GasParetoChart t={t} lang={lang} isMobile={isMobile} />
       </section>
 
       <section data-testid="home-algorithm-validation" style={sectionStyle}>

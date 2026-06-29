@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { createPortal } from "react-dom"
-import { FONT_MONO } from "../../constants/theme"
+import { FONT_SANS } from "../../constants/theme"
 import { toolbarBtn } from "../../utils/styles"
 import { GraphDescriptorPanel } from "../mof/GraphDescriptorPanel"
 import { BasisBadge } from "../ui"
@@ -105,7 +105,7 @@ export function ScoreExplanationDrawer({ open, onClose, model, candidateId, cand
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 8 }}>
             <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
               <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>{text(lang, "Total score", "Total score")}</div>
-              <div style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 20, fontWeight: 900, marginTop: 5 }}>{score(row.score)}</div>
+              <div style={{ color: t.textStrong, fontFamily: FONT_SANS, fontSize: 20, fontWeight: 900, marginTop: 5 }}>{score(row.score)}</div>
             </div>
             <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
               <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>{text(lang, "Rank", "Rank")}</div>
@@ -134,7 +134,7 @@ export function ScoreExplanationDrawer({ open, onClose, model, candidateId, cand
               ].map(([label, value, prefix]) => (
                 <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10, minWidth: 0 }}>
                   <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>{label}</div>
-                  <div style={{ color: label === "Final Score" ? t.textStrong : t.muted, fontFamily: FONT_MONO, fontSize: 15, fontWeight: 900, marginTop: 5, overflowWrap: "anywhere" }}>
+                  <div style={{ color: label === "Final Score" ? t.textStrong : t.muted, fontFamily: FONT_SANS, fontSize: 15, fontWeight: 900, marginTop: 5, overflowWrap: "anywhere" }}>
                     {Number.isFinite(Number(value)) ? `${prefix}${Number(value).toFixed(1)}` : value || "pending"}
                   </div>
                 </div>
@@ -171,7 +171,7 @@ export function ScoreExplanationDrawer({ open, onClose, model, candidateId, cand
                 <div key={item.key} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10, display: "grid", gap: 5 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "baseline" }}>
                     <span style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>{(lang === "zh" ? item.labelZh : item.label) || item.key}</span>
-                    <span style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 11.5 }}>{num((item.contribution || 0) * 100, 2)}</span>
+                    <span style={{ color: t.textStrong, fontFamily: FONT_SANS, fontSize: 11.5 }}>{num((item.contribution || 0) * 100, 2)}</span>
                   </div>
                   <div style={{ height: 7, border: `1px solid ${t.border}`, borderRadius: 999, background: t.panel, overflow: "hidden" }}>
                     <div style={{ height: "100%", width: pct(item.contribution || 0), background: item.missing ? t.warn : t.accent }} />

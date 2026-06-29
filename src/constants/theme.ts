@@ -46,8 +46,9 @@ export const THEME_LIGHT = {
 }
 
 export const FONT_SANS = 'Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif'
-// v1.0.1 font unification: one sans family for all text including numbers, version
-// labels, metric values, and dates. Numbers align via tabular-nums (set globally in
-// index.css), so decorative numerals no longer use a monospace face. FONT_MONO is kept
-// as a deprecated alias of FONT_SANS so existing call sites stay on the body family.
-export const FONT_MONO = FONT_SANS
+// v1.0.2 font unification: numerals stay on the body family and align with
+// tabular-nums. Use this spread for metric values, badges, tables, and chart ticks.
+export const NUMERIC_FONT_STYLE = {
+  fontFamily: FONT_SANS,
+  fontVariantNumeric: "tabular-nums",
+} as const

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useEffect, useMemo, useState } from "react"
-import { BasisBadge, ChemicalText, FONT_MONO, SectionTitle, formatPercent } from "../../shared"
+import { BasisBadge, ChemicalText, FONT_SANS, SectionTitle, formatPercent } from "../../shared"
 import { GAS_METRICS, dataStatus, formatNumber, metricDisplayValue, metricInterpretation, metricNormalizedValue, text } from "./gasViewUtils"
 
 const COLORS = ["#2F7D7B", "#4E72B8", "#B87333"]
@@ -37,7 +37,7 @@ function DetailRows({ record, ranked, lang, t }) {
                 {metricDisplayValue(record, metric.key, lang, ranked)} · {dataStatus(record, lang)}
               </span>
             </span>
-            <span style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 11, fontWeight: 850, textAlign: "right" }}>{normalized == null ? "pending" : formatPercent(normalized, { lang, normalized: true })}</span>
+            <span style={{ color: t.textStrong, fontFamily: FONT_SANS, fontSize: 11, fontWeight: 850, textAlign: "right" }}>{normalized == null ? "pending" : formatPercent(normalized, { lang, normalized: true })}</span>
           </div>
         )
       })}
@@ -60,7 +60,7 @@ function CompactComparison({ records, ranked, lang, t }) {
                   <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, height: 8, overflow: "hidden" }}>
                     {normalized == null ? null : <span style={{ background: COLORS[index % COLORS.length], display: "block", height: "100%", width: `${Math.round(normalized * 100)}%` }} />}
                   </span>
-                  <span style={{ color: t.subtle, fontFamily: FONT_MONO, fontSize: 10.5, textAlign: "right" }}>{normalized == null ? "pending" : formatPercent(normalized, { lang, normalized: true })}</span>
+                  <span style={{ color: t.subtle, fontFamily: FONT_SANS, fontSize: 10.5, textAlign: "right" }}>{normalized == null ? "pending" : formatPercent(normalized, { lang, normalized: true })}</span>
                 </div>
               )
             })}

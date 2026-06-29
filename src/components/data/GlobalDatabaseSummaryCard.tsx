@@ -7,6 +7,7 @@ import { DataMetricCard } from "./DataMetricCard"
 import { DatasetModeBadge } from "./DatasetModeBadge"
 import { MissingDataNotice } from "./MissingDataNotice"
 import { safePercent } from "../../utils/fallback/safePercent"
+import { APP_VERSION_LABEL } from "../../constants/appVersion"
 
 export function GlobalDatabaseSummaryCard({ summary = null, lang = "en", t, isMobile = false }: any) {
   if (!summary) return null
@@ -27,7 +28,12 @@ export function GlobalDatabaseSummaryCard({ summary = null, lang = "en", t, isMo
             {zh ? `由数据源 registry 派生（${summary.dataVersion}）。数据卡片随数据源变化自动更新。` : `Derived from the data-source registry (${summary.dataVersion}). Cards update automatically as sources change.`}
           </p>
         </div>
-        <DatasetModeBadge mode={summary.dataMode} t={t} />
+        <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "flex-end" }}>
+          <span style={{ background: t?.badgeInfoBg || "#EFF6FF", border: `1px solid ${t?.border || "#E2E8F0"}`, borderRadius: 999, color: t?.accentText || "#1A6DB5", fontSize: 10.2, fontWeight: 850, padding: "2px 8px" }}>
+            {APP_VERSION_LABEL}
+          </span>
+          <DatasetModeBadge mode={summary.dataMode} t={t} />
+        </div>
       </header>
 
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>

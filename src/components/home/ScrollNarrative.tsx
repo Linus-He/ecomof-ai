@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useEffect, useMemo, useRef, useState } from "react"
 import { getDescriptorsForPreset } from "../../scoring"
-import { FONT_MONO } from "../../constants/theme"
+import { FONT_SANS } from "../../constants/theme"
 import { BrandMotif, BrandNode } from "../brand"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
@@ -256,7 +256,7 @@ function DescriptorNetwork({ activeStep, lang, compact = false, reducedMotion = 
         lineHeight: 1.22,
       }}>
         <span>{zh ? "描述符集" : "Descriptor Set"}</span>
-        <span style={{ color: visualPalette.faint, fontSize: 10, fontFamily: FONT_MONO, marginTop: 3 }}>{DESCRIPTOR_NODES.length} fields</span>
+        <span style={{ color: visualPalette.faint, fontSize: 10, fontFamily: FONT_SANS, marginTop: 3 }}>{DESCRIPTOR_NODES.length} fields</span>
       </div>
 
       {DESCRIPTOR_NODES.map((node, index) => {
@@ -352,7 +352,7 @@ function WeightingBars({ lang }) {
         fontWeight: 850,
       }}>
         <span>{text(lang, "CRITIC / Hybrid 权重", "CRITIC / Hybrid weights")}</span>
-        <span style={{ fontFamily: FONT_MONO, color: visualPalette.faint }}>alpha 0.65</span>
+        <span style={{ fontFamily: FONT_SANS, color: visualPalette.faint }}>alpha 0.65</span>
       </div>
       <div style={{ display: "grid", gap: 9 }}>
         {WEIGHT_ROWS.map(row => (
@@ -368,7 +368,7 @@ function WeightingBars({ lang }) {
                 background: row.key === "toxicityConcern" ? visualPalette.slate : visualPalette.accent,
               }} />
             </span>
-            <span style={{ color: visualPalette.text, fontSize: 11, fontWeight: 900, fontFamily: FONT_MONO }}>{row.weight.toFixed(2)}</span>
+            <span style={{ color: visualPalette.text, fontSize: 11, fontWeight: 900, fontFamily: FONT_SANS }}>{row.weight.toFixed(2)}</span>
           </div>
         ))}
       </div>
@@ -412,7 +412,7 @@ function CandidateRankingPreview({ lang }) {
             padding: "10px 11px",
           }}
         >
-          <span style={{ color: visualPalette.accent, fontFamily: FONT_MONO, fontSize: 11, fontWeight: 950 }}>#{index + 1}</span>
+          <span style={{ color: visualPalette.accent, fontFamily: FONT_SANS, fontSize: 11, fontWeight: 950 }}>#{index + 1}</span>
           <span style={{ minWidth: 0, display: "grid", gap: 3 }}>
             <span style={{ color: visualPalette.text, fontSize: 13, fontWeight: 940, lineHeight: 1.18 }}>{candidate.name}</span>
             <span style={{ color: visualPalette.faint, fontSize: 10.5, lineHeight: 1.35 }}>
@@ -422,7 +422,7 @@ function CandidateRankingPreview({ lang }) {
               {zh ? candidate.zhWarning : candidate.warning} · {candidate.completeness}
             </span>
           </span>
-          <span style={{ color: visualPalette.text, fontFamily: FONT_MONO, fontSize: 13.5, fontWeight: 950 }}>{candidate.score.toFixed(2)}</span>
+          <span style={{ color: visualPalette.text, fontFamily: FONT_SANS, fontSize: 13.5, fontWeight: 950 }}>{candidate.score.toFixed(2)}</span>
         </div>
       ))}
       <div style={{ color: visualPalette.muted, fontSize: 11.3, lineHeight: 1.55 }}>

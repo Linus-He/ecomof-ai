@@ -6,7 +6,7 @@ import {
 } from "recharts"
 import {
   useT, useLang, useViewport,
-  FONT_MONO,
+  FONT_SANS,
   BasisBadge, PageHeader, ResultLayer, Callout, CopyLinkButton, DisclaimerLink,
   toolbarBtn, InlineFormula,
   CRITIC_INDICATORS,
@@ -191,10 +191,10 @@ function ScoringMethodSummary({ model, weightingMode, onWeightingModeChange, lan
             <div key={indicator.key} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 10, display: "grid", gap: 6 }}>
               <div style={{ display: "flex", justifyContent: "space-between", gap: 8, color: t.faint, fontSize: 10.5, fontWeight: 850 }}>
                 <span>{lang === "zh" ? indicator.zhLabel : indicator.label}</span>
-                <span style={{ fontFamily: FONT_MONO }}>{indicator.symbol}</span>
+                <span style={{ fontFamily: FONT_SANS }}>{indicator.symbol}</span>
               </div>
               <ScoreBar value={model.activeWeights[indicator.key]} t={t} />
-              <div style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 11, textAlign: "right" }}>{fmt(model.activeWeights[indicator.key])}</div>
+              <div style={{ color: t.textStrong, fontFamily: FONT_SANS, fontSize: 11, textAlign: "right" }}>{fmt(model.activeWeights[indicator.key])}</div>
             </div>
           ))}
         </div>
@@ -280,7 +280,7 @@ function ConflictHeatmap({ model, lang, t }) {
               ? model.conflictMatrix[row.key]?.[col.key] ?? 0
               : model.correlationMatrix[row.key]?.[col.key] ?? 0
             return (
-              <span key={`${row.key}-${col.key}`} title={`${mode}: ${fmt(value, 3)}`} style={{ background: cellBg(value, isDiag), border: `1px solid ${t.border}`, borderRadius: 7, padding: "10px 6px", color: t.textStrong, fontFamily: FONT_MONO, fontSize: 11, textAlign: "center" }}>
+              <span key={`${row.key}-${col.key}`} title={`${mode}: ${fmt(value, 3)}`} style={{ background: cellBg(value, isDiag), border: `1px solid ${t.border}`, borderRadius: 7, padding: "10px 6px", color: t.textStrong, fontFamily: FONT_SANS, fontSize: 11, textAlign: "center" }}>
                 {fmt(value, 2)}
               </span>
             )
@@ -315,10 +315,10 @@ function IndicatorDiagnostics({ model, lang, t, isMobile }) {
             {model.indicatorDiagnostics.map(row => (
               <tr key={row.key} style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>
                 <td style={{ padding: "10px", background: t.surface, borderRadius: "7px 0 0 7px", color: t.textStrong, fontWeight: 850 }}>{lang === "zh" ? row.zhLabel : row.label}</td>
-                <td style={{ padding: "10px", background: t.surface, color: t.textStrong, fontFamily: FONT_MONO }}>{fmt(row.criticWeight)}</td>
-                <td style={{ padding: "10px", background: t.surface, fontFamily: FONT_MONO }}>{fmt(row.standardDeviation)}</td>
-                <td style={{ padding: "10px", background: t.surface, fontFamily: FONT_MONO }}>{fmt(row.contrastIntensity)}</td>
-                <td style={{ padding: "10px", background: t.surface, fontFamily: FONT_MONO }}>{fmt(row.conflictIntensity)}</td>
+                <td style={{ padding: "10px", background: t.surface, color: t.textStrong, fontFamily: FONT_SANS }}>{fmt(row.criticWeight)}</td>
+                <td style={{ padding: "10px", background: t.surface, fontFamily: FONT_SANS }}>{fmt(row.standardDeviation)}</td>
+                <td style={{ padding: "10px", background: t.surface, fontFamily: FONT_SANS }}>{fmt(row.contrastIntensity)}</td>
+                <td style={{ padding: "10px", background: t.surface, fontFamily: FONT_SANS }}>{fmt(row.conflictIntensity)}</td>
                 <td style={{ padding: "10px", background: t.surface, borderRadius: "0 7px 7px 0" }}>{lang === "zh" ? row.zhInterpretation : row.interpretation}</td>
               </tr>
             ))}
@@ -405,7 +405,7 @@ function CandidateRanking({ candidates, selectedId, onSelect, lang, t, isMobile 
             >
               <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start" }}>
                 <div>
-                  <div style={{ color: active ? t.accentText : t.textStrong, fontFamily: FONT_MONO, fontSize: 12, fontWeight: 900 }}>{candidate.rank ? `#${candidate.rank}` : "—"}</div>
+                  <div style={{ color: active ? t.accentText : t.textStrong, fontFamily: FONT_SANS, fontSize: 12, fontWeight: 900 }}>{candidate.rank ? `#${candidate.rank}` : "—"}</div>
                   <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 900, lineHeight: 1.25, marginTop: 3 }}>{candidate.name}</div>
                   <div style={{ color: t.faint, fontSize: 10.5, marginTop: 2 }}>{candidate.metalCenter} · {lang === "zh" ? candidate.evidenceSource.zh : candidate.evidenceSource.label}</div>
                 </div>
@@ -420,7 +420,7 @@ function CandidateRanking({ candidates, selectedId, onSelect, lang, t, isMobile 
                 ].map(([label, value]) => (
                   <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: "7px 8px" }}>
                     <div style={{ color: t.faint, fontSize: 9.5, fontWeight: 850, textTransform: "uppercase" }}>{label}</div>
-                    <div style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 11, fontWeight: 850, marginTop: 4 }}>{fmt(value, 2)}</div>
+                    <div style={{ color: t.textStrong, fontFamily: FONT_SANS, fontSize: 11, fontWeight: 850, marginTop: 4 }}>{fmt(value, 2)}</div>
                   </div>
                 ))}
               </div>
@@ -462,14 +462,14 @@ function CandidateRanking({ candidates, selectedId, onSelect, lang, t, isMobile 
                 padding: "10px",
               }}
             >
-              <span style={{ color: active ? t.accentText : t.textStrong, fontFamily: FONT_MONO, fontSize: 12, fontWeight: 900 }}>{candidate.rank ? `#${candidate.rank}` : "—"}</span>
+              <span style={{ color: active ? t.accentText : t.textStrong, fontFamily: FONT_SANS, fontSize: 12, fontWeight: 900 }}>{candidate.rank ? `#${candidate.rank}` : "—"}</span>
               <span style={{ minWidth: 0 }}>
                 <span style={{ display: "block", color: t.textStrong, fontSize: 13, fontWeight: 900, overflowWrap: "anywhere" }}>{candidate.name}</span>
                 <span style={{ display: "block", color: t.faint, fontSize: 10.5, marginTop: 2 }}>{candidate.metalCenter} · {lang === "zh" ? candidate.evidenceSource.zh : candidate.evidenceSource.label}</span>
               </span>
               {[candidate.overallScore, candidate.performanceScore, candidate.sustainabilityScore, candidate.evidenceScore].map((value, index) => (
                 <span key={index} style={{ display: "grid", gap: 5 }}>
-                  <span style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 12, fontWeight: 850 }}>{fmt(value, 3)}</span>
+                  <span style={{ color: t.textStrong, fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850 }}>{fmt(value, 3)}</span>
                   <ScoreBar value={value} t={t} color={index === 0 ? t.accentText : t.badgeCalcText} />
                 </span>
               ))}
@@ -518,7 +518,7 @@ function CandidateDetail({ candidate, lang, t, isMobile }) {
         {scoreRows.map(([en, zh, value]) => (
           <div key={en} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 10, display: "grid", gap: 6 }}>
             <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", fontWeight: 850 }}>{lang === "zh" ? zh : en}</div>
-            <div style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 14, fontWeight: 900 }}>{fmt(value)}</div>
+            <div style={{ color: t.textStrong, fontFamily: FONT_SANS, fontSize: 14, fontWeight: 900 }}>{fmt(value)}</div>
             <ScoreBar value={value} t={t} />
           </div>
         ))}
@@ -732,9 +732,9 @@ function RemoveOneSensitivity({ model, selectedRemovalId, onSelectRemoval, lang,
               return (
                 <tr key={row.removedId} onClick={() => onSelectRemoval(row.removedId)} style={{ cursor: "pointer", color: t.muted, fontSize: 12 }}>
                   <td style={{ padding: "10px", background: activeRow ? t.badgeInfoBg : t.surface, borderRadius: "7px 0 0 7px", color: t.textStrong, fontWeight: 850 }}>{row.removedName}</td>
-                  <td style={{ padding: "10px", background: activeRow ? t.badgeInfoBg : t.surface, fontFamily: FONT_MONO }}>{fmtPct(row.retainedTop3)}</td>
-                  <td style={{ padding: "10px", background: activeRow ? t.badgeInfoBg : t.surface, fontFamily: FONT_MONO }}>{fmt(row.maxShift, 0)}</td>
-                  <td style={{ padding: "10px", background: activeRow ? t.badgeInfoBg : t.surface, fontFamily: FONT_MONO }}>{fmt(row.meanShift, 2)}</td>
+                  <td style={{ padding: "10px", background: activeRow ? t.badgeInfoBg : t.surface, fontFamily: FONT_SANS }}>{fmtPct(row.retainedTop3)}</td>
+                  <td style={{ padding: "10px", background: activeRow ? t.badgeInfoBg : t.surface, fontFamily: FONT_SANS }}>{fmt(row.maxShift, 0)}</td>
+                  <td style={{ padding: "10px", background: activeRow ? t.badgeInfoBg : t.surface, fontFamily: FONT_SANS }}>{fmt(row.meanShift, 2)}</td>
                   <td style={{ padding: "10px", background: activeRow ? t.badgeInfoBg : t.surface, borderRadius: "0 7px 7px 0", color: row.stability === "Sensitive" ? t.warn : row.stability === "Moderate" ? t.amber : t.accentText, fontWeight: 850 }}>
                     {lang === "zh" ? row.zhStability : row.stability}
                   </td>

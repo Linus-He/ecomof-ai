@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { ChemicalText, FONT_MONO, formatRiskPenalty } from "../../shared"
+import { ChemicalText, FONT_SANS, formatRiskPenalty } from "../../shared"
 import { CONTRIBUTION_COLORS, formatNumber, metricLabel, text } from "./gasViewUtils"
 import { dataTypeLabel, evidenceLabel } from "./gasEvidence"
 
@@ -28,7 +28,7 @@ export function GasScoreBreakdown({ record, lang, t, compact = false }) {
             <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, height: compact ? 7 : 9, overflow: "hidden" }}>
               <span style={{ background: CONTRIBUTION_COLORS[key], display: "block", height: "100%", width: `${Math.max(3, (value / max) * 100)}%` }} />
             </span>
-            <span style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: compact ? 10.5 : 11.5, fontWeight: 850, textAlign: "right" }}>{formatNumber(value)}</span>
+            <span style={{ color: t.textStrong, fontFamily: FONT_SANS, fontSize: compact ? 10.5 : 11.5, fontWeight: 850, textAlign: "right" }}>{formatNumber(value)}</span>
           </div>
         )
       })}
@@ -37,7 +37,7 @@ export function GasScoreBreakdown({ record, lang, t, compact = false }) {
         <span style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 999, height: compact ? 7 : 9, overflow: "hidden" }}>
           <span style={{ background: CONTRIBUTION_COLORS.riskPenalty, display: "block", height: "100%", width: `${Math.min(100, riskPenalty * 6)}%` }} />
         </span>
-        <span style={{ color: t.warn, fontFamily: FONT_MONO, fontSize: compact ? 10.5 : 11.5, fontWeight: 850, textAlign: "right" }}>{formatRiskPenalty(riskPenalty, lang).replace(/^风险惩罚：/, "")}</span>
+        <span style={{ color: t.warn, fontFamily: FONT_SANS, fontSize: compact ? 10.5 : 11.5, fontWeight: 850, textAlign: "right" }}>{formatRiskPenalty(riskPenalty, lang).replace(/^风险惩罚：/, "")}</span>
       </div>
       {!compact ? (
         <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.45 }}>

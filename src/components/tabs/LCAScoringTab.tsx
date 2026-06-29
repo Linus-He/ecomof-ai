@@ -7,7 +7,7 @@ import {
 } from "recharts"
 import {
   useT, useLang, useViewport,
-  FONT_MONO, CURRENCIES,
+  FONT_SANS, CURRENCIES,
   zhText, toolbarBtn,
   fetchDataJson, formatCurrency,
   buildDecisionModel, downloadTextFile, buildReportHtml, buildDecisionReport, exportChartPng,
@@ -188,11 +188,11 @@ export function LCAScoringTab({ results, inputs, onNavigate }) {
                 {lcaParamRows.map(([key, label, value, min, max, step, kind]) => (
                   <tr key={key} style={{ borderBottom: `1px solid ${t.divider}` }}>
                     <td style={{ padding: "8px 10px", color: t.muted, fontSize: 12 }}>{label}</td>
-                    <td style={{ padding: "8px 10px", color: t.textStrong, fontSize: 12, fontFamily: FONT_MONO }}>{value}</td>
+                    <td style={{ padding: "8px 10px", color: t.textStrong, fontSize: 12, fontFamily: FONT_SANS }}>{value}</td>
                     <td style={{ padding: "8px 10px" }}>
                       <input type="number" min={min} max={max} step={step} value={value}
                         onChange={e => kind === "price" ? updatePriceParam(key, Number(e.target.value)) : setLcaParams(prev => ({ ...prev, [key]: Number(e.target.value) }))}
-                        style={{ width: 120, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, padding: "6px 8px", color: t.text, fontFamily: FONT_MONO }} />
+                        style={{ width: 120, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, padding: "6px 8px", color: t.text, fontFamily: FONT_SANS }} />
                     </td>
                   </tr>
                 ))}
@@ -240,7 +240,7 @@ export function LCAScoringTab({ results, inputs, onNavigate }) {
                     <div key={category.name} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "12px 16px" }}>
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6, gap: 10 }}>
                         <div><span style={{ color: t.muted, fontSize: 13 }}>{category.name}</span><span style={{ marginLeft: 8, color: t.faint, fontSize: 11 }}>{c.lca.weight}: {(category.weight * 100).toFixed(0)}%</span></div>
-                        <span style={{ color: scoreColor(category.score), fontWeight: 700, fontSize: 15, fontFamily: FONT_MONO }}>{category.score.toFixed(1)}/10</span>
+                        <span style={{ color: scoreColor(category.score), fontWeight: 700, fontSize: 15, fontFamily: FONT_SANS }}>{category.score.toFixed(1)}/10</span>
                       </div>
                       <div style={{ height: 5, background: t.border, borderRadius: 3, marginBottom: 6 }}>
                         <div style={{ height: "100%", width: `${category.score * 10}%`, background: scoreColor(category.score), borderRadius: 3, transition: "width 0.6s ease" }} />
@@ -258,7 +258,7 @@ export function LCAScoringTab({ results, inputs, onNavigate }) {
                 <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
                   <SectionTitle>{c.lca.composite}</SectionTitle>
                   <div style={{ textAlign: "center", padding: "16px 0" }}>
-                    <div style={{ fontSize: 52, fontWeight: 800, fontFamily: FONT_MONO, color: scoreColor(lca.compositeGreenScore) }}>{lca.compositeGreenScore}</div>
+                    <div style={{ fontSize: 52, fontWeight: 800, fontFamily: FONT_SANS, color: scoreColor(lca.compositeGreenScore) }}>{lca.compositeGreenScore}</div>
                     <div style={{ color: t.subtle, fontSize: 13 }}>{c.lca.outOf}</div>
                   </div>
                   <div style={{ height: 8, background: t.border, borderRadius: 4 }}>
@@ -363,8 +363,8 @@ export function LCAScoringTab({ results, inputs, onNavigate }) {
                       {sourceRows.map(row => (
                         <tr key={row.inventory_id || row.flow} style={{ borderBottom: `1px solid ${t.divider}` }}>
                           <td style={{ padding: "8px 10px", color: t.textStrong, fontSize: 12 }}>{row.flow}</td>
-                          <td style={{ padding: "8px 10px", color: t.subtle, fontSize: 11, fontFamily: FONT_MONO }}>{row.unit}</td>
-                          <td style={{ padding: "8px 10px", color: t.textStrong, fontSize: 12, fontFamily: FONT_MONO }}>{Number(row.price_usd_per_unit) > 0 ? displayMoney(Number(row.price_usd_per_unit), 3) : "—"}</td>
+                          <td style={{ padding: "8px 10px", color: t.subtle, fontSize: 11, fontFamily: FONT_SANS }}>{row.unit}</td>
+                          <td style={{ padding: "8px 10px", color: t.textStrong, fontSize: 12, fontFamily: FONT_SANS }}>{Number(row.price_usd_per_unit) > 0 ? displayMoney(Number(row.price_usd_per_unit), 3) : "—"}</td>
                           <td style={{ padding: "8px 10px", color: t.muted, fontSize: 11, lineHeight: 1.45 }}><strong style={{ color: t.accentText }}>{row.source_type || "proxy"}</strong><br />{row.price_source || row.source_ref || "seed-inventory"}</td>
                           <td style={{ padding: "8px 10px", color: t.subtle, fontSize: 11, lineHeight: 1.45 }}>{row.price_basis || row.assumption || "—"}</td>
                           <td style={{ padding: "8px 10px", color: t.faint, fontSize: 11, lineHeight: 1.45 }}>{row.roadmap_replacement || "—"}</td>

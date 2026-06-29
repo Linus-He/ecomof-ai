@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from "react"
 import {
   useT, useLang, useViewport,
-  FONT_MONO,
+  FONT_SANS,
   buildCandidateSearchText,
   getGlobalMofCandidates,
   getGasAdsorptionRecordsV2,
@@ -561,7 +561,7 @@ function OpenMofSeedCard({ item, expanded, onToggle, lang, t, isMobile }) {
           <div style={{ minWidth: 0 }}>
             <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900, lineHeight: 1.25, overflowWrap: "anywhere" }}>{item.displayName || getDisplayName(item)}</div>
             <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.45, marginTop: 3, overflowWrap: "anywhere" }}>
-              {text(lang, "原始记录", "Record ID")}: <span style={{ fontFamily: FONT_MONO }}>{item.sourceRecordId}</span>
+              {text(lang, "原始记录", "Record ID")}: <span style={{ fontFamily: FONT_SANS }}>{item.sourceRecordId}</span>
             </div>
           </div>
           <StatusPill t={t} tone="source">{db}</StatusPill>
@@ -779,7 +779,7 @@ function NameCurationQueue({ records, lang, t, isMobile }) {
           <article key={item.id} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, display: "grid", gap: 6, minWidth: 0, padding: 10 }}>
             <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{item.displayName}</div>
             <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.45, overflowWrap: "anywhere" }}>
-              {text(lang, "原始记录", "Record ID")}: <span style={{ fontFamily: FONT_MONO }}>{item.sourceRecordId}</span>
+              {text(lang, "原始记录", "Record ID")}: <span style={{ fontFamily: FONT_SANS }}>{item.sourceRecordId}</span>
             </div>
             <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.5 }}>{nameReasonText(item, lang)}</div>
             <div style={{ color: t.faint, fontSize: 11.2, lineHeight: 1.45 }}>

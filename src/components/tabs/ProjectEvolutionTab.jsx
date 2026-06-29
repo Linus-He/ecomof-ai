@@ -4,7 +4,7 @@ import {
   BasisBadge,
   CopyLinkButton,
   FieldProvenanceButton,
-  FONT_MONO,
+  FONT_SANS,
   PageHeader,
   fetchDataJson,
   toolbarBtn,
@@ -27,6 +27,7 @@ import gasAdsorptionRecordsData from "../../../public/data/gas_adsorption_record
 import literatureDatasetData from "../../../public/data/organic_acid_literature_dataset_v2.json"
 import goldDatasetData from "../../../public/data/organic_acid_gold_dataset_v2.json"
 import appReleaseLog from "../../../public/data/app_release_log.json"
+import { APP_VERSION_LABEL } from "../../constants/appVersion"
 import { BlockFormula } from "../ui"
 import {
   buildOrganicAcidAlgorithmFormulaJson,
@@ -124,24 +125,24 @@ function EvolutionOverview({ data, projectStatus, lang, t, isMobile }) {
 }
 
 const CURRENT_RELEASE = {
-  version: "V3.10.1",
-  title: { zh: "气体数据库 v2.1：IAST 选择性与实体打通", en: "Gas Database v2.1: IAST Selectivity and Identity Linking" },
+  version: APP_VERSION_LABEL,
+  title: { zh: "v1.0.2：字体、版本徽章、3D 与气体帕累托可视化收尾", en: "v1.0.2: Typography, version badges, 3D, and gas Pareto polish" },
   summary: {
-    zh: "用真实单组分等温线派生 IAST 选择性，补强气体 MOF 到 CoRE/QMOF 结构库的保守实体解析，并把覆盖度、重复审计和结构代理 Spearman 报告纳入 UI。",
-    en: "Derives IAST selectivity from real pure-component isotherms, strengthens conservative gas-to-structure identity links, and surfaces coverage, duplicate auditing, and structure-proxy Spearman reports.",
+    zh: "纯呈现层收尾：数字字体彻底归一到 body 字族，当前 App 版本徽章改读 app_release_log，首页 3D 描述符散点扩到 CoRE/QMOF 采样，并新增气体分离帕累托图。",
+    en: "Presentation-layer polish: numerals now stay on the body family, current App badges read app_release_log, the homepage 3D descriptor scatter expands to CoRE/QMOF sampling, and a gas-separation Pareto chart is added.",
   },
   scientificImpact: {
-    zh: "选择性不再依赖少量 seed 字段；每条 IAST 都标为 computed-IAST，并保留两条源等温线、拟合 R² 和非突破实验 caveat。",
-    en: "Selectivity no longer depends on sparse seed fields; each IAST value is labeled computed-IAST with source isotherm IDs, fit R2, and a non-breakthrough caveat.",
+    zh: "首页直接呈现真实气体分离权衡与结构描述符空间；图表仍只读取现有数据，不新增或改写底层结果。",
+    en: "The homepage now shows the real gas-separation trade-off and descriptor space directly; charts read existing data only and do not alter source results.",
   },
   validationImpact: {
-    zh: "结构代理只作为与真实 uptake 的 Spearman 指示性审计；低相关时标 low-validity-indicative，不冒充吸附预测。",
-    en: "Structure proxies are only Spearman-indicative audits against real uptake; low correlations are labeled low-validity-indicative rather than predictions.",
+    zh: "当前版本与模块历史分离：App v1.0.2 是全局发布号，Gas v2.1 / V3.10.1 等继续作为模块数据历史展示。",
+    en: "Current App version and module history are separated: App v1.0.2 is the global release, while Gas v2.1 / V3.10.1 remain module data history.",
   },
   breakingChanges: { zh: "无", en: "None" },
   nextVersionGoal: {
-    zh: "人工复核 matched-by-composition 候选，补直接 CoRE/QMOF ID，并为 IAST 高排名材料收集真实混合/突破曲线验证。",
-    en: "Manually review matched-by-composition candidates, add direct CoRE/QMOF IDs, and collect real mixture/breakthrough validation for top IAST-ranked materials.",
+    zh: "继续补充真实混合气/突破曲线验证，并按实验覆盖度优化 GasSep 排名解释。",
+    en: "Continue adding real mixture/breakthrough validation and improve GasSep ranking explanations by experimental coverage.",
   },
 }
 
@@ -149,34 +150,34 @@ const CURRENT_RELEASE = {
 const PROJECT_UPDATE_STREAMS = [
   {
     no: "01",
-    label: { zh: "IAST 选择性", en: "IAST selectivity" },
+    label: { zh: "数字字体", en: "Numeral typography" },
     body: {
-      zh: "对同一 MOF、同温度且两种纯组分等温线都存在的 CO₂/N₂、CO₂/CH₄、H₂/CO₂ 记录拟合 Langmuir / 双位 Langmuir / Freundlich，并用二元 IAST 计算选择性。",
-      en: "Fits Langmuir, dual-site Langmuir, and Freundlich models for same-MOF, same-temperature paired pure-component CO2/N2, CO2/CH4, and H2/CO2 records, then solves binary IAST.",
+      zh: "移除旧等宽数字 alias 与 ad-hoc 等宽字体残留；指标、版本、步骤号与表格数值统一使用 body 字族并以 tabular-nums 对齐。",
+      en: "Removed the legacy fixed-width numeral alias and ad-hoc fixed-width residues; metrics, versions, step labels, and table values use the body family with tabular-nums.",
     },
   },
   {
     no: "02",
-    label: { zh: "实体解析", en: "Identity resolution" },
+    label: { zh: "版本徽章", en: "Version badges" },
     body: {
-      zh: "扩展 HKUST-1/Cu-BTC、IRMOF-1/MOF-5、MOF-74/CPO-27、UiO、MIL、ZIF 等别名，并用金属+linker 保守候选匹配结构库，未匹配项继续 unresolved。",
-      en: "Expands HKUST-1/Cu-BTC, IRMOF-1/MOF-5, MOF-74/CPO-27, UiO, MIL, and ZIF aliases, plus conservative metal+linker candidate matching while preserving unresolved records.",
+      zh: "当前 App 版本统一读 app_release_log；历史 V3.x 与气体 v2.x 继续作为模块历史和数据集明细保留。",
+      en: "Current App version reads app_release_log; historical V3.x and gas v2.x labels remain as module history and dataset details.",
     },
   },
   {
     no: "03",
-    label: { zh: "覆盖度上墙", en: "Coverage surfaced" },
+    label: { zh: "3D 描述符", en: "3D descriptors" },
     body: {
-      zh: "GasSep、MOF Library 与 Data Sources 同步展示可用于选择性、等温线、结构链接和 IAST 的真实覆盖，薄气对继续提示。",
-      en: "GasSep, MOF Library, and Data Sources now show true coverage for selectivity, isotherms, structural links, and IAST, with thin-pair warnings preserved.",
+      zh: "首页描述符散点扩到 CoRE/QMOF 确定性采样，加入轴刻度、真实值悬停、金属/dataGrade 着色切换和孔径点大小图例。",
+      en: "Homepage descriptor scatter expands to deterministic CoRE/QMOF sampling with axis ticks, real-value hover, metal/dataGrade color modes, and pore-size legend.",
     },
   },
   {
     no: "04",
-    label: { zh: "代理验证与对比", en: "Proxy validation and comparison" },
+    label: { zh: "气体帕累托", en: "Gas Pareto" },
     body: {
-      zh: "结构描述符与真实 uptake 做 Spearman 指示性审计；GasSep 对比面板改为选中材料与对照材料的关键指标并排展示。",
-      en: "Structure descriptors are audited against real uptake with indicative Spearman results; GasSep comparison now presents selected and comparison materials side by side.",
+      zh: "首页新增选择性 × 工作容量帕累托图，按气对切换并标注可用点数及 IAST/实验/计算来源构成。",
+      en: "Added a selectivity × working-capacity Pareto chart with gas-pair switching and available-point/source composition counts.",
     },
   },
 ]
@@ -270,7 +271,7 @@ function UnifiedReleaseCenter({ log, lang, t, isMobile }) {
       }
     >
       <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 10 }}>
-        <span style={{ alignItems: "baseline", background: t.badgeInfoBg, border: `1px solid ${t.accent}`, borderRadius: 10, color: t.accentText, display: "inline-flex", fontFamily: FONT_MONO, fontSize: 19, fontWeight: 950, gap: 6, padding: "6px 12px" }}>
+        <span style={{ alignItems: "baseline", background: t.badgeInfoBg, border: `1px solid ${t.accent}`, borderRadius: 10, color: t.accentText, display: "inline-flex", fontFamily: FONT_SANS, fontSize: 19, fontWeight: 950, gap: 6, padding: "6px 12px" }}>
           App {release.appVersion}
           <span style={{ color: t.muted, fontSize: 11, fontWeight: 800 }}>· {release.date}</span>
         </span>
@@ -321,7 +322,7 @@ function UnifiedReleaseCenter({ log, lang, t, isMobile }) {
               <div style={{ display: "grid", gap: 4 }}>
                 {rows.slice(-6).reverse().map(row => (
                   <div key={`${key}-${row.version}`} style={{ color: t.muted, fontSize: 10.8, lineHeight: 1.4 }}>
-                    <span style={{ color: t.accentText, fontFamily: FONT_MONO, fontWeight: 850 }}>{row.version}</span>
+                    <span style={{ color: t.accentText, fontFamily: FONT_SANS, fontWeight: 850 }}>{row.version}</span>
                     <span> · {row.note}</span>
                   </div>
                 ))}
@@ -404,13 +405,13 @@ function ProjectUpdates({ lang, t, isMobile }) {
     <Card
       id="project-evolution-release-notes"
       title={text(lang, "项目更新", "Project Updates")}
-      subtitle={text(lang, `当前版本 ${CURRENT_RELEASE.version} 的更新按 IAST 选择性、实体解析、覆盖度上墙、代理验证与对比四条线索整理。`, `Updates in the current ${CURRENT_RELEASE.version} release are organized into IAST selectivity, identity resolution, coverage surfacing, and proxy-validation/comparison streams.`)}
+      subtitle={text(lang, `当前版本 ${CURRENT_RELEASE.version} 的更新按数字字体、版本徽章、3D 描述符与气体帕累托四条线索整理。`, `Updates in the current ${CURRENT_RELEASE.version} release are organized into numeral typography, version badges, 3D descriptors, and gas Pareto streams.`)}
       t={t}
     >
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
         {PROJECT_UPDATE_STREAMS.map(stream => (
           <article key={stream.no} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 11, gridTemplateColumns: "auto minmax(0, 1fr)", minWidth: 0, padding: isMobile ? 11 : 13 }}>
-            <span style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 8, color: t.accentText, display: "inline-flex", fontFamily: FONT_MONO, fontSize: 13, fontWeight: 950, height: 34, justifyContent: "center", width: 34 }}>
+            <span style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 8, color: t.accentText, display: "inline-flex", fontFamily: FONT_SANS, fontSize: 13, fontWeight: 950, height: 34, justifyContent: "center", width: 34 }}>
               {stream.no}
             </span>
             <div style={{ display: "grid", gap: 4, minWidth: 0 }}>
@@ -788,7 +789,7 @@ export function ProjectEvolutionTab({ onNavigate, data: providedData = null }) {
         title={text(lang, "项目演化", "Project Evolution Center")}
         subtitle={text(lang, "独立展示 EcoMOF-AI 的成长过程：版本更新记录、数据库、算法、验证、界面、汉化演化、关键里程碑与发展路线图。", "A standalone view of how EcoMOF-AI grew: versions, release notes, database, algorithms, validation, UI, localization evolution, milestones, and roadmap.")}
         meta={text(lang, "EcoMOF-AI 项目变化记录", "What Changed In EcoMOF-AI")}
-        action={<><BasisBadge tone="info">{`App ${appReleaseLog.currentAppVersion}`}</BasisBadge><CopyLinkButton hash="project-evolution" ariaLabel={text(lang, "复制项目演化链接", "Copy Project Evolution link")} /></>}
+        action={<><BasisBadge tone="info">{APP_VERSION_LABEL}</BasisBadge><CopyLinkButton hash="project-evolution" ariaLabel={text(lang, "复制项目演化链接", "Copy Project Evolution link")} /></>}
       />
       <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 10, color: t.muted, display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between", padding: 11 }}>
         <span style={{ fontSize: 12.2, lineHeight: 1.5 }}>{text(lang, "项目演化解释项目成长历史；方法与证据只解释 EcoMOF-AI 如何工作。", "Project Evolution explains project history; Methods & Evidence explains how EcoMOF-AI works.")}</span>

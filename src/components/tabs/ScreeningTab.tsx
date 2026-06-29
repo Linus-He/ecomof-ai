@@ -6,7 +6,7 @@ import {
 } from "recharts"
 import {
   useT, useLang, useViewport,
-  FONT_SANS, FONT_MONO,
+  FONT_SANS,
   METAL_CENTERS, ORGANIC_LINKERS, FUNCTIONAL_GROUPS, GAS_SYSTEMS, AROMATIC_SUBSTITUTION_POSITIONS,
   MODEL_PROFILES, DEFAULT_INPUTS,
   normalizeFunctionalGroupDetails, getFunctionalGroupEntries, defaultGroupPositions, formatFunctionalGroupSummary,
@@ -172,7 +172,7 @@ function InlineNumberField({ value, onChange, min, max, step, unit, modified }) 
           padding: "6px 8px",
           color: modified ? t.accentText : t.textStrong,
           fontSize: 12,
-          fontFamily: FONT_MONO,
+          fontFamily: FONT_SANS,
           outline: "none",
           textAlign: "right",
         }}
@@ -457,7 +457,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
     padding: "7px 9px",
     color: t.textStrong,
     fontSize: 12,
-    fontFamily: FONT_MONO,
+    fontFamily: FONT_SANS,
     outline: "none",
   }
   const structureModifiedCount = ["gasSystem", "metalCenter", "organicLinker", "poreDiameter", "betSurfaceArea", "poreVolume"]
@@ -661,7 +661,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
                               fontSize: 11,
                               fontWeight: 800,
                               cursor: "pointer",
-                              fontFamily: FONT_MONO,
+                              fontFamily: FONT_SANS,
                             }}
                           >
                             {pos}
@@ -924,7 +924,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
                   ].map(([label, value]) => (
                     <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 10 }}>
                       <div style={{ color: t.faint, fontSize: 10, marginBottom: 5 }}>{zhText(lang, label)}<InfoTip text={label === "Method" ? c.methods.formulaIastBody : c.methods.selectivityBody1} /></div>
-                      <div style={{ color: t.textStrong, fontSize: label === "Method" ? 11 : 18, fontWeight: 800, fontFamily: label === "Method" ? FONT_SANS : FONT_MONO, lineHeight: 1.35 }}>
+                      <div style={{ color: t.textStrong, fontSize: label === "Method" ? 11 : 18, fontWeight: 800, fontFamily: label === "Method" ? FONT_SANS : FONT_SANS, lineHeight: 1.35 }}>
                         {value}
                       </div>
                     </div>

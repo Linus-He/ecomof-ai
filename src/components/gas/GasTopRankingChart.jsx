@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useMemo, useState } from "react"
-import { ChemicalText, FONT_MONO, SectionTitle, formatPercent, formatScore100 } from "../../shared"
+import { ChemicalText, FONT_SANS, SectionTitle, formatPercent, formatScore100 } from "../../shared"
 import { getEvidenceScore, getStabilityScore } from "../../utils/gasScoring"
 import { GasDataStatusBadge } from "./GasDataStatusBadge"
 import { GasScoreBreakdown } from "./GasScoreBreakdown"
@@ -162,7 +162,7 @@ export function GasTopRankingChart({
                   })}
                 </span>
               )}
-              <span style={{ alignSelf: "center", color: t.textStrong, fontFamily: FONT_MONO, fontSize: 12, fontWeight: 900, textAlign: isMobile ? "left" : "right" }}>{sortValue}</span>
+              <span style={{ alignSelf: "center", color: t.textStrong, fontFamily: FONT_SANS, fontSize: 12, fontWeight: 900, textAlign: isMobile ? "left" : "right" }}>{sortValue}</span>
               {rankingMode === "contribution" ? (
                 <span style={{ gridColumn: "1 / -1" }}>
                   <GasScoreBreakdown record={row} lang={lang} t={t} compact />

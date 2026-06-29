@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { Fragment } from "react"
-import { BasisBadge, ChemicalText, FONT_MONO, SectionTitle, formatPercent, formatScore100 } from "../../shared"
+import { BasisBadge, ChemicalText, FONT_SANS, SectionTitle, formatPercent, formatScore100 } from "../../shared"
 import {
   GAS_METRICS,
   CONTRIBUTION_COLORS,
@@ -106,7 +106,7 @@ export function GasMetricHeatmap({
                 {GAS_METRICS.map(metric => {
                   const active = selectedMetric === metric.key
                   return (
-                    <button key={`${row.id}-${metric.key}`} type="button" onClick={() => onSelectCell(row, metric.key)} aria-label={text(lang, `查看 ${row.displayName} 的 ${metric.labelZh} 指标诊断`, `Inspect ${metric.label} for ${row.displayName}`)} title={text(lang, `查看 ${metric.labelZh}`, `Inspect ${metric.label}`)} style={{ background: backgroundFor(row, metric.key, heatmapView, ranked, t), border: `1px solid ${row.id === selectedId || active ? t.accent : t.border}`, borderRadius: 7, color: t.textStrong, cursor: "pointer", fontFamily: FONT_MONO, fontSize: 11, fontWeight: 850, minHeight: 58, padding: 7, textAlign: "center" }}>
+                    <button key={`${row.id}-${metric.key}`} type="button" onClick={() => onSelectCell(row, metric.key)} aria-label={text(lang, `查看 ${row.displayName} 的 ${metric.labelZh} 指标诊断`, `Inspect ${metric.label} for ${row.displayName}`)} title={text(lang, `查看 ${metric.labelZh}`, `Inspect ${metric.label}`)} style={{ background: backgroundFor(row, metric.key, heatmapView, ranked, t), border: `1px solid ${row.id === selectedId || active ? t.accent : t.border}`, borderRadius: 7, color: t.textStrong, cursor: "pointer", fontFamily: FONT_SANS, fontSize: 11, fontWeight: 850, minHeight: 58, padding: 7, textAlign: "center" }}>
                       {cellValue(row, metric.key, heatmapView, ranked, lang)}
                     </button>
                   )

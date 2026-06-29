@@ -9,7 +9,7 @@ import {
   getDescriptorUsageByPreset,
   toPercent,
 } from "../../scoring"
-import { FONT_MONO } from "../../constants/theme"
+import { FONT_SANS } from "../../constants/theme"
 import { toolbarBtn } from "../../utils/styles"
 import { BasisBadge } from "../ui"
 import { GraphDescriptorPanel } from "../mof/GraphDescriptorPanel"
@@ -263,7 +263,7 @@ export function DescriptorSetDrawer({ open, onClose, draft, setDraft, candidates
                     style={{ marginTop: 3 }}
                   />
                   <span style={{ display: "grid", gap: 5, minWidth: 0 }}>
-                    <span style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 850 }}>{lang === "zh" ? descriptor.labelZh : descriptor.label} <span style={{ color: t.faint, fontFamily: FONT_MONO, fontWeight: 500 }}>{descriptor.unit || ""}</span></span>
+                    <span style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 850 }}>{lang === "zh" ? descriptor.labelZh : descriptor.label} <span style={{ color: t.faint, fontFamily: FONT_SANS, fontWeight: 500 }}>{descriptor.unit || ""}</span></span>
                     <span style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                       <BasisBadge tone={descriptor.direction === "cost" ? "warn" : "calc"}>{descriptor.direction}</BasisBadge>
                       <BasisBadge tone={descriptor.planned ? "proxy" : "info"}>{descriptor.planned ? "planned" : descriptor.defaultRole}</BasisBadge>
@@ -335,7 +335,7 @@ export function CandidateRankingTable({ model, selectedId, onSelect, t, lang, is
                 <tr key={row.id} onClick={() => { setExpanded(open ? null : row.id); onSelect?.(row.id) }} style={{ cursor: "pointer", color: t.muted, fontSize: 12 }}>
                     <td style={{ background: t.surface, padding: 10, borderRadius: "7px 0 0 7px", color: t.textStrong, fontWeight: 900 }}>{row.rank}</td>
                     <td style={{ background: t.surface, padding: 10, color: t.textStrong, fontWeight: 850 }}>{row.name}</td>
-                    <td style={{ background: t.surface, padding: 10, fontFamily: FONT_MONO }}>{Number(row.score).toFixed(1)}</td>
+                    <td style={{ background: t.surface, padding: 10, fontFamily: FONT_SANS }}>{Number(row.score).toFixed(1)}</td>
                     <td style={{ background: t.surface, padding: 10 }}>{pct(row.descriptorCompleteness)}</td>
                     <td style={{ background: t.surface, padding: 10 }}>{lang === "zh" ? row.mainDriver?.labelZh : row.mainDriver?.label}</td>
                     <td style={{ background: t.surface, padding: 10, color: row.evidenceWarning ? t.warn : t.faint }}>{row.evidenceWarning || "—"}</td>
@@ -376,7 +376,7 @@ export function ScoreBreakdownPanel({ row, t, lang }) {
           ].map(([label, value, prefix]) => (
             <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 9, minWidth: 0 }}>
               <div style={{ color: t.faint, fontSize: 10, fontWeight: 850, textTransform: "uppercase" }}>{label}</div>
-              <div style={{ color: label === "Final Score" ? t.textStrong : t.muted, fontFamily: FONT_MONO, fontSize: 16, fontWeight: 900, marginTop: 5 }}>
+              <div style={{ color: label === "Final Score" ? t.textStrong : t.muted, fontFamily: FONT_SANS, fontSize: 16, fontWeight: 900, marginTop: 5 }}>
                 {prefix}{Number.isFinite(Number(value)) ? Number(value).toFixed(1) : "—"}
               </div>
             </div>
@@ -436,7 +436,7 @@ export function DescriptorConflictMatrix({ model, t, lang }) {
                   : value < -0.25
                     ? "negative correlation = possible trade-off"
                     : "low correlation = independent information"
-              return <span key={`${row.key}-${col.key}`} title={`${hint}; conflict ${fmt(c, 2)}`} style={{ background: bg, border: `1px solid ${t.border}`, borderRadius: 7, padding: "9px 6px", color: t.textStrong, fontFamily: FONT_MONO, fontSize: 10.5, textAlign: "center" }}>{fmt(value, 2)}</span>
+              return <span key={`${row.key}-${col.key}`} title={`${hint}; conflict ${fmt(c, 2)}`} style={{ background: bg, border: `1px solid ${t.border}`, borderRadius: 7, padding: "9px 6px", color: t.textStrong, fontFamily: FONT_SANS, fontSize: 10.5, textAlign: "center" }}>{fmt(value, 2)}</span>
             }),
           ])}
         </div>
@@ -543,7 +543,7 @@ export function DescriptorRegistryViewer({ t, lang, isMobile }) {
               <tr key={descriptor.key} style={{ color: t.muted, fontSize: 12 }}>
                 <td style={{ background: t.surface, padding: 9, borderRadius: "7px 0 0 7px", color: t.textStrong, fontWeight: 850 }}>{lang === "zh" ? descriptor.labelZh : descriptor.label}</td>
                 <td style={{ background: t.surface, padding: 9 }}>{getDescriptorGroup(descriptor.group).label}</td>
-                <td style={{ background: t.surface, padding: 9, fontFamily: FONT_MONO }}>{descriptor.unit || "—"}</td>
+                <td style={{ background: t.surface, padding: 9, fontFamily: FONT_SANS }}>{descriptor.unit || "—"}</td>
                 <td style={{ background: t.surface, padding: 9 }}>{descriptor.direction}</td>
                 <td style={{ background: t.surface, padding: 9 }}>{descriptor.normalizer}</td>
                 <td style={{ background: t.surface, padding: 9 }}>{descriptor.missingPolicy}</td>

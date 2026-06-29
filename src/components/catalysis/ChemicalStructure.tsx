@@ -69,7 +69,7 @@ function AtomLabel({ x, y, children, anchor = "middle", size = FONT_SIZE, weight
       textAnchor={anchor}
       dominantBaseline="middle"
       fill={fill}
-      fontFamily="Arial, Helvetica, sans-serif"
+      fontFamily="var(--font-body)"
       fontSize={size}
       fontWeight={weight}
     >
@@ -86,7 +86,7 @@ function FormulaLabel({ x, y, parts, anchor = "middle", size = FONT_SIZE, fill =
       textAnchor={anchor}
       dominantBaseline="middle"
       fill={fill}
-      fontFamily="Arial, Helvetica, sans-serif"
+      fontFamily="var(--font-body)"
       fontSize={size}
       fontWeight={weight}
     >

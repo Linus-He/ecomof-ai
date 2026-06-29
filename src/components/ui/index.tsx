@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef, useMemo } from "react"
 import katex from "katex"
 import { useT, useLang, useViewport } from "../../contexts"
-import { FONT_SANS, FONT_MONO } from "../../constants/theme"
+import { FONT_SANS } from "../../constants/theme"
 import { chemText, isScientificToken, SCIENTIFIC_TOKEN_FONT } from "../../utils/chemText"
 import { WORKFLOW_STAGE_ITEMS, SOURCE_BADGES } from "../../constants/badges"
 import { zhText, gasLabel } from "../../utils/labels"
@@ -22,7 +22,7 @@ function FormulaFallback({ children, block = false, t }) {
     <code style={{
       display: block ? "block" : "inline",
       color: t?.textStrong || "currentColor",
-      fontFamily: FONT_MONO,
+      fontFamily: FONT_SANS,
       fontSize: block ? 11 : "0.95em",
       whiteSpace: "nowrap",
     }}>
@@ -270,7 +270,7 @@ export function NumericField({ label, unit, min, max, step, value, onChange, hel
   return (
     <div style={{ marginBottom: 16 }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-        <span style={{ color: t.muted, fontSize: 12, fontFamily: FONT_MONO }}>{label}</span>
+        <span style={{ color: t.muted, fontSize: 12, fontFamily: FONT_SANS }}>{label}</span>
         <input
           type="number" value={draft} min={min} max={max} step={step}
           onChange={e => setDraft(e.target.value)}
@@ -281,7 +281,7 @@ export function NumericField({ label, unit, min, max, step, value, onChange, hel
           style={{
             width: 90, background: t.surface, border: `1px solid ${t.border}`,
             borderRadius: 4, padding: "3px 8px", color: t.textStrong, fontSize: 13,
-            fontFamily: FONT_MONO, outline: "none", textAlign: "right",
+            fontFamily: FONT_SANS, outline: "none", textAlign: "right",
           }}
         />
       </div>
@@ -324,7 +324,7 @@ export function MetricCard({ label, value, unit, badge, badgeColor, badgeBg, com
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${t.accent}, ${t.accentSoft})` }} />
       <div style={{ color: t.subtle, fontSize: 11, letterSpacing: "0.08em", marginBottom: 6 }}>{zhText(lang, label)}</div>
       <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
-        <span style={{ color: t.textStrong, fontSize: 28, fontWeight: 700, fontFamily: FONT_MONO }}>{value}</span>
+        <span style={{ color: t.textStrong, fontSize: 28, fontWeight: 700, fontFamily: FONT_SANS }}>{value}</span>
         <span style={{ color: t.faint, fontSize: 13 }}>{unit}</span>
         {badge && (
           <span style={{ marginLeft: 4, padding: "2px 8px", borderRadius: 4, fontSize: 11, fontWeight: 700,
@@ -406,7 +406,7 @@ function DescriptorCurationChecklist({ fieldSources, lang, t }) {
               <span style={{ color: t.subtle, fontSize: 10, fontWeight: 700 }}>
                 {zh ? f.zh : f.en}
               </span>
-              <span style={{ color: t.textStrong, fontSize: 10, fontFamily: FONT_MONO, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              <span style={{ color: t.textStrong, fontSize: 10, fontFamily: FONT_SANS, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {displayVal}
               </span>
               <BasisBadge tone={tone}>{statusLabel}</BasisBadge>
@@ -735,7 +735,7 @@ export function ResultLayer({ number, title, subtitle, children, id, testId }) {
   return (
     <section id={id} data-testid={testId} className="result-layer" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
       <div style={{ display: "flex", gap: 10, alignItems: "baseline" }}>
-        <span style={{ color: t.accentText, fontSize: 11, fontWeight: 900, fontFamily: FONT_MONO }}>{number}</span>
+        <span style={{ color: t.accentText, fontSize: 11, fontWeight: 900, fontFamily: FONT_SANS }}>{number}</span>
         <div>
           <h2 style={{ margin: 0, color: t.textStrong, fontSize: 16, lineHeight: 1.25 }}>{title}</h2>
           {subtitle && <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.5, marginTop: 3 }}>{subtitle}</div>}
@@ -958,7 +958,7 @@ export function ResultProvenanceDrawer({ results, inputs }) {
                 <td style={{ color: t.subtle, fontSize: 11, padding: "8px", borderBottom: `1px solid ${t.divider}` }}>{row.source}</td>
                 <td style={{ color: t.warn, fontSize: 11, padding: "8px", borderBottom: `1px solid ${t.divider}` }}>{row.flag}</td>
                 <td style={{ color: t.subtle, fontSize: 11, padding: "8px", borderBottom: `1px solid ${t.divider}` }}>{row.limitation}</td>
-                <td style={{ color: t.accentText, fontSize: 11, fontFamily: FONT_MONO, padding: "8px", borderBottom: `1px solid ${t.divider}` }}>{row.stage}</td>
+                <td style={{ color: t.accentText, fontSize: 11, fontFamily: FONT_SANS, padding: "8px", borderBottom: `1px solid ${t.divider}` }}>{row.stage}</td>
               </tr>
             ))}
           </tbody>
@@ -1063,17 +1063,17 @@ export function LinkerSubstitutionPreview({ inputs, linker }) {
                 stroke={groups.length ? t.accent : anchor ? t.validationAccent : t.borderStrong}
                 strokeWidth={groups.length ? 2.5 : 1.5} />
               <text x={point.x} y={point.y + 4} textAnchor="middle" fill={anchor ? t.textStrong : t.subtle}
-                fontSize="12" fontFamily={FONT_MONO} fontWeight="800">{pos}</text>
+                fontSize="12" fontFamily={FONT_SANS} fontWeight="800">{pos}</text>
               {anchor && (
                 <text x={point.x + labelOffset.x} y={point.y + labelOffset.y} textAnchor={labelOffset.anchor}
-                  fill={t.validationAccent} fontSize="11" fontFamily={FONT_MONO} fontWeight="800">COOH</text>
+                  fill={t.validationAccent} fontSize="11" fontFamily={FONT_SANS} fontWeight="800">COOH</text>
               )}
               {groups.length > 0 && (
                 <g>
                   <line x1={point.x} y1={point.y} x2={point.x + labelOffset.x * 1.55} y2={point.y + labelOffset.y * 1.55}
                     stroke={t.accent} strokeWidth="1.6" />
                   <text x={point.x + labelOffset.x * 1.95} y={point.y + labelOffset.y * 1.95}
-                    textAnchor={labelOffset.anchor} fill={t.accentText} fontSize="11" fontFamily={FONT_MONO} fontWeight="850">
+                    textAnchor={labelOffset.anchor} fill={t.accentText} fontSize="11" fontFamily={FONT_SANS} fontWeight="850">
                     {groups.join(",")}
                   </text>
                 </g>
@@ -1144,7 +1144,7 @@ export function WindRoseChart({ data }) {
             <text x={labelPoint.x} y={labelPoint.y} textAnchor={textAnchor} dominantBaseline="middle"
               fill={t.subtle} fontSize="10" fontFamily={FONT_SANS}>{item.name}</text>
             <text x={valuePoint.x} y={valuePoint.y} textAnchor="middle" dominantBaseline="middle"
-              fill={t.textStrong} fontSize="9" fontFamily={FONT_MONO}>{item.value.toFixed(1)}</text>
+              fill={t.textStrong} fontSize="9" fontFamily={FONT_SANS}>{item.value.toFixed(1)}</text>
           </g>
         )
       })}

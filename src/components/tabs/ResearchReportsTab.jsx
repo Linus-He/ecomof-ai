@@ -20,6 +20,7 @@ import { runDataAudit } from "../../utils/dataAudit/index.js"
 import { dataIngestionSummary } from "../../utils/dataIngestion/index.js"
 import { buildResearchValidationSummary } from "../../utils/organicAcidResearchValidation"
 import { buildDescriptorEvolutionReport } from "../../utils/organicAcidRankingEvolution"
+import { APP_VERSION_LABEL } from "../../constants/appVersion"
 import { organicAcidPalette as oaPalette, SCIENTIFIC_TOKEN_FONT } from "../catalysis/FormulaInline"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
@@ -655,7 +656,7 @@ export function ResearchReportsTab({
         title={text(lang, "研究报告", "Research Reports")}
         subtitle={text(lang, "将数据库预览、筛选流程追踪、字段级溯源、验证状态、模型基准就绪度和引用包组织为可复现的科研输出。", "Organizes database preview, screening trace, field provenance, validation status, model benchmark readiness, and citation package into reproducible research outputs.")}
         meta={text(lang, "科研展示与科研输出平台", "Research output framework")}
-        action={<><BasisBadge tone="info">{versionData?.currentVersion || "V3.6"}</BasisBadge><CopyLinkButton hash="research-reports" ariaLabel="Copy Research Reports link" /></>}
+        action={<><BasisBadge tone="info">{APP_VERSION_LABEL}</BasisBadge><CopyLinkButton hash="research-reports" ariaLabel="Copy Research Reports link" /></>}
       />
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         <BasisBadge tone="proxy">数据库预览</BasisBadge>

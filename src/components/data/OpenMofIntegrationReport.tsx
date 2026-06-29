@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useEffect, useMemo, useState } from "react"
-import { FONT_MONO } from "../../constants/theme"
+import { FONT_SANS } from "../../constants/theme"
 import { useLang, useT, useViewport } from "../../contexts"
 import { getGlobalMofCandidates, getOrganicAcidExperimentRecords } from "../../services/dataService"
 import { ChemicalText } from "../../shared"
@@ -25,7 +25,7 @@ function Card({ title, value, note, t }) {
   return (
     <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, minWidth: 0, padding: 11 }}>
       <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{title}</div>
-      <div style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 18, fontWeight: 930, lineHeight: 1.15, marginTop: 6 }}>{value}</div>
+      <div style={{ color: t.textStrong, fontFamily: FONT_SANS, fontSize: 18, fontWeight: 930, lineHeight: 1.15, marginTop: 6 }}>{value}</div>
       {note ? <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45, marginTop: 5 }}><ChemicalText value={note} /></div> : null}
     </article>
   )

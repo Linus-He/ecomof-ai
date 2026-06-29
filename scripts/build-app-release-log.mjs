@@ -183,6 +183,35 @@ const V1_RELEASE = {
   },
 }
 
+// v1.0.2: presentation-layer typography/version/visualization release.
+const V1_0_2_RELEASE = {
+  appVersion: "v1.0.2",
+  date: GENERATED_AT,
+  stage: "unified-platform",
+  headline: {
+    zh: "呈现层收尾：数字字体统一、当前版本徽章接单一源、3D 描述符散点扩展，并在首页加入气体分离帕累托图。",
+    en: "Presentation polish: unified numeral typography, current-version badges wired to one source, expanded 3D descriptor scatter, and a homepage gas-separation Pareto chart.",
+  },
+  summary: {
+    zh: "纯呈现层维护，不改算法/分数/底层数据：移除旧等宽数字 alias 与 ad-hoc 等宽字体残留，所有数字走 body 字族并用 tabular-nums 对齐；当前 App 版本从 app_release_log 读取；首页 3D 描述符散点扩展到 CoRE/QMOF 采样并增强轴与悬停信息；新增选择性 × 工作容量帕累托图，真实显示气对覆盖度与 IAST/实验/计算构成。",
+    en: "Presentation-only maintenance with no algorithm, score, or source-data changes: removed the legacy fixed-width numeral alias and ad-hoc fixed-width residues, kept numerals on the body family with tabular-nums, made the current App version read from app_release_log, expanded the homepage 3D descriptor scatter with CoRE/QMOF sampling plus richer axes/hover, and added a selectivity × working-capacity Pareto chart that honestly shows gas-pair coverage and IAST/experimental/computed composition.",
+  },
+  modules: {
+    ui: {
+      summary: {
+        zh: "数字字体统一 + App 版本徽章单一源 + 首页 3D / 帕累托可视化优化。",
+        en: "Numeral typography unification + single-source App version badges + homepage 3D / Pareto visualization updates.",
+      },
+      changes: [
+        { zh: "移除全站旧等宽数字 alias 使用，数字、版本号、指标、计数、步骤号与表格数值统一使用 --font-body，并保留 tabular-nums 对齐；化学式继续走 --font-formula。", en: "Removed site-wide legacy fixed-width numeral alias usage; numbers, versions, metrics, counts, step labels, and table values use --font-body with tabular-nums, while chemistry formulas remain on --font-formula." },
+        { zh: "新增 APP_VERSION / getCurrentAppVersion 单一版本源，当前 App 徽章显示 App v1.0.2；历史 V3.x / 数据集 v2.x 版本按模块历史原样保留。", en: "Added APP_VERSION / getCurrentAppVersion as the single version source; current App badges show App v1.0.2 while historical V3.x / dataset v2.x labels remain unchanged in module history." },
+        { zh: "首页 MOF 描述符三维分布改用更大的 CoRE/QMOF 确定性采样，补充轴刻度、真实值悬停、金属 / dataGrade 着色切换和孔径点大小图例。", en: "The homepage MOF descriptor 3D view now uses a larger deterministic CoRE/QMOF sample with axis ticks, real-value hover, metal / dataGrade color modes, and pore-size point-size legend." },
+        { zh: "首页新增气体分离帕累托图，基于 gas_adsorption_records_v2 中同时具备选择性与工作容量的真实点，按气对切换并标注 IAST/实验/计算覆盖。", en: "Added a homepage gas-separation Pareto chart from gas_adsorption_records_v2 records that have both selectivity and working capacity, with gas-pair switching and IAST/experimental/computed coverage." },
+      ],
+    },
+  },
+}
+
 // v1.0.1: presentation-layer cleanup release.
 const V1_0_1_RELEASE = {
   appVersion: "v1.0.1",
@@ -203,8 +232,8 @@ const V1_0_1_RELEASE = {
         en: "Font unification + version-block fix + 3D scatter fix.",
       },
       changes: [
-        { zh: "建立字体 token（--font-body / --font-formula）：所有文本与数字用同一 sans 字族，数字以 tabular-nums 对齐，不再用 monospace。", en: "Added font tokens (--font-body / --font-formula): all text and numbers share one sans family with tabular-nums; decorative monospace removed." },
-        { zh: "衬线仅保留给化学式 / 数学公式；清除散落的 helvetica 与 ad-hoc monospace。", en: "Serif reserved for chemistry / math formulas only; scattered helvetica and ad-hoc monospace removed." },
+        { zh: "建立字体 token（--font-body / --font-formula）：所有文本与数字用同一 sans 字族，数字以 tabular-nums 对齐，不再用固定宽度数字字体。", en: "Added font tokens (--font-body / --font-formula): all text and numbers share one sans family with tabular-nums; decorative fixed-width numerals removed." },
+        { zh: "衬线仅保留给化学式 / 数学公式；清除散落的旧式 sans 与 ad-hoc 固定宽度字体。", en: "Serif reserved for chemistry / math formulas only; scattered legacy sans and ad-hoc fixed-width declarations removed." },
         { zh: "移除首页与 App v1.0.0 矛盾的「近期进展 V3.4–V3.6」区块，旧版只在折叠的 pre-1.0 历史中出现。", en: "Removed the homepage 'Recent Progress V3.4–V3.6' block that conflicted with App v1.0.0; legacy versions stay in the collapsed pre-1.0 history." },
         { zh: "修复 3D 描述符散点：标题不再切顶，按数据自适应填满视图（不再挤团/留白），新增方向指示器。", en: "Fixed the 3D descriptor scatter: title no longer clipped, data auto-fits to fill the view (no clustering/empty space), added an orientation gizmo." },
       ],
@@ -230,7 +259,7 @@ async function main() {
     }
   }
 
-  const releases = [V1_0_1_RELEASE, V1_RELEASE]
+  const releases = [V1_0_2_RELEASE, V1_0_1_RELEASE, V1_RELEASE]
   const payload = {
     schemaVersion: "1.0",
     currentAppVersion: releases[0].appVersion,

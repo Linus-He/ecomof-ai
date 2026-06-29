@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useState } from "react"
 import { useT, useLang } from "../../contexts"
-import { FONT_SANS, FONT_MONO } from "../../constants/theme"
+import { FONT_SANS } from "../../constants/theme"
 import { MOF_PRESETS, METAL_CENTERS, ORGANIC_LINKERS, GAS_SYSTEMS } from "../../constants/catalogs"
 import { DEFAULT_INPUTS } from "../../constants/defaults"
 import { findPresetName } from "../../utils/presets"
@@ -146,7 +146,7 @@ export function BatchModePanel({ inputs, onClose, onApplyToForm }) {
   const cellInputStyle = {
     width: "100%", minWidth: 78, background: t.surface, border: `1px solid ${t.border}`,
     borderRadius: 4, padding: "4px 6px", color: t.text, fontSize: 11,
-    fontFamily: FONT_MONO, outline: "none",
+    fontFamily: FONT_SANS, outline: "none",
   }
   const cellSelectStyle = {
     ...cellInputStyle,
@@ -279,11 +279,11 @@ export function BatchModePanel({ inputs, onClose, onApplyToForm }) {
                       {GAS_SYSTEMS.map(g => <option key={g.id} value={g.id} disabled={g.priority === "unavailable"}>{gasLabel(g.label, lang)}</option>)}
                     </select>
                   </td>
-                  <td style={{ padding: "6px 10px", fontFamily: FONT_MONO, color: t.success }}>{r.result?.primaryUptake ?? "—"}</td>
-                  <td style={{ padding: "6px 10px", fontFamily: FONT_MONO, color: t.muted }}>{r.result?.secondaryUptake ?? "—"}</td>
-                  <td style={{ padding: "6px 10px", fontFamily: FONT_MONO, color: t.text }}>{r.result?.selectivity ?? "—"}</td>
-                  <td style={{ padding: "6px 10px", fontFamily: FONT_MONO, color: t.accentText }}>{r.result?.thermo?.qst0 ?? "—"}</td>
-                  <td style={{ padding: "6px 10px", fontFamily: FONT_MONO, color: t.success }}>{Number.isFinite(decisionScore(r)) ? decisionScore(r) : "—"}</td>
+                  <td style={{ padding: "6px 10px", fontFamily: FONT_SANS, color: t.success }}>{r.result?.primaryUptake ?? "—"}</td>
+                  <td style={{ padding: "6px 10px", fontFamily: FONT_SANS, color: t.muted }}>{r.result?.secondaryUptake ?? "—"}</td>
+                  <td style={{ padding: "6px 10px", fontFamily: FONT_SANS, color: t.text }}>{r.result?.selectivity ?? "—"}</td>
+                  <td style={{ padding: "6px 10px", fontFamily: FONT_SANS, color: t.accentText }}>{r.result?.thermo?.qst0 ?? "—"}</td>
+                  <td style={{ padding: "6px 10px", fontFamily: FONT_SANS, color: t.success }}>{Number.isFinite(decisionScore(r)) ? decisionScore(r) : "—"}</td>
                   <td style={{ padding: "6px 10px", color: t.warn, fontSize: 11 }}>{r.result?.anomaly ? "⚠ inverse" : ""}</td>
                   <td style={{ padding: "6px 10px" }}>
                     <button onClick={() => onApplyToForm(r)}

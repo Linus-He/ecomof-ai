@@ -6,7 +6,7 @@ import {
   ChemicalFormula,
   ChemicalText,
   CopyLinkButton,
-  FONT_MONO,
+  FONT_SANS,
   PageHeader,
   SCIENTIFIC_TOKEN_FONT,
   SectionTitle,
@@ -308,7 +308,7 @@ function NumberControl({ value, min, max, step, onChange, t, suffix }) {
         onChange={event => onChange(Number(event.target.value))}
         style={{ width: "100%" }}
       />
-      <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.textStrong, fontFamily: FONT_MONO, fontSize: 12, fontWeight: 850, padding: "8px 9px", textAlign: "center" }}>
+      <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.textStrong, fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, padding: "8px 9px", textAlign: "center" }}>
         {value} {suffix}
       </div>
     </div>
@@ -366,7 +366,7 @@ function MetricTile({ label, value, note, t }) {
   return (
     <div style={surfaceStyle(t)}>
       <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase" }}>{label}</div>
-      <div style={{ color: t.textStrong, fontFamily: typeof value === "number" ? FONT_MONO : undefined, fontSize: 18, fontWeight: 920, lineHeight: 1.2, marginTop: 5, overflowWrap: "anywhere" }}><ChemicalText value={value ?? "pending"} /></div>
+      <div style={{ color: t.textStrong, fontFamily: typeof value === "number" ? FONT_SANS : undefined, fontSize: 18, fontWeight: 920, lineHeight: 1.2, marginTop: 5, overflowWrap: "anywhere" }}><ChemicalText value={value ?? "pending"} /></div>
       {note ? <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.45, marginTop: 5, overflowWrap: "anywhere" }}><ChemicalText value={note} /></div> : null}
     </div>
   )
@@ -558,13 +558,13 @@ function PerformanceMap({ ranked, selectedId, onSelect, chartConfig, setChartCon
               {ticks(xDomain).map(value => (
                 <g key={`x-${value}`}>
                   <line x1={xScale(value)} x2={xScale(value)} y1={margin.top} y2={margin.top + plotH} stroke={t.divider} strokeDasharray="3 4" />
-                  <text x={xScale(value)} y={margin.top + plotH + 22} textAnchor="middle" fill={t.subtle} fontSize="11" fontFamily={FONT_MONO}>{formatNumber(value)}</text>
+                  <text x={xScale(value)} y={margin.top + plotH + 22} textAnchor="middle" fill={t.subtle} fontSize="11" fontFamily={FONT_SANS}>{formatNumber(value)}</text>
                 </g>
               ))}
               {ticks(yDomain).map(value => (
                 <g key={`y-${value}`}>
                   <line x1={margin.left} x2={margin.left + plotW} y1={yScale(value)} y2={yScale(value)} stroke={t.divider} strokeDasharray="3 4" />
-                  <text x={margin.left - 10} y={yScale(value) + 4} textAnchor="end" fill={t.subtle} fontSize="11" fontFamily={FONT_MONO}>{formatNumber(value)}</text>
+                  <text x={margin.left - 10} y={yScale(value) + 4} textAnchor="end" fill={t.subtle} fontSize="11" fontFamily={FONT_SANS}>{formatNumber(value)}</text>
                 </g>
               ))}
               <text x={margin.left + plotW / 2} y={height - 13} textAnchor="middle" fill={t.subtle} fontSize="12" fontFamily={SCIENTIFIC_TOKEN_FONT}>{metricLabel(xMetric, lang)}</text>
@@ -712,7 +712,7 @@ function CandidateRankingTable({ ranked, selectedId, onSelect, compareIds, setCo
                   <td style={tableCellStyle(t)}><MetricWithSource record={row} field="waterStability" value={row.waterStability || formatPending(lang)} unit="status" t={t} lang={lang} label={text(lang, "水稳定性", "Water stability")} /></td>
                   <td style={tableCellStyle(t)}><GasDataStatusBadge type="evidence" value={row.evidenceLevel} lang={lang} /> <GasFieldProvenanceButton record={row} field="evidenceLevel" currentValue={row.evidenceLevel} unit="level" lang={lang} t={t} label={text(lang, "证据等级", "Evidence level")} /></td>
                   <td style={tableCellStyle(t)}><GasDataStatusBadge type="dataType" value={row.dataType} lang={lang} /></td>
-                  <td style={{ ...tableCellStyle(t), fontFamily: FONT_MONO, fontWeight: 900 }}><MetricWithSource record={row} field="gasScore" value={formatScore100(row.score, lang)} unit="/100" t={t} lang={lang} label="GasScore" /></td>
+                  <td style={{ ...tableCellStyle(t), fontFamily: FONT_SANS, fontWeight: 900 }}><MetricWithSource record={row} field="gasScore" value={formatScore100(row.score, lang)} unit="/100" t={t} lang={lang} label="GasScore" /></td>
                   <td style={tableCellStyle(t)}>
                     <button type="button" onClick={event => { event.stopPropagation(); window.location.hash = "library" }} aria-label={text(lang, `查看 ${row.displayName} 的 MOF Library 记录`, `View ${row.displayName} in MOF Library`)} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.accentText, cursor: "pointer", fontSize: 11, fontWeight: 850, padding: "6px 8px" }}>
                       {text(lang, "查看 MOF Library", "View in MOF Library")}
@@ -762,7 +762,7 @@ function CompareInsightPanel({ selected, compareRows, t, lang, isMobile }) {
                 return (
                   <div key={metric} style={{ alignItems: "center", display: "grid", gap: 6, gridTemplateColumns: "minmax(88px, 0.7fr) minmax(0, 1fr)" }}>
                     <span style={{ color: t.faint, fontSize: 11 }}>{metricLabel(metric, lang)}</span>
-                    <span style={{ color: isBest ? t.accentText : t.textStrong, fontFamily: metric === "score" ? FONT_MONO : undefined, fontSize: 12, fontWeight: isBest ? 930 : 780 }}>
+                    <span style={{ color: isBest ? t.accentText : t.textStrong, fontFamily: metric === "score" ? FONT_SANS : undefined, fontSize: 12, fontWeight: isBest ? 930 : 780 }}>
                       {metric === "score" ? formatScore100(row.score, lang) : formatMetricValue(row, metric, lang)} {isBest ? "↑" : ""}
                     </span>
                   </div>
@@ -846,7 +846,7 @@ function ExplanationPanel({ record, t, lang, onOpenMethod }) {
                   <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, height: 8, overflow: "hidden" }}>
                     <span style={{ background: "#2F7D7B", display: "block", height: "100%", width: `${Math.min(100, value * 5)}%` }} />
                   </span>
-                  <span style={{ color: t.subtle, fontFamily: FONT_MONO, fontSize: 11, textAlign: "right" }}>{formatNumber(value)}</span>
+                  <span style={{ color: t.subtle, fontFamily: FONT_SANS, fontSize: 11, textAlign: "right" }}>{formatNumber(value)}</span>
                 </div>
               )
             })}

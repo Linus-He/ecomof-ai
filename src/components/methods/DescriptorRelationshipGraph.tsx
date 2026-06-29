@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useMemo, useState } from "react"
-import { FONT_MONO } from "../../constants/theme"
+import { FONT_SANS } from "../../constants/theme"
 import { useLang, useT, useViewport } from "../../contexts"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
@@ -289,7 +289,7 @@ export function DescriptorRelationshipGraph({ t: tone, lang: forcedLang, isMobil
                   opacity={isActive ? 0.95 : 0.6}
                 />
                 {isActive && (
-                  <text x={midX} y={midY - 5} textAnchor="middle" fill={t.subtle} fontSize="10" fontFamily={FONT_MONO}>
+                  <text x={midX} y={midY - 5} textAnchor="middle" fill={t.subtle} fontSize="10" fontFamily={FONT_SANS}>
                     {edge.label}
                   </text>
                 )}

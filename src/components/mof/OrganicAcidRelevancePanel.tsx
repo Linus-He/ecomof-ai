@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { FONT_MONO } from "../../constants/theme"
+import { FONT_SANS } from "../../constants/theme"
 import { useLang, useT, useViewport } from "../../contexts"
 import { calculateFormicAcidPathwayScore } from "../../utils/organicAcidScoring"
 
@@ -53,7 +53,7 @@ function ScoreBreakdown({ breakdown, t, lang }) {
       {rows.map(([label, value]) => (
         <div key={label} style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) auto", gap: 8, color: t.muted, fontSize: 11.5, lineHeight: 1.4 }}>
           <span>{label}</span>
-          <strong style={{ color: Number(value) < 0 ? t.warn : t.textStrong, fontFamily: FONT_MONO }}>
+          <strong style={{ color: Number(value) < 0 ? t.warn : t.textStrong, fontFamily: FONT_SANS }}>
             {Number(value) > 0 ? "+" : ""}{Number(value).toFixed(0)}
           </strong>
         </div>
@@ -108,7 +108,7 @@ export function OrganicAcidRelevancePanel({ relevance, candidate, t: tone, lang:
             {labelFor(data.targetPathway, lang)}
           </div>
           <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55 }}>
-            {text(lang, "Pathway priority score", "Pathway priority score")}: <strong style={{ color: t.textStrong, fontFamily: FONT_MONO }}>{displayScore}</strong>
+            {text(lang, "Pathway priority score", "Pathway priority score")}: <strong style={{ color: t.textStrong, fontFamily: FONT_SANS }}>{displayScore}</strong>
           </div>
           <div style={{ color: t.faint, fontSize: 10.5, lineHeight: 1.45 }}>
             {text(lang, "Hypothesis-layer decision-support score; not yield prediction.", "Hypothesis-layer decision-support score; not yield prediction.")}

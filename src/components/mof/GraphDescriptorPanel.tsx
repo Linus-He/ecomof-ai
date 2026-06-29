@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { FONT_MONO } from "../../constants/theme"
+import { FONT_SANS } from "../../constants/theme"
 import { useLang, useT, useViewport } from "../../contexts"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
@@ -138,9 +138,9 @@ export function GraphDescriptorPanel({ graphMetadata, t: tone, lang: forcedLang,
             <span>{text(lang, "Graph cluster", "Graph cluster")}</span>
             <strong style={{ color: t.textStrong }}>{graph.graphCluster || "pending"}</strong>
             <span>{text(lang, "Diversity score", "Diversity score")}</span>
-            <strong style={{ color: t.textStrong, fontFamily: FONT_MONO }}>{scoreLabel(graph.diversityScore)}</strong>
+            <strong style={{ color: t.textStrong, fontFamily: FONT_SANS }}>{scoreLabel(graph.diversityScore)}</strong>
             <span>{text(lang, "Graph motif score", "Graph motif score")}</span>
-            <strong style={{ color: t.success || t.accentText, fontFamily: FONT_MONO }}>{scoreLabel(graph.graphMotifScore, "+")}</strong>
+            <strong style={{ color: t.success || t.accentText, fontFamily: FONT_SANS }}>{scoreLabel(graph.graphMotifScore, "+")}</strong>
           </div>
         </InfoBlock>
       </div>

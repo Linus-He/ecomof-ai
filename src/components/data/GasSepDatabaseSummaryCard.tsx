@@ -8,6 +8,7 @@ import { DatasetModeBadge } from "./DatasetModeBadge"
 import { ExportButton } from "./ExportButton"
 import { buildCsv } from "../../utils/export/exportCsv"
 import { buildExportFileName } from "../../utils/export/buildExportFileName"
+import { APP_VERSION, APP_VERSION_LABEL } from "../../constants/appVersion"
 
 export function GasSepDatabaseSummaryCard({ summary = null, exportRows = [], lang = "en", t, isMobile = false }: any) {
   if (!summary) return null
@@ -26,14 +27,17 @@ export function GasSepDatabaseSummaryCard({ summary = null, exportRows = [], lan
           <h3 style={{ color: t?.textStrong || "#0A1628", fontSize: 16, margin: 0 }}>{zh ? "GasSep 数据摘要" : "GasSep Data Summary"}</h3>
         </div>
         <div style={{ alignItems: "center", display: "flex", gap: 7 }}>
+          <span style={{ background: t?.badgeInfoBg || "#EFF6FF", border: `1px solid ${t?.border || "#E2E8F0"}`, borderRadius: 999, color: t?.accentText || "#1A6DB5", fontSize: 10.2, fontWeight: 850, padding: "2px 8px" }}>
+            {APP_VERSION_LABEL}
+          </span>
           <DatasetModeBadge mode={summary.dataMode} t={t} />
           <ExportButton
             label={zh ? "导出 CSV" : "Export CSV"}
             data-testid="gassep-export-button"
             t={t}
             mime="text/csv"
-            fileName={() => buildExportFileName({ base: "gassep-records", version: summary.dataVersion, ext: "csv" })}
-            build={() => buildCsv(exportRows, { includeMeta: true, meta: { version: summary.dataVersion, generatedAt: summary.generatedAt, dataMode: summary.dataMode } })}
+            fileName={() => buildExportFileName({ base: "gassep-records", version: APP_VERSION, ext: "csv" })}
+            build={() => buildCsv(exportRows, { includeMeta: true, meta: { appVersion: APP_VERSION, dataVersion: summary.dataVersion, generatedAt: summary.generatedAt, dataMode: summary.dataMode } })}
           />
         </div>
       </header>

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useEffect, useState } from "react"
-import { FONT_MONO } from "../../constants/theme"
+import { FONT_SANS } from "../../constants/theme"
 import { useLang, useT, useViewport } from "../../contexts"
 import { getOrganicAcidExperimentRecords } from "../../services/dataService"
 import { ChemicalText } from "../common/ChemicalFormula"
@@ -32,7 +32,7 @@ function RecordPreview({ record, t }) {
     <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 8, minWidth: 0, padding: 11 }}>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
         <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{safeText(record?.recordId)}</strong>
-        <span style={{ color: t.faint, fontFamily: FONT_MONO, fontSize: 11 }}>{safeText(record?.experimentStatus)}</span>
+        <span style={{ color: t.faint, fontFamily: FONT_SANS, fontSize: 11 }}>{safeText(record?.experimentStatus)}</span>
       </div>
       <div style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.55 }}>
         MOF: {safeText(record?.mofName)} · system: {safeText(record?.reactionSystem)} · solvent: {safeText(conditions.solvent)}

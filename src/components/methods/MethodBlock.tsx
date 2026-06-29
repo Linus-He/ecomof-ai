@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { FONT_MONO } from "../../constants/theme"
+import { FONT_SANS } from "../../constants/theme"
 
 const toneStyle = (t, tone) => ({
   input: {
@@ -63,7 +63,7 @@ export function MethodBlock({
   const content = (
     <>
       {eyebrow && (
-        <div style={{ color: palette.label, fontFamily: FONT_MONO, fontSize: 10, fontWeight: 900, letterSpacing: 0 }}>
+        <div style={{ color: palette.label, fontFamily: FONT_SANS, fontSize: 10, fontWeight: 900, letterSpacing: 0 }}>
           {eyebrow}
         </div>
       )}

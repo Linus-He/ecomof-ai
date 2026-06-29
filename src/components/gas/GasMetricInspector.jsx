@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { BasisBadge, ChemicalText, FONT_MONO, SectionTitle, formatPercent } from "../../shared"
+import { BasisBadge, ChemicalText, FONT_SANS, SectionTitle, formatPercent } from "../../shared"
 import { GasFieldProvenanceButton } from "./GasFieldProvenanceButton"
 import { GasUnitNormalizationNote } from "./GasUnitNormalizationNote"
 import { getFieldSource } from "./gasDataSchema"
@@ -66,7 +66,7 @@ export function GasMetricInspector({ cell, ranked = [], scenario = {}, onClose, 
         {rows.map(([label, value]) => (
           <div key={label} style={{ display: "grid", gridTemplateColumns: "150px minmax(0, 1fr)", gap: 9, borderTop: `1px solid ${t.divider}`, paddingTop: 7 }}>
             <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase" }}>{label}</div>
-            <div style={{ color: t.muted, fontFamily: label.includes("值") || label.includes("value") || label.includes("weight") ? FONT_MONO : undefined, fontSize: 11.8, lineHeight: 1.48, overflowWrap: "anywhere" }}><ChemicalText value={value || "pending"} /></div>
+            <div style={{ color: t.muted, fontFamily: label.includes("值") || label.includes("value") || label.includes("weight") ? FONT_SANS : undefined, fontSize: 11.8, lineHeight: 1.48, overflowWrap: "anywhere" }}><ChemicalText value={value || "pending"} /></div>
           </div>
         ))}
       </div>

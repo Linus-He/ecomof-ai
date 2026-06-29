@@ -4,13 +4,15 @@
 // download. No-op label change in non-DOM/test environments.
 import { useState } from "react"
 import { downloadTextFile } from "../../utils/export"
+import { APP_VERSION, APP_VERSION_LABEL } from "../../constants/appVersion"
 
 export function ExportButton({ label = "Export", build, fileName, mime = "text/plain", t, "data-testid": testId }: any) {
   const [done, setDone] = useState(false)
   const onClick = () => {
     try {
       const content = typeof build === "function" ? build() : String(build ?? "")
-      const ok = downloadTextFile(typeof fileName === "function" ? fileName() : fileName, content, mime)
+      const resolvedFileName = typeof fileName === "function" ? fileName() : fileName
+      const ok = downloadTextFile(resolvedFileName || `ecomof-export-${APP_VERSION}`, content, mime)
       setDone(true)
       setTimeout(() => setDone(false), 1500)
       return ok
@@ -22,6 +24,7 @@ export function ExportButton({ label = "Export", build, fileName, mime = "text/p
     <button
       type="button"
       data-testid={testId || "export-button"}
+      title={APP_VERSION_LABEL}
       onClick={onClick}
       style={{ background: t?.surface || "#F1F5F9", border: `1px solid ${t?.accent || "#1A6DB5"}`, borderRadius: 7, color: t?.accentText || "#1A6DB5", cursor: "pointer", fontSize: 11.5, fontWeight: 800, minHeight: 30, padding: "5px 11px" }}
     >

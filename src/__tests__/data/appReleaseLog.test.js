@@ -3,18 +3,20 @@ import log from "../../../public/data/app_release_log.json"
 
 describe("app_release_log unified version source", () => {
   it("defines a single current App version with v1.0.0 as the first unified release", () => {
-    expect(log.currentAppVersion).toBe("v1.0.1")
+    expect(log.currentAppVersion).toBe("v1.0.2")
     expect(log.releases.length).toBeGreaterThanOrEqual(1)
     // releases are newest-first; v1.0.0 remains the first unified platform release
-    expect(log.releases[0].appVersion).toBe("v1.0.1")
+    expect(log.releases[0].appVersion).toBe("v1.0.2")
+    expect(log.releases.map(r => r.appVersion)).toContain("v1.0.1")
     expect(log.releases.map(r => r.appVersion)).toContain("v1.0.0")
     expect(log.authority).toMatch(/single unified/i)
   })
 
-  it("v1.0.1 appends a ui-module update (presentation polish)", () => {
-    const release = log.releases.find(row => row.appVersion === "v1.0.1")
+  it("v1.0.2 appends a ui-module update (font, version, 3D, Pareto polish)", () => {
+    const release = log.releases.find(row => row.appVersion === "v1.0.2")
     expect(Object.keys(release.modules)).toEqual(["ui"])
     expect(release.modules.ui.changes.length).toBeGreaterThan(0)
+    expect(JSON.stringify(release.modules.ui)).toMatch(/Pareto|帕累托/)
   })
 
   it("v1.0.0 release only lists modules it changed, each with a summary and changes", () => {

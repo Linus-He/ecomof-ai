@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { createPortal } from "react-dom"
-import { FONT_MONO } from "../../constants/theme"
+import { FONT_SANS } from "../../constants/theme"
 import { toolbarBtn } from "../../utils/styles"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
@@ -231,7 +231,7 @@ export function WeightExplanationPopover({
             <h3 id="weight-rationale-title" style={{ margin: 0, color: t.textStrong, fontSize: 15, lineHeight: 1.25, fontWeight: 920 }}>
               {text(lang, "权重解释", "Weight rationale")}
             </h3>
-            <div style={{ color: t.faint, fontSize: 11, fontFamily: FONT_MONO, lineHeight: 1.45, marginTop: 4, overflowWrap: "anywhere" }}>
+            <div style={{ color: t.faint, fontSize: 11, fontFamily: FONT_SANS, lineHeight: 1.45, marginTop: 4, overflowWrap: "anywhere" }}>
               {subtitle}
             </div>
           </div>
@@ -257,7 +257,7 @@ export function WeightExplanationPopover({
               padding: "9px 10px",
             }}>
               <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>{metric.label}</div>
-              <div style={{ color: t.textStrong, fontFamily: FONT_MONO, fontSize: 12, fontWeight: 850 }}>{metric.value}</div>
+              <div style={{ color: t.textStrong, fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850 }}>{metric.value}</div>
               <div style={{ gridColumn: "1 / -1", color: t.faint, fontSize: 10.5, lineHeight: 1.45 }}>{metric.note}</div>
             </div>
           ))}
@@ -265,7 +265,7 @@ export function WeightExplanationPopover({
 
         {validRatio !== null && validRatio !== undefined && (
           <div style={{ color: t.faint, fontSize: 10.5, lineHeight: 1.45 }}>
-            {text(lang, "有效数据比例", "Valid data ratio")}: <span style={{ color: t.textStrong, fontFamily: FONT_MONO }}>{pct(validRatio)}</span>
+            {text(lang, "有效数据比例", "Valid data ratio")}: <span style={{ color: t.textStrong, fontFamily: FONT_SANS }}>{pct(validRatio)}</span>
           </div>
         )}
 
@@ -273,7 +273,7 @@ export function WeightExplanationPopover({
           {methodRows.map(([label, value]) => (
             <div key={label} style={{ display: "flex", justifyContent: "space-between", gap: 12, color: t.faint, fontSize: 10.5, lineHeight: 1.45 }}>
               <span>{label}</span>
-              <span style={{ color: t.textStrong, fontFamily: FONT_MONO, textAlign: "right" }}>{value}</span>
+              <span style={{ color: t.textStrong, fontFamily: FONT_SANS, textAlign: "right" }}>{value}</span>
             </div>
           ))}
         </div>

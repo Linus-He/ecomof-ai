@@ -16,10 +16,10 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Unified font tokens (v1.0.1). One sans family for ALL text including numbers,
+/* Unified font tokens (v1.0.2). One sans family for ALL text including numbers,
    version labels, metric values, and dates; serif is reserved for chemistry /
    math formulas only. Numbers align via tabular-nums within the body family,
-   so no monospace is used for decorative numerals. */
+   with no alternate fixed-width face for decorative numerals. */
 :root {
   --font-body: Inter, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-formula: "Times New Roman", "STIX Two Text", Times, serif;
@@ -32,6 +32,11 @@ body {
   text-rendering: optimizeLegibility;
   transition: background-color 0.3s ease, color 0.3s ease;
   overflow-x: hidden;
+}
+
+.num {
+  font-family: var(--font-body);
+  font-variant-numeric: tabular-nums;
 }
 
 img, svg, canvas, video {
