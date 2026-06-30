@@ -8,7 +8,7 @@ import {
   LogoMark,
   BrandMotif,
 } from "../../shared"
-import { BrandMotionBackground, GasParetoChart, MofDescriptor3DScatter } from "../home"
+import { BrandMotionBackground, GasParetoChart, MofDescriptor3DScatter, buildGasParetoRows } from "../home"
 import { toolbarBtn } from "../../utils/styles"
 import {
   DEFAULT_HOME_SUMMARY,
@@ -141,7 +141,7 @@ function IconBadge({ children, t, tone = "info" }) {
 
 function PlatformCapabilityCard({ item, t }) {
   return (
-    <article className="content-card" style={{
+    <article className="content-card home-art-card" style={{
       background: t.panel,
       border: `1px solid ${t.border}`,
       borderRadius: 10,
@@ -183,7 +183,7 @@ function PlatformCapabilityCard({ item, t }) {
 
 function DataCard({ item, t }) {
   return (
-    <article style={{
+    <article className="home-data-tile" style={{
       background: t.panel,
       border: `1px solid ${t.border}`,
       borderRadius: 9,
@@ -198,6 +198,105 @@ function DataCard({ item, t }) {
       </div>
       <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>{item.body}</span>
     </article>
+  )
+}
+
+function AtlasMetric({ item, t, index }) {
+  return (
+    <div className="atlas-metric" style={{ "--metric-delay": `${index * 90}ms`, background: t.surface, border: `1px solid ${t.border}` }}>
+      <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, letterSpacing: 0, textTransform: "uppercase" }}>{item.label}</span>
+      <strong className="num" style={{ color: t.textStrong, fontSize: 19, lineHeight: 1.15, fontWeight: 950 }}>{item.value}</strong>
+    </div>
+  )
+}
+
+function ScientificAtlasHero({ t, lang, summary, gasParetoCount, isMobile, reducedMotion }) {
+  const zh = lang === "zh"
+  const metrics = [
+    { label: zh ? "结构记录" : "Structure records", value: numberText(summary.totalRecords, "+") },
+    { label: "ISODB / IAST", value: numberText(gasParetoCount) },
+    { label: zh ? "实验标签" : "Experimental labels", value: numberText(summary.experimentalLabelCount) },
+    { label: zh ? "可信度" : "Credibility", value: `${metricText(summary.credibilityScore, 1)}` },
+  ]
+  const modules = [
+    { id: "EcoScreen", x: 122, y: 98, tone: t.accentText },
+    { id: "MOF Library", x: 382, y: 86, tone: t.success || t.accentText },
+    { id: "Organic Acid", x: 132, y: 260, tone: t.warn },
+    { id: "GasSep", x: 410, y: 244, tone: t.violet || t.accentText },
+  ]
+  const sourceLines = [
+    { d: "M72 178 C150 78 232 72 308 152", delay: "0ms" },
+    { d: "M72 178 C160 224 248 230 410 244", delay: "120ms" },
+    { d: "M308 152 C282 226 220 280 132 260", delay: "240ms" },
+    { d: "M122 98 C202 142 285 132 382 86", delay: "360ms" },
+  ]
+
+  return (
+    <aside
+      data-testid="home-scientific-atlas"
+      className="home-scientific-atlas"
+      data-reduced-motion={reducedMotion ? "true" : "false"}
+      style={{
+        minWidth: 0,
+        position: "relative",
+        minHeight: isMobile ? 360 : 500,
+        borderRadius: 0,
+        overflow: "visible",
+      }}
+    >
+      <div className="atlas-glass-plate" style={{
+        position: "absolute",
+        inset: isMobile ? "24px 0 0" : "18px 0 0",
+        border: `1px solid ${t.border}`,
+        background: `linear-gradient(145deg, ${t.panel}F2, ${t.surface}D6 54%, ${t.badgeInfoBg}D9)`,
+        boxShadow: t.shadowSm,
+        borderRadius: 14,
+      }} />
+      <svg className="atlas-map-svg" viewBox="0 0 520 350" role="img" aria-label={zh ? "EcoMOF-AI 科研图谱：首页模块与真实数据流" : "EcoMOF-AI research atlas: homepage modules and real data flow"} style={{ position: "relative", width: "100%", minHeight: isMobile ? 280 : 360, display: "block", overflow: "visible" }}>
+        <defs>
+          <radialGradient id="atlasCoreGlow" cx="50%" cy="50%" r="60%">
+            <stop offset="0%" stopColor={t.badgeInfoBg} stopOpacity="0.98" />
+            <stop offset="52%" stopColor={t.badgeInfoBg} stopOpacity="0.24" />
+            <stop offset="100%" stopColor={t.badgeInfoBg} stopOpacity="0" />
+          </radialGradient>
+          <linearGradient id="atlasParetoLine" x1="0%" x2="100%" y1="100%" y2="0%">
+            <stop offset="0%" stopColor={t.accentText} stopOpacity="0.35" />
+            <stop offset="58%" stopColor={t.success || t.accentText} stopOpacity="0.95" />
+            <stop offset="100%" stopColor={t.warn} stopOpacity="0.9" />
+          </linearGradient>
+        </defs>
+        <rect x="18" y="28" width="484" height="294" rx="18" fill="transparent" stroke={t.border} strokeDasharray="6 10" />
+        <circle cx="260" cy="176" r="134" fill="url(#atlasCoreGlow)" />
+        {[70, 120, 170].map((r, index) => (
+          <ellipse key={r} className="atlas-orbit" cx="260" cy="176" rx={r + 54} ry={r} fill="none" stroke={t.border} strokeWidth="1" strokeDasharray={index === 1 ? "2 8" : "5 10"} style={{ "--orbit-delay": `${index * 220}ms` }} />
+        ))}
+        {sourceLines.map((line, index) => (
+          <path key={index} className="atlas-source-line" d={line.d} fill="none" stroke={t.accentText} strokeWidth="1.8" strokeLinecap="round" strokeDasharray="6 8" style={{ "--source-delay": line.delay }} />
+        ))}
+        <path className="atlas-pareto-line" d="M86 288 C144 250 170 236 210 214 C252 190 300 178 342 140 C376 110 408 88 454 70" fill="none" stroke="url(#atlasParetoLine)" strokeWidth="3.4" strokeLinecap="round" />
+        {[0.12, 0.28, 0.43, 0.55, 0.68, 0.82].map((ratio, index) => {
+          const x = 82 + ratio * 376
+          const y = 294 - Math.pow(ratio, 1.55) * 226
+          return <circle key={ratio} className="atlas-pareto-point" cx={x} cy={y} r={index % 2 ? 4.8 : 6.2} fill={index % 3 === 0 ? t.warn : t.accentText} fillOpacity="0.82" stroke={t.panel} strokeWidth="1.4" style={{ "--point-delay": `${index * 90}ms` }} />
+        })}
+        <g className="atlas-core">
+          <circle cx="260" cy="176" r="48" fill={t.panel} stroke={t.accentText} strokeWidth="1.8" />
+          <circle cx="260" cy="176" r="28" fill={t.badgeInfoBg} stroke={t.border} />
+          <text x="260" y="171" textAnchor="middle" fill={t.textStrong} fontSize="13" fontWeight="900">EcoMOF</text>
+          <text x="260" y="190" textAnchor="middle" fill={t.muted} fontSize="10" fontWeight="800">AI Atlas</text>
+        </g>
+        {modules.map((module, index) => (
+          <g key={module.id} className="atlas-module-node" style={{ "--module-delay": `${index * 120}ms` }}>
+            <circle cx={module.x} cy={module.y} r="23" fill={t.panel} stroke={module.tone} strokeWidth="2" />
+            <circle cx={module.x} cy={module.y} r="7" fill={module.tone} fillOpacity="0.82" />
+            <text x={module.x} y={module.y + 39} textAnchor="middle" fill={t.textStrong} fontSize="10.5" fontWeight="850">{module.id}</text>
+          </g>
+        ))}
+      </svg>
+      <div className="atlas-metric-grid" style={{ position: "relative", display: "grid", gridTemplateColumns: isMobile ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", gap: 8, marginTop: isMobile ? -14 : -22, padding: isMobile ? "0 8px 8px" : "0 18px 16px" }}>
+        {metrics.map((metric, index) => <AtlasMetric key={metric.label} item={metric} t={t} index={index} />)}
+      </div>
+    </aside>
   )
 }
 
@@ -247,7 +346,7 @@ function FlowStep({ item, t, index, isLast }) {
 
 function ModuleCapabilityCard({ module, t, isMobile, onNavigate }) {
   return (
-    <article className="content-card" style={{
+    <article className="content-card home-module-card home-atlas-linked-card" style={{
       background: t.panel,
       border: `1px solid ${t.border}`,
       borderRadius: 10,
@@ -270,6 +369,11 @@ function ModuleCapabilityCard({ module, t, isMobile, onNavigate }) {
         {module.io.map(line => (
           <span key={line} style={{ color: t.textStrong, fontSize: 11.5, lineHeight: 1.45, fontWeight: 700 }}>{line}</span>
         ))}
+      </div>
+      <div className="home-module-flowline" aria-hidden="true" style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", gap: 8 }}>
+        <span style={{ height: 1, background: t.borderStrong }} />
+        <span style={{ color: t.accentText, fontSize: 10, fontWeight: 900, letterSpacing: 0 }}>DATA → RESULT</span>
+        <span style={{ height: 1, background: t.borderStrong }} />
       </div>
       <ActionButton t={t} wide hash={`#${module.hash}`} onClick={() => onNavigate(module.hash, module.target)}>
         {module.button}
@@ -408,6 +512,7 @@ export function HomeTab({ setActiveTab }) {
   const { isNarrow, isMobile } = useViewport()
   const reducedMotion = usePrefersReducedMotion()
   const [summary, setSummary] = useState(DEFAULT_HOME_SUMMARY)
+  const gasParetoCount = useMemo(() => buildGasParetoRows().length, [])
   const zh = lang === "zh"
 
   useEffect(() => {
@@ -703,7 +808,18 @@ export function HomeTab({ setActiveTab }) {
                 ? "一个平台，四个模块：EcoScreen 做可持续性筛选，MOF Library 浏览结构/气体/催化全貌，Organic Acid 做白盒催化路线筛选，GasSep 做气体分离筛选。"
                 : "One platform, four modules: EcoScreen for sustainability screening, MOF Library to browse structure/gas/catalysis, Organic Acid for white-box route screening, and GasSep for gas separation."}
             </p>
-            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 22 }} className="home-hero-cta">
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 18 }}>
+              <span className="home-atlas-chip" style={{ color: t.accentText, background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, fontSize: 11, fontWeight: 850, padding: "6px 10px" }}>
+                {zh ? "动态图谱首屏" : "Dynamic atlas first screen"}
+              </span>
+              <span className="home-atlas-chip" style={{ color: t.warn, background: t.badgeWarnBg, border: `1px solid ${t.border}`, borderRadius: 999, fontSize: 11, fontWeight: 850, padding: "6px 10px" }}>
+                {zh ? "数据驱动动画" : "Data-bound motion"}
+              </span>
+              <span className="home-atlas-chip" style={{ color: t.success || t.accentText, background: t.badgeCalcBg, border: `1px solid ${t.border}`, borderRadius: 999, fontSize: 11, fontWeight: 850, padding: "6px 10px" }}>
+                {zh ? "可降级动效" : "Reduced-motion ready"}
+              </span>
+            </div>
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 18 }} className="home-hero-cta">
               {quickStart.slice(0, 3).map(cta => (
                 <ActionButton key={cta.hash} t={t} primary={cta.primary} wide={isMobile} hash={`#${cta.hash}`} onClick={() => navigateHash(cta.hash, cta.target)}>
                   {cta.label}
@@ -711,7 +827,7 @@ export function HomeTab({ setActiveTab }) {
               ))}
             </div>
           </div>
-          <HeroVisual t={t} lang={lang} summary={summary} />
+          <ScientificAtlasHero t={t} lang={lang} summary={summary} gasParetoCount={gasParetoCount} isMobile={isMobile} reducedMotion={reducedMotion} />
         </div>
       </section>
 
