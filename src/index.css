@@ -719,39 +719,6 @@ details[open].motion-surface {
   animation-delay: calc(1.2s + var(--metric-delay, 0ms));
 }
 
-.home-atlas-chip {
-  align-items: center;
-  animation: tag-pop 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  display: inline-flex;
-  gap: 7px;
-  isolation: isolate;
-  overflow: hidden;
-  position: relative;
-}
-
-.home-atlas-chip::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: currentColor;
-  box-shadow: 0 0 0 5px color-mix(in srgb, currentColor 12%, transparent);
-  opacity: 0.78;
-  transform: scale(0.86);
-  animation: atlas-chip-pulse 3.4s ease-in-out infinite;
-}
-
-.home-atlas-chip::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(110deg, transparent 0%, color-mix(in srgb, currentColor 12%, transparent) 46%, transparent 72%);
-  opacity: 0;
-  transform: translateX(-120%);
-  animation: atlas-chip-sheen 5.6s cubic-bezier(0.42, 0, 0.18, 1) 1.8s infinite;
-  z-index: -1;
-}
-
 .home-art-card,
 .home-data-tile,
 .home-atlas-linked-card {
@@ -2111,31 +2078,6 @@ body.cat-dragging {
   }
 }
 
-@keyframes atlas-chip-pulse {
-  0%, 100% {
-    opacity: 0.64;
-    transform: scale(0.82);
-  }
-  48% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes atlas-chip-sheen {
-  0%, 28% {
-    opacity: 0;
-    transform: translateX(-120%);
-  }
-  38%, 52% {
-    opacity: 1;
-  }
-  70%, 100% {
-    opacity: 0;
-    transform: translateX(120%);
-  }
-}
-
 @keyframes atlas-flowline-sweep {
   from {
     transform: translate(-64px, -50%);
@@ -2324,7 +2266,6 @@ body.cat-dragging {
   .atlas-scan-beam,
   .atlas-data-packet,
   .atlas-node-pulse,
-  .home-atlas-chip::after,
   .home-module-flowline::after {
     opacity: 0 !important;
   }

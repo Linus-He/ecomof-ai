@@ -67,8 +67,6 @@ describe("home information architecture", () => {
     expect(atlas.querySelector(".atlas-scan-beam")).toBeTruthy()
     expect(atlas.querySelectorAll(".atlas-data-packet")).toHaveLength(4)
     expect(atlas.querySelectorAll(".atlas-metric-spark")).toHaveLength(4)
-    expect(screen.getByText("动态图谱首屏")).toBeInTheDocument()
-    expect(screen.getByText("数据驱动动画")).toBeInTheDocument()
     expect(screen.getByTestId("home-module-capabilities")).toBeInTheDocument()
     expect(screen.getByTestId("home-descriptor-3d")).toBeInTheDocument()
   })

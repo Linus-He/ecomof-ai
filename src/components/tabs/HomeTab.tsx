@@ -846,18 +846,7 @@ export function HomeTab({ setActiveTab }) {
                 ? "一个平台，四个模块：EcoScreen 做可持续性筛选，MOF Library 浏览结构/气体/催化全貌，Organic Acid 做白盒催化路线筛选，GasSep 做气体分离筛选。"
                 : "One platform, four modules: EcoScreen for sustainability screening, MOF Library to browse structure/gas/catalysis, Organic Acid for white-box route screening, and GasSep for gas separation."}
             </p>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 18 }}>
-              <span className="home-atlas-chip" style={{ color: t.accentText, background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, fontSize: 11, fontWeight: 850, padding: "6px 10px" }}>
-                {zh ? "动态图谱首屏" : "Dynamic atlas first screen"}
-              </span>
-              <span className="home-atlas-chip" style={{ color: t.warn, background: t.badgeWarnBg, border: `1px solid ${t.border}`, borderRadius: 999, fontSize: 11, fontWeight: 850, padding: "6px 10px" }}>
-                {zh ? "数据驱动动画" : "Data-bound motion"}
-              </span>
-              <span className="home-atlas-chip" style={{ color: t.success || t.accentText, background: t.badgeCalcBg, border: `1px solid ${t.border}`, borderRadius: 999, fontSize: 11, fontWeight: 850, padding: "6px 10px" }}>
-                {zh ? "可降级动效" : "Reduced-motion ready"}
-              </span>
-            </div>
-            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 18 }} className="home-hero-cta">
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 24 }} className="home-hero-cta">
               {quickStart.slice(0, 3).map(cta => (
                 <ActionButton key={cta.hash} t={t} primary={cta.primary} wide={isMobile} hash={`#${cta.hash}`} onClick={() => navigateHash(cta.hash, cta.target)}>
                   {cta.label}
