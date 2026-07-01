@@ -84,6 +84,13 @@ function SectionHeader({ eyebrow, title, subtitle, t, isMobile }) {
 }
 
 function ActionButton({ children, onClick, t, primary = false, wide = false, hash }) {
+  const withAlpha = (color, alpha) => (
+    typeof color === "string" && /^#[0-9a-f]{6}$/i.test(color) ? `${color}${alpha}` : color
+  )
+  const glassBackground = primary
+    ? `linear-gradient(145deg, ${withAlpha(t.accent, "D6")} 0%, ${withAlpha(t.accent, "CC")} 52%, ${withAlpha(t.accentStrong || t.accent, "E0")} 100%)`
+    : `linear-gradient(145deg, ${withAlpha(t.panel, "D8")} 0%, ${withAlpha(t.surface, "9C")} 100%)`
+
   return (
     <button
       type="button"
@@ -97,11 +104,14 @@ function ActionButton({ children, onClick, t, primary = false, wide = false, has
         padding: "10px 16px",
         fontSize: 12.5,
         fontWeight: 850,
-        border: `1px solid ${primary ? `${t.accent}66` : t.borderStrong}`,
-        background: primary
-          ? `linear-gradient(135deg, ${t.accent}EA 0%, ${t.accentText}C8 100%)`
-          : `linear-gradient(135deg, ${t.panel}D8 0%, ${t.surface}B8 100%)`,
+        border: `1px solid ${primary ? withAlpha(t.accentStrong || t.accent, "70") : t.borderStrong}`,
+        borderRadius: 8,
+        background: glassBackground,
         color: primary ? "#FFFFFF" : t.accentText,
+        "--glass-background": glassBackground,
+        "--glass-border": primary ? "rgba(255, 255, 255, 0.34)" : withAlpha(t.borderStrong, "B0"),
+        "--glass-text": primary ? "#FFFFFF" : t.accentText,
+        "--glass-shadow-color": primary ? "rgba(26, 109, 181, 0.18)" : "rgba(15, 23, 42, 0.075)",
         width: wide ? "100%" : "auto",
         whiteSpace: "normal",
         textAlign: "center",
