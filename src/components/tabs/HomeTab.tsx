@@ -206,6 +206,9 @@ function AtlasMetric({ item, t, index }) {
     <div className="atlas-metric" style={{ "--metric-delay": `${index * 90}ms`, background: t.surface, border: `1px solid ${t.border}` }}>
       <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, letterSpacing: 0, textTransform: "uppercase" }}>{item.label}</span>
       <strong className="num" style={{ color: t.textStrong, fontSize: 19, lineHeight: 1.15, fontWeight: 950 }}>{item.value}</strong>
+      <span className="atlas-metric-spark" aria-hidden="true" style={{ background: t.badgeInfoBg }}>
+        <span style={{ background: item.tone || t.accentText }} />
+      </span>
     </div>
   )
 }
@@ -213,10 +216,10 @@ function AtlasMetric({ item, t, index }) {
 function ScientificAtlasHero({ t, lang, summary, gasParetoCount, isMobile, reducedMotion }) {
   const zh = lang === "zh"
   const metrics = [
-    { label: zh ? "结构记录" : "Structure records", value: numberText(summary.totalRecords, "+") },
-    { label: "ISODB / IAST", value: numberText(gasParetoCount) },
-    { label: zh ? "实验标签" : "Experimental labels", value: numberText(summary.experimentalLabelCount) },
-    { label: zh ? "可信度" : "Credibility", value: `${metricText(summary.credibilityScore, 1)}` },
+    { label: zh ? "结构记录" : "Structure records", value: numberText(summary.totalRecords, "+"), tone: t.accentText },
+    { label: "ISODB / IAST", value: numberText(gasParetoCount), tone: t.violet || t.accentText },
+    { label: zh ? "实验标签" : "Experimental labels", value: numberText(summary.experimentalLabelCount), tone: t.warn },
+    { label: zh ? "可信度" : "Credibility", value: `${metricText(summary.credibilityScore, 1)}`, tone: t.success || t.accentText },
   ]
   const modules = [
     { id: "EcoScreen", x: 122, y: 98, tone: t.accentText },
@@ -264,8 +267,34 @@ function ScientificAtlasHero({ t, lang, summary, gasParetoCount, isMobile, reduc
             <stop offset="58%" stopColor={t.success || t.accentText} stopOpacity="0.95" />
             <stop offset="100%" stopColor={t.warn} stopOpacity="0.9" />
           </linearGradient>
+          <linearGradient id="atlasScanGradient" x1="0%" x2="100%">
+            <stop offset="0%" stopColor={t.panel} stopOpacity="0" />
+            <stop offset="42%" stopColor={t.accentText} stopOpacity="0.04" />
+            <stop offset="50%" stopColor={t.accentText} stopOpacity="0.24" />
+            <stop offset="58%" stopColor={t.accentText} stopOpacity="0.04" />
+            <stop offset="100%" stopColor={t.panel} stopOpacity="0" />
+          </linearGradient>
+          <filter id="atlasPacketGlow" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="2.2" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          <clipPath id="atlasWindowClip">
+            <rect x="18" y="28" width="484" height="294" rx="18" />
+          </clipPath>
         </defs>
-        <rect x="18" y="28" width="484" height="294" rx="18" fill="transparent" stroke={t.border} strokeDasharray="6 10" />
+        <rect className="atlas-window-frame" x="18" y="28" width="484" height="294" rx="18" fill="transparent" stroke={t.border} strokeDasharray="6 10" />
+        <g clipPath="url(#atlasWindowClip)">
+          {[82, 164, 246, 328, 410].map((x, index) => (
+            <line key={`v-${x}`} className="atlas-depth-line" x1={x} y1="38" x2={x} y2="312" stroke={t.border} strokeWidth="0.8" style={{ "--grid-delay": `${index * 70}ms` }} />
+          ))}
+          {[92, 160, 228, 296].map((y, index) => (
+            <line key={`h-${y}`} className="atlas-depth-line" x1="28" y1={y} x2="492" y2={y} stroke={t.border} strokeWidth="0.8" style={{ "--grid-delay": `${180 + index * 70}ms` }} />
+          ))}
+          <rect className="atlas-scan-beam" x="-92" y="34" width="92" height="284" fill="url(#atlasScanGradient)" />
+        </g>
         <circle cx="260" cy="176" r="134" fill="url(#atlasCoreGlow)" />
         {[70, 120, 170].map((r, index) => (
           <ellipse key={r} className="atlas-orbit" cx="260" cy="176" rx={r + 54} ry={r} fill="none" stroke={t.border} strokeWidth="1" strokeDasharray={index === 1 ? "2 8" : "5 10"} style={{ "--orbit-delay": `${index * 220}ms` }} />
@@ -273,6 +302,12 @@ function ScientificAtlasHero({ t, lang, summary, gasParetoCount, isMobile, reduc
         {sourceLines.map((line, index) => (
           <path key={index} className="atlas-source-line" d={line.d} fill="none" stroke={t.accentText} strokeWidth="1.8" strokeLinecap="round" strokeDasharray="6 8" style={{ "--source-delay": line.delay }} />
         ))}
+        <g className="atlas-data-packets" filter="url(#atlasPacketGlow)" aria-hidden="true">
+          <circle className="atlas-data-packet atlas-data-packet-a" cx="72" cy="178" r="3.8" fill={t.accentText} />
+          <circle className="atlas-data-packet atlas-data-packet-b" cx="72" cy="178" r="3.4" fill={t.violet || t.accentText} />
+          <circle className="atlas-data-packet atlas-data-packet-c" cx="308" cy="152" r="3.2" fill={t.warn} />
+          <circle className="atlas-data-packet atlas-data-packet-d" cx="122" cy="98" r="3.5" fill={t.success || t.accentText} />
+        </g>
         <path className="atlas-pareto-line" d="M86 288 C144 250 170 236 210 214 C252 190 300 178 342 140 C376 110 408 88 454 70" fill="none" stroke="url(#atlasParetoLine)" strokeWidth="3.4" strokeLinecap="round" />
         {[0.12, 0.28, 0.43, 0.55, 0.68, 0.82].map((ratio, index) => {
           const x = 82 + ratio * 376
@@ -280,6 +315,8 @@ function ScientificAtlasHero({ t, lang, summary, gasParetoCount, isMobile, reduc
           return <circle key={ratio} className="atlas-pareto-point" cx={x} cy={y} r={index % 2 ? 4.8 : 6.2} fill={index % 3 === 0 ? t.warn : t.accentText} fillOpacity="0.82" stroke={t.panel} strokeWidth="1.4" style={{ "--point-delay": `${index * 90}ms` }} />
         })}
         <g className="atlas-core">
+          <circle className="atlas-core-halo atlas-core-halo-outer" cx="260" cy="176" r="66" fill="none" stroke={t.accentText} strokeWidth="1" />
+          <circle className="atlas-core-halo atlas-core-halo-inner" cx="260" cy="176" r="56" fill="none" stroke={t.warn} strokeWidth="0.9" />
           <circle cx="260" cy="176" r="48" fill={t.panel} stroke={t.accentText} strokeWidth="1.8" />
           <circle cx="260" cy="176" r="28" fill={t.badgeInfoBg} stroke={t.border} />
           <text x="260" y="171" textAnchor="middle" fill={t.textStrong} fontSize="13" fontWeight="900">EcoMOF</text>
@@ -287,6 +324,7 @@ function ScientificAtlasHero({ t, lang, summary, gasParetoCount, isMobile, reduc
         </g>
         {modules.map((module, index) => (
           <g key={module.id} className="atlas-module-node" style={{ "--module-delay": `${index * 120}ms` }}>
+            <circle className="atlas-node-pulse" cx={module.x} cy={module.y} r="31" fill="none" stroke={module.tone} strokeWidth="1" style={{ "--pulse-delay": `${index * 420}ms` }} />
             <circle cx={module.x} cy={module.y} r="23" fill={t.panel} stroke={module.tone} strokeWidth="2" />
             <circle cx={module.x} cy={module.y} r="7" fill={module.tone} fillOpacity="0.82" />
             <text x={module.x} y={module.y + 39} textAnchor="middle" fill={t.textStrong} fontSize="10.5" fontWeight="850">{module.id}</text>
