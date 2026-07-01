@@ -563,19 +563,23 @@ details[open].motion-surface {
 }
 
 .home-hero-section {
-  min-height: min(760px, calc(100vh - 124px));
+  min-height: min(540px, calc(100vh - 240px));
 }
 
 .home-scientific-atlas {
   animation: atlas-panel-in 860ms cubic-bezier(0.22, 1, 0.36, 1) 220ms both;
+  margin-inline: auto;
+  max-width: 560px;
 }
 
 .atlas-glass-plate {
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(22px) saturate(1.28);
+  border-color: rgba(148, 163, 184, 0.18) !important;
+  box-shadow: 0 16px 42px rgba(15, 23, 42, 0.055), inset 0 1px 0 rgba(255, 255, 255, 0.54) !important;
 }
 
 .atlas-map-svg {
-  filter: drop-shadow(0 18px 34px rgba(15, 23, 42, 0.10));
+  filter: drop-shadow(0 14px 26px rgba(15, 23, 42, 0.07));
 }
 
 .atlas-window-frame {
@@ -697,6 +701,54 @@ details[open].motion-surface {
   background: rgba(255, 255, 255, 0.58);
   animation: atlas-metric-in 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: calc(860ms + var(--metric-delay, 0ms));
+}
+
+.home-glass-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  backdrop-filter: blur(18px) saturate(1.42);
+  -webkit-backdrop-filter: blur(18px) saturate(1.42);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.095), inset 0 1px 0 rgba(255, 255, 255, 0.58), inset 0 -1px 0 rgba(15, 23, 42, 0.045) !important;
+}
+
+.home-glass-button::before {
+  content: "";
+  position: absolute;
+  inset: 1px 1px auto 1px;
+  height: 48%;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0));
+  opacity: 0.72;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.home-glass-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.34) 42%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-120%);
+  transition: opacity 0.24s ease, transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: -1;
+}
+
+.home-glass-button:hover::after,
+.home-glass-button:focus-visible::after {
+  opacity: 0.7;
+  transform: translateX(120%);
+}
+
+.home-glass-button:hover,
+.home-glass-button:focus-visible {
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.66), inset 0 -1px 0 rgba(15, 23, 42, 0.05) !important;
+}
+
+.home-glass-button-primary {
+  text-shadow: 0 1px 0 rgba(15, 23, 42, 0.16);
 }
 
 .atlas-metric-spark {
@@ -1690,7 +1742,8 @@ body.cat-dragging {
   }
 
   .home-scientific-atlas {
-    min-height: 360px !important;
+    min-height: 340px !important;
+    max-width: 100%;
   }
 
   .atlas-glass-plate {
@@ -1698,7 +1751,7 @@ body.cat-dragging {
   }
 
   .atlas-map-svg {
-    min-height: 280px !important;
+    min-height: 270px !important;
   }
 
   .scroll-narrative-grid {
@@ -2266,6 +2319,7 @@ body.cat-dragging {
   .atlas-scan-beam,
   .atlas-data-packet,
   .atlas-node-pulse,
+  .home-glass-button::after,
   .home-module-flowline::after {
     opacity: 0 !important;
   }

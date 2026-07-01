@@ -89,16 +89,18 @@ function ActionButton({ children, onClick, t, primary = false, wide = false, has
       type="button"
       onClick={onClick}
       data-hash={hash}
-      className={primary ? "btn-primary" : "btn-secondary"}
+      className={primary ? "btn-primary home-glass-button home-glass-button-primary" : "btn-secondary home-glass-button"}
       style={{
         ...toolbarBtn(t),
         justifyContent: "center",
         minHeight: 40,
-        padding: "10px 15px",
+        padding: "10px 16px",
         fontSize: 12.5,
         fontWeight: 850,
-        border: `1px solid ${primary ? t.accent : t.borderStrong}`,
-        background: primary ? t.accent : t.panel,
+        border: `1px solid ${primary ? `${t.accent}66` : t.borderStrong}`,
+        background: primary
+          ? `linear-gradient(135deg, ${t.accent}EA 0%, ${t.accentText}C8 100%)`
+          : `linear-gradient(135deg, ${t.panel}D8 0%, ${t.surface}B8 100%)`,
         color: primary ? "#FFFFFF" : t.accentText,
         width: wide ? "100%" : "auto",
         whiteSpace: "normal",
@@ -242,20 +244,20 @@ function ScientificAtlasHero({ t, lang, summary, gasParetoCount, isMobile, reduc
       style={{
         minWidth: 0,
         position: "relative",
-        minHeight: isMobile ? 360 : 500,
+        minHeight: isMobile ? 340 : 444,
         borderRadius: 0,
         overflow: "visible",
       }}
     >
       <div className="atlas-glass-plate" style={{
         position: "absolute",
-        inset: isMobile ? "24px 0 0" : "18px 0 0",
+        inset: isMobile ? "18px 0 0" : "12px 0 0",
         border: `1px solid ${t.border}`,
-        background: `linear-gradient(145deg, ${t.panel}F2, ${t.surface}D6 54%, ${t.badgeInfoBg}D9)`,
+        background: `linear-gradient(145deg, ${t.panel}E8, ${t.surface}C8 58%, ${t.badgeInfoBg}B8)`,
         boxShadow: t.shadowSm,
-        borderRadius: 14,
+        borderRadius: 12,
       }} />
-      <svg className="atlas-map-svg" viewBox="0 0 520 350" role="img" aria-label={zh ? "EcoMOF-AI 科研图谱：首页模块与真实数据流" : "EcoMOF-AI research atlas: homepage modules and real data flow"} style={{ position: "relative", width: "100%", minHeight: isMobile ? 280 : 360, display: "block", overflow: "visible" }}>
+      <svg className="atlas-map-svg" viewBox="0 0 520 350" role="img" aria-label={zh ? "EcoMOF-AI 科研图谱：首页模块与真实数据流" : "EcoMOF-AI research atlas: homepage modules and real data flow"} style={{ position: "relative", width: "100%", minHeight: isMobile ? 270 : 318, display: "block", overflow: "visible" }}>
         <defs>
           <radialGradient id="atlasCoreGlow" cx="50%" cy="50%" r="60%">
             <stop offset="0%" stopColor={t.badgeInfoBg} stopOpacity="0.98" />
@@ -285,13 +287,13 @@ function ScientificAtlasHero({ t, lang, summary, gasParetoCount, isMobile, reduc
             <rect x="18" y="28" width="484" height="294" rx="18" />
           </clipPath>
         </defs>
-        <rect className="atlas-window-frame" x="18" y="28" width="484" height="294" rx="18" fill="transparent" stroke={t.border} strokeDasharray="6 10" />
+        <rect className="atlas-window-frame" x="18" y="28" width="484" height="294" rx="18" fill="transparent" stroke={t.border} strokeOpacity="0.38" strokeWidth="0.75" strokeDasharray="2 14" />
         <g clipPath="url(#atlasWindowClip)">
           {[82, 164, 246, 328, 410].map((x, index) => (
-            <line key={`v-${x}`} className="atlas-depth-line" x1={x} y1="38" x2={x} y2="312" stroke={t.border} strokeWidth="0.8" style={{ "--grid-delay": `${index * 70}ms` }} />
+            <line key={`v-${x}`} className="atlas-depth-line" x1={x} y1="38" x2={x} y2="312" stroke={t.border} strokeOpacity="0.58" strokeWidth="0.55" style={{ "--grid-delay": `${index * 70}ms` }} />
           ))}
           {[92, 160, 228, 296].map((y, index) => (
-            <line key={`h-${y}`} className="atlas-depth-line" x1="28" y1={y} x2="492" y2={y} stroke={t.border} strokeWidth="0.8" style={{ "--grid-delay": `${180 + index * 70}ms` }} />
+            <line key={`h-${y}`} className="atlas-depth-line" x1="28" y1={y} x2="492" y2={y} stroke={t.border} strokeOpacity="0.58" strokeWidth="0.55" style={{ "--grid-delay": `${180 + index * 70}ms` }} />
           ))}
           <rect className="atlas-scan-beam" x="-92" y="34" width="92" height="284" fill="url(#atlasScanGradient)" />
         </g>
@@ -331,7 +333,7 @@ function ScientificAtlasHero({ t, lang, summary, gasParetoCount, isMobile, reduc
           </g>
         ))}
       </svg>
-      <div className="atlas-metric-grid" style={{ position: "relative", display: "grid", gridTemplateColumns: isMobile ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", gap: 8, marginTop: isMobile ? -14 : -22, padding: isMobile ? "0 8px 8px" : "0 18px 16px" }}>
+      <div className="atlas-metric-grid" style={{ position: "relative", display: "grid", gridTemplateColumns: isMobile ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", gap: 8, marginTop: isMobile ? -18 : -30, padding: isMobile ? "0 8px 8px" : "0 14px 12px" }}>
         {metrics.map((metric, index) => <AtlasMetric key={metric.label} item={metric} t={t} index={index} />)}
       </div>
     </aside>
@@ -575,7 +577,7 @@ export function HomeTab({ setActiveTab }) {
     }
   }
 
-  const pageGap = isMobile ? 34 : 52
+  const pageGap = isMobile ? 28 : 38
   const sectionStyle = { background: "transparent", border: "none", borderRadius: 0 }
   const panelStyle = {
     background: t.panel,
@@ -806,7 +808,7 @@ export function HomeTab({ setActiveTab }) {
     <div className="home-story-shell" style={{ display: "flex", flexDirection: "column", gap: pageGap, overflow: "hidden", position: "relative" }}>
       <BrandMotionBackground t={t} isMobile={isNarrow} reducedMotion={reducedMotion} />
 
-      <section id="overview" data-testid="home-hero" className="home-hero-section" style={{ ...sectionStyle, paddingTop: isMobile ? 12 : 30, position: "relative", overflow: "hidden" }}>
+      <section id="overview" data-testid="home-hero" className="home-hero-section" style={{ ...sectionStyle, paddingTop: isMobile ? 10 : 18, position: "relative", overflow: "hidden" }}>
         <div className="home-hero-bg-layer" aria-hidden="true" style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
           {!isMobile && (
             <BrandMotif
@@ -821,8 +823,8 @@ export function HomeTab({ setActiveTab }) {
         </div>
         <div style={{
           display: "grid",
-          gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.05fr) minmax(360px, 0.95fr)",
-          gap: isMobile ? 18 : 28,
+          gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 0.96fr) minmax(320px, 0.82fr)",
+          gap: isMobile ? 16 : 20,
           alignItems: "center",
           minWidth: 0,
           position: "relative",
@@ -846,7 +848,7 @@ export function HomeTab({ setActiveTab }) {
                 ? "一个平台，四个模块：EcoScreen 做可持续性筛选，MOF Library 浏览结构/气体/催化全貌，Organic Acid 做白盒催化路线筛选，GasSep 做气体分离筛选。"
                 : "One platform, four modules: EcoScreen for sustainability screening, MOF Library to browse structure/gas/catalysis, Organic Acid for white-box route screening, and GasSep for gas separation."}
             </p>
-            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 24 }} className="home-hero-cta">
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 18 }} className="home-hero-cta">
               {quickStart.slice(0, 3).map(cta => (
                 <ActionButton key={cta.hash} t={t} primary={cta.primary} wide={isMobile} hash={`#${cta.hash}`} onClick={() => navigateHash(cta.hash, cta.target)}>
                   {cta.label}
