@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest"
 import { buildDescriptorScatterPoints } from "../../components/home/MofDescriptor3DScatter"
 import { buildGasParetoRows, buildLogSelectivityScale, buildParetoFrontier, summarizeGasParetoRows } from "../../components/home/GasParetoChart"
+import { buildHomeExplorerModel } from "../../components/home/HomeDataExplorer"
 
 describe("homepage research visualizations", () => {
   it("samples a larger real descriptor cloud without fabricating missing axes", () => {
@@ -47,5 +48,21 @@ describe("homepage research visualizations", () => {
     expect(scale.ticks).toContain(10)
     expect(scale.ticks).toContain(10000)
     expect(scale.logMax - scale.logMin).toBeGreaterThanOrEqual(4)
+  })
+
+  it("derives homepage distribution, metal filters, and correlations from real descriptor rows", () => {
+    const rows = buildDescriptorScatterPoints(2000)
+    const model = buildHomeExplorerModel(rows, "all", "surfaceArea")
+    expect(model.rows.length).toBeGreaterThan(1000)
+    expect(model.metalCounts.length).toBeGreaterThan(5)
+    expect(model.histogram.reduce((sum, row) => sum + row.count, 0)).toBe(model.selectedMetalCount)
+    expect(model.correlations).toHaveLength(16)
+    expect(model.correlations.filter(row => row.value !== null).every(row => row.value >= -1 && row.value <= 1)).toBe(true)
+
+    const topMetal = model.metalCounts[0].metal
+    const filtered = buildHomeExplorerModel(rows, topMetal, "poreVolume")
+    expect(filtered.selectedMetalCount).toBe(model.metalCounts[0].count)
+    expect(filtered.selectedMetalCount).toBeLessThan(model.selectedMetalCount)
+    expect(filtered.histogram.reduce((sum, row) => sum + row.count, 0)).toBe(filtered.selectedMetalCount)
   })
 })

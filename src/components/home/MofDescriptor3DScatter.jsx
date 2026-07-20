@@ -1,7 +1,7 @@
 // @ts-nocheck
 // Self-contained interactive descriptor scatter from bundled CoRE/QMOF imports.
 // Desktop: drag to rotate, wheel to zoom, hover for details.
-// Mobile: degrades to a compact 2D scatter.
+// Mobile: keeps the same interactive 3D projection with a tighter viewport.
 import { useMemo, useRef, useState } from "react"
 import coreMofImport from "../../../public/data/data_ingestion/core_mof_import_v2.json"
 import qmofImport from "../../../public/data/data_ingestion/qmof_import_v2.json"
@@ -170,15 +170,15 @@ function AxisRangeLegend({ extents, t, lang, isMobile }) {
   )
 }
 
-function Scatter3D({ points, t, lang, colorMode, setColorMode }) {
+function Scatter3D({ points, t, lang, colorMode, setColorMode, isMobile = false }) {
   const [yaw, setYaw] = useState(-0.72)
   const [pitch, setPitch] = useState(0.44)
   const [zoom, setZoom] = useState(1)
   const [hover, setHover] = useState(null)
   const drag = useRef(null)
-  const W = 720
-  const H = 500
-  const MARGIN = 86
+  const W = isMobile ? 560 : 720
+  const H = isMobile ? 430 : 500
+  const MARGIN = isMobile ? 72 : 86
   const zh = lang === "zh"
 
   const extents = useMemo(() => ({
@@ -340,7 +340,7 @@ function Scatter3D({ points, t, lang, colorMode, setColorMode }) {
                   </g>
                 )
               })}
-              <text x={end.sx + axis.labelOffset.x} y={end.sy + axis.labelOffset.y} textAnchor={axis.labelOffset.x < 0 ? "end" : "start"} fill={axis.color} fontSize="11.2" fontWeight="900">
+              <text x={end.sx + (isMobile ? axis.labelOffset.x * 0.68 : axis.labelOffset.x)} y={end.sy + (isMobile ? axis.labelOffset.y * 0.75 : axis.labelOffset.y)} textAnchor={axis.labelOffset.x < 0 ? "end" : "start"} fill={axis.color} fontSize={isMobile ? "10.2" : "11.2"} fontWeight="900">
                 {axis.label}{axis.unit ? ` (${axis.unit})` : ""}
               </text>
             </g>
@@ -361,6 +361,10 @@ function Scatter3D({ points, t, lang, colorMode, setColorMode }) {
               stroke={active ? t.textStrong : "#ffffff"}
               strokeWidth={active ? 1.7 : 0.65}
               onPointerEnter={() => setHover(p)}
+              onPointerDown={event => {
+                setHover(p)
+                event.stopPropagation()
+              }}
               onPointerLeave={() => setHover(null)}
             />
           )
@@ -395,55 +399,6 @@ function Scatter3D({ points, t, lang, colorMode, setColorMode }) {
   )
 }
 
-function Scatter2D({ points, t, lang, colorMode, setColorMode }) {
-  const W = 380
-  const H = 290
-  const pad = 40
-  const zh = lang === "zh"
-  const [hover, setHover] = useState(null)
-  const extents = useMemo(() => ({
-    surfaceArea: axisExtent(points.map(p => p.surfaceArea)),
-    poreVolume: axisExtent(points.map(p => p.poreVolume)),
-    voidFraction: axisExtent(points.map(p => p.voidFraction)),
-  }), [points])
-  return (
-    <div style={{ display: "grid", gap: 8, position: "relative" }}>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-        {[
-          ["metal", zh ? "金属" : "Metal"],
-          ["grade", "dataGrade"],
-        ].map(([mode, label]) => {
-          const active = colorMode === mode
-          return (
-            <button key={mode} type="button" onClick={() => setColorMode(mode)} style={{ background: active ? t.badgeInfoBg : t.surface, border: `1px solid ${active ? t.accent : t.border}`, borderRadius: 999, color: active ? t.accentText : t.muted, fontSize: 11, fontWeight: 850, minHeight: 29, padding: "5px 10px" }}>
-              {label}
-            </button>
-          )
-        })}
-      </div>
-      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={zh ? "MOF 描述符 2D 散点图" : "MOF descriptor 2D scatter"} style={{ width: "100%", height: "auto" }}>
-        <line x1={pad} y1={H - pad} x2={W - 12} y2={H - pad} stroke={t.border} strokeWidth={1.5} />
-        <line x1={pad} y1={12} x2={pad} y2={H - pad} stroke={t.border} strokeWidth={1.5} />
-        <text x={W - 12} y={H - pad + 15} fill={t.subtle} fontSize={10} fontWeight={800} textAnchor="end">{zh ? "比表面积" : "Surface area"}</text>
-        <text x={pad - 4} y={17} fill={t.subtle} fontSize={10} fontWeight={800}>{zh ? "孔体积" : "Pore volume"}</text>
-        {points.map((p, index) => {
-          const x = pad + norm01(p.surfaceArea, extents.surfaceArea) * (W - pad - 16)
-          const y = (H - pad) - norm01(p.poreVolume, extents.poreVolume) * (H - pad - 16)
-          const fill = colorMode === "metal" ? colorForMetal(p.metal) : colorForGrade(p.dataGrade)
-          const active = hover?.id === p.id
-          return <circle key={p.id} cx={x} cy={y} r={active ? 6.5 : 4.8} fill={fill} fillOpacity={active ? 0.95 : 0.68} stroke="#ffffff" strokeWidth={0.8} onPointerEnter={() => setHover(p)} onPointerLeave={() => setHover(null)} />
-        })}
-      </svg>
-      <AxisRangeLegend extents={extents} t={t} lang={lang} isMobile />
-      {hover ? (
-        <div style={{ color: t.muted, fontSize: 11.2, lineHeight: 1.5 }}>
-          <strong style={{ color: t.textStrong }}>{hover.name}</strong> · SA {formatCompact(hover.surfaceArea, 0)} m²/g · PV {formatCompact(hover.poreVolume, 2)} cm³/g
-        </div>
-      ) : null}
-    </div>
-  )
-}
-
 export function MofDescriptor3DScatter({ t, lang, isMobile }) {
   const [colorMode, setColorMode] = useState("metal")
   const points = useMemo(() => buildDescriptorScatterPoints(), [])
@@ -462,13 +417,11 @@ export function MofDescriptor3DScatter({ t, lang, isMobile }) {
         </h3>
         <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.6, margin: "7px 0 0", maxWidth: 760 }}>
           {zh
-            ? `比表面积 × 孔体积 × 孔隙率，展示 ${points.length} 个具备完整三轴字段的真实结构记录（来自 ${allRows} 条 CoRE/QMOF 导入）。${isMobile ? "移动端为 2D 视图。" : "拖动旋转、滚轮缩放、悬停看真实值。"}`
-            : `Surface area × pore volume × porosity for ${points.length} real structure records with complete axes (from ${allRows} CoRE/QMOF imports). ${isMobile ? "Mobile shows a 2D view." : "Drag to rotate, scroll to zoom, hover for real values."}`}
+            ? `比表面积 × 孔体积 × 孔隙率，展示 ${points.length} 个具备完整三轴字段的真实结构记录（来自 ${allRows} 条 CoRE/QMOF 导入）。拖动旋转，${isMobile ? "点按查看真实值。" : "滚轮缩放、悬停看真实值。"}`
+            : `Surface area × pore volume × porosity for ${points.length} real structure records with complete axes (from ${allRows} CoRE/QMOF imports). Drag to rotate; ${isMobile ? "tap points for real values." : "scroll to zoom and hover for real values."}`}
         </p>
       </div>
-      {isMobile
-        ? <Scatter2D points={points} t={t} lang={lang} colorMode={colorMode} setColorMode={setColorMode} />
-        : <Scatter3D points={points} t={t} lang={lang} colorMode={colorMode} setColorMode={setColorMode} />}
+      <Scatter3D points={points} t={t} lang={lang} colorMode={colorMode} setColorMode={setColorMode} isMobile={isMobile} />
       <p style={{ color: t.faint, fontSize: 11, lineHeight: 1.5, margin: 0 }}>
         {zh
           ? `着色可按金属节点或结构记录 dataGrade/source grade 切换；点大小映射低密度/开放孔道倾向。${qMofExcluded ? `QMOF 记录缺孔体积字段，未进入三轴视图：${qMofExcluded} 条。` : ""}`

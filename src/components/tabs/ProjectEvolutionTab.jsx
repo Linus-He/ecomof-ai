@@ -126,14 +126,14 @@ function EvolutionOverview({ data, projectStatus, lang, t, isMobile }) {
 
 const CURRENT_RELEASE = {
   version: APP_VERSION_LABEL,
-  title: { zh: "v1.0.2：字体、版本徽章、3D 与气体帕累托可视化收尾", en: "v1.0.2: Typography, version badges, 3D, and gas Pareto polish" },
+  title: { zh: "v1.0.2：字体、版本徽章、首页可视化、GasSep 排序与适配回归", en: "v1.0.2: Typography, version badges, homepage visuals, GasSep ranking, and adaptation regressions" },
   summary: {
-    zh: "纯呈现层收尾：数字字体彻底归一到 body 字族，当前 App 版本徽章改读 app_release_log，首页 3D 描述符散点扩到 CoRE/QMOF 采样，并新增气体分离帕累托图。",
-    en: "Presentation-layer polish: numerals now stay on the body family, current App badges read app_release_log, the homepage 3D descriptor scatter expands to CoRE/QMOF sampling, and a gas-separation Pareto chart is added.",
+    zh: "数字字体彻底归一到 body 字族，当前 App 版本徽章改读 app_release_log，首页 3D 描述符散点扩到 CoRE/QMOF 采样，并把 GasSep 默认排序从主观权重 GasScore 调整为 Pareto + APS，同时新增 APS×R%、CRITIC、筛选漏斗、跨方法短名单，以及中英文、深浅色、移动端回归覆盖。",
+    en: "Numerals now stay on the body family, current App badges read app_release_log, homepage 3D descriptor scatter expands to CoRE/QMOF sampling, and GasSep default ranking moves from subjective-weight GasScore to Pareto + APS with APS×R%, CRITIC, screening funnel, cross-method shortlist, and Chinese/English, light/dark, mobile regressions.",
   },
   scientificImpact: {
-    zh: "首页直接呈现真实气体分离权衡与结构描述符空间；图表仍只读取现有数据，不新增或改写底层结果。",
-    en: "The homepage now shows the real gas-separation trade-off and descriptor space directly; charts read existing data only and do not alter source results.",
+    zh: "首页直接呈现真实气体分离权衡与结构描述符空间；GasSep 排序读取现有气体记录，不新增或改写底层数据，并明确历史 GasScore 只是启发式诊断。",
+    en: "The homepage shows the real gas-separation trade-off and descriptor space directly; GasSep ranking reads existing gas records without altering source data and clearly marks Legacy GasScore as a heuristic diagnostic.",
   },
   validationImpact: {
     zh: "当前版本与模块历史分离：App v1.0.2 是全局发布号，Gas v2.1 / V3.10.1 等继续作为模块数据历史展示。",
@@ -141,12 +141,12 @@ const CURRENT_RELEASE = {
   },
   breakingChanges: { zh: "无", en: "None" },
   nextVersionGoal: {
-    zh: "继续补充真实混合气/突破曲线验证，并按实验覆盖度优化 GasSep 排名解释。",
-    en: "Continue adding real mixture/breakthrough validation and improve GasSep ranking explanations by experimental coverage.",
+    zh: "继续补充真实混合气/突破曲线验证，并用同条件实验或过程模拟检验 Pareto/APS、APS×R% 与 CRITIC 短名单稳定性。",
+    en: "Continue adding real mixture/breakthrough validation and test Pareto/APS, APS×R%, and CRITIC shortlist stability with same-condition experiments or process simulation.",
   },
 }
 
-// Project Updates, grouped into four numbered work streams for the current release.
+// Project Updates, grouped into numbered work streams for the current release.
 const PROJECT_UPDATE_STREAMS = [
   {
     no: "01",
@@ -178,6 +178,22 @@ const PROJECT_UPDATE_STREAMS = [
     body: {
       zh: "首页新增选择性 × 工作容量帕累托图，按气对切换并标注可用点数及 IAST/实验/计算来源构成。",
       en: "Added a selectivity × working-capacity Pareto chart with gas-pair switching and available-point/source composition counts.",
+    },
+  },
+  {
+    no: "05",
+    label: { zh: "GasSep 排序", en: "GasSep ranking" },
+    body: {
+      zh: "GasSep 默认改用 Pareto + APS，新增 APS×R%、CRITIC 客观赋权、筛选漏斗、跨方法短名单，并把历史 GasScore 明确降级为诊断参考。",
+      en: "GasSep defaults to Pareto + APS, adds APS×R%, CRITIC objective weighting, screening funnel, cross-method shortlist, and demotes Legacy GasScore to diagnostic reference.",
+    },
+  },
+  {
+    no: "06",
+    label: { zh: "适配回归", en: "Adaptation regression" },
+    body: {
+      zh: "新增 GasSep 中英文文案、深浅色主题与移动端单列布局测试，覆盖方法卡、筛选漏斗、表格排序和解释面板的真实数据联动。",
+      en: "Added GasSep Chinese/English copy, light/dark theme, and mobile single-column tests covering real-data-linked method cards, funnel, table sorting, and explanation panels.",
     },
   },
 ]
@@ -404,7 +420,7 @@ function ProjectUpdates({ lang, t, isMobile }) {
     <Card
       id="project-evolution-release-notes"
       title={text(lang, "项目更新", "Project Updates")}
-      subtitle={text(lang, `当前版本 ${CURRENT_RELEASE.version} 的更新按数字字体、版本徽章、3D 描述符与气体帕累托四条线索整理。`, `Updates in the current ${CURRENT_RELEASE.version} release are organized into numeral typography, version badges, 3D descriptors, and gas Pareto streams.`)}
+      subtitle={text(lang, `当前版本 ${CURRENT_RELEASE.version} 的更新按数字字体、版本徽章、3D 描述符、气体帕累托、GasSep 排序与适配回归六条线索整理。`, `Updates in the current ${CURRENT_RELEASE.version} release are organized into numeral typography, version badges, 3D descriptors, gas Pareto, GasSep ranking, and adaptation regression streams.`)}
       t={t}
     >
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>

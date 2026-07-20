@@ -1,6 +1,6 @@
 // @ts-nocheck
-import { BasisBadge, ChemicalText, SectionTitle, formatGasPairLabel, formatScore100 } from "../../shared"
-import { getParetoFrontier } from "../../utils/gasSeparationScreening"
+import { BasisBadge, ChemicalText, SectionTitle, formatGasPairLabel } from "../../shared"
+import { gasMethodScoreLabel, getParetoFrontier } from "../../utils/gasSeparationScreening"
 import { finite, metricNormalizedValue, text } from "./gasViewUtils"
 
 function pickMax(rows, metric) {
@@ -44,7 +44,7 @@ export function GasTradeoffSummary({ ranked = [], scenario = {}, lang, t }) {
     : text(lang, "GCMC 模拟 / 证据升级", "GCMC simulation / evidence upgrade")
 
   const cards = [
-    [text(lang, "综合最均衡候选", "Best balanced candidate"), balanced.displayName, formatScore100(balanced.score, lang), "calc"],
+    [text(lang, "当前方法首位", "Top by current method"), balanced.displayName, gasMethodScoreLabel(balanced, balanced.gasScreening?.methodId, lang), "calc"],
     [text(lang, "选择性最高候选", "Highest selectivity candidate"), selectivity.displayName, `${selectivity.selectivity}`, "info"],
     [text(lang, "工作容量最高候选", "Highest working capacity candidate"), capacity.displayName, `${capacity.workingCapacity} mmol/g`, "proxy"],
     [text(lang, "验证优先级", "Validation priority"), validationPriority, formatGasPairLabel(scenario.gasPair || balanced.gasPair), "warn"],
@@ -65,8 +65,8 @@ export function GasTradeoffSummary({ ranked = [], scenario = {}, lang, t }) {
       <div style={{ background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 9, color: t.muted, fontSize: 12, lineHeight: 1.6, marginTop: 12, padding: 11 }}>
         {text(
           lang,
-          `当前候选集中，${balanced.displayName} 更接近均衡型候选；${selectivity.displayName} 选择性突出，但综合优先级仍受可再生性、证据等级或风险扣分限制。建议优先对 ${balanced.displayName} 进行 IAST 或穿透曲线验证，同时保留 ${selectivity.displayName} 作为高选择性机理候选。`,
-          `In the current candidate set, ${balanced.displayName} is the most balanced candidate. ${selectivity.displayName} shows strong selectivity, but its overall priority is limited by regenerability, evidence level, or risk penalty. Prioritize IAST or breakthrough validation for ${balanced.displayName}, while keeping ${selectivity.displayName} as a high-selectivity mechanistic candidate.`
+          `当前候选集中，${balanced.displayName} 是所选排序方法下的首位候选；${selectivity.displayName} 选择性突出，但仍需结合工作容量、可再生性、证据等级和过程级验证。建议优先对 ${balanced.displayName} 进行 IAST 或穿透曲线验证，同时保留 ${selectivity.displayName} 作为高选择性机理候选。`,
+          `In the current candidate set, ${balanced.displayName} is first under the selected ranking method. ${selectivity.displayName} shows strong selectivity, but still needs working-capacity, regenerability, evidence-level, and process-level checks. Prioritize IAST or breakthrough validation for ${balanced.displayName}, while keeping ${selectivity.displayName} as a high-selectivity mechanistic candidate.`
         )}{" "}
         {mainTradeoff}
       </div>

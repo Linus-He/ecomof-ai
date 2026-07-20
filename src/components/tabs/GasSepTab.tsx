@@ -32,7 +32,16 @@ import {
   getScenarioWeights,
   getStabilityScore,
 } from "../../utils/gasScoring"
-import { buildGasSeparationScreening } from "../../utils/gasSeparationScreening"
+import {
+  DEFAULT_GAS_RANKING_METHOD,
+  GAS_RANKING_METHODS,
+  GAS_SCREENING_GATES,
+  buildGasSeparationScreening,
+  gasMethodScore,
+  gasMethodScoreLabel,
+  getGasRankingMethod,
+  matchesGasScreeningGate,
+} from "../../utils/gasSeparationScreening"
 import { buildGasSepSummary, buildGasSepExportRows } from "../../utils/summary/buildGasSepSummary"
 import { GasSepDatabaseSummaryCard } from "../data/GasSepDatabaseSummaryCard"
 import { GasMetricHeatmap } from "../gas/GasMetricHeatmap"
@@ -130,6 +139,7 @@ const PRIORITIES = [
 ]
 
 const METRICS = {
+  methodScore: { zh: "当前方法指标", en: "Method metric", unit: "" },
   primaryUptake: { zh: "吸附量", en: "Uptake", unit: "mmol/g" },
   selectivity: { zh: "选择性", en: "Selectivity", unit: "" },
   workingCapacity: { zh: "工作容量", en: "Working capacity", unit: "mmol/g" },
@@ -137,10 +147,15 @@ const METRICS = {
   stability: { zh: "稳定性", en: "Stability", unit: "" },
   evidence: { zh: "证据置信度", en: "Evidence confidence", unit: "" },
   confidence: { zh: "记录置信度", en: "Record confidence", unit: "" },
+  aps: { zh: "APS", en: "APS", unit: "" },
+  apsRegenerability: { zh: "APS×R%", en: "APS×R%", unit: "" },
+  criticScore: { zh: "CRITIC 分数", en: "CRITIC score", unit: "" },
+  legacyGasScore: { zh: "历史 GasScore", en: "Legacy GasScore", unit: "" },
 }
 
 const TABLE_COLUMNS = [
   ["rank", "Rank", "名次"],
+  ["methodScore", "Method metric", "当前方法指标"],
   ["displayName", "MOF", "MOF"],
   ["sourceDatabase", "Source", "来源"],
   ["dataGrade", "Grade", "数据等级"],
@@ -148,11 +163,12 @@ const TABLE_COLUMNS = [
   ["primaryUptake", "Uptake", "吸附量"],
   ["selectivity", "Selectivity", "选择性"],
   ["workingCapacity", "Working capacity", "工作容量"],
+  ["aps", "APS", "APS"],
   ["regenerability", "Regenerability", "可再生性"],
   ["waterStability", "Water stability", "水稳定性"],
   ["evidenceLevel", "Evidence level", "证据等级"],
   ["dataType", "Data type", "数据类型"],
-  ["score", "Score", "分数"],
+  ["legacyGasScore", "Legacy GasScore", "历史 GasScore"],
 ]
 
 const CHART_COLORS = ["#2F7D7B", "#D2862F", "#4E72B8", "#7B61A9", "#B95F6B", "#64748B"]
@@ -203,6 +219,11 @@ function formatScore(value) {
 
 function valueForMetric(record, metric) {
   if (!record) return null
+  if (metric === "methodScore") return gasMethodScore(record, record.gasScreening?.methodId)
+  if (metric === "legacyGasScore") return Number.isFinite(Number(record.score)) ? Number(record.score) : null
+  if (metric === "aps") return Number.isFinite(Number(record.gasScreening?.aps)) ? Number(record.gasScreening.aps) : null
+  if (metric === "apsRegenerability") return Number.isFinite(Number(record.gasScreening?.apsRegenerability)) ? Number(record.gasScreening.apsRegenerability) : null
+  if (metric === "criticScore") return Number.isFinite(Number(record.gasScreening?.criticScore)) ? Number(record.gasScreening.criticScore) : null
   if (metric === "stability") return getStabilityScore(record)
   if (metric === "evidence") return getEvidenceScore(record)
   const value = metric === "selectivity"
@@ -215,6 +236,10 @@ function valueForMetric(record, metric) {
 function formatMetricValue(record, metric, lang) {
   const value = valueForMetric(record, metric)
   if (value == null) return formatPending(lang)
+  if (metric === "methodScore") return gasMethodScoreLabel(record, record.gasScreening?.methodId, lang)
+  if (metric === "legacyGasScore") return formatScore100(record.score, lang)
+  if (metric === "criticScore") return `${formatNumber(value)}/100`
+  if (metric === "aps" || metric === "apsRegenerability") return formatNumber(value)
   if (metric === "stability" || metric === "evidence" || metric === "confidence") return formatPercent(value, { lang, normalized: true })
   if (metric === "regenerability") return formatPercent(value, { lang })
   const unit = METRICS[metric]?.unit
@@ -241,6 +266,124 @@ function smartDomain(values, metric) {
   }
   const pad = Math.max((max - min) * 0.16, defaultSpan * 0.12)
   return [Math.max(0, min - pad), max + pad]
+}
+
+function quantile(sortedNums, p) {
+  if (!sortedNums.length) return null
+  const index = (sortedNums.length - 1) * p
+  const lower = Math.floor(index)
+  const upper = Math.ceil(index)
+  if (lower === upper) return sortedNums[lower]
+  return sortedNums[lower] + (sortedNums[upper] - sortedNums[lower]) * (index - lower)
+}
+
+function niceCeil(value) {
+  const number = Number(value)
+  if (!Number.isFinite(number) || number <= 0) return 1
+  const power = 10 ** Math.floor(Math.log10(number))
+  const scaled = number / power
+  if (scaled <= 1) return power
+  if (scaled <= 2) return 2 * power
+  if (scaled <= 5) return 5 * power
+  return 10 * power
+}
+
+function shouldCompressAxis(values, metric) {
+  const nums = values.map(Number).filter(value => Number.isFinite(value) && value >= 0).sort((a, b) => a - b)
+  if (nums.length < 5) return false
+  const max = nums[nums.length - 1]
+  const p90 = quantile(nums, 0.9) ?? max
+  const median = quantile(nums, 0.5) ?? p90
+  if (metric === "selectivity") return max >= 100 && max / Math.max(1, p90) >= 8
+  return max >= 20 && median > 0 && max / median >= 40
+}
+
+function linearTicks(domain, count = 5) {
+  return Array.from({ length: count }, (_, index) => domain[0] + (domain[1] - domain[0]) * (index / Math.max(1, count - 1)))
+}
+
+function compressedTicks(rawDomain) {
+  const top = rawDomain[1]
+  const ticks = [0, 1, 10, 30, 100, 1000, 10000, 100000, 1000000].filter(value => value <= top)
+  if (!ticks.length || ticks[ticks.length - 1] !== top) ticks.push(top)
+  return ticks
+}
+
+function buildAxisModel(values, metric) {
+  const nums = values.map(Number).filter(Number.isFinite)
+  if (shouldCompressAxis(nums, metric)) {
+    const top = niceCeil(Math.max(...nums, 1) * 1.05)
+    const rawDomain = [0, top]
+    return {
+      compressed: true,
+      rawDomain,
+      domain: [0, Math.log10(top + 1)],
+      ticks: compressedTicks(rawDomain),
+      scaleValue: value => Math.log10(Math.max(0, Number(value) || 0) + 1),
+    }
+  }
+  const domain = smartDomain(nums, metric)
+  return {
+    compressed: false,
+    rawDomain: domain,
+    domain,
+    ticks: linearTicks(domain),
+    scaleValue: value => Number(value),
+  }
+}
+
+function formatAxisTick(value) {
+  const number = Number(value)
+  if (!Number.isFinite(number)) return "pending"
+  const abs = Math.abs(number)
+  if (abs >= 1000) return `${Math.round(number / 1000)}k`
+  if (abs > 0 && abs < 0.01) return number.toExponential(1)
+  if (abs < 10) return formatNumber(number, 2)
+  if (abs < 100) return formatNumber(number, 1)
+  return formatNumber(number, 0)
+}
+
+function clampPlot(value, min, max) {
+  return Math.max(min, Math.min(max, value))
+}
+
+function stableHash(value = "") {
+  return String(value).split("").reduce((hash, char) => ((hash * 31) + char.charCodeAt(0)) % 360, 17)
+}
+
+function separatePlotPoints(points, bounds) {
+  const ordered = points.map((point, order) => ({ ...point, order, plotX: point.x, plotY: point.y }))
+  for (let iteration = 0; iteration < 36; iteration += 1) {
+    for (let i = 0; i < ordered.length; i += 1) {
+      for (let j = i + 1; j < ordered.length; j += 1) {
+        const a = ordered[i]
+        const b = ordered[j]
+        const minGap = Math.min(36, a.r + b.r + 4)
+        let dx = b.plotX - a.plotX
+        let dy = b.plotY - a.plotY
+        let distance = Math.sqrt(dx * dx + dy * dy)
+        if (distance >= minGap) continue
+        if (!distance) {
+          const angle = ((stableHash(`${a.id}:${b.id}`) + iteration * 29) * Math.PI) / 180
+          dx = Math.cos(angle)
+          dy = Math.sin(angle)
+          distance = 1
+        }
+        const push = (minGap - distance) / 2
+        const nx = dx / distance
+        const ny = dy / distance
+        a.plotX = clampPlot(a.plotX - nx * push, bounds.left + a.r + 2, bounds.right - a.r - 2)
+        a.plotY = clampPlot(a.plotY - ny * push, bounds.top + a.r + 2, bounds.bottom - a.r - 2)
+        b.plotX = clampPlot(b.plotX + nx * push, bounds.left + b.r + 2, bounds.right - b.r - 2)
+        b.plotY = clampPlot(b.plotY + ny * push, bounds.top + b.r + 2, bounds.bottom - b.r - 2)
+      }
+    }
+    ordered.forEach(point => {
+      point.plotX = clampPlot(point.plotX + (point.x - point.plotX) * 0.015, bounds.left + point.r + 2, bounds.right - point.r - 2)
+      point.plotY = clampPlot(point.plotY + (point.y - point.plotY) * 0.015, bounds.top + point.r + 2, bounds.bottom - point.r - 2)
+    })
+  }
+  return ordered.sort((a, b) => a.order - b.order)
 }
 
 function cardStyle(t, extra = {}) {
@@ -328,10 +471,13 @@ function LegendRow({ items, t }) {
   )
 }
 
-function Overview({ ranked, scenario, t, lang, isMobile }) {
+function Overview({ ranked, scenario, screening, t, lang, isMobile }) {
   const top = ranked[0]
-  const weights = getScenarioWeights(scenario.gasPair, scenario.targetPriority)
+  const method = getGasRankingMethod(scenario.rankingMethod)
+  const weights = method.id === "legacy-gasscore" ? getScenarioWeights(scenario.gasPair, scenario.targetPriority) : null
   const evidenceMix = ranked.reduce((acc, row) => ({ ...acc, [row.evidenceLevel]: (acc[row.evidenceLevel] || 0) + 1 }), {})
+  const methodLabel = text(lang, method.labelZh, method.label)
+  const funnelAps = screening?.screeningFunnel?.find(gate => gate.id === "aps-eligible")
   return (
     <section style={cardStyle(t)}>
       <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
@@ -350,14 +496,22 @@ function Overview({ ranked, scenario, t, lang, isMobile }) {
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 10, marginTop: 14 }}>
         <MetricTile label={text(lang, "当前气体对", "Gas pair")} value={formatGasPairLabel(scenario.gasPair)} note={scenario.applicationScenario} t={t} />
         <MetricTile label={text(lang, "候选数量", "Candidates")} value={ranked.length} note={text(lang, "当前场景数据", "scenario records")} t={t} />
-        <MetricTile label={text(lang, "Top MOF", "Top MOF")} value={top?.displayName || formatPending(lang)} note={top ? formatScore100(top.score, lang) : formatPending(lang)} t={t} />
+        <MetricTile label={text(lang, "当前排序方法", "Ranking method")} value={methodLabel} note={text(lang, method.shortLabelZh, method.shortLabel)} t={t} />
+        <MetricTile label={text(lang, "Top MOF", "Top MOF")} value={top?.displayName || formatPending(lang)} note={top ? gasMethodScoreLabel(top, method.id, lang) : formatPending(lang)} t={t} />
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))", gap: 10, marginTop: 10 }}>
         <MetricTile label={text(lang, "证据等级分布", "Evidence mix")} value={Object.entries(evidenceMix).map(([key, count]) => `${key}:${count}`).join(" · ") || formatPending(lang)} note={text(lang, "A/B/C/D 证据等级", "A/B/C/D evidence levels")} t={t} />
+        <MetricTile label={text(lang, "APS 可计算", "APS eligible")} value={funnelAps?.count ?? 0} note={text(lang, "选择性 × 工作容量", "selectivity × working capacity")} t={t} />
+        <MetricTile label={text(lang, "方法边界", "Method boundary")} value={method.id === "legacy-gasscore" ? "heuristic" : "literature/data"} note={text(lang, method.boundaryZh, method.boundary)} t={t} />
       </div>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 7, marginTop: 12 }}>
-        {Object.entries(weights).map(([key, value]) => (
-          <BasisBadge key={key} tone="info">{metricLabel(key, lang)} {Math.round(value * 100)}%</BasisBadge>
-        ))}
-      </div>
+      {weights ? (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 7, marginTop: 12 }}>
+          <BasisBadge tone="warn">{text(lang, "仅历史 GasScore 使用以下权重", "Only Legacy GasScore uses these weights")}</BasisBadge>
+          {Object.entries(weights).map(([key, value]) => (
+            <BasisBadge key={key} tone="proxy">{metricLabel(key, lang)} {Math.round(value * 100)}%</BasisBadge>
+          ))}
+        </div>
+      ) : null}
     </section>
   )
 }
@@ -389,7 +543,7 @@ function ScenarioBuilder({ scenario, setScenario, t, lang, isMobile, isNarrow })
         <div>
           <SectionTitle>{text(lang, "气体分离场景构建器", "Gas Separation Scenario Builder")}</SectionTitle>
           <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 5 }}>
-            {text(lang, "切换气体体系后，排序、图表、机制解释和评分权重会同步更新。", "Changing the gas system updates ranking, charts, mechanism notes, and scoring weights together.")}
+            {text(lang, "切换气体体系、工况或排序方法后，候选表、图谱、漏斗和解释面板会同步更新。", "Changing gas system, conditions, or ranking method updates the table, maps, funnel, and explanations together.")}
           </div>
         </div>
         <BasisBadge tone="calc">{text(lang, "6 个可切换场景", "6 scenarios")}</BasisBadge>
@@ -400,12 +554,17 @@ function ScenarioBuilder({ scenario, setScenario, t, lang, isMobile, isNarrow })
             {SCENARIOS.map(item => <option key={item.gasPair} value={item.gasPair}>{text(lang, item.labelZh, item.labelEn)}</option>)}
           </SelectControl>
         </FormField>
+        <FormField label={text(lang, "排序方法", "Ranking method")} t={t}>
+          <SelectControl value={scenario.rankingMethod || DEFAULT_GAS_RANKING_METHOD} onChange={value => setScenario(prev => ({ ...prev, rankingMethod: value }))} t={t} ariaLabel="ranking method">
+            {GAS_RANKING_METHODS.map(method => <option key={method.id} value={method.id}>{text(lang, method.labelZh, method.label)}</option>)}
+          </SelectControl>
+        </FormField>
         <FormField label={text(lang, "应用场景", "Application scenario")} t={t}>
           <SelectControl value={scenario.applicationScenario} onChange={value => setScenario(prev => ({ ...prev, applicationScenario: value }))} t={t} ariaLabel="application scenario">
             {SCENARIOS.map(item => <option key={item.applicationScenario} value={item.applicationScenario}>{item.applicationScenario}</option>)}
           </SelectControl>
         </FormField>
-        <FormField label={text(lang, "目标优先级", "Target priority")} t={t}>
+        <FormField label={text(lang, "历史 GasScore 优先级", "Legacy GasScore priority")} t={t}>
           <SelectControl value={scenario.targetPriority} onChange={value => setScenario(prev => ({ ...prev, targetPriority: value }))} t={t} ariaLabel="target priority">
             {PRIORITIES.map(item => <option key={item} value={item}>{item}</option>)}
           </SelectControl>
@@ -445,7 +604,7 @@ function ConditionSummary({ ranked, scenario, t, lang, isMobile }) {
         <MetricTile label={text(lang, "平均吸附量", "Avg uptake")} value={avg("primaryUptake") == null ? formatPending(lang) : `${formatNumber(avg("primaryUptake"))} mmol/g`} note={formatGasPairLabel(scenario.gasPair)} t={t} />
         <MetricTile label={text(lang, "平均选择性", "Avg selectivity")} value={avg("selectivity") == null ? formatPending(lang) : formatNumber(avg("selectivity"))} note={text(lang, "当前场景", "scenario")} t={t} />
         <MetricTile label={text(lang, "平均工作容量", "Avg capacity")} value={avg("workingCapacity") == null ? formatPending(lang) : `${formatNumber(avg("workingCapacity"))} mmol/g`} note={text(lang, "工作容量", "working capacity")} t={t} />
-        <MetricTile label={text(lang, "推荐候选", "Recommended")} value={top?.displayName || formatPending(lang)} note={top ? formatScore100(top.score, lang) : formatPending(lang)} t={t} />
+        <MetricTile label={text(lang, "当前方法首位", "Top by current method")} value={top?.displayName || formatPending(lang)} note={top ? gasMethodScoreLabel(top, top.gasScreening?.methodId, lang) : formatPending(lang)} t={t} />
       </div>
     </section>
   )
@@ -492,27 +651,224 @@ function GasCoverageNotice({ coverage, collectionReport, iastReport, identityRep
   )
 }
 
+function RankingMethodEvidencePanel({ screening, scenario, setScenario, ranked, t, lang, isMobile }) {
+  const activeMethod = getGasRankingMethod(scenario.rankingMethod)
+  const references = screening?.references || []
+  const referenceRows = references.filter(ref => activeMethod.referenceIds.includes(ref.id))
+  const criticWeights = ranked?.[0]?.gasScreening?.criticWeights || {}
+  return (
+    <section style={cardStyle(t)}>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
+        <div>
+          <SectionTitle>{text(lang, "排序方法与文献依据", "Ranking Method and Literature Basis")}</SectionTitle>
+          <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 5 }}>
+            {text(lang, "默认不使用主观权重；Legacy GasScore 仅作为历史启发式参考。切换方法会即时重排下方所有联动视图。", "Default ranking avoids subjective weights. Legacy GasScore is retained only as a historical heuristic. Switching method reorders all linked views below.")}
+          </div>
+        </div>
+        <BasisBadge tone={activeMethod.tone}>{text(lang, activeMethod.labelZh, activeMethod.label)}</BasisBadge>
+      </div>
+
+      <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", marginTop: 12 }}>
+        {GAS_RANKING_METHODS.map(method => {
+          const active = method.id === activeMethod.id
+          return (
+            <button
+              key={method.id}
+              type="button"
+              onClick={() => setScenario(prev => ({ ...prev, rankingMethod: method.id }))}
+              data-testid={`gas-ranking-method-${method.id}`}
+              style={{
+                background: active ? t.badgeInfoBg : t.surface,
+                border: `1px solid ${active ? t.accent : t.border}`,
+                borderRadius: 8,
+                color: t.textStrong,
+                cursor: "pointer",
+                display: "grid",
+                gap: 6,
+                minHeight: 108,
+                padding: 11,
+                textAlign: "left",
+              }}
+            >
+              <span style={{ color: active ? t.accentText : t.textStrong, fontSize: 12.5, fontWeight: 920 }}>{text(lang, method.labelZh, method.label)}</span>
+              <span style={{ color: t.muted, fontSize: 11.2, lineHeight: 1.45 }}><ChemicalText value={text(lang, method.formulaZh, method.formula)} /></span>
+              <span style={{ color: t.subtle, fontSize: 10.8, lineHeight: 1.4 }}><ChemicalText value={text(lang, method.boundaryZh, method.boundary)} /></span>
+            </button>
+          )
+        })}
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1.1fr) minmax(0, 0.9fr)", gap: 10, marginTop: 12 }}>
+        <div style={surfaceStyle(t)}>
+          <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "当前方法解释", "Current method interpretation")}</strong>
+          <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.58, marginTop: 8 }}>
+            <ChemicalText value={text(lang, activeMethod.basisZh, activeMethod.basis)} />
+          </div>
+          <div style={{ color: t.subtle, fontSize: 11.4, lineHeight: 1.5, marginTop: 7 }}>
+            <ChemicalText value={text(lang, activeMethod.boundaryZh, activeMethod.boundary)} />
+          </div>
+          {activeMethod.id === "critic-objective" ? (
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 9 }}>
+              {Object.entries(criticWeights).map(([key, value]) => (
+                <BasisBadge key={key} tone="warn">{metricLabel(key, lang)} {Math.round(Number(value || 0) * 100)}%</BasisBadge>
+              ))}
+            </div>
+          ) : null}
+        </div>
+        <div style={surfaceStyle(t)}>
+          <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "可引用依据", "Citable basis")}</strong>
+          <div style={{ display: "grid", gap: 7, marginTop: 8 }}>
+            {referenceRows.map(ref => (
+              <a key={ref.id} href={ref.url} target="_blank" rel="noreferrer" style={{ color: t.accentText, fontSize: 11.8, lineHeight: 1.45, textDecoration: "none" }}>
+                <ChemicalText value={`${ref.label} · DOI ${ref.doi}`} />
+                <span style={{ color: t.subtle, display: "block", marginTop: 2 }}><ChemicalText value={text(lang, ref.noteZh, ref.note)} /></span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function ScreeningFunnelPanel({ funnel = [], activeGate, setActiveGate, t, lang, isMobile }) {
+  const total = funnel.find(gate => gate.id === "all")?.count || Math.max(1, ...funnel.map(gate => gate.count || 0))
+  return (
+    <section style={cardStyle(t)}>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
+        <div>
+          <SectionTitle>{text(lang, "筛选漏斗", "Screening Funnel")}</SectionTitle>
+          <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 5 }}>
+            {text(lang, "点击任一级漏斗可过滤候选表；漏斗只统计当前气体对和当前压力窗口下的真实字段覆盖。", "Click any funnel stage to filter the candidate table. Counts use real field coverage under the selected gas pair and pressure window.")}
+          </div>
+        </div>
+        <BasisBadge tone={activeGate === "all" ? "info" : "warn"}>{funnel.find(gate => gate.id === activeGate)?.[lang === "zh" ? "labelZh" : "label"] || activeGate}</BasisBadge>
+      </div>
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(7, minmax(0, 1fr))", marginTop: 12 }}>
+        {funnel.map((gate, index) => {
+          const active = gate.id === activeGate
+          const pct = total ? Math.round((gate.count / total) * 100) : 0
+          return (
+            <button
+              key={gate.id}
+              type="button"
+              onClick={() => setActiveGate(gate.id)}
+              data-testid={`gas-screening-gate-${gate.id}`}
+              style={{
+                background: active ? t.badgeInfoBg : t.surface,
+                border: `1px solid ${active ? t.accent : t.border}`,
+                borderRadius: 8,
+                color: t.textStrong,
+                cursor: "pointer",
+                display: "grid",
+                gap: 8,
+                minHeight: 116,
+                padding: 10,
+                textAlign: "left",
+              }}
+            >
+              <span style={{ color: t.faint, fontFamily: FONT_SANS, fontSize: 11, fontWeight: 900 }}>{String(index + 1).padStart(2, "0")}</span>
+              <span style={{ color: t.textStrong, fontSize: 12, fontWeight: 900, lineHeight: 1.25 }}>{text(lang, gate.labelZh, gate.label)}</span>
+              <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, height: 9, overflow: "hidden" }}>
+                <span style={{ background: active ? t.accent : "#2F7D7B", display: "block", height: "100%", width: `${Math.max(3, pct)}%` }} />
+              </span>
+              <span style={{ color: t.textStrong, fontFamily: FONT_SANS, fontSize: 15, fontWeight: 930 }}>{gate.count}</span>
+              <span style={{ color: t.subtle, fontSize: 10.5, lineHeight: 1.35 }}>{pct}%</span>
+            </button>
+          )
+        })}
+      </div>
+      {activeGate !== "all" ? (
+        <button type="button" onClick={() => setActiveGate("all")} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.accentText, cursor: "pointer", fontSize: 11.5, fontWeight: 850, marginTop: 10, padding: "7px 9px" }}>
+          {text(lang, "清除漏斗过滤", "Clear funnel filter")}
+        </button>
+      ) : null}
+    </section>
+  )
+}
+
+function RankingStabilityPanel({ screening, scenario, setScenario, onSelect, t, lang, isMobile }) {
+  const methods = screening?.methods || GAS_RANKING_METHODS
+  const activeMethodId = scenario.rankingMethod || DEFAULT_GAS_RANKING_METHOD
+  const rankings = screening?.methodRankings || {}
+  const consensus = screening?.rankingStability || []
+  return (
+    <section style={cardStyle(t)}>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
+        <div>
+          <SectionTitle>{text(lang, "排序稳定性对照", "Ranking Stability Cross-check")}</SectionTitle>
+          <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 5 }}>
+            {text(lang, "同一候选若在多个方法的 Top 10 中反复出现，说明它更适合作为验证短名单；若只在单一方法中靠前，需要查看数据缺口和指标偏好。", "Candidates recurring across multiple Top 10 lists are better shortlist candidates; single-method leaders need data-gap and metric-bias checks.")}
+          </div>
+        </div>
+        <BasisBadge tone="info">{text(lang, "4 种方法对照", "4 methods")}</BasisBadge>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
+        {methods.map(method => {
+          const active = method.id === activeMethodId
+          const rows = (rankings[method.id] || []).slice(0, 5)
+          return (
+            <article key={method.id} style={surfaceStyle(t, { borderColor: active ? t.accent : t.border })}>
+              <button type="button" onClick={() => setScenario(prev => ({ ...prev, rankingMethod: method.id }))} style={{ background: "transparent", border: 0, color: active ? t.accentText : t.textStrong, cursor: "pointer", fontSize: 12.5, fontWeight: 920, padding: 0, textAlign: "left" }}>
+                {text(lang, method.shortLabelZh, method.shortLabel)}
+              </button>
+              <div style={{ display: "grid", gap: 6, marginTop: 9 }}>
+                {rows.map(row => (
+                  <button key={row.id} type="button" onClick={() => onSelect(row.id)} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.muted, cursor: "pointer", display: "grid", gap: 3, padding: 7, textAlign: "left" }}>
+                    <strong style={{ color: t.textStrong, fontSize: 11.5, lineHeight: 1.25, overflowWrap: "anywhere" }}><ChemicalText value={`${row.rank}. ${row.displayName}`} /></strong>
+                    <span style={{ color: t.subtle, fontSize: 10.8 }}>{lang === "zh" ? row.scoreLabelZh : row.scoreLabel}</span>
+                  </button>
+                ))}
+              </div>
+            </article>
+          )
+        })}
+      </div>
+      {consensus.length ? (
+        <div style={{ background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 8, marginTop: 12, padding: 11 }}>
+          <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "跨方法短名单", "Cross-method shortlist")}</strong>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+            {consensus.map(row => (
+              <button key={row.id} type="button" onClick={() => onSelect(row.id)} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, color: t.textStrong, cursor: "pointer", fontSize: 11.5, fontWeight: 850, padding: "6px 9px" }}>
+                <ChemicalText value={`${row.displayName} · ${row.appearances}/${methods.length}`} />
+              </button>
+            ))}
+          </div>
+        </div>
+      ) : null}
+    </section>
+  )
+}
+
 function PerformanceMap({ ranked, selectedId, onSelect, chartConfig, setChartConfig, t, lang, isMobile, isNarrow }) {
   const [tooltip, setTooltip] = useState(null)
   const xMetric = chartConfig.x
   const yMetric = chartConfig.y
   const bubbleMetric = chartConfig.bubble
   const colorMetric = chartConfig.color
-  const width = 760
-  const height = 420
-  const margin = { top: 22, right: 28, bottom: 54, left: 62 }
+  const width = 860
+  const height = 460
+  const margin = { top: 26, right: 34, bottom: 64, left: 92 }
   const plotW = width - margin.left - margin.right
   const plotH = height - margin.top - margin.bottom
-  const xDomain = smartDomain(ranked.map(row => valueForMetric(row, xMetric)), xMetric)
-  const yDomain = smartDomain(ranked.map(row => valueForMetric(row, yMetric)), yMetric)
-  const bubbleValues = ranked.map(row => valueForMetric(row, bubbleMetric)).filter(value => value != null)
+  const plottableRows = ranked
+    .map(row => ({
+      row,
+      xValue: valueForMetric(row, xMetric),
+      yValue: valueForMetric(row, yMetric),
+      bubbleValue: valueForMetric(row, bubbleMetric),
+    }))
+    .filter(point => point.xValue != null && point.yValue != null)
+  const xAxis = buildAxisModel(plottableRows.map(point => point.xValue), xMetric)
+  const yAxis = buildAxisModel(plottableRows.map(point => point.yValue), yMetric)
+  const bubbleValues = plottableRows.map(point => point.bubbleValue).filter(value => value != null)
   const bubbleDomain = smartDomain(bubbleValues, bubbleMetric)
-  const xScale = value => margin.left + ((value - xDomain[0]) / Math.max(0.0001, xDomain[1] - xDomain[0])) * plotW
-  const yScale = value => margin.top + plotH - ((value - yDomain[0]) / Math.max(0.0001, yDomain[1] - yDomain[0])) * plotH
+  const xScale = value => margin.left + ((xAxis.scaleValue(value) - xAxis.domain[0]) / Math.max(0.0001, xAxis.domain[1] - xAxis.domain[0])) * plotW
+  const yScale = value => margin.top + plotH - ((yAxis.scaleValue(value) - yAxis.domain[0]) / Math.max(0.0001, yAxis.domain[1] - yAxis.domain[0])) * plotH
   const rScale = value => {
-    if (value == null) return 7
+    if (value == null) return 6
     const normalized = (value - bubbleDomain[0]) / Math.max(0.0001, bubbleDomain[1] - bubbleDomain[0])
-    return 7 + Math.max(0, Math.min(1, normalized)) * 15
+    return 6 + Math.sqrt(Math.max(0, Math.min(1, normalized))) * 10
   }
   const colorFor = row => colorMetric === "dataType"
     ? (COLOR_BY_TYPE[row.dataType] || "#64748B")
@@ -521,7 +877,26 @@ function PerformanceMap({ ranked, selectedId, onSelect, chartConfig, setChartCon
     label,
     color: colorMetric === "dataType" ? (COLOR_BY_TYPE[label] || "#64748B") : (COLOR_BY_EVIDENCE[label.replace("Evidence ", "")] || "#64748B"),
   }))
-  const ticks = domain => [0, 0.25, 0.5, 0.75, 1].map(part => domain[0] + (domain[1] - domain[0]) * part)
+  const rawPoints = plottableRows.map(point => {
+    const radius = rScale(point.bubbleValue)
+    return {
+      ...point,
+      id: point.row.id,
+      x: xScale(point.xValue),
+      y: yScale(point.yValue),
+      r: radius,
+    }
+  })
+  const plottedPoints = separatePlotPoints(rawPoints, {
+    left: margin.left,
+    top: margin.top,
+    right: margin.left + plotW,
+    bottom: margin.top + plotH,
+  })
+  const compressedAxes = [
+    xAxis.compressed ? metricLabel(xMetric, lang) : null,
+    yAxis.compressed ? metricLabel(yMetric, lang) : null,
+  ].filter(Boolean)
 
   return (
     <section style={cardStyle(t)}>
@@ -529,7 +904,8 @@ function PerformanceMap({ ranked, selectedId, onSelect, chartConfig, setChartCon
         <div>
           <SectionTitle>{text(lang, "性能图谱", "Interactive Performance Map")}</SectionTitle>
           <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 5 }}>
-            {text(lang, "图例在绘图区外；SVG 内只保留点、轴、网格和必要坐标标签。", "Legend sits outside the plot; SVG only carries points, axes, grid, and compact axis labels.")}
+            {text(lang, "坐标域只按同时具备横纵轴数值的记录计算；长尾指标自动使用 log1p 压缩，避免单个离群点压扁主数据簇。", "Domains use only records with both axis values; long-tail metrics automatically use log1p compression so one outlier does not flatten the main cluster.")}
+            {compressedAxes.length ? text(lang, ` 当前压缩轴：${compressedAxes.join("、")}。`, ` Compressed axis: ${compressedAxes.join(", ")}.`) : null}
           </div>
         </div>
         <LegendRow items={legendItems} t={t} />
@@ -550,36 +926,44 @@ function PerformanceMap({ ranked, selectedId, onSelect, chartConfig, setChartCon
         ))}
       </div>
 
-      <div style={{ height: isMobile ? 380 : 480, marginTop: 12, position: "relative" }} onMouseLeave={() => setTooltip(null)}>
-        {ranked.length ? (
+      <div style={{ height: isMobile ? 390 : 500, marginTop: 12, position: "relative" }} onMouseLeave={() => setTooltip(null)}>
+        {plottedPoints.length ? (
           <>
-            <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Gas separation performance map" style={{ display: "block", height: "100%", overflow: "visible", width: "100%" }}>
+            <svg
+              viewBox={`0 0 ${width} ${height}`}
+              role="img"
+              aria-label="Gas separation performance map"
+              data-testid="gas-performance-map"
+              data-point-count={plottedPoints.length}
+              data-x-scale={xAxis.compressed ? "log1p" : "linear"}
+              data-y-scale={yAxis.compressed ? "log1p" : "linear"}
+              style={{ display: "block", height: "100%", overflow: "visible", width: "100%" }}
+            >
               <rect x={margin.left} y={margin.top} width={plotW} height={plotH} fill={t.surface} stroke={t.border} rx="6" />
-              {ticks(xDomain).map(value => (
+              {xAxis.ticks.map(value => (
                 <g key={`x-${value}`}>
                   <line x1={xScale(value)} x2={xScale(value)} y1={margin.top} y2={margin.top + plotH} stroke={t.divider} strokeDasharray="3 4" />
-                  <text x={xScale(value)} y={margin.top + plotH + 22} textAnchor="middle" fill={t.subtle} fontSize="11" fontFamily={FONT_SANS}>{formatNumber(value)}</text>
+                  <text x={xScale(value)} y={margin.top + plotH + 24} textAnchor="middle" fill={t.subtle} fontSize="10.5" fontFamily={FONT_SANS}>{formatAxisTick(value)}</text>
                 </g>
               ))}
-              {ticks(yDomain).map(value => (
+              {yAxis.ticks.map(value => (
                 <g key={`y-${value}`}>
                   <line x1={margin.left} x2={margin.left + plotW} y1={yScale(value)} y2={yScale(value)} stroke={t.divider} strokeDasharray="3 4" />
-                  <text x={margin.left - 10} y={yScale(value) + 4} textAnchor="end" fill={t.subtle} fontSize="11" fontFamily={FONT_SANS}>{formatNumber(value)}</text>
+                  <text x={margin.left - 14} y={yScale(value) + 4} textAnchor="end" fill={t.subtle} fontSize="10.5" fontFamily={FONT_SANS}>{formatAxisTick(value)}</text>
                 </g>
               ))}
-              <text x={margin.left + plotW / 2} y={height - 13} textAnchor="middle" fill={t.subtle} fontSize="12" fontFamily={SCIENTIFIC_TOKEN_FONT}>{metricLabel(xMetric, lang)}</text>
-              <text x="16" y={margin.top + plotH / 2} textAnchor="middle" transform={`rotate(-90 16 ${margin.top + plotH / 2})`} fill={t.subtle} fontSize="12" fontFamily={SCIENTIFIC_TOKEN_FONT}>{metricLabel(yMetric, lang)}</text>
-              {ranked.map(row => {
-                const xValue = valueForMetric(row, xMetric)
-                const yValue = valueForMetric(row, yMetric)
-                if (xValue == null || yValue == null) return null
+              <text x={margin.left + plotW / 2} y={height - 18} textAnchor="middle" fill={t.subtle} fontSize="12" fontFamily={SCIENTIFIC_TOKEN_FONT}>{metricLabel(xMetric, lang)}{xAxis.compressed ? " (log)" : ""}</text>
+              <text x="20" y={margin.top + plotH / 2} textAnchor="middle" transform={`rotate(-90 20 ${margin.top + plotH / 2})`} fill={t.subtle} fontSize="12" fontFamily={SCIENTIFIC_TOKEN_FONT}>{metricLabel(yMetric, lang)}{yAxis.compressed ? " (log)" : ""}</text>
+              {plottedPoints.map(point => {
+                const row = point.row
                 const selected = row.id === selectedId
                 return (
                   <circle
                     key={row.id}
-                    cx={xScale(xValue)}
-                    cy={yScale(yValue)}
-                    r={rScale(valueForMetric(row, bubbleMetric))}
+                    data-testid="gas-performance-map-point"
+                    cx={point.plotX}
+                    cy={point.plotY}
+                    r={point.r}
                     fill={colorFor(row)}
                     fillOpacity={selected ? 0.95 : 0.74}
                     stroke={selected ? t.textStrong : t.panel}
@@ -600,7 +984,8 @@ function PerformanceMap({ ranked, selectedId, onSelect, chartConfig, setChartCon
                 <div>{metricLabel("workingCapacity", lang)}: {formatMetricValue(tooltip.row, "workingCapacity", lang)}</div>
                 <div>{text(lang, "证据等级", "Evidence level")}: {tooltip.row.evidenceLevel}</div>
                 <div>{text(lang, "数据类型", "Data type")}: {dataTypeLabel(tooltip.row.dataType, lang)}</div>
-                <div aria-label={text(lang, "GasScore 评分", "GasScore score")}>{text(lang, "分数", "Score")}: {formatScore100(tooltip.row.score, lang)}</div>
+                <div aria-label={text(lang, "当前方法指标", "Current method metric")}>{text(lang, "当前方法", "Method")}: {gasMethodScoreLabel(tooltip.row, tooltip.row.gasScreening?.methodId, lang)}</div>
+                <div>{text(lang, "历史 GasScore", "Legacy GasScore")}: {formatScore100(tooltip.row.score, lang)}</div>
               </div>
             ) : null}
           </>
@@ -622,12 +1007,14 @@ function PerformanceMap({ ranked, selectedId, onSelect, chartConfig, setChartCon
   )
 }
 
-function CandidateRankingTable({ ranked, selectedId, onSelect, compareIds, setCompareIds, t, lang, isMobile }) {
-  const [sort, setSort] = useState({ key: "score", dir: "desc" })
+function CandidateRankingTable({ ranked, selectedId, onSelect, compareIds, setCompareIds, activeGate, setActiveGate, t, lang, isMobile }) {
+  const [sort, setSort] = useState({ key: "methodScore", dir: "desc" })
   const [filters, setFilters] = useState({ evidence: "all", dataType: "all", stability: "all", source: "all" })
   const uniqueOptions = key => ["all", ...Array.from(new Set(ranked.map(row => row[key]).filter(Boolean)))]
+  const activeGateMeta = GAS_SCREENING_GATES.find(gate => gate.id === activeGate)
   const filtered = useMemo(() => {
     const rows = ranked.filter(row => {
+      if (!matchesGasScreeningGate(row, activeGate)) return false
       if (filters.evidence !== "all" && row.evidenceLevel !== filters.evidence) return false
       if (filters.dataType !== "all" && row.dataType !== filters.dataType) return false
       if (filters.stability !== "all" && row.waterStability !== filters.stability) return false
@@ -636,15 +1023,15 @@ function CandidateRankingTable({ ranked, selectedId, onSelect, compareIds, setCo
     })
     const dir = sort.dir === "asc" ? 1 : -1
     return [...rows].sort((a, b) => {
-      const av = sort.key === "rank" ? ranked.findIndex(row => row.id === a.id) + 1 : a[sort.key]
-      const bv = sort.key === "rank" ? ranked.findIndex(row => row.id === b.id) + 1 : b[sort.key]
+      const av = sort.key === "rank" ? a.gasScreening?.methodRank : sort.key === "legacyGasScore" ? a.score : sort.key === "methodScore" ? valueForMetric(a, "methodScore") : a[sort.key]
+      const bv = sort.key === "rank" ? b.gasScreening?.methodRank : sort.key === "legacyGasScore" ? b.score : sort.key === "methodScore" ? valueForMetric(b, "methodScore") : b[sort.key]
       const an = valueForMetric(a, sort.key)
       const bn = valueForMetric(b, sort.key)
       if (an !== null && bn !== null) return (an - bn) * dir
       if (Number.isFinite(Number(av)) && av !== null && av !== "" && Number.isFinite(Number(bv)) && bv !== null && bv !== "") return (Number(av) - Number(bv)) * dir
       return String(av || "").localeCompare(String(bv || "")) * dir
     })
-  }, [ranked, filters, sort])
+  }, [ranked, filters, sort, activeGate])
   const updateSort = key => setSort(prev => ({ key, dir: prev.key === key && prev.dir === "desc" ? "asc" : "desc" }))
   const toggleCompare = id => {
     setCompareIds(prev => prev.includes(id)
@@ -661,7 +1048,10 @@ function CandidateRankingTable({ ranked, selectedId, onSelect, compareIds, setCo
           <SectionTitle>{text(lang, "候选材料排序", "Candidate Ranking")}</SectionTitle>
           <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 5 }}>{text(lang, "表格与性能图谱、雷达图和解释面板联动；可勾选 2-3 个材料进行对比。", "The table links to the map, radar, and explanation panel; compare 2-3 MOFs with checkboxes.")}</div>
         </div>
-        <BasisBadge tone="info">{compareIds.length}/3 Compare</BasisBadge>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+          <BasisBadge tone={activeGate === "all" ? "info" : "warn"}>{activeGateMeta ? text(lang, activeGateMeta.labelZh, activeGateMeta.label) : activeGate}</BasisBadge>
+          <BasisBadge tone="info">{compareIds.length}/3 Compare</BasisBadge>
+        </div>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 9, marginTop: 12 }}>
         {[
@@ -678,7 +1068,7 @@ function CandidateRankingTable({ ranked, selectedId, onSelect, compareIds, setCo
         ))}
       </div>
       <div style={{ overflowX: "auto", marginTop: 12 }}>
-        <table style={{ borderCollapse: "separate", borderSpacing: 0, minWidth: 1120, width: "100%" }}>
+        <table style={{ borderCollapse: "separate", borderSpacing: 0, minWidth: 1260, width: "100%" }}>
           <thead>
             <tr>
               <th style={{ ...tableHeadStyle(t), width: 56 }}>Compare</th>
@@ -700,7 +1090,8 @@ function CandidateRankingTable({ ranked, selectedId, onSelect, compareIds, setCo
                   <td style={tableCellStyle(t)} onClick={event => event.stopPropagation()}>
                     <input type="checkbox" checked={compareIds.includes(row.id)} onChange={() => toggleCompare(row.id)} aria-label={`Compare ${row.displayName}`} />
                   </td>
-                  <td style={tableCellStyle(t)}>{ranked.findIndex(item => item.id === row.id) + 1}</td>
+                  <td style={tableCellStyle(t)}>{row.gasScreening?.methodRank ?? ranked.findIndex(item => item.id === row.id) + 1}</td>
+                  <td style={{ ...tableCellStyle(t), color: t.accentText, fontWeight: 900 }}><ChemicalText value={gasMethodScoreLabel(row, row.gasScreening?.methodId, lang)} /></td>
                   <td style={{ ...tableCellStyle(t), color: t.textStrong, fontWeight: 900 }}><ChemicalText value={row.displayName} /></td>
                   <td style={tableCellStyle(t)}><ChemicalText value={row.sourceDatabase} /></td>
                   <td style={tableCellStyle(t)}><BasisBadge tone={row.dataGrade === "experimental" ? "calc" : row.dataGrade === "computed" || row.dataGrade === "computed-IAST" ? "info" : "proxy"}>{row.dataGrade || "pending"}</BasisBadge></td>
@@ -708,11 +1099,12 @@ function CandidateRankingTable({ ranked, selectedId, onSelect, compareIds, setCo
                   <td style={tableCellStyle(t)}><MetricWithSource record={row} metric="primaryUptake" value={formatMetricValue(row, "primaryUptake", lang)} unit="mmol/g" t={t} lang={lang} /></td>
                   <td style={tableCellStyle(t)}><MetricWithSource record={row} metric="selectivity" value={formatMetricValue(row, "selectivity", lang)} unit="dimensionless" t={t} lang={lang} /></td>
                   <td style={tableCellStyle(t)}><MetricWithSource record={row} metric="workingCapacity" value={formatMetricValue(row, "workingCapacity", lang)} unit="mmol/g" t={t} lang={lang} /></td>
+                  <td style={tableCellStyle(t)}><ChemicalText value={formatMetricValue(row, "aps", lang)} /></td>
                   <td style={tableCellStyle(t)}><MetricWithSource record={row} metric="regenerability" value={formatMetricValue(row, "regenerability", lang)} unit="%" t={t} lang={lang} /></td>
                   <td style={tableCellStyle(t)}><MetricWithSource record={row} field="waterStability" value={row.waterStability || formatPending(lang)} unit="status" t={t} lang={lang} label={text(lang, "水稳定性", "Water stability")} /></td>
                   <td style={tableCellStyle(t)}><GasDataStatusBadge type="evidence" value={row.evidenceLevel} lang={lang} /> <GasFieldProvenanceButton record={row} field="evidenceLevel" currentValue={row.evidenceLevel} unit="level" lang={lang} t={t} label={text(lang, "证据等级", "Evidence level")} /></td>
                   <td style={tableCellStyle(t)}><GasDataStatusBadge type="dataType" value={row.dataType} lang={lang} /></td>
-                  <td style={{ ...tableCellStyle(t), fontFamily: FONT_SANS, fontWeight: 900 }}><MetricWithSource record={row} field="gasScore" value={formatScore100(row.score, lang)} unit="/100" t={t} lang={lang} label="GasScore" /></td>
+                  <td style={{ ...tableCellStyle(t), fontFamily: FONT_SANS, fontWeight: 900 }}><MetricWithSource record={row} field="gasScore" value={formatScore100(row.score, lang)} unit="/100" t={t} lang={lang} label={text(lang, "历史 GasScore", "Legacy GasScore")} /></td>
                   <td style={tableCellStyle(t)}>
                     <button type="button" onClick={event => { event.stopPropagation(); window.location.hash = "library" }} aria-label={text(lang, `查看 ${row.displayName} 的 MOF Library 记录`, `View ${row.displayName} in MOF Library`)} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.accentText, cursor: "pointer", fontSize: 11, fontWeight: 850, padding: "6px 8px" }}>
                       {text(lang, "查看 MOF Library", "View in MOF Library")}
@@ -725,13 +1117,18 @@ function CandidateRankingTable({ ranked, selectedId, onSelect, compareIds, setCo
         </table>
       </div>
       {!filtered.length ? <Callout tone="warn">{text(lang, "筛选后无候选。", "No candidates after filtering.")}</Callout> : null}
+      {activeGate !== "all" ? (
+        <button type="button" onClick={() => setActiveGate("all")} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.accentText, cursor: "pointer", fontSize: 11.5, fontWeight: 850, marginTop: 10, padding: "7px 9px" }}>
+          {text(lang, "清除漏斗过滤", "Clear funnel filter")}
+        </button>
+      ) : null}
     </section>
   )
 }
 
 function CompareInsightPanel({ selected, compareRows, t, lang, isMobile }) {
   const rows = compareRows.length ? compareRows : selected ? [selected] : []
-  const metrics = ["selectivity", "workingCapacity", "primaryUptake", "regenerability", "score"]
+  const metrics = ["methodScore", "selectivity", "workingCapacity", "primaryUptake", "regenerability", "legacyGasScore"]
   const bestFor = key => rows
     .map(row => ({ row, value: valueForMetric(row, key) }))
     .filter(item => item.value != null)
@@ -762,8 +1159,8 @@ function CompareInsightPanel({ selected, compareRows, t, lang, isMobile }) {
                 return (
                   <div key={metric} style={{ alignItems: "center", display: "grid", gap: 6, gridTemplateColumns: "minmax(88px, 0.7fr) minmax(0, 1fr)" }}>
                     <span style={{ color: t.faint, fontSize: 11 }}>{metricLabel(metric, lang)}</span>
-                    <span style={{ color: isBest ? t.accentText : t.textStrong, fontFamily: metric === "score" ? FONT_SANS : undefined, fontSize: 12, fontWeight: isBest ? 930 : 780 }}>
-                      {metric === "score" ? formatScore100(row.score, lang) : formatMetricValue(row, metric, lang)} {isBest ? "↑" : ""}
+                    <span style={{ color: isBest ? t.accentText : t.textStrong, fontFamily: metric === "legacyGasScore" || metric === "methodScore" ? FONT_SANS : undefined, fontSize: 12, fontWeight: isBest ? 930 : 780 }}>
+                      {formatMetricValue(row, metric, lang)} {isBest ? "↑" : ""}
                     </span>
                   </div>
                 )
@@ -809,9 +1206,18 @@ function ExplanationPanel({ record, t, lang, onOpenMethod }) {
   const breakdown = record.scoreBreakdown || {}
   const contributions = breakdown.contributions || {}
   const contributionRows = ["uptake", "selectivity", "workingCapacity", "regenerability", "stability", "evidence"]
+  const method = record.gasScreening?.activeMethod || getGasRankingMethod(record.gasScreening?.methodId)
+  const methodRows = [
+    `${text(lang, "当前方法", "Current method")}：${text(lang, method.labelZh, method.label)}`,
+    `${text(lang, "当前方法指标", "Method metric")}：${gasMethodScoreLabel(record, method.id, lang)}`,
+    `APS：${formatMetricValue(record, "aps", lang)}`,
+    `APS×R%：${formatMetricValue(record, "apsRegenerability", lang)}`,
+    `CRITIC：${formatMetricValue(record, "criticScore", lang)}`,
+    `${text(lang, "Pareto 状态", "Pareto status")}：${record.gasScreening?.paretoFrontier ? text(lang, "非支配前沿", "non-dominated frontier") : text(lang, "被其它候选支配或缺少 APS 字段", "dominated or APS fields pending")}`,
+  ]
   const sourceRows = ["primaryUptake", "selectivity", "workingCapacity", "evidenceLevel", "gasScore"].map(field => {
     const source = getFieldSource(record, field)
-    return `${metricLabel(field === "gasScore" ? "score" : field, lang)}：${source.sourceType || "pending"}`
+    return `${field === "gasScore" ? text(lang, "历史 GasScore", "Legacy GasScore") : metricLabel(field, lang)}：${source.sourceType || "pending"}`
   })
   return (
     <section style={cardStyle(t)}>
@@ -829,14 +1235,18 @@ function ExplanationPanel({ record, t, lang, onOpenMethod }) {
         <BasisBadge tone={statusTone(record.dataType)} aria-label={dataTypeLabel(record.dataType, lang)} title={dataTypeLabel(record.dataType, lang)}>{dataTypeLabel(record.dataType, lang)}</BasisBadge>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: 10, marginTop: 14 }}>
+        <InfoList title={text(lang, "当前排序方法依据", "Current ranking basis")} rows={methodRows} t={t} />
         <InfoList title={text(lang, "适合当前气体对的原因", "Why it fits this gas pair")} rows={record.whyRecommended || []} t={t} />
-        <InfoList title={text(lang, "主要贡献指标", "Largest contributors")} rows={breakdown.topDrivers || []} t={t} />
+        <InfoList title={text(lang, "历史 GasScore 主要贡献", "Legacy GasScore contributors")} rows={breakdown.topDrivers || []} t={t} />
         <InfoList title={text(lang, "拖累项与风险", "Draggers and risks")} rows={[...(breakdown.draggers || []), ...(record.risks || [])]} t={t} />
         <InfoList title={text(lang, "解释使用的数据来源类型", "Source types used in explanation")} rows={sourceRows} t={t} />
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10, marginTop: 12 }}>
         <div style={surfaceStyle(t)}>
-          <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "Descriptor Contribution", "Descriptor Contribution")}</strong>
+          <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "历史 GasScore 贡献拆解", "Legacy GasScore Contribution")}</strong>
+          <div style={{ color: t.subtle, fontSize: 11.2, lineHeight: 1.45, marginTop: 6 }}>
+            {text(lang, "该拆解仅用于理解旧启发式分数，不是当前默认科研排序依据。", "This explains the legacy heuristic score only; it is not the default scientific ranking basis.")}
+          </div>
           <div style={{ display: "grid", gap: 8, marginTop: 10 }}>
             {contributionRows.map(key => {
               const value = contributions[key] || 0
@@ -859,8 +1269,8 @@ function ExplanationPanel({ record, t, lang, onOpenMethod }) {
           <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "适用边界与下一步", "Applicability and next validation")}</strong>
           <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.58, margin: "9px 0 0" }}>{record.applicabilityNote}</p>
           <p style={{ color: t.subtle, fontSize: 11.5, lineHeight: 1.55, margin: "8px 0 0" }}>{record.limitationNote}</p>
-          <button type="button" onClick={onOpenMethod} aria-label={text(lang, "查看 GasSep 评分方法", "View GasSep scoring method")} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.accentText, cursor: "pointer", fontSize: 11.5, fontWeight: 850, marginTop: 10, padding: "7px 9px" }}>
-            {text(lang, "查看评分方法", "View scoring method")}
+          <button type="button" onClick={onOpenMethod} aria-label={text(lang, "查看 GasSep 方法依据", "View GasSep methodology")} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.accentText, cursor: "pointer", fontSize: 11.5, fontWeight: 850, marginTop: 10, padding: "7px 9px" }}>
+            {text(lang, "查看方法依据", "View methodology")}
           </button>
         </div>
       </div>
@@ -968,11 +1378,12 @@ export function GasSepTab({ onNavigate }) {
   const [selectedMofId, setSelectedMofId] = useState(null)
   const [selectedMetric, setSelectedMetric] = useState("primaryUptake")
   const [rankingMode, setRankingMode] = useState("overall")
-  const [rankingSortMetric, setRankingSortMetric] = useState("GasScore")
+  const [rankingSortMetric, setRankingSortMetric] = useState("methodScore")
   const [heatmapView, setHeatmapView] = useState("normalized")
-  const [heatmapSortMetric, setHeatmapSortMetric] = useState("GasScore")
+  const [heatmapSortMetric, setHeatmapSortMetric] = useState("methodScore")
   const [compareMofIds, setCompareMofIds] = useState([])
   const [activeInspectorCell, setActiveInspectorCell] = useState(null)
+  const [activeGate, setActiveGate] = useState("all")
   const [scenario, setScenario] = useState({
     gasPair: "CO2/N2",
     applicationScenario: "flue gas carbon capture",
@@ -982,6 +1393,7 @@ export function GasSepTab({ onNavigate }) {
     desorptionPressureBar: 0.15,
     mixtureRatio: "15/85",
     targetPriority: "Balanced",
+    rankingMethod: DEFAULT_GAS_RANKING_METHOD,
   })
   const [chartConfig, setChartConfig] = useState({
     x: "primaryUptake",
@@ -1040,8 +1452,10 @@ export function GasSepTab({ onNavigate }) {
   useEffect(() => {
     setActiveInspectorCell(null)
     setSelectedMetric("primaryUptake")
-    setHeatmapSortMetric("GasScore")
-  }, [scenario.gasPair])
+    setHeatmapSortMetric("methodScore")
+    setRankingSortMetric("methodScore")
+    setActiveGate("all")
+  }, [scenario.gasPair, scenario.rankingMethod])
 
   const selectMetricCell = useCallback((row, metric) => {
     if (!row) return
@@ -1083,14 +1497,17 @@ export function GasSepTab({ onNavigate }) {
       {status === "empty" ? <Callout tone="warn">{text(lang, "当前场景无数据。", "No GasSep records are available.")}</Callout> : null}
       {status === "fallback" ? <Callout tone="warn">{text(lang, "Gas Adsorption v1 数据不可用，已回退到 Demo｜仅用于界面验证。", "Gas Adsorption v1 data is unavailable; falling back to Demo | interface validation only.")}</Callout> : null}
 
-      <Overview ranked={ranked} scenario={scenario} t={t} lang={lang} isMobile={isMobile} />
+      <Overview ranked={ranked} scenario={scenario} screening={screening} t={t} lang={lang} isMobile={isMobile} />
       <GasSepDatabaseSummaryCard summary={gasSepSummary} exportRows={gasSepExportRows} lang={lang} t={t} isMobile={isMobile} />
       <ScenarioBuilder scenario={scenario} setScenario={setScenario} t={t} lang={lang} isMobile={isMobile} isNarrow={isNarrow} />
       <ConditionSummary ranked={ranked} scenario={scenario} t={t} lang={lang} isMobile={isMobile} />
       <GasCoverageNotice coverage={screening.coverage} collectionReport={collectionReport} iastReport={iastReport} identityReport={identityReport} proxyReport={proxyReport} t={t} lang={lang} />
+      <RankingMethodEvidencePanel screening={screening} scenario={scenario} setScenario={setScenario} ranked={ranked} t={t} lang={lang} isMobile={isMobile} />
+      <ScreeningFunnelPanel funnel={screening.screeningFunnel} activeGate={activeGate} setActiveGate={setActiveGate} t={t} lang={lang} isMobile={isMobile} />
       <PerformanceMap ranked={ranked} selectedId={selected?.id} onSelect={setSelectedMofId} chartConfig={chartConfig} setChartConfig={setChartConfig} t={t} lang={lang} isMobile={isMobile} isNarrow={isNarrow} />
-      <CandidateRankingTable ranked={ranked} selectedId={selected?.id} onSelect={setSelectedMofId} compareIds={compareMofIds} setCompareIds={setCompareMofIds} t={t} lang={lang} isMobile={isMobile} />
+      <CandidateRankingTable ranked={ranked} selectedId={selected?.id} onSelect={setSelectedMofId} compareIds={compareMofIds} setCompareIds={setCompareMofIds} activeGate={activeGate} setActiveGate={setActiveGate} t={t} lang={lang} isMobile={isMobile} />
       <CompareInsightPanel selected={selected} compareRows={compareRows} t={t} lang={lang} isMobile={isMobile} />
+      <RankingStabilityPanel screening={screening} scenario={scenario} setScenario={setScenario} onSelect={setSelectedMofId} t={t} lang={lang} isMobile={isMobile} />
       <GasTopRankingChart
         ranked={ranked}
         selectedId={selected?.id}
@@ -1150,8 +1567,8 @@ export function GasSepTab({ onNavigate }) {
       <Callout tone="note">
         {text(
           lang,
-          "GasScore 是候选优先级分数，不是真实分离性能结论；GasSep 保留 View in MOF Library 的 ID 衔接，不改动 MOF Library 的 descriptor checklist 与 provenance 逻辑。",
-          "GasScore is a candidate-priority score, not a validated separation-performance conclusion. GasSep keeps View in MOF Library ID handoff without changing the MOF Library descriptor checklist or provenance logic."
+          "默认排序采用 Pareto + APS / APS×R% / CRITIC 等可解释方法；历史 GasScore 只作为启发式诊断参考，不是真实分离性能结论。GasSep 保留 View in MOF Library 的 ID 衔接，不改动 MOF Library 的 descriptor checklist 与 provenance 逻辑。",
+          "Default ranking uses interpretable Pareto + APS / APS×R% / CRITIC methods. Legacy GasScore is a heuristic diagnostic reference, not a validated separation-performance conclusion. GasSep keeps View in MOF Library ID handoff without changing the MOF Library descriptor checklist or provenance logic."
         )}
       </Callout>
     </div>

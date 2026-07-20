@@ -248,7 +248,16 @@ export function GasParetoChart({ t, lang, isMobile }) {
           {projected.map(point => {
             const active = hover?.id === point.id
             return (
-              <g key={`${point.id}-${point.index}`} onPointerEnter={() => setHover(point)} onPointerLeave={() => setHover(null)}>
+              <g
+                key={`${point.id}-${point.index}`}
+                onPointerEnter={() => setHover(point)}
+                onPointerDown={event => {
+                  setHover(point)
+                  event.stopPropagation()
+                }}
+                onPointerLeave={() => setHover(null)}
+                style={{ cursor: "pointer" }}
+              >
                 <Shape point={point} active={active} style={GRADE_STYLE[point.grade] || GRADE_STYLE.unknown} />
               </g>
             )

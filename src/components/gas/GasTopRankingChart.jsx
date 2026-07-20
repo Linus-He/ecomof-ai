@@ -2,17 +2,23 @@
 import { useMemo, useState } from "react"
 import { ChemicalText, FONT_SANS, SectionTitle, formatPercent, formatScore100 } from "../../shared"
 import { getEvidenceScore, getStabilityScore } from "../../utils/gasScoring"
+import { gasMethodScore, gasMethodScoreLabel } from "../../utils/gasSeparationScreening"
 import { GasDataStatusBadge } from "./GasDataStatusBadge"
 import { GasScoreBreakdown } from "./GasScoreBreakdown"
 import {
   CONTRIBUTION_COLORS,
+  formatNumber,
   metricDisplayValue,
   metricLabel,
   text,
 } from "./gasViewUtils"
 
 const SORT_OPTIONS = [
-  ["GasScore", "GasScore", "GasScore"],
+  ["methodScore", "Current method metric", "当前方法指标"],
+  ["aps", "APS", "APS"],
+  ["apsRegenerability", "APS × R%", "APS × R%"],
+  ["criticScore", "CRITIC score", "CRITIC 分数"],
+  ["legacyGasScore", "Legacy GasScore", "历史 GasScore"],
   ["primaryUptake", "Uptake", "吸附量"],
   ["selectivity", "Selectivity", "选择性"],
   ["workingCapacity", "Working capacity", "工作容量"],
@@ -22,10 +28,23 @@ const SORT_OPTIONS = [
 ]
 
 function scoreForSort(record, key) {
-  if (key === "GasScore") return Number(record?.score || 0)
+  if (key === "methodScore") return Number(gasMethodScore(record, record?.gasScreening?.methodId) || 0)
+  if (key === "legacyGasScore" || key === "GasScore") return Number(record?.score || 0)
+  if (key === "aps") return Number(record?.gasScreening?.aps || 0)
+  if (key === "apsRegenerability") return Number(record?.gasScreening?.apsRegenerability || 0)
+  if (key === "criticScore") return Number(record?.gasScreening?.criticScore || 0)
   if (key === "stability") return getStabilityScore(record)
   if (key === "evidence") return getEvidenceScore(record)
   return Number(record?.[key] || 0)
+}
+
+function sortDisplayValue(record, key, lang, ranked) {
+  if (key === "methodScore") return gasMethodScoreLabel(record, record?.gasScreening?.methodId, lang)
+  if (key === "legacyGasScore" || key === "GasScore") return formatScore100(record.score, lang)
+  if (key === "aps") return record?.gasScreening?.aps == null ? "pending" : formatNumber(record.gasScreening.aps)
+  if (key === "apsRegenerability") return record?.gasScreening?.apsRegenerability == null ? "pending" : formatNumber(record.gasScreening.apsRegenerability)
+  if (key === "criticScore") return record?.gasScreening?.criticScore == null ? "pending" : `${formatNumber(record.gasScreening.criticScore)}/100`
+  return metricDisplayValue(record, key, lang, ranked)
 }
 
 function Tooltip({ row, t, lang }) {
@@ -34,7 +53,8 @@ function Tooltip({ row, t, lang }) {
   return (
     <div style={{ background: t.tooltipBg, border: `1px solid ${t.border}`, borderRadius: 8, boxShadow: t.shadowMd, color: t.muted, fontSize: 11.5, lineHeight: 1.48, maxWidth: 300, padding: 10 }}>
       <strong style={{ color: t.textStrong, display: "block", fontSize: 12.5, marginBottom: 5 }}><ChemicalText value={row.displayName} /></strong>
-      <div aria-label={text(lang, "GasScore 评分", "GasScore score")}>GasScore: {formatScore100(row.score, lang)}</div>
+      <div aria-label={text(lang, "当前方法指标", "Current method metric")}>{text(lang, "当前方法", "Method")}: {gasMethodScoreLabel(row, row.gasScreening?.methodId, lang)}</div>
+      <div>{text(lang, "历史 GasScore", "Legacy GasScore")}: {formatScore100(row.score, lang)}</div>
       <div>{metricLabel("uptake", lang)}: {formatPercent(breakdown.normalized?.uptake, { lang, normalized: true })}</div>
       <div>{metricLabel("selectivity", lang)}: {formatPercent(breakdown.normalized?.selectivity, { lang, normalized: true })}</div>
       <div>{metricLabel("workingCapacity", lang)}: {formatPercent(breakdown.normalized?.workingCapacity, { lang, normalized: true })}</div>
@@ -55,8 +75,8 @@ function Explanation({ visible, lang, t }) {
     <div style={{ background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 9, color: t.muted, fontSize: 12, lineHeight: 1.58, padding: 11 }}>
       {text(
         lang,
-        `当前 Top ${visible.length} 候选中，${top.displayName} 的综合分数最高，主要优势来自 ${drivers}；${highestSelectivity.displayName} 的选择性最高，但综合分数仍受可再生性、证据等级或风险扣分约束。`,
-        `Among the current Top ${visible.length} candidates, ${top.displayName} ranks highest because of ${drivers}. ${highestSelectivity.displayName} shows the highest selectivity, but its overall score remains limited by regenerability, evidence level, or risk penalty.`
+        `当前 Top ${visible.length} 候选按所选排序指标排列；${top.displayName} 位于首位。历史 GasScore 的主要贡献可来自 ${drivers}，但默认排序不再把这些权重作为权威结论。${highestSelectivity.displayName} 的选择性最高，仍需结合工作容量、可再生性和证据边界。`,
+        `The current Top ${visible.length} candidates are ordered by the selected ranking metric; ${top.displayName} is first. Legacy GasScore contributors may include ${drivers}, but those weights are no longer treated as authoritative. ${highestSelectivity.displayName} has the highest selectivity and still needs capacity, regenerability, and evidence-boundary checks.`
       )}
     </div>
   )
@@ -78,7 +98,7 @@ export function GasTopRankingChart({
   const [hover, setHover] = useState(null)
   const sorted = useMemo(() => [...ranked].sort((a, b) => scoreForSort(b, sortMetric) - scoreForSort(a, sortMetric)), [ranked, sortMetric])
   const visible = sorted.slice(0, limit)
-  const maxScore = Math.max(1, ...visible.map(row => Number(row.score || 0)))
+  const maxScore = Math.max(1, ...visible.map(row => scoreForSort(row, sortMetric)))
 
   return (
     <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16, minWidth: 0 }}>
@@ -86,13 +106,13 @@ export function GasTopRankingChart({
         <div>
           <SectionTitle>{text(lang, "Top 候选动态排序", "Top Candidates Interactive Ranking")}</SectionTitle>
           <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 5 }}>
-            {text(lang, "支持综合分数与分数贡献拆解两种模式；hover 查看依据，click 联动下方解释。", "Switch between overall score and contribution ranking; hover for rationale, click to update linked panels.")}
+            {text(lang, "默认跟随当前方法指标；贡献拆解仅解释历史 GasScore。hover 查看依据，click 联动下方解释。", "Defaults to the current method metric; contribution mode explains Legacy GasScore only. Hover for rationale, click to update linked panels.")}
           </div>
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
           {["overall", "contribution"].map(mode => (
-            <button key={mode} type="button" onClick={() => setRankingMode(mode)} aria-label={mode === "overall" ? text(lang, "切换到综合分模式", "Switch to overall score mode") : text(lang, "切换到贡献拆解模式", "Switch to score contribution mode")} title={mode === "overall" ? text(lang, "综合分", "Overall Score") : text(lang, "贡献拆解", "Score Contribution")} style={{ minHeight: 40, background: rankingMode === mode ? t.badgeInfoBg : t.surface, border: `1px solid ${rankingMode === mode ? t.accent : t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", fontSize: 11.5, fontWeight: 850, padding: "7px 10px" }}>
-              {mode === "overall" ? text(lang, "综合分", "Overall Score") : text(lang, "贡献拆解", "Score Contribution")}
+            <button key={mode} type="button" onClick={() => setRankingMode(mode)} aria-label={mode === "overall" ? text(lang, "切换到当前指标模式", "Switch to current metric mode") : text(lang, "切换到历史贡献拆解模式", "Switch to legacy contribution mode")} title={mode === "overall" ? text(lang, "当前指标", "Current Metric") : text(lang, "历史贡献拆解", "Legacy Contribution")} style={{ minHeight: 40, background: rankingMode === mode ? t.badgeInfoBg : t.surface, border: `1px solid ${rankingMode === mode ? t.accent : t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", fontSize: 11.5, fontWeight: 850, padding: "7px 10px" }}>
+              {mode === "overall" ? text(lang, "当前指标", "Current Metric") : text(lang, "历史贡献拆解", "Legacy Contribution")}
             </button>
           ))}
         </div>
@@ -122,8 +142,8 @@ export function GasTopRankingChart({
           <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.muted, fontSize: 12, padding: 12 }}>{text(lang, "当前场景无候选。", "No candidates for the current scenario.")}</div>
         ) : visible.map(row => {
           const selected = row.id === selectedId
-          const score = Number(row.score || 0)
-          const sortValue = sortMetric === "GasScore" ? formatScore100(row.score, lang) : metricDisplayValue(row, sortMetric, lang, ranked)
+          const score = scoreForSort(row, sortMetric)
+          const sortValue = sortDisplayValue(row, sortMetric, lang, ranked)
           return (
             <button
               key={row.id}

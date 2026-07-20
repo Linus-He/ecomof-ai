@@ -30,10 +30,11 @@ describe("MofDescriptor3DScatter", () => {
     expect(Math.max(...ys) - Math.min(...ys)).toBeGreaterThan(H * 0.4)
   })
 
-  it("degrades to a 2D scatter on mobile", () => {
+  it("keeps the interactive 3D scatter on mobile", () => {
     render(<MofDescriptor3DScatter t={THEME_LIGHT} lang="zh" isMobile />)
     const card = screen.getByTestId("home-3d-scatter")
-    expect(card.querySelector("svg").getAttribute("aria-label")).toMatch(/2D/)
+    expect(card.querySelector("svg").getAttribute("aria-label")).toMatch(/3D/)
+    expect(card.textContent).not.toMatch(/2D/)
     expect(card.querySelectorAll("circle").length).toBeGreaterThan(5)
   })
 })

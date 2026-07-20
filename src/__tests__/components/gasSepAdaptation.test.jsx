@@ -1,0 +1,123 @@
+// @ts-nocheck
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
+import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react"
+import gasV2 from "../../../public/data/gas_adsorption_records_v2.json"
+import gasV1 from "../../../public/data/gas_adsorption_records_v1.json"
+import gasDemo from "../../../public/data/gas_adsorption_records_demo.json"
+import collectionReport from "../../../public/data/gas_adsorption_v2_collection_report.json"
+import iastReport from "../../../public/data/gas_adsorption_v2_1_iast_report.json"
+import identityReport from "../../../public/data/mof_identity_resolution_report.json"
+import proxyReport from "../../../public/data/gas_structure_proxy_validation_report.json"
+import { THEME_DARK, THEME_LIGHT } from "../../constants/theme"
+import { LangCtx, ThemeCtx, ViewportCtx } from "../../contexts"
+import { COPY } from "../../i18n"
+import { GasSepTab } from "../../components/tabs/GasSepTab"
+
+const DATA_BY_FILE = {
+  "gas_adsorption_records_v2.json": gasV2,
+  "gas_adsorption_records_v1.json": gasV1,
+  "gas_adsorption_records_demo.json": gasDemo,
+  "gas_adsorption_v2_collection_report.json": collectionReport,
+  "gas_adsorption_v2_1_iast_report.json": iastReport,
+  "mof_identity_resolution_report.json": identityReport,
+  "gas_structure_proxy_validation_report.json": proxyReport,
+}
+
+function response(data) {
+  return { ok: true, json: async () => data }
+}
+
+function bodyText() {
+  return document.body.textContent || ""
+}
+
+function renderGasSep({
+  lang = "zh",
+  theme = THEME_LIGHT,
+  viewport = { isNarrow: false, isMobile: false },
+} = {}) {
+  return render(
+    <ThemeCtx.Provider value={theme}>
+      <LangCtx.Provider value={{ lang, copy: COPY[lang], setLang: vi.fn() }}>
+        <ViewportCtx.Provider value={viewport}>
+          <GasSepTab onNavigate={vi.fn()} />
+        </ViewportCtx.Provider>
+      </LangCtx.Provider>
+    </ThemeCtx.Provider>,
+  )
+}
+
+async function waitForGasSep(lang = "zh") {
+  await screen.findByText(lang === "zh" ? "排序方法与文献依据" : "Ranking Method and Literature Basis")
+  await waitFor(() => expect(screen.getByTestId("gas-performance-map")).toHaveAttribute("data-point-count"))
+}
+
+beforeEach(() => {
+  vi.stubGlobal("fetch", vi.fn(async url => {
+    const path = String(url)
+    const file = Object.keys(DATA_BY_FILE).find(name => path.includes(name))
+    if (file) return response(DATA_BY_FILE[file])
+    return { ok: false, status: 404, json: async () => null }
+  }))
+})
+
+afterEach(() => {
+  cleanup()
+  vi.unstubAllGlobals()
+})
+
+describe("GasSep adaptation regressions", () => {
+  it("renders the method, funnel, and ranking copy in Chinese", async () => {
+    renderGasSep({ lang: "zh" })
+    await waitForGasSep("zh")
+    expect(bodyText()).toMatch(/GasSep 气体分离场景工作台/)
+    expect(bodyText()).toMatch(/筛选漏斗/)
+    expect(bodyText()).toMatch(/当前方法指标/)
+    expect(bodyText()).toMatch(/历史 GasScore/)
+    expect(Number(screen.getByTestId("gas-performance-map").getAttribute("data-point-count"))).toBeGreaterThan(0)
+  }, 10000)
+
+  it("renders the method, funnel, and ranking copy in English", async () => {
+    renderGasSep({ lang: "en" })
+    await waitForGasSep("en")
+    expect(bodyText()).toMatch(/GasSep Gas Separation Scenario Workbench/)
+    expect(bodyText()).toMatch(/Screening Funnel/)
+    expect(bodyText()).toMatch(/Method metric/)
+    expect(bodyText()).toMatch(/Legacy GasScore/)
+    expect(Number(screen.getByTestId("gas-performance-map").getAttribute("data-point-count"))).toBeGreaterThan(0)
+  }, 10000)
+
+  it("keeps ranking method cards on theme tokens in light and dark mode", async () => {
+    const dark = renderGasSep({ lang: "en", theme: THEME_DARK })
+    await waitForGasSep("en")
+    expect(screen.getByTestId("gas-ranking-method-pareto-aps")).toHaveStyle({ background: THEME_DARK.badgeInfoBg })
+    expect(screen.getByTestId("gas-ranking-method-legacy-gasscore")).toHaveStyle({ background: THEME_DARK.surface })
+
+    dark.unmount()
+    cleanup()
+
+    renderGasSep({ lang: "en", theme: THEME_LIGHT })
+    await waitForGasSep("en")
+    expect(screen.getByTestId("gas-ranking-method-pareto-aps")).toHaveStyle({ background: THEME_LIGHT.badgeInfoBg })
+    expect(screen.getByTestId("gas-ranking-method-legacy-gasscore")).toHaveStyle({ background: THEME_LIGHT.surface })
+  }, 10000)
+
+  it("uses mobile single-column method and funnel layouts while preserving interactivity", async () => {
+    renderGasSep({
+      lang: "zh",
+      theme: THEME_LIGHT,
+      viewport: { isNarrow: true, isMobile: true },
+    })
+    await waitForGasSep("zh")
+
+    expect(screen.getByTestId("gas-ranking-method-pareto-aps").parentElement).toHaveStyle({ gridTemplateColumns: "1fr" })
+    expect(screen.getByTestId("gas-screening-gate-all").parentElement).toHaveStyle({ gridTemplateColumns: "1fr" })
+
+    fireEvent.click(screen.getByTestId("gas-screening-gate-aps-eligible"))
+    expect(bodyText()).toMatch(/可计算 APS/)
+
+    fireEvent.change(screen.getByLabelText("ranking method"), { target: { value: "critic-objective" } })
+    expect(screen.getByTestId("gas-ranking-method-critic-objective")).toHaveStyle({ background: THEME_LIGHT.badgeInfoBg })
+    expect(bodyText()).toMatch(/CRITIC/)
+  }, 10000)
+})

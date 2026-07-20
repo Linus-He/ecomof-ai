@@ -8,7 +8,7 @@ import {
   LogoMark,
   BrandMotif,
 } from "../../shared"
-import { BrandMotionBackground, GasParetoChart, MofDescriptor3DScatter, buildGasParetoRows } from "../home"
+import { BrandMotionBackground, GasParetoChart, HomeDataExplorer, MofDescriptor3DScatter, buildGasParetoRows } from "../home"
 import { toolbarBtn } from "../../utils/styles"
 import {
   DEFAULT_HOME_SUMMARY,
@@ -28,6 +28,13 @@ function metricText(value, digits = 2) {
   const number = Number(value)
   if (!Number.isFinite(number)) return String(value ?? "Not available")
   return Number.isInteger(number) ? String(number) : number.toFixed(digits)
+}
+
+function sharePercent(value, denominator) {
+  const numericValue = Number(value)
+  const numericDenominator = Number(denominator)
+  if (!Number.isFinite(numericValue) || !Number.isFinite(numericDenominator) || numericDenominator <= 0) return 0
+  return Math.max(0, Math.min(100, Math.round((numericValue / numericDenominator) * 100)))
 }
 
 function usePrefersReducedMotion() {
@@ -350,9 +357,11 @@ function ScientificAtlasHero({ t, lang, summary, gasParetoCount, isMobile, reduc
   )
 }
 
-function MiniBarChart({ title, rows, t }) {
+function MiniBarChart({ title, rows, t, lang }) {
+  const [activeLabel, setActiveLabel] = useState(rows[0]?.label || "")
+  const active = rows.find(row => row.label === activeLabel) || rows[0]
   return (
-    <article className="content-card" style={{
+    <article className="content-card" data-testid="home-mini-bar-chart" style={{
       background: t.panel,
       border: `1px solid ${t.border}`,
       borderRadius: 10,
@@ -364,17 +373,38 @@ function MiniBarChart({ title, rows, t }) {
       <h3 style={{ margin: 0, color: t.textStrong, fontSize: 14.5, lineHeight: 1.3, fontWeight: 900 }}>{title}</h3>
       <div style={{ display: "grid", gap: 10 }}>
         {rows.map(row => (
-          <div key={row.label} style={{ display: "grid", gap: 5 }}>
+          <button
+            key={row.label}
+            type="button"
+            onClick={() => setActiveLabel(row.label)}
+            onPointerEnter={() => setActiveLabel(row.label)}
+            style={{
+              background: row.label === active?.label ? t.badgeInfoBg : "transparent",
+              border: `1px solid ${row.label === active?.label ? t.accent : "transparent"}`,
+              borderRadius: 8,
+              cursor: "pointer",
+              display: "grid",
+              gap: 5,
+              padding: "4px 5px",
+              textAlign: "left",
+            }}
+          >
             <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center" }}>
               <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.35, fontWeight: 780 }}>{row.label}</span>
-              <span style={{ color: t.textStrong, fontSize: 11.5, lineHeight: 1.35, fontWeight: 900, fontFamily: FONT_SANS }}>{row.value}</span>
+              <span style={{ color: t.textStrong, fontSize: 11.5, lineHeight: 1.35, fontWeight: 900, fontFamily: FONT_SANS }}>{row.value} · {row.percent}%</span>
             </div>
             <div style={{ height: 8, borderRadius: 999, background: t.surface, border: `1px solid ${t.border}`, overflow: "hidden" }}>
               <div style={{ width: `${Math.max(5, Math.min(100, row.percent))}%`, height: "100%", background: row.color || t.accent }} />
             </div>
-          </div>
+          </button>
         ))}
       </div>
+      {active ? (
+        <p style={{ color: t.faint, fontSize: 11, lineHeight: 1.45, margin: 0 }}>
+          {lang === "zh" ? "当前选中" : "Selected"}: <span className="num">{active.label} · {active.value} · {active.percent}%</span>
+          {active.detail ? ` · ${active.detail}` : ""}
+        </p>
+      ) : null}
     </article>
   )
 }
@@ -655,23 +685,28 @@ export function HomeTab({ setActiveTab }) {
     { name: "Gold Dataset", value: numberText(summary.goldDatasetCount), body: zh ? "用于质量审计的高质量整理集合。" : "High-quality curation set for quality audit." },
   ], [summary, zh])
 
-  const chartRows = useMemo(() => ({
-    coverage: [
-      { label: "CoRE MOF", value: numberText(summary.coreMofRecords), percent: 100 },
-      { label: "QMOF", value: numberText(summary.qmofRecords), percent: 100 },
-      { label: "Organic Acid Literature", value: numberText(summary.organicAcidLiteratureRecords), percent: 44 },
-    ],
-    quality: [
-      { label: "Verified Metadata", value: numberText(summary.verifiedMetadataCount), percent: Math.round((summary.verifiedMetadataCount / Math.max(1, summary.totalRecords)) * 100) },
-      { label: "Gold Dataset", value: numberText(summary.goldDatasetCount), percent: 62 },
-      { label: "Reaction Dataset", value: numberText(summary.reactionDatasetCount), percent: 100 },
-    ],
-    source: [
-      { label: "Database", value: numberText(summary.coreMofRecords + summary.qmofRecords), percent: 82 },
-      { label: "Literature", value: numberText(summary.organicAcidLiteratureRecords), percent: 18 },
-      { label: "Derived Research Layer", value: numberText(summary.reactionDatasetCount), percent: 35 },
-    ],
-  }), [summary])
+  const chartRows = useMemo(() => {
+    const structuralRecords = Number(summary.coreMofRecords || 0) + Number(summary.qmofRecords || 0)
+    const sourceTotal = structuralRecords + Number(summary.organicAcidLiteratureRecords || 0) + Number(summary.reactionDatasetCount || 0)
+    const qualityDenominator = Math.max(sourceTotal, Number(summary.totalRecords || 0), 1)
+    return {
+      coverage: [
+        { label: "CoRE MOF", value: numberText(summary.coreMofRecords), percent: sharePercent(summary.coreMofRecords, sourceTotal), detail: `${numberText(summary.coreMofRecords)} / ${numberText(sourceTotal)} source rows`, color: t.accentText },
+        { label: "QMOF", value: numberText(summary.qmofRecords), percent: sharePercent(summary.qmofRecords, sourceTotal), detail: `${numberText(summary.qmofRecords)} / ${numberText(sourceTotal)} source rows`, color: t.success || t.accentText },
+        { label: "Organic Acid Literature", value: numberText(summary.organicAcidLiteratureRecords), percent: sharePercent(summary.organicAcidLiteratureRecords, sourceTotal), detail: `${numberText(summary.organicAcidLiteratureRecords)} / ${numberText(sourceTotal)} source rows`, color: t.warn },
+      ],
+      quality: [
+        { label: "Verified Metadata", value: numberText(summary.verifiedMetadataCount), percent: sharePercent(summary.verifiedMetadataCount, qualityDenominator), detail: `${numberText(summary.verifiedMetadataCount)} / ${numberText(qualityDenominator)} tracked rows`, color: t.accentText },
+        { label: "Gold Dataset", value: numberText(summary.goldDatasetCount), percent: sharePercent(summary.goldDatasetCount, qualityDenominator), detail: `${numberText(summary.goldDatasetCount)} / ${numberText(qualityDenominator)} tracked rows`, color: t.warn },
+        { label: "Reaction Dataset", value: numberText(summary.reactionDatasetCount), percent: sharePercent(summary.reactionDatasetCount, qualityDenominator), detail: `${numberText(summary.reactionDatasetCount)} / ${numberText(qualityDenominator)} tracked rows`, color: t.success || t.accentText },
+      ],
+      source: [
+        { label: "Database", value: numberText(structuralRecords), percent: sharePercent(structuralRecords, sourceTotal), detail: `${numberText(structuralRecords)} / ${numberText(sourceTotal)} source rows`, color: t.accentText },
+        { label: "Literature", value: numberText(summary.organicAcidLiteratureRecords), percent: sharePercent(summary.organicAcidLiteratureRecords, sourceTotal), detail: `${numberText(summary.organicAcidLiteratureRecords)} / ${numberText(sourceTotal)} source rows`, color: t.warn },
+        { label: "Derived Research Layer", value: numberText(summary.reactionDatasetCount), percent: sharePercent(summary.reactionDatasetCount, sourceTotal), detail: `${numberText(summary.reactionDatasetCount)} / ${numberText(sourceTotal)} source rows`, color: t.success || t.accentText },
+      ],
+    }
+  }, [summary, t])
 
   const validationFlow = useMemo(() => [
     {
@@ -910,9 +945,9 @@ export function HomeTab({ setActiveTab }) {
           {dataCards.map(item => <DataCard key={item.name} item={item} t={t} />)}
         </div>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 12 }}>
-          <MiniBarChart title="Data Coverage" rows={chartRows.coverage} t={t} />
-          <MiniBarChart title="Data Quality" rows={chartRows.quality} t={t} />
-          <MiniBarChart title="Source Distribution" rows={chartRows.source} t={t} />
+          <MiniBarChart title="Data Coverage" rows={chartRows.coverage} t={t} lang={lang} />
+          <MiniBarChart title="Data Quality" rows={chartRows.quality} t={t} lang={lang} />
+          <MiniBarChart title="Source Distribution" rows={chartRows.source} t={t} lang={lang} />
         </div>
       </section>
 
@@ -920,11 +955,13 @@ export function HomeTab({ setActiveTab }) {
         <SectionHeader
           eyebrow={zh ? "交互可视化" : "Interactive Visual"}
           title={zh ? "数据库描述符空间" : "Descriptor space explorer"}
-          subtitle={zh ? "用真实 CoRE/QMOF 数据展示 MOF 描述符的三维分布，可旋转、缩放与悬停查看。" : "Explore the 3D distribution of MOF descriptors on real CoRE/QMOF data — rotate, zoom, and hover."}
+          subtitle={zh ? "用真实 CoRE/QMOF 数据展示 MOF 描述符三维分布、统计分布、金属筛选与相关性，可旋转、筛选和悬停查看。" : "Explore real CoRE/QMOF descriptor data through 3D distribution, statistical distribution, metal filtering, and correlation views."}
           t={t}
           isMobile={isMobile}
         />
         <MofDescriptor3DScatter t={t} lang={lang} isMobile={isMobile} />
+        <div style={{ height: isMobile ? 14 : 18 }} />
+        <HomeDataExplorer t={t} lang={lang} isMobile={isMobile} />
         <div style={{ height: isMobile ? 14 : 18 }} />
         <GasParetoChart t={t} lang={lang} isMobile={isMobile} />
       </section>

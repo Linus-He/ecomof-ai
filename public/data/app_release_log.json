@@ -76,12 +76,12 @@
       "date": "2026-06-29",
       "stage": "unified-platform",
       "headline": {
-        "zh": "呈现层收尾：数字字体统一、当前版本徽章接单一源、3D 描述符散点扩展，并在首页加入气体分离帕累托图。",
-        "en": "Presentation polish: unified numeral typography, current-version badges wired to one source, expanded 3D descriptor scatter, and a homepage gas-separation Pareto chart."
+        "zh": "v1.0.2：字体、版本徽章、首页可视化、GasSep 文献方法排序与适配回归。",
+        "en": "v1.0.2: typography, version badges, homepage visuals, GasSep literature-method ranking, and adaptation regressions."
       },
       "summary": {
-        "zh": "纯呈现层维护，不改算法/分数/底层数据：移除旧等宽数字 alias 与 ad-hoc 等宽字体残留，所有数字走 body 字族并用 tabular-nums 对齐；当前 App 版本从 app_release_log 读取；首页 3D 描述符散点扩展到 CoRE/QMOF 采样并增强轴与悬停信息；新增选择性 × 工作容量帕累托图，真实显示气对覆盖度与 IAST/实验/计算构成。",
-        "en": "Presentation-only maintenance with no algorithm, score, or source-data changes: removed the legacy fixed-width numeral alias and ad-hoc fixed-width residues, kept numerals on the body family with tabular-nums, made the current App version read from app_release_log, expanded the homepage 3D descriptor scatter with CoRE/QMOF sampling plus richer axes/hover, and added a selectivity × working-capacity Pareto chart that honestly shows gas-pair coverage and IAST/experimental/computed composition."
+        "zh": "保留底层数据不变：移除旧等宽数字 alias 与 ad-hoc 等宽字体残留；当前 App 版本从 app_release_log 读取；首页 3D 描述符散点扩展到 CoRE/QMOF 采样并加入真实数据驱动图表；GasSep 默认排序从主观权重 GasScore 调整为 Pareto + APS，并新增 APS×R%、CRITIC 客观赋权、筛选漏斗、跨方法短名单和历史 GasScore 边界说明；补充 GasSep 中英文、深浅色主题与移动端单列布局回归。",
+        "en": "Source data unchanged: removed legacy fixed-width numeral aliases and ad-hoc fixed-width residues; current App version reads from app_release_log; homepage 3D descriptor scatter expands to CoRE/QMOF sampling with real-data-driven charts; GasSep default ranking moves from subjective-weight GasScore to Pareto + APS, with APS×R%, CRITIC objective weighting, screening funnel, cross-method shortlist, and explicit Legacy GasScore boundaries; GasSep now has regressions for Chinese/English copy, light/dark themes, and mobile single-column layout."
       },
       "modules": {
         "ui": {
@@ -105,6 +105,30 @@
             {
               "zh": "首页新增气体分离帕累托图，基于 gas_adsorption_records_v2 中同时具备选择性与工作容量的真实点，按气对切换并标注 IAST/实验/计算覆盖。",
               "en": "Added a homepage gas-separation Pareto chart from gas_adsorption_records_v2 records that have both selectivity and working capacity, with gas-pair switching and IAST/experimental/computed coverage."
+            }
+          ]
+        },
+        "gasSep": {
+          "summary": {
+            "zh": "GasSep 默认排序改为文献可解释方法组，历史 GasScore 降级为诊断参考。",
+            "en": "GasSep default ranking now uses a literature-explainable method set, with Legacy GasScore demoted to diagnostic reference."
+          },
+          "changes": [
+            {
+              "zh": "新增 Pareto + APS 默认排序、APS×R% 排序、CRITIC 客观赋权和方法依据面板；每种方法显示公式、引用 DOI 和适用边界。",
+              "en": "Added Pareto + APS default ranking, APS×R% ranking, CRITIC objective weighting, and a method-basis panel with formula, DOI references, and boundaries."
+            },
+            {
+              "zh": "新增可点击筛选漏斗，按真实字段覆盖统计全部记录、有选择性、有工作容量、可计算 APS、可计算 APS×R%、Pareto 前沿和验证优先证据。",
+              "en": "Added a clickable screening funnel from real field coverage: all records, selectivity, working capacity, APS eligibility, APS×R% eligibility, Pareto frontier, and validation-ready evidence."
+            },
+            {
+              "zh": "新增跨方法稳定性对照，比较 Pareto/APS、APS×R%、CRITIC 与历史 GasScore 的 Top 候选交集。",
+              "en": "Added a cross-method stability view comparing Top-candidate overlap across Pareto/APS, APS×R%, CRITIC, and Legacy GasScore."
+            },
+            {
+              "zh": "补充 GasSep 中英文文案、深浅色主题和移动端单列布局回归测试，确保方法卡、筛选漏斗、表格排序与解释面板在不同上下文下保持真实数据联动。",
+              "en": "Added GasSep regressions for Chinese/English copy, light/dark themes, and mobile single-column layout, ensuring method cards, the screening funnel, table sorting, and explanation panels stay linked to real data across contexts."
             }
           ]
         }
@@ -265,8 +289,8 @@
               "en": "Research reports converged into candidate/round sub-tabs with a four-block compact narrative."
             },
             {
-              "zh": "首页新增可交互 3D MOF 描述符散点图（移动端降级为 2D）。",
-              "en": "Added an interactive 3D MOF descriptor scatter on the homepage (2D fallback on mobile)."
+              "zh": "首页保留可交互 3D MOF 描述符散点图，移动端同样支持旋转与点选。",
+              "en": "Homepage keeps the interactive 3D MOF descriptor scatter, with rotation and point selection preserved on mobile."
             }
           ]
         }

@@ -12,11 +12,14 @@ describe("app_release_log unified version source", () => {
     expect(log.authority).toMatch(/single unified/i)
   })
 
-  it("v1.0.2 appends a ui-module update (font, version, 3D, Pareto polish)", () => {
+  it("v1.0.2 records ui and GasSep updates without renumbering module history", () => {
     const release = log.releases.find(row => row.appVersion === "v1.0.2")
-    expect(Object.keys(release.modules)).toEqual(["ui"])
+    expect(Object.keys(release.modules)).toEqual(["ui", "gasSep"])
     expect(release.modules.ui.changes.length).toBeGreaterThan(0)
+    expect(release.modules.gasSep.changes.length).toBeGreaterThan(0)
     expect(JSON.stringify(release.modules.ui)).toMatch(/Pareto|帕累托/)
+    expect(JSON.stringify(release.modules.gasSep)).toMatch(/CRITIC|APS|GasScore/)
+    expect(JSON.stringify(release.modules.gasSep)).toMatch(/Chinese\/English|light\/dark|mobile|中英文|深浅色|移动端/)
   })
 
   it("v1.0.0 release only lists modules it changed, each with a summary and changes", () => {

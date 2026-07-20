@@ -666,8 +666,8 @@
     "order": 4,
     "module": "GasSep",
     "moduleZh": "气体分离",
-    "summary": "GasSep treats selectivity and uptake as condition-bound records, then builds a scenario-specific GasScore for candidate-priority screening.",
-    "summaryZh": "GasSep 将选择性和吸附量视为绑定工况的记录，并用场景化 GasScore 做候选优先级筛选。",
+    "summary": "GasSep treats selectivity and uptake as condition-bound records, then ranks candidates with literature-grounded Pareto/APS, APS×R%, CRITIC, and clearly marked legacy GasScore modes.",
+    "summaryZh": "GasSep 将选择性和吸附量视为绑定工况的记录，并用有文献依据的 Pareto/APS、APS×R%、CRITIC 与明确标记的历史 GasScore 模式排序。",
     "methodWorkflow": [
       {
         "label": "Gas system classification",
@@ -688,10 +688,10 @@
         "descriptionZh": "当记录混合不同气体比例或方法时显示警告。"
       },
       {
-        "label": "GasScore ranking",
-        "labelZh": "GasScore 排序",
-        "description": "Combine uptake, selectivity, working capacity, regenerability, stability, and evidence with scenario-specific weights.",
-        "descriptionZh": "按场景权重组合吸附量、选择性、工作容量、可再生性、稳定性和证据。"
+        "label": "Method-backed ranking",
+        "labelZh": "有依据的排序方法",
+        "description": "Default to Pareto + APS without subjective weights, expose APS×R% and CRITIC alternatives, and retain GasScore only as a legacy heuristic.",
+        "descriptionZh": "默认使用无主观权重的 Pareto + APS，同时提供 APS×R% 与 CRITIC 替代视图，并仅把 GasScore 作为历史启发式保留。"
       },
       {
         "label": "Linked visualization",
@@ -705,7 +705,8 @@
       "feed ratio",
       "temperature",
       "pressure",
-      "target priority",
+      "ranking method",
+      "legacy target priority",
       "selectivity",
       "uptake",
       "working capacity",
@@ -720,7 +721,8 @@
       "气体比例",
       "温度",
       "压力",
-      "目标优先级",
+      "排序方法",
+      "历史 GasScore 优先级",
       "选择性",
       "吸附量",
       "工作容量",
@@ -731,7 +733,9 @@
       "来源位置"
     ],
     "outputs": [
-      "scenario-specific GasScore",
+      "method-specific ranking",
+      "screening funnel",
+      "cross-method shortlist",
       "candidate ranking",
       "performance map",
       "radar profile",
@@ -740,7 +744,9 @@
       "validation roadmap"
     ],
     "outputsZh": [
-      "场景化 GasScore",
+      "方法特异排序",
+      "筛选漏斗",
+      "跨方法短名单",
       "候选材料排序",
       "性能图谱",
       "雷达图",
@@ -759,8 +765,8 @@
       {
         "title": "Top candidates bar chart",
         "titleZh": "Top 候选条形图",
-        "description": "Shows Top 5 / Top 10 GasScore ranking and links selection to the explanation panel.",
-        "descriptionZh": "展示 Top 5 / Top 10 GasScore 排序，并联动解释面板。",
+        "description": "Shows Top 5 / Top 10 candidates by the selected method and links selection to the explanation panel.",
+        "descriptionZh": "按当前选择的方法展示 Top 5 / Top 10 候选，并联动解释面板。",
         "chartType": "bar"
       },
       {
@@ -774,12 +780,14 @@
     "evidenceBoundary": [
       "Gas Adsorption Data Layer v1 records are structured seed fixtures for UI, schema, and field-provenance validation.",
       "experimental, literature, simulation, predicted, rule-based, demo, and needs validation labels must not be treated as interchangeable evidence.",
-      "GasScore is a candidate-priority score and must be followed by adsorption simulation, stability checks, experiments, and process assessment."
+      "Legacy GasScore is a candidate-priority heuristic only; default ranking should prefer Pareto/APS, APS×R%, or CRITIC with method boundaries.",
+      "All ranking modes must be followed by adsorption simulation, stability checks, experiments, and process assessment."
     ],
     "evidenceBoundaryZh": [
       "Gas Adsorption Data Layer v1 记录是用于界面、schema 和字段级溯源验证的结构化种子数据。",
       "实验数据、文献数据、模拟数据、预测数据、规则推断、演示数据和待验证标签不能混作同等证据。",
-      "GasScore 是候选优先级分数，必须接续吸附模拟、稳定性检查、实验验证和过程级评估。"
+      "历史 GasScore 只是候选优先级启发式；默认排序应优先使用 Pareto/APS、APS×R% 或 CRITIC，并显示方法边界。",
+      "所有排序模式都必须接续吸附模拟、稳定性检查、实验验证和过程级评估。"
     ],
     "validationRoadmap": [
       "Descriptor screening",
@@ -862,8 +870,8 @@
             "labelZh": "证据等级",
             "latex": "A>B>C>D",
             "fallback": "A = experimental/high-quality literature; B = simulation/partial curation; C = predicted/inferred/incomplete; D = demo/placeholder",
-            "explanation": "The evidence level is a boundary label and does not validate a GasScore by itself.",
-            "explanationZh": "证据等级是边界标签，本身不验证 GasScore。"
+            "explanation": "The evidence level is a boundary label and does not validate any ranking result by itself.",
+            "explanationZh": "证据等级是边界标签，本身不验证任何排序结果。"
           }
         ],
         "inputs": [
@@ -999,46 +1007,79 @@
         ]
       },
       {
-        "id": "gassep-gasscore-ranking",
-        "title": "GasScore candidate ranking",
-        "titleZh": "GasScore 候选排序",
-        "purpose": "Rank gas-separation candidates for a selected gas pair and operating condition while keeping demo, simulated, predicted, and experimental-style records separate.",
-        "purposeZh": "在选定气体对和工况下排序气体分离候选，同时区分演示数据、模拟数据、预测数据和实验风格记录。",
+        "id": "gassep-method-backed-ranking",
+        "title": "Method-backed gas candidate ranking",
+        "titleZh": "有方法依据的气体分离候选排序",
+        "purpose": "Rank gas-separation candidates for a selected gas pair and operating condition without treating subjective weights as literature-authoritative.",
+        "purposeZh": "在选定气体对和工况下排序气体分离候选，同时避免把主观权重当作文献权威。",
         "algorithmSteps": [
           {
-            "label": "Select scenario weights",
-            "labelZh": "选择场景权重",
-            "description": "Start from default weights and adjust them by gas pair and target priority.",
-            "descriptionZh": "从默认权重出发，按气体对和目标优先级动态调整。"
+            "label": "Build data eligibility gates",
+            "labelZh": "构建数据可用性门控",
+            "description": "Count records with selectivity, working capacity, APS, APS×R%, Pareto-frontier status, and validation-ready evidence.",
+            "descriptionZh": "统计具备选择性、工作容量、APS、APS×R%、Pareto 前沿状态和验证优先证据的记录。"
           },
           {
-            "label": "Normalize metrics",
-            "labelZh": "归一化指标",
-            "description": "Normalize uptake, selectivity, working capacity, regenerability, stability, and evidence within the current gas pair.",
-            "descriptionZh": "在当前气体对内归一化吸附量、选择性、工作容量、可再生性、稳定性和证据。"
+            "label": "Default Pareto + APS ranking",
+            "labelZh": "默认 Pareto + APS 排序",
+            "description": "Use the non-dominated frontier over selectivity and working capacity; use APS = selectivity × working capacity as a transparent tie-breaker.",
+            "descriptionZh": "在选择性与工作容量维度上计算非支配前沿，并用 APS = 选择性 × 工作容量作为透明的同前沿排序依据。"
           },
           {
-            "label": "Apply penalties",
-            "labelZh": "应用扣分",
-            "description": "Subtract evidence, stability, toxicity, and condition-mismatch penalties from the weighted score.",
-            "descriptionZh": "从加权分中扣除证据、稳定性、毒性和工况不匹配惩罚。"
+            "label": "APS × R% alternative",
+            "labelZh": "APS × R% 替代视图",
+            "description": "Combine APS with percent regenerability directly, without adding a subjective weight vector.",
+            "descriptionZh": "直接把 APS 与可再生性相乘，不额外加入主观权重向量。"
           },
           {
-            "label": "Expose explanation",
-            "labelZh": "暴露解释",
-            "description": "Show driver metrics, draggers, risk penalty, evidence level, and validation next step.",
-            "descriptionZh": "展示贡献指标、拖累项、风险扣分、证据等级和下一步验证。"
+            "label": "CRITIC objective-weight alternative",
+            "labelZh": "CRITIC 客观赋权替代视图",
+            "description": "Calculate weights from metric contrast intensity and conflict in the current candidate matrix.",
+            "descriptionZh": "从当前候选矩阵中按指标区分度与冲突度计算客观权重。"
+          },
+          {
+            "label": "Keep legacy GasScore separate",
+            "labelZh": "隔离历史 GasScore",
+            "description": "Keep GasScore contribution and risk-penalty panels for continuity, but label them as historical heuristic diagnostics.",
+            "descriptionZh": "为连续性保留 GasScore 贡献和风险扣分面板，但明确标注为历史启发式诊断。"
           }
         ],
         "formulas": [
           {
-            "id": "gassep-score",
-            "label": "GasScore",
-            "labelZh": "GasScore",
-            "latex": "\\mathrm{GasScore}=w_1U+w_2S+w_3C_w+w_4R+w_5T_s+w_6E-P_{risk}",
-            "fallback": "GasScore = w1*uptake + w2*selectivity + w3*workingCapacity + w4*regenerability + w5*stability + w6*evidence - riskPenalty",
-            "explanation": "Default weights are uptake 0.22, selectivity 0.22, working capacity 0.20, regenerability 0.14, stability 0.12, and evidence 0.10. Gas pair and priority settings shift the normalized weights.",
-            "explanationZh": "默认权重为吸附量 0.22、选择性 0.22、工作容量 0.20、可再生性 0.14、稳定性 0.12、证据 0.10；气体对和目标优先级会动态调整归一化权重。"
+            "id": "gassep-aps",
+            "label": "Adsorbent performance score",
+            "labelZh": "吸附剂性能分数 APS",
+            "latex": "\\mathrm{APS}=S_{ads}\\times C_w",
+            "fallback": "APS = adsorption selectivity × working capacity",
+            "explanation": "APS combines selectivity and useful loading swing, both of which are commonly reported in high-throughput adsorbent screening.",
+            "explanationZh": "APS 将选择性与可用装载差结合，是高通量吸附剂筛选中常用的材料级指标。"
+          },
+          {
+            "id": "gassep-aps-regenerability",
+            "label": "APS × regenerability",
+            "labelZh": "APS × 可再生性",
+            "latex": "\\mathrm{APS_R}=S_{ads}\\times C_w\\times \\frac{R\\%}{100}",
+            "fallback": "APS_R = selectivity × workingCapacity × regenerability / 100",
+            "explanation": "This mode keeps regenerability visible without inventing a subjective weight vector.",
+            "explanationZh": "该模式在不发明主观权重向量的前提下保持可再生性可见。"
+          },
+          {
+            "id": "gassep-critic-weight",
+            "label": "CRITIC objective weight",
+            "labelZh": "CRITIC 客观权重",
+            "latex": "C_j=\\sigma_j\\sum_k(1-r_{jk}),\\quad w_j=C_j/\\sum_j C_j",
+            "fallback": "Cj = sigma_j * sum(1-r_jk); wj = Cj / sum(Cj)",
+            "explanation": "CRITIC weights are derived from the current candidate matrix and should not be generalized outside that matrix.",
+            "explanationZh": "CRITIC 权重由当前候选矩阵派生，不应外推到该矩阵之外。"
+          },
+          {
+            "id": "gassep-legacy-score",
+            "label": "Legacy GasScore",
+            "labelZh": "历史 GasScore",
+            "latex": "\\mathrm{GasScore}=100\\times\\sum_i w_i\\hat{x}_i-P_{risk}",
+            "fallback": "GasScore = 100 * sum(w_i * normalized_metric_i) - riskPenalty",
+            "explanation": "This is retained only for continuity and diagnostic comparison; the weights are not literature-authoritative.",
+            "explanationZh": "该分数仅为连续性和诊断对照保留；其权重不是文献权威。"
           }
         ],
         "inputs": [
@@ -1047,72 +1088,80 @@
           "temperatureK",
           "pressureBar",
           "mixtureRatio",
-          "targetPriority",
-          "evidenceLevel",
-          "dataType"
+          "ranking method",
+          "legacy GasScore priority",
+          "evidence level",
+          "data type"
         ],
         "inputsZh": [
           "记录指标",
           "气体对",
-          "temperatureK",
-          "pressureBar",
-          "mixtureRatio",
-          "targetPriority",
-          "evidenceLevel",
-          "dataType"
+          "温度 K",
+          "压力 bar",
+          "混合比例",
+          "排序方法",
+          "历史 GasScore 优先级",
+          "证据等级",
+          "数据类型"
         ],
         "outputs": [
-          "GasScore 0-100",
-          "score contribution",
-          "risk penalty",
+          "method-specific rank",
+          "APS",
+          "APS×R%",
+          "CRITIC weights",
+          "legacy GasScore contribution",
           "top drivers",
-          "draggers",
+          "data eligibility gate",
           "validation suggestion"
         ],
         "outputsZh": [
-          "GasScore 0-100",
-          "评分贡献",
-          "风险扣分",
+          "方法特异名次",
+          "APS",
+          "APS×R%",
+          "CRITIC 权重",
+          "历史 GasScore 贡献",
           "主要贡献项",
-          "拖累项",
+          "数据可用性门控",
           "验证建议"
         ],
         "visualizations": [
           {
-            "title": "GasScore ranking table",
-            "titleZh": "GasScore 排序表",
-            "description": "Table sorting and filters remain linked to selected candidate explanations.",
-            "descriptionZh": "表头排序和筛选与候选解释面板联动。",
+            "title": "Method-aware ranking table",
+            "titleZh": "方法感知排序表",
+            "description": "Table sorting, method score, APS, and legacy GasScore remain visible but separate.",
+            "descriptionZh": "表格同时显示当前方法指标、APS 与历史 GasScore，并保持三者分离。",
             "chartType": "score"
           }
         ],
         "limitations": [
-          "GasScore is a screening priority score, not a validated separation performance.",
+          "Default ranking avoids subjective weights but still depends on available fields and comparable conditions.",
+          "Legacy GasScore is a screening priority heuristic, not a validated separation performance.",
           "Demo records intentionally expose data boundaries and should be replaced by curated literature or experimental records before scientific use."
         ],
         "limitationsZh": [
-          "GasScore 是筛选优先级分数，不是验证后的分离性能。",
+          "默认排序避免主观权重，但仍依赖字段覆盖与工况可比性。",
+          "历史 GasScore 是筛选优先级启发式，不是验证后的分离性能。",
           "Demo 记录刻意暴露数据边界，科研使用前应替换为整理后的文献或实验记录。"
         ]
       },
       {
         "id": "gas-separation-scoring-validation-method",
-        "title": "Gas Separation Scoring & Validation Method",
-        "titleZh": "气体分离评分与验证方法",
-        "purpose": "Explain how GasSep turns condition-bound adsorption records into scenario-specific screening priority and validation recommendations without treating demo data as validated rankings.",
-        "purposeZh": "说明 GasSep 如何把绑定工况的吸附记录转化为场景化筛选优先级和验证建议，同时避免把 demo 数据当作已验证排名。",
+        "title": "Gas Separation Ranking & Validation Method",
+        "titleZh": "气体分离排序与验证方法",
+        "purpose": "Explain how GasSep turns condition-bound adsorption records into method-specific shortlists and validation recommendations without treating screening metrics as process proof.",
+        "purposeZh": "说明 GasSep 如何把绑定工况的吸附记录转化为方法特异短名单和验证建议，同时避免把筛选指标当作过程级证明。",
         "algorithmSteps": [
           {
             "label": "Scenario-aware screening",
             "labelZh": "场景感知筛选",
-            "description": "Filter by gas pair, feed ratio, temperature, pressure, and target priority before comparing candidates.",
-            "descriptionZh": "先按气体对、进料比例、温度、压力和目标优先级筛选，再比较候选。"
+            "description": "Filter by gas pair, feed ratio, temperature, pressure, and ranking method before comparing candidates.",
+            "descriptionZh": "先按气体对、进料比例、温度、压力和排序方法筛选，再比较候选。"
           },
           {
-            "label": "GasScore formula",
-            "labelZh": "GasScore 公式",
-            "description": "Combine normalized uptake, selectivity, working capacity, regenerability, stability, and evidence confidence with scenario-specific weights.",
-            "descriptionZh": "用场景权重组合归一化吸附量、选择性、工作容量、可再生性、稳定性和证据置信度。"
+            "label": "Method selection before scoring",
+            "labelZh": "先选择排序方法",
+            "description": "Choose Pareto + APS, APS×R%, CRITIC, or legacy GasScore before interpreting a first-ranked candidate.",
+            "descriptionZh": "在解释第一名候选前，先明确使用 Pareto + APS、APS×R%、CRITIC 还是历史 GasScore。"
           },
           {
             "label": "Working capacity",
@@ -1133,10 +1182,10 @@
             "descriptionZh": "除非条件和方法匹配，否则分开看 IAST、模拟、预测和实验风格选择性。"
           },
           {
-            "label": "Evidence-adjusted scoring",
-            "labelZh": "证据修正评分",
-            "description": "Apply evidence level, data type, stability, toxicity, and condition-mismatch penalties before ranking.",
-            "descriptionZh": "排序前应用证据等级、数据类型、稳定性、毒性和工况不匹配扣分。"
+            "label": "Cross-method stability",
+            "labelZh": "跨方法稳定性",
+            "description": "Compare Top candidates across methods and treat recurring candidates as stronger validation-shortlist entries.",
+            "descriptionZh": "比较不同方法下的 Top 候选，把跨方法反复出现的候选作为更强的验证短名单对象。"
           },
           {
             "label": "Validation roadmap",
@@ -1147,13 +1196,13 @@
         ],
         "formulas": [
           {
-            "id": "gassep-score-expanded",
-            "label": "Scenario GasScore",
-            "labelZh": "场景 GasScore",
-            "latex": "\\mathrm{GasScore}=100\\times\\sum_i w_i\\hat{x}_i-P_{risk}",
-            "fallback": "GasScore = 100 * sum(w_i * normalized_metric_i) - riskPenalty",
-            "explanation": "Weights depend on gas pair and target priority; normalized metrics are computed only within the current scenario candidate set.",
-            "explanationZh": "权重由气体对和目标优先级决定；归一化只在当前场景候选集内计算。"
+            "id": "gassep-pareto-frontier",
+            "label": "Pareto frontier",
+            "labelZh": "Pareto 前沿",
+            "latex": "\\nexists j:\\ C_{w,j}\\ge C_{w,i},\\ S_j\\ge S_i,\\ \\mathrm{and}\\ (C_{w,j}>C_{w,i}\\ \\mathrm{or}\\ S_j>S_i)",
+            "fallback": "No other candidate has both >= working capacity and >= selectivity, with one strictly better.",
+            "explanation": "A Pareto-frontier candidate is not dominated by another record in the selectivity and working-capacity plane.",
+            "explanationZh": "Pareto 前沿候选在选择性与工作容量平面上没有被另一条记录同时压制。"
           },
           {
             "id": "gassep-working-capacity",
@@ -1184,12 +1233,12 @@
           },
           {
             "id": "gassep-evidence-adjusted-score",
-            "label": "Evidence-adjusted score",
-            "labelZh": "证据修正评分",
-            "latex": "Score_{evidence}=Score_{raw}\\times E_{confidence}",
-            "fallback": "Score_evidence = Score_raw * evidenceConfidence",
-            "explanation": "Evidence confidence does not validate the result; it keeps data quality visible in prioritization.",
-            "explanationZh": "证据置信度不验证结果，只是在优先级中保持数据质量可见。"
+            "label": "Evidence gate",
+            "labelZh": "证据门控",
+            "latex": "G_{evidence}=\\mathbb{1}(level\\in\\{A,B\\}\\lor confidence\\ge0.72\\lor grade\\in\\{experimental,computed\\})",
+            "fallback": "Evidence gate = A/B evidence OR confidence >= 0.72 OR experimental/computed grade",
+            "explanation": "The evidence gate is a visibility/filtering rule, not a proof that the material works.",
+            "explanationZh": "证据门控只是可见性和筛选规则，不证明材料真实可用。"
           }
         ],
         "inputs": [
@@ -1203,6 +1252,8 @@
           "regenerability",
           "heat of adsorption",
           "stability",
+          "ranking method",
+          "legacy target priority",
           "evidence level",
           "data type"
         ],
@@ -1217,19 +1268,25 @@
           "可再生性",
           "吸附热",
           "稳定性",
+          "排序方法",
+          "历史 GasScore 优先级",
           "证据等级",
           "数据类型"
         ],
         "outputs": [
-          "scenario GasScore",
-          "score contribution",
+          "method-specific rank",
+          "screening funnel",
+          "cross-method stability",
+          "legacy score contribution",
           "trade-off summary",
           "metric inspector",
           "validation recommendation"
         ],
         "outputsZh": [
-          "场景 GasScore",
-          "评分贡献",
+          "方法特异名次",
+          "筛选漏斗",
+          "跨方法稳定性",
+          "历史分数贡献",
           "trade-off 摘要",
           "指标诊断面板",
           "验证建议"
@@ -1238,8 +1295,8 @@
           {
             "title": "Interactive Top ranking",
             "titleZh": "交互 Top 排序",
-            "description": "Top 5 / Top 10 bars switch between overall score and contribution mode and link to the selected candidate.",
-            "descriptionZh": "Top 5 / Top 10 条形图可在综合分与贡献拆解模式间切换，并联动选中候选。",
+            "description": "Top 5 / Top 10 bars follow the current ranking method; contribution mode is explicitly legacy GasScore.",
+            "descriptionZh": "Top 5 / Top 10 条形图跟随当前排序方法；贡献拆解模式明确为历史 GasScore。",
             "chartType": "bar"
           },
           {
@@ -1252,18 +1309,22 @@
           {
             "title": "Diagnostic heatmap",
             "titleZh": "诊断热力图",
-            "description": "Normalized, raw, and weighted views expose which metric drives or limits a candidate.",
-            "descriptionZh": "normalized、raw 和 weighted 视图显示哪些指标驱动或限制候选。",
+            "description": "Normalized, raw, and legacy-contribution views expose which metric drives or limits a candidate.",
+            "descriptionZh": "normalized、raw 和历史贡献视图显示哪些指标驱动或限制候选。",
             "chartType": "heatmap"
           }
         ],
         "limitations": [
-          "GasScore is a screening priority score, not measured separation performance.",
+          "Pareto/APS and APS×R% are material screening metrics, not process-optimized performance.",
+          "CRITIC weights describe information in the current candidate set, not universal chemical importance.",
+          "Legacy GasScore is a screening priority score, not measured separation performance.",
           "Demo, predicted, simulated, and experimental-template records are not interchangeable evidence levels.",
           "Heatmap and radar values are scenario-normalized diagnostics, not universal material rankings."
         ],
         "limitationsZh": [
-          "GasScore 是筛选优先级分数，不是实测分离性能。",
+          "Pareto/APS 与 APS×R% 是材料筛选指标，不是过程优化性能。",
+          "CRITIC 权重描述当前候选集的信息量，不是普适化学重要性。",
+          "历史 GasScore 是筛选优先级分数，不是实测分离性能。",
           "演示数据、预测数据、模拟数据和实验风格模板记录不是可互换的证据等级。",
           "热力图和雷达图数值是场景归一化诊断，不是通用材料排名。"
         ]
