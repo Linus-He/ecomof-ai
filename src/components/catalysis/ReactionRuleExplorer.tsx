@@ -161,7 +161,7 @@ function ReactionRuleNetwork({
   return (
     <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 8, minWidth: 0, padding: 10 }}>
       <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
-        <strong style={{ color: t.textStrong, fontSize: 13.5 }}>{text(lang, "Reaction Rule Network / 反应规则网络", "Reaction Rule Network")}</strong>
+        <strong style={{ color: t.textStrong, fontSize: 13.5 }}>{text(lang, "反应规则网络", "Reaction Rule Network")}</strong>
         <span style={{ color: t.faint, fontSize: 11 }}>
           {text(lang, "节点是路径物种，边是 reaction rules。", "Nodes are pathway species; edges are reaction rules.")}
         </span>
@@ -292,7 +292,7 @@ export function ReactionRuleExplorer({
   return (
     <section id="organic-acid-reaction-rule-explorer" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 12, minWidth: 0, padding: isMobile ? 12 : 14, scrollMarginTop: 118 }}>
       <div style={{ display: "grid", gap: 6 }}>
-        <div style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900 }}>Reaction Rule Explorer</div>
+        <div style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900 }}>{text(lang, "反应规则浏览器", "Reaction Rule Explorer")}</div>
         <h2 style={{ color: t.textStrong, fontSize: isMobile ? 20 : 23, fontWeight: 940, lineHeight: 1.16, margin: 0 }}>
           {text(lang, "有机酸反应规则与证据图", "Organic Acid Reaction Rules and Evidence")}
         </h2>
@@ -312,7 +312,7 @@ export function ReactionRuleExplorer({
         </div>
         <div style={{ display: "grid", gap: 8, gridTemplateColumns: isNarrow ? "1fr" : "repeat(5, minmax(0, 1fr))" }}>
           <label style={{ display: "grid", gap: 4 }}>
-            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "Pathway", "Pathway")}</span>
+            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "路径", "Pathway")}</span>
             <select value={filters.pathway} onChange={event => setFilters(prev => ({ ...prev, pathway: event.target.value }))} style={selectStyle(t)}>
               <option value="synced">{text(lang, "跟随三路径网络", "Synced to network")}: {pathwayLabel(selectedPathwayId, lang)}</option>
               <option value="all">{text(lang, "全部路径", "All pathways")}</option>
@@ -322,7 +322,7 @@ export function ReactionRuleExplorer({
             </select>
           </label>
           <label style={{ display: "grid", gap: 4 }}>
-            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "Product class", "Product class")}</span>
+            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "产物类别", "Product class")}</span>
             <select value={filters.product} onChange={event => setFilters(prev => ({ ...prev, product: event.target.value }))} style={selectStyle(t)}>
               <option value="all">{text(lang, "全部", "All")}</option>
               <option value="formic">formic / HCOO</option>
@@ -332,21 +332,21 @@ export function ReactionRuleExplorer({
             </select>
           </label>
           <label style={{ display: "grid", gap: 4 }}>
-            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "Evidence", "Evidence")}</span>
+            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "证据", "Evidence")}</span>
             <select value={filters.evidence} onChange={event => setFilters(prev => ({ ...prev, evidence: event.target.value }))} style={selectStyle(t)}>
               <option value="all">{text(lang, "全部", "All")}</option>
               {filterOptions.evidence.map(value => <option key={value} value={value}>{value}</option>)}
             </select>
           </label>
           <label style={{ display: "grid", gap: 4 }}>
-            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "Mechanism", "Mechanism")}</span>
+            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "机理", "Mechanism")}</span>
             <select value={filters.mechanism} onChange={event => setFilters(prev => ({ ...prev, mechanism: event.target.value }))} style={selectStyle(t)}>
               <option value="all">{text(lang, "全部", "All")}</option>
               {filterOptions.mechanism.map(value => <option key={value} value={value}>{value}</option>)}
             </select>
           </label>
           <label style={{ display: "grid", gap: 4 }}>
-            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "Status", "Status")}</span>
+            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "状态", "Status")}</span>
             <select value={filters.status} onChange={event => setFilters(prev => ({ ...prev, status: event.target.value }))} style={selectStyle(t)}>
               <option value="all">{text(lang, "全部", "All")}</option>
               {filterOptions.status.map(value => <option key={value} value={value}>{value}</option>)}

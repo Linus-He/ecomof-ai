@@ -7,7 +7,7 @@ export function BlindBaselinePanel({ baselines, lang, t, isMobile }) {
     <Panel
       id="organic-acid-final-blind-baseline"
       eyebrow={text(lang, "盲测基线", "Blind baseline")}
-      title={text(lang, "Ru / Pd / Ag Negative-Predictive Baseline", "Ru / Pd / Ag Negative-Predictive Baseline")}
+      title={text(lang, "Ru / Pd / Ag 负向预测基线", "Ru / Pd / Ag Negative-Predictive Baseline")}
       t={t}
     >
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12.5, lineHeight: 1.58, padding: 11 }}>
@@ -22,7 +22,7 @@ export function BlindBaselinePanel({ baselines, lang, t, isMobile }) {
           <article key={row.metal} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 9, padding: 12 }}>
             <div style={{ alignItems: "center", display: "flex", justifyContent: "space-between", gap: 8 }}>
               <strong style={{ color: t.textStrong, fontSize: 16 }}>{row.metal}</strong>
-              <StatusPill tone="warn" t={t}>blind baseline</StatusPill>
+              <StatusPill tone="warn" t={t}>{text(lang, "盲基线", "blind baseline")}</StatusPill>
             </div>
             <div style={{ display: "grid", gap: 5 }}>
               <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>DMRS / rank</span>
@@ -32,8 +32,8 @@ export function BlindBaselinePanel({ baselines, lang, t, isMobile }) {
               <ChemicalText value={row.whyRankedLower} />
             </p>
             <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 8, color: t.muted, display: "grid", gap: 5, fontSize: 11.8, lineHeight: 1.45, padding: 9 }}>
-              <strong style={{ color: t.warn }}>{text(lang, "Negative evidence", "Negative evidence")}: {row.negativeEvidenceStatus === "pending verification" ? "pending verification" : row.negativeEvidenceStatus}</strong>
-              <span>DOI: {displayValue(row.sourceDoi, "evidence pending")}</span>
+              <strong style={{ color: t.warn }}>{text(lang, "负向证据", "Negative evidence")}: {row.negativeEvidenceStatus === "pending verification" ? text(lang, "待核验", "pending verification") : row.negativeEvidenceStatus}</strong>
+              <span>DOI: {displayValue(row.sourceDoi, text(lang, "证据待补", "evidence pending"))}</span>
               {(row.requiredEvidence || []).slice(0, 3).map(item => (
                 <span key={item}><ChemicalText value={item} /></span>
               ))}

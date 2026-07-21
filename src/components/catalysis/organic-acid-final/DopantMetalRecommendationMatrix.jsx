@@ -19,9 +19,9 @@ const PROVENANCE_KEYS = [
 
 function sensitivityLabel(row, lang) {
   if (row?.sensitivity?.robust) {
-    return text(lang, "Robust high-priority dopant recommendation", "Robust high-priority dopant recommendation")
+    return text(lang, "稳健高优先级第二金属推荐", "Robust high-priority dopant recommendation")
   }
-  return text(lang, "Hypothesis-generating candidate", "Hypothesis-generating candidate")
+  return text(lang, "假设生成候选", "Hypothesis-generating candidate")
 }
 
 function provenanceSummary(row) {
@@ -72,10 +72,10 @@ function metalRecord(row) {
 }
 
 function roleForMetal(row, lang) {
-  if (row?.metal === "Mo") return text(lang, "Primary hypothesis", "Primary hypothesis")
-  if (row?.metal === "W") return text(lang, "Backup hypothesis", "Backup hypothesis")
-  if (["Ru", "Pd", "Ag"].includes(row?.metal)) return text(lang, "Blind baseline", "Blind baseline")
-  return text(lang, "Competitor / context", "Competitor / context")
+  if (row?.metal === "Mo") return text(lang, "主假设", "Primary hypothesis")
+  if (row?.metal === "W") return text(lang, "备用假设", "Backup hypothesis")
+  if (["Ru", "Pd", "Ag"].includes(row?.metal)) return text(lang, "盲基线", "Blind baseline")
+  return text(lang, "竞争/参照", "Competitor / context")
 }
 
 function roleTone(row) {
@@ -90,8 +90,8 @@ export function DopantMetalRecommendationMatrix({ metals, moRecommendation, sele
   return (
     <Panel
       id="organic-acid-final-dopant-matrix"
-      eyebrow={text(lang, "Stage 2", "Stage 2")}
-      title={text(lang, "第二金属推荐矩阵 / Dopant Metal Recommendation Matrix", "Dopant Metal Recommendation Matrix")}
+      eyebrow={text(lang, "阶段 2", "Stage 2")}
+      title={text(lang, "第二金属推荐矩阵", "Dopant Metal Recommendation Matrix")}
       t={t}
     >
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12.5, lineHeight: 1.58, padding: 11 }}>
@@ -131,7 +131,7 @@ export function DopantMetalRecommendationMatrix({ metals, moRecommendation, sele
         <table style={{ borderCollapse: "separate", borderSpacing: 0, minWidth: 1440, width: "100%" }}>
           <thead>
             <tr>
-              {[text(lang, "Rank", "Rank"), text(lang, "Metal", "Metal"), text(lang, "Role", "Role"), "DMRS", text(lang, "Data Status", "Data Status"), "Source Basis", "Confidence", "DOI / Pending", text(lang, "Most likely form", "Most likely form"), text(lang, "Main strength", "Main strength"), text(lang, "Main risk", "Main risk"), text(lang, "Sensitivity status", "Sensitivity status")].map(label => (
+              {[text(lang, "名次", "Rank"), text(lang, "金属", "Metal"), text(lang, "角色", "Role"), "DMRS", text(lang, "数据状态", "Data Status"), text(lang, "来源依据", "Source Basis"), text(lang, "置信度", "Confidence"), text(lang, "DOI / 待补", "DOI / Pending"), text(lang, "最可能形态", "Most likely form"), text(lang, "主要优势", "Main strength"), text(lang, "主要风险", "Main risk"), text(lang, "敏感性状态", "Sensitivity status")].map(label => (
                 <th key={label} style={{ background: t.surface, borderBottom: `1px solid ${t.border}`, color: t.faint, fontSize: 10.5, fontWeight: 900, padding: "9px 8px", textAlign: "left", textTransform: "uppercase" }}>{label}</th>
               ))}
             </tr>

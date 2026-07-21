@@ -12,11 +12,11 @@ const ROWS = [
   ["qualityStatus", "qualityStatus", "质量状态"],
   ["descriptorCompleteness", "descriptor completeness", "描述符完整度", "percent"],
   ["provenanceCompleteness", "provenance completeness", "来源完整度", "percent"],
-  ["surfaceArea", "surfaceArea", "surfaceArea"],
-  ["poreSizeA", "poreSizeA", "poreSizeA"],
-  ["poreVolume", "poreVolume", "poreVolume"],
-  ["bandGap", "bandGap", "bandGap"],
-  ["waterStability", "waterStability", "waterStability"],
+  ["surfaceArea", "surfaceArea", "比表面积"],
+  ["poreSizeA", "poreSizeA", "孔径"],
+  ["poreVolume", "poreVolume", "孔体积"],
+  ["bandGap", "bandGap", "带隙"],
+  ["waterStability", "waterStability", "水稳定性"],
   ["organicAcidRelevance", "organic acid relevance", "有机酸相关性"],
 ]
 

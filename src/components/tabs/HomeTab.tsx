@@ -91,19 +91,15 @@ function SectionHeader({ eyebrow, title, subtitle, t, isMobile }) {
 }
 
 function ActionButton({ children, onClick, t, primary = false, wide = false, hash }) {
-  const withAlpha = (color, alpha) => (
-    typeof color === "string" && /^#[0-9a-f]{6}$/i.test(color) ? `${color}${alpha}` : color
-  )
-  const glassBackground = primary
-    ? `linear-gradient(145deg, ${withAlpha(t.accent, "D6")} 0%, ${withAlpha(t.accent, "CC")} 52%, ${withAlpha(t.accentStrong || t.accent, "E0")} 100%)`
-    : `linear-gradient(145deg, ${withAlpha(t.panel, "D8")} 0%, ${withAlpha(t.surface, "9C")} 100%)`
+  const buttonBackground = primary ? t.panel : t.surface
+  const hoverBackground = t.surface
 
   return (
     <button
       type="button"
       onClick={onClick}
       data-hash={hash}
-      className={primary ? "btn-primary home-glass-button home-glass-button-primary" : "btn-secondary home-glass-button"}
+      className="home-action-button"
       style={{
         ...toolbarBtn(t),
         justifyContent: "center",
@@ -111,14 +107,15 @@ function ActionButton({ children, onClick, t, primary = false, wide = false, has
         padding: "10px 16px",
         fontSize: 12.5,
         fontWeight: 850,
-        border: `1px solid ${primary ? withAlpha(t.accentStrong || t.accent, "70") : t.borderStrong}`,
+        border: `1px solid ${primary ? (t.borderStrong || t.border) : t.border}`,
         borderRadius: 8,
-        background: glassBackground,
-        color: primary ? "#FFFFFF" : t.accentText,
-        "--glass-background": glassBackground,
-        "--glass-border": primary ? "rgba(255, 255, 255, 0.34)" : withAlpha(t.borderStrong, "B0"),
-        "--glass-text": primary ? "#FFFFFF" : t.accentText,
-        "--glass-shadow-color": primary ? "rgba(26, 109, 181, 0.18)" : "rgba(15, 23, 42, 0.075)",
+        background: buttonBackground,
+        color: t.textStrong,
+        "--home-action-bg": buttonBackground,
+        "--home-action-hover-bg": hoverBackground,
+        "--home-action-border": primary ? (t.borderStrong || t.border) : t.border,
+        "--home-action-hover-border": t.borderStrong || t.border,
+        "--home-action-shadow": primary ? "0 10px 22px rgba(15, 23, 42, 0.10)" : "0 7px 16px rgba(15, 23, 42, 0.06)",
         width: wide ? "100%" : "auto",
         whiteSpace: "normal",
         textAlign: "center",
@@ -886,7 +883,7 @@ export function HomeTab({ setActiveTab }) {
               EcoMOF-AI
             </h1>
             <p style={{ margin: isMobile ? "14px 0 0" : "18px 0 0", color: t.textStrong, fontSize: isMobile ? 20 : 28, lineHeight: 1.18, fontWeight: 900, maxWidth: 860 }}>
-              Data-driven MOF Screening and Validation Platform
+              {zh ? "数据驱动的 MOF 筛选与验证平台" : "Data-driven MOF Screening and Validation Platform"}
             </p>
             <p style={{ margin: "13px 0 0", color: t.muted, fontSize: isMobile ? 14 : 16, lineHeight: 1.7, maxWidth: 780 }}>
               {zh

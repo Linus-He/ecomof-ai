@@ -7,6 +7,49 @@ function read(relativePath) {
   return fs.readFileSync(path.join(process.cwd(), relativePath), "utf8")
 }
 
+function extractChineseBranchStrings(source) {
+  const strings = []
+  const textCallPattern = /text\(lang,\s*"([^"]+)"/g
+  const textTemplatePattern = /text\(lang,\s*`([^`]+)`/g
+  const ternaryPattern = /lang\s*===\s*"zh"\s*\?\s*"([^"]+)"/g
+  const ternaryTemplatePattern = /lang\s*===\s*"zh"\s*\?\s*`([^`]+)`/g
+  for (const pattern of [textCallPattern, textTemplatePattern, ternaryPattern, ternaryTemplatePattern]) {
+    let match
+    while ((match = pattern.exec(source))) strings.push(match[1])
+  }
+  return strings
+}
+
+function isAllowedChineseTechnicalLabel(value) {
+  const trimmed = value.trim()
+  if (!trimmed) return true
+  const allowedExact = new Set([
+    "APS",
+    "CRITIC",
+    "DMRS",
+    "MOF",
+    "OACS",
+    "Open MOF Seed",
+  ])
+  if (allowedExact.has(trimmed)) return true
+  if (/^(Mo Top [13]|Monte Carlo|Pearson r)$/.test(trimmed)) return true
+  if (/^(GasSep|EcoScreen|CoRE|QMOF|Al-MOF|Top-N|DOI|PXRD|EXAFS|DFT|IAST|Hybrid alpha)/.test(trimmed)) return true
+  if (/^[A-Z0-9₂₃/+\-–· .]+$/.test(trimmed)) return true
+  return false
+}
+
+function machineTranslatedChineseIssues(source) {
+  return extractChineseBranchStrings(source).filter(value => {
+    const trimmed = value.trim()
+    if (isAllowedChineseTechnicalLabel(trimmed)) return false
+    if (/[一-鿿].*\/\s*[A-Z][A-Za-z]/.test(trimmed)) return true
+    if (/^[A-Z][A-Za-z0-9 +&-]+(?:\s*\/\s*|：|:).*[一-鿿]/.test(trimmed)) return true
+    if (/^[A-Z][A-Za-z]+(?:[ /&-]+[A-Z][A-Za-z]+){1,}$/.test(trimmed)) return true
+    if (/\b(Apply scoring|Candidate Ranking|Weight Diagnostics|Methodology Link|View organic acid relevance|How descriptors are connected|Status Badge Legend|Trace Export Panel)\b/.test(trimmed)) return true
+    return false
+  })
+}
+
 describe("localization audit", () => {
   it("passes V2.4 research-output copy and reports required audit metrics", () => {
     const audit = runLocalizationAudit({
@@ -63,5 +106,29 @@ describe("localization audit", () => {
   it("does not flag intentional English (Database Preview / Not Final Recommendation)", () => {
     const report = buildLocalizationGapReport({ corpus: ["Database Preview", "Not Final Recommendation", "GitHub Stars"] })
     expect(report.untranslatedItems).toEqual([])
+  })
+
+  it("keeps high-traffic Chinese runtime copy idiomatic instead of mixed machine translation", () => {
+    const corpus = [
+      read("src/components/tabs/GasSepTab.tsx"),
+      read("src/components/tabs/EcoScreenTab.tsx"),
+      read("src/components/tabs/HomeTab.tsx"),
+      read("src/components/tabs/MOFLibraryTab.tsx"),
+      read("src/components/home/HomeDataExplorer.jsx"),
+      read("src/components/scoring/ScoringEnginePanel.tsx"),
+      read("src/components/catalysis/AlgorithmTraceExplorer.tsx"),
+      read("src/components/catalysis/ReactionRuleExplorer.tsx"),
+      read("src/components/catalysis/organic-acid-final/AlMofFrameworkRanking.jsx"),
+      read("src/components/catalysis/organic-acid-final/DopantMetalRecommendationMatrix.jsx"),
+      read("src/components/catalysis/organic-acid-final/DataStatusAndProvenancePanel.jsx"),
+      read("src/components/catalysis/organic-acid-final/HotSpotMapLegend.jsx"),
+      read("src/components/catalysis/organic-acid-final/StatusBadgeLegend.jsx"),
+      read("src/components/catalysis/organic-acid-final/SensitivityAndBaselinePanel.jsx"),
+      read("src/components/database-index/DatabaseIndexSkeleton.jsx"),
+      read("src/components/database-index/CandidateComparePanel.jsx"),
+      read("src/components/database-index/FeatureAblationAuditPanel.jsx"),
+    ].join("\n")
+
+    expect(machineTranslatedChineseIssues(corpus)).toEqual([])
   })
 })

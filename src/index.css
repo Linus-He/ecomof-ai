@@ -703,67 +703,23 @@ details[open].motion-surface {
   animation-delay: calc(860ms + var(--metric-delay, 0ms));
 }
 
-.home-glass-button {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background: var(--glass-background) !important;
-  border-color: var(--glass-border) !important;
-  color: var(--glass-text) !important;
-  backdrop-filter: blur(14px) saturate(1.18);
-  -webkit-backdrop-filter: blur(14px) saturate(1.18);
-  box-shadow:
-    0 8px 18px var(--glass-shadow-color, rgba(15, 23, 42, 0.075)),
-    inset 0 1px 0 rgba(255, 255, 255, 0.58),
-    inset 1px 0 0 rgba(255, 255, 255, 0.24),
-    inset 0 -1px 0 rgba(15, 23, 42, 0.055) !important;
+.home-action-button {
+  background: var(--home-action-bg) !important;
+  border-color: var(--home-action-border) !important;
+  box-shadow: var(--home-action-shadow, 0 7px 16px rgba(15, 23, 42, 0.06));
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
 }
 
-.home-glass-button::before {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  border-radius: inherit;
-  background:
-    linear-gradient(152deg, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.18) 26%, rgba(255, 255, 255, 0) 55%),
-    linear-gradient(330deg, rgba(15, 23, 42, 0.065) 0%, rgba(15, 23, 42, 0) 42%);
-  opacity: 0.76;
-  pointer-events: none;
-  transition: opacity 0.22s ease;
-  z-index: 0;
-}
-
-.home-glass-button::after {
-  content: "";
-  position: absolute;
-  inset: 0.5px;
-  border-radius: inherit;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0) 36%),
-    radial-gradient(circle at 18% 8%, rgba(255, 255, 255, 0.42), transparent 34%);
-  opacity: 0.46;
-  pointer-events: none;
-  transition: opacity 0.22s ease;
-  z-index: 0;
-}
-
-.home-glass-button:hover::after,
-.home-glass-button:focus-visible::after {
-  opacity: 0.58;
-}
-
-.home-glass-button:hover,
-.home-glass-button:focus-visible {
+.home-action-button:hover,
+.home-action-button:focus-visible {
+  background: var(--home-action-hover-bg) !important;
+  border-color: var(--home-action-hover-border) !important;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
   transform: translateY(-1px);
-  box-shadow:
-    0 11px 24px var(--glass-shadow-color, rgba(15, 23, 42, 0.095)),
-    inset 0 1px 0 rgba(255, 255, 255, 0.66),
-    inset 1px 0 0 rgba(255, 255, 255, 0.28),
-    inset 0 -1px 0 rgba(15, 23, 42, 0.06) !important;
-}
-
-.home-glass-button-primary {
-  text-shadow: 0 1px 0 rgba(15, 23, 42, 0.16);
 }
 
 .atlas-metric-spark {
@@ -2334,7 +2290,6 @@ body.cat-dragging {
   .atlas-scan-beam,
   .atlas-data-packet,
   .atlas-node-pulse,
-  .home-glass-button::after,
   .home-module-flowline::after {
     opacity: 0 !important;
   }

@@ -15,8 +15,8 @@ describe("versionTimelineDynamic", () => {
 
     const projectUpdates = screen.getByTestId("project-evolution-release-notes")
     expect(projectUpdates.textContent).toMatch(/Project Updates/)
-    expect(projectUpdates.textContent).toMatch(/Numeral typography/)
-    expect(projectUpdates.textContent).toMatch(/Gas Pareto/)
+    expect(projectUpdates.textContent).toMatch(/Homepage interaction/)
+    expect(projectUpdates.textContent).toMatch(/Library responsiveness/)
 
     const roadmap = screen.getByTestId("project-evolution-roadmap")
     expect(roadmap.textContent).toMatch(/V3\.10\.1/)

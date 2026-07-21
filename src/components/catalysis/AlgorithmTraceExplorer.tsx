@@ -204,12 +204,12 @@ function EffectDecompositionExplorer({ candidate, selectedPathwayId, lang, isNar
     <section style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 9, display: "grid", gap: 11, padding: 12 }}>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
         <div style={{ display: "grid", gap: 4 }}>
-          <strong style={{ color: palette.text, fontSize: 15 }}>{text(lang, "Effect Decomposition Explorer / 效应拆解器", "Effect Decomposition Explorer")}</strong>
+          <strong style={{ color: palette.text, fontSize: 15 }}>{text(lang, "效应拆解器", "Effect Decomposition Explorer")}</strong>
           <span style={{ color: palette.muted, fontSize: 12, lineHeight: 1.5 }}>
             {text(lang, "CandidateScore = 主效应 + 交互效应 + 证据修正 - 风险惩罚；输出是优先级解释，不是真实产率预测。", "CandidateScore = main effects + interaction effects + evidence adjustment - risk penalty; this explains priority, not real yield prediction.")}
           </span>
         </div>
-        <span style={{ color: palette.accent, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 13, fontWeight: 900 }}>{text(lang, "Final priority", "Final priority")} {fmt(total, 2)}</span>
+        <span style={{ color: palette.accent, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 13, fontWeight: 900 }}>{text(lang, "最终优先级", "Final priority")} {fmt(total, 2)}</span>
       </div>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.25fr) minmax(260px, 0.75fr)" }}>
         <div style={{ display: "grid", gap: 8 }}>
@@ -271,7 +271,7 @@ export function AlgorithmTraceExplorer({
   if (!candidate) {
     return (
       <section style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, padding: 14 }}>
-        <div style={{ color: palette.muted, fontSize: 13 }}>{text(lang, "Algorithm Trace Explorer 暂无候选数据。", "Algorithm Trace Explorer has no candidate data yet.")}</div>
+        <div style={{ color: palette.muted, fontSize: 13 }}>{text(lang, "算法追踪器暂无候选数据。", "Algorithm Trace Explorer has no candidate data yet.")}</div>
       </section>
     )
   }
@@ -280,8 +280,8 @@ export function AlgorithmTraceExplorer({
     <section id="organic-acid-algorithm-trace" style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, display: "grid", fontFamily: ORGANIC_ACID_FONT, gap: 13, padding: 14 }}>
       <div style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
         <div style={{ display: "grid", gap: 5 }}>
-          <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "Trace explanation", "Trace explanation")}</div>
-          <h2 style={{ color: palette.text, fontSize: isNarrow ? 20 : 23, lineHeight: 1.15, margin: 0 }}>{text(lang, "Algorithm Trace Explorer", "Algorithm Trace Explorer")}</h2>
+          <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "追踪解释", "Trace explanation")}</div>
+          <h2 style={{ color: palette.text, fontSize: isNarrow ? 20 : 23, lineHeight: 1.15, margin: 0 }}>{text(lang, "算法追踪器", "Algorithm Trace Explorer")}</h2>
           <p style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.55, margin: 0, maxWidth: 900 }}>
             {text(
               lang,
@@ -298,19 +298,19 @@ export function AlgorithmTraceExplorer({
       <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 9, display: "grid", gap: 9, padding: 12 }}>
         <div style={{ display: "grid", gap: 8, gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))" }}>
           <div>
-            <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "Selected candidate", "Selected candidate")}</div>
+            <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "当前候选", "Selected candidate")}</div>
             <div style={{ color: palette.text, fontSize: 14, fontWeight: 900, lineHeight: 1.25, marginTop: 4 }}>{candidateName(candidate)}</div>
           </div>
           <div>
-            <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "Selected pathway", "Selected pathway")}</div>
+            <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "当前路径", "Selected pathway")}</div>
             <div style={{ color: palette.text, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 13, fontWeight: 850, marginTop: 4 }}>{selectedPathwayId}</div>
           </div>
           <div>
-            <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "Final tier / score", "Final tier / score")}</div>
+            <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "最终层级/分数", "Final tier / score")}</div>
             <div style={{ color: palette.accent, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 13, fontWeight: 900, marginTop: 4 }}>{rgfaTier(candidate)} · {candidate?.rgfaScore !== undefined ? fmt(candidate.rgfaScore) : candidate?.organicAcidRelevance?.pathwayPriorityScore || "pending"}</div>
           </div>
           <div>
-            <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "Top 3 drivers", "Top 3 drivers")}</div>
+            <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "前三个驱动项", "Top 3 drivers")}</div>
             <div style={{ color: palette.text, display: "flex", flexWrap: "wrap", fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 12, gap: 6, lineHeight: 1.35, marginTop: 4 }}>
               {drivers.map((driver, index) => <span key={index}>{driver}</span>)}
             </div>

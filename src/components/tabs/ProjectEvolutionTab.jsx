@@ -126,14 +126,14 @@ function EvolutionOverview({ data, projectStatus, lang, t, isMobile }) {
 
 const CURRENT_RELEASE = {
   version: APP_VERSION_LABEL,
-  title: { zh: "v1.0.2：字体、版本徽章、首页可视化、GasSep 排序与适配回归", en: "v1.0.2: Typography, version badges, homepage visuals, GasSep ranking, and adaptation regressions" },
+  title: { zh: "v1.0.2：首页动态图、GasSep 数据联动、MOF Library 响应性与全局汉化审查", en: "v1.0.2: Homepage interactive charts, GasSep data linkage, MOF Library responsiveness, and global localization audit" },
   summary: {
-    zh: "数字字体彻底归一到 body 字族，当前 App 版本徽章改读 app_release_log，首页 3D 描述符散点扩到 CoRE/QMOF 采样，并把 GasSep 默认排序从主观权重 GasScore 调整为 Pareto + APS，同时新增 APS×R%、CRITIC、筛选漏斗、跨方法短名单，以及中英文、深浅色、移动端回归覆盖。",
-    en: "Numerals now stay on the body family, current App badges read app_release_log, homepage 3D descriptor scatter expands to CoRE/QMOF sampling, and GasSep default ranking moves from subjective-weight GasScore to Pareto + APS with APS×R%, CRITIC, screening funnel, cross-method shortlist, and Chinese/English, light/dark, mobile regressions.",
+    zh: "在不改 Organic Acid 排名算法、底层评分或源数据的前提下，修复首页入口按钮玻璃反光异常，保留真实数据驱动的统计分布、金属筛选和相关性动态图；GasSep 从静态概览整理为随气体对、漏斗和字段覆盖实时变化的工作台；MOF Library 统一浏览器按需展开，避免打开候选库时阻塞页面；新增高频界面汉化审查，并继续覆盖中英文、深浅色和移动端回归。",
+    en: "Without changing Organic Acid ranking algorithms, scores, or source data, this release fixes the homepage entry-button glare, keeps real-data-driven distribution, metal filtering, and correlation visuals, reorganizes GasSep into a workbench driven by gas pair, funnel, and field coverage, lazy-loads the MOF Library unified browser to avoid page stalls, and adds high-traffic localization QA alongside Chinese/English, light/dark, and mobile regressions.",
   },
   scientificImpact: {
-    zh: "首页直接呈现真实气体分离权衡与结构描述符空间；GasSep 排序读取现有气体记录，不新增或改写底层数据，并明确历史 GasScore 只是启发式诊断。",
-    en: "The homepage shows the real gas-separation trade-off and descriptor space directly; GasSep ranking reads existing gas records without altering source data and clearly marks Legacy GasScore as a heuristic diagnostic.",
+    zh: "首页和 GasSep 的图表、排序、验证队列均从当前记录与筛选状态派生；历史 GasScore 仍只是启发式诊断，Organic Acid 算法结果不受本轮界面改动影响。",
+    en: "Homepage and GasSep charts, ranking, and validation queues are derived from the current records and filter state; Legacy GasScore remains a heuristic diagnostic, and Organic Acid algorithm results are unaffected by this UI pass.",
   },
   validationImpact: {
     zh: "当前版本与模块历史分离：App v1.0.2 是全局发布号，Gas v2.1 / V3.10.1 等继续作为模块数据历史展示。",
@@ -150,50 +150,50 @@ const CURRENT_RELEASE = {
 const PROJECT_UPDATE_STREAMS = [
   {
     no: "01",
-    label: { zh: "数字字体", en: "Numeral typography" },
+    label: { zh: "首页交互", en: "Homepage interaction" },
     body: {
-      zh: "移除旧等宽数字 alias 与 ad-hoc 等宽字体残留；指标、版本、步骤号与表格数值统一使用 body 字族并以 tabular-nums 对齐。",
-      en: "Removed the legacy fixed-width numeral alias and ad-hoc fixed-width residues; metrics, versions, step labels, and table values use the body family with tabular-nums.",
+      zh: "入口按钮去掉异常玻璃折射和蓝色实心态，改为中性按钮与正常 hover；中文 hero 副标题同步汉化。",
+      en: "Homepage entry buttons drop the abnormal glass glare and blue filled state for neutral buttons with normal hover; the Chinese hero subtitle is localized.",
     },
   },
   {
     no: "02",
-    label: { zh: "版本徽章", en: "Version badges" },
+    label: { zh: "首页动态图", en: "Homepage charts" },
     body: {
-      zh: "当前 App 版本统一读 app_release_log；历史 V3.x 与气体 v2.x 继续作为模块历史和数据集明细保留。",
-      en: "Current App version reads app_release_log; historical V3.x and gas v2.x labels remain as module history and dataset details.",
+      zh: "统计分布、金属筛选和相关性图均从当前记录派生；相关性图改为可点击网络，边宽由 Pearson |r| 决定。",
+      en: "Distribution, metal filtering, and correlation visuals are derived from the current records; the correlation chart is now an interactive network with edge width driven by Pearson |r|.",
     },
   },
   {
     no: "03",
-    label: { zh: "3D 描述符", en: "3D descriptors" },
+    label: { zh: "GasSep 联动", en: "GasSep linkage" },
     body: {
-      zh: "首页描述符散点扩到 CoRE/QMOF 确定性采样，加入轴刻度、真实值悬停、金属/dataGrade 着色切换和孔径点大小图例。",
-      en: "Homepage descriptor scatter expands to deterministic CoRE/QMOF sampling with axis ticks, real-value hover, metal/dataGrade color modes, and pore-size legend.",
+      zh: "候选排序、筛选漏斗、对比摘要和验证队列随气体对、排序方法、字段覆盖与当前候选实时变化。",
+      en: "Ranking, funnel, comparison snapshot, and validation queue now update from gas pair, ranking method, field coverage, and selected candidate.",
     },
   },
   {
     no: "04",
-    label: { zh: "气体帕累托", en: "Gas Pareto" },
+    label: { zh: "候选库响应性", en: "Library responsiveness" },
     body: {
-      zh: "首页新增选择性 × 工作容量帕累托图，按气对切换并标注可用点数及 IAST/实验/计算来源构成。",
-      en: "Added a selectivity × working-capacity Pareto chart with gas-pair switching and available-point/source composition counts.",
+      zh: "MOF Library 统一浏览器默认折叠，身份层索引只构建一次；真实浏览器复测展开约 216 ms。",
+      en: "The MOF Library unified browser is collapsed by default and reuses one identity index; browser smoke test expansion is about 216 ms.",
     },
   },
   {
     no: "05",
-    label: { zh: "GasSep 排序", en: "GasSep ranking" },
+    label: { zh: "全局汉化", en: "Localization QA" },
     body: {
-      zh: "GasSep 默认改用 Pareto + APS，新增 APS×R%、CRITIC 客观赋权、筛选漏斗、跨方法短名单，并把历史 GasScore 明确降级为诊断参考。",
-      en: "GasSep defaults to Pareto + APS, adds APS×R%, CRITIC objective weighting, screening funnel, cross-method shortlist, and demotes Legacy GasScore to diagnostic reference.",
+      zh: "高频组件新增汉化审查，拒绝中文模式下机械式中英拼接，同时保留 CRITIC、Hybrid、IAST 等必要算法名。",
+      en: "High-traffic components now have localization QA that rejects machine-like mixed Chinese/English labels while preserving necessary algorithm names such as CRITIC, Hybrid, and IAST.",
     },
   },
   {
     no: "06",
     label: { zh: "适配回归", en: "Adaptation regression" },
     body: {
-      zh: "新增 GasSep 中英文文案、深浅色主题与移动端单列布局测试，覆盖方法卡、筛选漏斗、表格排序和解释面板的真实数据联动。",
-      en: "Added GasSep Chinese/English copy, light/dark theme, and mobile single-column tests covering real-data-linked method cards, funnel, table sorting, and explanation panels.",
+      zh: "专项测试与真实浏览器冒烟覆盖中英文、深浅色、移动端、GasSep 展开详情和 MOF Library 展开响应性。",
+      en: "Targeted tests and browser smoke checks cover Chinese/English, light/dark, mobile, GasSep details expansion, and MOF Library expansion responsiveness.",
     },
   },
 ]
@@ -420,7 +420,7 @@ function ProjectUpdates({ lang, t, isMobile }) {
     <Card
       id="project-evolution-release-notes"
       title={text(lang, "项目更新", "Project Updates")}
-      subtitle={text(lang, `当前版本 ${CURRENT_RELEASE.version} 的更新按数字字体、版本徽章、3D 描述符、气体帕累托、GasSep 排序与适配回归六条线索整理。`, `Updates in the current ${CURRENT_RELEASE.version} release are organized into numeral typography, version badges, 3D descriptors, gas Pareto, GasSep ranking, and adaptation regression streams.`)}
+      subtitle={text(lang, `当前版本 ${CURRENT_RELEASE.version} 的更新按首页交互、首页动态图、GasSep 联动、候选库响应性、全局汉化和适配回归六条线索整理。`, `Updates in the current ${CURRENT_RELEASE.version} release are organized into homepage interaction, homepage charts, GasSep linkage, library responsiveness, localization QA, and adaptation regression streams.`)}
       t={t}
     >
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>

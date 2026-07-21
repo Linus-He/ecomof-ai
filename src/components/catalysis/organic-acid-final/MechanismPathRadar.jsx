@@ -39,7 +39,7 @@ export function MechanismPathRadar({ data, lang, t, isMobile }) {
     <Panel
       id="organic-acid-final-mechanism-radar"
       eyebrow={text(lang, "机制画像", "Mechanism profile")}
-      title={text(lang, "Mechanism Path Radar", "Mechanism Path Radar")}
+      title={text(lang, "机制路径雷达图", "Mechanism Path Radar")}
       t={t}
       actions={<StatusPill tone="info" t={t}>Mo / W / V / Fe / Ti / Zr</StatusPill>}
     >

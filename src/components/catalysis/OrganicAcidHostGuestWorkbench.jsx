@@ -363,9 +363,9 @@ function SelectionSection({ workbench, lang, isNarrow }) {
 
 function PriorityQueueSection({ workbench, selectedRouteId, setSelectedRouteId, selectedExplanation, lang, isNarrow, onOpenActivationCenter }) {
   const routeGroups = [
-    [text(lang, "Top Priority Route", "Top Priority Route"), workbench.priorityQueue.topPriority],
-    [text(lang, "Conditional Routes", "Conditional Routes"), workbench.priorityQueue.conditionalRoutes],
-    [text(lang, "Pending / Insufficient Evidence Routes", "Pending / Insufficient Evidence Routes"), workbench.priorityQueue.pendingRoutes],
+    [text(lang, "最高优先级路线", "Top Priority Route"), workbench.priorityQueue.topPriority],
+    [text(lang, "有条件推进路线", "Conditional Routes"), workbench.priorityQueue.conditionalRoutes],
+    [text(lang, "证据不足/待补路线", "Pending / Insufficient Evidence Routes"), workbench.priorityQueue.pendingRoutes],
   ]
   return (
     <section id="organic-acid-host-guest-priority-queue" style={{ ...cardStyle({ background: palette.bg, padding: 14, scrollMarginTop: 118 }) }}>

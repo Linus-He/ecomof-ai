@@ -179,7 +179,7 @@ function ScoringMethodSummary({ model, weightingMode, onWeightingModeChange, lan
       <Card t={t} style={{ display: "grid", gap: 12 }}>
         <PanelTitle
           t={t}
-          title={text(lang, "评分方法摘要 / Scoring Method Summary", "Scoring Method Summary")}
+          title={text(lang, "评分方法摘要", "Scoring Method Summary")}
           subtitle={lang === "zh" ? "切换权重模式后，候选排序和候选详情会同步更新；诊断区仍保留 CRITIC 客观权重解释。" : "Changing the weighting mode updates ranking and candidate details; diagnostics still preserve the CRITIC objective-weight explanation."}
         />
         <SegmentedControl items={model.weightingModes} value={weightingMode} onChange={onWeightingModeChange} lang={lang} t={t} />
@@ -201,16 +201,16 @@ function ScoringMethodSummary({ model, weightingMode, onWeightingModeChange, lan
       </Card>
 
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr", gap: 10 }}>
-        <MetricCard label={text(lang, "权重模式 / Weighting mode", "Weighting mode")} value={lang === "zh" ? summary.weightingModeZh : summary.weightingMode} note="CRITIC / Equal / Expert / Custom" t={t} />
-        <MetricCard label={text(lang, "排名稳定性 / Ranking stability", "Ranking stability")} value={lang === "zh" ? summary.rankingStability.zh : summary.rankingStability.label} note={lang === "zh" ? "由权重对比和 remove-one 测试给出" : "From weighting comparison and remove-one tests"} tone={summary.rankingStability.tone} t={t} />
-        <MetricCard label={text(lang, "候选数 / Candidates", "Candidates")} value={summary.candidateCount} note={lang === "zh" ? "含 G = 0 硬筛记录" : "includes G = 0 rows"} t={t} />
-        <MetricCard label={text(lang, "指标数 / Indicators", "Indicators")} value={summary.indicatorCount} note="d_stab · d_barrier · d_select" t={t} />
-        <MetricCard label={text(lang, "缺失比例 / Missing data", "Missing data")} value={fmtPct(summary.missingDataRatio)} note={lang === "zh" ? `${summary.missingData.missingCells}/${summary.missingData.totalCells} 个指标单元格` : `${summary.missingData.missingCells}/${summary.missingData.totalCells} indicator cells`} tone={summary.missingDataRatio > 0.1 ? "warn" : "calc"} t={t} />
-        <MetricCard label={text(lang, "归一化 / Normalization", "Normalization")} value="0.01-1" note={lang === "zh" ? summary.normalizationMethodZh : summary.normalizationMethod} t={t} />
+        <MetricCard label={text(lang, "权重模式", "Weighting mode")} value={lang === "zh" ? summary.weightingModeZh : summary.weightingMode} note="CRITIC / Equal / Expert / Custom" t={t} />
+        <MetricCard label={text(lang, "排名稳定性", "Ranking stability")} value={lang === "zh" ? summary.rankingStability.zh : summary.rankingStability.label} note={lang === "zh" ? "由权重对比和 remove-one 测试给出" : "From weighting comparison and remove-one tests"} tone={summary.rankingStability.tone} t={t} />
+        <MetricCard label={text(lang, "候选数", "Candidates")} value={summary.candidateCount} note={lang === "zh" ? "含 G = 0 硬筛记录" : "includes G = 0 rows"} t={t} />
+        <MetricCard label={text(lang, "指标数", "Indicators")} value={summary.indicatorCount} note="d_stab · d_barrier · d_select" t={t} />
+        <MetricCard label={text(lang, "缺失比例", "Missing data")} value={fmtPct(summary.missingDataRatio)} note={lang === "zh" ? `${summary.missingData.missingCells}/${summary.missingData.totalCells} 个指标单元格` : `${summary.missingData.missingCells}/${summary.missingData.totalCells} indicator cells`} tone={summary.missingDataRatio > 0.1 ? "warn" : "calc"} t={t} />
+        <MetricCard label={text(lang, "归一化", "Normalization")} value="0.01-1" note={lang === "zh" ? summary.normalizationMethodZh : summary.normalizationMethod} t={t} />
       </div>
 
       <Card t={t} style={{ gridColumn: isMobile ? "auto" : "1 / -1", display: "grid", gap: 7, background: t.surface }}>
-        <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{text(lang, "Benefit / Cost 方向调整", "Benefit / Cost direction adjustment")}</div>
+        <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{text(lang, "收益/成本方向调整", "Benefit / Cost direction adjustment")}</div>
         <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65 }}>
           {lang === "zh" ? summary.directionAdjustmentZh : summary.directionAdjustment}
         </div>
@@ -368,7 +368,7 @@ function WeightDiagnostics({ model, lang, t, isMobile }) {
       <Card t={t}>
         <PanelTitle
           t={t}
-          title={text(lang, "权重诊断 / Weight Diagnostics", "Weight Diagnostics")}
+          title={text(lang, "权重诊断", "Weight Diagnostics")}
           subtitle={lang === "zh" ? "标准差表示候选物之间的区分度；冲突度表示指标之间的非冗余信息贡献。" : "Standard deviation represents contrast intensity across candidates; descriptor conflict represents non-redundant information across indicators."}
         />
         <div style={{ marginTop: 12 }}>
@@ -540,12 +540,12 @@ function CandidateDetail({ candidate, lang, t, isMobile }) {
 
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 7, padding: 11 }}>
         <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>
-          {text(lang, "Expert-prior score, pending experimental calibration", "Expert-prior score, pending experimental calibration")}
+          {text(lang, "专家先验评分，仍待实验校准", "Expert-prior score, pending experimental calibration")}
         </div>
         <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55 }}>
           {text(
             lang,
-            "这里解释候选优先级和路径假设，不输出 predicted yield 或 validated AI score。",
+            "这里解释候选优先级和路径假设，不输出预测产率或已验证 AI 分数。",
             "This explains candidate priority and pathway hypothesis; it does not output predicted yield or a validated AI score."
           )}
         </div>
@@ -556,7 +556,7 @@ function CandidateDetail({ candidate, lang, t, isMobile }) {
 
       <details open style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11 }}>
         <summary style={{ color: t.textStrong, cursor: "pointer", fontSize: 12, fontWeight: 900 }}>
-          {text(lang, "排序解释 / 决策追踪", "Ranking Explanation / Decision Trace")}
+          {text(lang, "排序解释与决策追踪", "Ranking Explanation / Decision Trace")}
         </summary>
         <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, marginTop: 9 }}>
           {lang === "zh" ? candidate.whyHigh.zh : candidate.whyHigh.en}
@@ -668,7 +668,7 @@ function PerformanceSustainabilityQuadrant({ candidates, selectedId, onSelect, l
       </div>
       <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55 }}>
         {lang === "zh"
-          ? "点大小表示 Evidence Score；点形状/颜色表示 Experimental / Literature / Simulated / Demo 来源状态。点击候选点会联动候选详情。"
+          ? "点大小表示证据分数；点形状和颜色表示实验、文献、模拟或演示来源状态。点击候选点会联动候选详情。"
           : "Point size reflects Evidence Score; marker shape/color marks Experimental / Literature / Simulated / Demo source state. Click a point to update the candidate detail."}
       </div>
     </div>
@@ -773,7 +773,7 @@ function RankingRobustness({ model, selectedId, onSelect, lang, t, isMobile }) {
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
         <MetricCard label={text(lang, "Top-3 一致性", "Top-3 consistency")} value={fmtPct(model.robustness.top3Consistency)} note={lang === "zh" ? "CRITIC vs Equal vs Expert 的 Top-3 重合度" : "Top-3 overlap across CRITIC, Equal, and Expert"} t={t} tone={model.robustness.top3Consistency >= 0.84 ? "calc" : "proxy"} />
         <MetricCard label={text(lang, "Remove-one 最大位移", "Remove-one max shift")} value={fmt(model.robustness.maxRemoveOneShift, 0)} note={lang === "zh" ? "移除任一候选后最大名次变化" : "Largest rank shift after removing one candidate"} t={t} tone={model.robustness.maxRemoveOneShift >= 3 ? "warn" : "calc"} />
-        <MetricCard label={text(lang, "稳定性徽标", "Stability badge")} value={lang === "zh" ? model.robustness.stability.zh : model.robustness.stability.label} note={lang === "zh" ? "Stable / Moderate / Sensitive" : "Stable / Moderate / Sensitive"} t={t} tone={model.robustness.stability.tone} />
+        <MetricCard label={text(lang, "稳定性徽标", "Stability badge")} value={lang === "zh" ? model.robustness.stability.zh : model.robustness.stability.label} note={lang === "zh" ? "稳定 / 中等 / 敏感" : "Stable / Moderate / Sensitive"} t={t} tone={model.robustness.stability.tone} />
       </div>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) minmax(300px, 0.72fr)", gap: 12 }}>
         <Card t={t}>
@@ -860,7 +860,7 @@ function ReactionFilterPanel({ filters, onChange, count, total, lang, t, isMobil
     <Card t={t} style={{ display: "grid", gap: 10 }} data-testid="ecoscreen-reaction-filter">
       <PanelTitle
         t={t}
-        title={text(lang, "Reaction Filter / 反应数据筛选", "Reaction Filter")}
+        title={text(lang, "反应数据筛选", "Reaction Filter")}
         subtitle={text(lang, "按 V3.1 反应数据、Gold v2 与 Benchmark v2 筛选 EcoScreen 候选；筛选只影响当前工作台视图。", "Filter EcoScreen candidates by V3.1 reaction data, Gold v2, and Benchmark v2. The filter only affects the current workbench view.")}
       />
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
@@ -1077,37 +1077,45 @@ export function EcoScreenTab({ onNavigate }) {
   return (
     <div id="candidate-scoring-lab" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title={text(lang, "候选评分 / EcoScreen", "EcoScreen / Candidate Scoring")}
+        title={text(lang, "EcoScreen 候选评分", "EcoScreen / Candidate Scoring")}
         subtitle={lang === "zh"
           ? "默认展示通用 MOF 全局评分工作台，formate CRITIC 作为 case study 保留。"
           : "Defaults to the general MOF global scoring workbench, with the formate CRITIC case retained as a case study."}
         meta={lang === "zh"
-          ? "全局描述符评分、CRITIC / Hybrid 权重、解释诊断与证据边界"
+          ? "全局描述符评分、CRITIC 与 Hybrid 权重、解释诊断和证据边界"
           : "Global descriptor scoring, CRITIC / Hybrid weighting, explanation diagnostics, and evidence boundaries"}
         action={
           <>
-            <BasisBadge tone="proxy">{text(lang, "Open MOF Seed / 全局候选源", "Open MOF Seed / global source")}</BasisBadge>
+            <BasisBadge tone="proxy">{text(lang, "Open MOF Seed · 全局候选源", "Open MOF Seed / global source")}</BasisBadge>
             <CopyLinkButton hash="ecoscreen" ariaLabel={lang === "zh" ? "复制 EcoScreen 链接" : "Copy EcoScreen link"} />
           </>
         }
       />
 
-      <Callout tone="info">
-        {lang === "zh"
-          ? "本模块用于早期候选优先级判断，不用于输出甲酸产物结果；结果应作为研究假设与复核线索。"
-          : "This module supports early-stage candidate prioritization, not direct formate-yield output. 本模块用于早期候选优先级判断，不用于输出甲酸产物结果。"}{" "}
+      <div data-testid="ecoscreen-status-strip" style={{ alignItems: "center", color: t.subtle, display: "flex", flexWrap: "wrap", fontSize: 12.2, gap: 8, lineHeight: 1.55 }}>
+        <span style={{ color: t.textStrong, fontWeight: 900 }}>
+          {lang === "zh" ? "早期候选优先级判断" : "Early-stage prioritization"}
+        </span>
+        <span style={{ color: t.faint }}>·</span>
+        <span>
+          {lang === "zh"
+            ? "不输出甲酸产物结果，结果仅作为研究假设与复核线索"
+            : "not a direct formate-yield output; results are hypotheses and review leads"}
+        </span>
         <DisclaimerLink />
-      </Callout>
-      <Callout tone="warn">
-        {lang === "zh"
-          ? "当前全局候选数据源为 Open MOF Seed。部分记录缺少 CO₂ 吸附量、水稳定性、毒性或有机酸证据字段，当前筛选结果仅作为临时优先级参考。"
-          : "Current global candidate source: Open MOF Seed. Some records lack CO₂ uptake, water stability, toxicity, or organic-acid evidence fields. Current screening results are provisional."}
-      </Callout>
-      <Callout tone="info">
-        {lang === "zh"
-          ? `当前全局候选数据源：Open MOF Seed · 已加载记录：${generalRows.length} 条 · 当前筛选视图：${filteredGeneralRows.length} 条 · 已接入模块：MOF Library / EcoScreen / Organic Acid Project。`
-          : `Current global candidate source: Open MOF Seed · Records loaded: ${generalRows.length} · Filtered view: ${filteredGeneralRows.length} · Used by: MOF Library / EcoScreen / Organic Acid Project.`}
-      </Callout>
+        <span style={{ color: t.faint }}>·</span>
+        <span>
+          {lang === "zh"
+            ? `Open MOF Seed · 已加载 ${generalRows.length} 条 · 当前筛选 ${filteredGeneralRows.length} 条`
+            : `Open MOF Seed · ${generalRows.length} loaded · ${filteredGeneralRows.length} filtered`}
+        </span>
+        <span style={{ color: t.faint }}>·</span>
+        <span>
+          {lang === "zh"
+            ? "缺失字段仅作为临时优先级参考"
+            : "missing fields remain provisional priority context"}
+        </span>
+      </div>
 
       <DataQualityAuditPanel records={generalRows} lang={lang} t={t} isMobile={isMobile} />
 
@@ -1128,7 +1136,7 @@ export function EcoScreenTab({ onNavigate }) {
       <Card t={t} style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
         <div style={{ minWidth: 0 }}>
           <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 900 }}>
-            {text(lang, "How descriptors are connected", "How descriptors are connected")}
+            {text(lang, "查看描述符关联", "How descriptors are connected")}
           </div>
           <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55, marginTop: 5, maxWidth: 760 }}>
             {text(
@@ -1143,7 +1151,7 @@ export function EcoScreenTab({ onNavigate }) {
             {text(lang, "查看图论方法图", "View graph method")}
           </button>
           <button type="button" onClick={openOrganicGraph} style={{ ...toolbarBtn(t), justifyContent: "center" }}>
-            {text(lang, "View organic acid relevance", "View organic acid relevance")}
+            {text(lang, "查看有机酸相关性", "View organic acid relevance")}
           </button>
         </div>
       </Card>
@@ -1186,10 +1194,10 @@ export function EcoScreenTab({ onNavigate }) {
       <Card t={t} style={{ display: "grid", gap: 10 }}>
         <PanelTitle
           t={t}
-          title={text(lang, "筛选优先级 / Performance Priority", "Performance Priority")}
+          title={text(lang, "筛选优先级", "Performance Priority")}
           subtitle={text(
             lang,
-            "在 Run Setup 中选择本轮排序优先级；该设置会进入 scoring trace、ranking explanation 与 report snapshot。",
+            "选择本轮排序优先级；该设置会进入评分追踪、排名解释与报告快照。",
             "Choose the ranking priority for this run; it is written into the scoring trace, ranking explanations, and report snapshot."
           )}
         />
@@ -1207,7 +1215,7 @@ export function EcoScreenTab({ onNavigate }) {
           t={t}
         />
         <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.muted, display: "grid", fontSize: 12, gap: 5, lineHeight: 1.55, padding: 10 }}>
-          <strong style={{ color: t.textStrong }}>{text(lang, "Priority Impact Summary", "Priority Impact Summary")}: {text(lang, activePriority.labelZh, activePriority.label)}</strong>
+          <strong style={{ color: t.textStrong }}>{text(lang, "优先级影响摘要", "Priority Impact Summary")}: {text(lang, activePriority.labelZh, activePriority.label)}</strong>
           <span>{text(lang, activePriority.rankingImpactZh, activePriority.rankingImpact)}</span>
           <span>{text(lang, "受影响字段", "Affected descriptors")}: {(activePriority.affectedDescriptors || []).join(", ") || text(lang, "综合指标", "balanced descriptors")}</span>
         </div>
@@ -1223,10 +1231,10 @@ export function EcoScreenTab({ onNavigate }) {
             isMobile={isMobile}
             status={generalStatus}
             number="01"
-            title={text(lang, "General MOF Scoring Workbench / 通用 MOF 评分工作台", "General MOF Scoring Workbench")}
+            title={text(lang, "通用 MOF 评分工作台", "General MOF Scoring Workbench")}
             subtitle={text(
               lang,
-              "EcoScreen 复用全局评分工作台；descriptor registry、权重方法、候选解释和诊断统一来自 createScoringModel。",
+              "EcoScreen 复用全局评分工作台；描述符注册表、权重方法、候选解释和诊断统一来自 createScoringModel。",
               "EcoScreen reuses the global scoring workbench; descriptor registry, weighting methods, candidate explanations, and diagnostics all come from createScoringModel."
             )}
             performancePriorityMode={performancePriorityMode}
@@ -1239,7 +1247,7 @@ export function EcoScreenTab({ onNavigate }) {
 
       {scoringMode === "formate" && (
       <>
-      <ResultLayer number="01" title={text(lang, "Formate CRITIC Case / 权重概览", "Formate CRITIC Case / Weight Overview")} subtitle={lang === "zh" ? "展示稳定性、反应能垒、选择性代理、证据修正和可行性门控如何共同形成候选优先级。" : "Shows how stability, reaction-barrier proxy, selectivity proxy, evidence correction, and feasibility gating form candidate priority."}>
+      <ResultLayer number="01" title={text(lang, "甲酸 CRITIC 案例权重概览", "Formate CRITIC Case / Weight Overview")} subtitle={lang === "zh" ? "展示稳定性、反应能垒、选择性代理、证据修正和可行性门控如何共同形成候选优先级。" : "Shows how stability, reaction-barrier proxy, selectivity proxy, evidence correction, and feasibility gating form candidate priority."}>
         <div style={{ display: "grid", gap: 12 }}>
           <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.25fr) minmax(360px, 0.75fr)", gap: 12, alignItems: "stretch" }}>
             <Card t={t} style={{ display: "grid", gap: 10 }}>
@@ -1261,21 +1269,21 @@ export function EcoScreenTab({ onNavigate }) {
               </div>
             </Card>
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 10 }}>
-              <MetricCard label={text(lang, "候选总数 / Total candidates", "Total candidates")} value={model.candidates.length} note={text(lang, "种子记录集", "seed record set")} t={t} />
-              <MetricCard label={text(lang, "已评分候选 / Scored candidates", "Scored candidates")} value={scored.length} note={text(lang, "通过可行性门控", "passed feasibility gate")} t={t} />
-              <MetricCard label={text(lang, "已门控排除 / Excluded", "Excluded")} value={excluded.length} note={text(lang, "未通过可行性门控", "failed feasibility gate")} t={t} tone={excluded.length ? "warn" : "calc"} />
-              <MetricCard label={text(lang, "当前最高优先级候选 / Top candidate", "Top candidate")} value={topCandidate?.name || "—"} note={topCandidate ? `${text(lang, "证据修正后期望评分", "evidence-corrected score")} ${fmt(topCandidate.D_expected)}` : ""} t={t} />
+              <MetricCard label={text(lang, "候选总数", "Total candidates")} value={model.candidates.length} note={text(lang, "种子记录集", "seed record set")} t={t} />
+              <MetricCard label={text(lang, "已评分候选", "Scored candidates")} value={scored.length} note={text(lang, "通过可行性门控", "passed feasibility gate")} t={t} />
+              <MetricCard label={text(lang, "已门控排除", "Excluded")} value={excluded.length} note={text(lang, "未通过可行性门控", "failed feasibility gate")} t={t} tone={excluded.length ? "warn" : "calc"} />
+              <MetricCard label={text(lang, "当前最高优先级候选", "Top candidate")} value={topCandidate?.name || "—"} note={topCandidate ? `${text(lang, "证据修正后期望评分", "evidence-corrected score")} ${fmt(topCandidate.D_expected)}` : ""} t={t} />
             </div>
           </div>
           <ScoringMethodSummary model={model} weightingMode={weightingMode} onWeightingModeChange={setWeightingMode} lang={lang} t={t} isMobile={isMobile} />
         </div>
       </ResultLayer>
 
-      <ResultLayer number="02" title={text(lang, "指标权重诊断 / Weight Diagnostics", "Weight Diagnostics")} subtitle={lang === "zh" ? "CRITIC 权重、指标冲突热图、标准差 / contrast intensity 和每个指标的解释文本。" : "CRITIC weights, conflict heatmap, standard deviation / contrast intensity, and per-indicator interpretation."}>
+      <ResultLayer number="02" title={text(lang, "指标权重诊断", "Weight Diagnostics")} subtitle={lang === "zh" ? "展示 CRITIC 权重、指标冲突热图、标准差、区分强度和每个指标的解释文本。" : "CRITIC weights, conflict heatmap, standard deviation / contrast intensity, and per-indicator interpretation."}>
         <WeightDiagnostics model={model} lang={lang} t={t} isMobile={isMobile} />
       </ResultLayer>
 
-      <ResultLayer number="03" title={text(lang, "候选排序 / Candidate Ranking", "Candidate Ranking")} subtitle={lang === "zh" ? "候选卡片展示 Overall、Performance、Sustainability、Evidence、descriptor completeness、ranking confidence 和可展开解释。" : "Candidate rows include Overall, Performance, Sustainability, Evidence, descriptor completeness, ranking confidence, and expandable rationale."}>
+      <ResultLayer number="03" title={text(lang, "候选排序", "Candidate Ranking")} subtitle={lang === "zh" ? "候选卡片展示综合得分、性能、可持续性、证据、描述符完整度、排名置信度和可展开解释。" : "Candidate rows include Overall, Performance, Sustainability, Evidence, descriptor completeness, ranking confidence, and expandable rationale."}>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.38fr) minmax(340px, 0.82fr)", gap: 12, alignItems: "stretch" }}>
           <Card t={t}>
             <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "baseline", marginBottom: 12, flexWrap: "wrap" }}>
@@ -1305,15 +1313,15 @@ export function EcoScreenTab({ onNavigate }) {
         <ScreeningTraceSection model={model} scenarioLabel={scoringMode} lang={lang} t={t} isMobile={isMobile} />
       </ResultLayer>
 
-      <ResultLayer number="06" title={text(lang, "排名稳健性 / Ranking Robustness", "Ranking Robustness")} subtitle={lang === "zh" ? "CRITIC vs Equal Weight vs Expert Preset、Top-3 consistency、remove-one-candidate sensitivity test。" : "CRITIC vs Equal Weight vs Expert Preset, Top-3 consistency, and remove-one-candidate sensitivity."}>
+      <ResultLayer number="06" title={text(lang, "排名稳健性", "Ranking Robustness")} subtitle={lang === "zh" ? "比较 CRITIC、等权重、专家预设、Top-3 一致性和移除单个候选后的敏感性。" : "CRITIC vs Equal Weight vs Expert Preset, Top-3 consistency, and remove-one-candidate sensitivity."}>
         <RankingRobustness model={model} selectedId={selectedCandidate?.id} onSelect={setSelectedId} lang={lang} t={t} isMobile={isMobile} />
       </ResultLayer>
 
-      <ResultLayer number="07" title={text(lang, "证据与限制说明 / Evidence and Limitation Notes", "Evidence and Limitation Notes")}>
+      <ResultLayer number="07" title={text(lang, "证据与限制说明", "Evidence and Limitation Notes")}>
         <EvidenceNotes lang={lang} t={t} isMobile={isMobile} />
       </ResultLayer>
 
-      <ResultLayer number="08" title={text(lang, "方法论入口 / Methodology Link", "Methodology Link")}>
+      <ResultLayer number="08" title={text(lang, "方法论入口", "Methodology Link")}>
         <Card t={t} style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
           <div style={{ minWidth: 0 }}>
             <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 900 }}>{text(lang, "CRITIC-MCDA 决策支持方法论", "CRITIC-MCDA Decision Support Methodology")}</div>

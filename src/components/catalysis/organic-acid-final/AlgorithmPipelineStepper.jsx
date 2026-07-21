@@ -43,9 +43,9 @@ export function AlgorithmPipelineStepper({ steps, lang, t, isMobile }) {
     <Panel
       id="organic-acid-final-algorithm-stepper"
       eyebrow={text(lang, "算法旅程", "Algorithm journey")}
-      title={text(lang, "Algorithm Pipeline Stepper", "Algorithm Pipeline Stepper")}
+      title={text(lang, "算法流程步进器", "Algorithm Pipeline Stepper")}
       t={t}
-      actions={<StatusPill tone="warn" t={t}>robust but audit-required visible</StatusPill>}
+      actions={<StatusPill tone="warn" t={t}>{text(lang, "稳健但仍需审计", "robust but audit-required visible")}</StatusPill>}
     >
       <div style={{
         display: isMobile ? "flex" : "grid",

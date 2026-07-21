@@ -10,9 +10,9 @@ export function SensitivityAndBaselinePanel({ sensitivity, moRecommendation, aud
     <Panel
       id="organic-acid-final-sensitivity"
       eyebrow={text(lang, "稳健性检验", "Robustness check")}
-      title={text(lang, "Sensitivity Analysis Card", "Sensitivity Analysis Card")}
+      title={text(lang, "敏感性分析", "Sensitivity Analysis Card")}
       t={t}
-      actions={<StatusPill tone={auditRequired ? "warn" : robust ? "pass" : "warn"} t={t}>{auditRequired ? "robust but audit required" : robust ? "robust recommendation" : "hypothesis-generating"}</StatusPill>}
+      actions={<StatusPill tone={auditRequired ? "warn" : robust ? "pass" : "warn"} t={t}>{auditRequired ? text(lang, "稳健但需审计", "robust but audit required") : robust ? text(lang, "稳健推荐", "robust recommendation") : text(lang, "假设生成", "hypothesis-generating")}</StatusPill>}
     >
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(5, minmax(0, 1fr))" }}>
         <MiniMetric label="Monte Carlo" value={`${sensitivity?.iterations || rules?.sensitivityAnalysis?.iterations || 1000}`} t={t} />
@@ -24,10 +24,10 @@ export function SensitivityAndBaselinePanel({ sensitivity, moRecommendation, aud
       <div style={{ background: auditRequired || !robust ? t.badgeWarnBg : t.badgeInfoBg, border: `1px solid ${auditRequired || !robust ? t.warn : t.accent}`, borderRadius: 10, color: t.muted, display: "grid", gap: 6, fontSize: 12.5, lineHeight: 1.58, padding: 12 }}>
         <strong style={{ color: auditRequired || !robust ? t.warn : t.accentText, fontSize: 13 }}>
           {auditRequired
-            ? text(lang, "Mo Top1 = 100%：robust but audit required，不是 Mo 最优性证明", "Mo Top1 = 100%: robust but audit required, not proof of Mo optimality")
+            ? text(lang, "Mo Top 1 = 100%：结果看似稳健，但仍需审计；这不是 Mo 最优性的证明。", "Mo Top1 = 100%: robust but audit required, not proof of Mo optimality")
             : robust
-            ? text(lang, "Mo Top 3 probability >=85%: Robust high-priority dopant recommendation", "Mo Top 3 probability >=85%: Robust high-priority dopant recommendation")
-            : text(lang, "Mo Top 3 probability <85%: Hypothesis-generating candidate", "Mo Top 3 probability <85%: Hypothesis-generating candidate")}
+            ? text(lang, "Mo 进入前三的概率 >=85%：可作为稳健高优先级第二金属推荐。", "Mo Top 3 probability >=85%: Robust high-priority dopant recommendation")
+            : text(lang, "Mo 进入前三的概率 <85%：仅作为假设生成候选。", "Mo Top 3 probability <85%: Hypothesis-generating candidate")}
         </strong>
         <span>
           <ChemicalText value={text(

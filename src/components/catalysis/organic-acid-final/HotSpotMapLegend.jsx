@@ -21,17 +21,17 @@ export function roleColor(role, gateStatus, t) {
 
 export function HotSpotMapLegend({ lang, t }) {
   const items = [
-    ["primary hypothesis", text(lang, "Primary hypothesis", "Primary hypothesis")],
-    ["backup hypothesis", text(lang, "Backup hypothesis", "Backup hypothesis")],
-    ["competitive metal", text(lang, "Competitive metal", "Competitive metal")],
-    ["blind baseline", text(lang, "Blind baseline", "Blind baseline")],
-    ["demo proxy", "Demo proxy"],
-    ["mapped fixture", "Mapped fixture"],
-    ["curated real example", "Curated real example"],
-    ["evidence pending", "Evidence pending"],
-    ["hot spot region", text(lang, "Hot spot region", "Hot spot region")],
-    ["rejected by hard gate", text(lang, "Rejected by hard gate", "Rejected by hard gate")],
-    ["needs review", text(lang, "Needs review", "Needs review")],
+    ["primary hypothesis", text(lang, "主假设", "Primary hypothesis")],
+    ["backup hypothesis", text(lang, "备用假设", "Backup hypothesis")],
+    ["competitive metal", text(lang, "竞争金属", "Competitive metal")],
+    ["blind baseline", text(lang, "盲基线", "Blind baseline")],
+    ["demo proxy", text(lang, "演示代理", "Demo proxy")],
+    ["mapped fixture", text(lang, "映射样例", "Mapped fixture")],
+    ["curated real example", text(lang, "已整理真实样例", "Curated real example")],
+    ["evidence pending", text(lang, "证据待补", "Evidence pending")],
+    ["hot spot region", text(lang, "热点区域", "Hot spot region")],
+    ["rejected by hard gate", text(lang, "被硬门控拦截", "Rejected by hard gate")],
+    ["needs review", text(lang, "需要复核", "Needs review")],
   ]
 
   return (

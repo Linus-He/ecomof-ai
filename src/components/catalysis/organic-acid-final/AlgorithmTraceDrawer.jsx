@@ -59,7 +59,7 @@ export function AlgorithmTraceDrawer({ trace, lang, t, label, compact = false })
             <header style={{ alignItems: "start", display: "flex", gap: 10, justifyContent: "space-between" }}>
               <div style={{ display: "grid", gap: 4 }}>
                 <strong style={{ color: t.textStrong, fontSize: 18 }}>
-                  {text(lang, "Algorithm Trace Drawer", "Algorithm Trace Drawer")}
+                  {text(lang, "算法追踪抽屉", "Algorithm Trace Drawer")}
                 </strong>
                 <span style={{ color: t.muted, fontSize: 12.4, lineHeight: 1.45 }}>
                   <ChemicalText value={text(
@@ -77,7 +77,7 @@ export function AlgorithmTraceDrawer({ trace, lang, t, label, compact = false })
                 Esc
               </button>
             </header>
-            <StatusPill tone="warn" t={t}>demo/proxy trace</StatusPill>
+            <StatusPill tone="warn" t={t}>{text(lang, "演示/代理追踪", "demo/proxy trace")}</StatusPill>
             <div style={{ display: "grid", gap: 9 }}>
               {rows.map((row, index) => (
                 <article key={row.id || row.title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 6, padding: 11 }}>

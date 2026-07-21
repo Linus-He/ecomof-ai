@@ -82,14 +82,14 @@ export function AlMofFrameworkRanking({ frameworks, selectedFramework, lang, t, 
   return (
     <Panel
       id="organic-acid-final-framework-ranking"
-      eyebrow={text(lang, "Stage 1", "Stage 1")}
-      title={text(lang, "Stable Al-MOF Framework Mining / Al-MOF Ranking Table", "Stable Al-MOF Framework Mining / Al-MOF Ranking Table")}
+      eyebrow={text(lang, "阶段 1", "Stage 1")}
+      title={text(lang, "稳定 Al-MOF 骨架挖掘与排序表", "Stable Al-MOF Framework Mining / Al-MOF Ranking Table")}
       t={t}
     >
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12.5, lineHeight: 1.58, padding: 11 }}>
         <ChemicalText value={text(
           lang,
-          "Stage 1 只筛 Al-MOF 稳定骨架。水热硬阈值先于 OACS 评分执行；缺少 >=150C 或反应后 PXRD 证据的候选被置为 OACS=0。",
+          "阶段 1 只筛 Al-MOF 稳定骨架。水热硬阈值先于 OACS 评分执行；缺少 >=150C 或反应后 PXRD 证据的候选被置为 OACS=0。",
           "Stage 1 screens only Al-MOF stable scaffolds. The hydrothermal hard gate runs before OACS scoring; candidates missing >=150C or post-treatment PXRD evidence are assigned OACS=0."
         )} />
       </div>
@@ -98,7 +98,7 @@ export function AlMofFrameworkRanking({ frameworks, selectedFramework, lang, t, 
         <table style={{ borderCollapse: "separate", borderSpacing: 0, minWidth: 1120, width: "100%" }}>
           <thead>
             <tr>
-              {[text(lang, "Rank", "Rank"), "MOF", text(lang, "Source", "Source"), text(lang, "Hydrothermal Gate", "Hydrothermal Gate"), "OACS", text(lang, "Collapse Risk", "Collapse Risk"), text(lang, "Pore Accessibility", "Pore Accessibility"), text(lang, "Evidence Level", "Evidence Level"), text(lang, "Why Recommended", "Why Recommended"), text(lang, "Decision", "Decision")].map(label => (
+              {[text(lang, "名次", "Rank"), "MOF", text(lang, "来源", "Source"), text(lang, "水热门控", "Hydrothermal Gate"), "OACS", text(lang, "坍塌风险", "Collapse Risk"), text(lang, "孔道可达性", "Pore Accessibility"), text(lang, "证据等级", "Evidence Level"), text(lang, "推荐理由", "Why Recommended"), text(lang, "决策", "Decision")].map(label => (
                 <th key={label} style={{ background: t.surface, borderBottom: `1px solid ${t.border}`, color: t.faint, fontSize: 10.5, fontWeight: 900, padding: "9px 8px", textAlign: "left", textTransform: "uppercase" }}>{label}</th>
               ))}
             </tr>

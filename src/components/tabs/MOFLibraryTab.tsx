@@ -1060,6 +1060,7 @@ export function MOFLibraryTab() {
   const [filters, setFilters] = useState({ query: "", source: "all", metal: "all", organicStatus: "all", availability: {} })
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
   const [expandedId, setExpandedId] = useState(null)
+  const [unifiedBrowserOpen, setUnifiedBrowserOpen] = useState(false)
 
   useEffect(() => {
     let active = true
@@ -1114,7 +1115,11 @@ export function MOFLibraryTab() {
   const filteredRecords = useMemo(() => rows.filter(item => passesFilters(item, filters)), [rows, filters])
   const visibleRecords = useMemo(() => filteredRecords.slice(0, visibleCount), [filteredRecords, visibleCount])
   const stats = useMemo(() => summarizeRecords(rows), [rows])
-  const unifiedRows = useMemo(() => buildUnifiedMofRows({ structures: structuralRows.length ? structuralRows : rows, gasRecords: gasRows, registry: identityRegistry }), [structuralRows, rows, gasRows, identityRegistry])
+  const unifiedRows = useMemo(() => (
+    unifiedBrowserOpen
+      ? buildUnifiedMofRows({ structures: structuralRows.length ? structuralRows : rows, gasRecords: gasRows, registry: identityRegistry })
+      : []
+  ), [unifiedBrowserOpen, structuralRows, rows, gasRows, identityRegistry])
 
   const statusLine = text(
     lang,
@@ -1134,16 +1139,38 @@ export function MOFLibraryTab() {
         action={<CopyLinkButton hash="library" ariaLabel={text(lang, "复制 MOF Library 链接", "Copy MOF Library link")} />}
       />
 
-      <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderLeft: `4px solid ${t.accent}`, borderRadius: 8, color: t.subtle, fontSize: 12.5, lineHeight: 1.65, padding: "11px 13px" }}>
-        <strong style={{ color: t.textStrong }}>{text(lang, "数据底座：Open MOF Seed（CoRE / QMOF）。", "Data base: Open MOF Seed (CoRE / QMOF). ")}</strong>
-        {statusLine}
+      <div data-testid="mof-library-status-strip" style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, color: t.subtle, fontSize: 12.2, lineHeight: 1.55 }}>
+        <strong style={{ color: t.textStrong }}>{text(lang, "Open MOF Seed（CoRE / QMOF）", "Open MOF Seed (CoRE / QMOF)")}</strong>
+        <StatusPill t={t} tone={status === "loaded" ? "good" : status === "loading" ? "neutral" : "warn"}>
+          {status === "loading" ? text(lang, "加载中", "loading") : `${stats.total} records`}
+        </StatusPill>
+        <span>{statusLine}</span>
       </div>
 
-      {status === "loading" && <Callout tone="info">{text(lang, "正在加载 Open MOF Seed 数据…", "Loading Open MOF Seed data...")}</Callout>}
+      {status === "loading" && <div style={{ color: t.accentText, fontSize: 12.2, fontWeight: 800 }}>{text(lang, "正在加载 Open MOF Seed 数据…", "Loading Open MOF Seed data...")}</div>}
       {status === "fallback" && <Callout tone="warn">{text(lang, "Open MOF Seed 数据加载失败。请刷新页面或检查 GitHub Pages 数据路径。", "Open MOF Seed data could not be loaded. Please refresh or check the GitHub Pages data path.")}</Callout>}
       {status === "empty" && <Callout tone="warn">{text(lang, "当前 Open MOF Seed 文件暂无记录。", "The current Open MOF Seed file has no records.")}</Callout>}
 
-      <UnifiedMofDatabasePanel rows={unifiedRows} collectionReport={collectionReport} identityReport={identityReport} proxyReport={proxyReport} lang={lang} t={t} isMobile={isMobile} />
+      <section style={{ display: "grid", gap: 10, padding: "4px 0" }}>
+        <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
+          <div style={{ minWidth: 0 }}>
+            <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900 }}>{text(lang, "统一 MOF 浏览器", "Unified MOF Browser")}</div>
+            <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.5, marginTop: 3 }}>
+              {text(
+                lang,
+                `已准备结构 ${structuralRows.length || rows.length} 条、气体 ${gasRows.length} 条、身份映射 ${identityRegistry?.records?.length || 0} 条；展开后再执行合并检索，避免打开候选库时阻塞页面。`,
+                `Prepared ${structuralRows.length || rows.length} structure rows, ${gasRows.length} gas rows, and ${identityRegistry?.records?.length || 0} identity links; merging is computed after expansion to keep the library responsive.`
+              )}
+            </div>
+          </div>
+          <button type="button" onClick={() => setUnifiedBrowserOpen(open => !open)} style={{ ...toolbarBtn(t), color: t.textStrong, border: `1px solid ${t.borderStrong || t.border}`, justifyContent: "center", minWidth: 142 }}>
+            {unifiedBrowserOpen ? text(lang, "收起统一浏览器", "Collapse browser") : text(lang, "展开统一浏览器", "Open browser")}
+          </button>
+        </div>
+        {unifiedBrowserOpen ? (
+          <UnifiedMofDatabasePanel rows={unifiedRows} collectionReport={collectionReport} identityReport={identityReport} proxyReport={proxyReport} lang={lang} t={t} isMobile={isMobile} />
+        ) : null}
+      </section>
 
       <details style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, padding: "11px 13px" }}>
         <summary style={{ color: t.accentText, cursor: "pointer", fontSize: 12.5, fontWeight: 850 }}>

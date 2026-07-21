@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { resolveMof, normalizeMofName, getLinkedRecords } from "../mofIdentity"
+import { createMofIdentityIndex, normalizeMofName } from "../mofIdentity"
 
 function hasValue(value) {
   if (value === undefined || value === null || value === "") return false
@@ -31,13 +31,25 @@ function summarizeGas(records = []) {
   }
 }
 
+function resolveMofFromIndex(name, index) {
+  const normalized = normalizeMofName(name)
+  if (!normalized) return null
+  return index.byAlias.get(normalized) || null
+}
+
+function getLinkedRecordsFromIndex(canonicalId, index) {
+  const record = index.byCanonicalId.get(canonicalId)
+  return record?.links || { structural: [], gas: [], catalysis: [] }
+}
+
 export function buildUnifiedMofRows({ structures = [], gasRecords = [], registry = {} } = {}) {
+  const identityIndex = createMofIdentityIndex(registry)
   const gasById = new Map(gasRecords.map(record => [record.id, record]))
   const usedGasIds = new Set()
   const rows = structures.map(structure => {
     const name = structureName(structure)
-    const canonicalId = resolveMof(name, registry) || `unresolved-${normalizeMofName(name)}`
-    const links = getLinkedRecords(canonicalId, registry)
+    const canonicalId = resolveMofFromIndex(name, identityIndex) || `unresolved-${normalizeMofName(name)}`
+    const links = getLinkedRecordsFromIndex(canonicalId, identityIndex)
     const linkedGas = (links.gas || []).map(link => gasById.get(link.id)).filter(Boolean)
     linkedGas.forEach(record => usedGasIds.add(record.id))
     const gasSummary = summarizeGas(linkedGas)
@@ -67,8 +79,8 @@ export function buildUnifiedMofRows({ structures = [], gasRecords = [], registry
   })
   for (const record of gasRecords) {
     if (usedGasIds.has(record.id)) continue
-    const canonicalId = record.canonicalId || resolveMof(record.rawName || record.displayName, registry) || `gas-only-${normalizeMofName(record.rawName || record.displayName)}`
-    const links = getLinkedRecords(canonicalId, registry)
+    const canonicalId = record.canonicalId || resolveMofFromIndex(record.rawName || record.displayName, identityIndex) || `gas-only-${normalizeMofName(record.rawName || record.displayName)}`
+    const links = getLinkedRecordsFromIndex(canonicalId, identityIndex)
     rows.push({
       id: `unified-${record.id}`,
       canonicalId,
