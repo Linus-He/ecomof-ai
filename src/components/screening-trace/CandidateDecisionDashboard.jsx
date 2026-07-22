@@ -47,7 +47,7 @@ export function CandidateDecisionDashboard({ trace, candidatesById = {}, lang, t
         <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "候选决策面板", "Candidate Dashboard")}</strong>
         <span style={{ color: t.faint, fontSize: 10.8, fontWeight: 850 }}>{text(lang, `默认展示 Top ${visibleTraces.length}/${totalRanked}`, `showing top ${visibleTraces.length}/${totalRanked}`)}</span>
       </div>
-      <span style={{ color: t.faint, fontSize: 10.8, fontWeight: 850 }}>{text(lang, "排序解释 / Ranking Explanation 可在每个候选中展开。", "Ranking Explanation is available inside each candidate card.")}</span>
+      <span style={{ color: t.faint, fontSize: 10.8, fontWeight: 850 }}>{text(lang, "每个候选都可展开查看排序解释。", "Ranking explanation is available inside each candidate card.")}</span>
       {priority ? (
         <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, color: t.muted, display: "grid", fontSize: 11.5, gap: 5, lineHeight: 1.5, padding: 10 }}>
           <strong style={{ color: t.textStrong, fontSize: 12.4 }}>{text(lang, "当前筛选优先级", "Current performance priority")}: {text(lang, priority.modeLabelZh, priority.modeLabel)}</strong>
@@ -71,10 +71,10 @@ export function CandidateDecisionDashboard({ trace, candidatesById = {}, lang, t
           <option value="verified">{text(lang, "已核验 metadata", "Verified metadata")}</option>
           <option value="source">{text(lang, "来源确认", "Source confirmed")}</option>
           <option value="blocked">{text(lang, "阻断/隔离", "Blocked")}</option>
-          <option value="synthetic">{text(lang, "Synthetic fixture", "Synthetic fixture")}</option>
+          <option value="synthetic">{text(lang, "合成样例", "Synthetic fixture")}</option>
         </select>
       </div>
-      {!visibleTraces.length ? <span style={{ color: t.muted, fontSize: 12 }}>{text(lang, "候选 dashboard shell 已就绪，等待候选数据填充。", "Candidate dashboard shell is ready; waiting for candidate data.")}</span> : null}
+      {!visibleTraces.length ? <span style={{ color: t.muted, fontSize: 12 }}>{text(lang, "候选数据读取后将显示决策面板。", "The candidate dashboard will appear after candidate data loads.")}</span> : null}
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(260px, 1fr))" }}>
         {visibleTraces.map(tr => {
           const c = candidatesById[tr.candidateId] || {}

@@ -45,7 +45,6 @@ const ValidationTab = lazyNamed(() => import("./components/tabs/ValidationTab"),
 const ResourcesTab = lazyNamed(() => import("./components/tabs/ResourcesTab"), "ResourcesTab")
 const MethodsLimitationsTab = lazyNamed(() => import("./components/tabs/MethodsLimitationsTab"), "MethodsLimitationsTab")
 const ProjectEvolutionTab = lazyNamed(() => import("./components/tabs/ProjectEvolutionTab"), "ProjectEvolutionTab")
-const ResearchReportsTab = lazyNamed(() => import("./components/tabs/ResearchReportsTab"), "ResearchReportsTab")
 
 function shouldPreloadRouteModules() {
   if (typeof navigator === "undefined") return true
@@ -72,7 +71,6 @@ function getInitialDeepLinkState() {
   const pendingScrollTarget = (
     routeHash.startsWith("methodology-") ||
     routeHash.startsWith("project-evolution-") ||
-    routeHash.startsWith("research-reports-") ||
     ["data-quality-provenance", "validation-evidence", "benchmark-references", "graph-informed-descriptor-integration", "organic-acid-graph-explorer"].includes(routeHash)
   )
     ? routeHash
@@ -176,7 +174,6 @@ function AppShell({
     setComparisonBuilderContext(null)
   }, [])
   useEffect(() => {
-    if (!viewport.isNarrow) return
     const activeButton = navRef.current?.querySelector(`[data-tab-id="${activeTab}"]`)
     const nav = navRef.current
     if (!activeButton || !nav) return
@@ -192,7 +189,7 @@ function AppShell({
       window.cancelAnimationFrame(frame)
       window.clearTimeout(timeout)
     }
-  }, [activeTab, viewport.isNarrow])
+  }, [activeTab, viewport.isMobile])
 
   return (
     <div
@@ -217,9 +214,9 @@ function AppShell({
             className="nav-shell"
             style={{
               display: "grid",
-              gridTemplateColumns: viewport.isNarrow ? "1fr auto" : "160px 1fr 160px",
+              gridTemplateColumns: viewport.isNarrow ? "1fr auto" : "auto minmax(0, 1fr) auto",
               alignItems: "center",
-              gap: 12,
+              gap: viewport.isNarrow ? 12 : 10,
               minHeight: 56,
               padding: viewport.isMobile ? "8px 0" : "8px 0",
               background: "transparent",
@@ -230,7 +227,7 @@ function AppShell({
               overflow: "visible",
             }}
           >
-            <div className="brand-nav-wordmark" style={{ display: "flex", alignItems: "center", minWidth: 0 }}>
+            <div className="brand-nav-wordmark" style={{ display: "flex", alignItems: "center", minWidth: 0, flex: "0 0 auto" }}>
               <LogoWordmark
                 markSize={viewport.isMobile ? 28 : 30}
                 radius={viewport.isMobile ? 7 : 8}
@@ -239,16 +236,16 @@ function AppShell({
               />
             </div>
 
-            <div style={{ display: "flex", justifyContent: "center", minWidth: 0, gridColumn: viewport.isNarrow ? "1 / -1" : "auto", order: viewport.isNarrow ? 3 : 2 }}>
+            <div style={{ display: "flex", justifyContent: "flex-start", minWidth: 0, overflow: "hidden", gridColumn: viewport.isNarrow ? "1 / -1" : "auto", order: viewport.isNarrow ? 3 : 2 }}>
               <nav
                 ref={navRef}
                 className="nav-capsule"
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: viewport.isNarrow ? "flex-start" : "center",
+                  justifyContent: "flex-start",
                   gap: 4,
-                  width: viewport.isNarrow ? "100%" : "fit-content",
+                  width: "100%",
                   maxWidth: "100%",
                   overflowX: "auto",
                   padding: 0,
@@ -258,6 +255,7 @@ function AppShell({
                   boxShadow: "none",
                   position: "relative",
                   overflow: "auto",
+                  overscrollBehaviorX: "contain",
                 }}
               >
                 {TABS.map(tab => {
@@ -293,7 +291,7 @@ function AppShell({
               </nav>
             </div>
 
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 8, minWidth: 0, order: viewport.isNarrow ? 2 : 3 }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 8, minWidth: 0, flex: "0 0 auto", order: viewport.isNarrow ? 2 : 3 }}>
               <button
                 type="button"
                 onClick={() => setContactOpen(true)}
@@ -440,7 +438,6 @@ function AppShell({
             {activeTab === "resources" && <ResourcesTab activeSub={resourcesTab} setActiveSub={setResourcesTab} results={results} inputs={inputs} />}
             {activeTab === "about" && <MethodsLimitationsTab onNavigate={navigateTab} />}
             {activeTab === "projectEvolution" && <ProjectEvolutionTab onNavigate={navigateTab} />}
-            {activeTab === "researchReports" && <ResearchReportsTab onNavigate={navigateTab} />}
           </div>
         </Suspense>
       </main>
@@ -603,7 +600,7 @@ export default function App() {
   const [apiStatus, setApiStatus] = useState({
     ok: false,
     checked: false,
-    message: "Static browser model",
+    message: "Local screening model",
     manifest: null,
   })
 
@@ -650,9 +647,6 @@ export default function App() {
         setPendingScrollTarget(routeHash)
       }
       if (routeHash.startsWith("project-evolution-")) {
-        setPendingScrollTarget(routeHash)
-      }
-      if (routeHash.startsWith("research-reports-")) {
         setPendingScrollTarget(routeHash)
       }
     }
@@ -776,19 +770,6 @@ export default function App() {
   }, [activeTab, pendingScrollTarget])
 
   useEffect(() => {
-    if (!pendingScrollTarget || activeTab !== "researchReports") return
-    const scroll = () => {
-      const target = document.getElementById(pendingScrollTarget)
-      if (target) {
-        target.scrollIntoView({ block: "start", behavior: "smooth" })
-        setPendingScrollTarget(null)
-      }
-    }
-    const frame = window.requestAnimationFrame(() => window.setTimeout(scroll, 80))
-    return () => window.cancelAnimationFrame(frame)
-  }, [activeTab, pendingScrollTarget])
-
-  useEffect(() => {
     if (!pendingScrollTarget || activeTab !== "catalysis") return
     const scroll = () => {
       const target = document.getElementById(pendingScrollTarget)
@@ -844,7 +825,7 @@ export default function App() {
     if (!apiStatus.checked) {
       setApiStatus(prev => ({
         ...prev,
-        message: lang === "zh" ? "静态浏览器端模型" : "Static browser model",
+        message: lang === "zh" ? "本地筛选模型" : "Local screening model",
       }))
     }
   }, [lang, apiStatus.checked])
@@ -928,10 +909,6 @@ export default function App() {
       go("project-evolution")
       return
     }
-    if (target === "researchReports" || target === "research-reports") {
-      go("research-reports")
-      return
-    }
     if (["feasibility", "lca", "sensitivity", "comparison"].includes(target)) {
       if (["feasibility", "lca", "sensitivity"].includes(target)) setComparisonTab(target)
       go("ecoscreen")
@@ -982,7 +959,7 @@ export default function App() {
       setApiStatus({
         ok: false,
         checked: true,
-        message: lang === "zh" ? "未设置 API 地址；使用静态浏览器端模型。" : "No API URL set; using static browser model.",
+        message: lang === "zh" ? "未设置 API 地址；使用本地筛选模型。" : "No API URL set; using local screening model.",
         manifest: null,
       })
       return
@@ -1012,8 +989,8 @@ export default function App() {
         ok: false,
         checked: true,
         message: lang === "zh"
-          ? `API 不可用：${error.message}。将使用静态浏览器端模型。`
-          : `API unavailable: ${error.message}. Static browser model will be used.`,
+          ? `API 不可用：${error.message}。将使用本地筛选模型。`
+          : `API unavailable: ${error.message}. Local screening model will be used.`,
         manifest: null,
       })
     }
@@ -1059,8 +1036,8 @@ export default function App() {
         ok: false,
         checked: true,
         message: lang === "zh"
-          ? `后端预测失败：${error.message}。已使用静态浏览器端模型。`
-          : `Backend prediction failed: ${error.message}. Static browser model used.`,
+          ? `后端预测失败：${error.message}。已使用本地筛选模型。`
+          : `Backend prediction failed: ${error.message}. Local screening model used.`,
       }))
     }
 

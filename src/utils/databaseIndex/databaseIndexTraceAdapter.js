@@ -6,7 +6,7 @@ const TRACE_BOUNDARY = {
   id: "database-index-preview-boundary",
   label: "Index-level trace boundary",
   labelZh: "索引层追踪边界",
-  detail: "Large-scale trace is summarized at index level to avoid browser-side trace explosion.",
+  detail: "Large-scale trace is summarized at index level to keep the audit readable.",
   detailZh: "大规模数据追踪在索引层进行摘要，避免浏览器端 trace 爆炸。",
 }
 
@@ -123,7 +123,7 @@ function buildStepTraceRecords(steps = []) {
       decisionZh: safeText(step.decisionZh || step.decision),
     },
     warnings: step.id === "build-index-level-trace"
-      ? ["Large-scale trace is summarized at index level to avoid browser-side trace explosion."]
+      ? ["Large-scale trace is summarized at index level to keep the audit readable."]
       : [],
     warningsZh: step.id === "build-index-level-trace"
       ? ["大规模数据追踪在索引层进行摘要，避免浏览器端 trace 爆炸。"]
@@ -227,7 +227,7 @@ export function buildDatabaseIndexTrace(overview = {}, options = {}) {
     warnings: [
       "Database index preview is not full verified database screening.",
       "Top candidates are preview candidates, not final verified recommendations.",
-      "Large-scale trace is summarized at index level to avoid browser-side trace explosion.",
+      "Large-scale trace is summarized at index level to keep the audit readable.",
     ],
     warningsZh: [
       "数据库索引预览不是经完整验证的全量数据库筛选。",

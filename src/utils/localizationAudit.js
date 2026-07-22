@@ -97,7 +97,6 @@ export function assertLocalizationAuditPass(audit) {
 export const LOCALIZATION_AUDIT_MODULES = [
   "Methods & Evidence",
   "Project Evolution",
-  "Research Reports",
   "EcoScreen",
   "MOF Library",
   "GasSep",
@@ -109,6 +108,7 @@ export const LOCALIZATION_AUDIT_MODULES = [
   "Milestones",
   "Release Notes",
   "Version Timeline",
+  "Navigation",
 ]
 
 // English that is intentionally retained (proper nouns, data labels, scientific boundary

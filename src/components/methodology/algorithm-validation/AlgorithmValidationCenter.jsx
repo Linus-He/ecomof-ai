@@ -118,20 +118,20 @@ function DatabaseLayer({ summary, readiness, dataFoundation, dataIngestion, lang
       t={t}
     >
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
-        <Metric label="Candidates" value={summary.totalCandidates ?? readiness.datasetSize ?? 0} t={t} />
-        <Metric label="Verified Metadata" value={summary.verifiedMetadataCount ?? readiness.verifiedMetadataCount ?? 0} t={t} tone="pass" />
-        <Metric label="Provenance Coverage" value={pct(provenance)} t={t} tone="pass" />
-        <Metric label="Preview Status" value="Database Preview" t={t} tone="warn" />
+        <Metric label={text(lang, "候选总数", "Candidates")} value={summary.totalCandidates ?? readiness.datasetSize ?? 0} t={t} />
+        <Metric label={text(lang, "已核验元数据", "Verified Metadata")} value={summary.verifiedMetadataCount ?? readiness.verifiedMetadataCount ?? 0} t={t} tone="pass" />
+        <Metric label={text(lang, "来源覆盖率", "Provenance Coverage")} value={pct(provenance)} t={t} tone="pass" />
+        <Metric label={text(lang, "预览状态", "Preview Status")} value={text(lang, "数据库预览", "Database Preview")} t={t} tone="warn" />
       </div>
       {dataFoundation ? (
         <div data-testid="algval-data-foundation" style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))" }}>
-          <Metric label="Gold Dataset" value={`${dataFoundation.goldCount}${dataFoundation.goldSufficient ? "" : " · insufficient"}`} t={t} tone={dataFoundation.goldSufficient ? "pass" : "warn"} />
-          <Metric label="Literature Dataset" value={dataFoundation.literatureCount} t={t} />
-          <Metric label="Reaction Dataset Count" value={dataFoundation.reactionDatasetCount || 0} t={t} tone={dataFoundation.reactionDatasetCount >= dataFoundation.targets?.reactionDataset ? "pass" : "warn"} />
-          <Metric label="Benchmark Dataset" value={dataFoundation.benchmarkCount} t={t} />
-          <Metric label="Label Count" value={dataFoundation.labelCount} t={t} tone={dataFoundation.labelCount > 0 ? "pass" : "warn"} />
-          <Metric label="Benchmark Eligible" value={dataFoundation.benchmarkEligibleCount} t={t} tone={dataFoundation.benchmarkEligibleCount > 0 ? "pass" : "warn"} />
-          <Metric label="Current / Target / Gap" value={`${dataFoundation.labelCount} / ${dataFoundation.targets?.labelCount || 30} / ${dataFoundation.gaps?.labelCount || 0}`} t={t} tone={dataFoundation.gaps?.labelCount ? "warn" : "pass"} />
+          <Metric label={text(lang, "Gold 数据集", "Gold Dataset")} value={`${dataFoundation.goldCount}${dataFoundation.goldSufficient ? "" : text(lang, " · 不足", " · insufficient")}`} t={t} tone={dataFoundation.goldSufficient ? "pass" : "warn"} />
+          <Metric label={text(lang, "文献数据集", "Literature Dataset")} value={dataFoundation.literatureCount} t={t} />
+          <Metric label={text(lang, "反应数据数", "Reaction Dataset Count")} value={dataFoundation.reactionDatasetCount || 0} t={t} tone={dataFoundation.reactionDatasetCount >= dataFoundation.targets?.reactionDataset ? "pass" : "warn"} />
+          <Metric label={text(lang, "Benchmark 数据集", "Benchmark Dataset")} value={dataFoundation.benchmarkCount} t={t} />
+          <Metric label={text(lang, "标签数量", "Label Count")} value={dataFoundation.labelCount} t={t} tone={dataFoundation.labelCount > 0 ? "pass" : "warn"} />
+          <Metric label={text(lang, "Benchmark 就绪", "Benchmark Eligible")} value={dataFoundation.benchmarkEligibleCount} t={t} tone={dataFoundation.benchmarkEligibleCount > 0 ? "pass" : "warn"} />
+          <Metric label={text(lang, "当前 / 目标 / 缺口", "Current / Target / Gap")} value={`${dataFoundation.labelCount} / ${dataFoundation.targets?.labelCount || 30} / ${dataFoundation.gaps?.labelCount || 0}`} t={t} tone={dataFoundation.gaps?.labelCount ? "warn" : "pass"} />
         </div>
       ) : null}
       {dataIngestion ? (

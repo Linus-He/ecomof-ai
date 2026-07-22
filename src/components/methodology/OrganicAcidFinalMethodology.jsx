@@ -163,8 +163,8 @@ function SmallRealDatasetMethod({ mappingReport, lang, t }) {
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "V1.6 引入小规模人工整理真实样例，用于验证数据映射、schema validation、quality gate、fieldSources、Run Launcher 与 Hot Spot Map 是否能承接真实数据形状；V1.7 保持该边界并增加可审计 trace。",
-          "V1.6 introduced curated real examples to validate data mapping, schema validation, quality gate, fieldSources, Run Launcher, and Hot Spot Map real-data shapes. V1.7 preserves that boundary and adds auditable trace records."
+          "V1.6 引入小规模人工整理真实样例，用于验证数据映射、schema validation、quality gate、fieldSources、筛选入口与 Hot Spot Map 是否能承接真实数据形状；V1.7 保持该边界并增加可审计 trace。",
+          "V1.6 introduced curated real examples to validate data mapping, schema validation, quality gate, fieldSources, the screening entry, and Hot Spot Map real-data shapes. V1.7 preserves that boundary and adds auditable trace records."
         )} />
       </p>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))" }}>
@@ -200,8 +200,8 @@ function TraceWorkbenchMethod({ lang, t }) {
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "V1.7 将 Run Launcher 输出扩展为 runId、step-level trace、candidate decision log、formula weight inspector、evidence trace、candidate flow funnel 和 exportable Markdown / JSON report。它解释当前 demo / mapped fixture / curated sample 如何产生推荐，不证明催化性能。",
-          "V1.7 expands Run Launcher output into runId, step-level trace records, candidate decision logs, formula weight inspectors, evidence traces, a candidate flow funnel, and exportable Markdown / JSON reports. It explains how the current demo / mapped fixture / curated sample produces a recommendation; it does not prove catalytic performance."
+          "V1.7 将筛选入口输出扩展为 runId、step-level trace、candidate decision log、formula weight inspector、evidence trace、candidate flow funnel 和 exportable Markdown / JSON report。它解释当前 demo / mapped fixture / curated sample 如何产生推荐，不证明催化性能。",
+          "V1.7 expands the screening-entry output into runId, step-level trace records, candidate decision logs, formula weight inspectors, evidence traces, a candidate flow funnel, and exportable Markdown / JSON reports. It explains how the current demo / mapped fixture / curated sample produces a recommendation; it does not prove catalytic performance."
         )} />
       </p>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))" }}>
@@ -236,7 +236,7 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
     ],
     [
       text(lang, "证据回填边界", "Evidence backfill boundary"),
-      text(lang, "证据回填只记录人工进度，不替代 metadata 门控；脚本重跑会保留人工已填写的 source/citation/license/DOI（existing confirmed/manual value > 新生成的 pending 占位）。source_confirmed / citation_ready / license_confirmed 都不等于 verified_metadata。", "Evidence backfill records manual progress only and does not replace the metadata gate; re-running the build script preserves manually entered source/citation/license/DOI (existing confirmed/manual value > newly generated pending placeholder). source_confirmed / citation_ready / license_confirmed are not verified_metadata."),
+      text(lang, "证据回填只记录人工整理进度，不替代 metadata 门控；source_confirmed / citation_ready / license_confirmed 都不等于 verified_metadata。", "Evidence backfill records manual curation progress only and does not replace the metadata gate; source_confirmed / citation_ready / license_confirmed are not verified_metadata."),
     ],
     [
       text(lang, "V2.0-J 筛选运行体验与结果面板重构", "V2.0-J Screening Run UX and Result Panel Refactor"),
@@ -248,11 +248,11 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
     ],
     [
       text(lang, "V2.0-I 人工 metadata 整理与来源链接补全", "V2.0-I Manual Metadata Curation and Source-Link Enrichment"),
-      text(lang, "V2.0-I 把 V2.0-H 的 18 条核验队列变成可持续的人工 metadata 整理流程：curation 状态分层（needs_source_review → source_confirmed → citation_ready → license_pending/confirmed → doi_pending → verified_metadata，或 curation_blocked）、整理进度汇总、保留人工字段的构建脚本，以及人工整理面板与详情抽屉联动。找不到 DOI/license/来源时保持待补，绝不伪造；source_confirmed / citation_ready / near_verified 都不等于 verified_metadata。verified_metadata 仍需在真实已确认字段上通过 V2.0-E/V2.0-H 门控，因此当前仍为 0。不扩数据库、不训练模型，仍不是最终推荐。", "V2.0-I turns the V2.0-H 18-item verification queue into a sustainable manual metadata curation workflow: a curation status ladder (needs_source_review -> source_confirmed -> citation_ready -> license_pending/confirmed -> doi_pending -> verified_metadata, or curation_blocked), a progress summary, a merge-preserving build script, and a curation panel linked into the detail drawer. When DOI/license/source cannot be found they stay pending and are never fabricated; source_confirmed / citation_ready / near_verified are not verified_metadata. verified_metadata still requires the V2.0-E/V2.0-H gate to pass on real confirmed fields, so it is still 0. No database expansion, no model training, and still not a final recommendation."),
+      text(lang, "V2.0-I 把 V2.0-H 的 18 条核验队列整理为人工 metadata 流程：curation 状态分层（needs_source_review → source_confirmed → citation_ready → license_pending/confirmed → doi_pending → verified_metadata，或 curation_blocked）与整理进度汇总。找不到 DOI/license/来源时保持待补，绝不伪造；source_confirmed / citation_ready / near_verified 都不等于 verified_metadata。verified_metadata 仍需在真实已确认字段上通过 V2.0-E/V2.0-H 门控，因此当前仍为 0。不扩数据库、不训练模型，仍不是最终推荐。", "V2.0-I turns the V2.0-H 18-item verification queue into a manual metadata workflow with curation tiers (needs_source_review -> source_confirmed -> citation_ready -> license_pending/confirmed -> doi_pending -> verified_metadata, or curation_blocked) and progress summaries. When DOI/license/source cannot be found they stay pending and are never fabricated; source_confirmed / citation_ready / near_verified are not verified_metadata. verified_metadata still requires the V2.0-E/V2.0-H gate to pass on real confirmed fields, so it is still 0. No database expansion, no model training, and still not a final recommendation."),
     ],
     [
       text(lang, "来源链接补全边界", "Source-link enrichment boundary"),
-      text(lang, "人工整理只记录进度，不替代 metadata 门控；脚本重跑会保留人工已填写的 source/citation/license/DOI（existing manual value > 新生成的 pending 占位）。", "Manual curation records progress only and does not replace the metadata gate; re-running the build script preserves manually entered source/citation/license/DOI (existing manual value > newly generated pending placeholder)."),
+      text(lang, "人工整理只记录进度，不替代 metadata 门控；来源、引用、license 与 DOI 仍需逐条核验。", "Manual curation records progress only and does not replace the metadata gate; source, citation, license, and DOI still require record-level verification."),
     ],
     [
       text(lang, "V2.0-H 小样本验证与敏感性审计", "V2.0-H Small-Sample Validation and Sensitivity Audit"),
@@ -272,55 +272,55 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
     ],
     [
       text(lang, "V2.0-F 后台预计算管线规划", "V2.0-F Background Precompute Pipeline Planning"),
-      text(lang, "V2.0-F 规划后台预计算管线：原始记录 → 归一化 → metadata 门控 → 描述符检查 → OACS/DMRS 试算 → 预计算 Top-N → 浏览器预览边界。提供管线文档、离线 dry-run 脚本与预计算索引 schema。V2.0-F 不接入全量数据库，也不是经完整验证的筛选；全量评分仍在浏览器主线程之外进行。", "V2.0-F plans the background precompute pipeline: raw records → normalization → metadata gate → descriptor check → OACS/DMRS dry-run → precomputed Top-N → browser preview boundary. It ships a pipeline doc, an offline dry-run script, and a precomputed index schema. V2.0-F does not integrate the full database and is not full verified screening; full scoring stays outside the browser main thread."),
+      text(lang, "V2.0-F 规划大规模候选的预计算流程：原始记录 → 归一化 → metadata 门控 → 描述符检查 → OACS/DMRS 试算 → Top-N 预览。V2.0-F 不接入全量数据库，也不是经完整验证的筛选；全量评分仍需在完成来源核验和描述符复算后进行。", "V2.0-F plans precomputation for large candidate sets: raw records -> normalization -> metadata gate -> descriptor check -> OACS/DMRS trial scoring -> Top-N preview. V2.0-F does not integrate the full database and is not full verified screening; full scoring still requires source verification and descriptor recomputation."),
     ],
     [
-      text(lang, "预计算 dry-run（离线）", "Precompute dry-run (offline)"),
-      text(lang, "dry-run 脚本只读取本地预览样本（Top-N 与一个选定分片），统计 metadata 核验状态与描述符完整度，输出审计摘要；不联网、不加载全量数据库、不产生最终推荐。", "The dry-run script reads only local preview fixtures (Top-N and one selected part), counts metadata verification status and descriptor completeness, and emits an audit summary; no network, no full database load, no final recommendation."),
+      text(lang, "预计算检查", "Precompute check"),
+      text(lang, "预计算检查只统计 Top-N 预览样本的 metadata 核验状态与描述符完整度；不扩展数据源、不产生最终推荐。", "The precompute check only summarizes metadata verification status and descriptor completeness for Top-N preview candidates; it does not expand data sources or produce final recommendations."),
     ],
     [
       text(lang, "V2.0-E 经核验 metadata 补全流程", "V2.0-E Verified Metadata Enrichment Workflow"),
-      text(lang, "V2.0-E 在 V2.0-D Worker 边界之上新增 metadata 核验门控：对 DOI、来源链接、license、引用与描述符溯源建模核验状态。缺关键 metadata 的候选只能停留在仅限预览，必须通过 metadata 门控才能进入经核验推荐。V2.0-E 不修改 OACS/DMRS 公式，也不在浏览器内执行全量数据库评分。", "V2.0-E adds a metadata verification gate on top of the V2.0-D worker boundary: it models verification status for DOI, source link, license, citation, and descriptor provenance. Candidates missing key metadata stay preview only and must pass the metadata gate before becoming eligible for verified recommendation. V2.0-E does not modify OACS/DMRS formulas and does not run full database scoring in the browser."),
+      text(lang, "V2.0-E 在 V2.0-D 评分边界之上新增 metadata 核验门控：对 DOI、来源链接、license、引用与描述符溯源建模核验状态。缺关键 metadata 的候选只能停留在仅限预览，必须通过 metadata 门控才能进入经核验推荐。V2.0-E 不修改 OACS/DMRS 公式，也不在交互页面内即时执行全量数据库评分。", "V2.0-E adds a metadata verification gate on top of the V2.0-D scoring boundary: it models verification status for DOI, source link, license, citation, and descriptor provenance. Candidates missing key metadata stay preview only and must pass the metadata gate before becoming eligible for verified recommendation. V2.0-E does not modify OACS/DMRS formulas and does not run immediate full-database scoring inside the interactive page."),
     ],
     [
       text(lang, "Metadata 核验门控", "Metadata verification gate"),
       text(lang, "门控将候选分为 metadata 已核验 / 部分完整 / 仅限预览 / 暂不可用，并给出阻断原因与提示；只有 metadata 已核验的候选 verifiedRecommendationEligible 为真。本轮只做状态建模与门控，不进行联网 DOI 核验。", "The gate classifies candidates as verified / partial / preview-only / blocked metadata with blocking reasons and warnings; only verified-metadata candidates are verifiedRecommendationEligible. This release models status and gating only and does not run live DOI verification."),
     ],
     [
-      text(lang, "CI 远端验证", "CI verification gate"),
-      text(lang, "新增独立于 GitHub Pages 部署的 GitHub Actions CI，运行 test、typecheck、build 与 visual check，避免只有本地验证报告。", "A GitHub Actions CI workflow, separate from the GitHub Pages deploy workflow, runs test, typecheck, build, and visual check so verification is not local-only."),
+      text(lang, "验证审计", "Validation audit"),
+      text(lang, "新增独立验证审计，覆盖关键计算、页面构建和视觉检查，避免只依赖本地人工查看。", "Adds an independent validation audit covering key calculations, page build readiness, and visual checks so review is not local-only."),
     ],
     [
-      text(lang, "V2.0-D Worker 评分边界", "V2.0-D Worker-Based Scoring Boundary Design"),
-      text(lang, "V2.0-D 在 V2.0-C 工作台上新增 Worker 评分边界预览。Worker 只处理已加载范围试算、当前选定索引分片或用户主动选择的小批量候选。", "V2.0-D adds the Worker-Based Scoring Boundary Design on top of the V2.0-C workbench. The worker handles loaded-scope dry runs, the selected index part, or user-selected small candidate batches only."),
+      text(lang, "V2.0-D 大规模评分边界", "V2.0-D Large-Scale Scoring Boundary"),
+      text(lang, "V2.0-D 在 V2.0-C 工作台上明确大规模评分边界：只对当前审阅范围或用户主动选择的小批量候选做试算。", "V2.0-D clarifies the large-scale scoring boundary on top of the V2.0-C workbench: trial scoring is limited to the current review scope or user-selected small batches."),
     ],
     [
-      text(lang, "为什么不在主线程全量评分", "Why full scoring does not run on the main thread"),
-      text(lang, "CoRE/QMOF-like 数据库规模较大，全量数据库评分必须预计算，或在浏览器主线程之外执行；前端不自动加载全部索引分片或详情记录。", "CoRE/QMOF-like databases are large, so full database scoring must be precomputed or run outside the browser main thread; the front end does not automatically load all index parts or detail records."),
+      text(lang, "为什么不直接给出全库最终排序", "Why the full database is not ranked as a final result"),
+      text(lang, "CoRE/QMOF 级别数据库规模较大，全库最终排序需要完整来源核验、描述符复算、方法审计和实验/文献验证；当前界面只提供可审阅的候选预览。", "CoRE/QMOF-scale databases are large, and final full-database ranking requires source verification, descriptor recomputation, method audit, and experimental/literature validation; the current interface provides reviewable candidate previews only."),
     ],
     [
-      text(lang, "已加载范围试算", "Loaded-scope dry run"),
-      text(lang, "已加载范围试算只使用界面中已经出现的 records，用于检查 request、skip reason 和 trace，不输出最终验证推荐。", "The loaded-scope dry run uses only records already present in the UI. It audits request shape, skip reasons, and trace output without producing a final verified recommendation."),
+      text(lang, "已加载范围试算", "Loaded-scope trial scoring"),
+      text(lang, "已加载范围试算只使用当前可见候选，用于检查候选是否满足基础门控；不输出最终验证推荐。", "Loaded-scope trial scoring uses only currently visible candidates to check basic eligibility gates; it does not produce final verified recommendations."),
     ],
     [
-      "Manifest + summaries",
-      text(lang, "浏览器加载 manifest 摘要、CoRE/QMOF summary、descriptor availability 与 provenance coverage。", "The browser loads the manifest, CoRE/QMOF summaries, descriptor availability, and provenance coverage."),
+      text(lang, "数据摘要", "Data summaries"),
+      text(lang, "界面展示数据摘要、CoRE/QMOF 统计、描述符可用性与来源覆盖率。", "The interface shows data summaries, CoRE/QMOF statistics, descriptor availability, and provenance coverage."),
     ],
     [
       "Top-N preview",
       text(lang, "预计算候选只作为 Top-N 预览展示，不是最终验证推荐。", "Precomputed candidates are shown as Top-N preview only, not final verified recommendations."),
     ],
     [
-      "Index parts",
-      text(lang, "用户点击后才加载当前选定索引分片；筛选、搜索、排序、分页和 Worker 试算都只作用于当前已加载分片，不会一次性加载全部分片。", "Only the selected index part loads after user action; filters, search, sorting, pagination, and worker dry runs apply only to the currently loaded part and do not fetch all parts at once."),
+      text(lang, "候选分批审阅", "Candidate batch review"),
+      text(lang, "筛选、搜索、排序和分页只作用于当前审阅批次，不把局部预览解释为全库最终结论。", "Filtering, search, sorting, and pagination apply only to the current review batch and do not turn a local preview into a final full-database conclusion."),
     ],
     [
-      "Detail on demand",
-      text(lang, "detailRef 在用户打开详情时才 fetch，并在 drawer 内呈现 descriptor checklist、provenance checklist、source boundary 与 missing evidence warning；缺失 DOI/citation/license 显示证据待核验。", "detailRef is fetched only when detail is opened, then the drawer shows descriptor checklists, provenance checklists, source boundaries, and missing evidence warnings; missing DOI/citation/license is shown as evidence pending."),
+      text(lang, "候选详情", "Candidate details"),
+      text(lang, "候选详情展示描述符检查、来源检查、证据边界和缺失证据提示；缺失 DOI/citation/license 显示为证据待核验。", "Candidate details show descriptor checks, provenance checks, evidence boundaries, and missing-evidence warnings; missing DOI/citation/license is shown as evidence pending."),
     ],
     [
-      "Why no full database load",
-      text(lang, "前端保持 manifest / summary / Top-N 预览 / 当前选定分片 / 详情按需加载边界，避免浏览器一次性加载全部 JSON 或执行全库评分。", "The front end keeps manifest / summary / Top-N preview / selected index part / detail-on-demand boundaries instead of loading all JSON files or running full database scoring in the browser."),
+      text(lang, "为什么不展示全库最终结论", "Why the full-database conclusion is not shown"),
+      text(lang, "当前界面保持数据摘要、Top-N 预览、候选批次与候选详情的审阅边界，不把未完整核验的数据扩展为最终全库评分。", "The current interface keeps the review boundary at data summaries, Top-N previews, candidate batches, and candidate details; it does not turn incompletely verified data into final full-database scoring."),
     ],
     [
       "Top-N preview vs full verified screening",
@@ -331,8 +331,8 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
       text(lang, "候选对比最多对比 3 个已加载候选，字段来自当前预览/索引数据；对比仅基于当前已加载的预览/索引数据。", "Candidate Compare compares up to 3 loaded candidates, with fields from the current preview/index data; comparison is based on currently loaded preview/index data only."),
     ],
     [
-      text(lang, "Worker trace 审计", "Worker trace audit"),
-      text(lang, "Worker trace 记录 runId、createdAt、scope、输入记录数、已评分数、跳过数、skip reason、formulaVersion、boundary 与 notFinalRecommendation，用于审计而不是最终推荐。", "Worker trace records runId, createdAt, scope, input count, scored count, skipped count, skip reasons, formulaVersion, boundary, and notFinalRecommendation for auditability, not final recommendation."),
+      text(lang, "评分审计追踪", "Scoring Audit Trace"),
+      text(lang, "审计追踪记录运行范围、输入记录数、已评分数、跳过数、跳过原因、公式版本、边界与非最终状态，用于复核而不是最终推荐。", "The audit trace records scoring scope, input count, scored count, skipped count, skipped reasons, formula version, boundary, and not-final status for reviewability, not final recommendation."),
     ],
   ]
   return (
@@ -619,8 +619,8 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
         <MethodologyFlowDiagram flow={result.methodologyFlowData} lang={lang} t={t} />
         <AlgorithmShowcaseSection model={algorithmShowcase} lang={lang} t={t} />
         <AlgorithmClosureMethod result={result} lang={lang} t={t} />
-        <LazyMethodologyDetails id="methodology-oafs-data-mapping" title="Data Mapping and Schema Validation" titleZh="数据映射与 Schema Validation" summary="Data Mapper Preview Panel / Schema Validation Panel / Data Quality Gate Panel" summaryZh="Data Mapper Preview Panel / Schema Validation Panel / Data Quality Gate Panel" lang={lang} t={t}>
-          <Suspense fallback={<MethodologySectionSkeleton lang={lang} t={t} title="Data Mapping and Schema Validation" titleZh="数据映射与 Schema Validation" />}>
+        <LazyMethodologyDetails id="methodology-oafs-data-mapping" title="Data Mapping and Format Validation" titleZh="数据映射与格式校验" summary="Data mapping, format checks, and quality gates." summaryZh="数据映射、格式校验与质量门控。" lang={lang} t={t}>
+          <Suspense fallback={<MethodologySectionSkeleton lang={lang} t={t} title="Data Mapping and Format Validation" titleZh="数据映射与格式校验" />}>
             <DataMappingSchemaValidationPanel lang={lang} t={t} />
           </Suspense>
         </LazyMethodologyDetails>
@@ -628,18 +628,18 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
           <SmallRealDatasetMethod mappingReport={data.mappingReport} lang={lang} t={t} />
         </LazyMethodologyDetails>
         <TraceWorkbenchMethod lang={lang} t={t} />
-        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-L performs manual source curation of the 5 candidates nearest to verified metadata over the V2.0-K evidence backfill, yielding the first source_confirmed/citation_ready candidates; offline curation keeps DOI/license pending, ambiguity warnings block verified, verified_metadata is still 0, and the OACS/DMRS formulas and lazy loading are unchanged." summaryZh="V2.0-L 在 V2.0-K 证据回填之上对最接近 verified metadata 的 5 个候选做人工来源核验，首次产生 source_confirmed/citation_ready 候选；离线核验使 DOI/license 待补，ambiguity 警告阻断 verified，verified_metadata 仍为 0，OACS/DMRS 公式与懒加载边界保持不变。" lang={lang} t={t}>
+        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-L reviews the 5 candidates nearest to verified metadata and marks the first source_confirmed / citation_ready candidates; DOI/license gaps and ambiguity warnings still block verified metadata." summaryZh="V2.0-L 对最接近 verified metadata 的 5 个候选做人工来源核验，首次产生 source_confirmed / citation_ready 候选；DOI/license 缺口和 ambiguity 警告仍会阻断 verified metadata。" lang={lang} t={t}>
           <DatabaseIndexPreviewMethod lang={lang} t={t} />
         </LazyMethodologyDetails>
         <MechanismPathMethodCard lang={lang} t={t} />
-        <LazyMethodologyDetails id="methodology-oafs-hot-spot" title="Coupled Descriptor Hot Spot Map" titleZh="耦合描述符热区图" summary="Hot Spot Map method note renders when expanded." summaryZh="Hot Spot Map 方法说明展开后渲染。" lang={lang} t={t}>
+        <LazyMethodologyDetails id="methodology-oafs-hot-spot" title="Coupled Descriptor Hot Spot Map" titleZh="耦合描述符热区图" summary="Shows where coupled descriptors concentrate and which evidence supports the pattern." summaryZh="查看耦合描述符的集中区域及其证据支撑。" lang={lang} t={t}>
           <CoupledHotSpotMethod result={result} lang={lang} t={t} />
         </LazyMethodologyDetails>
         <KnowledgeBaseMethod lang={lang} t={t} />
         <LazyMethodologyDetails id="methodology-oafs-robustness" title="Robustness Audit" titleZh="稳健性审计" summary="Weight perturbation and Mo audit interpretation." summaryZh="权重扰动与 Mo 审计解释。" lang={lang} t={t}>
           <RobustnessAuditMethod result={result} lang={lang} t={t} />
         </LazyMethodologyDetails>
-        <LazyMethodologyDetails id="methodology-oafs-evidence-matrix" title="Evidence Strength Matrix" titleZh="证据强度矩阵" summary="Evidence matrix cards render on expansion." summaryZh="证据矩阵卡片展开后渲染。" lang={lang} t={t}>
+        <LazyMethodologyDetails id="methodology-oafs-evidence-matrix" title="Evidence Strength Matrix" titleZh="证据强度矩阵" summary="Compares evidence strength across descriptors and pathway steps." summaryZh="比较不同描述符与路径步骤的证据强度。" lang={lang} t={t}>
           <DescriptorEvidenceMatrix rows={result.evidenceStrengthMatrix} coverage={result.evidenceCoverage} lang={lang} t={t} />
         </LazyMethodologyDetails>
         <ExafsFalsificationDiagram signature={result.exafsSignature} lang={lang} t={t} />

@@ -18,8 +18,8 @@ export function DatabaseIndexBoundaryNotice({ lang, t }) {
       <p style={{ color: t.muted, fontSize: 12.3, lineHeight: 1.55, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "浏览器只加载摘要、选定索引分片和按需详情记录。它不会在浏览器中加载完整 CoRE/QMOF 原始数据库，也不代表经过验证的全量筛选结论。",
-          "The browser loads summaries, selected index parts, and detail records on demand. It does not load full raw CoRE/QMOF databases in the browser and does not represent verified full-scale screening."
+          "当前页面只展示摘要、选定索引分片和按需详情记录。完整 CoRE/QMOF 原始库仍需经过来源核验、描述符复算和批量筛选后才能形成全量结论。",
+          "This page shows summaries, selected index parts, and detail records on demand. Full raw CoRE/QMOF coverage still requires source verification, descriptor recomputation, and batch screening before it can support full-scale conclusions."
         )} />
       </p>
     </section>

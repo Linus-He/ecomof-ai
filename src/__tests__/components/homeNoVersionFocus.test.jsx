@@ -45,7 +45,7 @@ describe("home no version focus", () => {
     renderHome()
     const body = document.body.textContent || ""
 
-    expect(body).toMatch(/Current Version/i)
+    expect(body).toMatch(/当前 App 版本/)
     expect(body).toMatch(/V3\.6/)
     expect(body).not.toMatch(/Release Notes/i)
     expect(body).not.toMatch(/Version Timeline/i)

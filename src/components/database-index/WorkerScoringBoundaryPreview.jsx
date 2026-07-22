@@ -52,8 +52,8 @@ export function WorkerScoringBoundaryPreview({ topCandidates = [], selectedPartR
           <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>
             <ChemicalText value={text(
               lang,
-              "Worker 只处理当前已加载记录或用户选择的小批量候选，不会自动读取全部索引分片或详情记录。",
-              "The worker handles only currently loaded records or user-selected small candidate batches; it does not load all index parts or detail records."
+              "当前试算只处理已加载记录或用户选择的小批量候选，不会自动读取全部索引分片或详情记录。",
+              "The trial scoring handles only currently loaded records or user-selected small candidate batches; it does not load all index parts or detail records."
             )} />
           </span>
         </div>
@@ -70,13 +70,13 @@ export function WorkerScoringBoundaryPreview({ topCandidates = [], selectedPartR
           <ChemicalText value={dbText(lang, "localLoadedScopeNotice")} />
         </p>
         <button type="button" disabled={!selectedPartRecords.length} onClick={runSelectedPartDryRun} style={{ background: selectedPartRecords.length ? t.accent : t.panel, border: `1px solid ${selectedPartRecords.length ? t.accent : t.border}`, borderRadius: 8, color: selectedPartRecords.length ? t.buttonText || "#fff" : t.faint, cursor: selectedPartRecords.length ? "pointer" : "not-allowed", fontSize: 12, fontWeight: 900, minHeight: 34, padding: "7px 11px" }}>
-          {text(lang, "运行已加载范围试算", "Run loaded-scope dry run")}
+          {text(lang, "运行已加载范围试算", "Run loaded-scope trial")}
         </button>
       </div>
       {dryRun ? (
         <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 9, padding: 10 }}>
           <header style={{ display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
-            <strong style={{ color: t.textStrong, fontSize: 12.8 }}>{text(lang, "试算结果", "Dry-run result")}</strong>
+            <strong style={{ color: t.textStrong, fontSize: 12.8 }}>{text(lang, "试算结果", "Trial-scoring result")}</strong>
             <StatusPill tone="warn" t={t}>{dbText(lang, "notFinalRecommendation")}</StatusPill>
           </header>
           <div style={{ display: "grid", gap: 7, gridTemplateColumns: "repeat(auto-fit, minmax(135px, 1fr))" }}>
@@ -94,8 +94,8 @@ export function WorkerScoringBoundaryPreview({ topCandidates = [], selectedPartR
             <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.45, overflowWrap: "anywhere" }}>
               <ChemicalText value={text(
                 lang,
-                `${trace.runId} · ${dbScopeLabel(trace.scope, lang)} · 已评分 ${formatCount(trace.scoredRecordCount)} · 非最终推荐=${trace.notFinalRecommendation}`,
-                `${trace.runId} · ${dbScopeLabel(trace.scope, lang)} · ${formatCount(trace.scoredRecordCount)} scored · notFinalRecommendation=${trace.notFinalRecommendation}`
+                `${trace.runId} · ${dbScopeLabel(trace.scope, lang)} · 已评分 ${formatCount(trace.scoredRecordCount)} · 非最终边界已启用`,
+                `${trace.runId} · ${dbScopeLabel(trace.scope, lang)} · ${formatCount(trace.scoredRecordCount)} scored · non-final boundary active`
               )} />
             </span>
           </div>

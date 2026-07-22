@@ -39,7 +39,7 @@ export function AlgorithmRunLauncher({ frameworks = [], metals = [], rules = {},
       setDatabaseStatus(overview.errors?.length ? "warning" : "loaded")
     }).catch(error => {
       if (!active) return
-      console.warn("Database index overview for Run Launcher could not be loaded.", error)
+      console.warn("Database index overview for screening entry could not be loaded.", error)
       setDatabaseOverview({ errors: [{ message: error?.message || "Database index overview failed to load." }] })
       setDatabaseStatus("error")
     })
@@ -97,7 +97,7 @@ export function AlgorithmRunLauncher({ frameworks = [], metals = [], rules = {},
       eyebrow={text(lang, "筛选输入与运行范围", "Screening input and run scope")}
       title={text(lang, "筛选运行范围", "Screening Run Scope")}
       t={t}
-      actions={<StatusPill tone="proxy" t={t}>{text(lang, "当前边界：V2.0-F 试算 / 仅限预览", "Current boundary: V2.0-F dry-run / preview only")}</StatusPill>}
+      actions={<StatusPill tone="proxy" t={t}>{text(lang, "当前边界：V2.0-F 试算 / 仅限预览", "Current boundary: V2.0-F trial scoring / preview only")}</StatusPill>}
     >
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.55, margin: 0 }}>
         <ChemicalText value={text(

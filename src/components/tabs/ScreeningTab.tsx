@@ -975,7 +975,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
               subtitle={lang === "zh" ? "把模型依据、来源类型和限制与结果分开阅读。" : "Read model basis, source type, and limitations separately from the result."}
             >
             <ProvenanceGrid items={[
-              { label: "Basis", value: "Empirical heuristic model (browser-side)", type: "proxy", note: "Hand-crafted correlations based on CoRE MOF 2019 benchmarks. Not a trained ML model on this device." },
+              { label: "Basis", value: "Empirical heuristic screening model", type: "proxy", note: "Hand-crafted correlations based on CoRE MOF 2019 benchmarks. Not a trained ML model." },
               { label: "Source type", value: "Seed benchmark + descriptor input", type: "benchmark", note: lang === "zh" ? `MOF 预设、CIF 派生字段或用户输入。官能团：${formatFunctionalGroupSummary(inputs, lang)}` : `MOF presets, CIF-derived fields, or user input. Groups: ${formatFunctionalGroupSummary(inputs, lang)}` },
               { label: "Quality", value: results.applicability?.warnings?.length ? "Medium-low" : "Medium", type: "proxy", note: results.applicability?.warnings?.length ? "Applicability warning present." : "Within prototype descriptor range." },
               { label: "Limitation", value: "Screening-level only", type: "proxy", note: "Not a strict IAST/GCMC or experimental result." },

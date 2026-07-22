@@ -64,4 +64,15 @@ describe("DataQualityAuditPanel", () => {
     expect(screen.getByText("Export Candidate Data Gap JSON")).toBeInTheDocument()
     expect(screen.getByText("Export Model Readiness Summary JSON")).toBeInTheDocument()
   })
+
+  it("uses natural Chinese labels in Chinese mode", () => {
+    render(<DataQualityAuditPanel records={[record("R1")]} lang="zh" t={THEME_LIGHT} isMobile={false} />)
+
+    expect(screen.getByText("数据质量审计")).toBeInTheDocument()
+    expect(bodyText()).toMatch(/数据库预览 \/ 非最终推荐/)
+    expect(screen.getByText("导出筛选审计")).toBeInTheDocument()
+    expect(screen.getByText("导出候选数据缺口")).toBeInTheDocument()
+    expect(screen.getByText("导出模型就绪度摘要")).toBeInTheDocument()
+    expect(bodyText()).not.toMatch(/Data Quality Audit|Export Screening Audit JSON/)
+  })
 })

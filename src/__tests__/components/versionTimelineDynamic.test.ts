@@ -6,7 +6,7 @@ import data from "../../../public/data/version_evolution_records.json"
 import { ProjectEvolutionTab } from "../../components/tabs/ProjectEvolutionTab"
 
 describe("versionTimelineDynamic", () => {
-  it("uses version_evolution_records.json as the dynamic source for timeline, release notes, and roadmap", () => {
+  it("uses module history and unified release records as separate dynamic sources", () => {
     render(React.createElement(ProjectEvolutionTab, { data }))
 
     const timeline = screen.getByTestId("project-evolution-version-timeline")
@@ -15,8 +15,10 @@ describe("versionTimelineDynamic", () => {
 
     const projectUpdates = screen.getByTestId("project-evolution-release-notes")
     expect(projectUpdates.textContent).toMatch(/Project Updates/)
-    expect(projectUpdates.textContent).toMatch(/Homepage interaction/)
-    expect(projectUpdates.textContent).toMatch(/Library responsiveness/)
+    expect(projectUpdates.textContent).toMatch(/Module updates for App v1\.0\.2 come from the unified release record/)
+    expect(projectUpdates.textContent).toMatch(/UI & Experience/)
+    expect(projectUpdates.textContent).toMatch(/GasSep/)
+    expect(projectUpdates.textContent).toMatch(/Database/)
 
     const roadmap = screen.getByTestId("project-evolution-roadmap")
     expect(roadmap.textContent).toMatch(/V3\.10\.1/)

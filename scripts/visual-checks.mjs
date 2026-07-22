@@ -39,14 +39,6 @@ const routes = [
     "Current Risk",
     "Version Timeline",
   ]],
-  ["research-reports", "#research-reports", [
-    "Research Reports",
-    "Research Validation Summary",
-    "Evidence Coverage",
-    "Label Diversity",
-    "Validation Queue",
-    "Field Provenance",
-  ]],
   ["organic-acid-project", "#catalysis-organic-acid", [
     ["有机酸路径工作台", "Organic Acid Workspace"],
     ["进入研究验证中心", "Enter Research Validation Center"],
@@ -345,11 +337,6 @@ async function waitForRouteReady(page, routeName) {
   if (routeName === "project-status-center") {
     await page.locator("#project-evolution").first().waitFor({ state: "attached", timeout: 30000 })
     await page.locator("#project-evolution-version-timeline").first().waitFor({ state: "attached", timeout: 30000 })
-  }
-
-  if (routeName === "research-reports") {
-    await page.locator("#research-reports").first().waitFor({ state: "attached", timeout: 30000 })
-    await page.locator("#research-validation-summary").first().waitFor({ state: "attached", timeout: 45000 })
   }
 
   if (routeName.startsWith("organic-acid-validation") || ["confidence-matrix", "priority-queue", "knowledge-graph"].includes(routeName)) {

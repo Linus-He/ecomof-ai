@@ -49,10 +49,10 @@ describe("home quick start", () => {
 
     const expected = [
       ["进入 EcoScreen", "#ecoscreen", "ecoscreen"],
-      ["进入 MOF Library", "#library", "mofLibrary"],
+      ["进入 GasSep", "#gassep", "gassep"],
       ["进入 Organic Acid", "#catalysis-organic-acid", "catalysisLab"],
-      ["进入 Validation Center", "#methodology-algorithm-validation", "about"],
-      ["进入 Research Reports", "#research-reports", "researchReports"],
+      ["进入 MOF Library", "#library", "mofLibrary"],
+      ["进入验证中心", "#methodology-algorithm-validation", "about"],
     ]
 
     for (const [label, hash, target] of expected) {

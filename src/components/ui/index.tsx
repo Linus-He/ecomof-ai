@@ -1242,7 +1242,6 @@ function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRef, isMobile, on
     sourceRecordId       && ["sourceRecordId", lang === "zh" ? "原始记录" : "Source record", sourceRecordId],
     sourceVersion        && ["sourceVersion", lang === "zh" ? "来源版本" : "Source version", sourceVersion],
     source?.databaseVersion && ["databaseVersion", lang === "zh" ? "数据库版本" : "Database version", source.databaseVersion],
-    source?.generatingScript && ["generatingScript", lang === "zh" ? "生成脚本" : "Generating script", source.generatingScript],
     sourceUrl            && ["sourceUrl", lang === "zh" ? "来源链接" : "Source URL", sourceUrl],
     source?.citation      && ["citation", lang === "zh" ? "引用" : "Citation", source.citation],
     source?.license       && ["license", lang === "zh" ? "许可证" : "License", source.license],

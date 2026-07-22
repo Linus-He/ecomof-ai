@@ -26,8 +26,10 @@ describe("ProjectEvolutionTab", () => {
     render(<ProjectEvolutionTab data={data} />)
 
     expect(screen.getByTestId("project-evolution-overview")).toBeInTheDocument()
-    expect(bodyText()).toMatch(/Current Version/)
-    expect(bodyText()).toMatch(/V3.9.5.1/)
+    expect(bodyText()).toMatch(/Current App Version/)
+    expect(bodyText()).toMatch(/App v1\.0\.2/)
+    expect(bodyText()).toMatch(/Latest Module Data Version/)
+    expect(bodyText()).toMatch(/V3\.10\.1/)
     expect(bodyText()).toMatch(/3462\+/)
     expect(bodyText()).toMatch(/Verified Metadata/)
     expect(bodyText()).toMatch(/2480/)
@@ -36,9 +38,12 @@ describe("ProjectEvolutionTab", () => {
     expect(bodyText()).toMatch(/Random Forest/)
     expect(bodyText()).toMatch(/78\.87/)
     expect(bodyText()).toMatch(/High Overfitting Risk/)
+    expect(screen.getByTestId("project-evolution-next-release-draft")).toBeInTheDocument()
+    expect(bodyText()).toMatch(/Next Release Preview/)
+    expect(bodyText()).toMatch(/assigned at release time/)
     expect(screen.getByTestId("project-evolution-localization")).toBeInTheDocument()
     expect(bodyText()).toMatch(/Localization Evolution/)
-    expect(bodyText()).toMatch(/Research Reports/)
+    expect(bodyText()).toMatch(/historical research-output additions/)
   })
 
   it("renders the Organic Acid algorithm methodology module with KaTeX formulas and exports", () => {

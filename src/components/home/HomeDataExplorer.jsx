@@ -116,6 +116,15 @@ function correlationTone(value, t) {
   return t.warn || "#d97706"
 }
 
+function correlationFill(value, isDiag, active, t) {
+  if (value === null || value === undefined) return t.surface
+  if (isDiag) return active ? t.badgeInfoBg : t.panel
+  const abs = Math.min(1, Math.abs(value))
+  const alpha = active ? 0.92 : 0.2 + abs * 0.62
+  if (value >= 0) return `rgba(37, 99, 235, ${alpha})`
+  return `rgba(217, 119, 6, ${alpha})`
+}
+
 function correlationStrength(value, lang) {
   if (value === null) return lang === "zh" ? "无足够样本" : "insufficient n"
   const abs = Math.abs(value)
@@ -239,70 +248,87 @@ function MetalFilterChart({ model, activeMetal, setActiveMetal, t, lang, isMobil
 
 function CorrelationMatrix({ model, activeCell, setActiveCell, t, lang, isMobile }) {
   const [hoverCell, setHoverCell] = useState(null)
-  const size = isMobile ? 340 : 420
-  const center = size / 2
-  const radius = isMobile ? 104 : 138
-  const nodes = METRIC_KEYS.map((metric, index) => {
-    const angle = (-Math.PI / 2) + (Math.PI * 2 * index) / METRIC_KEYS.length
-    return {
-      metric,
-      x: center + Math.cos(angle) * radius,
-      y: center + Math.sin(angle) * radius,
-    }
-  })
   const pairs = buildCorrelationPairs(model.correlations)
   const focusKey = hoverCell || activeCell || pairs[0]?.key
   const focus = pairs.find(item => item.key === focusKey) || pairs[0] || null
+  const cell = isMobile ? 54 : 62
+  const left = isMobile ? 72 : 82
+  const top = 34
+  const W = left + cell * METRIC_KEYS.length + 18
+  const H = top + cell * METRIC_KEYS.length + 48
+  const pairKey = (a, b) => {
+    const aIndex = METRIC_KEYS.indexOf(a)
+    const bIndex = METRIC_KEYS.indexOf(b)
+    return aIndex <= bIndex ? `${a}:${b}` : `${b}:${a}`
+  }
+  const cellDatum = (rowMetric, colMetric) => (
+    model.correlations.find(row => row.rowMetric === rowMetric && row.colMetric === colMetric) || { rowMetric, colMetric, value: null, n: 0 }
+  )
   return (
-    <div style={{ display: "grid", gap: 10 }}>
-      <svg viewBox={`0 0 ${size} ${size}`} role="img" aria-label={lang === "zh" ? "描述符相关性网络" : "Descriptor correlation network"} data-testid="home-correlation-matrix" style={{ width: "100%", maxWidth: isMobile ? 380 : 470, height: "auto", justifySelf: "center" }}>
-        <rect x="8" y="8" width={size - 16} height={size - 16} rx="14" fill={t.chartBg || t.surface} stroke={t.border} />
-        <circle cx={center} cy={center} r={radius + 30} fill="none" stroke={t.divider || t.border} strokeDasharray="3 8" />
-        {pairs.map(item => {
-          const source = nodes.find(node => node.metric === item.rowMetric)
-          const target = nodes.find(node => node.metric === item.colMetric)
-          const active = focus?.key === item.key
-          const width = 1.2 + Math.max(0.18, item.abs) * 6
-          return (
-            <g key={item.key} onPointerEnter={() => setHoverCell(item.key)} onPointerLeave={() => setHoverCell(null)} onClick={() => setActiveCell(activeCell === item.key ? null : item.key)} style={{ cursor: "pointer" }}>
-              <line
-                x1={source.x}
-                y1={source.y}
-                x2={target.x}
-                y2={target.y}
-                stroke={correlationTone(item.value, t)}
-                strokeLinecap="round"
-                strokeOpacity={active ? 0.95 : Math.max(0.2, item.abs * 0.72)}
-                strokeWidth={active ? width + 1.6 : width}
-              />
-              <title>{`${label(item.rowMetric, lang)} / ${label(item.colMetric, lang)}: r=${item.value === null ? "NA" : item.value.toFixed(3)} · n=${item.n}`}</title>
-            </g>
-          )
-        })}
-        {nodes.map(node => {
-          const active = focus && (focus.rowMetric === node.metric || focus.colMetric === node.metric)
-          return (
-            <g key={node.metric}>
-              <circle cx={node.x} cy={node.y} r={active ? 27 : 23} fill={active ? t.badgeInfoBg : t.panel} stroke={active ? t.accentText : t.borderStrong} strokeWidth={active ? 2 : 1.2} />
-              <text x={node.x} y={node.y + 4} textAnchor="middle" fill={active ? t.accentText : t.textStrong} fontSize="11" fontWeight="900">{shortLabel(node.metric, lang)}</text>
-            </g>
-          )
-        })}
-        <text x={center} y={center - 8} textAnchor="middle" fill={t.faint} fontSize="10.5" fontWeight="850">{lang === "zh" ? "Pearson r" : "Pearson r"}</text>
-        <text className="num" x={center} y={center + 13} textAnchor="middle" fill={t.textStrong} fontSize="20" fontWeight="930">{focus?.value === null || focus?.value === undefined ? "NA" : focus.value.toFixed(2)}</text>
-      </svg>
+    <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) 185px", alignItems: "start" }}>
+      <div style={{ display: "grid", gap: 8, minWidth: 0 }}>
+        <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={lang === "zh" ? "描述符 Pearson 相关矩阵" : "Descriptor Pearson correlation matrix"} data-testid="home-correlation-matrix" style={{ width: "100%", maxWidth: isMobile ? 390 : 430, height: "auto", justifySelf: "center" }}>
+          <rect x="4" y="4" width={W - 8} height={H - 8} rx="10" fill={t.chartBg || t.surface} stroke={t.border} />
+          {METRIC_KEYS.map((metric, index) => (
+            <text key={`top-${metric}`} x={left + index * cell + cell / 2} y={top - 10} textAnchor="middle" fill={t.faint} fontSize="10.5" fontWeight="900">{shortLabel(metric, lang)}</text>
+          ))}
+          {METRIC_KEYS.map((metric, rowIndex) => (
+            <text key={`left-${metric}`} x={left - 10} y={top + rowIndex * cell + cell / 2 + 4} textAnchor="end" fill={t.faint} fontSize="10.5" fontWeight="900">{shortLabel(metric, lang)}</text>
+          ))}
+          {METRIC_KEYS.flatMap((rowMetric, rowIndex) => (
+            METRIC_KEYS.map((colMetric, colIndex) => {
+              const item = cellDatum(rowMetric, colMetric)
+              const isDiag = rowMetric === colMetric
+              const key = isDiag ? `${rowMetric}:${colMetric}` : pairKey(rowMetric, colMetric)
+              const active = focus?.key === key
+              const value = item.value
+              const x = left + colIndex * cell + 2.5
+              const y = top + rowIndex * cell + 2.5
+              const abs = value === null ? 0 : Math.abs(value)
+              return (
+                <g key={`${rowMetric}-${colMetric}`} onPointerEnter={() => !isDiag && setHoverCell(key)} onPointerLeave={() => setHoverCell(null)} onClick={() => !isDiag && setActiveCell(activeCell === key ? null : key)} style={{ cursor: isDiag ? "default" : "pointer" }}>
+                  <rect
+                    x={x}
+                    y={y}
+                    width={cell - 5}
+                    height={cell - 5}
+                    rx="7"
+                    fill={correlationFill(value, isDiag, active, t)}
+                    stroke={active ? t.textStrong : t.border}
+                    strokeWidth={active ? 1.8 : 1}
+                  />
+                  {!isDiag && abs < 0.08 ? (
+                    <line x1={x + 9} x2={x + cell - 14} y1={y + cell / 2 - 2.5} y2={y + cell / 2 - 2.5} stroke={t.borderStrong} strokeWidth="1.2" strokeLinecap="round" />
+                  ) : null}
+                  <text className="num" x={x + (cell - 5) / 2} y={y + (cell - 5) / 2 + 4} textAnchor="middle" fill={!isDiag && abs > 0.58 ? "#fff" : t.textStrong} fontSize={isMobile ? "10.2" : "11"} fontWeight="900">
+                    {value === null ? "NA" : value.toFixed(isDiag ? 0 : 2)}
+                  </text>
+                  <title>{`${label(rowMetric, lang)} / ${label(colMetric, lang)}: r=${value === null ? "NA" : value.toFixed(3)} · n=${item.n}`}</title>
+                </g>
+              )
+            })
+          ))}
+          <text x={left} y={H - 18} fill={t.faint} fontSize="10.5" fontWeight="850">{lang === "zh" ? "负相关" : "negative"}</text>
+          <rect x={left + 50} y={H - 27} width="34" height="9" rx="4" fill="rgba(217, 119, 6, 0.66)" />
+          <rect x={left + 90} y={H - 27} width="34" height="9" rx="4" fill={t.panel} stroke={t.border} />
+          <rect x={left + 130} y={H - 27} width="34" height="9" rx="4" fill="rgba(37, 99, 235, 0.66)" />
+          <text x={left + 172} y={H - 18} fill={t.faint} fontSize="10.5" fontWeight="850">{lang === "zh" ? "正相关" : "positive"}</text>
+        </svg>
+        {focus ? (
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.muted, fontSize: 11.5, lineHeight: 1.55, padding: "8px 10px" }}>
+            <strong style={{ color: t.textStrong }}>{label(focus.rowMetric, lang)} / {label(focus.colMetric, lang)}</strong>
+            {" "}Pearson r=<span className="num">{focus.value === null ? "NA" : focus.value.toFixed(3)}</span> · n=<span className="num">{focus.n}</span> · {correlationStrength(focus.value, lang)}
+          </div>
+        ) : null}
+      </div>
       {focus ? (
-        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.muted, fontSize: 11.5, lineHeight: 1.55, padding: "8px 10px" }}>
-          <strong style={{ color: t.textStrong }}>{label(focus.rowMetric, lang)} / {label(focus.colMetric, lang)}</strong>
-          {" "}r=<span className="num">{focus.value === null ? "NA" : focus.value.toFixed(3)}</span> · n=<span className="num">{focus.n}</span> · {correlationStrength(focus.value, lang)}
-        </div>
-      ) : null}
-      <div style={{ display: "grid", gap: 6 }}>
-        {pairs.slice(0, 4).map(item => {
+        <div style={{ display: "grid", gap: 7, alignContent: "start", minWidth: 0 }}>
+          <strong style={{ color: t.textStrong, fontSize: 12.2, lineHeight: 1.3 }}>{lang === "zh" ? "按 |r| 排序" : "Ranked by |r|"}</strong>
+          {pairs.slice(0, 6).map(item => {
           const active = focus?.key === item.key
           return (
-            <button key={item.key} type="button" onClick={() => setActiveCell(activeCell === item.key ? null : item.key)} style={{ alignItems: "center", background: active ? t.badgeInfoBg : t.surface, border: `1px solid ${active ? t.accentText : t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", display: "grid", gap: 8, gridTemplateColumns: "minmax(120px, 1fr) minmax(90px, 0.75fr)", minHeight: 36, padding: "7px 9px", textAlign: "left" }}>
-              <span style={{ color: active ? t.accentText : t.muted, fontSize: 11.5, fontWeight: 850 }}>{shortLabel(item.rowMetric, lang)} / {shortLabel(item.colMetric, lang)}</span>
+            <button key={item.key} type="button" onPointerEnter={() => setHoverCell(item.key)} onPointerLeave={() => setHoverCell(null)} onClick={() => setActiveCell(activeCell === item.key ? null : item.key)} style={{ alignItems: "center", background: active ? t.badgeInfoBg : t.surface, border: `1px solid ${active ? t.accentText : t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", display: "grid", gap: 6, minHeight: 36, padding: "7px 9px", textAlign: "left" }}>
+              <span style={{ color: active ? t.accentText : t.muted, fontSize: 11.2, fontWeight: 850 }}>{shortLabel(item.rowMetric, lang)} / {shortLabel(item.colMetric, lang)} · n={item.n}</span>
               <span style={{ alignItems: "center", display: "grid", gap: 6, gridTemplateColumns: "minmax(0, 1fr) 42px" }}>
                 <span style={{ background: t.panel, borderRadius: 999, height: 7, overflow: "hidden" }}>
                   <span style={{ background: correlationTone(item.value, t), display: "block", height: "100%", width: `${Math.max(6, item.abs * 100)}%` }} />
@@ -311,8 +337,9 @@ function CorrelationMatrix({ model, activeCell, setActiveCell, t, lang, isMobile
               </span>
             </button>
           )
-        })}
-      </div>
+          })}
+        </div>
+      ) : null}
     </div>
   )
 }
@@ -394,7 +421,7 @@ export function HomeDataExplorer({ t, lang, isMobile }) {
       <div style={{ display: "grid", gap: 12, gridTemplateColumns: isMobile ? "1fr" : "minmax(320px, 0.78fr) minmax(0, 1fr)" }}>
         <ChartShell
           title={zh ? "相关性图" : "Correlation map"}
-          subtitle={zh ? "Pearson r 基于当前筛选行实时计算；边宽表示 |r|，点击边查看样本数。" : "Pearson r is recomputed from the current filtered rows; edge width encodes |r| and click shows sample size."}
+          subtitle={zh ? "Pearson r 基于当前筛选行实时计算；色阶表示正/负相关与强度，点击单元格查看样本数。" : "Pearson r is recomputed from the current filtered rows; color encodes sign and strength, and each cell exposes sample size."}
           badge={activeMetal === "all" ? "global" : activeMetal}
           t={t}
         >

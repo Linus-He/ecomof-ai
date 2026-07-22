@@ -1123,8 +1123,8 @@ export function MOFLibraryTab() {
 
   const statusLine = text(
     lang,
-    `当前状态：${stats.total} 条 Open MOF Seed 记录 · ${sourceCounts["CoRE MOF DB"] || 0} 条来自 CoRE MOF DB · ${sourceCounts["QMOF Database"] || 0} 条来自 QMOF Database。在没有文献、DFT 或实验支持前，有机酸路径相关性保持 pending。`,
-    `Current status: ${stats.total} Open MOF Seed records · ${sourceCounts["CoRE MOF DB"] || 0} from CoRE MOF DB · ${sourceCounts["QMOF Database"] || 0} from QMOF Database. Organic-acid pathway relevance remains pending unless supported by literature, DFT, or experiment.`
+    `${stats.total} 条 Open MOF Seed 记录 · CoRE ${sourceCounts["CoRE MOF DB"] || 0} 条 · QMOF ${sourceCounts["QMOF Database"] || 0} 条。有机酸路径关联需文献、DFT 或实验支持后才标记为有效。`,
+    `${stats.total} Open MOF Seed records · ${sourceCounts["CoRE MOF DB"] || 0} CoRE records · ${sourceCounts["QMOF Database"] || 0} QMOF records. Organic-acid pathway relevance is marked only when supported by literature, DFT, or experiment.`
   )
 
   return (
@@ -1142,13 +1142,13 @@ export function MOFLibraryTab() {
       <div data-testid="mof-library-status-strip" style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, color: t.subtle, fontSize: 12.2, lineHeight: 1.55 }}>
         <strong style={{ color: t.textStrong }}>{text(lang, "Open MOF Seed（CoRE / QMOF）", "Open MOF Seed (CoRE / QMOF)")}</strong>
         <StatusPill t={t} tone={status === "loaded" ? "good" : status === "loading" ? "neutral" : "warn"}>
-          {status === "loading" ? text(lang, "加载中", "loading") : `${stats.total} records`}
+          {status === "loading" ? text(lang, "加载中", "loading") : text(lang, `${stats.total} 条`, `${stats.total} records`)}
         </StatusPill>
         <span>{statusLine}</span>
       </div>
 
       {status === "loading" && <div style={{ color: t.accentText, fontSize: 12.2, fontWeight: 800 }}>{text(lang, "正在加载 Open MOF Seed 数据…", "Loading Open MOF Seed data...")}</div>}
-      {status === "fallback" && <Callout tone="warn">{text(lang, "Open MOF Seed 数据加载失败。请刷新页面或检查 GitHub Pages 数据路径。", "Open MOF Seed data could not be loaded. Please refresh or check the GitHub Pages data path.")}</Callout>}
+      {status === "fallback" && <Callout tone="warn">{text(lang, "Open MOF Seed 数据暂时无法读取。请刷新页面或稍后重试。", "Open MOF Seed data is temporarily unavailable. Please refresh or try again later.")}</Callout>}
       {status === "empty" && <Callout tone="warn">{text(lang, "当前 Open MOF Seed 文件暂无记录。", "The current Open MOF Seed file has no records.")}</Callout>}
 
       <section style={{ display: "grid", gap: 10, padding: "4px 0" }}>
@@ -1158,8 +1158,8 @@ export function MOFLibraryTab() {
             <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.5, marginTop: 3 }}>
               {text(
                 lang,
-                `已准备结构 ${structuralRows.length || rows.length} 条、气体 ${gasRows.length} 条、身份映射 ${identityRegistry?.records?.length || 0} 条；展开后再执行合并检索，避免打开候选库时阻塞页面。`,
-                `Prepared ${structuralRows.length || rows.length} structure rows, ${gasRows.length} gas rows, and ${identityRegistry?.records?.length || 0} identity links; merging is computed after expansion to keep the library responsive.`
+                `结构记录 ${structuralRows.length || rows.length} 条 · 气体吸附记录 ${gasRows.length} 条 · 身份映射 ${identityRegistry?.records?.length || 0} 条。展开后可进行跨数据检索。`,
+                `${structuralRows.length || rows.length} structure records · ${gasRows.length} gas adsorption records · ${identityRegistry?.records?.length || 0} identity links. Open to search across linked datasets.`
               )}
             </div>
           </div>

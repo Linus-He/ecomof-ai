@@ -21,7 +21,7 @@ describe("app_release_log unified version source", () => {
     expect(JSON.stringify(release.modules.ui)).toMatch(/Pareto|帕累托/)
     expect(JSON.stringify(release.modules.gasSep)).toMatch(/CRITIC|APS|GasScore/)
     expect(JSON.stringify(release.modules.gasSep)).toMatch(/Chinese\/English|light\/dark|mobile|中英文|深浅色|移动端/)
-    expect(JSON.stringify(release.modules.database)).toMatch(/MOF Library|候选库|按需展开/)
+    expect(JSON.stringify(release.modules.database)).toMatch(/MOF Library|候选库|结构|identity/)
   })
 
   it("v1.0.0 release only lists modules it changed, each with a summary and changes", () => {
@@ -50,5 +50,14 @@ describe("app_release_log unified version source", () => {
   it("records honest provenance derived from version_evolution_records", () => {
     expect(log.provenance.derivedFrom).toMatch(/version_evolution_records/)
     expect(log.provenance.generatingScript).toMatch(/build-app-release-log/)
+  })
+
+  it("keeps this round in a pending next-release draft until submission", () => {
+    expect(log.currentAppVersion).toBe("v1.0.2")
+    expect(log.pendingNextRelease.baseAppVersion).toBe("v1.0.2")
+    expect(log.pendingNextRelease.versionPolicy.zh).toMatch(/发布时确认/)
+    expect(Object.keys(log.pendingNextRelease.modules)).toEqual(expect.arrayContaining(["home", "ecoscreen", "projectEvolution", "navigation", "localization"]))
+    expect(JSON.stringify(log.pendingNextRelease.modules.ecoscreen)).toMatch(/文献依据|literature basis|金属成本/)
+    expect(JSON.stringify(log.pendingNextRelease.modules.localization)).toMatch(/开发者文档|developer-documentation/)
   })
 })

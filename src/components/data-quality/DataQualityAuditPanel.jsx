@@ -80,15 +80,15 @@ export function DatabaseHealthScoreCard({ audit, lang = "en", t: rawTheme, isMob
   return (
     <Card
       id="database-health-score-card"
-      title={text(lang, "Database Health Score", "Database Health Score")}
-      subtitle={text(lang, "综合 descriptor coverage、provenance completeness、source confirmation、verified metadata 与 high-risk records。", "Combines descriptor coverage, provenance completeness, source confirmation, verified metadata, and high-risk records.")}
+      title={text(lang, "数据库健康评分", "Database Health Score")}
+      subtitle={text(lang, "综合描述符覆盖、来源完整度、来源确认、已核验元数据与高风险记录。", "Combines descriptor coverage, provenance completeness, source confirmation, verified metadata, and high-risk records.")}
       t={t}
     >
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
-        <Metric label="Health score" value={pct(health.healthScore)} note={health.healthStatus} t={t} tone={health.healthScore >= 0.75 ? "pass" : "warn"} />
-        <Metric label="Feature coverage" value={pct(health.descriptorCoverage)} t={t} />
-        <Metric label="Data readiness" value={pct(health.provenanceCoverage)} t={t} />
-        <Metric label="Validation readiness" value={health.verifiedMetadataCount} note="verified metadata count" t={t} tone={health.verifiedMetadataCount > 0 ? "pass" : "warn"} />
+        <Metric label={text(lang, "健康评分", "Health score")} value={pct(health.healthScore)} note={health.healthStatus} t={t} tone={health.healthScore >= 0.75 ? "pass" : "warn"} />
+        <Metric label={text(lang, "特征覆盖率", "Feature coverage")} value={pct(health.descriptorCoverage)} t={t} />
+        <Metric label={text(lang, "数据就绪度", "Data readiness")} value={pct(health.provenanceCoverage)} t={t} />
+        <Metric label={text(lang, "验证就绪度", "Validation readiness")} value={health.verifiedMetadataCount} note={text(lang, "已核验元数据数量", "verified metadata count")} t={t} tone={health.verifiedMetadataCount > 0 ? "pass" : "warn"} />
       </div>
     </Card>
   )
@@ -100,15 +100,18 @@ export function FieldCoverageMatrix({ audit, lang = "en", t: rawTheme }) {
   return (
     <Card
       id="field-coverage-matrix"
-      title={text(lang, "Field Coverage Matrix", "Field Coverage Matrix")}
-      subtitle={text(lang, "字段级状态覆盖 confirmed / pending / ambiguous / missing / derived / normalized / synthetic。", "Field-level status coverage across confirmed, pending, ambiguous, missing, derived, normalized, and synthetic.")}
+      title={text(lang, "字段覆盖矩阵", "Field Coverage Matrix")}
+      subtitle={text(lang, "字段状态覆盖：已确认、待补、歧义、缺失、派生、已归一化与合成。", "Field-level status coverage across confirmed, pending, ambiguous, missing, derived, normalized, and synthetic.")}
       t={t}
     >
       <div style={{ overflowX: "auto" }}>
         <table style={{ borderCollapse: "collapse", minWidth: 760, width: "100%" }}>
           <thead>
             <tr>
-              {["Field", "Coverage", "Provenance", "Confirmed", "Pending", "Ambiguous", "Missing", "Derived", "Normalized", "Synthetic"].map(label => (
+              {(lang === "zh"
+                ? ["字段", "覆盖率", "来源覆盖", "已确认", "待补", "歧义", "缺失", "派生", "已归一化", "合成"]
+                : ["Field", "Coverage", "Provenance", "Confirmed", "Pending", "Ambiguous", "Missing", "Derived", "Normalized", "Synthetic"]
+              ).map(label => (
                 <th key={label} style={{ borderBottom: `1px solid ${t.border}`, color: t.faint, fontSize: 10, padding: "6px 5px", textAlign: label === "Field" ? "left" : "right", textTransform: "uppercase" }}>{label}</th>
               ))}
             </tr>
@@ -137,19 +140,19 @@ export function ProvenanceCompletenessPanel({ audit, lang = "en", t: rawTheme, i
   return (
     <Card
       id="provenance-completeness-panel"
-      title={text(lang, "Provenance Completeness", "Provenance Completeness")}
-      subtitle={text(lang, "字段级来源覆盖 sourceDatabase、sourceRecordId、sourceUrl、citation、license、retrievedAt 与 curationStatus。", "Field-level provenance coverage for sourceDatabase, sourceRecordId, sourceUrl, citation, license, retrievedAt, and curationStatus.")}
+      title={text(lang, "来源完整度", "Provenance Completeness")}
+      subtitle={text(lang, "字段来源覆盖数据库、记录 ID、来源链接、引用、license、获取时间与整理状态。", "Field-level provenance coverage for sourceDatabase, sourceRecordId, sourceUrl, citation, license, retrievedAt, and curationStatus.")}
       t={t}
     >
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
-        <Metric label="Provenance coverage" value={pct(summary.provenanceCoverage)} t={t} />
-        <Metric label="Source confirmed" value={summary.sourceConfirmedCount || 0} t={t} />
-        <Metric label="Citation ready" value={summary.citationReadyCount || 0} t={t} />
-        <Metric label="License confirmed" value={summary.licenseConfirmedCount || 0} t={t} />
-        <Metric label="DOI confirmed" value={summary.doiConfirmedCount || 0} t={t} />
-        <Metric label="Source URL confirmed" value={summary.sourceUrlConfirmedCount || 0} t={t} />
-        <Metric label="Verified metadata" value={summary.verifiedMetadataCount || 0} t={t} tone={(summary.verifiedMetadataCount || 0) > 0 ? "pass" : "warn"} />
-        <Metric label="Synthetic fixture" value={summary.syntheticFixtureCount || 0} t={t} tone={(summary.syntheticFixtureCount || 0) > 0 ? "warn" : "info"} />
+        <Metric label={text(lang, "来源覆盖率", "Provenance coverage")} value={pct(summary.provenanceCoverage)} t={t} />
+        <Metric label={text(lang, "来源已确认", "Source confirmed")} value={summary.sourceConfirmedCount || 0} t={t} />
+        <Metric label={text(lang, "引文就绪", "Citation ready")} value={summary.citationReadyCount || 0} t={t} />
+        <Metric label={text(lang, "License 已确认", "License confirmed")} value={summary.licenseConfirmedCount || 0} t={t} />
+        <Metric label={text(lang, "DOI 已确认", "DOI confirmed")} value={summary.doiConfirmedCount || 0} t={t} />
+        <Metric label={text(lang, "来源链接已确认", "Source URL confirmed")} value={summary.sourceUrlConfirmedCount || 0} t={t} />
+        <Metric label={text(lang, "已核验元数据", "Verified metadata")} value={summary.verifiedMetadataCount || 0} t={t} tone={(summary.verifiedMetadataCount || 0) > 0 ? "pass" : "warn"} />
+        <Metric label={text(lang, "合成样例", "Synthetic fixture")} value={summary.syntheticFixtureCount || 0} t={t} tone={(summary.syntheticFixtureCount || 0) > 0 ? "warn" : "info"} />
       </div>
     </Card>
   )
@@ -162,15 +165,15 @@ export function AmbiguityRiskPanel({ audit, lang = "en", t: rawTheme, isMobile =
   return (
     <Card
       id="ambiguity-risk-panel"
-      title={text(lang, "Ambiguity Risk", "Ambiguity Risk")}
-      subtitle={text(lang, "ambiguous / missing / pending 字段会降低 readiness；字段级 ambiguity 会阻断 verified_metadata。", "Ambiguous, missing, and pending fields reduce readiness; field-level ambiguity blocks verified_metadata.")}
+      title={text(lang, "歧义与缺失风险", "Ambiguity Risk")}
+      subtitle={text(lang, "歧义、缺失和待补字段会降低就绪度；字段级歧义会阻断 verified_metadata。", "Ambiguous, missing, and pending fields reduce readiness; field-level ambiguity blocks verified_metadata.")}
       t={t}
     >
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
-        <Metric label="Ambiguity warnings" value={summary.ambiguityWarningCount || 0} t={t} tone={(summary.ambiguityWarningCount || 0) > 0 ? "warn" : "info"} />
-        <Metric label="Missing fields" value={summary.missingFieldCount || 0} t={t} tone={(summary.missingFieldCount || 0) > 0 ? "warn" : "info"} />
-        <Metric label="High-risk records" value={summary.highRiskRecordCount || 0} t={t} tone={(summary.highRiskRecordCount || 0) > 0 ? "warn" : "pass"} />
-        <Metric label="Record quality" value={pct(summary.recordQualityScore)} t={t} />
+        <Metric label={text(lang, "歧义警告", "Ambiguity warnings")} value={summary.ambiguityWarningCount || 0} t={t} tone={(summary.ambiguityWarningCount || 0) > 0 ? "warn" : "info"} />
+        <Metric label={text(lang, "缺失字段", "Missing fields")} value={summary.missingFieldCount || 0} t={t} tone={(summary.missingFieldCount || 0) > 0 ? "warn" : "info"} />
+        <Metric label={text(lang, "高风险记录", "High-risk records")} value={summary.highRiskRecordCount || 0} t={t} tone={(summary.highRiskRecordCount || 0) > 0 ? "warn" : "pass"} />
+        <Metric label={text(lang, "记录质量", "Record quality")} value={pct(summary.recordQualityScore)} t={t} />
       </div>
       <div style={{ display: "grid", gap: 6 }}>
         {topRisks.map(row => (
@@ -190,7 +193,7 @@ export function VerifiedBlockerSummary({ audit, lang = "en", t: rawTheme }) {
   return (
     <Card
       id="verified-blocker-summary"
-      title={text(lang, "Verified Blocker Summary", "Verified Blocker Summary")}
+      title={text(lang, "核验阻断项", "Verified Blocker Summary")}
       subtitle={text(lang, "source_confirmed、citation_ready 与 near_verified 都不会自动等于 verified_metadata。", "source_confirmed, citation_ready, and near_verified do not automatically equal verified_metadata.")}
       t={t}
     >
@@ -231,32 +234,32 @@ export function DataQualityAuditPanel({ records = [], audit: auditProp, lang = "
     <section id="data-quality-audit-panel" data-testid="data-quality-audit-panel" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 12, minWidth: 0, padding: 12, scrollMarginTop: 118 }}>
       <header style={{ alignItems: "flex-start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
         <div style={{ display: "grid", gap: 4, minWidth: 0 }}>
-          <h2 style={{ color: t.textStrong, fontSize: compact ? 16 : 18, lineHeight: 1.18, margin: 0 }}>{text(lang, "Data Quality Audit", "Data Quality Audit")}</h2>
+          <h2 style={{ color: t.textStrong, fontSize: compact ? 16 : 18, lineHeight: 1.18, margin: 0 }}>{text(lang, "数据质量审计", "Data Quality Audit")}</h2>
           <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.5, margin: 0 }}>
-            {text(lang, "Database Preview / Not Final Recommendation。字段级 provenance、coverage、blockers 与 health score 贯穿 V2.2。", "Database Preview / Not Final Recommendation. Field-level provenance, coverage, blockers, and health score are carried through V2.2.")}
+            {text(lang, "数据库预览 / 非最终推荐。字段来源、覆盖率、阻断项与健康评分贯穿 V2.2。", "Database Preview / Not Final Recommendation. Field-level provenance, coverage, blockers, and health score are carried through V2.2.")}
           </p>
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-          <ExportButton t={t} onClick={() => exportBundle("screening-audit")}>Export Screening Audit JSON</ExportButton>
-          <ExportButton t={t} onClick={() => exportBundle("candidate-data-gap")}>Export Candidate Data Gap JSON</ExportButton>
-          <ExportButton t={t} onClick={() => exportBundle("model-readiness-summary")}>Export Model Readiness Summary JSON</ExportButton>
+          <ExportButton t={t} onClick={() => exportBundle("screening-audit")}>{text(lang, "导出筛选审计", "Export Screening Audit JSON")}</ExportButton>
+          <ExportButton t={t} onClick={() => exportBundle("candidate-data-gap")}>{text(lang, "导出候选数据缺口", "Export Candidate Data Gap JSON")}</ExportButton>
+          <ExportButton t={t} onClick={() => exportBundle("model-readiness-summary")}>{text(lang, "导出模型就绪度摘要", "Export Model Readiness Summary JSON")}</ExportButton>
         </div>
       </header>
 
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
-        <Metric label="Total candidates" value={summary.totalCandidates || records.length || 0} t={t} />
-        <Metric label="Descriptor coverage" value={pct(summary.descriptorCoverage)} t={t} />
-        <Metric label="Provenance coverage" value={pct(summary.provenanceCoverage)} t={t} />
-        <Metric label="Verified metadata count" value={summary.verifiedMetadataCount || 0} t={t} tone={(summary.verifiedMetadataCount || 0) > 0 ? "pass" : "warn"} />
-        <Metric label="Source confirmed count" value={summary.sourceConfirmedCount || 0} t={t} />
-        <Metric label="Citation ready count" value={summary.citationReadyCount || 0} t={t} />
-        <Metric label="License confirmed count" value={summary.licenseConfirmedCount || 0} t={t} />
-        <Metric label="DOI confirmed count" value={summary.doiConfirmedCount || 0} t={t} />
-        <Metric label="SourceURL confirmed count" value={summary.sourceUrlConfirmedCount || 0} t={t} />
-        <Metric label="Ambiguity warning count" value={summary.ambiguityWarningCount || 0} t={t} tone={(summary.ambiguityWarningCount || 0) > 0 ? "warn" : "info"} />
-        <Metric label="Synthetic fixture count" value={summary.syntheticFixtureCount || 0} t={t} tone={(summary.syntheticFixtureCount || 0) > 0 ? "warn" : "info"} />
-        <Metric label="Missing field count" value={summary.missingFieldCount || 0} t={t} tone={(summary.missingFieldCount || 0) > 0 ? "warn" : "info"} />
-        <Metric label="High-risk records" value={summary.highRiskRecordCount || 0} t={t} tone={(summary.highRiskRecordCount || 0) > 0 ? "warn" : "pass"} />
+        <Metric label={text(lang, "候选总数", "Total candidates")} value={summary.totalCandidates || records.length || 0} t={t} />
+        <Metric label={text(lang, "描述符覆盖率", "Descriptor coverage")} value={pct(summary.descriptorCoverage)} t={t} />
+        <Metric label={text(lang, "来源覆盖率", "Provenance coverage")} value={pct(summary.provenanceCoverage)} t={t} />
+        <Metric label={text(lang, "已核验元数据", "Verified metadata count")} value={summary.verifiedMetadataCount || 0} t={t} tone={(summary.verifiedMetadataCount || 0) > 0 ? "pass" : "warn"} />
+        <Metric label={text(lang, "来源已确认", "Source confirmed count")} value={summary.sourceConfirmedCount || 0} t={t} />
+        <Metric label={text(lang, "引文就绪", "Citation ready count")} value={summary.citationReadyCount || 0} t={t} />
+        <Metric label={text(lang, "License 已确认", "License confirmed count")} value={summary.licenseConfirmedCount || 0} t={t} />
+        <Metric label={text(lang, "DOI 已确认", "DOI confirmed count")} value={summary.doiConfirmedCount || 0} t={t} />
+        <Metric label={text(lang, "来源链接已确认", "SourceURL confirmed count")} value={summary.sourceUrlConfirmedCount || 0} t={t} />
+        <Metric label={text(lang, "歧义警告", "Ambiguity warning count")} value={summary.ambiguityWarningCount || 0} t={t} tone={(summary.ambiguityWarningCount || 0) > 0 ? "warn" : "info"} />
+        <Metric label={text(lang, "合成样例", "Synthetic fixture count")} value={summary.syntheticFixtureCount || 0} t={t} tone={(summary.syntheticFixtureCount || 0) > 0 ? "warn" : "info"} />
+        <Metric label={text(lang, "缺失字段", "Missing field count")} value={summary.missingFieldCount || 0} t={t} tone={(summary.missingFieldCount || 0) > 0 ? "warn" : "info"} />
+        <Metric label={text(lang, "高风险记录", "High-risk records")} value={summary.highRiskRecordCount || 0} t={t} tone={(summary.highRiskRecordCount || 0) > 0 ? "warn" : "pass"} />
       </div>
 
       <DatabaseHealthScoreCard audit={audit} lang={lang} t={t} isMobile={isMobile} />

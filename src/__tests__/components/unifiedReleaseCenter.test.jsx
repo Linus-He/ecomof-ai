@@ -8,10 +8,11 @@ describe("Unified Release Center", () => {
     render(<ProjectEvolutionTab data={data} />)
     const center = screen.getByTestId("project-evolution-app-release")
     // newest release leads; the selector still offers v1.0.0
+    expect(within(center).getAllByText(/App v1\.0\.2/).length).toBeGreaterThan(0)
     expect(within(center).getAllByText(/App v1\.0\.1/).length).toBeGreaterThan(0)
     expect(within(center).getAllByText(/App v1\.0\.0/).length).toBeGreaterThan(0)
     expect(center.textContent).toMatch(/Unified Release Center/)
-    expect(center.textContent).not.toMatch(/App v1\.0\.2\s*·\s*2026-06-29/)
+    expect(center.textContent).toMatch(/Current App Release/)
     expect(within(center).getByLabelText("Select App version")).toBeInTheDocument()
   })
 
@@ -33,5 +34,14 @@ describe("Unified Release Center", () => {
     const center = screen.getByTestId("project-evolution-app-release")
     expect(center.textContent).toMatch(/History \(pre-1\.0/)
     expect(center.textContent).toMatch(/V3\.10\.1/)
+  })
+
+  it("keeps the next release preview without changing the current App version", () => {
+    render(<ProjectEvolutionTab data={data} />)
+    const draft = screen.getByTestId("project-evolution-next-release-draft")
+    expect(draft.textContent).toMatch(/Next Release Preview/)
+    expect(draft.textContent).toMatch(/v1\.0\.2/)
+    expect(draft.textContent).toMatch(/assigned at release time/)
+    expect(draft.textContent).toMatch(/Information Architecture & Navigation/)
   })
 })

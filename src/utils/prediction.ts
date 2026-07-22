@@ -225,7 +225,7 @@ export function predictMOF(inputs) {
     functionalUnit: gas.id === "CO2/N2"
       ? "Per candidate MOF under the selected pressure-temperature condition for post-combustion screening."
       : "Per candidate MOF under the selected pressure-temperature condition for comparative screening.",
-    systemBoundary: "Structure descriptor -> browser-side prediction -> screening interpretation. No experimental process inventory is included at this stage.",
+    systemBoundary: "Structure descriptor -> local screening estimate -> screening interpretation. No experimental process inventory is included at this stage.",
     confidenceNote: result.applicability.status === "out_of_domain"
       ? "Prediction is outside the preferred descriptor envelope and should be treated as low-confidence."
       : "Prediction is suitable for early-stage comparison only and still requires literature, GCMC, or experimental confirmation.",

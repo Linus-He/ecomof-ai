@@ -35,7 +35,7 @@ export function AlgorithmTraceWorkbench({ trace, lang, t, isMobile }) {
           {isDatabaseIndexTrace ? (
             <section style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 10, color: t.muted, display: "grid", fontSize: 12.3, gap: 5, lineHeight: 1.5, padding: 10 }}>
               <strong style={{ color: t.warn }}>{text(lang, "索引层 trace 边界", "Index-level trace boundary")}</strong>
-              <span>{text(lang, "大规模数据追踪在索引层进行摘要，避免浏览器端 trace 爆炸。Trace 只覆盖 manifest、summary、Top candidates、当前加载分片与当前打开详情。", "Large-scale trace is summarized at index level to avoid browser-side trace explosion. Trace covers only manifest, summaries, top candidates, the current loaded part, and the current opened detail.")}</span>
+              <span>{text(lang, "大规模数据追踪在索引层进行摘要，避免审计信息过载。Trace 只覆盖数据清单、汇总、Top candidates、当前加载分片与当前打开详情。", "Large-scale trace is summarized at index level to keep the audit readable. Trace covers only the data manifest, summaries, top candidates, the current loaded part, and the current opened detail.")}</span>
             </section>
           ) : null}
           <TraceRunOverview trace={trace} lang={lang} t={t} isMobile={isMobile} />

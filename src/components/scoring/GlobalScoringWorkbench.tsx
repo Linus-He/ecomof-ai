@@ -107,8 +107,8 @@ export function GlobalScoringWorkbench({
         title={title || text(language, "General MOF Scoring Workbench", "General MOF Scoring Workbench")}
         subtitle={subtitle || text(
           language,
-          "统一接入 createScoringModel：描述符集、权重方法、候选排序、解释与诊断使用同一套全局评分模型。",
-          "Unified createScoringModel workflow for descriptor sets, weighting methods, ranking, explanations, and diagnostics."
+          "描述符集、权重方法、候选排序、解释与诊断使用同一套全局评分模型。",
+          "Descriptor sets, weighting methods, ranking, explanations, and diagnostics use one unified scoring model."
         )}
       >
         <div style={{ display: "grid", gap: 12 }}>

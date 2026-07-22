@@ -27,7 +27,6 @@ describe("terminology consistency", () => {
       "查看数据缺口",
       "查看验证状态",
       "查看排序解释",
-      "查看研究报告",
     ]))
   })
 })

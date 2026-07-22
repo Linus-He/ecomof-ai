@@ -45,9 +45,10 @@ describe("home limitations", () => {
     renderHome()
     const limitations = screen.getByTestId("home-current-limitations")
 
-    expect(within(limitations).getByText("High Overfitting Risk")).toBeInTheDocument()
-    expect(within(limitations).getByText("Need More Experimental Labels")).toBeInTheDocument()
-    expect(within(limitations).getByText("Not Final Recommendation")).toBeInTheDocument()
+    expect(within(limitations).getByText("高过拟合风险")).toBeInTheDocument()
+    expect(within(limitations).getByText("实验标签仍需扩充")).toBeInTheDocument()
+    expect(within(limitations).getByText("非最终推荐")).toBeInTheDocument()
+    expect(limitations.textContent).not.toMatch(/High Overfitting Risk|Need More Experimental Labels|Not Final Recommendation/)
     expect(within(limitations).queryByText("?")).not.toBeInTheDocument()
   })
 })

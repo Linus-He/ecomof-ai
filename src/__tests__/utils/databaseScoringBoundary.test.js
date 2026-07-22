@@ -35,11 +35,11 @@ describe("database scoring boundary", () => {
     expect(workerSource).not.toMatch(/importScripts|XMLHttpRequest|loadDatabaseIndexOverview|fetchIndexPart|fetchDetailRecord/)
   })
 
-  it("blocks full database scoring in the browser", () => {
+  it("blocks full database scoring until source and descriptor verification is complete", () => {
     const boundary = canRunBrowserScoring("full_database_precompute_required")
     expect(boundary.browserAllowed).toBe(false)
-    expect(boundary.reason).toBe("Full database scoring must be precomputed or run outside the browser main thread.")
-    expect(boundary.reasonZh).toBe("全量数据库评分必须预计算，或在浏览器主线程之外执行。")
+    expect(boundary.reason).toBe("Full database scoring requires source verification, descriptor recomputation, and method audit before it can be treated as a verified result.")
+    expect(boundary.reasonZh).toBe("全量数据库评分需先完成来源核验、描述符复算与方法审计，才能作为已核验结果使用。")
     expect(buildScoringBoundaryNotice("full_database_precompute_required", "zh")).toBe(boundary.reasonZh)
   })
 

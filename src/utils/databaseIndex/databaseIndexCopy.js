@@ -6,8 +6,8 @@ export const DATABASE_INDEX_COPY = {
     zh: "扩展数据库筛选界面",
   },
   workerScoringBoundaryPreview: {
-    en: "Worker Scoring Boundary Preview",
-    zh: "Worker 评分边界预览",
+    en: "Large-Scale Scoring Boundary Preview",
+    zh: "大规模评分边界预览",
   },
   candidateCompare: {
     en: "Candidate Compare",
@@ -46,7 +46,7 @@ export const DATABASE_INDEX_COPY = {
     zh: "经完整验证的全量数据库筛选",
   },
   loadedScopeDryRun: {
-    en: "loaded-scope dry run",
+    en: "loaded-scope trial scoring",
     zh: "已加载范围试算",
   },
   previewIndexDataOnly: {
@@ -54,16 +54,16 @@ export const DATABASE_INDEX_COPY = {
     zh: "对比仅基于当前已加载的预览/索引数据",
   },
   localLoadedScopeNotice: {
-    en: "This is a local loaded-scope dry run, not full database screening.",
+    en: "This is loaded-scope trial scoring, not full database screening.",
     zh: "这是当前已加载范围的本地试算，不是全量数据库筛选。",
   },
   fullDatabaseReason: {
-    en: "Full database scoring must be precomputed or run outside the browser main thread.",
-    zh: "全量数据库评分必须预计算，或在浏览器主线程之外执行。",
+    en: "Full database scoring requires source verification, descriptor recomputation, and method audit before it can be treated as a verified result.",
+    zh: "全量数据库评分需先完成来源核验、描述符复算与方法审计，才能作为已核验结果使用。",
   },
   noExtraFetch: {
-    en: "The worker request is built from records already loaded in the UI; it does not fetch additional index parts or detail records.",
-    zh: "Worker 请求只使用界面中已经加载的记录，不会额外读取索引分片或详情记录。",
+    en: "The current review uses only candidates already visible in this view and does not expand the evidence scope automatically.",
+    zh: "当前审阅只使用本视图中已有候选，不会自动扩大证据范围。",
   },
   metadataVerification: {
     en: "Metadata verification",
@@ -117,8 +117,8 @@ export const SCORING_SCOPE_COPY = {
     zh: "已选择候选",
   },
   full_database_precompute_required: {
-    en: "full database: browser unavailable",
-    zh: "全量数据库：浏览器内不可用",
+    en: "full database: verification required",
+    zh: "全量数据库：需完成核验",
   },
 }
 

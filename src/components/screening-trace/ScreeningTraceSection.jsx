@@ -41,22 +41,22 @@ function DatabasePreviewSummary({ trace, lang, t, isMobile }) {
   return (
     <section id="database-preview-summary" data-testid="database-preview-summary" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 12 }}>
       <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
-        <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "Database Preview Summary", "Database Preview Summary")}</strong>
-        <StatusPill tone="warn" t={t}>{text(lang, "Not Final Recommendation", "Not Final Recommendation")}</StatusPill>
+        <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "数据库预览摘要", "Database Preview Summary")}</strong>
+        <StatusPill tone="warn" t={t}>{text(lang, "非最终推荐", "Not Final Recommendation")}</StatusPill>
       </div>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
-        <Metric label={text(lang, "Total candidates", "Total candidates")} value={trace.totalCandidates} t={t} />
-        <Metric label={text(lang, "Ranked candidates", "Ranked candidates")} value={trace.finalCandidates} t={t} />
-        <Metric label={text(lang, "Descriptor complete candidates", "Descriptor complete candidates")} value={trace.descriptorCompleteCount || 0} t={t} />
-        <Metric label={text(lang, "Source confirmed candidates", "Source confirmed candidates")} value={trace.sourceConfirmedCount || 0} t={t} />
-        <Metric label={text(lang, "Citation ready candidates", "Citation ready candidates")} value={trace.citationReadyCount || 0} t={t} />
-        <Metric label={text(lang, "Verified metadata candidates", "Verified metadata candidates")} value={trace.verifiedMetadataCount || 0} t={t} tone={trace.verifiedMetadataCount > 0 ? "pass" : "warn"} />
-        <Metric label={text(lang, "Quarantined candidates", "Quarantined candidates")} value={trace.quarantinedCount || 0} t={t} tone={(trace.quarantinedCount || 0) > 0 ? "warn" : "info"} />
-        <Metric label={text(lang, "Data Gap Count", "Data Gap Count")} value={trace.dataGapCount || 0} t={t} tone={(trace.dataGapCount || 0) > 0 ? "warn" : "info"} />
+        <Metric label={text(lang, "候选总数", "Total candidates")} value={trace.totalCandidates} t={t} />
+        <Metric label={text(lang, "已排序候选", "Ranked candidates")} value={trace.finalCandidates} t={t} />
+        <Metric label={text(lang, "描述符完整候选", "Descriptor complete candidates")} value={trace.descriptorCompleteCount || 0} t={t} />
+        <Metric label={text(lang, "来源确认候选", "Source confirmed candidates")} value={trace.sourceConfirmedCount || 0} t={t} />
+        <Metric label={text(lang, "引文就绪候选", "Citation ready candidates")} value={trace.citationReadyCount || 0} t={t} />
+        <Metric label={text(lang, "已核验元数据候选", "Verified metadata candidates")} value={trace.verifiedMetadataCount || 0} t={t} tone={trace.verifiedMetadataCount > 0 ? "pass" : "warn"} />
+        <Metric label={text(lang, "隔离候选", "Quarantined candidates")} value={trace.quarantinedCount || 0} t={t} tone={(trace.quarantinedCount || 0) > 0 ? "warn" : "info"} />
+        <Metric label={text(lang, "数据缺口数", "Data Gap Count")} value={trace.dataGapCount || 0} t={t} tone={(trace.dataGapCount || 0) > 0 ? "warn" : "info"} />
       </div>
       {trace.verifiedMetadataCount === 0 ? (
         <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 8, color: t.muted, fontSize: 12, fontWeight: 850, lineHeight: 1.5, padding: 10 }}>
-          {text(lang, "当前为 Database Preview，不是 Verified Screening。结果仅用于透明筛选流程展示和数据缺口识别。", "This is a Database Preview, not Verified Screening. Results are only for transparent screening flow display and data-gap identification.")}
+          {text(lang, "当前为数据库预览，不是已核验筛选。结果仅用于透明展示筛选流程和识别数据缺口。", "This is a Database Preview, not Verified Screening. Results are only for transparent screening flow display and data-gap identification.")}
         </div>
       ) : null}
     </section>
@@ -92,7 +92,7 @@ export function ScreeningTraceSection({ model, verification: verificationProp = 
       <DatabasePreviewSummary trace={trace} lang={lang} t={t} isMobile={isMobile} />
       {!dataReady ? (
         <section data-testid="screening-trace-loading-shell" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12, lineHeight: 1.55, padding: 12 }}>
-          {text(lang, "候选数据仍在加载；筛选过程 shell 已就绪，图表和候选明细会在数据返回后填充。", "Candidate data is still loading; the screening shell is ready and charts/candidate details will fill after data returns.")}
+          {text(lang, "候选数据仍在读取；图表和候选明细会在数据返回后显示。", "Candidate data is still loading; charts and candidate details will appear after data returns.")}
         </section>
       ) : null}
       <ScreeningTraceTimeline trace={trace} lang={lang} t={t} />

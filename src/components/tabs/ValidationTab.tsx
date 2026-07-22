@@ -116,7 +116,7 @@ export function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi, 
             <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))", gap: 10 }}>
               {[
                 [lang === "zh" ? "清单来源" : "Manifest source", zhText(lang, manifestSource), apiUrl || zhText(lang, "static site")],
-                [lang === "zh" ? "模型状态" : "Model status", apiStatus?.ok ? zhText(lang, "backend connected") : zhText(lang, "static fallback"), apiStatus?.message ? zhText(lang, apiStatus.message) : zhText(lang, "browser-side model")],
+                [lang === "zh" ? "模型状态" : "Model status", apiStatus?.ok ? zhText(lang, "backend connected") : zhText(lang, "static fallback"), apiStatus?.message ? zhText(lang, apiStatus.message) : zhText(lang, "本地筛选模型")],
                 [lang === "zh" ? "训练来源" : "Training origin", manifest?.origin || "—", manifest?.warning || "—"],
                 [lang === "zh" ? "训练行数" : "Rows", manifest?.rows ?? "—", (manifest?.source_files || []).join(" · ") || zhText(lang, "public seed")],
                 [lang === "zh" ? "目标变量" : "Targets", (manifest?.targets || []).join(" / ") || "—", (manifest?.models || []).join(" / ") || "—"],
@@ -159,7 +159,7 @@ export function ValidationTab({ results, inputs, apiUrl, apiStatus, onCheckApi, 
         onClick={() => onNavigate?.("dataSources")}
       />
       <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
-        <summary style={{ color: t.accentText, cursor: "pointer", fontSize: 12, fontWeight: 800 }}>{lang === "zh" ? "导出与工程操作" : "Export and engineering actions"}</summary>
+        <summary style={{ color: t.accentText, cursor: "pointer", fontSize: 12, fontWeight: 800 }}>{lang === "zh" ? "导出验证资料" : "Export validation files"}</summary>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 12 }}>
           <button type="button" onClick={() => downloadTextFile("ecomof_validation_summary.md", validationReport, "text/markdown")} style={toolbarBtn(t)}>↓ {lang === "zh" ? "验证 MD" : "Validation MD"}</button>
           <button type="button" onClick={() => downloadTextFile("ecomof_validation_points.csv", validationCsv, "text/csv")} style={toolbarBtn(t)}>↓ {lang === "zh" ? "验证 CSV" : "Validation CSV"}</button>

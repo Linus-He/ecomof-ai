@@ -189,27 +189,27 @@ const V1_0_2_RELEASE = {
   date: GENERATED_AT,
   stage: "unified-platform",
   headline: {
-    zh: "v1.0.2：首页动态图、GasSep 数据联动、MOF Library 响应性与全局汉化审查。",
-    en: "v1.0.2: homepage interactive charts, GasSep data linkage, MOF Library responsiveness, and global localization audit.",
+    zh: "v1.0.2：首页动态图、GasSep 数据联动、MOF Library 浏览体验与全局汉化审查。",
+    en: "v1.0.2: homepage interactive charts, GasSep data linkage, MOF Library browsing experience, and global localization audit.",
   },
   summary: {
-    zh: "继续沿用 v1.0.2，不改 Organic Acid 排名算法、底层评分或源数据：修复首页入口按钮的玻璃反光异常，保留真实数据驱动的首页统计分布、金属筛选和相关性动态图；GasSep 候选排序、对比、验证队列与方法说明改为随气体对、筛选漏斗和字段覆盖实时变化；MOF Library 的统一浏览器改为按需展开，避免打开候选库时阻塞页面；新增高频界面汉化审查，覆盖中英文、深浅色和移动端回归。",
-    en: "v1.0.2 continues without changing Organic Acid ranking algorithms, scores, or source data: fixed the homepage entry-button glare, kept real-data-driven homepage distribution, metal filtering, and correlation visuals; made GasSep ranking, comparison, validation queue, and method context update from the selected gas pair, funnel, and field coverage; lazy-loads the MOF Library unified browser to prevent page stalls; and adds high-traffic localization QA across Chinese/English, light/dark, and mobile regressions.",
+    zh: "继续沿用 v1.0.2，不改 Organic Acid 排名算法、底层评分或源数据：修复首页入口按钮的玻璃反光异常，保留真实数据驱动的首页统计分布、金属筛选和相关性动态图；GasSep 候选排序、对比、验证队列与方法说明改为随气体对、筛选漏斗和字段覆盖实时变化；MOF Library 浏览区展示结构、气体与身份映射覆盖；新增高频界面汉化审查，覆盖中英文、深浅色和移动端。",
+    en: "v1.0.2 continues without changing Organic Acid ranking algorithms, scores, or source data: fixed the homepage entry-button glare, kept real-data-driven homepage distribution, metal filtering, and correlation visuals; made GasSep ranking, comparison, validation queue, and method context update from the selected gas pair, funnel, and field coverage; shows structure, gas, and identity-link coverage in the MOF Library; and adds high-traffic localization QA across Chinese/English, light/dark, and mobile.",
   },
   modules: {
     ui: {
       summary: {
-        zh: "首页入口按钮、真实数据图表、移动端降级和全局中文文案审查。",
-        en: "Homepage entry buttons, real-data charts, mobile fallback, and global Chinese localization QA.",
+        zh: "首页入口按钮、真实数据图表、移动端展示和全局中文文案审查。",
+        en: "Homepage entry buttons, real-data charts, mobile presentation, and global Chinese localization QA.",
       },
       changes: [
-        { zh: "移除全站旧等宽数字 alias 使用，数字、版本号、指标、计数、步骤号与表格数值统一使用 --font-body，并保留 tabular-nums 对齐；化学式继续走 --font-formula。", en: "Removed site-wide legacy fixed-width numeral alias usage; numbers, versions, metrics, counts, step labels, and table values use --font-body with tabular-nums, while chemistry formulas remain on --font-formula." },
-        { zh: "新增 APP_VERSION / getCurrentAppVersion 单一版本源，当前 App 徽章显示 App v1.0.2；历史 V3.x / 数据集 v2.x 版本按模块历史原样保留。", en: "Added APP_VERSION / getCurrentAppVersion as the single version source; current App badges show App v1.0.2 while historical V3.x / dataset v2.x labels remain unchanged in module history." },
-        { zh: "首页 MOF 描述符三维分布改用更大的 CoRE/QMOF 确定性采样，补充轴刻度、真实值悬停、金属 / dataGrade 着色切换和孔径点大小图例。", en: "The homepage MOF descriptor 3D view now uses a larger deterministic CoRE/QMOF sample with axis ticks, real-value hover, metal / dataGrade color modes, and pore-size point-size legend." },
-        { zh: "首页新增气体分离帕累托图，基于 gas_adsorption_records_v2 中同时具备选择性与工作容量的真实点，按气对切换并标注 IAST/实验/计算覆盖。", en: "Added a homepage gas-separation Pareto chart from gas_adsorption_records_v2 records that have both selectivity and working capacity, with gas-pair switching and IAST/experimental/computed coverage." },
+        { zh: "统一数字、版本号、指标、计数、步骤号与表格数值的显示风格；化学式继续使用独立的专业排版。", en: "Unifies the display style for numbers, versions, metrics, counts, step labels, and table values, while chemistry formulas keep dedicated scientific typography." },
+        { zh: "建立统一 App 版本来源，当前 App 徽章显示 App v1.0.2；历史 V3.x / 数据集 v2.x 版本按模块历史原样保留。", en: "Adds a unified App version source; current App badges show App v1.0.2 while historical V3.x / dataset v2.x labels remain unchanged in module history." },
+        { zh: "首页 MOF 描述符三维分布改用更大的 CoRE/QMOF 样本，补充轴刻度、真实值悬停、金属 / 数据等级着色切换和孔径点大小图例。", en: "The homepage MOF descriptor 3D view now uses a larger CoRE/QMOF sample with axis ticks, real-value hover, metal / data-grade color modes, and pore-size point-size legend." },
+        { zh: "首页新增气体分离帕累托图，基于同时具备选择性与工作容量的真实记录，按气对切换并标注 IAST/实验/计算覆盖。", en: "Added a homepage gas-separation Pareto chart from real records that have both selectivity and working capacity, with gas-pair switching and IAST/experimental/computed coverage." },
         { zh: "首页入口按钮去掉异常玻璃折射和蓝色实心态，改为中性按钮、清晰 hover 反馈和更稳定的移动端布局。", en: "Removed abnormal glass refraction and blue filled state from homepage entry buttons, replacing them with neutral buttons, clear hover feedback, and steadier mobile layout." },
         { zh: "首页相关性图从密集矩阵改为可点击相关性网络，边宽由 Pearson |r| 决定，节点、说明和排行全部来自当前筛选数据。", en: "Reworked the homepage correlation chart from a dense matrix into an interactive network where edge width is driven by Pearson |r| and nodes, notes, and ranking all come from the current filtered data." },
-        { zh: "新增高频界面汉化审查测试，拒绝中文模式下的机械式中英拼接；保留 CRITIC、Hybrid、IAST 等必要算法名。", en: "Added high-traffic localization QA that rejects machine-like mixed Chinese/English labels in Chinese mode while preserving necessary algorithm names such as CRITIC, Hybrid, and IAST." },
+        { zh: "新增高频界面汉化审查，拒绝中文模式下的机械式中英拼接；保留 CRITIC、Hybrid、IAST 等必要算法名。", en: "Added high-traffic localization QA that rejects machine-like mixed Chinese/English labels in Chinese mode while preserving necessary terms such as CRITIC, Hybrid, and IAST." },
       ],
     },
     gasSep: {
@@ -221,18 +221,18 @@ const V1_0_2_RELEASE = {
         { zh: "保留 Pareto + APS、APS×R%、CRITIC 和历史 GasScore 的方法依据，但所有候选排序、漏斗、对比和解释面板都随当前气体对与筛选结果实时更新。", en: "Kept Pareto + APS, APS×R%, CRITIC, and Legacy GasScore method context while ensuring ranking, funnel, comparison, and explanation panels update from the current gas pair and filtered rows." },
         { zh: "候选材料排序表改为紧凑列 + 单行展开详情，解决过多字段同时展开导致的拥挤、换行和可读性问题。", en: "Converted the candidate ranking table to compact columns with single-row expandable details, fixing overcrowding, wrapping, and readability issues from too many always-visible fields." },
         { zh: "移除无数据联动意义的概览卡和固定验证路线，改为由字段覆盖、Pareto 前沿、当前候选和筛选漏斗生成的验证队列。", en: "Removed non-data-linked overview cards and fixed validation roadmap, replacing them with a validation queue generated from field coverage, Pareto frontier, selected candidate, and funnel state." },
-        { zh: "专项回归覆盖中英文、深浅色主题和移动端单列布局，确认方法卡、筛选漏斗和性能图保持可交互。", en: "Regression coverage checks Chinese/English copy, light/dark themes, and mobile single-column layout while preserving interactivity in method cards, funnel, and performance map." },
+        { zh: "中英文、深浅色主题和移动端单列布局均保持可读；方法卡、筛选漏斗和性能图保持可交互。", en: "Chinese/English copy, light/dark themes, and the mobile single-column layout remain readable; method cards, funnel, and performance map remain interactive." },
       ],
     },
     database: {
       summary: {
-        zh: "MOF Library 统一浏览器按需展开，避免打开候选库时页面无响应。",
-        en: "MOF Library unified browsing is now on-demand to prevent stalls when opening the candidate library.",
+        zh: "MOF Library 统一浏览器更聚焦结构、气体与身份映射覆盖。",
+        en: "MOF Library unified browsing now focuses on structure, gas, and identity-link coverage.",
       },
       changes: [
-        { zh: "统一 MOF 浏览器默认折叠，只有用户展开时才合并结构、气体与身份映射数据，降低初次进入候选库的主线程压力。", en: "The unified MOF browser is collapsed by default and merges structure, gas, and identity data only after expansion, reducing main-thread pressure on initial library entry." },
-        { zh: "候选库顶部状态从大提示框改为轻量状态条，保留 Open MOF Seed、加载状态、记录数和来源说明。", en: "The library header status changed from large callouts to a lightweight status strip that keeps Open MOF Seed, load state, record counts, and source context visible." },
-        { zh: "数据库索引加载态和候选对比字段同步汉化，避免候选库中文模式出现明显英文残留。", en: "Localized database-index loading and candidate-comparison fields to avoid obvious English remnants in Chinese mode." },
+        { zh: "统一 MOF 浏览器集中展示结构记录、气体吸附记录和身份映射数量，用户展开后可进行跨数据检索。", en: "The unified MOF browser highlights structure records, gas adsorption records, and identity links, then lets users search across linked datasets after opening it." },
+        { zh: "候选库顶部状态从大提示框改为轻量状态条，保留 Open MOF Seed、记录数和来源说明。", en: "The library header status changed from large callouts to a lightweight status strip that keeps Open MOF Seed, record counts, and source context visible." },
+        { zh: "数据库索引提示和候选对比字段同步汉化，避免候选库中文模式出现明显英文残留。", en: "Localized database-index prompts and candidate-comparison fields to avoid obvious English remnants in Chinese mode." },
       ],
     },
   },

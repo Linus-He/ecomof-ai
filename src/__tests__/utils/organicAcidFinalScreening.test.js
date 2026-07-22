@@ -351,8 +351,8 @@ describe("organic acid final screening", () => {
     }))
     expect(versionDocs.versions.find(row => row.version === "V2.0-D")).toEqual(expect.objectContaining({
       status: "completed",
-      title: "Worker-Based Scoring Boundary Design",
-      evidenceBoundary: "Worker scoring boundary and loaded-scope dry-run preview only; not full verified database screening and not a final verified recommendation.",
+      title: "Large-Scale Scoring Boundary Design",
+      evidenceBoundary: "Large-scale scoring boundary and loaded-scope trial preview only; not full verified database screening and not a final verified recommendation.",
     }))
     expect(versionDocs.versions.find(row => row.version === "V2.0-E")).toEqual(expect.objectContaining({
       status: "completed",
@@ -362,7 +362,7 @@ describe("organic acid final screening", () => {
     expect(versionDocs.versions.find(row => row.version === "V2.0-F")).toEqual(expect.objectContaining({
       status: "completed",
       title: "Background Precompute Pipeline Planning",
-      evidenceBoundary: "Pipeline planning and offline dry-run only; not full database integration and not full verified database screening.",
+      evidenceBoundary: "Workflow planning and preview-sample trial scoring only; not full database integration and not full verified database screening.",
     }))
     versionDocs.versions.forEach(row => {
       expect(row.summary).toBeTruthy()
@@ -403,7 +403,7 @@ describe("organic acid final screening", () => {
   it("records the V1.6 small real dataset, V1.7 trace workbench, and Knowledge Base upgrade", () => {
     const v15 = versionDocs.versions.find(row => row.version === "V1.5")
     const v16 = versionDocs.versions.find(row => row.version === "V1.6")
-    expect(v15.maintenanceNotes).toContain("V1.5 Patch: Run Launcher Prep + Cat Drag Fix + Copy Cleanup.")
+    expect(v15.maintenanceNotes).toContain("V1.5 Patch: screening entry preparation, visual-probe fix, and copy cleanup.")
     expect(v15.maintenanceNotes.join(" ")).toMatch(/current demo workflow/)
     expect(v16.keyUpdates.join(" ")).toMatch(/curated real Al-MOF examples/)
     expect(v16.keyUpdates.join(" ")).toMatch(/Knowledge Base/)
@@ -423,23 +423,23 @@ describe("organic acid final screening", () => {
     expect(v20c.algorithmChanges.join(" ")).toMatch(/No OACS\/DMRS formula change/)
     expect(v20c.evidenceBoundary).toMatch(/not full verified database screening/)
     const v20d = versionDocs.versions.find(row => row.version === "V2.0-D")
-    expect(v20d.keyUpdates.join(" ")).toMatch(/Worker Scoring Boundary Preview/)
+    expect(v20d.keyUpdates.join(" ")).toMatch(/Large-Scale Scoring Boundary Preview/)
     expect(v20d.algorithmChanges.join(" ")).toMatch(/Full database scoring/)
     expect(v20d.algorithmChanges.join(" ")).toMatch(/No OACS\/DMRS formula change/)
     expect(v20d.evidenceBoundary).toMatch(/not full verified database screening/)
     const v20e = versionDocs.versions.find(row => row.version === "V2.0-E")
     expect(v20e.keyUpdates.join(" ")).toMatch(/metadata/i)
-    expect(v20e.keyUpdates.join(" ")).toMatch(/GitHub Actions CI/)
+    expect(v20e.keyUpdates.join(" ")).toMatch(/automated verification gate/)
     expect(v20e.algorithmChanges).toContain("No OACS/DMRS formula change.")
-    expect(v20e.algorithmChanges).toContain("No full database scoring in browser.")
+    expect(v20e.algorithmChanges).toContain("No immediate full-database scoring inside the interactive page.")
     expect(v20e.algorithmChanges.join(" ")).toMatch(/metadata verification gate/)
     expect(v20e.evidenceBoundary).toMatch(/not full verified database screening/)
     const v20f = versionDocs.versions.find(row => row.version === "V2.0-F")
     expect(v20f.keyUpdates.join(" ")).toMatch(/precompute/i)
-    expect(v20f.keyUpdates.join(" ")).toMatch(/dry-run/i)
+    expect(v20f.keyUpdates.join(" ")).toMatch(/trial/i)
     expect(v20f.algorithmChanges).toContain("No OACS/DMRS formula change.")
-    expect(v20f.algorithmChanges).toContain("No full database scoring in browser.")
-    expect(v20f.algorithmChanges.join(" ")).toMatch(/V2.0-D worker boundary and V2.0-E metadata gate are unchanged/)
+    expect(v20f.algorithmChanges).toContain("No immediate full-database scoring inside the interactive page.")
+    expect(v20f.algorithmChanges.join(" ")).toMatch(/V2.0-D scoring boundary and V2.0-E metadata gate are unchanged/)
     expect(v20f.evidenceBoundary).toMatch(/not full verified database screening/)
     const v20g = versionDocs.versions.find(row => row.version === "V2.0-G")
     expect(v20g.status).toBe("completed")
@@ -531,23 +531,23 @@ describe("organic acid final screening", () => {
     })
   })
 
-  it("documents the V2.0-D Worker-Based Scoring Boundary Design in methodology", () => {
+  it("documents the V2.0-D Large-Scale Scoring Boundary Design in methodology", () => {
     const methodologySource = fs.readFileSync("src/components/methodology/OrganicAcidFinalMethodology.jsx", "utf8")
-    expect(methodologySource).toMatch(/V2.0-D Worker-Based Scoring Boundary Design/)
-    expect(methodologySource).toMatch(/Worker trace/)
+    expect(methodologySource).toMatch(/V2.0-D Large-Scale Scoring Boundary/)
+    expect(methodologySource).toMatch(/Scoring Audit Trace/)
   })
 
   it("documents the V2.0-E Verified Metadata Enrichment Workflow in methodology", () => {
     const methodologySource = fs.readFileSync("src/components/methodology/OrganicAcidFinalMethodology.jsx", "utf8")
     expect(methodologySource).toMatch(/V2.0-E Verified Metadata Enrichment Workflow/)
     expect(methodologySource).toMatch(/Metadata verification gate/)
-    expect(methodologySource).toMatch(/CI verification gate/)
+    expect(methodologySource).toMatch(/metadata verification status/)
   })
 
   it("documents the V2.0-F Background Precompute Pipeline Planning in methodology", () => {
     const methodologySource = fs.readFileSync("src/components/methodology/OrganicAcidFinalMethodology.jsx", "utf8")
     expect(methodologySource).toMatch(/V2.0-F Background Precompute Pipeline Planning/)
-    expect(methodologySource).toMatch(/Precompute dry-run \(offline\)/)
+    expect(methodologySource).toMatch(/Precompute check/)
   })
 
   it("runs the V1.7 launcher workflow on demo, mapped fixture, and curated sample modes with exportable trace", () => {

@@ -33,6 +33,7 @@ const pct = value => `${Math.round(clamp01(value) * 100)}%`
 const fmt = (value, digits = 3) => Number(value || 0).toFixed(digits)
 const fmtPct = value => `${Math.round(clamp01(value) * 100)}%`
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
+const localize = (value, lang) => value && typeof value === "object" ? value[lang === "zh" ? "zh" : "en"] : value
 
 function buildTraceModelFromScoringModel(scoringModel) {
   const descriptorsByKey = new Map((scoringModel.descriptors || []).map(descriptor => [descriptor.key, descriptor]))
@@ -157,6 +158,187 @@ function SegmentedControl({ items, value, onChange, lang, t }) {
   )
 }
 
+const ECOSCREEN_METHOD_BASIS = [
+  {
+    id: "adsorption",
+    title: { zh: "吸附筛选不能只看容量", en: "Adsorption screening cannot use uptake alone" },
+    basis: { zh: "高通量 MOF 分离研究通常同时考察吸附量、选择性、工作容量、再生/循环代价和条件可比性。", en: "High-throughput MOF separation studies usually consider uptake, selectivity, working capacity, regeneration burden, and condition comparability together." },
+    source: "Wilmer et al. 2012; Bae & Snurr 2013",
+  },
+  {
+    id: "stability",
+    title: { zh: "水稳定性是应用门槛", en: "Water stability is an application gate" },
+    basis: { zh: "湿气、水相或烟道气情景下，水稳定性不足会让容量/选择性排序失去实际意义。", en: "In humid, aqueous, or flue-gas settings, insufficient water stability can invalidate a capacity/selectivity shortlist." },
+    source: "Burtch, Jasuja & Walton 2014",
+  },
+  {
+    id: "lca",
+    title: { zh: "LCA/LCC 需要明确边界", en: "LCA/LCC needs an explicit boundary" },
+    basis: { zh: "生命周期评价要先声明目标、范围、功能单位、清单数据与影响类别；当前页面只能作为早筛覆盖审查。", en: "Life-cycle assessment requires goal/scope, functional unit, inventory data, and impact categories; this page is only an early coverage review." },
+    source: "ISO 14040 / ISO 14044",
+  },
+  {
+    id: "weights",
+    title: { zh: "权重只能解释排序影响", en: "Weights explain ranking influence only" },
+    basis: { zh: "CRITIC 属于基于方差与指标冲突度的客观赋权；手动/Hybrid 权重必须作为情景敏感性，而不是未经验证的权威权重。", en: "CRITIC is objective weighting from contrast and descriptor conflict; manual/hybrid weights are scenario sensitivity, not validated authority." },
+    source: "Diakoulaki et al. 1995",
+  },
+  {
+    id: "criticality",
+    title: { zh: "金属供应风险需单独标记", en: "Metal supply risk should be marked separately" },
+    basis: { zh: "关键矿物/关键原料清单适合提示供应链复核需求，但不能直接替代毒性、成本或 LCA 分数。", en: "Critical-mineral lists are useful for supply-chain review flags, but do not replace toxicity, cost, or LCA scores." },
+    source: "USGS / European Commission critical-material lists",
+  },
+]
+
+const ECOSCREEN_NEEDS = [
+  { id: "separation", label: { zh: "气体分离早筛", en: "Gas-separation screening" }, fields: ["co2Uptake", "surfaceArea", "poreVolume"], gate: "adsorption" },
+  { id: "wet", label: { zh: "湿气/水相适用性", en: "Humid/aqueous use" }, fields: ["waterStability", "thermalStability"], gate: "stability" },
+  { id: "synthesis", label: { zh: "可持续合成线索", en: "Sustainable synthesis cues" }, fields: ["toxicityConcern", "metalCost"], gate: "lca" },
+  { id: "validation", label: { zh: "验证闭环", en: "Validation closure" }, fields: ["doi", "benchmark"], gate: "weights" },
+]
+
+const CRITICAL_METAL_REVIEW_SET = new Set(["Co", "Ni", "W", "V", "Mo", "Cr", "Mn", "Ce"])
+
+function hasValue(value) {
+  if (value === null || value === undefined || value === "") return false
+  if (typeof value === "number") return Number.isFinite(value)
+  return !/^(pending|unknown|not reported|not_reported|na|n\/a)$/i.test(String(value).trim())
+}
+
+function percentLabel(numerator, denominator) {
+  if (!denominator) return "0%"
+  return `${Math.round((Number(numerator) || 0) / denominator * 100)}%`
+}
+
+function metalOf(row = {}) {
+  const value = row.metalNode || row.metalCenter || row.metal || row.graphMetadata?.graphCluster || ""
+  return String(value).split(/[,\s;/]+/).find(Boolean) || "pending"
+}
+
+function buildEcoScreenEvidenceModel({ candidates = [], filteredCandidates = [], reactionRows = [], benchmarkRows = [], experimentalLabelRows = [], metalCostRows = [] }) {
+  const rows = Array.isArray(filteredCandidates) ? filteredCandidates : []
+  const allRows = Array.isArray(candidates) ? candidates : []
+  const denominator = Math.max(rows.length, 1)
+  const metalCostMap = new Map((metalCostRows || []).map(row => [String(row.metal || "").trim(), row]).filter(([metal]) => metal))
+  const counts = {
+    structure: rows.filter(row => hasValue(row.surfaceArea) && hasValue(row.poreSizeA) && hasValue(row.poreVolume)).length,
+    adsorption: rows.filter(row => hasValue(row.co2Uptake) || hasValue(row.selectivity) || hasValue(row.workingCapacity)).length,
+    stability: rows.filter(row => hasValue(row.waterStability) || hasValue(row.thermalStability)).length,
+    toxicity: rows.filter(row => hasValue(row.toxicityConcern)).length,
+    metalCost: rows.filter(row => metalCostMap.has(metalOf(row))).length,
+    doi: rows.filter(row => hasValue(row.doi) || row.doiStatus === "confirmed" || row.citationReady).length,
+    benchmark: rows.filter(row => row.benchmarkEligible === "Ready" || row.benchmarkEligible === true || row.evidenceLevel === "A").length,
+  }
+  const criticalMetals = rows.filter(row => CRITICAL_METAL_REVIEW_SET.has(metalOf(row))).length
+  const needs = ECOSCREEN_NEEDS.map(need => {
+    const available = need.fields.reduce((sum, field) => sum + (counts[field] || 0), 0)
+    const possible = denominator * need.fields.length
+    const coverage = possible ? available / possible : 0
+    return {
+      ...need,
+      coverage,
+      status: coverage >= 0.65 ? "usable" : coverage >= 0.25 ? "partial" : "gap",
+    }
+  })
+  return {
+    totalCount: allRows.length,
+    filteredCount: rows.length,
+    reactionCount: reactionRows.length,
+    benchmarkCount: benchmarkRows.length,
+    experimentalLabelCount: experimentalLabelRows.length,
+    metalCostCount: metalCostRows.length,
+    criticalMetals,
+    coverageRows: [
+      { key: "structure", label: { zh: "结构描述符", en: "Structure descriptors" }, count: counts.structure, denominator, note: { zh: "比表面积 / 孔径 / 孔体积", en: "surface area / pore size / pore volume" } },
+      { key: "adsorption", label: { zh: "吸附性能字段", en: "Adsorption fields" }, count: counts.adsorption, denominator, note: { zh: "CO₂ 吸附量 / 选择性 / 工作容量", en: "CO₂ uptake / selectivity / working capacity" } },
+      { key: "stability", label: { zh: "稳定性字段", en: "Stability fields" }, count: counts.stability, denominator, note: { zh: "水稳定性 / 热稳定性", en: "water / thermal stability" } },
+      { key: "toxicity", label: { zh: "毒性关注字段", en: "Toxicity concern" }, count: counts.toxicity, denominator, note: { zh: "仅作早筛风险字段", en: "early risk descriptor only" } },
+      { key: "metalCost", label: { zh: "金属成本表覆盖", en: "Metal-cost coverage" }, count: counts.metalCost, denominator, note: { zh: "metal_precursor_cost_table.json", en: "metal_precursor_cost_table.json" } },
+      { key: "doi", label: { zh: "引文/DOI 覆盖", en: "Citation / DOI coverage" }, count: counts.doi, denominator, note: { zh: "来源可追踪性", en: "source traceability" } },
+      { key: "benchmark", label: { zh: "Benchmark 就绪", en: "Benchmark ready" }, count: counts.benchmark, denominator, note: { zh: "A 级或 Benchmark 标记", en: "Grade A or benchmark marker" } },
+    ],
+    needs,
+  }
+}
+
+function EcoScreenEvidenceWorkbench({ evidence, activeNeed, onNeedChange, lang, t, isMobile }) {
+  const selectedNeed = evidence.needs.find(need => need.id === activeNeed) || evidence.needs[0]
+  const selectedBasis = ECOSCREEN_METHOD_BASIS.find(item => item.id === selectedNeed?.gate) || ECOSCREEN_METHOD_BASIS[0]
+  const statusText = status => {
+    if (status === "usable") return text(lang, "可用于早筛", "usable for screening")
+    if (status === "partial") return text(lang, "仅部分可用", "partial only")
+    return text(lang, "缺口明显", "major gap")
+  }
+  const statusTone = status => status === "gap" ? t.warn : status === "partial" ? t.amber : t.accentText
+  return (
+    <Card t={t} style={{ display: "grid", gap: 12 }} data-testid="ecoscreen-literature-workbench">
+      <PanelTitle
+        t={t}
+        title={text(lang, "研究任务与证据覆盖", "Research task and evidence coverage")}
+        subtitle={text(
+          lang,
+          "按文献经验把 EcoScreen 拆成吸附性能、稳定性、LCA/LCC 边界、权重方法和金属供应风险；所有覆盖率来自当前候选与已接入数据表。",
+          "EcoScreen is organized around adsorption performance, stability, LCA/LCC boundary, weighting method, and metal-supply risk; every coverage value comes from the current candidates and connected data tables."
+        )}
+      />
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
+        <MetricCard label={text(lang, "当前候选", "Filtered candidates")} value={`${evidence.filteredCount}/${evidence.totalCount}`} note={text(lang, "随筛选联动", "linked to filters")} t={t} />
+        <MetricCard label={text(lang, "反应证据", "Reaction evidence")} value={evidence.reactionCount} note={text(lang, "已接入反应数据表", "reaction table connected")} t={t} />
+        <MetricCard label={text(lang, "金属成本表", "Metal-cost table")} value={evidence.metalCostCount} note={text(lang, "仅作覆盖审查", "coverage review only")} t={t} tone="proxy" />
+        <MetricCard label={text(lang, "关键金属复核", "Critical-metal review")} value={evidence.criticalMetals} note={text(lang, "提示供应链复核，不直接扣分", "flag only; no direct penalty")} t={t} tone={evidence.criticalMetals ? "warn" : "calc"} />
+      </div>
+
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+        {evidence.needs.map(need => {
+          const active = need.id === selectedNeed?.id
+          return (
+            <button
+              key={need.id}
+              type="button"
+              onClick={() => onNeedChange(need.id)}
+              style={{
+                ...toolbarBtn(t),
+                background: active ? t.badgeInfoBg : t.panel,
+                borderColor: active ? t.accent : t.border,
+                color: active ? t.accentText : t.muted,
+              }}
+            >
+              {localize(need.label, lang)} · {Math.round(need.coverage * 100)}%
+            </button>
+          )
+        })}
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) minmax(280px, 0.72fr)", gap: 12, alignItems: "start" }}>
+        <div style={{ display: "grid", gap: 7 }}>
+          {evidence.coverageRows.map(row => (
+            <div key={row.key} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 6, padding: 10 }}>
+              <div style={{ alignItems: "baseline", display: "flex", gap: 8, justifyContent: "space-between" }}>
+                <strong style={{ color: t.textStrong, fontSize: 12 }}>{localize(row.label, lang)}</strong>
+                <span style={{ color: t.muted, fontSize: 11, fontWeight: 850 }}>{row.count}/{row.denominator} · {percentLabel(row.count, row.denominator)}</span>
+              </div>
+              <span style={{ background: t.panel, borderRadius: 999, height: 8, overflow: "hidden" }}>
+                <span style={{ background: row.count / Math.max(row.denominator, 1) < 0.25 ? t.warn : t.accentText, display: "block", height: "100%", width: percentLabel(row.count, row.denominator) }} />
+              </span>
+              <span style={{ color: t.faint, fontSize: 11, lineHeight: 1.4 }}>{localize(row.note, lang)}</span>
+            </div>
+          ))}
+        </div>
+        <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 8, padding: 11 }}>
+          <div style={{ color: statusTone(selectedNeed?.status), fontSize: 11, fontWeight: 900, textTransform: "uppercase" }}>{statusText(selectedNeed?.status)}</div>
+          <strong style={{ color: t.textStrong, fontSize: 14, lineHeight: 1.25 }}>{localize(selectedBasis.title, lang)}</strong>
+          <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.55 }}>{localize(selectedBasis.basis, lang)}</span>
+          <span style={{ color: t.faint, fontSize: 11.2, lineHeight: 1.45 }}>{text(lang, "依据", "Basis")}: {selectedBasis.source}</span>
+          <span style={{ color: t.warn, fontSize: 11.4, lineHeight: 1.5 }}>
+            {text(lang, "当前不会把缺失 LCA、成本或关键金属信息直接写进最终分数；只把它们作为筛选覆盖和下一步复核任务。", "Missing LCA, cost, or critical-metal information is not written directly into the final score; it is shown as coverage and next-review work.")}
+          </span>
+        </article>
+      </div>
+    </Card>
+  )
+}
+
 function ChartTooltip({ active, payload, label, t, lang }) {
   if (!active || !payload?.length) return null
   return (
@@ -262,7 +444,7 @@ function ConflictHeatmap({ model, lang, t }) {
       <SegmentedControl
         items={[
           { id: "conflict", label: "Descriptor conflict", zhLabel: "指标冲突度", description: "Non-redundant information between descriptors.", zhDescription: "指标之间的非冗余信息。" },
-          { id: "correlation", label: "correlation", zhLabel: "correlation 相关性", description: "Pearson correlation between indicators.", zhDescription: "指标之间的 Pearson 相关性。" },
+          { id: "correlation", label: "Correlation", zhLabel: "相关性", description: "Pearson correlation between indicators.", zhDescription: "指标之间的 Pearson 相关性。" },
         ]}
         value={mode}
         onChange={setMode}
@@ -844,15 +1026,15 @@ function EvidenceNotes({ lang, t, isMobile }) {
 }
 
 const REACTION_FILTERS = [
-  { key: "hasYield", label: "Has Yield", labelZh: "有 Yield" },
-  { key: "hasSelectivity", label: "Has Selectivity", labelZh: "有 Selectivity" },
-  { key: "hasConversion", label: "Has Conversion", labelZh: "有 Conversion" },
+  { key: "hasYield", label: "Has Yield", labelZh: "有收率字段" },
+  { key: "hasSelectivity", label: "Has Selectivity", labelZh: "有选择性字段" },
+  { key: "hasConversion", label: "Has Conversion", labelZh: "有转化率字段" },
   { key: "hasDoi", label: "Has DOI", labelZh: "有 DOI" },
-  { key: "goldOnly", label: "Gold Only", labelZh: "仅 Gold" },
-  { key: "benchmarkEligibleOnly", label: "Benchmark Eligible Only", labelZh: "仅 Benchmark Eligible" },
+  { key: "goldOnly", label: "Gold Only", labelZh: "仅 Gold 数据" },
+  { key: "benchmarkEligibleOnly", label: "Benchmark Eligible Only", labelZh: "仅 Benchmark 就绪" },
   { key: "experimentalLabelsOnly", label: "Experimental Labels Only", labelZh: "仅实验标签" },
   { key: "externalTestOnly", label: "External Test Only", labelZh: "仅外部测试" },
-  { key: "groundTruthVerifiedOnly", label: "Ground Truth Verified Only", labelZh: "仅已验证 Ground Truth" },
+  { key: "groundTruthVerifiedOnly", label: "Ground Truth Verified Only", labelZh: "仅已核验真值" },
 ]
 
 function ReactionFilterPanel({ filters, onChange, count, total, lang, t, isMobile }) {
@@ -990,12 +1172,14 @@ export function EcoScreenTab({ onNavigate }) {
   const [performancePriorityMode, setPerformancePriorityMode] = useState("balanced")
   const [selectedId, setSelectedId] = useState("MOF-B")
   const [reactionFilters, setReactionFilters] = useState({})
+  const [activeEcoNeed, setActiveEcoNeed] = useState("separation")
   const [credibilityReport, setCredibilityReport] = useState(null)
   const [reactionGraphData, setReactionGraphData] = useState(null)
   const [reactionRows, setReactionRows] = useState([])
   const [benchmarkRows, setBenchmarkRows] = useState([])
   const [experimentalLabelRows, setExperimentalLabelRows] = useState([])
   const [externalTestRows, setExternalTestRows] = useState([])
+  const [metalCostRows, setMetalCostRows] = useState([])
   const {
     candidates: generalRows,
     status: generalStatus,
@@ -1010,7 +1194,8 @@ export function EcoScreenTab({ onNavigate }) {
       fetchDataJson("external_test_dataset_v1.json", null),
       fetchDataJson("model_credibility_report_v1.json", null),
       fetchDataJson("reaction_evidence_graph_v1.json", null),
-    ]).then(([reaction, benchmark, experimentalLabels, externalTest, credibility, reactionGraph]) => {
+      fetchDataJson("metal_precursor_cost_table.json", null),
+    ]).then(([reaction, benchmark, experimentalLabels, externalTest, credibility, reactionGraph, metalCost]) => {
       if (!active) return
       setReactionRows(Array.isArray(reaction?.records) ? reaction.records : [])
       setBenchmarkRows(Array.isArray(benchmark?.records) ? benchmark.records : [])
@@ -1018,6 +1203,7 @@ export function EcoScreenTab({ onNavigate }) {
       setExternalTestRows(Array.isArray(externalTest?.records) ? externalTest.records : [])
       setCredibilityReport(credibility && typeof credibility === "object" ? credibility : null)
       setReactionGraphData(reactionGraph && typeof reactionGraph === "object" ? reactionGraph : null)
+      setMetalCostRows(Array.isArray(metalCost?.records) ? metalCost.records : [])
     }).catch(() => {
       if (active) {
         setReactionRows([])
@@ -1026,6 +1212,7 @@ export function EcoScreenTab({ onNavigate }) {
         setExternalTestRows([])
         setCredibilityReport(null)
         setReactionGraphData(null)
+        setMetalCostRows([])
       }
     })
     return () => { active = false }
@@ -1049,6 +1236,14 @@ export function EcoScreenTab({ onNavigate }) {
     performancePriorityMode,
   }), [filteredGeneralRows, performancePriorityMode])
   const generalTraceModel = useMemo(() => buildTraceModelFromScoringModel(generalScoringModel), [generalScoringModel])
+  const ecoScreenEvidence = useMemo(() => buildEcoScreenEvidenceModel({
+    candidates: generalRows,
+    filteredCandidates: filteredGeneralRows,
+    reactionRows,
+    benchmarkRows,
+    experimentalLabelRows,
+    metalCostRows,
+  }), [generalRows, filteredGeneralRows, reactionRows, benchmarkRows, experimentalLabelRows, metalCostRows])
   const activePriority = PERFORMANCE_PRIORITY_MODES.find(item => item.id === performancePriorityMode) || PERFORMANCE_PRIORITY_MODES[0]
   const selectedCandidate = useMemo(() => (
     model.candidates.find(candidate => candidate.id === selectedId) || model.candidates[0]
@@ -1079,7 +1274,7 @@ export function EcoScreenTab({ onNavigate }) {
       <PageHeader
         title={text(lang, "EcoScreen 候选评分", "EcoScreen / Candidate Scoring")}
         subtitle={lang === "zh"
-          ? "默认展示通用 MOF 全局评分工作台，formate CRITIC 作为 case study 保留。"
+          ? "默认展示通用 MOF 全局评分工作台，产甲酸 CRITIC 案例作为方法样例保留。"
           : "Defaults to the general MOF global scoring workbench, with the formate CRITIC case retained as a case study."}
         meta={lang === "zh"
           ? "全局描述符评分、CRITIC 与 Hybrid 权重、解释诊断和证据边界"
@@ -1120,6 +1315,15 @@ export function EcoScreenTab({ onNavigate }) {
       <DataQualityAuditPanel records={generalRows} lang={lang} t={t} isMobile={isMobile} />
 
       <DataQualitySummary lang={lang} t={t} isMobile={isMobile} />
+
+      <EcoScreenEvidenceWorkbench
+        evidence={ecoScreenEvidence}
+        activeNeed={activeEcoNeed}
+        onNeedChange={setActiveEcoNeed}
+        lang={lang}
+        t={t}
+        isMobile={isMobile}
+      />
 
       <ReactionFilterPanel
         filters={reactionFilters}
@@ -1168,8 +1372,8 @@ export function EcoScreenTab({ onNavigate }) {
         />
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           {[
-            { id: "general", zh: "General MOF Scoring", en: "General MOF Scoring" },
-            { id: "formate", zh: "Formate CRITIC Case", en: "Formate CRITIC Case" },
+            { id: "general", zh: "通用 MOF 评分", en: "General MOF Scoring" },
+            { id: "formate", zh: "产甲酸 CRITIC 案例", en: "Formate CRITIC Case" },
           ].map(item => {
             const active = scoringMode === item.id
             return (
@@ -1234,12 +1438,12 @@ export function EcoScreenTab({ onNavigate }) {
             title={text(lang, "通用 MOF 评分工作台", "General MOF Scoring Workbench")}
             subtitle={text(
               lang,
-              "EcoScreen 复用全局评分工作台；描述符注册表、权重方法、候选解释和诊断统一来自 createScoringModel。",
-              "EcoScreen reuses the global scoring workbench; descriptor registry, weighting methods, candidate explanations, and diagnostics all come from createScoringModel."
+              "EcoScreen 使用统一评分框架；描述符、权重方法、候选解释和诊断口径保持一致。",
+              "EcoScreen uses the unified scoring framework; descriptors, weighting methods, candidate explanations, and diagnostics remain consistent."
             )}
             performancePriorityMode={performancePriorityMode}
           />
-          <ResultLayer id="ecoscreen-result-layer-05" testId="ecoscreen-result-layer-05" number="05" title={text(lang, "筛选过程追踪", "Screening Trace")} subtitle={lang === "zh" ? "Database Preview shell-first 渲染；候选数据和图表可稍后填充，但 marker 与容器会立即存在。" : "Database Preview renders shell-first; candidate data and charts can fill later, while markers and containers exist immediately."}>
+          <ResultLayer id="ecoscreen-result-layer-05" testId="ecoscreen-result-layer-05" number="05" title={text(lang, "筛选过程追踪", "Screening Trace")} subtitle={lang === "zh" ? "数据库预览会先显示流程框架；候选数据返回后补充图表与明细。" : "Database Preview shows the screening flow first; charts and candidate details appear after data loads."}>
             <ScreeningTraceSection model={generalTraceModel} scenarioLabel={scoringMode} performancePriorityMode={performancePriorityMode} lang={lang} t={t} isMobile={isMobile} />
           </ResultLayer>
         </>
@@ -1303,7 +1507,7 @@ export function EcoScreenTab({ onNavigate }) {
         </div>
       </ResultLayer>
 
-      <ResultLayer number="04" title={text(lang, "性能 vs 可持续性四象限图", "Performance vs Sustainability Quadrant")} subtitle={lang === "zh" ? "x-axis: Sustainability Score；y-axis: Performance Score；点大小: Evidence Score；点形状/颜色: source state。" : "x-axis: Sustainability Score; y-axis: Performance Score; point size: Evidence Score; marker: source state."}>
+      <ResultLayer number="04" title={text(lang, "性能-可持续性四象限图", "Performance vs Sustainability Quadrant")} subtitle={lang === "zh" ? "横轴为可持续性分，纵轴为性能分；点大小表示证据分，点形状/颜色表示来源状态。" : "x-axis: Sustainability Score; y-axis: Performance Score; point size: Evidence Score; marker: source state."}>
         <Card t={t}>
           <PerformanceSustainabilityQuadrant candidates={model.candidates} selectedId={selectedCandidate?.id} onSelect={setSelectedId} lang={lang} t={t} isMobile={isMobile} />
         </Card>
@@ -1327,7 +1531,7 @@ export function EcoScreenTab({ onNavigate }) {
             <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 900 }}>{text(lang, "CRITIC-MCDA 决策支持方法论", "CRITIC-MCDA Decision Support Methodology")}</div>
             <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55, marginTop: 5 }}>
               {lang === "zh"
-                ? "查看 CRITIC 公式、contrast intensity、conflict intensity、objective weight、因果边界和 limitations。"
+                ? "查看 CRITIC 公式、差异强度、冲突强度、客观权重、因果边界和方法限制。"
                 : "Open CRITIC formulas, contrast intensity, conflict intensity, objective weight, causal boundary, and limitations."}
             </div>
           </div>

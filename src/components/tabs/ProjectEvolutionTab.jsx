@@ -100,7 +100,42 @@ function copyText(value) {
 function EvolutionOverview({ data, projectStatus, lang, t, isMobile }) {
   const overview = data.overview || {}
   const resolvedStatus = projectStatus || buildProjectStatusSummary({ versionEvolution: data })
-  const cards = buildProjectOverviewCards(resolvedStatus)
+  const labelMap = {
+    databaseScale: text(lang, "数据库规模", "Database Scale"),
+    experimentalLabels: text(lang, "实验标签", "Experimental Labels"),
+    benchmarkEligible: text(lang, "Benchmark 就绪", "Benchmark Ready"),
+    bestModel: text(lang, "最佳模型", "Best Model"),
+    credibility: text(lang, "模型可信度", "Credibility"),
+    currentRisk: text(lang, "当前风险", "Current Risk"),
+  }
+  const translatedValue = (card) => {
+    if (lang === "zh" && card.id === "currentRisk" && /High Overfitting Risk/i.test(String(card.value))) return "高过拟合风险"
+    if (lang === "zh" && card.id === "credibility") return String(card.value).replace("Grade ", "")
+    return card.value
+  }
+  const appVersionSource = {
+    value: APP_VERSION_LABEL,
+    sourceDatabase: "app_release_log.json",
+    sourceRecordId: "currentAppVersion",
+    sourceUrl: "public/data/app_release_log.json",
+    citation: "EcoMOF-AI unified App release log.",
+    license: "Project repository license context.",
+    retrievedAt: "2026-07-22",
+    curationStatus: "confirmed",
+    confidence: 1,
+    evidenceTier: "confirmed",
+    notes: "Current App release number. Module V3.x records remain historical data/module versions.",
+  }
+  const moduleVersionCard = buildProjectOverviewCards(resolvedStatus).find(card => card.id === "currentVersion")
+  const cards = [
+    { id: "appVersion", label: text(lang, "当前 App 版本", "Current App Version"), value: APP_VERSION_LABEL, source: appVersionSource, tone: "pass" },
+    { id: "moduleDataVersion", label: text(lang, "最新模块数据版本", "Latest Module Data Version"), value: moduleVersionCard?.value || resolvedStatus.currentVersion, source: moduleVersionCard?.source || resolvedStatus.sources?.currentVersion, tone: "info" },
+    ...buildProjectOverviewCards(resolvedStatus)
+      .filter(card => card.id !== "currentVersion")
+      .map(card => ({ ...card, label: labelMap[card.id] || card.label, value: translatedValue(card) })),
+  ]
+  const databasePreviewLabel = lang === "zh" ? "数据库预览" : overview.databasePreviewStatus
+  const notFinalLabel = lang === "zh" ? "非最终推荐" : overview.notFinalRecommendationStatus
   return (
     <Card
       id="project-evolution-overview"
@@ -117,89 +152,33 @@ function EvolutionOverview({ data, projectStatus, lang, t, isMobile }) {
         <MetricCard fieldKey="externalTest" label={text(lang, "外部测试", "External Test")} value={resolvedStatus.externalTest} source={resolvedStatus.sources?.externalTest} t={t} lang={lang} />
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-        <BasisBadge tone="proxy">{overview.databasePreviewStatus}</BasisBadge>
-        <BasisBadge tone="warn">{overview.notFinalRecommendationStatus}</BasisBadge>
+        <BasisBadge tone="proxy">{databasePreviewLabel}</BasisBadge>
+        <BasisBadge tone="warn">{notFinalLabel}</BasisBadge>
       </div>
     </Card>
   )
 }
 
-const CURRENT_RELEASE = {
-  version: APP_VERSION_LABEL,
-  title: { zh: "v1.0.2：首页动态图、GasSep 数据联动、MOF Library 响应性与全局汉化审查", en: "v1.0.2: Homepage interactive charts, GasSep data linkage, MOF Library responsiveness, and global localization audit" },
-  summary: {
-    zh: "在不改 Organic Acid 排名算法、底层评分或源数据的前提下，修复首页入口按钮玻璃反光异常，保留真实数据驱动的统计分布、金属筛选和相关性动态图；GasSep 从静态概览整理为随气体对、漏斗和字段覆盖实时变化的工作台；MOF Library 统一浏览器按需展开，避免打开候选库时阻塞页面；新增高频界面汉化审查，并继续覆盖中英文、深浅色和移动端回归。",
-    en: "Without changing Organic Acid ranking algorithms, scores, or source data, this release fixes the homepage entry-button glare, keeps real-data-driven distribution, metal filtering, and correlation visuals, reorganizes GasSep into a workbench driven by gas pair, funnel, and field coverage, lazy-loads the MOF Library unified browser to avoid page stalls, and adds high-traffic localization QA alongside Chinese/English, light/dark, and mobile regressions.",
-  },
-  scientificImpact: {
-    zh: "首页和 GasSep 的图表、排序、验证队列均从当前记录与筛选状态派生；历史 GasScore 仍只是启发式诊断，Organic Acid 算法结果不受本轮界面改动影响。",
-    en: "Homepage and GasSep charts, ranking, and validation queues are derived from the current records and filter state; Legacy GasScore remains a heuristic diagnostic, and Organic Acid algorithm results are unaffected by this UI pass.",
-  },
-  validationImpact: {
-    zh: "当前版本与模块历史分离：App v1.0.2 是全局发布号，Gas v2.1 / V3.10.1 等继续作为模块数据历史展示。",
-    en: "Current App version and module history are separated: App v1.0.2 is the global release, while Gas v2.1 / V3.10.1 remain module data history.",
-  },
-  breakingChanges: { zh: "无", en: "None" },
-  nextVersionGoal: {
-    zh: "继续补充真实混合气/突破曲线验证，并用同条件实验或过程模拟检验 Pareto/APS、APS×R% 与 CRITIC 短名单稳定性。",
-    en: "Continue adding real mixture/breakthrough validation and test Pareto/APS, APS×R%, and CRITIC shortlist stability with same-condition experiments or process simulation.",
-  },
+function getCurrentRelease(log) {
+  const releases = Array.isArray(log?.releases) ? log.releases : []
+  const current = String(log?.currentAppVersion || "").trim()
+  return releases.find(row => row.appVersion === current) || releases[0] || null
 }
-
-// Project Updates, grouped into numbered work streams for the current release.
-const PROJECT_UPDATE_STREAMS = [
-  {
-    no: "01",
-    label: { zh: "首页交互", en: "Homepage interaction" },
-    body: {
-      zh: "入口按钮去掉异常玻璃折射和蓝色实心态，改为中性按钮与正常 hover；中文 hero 副标题同步汉化。",
-      en: "Homepage entry buttons drop the abnormal glass glare and blue filled state for neutral buttons with normal hover; the Chinese hero subtitle is localized.",
-    },
-  },
-  {
-    no: "02",
-    label: { zh: "首页动态图", en: "Homepage charts" },
-    body: {
-      zh: "统计分布、金属筛选和相关性图均从当前记录派生；相关性图改为可点击网络，边宽由 Pearson |r| 决定。",
-      en: "Distribution, metal filtering, and correlation visuals are derived from the current records; the correlation chart is now an interactive network with edge width driven by Pearson |r|.",
-    },
-  },
-  {
-    no: "03",
-    label: { zh: "GasSep 联动", en: "GasSep linkage" },
-    body: {
-      zh: "候选排序、筛选漏斗、对比摘要和验证队列随气体对、排序方法、字段覆盖与当前候选实时变化。",
-      en: "Ranking, funnel, comparison snapshot, and validation queue now update from gas pair, ranking method, field coverage, and selected candidate.",
-    },
-  },
-  {
-    no: "04",
-    label: { zh: "候选库响应性", en: "Library responsiveness" },
-    body: {
-      zh: "MOF Library 统一浏览器默认折叠，身份层索引只构建一次；真实浏览器复测展开约 216 ms。",
-      en: "The MOF Library unified browser is collapsed by default and reuses one identity index; browser smoke test expansion is about 216 ms.",
-    },
-  },
-  {
-    no: "05",
-    label: { zh: "全局汉化", en: "Localization QA" },
-    body: {
-      zh: "高频组件新增汉化审查，拒绝中文模式下机械式中英拼接，同时保留 CRITIC、Hybrid、IAST 等必要算法名。",
-      en: "High-traffic components now have localization QA that rejects machine-like mixed Chinese/English labels while preserving necessary algorithm names such as CRITIC, Hybrid, and IAST.",
-    },
-  },
-  {
-    no: "06",
-    label: { zh: "适配回归", en: "Adaptation regression" },
-    body: {
-      zh: "专项测试与真实浏览器冒烟覆盖中英文、深浅色、移动端、GasSep 展开详情和 MOF Library 展开响应性。",
-      en: "Targeted tests and browser smoke checks cover Chinese/English, light/dark, mobile, GasSep details expansion, and MOF Library expansion responsiveness.",
-    },
-  },
-]
 
 function localize(value, lang) {
   return value && typeof value === "object" ? value[lang === "zh" ? "zh" : "en"] : value
+}
+
+function publicHistoryNote(note, lang) {
+  const value = String(note || "")
+  if (!value) return value
+  const developerPattern = /src\/|scripts\/|data-testid|undefined|null|NaN|\[object Object\]|fallback|\.json|\.js|Worker|main thread|browser|GitHub Actions|typecheck|visual check|schema|pipeline|manifest|fetch|lazy|smoke|regression|脚本|组件|主线程|浏览器|路由|深链接|写死|回归|冒烟|测试覆盖/i
+  if (!developerPattern.test(value)) return value
+  return text(
+    lang,
+    "保留该阶段原始版本号与能力变化；实现细节不在前台展开。",
+    "Original version and capability change retained; implementation details are omitted from the public view."
+  )
 }
 
 function StatusBadge({ tone, children, t }) {
@@ -261,6 +240,7 @@ function UnifiedReleaseCenter({ log, lang, t, isMobile }) {
   const activeModuleKey = moduleKeys.includes(activeModule) ? activeModule : moduleKeys[0]
   const activeModuleData = activeModuleKey ? release.modules[activeModuleKey] : null
   const historyByModule = log?.history?.byModule || {}
+  const isCurrentRelease = release?.appVersion === log?.currentAppVersion
 
   if (!release) return null
 
@@ -290,7 +270,7 @@ function UnifiedReleaseCenter({ log, lang, t, isMobile }) {
         <span style={{ alignItems: "baseline", background: t.badgeInfoBg, border: `1px solid ${t.accent}`, borderRadius: 10, color: t.accentText, display: "inline-flex", fontFamily: FONT_SANS, fontSize: 19, fontWeight: 950, gap: 6, padding: "6px 12px" }}>
           App {release.appVersion}
         </span>
-        <StatusBadge tone="info" t={t}>{text(lang, "当前", "Current")}</StatusBadge>
+        <StatusBadge tone="info" t={t}>{isCurrentRelease ? text(lang, "当前 App 发布", "Current App Release") : text(lang, "历史 App 发布", "Historical App Release")}</StatusBadge>
       </div>
       <p style={{ color: t.textStrong, fontSize: 13.5, fontWeight: 850, lineHeight: 1.5, margin: 0 }}>{localize(release.headline, lang)}</p>
       <p style={{ color: t.muted, fontSize: 12.2, lineHeight: 1.55, margin: 0 }}>{localize(release.summary, lang)}</p>
@@ -338,7 +318,7 @@ function UnifiedReleaseCenter({ log, lang, t, isMobile }) {
                 {rows.slice(-6).reverse().map(row => (
                   <div key={`${key}-${row.version}`} style={{ color: t.muted, fontSize: 10.8, lineHeight: 1.4 }}>
                     <span style={{ color: t.accentText, fontFamily: FONT_SANS, fontWeight: 850 }}>{row.version}</span>
-                    <span> · {row.note}</span>
+                    <span> · {publicHistoryNote(row.note, lang)}</span>
                   </div>
                 ))}
               </div>
@@ -350,6 +330,51 @@ function UnifiedReleaseCenter({ log, lang, t, isMobile }) {
   )
 }
 
+function PendingReleaseDraft({ log, lang, t, isMobile }) {
+  const draft = log?.pendingNextRelease
+  if (!draft) return null
+  const modules = Object.entries(draft.modules || {})
+  return (
+    <Card
+      id="project-evolution-next-release-draft"
+      title={text(lang, "下一版更新预告", "Next Release Preview")}
+      subtitle={text(
+        lang,
+        "本轮已确认的改动会先归入下一版预告；正式版本号在发布时确认。",
+        "Confirmed changes in this round are collected here first; the final version number is assigned at release time."
+      )}
+      t={t}
+    >
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))" }}>
+        {[
+          [text(lang, "基础版本", "Base version"), draft.baseAppVersion],
+          [text(lang, "目标版本号", "Target version"), localize(draft.versionPolicy, lang)],
+          [text(lang, "状态", "Status"), localize(draft.statusLabel, lang)],
+          [text(lang, "记录日期", "Recorded"), draft.recordedAt],
+        ].map(([label, value]) => (
+          <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, minWidth: 0, padding: 10 }}>
+            <span style={{ color: t.faint, display: "block", fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
+            <strong style={{ color: t.textStrong, display: "block", fontSize: 12.2, lineHeight: 1.4, marginTop: 5, overflowWrap: "anywhere" }}>{value || "—"}</strong>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
+        {modules.map(([key, module]) => (
+          <article key={key} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 8, minWidth: 0, padding: 12 }}>
+            <strong style={{ color: t.textStrong, fontSize: 13 }}>{localize(module.label, lang)}</strong>
+            <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.5 }}>{localize(module.summary, lang)}</span>
+            <ul style={{ display: "grid", gap: 6, margin: 0, paddingLeft: 18 }}>
+              {(module.changes || []).map((change, index) => (
+                <li key={index} style={{ color: t.textStrong, fontSize: 11.8, lineHeight: 1.5 }}>{localize(change, lang)}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </Card>
+  )
+}
+
 function VersionTimeline({ data, lang, t, isMobile }) {
   const [query, setQuery] = useState("")
   const versions = data.versions || []
@@ -357,10 +382,7 @@ function VersionTimeline({ data, lang, t, isMobile }) {
   const recent = ordered.slice(0, 2)
   const earlier = ordered.slice(2)
   const q = query.trim().toLowerCase()
-  const searchPool = [
-    { version: CURRENT_RELEASE.version, summary: localize(CURRENT_RELEASE.summary, lang), categories: [] },
-    ...ordered,
-  ]
+  const searchPool = ordered
   const matches = q
     ? searchPool.filter(row => `${row.version} ${row.summary} ${(row.categories || []).join(" ")}`.toLowerCase().includes(q))
     : null
@@ -368,8 +390,8 @@ function VersionTimeline({ data, lang, t, isMobile }) {
   return (
     <Card
       id="project-evolution-version-timeline"
-      title={text(lang, "版本演化时间线", "Version Timeline")}
-      subtitle={text(lang, "紧凑型版本时间轴；这是版本演化、版本更新、发展路线图与关键里程碑的唯一权威数据源。", "Compact version timeline; the only authoritative source for evolution, updates, roadmap, and milestones.")}
+      title={text(lang, "模块历史时间线", "Module History Timeline")}
+      subtitle={text(lang, "这里只展示 V3.x 等模块/数据历史；当前 App 发布号在统一版本中心维护，避免新旧版本混读。", "This timeline only shows V3.x module/data history; the current App release is maintained in the Unified Release Center to avoid mixing release schemes.")}
       t={t}
       actions={<input value={query} onChange={event => setQuery(event.target.value)} placeholder={text(lang, "搜索版本", "Search versions")} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.textStrong, fontSize: 12, minHeight: 34, padding: "7px 9px" }} />}
     >
@@ -383,19 +405,8 @@ function VersionTimeline({ data, lang, t, isMobile }) {
         </div>
       ) : (
         <div style={{ display: "grid" }}>
-          <TimelineEntry
-            versionLabel={CURRENT_RELEASE.version}
-            title={localize(CURRENT_RELEASE.title, lang)}
-            summary={localize(CURRENT_RELEASE.summary, lang)}
-            badges={<><StatusBadge tone="info" t={t}>{text(lang, "当前", "Current")}</StatusBadge><StatusBadge tone="warn" t={t}>{text(lang, "进行中", "In progress")}</StatusBadge></>}
-            fields={impactFields(CURRENT_RELEASE, lang)}
-            t={t}
-            isMobile={isMobile}
-            highlight
-            isLast={false}
-          />
-          {recent.map(row => (
-            <TimelineEntry key={row.version} versionLabel={row.version} summary={row.summary} fields={impactFields(row, lang)} t={t} isMobile={isMobile} isLast={false} />
+          {recent.map((row, index) => (
+            <TimelineEntry key={row.version} versionLabel={row.version} summary={row.summary} fields={impactFields(row, lang)} t={t} isMobile={isMobile} highlight={index === 0} isLast={false} />
           ))}
           {earlier.length ? (
             <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, padding: "9px 11px" }}>
@@ -415,23 +426,48 @@ function VersionTimeline({ data, lang, t, isMobile }) {
   )
 }
 
-function ProjectUpdates({ lang, t, isMobile }) {
+function ProjectUpdates({ log, lang, t, isMobile }) {
+  const release = getCurrentRelease(log)
+  const catalog = log?.moduleCatalog || {}
+  const streams = release
+    ? Object.entries(release.modules || {}).map(([key, module], index) => ({
+        key,
+        no: String(index + 1).padStart(2, "0"),
+        label: localize(catalog[key]?.label, lang) || localize(module.label, lang) || key,
+        body: localize(module.summary, lang),
+        changes: (module.changes || []).map(change => localize(change, lang)).filter(Boolean),
+      }))
+    : []
+
+  if (!release) return null
+
   return (
     <Card
       id="project-evolution-release-notes"
       title={text(lang, "项目更新", "Project Updates")}
-      subtitle={text(lang, `当前版本 ${CURRENT_RELEASE.version} 的更新按首页交互、首页动态图、GasSep 联动、候选库响应性、全局汉化和适配回归六条线索整理。`, `Updates in the current ${CURRENT_RELEASE.version} release are organized into homepage interaction, homepage charts, GasSep linkage, library responsiveness, localization QA, and adaptation regression streams.`)}
+      subtitle={text(
+        lang,
+        `当前 App ${release.appVersion} 的模块更新由统一版本记录生成；版本记录调整后此处自动更新。`,
+        `Module updates for App ${release.appVersion} come from the unified release record and update automatically when that record changes.`
+      )}
       t={t}
     >
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
-        {PROJECT_UPDATE_STREAMS.map(stream => (
-          <article key={stream.no} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 11, gridTemplateColumns: "auto minmax(0, 1fr)", minWidth: 0, padding: isMobile ? 11 : 13 }}>
+        {streams.map(stream => (
+          <article key={stream.key} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 11, gridTemplateColumns: "auto minmax(0, 1fr)", minWidth: 0, padding: isMobile ? 11 : 13 }}>
             <span style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 8, color: t.accentText, display: "inline-flex", fontFamily: FONT_SANS, fontSize: 13, fontWeight: 950, height: 34, justifyContent: "center", width: 34 }}>
               {stream.no}
             </span>
             <div style={{ display: "grid", gap: 4, minWidth: 0 }}>
-              <strong style={{ color: t.textStrong, fontSize: 13 }}>{localize(stream.label, lang)}</strong>
-              <span style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.5 }}>{localize(stream.body, lang)}</span>
+              <strong style={{ color: t.textStrong, fontSize: 13 }}>{stream.label}</strong>
+              <span style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.5 }}>{stream.body}</span>
+              {stream.changes.length ? (
+                <ul style={{ display: "grid", gap: 5, margin: "3px 0 0", paddingLeft: 17 }}>
+                  {stream.changes.slice(0, 3).map((change, index) => (
+                    <li key={index} style={{ color: t.textStrong, fontSize: 11.3, lineHeight: 1.45 }}>{change}</li>
+                  ))}
+                </ul>
+              ) : null}
             </div>
           </article>
         ))}
@@ -654,7 +690,7 @@ function ValidationEvolution({ data, lang, t }) {
 
 function UiEvolution({ data, lang, t }) {
   return (
-    <Card id="project-evolution-ui" title={text(lang, "界面演化", "UI Evolution")} subtitle={text(lang, "记录首页、EcoScreen、模型验证实验室、数据质量审计、项目演化与研究报告的界面演化。", "Tracks UI evolution for Home, EcoScreen, Model Validation Lab, Data Quality Audit, Project Evolution, and Research Reports.")} t={t}>
+    <Card id="project-evolution-ui" title={text(lang, "界面演化", "UI Evolution")} subtitle={text(lang, "记录首页、EcoScreen、GasSep、催化实验室、MOF 候选库、数据质量审计与项目演化的界面演化；旧版科研输出页只保留为历史记录。", "Tracks UI evolution for Home, EcoScreen, GasSep, CatalysisLab, MOF Library, Data Quality Audit, and Project Evolution; legacy research-output pages remain historical only.")} t={t}>
       <div style={{ display: "grid", gap: 8 }}>
         {(data.uiEvolution || []).map(row => (
           <article key={`${row.version}-${row.area}`} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 6, gridTemplateColumns: "minmax(110px, 0.35fr) minmax(0, 0.65fr)", padding: 9 }}>
@@ -718,7 +754,7 @@ function Roadmap({ data, lang, t }) {
 
 function LocalizationEvolution({ data, lang, t }) {
   return (
-    <Card id="project-evolution-localization" title={text(lang, "汉化演化", "Localization Evolution")} subtitle={text(lang, "记录术语统一、科研表达规范与研究报告框架的新增时间。", "Tracks terminology unification, scientific language guidance, and research report additions.")} t={t}>
+    <Card id="project-evolution-localization" title={text(lang, "汉化演化", "Localization Evolution")} subtitle={text(lang, "记录术语统一、科研表达规范与科研输出框架的历史新增时间。", "Tracks terminology unification, scientific language guidance, and historical research-output additions.")} t={t}>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
         {(data.localizationEvolution || []).map(row => (
           <article key={`${row.version}-${row.area}`} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 5, padding: 9 }}>
@@ -777,7 +813,8 @@ export function ProjectEvolutionTab({ onNavigate, data: providedData = null }) {
   const sections = useMemo(() => [
     { id: "project-evolution-app-release", label: text(lang, "统一版本中心", "Unified Release") },
     { id: "project-evolution-overview", label: text(lang, "总览", "Overview") },
-    { id: "project-evolution-version-timeline", label: text(lang, "版本演化时间线", "Version Timeline") },
+    { id: "project-evolution-next-release-draft", label: text(lang, "待发布日志", "Next Draft") },
+    { id: "project-evolution-version-timeline", label: text(lang, "模块历史时间线", "Module History") },
     { id: "project-evolution-release-notes", label: text(lang, "项目更新", "Project Updates") },
     { id: "project-evolution-scientific", label: text(lang, "科研能力演化", "Scientific Evolution") },
     { id: "project-evolution-database", label: text(lang, "数据库演化", "Database Evolution") },
@@ -802,7 +839,7 @@ export function ProjectEvolutionTab({ onNavigate, data: providedData = null }) {
     <div id="project-evolution" data-testid="project-evolution-tab" style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}>
       <PageHeader
         title={text(lang, "项目演化", "Project Evolution Center")}
-        subtitle={text(lang, "独立展示 EcoMOF-AI 的成长过程：版本更新记录、数据库、算法、验证、界面、汉化演化、关键里程碑与发展路线图。", "A standalone view of how EcoMOF-AI grew: versions, release notes, database, algorithms, validation, UI, localization evolution, milestones, and roadmap.")}
+        subtitle={text(lang, "独立展示 EcoMOF-AI 的成长过程：统一发布日志、模块历史、数据库、算法、验证、界面、汉化演化、关键里程碑与发展路线图。", "A standalone view of how EcoMOF-AI grew: unified release log, module history, database, algorithms, validation, UI, localization evolution, milestones, and roadmap.")}
         meta={text(lang, "EcoMOF-AI 项目变化记录", "What Changed In EcoMOF-AI")}
         action={<><BasisBadge tone="info">{APP_VERSION_LABEL}</BasisBadge><CopyLinkButton hash="project-evolution" ariaLabel={text(lang, "复制项目演化链接", "Copy Project Evolution link")} /></>}
       />
@@ -815,8 +852,9 @@ export function ProjectEvolutionTab({ onNavigate, data: providedData = null }) {
       <SectionNav sections={sections} t={t} />
       <UnifiedReleaseCenter log={appReleaseLog} lang={lang} t={t} isMobile={isMobile} />
       <EvolutionOverview data={data} projectStatus={projectStatus} lang={lang} t={t} isMobile={isMobile} />
+      <PendingReleaseDraft log={appReleaseLog} lang={lang} t={t} isMobile={isMobile} />
       <VersionTimeline data={data} lang={lang} t={t} isMobile={isMobile} />
-      <ProjectUpdates lang={lang} t={t} isMobile={isMobile} />
+      <ProjectUpdates log={appReleaseLog} lang={lang} t={t} isMobile={isMobile} />
       <ScientificEvolution data={data} lang={lang} t={t} />
       <DatabaseEvolution data={data} lang={lang} t={t} />
       <AlgorithmEvolution data={data} lang={lang} t={t} />

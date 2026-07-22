@@ -8,6 +8,141 @@
     "generatingScript": "scripts/build-app-release-log.mjs",
     "note": "v1.0.0 module changes are authored from the integration work in this release; history is regrouped by module from existing per-module impact fields without altering any original version number."
   },
+  "pendingNextRelease": {
+    "baseAppVersion": "v1.0.2",
+    "recordedAt": "2026-07-22",
+    "status": "draft-unreleased",
+    "statusLabel": {
+      "zh": "待发布",
+      "en": "pending release"
+    },
+    "versionPolicy": {
+      "zh": "发布时确认",
+      "en": "assigned at release time"
+    },
+    "releaseBoundary": {
+      "zh": "不改变 Organic Acid 排名算法、底层评分或源数据；本轮先修复交互、汉化、可视化与版本展示。",
+      "en": "Does not change Organic Acid ranking algorithms, base scores, or source data; this round fixes interaction, localization, visualization, and version presentation first."
+    },
+    "modules": {
+      "home": {
+        "label": {
+          "zh": "首页",
+          "en": "Home"
+        },
+        "summary": {
+          "zh": "修复真实数据图表和中文模式文案。",
+          "en": "Fixes real-data charts and Chinese-mode copy."
+        },
+        "changes": [
+          {
+            "zh": "相关性图从大留白网络改为紧凑 Pearson 相关矩阵；色阶表示正/负相关与强度，点击单元格联动样本数和强度解释。",
+            "en": "Replaces the whitespace-heavy correlation network with a compact Pearson matrix; color encodes sign/strength and clicked cells expose sample size and interpretation."
+          },
+          {
+            "zh": "首页当前限制、验证能力卡和能力概览中的普通英文说明改为自然中文；保留 Benchmark、CRITIC、ROC-AUC 等必要术语。",
+            "en": "Rewrites ordinary English copy in current limitations, validation cards, and capability overview into natural Chinese while preserving necessary terms such as Benchmark, CRITIC, and ROC-AUC."
+          }
+        ]
+      },
+      "ecoscreen": {
+        "label": {
+          "zh": "生态筛选",
+          "en": "EcoScreen"
+        },
+        "summary": {
+          "zh": "把生态筛选整理为文献约束下的研究工作台。",
+          "en": "Reframes EcoScreen as a literature-bounded research workbench."
+        },
+        "changes": [
+          {
+            "zh": "新增研究任务与证据覆盖面板，汇总当前候选、反应记录、Benchmark 数据、实验标签和金属成本假设，显示覆盖率与缺口。",
+            "en": "Adds a research-task and evidence-coverage panel that summarizes current candidates, reaction records, benchmark data, experimental labels, and metal-cost assumptions to show coverage and gaps."
+          },
+          {
+            "zh": "引入吸附筛选、水稳定性、LCA/LCC 边界、CRITIC 客观赋权和关键金属复核的文献依据；缺失 LCA/成本/关键金属信息只进入复核任务，不直接改变评分。",
+            "en": "Adds literature basis for adsorption screening, water stability, LCA/LCC boundaries, CRITIC objective weighting, and critical-metal review; missing LCA/cost/critical-metal information becomes review work, not a direct score change."
+          },
+          {
+            "zh": "反应筛选、评分模式、四象限图、方法入口和缺失值策略等高频控件改为中文优先表达。",
+            "en": "Makes high-traffic controls Chinese-first, including reaction filters, scoring modes, quadrant labels, method links, and missing-value strategy labels."
+          }
+        ]
+      },
+      "projectEvolution": {
+        "label": {
+          "zh": "项目演化",
+          "en": "Project Evolution"
+        },
+        "summary": {
+          "zh": "拆分当前 App 版本、模块历史版本和下一版更新预告。",
+          "en": "Separates current App version, module-history versioning, and next-release preview."
+        },
+        "changes": [
+          {
+            "zh": "项目状态总览改为当前 App 版本 App v1.0.2 与最新模块数据版本 V3.10.1 分列展示，避免新旧版本号混读。",
+            "en": "Project status overview now shows current App version App v1.0.2 and latest module data version V3.10.1 as separate cards to avoid mixing release schemes."
+          },
+          {
+            "zh": "模块历史时间线只展示 V3.x 等历史/数据演化；App 发布继续由统一版本中心管理。",
+            "en": "The module history timeline now only shows V3.x-style historical/data evolution; App releases remain in the Unified Release Center."
+          },
+          {
+            "zh": "新增下一版更新预告区，本轮每项已确认修改会先固定记录，正式版本号在发布时确认。",
+            "en": "Adds a Next Release Preview section so confirmed changes in this round are recorded first, with the final version assigned at release time."
+          },
+          {
+            "zh": "项目更新区改为由统一版本记录生成，当前发布号和模块更新会随版本记录自然更新。",
+            "en": "Project Updates are now generated from the unified release record, so the current release number and module updates change with the version record."
+          }
+        ]
+      },
+      "navigation": {
+        "label": {
+          "zh": "信息架构与导航",
+          "en": "Information Architecture & Navigation"
+        },
+        "summary": {
+          "zh": "修复英文导航显示，移除研究报告一级模块，并调整 MOF 候选库位置。",
+          "en": "Fixes English navigation display, removes the Research Reports top-level module, and moves the MOF Library entry."
+        },
+        "changes": [
+          {
+            "zh": "顶部导航从固定三列宽度改为左右自适应、中间可滚动，英文长标签不再被 Contact / 语言 / 主题按钮遮挡。",
+            "en": "Changes the top nav from fixed three-column widths to adaptive left/right controls with a scrollable middle rail, preventing long English labels from being covered by Contact / language / theme buttons."
+          },
+          {
+            "zh": "研究报告从一级导航、首页快捷入口与公开访问入口中移除；旧研究报告相关记录只保留在历史版本日志中。",
+            "en": "Removes Research Reports from the top-level navigation, homepage quick-start entries, and public access points; legacy research-report references remain only in historical release records."
+          },
+          {
+            "zh": "一级菜单顺序调整为首页、EcoScreen、GasSep、CatalysisLab、MOF Library、方法与证据、项目演化，使 MOF 候选库位于催化实验室之后。",
+            "en": "Reorders the primary menu to Home, EcoScreen, GasSep, CatalysisLab, MOF Library, Methods & Evidence, and Project Evolution so MOF Library follows CatalysisLab."
+          }
+        ]
+      },
+      "localization": {
+        "label": {
+          "zh": "全局文案",
+          "en": "Global Copy"
+        },
+        "summary": {
+          "zh": "清理用户可见界面中的开发者文档式说明。",
+          "en": "Removes developer-documentation-style copy from user-facing interfaces."
+        },
+        "changes": [
+          {
+            "zh": "MOF 候选库、项目演化、EcoScreen、数据质量审计、筛选追踪与有机酸方法论中的实现细节说明改为研究状态、证据边界或操作提示。",
+            "en": "Rewrites implementation-detail notes in MOF Library, Project Evolution, EcoScreen, Data Quality Audit, Screening Trace, and Organic Acid methodology into research status, evidence boundaries, or user actions."
+          },
+          {
+            "zh": "历史版本记录保留原始版本号和能力变化；前台不展开实现细节。",
+            "en": "Historical version records retain original version numbers and capability changes while omitting implementation details from the public view."
+          }
+        ]
+      }
+    }
+  },
   "moduleCatalog": {
     "organicAcid": {
       "label": {
@@ -76,35 +211,35 @@
       "date": "2026-07-21",
       "stage": "unified-platform",
       "headline": {
-        "zh": "v1.0.2：首页动态图、GasSep 数据联动、MOF Library 响应性与全局汉化审查。",
-        "en": "v1.0.2: homepage interactive charts, GasSep data linkage, MOF Library responsiveness, and global localization audit."
+        "zh": "v1.0.2：首页动态图、GasSep 数据联动、MOF Library 浏览体验与全局汉化审查。",
+        "en": "v1.0.2: homepage interactive charts, GasSep data linkage, MOF Library browsing experience, and global localization audit."
       },
       "summary": {
-        "zh": "继续沿用 v1.0.2，不改 Organic Acid 排名算法、底层评分或源数据：修复首页入口按钮的玻璃反光异常，保留真实数据驱动的首页统计分布、金属筛选和相关性动态图；GasSep 候选排序、对比、验证队列与方法说明改为随气体对、筛选漏斗和字段覆盖实时变化；MOF Library 的统一浏览器改为按需展开，避免打开候选库时阻塞页面；新增高频界面汉化审查，覆盖中英文、深浅色和移动端回归。",
-        "en": "v1.0.2 continues without changing Organic Acid ranking algorithms, scores, or source data: fixed the homepage entry-button glare, kept real-data-driven homepage distribution, metal filtering, and correlation visuals; made GasSep ranking, comparison, validation queue, and method context update from the selected gas pair, funnel, and field coverage; lazy-loads the MOF Library unified browser to prevent page stalls; and adds high-traffic localization QA across Chinese/English, light/dark, and mobile regressions."
+        "zh": "继续沿用 v1.0.2，不改 Organic Acid 排名算法、底层评分或源数据：修复首页入口按钮的玻璃反光异常，保留真实数据驱动的首页统计分布、金属筛选和相关性动态图；GasSep 候选排序、对比、验证队列与方法说明改为随气体对、筛选漏斗和字段覆盖实时变化；MOF Library 浏览区展示结构、气体与身份映射覆盖；新增高频界面汉化审查，覆盖中英文、深浅色和移动端。",
+        "en": "v1.0.2 continues without changing Organic Acid ranking algorithms, scores, or source data: fixed the homepage entry-button glare, kept real-data-driven homepage distribution, metal filtering, and correlation visuals; made GasSep ranking, comparison, validation queue, and method context update from the selected gas pair, funnel, and field coverage; shows structure, gas, and identity-link coverage in the MOF Library; and adds high-traffic localization QA across Chinese/English, light/dark, and mobile."
       },
       "modules": {
         "ui": {
           "summary": {
-            "zh": "首页入口按钮、真实数据图表、移动端降级和全局中文文案审查。",
-            "en": "Homepage entry buttons, real-data charts, mobile fallback, and global Chinese localization QA."
+            "zh": "首页入口按钮、真实数据图表、移动端展示和全局中文文案审查。",
+            "en": "Homepage entry buttons, real-data charts, mobile presentation, and global Chinese localization QA."
           },
           "changes": [
             {
-              "zh": "移除全站旧等宽数字 alias 使用，数字、版本号、指标、计数、步骤号与表格数值统一使用 --font-body，并保留 tabular-nums 对齐；化学式继续走 --font-formula。",
-              "en": "Removed site-wide legacy fixed-width numeral alias usage; numbers, versions, metrics, counts, step labels, and table values use --font-body with tabular-nums, while chemistry formulas remain on --font-formula."
+              "zh": "统一数字、版本号、指标、计数、步骤号与表格数值的显示风格；化学式继续使用独立的专业排版。",
+              "en": "Unifies the display style for numbers, versions, metrics, counts, step labels, and table values, while chemistry formulas keep dedicated scientific typography."
             },
             {
-              "zh": "新增 APP_VERSION / getCurrentAppVersion 单一版本源，当前 App 徽章显示 App v1.0.2；历史 V3.x / 数据集 v2.x 版本按模块历史原样保留。",
-              "en": "Added APP_VERSION / getCurrentAppVersion as the single version source; current App badges show App v1.0.2 while historical V3.x / dataset v2.x labels remain unchanged in module history."
+              "zh": "建立统一 App 版本来源，当前 App 徽章显示 App v1.0.2；历史 V3.x / 数据集 v2.x 版本按模块历史原样保留。",
+              "en": "Adds a unified App version source; current App badges show App v1.0.2 while historical V3.x / dataset v2.x labels remain unchanged in module history."
             },
             {
-              "zh": "首页 MOF 描述符三维分布改用更大的 CoRE/QMOF 确定性采样，补充轴刻度、真实值悬停、金属 / dataGrade 着色切换和孔径点大小图例。",
-              "en": "The homepage MOF descriptor 3D view now uses a larger deterministic CoRE/QMOF sample with axis ticks, real-value hover, metal / dataGrade color modes, and pore-size point-size legend."
+              "zh": "首页 MOF 描述符三维分布改用更大的 CoRE/QMOF 样本，补充轴刻度、真实值悬停、金属 / 数据等级着色切换和孔径点大小图例。",
+              "en": "The homepage MOF descriptor 3D view now uses a larger CoRE/QMOF sample with axis ticks, real-value hover, metal / data-grade color modes, and pore-size point-size legend."
             },
             {
-              "zh": "首页新增气体分离帕累托图，基于 gas_adsorption_records_v2 中同时具备选择性与工作容量的真实点，按气对切换并标注 IAST/实验/计算覆盖。",
-              "en": "Added a homepage gas-separation Pareto chart from gas_adsorption_records_v2 records that have both selectivity and working capacity, with gas-pair switching and IAST/experimental/computed coverage."
+              "zh": "首页新增气体分离帕累托图，基于同时具备选择性与工作容量的真实记录，按气对切换并标注 IAST/实验/计算覆盖。",
+              "en": "Added a homepage gas-separation Pareto chart from real records that have both selectivity and working capacity, with gas-pair switching and IAST/experimental/computed coverage."
             },
             {
               "zh": "首页入口按钮去掉异常玻璃折射和蓝色实心态，改为中性按钮、清晰 hover 反馈和更稳定的移动端布局。",
@@ -115,8 +250,8 @@
               "en": "Reworked the homepage correlation chart from a dense matrix into an interactive network where edge width is driven by Pearson |r| and nodes, notes, and ranking all come from the current filtered data."
             },
             {
-              "zh": "新增高频界面汉化审查测试，拒绝中文模式下的机械式中英拼接；保留 CRITIC、Hybrid、IAST 等必要算法名。",
-              "en": "Added high-traffic localization QA that rejects machine-like mixed Chinese/English labels in Chinese mode while preserving necessary algorithm names such as CRITIC, Hybrid, and IAST."
+              "zh": "新增高频界面汉化审查，拒绝中文模式下的机械式中英拼接；保留 CRITIC、Hybrid、IAST 等必要算法名。",
+              "en": "Added high-traffic localization QA that rejects machine-like mixed Chinese/English labels in Chinese mode while preserving necessary terms such as CRITIC, Hybrid, and IAST."
             }
           ]
         },
@@ -139,28 +274,28 @@
               "en": "Removed non-data-linked overview cards and fixed validation roadmap, replacing them with a validation queue generated from field coverage, Pareto frontier, selected candidate, and funnel state."
             },
             {
-              "zh": "专项回归覆盖中英文、深浅色主题和移动端单列布局，确认方法卡、筛选漏斗和性能图保持可交互。",
-              "en": "Regression coverage checks Chinese/English copy, light/dark themes, and mobile single-column layout while preserving interactivity in method cards, funnel, and performance map."
+              "zh": "中英文、深浅色主题和移动端单列布局均保持可读；方法卡、筛选漏斗和性能图保持可交互。",
+              "en": "Chinese/English copy, light/dark themes, and the mobile single-column layout remain readable; method cards, funnel, and performance map remain interactive."
             }
           ]
         },
         "database": {
           "summary": {
-            "zh": "MOF Library 统一浏览器按需展开，避免打开候选库时页面无响应。",
-            "en": "MOF Library unified browsing is now on-demand to prevent stalls when opening the candidate library."
+            "zh": "MOF Library 统一浏览器更聚焦结构、气体与身份映射覆盖。",
+            "en": "MOF Library unified browsing now focuses on structure, gas, and identity-link coverage."
           },
           "changes": [
             {
-              "zh": "统一 MOF 浏览器默认折叠，只有用户展开时才合并结构、气体与身份映射数据，降低初次进入候选库的主线程压力。",
-              "en": "The unified MOF browser is collapsed by default and merges structure, gas, and identity data only after expansion, reducing main-thread pressure on initial library entry."
+              "zh": "统一 MOF 浏览器集中展示结构记录、气体吸附记录和身份映射数量，用户展开后可进行跨数据检索。",
+              "en": "The unified MOF browser highlights structure records, gas adsorption records, and identity links, then lets users search across linked datasets after opening it."
             },
             {
-              "zh": "候选库顶部状态从大提示框改为轻量状态条，保留 Open MOF Seed、加载状态、记录数和来源说明。",
-              "en": "The library header status changed from large callouts to a lightweight status strip that keeps Open MOF Seed, load state, record counts, and source context visible."
+              "zh": "候选库顶部状态从大提示框改为轻量状态条，保留 Open MOF Seed、记录数和来源说明。",
+              "en": "The library header status changed from large callouts to a lightweight status strip that keeps Open MOF Seed, record counts, and source context visible."
             },
             {
-              "zh": "数据库索引加载态和候选对比字段同步汉化，避免候选库中文模式出现明显英文残留。",
-              "en": "Localized database-index loading and candidate-comparison fields to avoid obvious English remnants in Chinese mode."
+              "zh": "数据库索引提示和候选对比字段同步汉化，避免候选库中文模式出现明显英文残留。",
+              "en": "Localized database-index prompts and candidate-comparison fields to avoid obvious English remnants in Chinese mode."
             }
           ]
         }
@@ -942,12 +1077,12 @@
         {
           "version": "V3.9",
           "date": "2026-06-21",
-          "note": "删除 Catalysis 小猫游乐场（CatalysisEnergyBarrierDemo + CatalystCatSprite + cat energy 组件/数据/测试），Catalysis Lab 回归科研结构（Catalysis Research Overview + 有机酸研究链路）；版本记录信息架构清理（Current Release 优先，历史折叠/归档）。"
+          "note": "删除旧催化演示视图，Catalysis Lab 回归科研结构（Catalysis Research Overview + 有机酸研究链路）；版本记录信息架构清理（Current Release 优先，历史折叠/归档）。"
         },
         {
           "version": "V3.9.1",
           "date": "2026-06-21",
-          "note": "GasSep 新增数据摘要卡片与 provenance CSV 导出；彻底清理孤立的 cat-playground / energy-playground CSS（保留共享 .formula 与通用 keyframes）。"
+          "note": "GasSep 新增数据摘要卡片与 provenance CSV 导出；彻底清理孤立的旧演示 CSS（保留共享 .formula 与通用 keyframes）。"
         },
         {
           "version": "V3.9.2",

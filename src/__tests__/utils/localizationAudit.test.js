@@ -54,7 +54,7 @@ describe("localization audit", () => {
   it("passes V2.4 research-output copy and reports required audit metrics", () => {
     const audit = runLocalizationAudit({
       corpus: [
-        "排序解释 查看筛选依据 查看字段来源 查看数据缺口 查看验证状态 查看研究报告",
+        "排序解释 查看筛选依据 查看字段来源 查看数据缺口 查看验证状态",
         "研究报告 运行快照 引用包 汉化质量审计 数据库预览 已核验元数据",
       ],
     })
@@ -63,7 +63,7 @@ describe("localization audit", () => {
     expect(audit.terminologyConsistency).toBe(true)
     expect(audit.scientificLanguageConsistency).toBe(true)
     expect(assertLocalizationAuditPass(audit)).toBe(true)
-    expect(audit.preferredActions).toEqual(expect.arrayContaining(["查看筛选依据", "查看字段来源", "查看研究报告"]))
+    expect(audit.preferredActions).toEqual(expect.arrayContaining(["查看筛选依据", "查看字段来源", "查看排序解释"]))
   })
 
   it("keeps legacy product and ranking-explanation copy out of primary runtime surfaces", () => {
@@ -72,7 +72,6 @@ describe("localization audit", () => {
       read("src/components/scoring/ScoreExplanationDrawer.tsx"),
       read("src/components/tabs/GasSepTab.tsx"),
       read("src/components/home/workflowData.js"),
-      read("src/components/tabs/ResearchReportsTab.jsx"),
       read("public/data/methodology_modules_demo.json"),
     ].join("\n")
 
@@ -82,9 +81,10 @@ describe("localization audit", () => {
 
   it("covers all first-level modules for the V2.4 localization audit", () => {
     expect(LOCALIZATION_AUDIT_MODULES).toEqual(expect.arrayContaining([
-      "Methods & Evidence", "Project Evolution", "Research Reports", "EcoScreen",
+      "Methods & Evidence", "Project Evolution", "EcoScreen",
       "MOF Library", "GasSep", "Catalysis Lab", "Model Benchmark Lab", "Model Validation Lab",
       "Data Quality Audit", "Roadmap", "Milestones", "Release Notes", "Version Timeline",
+      "Navigation",
     ]))
   })
 

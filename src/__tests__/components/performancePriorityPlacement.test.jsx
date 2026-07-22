@@ -7,7 +7,13 @@ describe("V2.7 performance priority placement", () => {
   it("removes the standalone Performance Priority tab from the top tab bar", () => {
     const ids = TABS.map(tab => tab.id)
     expect(ids).not.toContain("performance")
+    expect(ids).not.toContain("researchReports")
     expect(ids).toContain("ecoscreen")
+  })
+
+  it("places the MOF Library after CatalysisLab in the primary menu", () => {
+    const ids = TABS.map(tab => tab.id)
+    expect(ids).toEqual(["home", "ecoscreen", "gassep", "catalysis", "library", "about", "projectEvolution"])
   })
 
   it("keeps a centralized performance priority config with the six run-setup modes", () => {

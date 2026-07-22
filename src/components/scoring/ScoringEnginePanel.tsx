@@ -20,6 +20,15 @@ import { WhyThisWeightButton } from "./WhyThisWeightButton"
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 const fmt = (value, digits = 3) => Number(value || 0).toFixed(digits)
 const pct = value => `${Math.round(Math.max(0, Math.min(1, Number(value) || 0)) * 100)}%`
+const missingStrategyLabel = (value, lang) => {
+  const labels = {
+    median: { zh: "中位数填补", en: "median" },
+    zeroPenalty: { zh: "缺失惩罚", en: "zeroPenalty" },
+    penalize: { zh: "缺失惩罚", en: "penalize" },
+    exclude: { zh: "排除缺失", en: "exclude" },
+  }
+  return lang === "zh" ? labels[value]?.zh || value : labels[value]?.en || value
+}
 
 function Card({ t, children, style }) {
   return (
@@ -112,7 +121,7 @@ export function ScoringModelCard({ model, settings, onManageDescriptors, onApply
           [text(lang, "描述符预设", "Descriptor preset"), descriptorPreset],
           [text(lang, "筛选优先级", "Priority mode"), lang === "zh" ? model.metadata?.performancePriorityModeLabelZh : model.metadata?.performancePriorityModeLabel],
           [text(lang, "算法", "Algorithm"), String(settings.algorithm || model.algorithm).toUpperCase()],
-          [text(lang, "缺失值策略", "Missing strategy"), settings.missingValueStrategy || model.missingValueStrategy],
+          [text(lang, "缺失值策略", "Missing strategy"), missingStrategyLabel(settings.missingValueStrategy || model.missingValueStrategy, lang)],
           [text(lang, "Hybrid alpha（混合系数）", "Hybrid alpha"), Number(settings.hybridAlpha ?? model.hybridAlpha ?? 0).toFixed(2)],
           [text(lang, "候选数量", "Candidate count"), model.metadata?.candidateCount || 0],
           [text(lang, "描述符覆盖率", "Descriptor coverage"), `${descriptorCoverageLabel} · ${model.metadata?.descriptorCount || 0}/${model.metadata?.requestedDescriptorCount || model.metadata?.descriptorCount || 0}`],
@@ -162,9 +171,9 @@ export function WeightingMethodPanel({ draft, setDraft, onApply, onReset, onMana
             onChange={event => setDraft(prev => ({ ...prev, missingValueStrategy: event.target.value }))}
             style={{ background: t.surface, color: t.textStrong, border: `1px solid ${t.border}`, borderRadius: 7, padding: "8px 9px" }}
           >
-            <option value="median">median</option>
-            <option value="zeroPenalty">zeroPenalty</option>
-            <option value="exclude">exclude</option>
+            <option value="median">{text(lang, "中位数填补", "median")}</option>
+            <option value="zeroPenalty">{text(lang, "缺失惩罚", "zeroPenalty")}</option>
+            <option value="exclude">{text(lang, "排除缺失", "exclude")}</option>
           </select>
         </label>
       </div>

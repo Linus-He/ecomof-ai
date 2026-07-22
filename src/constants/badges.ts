@@ -16,11 +16,10 @@ export const WORKFLOW_STAGE_ITEMS = [
 
 export const TABS = [
   { id: "home",          copyKey: "overview" },
-  { id: "library",       copyKey: "mofLibrary" },
   { id: "ecoscreen",     copyKey: "ecoScreen" },
   { id: "gassep",        copyKey: "gasSep" },
   { id: "catalysis",     copyKey: "catalysisLab" },
+  { id: "library",       copyKey: "mofLibrary" },
   { id: "about",         copyKey: "methodology" },
   { id: "projectEvolution", copyKey: "projectEvolution" },
-  { id: "researchReports", copyKey: "researchReports" },
 ]

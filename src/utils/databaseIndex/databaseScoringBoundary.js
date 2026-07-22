@@ -14,7 +14,7 @@ export function classifyScoringScope(scope = "selected_index_part") {
     browserAllowed,
     workerAllowed: browserAllowed,
     reason: browserAllowed
-      ? "Loaded preview/index data can be scored as a local loaded-scope dry run."
+      ? "Loaded preview/index data can be scored as a loaded-scope trial."
       : dbText("en", "fullDatabaseReason"),
     reasonZh: browserAllowed
       ? "已加载的预览/索引数据可以作为本地已加载范围试算。"
@@ -63,7 +63,7 @@ export function buildWorkerScoringRequest(records = [], options = {}) {
       recordCount: 0,
       reason: classification.reason,
       reasonZh: classification.reasonZh,
-      formulaVersion: "V2.0-D loaded-scope dry run boundary",
+      formulaVersion: "V2.0-D loaded-scope trial boundary",
       notFinalRecommendation: true,
     }
   }
@@ -77,8 +77,8 @@ export function buildWorkerScoringRequest(records = [], options = {}) {
     workerAllowed: true,
     records: sourceRecords.map(normalizeWorkerRecord),
     recordCount: sourceRecords.length,
-    formulaVersion: "V2.0-D loaded-scope dry run boundary",
-    boundary: "Local loaded-scope dry run only; not full verified database screening and not a final verified recommendation.",
+    formulaVersion: "V2.0-D loaded-scope trial boundary",
+    boundary: "Loaded-scope trial scoring only; not full verified database screening and not a final verified recommendation.",
     boundaryZh: "仅本地已加载范围试算；不是经完整验证的全量数据库筛选，也不是最终验证推荐。",
     notFinalRecommendation: true,
   }
@@ -95,7 +95,7 @@ export function runLoadedScopeDryRun(request = {}) {
       skippedRecordCount: 0,
       skippedReasons: {},
       scoredRecords: [],
-      formulaVersion: request.formulaVersion || "V2.0-D loaded-scope dry run boundary",
+      formulaVersion: request.formulaVersion || "V2.0-D loaded-scope trial boundary",
       boundary: request.reason || dbText("en", "fullDatabaseReason"),
       boundaryZh: request.reasonZh || dbText("zh", "fullDatabaseReason"),
       notFinalRecommendation: true,
@@ -135,8 +135,8 @@ export function runLoadedScopeDryRun(request = {}) {
     skippedRecordCount: Math.max(0, records.length - scoredRecords.length),
     skippedReasons,
     scoredRecords,
-    formulaVersion: request.formulaVersion || "V2.0-D loaded-scope dry run boundary",
-    boundary: request.boundary || "Local loaded-scope dry run only; not full verified database screening and not a final verified recommendation.",
+    formulaVersion: request.formulaVersion || "V2.0-D loaded-scope trial boundary",
+    boundary: request.boundary || "Loaded-scope trial scoring only; not full verified database screening and not a final verified recommendation.",
     boundaryZh: request.boundaryZh || "仅本地已加载范围试算；不是经完整验证的全量数据库筛选，也不是最终验证推荐。",
     notFinalRecommendation: true,
   }
@@ -145,15 +145,15 @@ export function runLoadedScopeDryRun(request = {}) {
 export function buildWorkerScoringTrace(result = {}) {
   const createdAt = new Date().toISOString()
   return {
-    runId: `db-worker-boundary-${createdAt.replace(/\D/g, "").slice(0, 14)}`,
+    runId: `db-scoring-boundary-${createdAt.replace(/\D/g, "").slice(0, 14)}`,
     createdAt,
     scope: result.scope || "selected_index_part",
     inputRecordCount: safeNumber(result.inputRecordCount),
     scoredRecordCount: safeNumber(result.scoredRecordCount),
     skippedRecordCount: safeNumber(result.skippedRecordCount),
     skippedReasons: result.skippedReasons || {},
-    formulaVersion: result.formulaVersion || "V2.0-D loaded-scope dry run boundary",
-    boundary: result.boundary || "Local loaded-scope dry run only; not full verified database screening.",
+    formulaVersion: result.formulaVersion || "V2.0-D loaded-scope trial boundary",
+    boundary: result.boundary || "Loaded-scope trial scoring only; not full verified database screening.",
     boundaryZh: result.boundaryZh || "仅本地已加载范围试算；不是经完整验证的全量数据库筛选。",
     notFinalRecommendation: true,
   }

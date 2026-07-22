@@ -59,7 +59,7 @@ describe("Screening trace components", () => {
     expect(document.querySelector("#screening-trace-timeline")).toBeTruthy()
     expect(document.querySelector("#screening-funnel-panel")).toBeTruthy()
     expect(document.querySelector("#candidate-decision-dashboard")).toBeTruthy()
-    expect(bodyText()).toMatch(/Candidate dashboard shell is ready/i)
+    expect(bodyText()).toMatch(/candidate dashboard will appear after candidate data loads/i)
   })
 
   it("dashboard defaults to top 10 candidate cards", () => {

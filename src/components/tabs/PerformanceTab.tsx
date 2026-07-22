@@ -376,7 +376,7 @@ export function PerformanceTab({
     costLevel: "medium",
     toxicityConcern: "low",
     evidenceLevel: "rule-based",
-    limitations: [lang === "zh" ? "当前浏览器端结果需要实测等温线、GCMC 或 IAST 验证。" : "Current browser-side result needs measured isotherm, GCMC, or IAST validation."],
+    limitations: [lang === "zh" ? "当前筛选结果需要实测等温线、GCMC 或 IAST 验证。" : "Current screening result needs measured isotherm, GCMC, or IAST validation."],
     graphMetadata: {
       graphStatus: "pending",
       nodeTypes: [],
@@ -386,7 +386,7 @@ export function PerformanceTab({
       diversityScore: null,
       graphMotifScore: 0,
       graphConfidence: "pending",
-      notes: "Graph metadata is pending curation for this browser-side candidate.",
+      notes: "Graph metadata is pending curation for this screening candidate.",
     },
     organicAcidRelevance: {
       targetPathway: "pending",
@@ -394,7 +394,7 @@ export function PerformanceTab({
       pathwayPriorityScore: null,
       scoreStatus: "pending",
       validationNeeded: ["Organic acid pathway relevance pending curation"],
-      notes: "Organic acid relevance has not yet been curated for this browser-side candidate.",
+      notes: "Organic acid relevance has not yet been curated for this screening candidate.",
     },
   } : null, [hasResult, inputs, results, lang])
 
@@ -429,7 +429,7 @@ export function PerformanceTab({
     if (!hasResult) {
       return {
         means: lang === "zh" ? "性能优先级分数会把吸附量、选择性、热力学线索和适用域提示合成为早期候选优先级。" : "The Performance score combines uptake, selectivity, thermodynamic cues, and applicability notes into an early-stage candidate priority.",
-        high: lang === "zh" ? "当前还没有结果；请先运行浏览器端筛选模型。" : "No result yet; run the browser-side screening model first.",
+        high: lang === "zh" ? "当前还没有结果；请先运行筛选模型。" : "No result yet; run the screening model first.",
         data: lang === "zh" ? "数据来源将显示为用户输入、MOF 预设或 seed 标签。" : "Data support will be user input, MOF preset, or seed label context.",
         next: lang === "zh" ? "下一步是补充实测等温线、GCMC 或严格 IAST 验证。" : "Next step is measured isotherms, GCMC, or strict IAST validation.",
       }

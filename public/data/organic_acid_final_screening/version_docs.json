@@ -522,17 +522,17 @@
         "新增 Knowledge Base and Literature Inspiration 方法说明。"
       ],
       "maintenanceNotes": [
-        "V1.5 Patch: Run Launcher Prep + Cat Drag Fix + Copy Cleanup.",
-        "Algorithm Run Launcher prep UI runs the current demo workflow and mapped-fixture-ready mode only.",
+        "V1.5 Patch: screening entry preparation, visual-probe fix, and copy cleanup.",
+        "Algorithm screening entry runs the current demo workflow and mapped-fixture-ready mode only.",
         "Curated real examples were deferred in V1.5 and are enabled in V1.6 small-sample mode.",
-        "Catalysis cat drag is pointer-event based and exposes science-zone insights.",
+        "Catalysis visual probe exposes science-zone insights.",
         "Cleaned hard-joined bilingual heading copy without advancing V1.6."
       ],
       "maintenanceNotesZh": [
-        "V1.5 Patch：Run Launcher Prep + Cat Drag Fix + Copy Cleanup。",
-        "Algorithm Run Launcher 预备 UI 只运行当前 demo workflow 与 mapped-fixture-ready 模式。",
+        "V1.5 Patch：筛选入口准备、可视化探针修复与文案清理。",
+        "算法筛选入口只运行当前 demo workflow 与 mapped-fixture-ready 模式。",
         "人工整理真实样例在 V1.5 暂缓，并已在 V1.6 小样例模式启用。",
-        "催化小猫拖拽改为 pointer-event 机制，并显示 science-zone 洞察。",
+        "催化可视化探针显示 science-zone 洞察。",
         "清理中英硬拼接标题文案，不推进 V1.6。"
       ],
       "evidenceBoundary": "Mapper preview uses small fixtures only and does not load full CoRE/QMOF or claim real-data validation.",
@@ -599,21 +599,21 @@
       "status": "completed",
       "theme": "Small real dataset + Knowledge Base",
       "themeZh": "小规模真实样例 + 知识库",
-      "summary": "Integrated a small curated real-example sample to validate the mapper, quality gate, Run Launcher, Hot Spot Map projection, and Knowledge Base evidence boundaries.",
-      "summaryZh": "接入小规模人工整理真实样例，用于验证 mapper、quality gate、Run Launcher、Hot Spot Map 投影与 Knowledge Base 证据边界。",
+      "summary": "Integrated a small curated real-example sample to validate the mapper, quality gate, screening entry, Hot Spot Map projection, and Knowledge Base evidence boundaries.",
+      "summaryZh": "接入小规模人工整理真实样例，用于验证 mapper、quality gate、筛选入口、Hot Spot Map 投影与 Knowledge Base 证据边界。",
       "keyUpdates": [
         "Added curated real Al-MOF examples, QMOF descriptor examples, literature evidence records, and a mapping report.",
-        "Enabled Curated real examples mode in the Run Launcher with a no-full-database boundary.",
+        "Enabled Curated real examples mode in the screening entry with a no-full-database boundary.",
         "Projected curated records into the Scaffold Hot Spot Map with ready / needs-review / rejected roles.",
         "Upgraded the former version documentation into Knowledge Base with Literature Library, Inspiration Map, and Version-Literature-Module matrix.",
-        "Fixed Catalysis cat workspace-level pointer drag zones."
+        "Fixed Catalysis workspace-level visual-probe interaction zones."
       ],
       "keyUpdatesZh": [
         "新增人工整理 Al-MOF 样例、QMOF 描述符样例、文献证据记录与 mapping report。",
-        "在 Run Launcher 中启用 Curated real examples 模式，并明确非全量数据库边界。",
+        "在筛选入口中启用 Curated real examples 模式，并明确非全量数据库边界。",
         "将 curated 记录以 ready / needs-review / rejected 角色投影到 Scaffold Hot Spot Map。",
         "将原版本记录升级为 Knowledge Base，包含文献库、灵感映射和版本-文献-模块矩阵。",
-        "修复 Catalysis cat 的全工作区 pointer drag zones。"
+        "修复 Catalysis 全工作区可视化探针交互区。"
       ],
       "algorithmChanges": [
         "No OACS/DMRS core scoring logic change.",
@@ -626,10 +626,10 @@
         "needs-review 记录保持可审计，但不能进入最终推荐。"
       ],
       "uiChanges": [
-        "Run Launcher curated mode, curated mapping summary, source-aware Hot Spot points, provenance report, Knowledge Base sections, and workspace-level cat drag overlay."
+        "Screening-entry curated mode, curated mapping summary, source-aware Hot Spot points, provenance report, Knowledge Base sections, and workspace-level visual probe."
       ],
       "uiChangesZh": [
-        "新增 Run Launcher curated 模式、curated mapping 摘要、来源感知热区点、provenance report、Knowledge Base 分区和全工作区小猫拖拽 overlay。"
+        "新增筛选入口 curated 模式、curated mapping 摘要、来源感知热区点、provenance report、Knowledge Base 分区和全工作区可视化探针。"
       ],
       "methodologyChanges": [
         "Added Small Real Dataset Integration method note and upgraded the former version documentation / Literature Inspiration into Knowledge Base."
@@ -716,58 +716,58 @@
       "status": "completed",
       "theme": "Traceability + performance",
       "themeZh": "可审计追踪 + 加载性能",
-      "summary": "Added an Algorithm Trace Workbench for run-level auditability, replaced the global Catalysis cat overlay with chart-scoped probes, and optimized Methods & Evidence loading without changing OACS/DMRS scientific logic.",
-      "summaryZh": "新增 Algorithm Trace Workbench 用于运行级可审计追踪，将全局 Catalysis 小猫 overlay 改为图表内探针，并优化 Methods & Evidence 加载；不改变 OACS/DMRS 科学逻辑。",
+      "summary": "Added an Algorithm Trace Workbench for run-level auditability, replaced the global Catalysis visual probe with chart-scoped probes, and optimized Methods & Evidence loading without changing OACS/DMRS scientific logic.",
+      "summaryZh": "新增 Algorithm Trace Workbench 用于运行级可审计追踪，将全局 Catalysis 可视化探针改为图表内探针，并优化 Methods & Evidence 加载；不改变 OACS/DMRS 科学逻辑。",
       "keyUpdates": [
         "Added Algorithm Trace Workbench with runId, step-level trace records, candidate decision log, formula / weight inspector, evidence trace, candidate flow funnel, warnings, boundaries, and Markdown / JSON export.",
-        "Replaced the workspace-level cat overlay with a chart-scoped science probe inside Scaffold, Dopant, and Synergy Hot Spot charts.",
-        "Optimized Methods & Evidence through lazy component loading, on-demand Knowledge Base fetches, collapsed heavy matrices, deferred methodology sections, skeleton states, and Vite manual chunks."
+        "Replaced the workspace-level visual probe with chart-scoped science probes inside Scaffold, Dopant, and Synergy Hot Spot charts.",
+        "Optimized Methods & Evidence through on-demand Knowledge Base data, collapsed heavy matrices, staged methodology sections, and lightweight loading states."
       ],
       "keyUpdatesZh": [
         "新增 Algorithm Trace Workbench，包含 runId、step-level trace records、candidate decision log、formula / weight inspector、evidence trace、candidate flow funnel、warnings、boundaries 与 Markdown / JSON export。",
-        "将全工作区小猫 overlay 改为仅挂载在 Scaffold、Dopant、Synergy 热区图内的 chart-scoped science probe。",
-        "通过组件懒加载、Knowledge Base 按需 fetch、重型矩阵折叠、方法论分段延迟渲染、skeleton 状态和 Vite manual chunks 优化 Methods & Evidence。"
+        "将全工作区可视化探针改为仅挂载在 Scaffold、Dopant、Synergy 热区图内的 chart-scoped science probe。",
+        "通过 Knowledge Base 按需数据、重型矩阵折叠、方法论分段展示和轻量加载状态优化 Methods & Evidence。"
       ],
       "algorithmChanges": [
         "No OACS/DMRS core scoring logic change.",
-        "Run Launcher now emits an exportable V1.7 trace object in addition to legacy trace records.",
+        "The screening entry now emits an exportable V1.7 trace object in addition to legacy trace records.",
         "Trace records expose inputs, rules, formulas, outputs, warnings, and blocked states for demo / mapped fixture / curated real-example runs."
       ],
       "algorithmChangesZh": [
         "不改变 OACS/DMRS 核心评分逻辑。",
-        "Run Launcher 在 legacy trace records 之外新增可导出的 V1.7 trace object。",
+        "筛选入口在 legacy trace records 之外新增可导出的 V1.7 trace object。",
         "trace records 对 demo / mapped fixture / curated real-example 运行暴露 input、rule、formula、output、warning 与 blocked 状态。"
       ],
       "uiChanges": [
         "Added Trace Workbench cards for run overview, step timeline, step inspector, candidate decision log, formula / weight inspector, evidence trace panel, candidate flow funnel, warning boundary panel, and export panel.",
-        "Cat probe now uses pointer events, chart-relative coordinates, clamped movement, and independent storage keys for hotspot-scaffold, hotspot-dopant, and hotspot-synergy.",
-        "Methods & Evidence shows lightweight skeletons, summary-first literature lists, collapsed matrices, and nonblank lazy-loaded methodology sections."
+        "Chart probes now use chart-relative coordinates, bounded movement, and independent saved positions for hotspot-scaffold, hotspot-dopant, and hotspot-synergy.",
+        "Methods & Evidence shows lightweight loading states, summary-first literature lists, collapsed matrices, and nonblank methodology sections."
       ],
       "uiChangesZh": [
         "新增 run overview、step timeline、step inspector、candidate decision log、formula / weight inspector、evidence trace panel、candidate flow funnel、warning boundary panel 与 export panel。",
-        "小猫探针改用 pointer events、图表相对坐标、边界内 clamp，以及 hotspot-scaffold、hotspot-dopant、hotspot-synergy 独立 storage keys。",
-        "Methods & Evidence 使用轻量 skeleton、摘要优先文献列表、默认折叠矩阵，以及非空白懒加载方法论区块。"
+        "图表探针改用图表相对坐标、边界内移动，以及 hotspot-scaffold、hotspot-dopant、hotspot-synergy 独立保存位置。",
+        "Methods & Evidence 使用轻量加载状态、摘要优先文献列表、默认折叠矩阵，以及非空白方法论区块。"
       ],
       "methodologyChanges": [
         "Added Algorithm Trace Workbench method note to Organic Acid Final Screening methodology.",
         "Knowledge Base and Version History now document V1.7 traceability, chart-scoped probe boundaries, and performance optimization boundaries.",
-        "Large public JSON datasets are fetched on demand by methodology / Knowledge Base surfaces instead of being statically imported into the main bundle."
+        "Large data summaries are opened on demand by methodology / Knowledge Base surfaces to keep the main workspace responsive."
       ],
       "methodologyChangesZh": [
         "在 Organic Acid Final Screening 方法论中新增 Algorithm Trace Workbench 方法说明。",
         "Knowledge Base 与 Version History 记录 V1.7 可追踪性、chart-scoped probe 边界与性能优化边界。",
-        "大型 public JSON 数据由方法论 / Knowledge Base 页面按需 fetch，不再静态进入主 bundle。"
+        "大型数据摘要由方法论 / Knowledge Base 页面按需打开，以保持主工作区响应。"
       ],
       "evidenceBoundary": "Trace workbench provides auditability and transparency for demo / mapped / curated sample workflows. It does not prove catalytic performance.",
       "evidenceBoundaryZh": "Trace workbench 为 demo / mapped / curated sample 工作流提供可审计性与透明度；不证明催化性能。",
       "limitations": [
         "Trace records explain the current computation chain but do not validate catalytic outcomes.",
-        "Chart-scoped cat probe zones are interpretive overlays on demo/proxy hot spot maps.",
+        "Chart-scoped probe zones are interpretive overlays on demo/proxy hot spot maps.",
         "Performance optimization changes loading behavior only; it does not advance full CoRE/QMOF database screening."
       ],
       "limitationsZh": [
         "trace records 解释当前计算链，但不验证催化结果。",
-        "chart-scoped cat probe zones 是 demo/proxy 热区图上的解释性 overlay。",
+        "chart-scoped probe zones 是 demo/proxy 热区图上的解释性 overlay。",
         "性能优化只改变加载行为；不推进全量 CoRE/QMOF 数据库筛选。"
       ],
       "literatureInspirations": [
@@ -820,35 +820,35 @@
       "status": "completed",
       "theme": "Database index architecture",
       "themeZh": "数据库索引架构",
-      "summary": "Added the public database_index data layer and scripts for manifest generation, preview summaries, index parts, detail records, validation, and dry-run precompute.",
-      "summaryZh": "新增 public database_index 数据层与脚本链路，用于 manifest、preview summary、index parts、detail records、validator 与 dry-run precompute。",
+      "summary": "Added the database-index data layer for dataset manifests, preview summaries, index parts, detail records, validation summaries, and precomputed trial scoring.",
+      "summaryZh": "新增数据库索引数据层，用于数据清单、预览汇总、索引分片、详情记录、校验摘要与预计算试算。",
       "keyUpdates": [
-        "Added public/data/database_index/ with manifest, summaries, descriptor availability, provenance coverage, precomputed top candidates, index parts, detail records, build report, and validation report.",
-        "Added scripts/database-index/ build, precompute, split, validate, and shared utility scripts.",
+        "Added database-index records with manifest, summaries, descriptor availability, provenance coverage, precomputed top candidates, index parts, detail records, build report, and validation report.",
+        "Added repeatable preparation, precompute, split, validate, and shared data utilities.",
         "Added database_index_preview datasetMode and not full database screening boundary.",
         "Fixed validator classification for metadata, statistics, percentages, array containers, and index part records."
       ],
       "keyUpdatesZh": [
-        "新增 public/data/database_index/，包含 manifest、summary、descriptor availability、provenance coverage、precomputed top candidates、index parts、detail records、build report 与 validation report。",
-        "新增 scripts/database-index/ build、precompute、split、validate 与 shared utility scripts。",
+        "新增数据库索引记录，包含 manifest、summary、descriptor availability、provenance coverage、precomputed top candidates、index parts、detail records、build report 与 validation report。",
+        "新增可复现的数据准备、预计算、拆分、校验与共享工具。",
         "新增 database_index_preview datasetMode 与 not full database screening 边界。",
         "修复 validator 对 metadata、statistics、percent、array container 和 index part records 的分类。"
       ],
       "algorithmChanges": [
-        "No browser-side full database scoring.",
+        "No immediate full-database scoring inside the interactive page.",
         "Precomputed Top-N preview excludes needs-review and rejected records from final recommendation.",
         "Detail records remain on-demand and separated from lightweight index parts."
       ],
       "algorithmChangesZh": [
-        "不在浏览器端执行全量数据库评分。",
+        "交互页面内不即时执行全量数据库评分。",
         "预计算 Top-N preview 将 needs-review 与 rejected 记录排除在最终推荐之外。",
         "详情记录保持按需加载，并与轻量 index parts 分离。"
       ],
       "uiChanges": [
-        "No front-end workbench yet in V2.0-A; this release established the data and script architecture."
+        "No full workbench yet in V2.0-A; this release established the data architecture."
       ],
       "uiChangesZh": [
-        "V2.0-A 尚未接入前端工作台；本版本建立数据与脚本架构。"
+        "V2.0-A 尚未接入完整工作台；本版本建立数据架构。"
       ],
       "methodologyChanges": [
         "Documented database index preview as an architecture boundary, not full verified screening."
@@ -897,7 +897,7 @@
         "Added precomputed top candidates preview.",
         "Added index part browser.",
         "Added detail-on-demand drawer.",
-        "Added Database index preview mode to Run Launcher.",
+        "Added Database index preview mode to the screening entry.",
         "Added index-level trace boundary to Algorithm Trace Workbench."
       ],
       "keyUpdatesZh": [
@@ -907,26 +907,26 @@
         "新增 precomputed top candidates preview。",
         "新增 index part browser。",
         "新增 detail-on-demand drawer。",
-        "Run Launcher 新增 Database index preview 模式。",
+        "筛选入口新增 Database index preview 模式。",
         "Algorithm Trace Workbench 新增 index-level trace boundary。"
       ],
       "algorithmChanges": [
         "Database index preview mode loads manifest and precomputed Top-N preview only.",
-        "Run Launcher generates index-level trace instead of full database OACS/DMRS scoring.",
+        "The screening entry generates an index-level trace instead of full database OACS/DMRS scoring.",
         "Trace is limited to manifest, summaries, top candidates, selected part, and opened detail."
       ],
       "algorithmChangesZh": [
         "Database index preview 模式只加载 manifest 与预计算 Top-N preview。",
-        "Run Launcher 生成索引层 trace，而不是执行全量数据库 OACS/DMRS 评分。",
+        "筛选入口生成索引层 trace，而不是执行全量数据库 OACS/DMRS 评分。",
         "Trace 仅覆盖 manifest、summaries、top candidates、选定分片与已打开详情。"
       ],
       "uiChanges": [
-        "Added lazy Database Index Workbench to Organic Acid Final Screening.",
+        "Added Database Index Workbench to Organic Acid Final Screening with on-demand data opening.",
         "Added selected index part browser with quality and Al-node filters.",
         "Added detail drawer with evidence-pending fallbacks for missing DOI, citation, and license fields."
       ],
       "uiChangesZh": [
-        "在 Organic Acid Final Screening 中新增懒加载 Database Index Workbench。",
+        "在 Organic Acid Final Screening 中新增按需打开数据的 Database Index Workbench。",
         "新增选定 index part browser，支持质量状态与 Al-node 过滤。",
         "新增 detail drawer，并对缺失 DOI、citation 与 license 显示 evidence pending fallback。"
       ],
@@ -958,8 +958,8 @@
           "provenance-coverage",
           "top-n-preview"
         ],
-        "adaptationBoundary": "Front-end index preview only; no browser-side full database screening or verified Al/Mo-MOF discovery claim.",
-        "adaptationBoundaryZh": "仅前端索引预览；不进行浏览器端全量数据库筛选，也不声明已发现经验证的 Al/Mo-MOF。"
+        "adaptationBoundary": "Index preview only; no full database screening or verified Al/Mo-MOF discovery claim.",
+        "adaptationBoundaryZh": "仅索引预览；不进行全量数据库筛选，也不声明已发现经验证的 Al/Mo-MOF。"
       },
       "relatedSection": "#methodology-oafs-database-index-preview"
     },
@@ -971,8 +971,8 @@
       "status": "completed",
       "theme": "Screening controls and evidence explanation",
       "themeZh": "筛选控制与证据解释",
-      "summary": "Expanded the Database Index Workbench with loaded-scope filters, Top-N explanation panels, selected-part search/sort/pagination, detail evidence checklists, and Candidate Compare while preserving lazy loading boundaries.",
-      "summaryZh": "在 Database Index Workbench 中扩展已加载范围筛选、Top-N 解释面板、选定分片搜索/排序/分页、详情证据清单与 Candidate Compare，并保持懒加载边界。",
+      "summary": "Expanded the Database Index Workbench with loaded-scope filters, Top-N explanation panels, selected-part search/sort/pagination, detail evidence checklists, and Candidate Compare while preserving on-demand data boundaries.",
+      "summaryZh": "在 Database Index Workbench 中扩展已加载范围筛选、Top-N 解释面板、选定分片搜索/排序/分页、详情证据清单与 Candidate Compare，并保持按需数据边界。",
       "keyUpdates": [
         "Added Source database, Quality status, Metal node, Descriptor availability, and Provenance coverage filters.",
         "Added Why in preview explanation panels for Top Candidates.",
@@ -990,12 +990,12 @@
       "algorithmChanges": [
         "No OACS/DMRS formula change.",
         "Filters operate only on loaded Top-N preview or the currently selected index part.",
-        "No browser-side all-part loading, all-detail loading, or full database scoring."
+        "No immediate loading of all parts, all details, or full-database scoring inside the interactive page."
       ],
       "algorithmChangesZh": [
         "不修改 OACS/DMRS 公式。",
         "筛选仅作用于已加载 Top-N preview 或当前选定 index part。",
-        "不在浏览器端加载全部分片、全部详情或执行全量数据库评分。"
+        "交互页面内不即时加载全部分片、全部详情或执行全量数据库评分。"
       ],
       "uiChanges": [
         "Added the expanded screening toolbar.",
@@ -1011,11 +1011,11 @@
       ],
       "methodologyChanges": [
         "Updated Database Index Preview methodology with V2.0-C expanded screening UI boundaries.",
-        "Documented why the browser does not load the full database, the Top-N preview/full verified screening difference, detail-on-demand data flow, and Candidate Compare evidence boundary."
+        "Documented why full-database conclusions require staged verification, the Top-N preview/full verified screening difference, detail-on-demand data flow, and Candidate Compare evidence boundary."
       ],
       "methodologyChangesZh": [
         "更新 Database Index Preview 方法说明，加入 V2.0-C expanded screening UI 边界。",
-        "记录为什么浏览器不全量加载数据库、Top-N preview 与 full verified screening 的区别、detail-on-demand 数据流和 Candidate Compare 证据边界。"
+        "记录为什么全量数据库结论需要分阶段核验、Top-N preview 与 full verified screening 的区别、detail-on-demand 数据流和 Candidate Compare 证据边界。"
       ],
       "evidenceBoundary": "Expanded screening UI only; not full verified database screening and not a final recommendation system.",
       "evidenceBoundaryZh": "仅为扩展筛选 UI；不是经过完整验证的全量数据库筛选，也不是最终推荐系统。",
@@ -1044,80 +1044,80 @@
     },
     {
       "version": "V2.0-D",
-      "title": "Worker-Based Scoring Boundary Design",
-      "titleZh": "Worker 评分边界设计",
+      "title": "Large-Scale Scoring Boundary Design",
+      "titleZh": "大规模评分边界设计",
       "date": "2026-06",
       "status": "completed",
-      "theme": "Worker boundary and bilingual copy cleanup",
-      "themeZh": "Worker 边界与中英文文案清理",
-      "summary": "Added Worker scoring boundary utilities, a local loaded-scope dry-run preview, audit trace output, and unified bilingual Database Index copy while preserving the V2.0-C lazy-loading workbench.",
-      "summaryZh": "新增 Worker 评分边界工具、本地已加载范围试算预览、审计 trace 输出与统一 Database Index 中英文文案，并保留 V2.0-C 懒加载工作台。",
+      "theme": "Large-scale scoring boundary and bilingual copy cleanup",
+      "themeZh": "大规模评分边界与中英文文案清理",
+      "summary": "Clarified the large-scale scoring boundary, added loaded-scope trial scoring, audit-trace fields, and unified bilingual Database Index copy while preserving the V2.0-C on-demand screening workbench.",
+      "summaryZh": "明确大规模评分边界，新增已加载范围试算、审计追踪字段与统一 Database Index 中英文文案，并保留 V2.0-C 按需筛选工作台。",
       "keyUpdates": [
-        "Added databaseIndexCopy to centralize Database Index terminology in Chinese and English.",
-        "Added databaseScoringBoundary utilities for scope classification, worker request building, boundary notices, loaded-scope dry runs, and trace generation.",
-        "Added databaseScoringWorker as a worker-only scoring boundary with no fetch logic.",
-        "Added Worker Scoring Boundary Preview to the Database Index Workbench.",
-        "Cleaned Chinese-mode copy for screening scope, Candidate Compare, detail evidence, worker boundary, and methodology text."
+        "Centralized Database Index terminology in Chinese and English.",
+        "Added scope classification, boundary notices, loaded-scope trial scoring, and trace generation.",
+        "Separated evidence review from large-scale scoring so candidate-library browsing remains responsive.",
+        "Added Large-Scale Scoring Boundary Preview to the Database Index Workbench.",
+        "Cleaned Chinese-mode copy for screening scope, Candidate Compare, detail evidence, scoring boundaries, and methodology text."
       ],
       "keyUpdatesZh": [
-        "新增 databaseIndexCopy，集中管理 Database Index 中英文术语。",
-        "新增 databaseScoringBoundary 工具，用于 scope 分类、Worker request 构造、边界提示、已加载范围试算与 trace 生成。",
-        "新增 databaseScoringWorker，作为不含 fetch 逻辑的 Worker 评分边界。",
-        "在 Database Index Workbench 中新增 Worker 评分边界预览。",
-        "清理中文模式下的筛选范围、候选对比、详情证据、Worker 边界与方法论文案。"
+        "集中管理 Database Index 中英文术语。",
+        "新增范围分类、边界提示、已加载范围试算与追踪记录。",
+        "分离证据审阅与大规模评分，使候选库浏览保持响应。",
+        "在 Database Index Workbench 中新增大规模评分边界预览。",
+        "清理中文模式下的筛选范围、候选对比、详情证据、评分边界与方法论文案。"
       ],
       "algorithmChanges": [
         "No OACS/DMRS formula change.",
-        "Full database scoring is explicitly blocked in the browser and must be precomputed or run outside the browser main thread.",
-        "Worker dry runs operate only on currently loaded records from Top-N preview, the selected index part, or selected candidates.",
-        "Worker trace includes runId, createdAt, scope, input/scored/skipped counts, skipped reasons, formulaVersion, boundary, and notFinalRecommendation."
+        "Full database scoring requires prior source verification, descriptor recomputation, and batch scoring rather than immediate in-page scoring.",
+        "Trial scoring operates only on currently reviewed records from Top-N preview, the selected index part, or selected candidates.",
+        "The audit trace records scope, input/scored/skipped counts, skipped reasons, formula version, boundary, and not-final status."
       ],
       "algorithmChangesZh": [
         "不修改 OACS/DMRS 公式。",
-        "浏览器内明确阻止全量数据库评分；全量评分必须预计算，或在浏览器主线程之外执行。",
-        "Worker 试算只作用于当前已加载的 Top-N 预览、当前选定索引分片或已选择候选。",
-        "Worker trace 包含 runId、createdAt、scope、输入/评分/跳过计数、跳过原因、formulaVersion、boundary 与 notFinalRecommendation。"
+        "全量数据库评分需先完成来源核验、描述符复算与批量评分，不在页面内即时执行。",
+        "试算只作用于当前审阅的 Top-N 预览、当前选定索引分片或已选择候选。",
+        "审计追踪记录范围、输入/评分/跳过计数、跳过原因、公式版本、边界与非最终状态。"
       ],
       "uiChanges": [
-        "Added Worker Scoring Boundary Preview with scope cards for Top-N preview, selected index part, selected candidates, and full database precompute-required scope.",
-        "Added a selected-index-part loaded-scope dry-run trigger with record count, skipped count, scoring scope, boundary notice, and trace summary.",
+        "Added Large-Scale Scoring Boundary Preview with scope cards for Top-N preview, selected index part, selected candidates, and full-database verification-required scope.",
+        "Added a selected-index-part loaded-scope trial-scoring entry with record count, skipped count, scoring scope, boundary notice, and trace summary.",
         "Replaced Chinese-mode bare English boundary strings with localized copy."
       ],
       "uiChangesZh": [
-        "新增 Worker 评分边界预览，展示 Top-N 预览、当前选定索引分片、已选择候选和全量数据库预计算范围。",
+        "新增大规模评分边界预览，展示 Top-N 预览、当前选定索引分片、已选择候选和全量数据库待核验范围。",
         "新增当前选定索引分片的已加载范围试算入口，展示记录数、跳过数、评分范围、边界说明和追踪摘要。",
         "替换中文模式下裸露的英文边界句。"
       ],
       "methodologyChanges": [
-        "Updated Database Index Preview methodology with V2.0-D worker boundary, loaded-scope dry-run, full-precompute boundary, worker trace audit, and bilingual copy cleanup notes.",
+        "Updated Database Index Preview methodology with V2.0-D large-scale scoring boundary, loaded-scope trial scoring, full-database verification boundary, trace audit, and bilingual copy cleanup notes.",
         "Documented that V2.0-D is still not full verified database screening."
       ],
       "methodologyChangesZh": [
-        "更新 Database Index Preview 方法说明，加入 V2.0-D Worker 边界、已加载范围试算、全量预计算边界、Worker trace 审计与中英文文案清理说明。",
+        "更新 Database Index Preview 方法说明，加入 V2.0-D 大规模评分边界、已加载范围试算、全量数据库核验边界、追踪审计与中英文文案清理说明。",
         "明确 V2.0-D 仍不是经完整验证的全量数据库筛选。"
       ],
-      "evidenceBoundary": "Worker scoring boundary and loaded-scope dry-run preview only; not full verified database screening and not a final verified recommendation.",
-      "evidenceBoundaryZh": "仅为 Worker 评分边界与已加载范围试算预览；不是经完整验证的全量数据库筛选，也不是最终验证推荐。",
+      "evidenceBoundary": "Large-scale scoring boundary and loaded-scope trial preview only; not full verified database screening and not a final verified recommendation.",
+      "evidenceBoundaryZh": "仅为大规模评分边界与已加载范围试算预览；不是经完整验证的全量数据库筛选，也不是最终验证推荐。",
       "limitations": [
-        "The worker does not fetch additional index parts or detail records.",
-        "Full database scoring remains a precompute or background-script task.",
-        "Dry-run scores are boundary diagnostics, not calibrated OACS/DMRS outputs."
+        "The current review does not automatically expand to additional index parts or detail records.",
+        "Full database scoring remains a verified batch-scoring step.",
+        "Trial scores are boundary diagnostics, not calibrated OACS/DMRS outputs."
       ],
       "limitationsZh": [
-        "Worker 不额外读取索引分片或详情记录。",
-        "全量数据库评分仍属于预计算或后台脚本任务。",
+        "当前审阅不会自动扩展到额外索引分片或详情记录。",
+        "全量数据库评分仍需作为经核验的批量评分步骤执行。",
         "试算分数是边界诊断，不是校准后的 OACS/DMRS 输出。"
       ],
       "knowledgeBaseLinks": {
         "knowledgeTags": [
-          "worker-scoring-boundary",
-          "loaded-scope-dry-run",
+          "large-scale-scoring-boundary",
+          "loaded-scope-trial-scoring",
           "database-index-copy",
-          "worker-trace",
+          "audit-trace",
           "not-full-database-screening"
         ],
-        "adaptationBoundary": "Worker boundary design and local loaded-scope audit only; no full verified screening or final recommendation claim.",
-        "adaptationBoundaryZh": "仅为 Worker 边界设计与本地已加载范围审计；不声明经完整验证的全量筛选或最终推荐。"
+        "adaptationBoundary": "Scoring-boundary design and loaded-scope audit only; no full verified screening or final recommendation claim.",
+        "adaptationBoundaryZh": "仅为评分边界设计与已加载范围审计；不声明经完整验证的全量筛选或最终推荐。"
       },
       "relatedSection": "#methodology-oafs-database-index-preview"
     },
@@ -1127,33 +1127,33 @@
       "titleZh": "经核验 metadata 补全流程",
       "date": "2026-06",
       "status": "completed",
-      "theme": "Metadata gate and CI verification",
-      "themeZh": "metadata 核验门控与 CI 验证",
-      "summary": "Added a metadata verification gate that models DOI, source, license, citation, and descriptor provenance status for loaded candidates, so candidates move from previewable to verifiable. Added a remote GitHub Actions CI verification gate. Preserved the V2.0-D worker boundary and lazy-loading boundaries.",
-      "summaryZh": "新增 metadata 核验门控，对已加载候选的 DOI、来源、license、引用与描述符溯源状态进行建模，让候选从“可预览”推进到“可核验”；新增 GitHub Actions 远端 CI 验证门控；保留 V2.0-D Worker 边界与懒加载边界。",
+      "theme": "Metadata gate and automated verification",
+      "themeZh": "metadata 核验门控与自动验证",
+      "summary": "Added a metadata verification gate that models DOI, source, license, citation, and descriptor provenance status for loaded candidates, so candidates move from previewable to verifiable. Added an automated verification gate for tests, type checks, build, and visual checks. Preserved the V2.0-D scoring boundary and on-demand data boundaries.",
+      "summaryZh": "新增 metadata 核验门控，对已加载候选的 DOI、来源、license、引用与描述符溯源状态进行建模，让候选从“可预览”推进到“可核验”；新增测试、类型检查、构建与视觉检查的自动验证门控；保留 V2.0-D 评分边界与按需数据边界。",
       "keyUpdates": [
-        "Added metadataVerification utility for verification status modeling and the verified-recommendation gate.",
+        "Added metadata verification logic for verification status modeling and the verified-recommendation gate.",
         "Added a Metadata Verification Gate panel to the Database Index Workbench with Top-N and selected-part counts.",
         "Added a Metadata Verification section to the Candidate Detail Drawer (DOI, source, license, citation, descriptor provenance, retrievedAt, level, eligibility).",
         "Added metadata gate badges and preview-only warnings to Top-N preview and Candidate Compare.",
-        "Added a GitHub Actions CI workflow running test, typecheck, build, and visual check, separate from the Pages deploy workflow."
+        "Added an automated verification gate covering tests, type checks, build, and visual check."
       ],
       "keyUpdatesZh": [
-        "新增 metadataVerification 工具，用于核验状态建模与经核验推荐门控。",
+        "新增 metadata 核验逻辑，用于核验状态建模与经核验推荐门控。",
         "在 Database Index Workbench 中新增 metadata 核验门控面板，展示 Top-N 与选定分片各状态数量。",
         "在候选详情抽屉中新增 Metadata 核验区（DOI、来源、license、引用、描述符溯源、抓取时间、核验等级、推荐资格）。",
         "在 Top-N 预览与候选对比中新增 metadata 门控徽标与仅限预览提示。",
-        "新增独立于 Pages 部署的 GitHub Actions CI 工作流，运行测试、类型检查、构建与视觉检查。"
+        "新增覆盖测试、类型检查、构建与视觉检查的自动验证门控。"
       ],
       "algorithmChanges": [
         "No OACS/DMRS formula change.",
-        "No full database scoring in browser.",
+        "No immediate full-database scoring inside the interactive page.",
         "Added metadata verification gate before verified recommendation eligibility.",
         "Candidates missing DOI, source link, license, or descriptor provenance stay preview only and cannot become verified recommendations."
       ],
       "algorithmChangesZh": [
         "不修改 OACS/DMRS 公式。",
-        "浏览器内不执行全量数据库评分。",
+        "交互页面内不即时执行全量数据库评分。",
         "在候选进入经核验推荐前新增 metadata 核验门控。",
         "缺 DOI、缺来源链接、缺 license 或缺描述符溯源的候选只能停留在仅限预览，不能成为经核验推荐。"
       ],
@@ -1182,23 +1182,23 @@
       "limitations": [
         "Verification status is modeled from available fields and explicit overrides; it does not confirm DOIs or licenses over the network.",
         "Most current preview candidates remain preview only because source, DOI, license, and descriptor provenance are pending.",
-        "Full database scoring and full verified screening remain precompute or background tasks outside the browser main thread."
+        "Full database scoring and full verified screening remain verified batch-scoring tasks after source and descriptor review."
       ],
       "limitationsZh": [
         "核验状态由现有字段与显式覆盖建模得出，不在网络上确认 DOI 或 license。",
         "当前多数预览候选因来源、DOI、license 与描述符溯源待核验而停留在仅限预览。",
-        "全量数据库评分与经完整验证筛选仍属浏览器主线程之外的预计算或后台任务。"
+        "全量数据库评分与经完整验证筛选仍需在来源与描述符审阅后作为批量评分任务完成。"
       ],
       "knowledgeBaseLinks": {
         "knowledgeTags": [
           "metadata-verification-gate",
           "verified-recommendation-eligibility",
           "preview-only",
-          "ci-verification-gate",
+          "automated-verification-gate",
           "not-full-database-screening"
         ],
-        "adaptationBoundary": "Metadata gate and CI verification only; no live source verification, full screening, or final recommendation claim.",
-        "adaptationBoundaryZh": "仅为 metadata 门控与 CI 验证；不声明联网来源核验、全量筛选或最终推荐。"
+        "adaptationBoundary": "Metadata gate and automated verification only; no live source verification, full screening, or final recommendation claim.",
+        "adaptationBoundaryZh": "仅为 metadata 门控与自动验证；不声明联网来源核验、全量筛选或最终推荐。"
       },
       "relatedSection": "#methodology-oafs-database-index-preview"
     },
@@ -1210,79 +1210,79 @@
       "status": "completed",
       "theme": "Precompute pipeline planning and final-screening UX cleanup",
       "themeZh": "预计算管线规划与最终筛选前台清理",
-      "summary": "Planned the background precompute pipeline (pipeline doc, dry-run script, precomputed index schema) and cleaned up the Organic Acid Final Screening front end into a research workbench: removed the chart mascot, rebuilt the OACS-DMRS candidate priority map, and replaced the developer-style run launcher with a Screening Run Scope module. No full database integration and no full verified screening.",
-      "summaryZh": "完成后台预计算管线规划（管线文档、dry-run 脚本、预计算索引 schema），并把有机酸最终筛选前台重构为科研工作台：移除图表小猫、重做 OACS-DMRS 候选优先级地图，并把开发者风格的运行启动器替换为“筛选运行范围”模块。未接入全量数据库，也不是经完整验证的筛选。",
+      "summary": "Planned the precomputed screening pipeline and cleaned up the Organic Acid Final Screening front end into a research workbench: rebuilt the OACS-DMRS candidate priority map and replaced implementation-facing controls with a Screening Run Scope module. No full database integration and no full verified screening.",
+      "summaryZh": "完成预计算筛选流程规划，并把有机酸最终筛选前台重构为科研工作台：重做 OACS-DMRS 候选优先级地图，并把开发者风格控件替换为“筛选运行范围”模块。未接入全量数据库，也不是经完整验证的筛选。",
       "keyUpdates": [
-        "Added docs/database-precompute-pipeline.md describing the raw -> normalization -> metadata gate -> descriptor check -> OACS/DMRS dry-run -> precomputed Top-N -> preview boundary stages.",
-        "Added scripts/precompute-database-score-dry-run.mjs: an offline dry-run over local preview fixtures that emits a metadata/descriptor audit summary, with no network and no full database load.",
-        "Added docs/precomputed-index-schema.md defining manifest/summary/top_candidates/parts/details and the audit section.",
-        "Cleaned the final-screening front end: removed the chart mascot, rebuilt the OACS-DMRS candidate priority map, and replaced the run launcher with a Screening Run Scope module.",
+        "Defined the raw-record -> normalization -> metadata gate -> descriptor check -> OACS/DMRS trial scoring -> precomputed Top-N -> preview-boundary stages.",
+        "Added a local preview-sample trial that emits a metadata/descriptor audit summary, with no network and no full database load.",
+        "Defined the precomputed-index fields for summaries, top candidates, candidate parts, details, and audit notes.",
+        "Cleaned the final-screening front end: rebuilt the OACS-DMRS candidate priority map and replaced implementation-facing controls with a Screening Run Scope module.",
         "Moved version history out of the front-end screening cards into Methods & Evidence / Knowledge Base / Version History."
       ],
       "keyUpdatesZh": [
-        "新增 docs/database-precompute-pipeline.md，描述 原始记录 -> 归一化 -> metadata 门控 -> 描述符检查 -> OACS/DMRS 试算 -> 预计算 Top-N -> 预览边界 各阶段。",
-        "新增 scripts/precompute-database-score-dry-run.mjs：对本地预览样本的离线试算，输出 metadata/描述符审计摘要，不联网、不加载全量数据库。",
-        "新增 docs/precomputed-index-schema.md，定义 manifest/summary/top_candidates/parts/details 与审计区。",
-        "清理最终筛选前台：移除图表小猫、重做 OACS-DMRS 候选优先级地图，并把运行启动器替换为“筛选运行范围”模块。",
+        "定义 原始记录 -> 归一化 -> metadata 门控 -> 描述符检查 -> OACS/DMRS 试算 -> 预计算 Top-N -> 预览边界 各阶段。",
+        "新增本地预览样本试算，输出 metadata/描述符审计摘要，不联网、不加载全量数据库。",
+        "定义预计算索引的汇总、Top 候选、候选分片、详情与审计说明字段。",
+        "清理最终筛选前台：重做 OACS-DMRS 候选优先级地图，并把开发者风格控件替换为“筛选运行范围”模块。",
         "把版本历史从前台筛选卡片移入 Methods & Evidence / Knowledge Base / Version History。"
       ],
       "algorithmChanges": [
         "No OACS/DMRS formula change.",
-        "No full database scoring in browser.",
-        "Precompute dry-run runs offline over local fixtures only and produces no final recommendation.",
-        "V2.0-D worker boundary and V2.0-E metadata gate are unchanged."
+        "No immediate full-database scoring inside the interactive page.",
+        "Precomputed trial scoring uses preview samples only and produces no final recommendation.",
+        "V2.0-D scoring boundary and V2.0-E metadata gate are unchanged."
       ],
       "algorithmChangesZh": [
         "不修改 OACS/DMRS 公式。",
-        "浏览器内不执行全量数据库评分。",
-        "预计算试算只在本地样本上离线运行，不产生最终推荐。",
-        "保持 V2.0-D Worker 边界与 V2.0-E metadata 门控不变。"
+        "交互页面内不即时执行全量数据库评分。",
+        "预计算试算只使用预览样本，不产生最终推荐。",
+        "保持 V2.0-D 评分边界与 V2.0-E metadata 门控不变。"
       ],
       "uiChanges": [
-        "Removed the draggable cat mascot from the scaffold / dopant / synergy hot spot charts.",
+        "Removed the distracting visual probe from the scaffold / dopant / synergy hot spot charts.",
         "Rebuilt the synergy map as the OACS-DMRS Candidate Priority Map: legend outside the plot, jittered points to avoid overlap, point size tied to score, quadrant guidance, scientific axis titles, and an evidence boundary line.",
-        "Replaced the Algorithm Run Launcher with a Screening Run Scope module: research-readable source names and status labels (available / preview only / needs verification / not final recommendation) instead of DATA MODE / ENABLED.",
-        "Front end now shows only the current boundary tag (V2.0-F dry-run / preview only) instead of stacked version history."
+        "Replaced the implementation-facing algorithm entry with a Screening Run Scope module: research-readable source names and status labels (available / preview only / needs verification / not final recommendation) instead of DATA MODE / ENABLED.",
+        "Front end now shows only the current boundary tag (V2.0-F trial scoring / preview only) instead of stacked version history."
       ],
       "uiChangesZh": [
-        "从骨架 / 金属 / 协同热区图中移除可拖动小猫。",
+        "从骨架 / 金属 / 协同热区图中移除干扰性可视化探针。",
         "把协同图重做为 OACS-DMRS 候选优先级地图：图例移到绘图区外、点位 jitter 避免重叠、点大小与得分关联、加入象限指引、科研化坐标轴标题与证据边界说明。",
         "把算法运行启动器替换为“筛选运行范围”模块：用科研可读的来源名称与状态标签（可运行 / 仅限预览 / 需核验 / 不参与最终推荐）替代 DATA MODE / ENABLED。",
         "前台只保留当前边界标签（V2.0-F 试算 / 仅限预览），不再堆叠版本历史。"
       ],
       "methodologyChanges": [
-        "Documented the V2.0-F background precompute pipeline planning, dry-run script, and precomputed index schema in Methods & Evidence.",
-        "Documented that V2.0-F is pipeline planning + dry-run only, not full database integration and not full verified screening.",
+        "Documented the V2.0-F precomputed screening workflow and index schema in Methods & Evidence.",
+        "Documented that V2.0-F is workflow planning plus trial scoring only, not full database integration and not full verified screening.",
         "Documented that database integration will begin from a 50-200 record small sample (V2.0-G)."
       ],
       "methodologyChangesZh": [
-        "在 Methods & Evidence 中记录 V2.0-F 后台预计算管线规划、dry-run 脚本与预计算索引 schema。",
-        "说明 V2.0-F 只是管线规划 + 试算，不是全量数据库接入，也不是经完整验证的筛选。",
+        "在 Methods & Evidence 中记录 V2.0-F 预计算筛选流程与索引字段。",
+        "说明 V2.0-F 只是流程规划 + 试算，不是全量数据库接入，也不是经完整验证的筛选。",
         "说明数据库接入将从 50-200 条小规模样本开始（V2.0-G）。"
       ],
-      "evidenceBoundary": "Pipeline planning and offline dry-run only; not full database integration and not full verified database screening.",
+      "evidenceBoundary": "Workflow planning and preview-sample trial scoring only; not full database integration and not full verified database screening.",
       "evidenceBoundaryZh": "仅为管线规划与离线试算；不是全量数据库接入，也不是经完整验证的全量数据库筛选。",
       "limitations": [
-        "V2.0-F does not integrate the full database; it plans the pipeline and runs a local dry-run.",
-        "The dry-run reads only local preview fixtures (Top-N + one selected part), never the full database, and never the network.",
-        "Full database scoring remains a background / precompute task outside the browser main thread.",
+        "V2.0-F does not integrate the full database; it plans the workflow and runs a preview-sample trial.",
+        "The trial reads only preview samples (Top-N plus one selected part), never the full database and never the network.",
+        "Full database scoring remains a verified batch-scoring task.",
         "Database integration will start from a 50-200 record small sample in V2.0-G."
       ],
       "limitationsZh": [
-        "V2.0-F 不接入全量数据库，只规划管线并运行本地试算。",
-        "试算只读取本地预览样本（Top-N + 一个选定分片），不读取全量数据库，也不联网。",
-        "全量数据库评分仍是浏览器主线程之外的后台 / 预计算任务。",
+        "V2.0-F 不接入全量数据库，只规划流程并运行预览样本试算。",
+        "试算只读取预览样本（Top-N + 一个选定分片），不读取全量数据库，也不联网。",
+        "全量数据库评分仍需作为经核验的批量评分任务执行。",
         "数据库接入将在 V2.0-G 从 50-200 条小规模样本开始。"
       ],
       "knowledgeBaseLinks": {
         "knowledgeTags": [
-          "background-precompute-pipeline",
-          "precompute-dry-run",
+          "precomputed-screening-workflow",
+          "preview-sample-trial-scoring",
           "precomputed-index-schema",
           "final-screening-ux-cleanup",
           "not-full-database-screening"
         ],
-        "adaptationBoundary": "Pipeline planning, dry-run, and UX cleanup only; no full database integration or full verified screening claim.",
+        "adaptationBoundary": "Workflow planning, trial scoring, and UX cleanup only; no full database integration or full verified screening claim.",
         "adaptationBoundaryZh": "仅为管线规划、试算与前台清理；不声明全量数据库接入或经完整验证的筛选。"
       },
       "relatedSection": "#methodology-oafs-database-index-preview"
@@ -1303,7 +1303,7 @@
         "Added a Descriptor Redundancy Gate (variance, missingness, Pearson correlation) that flags redundant descriptor pairs without deleting fields.",
         "Added a Mechanism Proxy Layer mapping descriptors to CO2 -> organic acid mechanism proxies (null on insufficient evidence).",
         "Added an Algorithm Improvement Trace from raw records to metadata gate, descriptor completeness, redundancy gate, mechanism proxy, and preview output.",
-        "Extended the offline precompute dry-run to read the V2.0-G sample and emit redundancy / mechanism / trace summaries."
+        "Extended precomputed trial scoring to read the V2.0-G sample and emit redundancy / mechanism / trace summaries."
       ],
       "keyUpdatesZh": [
         "在 public/data/database_precompute/v2_0_g/ 下新增小规模经核验样本（120 条），保留 manifest / summary / top_candidates / parts / details 懒加载结构。",
@@ -1311,23 +1311,23 @@
         "新增描述符冗余门控（方差、缺失率、Pearson 相关），标记冗余描述符对但不删除字段。",
         "新增机制代理层，把描述符映射为 CO2 -> 有机酸方向的机制代理（证据不足时返回 null）。",
         "新增算法改进追踪：从原始记录到 metadata 门控、描述符完整度、冗余门控、机制代理、预览输出。",
-        "扩展离线预计算 dry-run 以读取 V2.0-G 样本并输出冗余 / 机制 / 追踪摘要。"
+        "扩展预计算试算以读取 V2.0-G 样本并输出冗余 / 机制 / 追踪摘要。"
       ],
       "algorithmChanges": [
         "No OACS/DMRS formula change.",
-        "No full database scoring in browser.",
+        "No immediate full-database scoring inside the interactive page.",
         "No black-box machine learning model is trained; no model-accuracy metrics are reported.",
         "Descriptor Redundancy Gate is audit/preview-adjustment only and never deletes descriptors.",
         "Mechanism Proxy Layer is rule-based and returns insufficient evidence when data is missing.",
-        "V2.0-D worker boundary and V2.0-E metadata gate are unchanged."
+        "V2.0-D scoring boundary and V2.0-E metadata gate are unchanged."
       ],
       "algorithmChangesZh": [
         "不修改 OACS/DMRS 公式。",
-        "浏览器内不执行全量数据库评分。",
+        "交互页面内不即时执行全量数据库评分。",
         "不训练任何黑盒机器学习模型；不报告模型精度指标。",
         "描述符冗余门控仅用于审计/预览调整，绝不删除描述符。",
         "机制代理层为规则型，数据缺失时返回证据不足。",
-        "保持 V2.0-D Worker 边界与 V2.0-E metadata 门控不变。"
+        "保持 V2.0-D 评分边界与 V2.0-E metadata 门控不变。"
       ],
       "uiChanges": [
         "Added a Descriptor Redundancy Panel and an Algorithm Improvement Trace Panel to the Database Index Workbench.",
@@ -1424,19 +1424,19 @@
       ],
       "algorithmChanges": [
         "No OACS/DMRS formula change.",
-        "No full database scoring in browser.",
+        "No immediate full-database scoring inside the interactive page.",
         "No machine learning model is trained; no model-accuracy metrics are reported.",
         "near_verified is a tier marker only and is never treated as verified_metadata or a final recommendation.",
         "Sensitivity and ablation audits are deterministic and independent; they do not change scoring.",
-        "V2.0-D worker boundary and V2.0-E metadata gate are unchanged."
+        "V2.0-D scoring boundary and V2.0-E metadata gate are unchanged."
       ],
       "algorithmChangesZh": [
         "不修改 OACS/DMRS 公式。",
-        "浏览器内不执行全量数据库评分。",
+        "交互页面内不即时执行全量数据库评分。",
         "不训练机器学习模型；不报告模型精度指标。",
         "near_verified 只是分层标记，绝不等同于 verified_metadata 或最终推荐。",
         "敏感性与消融审计为确定性且独立，不改变评分。",
-        "保持 V2.0-D Worker 边界与 V2.0-E metadata 门控不变。"
+        "保持 V2.0-D 评分边界与 V2.0-E metadata 门控不变。"
       ],
       "uiChanges": [
         "Added a Metadata Verification Queue Panel, a Sensitivity Audit Panel, and a Feature Ablation Audit Panel to the Database Index Workbench.",
@@ -1518,32 +1518,32 @@
       "keyUpdates": [
         "Added a manual metadata curation data structure under public/data/database_precompute/v2_0_i/ (manual_metadata_curation.json + curation_progress_summary.json) built from the V2.0-H queue.",
         "Added a curation status ladder: needs_source_review, source_confirmed, citation_ready, license_pending, license_confirmed, doi_pending, verified_metadata, curation_blocked.",
-        "Added scripts/build-v2-0-i-curation.mjs with a merge strategy that preserves manually entered source/citation/license/DOI on re-run.",
+        "Added a merge-preserving curation preparation flow that preserves manually entered source/citation/license/DOI on rerun.",
         "Added a Manual Metadata Curation panel and a detail-drawer curation section, and linked curation status into the verification queue panel.",
-        "Extended the dry-run summary with manualCurationSummary and metadataTransitionSummary, and added manual_metadata_curation + source_link_enrichment stages to the Algorithm Improvement Trace."
+        "Extended the trial-scoring summary with manualCurationSummary and metadataTransitionSummary, and added manual_metadata_curation + source_link_enrichment stages to the Algorithm Improvement Trace."
       ],
       "keyUpdatesZh": [
         "在 public/data/database_precompute/v2_0_i/ 下新增人工 metadata 整理数据结构（manual_metadata_curation.json + curation_progress_summary.json），由 V2.0-H 队列生成。",
         "新增 curation 状态分层：needs_source_review、source_confirmed、citation_ready、license_pending、license_confirmed、doi_pending、verified_metadata、curation_blocked。",
-        "新增 scripts/build-v2-0-i-curation.mjs，采用 merge 策略：重跑时保留人工已填写的 source/citation/license/DOI。",
+        "新增保留人工字段的整理准备流程，重跑时保留人工已填写的 source/citation/license/DOI。",
         "新增人工 metadata 整理面板与详情抽屉整理区，并把整理状态联动到核验队列面板。",
-        "在 dry-run 汇总中新增 manualCurationSummary 与 metadataTransitionSummary，并在算法改进追踪中新增 manual_metadata_curation 与 source_link_enrichment 阶段。"
+        "在试算汇总中新增 manualCurationSummary 与 metadataTransitionSummary，并在算法改进追踪中新增 manual_metadata_curation 与 source_link_enrichment 阶段。"
       ],
       "algorithmChanges": [
         "No OACS/DMRS formula change.",
-        "No full database scoring in browser.",
+        "No immediate full-database scoring inside the interactive page.",
         "No machine learning model is trained; no model-precision metrics are reported.",
         "Curation status never auto-promotes to verified_metadata: source_confirmed / citation_ready / near_verified are not verified_metadata.",
         "verified_metadata still requires the V2.0-E/V2.0-H gate to pass on real, confirmed fields.",
-        "V2.0-D worker boundary and V2.0-E metadata gate are unchanged."
+        "V2.0-D scoring boundary and V2.0-E metadata gate are unchanged."
       ],
       "algorithmChangesZh": [
         "不修改 OACS/DMRS 公式。",
-        "浏览器内不执行全量数据库评分。",
+        "交互页面内不即时执行全量数据库评分。",
         "不训练机器学习模型；不报告模型精度指标。",
         "curation 状态绝不自动升级为 verified_metadata：source_confirmed / citation_ready / near_verified 都不等于 verified_metadata。",
         "verified_metadata 仍需在真实、已确认字段上通过 V2.0-E/V2.0-H 门控。",
-        "保持 V2.0-D Worker 边界与 V2.0-E metadata 门控不变。"
+        "保持 V2.0-D 评分边界与 V2.0-E metadata 门控不变。"
       ],
       "uiChanges": [
         "Added a Manual Metadata Curation panel to the Database Index Workbench with status overview and a curation table (mobile falls back to cards).",
@@ -1556,12 +1556,12 @@
         "在核验队列面板中新增 curation 状态徽标与“需人工整理”标签。"
       ],
       "methodologyChanges": [
-        "Documented the V2.0-I manual metadata curation workflow, curation status ladder, progress summary, and merge-preserving build script in Methods & Evidence.",
+        "Documented the V2.0-I manual metadata curation workflow, curation status ladder, progress summary, and merge-preserving preparation flow in Methods & Evidence.",
         "Documented that source_confirmed / citation_ready / near_verified are not verified_metadata and that missing DOI/license/source stay pending.",
         "Documented the boundary: no database expansion, no model training, no fabricated metadata, and still not full verified screening or final recommendation."
       ],
       "methodologyChangesZh": [
-        "在 Methods & Evidence 中记录 V2.0-I 人工 metadata 整理流程、curation 状态分层、进度汇总与保留人工字段的构建脚本。",
+        "在 Methods & Evidence 中记录 V2.0-I 人工 metadata 整理流程、curation 状态分层、进度汇总与保留人工字段的准备流程。",
         "记录 source_confirmed / citation_ready / near_verified 不等于 verified_metadata，缺失的 DOI/license/来源保持待补。",
         "记录边界：不扩数据库、不训练模型、不伪造 metadata，仍不是经完整验证的筛选或最终推荐。"
       ],
@@ -1634,17 +1634,17 @@
       ],
       "algorithmChanges": [
         "No OACS/DMRS formula change.",
-        "No full database scoring in browser.",
+        "No immediate full-database scoring inside the interactive page.",
         "No machine learning model is trained; no model-precision metrics are reported.",
         "The screening run state machine is interaction-only and reads the existing V2.0-I summary; it does not recompute scores.",
-        "V2.0-D worker boundary and V2.0-E metadata gate are unchanged."
+        "V2.0-D scoring boundary and V2.0-E metadata gate are unchanged."
       ],
       "algorithmChangesZh": [
         "不修改 OACS/DMRS 公式。",
-        "浏览器内不执行全量数据库评分。",
+        "交互页面内不即时执行全量数据库评分。",
         "不训练机器学习模型；不报告模型精度指标。",
         "筛选运行状态机仅用于交互并读取现有 V2.0-I 汇总，不重新计算分数。",
-        "保持 V2.0-D Worker 边界与 V2.0-E metadata 门控不变。"
+        "保持 V2.0-D 评分边界与 V2.0-E metadata 门控不变。"
       ],
       "uiChanges": [
         "Screening Run Console + prominent Run screening audit button as the main entry.",
@@ -1726,32 +1726,32 @@
       "keyUpdates": [
         "Added an evidence backfill data structure under public/data/database_precompute/v2_0_k/ (evidence_backfill_records.json + evidence_backfill_summary.json + verified_candidate_report.json) built from the V2.0-I curation records.",
         "Added src/utils/databaseIndex/evidenceBackfill.js with status modeling, verified-metadata eligibility (gate cross-check), a backfill summary, a metadata transition summary, and a verified candidate report.",
-        "Added scripts/build-v2-0-k-evidence-backfill.mjs with a merge strategy that preserves manually entered source/citation/license/DOI on re-run.",
+        "Added a merge-preserving evidence-backfill preparation flow that preserves manually entered source/citation/license/DOI on rerun.",
         "Added an Evidence Backfill panel and a Verified Candidate Report panel, and a detail-drawer evidence backfill section.",
-        "Wired the Next Action panel and Screening Result panel to the evidence backfill summary, and added evidence_backfill + verified_candidate_report stages to the Algorithm Improvement Trace and dry-run summary."
+        "Wired the Next Action panel and Screening Result panel to the evidence backfill summary, and added evidence_backfill + verified_candidate_report stages to the Algorithm Improvement Trace and trial-scoring summary."
       ],
       "keyUpdatesZh": [
         "在 public/data/database_precompute/v2_0_k/ 下新增证据回填数据结构（evidence_backfill_records.json + evidence_backfill_summary.json + verified_candidate_report.json），由 V2.0-I 整理记录生成。",
         "新增 src/utils/databaseIndex/evidenceBackfill.js：状态建模、verified-metadata 资格（门控交叉校验）、回填汇总、metadata 过渡汇总与经核验候选报告。",
-        "新增 scripts/build-v2-0-k-evidence-backfill.mjs，采用 merge 策略：重跑时保留人工已填写的 source/citation/license/DOI。",
+        "新增保留人工字段的证据回填准备流程，重跑时保留人工已填写的 source/citation/license/DOI。",
         "新增证据回填面板与经核验候选报告面板，以及详情抽屉证据回填区。",
-        "把下一步行动面板与筛选结果面板接入证据回填汇总，并在算法改进追踪与 dry-run 汇总中新增 evidence_backfill 与 verified_candidate_report 阶段。"
+        "把下一步行动面板与筛选结果面板接入证据回填汇总，并在算法改进追踪与试算汇总中新增 evidence_backfill 与 verified_candidate_report 阶段。"
       ],
       "algorithmChanges": [
         "No OACS/DMRS formula change.",
-        "No full database scoring in browser.",
+        "No immediate full-database scoring inside the interactive page.",
         "No machine learning model is trained; no model-precision metrics are reported.",
         "Evidence backfill never auto-promotes to verified_metadata: source_confirmed / citation_ready / license_confirmed are not verified_metadata.",
         "verifiedMetadataEligible is true only when source/citation/license/descriptor provenance are confirmed (DOI verified or not_available) AND the metadata gate passes.",
-        "V2.0-D worker boundary and V2.0-E metadata gate are unchanged."
+        "V2.0-D scoring boundary and V2.0-E metadata gate are unchanged."
       ],
       "algorithmChangesZh": [
         "不修改 OACS/DMRS 公式。",
-        "浏览器内不执行全量数据库评分。",
+        "交互页面内不即时执行全量数据库评分。",
         "不训练机器学习模型；不报告模型精度指标。",
         "证据回填绝不自动升级为 verified_metadata：source_confirmed / citation_ready / license_confirmed 都不等于 verified_metadata。",
         "verifiedMetadataEligible 只有在 source/citation/license/descriptor 溯源已确认（DOI 已核验或不适用）且通过 metadata gate 时才为 true。",
-        "保持 V2.0-D Worker 边界与 V2.0-E metadata 门控不变。"
+        "保持 V2.0-D 评分边界与 V2.0-E metadata 门控不变。"
       ],
       "uiChanges": [
         "Added an Evidence Backfill panel (status overview + per-candidate table, mobile cards) to the Database Index Workbench.",
@@ -1764,12 +1764,12 @@
         "新增详情抽屉证据回填区；下一步行动面板与筛选结果面板现在反映证据回填计数。"
       ],
       "methodologyChanges": [
-        "Documented the V2.0-K evidence backfill workflow, verified candidate report, and merge-preserving build script in Methods & Evidence.",
+        "Documented the V2.0-K evidence backfill workflow, verified candidate report, and merge-preserving preparation flow in Methods & Evidence.",
         "Documented that source_confirmed / citation_ready / license_confirmed are not verified_metadata and that missing DOI/source/license stay pending or not_available.",
         "Documented the boundary: no database expansion, no model training, no fabricated metadata, and still not full verified screening or final recommendation."
       ],
       "methodologyChangesZh": [
-        "在 Methods & Evidence 中记录 V2.0-K 证据回填流程、经核验候选报告与保留人工字段的构建脚本。",
+        "在 Methods & Evidence 中记录 V2.0-K 证据回填流程、经核验候选报告与保留人工字段的准备流程。",
         "记录 source_confirmed / citation_ready / license_confirmed 不等于 verified_metadata，缺失的 DOI/来源/license 保持待补或不适用。",
         "记录边界：不扩数据库、不训练模型、不伪造 metadata，仍不是经完整验证的筛选或最终推荐。"
       ],
@@ -1824,37 +1824,37 @@
       "status": "completed",
       "theme": "Manual source verification of the candidates nearest to verified metadata",
       "themeZh": "对最接近 verified metadata 的候选做人工来源核验",
-      "summary": "Performs manual source verification of the 5 candidates nearest to verified metadata (MIL-53(Al), CAU-10(Al), MIL-100(Al), MIL-101(Al), DUT-4(Al)) and merges the results into the V2.0-K evidence backfill as enriched records, an enriched summary, and a first verified candidate report. Curated offline, so DOIs and license terms stay pending and citations are recorded at the material level only; every record keeps an ambiguity warning because the V2.0-G record ids are curated fixtures, so verified_metadata is still 0. The system now has its first source_confirmed / citation_ready candidates. Nothing is fabricated; not full verified screening and not a final recommendation.",
+      "summary": "Performs manual source verification of the 5 candidates nearest to verified metadata (MIL-53(Al), CAU-10(Al), MIL-100(Al), MIL-101(Al), DUT-4(Al)) and merges the results into the V2.0-K evidence backfill as enriched records, an enriched summary, and a first verified candidate report. Because DOI and license fields still require confirmation, citations are recorded at the material level only; every record keeps an ambiguity warning because the V2.0-G record ids are curated sample identifiers, so verified_metadata is still 0. The system now has its first source_confirmed / citation_ready candidates. Nothing is fabricated; not full verified screening and not a final recommendation.",
       "summaryZh": "对最接近 verified metadata 的 5 个候选（MIL-53(Al)、CAU-10(Al)、MIL-100(Al)、MIL-101(Al)、DUT-4(Al)）做人工来源核验，并把结果合并回 V2.0-K 证据回填，输出 enriched 记录、enriched 汇总与第一批候选核验报告。离线核验，因此 DOI 与 license 保持待补，引用仅记录到材料（基础文献）层级；由于 V2.0-G 记录号是人工 fixture 标识，每条都保留 ambiguity 警告，verified_metadata 仍为 0。系统首次出现 source_confirmed / citation_ready 候选。不伪造任何字段；不是经完整验证的筛选，也不是最终推荐。",
       "keyUpdates": [
-        "Added public/data/database_precompute/v2_0_l/manual_source_curation.json with manual source verification for 5 candidates (source/citation confirmed at material level; DOI/license pending; ambiguity warnings kept).",
+        "Added manual source verification for 5 candidates (source/citation confirmed at material level; DOI/license pending; ambiguity warnings kept).",
         "Added src/utils/databaseIndex/manualSourceCuration.js: normalize/validate, ambiguity warnings, verified-metadata readiness (ambiguity blocks verified), summary, and a merge into the evidence backfill.",
-        "Added scripts/build-v2-0-l-source-curation.mjs that emits enriched evidence backfill records/summary and a first verified candidate report without overwriting the V2.0-K files.",
+        "Added a source-curation preparation flow that emits enriched evidence backfill records/summary and a first verified candidate report without overwriting V2.0-K records.",
         "Updated the Evidence Backfill panel, Verified Candidate Report panel, and detail-drawer evidence section to show source-confirmed candidates and ambiguity warnings.",
-        "Wired the Screening Result and Next Action panels and the dry-run summary to the V2.0-L enriched counts (now 4 source_confirmed / 4 citation_ready, 0 verified)."
+        "Wired the Screening Result and Next Action panels and the trial-scoring summary to the V2.0-L enriched counts (now 4 source_confirmed / 4 citation_ready, 0 verified)."
       ],
       "keyUpdatesZh": [
         "新增 public/data/database_precompute/v2_0_l/manual_source_curation.json，对 5 个候选做人工来源核验（source/citation 在材料层级确认；DOI/license 待补；保留 ambiguity 警告）。",
         "新增 src/utils/databaseIndex/manualSourceCuration.js：归一化/校验、ambiguity 警告、verified-metadata 资格（ambiguity 阻断 verified）、汇总，以及并入证据回填。",
-        "新增 scripts/build-v2-0-l-source-curation.mjs，输出 enriched 证据回填记录/汇总与第一批候选核验报告，且不覆盖 V2.0-K 文件。",
+        "新增来源整理准备流程，输出 enriched 证据回填记录/汇总与第一批候选核验报告，且不覆盖 V2.0-K 记录。",
         "更新证据回填面板、经核验候选报告面板与详情抽屉证据区，显示来源确认候选与 ambiguity 警告。",
-        "把筛选结果面板、下一步行动面板与 dry-run 汇总接入 V2.0-L enriched 计数（现为 4 个 source_confirmed / 4 个 citation_ready，0 个 verified）。"
+        "把筛选结果面板、下一步行动面板与试算汇总接入 V2.0-L enriched 计数（现为 4 个 source_confirmed / 4 个 citation_ready，0 个 verified）。"
       ],
       "algorithmChanges": [
         "No OACS/DMRS formula change.",
-        "No full database scoring in browser.",
+        "No immediate full-database scoring inside the interactive page.",
         "No machine learning model is trained; no model-precision metrics are reported.",
         "source_confirmed / citation_ready / license_confirmed are never verified_metadata; an unresolved ambiguity warning always blocks verified eligibility.",
         "verifiedMetadataEligible is true only when source/citation/license/provenance are confirmed (DOI verified or not_available) AND there is no ambiguity warning.",
-        "V2.0-D worker boundary and V2.0-E metadata gate are unchanged."
+        "V2.0-D scoring boundary and V2.0-E metadata gate are unchanged."
       ],
       "algorithmChangesZh": [
         "不修改 OACS/DMRS 公式。",
-        "浏览器内不执行全量数据库评分。",
+        "交互页面内不即时执行全量数据库评分。",
         "不训练机器学习模型；不报告模型精度指标。",
         "source_confirmed / citation_ready / license_confirmed 都不等于 verified_metadata；未消解的 ambiguity 警告始终阻断 verified 资格。",
         "verifiedMetadataEligible 只有在 source/citation/license/provenance 已确认（DOI 已核验或不适用）且无 ambiguity 警告时才为 true。",
-        "保持 V2.0-D Worker 边界与 V2.0-E metadata 门控不变。"
+        "保持 V2.0-D 评分边界与 V2.0-E metadata 门控不变。"
       ],
       "uiChanges": [
         "Evidence Backfill panel now shows source-confirmed counts, an ambiguity-warning line, and a source-confirmed-but-not-verified message.",
@@ -1869,7 +1869,7 @@
       "methodologyChanges": [
         "Documented the V2.0-L manual source curation workflow, ambiguity handling, and first verified candidate report in Methods & Evidence.",
         "Documented that source_confirmed / citation_ready / license_confirmed are not verified_metadata and that an unresolved ambiguity warning blocks verified eligibility.",
-        "Documented the boundary: offline curation keeps DOI/license pending, citations are material-level, no metadata is fabricated, and verified_metadata is still 0."
+        "Documented the boundary: DOI/license stay pending where unconfirmed, citations are material-level, no metadata is fabricated, and verified_metadata is still 0."
       ],
       "methodologyChangesZh": [
         "在 Methods & Evidence 中记录 V2.0-L 人工来源核验流程、ambiguity 处理与第一批候选核验报告。",
@@ -2700,19 +2700,19 @@
       "status": "completed",
       "theme": "Database-Driven Dashboards",
       "themeZh": "数据库驱动仪表板",
-      "summary": "Unified data-source registry + global summary builders so database-scale cards derive from data; removed the Catalysis cat playground; cleaned the version-history IA.",
-      "summaryZh": "统一数据源 registry 与全局 summary builders，使数据库规模卡片由数据派生；删除催化小猫游乐场；清理版本记录信息架构。",
+      "summary": "Unified data-source registry + global summary builders so database-scale cards derive from data; removed the legacy Catalysis demo view; cleaned the version-history IA.",
+      "summaryZh": "统一数据源 registry 与全局 summary builders，使数据库规模卡片由数据派生；删除旧催化演示视图；清理版本记录信息架构。",
       "keyUpdates": [
         "Added src/data/registry data-source registry.",
         "Added src/utils/summary global database / research reports / version history builders.",
         "Added fallback + export utilities (no undefined/null/NaN/[object Object]).",
-        "Removed the Catalysis energy-barrier cat playground; Catalysis Lab returns to a research structure."
+        "Removed the legacy Catalysis energy-barrier demo view; Catalysis Lab returns to a research structure."
       ],
       "keyUpdatesZh": [
         "新增 src/data/registry 数据源 registry。",
         "新增 src/utils/summary 全局数据库/研究报告/版本历史 builders。",
         "新增 fallback 与 export 工具（杜绝 undefined/null/NaN/[object Object]）。",
-        "删除催化能垒小猫游乐场；Catalysis Lab 回归科研结构。"
+        "删除旧催化能垒演示视图；Catalysis Lab 回归科研结构。"
       ],
       "algorithmChanges": [
         "Statistics logic moved out of components into builders/selectors; all derived numbers are traceable."
@@ -2721,11 +2721,11 @@
         "统计逻辑从组件下沉到 builders/selectors；所有派生数字可追溯。"
       ],
       "uiChanges": [
-        "Catalysis Lab shows a Catalysis Research Overview instead of the cat playground.",
+        "Catalysis Lab shows a Catalysis Research Overview instead of the legacy demo view.",
         "Version history defaults to current-release-first with collapsed/archived older versions."
       ],
       "uiChangesZh": [
-        "Catalysis Lab 以催化研究总览替代小猫游乐场。",
+        "Catalysis Lab 以催化研究总览替代旧演示视图。",
         "版本历史默认当前版本优先，旧版本折叠/归档。"
       ],
       "methodologyChanges": [
@@ -2738,17 +2738,17 @@
       "evidenceBoundaryZh": "仅基础架构重构；模型性能仍以 V3.6 稳健性指标为来源，保留 V3.8 验证闭环。",
       "limitations": [
         "Per-tab card wiring for GasSep and some Organic Acid stats is a follow-up.",
-        "Orphaned cat-playground CSS left in place to avoid risky range deletion."
+        "Legacy demo CSS cleanup was deferred to avoid high-risk broad deletion."
       ],
       "limitationsZh": [
         "GasSep 与部分有机酸卡片的逐卡接入为后续工作。",
-        "孤立的小猫游乐场 CSS 暂保留以避免高风险的大段删除。"
+        "旧演示 CSS 清理暂缓，以避免高风险的大段删除。"
       ],
       "knowledgeBaseLinks": {
         "knowledgeTags": [
           "data-source-registry",
           "global-summary-builders",
-          "cat-playground-removed"
+          "legacy-demo-removed"
         ],
         "adaptationBoundary": "Registry, summarization, fallback, and export only; no hidden experimental claim.",
         "adaptationBoundaryZh": "仅 registry、汇总、fallback 与导出；不隐藏实验结论。"
@@ -2763,17 +2763,17 @@
       "status": "completed",
       "theme": "Per-Tab Database Cards",
       "themeZh": "逐卡数据接入",
-      "summary": "GasSep + Organic Acid summary builders, cat-playground CSS cleanup, page-level CSV/JSON export.",
-      "summaryZh": "GasSep 与 Organic Acid 摘要 builders、小猫游乐场 CSS 清理、页面级 CSV/JSON 导出。",
+      "summary": "GasSep + Organic Acid summary builders, legacy demo CSS cleanup, page-level CSV/JSON export.",
+      "summaryZh": "GasSep 与 Organic Acid 摘要 builders、旧演示 CSS 清理、页面级 CSV/JSON 导出。",
       "keyUpdates": [
         "buildGasSepSummary + buildOrganicAcidSummary builders.",
         "GasSep data summary card with provenance CSV export.",
-        "Removed all orphaned cat-playground CSS selectors and keyframes."
+        "Removed all orphaned legacy-demo CSS selectors and keyframes."
       ],
       "keyUpdatesZh": [
         "新增 GasSep 与 Organic Acid 摘要 builders。",
         "GasSep 数据摘要卡片与 provenance CSV 导出。",
-        "清理所有孤立的小猫游乐场 CSS 选择器与关键帧。"
+        "清理所有孤立的旧演示 CSS 选择器与关键帧。"
       ],
       "algorithmChanges": [
         "GasSep/Organic Acid statistics derived from records via builders."
@@ -2805,7 +2805,7 @@
         "knowledgeTags": [
           "gassep-summary",
           "organic-acid-summary",
-          "cat-css-removed"
+          "legacy-demo-css-removed"
         ],
         "adaptationBoundary": "Summarization, fallback, export only.",
         "adaptationBoundaryZh": "仅汇总、fallback、导出。"
@@ -3895,7 +3895,7 @@
       "itemsZh": [
         "联网消解 ambiguity 并确认 source-confirmed 候选的 license/DOI",
         "把样本扩展到 500-2000 条的中规模预览",
-        "保持 manifest / summary / Top-N / 选定分片 / 详情按需 懒加载边界",
+        "保持 manifest / summary / Top-N / 选定分片 / 详情按需数据边界",
         "不加载全量数据库、不训练模型"
       ]
     }

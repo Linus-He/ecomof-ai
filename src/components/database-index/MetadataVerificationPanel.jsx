@@ -97,8 +97,8 @@ export function MetadataVerificationPanel({ topCandidates = [], selectedPartReco
           <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>
             <ChemicalText value={text(
               lang,
-              "对当前已加载的候选建模 metadata 核验状态：缺 DOI、缺来源链接、缺 license 或缺描述符溯源的候选只能停留在仅限预览，不能进入经核验推荐。本轮不进行联网核验，也不修改 OACS/DMRS 公式。",
-              "Models metadata verification status for currently loaded candidates: candidates missing DOI, source link, license, or descriptor provenance stay preview only and cannot enter verified recommendation. This release does no live verification and does not modify OACS/DMRS formulas."
+              "对当前已加载的候选建模 metadata 核验状态：缺 DOI、缺来源链接、缺 license 或缺描述符溯源的候选只能停留在仅限预览，不能进入经核验推荐；该门控不修改 OACS/DMRS 公式。",
+              "Models metadata verification status for currently loaded candidates: candidates missing DOI, source link, license, or descriptor provenance stay preview only and cannot enter verified recommendation; this gate does not modify OACS/DMRS formulas."
             )} />
           </span>
         </div>

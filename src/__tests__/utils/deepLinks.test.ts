@@ -39,10 +39,11 @@ describe("deep links", () => {
     expect(getHashMeta("project-evolution").title).toMatch(/Project Evolution/i)
   })
 
-  it("routes Research Reports as a first-level tab", () => {
-    expect(HASH_TO_TAB["research-reports"]).toBe("researchReports")
-    expect(HASH_TO_TAB["research-reports-generator"]).toBe("researchReports")
+  it("retires Research Reports as a first-level tab", () => {
+    const hashMap = HASH_TO_TAB as Record<string, string | undefined>
+    expect(hashMap["research-reports"]).toBeUndefined()
+    expect(hashMap["research-reports-generator"]).toBeUndefined()
     expect(normalizeHash("#research-reports")).toBe("research-reports")
-    expect(getHashMeta("research-reports").title).toMatch(/研究报告|Research Reports/i)
+    expect(getHashMeta("research-reports").title).toMatch(/EcoMOF-AI/)
   })
 })

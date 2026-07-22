@@ -483,7 +483,9 @@ function ScenarioCard({ scenario, t, isMobile, onNavigate }) {
   )
 }
 
-function LimitationItem({ item, t }) {
+function LimitationItem({ item, t, lang }) {
+  const title = item.title || (lang === "zh" ? item.zh : item.en)
+  const body = item.body || item.en
   return (
     <li style={{
       listStyle: "none",
@@ -496,8 +498,8 @@ function LimitationItem({ item, t }) {
       gap: 3,
       minWidth: 0,
     }}>
-      <strong style={{ fontSize: 13, lineHeight: 1.35 }}>{item.zh}</strong>
-      <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>{item.en}</span>
+      <strong style={{ fontSize: 13, lineHeight: 1.35 }}>{title}</strong>
+      <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>{body}</span>
     </li>
   )
 }
@@ -626,39 +628,39 @@ export function HomeTab({ setActiveTab }) {
   const capabilities = useMemo(() => [
     {
       mark: "CV",
-      title: "Current Version",
+      title: zh ? "当前 App 版本" : "Current Version",
       subtitle: zh ? "动态项目状态" : "Dynamic project status",
       tone: "info",
       highlights: [APP_VERSION_LABEL, `${zh ? "数据状态" : "Data state"} ${summary.currentVersion || "V3.6"}`],
-      body: zh ? "当前 App 版本来自 app_release_log；项目演化 V3.x 作为历史/数据状态保留。" : "The current App version comes from app_release_log; project-evolution V3.x remains as history/data state.",
+      body: zh ? "当前 App 版本来自统一版本记录；项目演化 V3.x 作为历史/数据状态保留。" : "The current App version comes from the unified release record; project-evolution V3.x remains as history/data state.",
     },
     {
       mark: "DB",
-      title: "Database Scale",
+      title: zh ? "数据库规模" : "Database Scale",
       subtitle: zh ? "真实数据规模" : "Real data scale",
       tone: "success",
-      highlights: [`${numberText(summary.totalRecords, "+")} Records`, `${numberText(summary.verifiedMetadataCount)} Verified Metadata`],
+      highlights: [`${numberText(summary.totalRecords, "+")} ${zh ? "条记录" : "Records"}`, `${numberText(summary.verifiedMetadataCount)} ${zh ? "条已核验元数据" : "Verified Metadata"}`],
       body: zh ? "数据库规模与已核验元数据来自 ingestion summary。" : "Database scale and verified metadata come from the ingestion summary.",
     },
     {
       mark: "EL",
-      title: "Experimental Labels",
-      subtitle: "Platform Capabilities",
+      title: zh ? "实验标签" : "Experimental Labels",
+      subtitle: zh ? "平台能力" : "Platform Capabilities",
       tone: "warn",
-      highlights: [numberText(summary.experimentalLabelCount), `${numberText(summary.externalTestCount)} External Test`],
+      highlights: [numberText(summary.experimentalLabelCount), `${numberText(summary.externalTestCount)} ${zh ? "条外部测试" : "External Test"}`],
       body: zh ? "实验标签与外部测试来自 V3.6 稳健性验证数据。" : "Experimental labels and external tests come from the V3.6 robustness dataset.",
     },
     {
       mark: "BM",
-      title: "Benchmark Ready",
-      subtitle: "Platform Capabilities",
+      title: zh ? "Benchmark 就绪" : "Benchmark Ready",
+      subtitle: zh ? "平台能力" : "Platform Capabilities",
       tone: "neutral",
       highlights: [numberText(summary.benchmarkEligibleCount), summary.bestModel || "Random Forest"],
       body: zh ? "Benchmark eligible 与最佳模型由验证数据动态给出。" : "Benchmark eligible count and best model are resolved from validation artifacts.",
     },
     {
       mark: "CR",
-      title: "Credibility",
+      title: zh ? "模型可信度" : "Credibility",
       subtitle: zh ? "模型可信度" : "Model credibility",
       tone: "success",
       highlights: [`${metricText(summary.credibilityScore)} / Grade ${summary.credibilityGrade}`, `ROC-AUC ${metricText(summary.rocAuc, 4)}`],
@@ -666,10 +668,10 @@ export function HomeTab({ setActiveTab }) {
     },
     {
       mark: "RK",
-      title: "Current Risk",
+      title: zh ? "当前风险" : "Current Risk",
       subtitle: zh ? "当前限制" : "Current limitation",
       tone: "warn",
-      highlights: [summary.currentRisk || "High Overfitting Risk", "Not Final Recommendation"],
+      highlights: [zh ? "高过拟合风险" : (summary.currentRisk || "High Overfitting Risk"), zh ? "非最终推荐" : "Not Final Recommendation"],
       body: zh ? "风险作为首页状态展示，不隐藏在说明文字中。" : "Risk is surfaced on the homepage instead of being hidden in explanatory copy.",
     },
   ], [summary, zh])
@@ -707,28 +709,28 @@ export function HomeTab({ setActiveTab }) {
 
   const validationFlow = useMemo(() => [
     {
-      title: "White-box Screening",
+      title: zh ? "白盒筛选" : "White-box Screening",
       body: zh ? "透明规则与权重让筛选路径可检查。" : "Transparent rules and weights keep the screening path inspectable.",
       tone: "info",
     },
     {
-      title: "Evidence Adjustment",
+      title: zh ? "证据修正" : "Evidence Adjustment",
       body: zh ? "证据等级、来源状态和风险提示影响解释语境。" : "Evidence level, source status, and risk notes shape the explanation context.",
       tone: "success",
     },
     {
-      title: "Sensitivity Analysis",
+      title: zh ? "敏感性分析" : "Sensitivity Analysis",
       body: zh ? "候选稳定性通过参数扰动与排序变化检查。" : "Candidate stability is checked through parameter changes and ranking movement.",
       tone: "warn",
     },
     {
-      title: "Experimental Labels",
+      title: zh ? "实验标签" : "Experimental Labels",
       body: zh ? "实验标签用于连接候选解释与模型验证。" : "Experimental labels connect candidate explanation to model validation.",
       tone: "neutral",
     },
     {
-      title: "Benchmark Framework",
-      body: "Benchmark Available",
+      title: zh ? "Benchmark 框架" : "Benchmark Framework",
+      body: zh ? "Benchmark 已接入" : "Benchmark Available",
       tone: "info",
     },
   ], [zh])
@@ -764,10 +766,19 @@ export function HomeTab({ setActiveTab }) {
   ], [zh])
 
   const limitations = useMemo(() => [
-    { zh: summary.currentRisk || "High Overfitting Risk", en: "Train to external-test gap remains high and must stay visible." },
-    { zh: "Need More Experimental Labels", en: `${numberText(summary.experimentalLabelCount)} labels are useful but still below research-grade scale.` },
-    { zh: "Not Final Recommendation", en: "Candidate rankings support research decisions, not final experimental recommendation." },
-  ], [summary])
+    {
+      title: zh ? "高过拟合风险" : (summary.currentRisk || "High Overfitting Risk"),
+      body: zh ? "训练集与外部测试之间仍有明显差距，必须在首页直接提示。" : "Train to external-test gap remains high and must stay visible.",
+    },
+    {
+      title: zh ? "实验标签仍需扩充" : "Need More Experimental Labels",
+      body: zh ? `${numberText(summary.experimentalLabelCount)} 条实验标签已有价值，但距离研究级规模仍不足。` : `${numberText(summary.experimentalLabelCount)} labels are useful but still below research-grade scale.`,
+    },
+    {
+      title: zh ? "非最终推荐" : "Not Final Recommendation",
+      body: zh ? "候选排序用于支持研究判断，不等同于最终实验推荐。" : "Candidate rankings support research decisions, not final experimental recommendation.",
+    },
+  ], [summary, zh])
 
 
   const moduleCapabilities = useMemo(() => [
@@ -788,20 +799,20 @@ export function HomeTab({ setActiveTab }) {
       target: "ecoscreen",
     },
     {
-      mark: "ML",
-      title: "MOF Library",
-      tag: zh ? "统一 MOF 浏览器" : "Unified MOF browser",
-      tone: "neutral",
+      mark: "GS",
+      title: "GasSep",
+      tag: zh ? "气体分离 / 容量筛选" : "Gas separation / capacity",
+      tone: "success",
       body: zh
-        ? "做什么：查任意 MOF 的结构 + 气体 + 催化全貌，含字段级溯源。"
-        : "What it does: browse any MOF's structure + gas + catalysis profile with field-level provenance.",
+        ? "做什么：基于 ISODB 真实等温线与 IAST 选择性比较气体分离候选。"
+        : "What it does: compare gas-separation candidates using real ISODB isotherms and IAST selectivity.",
       io: [
-        zh ? "输入：金属节点 / 拓扑 / 比表面 等分面检索" : "Input: faceted search by metal node / topology / surface area",
-        zh ? "输出：聚合详情面板 + 数据完整度三色点" : "Output: aggregated detail panel + tri-color completeness dots",
+        zh ? "输入：气对（如 CO₂/N₂）+ 温度条件" : "Input: gas pair (e.g. CO₂/N₂) + temperature",
+        zh ? "输出：computed-IAST 选择性 + 工作容量排序" : "Output: computed-IAST selectivity + working-capacity ranking",
       ],
-      button: zh ? "进入 MOF Library" : "Enter MOF Library",
-      hash: "library",
-      target: "mofLibrary",
+      button: zh ? "进入 GasSep" : "Enter GasSep",
+      hash: "gassep",
+      target: "gassep",
     },
     {
       mark: "OA",
@@ -820,30 +831,29 @@ export function HomeTab({ setActiveTab }) {
       target: "catalysisLab",
     },
     {
-      mark: "GS",
-      title: "GasSep",
-      tag: zh ? "气体分离 / 容量筛选" : "Gas separation / capacity",
-      tone: "success",
+      mark: "ML",
+      title: "MOF Library",
+      tag: zh ? "统一 MOF 浏览器" : "Unified MOF browser",
+      tone: "neutral",
       body: zh
-        ? "做什么：基于 ISODB 真实等温线与 IAST 选择性比较气体分离候选。"
-        : "What it does: compare gas-separation candidates using real ISODB isotherms and IAST selectivity.",
+        ? "做什么：查任意 MOF 的结构、气体与催化全貌，含字段级溯源。"
+        : "What it does: browse any MOF's structure, gas, and catalysis profile with field-level provenance.",
       io: [
-        zh ? "输入：气对（如 CO₂/N₂）+ 温度条件" : "Input: gas pair (e.g. CO₂/N₂) + temperature",
-        zh ? "输出：computed-IAST 选择性 + 工作容量排序" : "Output: computed-IAST selectivity + working-capacity ranking",
+        zh ? "输入：金属节点 / 拓扑 / 比表面等分面检索" : "Input: faceted search by metal node / topology / surface area",
+        zh ? "输出：聚合详情面板 + 数据完整度三色点" : "Output: aggregated detail panel + tri-color completeness dots",
       ],
-      button: zh ? "进入 GasSep" : "Enter GasSep",
-      hash: "gassep",
-      target: "gassep",
+      button: zh ? "进入 MOF Library" : "Enter MOF Library",
+      hash: "library",
+      target: "mofLibrary",
     },
   ], [zh])
 
   const quickStart = [
     { label: zh ? "进入 EcoScreen" : "Enter EcoScreen", hash: "ecoscreen", target: "ecoscreen", primary: true },
-    { label: zh ? "进入 MOF Library" : "Enter MOF Library", hash: "library", target: "mofLibrary" },
-    { label: zh ? "进入 Organic Acid" : "Enter Organic Acid", hash: "catalysis-organic-acid", target: "catalysisLab" },
     { label: zh ? "进入 GasSep" : "Enter GasSep", hash: "gassep", target: "gassep" },
-    { label: zh ? "进入 Validation Center" : "Enter Validation Center", hash: "methodology-algorithm-validation", target: "about" },
-    { label: zh ? "进入 Research Reports" : "Enter Research Reports", hash: "research-reports", target: "researchReports" },
+    { label: zh ? "进入 Organic Acid" : "Enter Organic Acid", hash: "catalysis-organic-acid", target: "catalysisLab" },
+    { label: zh ? "进入 MOF Library" : "Enter MOF Library", hash: "library", target: "mofLibrary" },
+    { label: zh ? "进入验证中心" : "Enter Validation Center", hash: "methodology-algorithm-validation", target: "about" },
   ]
 
   return (
@@ -887,8 +897,8 @@ export function HomeTab({ setActiveTab }) {
             </p>
             <p style={{ margin: "13px 0 0", color: t.muted, fontSize: isMobile ? 14 : 16, lineHeight: 1.7, maxWidth: 780 }}>
               {zh
-                ? "一个平台，四个模块：EcoScreen 做可持续性筛选，MOF Library 浏览结构/气体/催化全貌，Organic Acid 做白盒催化路线筛选，GasSep 做气体分离筛选。"
-                : "One platform, four modules: EcoScreen for sustainability screening, MOF Library to browse structure/gas/catalysis, Organic Acid for white-box route screening, and GasSep for gas separation."}
+                ? "一个平台，四个研究工作区：EcoScreen 做可持续性筛选，GasSep 做气体分离筛选，Organic Acid 做白盒催化路线筛选，MOF Library 浏览结构、气体与催化数据全貌。"
+                : "One platform, four research workspaces: EcoScreen for sustainability screening, GasSep for gas separation, Organic Acid for white-box route screening, and MOF Library to browse structure, gas, and catalysis data."}
             </p>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 18 }} className="home-hero-cta">
               {quickStart.slice(0, 3).map(cta => (
@@ -977,8 +987,8 @@ export function HomeTab({ setActiveTab }) {
               <FlowStep key={item.title} item={item} t={t} index={index} isLast={index === validationFlow.length - 1} />
             ))}
           </div>
-          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 15, alignSelf: "start", display: "grid", gap: 9 }}>
-            <strong style={{ color: t.textStrong, fontSize: 16, lineHeight: 1.3 }}>Benchmark Available</strong>
+        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 15, alignSelf: "start", display: "grid", gap: 9 }}>
+            <strong style={{ color: t.textStrong, fontSize: 16, lineHeight: 1.3 }}>{zh ? "Benchmark 已接入" : "Benchmark Available"}</strong>
             <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.6 }}>
               {zh ? "Benchmark 框架已作为验证入口呈现，模型指标详情由验证中心承载。" : "The benchmark framework is available as the validation entry; model metric details stay in the validation center."}
             </span>
@@ -1003,14 +1013,14 @@ export function HomeTab({ setActiveTab }) {
 
       <section data-testid="home-current-limitations" style={{ ...panelStyle, padding: isMobile ? "18px 16px" : "24px", background: t.surface }}>
         <SectionHeader
-          eyebrow="Current Limitations"
+          eyebrow={zh ? "当前边界" : "Current Limitations"}
           title={zh ? "当前限制" : "Current limitations"}
           subtitle={zh ? "风险区直接显示当前统计学风险、标签规模需求和非最终推荐边界。" : "The risk area directly shows statistical risk, label-scale need, and not-final recommendation boundary."}
           t={t}
           isMobile={isMobile}
         />
         <ul style={{ margin: 0, padding: 0, display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
-          {limitations.map(item => <LimitationItem key={item.zh} item={item} t={t} />)}
+          {limitations.map(item => <LimitationItem key={item.title} item={item} t={t} lang={lang} />)}
         </ul>
       </section>
 
@@ -1023,7 +1033,7 @@ export function HomeTab({ setActiveTab }) {
             {zh ? "选择研究入口" : "Choose a research entry point"}
           </h2>
           <p style={{ margin: "9px 0 0", color: t.muted, fontSize: 13.5, lineHeight: 1.65, maxWidth: 760 }}>
-            {zh ? "从筛选、数据库、有机酸、验证中心或研究报告进入完整工作流。" : "Start from screening, the MOF library, organic acid, the validation center, or research reports."}
+            {zh ? "从生态筛选、气体分离、有机酸、候选库或验证中心进入完整工作流。" : "Start from EcoScreen, GasSep, Organic Acid, the MOF library, or the validation center."}
           </p>
         </div>
         <div data-testid="home-quick-start-buttons" style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: isNarrow ? "flex-start" : "flex-end" }}>

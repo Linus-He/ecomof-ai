@@ -10,10 +10,9 @@ export function TraceEmptyState({ lang, t }) {
       </strong>
       <ChemicalText value={text(
         lang,
-        "点击上方 Run Launcher 后，这里会显示 runId、step-level trace、候选决策、公式权重、证据来源和导出报告。",
-        "After the Run Launcher executes, this panel will show runId, step-level trace, candidate decisions, formula weights, evidence links, and export reports."
+        "点击上方筛选运行入口后，这里会显示 runId、step-level trace、候选决策、公式权重、证据来源和导出报告。",
+        "After the screening entry runs, this panel will show runId, step-level trace, candidate decisions, formula weights, evidence links, and export reports."
       )} />
     </section>
   )
 }
-
