@@ -66,6 +66,38 @@
           {
             "zh": "反应筛选、评分模式、四象限图、方法入口和缺失值策略等高频控件改为中文优先表达。",
             "en": "Makes high-traffic controls Chinese-first, including reaction filters, scoring modes, quadrant labels, method links, and missing-value strategy labels."
+          },
+          {
+            "zh": "新增文献需求可用性矩阵，把吸附过程指标、再生与能耗、水/运行稳定、绿色合成/LCA、金属供应毒性、来源溯源和有机酸路径扩展拆成可检查字段；覆盖率随当前筛选候选和已接入数据实时变化。",
+            "en": "Adds a literature requirement usability matrix that separates adsorption metrics, regeneration and energy burden, water/operational stability, green synthesis/LCA, metal supply and toxicity, provenance, and Organic Acid pathway readiness into inspectable fields; coverage updates from current filters and connected data."
+          },
+          {
+            "zh": "关键金属、LCA、绿色合成和再生能耗继续作为复核与接入需求，不写入 Organic Acid 排名算法或底层评分。",
+            "en": "Critical-metal, LCA, green-synthesis, and regeneration-energy signals remain review and ingestion requirements and are not written into the Organic Acid ranking algorithm or base scores."
+          }
+        ]
+      },
+      "methodsEvidence": {
+        "label": {
+          "zh": "方法与证据",
+          "en": "Methods & Evidence"
+        },
+        "summary": {
+          "zh": "恢复并置顶文献灵感来源，按模块分类展示采用方式和证据边界。",
+          "en": "Restores and pins literature inspiration sources at the top, grouped by module with adoption use and evidence boundaries."
+        },
+        "changes": [
+          {
+            "zh": "恢复原有有机酸/催化文献灵感来源，并与本轮新增 EcoScreen、GasSep、CRITIC、LCA、绿色合成和关键原料来源合并为统一文献来源库。",
+            "en": "Restores the original Organic Acid / Catalysis literature inspiration sources and merges them with this round's EcoScreen, GasSep, CRITIC, LCA, green-synthesis, and critical-material sources into a unified literature source registry."
+          },
+          {
+            "zh": "方法目录最上方新增“文献灵感来源”，分为平台方法与数据结构、EcoScreen 可持续筛选、GasSep 吸附与过程指标、有机酸与催化解释、数据质量/验证/报告边界五个版块。",
+            "en": "Adds Literature Inspiration Sources as the first Methods directory entry, grouped into platform method/data structure, EcoScreen sustainability screening, GasSep adsorption/process metrics, Organic Acid and catalysis interpretation, and data-quality/validation/reporting boundary sections."
+          },
+          {
+            "zh": "每条来源显示 DOI 或官方来源、采用方式、证据角色和不应误读的边界，避免把方法灵感当成候选材料性能证明。",
+            "en": "Each source shows DOI or official source, adoption use, evidence role, and interpretation boundary so method inspiration is not mistaken for material-performance proof."
           }
         ]
       },
@@ -118,6 +150,10 @@
           {
             "zh": "一级菜单顺序调整为首页、EcoScreen、GasSep、CatalysisLab、MOF Library、方法与证据、项目演化，使 MOF 候选库位于催化实验室之后。",
             "en": "Reorders the primary menu to Home, EcoScreen, GasSep, CatalysisLab, MOF Library, Methods & Evidence, and Project Evolution so MOF Library follows CatalysisLab."
+          },
+          {
+            "zh": "中文标签按钮统一使用水平/垂直居中布局，中文模式下 tab 文案不再贴边或偏移。",
+            "en": "Centers tab labels horizontally and vertically so Chinese navigation text no longer hugs an edge or appears offset."
           }
         ]
       },

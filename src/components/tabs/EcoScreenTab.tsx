@@ -254,12 +254,240 @@ function buildEcoScreenEvidenceModel({ candidates = [], filteredCandidates = [],
       { key: "adsorption", label: { zh: "吸附性能字段", en: "Adsorption fields" }, count: counts.adsorption, denominator, note: { zh: "CO₂ 吸附量 / 选择性 / 工作容量", en: "CO₂ uptake / selectivity / working capacity" } },
       { key: "stability", label: { zh: "稳定性字段", en: "Stability fields" }, count: counts.stability, denominator, note: { zh: "水稳定性 / 热稳定性", en: "water / thermal stability" } },
       { key: "toxicity", label: { zh: "毒性关注字段", en: "Toxicity concern" }, count: counts.toxicity, denominator, note: { zh: "仅作早筛风险字段", en: "early risk descriptor only" } },
-      { key: "metalCost", label: { zh: "金属成本表覆盖", en: "Metal-cost coverage" }, count: counts.metalCost, denominator, note: { zh: "metal_precursor_cost_table.json", en: "metal_precursor_cost_table.json" } },
+      { key: "metalCost", label: { zh: "金属成本覆盖", en: "Metal-cost coverage" }, count: counts.metalCost, denominator, note: { zh: "金属前驱体成本假设", en: "metal-precursor cost assumptions" } },
       { key: "doi", label: { zh: "引文/DOI 覆盖", en: "Citation / DOI coverage" }, count: counts.doi, denominator, note: { zh: "来源可追踪性", en: "source traceability" } },
       { key: "benchmark", label: { zh: "Benchmark 就绪", en: "Benchmark ready" }, count: counts.benchmark, denominator, note: { zh: "A 级或 Benchmark 标记", en: "Grade A or benchmark marker" } },
     ],
     needs,
   }
+}
+
+function candidateRequirementValue(candidate = {}, field, context = {}) {
+  const raw = candidate.rawRecord || {}
+  const provenance = candidate.provenance || raw.provenance || {}
+  const metal = metalOf(candidate)
+  const direct = candidate[field] ?? raw[field] ?? candidate.descriptors?.[field] ?? raw.descriptors?.[field]
+  if (hasValue(direct)) return direct
+  if (field === "metalCost") return context.metalCostMap?.has(metal) ? context.metalCostMap.get(metal)?.usdPerKg : null
+  if (field === "criticalMineralFlag") return context.criticalMetals?.has(metal) ? metal : null
+  if (field === "precursorAvailability") return context.metalCostMap?.has(metal) ? context.metalCostMap.get(metal)?.precursor : null
+  if (field === "doi") {
+    const doiText = [candidate.doi, raw.doi, provenance.doi, provenance.citation, candidate.citation].filter(Boolean).join(" ")
+    return /\b10\.\d{4,9}\//i.test(doiText) ? doiText : null
+  }
+  if (field === "sourceDatabase") return candidate.sourceDatabase || provenance.sourceDatabase || provenance.database
+  if (field === "sourceRecordId") return candidate.sourceRecordId || provenance.sourceRecordId
+  if (field === "citation") return candidate.citation || provenance.citation
+  if (field === "benchmarkEligible") return (matchAny(candidate, context.benchmarkRows || []) || candidate.benchmarkEligible === true || candidate.benchmarkEligible === "Ready") ? true : null
+  if (field === "experimentalLabel") return matchAny(candidate, context.experimentalLabelRows || []) ? true : null
+  if (field === "externalTest") return matchAny(candidate, context.externalTestRows || []) ? true : null
+  if (field === "activeSiteEvidence") {
+    const motifs = candidate.graphMetadata?.activeMotifs || raw.graphMetadata?.activeMotifs || []
+    const hypotheses = candidate.activeSiteHypothesis || raw.activeSiteHypothesis || []
+    return motifs.length || hypotheses.length ? [...motifs, ...hypotheses].length : null
+  }
+  if (field === "organicAcidRelevance") {
+    const relevance = candidate.organicAcidRelevance || raw.organicAcidRelevance
+    if (!relevance || relevance.targetPathway === "pending") return null
+    return relevance.pathwayPriorityScore || relevance.targetPathway || relevance.possibleRoles?.length
+  }
+  if (field === "pathwayEvidence") return matchAny(candidate, context.reactionRows || []) ? true : null
+  if (field === "waterPhaseEvidence") return hasValue(candidate.waterStability || raw.waterStability) ? candidate.waterStability || raw.waterStability : null
+  if (field === "reactionCondition") return matchAny(candidate, context.reactionRows || []) ? true : null
+  return null
+}
+
+function buildEcoScreenRequirementModel({
+  requirementsData = null,
+  filteredCandidates = [],
+  reactionRows = [],
+  benchmarkRows = [],
+  experimentalLabelRows = [],
+  externalTestRows = [],
+  metalCostRows = [],
+} = {}) {
+  const rows = Array.isArray(filteredCandidates) ? filteredCandidates : []
+  const requirements = Array.isArray(requirementsData?.requirements) ? requirementsData.requirements : []
+  const denominator = Math.max(rows.length, 1)
+  const metalCostMap = new Map((metalCostRows || []).map(row => [String(row.metal || "").trim(), row]).filter(([metal]) => metal))
+  const criticalMetals = new Set(requirementsData?.criticalMetals || [...CRITICAL_METAL_REVIEW_SET])
+  const context = { reactionRows, benchmarkRows, experimentalLabelRows, externalTestRows, metalCostMap, criticalMetals }
+
+  const requirementRows = requirements.map(requirement => {
+    const fields = (requirement.requiredFields || []).map(field => {
+      const count = rows.filter(candidate => hasValue(candidateRequirementValue(candidate, field, context))).length
+      return {
+        field,
+        count,
+        denominator,
+        coverage: denominator ? count / denominator : 0,
+      }
+    })
+    const totalCells = denominator * Math.max(fields.length, 1)
+    const availableCells = fields.reduce((sum, field) => sum + field.count, 0)
+    const coverage = totalCells ? availableCells / totalCells : 0
+    const readyCandidates = rows.filter(candidate => {
+      const available = (requirement.requiredFields || []).filter(field => hasValue(candidateRequirementValue(candidate, field, context))).length
+      return (available / Math.max((requirement.requiredFields || []).length, 1)) >= Number(requirement.minimumCoverageForUsable || 0.5)
+    }).length
+    const status = coverage >= Number(requirement.minimumCoverageForUsable || 0.5)
+      ? "usable"
+      : coverage >= Math.max(0.2, Number(requirement.minimumCoverageForUsable || 0.5) * 0.5)
+        ? "partial"
+        : "gap"
+    return {
+      ...requirement,
+      coverage,
+      status,
+      fields,
+      readyCandidates,
+      missingFields: [...fields].sort((a, b) => a.coverage - b.coverage).slice(0, 3),
+    }
+  })
+
+  return {
+    version: requirementsData?.updatedAt || "pending",
+    boundaryZh: requirementsData?.boundaryZh || "",
+    boundaryEn: requirementsData?.boundaryEn || "",
+    filteredCount: rows.length,
+    requirements: requirementRows,
+    statusCounts: {
+      usable: requirementRows.filter(row => row.status === "usable").length,
+      partial: requirementRows.filter(row => row.status === "partial").length,
+      gap: requirementRows.filter(row => row.status === "gap").length,
+    },
+  }
+}
+
+function EcoScreenRequirementMatrix({ model, activeRequirementId, onSelectRequirement, lang, t, isMobile }) {
+  const requirements = model.requirements || []
+  const active = requirements.find(row => row.id === activeRequirementId) || requirements[0]
+  if (!requirements.length) return null
+  const statusText = status => {
+    if (status === "usable") return text(lang, "可用于早筛", "usable")
+    if (status === "partial") return text(lang, "部分可用", "partial")
+    return text(lang, "需补数据", "data needed")
+  }
+  const statusTone = status => status === "gap" ? t.warn : status === "partial" ? t.amber : t.success
+  const fieldLabel = field => ({
+    co2Uptake: text(lang, "CO₂ 吸附量", "CO2 uptake"),
+    selectivity: text(lang, "选择性", "selectivity"),
+    workingCapacity: text(lang, "工作容量", "working capacity"),
+    feedRatio: text(lang, "进料比例", "feed ratio"),
+    temperature: text(lang, "温度", "temperature"),
+    pressure: text(lang, "压力", "pressure"),
+    heatOfAdsorption: text(lang, "吸附热", "heat of adsorption"),
+    desorptionTemperature: text(lang, "解吸温度", "desorption temperature"),
+    cycleStability: text(lang, "循环稳定性", "cycle stability"),
+    regenerability: text(lang, "再生性", "regenerability"),
+    waterStability: text(lang, "水稳定性", "water stability"),
+    thermalStability: text(lang, "热稳定性", "thermal stability"),
+    moistureExposure: text(lang, "湿气暴露", "moisture exposure"),
+    synthesisSolvent: text(lang, "合成溶剂", "synthesis solvent"),
+    activationSolvent: text(lang, "活化溶剂", "activation solvent"),
+    synthesisTemperature: text(lang, "合成温度", "synthesis temperature"),
+    synthesisTime: text(lang, "合成时间", "synthesis time"),
+    yield: text(lang, "产率", "yield"),
+    functionalUnit: text(lang, "功能单位", "functional unit"),
+    lcaBoundary: text(lang, "LCA 边界", "LCA boundary"),
+    gwpKgCo2ePerKg: text(lang, "GWP 清单", "GWP inventory"),
+    metalNode: text(lang, "金属节点", "metal node"),
+    metalCost: text(lang, "金属成本", "metal cost"),
+    criticalMineralFlag: text(lang, "关键原料标签", "critical-material flag"),
+    toxicityConcern: text(lang, "毒性关注", "toxicity concern"),
+    precursorAvailability: text(lang, "前驱体可得性", "precursor availability"),
+    sourceDatabase: text(lang, "来源数据库", "source database"),
+    sourceRecordId: text(lang, "来源记录 ID", "source record ID"),
+    citation: text(lang, "引文", "citation"),
+    doi: "DOI",
+    benchmarkEligible: "Benchmark",
+    experimentalLabel: text(lang, "实验标签", "experimental label"),
+    externalTest: text(lang, "外部测试", "external test"),
+    activeSiteEvidence: text(lang, "活性位点证据", "active-site evidence"),
+    organicAcidRelevance: text(lang, "有机酸相关性", "organic-acid relevance"),
+    pathwayEvidence: text(lang, "路径证据", "pathway evidence"),
+    waterPhaseEvidence: text(lang, "水相证据", "water-phase evidence"),
+    reactionCondition: text(lang, "反应条件", "reaction condition"),
+  })[field] || field
+  return (
+    <Card t={t} style={{ display: "grid", gap: 12 }} data-testid="ecoscreen-requirement-matrix">
+      <PanelTitle
+        t={t}
+        title={text(lang, "文献需求可用性矩阵", "Literature Requirement Usability Matrix")}
+        subtitle={text(
+          lang,
+          "每个需求来自已接入的文献/标准数据文件；覆盖率实时按当前筛选候选、反应表、benchmark、实验标签、外部测试和金属成本表计算。",
+          "Every requirement comes from the connected literature/standard data file; coverage is computed from current candidates, reaction rows, benchmark rows, experimental labels, external-test rows, and metal-cost rows."
+        )}
+      />
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
+        <MetricCard label={text(lang, "文献需求", "Requirements")} value={requirements.length} note={model.version} t={t} />
+        <MetricCard label={text(lang, "可用于早筛", "Usable")} value={model.statusCounts.usable} note={text(lang, "达到最低覆盖", "meets minimum coverage")} t={t} tone="calc" />
+        <MetricCard label={text(lang, "部分可用", "Partial")} value={model.statusCounts.partial} note={text(lang, "需要补关键字段", "key fields needed")} t={t} tone="proxy" />
+        <MetricCard label={text(lang, "缺口明显", "Gaps")} value={model.statusCounts.gap} note={text(lang, "进入接入队列", "goes to ingestion queue")} t={t} tone={model.statusCounts.gap ? "warn" : "calc"} />
+      </div>
+      <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) minmax(320px, 0.82fr)", alignItems: "start" }}>
+        <div style={{ display: "grid", gap: 7 }}>
+          {requirements.map(requirement => {
+            const selected = requirement.id === active?.id
+            return (
+              <button
+                key={requirement.id}
+                type="button"
+                onClick={() => onSelectRequirement(requirement.id)}
+                style={{
+                  all: "unset",
+                  background: selected ? t.badgeInfoBg : t.surface,
+                  border: `1px solid ${selected ? t.accent : t.border}`,
+                  borderRadius: 8,
+                  cursor: "pointer",
+                  display: "grid",
+                  gap: 6,
+                  padding: 10,
+                }}
+              >
+                <div style={{ alignItems: "baseline", display: "flex", gap: 8, justifyContent: "space-between" }}>
+                  <strong style={{ color: selected ? t.accentText : t.textStrong, fontSize: 12.4 }}>{text(lang, requirement.labelZh, requirement.labelEn)}</strong>
+                  <span style={{ color: statusTone(requirement.status), fontSize: 11, fontWeight: 900 }}>{statusText(requirement.status)} · {Math.round(requirement.coverage * 100)}%</span>
+                </div>
+                <span style={{ background: t.panel, borderRadius: 999, display: "block", height: 7, overflow: "hidden" }}>
+                  <span style={{ background: statusTone(requirement.status), display: "block", height: "100%", width: `${Math.round(requirement.coverage * 100)}%` }} />
+                </span>
+              </button>
+            )
+          })}
+        </div>
+        <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 9, padding: 11 }}>
+          <div style={{ color: statusTone(active?.status), fontSize: 11, fontWeight: 900, textTransform: "uppercase" }}>{statusText(active?.status)}</div>
+          <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, active?.labelZh, active?.labelEn)}</strong>
+          <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.55 }}>{text(lang, active?.needZh, active?.needEn)}</span>
+          <div style={{ display: "grid", gap: 7 }}>
+            {(active?.fields || []).map(field => (
+              <div key={field.field} style={{ display: "grid", gap: 5 }}>
+                <div style={{ alignItems: "baseline", display: "flex", gap: 8, justifyContent: "space-between" }}>
+                  <span style={{ color: t.textStrong, fontSize: 11.5, fontWeight: 850 }}>{fieldLabel(field.field)}</span>
+                  <span style={{ color: t.faint, fontSize: 10.8 }}>{field.count}/{field.denominator} · {Math.round(field.coverage * 100)}%</span>
+                </div>
+                <span style={{ background: t.panel, borderRadius: 999, display: "block", height: 6, overflow: "hidden" }}>
+                  <span style={{ background: field.coverage >= 0.5 ? t.success : field.coverage >= 0.2 ? t.amber : t.warn, display: "block", height: "100%", width: `${Math.round(field.coverage * 100)}%` }} />
+                </span>
+              </div>
+            ))}
+          </div>
+          <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, color: t.muted, fontSize: 11.5, lineHeight: 1.55, padding: 9 }}>
+            <strong style={{ color: t.textStrong }}>{text(lang, "下一步接入", "Next ingestion")}: </strong>
+            {text(lang, active?.nextDataZh, active?.nextDataEn)}
+          </div>
+          <div style={{ color: t.faint, fontSize: 11.2, lineHeight: 1.5 }}>
+            {text(lang, "依据来源", "Basis sources")}: {text(lang, active?.basisLabelZh, active?.basisLabelEn)}
+          </div>
+        </article>
+      </div>
+      <div style={{ color: t.warn, fontSize: 11.4, lineHeight: 1.55 }}>
+        {text(lang, model.boundaryZh, model.boundaryEn)}
+      </div>
+    </Card>
+  )
 }
 
 function EcoScreenEvidenceWorkbench({ evidence, activeNeed, onNeedChange, lang, t, isMobile }) {
@@ -1173,8 +1401,10 @@ export function EcoScreenTab({ onNavigate }) {
   const [selectedId, setSelectedId] = useState("MOF-B")
   const [reactionFilters, setReactionFilters] = useState({})
   const [activeEcoNeed, setActiveEcoNeed] = useState("separation")
+  const [activeRequirementId, setActiveRequirementId] = useState("adsorption-process-metrics")
   const [credibilityReport, setCredibilityReport] = useState(null)
   const [reactionGraphData, setReactionGraphData] = useState(null)
+  const [ecoRequirements, setEcoRequirements] = useState(null)
   const [reactionRows, setReactionRows] = useState([])
   const [benchmarkRows, setBenchmarkRows] = useState([])
   const [experimentalLabelRows, setExperimentalLabelRows] = useState([])
@@ -1195,7 +1425,8 @@ export function EcoScreenTab({ onNavigate }) {
       fetchDataJson("model_credibility_report_v1.json", null),
       fetchDataJson("reaction_evidence_graph_v1.json", null),
       fetchDataJson("metal_precursor_cost_table.json", null),
-    ]).then(([reaction, benchmark, experimentalLabels, externalTest, credibility, reactionGraph, metalCost]) => {
+      fetchDataJson("ecoscreen_literature_requirements.json", null),
+    ]).then(([reaction, benchmark, experimentalLabels, externalTest, credibility, reactionGraph, metalCost, requirements]) => {
       if (!active) return
       setReactionRows(Array.isArray(reaction?.records) ? reaction.records : [])
       setBenchmarkRows(Array.isArray(benchmark?.records) ? benchmark.records : [])
@@ -1204,6 +1435,7 @@ export function EcoScreenTab({ onNavigate }) {
       setCredibilityReport(credibility && typeof credibility === "object" ? credibility : null)
       setReactionGraphData(reactionGraph && typeof reactionGraph === "object" ? reactionGraph : null)
       setMetalCostRows(Array.isArray(metalCost?.records) ? metalCost.records : [])
+      setEcoRequirements(requirements && typeof requirements === "object" ? requirements : null)
     }).catch(() => {
       if (active) {
         setReactionRows([])
@@ -1213,6 +1445,7 @@ export function EcoScreenTab({ onNavigate }) {
         setCredibilityReport(null)
         setReactionGraphData(null)
         setMetalCostRows([])
+        setEcoRequirements(null)
       }
     })
     return () => { active = false }
@@ -1244,6 +1477,15 @@ export function EcoScreenTab({ onNavigate }) {
     experimentalLabelRows,
     metalCostRows,
   }), [generalRows, filteredGeneralRows, reactionRows, benchmarkRows, experimentalLabelRows, metalCostRows])
+  const ecoRequirementModel = useMemo(() => buildEcoScreenRequirementModel({
+    requirementsData: ecoRequirements,
+    filteredCandidates: filteredGeneralRows,
+    reactionRows,
+    benchmarkRows,
+    experimentalLabelRows,
+    externalTestRows,
+    metalCostRows,
+  }), [ecoRequirements, filteredGeneralRows, reactionRows, benchmarkRows, experimentalLabelRows, externalTestRows, metalCostRows])
   const activePriority = PERFORMANCE_PRIORITY_MODES.find(item => item.id === performancePriorityMode) || PERFORMANCE_PRIORITY_MODES[0]
   const selectedCandidate = useMemo(() => (
     model.candidates.find(candidate => candidate.id === selectedId) || model.candidates[0]
@@ -1320,6 +1562,15 @@ export function EcoScreenTab({ onNavigate }) {
         evidence={ecoScreenEvidence}
         activeNeed={activeEcoNeed}
         onNeedChange={setActiveEcoNeed}
+        lang={lang}
+        t={t}
+        isMobile={isMobile}
+      />
+
+      <EcoScreenRequirementMatrix
+        model={ecoRequirementModel}
+        activeRequirementId={activeRequirementId}
+        onSelectRequirement={setActiveRequirementId}
         lang={lang}
         t={t}
         isMobile={isMobile}

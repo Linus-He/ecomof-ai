@@ -193,6 +193,139 @@ function MethodologyDataBoundary({ lang, t }) {
   )
 }
 
+function LiteratureInspirationSourceCard({ source, lang, t }) {
+  const title = source?.title || "Untitled source"
+  const statusTone = source?.status === "validated_literature" || source?.status === "official_standard" || source?.status === "official_reference"
+    ? "calc"
+    : source?.status?.includes("pending")
+      ? "warn"
+      : "info"
+  const statusColor = statusTone === "warn" ? t.warn : statusTone === "calc" ? t.success : t.accentText
+  return (
+    <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 8, padding: 11 }}>
+      <div style={{ alignItems: "start", display: "flex", gap: 9, justifyContent: "space-between" }}>
+        <strong style={{ color: t.textStrong, fontSize: 12.8, lineHeight: 1.35 }}>{title}</strong>
+        <span style={{ color: statusColor, flex: "0 0 auto", fontSize: 10.2, fontWeight: 900, textTransform: "uppercase" }}>{source?.status || "pending"}</span>
+      </div>
+      <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.45 }}>
+        {[source?.authors, source?.year, source?.journal].filter(Boolean).join(" · ") || text(lang, "书目信息待核验", "bibliographic metadata pending")}
+      </div>
+      <div style={{ color: t.muted, fontSize: 11.7, lineHeight: 1.58 }}>
+        {text(lang, source?.coreIdeaZh, source?.coreIdeaEn)}
+      </div>
+      <div style={{ color: t.faint, fontSize: 11.2, lineHeight: 1.5 }}>
+        <strong style={{ color: t.textStrong }}>{text(lang, "采用方式", "Adopted as")}: </strong>
+        {text(lang, source?.adoptedInZh, source?.adoptedInEn)}
+      </div>
+      <div style={{ color: t.warn, fontSize: 11.2, lineHeight: 1.5 }}>
+        <strong>{text(lang, "边界", "Boundary")}: </strong>
+        {text(lang, source?.boundaryZh, source?.boundaryEn)}
+      </div>
+      <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7 }}>
+        {source?.doi ? <BasisBadge tone="info">DOI {source.doi}</BasisBadge> : <BasisBadge tone="proxy">{text(lang, "DOI 待核验", "DOI pending")}</BasisBadge>}
+        {source?.evidenceRole ? <BasisBadge tone="calc">{source.evidenceRole}</BasisBadge> : null}
+        {(Array.isArray(source?.relatedUrls) && source.relatedUrls.length
+          ? source.relatedUrls
+          : source?.url
+            ? [{ label: text(lang, "打开来源", "Open source"), url: source.url }]
+            : []
+        ).map(link => (
+          <a key={`${source?.id}-${link.url}`} href={link.url} target="_blank" rel="noreferrer" style={{ color: t.accentText, fontSize: 11.2, fontWeight: 850 }}>
+            {link.label || text(lang, "打开来源", "Open source")}
+          </a>
+        ))}
+      </div>
+    </article>
+  )
+}
+
+function MethodMetricCard({ label, value, note, t, tone = "info" }) {
+  const color = tone === "calc" ? t.success : tone === "warn" ? t.warn : t.accentText
+  return (
+    <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 5, padding: 10 }}>
+      <span style={{ color: t.faint, fontSize: 10.2, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
+      <strong style={{ color, fontSize: 20, lineHeight: 1.12 }}>{value}</strong>
+      {note ? <span style={{ color: t.muted, fontSize: 11, lineHeight: 1.35 }}>{note}</span> : null}
+    </article>
+  )
+}
+
+function LiteratureInspirationSection({ records, lang, t, isMobile }) {
+  const categories = Array.isArray(records?.categories) ? records.categories : []
+  const sources = Array.isArray(records?.sources) ? records.sources : []
+  const [activeCategoryId, setActiveCategoryId] = useState(categories[0]?.id || "platform-method")
+
+  useEffect(() => {
+    if (!categories.length) return
+    if (!categories.some(category => category.id === activeCategoryId)) setActiveCategoryId(categories[0].id)
+  }, [categories, activeCategoryId])
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !categories.length) return undefined
+    const syncHashCategory = () => {
+      const hash = String(window.location.hash || "").replace(/^#/, "")
+      const prefix = "methodology-literature-inspiration-"
+      if (!hash.startsWith(prefix)) return
+      const nextId = hash.slice(prefix.length)
+      if (categories.some(category => category.id === nextId)) setActiveCategoryId(nextId)
+    }
+    syncHashCategory()
+    window.addEventListener("hashchange", syncHashCategory)
+    return () => window.removeEventListener("hashchange", syncHashCategory)
+  }, [categories])
+
+  const sourceById = useMemo(() => new Map(sources.map(source => [source.id, source])), [sources])
+  const activeCategory = categories.find(category => category.id === activeCategoryId) || categories[0]
+  const activeSources = (activeCategory?.sourceIds || []).map(id => sourceById.get(id)).filter(Boolean)
+  const validatedCount = sources.filter(source => ["validated_literature", "official_standard", "official_reference", "uploaded_verified"].includes(source.status)).length
+
+  return (
+    <section id="methodology-literature-inspiration" data-testid="methodology-literature-inspiration" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 13, padding: 15, scrollMarginTop: 118 }}>
+      <header style={{ display: "grid", gap: 6 }}>
+        <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
+          <div style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>
+            {text(lang, "文献灵感来源", "Literature Inspiration Sources")}
+          </div>
+          <CopyLinkButton hash="methodology-literature-inspiration" ariaLabel={text(lang, "复制文献灵感来源链接", "Copy literature inspiration link")} />
+        </div>
+        <h2 style={{ color: t.textStrong, fontSize: 22, lineHeight: 1.15, margin: 0 }}>
+          {text(lang, "按模块分类的文献来源与采用边界", "Module-Classified Literature Sources And Adoption Boundaries")}
+        </h2>
+        <p style={{ color: t.muted, fontSize: 12.8, lineHeight: 1.62, margin: 0, maxWidth: 980 }}>
+          {text(
+            lang,
+            records?.boundaryZh || "正在读取文献来源；该区只记录方法灵感、采用方式和证据边界，不作为候选材料性能证明。",
+            records?.boundaryEn || "Loading literature sources; this section records method inspiration, adoption use, and evidence boundaries, not material-performance evidence."
+          )}
+        </p>
+      </header>
+      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
+        <MethodMetricCard label={text(lang, "分类版块", "Sections")} value={categories.length} note={text(lang, "目录置顶", "first in directory")} t={t} />
+        <MethodMetricCard label={text(lang, "来源条目", "Sources")} value={sources.length} note={text(lang, "动态读取", "loaded from data")} t={t} />
+        <MethodMetricCard label={text(lang, "已核验/官方", "Verified / official")} value={validatedCount} note={text(lang, "其余保留边界说明", "others keep boundaries visible")} t={t} tone="calc" />
+        <MethodMetricCard label={text(lang, "当前分类来源", "Active sources")} value={activeSources.length} note={text(lang, activeCategory?.titleZh, activeCategory?.titleEn)} t={t} />
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+        {categories.map(category => {
+          const active = category.id === activeCategory?.id
+          return (
+            <button key={category.id} id={`methodology-literature-inspiration-${category.id}`} type="button" onClick={() => setActiveCategoryId(category.id)} style={{ ...toolbarBtn(t), background: active ? t.badgeInfoBg : t.panel, borderColor: active ? t.accent : t.border, color: active ? t.accentText : t.muted, scrollMarginTop: 118 }}>
+              {text(lang, category.titleZh, category.titleEn)}
+            </button>
+          )
+        })}
+      </div>
+      <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 6, padding: 11 }}>
+        <strong style={{ color: t.textStrong, fontSize: 13.2 }}>{text(lang, activeCategory?.titleZh, activeCategory?.titleEn)}</strong>
+        <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.55 }}>{text(lang, activeCategory?.purposeZh, activeCategory?.purposeEn)}</span>
+      </div>
+      <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
+        {activeSources.map(source => <LiteratureInspirationSourceCard key={source.id} source={source} lang={lang} t={t} />)}
+      </div>
+    </section>
+  )
+}
+
 function StructuredFactorEffectsMethod({ lang, t, isMobile }) {
   const rows = [
     ["Why not direct black-box ML?", "为什么不直接黑箱机器学习？", "Sparse chemical data often mixes descriptors, categorical factors, conditions, and uneven evidence; direct prediction can hide data-generation structure.", "稀疏化学数据常混合描述符、分类因素、条件和不均衡证据；直接预测容易掩盖数据生成结构。"],
@@ -299,7 +432,8 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
   const [credibility, setCredibility] = useState(null)
   const [reactionGraph, setReactionGraph] = useState(null)
   const [robustness, setRobustness] = useState(null)
-  const [activeId, setActiveId] = useState("methodology-algorithm-validation")
+  const [literatureInspiration, setLiteratureInspiration] = useState(null)
+  const [activeId, setActiveId] = useState("methodology-literature-inspiration")
 
   useEffect(() => {
     let active = true
@@ -323,8 +457,9 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
       fetchDataJson("model_credibility_report_v1.json", null),
       fetchDataJson("reaction_evidence_graph_v1.json", null),
       fetchDataJson("model_robustness_report_v1.json", null),
+      fetchDataJson("methodology_literature_inspiration_records.json", null),
     ])
-      .then(([rows, previewSummary, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry, ingestionSummaryV3, firstBenchmarkReport, credibilityReport, reactionGraphData, robustnessReport]) => {
+      .then(([rows, previewSummary, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry, ingestionSummaryV3, firstBenchmarkReport, credibilityReport, reactionGraphData, robustnessReport, literatureInspirationData]) => {
         if (!active) return
         setModules(Array.isArray(rows) ? rows : [])
         setModelValidationSummary(previewSummary && typeof previewSummary === "object" ? previewSummary : null)
@@ -336,6 +471,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
         setCredibility(credibilityReport && typeof credibilityReport === "object" ? credibilityReport : null)
         setReactionGraph(reactionGraphData && typeof reactionGraphData === "object" ? reactionGraphData : null)
         setRobustness(robustnessReport && typeof robustnessReport === "object" ? robustnessReport : null)
+        setLiteratureInspiration(literatureInspirationData && typeof literatureInspirationData === "object" ? literatureInspirationData : null)
       })
       .catch(() => {
         if (active) {
@@ -349,6 +485,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
           setCredibility(null)
           setReactionGraph(null)
           setRobustness(null)
+          setLiteratureInspiration(null)
         }
       })
     return () => { active = false }
@@ -378,17 +515,30 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
         display: text(lang, child.labelZh, child.label),
       })),
     }
+    const literatureItem = {
+      id: "methodology-literature-inspiration",
+      label: "Literature Inspiration Sources",
+      labelZh: "文献灵感来源",
+      display: text(lang, "文献灵感来源", "Literature Inspiration Sources"),
+      children: (literatureInspiration?.categories || []).map(category => ({
+        id: `methodology-literature-inspiration-${category.id}`,
+        label: category.titleEn,
+        labelZh: category.titleZh,
+        display: text(lang, category.titleZh, category.titleEn),
+      })),
+    }
     const itemsWithValidation = [algorithmValidationItem, ...items]
     const adjustedInsertIndex = itemsWithValidation.findIndex(item => item.id === "methodology-organic-acid")
     if (insertIndex >= 0) {
       return [
+        literatureItem,
         ...itemsWithValidation.slice(0, adjustedInsertIndex + 1),
         finalItem,
         ...itemsWithValidation.slice(adjustedInsertIndex + 1),
       ]
     }
-    return [...itemsWithValidation, finalItem]
-  }, [orderedModules, lang])
+    return [literatureItem, ...itemsWithValidation, finalItem]
+  }, [orderedModules, lang, literatureInspiration])
 
   useEffect(() => {
     if (typeof IntersectionObserver === "undefined") return undefined
@@ -448,6 +598,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
         />
 
         <main style={{ display: "grid", gap: 16, minWidth: 0 }}>
+          <LiteratureInspirationSection records={literatureInspiration} lang={lang} t={t} isMobile={isMobile || isNarrow} />
           <ProjectEvolutionShortcutCard lang={lang} t={t} onNavigate={onNavigate} />
           <AlgorithmValidationCenter
             summary={modelValidationSummary || {}}

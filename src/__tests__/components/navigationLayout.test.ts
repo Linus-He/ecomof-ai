@@ -12,4 +12,16 @@ describe("top navigation layout", () => {
     expect(source).toContain('width: "100%"')
     expect(source).toContain('overscrollBehaviorX: "contain"')
   })
+
+  it("centers Chinese tab labels inside each navigation button", () => {
+    const source = readFileSync(resolve(process.cwd(), "src/App.tsx"), "utf8")
+    const navTabStart = source.indexOf('className="nav-tab"')
+    const navTabStyle = source.slice(navTabStart, navTabStart + 1100)
+
+    expect(navTabStyle).toContain('display: "inline-flex"')
+    expect(navTabStyle).toContain('alignItems: "center"')
+    expect(navTabStyle).toContain('justifyContent: "center"')
+    expect(navTabStyle).toContain('lineHeight: 1')
+    expect(navTabStyle).toContain('textAlign: "center"')
+  })
 })
