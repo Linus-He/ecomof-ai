@@ -14,7 +14,7 @@ describe("Project Updates", () => {
 
     expect(updates).toBeInTheDocument()
     expect(updates.textContent).toMatch(/Project Updates/)
-    expect(updates.textContent).toMatch(/App v1\.0\.2/)
+    expect(updates.textContent).toMatch(/App v1\.0\.3/)
     for (const number of moduleKeys.map((_, index) => String(index + 1).padStart(2, "0"))) {
       expect(within(updates).getByText(number)).toBeInTheDocument()
     }
@@ -25,8 +25,9 @@ describe("Project Updates", () => {
 
     const updates = screen.getByTestId("project-evolution-release-notes")
     expect(updates.textContent).toMatch(/UI & Experience/)
-    expect(updates.textContent).toMatch(/GasSep/)
-    expect(updates.textContent).toMatch(/Database/)
-    expect(updates.textContent).toMatch(/Module updates for App v1\.0\.2 come from the unified release record/)
+    expect(updates.textContent).toMatch(/EcoScreen/)
+    expect(updates.textContent).toMatch(/Methods & Evidence/)
+    expect(updates.textContent).toMatch(/Project Evolution/)
+    expect(updates.textContent).toMatch(/Module updates for App v1\.0\.3 come from the unified release record/)
   })
 })

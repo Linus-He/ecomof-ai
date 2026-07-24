@@ -1,0 +1,266 @@
+{
+  "schemaVersion": "1.1",
+  "modelId": "ecoscreen-lca-economic-screen-v1.1",
+  "updatedAt": "2026-07-24",
+  "status": "screening-scenario-model",
+  "goalZh": "在候选级完整 LCI 尚未接入时，以透明、可编辑的情景清单比较 MOF 合成路线，并把环境负担、经济成本、数据准备度和不确定性分开报告。",
+  "goalEn": "Compare MOF synthesis routes with a transparent, editable scenario inventory while candidate-level LCI is incomplete, reporting environmental burden, economic cost, data readiness, and uncertainty separately.",
+  "boundaryZh": "这是按 ISO 14040/14044 结构组织的筛选级情景模型，不是经同行评审或第三方审查的完整 LCA/TEA。候选缺少真实合成清单时，结果只能标记为“情景估算”，不得作为最终材料排名。",
+  "boundaryEn": "This is a screening scenario model structured around ISO 14040/14044, not a peer-reviewed or critically reviewed full LCA/TEA. Without candidate-specific synthesis inventories, outputs remain scenario estimates and must not be treated as final material rankings.",
+  "functionalUnits": [
+    {
+      "id": "kg_mof",
+      "labelZh": "1 kg 已活化 MOF",
+      "labelEn": "1 kg activated MOF",
+      "boundaryZh": "摇篮到工厂门：金属/连接体前驱体、合成、洗涤、活化；不含使用、设备、运输和报废。",
+      "boundaryEn": "Cradle-to-gate: metal/linker precursors, synthesis, washing, and activation; excludes use, equipment, transport, and end of life."
+    },
+    {
+      "id": "tonne_co2",
+      "labelZh": "捕集 1 t CO₂",
+      "labelEn": "1 t CO2 captured",
+      "boundaryZh": "在材料生产清单上增加再生电力，并用工作容量、循环次数和利用率分摊材料；不含捕集装置 CAPEX、压缩、运输和封存。",
+      "boundaryEn": "Adds regeneration electricity to material production and amortizes material through working capacity, cycles, and utilization; excludes capture-plant CAPEX, compression, transport, and storage."
+    }
+  ],
+  "inventoryReference": {
+    "file": "public/data/lca_inventory.json",
+    "referenceSolventRecoveryPct": 80,
+    "referenceYieldPct": 100,
+    "noteZh": "清单数量和价格是筛选代理值；所有结果必须显示不确定区间与替换路线。",
+    "noteEn": "Inventory quantities and prices are screening proxies; every result must expose uncertainty intervals and replacement paths."
+  },
+  "routeScenarios": [
+    {
+      "id": "solvothermal",
+      "labelZh": "溶剂热基准",
+      "labelEn": "Solvothermal baseline",
+      "defaultYieldPct": 69,
+      "defaultSolventRecoveryPct": 80,
+      "defaultConversionCostUsdPerKg": 10,
+      "multipliers": {
+        "inv_metal_precursor": 1,
+        "inv_organic_linker": 1,
+        "inv_solvent": 1,
+        "inv_electricity": 1,
+        "inv_heat": 1,
+        "inv_water": 1,
+        "inv_waste": 1
+      },
+      "assumptionZh": "把常规溶剂热批式工艺作为相对基准；69% 产率仅来自已发表 TEA 的代表性 MOF-74 情景，需由候选真实工艺替换。",
+      "assumptionEn": "Uses a conventional batch solvothermal route as the relative baseline; 69% yield comes from a representative published MOF-74 TEA scenario and must be replaced by candidate-specific process data.",
+      "sourceIds": [
+        "LIT-DESANTIS-2017-MOF-TEA",
+        "LIT-LCA-MOF-2017"
+      ]
+    },
+    {
+      "id": "aqueous",
+      "labelZh": "水相合成情景",
+      "labelEn": "Aqueous synthesis scenario",
+      "defaultYieldPct": 92,
+      "defaultSolventRecoveryPct": 95,
+      "defaultConversionCostUsdPerKg": 7,
+      "multipliers": {
+        "inv_metal_precursor": 1,
+        "inv_organic_linker": 1,
+        "inv_solvent": 0.05,
+        "inv_electricity": 0.9,
+        "inv_heat": 1.35,
+        "inv_water": 1.6,
+        "inv_waste": 0.9
+      },
+      "assumptionZh": "用于检验少有机溶剂、高水耗/热负荷的方向性影响；倍数是可编辑情景假设，不是对任一候选的实测路线。",
+      "assumptionEn": "Tests the directional effect of low organic-solvent use with higher water/heat demand; multipliers are editable scenario assumptions, not measured routes for any candidate.",
+      "sourceIds": [
+        "LIT-DESANTIS-2017-MOF-TEA",
+        "LIT-XIA-2022-ZIF8-LCA"
+      ]
+    },
+    {
+      "id": "mechanochemical",
+      "labelZh": "机械化学/低溶剂情景",
+      "labelEn": "Mechanochemical / low-solvent scenario",
+      "defaultYieldPct": 80,
+      "defaultSolventRecoveryPct": 95,
+      "defaultConversionCostUsdPerKg": 5,
+      "multipliers": {
+        "inv_metal_precursor": 1,
+        "inv_organic_linker": 1,
+        "inv_solvent": 0.08,
+        "inv_electricity": 0.55,
+        "inv_heat": 0.35,
+        "inv_water": 0.45,
+        "inv_waste": 0.7
+      },
+      "assumptionZh": "用于检验少步骤、低溶剂路线的方向性收益；不能假定所有 MOF 都可采用该路线，必须增加合成可行性验证。",
+      "assumptionEn": "Tests directional benefits from fewer steps and less solvent; it cannot be assumed feasible for every MOF and requires synthesis validation.",
+      "sourceIds": [
+        "LIT-XIA-2022-ZIF8-LCA",
+        "LIT-ESCOBAR-2023-ZIF67-LCA"
+      ]
+    }
+  ],
+  "characterizationFactors": {
+    "inv_metal_precursor": {
+      "gwpKgCo2ePerUnit": 8,
+      "energyMjPerUnit": 100,
+      "uncertaintyPct": 70,
+      "sourceType": "screening_proxy",
+      "replacement": "Replace with metal-salt-specific, region-specific LCI."
+    },
+    "inv_organic_linker": {
+      "gwpKgCo2ePerUnit": 12,
+      "energyMjPerUnit": 180,
+      "uncertaintyPct": 70,
+      "sourceType": "screening_proxy",
+      "replacement": "Replace with linker synthesis route or supplier EPD/LCI."
+    },
+    "inv_solvent": {
+      "gwpKgCo2ePerUnit": 3.2,
+      "energyMjPerUnit": 70,
+      "uncertaintyPct": 55,
+      "sourceType": "screening_proxy",
+      "replacement": "Replace with solvent-specific production, recovery, and disposal LCI."
+    },
+    "inv_electricity": {
+      "gwpKgCo2ePerUnit": 0.55,
+      "energyMjPerUnit": 3.6,
+      "uncertaintyPct": 35,
+      "sourceType": "user_scenario",
+      "replacement": "Replace with the selected regional grid mix and reference year."
+    },
+    "inv_heat": {
+      "gwpKgCo2ePerUnit": 0.2,
+      "energyMjPerUnit": 3.6,
+      "uncertaintyPct": 45,
+      "sourceType": "user_scenario",
+      "replacement": "Replace with measured heat demand and fuel/utility pathway."
+    },
+    "inv_water": {
+      "gwpKgCo2ePerUnit": 0.0003,
+      "energyMjPerUnit": 0.003,
+      "uncertaintyPct": 70,
+      "sourceType": "screening_proxy",
+      "replacement": "Replace with local water supply and treatment inventory."
+    },
+    "inv_waste": {
+      "gwpKgCo2ePerUnit": 0.45,
+      "energyMjPerUnit": 2,
+      "uncertaintyPct": 75,
+      "sourceType": "screening_proxy",
+      "replacement": "Replace with composition-specific solvent and solid-waste treatment."
+    }
+  },
+  "economicModel": {
+    "scopeZh": "材料、溶剂、公用工程和筛选级转化费用；不含正式 CAPEX、融资、税费、设备寿命和规模学习曲线。",
+    "scopeEn": "Materials, solvent, utilities, and a screening conversion-cost allowance; excludes formal CAPEX, financing, tax, equipment life, and scale learning.",
+    "contingencyPct": 10,
+    "conversionCostUncertaintyPct": 40,
+    "metalPriceFile": "public/data/metal_precursor_cost_table.json",
+    "sourceIds": [
+      "LIT-DESANTIS-2017-MOF-TEA"
+    ]
+  },
+  "serviceDefaults": {
+    "workingCapacityKgCo2PerKgMofCycle": 0.12,
+    "cycleCount": 1000,
+    "capacityUtilizationPct": 85,
+    "regenerationKwhPerKgCo2": 0.35,
+    "electricityPriceUsdPerKwh": 0.12,
+    "gridGwpKgCo2ePerKwh": 0.55,
+    "heatGwpKgCo2ePerKwh": 0.2,
+    "noteZh": "这些是可编辑的服务情景默认值，不是 Open MOF Seed 的候选实测字段。",
+    "noteEn": "These are editable service-scenario defaults, not candidate measurements from Open MOF Seed."
+  },
+  "candidateDataGate": {
+    "requiredFieldsMaterial": [
+      "metalNode",
+      "linker",
+      "synthesisRoute",
+      "synthesisSolvent",
+      "synthesisTemperature",
+      "synthesisTime",
+      "reactionQuantities",
+      "massBalance",
+      "yield",
+      "synthesisEnergy",
+      "solventRecovery"
+    ],
+    "requiredFieldsService": [
+      "workingCapacity",
+      "cycleStability",
+      "regenerationEnergy"
+    ],
+    "hardBlockersMaterial": [
+      "yield",
+      "massBalance",
+      "synthesisEnergy",
+      "solventRecovery"
+    ],
+    "hardBlockersService": [
+      "workingCapacity",
+      "cycleStability",
+      "regenerationEnergy"
+    ],
+    "minimumReadinessForCandidateComparison": 0.75,
+    "ruleZh": "准备度低于 75%，或产率、质量平衡、实测能耗、溶剂回收以及服务期性能等硬门控缺失时，只输出情景估算、热点和补数任务；不生成候选级环境优胜者。",
+    "ruleEn": "When readiness is below 75%, or hard gates for yield, mass balance, measured energy, solvent recovery, or service performance are missing, report scenario estimates, hotspots, and data tasks only; do not name a candidate-level environmental winner."
+  },
+  "sources": [
+    {
+      "id": "STD-ISO-14040-14044",
+      "title": "ISO 14040 / ISO 14044 life-cycle assessment standards",
+      "year": 2006,
+      "url": "https://www.iso.org/standard/37456.html",
+      "relatedUrl": "https://www.iso.org/standard/38498.html",
+      "roleZh": "目标与范围、LCI、LCIA、解释、报告与局限的结构。",
+      "roleEn": "Structure for goal and scope, LCI, LCIA, interpretation, reporting, and limitations."
+    },
+    {
+      "id": "LIT-LCA-MOF-2017",
+      "title": "Life-cycle assessment as a tool for eco-design of metal-organic frameworks (MOFs)",
+      "year": 2017,
+      "doi": "10.1016/j.susmat.2017.10.002",
+      "url": "https://doi.org/10.1016/j.susmat.2017.10.002",
+      "roleZh": "MOF-74 摇篮到门评价；强调合成、清洗溶剂热点。",
+      "roleEn": "Cradle-to-gate MOF-74 assessment highlighting synthesis and washing-solvent hotspots."
+    },
+    {
+      "id": "LIT-DESANTIS-2017-MOF-TEA",
+      "title": "Techno-economic Analysis of Metal-Organic Frameworks for Hydrogen and Natural Gas Storage",
+      "year": 2017,
+      "doi": "10.1021/acs.energyfuels.6b02510",
+      "url": "https://www.osti.gov/pages/biblio/1889787",
+      "roleZh": "大规模 MOF 生产成本、产率、溶剂用量、回收率和路线敏感性。",
+      "roleEn": "Large-scale MOF production cost, yield, solvent usage, recovery, and route sensitivity."
+    },
+    {
+      "id": "LIT-XIA-2022-ZIF8-LCA",
+      "title": "Comparative life cycle assessment on zeolitic imidazolate framework-8 (ZIF-8) production for CO2 capture",
+      "year": 2022,
+      "doi": "10.1016/j.jclepro.2022.133354",
+      "url": "https://doi.org/10.1016/j.jclepro.2022.133354",
+      "roleZh": "以 1 kg ZIF-8 为功能单位比较七种路线；DMF 清洗是主要热点，机械化学路线影响最低。",
+      "roleEn": "Compares seven routes per 1 kg ZIF-8; DMF washing is a major hotspot and mechanochemistry has the lowest impacts."
+    },
+    {
+      "id": "LIT-ESCOBAR-2023-ZIF67-LCA",
+      "title": "Life Cycle Assessment of Metal-Organic Frameworks: Sustainability Study of Zeolitic Imidazolate Framework-67",
+      "year": 2023,
+      "doi": "10.1021/acssuschemeng.2c07276",
+      "url": "https://doi.org/10.1021/acssuschemeng.2c07276",
+      "roleZh": "比较 1 kg ZIF-67 的溶剂热与反应挤出路线，说明路线选择可跨数量级改变影响。",
+      "roleEn": "Compares solvothermal and reactive-extrusion routes per 1 kg ZIF-67, showing route choice can change impacts by orders of magnitude."
+    },
+    {
+      "id": "LIT-WANG-2024-MOF74-LCA",
+      "title": "Life cycle assessment of CO2 capture through pressure swing adsorption using MOF-74",
+      "year": 2024,
+      "doi": "10.1016/j.jgsce.2024.205497",
+      "url": "https://doi.org/10.1016/j.jgsce.2024.205497",
+      "roleZh": "把生产、使用与再生纳入 MOF-74 捕集评价，并用敏感性/不确定性分析识别产率与捕集能耗。",
+      "roleEn": "Includes MOF-74 production, use, and regeneration, with sensitivity/uncertainty analysis of yield and capture energy."
+    }
+  ]
+}

@@ -64,7 +64,7 @@ describe("homepage dynamic status", () => {
 
     const capabilities = screen.getByTestId("home-platform-capabilities")
     expect(within(capabilities).getByText("当前 App 版本")).toBeInTheDocument()
-    expect(within(capabilities).getByText("App v1.0.2")).toBeInTheDocument()
+    expect(within(capabilities).getByText("App v1.0.3")).toBeInTheDocument()
     expect(capabilities.textContent).toMatch(/数据状态 V3\.10\.1/)
     expect(within(capabilities).getByText("3462+ 条记录")).toBeInTheDocument()
     expect(within(capabilities).getByText("实验标签")).toBeInTheDocument()

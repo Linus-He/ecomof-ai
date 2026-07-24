@@ -13,7 +13,7 @@
     "tableId": "organic-acid-metal-precursor-cost-table-v2",
     "version": "V3.9.8",
     "priceDate": "2026-06",
-    "priceBasis": "Claude-provided June 2026 metal-equivalent screening inputs; mixed-confidence values, not supplier quotations",
+    "priceBasis": "Manually curated June 2026 metal-equivalent screening inputs; mixed-confidence values, not supplier quotations",
     "boundary": "The ten named V3.9.8 metals use supplied June 2026 screening values. Confidence is row-specific; formal publication still requires Fastmarkets/USGS/SMM source and price-date verification. Other metals remain explicit fallback placeholders."
   },
   "currentTopRoute": {

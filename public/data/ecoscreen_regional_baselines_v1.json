@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "ecoscreen-regional-baselines-v1",
+  "updatedAt": "2026-07-24",
+  "defaultBaselineId": "china",
+  "profiles": [
+    {
+      "id": "china",
+      "labelZh": "中国基准",
+      "labelEn": "China baseline",
+      "shortLabelZh": "中国",
+      "shortLabelEn": "China",
+      "region": "CN",
+      "referenceYear": 2023,
+      "currency": "CNY",
+      "currencySymbol": "¥",
+      "currencyPerUsd": 7.2,
+      "electricityPricePerKwh": 0.72,
+      "electricityPriceSourceType": "editable_industrial_scenario",
+      "gridGwpKgCo2ePerKwh": 0.5306,
+      "gridFactorStatus": "official_national_average",
+      "heatGwpKgCo2ePerKwh": 0.22,
+      "heatFactorStatus": "screening_scenario",
+      "waterPricePerL": 0.0035,
+      "waterPriceSourceType": "editable_industrial_scenario",
+      "conversionCostPerKg": 72,
+      "conversionCostSourceType": "editable_screening_scenario",
+      "sourceIds": [
+        "CN-MEE-NBS-GRID-2023"
+      ],
+      "noteZh": "电网因子采用生态环境部、国家统计局发布的 2023 年全国电力平均二氧化碳排放因子；电价、热力、水价、汇率和转化费用为可编辑工业情景，不代表供应商报价。",
+      "noteEn": "The grid factor uses the 2023 national average published by China's Ministry of Ecology and Environment and National Bureau of Statistics. Electricity, heat, water, exchange rate, and conversion costs remain editable industrial scenarios, not supplier quotes."
+    },
+    {
+      "id": "global",
+      "labelZh": "国际参考",
+      "labelEn": "International reference",
+      "shortLabelZh": "国际",
+      "shortLabelEn": "Global",
+      "region": "GLO",
+      "referenceYear": 2025,
+      "currency": "USD",
+      "currencySymbol": "$",
+      "currencyPerUsd": 1,
+      "electricityPricePerKwh": 0.12,
+      "electricityPriceSourceType": "editable_industrial_scenario",
+      "gridGwpKgCo2ePerKwh": 0.435,
+      "gridFactorStatus": "iea_global_generation_estimate",
+      "heatGwpKgCo2ePerKwh": 0.2,
+      "heatFactorStatus": "screening_scenario",
+      "waterPricePerL": 0.001,
+      "waterPriceSourceType": "editable_industrial_scenario",
+      "conversionCostPerKg": 10,
+      "conversionCostSourceType": "editable_screening_scenario",
+      "sourceIds": [
+        "IEA-ELECTRICITY-2026"
+      ],
+      "noteZh": "电网因子采用 IEA 对 2025 年全球发电碳强度的估计。国际参考不是任一国家的代表值；实际项目应替换为生产地电网、能源合同和供应商报价。",
+      "noteEn": "The grid factor uses the IEA estimate of global power-generation carbon intensity for 2025. This international reference does not represent any single country; a real project must use the production-site grid, energy contract, and supplier quotes."
+    }
+  ],
+  "sources": [
+    {
+      "id": "CN-MEE-NBS-GRID-2023",
+      "titleZh": "关于发布 2023 年电力二氧化碳排放因子的公告",
+      "titleEn": "Announcement of 2023 electricity CO2 emission factors",
+      "publisherZh": "中华人民共和国生态环境部、国家统计局",
+      "publisherEn": "Ministry of Ecology and Environment of China and National Bureau of Statistics",
+      "year": 2025,
+      "url": "https://www.mee.gov.cn/xxgk2018/xxgk/xxgk01/202512/W020251231726284332528.pdf",
+      "value": 0.5306,
+      "unit": "kg CO2/kWh",
+      "licenseBoundary": "Official public reference; preserve source attribution."
+    },
+    {
+      "id": "IEA-ELECTRICITY-2026",
+      "titleZh": "IEA《Electricity 2026》全球发电排放强度",
+      "titleEn": "IEA Electricity 2026 global power-generation emissions intensity",
+      "publisherZh": "国际能源署",
+      "publisherEn": "International Energy Agency",
+      "year": 2026,
+      "url": "https://www.iea.org/reports/electricity-2026/emissions",
+      "value": 0.435,
+      "unit": "kg CO2/kWh",
+      "licenseBoundary": "IEA report page; use with attribution and applicable IEA terms."
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "schemaVersion": "ecoscreen-evidence-source-registry-v1",
+  "updatedAt": "2026-07-24",
+  "sources": [
+    {
+      "id": "FAIR-MOFS-2025",
+      "name": "FAIR-MOFs",
+      "status": "ingested",
+      "roleZh": "候选级实验合成配方、温度、时间、溶剂、前驱体、用量与原始 DOI。",
+      "roleEn": "Candidate-level experimental synthesis recipes, temperatures, times, solvents, precursors, quantities, and source DOIs.",
+      "recordCount": 4168,
+      "joinKey": "CSD refcode",
+      "url": "https://zenodo.org/records/13254307",
+      "doi": "10.5281/zenodo.13254307",
+      "license": "CC BY 4.0",
+      "confidence": "medium",
+      "hardLimitsZh": "文本挖掘结果需原文复核；未统一提供产率、单位产品能耗、溶剂回收率和循环性能。",
+      "hardLimitsEn": "Text-mined results require source-paper review; yield, energy per product, solvent recovery, and cycling performance are not harmonized."
+    },
+    {
+      "id": "CORE-QMOF-STRUCTURE",
+      "name": "CoRE MOF + QMOF",
+      "status": "connected",
+      "roleZh": "结构、孔隙、组成和量子化学描述符。",
+      "roleEn": "Structure, porosity, composition, and quantum-chemical descriptors.",
+      "recordCount": 2480,
+      "joinKey": "source record id / normalized refcode",
+      "url": "https://zenodo.org/records/14132134",
+      "license": "Source-specific open-data terms",
+      "confidence": "high",
+      "hardLimitsZh": "不是合成清单或循环性能数据库。",
+      "hardLimitsEn": "Not a synthesis-inventory or cycling-performance database."
+    },
+    {
+      "id": "NIST-ISODB",
+      "name": "NIST/ARPA-E ISODB",
+      "status": "connected",
+      "roleZh": "实验/模拟吸附等温线、条件与来源文献。",
+      "roleEn": "Experimental/simulated adsorption isotherms, conditions, and source literature.",
+      "recordCount": 442,
+      "joinedRecordCount": 79,
+      "joinKey": "normalized MOF identity",
+      "url": "https://adsorption.nist.gov/isodb/",
+      "license": "NIST database export with source-publication terms",
+      "confidence": "medium",
+      "hardLimitsZh": "当前结构身份映射覆盖有限；单条等温线不等同于长期循环或再生能耗。",
+      "hardLimitsEn": "Structural identity resolution remains limited; one isotherm does not establish long-cycle stability or regeneration energy."
+    },
+    {
+      "id": "MOFX-DB",
+      "name": "MOFX-DB",
+      "status": "reference_only",
+      "roleZh": "大规模计算吸附数据，可用于候选优先级和缺失性能的计算证据层。",
+      "roleEn": "Large-scale computational adsorption evidence for prioritization and performance-gap triage.",
+      "recordCount": 3000000,
+      "joinKey": "structure id",
+      "url": "https://www.nist.gov/publications/mofx-db-online-database-computational-adsorption-data-nanoporous-materials",
+      "doi": "10.1021/acs.jced.2c00583",
+      "license": "Check dataset and linked-publication terms before ingestion",
+      "confidence": "computed",
+      "hardLimitsZh": "计算吸附数据不能替代实验循环、湿度稳定性或过程能耗。",
+      "hardLimitsEn": "Computed adsorption cannot replace experimental cycling, humidity stability, or process energy."
+    },
+    {
+      "id": "FEDERAL-LCA-COMMONS",
+      "name": "Federal LCA Commons",
+      "status": "background_lci_reference",
+      "roleZh": "电力、化学品、运输和废物处理等背景 LCI/LCIA 数据。",
+      "roleEn": "Background LCI/LCIA for electricity, chemicals, transport, and waste treatment.",
+      "joinKey": "flow/process mapping",
+      "url": "https://www.lcacommons.gov/",
+      "license": "Repository-specific open terms",
+      "confidence": "source_dependent",
+      "hardLimitsZh": "提供背景过程，不提供逐个 MOF 的前景工艺清单。",
+      "hardLimitsEn": "Provides background processes, not foreground inventories for individual MOFs."
+    },
+    {
+      "id": "DIGIMOF",
+      "name": "DigiMOF",
+      "status": "source_assessment",
+      "roleZh": "更大规模的文献合成条件检索与路线约束。",
+      "roleEn": "Larger-scale literature synthesis-condition search and route constraints.",
+      "joinKey": "CSD refcode / DOI",
+      "url": "https://doi.org/10.1021/acs.chemmater.3c00788",
+      "doi": "10.1021/acs.chemmater.3c00788",
+      "license": "CSD and publication access constraints require review",
+      "confidence": "medium",
+      "hardLimitsZh": "CSD 访问和再分发边界需要单独确认，暂不把记录复制进公开仓库。",
+      "hardLimitsEn": "CSD access and redistribution constraints require separate review; records are not copied into the public repository."
+    },
+    {
+      "id": "SYNMOF",
+      "name": "SynMOF",
+      "status": "source_assessment",
+      "roleZh": "900+ MOF 的温度、时间、溶剂和添加剂合成条件。",
+      "roleEn": "Temperature, time, solvent, and additive conditions for more than 900 MOFs.",
+      "joinKey": "structure / CIF",
+      "url": "https://doi.org/10.1002/anie.202200242",
+      "doi": "10.1002/anie.202200242",
+      "license": "Dataset redistribution terms require confirmation",
+      "confidence": "medium",
+      "hardLimitsZh": "适合补合成条件，不提供完整质量平衡、能耗或循环寿命。",
+      "hardLimitsEn": "Useful for synthesis conditions, but not full mass balances, energy, or cycle life."
+    }
+  ],
+  "qualityRules": {
+    "candidateComparisonHardBlockers": [
+      "yield",
+      "massBalance",
+      "measuredSynthesisEnergy",
+      "solventRecovery"
+    ],
+    "serviceComparisonHardBlockers": [
+      "workingCapacity",
+      "cycleStability",
+      "regenerationEnergy"
+    ],
+    "crossPaperRuleZh": "不同论文的工艺清单只有在功能单位、系统边界、分配方法和背景数据库一致后才能进入比较。",
+    "crossPaperRuleEn": "Inventories from different papers can be compared only after harmonizing functional unit, system boundary, allocation, and background database."
+  }
+}

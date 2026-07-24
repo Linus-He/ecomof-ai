@@ -44,7 +44,7 @@ describe("user-facing developer copy audit", () => {
 
   it("keeps the visible release log free of implementation notes", () => {
     const visibleReleaseLog = JSON.stringify({
-      pendingNextRelease: releaseLog.pendingNextRelease,
+      developmentLog: releaseLog.developmentLog,
       currentRelease: releaseLog.releases?.[0],
     })
 

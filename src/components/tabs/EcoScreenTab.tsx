@@ -27,6 +27,7 @@ import { useMofReactionProfile } from "../catalysis/reactionRationaleData"
 import { DataQualityAuditPanel } from "../data-quality/DataQualityAuditPanel"
 import { DataQualitySummary } from "../data-quality/DataQualitySummary"
 import { fetchDataJson } from "../../services/dataService"
+import { EcoLcaWorkbench } from "../ecoscreen/EcoLcaWorkbench"
 
 const clamp01 = value => Math.max(0, Math.min(1, Number(value) || 0))
 const pct = value => `${Math.round(clamp01(value) * 100)}%`
@@ -1391,7 +1392,7 @@ function EcoScreenExplainabilityPanel({ credibility, reactionGraph, selectedCand
   )
 }
 
-export function EcoScreenTab({ onNavigate }) {
+function LegacyEcoScreenTab({ onNavigate }) {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
@@ -1793,6 +1794,36 @@ export function EcoScreenTab({ onNavigate }) {
       </ResultLayer>
       </>
       )}
+    </div>
+  )
+}
+
+export function EcoScreenTab({ onNavigate }) {
+  const t = useT()
+  const { lang } = useLang()
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      <EcoLcaWorkbench onNavigate={onNavigate} />
+      <details
+        data-testid="ecoscreen-legacy-tools"
+        style={{
+          background: t.panel,
+          border: `1px solid ${t.border}`,
+          borderRadius: 12,
+          padding: 12,
+        }}
+      >
+        <summary style={{ color: t.muted, cursor: "pointer", fontSize: 12, fontWeight: 850, lineHeight: 1.5 }}>
+          {text(
+            lang,
+            "补充工具：旧版描述符评分、反应筛选与文献字段覆盖（不作为 LCA 结论）",
+            "Supplement: legacy descriptor scoring, reaction filters, and literature field coverage (not an LCA conclusion)",
+          )}
+        </summary>
+        <div style={{ borderTop: `1px solid ${t.border}`, marginTop: 12, paddingTop: 14 }}>
+          <LegacyEcoScreenTab onNavigate={onNavigate} />
+        </div>
+      </details>
     </div>
   )
 }

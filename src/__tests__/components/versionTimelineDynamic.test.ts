@@ -15,10 +15,11 @@ describe("versionTimelineDynamic", () => {
 
     const projectUpdates = screen.getByTestId("project-evolution-release-notes")
     expect(projectUpdates.textContent).toMatch(/Project Updates/)
-    expect(projectUpdates.textContent).toMatch(/Module updates for App v1\.0\.2 come from the unified release record/)
+    expect(projectUpdates.textContent).toMatch(/Module updates for App v1\.0\.3 come from the unified release record/)
     expect(projectUpdates.textContent).toMatch(/UI & Experience/)
-    expect(projectUpdates.textContent).toMatch(/GasSep/)
-    expect(projectUpdates.textContent).toMatch(/Database/)
+    expect(projectUpdates.textContent).toMatch(/EcoScreen/)
+    expect(projectUpdates.textContent).toMatch(/Methods & Evidence/)
+    expect(projectUpdates.textContent).toMatch(/Project Evolution/)
 
     const roadmap = screen.getByTestId("project-evolution-roadmap")
     expect(roadmap.textContent).toMatch(/V3\.10\.1/)

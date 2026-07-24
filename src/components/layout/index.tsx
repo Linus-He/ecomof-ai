@@ -349,15 +349,7 @@ export function ContextualHeaderBar({
 
   if (activeTab === "about") return null
 
-  if (activeTab === "home") {
-    return (
-      <div style={layerStyle}>
-        <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
-          {lang === "zh" ? "探索 MOF 筛选、性能分析、催化记录与数据证据链。" : "Explore screening, performance analysis, catalysis records, and evidence-linked data."}
-        </div>
-      </div>
-    )
-  }
+  if (activeTab === "home") return null
 
   if (activeTab === "gassep") {
     return (
@@ -448,15 +440,7 @@ export function ContextualHeaderBar({
     )
   }
 
-  if (activeTab === "library") {
-    return (
-      <div style={layerStyle}>
-        <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
-          {lang === "zh" ? "MOF 候选库展示基础候选记录和逐字段来源信息，不给出最终结论。" : "MOF Library presents baseline records and field-level source information without claiming final conclusions."}
-        </div>
-      </div>
-    )
-  }
+  if (activeTab === "library") return null
 
   return null
 }

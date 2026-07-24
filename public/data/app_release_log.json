@@ -1,28 +1,29 @@
 {
   "schemaVersion": "1.0",
-  "currentAppVersion": "v1.0.2",
-  "generatedAt": "2026-07-21",
+  "currentAppVersion": "v1.0.3",
+  "generatedAt": "2026-07-25",
   "authority": "Single unified EcoMOF-AI App release log. One App version manages the whole platform; each release lists only the modules it changed. Historical module version numbers are preserved verbatim in history (pre-1.0 modular-development era).",
   "provenance": {
     "derivedFrom": "public/data/version_evolution_records.json",
     "generatingScript": "scripts/build-app-release-log.mjs",
     "note": "v1.0.0 module changes are authored from the integration work in this release; history is regrouped by module from existing per-module impact fields without altering any original version number."
   },
-  "pendingNextRelease": {
+  "developmentLog": {
     "baseAppVersion": "v1.0.2",
-    "recordedAt": "2026-07-22",
-    "status": "draft-unreleased",
+    "developmentVersion": "v1.0.3",
+    "recordedAt": "2026-07-25",
+    "status": "archived",
     "statusLabel": {
-      "zh": "待发布",
-      "en": "pending release"
+      "zh": "已归档",
+      "en": "archived"
     },
-    "versionPolicy": {
-      "zh": "发布时确认",
-      "en": "assigned at release time"
+    "logPolicy": {
+      "zh": "本次任务已在提交时归档为 v1.0.3；日志只记录实际完成并通过检查的开发项。",
+      "en": "This task is archived as v1.0.3 at submission; the log contains only completed and checked development changes."
     },
     "releaseBoundary": {
-      "zh": "不改变 Organic Acid 排名算法、底层评分或源数据；本轮先修复交互、汉化、可视化与版本展示。",
-      "en": "Does not change Organic Acid ranking algorithms, base scores, or source data; this round fixes interaction, localization, visualization, and version presentation first."
+      "zh": "不改变 Organic Acid 排名算法或底层评分；本轮新增 EcoScreen LCA/经济情景算法、地域基线与候选级合成证据，并继续将缺失关键实测字段标记为比较门禁。",
+      "en": "Does not change Organic Acid ranking algorithms or base scores; this work adds EcoScreen LCA/economic scenarios, regional baselines, and candidate-level synthesis evidence while retaining strict comparison gates for missing measured fields."
     },
     "modules": {
       "home": {
@@ -31,8 +32,8 @@
           "en": "Home"
         },
         "summary": {
-          "zh": "修复真实数据图表和中文模式文案。",
-          "en": "Fixes real-data charts and Chinese-mode copy."
+          "zh": "以双栏科学叙事强化真实数据图表，并完成深浅色与移动端适配。",
+          "en": "Strengthens real-data charts through a two-column scientific narrative with light/dark and mobile adaptation."
         },
         "changes": [
           {
@@ -42,6 +43,22 @@
           {
             "zh": "首页当前限制、验证能力卡和能力概览中的普通英文说明改为自然中文；保留 Benchmark、CRITIC、ROC-AUC 等必要术语。",
             "en": "Rewrites ordinary English copy in current limitations, validation cards, and capability overview into natural Chinese while preserving necessary terms such as Benchmark, CRITIC, and ROC-AUC."
+          },
+          {
+            "zh": "MOF 描述符三维分布改为左侧科研命题、方程与变量定义，右侧大面积交互图的双栏科学展板；保留原有旋转、缩放、悬停和着色切换。",
+            "en": "Reframes the MOF descriptor 3D distribution as a two-column scientific stage with the research proposition, equations, and variable definitions on the left and a large interactive chart on the right, while preserving rotation, zoom, hover, and color switching."
+          },
+          {
+            "zh": "方程明确展示三维描述符向量、极差归一化与点半径映射；变量范围、样本数和缺失孔体积排除数量继续由真实 CoRE/QMOF 数据动态生成。",
+            "en": "Makes the 3D descriptor vector, min-max normalization, and point-radius mapping explicit; variable ranges, sample count, and pore-volume exclusions remain dynamically derived from real CoRE/QMOF data."
+          },
+          {
+            "zh": "浅色模式使用浅雾白科学画布与高对比深色文字，深色模式使用深墨画布与珊瑚强调；图框、坐标轴、按钮、图例和方程同步适配。",
+            "en": "Uses a mist-white scientific canvas with high-contrast dark text in light mode and a deep-ink canvas with coral accents in dark mode; plot frame, axes, controls, legend, and equations adapt together."
+          },
+          {
+            "zh": "桌面端采用约 38/62 的文字—图形比例，窄屏和移动端自动改为单列顺序，不删除任何原有研究内容或交互。",
+            "en": "Uses an approximately 38/62 text-to-visual ratio on desktop and automatically stacks into one column on narrow and mobile screens without removing existing research content or interactions."
           }
         ]
       },
@@ -74,6 +91,18 @@
           {
             "zh": "关键金属、LCA、绿色合成和再生能耗继续作为复核与接入需求，不写入 Organic Acid 排名算法或底层评分。",
             "en": "Critical-metal, LCA, green-synthesis, and regeneration-energy signals remain review and ingestion requirements and are not written into the Organic Acid ranking algorithm or base scores."
+          },
+          {
+            "zh": "新增中国与国际两套可随时切换的地域基线：中国采用生态环境部 2023 年全国电力平均排放因子，国际采用 IEA 2025 年全球发电碳强度；电价、汇率和转化成本继续作为可编辑情景参数。",
+            "en": "Adds switchable China and international baselines: China uses the Ministry of Ecology and Environment's 2023 national average electricity factor, while the international profile uses IEA's 2025 global generation intensity; electricity price, exchange rate, and conversion cost remain editable scenario inputs."
+          },
+          {
+            "zh": "接入 FAIR-MOFs 的 4,168 条候选级文献合成条件和 DOI，其中 3,782 条至少覆盖五项过程字段；产率、实测单位产品能耗、溶剂回收率、循环稳定性和再生能耗继续作为硬门控。",
+            "en": "Connects 4,168 candidate-level literature synthesis records and DOIs from FAIR-MOFs, including 3,782 records with at least five process fields; yield, measured energy per product, solvent recovery, cycle stability, and regeneration energy remain hard gates."
+          },
+          {
+            "zh": "生态筛选重构为目标与范围、地域基线、候选证据、清单情景、影响结果、经济分析、数据门禁和来源边界的连续工作流；缺少硬门控字段时只输出筛选情景。",
+            "en": "Rebuilds EcoScreen as a continuous workflow spanning goal and scope, regional baseline, candidate evidence, inventory scenarios, impact results, economics, data gates, and source boundaries; candidates missing hard-gate fields remain scenario-only."
           }
         ]
       },
@@ -98,6 +127,14 @@
           {
             "zh": "每条来源显示 DOI 或官方来源、采用方式、证据角色和不应误读的边界，避免把方法灵感当成候选材料性能证明。",
             "en": "Each source shows DOI or official source, adoption use, evidence role, and interpretation boundary so method inspiration is not mistaken for material-performance proof."
+          },
+          {
+            "zh": "补充 CoRE MOF、QMOF、MOF 领域综述、CO₂ 捕集综述、湿烟气 CO₂ 捕集、MOF 催化、反应机器学习和 FAIR 数据原则等文献来源；上传文献待补元数据会单独标记，不再表现为来源缺失。",
+            "en": "Adds CoRE MOF, QMOF, MOF domain review, CO2-capture review, wet flue-gas CO2 capture, MOF catalysis, reaction-ML, and FAIR data-principle sources; uploaded sources with pending metadata are marked separately instead of appearing as missing sources."
+          },
+          {
+            "zh": "文献分类按钮增加明确选中态、来源数量和状态摘要，选中分类会有可见着色提示。",
+            "en": "Literature category buttons now show a clear active state, source counts, and status summary so the selected section is visibly highlighted."
           }
         ]
       },
@@ -107,25 +144,33 @@
           "en": "Project Evolution"
         },
         "summary": {
-          "zh": "拆分当前 App 版本、模块历史版本和下一版更新预告。",
-          "en": "Separates current App version, module-history versioning, and next-release preview."
+          "zh": "按研究程序重组项目演化，并以实际完成项维护开发者日志。",
+          "en": "Reorganizes Project Evolution around the research program and records only completed work in the developer log."
         },
         "changes": [
           {
-            "zh": "项目状态总览改为当前 App 版本 App v1.0.2 与最新模块数据版本 V3.10.1 分列展示，避免新旧版本号混读。",
-            "en": "Project status overview now shows current App version App v1.0.2 and latest module data version V3.10.1 as separate cards to avoid mixing release schemes."
+            "zh": "项目状态总览将当前 App 版本 App v1.0.3 与最新模块数据版本 V3.10.1 分列展示，避免新旧版本号混读。",
+            "en": "Project status overview shows current App version App v1.0.3 and latest module data version V3.10.1 as separate cards to avoid mixing release schemes."
           },
           {
             "zh": "模块历史时间线只展示 V3.x 等历史/数据演化；App 发布继续由统一版本中心管理。",
             "en": "The module history timeline now only shows V3.x-style historical/data evolution; App releases remain in the Unified Release Center."
           },
           {
-            "zh": "新增下一版更新预告区，本轮每项已确认修改会先固定记录，正式版本号在发布时确认。",
-            "en": "Adds a Next Release Preview section so confirmed changes in this round are recorded first, with the final version assigned at release time."
+            "zh": "本次任务固定记为 v1.0.3 开发者日志，仅记录实际完成项，并在提交时归档。",
+            "en": "Records this task as the v1.0.3 developer log, containing only completed work and archived at submission."
           },
           {
             "zh": "项目更新区改为由统一版本记录生成，当前发布号和模块更新会随版本记录自然更新。",
             "en": "Project Updates are now generated from the unified release record, so the current release number and module updates change with the version record."
+          },
+          {
+            "zh": "将原有长导航重组为发布状态、历史里程碑、研究系统和体验路线四章，并新增从发布、数据、算法、验证到下一研究阶段的项目地图；全部原有内容和锚点保留。",
+            "en": "Regroups the long navigation into release state, history, research system, and experience roadmap chapters, and adds a program map from release through data, algorithms, validation, and the next research stage while preserving all existing content and anchors."
+          },
+          {
+            "zh": "数据库演化新增 EcoScreen 合成证据层，公开 4,168 条 FAIR-MOFs 记录、字段覆盖率和七项比较性 LCA 硬缺口。",
+            "en": "Adds the EcoScreen synthesis-evidence layer to Database Evolution, exposing 4,168 FAIR-MOFs records, field coverage, and seven hard gaps for comparative LCA."
           }
         ]
       },
@@ -154,6 +199,18 @@
           {
             "zh": "中文标签按钮统一使用水平/垂直居中布局，中文模式下 tab 文案不再贴边或偏移。",
             "en": "Centers tab labels horizontally and vertically so Chinese navigation text no longer hugs an edge or appears offset."
+          },
+          {
+            "zh": "桌面端导航使用独立的 760px 中心轨道和左右对称约束，不再由品牌区或右侧工具宽度影响视觉中心。",
+            "en": "Places desktop navigation on an independent 760px center rail with symmetric side constraints so brand and utility widths no longer shift its visual center."
+          },
+          {
+            "zh": "七个一级标签采用等宽网格和统一 6px 间距，所有文字与选中背景处于同一中心线；实测相邻标签中心距一致。",
+            "en": "Uses an equal-width seven-column grid with a consistent 6px gap so labels and active backgrounds share one centerline; measured neighboring center distances are identical."
+          },
+          {
+            "zh": "1180px 以下切换为独立横向导航行，保留统一间距与活动标签自动居中，避免在窄屏强行压缩。",
+            "en": "Below 1180px, switches to a dedicated horizontally scrollable navigation row with consistent spacing and active-tab centering instead of forced compression."
           }
         ]
       },
@@ -174,6 +231,10 @@
           {
             "zh": "历史版本记录保留原始版本号和能力变化；前台不展开实现细节。",
             "en": "Historical version records retain original version numbers and capability changes while omitting implementation details from the public view."
+          },
+          {
+            "zh": "删除首页和 MOF 候选库顶部的纯说明抬头，让页面直接进入主体内容。",
+            "en": "Removes pure intro strips above Home and MOF Library so those pages open directly into the main content."
           }
         ]
       }
@@ -239,9 +300,140 @@
       },
       "target": "home",
       "hash": "overview"
+    },
+    "ecoScreen": {
+      "label": {
+        "zh": "生态筛选",
+        "en": "EcoScreen"
+      },
+      "blurb": {
+        "zh": "文献约束下的 LCA、经济情景与候选证据门禁。",
+        "en": "Literature-bounded LCA, economic scenarios, and candidate evidence gates."
+      },
+      "target": "ecoscreen",
+      "hash": "ecoscreen"
+    },
+    "methodsEvidence": {
+      "label": {
+        "zh": "方法与证据",
+        "en": "Methods & Evidence"
+      },
+      "blurb": {
+        "zh": "方法来源、采用方式与证据边界。",
+        "en": "Method sources, adoption use, and evidence boundaries."
+      },
+      "target": "about",
+      "hash": "methodology-literature-inspiration"
+    },
+    "projectEvolution": {
+      "label": {
+        "zh": "项目演化",
+        "en": "Project Evolution"
+      },
+      "blurb": {
+        "zh": "统一发布、历史里程碑与研究系统演化。",
+        "en": "Unified releases, history milestones, and research-system evolution."
+      },
+      "target": "projectEvolution",
+      "hash": "project-evolution"
     }
   },
   "releases": [
+    {
+      "appVersion": "v1.0.3",
+      "date": "2026-07-25",
+      "stage": "unified-platform",
+      "headline": {
+        "zh": "v1.0.3：EcoScreen LCA/经济筛选重构、项目演化整合与首页科学展板优化。",
+        "en": "v1.0.3: EcoScreen LCA/economic screening rebuild, Project Evolution integration, and homepage scientific-stage refinement."
+      },
+      "summary": {
+        "zh": "围绕可审计研究流程完成一次平台级小版本：EcoScreen 接入双地域基线、候选级合成证据、LCA/经济情景与严格数据门禁；项目演化只记录实际完成项；首页 MOF 描述符图改为方程—交互图双栏科学展板并完成深浅色、移动端和等距导航适配。Organic Acid 排名算法和底层评分未改变。",
+        "en": "A platform patch focused on auditable research flow: EcoScreen gains dual regional baselines, candidate-level synthesis evidence, LCA/economic scenarios, and strict data gates; Project Evolution records completed work only; and the homepage MOF descriptor view becomes an equation-and-interactive-plot scientific stage with light/dark, mobile, and equal-spacing navigation adaptation. Organic Acid ranking algorithms and base scores are unchanged."
+      },
+      "modules": {
+        "ui": {
+          "summary": {
+            "zh": "首页科学展板、深浅色响应、移动端重排、全局文案与等距导航。",
+            "en": "Homepage scientific stage, light/dark response, mobile stacking, global copy, and equal-spacing navigation."
+          },
+          "changes": [
+            {
+              "zh": "MOF 描述符三维分布采用左侧标题/方程/变量、右侧大面积交互图的双栏构图，并保留旋转、缩放、悬停和着色切换。",
+              "en": "The MOF descriptor 3D view now uses a two-column title/equation/variable and large-interactive-plot composition while preserving rotation, zoom, hover, and color switching."
+            },
+            {
+              "zh": "描述符展板同步适配浅色、深色和移动端，所有变量范围、样本数与排除数量继续由真实 CoRE/QMOF 数据派生。",
+              "en": "The descriptor stage adapts across light, dark, and mobile modes while variable ranges, sample counts, and exclusions remain derived from real CoRE/QMOF data."
+            },
+            {
+              "zh": "桌面端七个一级导航标签改为独立居中的等宽网格，相邻标签中心距一致；1180px 以下改为可横向浏览的独立导航行。",
+              "en": "Desktop's seven primary navigation labels now use an independently centered equal-width grid with identical center spacing; below 1180px they move to a dedicated horizontally scrollable row."
+            },
+            {
+              "zh": "清理用户可见的开发者文档式说明并保持中文优先，专业缩写和方法名称按科研语境保留。",
+              "en": "Removes developer-documentation-style user-facing copy, keeps Chinese-first wording, and preserves professional abbreviations and method names where scientifically necessary."
+            }
+          ]
+        },
+        "ecoScreen": {
+          "summary": {
+            "zh": "LCA、经济性、地域基线和候选证据统一进入严格门禁工作流。",
+            "en": "LCA, economics, regional baselines, and candidate evidence now share one strictly gated workflow."
+          },
+          "changes": [
+            {
+              "zh": "新增可切换的中国与国际地域基线，将电网排放因子、电价、汇率和成本假设作为可追踪情景参数。",
+              "en": "Adds switchable China and international regional baselines with grid intensity, electricity price, exchange rate, and cost assumptions as traceable scenario parameters."
+            },
+            {
+              "zh": "接入 4,168 条 FAIR-MOFs 候选级文献合成条件与 DOI，并登记 CoRE MOF、QMOF、NIST/ISODB、MOFX-DB 和 Federal LCA Commons 的证据角色。",
+              "en": "Connects 4,168 FAIR-MOFs candidate-level literature synthesis records and DOIs, and registers evidence roles for CoRE MOF, QMOF, NIST/ISODB, MOFX-DB, and Federal LCA Commons."
+            },
+            {
+              "zh": "重构为目标与范围、地域基线、候选证据、清单情景、影响结果、经济分析、数据门禁和来源边界的连续工作流；缺少硬门控实测字段时只输出筛选情景。",
+              "en": "Rebuilds the module as a continuous workflow across goal and scope, regional baseline, candidate evidence, inventory scenarios, impact results, economics, data gates, and source boundaries; missing measured hard-gate fields keep results scenario-only."
+            }
+          ]
+        },
+        "methodsEvidence": {
+          "summary": {
+            "zh": "以统一来源库公开方法灵感、采用方式和不可越过的证据边界。",
+            "en": "A unified source registry exposes method inspiration, adoption use, and non-negotiable evidence boundaries."
+          },
+          "changes": [
+            {
+              "zh": "恢复并置顶文献灵感来源，按 EcoScreen、GasSep、有机酸/催化、平台数据结构和验证边界分组展示。",
+              "en": "Restores and pins Literature Inspiration Sources, grouped by EcoScreen, GasSep, Organic Acid/catalysis, platform data structure, and validation boundary."
+            },
+            {
+              "zh": "每条来源显示 DOI 或官方入口、采用方式、证据角色和限制，避免把计算数据库或方法文献误读为候选材料的实测性能。",
+              "en": "Each source exposes its DOI or official entry, adoption use, evidence role, and limitation so computational databases and method papers are not mistaken for measured candidate performance."
+            }
+          ]
+        },
+        "projectEvolution": {
+          "summary": {
+            "zh": "项目演化按研究程序整合，并将本轮实际完成项归档为 v1.0.3 开发者日志。",
+            "en": "Project Evolution is organized around the research program and archives this work as the v1.0.3 developer log."
+          },
+          "changes": [
+            {
+              "zh": "导航重组为发布状态、历史里程碑、研究系统和体验路线四章，保留全部原有内容与锚点。",
+              "en": "Regroups navigation into release state, history milestones, research system, and experience roadmap while preserving all existing content and anchors."
+            },
+            {
+              "zh": "新增发布—数据—算法—验证—研究阶段项目地图，并在数据库演化中公开 FAIR-MOFs 证据覆盖与七项比较性 LCA 硬缺口。",
+              "en": "Adds a release-data-algorithm-validation-research program map and exposes FAIR-MOFs evidence coverage plus seven comparative-LCA hard gaps in Database Evolution."
+            },
+            {
+              "zh": "v1.0.3 仅归档已完成并通过检查的开发项，不展示未完成计划。",
+              "en": "v1.0.3 archives only completed and checked development work and does not display unfinished plans."
+            }
+          ]
+        }
+      }
+    },
     {
       "appVersion": "v1.0.2",
       "date": "2026-07-21",

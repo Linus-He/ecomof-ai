@@ -958,7 +958,7 @@ export function HomeTab({ setActiveTab }) {
         </div>
       </section>
 
-      <section data-testid="home-descriptor-3d" style={sectionStyle}>
+      <section id="home-descriptor-3d" data-testid="home-descriptor-3d" style={sectionStyle}>
         <SectionHeader
           eyebrow={zh ? "交互可视化" : "Interactive Visual"}
           title={zh ? "数据库描述符空间" : "Descriptor space explorer"}

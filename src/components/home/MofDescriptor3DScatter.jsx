@@ -83,6 +83,14 @@ function colorForGrade(grade) {
   return GRADE_COLORS[String(grade || "").trim()] || FALLBACK_COLOR
 }
 
+function isDarkTheme(theme) {
+  const hex = String(theme?.bg || "").trim().replace("#", "")
+  if (!/^[0-9a-f]{6}$/i.test(hex)) return false
+  const [r, g, b] = [0, 2, 4].map(index => parseInt(hex.slice(index, index + 2), 16) / 255)
+  const linear = value => value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4
+  return 0.2126 * linear(r) + 0.7152 * linear(g) + 0.0722 * linear(b) < 0.22
+}
+
 export function buildDescriptorScatterPoints(target = TARGET_POINT_COUNT) {
   const sourceRows = [
     ...rowsFrom(coreMofImport).map(row => ({ ...row, _sourceFamily: "CoRE MOF" })),
@@ -228,7 +236,7 @@ function Scatter3D({ points, t, lang, colorMode, setColorMode, isMobile = false 
       color: t.accentText,
       from: { x: -0.5, y: -0.5, z: -0.5 },
       to: { x: 0.5, y: -0.5, z: -0.5 },
-      labelOffset: { x: 22, y: 28 },
+      labelOffset: { x: -18, y: 28 },
       tickOffset: { x: 0, y: 17 },
     },
     {
@@ -406,28 +414,150 @@ export function MofDescriptor3DScatter({ t, lang, isMobile }) {
   const zh = lang === "zh"
   const allRows = rowsFrom(coreMofImport).length + rowsFrom(qmofImport).length
   const qMofExcluded = rowsFrom(qmofImport).filter(row => !hasNum(row.poreVolume)).length
+  const darkStage = isDarkTheme(t)
+  const stageExtents = {
+    surfaceArea: axisExtent(points.map(point => point.surfaceArea)),
+    poreVolume: axisExtent(points.map(point => point.poreVolume)),
+    voidFraction: axisExtent(points.map(point => point.voidFraction)),
+  }
+  const stageTheme = darkStage
+    ? {
+        ...t,
+        accent: "#ff766f",
+        accentText: "#ff827a",
+        badgeInfoBg: "rgba(255, 118, 111, 0.12)",
+        border: "rgba(169, 196, 198, 0.22)",
+        chartBg: "#091317",
+        faint: "#70848b",
+        muted: "#a8b7bc",
+        panel: "#0b161a",
+        subtle: "#82969c",
+        success: "#9caf91",
+        surface: "#101e22",
+        textStrong: "#f4f8f7",
+        warn: "#d8b77b",
+      }
+    : {
+        ...t,
+        accent: "#bd4b47",
+        accentText: "#a83e3a",
+        badgeInfoBg: "#fff0ef",
+        border: "#d9e2e5",
+        chartBg: "#fbfdfe",
+        faint: "#718188",
+        muted: "#53636b",
+        panel: "#f6f9fa",
+        subtle: "#687b83",
+        success: "#58785f",
+        surface: "#ffffff",
+        textStrong: "#0a1720",
+        warn: "#9a6a2c",
+      }
+  const descriptorRows = [
+    {
+      key: "surfaceArea",
+      symbol: "SA*",
+      label: zh ? "比表面积" : "Surface area",
+      unit: "m²/g",
+      digits: 0,
+    },
+    {
+      key: "poreVolume",
+      symbol: "Vₚ*",
+      label: zh ? "孔体积" : "Pore volume",
+      unit: "cm³/g",
+      digits: 2,
+    },
+    {
+      key: "voidFraction",
+      symbol: "φ*",
+      label: zh ? "孔隙率" : "Porosity",
+      unit: "",
+      digits: 2,
+    },
+  ]
   return (
-    <div data-testid="home-3d-scatter" data-point-count={points.length} className="content-card" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, boxShadow: t.shadowSm, display: "grid", gap: 13, minWidth: 0, overflow: "visible", padding: isMobile ? 16 : 22 }}>
-      <div>
-        <div style={{ color: t.accentText, fontSize: 11, fontWeight: 850, letterSpacing: 0, marginBottom: 6, textTransform: "uppercase" }}>
-          {zh ? "数据库描述符" : "Database descriptors"}
+    <article
+      data-testid="home-3d-scatter"
+      data-point-count={points.length}
+      className="content-card descriptor-story-stage"
+      style={{
+        "--descriptor-accent": stageTheme.accent,
+        "--descriptor-border": stageTheme.border,
+        "--descriptor-divider": darkStage ? "rgba(169, 196, 198, 0.12)" : "rgba(15, 35, 44, 0.10)",
+        "--descriptor-faint": stageTheme.faint,
+        "--descriptor-muted": stageTheme.muted,
+        "--descriptor-panel": stageTheme.panel,
+        "--descriptor-shadow": darkStage ? "0 16px 38px rgba(3, 12, 15, 0.18)" : "0 16px 38px rgba(38, 75, 91, 0.12)",
+        "--descriptor-surface": stageTheme.surface,
+        "--descriptor-text": stageTheme.textStrong,
+        boxShadow: t.shadowSm,
+      }}
+      data-color-scheme={darkStage ? "dark" : "light"}
+    >
+      <div className="descriptor-story-copy">
+        <div className="descriptor-story-eyebrow">
+          {zh ? "数据库描述符 / 三维坐标" : "Database descriptors / 3D coordinates"}
         </div>
-        <h3 style={{ color: t.textStrong, fontSize: isMobile ? 18 : 21, fontWeight: 900, lineHeight: 1.24, margin: 0, overflow: "visible" }}>
+        <h3>
           {zh ? "MOF 描述符三维分布" : "MOF descriptor space in 3D"}
         </h3>
-        <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.6, margin: "7px 0 0", maxWidth: 760 }}>
+        <p className="descriptor-story-lede">
           {zh
-            ? `比表面积 × 孔体积 × 孔隙率，展示 ${points.length} 个具备完整三轴字段的真实结构记录（来自 ${allRows} 条 CoRE/QMOF 导入）。拖动旋转，${isMobile ? "点按查看真实值。" : "滚轮缩放、悬停看真实值。"}`
-            : `Surface area × pore volume × porosity for ${points.length} real structure records with complete axes (from ${allRows} CoRE/QMOF imports). Drag to rotate; ${isMobile ? "tap points for real values." : "scroll to zoom and hover for real values."}`}
+            ? "把每条结构记录投影为一个可比较的描述符向量；方向表达孔结构差异，距离用于观察材料空间中的聚类与离群。"
+            : "Project every structure into a comparable descriptor vector; direction expresses pore geometry, while distance reveals clusters and outliers."}
+        </p>
+        <div className="descriptor-equation-block" aria-label={zh ? "三维描述符向量与极差归一化方程" : "Three-dimensional descriptor vector and min-max normalization equations"}>
+          <div className="descriptor-equation-main formula">
+            d<sub>i</sub> = [ SA<sub>i</sub><sup>*</sup>, V<sub>p,i</sub><sup>*</sup>, φ<sub>i</sub><sup>*</sup> ]<sup>T</sup>
+          </div>
+          <div className="descriptor-equation-rule formula">
+            x<sub>ij</sub><sup>*</sup> = (x<sub>ij</sub> − min x<sub>j</sub>) / (max x<sub>j</sub> − min x<sub>j</sub>)
+          </div>
+          <p>{zh ? "三轴采用同一极差归一化，将不同量纲映射到 [0, 1]。" : "The same min–max rule maps all three axes to [0, 1]."}</p>
+        </div>
+        <div className="descriptor-variable-list" aria-label={zh ? "描述符变量定义" : "Descriptor variable definitions"}>
+          {descriptorRows.map(row => {
+            const extent = stageExtents[row.key]
+            return (
+              <div key={row.key}>
+                <strong className="formula">{row.symbol}</strong>
+                <span>{row.label}</span>
+                <small className="num">
+                  {formatCompact(extent.min, row.digits)}–{formatCompact(extent.max, row.digits)} {row.unit}
+                </small>
+              </div>
+            )
+          })}
+          <div>
+            <strong className="formula">r<sub>i</sub></strong>
+            <span>{zh ? "点半径" : "Point radius"}</span>
+            <small className="formula">∝ 1 − ρ<sub>i</sub><sup>*</sup></small>
+          </div>
+        </div>
+        <div className="descriptor-story-source">
+          <span>{zh ? "数据来源" : "Source"}</span>
+          <p>
+            {zh
+              ? `${allRows} 条 CoRE/QMOF 导入记录；${points.length} 条具备完整三轴字段。${qMofExcluded ? `另有 ${qMofExcluded} 条 QMOF 记录因缺少孔体积未进入此视图。` : ""}`
+              : `${allRows} CoRE/QMOF imports; ${points.length} records have complete axes. ${qMofExcluded ? `${qMofExcluded} QMOF records lack pore volume and are excluded.` : ""}`}
+          </p>
+        </div>
+      </div>
+      <div className="descriptor-story-visual">
+        <div className="descriptor-story-metric" aria-label={zh ? `${points.length} 条记录，三个描述符轴` : `${points.length} records across three descriptor axes`}>
+          <span>{zh ? "ACTIVE SPACE" : "ACTIVE SPACE"}</span>
+          <strong className="num">{points.length}</strong>
+          <small>{zh ? "→ 3 个描述符轴" : "→ 3 descriptor axes"}</small>
+        </div>
+        <Scatter3D points={points} t={stageTheme} lang={lang} colorMode={colorMode} setColorMode={setColorMode} isMobile={isMobile} />
+        <p className="descriptor-story-interaction">
+          {zh
+            ? `拖动旋转，${isMobile ? "点按查看真实值。" : "滚轮缩放、悬停查看真实值。"}着色可在金属节点与 dataGrade/source grade 间切换。`
+            : `Drag to rotate; ${isMobile ? "tap points for real values." : "scroll to zoom and hover for real values."} Switch color between metal node and dataGrade/source grade.`}
         </p>
       </div>
-      <Scatter3D points={points} t={t} lang={lang} colorMode={colorMode} setColorMode={setColorMode} isMobile={isMobile} />
-      <p style={{ color: t.faint, fontSize: 11, lineHeight: 1.5, margin: 0 }}>
-        {zh
-          ? `着色可按金属节点或结构记录 dataGrade/source grade 切换；点大小映射低密度/开放孔道倾向。${qMofExcluded ? `QMOF 记录缺孔体积字段，未进入三轴视图：${qMofExcluded} 条。` : ""}`
-          : `Color can switch between metal node and structural dataGrade/source grade; point size maps lower density / more open pores. ${qMofExcluded ? `${qMofExcluded} QMOF records lack pore volume and are excluded from the 3-axis view.` : ""}`}
-      </p>
-    </div>
+    </article>
   )
 }
 

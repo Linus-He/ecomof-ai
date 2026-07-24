@@ -3,13 +3,24 @@ import log from "../../../public/data/app_release_log.json"
 
 describe("app_release_log unified version source", () => {
   it("defines a single current App version with v1.0.0 as the first unified release", () => {
-    expect(log.currentAppVersion).toBe("v1.0.2")
+    expect(log.currentAppVersion).toBe("v1.0.3")
     expect(log.releases.length).toBeGreaterThanOrEqual(1)
     // releases are newest-first; v1.0.0 remains the first unified platform release
-    expect(log.releases[0].appVersion).toBe("v1.0.2")
+    expect(log.releases[0].appVersion).toBe("v1.0.3")
     expect(log.releases.map(r => r.appVersion)).toContain("v1.0.1")
     expect(log.releases.map(r => r.appVersion)).toContain("v1.0.0")
     expect(log.authority).toMatch(/single unified/i)
+  })
+
+  it("v1.0.3 archives the completed EcoScreen, Project Evolution, homepage, and navigation work", () => {
+    const release = log.releases.find(row => row.appVersion === "v1.0.3")
+    expect(Object.keys(release.modules)).toEqual(["ui", "ecoScreen", "methodsEvidence", "projectEvolution"])
+    expect(JSON.stringify(release.modules.ui)).toMatch(/MOF descriptor|描述符三维分布/)
+    expect(JSON.stringify(release.modules.ui)).toMatch(/equal-width|等宽/)
+    expect(JSON.stringify(release.modules.ecoScreen)).toMatch(/FAIR-MOFs|4,168|regional baselines|地域基线/)
+    expect(JSON.stringify(release.modules.ecoScreen)).toMatch(/economics|经济分析|hard-gate|硬门控/)
+    expect(JSON.stringify(release.modules.methodsEvidence)).toMatch(/Literature Inspiration Sources|文献灵感来源/)
+    expect(JSON.stringify(release.modules.projectEvolution)).toMatch(/completed|已完成/)
   })
 
   it("v1.0.2 records ui, GasSep, and MOF Library updates without renumbering module history", () => {
@@ -52,13 +63,18 @@ describe("app_release_log unified version source", () => {
     expect(log.provenance.generatingScript).toMatch(/build-app-release-log/)
   })
 
-  it("keeps this round in a pending next-release draft until submission", () => {
-    expect(log.currentAppVersion).toBe("v1.0.2")
-    expect(log.pendingNextRelease.baseAppVersion).toBe("v1.0.2")
-    expect(log.pendingNextRelease.versionPolicy.zh).toMatch(/发布时确认/)
-    expect(Object.keys(log.pendingNextRelease.modules)).toEqual(expect.arrayContaining(["home", "ecoscreen", "methodsEvidence", "projectEvolution", "navigation", "localization"]))
-    expect(JSON.stringify(log.pendingNextRelease.modules.ecoscreen)).toMatch(/文献依据|literature basis|金属成本/)
-    expect(JSON.stringify(log.pendingNextRelease.modules.methodsEvidence)).toMatch(/文献灵感来源|Literature Inspiration Sources/)
-    expect(JSON.stringify(log.pendingNextRelease.modules.localization)).toMatch(/开发者文档|developer-documentation/)
+  it("records completed work in a concrete patch developer log without a release preview", () => {
+    expect(log.currentAppVersion).toBe("v1.0.3")
+    expect(log.developmentLog.baseAppVersion).toBe("v1.0.2")
+    expect(log.developmentLog.developmentVersion).toBe("v1.0.3")
+    expect(log.developmentLog.status).toBe("archived")
+    expect(log.developmentLog.logPolicy.zh).toMatch(/实际完成并通过检查/)
+    expect(Object.keys(log.developmentLog.modules)).toEqual(expect.arrayContaining(["home", "ecoscreen", "methodsEvidence", "projectEvolution", "navigation", "localization"]))
+    expect(JSON.stringify(log.developmentLog.modules.home)).toMatch(/方程|浅色模式|深色模式|移动端/)
+    expect(JSON.stringify(log.developmentLog.modules.navigation)).toMatch(/760px|等宽网格|1180px/)
+    expect(JSON.stringify(log.developmentLog.modules.ecoscreen)).toMatch(/FAIR-MOFs|4,168|地域基线/)
+    expect(JSON.stringify(log.developmentLog.modules.methodsEvidence)).toMatch(/文献灵感来源|Literature Inspiration Sources/)
+    expect(JSON.stringify(log.developmentLog.modules.localization)).toMatch(/开发者文档|developer-documentation/)
+    expect(JSON.stringify(log.developmentLog)).not.toMatch(/下一版更新预告|Next Release Preview|待发布|pending release/)
   })
 })

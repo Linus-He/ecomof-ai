@@ -201,14 +201,26 @@ function LiteratureInspirationSourceCard({ source, lang, t }) {
       ? "warn"
       : "info"
   const statusColor = statusTone === "warn" ? t.warn : statusTone === "calc" ? t.success : t.accentText
+  const statusLabel = ({
+    validated_literature: text(lang, "已核验文献", "verified literature"),
+    official_standard: text(lang, "官方标准", "official standard"),
+    official_reference: text(lang, "官方来源", "official reference"),
+    uploaded_verified: text(lang, "上传文献已核验", "uploaded source verified"),
+    pending_metadata: text(lang, "元数据待补", "metadata pending"),
+  })[source?.status] || source?.status || text(lang, "待核验", "pending")
+  const metadata = [
+    source?.authors && source.authors !== "metadata pending" ? source.authors : null,
+    source?.year,
+    source?.journal && !String(source.journal).toLowerCase().includes("metadata pending") ? source.journal : null,
+  ].filter(Boolean)
   return (
     <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 8, padding: 11 }}>
       <div style={{ alignItems: "start", display: "flex", gap: 9, justifyContent: "space-between" }}>
         <strong style={{ color: t.textStrong, fontSize: 12.8, lineHeight: 1.35 }}>{title}</strong>
-        <span style={{ color: statusColor, flex: "0 0 auto", fontSize: 10.2, fontWeight: 900, textTransform: "uppercase" }}>{source?.status || "pending"}</span>
+        <span style={{ color: statusColor, flex: "0 0 auto", fontSize: 10.2, fontWeight: 900 }}>{statusLabel}</span>
       </div>
       <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.45 }}>
-        {[source?.authors, source?.year, source?.journal].filter(Boolean).join(" · ") || text(lang, "书目信息待核验", "bibliographic metadata pending")}
+        {metadata.join(" · ") || text(lang, "已保留上传记录，书目信息待核验", "uploaded record retained; bibliographic metadata pending")}
       </div>
       <div style={{ color: t.muted, fontSize: 11.7, lineHeight: 1.58 }}>
         {text(lang, source?.coreIdeaZh, source?.coreIdeaEn)}
@@ -278,6 +290,8 @@ function LiteratureInspirationSection({ records, lang, t, isMobile }) {
   const activeCategory = categories.find(category => category.id === activeCategoryId) || categories[0]
   const activeSources = (activeCategory?.sourceIds || []).map(id => sourceById.get(id)).filter(Boolean)
   const validatedCount = sources.filter(source => ["validated_literature", "official_standard", "official_reference", "uploaded_verified"].includes(source.status)).length
+  const pendingCount = sources.filter(source => source.status === "pending_metadata").length
+  const categorySourceCount = activeCategory?.sourceIds?.length || 0
 
   return (
     <section id="methodology-literature-inspiration" data-testid="methodology-literature-inspiration" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 13, padding: 15, scrollMarginTop: 118 }}>
@@ -302,21 +316,42 @@ function LiteratureInspirationSection({ records, lang, t, isMobile }) {
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
         <MethodMetricCard label={text(lang, "分类版块", "Sections")} value={categories.length} note={text(lang, "目录置顶", "first in directory")} t={t} />
         <MethodMetricCard label={text(lang, "来源条目", "Sources")} value={sources.length} note={text(lang, "动态读取", "loaded from data")} t={t} />
-        <MethodMetricCard label={text(lang, "已核验/官方", "Verified / official")} value={validatedCount} note={text(lang, "其余保留边界说明", "others keep boundaries visible")} t={t} tone="calc" />
-        <MethodMetricCard label={text(lang, "当前分类来源", "Active sources")} value={activeSources.length} note={text(lang, activeCategory?.titleZh, activeCategory?.titleEn)} t={t} />
+        <MethodMetricCard label={text(lang, "已核验/官方", "Verified / official")} value={validatedCount} note={text(lang, "可直接显示 DOI 或官方链接", "DOI or official links shown")} t={t} tone="calc" />
+        <MethodMetricCard label={text(lang, "待补元数据", "Metadata pending")} value={pendingCount} note={text(lang, "保留上传记录，不视为性能证据", "retained uploads, not performance evidence")} t={t} tone={pendingCount ? "warn" : "calc"} />
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
         {categories.map(category => {
           const active = category.id === activeCategory?.id
           return (
-            <button key={category.id} id={`methodology-literature-inspiration-${category.id}`} type="button" onClick={() => setActiveCategoryId(category.id)} style={{ ...toolbarBtn(t), background: active ? t.badgeInfoBg : t.panel, borderColor: active ? t.accent : t.border, color: active ? t.accentText : t.muted, scrollMarginTop: 118 }}>
+            <button
+              key={category.id}
+              id={`methodology-literature-inspiration-${category.id}`}
+              type="button"
+              aria-pressed={active}
+              data-active={active ? "true" : "false"}
+              onClick={() => setActiveCategoryId(category.id)}
+              style={{
+                ...toolbarBtn(t),
+                background: active ? t.accentText : t.panel,
+                borderColor: active ? t.accent : t.border,
+                boxShadow: active ? "0 8px 18px rgba(26,109,181,0.18)" : "none",
+                color: active ? "#fff" : t.muted,
+                scrollMarginTop: 118,
+              }}
+            >
               {text(lang, category.titleZh, category.titleEn)}
+              <span style={{ background: active ? "rgba(255,255,255,0.18)" : t.badgeInfoBg, borderRadius: 999, color: active ? "#fff" : t.accentText, fontSize: 10.5, fontWeight: 900, padding: "1px 6px" }}>
+                {category.sourceIds?.length || 0}
+              </span>
             </button>
           )
         })}
       </div>
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 6, padding: 11 }}>
-        <strong style={{ color: t.textStrong, fontSize: 13.2 }}>{text(lang, activeCategory?.titleZh, activeCategory?.titleEn)}</strong>
+        <div style={{ alignItems: "baseline", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
+          <strong style={{ color: t.textStrong, fontSize: 13.2 }}>{text(lang, activeCategory?.titleZh, activeCategory?.titleEn)}</strong>
+          <span style={{ color: t.accentText, fontSize: 11, fontWeight: 900 }}>{categorySourceCount} {text(lang, "条来源", "sources")}</span>
+        </div>
         <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.55 }}>{text(lang, activeCategory?.purposeZh, activeCategory?.purposeEn)}</span>
       </div>
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>

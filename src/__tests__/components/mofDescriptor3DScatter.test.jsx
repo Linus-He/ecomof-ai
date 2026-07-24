@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { MofDescriptor3DScatter } from "../../components/home/MofDescriptor3DScatter"
-import { THEME_LIGHT } from "../../constants/theme"
+import { THEME_DARK, THEME_LIGHT } from "../../constants/theme"
 
 describe("MofDescriptor3DScatter", () => {
   it("renders an interactive 3D scatter on real descriptor data (desktop)", () => {
@@ -14,6 +14,9 @@ describe("MofDescriptor3DScatter", () => {
     expect(card.querySelectorAll("circle").length).toBeGreaterThan(5)
     expect(card.textContent).toMatch(/Surface area/)
     expect(card.textContent).toMatch(/porosity/i)
+    expect(card.className).toMatch(/descriptor-story-stage/)
+    expect(card.textContent).toMatch(/min–max rule/)
+    expect(card.textContent).toMatch(/ACTIVE SPACE/)
   })
 
   it("spreads points across the cube rather than clustering in one corner", () => {
@@ -36,5 +39,17 @@ describe("MofDescriptor3DScatter", () => {
     expect(card.querySelector("svg").getAttribute("aria-label")).toMatch(/3D/)
     expect(card.textContent).not.toMatch(/2D/)
     expect(card.querySelectorAll("circle").length).toBeGreaterThan(5)
+  })
+
+  it("adapts the scientific stage to both light and dark themes", () => {
+    const { rerender } = render(<MofDescriptor3DScatter t={THEME_LIGHT} lang="zh" isMobile={false} />)
+    const lightCard = screen.getByTestId("home-3d-scatter")
+    expect(lightCard.getAttribute("data-color-scheme")).toBe("light")
+    expect(lightCard.style.getPropertyValue("--descriptor-panel")).toBe("#f6f9fa")
+
+    rerender(<MofDescriptor3DScatter t={THEME_DARK} lang="zh" isMobile={false} />)
+    const darkCard = screen.getByTestId("home-3d-scatter")
+    expect(darkCard.getAttribute("data-color-scheme")).toBe("dark")
+    expect(darkCard.style.getPropertyValue("--descriptor-panel")).toBe("#0b161a")
   })
 })

@@ -36,9 +36,18 @@ describe("methodology literature inspiration and EcoScreen requirements", () => 
       "LIT-GREEN-MOF-SYNTHESIS-2020",
       "LIT-LCA-MOF-2017",
       "LIT-SUSTAINABLE-MOF-CCS-2021",
+      "LIT-CORE-MOF-2014",
+      "LIT-QMOF-2021",
+      "LIT-FURUKAWA-2013-MOF-CHEMISTRY",
+      "LIT-SUMIDA-2012-CO2-MOF",
+      "LIT-BOYD-2019-WET-FLUE",
+      "LIT-LEE-2009-MOF-CATALYSIS",
+      "LIT-AHNEMAN-2018-REACTION-ML",
+      "LIT-FAIR-2016",
       "STD-ISO-14040-14044",
       "STD-USGS-EU-CRITICAL-MATERIALS",
     ]))
+    expect(literature.sources.filter(source => source.status === "validated_literature").length).toBeGreaterThanOrEqual(14)
   })
 
   it("keeps requirement basis IDs connected to the literature source registry", () => {
@@ -71,6 +80,9 @@ describe("methodology literature inspiration and EcoScreen requirements", () => 
     expect(methodsSource).toContain("return [\n        literatureItem,")
     expect(methodsSource).toContain('fetchDataJson("methodology_literature_inspiration_records.json", null)')
     expect(methodsSource).toContain("relatedUrls")
+    expect(methodsSource).toContain("aria-pressed={active}")
+    expect(methodsSource).toContain('data-active={active ? "true" : "false"}')
+    expect(methodsSource).toContain("background: active ? t.accentText : t.panel")
     expect(ecoSource).toContain('fetchDataJson("ecoscreen_literature_requirements.json", null)')
     expect(ecoSource).toContain('data-testid="ecoscreen-requirement-matrix"')
     expect(ecoSource).toContain("buildEcoScreenRequirementModel")

@@ -165,6 +165,7 @@ function AppShell({
   const [homeComparisonOpen, setHomeComparisonOpen] = useState(false)
   const [comparisonBuilderContext, setComparisonBuilderContext] = useState(null)
   const navRef = useRef(null)
+  const navStacked = viewport.width < 1180
   const openComparisonBuilder = useCallback((context = null) => {
     setComparisonBuilderContext(context || null)
     setHomeComparisonOpen(true)
@@ -214,9 +215,10 @@ function AppShell({
             className="nav-shell"
             style={{
               display: "grid",
-              gridTemplateColumns: viewport.isNarrow ? "1fr auto" : "auto minmax(0, 1fr) auto",
+              gridTemplateColumns: navStacked ? "1fr auto" : "minmax(220px, 1fr) minmax(680px, 760px) minmax(220px, 1fr)",
               alignItems: "center",
-              gap: viewport.isNarrow ? 12 : 10,
+              columnGap: navStacked ? 12 : 10,
+              rowGap: navStacked ? 6 : 0,
               minHeight: 56,
               padding: viewport.isMobile ? "8px 0" : "8px 0",
               background: "transparent",
@@ -236,17 +238,29 @@ function AppShell({
               />
             </div>
 
-            <div style={{ display: "flex", justifyContent: "flex-start", minWidth: 0, overflow: "hidden", gridColumn: viewport.isNarrow ? "1 / -1" : "auto", order: viewport.isNarrow ? 3 : 2 }}>
+            <div
+              data-testid="primary-nav-slot"
+              style={{
+                display: "flex",
+                justifyContent: navStacked ? "flex-start" : "center",
+                minWidth: 0,
+                overflow: "hidden",
+                gridColumn: navStacked ? "1 / -1" : "auto",
+                order: navStacked ? 3 : 2,
+              }}
+            >
               <nav
                 ref={navRef}
                 className="nav-capsule"
+                data-testid="primary-nav-rail"
                 style={{
-                  display: "flex",
+                  display: navStacked ? "flex" : "grid",
+                  gridTemplateColumns: navStacked ? undefined : `repeat(${TABS.length}, minmax(0, 1fr))`,
                   alignItems: "center",
-                  justifyContent: "flex-start",
-                  gap: 4,
+                  justifyContent: navStacked ? "flex-start" : "stretch",
+                  gap: navStacked ? 8 : 6,
                   width: "100%",
-                  maxWidth: "100%",
+                  maxWidth: navStacked ? "100%" : 760,
                   overflowX: "auto",
                   padding: 0,
                   background: "transparent",
@@ -273,13 +287,14 @@ function AppShell({
                         border: active ? `1px solid ${theme.border}` : "1px solid transparent",
                         color: active ? theme.accentText : theme.subtle,
                         height: 32,
-                        padding: viewport.isMobile ? "0 11px" : "0 14px",
+                        padding: navStacked ? "0 13px" : 0,
                         borderRadius: 6,
                         cursor: "pointer",
                         display: "inline-flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        flex: "0 0 auto",
+                        flex: navStacked ? "0 0 auto" : "1 1 0",
+                        width: navStacked ? "auto" : "100%",
                         fontSize: 12,
                         fontWeight: active ? 800 : 700,
                         lineHeight: 1,
@@ -296,7 +311,7 @@ function AppShell({
               </nav>
             </div>
 
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 8, minWidth: 0, flex: "0 0 auto", order: viewport.isNarrow ? 2 : 3 }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 8, minWidth: 0, flex: "0 0 auto", order: navStacked ? 2 : 3 }}>
               <button
                 type="button"
                 onClick={() => setContactOpen(true)}
